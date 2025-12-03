@@ -499,6 +499,61 @@ svg {
   font-size: 0.95rem;
 }
 
+.pill-list li.pill-list__item {
+  padding: 0;
+}
+
+.pill-list__button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  padding: 0.45rem 0.8rem;
+  margin: 0;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.pill-list__item--active {
+  background: rgba(143, 225, 255, 0.14);
+  border-color: rgba(143, 225, 255, 0.4);
+}
+
+.pattern-filter {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.pattern-filter__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+
+.pattern-filter__search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pattern-filter__search-input {
+  width: 100%;
+  max-width: 360px;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+}
+
+.pattern-filter__search-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .highlight {
   background: linear-gradient(120deg, rgba(5, 7, 16, 0.8), rgba(143, 225, 255, 0.07));
   border-color: rgba(143, 225, 255, 0.18);

@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PatternFilter from '../../components/PatternFilter';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 
 const { pageTitle, pageDescription, permalink, primer, glossary, patterns, syllabus } = libraryContent;
-const diagnosticLookup = new Map(diagnosticsContent.tools.map((tool) => [tool.slug, tool]));
+const diagnosticTitles = Object.fromEntries(
+  diagnosticsContent.tools.map((tool) => [tool.slug, tool.title])
+);
 const glossaryHref = (slug: string) => `${permalink}#${slug}`;
-const diagnosticHref = (slug: string) => `/diagnostics#${slug}`;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="section">
@@ -91,43 +93,13 @@ const diagnosticHref = (slug: string) => `/diagnostics#${slug}`;
       <p class="muted">
         Filters help you route work quickly. Each pattern links to relevant diagnostics for deeper validation.
       </p>
-      <ul class="pill-list">
-        {patterns.filters.map((filter) => (
-          <li>{filter}</li>
-        ))}
-      </ul>
     </div>
-    <div class="grid">
-      {patterns.entries.map((pattern) => (
-        <article class="card" id={pattern.slug}>
-          <div class="card__glow" aria-hidden="true" />
-          <p class="muted">Filters: {pattern.filters.join(', ')}</p>
-          <h3>{pattern.title}</h3>
-          <p>{pattern.summary}</p>
-          <ul class="pill-list">
-            {pattern.cues.map((cue) => (
-              <li>{cue}</li>
-            ))}
-          </ul>
-          <p class="muted">
-            Diagnostics:
-            {' '}
-            {pattern.diagnostics.map((slug, index) => {
-              const diagnostic = diagnosticLookup.get(slug);
-              const label = diagnostic?.title ?? slug;
-              const separator = index < pattern.diagnostics.length - 1 ? ', ' : '';
-
-              return (
-                <>
-                  <a href={diagnosticHref(slug)}>{label}</a>
-                  {separator}
-                </>
-              );
-            })}
-          </p>
-        </article>
-      ))}
-    </div>
+    <PatternFilter
+      filters={patterns.filters}
+      entries={patterns.entries}
+      diagnosticTitles={diagnosticTitles}
+      client:visible
+    />
   </section>
 
   <section id="syllabus" class="section">
