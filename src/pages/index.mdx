@@ -1,10 +1,16 @@
----
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { homeContent } from '../content/home';
 
-const { pageTitle, pageDescription, hero, about, features, highlight, cta } = homeContent;
----
+export const pageTitle = homeContent.pageTitle;
+export const pageDescription = homeContent.pageDescription;
+export const hero = homeContent.hero;
+export const about = homeContent.about;
+export const features = homeContent.features;
+export const highlight = homeContent.highlight;
+export const cta = homeContent.cta;
+export const components = { BaseLayout, Icon };
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section className="hero">
     <div className="hero__content">
