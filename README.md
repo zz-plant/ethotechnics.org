@@ -16,7 +16,8 @@ Use `npm run check` for a full pre-commit sweep. It will run linting, tests, Typ
 
 - `npm run e2e` builds the Worker bundle and runs Playwright against `npm run preview`.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
-- CI uses `npm run e2e:ci` and publishes the Playwright HTML report as a workflow artifact.
+- Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to
+  execute Playwright after the Worker build instead of GitHub Actions.
 
 ### Environment configuration
 
