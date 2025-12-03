@@ -70,7 +70,7 @@ export default function Navigation() {
   }, []);
 
   return (
-    <nav className="nav" aria-label="Primary">
+    <nav className="nav" aria-label="Primary" data-astro-transition-persist>
       <div className="nav__inner container">
         <div className="nav__bar">
           <a href="#top" className="nav__brand" aria-label="Return to top">

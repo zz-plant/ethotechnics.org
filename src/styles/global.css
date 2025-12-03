@@ -87,6 +87,13 @@ svg {
 
 .page {
   padding: 5.5rem 0 3.5rem;
+  view-transition-name: page;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page {
+    view-transition-name: none;
+  }
 }
 
 .nav {
