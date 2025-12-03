@@ -7,6 +7,9 @@ This repository powers [ethotechnics.org](https://ethotechnics.org), a content-d
 2. Run the dev server: `npm run dev`
 3. Build the Worker bundle: `npm run build` (optionally preview with `npm run preview`).
 
+### Environment configuration
+- Copy `.env.example` to `.env.local` for local development. Astro automatically loads `.env`, `.env.local`, and environment-specific files (such as `.env.development`).
+- No environment variables are required today, but add new entries to `.env.example` if the project adopts external services.
 ## Quickstart for agents
 - **Prerequisites:** Node.js 20+ with npm (project uses `package-lock.json`), Git, and a shell with `npm` on PATH.
 - **Dev server:** `npm run dev`
