@@ -12,12 +12,17 @@ This repository powers [ethotechnics.org](https://ethotechnics.org), a content-d
 
 Use `npm run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
 
-## End-to-end tests
+## Testing
 
 - `npm run e2e` builds the Worker bundle and runs Playwright against `npm run preview`.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
 - Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to
   execute Playwright after the Worker build instead of GitHub Actions.
+### Unit and component tests (Vitest)
+
+- `npm test` runs Vitest in watch mode. Expect green checkmarks per suite and a summary such as `Test Files  3 passed` and `Tests  7 passed` when everything succeeds.
+- Component rendering tests use the experimental Astro container (`src/test/astro-container.ts`) and run under Node with jsdom helpers, so no browser is required.
+- CI uses `npm run test:ci` to execute once with coverage; mirror this locally to see the coverage table emitted at the end of the run.
 
 ### Environment configuration
 
