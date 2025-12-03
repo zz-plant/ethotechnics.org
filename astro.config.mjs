@@ -11,5 +11,10 @@ export default defineConfig({
   adapter: cloudflare({
     platform: 'workers',
   }),
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/compile',
+    },
+  },
   integrations: [react(), icon(), mdx(), sitemap()],
 });
