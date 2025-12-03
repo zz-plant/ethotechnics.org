@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
 const navLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#features', label: 'Focus areas' },
-  { href: '#insights', label: 'Latest notes' },
-  { href: '#cta', label: 'Stay connected' },
+  { href: '/library', label: 'Library' },
+  { href: '/research', label: 'Research' },
+  { href: '/diagnostics', label: 'Diagnostics' },
+  { href: '/field-notes', label: 'Field Notes' },
+  { href: '/institute', label: 'Institute' },
 ];
 
 export default function Navigation() {
@@ -59,11 +60,11 @@ export default function Navigation() {
             ))}
           </ul>
           <div className="nav__actions">
-            <a className="button ghost" href="#insights" onClick={() => setIsOpen(false)}>
-              Read the latest
+            <a className="button ghost" href="/field-notes" onClick={() => setIsOpen(false)}>
+              Field notes
             </a>
-            <a className="button primary" href="#cta" onClick={() => setIsOpen(false)}>
-              Get updates
+            <a className="button primary" href="/institute" onClick={() => setIsOpen(false)}>
+              Join the institute
             </a>
           </div>
         </div>

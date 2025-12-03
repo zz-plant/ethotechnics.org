@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = 'Institute — Ethotechnics';
+const pageDescription = 'Programs, convenings, and ways to collaborate on the Ethotechnics institute roadmap.';
+const permalink = '/institute';
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Institute</p>
+      <h1>Institute</h1>
+      <p class="muted">{pageDescription}</p>
+      <p class="muted">
+        Permanent link: <a href={permalink}>{permalink}</a>
+      </p>
+    </div>
+    <div class="panel panel--glass">
+      <p class="muted">What to expect</p>
+      <h2>Gatherings and collaboration</h2>
+      <p>
+        Updates on fellowship opportunities, workshops, and partner projects will live here. Use the permalink to share the
+        hub with collaborators and stay aligned on upcoming offerings.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

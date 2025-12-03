@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = 'Field Notes — Ethotechnics';
+const pageDescription = 'Dispatches, reflections, and prompts from ongoing practice in ethical technology.';
+const permalink = '/field-notes';
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Field Notes</p>
+      <h1>Field Notes</h1>
+      <p class="muted">{pageDescription}</p>
+      <p class="muted">
+        Permanent link: <a href={permalink}>{permalink}</a>
+      </p>
+    </div>
+    <div class="panel panel--glass">
+      <p class="muted">What to expect</p>
+      <h2>Signals from real deployments</h2>
+      <p>
+        Short essays and artifacts from the field will collect here, offering lessons learned as they happen. Keep the
+        permalink handy for the latest dispatches.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

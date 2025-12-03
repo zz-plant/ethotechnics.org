@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = 'Library — Ethotechnics';
+const pageDescription = 'Reference shelf for ethical technology frameworks, reading lists, and implementation patterns.';
+const permalink = '/library';
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Library</p>
+      <h1>Library</h1>
+      <p class="muted">{pageDescription}</p>
+      <p class="muted">
+        Permanent link: <a href={permalink}>{permalink}</a>
+      </p>
+    </div>
+    <div class="panel panel--glass">
+      <p class="muted">What to expect</p>
+      <h2>Reusable guidance for teams</h2>
+      <p>
+        This space will house curated toolkits, checklists, and reading recommendations that make ethical technology work
+        actionable. Bookmark the permalink to return as new chapters ship.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
