@@ -10,14 +10,15 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare({
     platform: 'workers',
+    imageService: 'cloudflare',
+    routes: {
+      extend: {
+        exclude: [{ pattern: '/_astro/*' }, { pattern: '/assets/*' }],
+      },
+    },
   }),
   session: {
     driver: 'memory',
-  },
-  image: {
-    service: {
-      entrypoint: 'astro/assets/services/compile',
-    },
   },
   integrations: [react(), icon(), mdx(), sitemap()],
 });

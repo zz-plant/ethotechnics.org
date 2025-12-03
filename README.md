@@ -26,9 +26,10 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 `wrangler.toml` captures the Worker name, compatibility date, and entrypoint (`dist/_worker.js`). Session storage is not enabled by default; if you add it later, define the KV binding in `wrangler.toml` before deploying.
 
 1. Ensure the adapter is installed (`@astrojs/cloudflare`) and configured in `astro.config.mjs` with `output: "server"`.
-2. Build the Worker bundle: `npm run build`. The generated Worker entry is emitted to `dist/_worker.js`.
-3. Deploy with Wrangler using the repo defaults: `npm run deploy`.
-4. Configure DNS for `ethotechnics.org` to point to the Cloudflare Worker route you set in Wrangler.
+2. The Cloudflare adapter is configured to use Cloudflare's image service and to exclude static assets (`/_astro/*`, `/assets/*`) from the server function so they can be served directly via the assets binding.
+3. Build the Worker bundle: `npm run build`. The generated Worker entry is emitted to `dist/_worker.js`.
+4. Deploy with Wrangler using the repo defaults: `npm run deploy`.
+5. Configure DNS for `ethotechnics.org` to point to the Cloudflare Worker route you set in Wrangler.
 
 ## Tech stack
 - [Astro 5](https://astro.build) with strict TypeScript defaults
