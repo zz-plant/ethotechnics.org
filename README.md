@@ -20,6 +20,7 @@ Use `npm run check` for a full pre-commit sweep. It will run linting, tests, Typ
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
 - Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to
   execute Playwright after the Worker build instead of GitHub Actions.
+
 ### Unit and component tests (Vitest)
 
 - `npm test` runs Vitest in watch mode. Expect green checkmarks per suite and a summary such as `Test Files  3 passed` and `Tests  7 passed` when everything succeeds.
@@ -74,3 +75,7 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 - `src/layouts`: Shared layouts such as [`src/layouts/BaseLayout.astro`](src/layouts/BaseLayout.astro), which wires global SEO, fonts, and the navigation shell.
 - `src/components`: Interactive islands like the navigation React component in [`src/components/Navigation.tsx`](src/components/Navigation.tsx).
 - `src/styles`: Global styles and theme tokens defined in [`src/styles/global.css`](src/styles/global.css).
+
+### Adding new pages
+
+- Follow the checklist in [`docs/adding-pages.md`](docs/adding-pages.md) for layout imports, shared components, navigation updates, and the `npm run check` command to run before sending a PR.
