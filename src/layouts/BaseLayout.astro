@@ -50,15 +50,59 @@ const defaultTitle = 'Ethotechnics — Ethical technology in practice';
     <main class="page container">
       <slot />
     </main>
-    <footer class="footer container">
-      <div>
-        <p class="eyebrow">Ethotechnics</p>
-        <p class="muted">Essays and field notes on building accountable, human-centered technology.</p>
-      </div>
-      <div class="footer__links">
-        <a href="#about">About</a>
-        <a href="#features">Focus areas</a>
-        <a href="#insights">Latest notes</a>
+    <footer class="footer container" aria-labelledby="footer-heading">
+      <h2 id="footer-heading" class="sr-only">Ethotechnics footer</h2>
+      <div class="footer__grid">
+        <section class="footer__section" aria-labelledby="footer-identity">
+          <h3 id="footer-identity" class="footer__heading">Identity</h3>
+          <div class="footer__brand">
+            <a class="footer__logo" href="#top" aria-label="Return to top">
+              <img src="/favicon.svg" alt="Ethotechnics logo" loading="lazy" />
+              <div>
+                <p class="eyebrow">Ethotechnics</p>
+                <p class="muted">Institute for ethical technology and practice.</p>
+              </div>
+            </a>
+            <p class="muted footer__license">
+              Content is shared under the
+              <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noreferrer">
+                Creative Commons CC BY-SA 4.0 license
+              </a>
+              .
+            </p>
+          </div>
+        </section>
+
+        <section class="footer__section" aria-labelledby="footer-network">
+          <h3 id="footer-network" class="footer__heading">Network</h3>
+          <ul class="footer__list">
+            <li>
+              <a href="https://ethotechnics.institute" rel="noreferrer">Ethotechnics Institute</a>
+            </li>
+            <li>
+              <a href="https://ethotechnics.studio" rel="noreferrer">Ethotechnics Studio</a>
+            </li>
+            <li>
+              <a href="https://syadvada.org" rel="noreferrer">Syadvada</a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="footer__section" aria-labelledby="footer-connect">
+          <h3 id="footer-connect" class="footer__heading">Connect</h3>
+          <ul class="footer__list">
+            <li>
+              <a href="https://signals.ethotechnics.org" rel="noreferrer">Signals newsletter</a>
+            </li>
+            <li><a href="/rss.xml">RSS feed</a></li>
+            <li>
+              <a href="https://www.linkedin.com/company/ethotechnics" rel="noreferrer">LinkedIn</a>
+            </li>
+            <li>
+              <a href="https://bsky.app/profile/ethotechnics.org" rel="noreferrer">Bluesky</a>
+            </li>
+          </ul>
+        </section>
       </div>
     </footer>
   </body>
