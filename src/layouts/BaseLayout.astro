@@ -9,11 +9,14 @@ interface Props {
   description?: string;
 }
 
-const { title = 'Lumen — Astro starter', description = 'A contemporary Astro starter that keeps navigation interactive with an island-first design.' } = Astro.props as Props;
+const {
+  title = 'Ethotechnics — Ethical technology in practice',
+  description = 'Ethotechnics.org explores how to build technology that respects human dignity through design, research, and governance.',
+} = Astro.props as Props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.href;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const ogImage = new URL('/favicon.svg', siteBase).toString();
-const defaultTitle = 'Lumen — Modern Astro starter';
+const defaultTitle = 'Ethotechnics — Ethical technology in practice';
 ---
 <!doctype html>
 <html lang="en" id="top">
@@ -48,13 +51,13 @@ const defaultTitle = 'Lumen — Modern Astro starter';
     </main>
     <footer class="footer container">
       <div>
-        <p class="eyebrow">Lumen</p>
-        <p class="muted">Designed with Astro 5, ready for your next launch.</p>
+        <p class="eyebrow">Ethotechnics</p>
+        <p class="muted">Essays and field notes on building accountable, human-centered technology.</p>
       </div>
       <div class="footer__links">
         <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#insights">Insights</a>
+        <a href="#features">Focus areas</a>
+        <a href="#insights">Latest notes</a>
       </div>
     </footer>
   </body>
