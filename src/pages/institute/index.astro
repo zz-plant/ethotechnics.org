@@ -1,34 +1,29 @@
 ---
+import PageIntro from '../../components/PageIntro.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { instituteContent } from '../../content/institute';
 
 const { pageTitle, pageDescription, permalink, mission, governance, stewards, contact } = instituteContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="section">
-    <div class="section__header">
-      <p class="eyebrow">Institute</p>
-      <h1>Institute</h1>
-      <p class="muted">{pageDescription}</p>
-      <p class="muted">
-        Permanent link: <a href={permalink}>{permalink}</a>
-      </p>
-      <ul class="pill-list">
-        <li><a href="#mission">Mission</a></li>
-        <li><a href="#governance">Governance</a></li>
-        <li><a href="#stewards">Stewards</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="panel panel--glass">
-      <p class="muted">Studio off-ramp</p>
-      <h2>When diagnostics flag risk, the Studio is ready.</h2>
-      <p>
-        Result pages across diagnostics include a Studio off-ramp. Use the contact links below to schedule a facilitation
-        session or escalate decisions that need a governance forum.
-      </p>
-    </div>
-  </section>
+  <PageIntro
+    eyebrow="Institute"
+    title="Institute"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: '#mission', label: 'Mission' },
+      { href: '#governance', label: 'Governance' },
+      { href: '#stewards', label: 'Stewards' },
+      { href: '#contact', label: 'Contact' },
+    ]}
+    panelCopy={{
+      eyebrow: 'Studio off-ramp',
+      title: 'When diagnostics flag risk, the Studio is ready.',
+      description:
+        'Result pages across diagnostics include a Studio off-ramp. Use the contact links below to schedule a facilitation session or escalate decisions that need a governance forum.',
+    }}
+  />
 
   <section id="mission" class="section section--alt">
     <div class="section__header">

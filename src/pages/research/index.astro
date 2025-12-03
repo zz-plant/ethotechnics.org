@@ -1,4 +1,5 @@
 ---
+import PageIntro from '../../components/PageIntro.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { libraryContent } from '../../content/library';
 import { researchContent } from '../../content/research';
@@ -13,29 +14,23 @@ const formatTerm = (slug: string) =>
     .join(' ');
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="section">
-    <div class="section__header">
-      <p class="eyebrow">Research</p>
-      <h1>Research</h1>
-      <p class="muted">{pageDescription}</p>
-      <p class="muted">
-        Permanent link: <a href={permalink}>{permalink}</a>
-      </p>
-      <ul class="pill-list">
-        <li><a href="#agenda">Agenda</a></li>
-        <li><a href="#focus-areas">Focus areas</a></li>
-        <li><a href="#publications">Publications</a></li>
-      </ul>
-    </div>
-    <div class="panel panel--glass">
-      <p class="muted">How to read these entries</p>
-      <h2>Cross-linked with the Library glossary.</h2>
-      <p>
-        Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions.
-        Use them when citing Field Notes or diagnostics results to keep language consistent.
-      </p>
-    </div>
-  </section>
+  <PageIntro
+    eyebrow="Research"
+    title="Research"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: '#agenda', label: 'Agenda' },
+      { href: '#focus-areas', label: 'Focus areas' },
+      { href: '#publications', label: 'Publications' },
+    ]}
+    panelCopy={{
+      eyebrow: 'How to read these entries',
+      title: 'Cross-linked with the Library glossary.',
+      description:
+        'Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions. Use them when citing Field Notes or diagnostics results to keep language consistent.',
+    }}
+  />
 
   <section id="agenda" class="section section--alt">
     <div class="section__header">
