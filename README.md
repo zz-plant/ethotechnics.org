@@ -61,7 +61,7 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 ## Tech stack
 
 - [Astro 5](https://astro.build) with strict TypeScript defaults
-- React island for the navigation, hydrated on load
+- Astro-powered navigation with a lightweight inline script
 - Cloudflare Worker adapter for server output
 - Modern, responsive styling with a focus on accessibility and contrast
 
@@ -73,7 +73,7 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 
 - `src/pages`: Astro routes, starting with [`src/pages/index.astro`](src/pages/index.astro) for the homepage content.
 - `src/layouts`: Shared layouts such as [`src/layouts/BaseLayout.astro`](src/layouts/BaseLayout.astro), which wires global SEO, fonts, and the navigation shell.
-- `src/components`: Interactive islands like the navigation React component in [`src/components/Navigation.tsx`](src/components/Navigation.tsx).
+- `src/components`: Interactive islands and shared UI components such as the navigation in [`src/components/Navigation.astro`](src/components/Navigation.astro).
 - `src/styles`: Global styles and theme tokens defined in [`src/styles/global.css`](src/styles/global.css).
 
 ### Adding new pages

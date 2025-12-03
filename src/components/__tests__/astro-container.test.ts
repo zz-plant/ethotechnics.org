@@ -5,22 +5,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { createAstroContainer, parseHtml } from '../../test/astro-container';
 import NavigationShell from './NavigationShell.astro';
 
-describe('Navigation island', () => {
-  it('renders expected links and hydration metadata', async () => {
+describe('Navigation component', () => {
+  it('renders expected links and inline script for interaction', async () => {
     const container = await createAstroContainer();
     const html = await container.renderToString(NavigationShell, {
       request: new Request('https://ethotechnics.org/'),
     });
     const document = parseHtml(html);
-    const island = document.querySelector('astro-island');
+    const nav = document.querySelector('nav.nav');
 
-    expect(island).toBeTruthy();
-    expect(island?.getAttribute('client')).toBe('load');
-    expect(island?.getAttribute('component-export')).toBe('default');
-    expect(island?.getAttribute('renderer-url')).toContain('@astrojs/react');
-
-    const nav = island?.querySelector('nav.nav');
+    expect(nav).toBeTruthy();
     expect(nav?.querySelector('.nav__brand')?.textContent?.trim()).toBe('Ethotechnics');
+
+    const toggle = nav?.querySelector('.nav__toggle');
+    expect(toggle?.getAttribute('aria-expanded')).toBe('false');
+    expect(toggle?.getAttribute('aria-label')).toBe('Open navigation');
 
     const linkTexts = Array.from(nav?.querySelectorAll('.nav__links a') ?? []).map((link) =>
       link.textContent?.trim(),
