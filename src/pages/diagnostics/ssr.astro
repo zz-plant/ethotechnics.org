@@ -1,4 +1,5 @@
 ---
+import DiagnosticsSnapshot from '../../components/DiagnosticsSnapshot';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const request = Astro.request;
@@ -6,6 +7,21 @@ const url = new URL(request.url);
 const renderedAt = new Date().toISOString();
 const requestId = crypto.randomUUID();
 const headersToReport = ['cf-connecting-ip', 'accept-language', 'user-agent'];
+
+const headerEntries = headersToReport.map((key) => ({
+  key,
+  value: request.headers.get(key) ?? 'Not provided',
+}));
+
+const initialSnapshot = {
+  renderedAt,
+  requestId,
+  method: request.method,
+  path: `${url.pathname}${url.search}`,
+  origin: request.headers.get('host') ?? 'Not provided',
+  cacheControl: request.headers.get('cache-control') ?? 'Not provided',
+  headers: headerEntries,
+};
 
 Astro.response.headers.set('cache-control', 'no-store');
 ---
@@ -26,52 +42,16 @@ Astro.response.headers.set('cache-control', 'no-store');
       </p>
     </div>
     <div class="panel panel--glass">
-      <p class="muted">Runtime snapshot</p>
-      <h2>Per-request values</h2>
-      <dl class="grid grid--two">
-        <div>
-          <dt class="muted">Rendered at (UTC)</dt>
-          <dd>{renderedAt}</dd>
-        </div>
-        <div>
-          <dt class="muted">Request ID</dt>
-          <dd>{requestId}</dd>
-        </div>
-        <div>
-          <dt class="muted">Method</dt>
-          <dd>{request.method}</dd>
-        </div>
-        <div>
-          <dt class="muted">Path</dt>
-          <dd>{url.pathname}{url.search}</dd>
-        </div>
-        <div>
-          <dt class="muted">Origin header</dt>
-          <dd>{request.headers.get('host') ?? 'Not provided'}</dd>
-        </div>
-        <div>
-          <dt class="muted">Cache-control</dt>
-          <dd>{request.headers.get('cache-control') ?? 'Not provided'}</dd>
-        </div>
-      </dl>
+      <DiagnosticsSnapshot
+        client:load
+        initialSnapshot={initialSnapshot}
+        refreshUrl="/diagnostics/ssr.json"
+        intervalMs={15000}
+      />
     </div>
   </section>
 
   <section class="section section--alt">
-    <div class="section__header">
-      <p class="eyebrow">Headers</p>
-      <h2>Request headers received</h2>
-      <p class="muted">These values come directly from the incoming request and update on every load.</p>
-    </div>
-    <div class="grid grid--two">
-      {headersToReport.map((key) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <p class="muted">{key}</p>
-          <p>{request.headers.get(key) ?? 'Not provided'}</p>
-        </article>
-      ))}
-    </div>
     <div class="callout">
       <h3>Why this page exists</h3>
       <p class="muted">

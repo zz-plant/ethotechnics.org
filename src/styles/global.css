@@ -620,6 +620,88 @@ svg {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+.snapshot {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.snapshot__controls {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.snapshot__actions {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: end;
+}
+
+.snapshot__hint {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.snapshot__status {
+  color: #f9b8b8;
+  margin: 0;
+}
+
+.snapshot__list {
+  margin: 0;
+}
+
+.snapshot__value {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  justify-content: space-between;
+}
+
+.snapshot__text {
+  word-break: break-word;
+}
+
+.snapshot__headers {
+  display: grid;
+  gap: 1rem;
+}
+
+.snapshot__card {
+  gap: 0.4rem;
+}
+
+.snapshot__header-key {
+  margin: 0;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.copy-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.35rem 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.copy-button:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.copy-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(143, 225, 255, 0.14);
+  transform: translateY(-1px);
+}
+
 .callout h3 {
   margin: 0.4rem 0;
 }
