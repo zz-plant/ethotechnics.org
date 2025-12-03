@@ -3,16 +3,28 @@
 This repository powers [ethotechnics.org](https://ethotechnics.org), a content-driven site exploring ethical technology, human-centered design, and the sociotechnical systems that shape them. The project favors lean, fast-loading pages and clear storytelling.
 
 ## Getting started
+
 1. Install dependencies: `npm install`
 2. Run the dev server: `npm run dev`
 3. Build the Worker bundle: `npm run build` (optionally preview with `npm run preview`).
 
 ## Checks before committing
+
 Use `npm run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
+
+## End-to-end tests
+
+- `npm run e2e` builds the Worker bundle and runs Playwright against `npm run preview`.
+- Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
+- CI uses `npm run e2e:ci` and publishes the Playwright HTML report as a workflow artifact.
+
 ### Environment configuration
+
 - Copy `.env.example` to `.env.local` for local development. Astro automatically loads `.env`, `.env.local`, and environment-specific files (such as `.env.development`).
 - No environment variables are required today, but add new entries to `.env.example` if the project adopts external services.
+
 ## Quickstart for agents
+
 - **Prerequisites:** Node.js 20+ with npm (project uses `package-lock.json`), Git, and a shell with `npm` on PATH.
 - **Dev server:** `npm run dev`
   - Expected log snippet: `[@astrojs/compiler] ready` followed by `Local  http://localhost:4321/`.
@@ -23,6 +35,7 @@ Use `npm run check` for a full pre-commit sweep. It will run linting, tests, Typ
 - If commands are slow or fail, confirm Node version with `node -v` and reinstall dependencies via `rm -rf node_modules && npm install`.
 
 ## Deployment to Cloudflare Workers
+
 The site uses the official Cloudflare adapter for Astro to produce a Worker-compatible server build.
 
 `wrangler.toml` captures the Worker name, compatibility date, and entrypoint (`dist/_worker.js`). Session storage is not enabled by default; if you add it later, define the KV binding in `wrangler.toml` before deploying.
@@ -36,15 +49,18 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 5. Configure DNS for `ethotechnics.org` to point to the Cloudflare Worker route you set in Wrangler.
 
 ## Tech stack
+
 - [Astro 5](https://astro.build) with strict TypeScript defaults
 - React island for the navigation, hydrated on load
 - Cloudflare Worker adapter for server output
 - Modern, responsive styling with a focus on accessibility and contrast
 
 ## Staying updated
+
 - Subscribe to the RSS feed at [`/rss.xml`](https://ethotechnics.org/rss.xml) to catch new pages and updates as they ship.
 
 ## Where things live
+
 - `src/pages`: Astro routes, starting with [`src/pages/index.astro`](src/pages/index.astro) for the homepage content.
 - `src/layouts`: Shared layouts such as [`src/layouts/BaseLayout.astro`](src/layouts/BaseLayout.astro), which wires global SEO, fonts, and the navigation shell.
 - `src/components`: Interactive islands like the navigation React component in [`src/components/Navigation.tsx`](src/components/Navigation.tsx).
