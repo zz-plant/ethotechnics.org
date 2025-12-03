@@ -33,3 +33,9 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 - React island for the navigation, hydrated on load
 - Cloudflare Worker adapter for server output
 - Modern, responsive styling with a focus on accessibility and contrast
+
+## Where things live
+- `src/pages`: Astro routes, starting with [`src/pages/index.mdx`](src/pages/index.mdx) for the homepage content.
+- `src/layouts`: Shared layouts such as [`src/layouts/BaseLayout.astro`](src/layouts/BaseLayout.astro), which wires global SEO, fonts, and the navigation shell.
+- `src/components`: Interactive islands like the navigation React component in [`src/components/Navigation.tsx`](src/components/Navigation.tsx).
+- `src/styles`: Global styles and theme tokens defined in [`src/styles/global.css`](src/styles/global.css).
