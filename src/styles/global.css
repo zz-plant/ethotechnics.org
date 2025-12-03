@@ -558,17 +558,55 @@ svg {
 .footer {
   border-top: 1px solid var(--border);
   padding: 2.2rem 0 4rem;
-  display: flex;
+  display: grid;
   gap: 1.5rem;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-.footer__links {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+.footer__section {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+}
+
+.footer__identity {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.footer__brand {
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer__brand-name {
+  display: inline-block;
+}
+
+.footer__logo {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.footer__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer__link:hover,
+.footer__link:focus-visible {
+  text-decoration: underline;
 }
 
 @media (min-width: 992px) {
