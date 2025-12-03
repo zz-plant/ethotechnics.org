@@ -41,6 +41,9 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 - Cloudflare Worker adapter for server output
 - Modern, responsive styling with a focus on accessibility and contrast
 
+## Staying updated
+- Subscribe to the RSS feed at [`/rss.xml`](https://ethotechnics.org/rss.xml) to catch new pages and updates as they ship.
+
 ## Where things live
 - `src/pages`: Astro routes, starting with [`src/pages/index.astro`](src/pages/index.astro) for the homepage content.
 - `src/layouts`: Shared layouts such as [`src/layouts/BaseLayout.astro`](src/layouts/BaseLayout.astro), which wires global SEO, fonts, and the navigation shell.
