@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Lumen — Modern Astro starter" description="A contemporary Astro 5 starter with an interactive navigation island and thoughtful defaults for marketing sites.">
@@ -54,21 +55,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
     <div class="grid">
       <article class="card">
-        <div class="icon">⚡</div>
+        <div class="icon" aria-hidden="true">
+          <Icon name="tabler:bolt" />
+        </div>
         <h3>Performance-first</h3>
         <p>
           Astro 5 ships zero JavaScript by default; we only hydrate what needs to be interactive—like this navigation island.
         </p>
       </article>
       <article class="card">
-        <div class="icon">🧭</div>
+        <div class="icon" aria-hidden="true">
+          <Icon name="tabler:compass" />
+        </div>
         <h3>Accessible navigation</h3>
         <p>
           Keyboard-friendly controls, logical focus states, and clear landmarks keep visitors oriented and confident.
         </p>
       </article>
       <article class="card">
-        <div class="icon">🎨</div>
+        <div class="icon" aria-hidden="true">
+          <Icon name="tabler:palette" />
+        </div>
         <h3>Editorial styling</h3>
         <p>
           Calibrated typography and gentle gradients pair well with product shots, dashboards, or case studies.
