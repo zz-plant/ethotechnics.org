@@ -7,6 +7,8 @@ This repository powers [ethotechnics.org](https://ethotechnics.org), a content-d
 2. Run the dev server: `npm run dev`
 3. Build the Worker bundle: `npm run build` (optionally preview with `npm run preview`).
 
+## Checks before committing
+Use `npm run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
 ### Environment configuration
 - Copy `.env.example` to `.env.local` for local development. Astro automatically loads `.env`, `.env.local`, and environment-specific files (such as `.env.development`).
 - No environment variables are required today, but add new entries to `.env.example` if the project adopts external services.
