@@ -11,6 +11,9 @@ export default defineConfig({
   adapter: cloudflare({
     platform: 'workers',
   }),
+  session: {
+    driver: 'memory',
+  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/compile',
