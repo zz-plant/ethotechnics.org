@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Lumen — Modern Astro starter" description="A contemporary Astro 5 starter with an interactive navigation island and thoughtful defaults for marketing sites.">
+  <section class="hero">
+    <div class="hero__content">
+      <p class="eyebrow">Built with Astro 5</p>
+      <h1>Launch a polished experience in record time.</h1>
+      <p class="lede">
+        Lumen pairs a crisp visual language with sensible defaults: responsive layout, accessible navigation, and flexible sections so you can ship confidently.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="#cta">Start a workspace</a>
+        <a class="button ghost" href="#features">Explore the stack</a>
+      </div>
+      <div class="hero__meta">
+        <div>
+          <p class="muted">Performance</p>
+          <p class="metric">99.9%</p>
+        </div>
+        <div>
+          <p class="muted">Build time</p>
+          <p class="metric">&lt; 1s</p>
+        </div>
+        <div>
+          <p class="muted">Handoff ready</p>
+          <p class="metric">Yes</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero__panel">
+      <div class="panel">
+        <p class="muted">Live metrics</p>
+        <h3>Realtime insights</h3>
+        <p>
+          Track adoption, uptime, and product velocity from one place. Alerts use sensible defaults, and you can fine-tune thresholds without code changes.
+        </p>
+        <ul class="pill-list">
+          <li>Zero-config deploys</li>
+          <li>Secure by default</li>
+          <li>Edge-ready</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section__header">
+      <p class="eyebrow">Why Lumen</p>
+      <h2>Modern ergonomics, thoughtful defaults.</h2>
+      <p class="muted">
+        Astro islands keep critical interactions lean while content stays blazing fast. We focus on readability, contrast, and sensible spacing across devices.
+      </p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="icon">⚡</div>
+        <h3>Performance-first</h3>
+        <p>
+          Astro 5 ships zero JavaScript by default; we only hydrate what needs to be interactive—like this navigation island.
+        </p>
+      </article>
+      <article class="card">
+        <div class="icon">🧭</div>
+        <h3>Accessible navigation</h3>
+        <p>
+          Keyboard-friendly controls, logical focus states, and clear landmarks keep visitors oriented and confident.
+        </p>
+      </article>
+      <article class="card">
+        <div class="icon">🎨</div>
+        <h3>Editorial styling</h3>
+        <p>
+          Calibrated typography and gentle gradients pair well with product shots, dashboards, or case studies.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="features" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Features</p>
+      <h2>Everything you need to ship confidently.</h2>
+      <p class="muted">
+        Opinionated spacing, adaptive grids, and flexible CTAs make it easy to tailor this starter to your story.
+      </p>
+    </div>
+    <div class="grid grid--two">
+      <article class="card card--emphasis">
+        <h3>Island-based navigation</h3>
+        <p>
+          The top-level navigation runs as its own React island with hydration only when visible, balancing interactivity and performance.
+        </p>
+        <ul class="pill-list">
+          <li>Escape key support</li>
+          <li>Responsive layout</li>
+          <li>Intentional motion</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Composable sections</h3>
+        <p>
+          Hero, feature grid, and CTA sections use semantic HTML and utility classes that can be repurposed for product or marketing stories.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Ready to extend</h3>
+        <p>
+          Add markdown content, CMS data, or API-backed components without reworking the layout foundation.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Typography system</h3>
+        <p>
+          Built on Inter with responsive scales, balanced line lengths, and subtle accent colors for clarity.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="insights" class="section">
+    <div class="section__header">
+      <p class="eyebrow">Insights</p>
+      <h2>Practical recommendations baked in.</h2>
+      <p class="muted">
+        Each element is tuned for usability: generous hit areas, high contrast, and content blocks that adapt gracefully to any breakpoint.
+      </p>
+    </div>
+    <div class="highlight">
+      <div>
+        <p class="muted">Design guidance</p>
+        <h3>Keep primary CTAs crisp and focused.</h3>
+        <p>
+          Use the primary button class for your main action, and pair it with a ghost variant for quieter links. Keep navigation labels short and scannable.
+        </p>
+      </div>
+      <div class="highlight__meta">
+        <p class="muted">Built for teams</p>
+        <ul class="pill-list">
+          <li>Reusable components</li>
+          <li>Accessible defaults</li>
+          <li>Performance guardrails</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" class="cta">
+    <div>
+      <p class="eyebrow">Ready to move?</p>
+      <h2>Start faster with a clear design system.</h2>
+      <p class="muted">Drop in your product narrative, swap in visuals, and deploy. The navigation island is ready for your brand.</p>
+    </div>
+    <div class="actions">
+      <a class="button primary" href="#top">Back to top</a>
+      <a class="button ghost" href="https://docs.astro.build" rel="noreferrer">Read Astro docs</a>
+    </div>
+  </section>
+</BaseLayout>
