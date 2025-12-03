@@ -9,6 +9,16 @@ This repository powers [ethotechnics.org](https://ethotechnics.org), a content-d
 
 ## Checks before committing
 Use `npm run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
+### Environment configuration
+- Copy `.env.example` to `.env.local` for local development. Astro automatically loads `.env`, `.env.local`, and environment-specific files (such as `.env.development`).
+- No environment variables are required today, but add new entries to `.env.example` if the project adopts external services.
+## Quickstart for agents
+- **Prerequisites:** Node.js 20+ with npm (project uses `package-lock.json`), Git, and a shell with `npm` on PATH.
+- **Dev server:** `npm run dev`
+  - Expected log snippet: `[@astrojs/compiler] ready` followed by `Local  http://localhost:4321/`.
+- **Production check:** `npm run build && npm run preview`
+  - Build output should include `Built in` timing lines and emit `dist/_worker.js`; preview logs start with `[@astrojs/preview] Server running` and the same localhost URL.
+- If commands are slow or fail, confirm Node version with `node -v` and reinstall dependencies via `rm -rf node_modules && npm install`.
 
 ## Deployment to Cloudflare Workers
 The site uses the official Cloudflare adapter for Astro to produce a Worker-compatible server build.
