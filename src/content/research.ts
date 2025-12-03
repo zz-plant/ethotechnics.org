@@ -1,30 +1,26 @@
-export type AgendaItem = {
+import type { GlossaryLinked, PageWithPermalink } from './types';
+
+export type AgendaItem = GlossaryLinked & {
   title: string;
   timeframe: string;
   goals: string[];
-  glossaryRefs: string[];
 };
 
-export type FocusArea = {
+export type FocusArea = GlossaryLinked & {
   slug: string;
   title: string;
   description: string;
   questions: string[];
-  glossaryRefs: string[];
 };
 
-export type Publication = {
+export type Publication = GlossaryLinked & {
   title: string;
   type: 'protocol' | 'report' | 'deck';
   summary: string;
   tags: string[];
-  glossaryRefs: string[];
 };
 
-export type ResearchContent = {
-  pageTitle: string;
-  pageDescription: string;
-  permalink: string;
+export type ResearchContent = PageWithPermalink & {
   agenda: AgendaItem[];
   focusAreas: FocusArea[];
   publications: Publication[];

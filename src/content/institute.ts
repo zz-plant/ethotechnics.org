@@ -1,3 +1,5 @@
+import type { PageWithPermalink } from './types';
+
 export type GovernanceItem = {
   title: string;
   detail: string;
@@ -15,10 +17,7 @@ export type ContactChannel = {
   description: string;
 };
 
-export type InstituteContent = {
-  pageTitle: string;
-  pageDescription: string;
-  permalink: string;
+export type InstituteContent = PageWithPermalink & {
   mission: string[];
   governance: GovernanceItem[];
   stewards: Steward[];

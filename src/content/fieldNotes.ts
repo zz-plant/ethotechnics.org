@@ -1,3 +1,5 @@
+import type { PageWithPermalink } from './types';
+
 export type FieldNoteEntry = {
   slug: string;
   title: string;
@@ -7,10 +9,7 @@ export type FieldNoteEntry = {
   links?: string[];
 };
 
-export type FieldNotesContent = {
-  pageTitle: string;
-  pageDescription: string;
-  permalink: string;
+export type FieldNotesContent = PageWithPermalink & {
   sections: {
     title: string;
     description: string;
