@@ -1,7 +1,7 @@
 ---
 import { SEO } from 'astro-seo';
 import { ClientRouter } from 'astro:transitions';
-import Navigation from '../components/Navigation';
+import Navigation from '../components/Navigation.astro';
 import '../styles/global.css';
 import '@fontsource-variable/plus-jakarta-sans';
 import '@fontsource-variable/source-serif-4';
@@ -48,7 +48,7 @@ const defaultTitle = 'Ethotechnics — Ethical technology in practice';
   </head>
   <body>
     <ClientRouter fallback="swap" />
-    <Navigation client:load />
+    <Navigation />
     <main class="page container">
       <slot />
     </main>
