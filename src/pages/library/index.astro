@@ -1,9 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { diagnosticsContent } from '../../content/diagnostics';
+import { libraryContent } from '../../content/library';
 
-const pageTitle = 'Library — Ethotechnics';
-const pageDescription = 'Reference shelf for ethical technology frameworks, reading lists, and implementation patterns.';
-const permalink = '/library';
+const { pageTitle, pageDescription, permalink, primer, glossary, patterns, syllabus } = libraryContent;
+const diagnosticLookup = new Map(diagnosticsContent.tools.map((tool) => [tool.slug, tool]));
+const glossaryHref = (slug: string) => `${permalink}#${slug}`;
+const diagnosticHref = (slug: string) => `/diagnostics#${slug}`;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="section">
@@ -14,14 +17,139 @@ const permalink = '/library';
       <p class="muted">
         Permanent link: <a href={permalink}>{permalink}</a>
       </p>
+      <ul class="pill-list">
+        <li><a href="#primer">Primer</a></li>
+        <li><a href="#glossary">Glossary</a></li>
+        <li><a href="#patterns">Pattern language</a></li>
+        <li><a href="#syllabus">Syllabus</a></li>
+      </ul>
     </div>
     <div class="panel panel--glass">
-      <p class="muted">What to expect</p>
-      <h2>Reusable guidance for teams</h2>
+      <p class="muted">How to use this shelf</p>
+      <h2>Structured, linkable content</h2>
       <p>
-        This space will house curated toolkits, checklists, and reading recommendations that make ethical technology work
-        actionable. Bookmark the permalink to return as new chapters ship.
+        Every entry ships with stable permalinks so you can cite them in research reports, design docs, and diagnostics.
+        Filters call out whether a pattern is governance-focused, a safeguard, or UI guidance to keep collaboration fast.
       </p>
+    </div>
+  </section>
+
+  <section id="primer" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Primer</p>
+      <h2>Start here before diving into patterns.</h2>
+      <p class="muted">
+        Short overviews you can link inside onboarding decks and briefings.
+      </p>
+    </div>
+    <div class="grid">
+      {primer.map((entry) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <h3>{entry.title}</h3>
+          <p class="muted">{entry.summary}</p>
+          <ul class="pill-list">
+            {entry.takeaways.map((takeaway) => (
+              <li>{takeaway}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="glossary" class="section">
+    <div class="section__header">
+      <p class="eyebrow">Glossary</p>
+      <h2>Stable terms with per-entry permalinks.</h2>
+      <p class="muted">
+        Use these anchors in Field Notes, Research, and Diagnostics so teams share the same language.
+      </p>
+    </div>
+    <div class="grid">
+      {glossary.terms.map((term) => (
+        <article class="card" id={term.slug}>
+          <div class="card__glow" aria-hidden="true" />
+          <div class="eyebrow">Glossary term</div>
+          <h3>{term.term}</h3>
+          <p class="muted">{term.definition}</p>
+          <p class="muted">
+            <strong>Useful in:</strong> {term.appliesTo.join(', ')}
+          </p>
+          <a class="muted" href={glossaryHref(term.slug)}>
+            Permalink to {term.term}
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="patterns" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Pattern language</p>
+      <h2>Governance, safeguard, and UI patterns with diagnostic links.</h2>
+      <p class="muted">
+        Filters help you route work quickly. Each pattern links to relevant diagnostics for deeper validation.
+      </p>
+      <ul class="pill-list">
+        {patterns.filters.map((filter) => (
+          <li>{filter}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="grid">
+      {patterns.entries.map((pattern) => (
+        <article class="card" id={pattern.slug}>
+          <div class="card__glow" aria-hidden="true" />
+          <p class="muted">Filters: {pattern.filters.join(', ')}</p>
+          <h3>{pattern.title}</h3>
+          <p>{pattern.summary}</p>
+          <ul class="pill-list">
+            {pattern.cues.map((cue) => (
+              <li>{cue}</li>
+            ))}
+          </ul>
+          <p class="muted">
+            Diagnostics:
+            {' '}
+            {pattern.diagnostics.map((slug, index) => {
+              const diagnostic = diagnosticLookup.get(slug);
+              const label = diagnostic?.title ?? slug;
+              const separator = index < pattern.diagnostics.length - 1 ? ', ' : '';
+
+              return (
+                <>
+                  <a href={diagnosticHref(slug)}>{label}</a>
+                  {separator}
+                </>
+              );
+            })}
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="syllabus" class="section">
+    <div class="section__header">
+      <p class="eyebrow">Syllabus</p>
+      <h2>Guided path for teams adopting the library.</h2>
+      <p class="muted">{syllabus.overview}</p>
+    </div>
+    <div class="grid">
+      {syllabus.modules.map((module) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <p class="muted">{module.duration}</p>
+          <h3>{module.title}</h3>
+          <ul class="pill-list">
+            {module.topics.map((topic) => (
+              <li>{topic}</li>
+            ))}
+          </ul>
+          <p class="muted">Outcome: {module.outcome}</p>
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>

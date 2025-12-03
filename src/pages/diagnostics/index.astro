@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { diagnosticsContent } from '../../content/diagnostics';
+import { libraryContent } from '../../content/library';
 
-const pageTitle = 'Diagnostics — Ethotechnics';
-const pageDescription = 'Tools for auditing systems, measuring risk, and tracking progress on responsible technology goals.';
-const permalink = '/diagnostics';
+const { pageTitle, pageDescription, permalink, tools, offRampNote } = diagnosticsContent;
+const patternBase = `${libraryContent.permalink}#patterns`;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="section">
@@ -14,14 +15,59 @@ const permalink = '/diagnostics';
       <p class="muted">
         Permanent link: <a href={permalink}>{permalink}</a>
       </p>
+      <ul class="pill-list">
+        {tools.map((tool) => (
+          <li><a href={`#${tool.slug}`}>{tool.title}</a></li>
+        ))}
+      </ul>
     </div>
     <div class="panel panel--glass">
-      <p class="muted">What to expect</p>
-      <h2>Assessment kits and scorecards</h2>
+      <p class="muted">Results and off-ramps</p>
+      <h2>Each tool ships with a Studio off-ramp.</h2>
       <p>
-        Future releases will include self-assessments, readiness checks, and observability aids that make accountability
-        measurable. Share the permalink to guide stakeholders directly to this toolkit.
+        Result pages repeat the Studio note so teams know where to escalate. Patterns referenced in results link back to the
+        Library pattern language for fast follow-up.
       </p>
+      <p class="muted">{offRampNote}</p>
     </div>
   </section>
+
+  {tools.map((tool, index) => (
+    <section id={tool.slug} class={`section${index % 2 === 0 ? ' section--alt' : ''}`}>
+      <div class="section__header">
+        <p class="eyebrow">Diagnostic tool</p>
+        <h2>{tool.title}</h2>
+        <p class="muted">{tool.description}</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <p class="muted">Readiness</p>
+          <ul class="pill-list">
+            {tool.readiness.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <p class="muted">Outputs</p>
+          <ul class="pill-list">
+            {tool.outputs.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <p class="muted">{tool.studioNote}</p>
+        </article>
+      </div>
+      <div class="callout">
+        <h3>Pair with pattern language</h3>
+        <p class="muted">
+          Use this tool alongside <a href={patternBase}>pattern language</a> entries referenced in Library for consistent
+          mitigation steps.
+        </p>
+        <p class="muted">{offRampNote}</p>
+      </div>
+    </section>
+  ))}
 </BaseLayout>

@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { instituteContent } from '../../content/institute';
 
-const pageTitle = 'Institute — Ethotechnics';
-const pageDescription = 'Programs, convenings, and ways to collaborate on the Ethotechnics institute roadmap.';
-const permalink = '/institute';
+const { pageTitle, pageDescription, permalink, mission, governance, stewards, contact } = instituteContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="section">
@@ -14,14 +13,97 @@ const permalink = '/institute';
       <p class="muted">
         Permanent link: <a href={permalink}>{permalink}</a>
       </p>
+      <ul class="pill-list">
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#governance">Governance</a></li>
+        <li><a href="#stewards">Stewards</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
     <div class="panel panel--glass">
-      <p class="muted">What to expect</p>
-      <h2>Gatherings and collaboration</h2>
+      <p class="muted">Studio off-ramp</p>
+      <h2>When diagnostics flag risk, the Studio is ready.</h2>
       <p>
-        Updates on fellowship opportunities, workshops, and partner projects will live here. Use the permalink to share the
-        hub with collaborators and stay aligned on upcoming offerings.
+        Result pages across diagnostics include a Studio off-ramp. Use the contact links below to schedule a facilitation
+        session or escalate decisions that need a governance forum.
       </p>
+    </div>
+  </section>
+
+  <section id="mission" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Mission</p>
+      <h2>Why the institute exists.</h2>
+      <p class="muted">
+        A shared home for ethical technology practice across design, research, and governance.
+      </p>
+    </div>
+    <div class="grid">
+      {mission.map((item) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <p>{item}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="governance" class="section">
+    <div class="section__header">
+      <p class="eyebrow">Governance</p>
+      <h2>How decisions stay accountable.</h2>
+      <p class="muted">
+        Each program uses documented patterns from the Library to keep expectations clear.
+      </p>
+    </div>
+    <div class="grid">
+      {governance.map((item) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <h3>{item.title}</h3>
+          <p class="muted">{item.detail}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="stewards" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Stewards</p>
+      <h2>People guiding the work.</h2>
+      <p class="muted">
+        Reach out to the steward closest to your question or risk area.
+      </p>
+    </div>
+    <div class="grid">
+      {stewards.map((steward) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <h3>{steward.name}</h3>
+          <p class="muted">{steward.role}</p>
+          <p>{steward.focus}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="section__header">
+      <p class="eyebrow">Contact</p>
+      <h2>Get in touch.</h2>
+      <p class="muted">
+        Use these channels for Studio escalations, research partnerships, or general questions.
+      </p>
+    </div>
+    <div class="grid">
+      {contact.map((channel) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <h3>{channel.label}</h3>
+          <p class="muted">{channel.description}</p>
+          <a href={channel.href}>{channel.href}</a>
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>
