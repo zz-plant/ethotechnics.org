@@ -1,6 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:4321";
+const baseURL =
+  process.env.CF_PAGES_URL ??
+  process.env.PLAYWRIGHT_BASE_URL ??
+  "http://127.0.0.1:4321";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -27,10 +30,12 @@ export default defineConfig({
       use: { ...devices["Desktop Safari"] },
     },
   ],
-  webServer: {
-    command: "npm run preview -- --host 0.0.0.0 --port 4321",
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-  },
+  webServer: process.env.CF_PAGES_URL
+    ? undefined
+    : {
+        command: "npm run preview -- --host 0.0.0.0 --port 4321",
+        url: baseURL,
+        reuseExistingServer: !process.env.CI,
+        timeout: 120_000,
+      },
 });
