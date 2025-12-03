@@ -1,20 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import FieldNotesTabs from '../../components/FieldNotesTabs';
 import { fieldNotesContent } from '../../content/fieldNotes';
 import { libraryContent } from '../../content/library';
 
 const { pageTitle, pageDescription, permalink, sections, entries } = fieldNotesContent;
 const glossaryBase = libraryContent.permalink;
-const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
-const formatTerm = (slug: string) =>
-  slug
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
-const grouped = sections.map((section) => ({
-  ...section,
-  entries: entries.filter((entry) => entry.format === section.format),
-}));
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="section">
@@ -25,11 +16,6 @@ const grouped = sections.map((section) => ({
       <p class="muted">
         Permanent link: <a href={permalink}>{permalink}</a>
       </p>
-      <ul class="pill-list">
-        {sections.map((section) => (
-          <li><a href={`#${section.format}`}>{section.title}</a></li>
-        ))}
-      </ul>
     </div>
     <div class="panel panel--glass">
       <p class="muted">Glossary cross-links</p>
@@ -40,50 +26,5 @@ const grouped = sections.map((section) => ({
       </p>
     </div>
   </section>
-
-  {grouped.map((section, index) => (
-    <section id={section.format} class={`section${index % 2 === 0 ? ' section--alt' : ''}`}>
-      <div class="section__header">
-        <p class="eyebrow">{section.title}</p>
-        <h2>{section.description}</h2>
-      </div>
-      <div class="grid">
-        {section.entries.map((entry) => (
-          <article class="card" id={entry.slug}>
-            <div class="card__glow" aria-hidden="true" />
-            <h3>{entry.title}</h3>
-            <p class="muted">{entry.summary}</p>
-            <p class="muted">
-              Glossary:{' '}
-              {entry.relatedTerms.map((slug, index) => {
-                const separator = index < entry.relatedTerms.length - 1 ? ', ' : '';
-
-                return (
-                  <>
-                    <a href={glossaryHref(slug)}>{formatTerm(slug)}</a>
-                    {separator}
-                  </>
-                );
-              })}
-            </p>
-            {entry.links ? (
-              <p class="muted">
-                Related links:{' '}
-                {entry.links.map((link, index) => {
-                  const separator = index < (entry.links?.length ?? 0) - 1 ? ', ' : '';
-
-                  return (
-                    <>
-                      <a href={link}>{link}</a>
-                      {separator}
-                    </>
-                  );
-                })}
-              </p>
-            ) : null}
-          </article>
-        ))}
-      </div>
-    </section>
-  ))}
+  <FieldNotesTabs sections={sections} entries={entries} glossaryBase={glossaryBase} client:visible />
 </BaseLayout>
