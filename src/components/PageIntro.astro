@@ -1,0 +1,60 @@
+---
+export interface AnchorLink {
+  href: string;
+  label: string;
+}
+
+export interface PanelCopy {
+  eyebrow?: string;
+  title: string;
+  description: string;
+}
+
+export interface Props {
+  eyebrow: string;
+  title: string;
+  titleLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  description: string;
+  permalink: string;
+  anchorLinks: AnchorLink[];
+  panelCopy?: PanelCopy;
+}
+
+const {
+  eyebrow,
+  title,
+  titleLevel = 1,
+  description,
+  permalink,
+  anchorLinks,
+  panelCopy,
+} = Astro.props;
+
+const HeadingTag = `h${titleLevel}` as const;
+---
+<section class="section">
+  <div class="section__header">
+    <p class="eyebrow">{eyebrow}</p>
+    <HeadingTag>{title}</HeadingTag>
+    <p class="muted">{description}</p>
+    <p class="muted">
+      Permanent link: <a href={permalink}>{permalink}</a>
+    </p>
+    {anchorLinks.length > 0 && (
+      <ul class="pill-list">
+        {anchorLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+  {panelCopy && (
+    <div class="panel panel--glass">
+      {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
+      <h2>{panelCopy.title}</h2>
+      <p>{panelCopy.description}</p>
+    </div>
+  )}
+</section>

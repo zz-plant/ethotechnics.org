@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
 import PatternFilter from '../../components/PatternFilter';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
@@ -11,30 +12,24 @@ const diagnosticTitles = Object.fromEntries(
 const glossaryHref = (slug: string) => `${permalink}#${slug}`;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="section">
-    <div class="section__header">
-      <p class="eyebrow">Library</p>
-      <h1>Library</h1>
-      <p class="muted">{pageDescription}</p>
-      <p class="muted">
-        Permanent link: <a href={permalink}>{permalink}</a>
-      </p>
-      <ul class="pill-list">
-        <li><a href="#primer">Primer</a></li>
-        <li><a href="#glossary">Glossary</a></li>
-        <li><a href="#patterns">Pattern language</a></li>
-        <li><a href="#syllabus">Syllabus</a></li>
-      </ul>
-    </div>
-    <div class="panel panel--glass">
-      <p class="muted">How to use this shelf</p>
-      <h2>Structured, linkable content</h2>
-      <p>
-        Every entry ships with stable permalinks so you can cite them in research reports, design docs, and diagnostics.
-        Filters call out whether a pattern is governance-focused, a safeguard, or UI guidance to keep collaboration fast.
-      </p>
-    </div>
-  </section>
+  <PageIntro
+    eyebrow="Library"
+    title="Library"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: '#primer', label: 'Primer' },
+      { href: '#glossary', label: 'Glossary' },
+      { href: '#patterns', label: 'Pattern language' },
+      { href: '#syllabus', label: 'Syllabus' },
+    ]}
+    panelCopy={{
+      eyebrow: 'How to use this shelf',
+      title: 'Structured, linkable content',
+      description:
+        'Every entry ships with stable permalinks so you can cite them in research reports, design docs, and diagnostics. Filters call out whether a pattern is governance-focused, a safeguard, or UI guidance to keep collaboration fast.',
+    }}
+  />
 
   <section id="primer" class="section section--alt">
     <div class="section__header">
