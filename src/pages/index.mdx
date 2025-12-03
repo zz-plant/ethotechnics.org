@@ -1,104 +1,30 @@
 ---
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { homeContent } from '../content/home';
 
-type Metric = {
-  label: string;
-  value: string;
-};
-
-type FeatureCard = {
-  title: string;
-  description: string;
-  icon?: string;
-  emphasis?: boolean;
-  pills?: string[];
-};
-
-type Panel = {
-  title: string;
-  description: string;
-  pills: string[];
-};
-
-const heroMetrics: Metric[] = [
-  { label: 'Performance', value: '99.9%' },
-  { label: 'Build time', value: '< 1s' },
-  { label: 'Handoff ready', value: 'Yes' },
-];
-
-const aboutFeatures: FeatureCard[] = [
-  {
-    icon: 'tabler:bolt',
-    title: 'Performance-first',
-    description:
-      'Astro 5 ships zero JavaScript by default; we only hydrate what needs to be interactive—like this navigation island.',
-  },
-  {
-    icon: 'tabler:compass',
-    title: 'Accessible navigation',
-    description: 'Keyboard-friendly controls, logical focus states, and clear landmarks keep visitors oriented and confident.',
-  },
-  {
-    icon: 'tabler:palette',
-    title: 'Editorial styling',
-    description: 'Calibrated typography and gentle gradients pair well with product shots, dashboards, or case studies.',
-  },
-];
-
-const featureGrid: FeatureCard[] = [
-  {
-    title: 'Island-based navigation',
-    description:
-      'The top-level navigation runs as its own React island with hydration only when visible, balancing interactivity and performance.',
-    emphasis: true,
-    pills: ['Escape key support', 'Responsive layout', 'Intentional motion'],
-  },
-  {
-    title: 'Composable sections',
-    description:
-      'Hero, feature grid, and CTA sections use semantic HTML and utility classes that can be repurposed for product or marketing stories.',
-  },
-  {
-    title: 'Ready to extend',
-    description: 'Add markdown content, CMS data, or API-backed components without reworking the layout foundation.',
-  },
-  {
-    title: 'Typography system',
-    description: 'Built on Inter with responsive scales, balanced line lengths, and subtle accent colors for clarity.',
-  },
-];
-
-const insightsPanel: Panel = {
-  title: 'Realtime insights',
-  description:
-    'Track adoption, uptime, and product velocity from one place. Alerts use sensible defaults, and you can fine-tune thresholds without code changes.',
-  pills: ['Zero-config deploys', 'Secure by default', 'Edge-ready'],
-};
-
-const highlightPills = ['Reusable components', 'Accessible defaults', 'Performance guardrails'];
-
-const pageTitle = 'Lumen — Modern Astro starter';
-const pageDescription = 'A contemporary Astro 5 starter with an interactive navigation island and thoughtful defaults for marketing sites.';
+const { pageTitle, pageDescription, hero, about, features, highlight, cta } = homeContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section className="hero">
     <div className="hero__content">
-      <p className="eyebrow">Built with Astro 5</p>
-      <h1>Launch a polished experience in record time.</h1>
-      <p className="lede">
-        Lumen pairs a crisp visual language with sensible defaults: responsive layout, accessible navigation, and flexible sections so you can ship confidently.
-      </p>
+      <p className="eyebrow">{hero.eyebrow}</p>
+      <h1>{hero.heading}</h1>
+      <p className="lede">{hero.lede}</p>
       <div className="actions">
-        <a className="button primary" href="#cta">
-          Start a workspace
-        </a>
-        <a className="button ghost" href="#features">
-          Explore the stack
-        </a>
+        {hero.actions.map((action) => (
+          <a
+            key={action.label}
+            className={`button ${action.variant}`}
+            href={action.href}
+            rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
+          >
+            {action.label}
+          </a>
+        ))}
       </div>
       <div className="hero__meta">
-        {heroMetrics.map((metric) => (
+        {hero.metrics.map((metric) => (
           <div key={metric.label}>
             <p className="muted">{metric.label}</p>
             <p className="metric">{metric.value}</p>
@@ -109,10 +35,10 @@ const pageDescription = 'A contemporary Astro 5 starter with an interactive navi
     <div className="hero__panel">
       <div className="panel">
         <p className="muted">Live metrics</p>
-        <h3>{insightsPanel.title}</h3>
-        <p>{insightsPanel.description}</p>
+        <h3>{hero.panel.title}</h3>
+        <p>{hero.panel.description}</p>
         <ul className="pill-list">
-          {insightsPanel.pills.map((pill) => (
+          {hero.panel.pills.map((pill) => (
             <li key={pill}>{pill}</li>
           ))}
         </ul>
@@ -122,14 +48,12 @@ const pageDescription = 'A contemporary Astro 5 starter with an interactive navi
 
   <section id="about" className="section">
     <div className="section__header">
-      <p className="eyebrow">Why Lumen</p>
-      <h2>Modern ergonomics, thoughtful defaults.</h2>
-      <p className="muted">
-        Astro islands keep critical interactions lean while content stays blazing fast. We focus on readability, contrast, and sensible spacing across devices.
-      </p>
+      <p className="eyebrow">{about.eyebrow}</p>
+      <h2>{about.heading}</h2>
+      <p className="muted">{about.body}</p>
     </div>
     <div className="grid">
-      {aboutFeatures.map((feature) => (
+      {about.features.map((feature) => (
         <article key={feature.title} className="card">
           <div className="icon" aria-hidden="true">
             {feature.icon ? <Icon name={feature.icon} /> : null}
@@ -143,12 +67,12 @@ const pageDescription = 'A contemporary Astro 5 starter with an interactive navi
 
   <section id="features" className="section section--alt">
     <div className="section__header">
-      <p className="eyebrow">Features</p>
-      <h2>Everything you need to ship confidently.</h2>
-      <p className="muted">Opinionated spacing, adaptive grids, and flexible CTAs make it easy to tailor this starter to your story.</p>
+      <p className="eyebrow">{features.eyebrow}</p>
+      <h2>{features.heading}</h2>
+      <p className="muted">{features.body}</p>
     </div>
     <div className="grid grid--two">
-      {featureGrid.map((feature) => (
+      {features.cards.map((feature) => (
         <article
           key={feature.title}
           className={`card${feature.emphasis ? ' card--emphasis' : ''}`}
@@ -170,11 +94,9 @@ const pageDescription = 'A contemporary Astro 5 starter with an interactive navi
 
   <section id="insights" className="section">
     <div className="section__header">
-      <p className="eyebrow">Insights</p>
-      <h2>Practical recommendations baked in.</h2>
-      <p className="muted">
-        Each element is tuned for usability: generous hit areas, high contrast, and content blocks that adapt gracefully to any breakpoint.
-      </p>
+      <p className="eyebrow">{highlight.eyebrow}</p>
+      <h2>{highlight.heading}</h2>
+      <p className="muted">{highlight.body}</p>
     </div>
     <div className="highlight">
       <div>
@@ -187,7 +109,7 @@ const pageDescription = 'A contemporary Astro 5 starter with an interactive navi
       <div className="highlight__meta">
         <p className="muted">Built for teams</p>
         <ul className="pill-list">
-          {highlightPills.map((pill) => (
+          {highlight.pills.map((pill) => (
             <li key={pill}>{pill}</li>
           ))}
         </ul>
@@ -197,17 +119,21 @@ const pageDescription = 'A contemporary Astro 5 starter with an interactive navi
 
   <section id="cta" className="cta">
     <div>
-      <p className="eyebrow">Ready to move?</p>
-      <h2>Start faster with a clear design system.</h2>
-      <p className="muted">Drop in your product narrative, swap in visuals, and deploy. The navigation island is ready for your brand.</p>
+      <p className="eyebrow">{cta.eyebrow}</p>
+      <h2>{cta.heading}</h2>
+      <p className="muted">{cta.body}</p>
     </div>
     <div className="actions">
-      <a className="button primary" href="#top">
-        Back to top
-      </a>
-      <a className="button ghost" href="https://docs.astro.build" rel="noreferrer">
-        Read Astro docs
-      </a>
+      {cta.actions.map((action) => (
+        <a
+          key={action.label}
+          className={`button ${action.variant}`}
+          href={action.href}
+          rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
+        >
+          {action.label}
+        </a>
+      ))}
     </div>
   </section>
 </BaseLayout>
