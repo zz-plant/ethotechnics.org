@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
@@ -27,4 +29,11 @@ export default defineConfig({
     driver: 'memory',
   },
   integrations: [react(), icon(), mdx(), sitemap(), robotsTxt()],
+  vite: {
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+  },
 });
