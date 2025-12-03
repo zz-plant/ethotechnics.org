@@ -1,0 +1,137 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { homeContent } from '../content/home';
+
+const { pageTitle, pageDescription, hero, about, features, highlight, cta } = homeContent;
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="hero">
+    <div class="hero__content">
+      <p class="eyebrow">{hero.eyebrow}</p>
+      <h1>{hero.heading}</h1>
+      <p class="lede">{hero.lede}</p>
+      <div class="actions">
+        {hero.actions.map((action) => (
+          <a
+            class={`button ${action.variant}`}
+            href={action.href}
+            rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
+          >
+            {action.label}
+          </a>
+        ))}
+      </div>
+      <div class="hero__meta">
+        {hero.metrics.map((metric) => (
+          <div>
+            <p class="muted">{metric.label}</p>
+            <p class="metric">{metric.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="hero__panel">
+      <div class="panel">
+        <p class="muted">Live metrics</p>
+        <h3>{hero.panel.title}</h3>
+        <p>{hero.panel.description}</p>
+        <ul class="pill-list">
+          {hero.panel.pills.map((pill) => (
+            <li>{pill}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section__header">
+      <p class="eyebrow">{about.eyebrow}</p>
+      <h2>{about.heading}</h2>
+      <p class="muted">{about.body}</p>
+    </div>
+    <div class="grid">
+      {about.features.map((feature) => (
+        <article class="card">
+          <div class="icon" aria-hidden="true">
+            {feature.icon ? <Icon name={feature.icon} /> : null}
+          </div>
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="features" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">{features.eyebrow}</p>
+      <h2>{features.heading}</h2>
+      <p class="muted">{features.body}</p>
+    </div>
+    <div class="grid grid--two">
+      {features.cards.map((feature) => (
+        <article
+          class={`card${feature.emphasis ? ' card--emphasis' : ''}`}
+          aria-label={feature.emphasis ? 'Navigation feature highlight' : undefined}
+        >
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+          {feature.pills ? (
+            <ul class="pill-list">
+              {feature.pills.map((pill) => (
+                <li>{pill}</li>
+              ))}
+            </ul>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="insights" class="section">
+    <div class="section__header">
+      <p class="eyebrow">{highlight.eyebrow}</p>
+      <h2>{highlight.heading}</h2>
+      <p class="muted">{highlight.body}</p>
+    </div>
+    <div class="highlight">
+      <div>
+        <p class="muted">Design guidance</p>
+        <h3>Keep primary CTAs crisp and focused.</h3>
+        <p>
+          Use the primary button class for your main action, and pair it with a ghost variant for quieter links. Keep navigation
+ labels short and scannable.
+        </p>
+      </div>
+      <div class="highlight__meta">
+        <p class="muted">Built for teams</p>
+        <ul class="pill-list">
+          {highlight.pills.map((pill) => (
+            <li>{pill}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" class="cta">
+    <div>
+      <p class="eyebrow">{cta.eyebrow}</p>
+      <h2>{cta.heading}</h2>
+      <p class="muted">{cta.body}</p>
+    </div>
+    <div class="actions">
+      {cta.actions.map((action) => (
+        <a
+          class={`button ${action.variant}`}
+          href={action.href}
+          rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
+        >
+          {action.label}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
