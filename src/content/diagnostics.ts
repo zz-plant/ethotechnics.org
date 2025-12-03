@@ -1,3 +1,5 @@
+import type { PageWithPermalink } from './types';
+
 export type DiagnosticTool = {
   slug: string;
   title: string;
@@ -7,10 +9,7 @@ export type DiagnosticTool = {
   studioNote: string;
 };
 
-export type DiagnosticsContent = {
-  pageTitle: string;
-  pageDescription: string;
-  permalink: string;
+export type DiagnosticsContent = PageWithPermalink & {
   tools: DiagnosticTool[];
   offRampNote: string;
 };

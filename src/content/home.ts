@@ -1,3 +1,5 @@
+import type { PageCopy } from './types';
+
 export type Metric = {
   label: string;
   value: string;
@@ -23,9 +25,7 @@ export type HeroAction = {
   variant: 'primary' | 'ghost';
 };
 
-export type HomeContent = {
-  pageTitle: string;
-  pageDescription: string;
+export type HomeContent = PageCopy & {
   hero: {
     eyebrow: string;
     heading: string;

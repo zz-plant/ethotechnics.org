@@ -1,3 +1,5 @@
+import type { PageWithPermalink } from './types';
+
 export type PrimerSection = {
   title: string;
   summary: string;
@@ -27,10 +29,7 @@ export type SyllabusModule = {
   outcome: string;
 };
 
-export type LibraryContent = {
-  pageTitle: string;
-  pageDescription: string;
-  permalink: string;
+export type LibraryContent = PageWithPermalink & {
   primer: PrimerSection[];
   glossary: { terms: GlossaryTerm[] };
   patterns: { filters: string[]; entries: Pattern[] };
