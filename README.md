@@ -4,6 +4,8 @@ This repository powers [ethotechnics.org](https://ethotechnics.org), a content-d
 
 ## Getting started
 
+Use Node.js 20.x (the repo ships an `.nvmrc` file and matching `engines` in `package.json` to keep builds consistent).
+
 1. Install dependencies: `npm install`
 2. Run the dev server: `npm run dev`
 3. Build the Worker bundle: `npm run build` (optionally preview with `npm run preview`).
@@ -32,6 +34,7 @@ Use `npm run check` for a full pre-commit sweep. It will run linting, tests, Typ
 ## Quickstart for agents
 
 - **Prerequisites:** Node.js 20+ with npm (project uses `package-lock.json`), Git, and a shell with `npm` on PATH.
+- **Node version:** Run `nvm use` to align with the pinned 20.x toolchain before installing dependencies.
 - **Dev server:** `npm run dev`
   - Expected log snippet: `[@astrojs/compiler] ready` followed by `Local  http://localhost:4321/`.
   - Server binds to `0.0.0.0` on port `4321` so forwarded connections from tools (e.g., browsers for screenshots)
