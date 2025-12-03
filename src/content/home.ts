@@ -92,19 +92,19 @@ export const homeContent = {
       'We document how teams can balance innovation with responsibility, blending research, design strategy, and policy thinking.',
     features: [
       {
-        icon: 'tabler:bolt',
+        icon: 'lucide:bolt',
         title: 'Grounded in practice',
         description:
           'Case studies, heuristics, and debriefs from real-world services—not abstract ideals—so you can see how principles land.',
       },
       {
-        icon: 'tabler:compass',
+        icon: 'lucide:compass',
         title: 'Wayfinding for teams',
         description:
           'Navigation cues, facilitation prompts, and decision trees to help cross-functional groups move responsibly together.',
       },
       {
-        icon: 'tabler:palette',
+        icon: 'lucide:palette',
         title: 'Readable and humane',
         description: 'Plain-language explainers, annotated references, and visuals tuned for accessibility and shared understanding.',
       },
