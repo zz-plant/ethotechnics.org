@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const request = Astro.request;
+const url = new URL(request.url);
+const renderedAt = new Date().toISOString();
+const requestId = crypto.randomUUID();
+const headersToReport = ['cf-connecting-ip', 'accept-language', 'user-agent'];
+
+Astro.response.headers.set('cache-control', 'no-store');
+---
+<BaseLayout
+  title="SSR diagnostics — Ethotechnics"
+  description="Runtime view of the request context to verify Astro server rendering on Cloudflare."
+>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Diagnostics</p>
+      <h1>Server-side rendering check</h1>
+      <p class="muted">
+        Use this page to confirm that requests are handled by the server runtime. Refresh to see the timestamp, request ID,
+        and header values change for each request.
+      </p>
+      <p class="muted">
+        Permanent link: <a href="/diagnostics/ssr">/diagnostics/ssr</a>
+      </p>
+    </div>
+    <div class="panel panel--glass">
+      <p class="muted">Runtime snapshot</p>
+      <h2>Per-request values</h2>
+      <dl class="grid grid--two">
+        <div>
+          <dt class="muted">Rendered at (UTC)</dt>
+          <dd>{renderedAt}</dd>
+        </div>
+        <div>
+          <dt class="muted">Request ID</dt>
+          <dd>{requestId}</dd>
+        </div>
+        <div>
+          <dt class="muted">Method</dt>
+          <dd>{request.method}</dd>
+        </div>
+        <div>
+          <dt class="muted">Path</dt>
+          <dd>{url.pathname}{url.search}</dd>
+        </div>
+        <div>
+          <dt class="muted">Origin header</dt>
+          <dd>{request.headers.get('host') ?? 'Not provided'}</dd>
+        </div>
+        <div>
+          <dt class="muted">Cache-control</dt>
+          <dd>{request.headers.get('cache-control') ?? 'Not provided'}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Headers</p>
+      <h2>Request headers received</h2>
+      <p class="muted">These values come directly from the incoming request and update on every load.</p>
+    </div>
+    <div class="grid grid--two">
+      {headersToReport.map((key) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <p class="muted">{key}</p>
+          <p>{request.headers.get(key) ?? 'Not provided'}</p>
+        </article>
+      ))}
+    </div>
+    <div class="callout">
+      <h3>Why this page exists</h3>
+      <p class="muted">
+        The site runs with Astro's server output on Cloudflare Workers. This check proves hydration-free SSR paths are
+        working and that responses are not cached across requests.
+      </p>
+      <p class="muted">
+        For integration testing, assert that the timestamp and request ID change on refresh and that headers match the
+        client or proxy making the request.
+      </p>
+      <a class="button ghost" href="/diagnostics">Back to diagnostics</a>
+    </div>
+  </section>
+</BaseLayout>

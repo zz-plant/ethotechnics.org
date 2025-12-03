@@ -30,6 +30,15 @@ const patternBase = `${libraryContent.permalink}#patterns`;
       </p>
       <p class="muted">{offRampNote}</p>
     </div>
+    <div class="panel panel--glass">
+      <p class="muted">Server rendering</p>
+      <h2>Confirm SSR health</h2>
+      <p>
+        Use the SSR diagnostics page to view the live request metadata, timestamp, and headers that render uniquely on each
+        request.
+      </p>
+      <a class="button ghost" href="/diagnostics/ssr">Open SSR check</a>
+    </div>
   </section>
 
   {tools.map((tool, index) => (
