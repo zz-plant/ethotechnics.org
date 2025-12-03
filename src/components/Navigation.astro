@@ -77,43 +77,41 @@ const navContentId = 'site-navigation-content';
   ) as NodeListOf<HTMLAnchorElement> | undefined;
   const breakpoint = 1024;
 
-  if (!nav || !toggle || !content || !actionLinks) {
-    return;
+  if (nav && toggle && content && actionLinks) {
+    let isOpen = false;
+
+    const updateState = (open: boolean) => {
+      isOpen = open;
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+      const icon = toggle.querySelector('span');
+      if (icon) {
+        icon.textContent = isOpen ? '✕' : '☰';
+      }
+      content.classList.toggle('is-open', isOpen);
+    };
+
+    const handleToggle = () => updateState(!isOpen);
+    const handleLinkClick = () => updateState(false);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        updateState(false);
+        toggle.focus();
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth >= breakpoint) {
+        updateState(false);
+      }
+    };
+
+    toggle.addEventListener('click', handleToggle);
+    nav.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+    actionLinks.forEach((link) => link.addEventListener('click', handleLinkClick));
+
+    updateState(false);
   }
-
-  let isOpen = false;
-
-  const updateState = (open: boolean) => {
-    isOpen = open;
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-    const icon = toggle.querySelector('span');
-    if (icon) {
-      icon.textContent = isOpen ? '✕' : '☰';
-    }
-    content.classList.toggle('is-open', isOpen);
-  };
-
-  const handleToggle = () => updateState(!isOpen);
-  const handleLinkClick = () => updateState(false);
-
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      updateState(false);
-      toggle.focus();
-    }
-  };
-
-  const handleResize = () => {
-    if (window.innerWidth >= breakpoint) {
-      updateState(false);
-    }
-  };
-
-  toggle.addEventListener('click', handleToggle);
-  nav.addEventListener('keydown', handleKeyDown);
-  window.addEventListener('resize', handleResize);
-  actionLinks.forEach((link) => link.addEventListener('click', handleLinkClick));
-
-  updateState(false);
 </script>
