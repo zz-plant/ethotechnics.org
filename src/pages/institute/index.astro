@@ -1,6 +1,9 @@
 ---
 import PageIntro from '../../components/PageIntro.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
 import { instituteContent } from '../../content/institute';
 
 const { pageTitle, pageDescription, permalink, mission, governance, stewards, contact } = instituteContent;
@@ -25,80 +28,65 @@ const { pageTitle, pageDescription, permalink, mission, governance, stewards, co
     }}
   />
 
-  <section id="mission" class="section section--alt">
-    <div class="section__header">
-      <p class="eyebrow">Mission</p>
-      <h2>Why the institute exists.</h2>
-      <p class="muted">
-        A shared home for ethical technology practice across design, research, and governance.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="mission"
+    eyebrow="Mission"
+    title="Why the institute exists."
+    description="A shared home for ethical technology practice across design, research, and governance."
+    variant="alt"
+  >
+    <CardGrid>
       {mission.map((item) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
+        <CardItem>
           <p>{item}</p>
-        </article>
+        </CardItem>
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 
-  <section id="governance" class="section">
-    <div class="section__header">
-      <p class="eyebrow">Governance</p>
-      <h2>How decisions stay accountable.</h2>
-      <p class="muted">
-        Each program uses documented patterns from the Library to keep expectations clear.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="governance"
+    eyebrow="Governance"
+    title="How decisions stay accountable."
+    description="Each program uses documented patterns from the Library to keep expectations clear."
+  >
+    <CardGrid>
       {governance.map((item) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <h3>{item.title}</h3>
-          <p class="muted">{item.detail}</p>
-        </article>
+        <CardItem title={item.title} description={item.detail} />
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 
-  <section id="stewards" class="section section--alt">
-    <div class="section__header">
-      <p class="eyebrow">Stewards</p>
-      <h2>People guiding the work.</h2>
-      <p class="muted">
-        Reach out to the steward closest to your question or risk area.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="stewards"
+    eyebrow="Stewards"
+    title="People guiding the work."
+    description="Reach out to the steward closest to your question or risk area."
+    variant="alt"
+  >
+    <CardGrid>
       {stewards.map((steward) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <h3>{steward.name}</h3>
-          <p class="muted">{steward.role}</p>
+        <CardItem title={steward.name} description={steward.role}>
           <p>{steward.focus}</p>
-        </article>
+        </CardItem>
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 
-  <section id="contact" class="section">
-    <div class="section__header">
-      <p class="eyebrow">Contact</p>
-      <h2>Get in touch.</h2>
-      <p class="muted">
-        Use these channels for Studio escalations, research partnerships, or general questions.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="contact"
+    eyebrow="Contact"
+    title="Get in touch."
+    description="Use these channels for Studio escalations, research partnerships, or general questions."
+  >
+    <CardGrid>
       {contact.map((channel) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <h3>{channel.label}</h3>
-          <p class="muted">{channel.description}</p>
-          <a href={channel.href}>{channel.href}</a>
-        </article>
+        <CardItem title={channel.label} description={channel.description}>
+          <a slot="footer" href={channel.href}>
+            {channel.href}
+          </a>
+        </CardItem>
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 </BaseLayout>

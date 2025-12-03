@@ -1,6 +1,9 @@
 ---
 import PageIntro from '../../components/PageIntro.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
 import { libraryContent } from '../../content/library';
 import { researchContent } from '../../content/research';
 
@@ -32,115 +35,71 @@ const formatTerm = (slug: string) =>
     }}
   />
 
-  <section id="agenda" class="section section--alt">
-    <div class="section__header">
-      <p class="eyebrow">Agenda</p>
-      <h2>In-flight lines of inquiry.</h2>
-      <p class="muted">
-        Each line links to glossary terms you can reference in protocols and design docs.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="agenda"
+    eyebrow="Agenda"
+    title="In-flight lines of inquiry."
+    description="Each line links to glossary terms you can reference in protocols and design docs."
+    variant="alt"
+  >
+    <CardGrid>
       {agenda.map((item) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <p class="muted">{item.timeframe}</p>
-          <h3>{item.title}</h3>
-          <ul class="pill-list">
-            {item.goals.map((goal) => (
-              <li>{goal}</li>
-            ))}
-          </ul>
-          <p class="muted">
-            Glossary:{' '}
-            {item.glossaryRefs.map((slug, index) => {
-              const separator = index < item.glossaryRefs.length - 1 ? ', ' : '';
-
-              return (
-                <>
-                  <a href={glossaryHref(slug)}>{formatTerm(slug)}</a>
-                  {separator}
-                </>
-              );
-            })}
-          </p>
-        </article>
+        <CardItem
+          meta={item.timeframe}
+          title={item.title}
+          tags={item.goals}
+          glossaryLinks={item.glossaryRefs.map((slug) => ({
+            href: glossaryHref(slug),
+            label: formatTerm(slug),
+          }))}
+        />
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 
-  <section id="focus-areas" class="section">
-    <div class="section__header">
-      <p class="eyebrow">Focus areas</p>
-      <h2>Where we spend our attention.</h2>
-      <p class="muted">
-        Use these anchors to align research, Field Notes, and diagnostics around the same questions.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="focus-areas"
+    eyebrow="Focus areas"
+    title="Where we spend our attention."
+    description="Use these anchors to align research, Field Notes, and diagnostics around the same questions."
+  >
+    <CardGrid>
       {focusAreas.map((area) => (
-        <article class="card" id={area.slug}>
-          <div class="card__glow" aria-hidden="true" />
-          <h3>{area.title}</h3>
-          <p class="muted">{area.description}</p>
-          <ul class="pill-list">
-            {area.questions.map((question) => (
-              <li>{question}</li>
-            ))}
-          </ul>
-          <p class="muted">
-            Glossary:{' '}
-            {area.glossaryRefs.map((slug, index) => {
-              const separator = index < area.glossaryRefs.length - 1 ? ', ' : '';
-
-              return (
-                <>
-                  <a href={glossaryHref(slug)}>{formatTerm(slug)}</a>
-                  {separator}
-                </>
-              );
-            })}
-          </p>
-        </article>
+        <CardItem
+          id={area.slug}
+          title={area.title}
+          description={area.description}
+          tags={area.questions}
+          glossaryLinks={area.glossaryRefs.map((slug) => ({
+            href: glossaryHref(slug),
+            label: formatTerm(slug),
+          }))}
+        />
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 
-  <section id="publications" class="section section--alt">
-    <div class="section__header">
-      <p class="eyebrow">Publications</p>
-      <h2>Protocols, decks, and reports.</h2>
-      <p class="muted">
-        Each entry is tagged with glossary links to help readers dig deeper in the Library.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="publications"
+    eyebrow="Publications"
+    title="Protocols, decks, and reports."
+    description="Each entry is tagged with glossary links to help readers dig deeper in the Library."
+    variant="alt"
+  >
+    <CardGrid>
       {publications.map((publication) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <p class="muted">{publication.type}</p>
-          <h3>{publication.title}</h3>
-          <p>{publication.summary}</p>
-          <ul class="pill-list">
-            {publication.tags.map((tag) => (
-              <li>{tag}</li>
-            ))}
-          </ul>
-          <p class="muted">
-            Glossary:{' '}
-            {publication.glossaryRefs.map((slug, index) => {
-              const separator = index < publication.glossaryRefs.length - 1 ? ', ' : '';
-
-              return (
-                <>
-                  <a href={glossaryHref(slug)}>{formatTerm(slug)}</a>
-                  {separator}
-                </>
-              );
-            })}
-          </p>
-        </article>
+        <CardItem
+          meta={publication.type}
+          title={publication.title}
+          description={publication.summary}
+          descriptionTone="default"
+          tags={publication.tags}
+          glossaryLinks={publication.glossaryRefs.map((slug) => ({
+            href: glossaryHref(slug),
+            label: formatTerm(slug),
+          }))}
+        />
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 </BaseLayout>

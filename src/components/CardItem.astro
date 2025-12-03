@@ -1,0 +1,84 @@
+---
+/**
+ * Standard card markup with glow, heading control, pill lists, and optional glossary links.
+ *
+ * Props:
+ * - id: Optional anchor for the card (for deep-linking).
+ * - eyebrow: Uppercase label shown above the body.
+ * - meta: Muted line placed above the title (e.g., timeframe or type).
+ * - title: Card heading text. Omit to use custom slot content instead.
+ * - headingLevel: Heading tag to render for the title (defaults to `h3`).
+ * - description: Supporting copy, muted by default.
+ * - descriptionTone: Set to `default` to render the description without the muted class.
+ * - tags: Renders as a `.pill-list` under the description.
+ * - glossaryLinks: Array of `{ href, label }` rendered as a "Glossary" line with comma separators.
+ * - glossaryLabel: Override the glossary label (defaults to "Glossary").
+ */
+interface GlossaryLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  meta?: string;
+  title?: string;
+  headingLevel?: 'h2' | 'h3' | 'h4';
+  description?: string;
+  descriptionTone?: 'default' | 'muted';
+  tags?: string[];
+  glossaryLinks?: GlossaryLink[];
+  glossaryLabel?: string;
+}
+
+const props = Astro.props as Props;
+const {
+  id,
+  eyebrow,
+  meta,
+  title,
+  headingLevel = 'h3',
+  description,
+  descriptionTone = 'muted',
+  tags = [],
+  glossaryLinks = [],
+  glossaryLabel = 'Glossary',
+} = props;
+
+const HeadingTag = headingLevel;
+const descriptionClass = descriptionTone === 'muted' ? 'muted' : undefined;
+const hasTags = tags.length > 0;
+const hasGlossaryLinks = glossaryLinks.length > 0;
+---
+<article class="card" id={id}>
+  <div class="card__glow" aria-hidden="true" />
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  {meta && <p class="muted">{meta}</p>}
+  {title && <HeadingTag>{title}</HeadingTag>}
+  {description && <p class={descriptionClass}>{description}</p>}
+  <slot />
+  {hasTags && (
+    <ul class="pill-list">
+      {tags.map((tag) => (
+        <li>{tag}</li>
+      ))}
+    </ul>
+  )}
+  {hasGlossaryLinks && (
+    <p class="muted">
+      {glossaryLabel}:{' '}
+      {glossaryLinks.map((link, index) => {
+        const separator = index < glossaryLinks.length - 1 ? ', ' : '';
+
+        return (
+          <>
+            <a href={link.href}>{link.label}</a>
+            {separator}
+          </>
+        );
+      })}
+    </p>
+  )}
+  <slot name="footer" />
+</article>

@@ -1,0 +1,21 @@
+---
+/**
+ * Grid wrapper for card collections.
+ *
+ * Props:
+ * - as: Optional tag name (defaults to `div`).
+ * - className: Additional class names appended to the grid container.
+ */
+interface Props {
+  as?: 'div' | 'section' | 'ul';
+  className?: string;
+}
+
+const props = Astro.props as Props;
+const { as = 'div', className } = props;
+const GridTag = as;
+const gridClass = ['grid', className].filter(Boolean).join(' ');
+---
+<GridTag class={gridClass}>
+  <slot />
+</GridTag>
