@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
-import PatternFilter from '../../components/PatternFilter';
+import PatternFilter from '../../components/PatternFilter.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
@@ -84,7 +84,6 @@ const glossaryHref = (slug: string) => `${permalink}#${slug}`;
       filters={patterns.filters}
       entries={patterns.entries}
       diagnosticTitles={diagnosticTitles}
-      client:visible
     />
   </SectionBlock>
 

@@ -1,0 +1,244 @@
+---
+import type { Pattern } from '../content/library';
+
+type Props = {
+  filters: string[];
+  entries: Pattern[];
+  diagnosticTitles: Record<string, string>;
+};
+
+const { filters, entries, diagnosticTitles } = Astro.props as Props;
+const filtersWithAll = ['all', ...filters];
+---
+<div class="pattern-filter" data-pattern-filter data-filters={filters.join(',')}>
+  <div class="pattern-filter__controls">
+    <ul class="pill-list">
+      {filtersWithAll.map((filter) => {
+        const isAll = filter === 'all';
+
+        return (
+          <li class={`pill-list__item${isAll ? ' pill-list__item--active' : ''}`}>
+            <button
+              type="button"
+              class="pill-list__button"
+              aria-pressed={isAll}
+              data-filter={filter}
+            >
+              {filter === 'all' ? 'All filters' : filter}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+    <label class="pattern-filter__search" for="pattern-search">
+      <span class="muted">Search patterns</span>
+      <input
+        id="pattern-search"
+        type="search"
+        class="pattern-filter__search-input"
+        placeholder="Search by title, summary, or cue"
+        data-search-input
+      />
+    </label>
+  </div>
+  <div class="grid" data-pattern-results>
+    {entries.map((pattern) => {
+      const searchText = `${pattern.title} ${pattern.summary} ${pattern.cues.join(' ')}`.toLowerCase();
+
+      return (
+        <article
+          class="card"
+          id={pattern.slug}
+          data-pattern-card
+          data-filters={pattern.filters.join(',')}
+          data-search={searchText}
+        >
+          <div class="card__glow" aria-hidden="true" />
+          <p class="muted">Filters: {pattern.filters.join(', ')}</p>
+          <h3>{pattern.title}</h3>
+          <p>{pattern.summary}</p>
+          <ul class="pill-list">
+            {pattern.cues.map((cue) => (
+              <li>{cue}</li>
+            ))}
+          </ul>
+          <p class="muted">
+            Diagnostics{' '}
+            {pattern.diagnostics.map((slug, index) => {
+              const label = diagnosticTitles[slug] ?? slug;
+              const separator = index < pattern.diagnostics.length - 1 ? ', ' : '';
+
+              return (
+                <span>
+                  <a href={`/diagnostics#${slug}`}>{label}</a>
+                  {separator}
+                </span>
+              );
+            })}
+          </p>
+        </article>
+      );
+    })}
+    <p class="muted" data-empty hidden>
+      No patterns match your filters yet.
+    </p>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const script = document.currentScript;
+    const root = script?.closest('[data-pattern-filter]');
+
+    if (!root) {
+      return;
+    }
+
+    const filters = (root.getAttribute('data-filters') ?? '')
+      .split(',')
+      .map((value) => value.trim())
+      .filter(Boolean);
+    const filterButtons = Array.from(root.querySelectorAll('[data-filter]'));
+    const searchInput = root.querySelector('[data-search-input]');
+    const cards = Array.from(root.querySelectorAll('[data-pattern-card]'));
+    const emptyState = root.querySelector('[data-empty]');
+
+    let selectedFilter = null;
+    let query = '';
+
+    const normalizeHash = (hash) => hash.replace('#', '');
+    const hashFromFilter = (filter) => `#${filter ?? 'patterns'}`;
+
+    const updateHash = () => {
+      const targetHash = hashFromFilter(selectedFilter);
+      const currentHash = window.location.hash;
+      const normalizedCurrent = normalizeHash(currentHash);
+
+      if (selectedFilter) {
+        if (currentHash !== targetHash) {
+          window.history.replaceState(null, '', targetHash);
+        }
+
+        return;
+      }
+
+      if (!normalizedCurrent || normalizedCurrent === 'patterns' || filters.includes(normalizedCurrent)) {
+        if (currentHash !== targetHash) {
+          window.history.replaceState(null, '', targetHash);
+        }
+      }
+    };
+
+    const updateFilterButtons = () => {
+      filterButtons.forEach((button) => {
+        const filter = button.getAttribute('data-filter');
+        const isActive = (!selectedFilter && filter === 'all') || selectedFilter === filter;
+        const parent = button.closest('.pill-list__item');
+
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        parent?.classList.toggle('pill-list__item--active', isActive);
+      });
+    };
+
+    const applyFilters = () => {
+      const normalizedQuery = query.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const cardFilters = (card.getAttribute('data-filters') ?? '')
+          .split(',')
+          .map((value) => value.trim())
+          .filter(Boolean);
+        const searchable = card.getAttribute('data-search') ?? '';
+        const matchesFilter = !selectedFilter || cardFilters.includes(selectedFilter);
+        const matchesQuery = !normalizedQuery || searchable.includes(normalizedQuery);
+        const isVisible = matchesFilter && matchesQuery;
+
+        card.toggleAttribute('hidden', !isVisible);
+
+        if (isVisible) {
+          visibleCount += 1;
+        }
+      });
+
+      if (emptyState) {
+        emptyState.toggleAttribute('hidden', visibleCount !== 0);
+      }
+    };
+
+    const applyHash = (hash) => {
+      const normalized = normalizeHash(hash);
+
+      if (filters.includes(normalized)) {
+        selectedFilter = normalized;
+        return;
+      }
+
+      if (!normalized || normalized === 'patterns') {
+        selectedFilter = null;
+      }
+    };
+
+    const handleFilterChange = (filter) => {
+      if (filter === 'all') {
+        selectedFilter = null;
+      } else {
+        selectedFilter = selectedFilter === filter ? null : filter;
+      }
+
+      updateHash();
+      updateFilterButtons();
+      applyFilters();
+    };
+
+    const handleHashChange = () => {
+      applyHash(window.location.hash);
+      updateFilterButtons();
+      applyFilters();
+    };
+
+    const initialize = () => {
+      applyHash(window.location.hash);
+      updateFilterButtons();
+      applyFilters();
+
+      filterButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const filter = button.getAttribute('data-filter');
+
+          if (!filter) {
+            return;
+          }
+
+          handleFilterChange(filter);
+        });
+      });
+
+      searchInput?.addEventListener('input', (event) => {
+        const target = event.target;
+
+        if (!(target instanceof HTMLInputElement)) {
+          return;
+        }
+
+        query = target.value;
+        applyFilters();
+      });
+
+      window.addEventListener('hashchange', handleHashChange);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          initialize();
+          observer.disconnect();
+        }
+      });
+
+      observer.observe(root);
+    } else {
+      initialize();
+    }
+  })();
+</script>
