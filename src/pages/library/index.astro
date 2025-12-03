@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
 import PatternFilter from '../../components/PatternFilter';
+import SectionBlock from '../../components/SectionBlock.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 
@@ -31,92 +34,72 @@ const glossaryHref = (slug: string) => `${permalink}#${slug}`;
     }}
   />
 
-  <section id="primer" class="section section--alt">
-    <div class="section__header">
-      <p class="eyebrow">Primer</p>
-      <h2>Start here before diving into patterns.</h2>
-      <p class="muted">
-        Short overviews you can link inside onboarding decks and briefings.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="primer"
+    eyebrow="Primer"
+    title="Start here before diving into patterns."
+    description="Short overviews you can link inside onboarding decks and briefings."
+    variant="alt"
+  >
+    <CardGrid>
       {primer.map((entry) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <h3>{entry.title}</h3>
-          <p class="muted">{entry.summary}</p>
-          <ul class="pill-list">
-            {entry.takeaways.map((takeaway) => (
-              <li>{takeaway}</li>
-            ))}
-          </ul>
-        </article>
+        <CardItem title={entry.title} description={entry.summary} tags={entry.takeaways} />
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 
-  <section id="glossary" class="section">
-    <div class="section__header">
-      <p class="eyebrow">Glossary</p>
-      <h2>Stable terms with per-entry permalinks.</h2>
-      <p class="muted">
-        Use these anchors in Field Notes, Research, and Diagnostics so teams share the same language.
-      </p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="glossary"
+    eyebrow="Glossary"
+    title="Stable terms with per-entry permalinks."
+    description="Use these anchors in Field Notes, Research, and Diagnostics so teams share the same language."
+  >
+    <CardGrid>
       {glossary.terms.map((term) => (
-        <article class="card" id={term.slug}>
-          <div class="card__glow" aria-hidden="true" />
-          <div class="eyebrow">Glossary term</div>
-          <h3>{term.term}</h3>
-          <p class="muted">{term.definition}</p>
+        <CardItem
+          id={term.slug}
+          eyebrow="Glossary term"
+          title={term.term}
+          description={term.definition}
+        >
           <p class="muted">
             <strong>Useful in:</strong> {term.appliesTo.join(', ')}
           </p>
-          <a class="muted" href={glossaryHref(term.slug)}>
+          <a slot="footer" class="muted" href={glossaryHref(term.slug)}>
             Permalink to {term.term}
           </a>
-        </article>
+        </CardItem>
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 
-  <section id="patterns" class="section section--alt">
-    <div class="section__header">
-      <p class="eyebrow">Pattern language</p>
-      <h2>Governance, safeguard, and UI patterns with diagnostic links.</h2>
-      <p class="muted">
-        Filters help you route work quickly. Each pattern links to relevant diagnostics for deeper validation.
-      </p>
-    </div>
+  <SectionBlock
+    id="patterns"
+    eyebrow="Pattern language"
+    title="Governance, safeguard, and UI patterns with diagnostic links."
+    description="Filters help you route work quickly. Each pattern links to relevant diagnostics for deeper validation."
+    variant="alt"
+  >
     <PatternFilter
       filters={patterns.filters}
       entries={patterns.entries}
       diagnosticTitles={diagnosticTitles}
       client:visible
     />
-  </section>
+  </SectionBlock>
 
-  <section id="syllabus" class="section">
-    <div class="section__header">
-      <p class="eyebrow">Syllabus</p>
-      <h2>Guided path for teams adopting the library.</h2>
-      <p class="muted">{syllabus.overview}</p>
-    </div>
-    <div class="grid">
+  <SectionBlock
+    id="syllabus"
+    eyebrow="Syllabus"
+    title="Guided path for teams adopting the library."
+    description={syllabus.overview}
+  >
+    <CardGrid>
       {syllabus.modules.map((module) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <p class="muted">{module.duration}</p>
-          <h3>{module.title}</h3>
-          <ul class="pill-list">
-            {module.topics.map((topic) => (
-              <li>{topic}</li>
-            ))}
-          </ul>
+        <CardItem meta={module.duration} title={module.title} tags={module.topics}>
           <p class="muted">Outcome: {module.outcome}</p>
-        </article>
+        </CardItem>
       ))}
-    </div>
-  </section>
+    </CardGrid>
+  </SectionBlock>
 </BaseLayout>
