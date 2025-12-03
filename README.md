@@ -7,6 +7,9 @@ This repository powers [ethotechnics.org](https://ethotechnics.org), a content-d
 2. Run the dev server: `npm run dev`
 3. Build the Worker bundle: `npm run build` (optionally preview with `npm run preview`).
 
+## Checks before committing
+Use `npm run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
+
 ## Deployment to Cloudflare Workers
 The site uses the official Cloudflare adapter for Astro to produce a Worker-compatible server build.
 
