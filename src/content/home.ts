@@ -61,95 +61,96 @@ export type HomeContent = {
 };
 
 export const homeContent = {
-  pageTitle: 'Lumen — Modern Astro starter',
+  pageTitle: 'Ethotechnics — Ethical technology in practice',
   pageDescription:
-    'A contemporary Astro 5 starter with an interactive navigation island and thoughtful defaults for marketing sites.',
+    'Ethotechnics.org shares essays, field notes, and frameworks for building technology that keeps people at the center.',
   hero: {
-    eyebrow: 'Built with Astro 5',
-    heading: 'Launch a polished experience in record time.',
+    eyebrow: 'Ethics · Design · Governance',
+    heading: 'Technology should serve people — not the other way around.',
     lede:
-      'Lumen pairs a crisp visual language with sensible defaults: responsive layout, accessible navigation, and flexible sections so you can ship confidently.',
+      'Ethotechnics explores practical ways to align digital products with human dignity, informed consent, and accountable systems.',
     actions: [
-      { label: 'Start a workspace', href: '#cta', variant: 'primary' },
-      { label: 'Explore the stack', href: '#features', variant: 'ghost' },
+      { label: 'Get updates', href: '#cta', variant: 'primary' },
+      { label: 'Explore focus areas', href: '#features', variant: 'ghost' },
     ],
     metrics: [
-      { label: 'Performance', value: '99.9%' },
-      { label: 'Build time', value: '< 1s' },
-      { label: 'Handoff ready', value: 'Yes' },
+      { label: 'Perspective', value: 'Interdisciplinary' },
+      { label: 'Formats', value: 'Essays & frameworks' },
+      { label: 'Focus', value: 'Human outcomes' },
     ],
     panel: {
-      title: 'Realtime insights',
+      title: 'Field notes for responsible teams',
       description:
-        'Track adoption, uptime, and product velocity from one place. Alerts use sensible defaults, and you can fine-tune thresholds without code changes.',
-      pills: ['Zero-config deploys', 'Secure by default', 'Edge-ready'],
+        'Short, actionable takeaways from research, design practice, and governance work you can adapt to your context.',
+      pills: ['Consent-aware defaults', 'Accountability by design', 'Resilient infrastructure'],
     },
   },
   about: {
-    eyebrow: 'Why Lumen',
-    heading: 'Modern ergonomics, thoughtful defaults.',
+    eyebrow: 'About Ethotechnics',
+    heading: 'Practical guidance for ethical technology.',
     body:
-      'Astro islands keep critical interactions lean while content stays blazing fast. We focus on readability, contrast, and sensible spacing across devices.',
+      'We document how teams can balance innovation with responsibility, blending research, design strategy, and policy thinking.',
     features: [
       {
         icon: 'tabler:bolt',
-        title: 'Performance-first',
+        title: 'Grounded in practice',
         description:
-          'Astro 5 ships zero JavaScript by default; we only hydrate what needs to be interactive—like this navigation island.',
+          'Case studies, heuristics, and debriefs from real-world services—not abstract ideals—so you can see how principles land.',
       },
       {
         icon: 'tabler:compass',
-        title: 'Accessible navigation',
-        description: 'Keyboard-friendly controls, logical focus states, and clear landmarks keep visitors oriented and confident.',
+        title: 'Wayfinding for teams',
+        description:
+          'Navigation cues, facilitation prompts, and decision trees to help cross-functional groups move responsibly together.',
       },
       {
         icon: 'tabler:palette',
-        title: 'Editorial styling',
-        description: 'Calibrated typography and gentle gradients pair well with product shots, dashboards, or case studies.',
+        title: 'Readable and humane',
+        description: 'Plain-language explainers, annotated references, and visuals tuned for accessibility and shared understanding.',
       },
     ],
   },
   features: {
-    eyebrow: 'Features',
-    heading: 'Everything you need to ship confidently.',
-    body: 'Opinionated spacing, adaptive grids, and flexible CTAs make it easy to tailor this starter to your story.',
+    eyebrow: 'Focus areas',
+    heading: 'Frameworks you can put to work.',
+    body: 'Each piece is built to be actionable—checklists, prompts, and facilitation steps you can adapt quickly.',
     cards: [
       {
-        title: 'Island-based navigation',
+        title: 'Responsible product delivery',
         description:
-          'The top-level navigation runs as its own React island with hydration only when visible, balancing interactivity and performance.',
+          'From discovery to rollout, we surface ethical questions, risk patterns, and mitigations that keep people safe.',
         emphasis: true,
-        pills: ['Escape key support', 'Responsive layout', 'Intentional motion'],
+        pills: ['Informed consent', 'Iterative safeguards', 'Accountable metrics'],
       },
       {
-        title: 'Composable sections',
+        title: 'Research and synthesis',
         description:
-          'Hero, feature grid, and CTA sections use semantic HTML and utility classes that can be repurposed for product or marketing stories.',
+          'Field reports translate interviews, participatory sessions, and policy reviews into patterns anyone can reuse.',
       },
       {
-        title: 'Ready to extend',
-        description: 'Add markdown content, CMS data, or API-backed components without reworking the layout foundation.',
+        title: 'Governance you can explain',
+        description: 'Templates for decision records, data stewardship plans, and escalation paths that earn trust.',
       },
       {
-        title: 'Typography system',
-        description: 'Built on Inter with responsive scales, balanced line lengths, and subtle accent colors for clarity.',
+        title: 'Tools and references',
+        description: 'Curated resources, workshop kits, and checklists to help teams operationalize ethical intent.',
       },
     ],
   },
   highlight: {
-    eyebrow: 'Insights',
-    heading: 'Practical recommendations baked in.',
+    eyebrow: 'Latest notes',
+    heading: 'Practical recommendations for accountable systems.',
     body:
-      'Each element is tuned for usability: generous hit areas, high contrast, and content blocks that adapt gracefully to any breakpoint.',
-    pills: ['Reusable components', 'Accessible defaults', 'Performance guardrails'],
+      'Tactics, prompts, and checklists you can bring to product reviews, governance meetings, or research debriefs.',
+    pills: ['Respectful defaults', 'Community input', 'Long-term stewardship'],
   },
   cta: {
-    eyebrow: 'Ready to move?',
-    heading: 'Start faster with a clear design system.',
-    body: 'Drop in your product narrative, swap in visuals, and deploy. The navigation island is ready for your brand.',
+    eyebrow: 'Stay connected',
+    heading: 'Follow the work at Ethotechnics.',
+    body: 'Get notified when new essays, field notes, and facilitation kits go live. No spam—just pragmatic guidance.',
     actions: [
       { label: 'Back to top', href: '#top', variant: 'primary' },
-      { label: 'Read Astro docs', href: 'https://docs.astro.build', variant: 'ghost' },
+      { label: 'Learn about the project', href: '#about', variant: 'ghost' },
     ],
   },
 } satisfies HomeContent;

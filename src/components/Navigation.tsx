@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 const navLinks = [
   { href: '#about', label: 'About' },
-  { href: '#features', label: 'Features' },
-  { href: '#insights', label: 'Insights' },
-  { href: '#cta', label: 'Get started' },
+  { href: '#features', label: 'Focus areas' },
+  { href: '#insights', label: 'Latest notes' },
+  { href: '#cta', label: 'Stay connected' },
 ];
 
 export default function Navigation() {
@@ -36,7 +36,7 @@ export default function Navigation() {
     <nav className="nav" aria-label="Primary">
       <div className="nav__inner container">
         <a href="#top" className="nav__brand" aria-label="Return to top">
-          Lumen
+          Ethotechnics
         </a>
 
         <button
@@ -60,10 +60,10 @@ export default function Navigation() {
           </ul>
           <div className="nav__actions">
             <a className="button ghost" href="#insights" onClick={() => setIsOpen(false)}>
-              See updates
+              Read the latest
             </a>
             <a className="button primary" href="#cta" onClick={() => setIsOpen(false)}>
-              Launch workspace
+              Get updates
             </a>
           </div>
         </div>
