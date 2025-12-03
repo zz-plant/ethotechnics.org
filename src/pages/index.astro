@@ -7,40 +7,52 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="hero">
-    <div class="hero__content">
-      <p class="eyebrow">{hero.eyebrow}</p>
-      <h1>{hero.heading}</h1>
-      <p class="lede">{hero.lede}</p>
-      <div class="actions">
-        {hero.actions.map((action) => (
-          <a
-            class={`button ${action.variant}`}
-            href={action.href}
-            rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
-          >
-            {action.label}
-          </a>
-        ))}
-      </div>
-      <div class="hero__meta">
-        {hero.metrics.map((metric) => (
-          <div>
-            <p class="muted">{metric.label}</p>
-            <p class="metric">{metric.value}</p>
-          </div>
-        ))}
-      </div>
+    <div class="hero__canvas" aria-hidden="true">
+      <span class="beam beam--one" />
+      <span class="beam beam--two" />
+      <span class="beam beam--three" />
+      <span class="gridlines" />
     </div>
-    <div class="hero__panel">
-      <div class="panel">
-        <p class="muted">Live metrics</p>
-        <h3>{hero.panel.title}</h3>
-        <p>{hero.panel.description}</p>
-        <ul class="pill-list">
-          {hero.panel.pills.map((pill) => (
-            <li>{pill}</li>
+    <div class="hero__layout">
+      <div class="hero__content">
+        <p class="eyebrow">{hero.eyebrow}</p>
+        <h1>{hero.heading}</h1>
+        <p class="lede">{hero.lede}</p>
+        <div class="hero__tags" aria-label="Focus areas">
+          {hero.metrics.map((metric) => (
+            <span class="pill pill--ghost">{metric.value}</span>
           ))}
-        </ul>
+        </div>
+        <div class="actions">
+          {hero.actions.map((action) => (
+            <a
+              class={`button ${action.variant}`}
+              href={action.href}
+              rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
+            >
+              {action.label}
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="hero__panel">
+        <div class="panel panel--glass">
+          <p class="muted">{hero.panel.title}</p>
+          <h3>{hero.panel.description}</h3>
+          <ul class="pill-list pill-list--wrap">
+            {hero.panel.pills.map((pill) => (
+              <li>{pill}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="hero__meta" aria-label="Proof points">
+          {hero.metrics.map((metric) => (
+            <article class="stat-card">
+              <p class="muted">{metric.label}</p>
+              <p class="metric">{metric.value}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -51,14 +63,16 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
       <h2>{about.heading}</h2>
       <p class="muted">{about.body}</p>
     </div>
-    <div class="grid">
+    <div class="bento">
       {about.features.map((feature) => (
-        <article class="card">
+        <article class="tile">
           <div class="icon" aria-hidden="true">
             {feature.icon ? <Icon name={feature.icon} /> : null}
           </div>
-          <h3>{feature.title}</h3>
-          <p>{feature.description}</p>
+          <div class="tile__body">
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </div>
         </article>
       ))}
     </div>
@@ -76,6 +90,7 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
           class={`card${feature.emphasis ? ' card--emphasis' : ''}`}
           aria-label={feature.emphasis ? 'Navigation feature highlight' : undefined}
         >
+          <div class="card__glow" aria-hidden="true" />
           <h3>{feature.title}</h3>
           <p>{feature.description}</p>
           {feature.pills ? (
@@ -90,24 +105,24 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
     </div>
   </section>
 
-  <section id="insights" class="section">
+  <section id="insights" class="section highlight">
     <div class="section__header">
       <p class="eyebrow">{highlight.eyebrow}</p>
       <h2>{highlight.heading}</h2>
       <p class="muted">{highlight.body}</p>
     </div>
-    <div class="highlight">
-      <div>
+    <div class="highlight__content">
+      <div class="callout">
         <p class="muted">Field note</p>
         <h3>Design for consent, not just conversion.</h3>
         <p>
-          Pair clear primary actions with transparent context—why you are asking, what happens next, and how to opt out. Keep navigation
- labels honest and scannable.
+          Pair clear primary actions with transparent context—why you are asking, what happens next, and how to opt out.
+          Keep navigation labels honest and scannable.
         </p>
       </div>
       <div class="highlight__meta">
         <p class="muted">Built for teams</p>
-        <ul class="pill-list">
+        <ul class="pill-list pill-list--wrap">
           {highlight.pills.map((pill) => (
             <li>{pill}</li>
           ))}
