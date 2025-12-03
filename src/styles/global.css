@@ -1,17 +1,19 @@
 :root {
   color-scheme: light dark;
-  --bg: #070910;
-  --surface: rgba(255, 255, 255, 0.04);
+  --bg: #070a10;
+  --surface: rgba(255, 255, 255, 0.05);
   --surface-strong: rgba(255, 255, 255, 0.08);
-  --card: rgba(255, 255, 255, 0.06);
-  --text: #e8ecf1;
-  --muted: #b3bfd1;
-  --accent: #7dd3fc;
-  --primary: #6366f1;
-  --primary-strong: #4f46e5;
-  --gradient: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(45, 212, 191, 0.12));
-  --radius: 16px;
-  --shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+  --card: rgba(255, 255, 255, 0.07);
+  --text: #eef1f6;
+  --muted: #c2c9d8;
+  --accent: #d8cbb3;
+  --primary: #aab4ff;
+  --primary-strong: #7d8bf6;
+  --gradient: linear-gradient(135deg, rgba(170, 180, 255, 0.28), rgba(216, 203, 179, 0.2));
+  --radius: 18px;
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  --sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --serif: 'Newsreader Variable', 'Newsreader', 'Georgia', serif;
 }
 
 * {
@@ -20,14 +22,28 @@
 
 body {
   margin: 0;
-  font-family: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
-  background: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.2), transparent 35%),
-    radial-gradient(circle at 80% 0%, rgba(45, 212, 191, 0.25), transparent 25%),
-    var(--bg);
+  font-family: var(--sans);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(216, 203, 179, 0.1), transparent 40%),
+    radial-gradient(circle at 78% 4%, rgba(170, 180, 255, 0.12), transparent 28%),
+    linear-gradient(180deg, #0c0f18 0%, #070a10 60%, #04060c 100%);
   color: var(--text);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  letter-spacing: -0.01em;
+  color: #f7f8fb;
+}
+
+p {
+  color: var(--text);
 }
 
 img,
@@ -72,8 +88,9 @@ a:focus-visible {
 }
 
 .nav__brand {
+  font-family: var(--serif);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -127,8 +144,8 @@ a:focus-visible {
   display: block;
   padding: 0.75rem 0.85rem;
   border-radius: 12px;
-  background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(216, 203, 179, 0.12);
 }
 
 .nav__actions {
@@ -143,22 +160,23 @@ a:focus-visible {
   justify-content: center;
   gap: 0.35rem;
   padding: 0.9rem 1.2rem;
-  border-radius: 14px;
+  border-radius: 999px;
   border: 1px solid transparent;
   font-weight: 600;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
 }
 
 .button.primary {
-  background: linear-gradient(120deg, var(--primary), var(--primary-strong));
-  color: white;
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
+  background: linear-gradient(140deg, var(--primary), var(--primary-strong));
+  color: #05060a;
+  box-shadow: 0 12px 32px rgba(122, 136, 255, 0.35);
+  border-color: rgba(170, 180, 255, 0.4);
 }
 
 .button.ghost {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--text);
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(216, 203, 179, 0.18);
 }
 
 .button:hover,
@@ -175,15 +193,15 @@ a:focus-visible {
 }
 
 .hero__content h1 {
-  font-size: clamp(2.2rem, 3vw + 1rem, 3.4rem);
+  font-size: clamp(2.4rem, 3vw + 1rem, 3.6rem);
   margin: 0.5rem 0 1rem;
-  line-height: 1.05;
+  line-height: 1.04;
 }
 
 .hero__content .lede {
   color: var(--muted);
-  font-size: 1.05rem;
-  max-width: 60ch;
+  font-size: 1.08rem;
+  max-width: 62ch;
 }
 
 .actions {
@@ -206,25 +224,26 @@ a:focus-visible {
 }
 
 .hero__panel .panel {
-  background: var(--surface);
-  padding: 1.5rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  padding: 1.75rem;
   border-radius: var(--radius);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(216, 203, 179, 0.14);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
 .section {
   margin: 4rem 0;
-  padding: 2rem;
-  background: var(--surface);
+  padding: 2.25rem;
+  background: rgba(255, 255, 255, 0.04);
   border-radius: var(--radius);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(216, 203, 179, 0.12);
   box-shadow: var(--shadow);
 }
 
 .section--alt {
   background: var(--surface-strong);
+  border-color: rgba(170, 180, 255, 0.18);
 }
 
 .section__header {
@@ -253,7 +272,7 @@ a:focus-visible {
   background: var(--card);
   border-radius: var(--radius);
   padding: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(216, 203, 179, 0.14);
   display: grid;
   gap: 0.5rem;
   position: relative;
@@ -264,12 +283,13 @@ a:focus-visible {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.07), transparent 45%);
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.08), transparent 45%);
   pointer-events: none;
 }
 
 .card--emphasis {
-  background: linear-gradient(160deg, rgba(99, 102, 241, 0.18), rgba(7, 9, 16, 0.7));
+  background: linear-gradient(150deg, rgba(170, 180, 255, 0.22), rgba(7, 9, 16, 0.7));
+  border-color: rgba(170, 180, 255, 0.25);
 }
 
 .icon {
@@ -277,7 +297,7 @@ a:focus-visible {
   height: 44px;
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.07);
   border-radius: 50%;
   font-size: 1.1rem;
 }
@@ -299,9 +319,9 @@ a:focus-visible {
 
 .pill-list li {
   padding: 0.4rem 0.75rem;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(216, 203, 179, 0.14);
   font-size: 0.95rem;
 }
 
@@ -310,10 +330,10 @@ a:focus-visible {
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   align-items: center;
-  background: linear-gradient(120deg, rgba(99, 102, 241, 0.25), rgba(45, 212, 191, 0.18));
-  padding: 1.5rem;
+  background: linear-gradient(120deg, rgba(216, 203, 179, 0.1), rgba(170, 180, 255, 0.18));
+  padding: 1.75rem;
   border-radius: var(--radius);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(216, 203, 179, 0.16);
 }
 
 .highlight__meta {
@@ -324,7 +344,7 @@ a:focus-visible {
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--accent);
   margin: 0;
 }
@@ -348,9 +368,9 @@ a:focus-visible {
 .cta {
   margin: 4rem 0 5rem;
   background: var(--gradient);
-  padding: 2rem;
+  padding: 2.25rem;
   border-radius: var(--radius);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(216, 203, 179, 0.18);
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
