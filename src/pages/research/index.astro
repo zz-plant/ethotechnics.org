@@ -4,17 +4,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
+import { getGlossaryLabel } from '../../content/glossary';
 import { libraryContent } from '../../content/library';
 import { researchContent } from '../../content/research';
 
 const { pageTitle, pageDescription, permalink, agenda, focusAreas, publications } = researchContent;
 const glossaryBase = libraryContent.permalink;
 const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
-const formatTerm = (slug: string) =>
-  slug
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -50,7 +46,7 @@ const formatTerm = (slug: string) =>
           tags={item.goals}
           glossaryLinks={item.glossaryRefs.map((slug) => ({
             href: glossaryHref(slug),
-            label: formatTerm(slug),
+            label: getGlossaryLabel(slug),
           }))}
         />
       ))}
@@ -72,7 +68,7 @@ const formatTerm = (slug: string) =>
           tags={area.questions}
           glossaryLinks={area.glossaryRefs.map((slug) => ({
             href: glossaryHref(slug),
-            label: formatTerm(slug),
+            label: getGlossaryLabel(slug),
           }))}
         />
       ))}
@@ -96,7 +92,7 @@ const formatTerm = (slug: string) =>
           tags={publication.tags}
           glossaryLinks={publication.glossaryRefs.map((slug) => ({
             href: glossaryHref(slug),
-            label: formatTerm(slug),
+            label: getGlossaryLabel(slug),
           }))}
         />
       ))}

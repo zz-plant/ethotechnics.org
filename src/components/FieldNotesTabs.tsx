@@ -2,11 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import type { FieldNoteEntry, FieldNotesContent } from '../content/fieldNotes';
 
-const formatTerm = (slug: string) =>
-  slug
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
+import { getGlossaryLabel } from '../content/glossary';
 
 const glossaryHref = (slug: string, base: string) => `${base}#${slug}`;
 
@@ -119,7 +115,7 @@ export default function FieldNotesTabs({ sections, entries, glossaryBase }: Fiel
 
                 return (
                   <span key={slug}>
-                    <a href={glossaryHref(slug, glossaryBase)}>{formatTerm(slug)}</a>
+                    <a href={glossaryHref(slug, glossaryBase)}>{getGlossaryLabel(slug)}</a>
                     {separator}
                   </span>
                 );
