@@ -12,8 +12,8 @@
   --gold: #f3d6a2;
   --radius: 20px;
   --shadow: 0 18px 70px rgba(0, 0, 0, 0.55);
-  --sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
-  --serif: 'Newsreader Variable', 'Newsreader', 'Georgia', serif;
+  --sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  --serif: 'Source Serif 4 Variable', 'Source Serif 4', 'Georgia', serif;
 }
 
 * {
@@ -23,6 +23,9 @@
 body {
   margin: 0;
   font-family: var(--sans);
+  font-optical-sizing: auto;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
   background:
     radial-gradient(circle at 20% 20%, rgba(143, 225, 255, 0.08), transparent 32%),
     radial-gradient(circle at 80% 10%, rgba(215, 197, 255, 0.08), transparent 28%),
@@ -31,7 +34,7 @@ body {
   color: var(--text);
   min-height: 100vh;
   line-height: 1.7;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
   -webkit-font-smoothing: antialiased;
   position: relative;
   overflow-x: hidden;
@@ -56,7 +59,9 @@ h1,
 h2,
 h3 {
   font-family: var(--serif);
-  letter-spacing: -0.01em;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
   color: #f9fbff;
 }
 
