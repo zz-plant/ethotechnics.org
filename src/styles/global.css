@@ -260,6 +260,39 @@ a:focus-visible {
   overflow: hidden;
 }
 
+.resource__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.resource__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.resource__link:hover,
+.resource__link:focus-visible {
+  color: white;
+}
+
 .card::after {
   content: '';
   position: absolute;

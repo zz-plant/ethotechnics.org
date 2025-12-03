@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
 import icon from 'astro-icon';
+import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://example.com',
-  integrations: [react(), icon(), sitemap()],
+  integrations: [react(), mdx(), icon(), sitemap()],
 });

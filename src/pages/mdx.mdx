@@ -1,0 +1,52 @@
+---
+layout: ../layouts/BaseLayout.astro
+title: MDX + TypeScript workflow
+description: Blend long-form content with typed, reusable components.
+---
+
+import ResourceList from '../components/ResourceList';
+
+# Publish confidently with MDX
+
+MDX lets you mix rich markdown with interactive UI. Because this project ships with
+TypeScript-first defaults, you can embed typed components without giving up on
+content authoring ergonomics.
+
+> Keep prose readable: limit line lengths, front-load context, and group related
+> ideas with headings so skimming stays effortless.
+
+<ResourceList
+  eyebrow="Content + Components"
+  heading="Reusable building blocks"
+  intro="Drop in any typed component to keep editorial pages consistent with the rest of the site."
+  resources={[
+    {
+      title: 'Astro MDX guide',
+      description: 'Learn how MDX files compile in Astro and when to reach for islands.',
+      href: 'https://docs.astro.build/en/guides/integrations-guide/mdx/',
+      badge: 'Docs',
+    },
+    {
+      title: 'TypeScript in Astro',
+      description: 'Understand how strict typing shapes props and authoring across layouts.',
+      href: 'https://docs.astro.build/en/guides/typescript/',
+      badge: 'Type-safe',
+    },
+    {
+      title: 'Component ergonomics',
+      description: 'Share UI patterns between marketing pages and product surfaces with minimal boilerplate.',
+      href: 'https://docs.astro.build/en/core-concepts/astro-components/',
+    },
+    {
+      title: 'Content authoring tips',
+      description: 'Create outlines, keep headings scannable, and pair sections with actionable next steps.',
+      href: 'https://content-guide.astro.build/',
+    },
+  ]}
+/>
+
+## How to extend
+
+- **Add MDX routes:** drop new `.mdx` files in `src/pages` and set `layout` to reuse the shared chrome.
+- **Keep props typed:** share interfaces in component files so MDX consumers get inline hints.
+- **Pair CTAs with anchors:** link back to key sections like Features or Insights to reduce dead ends.
