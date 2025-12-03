@@ -29,6 +29,8 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 2. The Cloudflare adapter is configured to use Cloudflare's image service and to exclude static assets (`/_astro/*`, `/assets/*`) from the server function so they can be served directly via the assets binding.
 3. Build the Worker bundle: `npm run build`. The generated Worker entry is emitted to `dist/_worker.js`.
 4. Deploy with Wrangler using the repo defaults: `npm run deploy`.
+   - The build copies `.assetsignore` from `public/` to `dist/` so Wrangler skips `_worker.js` and
+     `_routes.json` when uploading static assets.
 5. Configure DNS for `ethotechnics.org` to point to the Cloudflare Worker route you set in Wrangler.
 
 ## Tech stack
