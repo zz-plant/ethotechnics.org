@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = 'Diagnostics — Ethotechnics';
+const pageDescription = 'Tools for auditing systems, measuring risk, and tracking progress on responsible technology goals.';
+const permalink = '/diagnostics';
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Diagnostics</p>
+      <h1>Diagnostics</h1>
+      <p class="muted">{pageDescription}</p>
+      <p class="muted">
+        Permanent link: <a href={permalink}>{permalink}</a>
+      </p>
+    </div>
+    <div class="panel panel--glass">
+      <p class="muted">What to expect</p>
+      <h2>Assessment kits and scorecards</h2>
+      <p>
+        Future releases will include self-assessments, readiness checks, and observability aids that make accountability
+        measurable. Share the permalink to guide stakeholders directly to this toolkit.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

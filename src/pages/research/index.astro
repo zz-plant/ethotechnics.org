@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = 'Research — Ethotechnics';
+const pageDescription = 'Inquiries, methods, and study findings that surface the human impacts of technology.';
+const permalink = '/research';
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Research</p>
+      <h1>Research</h1>
+      <p class="muted">{pageDescription}</p>
+      <p class="muted">
+        Permanent link: <a href={permalink}>{permalink}</a>
+      </p>
+    </div>
+    <div class="panel panel--glass">
+      <p class="muted">What to expect</p>
+      <h2>Methods grounded in lived experience</h2>
+      <p>
+        Case studies, protocols, and insight repositories will land here to help teams study impact with rigor and empathy.
+        Save the permalink for future releases and ongoing updates.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
