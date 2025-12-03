@@ -1,0 +1,196 @@
+export type PrimerSection = {
+  title: string;
+  summary: string;
+  takeaways: string[];
+};
+
+export type GlossaryTerm = {
+  slug: string;
+  term: string;
+  definition: string;
+  appliesTo: string[];
+};
+
+export type Pattern = {
+  slug: string;
+  title: string;
+  summary: string;
+  filters: Array<'governance' | 'safeguard' | 'ui'>;
+  cues: string[];
+  diagnostics: string[];
+};
+
+export type SyllabusModule = {
+  title: string;
+  duration: string;
+  topics: string[];
+  outcome: string;
+};
+
+export type LibraryContent = {
+  pageTitle: string;
+  pageDescription: string;
+  permalink: string;
+  primer: PrimerSection[];
+  glossary: { terms: GlossaryTerm[] };
+  patterns: { filters: string[]; entries: Pattern[] };
+  syllabus: { overview: string; modules: SyllabusModule[] };
+};
+
+export const libraryContent: LibraryContent = {
+  pageTitle: 'Library — Ethotechnics',
+  pageDescription: 'Reference shelf for primers, glossary entries, and reusable patterns.',
+  permalink: '/library',
+  primer: [
+    {
+      title: 'Primer',
+      summary: 'Short explainers teams can skim before working with the rest of the library.',
+      takeaways: [
+        'Why burden, consent, and stewardship matter for socio-technical systems.',
+        'How to align governance artifacts with the lived experience of the people using your product.',
+        'What “pattern language” means for UI safeguards, facilitation prompts, and escalation design.',
+      ],
+    },
+    {
+      title: 'Usage guidance',
+      summary: 'How to adapt the materials to your org without slowing delivery.',
+      takeaways: [
+        'Each section ships with permalinks; link directly in design docs or runbooks to keep teams aligned.',
+        'Filters call out whether a pattern is governance-first, a safeguard, or UI guidance for faster routing.',
+        'Glossary terms stay stable so research, field notes, and diagnostics can cross-link without drift.',
+      ],
+    },
+  ],
+  glossary: {
+    terms: [
+      {
+        slug: 'consent-journey',
+        term: 'Consent journey',
+        definition:
+          'The end-to-end set of moments where a person learns, agrees, reconsiders, or exits an experience.',
+        appliesTo: ['Research protocols', 'UI flows', 'Governance checkpoints'],
+      },
+      {
+        slug: 'burden-index',
+        term: 'Burden index',
+        definition:
+          'A quick score combining effort, confusion, and risk signals to spot when a service asks too much of a person.',
+        appliesTo: ['Diagnostics', 'Design reviews', 'Accessibility audits'],
+      },
+      {
+        slug: 'safety-valve',
+        term: 'Safety valve',
+        definition:
+          'An intentionally designed escape hatch that lets people pause, undo, or appeal a decision without penalty.',
+        appliesTo: ['Interfaces', 'Escalation runbooks', 'Service policies'],
+      },
+      {
+        slug: 'stewardship-window',
+        term: 'Stewardship window',
+        definition:
+          'The time horizon a team commits to monitoring, maintaining, and communicating about a feature or model.',
+        appliesTo: ['Post-launch reviews', 'Maintenance simulators', 'Service-level objectives'],
+      },
+      {
+        slug: 'signal-credibility',
+        term: 'Signal credibility',
+        definition:
+          'A read on whether an insight comes from representative voices, and how rigorously it was validated.',
+        appliesTo: ['Field notes', 'Research findings', 'Risk assessments'],
+      },
+    ],
+  },
+  patterns: {
+    filters: ['governance', 'safeguard', 'ui'],
+    entries: [
+      {
+        slug: 'decision-log',
+        title: 'Decision log with dissent',
+        summary:
+          'Capture high-stakes calls, dissenting views, and follow-ups so governance stays legible to teams and impacted people.',
+        filters: ['governance'],
+        cues: [
+          'Record why options were ruled out and who was consulted.',
+          'Attach plain-language summaries for external readers.',
+          'Set a review date tied to the stewardship window.',
+        ],
+        diagnostics: ['burden-modeler'],
+      },
+      {
+        slug: 'progressive-consent',
+        title: 'Progressive consent prompts',
+        summary:
+          'Stage requests for data or automation over time, with reminders and exits that honor the consent journey.',
+        filters: ['safeguard', 'ui'],
+        cues: [
+          'Pair each ask with why it is needed and how to revoke it.',
+          'Show impacts of opting out before a person commits.',
+          'Include a safety valve that defaults to privacy-preserving behavior.',
+        ],
+        diagnostics: ['llm-capacity-benchmark'],
+      },
+      {
+        slug: 'maintenance-windowing',
+        title: 'Maintenance windowing',
+        summary:
+          'Schedule improvements, monitoring, and resourcing using a visible stewardship window.',
+        filters: ['governance', 'safeguard'],
+        cues: [
+          'Set owners and success criteria for each window.',
+          'Map communication cadences to risk levels and audiences.',
+          'Align dependencies so a degraded tool has a safe fallback.',
+        ],
+        diagnostics: ['maintenance-simulator'],
+      },
+      {
+        slug: 'appeal-paths',
+        title: 'Appeal paths inside the UI',
+        summary:
+          'Give people a built-in channel to dispute outputs, get human review, or learn how a decision was made.',
+        filters: ['ui', 'safeguard'],
+        cues: [
+          'Explain who reviews appeals and the expected response time.',
+          'Pre-fill context to reduce effort during stressful moments.',
+          'Track appeal outcomes to improve signal credibility.',
+        ],
+        diagnostics: ['burden-modeler', 'maintenance-simulator'],
+      },
+    ],
+  },
+  syllabus: {
+    overview:
+      'A guided track for teams adopting the library. Each module links to glossary anchors and patterns you can cite in docs.',
+    modules: [
+      {
+        title: 'Orientation',
+        duration: '60 minutes',
+        topics: [
+          'Library tour and how to use permalinks in specs',
+          'Primer on burden, consent, and stewardship',
+          'Navigation of governance, safeguard, and UI filters',
+        ],
+        outcome: 'Teams can route questions to the right section and cite glossary terms consistently.',
+      },
+      {
+        title: 'Field-ready research',
+        duration: '90 minutes',
+        topics: [
+          'Integrating glossary terms into research and field notes',
+          'Tagging findings by focus area and diagnostic relevance',
+          'Building appeal paths and consent prompts into prototypes',
+        ],
+        outcome: 'Practitioners share findings with linked terms and pattern cues that ship with the work.',
+      },
+      {
+        title: 'Governance and maintenance',
+        duration: '75 minutes',
+        topics: [
+          'Decision logs, stewardship windows, and escalation readiness',
+          'Pairing diagnostics with pattern rollout',
+          'Designing safety valves for high-burden scenarios',
+        ],
+        outcome: 'Leadership aligns on accountable maintenance plans backed by diagnostic evidence.',
+      },
+    ],
+  },
+};

@@ -1,9 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { libraryContent } from '../../content/library';
+import { researchContent } from '../../content/research';
 
-const pageTitle = 'Research — Ethotechnics';
-const pageDescription = 'Inquiries, methods, and study findings that surface the human impacts of technology.';
-const permalink = '/research';
+const { pageTitle, pageDescription, permalink, agenda, focusAreas, publications } = researchContent;
+const glossaryBase = libraryContent.permalink;
+const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
+const formatTerm = (slug: string) =>
+  slug
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="section">
@@ -14,14 +21,131 @@ const permalink = '/research';
       <p class="muted">
         Permanent link: <a href={permalink}>{permalink}</a>
       </p>
+      <ul class="pill-list">
+        <li><a href="#agenda">Agenda</a></li>
+        <li><a href="#focus-areas">Focus areas</a></li>
+        <li><a href="#publications">Publications</a></li>
+      </ul>
     </div>
     <div class="panel panel--glass">
-      <p class="muted">What to expect</p>
-      <h2>Methods grounded in lived experience</h2>
+      <p class="muted">How to read these entries</p>
+      <h2>Cross-linked with the Library glossary.</h2>
       <p>
-        Case studies, protocols, and insight repositories will land here to help teams study impact with rigor and empathy.
-        Save the permalink for future releases and ongoing updates.
+        Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions.
+        Use them when citing Field Notes or diagnostics results to keep language consistent.
       </p>
+    </div>
+  </section>
+
+  <section id="agenda" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Agenda</p>
+      <h2>In-flight lines of inquiry.</h2>
+      <p class="muted">
+        Each line links to glossary terms you can reference in protocols and design docs.
+      </p>
+    </div>
+    <div class="grid">
+      {agenda.map((item) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <p class="muted">{item.timeframe}</p>
+          <h3>{item.title}</h3>
+          <ul class="pill-list">
+            {item.goals.map((goal) => (
+              <li>{goal}</li>
+            ))}
+          </ul>
+          <p class="muted">
+            Glossary:{' '}
+            {item.glossaryRefs.map((slug, index) => {
+              const separator = index < item.glossaryRefs.length - 1 ? ', ' : '';
+
+              return (
+                <>
+                  <a href={glossaryHref(slug)}>{formatTerm(slug)}</a>
+                  {separator}
+                </>
+              );
+            })}
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="focus-areas" class="section">
+    <div class="section__header">
+      <p class="eyebrow">Focus areas</p>
+      <h2>Where we spend our attention.</h2>
+      <p class="muted">
+        Use these anchors to align research, Field Notes, and diagnostics around the same questions.
+      </p>
+    </div>
+    <div class="grid">
+      {focusAreas.map((area) => (
+        <article class="card" id={area.slug}>
+          <div class="card__glow" aria-hidden="true" />
+          <h3>{area.title}</h3>
+          <p class="muted">{area.description}</p>
+          <ul class="pill-list">
+            {area.questions.map((question) => (
+              <li>{question}</li>
+            ))}
+          </ul>
+          <p class="muted">
+            Glossary:{' '}
+            {area.glossaryRefs.map((slug, index) => {
+              const separator = index < area.glossaryRefs.length - 1 ? ', ' : '';
+
+              return (
+                <>
+                  <a href={glossaryHref(slug)}>{formatTerm(slug)}</a>
+                  {separator}
+                </>
+              );
+            })}
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="publications" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Publications</p>
+      <h2>Protocols, decks, and reports.</h2>
+      <p class="muted">
+        Each entry is tagged with glossary links to help readers dig deeper in the Library.
+      </p>
+    </div>
+    <div class="grid">
+      {publications.map((publication) => (
+        <article class="card">
+          <div class="card__glow" aria-hidden="true" />
+          <p class="muted">{publication.type}</p>
+          <h3>{publication.title}</h3>
+          <p>{publication.summary}</p>
+          <ul class="pill-list">
+            {publication.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+          <p class="muted">
+            Glossary:{' '}
+            {publication.glossaryRefs.map((slug, index) => {
+              const separator = index < publication.glossaryRefs.length - 1 ? ', ' : '';
+
+              return (
+                <>
+                  <a href={glossaryHref(slug)}>{formatTerm(slug)}</a>
+                  {separator}
+                </>
+              );
+            })}
+          </p>
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>
