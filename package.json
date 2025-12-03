@@ -13,7 +13,9 @@
     "typecheck": "tsc --noEmit",
     "check": "npm run lint --if-present && npm test --if-present && npm run typecheck --if-present && npm run astro:check",
     "test": "vitest",
-    "test:ci": "vitest --run --coverage"
+    "test:ci": "vitest --run --coverage",
+    "e2e": "npm run build && npx playwright test",
+    "e2e:ci": "npm run build && npx playwright test --reporter=line"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
@@ -33,7 +35,9 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
+    "@playwright/test": "^1.57.0",
     "@types/jsdom": "^27.0.0",
+    "@types/node": "^24.10.1",
     "@vitest/coverage-v8": "^4.0.15",
     "jsdom": "^27.2.0",
     "typescript": "^5.9.3",
