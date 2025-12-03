@@ -1,6 +1,8 @@
 ---
 import Navigation from '../components/Navigation';
 import '../styles/global.css';
+import { SEO } from 'astro-seo';
+import '@fontsource-variable/inter';
 
 interface Props {
   title?: string;
@@ -8,17 +10,36 @@ interface Props {
 }
 
 const { title = 'Lumen — Astro starter', description = 'A contemporary Astro starter that keeps navigation interactive with an island-first design.' } = Astro.props as Props;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.href;
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const ogImage = new URL('/favicon.svg', siteBase).toString();
+const defaultTitle = 'Lumen — Modern Astro starter';
 ---
 <!doctype html>
 <html lang="en" id="top">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    {canonical && <link rel="canonical" href={canonical} />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEO
+      title={title ?? defaultTitle}
+      description={description}
+      canonical={canonical}
+      openGraph={{
+        basic: {
+          title: title ?? defaultTitle,
+          type: 'website',
+          image: ogImage,
+          url: canonical,
+        },
+      }}
+      twitter={{
+        card: 'summary',
+        image: ogImage,
+      }}
+      extend={{
+        link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      }}
+    />
   </head>
   <body>
     <Navigation client:load />
