@@ -68,19 +68,23 @@ const navContentId = 'site-navigation-content';
   </div>
 </nav>
 
-<script>
-  const nav = document.querySelector('[data-nav]') as HTMLElement | null;
-  const toggle = nav?.querySelector('.nav__toggle') as HTMLButtonElement | null;
-  const content = nav?.querySelector('.nav__content') as HTMLElement | null;
-  const actionLinks = nav?.querySelectorAll(
-    '.nav__links a, .nav__utility a, .nav__actions a',
-  ) as NodeListOf<HTMLAnchorElement> | undefined;
-  const breakpoint = 1024;
+<script is:inline>
+  const initNavigation = () => {
+    const nav = document.querySelector('[data-nav]');
+    const toggle = nav?.querySelector('.nav__toggle');
+    const content = nav?.querySelector('.nav__content');
+    const actionLinks = nav?.querySelectorAll(
+      '.nav__links a, .nav__utility a, .nav__actions a',
+    );
 
-  if (nav && toggle && content && actionLinks) {
+    if (!nav || !toggle || !content || !actionLinks || actionLinks.length === 0) {
+      return;
+    }
+
+    const breakpoint = 1024;
     let isOpen = false;
 
-    const updateState = (open: boolean) => {
+    const updateState = (open) => {
       isOpen = open;
       toggle.setAttribute('aria-expanded', String(isOpen));
       toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
@@ -94,7 +98,7 @@ const navContentId = 'site-navigation-content';
     const handleToggle = () => updateState(!isOpen);
     const handleLinkClick = () => updateState(false);
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         updateState(false);
         toggle.focus();
@@ -113,5 +117,7 @@ const navContentId = 'site-navigation-content';
     actionLinks.forEach((link) => link.addEventListener('click', handleLinkClick));
 
     updateState(false);
-  }
+  };
+
+  initNavigation();
 </script>
