@@ -1,0 +1,225 @@
+---
+import { getGlossaryLabel } from '../content/glossary';
+import type { FieldNoteEntry, FieldNotesContent } from '../content/fieldNotes';
+
+export interface Props {
+  sections: FieldNotesContent['sections'];
+  entries: FieldNoteEntry[];
+  glossaryBase: string;
+}
+
+const { sections, entries, glossaryBase } = Astro.props;
+const initialFormat = sections[0]?.format ?? '';
+
+const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
+---
+{sections.length ? (
+  <section class="section section--alt" data-field-notes data-default-format={initialFormat}>
+    <div class="section__header">
+      {sections.map((section: FieldNotesContent['sections'][number], index: number) => {
+        const isActive = section.format === initialFormat || (index === 0 && !initialFormat);
+
+        return (
+          <div data-field-notes-heading data-format={section.format} hidden={!isActive}>
+            <p class="eyebrow">{section.title}</p>
+            <h2>{section.description}</h2>
+          </div>
+        );
+      })}
+      <ul class="pill-list pill-list--wrap" role="tablist" aria-label="Field note formats" data-field-notes-tablist>
+        {sections.map((section: FieldNotesContent['sections'][number], index: number) => {
+          const isActive = section.format === initialFormat || (index === 0 && !initialFormat);
+
+          return (
+            <li class={isActive ? 'pill-list__item--active' : ''}>
+              <a
+                id={`${section.format}-tab`}
+                href={`#${section.format}`}
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`${section.format}-panel`}
+                tabindex={isActive ? 0 : -1}
+                data-format={section.format}
+                data-field-notes-tab
+              >
+                {section.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+    {sections.map((section: FieldNotesContent['sections'][number], index: number) => {
+      const sectionEntries = entries.filter(
+        (entry: FieldNoteEntry) => entry.format === section.format,
+      );
+      const isActive = section.format === initialFormat || (index === 0 && !initialFormat);
+
+      return (
+        <div id={section.format} data-field-notes-section data-format={section.format}>
+          <div
+            class="grid"
+            id={`${section.format}-panel`}
+            role="tabpanel"
+            aria-labelledby={`${section.format}-tab`}
+            data-field-notes-panel
+            data-format={section.format}
+            hidden={!isActive}
+          >
+            {sectionEntries.map((entry: FieldNoteEntry) => (
+              <article class="card" id={entry.slug} data-field-notes-entry data-format={entry.format}>
+                <div class="card__glow" aria-hidden="true" />
+                <h3>{entry.title}</h3>
+                <p class="muted">{entry.summary}</p>
+                <p class="muted">
+                  Glossary{' '}
+                  {entry.relatedTerms.map((slug: string, relatedIndex: number) => {
+                    const separator = relatedIndex < entry.relatedTerms.length - 1 ? ', ' : '';
+
+                    return (
+                      <span>
+                        <a href={glossaryHref(slug)}>{getGlossaryLabel(slug)}</a>
+                        {separator}
+                      </span>
+                    );
+                  })}
+                </p>
+                {entry.links ? (
+                  <p class="muted">
+                    Related links{' '}
+                    {entry.links.map((link: string, linkIndex: number) => {
+                      const separator = linkIndex < (entry.links?.length ?? 0) - 1 ? ', ' : '';
+
+                      return (
+                        <span>
+                          <a href={link}>{link}</a>
+                          {separator}
+                        </span>
+                      );
+                    })}
+                  </p>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </div>
+      );
+    })}
+  </section>
+) : null}
+
+<Fragment
+  set:html={`<script client:visible is:inline>
+    const container = document.querySelector('[data-field-notes]');
+
+    if (!container) {
+      return;
+    }
+
+    const tabs = Array.from(container.querySelectorAll('[data-field-notes-tab]'));
+    const panels = Array.from(container.querySelectorAll('[data-field-notes-panel]'));
+    const entries = Array.from(container.querySelectorAll('[data-field-notes-entry]'));
+    const headings = Array.from(container.querySelectorAll('[data-field-notes-heading]'));
+    const defaultFormat =
+      container.getAttribute('data-default-format') ?? tabs[0]?.dataset.format ?? '';
+
+    const escapeHash = (value) => {
+      if (typeof CSS === 'undefined' || !CSS.escape) {
+        return value;
+      }
+
+      return CSS.escape(value);
+    };
+
+    const scrollToHash = (hash) => {
+      if (!hash) {
+        return;
+      }
+
+      const target = container.querySelector('#' + escapeHash(hash));
+
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    const setActiveFormat = (format) => {
+      const resolvedFormat = tabs.some((tab) => tab.dataset.format === format)
+        ? format
+        : defaultFormat;
+
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.format === resolvedFormat;
+
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        tab.setAttribute('tabindex', isActive ? '0' : '-1');
+        tab.parentElement?.classList.toggle('pill-list__item--active', isActive);
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.dataset.format === resolvedFormat;
+
+        panel.hidden = !isActive;
+      });
+
+      headings.forEach((heading) => {
+        const isActive = heading.dataset.format === resolvedFormat;
+
+        heading.hidden = !isActive;
+      });
+    };
+
+    const syncFromHash = () => {
+      const hash = window.location.hash.replace('#', '');
+
+      if (!hash) {
+        setActiveFormat(defaultFormat);
+        return;
+      }
+
+      const matchingTab = tabs.find((tab) => tab.dataset.format === hash);
+
+      if (matchingTab) {
+        setActiveFormat(hash);
+        scrollToHash(hash);
+        return;
+      }
+
+      const matchingEntry = entries.find((entry) => entry.id === hash);
+
+      if (matchingEntry) {
+        const entryFormat = matchingEntry.dataset.format ?? defaultFormat;
+
+        setActiveFormat(entryFormat);
+        scrollToHash(hash);
+      }
+    };
+
+    const maybeSyncFromHash = () => {
+      if (!('IntersectionObserver' in window)) {
+        syncFromHash();
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            syncFromHash();
+            observer.disconnect();
+          }
+        });
+      });
+
+      observer.observe(container);
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        setActiveFormat(tab.dataset.format ?? defaultFormat);
+      });
+    });
+
+    window.addEventListener('hashchange', syncFromHash);
+    maybeSyncFromHash();
+  </script>`}
+/>

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import FieldNotesTabs from '../../components/FieldNotesTabs';
+import FieldNotesTabs from '../../components/FieldNotesTabs.astro';
 import { fieldNotesContent } from '../../content/fieldNotes';
 import { libraryContent } from '../../content/library';
 
@@ -26,5 +26,5 @@ const glossaryBase = libraryContent.permalink;
       </p>
     </div>
   </section>
-  <FieldNotesTabs sections={sections} entries={entries} glossaryBase={glossaryBase} client:visible />
+  <FieldNotesTabs sections={sections} entries={entries} glossaryBase={glossaryBase} />
 </BaseLayout>
