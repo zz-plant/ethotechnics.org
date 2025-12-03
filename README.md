@@ -16,6 +16,8 @@ Use `npm run check` for a full pre-commit sweep. It will run linting, tests, Typ
 - **Prerequisites:** Node.js 20+ with npm (project uses `package-lock.json`), Git, and a shell with `npm` on PATH.
 - **Dev server:** `npm run dev`
   - Expected log snippet: `[@astrojs/compiler] ready` followed by `Local  http://localhost:4321/`.
+  - Server binds to `0.0.0.0` on port `4321` so forwarded connections from tools (e.g., browsers for screenshots)
+    work without extra flags.
 - **Production check:** `npm run build && npm run preview`
   - Build output should include `Built in` timing lines and emit `dist/_worker.js`; preview logs start with `[@astrojs/preview] Server running` and the same localhost URL.
 - If commands are slow or fail, confirm Node version with `node -v` and reinstall dependencies via `rm -rf node_modules && npm install`.

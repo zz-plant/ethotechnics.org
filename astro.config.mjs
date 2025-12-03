@@ -10,6 +10,10 @@ import robotsTxt from 'astro-robots-txt';
 export default defineConfig({
   site: 'https://ethotechnics.org',
   output: 'server',
+  server: {
+    host: true,
+    port: 4321,
+  },
   adapter: cloudflare({
     platform: 'workers',
     imageService: 'cloudflare',
