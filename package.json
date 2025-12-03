@@ -8,6 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "wrangler deploy ./dist/_worker.js",
     "astro:check": "astro check",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint --if-present && npm test --if-present && npm run typecheck --if-present && npm run astro:check"

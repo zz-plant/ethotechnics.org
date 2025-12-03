@@ -23,9 +23,11 @@ Use `npm run check` for a full pre-commit sweep. It will run linting, tests, Typ
 ## Deployment to Cloudflare Workers
 The site uses the official Cloudflare adapter for Astro to produce a Worker-compatible server build.
 
+`wrangler.toml` captures the Worker name, compatibility date, and entrypoint (`dist/_worker.js`). If session storage is needed, replace the placeholder `SESSION` KV namespace IDs before deploying.
+
 1. Ensure the adapter is installed (`@astrojs/cloudflare`) and configured in `astro.config.mjs` with `output: "server"`.
 2. Build the Worker bundle: `npm run build`. The generated Worker entry is emitted to `dist/_worker.js`.
-3. Deploy with Wrangler: `npx wrangler deploy ./dist/_worker.js --name ethotechnics --compatibility-date=$(date +%Y-%m-%d)`.
+3. Deploy with Wrangler using the repo defaults: `npm run deploy`.
 4. Configure DNS for `ethotechnics.org` to point to the Cloudflare Worker route you set in Wrangler.
 
 ## Tech stack
