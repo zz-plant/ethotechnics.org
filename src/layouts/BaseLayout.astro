@@ -1,4 +1,5 @@
 ---
+import { SEO } from 'astro-seo';
 import Navigation from '../components/Navigation';
 import '../styles/global.css';
 
@@ -9,16 +10,45 @@ interface Props {
 
 const { title = 'Lumen — Astro starter', description = 'A contemporary Astro starter that keeps navigation interactive with an island-first design.' } = Astro.props as Props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const absoluteImage = Astro.site ? new URL('/og-image.svg', Astro.site).toString() : '/og-image.svg';
+const seoTitle = title;
+const seoDescription = description;
 ---
 <!doctype html>
 <html lang="en" id="top">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    {canonical && <link rel="canonical" href={canonical} />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEO
+      title={seoTitle}
+      description={seoDescription}
+      canonical={canonical}
+      openGraph={{
+        basic: {
+          title: `${seoTitle} — Lumen`,
+          type: 'website',
+          image: absoluteImage,
+          url: canonical,
+        },
+        optional: {
+          siteName: 'Lumen',
+          description: seoDescription,
+        },
+        image: {
+          alt: 'Preview of the Lumen Astro starter.',
+        },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title: `${seoTitle} — Lumen`,
+        description: seoDescription,
+        image: absoluteImage,
+        imageAlt: 'Preview of the Lumen Astro starter.',
+      }}
+      extend={{
+        link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      }}
+    />
   </head>
   <body>
     <Navigation client:load />
