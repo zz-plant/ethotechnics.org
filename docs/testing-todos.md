@@ -1,16 +1,26 @@
-# Testing TODOs from the Astro guide
+# Testing overview
 
-- **Wire up Vitest with Astro config.** Add a `vitest.config.ts` that uses `getViteConfig()` from
-  `astro/config` so the test runner respects the project's Vite and Astro settings (site, trailing
-  slash behavior, aliases). Create an `npm test` script that runs `vitest` in watch and CI modes.
-- **Cover Astro components with the container API.** Add component specs using
-  `experimental_AstroContainer` to render and assert against key UI pieces (navigation island,
-  layouts, RSS feed metadata) without starting a server. Include slot and prop coverage to prevent
-  regressions in rendered HTML.
-- **Add end-to-end coverage with Playwright.** Scaffold Playwright via its CLI (TypeScript target,
-  `tests/e2e` folder) and point it at `npm run preview` so tests run against the built worker output.
-  Capture smoke flows for the homepage, RSS endpoint, and navigation links, and keep the generated
-  GitHub Actions workflow to run in CI.
-- **Document test expectations.** Update `README.md` once the suites exist with how to run unit,
-  component, and e2e tests locally (including any required browsers) so contributors can reproduce
-  CI behavior.
+Current suites cover unit/component behavior with Vitest and smoke end-to-end flows with
+Playwright.
+
+## Vitest unit and component tests
+- Vitest shares the project's Astro/Vite settings through
+  [`vitest.config.ts`](../vitest.config.ts). Run `npm test` during development for watch mode and
+  `npm run test:ci` for a full run with coverage.
+- Component specs live in [`src/components/__tests__/`](../src/components/__tests__/), relying on
+  [`src/test/astro-container.ts`](../src/test/astro-container.ts) to render Astro components without
+  starting a server. Extend coverage there by adding new `*.test.ts` files or assertions alongside
+  existing fixtures like `NavigationShell.astro`.
+
+## Astro container usage
+- Use `createAstroContainer` and `parseHtml` from
+  [`src/test/astro-container.ts`](../src/test/astro-container.ts) to render components and query the
+  resulting DOM. This keeps component tests fast while exercising slots, props, and rendered markup.
+
+## Playwright smoke coverage
+- End-to-end smoke tests live in [`tests/e2e/`](../tests/e2e/) and run against `npm run preview` via
+  `playwright.config.ts`. They currently cover the homepage hero, navigation interactions, and the
+  RSS feed.
+- Run `npm run e2e` locally to build and execute the suite with the HTML reporter, or
+  `npm run e2e:ci` to use the line reporter in CI. Respect `PLAYWRIGHT_BASE_URL` or
+  `CF_PAGES_URL` if you already have a preview running.
