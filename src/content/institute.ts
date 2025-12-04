@@ -30,7 +30,7 @@ export const instituteContent: InstituteContent = {
   permalink: '/institute',
   mission: [
     'Build a shared practice for ethical technology that travels across org charts and domains.',
-    'Provide a home for fellows and partners to publish accountable, human-centered playbooks.',
+    'Provide a home for practitioners and partners to publish accountable, human-centered playbooks.',
     'Keep materials lightweight, accessible, and linked back to the library for clarity.',
   ],
   governance: [
@@ -61,9 +61,9 @@ export const instituteContent: InstituteContent = {
       description: 'Reach the Studio when diagnostics flag risk or you need a facilitation partner.',
     },
     {
-      label: 'Fellowship interest',
-      href: 'mailto:fellows@ethotechnics.org',
-      description: 'Ask about upcoming cohorts or propose a research partnership.',
+      label: 'Program partnerships',
+      href: 'mailto:studio@ethotechnics.org',
+      description: 'Ask about upcoming programs or propose a research collaboration.',
     },
     {
       label: 'General questions',
