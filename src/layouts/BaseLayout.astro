@@ -16,9 +16,9 @@ const {
   description = 'Ethotechnics.org explores how to build technology that respects human dignity through design, research, and governance.',
 } = Astro.props as Props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.href;
-const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const ogImage = new URL('/favicon.svg', siteBase).toString();
-const defaultTitle = 'Ethotechnics — Ethical technology in practice';
+  const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+  const ogImage = new URL('/favicon.svg', siteBase).toString();
+  const defaultTitle = 'Ethotechnics — Ethical technology in practice';
 ---
 <!doctype html>
 <html lang="en" id="top">
@@ -47,9 +47,10 @@ const defaultTitle = 'Ethotechnics — Ethical technology in practice';
     />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <ClientRouter fallback="swap" />
     <Navigation />
-    <main class="page container">
+    <main id="main-content" class="page container" tabindex="-1">
       <slot />
     </main>
     <footer class="footer container" aria-label="Site footer">
@@ -102,5 +103,16 @@ const defaultTitle = 'Ethotechnics — Ethical technology in practice';
         </ul>
       </section>
     </footer>
+    <script>
+      const main = document.getElementById('main-content');
+
+      const focusMainAfterTransition = () => {
+        requestAnimationFrame(() => {
+          main?.focus();
+        });
+      };
+
+      document.addEventListener('astro:after-swap', focusMainAfterTransition);
+    </script>
   </body>
 </html>
