@@ -201,6 +201,16 @@ svg {
   pointer-events: auto;
 }
 
+noscript .nav__toggle {
+  display: none;
+}
+
+.nav__fallback {
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 0.25rem;
+}
+
 .nav__links {
   display: grid;
   gap: 0.5rem;
@@ -885,6 +895,12 @@ svg {
     background: transparent;
     border: none;
     padding: 0.6rem 0.9rem;
+  }
+
+  .nav__fallback {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding-top: 0.5rem;
   }
 }
 
