@@ -77,8 +77,13 @@ export const homeContent = {
     map:
       'Browse the open library when you need guidance you can self-serve; engage the Studio when you need facilitated diagnostics or bespoke support.',
     actions: [
-      { label: 'Get updates', href: '#cta', variant: 'primary', icon: 'lucide:mail' },
-      { label: 'Explore focus areas', href: '#features', variant: 'ghost', icon: 'lucide:map' },
+      { label: 'Browse the library', href: '/library', variant: 'primary', icon: 'lucide:library' },
+      {
+        label: 'Bring diagnostics into your org',
+        href: '/diagnostics',
+        variant: 'ghost',
+        icon: 'lucide:activity-square',
+      },
     ],
     metrics: [
       { label: 'Institute', value: 'Open library + diagnostics', icon: 'lucide:book-open-check' },
@@ -155,8 +160,13 @@ export const homeContent = {
     heading: 'Follow the work at Ethotechnics.',
     body: 'Get notified when new essays, field notes, and facilitation kits go live. No spam—just pragmatic guidance.',
     actions: [
-      { label: 'Back to top', href: '#top', variant: 'primary', icon: 'lucide:arrow-up' },
-      { label: 'Learn about the project', href: '#about', variant: 'ghost', icon: 'lucide:sparkles' },
+      { label: 'Browse the library', href: '/library', variant: 'primary', icon: 'lucide:library' },
+      {
+        label: 'Bring diagnostics into your org',
+        href: '/diagnostics',
+        variant: 'ghost',
+        icon: 'lucide:activity-square',
+      },
     ],
   },
 } satisfies HomeContent;
