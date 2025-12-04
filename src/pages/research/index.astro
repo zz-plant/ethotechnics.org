@@ -4,12 +4,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
-import { getGlossaryLabel } from '../../content/glossary';
-import { libraryContent } from '../../content/library';
+import { getGlossaryLabel, glossaryContent } from '../../content/glossary';
 import { researchContent } from '../../content/research';
 
 const { pageTitle, pageDescription, permalink, agenda, focusAreas, publications } = researchContent;
-const glossaryBase = libraryContent.permalink;
+const glossaryBase = glossaryContent.permalink;
 const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>

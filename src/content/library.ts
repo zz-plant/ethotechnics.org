@@ -1,7 +1,7 @@
 import type { GlossaryTerm } from './glossary';
 import type { PageWithPermalink } from './types';
 
-import { glossaryTerms } from './glossary';
+import { glossaryContent, glossaryTerms } from './glossary';
 
 export type PrimerSection = {
   title: string;
@@ -27,7 +27,7 @@ export type SyllabusModule = {
 
 export type LibraryContent = PageWithPermalink & {
   primer: PrimerSection[];
-  glossary: { terms: GlossaryTerm[] };
+  glossary: { terms: GlossaryTerm[]; permalink: string };
   patterns: { filters: string[]; entries: Pattern[] };
   syllabus: { overview: string; modules: SyllabusModule[] };
 };
@@ -57,7 +57,8 @@ export const libraryContent: LibraryContent = {
     },
   ],
   glossary: {
-    terms: glossaryTerms,
+    terms: glossaryTerms.slice(0, 12),
+    permalink: glossaryContent.permalink,
   },
   patterns: {
     filters: ['governance', 'safeguard', 'ui'],

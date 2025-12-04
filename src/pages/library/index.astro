@@ -12,7 +12,7 @@ const { pageTitle, pageDescription, permalink, primer, glossary, patterns, sylla
 const diagnosticTitles = Object.fromEntries(
   diagnosticsContent.tools.map((tool) => [tool.slug, tool.title])
 );
-const glossaryHref = (slug: string) => `${permalink}#${slug}`;
+const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -71,6 +71,9 @@ const glossaryHref = (slug: string) => `${permalink}#${slug}`;
         </CardItem>
       ))}
     </CardGrid>
+    <p class="muted glossary__cta">
+      Explore the full glossary in the dedicated section: <a href={glossary.permalink}>/glossary</a>
+    </p>
   </SectionBlock>
 
   <SectionBlock
