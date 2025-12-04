@@ -44,9 +44,9 @@ export type GlossaryContent = PageWithPermalink & {
 };
 
 export const glossaryContent: GlossaryContent = {
-  pageTitle: "Glossary \u2014 Ethotechnics",
+  pageTitle: "Ethotechnics glossary \u2014 Moral system design definitions",
   pageDescription:
-    "Shared language for Ethotechnic practice with stable permalinks and navigation cues.",
+    "Ethotechnics glossary of moral system design: definitions, examples, and resources organized by territory with stable permalinks.",
   permalink: "/glossary",
   territoryMap: [
     {

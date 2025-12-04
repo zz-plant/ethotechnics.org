@@ -6,14 +6,27 @@ import { glossaryContent } from '../../content/glossary';
 
 const { pageTitle, pageDescription, permalink, territoryMap, categories } = glossaryContent;
 const anchorLinks = [
+  { href: '#glossary-index', label: 'A–Z index' },
   { href: '#territory-map', label: 'Territory map' },
   ...categories.map((category) => ({ href: `#${category.id}`, label: category.heading })),
 ];
+
+const entryIndex = categories
+  .flatMap((category) =>
+    category.entries.map((entry) => ({
+      id: entry.id,
+      title: entry.title,
+      categoryLabel: category.heading.replace(/^[A-Z]\.\s*/, ''),
+    })),
+  )
+  .sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
+
+const territoryCounts = new Map(categories.map((category) => [category.id, category.entries.length]));
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Glossary"
-    title="Glossary"
+    title="Ethotechnics glossary"
     description={pageDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
@@ -21,15 +34,34 @@ const anchorLinks = [
       eyebrow: 'Using the glossary',
       title: 'Stable anchors for Ethotechnic language.',
       description:
-        'Link directly to any entry below to keep research, diagnostics, and design docs using the same terms. Entries are grouped by territory so you can route readers quickly.',
+        'Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions. Scan the A–Z index or jump by territory to land on the right concept fast.',
     }}
   />
+
+  <SectionBlock
+    id="glossary-index"
+    eyebrow="Index"
+    title="A–Z of Ethotechnic terms"
+    description={`Alphabetical list with ${entryIndex.length} definitions ready to link directly.`}
+  >
+    <div class="glossary-index" role="navigation" aria-label="Glossary index">
+      {entryIndex.map((entry) => (
+        <a class="glossary-index__item" href={`${permalink}#${entry.id}`}>
+          <span class="glossary-index__term">{entry.title}</span>
+          <span class="muted glossary-index__category">{entry.categoryLabel}</span>
+        </a>
+      ))}
+    </div>
+    <p class="glossary__cta muted">
+      Each index link jumps to the canonical permalink so research notes and diagnostics share the same language.
+    </p>
+  </SectionBlock>
 
   <SectionBlock
     id="territory-map"
     eyebrow="Map"
     title="Territory map"
-    description="Quick scan of the glossary areas to help you jump to the right section."
+    description="Quick scan of glossary areas with entry counts to help you jump to the right section."
     variant="alt"
   >
     <div class="territory-map">
@@ -37,6 +69,7 @@ const anchorLinks = [
         <article class="territory-map__item" id={`territory-${item.id}`}>
           <h3>{item.label}</h3>
           <p class="muted">{item.tooltip}</p>
+          <p class="glossary-territory__count">{territoryCounts.get(item.id) ?? 0} entries</p>
         </article>
       ))}
     </div>
@@ -56,17 +89,30 @@ const anchorLinks = [
         {category.entries.map((entry) => {
           const entryClasses = ['glossary-entry', ...(entry.classes ?? [])].join(' ');
           return (
-            <article id={entry.id} class={entryClasses}>
+            <article
+              id={entry.id}
+              class={entryClasses}
+              itemscope
+              itemtype="https://schema.org/DefinedTerm"
+            >
+              <meta itemprop="url" content={`${permalink}#${entry.id}`} />
+              <meta itemprop="inDefinedTermSet" content={permalink} />
               <header class="glossary-entry__header">
                 <div>
                   <p class="eyebrow">Glossary term</p>
-                  <h3>{entry.title}</h3>
+                  <h3 itemprop="name">{entry.title}</h3>
                 </div>
-                <a class="glossary-entry__permalink" href={`${permalink}#${entry.id}`}>
+                <a
+                  class="glossary-entry__permalink"
+                  href={`${permalink}#${entry.id}`}
+                  aria-label={`Permalink to ${entry.title}`}
+                  rel="bookmark"
+                  itemprop="mainEntityOfPage"
+                >
                   Permalink
                 </a>
               </header>
-              <div class="glossary-entry__body" set:html={entry.bodyHtml} />
+              <div class="glossary-entry__body" set:html={entry.bodyHtml} itemprop="description" />
               {entry.examples && entry.examples.length > 0 && (
                 <div class="glossary-entry__block">
                   <p class="eyebrow">Examples</p>
@@ -82,7 +128,7 @@ const anchorLinks = [
                   <p class="eyebrow">Tags</p>
                   <div class="pill-row">
                     {entry.tags.map((tag) => (
-                      <span class="pill pill--muted">{tag}</span>
+                      <span class="pill pill--muted" itemprop="keywords">{tag}</span>
                     ))}
                   </div>
                 </div>
