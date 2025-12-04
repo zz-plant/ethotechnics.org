@@ -3,6 +3,7 @@ import type { PageCopy } from './types';
 export type Metric = {
   label: string;
   value: string;
+  icon?: string;
 };
 
 export type FeatureCard = {
@@ -23,6 +24,7 @@ export type HeroAction = {
   label: string;
   href: string;
   variant: 'primary' | 'ghost';
+  icon?: string;
 };
 
 export type HomeContent = PageCopy & {
@@ -70,13 +72,13 @@ export const homeContent = {
     lede:
       'Ethotechnics explores practical ways to align digital products with human dignity, informed consent, and accountable systems.',
     actions: [
-      { label: 'Get updates', href: '#cta', variant: 'primary' },
-      { label: 'Explore focus areas', href: '#features', variant: 'ghost' },
+      { label: 'Get updates', href: '#cta', variant: 'primary', icon: 'lucide:mail' },
+      { label: 'Explore focus areas', href: '#features', variant: 'ghost', icon: 'lucide:map' },
     ],
     metrics: [
-      { label: 'Perspective', value: 'Interdisciplinary' },
-      { label: 'Formats', value: 'Essays & frameworks' },
-      { label: 'Focus', value: 'Human outcomes' },
+      { label: 'Perspective', value: 'Interdisciplinary', icon: 'lucide:globe-2' },
+      { label: 'Formats', value: 'Essays & frameworks', icon: 'lucide:scroll-text' },
+      { label: 'Focus', value: 'Human outcomes', icon: 'lucide:heart-handshake' },
     ],
     panel: {
       title: 'Field notes for responsible teams',
@@ -149,8 +151,8 @@ export const homeContent = {
     heading: 'Follow the work at Ethotechnics.',
     body: 'Get notified when new essays, field notes, and facilitation kits go live. No spam—just pragmatic guidance.',
     actions: [
-      { label: 'Back to top', href: '#top', variant: 'primary' },
-      { label: 'Learn about the project', href: '#about', variant: 'ghost' },
+      { label: 'Back to top', href: '#top', variant: 'primary', icon: 'lucide:arrow-up' },
+      { label: 'Learn about the project', href: '#about', variant: 'ghost', icon: 'lucide:sparkles' },
     ],
   },
 } satisfies HomeContent;

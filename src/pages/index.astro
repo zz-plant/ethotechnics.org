@@ -30,7 +30,8 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
               href={action.href}
               rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
             >
-              {action.label}
+              {action.icon ? <Icon class="button__icon" name={action.icon} aria-hidden="true" /> : null}
+              <span>{action.label}</span>
             </a>
           ))}
         </div>
@@ -48,7 +49,14 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
         <div class="hero__meta" aria-label="Proof points">
           {hero.metrics.map((metric) => (
             <article class="stat-card">
-              <p class="muted">{metric.label}</p>
+              <div class="stat-card__header">
+                {metric.icon ? (
+                  <span class="stat-card__icon" aria-hidden="true">
+                    <Icon name={metric.icon} />
+                  </span>
+                ) : null}
+                <p class="muted">{metric.label}</p>
+              </div>
               <p class="metric">{metric.value}</p>
             </article>
           ))}
@@ -144,7 +152,8 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
           href={action.href}
           rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
         >
-          {action.label}
+          {action.icon ? <Icon class="button__icon" name={action.icon} aria-hidden="true" /> : null}
+          <span>{action.label}</span>
         </a>
       ))}
     </div>

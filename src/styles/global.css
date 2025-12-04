@@ -236,8 +236,16 @@ svg {
   text-decoration: none;
 }
 
-.nav__utility-link svg {
+.nav__icon {
+  width: 1.05rem;
+  height: 1.05rem;
   opacity: 0.7;
+}
+
+.nav__icon [data-icon] {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .button {
@@ -251,6 +259,21 @@ svg {
   font-weight: 700;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   letter-spacing: 0.02em;
+}
+
+.button__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+}
+
+.button__icon [data-icon] {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .button.primary {
@@ -424,6 +447,30 @@ svg {
   padding: 1rem 1.1rem;
   display: grid;
   gap: 0.35rem;
+}
+
+.stat-card__header {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.stat-card__icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 12px;
+  background: rgba(143, 225, 255, 0.12);
+  border: 1px solid rgba(143, 225, 255, 0.28);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card__icon [data-icon] {
+  width: 1.2rem;
+  height: 1.2rem;
+  display: block;
 }
 
 .metric {
