@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import { glossaryContent } from '../../content/glossary';
+
+const { pageTitle, pageDescription, permalink, territoryMap, categories } = glossaryContent;
+const anchorLinks = [
+  { href: '#territory-map', label: 'Territory map' },
+  ...categories.map((category) => ({ href: `#${category.id}`, label: category.heading })),
+];
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Glossary"
+    title="Glossary"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: 'Using the glossary',
+      title: 'Stable anchors for Ethotechnic language.',
+      description:
+        'Link directly to any entry below to keep research, diagnostics, and design docs using the same terms. Entries are grouped by territory so you can route readers quickly.',
+    }}
+  />
+
+  <SectionBlock
+    id="territory-map"
+    eyebrow="Map"
+    title="Territory map"
+    description="Quick scan of the glossary areas to help you jump to the right section."
+    variant="alt"
+  >
+    <div class="territory-map">
+      {territoryMap.map((item) => (
+        <article class="territory-map__item" id={`territory-${item.id}`}>
+          <h3>{item.label}</h3>
+          <p class="muted">{item.tooltip}</p>
+        </article>
+      ))}
+    </div>
+  </SectionBlock>
+
+  {categories.map((category, index) => (
+    <SectionBlock
+      id={category.id}
+      eyebrow={`Section ${String.fromCharCode(65 + index)}`}
+      title={category.heading}
+      description={category.comingSoon ? 'Definitions in progress.' : undefined}
+      variant={index % 2 === 0 ? 'default' : 'alt'}
+      className="glossary-section"
+    >
+      <div class="glossary-section__description" set:html={category.descriptionHtml} />
+      <div class="glossary-grid">
+        {category.entries.map((entry) => {
+          const entryClasses = ['glossary-entry', ...(entry.classes ?? [])].join(' ');
+          return (
+            <article id={entry.id} class={entryClasses}>
+              <header class="glossary-entry__header">
+                <div>
+                  <p class="eyebrow">Glossary term</p>
+                  <h3>{entry.title}</h3>
+                </div>
+                <a class="glossary-entry__permalink" href={`${permalink}#${entry.id}`}>
+                  Permalink
+                </a>
+              </header>
+              <div class="glossary-entry__body" set:html={entry.bodyHtml} />
+              {entry.examples && entry.examples.length > 0 && (
+                <div class="glossary-entry__block">
+                  <p class="eyebrow">Examples</p>
+                  <ul class="muted">
+                    {entry.examples.map((example) => (
+                      <li>{example}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {entry.tags && entry.tags.length > 0 && (
+                <div class="glossary-entry__block">
+                  <p class="eyebrow">Tags</p>
+                  <div class="pill-row">
+                    {entry.tags.map((tag) => (
+                      <span class="pill pill--muted">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {entry.resources && entry.resources.length > 0 && (
+                <div class="glossary-entry__block">
+                  <p class="eyebrow">Resources</p>
+                  <ul class="muted glossary-entry__resources">
+                    {entry.resources.map((resource) => (
+                      <li>
+                        <a href={resource.href}>{resource.label}</a>
+                        {resource.type && <span class="muted"> · {resource.type}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </div>
+    </SectionBlock>
+  ))}
+</BaseLayout>

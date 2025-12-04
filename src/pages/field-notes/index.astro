@@ -2,10 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FieldNotesTabs from '../../components/FieldNotesTabs.astro';
 import { fieldNotesContent } from '../../content/fieldNotes';
-import { libraryContent } from '../../content/library';
+import { glossaryContent } from '../../content/glossary';
 
 const { pageTitle, pageDescription, permalink, sections, entries } = fieldNotesContent;
-const glossaryBase = libraryContent.permalink;
+const glossaryBase = glossaryContent.permalink;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="section">
