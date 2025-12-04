@@ -95,6 +95,17 @@ const navContentId = 'site-navigation-content';
         icon.textContent = isOpen ? '✕' : '☰';
       }
       content.classList.toggle('is-open', isOpen);
+      const shouldHideContent = !isOpen && window.innerWidth < breakpoint;
+      content.toggleAttribute('hidden', shouldHideContent);
+      content.setAttribute('aria-hidden', String(shouldHideContent));
+      content.toggleAttribute('inert', shouldHideContent);
+      actionLinks.forEach((link) => {
+        if (shouldHideContent) {
+          link.setAttribute('tabindex', '-1');
+        } else {
+          link.removeAttribute('tabindex');
+        }
+      });
     };
 
     const handleToggle = () => updateState(!isOpen);
@@ -110,7 +121,9 @@ const navContentId = 'site-navigation-content';
     const handleResize = () => {
       if (window.innerWidth >= breakpoint) {
         updateState(false);
+        return;
       }
+      updateState(isOpen);
     };
 
     toggle.addEventListener('click', handleToggle);
