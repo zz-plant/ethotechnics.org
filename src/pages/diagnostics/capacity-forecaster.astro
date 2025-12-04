@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CapacityForecasterWidget from '../../features/capacity-forecaster/CapacityForecaster';
+---
+<BaseLayout
+  title="Technical Capacity Forecaster — Ethotechnics"
+  description="Model compound decay against remediation tactics to see when teams saturate."
+>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Diagnostics</p>
+      <h1>Technical Capacity Forecaster</h1>
+      <p class="muted">
+        Lightweight simulation for teams balancing stability, operational friction, and refusal windows. Use this tool when you
+        need to stress-test delivery plans and export a PDF snapshot for stakeholders.
+      </p>
+      <p class="muted">Permanent link: <a href="/diagnostics/capacity-forecaster">/diagnostics/capacity-forecaster</a></p>
+    </div>
+
+    <CapacityForecasterWidget client:load />
+  </section>
+</BaseLayout>
