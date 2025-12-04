@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import { finiteContent } from '../../content/finite';
+
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  hero,
+  why,
+  useCases,
+  referenceTask,
+  measures,
+  workflow,
+  fit,
+  practice,
+  pilot,
+} = finiteContent;
+
+const anchorLinks = [
+  { href: '#why', label: 'Why Finite exists' },
+  { href: '#when', label: 'When to use' },
+  { href: '#reference-task', label: 'Reference task' },
+  { href: '#measures', label: 'What it measures' },
+  { href: '#workflow', label: 'How it works' },
+  { href: '#pilot', label: 'Pilot' },
+];
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={`${hero.heading} [Beta]`}
+    description={hero.lede}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={hero.panel}
+  />
+
+  <section class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">{hero.highlight}</p>
+      <h2>{hero.summary}</h2>
+      <p class="muted">{pageDescription}</p>
+    </div>
+    <CardGrid className="grid--two">
+      {hero.bullets.map((bullet) => (
+        <CardItem description={bullet} descriptionTone="default" />
+      ))}
+    </CardGrid>
+    <div class="actions">
+      {hero.actions.map((action) => (
+        <a class={`button ${action.variant}`} href={action.href}>
+          <span>{action.label}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <SectionBlock id="why" eyebrow="Why Finite exists" title={why.title} description={why.description}>
+    <div class="grid grid--two">
+      <article class="card card--emphasis">
+        <div class="card__glow" aria-hidden="true" />
+        <p>{hero.summary}</p>
+        <p class="muted">{why.body}</p>
+      </article>
+      <article class="card">
+        <div class="card__glow" aria-hidden="true" />
+        <p class="muted">Hidden maintenance as signal</p>
+        <h3>Make stoppability visible before an incident.</h3>
+        <p>
+          Finite equips teams to halt systems under stress, reverse actions without heroic work, and see who absorbs cleanup
+          when safeguards slip.
+        </p>
+      </article>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="when"
+    eyebrow="When to use Finite"
+    title={useCases.title}
+    description={useCases.description}
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {useCases.items.map((item) => (
+        <CardItem title={item.title} description={item.detail} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="reference-task"
+    eyebrow="Reference Task v0.1"
+    title={referenceTask.title}
+    description={referenceTask.description}
+  >
+    <CardGrid className="grid--two">
+      <CardItem title="Baseline drill" descriptionTone="default">
+        <ul class="pill-list">
+          {referenceTask.bullets.map((bullet) => (
+            <li>{bullet}</li>
+          ))}
+        </ul>
+      </CardItem>
+      <CardItem title="Access the packet" description={referenceTask.note} descriptionTone="default">
+        <div class="actions">
+          <a class="button ghost" href="mailto:studio@ethotechnics.org?subject=Reference%20Task%20v0.1">
+            Request the doc
+          </a>
+        </div>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="measures"
+    eyebrow="What Finite measures"
+    title={measures.title}
+    description={measures.description}
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {measures.dimensions.map((dimension) => (
+        <CardItem meta={dimension.question} title={dimension.title} description={dimension.detail} />
+      ))}
+    </CardGrid>
+    <div class="panel panel--glass">
+      <p class="muted">What you receive</p>
+      <ul class="pill-list pill-list--wrap">
+        {measures.deliverables.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="workflow"
+    eyebrow="How Finite works"
+    title={workflow.title}
+    description={workflow.description}
+  >
+    <CardGrid className="grid--two">
+      {workflow.steps.map((step, index) => (
+        <CardItem meta={`Step ${index + 1}`} title={step.title} description={step.detail} />
+      ))}
+    </CardGrid>
+    <div class="callout">
+      <h3>Repeat the loop</h3>
+      <p class="muted">{workflow.loopNote}</p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock id="fit" eyebrow="Where Finite fits" title={fit.title} description={fit.description} variant="alt">
+    <div class="panel panel--glass">
+      <ul class="pill-list pill-list--wrap">
+        {fit.items.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock id="practice" eyebrow="Practice, not just a score" title={practice.title} description={practice.description} />
+
+  <SectionBlock
+    id="pilot"
+    eyebrow="Pilot and collaboration"
+    title={pilot.status}
+    description={pilot.description}
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      <article class="card">
+        <div class="card__glow" aria-hidden="true" />
+        <p class="muted">What we ask from partners</p>
+        <ul class="pill-list">
+          {pilot.bullets.map((bullet) => (
+            <li>{bullet}</li>
+          ))}
+        </ul>
+      </article>
+      <article class="card card--emphasis">
+        <div class="card__glow" aria-hidden="true" />
+        <p class="eyebrow">{pilot.title}</p>
+        <h3>{pilot.contact.label}</h3>
+        <p>{pilot.contact.description}</p>
+        <div class="actions">
+          <a class="button primary" href={pilot.contact.href}>
+            {pilot.contact.label}
+          </a>
+        </div>
+      </article>
+    </div>
+  </SectionBlock>
+</BaseLayout>
