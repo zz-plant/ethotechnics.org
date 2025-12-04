@@ -213,9 +213,65 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
       observer.observe(container);
     };
 
+    const activateTab = (tab) => {
+      const format = tab.dataset.format ?? defaultFormat;
+
+      setActiveFormat(format);
+      tab.focus();
+
+      if (format) {
+        window.location.hash = format;
+      }
+    };
+
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         setActiveFormat(tab.dataset.format ?? defaultFormat);
+      });
+
+      tab.addEventListener('keydown', (event) => {
+        if (
+          ![
+            'ArrowLeft',
+            'ArrowRight',
+            'ArrowUp',
+            'ArrowDown',
+            'Home',
+            'End',
+          ].includes(event.key)
+        ) {
+          return;
+        }
+
+        if (
+          ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)
+        ) {
+          event.preventDefault();
+        }
+
+        const currentIndex = tabs.indexOf(event.currentTarget);
+
+        if (currentIndex === -1) {
+          return;
+        }
+
+        let targetIndex = currentIndex;
+
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+          targetIndex = (currentIndex + 1) % tabs.length;
+        } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+          targetIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        } else if (event.key === 'Home') {
+          targetIndex = 0;
+        } else if (event.key === 'End') {
+          targetIndex = tabs.length - 1;
+        }
+
+        const targetTab = tabs[targetIndex];
+
+        if (targetTab) {
+          activateTab(targetTab);
+        }
       });
     });
 
