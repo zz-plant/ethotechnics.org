@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import CardItem from '../../../components/CardItem.astro';
+import PageIntro from '../../../components/PageIntro.astro';
+import SectionBlock from '../../../components/SectionBlock.astro';
+import { researchAgendaContent } from '../../../content/researchAgenda';
+
+const { pageTitle, pageDescription, permalink, hero, orientation, overview, pillars } =
+  researchAgendaContent;
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={hero.title}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={hero.anchorLinks}
+    panelCopy={hero.panelCopy}
+  />
+
+  <SectionBlock
+    id="orientation"
+    eyebrow="Orientation"
+    title={orientation.title}
+    description={orientation.description}
+    variant="alt"
+  >
+    <ul class="pill-list pill-list--wrap">
+      {orientation.linesOfInquiry.map((line) => (
+        <li>{line}</li>
+      ))}
+    </ul>
+    <p class="muted">{orientation.closing}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title={overview.title}
+    description="How findings turn into drills, diagnostics, and shared practice."
+  >
+    {overview.paragraphs.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </SectionBlock>
+
+  <SectionBlock
+    id="pillars"
+    eyebrow="Thematic pillars"
+    title={pillars.title}
+    description={pillars.description}
+    variant="alt"
+  >
+    <CardGrid>
+      {pillars.items.map((pillar) => (
+        <CardItem
+          id={pillar.id}
+          title={pillar.title}
+          description={pillar.summary}
+          tags={pillar.signals}
+        />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>
