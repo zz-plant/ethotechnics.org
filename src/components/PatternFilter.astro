@@ -23,6 +23,11 @@ const filtersWithAll = ['all', ...filters];
               class="pill-list__button"
               aria-pressed={isAll}
               data-filter={filter}
+              aria-label={
+                filter === 'all'
+                  ? 'Show all patterns'
+                  : `Filter patterns by ${filter} and update visible results`
+              }
             >
               {filter === 'all' ? 'All filters' : filter}
             </button>
@@ -38,8 +43,12 @@ const filtersWithAll = ['all', ...filters];
         class="pattern-filter__search-input"
         placeholder="Search by title, summary, or cue"
         data-search-input
+        aria-label="Search patterns by title, summary, or cue"
       />
     </label>
+    <p class="muted" role="status" aria-live="polite" data-filter-status>
+      Showing all patterns.
+    </p>
   </div>
   <div class="grid" data-pattern-results>
     {entries.map((pattern) => {
@@ -102,6 +111,7 @@ const filtersWithAll = ['all', ...filters];
     const searchInput = root.querySelector('[data-search-input]');
     const cards = Array.from(root.querySelectorAll('[data-pattern-card]'));
     const emptyState = root.querySelector('[data-empty]');
+    const status = root.querySelector('[data-filter-status]');
 
     let selectedFilter = null;
     let query = '';
@@ -163,6 +173,14 @@ const filtersWithAll = ['all', ...filters];
 
       if (emptyState) {
         emptyState.toggleAttribute('hidden', visibleCount !== 0);
+      }
+
+      if (status) {
+        const normalizedFilter = selectedFilter ?? 'all';
+        const filterLabel = normalizedFilter === 'all' ? 'All filters' : normalizedFilter;
+        const queryLabel = normalizedQuery ? ` and search for "${normalizedQuery}"` : '';
+        const pluralized = visibleCount === 1 ? 'pattern' : 'patterns';
+        status.textContent = `${visibleCount} ${pluralized} visible with ${filterLabel}${queryLabel}.`;
       }
     };
 
