@@ -17,6 +17,8 @@ Use `npm run check` for a full pre-commit sweep. It will run linting, tests, Typ
 
 ## Testing
 
+- After installing dependencies (`npm install`), run `npx playwright install --with-deps` to install the browsers required by the
+  end-to-end suite.
 - `npm run e2e` builds the Worker bundle and runs Playwright against `npm run preview`.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
 - Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to
