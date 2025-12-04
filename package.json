@@ -16,6 +16,7 @@
     "deploy": "wrangler deploy ./dist/_worker.js",
     "astro:check": "astro check",
     "typecheck": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.{ts,tsx,astro}\"",
     "check": "npm run lint --if-present && npm test --if-present && npm run typecheck --if-present && npm run astro:check",
     "test": "vitest",
     "test:ci": "vitest --run --coverage",
@@ -43,9 +44,15 @@
     "@playwright/test": "^1.57.0",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.48.1",
+    "@typescript-eslint/parser": "^8.48.1",
     "@vitest/coverage-v8": "^4.0.15",
+    "eslint": "^9.39.1",
+    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "jsdom": "^27.2.0",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1",
     "vitest": "^4.0.15"
   }
 }
