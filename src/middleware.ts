@@ -2,7 +2,16 @@ import type { MiddlewareHandler } from 'astro';
 
 export const onRequest: MiddlewareHandler = async ({ request }, next) => {
   const host = request.headers.get('host');
-  const hostname = host?.split(':')[0].toLowerCase();
+
+  if (!host) {
+    return next();
+  }
+
+  const hostname = host.split(':')[0]?.toLowerCase();
+
+  if (!hostname) {
+    return next();
+  }
 
   if (hostname === 'ethotechnics.com') {
     const url = new URL(request.url);
