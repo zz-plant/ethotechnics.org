@@ -68,5 +68,21 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote: 'Result pages always include the Studio off-ramp so teams know where to escalate.',
     },
+    {
+      slug: 'capacity-forecaster',
+      title: 'Technical Capacity Forecaster',
+      description:
+        'Charts compound decay against refusal windows to spot saturation risk across a 24-month horizon.',
+      readiness: [
+        'Use when delivery teams need to visualize stability trade-offs with remediation paths.',
+        'Pair with portfolio reviews to align refusal policies with operational bandwidth.',
+      ],
+      outputs: [
+        'Side-by-side baseline and remediated capacity projections.',
+        'PDF export with saturation callouts for stakeholder sharing.',
+        'Result page reiterating the Studio off-ramp for complex findings.',
+      ],
+      studioNote: 'Result pages always include the Studio off-ramp before finalizing recommendations.',
+    },
   ],
 };
