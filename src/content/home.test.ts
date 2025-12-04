@@ -4,6 +4,6 @@ import { homeContent } from '@/content/home';
 
 describe('home content', () => {
   it('includes hero heading text', () => {
-    expect(homeContent.hero.heading).toContain('Technology should serve people');
+    expect(homeContent.hero.heading).toContain('Ethotechnics Institute');
   });
 });
