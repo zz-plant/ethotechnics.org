@@ -21,8 +21,8 @@ describe('Navigation component', () => {
     expect(toggle?.getAttribute('aria-expanded')).toBe('false');
     expect(toggle?.getAttribute('aria-label')).toBe('Open navigation');
 
-    const linkTexts = Array.from(nav?.querySelectorAll('.nav__content .nav__links a') ?? []).map(
-      (link) => link.textContent?.trim(),
+    const linkTexts = Array.from(nav?.querySelectorAll('.nav__content .nav__links a') ?? []).map((link) =>
+      link.textContent?.trim(),
     );
     expect(linkTexts).toEqual([
       'Library',
