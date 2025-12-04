@@ -31,7 +31,9 @@ export type HomeContent = PageCopy & {
   hero: {
     eyebrow: string;
     heading: string;
+    subheadline: string;
     lede: string;
+    map: string;
     actions: HeroAction[];
     metrics: Metric[];
     panel: Panel;
@@ -68,9 +70,12 @@ export const homeContent = {
     'Ethotechnics.org shares essays, field notes, and frameworks for building technology that keeps people at the center.',
   hero: {
     eyebrow: 'Ethics · Design · Governance',
-    heading: 'Technology should serve people — not the other way around.',
+    heading: 'Ethotechnics Institute',
+    subheadline: 'The public library and diagnostics arm that underpins the Ethotechnics Studio.',
     lede:
-      'Ethotechnics explores practical ways to align digital products with human dignity, informed consent, and accountable systems.',
+      'Ethotechnics explores practical ways to align digital products with human dignity, informed consent, and accountable systems—through open resources and applied diagnostics.',
+    map:
+      'Browse the open library when you need guidance you can self-serve; engage the Studio when you need facilitated diagnostics or bespoke support.',
     actions: [
       { label: 'Browse the library', href: '/library', variant: 'primary', icon: 'lucide:library' },
       {
@@ -81,15 +86,14 @@ export const homeContent = {
       },
     ],
     metrics: [
-      { label: 'Perspective', value: 'Interdisciplinary', icon: 'lucide:globe-2' },
-      { label: 'Formats', value: 'Essays & frameworks', icon: 'lucide:scroll-text' },
+      { label: 'Institute', value: 'Open library + diagnostics', icon: 'lucide:book-open-check' },
+      { label: 'Studio', value: 'Partnered research & delivery', icon: 'lucide:stethoscope' },
       { label: 'Focus', value: 'Human outcomes', icon: 'lucide:heart-handshake' },
     ],
     panel: {
-      title: 'Field notes for responsible teams',
-      description:
-        'Short, actionable takeaways from research, design practice, and governance work you can adapt to your context.',
-      pills: ['Consent-aware defaults', 'Accountability by design', 'Resilient infrastructure'],
+      title: 'Where to begin',
+      description: 'Start with the Institute library; bring in the Studio for guided diagnostics and facilitation.',
+      pills: ['Open playbooks', 'Diagnostics sprints', 'Studio co-leads'],
     },
   },
   about: {
