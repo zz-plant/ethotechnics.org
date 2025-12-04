@@ -49,19 +49,9 @@ export const instituteContent: InstituteContent = {
   ],
   stewards: [
     {
-      name: 'Zia Carter',
-      role: 'Director, Research & Governance',
-      focus: 'Lived experience research and transparent decision trails.',
-    },
-    {
-      name: 'Morgan Lee',
-      role: 'Design Steward',
-      focus: 'Interface safeguards, consent journeys, and facilitation kits.',
-    },
-    {
-      name: 'Avery Quinn',
-      role: 'Operations',
-      focus: 'Maintenance windows, support readiness, and partner onboarding.',
+      name: 'Kanav Jain',
+      role: 'Institute Lead',
+      focus: 'Roadmapping programs and coordinating partners across the studio.',
     },
   ],
   contact: [
