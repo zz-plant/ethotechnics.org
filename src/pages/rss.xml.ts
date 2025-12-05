@@ -58,13 +58,12 @@ const escapeXml = (value: string) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 
-export function GET({ site, request }: APIContext) {
+export function GET({ site }: APIContext) {
   const siteUrl = site ?? new URL(fallbackSite);
-  const baseUrl = site ?? new URL(request.url);
-
+  
   const items = feedItems
     .map((item) => {
-      const itemUrl = new URL(item.path, baseUrl);
+      const itemUrl = new URL(item.path, siteUrl);
       const publishedDate =
         typeof item.pubDate === 'string' ? new Date(item.pubDate) : item.pubDate;
       const published = publishedDate.toUTCString();
