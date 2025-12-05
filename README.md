@@ -15,6 +15,16 @@ Use Node.js 20.x (the repo ships an `.nvmrc` file and matching `engines` in `pac
 Use `npm run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
 - `npm run lint` checks Astro and TypeScript sources under `src/`; it runs first inside `npm run check`.
 
+## Security headers
+
+Requests pass through `src/middleware.ts`, which normalizes legacy ethotechnics.com hosts and appends a hardened header set to every response:
+
+- **HSTS** (`Strict-Transport-Security`): one-year max age with subdomains and preload to enforce HTTPS everywhere.
+- **Content-Security-Policy:** locks content to `self`, blocks frames and plug-ins, allows inline styles for existing design tokens, and permits images from the site, `https:` origins, or `data:` URLs.
+- **Referrer-Policy:** `no-referrer` to avoid leaking navigation history.
+- **X-Content-Type-Options:** `nosniff` to disable MIME-type sniffing.
+- **Permissions-Policy:** disables camera, geolocation, microphone, and payment features.
+
 ## Testing
 
 - After installing dependencies (`npm install`), run `npx playwright install --with-deps` to install the browsers required by the
