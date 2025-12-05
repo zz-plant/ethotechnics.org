@@ -977,10 +977,49 @@ noscript .nav__toggle {
   max-width: 60ch;
 }
 
+.glossary-filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.glossary-filter__label {
+  display: block;
+  width: fit-content;
+}
+
+.glossary-filter input[type='search'] {
+  max-width: 520px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+  background: color-mix(in srgb, var(--color-surface) 96%, transparent);
+  color: var(--color-foreground);
+}
+
+.glossary-filter input[type='search']:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+.glossary-filter__hint {
+  margin: 0;
+  max-width: 60ch;
+}
+
+.glossary-filter__count {
+  margin: 0;
+}
+
 .glossary-index {
   display: grid;
   gap: var(--space-2);
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.glossary-index__empty {
+  margin-top: var(--space-2);
 }
 
 .glossary-index__item {
@@ -1007,6 +1046,10 @@ noscript .nav__toggle {
 
 .glossary-index__category {
   font-size: var(--font-size-sm);
+}
+
+.is-hidden {
+  display: none;
 }
 
 .glossary-grid {
