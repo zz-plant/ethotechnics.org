@@ -1,4 +1,5 @@
 /// <reference types="astro/client" />
+import { JSDOM } from "jsdom";
 import { describe, expect, it } from "vitest";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -39,6 +40,31 @@ describe("Navigation component", () => {
       nav?.querySelectorAll(".nav__content .nav__actions a") ?? [],
     ).map((link) => link.textContent?.trim());
     expect(actionTexts).toEqual(["Field notes", "Join the institute"]);
+  });
+
+  it("does not duplicate toggle handlers across navigation persistence", async () => {
+    const container = await createAstroContainer();
+    const html = await container.renderToString(NavigationShell, {
+      request: new Request("https://ethotechnics.org/"),
+    });
+
+    const dom = new JSDOM(html, { runScripts: "outside-only" });
+    const inlineScript = dom.window.document.querySelector("script")?.textContent;
+    const toggle = dom.window.document.querySelector<HTMLButtonElement>(
+      ".nav__toggle",
+    );
+
+    expect(inlineScript).toBeTruthy();
+    expect(toggle).toBeTruthy();
+
+    dom.window.eval(inlineScript ?? "");
+    dom.window.eval(inlineScript ?? "");
+
+    toggle?.dispatchEvent(
+      new dom.window.MouseEvent("click", { bubbles: true, cancelable: true }),
+    );
+
+    expect(toggle?.getAttribute("aria-expanded")).toBe("true");
   });
 });
 
