@@ -44,14 +44,41 @@ const territoryCounts = new Map(categories.map((category) => [category.id, categ
     title="A–Z of Ethotechnic terms"
     description={`Alphabetical list with ${entryIndex.length} definitions ready to link directly.`}
   >
+    <div class="glossary-filter">
+      <label class="glossary-filter__label" for="glossary-filter">
+        <span class="visually-hidden">Filter glossary terms</span>
+        <input
+          id="glossary-filter"
+          name="glossary-filter"
+          type="search"
+          inputmode="search"
+          placeholder="Start typing to narrow the index (e.g., consent)"
+          autocomplete="off"
+        />
+      </label>
+      <p class="muted glossary-filter__hint">
+        Keep typing to filter the list, then open a matching term to grab its permalink or scan nearby entries.
+      </p>
+      <p class="muted glossary-filter__count" aria-live="polite" aria-atomic="true">
+        Showing {entryIndex.length} of {entryIndex.length} terms
+      </p>
+    </div>
     <div class="glossary-index" role="navigation" aria-label="Glossary index">
       {entryIndex.map((entry) => (
-        <a class="glossary-index__item" href={`${permalink}#${entry.id}`}>
+        <a
+          class="glossary-index__item"
+          href={`${permalink}#${entry.id}`}
+          data-title={entry.title}
+          data-category={entry.categoryLabel}
+        >
           <span class="glossary-index__term">{entry.title}</span>
           <span class="muted glossary-index__category">{entry.categoryLabel}</span>
         </a>
       ))}
     </div>
+    <p class="muted glossary-index__empty" hidden>
+      No matching terms yet. Try a broader keyword or open the territory map below to scan by topic.
+    </p>
     <p class="glossary__cta muted">
       Each index link jumps to the canonical permalink so research notes and diagnostics share the same language.
     </p>
@@ -152,4 +179,37 @@ const territoryCounts = new Map(categories.map((category) => [category.id, categ
       </div>
     </SectionBlock>
   ))}
+
+  <script is:inline>
+    const filterInput = document.querySelector('#glossary-filter');
+    const items = Array.from(document.querySelectorAll('.glossary-index__item'));
+    const emptyState = document.querySelector('.glossary-index__empty');
+    const count = document.querySelector('.glossary-filter__count');
+
+    if (filterInput instanceof HTMLInputElement && items.length > 0 && emptyState && count) {
+      const total = items.length;
+
+      const updateFilter = () => {
+        const query = filterInput.value.trim().toLowerCase();
+        let visible = 0;
+
+        items.forEach((item) => {
+          const title = item.dataset.title ?? item.textContent ?? '';
+          const category = item.dataset.category ?? '';
+          const matches = `${title} ${category}`.toLowerCase().includes(query);
+          item.classList.toggle('is-hidden', !matches);
+
+          if (matches) {
+            visible += 1;
+          }
+        });
+
+        emptyState.hidden = visible > 0;
+        count.textContent = `Showing ${visible} of ${total} terms`;
+      };
+
+      filterInput.addEventListener('input', updateFilter);
+      updateFilter();
+    }
+  </script>
 </BaseLayout>
