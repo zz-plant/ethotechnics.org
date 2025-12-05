@@ -34,6 +34,8 @@ describe('middleware', () => {
 
       expect(response.status).toBe(301);
       expect(response.headers.get('Location')).toBe(expectedLocation);
+      expect(response.headers.get('Strict-Transport-Security')).toContain('max-age');
+      expect(response.headers.get('Content-Security-Policy')).toContain("default-src 'self'");
       expect(next).not.toHaveBeenCalled();
     }
   });
@@ -53,6 +55,11 @@ describe('middleware', () => {
 
       expect(response.status).toBe(200);
       expect(await response.text()).toBe('next');
+      expect(response.headers.get('Strict-Transport-Security')).toContain('max-age');
+      expect(response.headers.get('Content-Security-Policy')).toContain("default-src 'self'");
+      expect(response.headers.get('Referrer-Policy')).toBe('no-referrer');
+      expect(response.headers.get('X-Content-Type-Options')).toBe('nosniff');
+      expect(response.headers.get('Permissions-Policy')).toContain('geolocation');
       expect(next).toHaveBeenCalledTimes(1);
     }
   });
