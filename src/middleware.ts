@@ -7,13 +7,13 @@ export const onRequest: MiddlewareHandler = async ({ request }, next) => {
     return next();
   }
 
-  const hostname = host.split(':')[0]?.toLowerCase();
+  const hostname = host.split(':')[0]?.trim().toLowerCase();
 
   if (!hostname) {
     return next();
   }
 
-  if (hostname === 'ethotechnics.com') {
+  if (hostname === 'ethotechnics.com' || hostname.endsWith('.ethotechnics.com')) {
     const url = new URL(request.url);
     const redirectUrl = `https://ethotechnics.org${url.pathname}${url.search}`;
 
