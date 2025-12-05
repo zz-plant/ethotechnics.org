@@ -118,6 +118,10 @@ const navContentId = 'site-navigation-content';
       return;
     }
 
+    if (nav.dataset.initialized === 'true') {
+      return;
+    }
+
     const breakpoint = 1024;
     let isOpen = false;
 
@@ -160,6 +164,8 @@ const navContentId = 'site-navigation-content';
       }
       updateState(isOpen);
     };
+
+    nav.dataset.initialized = 'true';
 
     toggle.addEventListener('click', handleToggle);
     nav.addEventListener('keydown', handleKeyDown);
