@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import type React from 'react';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 interface ReportGeneratorProps {
   targetRef: React.RefObject<HTMLDivElement | null>;
@@ -11,6 +9,21 @@ export function ReportGenerator({ targetRef }: ReportGeneratorProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
 
+  const loadExportTools = async () => {
+    const [html2canvasModule, jsPDFModule] = await Promise.all([
+      import('html2canvas'),
+      import('jspdf'),
+    ]);
+
+    return {
+      html2canvas: html2canvasModule.default,
+      jsPDF: jsPDFModule.default,
+    } satisfies {
+      html2canvas: typeof import('html2canvas')['default'];
+      jsPDF: typeof import('jspdf')['default'];
+    };
+  };
+
   const handleExport = async () => {
     if (!targetRef.current) {
       setStatus('Chart area is not ready yet.');
@@ -18,7 +31,27 @@ export function ReportGenerator({ targetRef }: ReportGeneratorProps) {
     }
 
     setIsGenerating(true);
-    setStatus(null);
+    setStatus('Loading export tools…');
+
+    let html2canvas: typeof import('html2canvas')['default'];
+    let jsPDF: typeof import('jspdf')['default'];
+
+    try {
+      ({ html2canvas, jsPDF } = await loadExportTools());
+    } catch (error) {
+      console.error(error);
+      setStatus('Unable to load export tools. Please retry.');
+      setIsGenerating(false);
+      return;
+    }
+
+    if (!targetRef.current) {
+      setStatus('Chart area is not ready yet.');
+      setIsGenerating(false);
+      return;
+    }
+
+    setStatus('Capturing report…');
 
     try {
       const canvas = await html2canvas(targetRef.current, {
