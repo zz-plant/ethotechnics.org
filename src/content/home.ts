@@ -54,6 +54,11 @@ export type HomeContent = PageCopy & {
     eyebrow: string;
     heading: string;
     body: string;
+    note: {
+      title: string;
+      description: string;
+      actions: string[];
+    };
     pills: string[];
   };
   cta: {
@@ -65,86 +70,85 @@ export type HomeContent = PageCopy & {
 };
 
 export const homeContent = {
-  pageTitle: 'Ethotechnics — Ethical technology in practice',
+  pageTitle: 'Ethotechnics — Build technology people can trust',
   pageDescription:
-    'Ethotechnics.org shares essays, field notes, and frameworks for building technology that keeps people at the center.',
+    'Ethotechnics pairs open guidance with facilitated diagnostics so teams can deliver accountable, human-centered technology.',
   hero: {
-    eyebrow: 'Ethics · Design · Governance',
-    heading: 'Ethotechnics Institute',
-    subheadline: 'The public library and diagnostics arm that underpins the Ethotechnics Studio.',
+    eyebrow: 'Ethics · Delivery · Stewardship',
+    heading: 'Build technology people can trust.',
+    subheadline: 'The Ethotechnics Institute shares pragmatic guidance for humane products and services.',
     lede:
-      'Ethotechnics explores practical ways to align digital products with human dignity, informed consent, and accountable systems—through open resources and applied diagnostics.',
+      'We pair a public library of ethical delivery patterns with diagnostics that map risk, align teams, and protect the people you serve.',
     map:
-      'Browse the open library when you need guidance you can self-serve; engage the Studio when you need facilitated diagnostics or bespoke support.',
+      'Start with the Institute library and diagnostics. If you need deeper facilitation or delivery support, we can connect you with the Studio at ethotechnics.com.',
     actions: [
       { label: 'Browse the library', href: '/library', variant: 'primary', icon: 'lucide:library' },
-      {
-        label: 'Bring diagnostics into your org',
-        href: '/diagnostics',
-        variant: 'ghost',
-        icon: 'lucide:activity-square',
-      },
+      { label: 'Book a diagnostic', href: '/diagnostics', variant: 'ghost', icon: 'lucide:activity-square' },
     ],
     metrics: [
-      { label: 'Institute', value: 'Open library + diagnostics', icon: 'lucide:book-open-check' },
-      { label: 'Studio', value: 'Partnered research & delivery', icon: 'lucide:stethoscope' },
-      { label: 'Focus', value: 'Human outcomes', icon: 'lucide:heart-handshake' },
+      { label: 'Institute library', value: 'Open guides, playbooks, and charter', icon: 'lucide:book-open-check' },
+      { label: 'Diagnostics', value: 'Readiness labs and governance roadmaps', icon: 'lucide:stethoscope' },
+      {
+        label: 'Partner Studio',
+        value: 'Optional embedded support via ethotechnics.com',
+        icon: 'lucide:heart-handshake',
+      },
     ],
     panel: {
-      title: 'Where to begin',
-      description: 'Start with the Institute library; bring in the Studio for guided diagnostics and facilitation.',
-      pills: ['Open playbooks', 'Diagnostics sprints', 'Studio co-leads'],
+      title: 'Where we plug in',
+      description: 'Pick a track that matches your urgency. We can calibrate, facilitate, or co-lead.',
+      pills: ['Readiness review', 'Accountability lab', 'Co-delivery partnership'],
     },
   },
   about: {
-    eyebrow: 'About Ethotechnics',
+    eyebrow: 'About the Institute',
     heading: 'Practical guidance for ethical technology.',
     body:
-      'We document how teams can balance innovation with responsibility, blending research, design strategy, and policy thinking.',
+      'Ethotechnics documents the moves that keep digital products accountable—from the first interview to post-launch stewardship.',
     features: [
       {
         icon: 'lucide:bolt',
-        title: 'Grounded in practice',
+        title: 'Built for real teams',
         description:
-          'Case studies, heuristics, and debriefs from real-world services—not abstract ideals—so you can see how principles land.',
+          'Concise playbooks, annotated examples, and facilitation prompts tuned for cross-functional collaboration.',
       },
       {
         icon: 'lucide:compass',
-        title: 'Wayfinding for teams',
+        title: 'Wayfinding you can trust',
         description:
-          'Navigation cues, facilitation prompts, and decision trees to help cross-functional groups move responsibly together.',
+          'Navigation cues explain when to pause, who to involve, and how to make informed trade-offs—without slowing delivery.',
       },
       {
         icon: 'lucide:palette',
-        title: 'Readable and humane',
-        description: 'Plain-language explainers, annotated references, and visuals tuned for accessibility and shared understanding.',
+        title: 'Accessible by design',
+        description: 'Plain-language explanations and visual summaries keep the library readable, inclusive, and easy to share.',
       },
     ],
   },
   features: {
     eyebrow: 'Focus areas',
     heading: 'Frameworks you can put to work.',
-    body: 'Each piece is built to be actionable—checklists, prompts, and facilitation steps you can adapt quickly.',
+    body: 'Each guide is built to be actionable—checklists, prompts, and facilitation steps you can adapt quickly.',
     cards: [
       {
         title: 'Responsible product delivery',
         description:
-          'From discovery to rollout, we surface ethical questions, risk patterns, and mitigations that keep people safe.',
+          'Surface consent, safety, and accountability questions throughout discovery, build, and rollout.',
         emphasis: true,
-        pills: ['Informed consent', 'Iterative safeguards', 'Accountable metrics'],
+        pills: ['Respectful defaults', 'Iterative safeguards', 'Accountable metrics'],
       },
       {
         title: 'Research and synthesis',
         description:
-          'Field reports translate interviews, participatory sessions, and policy reviews into patterns anyone can reuse.',
+          'Field reports translate interviews, participatory sessions, and policy reviews into shareable patterns.',
       },
       {
         title: 'Governance you can explain',
-        description: 'Templates for decision records, data stewardship plans, and escalation paths that earn trust.',
+        description: 'Decision records, data stewardship plans, and escalation paths that withstand scrutiny.',
       },
       {
         title: 'Tools and references',
-        description: 'Curated resources, workshop kits, and checklists to help teams operationalize ethical intent.',
+        description: 'Checklists, workshop kits, and curated readings that help you operationalize ethical intent.',
       },
     ],
   },
@@ -152,7 +156,17 @@ export const homeContent = {
     eyebrow: 'Latest notes',
     heading: 'Practical recommendations for accountable systems.',
     body:
-      'Tactics, prompts, and checklists you can bring to product reviews, governance meetings, or research debriefs.',
+      'Bring these prompts to product reviews, governance meetings, or research debriefs to keep the team aligned on what care looks like.',
+    note: {
+      title: 'Design for consent, not just conversion.',
+      description:
+        'Pair your primary actions with transparent context: why you are asking, what happens next, and how to opt out without penalty.',
+      actions: [
+        'Label links and buttons honestly so people know where they are headed.',
+        'Give people a reversible path; avoid dead ends or forced funnels.',
+        'Show the data you collect and how long you keep it in plain language.',
+      ],
+    },
     pills: ['Respectful defaults', 'Community input', 'Long-term stewardship'],
   },
   cta: {
@@ -161,12 +175,7 @@ export const homeContent = {
     body: 'Get notified when new essays, field notes, and facilitation kits go live. No spam—just pragmatic guidance.',
     actions: [
       { label: 'Browse the library', href: '/library', variant: 'primary', icon: 'lucide:library' },
-      {
-        label: 'Bring diagnostics into your org',
-        href: '/diagnostics',
-        variant: 'ghost',
-        icon: 'lucide:activity-square',
-      },
+      { label: 'Book a diagnostic', href: '/diagnostics', variant: 'ghost', icon: 'lucide:activity-square' },
     ],
   },
 } satisfies HomeContent;

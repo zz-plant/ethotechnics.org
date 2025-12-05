@@ -135,11 +135,13 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
     <div class="highlight__content">
       <div class="callout">
         <p class="muted">Field note</p>
-        <h3>Design for consent, not just conversion.</h3>
-        <p>
-          Pair clear primary actions with transparent context—why you are asking, what happens next, and how to opt out.
-          Keep navigation labels honest and scannable.
-        </p>
+        <h3>{highlight.note.title}</h3>
+        <p>{highlight.note.description}</p>
+        <ul>
+          {highlight.note.actions.map((action) => (
+            <li>{action}</li>
+          ))}
+        </ul>
       </div>
       <div class="highlight__meta">
         <p class="muted">Built for teams</p>
