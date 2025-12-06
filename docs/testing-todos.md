@@ -24,3 +24,5 @@ Playwright.
 - Run `npm run e2e` locally to build and execute the suite with the HTML reporter, or
   `npm run e2e:ci` to use the line reporter in CI. Respect `PLAYWRIGHT_BASE_URL` or
   `CF_PAGES_URL` if you already have a preview running.
+- If Playwright installation fails due to missing system packages, rerun `npx playwright install --with-deps`
+  to pull the required dependencies before retrying the suite.
