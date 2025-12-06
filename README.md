@@ -29,6 +29,8 @@ Requests pass through `src/middleware.ts`, which normalizes legacy ethotechnics.
 
 - After installing dependencies (`npm install`), run `npx playwright install --with-deps` to install the browsers required by the
   end-to-end suite.
+  - If the install complains about missing system libraries, rerun the command with `--with-deps` (it pulls the Linux packages
+    Playwright needs) and retry the suite.
 - `npm run e2e` builds the Worker bundle and runs Playwright against `npm run preview`.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
 - Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to
