@@ -21,6 +21,7 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
+      { href: '#themes', label: 'Browse by theme' },
       { href: '#primer', label: 'Primer' },
       { href: '#glossary', label: 'Glossary' },
       { href: '#patterns', label: 'Pattern language' },
@@ -30,9 +31,34 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
       eyebrow: 'How to use this shelf',
       title: 'Structured, linkable content',
       description:
-        'Every entry ships with stable permalinks so you can cite them in research reports, design docs, and diagnostics. Filters call out whether a pattern is governance-focused, a safeguard, or UI guidance to keep collaboration fast.',
+        'Every entry ships with stable permalinks so you can cite them in research reports, design docs, and diagnostics. Filters call out whether a pattern is governance-first, design-ethics guidance, or a policy control to keep collaboration fast.',
     }}
   />
+
+  <SectionBlock
+    id="themes"
+    eyebrow="Browse by theme"
+    title="Jump directly to the work you need."
+    description="Use tags to pre-filter the pattern language and keep links aligned with glossary anchors."
+  >
+    <div class="tag-rail">
+      <ul class="pill-list pill-list--wrap">
+        {patterns.filters.map((filter) => (
+          <li class="pill-list__item tag-rail__item">
+            <a
+              class="pill-list__button"
+              href={`#${filter.slug}`}
+              aria-label={`Jump to ${filter.label} materials`}
+            >
+              {filter.label}
+            </a>
+            <p class="muted small tag-rail__description">{filter.description}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="muted tag-rail__hint">Tags also work as filters in the pattern language below.</p>
+    </div>
+  </SectionBlock>
 
   <SectionBlock
     id="primer"
@@ -79,10 +105,15 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
   <SectionBlock
     id="patterns"
     eyebrow="Pattern language"
-    title="Governance, safeguard, and UI patterns with diagnostic links."
-    description="Filters help you route work quickly. Each pattern links to relevant diagnostics for deeper validation."
+    title="Governance, design ethics, and policy patterns with diagnostic links."
+    description="Filters help you route work quickly and keep diagnostic references within reach."
     variant="alt"
   >
+    <div class="pattern-filter__anchors" aria-hidden="true">
+      {patterns.filters.map((filter) => (
+        <span class="pattern-filter__anchor" id={filter.slug} />
+      ))}
+    </div>
     <PatternFilter
       filters={patterns.filters}
       entries={patterns.entries}

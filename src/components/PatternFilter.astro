@@ -1,20 +1,31 @@
 ---
-import type { Pattern } from '../content/library';
+import type { Pattern, PatternFilter } from '../content/library';
 
 type Props = {
-  filters: string[];
+  filters: PatternFilter[];
   entries: Pattern[];
   diagnosticTitles: Record<string, string>;
 };
 
 const { filters, entries, diagnosticTitles } = Astro.props as Props;
-const filtersWithAll = ['all', ...filters];
+const filterLabels = Object.fromEntries(
+  filters.map((filter) => [filter.slug, filter.label])
+);
+const filtersWithAll: Array<{ slug: string; label: string; description?: string }> = [
+  { slug: 'all', label: 'All themes' },
+  ...filters,
+];
 ---
-<div class="pattern-filter" data-pattern-filter data-filters={filters.join(',')}>
+<div
+  class="pattern-filter"
+  data-pattern-filter
+  data-filters={filters.map((filter) => filter.slug).join(',')}
+  data-filter-labels={JSON.stringify(filterLabels)}
+>
   <div class="pattern-filter__controls">
     <ul class="pill-list">
       {filtersWithAll.map((filter) => {
-        const isAll = filter === 'all';
+        const isAll = filter.slug === 'all';
 
         return (
           <li class={`pill-list__item${isAll ? ' pill-list__item--active' : ''}`}>
@@ -22,15 +33,18 @@ const filtersWithAll = ['all', ...filters];
               type="button"
               class="pill-list__button"
               aria-pressed={isAll}
-              data-filter={filter}
+              data-filter={filter.slug}
               aria-label={
-                filter === 'all'
+                filter.slug === 'all'
                   ? 'Show all patterns'
-                  : `Filter patterns by ${filter} and update visible results`
+                  : `Filter patterns by ${filter.label} and update visible results`
               }
             >
-              {filter === 'all' ? 'All filters' : filter}
+              {filter.label}
             </button>
+            {!isAll && filter.description ? (
+              <p class="muted small pattern-filter__description">{filter.description}</p>
+            ) : null}
           </li>
         );
       })}
@@ -53,6 +67,9 @@ const filtersWithAll = ['all', ...filters];
   <div class="grid" data-pattern-results>
     {entries.map((pattern) => {
       const searchText = `${pattern.title} ${pattern.summary} ${pattern.cues.join(' ')}`.toLowerCase();
+      const appliedFilters = pattern.filters
+        .map((filter) => filterLabels[filter] ?? filter)
+        .join(', ');
 
       return (
         <article
@@ -63,7 +80,7 @@ const filtersWithAll = ['all', ...filters];
           data-search={searchText}
         >
           <div class="card__glow" aria-hidden="true" />
-          <p class="muted">Filters: {pattern.filters.join(', ')}</p>
+          <p class="muted">Filters: {appliedFilters}</p>
           <h3>{pattern.title}</h3>
           <p>{pattern.summary}</p>
           <ul class="pill-list">
@@ -107,6 +124,7 @@ const filtersWithAll = ['all', ...filters];
       .split(',')
       .map((value) => value.trim())
       .filter(Boolean);
+    const filterLabels = JSON.parse(root.getAttribute('data-filter-labels') ?? '{}');
     const filterButtons = Array.from(root.querySelectorAll('[data-filter]'));
     const searchInput = root.querySelector('[data-search-input]');
     const cards = Array.from(root.querySelectorAll('[data-pattern-card]'));
@@ -118,6 +136,7 @@ const filtersWithAll = ['all', ...filters];
 
     const normalizeHash = (hash) => hash.replace('#', '');
     const hashFromFilter = (filter) => `#${filter ?? 'patterns'}`;
+    const getFilterLabel = (filter) => filterLabels[filter] ?? filter;
 
     const updateHash = () => {
       const targetHash = hashFromFilter(selectedFilter);
@@ -176,8 +195,7 @@ const filtersWithAll = ['all', ...filters];
       }
 
       if (status) {
-        const normalizedFilter = selectedFilter ?? 'all';
-        const filterLabel = normalizedFilter === 'all' ? 'All filters' : normalizedFilter;
+        const filterLabel = selectedFilter ? getFilterLabel(selectedFilter) : 'All themes';
         const queryLabel = normalizedQuery ? ` and search for "${normalizedQuery}"` : '';
         const pluralized = visibleCount === 1 ? 'pattern' : 'patterns';
         status.textContent = `${visibleCount} ${pluralized} visible with ${filterLabel}${queryLabel}.`;
