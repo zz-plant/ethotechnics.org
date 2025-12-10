@@ -9,11 +9,17 @@ export type PrimerSection = {
   takeaways: string[];
 };
 
+export type PatternFilter = {
+  slug: 'governance' | 'design-ethics' | 'policy';
+  label: string;
+  description: string;
+};
+
 export type Pattern = {
   slug: string;
   title: string;
   summary: string;
-  filters: Array<'governance' | 'safeguard' | 'ui'>;
+  filters: PatternFilter['slug'][];
   cues: string[];
   diagnostics: string[];
 };
@@ -28,7 +34,7 @@ export type SyllabusModule = {
 export type LibraryContent = PageWithPermalink & {
   primer: PrimerSection[];
   glossary: { terms: GlossaryTerm[]; permalink: string };
-  patterns: { filters: string[]; entries: Pattern[] };
+  patterns: { filters: PatternFilter[]; entries: Pattern[] };
   syllabus: { overview: string; modules: SyllabusModule[] };
 };
 
@@ -51,7 +57,7 @@ export const libraryContent: LibraryContent = {
       summary: 'How to adapt the materials to your org without slowing delivery.',
       takeaways: [
         'Each section ships with permalinks; link directly in design docs or runbooks to keep teams aligned.',
-        'Filters call out whether a pattern is governance-first, a safeguard, or UI guidance for faster routing.',
+        'Filters call out whether a pattern is governance-first, design-ethics guidance, or a policy control.',
         'Glossary terms stay stable so research, field notes, and diagnostics can cross-link without drift.',
       ],
     },
@@ -61,14 +67,30 @@ export const libraryContent: LibraryContent = {
     permalink: glossaryContent.permalink,
   },
   patterns: {
-    filters: ['governance', 'safeguard', 'ui'],
+    filters: [
+      {
+        slug: 'governance',
+        label: 'Governance',
+        description: 'Decision logs, maintenance windows, and escalation paths backed by diagnostics.',
+      },
+      {
+        slug: 'design-ethics',
+        label: 'Design ethics',
+        description: 'Consent prompts, appeal paths, and humane defaults that keep interfaces accountable.',
+      },
+      {
+        slug: 'policy',
+        label: 'Policy',
+        description: 'Charters, stewardship commitments, and controls you can cite in contracts and playbooks.',
+      },
+    ],
     entries: [
       {
         slug: 'decision-log',
         title: 'Decision log with dissent',
         summary:
           'Capture high-stakes calls, dissenting views, and follow-ups so governance stays legible to teams and impacted people.',
-        filters: ['governance'],
+        filters: ['governance', 'policy'],
         cues: [
           'Record why options were ruled out and who was consulted.',
           'Attach plain-language summaries for external readers.',
@@ -81,7 +103,7 @@ export const libraryContent: LibraryContent = {
         title: 'Progressive consent prompts',
         summary:
           'Stage requests for data or automation over time, with reminders and exits that honor the consent journey.',
-        filters: ['safeguard', 'ui'],
+        filters: ['design-ethics', 'policy'],
         cues: [
           'Pair each ask with why it is needed and how to revoke it.',
           'Show impacts of opting out before a person commits.',
@@ -94,7 +116,7 @@ export const libraryContent: LibraryContent = {
         title: 'Maintenance windowing',
         summary:
           'Schedule improvements, monitoring, and resourcing using a visible stewardship window.',
-        filters: ['governance', 'safeguard'],
+        filters: ['governance', 'policy'],
         cues: [
           'Set owners and success criteria for each window.',
           'Map communication cadences to risk levels and audiences.',
@@ -107,7 +129,7 @@ export const libraryContent: LibraryContent = {
         title: 'Appeal paths inside the UI',
         summary:
           'Give people a built-in channel to dispute outputs, get human review, or learn how a decision was made.',
-        filters: ['ui', 'safeguard'],
+        filters: ['design-ethics', 'governance'],
         cues: [
           'Explain who reviews appeals and the expected response time.',
           'Pre-fill context to reduce effort during stressful moments.',
@@ -124,11 +146,11 @@ export const libraryContent: LibraryContent = {
       {
         title: 'Orientation',
         duration: '60 minutes',
-        topics: [
-          'Library tour and how to use permalinks in specs',
-          'Primer on burden, consent, and stewardship',
-          'Navigation of governance, safeguard, and UI filters',
-        ],
+          topics: [
+            'Library tour and how to use permalinks in specs',
+            'Primer on burden, consent, and stewardship',
+            'Navigation of governance, design ethics, and policy filters',
+          ],
         outcome: 'Teams can route questions to the right section and cite glossary terms consistently.',
       },
       {

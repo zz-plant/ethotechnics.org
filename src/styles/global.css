@@ -227,6 +227,24 @@ noscript .nav__toggle {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.nav__quick-links {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.nav__quick-links-label {
+  margin: 0;
+}
+
+.nav__quick-links .pill-list {
+  margin: 0;
+  gap: 0.4rem;
+}
+
+.nav__quick-links .pill-list li {
+  padding: 0.35rem 0.7rem;
+}
+
 .nav__actions {
   display: flex;
   gap: 0.75rem;
@@ -668,6 +686,31 @@ noscript .nav__toggle {
   border-color: rgba(255, 255, 255, 0.28);
 }
 
+.tag-rail {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.tag-rail__item {
+  max-width: 28rem;
+}
+
+.tag-rail__description {
+  margin: 0.35rem 0 0;
+  line-height: 1.4;
+}
+
+.tag-rail__hint {
+  margin-top: 0.25rem;
+}
+
+.pattern-filter__anchor {
+  display: block;
+  height: 0;
+  scroll-margin-top: 6rem;
+}
+
 .pattern-filter {
   display: grid;
   gap: 1.4rem;
@@ -678,6 +721,11 @@ noscript .nav__toggle {
   flex-direction: column;
   gap: 0.9rem;
   align-items: flex-start;
+}
+
+.pattern-filter__description {
+  margin: 0.35rem 0 0;
+  max-width: 36ch;
 }
 
 .pattern-filter__search {
