@@ -42,6 +42,29 @@ describe("Navigation component", () => {
     expect(actionTexts).toEqual(["Field notes", "Join the institute"]);
   });
 
+  it("keeps navigation content visible at desktop breakpoints", async () => {
+    const container = await createAstroContainer();
+    const html = await container.renderToString(NavigationShell, {
+      request: new Request("https://ethotechnics.org/"),
+    });
+
+    const dom = new JSDOM(html, { runScripts: "outside-only", pretendToBeVisual: true });
+    Object.defineProperty(dom.window, "innerWidth", {
+      writable: true,
+      configurable: true,
+      value: 1000,
+    });
+
+    const navContent = dom.window.document.querySelector<HTMLElement>(".nav__content");
+    const inlineScript = dom.window.document.querySelector("script")?.textContent;
+
+    dom.window.eval(inlineScript ?? "");
+
+    expect(navContent?.hasAttribute("hidden")).toBe(false);
+    expect(navContent?.getAttribute("aria-hidden")).toBe("false");
+    expect(navContent?.hasAttribute("inert")).toBe(false);
+  });
+
   it("does not duplicate toggle handlers across navigation persistence", async () => {
     const container = await createAstroContainer();
     const html = await container.renderToString(NavigationShell, {
