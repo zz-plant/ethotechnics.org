@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { libraryContent } from '../content/library';
+import navigationScript from '../scripts/navigation.ts?url';
 
 const navLinks = [
   { href: '/glossary', label: 'Glossary' },
@@ -131,75 +132,4 @@ const navContentId = 'site-navigation-content';
   </div>
 </nav>
 
-<script is:inline>
-  const initNavigation = () => {
-    const nav = document.querySelector('[data-nav]');
-    const toggle = nav?.querySelector('.nav__toggle');
-    const content = nav?.querySelector('.nav__content');
-    const actionLinks = nav?.querySelectorAll(
-      '.nav__links a, .nav__utility a, .nav__actions a, .nav__quick-links a',
-    );
-
-    if (!nav || !toggle || !content || !actionLinks || actionLinks.length === 0) {
-      return;
-    }
-
-    if (nav.dataset.initialized === 'true') {
-      return;
-    }
-
-    const breakpoint = 992; // Match the desktop media query in global.css
-    let isOpen = false;
-
-    const updateState = (open) => {
-      isOpen = open;
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-      const icon = toggle.querySelector('span');
-      if (icon) {
-        icon.textContent = isOpen ? '✕' : '☰';
-      }
-      content.classList.toggle('is-open', isOpen);
-      const shouldHideContent = !isOpen && window.innerWidth < breakpoint;
-      content.toggleAttribute('hidden', shouldHideContent);
-      content.setAttribute('aria-hidden', String(shouldHideContent));
-      content.toggleAttribute('inert', shouldHideContent);
-      actionLinks.forEach((link) => {
-        if (shouldHideContent) {
-          link.setAttribute('tabindex', '-1');
-        } else {
-          link.removeAttribute('tabindex');
-        }
-      });
-    };
-
-    const handleToggle = () => updateState(!isOpen);
-    const handleLinkClick = () => updateState(false);
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        updateState(false);
-        toggle.focus();
-      }
-    };
-
-    const handleResize = () => {
-      if (window.innerWidth >= breakpoint) {
-        updateState(false);
-        return;
-      }
-      updateState(isOpen);
-    };
-
-    nav.dataset.initialized = 'true';
-
-    toggle.addEventListener('click', handleToggle);
-    nav.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('resize', handleResize);
-    actionLinks.forEach((link) => link.addEventListener('click', handleLinkClick));
-
-    updateState(false);
-  };
-
-  initNavigation();
-</script>
+<script type="module" src={navigationScript}></script>

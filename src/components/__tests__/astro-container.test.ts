@@ -5,9 +5,34 @@ import { describe, expect, it } from "vitest";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { createAstroContainer, parseHtml } from "../../test/astro-container";
 import NavigationShell from "./NavigationShell.astro";
+import { initNavigation } from "../../scripts/navigation";
+
+const resetGlobals = () => {
+  // @ts-expect-error cleaning up test globals
+  delete globalThis.window;
+  // @ts-expect-error cleaning up test globals
+  delete globalThis.document;
+};
+
+const bootNavigation = async (html: string, innerWidth: number) => {
+  const dom = new JSDOM(html, { url: "https://ethotechnics.org/", pretendToBeVisual: true });
+
+  Object.defineProperty(dom.window, "innerWidth", {
+    writable: true,
+    configurable: true,
+    value: innerWidth,
+  });
+
+  globalThis.window = dom.window as unknown as typeof globalThis.window;
+  globalThis.document = dom.window.document;
+
+  initNavigation();
+
+  return dom;
+};
 
 describe("Navigation component", () => {
-  it("renders expected links and inline script for interaction", async () => {
+  it("renders expected links and navigation script for interaction", async () => {
     const container = await createAstroContainer();
     const html = await container.renderToString(NavigationShell, {
       request: new Request("https://ethotechnics.org/"),
@@ -40,6 +65,12 @@ describe("Navigation component", () => {
       nav?.querySelectorAll(".nav__content .nav__actions a") ?? [],
     ).map((link) => link.textContent?.trim());
     expect(actionTexts).toEqual(["Field notes", "Join the institute"]);
+
+    const scriptSrc = document
+      .querySelector<HTMLScriptElement>("script[type=\"module\"][src]")
+      ?.getAttribute("src");
+
+    expect(scriptSrc).toBeTruthy();
   });
 
   it("keeps navigation content visible at desktop breakpoints", async () => {
@@ -48,21 +79,16 @@ describe("Navigation component", () => {
       request: new Request("https://ethotechnics.org/"),
     });
 
-    const dom = new JSDOM(html, { runScripts: "outside-only", pretendToBeVisual: true });
-    Object.defineProperty(dom.window, "innerWidth", {
-      writable: true,
-      configurable: true,
-      value: 1000,
-    });
-
+    const dom = await bootNavigation(html, 1000);
     const navContent = dom.window.document.querySelector<HTMLElement>(".nav__content");
-    const inlineScript = dom.window.document.querySelector("script")?.textContent;
 
-    dom.window.eval(inlineScript ?? "");
-
-    expect(navContent?.hasAttribute("hidden")).toBe(false);
-    expect(navContent?.getAttribute("aria-hidden")).toBe("false");
-    expect(navContent?.hasAttribute("inert")).toBe(false);
+    try {
+      expect(navContent?.hasAttribute("hidden")).toBe(false);
+      expect(navContent?.getAttribute("aria-hidden")).toBe("false");
+      expect(navContent?.hasAttribute("inert")).toBe(false);
+    } finally {
+      resetGlobals();
+    }
   });
 
   it("does not duplicate toggle handlers across navigation persistence", async () => {
@@ -71,23 +97,20 @@ describe("Navigation component", () => {
       request: new Request("https://ethotechnics.org/"),
     });
 
-    const dom = new JSDOM(html, { runScripts: "outside-only" });
-    const inlineScript = dom.window.document.querySelector("script")?.textContent;
+    const dom = await bootNavigation(html, 480);
     const toggle = dom.window.document.querySelector<HTMLButtonElement>(
       ".nav__toggle",
     );
 
-    expect(inlineScript).toBeTruthy();
-    expect(toggle).toBeTruthy();
+    try {
+      toggle?.dispatchEvent(
+        new dom.window.MouseEvent("click", { bubbles: true, cancelable: true }),
+      );
 
-    dom.window.eval(inlineScript ?? "");
-    dom.window.eval(inlineScript ?? "");
-
-    toggle?.dispatchEvent(
-      new dom.window.MouseEvent("click", { bubbles: true, cancelable: true }),
-    );
-
-    expect(toggle?.getAttribute("aria-expanded")).toBe("true");
+      expect(toggle?.getAttribute("aria-expanded")).toBe("true");
+    } finally {
+      resetGlobals();
+    }
   });
 });
 
