@@ -517,6 +517,46 @@ noscript .nav__toggle {
   mix-blend-mode: multiply;
 }
 
+.illustration {
+  display: grid;
+  gap: 0.8rem;
+  height: 100%;
+  background: color-mix(in srgb, var(--surface) 94%, white 6%);
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
+  padding: 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.illustration__frame {
+  position: relative;
+  padding: 1.1rem;
+  background: color-mix(in srgb, var(--panel) 92%, white 8%);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.illustration__frame img {
+  width: 100%;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+.illustration__halo {
+  position: absolute;
+  inset: 12%;
+  border-radius: var(--radius-lg);
+  border: 1px dashed color-mix(in srgb, var(--border) 68%, transparent);
+  pointer-events: none;
+}
+
+.illustration--card {
+  background: color-mix(in srgb, var(--card) 94%, white 6%);
+}
+
 .hero__panel {
   display: grid;
   gap: 1rem;
@@ -632,6 +672,14 @@ noscript .nav__toggle {
 .section__header h2 {
   margin: 0;
   font-size: clamp(1.9rem, 2vw + 1rem, 2.5rem);
+}
+
+.features__layout {
+  align-items: stretch;
+}
+
+.features__grid {
+  margin-top: 0;
 }
 
 .grid {
