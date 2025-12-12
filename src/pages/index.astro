@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { homeContent } from '../content/home';
+import Illustration from '../components/Illustration.astro';
 
 const { pageTitle, pageDescription, hero, about, features, highlight, cta } = homeContent;
 ---
@@ -111,24 +112,32 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
       <h2>{features.heading}</h2>
       <p class="muted">{features.body}</p>
     </div>
-    <div class="grid grid--two">
-      {features.cards.map((feature) => (
-        <article
-          class={`card${feature.emphasis ? ' card--emphasis' : ''}`}
-          aria-label={feature.emphasis ? 'Navigation feature highlight' : undefined}
-        >
-          <div class="card__glow" aria-hidden="true" />
-          <h3>{feature.title}</h3>
-          <p>{feature.description}</p>
-          {feature.pills ? (
-            <ul class="pill-list">
-              {feature.pills.map((pill) => (
-                <li>{pill}</li>
-              ))}
-            </ul>
-          ) : null}
-        </article>
-      ))}
+    <div class="features__layout grid grid--two">
+      <Illustration
+        src="/assets/focus-illustration.svg"
+        alt="Diagram linking responsible delivery, research, and governance focus areas."
+        caption="A focal map of how the Institute keeps product delivery accountable."
+        className="features__illustration"
+      />
+      <div class="grid grid--two features__grid">
+        {features.cards.map((feature) => (
+          <article
+            class={`card${feature.emphasis ? ' card--emphasis' : ''}`}
+            aria-label={feature.emphasis ? 'Navigation feature highlight' : undefined}
+          >
+            <div class="card__glow" aria-hidden="true" />
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+            {feature.pills ? (
+              <ul class="pill-list">
+                {feature.pills.map((pill) => (
+                  <li>{pill}</li>
+                ))}
+              </ul>
+            ) : null}
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 

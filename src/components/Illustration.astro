@@ -1,0 +1,18 @@
+---
+export interface IllustrationProps {
+  src: string;
+  alt: string;
+  caption?: string;
+  className?: string;
+  variant?: 'panel' | 'card';
+}
+
+const { src, alt, caption, className, variant = 'panel' } = Astro.props;
+---
+<figure class:list={[`illustration illustration--${variant}`, className]}> 
+  <div class="illustration__frame">
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+    <span class="illustration__halo" aria-hidden="true" />
+  </div>
+  {caption ? <figcaption class="muted">{caption}</figcaption> : null}
+</figure>
