@@ -224,6 +224,13 @@ svg {
     opacity 0.2s ease;
 }
 
+.nav:not([data-nav-ready]) .nav__content {
+  position: static;
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .nav__content.is-open {
   transform: translateY(0);
   opacity: 1;

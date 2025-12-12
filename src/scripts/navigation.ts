@@ -17,6 +17,26 @@ export const initNavigation = () => {
   const breakpoint = 992; // Match the desktop media query in global.css
   let isOpen = false;
 
+  const applyAccessibilityState = (shouldHideContent: boolean) => {
+    if (nav.dataset.navReady !== 'true') {
+      return;
+    }
+
+    if (!content.classList.contains('nav__content')) {
+      return;
+    }
+
+    if (shouldHideContent) {
+      content.setAttribute('hidden', '');
+      content.setAttribute('aria-hidden', 'true');
+      content.setAttribute('inert', '');
+    } else {
+      content.removeAttribute('hidden');
+      content.setAttribute('aria-hidden', 'false');
+      content.removeAttribute('inert');
+    }
+  };
+
   const updateState = (open: boolean) => {
     isOpen = open;
     toggle.setAttribute('aria-expanded', String(isOpen));
@@ -27,15 +47,7 @@ export const initNavigation = () => {
     }
     content.classList.toggle('is-open', isOpen);
     const shouldHideContent = !isOpen && window.innerWidth < breakpoint;
-    if (shouldHideContent) {
-      content.setAttribute('hidden', '');
-      content.setAttribute('aria-hidden', 'true');
-      content.setAttribute('inert', '');
-    } else {
-      content.removeAttribute('hidden');
-      content.setAttribute('aria-hidden', 'false');
-      content.removeAttribute('inert');
-    }
+    applyAccessibilityState(shouldHideContent);
     actionLinks.forEach((link) => {
       if (shouldHideContent) {
         link.setAttribute('tabindex', '-1');
@@ -63,6 +75,7 @@ export const initNavigation = () => {
     updateState(isOpen);
   };
 
+  nav.dataset.navReady = 'true';
   nav.dataset.initialized = 'true';
 
   toggle.addEventListener('click', handleToggle);
