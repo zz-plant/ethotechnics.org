@@ -27,6 +27,12 @@ export type HeroAction = {
   icon?: string;
 };
 
+export type HeroMedia = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
 export type HomeContent = PageCopy & {
   hero: {
     eyebrow: string;
@@ -37,6 +43,7 @@ export type HomeContent = PageCopy & {
     actions: HeroAction[];
     metrics: Metric[];
     panel: Panel;
+    media: HeroMedia;
   };
   about: {
     eyebrow: string;
@@ -98,6 +105,11 @@ export const homeContent = {
       title: 'Where we plug in',
       description: 'Pick a track that matches your urgency. We can calibrate, facilitate, or co-lead.',
       pills: ['Readiness review', 'Accountability lab', 'Co-delivery partnership'],
+    },
+    media: {
+      src: '/assets/ethotechnics-hero-map.svg',
+      alt: 'An illustrated map showing research, governance, delivery, and stewardship linked together.',
+      caption: 'Visualizing how research, governance, and delivery reinforce long-term stewardship.',
     },
   },
   about: {

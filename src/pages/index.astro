@@ -38,6 +38,12 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
           ))}
         </div>
       </div>
+      <figure class="hero__media">
+        <div class="hero__media-frame">
+          <img src={hero.media.src} alt={hero.media.alt} loading="lazy" decoding="async" />
+        </div>
+        {hero.media.caption ? <figcaption class="muted">{hero.media.caption}</figcaption> : null}
+      </figure>
       <div class="hero__panel">
         <div class="panel panel--glass">
           <p class="muted">{hero.panel.title}</p>
