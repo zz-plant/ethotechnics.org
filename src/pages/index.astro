@@ -107,14 +107,35 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
   </section>
 
   <section class="info-strip" aria-label="How this works">
-    <p class="eyebrow">How this works</p>
-    <p class="muted info-strip__text">
-      The Institute library and diagnostics are governed by the
-      <a href="/institute">Ethotechnics Institute charter</a>. Content licensed under the
-      <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer" target="_blank">
-        Creative Commons Attribution 4.0 International License
-      </a>.
-    </p>
+    <div class="info-strip__lead">
+      <p class="eyebrow">How this works</p>
+      <p class="muted">A living charter keeps the Institute accountable, and our work stays remixable.</p>
+    </div>
+    <div class="info-strip__actions" aria-label="Reference links">
+      <a class="info-strip__badge" href="/institute">
+        <span class="info-strip__icon" aria-hidden="true">
+          <Icon name="lucide:shield-check" />
+        </span>
+        <span class="info-strip__copy">
+          <span class="info-strip__label">Charter</span>
+          <span class="info-strip__title">Ethotechnics Institute</span>
+        </span>
+      </a>
+      <a
+        class="info-strip__badge"
+        href="https://creativecommons.org/licenses/by/4.0/"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <span class="info-strip__icon" aria-hidden="true">
+          <Icon name="lucide:creative-commons" />
+        </span>
+        <span class="info-strip__copy">
+          <span class="info-strip__label">License</span>
+          <span class="info-strip__title">CC BY 4.0 International</span>
+        </span>
+      </a>
+    </div>
   </section>
 
   <section id="about" class="section">
