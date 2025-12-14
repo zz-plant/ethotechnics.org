@@ -394,6 +394,7 @@ noscript .nav__toggle {
   opacity: 0.22;
   transform: rotate(-9deg);
   mix-blend-mode: multiply;
+  will-change: transform, opacity;
 }
 
 .beam--one {
@@ -425,6 +426,142 @@ noscript .nav__toggle {
   opacity: 0.12;
   mix-blend-mode: multiply;
   filter: url('#ink-hatch');
+  will-change: background-position, opacity;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__canvas {
+    animation: hero-parallax 1s linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 70%;
+  }
+
+  @supports not (animation-timeline: view()) {
+    .hero__canvas {
+      animation: hero-float 18s ease-in-out infinite alternate;
+    }
+  }
+
+  .beam {
+    animation-duration: 22s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  .beam--one {
+    animation-name: beam-shift-one;
+  }
+
+  .beam--two {
+    animation-name: beam-shift-two;
+    animation-duration: 26s;
+    animation-delay: 1.4s;
+  }
+
+  .beam--three {
+    animation-name: beam-shift-three;
+    animation-duration: 28s;
+    animation-delay: 0.6s;
+  }
+
+  .gridlines {
+    animation: grid-pan 24s linear infinite alternate;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__canvas,
+  .hero__canvas * {
+    animation: none !important;
+  }
+}
+
+@keyframes hero-parallax {
+  from {
+    transform: translate3d(0, -8px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+@keyframes hero-float {
+  from {
+    transform: translate3d(0, -6px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 6px, 0);
+  }
+}
+
+@keyframes beam-shift-one {
+  0% {
+    transform: translate3d(-6%, -4%, 0) rotate(-9deg) scale(1);
+    opacity: 0.18;
+  }
+
+  50% {
+    transform: translate3d(2%, 2%, 0) rotate(-6deg) scale(1.02);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translate3d(-3%, -2%, 0) rotate(-9deg) scale(1);
+    opacity: 0.22;
+  }
+}
+
+@keyframes beam-shift-two {
+  0% {
+    transform: translate3d(4%, 2%, 0) rotate(6deg) scale(1);
+    opacity: 0.16;
+  }
+
+  50% {
+    transform: translate3d(-4%, -4%, 0) rotate(4deg) scale(1.04);
+    opacity: 0.28;
+  }
+
+  100% {
+    transform: translate3d(2%, 3%, 0) rotate(6deg) scale(1.01);
+    opacity: 0.2;
+  }
+}
+
+@keyframes beam-shift-three {
+  0% {
+    transform: translate3d(6%, -6%, 0) rotate(1deg) scale(1);
+    opacity: 0.16;
+  }
+
+  50% {
+    transform: translate3d(-6%, 6%, 0) rotate(-1deg) scale(1.05);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translate3d(2%, -2%, 0) rotate(1deg) scale(1.02);
+    opacity: 0.22;
+  }
+}
+
+@keyframes grid-pan {
+  from {
+    opacity: 0.12;
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  to {
+    opacity: 0.2;
+    background-position:
+      24px 12px,
+      0 18px;
+  }
 }
 
 .hero__layout {
