@@ -914,15 +914,79 @@ noscript .nav__toggle {
   overflow: hidden;
   isolation: isolate;
   box-shadow: 0 12px 28px rgba(47, 41, 35, 0.12);
+  --glow-opacity: 0.14;
+  --glow-scale: 1;
+  --glow-rotation: 0deg;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease;
 }
 
 .card__glow {
-  display: none;
+  position: absolute;
+  inset: -35% -30%;
+  background:
+    radial-gradient(circle at 22% 24%, color-mix(in srgb, var(--accent) 42%, transparent) 0, transparent 48%),
+    conic-gradient(
+      from 160deg at 70% 55%,
+      color-mix(in srgb, var(--gold) 42%, transparent) 0deg,
+      color-mix(in srgb, var(--accent) 32%, transparent) 120deg,
+      color-mix(in srgb, var(--muted) 18%, transparent) 240deg,
+      color-mix(in srgb, var(--gold) 42%, transparent) 360deg
+    );
+  filter: blur(52px);
+  opacity: var(--glow-opacity);
+  z-index: 0;
+  transform: rotate(var(--glow-rotation)) scale(var(--glow-scale));
+  transition:
+    opacity 240ms ease,
+    transform 260ms ease;
+  animation: card-glow-rotate 26s linear infinite;
+  pointer-events: none;
 }
 
 .card--emphasis {
   background: color-mix(in srgb, var(--panel) 92%, white 8%);
   border-color: color-mix(in srgb, var(--border) 92%, transparent);
+  --glow-opacity: 0.18;
+  --glow-rotation: 12deg;
+}
+
+.card > :not(.card__glow) {
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--border) 68%, var(--accent) 32%);
+  box-shadow: 0 16px 34px rgba(47, 41, 35, 0.16);
+  --glow-opacity: 0.22;
+  --glow-scale: 1.06;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card__glow {
+    transition: none;
+  }
+
+  .card__glow {
+    animation: none;
+  }
+}
+
+@keyframes card-glow-rotate {
+  from {
+    transform: rotate(var(--glow-rotation)) scale(var(--glow-scale));
+  }
+  to {
+    transform: rotate(calc(var(--glow-rotation) + 360deg)) scale(var(--glow-scale));
+  }
 }
 
 .icon {
