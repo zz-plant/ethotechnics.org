@@ -567,26 +567,79 @@ noscript .nav__toggle {
   margin: 2.5rem 0 3rem;
   padding: 1.1rem 1.4rem;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
   box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
 }
 
-.info-strip__text {
-  margin: 0.35rem 0 0;
+.info-strip__lead {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 260px;
 }
 
-.info-strip__text a {
-  font-weight: 700;
+.info-strip__actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  min-width: 280px;
+}
+
+.info-strip__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+  background: color-mix(in srgb, var(--panel) 86%, white 14%);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
-  padding-bottom: 0.05rem;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
 }
 
-.info-strip__text a:hover,
-.info-strip__text a:focus-visible {
+.info-strip__badge:hover,
+.info-strip__badge:focus-visible {
+  border-color: var(--accent-strong);
+  background: color-mix(in srgb, var(--accent) 16%, var(--panel));
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.info-strip__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
   color: white;
-  border-bottom-color: var(--accent-strong);
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+}
+
+.info-strip__copy {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.info-strip__label {
+  font-size: 0.85rem;
+  color: color-mix(in srgb, var(--muted) 90%, var(--text));
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.info-strip__title {
+  font-weight: 700;
 }
 
 .panel {
