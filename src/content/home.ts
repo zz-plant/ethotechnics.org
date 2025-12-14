@@ -4,6 +4,8 @@ export type Metric = {
   label: string;
   value: string;
   icon?: string;
+  trend?: number[];
+  trendLabel?: string;
 };
 
 export type FeatureCard = {
@@ -93,12 +95,26 @@ export const homeContent = {
       { label: 'Book a diagnostic', href: '/diagnostics', variant: 'ghost', icon: 'lucide:activity-square' },
     ],
     metrics: [
-      { label: 'Institute library', value: 'Open guides, playbooks, and charter', icon: 'lucide:book-open-check' },
-      { label: 'Diagnostics', value: 'Readiness labs and governance roadmaps', icon: 'lucide:stethoscope' },
+      {
+        label: 'Institute library',
+        value: 'Open guides, playbooks, and charter',
+        icon: 'lucide:book-open-check',
+        trend: [12, 16, 18, 22, 27, 31],
+        trendLabel: 'Library content growth over the last six releases',
+      },
+      {
+        label: 'Diagnostics',
+        value: 'Readiness labs and governance roadmaps',
+        icon: 'lucide:stethoscope',
+        trend: [8, 9, 11, 12, 15, 17],
+        trendLabel: 'Teams completing diagnostics month over month',
+      },
       {
         label: 'Partner Studio',
         value: 'Optional embedded support via ethotechnics.com',
         icon: 'lucide:heart-handshake',
+        trend: [5, 6, 6, 7, 8, 9],
+        trendLabel: 'Partner-led engagements supported by the Studio',
       },
     ],
     panel: {

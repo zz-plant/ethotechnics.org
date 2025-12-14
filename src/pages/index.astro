@@ -5,6 +5,25 @@ import { homeContent } from '../content/home';
 import Illustration from '../components/Illustration.astro';
 
 const { pageTitle, pageDescription, hero, about, features, highlight, cta } = homeContent;
+
+const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
+  if (!points || points.length === 0) return '';
+
+  const max = Math.max(...points);
+  const min = Math.min(...points);
+  const range = max - min || 1;
+  const step = points.length > 1 ? width / (points.length - 1) : width;
+
+  return points
+    .map((point, index) => {
+      const x = index * step;
+      const y = height - ((point - min) / range) * height;
+      const prefix = index === 0 ? 'M' : 'L';
+
+      return `${prefix}${x.toFixed(2)} ${y.toFixed(2)}`;
+    })
+    .join(' ');
+};
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="hero">
@@ -67,6 +86,19 @@ const { pageTitle, pageDescription, hero, about, features, highlight, cta } = ho
                 <p class="muted">{metric.label}</p>
               </div>
               <p class="metric">{metric.value}</p>
+              {metric.trend?.length ? (
+                <div class="stat-card__trend">
+                  <svg
+                    class="stat-card__sparkline"
+                    viewBox="0 0 120 36"
+                    preserveAspectRatio="none"
+                    role="img"
+                    aria-label={metric.trendLabel ?? `${metric.label} trend`}
+                  >
+                    <path d={buildSparklinePath(metric.trend)} />
+                  </svg>
+                </div>
+              ) : null}
             </article>
           ))}
         </div>
