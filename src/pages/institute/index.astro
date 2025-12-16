@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
+import InstituteStudioComparison from '../../components/InstituteStudioComparison.astro';
 import { instituteContent } from '../../content/institute';
 
 const { pageTitle, pageDescription, permalink, mission, governance, stewards, contact } = instituteContent;
@@ -27,6 +28,8 @@ const { pageTitle, pageDescription, permalink, mission, governance, stewards, co
         'Result pages across diagnostics link directly to ethotechnics.com/studio. Use the contact links below to schedule a facilitation session or escalate decisions that need a governance forum.',
     }}
   />
+
+  <InstituteStudioComparison />
 
   <SectionBlock
     id="mission"
