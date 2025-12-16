@@ -67,6 +67,10 @@ export type HomeContent = PageCopy & {
       title: string;
       description: string;
       actions: string[];
+      link: {
+        label: string;
+        href: string;
+      };
     };
     pills: string[];
   };
@@ -194,6 +198,10 @@ export const homeContent = {
         'Give people a reversible path; avoid dead ends or forced funnels.',
         'Show the data you collect and how long you keep it in plain language.',
       ],
+      link: {
+        label: 'Read all Field Notes',
+        href: '/field-notes',
+      },
     },
     pills: ['Respectful defaults', 'Community input', 'Long-term stewardship'],
   },
