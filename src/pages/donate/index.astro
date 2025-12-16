@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import { donateContent } from '../../content/donate';
+
+const { pageTitle, pageDescription, permalink, impact, paths, contact } = donateContent;
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Support"
+    title="Donate"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: '#impact', label: 'Where funds go' },
+      { href: '#ways', label: 'Ways to contribute' },
+      { href: '#contact', label: 'Contact' },
+    ]}
+    panelCopy={{
+      eyebrow: 'Accountable stewardship',
+      title: 'Your support keeps the library free.',
+      description:
+        'Contributions cover research, diagnostics maintenance, and teaching materials so practitioners everywhere can use them without paywalls.',
+    }}
+  />
+
+  <SectionBlock
+    id="impact"
+    eyebrow="Impact"
+    title="Where your contribution goes"
+    description="Funding keeps the work open, maintained, and ready for teams navigating complex launches."
+  >
+    <CardGrid>
+      {impact.map((item) => (
+        <CardItem title={item.title} description={item.detail} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ways"
+    eyebrow="Options"
+    title="Ways to contribute"
+    description="Pick the path that matches your team, from quick gifts to recurring support."
+    variant="alt"
+  >
+    <CardGrid>
+      {paths.map((path) => (
+        <CardItem title={path.title} description={path.description} descriptionTone="default">
+          <div slot="footer" class="card__footer">
+            <a class="button primary button--compact" href={path.href}>{path.ctaLabel}</a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="contact"
+    eyebrow="Logistics"
+    title="Need invoicing or documentation?"
+    description="We can align with your procurement process and provide whatever documentation you need."
+  >
+    <CardGrid>
+      <CardItem title={contact.title} descriptionTone="default">
+        <p>{contact.detail}</p>
+        <div class="card__footer">
+          <a class="button ghost" href={`mailto:${contact.email}?subject=${contact.subject}`}>
+            Email {contact.email}
+          </a>
+        </div>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>
