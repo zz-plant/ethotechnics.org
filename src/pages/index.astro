@@ -39,7 +39,7 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
         <h1>{hero.heading}</h1>
         <p class="muted">{hero.subheadline}</p>
         <p class="lede">{hero.lede}</p>
-        <p class="muted">{hero.map}</p>
+        <p class="muted" set:html={hero.map}></p>
         <div class="hero__tags" aria-label="Focus areas">
           {hero.metrics.map((metric) => (
             <span class="pill pill--ghost">{metric.value}</span>
