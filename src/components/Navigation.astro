@@ -3,6 +3,8 @@ import { Icon } from 'astro-icon/components';
 import { libraryContent } from '../content/library';
 import navigationScript from '../scripts/navigation.ts?url';
 
+const donateHref = '/donate';
+
 const navLinks = [
   { href: '/glossary', label: 'Glossary' },
   { href: '/library', label: 'Library' },
@@ -27,7 +29,7 @@ const navContentId = 'site-navigation-content';
       </a>
 
       <div class="nav__utility nav__utility--desktop">
-        <a class="button ghost button--compact" href="/donate">Donate</a>
+        <a class="button ghost button--compact" href={donateHref}>Donate</a>
         <a
           class="nav__utility-link"
           href="https://ethotechnics.com/studio"
@@ -75,7 +77,7 @@ const navContentId = 'site-navigation-content';
         </ul>
       </div>
       <div class="nav__utility nav__utility--menu">
-        <a class="button ghost button--compact" href="/donate">Donate</a>
+        <a class="button ghost button--compact" href={donateHref}>Donate</a>
         <a
           class="nav__utility-link"
           href="https://ethotechnics.com/studio"
@@ -112,7 +114,7 @@ const navContentId = 'site-navigation-content';
           </ul>
         </div>
         <div class="nav__utility nav__utility--menu">
-          <a class="button ghost button--compact" href="/donate">Donate</a>
+          <a class="button ghost button--compact" href={donateHref}>Donate</a>
           <a
             class="nav__utility-link"
             href="https://ethotechnics.com/studio"
