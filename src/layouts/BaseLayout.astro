@@ -2,6 +2,7 @@
 import { SEO } from 'astro-seo';
 import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
+import { siteFooter } from '../content/site-footer';
 import '../styles/global.css';
 import '@fontsource-variable/plus-jakarta-sans';
 import '@fontsource-variable/source-serif-4';
@@ -16,9 +17,10 @@ const {
   description = 'Ethotechnics.org explores how to build technology that respects human dignity through design, research, and governance.',
 } = Astro.props as Props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.href;
-  const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-  const ogImage = new URL('/favicon.svg', siteBase).toString();
-  const defaultTitle = 'Ethotechnics — Ethical technology in practice';
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const ogImage = new URL('/favicon.svg', siteBase).toString();
+const defaultTitle = 'Ethotechnics — Ethical technology in practice';
+const { identity, navigation } = siteFooter;
 ---
 <!doctype html>
 <html lang="en" id="top">
@@ -77,53 +79,47 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString(
     </main>
     <footer class="footer container" aria-label="Site footer">
       <section class="footer__section">
-        <h2 class="eyebrow footer__heading">Identity</h2>
+        <h2 class="eyebrow footer__heading">{identity.heading}</h2>
         <div class="footer__identity">
-          <a class="footer__brand" href="/" aria-label="Ethotechnics home">
-            <img src="/favicon.svg" alt="Ethotechnics logo" class="footer__logo" loading="lazy" />
-            <span class="footer__brand-name">Ethotechnics Institute</span>
+          <a class="footer__brand" href={identity.brand.href} aria-label={identity.brand.ariaLabel}>
+            <img
+              src={identity.brand.logoSrc}
+              alt={identity.brand.logoAlt}
+              class="footer__logo"
+              loading="lazy"
+            />
+            <span class="footer__brand-name">{identity.brand.name}</span>
           </a>
-          <p class="muted">Content licensed under the Creative Commons Attribution 4.0 International License.</p>
+          <p class="muted">{identity.description}</p>
           <a
             class="footer__link"
-            href="https://creativecommons.org/licenses/by/4.0/"
-            rel="noreferrer"
-            target="_blank"
+            href={identity.license.href}
+            rel={identity.license.external ? 'noreferrer' : undefined}
+            target={identity.license.external ? '_blank' : undefined}
           >
-            View the CC BY 4.0 license
+            {identity.license.label}
           </a>
         </div>
       </section>
-      <section class="footer__section">
-        <h2 class="eyebrow footer__heading">Network</h2>
-        <ul class="footer__list">
-          <li><a class="footer__link" href="/institute">Ethotechnics Institute</a></li>
-          <li>
-            <a class="footer__link" href="https://ethotechnics.com" rel="noreferrer" target="_blank">
-              Ethotechnics Studio
-            </a>
-          </li>
-          <li>
-            <a class="footer__link" href="https://syadvada.org" rel="noreferrer" target="_blank">Syadvada</a>
-          </li>
-        </ul>
-      </section>
-      <section class="footer__section">
-        <h2 class="eyebrow footer__heading">Connect</h2>
-        <ul class="footer__list">
-          <li>
-            <a class="footer__link" href="https://signals.ethotechnics.org" rel="noreferrer" target="_blank">
-              Signals newsletter
-            </a>
-          </li>
-          <li><a class="footer__link" href="/rss.xml">RSS feed</a></li>
-          <li>
-            <a class="footer__link" href="https://github.com/ethotechnics" rel="noreferrer" target="_blank">
-              Ethotechnics on GitHub
-            </a>
-          </li>
-        </ul>
-      </section>
+      {navigation.map((section) => (
+        <section class="footer__section">
+          <h2 class="eyebrow footer__heading">{section.heading}</h2>
+          <ul class="footer__list">
+            {section.links.map((link) => (
+              <li>
+                <a
+                  class="footer__link"
+                  href={link.href}
+                  rel={link.external ? 'noreferrer' : undefined}
+                  target={link.external ? '_blank' : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </footer>
     <script>
       const main = document.getElementById('main-content');
