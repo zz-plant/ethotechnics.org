@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { instituteStudioComparisonContent } from '../content/comparison';
 import { homeContent } from '../content/home';
 import Illustration from '../components/Illustration.astro';
 import InstituteStudioComparison from '../components/InstituteStudioComparison.astro';
@@ -107,7 +108,7 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
     </div>
   </section>
 
-  <InstituteStudioComparison />
+  <InstituteStudioComparison content={instituteStudioComparisonContent} />
 
   <section class="info-strip" aria-label="How this works">
     <div class="info-strip__lead">

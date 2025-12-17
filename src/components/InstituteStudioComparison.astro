@@ -1,42 +1,34 @@
 ---
+import type { InstituteStudioComparisonContent } from '../content/comparison';
+
+type Props = {
+  content: InstituteStudioComparisonContent;
+};
+
+const { content } = Astro.props;
+const headingId = 'comparison-heading';
 ---
-<section class="comparison panel panel--glass" aria-labelledby="comparison-heading">
+<section class="comparison panel panel--glass" aria-labelledby={headingId}>
   <div class="comparison__header">
-    <p class="eyebrow">Where to start</p>
-    <h3 id="comparison-heading">Institute or Studio?</h3>
-    <p class="muted">
-      Institute = open guides and diagnostics you can run yourself. Studio = facilitated engagements when you
-      need a delivery partner.
-    </p>
+    <p class="eyebrow">{content.eyebrow}</p>
+    <h3 id={headingId}>{content.heading}</h3>
+    <p class="muted">{content.description}</p>
   </div>
   <div class="grid grid--two comparison__grid">
-    <article class="card comparison__card">
-      <div class="card__glow" aria-hidden="true" />
-      <p class="eyebrow">Institute</p>
-      <h4>Open guidance and self-serve diagnostics.</h4>
-      <p>Use the free library to align teams and run diagnostics when you want a quick readiness pulse.</p>
-      <div class="actions">
-        <a class="button primary" href="/library">
-          Browse the library
-        </a>
-        <a class="button ghost" href="/diagnostics">
-          Run a diagnostic
-        </a>
-      </div>
-    </article>
-    <article class="card comparison__card">
-      <div class="card__glow" aria-hidden="true" />
-      <p class="eyebrow">Studio</p>
-      <h4>Facilitated engagements when you need a partner.</h4>
-      <p>Bring in the Studio for bespoke facilitation, governance escalations, or embedded delivery support.</p>
-      <div class="actions">
-        <a class="button primary" href="https://ethotechnics.com/studio" rel="noreferrer">
-          Visit the Studio
-        </a>
-        <a class="button ghost" href="mailto:studio@ethotechnics.org">
-          Email the Studio team
-        </a>
-      </div>
-    </article>
+    {content.cards.map((card) => (
+      <article class="card comparison__card">
+        <div class="card__glow" aria-hidden="true" />
+        <p class="eyebrow">{card.eyebrow}</p>
+        <h4>{card.title}</h4>
+        <p>{card.description}</p>
+        <div class="actions">
+          {card.actions.map((action) => (
+            <a class={`button ${action.variant}`} href={action.href} rel={action.rel}>
+              {action.label}
+            </a>
+          ))}
+        </div>
+      </article>
+    ))}
   </div>
 </section>
