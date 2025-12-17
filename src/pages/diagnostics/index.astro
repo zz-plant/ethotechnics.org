@@ -1,42 +1,32 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 
 const { pageTitle, pageDescription, permalink, tools, offRampNote } = diagnosticsContent;
 const patternBase = `${libraryContent.permalink}#patterns`;
+const anchorLinks = tools.map((tool) => ({ href: `#${tool.slug}`, label: tool.title }));
+const introDescription = `${pageDescription} These evaluators are public Institute tools under CC BY through the Institute, and Studio uses the same models with bespoke facilitation via ethotechnics.com/studio.`;
+const panelDescription = [
+  'Result pages repeat the off-ramp so teams know where to escalate through ethotechnics.com/studio.',
+  'Patterns referenced in results link back to the Library pattern language for fast follow-up.',
+  offRampNote,
+].join(' ');
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="section">
-    <div class="section__header">
-      <p class="eyebrow">Diagnostics</p>
-      <h1>Diagnostics</h1>
-      <p class="muted">{pageDescription}</p>
-      <p class="muted">
-        These evaluators are public Institute tools under CC BY through the
-        <a href="/institute">Institute</a>, and Studio uses the same models with bespoke facilitation via
-        <a href="https://ethotechnics.com/studio">ethotechnics.com/studio</a>.
-      </p>
-      <p class="muted">
-        Permanent link: <a href={permalink}>{permalink}</a>
-      </p>
-      <ul class="pill-list">
-        {tools.map((tool) => (
-          <li><a href={`#${tool.slug}`}>{tool.title}</a></li>
-        ))}
-      </ul>
-    </div>
-    <div class="panel panel--glass">
-      <p class="muted">Results and off-ramps</p>
-      <h2>Each tool ships with an off-ramp to ethotechnics.com/studio.</h2>
-      <p>
-        Result pages repeat the off-ramp so teams know where to escalate through
-        <a href="https://ethotechnics.com/studio">ethotechnics.com/studio</a>. Patterns referenced in results link back to the
-        Library pattern language for fast follow-up.
-      </p>
-      <p class="muted">{offRampNote}</p>
-    </div>
-  </section>
+  <PageIntro
+    eyebrow="Diagnostics"
+    title="Diagnostics"
+    description={introDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: 'Results and off-ramps',
+      title: 'Each tool ships with an off-ramp to ethotechnics.com/studio.',
+      description: panelDescription,
+    }}
+  />
 
   {tools.map((tool, index) => (
     <section id={tool.slug} class={`section${index % 2 === 0 ? ' section--alt' : ''}`}>
