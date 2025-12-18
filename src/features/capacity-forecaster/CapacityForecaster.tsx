@@ -1,14 +1,11 @@
-import { useRef } from 'react';
 import CapacityChart from './CapacityChart';
 import InputPanel from './InputPanel';
-import ReportGenerator from './ReportGenerator';
 import { useCapacityForecast } from './useCapacityForecast';
 import './capacityForecaster.css';
 
 export function CapacityForecaster() {
   const { metrics, params, forecast, updateMetrics, updateParams, stabilityOptions } =
     useCapacityForecast();
-  const chartRef = useRef<HTMLDivElement>(null);
   const finalPoint = forecast.data[forecast.data.length - 1];
 
   return (
@@ -18,9 +15,9 @@ export function CapacityForecaster() {
         <h2>Simulate decay, remediation, and refusal windows.</h2>
         <p className="muted">
           Blend operational metrics with a refusal runway to see where delivery capacity saturates. The model applies compound
-          decay to a 24-month horizon and highlights the first saturation point on the chart.
+          decay to a 24-month horizon and highlights the first saturation point on the chart. Use your browser&apos;s print or
+          save-as-PDF options if you need to share a snapshot.
         </p>
-        <ReportGenerator targetRef={chartRef} />
       </div>
 
       <div className="forecaster__grid">
@@ -32,7 +29,7 @@ export function CapacityForecaster() {
           onParamsChange={updateParams}
         />
 
-        <div className="forecaster__chart-card" ref={chartRef}>
+        <div className="forecaster__chart-card">
           <CapacityChart
             data={forecast.data}
             saturationDate={forecast.saturationDate}
