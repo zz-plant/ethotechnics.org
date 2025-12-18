@@ -1,21 +1,22 @@
 :root {
   color-scheme: light;
-  --bg: #f6f1e8;
-  --surface: #fbf7ef;
-  --panel: #f0e8dc;
-  --card: #ece3d7;
-  --border: #d5cabc;
-  --text: #2f2921;
-  --muted: #5c5348;
-  --accent: #c78245;
-  --accent-strong: #a25a2a;
-  --gold: #c8a26a;
+  --bg: #f6f0e6;
+  --surface: #fdfaf5;
+  --panel: #f1e7d8;
+  --card: #ebe0d0;
+  --border: #d4c5b1;
+  --text: #261c12;
+  --muted: #5a4d40;
+  --accent: #c07640;
+  --accent-strong: #924f23;
+  --gold: #c9a064;
+  --teal: #3f7c7a;
   --radius: 16px;
   --radius-md: 14px;
   --radius-lg: 18px;
-  --shadow: 0 14px 40px rgba(47, 41, 35, 0.14);
-  --shadow-xs: 0 6px 14px rgba(47, 41, 35, 0.08);
-  --shadow-sm: 0 12px 22px rgba(47, 41, 35, 0.1);
+  --shadow: 0 18px 46px rgba(27, 18, 11, 0.16);
+  --shadow-xs: 0 7px 16px rgba(27, 18, 11, 0.08);
+  --shadow-sm: 0 12px 26px rgba(27, 18, 11, 0.12);
   --space-1: 0.4rem;
   --space-2: 0.75rem;
   --space-3: 1.15rem;
@@ -26,6 +27,10 @@
   --color-foreground: var(--text);
   --color-foreground-muted: var(--muted);
   --color-foreground-subtle: color-mix(in srgb, var(--muted) 70%, var(--bg) 30%);
+  --glow-wash:
+    radial-gradient(circle at 18% 20%, color-mix(in srgb, var(--accent) 9%, transparent) 0, transparent 38%),
+    radial-gradient(circle at 88% 18%, color-mix(in srgb, var(--teal) 14%, transparent) 0, transparent 36%),
+    radial-gradient(circle at 32% 90%, color-mix(in srgb, var(--gold) 12%, transparent) 0, transparent 38%);
   --font-size-sm: 0.95rem;
   --sans:
     "Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Inter", system-ui,
@@ -43,7 +48,10 @@ body {
   font-optical-sizing: auto;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 8% 16%, color-mix(in srgb, var(--accent) 6%, white) 0, transparent 32%),
+    radial-gradient(circle at 92% 10%, color-mix(in srgb, var(--teal) 10%, white) 0, transparent 32%),
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 70%, white 30%), var(--bg));
   color: var(--text);
   min-height: 100vh;
   line-height: 1.7;
@@ -59,10 +67,21 @@ body::before {
   inset: 0;
   background: var(--bg);
   filter: url('#paper-grain');
-  opacity: 0.48;
+  opacity: 0.42;
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--glow-wash);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: soft-light;
 }
 
 ::selection {
@@ -144,16 +163,19 @@ svg {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: color-mix(in srgb, var(--surface) 95%, white 5%);
-  border-bottom: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-  box-shadow: 0 10px 24px rgba(47, 41, 35, 0.08);
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--surface) 90%, white 10%), color-mix(in srgb, var(--panel) 88%, white 12%)),
+    var(--glow-wash);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow: 0 12px 28px rgba(27, 18, 11, 0.08);
+  backdrop-filter: blur(14px) saturate(118%);
 }
 
 .nav__inner {
   display: grid;
   align-items: start;
-  padding: 1rem 0;
-  gap: 0.5rem;
+  padding: 1rem 0.35rem;
+  gap: 0.75rem;
 }
 
 .nav__bar {
@@ -185,22 +207,26 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.4rem 0;
-  border-bottom: 2px solid color-mix(in srgb, var(--border) 86%, transparent);
+  padding: 0.35rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface) 92%, white 8%);
+  box-shadow: var(--shadow-xs);
+  letter-spacing: -0.01em;
 }
 
 .nav__toggle {
-  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  background: color-mix(in srgb, var(--panel) 86%, white 14%);
   color: var(--text);
-  border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
-  border-radius: 10px;
-  padding: 0.55rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  border-radius: 12px;
+  padding: 0.55rem 0.85rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-xs);
 }
 
 .nav__content {
@@ -213,15 +239,19 @@ svg {
   left: 0;
   right: 0;
   top: 100%;
-  background: color-mix(in srgb, var(--surface) 95%, white 5%);
-  padding: 0.8rem 1rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--surface) 94%, white 6%), color-mix(in srgb, var(--panel) 90%, white 10%)),
+    var(--glow-wash);
+  padding: 1rem 1.2rem;
+  border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
   transform: translateY(-110%);
   opacity: 0;
   pointer-events: none;
   transition:
     transform 0.2s ease,
     opacity 0.2s ease;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px) saturate(118%);
 }
 
 .nav__content.is-open {
@@ -242,7 +272,7 @@ noscript .nav__toggle {
 
 .nav__links {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.65rem;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -250,10 +280,20 @@ noscript .nav__toggle {
 
 .nav__links a {
   display: block;
-  padding: 0.65rem 0.85rem;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--surface) 90%, transparent);
-  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  padding: 0.7rem 0.95rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 88%, white 12%);
+  border: 1px solid color-mix(in srgb, var(--border) 74%, transparent);
+  box-shadow: var(--shadow-xs);
+  font-weight: 650;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.nav__links a:hover,
+.nav__links a:focus-visible {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+  box-shadow: 0 10px 24px rgba(27, 18, 11, 0.1);
 }
 
 .nav__quick-links {
@@ -286,11 +326,19 @@ noscript .nav__toggle {
   gap: 0.35rem;
   padding: 0.6rem 0.85rem;
   border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  background: color-mix(in srgb, var(--surface) 92%, white 8%);
   color: var(--text);
   font-weight: 700;
   text-decoration: none;
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.16s ease, border-color 0.16s ease;
+}
+
+.nav__utility-link:hover,
+.nav__utility-link:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+  transform: translateY(-1px);
 }
 
 .nav__icon {
@@ -310,16 +358,18 @@ noscript .nav__toggle {
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  padding: 0.85rem 1.15rem;
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
-  font-weight: 600;
+  padding: 0.95rem 1.3rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  font-weight: 650;
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease,
-    background 0.15s ease;
+    background 0.15s ease,
+    border-color 0.15s ease;
   letter-spacing: 0.02em;
-  box-shadow: 0 10px 24px rgba(47, 41, 35, 0.08);
+  background: color-mix(in srgb, var(--surface) 94%, white 6%);
+  box-shadow: var(--shadow-xs);
 }
 
 .button__icon {
@@ -338,27 +388,31 @@ noscript .nav__toggle {
 }
 
 .button.primary {
-  background: var(--accent);
-  color: #23160e;
-  box-shadow: 0 10px 28px rgba(47, 41, 35, 0.12);
-  border-color: color-mix(in srgb, var(--accent-strong) 30%, var(--border));
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--accent) 86%, white 14%), color-mix(in srgb, var(--accent-strong) 75%, white 25%)),
+    color-mix(in srgb, var(--accent) 88%, transparent);
+  color: #1d0f09;
+  box-shadow: var(--shadow);
+  border-color: color-mix(in srgb, var(--accent-strong) 34%, var(--border));
 }
 
 .button.ghost {
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--panel) 90%, white 10%), color-mix(in srgb, var(--surface) 92%, transparent));
   color: var(--text);
-  border-color: color-mix(in srgb, var(--border) 86%, transparent);
+  border-color: color-mix(in srgb, var(--border) 78%, transparent);
 }
 
 .button:hover,
 .button:focus-visible {
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(47, 41, 35, 0.12);
+  box-shadow: 0 14px 28px rgba(27, 18, 11, 0.12);
 }
 
 .button:focus-visible {
-  outline: 2px solid var(--accent-strong);
+  outline: 2px solid color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
   outline-offset: 2px;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .button--compact {
@@ -369,10 +423,12 @@ noscript .nav__toggle {
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 2rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--surface);
+  padding: 2.6rem;
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid color-mix(in srgb, var(--border) 74%, transparent);
+  background:
+    linear-gradient(150deg, color-mix(in srgb, var(--surface) 92%, white 8%), color-mix(in srgb, var(--panel) 88%, white 12%)),
+    var(--glow-wash);
   box-shadow: var(--shadow);
   isolation: isolate;
 }
@@ -391,27 +447,27 @@ noscript .nav__toggle {
   width: 60%;
   height: 60%;
   filter: url('#ink-hatch');
-  opacity: 0.22;
+  opacity: 0.25;
   transform: rotate(-9deg);
-  mix-blend-mode: multiply;
+  mix-blend-mode: soft-light;
   will-change: transform, opacity;
 }
 
 .beam--one {
-  background: radial-gradient(circle at 35% 40%, rgba(113, 98, 82, 0.42), transparent 65%);
+  background: radial-gradient(circle at 35% 40%, color-mix(in srgb, var(--accent) 42%, transparent) 0, transparent 65%);
   top: -20%;
   left: -10%;
 }
 
 .beam--two {
-  background: radial-gradient(circle at 70% 60%, rgba(174, 144, 112, 0.4), transparent 70%);
+  background: radial-gradient(circle at 70% 60%, color-mix(in srgb, var(--teal) 36%, transparent) 0, transparent 70%);
   bottom: -12%;
   right: -6%;
   transform: rotate(6deg);
 }
 
 .beam--three {
-  background: radial-gradient(circle at 50% 45%, rgba(151, 127, 104, 0.32), transparent 70%);
+  background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--gold) 32%, transparent) 0, transparent 70%);
   top: 20%;
   right: 30%;
   transform: rotate(1deg);
@@ -421,10 +477,10 @@ noscript .nav__toggle {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(68, 57, 46, 0.18) 1px, transparent 1px 90px),
-    linear-gradient(0deg, rgba(68, 57, 46, 0.12) 1px, transparent 1px 90px);
-  opacity: 0.12;
-  mix-blend-mode: multiply;
+    linear-gradient(90deg, color-mix(in srgb, var(--teal) 12%, transparent) 1px, transparent 1px 90px),
+    linear-gradient(0deg, color-mix(in srgb, var(--accent) 12%, transparent) 1px, transparent 1px 90px);
+  opacity: 0.16;
+  mix-blend-mode: soft-light;
   filter: url('#ink-hatch');
   will-change: background-position, opacity;
 }
@@ -575,39 +631,48 @@ noscript .nav__toggle {
 
 .hero__content h1 {
   font-size: clamp(2.4rem, 3vw + 1rem, 3.8rem);
-  margin: 0.5rem 0 1rem;
+  margin: 0.35rem 0 0.85rem;
   line-height: 1.05;
+  text-wrap: balance;
 }
 
 .hero__content .lede {
-  color: var(--muted);
-  font-size: 1.08rem;
-  max-width: 64ch;
+  color: color-mix(in srgb, var(--muted) 88%, var(--text));
+  font-size: 1.1rem;
+  max-width: 62ch;
 }
 
 .hero__tags {
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
-  margin: 1.25rem 0 0.5rem;
+  margin: 1.35rem 0 0.5rem;
+  padding: 0.65rem 0.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--panel) 90%, white 10%);
+  box-shadow: var(--shadow-xs);
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.45rem 0.85rem;
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 74%, transparent);
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--surface) 92%, white 8%), color-mix(in srgb, var(--panel) 90%, white 10%));
+  box-shadow: var(--shadow-xs);
   color: var(--text);
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 650;
+  font-size: 0.94rem;
 }
 
 .pill--ghost {
-  background: color-mix(in srgb, var(--accent) 15%, var(--surface));
-  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+  background:
+    linear-gradient(140deg, color-mix(in srgb, var(--accent) 24%, var(--surface)), color-mix(in srgb, var(--panel) 88%, white 12%));
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
   color: var(--text);
 }
 
@@ -615,7 +680,7 @@ noscript .nav__toggle {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin: 1.6rem 0 0.4rem;
+  margin: 1.8rem 0 0.4rem;
 }
 
 .hero__media {
@@ -628,13 +693,14 @@ noscript .nav__toggle {
 .hero__media-frame {
   position: relative;
   border-radius: var(--radius-lg);
-  border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
-  background: radial-gradient(circle at 25% 30%, rgba(199, 130, 69, 0.24), transparent 55%),
-    radial-gradient(circle at 80% 70%, rgba(113, 98, 82, 0.22), transparent 60%),
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  background:
+    radial-gradient(circle at 22% 26%, color-mix(in srgb, var(--accent) 28%, transparent) 0, transparent 55%),
+    radial-gradient(circle at 82% 72%, color-mix(in srgb, var(--teal) 26%, transparent) 0, transparent 60%),
     color-mix(in srgb, var(--surface) 92%, white 8%);
   overflow: hidden;
   aspect-ratio: 5 / 4;
-  box-shadow: var(--shadow);
+  box-shadow: 0 22px 46px rgba(27, 18, 11, 0.18);
 }
 
 .hero__media-frame::after {
@@ -701,15 +767,16 @@ noscript .nav__toggle {
 }
 
 .info-strip {
-  margin: 2.5rem 0 3rem;
-  padding: 1.1rem 1.4rem;
-  border-radius: var(--radius);
-  border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
-  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
-  box-shadow: var(--shadow);
+  margin: 2.8rem 0 3.2rem;
+  padding: 1.35rem 1.6rem;
+  border-radius: calc(var(--radius) + 1px);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
+  background:
+    linear-gradient(120deg, color-mix(in srgb, var(--panel) 92%, white 8%), color-mix(in srgb, var(--surface) 90%, white 10%));
+  box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.4rem;
   flex-wrap: wrap;
 }
 
@@ -733,22 +800,24 @@ noscript .nav__toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.65rem 0.8rem;
+  padding: 0.75rem 0.95rem;
   border-radius: var(--radius-md);
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  background: color-mix(in srgb, var(--panel) 86%, white 14%);
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
+  background:
+    linear-gradient(140deg, color-mix(in srgb, var(--panel) 90%, white 10%), color-mix(in srgb, var(--surface) 92%, white 8%));
   text-decoration: none;
   color: var(--text);
-  box-shadow: var(--shadow);
-  transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+  box-shadow: var(--shadow-xs);
+  transition: border-color 160ms ease, transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
 }
 
 .info-strip__badge:hover,
 .info-strip__badge:focus-visible {
-  border-color: var(--accent-strong);
-  background: color-mix(in srgb, var(--accent) 16%, var(--panel));
+  border-color: color-mix(in srgb, var(--accent-strong) 70%, var(--border));
+  background: color-mix(in srgb, var(--accent) 18%, var(--panel));
   outline: none;
   transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(27, 18, 11, 0.14);
 }
 
 .info-strip__icon {
@@ -758,9 +827,9 @@ noscript .nav__toggle {
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 26%, transparent), color-mix(in srgb, var(--teal) 22%, transparent));
   color: white;
-  border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .info-strip__copy {
@@ -780,18 +849,24 @@ noscript .nav__toggle {
 }
 
 .panel {
-  background: var(--panel);
-  padding: 1.6rem;
+  background:
+    linear-gradient(140deg, color-mix(in srgb, var(--panel) 92%, white 8%), color-mix(in srgb, var(--surface) 90%, white 10%)),
+    var(--glow-wash);
+  padding: 1.7rem;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
   box-shadow: var(--shadow);
-  backdrop-filter: none;
+  backdrop-filter: blur(10px) saturate(112%);
   position: relative;
   overflow: hidden;
 }
 
 .panel--glass::after {
-  content: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.26), transparent 48%);
+  pointer-events: none;
 }
 
 .comparison {
@@ -885,22 +960,42 @@ noscript .nav__toggle {
 
 .section {
   margin: 4rem 0;
-  padding: 2.3rem;
-  background: color-mix(in srgb, var(--surface) 96%, white 4%);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+  padding: 2.6rem;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, white 6%), color-mix(in srgb, var(--surface) 90%, white 10%)),
+    var(--glow-wash);
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
   box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
 }
 
 .section--alt {
-  background: color-mix(in srgb, var(--panel) 96%, white 4%);
-  border-color: color-mix(in srgb, var(--border) 90%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--panel) 94%, white 6%), color-mix(in srgb, var(--panel) 90%, white 10%)),
+    var(--glow-wash);
+  border-color: color-mix(in srgb, var(--border) 78%, transparent);
 }
 
 .section__header {
   max-width: 720px;
   display: grid;
   gap: 0.5rem;
+  position: relative;
+  padding-left: 0.2rem;
+}
+
+.section__header::before {
+  content: '';
+  position: absolute;
+  width: 64px;
+  height: 3px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 32%, transparent), color-mix(in srgb, var(--teal) 28%, transparent));
+  border-radius: 999px;
+  top: -0.35rem;
+  left: 0;
+  opacity: 0.9;
 }
 
 .section__header h2 {
@@ -928,16 +1023,17 @@ noscript .nav__toggle {
 }
 
 .card {
-  background: var(--card);
+  background:
+    linear-gradient(150deg, color-mix(in srgb, var(--card) 94%, white 6%), color-mix(in srgb, var(--surface) 90%, white 10%));
   border-radius: var(--radius);
   padding: 1.35rem;
-  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
   display: grid;
   gap: 0.6rem;
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  box-shadow: 0 12px 28px rgba(47, 41, 35, 0.12);
+  box-shadow: var(--shadow-sm);
   --glow-opacity: 0.14;
   --glow-scale: 1;
   --glow-rotation: 0deg;
@@ -953,13 +1049,13 @@ noscript .nav__toggle {
   position: absolute;
   inset: -35% -30%;
   background:
-    radial-gradient(circle at 22% 24%, color-mix(in srgb, var(--accent) 42%, transparent) 0, transparent 48%),
+    radial-gradient(circle at 22% 24%, color-mix(in srgb, var(--accent) 38%, transparent) 0, transparent 48%),
     conic-gradient(
       from 160deg at 70% 55%,
-      color-mix(in srgb, var(--gold) 42%, transparent) 0deg,
-      color-mix(in srgb, var(--accent) 32%, transparent) 120deg,
-      color-mix(in srgb, var(--muted) 18%, transparent) 240deg,
-      color-mix(in srgb, var(--gold) 42%, transparent) 360deg
+      color-mix(in srgb, var(--gold) 38%, transparent) 0deg,
+      color-mix(in srgb, var(--accent) 28%, transparent) 110deg,
+      color-mix(in srgb, var(--teal) 18%, transparent) 230deg,
+      color-mix(in srgb, var(--gold) 36%, transparent) 360deg
     );
   filter: blur(52px);
   opacity: var(--glow-opacity);
@@ -973,8 +1069,9 @@ noscript .nav__toggle {
 }
 
 .card--emphasis {
-  background: color-mix(in srgb, var(--panel) 92%, white 8%);
-  border-color: color-mix(in srgb, var(--border) 92%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--panel) 92%, white 8%), color-mix(in srgb, var(--surface) 90%, white 10%));
+  border-color: color-mix(in srgb, var(--border) 80%, transparent);
   --glow-opacity: 0.18;
   --glow-rotation: 12deg;
 }
@@ -987,8 +1084,8 @@ noscript .nav__toggle {
 .card:hover,
 .card:focus-within {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--border) 68%, var(--accent) 32%);
-  box-shadow: 0 16px 34px rgba(47, 41, 35, 0.16);
+  border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+  box-shadow: 0 18px 38px rgba(27, 18, 11, 0.16);
   --glow-opacity: 0.22;
   --glow-scale: 1.06;
 }
@@ -1248,8 +1345,9 @@ noscript .nav__toggle {
 }
 
 .highlight {
-  background: color-mix(in srgb, var(--panel) 95%, white 5%);
-  border-color: color-mix(in srgb, var(--border) 90%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--panel) 94%, white 6%), color-mix(in srgb, var(--surface) 90%, white 10%));
+  border-color: color-mix(in srgb, var(--border) 78%, transparent);
 }
 
 .highlight__content {
@@ -1261,11 +1359,12 @@ noscript .nav__toggle {
 }
 
 .callout {
-  padding: 1.4rem;
-  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  padding: 1.55rem;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 94%, white 6%), color-mix(in srgb, var(--panel) 92%, white 8%));
   border-radius: var(--radius);
-  border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
-  box-shadow: 0 12px 28px rgba(47, 41, 35, 0.12);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  box-shadow: var(--shadow-sm);
 }
 
 .snapshot {
@@ -1359,7 +1458,12 @@ noscript .nav__toggle {
 
 .highlight__meta {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.85rem;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 74%, transparent);
+  background: color-mix(in srgb, var(--surface) 94%, white 6%);
+  box-shadow: var(--shadow-xs);
 }
 
 .eyebrow {
@@ -1377,23 +1481,30 @@ noscript .nav__toggle {
 
 .cta {
   margin: 4.5rem 0 5.5rem;
-  background: color-mix(in srgb, var(--panel) 95%, white 5%);
-  padding: 2.5rem;
-  border-radius: var(--radius);
-  border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--panel) 92%, white 8%), color-mix(in srgb, var(--surface) 92%, white 8%)),
+    var(--glow-wash);
+  padding: 2.7rem;
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   align-items: center;
   box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
 }
 
 .footer {
-  border-top: 1px solid var(--border);
-  padding: 2.2rem 0 4rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  padding: 2.4rem 0 4.2rem;
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  background: color-mix(in srgb, var(--surface) 94%, white 6%);
+  border-radius: calc(var(--radius) + 2px);
+  box-shadow: 0 -8px 28px rgba(27, 18, 11, 0.08);
 }
 
 .footer__section {
@@ -1470,13 +1581,15 @@ noscript .nav__toggle {
 
   .nav__links {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.55rem;
   }
 
   .nav__links a {
-    background: transparent;
-    border: none;
-    padding: 0.6rem 0.9rem;
+    background: color-mix(in srgb, var(--surface) 92%, white 8%);
+    border: 1px solid color-mix(in srgb, var(--border) 74%, transparent);
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    box-shadow: var(--shadow-xs);
   }
 
   .nav__fallback {
