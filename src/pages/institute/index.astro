@@ -87,7 +87,7 @@ const { pageTitle, pageDescription, permalink, mission, governance, stewards, co
       {contact.map((channel) => (
         <CardItem title={channel.label} description={channel.description}>
           <a slot="footer" href={channel.href}>
-            {channel.href}
+            {channel.linkLabel ?? channel.href}
           </a>
         </CardItem>
       ))}

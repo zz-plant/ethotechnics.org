@@ -15,6 +15,7 @@ export type ContactChannel = {
   label: string;
   href: string;
   description: string;
+  linkLabel: string;
 };
 
 export type InstituteContent = PageWithPermalink & {
@@ -59,16 +60,19 @@ export const instituteContent: InstituteContent = {
       label: 'Studio collaborations',
       href: 'mailto:studio@ethotechnics.org',
       description: 'Reach the Studio when diagnostics flag risk or you need a facilitation partner.',
+      linkLabel: 'Email Studio',
     },
     {
       label: 'Program partnerships',
       href: 'mailto:studio@ethotechnics.org',
       description: 'Ask about upcoming programs or propose a research collaboration.',
+      linkLabel: 'Email Studio',
     },
     {
       label: 'General questions',
       href: 'mailto:hello@ethotechnics.org',
       description: 'For speaking requests, press, or co-writing opportunities.',
+      linkLabel: 'Email hello@ethotechnics.org',
     },
   ],
 };
