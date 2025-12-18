@@ -225,8 +225,9 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
     };
 
     tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        setActiveFormat(tab.dataset.format ?? defaultFormat);
+      tab.addEventListener('click', (event) => {
+        event.preventDefault();
+        activateTab(tab);
       });
 
       tab.addEventListener('keydown', (event) => {
