@@ -1,4 +1,3 @@
-import reactRenderer from '@astrojs/react/server.js';
 import { experimental_AstroContainer } from 'astro/container';
 import { JSDOM } from 'jsdom';
 
@@ -8,9 +7,6 @@ export async function createAstroContainer(site = defaultSite) {
   const container = await experimental_AstroContainer.create({
     astroConfig: { site: site.toString() },
   });
-
-  container.addServerRenderer({ renderer: reactRenderer });
-  container.addClientRenderer({ name: '@astrojs/react', entrypoint: '@astrojs/react/client.js' });
 
   return container;
 }

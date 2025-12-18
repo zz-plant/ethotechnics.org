@@ -1,5 +1,5 @@
 ---
-import DiagnosticsSnapshot from '../../components/DiagnosticsSnapshot';
+import DiagnosticsSnapshot from '../../components/DiagnosticsSnapshot.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const request = Astro.request;
@@ -43,7 +43,6 @@ Astro.response.headers.set('cache-control', 'no-store');
     </div>
     <div class="panel panel--glass">
       <DiagnosticsSnapshot
-        client:load
         initialSnapshot={initialSnapshot}
         refreshUrl="/diagnostics/ssr.json"
         intervalMs={15000}

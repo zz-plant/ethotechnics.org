@@ -4,7 +4,6 @@ import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 import icon from 'astro-icon';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 import robotsTxt from 'astro-robots-txt';
@@ -29,7 +28,7 @@ export default defineConfig({
   session: {
     driver: 'memory',
   },
-  integrations: [react(), icon(), mdx(), sitemap(), robotsTxt()],
+  integrations: [icon(), mdx(), sitemap(), robotsTxt()],
   vite: {
     resolve: {
       alias: {

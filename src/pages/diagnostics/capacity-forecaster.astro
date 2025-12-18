@@ -1,6 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CapacityForecasterWidget from '../../features/capacity-forecaster/CapacityForecaster';
+import {
+  DEFAULT_METRICS,
+  DEFAULT_PARAMS,
+  STABILITY_OPTIONS,
+  buildChartModel,
+  formatPercent,
+  getForecast,
+} from '../../features/capacity-forecaster/forecastModel';
+
+const metrics = DEFAULT_METRICS;
+const params = DEFAULT_PARAMS;
+const forecast = getForecast(metrics, params);
+const chartModel = buildChartModel(forecast);
+const finalPoint = forecast.data[forecast.data.length - 1];
 ---
 <BaseLayout
   title="Technical Capacity Forecaster — Ethotechnics"
@@ -17,6 +30,548 @@ import CapacityForecasterWidget from '../../features/capacity-forecaster/Capacit
       <p class="muted">Permanent link: <a href="/diagnostics/capacity-forecaster">/diagnostics/capacity-forecaster</a></p>
     </div>
 
-    <CapacityForecasterWidget client:load />
+    <div class="panel panel--glass forecaster">
+      <div class="forecaster__header">
+        <p class="eyebrow">Technical Capacity Forecaster</p>
+        <h2>Simulate decay, remediation, and refusal windows.</h2>
+        <p class="muted">
+          Blend operational metrics with a refusal runway to see where delivery capacity saturates. The model applies compound
+          decay to a 24-month horizon and highlights the first saturation point on the chart.
+        </p>
+      </div>
+
+      <div class="forecaster__grid">
+        <form class="card forecaster__card" data-forecaster-form>
+          <div class="card__glow" aria-hidden="true" />
+          <p class="eyebrow">Input levers</p>
+          <h3>Shape the workload profile</h3>
+          <p class="muted">
+            Drag the sliders to reflect today&apos;s operational friction. The track uses a traffic light gradient so you can see how
+            fast each input approaches risk territory.
+          </p>
+
+          <div class="forecaster__control">
+            <div class="forecaster__label-row">
+              <div>
+                <p class="muted">Velocity index</p>
+                <p class="forecaster__description">Higher values increase the decay rate as the team is stretched thin.</p>
+              </div>
+              <span class="pill pill--ghost" data-display="velocity">{metrics.velocityIndex}</span>
+            </div>
+            <input
+              aria-label="Velocity index"
+              class="forecaster__range"
+              name="velocityIndex"
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value={metrics.velocityIndex}
+            />
+            <div class="forecaster__range-scale" aria-hidden="true">
+              <span>0</span>
+              <span>100</span>
+            </div>
+          </div>
+
+          <div class="forecaster__control">
+            <div class="forecaster__label-row">
+              <div>
+                <p class="muted">Interruption rate</p>
+                <p class="forecaster__description">Context-switching and support load erode capacity in parallel.</p>
+              </div>
+              <span class="pill pill--ghost" data-display="interruptions">{metrics.interruptionRate}</span>
+            </div>
+            <input
+              aria-label="Interruption rate"
+              class="forecaster__range"
+              name="interruptionRate"
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value={metrics.interruptionRate}
+            />
+            <div class="forecaster__range-scale" aria-hidden="true">
+              <span>0</span>
+              <span>100</span>
+            </div>
+          </div>
+
+          <div class="forecaster__control">
+            <div class="forecaster__label-row">
+              <div>
+                <p class="muted">Stability profile</p>
+                <p class="forecaster__description">Choose how resilient the system is under load.</p>
+              </div>
+            </div>
+            <input type="hidden" name="stability" value={metrics.stability} />
+            <ul class="pill-list pill-list--wrap forecaster__stability" data-stability-list>
+              {STABILITY_OPTIONS.map((option) => (
+                <li class={option === metrics.stability ? 'pill-list__item--active' : ''}>
+                  <button
+                    type="button"
+                    class="pill-list__button"
+                    data-stability={option}
+                    aria-pressed={option === metrics.stability}
+                  >
+                    {option}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="forecaster__control">
+            <div class="forecaster__label-row">
+              <div>
+                <p class="muted">Refusal runway (weeks)</p>
+                <p class="forecaster__description">Pause decay while teams push back on unsustainable requests.</p>
+              </div>
+              <span class="pill pill--ghost" data-display="refusal">{params.refusalWeeks}</span>
+            </div>
+            <input
+              aria-label="Refusal runway in weeks"
+              class="forecaster__range"
+              name="refusalWeeks"
+              type="range"
+              min="0"
+              max="12"
+              step="1"
+              value={params.refusalWeeks}
+            />
+            <div class="forecaster__range-scale" aria-hidden="true">
+              <span>0</span>
+              <span>12</span>
+            </div>
+          </div>
+        </form>
+
+        <div class="forecaster__chart-card">
+          <div class="forecaster__chart">
+            <div class="forecaster__chart-header">
+              <p class="eyebrow">Forecast</p>
+              <h3>Capacity projection (24 months)</h3>
+              <p class="muted">Baseline decay versus mitigated decay with refusal runway applied.</p>
+            </div>
+            <div class="forecaster__chart-body">
+              <svg
+                viewBox={chartModel.viewBox}
+                role="img"
+                aria-label="Capacity projection over 24 months"
+                data-capacity-chart
+              >
+                <defs>
+                  <linearGradient id="baselineArea" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.08" />
+                  </linearGradient>
+                  <linearGradient id="remediatedArea" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.32" />
+                    <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.08" />
+                  </linearGradient>
+                </defs>
+
+                <g data-y-ticks>
+                  {chartModel.yTicks.map((tick) => (
+                    <g>
+                      <line x1={chartModel.padding.left} x2={chartModel.padding.left + chartModel.innerWidth} y1={tick.y} y2={tick.y} stroke="rgba(255,255,255,0.08)" />
+                      <text x={chartModel.padding.left - 16} y={tick.y + 4} class="chart__label">{formatPercent(tick.value)}</text>
+                    </g>
+                  ))}
+                </g>
+
+                <g data-x-ticks>
+                  {chartModel.xTicks.map((tick) => (
+                    <g>
+                      <line x1={tick.x} x2={tick.x} y1={chartModel.padding.top} y2={chartModel.padding.top + chartModel.innerHeight} stroke="rgba(255,255,255,0.08)" />
+                      <text x={tick.x} y={chartModel.padding.top + chartModel.innerHeight + 24} class="chart__label chart__label--x">{tick.label}</text>
+                    </g>
+                  ))}
+                </g>
+
+                {chartModel.saturation ? (
+                  <g data-saturation>
+                    <line
+                      x1={chartModel.saturation.x}
+                      x2={chartModel.saturation.x}
+                      y1={chartModel.padding.top}
+                      y2={chartModel.padding.top + chartModel.innerHeight}
+                      stroke="#f9b8b8"
+                      stroke-dasharray="3 4"
+                    />
+                    <text x={chartModel.saturation.x + 6} y={chartModel.padding.top + 14} class="chart__label chart__label--saturation">
+                      Saturation
+                    </text>
+                  </g>
+                ) : null}
+
+                <path data-path="baseline-area" d={chartModel.baselineArea} fill="url(#baselineArea)" opacity="0.9" />
+                <path data-path="remediated-area" d={chartModel.remediatedArea} fill="url(#remediatedArea)" opacity="0.9" />
+                <path
+                  data-path="baseline"
+                  d={chartModel.baselinePath}
+                  fill="none"
+                  stroke="var(--accent)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                />
+                <path
+                  data-path="remediated"
+                  d={chartModel.remediatedPath}
+                  fill="none"
+                  stroke="var(--gold)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+
+            <div class="forecaster__meta">
+              <div class="forecaster__meta-item">
+                <p class="forecaster__meta-label">Saturation point</p>
+                <p class="forecaster__meta-value" data-display="saturation">
+                  {forecast.saturationDate ?? 'No saturation within 24 months'}
+                </p>
+              </div>
+              <div class="forecaster__meta-item">
+                <p class="forecaster__meta-label">Baseline capacity at horizon</p>
+                <p class="forecaster__meta-value" data-display="baseline-final">{formatPercent(finalPoint.baseline)}</p>
+              </div>
+              <div class="forecaster__meta-item">
+                <p class="forecaster__meta-label">Remediated capacity at horizon</p>
+                <p class="forecaster__meta-value" data-display="remediated-final">{formatPercent(finalPoint.remediated)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </BaseLayout>
+
+<script type="module" is:inline>
+  import {
+    DEFAULT_METRICS,
+    DEFAULT_PARAMS,
+    buildChartModel,
+    formatPercent,
+    getForecast,
+  } from '../../features/capacity-forecaster/forecastModel';
+
+  const form = document.querySelector('[data-forecaster-form]');
+  const chart = document.querySelector('[data-capacity-chart]');
+
+  if (form && chart) {
+    const rangeInputs = Array.from(form.querySelectorAll('.forecaster__range'));
+    const stabilityList = form.querySelector('[data-stability-list]');
+
+    const baselinePath = chart.querySelector('[data-path="baseline"]');
+    const remediatedPath = chart.querySelector('[data-path="remediated"]');
+    const baselineArea = chart.querySelector('[data-path="baseline-area"]');
+    const remediatedArea = chart.querySelector('[data-path="remediated-area"]');
+    const yTicksGroup = chart.querySelector('[data-y-ticks]');
+    const xTicksGroup = chart.querySelector('[data-x-ticks]');
+    const saturationGroup = chart.querySelector('[data-saturation]');
+    const saturationLabel = chart.querySelector('[data-display="saturation"]');
+    const baselineFinal = chart.querySelector('[data-display="baseline-final"]');
+    const remediatedFinal = chart.querySelector('[data-display="remediated-final"]');
+    const velocityDisplay = form.querySelector('[data-display="velocity"]');
+    const interruptionDisplay = form.querySelector('[data-display="interruptions"]');
+    const refusalDisplay = form.querySelector('[data-display="refusal"]');
+
+    const trafficColor = (value) => {
+      const hue = 120 - (value / 100) * 120;
+      return `hsl(${hue}, 70%, 55%)`;
+    };
+
+    const paintSlider = (input) => {
+      const value = Number(input.value);
+      input.style.background = `linear-gradient(90deg, ${trafficColor(value)} ${value}%, rgba(255, 255, 255, 0.12) ${value}%)`;
+    };
+
+    const renderTicks = (model) => {
+      if (yTicksGroup) {
+        yTicksGroup.innerHTML = model.yTicks
+          .map(
+            (tick) => `
+              <g>
+                <line x1="${model.padding.left}" x2="${model.padding.left + model.innerWidth}" y1="${tick.y}" y2="${tick.y}" stroke="rgba(255,255,255,0.08)" />
+                <text x="${model.padding.left - 16}" y="${tick.y + 4}" class="chart__label">${formatPercent(tick.value)}</text>
+              </g>
+            `,
+          )
+          .join('');
+      }
+
+      if (xTicksGroup) {
+        xTicksGroup.innerHTML = model.xTicks
+          .map(
+            (tick) => `
+              <g>
+                <line x1="${tick.x}" x2="${tick.x}" y1="${model.padding.top}" y2="${model.padding.top + model.innerHeight}" stroke="rgba(255,255,255,0.08)" />
+                <text x="${tick.x}" y="${model.padding.top + model.innerHeight + 24}" class="chart__label chart__label--x">${tick.label}</text>
+              </g>
+            `,
+          )
+          .join('');
+      }
+    };
+
+    const updateSaturationLine = (model, saturationText) => {
+      if (!saturationGroup) return;
+
+      if (!model.saturation) {
+        saturationGroup.innerHTML = '';
+        if (saturationLabel) {
+          saturationLabel.textContent = 'No saturation within 24 months';
+        }
+        return;
+      }
+
+      saturationGroup.innerHTML = `
+        <line x1="${model.saturation.x}" x2="${model.saturation.x}" y1="${model.padding.top}" y2="${model.padding.top + model.innerHeight}" stroke="#f9b8b8" stroke-dasharray="3 4" />
+        <text x="${model.saturation.x + 6}" y="${model.padding.top + 14}" class="chart__label chart__label--saturation">Saturation</text>
+      `;
+
+      if (saturationLabel) {
+        saturationLabel.textContent = saturationText ?? 'No saturation within 24 months';
+      }
+    };
+
+    const updateChart = () => {
+      const formData = new FormData(form);
+
+      const metrics = {
+        ...DEFAULT_METRICS,
+        velocityIndex: Number(formData.get('velocityIndex')),
+        interruptionRate: Number(formData.get('interruptionRate')),
+        stability: String(formData.get('stability') ?? DEFAULT_METRICS.stability),
+      };
+
+      const params = {
+        ...DEFAULT_PARAMS,
+        refusalWeeks: Number(formData.get('refusalWeeks')),
+      };
+
+      const forecast = getForecast(metrics, params);
+      const model = buildChartModel(forecast);
+      const horizon = forecast.data[forecast.data.length - 1];
+
+      if (baselinePath) baselinePath.setAttribute('d', model.baselinePath);
+      if (remediatedPath) remediatedPath.setAttribute('d', model.remediatedPath);
+      if (baselineArea) baselineArea.setAttribute('d', model.baselineArea);
+      if (remediatedArea) remediatedArea.setAttribute('d', model.remediatedArea);
+
+      renderTicks(model);
+      updateSaturationLine(model, forecast.saturationDate);
+
+      if (baselineFinal) baselineFinal.textContent = formatPercent(horizon.baseline);
+      if (remediatedFinal) remediatedFinal.textContent = formatPercent(horizon.remediated);
+      if (velocityDisplay) velocityDisplay.textContent = String(metrics.velocityIndex);
+      if (interruptionDisplay) interruptionDisplay.textContent = String(metrics.interruptionRate);
+      if (refusalDisplay) refusalDisplay.textContent = String(params.refusalWeeks);
+
+      rangeInputs.forEach(paintSlider);
+    };
+
+    stabilityList?.addEventListener('click', (event) => {
+      const target = event.target;
+      const button = target instanceof HTMLElement ? target.closest('[data-stability]') : null;
+
+      if (!button) return;
+
+      const stability = button.dataset.stability ?? DEFAULT_METRICS.stability;
+      const buttons = stabilityList.querySelectorAll('[data-stability]');
+
+      buttons.forEach((item) => {
+        const listItem = item.closest('li');
+        const isActive = item === button;
+        item.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        if (listItem) listItem.classList.toggle('pill-list__item--active', isActive);
+      });
+
+      const existing = form.querySelector('input[name="stability"]');
+      if (existing) {
+        existing.setAttribute('value', stability);
+      } else {
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = 'stability';
+        hidden.value = stability;
+        form.appendChild(hidden);
+      }
+
+      updateChart();
+    });
+
+    form.addEventListener('input', () => updateChart());
+    rangeInputs.forEach(paintSlider);
+    updateChart();
+  }
+</script>
+
+<style>
+  .forecaster {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .forecaster__header {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .forecaster__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  .forecaster__card {
+    height: 100%;
+    gap: 0.75rem;
+  }
+
+  .forecaster__description {
+    color: var(--muted);
+    margin: 0.1rem 0 0;
+  }
+
+  .forecaster__control {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.3rem;
+  }
+
+  .forecaster__label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .forecaster__range {
+    appearance: none;
+    width: 100%;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .forecaster__range::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid #04101c;
+    box-shadow: 0 0 0 2px rgba(143, 225, 255, 0.25);
+    cursor: pointer;
+  }
+
+  .forecaster__range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid #04101c;
+    box-shadow: 0 0 0 2px rgba(143, 225, 255, 0.25);
+    cursor: pointer;
+  }
+
+  .forecaster__range::-moz-range-track {
+    background: transparent;
+  }
+
+  .forecaster__range-scale {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .forecaster__stability {
+    gap: 0.4rem;
+  }
+
+  .forecaster__chart-card {
+    background: var(--panel);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 1.2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .forecaster__chart-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 18% 20%, rgba(143, 225, 255, 0.12), transparent 40%);
+    pointer-events: none;
+  }
+
+  .forecaster__chart {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .forecaster__chart-body {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 0.35rem 0.25rem 0.15rem;
+  }
+
+  svg[data-capacity-chart] {
+    width: 100%;
+    height: auto;
+  }
+
+  .chart__label {
+    fill: var(--muted);
+    font-size: 12px;
+  }
+
+  .chart__label--x {
+    text-anchor: middle;
+  }
+
+  .chart__label--saturation {
+    fill: #f9b8b8;
+  }
+
+  .forecaster__meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.65rem;
+  }
+
+  .forecaster__meta-item {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .forecaster__meta-label {
+    color: var(--muted);
+    margin: 0 0 0.15rem;
+  }
+
+  .forecaster__meta-value {
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 720px) {
+    .forecaster__label-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

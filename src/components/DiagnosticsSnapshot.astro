@@ -1,0 +1,238 @@
+---
+export interface HeaderEntry { key: string; value: string }
+
+export interface Snapshot {
+  renderedAt: string;
+  requestId: string;
+  method: string;
+  path: string;
+  origin: string;
+  cacheControl: string;
+  headers: HeaderEntry[];
+}
+
+export interface SnapshotProps {
+  initialSnapshot: Snapshot;
+  refreshUrl: string;
+  intervalMs?: number;
+}
+
+const { initialSnapshot, refreshUrl, intervalMs = 15000 } = Astro.props;
+---
+<div
+  class="snapshot"
+  data-refresh-url={refreshUrl}
+  data-interval={intervalMs}
+>
+  <div class="snapshot__controls">
+    <div>
+      <p class="muted">Runtime snapshot</p>
+      <h2>Per-request values</h2>
+    </div>
+    <div class="snapshot__actions">
+      <button class="button primary" type="button" data-action="refresh">Refresh snapshot</button>
+      <p class="muted snapshot__hint">Auto-refreshes every {Math.round(intervalMs / 1000)} seconds.</p>
+    </div>
+  </div>
+
+  <p class="snapshot__status" role="status" aria-live="polite" hidden data-status></p>
+
+  <dl class="grid grid--two snapshot__list" data-snapshot>
+    <div>
+      <dt class="muted">Rendered at (UTC)</dt>
+      <dd class="snapshot__value">
+        <span class="snapshot__text" data-field="renderedAt">{initialSnapshot.renderedAt}</span>
+        <button class="copy-button" type="button" data-copy="renderedAt" aria-label="Copy rendered timestamp">Copy</button>
+      </dd>
+    </div>
+    <div>
+      <dt class="muted">Request ID</dt>
+      <dd class="snapshot__value">
+        <span class="snapshot__text" data-field="requestId">{initialSnapshot.requestId}</span>
+        <button class="copy-button" type="button" data-copy="requestId" aria-label="Copy request ID">Copy</button>
+      </dd>
+    </div>
+    <div>
+      <dt class="muted">Method</dt>
+      <dd class="snapshot__value">
+        <span class="snapshot__text" data-field="method">{initialSnapshot.method}</span>
+        <button class="copy-button" type="button" data-copy="method" aria-label="Copy method">Copy</button>
+      </dd>
+    </div>
+    <div>
+      <dt class="muted">Path</dt>
+      <dd class="snapshot__value">
+        <span class="snapshot__text" data-field="path">{initialSnapshot.path}</span>
+        <button class="copy-button" type="button" data-copy="path" aria-label="Copy path">Copy</button>
+      </dd>
+    </div>
+    <div>
+      <dt class="muted">Origin header</dt>
+      <dd class="snapshot__value">
+        <span class="snapshot__text" data-field="origin">{initialSnapshot.origin}</span>
+        <button class="copy-button" type="button" data-copy="origin" aria-label="Copy origin header">Copy</button>
+      </dd>
+    </div>
+    <div>
+      <dt class="muted">Cache-control</dt>
+      <dd class="snapshot__value">
+        <span class="snapshot__text" data-field="cacheControl">{initialSnapshot.cacheControl}</span>
+        <button class="copy-button" type="button" data-copy="cacheControl" aria-label="Copy cache-control header">Copy</button>
+      </dd>
+    </div>
+  </dl>
+
+  <div class="snapshot__headers">
+    <p class="muted">Selected headers</p>
+    <ul class="snapshot__headers-list" data-headers>
+      {initialSnapshot.headers.map((header: HeaderEntry) => (
+        <li>
+          <p class="snapshot__header-key">{header.key}</p>
+          <p class="snapshot__header-value">{header.value}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <script type="application/json" data-snapshot-json is:inline>{JSON.stringify(initialSnapshot)}</script>
+</div>
+
+<script type="module" is:inline>
+  const root = document.currentScript?.closest('.snapshot');
+  const refreshUrl = root?.dataset.refreshUrl;
+  const intervalMs = Number(root?.dataset.interval ?? '15000');
+  const status = root?.querySelector('[data-status]');
+  const snapshotList = root?.querySelector('[data-snapshot]');
+  const headersList = root?.querySelector('[data-headers]');
+  const refreshButton = root?.querySelector('[data-action="refresh"]');
+  const snapshotJson = root?.querySelector('[data-snapshot-json]');
+
+  if (root && refreshUrl && snapshotList && headersList && status && refreshButton && snapshotJson) {
+    let currentSnapshot = JSON.parse(snapshotJson.textContent ?? '{}');
+    let isFetching = false;
+    let copiedField = null;
+
+    const renderSnapshot = () => {
+      const fields = snapshotList.querySelectorAll('[data-field]');
+      fields.forEach((field) => {
+        const key = field.getAttribute('data-field');
+        if (!key || !(key in currentSnapshot)) return;
+        field.textContent = currentSnapshot[key];
+      });
+
+      headersList.innerHTML = currentSnapshot.headers
+        .map(
+          (header) => `
+            <li>
+              <p class="snapshot__header-key">${header.key}</p>
+              <p class="snapshot__header-value">${header.value}</p>
+            </li>
+          `,
+        )
+        .join('');
+
+      const copyButtons = snapshotList.querySelectorAll('[data-copy]');
+      copyButtons.forEach((button) => {
+        const key = button.getAttribute('data-copy');
+        if (!key) return;
+        button.textContent = copiedField === key ? 'Copied' : 'Copy';
+      });
+    };
+
+    const setStatus = (message) => {
+      if (!status) return;
+      if (message) {
+        status.textContent = message;
+        status.hidden = false;
+      } else {
+        status.hidden = true;
+      }
+    };
+
+    const refreshSnapshot = async (reason) => {
+      if (isFetching && reason === 'interval') return;
+
+      if (reason === 'manual') {
+        refreshButton.textContent = 'Refreshing snapshot';
+        refreshButton.setAttribute('disabled', 'true');
+      }
+
+      isFetching = true;
+      setStatus(null);
+
+      try {
+        const response = await fetch(refreshUrl, { headers: { accept: 'application/json' } });
+        if (!response.ok) {
+          throw new Error('Unable to refresh snapshot');
+        }
+
+        currentSnapshot = await response.json();
+        copiedField = null;
+        renderSnapshot();
+      } catch (error) {
+        console.error(error);
+        setStatus('Unable to refresh snapshot. Please try again.');
+      } finally {
+        isFetching = false;
+        if (reason === 'manual') {
+          refreshButton.textContent = 'Refresh snapshot';
+          refreshButton.removeAttribute('disabled');
+        }
+      }
+    };
+
+    snapshotList.addEventListener('click', async (event) => {
+      const target = event.target;
+      const button = target instanceof HTMLElement ? target.closest('[data-copy]') : null;
+      if (!button) return;
+
+      const key = button.getAttribute('data-copy');
+      if (!key) return;
+
+      if (!navigator?.clipboard) {
+        setStatus('Copy is not available in this browser.');
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(currentSnapshot[key]);
+        copiedField = key;
+        renderSnapshot();
+        window.setTimeout(() => {
+          copiedField = null;
+          renderSnapshot();
+        }, 1500);
+      } catch (error) {
+        console.error(error);
+        setStatus('Copy failed. Please try again.');
+      }
+    });
+
+    refreshButton.addEventListener('click', () => refreshSnapshot('manual'));
+    renderSnapshot();
+
+    const intervalId = window.setInterval(() => {
+      void refreshSnapshot('interval');
+    }, intervalMs);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            refreshButton.setAttribute('disabled', 'true');
+          } else if (!isFetching) {
+            refreshButton.removeAttribute('disabled');
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(refreshButton);
+
+    window.addEventListener('beforeunload', () => {
+      window.clearInterval(intervalId);
+      observer.disconnect();
+    });
+  }
+</script>
