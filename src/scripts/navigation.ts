@@ -2,8 +2,9 @@ export const initNavigation = () => {
   const nav = document.querySelector<HTMLElement>('[data-nav]');
   const toggle = nav?.querySelector<HTMLButtonElement>('.nav__toggle');
   const content = nav?.querySelector<HTMLElement>('.nav__content');
+  const scrim = nav?.querySelector<HTMLElement>('.nav__scrim');
   const actionLinks = nav?.querySelectorAll<HTMLAnchorElement>(
-    '.nav__links a, .nav__utility a, .nav__actions a, .nav__quick-links a',
+    '.nav__content a, .nav__content button',
   );
 
   if (!nav || !toggle || !content || !actionLinks || actionLinks.length === 0) {
@@ -14,19 +15,27 @@ export const initNavigation = () => {
     return;
   }
 
-  const breakpoint = 992; // Match the desktop media query in global.css
+  const desktopQuery = window.matchMedia?.('(min-width: 992px)') ?? {
+    get matches() {
+      return window.innerWidth >= 992;
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+  };
   let isOpen = false;
 
   const updateState = (open: boolean) => {
     isOpen = open;
+    const isDesktop = desktopQuery.matches;
+
     toggle.setAttribute('aria-expanded', String(isOpen));
     toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-    const icon = toggle.querySelector('span');
-    if (icon) {
-      icon.textContent = isOpen ? '✕' : '☰';
-    }
-    content.classList.toggle('is-open', isOpen);
-    const shouldHideContent = !isOpen && window.innerWidth < breakpoint;
+
+    nav.classList.toggle('nav--open', isOpen && !isDesktop);
+    content.classList.toggle('is-open', isOpen || isDesktop);
+
+    const shouldHideContent = !isDesktop && !isOpen;
+
     if (shouldHideContent) {
       content.setAttribute('hidden', '');
       content.setAttribute('aria-hidden', 'true');
@@ -36,6 +45,15 @@ export const initNavigation = () => {
       content.setAttribute('aria-hidden', 'false');
       content.removeAttribute('inert');
     }
+
+    if (scrim) {
+      if (isDesktop || !isOpen) {
+        scrim.setAttribute('hidden', '');
+      } else {
+        scrim.removeAttribute('hidden');
+      }
+    }
+
     actionLinks.forEach((link) => {
       if (shouldHideContent) {
         link.setAttribute('tabindex', '-1');
@@ -56,10 +74,11 @@ export const initNavigation = () => {
   };
 
   const handleResize = () => {
-    if (window.innerWidth >= breakpoint) {
+    if (desktopQuery.matches) {
       updateState(false);
       return;
     }
+
     updateState(isOpen);
   };
 
@@ -69,6 +88,7 @@ export const initNavigation = () => {
   nav.addEventListener('keydown', handleKeyDown);
   window.addEventListener('resize', handleResize);
   actionLinks.forEach((link) => link.addEventListener('click', handleLinkClick));
+  scrim?.addEventListener('click', () => updateState(false));
 
   updateState(false);
 };
