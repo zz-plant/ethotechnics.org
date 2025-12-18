@@ -1,13 +1,16 @@
 ---
+import { randomUUID } from 'node:crypto';
+
 import type { Pattern, PatternFilter } from '../content/library';
 
 type Props = {
   filters: PatternFilter[];
   entries: Pattern[];
   diagnosticTitles: Record<string, string>;
+  searchId?: string;
 };
 
-const { filters, entries, diagnosticTitles } = Astro.props as Props;
+const { filters, entries, diagnosticTitles, searchId } = Astro.props as Props;
 const filterLabels = Object.fromEntries(
   filters.map((filter) => [filter.slug, filter.label])
 );
@@ -15,6 +18,7 @@ const filtersWithAll: Array<{ slug: string; label: string; description?: string 
   { slug: 'all', label: 'All themes' },
   ...filters,
 ];
+const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
 ---
 <div
   class="pattern-filter"
@@ -49,10 +53,10 @@ const filtersWithAll: Array<{ slug: string; label: string; description?: string 
         );
       })}
     </ul>
-    <label class="pattern-filter__search" for="pattern-search">
+    <label class="pattern-filter__search" for={searchInputId}>
       <span class="muted">Search patterns</span>
       <input
-        id="pattern-search"
+        id={searchInputId}
         type="search"
         class="pattern-filter__search-input"
         placeholder="Search by title, summary, or cue"
