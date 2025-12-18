@@ -73,7 +73,7 @@ export const initNavigation = () => {
   updateState(false);
 };
 
-if (typeof document !== 'undefined' && document.currentScript) {
+if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initNavigation, { once: true });
   } else {
