@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { glossaryContent } from '../../content/glossary';
+import glossaryFilterScript from '../../scripts/glossary-filter.ts?url';
 
 const { pageTitle, pageDescription, permalink, territoryMap, categories } = glossaryContent;
 const anchorLinks = [
@@ -180,36 +181,5 @@ const territoryCounts = new Map(categories.map((category) => [category.id, categ
     </SectionBlock>
   ))}
 
-  <script is:inline>
-    const filterInput = document.querySelector('#glossary-filter');
-    const items = Array.from(document.querySelectorAll('.glossary-index__item'));
-    const emptyState = document.querySelector('.glossary-index__empty');
-    const count = document.querySelector('.glossary-filter__count');
-
-    if (filterInput instanceof HTMLInputElement && items.length > 0 && emptyState && count) {
-      const total = items.length;
-
-      const updateFilter = () => {
-        const query = filterInput.value.trim().toLowerCase();
-        let visible = 0;
-
-        items.forEach((item) => {
-          const title = item.dataset.title ?? item.textContent ?? '';
-          const category = item.dataset.category ?? '';
-          const matches = `${title} ${category}`.toLowerCase().includes(query);
-          item.classList.toggle('is-hidden', !matches);
-
-          if (matches) {
-            visible += 1;
-          }
-        });
-
-        emptyState.hidden = visible > 0;
-        count.textContent = `Showing ${visible} of ${total} terms`;
-      };
-
-      filterInput.addEventListener('input', updateFilter);
-      updateFilter();
-    }
-  </script>
+  <script type="module" src={glossaryFilterScript}></script>
 </BaseLayout>
