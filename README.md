@@ -13,6 +13,7 @@ Use Node.js 20.x (the repo ships an `.nvmrc` file and matching `engines` in `pac
 ## Checks before committing
 
 Use `npm run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
+
 - `npm run lint` checks Astro and TypeScript sources under `src/`; it runs first inside `npm run check`.
 
 ## Security headers
@@ -79,6 +80,11 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 - Astro-powered navigation with a lightweight inline script
 - Cloudflare Worker adapter for server output
 - Modern, responsive styling with a focus on accessibility and contrast
+
+## Architecture overview
+
+- Read [`docs/architecture.md`](docs/architecture.md) for the layout shell, routing approach, and
+  deployment flow.
 
 ## Staying updated
 
