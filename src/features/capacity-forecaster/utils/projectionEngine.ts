@@ -3,23 +3,14 @@ import type {
   ForecastResult,
   OperationalMetrics,
   SimulationParams,
-  SystemStability,
 } from '../types';
-
-const BASE_DECAY = 0.02;
-const MAX_IMPACT = 0.05;
-const SATURATION_THRESHOLD = 0.35;
-const MONTHS_TO_PROJECT = 24;
-
-const STABILITY_MULTIPLIER: Record<SystemStability, number> = {
-  RESILIENT: 0.85,
-  DEGRADED: 1,
-  UNSTABLE: 1.2,
-};
+import { MODEL_CONFIG } from './modelConfig';
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
-const normalizeToDecay = (value: number) => (clamp(value, 0, 100) / 100) * MAX_IMPACT;
+const normalizeToDecay = (value: number) =>
+  (clamp(value, 0, MODEL_CONFIG.metricScaleMax) / MODEL_CONFIG.metricScaleMax) *
+  MODEL_CONFIG.maxImpact;
 
 const formatLabel = (base: Date, monthOffset: number) => {
   const labelDate = new Date(base);
@@ -36,26 +27,27 @@ export const projectCapacity = (
 ): ForecastResult => {
   const velocityImpact = normalizeToDecay(metrics.velocityIndex);
   const interruptImpact = normalizeToDecay(metrics.interruptionRate);
-  const stabilityMultiplier = STABILITY_MULTIPLIER[metrics.stability];
-  const totalDecay = (BASE_DECAY + velocityImpact + interruptImpact) * stabilityMultiplier;
-  const refusalMonths = clamp(params.refusalWeeks, 0, 12) / 4;
+  const stabilityMultiplier = MODEL_CONFIG.stabilityMultipliers[metrics.stability];
+  const totalDecay = (MODEL_CONFIG.baseDecay + velocityImpact + interruptImpact) * stabilityMultiplier;
+  const refusalMonths =
+    clamp(params.refusalWeeks, 0, MODEL_CONFIG.maxRefusalWeeks) / MODEL_CONFIG.refusalWeeksPerMonth;
 
   let baselineCapacity = 1;
   let remediatedCapacity = 1;
   let saturationIndex = -1;
   let saturationDate: string | null = null;
 
-  const data: CapacityPoint[] = Array.from({ length: MONTHS_TO_PROJECT }, (_, monthIndex) => {
+  const data: CapacityPoint[] = Array.from({ length: MODEL_CONFIG.monthsToProject }, (_, monthIndex) => {
     baselineCapacity *= 1 - totalDecay;
 
     if (monthIndex >= refusalMonths) {
-      remediatedCapacity *= 1 - totalDecay * 0.7;
+      remediatedCapacity *= 1 - totalDecay * MODEL_CONFIG.remediatedDecayMultiplier;
     }
 
     baselineCapacity = clamp(baselineCapacity, 0, 1);
     remediatedCapacity = clamp(remediatedCapacity, 0, 1);
 
-    const isSaturated = remediatedCapacity <= SATURATION_THRESHOLD;
+    const isSaturated = remediatedCapacity <= MODEL_CONFIG.saturationThreshold;
 
     if (isSaturated && saturationIndex === -1) {
       saturationIndex = monthIndex;
