@@ -12,7 +12,7 @@ export interface ModelConfig {
   maxRefusalWeeks: number;
 }
 
-export const MODEL_CONFIG: ModelConfig = {
+export const MODEL_CONFIG: ModelConfig = Object.freeze({
   baseDecay: 0.02,
   maxImpact: 0.05,
   saturationThreshold: 0.35,
@@ -26,4 +26,4 @@ export const MODEL_CONFIG: ModelConfig = {
   metricScaleMax: 100,
   refusalWeeksPerMonth: 4,
   maxRefusalWeeks: 12,
-};
+});
