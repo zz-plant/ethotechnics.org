@@ -1,0 +1,45 @@
+import { describe, expect, it } from 'vitest';
+
+import { projectCapacity } from './projectionEngine';
+import { MODEL_CONFIG } from './modelConfig';
+
+describe('projectCapacity', () => {
+  const startDate = new Date('2024-01-15T00:00:00Z');
+
+  it('applies base and metric decay across baseline and remediated curves', () => {
+    const result = projectCapacity(
+      { velocityIndex: 40, interruptionRate: 35, stability: 'DEGRADED' },
+      { refusalWeeks: 4 },
+      startDate,
+    );
+
+    expect(result.data).toHaveLength(MODEL_CONFIG.monthsToProject);
+
+    const [monthZero, monthOne, monthTwo] = result.data;
+
+    expect(monthZero.baseline).toBeCloseTo(0.9425, 4);
+    expect(monthZero.remediated).toBeCloseTo(1, 4);
+
+    expect(monthOne.baseline).toBeCloseTo(0.8883, 4);
+    expect(monthOne.remediated).toBeCloseTo(0.9598, 4);
+
+    expect(monthTwo.baseline).toBeCloseTo(0.8372, 4);
+    expect(monthTwo.remediated).toBeCloseTo(0.9211, 4);
+
+    expect(monthOne.remediated).toBeGreaterThan(monthOne.baseline);
+    expect(monthTwo.remediated).toBeGreaterThan(monthTwo.baseline);
+  });
+
+  it('flags saturation when remediated capacity crosses the threshold', () => {
+    const result = projectCapacity(
+      { velocityIndex: 100, interruptionRate: 100, stability: 'UNSTABLE' },
+      { refusalWeeks: 0 },
+      startDate,
+    );
+
+    expect(result.saturationIndex).toBe(9);
+    expect(result.data[result.saturationIndex].isSaturated).toBe(true);
+    expect(result.data[result.saturationIndex - 1].isSaturated).toBe(false);
+    expect(result.saturationDate).toBe('Oct 2024');
+  });
+});
