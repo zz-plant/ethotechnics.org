@@ -18,10 +18,27 @@ type InputPanelProps = {
   stabilityOptions: SystemStability[];
 };
 
-const getTrafficColor = (value: number) => {
-  const hue = 120 - (value / 100) * 120;
+const getTrafficColor = (percent: number) => {
+  const hue = 120 - (percent / 100) * 120;
 
   return `hsl(${hue}, 70%, 55%)`;
+};
+
+const getSliderFill = (value: number, min: number, max: number) => {
+  if (max === min) {
+    return 0;
+  }
+
+  const fillPercent = ((value - min) / (max - min)) * 100;
+
+  return Math.min(Math.max(fillPercent, 0), 100);
+};
+
+const getSliderBackground = (value: number, min: number, max: number) => {
+  const fillPercent = getSliderFill(value, min, max);
+  const fillColor = getTrafficColor(fillPercent);
+
+  return `linear-gradient(90deg, ${fillColor} ${fillPercent}%, rgba(255, 255, 255, 0.12) ${fillPercent}%)`;
 };
 
 const SliderField = ({
@@ -51,7 +68,7 @@ const SliderField = ({
       value={value}
       onChange={(event) => onChange(Number(event.target.value))}
       style={{
-        background: `linear-gradient(90deg, ${getTrafficColor(value)} ${value}%, rgba(255, 255, 255, 0.12) ${value}%)`,
+        background: getSliderBackground(value, min, max),
       }}
     />
     <div className="forecaster__range-scale" aria-hidden="true">
