@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { projectCapacity } from './utils/projectionEngine';
 import type {
   ForecastResult,
@@ -20,19 +20,20 @@ const DEFAULT_PARAMS: SimulationParams = {
 const STABILITY_ORDER: SystemStability[] = ['RESILIENT', 'DEGRADED', 'UNSTABLE'];
 
 export const useCapacityForecast = () => {
+  const startDate = useMemo(() => new Date(), []);
   const [metrics, setMetrics] = useState<OperationalMetrics>(DEFAULT_METRICS);
   const [params, setParams] = useState<SimulationParams>(DEFAULT_PARAMS);
   const [forecast, setForecast] = useState<ForecastResult>(() =>
-    projectCapacity(DEFAULT_METRICS, DEFAULT_PARAMS),
+    projectCapacity(DEFAULT_METRICS, DEFAULT_PARAMS, startDate),
   );
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      setForecast(projectCapacity(metrics, params));
+      setForecast(projectCapacity(metrics, params, startDate));
     }, 100);
 
     return () => window.clearTimeout(timer);
-  }, [metrics, params]);
+  }, [metrics, params, startDate]);
 
   const updateMetrics = (updates: Partial<OperationalMetrics>) => {
     setMetrics((current) => ({ ...current, ...updates }));
@@ -45,7 +46,7 @@ export const useCapacityForecast = () => {
   const reset = () => {
     setMetrics(DEFAULT_METRICS);
     setParams(DEFAULT_PARAMS);
-    setForecast(projectCapacity(DEFAULT_METRICS, DEFAULT_PARAMS));
+    setForecast(projectCapacity(DEFAULT_METRICS, DEFAULT_PARAMS, startDate));
   };
 
   return {
