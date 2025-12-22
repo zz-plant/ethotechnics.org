@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 type HeaderEntry = { key: string; value: string };
 
@@ -18,6 +18,84 @@ type SnapshotProps = {
   intervalMs?: number;
 };
 
+export type SnapshotRef<T> = { current: T };
+
+type RefreshSnapshotOptions = {
+  refreshUrl: string;
+  setSnapshot: (snapshot: Snapshot) => void;
+  setError: (value: string | null) => void;
+  setIsRefreshing: (isRefreshing: boolean) => void;
+  isFetchingRef: SnapshotRef<boolean>;
+  abortControllerRef: SnapshotRef<AbortController | null>;
+  isMountedRef: SnapshotRef<boolean>;
+};
+
+export function createRefreshSnapshot({
+  refreshUrl,
+  setSnapshot,
+  setError,
+  setIsRefreshing,
+  isFetchingRef,
+  abortControllerRef,
+  isMountedRef,
+}: RefreshSnapshotOptions) {
+  return async (reason: 'manual' | 'interval') => {
+    if (!isMountedRef.current) {
+      return;
+    }
+
+    if (isFetchingRef.current && reason === 'interval') {
+      return;
+    }
+
+    if (reason === 'manual') {
+      setIsRefreshing(true);
+    }
+
+    abortControllerRef.current?.abort();
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+
+    isFetchingRef.current = true;
+    setError(null);
+
+    try {
+      const response = await fetch(refreshUrl, {
+        headers: { accept: 'application/json' },
+        signal: abortController.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error('Unable to refresh snapshot');
+      }
+
+      const data = (await response.json()) as Snapshot;
+
+      if (abortController.signal.aborted || !isMountedRef.current) {
+        return;
+      }
+
+      setSnapshot(data);
+    } catch {
+      if (abortController.signal.aborted || !isMountedRef.current) {
+        return;
+      }
+
+      setError('Unable to refresh snapshot. Please try again.');
+    } finally {
+      if (abortControllerRef.current === abortController) {
+        abortControllerRef.current = null;
+      }
+
+      isFetchingRef.current = false;
+
+      if (!abortController.signal.aborted && isMountedRef.current && reason === 'manual') {
+        setIsRefreshing(false);
+      }
+    }
+  };
+}
+
 export default function DiagnosticsSnapshot({
   initialSnapshot,
   refreshUrl,
@@ -28,48 +106,35 @@ export default function DiagnosticsSnapshot({
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const isFetchingRef = useRef(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const isMountedRef = useRef(true);
 
-  const refreshSnapshot = async (reason: 'manual' | 'interval') => {
-    if (isFetchingRef.current && reason === 'interval') {
-      return;
-    }
-
-    if (reason === 'manual') {
-      setIsRefreshing(true);
-    }
-
-    isFetchingRef.current = true;
-    setError(null);
-
-    try {
-      const response = await fetch(refreshUrl, {
-        headers: { accept: 'application/json' },
-      });
-
-      if (!response.ok) {
-        throw new Error('Unable to refresh snapshot');
-      }
-
-      const data = (await response.json()) as Snapshot;
-      setSnapshot(data);
-    } catch {
-      setError('Unable to refresh snapshot. Please try again.');
-    } finally {
-      isFetchingRef.current = false;
-
-      if (reason === 'manual') {
-        setIsRefreshing(false);
-      }
-    }
-  };
+  const refreshSnapshot = useCallback(
+    createRefreshSnapshot({
+      refreshUrl,
+      setSnapshot,
+      setError,
+      setIsRefreshing,
+      isFetchingRef,
+      abortControllerRef,
+      isMountedRef,
+    }),
+    [refreshUrl],
+  );
 
   useEffect(() => {
+    isMountedRef.current = true;
+
     const id = window.setInterval(() => {
       void refreshSnapshot('interval');
     }, intervalMs);
 
-    return () => window.clearInterval(id);
-  }, [intervalMs, refreshUrl]);
+    return () => {
+      isMountedRef.current = false;
+      abortControllerRef.current?.abort();
+      window.clearInterval(id);
+    };
+  }, [intervalMs, refreshSnapshot]);
 
   const handleCopy = async (fieldKey: string, value: string) => {
     setError(null);
