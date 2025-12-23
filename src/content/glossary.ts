@@ -701,6 +701,14 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>The unpaid labor, vigilance, or emotional buffering people contribute to keep brittle systems functioning. Fragility subsidies hide true costs, inflate success metrics, and deepen <a href="#asymmetric-sustaining">asymmetric sustaining</a>.</p>',
         },
+        {
+          id: "burden-index",
+          title: "Burden Index",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>A composite measure of how much effort, time, and emotional labor people expend to use or recover from a system.</p><p>Inputs include the <a href="#user-burden-ratio">user burden ratio</a>, <a href="#human-substitution-index">human substitution index</a>, and <a href="#failure-load">failure load</a>; rising scores signal extraction or <a href="#asymmetric-sustaining">asymmetric sustaining</a>.</p>',
+        },
       ],
     },
     {
@@ -789,6 +797,14 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>The accumulated harm a system has caused but not repaired. Moral debt accrues interest as <a href="#moral-latency">moral latency</a> grows and people lose trust; it is paid down through <a href="#pathways-to-restitution">pathways to restitution</a>, transparent <a href="#repair-log">repair logs</a>, and lowered <a href="#time-to-restore">time-to-restore</a>.</p>',
         },
+        {
+          id: "signal-credibility",
+          title: "Signal Credibility",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The trustworthiness of alerts, metrics, and reports used to govern a system.</p><p>High signal credibility pairs transparent sampling, <a href="#explainability-for-accountability">explainability for accountability</a>, and human testimony so warnings trigger action instead of alert fatigue or dismissal.</p>',
+        },
       ],
     },
     {
@@ -838,6 +854,14 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>The pathways an institution uses to push risk or cleanup onto others: contractors, users, bystanders, or future teams. Mapping these channels exposes <a href="#externalization">externalization</a> and informs <a href="#fair-burden-distribution">fair burden distribution</a>.</p>',
         },
+        {
+          id: "stewardship-window",
+          title: "Stewardship Window",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>A negotiated period where teams pause growth work to focus on care, maintenance, and accountability.</p><p>Stewardship windows bundle <a href="#maintenance-window">maintenance windows</a>, publish <a href="#service-level-indicators">SLJs</a> for the pause, and commit to closing items in the <a href="#repair-log">repair log</a> before resuming throughput.</p>',
+        },
       ],
     },
     {
@@ -878,6 +902,22 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>Friction added specifically to prevent runaway system behaviors. Often implemented through <a href="#ethical-interrupts">ethical interrupts</a>.</p>',
+        },
+        {
+          id: "safety-valve",
+          title: "Safety Valve",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>A deliberate release point that lets people slow, pause, or reroute automation before harm compounds.</p><p>Safety valves pair <a href="#stopability">stopability</a> with <a href="#dignity-friction">dignity friction</a> so high-stakes flows default to reversible states and route to humans without penalty.</p>',
+        },
+        {
+          id: "consent-journey",
+          title: "Consent Journey",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The sequenced touchpoints where a person learns what a system will do, grants or denies permission, and can revise that choice over time.</p><p>Strong consent journeys use <a href="#anticipatory-consent">anticipatory consent</a>, visible <a href="#permission-surface">permission surfaces</a>, and healthy <a href="#refusal-budget">refusal budgets</a> so pausing or exiting does not jeopardize access or care.</p>',
         },
         {
           id: "humane-friction",
@@ -1738,6 +1778,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["F. Burden & load"],
   },
   {
+    slug: "burden-index",
+    term: "Burden Index",
+    definition:
+      "A composite measure of how much effort, time, and emotional labor people expend to use or recover from a system. Inputs include the user burden ratio , human substitution index , and failure load ; rising scores signal extraction or asymmetric sustaining .",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
     slug: "asymmetric-sustaining",
     term: "Asymmetric Sustaining",
     definition:
@@ -1815,6 +1862,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["G. Measures & indicators"],
   },
   {
+    slug: "signal-credibility",
+    term: "Signal Credibility",
+    definition:
+      "The trustworthiness of alerts, metrics, and reports used to govern a system. High credibility pairs transparent sampling, explainability for accountability , and human testimony so warnings trigger action instead of alert fatigue or dismissal.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
     slug: "moral-debt",
     term: "Moral Debt",
     definition:
@@ -1857,6 +1911,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["H. Governance & power"],
   },
   {
+    slug: "stewardship-window",
+    term: "Stewardship Window",
+    definition:
+      "A negotiated period where teams pause growth work to focus on care, maintenance, and accountability. Stewardship windows bundle maintenance windows , publish SLJs for the pause, and commit to closing items in the repair log before resuming throughput.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
     slug: "protective-friction",
     term: "Protective Friction",
     definition:
@@ -1882,6 +1943,20 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Velocity Friction",
     definition:
       "Friction added specifically to prevent runaway system behaviors. Often implemented through ethical interrupts .",
+    appliesTo: ["I. Friction & flow"],
+  },
+  {
+    slug: "safety-valve",
+    term: "Safety Valve",
+    definition:
+      "A deliberate release point that lets people slow, pause, or reroute automation before harm compounds. Safety valves pair stopability with dignity friction so high-stakes flows default to reversible states and route to humans without penalty.",
+    appliesTo: ["I. Friction & flow"],
+  },
+  {
+    slug: "consent-journey",
+    term: "Consent Journey",
+    definition:
+      "The sequenced touchpoints where a person learns what a system will do, grants or denies permission, and can revise that choice over time. Strong consent journeys use anticipatory consent , visible permission surfaces , and healthy refusal budgets so pausing or exiting does not jeopardize access or care.",
     appliesTo: ["I. Friction & flow"],
   },
   {
