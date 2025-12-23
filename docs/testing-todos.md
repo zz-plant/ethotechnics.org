@@ -4,6 +4,7 @@ Current suites cover unit/component behavior with Vitest and smoke end-to-end fl
 Playwright.
 
 ## Vitest unit and component tests
+
 - Vitest shares the project's Astro/Vite settings through
   [`vitest.config.ts`](../vitest.config.ts). Run `npm test` during development for watch mode and
   `npm run test:ci` for a full run with coverage.
@@ -13,11 +14,13 @@ Playwright.
   existing fixtures like `NavigationShell.astro`.
 
 ## Astro container usage
+
 - Use `createAstroContainer` and `parseHtml` from
   [`src/test/astro-container.ts`](../src/test/astro-container.ts) to render components and query the
   resulting DOM. This keeps component tests fast while exercising slots, props, and rendered markup.
 
 ## Playwright smoke coverage
+
 - End-to-end smoke tests live in [`tests/e2e/`](../tests/e2e/) and run against `npm run preview` via
   `playwright.config.ts`. They currently cover the homepage hero, navigation interactions, and the
   RSS feed.
