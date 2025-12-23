@@ -95,9 +95,20 @@ const territoryCounts = new Map(categories.map((category) => [category.id, categ
     <div class="territory-map">
       {territoryMap.map((item) => (
         <article class="territory-map__item" id={`territory-${item.id}`}>
-          <h3>{item.label}</h3>
-          <p class="muted">{item.tooltip}</p>
-          <p class="glossary-territory__count">{territoryCounts.get(item.id) ?? 0} entries</p>
+          <a
+            class="territory-map__link"
+            href={`#${item.id}`}
+            aria-labelledby={`territory-${item.id}-title`}
+            aria-describedby={`territory-${item.id}-description territory-${item.id}-count`}
+          >
+            <h3 id={`territory-${item.id}-title`}>{item.label}</h3>
+            <p id={`territory-${item.id}-description`} class="muted">
+              {item.tooltip}
+            </p>
+            <p id={`territory-${item.id}-count`} class="glossary-territory__count">
+              {territoryCounts.get(item.id) ?? 0} entries
+            </p>
+          </a>
         </article>
       ))}
     </div>

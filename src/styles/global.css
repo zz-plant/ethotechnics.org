@@ -1859,6 +1859,25 @@ noscript .nav__toggle {
   box-shadow: var(--shadow-xs);
 }
 
+.territory-map__item:hover,
+.territory-map__item:focus-within {
+  border-color: var(--color-foreground-muted);
+}
+
+.territory-map__link {
+  display: grid;
+  gap: var(--space-1);
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  border-radius: inherit;
+}
+
+.territory-map__link:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 3px;
+}
+
 .territory-map__item h3 {
   margin: 0 0 var(--space-1);
 }
