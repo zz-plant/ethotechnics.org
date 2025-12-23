@@ -29,6 +29,9 @@ export default defineConfig({
   session: {
     driver: 'memory',
   },
+  markdown: {
+    syntaxHighlight: 'prism',
+  },
   integrations: [react(), icon(), mdx(), sitemap(), robotsTxt()],
   vite: {
     resolve: {
