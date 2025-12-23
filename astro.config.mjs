@@ -36,5 +36,11 @@ export default defineConfig({
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
+    build: {
+      cssMinify: 'lightningcss',
+    },
+    ssr: {
+      external: ['node:crypto', 'node:fs/promises', 'node:path', 'node:url'],
+    },
   },
 });
