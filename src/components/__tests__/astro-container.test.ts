@@ -50,21 +50,26 @@ describe("Navigation component", () => {
     expect(toggle?.getAttribute("aria-label")).toBe("Open navigation");
 
     const linkTexts = Array.from(
-      nav?.querySelectorAll(".nav__content .nav__links a") ?? [],
+      nav?.querySelectorAll(".nav__content .nav__link-label") ?? [],
     ).map((link) => link.textContent?.trim());
     expect(linkTexts).toEqual([
-      "Glossary",
       "Library",
-      "Research",
-      "Diagnostics",
-      "Field Notes",
+      "Glossary",
+      "Field notes",
       "Institute",
+      "Research",
+      "Finite [Beta]",
+      "Diagnostics",
     ]);
 
     const actionTexts = Array.from(
       nav?.querySelectorAll(".nav__content .nav__actions a") ?? [],
     ).map((link) => link.textContent?.trim());
-    expect(actionTexts).toEqual(["Field notes", "Join the institute"]);
+    expect(actionTexts).toEqual([
+      "Join the Institute",
+      "Read field notes",
+      "Signals newsletter",
+    ]);
 
     const scriptSrc = document
       .querySelector<HTMLScriptElement>("script[type=\"module\"][src]")

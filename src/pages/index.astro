@@ -41,7 +41,7 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
         <h1>{hero.heading}</h1>
         <p class="muted">{hero.subheadline}</p>
         <p class="lede">{hero.lede}</p>
-        <p class="muted" set:html={hero.map}></p>
+        <p class="hero__note muted" set:html={hero.map}></p>
         <div class="hero__tags" aria-label="Focus areas">
           {hero.metrics.map((metric) => (
             <span class="pill pill--ghost">{metric.value}</span>
@@ -60,49 +60,53 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
           ))}
         </div>
       </div>
-      <figure class="hero__media">
-        <div class="hero__media-frame">
-          <img src={hero.media.src} alt={hero.media.alt} loading="lazy" decoding="async" />
-        </div>
-        {hero.media.caption ? <figcaption class="muted">{hero.media.caption}</figcaption> : null}
-      </figure>
-      <div class="hero__panel">
-        <div class="panel panel--glass">
-          <p class="muted">{hero.panel.title}</p>
-          <h3>{hero.panel.description}</h3>
-          <ul class="pill-list pill-list--wrap">
-            {hero.panel.pills.map((pill) => (
-              <li>{pill}</li>
-            ))}
-          </ul>
-        </div>
-        <div class="hero__meta" aria-label="Proof points">
-          {hero.metrics.map((metric) => (
-            <article class="stat-card">
-              <div class="stat-card__header">
-                {metric.icon ? (
-                  <span class="stat-card__icon" aria-hidden="true">
-                    <Icon name={metric.icon} />
-                  </span>
-                ) : null}
-                <p class="muted">{metric.label}</p>
-              </div>
-              <p class="metric">{metric.value}</p>
-              {metric.trend?.length ? (
-                <div class="stat-card__trend">
-                  <svg
-                    class="stat-card__sparkline"
-                    viewBox="0 0 120 36"
-                    preserveAspectRatio="none"
-                    role="img"
-                    aria-label={metric.trendLabel ?? `${metric.label} trend`}
-                  >
-                    <path d={buildSparklinePath(metric.trend)} />
-                  </svg>
+
+      <div class="hero__aside">
+        <figure class="hero__media">
+          <div class="hero__media-frame">
+            <img src={hero.media.src} alt={hero.media.alt} loading="lazy" decoding="async" />
+          </div>
+          {hero.media.caption ? <figcaption class="muted">{hero.media.caption}</figcaption> : null}
+        </figure>
+
+        <div class="hero__panel-grid">
+          <div class="panel panel--glass">
+            <p class="muted">{hero.panel.title}</p>
+            <h3>{hero.panel.description}</h3>
+            <ul class="pill-list pill-list--wrap">
+              {hero.panel.pills.map((pill) => (
+                <li>{pill}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="hero__meta" aria-label="Proof points">
+            {hero.metrics.map((metric) => (
+              <article class="stat-card">
+                <div class="stat-card__header">
+                  {metric.icon ? (
+                    <span class="stat-card__icon" aria-hidden="true">
+                      <Icon name={metric.icon} />
+                    </span>
+                  ) : null}
+                  <p class="muted">{metric.label}</p>
                 </div>
-              ) : null}
-            </article>
-          ))}
+                <p class="metric">{metric.value}</p>
+                {metric.trend?.length ? (
+                  <div class="stat-card__trend">
+                    <svg
+                      class="stat-card__sparkline"
+                      viewBox="0 0 120 36"
+                      preserveAspectRatio="none"
+                      role="img"
+                      aria-label={metric.trendLabel ?? `${metric.label} trend`}
+                    >
+                      <path d={buildSparklinePath(metric.trend)} />
+                    </svg>
+                  </div>
+                ) : null}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </div>
