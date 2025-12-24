@@ -33,10 +33,13 @@ test.describe("Navigation", () => {
     await page.goto("/");
 
     const navContent = page.locator(".nav__content");
+    const html = page.locator("html");
     await expect(navContent).not.toHaveClass(/is-open/);
+    await expect(html).not.toHaveClass(/nav-locked/);
 
     await page.getByRole("button", { name: /open navigation/i }).click();
     await expect(navContent).toHaveClass(/is-open/);
+    await expect(html).toHaveClass(/nav-locked/);
 
     await page.getByRole("link", { name: "Library" }).click();
     await page.waitForURL(/\/library/);
@@ -45,5 +48,6 @@ test.describe("Navigation", () => {
       page.getByRole("heading", { level: 1, name: "Library" }),
     ).toBeVisible();
     await expect(page.locator(".nav__content")).not.toHaveClass(/is-open/);
+    await expect(html).not.toHaveClass(/nav-locked/);
   });
 });

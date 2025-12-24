@@ -6,6 +6,7 @@ export const initNavigation = () => {
   const actionLinks = nav?.querySelectorAll<HTMLAnchorElement>(
     '.nav__content a, .nav__content button',
   );
+  const scrollLockTargets = [document.documentElement, document.body];
 
   if (!nav || !toggle || !content || !actionLinks || actionLinks.length === 0) {
     return;
@@ -27,12 +28,17 @@ export const initNavigation = () => {
   const updateState = (open: boolean) => {
     isOpen = open;
     const isDesktop = desktopQuery.matches;
+    const shouldLockScroll = isOpen && !isDesktop;
 
     toggle.setAttribute('aria-expanded', String(isOpen));
     toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
 
     nav.classList.toggle('nav--open', isOpen && !isDesktop);
     content.classList.toggle('is-open', isOpen || isDesktop);
+
+    scrollLockTargets.forEach((target) => {
+      target?.classList.toggle('nav-locked', shouldLockScroll);
+    });
 
     const shouldHideContent = !isDesktop && !isOpen;
 
