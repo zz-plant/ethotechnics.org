@@ -23,6 +23,31 @@ const entryIndex = categories
   .sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
 
 const territoryCounts = new Map(categories.map((category) => [category.id, category.entries.length]));
+const pageUrl = Astro.site ? new URL(permalink, Astro.site).toString() : permalink;
+
+const structuredEntries = categories.flatMap((category) =>
+  category.entries.map((entry) => {
+    const plainDescription = entry.bodyHtml.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+
+    return {
+      '@type': 'DefinedTerm',
+      name: entry.title,
+      url: `${pageUrl}#${entry.id}`,
+      inDefinedTermSet: pageUrl,
+      description: plainDescription,
+    };
+  }),
+);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  hasDefinedTerm: structuredEntries,
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -192,5 +217,6 @@ const territoryCounts = new Map(categories.map((category) => [category.id, categ
     </SectionBlock>
   ))}
 
+  <script type="application/ld+json" set:html={structuredDataJson}></script>
   <script type="module" src={glossaryFilterScript}></script>
 </BaseLayout>
