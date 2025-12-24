@@ -24,9 +24,10 @@ describe('middleware', () => {
 
     for (const { url, host, expectedLocation } of redirectCases) {
       const request = new Request(url, { headers: { host } });
+      const locals: App.Locals = { cspNonce: '' };
       const next = vi.fn(async () => new Response('next'));
 
-      const response = await onRequest({ request } as any, next);
+      const response = await onRequest({ request, locals } as any, next);
 
       if (!response) {
         throw new Error('Expected redirect response');
@@ -36,6 +37,8 @@ describe('middleware', () => {
       expect(response.headers.get('Location')).toBe(expectedLocation);
       expect(response.headers.get('Strict-Transport-Security')).toContain('max-age');
       expect(response.headers.get('Content-Security-Policy')).toContain("default-src 'self'");
+      expect(response.headers.get('Content-Security-Policy')).toContain(`script-src 'self' 'nonce-`);
+      expect(locals.cspNonce).toBeTruthy();
       expect(next).not.toHaveBeenCalled();
     }
   });
@@ -45,9 +48,10 @@ describe('middleware', () => {
 
     for (const headers of cases) {
       const request = new Request('https://example.com/path', { headers });
+      const locals: App.Locals = { cspNonce: '' };
       const next = vi.fn(async () => new Response('next'));
 
-      const response = await onRequest({ request } as any, next);
+      const response = await onRequest({ request, locals } as any, next);
 
       if (!response) {
         throw new Error('Expected next response');
@@ -57,9 +61,11 @@ describe('middleware', () => {
       expect(await response.text()).toBe('next');
       expect(response.headers.get('Strict-Transport-Security')).toContain('max-age');
       expect(response.headers.get('Content-Security-Policy')).toContain("default-src 'self'");
+      expect(response.headers.get('Content-Security-Policy')).toContain(`script-src 'self' 'nonce-`);
       expect(response.headers.get('Referrer-Policy')).toBe('no-referrer');
       expect(response.headers.get('X-Content-Type-Options')).toBe('nosniff');
       expect(response.headers.get('Permissions-Policy')).toContain('geolocation');
+      expect(locals.cspNonce).toBeTruthy();
       expect(next).toHaveBeenCalledTimes(1);
     }
   });

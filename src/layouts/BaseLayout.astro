@@ -21,6 +21,7 @@ const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const ogImage = new URL('/favicon.svg', siteBase).toString();
 const defaultTitle = 'Ethotechnics — Ethical technology in practice';
 const { identity, navigation } = siteFooter;
+const { cspNonce } = Astro.locals;
 ---
 <!doctype html>
 <html lang="en" id="top">
@@ -121,7 +122,7 @@ const { identity, navigation } = siteFooter;
         </section>
       ))}
     </footer>
-    <script>
+    <script nonce={cspNonce}>
       const main = document.getElementById('main-content');
 
       const focusMainAfterTransition = () => {
