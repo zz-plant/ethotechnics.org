@@ -11,6 +11,7 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used across pages.
 - [`cloudflare-playwright.md`](cloudflare-playwright.md) documents how to run Playwright in Cloudflare Pages builds and where
   test results show up.
+- [`local-development.md`](local-development.md) captures setup, dev server tips, and how to preview builds locally.
 - [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and [`visual-textures.md`](visual-textures.md) capture specialized troubleshooting
   and design notes.
 
