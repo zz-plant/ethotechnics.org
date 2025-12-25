@@ -1,0 +1,30 @@
+---
+import type { NavSection } from '../content/navigation';
+
+const { sections, class: className } = Astro.props as {
+  sections: NavSection[];
+  class?: string;
+};
+
+const sectionWrapperClass = ['nav__section', className].filter(Boolean).join(' ');
+---
+{sections.map((section) => (
+  <section class={sectionWrapperClass}>
+    <div class="nav__section-header">
+      <p class="eyebrow nav__section-eyebrow">{section.heading}</p>
+      <p class="muted nav__section-description">{section.description}</p>
+    </div>
+    <ul class="nav__section-links">
+      {section.links.map((link) => (
+        <li class="nav__section-item">
+          <a class="nav__link-card" href={link.href}>
+            <span class="nav__link-label">{link.label}</span>
+            {link.description && (
+              <span class="muted nav__link-description">{link.description}</span>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+))}

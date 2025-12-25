@@ -1,0 +1,30 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { NavAction } from '../content/navigation';
+
+const { actions, class: className } = Astro.props as {
+  actions: NavAction[];
+  class?: string;
+};
+
+const navActionsClass = ['nav__actions', className].filter(Boolean).join(' ');
+
+const navActionClasses: Record<NavAction['variant'], string> = {
+  primary: 'button primary',
+  ghost: 'button ghost',
+  'ghost-compact': 'button ghost button--compact',
+};
+---
+<div class={navActionsClass}>
+  {actions.map((action) => (
+    <a
+      class={navActionClasses[action.variant]}
+      href={action.href}
+      rel={action.rel}
+      target={action.target}
+    >
+      <span>{action.label}</span>
+      {action.icon && <Icon class="nav__icon" name={action.icon} aria-hidden="true" />}
+    </a>
+  ))}
+</div>

@@ -1,0 +1,97 @@
+export interface NavLink {
+  href: string;
+  label: string;
+  description?: string;
+}
+
+export interface NavSection {
+  heading: string;
+  description: string;
+  links: NavLink[];
+}
+
+export interface NavAction {
+  href: string;
+  label: string;
+  variant: 'primary' | 'ghost' | 'ghost-compact';
+  icon?: string;
+  rel?: string;
+  target?: string;
+}
+
+export const navSections: NavSection[] = [
+  {
+    heading: 'Explore',
+    description: 'Reference materials tuned for fast sharing and reuse.',
+    links: [
+      {
+        href: '/library',
+        label: 'Library',
+        description: 'Primers, patterns, and syllabus modules with stable permalinks.',
+      },
+      {
+        href: '/glossary',
+        label: 'Glossary',
+        description: 'Shared vocabulary for moral system design and governance.',
+      },
+      {
+        href: '/field-notes',
+        label: 'Field notes',
+        description: 'Applied notes and walkthroughs from ongoing research.',
+      },
+    ],
+  },
+  {
+    heading: 'Programs',
+    description: 'Initiatives led by the Institute and collaborators.',
+    links: [
+      {
+        href: '/institute',
+        label: 'Institute',
+        description: 'Training cohorts, facilitation kits, and stewardship guidance.',
+      },
+      {
+        href: '/research',
+        label: 'Research',
+        description: 'Agenda, collaborations, and studies shaping the library.',
+      },
+      {
+        href: '/finite',
+        label: 'Finite [Beta]',
+        description: 'Stoppability drills and evaluations for AI-enabled systems.',
+      },
+    ],
+  },
+  {
+    heading: 'Diagnostics',
+    description: 'Benchmarks, measurements, and system health checks.',
+    links: [
+      {
+        href: '/diagnostics',
+        label: 'Diagnostics',
+        description: 'Reliability and burden modeling tools you can run today.',
+      },
+    ],
+  },
+];
+
+export const navActions: NavAction[] = [
+  {
+    href: '/institute',
+    label: 'Join the Institute',
+    variant: 'primary',
+  },
+  {
+    href: '/field-notes',
+    label: 'Read field notes',
+    variant: 'ghost',
+  },
+  {
+    href: 'https://signals.ethotechnics.org',
+    label: 'Signals newsletter',
+    variant: 'ghost-compact',
+    icon: 'lucide:arrow-up-right',
+    rel: 'noreferrer',
+    target: '_blank',
+  },
+];
