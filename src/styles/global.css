@@ -1,22 +1,22 @@
 :root {
   color-scheme: light;
-  --bg: #f3ebe1;
-  --surface: #fdf8f2;
-  --panel: #eee3d5;
-  --card: #e7dac8;
-  --border: #d2c3ae;
-  --text: #20170f;
-  --muted: #524638;
-  --accent: #bb6a35;
-  --accent-strong: #8e4a22;
-  --gold: #c89a60;
-  --teal: #3f7c7a;
+  --bg: #f5f1e8;
+  --surface: #fdfaf4;
+  --panel: #eee7d9;
+  --card: #e4d8c7;
+  --border: #c8b9a3;
+  --text: #221911;
+  --muted: #4c4132;
+  --accent: #80613b;
+  --accent-strong: #4f3b23;
+  --gold: #b68d53;
+  --teal: #5d6b64;
   --radius: 16px;
   --radius-md: 14px;
   --radius-lg: 18px;
-  --shadow: 0 18px 46px rgba(27, 18, 11, 0.16);
-  --shadow-xs: 0 7px 16px rgba(27, 18, 11, 0.08);
-  --shadow-sm: 0 12px 26px rgba(27, 18, 11, 0.12);
+  --shadow: 0 16px 40px rgba(22, 15, 10, 0.14);
+  --shadow-xs: 0 7px 16px rgba(22, 15, 10, 0.08);
+  --shadow-sm: 0 12px 24px rgba(22, 15, 10, 0.12);
   --space-1: 0.4rem;
   --space-2: 0.75rem;
   --space-3: 1.15rem;
@@ -34,19 +34,24 @@
   --glow-wash:
     radial-gradient(
       circle at 18% 20%,
-      color-mix(in srgb, var(--accent) 9%, transparent) 0,
+      color-mix(in srgb, var(--accent) 8%, transparent) 0,
       transparent 38%
     ),
     radial-gradient(
       circle at 88% 18%,
-      color-mix(in srgb, var(--teal) 14%, transparent) 0,
+      color-mix(in srgb, var(--teal) 12%, transparent) 0,
       transparent 36%
     ),
     radial-gradient(
       circle at 32% 90%,
-      color-mix(in srgb, var(--gold) 12%, transparent) 0,
+      color-mix(in srgb, var(--gold) 11%, transparent) 0,
       transparent 38%
     );
+  --halftone: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--border) 60%, transparent) 0,
+    transparent 1.4px
+  );
   --grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.42'/%3E%3C/svg%3E");
   --font-size-sm: 0.95rem;
   --sans:
@@ -67,25 +72,28 @@ body {
   text-rendering: optimizeLegibility;
   /* Flatten grain and glow into the background to avoid repaint-heavy fixed filters. */
   background:
-    var(--grain-texture), var(--glow-wash),
+    var(--grain-texture),
+    var(--halftone),
+    var(--glow-wash),
     radial-gradient(
       circle at 8% 16%,
-      color-mix(in srgb, var(--accent) 6%, white) 0,
-      transparent 32%
+      color-mix(in srgb, var(--accent) 7%, white) 0,
+      transparent 30%
     ),
     radial-gradient(
       circle at 92% 10%,
-      color-mix(in srgb, var(--teal) 10%, white) 0,
-      transparent 32%
+      color-mix(in srgb, var(--teal) 9%, white) 0,
+      transparent 30%
     ),
     linear-gradient(
       145deg,
-      color-mix(in srgb, var(--surface) 70%, white 30%),
+      color-mix(in srgb, var(--surface) 76%, white 24%),
       var(--bg)
     );
-  background-blend-mode: multiply, soft-light, normal, normal, normal;
+  background-blend-mode: multiply, soft-light, soft-light, normal, normal, normal;
   background-size:
     320px 320px,
+    18px 18px,
     auto,
     auto,
     auto,
@@ -737,12 +745,15 @@ noscript .nav__toggle {
   border-radius: calc(var(--radius) + 2px);
   border: 1px solid color-mix(in srgb, var(--border) 74%, transparent);
   background:
+    var(--halftone),
     linear-gradient(
-      150deg,
-      color-mix(in srgb, var(--surface) 92%, white 8%),
-      color-mix(in srgb, var(--panel) 88%, white 12%)
+      160deg,
+      color-mix(in srgb, var(--surface) 96%, white 4%),
+      color-mix(in srgb, var(--panel) 90%, white 10%)
     ),
     var(--glow-wash);
+  background-blend-mode: soft-light, normal, soft-light;
+  background-size: 18px 18px, auto, auto;
   box-shadow: var(--shadow);
   isolation: isolate;
 }
@@ -1166,17 +1177,25 @@ noscript .nav__toggle {
   display: grid;
   gap: 0.8rem;
   height: 100%;
-  background: color-mix(in srgb, var(--surface) 94%, white 6%);
+  background:
+    var(--halftone),
+    color-mix(in srgb, var(--surface) 95%, white 5%);
+  background-blend-mode: soft-light, normal;
+  background-size: 18px 18px, auto;
   border-radius: var(--radius);
   border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
   padding: 1.2rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-sm);
 }
 
 .illustration__frame {
   position: relative;
   padding: 1.1rem;
-  background: color-mix(in srgb, var(--panel) 92%, white 8%);
+  background:
+    var(--halftone),
+    color-mix(in srgb, var(--panel) 94%, white 6%);
+  background-blend-mode: soft-light, normal;
+  background-size: 18px 18px, auto;
   border-radius: var(--radius-md);
   border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
   overflow: hidden;
@@ -1306,17 +1325,20 @@ noscript .nav__toggle {
 
 .panel {
   background:
+    var(--halftone),
     linear-gradient(
       140deg,
-      color-mix(in srgb, var(--panel) 92%, white 8%),
-      color-mix(in srgb, var(--surface) 90%, white 10%)
+      color-mix(in srgb, var(--panel) 95%, white 5%),
+      color-mix(in srgb, var(--surface) 92%, white 8%)
     ),
-    var(--glow-wash);
+    color-mix(in srgb, var(--glow-wash) 90%, transparent);
+  background-blend-mode: soft-light, normal, soft-light;
+  background-size: 18px 18px, auto, auto;
   padding: 1.7rem;
   border-radius: var(--radius);
   border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(10px) saturate(112%);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(6px) saturate(108%);
   position: relative;
   overflow: hidden;
 }
