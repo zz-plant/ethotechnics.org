@@ -6,12 +6,12 @@ Use this map before adding new guidance so information stays discoverable and cu
 
 ## Quick links
 
-- `architecture.md` outlines the layout shell, routing model, middleware, and Worker deployment.
-- `adding-pages.md` provides the checklist for new Astro routes and shared navigation updates.
-- `content-components.md` catalogs the reusable UI building blocks used across pages.
-- `cloudflare-playwright.md` documents how to run Playwright in Cloudflare Pages builds and where
+- [`architecture.md`](architecture.md) outlines the layout shell, routing model, middleware, and Worker deployment.
+- [`adding-pages.md`](adding-pages.md) provides the checklist for new Astro routes and shared navigation updates.
+- [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used across pages.
+- [`cloudflare-playwright.md`](cloudflare-playwright.md) documents how to run Playwright in Cloudflare Pages builds and where
   test results show up.
-- `diagnostics-capacity-forecaster.md` and `visual-textures.md` capture specialized troubleshooting
+- [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and [`visual-textures.md`](visual-textures.md) capture specialized troubleshooting
   and design notes.
 
 ## How to add or update docs
