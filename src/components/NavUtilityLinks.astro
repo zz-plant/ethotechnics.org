@@ -1,0 +1,36 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface NavUtilityLink {
+  href: string;
+  label: string;
+  class: string;
+  rel?: string;
+  target?: string;
+  icon?: string;
+}
+
+const navUtilityLinks: NavUtilityLink[] = [
+  {
+    href: '/donate',
+    label: 'Donate',
+    class: 'button ghost button--compact',
+  },
+  {
+    href: 'https://ethotechnics.com/studio',
+    label: 'Ethotechnics Studio',
+    class: 'nav__utility-link',
+    rel: 'noreferrer',
+    target: '_blank',
+    icon: 'lucide:arrow-up-right',
+  },
+];
+
+const { links = navUtilityLinks } = Astro.props as { links?: NavUtilityLink[] };
+---
+{links.map((link) => (
+  <a class={link.class} href={link.href} rel={link.rel} target={link.target}>
+    <span>{link.label}</span>
+    {link.icon && <Icon class="nav__icon" name={link.icon} aria-hidden="true" />}
+  </a>
+))}
