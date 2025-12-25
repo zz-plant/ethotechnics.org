@@ -1,0 +1,25 @@
+---
+interface NavQuickLink {
+  href: string;
+  label: string;
+}
+
+const { links, class: className } = Astro.props as {
+  links: NavQuickLink[];
+  class?: string;
+};
+
+const quickLinksClass = ['nav__quick-links', className].filter(Boolean).join(' ');
+---
+<div class={quickLinksClass} aria-label="Library themes">
+  <p class="muted nav__quick-links-label">Top library tags</p>
+  <ul class="pill-list">
+    {links.map((tag) => (
+      <li class="pill-list__item">
+        <a class="pill-list__button" href={tag.href}>
+          {tag.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

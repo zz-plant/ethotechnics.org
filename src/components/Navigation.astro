@@ -1,64 +1,11 @@
 ---
-import { Icon } from 'astro-icon/components';
+import NavActions from './NavActions.astro';
+import NavQuickLinks from './NavQuickLinks.astro';
+import NavSectionList from './NavSectionList.astro';
 import NavUtilityLinks from './NavUtilityLinks.astro';
 import { libraryContent } from '../content/library';
+import { navActions, navSections } from '../content/navigation';
 import navigationScript from '../scripts/navigation.ts?url';
-
-const navCollections = [
-  {
-    heading: 'Explore',
-    description: 'Reference materials tuned for fast sharing and reuse.',
-    links: [
-      {
-        href: '/library',
-        label: 'Library',
-        description: 'Primers, patterns, and syllabus modules with stable permalinks.',
-      },
-      {
-        href: '/glossary',
-        label: 'Glossary',
-        description: 'Shared vocabulary for moral system design and governance.',
-      },
-      {
-        href: '/field-notes',
-        label: 'Field notes',
-        description: 'Applied notes and walkthroughs from ongoing research.',
-      },
-    ],
-  },
-  {
-    heading: 'Programs',
-    description: 'Initiatives led by the Institute and collaborators.',
-    links: [
-      {
-        href: '/institute',
-        label: 'Institute',
-        description: 'Training cohorts, facilitation kits, and stewardship guidance.',
-      },
-      {
-        href: '/research',
-        label: 'Research',
-        description: 'Agenda, collaborations, and studies shaping the library.',
-      },
-      {
-        href: '/finite',
-        label: 'Finite [Beta]',
-        description: 'Stoppability drills and evaluations for AI-enabled systems.',
-      },
-    ],
-  },
-  {
-    heading: 'Diagnostics',
-    description: 'Benchmarks, measurements, and system health checks.',
-    links: [
-      {
-        href: '/diagnostics',
-        label: 'Diagnostics',
-        description: 'Reliability and burden modeling tools you can run today.',
-      },
-    ],
-  },
-];
 
 const navTags = libraryContent.patterns.filters.map((filter) => ({
   href: `${libraryContent.permalink}#${filter.slug}`,
@@ -107,44 +54,11 @@ const navContentId = 'site-navigation-content';
         </div>
         <div class="nav__content-grid">
           <div class="nav__primary">
-            {navCollections.map((section) => (
-              <section class="nav__section">
-                <div class="nav__section-header">
-                  <p class="eyebrow nav__section-eyebrow">{section.heading}</p>
-                  <p class="muted nav__section-description">{section.description}</p>
-                </div>
-                <ul class="nav__section-links">
-                  {section.links.map((link) => (
-                    <li class="nav__section-item">
-                      <a class="nav__link-card" href={link.href}>
-                        <span class="nav__link-label">{link.label}</span>
-                        <span class="muted nav__link-description">{link.description}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
+            <NavSectionList sections={navSections} />
           </div>
           <div class="nav__secondary">
-            <div class="nav__quick-links" aria-label="Library themes">
-              <p class="muted nav__quick-links-label">Top library tags</p>
-              <ul class="pill-list">
-                {navTags.map((tag) => (
-                  <li class="pill-list__item">
-                    <a class="pill-list__button" href={tag.href}>{tag.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div class="nav__actions">
-              <a class="button primary" href="/institute">Join the Institute</a>
-              <a class="button ghost" href="/field-notes">Read field notes</a>
-              <a class="button ghost button--compact" href="https://signals.ethotechnics.org" rel="noreferrer" target="_blank">
-                Signals newsletter
-                <Icon class="nav__icon" name="lucide:arrow-up-right" aria-hidden="true" />
-              </a>
-            </div>
+            <NavQuickLinks links={navTags} />
+            <NavActions actions={navActions} />
           </div>
         </div>
         <div class="nav__utility nav__utility--menu">
@@ -158,45 +72,12 @@ const navContentId = 'site-navigation-content';
 
   <noscript>
     <div class="nav__fallback container">
-      {navCollections.map((section) => (
-        <section class="nav__section">
-          <div class="nav__section-header">
-            <p class="eyebrow nav__section-eyebrow">{section.heading}</p>
-            <p class="muted nav__section-description">{section.description}</p>
-          </div>
-          <ul class="nav__section-links">
-            {section.links.map((link) => (
-              <li class="nav__section-item">
-                <a class="nav__link-card" href={link.href}>
-                  <span class="nav__link-label">{link.label}</span>
-                  <span class="muted nav__link-description">{link.description}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-      <div class="nav__quick-links" aria-label="Library themes">
-        <p class="muted nav__quick-links-label">Top library tags</p>
-        <ul class="pill-list">
-          {navTags.map((tag) => (
-            <li class="pill-list__item">
-              <a class="pill-list__button" href={tag.href}>{tag.label}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <NavSectionList sections={navSections} />
+      <NavQuickLinks links={navTags} />
       <div class="nav__utility nav__utility--menu">
         <NavUtilityLinks />
       </div>
-      <div class="nav__actions">
-        <a class="button primary" href="/institute">Join the Institute</a>
-        <a class="button ghost" href="/field-notes">Read field notes</a>
-        <a class="button ghost button--compact" href="https://signals.ethotechnics.org" rel="noreferrer" target="_blank">
-          Signals newsletter
-          <Icon class="nav__icon" name="lucide:arrow-up-right" aria-hidden="true" />
-        </a>
-      </div>
+      <NavActions actions={navActions} />
     </div>
   </noscript>
 </nav>
