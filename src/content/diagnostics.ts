@@ -7,6 +7,11 @@ export type DiagnosticTool = {
   readiness: string[];
   outputs: string[];
   studioNote: string;
+  ctaLabel: string;
+  ctaHref: string;
+  ctaAriaLabel?: string;
+  exampleLabel: string;
+  exampleHref: string;
 };
 
 export type DiagnosticsContent = PageWithPermalink & {
@@ -36,6 +41,11 @@ export const diagnosticsContent: DiagnosticsContent = {
         'Result page with off-ramp link to ethotechnics.com/studio for escalation.',
       ],
       studioNote: 'Result pages always include the off-ramp to ethotechnics.com/studio for risky or unclear scores.',
+      ctaLabel: 'Book a facilitated burden modeling session',
+      ctaHref: 'https://ethotechnics.com/studio',
+      ctaAriaLabel: 'Book a facilitated burden modeling session through ethotechnics.com/studio',
+      exampleLabel: 'See example burden model outputs',
+      exampleHref: 'https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#burden-modeler',
     },
     {
       slug: 'llm-capacity-benchmark',
@@ -52,6 +62,11 @@ export const diagnosticsContent: DiagnosticsContent = {
         'Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.',
       ],
       studioNote: 'Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.',
+      ctaLabel: 'Run the LLM readiness check',
+      ctaHref: 'https://ethotechnics.com/studio',
+      ctaAriaLabel: 'Request an LLM readiness check through ethotechnics.com/studio',
+      exampleLabel: 'Review a benchmark output sample',
+      exampleHref: 'https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark',
     },
     {
       slug: 'maintenance-simulator',
@@ -67,6 +82,11 @@ export const diagnosticsContent: DiagnosticsContent = {
         'Result page footer reminding teams about the off-ramp to ethotechnics.com/studio.',
       ],
       studioNote: 'Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.',
+      ctaLabel: 'Schedule a maintenance simulation',
+      ctaHref: 'https://ethotechnics.com/studio',
+      ctaAriaLabel: 'Schedule a maintenance simulation through ethotechnics.com/studio',
+      exampleLabel: 'Preview a simulation output',
+      exampleHref: 'https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#maintenance-simulator',
     },
     {
       slug: 'capacity-forecaster',
@@ -83,6 +103,12 @@ export const diagnosticsContent: DiagnosticsContent = {
         'Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.',
       ],
       studioNote: 'Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.',
+      ctaLabel: 'Open the capacity forecaster',
+      ctaHref: '/diagnostics/capacity-forecaster',
+      ctaAriaLabel: 'Open the Technical Capacity Forecaster tool',
+      exampleLabel: 'View capacity forecast examples',
+      exampleHref:
+        'https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster',
     },
   ],
 };
