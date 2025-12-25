@@ -3,8 +3,15 @@ const initGlossaryFilter = () => {
   const items = Array.from(document.querySelectorAll<HTMLElement>('.glossary-index__item'));
   const emptyState = document.querySelector<HTMLElement>('.glossary-index__empty');
   const count = document.querySelector<HTMLElement>('.glossary-filter__count');
+  const clearButton = document.querySelector<HTMLButtonElement>('[data-clear-filter]');
 
-  if (!(filterInput instanceof HTMLInputElement) || items.length === 0 || !emptyState || !count) {
+  if (
+    !(filterInput instanceof HTMLInputElement) ||
+    items.length === 0 ||
+    !emptyState ||
+    !count ||
+    !(clearButton instanceof HTMLButtonElement)
+  ) {
     return;
   }
 
@@ -27,9 +34,22 @@ const initGlossaryFilter = () => {
 
     emptyState.hidden = visible > 0;
     count.textContent = `Showing ${visible} of ${total} terms`;
+    clearButton.disabled = query.length === 0;
   };
 
   filterInput.addEventListener('input', updateFilter);
+  filterInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && filterInput.value) {
+      event.preventDefault();
+      filterInput.value = '';
+      updateFilter();
+    }
+  });
+  clearButton.addEventListener('click', () => {
+    filterInput.value = '';
+    filterInput.focus();
+    updateFilter();
+  });
   updateFilter();
 };
 
