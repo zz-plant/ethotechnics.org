@@ -12,14 +12,28 @@ interface Props {
   description?: string;
 }
 
-const {
-  title = 'Ethotechnics — Ethical technology in practice',
-  description = 'Ethotechnics.org explores how to build technology that respects human dignity through design, research, and governance.',
-} = Astro.props as Props;
+const siteName = 'Ethotechnics Institute';
+const defaultTitle = 'Ethotechnics — Ethical technology in practice';
+const defaultDescription =
+  'Ethotechnics.org explores how to build technology that respects human dignity through design, research, and governance.';
+
+const { title = defaultTitle, description = defaultDescription } = Astro.props as Props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.href;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const ogImage = new URL('/favicon.svg', siteBase).toString();
-const defaultTitle = 'Ethotechnics — Ethical technology in practice';
+const seoImage = {
+  src: new URL('/assets/ethotechnics-hero-map.svg', siteBase).toString(),
+  alt: 'Linework illustration of Ethotechnics focus areas',
+  width: 1200,
+  height: 630,
+};
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteName,
+  url: siteBase,
+  sameAs: ['https://ethotechnics.com', 'https://signals.ethotechnics.org', 'https://github.com/ethotechnics'],
+};
+const structuredDataJson = JSON.stringify(structuredData);
 const { identity, navigation } = siteFooter;
 const { cspNonce } = Astro.locals;
 ---
@@ -29,25 +43,57 @@ const { cspNonce } = Astro.locals;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <SEO
-      title={title ?? defaultTitle}
+      title={title}
+      titleDefault={defaultTitle}
       description={description}
       canonical={canonical}
+      languageAlternates={[{ hrefLang: 'en', href: canonical }]}
       openGraph={{
         basic: {
-          title: title ?? defaultTitle,
+          title,
           type: 'website',
-          image: ogImage,
+          image: seoImage.src,
           url: canonical,
+        },
+        optional: {
+          description,
+          locale: 'en_US',
+          siteName,
+        },
+        image: {
+          alt: seoImage.alt,
+          secureUrl: seoImage.src,
+          type: 'image/svg+xml',
+          width: seoImage.width,
+          height: seoImage.height,
         },
       }}
       twitter={{
-        card: 'summary',
-        image: ogImage,
+        card: 'summary_large_image',
+        title,
+        description,
+        image: seoImage.src,
+        imageAlt: seoImage.alt,
       }}
       extend={{
-        link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+        link: [
+          { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+          {
+            rel: 'alternate',
+            type: 'application/rss+xml',
+            href: '/rss.xml',
+            title: 'Ethotechnics RSS feed',
+          },
+        ],
+        meta: [{ name: 'theme-color', content: '#f3ebe1' }],
       }}
     />
+    <script
+      type="application/ld+json"
+      nonce={cspNonce}
+      set:html={structuredDataJson}
+      is:inline
+    ></script>
   </head>
   <body>
     <svg aria-hidden="true" focusable="false" style="position: absolute; width: 0; height: 0; overflow: hidden;">
@@ -122,7 +168,7 @@ const { cspNonce } = Astro.locals;
         </section>
       ))}
     </footer>
-    <script nonce={cspNonce}>
+    <script nonce={cspNonce} is:inline>
       const main = document.getElementById('main-content');
 
       const focusMainAfterTransition = () => {

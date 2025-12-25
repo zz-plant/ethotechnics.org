@@ -143,15 +143,60 @@ describe("BaseLayout", () => {
     ).toBe("Custom description");
     expect(
       document
+        .querySelector('meta[property="og:description"]')
+        ?.getAttribute("content"),
+    ).toBe("Custom description");
+    expect(
+      document
         .querySelector('meta[property="og:title"]')
         ?.getAttribute("content"),
     ).toBe("Custom title");
+    expect(
+      document
+        .querySelector('meta[property="og:site_name"]')
+        ?.getAttribute("content"),
+    ).toBe("Ethotechnics Institute");
+    expect(
+      document
+        .querySelector('meta[property="og:image:alt"]')
+        ?.getAttribute("content")
+        ?.includes("Ethotechnics focus areas"),
+    ).toBe(true);
+    expect(
+      document
+        .querySelector('meta[property="og:image:width"]')
+        ?.getAttribute("content"),
+    ).toBe("1200");
+    expect(
+      document
+        .querySelector('meta[property="og:image:height"]')
+        ?.getAttribute("content"),
+    ).toBe("630");
     expect(
       document.querySelector('link[rel="canonical"]')?.getAttribute("href"),
     ).toBe("https://ethotechnics.org/library");
     expect(
       document.querySelector('link[rel="icon"]')?.getAttribute("href"),
     ).toBe("/favicon.svg");
+    expect(
+      document
+        .querySelector('link[type="application/rss+xml"]')
+        ?.getAttribute("href"),
+    ).toBe("/rss.xml");
+    expect(
+      document.querySelector('meta[name="twitter:card"]')?.getAttribute("content"),
+    ).toBe("summary_large_image");
+    expect(
+      document.querySelector('meta[name="twitter:image:alt"]')?.getAttribute("content"),
+    ).toBe("Linework illustration of Ethotechnics focus areas");
+    expect(
+      document.querySelector('meta[name="theme-color"]')?.getAttribute("content"),
+    ).toBe("#f3ebe1");
+
+    const structuredData = document
+      .querySelector('script[type="application/ld+json"]')
+      ?.textContent?.trim();
+    expect(structuredData?.includes('Ethotechnics Institute')).toBe(true);
 
     const main = document.querySelector("main.page.container");
     expect(main?.querySelector("h1")?.textContent?.trim()).toBe("Slot heading");
