@@ -7,22 +7,41 @@ import { libraryContent } from '../content/library';
 import { navActions, navSections } from '../content/navigation';
 import navigationScript from '../scripts/navigation.ts?url';
 
+interface Props {
+  currentPath?: string;
+}
+
 const navTags = libraryContent.patterns.filters.map((filter) => ({
   href: `${libraryContent.permalink}#${filter.slug}`,
   label: filter.label,
 }));
 
 const navContentId = 'site-navigation-content';
+const { currentPath = Astro.url.pathname } = Astro.props as Props;
+const normalizePath = (path: string) => {
+  const [clean] = path.split('#');
+  if (!clean) return '/';
+
+  const trimmed = clean.endsWith('/') && clean !== '/' ? clean.slice(0, -1) : clean;
+
+  return trimmed || '/';
+};
+const isHome = normalizePath(currentPath) === '/';
 ---
 <nav class="nav" aria-label="Primary" data-astro-transition-persist data-nav>
   <div class="nav__inner container">
     <div class="nav__bar">
-      <a href="/" class="nav__brand" aria-label="Go to the homepage">
+      <a
+        href="/"
+        class="nav__brand"
+        aria-label="Go to the homepage"
+        aria-current={isHome ? 'page' : undefined}
+      >
         Ethotechnics
       </a>
 
       <div class="nav__utility nav__utility--desktop">
-        <NavUtilityLinks />
+        <NavUtilityLinks currentPath={currentPath} />
       </div>
 
       <button
@@ -49,12 +68,12 @@ const navContentId = 'site-navigation-content';
             <p class="muted">Find Ethotechnics resources, programs, and diagnostics in one place.</p>
           </div>
           <div class="nav__utility nav__utility--desktop">
-            <NavUtilityLinks />
+            <NavUtilityLinks currentPath={currentPath} />
           </div>
         </div>
         <div class="nav__content-grid">
           <div class="nav__primary">
-            <NavSectionList sections={navSections} />
+            <NavSectionList sections={navSections} currentPath={currentPath} />
           </div>
           <div class="nav__secondary">
             <NavQuickLinks links={navTags} />
@@ -62,7 +81,7 @@ const navContentId = 'site-navigation-content';
           </div>
         </div>
         <div class="nav__utility nav__utility--menu">
-          <NavUtilityLinks />
+          <NavUtilityLinks currentPath={currentPath} />
         </div>
       </div>
     </div>
@@ -72,10 +91,10 @@ const navContentId = 'site-navigation-content';
 
   <noscript>
     <div class="nav__fallback container">
-      <NavSectionList sections={navSections} />
+      <NavSectionList sections={navSections} currentPath={currentPath} />
       <NavQuickLinks links={navTags} />
       <div class="nav__utility nav__utility--menu">
-        <NavUtilityLinks />
+        <NavUtilityLinks currentPath={currentPath} />
       </div>
       <NavActions actions={navActions} />
     </div>

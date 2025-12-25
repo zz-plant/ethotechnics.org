@@ -26,10 +26,38 @@ const navUtilityLinks: NavUtilityLink[] = [
   },
 ];
 
-const { links = navUtilityLinks } = Astro.props as { links?: NavUtilityLink[] };
+const { links = navUtilityLinks, currentPath } = Astro.props as {
+  links?: NavUtilityLink[];
+  currentPath?: string;
+};
+
+const normalizePath = (path?: string) => {
+  if (!path) return '';
+
+  const [clean] = path.split('#');
+
+  if (!clean) return '';
+
+  const trimmed = clean.endsWith('/') && clean !== '/' ? clean.slice(0, -1) : clean;
+
+  return trimmed || '/';
+};
+
+const normalizedCurrentPath = normalizePath(currentPath);
+const isCurrentLink = (href: string) => {
+  if (!href.startsWith('/')) return false;
+
+  return normalizePath(href) === normalizedCurrentPath;
+};
 ---
 {links.map((link) => (
-  <a class={link.class} href={link.href} rel={link.rel} target={link.target}>
+  <a
+    class={link.class}
+    href={link.href}
+    rel={link.rel}
+    target={link.target}
+    aria-current={isCurrentLink(link.href) ? 'page' : undefined}
+  >
     <span>{link.label}</span>
     {link.icon && <Icon class="nav__icon" name={link.icon} aria-hidden="true" />}
   </a>

@@ -49,6 +49,7 @@ const structuredData = [
 const structuredDataJson = JSON.stringify(structuredData);
 const { identity, navigation } = siteFooter;
 const { cspNonce } = Astro.locals;
+const currentPath = Astro.url.pathname;
 ---
 <!doctype html>
 <html lang="en" id="top">
@@ -133,7 +134,7 @@ const { cspNonce } = Astro.locals;
     </svg>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <ClientRouter fallback="swap" />
-    <Navigation />
+    <Navigation currentPath={currentPath} />
     <main id="main-content" class="page container" tabindex="-1">
       <slot />
     </main>
