@@ -23,7 +23,19 @@ Astro.response.headers.set('cache-control', 'no-store');
         Permanent link: <a href="/diagnostics/ssr">/diagnostics/ssr</a>
       </p>
     </div>
-    <div class="panel panel--glass">
+    <div class="section__actions">
+      <a class="button primary" href="#runtime-snapshot" aria-label="Jump to the SSR runtime snapshot">
+        Run the SSR readiness check
+      </a>
+      <a
+        class="button ghost"
+        href="https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#server-side-rendering-check"
+        aria-label="Review an example SSR diagnostics output"
+      >
+        See SSR output example
+      </a>
+    </div>
+    <div id="runtime-snapshot" class="panel panel--glass">
       <DiagnosticsSnapshot
         client:load
         initialSnapshot={initialSnapshot}

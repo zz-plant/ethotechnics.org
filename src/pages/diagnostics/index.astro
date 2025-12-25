@@ -35,6 +35,18 @@ const panelDescription = [
         <h2>{tool.title}</h2>
         <p class="muted">{tool.description}</p>
       </div>
+      <div class="section__actions">
+        <a class="button primary" href={tool.ctaHref} aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}>
+          {tool.ctaLabel}
+        </a>
+        <a
+          class="button ghost"
+          href={tool.exampleHref}
+          aria-label={`View example outputs for ${tool.title}`}
+        >
+          {tool.exampleLabel}
+        </a>
+      </div>
       <div class="grid">
         <article class="card">
           <div class="card__glow" aria-hidden="true" />
