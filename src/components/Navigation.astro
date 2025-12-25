@@ -5,7 +5,6 @@ import NavSectionList from './NavSectionList.astro';
 import NavUtilityLinks from './NavUtilityLinks.astro';
 import { libraryContent } from '../content/library';
 import { navActions, navSections } from '../content/navigation';
-import navigationScript from '../scripts/navigation.ts?url';
 
 interface Props {
   currentPath?: string;
@@ -16,7 +15,6 @@ const navTags = libraryContent.patterns.filters.map((filter) => ({
   label: filter.label,
 }));
 
-const navContentId = 'site-navigation-content';
 const { currentPath = Astro.url.pathname } = Astro.props as Props;
 const normalizePath = (path: string) => {
   const [clean] = path.split('#');
@@ -47,7 +45,7 @@ const topLevelLinks = [
         Ethotechnics
       </a>
 
-      <div class="nav__links" aria-label="Primary">
+      <div class="nav__links nav__links--desktop" aria-label="Primary">
         {topLevelLinks.map((link) => (
           <a
             class="nav__link"
@@ -62,24 +60,27 @@ const topLevelLinks = [
       <div class="nav__utility nav__utility--desktop">
         <NavUtilityLinks currentPath={currentPath} />
       </div>
-
-      <button
-        class="nav__toggle"
-        aria-expanded="false"
-        aria-controls={navContentId}
-        aria-label="Open navigation"
-        type="button"
-      >
-        <span class="nav__toggle-label">Menu</span>
-        <span class="nav__toggle-icon" aria-hidden="true">
-          <span class="nav__toggle-bar"></span>
-          <span class="nav__toggle-bar"></span>
-          <span class="nav__toggle-bar"></span>
-        </span>
-      </button>
     </div>
 
-    <div class="nav__content" id={navContentId} aria-hidden="true" hidden inert>
+    <div class="nav__mobile" aria-label="Primary">
+      <div class="nav__links nav__links--mobile">
+        {topLevelLinks.map((link) => (
+          <a
+            class="nav__link"
+            href={link.href}
+            aria-current={isCurrentLink(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <div class="nav__utility nav__utility--mobile">
+        <NavUtilityLinks currentPath={currentPath} />
+      </div>
+    </div>
+
+    <div class="nav__content">
       <div class="nav__content-body">
         <div class="nav__content-header">
           <div class="nav__content-title">
@@ -99,25 +100,7 @@ const topLevelLinks = [
             <NavActions actions={navActions} />
           </div>
         </div>
-        <div class="nav__utility nav__utility--menu">
-          <NavUtilityLinks currentPath={currentPath} />
-        </div>
       </div>
     </div>
   </div>
-
-  <div class="nav__scrim" hidden aria-hidden="true"></div>
-
-  <noscript>
-    <div class="nav__fallback container">
-      <NavSectionList sections={navSections} currentPath={currentPath} />
-      <NavQuickLinks links={navTags} />
-      <div class="nav__utility nav__utility--menu">
-        <NavUtilityLinks currentPath={currentPath} />
-      </div>
-      <NavActions actions={navActions} />
-    </div>
-  </noscript>
 </nav>
-
-<script type="module" src={navigationScript}></script>
