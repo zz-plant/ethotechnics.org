@@ -1456,7 +1456,7 @@ noscript .nav__toggle {
 
 .page-intro__grid {
   display: grid;
-  gap: 1.4rem;
+  gap: 1.8rem;
   align-items: start;
 }
 
@@ -1468,7 +1468,14 @@ noscript .nav__toggle {
 
 .page-intro__lead {
   display: grid;
-  gap: 0.35rem;
+  gap: 0.5rem;
+}
+
+.page-intro__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.75rem;
 }
 
 .page-intro__lede {
@@ -1478,14 +1485,14 @@ noscript .nav__toggle {
 .page-intro__permalink {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.6rem 0.75rem;
+  gap: 0.45rem;
+  padding: 0.55rem 0.75rem;
   border-radius: var(--radius-md);
-  border: 1px dashed color-mix(in srgb, var(--border) 68%, transparent);
-  background: color-mix(in srgb, var(--surface) 88%, white 12%);
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  background: color-mix(in srgb, var(--panel) 88%, white 12%);
   width: fit-content;
-  margin: 0.3rem 0 0.1rem;
   font-weight: 650;
+  box-shadow: var(--shadow-xs);
 }
 
 .page-intro__permalink span {
@@ -1498,19 +1505,57 @@ noscript .nav__toggle {
   background: color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
-.page-intro__anchors {
+.page-intro__permalink-label {
+  color: var(--color-foreground-muted);
+}
+
+.page-intro__aside {
   display: grid;
-  gap: 0.4rem;
-  margin-top: 0.6rem;
+  gap: 0.9rem;
+}
+
+.page-intro__anchors {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--surface) 90%, white 10%),
+    color-mix(in srgb, var(--panel) 92%, white 8%)
+  );
+  box-shadow: var(--shadow-xs);
 }
 
 .page-intro__anchors ul {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.55rem;
   flex-wrap: wrap;
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+.page-intro__anchors-title {
+  font-weight: 700;
+  margin: 0;
+}
+
+.page-intro__anchor-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-right: 0.35rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  color: #2c1a10;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .page-intro__panel {
@@ -1519,7 +1564,7 @@ noscript .nav__toggle {
 }
 
 .page-intro__panel::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background:
