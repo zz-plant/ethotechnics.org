@@ -8,13 +8,13 @@ This repository is small, so keep guidance concise and easy to follow.
 
 ## What to read first
 - Start with `README.md` for project context and update it if you change the top-level purpose.
-- Review this file before committing changes and keep it succinct (aim to avoid long instruction lists).
+- Check `docs/README.md` when adding or moving documentation so guidance lands in the right place.
 - If your work is confined to a subfolder, check for a scoped `AGENTS.md` for local conventions.
 
 ## Contribution workflow
 - Work in small, reviewable changes; keep diffs focused on the stated task.
 - Prefer clear Markdown for documentation and comments; avoid unnecessary boilerplate.
-- When adding instructions, favor universally applicable guidance over task-specific notes.
+- Use the pinned Node.js 20.x toolchain (`nvm use`) before installing dependencies or running scripts.
 
 ## Formatting and tooling
 - Use npm (respecting `package-lock.json`); avoid swapping package managers unless discussed.
