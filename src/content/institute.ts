@@ -1,4 +1,4 @@
-import type { PageWithPermalink } from './types';
+import type { PageWithPermalink } from "./types";
 
 export type GovernanceItem = {
   title: string;
@@ -19,60 +19,114 @@ export type ContactChannel = {
 };
 
 export type InstituteContent = PageWithPermalink & {
-  mission: string[];
+  highlights: {
+    title: string;
+    detail: string;
+    tags: string[];
+  }[];
+  programs: {
+    title: string;
+    detail: string;
+    outcome: string;
+  }[];
   governance: GovernanceItem[];
   stewards: Steward[];
   contact: ContactChannel[];
 };
 
 export const instituteContent: InstituteContent = {
-  pageTitle: 'Institute — Ethotechnics',
-  pageDescription: 'Programs, convenings, and ways to collaborate on the Ethotechnics institute roadmap.',
-  permalink: '/institute',
-  mission: [
-    'Build a shared practice for ethical technology that travels across org charts and domains.',
-    'Provide a home for practitioners and partners to publish accountable, human-centered playbooks.',
-    'Keep materials lightweight, accessible, and linked back to the library for clarity.',
+  pageTitle: "Institute — Ethotechnics",
+  pageDescription:
+    "A visitor guide to Institute programs, decision forums, and how to involve the Studio when you need a partner.",
+  permalink: "/institute",
+  highlights: [
+    {
+      title: "Start with open guidance",
+      detail:
+        "Pull prompts, templates, and diagnostics from the Library to get a quick read on risk before involving a partner.",
+      tags: ["Self-serve", "Open CC BY 4.0", "Library-first"],
+    },
+    {
+      title: "Choose the right program",
+      detail:
+        "Join a sprint, research cohort, or forum that matches your decision window.",
+      tags: ["Sprints", "Cohorts", "Forums"],
+    },
+    {
+      title: "Know when to escalate",
+      detail:
+        "If a diagnostic surfaces risk, see how the Studio steps in so escalation feels like help, not red tape.",
+      tags: ["Escalation", "Studio partnership", "Fast triage"],
+    },
+  ],
+  programs: [
+    {
+      title: "Readiness diagnostics",
+      detail:
+        "Short exercises to score risk across data stewardship, consent, and downstream impact.",
+      outcome:
+        "Outputs: a risk map, suggested mitigations, and links back to Library pages so teams can act.",
+    },
+    {
+      title: "Decision forums",
+      detail:
+        "Lightweight governance reviews for teams that want a second set of eyes without slowing delivery.",
+      outcome:
+        "Outputs: a logged decision, accountable steward, and follow-ups with owners and dates.",
+    },
+    {
+      title: "Publishing pipeline",
+      detail:
+        "Support for turning internal research or playbooks into open, reusable guides that stay versioned.",
+      outcome:
+        "Outputs: edited copy, citations, and release notes in the Library so readers can trust the source.",
+    },
   ],
   governance: [
     {
-      title: 'Charter',
-      detail: 'A living charter sets expectations for consent, attribution, and how we steward community input.',
+      title: "Public charter",
+      detail:
+        "Clear rules for consent, attribution, and data handling so partners know how their input is used.",
     },
     {
-      title: 'Decision forum',
-      detail: 'Decisions and dissent are logged with stewardship windows so accountability is visible.',
+      title: "Documented safeguards",
+      detail:
+        "Escalation paths, appeal windows, and office hours when a diagnostic shows heightened risk.",
     },
     {
-      title: 'Safeguards',
-      detail: 'Every program ships with safety valves, appeal paths, and public status updates.',
+      title: "Decision history",
+      detail:
+        "Versioned notes and steward assignments so future teams can see why a path was chosen.",
     },
   ],
   stewards: [
     {
-      name: 'Kanav Jain',
-      role: 'Institute Lead',
-      focus: 'Roadmapping programs and coordinating partners across the studio.',
+      name: "Kanav Jain",
+      role: "Institute Lead",
+      focus:
+        "Roadmapping programs and coordinating partners across the studio.",
     },
   ],
   contact: [
     {
-      label: 'Studio collaborations',
-      href: 'mailto:studio@ethotechnics.org',
-      description: 'Reach the Studio when diagnostics flag risk or you need a facilitation partner.',
-      linkLabel: 'Email Studio',
+      label: "Book a diagnostic review",
+      href: "mailto:studio@ethotechnics.org",
+      description:
+        "Share the diagnostic output or risk area so we can suggest the right forum.",
+      linkLabel: "Email Studio",
     },
     {
-      label: 'Program partnerships',
-      href: 'mailto:studio@ethotechnics.org',
-      description: 'Ask about upcoming programs or propose a research collaboration.',
-      linkLabel: 'Email Studio',
+      label: "Propose a program partnership",
+      href: "mailto:studio@ethotechnics.org",
+      description:
+        "Co-develop a cohort, publish a playbook, or request facilitation support.",
+      linkLabel: "Email Studio",
     },
     {
-      label: 'General questions',
-      href: 'mailto:hello@ethotechnics.org',
-      description: 'For speaking requests, press, or co-writing opportunities.',
-      linkLabel: 'Email hello@ethotechnics.org',
+      label: "Press and speaking",
+      href: "mailto:hello@ethotechnics.org",
+      description: "For briefings, interviews, or event participation.",
+      linkLabel: "Email hello@ethotechnics.org",
     },
   ],
 };
