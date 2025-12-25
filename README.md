@@ -33,6 +33,13 @@ Requests pass through `src/middleware.ts`, which normalizes legacy ethotechnics.
   end-to-end suite.
   - If the install complains about missing system libraries, rerun the command with `--with-deps` (it pulls the Linux packages
     Playwright needs) and retry the suite.
+- If Playwright browser downloads fail:
+  - Reuse cached downloads with `PLAYWRIGHT_BROWSERS_PATH=~/.cache/playwright` to avoid fetching large archives again; rerun
+    `npx playwright install --with-deps` after setting the variable.
+  - Confirm proxies or firewalls are not blocking `https://playwright.azureedge.net` (the default download host) and retry once
+    access is open.
+  - Point to an alternative mirror via `PLAYWRIGHT_DOWNLOAD_HOST=https://your-mirror.example.com` when corporate networks block
+    the default host.
 - `npm run e2e` builds the Worker bundle and runs Playwright against `npm run preview`.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
 - Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to

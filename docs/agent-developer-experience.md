@@ -17,9 +17,9 @@ here to keep onboarding short.
   the one-step [`npm run check`](../README.md#checks-before-committing) script.
 - Environment setup and `.env` loading are covered in
   [README.md#environment-configuration](../README.md#environment-configuration).
+- Playwright browser download troubleshooting sits near the
+  [README.md#testing](../README.md#testing) e2e instructions.
 
 ## Improvements still needed
 
-- Add a troubleshooting snippet for Playwright browser downloads that fail even after
-  `npx playwright install --with-deps` (e.g., network or proxy issues) near the e2e instructions so
-  new agents can recover quickly.
+- None noted.
