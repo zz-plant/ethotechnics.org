@@ -32,29 +32,38 @@ const {
 
 const HeadingTag = `h${titleLevel}` as const;
 ---
-<section class="section">
-  <div class="section__header">
-    <p class="eyebrow">{eyebrow}</p>
-    <HeadingTag>{title}</HeadingTag>
-    <p class="muted">{description}</p>
-    <p class="muted">
-      Permanent link: <a href={permalink}>{permalink}</a>
-    </p>
-    {anchorLinks.length > 0 && (
-      <ul class="pill-list">
-        {anchorLinks.map((link) => (
-          <li>
-            <a href={link.href}>{link.label}</a>
-          </li>
-        ))}
-      </ul>
+<section class="section page-intro">
+  <div class="page-intro__grid">
+    <div class="page-intro__lead">
+      <p class="eyebrow">{eyebrow}</p>
+      <HeadingTag>{title}</HeadingTag>
+      <p class="muted page-intro__lede">{description}</p>
+      <p class="page-intro__permalink">
+        <span aria-hidden="true">↺</span> Permanent link:
+        <a href={permalink}>{permalink}</a>
+      </p>
+      {anchorLinks.length > 0 && (
+        <nav aria-label="On-page links" class="page-intro__anchors">
+          <p class="muted">Jump to</p>
+          <ul>
+            {anchorLinks.map((link) => (
+              <li>
+                <a href={link.href} class="pill pill--ghost">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </div>
+
+    {panelCopy && (
+      <div class="panel panel--glass page-intro__panel">
+        {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
+        <h2>{panelCopy.title}</h2>
+        <p>{panelCopy.description}</p>
+      </div>
     )}
   </div>
-  {panelCopy && (
-    <div class="panel panel--glass">
-      {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
-      <h2>{panelCopy.title}</h2>
-      <p>{panelCopy.description}</p>
-    </div>
-  )}
 </section>

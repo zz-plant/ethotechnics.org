@@ -38,27 +38,35 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
     </div>
     <div class="hero__layout">
       <div class="hero__content">
-        <p class="eyebrow">{hero.eyebrow}</p>
-        <h1>{hero.heading}</h1>
-        <p class="muted">{hero.subheadline}</p>
-        <p class="lede">{hero.lede}</p>
-        <p class="hero__note muted" set:html={hero.map}></p>
-        <div class="hero__tags" aria-label="Focus areas">
-          {hero.metrics.map((metric) => (
-            <span class="pill pill--ghost">{metric.value}</span>
-          ))}
+        <div class="hero__header">
+          <p class="eyebrow">{hero.eyebrow}</p>
+          <p class="muted hero__subheadline">{hero.subheadline}</p>
         </div>
-        <div class="actions">
-          {hero.actions.map((action) => (
-            <a
-              class={`button ${action.variant}`}
-              href={action.href}
-              rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
-            >
-              {action.icon ? <Icon class="button__icon" name={action.icon} aria-hidden="true" /> : null}
-              <span>{action.label}</span>
-            </a>
-          ))}
+        <div class="hero__headline">
+          <h1>{hero.heading}</h1>
+          <p class="lede">{hero.lede}</p>
+        </div>
+        <div class="hero__note" set:html={hero.map}></div>
+        <div class="hero__footer">
+          <div class="hero__tags" aria-label="Focus areas">
+            {hero.metrics.map((metric) => (
+              <span class="pill pill--ghost">{metric.value}</span>
+            ))}
+          </div>
+          <div class="actions">
+            {hero.actions.map((action) => (
+              <a
+                class={`button ${action.variant}`}
+                href={action.href}
+                rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
+              >
+                {action.icon ? (
+                  <Icon class="button__icon" name={action.icon} aria-hidden="true" />
+                ) : null}
+                <span>{action.label}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -127,7 +135,9 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
   <section class="info-strip" aria-label="How this works">
     <div class="info-strip__lead">
       <p class="eyebrow">How this works</p>
-      <p class="muted">A living charter keeps the Institute accountable, and our work stays remixable.</p>
+      <p class="muted">
+        A living charter keeps the Institute accountable. Everything stays remixable with open licensing.
+      </p>
     </div>
     <div class="info-strip__actions" aria-label="Reference links">
       <a class="info-strip__badge" href="/institute">
@@ -219,26 +229,30 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
       <p class="muted">{highlight.body}</p>
     </div>
     <div class="highlight__content">
-      <div class="callout">
-        <p class="muted">Field note</p>
-        <h3>{highlight.note.title}</h3>
-        <p>{highlight.note.description}</p>
-        <ul>
-          {highlight.note.actions.map((action) => (
-            <li>{action}</li>
-          ))}
-        </ul>
-        <a class="button ghost" href={highlight.note.link.href}>
-          {highlight.note.link.label}
-        </a>
-      </div>
-      <div class="highlight__meta">
-        <p class="muted">Built for teams</p>
-        <ul class="pill-list pill-list--wrap">
-          {highlight.pills.map((pill) => (
-            <li>{pill}</li>
-          ))}
-        </ul>
+      <div class="highlight__grid">
+        <div class="callout">
+          <p class="muted">Field note</p>
+          <h3>{highlight.note.title}</h3>
+          <p>{highlight.note.description}</p>
+          <ul>
+            {highlight.note.actions.map((action) => (
+              <li>{action}</li>
+            ))}
+          </ul>
+          <a class="button ghost" href={highlight.note.link.href}>
+            {highlight.note.link.label}
+          </a>
+        </div>
+        <div class="highlight__meta">
+          <div class="highlight__meta-card">
+            <p class="muted">Built for teams</p>
+            <ul class="pill-list pill-list--wrap">
+              {highlight.pills.map((pill) => (
+                <li>{pill}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
