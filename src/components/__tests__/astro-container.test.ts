@@ -1,38 +1,12 @@
 /// <reference types="astro/client" />
-import { JSDOM } from "jsdom";
 import { describe, expect, it } from "vitest";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { createAstroContainer, parseHtml } from "../../test/astro-container";
 import NavigationShell from "./NavigationShell.astro";
-import { initNavigation } from "../../scripts/navigation";
-
-const resetGlobals = () => {
-  // @ts-expect-error cleaning up test globals
-  delete globalThis.window;
-  // @ts-expect-error cleaning up test globals
-  delete globalThis.document;
-};
-
-const bootNavigation = async (html: string, innerWidth: number) => {
-  const dom = new JSDOM(html, { url: "https://ethotechnics.org/", pretendToBeVisual: true });
-
-  Object.defineProperty(dom.window, "innerWidth", {
-    writable: true,
-    configurable: true,
-    value: innerWidth,
-  });
-
-  globalThis.window = dom.window as unknown as typeof globalThis.window;
-  globalThis.document = dom.window.document;
-
-  initNavigation();
-
-  return dom;
-};
 
 describe("Navigation component", () => {
-  it("renders expected links and navigation script for interaction", async () => {
+  it("renders primary and utility links without a toggle for small screens", async () => {
     const container = await createAstroContainer();
     const html = await container.renderToString(NavigationShell, {
       request: new Request("https://ethotechnics.org/"),
@@ -44,13 +18,42 @@ describe("Navigation component", () => {
     expect(nav?.querySelector(".nav__brand")?.textContent?.trim()).toBe(
       "Ethotechnics",
     );
+    expect(nav?.querySelector(".nav__toggle")).toBeNull();
 
-    const toggle = nav?.querySelector(".nav__toggle");
-    expect(toggle?.getAttribute("aria-expanded")).toBe("false");
-    expect(toggle?.getAttribute("aria-label")).toBe("Open navigation");
+    const mobilePrimaryLinks = Array.from(
+      nav?.querySelectorAll<HTMLAnchorElement>(".nav__mobile .nav__link") ?? [],
+    )
+      .map((link) => link.textContent?.trim())
+      .filter(Boolean);
+
+    expect(mobilePrimaryLinks).toEqual(["Library", "Institute", "Diagnostics"]);
+
+    const mobileUtilityLinks = Array.from(
+      nav?.querySelectorAll<HTMLAnchorElement>(
+        ".nav__utility--mobile .nav__utility-link, .nav__utility--mobile .button",
+      ) ?? [],
+    )
+      .map((link) => link.textContent?.trim())
+      .filter(Boolean);
+
+    expect(mobileUtilityLinks).toEqual(["Donate", "Ethotechnics Studio"]);
+  });
+
+  it("keeps the desktop navigation content visible in the DOM", async () => {
+    const container = await createAstroContainer();
+    const html = await container.renderToString(NavigationShell, {
+      request: new Request("https://ethotechnics.org/"),
+    });
+    const document = parseHtml(html);
+    const navContent = document.querySelector<HTMLElement>(".nav__content");
+
+    expect(navContent).toBeTruthy();
+    expect(navContent?.hasAttribute("hidden")).toBe(false);
+    expect(navContent?.getAttribute("aria-hidden")).not.toBe("true");
+    expect(navContent?.hasAttribute("inert")).toBe(false);
 
     const linkTexts = Array.from(
-      nav?.querySelectorAll(".nav__content .nav__link-label") ?? [],
+      navContent?.querySelectorAll(".nav__link-label") ?? [],
     ).map((link) => link.textContent?.trim());
     expect(linkTexts).toEqual([
       "Library",
@@ -63,59 +66,13 @@ describe("Navigation component", () => {
     ]);
 
     const actionTexts = Array.from(
-      nav?.querySelectorAll(".nav__content .nav__actions a") ?? [],
+      navContent?.querySelectorAll(".nav__actions a") ?? [],
     ).map((link) => link.textContent?.trim());
     expect(actionTexts).toEqual([
       "Join the Institute",
       "Read field notes",
       "Signals newsletter",
     ]);
-
-    const scriptSrc = document
-      .querySelector<HTMLScriptElement>("script[type=\"module\"][src]")
-      ?.getAttribute("src");
-
-    expect(scriptSrc).toBeTruthy();
-  });
-
-  it("keeps navigation content visible at desktop breakpoints", async () => {
-    const container = await createAstroContainer();
-    const html = await container.renderToString(NavigationShell, {
-      request: new Request("https://ethotechnics.org/"),
-    });
-
-    const dom = await bootNavigation(html, 1000);
-    const navContent = dom.window.document.querySelector<HTMLElement>(".nav__content");
-
-    try {
-      expect(navContent?.hasAttribute("hidden")).toBe(false);
-      expect(navContent?.getAttribute("aria-hidden")).toBe("false");
-      expect(navContent?.hasAttribute("inert")).toBe(false);
-    } finally {
-      resetGlobals();
-    }
-  });
-
-  it("does not duplicate toggle handlers across navigation persistence", async () => {
-    const container = await createAstroContainer();
-    const html = await container.renderToString(NavigationShell, {
-      request: new Request("https://ethotechnics.org/"),
-    });
-
-    const dom = await bootNavigation(html, 480);
-    const toggle = dom.window.document.querySelector<HTMLButtonElement>(
-      ".nav__toggle",
-    );
-
-    try {
-      toggle?.dispatchEvent(
-        new dom.window.MouseEvent("click", { bubbles: true, cancelable: true }),
-      );
-
-      expect(toggle?.getAttribute("aria-expanded")).toBe("true");
-    } finally {
-      resetGlobals();
-    }
   });
 });
 

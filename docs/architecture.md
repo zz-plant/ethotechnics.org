@@ -7,8 +7,8 @@ How the site is structured and deployed so contributors can navigate the stack q
 - `src/layouts/BaseLayout.astro` wraps every page with SEO tags, fonts, and `src/styles/global.css`.
 - The layout renders the skip link, `Navigation` component, and a focus helper that listens for
   `astro:after-swap` to keep the main content reachable after transitions.
-- `Navigation.astro` uses `src/scripts/navigation.ts` for responsive toggling and keeps its DOM
-  mounted with `data-astro-transition-persist` so menus stay stable across page swaps.
+- `Navigation.astro` is server-rendered and keeps its DOM mounted with
+  `data-astro-transition-persist` so menus stay stable across page swaps.
 
 ## Routing and transitions
 
