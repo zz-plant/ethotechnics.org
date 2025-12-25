@@ -23,6 +23,8 @@ Use this map before adding new guidance so information stays discoverable and cu
 - Include the command or script name when describing required checks.
 - Link out to relevant guides instead of repeating long explanations.
 - Add a brief note about context or prerequisites when linking external resources.
+- Refresh the Quick links list and related maps when docs move or retire so navigation stays
+  accurate.
 
 ## Editing tips
 
