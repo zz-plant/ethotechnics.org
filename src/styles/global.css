@@ -1967,6 +1967,91 @@ noscript .nav__toggle {
   outline-offset: 2px;
 }
 
+.pattern-card__title {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pattern-card__title:hover,
+.pattern-card__title:focus-visible {
+  text-decoration: underline;
+}
+
+.pattern-card__teaser {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+}
+
+.pattern-card__teaser summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pattern-card__teaser[open] {
+  background: color-mix(in srgb, var(--panel) 94%, white 6%);
+}
+
+.pattern-card__example {
+  margin: 0.2rem 0 0.6rem;
+}
+
+.pattern-card__link {
+  font-weight: 700;
+}
+
+.pattern-detail__steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.pattern-detail__step-card {
+  min-height: 180px;
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+}
+
+.pattern-detail__example {
+  display: grid;
+  gap: 1rem;
+}
+
+.pattern-detail__example-copy {
+  margin: 0.4rem 0 0;
+  line-height: 1.6;
+}
+
+.pattern-detail__diagnostics {
+  display: grid;
+  gap: 1rem;
+}
+
+.pattern-detail__diagnostic-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.pattern-detail__diagnostic-card {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.pattern-detail__diagnostic-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
 .highlight {
   background: linear-gradient(
     160deg,

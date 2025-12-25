@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import CardItem from '../../../components/CardItem.astro';
+import PageIntro from '../../../components/PageIntro.astro';
+import SectionBlock from '../../../components/SectionBlock.astro';
+import type { DiagnosticTool } from '../../../content/diagnostics';
+import { diagnosticsContent } from '../../../content/diagnostics';
+import { libraryContent } from '../../../content/library';
+
+const { slug } = Astro.params;
+const pattern = libraryContent.patterns.entries.find((entry) => entry.slug === slug);
+
+if (!pattern) {
+  return Astro.response(
+    new Response('Pattern not found', {
+      status: 404,
+    })
+  );
+}
+
+const filterLabels = Object.fromEntries(
+  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label])
+);
+const diagnosticLinks = pattern.diagnostics
+  .map((diagnosticSlug) =>
+    diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug)
+  )
+  .filter((tool): tool is DiagnosticTool => Boolean(tool));
+const pageTitle = `${pattern.title} — Pattern language`;
+const pageDescription = pattern.summary;
+const permalink = `/library/patterns/${pattern.slug}`;
+const panelDescription = `Tagged for ${pattern.filters
+  .map((filter) => filterLabels[filter] ?? filter)
+  .join(', ')} with diagnostic handshakes.`;
+const anchorLinks = [
+  { href: '#steps', label: 'Steps' },
+  { href: '#artifacts', label: 'Artifacts' },
+  { href: '#example', label: 'Example usage' },
+  { href: '#diagnostics', label: 'Diagnostics' },
+];
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Pattern language"
+    title={pattern.title}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: 'Where it fits',
+      title: 'Filters and handoffs',
+      description: panelDescription,
+    }}
+  />
+
+  <SectionBlock
+    id="steps"
+    eyebrow="Steps"
+    title="Put the pattern in motion."
+    description="Start with the field cues, then use the artifacts to keep the work legible."
+  >
+    <ol class="pattern-detail__steps">
+      {pattern.steps.map((step) => (
+        <li>
+          <div class="card card--emphasis pattern-detail__step-card">
+            <div class="card__glow" aria-hidden="true" />
+            <p class="muted">Step</p>
+            <h3>{step}</h3>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow="Artifacts"
+    title="Keep outputs reusable."
+    description="Link or copy these artifacts into design docs, runbooks, and briefs so the pattern travels with the work."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {pattern.artifacts.map((artifact) => (
+        <CardItem title={artifact.name} description={artifact.purpose} />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="example"
+    eyebrow="Example usage"
+    title={pattern.example.title}
+    description="A concrete scenario to help teams see how the pieces fit together."
+  >
+    <div class="pattern-detail__example">
+      <div class="card card--emphasis">
+        <div class="card__glow" aria-hidden="true" />
+        <p class="muted">How it plays out</p>
+        <p class="pattern-detail__example-copy">{pattern.example.description}</p>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="diagnostics"
+    eyebrow="Diagnostics"
+    title="Pair diagnostics with this pattern."
+    description="Use these tools to size risk and keep the stewardship path visible."
+    variant="alt"
+  >
+    <div class="pattern-detail__diagnostics">
+      <ul class="pill-list">
+        {pattern.filters.map((filter) => (
+          <li>
+            <a class="pill-list__button" href={`/library#${filter}`}>
+              {filterLabels[filter] ?? filter}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="pattern-detail__diagnostic-list">
+        {diagnosticLinks.map((tool) => (
+          <article class="card pattern-detail__diagnostic-card" id={tool.slug}>
+            <div class="card__glow" aria-hidden="true" />
+            <div class="pattern-detail__diagnostic-header">
+              <div>
+                <p class="muted">Diagnostic</p>
+                <h3>{tool.title}</h3>
+              </div>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy-link={`/diagnostics#${tool.slug}`}
+                aria-label={`Copy link to ${tool.title}`}
+              >
+                Copy link
+              </button>
+            </div>
+            <p class="muted">{tool.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<script>
+  const copyButtons = Array.from(document.querySelectorAll('[data-copy-link]'));
+
+  copyButtons.forEach((button) => {
+    if (!(button instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const target = button.getAttribute('data-copy-link');
+    const defaultLabel = button.textContent?.trim() ?? 'Copy link';
+
+    if (!target) {
+      return;
+    }
+
+    button.addEventListener('click', async () => {
+      const link = new URL(target, window.location.origin).toString();
+
+      try {
+        await navigator.clipboard.writeText(link);
+        button.textContent = 'Copied';
+        window.setTimeout(() => {
+          button.textContent = defaultLabel;
+        }, 1500);
+      } catch (error) {
+        console.error('Copy failed', error);
+        button.textContent = 'Copy failed';
+        window.setTimeout(() => {
+          button.textContent = defaultLabel;
+        }, 1500);
+      }
+    });
+  });
+</script>
