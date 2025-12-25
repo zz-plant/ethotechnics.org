@@ -86,6 +86,19 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 - Read [`docs/architecture.md`](docs/architecture.md) for the layout shell, routing approach, and
   deployment flow.
 
+## Documentation map
+
+- [`docs/README.md`](docs/README.md) explains how the docs folder is organized and when to add new
+  guides.
+- [`docs/architecture.md`](docs/architecture.md) covers the rendering model, middleware, and
+  Cloudflare Worker deployment.
+- [`docs/adding-pages.md`](docs/adding-pages.md) walks through creating new Astro routes without
+  breaking shared navigation and metadata.
+- [`docs/content-components.md`](docs/content-components.md) catalogs the page intro, section
+  blocks, cards, and other building blocks reused across routes.
+- [`docs/cloudflare-playwright.md`](docs/cloudflare-playwright.md) captures how to run the
+  Playwright suite on Cloudflare Pages after the Worker build completes.
+
 ## Staying updated
 
 - Subscribe to the RSS feed at [`/rss.xml`](https://ethotechnics.org/rss.xml) to catch new pages and updates as they ship.
