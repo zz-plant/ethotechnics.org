@@ -22,6 +22,9 @@ export type Pattern = {
   filters: PatternFilter['slug'][];
   cues: string[];
   diagnostics: string[];
+  steps: string[];
+  artifacts: { name: string; purpose: string }[];
+  example: { title: string; description: string };
 };
 
 export type SyllabusModule = {
@@ -97,6 +100,24 @@ export const libraryContent: LibraryContent = {
           'Set a review date tied to the stewardship window.',
         ],
         diagnostics: ['burden-modeler'],
+        steps: [
+          'Log the decision, rejected options, and who was consulted in one place.',
+          'Attach a short summary alongside the canonical record for external readers.',
+          'Set a review date with a clear owner tied to the stewardship window.',
+        ],
+        artifacts: [
+          { name: 'Decision record template', purpose: 'Captures the decision, dissent, and follow-ups with owners.' },
+          {
+            name: 'Plain-language summary',
+            purpose: 'One-paragraph recap teams can paste into briefs or release notes without jargon.',
+          },
+          { name: 'Stewardship calendar entry', purpose: 'Review reminder aligned to maintenance or appeal windows.' },
+        ],
+        example: {
+          title: 'Recording a launch gate call',
+          description:
+            'A cross-functional team logs why an automation launch was delayed, notes dissent from support leads, links the appeal path, and schedules a stewardship review in six weeks.',
+        },
       },
       {
         slug: 'progressive-consent',
@@ -110,6 +131,24 @@ export const libraryContent: LibraryContent = {
           'Include a safety valve that defaults to privacy-preserving behavior.',
         ],
         diagnostics: ['llm-capacity-benchmark'],
+        steps: [
+          'Break large asks into small prompts that explain why each is needed.',
+          'Preview what happens if someone opts out and keep the path visible.',
+          'Offer a safety valve that defaults to privacy-preserving behavior.',
+        ],
+        artifacts: [
+          { name: 'Consent journey map', purpose: 'Shows each request, rationale, and rollback path across the flow.' },
+          { name: 'Opt-out copy kit', purpose: 'Short blurbs teams reuse in UI states, emails, and help docs.' },
+          {
+            name: 'Safety valve checklist',
+            purpose: 'Confirms every step has a reversible, privacy-first fallback before shipping.',
+          },
+        ],
+        example: {
+          title: 'Piloting a model-powered assistant',
+          description:
+            'Product and legal teams stage data collection prompts over several sessions, preview how opting out affects recommendations, and keep a global “pause automation” control visible in the UI.',
+        },
       },
       {
         slug: 'maintenance-windowing',
@@ -123,6 +162,24 @@ export const libraryContent: LibraryContent = {
           'Align dependencies so a degraded tool has a safe fallback.',
         ],
         diagnostics: ['maintenance-simulator'],
+        steps: [
+          'Define maintenance windows with owners, success criteria, and rollbacks.',
+          'Publish communication cadences by risk level and audience.',
+          'Check dependencies so degraded modes route to safe fallbacks.',
+        ],
+        artifacts: [
+          { name: 'Window calendar', purpose: 'Shared schedule with owners, coverage, and success criteria.' },
+          {
+            name: 'Comms templates',
+            purpose: 'Prewritten updates for high, medium, and low-risk changes tied to roles.',
+          },
+          { name: 'Fallback matrix', purpose: 'Lists degraded modes and who is paged when dependencies fail.' },
+        ],
+        example: {
+          title: 'Coordinating a stewardship sprint',
+          description:
+            'Engineering and operations publish a two-week window with a fallback matrix, schedule status updates by audience, and rehearse degraded-mode protocols before shipping changes.',
+        },
       },
       {
         slug: 'appeal-paths',
@@ -136,6 +193,24 @@ export const libraryContent: LibraryContent = {
           'Track appeal outcomes to improve signal credibility.',
         ],
         diagnostics: ['burden-modeler', 'maintenance-simulator'],
+        steps: [
+          'Place an appeal entry point near the affected decision with response times.',
+          'Pre-fill context so people can submit without rebuilding the story.',
+          'Track outcomes and feed them back into product and policy updates.',
+        ],
+        artifacts: [
+          { name: 'Appeal intake form', purpose: 'Collects the minimum details with pre-filled context from the UI.' },
+          {
+            name: 'Reviewer rota',
+            purpose: 'Lists who reviews appeals, coverage hours, and escalation paths.',
+          },
+          { name: 'Outcome log', purpose: 'Keeps decisions, response times, and fixes visible to teams and leadership.' },
+        ],
+        example: {
+          title: 'Adding appeals to a risk scoring tool',
+          description:
+            'The team adds an on-screen “Dispute this score” link with expected response times, routes submissions to a staffed rota, and logs turnaround data to improve credibility with regulators.',
+        },
       },
     ],
   },

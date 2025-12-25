@@ -71,10 +71,21 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
   </div>
   <div class="grid" data-pattern-results>
     {entries.map((pattern) => {
-      const searchText = `${pattern.title} ${pattern.summary} ${pattern.cues.join(' ')}`.toLowerCase();
       const appliedFilters = pattern.filters
         .map((filter) => filterLabels[filter] ?? filter)
         .join(', ');
+      const detailHref = `/library/patterns/${pattern.slug}`;
+      const teaserSteps = pattern.steps.slice(0, 2);
+      const searchContent = [
+        pattern.title,
+        pattern.summary,
+        pattern.cues.join(' '),
+        pattern.steps.join(' '),
+        pattern.artifacts.map((artifact) => `${artifact.name} ${artifact.purpose}`).join(' '),
+        pattern.example.description,
+      ]
+        .join(' ')
+        .toLowerCase();
 
       return (
         <article
@@ -82,17 +93,28 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
           id={pattern.slug}
           data-pattern-card
           data-filters={pattern.filters.join(',')}
-          data-search={searchText}
+          data-search={searchContent}
         >
           <div class="card__glow" aria-hidden="true" />
           <p class="muted">Filters: {appliedFilters}</p>
-          <h3>{pattern.title}</h3>
+          <h3>
+            <a class="pattern-card__title" href={detailHref}>
+              {pattern.title}
+            </a>
+          </h3>
           <p>{pattern.summary}</p>
-          <ul class="pill-list">
-            {pattern.cues.map((cue) => (
-              <li>{cue}</li>
-            ))}
-          </ul>
+          <details class="pattern-card__teaser">
+            <summary>Preview steps</summary>
+            <ul class="pill-list">
+              {teaserSteps.map((cue) => (
+                <li>{cue}</li>
+              ))}
+            </ul>
+            <p class="muted pattern-card__example">Example: {pattern.example.title}</p>
+            <a class="pattern-card__link" href={detailHref}>
+              Open pattern detail
+            </a>
+          </details>
           <p class="muted">
             Diagnostics{' '}
             {pattern.diagnostics.map((slug, index) => {
