@@ -37,6 +37,10 @@
   gap: 0.75rem;
 }
 
+.forecaster__label {
+  display: block;
+}
+
 .forecaster__range {
   --range-fill-color: var(--accent);
   --range-fill-percent: 0%;
@@ -46,7 +50,8 @@
   width: 100%;
   height: 12px;
   border-radius: 999px;
-  background: linear-gradient(
+  background:
+    linear-gradient(
       90deg,
       var(--range-fill-color) var(--range-fill-percent),
       var(--range-base-color) var(--range-fill-percent)
@@ -103,10 +108,14 @@
 }
 
 .forecaster__chart-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 18% 20%, rgba(143, 225, 255, 0.12), transparent 40%);
+  background: radial-gradient(
+    circle at 18% 20%,
+    rgba(143, 225, 255, 0.12),
+    transparent 40%
+  );
   pointer-events: none;
 }
 
