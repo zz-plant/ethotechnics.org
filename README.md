@@ -9,6 +9,7 @@ Use Node.js 20.x (the repo ships an `.nvmrc` file and matching `engines` in `pac
 1. Install dependencies: `npm install`
 2. Run the dev server: `npm run dev`
 3. Build the Worker bundle: `npm run build` (optionally preview with `npm run preview`).
+4. For deeper setup and troubleshooting tips, see [`docs/local-development.md`](docs/local-development.md).
 
 ## Checks before committing
 
