@@ -92,11 +92,14 @@ Detailed, testable expectations for each route. Use these specs when adding cont
 
 - **Data sources:** Use `instituteContent` for sections and `instituteStudioComparisonContent` for the comparison component.
 - **Layout:**
-  - `PageIntro` anchors cover Operating model, Mission, Governance, Stewards, and Contact with panel copy describing Studio off-ramp.
-  - Operating model uses a two-column `CardGrid`; Mission and Governance alternate `SectionBlock` variants (`section--alt` on Mission) with `CardGrid` entries; Stewards cards include meta and muted descriptions; Contact uses `SectionBlock` with bullet lists and inline links.
-  - Include the shared `InstituteStudioComparison` block between Operating model and Mission.
+  - `PageIntro` anchors cover the overview, programs, Studio partnership, governance, stewards, and contact.
+    Panel copy explains how to escalate to the Studio.
+  - Overview uses a banded `SectionBlock` with a two-column `CardGrid` of highlights. Programs uses the
+    alt section variant with descriptive cards and muted outcomes. Studio partnership wraps
+    `InstituteStudioComparison` inside a standard section. Governance returns to the banded style; stewards
+    stay alt with meta lines; contact retains descriptive links in a standard section.
 - **Accessibility:**
-  - Anchor IDs match intro links; steward cards maintain heading hierarchy with names as titles and roles in `meta`.
+  - Anchor IDs match intro links; steward cards keep names as headings with roles in `meta`.
   - Contact links are descriptive (no bare URLs); list items remain `<li>` elements for screen-reader grouping.
 
 ## Finite (`/finite`)

@@ -8,7 +8,8 @@ import InstituteStudioComparison from '../../components/InstituteStudioCompariso
 import { instituteStudioComparisonContent } from '../../content/comparison';
 import { instituteContent } from '../../content/institute';
 
-const { pageTitle, pageDescription, permalink, mission, governance, stewards, contact } = instituteContent;
+const { pageTitle, pageDescription, permalink, highlights, programs, governance, stewards, contact } =
+  instituteContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -17,69 +18,70 @@ const { pageTitle, pageDescription, permalink, mission, governance, stewards, co
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
-      { href: '#operating-model', label: 'Operating model' },
-      { href: '#mission', label: 'Mission' },
+      { href: '#overview', label: 'What you can do' },
+      { href: '#programs', label: 'Programs' },
+      { href: '#studio', label: 'Studio partnership' },
       { href: '#governance', label: 'Governance' },
       { href: '#stewards', label: 'Stewards' },
       { href: '#contact', label: 'Contact' },
     ]}
     panelCopy={{
-      eyebrow: 'Off-ramp',
-      title: 'When diagnostics flag risk, head to ethotechnics.com/studio.',
+      eyebrow: 'Fast track',
+      title: 'Already know you need help? Start with the Studio.',
       description:
-        'Result pages across diagnostics link directly to ethotechnics.com/studio. Use the contact links below to schedule a facilitation session or escalate decisions that need a governance forum.',
+        'Run a diagnostic first when you can. If risk shows up or you need a facilitator, email the Studio to get routed to the right forum.',
     }}
   />
 
   <SectionBlock
-    id="operating-model"
-    eyebrow="Operating model"
-    title="What the Institute keeps in motion."
-    description="Programs stay small but durable: a public charter, accountable governance, and studio partners for hands-on support."
+    id="overview"
+    eyebrow="What you can do here"
+    title="Pick the path that matches your visit."
+    description="Use the Institute when you want open guidance; we point you to the Studio when hands-on help is faster."
     className="section--banded"
   >
     <CardGrid className="grid--two">
-      <CardItem
-        title="Open by default"
-        description="The charter, glossary, and playbooks stay published under CC BY 4.0 so teams can adapt them without friction."
-        tags={["Library-first", "CC BY 4.0", "Reusable prompts"]}
-      />
-      <CardItem
-        title="Governance with teeth"
-        description="Stewards maintain decision records, escalation paths, and ethics checkpoints that survive leadership changes."
-        tags={["Decision logs", "Escalation kits", "Accountability rituals"]}
-      />
-      <CardItem
-        title="Studio collaboration"
-        description="When diagnostics surface risk, the Studio co-leads facilitation and delivery so the accountable path is also the fastest."
-        tags={["Diagnostics", "Facilitation", "Co-delivery"]}
-      />
+      {highlights.map((item) => (
+        <CardItem title={item.title} description={item.detail} tags={item.tags} />
+      ))}
     </CardGrid>
   </SectionBlock>
 
-  <InstituteStudioComparison content={instituteStudioComparisonContent} />
-
   <SectionBlock
-    id="mission"
-    eyebrow="Mission"
-    title="Why the institute exists."
-    description="A shared home for ethical technology practice across design, research, and governance."
+    id="programs"
+    eyebrow="Programs"
+    title="What is in motion right now."
+    description="Join the track that fits your decision window; everything links back to the Library so you can act quickly."
     variant="alt"
   >
     <CardGrid>
-      {mission.map((item) => (
-        <CardItem>
-          <p>{item}</p>
+      {programs.map((program) => (
+        <CardItem
+          title={program.title}
+          description={program.detail}
+          descriptionTone="default"
+        >
+          <p class="muted">{program.outcome}</p>
         </CardItem>
       ))}
     </CardGrid>
   </SectionBlock>
 
   <SectionBlock
+    id="studio"
+    eyebrow="Studio partnership"
+    title="When a diagnostic shows risk, bring in the Studio."
+    description="The Institute stays open and self-serve; the Studio steps in when you need facilitation, mediation, or delivery support."
+  >
+    <InstituteStudioComparison content={instituteStudioComparisonContent} />
+  </SectionBlock>
+
+  <SectionBlock
     id="governance"
     eyebrow="Governance"
-    title="How decisions stay accountable."
-    description="Each program uses documented patterns from the Library to keep expectations clear."
+    title="How the Institute stays accountable."
+    description="Every program comes with documented expectations so visitors know how their input will be used."
+    className="section--banded"
   >
     <CardGrid>
       {governance.map((item) => (
@@ -97,9 +99,12 @@ const { pageTitle, pageDescription, permalink, mission, governance, stewards, co
   >
     <CardGrid>
       {stewards.map((steward) => (
-        <CardItem title={steward.name} description={steward.role}>
-          <p>{steward.focus}</p>
-        </CardItem>
+        <CardItem
+          title={steward.name}
+          meta={steward.role}
+          description={steward.focus}
+          descriptionTone="default"
+        />
       ))}
     </CardGrid>
   </SectionBlock>
