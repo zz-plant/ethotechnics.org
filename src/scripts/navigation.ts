@@ -60,6 +60,7 @@ export const initNavigation = () => {
   const updateState = (open: boolean) => {
     isOpen = open;
     const isDesktop = desktopQuery.matches;
+    const shouldShowContent = isOpen || isDesktop;
     const shouldLockScroll = isOpen && !isDesktop;
     const shouldInertRegions = isOpen && !isDesktop;
 
@@ -67,7 +68,7 @@ export const initNavigation = () => {
     toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
 
     nav.classList.toggle('nav--open', isOpen && !isDesktop);
-    content.classList.toggle('is-open', isOpen || isDesktop);
+    content.classList.toggle('is-open', shouldShowContent);
 
     scrollLockTargets.forEach((target) => {
       target?.classList.toggle('nav-locked', shouldLockScroll);
@@ -88,7 +89,7 @@ export const initNavigation = () => {
     }
 
     if (scrim) {
-      if (isDesktop || !isOpen) {
+      if (shouldHideContent) {
         scrim.setAttribute('hidden', '');
       } else {
         scrim.removeAttribute('hidden');
