@@ -26,13 +26,26 @@ const seoImage = {
   width: 1200,
   height: 630,
 };
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: siteName,
-  url: siteBase,
-  sameAs: ['https://ethotechnics.com', 'https://signals.ethotechnics.org', 'https://github.com/ethotechnics'],
-};
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: siteName,
+    url: siteBase,
+    sameAs: ['https://ethotechnics.com', 'https://signals.ethotechnics.org', 'https://github.com/ethotechnics'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteName,
+    url: siteBase,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${new URL('/glossary', siteBase).toString()}#{search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  },
+];
 const structuredDataJson = JSON.stringify(structuredData);
 const { identity, navigation } = siteFooter;
 const { cspNonce } = Astro.locals;
