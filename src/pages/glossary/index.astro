@@ -71,17 +71,22 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={`Alphabetical list with ${entryIndex.length} definitions ready to link directly.`}
   >
     <div class="glossary-filter">
-      <label class="glossary-filter__label" for="glossary-filter">
-        <span class="visually-hidden">Filter glossary terms</span>
-        <input
-          id="glossary-filter"
-          name="glossary-filter"
-          type="search"
-          inputmode="search"
-          placeholder="Start typing to narrow the index (e.g., consent)"
-          autocomplete="off"
-        />
-      </label>
+      <div class="glossary-filter__controls">
+        <label class="glossary-filter__label" for="glossary-filter">
+          <span class="visually-hidden">Filter glossary terms</span>
+          <input
+            id="glossary-filter"
+            name="glossary-filter"
+            type="search"
+            inputmode="search"
+            placeholder="Start typing to narrow the index (e.g., consent)"
+            autocomplete="off"
+          />
+        </label>
+        <button class="button ghost button--compact glossary-filter__clear" type="button" data-clear-filter>
+          Clear filter
+        </button>
+      </div>
       <p class="muted glossary-filter__hint">
         Keep typing to filter the list, then open a matching term to grab its permalink or scan nearby entries.
       </p>
