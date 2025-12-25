@@ -17,6 +17,7 @@ const { pageTitle, pageDescription, permalink, mission, governance, stewards, co
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
+      { href: '#operating-model', label: 'Operating model' },
       { href: '#mission', label: 'Mission' },
       { href: '#governance', label: 'Governance' },
       { href: '#stewards', label: 'Stewards' },
@@ -29,6 +30,32 @@ const { pageTitle, pageDescription, permalink, mission, governance, stewards, co
         'Result pages across diagnostics link directly to ethotechnics.com/studio. Use the contact links below to schedule a facilitation session or escalate decisions that need a governance forum.',
     }}
   />
+
+  <SectionBlock
+    id="operating-model"
+    eyebrow="Operating model"
+    title="What the Institute keeps in motion."
+    description="Programs stay small but durable: a public charter, accountable governance, and studio partners for hands-on support."
+    className="section--banded"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Open by default"
+        description="The charter, glossary, and playbooks stay published under CC BY 4.0 so teams can adapt them without friction."
+        tags={["Library-first", "CC BY 4.0", "Reusable prompts"]}
+      />
+      <CardItem
+        title="Governance with teeth"
+        description="Stewards maintain decision records, escalation paths, and ethics checkpoints that survive leadership changes."
+        tags={["Decision logs", "Escalation kits", "Accountability rituals"]}
+      />
+      <CardItem
+        title="Studio collaboration"
+        description="When diagnostics surface risk, the Studio co-leads facilitation and delivery so the accountable path is also the fastest."
+        tags={["Diagnostics", "Facilitation", "Co-delivery"]}
+      />
+    </CardGrid>
+  </SectionBlock>
 
   <InstituteStudioComparison content={instituteStudioComparisonContent} />
 

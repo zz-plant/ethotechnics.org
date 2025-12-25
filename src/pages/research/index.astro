@@ -18,6 +18,7 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
+      { href: '#orientation', label: 'Orientation' },
       { href: '#agenda', label: 'Agenda' },
       { href: '#focus-areas', label: 'Focus areas' },
       { href: '#publications', label: 'Publications' },
@@ -29,6 +30,32 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
         'Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions. Use them when citing Field Notes or diagnostics results to keep language consistent.',
     }}
   />
+
+  <SectionBlock
+    id="orientation"
+    eyebrow="Orientation"
+    title="How we run the work."
+    description="The research backlog combines field-ready protocols with governance anchors so findings travel cleanly into diagnostics and delivery."
+    className="section--banded"
+  >
+    <CardGrid className="grid--two research__grid">
+      <CardItem
+        title="Protocols with receipts"
+        description="Shared prompt packs and facilitation notes keep teams aligned when fielding interviews or co-design sessions."
+        tags={["Participatory methods", "Plain-language scripts", "Reusable consent" ]}
+      />
+      <CardItem
+        title="Decisions we can cite"
+        description="Every study ties to glossary anchors and decision logs, making it easy to reference the why behind research calls."
+        tags={["Glossary-linked", "Decision hygiene", "Traceable handoffs"]}
+      />
+      <CardItem
+        title="Signals into diagnostics"
+        description="Focus areas flow into readiness labs so partners see risk levels, escalation paths, and facilitation options in one place."
+        tags={["Readiness labs", "Risk surfaced early", "Studio handoffs"]}
+      />
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="agenda"

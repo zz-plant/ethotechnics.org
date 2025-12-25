@@ -32,29 +32,48 @@ const {
 
 const HeadingTag = `h${titleLevel}` as const;
 ---
-<section class="section">
-  <div class="section__header">
-    <p class="eyebrow">{eyebrow}</p>
-    <HeadingTag>{title}</HeadingTag>
-    <p class="muted">{description}</p>
-    <p class="muted">
-      Permanent link: <a href={permalink}>{permalink}</a>
-    </p>
-    {anchorLinks.length > 0 && (
-      <ul class="pill-list">
-        {anchorLinks.map((link) => (
-          <li>
-            <a href={link.href}>{link.label}</a>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
-  {panelCopy && (
-    <div class="panel panel--glass">
-      {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
-      <h2>{panelCopy.title}</h2>
-      <p>{panelCopy.description}</p>
+<section class="section page-intro">
+  <div class="page-intro__grid">
+    <div class="page-intro__lead">
+      <div class="page-intro__meta">
+        <p class="eyebrow">{eyebrow}</p>
+        <p class="page-intro__permalink">
+          <span aria-hidden="true">↺</span>
+          <span class="page-intro__permalink-label">Permanent link</span>
+          <a href={permalink}>{permalink}</a>
+        </p>
+      </div>
+      <HeadingTag>{title}</HeadingTag>
+      <p class="muted page-intro__lede">{description}</p>
     </div>
-  )}
+
+    <div class="page-intro__aside">
+      {panelCopy && (
+        <div class="panel panel--glass page-intro__panel">
+          {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
+          <h2>{panelCopy.title}</h2>
+          <p>{panelCopy.description}</p>
+        </div>
+      )}
+
+      {anchorLinks.length > 0 && (
+        <nav aria-label="On-page links" class="page-intro__anchors">
+          <div>
+            <p class="muted">Jump to</p>
+            <p class="page-intro__anchors-title">Key sections</p>
+          </div>
+          <ul>
+            {anchorLinks.map((link, index) => (
+              <li>
+                <a href={link.href} class="pill pill--ghost">
+                  <span class="page-intro__anchor-index">{index + 1}</span>
+                  <span>{link.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </div>
+  </div>
 </section>
