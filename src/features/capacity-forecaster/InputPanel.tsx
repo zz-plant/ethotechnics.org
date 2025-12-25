@@ -1,6 +1,11 @@
-import type { CSSProperties } from 'react';
+import { useId } from "react";
+import type { CSSProperties } from "react";
 
-import type { OperationalMetrics, SimulationParams, SystemStability } from './types';
+import type {
+  OperationalMetrics,
+  SimulationParams,
+  SystemStability,
+} from "./types";
 
 type SliderFieldProps = {
   label: string;
@@ -40,8 +45,8 @@ const getSliderStyles = (value: number, min: number, max: number) => {
   const fillPercent = getSliderFill(value, min, max);
 
   return {
-    '--range-fill-color': getTrafficColor(fillPercent),
-    '--range-fill-percent': `${fillPercent}%`,
+    "--range-fill-color": getTrafficColor(fillPercent),
+    "--range-fill-percent": `${fillPercent}%`,
   } as CSSProperties;
 };
 
@@ -53,32 +58,41 @@ const SliderField = ({
   max,
   step = 1,
   onChange,
-}: SliderFieldProps) => (
-  <div className="forecaster__control">
-    <div className="forecaster__label-row">
-      <div>
-        <p className="muted">{label}</p>
-        <p className="forecaster__description">{description}</p>
+}: SliderFieldProps) => {
+  const inputId = useId();
+  const descriptionId = useId();
+
+  return (
+    <div className="forecaster__control">
+      <div className="forecaster__label-row">
+        <label className="forecaster__label" htmlFor={inputId}>
+          <span className="muted">{label}</span>
+          <p id={descriptionId} className="forecaster__description">
+            {description}
+          </p>
+        </label>
+        <span className="pill pill--ghost">{value}</span>
       </div>
-      <span className="pill pill--ghost">{value}</span>
+      <input
+        id={inputId}
+        aria-describedby={descriptionId}
+        className="forecaster__range"
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(event) => onChange(Number(event.target.value))}
+        style={getSliderStyles(value, min, max)}
+        aria-valuetext={`${label} set to ${value} on a scale from ${min} to ${max}`}
+      />
+      <div className="forecaster__range-scale" aria-hidden="true">
+        <span>{min}</span>
+        <span>{max}</span>
+      </div>
     </div>
-    <input
-      aria-label={label}
-      className="forecaster__range"
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={(event) => onChange(Number(event.target.value))}
-      style={getSliderStyles(value, min, max)}
-    />
-    <div className="forecaster__range-scale" aria-hidden="true">
-      <span>{min}</span>
-      <span>{max}</span>
-    </div>
-  </div>
-);
+  );
+};
 
 export function InputPanel({
   metrics,
@@ -93,8 +107,9 @@ export function InputPanel({
       <p className="eyebrow">Input levers</p>
       <h3>Shape the workload profile</h3>
       <p className="muted">
-        Drag the sliders to reflect today&apos;s operational friction. The track uses a traffic light gradient so you can see how
-        fast each input approaches risk territory.
+        Drag the sliders to reflect today&apos;s operational friction. The track
+        uses a traffic light gradient so you can see how fast each input
+        approaches risk territory.
       </p>
 
       <SliderField
@@ -119,7 +134,9 @@ export function InputPanel({
         <div className="forecaster__label-row">
           <div>
             <p className="muted">Stability profile</p>
-            <p className="forecaster__description">Choose how resilient the system is under load.</p>
+            <p className="forecaster__description">
+              Choose how resilient the system is under load.
+            </p>
           </div>
         </div>
         <ul className="pill-list pill-list--wrap forecaster__stability">
@@ -127,7 +144,10 @@ export function InputPanel({
             const isActive = metrics.stability === option;
 
             return (
-              <li key={option} className={isActive ? 'pill-list__item--active' : ''}>
+              <li
+                key={option}
+                className={isActive ? "pill-list__item--active" : ""}
+              >
                 <button
                   type="button"
                   className="pill-list__button"
