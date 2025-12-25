@@ -14,6 +14,7 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`local-development.md`](local-development.md) captures setup, dev server tips, and how to preview builds locally.
 - [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and [`visual-textures.md`](visual-textures.md) capture specialized troubleshooting
   and design notes.
+- [`page-specifications.md`](page-specifications.md) lists route-by-route expectations for data, layout, and accessibility.
 
 ## How to add or update docs
 
