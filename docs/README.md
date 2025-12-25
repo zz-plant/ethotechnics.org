@@ -12,6 +12,7 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`cloudflare-playwright.md`](cloudflare-playwright.md) documents how to run Playwright in Cloudflare Pages builds and where
   test results show up.
 - [`local-development.md`](local-development.md) captures setup, dev server tips, and how to preview builds locally.
+- [`agent-developer-experience.md`](agent-developer-experience.md) aggregates agent-specific references and to-do items.
 - [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and [`visual-textures.md`](visual-textures.md) capture specialized troubleshooting
   and design notes.
 - [`page-specifications.md`](page-specifications.md) lists route-by-route expectations for data, layout, and accessibility.
