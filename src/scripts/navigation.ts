@@ -1,14 +1,13 @@
 export const initNavigation = () => {
   const nav = document.querySelector<HTMLElement>('[data-nav]');
   const toggle = nav?.querySelector<HTMLButtonElement>('.nav__toggle');
+  const close = nav?.querySelector<HTMLButtonElement>('[data-nav-close]');
   const content = nav?.querySelector<HTMLElement>('.nav__content');
   const scrim = nav?.querySelector<HTMLElement>('.nav__scrim');
-  const actionLinks = nav?.querySelectorAll<HTMLAnchorElement>(
-    '.nav__content a, .nav__content button',
-  );
+  const actionLinks = nav?.querySelectorAll<HTMLElement>('.nav__content a, .nav__content button');
   const scrollLockTargets = [document.documentElement, document.body];
 
-  if (!nav || !toggle || !content || !actionLinks || actionLinks.length === 0) {
+  if (!nav || !toggle || !close || !content || !actionLinks || actionLinks.length === 0) {
     return;
   }
 
@@ -94,6 +93,7 @@ export const initNavigation = () => {
   nav.addEventListener('keydown', handleKeyDown);
   window.addEventListener('resize', handleResize);
   actionLinks.forEach((link) => link.addEventListener('click', handleLinkClick));
+  close.addEventListener('click', () => updateState(false));
   scrim?.addEventListener('click', () => updateState(false));
 
   updateState(false);

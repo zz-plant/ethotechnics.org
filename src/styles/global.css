@@ -251,6 +251,34 @@ svg {
   font-weight: 700;
 }
 
+.nav__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  background: color-mix(in srgb, var(--panel) 90%, white 10%);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  border-radius: 12px;
+  padding: 0.55rem 0.85rem;
+  min-width: 44px;
+  min-height: 44px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+}
+
+.nav__close-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.nav__close-label {
+  display: inline-flex;
+  align-items: center;
+}
+
 .nav__toggle-label {
   display: inline-flex;
   align-items: center;
@@ -294,7 +322,8 @@ svg {
   position: fixed;
   left: 0;
   right: 0;
-  top: 0;
+  top: 0.65rem;
+  max-width: calc(100% - 1.5rem);
   z-index: 2;
   padding: 5rem 1.25rem 1.5rem;
   background:
@@ -350,7 +379,7 @@ svg {
   .nav__content {
     padding: 4.5rem 1rem 1.1rem;
     border-radius: 16px;
-    width: min(100%, 1040px);
+    width: calc(100% - 1.5rem);
   }
 
   .nav__content-body {
@@ -399,9 +428,15 @@ noscript .nav__toggle {
 .nav__content-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+@media (min-width: 992px) {
+  .nav__close {
+    display: none;
+  }
 }
 
 .nav__content-title {
