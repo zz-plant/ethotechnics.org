@@ -6,7 +6,14 @@ export const initNavigation = () => {
   const actionLinks = nav?.querySelectorAll<HTMLAnchorElement>(
     '.nav__content a, .nav__content button',
   );
+  const mainContent = document.getElementById('main-content');
+  const footer = document.querySelector<HTMLElement>('footer');
+  const skipLink = document.querySelector<HTMLElement>('.skip-link');
   const scrollLockTargets = [document.documentElement, document.body];
+  const inertTargets = [mainContent, footer, skipLink].filter(
+    (target): target is HTMLElement => Boolean(target),
+  );
+  const tabIndexMap = new Map<HTMLElement, string | null>();
 
   if (!nav || !toggle || !content || !actionLinks || actionLinks.length === 0) {
     return;
@@ -25,10 +32,36 @@ export const initNavigation = () => {
   };
   let isOpen = false;
 
+  inertTargets.forEach((target) => {
+    tabIndexMap.set(target, target.getAttribute('tabindex'));
+  });
+
+  const setRegionInert = (shouldInert: boolean) => {
+    inertTargets.forEach((target) => {
+      if (shouldInert) {
+        target.setAttribute('aria-hidden', 'true');
+        target.setAttribute('inert', '');
+        target.setAttribute('tabindex', '-1');
+      } else {
+        target.removeAttribute('aria-hidden');
+        target.removeAttribute('inert');
+
+        const originalTabIndex = tabIndexMap.get(target);
+
+        if (originalTabIndex === null) {
+          target.removeAttribute('tabindex');
+        } else if (originalTabIndex !== undefined) {
+          target.setAttribute('tabindex', originalTabIndex);
+        }
+      }
+    });
+  };
+
   const updateState = (open: boolean) => {
     isOpen = open;
     const isDesktop = desktopQuery.matches;
     const shouldLockScroll = isOpen && !isDesktop;
+    const shouldInertRegions = isOpen && !isDesktop;
 
     toggle.setAttribute('aria-expanded', String(isOpen));
     toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
@@ -39,6 +72,8 @@ export const initNavigation = () => {
     scrollLockTargets.forEach((target) => {
       target?.classList.toggle('nav-locked', shouldLockScroll);
     });
+
+    setRegionInert(shouldInertRegions);
 
     const shouldHideContent = !isDesktop && !isOpen;
 
