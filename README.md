@@ -88,16 +88,17 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 
 ## Documentation map
 
-- [`docs/README.md`](docs/README.md) explains how the docs folder is organized and when to add new
-  guides.
+- Start with [`docs/README.md`](docs/README.md) for how the docs folder is organized, when to add a
+  new guide, and formatting expectations.
 - [`docs/architecture.md`](docs/architecture.md) covers the rendering model, middleware, and
-  Cloudflare Worker deployment.
+  Cloudflare Worker deployment. Update it when routing, layouts, or adapters change.
 - [`docs/adding-pages.md`](docs/adding-pages.md) walks through creating new Astro routes without
-  breaking shared navigation and metadata.
+  breaking shared navigation and metadata. Use it as the checklist for new content.
 - [`docs/content-components.md`](docs/content-components.md) catalogs the page intro, section
-  blocks, cards, and other building blocks reused across routes.
+  blocks, cards, and other building blocks reused across routes. Extend it when adding shared UI.
 - [`docs/cloudflare-playwright.md`](docs/cloudflare-playwright.md) captures how to run the
-  Playwright suite on Cloudflare Pages after the Worker build completes.
+  Playwright suite on Cloudflare Pages after the Worker build completes and how to surface test
+  results in that environment.
 
 ## Staying updated
 
