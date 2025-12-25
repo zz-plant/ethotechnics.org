@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 import type { OperationalMetrics, SimulationParams, SystemStability } from './types';
 
 type SliderFieldProps = {
@@ -34,11 +36,13 @@ const getSliderFill = (value: number, min: number, max: number) => {
   return Math.min(Math.max(fillPercent, 0), 100);
 };
 
-const getSliderBackground = (value: number, min: number, max: number) => {
+const getSliderStyles = (value: number, min: number, max: number) => {
   const fillPercent = getSliderFill(value, min, max);
-  const fillColor = getTrafficColor(fillPercent);
 
-  return `linear-gradient(90deg, ${fillColor} ${fillPercent}%, rgba(255, 255, 255, 0.12) ${fillPercent}%)`;
+  return {
+    '--range-fill-color': getTrafficColor(fillPercent),
+    '--range-fill-percent': `${fillPercent}%`,
+  } as CSSProperties;
 };
 
 const SliderField = ({
@@ -67,9 +71,7 @@ const SliderField = ({
       step={step}
       value={value}
       onChange={(event) => onChange(Number(event.target.value))}
-      style={{
-        background: getSliderBackground(value, min, max),
-      }}
+      style={getSliderStyles(value, min, max)}
     />
     <div className="forecaster__range-scale" aria-hidden="true">
       <span>{min}</span>

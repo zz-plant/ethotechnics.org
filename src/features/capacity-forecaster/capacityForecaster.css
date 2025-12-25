@@ -38,11 +38,20 @@
 }
 
 .forecaster__range {
+  --range-fill-color: var(--accent);
+  --range-fill-percent: 0%;
+  --range-base-color: rgba(255, 255, 255, 0.12);
+
   appearance: none;
   width: 100%;
   height: 12px;
   border-radius: 999px;
-  background: var(--panel);
+  background: linear-gradient(
+      90deg,
+      var(--range-fill-color) var(--range-fill-percent),
+      var(--range-base-color) var(--range-fill-percent)
+    ),
+    var(--panel);
   border: 1px solid var(--border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
