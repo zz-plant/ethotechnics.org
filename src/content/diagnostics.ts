@@ -1,4 +1,4 @@
-import type { PageWithPermalink } from './types';
+import type { PageWithPermalink } from "./types";
 
 export type DiagnosticTool = {
   slug: string;
@@ -17,98 +17,157 @@ export type DiagnosticTool = {
 export type DiagnosticsContent = PageWithPermalink & {
   tools: DiagnosticTool[];
   offRampNote: string;
+  valueProps: { title: string; description: string }[];
+  facilitation: {
+    title: string;
+    description: string;
+    steps: { title: string; detail: string }[];
+    note: string;
+  };
 };
 
 export const diagnosticsContent: DiagnosticsContent = {
-  pageTitle: 'Diagnostics — Ethotechnics',
-  pageDescription: 'Tools for auditing systems, measuring risk, and tracking progress on responsible technology goals.',
-  permalink: '/diagnostics',
+  pageTitle: "Diagnostics — Ethotechnics",
+  pageDescription:
+    "Pick a diagnostic, arrive with a question, and leave with a decision-ready summary and a clear off-ramp.",
+  permalink: "/diagnostics",
   offRampNote:
-    'Off-ramp to ethotechnics.com/studio: when a result flags high risk or ambiguity, escalate for a facilitated deep dive.',
+    "If a diagnostic surfaces high risk or ambiguity, we route you to a facilitated deep dive through ethotechnics.com/studio.",
+  valueProps: [
+    {
+      title: "Decide quickly",
+      description:
+        "Each diagnostic is scoped to a single question so you can share a concise readout with executives, regulators, or partners.",
+    },
+    {
+      title: "Land on an off-ramp",
+      description:
+        "Every result page includes the escalation path to ethotechnics.com/studio when risk or ambiguity shows up.",
+    },
+    {
+      title: "Link to shared language",
+      description:
+        "Recommendations connect to the pattern language so product, policy, and ops teams can move together.",
+    },
+  ],
+  facilitation: {
+    title: "You bring the scenario, we guide the decision.",
+    description:
+      "Sessions are lightweight and focused. We keep the scope tight so you can move work forward without adding overhead.",
+    steps: [
+      {
+        title: "Frame the question",
+        detail:
+          "We define what a good answer looks like and what needs to be decided after the diagnostic.",
+      },
+      {
+        title: "Run the tool together",
+        detail:
+          "You walk through prompts, inputs, and trade-offs while we map gaps and risks.",
+      },
+      {
+        title: "Leave with a next step",
+        detail:
+          "You get a linkable readout, pattern references, and the off-ramp to ethotechnics.com/studio if you need facilitation.",
+      },
+    ],
+    note: "Diagnostics are written for visitors: no prior relationship needed, and every tool is CC BY through the Institute.",
+  },
   tools: [
     {
-      slug: 'burden-modeler',
-      title: 'Burden Modeler',
+      slug: "burden-modeler",
+      title: "Burden Modeler",
       description:
-        'Quantifies task load, cognitive friction, and risk exposure so teams can prioritize relief.',
+        "Quantifies task load, cognitive friction, and risk exposure so teams can prioritize relief.",
       readiness: [
-        'Use after initial research to baseline the burden index before shipping.',
-        'Invite support and operations partners to validate inputs and weightings.',
+        "Use after early research to show leaders what is slowing people down.",
+        "Invite support and operations partners to validate inputs and weightings.",
       ],
       outputs: [
-        'A burden index score with a short explanation for stakeholders.',
-        'Flagged hotspots with pattern recommendations to reduce friction.',
-        'Result page with off-ramp link to ethotechnics.com/studio for escalation.',
+        "A burden index score with a plain-language summary you can drop in a memo.",
+        "Flagged hotspots with pattern recommendations to reduce friction.",
+        "Result page with a persistent off-ramp to ethotechnics.com/studio.",
       ],
-      studioNote: 'Result pages always include the off-ramp to ethotechnics.com/studio for risky or unclear scores.',
-      ctaLabel: 'Book a facilitated burden modeling session',
-      ctaHref: 'https://ethotechnics.com/studio',
-      ctaAriaLabel: 'Book a facilitated burden modeling session through ethotechnics.com/studio',
-      exampleLabel: 'See example burden model outputs',
-      exampleHref: 'https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#burden-modeler',
-    },
-    {
-      slug: 'llm-capacity-benchmark',
-      title: 'LLM Capacity Benchmark',
-      description:
-        'Lightweight evaluation to see if a model and its surrounding UI respect consent and context limits.',
-      readiness: [
-        'Run before piloting a new model-powered feature with real people.',
-        'Pair with progressive consent prompts to keep expectations clear.',
-      ],
-      outputs: [
-        'Readiness summary that highlights consent journey gaps.',
-        'UI nits and mitigation guidance tied to pattern language filters.',
-        'Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.',
-      ],
-      studioNote: 'Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.',
-      ctaLabel: 'Run the LLM readiness check',
-      ctaHref: 'https://ethotechnics.com/studio',
-      ctaAriaLabel: 'Request an LLM readiness check through ethotechnics.com/studio',
-      exampleLabel: 'Review a benchmark output sample',
-      exampleHref: 'https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark',
-    },
-    {
-      slug: 'maintenance-simulator',
-      title: 'Maintenance Simulator',
-      description: 'Scenario planning tool for stewardship windows and service-level impacts.',
-      readiness: [
-        'Use during planning to negotiate maintenance coverage with partners.',
-        'Stress-test appeal paths and safety valves for outages or escalations.',
-      ],
-      outputs: [
-        'Simulated runbooks with mitigation branches and ownership.',
-        'Communication templates mapped to risk levels and roles.',
-        'Result page footer reminding teams about the off-ramp to ethotechnics.com/studio.',
-      ],
-      studioNote: 'Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.',
-      ctaLabel: 'Schedule a maintenance simulation',
-      ctaHref: 'https://ethotechnics.com/studio',
-      ctaAriaLabel: 'Schedule a maintenance simulation through ethotechnics.com/studio',
-      exampleLabel: 'Preview a simulation output',
-      exampleHref: 'https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#maintenance-simulator',
-    },
-    {
-      slug: 'capacity-forecaster',
-      title: 'Technical Capacity Forecaster',
-      description:
-        'Charts compound decay against refusal windows to spot saturation risk across a 24-month horizon.',
-      readiness: [
-        'Use when delivery teams need to visualize stability trade-offs with remediation paths.',
-        'Pair with portfolio reviews to align refusal policies with operational bandwidth.',
-      ],
-      outputs: [
-        'Side-by-side baseline and remediated capacity projections.',
-        'PDF export with saturation callouts for stakeholder sharing.',
-        'Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.',
-      ],
-      studioNote: 'Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.',
-      ctaLabel: 'Open the capacity forecaster',
-      ctaHref: '/diagnostics/capacity-forecaster',
-      ctaAriaLabel: 'Open the Technical Capacity Forecaster tool',
-      exampleLabel: 'View capacity forecast examples',
+      studioNote:
+        "Result pages always include the off-ramp to ethotechnics.com/studio for risky or unclear scores.",
+      ctaLabel: "Book a facilitated burden modeling session",
+      ctaHref: "https://ethotechnics.com/studio",
+      ctaAriaLabel:
+        "Book a facilitated burden modeling session through ethotechnics.com/studio",
+      exampleLabel: "See example burden model outputs",
       exampleHref:
-        'https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster',
+        "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#burden-modeler",
+    },
+    {
+      slug: "llm-capacity-benchmark",
+      title: "LLM Capacity Benchmark",
+      description:
+        "Lightweight evaluation to check if a model and its surrounding UI respect consent and context limits.",
+      readiness: [
+        "Run before piloting a new model-powered feature with real people.",
+        "Pair with progressive consent prompts to keep expectations clear.",
+      ],
+      outputs: [
+        "Readiness summary that highlights consent journey gaps.",
+        "UI nits and mitigation guidance tied to pattern language filters.",
+        "Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.",
+      ],
+      studioNote:
+        "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
+      ctaLabel: "Run the LLM readiness check",
+      ctaHref: "https://ethotechnics.com/studio",
+      ctaAriaLabel:
+        "Request an LLM readiness check through ethotechnics.com/studio",
+      exampleLabel: "Review a benchmark output sample",
+      exampleHref:
+        "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark",
+    },
+    {
+      slug: "maintenance-simulator",
+      title: "Maintenance Simulator",
+      description:
+        "Scenario planning tool for stewardship windows and service-level impacts.",
+      readiness: [
+        "Use during planning to negotiate maintenance coverage with partners.",
+        "Stress-test appeal paths and safety valves for outages or escalations.",
+      ],
+      outputs: [
+        "Simulated runbooks with mitigation branches and ownership.",
+        "Communication templates mapped to risk levels and roles.",
+        "Result page footer reminding teams about the off-ramp to ethotechnics.com/studio.",
+      ],
+      studioNote:
+        "Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.",
+      ctaLabel: "Schedule a maintenance simulation",
+      ctaHref: "https://ethotechnics.com/studio",
+      ctaAriaLabel:
+        "Schedule a maintenance simulation through ethotechnics.com/studio",
+      exampleLabel: "Preview a simulation output",
+      exampleHref:
+        "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#maintenance-simulator",
+    },
+    {
+      slug: "capacity-forecaster",
+      title: "Technical Capacity Forecaster",
+      description:
+        "Charts compound decay against refusal windows to spot saturation risk across a 24-month horizon.",
+      readiness: [
+        "Use when delivery teams need to visualize stability trade-offs with remediation paths.",
+        "Pair with portfolio reviews to align refusal policies with operational bandwidth.",
+      ],
+      outputs: [
+        "Side-by-side baseline and remediated capacity projections.",
+        "PDF export with saturation callouts for stakeholder sharing.",
+        "Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.",
+      ],
+      studioNote:
+        "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
+      ctaLabel: "Open the capacity forecaster",
+      ctaHref: "/diagnostics/capacity-forecaster",
+      ctaAriaLabel: "Open the Technical Capacity Forecaster tool",
+      exampleLabel: "View capacity forecast examples",
+      exampleHref:
+        "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
     },
   ],
 };

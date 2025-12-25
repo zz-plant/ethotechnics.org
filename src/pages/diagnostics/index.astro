@@ -1,18 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
 import PageIntro from '../../components/PageIntro.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 
-const { pageTitle, pageDescription, permalink, tools, offRampNote } = diagnosticsContent;
+const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation } = diagnosticsContent;
 const patternBase = `${libraryContent.permalink}#patterns`;
-const anchorLinks = tools.map((tool) => ({ href: `#${tool.slug}`, label: tool.title }));
-const introDescription = `${pageDescription} These evaluators are public Institute tools under CC BY through the Institute, and Studio uses the same models with bespoke facilitation via ethotechnics.com/studio.`;
-const panelDescription = [
-  'Result pages repeat the off-ramp so teams know where to escalate through ethotechnics.com/studio.',
-  'Patterns referenced in results link back to the Library pattern language for fast follow-up.',
-  offRampNote,
-].join(' ');
+const anchorLinks = [
+  { href: '#why-diagnostics', label: 'What you get' },
+  { href: '#how-it-works', label: 'How sessions run' },
+  { href: '#diagnostic-tools', label: 'Diagnostics menu' },
+  ...tools.map((tool) => ({ href: `#${tool.slug}`, label: tool.title })),
+];
+const introDescription = `${pageDescription} These tools are public under CC BY through the Institute; Studio uses the same models with bespoke facilitation via ethotechnics.com/studio.`;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -23,59 +26,96 @@ const panelDescription = [
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: 'Results and off-ramps',
-      title: 'Each tool ships with an off-ramp to ethotechnics.com/studio.',
-      description: panelDescription,
+      title: 'Every diagnostic leaves you with a linkable readout.',
+      description:
+        'Outputs include a stable URL, the off-ramp to ethotechnics.com/studio, and pattern language references for follow-up.',
     }}
   />
 
-  {tools.map((tool, index) => (
-    <section id={tool.slug} class={`section${index % 2 === 0 ? ' section--alt' : ''}`}>
-      <div class="section__header">
-        <p class="eyebrow">Diagnostic tool</p>
-        <h2>{tool.title}</h2>
-        <p class="muted">{tool.description}</p>
-      </div>
-      <div class="section__actions">
-        <a class="button primary" href={tool.ctaHref} aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}>
-          {tool.ctaLabel}
-        </a>
-        <a
-          class="button ghost"
-          href={tool.exampleHref}
-          aria-label={`View example outputs for ${tool.title}`}
+  <SectionBlock
+    id="why-diagnostics"
+    eyebrow="Why teams call us"
+    title="Diagnostics turn fuzzy risk into a concrete next step."
+    description="Built for visitors who need a clear answer without a long engagement."
+  >
+    <CardGrid>
+      {valueProps.map((item) => (
+        <CardItem title={item.title} description={item.description} />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="how-it-works"
+    eyebrow="Facilitated, but lightweight"
+    title={facilitation.title}
+    description={facilitation.description}
+    variant="alt"
+  >
+    <ol class="diagnostics__process">
+      {facilitation.steps.map((step) => (
+        <li class="diagnostics__process-step">
+          <p class="eyebrow">{step.title}</p>
+          <p class="muted">{step.detail}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="muted diagnostics__footnote">{facilitation.note}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="diagnostic-tools"
+    eyebrow="Diagnostics menu"
+    title="Pick the tool that matches your situation."
+    description={`Every diagnostic ships with a linkable result and an off-ramp. ${offRampNote}`}
+  >
+    <CardGrid className="diagnostics__tool-grid">
+      {tools.map((tool) => (
+        <CardItem
+          id={tool.slug}
+          eyebrow="Diagnostic tool"
+          title={tool.title}
+          description={tool.description}
+          headingLevel="h2"
         >
-          {tool.exampleLabel}
-        </a>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <p class="muted">Readiness</p>
-          <ul class="pill-list">
-            {tool.readiness.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </article>
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          <p class="muted">Outputs</p>
-          <ul class="pill-list">
-            {tool.outputs.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-          <p class="muted">{tool.studioNote}</p>
-        </article>
-      </div>
-      <div class="callout">
-        <h3>Pair with pattern language</h3>
-        <p class="muted">
-          Use this tool alongside <a href={patternBase}>pattern language</a> entries referenced in Library for consistent
-          mitigation steps.
-        </p>
-        <p class="muted">{offRampNote}</p>
-      </div>
-    </section>
-  ))}
+          <div class="diagnostics__card-body">
+            <div class="diagnostics__card-column">
+              <p class="muted diagnostics__label">Use this when</p>
+              <ul class="pill-list pill-list--wrap">
+                {tool.readiness.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div class="diagnostics__card-column">
+              <p class="muted diagnostics__label">What you receive</p>
+              <ul class="pill-list pill-list--wrap">
+                {tool.outputs.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+              <p class="muted small">{tool.studioNote}</p>
+            </div>
+          </div>
+          <div class="diagnostics__card-footer">
+            <div class="section__actions">
+              <a class="button primary" href={tool.ctaHref} aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}>
+                {tool.ctaLabel}
+              </a>
+              <a
+                class="button ghost"
+                href={tool.exampleHref}
+                aria-label={`View example outputs for ${tool.title}`}
+              >
+                {tool.exampleLabel}
+              </a>
+            </div>
+            <p class="muted diagnostics__pairing">
+              Pair with <a href={patternBase}>pattern language</a> entries referenced in Library for consistent mitigation.
+            </p>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
 </BaseLayout>

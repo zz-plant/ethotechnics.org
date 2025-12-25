@@ -72,9 +72,7 @@ body {
   text-rendering: optimizeLegibility;
   /* Flatten grain and glow into the background to avoid repaint-heavy fixed filters. */
   background:
-    var(--grain-texture),
-    var(--halftone),
-    var(--glow-wash),
+    var(--grain-texture), var(--halftone), var(--glow-wash),
     radial-gradient(
       circle at 8% 16%,
       color-mix(in srgb, var(--accent) 7%, white) 0,
@@ -90,7 +88,8 @@ body {
       color-mix(in srgb, var(--surface) 76%, white 24%),
       var(--bg)
     );
-  background-blend-mode: multiply, soft-light, soft-light, normal, normal, normal;
+  background-blend-mode:
+    multiply, soft-light, soft-light, normal, normal, normal;
   background-size:
     320px 320px,
     18px 18px,
@@ -256,7 +255,7 @@ svg {
   box-shadow: var(--shadow-xs);
 }
 
-.nav__link[aria-current='page'] {
+.nav__link[aria-current="page"] {
   border-color: color-mix(in srgb, var(--accent-strong) 32%, var(--border));
   box-shadow: 0 10px 22px rgba(27, 18, 11, 0.12);
 }
@@ -545,7 +544,6 @@ svg {
     width: 100%;
     justify-content: center;
   }
-
 }
 
 .nav__utility--mobile .nav__utility-link {
@@ -678,7 +676,10 @@ svg {
     ),
     var(--glow-wash);
   background-blend-mode: soft-light, normal, soft-light;
-  background-size: 18px 18px, auto, auto;
+  background-size:
+    18px 18px,
+    auto,
+    auto;
   box-shadow: var(--shadow);
   isolation: isolate;
 }
@@ -1102,11 +1103,11 @@ svg {
   display: grid;
   gap: 0.8rem;
   height: 100%;
-  background:
-    var(--halftone),
-    color-mix(in srgb, var(--surface) 95%, white 5%);
+  background: var(--halftone), color-mix(in srgb, var(--surface) 95%, white 5%);
   background-blend-mode: soft-light, normal;
-  background-size: 18px 18px, auto;
+  background-size:
+    18px 18px,
+    auto;
   border-radius: var(--radius);
   border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
   padding: 1.2rem;
@@ -1116,11 +1117,11 @@ svg {
 .illustration__frame {
   position: relative;
   padding: 1.1rem;
-  background:
-    var(--halftone),
-    color-mix(in srgb, var(--panel) 94%, white 6%);
+  background: var(--halftone), color-mix(in srgb, var(--panel) 94%, white 6%);
   background-blend-mode: soft-light, normal;
-  background-size: 18px 18px, auto;
+  background-size:
+    18px 18px,
+    auto;
   border-radius: var(--radius-md);
   border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
   overflow: hidden;
@@ -1258,7 +1259,10 @@ svg {
     ),
     color-mix(in srgb, var(--glow-wash) 90%, transparent);
   background-blend-mode: soft-light, normal, soft-light;
-  background-size: 18px 18px, auto, auto;
+  background-size:
+    18px 18px,
+    auto,
+    auto;
   padding: 1.7rem;
   border-radius: var(--radius);
   border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
@@ -1572,7 +1576,7 @@ svg {
 }
 
 .page-intro__panel::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background:
@@ -2504,4 +2508,70 @@ svg {
 
 .glossary__cta {
   margin-top: var(--space-3);
+}
+
+.diagnostics__process {
+  list-style: none;
+  padding: 0;
+  margin: 1.6rem 0 0.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.diagnostics__process-step {
+  padding: 1.15rem 1.25rem;
+  background: color-mix(in srgb, var(--surface) 96%, white 4%);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+}
+
+.diagnostics__process-step .eyebrow {
+  margin-bottom: 0.35rem;
+}
+
+.diagnostics__footnote {
+  margin-top: 1rem;
+}
+
+@media (min-width: 780px) {
+  .diagnostics__process {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.diagnostics__tool-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.diagnostics__card-body {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.diagnostics__card-column .pill-list {
+  margin-top: 0.8rem;
+}
+
+.diagnostics__label {
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.diagnostics__card-footer {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+}
+
+.diagnostics__pairing {
+  margin: 0;
+}
+
+@media (min-width: 900px) {
+  .diagnostics__card-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
