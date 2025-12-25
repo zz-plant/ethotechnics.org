@@ -63,20 +63,22 @@ const topLevelLinks = [
     </div>
 
     <div class="nav__mobile" aria-label="Primary">
-      <div class="nav__links nav__links--mobile">
-        {topLevelLinks.map((link) => (
-          <a
-            class="nav__link"
-            href={link.href}
-            aria-current={isCurrentLink(link.href) ? 'page' : undefined}
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
+      <div class="nav__mobile-row">
+        <div class="nav__links nav__links--mobile">
+          {topLevelLinks.map((link) => (
+            <a
+              class="nav__link"
+              href={link.href}
+              aria-current={isCurrentLink(link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
 
-      <div class="nav__utility nav__utility--mobile">
-        <NavUtilityLinks currentPath={currentPath} />
+        <div class="nav__utility nav__utility--mobile">
+          <NavUtilityLinks currentPath={currentPath} />
+        </div>
       </div>
     </div>
 
