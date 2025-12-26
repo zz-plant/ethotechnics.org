@@ -1,4 +1,5 @@
 ---
+import Logo from './Logo.astro';
 import NavActions from './NavActions.astro';
 import NavQuickLinks from './NavQuickLinks.astro';
 import NavSectionList from './NavSectionList.astro';
@@ -42,7 +43,7 @@ const topLevelLinks = [
         aria-label="Go to the homepage"
         aria-current={isHome ? 'page' : undefined}
       >
-        Ethotechnics
+        <Logo class="nav__brand-logo" title="Ethotechnics" />
       </a>
 
       <div class="nav__links nav__links--desktop" aria-label="Primary">
