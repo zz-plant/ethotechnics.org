@@ -17,6 +17,8 @@ const initializeFieldNotes = (container: HTMLElement) => {
     return;
   }
 
+  const cleanupCallbacks: Array<() => void> = [];
+
   const scrollToHash = (hash: string) => {
     if (!hash) {
       return;
@@ -79,17 +81,19 @@ const initializeFieldNotes = (container: HTMLElement) => {
     }
   };
 
+  let observer: IntersectionObserver | null = null;
+
   const maybeSyncFromHash = () => {
     if (!('IntersectionObserver' in window)) {
       syncFromHash();
       return;
     }
 
-    const observer = new IntersectionObserver((entriesList) => {
+    observer = new IntersectionObserver((entriesList) => {
       entriesList.forEach((entry) => {
         if (entry.isIntersecting) {
           syncFromHash();
-          observer.disconnect();
+          observer?.disconnect();
         }
       });
     });
@@ -109,12 +113,12 @@ const initializeFieldNotes = (container: HTMLElement) => {
   };
 
   tabs.forEach((tab) => {
-    tab.addEventListener('click', (event) => {
+    const handleClick = (event: MouseEvent) => {
       event.preventDefault();
       activateTab(tab);
-    });
+    };
 
-    tab.addEventListener('keydown', (event) => {
+    const handleKeydown = (event: KeyboardEvent) => {
       if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
         return;
       }
@@ -146,17 +150,62 @@ const initializeFieldNotes = (container: HTMLElement) => {
       if (targetTab) {
         activateTab(targetTab);
       }
+    };
+
+    tab.addEventListener('click', handleClick);
+    tab.addEventListener('keydown', handleKeydown);
+
+    cleanupCallbacks.push(() => {
+      tab.removeEventListener('click', handleClick);
+      tab.removeEventListener('keydown', handleKeydown);
     });
   });
 
-  window.addEventListener('hashchange', syncFromHash);
+  const handleHashChange = () => syncFromHash();
+
+  window.addEventListener('hashchange', handleHashChange);
+  cleanupCallbacks.push(() => {
+    window.removeEventListener('hashchange', handleHashChange);
+  });
+
+  setActiveFormat(defaultFormat);
   maybeSyncFromHash();
+
+  return () => {
+    if (observer) {
+      observer.disconnect();
+    }
+
+    panels.forEach((panel) => {
+      panel.hidden = false;
+    });
+
+    headings.forEach((heading) => {
+      heading.hidden = false;
+    });
+
+    cleanupCallbacks.forEach((cleanup) => cleanup());
+  };
 };
 
 const initFieldNotesTabs = () => {
   const containers = Array.from(document.querySelectorAll<HTMLElement>('[data-field-notes]'));
+  const cleanups = containers
+    .map((container) => initializeFieldNotes(container))
+    .filter((cleanup): cleanup is () => void => typeof cleanup === 'function');
 
-  containers.forEach(initializeFieldNotes);
+  if (cleanups.length === 0) {
+    return;
+  }
+
+  const runCleanup = () => {
+    cleanups.forEach((cleanup) => cleanup());
+    window.removeEventListener('astro:before-swap', runCleanup);
+    window.removeEventListener('pagehide', runCleanup);
+  };
+
+  window.addEventListener('astro:before-swap', runCleanup);
+  window.addEventListener('pagehide', runCleanup);
 };
 
 if (document.readyState === 'loading') {
