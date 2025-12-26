@@ -170,6 +170,26 @@ svg {
   margin: 0 auto;
 }
 
+@media (min-width: 1600px) {
+  body {
+    font-size: 1.05rem;
+  }
+
+  .container {
+    width: min(1400px, 88vw);
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    width: min(1180px, 96vw);
+  }
+
+  .page {
+    padding: 4.6rem 0 3rem;
+  }
+}
+
 .page {
   padding: 5.5rem 0 3.5rem;
   view-transition-name: page;
@@ -253,6 +273,12 @@ svg {
   transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
   box-shadow: var(--shadow-xs);
+}
+
+.nav__link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-xs), 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .nav__link[aria-current="page"] {
@@ -580,6 +606,12 @@ svg {
   transform: translateY(-1px);
 }
 
+.nav__utility-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
 .nav__icon {
   width: 1.05rem;
   height: 1.05rem;
@@ -702,6 +734,22 @@ svg {
     color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
   outline-offset: 2px;
   box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+@media (any-pointer: coarse) {
+  .nav__link,
+  .nav__utility-link {
+    min-height: 2.9rem;
+    padding-inline: 0.85rem;
+  }
+
+  .button {
+    min-height: 3.1rem;
+  }
+
+  .nav__links--mobile {
+    gap: 0.45rem;
+  }
 }
 
 .button--compact {
