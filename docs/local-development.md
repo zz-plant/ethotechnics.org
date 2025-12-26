@@ -21,6 +21,8 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
 
 - Build the Cloudflare Worker bundle with `npm run build`; success logs include `Built in` timings
   and emit `dist/_worker.js`.
+- The build skips compressed-size reporting to avoid extra gzip/Brotli passes; re-enable it in
+  `astro.config.mjs` if you need those numbers for an investigation.
 - Preview locally with `npm run preview` to mimic the deployed output.
 - Combine both steps to sanity-check production output: `npm run build && npm run preview`.
 

@@ -41,6 +41,8 @@ export default defineConfig({
     },
     build: {
       cssMinify: 'lightningcss',
+      minify: 'esbuild',
+      reportCompressedSize: false,
     },
     ssr: {
       external: ['node:crypto', 'node:fs/promises', 'node:path', 'node:url'],
