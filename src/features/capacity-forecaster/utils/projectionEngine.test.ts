@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import type { OperationalMetrics, SimulationParams } from '../types';
 import { projectCapacity } from './projectionEngine';
 import { MODEL_CONFIG } from './modelConfig';
 
@@ -41,5 +42,27 @@ describe('projectCapacity', () => {
     expect(result.data[result.saturationIndex].isSaturated).toBe(true);
     expect(result.data[result.saturationIndex - 1].isSaturated).toBe(false);
     expect(result.saturationDate).toBe('Oct 2024');
+  });
+
+  it('produces consistent date labels across timezones for fixed start dates', () => {
+    const originalTZ = process.env.TZ;
+    const metrics: OperationalMetrics = { velocityIndex: 20, interruptionRate: 10, stability: 'RESILIENT' };
+    const params: SimulationParams = { refusalWeeks: 0 };
+
+    try {
+      process.env.TZ = 'UTC';
+      const utcLabels = projectCapacity(metrics, params, startDate).data.map(({ dateLabel }) => dateLabel);
+
+      process.env.TZ = 'America/New_York';
+      const easternLabels = projectCapacity(metrics, params, startDate).data.map(({ dateLabel }) => dateLabel);
+
+      process.env.TZ = 'Asia/Tokyo';
+      const tokyoLabels = projectCapacity(metrics, params, startDate).data.map(({ dateLabel }) => dateLabel);
+
+      expect(easternLabels).toEqual(utcLabels);
+      expect(tokyoLabels).toEqual(utcLabels);
+    } finally {
+      process.env.TZ = originalTZ;
+    }
   });
 });
