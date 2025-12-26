@@ -17,16 +17,12 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
 {sections.length ? (
   <section class="section section--alt" data-field-notes data-default-format={initialFormat}>
     <div class="section__header">
-      {sections.map((section: FieldNotesContent['sections'][number], index: number) => {
-        const isActive = section.format === initialFormat || (index === 0 && !initialFormat);
-
-        return (
-          <div data-field-notes-heading data-format={section.format} hidden={!isActive}>
-            <p class="eyebrow">{section.title}</p>
-            <h2>{section.description}</h2>
-          </div>
-        );
-      })}
+      {sections.map((section: FieldNotesContent['sections'][number]) => (
+        <div data-field-notes-heading data-format={section.format}>
+          <p class="eyebrow">{section.title}</p>
+          <h2>{section.description}</h2>
+        </div>
+      ))}
       <ul class="pill-list pill-list--wrap" role="tablist" aria-label="Field note formats" data-field-notes-tablist>
         {sections.map((section: FieldNotesContent['sections'][number], index: number) => {
           const isActive = section.format === initialFormat || (index === 0 && !initialFormat);
@@ -50,11 +46,10 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
         })}
       </ul>
     </div>
-    {sections.map((section: FieldNotesContent['sections'][number], index: number) => {
+    {sections.map((section: FieldNotesContent['sections'][number]) => {
       const sectionEntries = entries.filter(
         (entry: FieldNoteEntry) => entry.format === section.format,
       );
-      const isActive = section.format === initialFormat || (index === 0 && !initialFormat);
 
       return (
         <div id={section.format} data-field-notes-section data-format={section.format}>
@@ -65,7 +60,6 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
             aria-labelledby={`${section.format}-tab`}
             data-field-notes-panel
             data-format={section.format}
-            hidden={!isActive}
           >
             {sectionEntries.map((entry: FieldNoteEntry) => (
               <article class="card" id={entry.slug} data-field-notes-entry data-format={entry.format}>
