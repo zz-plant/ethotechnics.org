@@ -118,7 +118,7 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
                       role="img"
                       aria-label={metric.trendLabel ?? `${metric.label} trend`}
                     >
-                      <path d={buildSparklinePath(metric.trend)} />
+                      <path d={buildSparklinePath(metric.trend)} pathLength="100" />
                     </svg>
                   </div>
                 ) : null}
