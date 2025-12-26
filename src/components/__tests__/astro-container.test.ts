@@ -15,9 +15,13 @@ describe("Navigation component", () => {
     const nav = document.querySelector("nav.nav");
 
     expect(nav).toBeTruthy();
-    expect(nav?.querySelector(".nav__brand")?.textContent?.trim()).toBe(
-      "Ethotechnics",
-    );
+    const brand = nav?.querySelector<HTMLAnchorElement>(".nav__brand");
+    const logo = brand?.querySelector("svg");
+
+    expect(brand?.getAttribute("aria-label")).toBe("Go to the homepage");
+    expect(logo).toBeTruthy();
+    expect(logo?.getAttribute("aria-label")).toBe("Ethotechnics");
+    expect(logo?.querySelector("title")?.textContent).toBe("Ethotechnics");
     expect(nav?.querySelector(".nav__toggle")).toBeNull();
 
     const mobilePrimaryLinks = Array.from(

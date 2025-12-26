@@ -1,0 +1,45 @@
+---
+export interface Props {
+  title?: string;
+  ariaHidden?: boolean;
+  class?: string;
+}
+
+const { title = 'Ethotechnics logo', ariaHidden = false, class: className } =
+  Astro.props as Props;
+const gradientId = `ethos-${
+  crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2, 8)
+}`;
+---
+<svg
+  class={className}
+  role="img"
+  aria-label={title}
+  aria-hidden={ariaHidden}
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>{title}</title>
+  <defs>
+    <linearGradient
+      id={gradientId}
+      x1="12"
+      y1="10"
+      x2="54"
+      y2="54"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="#0EA5E9" />
+      <stop offset="1" stop-color="#10B981" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="16" fill="#0B1222" />
+  <rect x="14" y="16" width="36" height="10" rx="5" fill={`url(#${gradientId})`} />
+  <rect x="14" y="28" width="26" height="8" rx="4" fill={`url(#${gradientId})`} opacity="0.9" />
+  <rect x="14" y="38" width="36" height="10" rx="5" fill={`url(#${gradientId})`} opacity="0.85" />
+  <circle cx="48" cy="32" r="6" fill="#0EA5E9" opacity="0.25" />
+  <circle cx="48" cy="32" r="3" fill="#10B981" />
+</svg>
