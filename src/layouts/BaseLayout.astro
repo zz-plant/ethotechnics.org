@@ -1,6 +1,5 @@
 ---
 import { SEO } from 'astro-seo';
-import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
 import { siteFooter } from '../content/site-footer';
 import '../styles/global.css';
@@ -133,7 +132,6 @@ const currentPath = Astro.url.pathname;
       </defs>
     </svg>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <ClientRouter fallback="swap" />
     <Navigation currentPath={currentPath} />
     <main id="main-content" class="page container" tabindex="-1">
       <slot />
@@ -182,19 +180,5 @@ const currentPath = Astro.url.pathname;
         </section>
       ))}
     </footer>
-    <script nonce={cspNonce} is:inline>
-      const main = document.getElementById('main-content');
-
-      const focusMainAfterTransition = () => {
-        requestAnimationFrame(() => {
-          main?.focus();
-        });
-      };
-
-      if (!document.documentElement.dataset.mainFocusListenerAttached) {
-        document.documentElement.dataset.mainFocusListenerAttached = 'true';
-        document.addEventListener('astro:after-swap', focusMainAfterTransition);
-      }
-    </script>
   </body>
 </html>

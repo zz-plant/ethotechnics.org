@@ -5,17 +5,14 @@ How the site is structured and deployed so contributors can navigate the stack q
 ## Site shell
 
 - `src/layouts/BaseLayout.astro` wraps every page with SEO tags, fonts, and `src/styles/global.css`.
-- The layout renders the skip link, `Navigation` component, and a focus helper that listens for
-  `astro:after-swap` to keep the main content reachable after transitions.
-- `Navigation.astro` is server-rendered and keeps its DOM mounted with
-  `data-astro-transition-persist` so menus stay stable across page swaps.
+- The layout renders the skip link, `Navigation` component, and a focusable `<main>` target for
+  keyboard users.
+- `Navigation.astro` is server-rendered and keeps its DOM mounted between navigations.
 
-## Routing and transitions
+## Routing
 
-- Astro's file-based routes live in `src/pages`, with `astro.config.mjs` enabling
-  `viewTransitions: true`.
-- `<ClientRouter fallback="swap" />` in `BaseLayout` lets navigation reuse the current DOM while
-  applying view transitions; routing falls back to a full swap when needed.
+- Astro's file-based routes live in `src/pages` with standard server-rendered navigation and no
+  client transitions.
 
 ## Islands and hydration boundaries
 

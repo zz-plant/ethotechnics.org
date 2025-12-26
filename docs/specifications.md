@@ -16,8 +16,8 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 ## Routing and navigation
 
 - File-based routing under `src/pages`; follow [Adding pages](adding-pages.md) when extending.
-- View transitions enabled via `astro.config.mjs` with `<ClientRouter fallback="swap" />` to
-  reuse DOM between navigations when possible.
+- Navigation renders on the server without view transitions, relying on native page loads and the
+  skip link for focus management.
 
 ## Middleware and security
 
