@@ -17,7 +17,11 @@ const formatLabel = (base: Date, monthOffset: number) => {
 
   labelDate.setMonth(base.getMonth() + monthOffset);
 
-  return labelDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  return labelDate.toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
 };
 
 export const projectCapacity = (
