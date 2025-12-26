@@ -56,6 +56,9 @@ export function CapacityChart({
 }: CapacityChartProps) {
   const chartTitleId = useId();
   const chartDescriptionId = useId();
+  const gradientId = useId();
+  const baselineGradientId = `baselineArea-${gradientId}`;
+  const remediatedGradientId = `remediatedArea-${gradientId}`;
 
   if (data.length === 0) {
     return (
@@ -136,7 +139,13 @@ export function CapacityChart({
           aria-describedby={chartDescriptionId}
         >
           <defs>
-            <linearGradient id="baselineArea" x1="0" x2="0" y1="0" y2="1">
+            <linearGradient
+              id={baselineGradientId}
+              x1="0"
+              x2="0"
+              y1="0"
+              y2="1"
+            >
               <stop offset="0%" stopColor="var(--accent)" stopOpacity={0.35} />
               <stop
                 offset="100%"
@@ -144,7 +153,13 @@ export function CapacityChart({
                 stopOpacity={0.05}
               />
             </linearGradient>
-            <linearGradient id="remediatedArea" x1="0" x2="0" y1="0" y2="1">
+            <linearGradient
+              id={remediatedGradientId}
+              x1="0"
+              x2="0"
+              y1="0"
+              y2="1"
+            >
               <stop offset="0%" stopColor="var(--gold)" stopOpacity={0.32} />
               <stop offset="100%" stopColor="var(--gold)" stopOpacity={0.04} />
             </linearGradient>
@@ -234,6 +249,7 @@ export function CapacityChart({
           <path
             className="forecaster__chart-area forecaster__chart-area--baseline"
             d={baselineArea}
+            fill={`url(#${baselineGradientId})`}
           />
           <path
             className="forecaster__chart-line forecaster__chart-line--baseline"
@@ -243,6 +259,7 @@ export function CapacityChart({
           <path
             className="forecaster__chart-area forecaster__chart-area--remediated"
             d={remediatedArea}
+            fill={`url(#${remediatedGradientId})`}
           />
           <path
             className="forecaster__chart-line forecaster__chart-line--remediated"
