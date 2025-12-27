@@ -30,8 +30,52 @@ const {
   panelCopy,
 } = Astro.props;
 
+const { cspNonce } = Astro.locals;
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const normalizedPermalink = permalink?.trim();
+const breadcrumbItems = normalizedPermalink
+  ? buildBreadcrumbItems(normalizedPermalink, siteBase, title)
+  : [];
+const breadcrumbJson =
+  breadcrumbItems.length > 0
+    ? JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbItems,
+      })
+    : null;
+
 const HeadingTag = `h${titleLevel}` as const;
+
+function buildBreadcrumbItems(path: string, baseUrl: string, pageTitle: string) {
+  const breadcrumbUrl = new URL(path, baseUrl);
+  const segments = breadcrumbUrl.pathname.split('/').filter(Boolean);
+
+  return segments.map((segment, index) => {
+    const name = index === segments.length - 1 ? pageTitle : titleize(segment);
+    const itemPath = `/${segments.slice(0, index + 1).join('/')}`;
+
+    return {
+      '@type': 'ListItem',
+      position: index + 1,
+      name,
+      item: new URL(itemPath, baseUrl).toString(),
+    } as const;
+  });
+}
+
+function titleize(segment: string) {
+  return segment
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
 ---
+{breadcrumbJson && (
+  <Fragment slot="head">
+    <script type="application/ld+json" nonce={cspNonce} set:html={breadcrumbJson} is:inline></script>
+  </Fragment>
+)}
 <section class="section page-intro">
   <div class="page-intro__grid">
     <div class="page-intro__lead">
