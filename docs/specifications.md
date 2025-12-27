@@ -25,6 +25,18 @@ High-level reference for the site’s purpose, structure, and delivery flow.
   Referrer-Policy, X-Content-Type-Options, Permissions-Policy) on every response.
 - Keep header updates centralized in middleware and mirror any new redirects there.
 
+## Delivery and discovery
+
+- Cloudflare adapter excludes static asset routes (`/_astro/*`, `/assets/*`) from the Worker so assets serve directly from the binding.
+- Sitemap and robots.txt are generated via Astro integrations; keep the canonical site URL in `astro.config.mjs` in sync with deployments.
+- RSS feed at `/rss.xml` uses cached responses (`Cache-Control: public, max-age=3600`) and falls back to `https://ethotechnics.org` when the runtime origin is missing.
+
+## Build and performance defaults
+
+- Server output targets Cloudflare Workers and binds the dev server to `0.0.0.0:4321` for forwarded connections.
+- Vite uses Lightning CSS and esbuild for minification with compressed size reporting disabled to keep builds fast.
+- Session storage defaults to the in-memory driver; revisit before adding authenticated or persistent flows.
+
 ## Feature islands
 
 - Most routes render server-only; islands are limited to diagnostics tooling.
