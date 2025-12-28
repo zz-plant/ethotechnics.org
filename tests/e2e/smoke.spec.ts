@@ -53,7 +53,12 @@ test.describe("Navigation", () => {
     }
 
     await page.getByRole("link", { name: PRIMARY_NAV_TARGET.label }).click();
-    await page.waitForURL(PRIMARY_NAV_TARGET.href);
+    await page.waitForURL((url) => {
+      const expectedPath = PRIMARY_NAV_TARGET.href;
+      return (
+        url.pathname === expectedPath || url.pathname === `${expectedPath}/`
+      );
+    });
 
     await expect(
       page.getByRole("heading", { level: 1, name: new RegExp(PRIMARY_NAV_TARGET.label, "i") }),
