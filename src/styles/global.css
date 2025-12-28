@@ -267,6 +267,7 @@ svg {
   width: min(1420px, 96vw);
   margin: 0 auto;
   padding: clamp(1.4rem, 2vw, 2rem);
+  z-index: 0;
   border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
   border-radius: calc(var(--radius-lg) + 8px);
   background:
@@ -288,6 +289,7 @@ svg {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: -1;
 }
 
 .page-shell__panel::before {
