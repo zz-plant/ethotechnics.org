@@ -2,6 +2,7 @@ export interface NavLink {
   href: string;
   label: string;
   description?: string;
+  primary?: boolean;
 }
 
 export interface NavSection {
@@ -95,3 +96,10 @@ export const navActions: NavAction[] = [
     target: '_blank',
   },
 ];
+
+const selectPrimaryLink = (section: NavSection) =>
+  section.links.find((link) => link.primary) ?? section.links[0];
+
+export const navPrimaryLinks: NavLink[] = navSections
+  .map(selectPrimaryLink)
+  .filter((link): link is NavLink => Boolean(link));

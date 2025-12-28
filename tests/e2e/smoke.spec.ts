@@ -1,7 +1,14 @@
 import { expect, test } from "@playwright/test";
+import { navPrimaryLinks } from "../../src/content/navigation";
 
 const HERO_HEADING =
   "Technology should serve people — not the other way around.";
+const PRIMARY_NAV_LINKS = navPrimaryLinks.map((link) => link.label);
+const PRIMARY_NAV_TARGET = navPrimaryLinks[0];
+
+if (!PRIMARY_NAV_TARGET) {
+  throw new Error("Primary navigation links are missing; check navSections.");
+}
 
 test.describe("Homepage smoke", () => {
   test("shows the primary hero content", async ({ page }) => {
@@ -28,7 +35,7 @@ test("serves an XML RSS feed", async ({ request }) => {
 });
 
 test.describe("Navigation", () => {
-  test("opens on mobile and navigates to library", async ({ page }) => {
+  test("opens on mobile and navigates to the first primary link", async ({ page }) => {
     await page.setViewportSize({ width: 480, height: 900 });
     await page.goto("/");
 
@@ -41,11 +48,15 @@ test.describe("Navigation", () => {
     await expect(navContent).toHaveClass(/is-open/);
     await expect(html).toHaveClass(/nav-locked/);
 
-    await page.getByRole("link", { name: "Library" }).click();
-    await page.waitForURL(/\/library/);
+    for (const label of PRIMARY_NAV_LINKS) {
+      await expect(page.getByRole("link", { name: label })).toBeVisible();
+    }
+
+    await page.getByRole("link", { name: PRIMARY_NAV_TARGET.label }).click();
+    await page.waitForURL(PRIMARY_NAV_TARGET.href);
 
     await expect(
-      page.getByRole("heading", { level: 1, name: "Library" }),
+      page.getByRole("heading", { level: 1, name: new RegExp(PRIMARY_NAV_TARGET.label, "i") }),
     ).toBeVisible();
     await expect(page.locator(".nav__content")).not.toHaveClass(/is-open/);
     await expect(html).not.toHaveClass(/nav-locked/);
