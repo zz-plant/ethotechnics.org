@@ -9,6 +9,7 @@ import { navActions, navPrimaryLinks, navSections } from '../content/navigation'
 
 interface Props {
   currentPath?: string;
+  cspNonce?: string;
 }
 
 const navTags = libraryContent.patterns.filters.map((filter) => ({
@@ -16,7 +17,8 @@ const navTags = libraryContent.patterns.filters.map((filter) => ({
   label: filter.label,
 }));
 
-const { currentPath = Astro.url.pathname } = Astro.props as Props;
+const { currentPath = Astro.url.pathname, cspNonce: propNonce } = Astro.props as Props;
+const cspNonce = propNonce ?? Astro.locals?.cspNonce;
 const normalizePath = (path: string) => {
   const [clean] = path.split('#');
   if (!clean) return '/';
@@ -135,28 +137,28 @@ const topLevelLinks = navPrimaryLinks;
   </div>
 </nav>
 
-<script>
-  const nav = document.querySelector<HTMLElement>('[data-nav]');
-  const menuToggle = nav?.querySelector<HTMLButtonElement>('[data-nav-toggle]');
-  const drawer = nav?.querySelector<HTMLElement>('.nav__content');
-  const closeButton = nav?.querySelector<HTMLButtonElement>('[data-nav-close]');
-  const scrim = nav?.querySelector<HTMLElement>('[data-nav-scrim]');
+<script is:inline nonce={cspNonce}>
+  const nav = document.querySelector('[data-nav]');
+  const menuToggle = nav?.querySelector('[data-nav-toggle]');
+  const drawer = nav?.querySelector('.nav__content');
+  const closeButton = nav?.querySelector('[data-nav-close]');
+  const scrim = nav?.querySelector('[data-nav-scrim]');
   const desktopMediaQuery = window.matchMedia('(min-width: 992px)');
   const focusableSelector =
     'a[href], button:not([disabled]), textarea, input, select, details, [tabindex]:not([tabindex="-1"])';
 
   const isDesktop = () => desktopMediaQuery.matches;
 
-  const getFocusable = (): HTMLElement[] => {
+  const getFocusable = () => {
     if (!drawer) return [];
-    return Array.from(drawer.querySelectorAll<HTMLElement>(focusableSelector)).filter(
+    return Array.from(drawer.querySelectorAll(focusableSelector)).filter(
       (node) => !node.hasAttribute('disabled') && node.tabIndex !== -1,
     );
   };
 
-  let lastFocusedElement: HTMLElement | null = null;
+  let lastFocusedElement = null;
 
-  const setMenuState = (isOpen: boolean) => {
+  const setMenuState = (isOpen) => {
     if (!nav || !menuToggle || !drawer) return;
 
     nav.classList.toggle('nav--menu-open', isOpen);
@@ -171,7 +173,7 @@ const topLevelLinks = navPrimaryLinks;
     }
   };
 
-  const trapFocus = (event: KeyboardEvent) => {
+  const trapFocus = (event) => {
     if (event.key !== 'Tab' || !nav?.classList.contains('nav--menu-open')) return;
 
     const focusable = getFocusable();
@@ -206,7 +208,7 @@ const topLevelLinks = navPrimaryLinks;
     focusTarget?.focus();
   };
 
-  const onKeyDown = (event: KeyboardEvent) => {
+  const onKeyDown = (event) => {
     if (event.key === 'Escape') {
       event.preventDefault();
       closeMenu();
