@@ -5,7 +5,7 @@ import NavQuickLinks from './NavQuickLinks.astro';
 import NavSectionList from './NavSectionList.astro';
 import NavUtilityLinks from './NavUtilityLinks.astro';
 import { libraryContent } from '../content/library';
-import { navActions, navSections } from '../content/navigation';
+import { navActions, navPrimaryLinks, navSections } from '../content/navigation';
 
 interface Props {
   currentPath?: string;
@@ -28,11 +28,7 @@ const normalizePath = (path: string) => {
 const isHome = normalizePath(currentPath) === '/';
 const isCurrentLink = (href: string) => normalizePath(href) === normalizePath(currentPath);
 
-const topLevelLinks = [
-  { href: '/library', label: 'Library' },
-  { href: '/institute', label: 'Institute' },
-  { href: '/diagnostics', label: 'Diagnostics' },
-];
+const topLevelLinks = navPrimaryLinks;
 ---
 <nav class="nav" aria-label="Primary" data-nav>
   <div class="nav__inner container">
