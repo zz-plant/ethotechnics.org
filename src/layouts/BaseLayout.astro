@@ -9,6 +9,12 @@ import '@fontsource-variable/source-serif-4';
 interface Props {
   title?: string;
   description?: string;
+  /**
+   * Optional class list for the <main> wrapper. Defaults to the standard
+   * constrained layout (`"page container"`). Pass a custom value such as
+   * "page page--wide" to allow full-bleed or alternative padding.
+   */
+  mainClass?: string;
 }
 
 const siteName = 'Ethotechnics Institute';
@@ -16,7 +22,8 @@ const defaultTitle = 'Ethotechnics — Ethical technology in practice';
 const defaultDescription =
   'Ethotechnics.org explores how to build technology that respects human dignity through design, research, and governance.';
 
-const { title = defaultTitle, description = defaultDescription } = Astro.props as Props;
+const { title = defaultTitle, description = defaultDescription, mainClass = 'page container' } =
+  Astro.props as Props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.href;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const seoImage = {
@@ -134,7 +141,7 @@ const currentPath = Astro.url.pathname;
     </svg>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <Navigation currentPath={currentPath} />
-    <main id="main-content" class="page container" tabindex="-1">
+    <main id="main-content" class={mainClass} tabindex="-1">
       <slot />
     </main>
     <footer class="footer container" aria-label="Site footer">
