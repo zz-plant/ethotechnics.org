@@ -22,6 +22,17 @@ export interface NavAction {
 
 export const navSections: NavSection[] = [
   {
+    heading: 'Start here',
+    description: 'Pick the right entry point for diagnostics, the library, or the Studio.',
+    links: [
+      {
+        href: '/start-here',
+        label: 'Start here',
+        description: 'Orientation for diagnostics, library routes, and Studio off-ramps.',
+      },
+    ],
+  },
+  {
     heading: 'Explore',
     description: 'Reference materials tuned for fast sharing and reuse.',
     links: [
@@ -78,9 +89,14 @@ export const navSections: NavSection[] = [
 
 export const navActions: NavAction[] = [
   {
+    href: '/start-here',
+    label: 'Start here',
+    variant: 'primary',
+  },
+  {
     href: '/institute',
     label: 'Join the Institute',
-    variant: 'primary',
+    variant: 'ghost',
   },
   {
     href: '/field-notes',
