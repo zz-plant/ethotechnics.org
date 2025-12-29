@@ -60,6 +60,8 @@ Requests pass through `src/middleware.ts`, which normalizes legacy ethotechnics.
 
 - **Prerequisites:** Node.js 20+ with npm (project uses `package-lock.json`), Git, and a shell with `npm` on PATH.
 - **Node version:** Run `nvm use` to align with the pinned 20.x toolchain before installing dependencies.
+- **Editor support:** VS Code picks up workspace defaults from `.vscode/` to enable Astro language
+  services, Prettier formatting on save, ESLint fixes, and the repo's TypeScript version.
 - **Dev server:** `npm run dev`
   - Expected log snippet: `[@astrojs/compiler] ready` followed by `Local  http://localhost:4321/`.
   - Server binds to `0.0.0.0` on port `4321` so forwarded connections from tools (e.g., browsers for screenshots)
