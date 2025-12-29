@@ -30,7 +30,12 @@ describe("Navigation component", () => {
       .map((link) => link.textContent?.trim())
       .filter(Boolean);
 
-    expect(mobilePrimaryLinks).toEqual(["Library", "Institute", "Diagnostics"]);
+    expect(mobilePrimaryLinks).toEqual([
+      "Start here",
+      "Library",
+      "Institute",
+      "Diagnostics",
+    ]);
 
     const mobileUtilityLinks = Array.from(
       nav?.querySelectorAll<HTMLAnchorElement>(
@@ -60,6 +65,7 @@ describe("Navigation component", () => {
       navContent?.querySelectorAll(".nav__link-label") ?? [],
     ).map((link) => link.textContent?.trim());
     expect(linkTexts).toEqual([
+      "Start here",
       "Library",
       "Glossary",
       "Field notes",
@@ -76,6 +82,7 @@ describe("Navigation component", () => {
       navContent?.querySelectorAll(".nav__actions a") ?? [],
     ).map((link) => link.textContent?.trim());
     expect(actionTexts).toEqual([
+      "Start here",
       "Join the Institute",
       "Read field notes",
       "Signals newsletter",
