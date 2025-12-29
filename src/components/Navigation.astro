@@ -99,13 +99,7 @@ const topLevelLinks = navPrimaryLinks;
 
     <div class="nav__scrim" data-nav-scrim hidden></div>
 
-    <div
-      class="nav__content"
-      id="nav-menu"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="nav-menu-title"
-    >
+    <div class="nav__content" id="nav-menu" aria-labelledby="nav-menu-title">
       <div class="nav__content-body">
         <div class="nav__content-header">
           <div class="nav__content-title" id="nav-menu-title">
@@ -159,15 +153,39 @@ const topLevelLinks = navPrimaryLinks;
 
   let lastFocusedElement = null;
 
+  const setDrawerAccessibility = (isOpen) => {
+    if (!drawer) return;
+
+    if (isDesktop()) {
+      drawer.removeAttribute('role');
+      drawer.removeAttribute('aria-modal');
+      drawer.removeAttribute('aria-hidden');
+      drawer.removeAttribute('inert');
+      return;
+    }
+
+    if (isOpen) {
+      drawer.setAttribute('role', 'dialog');
+      drawer.setAttribute('aria-modal', 'true');
+      drawer.setAttribute('aria-hidden', 'false');
+      drawer.removeAttribute('inert');
+    } else {
+      drawer.removeAttribute('role');
+      drawer.removeAttribute('aria-modal');
+      drawer.setAttribute('aria-hidden', 'true');
+      drawer.setAttribute('inert', '');
+    }
+  };
+
   const setMenuState = (isOpen) => {
     if (!nav || !menuToggle || !drawer) return;
 
     nav.classList.toggle('nav--menu-open', isOpen);
     menuToggle.setAttribute('aria-expanded', String(isOpen));
-    drawer.setAttribute('aria-hidden', isDesktop() ? 'false' : String(!isOpen));
+    setDrawerAccessibility(isOpen);
     scrim?.toggleAttribute('hidden', !isOpen || isDesktop());
 
-    if (isOpen) {
+    if (isOpen && !isDesktop()) {
       document.body.style.setProperty('overflow', 'hidden');
     } else {
       document.body.style.removeProperty('overflow');
@@ -222,13 +240,13 @@ const topLevelLinks = navPrimaryLinks;
   const syncForDesktop = () => {
     if (!drawer || !menuToggle) return;
     if (isDesktop()) {
-      drawer.setAttribute('aria-hidden', 'false');
+      setDrawerAccessibility(false);
       nav?.classList.remove('nav--menu-open');
       menuToggle.setAttribute('aria-expanded', 'false');
       document.body.style.removeProperty('overflow');
       scrim?.setAttribute('hidden', '');
     } else {
-      drawer.setAttribute('aria-hidden', 'true');
+      setDrawerAccessibility(nav?.classList.contains('nav--menu-open'));
     }
   };
 
