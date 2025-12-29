@@ -818,6 +818,11 @@ svg {
   }
 }
 
+.nav__link-card--compact {
+  padding: 0.7rem 0.8rem;
+  gap: 0.1rem;
+}
+
 .nav__link-card:hover,
 .nav__link-card:focus-visible {
   transform: translateY(-1px);
@@ -835,20 +840,24 @@ svg {
 
 .nav__quick-links {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.6rem;
 }
 
 .nav__quick-links-label {
   margin: 0;
 }
 
-.nav__quick-links .pill-list {
+.nav__quick-links-list {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  list-style: none;
+  padding: 0;
   margin: 0;
-  gap: 0.45rem;
 }
 
-.nav__quick-links .pill-list li {
-  padding: 0.35rem 0.7rem;
+.nav__quick-links-item {
+  margin: 0;
 }
 
 .nav__actions {

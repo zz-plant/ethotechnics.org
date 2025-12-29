@@ -26,14 +26,24 @@ const isCurrentLink = (href: string) => {
 
   return normalizePath(href) === normalizedCurrentPath;
 };
+const toSlug = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 ---
-{sections.map((section) => (
-  <section class={sectionWrapperClass}>
-    <div class="nav__section-header">
-      <p class="eyebrow nav__section-eyebrow">{section.heading}</p>
-      <p class="muted nav__section-description">{section.description}</p>
-    </div>
-      <ul class="nav__section-links">
+{sections.map((section) => {
+  const sectionId = `nav-section-${toSlug(section.heading)}`;
+
+  return (
+    <section class={sectionWrapperClass} aria-labelledby={`${sectionId}-title`}>
+      <header class="nav__section-header">
+        <p class="eyebrow nav__section-eyebrow" id={`${sectionId}-title`}>
+          {section.heading}
+        </p>
+        <p class="muted nav__section-description">{section.description}</p>
+      </header>
+      <ul class="nav__section-links" aria-labelledby={`${sectionId}-title`}>
         {section.links.map((link) => (
           <li class="nav__section-item">
             <a
@@ -46,8 +56,9 @@ const isCurrentLink = (href: string) => {
                 <span class="muted nav__link-description">{link.description}</span>
               )}
             </a>
-        </li>
-      ))}
-    </ul>
-  </section>
-))}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+})}
