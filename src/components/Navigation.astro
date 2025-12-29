@@ -15,6 +15,7 @@ interface Props {
 const navTags = libraryContent.patterns.filters.map((filter) => ({
   href: `${libraryContent.permalink}#${filter.slug}`,
   label: filter.label,
+  description: filter.description,
 }));
 
 const { currentPath = Astro.url.pathname, cspNonce: propNonce } = Astro.props as Props;

@@ -67,6 +67,9 @@ describe("Navigation component", () => {
       "Research",
       "Finite [Beta]",
       "Diagnostics",
+      "Governance",
+      "Design ethics",
+      "Policy",
     ]);
 
     const actionTexts = Array.from(
