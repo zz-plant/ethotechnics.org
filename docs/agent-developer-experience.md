@@ -20,6 +20,13 @@ here to keep onboarding short.
 - Playwright browser download troubleshooting sits near the
   [README.md#testing](../README.md#testing) e2e instructions.
 
+## Editor and IDE helpers
+
+- Workspace recommendations for VS Code live in `.vscode/extensions.json`; install them to pick up
+  Astro IntelliSense, ESLint, and Prettier support.
+- `.vscode/settings.json` pins format-on-save behavior and uses the workspace TypeScript version so
+  diagnostics match the scripts in `package.json`.
+
 ## Improvements still needed
 
 - None noted.

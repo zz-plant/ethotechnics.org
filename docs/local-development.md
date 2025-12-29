@@ -9,6 +9,15 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
   additions discoverable.
 - Install dependencies with `npm install` and keep `npm` on your PATH.
 
+## Editor integration
+
+- VS Code will prompt to install recommended extensions from `.vscode/extensions.json`; accept
+  them to enable Astro language services, ESLint, and Prettier formatting.
+- Workspace defaults format on save and expose ESLint quick fixes. Keep the `Format Document` and
+  `Source: Fix All` commands available for other editors.
+- The workspace pin to `node_modules/typescript/lib` keeps the TypeScript version consistent with
+  the toolchain used by the scripts and checks.
+
 ## Running the dev server
 
 - Start Astro locally with `npm run dev`.
