@@ -1,0 +1,148 @@
+---
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { startHereContent } from '../../content/start-here';
+
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  hero,
+  anchorLinks,
+  routes,
+  artifacts,
+  framing,
+  studio,
+  footerCta,
+} = startHereContent;
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={hero.heading}
+    description={hero.description}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={hero.panel}
+  />
+
+  <SectionBlock
+    id="routes"
+    eyebrow={routes.eyebrow}
+    title={routes.title}
+    description={routes.description}
+    className="section--banded"
+  >
+    <div class="section__actions">
+      {hero.actions.map((action) => (
+        <a
+          class={`button ${action.variant}`}
+          href={action.href}
+          aria-label={action.ariaLabel ?? action.label}
+        >
+          {action.label}
+        </a>
+      ))}
+    </div>
+
+    <CardGrid className="grid--two">
+      {routes.cards.map((card) => (
+        <CardItem title={card.title} description={card.description} descriptionTone="default" tags={card.tags}>
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={card.href} aria-label={`Go to ${card.title}`}>
+              Visit {card.title.toLowerCase()}
+            </a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow={artifacts.eyebrow}
+    title={artifacts.title}
+    description={artifacts.description}
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {artifacts.previews.map((preview) => (
+        <CardItem title={preview.title} description={preview.description} descriptionTone="default">
+          <p class="muted">{preview.note}</p>
+          <div slot="footer" class="card__footer">
+            <a class="button primary button--compact" href={preview.href} aria-label={preview.label}>
+              {preview.label}
+            </a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="framing"
+    eyebrow={framing.eyebrow}
+    title={framing.title}
+    description={framing.description}
+  >
+    <CardGrid className="grid--two">
+      <CardItem title="This page is" descriptionTone="default">
+        <ul class="muted">
+          {framing.isList.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </CardItem>
+      <CardItem title="This page is not" descriptionTone="default">
+        <ul class="muted">
+          {framing.isNotList.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="studio"
+    eyebrow={studio.eyebrow}
+    title={studio.title}
+    description={studio.description}
+    className="section--banded"
+  >
+    <CardGrid>
+      <CardItem descriptionTone="default">
+        <ul class="muted">
+          {studio.bullets.map((bullet) => (
+            <li>{bullet}</li>
+          ))}
+        </ul>
+        <div class="card__footer">
+          <a class="button ghost" href={studio.ctaHref} aria-label={studio.ctaAriaLabel} rel="noreferrer">
+            {studio.ctaLabel}
+          </a>
+        </div>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="cta"
+    eyebrow={footerCta.eyebrow}
+    title={footerCta.title}
+    description={footerCta.description}
+    variant="alt"
+  >
+    <div class="section__actions">
+      <a class="button primary" href={footerCta.primaryHref}>
+        {footerCta.primaryLabel}
+      </a>
+      <a class="button ghost" href={footerCta.secondaryHref}>
+        {footerCta.secondaryLabel}
+      </a>
+    </div>
+  </SectionBlock>
+</BaseLayout>
