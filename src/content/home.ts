@@ -93,9 +93,10 @@ export const homeContent = {
     lede:
       'We pair a public library of ethical delivery patterns with diagnostics that map risk, align teams, and protect the people you serve.',
     map:
-      'Start with the Institute library and diagnostics. If you need deeper facilitation or delivery support, we can connect you with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
+      'Start with the <a href="/start-here">orientation page</a> to choose between the Institute library and diagnostics. If you need deeper facilitation or delivery support, we can connect you with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
     actions: [
-      { label: 'Browse the library', href: '/library', variant: 'primary', icon: 'lucide:library' },
+      { label: 'Start here', href: '/start-here', variant: 'primary', icon: 'lucide:map-pin' },
+      { label: 'Browse the library', href: '/library', variant: 'ghost', icon: 'lucide:library' },
       { label: 'Book a diagnostic', href: '/diagnostics', variant: 'ghost', icon: 'lucide:activity-square' },
     ],
     metrics: [
@@ -210,7 +211,8 @@ export const homeContent = {
     heading: 'Follow the work at Ethotechnics.',
     body: 'Get notified when new essays, field notes, and facilitation kits go live. No spam—just pragmatic guidance.',
     actions: [
-      { label: 'Browse the library', href: '/library', variant: 'primary', icon: 'lucide:library' },
+      { label: 'Start here', href: '/start-here', variant: 'primary', icon: 'lucide:map-pin' },
+      { label: 'Browse the library', href: '/library', variant: 'ghost', icon: 'lucide:library' },
       { label: 'Book a diagnostic', href: '/diagnostics', variant: 'ghost', icon: 'lucide:activity-square' },
     ],
   },
