@@ -2438,6 +2438,68 @@ svg {
   outline-offset: 2px;
 }
 
+.pattern-bundle {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  display: grid;
+  gap: 0.9rem;
+}
+
+.pattern-bundle__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pattern-bundle__copy h3 {
+  margin: 0.1rem 0;
+}
+
+.pattern-bundle__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.pattern-bundle__email {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.pattern-bundle__email-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.pattern-bundle__email .button {
+  height: 44px;
+}
+
+.pattern-bundle__email-label {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 260px;
+}
+
+.pattern-bundle__hint {
+  margin: 0;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.pattern-bundle__link {
+  font-weight: 700;
+}
+
 .pattern-card__title {
   color: inherit;
   text-decoration: none;
@@ -2446,6 +2508,34 @@ svg {
 .pattern-card__title:hover,
 .pattern-card__title:focus-visible {
   text-decoration: underline;
+}
+
+.pattern-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pattern-card__select {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  cursor: pointer;
+}
+
+.pattern-card__select input {
+  accent-color: var(--accent);
+}
+
+.pattern-card__select:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .pattern-card__teaser {
