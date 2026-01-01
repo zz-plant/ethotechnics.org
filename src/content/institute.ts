@@ -1,4 +1,4 @@
-import type { PageWithPermalink } from "./types";
+import type { PageWithPermalink, PublishedContent } from "./types";
 
 export type GovernanceItem = {
   title: string;
@@ -18,7 +18,7 @@ export type ContactChannel = {
   linkLabel: string;
 };
 
-export type InstituteContent = PageWithPermalink & {
+export type InstituteContent = PageWithPermalink & PublishedContent & {
   highlights: {
     title: string;
     detail: string;
@@ -38,6 +38,7 @@ export const instituteContent: InstituteContent = {
   pageTitle: "Institute — Ethotechnics",
   pageDescription:
     "A visitor guide to Institute programs, decision forums, and how to involve the Studio when you need a partner.",
+  published: "2024-09-01T00:00:00Z",
   permalink: "/institute",
   highlights: [
     {

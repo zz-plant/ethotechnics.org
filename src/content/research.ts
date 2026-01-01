@@ -1,4 +1,4 @@
-import type { GlossaryLinked, PageWithPermalink } from './types';
+import type { GlossaryLinked, PageWithPermalink, PublishedContent } from './types';
 
 export type AgendaItem = GlossaryLinked & {
   title: string;
@@ -20,7 +20,7 @@ export type Publication = GlossaryLinked & {
   tags: string[];
 };
 
-export type ResearchContent = PageWithPermalink & {
+export type ResearchContent = PageWithPermalink & PublishedContent & {
   agenda: AgendaItem[];
   focusAreas: FocusArea[];
   publications: Publication[];
@@ -30,6 +30,7 @@ export const researchContent: ResearchContent = {
   pageTitle: 'Research — Ethotechnics',
   pageDescription: 'Inquiries, methods, and study findings that surface the human impacts of technology.',
   permalink: '/research',
+  published: '2024-09-01T00:00:00Z',
   agenda: [
     {
       title: 'Participation and consent at scale',
