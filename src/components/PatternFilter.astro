@@ -68,6 +68,57 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
     <p class="muted" role="status" aria-live="polite" data-filter-status>
       Showing all patterns.
     </p>
+    <div class="pattern-bundle" data-pattern-bundle>
+      <div class="pattern-bundle__header">
+        <div class="pattern-bundle__copy">
+          <p class="muted">Save a bundle</p>
+          <h3>Keep cues, steps, and artifacts together.</h3>
+          <p class="muted small" data-selection-status aria-live="polite">
+            No patterns selected yet.
+          </p>
+        </div>
+        <div class="pattern-bundle__actions">
+          <button class="button" type="button" data-download-bundle disabled>
+            Download markdown
+          </button>
+          <button class="button button--subtle" type="button" data-print-bundle disabled>
+            Save as PDF
+          </button>
+          <button class="copy-button" type="button" data-copy-bundle disabled>
+            Copy bundle link
+          </button>
+        </div>
+      </div>
+      <form class="pattern-bundle__email" data-email-form>
+        <div class="pattern-bundle__email-row">
+          <label class="pattern-bundle__email-label">
+            <span>Email the bundle link (optional)</span>
+            <input
+              id={`${searchInputId}-email`}
+              name="bundle-email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              class="pattern-filter__search-input"
+              placeholder="you@example.com"
+              data-bundle-email
+            />
+          </label>
+          <button class="button" type="submit" data-email-submit disabled>
+            Draft email
+          </button>
+        </div>
+        <p class="muted small" data-email-status>
+          Selections stay on this device. We only open your email client with the bundle link.
+        </p>
+      </form>
+      <p class="muted small pattern-bundle__hint">
+        Bundle links reload your chosen patterns and keep filters in view.
+        <a class="pattern-bundle__link" href="#patterns" data-bundle-link>
+          Current bundle link
+        </a>
+      </p>
+    </div>
   </div>
   <div class="grid" data-pattern-results>
     {entries.map((pattern) => {
@@ -96,7 +147,19 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
           data-search={searchContent}
         >
           <div class="card__glow" aria-hidden="true" />
-          <p class="muted">Filters: {appliedFilters}</p>
+          <div class="pattern-card__meta">
+            <p class="muted">Filters: {appliedFilters}</p>
+            <label class="pattern-card__select" for={`${pattern.slug}-bundle`}>
+              <input
+                id={`${pattern.slug}-bundle`}
+                type="checkbox"
+                value={pattern.slug}
+                data-pattern-select
+                aria-label={`Save ${pattern.title} to your bundle`}
+              />
+              <span>Save to bundle</span>
+            </label>
+          </div>
           <h3>
             <a class="pattern-card__title" href={detailHref}>
               {pattern.title}
@@ -129,6 +192,19 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               );
             })}
           </p>
+          <script type="application/json" data-pattern-payload>
+            {JSON.stringify({
+              slug: pattern.slug,
+              title: pattern.title,
+              summary: pattern.summary,
+              filters: pattern.filters,
+              cues: pattern.cues,
+              diagnostics: pattern.diagnostics,
+              steps: pattern.steps,
+              artifacts: pattern.artifacts,
+              example: pattern.example,
+            })}
+          </script>
         </article>
       );
     })}
