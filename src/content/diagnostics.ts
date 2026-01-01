@@ -1,4 +1,4 @@
-import type { PageWithPermalink } from "./types";
+import type { PageWithPermalink, PublishedContent } from "./types";
 
 export type DiagnosticTool = {
   slug: string;
@@ -14,7 +14,7 @@ export type DiagnosticTool = {
   exampleHref: string;
 };
 
-export type DiagnosticsContent = PageWithPermalink & {
+export type DiagnosticsContent = PageWithPermalink & PublishedContent & {
   tools: DiagnosticTool[];
   offRampNote: string;
   valueProps: { title: string; description: string }[];
@@ -31,6 +31,7 @@ export const diagnosticsContent: DiagnosticsContent = {
   pageDescription:
     "Pick a diagnostic, arrive with a question, and leave with a decision-ready summary and a clear off-ramp.",
   permalink: "/diagnostics",
+  published: "2024-09-01T00:00:00Z",
   offRampNote:
     "If a diagnostic surfaces high risk or ambiguity, we route you to a facilitated deep dive through ethotechnics.com/studio.",
   valueProps: [

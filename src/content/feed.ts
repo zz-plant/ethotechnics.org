@@ -13,20 +13,21 @@ export type ContentFeedItem = {
   pubDate: Date | string;
 };
 
-const pagePublicationDates = {
-  homeHighlight: '2024-10-01T00:00:00Z',
-  library: '2024-09-01T00:00:00Z',
-  fieldNotes: '2024-09-01T00:00:00Z',
-  research: '2024-09-01T00:00:00Z',
-  diagnostics: '2024-09-01T00:00:00Z',
-  institute: '2024-09-01T00:00:00Z',
-} satisfies Record<string, string>;
+const defaultPublicationDate = '1970-01-01T00:00:00Z';
+
+type DatedContent = {
+  published?: string;
+  updated?: string;
+};
+
+const latestPublicationDate = ({ published, updated }: DatedContent) =>
+  updated ?? published ?? defaultPublicationDate;
 
 const fieldNoteToFeedItem = (entry: FieldNoteEntry): ContentFeedItem => ({
   title: entry.title,
   description: entry.summary,
   path: `${fieldNotesContent.permalink}#${entry.slug}`,
-  pubDate: entry.published,
+  pubDate: latestPublicationDate(entry),
 });
 
 export const loadRecentContent = (): ContentFeedItem[] => {
@@ -35,37 +36,37 @@ export const loadRecentContent = (): ContentFeedItem[] => {
       title: homeContent.highlight.note.title,
       description: homeContent.highlight.note.description,
       path: '/#insights',
-      pubDate: pagePublicationDates.homeHighlight,
+      pubDate: latestPublicationDate(homeContent.highlight.note),
     },
     {
       title: libraryContent.pageTitle,
       description: libraryContent.pageDescription,
       path: libraryContent.permalink,
-      pubDate: pagePublicationDates.library,
+      pubDate: latestPublicationDate(libraryContent),
     },
     {
       title: fieldNotesContent.pageTitle,
       description: fieldNotesContent.pageDescription,
       path: fieldNotesContent.permalink,
-      pubDate: pagePublicationDates.fieldNotes,
+      pubDate: latestPublicationDate(fieldNotesContent),
     },
     {
       title: researchContent.pageTitle,
       description: researchContent.pageDescription,
       path: researchContent.permalink,
-      pubDate: pagePublicationDates.research,
+      pubDate: latestPublicationDate(researchContent),
     },
     {
       title: diagnosticsContent.pageTitle,
       description: diagnosticsContent.pageDescription,
       path: diagnosticsContent.permalink,
-      pubDate: pagePublicationDates.diagnostics,
+      pubDate: latestPublicationDate(diagnosticsContent),
     },
     {
       title: instituteContent.pageTitle,
       description: instituteContent.pageDescription,
       path: instituteContent.permalink,
-      pubDate: pagePublicationDates.institute,
+      pubDate: latestPublicationDate(instituteContent),
     },
   ];
 

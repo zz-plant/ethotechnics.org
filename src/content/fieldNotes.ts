@@ -1,16 +1,15 @@
-import type { PageWithPermalink } from './types';
+import type { PageWithPermalink, PublishedContent } from './types';
 
-export type FieldNoteEntry = {
+export type FieldNoteEntry = PublishedContent & {
   slug: string;
   title: string;
   summary: string;
   format: 'dispatch' | 'case-study' | 'signal';
   relatedTerms: string[];
   links?: string[];
-  published: string;
 };
 
-export type FieldNotesContent = PageWithPermalink & {
+export type FieldNotesContent = PageWithPermalink & PublishedContent & {
   sections: {
     title: string;
     description: string;
@@ -23,6 +22,7 @@ export const fieldNotesContent: FieldNotesContent = {
   pageTitle: 'Field Notes — Ethotechnics',
   pageDescription: 'Dispatches, reflections, and signals from ongoing practice in ethical technology.',
   permalink: '/field-notes',
+  published: '2024-09-01T00:00:00Z',
   sections: [
     {
       title: 'Dispatches',

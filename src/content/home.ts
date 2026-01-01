@@ -1,4 +1,4 @@
-import type { PageCopy } from './types';
+import type { PageCopy, PublishedContent } from './types';
 
 export type Metric = {
   label: string;
@@ -63,7 +63,7 @@ export type HomeContent = PageCopy & {
     eyebrow: string;
     heading: string;
     body: string;
-    note: {
+    note: PublishedContent & {
       title: string;
       description: string;
       actions: string[];
@@ -194,6 +194,7 @@ export const homeContent = {
       title: 'Design for consent, not just conversion.',
       description:
         'Pair your primary actions with transparent context: why you are asking, what happens next, and how to opt out without penalty.',
+      published: '2024-10-01T00:00:00Z',
       actions: [
         'Label links and buttons honestly so people know where they are headed.',
         'Give people a reversible path; avoid dead ends or forced funnels.',

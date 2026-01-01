@@ -1,5 +1,5 @@
 import type { GlossaryTerm } from './glossary';
-import type { PageWithPermalink } from './types';
+import type { PageWithPermalink, PublishedContent } from './types';
 
 import { glossaryContent, glossaryTerms } from './glossary';
 
@@ -34,7 +34,7 @@ export type SyllabusModule = {
   outcome: string;
 };
 
-export type LibraryContent = PageWithPermalink & {
+export type LibraryContent = PageWithPermalink & PublishedContent & {
   primer: PrimerSection[];
   glossary: { terms: GlossaryTerm[]; permalink: string };
   patterns: { filters: PatternFilter[]; entries: Pattern[] };
@@ -45,6 +45,7 @@ export const libraryContent: LibraryContent = {
   pageTitle: 'Library — Ethotechnics',
   pageDescription: 'Reference shelf for primers, glossary entries, and reusable patterns.',
   permalink: '/library',
+  published: '2024-09-01T00:00:00Z',
   primer: [
     {
       title: 'Primer',
