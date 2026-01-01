@@ -1,0 +1,747 @@
+---
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { diagnosticsContent } from '../../content/diagnostics';
+import { libraryContent } from '../../content/library';
+import { startHereContent } from '../../content/start-here';
+
+const pageTitle = 'Syllabus hub — Ethotechnics';
+const pageDescription =
+  'Track each syllabus module, complete knowledge checks, and export a shareable completion summary.';
+
+const modules = libraryContent.syllabus.modules.map((module) => ({
+  ...module,
+  id: module.title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, ''),
+}));
+
+const knowledgeChecks = [
+  {
+    moduleId: 'orientation',
+    question: 'What keeps syllabus links trustworthy when you share them in specs or briefings?',
+    options: [
+      'Copying screenshots of the glossary so teams do not need the site.',
+      'Linking the stable permalinks for primers, glossary anchors, and pattern filters.',
+      'Asking every team to draft their own definitions in a separate doc.',
+    ],
+    correct: 1,
+    explanation:
+      'Use the existing permalinks for the primer, glossary anchors, and pattern filters so teams land on the same references.',
+  },
+  {
+    moduleId: 'field-ready-research',
+    question: 'How should research outputs connect back to the library during this module?',
+    options: [
+      'Skip links entirely and rely on word-of-mouth summaries.',
+      'Tag findings with glossary anchors and pattern cues so teams can reuse them.',
+      'Wait until the end of the project to decide which terms to use.',
+    ],
+    correct: 1,
+    explanation:
+      'Tagging field findings with glossary anchors and pattern cues keeps the handoff fast and traceable.',
+  },
+  {
+    moduleId: 'governance-and-maintenance',
+    question: 'Before marking this module complete, what should the team confirm?',
+    options: [
+      'That maintenance windows, appeal paths, and escalation owners are visible and linked.',
+      'That only the design team knows how to find the decision log.',
+      'That governance documents stay private to avoid scrutiny.',
+    ],
+    correct: 0,
+    explanation:
+      'Completion means governance links are visible: the maintenance window, appeal paths, and escalation owners are documented.',
+  },
+];
+
+const moduleResources = {
+  orientation: {
+    diagnostics: ['burden-modeler'],
+    libraryLink: { href: `${libraryContent.permalink}#primer`, label: 'Library primer' },
+  },
+  'field-ready-research': {
+    diagnostics: ['llm-capacity-benchmark'],
+    libraryLink: { href: `${libraryContent.permalink}#glossary`, label: 'Glossary anchors' },
+  },
+  'governance-and-maintenance': {
+    diagnostics: ['maintenance-simulator'],
+    libraryLink: { href: `${libraryContent.permalink}#patterns`, label: 'Pattern language' },
+  },
+};
+
+const diagnosticLinks = Object.fromEntries(
+  diagnosticsContent.tools.map((tool) => [tool.slug, { title: tool.title, href: tool.ctaHref ?? diagnosticsContent.permalink }])
+);
+
+const artifactPreviews = startHereContent.artifacts.previews;
+const { cspNonce } = Astro.locals;
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Library syllabus"
+    title="Syllabus hub"
+    description={pageDescription}
+    permalink="/syllabus"
+    anchorLinks={[
+      { href: '#artifacts', label: 'Required artifacts' },
+      { href: '#modules', label: 'Track modules' },
+      { href: '#certificate', label: 'Completion summary' },
+    ]}
+    panelCopy={{
+      eyebrow: 'How it works',
+      title: 'Follow the modules, keep proof, and share the link.',
+      description:
+        'Review the diagnostic and playbook PDFs, answer the knowledge checks, then mark each module complete. Generate a sharable summary once you finish.',
+    }}
+  />
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow="Required artifacts"
+    title="Read these before marking modules complete."
+    description="Each module expects you to skim the diagnostic readout and playbook excerpt so knowledge checks and handoffs stay consistent."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {artifactPreviews.map((preview) => (
+        <CardItem title={preview.title} description={preview.description} descriptionTone="default">
+          <p class="muted">{preview.note}</p>
+          <div slot="footer" class="card__footer">
+            <a class="button primary button--compact" href={preview.href} aria-label={preview.label}>
+              {preview.label}
+            </a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="modules"
+    eyebrow="Guided modules"
+    title="Track progress and pass the knowledge checks."
+    description="Mark a module complete only after you confirm the required readings and answer the check correctly. Progress saves in your browser so you can return later."
+  >
+    <div class="syllabus-grid" data-syllabus>
+      {modules.map((module, index) => {
+        const check = knowledgeChecks.find((item) => item.moduleId === module.id);
+        const resources = moduleResources[module.id as keyof typeof moduleResources];
+        const diagnosticTitles = resources?.diagnostics.map((slug) => diagnosticLinks[slug]);
+
+        return (
+          <article class="panel syllabus-module" data-module={module.id}>
+            <div class="syllabus-module__heading">
+              <div class="syllabus-module__eyebrow">
+                <p class="eyebrow">Module {index + 1}</p>
+                <p class="pill pill--ghost syllabus-module__duration">{module.duration}</p>
+              </div>
+              <h2>{module.title}</h2>
+              <p class="muted">Outcome: {module.outcome}</p>
+            </div>
+
+            <div class="syllabus-module__content">
+              <div class="syllabus-module__topics">
+                <h3 class="eyebrow">Topics</h3>
+                <ul class="muted">
+                  {module.topics.map((topic) => (
+                    <li>{topic}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="syllabus-module__requirements">
+                <h3 class="eyebrow">Required readings</h3>
+                <ul class="muted syllabus-module__links">
+                  {artifactPreviews.map((artifact) => (
+                    <li>
+                      <a href={artifact.href}>{artifact.title}</a>
+                    </li>
+                  ))}
+                </ul>
+                <label class="syllabus-module__checkbox">
+                  <input type="checkbox" data-reading /> I reviewed the diagnostic readout and playbook excerpt.
+                </label>
+              </div>
+
+              {check && (
+                <div class="syllabus-module__knowledge" data-quiz={module.id}>
+                  <h3 class="eyebrow">Knowledge check</h3>
+                  <p class="muted">{check.question}</p>
+                  <div class="syllabus-module__options" role="group" aria-label={`Knowledge check for ${module.title}`}>
+                    {check.options.map((option, optionIndex) => (
+                      <label class="syllabus-module__option">
+                        <input
+                          type="radio"
+                          name={`${module.id}-quiz`}
+                          value={String(optionIndex)}
+                          data-quiz-option
+                          data-correct={optionIndex === check.correct}
+                        />
+                        <span>{option}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <p class="small muted" data-quiz-feedback>
+                    Select the correct statement to unlock completion.
+                  </p>
+                </div>
+              )}
+
+              {resources && (
+                <div class="syllabus-module__resources">
+                  <h3 class="eyebrow">Linked references</h3>
+                  <ul class="muted syllabus-module__links">
+                    {resources.libraryLink && (
+                      <li>
+                        <a href={resources.libraryLink.href}>{resources.libraryLink.label}</a>
+                      </li>
+                    )}
+                    {diagnosticTitles?.map((diagnostic) => (
+                      <li>
+                        <a href={diagnostic?.href}>{diagnostic?.title}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <div class="syllabus-module__footer">
+              <div class="syllabus-module__actions">
+                <button type="button" class="button primary" data-complete disabled>
+                  Mark module complete
+                </button>
+                <button type="button" class="button ghost button--compact" data-reset>
+                  Reset module
+                </button>
+              </div>
+              <p class="small muted" data-status>
+                Required readings and a correct knowledge check unlock the completion button.
+              </p>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="certificate"
+    eyebrow="Completion certificate"
+    title="Generate a sharable summary."
+    description="Download a PDF or copy a link that lists the modules you finished with their diagnostic and library anchors."
+    variant="alt"
+  >
+    <div class="certificate" data-certificate>
+      <div class="certificate__header">
+        <div>
+          <p class="eyebrow">Status</p>
+          <p class="muted certificate__intro">
+            The list updates automatically as you mark modules complete. Use the link below to share your progress with partners
+            or capture it as a PDF.
+          </p>
+        </div>
+        <div class="certificate__actions">
+          <button type="button" class="button primary button--compact" data-print>
+            Download PDF
+          </button>
+          <button type="button" class="button ghost button--compact" data-share>
+            Copy shareable link
+          </button>
+        </div>
+      </div>
+
+      <div class="certificate__body">
+        <p class="small muted" data-certificate-empty>
+          Complete at least one module to populate your certificate. Required links back to diagnostics and library anchors will
+          appear here.
+        </p>
+        <ul class="certificate__list" data-certificate-list></ul>
+      </div>
+
+      <div class="certificate__footer">
+        <label class="certificate__share" aria-live="polite">
+          <span class="muted">Shareable link</span>
+          <input type="text" readonly data-share-link value="" />
+        </label>
+        <p class="small muted" data-share-status>
+          The shareable link appears after you copy it. Recipients can see which modules you finished.
+        </p>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <script type="application/json" id="syllabus-data" is:inline>
+    {JSON.stringify({ modules, knowledgeChecks, moduleResources, diagnosticLinks, artifactPreviews })}
+  </script>
+  <script is:inline nonce={cspNonce}>
+    const dataElement = document.querySelector('#syllabus-data');
+    const parsed = dataElement ? JSON.parse(dataElement.textContent || '{}') : {};
+    const modules = parsed.modules ?? [];
+    const knowledgeChecks = parsed.knowledgeChecks ?? [];
+    const moduleResources = parsed.moduleResources ?? {};
+    const diagnosticLinks = parsed.diagnosticLinks ?? {};
+    const storageKey = 'syllabusProgress';
+
+    const defaultState = modules.reduce((state, module) => {
+      state[module.id] = {
+        completed: false,
+        readingsComplete: false,
+        quizAnswer: null,
+        quizCorrect: false,
+      };
+      return state;
+    }, {});
+
+    const loadState = () => {
+      try {
+        const stored = localStorage.getItem(storageKey);
+        if (!stored) return { ...defaultState };
+        const parsedState = JSON.parse(stored);
+        return { ...defaultState, ...parsedState };
+      } catch (error) {
+        console.error('Unable to load syllabus progress', error);
+        return { ...defaultState };
+      }
+    };
+
+    const saveState = (state) => {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (error) {
+        console.error('Unable to persist syllabus progress', error);
+      }
+    };
+
+    const state = loadState();
+
+    const sharedCompleted = new URL(window.location.href).searchParams.get('completed');
+    if (sharedCompleted) {
+      sharedCompleted
+        .split(',')
+        .map((id) => id.trim())
+        .filter(Boolean)
+        .forEach((id) => {
+          if (state[id]) {
+            state[id] = {
+              ...state[id],
+              completed: true,
+              readingsComplete: true,
+              quizCorrect: true,
+            };
+          }
+        });
+    }
+
+    const syllabus = document.querySelector('[data-syllabus]');
+    const certificateList = document.querySelector('[data-certificate-list]');
+    const certificateEmpty = document.querySelector('[data-certificate-empty]');
+    const shareInput = document.querySelector('[data-share-link]');
+    const shareStatus = document.querySelector('[data-share-status]');
+    const shareButton = document.querySelector('[data-share]');
+    const printButton = document.querySelector('[data-print]');
+
+    const updateCertificate = () => {
+      if (!certificateList) return;
+      certificateList.innerHTML = '';
+
+      const completedModules = modules.filter((module) => state[module.id]?.completed);
+      if (certificateEmpty) {
+        certificateEmpty.hidden = completedModules.length > 0;
+      }
+
+      completedModules.forEach((module) => {
+        const resources = moduleResources[module.id] ?? {};
+        const diagnostics = resources.diagnostics?.map((slug) => diagnosticLinks[slug]).filter(Boolean) ?? [];
+        const entry = document.createElement('li');
+        entry.className = 'certificate__item';
+        entry.innerHTML = `
+          <div>
+            <p class="eyebrow">${module.title}</p>
+            <p class="muted small">${module.outcome}</p>
+          </div>
+          <div class="certificate__links">
+            ${resources.libraryLink ? `<a href="${resources.libraryLink.href}">${resources.libraryLink.label}</a>` : ''}
+            ${diagnostics
+              .map((diag) => `<a href="${diag.href}">${diag.title}</a>`)
+              .join('')}
+          </div>
+        `;
+        certificateList.appendChild(entry);
+      });
+    };
+
+    const updateShareLink = () => {
+      if (!shareInput) return;
+      const completedModules = modules.filter((module) => state[module.id]?.completed).map((module) => module.id);
+      if (completedModules.length === 0) {
+        shareInput.value = '';
+        return;
+      }
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('completed', completedModules.join(','));
+      shareInput.value = url.toString();
+    };
+
+    const updateModuleUI = (moduleId) => {
+      const moduleElement = syllabus?.querySelector(`[data-module="${moduleId}"]`);
+      const moduleState = state[moduleId];
+      const moduleCheck = knowledgeChecks.find((item) => item.moduleId === moduleId);
+      if (!moduleElement || !moduleState) return;
+
+      const completeButton = moduleElement.querySelector('[data-complete]');
+      const resetButton = moduleElement.querySelector('[data-reset]');
+      const status = moduleElement.querySelector('[data-status]');
+      const readingCheckbox = moduleElement.querySelector('[data-reading]');
+      const quizFeedback = moduleElement.querySelector('[data-quiz-feedback]');
+      const quizOptions = moduleElement.querySelectorAll('[data-quiz-option]');
+
+      if (readingCheckbox) {
+        readingCheckbox.checked = moduleState.readingsComplete;
+      }
+
+      quizOptions.forEach((input) => {
+        const isMatch = input.value === String(moduleState.quizAnswer);
+        input.checked = isMatch;
+      });
+
+      const readyForCompletion = moduleState.readingsComplete && moduleState.quizCorrect;
+      if (completeButton) {
+        completeButton.disabled = !readyForCompletion;
+        completeButton.textContent = moduleState.completed ? 'Completed' : 'Mark module complete';
+        completeButton.setAttribute('aria-pressed', String(moduleState.completed));
+      }
+
+      if (resetButton) {
+        resetButton.disabled = false;
+      }
+
+      if (status) {
+        status.textContent = moduleState.completed
+          ? 'Module finished. You can reset it or generate the shareable certificate below.'
+          : readyForCompletion
+            ? 'Ready to mark complete. Save your progress to update the certificate.'
+            : 'Required readings and a correct knowledge check unlock the completion button.';
+      }
+
+      if (quizFeedback) {
+        if (moduleState.quizCorrect) {
+          quizFeedback.textContent =
+            moduleCheck?.explanation ?? 'Correct. You can mark the module complete after confirming the readings.';
+          quizFeedback.classList.add('syllabus-module__feedback--success');
+        } else if (moduleState.quizAnswer !== null) {
+          quizFeedback.textContent = 'Not quite. Re-read the required artifacts and try again.';
+          quizFeedback.classList.remove('syllabus-module__feedback--success');
+        } else {
+          quizFeedback.textContent = 'Select the correct statement to unlock completion.';
+          quizFeedback.classList.remove('syllabus-module__feedback--success');
+        }
+      }
+    };
+
+    const bindModule = (moduleId) => {
+      const moduleElement = syllabus?.querySelector(`[data-module="${moduleId}"]`);
+      const moduleState = state[moduleId];
+      if (!moduleElement || !moduleState) return;
+
+      const readingCheckbox = moduleElement.querySelector('[data-reading]');
+      const completeButton = moduleElement.querySelector('[data-complete]');
+      const resetButton = moduleElement.querySelector('[data-reset]');
+      const quizOptions = moduleElement.querySelectorAll('[data-quiz-option]');
+
+      readingCheckbox?.addEventListener('change', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement)) return;
+        moduleState.readingsComplete = target.checked;
+        if (!target.checked) {
+          moduleState.completed = false;
+        }
+        saveState(state);
+        updateModuleUI(moduleId);
+        updateCertificate();
+        updateShareLink();
+      });
+
+      quizOptions.forEach((option) => {
+        option.addEventListener('change', (event) => {
+          const input = event.target;
+          if (!(input instanceof HTMLInputElement)) return;
+          moduleState.quizAnswer = input.value;
+          moduleState.quizCorrect = input.dataset.correct === 'true';
+          if (!moduleState.quizCorrect) {
+            moduleState.completed = false;
+          }
+          saveState(state);
+          updateModuleUI(moduleId);
+          updateCertificate();
+          updateShareLink();
+        });
+      });
+
+      completeButton?.addEventListener('click', () => {
+        if (completeButton.disabled) return;
+        moduleState.completed = true;
+        saveState(state);
+        updateModuleUI(moduleId);
+        updateCertificate();
+        updateShareLink();
+      });
+
+      resetButton?.addEventListener('click', () => {
+        state[moduleId] = { ...defaultState[moduleId] };
+        saveState(state);
+        updateModuleUI(moduleId);
+        updateCertificate();
+        updateShareLink();
+      });
+    };
+
+    const initialize = () => {
+      modules.forEach((module) => {
+        bindModule(module.id);
+        updateModuleUI(module.id);
+      });
+      updateCertificate();
+      updateShareLink();
+    };
+
+    initialize();
+
+    shareButton?.addEventListener('click', async () => {
+      updateShareLink();
+      if (!shareInput || !shareInput.value) {
+        shareStatus?.textContent = 'Complete a module before generating a shareable link.';
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(shareInput.value);
+        shareStatus?.textContent = 'Copied the shareable link to your clipboard.';
+      } catch {
+        shareStatus?.textContent = 'Copy failed. Manually select the link and copy it.';
+      }
+    });
+
+    printButton?.addEventListener('click', () => {
+      updateCertificate();
+      window.print();
+    });
+  </script>
+
+  <style>
+    .syllabus-grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .syllabus-module {
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .syllabus-module__heading h2 {
+      margin: 0;
+    }
+
+    .syllabus-module__heading .eyebrow {
+      margin: 0;
+    }
+
+    .syllabus-module__heading .muted {
+      margin: 0;
+    }
+
+    .syllabus-module__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      justify-content: space-between;
+    }
+
+    .syllabus-module__duration {
+      margin: 0;
+    }
+
+    .syllabus-module__content {
+      display: grid;
+      gap: var(--space-3);
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .syllabus-module__topics ul {
+      padding-left: 1.2rem;
+      margin: 0;
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .syllabus-module__requirements {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .syllabus-module__links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .syllabus-module__checkbox {
+      display: flex;
+      gap: var(--space-2);
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .syllabus-module__knowledge {
+      display: grid;
+      gap: var(--space-2);
+      border: 1px dashed var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      background: color-mix(in srgb, var(--surface) 88%, white 12%);
+    }
+
+    .syllabus-module__options {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .syllabus-module__option {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-2);
+      align-items: start;
+      background: color-mix(in srgb, var(--surface) 90%, white 10%);
+      padding: var(--space-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-subtle);
+    }
+
+    .syllabus-module__resources {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .syllabus-module__footer {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .syllabus-module__actions {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .syllabus-module__feedback--success {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .certificate {
+      display: grid;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: color-mix(in srgb, var(--surface) 92%, white 8%);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .certificate__header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .certificate__actions {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .certificate__intro {
+      max-width: 56ch;
+      margin: 0;
+    }
+
+    .certificate__body {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .certificate__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .certificate__item {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--color-border-subtle);
+      background: color-mix(in srgb, var(--surface) 90%, white 10%);
+    }
+
+    .certificate__links {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .certificate__footer {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .certificate__share {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .certificate__share input {
+      width: 100%;
+      padding: var(--space-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-subtle);
+      background: var(--surface);
+      font-size: 1rem;
+      font-family: var(--sans);
+      color: var(--text);
+    }
+
+    @media (max-width: 720px) {
+      .syllabus-module__content {
+        grid-template-columns: 1fr;
+      }
+
+      .certificate__item {
+        flex-direction: column;
+      }
+    }
+  </style>
+</BaseLayout>

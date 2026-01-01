@@ -42,6 +42,11 @@ export const navSections: NavSection[] = [
         description: 'Primers, patterns, and syllabus modules with stable permalinks.',
       },
       {
+        href: '/syllabus',
+        label: 'Syllabus hub',
+        description: 'Track module completion, knowledge checks, and shareable certificates.',
+      },
+      {
         href: '/glossary',
         label: 'Glossary',
         description: 'Shared vocabulary for moral system design and governance.',

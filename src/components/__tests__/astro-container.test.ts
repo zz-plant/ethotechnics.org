@@ -67,6 +67,7 @@ describe("Navigation component", () => {
     expect(linkTexts).toEqual([
       "Start here",
       "Library",
+      "Syllabus hub",
       "Glossary",
       "Field notes",
       "Institute",
