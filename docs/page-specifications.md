@@ -15,6 +15,24 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Hero metrics list exposes `aria-label` text on the sparkline SVGs; pill lists remain unordered lists to keep screen-reader grouping.
   - External links include `rel="noreferrer"`; maintain visible focus states on buttons and pills.
 
+## Start here (`/start-here`)
+
+- **Data sources:** Pull all copy, anchor links, buttons, and CTAs from `startHereContent` in
+  `src/content/start-here.ts`; the artifact previews also feed the syllabus page.
+- **Layout:**
+  - Hero uses `PageIntro` with anchor links and a panel description; keep the hero actions row in the
+    routes section so buttons map to diagnostics and PDF samples.
+  - Routes section shows the action buttons from the hero above a two-column card grid for navigation.
+  - Artifacts section renders preview cards with notes and primary buttons linking to the sample PDFs.
+  - Framing section uses two lists (This page is / is not) in a `grid--two` layout.
+  - Studio section keeps the bullet list and ghost CTA inside a banded `SectionBlock`.
+  - Footer CTA ends the page with primary and ghost links pulled from `footerCta`.
+- **Accessibility:**
+  - Intro anchors match section IDs for keyboard-friendly jumps.
+  - All CTA buttons supply `aria-label` fallbacks from `startHereContent` (including hero and card
+    actions).
+  - List content for routes, framing, and bullets stays as semantic `<ul>` groups.
+
 ## Research (`/research`)
 
 - **Data sources:** Use `researchContent` from `src/content/research.ts`; glossary cross-links derive labels via `getGlossaryLabel` and `glossaryContent.permalink`.
@@ -67,6 +85,33 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Theme pills are `<a>` elements with `aria-label` describing the jump target; glossary cards include permalinks in the footer slot.
   - PatternFilter must preserve keyboard navigation and announce applied filters; ensure diagnostic links expose the mapped tool title.
 
+## Syllabus (`/syllabus`)
+
+- **Data sources:**
+  - Modules pull from `libraryContent.syllabus.modules` with IDs generated from titles and linked
+    diagnostics pulled from `diagnosticsContent.tools`.
+  - Required artifacts and preview links reuse `startHereContent.artifacts.previews` for reading links
+    and PDF CTAs.
+  - Knowledge checks, module resources, and certificate strings live in `src/pages/syllabus/index.astro`
+    and hydrate client-side.
+- **Layout:**
+  - Intro anchors cover required artifacts, modules, and certificate sections with a panel explaining
+    the syllabus flow.
+  - Required artifacts section shows the two preview cards with notes and compact primary buttons.
+  - Module grid renders `panel` cards with module number/duration, topics list, required readings list
+    plus checkbox acknowledgment, knowledge check radio group, and linked references to library and
+    diagnostic pages.
+  - Module footers keep primary completion and ghost reset buttons with status copy underneath.
+  - Certificate block contains PDF download and share buttons, a list of completed modules with linked
+    references, and a shareable link input with status text.
+- **Accessibility:**
+  - Knowledge check options render as grouped radio inputs with `aria-label` on the wrapper for screen
+    readers.
+  - Completion buttons toggle `aria-pressed` and stay disabled until readings and quizzes are satisfied;
+    reset keeps modules keyboard accessible.
+  - Shareable link input remains read-only with polite live region updates; the `completed` query param
+    preselects finished modules and updates state without user interaction.
+
 ## Glossary (`/glossary`)
 
 - **Data sources:** `glossaryContent` provides index, territory map data, and category entries; filter script sourced via `glossary-filter.ts`.
@@ -87,6 +132,22 @@ Detailed, testable expectations for each route. Use these specs when adding cont
 - **Accessibility:**
   - Tabs must remain keyboard-navigable (arrow keys cycling, Enter/Space activating) and expose `role="tablist"`/`role="tab"`/`role="tabpanel"`.
   - Entries include semantic lists for tags; glossary links use readable labels instead of slugs.
+
+## Participate (`/participate`)
+
+- **Data sources:** Source hero, pathway cards, tags, and actions from `participationContent` in
+  `src/content/participation.ts`.
+- **Layout:**
+  - Hero uses `PageIntro` anchors to jump to each participation pathway and panel copy explaining
+    evidence collection.
+  - Field-report, peer-review, and clinic cards keep their `id` values for anchors, display tags, and
+    nest action buttons as ordered in the content.
+  - Feedback strip uses the eyebrow/title/description plus two action buttons from `feedback.actions`.
+- **Accessibility:**
+  - Anchor links in the intro map to each pathway `id` and the feedback section.
+  - Badge and tag lists render as semantic lists; action buttons include `aria-label` text when
+    provided in `participationContent`.
+  - Feedback actions remain real `<a>` elements for predictable focus and activation behavior.
 
 ## Institute (`/institute`)
 
