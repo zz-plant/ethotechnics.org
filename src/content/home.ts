@@ -91,13 +91,19 @@ export const homeContent = {
     heading: 'Build technology people can trust.',
     subheadline: 'The Ethotechnics Institute shares pragmatic guidance for humane products and services.',
     lede:
-      'We pair a public library of ethical delivery patterns with diagnostics that map risk, align teams, and protect the people you serve.',
+      'We co-create an open library of ethical delivery patterns with practitioners, pairing it with diagnostics that map risk, align teams, and protect the people you serve.',
     map:
-      'Start with the <a href="/start-here">orientation page</a> to choose between the Institute library and diagnostics. If you need deeper facilitation or delivery support, we can connect you with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
+      'Start with the <a href="/start-here">orientation page</a> to choose between the Institute library and diagnostics. Join the community to adapt templates together—everything is open to remix. If you need deeper facilitation or delivery support, we can connect you with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
     actions: [
       { label: 'Start here', href: '/start-here', variant: 'primary', icon: 'lucide:map-pin' },
       { label: 'Browse the library', href: '/library', variant: 'ghost', icon: 'lucide:library' },
       { label: 'Book a diagnostic', href: '/diagnostics', variant: 'ghost', icon: 'lucide:activity-square' },
+      {
+        label: 'Join the Signals community',
+        href: 'https://signals.ethotechnics.org',
+        variant: 'ghost',
+        icon: 'lucide:messages-square',
+      },
     ],
     metrics: [
       {
