@@ -66,6 +66,7 @@ describe("Navigation component", () => {
     ).map((link) => link.textContent?.trim());
     expect(linkTexts).toEqual([
       "Start here",
+      "Participate",
       "Library",
       "Syllabus hub",
       "Glossary",

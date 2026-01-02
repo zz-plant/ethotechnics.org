@@ -8,12 +8,18 @@ export type Metric = {
   trendLabel?: string;
 };
 
+export type FeatureAction = {
+  label: string;
+  href: string;
+};
+
 export type FeatureCard = {
   title: string;
   description: string;
   icon?: string;
   emphasis?: boolean;
   pills?: string[];
+  actions?: FeatureAction[];
 };
 
 export type Panel = {
@@ -162,6 +168,16 @@ export const homeContent = {
         title: 'Accessible by design',
         description: 'Plain-language explanations and visual summaries keep the library readable, inclusive, and easy to share.',
       },
+      {
+        icon: 'lucide:users',
+        title: 'Built with the community',
+        description: 'Peer feedback and practitioner evidence keeps the library grounded in real-world delivery.',
+        actions: [
+          { label: 'Submit a field report', href: '/participate#field-reports' },
+          { label: 'Host a peer review', href: '/participate#peer-review' },
+          { label: 'Join monthly clinics', href: '/participate#clinics' },
+        ],
+      },
     ],
   },
   features: {
@@ -180,6 +196,10 @@ export const homeContent = {
         title: 'Research and synthesis',
         description:
           'Field reports translate interviews, participatory sessions, and policy reviews into shareable patterns.',
+        actions: [
+          { label: 'Share a case study', href: '/participate#field-reports' },
+          { label: 'Contribute evidence', href: '/participate#peer-review' },
+        ],
       },
       {
         title: 'Governance you can explain',
@@ -188,6 +208,10 @@ export const homeContent = {
       {
         title: 'Tools and references',
         description: 'Checklists, workshop kits, and curated readings that help you operationalize ethical intent.',
+        actions: [
+          { label: 'Join monthly clinics', href: '/participate#clinics' },
+          { label: 'Send feedback', href: '/participate#feedback' },
+        ],
       },
     ],
   },
