@@ -15,7 +15,7 @@ const createSecurityHeaders = (nonce: string): Record<string, string> => ({
       "img-src 'self' data: https:",
       "object-src 'none'",
       `script-src 'self' 'nonce-${nonce}'`,
-      "style-src 'self' 'unsafe-inline'",
+      "style-src 'self'",
     ].join('; '),
   'Referrer-Policy': 'no-referrer',
   'X-Content-Type-Options': 'nosniff',
