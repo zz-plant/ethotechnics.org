@@ -181,6 +181,15 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
           <div class="tile__body">
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
+            {feature.actions ? (
+              <ul class="tile__list">
+                {feature.actions.map((action) => (
+                  <li>
+                    <a href={action.href}>{action.label}</a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </article>
       ))}
@@ -216,9 +225,56 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
                 ))}
               </ul>
             ) : null}
+            {feature.actions ? (
+              <ul class="card__list">
+                {feature.actions.map((action) => (
+                  <li>
+                    <a href={action.href}>{action.label}</a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="info-strip" aria-label="Ways to participate">
+    <div class="info-strip__lead">
+      <p class="eyebrow">Community input</p>
+      <p class="muted">
+        Submit field evidence, invite peer review, or join clinics to keep the Institute accountable to practitioners.
+      </p>
+    </div>
+    <div class="info-strip__actions" aria-label="Contribution prompts">
+      <a class="info-strip__badge" href="/participate#field-reports">
+        <span class="info-strip__icon" aria-hidden="true">
+          <Icon name="lucide:pen-line" />
+        </span>
+        <span class="info-strip__copy">
+          <span class="info-strip__label">Submit</span>
+          <span class="info-strip__title">Field report or case study</span>
+        </span>
+      </a>
+      <a class="info-strip__badge" href="/participate#peer-review">
+        <span class="info-strip__icon" aria-hidden="true">
+          <Icon name="lucide:users" />
+        </span>
+        <span class="info-strip__copy">
+          <span class="info-strip__label">Host</span>
+          <span class="info-strip__title">Peer review session</span>
+        </span>
+      </a>
+      <a class="info-strip__badge" href="/participate#feedback">
+        <span class="info-strip__icon" aria-hidden="true">
+          <Icon name="lucide:inbox" />
+        </span>
+        <span class="info-strip__copy">
+          <span class="info-strip__label">Send</span>
+          <span class="info-strip__title">Feedback or clinic request</span>
+        </span>
+      </a>
     </div>
   </section>
 

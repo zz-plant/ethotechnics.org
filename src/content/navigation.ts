@@ -30,6 +30,11 @@ export const navSections: NavSection[] = [
         label: 'Start here',
         description: 'Orientation for diagnostics, library routes, and Studio off-ramps.',
       },
+      {
+        href: '/participate',
+        label: 'Participate',
+        description: 'Submit field reports, host peer reviews, or join monthly clinics.',
+      },
     ],
   },
   {

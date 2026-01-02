@@ -1,0 +1,87 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { participationContent } from '../../content/participation';
+
+const { pageTitle, pageDescription, permalink, hero, pathways, feedback } = participationContent;
+---
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={hero.heading}
+    description={hero.description}
+    permalink={permalink}
+    anchorLinks={hero.anchorLinks}
+    panelCopy={hero.panel}
+  />
+
+  <SectionBlock
+    id="field-reports"
+    eyebrow="Contribute"
+    title="Share the work that should be in the library"
+    description="Send concrete stories, drafts, and experiments so we can publish what teams actually need."
+    className="section--banded"
+  >
+    <CardGrid className="grid--three">
+      {pathways.map((pathway) => (
+        <CardItem
+          id={pathway.id}
+          title={pathway.title}
+          description={pathway.description}
+          descriptionTone="default"
+          tags={pathway.tags}
+        >
+          {pathway.actions.length ? (
+            <ul class="card__list">
+              {pathway.actions.map((action) => (
+                <li>
+                  <a href={action.href} aria-label={action.ariaLabel ?? action.label}>
+                    {action.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="feedback"
+    eyebrow={feedback.eyebrow}
+    title={feedback.title}
+    description={feedback.description}
+    variant="alt"
+  >
+    <div class="info-strip" aria-label="Feedback channels">
+      <div class="info-strip__lead">
+        <p class="eyebrow">Feedback inboxes</p>
+        <p class="muted">Share quick notes, unclear steps, or examples you want us to add.</p>
+      </div>
+      <div class="info-strip__actions" aria-label="Ways to contact the team">
+        {feedback.actions.map((action) => (
+          <a
+            class="info-strip__badge"
+            href={action.href}
+            aria-label={action.ariaLabel ?? action.label}
+            rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
+          >
+            <span class="info-strip__icon" aria-hidden="true">
+              <Icon name={action.label.includes('inbox') ? 'lucide:inbox' : 'lucide:sparkles'} />
+            </span>
+            <span class="info-strip__copy">
+              <span class="info-strip__label">{action.label}</span>
+              <span class="info-strip__title">{action.href.replace('mailto:', '')}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </SectionBlock>
+</BaseLayout>
