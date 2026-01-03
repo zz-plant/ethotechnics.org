@@ -6,6 +6,7 @@ import PageIntro from '../../../components/PageIntro.astro';
 import SectionBlock from '../../../components/SectionBlock.astro';
 import type { DiagnosticTool } from '../../../content/diagnostics';
 import { diagnosticsContent } from '../../../content/diagnostics';
+import { getGlossaryLabel, glossaryContent } from '../../../content/glossary';
 import { libraryContent } from '../../../content/library';
 
 const { slug } = Astro.params;
@@ -27,6 +28,11 @@ const diagnosticLinks = pattern.diagnostics
     diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug)
   )
   .filter((tool): tool is DiagnosticTool => Boolean(tool));
+const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
+  slug,
+  label: getGlossaryLabel(slug),
+  href: `${glossaryContent.permalink}#${slug}`,
+}));
 const pageTitle = `${pattern.title} — Pattern language`;
 const pageDescription = pattern.summary;
 const permalink = `/library/patterns/${pattern.slug}`;
@@ -34,6 +40,7 @@ const panelDescription = `Tagged for ${pattern.filters
   .map((filter) => filterLabels[filter] ?? filter)
   .join(', ')} with diagnostic handshakes.`;
 const anchorLinks = [
+  ...(glossaryAnchors.length ? [{ href: '#glossary', label: 'Glossary anchors' }] : []),
   { href: '#steps', label: 'Steps' },
   { href: '#artifacts', label: 'Artifacts' },
   { href: '#example', label: 'Example usage' },
@@ -53,6 +60,26 @@ const anchorLinks = [
       description: panelDescription,
     }}
   />
+
+  {glossaryAnchors.length > 0 && (
+    <SectionBlock
+      id="glossary"
+      eyebrow="Glossary anchors"
+      title="Link back to the definitions."
+      description="Jump to the glossary terms that frame this pattern."
+      variant="alt"
+    >
+      <ul class="pill-list pattern-detail__glossary-links">
+        {glossaryAnchors.map((anchor) => (
+          <li>
+            <a class="pill-list__button" href={anchor.href}>
+              {anchor.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </SectionBlock>
+  )}
 
   <SectionBlock
     id="steps"

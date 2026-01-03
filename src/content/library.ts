@@ -20,6 +20,7 @@ export type Pattern = {
   title: string;
   summary: string;
   filters: PatternFilter['slug'][];
+  glossaryRefs: string[];
   cues: string[];
   diagnostics: string[];
   steps: string[];
@@ -95,6 +96,7 @@ export const libraryContent: LibraryContent = {
         summary:
           'Capture high-stakes calls, dissenting views, and follow-ups so governance stays legible to teams and impacted people.',
         filters: ['governance', 'policy'],
+        glossaryRefs: ['design-authority', 'repair-log', 'contestability'],
         cues: [
           'Record why options were ruled out and who was consulted.',
           'Attach plain-language summaries for external readers.',
@@ -126,6 +128,7 @@ export const libraryContent: LibraryContent = {
         summary:
           'Stage requests for data or automation over time, with reminders and exits that honor the consent journey.',
         filters: ['design-ethics', 'policy'],
+        glossaryRefs: ['consent-journey', 'permission-surface', 'safety-valve'],
         cues: [
           'Pair each ask with why it is needed and how to revoke it.',
           'Show impacts of opting out before a person commits.',
@@ -157,6 +160,7 @@ export const libraryContent: LibraryContent = {
         summary:
           'Schedule improvements, monitoring, and resourcing using a visible stewardship window.',
         filters: ['governance', 'policy'],
+        glossaryRefs: ['maintenance-window', 'maintenance-metabolism', 'repair-log'],
         cues: [
           'Set owners and success criteria for each window.',
           'Map communication cadences to risk levels and audiences.',
@@ -183,11 +187,44 @@ export const libraryContent: LibraryContent = {
         },
       },
       {
+        slug: 'kill-switch',
+        title: 'Kill switch for runaway automation',
+        summary:
+          'Pre-authorized halt paths with named stewards, thresholds, and restoration drills so harms stop in seconds.',
+        filters: ['governance', 'design-ethics'],
+        glossaryRefs: ['stopability', 'ethical-interrupts', 'time-to-halt'],
+        cues: [
+          'Define triggers tied to moral performance indicators and frontline reports.',
+          'Name the people who can fire the switch and protect them from retaliation.',
+          'Rehearse rollbacks so halts land in reversible, well-communicated states.',
+        ],
+        diagnostics: ['maintenance-simulator', 'burden-modeler'],
+        steps: [
+          'Map the automation path and mark where halts must land safely with owners.',
+          'Set tripwires for ethical interrupts that align with time-to-halt targets.',
+          'Run drills that practice firing, communicating, and restoring from the halt.',
+        ],
+        artifacts: [
+          { name: 'Kill switch runbook', purpose: 'Documents triggers, authorized operators, and post-halt messaging.' },
+          { name: 'Rollback checklist', purpose: 'Confirms data, access, and user impact are stable before resuming.' },
+          {
+            name: 'After-action log template',
+            purpose: 'Captures what tripped the switch and how to tighten thresholds or observability.',
+          },
+        ],
+        example: {
+          title: 'Containing a runaway recommendation loop',
+          description:
+            'Operations staff notice a spike in appeals and trip the kill switch, freezing recommendations, routing cases to humans, and restoring with updated thresholds before re-enabling automation.',
+        },
+      },
+      {
         slug: 'appeal-paths',
         title: 'Appeal paths inside the UI',
         summary:
           'Give people a built-in channel to dispute outputs, get human review, or learn how a decision was made.',
         filters: ['design-ethics', 'governance'],
+        glossaryRefs: ['contestability', 'appeal-passage-rate', 'permission-surface'],
         cues: [
           'Explain who reviews appeals and the expected response time.',
           'Pre-fill context to reduce effort during stressful moments.',

@@ -2591,6 +2591,14 @@ svg {
   margin: 0.2rem 0 0.6rem;
 }
 
+.pattern-card__glossary {
+  margin: 0.2rem 0 0.6rem;
+}
+
+.pattern-card__glossary a {
+  font-weight: 700;
+}
+
 .pattern-card__link {
   font-weight: 700;
 }
@@ -2601,6 +2609,13 @@ svg {
   margin: 0;
   display: grid;
   gap: 1rem;
+}
+
+.pattern-detail__glossary-links {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .pattern-detail__step-card {
@@ -3058,6 +3073,25 @@ svg {
   align-items: baseline;
 }
 
+.glossary-entry__actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.glossary-entry__citation-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.glossary-entry__citation-buttons .copy-button {
+  padding: 0.25rem 0.75rem;
+}
+
 .glossary-entry__permalink {
   font-size: var(--font-size-sm);
   color: var(--color-foreground-subtle);
@@ -3084,6 +3118,45 @@ svg {
 
 .glossary-entry--diagram .micro-diagram {
   margin-top: var(--space-2);
+}
+
+.glossary-entry__block--patterns {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.glossary-entry__patterns-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.glossary-entry__pattern-link {
+  display: grid;
+  gap: 0.25rem;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  text-decoration: none;
+  color: inherit;
+}
+
+.glossary-entry__pattern-link:hover,
+.glossary-entry__pattern-link:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  outline: none;
+}
+
+.glossary-entry__pattern-title {
+  font-weight: 700;
+}
+
+.glossary-entry__patterns-hint {
+  margin: 0;
 }
 
 .glossary__cta {

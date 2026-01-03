@@ -3,9 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { glossaryContent } from '../../content/glossary';
+import { libraryContent } from '../../content/library';
 import glossaryFilterScript from '../../scripts/glossary-filter.ts?url';
+import glossaryCitationsScript from '../../scripts/glossary-citations.ts?url';
 
 const { pageTitle, pageDescription, permalink, territoryMap, categories } = glossaryContent;
+const patternIndex = new Map(
+  libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
+);
+const patternFilterLabels = Object.fromEntries(
+  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label]),
+);
+type GlossaryRelatedPattern = {
+  title: string;
+  href: string;
+  filterLabels: string[];
+};
 const anchorLinks = [
   { href: '#glossary-index', label: 'A–Z index' },
   { href: '#territory-map', label: 'Territory map' },
@@ -48,6 +61,7 @@ const structuredData = {
   hasDefinedTerm: structuredEntries,
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
+const citationYear = new Date().getFullYear();
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -60,7 +74,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       eyebrow: 'Using the glossary',
       title: 'Stable anchors for Ethotechnic language.',
       description:
-        'Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions. Scan the A–Z index or jump by territory to land on the right concept fast.',
+        'Each term is a pattern card with related Library patterns and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.',
     }}
   />
 
@@ -157,6 +171,30 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="glossary-grid">
         {category.entries.map((entry) => {
           const entryClasses = ['glossary-entry', ...(entry.classes ?? [])].join(' ');
+          const entryUrl = `${pageUrl}#${entry.id}`;
+          const citationApa = `Ethotechnics. (${citationYear}). ${entry.title}. In Ethotechnics glossary. ${entryUrl}`;
+          const citationBibtex =
+            `@misc{ethotechnics_${entry.id}_${citationYear}, title={${entry.title}}, author={Ethotechnics}, year={${citationYear}}, howpublished={Ethotechnics glossary}, url={${entryUrl}}}`;
+          const relatedPatterns: GlossaryRelatedPattern[] =
+            (entry.relatedPatterns ?? [])
+              .map((slug) => {
+                const pattern = patternIndex.get(slug);
+
+                if (!pattern) {
+                  return null;
+                }
+
+                return {
+                  title: pattern.title,
+                  href: `/library/patterns/${pattern.slug}`,
+                  filterLabels: pattern.filters.map(
+                    (filter) => patternFilterLabels[filter] ?? filter,
+                  ),
+                } satisfies GlossaryRelatedPattern;
+              })
+              .filter(
+                (pattern): pattern is GlossaryRelatedPattern => Boolean(pattern),
+              );
           return (
             <article
               id={entry.id}
@@ -164,24 +202,69 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               itemscope
               itemtype="https://schema.org/DefinedTerm"
             >
-              <meta itemprop="url" content={`${permalink}#${entry.id}`} />
+              <meta itemprop="url" content={entryUrl} />
               <meta itemprop="inDefinedTermSet" content={permalink} />
               <header class="glossary-entry__header">
                 <div>
                   <p class="eyebrow">Glossary term</p>
                   <h3 itemprop="name">{entry.title}</h3>
                 </div>
-                <a
-                  class="glossary-entry__permalink"
-                  href={`${permalink}#${entry.id}`}
-                  aria-label={`Permalink to ${entry.title}`}
-                  rel="bookmark"
-                  itemprop="mainEntityOfPage"
-                >
-                  Permalink
-                </a>
+                <div class="glossary-entry__actions">
+                  <a
+                    class="glossary-entry__permalink"
+                    href={entryUrl}
+                    aria-label={`Permalink to ${entry.title}`}
+                    rel="bookmark"
+                    itemprop="mainEntityOfPage"
+                  >
+                    Permalink
+                  </a>
+                  <div
+                    class="glossary-entry__citation-buttons"
+                    aria-label={`Copy citation for ${entry.title}`}
+                  >
+                    <button
+                      class="copy-button"
+                      type="button"
+                      data-citation-text={citationApa}
+                      data-citation-format="apa"
+                      aria-label={`Copy APA citation for ${entry.title}`}
+                    >
+                      Copy APA
+                    </button>
+                    <button
+                      class="copy-button"
+                      type="button"
+                      data-citation-text={citationBibtex}
+                      data-citation-format="bibtex"
+                      aria-label={`Copy BibTeX citation for ${entry.title}`}
+                    >
+                      Copy BibTeX
+                    </button>
+                  </div>
+                </div>
               </header>
               <div class="glossary-entry__body" set:html={entry.bodyHtml} itemprop="description" />
+              {relatedPatterns.length > 0 && (
+                <div class="glossary-entry__block glossary-entry__block--patterns">
+                  <p class="eyebrow">Related patterns</p>
+                  <ul class="glossary-entry__patterns-list">
+                    {relatedPatterns.map((relatedPattern) => (
+                      <li class="glossary-entry__pattern-card">
+                        <a class="glossary-entry__pattern-link" href={relatedPattern.href}>
+                          <span class="glossary-entry__pattern-title">{relatedPattern.title}</span>
+                          <span class="muted small">
+                            {relatedPattern.filterLabels.join(', ')}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="muted small glossary-entry__patterns-hint">
+                    Explore the full steps and diagnostics in the pattern library.
+                  </p>
+                </div>
+              )}
               {entry.examples && entry.examples.length > 0 && (
                 <div class="glossary-entry__block">
                   <p class="eyebrow">Examples</p>
@@ -224,4 +307,5 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <script type="application/ld+json" set:html={structuredDataJson}></script>
   <script type="module" src={glossaryFilterScript}></script>
+  <script type="module" src={glossaryCitationsScript}></script>
 </BaseLayout>
