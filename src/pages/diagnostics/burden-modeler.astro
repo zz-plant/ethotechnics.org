@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BurdenModelerWidget from '../../features/burden-modeler/BurdenModeler';
+---
+<BaseLayout
+  title="Burden Modeler — Ethotechnics"
+  description="Rate cognitive and operational load to surface hotspots, mitigation paths, and relief estimates."
+  mainClass="page page--wide"
+>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Diagnostics</p>
+      <h1>Burden Modeler</h1>
+      <p class="muted">
+        Quantify where toil accumulates across releases, support queues, or incident streams. Adjust sliders to weight task
+        load, cognitive friction, and risk exposure. The tool returns a burden index, ranked hotspots, and suggested mitigation
+        paths with relief estimates.
+      </p>
+      <p class="muted">
+        Every model run is linkable via your scenario name. When burden trends overloaded, use the off-ramp to book a facilitated
+        session through ethotechnics.com/studio.
+      </p>
+      <p class="muted">Permanent link: <a href="/diagnostics/burden-modeler">/diagnostics/burden-modeler</a></p>
+    </div>
+
+    <BurdenModelerWidget client:only="react" />
+  </section>
+</BaseLayout>
