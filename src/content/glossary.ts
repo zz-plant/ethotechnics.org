@@ -304,7 +304,7 @@ export const glossaryContent: GlossaryContent = {
             },
             {
               label: "Burden Modeler",
-              href: "/tools/burden-modeler/",
+              href: "/diagnostics/burden-modeler",
               type: "Tool",
             },
           ],

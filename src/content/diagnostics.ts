@@ -91,11 +91,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio for risky or unclear scores.",
-      ctaLabel: "Book a facilitated burden modeling session",
-      ctaHref: "https://ethotechnics.com/studio",
-      ctaAriaLabel:
-        "Book a facilitated burden modeling session through ethotechnics.com/studio",
-      exampleLabel: "See example burden model outputs",
+      ctaLabel: "Open the burden modeler",
+      ctaHref: "/diagnostics/burden-modeler",
+      ctaAriaLabel: "Open the burden modeler diagnostic tool",
+      exampleLabel: "See burden model outputs",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#burden-modeler",
     },
