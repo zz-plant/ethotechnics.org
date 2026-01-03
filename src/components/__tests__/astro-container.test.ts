@@ -164,7 +164,7 @@ describe("BaseLayout", () => {
     ).toBe("Linework illustration of Ethotechnics focus areas");
     expect(
       document.querySelector('meta[name="theme-color"]')?.getAttribute("content"),
-    ).toBe("#f3ebe1");
+    ).toBe("#f0ece4");
 
     const structuredData = document
       .querySelector('script[type="application/ld+json"]')
