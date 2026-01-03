@@ -5,8 +5,8 @@ requests so stakeholders know what to expect.
 
 ## Burden Modeler
 
-- Burden index score with a short narrative that flags friction and extraction hotspots.
-- Pattern language references for each hotspot with suggested mitigations.
+- Burden index score with a short narrative tied to the scenario you bring.
+- Ranked hotspots with mitigation paths and expected relief per action.
 - Off-ramp reminder for complex findings that need studio facilitation.
 
 ## LLM Capacity Benchmark
@@ -17,8 +17,8 @@ requests so stakeholders know what to expect.
 
 ## Maintenance Simulator
 
-- Scenario runs that surface coverage gaps, outage handling, and appeal pathways.
-- Communication templates mapped to risk levels, roles, and escalation paths.
+- Scenario runs that surface coverage gaps, outage handling, and appeal pathways with owners and timing.
+- Communication templates mapped to risk levels, roles, and escalation routes.
 - Off-ramp reminder pointing teams to a facilitated deep dive when simulations stall.
 
 ## Technical Capacity Forecaster
