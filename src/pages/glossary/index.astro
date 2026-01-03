@@ -37,6 +37,7 @@ const entryIndex = categories
 
 const territoryCounts = new Map(categories.map((category) => [category.id, category.entries.length]));
 const pageUrl = Astro.site ? new URL(permalink, Astro.site).toString() : permalink;
+const searchQuery = Astro.url.searchParams.get('query')?.trim() ?? '';
 
 const structuredEntries = categories.flatMap((category) =>
   category.entries.map((entry) => {
@@ -95,6 +96,7 @@ const citationYear = new Date().getFullYear();
             inputmode="search"
             placeholder="Start typing to narrow the index (e.g., consent)"
             autocomplete="off"
+            value={searchQuery}
           />
         </label>
         <button class="button ghost button--compact glossary-filter__clear" type="button" data-clear-filter>

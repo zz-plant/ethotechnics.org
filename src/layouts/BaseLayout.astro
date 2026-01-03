@@ -45,7 +45,7 @@ const structuredData = [
     url: siteBase,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${new URL('/glossary', siteBase).toString()}#{search_term_string}`,
+      target: `${new URL('/glossary', siteBase).toString()}?query={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   },
