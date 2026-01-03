@@ -28,6 +28,7 @@ export type GlossaryEntry = {
   examples?: string[];
   tags?: string[];
   resources?: GlossaryResource[];
+  relatedPatterns?: string[];
 };
 
 export type GlossaryCategory = {
@@ -410,6 +411,7 @@ export const glossaryContent: GlossaryContent = {
           classes: ["glossary-entry--diagram"],
           bodyHtml:
             '<p>A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Stopability diagram</title>\n                            <rect x="10" y="30" width="70" height="20" rx="10" class="diagram-track"></rect>\n                            <circle cx="40" cy="40" r="22" class="diagram-stop"></circle>\n                            <line x1="85" y1="40" x2="110" y2="40" class="diagram-flow"></line>\n                            <path d="M40 28 L48 40 L40 52 L32 40 Z" class="diagram-stop-symbol"></path>\n                          </svg>\n                        </figure>',
+          relatedPatterns: ['kill-switch', 'maintenance-windowing'],
         },
         {
           id: "reversibility",
@@ -748,6 +750,7 @@ export const glossaryContent: GlossaryContent = {
           classes: ["glossary-entry--diagram"],
           bodyHtml:
             '<p>Seconds between a harmful process beginning and the system stopping it\u2014an essential complement to <a href="#stopability">stopability</a>.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Time to halt diagram</title>\n                            <line x1="20" y1="50" x2="100" y2="50" class="diagram-axis"></line>\n                            <circle cx="40" cy="50" r="6" class="diagram-event"></circle>\n                            <rect x="40" y="32" width="46" height="12" class="diagram-timer"></rect>\n                            <polygon points="86,38 100,50 86,62" class="diagram-stop-flag"></polygon>\n                          </svg>\n                        </figure>',
+          relatedPatterns: ['kill-switch'],
         },
         {
           id: "time-to-restore",
@@ -910,6 +913,7 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>A deliberate release point that lets people slow, pause, or reroute automation before harm compounds.</p><p>Safety valves pair <a href="#stopability">stopability</a> with <a href="#dignity-friction">dignity friction</a> so high-stakes flows default to reversible states and route to humans without penalty.</p>',
+          relatedPatterns: ['progressive-consent', 'kill-switch'],
         },
         {
           id: "consent-journey",
@@ -975,6 +979,7 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize <a href="#stopability">stopability</a>.</p>',
+          relatedPatterns: ['kill-switch', 'appeal-paths'],
         },
       ],
     },

@@ -3,6 +3,7 @@ export type PatternBundleEntry = {
   title: string;
   summary: string;
   filters: string[];
+  glossaryRefs: string[];
   cues: string[];
   diagnostics: string[];
   steps: string[];
@@ -41,6 +42,10 @@ export const composePatternBundle = (entries: PatternBundleEntry[]) => {
     }
 
     lines.push('### Example', `- ${entry.example.title}`, '', entry.example.description, '');
+
+    if (entry.glossaryRefs?.length) {
+      lines.push('### Glossary anchors', ...entry.glossaryRefs.map((ref) => `- ${ref}`), '');
+    }
 
     if (entry.diagnostics.length) {
       lines.push('### Diagnostics', ...entry.diagnostics.map((diagnostic) => `- ${diagnostic}`), '');

@@ -2,6 +2,7 @@
 import { randomUUID } from 'node:crypto';
 
 import type { Pattern, PatternFilter } from '../content/library';
+import { getGlossaryLabel, glossaryContent } from '../content/glossary';
 import patternFilterScript from '../scripts/pattern-filter.ts?url';
 
 type Props = {
@@ -15,6 +16,7 @@ const { filters, entries, diagnosticTitles, searchId } = Astro.props as Props;
 const filterLabels = Object.fromEntries(
   filters.map((filter) => [filter.slug, filter.label])
 );
+const glossaryBase = glossaryContent.permalink;
 const filtersWithAll: Array<{ slug: string; label: string; description?: string }> = [
   { slug: 'all', label: 'All themes' },
   ...filters,
@@ -133,10 +135,16 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
         pattern.cues.join(' '),
         pattern.steps.join(' '),
         pattern.artifacts.map((artifact) => `${artifact.name} ${artifact.purpose}`).join(' '),
+        pattern.glossaryRefs.map((slug) => getGlossaryLabel(slug)).join(' '),
         pattern.example.description,
       ]
         .join(' ')
         .toLowerCase();
+      const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
+        slug,
+        label: getGlossaryLabel(slug),
+        href: `${glossaryBase}#${slug}`,
+      }));
 
       return (
         <article
@@ -166,6 +174,21 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
             </a>
           </h3>
           <p>{pattern.summary}</p>
+          {glossaryAnchors.length > 0 && (
+            <p class="muted pattern-card__glossary">
+              Glossary anchors:{' '}
+              {glossaryAnchors.map((anchor, index) => {
+                const separator = index < glossaryAnchors.length - 1 ? ', ' : '';
+
+                return (
+                  <span>
+                    <a href={anchor.href}>{anchor.label}</a>
+                    {separator}
+                  </span>
+                );
+              })}
+            </p>
+          )}
           <details class="pattern-card__teaser">
             <summary>Preview steps</summary>
             <ul class="pill-list">
@@ -198,6 +221,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               title: pattern.title,
               summary: pattern.summary,
               filters: pattern.filters,
+              glossaryRefs: pattern.glossaryRefs,
               cues: pattern.cues,
               diagnostics: pattern.diagnostics,
               steps: pattern.steps,
