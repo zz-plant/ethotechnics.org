@@ -79,14 +79,14 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "burden-modeler",
       title: "Burden Modeler",
       description:
-        "Quantifies task load, cognitive friction, and risk exposure so teams can prioritize relief.",
+        "Quantifies task load, cognitive friction, and risk exposure so you can reroute toil before it burns people out.",
       readiness: [
-        "Use after early research to show leaders what is slowing people down.",
-        "Invite support and operations partners to validate inputs and weightings.",
+        "Run when leaders need to see how burden accumulates across roles or release cycles.",
+        "Pair with support and operations partners to weight inputs and confirm where friction is worst.",
       ],
       outputs: [
-        "A burden index score with a plain-language summary you can drop in a memo.",
-        "Flagged hotspots with pattern recommendations to reduce friction.",
+        "Burden index score with plain-language findings tied to your scenario.",
+        "Ranked hotspots with mitigation paths and expected relief per action.",
         "Result page with a persistent off-ramp to ethotechnics.com/studio.",
       ],
       studioNote:
@@ -127,15 +127,15 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "maintenance-simulator",
       title: "Maintenance Simulator",
       description:
-        "Scenario planning tool for stewardship windows and service-level impacts.",
+        "Tabletop simulation that plays through outages, maintenance windows, and handoffs to stress-test coverage.",
       readiness: [
-        "Use during planning to negotiate maintenance coverage with partners.",
-        "Stress-test appeal paths and safety valves for outages or escalations.",
+        "Use during planning to negotiate coverage, escalation, and staffing constraints with partners.",
+        "Stress-test appeal paths, safety valves, and service-level guarantees before launch.",
       ],
       outputs: [
-        "Simulated runbooks with mitigation branches and ownership.",
-        "Communication templates mapped to risk levels and roles.",
-        "Result page footer reminding teams about the off-ramp to ethotechnics.com/studio.",
+        "Scenario runs with clear ownership, mitigation branches, and time-to-halt expectations.",
+        "Communication templates mapped to risk levels, roles, and escalation routes.",
+        "Result page summarizing coverage gaps with the off-ramp to ethotechnics.com/studio.",
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.",
