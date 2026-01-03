@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MaintenanceSimulatorWidget from '../../features/maintenance-simulator';
+---
+
+<BaseLayout
+  title="Maintenance Simulator — Ethotechnics"
+  description="Tabletop outages, maintenance windows, and handoffs to stress-test coverage before you run."
+  mainClass="page page--wide"
+>
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">Tools</p>
+      <h1>Maintenance Simulator</h1>
+      <p class="muted">
+        Rehearse outage, maintenance, and handoff branches before you commit to a live window. This simulator
+        surfaces missing owners, halt lanes, and communications so teams can practice the tabletop and share a
+        confident plan.
+      </p>
+      <p class="muted">Permanent link: <a href="/tools/maintenance-simulator">/tools/maintenance-simulator</a></p>
+    </div>
+
+    <MaintenanceSimulatorWidget client:only="react" />
+  </section>
+</BaseLayout>

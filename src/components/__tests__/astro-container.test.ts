@@ -75,6 +75,7 @@ describe("Navigation component", () => {
       "Research",
       "Finite [Beta]",
       "Diagnostics",
+      "Maintenance Simulator",
       "Governance",
       "Design ethics",
       "Policy",

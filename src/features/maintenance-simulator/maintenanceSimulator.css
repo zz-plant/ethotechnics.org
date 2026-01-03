@@ -1,0 +1,223 @@
+.simulator {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.simulator__intro {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.simulator__selectors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.simulator__selector {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.simulator__selector select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+}
+
+.simulator__risk-description {
+  border-left: 3px solid var(--border-strong);
+  padding-left: 0.75rem;
+}
+
+.simulator__template {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  background: var(--surface-base);
+}
+
+.simulator__template-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.simulator__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: var(--surface-alt);
+  font-weight: 600;
+}
+
+.simulator__controls {
+  padding: 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  background: var(--surface-alt);
+}
+
+.simulator__control-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.75rem;
+}
+
+.simulator__control {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.85rem;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  align-items: flex-start;
+}
+
+.simulator__control input[type='checkbox'] {
+  margin-top: 0.15rem;
+}
+
+.simulator__control-label {
+  font-weight: 600;
+}
+
+.simulator__card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  background: var(--surface-base);
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.simulator__card--inline {
+  gap: 0.75rem;
+}
+
+.simulator__card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.simulator__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--surface-alt);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.simulator__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.simulator__list {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.1rem;
+}
+
+.simulator__list--warning {
+  border-left: 3px solid var(--border-strong);
+  padding-left: 0.75rem;
+}
+
+.simulator__label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.simulator__toggles {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.simulator__toggle {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.simulator__toggle input[type='checkbox'] {
+  margin-top: 0.25rem;
+}
+
+.simulator__toggle-label {
+  font-weight: 600;
+}
+
+.simulator__toggle-detail {
+  line-height: 1.45;
+}
+
+.simulator__stage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.simulator__card--stage.simulator__card--ready {
+  border-color: var(--border-subtle);
+}
+
+.simulator__card--stage.simulator__card--watch {
+  border-color: var(--border-strong);
+  background: linear-gradient(180deg, var(--surface-base), var(--surface-alt));
+}
+
+.simulator__card--stage.simulator__card--at-risk {
+  border-color: var(--accent-red, #c0392b);
+  box-shadow: 0 0 0 1px rgba(192, 57, 43, 0.1);
+}
+
+.simulator__table {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.simulator__table-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: var(--surface-alt);
+}
+
+.simulator__table-row--header {
+  font-weight: 700;
+  background: transparent;
+  padding: 0.35rem 0.5rem;
+}
+
+.simulator__card--stage ul {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .simulator__card-header {
+    flex-direction: column;
+  }
+
+  .simulator__grid {
+    grid-template-columns: 1fr;
+  }
+}
