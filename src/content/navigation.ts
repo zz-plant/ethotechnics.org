@@ -93,6 +93,11 @@ export const navSections: NavSection[] = [
         label: 'Diagnostics',
         description: 'Reliability and burden modeling tools you can run today.',
       },
+      {
+        href: '/tools/maintenance-simulator',
+        label: 'Maintenance Simulator',
+        description: 'Tabletop outages, maintenance windows, and handoffs before a live run.',
+      },
     ],
   },
 ];
