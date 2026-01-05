@@ -93,13 +93,13 @@ export const homeContent = {
   pageDescription:
     'Ethotechnics pairs open guidance with facilitated diagnostics so teams can deliver accountable, human-centered technology.',
   hero: {
-    eyebrow: 'Ethics · Delivery · Stewardship',
+    eyebrow: 'Practical ethics for product teams',
     heading: 'Build technology people can trust.',
-    subheadline: 'The Ethotechnics Institute shares pragmatic guidance for humane products and services.',
+    subheadline: 'Clear guidance and structured programs to help teams make respectful, explainable choices.',
     lede:
-      'We co-create an open library of ethical delivery patterns with practitioners, pairing it with diagnostics that map risk, align teams, and protect the people you serve.',
+      'Ethotechnics is an open library paired with guided diagnostics. Use the playbooks to ship with confidence or bring in facilitators when you need a faster path.',
     map:
-      'Start with the <a href="/start-here">orientation page</a> to choose between the Institute library and diagnostics. Join the community to adapt templates together—everything is open to remix. If you need deeper facilitation or delivery support, we can connect you with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
+      'Visit the <a href="/start-here">orientation page</a> for a plain-language map of the Institute library and diagnostics. Everything is CC BY so you can adapt it with your team. Need deeper help? We can connect you with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
     actions: [
       { label: 'Start here', href: '/start-here', variant: 'primary', icon: 'lucide:map-pin' },
       { label: 'Browse the library', href: '/library', variant: 'ghost', icon: 'lucide:library' },
@@ -113,31 +113,31 @@ export const homeContent = {
     ],
     metrics: [
       {
-        label: 'Institute library',
-        value: 'Open guides, playbooks, and charter',
+        label: 'Open library',
+        value: 'Guides, playbooks, and worksheets',
         icon: 'lucide:book-open-check',
         trend: [12, 16, 18, 22, 27, 31],
         trendLabel: 'Library content growth over the last six releases',
       },
       {
-        label: 'Diagnostics',
-        value: 'Readiness labs and governance roadmaps',
+        label: 'Team diagnostics',
+        value: 'Readiness reviews and governance roadmaps',
         icon: 'lucide:stethoscope',
         trend: [8, 9, 11, 12, 15, 17],
         trendLabel: 'Teams completing diagnostics month over month',
       },
       {
         label: 'Partner Studio',
-        value: 'Optional embedded support via ethotechnics.com',
+        value: 'Optional embedded support with our partners',
         icon: 'lucide:heart-handshake',
         trend: [5, 6, 6, 7, 8, 9],
         trendLabel: 'Partner-led engagements supported by the Studio',
       },
     ],
     panel: {
-      title: 'Where we plug in',
-      description: 'Pick a track that matches your urgency. We can calibrate, facilitate, or co-lead.',
-      pills: ['Readiness review', 'Accountability lab', 'Co-delivery partnership'],
+      title: 'Where to start',
+      description: 'Pick the track that fits your team today: self-serve guidance, diagnostics, or delivery support.',
+      pills: ['Orientation', 'Guided diagnostic', 'Partner delivery'],
     },
     media: {
       src: '/assets/ethotechnics-hero-map.svg',
@@ -148,30 +148,28 @@ export const homeContent = {
   about: {
     eyebrow: 'About the Institute',
     heading: 'Practical guidance for ethical technology.',
-    body:
-      'Ethotechnics documents the moves that keep digital products accountable—from the first interview to post-launch stewardship.',
+    body: 'Ethotechnics documents the steps that keep digital products respectful, accessible, and explainable.',
     features: [
       {
         icon: 'lucide:bolt',
         title: 'Built for real teams',
-        description:
-          'Concise playbooks, annotated examples, and facilitation prompts tuned for cross-functional collaboration.',
+        description: 'Concise playbooks, annotated examples, and prompts that fit into day-to-day delivery.',
       },
       {
         icon: 'lucide:compass',
         title: 'Wayfinding you can trust',
         description:
-          'Navigation cues explain when to pause, who to involve, and how to make informed trade-offs—without slowing delivery.',
+          'Straightforward cues for when to pause, who to involve, and how to make informed trade-offs without slowing delivery.',
       },
       {
         icon: 'lucide:palette',
         title: 'Accessible by design',
-        description: 'Plain-language explanations and visual summaries keep the library readable, inclusive, and easy to share.',
+        description: 'Plain-language explanations and visual summaries keep the library easy to read and easy to share.',
       },
       {
         icon: 'lucide:users',
         title: 'Built with the community',
-        description: 'Peer feedback and practitioner evidence keeps the library grounded in real-world delivery.',
+        description: 'Peer feedback and practitioner evidence keep the library grounded in real-world delivery.',
         actions: [
           { label: 'Submit a field report', href: '/participate#field-reports' },
           { label: 'Host a peer review', href: '/participate#peer-review' },
@@ -183,12 +181,12 @@ export const homeContent = {
   features: {
     eyebrow: 'Focus areas',
     heading: 'Frameworks you can put to work.',
-    body: 'Each guide is built to be actionable—checklists, prompts, and facilitation steps you can adapt quickly.',
+    body: 'Each guide includes checklists, prompts, and facilitation steps you can adapt quickly.',
     cards: [
       {
         title: 'Responsible product delivery',
         description:
-          'Surface consent, safety, and accountability questions throughout discovery, build, and rollout.',
+          'Keep consent, safety, and accountability visible throughout discovery, build, and rollout.',
         emphasis: true,
         pills: ['Respectful defaults', 'Iterative safeguards', 'Accountable metrics'],
       },
@@ -203,11 +201,11 @@ export const homeContent = {
       },
       {
         title: 'Governance you can explain',
-        description: 'Decision records, data stewardship plans, and escalation paths that withstand scrutiny.',
+        description: 'Decision records, data stewardship plans, and escalation paths you can share with stakeholders.',
       },
       {
         title: 'Tools and references',
-        description: 'Checklists, workshop kits, and curated readings that help you operationalize ethical intent.',
+        description: 'Checklists, workshop kits, and curated readings that make ethical intent actionable.',
         actions: [
           { label: 'Join monthly clinics', href: '/participate#clinics' },
           { label: 'Send feedback', href: '/participate#feedback' },
@@ -219,15 +217,15 @@ export const homeContent = {
     eyebrow: 'Latest notes',
     heading: 'Practical recommendations for accountable systems.',
     body:
-      'Bring these prompts to product reviews, governance meetings, or research debriefs to keep the team aligned on what care looks like.',
+      'Use these prompts in product reviews, governance meetings, or research debriefs to keep everyone aligned on what care looks like.',
     note: {
       title: 'Design for consent, not just conversion.',
       description:
-        'Pair your primary actions with transparent context: why you are asking, what happens next, and how to opt out without penalty.',
+        'Pair every major action with clear context: why you are asking, what happens next, and how to opt out without penalty.',
       published: '2024-10-01T00:00:00Z',
       actions: [
         'Label links and buttons honestly so people know where they are headed.',
-        'Give people a reversible path; avoid dead ends or forced funnels.',
+        'Give people a reversible path—avoid dead ends or forced funnels.',
         'Show the data you collect and how long you keep it in plain language.',
       ],
       link: {
@@ -240,7 +238,7 @@ export const homeContent = {
   cta: {
     eyebrow: 'Stay connected',
     heading: 'Follow the work at Ethotechnics.',
-    body: 'Get notified when new essays, field notes, and facilitation kits go live. No spam—just pragmatic guidance.',
+    body: 'Get notified when new essays, field notes, and facilitation kits go live. No spam—just practical guidance.',
     actions: [
       { label: 'Start here', href: '/start-here', variant: 'primary', icon: 'lucide:map-pin' },
       { label: 'Browse the library', href: '/library', variant: 'ghost', icon: 'lucide:library' },
