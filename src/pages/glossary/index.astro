@@ -26,18 +26,40 @@ const anchorLinks = [
 ];
 
 const entryIndex = categories
-  .flatMap((category) =>
-    category.entries.map((entry) => ({
-      id: entry.id,
-      title: entry.title,
-      categoryLabel: category.heading.replace(/^[A-Z]\.\s*/, ''),
-    })),
-  )
+  .flatMap((category) => {
+    const categoryLabel = category.heading.replace(/^[A-Z]\.\s*/, '');
+
+    return category.entries.map((entry) => {
+      const plainDescription = entry.bodyHtml
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const tags = entry.tags?.join(' ') ?? '';
+      const examples = entry.examples?.join(' ') ?? '';
+      const searchText = `${entry.title} ${categoryLabel} ${plainDescription} ${tags} ${examples}`.trim();
+
+      return {
+        id: entry.id,
+        title: entry.title,
+        categoryLabel,
+        searchText,
+      };
+    });
+  })
   .sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }));
 
 const territoryCounts = new Map(categories.map((category) => [category.id, category.entries.length]));
 const pageUrl = Astro.site ? new URL(permalink, Astro.site).toString() : permalink;
 const searchQuery = Astro.url.searchParams.get('query')?.trim() ?? '';
+const normalizedQuery = searchQuery.toLowerCase();
+const hasSearchQuery = normalizedQuery.length > 0;
+const filteredEntries = hasSearchQuery
+  ? entryIndex.filter((entry) =>
+      entry.searchText.toLowerCase().includes(normalizedQuery),
+    )
+  : entryIndex;
+const totalEntries = entryIndex.length;
+const visibleEntries = filteredEntries.length;
 
 const structuredEntries = categories.flatMap((category) =>
   category.entries.map((entry) => {
@@ -60,6 +82,11 @@ const structuredData = {
   description: pageDescription,
   url: pageUrl,
   hasDefinedTerm: structuredEntries,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${pageUrl}?query={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const citationYear = new Date().getFullYear();
@@ -106,24 +133,41 @@ const citationYear = new Date().getFullYear();
       <p class="muted glossary-filter__hint">
         Keep typing to filter the list, then open a matching term to grab its permalink or scan nearby entries.
       </p>
-      <p class="muted glossary-filter__count" aria-live="polite" aria-atomic="true">
-        Showing {entryIndex.length} of {entryIndex.length} terms
+      <p
+        class="muted glossary-filter__count"
+        aria-live="polite"
+        aria-atomic="true"
+        data-total={totalEntries}
+      >
+        Showing {visibleEntries} of {totalEntries} terms
+        {hasSearchQuery && ` for “${searchQuery}”`}
       </p>
     </div>
     <div class="glossary-index" role="navigation" aria-label="Glossary index">
-      {entryIndex.map((entry) => (
-        <a
-          class="glossary-index__item"
-          href={`${permalink}#${entry.id}`}
-          data-title={entry.title}
-          data-category={entry.categoryLabel}
-        >
-          <span class="glossary-index__term">{entry.title}</span>
-          <span class="muted glossary-index__category">{entry.categoryLabel}</span>
-        </a>
-      ))}
+      {entryIndex.map((entry) => {
+        const matchesQuery = entry.searchText
+          .toLowerCase()
+          .includes(normalizedQuery);
+        const entryClasses = [
+          'glossary-index__item',
+          ...(hasSearchQuery && !matchesQuery ? ['is-hidden'] : []),
+        ].join(' ');
+
+        return (
+          <a
+            class={entryClasses}
+            href={`${permalink}#${entry.id}`}
+            data-title={entry.title}
+            data-category={entry.categoryLabel}
+            data-search={entry.searchText}
+          >
+            <span class="glossary-index__term">{entry.title}</span>
+            <span class="muted glossary-index__category">{entry.categoryLabel}</span>
+          </a>
+        );
+      })}
     </div>
-    <p class="muted glossary-index__empty" hidden>
+    <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
       No matching terms yet. Try a broader keyword or open the territory map below to scan by topic.
     </p>
     <p class="glossary__cta muted">
