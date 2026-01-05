@@ -95,11 +95,11 @@ export const homeContent = {
   hero: {
     eyebrow: 'Ethics · Delivery · Stewardship',
     heading: 'Build technology people can trust.',
-    subheadline: 'The Ethotechnics Institute shares pragmatic guidance for humane products and services.',
+    subheadline: 'Open Institute guidance and diagnostics for humane products, with an optional Partner Studio when you need it.',
     lede:
-      'We co-create an open library of ethical delivery patterns with practitioners, pairing it with diagnostics that map risk, align teams, and protect the people you serve.',
+      'We co-create an open, CC BY library of ethical delivery patterns with practitioners, pairing it with self-serve diagnostics that map risk, align teams, and protect the people you serve. The Partner Studio is an opt-in facilitation track—not a requirement.',
     map:
-      'Start with the <a href="/start-here">orientation page</a> to choose between the Institute library and diagnostics. Join the community to adapt templates together—everything is open to remix. If you need deeper facilitation or delivery support, we can connect you with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
+      'Start with the <a href="/start-here">orientation page</a> to choose between the open Institute library and self-serve diagnostics. Everything is public and remixable. If you need facilitated sessions or delivery support, connect with the optional <a href="https://ethotechnics.com/studio" rel="noreferrer">Partner Studio</a> via ethotechnics.com.',
     actions: [
       { label: 'Start here', href: '/start-here', variant: 'primary', icon: 'lucide:map-pin' },
       { label: 'Browse the library', href: '/library', variant: 'ghost', icon: 'lucide:library' },
@@ -114,21 +114,21 @@ export const homeContent = {
     metrics: [
       {
         label: 'Institute library',
-        value: 'Open guides, playbooks, and charter',
+        value: 'Open, CC BY guides, playbooks, and charter',
         icon: 'lucide:book-open-check',
         trend: [12, 16, 18, 22, 27, 31],
         trendLabel: 'Library content growth over the last six releases',
       },
       {
         label: 'Diagnostics',
-        value: 'Readiness labs and governance roadmaps',
+        value: 'Self-serve readiness labs and governance roadmaps',
         icon: 'lucide:stethoscope',
         trend: [8, 9, 11, 12, 15, 17],
         trendLabel: 'Teams completing diagnostics month over month',
       },
       {
-        label: 'Partner Studio',
-        value: 'Optional embedded support via ethotechnics.com',
+        label: 'Partner Studio (optional)',
+        value: 'External, paid facilitation via ethotechnics.com',
         icon: 'lucide:heart-handshake',
         trend: [5, 6, 6, 7, 8, 9],
         trendLabel: 'Partner-led engagements supported by the Studio',
@@ -136,7 +136,7 @@ export const homeContent = {
     ],
     panel: {
       title: 'Where we plug in',
-      description: 'Pick a track that matches your urgency. We can calibrate, facilitate, or co-lead.',
+      description: 'Start with open Institute materials, then layer on diagnostics or optional Studio facilitation if you need a partner.',
       pills: ['Readiness review', 'Accountability lab', 'Co-delivery partnership'],
     },
     media: {

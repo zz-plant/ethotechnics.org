@@ -87,11 +87,11 @@ export const startHereContent: StartHereContent = {
     eyebrow: 'Orientation',
     heading: 'Start here',
     description:
-      'Choose a path based on whether you need a quick diagnostic, library guidance, or a co-delivered engagement.',
+      'Choose between the open Institute library, self-serve diagnostics with shareable outputs, or an optional Studio partner.',
     panel: {
       title: 'How to use this page',
       description:
-        'Follow the cards to run a diagnostic, grab references you can share, or learn how the Studio pairs with the Institute.',
+        'Use it as a dispatcher: start with open Institute resources, add a diagnostic when you need structure, and invite the Studio only if facilitation is required.',
     },
     actions: [
       {
@@ -119,33 +119,33 @@ export const startHereContent: StartHereContent = {
     eyebrow: 'Navigation',
     title: 'Pick the entry point that matches your task.',
     description:
-      'Run a diagnostic if you need a quick decision, scan the library for reusable guidance, or enlist the Studio for delivery.',
+      'Start with the open, CC BY Institute library; add a diagnostic for self-serve guidance; bring in the Studio only when you need a facilitation partner.',
     cards: [
       {
         title: 'Run a diagnostic',
         description:
-          'Choose a tool, bring a scenario, and leave with a shareable readout tied to the pattern language.',
+          'Choose a tool, bring a scenario, and leave with a shareable readout tied to the pattern language. Cost/engagement: self-serve and free; optional Studio facilitation if risk escalates.',
         href: '/diagnostics',
         tags: ['Readiness labs', 'Off-ramps included', 'Shareable results'],
       },
       {
         title: 'Browse the library',
         description:
-          'Use primers, playbooks, and glossary anchors to align your team on safety, consent, and stewardship.',
+          'Use primers, playbooks, and glossary anchors to align your team on safety, consent, and stewardship. Cost/engagement: open, CC BY guidance with no sign-ups.',
         href: '/library',
         tags: ['Permalinked guidance', 'Field-tested patterns', 'Glossary linked'],
       },
       {
         title: 'Check field notes',
         description:
-          'See how teams apply the guidance in practice with annotated walkthroughs and facilitation prompts.',
+          'See how teams apply the guidance in practice with annotated walkthroughs and facilitation prompts. Cost/engagement: public case studies you can remix and forward.',
         href: '/field-notes',
         tags: ['Applied examples', 'Facilitation cues', 'Shareable links'],
       },
       {
         title: 'Join the Institute',
         description:
-          'Stay close to new releases, contribute playbooks, and access facilitation kits as they launch.',
+          'Stay close to new releases, contribute playbooks, and access facilitation kits as they launch. Cost/engagement: open community participation with optional contributor commitments—no fees.',
         href: '/institute',
         tags: ['Cohorts', 'Contributor program', 'Pattern updates'],
       },
@@ -183,7 +183,7 @@ export const startHereContent: StartHereContent = {
     isList: [
       'A quick orientation for new collaborators and decision-makers.',
       'A map linking diagnostics, the library, and Studio off-ramps.',
-      'A place to grab sample outputs you can forward without edits.',
+      'A primer on which parts are open and which are optional add-ons.',
     ],
     isNotList: [
       'A replacement for the full library or glossary.',
@@ -195,11 +195,11 @@ export const startHereContent: StartHereContent = {
     eyebrow: 'Studio',
     title: 'How the Studio fits in.',
     description:
-      'Diagnostics and library guidance stay public. The Studio steps in when you need facilitation, co-delivery, or a mediator.',
+      'Diagnostics and library guidance stay public and free. The Studio is a separate, optional partner when you need paid facilitation, co-delivery, or a mediator.',
     bullets: [
-      'Escalate from any diagnostic readout to ethotechnics.com/studio when risk or ambiguity shows up.',
+      'Escalate from any diagnostic readout to ethotechnics.com/studio when risk or ambiguity shows up and you want facilitation.',
       'Invite Studio partners to co-facilitate workshops using the same playbooks you see in the library.',
-      'Use Studio engagements to trial a path, then fold the learnings back into the Institute releases.',
+      'Treat Studio engagements as optional experiments; fold learnings back into the open Institute releases.',
     ],
     ctaLabel: 'Visit the Studio',
     ctaHref: 'https://ethotechnics.com/studio',
