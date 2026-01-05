@@ -292,13 +292,26 @@ const initializePatternFilter = (root: HTMLElement) => {
 
     updateHash();
     updateFilterButtons();
-    applyFilters();
+    scheduleFilterApplication();
+  };
+
+  let filterFrame = 0;
+
+  const scheduleFilterApplication = () => {
+    if (filterFrame) {
+      return;
+    }
+
+    filterFrame = window.requestAnimationFrame(() => {
+      applyFilters();
+      filterFrame = 0;
+    });
   };
 
   const handleHashChange = () => {
     applyHash(window.location.hash);
     updateFilterButtons();
-    applyFilters();
+    scheduleFilterApplication();
   };
 
   const initialize = () => {
@@ -344,7 +357,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       }
 
       query = target.value;
-      applyFilters();
+      scheduleFilterApplication();
     });
 
     selectionInputs.forEach((input) => {
