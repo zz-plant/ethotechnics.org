@@ -1103,8 +1103,44 @@ svg {
     18px 18px,
     auto,
     auto;
-  box-shadow: var(--shadow);
+  box-shadow:
+    var(--shadow),
+    0 28px 80px rgba(24, 12, 2, 0.16);
   isolation: isolate;
+}
+
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::before {
+  inset: -10% -14% 42% -14%;
+  background:
+    radial-gradient(circle at 18% 20%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 42%),
+    radial-gradient(circle at 78% 32%, color-mix(in srgb, var(--teal) 22%, transparent), transparent 38%),
+    conic-gradient(
+      from 120deg at 50% 20%,
+      color-mix(in srgb, var(--accent) 18%, transparent) 0,
+      transparent 28%,
+      color-mix(in srgb, var(--gold) 16%, transparent) 36%,
+      transparent 62%
+    );
+  filter: blur(32px) saturate(125%);
+  opacity: 0.75;
+}
+
+.hero::after {
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), transparent 55%);
+  mask: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 70%);
+  mix-blend-mode: soft-light;
+  opacity: 0.8;
 }
 
 .hero__canvas {
@@ -1345,6 +1381,75 @@ svg {
   text-wrap: balance;
 }
 
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
+  background:
+    linear-gradient(
+      110deg,
+      color-mix(in srgb, var(--surface) 95%, white 5%),
+      color-mix(in srgb, var(--panel) 88%, white 12%)
+    ),
+    radial-gradient(circle at 18% 50%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 55%);
+  box-shadow: 0 12px 22px rgba(27, 18, 11, 0.12);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.42) 52%, transparent 70%);
+  opacity: 0;
+  transition: opacity 180ms ease, transform 220ms ease;
+  transform: translateX(-6%);
+}
+
+.hero__badge:hover::after,
+.hero__badge:focus-visible::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hero__badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 32%, transparent), color-mix(in srgb, var(--teal) 28%, transparent));
+  color: #fdfbf7;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 60%, transparent);
+}
+
+.hero__badge-copy {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.hero__badge-label {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--muted) 86%, var(--text));
+}
+
+.hero__badge-title {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
 .hero__header {
   display: flex;
   align-items: center;
@@ -1475,7 +1580,9 @@ svg {
     color-mix(in srgb, var(--surface) 92%, white 8%);
   overflow: hidden;
   aspect-ratio: 5 / 4;
-  box-shadow: 0 22px 46px rgba(27, 18, 11, 0.18);
+  box-shadow:
+    0 22px 46px rgba(27, 18, 11, 0.18),
+    0 8px 30px color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
 @media (max-width: 900px) {
@@ -1489,9 +1596,10 @@ svg {
 .hero__media-frame::after {
   content: "";
   position: absolute;
-  inset: 1rem;
+  inset: 0.85rem;
   border-radius: var(--radius-md);
   border: 1px dashed color-mix(in srgb, var(--border) 66%, transparent);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.12), transparent 40%);
   pointer-events: none;
 }
 
@@ -1581,16 +1689,45 @@ svg {
   padding: 1.6rem 1.9rem;
   border-radius: calc(var(--radius) + 1px);
   border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
-  background: linear-gradient(
-    120deg,
-    color-mix(in srgb, var(--panel) 92%, white 8%),
-    color-mix(in srgb, var(--surface) 90%, white 10%)
-  );
-  box-shadow: var(--shadow-sm);
+  background:
+    radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 36%),
+    radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--teal) 14%, transparent), transparent 42%),
+    linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--panel) 92%, white 8%),
+      color-mix(in srgb, var(--surface) 90%, white 10%)
+    );
+  box-shadow:
+    var(--shadow-sm),
+    0 16px 32px rgba(27, 18, 11, 0.12);
   display: flex;
   align-items: center;
   gap: 1.6rem;
   flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.info-strip::before,
+.info-strip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.info-strip::before {
+  inset: -10% -6% 60% -6%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.5), transparent 55%);
+  opacity: 0.7;
+  filter: blur(18px);
+}
+
+.info-strip::after {
+  border-radius: calc(var(--radius) + 1px);
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+  mix-blend-mode: soft-light;
+  opacity: 0.9;
 }
 
 .info-strip__lead {
@@ -1616,14 +1753,18 @@ svg {
   padding: 0.75rem 0.95rem;
   border-radius: var(--radius-md);
   border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
-  background: linear-gradient(
-    140deg,
-    color-mix(in srgb, var(--panel) 90%, white 10%),
-    color-mix(in srgb, var(--surface) 92%, white 8%)
-  );
+  background:
+    linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--panel) 92%, white 8%),
+      color-mix(in srgb, var(--surface) 94%, white 6%)
+    ),
+    radial-gradient(circle at 16% 40%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 52%);
   text-decoration: none;
   color: var(--text);
-  box-shadow: var(--shadow-xs);
+  box-shadow:
+    var(--shadow-xs),
+    0 10px 20px rgba(27, 18, 11, 0.12);
   transition:
     border-color 160ms ease,
     transform 160ms ease,
