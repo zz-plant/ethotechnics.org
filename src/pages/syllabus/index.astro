@@ -515,16 +515,17 @@ const { cspNonce } = Astro.locals;
 
     shareButton?.addEventListener('click', async () => {
       updateShareLink();
+      if (!shareStatus) return;
       if (!shareInput || !shareInput.value) {
-        shareStatus?.textContent = 'Complete a module before generating a shareable link.';
+        shareStatus.textContent = 'Complete a module before generating a shareable link.';
         return;
       }
 
       try {
         await navigator.clipboard.writeText(shareInput.value);
-        shareStatus?.textContent = 'Copied the shareable link to your clipboard.';
+        shareStatus.textContent = 'Copied the shareable link to your clipboard.';
       } catch {
-        shareStatus?.textContent = 'Copy failed. Manually select the link and copy it.';
+        shareStatus.textContent = 'Copy failed. Manually select the link and copy it.';
       }
     });
 
