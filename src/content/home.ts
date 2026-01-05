@@ -95,11 +95,11 @@ export const homeContent = {
   hero: {
     eyebrow: 'Practical ethics for product teams',
     heading: 'Build technology people can trust.',
-    subheadline: 'Clear guidance and structured programs to help teams make respectful, explainable choices.',
+    subheadline: 'Clear guidance and programs for respectful, explainable choices.',
     lede:
-      'Ethotechnics is an open library paired with guided diagnostics. Use the playbooks to ship with confidence or bring in facilitators when you need a faster path.',
+      'Ethotechnics pairs an open library with guided diagnostics. Use the playbooks yourself or bring in facilitators when you need speed.',
     map:
-      'Visit the <a href="/start-here">orientation page</a> for a plain-language map of the Institute library and diagnostics. Everything is CC BY so you can adapt it with your team. Need deeper help? We can connect you with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
+      'See the <a href="/start-here">orientation page</a> for a quick map of the library and diagnostics. Everything is CC BY, and the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> can step in when you need support.',
     actions: [
       { label: 'Start here', href: '/start-here', variant: 'primary', icon: 'lucide:map-pin' },
       { label: 'Browse the library', href: '/library', variant: 'ghost', icon: 'lucide:library' },
@@ -158,13 +158,12 @@ export const homeContent = {
       {
         icon: 'lucide:compass',
         title: 'Wayfinding you can trust',
-        description:
-          'Straightforward cues for when to pause, who to involve, and how to make informed trade-offs without slowing delivery.',
+        description: 'Clear cues for when to pause, who to involve, and how to make informed trade-offs without slowing delivery.',
       },
       {
         icon: 'lucide:palette',
         title: 'Accessible by design',
-        description: 'Plain-language explanations and visual summaries keep the library easy to read and easy to share.',
+        description: 'Plain-language explanations and visuals keep the library easy to read and share.',
       },
       {
         icon: 'lucide:users',
@@ -216,8 +215,7 @@ export const homeContent = {
   highlight: {
     eyebrow: 'Latest notes',
     heading: 'Practical recommendations for accountable systems.',
-    body:
-      'Use these prompts in product reviews, governance meetings, or research debriefs to keep everyone aligned on what care looks like.',
+    body: 'Use these prompts in reviews or debriefs to keep everyone aligned on what care looks like.',
     note: {
       title: 'Design for consent, not just conversion.',
       description:
