@@ -22,7 +22,7 @@ const initGlossaryFilter = () => {
     return;
   }
 
-  const total = items.length;
+  const total = Number(count.dataset.total) || items.length;
 
   const syncQueryParam = (value: string) => {
     const params = new URLSearchParams(window.location.search);
@@ -45,9 +45,8 @@ const initGlossaryFilter = () => {
     let visible = 0;
 
     items.forEach((item) => {
-      const title = item.dataset.title ?? item.textContent ?? "";
-      const category = item.dataset.category ?? "";
-      const matches = `${title} ${category}`.toLowerCase().includes(query);
+      const searchText = item.dataset.search ?? item.textContent ?? "";
+      const matches = searchText.toLowerCase().includes(query);
       item.classList.toggle("is-hidden", !matches);
 
       if (matches) {
@@ -56,7 +55,8 @@ const initGlossaryFilter = () => {
     });
 
     emptyState.hidden = visible > 0;
-    count.textContent = `Showing ${visible} of ${total} terms`;
+    const querySuffix = rawQuery ? ` for “${rawQuery}”` : "";
+    count.textContent = `Showing ${visible} of ${total} terms${querySuffix}`;
     clearButton.disabled = rawQuery.length === 0;
     syncQueryParam(rawQuery);
   };
