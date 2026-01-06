@@ -9,24 +9,6 @@ import InstituteStudioComparison from '../components/InstituteStudioComparison.a
 
 const { pageTitle, pageDescription, hero, about, tracks, features, highlight, cta } = homeContent;
 
-const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
-  if (!points || points.length === 0) return '';
-
-  const max = Math.max(...points);
-  const min = Math.min(...points);
-  const range = max - min || 1;
-  const step = points.length > 1 ? width / (points.length - 1) : width;
-
-  return points
-    .map((point, index) => {
-      const x = index * step;
-      const y = height - ((point - min) / range) * height;
-      const prefix = index === 0 ? 'M' : 'L';
-
-      return `${prefix}${x.toFixed(2)} ${y.toFixed(2)}`;
-    })
-    .join(' ');
-};
 ---
 <BaseLayout title={pageTitle} description={pageDescription} mainClass="page page--wide">
   <section class="hero">
@@ -48,11 +30,6 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
         </div>
         <div class="hero__note" set:html={hero.map}></div>
         <div class="hero__footer">
-          <div class="hero__tags" aria-label="Focus areas">
-            {hero.metrics.map((metric) => (
-              <span class="pill pill--ghost">{metric.value}</span>
-            ))}
-          </div>
           <div class="actions">
             {hero.actions.map((action) => (
               <a
@@ -109,19 +86,6 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
                   <p class="muted">{metric.label}</p>
                 </div>
                 <p class="metric">{metric.value}</p>
-                {metric.trend?.length ? (
-                  <div class="stat-card__trend">
-                    <svg
-                      class="stat-card__sparkline"
-                      viewBox="0 0 120 36"
-                      preserveAspectRatio="none"
-                      role="img"
-                      aria-label={metric.trendLabel ?? `${metric.label} trend`}
-                    >
-                      <path d={buildSparklinePath(metric.trend)} pathLength="100" />
-                    </svg>
-                  </div>
-                ) : null}
               </article>
             ))}
           </div>
@@ -254,53 +218,23 @@ const buildSparklinePath = (points?: number[], width = 120, height = 36) => {
       <p class="muted">{highlight.body}</p>
     </div>
     <div class="highlight__content">
-      <div class="highlight__grid">
-        <div class="callout">
-          <p class="muted">Field note</p>
-          <h3>{highlight.note.title}</h3>
-          <p>{highlight.note.description}</p>
-          <ul>
-            {highlight.note.actions.map((action) => (
-              <li>{action}</li>
-            ))}
-          </ul>
-          <a class="button ghost" href={highlight.note.link.href}>
-            {highlight.note.link.label}
-          </a>
-        </div>
-        <div class="highlight__meta">
-          <div class="highlight__meta-card">
-            <p class="muted">Built for teams</p>
-            <ul class="pill-list pill-list--wrap">
-              {highlight.pills.map((pill) => (
-                <li>{pill}</li>
-              ))}
-            </ul>
-          </div>
-          <div class="highlight__meta-card">
-            <p class="muted">Community &amp; accountability</p>
-            <ul class="card__list">
-              <li>
-                <a href="https://signals.ethotechnics.org" rel="noreferrer" target="_blank">
-                  Signals newsletter and dispatches
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/ethotechnics" rel="noreferrer" target="_blank">
-                  Contribute or adapt on GitHub
-                </a>
-              </li>
-              <li>
-                <a href="/institute">Ethotechnics Institute charter</a>
-              </li>
-              <li>
-                <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer" target="_blank">
-                  CC BY 4.0 open licensing
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+      <div class="callout">
+        <p class="muted">Field note</p>
+        <h3>{highlight.note.title}</h3>
+        <p>{highlight.note.description}</p>
+        <ul>
+          {highlight.note.actions.map((action) => (
+            <li>{action}</li>
+          ))}
+        </ul>
+        <ul class="pill-list pill-list--wrap">
+          {highlight.pills.map((pill) => (
+            <li>{pill}</li>
+          ))}
+        </ul>
+        <a class="button ghost" href={highlight.note.link.href}>
+          {highlight.note.link.label}
+        </a>
       </div>
     </div>
   </section>
