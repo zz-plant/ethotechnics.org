@@ -4,8 +4,6 @@ export type Metric = {
   label: string;
   value: string;
   icon?: string;
-  trend?: number[];
-  trendLabel?: string;
 };
 
 export type FeatureAction = {
@@ -123,22 +121,16 @@ export const homeContent = {
         label: 'Open library',
         value: 'Guides, playbooks, and worksheets',
         icon: 'lucide:book-open-check',
-        trend: [12, 16, 18, 22, 27, 31],
-        trendLabel: 'Library content growth over the last six releases',
       },
       {
         label: 'Team diagnostics',
         value: 'Readiness reviews and governance roadmaps',
         icon: 'lucide:stethoscope',
-        trend: [8, 9, 11, 12, 15, 17],
-        trendLabel: 'Teams completing diagnostics month over month',
       },
       {
         label: 'Partner Studio',
         value: 'Optional embedded support with our partners',
         icon: 'lucide:heart-handshake',
-        trend: [5, 6, 6, 7, 8, 9],
-        trendLabel: 'Partner-led engagements supported by the Studio',
       },
     ],
     panel: {
