@@ -18,6 +18,7 @@ export type FeatureCard = {
   description: string;
   icon?: string;
   emphasis?: boolean;
+  eyebrow?: string;
   pills?: string[];
   actions?: FeatureAction[];
 };
@@ -58,6 +59,12 @@ export type HomeContent = PageCopy & {
     heading: string;
     body: string;
     features: FeatureCard[];
+  };
+  tracks: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+    cards: FeatureCard[];
   };
   features: {
     eyebrow: string;
@@ -173,6 +180,47 @@ export const homeContent = {
           { label: 'Submit a field report', href: '/participate#field-reports' },
           { label: 'Host a peer review', href: '/participate#peer-review' },
           { label: 'Join monthly clinics', href: '/participate#clinics' },
+        ],
+      },
+    ],
+  },
+  tracks: {
+    eyebrow: 'Choose your path',
+    heading: 'Pick the right entry point for your team.',
+    body: 'Get oriented with the library, move into diagnostics, or loop in facilitators when you need support.',
+    cards: [
+      {
+        icon: 'lucide:map',
+        eyebrow: 'Self-serve',
+        title: 'Navigate the library',
+        description: 'Start with an overview, then jump into guides, playbooks, and worksheets you can reuse.',
+        pills: ['Start here', 'Library map'],
+        actions: [
+          { label: 'Orientation page', href: '/start-here' },
+          { label: 'Browse the library', href: '/library' },
+        ],
+      },
+      {
+        icon: 'lucide:activity-square',
+        eyebrow: 'Guided',
+        title: 'Run a diagnostic',
+        description: 'Use structured reviews to assess readiness, plan mitigations, and align stakeholders.',
+        pills: ['Readiness reviews', 'Governance roadmaps'],
+        actions: [
+          { label: 'Book a diagnostic', href: '/diagnostics' },
+          { label: 'See Institute vs. Studio', href: '/institute' },
+        ],
+      },
+      {
+        icon: 'lucide:users',
+        eyebrow: 'Community',
+        title: 'Collaborate and contribute',
+        description: 'Share field evidence, invite peer review, or follow along through the Signals community.',
+        pills: ['Field reports', 'Peer review', 'Signals newsletter'],
+        actions: [
+          { label: 'Submit a field report', href: '/participate#field-reports' },
+          { label: 'Join peer review', href: '/participate#peer-review' },
+          { label: 'Follow the Signals feed', href: 'https://signals.ethotechnics.org' },
         ],
       },
     ],
