@@ -343,6 +343,14 @@ svg {
   backdrop-filter: blur(14px) saturate(118%);
 }
 
+@media (max-width: 991px) {
+  .nav {
+    backdrop-filter: none;
+    background: color-mix(in srgb, var(--surface) 95%, white 5%);
+    box-shadow: 0 10px 24px rgba(27, 18, 11, 0.08);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nav {
     backdrop-filter: none;
@@ -592,6 +600,11 @@ svg {
   scrollbar-width: none;
 }
 
+.nav__links--mobile,
+.nav__content-body {
+  -webkit-overflow-scrolling: touch;
+}
+
 .nav__links--mobile::-webkit-scrollbar {
   display: none;
 }
@@ -657,6 +670,19 @@ svg {
     transform 200ms ease,
     visibility 0s linear 200ms;
   z-index: 11;
+}
+
+@media (max-width: 991px) {
+  .nav__content {
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--panel) 94%, white 6%),
+        color-mix(in srgb, var(--surface) 94%, white 6%)
+      ),
+      var(--glow-wash);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: none;
+  }
 }
 
 .nav--menu-open .nav__content {
