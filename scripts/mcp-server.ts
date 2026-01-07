@@ -2,7 +2,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { readdir } from "node:fs/promises";
+
 import { join } from "node:path";
 
 // Initialize server
@@ -39,20 +39,12 @@ server.tool(
     try {
       const componentsDir = join(getProjectRoot(), "src", "components");
       
-      const files: string[] = [];
-      async function walk(dir: string) {
-        const entries = await readdir(dir, { withFileTypes: true });
-        for (const entry of entries) {
-            const res = join(dir, entry.name);
-            if (entry.isDirectory()) {
-                await walk(res);
-            } else if (entry.name.endsWith(".astro") || entry.name.endsWith(".tsx")) {
-                files.push(res.replace(getProjectRoot(), "").replace(/^[\\\/]/, ""));
-            }
-        }
-      }
+      const glob = new Bun.Glob("**/*.{astro,tsx}");
       
-      await walk(componentsDir);
+      const files: string[] = [];
+      for await (const file of glob.scan({ cwd: componentsDir })) {
+        files.push(file);
+      }
       
       return {
         content: [{
