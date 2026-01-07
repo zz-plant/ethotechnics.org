@@ -100,10 +100,26 @@ const { cspNonce } = Astro.locals;
     }}
   />
   <div class="panel panel--glass progress-summary" data-progress-summary>
-    <div>
-      <p class="eyebrow">Progress snapshot</p>
-      <h2>Track your syllabus completion.</h2>
-      <p class="muted" data-progress-count>Complete 0 of {modules.length} modules.</p>
+    <div class="progress-summary__details">
+      <div>
+        <p class="eyebrow">Progress snapshot</p>
+        <h2>Track your syllabus completion.</h2>
+        <p class="muted" data-progress-count>0/{modules.length} modules completed.</p>
+      </div>
+      <ul class="progress-summary__list">
+        <li>
+          <span class="progress-summary__badge" aria-hidden="true">✓</span>
+          <span data-progress-modules>0/{modules.length} modules completed</span>
+        </li>
+        <li>
+          <span class="progress-summary__badge" aria-hidden="true">✓</span>
+          <span data-progress-readings>0/{modules.length} readings confirmed</span>
+        </li>
+        <li>
+          <span class="progress-summary__badge" aria-hidden="true">✓</span>
+          <span data-progress-quiz>0/{modules.length} knowledge checks passed</span>
+        </li>
+      </ul>
     </div>
     <div
       class="progress-summary__bar"
@@ -158,7 +174,7 @@ const { cspNonce } = Astro.locals;
             <div class="syllabus-module__heading">
               <div class="syllabus-module__eyebrow">
                 <p class="eyebrow">Module {index + 1}</p>
-                <p class="pill pill--ghost syllabus-module__duration">{module.duration}</p>
+                <p class="pill pill--ghost syllabus-module__duration">Time to complete: {module.duration}</p>
               </div>
               <h2>{module.title}</h2>
               <p class="muted">Outcome: {module.outcome}</p>
@@ -371,17 +387,36 @@ const { cspNonce } = Astro.locals;
     const resetAllButton = document.querySelector('[data-reset-all]');
     const progressSummary = document.querySelector('[data-progress-summary]');
     const progressCount = progressSummary?.querySelector('[data-progress-count]');
+    const progressModules = progressSummary?.querySelector('[data-progress-modules]');
+    const progressReadings = progressSummary?.querySelector('[data-progress-readings]');
+    const progressQuiz = progressSummary?.querySelector('[data-progress-quiz]');
     const progressBar = progressSummary?.querySelector('[data-progress-bar]');
     const progressFill = progressSummary?.querySelector('[data-progress-fill]');
 
     const updateProgressSummary = () => {
       const completedModules = modules.filter((module) => state[module.id]?.completed);
+      const completedReadings = modules.filter((module) => state[module.id]?.readingsComplete);
+      const completedChecks = modules.filter((module) => state[module.id]?.quizCorrect);
       const count = completedModules.length;
+      const readingsCount = completedReadings.length;
+      const checksCount = completedChecks.length;
       const total = modules.length;
       const percent = total > 0 ? Math.round((count / total) * 100) : 0;
 
       if (progressCount) {
-        progressCount.textContent = `Complete ${count} of ${total} modules.`;
+        progressCount.textContent = `${count}/${total} modules completed.`;
+      }
+
+      if (progressModules) {
+        progressModules.textContent = `${count}/${total} modules completed`;
+      }
+
+      if (progressReadings) {
+        progressReadings.textContent = `${readingsCount}/${total} readings confirmed`;
+      }
+
+      if (progressQuiz) {
+        progressQuiz.textContent = `${checksCount}/${total} knowledge checks passed`;
       }
 
       if (progressBar) {
