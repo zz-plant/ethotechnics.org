@@ -21,6 +21,7 @@ type ContactInfo = {
 
 export type DonateContent = PageWithPermalink & {
   impact: ImpactArea[];
+  impactNote: string;
   paths: ContributionPath[];
   contact: ContactInfo;
   trust: {
@@ -32,7 +33,7 @@ export type DonateContent = PageWithPermalink & {
   quickSupport: {
     title: string;
     description: string;
-    options: { amount: string; detail: string }[];
+    options: { amount: string; detail: string; ctaLabel: string; href: string }[];
     href: string;
     ctaLabel: string;
   };
@@ -60,6 +61,8 @@ export const donateContent: DonateContent = {
         "Back the glossary, patterns, and teaching materials that help practitioners adopt ethical defaults.",
     },
   ],
+  impactNote:
+    "We publish short impact updates in the Field Notes feed and share receipts with every contribution.",
   paths: [
     {
       title: "One-time gifts",
@@ -88,12 +91,24 @@ export const donateContent: DonateContent = {
     description:
       "For individual supporters who want to move fast without procurement steps.",
     options: [
-      { amount: "$50", detail: "Covers one new glossary definition release." },
+      {
+        amount: "$50",
+        detail: "Covers one new glossary definition release.",
+        ctaLabel: "Contribute $50",
+        href: "mailto:hello@ethotechnics.org?subject=Quick%20donation%20support%20%2450",
+      },
       {
         amount: "$150",
         detail: "Supports a Field Notes dispatch and editing cycle.",
+        ctaLabel: "Contribute $150",
+        href: "mailto:hello@ethotechnics.org?subject=Quick%20donation%20support%20%24150",
       },
-      { amount: "$500", detail: "Offsets one diagnostic worksheet refresh." },
+      {
+        amount: "$500",
+        detail: "Offsets one diagnostic worksheet refresh.",
+        ctaLabel: "Contribute $500",
+        href: "mailto:hello@ethotechnics.org?subject=Quick%20donation%20support%20%24500",
+      },
     ],
     href: "mailto:hello@ethotechnics.org?subject=Quick%20donation%20support",
     ctaLabel: "Email to contribute",

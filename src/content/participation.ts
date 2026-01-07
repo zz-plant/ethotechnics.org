@@ -4,6 +4,7 @@ type ParticipationAction = {
   label: string;
   href: string;
   ariaLabel?: string;
+  detail?: string;
 };
 
 type ParticipationPathway = {
@@ -33,7 +34,9 @@ type ParticipationContent = PageCopy & {
     eyebrow: string;
     title: string;
     description: string;
+    formatNote: string;
     responseNote: string;
+    timelineNote: string;
     privacyNote: string;
     form: {
       action: string;
@@ -152,8 +155,12 @@ export const participationContent: ParticipationContent = {
     title: "Send a contribution request in one step.",
     description:
       "Share a short summary and we will route you to the right pathway, steward, or clinic.",
+    formatNote:
+      "Formats we can use right away: links to docs, PDFs, decks, or a short write-up in the form below.",
     responseNote:
       "Response window: we reply within 2–3 business days with next steps.",
+    timelineNote:
+      "If we can publish your contribution, we will confirm scope, anonymization needs, and timing first.",
     privacyNote:
       "We only use the details below to triage your request and follow up. Please avoid sharing sensitive data.",
     form: {
@@ -207,11 +214,13 @@ export const participationContent: ParticipationContent = {
         label: "Contact the inbox",
         href: "mailto:hello@ethotechnics.org?subject=Library%20feedback",
         ariaLabel: "Email hello@ethotechnics.org with library feedback",
+        detail: "Best for quick corrections, missing links, or content requests.",
       },
       {
         label: "Share facilitation feedback",
         href: "mailto:studio@ethotechnics.org?subject=Facilitation%20feedback",
         ariaLabel: "Email studio@ethotechnics.org with facilitation feedback",
+        detail: "Best for workshop retros, facilitation notes, and delivery insights.",
       },
     ],
   },
