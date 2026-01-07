@@ -63,17 +63,6 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Ensure the external modeling guide link stays descriptive and opens in the same tab (no `target` override).
   - The widget must retain keyboard support for sliders and export actions per the feature tests; keep it wrapped in the section for landmark navigation.
 
-## Diagnostics — SSR check (`/diagnostics/ssr`)
-
-- **Data sources:** Snapshot built from `buildDiagnosticsSnapshot(Astro.request)` with refresh via `/diagnostics/ssr.json`.
-- **Layout:**
-  - `section__header` includes eyebrow, `<h1>`, two muted paragraphs, and a permanent-link paragraph.
-  - Actions row contains primary jump link to `#runtime-snapshot` and ghost link to the example output doc; snapshot renders inside a `panel panel--glass`.
-  - Secondary section explains purpose with a callout and back link to `/diagnostics`.
-- **Accessibility:**
-  - Primary action uses `aria-label` to announce the jump target; ghost action names the SSR example.
-  - Snapshot component runs with `client:load`; maintain `aria-live="polite"` (from component) so refreshed content announces to assistive tech.
-
 ## Library (`/library`)
 
 - **Data sources:** Pull `libraryContent` from `src/content/library.ts` and `diagnosticsContent.tools` for diagnostic title mapping in PatternFilter.

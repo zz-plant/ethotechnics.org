@@ -17,7 +17,6 @@ How the site is structured and deployed so contributors can navigate the stack q
 ## Islands and hydration boundaries
 
 - Most pages stay server-rendered. React islands are limited to diagnostics tooling:
-  - `src/components/DiagnosticsSnapshot.tsx` powers the `/diagnostics/ssr` refreshable panel.
   - `src/features/capacity-forecaster` hosts the charting flow used on
     `/diagnostics/capacity-forecaster`.
 - Each island hydrates via `client:load` on its page; other components run without client bundles.

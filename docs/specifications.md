@@ -42,7 +42,6 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 - Most routes render server-only; islands are limited to diagnostics tooling.
 - `src/features/capacity-forecaster` powers the charting flow documented in
   [Diagnostics capacity forecaster](diagnostics-capacity-forecaster.md).
-- `src/components/DiagnosticsSnapshot.tsx` hydrates the `/diagnostics/ssr` refresh control.
 
 ## Content model
 
