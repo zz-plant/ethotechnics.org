@@ -19,6 +19,7 @@ const {
   studio,
   footerCta,
 } = startHereContent;
+const recommendedCard = routes.cards.find((card) => card.recommendedTag);
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -29,33 +30,27 @@ const {
     anchorLinks={anchorLinks}
     panelCopy={hero.panel}
   />
+  {recommendedCard && (
+    <div class="callout">
+      <p class="eyebrow">Recommended first step</p>
+      <h3>{recommendedCard.title}</h3>
+      {recommendedCard.recommendedNote && <p class="muted">{recommendedCard.recommendedNote}</p>}
+      <p class="muted small">{recommendedCard.description}</p>
+      <div class="section__actions">
+        {hero.actions.map((action) => (
+          <a
+            class={`button ${action.variant}`}
+            href={action.href}
+            aria-label={action.ariaLabel ?? action.label}
+          >
+            {action.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
   <p class="muted small">{hero.quickNote}</p>
   <p class="muted">{hero.quickSummary}</p>
-
-  <SectionBlock
-    id="decision-guide"
-    eyebrow={decisionGuide.eyebrow}
-    title={decisionGuide.title}
-    description={decisionGuide.description}
-    className="section--banded"
-  >
-    <CardGrid className="grid--three">
-      {decisionGuide.prompts.map((prompt) => (
-        <CardItem title={prompt.question} description={prompt.answer} descriptionTone="default">
-          <div slot="footer" class="card__footer">
-            <a
-              class="button ghost button--compact"
-              href={prompt.href}
-              rel={prompt.href.startsWith('http') ? 'noreferrer' : undefined}
-              target={prompt.href.startsWith('http') ? '_blank' : undefined}
-            >
-              {prompt.label}
-            </a>
-          </div>
-        </CardItem>
-      ))}
-    </CardGrid>
-  </SectionBlock>
 
   <SectionBlock
     id="routes"
@@ -64,21 +59,15 @@ const {
     description={routes.description}
     className="section--banded"
   >
-    <div class="section__actions">
-      {hero.actions.map((action) => (
-        <a
-          class={`button ${action.variant}`}
-          href={action.href}
-          aria-label={action.ariaLabel ?? action.label}
-        >
-          {action.label}
-        </a>
-      ))}
-    </div>
-
     <CardGrid className="grid--two">
       {routes.cards.map((card) => (
-        <CardItem title={card.title} description={card.description} descriptionTone="default" tags={card.tags}>
+        <CardItem
+          title={card.title}
+          description={card.description}
+          descriptionTone="default"
+          tags={card.recommendedTag ? [card.recommendedTag, ...card.tags] : card.tags}
+        >
+          {card.recommendedNote && <p class="muted small">{card.recommendedNote}</p>}
           <p class="muted">{card.bestFor}</p>
           <p class="muted small">{card.time}</p>
           <div slot="footer" class="card__footer">
@@ -133,6 +122,31 @@ const {
           ))}
         </ul>
       </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="decision-guide"
+    eyebrow={decisionGuide.eyebrow}
+    title={decisionGuide.title}
+    description={decisionGuide.description}
+    className="section--banded"
+  >
+    <CardGrid className="grid--three">
+      {decisionGuide.prompts.map((prompt) => (
+        <CardItem title={prompt.question} description={prompt.answer} descriptionTone="default">
+          <div slot="footer" class="card__footer">
+            <a
+              class="button ghost button--compact"
+              href={prompt.href}
+              rel={prompt.href.startsWith('http') ? 'noreferrer' : undefined}
+              target={prompt.href.startsWith('http') ? '_blank' : undefined}
+            >
+              {prompt.label}
+            </a>
+          </div>
+        </CardItem>
+      ))}
     </CardGrid>
   </SectionBlock>
 

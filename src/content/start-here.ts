@@ -11,6 +11,8 @@ export type StartHereRoute = {
   bestFor: string;
   href: string;
   tags: string[];
+  recommendedTag?: string;
+  recommendedNote?: string;
   time: string;
 };
 
@@ -128,10 +130,10 @@ export const startHereContent: StartHereContent = {
     ],
   },
   anchorLinks: [
-    { href: "#decision-guide", label: "Decision guide" },
     { href: "#routes", label: "Choose your path" },
     { href: "#artifacts", label: "Preview outputs" },
     { href: "#framing", label: "What this is" },
+    { href: "#decision-guide", label: "Decision guide" },
     { href: "#studio", label: "Studio relationship" },
     { href: "#cta", label: "Talk to the team" },
   ],
@@ -178,6 +180,9 @@ export const startHereContent: StartHereContent = {
           "Best for: urgent decisions, live risks, or leadership alignment.",
         href: "/diagnostics",
         tags: ["Readiness labs", "Off-ramps included", "Shareable results"],
+        recommendedTag: "Recommended path",
+        recommendedNote:
+          "Recommended first step when you need a decision-ready readout fast.",
         time: "15–30 min session",
       },
       {
@@ -274,9 +279,9 @@ export const startHereContent: StartHereContent = {
     title: "Pick a diagnostic or share a sample output.",
     description:
       "Bring a scenario and we will route you to the right tool, facilitator, or playbook.",
-    primaryLabel: "Run a diagnostic",
+    primaryLabel: "Choose a diagnostic",
     primaryHref: "/diagnostics",
-    secondaryLabel: "Download the diagnostic sample (PDF)",
+    secondaryLabel: "Share the diagnostic sample (PDF)",
     secondaryHref: "/assets/start-here/diagnostic-readout.pdf",
   },
 };
