@@ -38,6 +38,12 @@ export type FiniteContent = PageWithPermalink & {
       description: string;
     };
   };
+  keyTakeaways: {
+    title: string;
+    label: string;
+    note: string;
+    bullets: string[];
+  };
   why: {
     title: string;
     description: string;
@@ -132,6 +138,18 @@ export const finiteContent = {
       description:
         "Pair stoppability drills with reversibility and volatility export checks to see how systems fail—and how to halt them faster.",
     },
+  },
+  keyTakeaways: {
+    title: "Key takeaways",
+    label: "Non-binding overview",
+    note: "This summary is informational only; formal legal terms and statements of work govern engagement details.",
+    bullets: [
+      "Scope: Finite is a stoppability evaluation and training loop for named systems and scenarios, not a certification or audit.",
+      "Engagements focus on agreed drills, scorecards, and recommendations tied to the defined workflow.",
+      "SLAs and delivery timelines are set per pilot plan; no always-on monitoring or production support SLA is implied.",
+      "Data handling minimizes exposure: only logs, traces, and artifacts needed for drills are shared, and sensitive data should be redacted where possible.",
+      "Findings support internal decision-making; ownership of mitigation and implementation stays with your team.",
+    ],
   },
   why: {
     title: "Why Finite exists",
