@@ -7,7 +7,7 @@ import { GET as getSitemap } from '../src/pages/sitemap.xml';
 describe('robots.txt', () => {
   it('advertises the sitemap and default allow rules', async () => {
     const response = getRobots({
-      request: new Request('https://example.test/robots.txt'),
+      request: new Request('https://ethotechnics.org/robots.txt'),
       site: new URL('https://example.org'),
     } as APIContext);
 
@@ -21,13 +21,25 @@ describe('robots.txt', () => {
 
   it('falls back to the production domain when site is missing', async () => {
     const response = getRobots({
-      request: new Request('https://example.test/robots.txt'),
+      request: new Request('https://ethotechnics.org/robots.txt'),
       site: undefined,
     } as APIContext);
 
     const body = await response.text();
 
     expect(body).toContain('https://ethotechnics.org/sitemap.xml');
+  });
+
+  it('blocks indexing on non-production hosts', async () => {
+    const response = getRobots({
+      request: new Request('https://preview.ethotechnics.org/robots.txt'),
+      site: new URL('https://example.org'),
+    } as APIContext);
+
+    const body = await response.text();
+
+    expect(body).toContain('Disallow: /');
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
   });
 });
 
