@@ -8,6 +8,10 @@ export interface PanelCopy {
   eyebrow?: string;
   title: string;
   description: string;
+  link?: {
+    label: string;
+    href: string;
+  };
 }
 
 export interface Props {
@@ -97,6 +101,11 @@ function titleize(segment: string) {
           {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
           <h2>{panelCopy.title}</h2>
           <p>{panelCopy.description}</p>
+          {panelCopy.link && (
+            <p>
+              <a href={panelCopy.link.href}>{panelCopy.link.label}</a>
+            </p>
+          )}
         </div>
       )}
 
