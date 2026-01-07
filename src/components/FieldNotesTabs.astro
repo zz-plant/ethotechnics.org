@@ -1,106 +1,141 @@
 ---
-import { getGlossaryLabel } from '../content/glossary';
-import type { FieldNoteEntry, FieldNotesContent } from '../content/fieldNotes';
-import fieldNotesTabsScript from '../scripts/field-notes-tabs.ts?url';
+import { getGlossaryLabel } from "../utils/glossary";
+import type { FieldNoteEntry, FieldNotesContent } from "../content/fieldNotes";
+import fieldNotesTabsScript from "../scripts/field-notes-tabs.ts?url";
 
 export interface Props {
-  sections: FieldNotesContent['sections'];
+  sections: FieldNotesContent["sections"];
   entries: FieldNoteEntry[];
   glossaryBase: string;
 }
 
 const { sections, entries, glossaryBase } = Astro.props;
-const initialFormat = sections[0]?.format ?? '';
+const initialFormat = sections[0]?.format ?? "";
 
 const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
 ---
-{sections.length ? (
-  <section class="section section--alt" data-field-notes data-default-format={initialFormat}>
-    <div class="section__header">
-      {sections.map((section: FieldNotesContent['sections'][number]) => (
-        <div data-field-notes-heading data-format={section.format}>
-          <p class="eyebrow">{section.title}</p>
-          <h2>{section.description}</h2>
-        </div>
-      ))}
-      <ul class="pill-list pill-list--wrap" role="tablist" aria-label="Field note formats" data-field-notes-tablist>
-        {sections.map((section: FieldNotesContent['sections'][number], index: number) => {
-          const isActive = section.format === initialFormat || (index === 0 && !initialFormat);
 
-          return (
-            <li class={isActive ? 'pill-list__item--active' : ''}>
-              <a
-                id={`${section.format}-tab`}
-                href={`#${section.format}`}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`${section.format}-panel`}
-                tabindex={isActive ? 0 : -1}
-                data-format={section.format}
-                data-field-notes-tab
-              >
-                {section.title}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-    {sections.map((section: FieldNotesContent['sections'][number]) => {
-      const sectionEntries = entries.filter(
-        (entry: FieldNoteEntry) => entry.format === section.format,
-      );
+{
+  sections.length ? (
+    <section
+      class="section section--alt"
+      data-field-notes
+      data-default-format={initialFormat}
+    >
+      <div class="section__header">
+        {sections.map((section: FieldNotesContent["sections"][number]) => (
+          <div data-field-notes-heading data-format={section.format}>
+            <p class="eyebrow">{section.title}</p>
+            <h2>{section.description}</h2>
+          </div>
+        ))}
+        <ul
+          class="pill-list pill-list--wrap"
+          role="tablist"
+          aria-label="Field note formats"
+          data-field-notes-tablist
+        >
+          {sections.map(
+            (section: FieldNotesContent["sections"][number], index: number) => {
+              const isActive =
+                section.format === initialFormat ||
+                (index === 0 && !initialFormat);
 
-      return (
-        <div id={section.format} data-field-notes-section data-format={section.format}>
+              return (
+                <li class={isActive ? "pill-list__item--active" : ""}>
+                  <a
+                    id={`${section.format}-tab`}
+                    href={`#${section.format}`}
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls={`${section.format}-panel`}
+                    tabindex={isActive ? 0 : -1}
+                    data-format={section.format}
+                    data-field-notes-tab
+                  >
+                    {section.title}
+                  </a>
+                </li>
+              );
+            }
+          )}
+        </ul>
+      </div>
+      {sections.map((section: FieldNotesContent["sections"][number]) => {
+        const sectionEntries = entries.filter(
+          (entry: FieldNoteEntry) => entry.format === section.format
+        );
+
+        return (
           <div
-            class="grid"
-            id={`${section.format}-panel`}
-            role="tabpanel"
-            aria-labelledby={`${section.format}-tab`}
-            data-field-notes-panel
+            id={section.format}
+            data-field-notes-section
             data-format={section.format}
           >
-            {sectionEntries.map((entry: FieldNoteEntry) => (
-              <article class="card" id={entry.slug} data-field-notes-entry data-format={entry.format}>
-                <div class="card__glow" aria-hidden="true" />
-                <h3>{entry.title}</h3>
-                <p class="muted">{entry.summary}</p>
-                <p class="muted">
-                  Glossary{' '}
-                  {entry.relatedTerms.map((slug: string, relatedIndex: number) => {
-                    const separator = relatedIndex < entry.relatedTerms.length - 1 ? ', ' : '';
-
-                    return (
-                      <span>
-                        <a href={glossaryHref(slug)}>{getGlossaryLabel(slug)}</a>
-                        {separator}
-                      </span>
-                    );
-                  })}
-                </p>
-                {entry.links ? (
+            <div
+              class="grid"
+              id={`${section.format}-panel`}
+              role="tabpanel"
+              aria-labelledby={`${section.format}-tab`}
+              data-field-notes-panel
+              data-format={section.format}
+            >
+              {sectionEntries.map((entry: FieldNoteEntry) => (
+                <article
+                  class="card"
+                  id={entry.slug}
+                  data-field-notes-entry
+                  data-format={entry.format}
+                >
+                  <div class="card__glow" aria-hidden="true" />
+                  <h3>{entry.title}</h3>
+                  <p class="muted">{entry.summary}</p>
                   <p class="muted">
-                    Related links{' '}
-                    {entry.links.map((link: string, linkIndex: number) => {
-                      const separator = linkIndex < (entry.links?.length ?? 0) - 1 ? ', ' : '';
+                    Glossary{" "}
+                    {entry.relatedTerms.map(
+                      (slug: string, relatedIndex: number) => {
+                        const separator =
+                          relatedIndex < entry.relatedTerms.length - 1
+                            ? ", "
+                            : "";
 
-                      return (
-                        <span>
-                          <a href={link}>{link}</a>
-                          {separator}
-                        </span>
-                      );
-                    })}
+                        return (
+                          <span>
+                            <a href={glossaryHref(slug)}>
+                              {getGlossaryLabel(slug)}
+                            </a>
+                            {separator}
+                          </span>
+                        );
+                      }
+                    )}
                   </p>
-                ) : null}
-              </article>
-            ))}
+                  {entry.links ? (
+                    <p class="muted">
+                      Related links{" "}
+                      {entry.links.map((link: string, linkIndex: number) => {
+                        const separator =
+                          linkIndex < (entry.links?.length ?? 0) - 1
+                            ? ", "
+                            : "";
+
+                        return (
+                          <span>
+                            <a href={link}>{link}</a>
+                            {separator}
+                          </span>
+                        );
+                      })}
+                    </p>
+                  ) : null}
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      );
-    })}
-</section>
-) : null}
+        );
+      })}
+    </section>
+  ) : null
+}
 
 <script type="module" src={fieldNotesTabsScript}></script>

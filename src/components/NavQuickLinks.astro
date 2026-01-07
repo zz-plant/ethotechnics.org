@@ -10,21 +10,56 @@ const { links, class: className } = Astro.props as {
   class?: string;
 };
 
-const quickLinksClass = ['nav__quick-links', className].filter(Boolean).join(' ');
-const quickLinksLabelId = 'nav-quick-links-label';
+const quickLinksClass = ["nav__quick-links", className]
+  .filter(Boolean)
+  .join(" ");
+const quickLinksLabelId = "nav-quick-links-label";
 ---
+
 <div class={quickLinksClass} aria-labelledby={quickLinksLabelId}>
   <p class="muted nav__quick-links-label" id={quickLinksLabelId}>
     Browse the library by theme
   </p>
   <ul class="nav__quick-links-list">
-    {links.map((tag) => (
-      <li class="nav__quick-links-item">
-        <a class="nav__link-card nav__link-card--compact" href={tag.href}>
-          <span class="nav__link-label">{tag.label}</span>
-          {tag.description && <span class="muted nav__link-description">{tag.description}</span>}
-        </a>
-      </li>
-    ))}
+    {
+      links.map((tag) => (
+        <li class="nav__quick-links-item">
+          <a class="nav__link-card nav__link-card--compact" href={tag.href}>
+            <span class="nav__link-label">{tag.label}</span>
+            {tag.description && (
+              <span class="muted nav__link-description">{tag.description}</span>
+            )}
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </div>
+
+<style>
+  .nav__quick-links {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .nav__quick-links-label {
+    margin: 0;
+  }
+
+  .nav__quick-links-list {
+    display: grid;
+    gap: 0.55rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav__quick-links-item {
+    margin: 0;
+  }
+
+  .nav__link-card--compact {
+    padding: 0.7rem 0.8rem;
+  }
+</style>

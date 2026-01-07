@@ -1,24 +1,38 @@
 ---
-import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import CardGrid from '../components/CardGrid.astro';
-import CardItem from '../components/CardItem.astro';
-import { instituteStudioComparisonContent } from '../content/comparison';
-import { homeContent } from '../content/home';
-import Illustration from '../components/Illustration.astro';
-import InstituteStudioComparison from '../components/InstituteStudioComparison.astro';
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CardGrid from "../components/CardGrid.astro";
+import CardItem from "../components/CardItem.astro";
+import { instituteStudioComparisonContent } from "../content/comparison";
+import Illustration from "../components/Illustration.astro";
+import InstituteStudioComparison from "../components/InstituteStudioComparison.astro";
 
-const { pageTitle, pageDescription, hero, about, tracks, features, highlight, cta } = homeContent;
-
+const homeEntry = await getEntry("home", "home");
+const {
+  pageTitle,
+  pageDescription,
+  hero,
+  about,
+  tracks,
+  features,
+  highlight,
+  cta,
+} = homeEntry.data;
 ---
-<BaseLayout title={pageTitle} description={pageDescription} mainClass="page page--wide">
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  mainClass="page page--wide"
+>
   <section class="hero">
     <div class="hero__canvas" aria-hidden="true">
-      <span class="beam beam--one" />
-      <span class="beam beam--two" />
-      <span class="beam beam--three" />
-      <span class="gridlines" />
+      <span class="beam beam--one"></span>
+      <span class="beam beam--two"></span>
+      <span class="beam beam--three"></span>
+      <span class="gridlines"></span>
     </div>
     <div class="hero__layout">
       <div class="hero__content">
@@ -30,32 +44,42 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
           <h1>{hero.heading}</h1>
           <p class="lede">{hero.lede}</p>
         </div>
-        <div class="hero__note" set:html={hero.map}></div>
+        <div class="hero__note" set:html={hero.map} />
         <div class="hero__footer">
           <div class="actions">
-            {hero.actions.map((action) => (
-              <a
-                class={`button ${action.variant}`}
-                href={action.href}
-                rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
-              >
-                {action.icon ? (
-                  <Icon class="button__icon" name={action.icon} aria-hidden="true" />
-                ) : null}
-                <span>{action.label}</span>
-              </a>
-            ))}
+            {
+              hero.actions.map((action) => (
+                <a
+                  class={`button ${action.variant}`}
+                  href={action.href}
+                  rel={
+                    action.href.startsWith("http") ? "noreferrer" : undefined
+                  }
+                >
+                  {action.icon ? (
+                    <Icon
+                      class="button__icon"
+                      name={action.icon}
+                      aria-hidden="true"
+                    />
+                  ) : null}
+                  <span>{action.label}</span>
+                </a>
+              ))
+            }
           </div>
           <div class="hero__jump-links">
             <p class="muted small">Jump to</p>
             <ul>
-              {hero.quickLinks.map((link) => (
-                <li>
-                  <a class="pill pill--ghost" href={link.href}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {
+                hero.quickLinks.map((link) => (
+                  <li>
+                    <a class="pill pill--ghost" href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))
+              }
             </ul>
           </div>
         </div>
@@ -75,7 +99,11 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
               format="avif"
             />
           </div>
-          {hero.media.caption ? <figcaption class="muted">{hero.media.caption}</figcaption> : null}
+          {
+            hero.media.caption ? (
+              <figcaption class="muted">{hero.media.caption}</figcaption>
+            ) : null
+          }
         </figure>
 
         <div class="hero__panel-grid">
@@ -83,25 +111,25 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
             <p class="muted">{hero.panel.title}</p>
             <h3>{hero.panel.description}</h3>
             <ul class="pill-list pill-list--wrap">
-              {hero.panel.pills.map((pill) => (
-                <li>{pill}</li>
-              ))}
+              {hero.panel.pills.map((pill) => <li>{pill}</li>)}
             </ul>
           </div>
           <div class="hero__meta" aria-label="Proof points">
-            {hero.metrics.map((metric) => (
-              <article class="stat-card">
-                <div class="stat-card__header">
-                  {metric.icon ? (
-                    <span class="stat-card__icon" aria-hidden="true">
-                      <Icon name={metric.icon} />
-                    </span>
-                  ) : null}
-                  <p class="muted">{metric.label}</p>
-                </div>
-                <p class="metric">{metric.value}</p>
-              </article>
-            ))}
+            {
+              hero.metrics.map((metric) => (
+                <article class="stat-card">
+                  <div class="stat-card__header">
+                    {metric.icon ? (
+                      <span class="stat-card__icon" aria-hidden="true">
+                        <Icon name={metric.icon} />
+                      </span>
+                    ) : null}
+                    <p class="muted">{metric.label}</p>
+                  </div>
+                  <p class="metric">{metric.value}</p>
+                </article>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -118,50 +146,60 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
       <h3>{tracks.promptTitle}</h3>
       <p class="muted small">{tracks.promptNote}</p>
       <ul class="tracks__prompt-list">
-        {tracks.prompts.map((prompt) => (
-          <li>
-            <p class="tracks__prompt-question">{prompt.question}</p>
-            <p class="muted">{prompt.answer}</p>
-            <a
-              class="button ghost button--compact"
-              href={prompt.href}
-              rel={prompt.href.startsWith('http') ? 'noreferrer' : undefined}
-              target={prompt.href.startsWith('http') ? '_blank' : undefined}
-            >
-              {prompt.label}
-            </a>
-          </li>
-        ))}
+        {
+          tracks.prompts.map((prompt) => (
+            <li>
+              <p class="tracks__prompt-question">{prompt.question}</p>
+              <p class="muted">{prompt.answer}</p>
+              <a
+                class="button ghost button--compact"
+                href={prompt.href}
+                rel={prompt.href.startsWith("http") ? "noreferrer" : undefined}
+                target={prompt.href.startsWith("http") ? "_blank" : undefined}
+              >
+                {prompt.label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </div>
     <CardGrid className="grid--two">
-      {tracks.cards.map((card) => (
-        <CardItem
-          eyebrow={card.eyebrow}
-          icon={card.icon}
-          title={card.title}
-          description={card.description}
-          descriptionTone="default"
-          tags={card.pills}
-          tagsClassName="pill-list--wrap"
-        >
-          {card.actions ? (
-            <ul class="card__list">
-              {card.actions.map((action) => (
-                <li>
-                  <a
-                    href={action.href}
-                    rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
-                    target={action.href.startsWith('http') ? '_blank' : undefined}
-                  >
-                    {action.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </CardItem>
-      ))}
+      {
+        tracks.cards.map((card) => (
+          <CardItem
+            eyebrow={card.eyebrow}
+            icon={card.icon}
+            title={card.title}
+            description={card.description}
+            descriptionTone="default"
+            tags={card.pills}
+            tagsClassName="pill-list--wrap"
+          >
+            {card.actions ? (
+              <ul class="card__list">
+                {card.actions.map((action) => (
+                  <li>
+                    <a
+                      href={action.href}
+                      rel={
+                        action.href.startsWith("http")
+                          ? "noreferrer"
+                          : undefined
+                      }
+                      target={
+                        action.href.startsWith("http") ? "_blank" : undefined
+                      }
+                    >
+                      {action.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </section>
 
@@ -174,26 +212,28 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
       <p class="muted">{about.body}</p>
     </div>
     <div class="bento">
-      {about.features.map((feature) => (
-        <article class="tile">
-          <div class="icon" aria-hidden="true">
-            {feature.icon ? <Icon name={feature.icon} /> : null}
-          </div>
-          <div class="tile__body">
-            <h3>{feature.title}</h3>
-            <p>{feature.description}</p>
-            {feature.actions ? (
-              <ul class="tile__list">
-                {feature.actions.map((action) => (
-                  <li>
-                    <a href={action.href}>{action.label}</a>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        </article>
-      ))}
+      {
+        about.features.map((feature) => (
+          <article class="tile">
+            <div class="icon" aria-hidden="true">
+              {feature.icon ? <Icon name={feature.icon} /> : null}
+            </div>
+            <div class="tile__body">
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+              {feature.actions ? (
+                <ul class="tile__list">
+                  {feature.actions.map((action) => (
+                    <li>
+                      <a href={action.href}>{action.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 
@@ -211,26 +251,30 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
         className="features__illustration"
       />
       <CardGrid className="grid--two features__grid">
-        {features.cards.map((feature) => (
-          <CardItem
-            title={feature.title}
-            description={feature.description}
-            descriptionTone="default"
-            tags={feature.pills}
-            className={feature.emphasis ? 'card--emphasis' : undefined}
-            ariaLabel={feature.emphasis ? 'Navigation feature highlight' : undefined}
-          >
-            {feature.actions ? (
-              <ul class="card__list">
-                {feature.actions.map((action) => (
-                  <li>
-                    <a href={action.href}>{action.label}</a>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </CardItem>
-        ))}
+        {
+          features.cards.map((feature) => (
+            <CardItem
+              title={feature.title}
+              description={feature.description}
+              descriptionTone="default"
+              tags={feature.pills}
+              className={feature.emphasis ? "card--emphasis" : undefined}
+              ariaLabel={
+                feature.emphasis ? "Navigation feature highlight" : undefined
+              }
+            >
+              {feature.actions ? (
+                <ul class="card__list">
+                  {feature.actions.map((action) => (
+                    <li>
+                      <a href={action.href}>{action.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </CardItem>
+          ))
+        }
       </CardGrid>
     </div>
   </section>
@@ -247,14 +291,10 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
         <h3>{highlight.note.title}</h3>
         <p>{highlight.note.description}</p>
         <ul>
-          {highlight.note.actions.map((action) => (
-            <li>{action}</li>
-          ))}
+          {highlight.note.actions.map((action) => <li>{action}</li>)}
         </ul>
         <ul class="pill-list pill-list--wrap">
-          {highlight.pills.map((pill) => (
-            <li>{pill}</li>
-          ))}
+          {highlight.pills.map((pill) => <li>{pill}</li>)}
         </ul>
         <a class="button ghost" href={highlight.note.link.href}>
           {highlight.note.link.label}
@@ -270,16 +310,24 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
       <p class="muted">{cta.body}</p>
     </div>
     <div class="actions">
-      {cta.actions.map((action) => (
-        <a
-          class={`button ${action.variant}`}
-          href={action.href}
-          rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
-        >
-          {action.icon ? <Icon class="button__icon" name={action.icon} aria-hidden="true" /> : null}
-          <span>{action.label}</span>
-        </a>
-      ))}
+      {
+        cta.actions.map((action) => (
+          <a
+            class={`button ${action.variant}`}
+            href={action.href}
+            rel={action.href.startsWith("http") ? "noreferrer" : undefined}
+          >
+            {action.icon ? (
+              <Icon
+                class="button__icon"
+                name={action.icon}
+                aria-hidden="true"
+              />
+            ) : null}
+            <span>{action.label}</span>
+          </a>
+        ))
+      }
     </div>
   </section>
 </BaseLayout>

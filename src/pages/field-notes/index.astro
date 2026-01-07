@@ -1,18 +1,26 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import FieldNotesTabs from '../../components/FieldNotesTabs.astro';
-import { fieldNotesContent } from '../../content/fieldNotes';
-import { glossaryContent } from '../../content/glossary';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import FieldNotesTabs from "../../components/FieldNotesTabs.astro";
+import { fieldNotesContent } from "../../content/fieldNotes";
+import { glossaryPermalink } from "../../utils/glossary";
 
-const { pageTitle, pageDescription, permalink, sections, entries, latestUpdate, highlight } =
-  fieldNotesContent;
-const glossaryBase = glossaryContent.permalink;
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  sections,
+  entries,
+  latestUpdate,
+  highlight,
+} = fieldNotesContent;
+const glossaryBase = glossaryPermalink;
 const anchorLinks = sections.map((section) => ({
   href: `#${section.format}`,
   label: section.title,
 }));
 ---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Field Notes"
@@ -21,14 +29,19 @@ const anchorLinks = sections.map((section) => ({
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
-      eyebrow: 'Glossary cross-links',
-      title: 'Every note links back to Library terms.',
+      eyebrow: "Glossary cross-links",
+      title: "Every note links back to Library terms.",
       description:
-        'Dispatches, case studies, and signals point to glossary anchors so teams can reuse definitions across research and diagnostics.',
+        "Dispatches, case studies, and signals point to glossary anchors so teams can reuse definitions across research and diagnostics.",
     }}
   />
   <p class="muted small">
-    Latest update {new Date(latestUpdate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}.{' '}
+    Latest update {
+      new Date(latestUpdate).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
+    }.{" "}
     <a href="/rss.xml">Subscribe via RSS</a>.
   </p>
   <div class="callout field-notes__highlight">
@@ -40,5 +53,9 @@ const anchorLinks = sections.map((section) => ({
       {highlight.ctaLabel}
     </a>
   </div>
-  <FieldNotesTabs sections={sections} entries={entries} glossaryBase={glossaryBase} />
+  <FieldNotesTabs
+    sections={sections}
+    entries={entries}
+    glossaryBase={glossaryBase}
+  />
 </BaseLayout>

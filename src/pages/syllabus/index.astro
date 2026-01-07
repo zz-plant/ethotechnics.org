@@ -1,16 +1,19 @@
 ---
+import { getEntry } from 'astro:content';
 import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
-import { libraryContent } from '../../content/library';
-import { startHereContent } from '../../content/start-here';
 
+const libraryEntry = (await getEntry('library', 'library'))!;
+const startHereEntry = (await getEntry('startHere', 'start-here'))!;
+
+const libraryContent = libraryEntry.data;
+const startHereContent = startHereEntry.data;
 const pageTitle = 'Syllabus hub — Ethotechnics';
-const pageDescription =
-  'Track each syllabus module, complete knowledge checks, and export a shareable completion summary.';
+const pageDescription = 'Track each syllabus module, complete knowledge checks, and export a shareable completion summary.';
 
 const modules = libraryContent.syllabus.modules.map((module) => ({
   ...module,

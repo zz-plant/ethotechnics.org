@@ -1,30 +1,63 @@
 ---
-import { Icon } from 'astro-icon/components';
-import type { NavAction } from '../content/navigation';
+import { Icon } from "astro-icon/components";
+import type { NavAction } from "../content/navigation";
 
 const { actions, class: className } = Astro.props as {
   actions: NavAction[];
   class?: string;
 };
 
-const navActionsClass = ['nav__actions', className].filter(Boolean).join(' ');
+const navActionsClass = ["nav__actions", className].filter(Boolean).join(" ");
 
-const navActionClasses: Record<NavAction['variant'], string> = {
-  primary: 'button primary',
-  ghost: 'button ghost',
-  'ghost-compact': 'button ghost button--compact',
+const navActionClasses: Record<NavAction["variant"], string> = {
+  primary: "button primary",
+  ghost: "button ghost",
+  "ghost-compact": "button ghost button--compact",
 };
 ---
+
 <div class={navActionsClass}>
-  {actions.map((action) => (
-    <a
-      class={navActionClasses[action.variant]}
-      href={action.href}
-      rel={action.rel}
-      target={action.target}
-    >
-      <span>{action.label}</span>
-      {action.icon && <Icon class="nav__icon" name={action.icon} aria-hidden="true" />}
-    </a>
-  ))}
+  {
+    actions.map((action) => (
+      <a
+        class={navActionClasses[action.variant]}
+        href={action.href}
+        rel={action.rel}
+        target={action.target}
+      >
+        <span>{action.label}</span>
+        {action.icon && (
+          <Icon class="nav__icon" name={action.icon} aria-hidden="true" />
+        )}
+      </a>
+    ))
+  }
 </div>
+
+<style>
+  .nav__actions {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 992px) {
+    .nav__actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.7rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav__actions {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .nav__actions :global(.button) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

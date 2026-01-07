@@ -1,11 +1,12 @@
 ---
-import CardGrid from '../../components/CardGrid.astro';
-import CardItem from '../../components/CardItem.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { startHereContent } from '../../content/start-here';
+import { getEntry } from "astro:content";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const startHereData = (await getEntry("startHere", "start-here"))!;
 const {
   pageTitle,
   pageDescription,
@@ -18,17 +19,18 @@ const {
   framing,
   studio,
   footerCta,
-} = startHereContent;
+} = startHereData.data;
 const recommendedCard = routes.cards.find((card) => card.recommendedTag);
 const recommendedDetails = recommendedCard
   ? [
-      { text: recommendedCard.recommendedNote, className: 'muted' },
-      { text: recommendedCard.bestFor, className: 'muted small' },
-      { text: recommendedCard.time, className: 'muted small' },
-      { text: recommendedCard.description, className: 'muted small' },
+      { text: recommendedCard.recommendedNote, className: "muted" },
+      { text: recommendedCard.bestFor, className: "muted small" },
+      { text: recommendedCard.time, className: "muted small" },
+      { text: recommendedCard.description, className: "muted small" },
     ].filter((detail) => detail.text)
   : [];
 ---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow={hero.eyebrow}
@@ -38,32 +40,32 @@ const recommendedDetails = recommendedCard
     anchorLinks={anchorLinks}
     panelCopy={hero.panel}
   />
-  {recommendedCard && (
-    <div class="callout">
-      <p class="eyebrow">Recommended first step</p>
-      <h3>{recommendedCard.title}</h3>
-      {recommendedDetails.map((detail) => (
-        <p class={detail.className}>{detail.text}</p>
-      ))}
-      <div class="section__actions">
-        {hero.actions.map((action) => (
-          <a
-            class={`button ${action.variant}`}
-            href={action.href}
-            aria-label={action.ariaLabel ?? action.label}
-          >
-            {action.label}
-          </a>
+  {
+    recommendedCard && (
+      <div class="callout">
+        <p class="eyebrow">Recommended first step</p>
+        <h3>{recommendedCard.title}</h3>
+        {recommendedDetails.map((detail) => (
+          <p class={detail.className}>{detail.text}</p>
         ))}
+        <div class="section__actions">
+          {hero.actions.map((action) => (
+            <a
+              class={`button ${action.variant}`}
+              href={action.href}
+              aria-label={action.ariaLabel ?? action.label}
+            >
+              {action.label}
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
-  )}
+    )
+  }
   <p class="muted small">{hero.quickNote}</p>
   <p class="muted">{hero.quickSummary}</p>
   <ul class="muted">
-    {hero.deliverables.map((item) => (
-      <li>{item}</li>
-    ))}
+    {hero.deliverables.map((item) => <li>{item}</li>)}
   </ul>
 
   <SectionBlock
@@ -74,23 +76,35 @@ const recommendedDetails = recommendedCard
     className="section--banded"
   >
     <CardGrid className="grid--two">
-      {routes.cards.map((card) => (
-        <CardItem
-          title={card.title}
-          description={card.description}
-          descriptionTone="default"
-          tags={card.recommendedTag ? [card.recommendedTag, ...card.tags] : card.tags}
-        >
-          {card.recommendedNote && <p class="muted small">{card.recommendedNote}</p>}
-          <p class="muted">{card.bestFor}</p>
-          <p class="muted small">{card.time}</p>
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={card.href} aria-label={`Go to ${card.title}`}>
-              Visit {card.title.toLowerCase()}
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        routes.cards.map((card) => (
+          <CardItem
+            title={card.title}
+            description={card.description}
+            descriptionTone="default"
+            tags={
+              card.recommendedTag
+                ? [card.recommendedTag, ...card.tags]
+                : card.tags
+            }
+          >
+            {card.recommendedNote && (
+              <p class="muted small">{card.recommendedNote}</p>
+            )}
+            <p class="muted">{card.bestFor}</p>
+            <p class="muted small">{card.time}</p>
+            <div slot="footer" class="card__footer">
+              <a
+                class="button ghost button--compact"
+                href={card.href}
+                aria-label={`Go to ${card.title}`}
+              >
+                Visit {card.title.toLowerCase()}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -102,16 +116,26 @@ const recommendedDetails = recommendedCard
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {artifacts.previews.map((preview) => (
-        <CardItem title={preview.title} description={preview.description} descriptionTone="default">
-          <p class="muted">{preview.note}</p>
-          <div slot="footer" class="card__footer">
-            <a class="button primary button--compact" href={preview.href} aria-label={preview.label}>
-              {preview.label}
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        artifacts.previews.map((preview) => (
+          <CardItem
+            title={preview.title}
+            description={preview.description}
+            descriptionTone="default"
+          >
+            <p class="muted">{preview.note}</p>
+            <div slot="footer" class="card__footer">
+              <a
+                class="button primary button--compact"
+                href={preview.href}
+                aria-label={preview.label}
+              >
+                {preview.label}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -124,16 +148,12 @@ const recommendedDetails = recommendedCard
     <CardGrid className="grid--two">
       <CardItem title="This page is" descriptionTone="default">
         <ul class="muted">
-          {framing.isList.map((item) => (
-            <li>{item}</li>
-          ))}
+          {framing.isList.map((item) => <li>{item}</li>)}
         </ul>
       </CardItem>
       <CardItem title="This page is not" descriptionTone="default">
         <ul class="muted">
-          {framing.isNotList.map((item) => (
-            <li>{item}</li>
-          ))}
+          {framing.isNotList.map((item) => <li>{item}</li>)}
         </ul>
       </CardItem>
     </CardGrid>
@@ -147,20 +167,26 @@ const recommendedDetails = recommendedCard
     className="section--banded"
   >
     <CardGrid className="grid--three">
-      {decisionGuide.prompts.map((prompt) => (
-        <CardItem title={prompt.question} description={prompt.answer} descriptionTone="default">
-          <div slot="footer" class="card__footer">
-            <a
-              class="button ghost button--compact"
-              href={prompt.href}
-              rel={prompt.href.startsWith('http') ? 'noreferrer' : undefined}
-              target={prompt.href.startsWith('http') ? '_blank' : undefined}
-            >
-              {prompt.label}
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        decisionGuide.prompts.map((prompt) => (
+          <CardItem
+            title={prompt.question}
+            description={prompt.answer}
+            descriptionTone="default"
+          >
+            <div slot="footer" class="card__footer">
+              <a
+                class="button ghost button--compact"
+                href={prompt.href}
+                rel={prompt.href.startsWith("http") ? "noreferrer" : undefined}
+                target={prompt.href.startsWith("http") ? "_blank" : undefined}
+              >
+                {prompt.label}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -174,12 +200,15 @@ const recommendedDetails = recommendedCard
     <CardGrid>
       <CardItem descriptionTone="default">
         <ul class="muted">
-          {studio.bullets.map((bullet) => (
-            <li>{bullet}</li>
-          ))}
+          {studio.bullets.map((bullet) => <li>{bullet}</li>)}
         </ul>
         <div class="card__footer">
-          <a class="button ghost" href={studio.ctaHref} aria-label={studio.ctaAriaLabel} rel="noreferrer">
+          <a
+            class="button ghost"
+            href={studio.ctaHref}
+            aria-label={studio.ctaAriaLabel}
+            rel="noreferrer"
+          >
             {studio.ctaLabel}
           </a>
         </div>

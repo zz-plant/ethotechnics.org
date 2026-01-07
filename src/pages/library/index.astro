@@ -1,20 +1,32 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import CardGrid from '../../components/CardGrid.astro';
-import CardItem from '../../components/CardItem.astro';
-import PatternFilter from '../../components/PatternFilter.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
-import { diagnosticsContent } from '../../content/diagnostics';
-import { libraryContent } from '../../content/library';
+import { getEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PatternFilter from "../../components/PatternFilter.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
 
-const { pageTitle, pageDescription, permalink, primer, glossary, patterns, syllabus, quickStart, recommended } =
-  libraryContent;
+const libraryEntry = (await getEntry("library", "library"))!;
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  primer,
+  patterns,
+  syllabus,
+  quickStart,
+  recommended,
+} = libraryEntry.data;
 const diagnosticTitles = Object.fromEntries(
   diagnosticsContent.tools.map((tool) => [tool.slug, tool.title])
 );
-const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
+const glossaryEntry = (await getEntry("glossary", "glossary"))!;
+const glossaryContent = glossaryEntry.data;
+const glossaryHref = (slug: string) => `${glossaryContent.permalink}#${slug}`;
 ---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Library"
@@ -22,37 +34,37 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
-      { href: '#themes', label: 'Browse by theme' },
-      { href: '#primer', label: 'Primer' },
-      { href: '#glossary', label: 'Glossary' },
-      { href: '#patterns', label: 'Pattern language' },
-      { href: '#syllabus', label: 'Syllabus' },
+      { href: "#themes", label: "Browse by theme" },
+      { href: "#primer", label: "Primer" },
+      { href: "#glossary", label: "Glossary" },
+      { href: "#patterns", label: "Pattern language" },
+      { href: "#syllabus", label: "Syllabus" },
     ]}
     panelCopy={{
-      eyebrow: 'How to use this shelf',
-      title: 'Structured, linkable content',
+      eyebrow: "How to use this shelf",
+      title: "Structured, linkable content",
       description:
-        'Every entry ships with stable permalinks so you can cite them in research reports, design docs, and diagnostics. Filters call out whether a pattern is governance-first, design-ethics guidance, or a policy control to keep collaboration fast.',
+        "Every entry ships with stable permalinks so you can cite them in research reports, design docs, and diagnostics. Filters call out whether a pattern is governance-first, design-ethics guidance, or a policy control to keep collaboration fast.",
     }}
   />
   <div class="callout">
     <h3>Quick start</h3>
     <ul class="muted">
-      {quickStart.map((item) => (
-        <li>{item}</li>
-      ))}
+      {quickStart.map((item) => <li>{item}</li>)}
     </ul>
   </div>
   <div class="callout library__recommended">
     <h3>{recommended.title}</h3>
     <p class="muted">{recommended.description}</p>
     <ul class="library__recommended-list">
-      {recommended.items.map((item) => (
-        <li>
-          <a href={item.href}>{item.title}</a>
-          <p class="muted small">{item.description}</p>
-        </li>
-      ))}
+      {
+        recommended.items.map((item) => (
+          <li>
+            <a href={item.href}>{item.title}</a>
+            <p class="muted small">{item.description}</p>
+          </li>
+        ))
+      }
     </ul>
   </div>
 
@@ -64,20 +76,26 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
   >
     <div class="tag-rail">
       <ul class="pill-list pill-list--wrap">
-        {patterns.filters.map((filter) => (
-          <li class="pill-list__item tag-rail__item">
-            <a
-              class="pill-list__button"
-              href={`#${filter.slug}`}
-              aria-label={`Jump to ${filter.label} materials`}
-            >
-              {filter.label}
-            </a>
-            <p class="muted small tag-rail__description">{filter.description}</p>
-          </li>
-        ))}
+        {
+          patterns.filters.map((filter) => (
+            <li class="pill-list__item tag-rail__item">
+              <a
+                class="pill-list__button"
+                href={`#${filter.slug}`}
+                aria-label={`Jump to ${filter.label} materials`}
+              >
+                {filter.label}
+              </a>
+              <p class="muted small tag-rail__description">
+                {filter.description}
+              </p>
+            </li>
+          ))
+        }
       </ul>
-      <p class="muted tag-rail__hint">Tags also work as filters in the pattern language below.</p>
+      <p class="muted tag-rail__hint">
+        Tags also work as filters in the pattern language below.
+      </p>
     </div>
   </SectionBlock>
 
@@ -89,9 +107,15 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
     variant="alt"
   >
     <CardGrid>
-      {primer.map((entry) => (
-        <CardItem title={entry.title} description={entry.summary} tags={entry.takeaways} />
-      ))}
+      {
+        primer.map((entry) => (
+          <CardItem
+            title={entry.title}
+            description={entry.summary}
+            tags={entry.takeaways}
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -102,24 +126,25 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
     description="Use these anchors in Field Notes, Research, and Diagnostics so teams share the same language."
   >
     <CardGrid>
-      {glossary.terms.map((term) => (
-        <CardItem
-          id={term.slug}
-          eyebrow="Glossary term"
-          title={term.term}
-          description={term.definition}
-        >
-          <p class="muted">
-            <strong>Useful in:</strong> {term.appliesTo.join(', ')}
-          </p>
-          <a slot="footer" class="muted" href={glossaryHref(term.slug)}>
-            Permalink to {term.term}
-          </a>
-        </CardItem>
-      ))}
+      {
+        glossaryContent.starterTerms.map((term: any) => (
+          <CardItem
+            id={term.id}
+            eyebrow="Glossary term"
+            title={term.label}
+            description={term.description}
+          >
+            <a slot="footer" class="muted" href={glossaryHref(term.id)}>
+              Permalink to {term.label}
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
     <p class="muted glossary__cta">
-      Explore the full glossary in the dedicated section: <a href={glossary.permalink}>/glossary</a>
+      Explore the full glossary in the dedicated section: <a
+        href={glossaryContent.permalink}>/glossary</a
+      >
     </p>
   </SectionBlock>
 
@@ -131,12 +156,15 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
     variant="alt"
   >
     <p class="muted patterns__hint">
-      Use the search field to jump straight to a pattern or filter by the themes above.
+      Use the search field to jump straight to a pattern or filter by the themes
+      above.
     </p>
     <div class="pattern-filter__anchors" aria-hidden="true">
-      {patterns.filters.map((filter) => (
-        <span class="pattern-filter__anchor" id={filter.slug} />
-      ))}
+      {
+        patterns.filters.map((filter) => (
+          <span class="pattern-filter__anchor" id={filter.slug} />
+        ))
+      }
     </div>
     <PatternFilter
       filters={patterns.filters}
@@ -152,14 +180,22 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
     description={syllabus.overview}
   >
     <CardGrid>
-      {syllabus.modules.map((module) => (
-        <CardItem meta={module.duration} title={module.title} tags={module.topics}>
-          <p class="muted">Outcome: {module.outcome}</p>
-        </CardItem>
-      ))}
+      {
+        syllabus.modules.map((module) => (
+          <CardItem
+            meta={module.duration}
+            title={module.title}
+            tags={module.topics}
+          >
+            <p class="muted">Outcome: {module.outcome}</p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
     <p class="muted tag-rail__hint">
-      Track completion, knowledge checks, and certificates in the <a href="/syllabus">syllabus hub</a>.
+      Track completion, knowledge checks, and certificates in the <a
+        href="/syllabus">syllabus hub</a
+      >.
     </p>
   </SectionBlock>
 </BaseLayout>

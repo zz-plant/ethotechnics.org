@@ -1,20 +1,24 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import CardGrid from '../../../components/CardGrid.astro';
-import CardItem from '../../../components/CardItem.astro';
-import PageIntro from '../../../components/PageIntro.astro';
-import SectionBlock from '../../../components/SectionBlock.astro';
-import type { DiagnosticTool } from '../../../content/diagnostics';
-import { diagnosticsContent } from '../../../content/diagnostics';
-import { getGlossaryLabel, glossaryContent } from '../../../content/glossary';
-import { libraryContent } from '../../../content/library';
+import { getEntry } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CardGrid from "../../../components/CardGrid.astro";
+import CardItem from "../../../components/CardItem.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import type { DiagnosticTool } from "../../../content/diagnostics";
+import { diagnosticsContent } from "../../../content/diagnostics";
+import { getGlossaryLabel, glossaryPermalink } from "../../../utils/glossary";
 
 const { slug } = Astro.params;
-const pattern = libraryContent.patterns.entries.find((entry) => entry.slug === slug);
+const libraryEntry = (await getEntry("library", "library"))!;
+const pattern = libraryEntry.data.patterns.entries.find(
+  (entry) => entry.slug === slug
+);
+const libraryContent = libraryEntry.data;
 
 if (!pattern) {
   return Astro.response(
-    new Response('Pattern not found', {
+    new Response("Pattern not found", {
       status: 404,
     })
   );
@@ -31,22 +35,25 @@ const diagnosticLinks = pattern.diagnostics
 const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
   slug,
   label: getGlossaryLabel(slug),
-  href: `${glossaryContent.permalink}#${slug}`,
+  href: `${glossaryPermalink}#${slug}`,
 }));
 const pageTitle = `${pattern.title} — Pattern language`;
 const pageDescription = pattern.summary;
 const permalink = `/library/patterns/${pattern.slug}`;
 const panelDescription = `Tagged for ${pattern.filters
   .map((filter) => filterLabels[filter] ?? filter)
-  .join(', ')} with diagnostic handshakes.`;
+  .join(", ")} with diagnostic handshakes.`;
 const anchorLinks = [
-  ...(glossaryAnchors.length ? [{ href: '#glossary', label: 'Glossary anchors' }] : []),
-  { href: '#steps', label: 'Steps' },
-  { href: '#artifacts', label: 'Artifacts' },
-  { href: '#example', label: 'Example usage' },
-  { href: '#diagnostics', label: 'Diagnostics' },
+  ...(glossaryAnchors.length
+    ? [{ href: "#glossary", label: "Glossary anchors" }]
+    : []),
+  { href: "#steps", label: "Steps" },
+  { href: "#artifacts", label: "Artifacts" },
+  { href: "#example", label: "Example usage" },
+  { href: "#diagnostics", label: "Diagnostics" },
 ];
 ---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Pattern language"
@@ -55,31 +62,33 @@ const anchorLinks = [
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
-      eyebrow: 'Where it fits',
-      title: 'Filters and handoffs',
+      eyebrow: "Where it fits",
+      title: "Filters and handoffs",
       description: panelDescription,
     }}
   />
 
-  {glossaryAnchors.length > 0 && (
-    <SectionBlock
-      id="glossary"
-      eyebrow="Glossary anchors"
-      title="Link back to the definitions."
-      description="Jump to the glossary terms that frame this pattern."
-      variant="alt"
-    >
-      <ul class="pill-list pattern-detail__glossary-links">
-        {glossaryAnchors.map((anchor) => (
-          <li>
-            <a class="pill-list__button" href={anchor.href}>
-              {anchor.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </SectionBlock>
-  )}
+  {
+    glossaryAnchors.length > 0 && (
+      <SectionBlock
+        id="glossary"
+        eyebrow="Glossary anchors"
+        title="Link back to the definitions."
+        description="Jump to the glossary terms that frame this pattern."
+        variant="alt"
+      >
+        <ul class="pill-list pattern-detail__glossary-links">
+          {glossaryAnchors.map((anchor) => (
+            <li>
+              <a class="pill-list__button" href={anchor.href}>
+                {anchor.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </SectionBlock>
+    )
+  }
 
   <SectionBlock
     id="steps"
@@ -88,15 +97,17 @@ const anchorLinks = [
     description="Start with the field cues, then use the artifacts to keep the work legible."
   >
     <ol class="pattern-detail__steps">
-      {pattern.steps.map((step) => (
-        <li>
-          <div class="card card--emphasis pattern-detail__step-card">
-            <div class="card__glow" aria-hidden="true" />
-            <p class="muted">Step</p>
-            <h3>{step}</h3>
-          </div>
-        </li>
-      ))}
+      {
+        pattern.steps.map((step) => (
+          <li>
+            <div class="card card--emphasis pattern-detail__step-card">
+              <div class="card__glow" aria-hidden="true" />
+              <p class="muted">Step</p>
+              <h3>{step}</h3>
+            </div>
+          </li>
+        ))
+      }
     </ol>
   </SectionBlock>
 
@@ -108,9 +119,11 @@ const anchorLinks = [
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {pattern.artifacts.map((artifact) => (
-        <CardItem title={artifact.name} description={artifact.purpose} />
-      ))}
+      {
+        pattern.artifacts.map((artifact) => (
+          <CardItem title={artifact.name} description={artifact.purpose} />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -122,9 +135,11 @@ const anchorLinks = [
   >
     <div class="pattern-detail__example">
       <div class="card card--emphasis">
-        <div class="card__glow" aria-hidden="true" />
+        <div class="card__glow" aria-hidden="true"></div>
         <p class="muted">How it plays out</p>
-        <p class="pattern-detail__example-copy">{pattern.example.description}</p>
+        <p class="pattern-detail__example-copy">
+          {pattern.example.description}
+        </p>
       </div>
     </div>
   </SectionBlock>
@@ -138,68 +153,75 @@ const anchorLinks = [
   >
     <div class="pattern-detail__diagnostics">
       <ul class="pill-list">
-        {pattern.filters.map((filter) => (
-          <li>
-            <a class="pill-list__button" href={`/library#${filter}`}>
-              {filterLabels[filter] ?? filter}
-            </a>
-          </li>
-        ))}
+        {
+          pattern.filters.map((filter) => (
+            <li>
+              <a class="pill-list__button" href={`/library#${filter}`}>
+                {filterLabels[filter] ?? filter}
+              </a>
+            </li>
+          ))
+        }
       </ul>
 
       <div class="pattern-detail__diagnostic-list">
-        {diagnosticLinks.map((tool) => (
-          <article class="card pattern-detail__diagnostic-card" id={tool.slug}>
-            <div class="card__glow" aria-hidden="true" />
-            <div class="pattern-detail__diagnostic-header">
-              <div>
-                <p class="muted">Diagnostic</p>
-                <h3>{tool.title}</h3>
+        {
+          diagnosticLinks.map((tool) => (
+            <article
+              class="card pattern-detail__diagnostic-card"
+              id={tool.slug}
+            >
+              <div class="card__glow" aria-hidden="true" />
+              <div class="pattern-detail__diagnostic-header">
+                <div>
+                  <p class="muted">Diagnostic</p>
+                  <h3>{tool.title}</h3>
+                </div>
+                <button
+                  class="copy-button"
+                  type="button"
+                  data-copy-link={`/diagnostics#${tool.slug}`}
+                  aria-label={`Copy link to ${tool.title}`}
+                >
+                  Copy link
+                </button>
               </div>
-              <button
-                class="copy-button"
-                type="button"
-                data-copy-link={`/diagnostics#${tool.slug}`}
-                aria-label={`Copy link to ${tool.title}`}
-              >
-                Copy link
-              </button>
-            </div>
-            <p class="muted">{tool.description}</p>
-          </article>
-        ))}
+              <p class="muted">{tool.description}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </SectionBlock>
 </BaseLayout>
 
 <script>
-  const copyButtons = Array.from(document.querySelectorAll('[data-copy-link]'));
+  const copyButtons = Array.from(document.querySelectorAll("[data-copy-link]"));
 
   copyButtons.forEach((button) => {
     if (!(button instanceof HTMLButtonElement)) {
       return;
     }
 
-    const target = button.getAttribute('data-copy-link');
-    const defaultLabel = button.textContent?.trim() ?? 'Copy link';
+    const target = button.getAttribute("data-copy-link");
+    const defaultLabel = button.textContent?.trim() ?? "Copy link";
 
     if (!target) {
       return;
     }
 
-    button.addEventListener('click', async () => {
+    button.addEventListener("click", async () => {
       const link = new URL(target, window.location.origin).toString();
 
       try {
         await navigator.clipboard.writeText(link);
-        button.textContent = 'Copied';
+        button.textContent = "Copied";
         window.setTimeout(() => {
           button.textContent = defaultLabel;
         }, 1500);
       } catch (error) {
-        console.error('Copy failed', error);
-        button.textContent = 'Copy failed';
+        console.error("Copy failed", error);
+        button.textContent = "Copy failed";
         window.setTimeout(() => {
           button.textContent = defaultLabel;
         }, 1500);

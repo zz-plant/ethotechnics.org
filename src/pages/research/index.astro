@@ -1,11 +1,11 @@
 ---
-import PageIntro from '../../components/PageIntro.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import CardGrid from '../../components/CardGrid.astro';
-import CardItem from '../../components/CardItem.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
-import { getGlossaryLabel, glossaryContent } from '../../content/glossary';
-import { researchContent } from '../../content/research';
+import PageIntro from "../../components/PageIntro.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { getGlossaryLabel, glossaryPermalink } from "../../utils/glossary";
+import { researchContent } from "../../content/research";
 
 const {
   pageTitle,
@@ -20,9 +20,10 @@ const {
   lastUpdated,
   updateCadence,
 } = researchContent;
-const glossaryBase = glossaryContent.permalink;
+const glossaryBase = glossaryPermalink;
 const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
 ---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Research"
@@ -33,7 +34,12 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
     panelCopy={panelCopy}
   />
   <p class="muted small">
-    Last updated {new Date(lastUpdated).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}.{' '}
+    Last updated {
+      new Date(lastUpdated).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
+    }.{" "}
     {updateCadence}
   </p>
 
@@ -45,9 +51,15 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
     className="section--banded"
   >
     <CardGrid className="grid--two research__grid">
-      {orientationCards.map((card) => (
-        <CardItem title={card.title} description={card.description} tags={card.tags} />
-      ))}
+      {
+        orientationCards.map((card) => (
+          <CardItem
+            title={card.title}
+            description={card.description}
+            tags={card.tags}
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -59,17 +71,19 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
     variant="alt"
   >
     <CardGrid>
-      {agenda.map((item) => (
-        <CardItem
-          meta={item.timeframe}
-          title={item.title}
-          tags={item.goals}
-          glossaryLinks={item.glossaryRefs.map((slug) => ({
-            href: glossaryHref(slug),
-            label: getGlossaryLabel(slug),
-          }))}
-        />
-      ))}
+      {
+        agenda.map((item) => (
+          <CardItem
+            meta={item.timeframe}
+            title={item.title}
+            tags={item.goals}
+            glossaryLinks={item.glossaryRefs.map((slug) => ({
+              href: glossaryHref(slug),
+              label: getGlossaryLabel(slug),
+            }))}
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -80,18 +94,20 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
     description="Use these anchors to align research, Field Notes, and diagnostics around the same questions."
   >
     <CardGrid>
-      {focusAreas.map((area) => (
-        <CardItem
-          id={area.slug}
-          title={area.title}
-          description={area.description}
-          tags={area.questions}
-          glossaryLinks={area.glossaryRefs.map((slug) => ({
-            href: glossaryHref(slug),
-            label: getGlossaryLabel(slug),
-          }))}
-        />
-      ))}
+      {
+        focusAreas.map((area) => (
+          <CardItem
+            id={area.slug}
+            title={area.title}
+            description={area.description}
+            tags={area.questions}
+            glossaryLinks={area.glossaryRefs.map((slug) => ({
+              href: glossaryHref(slug),
+              label: getGlossaryLabel(slug),
+            }))}
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -103,25 +119,27 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
     variant="alt"
   >
     <CardGrid>
-      {publications.map((publication) => (
-        <CardItem
-          meta={publication.type}
-          title={publication.title}
-          description={publication.summary}
-          descriptionTone="default"
-          tags={publication.tags}
-          glossaryLinks={publication.glossaryRefs.map((slug) => ({
-            href: glossaryHref(slug),
-            label: getGlossaryLabel(slug),
-          }))}
-        >
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={publication.href}>
-              {publication.ctaLabel}
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        publications.map((publication) => (
+          <CardItem
+            meta={publication.type}
+            title={publication.title}
+            description={publication.summary}
+            descriptionTone="default"
+            tags={publication.tags}
+            glossaryLinks={publication.glossaryRefs.map((slug) => ({
+              href: glossaryHref(slug),
+              label: getGlossaryLabel(slug),
+            }))}
+          >
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={publication.href}>
+                {publication.ctaLabel}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

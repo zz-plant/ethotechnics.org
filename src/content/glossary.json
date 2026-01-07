@@ -1,0 +1,1346 @@
+[
+  {
+    "id": "glossary",
+    "pageTitle": "Ethotechnics glossary — Moral system design definitions and terminology",
+  "pageDescription": "Ethotechnics glossary of moral system design and ethical technology: definitions, examples, and resources organized by territory with stable permalinks for research and policy teams.",
+  "permalink": "/glossary",
+  "starterTerms": [
+    {
+      "id": "ethotechnics",
+      "label": "Ethotechnics",
+      "description": "The discipline itself and how moral behavior becomes a system capability."
+    },
+    {
+      "id": "moral-behavior",
+      "label": "Moral behavior",
+      "description": "How systems avoid harm and distribute responsibility in practice."
+    },
+    {
+      "id": "consent-journey",
+      "label": "Consent journey",
+      "description": "The checkpoints that keep consent informed and reversible over time."
+    }
+  ],
+  "categoryHighlights": [
+    {
+      "id": "core-concepts",
+      "label": "Core concepts",
+      "description": "Start here for shared definitions and the core Ethotechnics framing."
+    },
+    {
+      "id": "governance",
+      "label": "Governance & power",
+      "description": "Terms that explain escalation paths, stewardship, and decision authority."
+    },
+    {
+      "id": "burden-load",
+      "label": "Burden & load",
+      "description": "Language for how effort and harm shift across people and systems."
+    },
+    {
+      "id": "friction",
+      "label": "Friction & flow",
+      "description": "Where to slow, pause, or redirect experience to protect people."
+    }
+  ],
+  "territoryMap": [
+    {
+      "id": "core-concepts",
+      "label": "Core concepts",
+      "tooltip": "Shared language that defines Ethotechnics."
+    },
+    {
+      "id": "failure-modes",
+      "label": "Failure modes",
+      "tooltip": "Characteristic patterns of harm Ethotechnics addresses."
+    },
+    {
+      "id": "capabilities",
+      "label": "Capabilities",
+      "tooltip": "Abilities systems need to behave morally at scale."
+    },
+    {
+      "id": "system-states",
+      "label": "System states",
+      "tooltip": "Operational postures and fault modes that shape risk."
+    },
+    {
+      "id": "human-limits",
+      "label": "Human limits",
+      "tooltip": "Human constraints and experience systems must respect."
+    },
+    {
+      "id": "burden-load",
+      "label": "Burden & load",
+      "tooltip": "Who carries effort, cost, and harm when systems run or fail."
+    },
+    {
+      "id": "measures",
+      "label": "Measures & indicators",
+      "tooltip": "Metrics that make moral performance legible."
+    },
+    {
+      "id": "governance",
+      "label": "Governance & power",
+      "tooltip": "Who sets boundaries, who can intervene, and how."
+    },
+    {
+      "id": "friction",
+      "label": "Friction & flow",
+      "tooltip": "Where to slow, pause, or smooth flows to protect people."
+    },
+    {
+      "id": "decision-states",
+      "label": "Decision states & edges",
+      "tooltip": "Where decisions tip from reversible to permanent."
+    },
+    {
+      "id": "patterns",
+      "label": "Patterns & anti-patterns",
+      "tooltip": "System archetypes that demand special care."
+    },
+    {
+      "id": "future-concepts",
+      "label": "Future concepts",
+      "tooltip": "Active and emerging research threads in Ethotechnics."
+    },
+    {
+      "id": "principles",
+      "label": "Foundational principles",
+      "tooltip": "Early axioms that will anchor the discipline."
+    }
+  ],
+  "categories": [
+    {
+      "id": "core-concepts",
+      "heading": "A. Core concepts",
+      "descriptionHtml": "These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "ethotechnics",
+          "title": "Ethotechnics",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The craft of designing systems that can behave morally. Where ethics asks “What should I do?” and systems theory asks “How does it behave?”, Ethotechnics asks: <strong>How can it behave well?</strong> Moral behavior is treated as an architectural capability, not a personal virtue.</p>",
+          "examples": [
+            "A hospital release board adds Ethotechnic stop-checks before deploying triage updates to keep clinicians in control."
+          ],
+          "tags": [
+            "hospitals",
+            "platforms",
+            "governance"
+          ],
+          "resources": [
+            {
+              "label": "AI governance",
+              "href": "/ai-governance/",
+              "type": "Resource"
+            },
+            {
+              "label": "Healthcare readiness checklist",
+              "href": "/healthcare/",
+              "type": "Guide"
+            }
+          ]
+        },
+        {
+          "id": "moral-behavior",
+          "title": "Moral Behavior (of Systems)",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Observable patterns of system behavior that prevent harm, share burden fairly, and keep people contestable and whole. Moral behavior is evaluated through <a href=\"#moral-performance-indicators\">MPIs</a> such as <a href=\"#time-to-halt\">time-to-halt</a>, <a href=\"#reversibility\">reversibility</a>, and <a href=\"#fair-burden-distribution\">fair burden distribution</a>—not by stated intent.</p>",
+          "examples": [
+            "A payments platform throttles recommendations when fraud signals spike until human reviewers clear the backlog."
+          ],
+          "tags": [
+            "platforms",
+            "finance",
+            "safety"
+          ],
+          "resources": [
+            {
+              "label": "Civic services",
+              "href": "/civic-services/",
+              "type": "Essay"
+            },
+            {
+              "label": "Maintenance simulator",
+              "href": "/tools/maintenance-simulator/",
+              "type": "Tool"
+            }
+          ]
+        },
+        {
+          "id": "ethical-load-path",
+          "title": "Ethical Load Path",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The route moral responsibility travels through a system—across automation, humans, and institutions. A clear ethical load path shows who can stop, reverse, or repair harm at each stage, linking <a href=\"#design-authority\">design authority</a>, <a href=\"#oversight-horizon\">oversight horizons</a>, and the <a href=\"#repair-log\">repair log</a>.</p>",
+          "examples": [
+            "A transit authority publishes who can halt automated dispatch at each escalation step, including night-shift supervisors."
+          ],
+          "tags": [
+            "transit",
+            "ops-teams",
+            "oversight"
+          ],
+          "resources": [
+            {
+              "label": "Governance playbook",
+              "href": "/docs/governance/",
+              "type": "Guide"
+            },
+            {
+              "label": "Accountability architectures",
+              "href": "/accountability-architectures/",
+              "type": "Guide"
+            }
+          ]
+        },
+        {
+          "id": "ethotechnic-audit",
+          "title": "Ethotechnic Audit",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A structured assessment of a system’s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where <a href=\"#stopability\">stopability</a> or <a href=\"#reversibility\">reversibility</a> fail and guide concrete remediation steps.</p>",
+          "examples": [
+            "A platform review board runs an Ethotechnic audit after an outage to trace who could have halted or reversed the release."
+          ],
+          "tags": [
+            "platforms",
+            "audits",
+            "sre"
+          ],
+          "resources": [
+            {
+              "label": "AI governance",
+              "href": "/ai-governance/",
+              "type": "Guide"
+            }
+          ]
+        },
+        {
+          "id": "conviviality",
+          "title": "Conviviality",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The degree to which tools and institutions expand people’s agency, cooperation, and right of refusal instead of enclosing them. Convivial systems keep <a href=\"#permission-surface\">permission surfaces</a> wide and make opting out safe, so people can shape the service without being consumed by it.</p>",
+          "examples": [
+            "A mutual aid platform lets neighbors pause notifications or change delivery preferences without losing access to support."
+          ],
+          "tags": [
+            "community",
+            "platforms",
+            "mutual-aid"
+          ],
+          "resources": [
+            {
+              "label": "Patterns library",
+              "href": "/patterns/",
+              "type": "Reference"
+            }
+          ]
+        },
+        {
+          "id": "ethotechnic-maturity",
+          "title": "Ethotechnic Maturity",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A developmental scale describing how fully a system embodies Ethotechnic capabilities. Early maturity focuses on stopping acute harms; later stages add <a href=\"#graceful-degradation\">graceful degradation</a>, <a href=\"#contestability\">contestability</a>, and regular <a href=\"#care-retrospective\">care retrospectives</a>. The highest level treats ethics as continuous operations, with published <a href=\"#service-level-indicators\">SLJs</a> and funded maintenance practice.</p>",
+          "examples": [
+            "A rail operator publishes service-level justice metrics and funds quarterly pause drills to keep reversibility fresh."
+          ],
+          "tags": [
+            "rail",
+            "sre",
+            "maturity"
+          ],
+          "resources": [
+            {
+              "label": "Maintenance guidance",
+              "href": "/docs/maintenance/",
+              "type": "Guide"
+            },
+            {
+              "label": "Maintenance playbooks",
+              "href": "/maintenance-playbooks/",
+              "type": "Resource"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "failure-modes",
+      "heading": "B. Failure modes (why Ethotechnics exists)",
+      "descriptionHtml": "Common patterns where responsibility dissolves and harm accelerates.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "moral-latency",
+          "title": "Moral Latency",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The delay between harm occurring and the system recognizing it. Automated systems create harms faster than human oversight can register, demanding <a href=\"#velocity-friction\">velocity friction</a> and <a href=\"#ethical-interrupts\">ethical interrupts</a>.</p>",
+          "examples": [
+            "A clinic triage chatbot keeps routing people while harm reports queue for hours, hiding the moral latency from clinicians."
+          ],
+          "tags": [
+            "hospitals",
+            "automation",
+            "latency"
+          ],
+          "resources": [
+            {
+              "label": "Healthcare safeguards",
+              "href": "/healthcare/",
+              "type": "Guide"
+            }
+          ]
+        },
+        {
+          "id": "accountability-diffusion",
+          "title": "Accountability Diffusion",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Responsibility dissolves across teams, tools, and incentives until no one can intervene. A defining pattern of modern institutions and a direct threat to clear <a href=\"#design-authority\">design authority</a>.</p>",
+          "examples": [
+            "A support ticket bounces between a vendor and a hospital compliance team with no one empowered to pause the rollout."
+          ],
+          "tags": [
+            "platforms",
+            "governance",
+            "hospitals"
+          ],
+          "resources": [
+            {
+              "label": "Governance playbook",
+              "href": "/docs/governance/",
+              "type": "Guide"
+            },
+            {
+              "label": "Burden Modeler",
+              "href": "/diagnostics/burden-modeler",
+              "type": "Tool"
+            }
+          ]
+        },
+        {
+          "id": "extraction",
+          "title": "Extraction",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>When a system pulls value—data, attention, labor, or social capital—without returning care, consent, or repair. Extraction hides true costs through <a href=\"#externalization\">externalization</a> and steep <a href=\"#burden-gradient\">burden gradients</a>, hollowing trust.</p>",
+          "examples": [
+            "A data-labeling program offloads unpaid overnight verification to gig workers while the platform reports clean metrics."
+          ],
+          "tags": [
+            "labor",
+            "platforms",
+            "ai"
+          ],
+          "resources": [
+            {
+              "label": "AI governance",
+              "href": "/ai-governance/",
+              "type": "Guide"
+            },
+            {
+              "label": "Resource library",
+              "href": "/resources/",
+              "type": "Essay"
+            }
+          ]
+        },
+        {
+          "id": "extraction-by-endurance",
+          "title": "Extraction by Endurance",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Systems that depend on workers or users absorbing fragility through burnout, emotional labor, or unpaid cognitive work—often mislabeled as “resilience.” Ethotechnic practice aims to invert this burden with <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p>"
+        },
+        {
+          "id": "drift",
+          "title": "Drift (System Drift)",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The natural tendency of systems to externalize harm over time unless constrained by <a href=\"#protective-friction\">protective friction</a> and <a href=\"#moral-performance-indicators\">moral performance indicators</a>.</p>"
+        },
+        {
+          "id": "externalization",
+          "title": "Externalization",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Pushing risk, cost, or harm onto other teams, communities, or the future so metrics look clean. Externalization shows up as pollution, shadow labor, or brittle dependencies that live outside audits.</p><p>Ethotechnics counters it with <a href=\"#oversight-horizon\">oversight horizons</a>, <a href=\"#moral-performance-indicators\">MPIs</a>, and transparent <a href=\"#repair-log\">repair logs</a>.</p>"
+        },
+        {
+          "id": "brittleness",
+          "title": "Brittleness",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>When a system shatters under real-world variance—unexpected inputs, refusals, or edge cases—forcing humans to absorb impact. Brittleness signals missing <a href=\"#soft-edges\">soft edges</a>, thin <a href=\"#graceful-degradation\">graceful degradation</a>, and poor <a href=\"#human-refusal-tolerance\">refusal tolerance</a>.</p>",
+          "examples": [
+            "A flight booking bot fails on hyphenated surnames, forcing airport agents to override tickets at the counter."
+          ],
+          "tags": [
+            "aviation",
+            "automation",
+            "support"
+          ],
+          "resources": []
+        },
+        {
+          "id": "optimization-myopia",
+          "title": "Optimization Myopia",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Metric-chasing that narrows attention to throughput or growth while ignoring <a href=\"#moral-performance-indicators\">MPIs</a>. Myopic optimization erodes <a href=\"#contestability\">contestability</a>, raises <a href=\"#failure-load\">failure load</a>, and often fuels <a href=\"#extraction\">extraction</a>.</p>"
+        },
+        {
+          "id": "precision-laundering",
+          "title": "Precision Laundering",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Using detailed metrics or probabilistic scores to disguise inequity as objectivity. Precision laundering hides <a href=\"#burden-gradient\">burden gradients</a> and <a href=\"#externalization\">externalization</a> behind statistical gloss, undermining <a href=\"#explainability-for-accountability\">explainability for accountability</a>.</p>"
+        },
+        {
+          "id": "compliance-collapse",
+          "title": "Compliance Collapse",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>When rigid policy checklists replace judgment, causing teams to follow rules while harm worsens. Compliance collapses occur when <a href=\"#design-authority\">design authority</a> is weak and <a href=\"#contestability\">contestability</a> is low, leaving no path to pause or repair.</p>"
+        }
+      ]
+    },
+    {
+      "id": "capabilities",
+      "heading": "C. Ethotechnic capabilities (what systems must be able to do)",
+      "descriptionHtml": "Design requirements that keep people safe when systems scale.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "stopability",
+          "title": "Stopability",
+          "status": null,
+          "classes": [
+            "glossary-entry--diagram"
+          ],
+          "bodyHtml": "<p>A system’s ability to halt harmful processes quickly and automatically—without requiring heroism or escalation.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Stopability diagram</title>\n                            <rect x=\"10\" y=\"30\" width=\"70\" height=\"20\" rx=\"10\" class=\"diagram-track\"></rect>\n                            <circle cx=\"40\" cy=\"40\" r=\"22\" class=\"diagram-stop\"></circle>\n                            <line x1=\"85\" y1=\"40\" x2=\"110\" y2=\"40\" class=\"diagram-flow\"></line>\n                            <path d=\"M40 28 L48 40 L40 52 L32 40 Z\" class=\"diagram-stop-symbol\"></path>\n                          </svg>\n                        </figure>",
+          "relatedPatterns": [
+            "kill-switch",
+            "maintenance-windowing"
+          ]
+        },
+        {
+          "id": "reversibility",
+          "title": "Reversibility",
+          "status": null,
+          "classes": [
+            "glossary-entry--diagram"
+          ],
+          "bodyHtml": "<p>Critical actions can be undone. Damage is not permanent by default, and <a href=\"#time-to-restore\">time-to-restore</a> stays low.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Reversibility diagram</title>\n                            <path d=\"M70 24c12 4 20 15 18 27-2 15-17 27-34 22-17-5-24-25-14-40 8-12 24-16 37-10\" class=\"diagram-loop\"></path>\n                            <polyline points=\"70,24 70,42 52,42\" class=\"diagram-loop-arrow\"></polyline>\n                          </svg>\n                        </figure>"
+        },
+        {
+          "id": "fair-burden-distribution",
+          "title": "Fair Burden Distribution",
+          "status": null,
+          "classes": [
+            "glossary-entry--diagram"
+          ],
+          "bodyHtml": "<p>Failures do not fall hardest on the most vulnerable. Burden is treated as a design variable and measured via the <a href=\"#user-burden-ratio\">user burden ratio</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Fair burden distribution diagram</title>\n                            <line x1=\"20\" y1=\"40\" x2=\"100\" y2=\"40\" class=\"diagram-scale\"></line>\n                            <circle cx=\"40\" cy=\"40\" r=\"16\" class=\"diagram-scale-pan\"></circle>\n                            <circle cx=\"80\" cy=\"40\" r=\"16\" class=\"diagram-scale-pan\"></circle>\n                            <rect x=\"56\" y=\"18\" width=\"8\" height=\"44\" class=\"diagram-pivot\"></rect>\n                          </svg>\n                        </figure>"
+        },
+        {
+          "id": "contestability",
+          "title": "Contestability",
+          "status": null,
+          "classes": [
+            "glossary-entry--diagram"
+          ],
+          "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them—and win. Contestability combines <a href=\"#permission-surface\">permission surface</a> and <a href=\"#appeal-passage-rate\">appeal passage rate</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Contestability diagram</title>\n                            <path d=\"M24 64 L24 20 L48 20 L48 40 L72 40 L72 20 L96 20 L96 64\" class=\"diagram-portal\"></path>\n                            <circle cx=\"48\" cy=\"52\" r=\"8\" class=\"diagram-voice\"></circle>\n                            <line x1=\"48\" y1=\"52\" x2=\"64\" y2=\"52\" class=\"diagram-voice-line\"></line>\n                          </svg>\n                        </figure>"
+        },
+        {
+          "id": "explainability-for-accountability",
+          "title": "Explainability for Accountability",
+          "status": null,
+          "classes": [
+            "glossary-entry--diagram"
+          ],
+          "bodyHtml": "<p>Explanations that are actionable, not decorative. They reveal who made a decision and how it can be corrected, enabling <a href=\"#contestability\">contestability</a> and <a href=\"#ethotechnic-audit\">audits</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Explainability diagram</title>\n                            <rect x=\"18\" y=\"18\" width=\"84\" height=\"44\" rx=\"10\" class=\"diagram-card\"></rect>\n                            <circle cx=\"40\" cy=\"40\" r=\"10\" class=\"diagram-focus\"></circle>\n                            <line x1=\"52\" y1=\"30\" x2=\"84\" y2=\"30\" class=\"diagram-detail\"></line>\n                            <line x1=\"52\" y1=\"40\" x2=\"84\" y2=\"40\" class=\"diagram-detail\"></line>\n                            <line x1=\"52\" y1=\"50\" x2=\"74\" y2=\"50\" class=\"diagram-detail\"></line>\n                          </svg>\n                        </figure>"
+        },
+        {
+          "id": "human-refusal-tolerance",
+          "title": "Human Refusal-Tolerance",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The system remains usable when people opt out, are confused, make mistakes, or withdraw cooperation. Refusal tolerance prevents <a href=\"#extraction-by-endurance\">extraction by endurance</a> by ensuring refusals do not silently convert into extra unpaid work.</p>"
+        },
+        {
+          "id": "graceful-degradation",
+          "title": "Graceful Degradation",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The system sheds features or load in controlled stages while keeping people safe. Graceful degradation prioritizes <a href=\"#care-floor-guarantees\">care floor guarantees</a>, maintains <a href=\"#stopability\">stopability</a>, and keeps <a href=\"#time-to-restore\">time-to-restore</a> low.</p>"
+        },
+        {
+          "id": "soft-edges",
+          "title": "Soft Edges",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Boundary conditions designed to cushion people instead of penalizing them—graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce <a href=\"#failure-load\">failure load</a> and guard against <a href=\"#brittleness\">brittleness</a>.</p>"
+        }
+      ]
+    },
+    {
+      "id": "system-states",
+      "heading": "D. System states & architectures",
+      "descriptionHtml": "Operational postures that determine how harm is absorbed—or amplified.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "fail-safe",
+          "title": "Fail-Safe Mode",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The system defaults to the safest possible behavior when uncertain, prioritizing <a href=\"#stopability\">stopability</a>.</p>"
+        },
+        {
+          "id": "fail-open",
+          "title": "Fail-Open Mode",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The system defaults to permissiveness under failure—sometimes necessary, sometimes dangerous. Must be paired with <a href=\"#velocity-friction\">velocity friction</a>.</p>"
+        },
+        {
+          "id": "fail-silent",
+          "title": "Fail-Silent Mode",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A harmful state where systems fail without signaling it; the worst possible form of failure because it hides <a href=\"#moral-latency\">moral latency</a>.</p>"
+        },
+        {
+          "id": "crumple-zone",
+          "title": "Crumple Zone / Human-as-Crumple-Zone",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Originally: machines absorb force so people survive. Digitally: people absorb system failures so machines stay smooth. Ethotechnics reverses this direction of impact.</p>"
+        },
+        {
+          "id": "harm-visibility",
+          "title": "Harm Visibility",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>How plainly a system exposes the human impact of its decisions in real time. High harm visibility pairs logs, narratives, and alerts so <a href=\"#oversight-horizon\">oversight horizons</a> extend beyond dashboards and <a href=\"#ethical-interrupts\">ethical interrupts</a> trigger on lived effects, not just technical anomalies.</p>"
+        },
+        {
+          "id": "dead-zones",
+          "title": "Dead Zones / Moral Dead Zones",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Places in a system where harm occurs but no one can see, trace, or intervene. Closing dead zones is a goal of <a href=\"#oversight-horizon\">oversight horizons</a>.</p>"
+        },
+        {
+          "id": "escalation-horizon",
+          "title": "Escalation Horizon",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The predefined point where automated control must yield to human judgment because risk, ambiguity, or <a href=\"#moral-latency\">moral latency</a> is rising. Escalation horizons activate <a href=\"#ethical-interrupts\">ethical interrupts</a> and route cases to accountable stewards before crossing an <a href=\"#irreversible-boundary\">irreversible boundary</a>.</p>"
+        },
+        {
+          "id": "interaction-surface",
+          "title": "Interaction Surface",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The moments, interfaces, and channels where people experience system decisions and can intervene. Mapping the interaction surface reveals where to place <a href=\"#dignity-friction\">dignity friction</a>, widen the <a href=\"#permission-surface\">permission surface</a>, and detect <a href=\"#dead-user-zones\">dead-user zones</a>.</p>"
+        },
+        {
+          "id": "maintenance-window",
+          "title": "Maintenance Window",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A scheduled calm state where teams intentionally slow or stop throughput so inspections, upgrades, and rehearsals can happen without crisis pressure. Maintenance windows make <a href=\"#stopability\">stopability</a> routine instead of reactive.</p><p>Each window is negotiated with the people impacted, includes published service guarantees, and documents which safeguards were tested so unfinished work rolls into the shared <a href=\"#repair-log\">repair log</a>.</p>"
+        },
+        {
+          "id": "care-retrospective",
+          "title": "Care Retrospective",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A facilitated reflection held while the system is still in a warning band to examine how maintenance load, emotional labor, and unresolved incidents are accumulating. Care retrospectives combine telemetry with frontline testimony.</p><p>They redistribute responsibilities before burnout or harm escalates, triggering new <a href=\"#maintenance-window\">maintenance windows</a> or policy fixes when the team cannot keep absorbing risk.</p>"
+        },
+        {
+          "id": "repair-log",
+          "title": "Repair Log",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A living record of every mitigation, decision, and resource commitment made after a fault. Repair logs make accountability legible by linking people harmed, who intervened, and what evidence was used.</p><p>They inform future <a href=\"#care-retrospective\">care retrospectives</a>, power audits, and service-level reports so follow-up work is traceable and burden does not drift back to the same communities.</p>"
+        }
+      ]
+    },
+    {
+      "id": "human-limits",
+      "heading": "E. Human limits & experience",
+      "descriptionHtml": "Design that honors the limits of human time, cognition, and care.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "finitude",
+          "title": "Finitude",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The bodily, cognitive, emotional, and temporal limits all humans share. Ethotechnics treats finitude as a design input, not an inconvenience.</p>"
+        },
+        {
+          "id": "cognitive-saturation",
+          "title": "Cognitive Saturation Point",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The load level at which human decision quality collapses—too many alerts, too little time, or excessive context switching. Ethotechnic design lowers saturation by adding <a href=\"#velocity-friction\">velocity friction</a>, simplifying <a href=\"#interaction-surface\">interaction surfaces</a>, and staffing to real <a href=\"#maintenance-metabolism\">maintenance metabolism</a>.</p>"
+        },
+        {
+          "id": "compassion-bandwidth",
+          "title": "Compassion Bandwidth",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The sustainable amount of emotional labor a system asks of people—care teams, moderators, frontline staff, or users. When compassion bandwidth is exceeded, <a href=\"#dread-work\">dread work</a> grows and <a href=\"#extraction-by-endurance\">extraction by endurance</a> sets in.</p>"
+        },
+        {
+          "id": "administrative-shame",
+          "title": "Administrative Shame",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The feeling of being personally at fault for harms produced by system design. Often a signal that <a href=\"#moral-overhead\">moral overhead</a> is too high.</p>"
+        },
+        {
+          "id": "dread-work",
+          "title": "Dread Work",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Tasks people avoid because the system punishes mistakes or withholds relief. Dread work signals missing <a href=\"#soft-edges\">soft edges</a>, low <a href=\"#contestability\">contestability</a>, and declining <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>"
+        },
+        {
+          "id": "refusal-budget",
+          "title": "Refusal Budget",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The number of times a person can decline, pause, or question a request without retaliation. Healthy refusal budgets, backed by <a href=\"#human-refusal-tolerance\">refusal tolerance</a> and <a href=\"#right-of-exit\">rights of exit</a>, prevent coercion and surface <a href=\"#heat-maps-of-refusal\">heat maps of refusal</a>.</p>"
+        }
+      ]
+    },
+    {
+      "id": "burden-load",
+      "heading": "F. Burden & load",
+      "descriptionHtml": "How systems allocate the cost of operation or failure.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "burden-distribution",
+          "title": "Burden Distribution",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>How a system allocates the cost of operation or failure—time, attention, stress, and emotional labor.</p>"
+        },
+        {
+          "id": "burden-gradient",
+          "title": "Burden Gradient",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The slope of effort and risk across roles or communities. A steep burden gradient means those with the least power carry the heaviest operational load while decision-makers feel little friction.</p><p>Mapping the gradient exposes where to redistribute work through <a href=\"#fair-burden-distribution\">fair burden distribution</a> and reduce <a href=\"#moral-overhead\">moral overhead</a>.</p>"
+        },
+        {
+          "id": "failure-load",
+          "title": "Failure Load",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The amount of harm generated when the system fails. Ethotechnics seeks low-failure-load architectures supported by <a href=\"#graceful-degradation\">graceful degradation</a>.</p>"
+        },
+        {
+          "id": "burden-transfer-event",
+          "title": "Burden Transfer Event",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Moments when system failure pushes labor onto humans, often triggering <a href=\"#moral-overhead\">moral overhead</a>.</p>"
+        },
+        {
+          "id": "maintenance-metabolism",
+          "title": "Maintenance Metabolism",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The baseline flow of upkeep—patching, cleaning, rehearsing, and caring—that keeps a service alive when nothing is on fire. Healthy maintenance metabolism is budgeted, scheduled, and shared rather than squeezed between crises.</p><p>Falling below it signals rising <a href=\"#maintenance-debt\">maintenance debt</a> and invites <a href=\"#maintenance-window\">maintenance windows</a> before fragility compounds.</p>"
+        },
+        {
+          "id": "maintenance-debt",
+          "title": "Maintenance Debt",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Accumulated obligations from skipping basic upkeep. The interest is paid in slower recovery, brittle systems, and people burning out to keep things running.</p><p>Paying it down requires restoring the <a href=\"#maintenance-metabolism\">maintenance metabolism</a>, scheduling <a href=\"#maintenance-window\">maintenance windows</a>, and tracking work in the <a href=\"#repair-log\">repair log</a>.</p>"
+        },
+        {
+          "id": "moral-overhead",
+          "title": "Moral Overhead",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Extra work users or operators must do to behave ethically within a bad system.</p>"
+        },
+        {
+          "id": "asymmetric-sustaining",
+          "title": "Asymmetric Sustaining",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for “resilience” while masking <a href=\"#extraction\">extraction</a>.</p><p>Ethotechnic practice flattens this by lowering the <a href=\"#burden-gradient\">burden gradient</a> and designing for <a href=\"#stopability\">stopability</a> so resilience is institutional, not personal.</p>"
+        },
+        {
+          "id": "fragility-subsidy",
+          "title": "Fragility Subsidy",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The unpaid labor, vigilance, or emotional buffering people contribute to keep brittle systems functioning. Fragility subsidies hide true costs, inflate success metrics, and deepen <a href=\"#asymmetric-sustaining\">asymmetric sustaining</a>.</p>"
+        },
+        {
+          "id": "burden-index",
+          "title": "Burden Index",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A composite measure of how much effort, time, and emotional labor people expend to use or recover from a system.</p><p>Inputs include the <a href=\"#user-burden-ratio\">user burden ratio</a>, <a href=\"#human-substitution-index\">human substitution index</a>, and <a href=\"#failure-load\">failure load</a>; rising scores signal extraction or <a href=\"#asymmetric-sustaining\">asymmetric sustaining</a>.</p>"
+        }
+      ]
+    },
+    {
+      "id": "measures",
+      "heading": "G. Measures & indicators",
+      "descriptionHtml": "Metrics that track moral performance across systems.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "moral-performance-indicators",
+          "title": "Moral Performance Indicators (MPIs)",
+          "status": null,
+          "classes": [
+            "glossary-entry--diagram"
+          ],
+          "bodyHtml": "<p>Key metrics that show a system’s ethical functioning: time-to-halt (TTH), reversibility rate, appeal success rate, burden ratios, and more. MPIs complement traditional KPIs by tracking how safely and fairly a system operates, not just how fast it grows.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Moral performance indicators diagram</title>\n                            <polyline points=\"16,58 40,36 60,44 84,24 104,32\" class=\"diagram-metric\"></polyline>\n                            <circle cx=\"40\" cy=\"36\" r=\"5\" class=\"diagram-metric-point\"></circle>\n                            <circle cx=\"84\" cy=\"24\" r=\"5\" class=\"diagram-metric-point\"></circle>\n                          </svg>\n                        </figure>"
+        },
+        {
+          "id": "service-level-indicators",
+          "title": "Service-Level Indicators of Justice (SLJs)",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Operational metrics tied directly to fairness, safety, and dignity. SLJs should sit alongside uptime and latency commitments.</p>"
+        },
+        {
+          "id": "institutional-metabolism-mapping",
+          "title": "Institutional Metabolism Mapping",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A diagnostic mapping of where energy, care, time, and money circulate inside an institution. It visualizes maintenance metabolism, <a href=\"#burden-gradient\">burden gradients</a>, and points of <a href=\"#extraction\">extraction</a>.</p><p>Teams use the map to set <a href=\"#service-level-indicators\">SLJs</a>, redesign roles, and decide where to invest new <a href=\"#maintenance-window\">maintenance windows</a>.</p>"
+        },
+        {
+          "id": "time-to-halt",
+          "title": "Time-to-Halt (TTH)",
+          "status": null,
+          "classes": [
+            "glossary-entry--diagram"
+          ],
+          "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it—an essential complement to <a href=\"#stopability\">stopability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Time to halt diagram</title>\n                            <line x1=\"20\" y1=\"50\" x2=\"100\" y2=\"50\" class=\"diagram-axis\"></line>\n                            <circle cx=\"40\" cy=\"50\" r=\"6\" class=\"diagram-event\"></circle>\n                            <rect x=\"40\" y=\"32\" width=\"46\" height=\"12\" class=\"diagram-timer\"></rect>\n                            <polygon points=\"86,38 100,50 86,62\" class=\"diagram-stop-flag\"></polygon>\n                          </svg>\n                        </figure>",
+          "relatedPatterns": [
+            "kill-switch"
+          ]
+        },
+        {
+          "id": "time-to-restore",
+          "title": "Time-to-Restore (TTR)",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>How long it takes to reverse harm and return a person to their prior state. Low TTR is a signal of effective <a href=\"#reversibility\">reversibility</a>.</p>"
+        },
+        {
+          "id": "appeal-passage-rate",
+          "title": "Appeal Passage Rate",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The percentage of appeals resolved <em>in favor of the user</em>, a leading indicator of true <a href=\"#contestability\">contestability</a>.</p>"
+        },
+        {
+          "id": "irreversibility-index",
+          "title": "Irreversibility Index",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The share of system actions that cannot be undone. Aim to keep this as low as possible through <a href=\"#reversibility\">reversibility</a> and <a href=\"#graceful-degradation\">graceful degradation</a>.</p>"
+        },
+        {
+          "id": "user-burden-ratio",
+          "title": "User Burden Ratio",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>How much work a user must perform to correct or navigate system errors. This metric feeds directly into <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p>"
+        },
+        {
+          "id": "human-substitution-index",
+          "title": "Human Substitution Index",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A measure of how often humans must step in to compensate for system shortcomings—manual reviews, ad-hoc patches, or empathy work. A rising index exposes <a href=\"#heroism-dependent-systems\">heroism-dependent systems</a> and motivates investment in <a href=\"#graceful-degradation\">graceful degradation</a>.</p>"
+        },
+        {
+          "id": "moral-debt",
+          "title": "Moral Debt",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The accumulated harm a system has caused but not repaired. Moral debt accrues interest as <a href=\"#moral-latency\">moral latency</a> grows and people lose trust; it is paid down through <a href=\"#pathways-to-restitution\">pathways to restitution</a>, transparent <a href=\"#repair-log\">repair logs</a>, and lowered <a href=\"#time-to-restore\">time-to-restore</a>.</p>"
+        },
+        {
+          "id": "signal-credibility",
+          "title": "Signal Credibility",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The trustworthiness of alerts, metrics, and reports used to govern a system.</p><p>High signal credibility pairs transparent sampling, <a href=\"#explainability-for-accountability\">explainability for accountability</a>, and human testimony so warnings trigger action instead of alert fatigue or dismissal.</p>"
+        }
+      ]
+    },
+    {
+      "id": "governance",
+      "heading": "H. Governance & power",
+      "descriptionHtml": "Structures that determine who sets moral boundaries and who can intervene.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "design-authority",
+          "title": "Design Authority",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The accountable power to set moral constraints, choose safeguards, and fund enforcement. Clear design authority aligns incentives, protects <a href=\"#contestability\">contestability</a>, and prevents <a href=\"#accountability-diffusion\">accountability diffusion</a>.</p>"
+        },
+        {
+          "id": "oversight-horizon",
+          "title": "Oversight Horizon",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The distance regulators, auditors, or affected communities can see into a system’s decisions and their effects. Extending the horizon—through <a href=\"#harm-visibility\">harm visibility</a>, traceable models, and shared <a href=\"#repair-log\">repair logs</a>—shrinks <a href=\"#dead-zones\">dead zones</a>.</p>"
+        },
+        {
+          "id": "permission-surface",
+          "title": "Permission Surface",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>What users can do without institutional approval — a measure of autonomy and a prerequisite for <a href=\"#contestability\">contestability</a>.</p>"
+        },
+        {
+          "id": "right-of-exit",
+          "title": "Right of Exit",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The ability to leave a system without ruinous cost or retaliation. A foundational condition for ethical participation.</p>"
+        },
+        {
+          "id": "externalized-harm-channels",
+          "title": "Externalized Harm Channels",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The pathways an institution uses to push risk or cleanup onto others: contractors, users, bystanders, or future teams. Mapping these channels exposes <a href=\"#externalization\">externalization</a> and informs <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p>"
+        },
+        {
+          "id": "stewardship-window",
+          "title": "Stewardship Window",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A negotiated period where teams pause growth work to focus on care, maintenance, and accountability.</p><p>Stewardship windows bundle <a href=\"#maintenance-window\">maintenance windows</a>, publish <a href=\"#service-level-indicators\">SLJs</a> for the pause, and commit to closing items in the <a href=\"#repair-log\">repair log</a> before resuming throughput.</p>"
+        }
+      ]
+    },
+    {
+      "id": "friction",
+      "heading": "I. Friction & flow",
+      "descriptionHtml": "Designing intentional friction that protects people while keeping harm contained.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "protective-friction",
+          "title": "Protective Friction",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Friction that slows harmful processes and keeps <a href=\"#moral-latency\">moral latency</a> within safe bounds.</p>"
+        },
+        {
+          "id": "punitive-friction",
+          "title": "Punitive Friction",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Friction that punishes users—often hidden in bureaucratic loops. Signals <a href=\"#extraction-by-endurance\">extraction by endurance</a>.</p>"
+        },
+        {
+          "id": "dignity-friction",
+          "title": "Dignity Friction",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Friction that preserves autonomy, such as double checks on irreversible actions.</p>"
+        },
+        {
+          "id": "velocity-friction",
+          "title": "Velocity Friction",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Friction added specifically to prevent runaway system behaviors. Often implemented through <a href=\"#ethical-interrupts\">ethical interrupts</a>.</p>"
+        },
+        {
+          "id": "safety-valve",
+          "title": "Safety Valve",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A deliberate release point that lets people slow, pause, or reroute automation before harm compounds.</p><p>Safety valves pair <a href=\"#stopability\">stopability</a> with <a href=\"#dignity-friction\">dignity friction</a> so high-stakes flows default to reversible states and route to humans without penalty.</p>",
+          "relatedPatterns": [
+            "progressive-consent",
+            "kill-switch"
+          ]
+        },
+        {
+          "id": "consent-journey",
+          "title": "Consent Journey",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The sequenced touchpoints where a person learns what a system will do, grants or denies permission, and can revise that choice over time.</p><p>Strong consent journeys use <a href=\"#anticipatory-consent\">anticipatory consent</a>, visible <a href=\"#permission-surface\">permission surfaces</a>, and healthy <a href=\"#refusal-budget\">refusal budgets</a> so pausing or exiting does not jeopardize access or care.</p>"
+        },
+        {
+          "id": "humane-friction",
+          "title": "Humane Friction",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The calibrated blend of protective, dignity, and velocity frictions.</p>"
+        },
+        {
+          "id": "frictionless-harm",
+          "title": "Frictionless Harm",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Harms that spread unchecked because safeguards or pauses were stripped away. Frictionless harm is the inverse of <a href=\"#protective-friction\">protective friction</a>; it appears when <a href=\"#velocity-friction\">velocity friction</a> and <a href=\"#dignity-friction\">dignity friction</a> are absent.</p>"
+        }
+      ]
+    },
+    {
+      "id": "decision-states",
+      "heading": "J. Decision states & edges",
+      "descriptionHtml": "Where and how decisions flip from reversible to permanent.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "decision-edge",
+          "title": "Decision Edge",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The precise moment when a choice shifts from reversible to consequential. Making the decision edge visible enables <a href=\"#dignity-friction\">dignity friction</a>, clearer consent, and routing to <a href=\"#ethical-interrupts\">ethical interrupts</a> when risk spikes.</p>"
+        },
+        {
+          "id": "critical-action",
+          "title": "Critical Action",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Any system action that meaningfully alters a person’s status, access, or trajectory. Critical actions require <a href=\"#dignity-friction\">dignity friction</a>.</p>"
+        },
+        {
+          "id": "irreversible-boundary",
+          "title": "Irreversible Boundary",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A threshold the system cannot automatically undo—account closures, public releases, or data publication. Crossing it demands heightened <a href=\"#contestability\">contestability</a>, audited <a href=\"#explainability-for-accountability\">explanations</a>, and explicit <a href=\"#time-to-restore\">time-to-restore</a> plans.</p>"
+        },
+        {
+          "id": "ethical-interrupts",
+          "title": "Ethical Interrupts",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize <a href=\"#stopability\">stopability</a>.</p>",
+          "relatedPatterns": [
+            "kill-switch",
+            "appeal-paths"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "patterns",
+      "heading": "K. System patterns & anti-patterns",
+      "descriptionHtml": "Recurring structures that demand Ethotechnic countermeasures.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "heroism-dependent-systems",
+          "title": "Heroism-Dependent Systems",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor <a href=\"#stopability\">stopability</a> and high <a href=\"#failure-load\">failure load</a>.</p>"
+        },
+        {
+          "id": "empathy-surrogacy",
+          "title": "Empathy Surrogacy",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Simulated warmth—chatbots, scripted apologies, tone guidelines—used to mask structural harm or delay fixes. Empathy surrogacy diverts attention from <a href=\"#repair-log\">repair</a> and weakens <a href=\"#contestability\">contestability</a> by substituting sentiment for remedy.</p>"
+        },
+        {
+          "id": "error-cascades",
+          "title": "Error Cascades",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Small automated mistakes that amplify across the system. Prevented through <a href=\"#ethical-interrupts\">ethical interrupts</a> and <a href=\"#service-level-indicators\">SLJs</a>.</p>"
+        },
+        {
+          "id": "invisible-fallbacks",
+          "title": "Invisible Fallbacks",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Hidden behaviors that appear under stress—shadow queues, silent throttling, or undocumented overrides. Invisible fallbacks obscure <a href=\"#ethical-load-path\">ethical load paths</a> and should be surfaced through <a href=\"#graceful-rollback-lanes\">graceful rollback lanes</a> and rehearsed in <a href=\"#maintenance-window\">maintenance windows</a>.</p>"
+        },
+        {
+          "id": "dead-user-zones",
+          "title": "Dead-User Zones",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Places where people affected by decisions cannot contest, appeal, or exit—opaque rankings, automated bans, or unmoderated queues. Closing dead-user zones requires widening the <a href=\"#permission-surface\">permission surface</a> and raising <a href=\"#appeal-passage-rate\">appeal passage rates</a>.</p>"
+        },
+        {
+          "id": "moral-lock-in",
+          "title": "Moral Lock-In",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>When harmful defaults become entrenched through dependencies, network effects, or contracts that block reform. Moral lock-in is prevented by <a href=\"#moral-feature-gating\">moral feature gating</a>, <a href=\"#contestability\">contestability</a>, and vigilant <a href=\"#moral-drift-control\">moral drift control</a>.</p>"
+        }
+      ]
+    },
+    {
+      "id": "future-concepts",
+      "heading": "L. Future concepts / research areas",
+      "descriptionHtml": "These placeholders signal Ethotechnics as an evolving field.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "moral-drift-control",
+          "title": "Moral Drift Control",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Instrumentation and controls that detect when system behavior drifts from ethical baselines—through <a href=\"#moral-performance-indicators\">MPIs</a> or user testimony—and automatically trigger <a href=\"#ethical-interrupts\">interrupts</a> or design changes.</p>"
+        },
+        {
+          "id": "structural-gentleness-coefficients",
+          "title": "Structural Gentleness Coefficients",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Measures of how forgiving an infrastructure is to human variance: error tolerance, recovery time, and <a href=\"#soft-edges\">soft edges</a>. Higher coefficients correlate with lower <a href=\"#failure-load\">failure load</a> and safer <a href=\"#graceful-degradation\">degradation</a>.</p>"
+        },
+        {
+          "id": "burden-elasticity",
+          "title": "Burden Elasticity",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>How effort and risk stretch or rebound between actors when conditions change. Mapping burden elasticity alongside the <a href=\"#burden-gradient\">burden gradient</a> prevents crises from snapping back onto the least powerful.</p>"
+        },
+        {
+          "id": "care-redundancy",
+          "title": "Care Redundancy",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Overlapping care pathways—humans, automation, and policy—that ensure someone is caught when another safeguard fails. Care redundancy pairs with <a href=\"#graceful-degradation\">graceful degradation</a> to keep <a href=\"#failure-load\">failure load</a> low.</p>"
+        },
+        {
+          "id": "meta-contestability",
+          "title": "Meta-Contestability",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Mechanisms that let people challenge not just outcomes but the rules of challenge themselves—who may appeal, what evidence counts, and who sits on review panels. Meta-contestability keeps <a href=\"#contestability\">contestability</a> from ossifying.</p>"
+        },
+        {
+          "id": "user-state-modeling",
+          "title": "User-State Modeling for Harm Prevention",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Inferring user states—fatigue, distress, inattention—to adapt pacing, add <a href=\"#protective-friction\">protective friction</a>, or route to humans before harm compounds. Models must respect <a href=\"#anticipatory-consent\">anticipatory consent</a> and avoid new <a href=\"#burden-transfer-event\">burden transfers</a>.</p>"
+        },
+        {
+          "id": "ethical-latency",
+          "title": "Design for Ethical Latency",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Designing for unavoidable delay between action and ethical evaluation by staging risky steps, adding <a href=\"#velocity-friction\">velocity friction</a>, or seeking <a href=\"#care-floor-guarantees\">care floor guarantees</a> while fuller review occurs.</p>"
+        },
+        {
+          "id": "distributed-accountability-protocols",
+          "title": "Distributed Accountability Protocols",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Coordination methods that keep responsibility legible across teams and automation: shared playbooks, auditable handoffs, and <a href=\"#repair-log\">repair logs</a>. Protocols prevent <a href=\"#accountability-diffusion\">accountability diffusion</a> when work moves.</p>"
+        },
+        {
+          "id": "ethotechnic-failure-taxonomy",
+          "title": "Ethotechnic Failure Taxonomy",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A common vocabulary for classifying moral failure modes—<a href=\"#optimization-myopia\">optimization myopia</a>, <a href=\"#brittleness\">brittleness</a>, <a href=\"#extraction\">extraction</a>, and more—so incidents can be compared, learned from, and prevented.</p>"
+        },
+        {
+          "id": "adaptive-refusal-pathways",
+          "title": "Adaptive Refusal Pathways",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Dynamic flows that reroute tasks when someone pauses or declines, preserving context and avoiding retaliation. Adaptive pathways extend <a href=\"#refusal-budget\">refusal budgets</a> and strengthen <a href=\"#human-refusal-tolerance\">refusal tolerance</a>.</p>"
+        },
+        {
+          "id": "aftercare-automation",
+          "title": "Aftercare Automation",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Automated follow-up that checks on impacted people after incidents, schedules remedies, and prompts humans to close the loop. Done well, it lowers <a href=\"#moral-debt\">moral debt</a> without creating new <a href=\"#moral-overhead\">moral overhead</a>.</p>"
+        },
+        {
+          "id": "alignment-dividend",
+          "title": "Alignment Dividend",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>The measurable upside—trust, retention, safety—generated when systems align with human values. Tracking the dividend builds the business case for sustained investment in <a href=\"#moral-performance-indicators\">MPIs</a> and <a href=\"#maintenance-metabolism\">maintenance metabolism</a>.</p>"
+        },
+        {
+          "id": "ambiguity-budgets",
+          "title": "Ambiguity Budgets",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Explicit allowances for uncertainty that prevent premature automation or brittle enforcement. Ambiguity budgets reserve time, human review, or <a href=\"#maintenance-window\">maintenance windows</a> until context is sufficient.</p>"
+        },
+        {
+          "id": "anticipatory-consent",
+          "title": "Anticipatory Consent",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Consent models that preview future data uses and let people pre-approve, defer, or block them. Anticipatory consent supports <a href=\"#right-of-exit\">rights of exit</a> and counters <a href=\"#precision-laundering\">precision laundering</a> of unclear terms.</p>"
+        },
+        {
+          "id": "boundary-of-acceptable-harm",
+          "title": "Boundary of Acceptable Harm",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Dynamic thresholds defining when moral risk exceeds the system’s mandate and operations must halt or escalate. Boundaries are tied to <a href=\"#service-level-indicators\">SLJs</a> and enforced through <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a>.</p>"
+        },
+        {
+          "id": "care-floor-guarantees",
+          "title": "Care Floor Guarantees",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Baseline commitments a service maintains even during outages or crises—live support, data export, or safe defaults. Care floors protect users when <a href=\"#graceful-degradation\">graceful degradation</a> activates.</p>"
+        },
+        {
+          "id": "compassion-telemetry",
+          "title": "Compassion Telemetry",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Signals that show whether interactions feel humane—response tone, wait times during distress, quality of follow-up. Compassion telemetry complements technical metrics to protect <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>"
+        },
+        {
+          "id": "conflict-observability",
+          "title": "Conflict Observability",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Instrumentation that makes value conflicts visible in logs and dashboards before they erupt—flagging when <a href=\"#service-level-indicators\">SLJs</a> trade off against throughput or when appeals spike. High observability enables earlier <a href=\"#moral-drift-control\">moral drift control</a>.</p>"
+        },
+        {
+          "id": "counter-abuse-guardrails",
+          "title": "Counter-Abuse Guardrails",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Limits that prevent tools from being repurposed for harassment, exploitation, or coercion—rate limits, anomaly detection, and <a href=\"#human-override-lanes\">human override lanes</a> tuned for abuse scenarios.</p>"
+        },
+        {
+          "id": "crisis-rehearsal-loops",
+          "title": "Crisis Rehearsal Loops",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Regular drills that stress-test moral responses, not just uptime. They practice <a href=\"#ethical-interrupts\">ethical interrupts</a>, validate <a href=\"#care-floor-guarantees\">care floors</a>, and update <a href=\"#repair-log\">repair logs</a> with lessons.</p>"
+        },
+        {
+          "id": "data-dignity-budgets",
+          "title": "Data Dignity Budgets",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Caps on data collection and use that respect personhood and context, not just legal checkbox consent. Budgets align with <a href=\"#anticipatory-consent\">anticipatory consent</a> and guard against <a href=\"#extraction\">extraction</a>.</p>"
+        },
+        {
+          "id": "decision-debt-ledger",
+          "title": "Decision Debt Ledger",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>A register of deferred decisions and their moral interest, reviewed before debt compounds into harm. The ledger feeds <a href=\"#maintenance-window\">maintenance windows</a> and informs <a href=\"#moral-performance-indicators\">MPIs</a>.</p>"
+        },
+        {
+          "id": "downstream-equity-buffers",
+          "title": "Downstream Equity Buffers",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Design slack that absorbs variance so marginalized groups do not pay first or most when errors occur. Buffers include staggered rollouts, <a href=\"#graceful-rollback-lanes\">rollback lanes</a>, and targeted support funds.</p>"
+        },
+        {
+          "id": "ethical-circuit-breakers",
+          "title": "Ethical Circuit Breakers",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Automated stops that trip when moral risk indicators cross predefined set points—surges in appeals, bias metrics, or <a href=\"#moral-debt\">moral debt</a>. They are the safety counterpart to financial circuit breakers.</p>"
+        },
+        {
+          "id": "ethical-load-testing",
+          "title": "Ethical Load Testing",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Deliberate exercises that probe how systems behave under moral stress—simulated harassment, mass appeals, or outage scenarios—to validate <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a> and <a href=\"#care-floor-guarantees\">care floors</a>.</p>"
+        },
+        {
+          "id": "exhaustion-triggers",
+          "title": "Exhaustion Triggers",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Signals that detect operator or user fatigue—error streaks, long queues, late-night decisions—and automatically slow, pause, or hand off flows before mistakes multiply. Triggers protect <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>"
+        },
+        {
+          "id": "friction-budgets",
+          "title": "Friction Budgets",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Planned allocations of <a href=\"#protective-friction\">protective</a> and <a href=\"#dignity-friction\">dignity</a> frictions across journeys to balance safety with usability, rather than defaulting to speed.</p>"
+        },
+        {
+          "id": "graceful-rollback-lanes",
+          "title": "Graceful Rollback Lanes",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Prepared routes to revert harmful decisions while preserving dignity, evidence, and service continuity. Rollback lanes keep <a href=\"#irreversibility-index\">irreversibility indices</a> low and shorten <a href=\"#time-to-restore\">time-to-restore</a>.</p>"
+        },
+        {
+          "id": "harm-amnesty-windows",
+          "title": "Harm Amnesty Windows",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Time-boxed periods where people can report or reverse harmful actions without penalty, encouraging disclosure and faster <a href=\"#repair-log\">repair</a>. Amnesty windows often follow <a href=\"#crisis-rehearsal-loops\">rehearsal loops</a> or incidents.</p>"
+        },
+        {
+          "id": "heat-maps-of-refusal",
+          "title": "Heat Maps of Refusal",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Visualizations showing where users opt out, churn, or appeal—revealing coercion hotspots early. Heat maps help tune <a href=\"#refusal-budget\">refusal budgets</a> and redesign <a href=\"#interaction-surface\">interaction surfaces</a>.</p>"
+        },
+        {
+          "id": "human-override-lanes",
+          "title": "Human Override Lanes",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Guaranteed routes for human judgment to supersede automation when stakes are high or context is missing. Override lanes accompany <a href=\"#ethical-interrupts\">ethical interrupts</a> and require clear <a href=\"#ethical-load-path\">ethical load paths</a>.</p>"
+        },
+        {
+          "id": "incident-memory-chains",
+          "title": "Incident Memory Chains",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Linked records that keep lessons from past incidents attached to similar workflows so knowledge stays actionable. Memory chains inform <a href=\"#ethical-load-testing\">ethical load tests</a> and prevent <a href=\"#moral-lock-in\">moral lock-in</a> on bad patterns.</p>"
+        },
+        {
+          "id": "moral-dry-runs",
+          "title": "Moral Dry Runs",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Pre-launch walkthroughs that simulate ethical dilemmas to harden designs before they reach the public. Dry runs test <a href=\"#ethical-circuit-breakers\">circuit breakers</a>, <a href=\"#graceful-rollback-lanes\">rollback lanes</a>, and documentation.</p>"
+        },
+        {
+          "id": "moral-feature-gating",
+          "title": "Moral Feature Gating",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Controls that block feature launch until moral readiness criteria—oversight plans, <a href=\"#contestability\">contestability</a> pathways, and <a href=\"#care-floor-guarantees\">care floors</a>—are met.</p>"
+        },
+        {
+          "id": "pathways-to-restitution",
+          "title": "Pathways to Restitution",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Documented steps a system must take to repair harm: acknowledgement, remedy, verification, and follow-up. Pathways reduce <a href=\"#moral-debt\">moral debt</a> and belong in the <a href=\"#repair-log\">repair log</a>.</p>"
+        },
+        {
+          "id": "refusal-aware-routing",
+          "title": "Refusal-Aware Routing",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Routing logic that accounts for who can decline tasks and ensures refusals are respected without retaliation or silent penalization. It preserves <a href=\"#refusal-budget\">refusal budgets</a> and keeps workflows humane.</p>"
+        },
+        {
+          "id": "relief-invariants",
+          "title": "Relief Invariants",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Assurances that regardless of pathway, people can access relief with predictable effort and support. Relief invariants are tested in <a href=\"#crisis-rehearsal-loops\">crisis rehearsals</a> and anchored by <a href=\"#care-floor-guarantees\">care floors</a>.</p>"
+        },
+        {
+          "id": "repair-quorums",
+          "title": "Repair Quorums",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Minimum participation rules for authorizing fixes so impacted communities have a seat in deciding remedies. Repair quorums counter <a href=\"#accountability-diffusion\">accountability diffusion</a> and legitimize <a href=\"#pathways-to-restitution\">restitution</a>.</p>"
+        },
+        {
+          "id": "rest-cycle-enforcement",
+          "title": "Rest Cycle Enforcement",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Built-in mechanisms that enforce rest and recovery—rotation policies, cooldown timers, enforced downtime—so fatigue does not translate into harm. Enforcement protects <a href=\"#maintenance-metabolism\">maintenance metabolism</a> and <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>"
+        }
+      ]
+    },
+    {
+      "id": "principles",
+      "heading": "M. Foundational Ethotechnic principles",
+      "descriptionHtml": "Axioms that will eventually define the discipline. Full definitions are in development.",
+      "comingSoon": false,
+      "entries": [
+        {
+          "id": "conservancy-principle",
+          "title": "The Conservancy Principle",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Designers steward human dignity and collective resources; they must leave systems safer and more reparable than they found them. Conservancy prioritizes <a href=\"#repair-log\">repair</a>, <a href=\"#stopability\">stopability</a>, and minimizing <a href=\"#moral-debt\">moral debt</a>.</p>"
+        },
+        {
+          "id": "burden-inversion-rule",
+          "title": "The Burden Inversion Rule",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>When harm occurs, the system shoulders effort before the person harmed does. Burden inversion lowers the <a href=\"#user-burden-ratio\">user burden ratio</a> and demands rapid <a href=\"#time-to-restore\">restoration</a>.</p>"
+        },
+        {
+          "id": "stop-before-explain-rule",
+          "title": "The Stop-Before-Explain Rule",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Halt harmful behavior first, then justify or refine it. Systems must trigger <a href=\"#ethical-interrupts\">ethical interrupts</a> before offering explanations, preserving <a href=\"#reversibility\">reversibility</a>.</p>"
+        },
+        {
+          "id": "maintenance-doctrine",
+          "title": "The Maintenance Doctrine",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Ethical performance depends on continuous upkeep—funded <a href=\"#maintenance-metabolism\">maintenance metabolism</a>, scheduled <a href=\"#maintenance-window\">maintenance windows</a>, and transparent <a href=\"#repair-log\">logs</a>.</p>"
+        },
+        {
+          "id": "low-failure-load-principle",
+          "title": "The Principle of Low-Failure-Load Design",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Design so that when failures occur, human impact is contained. This principle motivates <a href=\"#graceful-degradation\">graceful degradation</a>, <a href=\"#care-floor-guarantees\">care floors</a>, and low <a href=\"#irreversibility-index\">irreversibility indices</a>.</p>"
+        },
+        {
+          "id": "reversibility-mandate",
+          "title": "The Reversibility Mandate",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>Critical actions must be undoable or paired with <a href=\"#graceful-rollback-lanes\">rollback lanes</a>. The mandate aligns with <a href=\"#time-to-restore\">time-to-restore</a> targets and <a href=\"#contestability\">contestability</a>.</p>"
+        },
+        {
+          "id": "contestability-guarantee",
+          "title": "The Contestability Guarantee",
+          "status": null,
+          "classes": [],
+          "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them—and win. Guarantees include wide <a href=\"#permission-surface\">permission surfaces</a>, high <a href=\"#appeal-passage-rate\">appeal passage rates</a>, and transparent <a href=\"#design-authority\">design authority</a>.</p>"
+        }
+      ]
+    }
+  ]
+}]

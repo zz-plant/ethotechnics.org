@@ -1,64 +1,160 @@
 ---
-import type { NavSection } from '../content/navigation';
+import type { NavSection } from "../content/navigation";
 
-const { sections, class: className, currentPath } = Astro.props as {
+const {
+  sections,
+  class: className,
+  currentPath,
+} = Astro.props as {
   sections: NavSection[];
   class?: string;
   currentPath?: string;
 };
 
 const normalizePath = (path?: string) => {
-  if (!path) return '';
+  if (!path) return "";
 
-  const [clean] = path.split('#');
+  const [clean] = path.split("#");
 
-  if (!clean) return '';
+  if (!clean) return "";
 
-  const trimmed = clean.endsWith('/') && clean !== '/' ? clean.slice(0, -1) : clean;
+  const trimmed =
+    clean.endsWith("/") && clean !== "/" ? clean.slice(0, -1) : clean;
 
-  return trimmed || '/';
+  return trimmed || "/";
 };
 
 const normalizedCurrentPath = normalizePath(currentPath);
-const sectionWrapperClass = ['nav__section', className].filter(Boolean).join(' ');
+const sectionWrapperClass = ["nav__section", className]
+  .filter(Boolean)
+  .join(" ");
 const isCurrentLink = (href: string) => {
-  if (!href.startsWith('/')) return false;
+  if (!href.startsWith("/")) return false;
 
   return normalizePath(href) === normalizedCurrentPath;
 };
 const toSlug = (value: string) =>
   value
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 ---
-{sections.map((section) => {
-  const sectionId = `nav-section-${toSlug(section.heading)}`;
 
-  return (
-    <section class={sectionWrapperClass} aria-labelledby={`${sectionId}-title`}>
-      <header class="nav__section-header">
-        <p class="eyebrow nav__section-eyebrow" id={`${sectionId}-title`}>
-          {section.heading}
-        </p>
-        <p class="muted nav__section-description">{section.description}</p>
-      </header>
-      <ul class="nav__section-links" aria-labelledby={`${sectionId}-title`}>
-        {section.links.map((link) => (
-          <li class="nav__section-item">
-            <a
-              class="nav__link-card"
-              href={link.href}
-              aria-current={isCurrentLink(link.href) ? 'page' : undefined}
-            >
-              <span class="nav__link-label">{link.label}</span>
-              {link.description && (
-                <span class="muted nav__link-description">{link.description}</span>
-              )}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-})}
+{
+  sections.map((section) => {
+    const sectionId = `nav-section-${toSlug(section.heading)}`;
+
+    return (
+      <section
+        class={sectionWrapperClass}
+        aria-labelledby={`${sectionId}-title`}
+      >
+        <header class="nav__section-header">
+          <p class="eyebrow nav__section-eyebrow" id={`${sectionId}-title`}>
+            {section.heading}
+          </p>
+          <p class="muted nav__section-description">{section.description}</p>
+        </header>
+        <ul class="nav__section-links" aria-labelledby={`${sectionId}-title`}>
+          {section.links.map((link) => (
+            <li class="nav__section-item">
+              <a
+                class="nav__link-card"
+                href={link.href}
+                aria-current={isCurrentLink(link.href) ? "page" : undefined}
+              >
+                <span class="nav__link-label">{link.label}</span>
+                {link.description && (
+                  <span class="muted nav__link-description">
+                    {link.description}
+                  </span>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  })
+}
+
+<style>
+  .nav__section {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0.8rem;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--panel) 92%, white 8%);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    box-shadow: var(--shadow-xs);
+  }
+
+  @media (min-width: 992px) {
+    .nav__section {
+      padding: 1rem;
+    }
+  }
+
+  .nav__section-header {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .nav__section-eyebrow {
+    margin: 0;
+  }
+
+  .nav__section-description {
+    margin: 0;
+  }
+
+  .nav__section-links {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav__section-item {
+    margin: 0;
+  }
+
+  .nav__link-card {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.75rem 0.85rem;
+    border-radius: 12px;
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    background: color-mix(in srgb, var(--surface) 94%, white 6%);
+    box-shadow: var(--shadow-xs);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      transform 0.16s ease,
+      border-color 0.16s ease,
+      box-shadow 0.16s ease;
+  }
+
+  @media (min-width: 992px) {
+    .nav__link-card {
+      height: 100%;
+    }
+  }
+
+  .nav__link-card:hover,
+  .nav__link-card:focus-visible {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+    box-shadow: 0 10px 24px rgba(27, 18, 11, 0.1);
+  }
+
+  .nav__link-label {
+    font-weight: 750;
+  }
+
+  .nav__link-description {
+    font-size: 0.95rem;
+  }
+</style>
