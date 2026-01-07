@@ -1,14 +1,13 @@
 import type { APIContext } from 'astro';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
 
 import { GET } from './rss.xml';
-import { loadRecentContent } from '../content/feed';
 
-vi.mock('../content/feed', () => ({
-  loadRecentContent: vi.fn(),
+// Mock the feed module
+const mockLoadRecentContent = mock(() => [] as any[]);
+mock.module('../content/feed', () => ({
+  loadRecentContent: mockLoadRecentContent,
 }));
-
-const mockedLoadRecentContent = vi.mocked(loadRecentContent);
 
 const extractItemLinks = async (response: Response) => {
   const xml = await response.text();
@@ -33,7 +32,7 @@ const baseFeedItems = [
 ];
 
 beforeEach(() => {
-  mockedLoadRecentContent.mockReturnValue(baseFeedItems);
+  mockLoadRecentContent.mockReturnValue(baseFeedItems);
 });
 
 describe('rss feed item links', () => {
@@ -68,9 +67,9 @@ describe('rss feed item links', () => {
   });
 
   it('skips items that are missing required fields', async () => {
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const warnSpy = spyOn(console, 'warn').mockImplementation(() => {});
 
-    mockedLoadRecentContent.mockReturnValue([
+    mockLoadRecentContent.mockReturnValue([
       ...baseFeedItems,
       { title: 'Untitled', description: '', path: '/missing', pubDate: 'invalid-date' },
     ]);
@@ -87,3 +86,4 @@ describe('rss feed item links', () => {
     warnSpy.mockRestore();
   });
 });
+

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'bun:test';
 import { buildSimulationPlan, evaluateReadiness, scenarioTemplates, type CoverageChecklist } from './simulatorLogic';
 
 const fullCoverage: CoverageChecklist = {

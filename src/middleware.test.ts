@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, mock } from 'bun:test';
 
 import { onRequest } from './middleware';
 
@@ -23,9 +23,12 @@ describe('middleware', () => {
     ];
 
     for (const { url, host, expectedLocation } of redirectCases) {
-      const request = new Request(url, { headers: { host } });
+      const request = {
+        url,
+        headers: new Headers({ host }),
+      } as unknown as Request;
       const locals: App.Locals = { cspNonce: '' };
-      const next = vi.fn(async () => new Response('next'));
+      const next = mock(async () => new Response('next'));
 
       const response = await onRequest({ request, locals } as any, next);
 
@@ -49,7 +52,7 @@ describe('middleware', () => {
     for (const headers of cases) {
       const request = new Request('https://example.com/path', { headers });
       const locals: App.Locals = { cspNonce: '' };
-      const next = vi.fn(async () => new Response('next'));
+      const next = mock(async () => new Response('next'));
 
       const response = await onRequest({ request, locals } as any, next);
 
@@ -70,3 +73,4 @@ describe('middleware', () => {
     }
   });
 });
+
