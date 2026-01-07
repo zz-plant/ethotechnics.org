@@ -117,7 +117,7 @@ export const instituteContent: InstituteContent = {
     {
       title: "Publishing pipeline",
       detail:
-        "Support for turning internal research or playbooks into open, reusable guides that stay versioned.",
+        "Turn internal research into open guides.",
       outcome:
         "Outputs: edited copy, citations, and release notes in the Library so readers can trust the source.",
       status: "By request",
@@ -149,7 +149,7 @@ export const instituteContent: InstituteContent = {
       name: "Kanav Jain",
       role: "Institute Lead",
       focus:
-        "Roadmapping programs and coordinating partners across the studio.",
+        "Roadmapping programs and coordinating Studio partners.",
       contactLabel: "Contact Kanav",
       contactHref:
         "mailto:hello@ethotechnics.org?subject=Institute%20steward%20contact",
