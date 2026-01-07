@@ -8,7 +8,8 @@ import SectionBlock from '../../components/SectionBlock.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 
-const { pageTitle, pageDescription, permalink, primer, glossary, patterns, syllabus, quickStart } = libraryContent;
+const { pageTitle, pageDescription, permalink, primer, glossary, patterns, syllabus, quickStart, recommended } =
+  libraryContent;
 const diagnosticTitles = Object.fromEntries(
   diagnosticsContent.tools.map((tool) => [tool.slug, tool.title])
 );
@@ -39,6 +40,18 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
     <ul class="muted">
       {quickStart.map((item) => (
         <li>{item}</li>
+      ))}
+    </ul>
+  </div>
+  <div class="callout library__recommended">
+    <h3>{recommended.title}</h3>
+    <p class="muted">{recommended.description}</p>
+    <ul class="library__recommended-list">
+      {recommended.items.map((item) => (
+        <li>
+          <a href={item.href}>{item.title}</a>
+          <p class="muted small">{item.description}</p>
+        </li>
       ))}
     </ul>
   </div>
@@ -117,6 +130,9 @@ const glossaryHref = (slug: string) => `${glossary.permalink}#${slug}`;
     description="Filters help you route work quickly and keep diagnostic references within reach."
     variant="alt"
   >
+    <p class="muted patterns__hint">
+      Use the search field to jump straight to a pattern or filter by the themes above.
+    </p>
     <div class="pattern-filter__anchors" aria-hidden="true">
       {patterns.filters.map((filter) => (
         <span class="pattern-filter__anchor" id={filter.slug} />

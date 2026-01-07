@@ -48,6 +48,13 @@ export type FiniteContent = PageWithPermalink & {
     description: string;
     items: FiniteCard[];
   };
+  gettingStarted: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    steps: string[];
+    whoFor: string[];
+  };
   referenceTask: {
     title: string;
     description: string;
@@ -150,6 +157,22 @@ export const finiteContent = {
         detail:
           "Operating systems where AI can quietly shift toil and risk onto operators, downstream services, or end-users.",
       },
+    ],
+  },
+  gettingStarted: {
+    eyebrow: "Start Finite",
+    title: "Three steps to begin a stoppability drill.",
+    description:
+      "Use these steps to decide whether Finite fits your system and timeline.",
+    steps: [
+      "Name the system or workflow you want to test, plus one recent incident or near-miss.",
+      "Identify who can halt or roll back the system today—and where that ownership is unclear.",
+      "Schedule a tabletop run with operators, support, and governance partners.",
+    ],
+    whoFor: [
+      "Teams piloting AI-enabled systems with unclear shutdown paths.",
+      "Operators who need drills to practice reversibility before launch.",
+      "Leaders documenting how failure risk shifts across people and services.",
     ],
   },
   referenceTask: {

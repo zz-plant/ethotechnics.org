@@ -125,7 +125,13 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
             href: glossaryHref(slug),
             label: getGlossaryLabel(slug),
           }))}
-        />
+        >
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={publication.href}>
+              {publication.ctaLabel}
+            </a>
+          </div>
+        </CardItem>
       ))}
     </CardGrid>
   </SectionBlock>

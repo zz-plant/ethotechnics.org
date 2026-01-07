@@ -6,8 +6,10 @@ import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
+import diagnosticsFilterScript from '../../scripts/diagnostics-filter.ts?url';
 
-const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation } = diagnosticsContent;
+const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation } =
+  diagnosticsContent;
 const patternBase = `${libraryContent.permalink}#patterns`;
 const anchorLinks = [
   { href: '#why-diagnostics', label: 'What you get' },
@@ -69,7 +71,30 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
     title="Pick the tool that matches your situation."
     description={`Every diagnostic ships with a linkable result and an off-ramp. ${offRampNote}`}
   >
-    <CardGrid className="diagnostics__tool-grid">
+    <div class="diagnostics__filters" data-diagnostics-filters>
+      <p class="muted">Filter by delivery type</p>
+      <ul class="pill-list pill-list--wrap" role="group" aria-label="Diagnostic delivery filters">
+        <li class="pill-list__item pill-list__item--active">
+          <button class="pill-list__button" type="button" data-delivery-filter="all" aria-pressed="true">
+            All diagnostics
+          </button>
+        </li>
+        <li class="pill-list__item">
+          <button class="pill-list__button" type="button" data-delivery-filter="self-serve" aria-pressed="false">
+            Self-serve
+          </button>
+        </li>
+        <li class="pill-list__item">
+          <button class="pill-list__button" type="button" data-delivery-filter="studio" aria-pressed="false">
+            Studio-facilitated
+          </button>
+        </li>
+      </ul>
+      <p class="muted small" data-delivery-status>
+        Showing all diagnostics.
+      </p>
+    </div>
+    <CardGrid className="diagnostics__tool-grid" data-diagnostics-grid>
       {tools.map((tool) => (
         <CardItem
           id={tool.slug}
@@ -77,12 +102,14 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
           title={tool.title}
           description={tool.description}
           headingLevel="h2"
+          dataDelivery={tool.deliveryType}
         >
           <div class="diagnostics__card-body">
             <div class="diagnostics__card-column">
               <p class="muted small">
                 {tool.deliveryType === 'studio' ? 'Studio-facilitated' : 'Self-serve'}
               </p>
+              <p class="muted small">Estimated time: {tool.estimatedTime}</p>
               <p class="muted diagnostics__label">Use this when</p>
               <ul class="pill-list pill-list--wrap">
                 {tool.readiness.map((item) => (
@@ -94,6 +121,12 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
               <p class="muted diagnostics__label">What you receive</p>
               <ul class="pill-list pill-list--wrap">
                 {tool.outputs.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+              <p class="muted diagnostics__label">Prep checklist</p>
+              <ul class="pill-list pill-list--wrap">
+                {tool.prepChecklist.map((item) => (
                   <li>{item}</li>
                 ))}
               </ul>
@@ -121,4 +154,5 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
       ))}
     </CardGrid>
   </SectionBlock>
+  <script type="module" src={diagnosticsFilterScript}></script>
 </BaseLayout>

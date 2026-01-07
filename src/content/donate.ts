@@ -1,4 +1,4 @@
-import type { PageWithPermalink } from './types';
+import type { PageWithPermalink } from "./types";
 
 type ImpactArea = {
   title: string;
@@ -23,6 +23,12 @@ export type DonateContent = PageWithPermalink & {
   impact: ImpactArea[];
   paths: ContributionPath[];
   contact: ContactInfo;
+  trust: {
+    title: string;
+    bullets: string[];
+    note: string;
+  };
+  faq: { question: string; answer: string }[];
   quickSupport: {
     title: string;
     description: string;
@@ -33,60 +39,96 @@ export type DonateContent = PageWithPermalink & {
 };
 
 export const donateContent: DonateContent = {
-  pageTitle: 'Donate — Ethotechnics',
+  pageTitle: "Donate — Ethotechnics",
   pageDescription:
-    'Keep Ethotechnics research, diagnostics, and practice guides freely available through direct contributions.',
-  permalink: '/donate',
+    "Keep Ethotechnics research, diagnostics, and practice guides freely available through direct contributions.",
+  permalink: "/donate",
   impact: [
     {
-      title: 'Fund open research',
-      detail: 'Underwrite studies, protocols, and publications that stay freely accessible to teams and communities.',
+      title: "Fund open research",
+      detail:
+        "Underwrite studies, protocols, and publications that stay freely accessible to teams and communities.",
     },
     {
-      title: 'Maintain diagnostics',
-      detail: 'Support updates to the diagnostic tools and safeguards that guide teams through risky launches.',
+      title: "Maintain diagnostics",
+      detail:
+        "Support updates to the diagnostic tools and safeguards that guide teams through risky launches.",
     },
     {
-      title: 'Sustain the library',
-      detail: 'Back the glossary, patterns, and teaching materials that help practitioners adopt ethical defaults.',
+      title: "Sustain the library",
+      detail:
+        "Back the glossary, patterns, and teaching materials that help practitioners adopt ethical defaults.",
     },
   ],
   paths: [
     {
-      title: 'One-time gifts',
-      description: 'Send a direct contribution to back the next set of releases or cover hosting and editorial costs.',
-      ctaLabel: 'Email to confirm a gift',
-      href: 'mailto:hello@ethotechnics.org?subject=Donate%20to%20Ethotechnics',
+      title: "One-time gifts",
+      description:
+        "Send a direct contribution to back the next set of releases or cover hosting and editorial costs.",
+      ctaLabel: "Email to confirm a gift",
+      href: "mailto:hello@ethotechnics.org?subject=Donate%20to%20Ethotechnics",
     },
     {
-      title: 'Monthly support',
-      description: 'Set up a recurring transfer to keep the research cadence steady and offset publication expenses.',
-      ctaLabel: 'Arrange monthly support',
-      href: 'mailto:hello@ethotechnics.org?subject=Set%20up%20monthly%20support',
+      title: "Monthly support",
+      description:
+        "Set up a recurring transfer to keep the research cadence steady and offset publication expenses.",
+      ctaLabel: "Arrange monthly support",
+      href: "mailto:hello@ethotechnics.org?subject=Set%20up%20monthly%20support",
     },
     {
-      title: 'Partner with the Institute',
-      description: 'Fund a program, workshop series, or facilitation sprint with your team through a sponsorship agreement.',
-      ctaLabel: 'Discuss sponsorship',
-      href: 'mailto:studio@ethotechnics.org?subject=Institute%20sponsorship',
+      title: "Partner with the Institute",
+      description:
+        "Fund a program, workshop series, or facilitation sprint with your team through a sponsorship agreement.",
+      ctaLabel: "Discuss sponsorship",
+      href: "mailto:studio@ethotechnics.org?subject=Institute%20sponsorship",
     },
   ],
   quickSupport: {
-    title: 'Quick support',
-    description: 'For individual supporters who want to move fast without procurement steps.',
+    title: "Quick support",
+    description:
+      "For individual supporters who want to move fast without procurement steps.",
     options: [
-      { amount: '$50', detail: 'Covers one new glossary definition release.' },
-      { amount: '$150', detail: 'Supports a Field Notes dispatch and editing cycle.' },
-      { amount: '$500', detail: 'Offsets one diagnostic worksheet refresh.' },
+      { amount: "$50", detail: "Covers one new glossary definition release." },
+      {
+        amount: "$150",
+        detail: "Supports a Field Notes dispatch and editing cycle.",
+      },
+      { amount: "$500", detail: "Offsets one diagnostic worksheet refresh." },
     ],
-    href: 'mailto:hello@ethotechnics.org?subject=Quick%20donation%20support',
-    ctaLabel: 'Email to contribute',
+    href: "mailto:hello@ethotechnics.org?subject=Quick%20donation%20support",
+    ctaLabel: "Email to contribute",
   },
   contact: {
-    title: 'Need invoicing details?',
+    title: "Need invoicing details?",
     detail:
-      'We can provide invoices, ACH instructions, or fiscal sponsorship options for organizations that require them.',
-    email: 'hello@ethotechnics.org',
-    subject: 'Donation logistics',
+      "We can provide invoices, ACH instructions, or fiscal sponsorship options for organizations that require them.",
+    email: "hello@ethotechnics.org",
+    subject: "Donation logistics",
   },
+  trust: {
+    title: "Donation details",
+    bullets: [
+      "Payment methods: email the team for ACH, wire, or card options.",
+      "Receipts are issued within 2–3 business days for all contributions.",
+      "Fiscal sponsorship and nonprofit paperwork available on request.",
+    ],
+    note: "Ethotechnics contributions support open research and publishing; no paywalls or gated resources.",
+  },
+  faq: [
+    {
+      question: "Is my contribution tax-deductible?",
+      answer:
+        "We can provide fiscal sponsorship documentation when needed. Contact us for the latest status and paperwork.",
+    },
+    {
+      question: "Will I receive a receipt?",
+      answer:
+        "Yes. Receipts are sent within 2–3 business days after confirming your contribution.",
+    },
+    {
+      question: "Can my organization sponsor a specific program?",
+      answer:
+        "Yes. We can scope program sponsorships, cohorts, or workshops with a tailored agreement.",
+    },
+  ],
 };

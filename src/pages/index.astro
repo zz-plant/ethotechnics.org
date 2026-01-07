@@ -100,6 +100,25 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
       <h2>{tracks.heading}</h2>
       <p class="muted">{tracks.body}</p>
     </div>
+    <div class="callout tracks__prompt">
+      <h3>{tracks.promptTitle}</h3>
+      <ul class="tracks__prompt-list">
+        {tracks.prompts.map((prompt) => (
+          <li>
+            <p class="tracks__prompt-question">{prompt.question}</p>
+            <p class="muted">{prompt.answer}</p>
+            <a
+              class="button ghost button--compact"
+              href={prompt.href}
+              rel={prompt.href.startsWith('http') ? 'noreferrer' : undefined}
+              target={prompt.href.startsWith('http') ? '_blank' : undefined}
+            >
+              {prompt.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
     <div class="grid grid--two">
       {tracks.cards.map((card) => (
         <article class="card">

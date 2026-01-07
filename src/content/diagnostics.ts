@@ -6,6 +6,8 @@ export type DiagnosticTool = {
   description: string;
   readiness: string[];
   outputs: string[];
+  estimatedTime: string;
+  prepChecklist: string[];
   studioNote: string;
   ctaLabel: string;
   ctaHref: string;
@@ -15,17 +17,18 @@ export type DiagnosticTool = {
   deliveryType: "self-serve" | "studio";
 };
 
-export type DiagnosticsContent = PageWithPermalink & PublishedContent & {
-  tools: DiagnosticTool[];
-  offRampNote: string;
-  valueProps: { title: string; description: string }[];
-  facilitation: {
-    title: string;
-    description: string;
-    steps: { title: string; detail: string }[];
-    note: string;
+export type DiagnosticsContent = PageWithPermalink &
+  PublishedContent & {
+    tools: DiagnosticTool[];
+    offRampNote: string;
+    valueProps: { title: string; description: string }[];
+    facilitation: {
+      title: string;
+      description: string;
+      steps: { title: string; detail: string }[];
+      note: string;
+    };
   };
-};
 
 export const diagnosticsContent: DiagnosticsContent = {
   pageTitle: "Diagnostics — Ethotechnics",
@@ -90,6 +93,12 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Ranked hotspots with mitigation paths and expected relief per action.",
         "Result page with a persistent off-ramp to ethotechnics.com/studio.",
       ],
+      estimatedTime: "10–15 minutes",
+      prepChecklist: [
+        "Scenario name and primary workflow.",
+        "Rough task volume or handoff counts.",
+        "Known friction points or escalation paths.",
+      ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio for risky or unclear scores.",
       ctaLabel: "Open the burden modeler",
@@ -113,6 +122,12 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Readiness summary that highlights consent journey gaps.",
         "UI nits and mitigation guidance tied to pattern language filters.",
         "Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.",
+      ],
+      estimatedTime: "30–45 minutes",
+      prepChecklist: [
+        "Sample prompts or flows to benchmark.",
+        "Current consent or disclosure copy.",
+        "Stakeholder who owns model and UI decisions.",
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
@@ -139,6 +154,12 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Communication templates mapped to risk levels, roles, and escalation routes.",
         "Result page summarizing coverage gaps with the off-ramp to ethotechnics.com/studio.",
       ],
+      estimatedTime: "20–30 minutes",
+      prepChecklist: [
+        "Upcoming maintenance or outage scenario.",
+        "Named escalation owner and comms partner.",
+        "Known dependency or rollback risks.",
+      ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.",
       ctaLabel: "Open the maintenance simulator",
@@ -162,6 +183,12 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Side-by-side baseline and remediated capacity projections.",
         "PDF export with saturation callouts for stakeholder sharing.",
         "Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.",
+      ],
+      estimatedTime: "15–20 minutes",
+      prepChecklist: [
+        "Current capacity baseline or recent burn rates.",
+        "Known remediation options or refusal windows.",
+        "Stakeholder who needs the output PDF.",
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",

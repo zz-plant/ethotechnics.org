@@ -99,6 +99,23 @@ const { cspNonce } = Astro.locals;
         'Review the diagnostic and playbook PDFs, answer the knowledge checks, then mark each module complete. Generate a sharable summary once you finish.',
     }}
   />
+  <div class="panel panel--glass progress-summary" data-progress-summary>
+    <div>
+      <p class="eyebrow">Progress snapshot</p>
+      <h2>Track your syllabus completion.</h2>
+      <p class="muted" data-progress-count>Complete 0 of {modules.length} modules.</p>
+    </div>
+    <div
+      class="progress-summary__bar"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax={modules.length}
+      aria-valuenow="0"
+      data-progress-bar
+    >
+      <span class="progress-summary__fill" data-progress-fill></span>
+    </div>
+  </div>
 
   <SectionBlock
     id="artifacts"
@@ -352,6 +369,30 @@ const { cspNonce } = Astro.locals;
     const shareButton = document.querySelector('[data-share]');
     const printButton = document.querySelector('[data-print]');
     const resetAllButton = document.querySelector('[data-reset-all]');
+    const progressSummary = document.querySelector('[data-progress-summary]');
+    const progressCount = progressSummary?.querySelector('[data-progress-count]');
+    const progressBar = progressSummary?.querySelector('[data-progress-bar]');
+    const progressFill = progressSummary?.querySelector('[data-progress-fill]');
+
+    const updateProgressSummary = () => {
+      const completedModules = modules.filter((module) => state[module.id]?.completed);
+      const count = completedModules.length;
+      const total = modules.length;
+      const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+
+      if (progressCount) {
+        progressCount.textContent = `Complete ${count} of ${total} modules.`;
+      }
+
+      if (progressBar) {
+        progressBar.setAttribute('aria-valuenow', String(count));
+        progressBar.setAttribute('aria-valuemax', String(total));
+      }
+
+      if (progressFill) {
+        progressFill.style.width = `${percent}%`;
+      }
+    };
 
     const updateCertificate = () => {
       if (!certificateList) return;
@@ -473,6 +514,7 @@ const { cspNonce } = Astro.locals;
         updateModuleUI(moduleId);
         updateCertificate();
         updateShareLink();
+        updateProgressSummary();
       });
 
       quizOptions.forEach((option) => {
@@ -488,6 +530,7 @@ const { cspNonce } = Astro.locals;
           updateModuleUI(moduleId);
           updateCertificate();
           updateShareLink();
+          updateProgressSummary();
         });
       });
 
@@ -498,6 +541,7 @@ const { cspNonce } = Astro.locals;
         updateModuleUI(moduleId);
         updateCertificate();
         updateShareLink();
+        updateProgressSummary();
       });
 
       resetButton?.addEventListener('click', () => {
@@ -506,6 +550,7 @@ const { cspNonce } = Astro.locals;
         updateModuleUI(moduleId);
         updateCertificate();
         updateShareLink();
+        updateProgressSummary();
       });
     };
 
@@ -516,6 +561,7 @@ const { cspNonce } = Astro.locals;
       });
       updateCertificate();
       updateShareLink();
+      updateProgressSummary();
     };
 
     initialize();
@@ -528,6 +574,7 @@ const { cspNonce } = Astro.locals;
       saveState(state);
       updateCertificate();
       updateShareLink();
+      updateProgressSummary();
       if (shareStatus) {
         shareStatus.textContent = 'All progress reset. Complete a module to generate a new shareable link.';
       }

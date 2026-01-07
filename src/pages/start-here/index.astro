@@ -13,6 +13,7 @@ const {
   hero,
   anchorLinks,
   routes,
+  decisionGuide,
   artifacts,
   framing,
   studio,
@@ -29,6 +30,32 @@ const {
     panelCopy={hero.panel}
   />
   <p class="muted small">{hero.quickNote}</p>
+  <p class="muted">{hero.quickSummary}</p>
+
+  <SectionBlock
+    id="decision-guide"
+    eyebrow={decisionGuide.eyebrow}
+    title={decisionGuide.title}
+    description={decisionGuide.description}
+    className="section--banded"
+  >
+    <CardGrid className="grid--three">
+      {decisionGuide.prompts.map((prompt) => (
+        <CardItem title={prompt.question} description={prompt.answer} descriptionTone="default">
+          <div slot="footer" class="card__footer">
+            <a
+              class="button ghost button--compact"
+              href={prompt.href}
+              rel={prompt.href.startsWith('http') ? 'noreferrer' : undefined}
+              target={prompt.href.startsWith('http') ? '_blank' : undefined}
+            >
+              {prompt.label}
+            </a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="routes"
@@ -52,6 +79,7 @@ const {
     <CardGrid className="grid--two">
       {routes.cards.map((card) => (
         <CardItem title={card.title} description={card.description} descriptionTone="default" tags={card.tags}>
+          <p class="muted">{card.bestFor}</p>
           <p class="muted small">{card.time}</p>
           <div slot="footer" class="card__footer">
             <a class="button ghost button--compact" href={card.href} aria-label={`Go to ${card.title}`}>

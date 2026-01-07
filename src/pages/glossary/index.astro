@@ -7,7 +7,8 @@ import { libraryContent } from '../../content/library';
 import glossaryFilterScript from '../../scripts/glossary-filter.ts?url';
 import glossaryCitationsScript from '../../scripts/glossary-citations.ts?url';
 
-const { pageTitle, pageDescription, permalink, territoryMap, categories } = glossaryContent;
+const { pageTitle, pageDescription, permalink, territoryMap, categories, starterTerms, categoryHighlights } =
+  glossaryContent;
 const patternIndex = new Map(
   libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
@@ -105,6 +106,18 @@ const citationYear = new Date().getFullYear();
         'Each term is a pattern card with related Library patterns and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.',
     }}
   />
+  <div class="callout glossary__starter">
+    <h3>Start with these terms</h3>
+    <p class="muted">New to the glossary? These anchors provide the shared vocabulary most teams cite first.</p>
+    <ul class="glossary__starter-list">
+      {starterTerms.map((term) => (
+        <li>
+          <a href={`${permalink}#${term.id}`}>{term.label}</a>
+          <p class="muted small">{term.description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
 
   <SectionBlock
     id="glossary-index"
@@ -185,6 +198,17 @@ const citationYear = new Date().getFullYear();
     description="Quick scan of glossary areas with entry counts to help you jump to the right section."
     variant="alt"
   >
+    <div class="glossary__categories">
+      {categoryHighlights.map((category) => (
+        <article class="glossary__category">
+          <h3>{category.label}</h3>
+          <p class="muted">{category.description}</p>
+          <a class="button ghost button--compact" href={`#${category.id}`}>
+            Jump to {category.label}
+          </a>
+        </article>
+      ))}
+    </div>
     <div class="territory-map">
       {territoryMap.map((item) => (
         <article class="territory-map__item" id={`territory-${item.id}`}>
