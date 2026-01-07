@@ -8,8 +8,18 @@ import InstituteStudioComparison from '../../components/InstituteStudioCompariso
 import { instituteStudioComparisonContent } from '../../content/comparison';
 import { instituteContent } from '../../content/institute';
 
-const { pageTitle, pageDescription, permalink, highlights, programs, governance, stewards, contact } =
-  instituteContent;
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  anchorLinks,
+  panelCopy,
+  highlights,
+  programs,
+  governance,
+  stewards,
+  contact,
+} = instituteContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -17,20 +27,8 @@ const { pageTitle, pageDescription, permalink, highlights, programs, governance,
     title="Institute"
     description={pageDescription}
     permalink={permalink}
-    anchorLinks={[
-      { href: '#overview', label: 'What you can do' },
-      { href: '#programs', label: 'Programs' },
-      { href: '#studio', label: 'Studio partnership' },
-      { href: '#governance', label: 'Governance' },
-      { href: '#stewards', label: 'Stewards' },
-      { href: '#contact', label: 'Contact' },
-    ]}
-    panelCopy={{
-      eyebrow: 'Fast track',
-      title: 'Already know you need help? Start with the Studio.',
-      description:
-        'Run a diagnostic first when you can. If risk shows up or you need a facilitator, email the Studio to get routed to the right forum.',
-    }}
+    anchorLinks={anchorLinks}
+    panelCopy={panelCopy}
   />
 
   <SectionBlock

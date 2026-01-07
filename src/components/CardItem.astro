@@ -11,9 +11,15 @@
  * - description: Supporting copy, muted by default.
  * - descriptionTone: Set to `default` to render the description without the muted class.
  * - tags: Renders as a `.pill-list` under the description.
+ * - tagsClassName: Optional class name appended to the tags list.
  * - glossaryLinks: Array of `{ href, label }` rendered as a "Glossary" line with comma separators.
  * - glossaryLabel: Override the glossary label (defaults to "Glossary").
+ * - icon: Optional astro-icon name rendered above the title.
+ * - className: Optional class name appended to the card root.
+ * - ariaLabel: Optional aria-label for the card root.
  */
+import { Icon } from 'astro-icon/components';
+
 interface GlossaryLink {
   href: string;
   label: string;
@@ -23,14 +29,18 @@ interface Props {
   id?: string;
   eyebrow?: string;
   meta?: string;
+  icon?: string;
   title?: string;
   headingLevel?: 'h2' | 'h3' | 'h4';
   description?: string;
   descriptionTone?: 'default' | 'muted';
   tags?: string[];
+  tagsClassName?: string;
   glossaryLinks?: GlossaryLink[];
   glossaryLabel?: string;
   dataDelivery?: string;
+  className?: string;
+  ariaLabel?: string;
 }
 
 const props = Astro.props as Props;
@@ -38,30 +48,41 @@ const {
   id,
   eyebrow,
   meta,
+  icon,
   title,
   headingLevel = 'h3',
   description,
   descriptionTone = 'muted',
   tags = [],
+  tagsClassName,
   glossaryLinks = [],
   glossaryLabel = 'Glossary',
   dataDelivery,
+  className,
+  ariaLabel,
 } = props;
 
 const HeadingTag = headingLevel;
 const descriptionClass = descriptionTone === 'muted' ? 'muted' : undefined;
 const hasTags = tags.length > 0;
 const hasGlossaryLinks = glossaryLinks.length > 0;
+const cardClass = ['card', className].filter(Boolean).join(' ');
+const tagListClass = ['pill-list', tagsClassName].filter(Boolean).join(' ');
 ---
-<article class="card" id={id} data-delivery={dataDelivery}>
+<article class={cardClass} id={id} data-delivery={dataDelivery} aria-label={ariaLabel}>
   <div class="card__glow" aria-hidden="true" />
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   {meta && <p class="muted">{meta}</p>}
+  {icon && (
+    <div class="icon" aria-hidden="true">
+      <Icon name={icon} />
+    </div>
+  )}
   {title && <HeadingTag>{title}</HeadingTag>}
   {description && <p class={descriptionClass}>{description}</p>}
   <slot />
   {hasTags && (
-    <ul class="pill-list">
+    <ul class={tagListClass}>
       {tags.map((tag) => (
         <li>{tag}</li>
       ))}

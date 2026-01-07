@@ -1,6 +1,8 @@
 import type {
+  AnchorLink,
   GlossaryLinked,
   PageWithPermalink,
+  PanelCopy,
   PublishedContent,
 } from "./types";
 
@@ -28,6 +30,13 @@ export type Publication = GlossaryLinked & {
 
 export type ResearchContent = PageWithPermalink &
   PublishedContent & {
+    anchorLinks: AnchorLink[];
+    panelCopy: PanelCopy;
+    orientationCards: {
+      title: string;
+      description: string;
+      tags: string[];
+    }[];
     agenda: AgendaItem[];
     focusAreas: FocusArea[];
     publications: Publication[];
@@ -44,6 +53,38 @@ export const researchContent: ResearchContent = {
   lastUpdated: "2024-10-15T00:00:00Z",
   updateCadence:
     "Updates publish on a quarterly cadence with interim Field Notes.",
+  anchorLinks: [
+    { href: "#orientation", label: "Orientation" },
+    { href: "#agenda", label: "Agenda" },
+    { href: "#focus-areas", label: "Focus areas" },
+    { href: "#publications", label: "Publications" },
+  ],
+  panelCopy: {
+    eyebrow: "How to read these entries",
+    title: "Cross-linked with the Library glossary.",
+    description:
+      "Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions. Use them when citing Field Notes or diagnostics results to keep language consistent.",
+  },
+  orientationCards: [
+    {
+      title: "Protocols with receipts",
+      description:
+        "Shared prompt packs and facilitation notes keep teams aligned when fielding interviews or co-design sessions.",
+      tags: ["Participatory methods", "Plain-language scripts", "Reusable consent"],
+    },
+    {
+      title: "Decisions we can cite",
+      description:
+        "Every study ties to glossary anchors and decision logs, making it easy to reference the why behind research calls.",
+      tags: ["Glossary-linked", "Decision hygiene", "Traceable handoffs"],
+    },
+    {
+      title: "Signals into diagnostics",
+      description:
+        "Focus areas flow into readiness labs so partners see risk levels, escalation paths, and facilitation options in one place.",
+      tags: ["Readiness labs", "Risk surfaced early", "Studio handoffs"],
+    },
+  ],
   agenda: [
     {
       title: "Participation and consent at scale",

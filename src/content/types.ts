@@ -15,3 +15,14 @@ export type PageWithPermalink = PageCopy & {
 export type GlossaryLinked = {
   glossaryRefs: string[];
 };
+
+export type AnchorLink = {
+  href: string;
+  label: string;
+};
+
+export type PanelCopy = {
+  eyebrow: string;
+  title: string;
+  description: string;
+};
