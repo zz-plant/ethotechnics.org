@@ -11,6 +11,7 @@ const {
   pageDescription,
   permalink,
   hero,
+  keyTakeaways,
   why,
   useCases,
   gettingStarted,
@@ -44,6 +45,19 @@ const anchorLinks = [
     anchorLinks={anchorLinks}
     panelCopy={hero.panel}
   />
+
+  <section class="section">
+    <div class="section__header">
+      <p class="eyebrow">{keyTakeaways.label}</p>
+      <h2>{keyTakeaways.title}</h2>
+      <p class="muted">{keyTakeaways.note}</p>
+    </div>
+    <ul class="muted">
+      {keyTakeaways.bullets.map((bullet) => (
+        <li>{bullet}</li>
+      ))}
+    </ul>
+  </section>
 
   <section class="section section--alt">
     <div class="section__header">
