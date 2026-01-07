@@ -108,9 +108,9 @@ export const homeContent = {
     eyebrow: "Practical ethics for product teams",
     heading: "Build technology people can trust.",
     subheadline:
-      "Clear guidance and programs for respectful, explainable choices.",
-    lede: "Ethotechnics pairs an open library with guided diagnostics. Use the playbooks yourself or bring in facilitators when you need speed.",
-    map: 'See the <a href="/start-here">orientation page</a> for a quick map of the library and diagnostics. Everything is CC BY, and the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> can step in when you need support.',
+      "Start with the orientation for respectful, explainable choices.",
+    lede: "Use the Start Here map to choose your first step, then go deeper with the library or diagnostics as needed.",
+    map: 'Start with the <a href="/start-here">orientation page</a> for the fastest path through the library and diagnostics. Everything is CC BY, and the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> can step in when you need hands-on support.',
     actions: [
       {
         label: "Start here",
@@ -119,7 +119,7 @@ export const homeContent = {
         icon: "lucide:map-pin",
       },
       {
-        label: "Browse the library",
+        label: "Explore the library",
         href: "/library",
         variant: "ghost",
         icon: "lucide:library",
@@ -164,25 +164,25 @@ export const homeContent = {
         icon: "lucide:bolt",
         title: "Built for real teams",
         description:
-          "Concise playbooks, annotated examples, and prompts that fit into day-to-day delivery.",
+          "Concise playbooks and prompts that fit day-to-day delivery.",
       },
       {
         icon: "lucide:compass",
         title: "Wayfinding you can trust",
         description:
-          "Clear cues for when to pause, who to involve, and how to make informed trade-offs without slowing delivery.",
+          "Clear cues on when to pause, who to involve, and how to make informed trade-offs.",
       },
       {
         icon: "lucide:palette",
         title: "Accessible by design",
         description:
-          "Plain-language explanations and visuals keep the library easy to read and share.",
+          "Plain-language explanations and visuals keep the library easy to share.",
       },
       {
         icon: "lucide:users",
         title: "Built with the community",
         description:
-          "Peer feedback and practitioner evidence keep the library grounded in real-world delivery.",
+          "Peer feedback and practitioner evidence keep the library grounded in real-world work.",
         actions: [
           {
             label: "Submit a field report",
@@ -330,8 +330,8 @@ export const homeContent = {
   },
   cta: {
     eyebrow: "Stay connected",
-    heading: "Follow the work at Ethotechnics.",
-    body: "Get notified when new essays, field notes, and facilitation kits go live. No spam—just practical guidance.",
+    heading: "Start with the orientation.",
+    body: "Use the Start Here map to choose your next step, then explore the library or diagnostics when you need more depth.",
     actions: [
       {
         label: "Start here",
@@ -340,13 +340,13 @@ export const homeContent = {
         icon: "lucide:map-pin",
       },
       {
-        label: "Browse the library",
+        label: "Explore the library",
         href: "/library",
         variant: "ghost",
         icon: "lucide:library",
       },
       {
-        label: "Book a diagnostic",
+        label: "Explore diagnostics",
         href: "/diagnostics",
         variant: "ghost",
         icon: "lucide:activity-square",
