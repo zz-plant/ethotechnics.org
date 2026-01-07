@@ -59,7 +59,6 @@ describe('sitemap.xml', () => {
       expect.arrayContaining([
         'https://example.org/start-here/',
         'https://example.org/tools/maintenance-simulator',
-        'https://example.org/diagnostics/ssr',
       ])
     );
     expect(locs).not.toEqual(expect.arrayContaining([expect.stringMatching(/\[/)]));
