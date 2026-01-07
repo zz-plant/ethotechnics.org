@@ -25,11 +25,12 @@
     "astro:check": "astro check",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"src/**/*.{ts,tsx,astro}\"",
-    "check": "bun run lint && bun run test:ci && bun run typecheck && bun run astro:check",
-    "test": "bun test src",
-    "test:ci": "bun test src",
-    "e2e": "bun run build && bunx playwright test",
-    "e2e:ci": "bun run build && bunx playwright test --reporter=line"
+    "check": "bun run lint && bun run test:unit && bun run typecheck && bun run astro:check",
+    "test:unit": "bun test src",
+    "test:unit:ci": "bun test src",
+    "test:e2e": "bun run build && bunx playwright test",
+    "test:e2e:ci": "bun run build && bunx playwright test --reporter=line",
+    "test:visual": "bunx playwright test --project=chromium --grep @visual"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

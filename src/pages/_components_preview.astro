@@ -1,0 +1,59 @@
+---
+import CardItem from "../components/CardItem.astro";
+import PageIntro from "../components/PageIntro.astro";
+import Layout from "../layouts/BaseLayout.astro";
+
+// This page is for Playwright visual testing only.
+// It renders components in various states.
+---
+
+<Layout title="Component Preview">
+  <main class="wrapper">
+    <h1>Component Preview</h1>
+
+    <section id="page-intro">
+      <h2>PageIntro</h2>
+      <PageIntro
+        eyebrow="Preview"
+        title="Component Visual Testing"
+        description="A kitchen sink page for Playwright to verify component rendering."
+        permalink="/_components_preview"
+        anchorLinks={[
+          { label: "Card Item", href: "#card-item" },
+          { label: "Other", href: "#other" },
+        ]}
+      />
+    </section>
+
+    <hr />
+
+    <section
+      id="card-item"
+      style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));"
+    >
+      <h2>CardItem</h2>
+
+      <CardItem
+        title="Default Card"
+        description="This is a standard card with a description."
+        icon="lucide:box"
+      />
+
+      <CardItem
+        title="Card with Tags"
+        description="This card has tags and a muted description."
+        tags={["Tag A", "Tag B", "Tag C"]}
+        descriptionTone="muted"
+      />
+
+      <CardItem
+        title="Glossary Card"
+        description="This card has glossary links."
+        glossaryLinks={[
+          { label: "Term 1", href: "#" },
+          { label: "Term 2", href: "#" },
+        ]}
+      />
+    </section>
+  </main>
+</Layout>
