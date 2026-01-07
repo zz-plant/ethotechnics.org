@@ -80,6 +80,9 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
         >
           <div class="diagnostics__card-body">
             <div class="diagnostics__card-column">
+              <p class="muted small">
+                {tool.deliveryType === 'studio' ? 'Studio-facilitated' : 'Self-serve'}
+              </p>
               <p class="muted diagnostics__label">Use this when</p>
               <ul class="pill-list pill-list--wrap">
                 {tool.readiness.map((item) => (

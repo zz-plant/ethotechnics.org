@@ -12,6 +12,7 @@ type ParticipationPathway = {
   description: string;
   tags?: string[];
   actions: ParticipationAction[];
+  checklist: string[];
 };
 
 type ParticipationContent = PageCopy & {
@@ -66,6 +67,11 @@ export const participationContent: ParticipationContent = {
       description:
         'Share research memos, postmortems, or annotated experiments that illustrate how accountable delivery looks in practice.',
       tags: ['Discovery research', 'Pilots', 'Policy reviews'],
+      checklist: [
+        'Summarize the scenario and the stakeholders involved.',
+        'Include any artifacts or decision logs you can share.',
+        'Note what changed for people after the intervention.',
+      ],
       actions: [
         {
           label: 'Email your field report',
@@ -81,6 +87,11 @@ export const participationContent: ParticipationContent = {
       description:
         'Invite us to facilitate a review of your guidance, governance plans, or interventions so we can publish anonymized lessons.',
       tags: ['Governance pilots', 'Playbook drafts', 'Risk reviews'],
+      checklist: [
+        'Share the draft or deck you want reviewed.',
+        'Name the decision you need to make next.',
+        'Flag any sensitive details that need anonymizing.',
+      ],
       actions: [
         {
           label: 'Schedule a review',
@@ -96,6 +107,11 @@ export const participationContent: ParticipationContent = {
       description:
         'Bring open questions to monthly drop-in sessions focused on facilitation challenges, safeguards, and metrics.',
       tags: ['Live Q&A', 'Practice labs', 'Office hours'],
+      checklist: [
+        'Bring one specific question or scenario.',
+        'Share where you are in the delivery timeline.',
+        'Note any blockers or risks you want to explore.',
+      ],
       actions: [
         {
           label: 'Reserve a clinic spot',

@@ -54,6 +54,7 @@ const { pageTitle, pageDescription, permalink, highlights, programs, governance,
     description="Join the track that fits your decision window; everything links back to the Library so you can act quickly."
     variant="alt"
   >
+    <p class="muted small">Programs refresh on a quarterly cadence. Reach out for current availability.</p>
     <CardGrid>
       {programs.map((program) => (
         <CardItem
@@ -62,6 +63,8 @@ const { pageTitle, pageDescription, permalink, highlights, programs, governance,
           descriptionTone="default"
         >
           <p class="muted">{program.outcome}</p>
+          <p class="muted small">Status: {program.status}</p>
+          <p class="muted small">{program.howToJoin}</p>
         </CardItem>
       ))}
     </CardGrid>

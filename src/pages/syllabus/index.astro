@@ -127,6 +127,9 @@ const { cspNonce } = Astro.locals;
     title="Track progress and pass the knowledge checks."
     description="Mark a module complete only after you confirm the required readings and answer the check correctly. Progress saves in your browser so you can return later."
   >
+    <p class="muted small">
+      Progress is stored locally in your browser. Use the shareable link below if you need to view completion status on another device.
+    </p>
     <div class="syllabus-grid" data-syllabus>
       {modules.map((module, index) => {
         const check = knowledgeChecks.find((item) => item.moduleId === module.id);
@@ -253,6 +256,9 @@ const { cspNonce } = Astro.locals;
           <button type="button" class="button ghost button--compact" data-share>
             Copy shareable link
           </button>
+          <button type="button" class="button ghost button--compact" data-reset-all>
+            Reset all progress
+          </button>
         </div>
       </div>
 
@@ -345,6 +351,7 @@ const { cspNonce } = Astro.locals;
     const shareStatus = document.querySelector('[data-share-status]');
     const shareButton = document.querySelector('[data-share]');
     const printButton = document.querySelector('[data-print]');
+    const resetAllButton = document.querySelector('[data-reset-all]');
 
     const updateCertificate = () => {
       if (!certificateList) return;
@@ -512,6 +519,19 @@ const { cspNonce } = Astro.locals;
     };
 
     initialize();
+
+    resetAllButton?.addEventListener('click', () => {
+      modules.forEach((module) => {
+        state[module.id] = { ...defaultState[module.id] };
+        updateModuleUI(module.id);
+      });
+      saveState(state);
+      updateCertificate();
+      updateShareLink();
+      if (shareStatus) {
+        shareStatus.textContent = 'All progress reset. Complete a module to generate a new shareable link.';
+      }
+    });
 
     shareButton?.addEventListener('click', async () => {
       updateShareLink();

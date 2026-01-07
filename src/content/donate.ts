@@ -23,6 +23,13 @@ export type DonateContent = PageWithPermalink & {
   impact: ImpactArea[];
   paths: ContributionPath[];
   contact: ContactInfo;
+  quickSupport: {
+    title: string;
+    description: string;
+    options: { amount: string; detail: string }[];
+    href: string;
+    ctaLabel: string;
+  };
 };
 
 export const donateContent: DonateContent = {
@@ -64,6 +71,17 @@ export const donateContent: DonateContent = {
       href: 'mailto:studio@ethotechnics.org?subject=Institute%20sponsorship',
     },
   ],
+  quickSupport: {
+    title: 'Quick support',
+    description: 'For individual supporters who want to move fast without procurement steps.',
+    options: [
+      { amount: '$50', detail: 'Covers one new glossary definition release.' },
+      { amount: '$150', detail: 'Supports a Field Notes dispatch and editing cycle.' },
+      { amount: '$500', detail: 'Offsets one diagnostic worksheet refresh.' },
+    ],
+    href: 'mailto:hello@ethotechnics.org?subject=Quick%20donation%20support',
+    ctaLabel: 'Email to contribute',
+  },
   contact: {
     title: 'Need invoicing details?',
     detail:

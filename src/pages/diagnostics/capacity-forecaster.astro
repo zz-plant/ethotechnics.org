@@ -15,6 +15,14 @@ import CapacityForecasterWidget from '../../features/capacity-forecaster/Capacit
         Lightweight simulation for teams balancing stability, operational friction, and refusal windows. Use this tool when you
         need to stress-test delivery plans and export a PDF snapshot for stakeholders.
       </p>
+      <div class="callout">
+        <h2>Model assumptions</h2>
+        <ul class="muted">
+          <li>Baseline capacity declines unless remediation is scheduled.</li>
+          <li>Refusal windows represent periods when teams pause new delivery.</li>
+          <li>Forecasts compare “do nothing” vs. mitigation timelines.</li>
+        </ul>
+      </div>
       <p class="muted">
         Modeling assumptions and inputs are documented in the
         <a href="https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-capacity-forecaster.md">diagnostics

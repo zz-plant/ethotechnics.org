@@ -24,6 +24,8 @@ export type ResearchContent = PageWithPermalink & PublishedContent & {
   agenda: AgendaItem[];
   focusAreas: FocusArea[];
   publications: Publication[];
+  lastUpdated: string;
+  updateCadence: string;
 };
 
 export const researchContent: ResearchContent = {
@@ -31,6 +33,8 @@ export const researchContent: ResearchContent = {
   pageDescription: 'Inquiries, methods, and study findings that surface the human impacts of technology.',
   permalink: '/research',
   published: '2024-09-01T00:00:00Z',
+  lastUpdated: '2024-10-15T00:00:00Z',
+  updateCadence: 'Updates publish on a quarterly cadence with interim Field Notes.',
   agenda: [
     {
       title: 'Participation and consent at scale',

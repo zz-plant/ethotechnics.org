@@ -5,7 +5,7 @@ import FieldNotesTabs from '../../components/FieldNotesTabs.astro';
 import { fieldNotesContent } from '../../content/fieldNotes';
 import { glossaryContent } from '../../content/glossary';
 
-const { pageTitle, pageDescription, permalink, sections, entries } = fieldNotesContent;
+const { pageTitle, pageDescription, permalink, sections, entries, latestUpdate } = fieldNotesContent;
 const glossaryBase = glossaryContent.permalink;
 const anchorLinks = sections.map((section) => ({
   href: `#${section.format}`,
@@ -26,5 +26,9 @@ const anchorLinks = sections.map((section) => ({
         'Dispatches, case studies, and signals point to glossary anchors so teams can reuse definitions across research and diagnostics.',
     }}
   />
+  <p class="muted small">
+    Latest update {new Date(latestUpdate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}.{' '}
+    <a href="/rss.xml">Subscribe via RSS</a>.
+  </p>
   <FieldNotesTabs sections={sections} entries={entries} glossaryBase={glossaryBase} />
 </BaseLayout>

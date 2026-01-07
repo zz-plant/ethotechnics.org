@@ -36,6 +36,11 @@ const { pageTitle, pageDescription, permalink, hero, pathways, feedback } = part
           descriptionTone="default"
           tags={pathway.tags}
         >
+          <ul class="muted">
+            {pathway.checklist.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
           {pathway.actions.length ? (
             <ul class="card__list">
               {pathway.actions.map((action) => (
