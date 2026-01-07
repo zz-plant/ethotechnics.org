@@ -1,6 +1,9 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "skipLibCheck": true,
+    "incremental": true,
+    "tsBuildInfoFile": ".astro/tsconfig.tsbuildinfo",
     "types": [
       "astro/client",
       "vitest/globals",
@@ -12,5 +15,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "exclude": ["coverage", "dist"]
+  "exclude": ["coverage", "dist", "node_modules"]
 }

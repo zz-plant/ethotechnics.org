@@ -42,6 +42,19 @@ export default defineConfig({
       cssMinify: 'lightningcss',
       minify: 'esbuild',
       reportCompressedSize: false,
+      target: 'es2022',
+      rollupOptions: {
+        output: {
+          experimentalMinChunkSize: 1000,
+        },
+      },
+    },
+    esbuild: {
+      target: 'es2022',
+      legalComments: 'none',
+    },
+    optimizeDeps: {
+      include: ['react', 'react-dom'],
     },
     ssr: {
       external: ['node:crypto', 'node:fs/promises', 'node:path', 'node:url'],
