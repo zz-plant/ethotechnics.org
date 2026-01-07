@@ -4,6 +4,7 @@ export type DiagnosticTool = {
   slug: string;
   title: string;
   description: string;
+  bestFor: string;
   readiness: string[];
   outputs: string[];
   estimatedTime: string;
@@ -84,6 +85,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Burden Modeler",
       description:
         "Quantifies task load, cognitive friction, and risk exposure so you can reroute toil before it burns people out.",
+      bestFor:
+        "Best for leaders who need a fast workload snapshot before teams hit a burnout threshold.",
       readiness: [
         "Run when leaders need to see how burden accumulates across roles or release cycles.",
         "Pair with support and operations partners to weight inputs and confirm where friction is worst.",
@@ -114,6 +117,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "LLM Capacity Benchmark",
       description:
         "Lightweight evaluation to check if a model and its surrounding UI respect consent and context limits.",
+      bestFor:
+        "Best for teams validating consent, disclosure, and context limits before an AI pilot.",
       readiness: [
         "Run before piloting a new model-powered feature with real people.",
         "Pair with progressive consent prompts to keep expectations clear.",
@@ -145,6 +150,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Maintenance Simulator",
       description:
         "Tabletop simulation that plays through outages, maintenance windows, and handoffs to stress-test coverage.",
+      bestFor:
+        "Best for operations leaders rehearsing outage response and escalation ownership.",
       readiness: [
         "Use during planning to negotiate coverage, escalation, and staffing constraints with partners.",
         "Stress-test appeal paths, safety valves, and service-level guarantees before launch.",
@@ -175,6 +182,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Technical Capacity Forecaster",
       description:
         "Charts compound decay against refusal windows to spot saturation risk across a 24-month horizon.",
+      bestFor:
+        "Best for delivery leaders aligning long-term stability plans with capacity constraints.",
       readiness: [
         "Use when delivery teams need to visualize stability trade-offs with remediation paths.",
         "Pair with portfolio reviews to align refusal policies with operational bandwidth.",

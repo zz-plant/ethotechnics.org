@@ -31,8 +31,41 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
       title: 'Every diagnostic leaves you with a linkable readout.',
       description:
         'Outputs include a stable URL, the off-ramp to ethotechnics.com/studio, and pattern language references for follow-up.',
+      link: {
+        label: 'Compare tools',
+        href: '#compare-tools',
+      },
     }}
   />
+
+  <SectionBlock
+    id="compare-tools"
+    eyebrow="Compare tools"
+    title="Start with the quickest diagnostic that matches your decision."
+    description="Use the summary below to pick your best fit before scanning the full menu."
+    variant="alt"
+  >
+    <ul class="diagnostics__compare">
+      <li>
+        <p class="muted diagnostics__label">Delivery & timing</p>
+        <p class="muted">Each tool notes whether it is self-serve or studio-facilitated, plus the expected time.</p>
+      </li>
+      <li>
+        <p class="muted diagnostics__label">Best for</p>
+        <p class="muted">One sentence captures the scenario the tool is optimized for.</p>
+      </li>
+      <li>
+        <p class="muted diagnostics__label">Outputs & prep</p>
+        <p class="muted">Scan the readout list and prep checklist to confirm the lift.</p>
+      </li>
+      <li>
+        <p class="muted diagnostics__label">Pattern language</p>
+        <p class="muted">
+          Use the <a href={patternBase}>pattern library</a> to align mitigations after you compare.
+        </p>
+      </li>
+    </ul>
+  </SectionBlock>
 
   <SectionBlock
     id="why-diagnostics"
@@ -105,33 +138,40 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
           dataDelivery={tool.deliveryType}
         >
           <div class="diagnostics__card-body">
-            <div class="diagnostics__card-column">
+            <div>
               <p class="muted small">
                 {tool.deliveryType === 'studio' ? 'Studio-facilitated' : 'Self-serve'}
               </p>
               <p class="muted small">Estimated time: {tool.estimatedTime}</p>
-              <p class="muted diagnostics__label">Use this when</p>
-              <ul class="pill-list pill-list--wrap">
-                {tool.readiness.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
             </div>
-            <div class="diagnostics__card-column">
-              <p class="muted diagnostics__label">What you receive</p>
-              <ul class="pill-list pill-list--wrap">
-                {tool.outputs.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-              <p class="muted diagnostics__label">Prep checklist</p>
-              <ul class="pill-list pill-list--wrap">
-                {tool.prepChecklist.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-              <p class="muted small">{tool.studioNote}</p>
-            </div>
+            <p class="muted small diagnostics__best-for">{tool.bestFor}</p>
+            <ul class="diagnostics__summary">
+              <li>
+                <p class="muted diagnostics__label">Use this when</p>
+                <ul class="pill-list pill-list--wrap">
+                  {tool.readiness.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </li>
+              <li>
+                <p class="muted diagnostics__label">What you receive</p>
+                <ul class="pill-list pill-list--wrap">
+                  {tool.outputs.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </li>
+              <li>
+                <p class="muted diagnostics__label">Prep checklist</p>
+                <ul class="pill-list pill-list--wrap">
+                  {tool.prepChecklist.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </li>
+            </ul>
+            <p class="muted small">{tool.studioNote}</p>
           </div>
           <div class="diagnostics__card-footer">
             <div class="section__actions">
