@@ -20,6 +20,14 @@ const {
   footerCta,
 } = startHereContent;
 const recommendedCard = routes.cards.find((card) => card.recommendedTag);
+const recommendedDetails = recommendedCard
+  ? [
+      { text: recommendedCard.recommendedNote, className: 'muted' },
+      { text: recommendedCard.bestFor, className: 'muted small' },
+      { text: recommendedCard.time, className: 'muted small' },
+      { text: recommendedCard.description, className: 'muted small' },
+    ].filter((detail) => detail.text)
+  : [];
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -34,10 +42,9 @@ const recommendedCard = routes.cards.find((card) => card.recommendedTag);
     <div class="callout">
       <p class="eyebrow">Recommended first step</p>
       <h3>{recommendedCard.title}</h3>
-      {recommendedCard.recommendedNote && <p class="muted">{recommendedCard.recommendedNote}</p>}
-      <p class="muted small">{recommendedCard.bestFor}</p>
-      <p class="muted small">{recommendedCard.time}</p>
-      <p class="muted small">{recommendedCard.description}</p>
+      {recommendedDetails.map((detail) => (
+        <p class={detail.className}>{detail.text}</p>
+      ))}
       <div class="section__actions">
         {hero.actions.map((action) => (
           <a

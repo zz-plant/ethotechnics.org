@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CardGrid from '../components/CardGrid.astro';
+import CardItem from '../components/CardItem.astro';
 import { instituteStudioComparisonContent } from '../content/comparison';
 import { homeContent } from '../content/home';
 import Illustration from '../components/Illustration.astro';
@@ -132,21 +134,17 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
         ))}
       </ul>
     </div>
-    <div class="grid grid--two">
+    <CardGrid className="grid--two">
       {tracks.cards.map((card) => (
-        <article class="card">
-          <div class="card__glow" aria-hidden="true" />
-          {card.eyebrow ? <p class="eyebrow">{card.eyebrow}</p> : null}
-          <div class="icon" aria-hidden="true">{card.icon ? <Icon name={card.icon} /> : null}</div>
-          <h3>{card.title}</h3>
-          <p>{card.description}</p>
-          {card.pills ? (
-            <ul class="pill-list pill-list--wrap">
-              {card.pills.map((pill) => (
-                <li>{pill}</li>
-              ))}
-            </ul>
-          ) : null}
+        <CardItem
+          eyebrow={card.eyebrow}
+          icon={card.icon}
+          title={card.title}
+          description={card.description}
+          descriptionTone="default"
+          tags={card.pills}
+          tagsClassName="pill-list--wrap"
+        >
           {card.actions ? (
             <ul class="card__list">
               {card.actions.map((action) => (
@@ -162,9 +160,9 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
               ))}
             </ul>
           ) : null}
-        </article>
+        </CardItem>
       ))}
-    </div>
+    </CardGrid>
   </section>
 
   <InstituteStudioComparison content={instituteStudioComparisonContent} />
@@ -212,22 +210,16 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
         caption="A focal map of how the Institute keeps product delivery accountable."
         className="features__illustration"
       />
-      <div class="grid grid--two features__grid">
+      <CardGrid className="grid--two features__grid">
         {features.cards.map((feature) => (
-          <article
-            class={`card${feature.emphasis ? ' card--emphasis' : ''}`}
-            aria-label={feature.emphasis ? 'Navigation feature highlight' : undefined}
+          <CardItem
+            title={feature.title}
+            description={feature.description}
+            descriptionTone="default"
+            tags={feature.pills}
+            className={feature.emphasis ? 'card--emphasis' : undefined}
+            ariaLabel={feature.emphasis ? 'Navigation feature highlight' : undefined}
           >
-            <div class="card__glow" aria-hidden="true" />
-            <h3>{feature.title}</h3>
-            <p>{feature.description}</p>
-            {feature.pills ? (
-              <ul class="pill-list">
-                {feature.pills.map((pill) => (
-                  <li>{pill}</li>
-                ))}
-              </ul>
-            ) : null}
             {feature.actions ? (
               <ul class="card__list">
                 {feature.actions.map((action) => (
@@ -237,9 +229,9 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
                 ))}
               </ul>
             ) : null}
-          </article>
+          </CardItem>
         ))}
-      </div>
+      </CardGrid>
     </div>
   </section>
 
