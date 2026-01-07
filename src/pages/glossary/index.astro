@@ -106,6 +106,44 @@ const citationYear = new Date().getFullYear();
         'Each term is a pattern card with related Library patterns and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.',
     }}
   />
+  <div class="glossary-filter">
+    <div class="glossary-filter__controls">
+      <label class="glossary-filter__label" for="glossary-filter">
+        <span class="visually-hidden">Filter glossary terms</span>
+        <input
+          id="glossary-filter"
+          name="glossary-filter"
+          type="search"
+          inputmode="search"
+          placeholder="Start typing to narrow the index (e.g., consent)"
+          autocomplete="off"
+          value={searchQuery}
+        />
+      </label>
+      <button class="button ghost button--compact glossary-filter__clear" type="button" data-clear-filter>
+        Clear filter
+      </button>
+    </div>
+    <p class="muted glossary-filter__hint">Start typing to filter entries.</p>
+    <p class="muted glossary-filter__hint">
+      Keep typing to filter the list, then open a matching term to grab its permalink or scan nearby entries.
+    </p>
+    <p class="muted small">
+      Tip: open any term below to copy APA/BibTeX citations for reports and briefs.
+    </p>
+    <p
+      class="muted glossary-filter__count"
+      aria-live="polite"
+      aria-atomic="true"
+      data-total={totalEntries}
+    >
+      Showing {visibleEntries} of {totalEntries} terms
+      {hasSearchQuery && ` for “${searchQuery}”`}
+    </p>
+    <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
+      No entries match that search. Try another keyword or browse the territory map for nearby concepts.
+    </p>
+  </div>
   <div class="callout glossary__starter">
     <h3>Start with these terms</h3>
     <p class="muted">New to the glossary? These anchors provide the shared vocabulary most teams cite first.</p>
@@ -125,40 +163,6 @@ const citationYear = new Date().getFullYear();
     title="A–Z of Ethotechnic terms"
     description={`Alphabetical list with ${entryIndex.length} definitions ready to link directly.`}
   >
-    <div class="glossary-filter">
-      <div class="glossary-filter__controls">
-        <label class="glossary-filter__label" for="glossary-filter">
-          <span class="visually-hidden">Filter glossary terms</span>
-          <input
-            id="glossary-filter"
-            name="glossary-filter"
-            type="search"
-            inputmode="search"
-            placeholder="Start typing to narrow the index (e.g., consent)"
-            autocomplete="off"
-            value={searchQuery}
-          />
-        </label>
-        <button class="button ghost button--compact glossary-filter__clear" type="button" data-clear-filter>
-          Clear filter
-        </button>
-      </div>
-      <p class="muted glossary-filter__hint">
-        Keep typing to filter the list, then open a matching term to grab its permalink or scan nearby entries.
-      </p>
-      <p class="muted small">
-        Tip: open any term below to copy APA/BibTeX citations for reports and briefs.
-      </p>
-      <p
-        class="muted glossary-filter__count"
-        aria-live="polite"
-        aria-atomic="true"
-        data-total={totalEntries}
-      >
-        Showing {visibleEntries} of {totalEntries} terms
-        {hasSearchQuery && ` for “${searchQuery}”`}
-      </p>
-    </div>
     <div class="glossary-index" role="navigation" aria-label="Glossary index">
       {entryIndex.map((entry) => {
         const matchesQuery = entry.searchText
@@ -183,9 +187,6 @@ const citationYear = new Date().getFullYear();
         );
       })}
     </div>
-    <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
-      No matching terms yet. Try a broader keyword or open the territory map below to scan by topic.
-    </p>
     <p class="glossary__cta muted">
       Each index link jumps to the canonical permalink so research notes and diagnostics share the same language.
     </p>
@@ -198,37 +199,40 @@ const citationYear = new Date().getFullYear();
     description="Quick scan of glossary areas with entry counts to help you jump to the right section."
     variant="alt"
   >
-    <div class="glossary__categories">
-      {categoryHighlights.map((category) => (
-        <article class="glossary__category">
-          <h3>{category.label}</h3>
-          <p class="muted">{category.description}</p>
-          <a class="button ghost button--compact" href={`#${category.id}`}>
-            Jump to {category.label}
-          </a>
-        </article>
-      ))}
-    </div>
-    <div class="territory-map">
-      {territoryMap.map((item) => (
-        <article class="territory-map__item" id={`territory-${item.id}`}>
-          <a
-            class="territory-map__link"
-            href={`#${item.id}`}
-            aria-labelledby={`territory-${item.id}-title`}
-            aria-describedby={`territory-${item.id}-description territory-${item.id}-count`}
-          >
-            <h3 id={`territory-${item.id}-title`}>{item.label}</h3>
-            <p id={`territory-${item.id}-description`} class="muted">
-              {item.tooltip}
-            </p>
-            <p id={`territory-${item.id}-count`} class="glossary-territory__count">
-              {territoryCounts.get(item.id) ?? 0} entries
-            </p>
-          </a>
-        </article>
-      ))}
-    </div>
+    <details>
+      <summary>Open the territory map</summary>
+      <div class="glossary__categories">
+        {categoryHighlights.map((category) => (
+          <article class="glossary__category">
+            <h3>{category.label}</h3>
+            <p class="muted">{category.description}</p>
+            <a class="button ghost button--compact" href={`#${category.id}`}>
+              Jump to {category.label}
+            </a>
+          </article>
+        ))}
+      </div>
+      <div class="territory-map">
+        {territoryMap.map((item) => (
+          <article class="territory-map__item" id={`territory-${item.id}`}>
+            <a
+              class="territory-map__link"
+              href={`#${item.id}`}
+              aria-labelledby={`territory-${item.id}-title`}
+              aria-describedby={`territory-${item.id}-description territory-${item.id}-count`}
+            >
+              <h3 id={`territory-${item.id}-title`}>{item.label}</h3>
+              <p id={`territory-${item.id}-description`} class="muted">
+                {item.tooltip}
+              </p>
+              <p id={`territory-${item.id}-count`} class="glossary-territory__count">
+                {territoryCounts.get(item.id) ?? 0} entries
+              </p>
+            </a>
+          </article>
+        ))}
+      </div>
+    </details>
   </SectionBlock>
 
   {categories.map((category, index) => (
