@@ -48,6 +48,10 @@ export type HomeContent = PageCopy & {
     lede: string;
     map: string;
     actions: HeroAction[];
+    quickLinks: {
+      href: string;
+      label: string;
+    }[];
     metrics: Metric[];
     panel: Panel;
     media: HeroMedia;
@@ -63,6 +67,7 @@ export type HomeContent = PageCopy & {
     heading: string;
     body: string;
     promptTitle: string;
+    promptNote: string;
     prompts: {
       question: string;
       answer: string;
@@ -124,6 +129,12 @@ export const homeContent = {
         variant: "ghost",
         icon: "lucide:library",
       },
+    ],
+    quickLinks: [
+      { href: "#pathways", label: "Pathways" },
+      { href: "#about", label: "About" },
+      { href: "#features", label: "Focus areas" },
+      { href: "#insights", label: "Insights" },
     ],
     metrics: [
       {
@@ -199,6 +210,7 @@ export const homeContent = {
     heading: "Pick the right entry point for your team.",
     body: "Start with the track that matches your urgency, then deepen into research and diagnostics as needed.",
     promptTitle: "Not sure where to begin?",
+    promptNote: "Choose the prompt that matches your current decision, then explore related playbooks and tools.",
     prompts: [
       {
         question: "Need a fast answer for a live decision?",

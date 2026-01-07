@@ -41,6 +41,7 @@ export type StartHereContent = PageWithPermalink & {
     description: string;
     quickNote: string;
     quickSummary: string;
+    deliverables: string[];
     panel: {
       title: string;
       description: string;
@@ -109,6 +110,11 @@ export const startHereContent: StartHereContent = {
       "If you only have 5 minutes, start with the diagnostic menu to pick the fastest next step.",
     quickSummary:
       "New to Ethotechnics? Start with diagnostics if you have a live decision, or use the library for shared language.",
+    deliverables: [
+      "A recommended route with time and effort estimates.",
+      "Sample PDFs you can forward to leadership or partners.",
+      "Decision prompts to confirm the next best step.",
+    ],
     panel: {
       title: "How to use this page",
       description:

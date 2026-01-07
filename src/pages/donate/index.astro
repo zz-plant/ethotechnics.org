@@ -6,8 +6,18 @@ import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { donateContent } from '../../content/donate';
 
-const { pageTitle, pageDescription, permalink, impact, paths, contact, quickSupport, trust, faq } =
-  donateContent;
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  impact,
+  impactNote,
+  paths,
+  contact,
+  quickSupport,
+  trust,
+  faq,
+} = donateContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -42,6 +52,7 @@ const { pageTitle, pageDescription, permalink, impact, paths, contact, quickSupp
         <CardItem title={item.title} description={item.detail} descriptionTone="default" />
       ))}
     </CardGrid>
+    <p class="muted small">{impactNote}</p>
   </SectionBlock>
 
   <SectionBlock
@@ -53,7 +64,13 @@ const { pageTitle, pageDescription, permalink, impact, paths, contact, quickSupp
   >
     <CardGrid className="grid--three">
       {quickSupport.options.map((option) => (
-        <CardItem title={option.amount} description={option.detail} descriptionTone="default" />
+        <CardItem title={option.amount} description={option.detail} descriptionTone="default">
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={option.href}>
+              {option.ctaLabel}
+            </a>
+          </div>
+        </CardItem>
       ))}
     </CardGrid>
     <div class="section__actions">

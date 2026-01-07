@@ -63,6 +63,7 @@ const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback 
     title={intake.title}
     description={intake.description}
   >
+    <p class="muted small">{intake.formatNote}</p>
     <form class="intake-form" action={intake.form.action} method="post" enctype="text/plain">
       <div class="intake-form__grid">
         {intake.form.fields.map((field) => (
@@ -93,6 +94,7 @@ const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback 
           {intake.form.submitLabel}
         </button>
         <p class="muted small">{intake.responseNote}</p>
+        <p class="muted small">{intake.timelineNote}</p>
       </div>
       <p class="muted small">{intake.privacyNote}</p>
     </form>
@@ -123,6 +125,7 @@ const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback 
             <span class="info-strip__copy">
               <span class="info-strip__label">{action.label}</span>
               <span class="info-strip__title">{action.href.replace('mailto:', '')}</span>
+              {action.detail ? <span class="info-strip__detail">{action.detail}</span> : null}
             </span>
           </a>
         ))}

@@ -44,6 +44,18 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
               </a>
             ))}
           </div>
+          <div class="hero__jump-links">
+            <p class="muted small">Jump to</p>
+            <ul>
+              {hero.quickLinks.map((link) => (
+                <li>
+                  <a class="pill pill--ghost" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -102,6 +114,7 @@ const { pageTitle, pageDescription, hero, about, tracks, features, highlight, ct
     </div>
     <div class="callout tracks__prompt">
       <h3>{tracks.promptTitle}</h3>
+      <p class="muted small">{tracks.promptNote}</p>
       <ul class="tracks__prompt-list">
         {tracks.prompts.map((prompt) => (
           <li>

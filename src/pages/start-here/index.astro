@@ -35,6 +35,8 @@ const recommendedCard = routes.cards.find((card) => card.recommendedTag);
       <p class="eyebrow">Recommended first step</p>
       <h3>{recommendedCard.title}</h3>
       {recommendedCard.recommendedNote && <p class="muted">{recommendedCard.recommendedNote}</p>}
+      <p class="muted small">{recommendedCard.bestFor}</p>
+      <p class="muted small">{recommendedCard.time}</p>
       <p class="muted small">{recommendedCard.description}</p>
       <div class="section__actions">
         {hero.actions.map((action) => (
@@ -51,6 +53,11 @@ const recommendedCard = routes.cards.find((card) => card.recommendedTag);
   )}
   <p class="muted small">{hero.quickNote}</p>
   <p class="muted">{hero.quickSummary}</p>
+  <ul class="muted">
+    {hero.deliverables.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
 
   <SectionBlock
     id="routes"
