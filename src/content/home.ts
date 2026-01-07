@@ -113,9 +113,9 @@ export const homeContent = {
     eyebrow: "Practical ethics for product teams",
     heading: "Build technology people can trust.",
     subheadline:
-      "Start with the orientation for respectful, explainable choices.",
-    lede: "Use the Start Here map to choose your first step, then go deeper with the library or diagnostics as needed.",
-    map: 'Start with the <a href="/start-here">orientation page</a> for the fastest path through the library and diagnostics. Everything is CC BY, and the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> can step in when you need hands-on support.',
+      "Respectful, explainable choices mapped for busy teams.",
+    lede: "Use the Start Here map to pick a first step, then dive deeper as needed.",
+    map: 'Start with the <a href="/start-here">orientation page</a> for the fastest path through the library and diagnostics. Everything is CC BY, with optional <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> support.',
     actions: [
       {
         label: "Start here",
@@ -139,24 +139,24 @@ export const homeContent = {
     metrics: [
       {
         label: "Open library",
-        value: "Guides, playbooks, and worksheets",
+        value: "Guides, playbooks, worksheets",
         icon: "lucide:book-open-check",
       },
       {
         label: "Team diagnostics",
-        value: "Readiness reviews and governance roadmaps",
+        value: "Readiness reviews and roadmaps",
         icon: "lucide:stethoscope",
       },
       {
         label: "Partner Studio",
-        value: "Optional embedded support with our partners",
+        value: "Embedded support when you need it",
         icon: "lucide:heart-handshake",
       },
     ],
     panel: {
       title: "Where to start",
       description:
-        "Pick the track that fits your team today: self-serve guidance, diagnostics, or delivery support.",
+        "Pick the track that fits your team today: guidance, diagnostics, or delivery support.",
       pills: ["Orientation", "Guided diagnostic", "Partner delivery"],
     },
     media: {
@@ -169,31 +169,29 @@ export const homeContent = {
   about: {
     eyebrow: "About the Institute",
     heading: "Practical guidance for ethical technology.",
-    body: "Ethotechnics documents the steps that keep digital products respectful, accessible, and explainable.",
+    body: "Ethotechnics documents the steps that keep digital products respectful and explainable.",
     features: [
       {
         icon: "lucide:bolt",
         title: "Built for real teams",
-        description:
-          "Concise playbooks and prompts that fit day-to-day delivery.",
+        description: "Concise playbooks and prompts for day-to-day delivery.",
       },
       {
         icon: "lucide:compass",
         title: "Wayfinding you can trust",
         description:
-          "Clear cues on when to pause, who to involve, and how to make informed trade-offs.",
+          "Clear cues on when to pause, who to involve, and how to make trade-offs.",
       },
       {
         icon: "lucide:palette",
         title: "Accessible by design",
-        description:
-          "Plain-language explanations and visuals keep the library easy to share.",
+        description: "Plain-language explanations and visuals make sharing easy.",
       },
       {
         icon: "lucide:users",
         title: "Built with the community",
         description:
-          "Peer feedback and practitioner evidence keep the library grounded in real-world work.",
+          "Peer feedback and practitioner evidence keep the library grounded.",
         actions: [
           {
             label: "Submit a field report",
@@ -207,10 +205,10 @@ export const homeContent = {
   },
   tracks: {
     eyebrow: "Choose your path",
-    heading: "Pick the right entry point for your team.",
-    body: "Start with the track that matches your urgency, then deepen into research and diagnostics as needed.",
+    heading: "Pick the right entry point.",
+    body: "Start with the track that matches your urgency, then deepen as needed.",
     promptTitle: "Not sure where to begin?",
-    promptNote: "Choose the prompt that matches your current decision, then explore related playbooks and tools.",
+    promptNote: "Match your current decision, then explore related playbooks.",
     prompts: [
       {
         question: "Need a fast answer for a live decision?",
@@ -220,14 +218,13 @@ export const homeContent = {
       },
       {
         question: "Looking for reusable guidance or language?",
-        answer:
-          "Browse the library for primers, glossary anchors, and patterns.",
+        answer: "Browse the library for primers, glossary anchors, and patterns.",
         href: "/library",
         label: "Open the library",
       },
       {
         question: "Need facilitation or a partner to execute?",
-        answer: "Bring in the Studio for co-delivery and mediation support.",
+        answer: "Bring in the Studio for co-delivery support.",
         href: "https://ethotechnics.com/studio",
         label: "Visit the Studio",
       },
@@ -238,7 +235,7 @@ export const homeContent = {
         eyebrow: "I need a fast orientation",
         title: "Navigate the library",
         description:
-          "Quick orientation and reusable playbooks for teams that need a clear, low-friction start.",
+          "Quick orientation and reusable playbooks for a clear start.",
         pills: ["Start here", "Library map"],
         actions: [
           { label: "Orientation page", href: "/start-here" },
@@ -250,7 +247,7 @@ export const homeContent = {
         eyebrow: "I need a decision fast",
         title: "Run a diagnostic",
         description:
-          "Structured reviews that turn risk into a decision-ready readout you can share.",
+          "Structured reviews that turn risk into a shareable readout.",
         pills: ["Readiness reviews", "Governance roadmaps"],
         actions: [
           { label: "Book a diagnostic", href: "/diagnostics" },
@@ -262,7 +259,7 @@ export const homeContent = {
         eyebrow: "I want to contribute",
         title: "Collaborate and contribute",
         description:
-          "Contribute evidence, join peer review, and stay connected to new releases.",
+          "Contribute evidence, join peer review, and stay connected.",
         pills: ["Field reports", "Peer review", "Signals newsletter"],
         actions: [
           {
@@ -281,12 +278,12 @@ export const homeContent = {
   features: {
     eyebrow: "Focus areas",
     heading: "Frameworks you can put to work.",
-    body: "Each guide includes checklists, prompts, and facilitation steps you can adapt quickly.",
+    body: "Each guide includes checklists, prompts, and facilitation steps.",
     cards: [
       {
         title: "Responsible product delivery",
         description:
-          "Keep consent, safety, and accountability visible throughout discovery, build, and rollout.",
+          "Keep consent, safety, and accountability visible across delivery.",
         emphasis: true,
         pills: [
           "Respectful defaults",
@@ -297,7 +294,7 @@ export const homeContent = {
       {
         title: "Research and synthesis",
         description:
-          "Field reports translate interviews, participatory sessions, and policy reviews into shareable patterns.",
+          "Field reports turn research and policy reviews into shareable patterns.",
         actions: [
           { label: "Share a case study", href: "/participate#field-reports" },
           { label: "Contribute evidence", href: "/participate#peer-review" },
@@ -306,12 +303,12 @@ export const homeContent = {
       {
         title: "Governance you can explain",
         description:
-          "Decision records, data stewardship plans, and escalation paths you can share with stakeholders.",
+          "Decision records, stewardship plans, and escalation paths to share.",
       },
       {
         title: "Tools and references",
         description:
-          "Checklists, workshop kits, and curated readings that make ethical intent actionable.",
+          "Checklists, workshop kits, and curated readings made actionable.",
         actions: [
           { label: "Join monthly clinics", href: "/participate#clinics" },
           { label: "Send feedback", href: "/participate#feedback" },
@@ -322,11 +319,11 @@ export const homeContent = {
   highlight: {
     eyebrow: "Latest notes",
     heading: "Practical recommendations for accountable systems.",
-    body: "Use these prompts in reviews or debriefs to keep everyone aligned on what care looks like.",
+    body: "Use these prompts in reviews or debriefs to align on care.",
     note: {
       title: "Design for consent, not just conversion.",
       description:
-        "Pair every major action with clear context: why you are asking, what happens next, and how to opt out without penalty.",
+        "Pair every major action with context: why you ask, what happens next, and how to opt out.",
       published: "2024-10-01T00:00:00Z",
       actions: [
         "Label links and buttons honestly so people know where they are headed.",
@@ -343,7 +340,7 @@ export const homeContent = {
   cta: {
     eyebrow: "Stay connected",
     heading: "Start with the orientation.",
-    body: "Use the Start Here map to choose your next step, then explore the library or diagnostics when you need more depth.",
+    body: "Use the Start Here map, then explore the library or diagnostics.",
     actions: [
       {
         label: "Start here",
