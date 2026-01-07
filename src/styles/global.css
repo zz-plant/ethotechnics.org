@@ -301,6 +301,28 @@
   box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
+.card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  border-radius: calc(var(--radius) - 2px);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.card__glow {
+  position: absolute;
+  inset: 0;
+  background: var(--glow-wash);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: soft-light;
+}
+
+
 @media (any-pointer: coarse) {
   .nav__link,
   .nav__utility-link {
