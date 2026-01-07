@@ -12,6 +12,7 @@ export type DiagnosticTool = {
   ctaAriaLabel?: string;
   exampleLabel: string;
   exampleHref: string;
+  deliveryType: "self-serve" | "studio";
 };
 
 export type DiagnosticsContent = PageWithPermalink & PublishedContent & {
@@ -97,6 +98,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       exampleLabel: "See burden model outputs",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#burden-modeler",
+      deliveryType: "self-serve",
     },
     {
       slug: "llm-capacity-benchmark",
@@ -114,13 +116,14 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
-      ctaLabel: "Run the LLM readiness check",
+      ctaLabel: "Request via Studio",
       ctaHref: "https://ethotechnics.com/studio",
       ctaAriaLabel:
         "Request an LLM readiness check through ethotechnics.com/studio",
       exampleLabel: "Review a benchmark output sample",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark",
+      deliveryType: "studio",
     },
     {
       slug: "maintenance-simulator",
@@ -144,6 +147,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       exampleLabel: "Preview a simulation output",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#maintenance-simulator",
+      deliveryType: "self-serve",
     },
     {
       slug: "capacity-forecaster",
@@ -167,6 +171,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       exampleLabel: "View capacity forecast examples",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
+      deliveryType: "self-serve",
     },
   ],
 };

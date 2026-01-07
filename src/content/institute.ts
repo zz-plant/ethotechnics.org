@@ -28,6 +28,8 @@ export type InstituteContent = PageWithPermalink & PublishedContent & {
     title: string;
     detail: string;
     outcome: string;
+    status: string;
+    howToJoin: string;
   }[];
   governance: GovernanceItem[];
   stewards: Steward[];
@@ -67,6 +69,8 @@ export const instituteContent: InstituteContent = {
         "Short exercises to score risk across data stewardship, consent, and downstream impact.",
       outcome:
         "Outputs: a risk map, suggested mitigations, and links back to Library pages so teams can act.",
+      status: "Rolling access",
+      howToJoin: "Start with the diagnostics menu and share your readout for routing.",
     },
     {
       title: "Decision forums",
@@ -74,6 +78,8 @@ export const instituteContent: InstituteContent = {
         "Lightweight governance reviews for teams that want a second set of eyes without slowing delivery.",
       outcome:
         "Outputs: a logged decision, accountable steward, and follow-ups with owners and dates.",
+      status: "Quarterly cohorts",
+      howToJoin: "Email the Studio to be matched with the next forum window.",
     },
     {
       title: "Publishing pipeline",
@@ -81,6 +87,8 @@ export const instituteContent: InstituteContent = {
         "Support for turning internal research or playbooks into open, reusable guides that stay versioned.",
       outcome:
         "Outputs: edited copy, citations, and release notes in the Library so readers can trust the source.",
+      status: "By request",
+      howToJoin: "Send a draft or outline for intake and scheduling.",
     },
   ],
   governance: [

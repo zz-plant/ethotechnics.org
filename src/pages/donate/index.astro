@@ -6,7 +6,7 @@ import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { donateContent } from '../../content/donate';
 
-const { pageTitle, pageDescription, permalink, impact, paths, contact } = donateContent;
+const { pageTitle, pageDescription, permalink, impact, paths, contact, quickSupport } = donateContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -16,6 +16,7 @@ const { pageTitle, pageDescription, permalink, impact, paths, contact } = donate
     permalink={permalink}
     anchorLinks={[
       { href: '#impact', label: 'Where funds go' },
+      { href: '#quick-support', label: 'Quick support' },
       { href: '#ways', label: 'Ways to contribute' },
       { href: '#contact', label: 'Contact' },
     ]}
@@ -38,6 +39,25 @@ const { pageTitle, pageDescription, permalink, impact, paths, contact } = donate
         <CardItem title={item.title} description={item.detail} descriptionTone="default" />
       ))}
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="quick-support"
+    eyebrow="Quick support"
+    title={quickSupport.title}
+    description={quickSupport.description}
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      {quickSupport.options.map((option) => (
+        <CardItem title={option.amount} description={option.detail} descriptionTone="default" />
+      ))}
+    </CardGrid>
+    <div class="section__actions">
+      <a class="button primary" href={quickSupport.href}>
+        {quickSupport.ctaLabel}
+      </a>
+    </div>
   </SectionBlock>
 
   <SectionBlock

@@ -16,6 +16,7 @@ export type FieldNotesContent = PageWithPermalink & PublishedContent & {
     format: FieldNoteEntry['format'];
   }[];
   entries: FieldNoteEntry[];
+  latestUpdate: string;
 };
 
 export const fieldNotesContent: FieldNotesContent = {
@@ -23,6 +24,7 @@ export const fieldNotesContent: FieldNotesContent = {
   pageDescription: 'Dispatches, reflections, and signals from ongoing practice in ethical technology.',
   permalink: '/field-notes',
   published: '2024-09-01T00:00:00Z',
+  latestUpdate: '2024-10-08T00:00:00Z',
   sections: [
     {
       title: 'Dispatches',

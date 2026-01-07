@@ -10,6 +10,7 @@ export type StartHereRoute = {
   description: string;
   href: string;
   tags: string[];
+  time: string;
 };
 
 export type ArtifactPreview = {
@@ -35,6 +36,7 @@ export type StartHereContent = PageWithPermalink & {
     eyebrow: string;
     heading: string;
     description: string;
+    quickNote: string;
     panel: {
       title: string;
       description: string;
@@ -88,6 +90,7 @@ export const startHereContent: StartHereContent = {
     heading: 'Start here',
     description:
       'Choose a path based on whether you need a quick diagnostic, library guidance, or a co-delivered engagement.',
+    quickNote: 'If you only have 5 minutes, start with the diagnostic menu to pick the fastest next step.',
     panel: {
       title: 'How to use this page',
       description:
@@ -127,6 +130,7 @@ export const startHereContent: StartHereContent = {
           'Choose a tool, bring a scenario, and leave with a shareable readout tied to the pattern language.',
         href: '/diagnostics',
         tags: ['Readiness labs', 'Off-ramps included', 'Shareable results'],
+        time: '15–30 min session',
       },
       {
         title: 'Browse the library',
@@ -134,6 +138,7 @@ export const startHereContent: StartHereContent = {
           'Use primers, playbooks, and glossary anchors to align your team on safety, consent, and stewardship.',
         href: '/library',
         tags: ['Permalinked guidance', 'Field-tested patterns', 'Glossary linked'],
+        time: '30–60 min scan',
       },
       {
         title: 'Check field notes',
@@ -141,6 +146,7 @@ export const startHereContent: StartHereContent = {
           'See how teams apply the guidance in practice with annotated walkthroughs and facilitation prompts.',
         href: '/field-notes',
         tags: ['Applied examples', 'Facilitation cues', 'Shareable links'],
+        time: '10 min per note',
       },
       {
         title: 'Join the Institute',
@@ -148,6 +154,7 @@ export const startHereContent: StartHereContent = {
           'Stay close to new releases, contribute playbooks, and access facilitation kits as they launch.',
         href: '/institute',
         tags: ['Cohorts', 'Contributor program', 'Pattern updates'],
+        time: 'Ongoing',
       },
     ],
   },

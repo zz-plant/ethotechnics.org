@@ -40,6 +40,7 @@ export type LibraryContent = PageWithPermalink & PublishedContent & {
   glossary: { terms: GlossaryTerm[]; permalink: string };
   patterns: { filters: PatternFilter[]; entries: Pattern[] };
   syllabus: { overview: string; modules: SyllabusModule[] };
+  quickStart: string[];
 };
 
 export const libraryContent: LibraryContent = {
@@ -47,6 +48,11 @@ export const libraryContent: LibraryContent = {
   pageDescription: 'Reference shelf for primers, glossary entries, and reusable patterns.',
   permalink: '/library',
   published: '2024-09-01T00:00:00Z',
+  quickStart: [
+    'Skim the primer for a 5-minute orientation and shared vocabulary.',
+    'Jump to the glossary for stable definitions you can cite immediately.',
+    'Use the pattern language filters to pull the right safeguards for your scenario.',
+  ],
   primer: [
     {
       title: 'Primer',

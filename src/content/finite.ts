@@ -86,6 +86,12 @@ export type FiniteContent = PageWithPermalink & {
       description: string;
     };
   };
+  sampleArtifact: {
+    title: string;
+    description: string;
+    href: string;
+    label: string;
+  };
 };
 
 export const finiteContent = {
@@ -248,5 +254,12 @@ export const finiteContent = {
       description:
         "Tell us about your workflows and risk surface. We will schedule a walkthrough and select scenarios that show how stoppable your systems are today.",
     },
+  },
+  sampleArtifact: {
+    title: "Sample Finite scorecard",
+    description:
+      "Preview the stoppability scorecard structure teams use to document shutdown, reversibility, and volatility export findings.",
+    href: "mailto:studio@ethotechnics.org?subject=Finite%20scorecard%20sample",
+    label: "Request the sample scorecard",
   },
 } satisfies FiniteContent;

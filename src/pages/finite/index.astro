@@ -19,6 +19,7 @@ const {
   fit,
   practice,
   pilot,
+  sampleArtifact,
 } = finiteContent;
 
 const anchorLinks = [
@@ -138,6 +139,13 @@ const anchorLinks = [
           <li>{item}</li>
         ))}
       </ul>
+    </div>
+    <div class="callout">
+      <h3>{sampleArtifact.title}</h3>
+      <p class="muted">{sampleArtifact.description}</p>
+      <a class="button ghost" href={sampleArtifact.href}>
+        {sampleArtifact.label}
+      </a>
     </div>
   </SectionBlock>
 

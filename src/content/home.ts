@@ -108,13 +108,6 @@ export const homeContent = {
     actions: [
       { label: 'Start here', href: '/start-here', variant: 'primary', icon: 'lucide:map-pin' },
       { label: 'Browse the library', href: '/library', variant: 'ghost', icon: 'lucide:library' },
-      { label: 'Book a diagnostic', href: '/diagnostics', variant: 'ghost', icon: 'lucide:activity-square' },
-      {
-        label: 'Join the Signals community',
-        href: 'https://signals.ethotechnics.org',
-        variant: 'ghost',
-        icon: 'lucide:messages-square',
-      },
     ],
     metrics: [
       {
@@ -179,13 +172,13 @@ export const homeContent = {
   tracks: {
     eyebrow: 'Choose your path',
     heading: 'Pick the right entry point for your team.',
-    body: 'Get oriented with the library, move into diagnostics, or loop in facilitators when you need support.',
+    body: 'Start with the track that matches your urgency, then deepen into research and diagnostics as needed.',
     cards: [
       {
         icon: 'lucide:map',
         eyebrow: 'Self-serve',
         title: 'Navigate the library',
-        description: 'Start with an overview, then jump into guides, playbooks, and worksheets you can reuse.',
+        description: 'Quick orientation and reusable playbooks for teams that need a clear, low-friction start.',
         pills: ['Start here', 'Library map'],
         actions: [
           { label: 'Orientation page', href: '/start-here' },
@@ -196,7 +189,7 @@ export const homeContent = {
         icon: 'lucide:activity-square',
         eyebrow: 'Guided',
         title: 'Run a diagnostic',
-        description: 'Use structured reviews to assess readiness, plan mitigations, and align stakeholders.',
+        description: 'Structured reviews that turn risk into a decision-ready readout you can share.',
         pills: ['Readiness reviews', 'Governance roadmaps'],
         actions: [
           { label: 'Book a diagnostic', href: '/diagnostics' },
@@ -207,7 +200,7 @@ export const homeContent = {
         icon: 'lucide:users',
         eyebrow: 'Community',
         title: 'Collaborate and contribute',
-        description: 'Share field evidence, invite peer review, or follow along through the Signals community.',
+        description: 'Contribute evidence, join peer review, and stay connected to new releases.',
         pills: ['Field reports', 'Peer review', 'Signals newsletter'],
         actions: [
           { label: 'Submit a field report', href: '/participate#field-reports' },

@@ -7,7 +7,8 @@ import SectionBlock from '../../components/SectionBlock.astro';
 import { getGlossaryLabel, glossaryContent } from '../../content/glossary';
 import { researchContent } from '../../content/research';
 
-const { pageTitle, pageDescription, permalink, agenda, focusAreas, publications } = researchContent;
+const { pageTitle, pageDescription, permalink, agenda, focusAreas, publications, lastUpdated, updateCadence } =
+  researchContent;
 const glossaryBase = glossaryContent.permalink;
 const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
 ---
@@ -30,6 +31,10 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
         'Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions. Use them when citing Field Notes or diagnostics results to keep language consistent.',
     }}
   />
+  <p class="muted small">
+    Last updated {new Date(lastUpdated).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}.{' '}
+    {updateCadence}
+  </p>
 
   <SectionBlock
     id="orientation"
