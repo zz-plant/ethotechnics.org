@@ -65,6 +65,11 @@ const { pageTitle, pageDescription, permalink, highlights, programs, governance,
           <p class="muted">{program.outcome}</p>
           <p class="muted small">Status: {program.status}</p>
           <p class="muted small">{program.howToJoin}</p>
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={program.ctaHref}>
+              {program.ctaLabel}
+            </a>
+          </div>
         </CardItem>
       ))}
     </CardGrid>
@@ -107,7 +112,13 @@ const { pageTitle, pageDescription, permalink, highlights, programs, governance,
           meta={steward.role}
           description={steward.focus}
           descriptionTone="default"
-        />
+        >
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={steward.contactHref}>
+              {steward.contactLabel}
+            </a>
+          </div>
+        </CardItem>
       ))}
     </CardGrid>
   </SectionBlock>

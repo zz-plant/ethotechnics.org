@@ -5,7 +5,8 @@ import FieldNotesTabs from '../../components/FieldNotesTabs.astro';
 import { fieldNotesContent } from '../../content/fieldNotes';
 import { glossaryContent } from '../../content/glossary';
 
-const { pageTitle, pageDescription, permalink, sections, entries, latestUpdate } = fieldNotesContent;
+const { pageTitle, pageDescription, permalink, sections, entries, latestUpdate, highlight } =
+  fieldNotesContent;
 const glossaryBase = glossaryContent.permalink;
 const anchorLinks = sections.map((section) => ({
   href: `#${section.format}`,
@@ -30,5 +31,14 @@ const anchorLinks = sections.map((section) => ({
     Latest update {new Date(latestUpdate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}.{' '}
     <a href="/rss.xml">Subscribe via RSS</a>.
   </p>
+  <div class="callout field-notes__highlight">
+    <p class="eyebrow">Latest highlight</p>
+    <h2>{highlight.title}</h2>
+    <p class="muted">{highlight.summary}</p>
+    <p>{highlight.whyItMatters}</p>
+    <a class="button ghost" href={highlight.href}>
+      {highlight.ctaLabel}
+    </a>
+  </div>
   <FieldNotesTabs sections={sections} entries={entries} glossaryBase={glossaryBase} />
 </BaseLayout>

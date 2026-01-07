@@ -9,6 +9,8 @@ export type Steward = {
   name: string;
   role: string;
   focus: string;
+  contactLabel: string;
+  contactHref: string;
 };
 
 export type ContactChannel = {
@@ -18,23 +20,26 @@ export type ContactChannel = {
   linkLabel: string;
 };
 
-export type InstituteContent = PageWithPermalink & PublishedContent & {
-  highlights: {
-    title: string;
-    detail: string;
-    tags: string[];
-  }[];
-  programs: {
-    title: string;
-    detail: string;
-    outcome: string;
-    status: string;
-    howToJoin: string;
-  }[];
-  governance: GovernanceItem[];
-  stewards: Steward[];
-  contact: ContactChannel[];
-};
+export type InstituteContent = PageWithPermalink &
+  PublishedContent & {
+    highlights: {
+      title: string;
+      detail: string;
+      tags: string[];
+    }[];
+    programs: {
+      title: string;
+      detail: string;
+      outcome: string;
+      status: string;
+      howToJoin: string;
+      ctaLabel: string;
+      ctaHref: string;
+    }[];
+    governance: GovernanceItem[];
+    stewards: Steward[];
+    contact: ContactChannel[];
+  };
 
 export const instituteContent: InstituteContent = {
   pageTitle: "Institute — Ethotechnics",
@@ -70,7 +75,11 @@ export const instituteContent: InstituteContent = {
       outcome:
         "Outputs: a risk map, suggested mitigations, and links back to Library pages so teams can act.",
       status: "Rolling access",
-      howToJoin: "Start with the diagnostics menu and share your readout for routing.",
+      howToJoin:
+        "Start with the diagnostics menu and share your readout for routing.",
+      ctaLabel: "Request a diagnostic review",
+      ctaHref:
+        "mailto:studio@ethotechnics.org?subject=Diagnostic%20review%20request",
     },
     {
       title: "Decision forums",
@@ -80,6 +89,9 @@ export const instituteContent: InstituteContent = {
         "Outputs: a logged decision, accountable steward, and follow-ups with owners and dates.",
       status: "Quarterly cohorts",
       howToJoin: "Email the Studio to be matched with the next forum window.",
+      ctaLabel: "Join the next forum",
+      ctaHref:
+        "mailto:studio@ethotechnics.org?subject=Decision%20forum%20request",
     },
     {
       title: "Publishing pipeline",
@@ -89,6 +101,9 @@ export const instituteContent: InstituteContent = {
         "Outputs: edited copy, citations, and release notes in the Library so readers can trust the source.",
       status: "By request",
       howToJoin: "Send a draft or outline for intake and scheduling.",
+      ctaLabel: "Submit a draft",
+      ctaHref:
+        "mailto:hello@ethotechnics.org?subject=Publishing%20pipeline%20intake",
     },
   ],
   governance: [
@@ -114,6 +129,9 @@ export const instituteContent: InstituteContent = {
       role: "Institute Lead",
       focus:
         "Roadmapping programs and coordinating partners across the studio.",
+      contactLabel: "Contact Kanav",
+      contactHref:
+        "mailto:hello@ethotechnics.org?subject=Institute%20steward%20contact",
     },
   ],
   contact: [

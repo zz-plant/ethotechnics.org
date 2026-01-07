@@ -8,7 +8,7 @@ import SectionBlock from '../../components/SectionBlock.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { participationContent } from '../../content/participation';
 
-const { pageTitle, pageDescription, permalink, hero, pathways, feedback } = participationContent;
+const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback } = participationContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -57,6 +57,46 @@ const { pageTitle, pageDescription, permalink, hero, pathways, feedback } = part
     </CardGrid>
   </SectionBlock>
 
+  <SectionBlock
+    id="intake"
+    eyebrow={intake.eyebrow}
+    title={intake.title}
+    description={intake.description}
+  >
+    <form class="intake-form" action={intake.form.action} method="post" enctype="text/plain">
+      <div class="intake-form__grid">
+        {intake.form.fields.map((field) => (
+          <label class={`intake-form__field${field.type === 'textarea' ? ' intake-form__field--full' : ''}`}>
+            <span class="muted">{field.label}</span>
+            {field.type === 'textarea' ? (
+              <textarea
+                id={field.id}
+                name={field.id}
+                placeholder={field.placeholder}
+                required={field.required}
+                rows={4}
+              />
+            ) : (
+              <input
+                id={field.id}
+                name={field.id}
+                type={field.type}
+                placeholder={field.placeholder}
+                required={field.required}
+              />
+            )}
+          </label>
+        ))}
+      </div>
+      <div class="intake-form__actions">
+        <button class="button primary" type="submit">
+          {intake.form.submitLabel}
+        </button>
+        <p class="muted small">{intake.responseNote}</p>
+      </div>
+      <p class="muted small">{intake.privacyNote}</p>
+    </form>
+  </SectionBlock>
   <SectionBlock
     id="feedback"
     eyebrow={feedback.eyebrow}

@@ -13,6 +13,7 @@ const {
   hero,
   why,
   useCases,
+  gettingStarted,
   referenceTask,
   measures,
   workflow,
@@ -25,6 +26,7 @@ const {
 const anchorLinks = [
   { href: '#why', label: 'Why Finite exists' },
   { href: '#when', label: 'When to use' },
+  { href: '#getting-started', label: 'Getting started' },
   { href: '#reference-task', label: 'Reference task' },
   { href: '#measures', label: 'What it measures' },
   { href: '#workflow', label: 'How it works' },
@@ -62,6 +64,30 @@ const anchorLinks = [
       ))}
     </div>
   </section>
+
+  <SectionBlock
+    id="getting-started"
+    eyebrow={gettingStarted.eyebrow}
+    title={gettingStarted.title}
+    description={gettingStarted.description}
+  >
+    <CardGrid className="grid--two">
+      <CardItem title="Start with these steps" descriptionTone="default">
+        <ol class="muted">
+          {gettingStarted.steps.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ol>
+      </CardItem>
+      <CardItem title="Who Finite helps" descriptionTone="default">
+        <ul class="muted">
+          {gettingStarted.whoFor.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock id="why" eyebrow="Why Finite exists" title={why.title} description={why.description}>
     <div class="grid grid--two">

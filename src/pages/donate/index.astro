@@ -6,7 +6,8 @@ import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { donateContent } from '../../content/donate';
 
-const { pageTitle, pageDescription, permalink, impact, paths, contact, quickSupport } = donateContent;
+const { pageTitle, pageDescription, permalink, impact, paths, contact, quickSupport, trust, faq } =
+  donateContent;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -17,6 +18,8 @@ const { pageTitle, pageDescription, permalink, impact, paths, contact, quickSupp
     anchorLinks={[
       { href: '#impact', label: 'Where funds go' },
       { href: '#quick-support', label: 'Quick support' },
+      { href: '#details', label: 'Donation details' },
+      { href: '#faq', label: 'FAQ' },
       { href: '#ways', label: 'Ways to contribute' },
       { href: '#contact', label: 'Contact' },
     ]}
@@ -58,6 +61,47 @@ const { pageTitle, pageDescription, permalink, impact, paths, contact, quickSupp
         {quickSupport.ctaLabel}
       </a>
     </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="details"
+    eyebrow="Donation details"
+    title={trust.title}
+    description={trust.note}
+  >
+    <CardGrid className="grid--two">
+      <CardItem title="How contributions work" descriptionTone="default">
+        <ul class="muted">
+          {trust.bullets.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </CardItem>
+      <CardItem title="Need a custom agreement?" descriptionTone="default">
+        <p class="muted">
+          We can align on invoicing, procurement steps, and sponsorship terms based on your internal requirements.
+        </p>
+        <div class="card__footer">
+          <a class="button ghost button--compact" href={`mailto:${contact.email}?subject=${contact.subject}`}>
+            Request documentation
+          </a>
+        </div>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="faq"
+    eyebrow="FAQ"
+    title="Common donation questions"
+    description="Answers to the most frequent logistics questions from donors and partners."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {faq.map((item) => (
+        <CardItem title={item.question} description={item.answer} descriptionTone="default" />
+      ))}
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock

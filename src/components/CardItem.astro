@@ -30,6 +30,7 @@ interface Props {
   tags?: string[];
   glossaryLinks?: GlossaryLink[];
   glossaryLabel?: string;
+  dataDelivery?: string;
 }
 
 const props = Astro.props as Props;
@@ -44,6 +45,7 @@ const {
   tags = [],
   glossaryLinks = [],
   glossaryLabel = 'Glossary',
+  dataDelivery,
 } = props;
 
 const HeadingTag = headingLevel;
@@ -51,7 +53,7 @@ const descriptionClass = descriptionTone === 'muted' ? 'muted' : undefined;
 const hasTags = tags.length > 0;
 const hasGlossaryLinks = glossaryLinks.length > 0;
 ---
-<article class="card" id={id}>
+<article class="card" id={id} data-delivery={dataDelivery}>
   <div class="card__glow" aria-hidden="true" />
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   {meta && <p class="muted">{meta}</p>}

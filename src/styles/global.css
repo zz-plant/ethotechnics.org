@@ -70,9 +70,7 @@ body {
   text-rendering: optimizeLegibility;
   /* Flatten grain and glow into the background to avoid repaint-heavy fixed filters. */
   background:
-    var(--grain-texture),
-    var(--halftone),
-    var(--glow-wash),
+    var(--grain-texture), var(--halftone), var(--glow-wash),
     radial-gradient(
       circle at 10% 18%,
       color-mix(in srgb, var(--accent) 6%, white) 0,
@@ -218,7 +216,7 @@ svg {
 }
 
 .page-shell::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -12% -12% auto -12%;
   height: 36%;
@@ -245,16 +243,16 @@ svg {
 }
 
 .page-shell::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 12% 4% auto 4%;
   height: 46%;
   border-radius: calc(var(--radius-lg) + 10px);
   background: linear-gradient(
-      120deg,
-      color-mix(in srgb, var(--surface) 78%, white 22%),
-      color-mix(in srgb, var(--panel) 82%, white 18%)
-    );
+    120deg,
+    color-mix(in srgb, var(--surface) 78%, white 22%),
+    color-mix(in srgb, var(--panel) 82%, white 18%)
+  );
   mask: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 70%);
   box-shadow:
     0 24px 80px rgba(12, 8, 5, 0.12),
@@ -276,12 +274,11 @@ svg {
   padding: clamp(1.4rem, 2vw, 2rem);
   border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
   border-radius: calc(var(--radius-lg) + 8px);
-  background:
-    linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--surface) 94%, white 6%),
-      color-mix(in srgb, var(--panel) 86%, white 14%)
-    );
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--surface) 94%, white 6%),
+    color-mix(in srgb, var(--panel) 86%, white 14%)
+  );
   box-shadow:
     var(--shadow-sm),
     0 20px 60px rgba(12, 8, 5, 0.12),
@@ -291,14 +288,15 @@ svg {
 
 .page-shell__panel::before,
 .page-shell__panel::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
 .page-shell__panel::before {
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at 12% 6%,
       color-mix(in srgb, var(--accent) 12%, transparent) 0,
       transparent 38%
@@ -315,8 +313,18 @@ svg {
 .page-shell__panel::after {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent 20%),
-    linear-gradient(180deg, color-mix(in srgb, var(--border) 12%, transparent), transparent 30%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0, transparent 12%, transparent 88%, rgba(255, 255, 255, 0.12) 100%);
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--border) 12%, transparent),
+      transparent 30%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.12) 0,
+      transparent 12%,
+      transparent 88%,
+      rgba(255, 255, 255, 0.12) 100%
+    );
   mask: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 58%);
   opacity: 0.9;
 }
@@ -417,9 +425,22 @@ svg {
 .nav__menu-toggle-fill {
   position: absolute;
   inset: -0.65rem -0.55rem;
-  background: radial-gradient(circle at 20% 20%, rgba(40, 192, 255, 0.18), transparent 34%),
-    radial-gradient(circle at 80% 16%, rgba(238, 160, 255, 0.18), transparent 36%),
-    linear-gradient(120deg, color-mix(in srgb, var(--surface) 95%, white 5%), var(--surface));
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(40, 192, 255, 0.18),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 80% 16%,
+      rgba(238, 160, 255, 0.18),
+      transparent 36%
+    ),
+    linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--surface) 95%, white 5%),
+      var(--surface)
+    );
   opacity: 0.92;
   transition: opacity 0.25s ease;
   z-index: 0;
@@ -429,7 +450,9 @@ svg {
 .nav__menu-toggle:focus-visible {
   transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
-  box-shadow: 0 14px 34px rgba(27, 18, 11, 0.14), var(--shadow-sm);
+  box-shadow:
+    0 14px 34px rgba(27, 18, 11, 0.14),
+    var(--shadow-sm);
   background: color-mix(in srgb, var(--surface) 96%, white 4%);
 }
 
@@ -439,9 +462,11 @@ svg {
 }
 
 .nav__menu-toggle:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline: 2px solid
+    color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
   outline-offset: 2px;
-  box-shadow: 0 14px 34px rgba(27, 18, 11, 0.14),
+  box-shadow:
+    0 14px 34px rgba(27, 18, 11, 0.14),
     var(--shadow-sm),
     0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
 }
@@ -478,10 +503,16 @@ svg {
   height: 2.75rem;
   border-radius: 16px;
   padding: 0.35rem 0.45rem;
-  background: linear-gradient(135deg, var(--accent-strong), color-mix(in srgb, var(--teal) 72%, white 8%));
+  background: linear-gradient(
+    135deg,
+    var(--accent-strong),
+    color-mix(in srgb, var(--teal) 72%, white 8%)
+  );
   color: white;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .nav__menu-toggle svg {
@@ -529,9 +560,12 @@ svg {
 }
 
 .nav__link:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline: 2px solid
+    color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
   outline-offset: 2px;
-  box-shadow: var(--shadow-xs), 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow:
+    var(--shadow-xs),
+    0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .nav__link[aria-current="page"] {
@@ -623,12 +657,23 @@ svg {
 .nav__scrim {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at 10% 20%, rgba(40, 210, 190, 0.12), transparent 32%),
-    radial-gradient(circle at 80% 10%, rgba(255, 183, 94, 0.12), transparent 35%),
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(40, 210, 190, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(255, 183, 94, 0.12),
+      transparent 35%
+    ),
     color-mix(in srgb, rgba(7, 5, 2, 0.65) 86%, var(--surface) 14%);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 140ms ease, visibility 0s linear 140ms;
+  transition:
+    opacity 140ms ease,
+    visibility 0s linear 140ms;
   z-index: 10;
 }
 
@@ -650,7 +695,11 @@ svg {
   display: grid;
   align-items: start;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--panel) 92%, white 8%), color-mix(in srgb, var(--surface) 96%, white 4%)),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--panel) 92%, white 8%),
+      color-mix(in srgb, var(--surface) 96%, white 4%)
+    ),
     var(--glow-wash);
   border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
   border-radius: 16px;
@@ -674,7 +723,8 @@ svg {
 
 @media (max-width: 991px) {
   .nav__content {
-    background: linear-gradient(
+    background:
+      linear-gradient(
         135deg,
         color-mix(in srgb, var(--panel) 94%, white 6%),
         color-mix(in srgb, var(--surface) 94%, white 6%)
@@ -807,9 +857,12 @@ svg {
 }
 
 .nav__menu-close:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline: 2px solid
+    color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
   outline-offset: 2px;
-  box-shadow: var(--shadow-xs), 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow:
+    var(--shadow-xs),
+    0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .nav__content-title {
@@ -1008,7 +1061,8 @@ svg {
 }
 
 .nav__utility-link:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline: 2px solid
+    color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
   outline-offset: 2px;
   box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
 }
@@ -1079,8 +1133,17 @@ svg {
       color-mix(in srgb, var(--gold) 76%, white 24%),
       color-mix(in srgb, var(--accent-strong) 70%, var(--gold) 30%)
     ),
-    radial-gradient(circle at 18% 22%, color-mix(in srgb, white 35%, transparent) 0, transparent 36%);
-  border-color: color-mix(in srgb, var(--gold) 42%, var(--accent-strong) 28%, var(--border));
+    radial-gradient(
+      circle at 18% 22%,
+      color-mix(in srgb, white 35%, transparent) 0,
+      transparent 36%
+    );
+  border-color: color-mix(
+    in srgb,
+    var(--gold) 42%,
+    var(--accent-strong) 28%,
+    var(--border)
+  );
   box-shadow:
     0 18px 42px rgba(27, 18, 11, 0.18),
     inset 0 1px 0 color-mix(in srgb, white 60%, transparent);
@@ -1093,9 +1156,16 @@ svg {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.34) 45%, transparent 62%);
+  background: linear-gradient(
+    115deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.34) 45%,
+    transparent 62%
+  );
   opacity: 0;
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
   transform: translateX(-6%);
   pointer-events: none;
 }
@@ -1185,7 +1255,7 @@ svg {
 
 .hero::before,
 .hero::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -1195,8 +1265,16 @@ svg {
 .hero::before {
   inset: -10% -14% 42% -14%;
   background:
-    radial-gradient(circle at 18% 20%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 42%),
-    radial-gradient(circle at 78% 32%, color-mix(in srgb, var(--teal) 22%, transparent), transparent 38%),
+    radial-gradient(
+      circle at 18% 20%,
+      color-mix(in srgb, var(--accent) 20%, transparent),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 78% 32%,
+      color-mix(in srgb, var(--teal) 22%, transparent),
+      transparent 38%
+    ),
     conic-gradient(
       from 120deg at 50% 20%,
       color-mix(in srgb, var(--accent) 18%, transparent) 0,
@@ -1211,7 +1289,11 @@ svg {
 .hero::after {
   border-radius: calc(var(--radius) + 2px);
   border: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), transparent 55%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4),
+    transparent 55%
+  );
   mask: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 70%);
   mix-blend-mode: soft-light;
   opacity: 0.8;
@@ -1468,7 +1550,11 @@ svg {
       color-mix(in srgb, var(--surface) 95%, white 5%),
       color-mix(in srgb, var(--panel) 88%, white 12%)
     ),
-    radial-gradient(circle at 18% 50%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 55%);
+    radial-gradient(
+      circle at 18% 50%,
+      color-mix(in srgb, var(--accent) 18%, transparent) 0,
+      transparent 55%
+    );
   box-shadow: 0 12px 22px rgba(27, 18, 11, 0.12);
   position: relative;
   overflow: hidden;
@@ -1476,12 +1562,19 @@ svg {
 }
 
 .hero__badge::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.42) 52%, transparent 70%);
+  background: linear-gradient(
+    120deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.42) 52%,
+    transparent 70%
+  );
   opacity: 0;
-  transition: opacity 180ms ease, transform 220ms ease;
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease;
   transform: translateX(-6%);
 }
 
@@ -1498,7 +1591,11 @@ svg {
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 50%;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 32%, transparent), color-mix(in srgb, var(--teal) 28%, transparent));
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 32%, transparent),
+    color-mix(in srgb, var(--teal) 28%, transparent)
+  );
   color: #fdfbf7;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -1661,7 +1758,11 @@ svg {
   inset: 0.85rem;
   border-radius: var(--radius-md);
   border: 1px dashed color-mix(in srgb, var(--border) 66%, transparent);
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.12), transparent 40%);
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.12),
+    transparent 40%
+  );
   pointer-events: none;
 }
 
@@ -1752,8 +1853,16 @@ svg {
   border-radius: calc(var(--radius) + 1px);
   border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
   background:
-    radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 36%),
-    radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--teal) 14%, transparent), transparent 42%),
+    radial-gradient(
+      circle at 12% 12%,
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 36%
+    ),
+    radial-gradient(
+      circle at 88% 10%,
+      color-mix(in srgb, var(--teal) 14%, transparent),
+      transparent 42%
+    ),
     linear-gradient(
       120deg,
       color-mix(in srgb, var(--panel) 92%, white 8%),
@@ -1772,7 +1881,7 @@ svg {
 
 .info-strip::before,
 .info-strip::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -1780,7 +1889,11 @@ svg {
 
 .info-strip::before {
   inset: -10% -6% 60% -6%;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.5), transparent 55%);
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.5),
+    transparent 55%
+  );
   opacity: 0.7;
   filter: blur(18px);
 }
@@ -1821,7 +1934,11 @@ svg {
       color-mix(in srgb, var(--panel) 92%, white 8%),
       color-mix(in srgb, var(--surface) 94%, white 6%)
     ),
-    radial-gradient(circle at 16% 40%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 52%);
+    radial-gradient(
+      circle at 16% 40%,
+      color-mix(in srgb, var(--accent) 18%, transparent) 0,
+      transparent 52%
+    );
   text-decoration: none;
   color: var(--text);
   box-shadow:
@@ -1953,13 +2070,17 @@ svg {
 
 .stat-card {
   position: relative;
-  background:
-    linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--surface) 92%, transparent),
-      color-mix(in srgb, var(--panel) 86%, transparent)
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--surface) 92%, transparent),
+    color-mix(in srgb, var(--panel) 86%, transparent)
+  );
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--border) 76%,
+      color-mix(in srgb, var(--accent) 16%, transparent)
     );
-  border: 1px solid color-mix(in srgb, var(--border) 76%, color-mix(in srgb, var(--accent) 16%, transparent));
   border-radius: 16px;
   padding: 1.05rem 1.2rem;
   display: grid;
@@ -1976,7 +2097,11 @@ svg {
   position: absolute;
   inset: 1px;
   border-radius: 15px;
-  background: radial-gradient(circle at 18% 20%, color-mix(in srgb, white 12%, transparent), transparent 35%);
+  background: radial-gradient(
+    circle at 18% 20%,
+    color-mix(in srgb, white 12%, transparent),
+    transparent 35%
+  );
   pointer-events: none;
 }
 
@@ -2863,6 +2988,134 @@ svg {
   box-shadow: var(--shadow-sm);
 }
 
+.tracks__prompt {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.tracks__prompt-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.tracks__prompt-question {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+}
+
+.library__recommended {
+  margin-top: 1.5rem;
+}
+
+.library__recommended-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.patterns__hint {
+  margin: 0 0 1.5rem;
+}
+
+.progress-summary {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.progress-summary__bar {
+  width: 100%;
+  height: 0.65rem;
+  background: color-mix(in srgb, var(--border) 55%, transparent);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-summary__fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: color-mix(in srgb, var(--accent) 85%, var(--surface) 15%);
+  transition: width 0.2s ease;
+}
+
+.glossary__starter {
+  margin: 1.5rem 0 2rem;
+}
+
+.glossary__starter-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.glossary__categories {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.glossary__category {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.field-notes__highlight {
+  margin: 1.5rem 0 2rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.intake-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.intake-form__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.intake-form__field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.intake-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.intake-form input,
+.intake-form textarea {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  border-radius: 0.65rem;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  color: inherit;
+}
+
+.intake-form__actions {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.diagnostics__filters {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
 .snapshot {
   display: grid;
   gap: 1.5rem;
@@ -3350,7 +3603,6 @@ svg {
   gap: 1rem;
   margin-top: 1rem;
 }
-
 
 .diagnostics__card-column .pill-list {
   margin-top: 0.8rem;
