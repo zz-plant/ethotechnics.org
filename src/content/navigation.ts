@@ -38,7 +38,7 @@ export const navSections: NavSection[] = [
     ],
   },
   {
-    heading: 'Explore',
+    heading: 'Library',
     description: 'Reference materials tuned for fast sharing and reuse.',
     links: [
       {
@@ -64,12 +64,12 @@ export const navSections: NavSection[] = [
     ],
   },
   {
-    heading: 'Programs',
+    heading: 'Institute',
     description: 'Initiatives led by the Institute and collaborators.',
     links: [
       {
         href: '/institute',
-        label: 'Institute',
+        label: 'Overview',
         description: 'Training cohorts, facilitation kits, and stewardship guidance.',
       },
       {
@@ -92,11 +92,6 @@ export const navSections: NavSection[] = [
         href: '/diagnostics',
         label: 'Diagnostics',
         description: 'Reliability and burden modeling tools you can run today.',
-      },
-      {
-        href: '/tools/maintenance-simulator',
-        label: 'Maintenance Simulator',
-        description: 'Tabletop outages, maintenance windows, and handoffs before a live run.',
       },
     ],
   },
