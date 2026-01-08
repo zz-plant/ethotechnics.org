@@ -184,28 +184,31 @@ import { Icon } from "astro-icon/components";
 </style>
 
 <script>
-  type PagefindData = {
-    url: string;
-    excerpt: string;
-    meta: {
-      title: string;
-    };
-  };
+  /**
+   * @typedef {Object} PagefindData
+   * @property {string} url
+   * @property {string} excerpt
+   * @property {{ title: string }} meta
+   */
 
-  type PagefindResult = {
-    data: () => Promise<PagefindData>;
-  };
+  /**
+   * @typedef {Object} PagefindResult
+   * @property {() => Promise<PagefindData>} data
+   */
 
-  type PagefindSearchResults = {
-    results: PagefindResult[];
-  };
+  /**
+   * @typedef {Object} PagefindSearchResults
+   * @property {PagefindResult[]} results
+   */
 
-  type PagefindApi = {
-    options: (options: { excerptLength: number }) => Promise<void>;
-    search: (query: string) => Promise<PagefindSearchResults>;
-  };
+  /**
+   * @typedef {Object} PagefindApi
+   * @property {(options: { excerptLength: number }) => Promise<void>} options
+   * @property {(query: string) => Promise<PagefindSearchResults>} search
+   */
 
-  let pagefind: PagefindApi | null = null;
+  /** @type {PagefindApi | null} */
+  let pagefind = null;
 
   const trigger = document.getElementById("search-trigger");
   const dialog = document.getElementById("search-dialog") as HTMLDialogElement;
