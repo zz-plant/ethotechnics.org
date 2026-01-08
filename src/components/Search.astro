@@ -211,9 +211,11 @@ import { Icon } from "astro-icon/components";
   let pagefind = null;
 
   const trigger = document.getElementById("search-trigger");
-  const dialog = document.getElementById("search-dialog") as HTMLDialogElement;
+  /** @type {HTMLDialogElement | null} */
+  const dialog = document.getElementById("search-dialog");
   const closeBtn = document.getElementById("search-close");
-  const input = document.getElementById("search-input") as HTMLInputElement;
+  /** @type {HTMLInputElement | null} */
+  const input = document.getElementById("search-input");
   const resultsContainer = document.getElementById("search-results");
   const defaultPlaceholder = input?.placeholder ?? "";
 
@@ -298,7 +300,8 @@ import { Icon } from "astro-icon/components";
     }
   });
 
-  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+  /** @type {ReturnType<typeof setTimeout> | undefined} */
+  let debounceTimer;
   input?.addEventListener("input", async (e) => {
     const query = (e.target as HTMLInputElement).value;
 
