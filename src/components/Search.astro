@@ -184,37 +184,11 @@ import { Icon } from "astro-icon/components";
 </style>
 
 <script>
-  /**
-   * @typedef {Object} PagefindData
-   * @property {string} url
-   * @property {string} excerpt
-   * @property {{ title: string }} meta
-   */
-
-  /**
-   * @typedef {Object} PagefindResult
-   * @property {() => Promise<PagefindData>} data
-   */
-
-  /**
-   * @typedef {Object} PagefindSearchResults
-   * @property {PagefindResult[]} results
-   */
-
-  /**
-   * @typedef {Object} PagefindApi
-   * @property {(options: { excerptLength: number }) => Promise<void>} options
-   * @property {(query: string) => Promise<PagefindSearchResults>} search
-   */
-
-  /** @type {PagefindApi | null} */
   let pagefind = null;
 
   const trigger = document.getElementById("search-trigger");
-  /** @type {HTMLDialogElement | null} */
   const dialog = document.getElementById("search-dialog");
   const closeBtn = document.getElementById("search-close");
-  /** @type {HTMLInputElement | null} */
   const input = document.getElementById("search-input");
   const resultsContainer = document.getElementById("search-results");
   const defaultPlaceholder = input?.placeholder ?? "";
@@ -300,10 +274,10 @@ import { Icon } from "astro-icon/components";
     }
   });
 
-  /** @type {ReturnType<typeof setTimeout> | undefined} */
   let debounceTimer;
   input?.addEventListener("input", async (e) => {
-    const query = (e.target as HTMLInputElement).value;
+    const target = e.target;
+    const query = target instanceof HTMLInputElement ? target.value : "";
 
     if (debounceTimer) {
       clearTimeout(debounceTimer);
