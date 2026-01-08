@@ -25,6 +25,7 @@ const diagnosticTitles = Object.fromEntries(
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const glossaryContent = glossaryEntry.data;
 const glossaryHref = (slug: string) => `${glossaryContent.permalink}#${slug}`;
+type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -127,7 +128,7 @@ const glossaryHref = (slug: string) => `${glossaryContent.permalink}#${slug}`;
   >
     <CardGrid>
       {
-        glossaryContent.starterTerms.map((term: any) => (
+        glossaryContent.starterTerms.map((term: GlossaryStarterTerm) => (
           <CardItem
             id={term.id}
             eyebrow="Glossary term"

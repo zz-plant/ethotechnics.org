@@ -1,7 +1,5 @@
 /// <reference types="astro/client" />
-import { describe, expect, it, mock } from "bun:test";
-
-
+import { describe, expect, it } from "bun:test";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { createAstroContainer, parseHtml } from "../../test/astro-container";

@@ -56,8 +56,9 @@ describe("CapacityChart gradients", () => {
         chart.querySelector(".forecaster__chart-area--remediated"),
       );
 
-      expect(baselineFillId).toBeTruthy();
-      expect(remediatedFillId).toBeTruthy();
+      if (!baselineFillId || !remediatedFillId) {
+        throw new Error("Expected chart fill IDs to reference gradient definitions.");
+      }
       expect(chartGradientIds).toContain(baselineFillId);
       expect(chartGradientIds).toContain(remediatedFillId);
     });
