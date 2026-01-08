@@ -1,5 +1,5 @@
-import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { defineCollection, z } from "astro:content";
+import { file } from "astro/loaders";
 
 // Reuse common schemas
 const pageCopySchema = z.object({

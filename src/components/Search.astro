@@ -179,19 +179,40 @@ import { Icon } from "astro-icon/components";
 </style>
 
 <script>
-  let pagefind: any;
+  type PagefindResultData = {
+    url: string;
+    excerpt: string;
+    meta: {
+      title: string;
+    };
+  };
+
+  type PagefindSearchResult = {
+    data: () => Promise<PagefindResultData>;
+  };
+
+  type PagefindModule = {
+    options: (options: { excerptLength: number }) => Promise<void>;
+    search: (query: string) => Promise<{ results: PagefindSearchResult[] }>;
+  };
+
+  let pagefind: PagefindModule | null;
 
   async function initPagefind() {
     if (pagefind) return pagefind;
     try {
-      // @ts-ignore
-      pagefind = await import("/pagefind/pagefind.js");
-      await pagefind.options({
+      // @ts-expect-error Pagefind is only present in production builds.
+      const loadedPagefind = (await import("/pagefind/pagefind.js")) as PagefindModule;
+      pagefind = loadedPagefind;
+      await loadedPagefind.options({
         excerptLength: 20,
       });
-      return pagefind;
-    } catch (e) {
-      console.warn("Pagefind not found. Search may not work in dev mode.");
+      return loadedPagefind;
+    } catch (error) {
+      console.warn(
+        "Pagefind not found. Search may not work in dev mode.",
+        error
+      );
       return null;
     }
   }
@@ -212,8 +233,8 @@ import { Icon } from "astro-icon/components";
     dialog?.close();
   });
 
-  dialog?.addEventListener("click", (e) => {
-    if (e.target === dialog) {
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) {
       dialog.close();
     }
   });
@@ -232,9 +253,9 @@ import { Icon } from "astro-icon/components";
     }
   });
 
-  let debounceTimer: any;
-  input?.addEventListener("input", async (e) => {
-    const query = (e.target as HTMLInputElement).value;
+  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+  input?.addEventListener("input", async (event) => {
+    const query = (event.target as HTMLInputElement).value;
 
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(async () => {
@@ -263,10 +284,12 @@ import { Icon } from "astro-icon/components";
       if (resultsContainer) resultsContainer.innerHTML = "";
 
       const results = await Promise.all(
-        search.results.slice(0, 8).map((r: any) => r.data())
+        search.results
+          .slice(0, 8)
+          .map((result: PagefindSearchResult) => result.data())
       );
 
-      results.forEach((data: any) => {
+      results.forEach((data: PagefindResultData) => {
         const item = document.createElement("a");
         item.href = data.url;
         item.className = "search-result-item";

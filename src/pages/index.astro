@@ -9,7 +9,7 @@ import { instituteStudioComparisonContent } from "../content/comparison";
 import Illustration from "../components/Illustration.astro";
 import InstituteStudioComparison from "../components/InstituteStudioComparison.astro";
 
-const homeEntry = await getEntry("home", "home");
+const homeEntry = (await getEntry("home", "home"))!;
 const {
   pageTitle,
   pageDescription,
