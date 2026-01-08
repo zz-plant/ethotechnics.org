@@ -12,12 +12,12 @@ Scope: applies to documentation under `docs/`.
 - Keep links relative when possible; add a brief note when pointing to external references.
 
 ## Tooling
-- Format Markdown with Prettier defaults (`npx prettier --write docs/*.md`).
+- Format Markdown with Prettier defaults (`bunx prettier --write docs/*.md`).
 
 ## Checks
-- Docs-only changes can skip `npm run check`, but run it when documentation covers code behaviors
+- Docs-only changes can skip `bun run check`, but run it when documentation covers code behaviors
   or commands that might have drifted.
-- If you skip `npm run check` for a docs-only change, mention the skip in the PR body.
+- If you skip `bun run check` for a docs-only change, mention the skip in the PR body.
 
 ## Review checklist
 - Are examples and command snippets up to date with current scripts?

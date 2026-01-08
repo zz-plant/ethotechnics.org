@@ -38,6 +38,6 @@ How the site is structured and deployed so contributors can navigate the stack q
 
 - `astro.config.mjs` uses `@astrojs/cloudflare` with `output: "server"` and excludes `/_astro/*` and
   `/assets/*` from the server function so static assets bypass the Worker.
-- `npm run build` emits the Worker entry at `dist/_worker.js` plus static assets in `dist/`.
+- `bun run build` emits the Worker entry at `dist/_worker.js` plus static assets in `dist/`.
 - `wrangler.toml` sets the Worker main script, compatibility flags, and binds `dist` as the assets
-  bucket; deploy with `npm run deploy` to publish the bundle via Wrangler.
+  bucket; deploy with `bun run deploy` to publish the bundle via Wrangler.

@@ -30,7 +30,7 @@ Use this map before adding new guidance so information stays discoverable and cu
 ## Editing tips
 
 - Use short paragraphs and bullets; keep instructions direct and present tense.
-- Format Markdown with `npx prettier --write docs/*.md` to match repo defaults.
+- Format Markdown with `bunx prettier --write docs/*.md` to match repo defaults.
 - Update nearby files instead of duplicating guidance; link to existing docs when possible.
 - Add a short note when pointing to external resources so readers know why the link matters.
 - Keep line wraps near 100 characters to stay readable in diffs.
@@ -39,7 +39,7 @@ Use this map before adding new guidance so information stays discoverable and cu
 
 - Create or extend a doc when adding a new flow, toolchain change, or recurring contributor
   question.
-- Include command snippets that match existing npm scripts, and call out prerequisites for tests or
+- Include command snippets that match existing Bun scripts, and call out prerequisites for tests or
   builds.
 - Add a short changelog-style note in PR descriptions when significant docs shift where people look
   for information.

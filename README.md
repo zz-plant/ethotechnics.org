@@ -4,18 +4,18 @@ This repository powers [ethotechnics.org](https://ethotechnics.org), a content-d
 
 ## Getting started
 
-Use Node.js 20.x (the repo ships an `.nvmrc` file and matching `engines` in `package.json` to keep builds consistent).
+Use Bun 1.1+ for the fastest development experience.
 
-1. Install dependencies: `npm install`
-2. Run the dev server: `npm run dev`
-3. Build the Worker bundle: `npm run build` (optionally preview with `npm run preview`).
+1. Install dependencies: `bun install`
+2. Run the dev server: `bun dev`
+3. Build the Worker bundle: `bun run build` (optionally preview with `bun run preview`).
 4. For deeper setup and troubleshooting tips, see [`docs/local-development.md`](docs/local-development.md).
 
 ## Checks before committing
 
-Use `npm run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
+Use `bun run check` for a full pre-commit sweep. It will run linting, tests, TypeScript checks, and Astro's checker (skipping any step that is not configured).
 
-- `npm run lint` checks Astro and TypeScript sources under `src/`; it runs first inside `npm run check`.
+- `bun run lint` checks Astro and TypeScript sources under `src/`; it runs first inside `bun run check`.
 
 ## Security headers
 
@@ -29,27 +29,27 @@ Requests pass through `src/middleware.ts`, which normalizes legacy ethotechnics.
 
 ## Testing
 
-- After installing dependencies (`npm install`), run `npx playwright install --with-deps` to install the browsers required by the
+- After installing dependencies (`bun install`), run `bunx playwright install --with-deps` to install the browsers required by the
   end-to-end suite.
   - If the install complains about missing system libraries, rerun the command with `--with-deps` (it pulls the Linux packages
     Playwright needs) and retry the suite.
 - If Playwright browser downloads fail:
   - Reuse cached downloads with `PLAYWRIGHT_BROWSERS_PATH=~/.cache/playwright` to avoid fetching large archives again; rerun
-    `npx playwright install --with-deps` after setting the variable.
+    `bunx playwright install --with-deps` after setting the variable.
   - Confirm proxies or firewalls are not blocking `https://playwright.azureedge.net` (the default download host) and retry once
     access is open.
   - Point to an alternative mirror via `PLAYWRIGHT_DOWNLOAD_HOST=https://your-mirror.example.com` when corporate networks block
     the default host.
-- `npm run e2e` builds the Worker bundle and runs Playwright against `npm run preview`.
+- `bun run test:e2e` builds the Worker bundle and runs Playwright against `bun run preview`.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
 - Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to
   execute Playwright after the Worker build instead of GitHub Actions.
 
-### Unit and component tests (Vitest)
+### Unit and component tests (Bun Test)
 
-- `npm test` runs Vitest in watch mode. Expect green checkmarks per suite and a summary such as `Test Files  3 passed` and `Tests  7 passed` when everything succeeds.
-- Component rendering tests use the experimental Astro container (`src/test/astro-container.ts`) and run under Node with jsdom helpers, so no browser is required.
-- CI uses `npm run test:ci` to execute once with coverage; mirror this locally to see the coverage table emitted at the end of the run.
+- `bun test` runs the test suite.
+- Component rendering tests use the experimental Astro container (`src/test/astro-container.ts`) and run under Bun with happy-dom helpers.
+- CI uses `bun run test:unit:ci` to execute once with coverage.
 
 ### Environment configuration
 
@@ -58,17 +58,14 @@ Requests pass through `src/middleware.ts`, which normalizes legacy ethotechnics.
 
 ## Quickstart for agents
 
-- **Prerequisites:** Node.js 20+ with npm (project uses `package-lock.json`), Git, and a shell with `npm` on PATH.
-- **Node version:** Run `nvm use` to align with the pinned 20.x toolchain before installing dependencies.
-- **Editor support:** VS Code picks up workspace defaults from `.vscode/` to enable Astro language
-  services, Prettier formatting on save, ESLint fixes, and the repo's TypeScript version.
-- **Dev server:** `npm run dev`
+- **Prerequisites:** Bun 1.1+, Git, and a shell.
+- **Dev server:** `bun dev`
   - Expected log snippet: `[@astrojs/compiler] ready` followed by `Local  http://localhost:4321/`.
   - Server binds to `0.0.0.0` on port `4321` so forwarded connections from tools (e.g., browsers for screenshots)
     work without extra flags.
-- **Production check:** `npm run build && npm run preview`
+- **Production check:** `bun run build && bun run preview`
   - Build output should include `Built in` timing lines and emit `dist/_worker.js`; preview logs start with `[@astrojs/preview] Server running` and the same localhost URL.
-- If commands are slow or fail, confirm Node version with `node -v` and reinstall dependencies via `rm -rf node_modules && npm install`.
+- If commands are slow or fail, confirm Bun version with `bun -v` and reinstall dependencies via `rm -rf node_modules bun.lock && bun install`.
 
 ## Deployment to Cloudflare Workers
 
@@ -78,8 +75,8 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 
 1. Ensure the adapter is installed (`@astrojs/cloudflare`) and configured in `astro.config.mjs` with `output: "server"`.
 2. The Cloudflare adapter is configured to use Cloudflare's image service and to exclude static assets (`/_astro/*`, `/assets/*`) from the server function so they can be served directly via the assets binding.
-3. Build the Worker bundle: `npm run build`. The generated Worker entry is emitted to `dist/_worker.js`.
-4. Deploy with Wrangler using the repo defaults: `npm run deploy`.
+3. Build the Worker bundle: `bun run build`. The generated Worker entry is emitted to `dist/_worker.js`.
+4. Deploy with Wrangler using the repo defaults: `bun run deploy`.
    - The build copies `.assetsignore` from `public/` to `dist/` so Wrangler skips `_worker.js` and
      `_routes.json` when uploading static assets.
 5. Configure DNS for `ethotechnics.org` to point to the Cloudflare Worker route you set in Wrangler.
@@ -123,4 +120,4 @@ The site uses the official Cloudflare adapter for Astro to produce a Worker-comp
 
 ### Adding new pages
 
-- Follow the checklist in [`docs/adding-pages.md`](docs/adding-pages.md) for layout imports, shared components, navigation updates, and the `npm run check` command to run before sending a PR.
+- Follow the checklist in [`docs/adding-pages.md`](docs/adding-pages.md) for layout imports, shared components, navigation updates, and the `bun run check` command to run before sending a PR.

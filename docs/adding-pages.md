@@ -17,5 +17,5 @@ Quick steps to add an Astro page without breaking navigation or metadata.
 - **Update navigation when needed:** Add the new route to the `navLinks` array in
   `src/components/Navigation.astro` so it appears in the primary menu. Add footer links only if the
   page should be discoverable site-wide.
-- **Validate before opening a PR:** Run `npm run check` to cover linting, types, tests, and Astro's
+- **Validate before opening a PR:** Run `bun run check` to cover linting, types, tests, and Astro's
   checker.

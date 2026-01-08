@@ -4,10 +4,10 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
 
 ## Setup
 
-- Use Node.js 20.x (run `nvm use` to align with the pinned toolchain).
+- Use Bun 1.1+ (the project relies on Bun's runtime and package manager).
 - Copy `.env.example` to `.env.local`; no variables are required yet, but the file keeps future
   additions discoverable.
-- Install dependencies with `npm install` and keep `npm` on your PATH.
+- Install dependencies with `bun install`.
 
 ## Editor integration
 
@@ -20,36 +20,36 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
 
 ## Running the dev server
 
-- Start Astro locally with `npm run dev`.
+- Start Astro locally with `bun dev`.
   - Expected log: `[@astrojs/compiler] ready` and `Local  http://localhost:4321/`.
-  - The server binds to `0.0.0.0`; use `npm run dev -- --port 4322` if another process already
+  - The server binds to `0.0.0.0`; use `bun dev --port 4322` if another process already
     occupies port 4321.
 - Stop and restart the server after dependency upgrades so Vite picks up plugin changes.
 
 ## Building and previewing
 
-- Build the Cloudflare Worker bundle with `npm run build`; success logs include `Built in` timings
+- Build the Cloudflare Worker bundle with `bun run build`; success logs include `Built in` timings
   and emit `dist/_worker.js`.
 - The build skips compressed-size reporting to avoid extra gzip/Brotli passes; re-enable it in
   `astro.config.mjs` if you need those numbers for an investigation.
-- Preview locally with `npm run preview` to mimic the deployed output.
-- Combine both steps to sanity-check production output: `npm run build && npm run preview`.
+- Preview locally with `bun run preview` to mimic the deployed output.
+- Combine both steps to sanity-check production output: `bun run build && bun run preview`.
 
 ## Checks and tests
 
-- Run `npm run check` before sending changes; it chains linting, tests, type checks, and Astro's
+- Run `bun run check` before sending changes; it chains linting, tests, type checks, and Astro's
   analyzer where configured.
 - Targeted runs when iterating:
-  - `npm run lint` for Astro and TypeScript sources under `src/`.
-  - `npm run typecheck` for strict TypeScript validation.
-  - `npm run test` for Vitest watch mode or `npm run test:ci` for a single pass with coverage.
-- End-to-end tests require browsers: install them once with `npx playwright install --with-deps`
-  before running `npm run e2e`.
+  - `bun run lint` for Astro and TypeScript sources under `src/`.
+  - `bun run typecheck` for strict TypeScript validation.
+  - `bun test` for the unit and component test suite.
+- End-to-end tests require browsers: install them once with `bunx playwright install --with-deps`
+  before running `bun run test:e2e`.
 
 ## Troubleshooting
 
-- Verify Node version with `node -v`; reinstall dependencies if versions drift: `rm -rf node_modules`
-  and `npm install`.
+- Verify Bun version with `bun -v`; reinstall dependencies if versions drift: `rm -rf node_modules bun.lock`
+  and `bun install`.
 - Clear Astro's cache when layout or config changes behave oddly: remove the `.astro/` directory
   before rebuilding.
 - If preview requests fail, confirm the Worker build emitted `dist/_worker.js` and that

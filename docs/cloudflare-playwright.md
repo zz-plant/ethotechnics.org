@@ -6,5 +6,5 @@
   the local preview server when that variable is present.
 - Enable testing in the Cloudflare dashboard for the project and point it at the
   repo so Pages runs the suite after building the Worker bundle.
-- Local runs continue to work with `npm run e2e` and `PLAYWRIGHT_BASE_URL` when
+- Local runs continue to work with `bun run test:e2e` and `PLAYWRIGHT_BASE_URL` when
   targeting a custom preview host.

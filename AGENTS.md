@@ -17,14 +17,14 @@ This repository is small, so keep guidance concise and easy to follow.
 - Use the pinned Node.js 20.x toolchain (`nvm use`) before installing dependencies or running scripts.
 
 ## Formatting and tooling
-- Use npm (respecting `package-lock.json`); avoid swapping package managers unless discussed.
-- Format Markdown and code with Prettier defaults (`npx prettier --write`), matching existing quoting/spacing.
+- Use Bun (respecting `bun.lock`); do not use npm or yarn.
+- Format Markdown and code with Prettier defaults (`bunx prettier --write`), matching existing quoting/spacing.
 - Lean on built-in Astro and TypeScript strictness; do not introduce new linting/formatting stacks without need.
 
 ## Required checks
-- Run `npm run check` before committing for code or mixed changes; follow `docs/AGENTS.md` for
+- Run `bun run check` before committing for code or mixed changes; follow `docs/AGENTS.md` for
   docs-only edits.
-- If `npm run check` is intentionally skipped (for example, a docs-only change that does not
+- If `bun run check` is intentionally skipped (for example, a docs-only change that does not
   touch code), call it out in the PR body.
 
 ## Quick review checklist
