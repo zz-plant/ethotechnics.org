@@ -1,4 +1,3 @@
-
 html {
   scroll-behavior: smooth;
 }
@@ -33,7 +32,6 @@ html {
   height: 0;
   overflow: hidden;
 }
-
 
 .page {
   padding: 5.5rem 0 3.5rem;
@@ -176,8 +174,6 @@ html {
   }
 }
 
-
-
 .button {
   display: inline-flex;
   align-items: center;
@@ -319,7 +315,6 @@ html {
   mix-blend-mode: soft-light;
 }
 
-
 @media (any-pointer: coarse) {
   .nav__link,
   .nav__utility-link {
@@ -396,7 +391,7 @@ html {
       transparent 62%
     );
   filter: blur(32px) saturate(125%);
-  opacity: 0.75;
+  opacity: 0.5;
 }
 
 .hero::after {
@@ -409,7 +404,7 @@ html {
   );
   mask: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 70%);
   mix-blend-mode: soft-light;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .hero__canvas {
@@ -426,7 +421,7 @@ html {
   width: 60%;
   height: 60%;
   filter: url("#ink-hatch");
-  opacity: 0.25;
+  opacity: 0.18;
   transform: rotate(-9deg);
   mix-blend-mode: soft-light;
   will-change: transform, opacity;
@@ -478,7 +473,7 @@ html {
       color-mix(in srgb, var(--accent) 12%, transparent) 1px,
       transparent 1px 90px
     );
-  opacity: 0.16;
+  opacity: 0.1;
   mix-blend-mode: soft-light;
   filter: url("#ink-hatch");
   will-change: background-position, opacity;
@@ -605,14 +600,14 @@ html {
 
 @keyframes grid-pan {
   from {
-    opacity: 0.12;
+    opacity: 0.08;
     background-position:
       0 0,
       0 0;
   }
 
   to {
-    opacity: 0.2;
+    opacity: 0.14;
     background-position:
       24px 12px,
       0 18px;
@@ -771,7 +766,7 @@ html {
       color-mix(in srgb, var(--surface) 90%, white 10%)
     ),
     var(--glow-wash);
-  box-shadow: 0 14px 26px rgba(27, 18, 11, 0.1);
+  box-shadow: 0 10px 18px rgba(27, 18, 11, 0.08);
   color: color-mix(in srgb, var(--muted) 70%, var(--text));
 }
 
@@ -814,7 +809,7 @@ html {
     color-mix(in srgb, var(--surface) 92%, white 8%),
     color-mix(in srgb, var(--panel) 90%, white 10%)
   );
-  box-shadow: var(--shadow-xs);
+  box-shadow: none;
   color: var(--text);
   font-weight: 650;
   font-size: 0.94rem;
@@ -874,8 +869,8 @@ html {
   overflow: hidden;
   aspect-ratio: 5 / 4;
   box-shadow:
-    0 22px 46px rgba(27, 18, 11, 0.18),
-    0 8px 30px color-mix(in srgb, var(--accent) 14%, transparent);
+    0 18px 36px rgba(27, 18, 11, 0.14),
+    0 6px 22px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 @media (max-width: 900px) {

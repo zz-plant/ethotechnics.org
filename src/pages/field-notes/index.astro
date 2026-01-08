@@ -1,3 +1,4 @@
+---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -36,12 +37,12 @@ const anchorLinks = sections.map((section) => ({
     }}
   />
   <p class="muted small">
-    Latest update {
-      new Date(latestUpdate).toLocaleDateString("en-US", {
-        month: "short",
-        year: "numeric",
-      })
-    }.{" "}
+    Latest update{" "}
+    {new Date(latestUpdate).toLocaleDateString("en-US", {
+      month: "short",
+      year: "numeric",
+    })}
+    .{" "}
     <a href="/rss.xml">Subscribe via RSS</a>.
   </p>
   <div class="callout field-notes__highlight">
