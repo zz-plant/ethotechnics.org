@@ -216,7 +216,7 @@ export const glossaryContent: GlossaryContent = {
             },
             {
               label: "Maintenance simulator",
-              href: "/tools/maintenance-simulator/",
+              href: "/diagnostics/maintenance-simulator/",
               type: "Tool",
             },
           ],

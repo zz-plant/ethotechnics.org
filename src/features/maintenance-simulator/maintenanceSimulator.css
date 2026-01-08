@@ -221,3 +221,30 @@
     grid-template-columns: 1fr;
   }
 }
+
+.simulator__actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+@media print {
+  .nav, .footer, .simulator__selectors, .simulator__controls, .search-container {
+    display: none !important;
+  }
+
+  .simulator {
+    padding: 0;
+    gap: 2rem;
+  }
+
+  .simulator__card {
+    break-inside: avoid;
+    border: 1px solid #eee;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}

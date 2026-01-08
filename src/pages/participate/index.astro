@@ -1,4 +1,4 @@
----
+import { getEntry } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 
 import CardGrid from '../../components/CardGrid.astro';
@@ -6,9 +6,9 @@ import CardItem from '../../components/CardItem.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { participationContent } from '../../content/participation';
 
-const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback } = participationContent;
+const participationEntry = (await getEntry('participation', 'participation'))!;
+const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback } = participationEntry.data;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro

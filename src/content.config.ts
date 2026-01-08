@@ -264,4 +264,96 @@ const startHere = defineCollection({
   }),
 });
 
-export const collections = { home, glossary, library, startHere };
+const fieldNotes = defineCollection({
+  loader: file('src/content/field-notes.json'),
+  schema: pageCopySchema.extend({
+    permalink: z.string(),
+    published: z.string(),
+    latestUpdate: z.string(),
+    highlight: z.object({
+      title: z.string(),
+      summary: z.string(),
+      whyItMatters: z.string(),
+      href: z.string(),
+      ctaLabel: z.string(),
+    }),
+    sections: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+      format: z.enum(['dispatch', 'case-study', 'signal']),
+    })),
+    entries: z.array(z.object({
+      slug: z.string(),
+      title: z.string(),
+      summary: z.string(),
+      format: z.enum(['dispatch', 'case-study', 'signal']),
+      relatedTerms: z.array(z.string()),
+      links: z.array(z.string()).optional(),
+      published: z.string(),
+    })),
+  }),
+});
+
+const participation = defineCollection({
+  loader: file('src/content/participation.json'),
+  schema: pageCopySchema.extend({
+    permalink: z.string(),
+    hero: z.object({
+      eyebrow: z.string(),
+      heading: z.string(),
+      description: z.string(),
+      anchorLinks: z.array(z.object({ href: z.string(), label: z.string() })),
+      panel: z.object({
+        title: z.string(),
+        description: z.string(),
+        eyebrow: z.string().optional(),
+      }),
+    }),
+    pathways: z.array(z.object({
+      id: z.string(),
+      title: z.string(),
+      description: z.string(),
+      tags: z.array(z.string()).optional(),
+      actions: z.array(z.object({
+        label: z.string(),
+        href: z.string(),
+        ariaLabel: z.string().optional(),
+        detail: z.string().optional(),
+      })),
+      checklist: z.array(z.string()),
+    })),
+    intake: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      description: z.string(),
+      formatNote: z.string(),
+      responseNote: z.string(),
+      timelineNote: z.string(),
+      privacyNote: z.string(),
+      form: z.object({
+        action: z.string(),
+        submitLabel: z.string(),
+        fields: z.array(z.object({
+          id: z.string(),
+          label: z.string(),
+          type: z.enum(['text', 'email', 'textarea']),
+          placeholder: z.string(),
+          required: z.boolean().optional(),
+        })),
+      }),
+    }),
+    feedback: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      description: z.string(),
+      actions: z.array(z.object({
+        label: z.string(),
+        href: z.string(),
+        ariaLabel: z.string().optional(),
+        detail: z.string().optional(),
+      })),
+    }),
+  }),
+});
+
+export const collections = { home, glossary, library, startHere, fieldNotes, participation };

@@ -170,7 +170,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.",
       ctaLabel: "Open the maintenance simulator",
-      ctaHref: "/tools/maintenance-simulator",
+      ctaHref: "/diagnostics/maintenance-simulator",
       ctaAriaLabel: "Open the maintenance simulator",
       exampleLabel: "Preview a simulation output",
       exampleHref:

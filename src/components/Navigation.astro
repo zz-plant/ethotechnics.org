@@ -1,5 +1,6 @@
 ---
 import Logo from "./Logo.astro";
+import Search from "./Search.astro";
 import NavActions from "./NavActions.astro";
 import NavQuickLinks from "./NavQuickLinks.astro";
 import NavSectionList from "./NavSectionList.astro";
@@ -52,6 +53,10 @@ const topLevelLinks = navPrimaryLinks;
       >
         <Logo class="nav__brand-logo" title="Ethotechnics" />
       </a>
+
+      <div class="nav__search-desktop">
+        <Search />
+      </div>
 
       <button
         class="nav__menu-toggle"
@@ -370,6 +375,19 @@ const topLevelLinks = navPrimaryLinks;
     display: flex;
     align-items: center;
     gap: var(--space-2);
+  }
+
+  .nav__search-desktop {
+    display: none;
+    flex: 1;
+    max-width: 320px;
+    margin-left: var(--space-6);
+  }
+
+  @media (min-width: 992px) {
+    .nav__search-desktop {
+      display: block;
+    }
   }
 
   .nav__menu-toggle {

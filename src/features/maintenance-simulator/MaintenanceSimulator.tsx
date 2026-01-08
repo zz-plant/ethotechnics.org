@@ -348,6 +348,33 @@ const MaintenanceSimulator = () => {
               ))}
             </select>
           </label>
+          <div className="simulator__actions">
+            <button 
+              className="button ghost button--compact" 
+              onClick={() => {
+                const data = {
+                  template,
+                  riskLevel,
+                  coverage,
+                  plan: simulationPlan
+                };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `maintenance-simulation-${templateId}.json`;
+                a.click();
+              }}
+            >
+              Export JSON
+            </button>
+            <button 
+              className="button primary button--compact" 
+              onClick={() => window.print()}
+            >
+              Export PDF
+            </button>
+          </div>
         </div>
         <div className="simulator__risk-description">
           <p className="muted">{riskDescriptions[riskLevel]}</p>

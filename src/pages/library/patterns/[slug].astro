@@ -96,15 +96,30 @@ const anchorLinks = [
     title="Put the pattern in motion."
     description="Start with the field cues, then use the artifacts to keep the work legible."
   >
+    <div class="pattern-detail__checklist-progress" hidden>
+      <p class="muted small">
+        <span id="checklist-count">0</span> of {pattern.steps.length} steps complete
+      </p>
+      <div class="progress-bar">
+        <div class="progress-bar__fill" id="checklist-bar"></div>
+      </div>
+    </div>
     <ol class="pattern-detail__steps">
       {
-        pattern.steps.map((step) => (
+        pattern.steps.map((step, index) => (
           <li>
-            <div class="card card--emphasis pattern-detail__step-card">
+            <label class="card card--emphasis pattern-detail__step-card is-interactive">
               <div class="card__glow" aria-hidden="true" />
-              <p class="muted">Step</p>
+              <div class="pattern-detail__step-header">
+                <p class="muted">Step {index + 1}</p>
+                <input
+                  type="checkbox"
+                  class="pattern-detail__step-checkbox"
+                  data-step-index={index}
+                />
+              </div>
               <h3>{step}</h3>
-            </div>
+            </label>
           </li>
         ))
       }
@@ -228,4 +243,81 @@ const anchorLinks = [
       }
     });
   });
+
+  // Checklist logic
+  const checkboxes = document.querySelectorAll(
+    ".pattern-detail__step-checkbox"
+  );
+  const countSpan = document.getElementById("checklist-count");
+  const progressBar = document.getElementById("checklist-bar");
+  const progressContainer = document.querySelector(
+    ".pattern-detail__checklist-progress"
+  );
+
+  if (checkboxes.length > 0 && progressContainer) {
+    progressContainer.removeAttribute("hidden");
+
+    const updateProgress = () => {
+      const checked = Array.from(checkboxes).filter(
+        (cb) => (cb as HTMLInputElement).checked
+      ).length;
+      if (countSpan) countSpan.textContent = checked.toString();
+      if (progressBar)
+        progressBar.style.width = `${(checked / checkboxes.length) * 100}%`;
+    };
+
+    checkboxes.forEach((cb) => {
+      cb.addEventListener("change", updateProgress);
+    });
+  }
 </script>
+
+<style is:global>
+  .pattern-detail__step-card.is-interactive {
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .pattern-detail__step-card.is-interactive:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary, #007bff);
+  }
+
+  .pattern-detail__step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .pattern-detail__step-checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+  }
+
+  .pattern-detail__checklist-progress {
+    margin-bottom: 2rem;
+    background: var(--color-surface-dim, #f8f9fa);
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--color-border, #e9ecef);
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+  }
+
+  .progress-bar__fill {
+    height: 100%;
+    background: var(--color-primary, #007bff);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+</style>
