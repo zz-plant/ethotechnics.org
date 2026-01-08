@@ -99,6 +99,11 @@ import { Icon } from "astro-icon/components";
     background: var(--color-surface, #ffffff);
   }
 
+  .search-dialog--disabled .search-dialog__header,
+  .search-dialog--disabled .search-dialog__footer {
+    opacity: 0.6;
+  }
+
   .search-dialog::backdrop {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
@@ -179,33 +184,88 @@ import { Icon } from "astro-icon/components";
 </style>
 
 <script>
-  let pagefind: any;
+  type PagefindData = {
+    url: string;
+    excerpt: string;
+    meta: {
+      title: string;
+    };
+  };
 
-  async function initPagefind() {
-    if (pagefind) return pagefind;
-    try {
-      // @ts-ignore
-      pagefind = await import("/pagefind/pagefind.js");
-      await pagefind.options({
-        excerptLength: 20,
-      });
-      return pagefind;
-    } catch (e) {
-      console.warn("Pagefind not found. Search may not work in dev mode.");
-      return null;
-    }
-  }
+  type PagefindResult = {
+    data: () => Promise<PagefindData>;
+  };
+
+  type PagefindSearchResults = {
+    results: PagefindResult[];
+  };
+
+  type PagefindApi = {
+    options: (options: { excerptLength: number }) => Promise<void>;
+    search: (query: string) => Promise<PagefindSearchResults>;
+  };
+
+  let pagefind: PagefindApi | null = null;
 
   const trigger = document.getElementById("search-trigger");
   const dialog = document.getElementById("search-dialog") as HTMLDialogElement;
   const closeBtn = document.getElementById("search-close");
   const input = document.getElementById("search-input") as HTMLInputElement;
   const resultsContainer = document.getElementById("search-results");
+  const defaultPlaceholder = input?.placeholder ?? "";
 
-  trigger?.addEventListener("click", () => {
+  const unavailableMessage =
+    'Search is only available in production builds. Run <code>bun run build</code> to generate the index.';
+  const pagefindUrl = "/pagefind/pagefind.js";
+
+  function setSearchUnavailable() {
+    if (resultsContainer) {
+      resultsContainer.innerHTML = `<p class="search-empty">${unavailableMessage}</p>`;
+    }
+    if (input) {
+      input.disabled = true;
+      input.placeholder = "Search index not available in dev.";
+      input.setAttribute("aria-disabled", "true");
+    }
+    dialog?.classList.add("search-dialog--disabled");
+  }
+
+  function resetSearchUnavailable() {
+    if (input) {
+      input.disabled = false;
+      input.placeholder = defaultPlaceholder;
+      input.removeAttribute("aria-disabled");
+    }
+    dialog?.classList.remove("search-dialog--disabled");
+  }
+
+  async function initPagefind() {
+    if (pagefind) return pagefind;
+    try {
+      // @ts-expect-error Pagefind is only available in production builds.
+      pagefind = await import(/* @vite-ignore */ pagefindUrl);
+      await pagefind.options({
+        excerptLength: 20,
+      });
+      resetSearchUnavailable();
+      return pagefind;
+    } catch (error) {
+      console.warn(
+        "Pagefind not found. Search may not work in dev mode.",
+        error
+      );
+      setSearchUnavailable();
+      return null;
+    }
+  }
+
+  trigger?.addEventListener("click", async () => {
     dialog?.showModal();
-    initPagefind();
-    input?.focus();
+    resetSearchUnavailable();
+    const pf = await initPagefind();
+    if (pf) {
+      input?.focus();
+    }
   });
 
   closeBtn?.addEventListener("click", () => {
@@ -218,7 +278,7 @@ import { Icon } from "astro-icon/components";
     }
   });
 
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener("keydown", async (e) => {
     if (
       e.key === "/" &&
       !dialog?.open &&
@@ -227,16 +287,21 @@ import { Icon } from "astro-icon/components";
     ) {
       e.preventDefault();
       dialog?.showModal();
-      initPagefind();
-      input?.focus();
+      resetSearchUnavailable();
+      const pf = await initPagefind();
+      if (pf) {
+        input?.focus();
+      }
     }
   });
 
-  let debounceTimer: any;
+  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
   input?.addEventListener("input", async (e) => {
     const query = (e.target as HTMLInputElement).value;
 
-    clearTimeout(debounceTimer);
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+    }
     debounceTimer = setTimeout(async () => {
       if (!query) {
         if (resultsContainer)
@@ -247,9 +312,6 @@ import { Icon } from "astro-icon/components";
 
       const pf = await initPagefind();
       if (!pf) {
-        if (resultsContainer)
-          resultsContainer.innerHTML =
-            '<p class="search-empty">Search is only available in production builds.</p>';
         return;
       }
 
@@ -263,10 +325,10 @@ import { Icon } from "astro-icon/components";
       if (resultsContainer) resultsContainer.innerHTML = "";
 
       const results = await Promise.all(
-        search.results.slice(0, 8).map((r: any) => r.data())
+        search.results.slice(0, 8).map((result) => result.data())
       );
 
-      results.forEach((data: any) => {
+      results.forEach((data) => {
         const item = document.createElement("a");
         item.href = data.url;
         item.className = "search-result-item";
