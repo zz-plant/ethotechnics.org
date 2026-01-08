@@ -1,15 +1,18 @@
-import { getEntry } from 'astro:content';
-import { Icon } from 'astro-icon/components';
-
-import CardGrid from '../../components/CardGrid.astro';
-import CardItem from '../../components/CardItem.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-const participationEntry = (await getEntry('participation', 'participation'))!;
-const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback } = participationEntry.data;
 ---
+import { getEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const participationEntry = (await getEntry("participation", "participation"))!;
+const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback } =
+  participationEntry.data;
+---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow={hero.eyebrow}
@@ -28,32 +31,37 @@ const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback 
     className="section--banded"
   >
     <CardGrid className="grid--three">
-      {pathways.map((pathway) => (
-        <CardItem
-          id={pathway.id}
-          title={pathway.title}
-          description={pathway.description}
-          descriptionTone="default"
-          tags={pathway.tags}
-        >
-          <ul class="muted">
-            {pathway.checklist.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-          {pathway.actions.length ? (
-            <ul class="card__list">
-              {pathway.actions.map((action) => (
-                <li>
-                  <a href={action.href} aria-label={action.ariaLabel ?? action.label}>
-                    {action.label}
-                  </a>
-                </li>
+      {
+        pathways.map((pathway) => (
+          <CardItem
+            id={pathway.id}
+            title={pathway.title}
+            description={pathway.description}
+            descriptionTone="default"
+            tags={pathway.tags}
+          >
+            <ul class="muted">
+              {pathway.checklist.map((item) => (
+                <li>{item}</li>
               ))}
             </ul>
-          ) : null}
-        </CardItem>
-      ))}
+            {pathway.actions.length ? (
+              <ul class="card__list">
+                {pathway.actions.map((action) => (
+                  <li>
+                    <a
+                      href={action.href}
+                      aria-label={action.ariaLabel ?? action.label}
+                    >
+                      {action.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -64,30 +72,41 @@ const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback 
     description={intake.description}
   >
     <p class="muted small">{intake.formatNote}</p>
-    <form class="intake-form" action={intake.form.action} method="post" enctype="text/plain">
+    <form
+      class="intake-form"
+      action={intake.form.action}
+      method="post"
+      enctype="text/plain"
+    >
       <div class="intake-form__grid">
-        {intake.form.fields.map((field) => (
-          <label class={`intake-form__field${field.type === 'textarea' ? ' intake-form__field--full' : ''}`}>
-            <span class="muted">{field.label}</span>
-            {field.type === 'textarea' ? (
-              <textarea
-                id={field.id}
-                name={field.id}
-                placeholder={field.placeholder}
-                required={field.required}
-                rows={4}
-              />
-            ) : (
-              <input
-                id={field.id}
-                name={field.id}
-                type={field.type}
-                placeholder={field.placeholder}
-                required={field.required}
-              />
-            )}
-          </label>
-        ))}
+        {
+          intake.form.fields.map((field) => (
+            <label
+              class={`intake-form__field${
+                field.type === "textarea" ? " intake-form__field--full" : ""
+              }`}
+            >
+              <span class="muted">{field.label}</span>
+              {field.type === "textarea" ? (
+                <textarea
+                  id={field.id}
+                  name={field.id}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  rows={4}
+                />
+              ) : (
+                <input
+                  id={field.id}
+                  name={field.id}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                />
+              )}
+            </label>
+          ))
+        }
       </div>
       <div class="intake-form__actions">
         <button class="button primary" type="submit">
@@ -99,6 +118,7 @@ const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback 
       <p class="muted small">{intake.privacyNote}</p>
     </form>
   </SectionBlock>
+
   <SectionBlock
     id="feedback"
     eyebrow={feedback.eyebrow}
@@ -109,26 +129,40 @@ const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback 
     <div class="info-strip" aria-label="Feedback channels">
       <div class="info-strip__lead">
         <p class="eyebrow">Feedback inboxes</p>
-        <p class="muted">Share quick notes, unclear steps, or examples you want us to add.</p>
+        <p class="muted">
+          Share quick notes, unclear steps, or examples you want us to add.
+        </p>
       </div>
       <div class="info-strip__actions" aria-label="Ways to contact the team">
-        {feedback.actions.map((action) => (
-          <a
-            class="info-strip__badge"
-            href={action.href}
-            aria-label={action.ariaLabel ?? action.label}
-            rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
-          >
-            <span class="info-strip__icon" aria-hidden="true">
-              <Icon name={action.label.includes('inbox') ? 'lucide:inbox' : 'lucide:sparkles'} />
-            </span>
-            <span class="info-strip__copy">
-              <span class="info-strip__label">{action.label}</span>
-              <span class="info-strip__title">{action.href.replace('mailto:', '')}</span>
-              {action.detail ? <span class="info-strip__detail">{action.detail}</span> : null}
-            </span>
-          </a>
-        ))}
+        {
+          feedback.actions.map((action) => (
+            <a
+              class="info-strip__badge"
+              href={action.href}
+              aria-label={action.ariaLabel ?? action.label}
+              rel={action.href.startsWith("http") ? "noreferrer" : undefined}
+            >
+              <span class="info-strip__icon" aria-hidden="true">
+                <Icon
+                  name={
+                    action.label.includes("inbox")
+                      ? "lucide:inbox"
+                      : "lucide:sparkles"
+                  }
+                />
+              </span>
+              <span class="info-strip__copy">
+                <span class="info-strip__label">{action.label}</span>
+                <span class="info-strip__title">
+                  {action.href.replace("mailto:", "")}
+                </span>
+                {action.detail ? (
+                  <span class="info-strip__detail">{action.detail}</span>
+                ) : null}
+              </span>
+            </a>
+          ))
+        }
       </div>
     </div>
   </SectionBlock>
