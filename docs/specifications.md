@@ -29,7 +29,6 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 
 - Cloudflare adapter excludes static asset routes (`/_astro/*`, `/assets/*`) from the Worker so assets serve directly from the binding.
 - Sitemap and robots.txt are generated via Astro integrations; keep the canonical site URL in `astro.config.mjs` in sync with deployments.
-- RSS feed at `/rss.xml` uses cached responses (`Cache-Control: public, max-age=3600`) and falls back to `https://ethotechnics.org` when the runtime origin is missing.
 
 ## Build and performance defaults
 

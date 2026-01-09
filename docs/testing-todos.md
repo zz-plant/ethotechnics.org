@@ -22,8 +22,7 @@ Playwright.
 ## Playwright smoke coverage
 
 - End-to-end smoke tests live in [`tests/e2e/`](../tests/e2e/) and run against `bun run preview`
-  via `playwright.config.ts`. They currently cover the homepage hero, navigation interactions, and
-  the RSS feed.
+  via `playwright.config.ts`. They currently cover the homepage hero and navigation interactions.
 - Run `bun run test:e2e` locally to build and execute the suite with the HTML reporter, or
   `bun run test:e2e:ci` to use the line reporter in CI. Respect `PLAYWRIGHT_BASE_URL` or
   `CF_PAGES_URL` if you already have a preview running.

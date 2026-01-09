@@ -74,7 +74,6 @@ export const siteFooter: SiteFooterContent = {
           href: "https://signals.ethotechnics.org",
           external: true,
         },
-        { label: "RSS feed", href: "/rss.xml" },
         {
           label: "Ethotechnics on GitHub",
           href: "https://github.com/ethotechnics",

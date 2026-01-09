@@ -94,7 +94,7 @@ describe.skip("Navigation component", () => {
 });
 
 describe.skip("BaseLayout", () => {
-  it("renders SEO metadata and RSS/footer links from props", async () => {
+  it("renders SEO metadata and footer links from props", async () => {
     const container = await createAstroContainer();
     const html = await container.renderToString(BaseLayout, {
       props: {
@@ -154,11 +154,6 @@ describe.skip("BaseLayout", () => {
     ).toBe("/favicon.svg");
     expect(
       document
-        .querySelector('link[type="application/rss+xml"]')
-        ?.getAttribute("href"),
-    ).toBe("/rss.xml");
-    expect(
-      document
         .querySelector('meta[name="twitter:card"]')
         ?.getAttribute("content"),
     ).toBe("summary_large_image");
@@ -192,7 +187,5 @@ describe.skip("BaseLayout", () => {
       "Connect",
     ]);
 
-    const rssLink = document.querySelector('a.footer__link[href="/rss.xml"]');
-    expect(rssLink?.textContent?.trim()).toBe("RSS feed");
   });
 });
