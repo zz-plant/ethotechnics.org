@@ -2426,6 +2426,65 @@ html {
   margin-bottom: 1.5rem;
 }
 
+.diagnostics__calculator {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.diagnostics__slider-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.diagnostics__slider {
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--surface) 96%, white 4%);
+  display: grid;
+  gap: 0.6rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.diagnostics__slider-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  font-weight: 600;
+}
+
+.diagnostics__slider input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.diagnostics__slider-value {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.diagnostics__scorecard {
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--panel) 92%, white 8%);
+  box-shadow: var(--shadow-xs);
+  display: grid;
+  gap: 0.6rem;
+}
+
+.diagnostics__score {
+  margin: 0;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 700;
+}
+
+.diagnostics__score-label {
+  margin-top: 0;
+}
+
 .copy-button {
   background: color-mix(in srgb, var(--surface) 94%, transparent);
   border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
@@ -2910,6 +2969,17 @@ html {
 @media (min-width: 780px) {
   .diagnostics__process {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 880px) {
+  .diagnostics__calculator {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .diagnostics__slider-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   }
 }
 
