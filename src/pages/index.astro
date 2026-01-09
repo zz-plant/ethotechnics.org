@@ -1,6 +1,9 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CardGrid from "../components/CardGrid.astro";
+import CardItem from "../components/CardItem.astro";
+import SectionBlock from "../components/SectionBlock.astro";
 
 const homeEntry = (await getEntry("home", "home"))!;
 const { pageTitle, pageDescription } = homeEntry.data;
@@ -11,58 +14,147 @@ const { pageTitle, pageDescription } = homeEntry.data;
   description={pageDescription}
   mainClass="page page--wide"
 >
-  <section class="reference-dashboard">
-    <header class="reference-dashboard__header">
-      <div class="reference-dashboard__identity">
-        <p class="reference-dashboard__logo">Ethotechnics [Institute]</p>
-        <p class="reference-dashboard__tagline">
-          The Reference Standard for Accountable Systems.
+  <SectionBlock
+    eyebrow="Reference dashboard"
+    title="Search the reference standard"
+    description="Start with the latest standards, validators, and institutional guidance."
+  >
+    <section class="reference-dashboard">
+      <header class="reference-dashboard__header">
+        <div class="reference-dashboard__identity">
+          <p class="reference-dashboard__logo">Ethotechnics [Institute]</p>
+          <p class="reference-dashboard__tagline">
+            The Reference Standard for Accountable Systems.
+          </p>
+        </div>
+      </header>
+
+      <div class="reference-dashboard__search">
+        <p class="reference-dashboard__search-label" id="dashboard-search-label">
+          Search the documentation
         </p>
+        <div class="reference-dashboard__search-bar">
+          <input
+            id="dashboard-search"
+            type="search"
+            name="query"
+            aria-labelledby="dashboard-search-label"
+            placeholder="Search for standards (e.g., 'Stoppability') or mechanisms..."
+          />
+          <button class="button primary" type="button">Search</button>
+        </div>
       </div>
-    </header>
 
-    <div class="reference-dashboard__search">
-      <p class="reference-dashboard__search-label" id="dashboard-search-label">
-        Search the documentation
-      </p>
-      <div class="reference-dashboard__search-bar">
-        <input
-          id="dashboard-search"
-          type="search"
-          name="query"
-          aria-labelledby="dashboard-search-label"
-          placeholder="Search for standards (e.g., 'Stoppability') or mechanisms..."
-        />
-        <button class="button primary" type="button">Search</button>
+      <div class="reference-dashboard__status">
+        <article class="status-card">
+          <p class="status-card__eyebrow">Newest standard</p>
+          <p class="status-card__title">
+            Now Active: STD-01: The Temporal Bill of Rights
+          </p>
+          <a class="status-card__link" href="/standards/std-01-temporal-rights">
+            Read Spec
+          </a>
+        </article>
+        <article class="status-card">
+          <p class="status-card__eyebrow">Tool highlight</p>
+          <p class="status-card__title">
+            Validator: Check System Latency
+          </p>
+          <a class="status-card__link" href="/validators/latency-audit">
+            Run Audit
+          </a>
+        </article>
       </div>
-    </div>
 
-    <div class="reference-dashboard__status">
-      <article class="status-card">
-        <p class="status-card__eyebrow">Newest standard</p>
-        <p class="status-card__title">
-          Now Active: STD-01: The Temporal Bill of Rights
-        </p>
-        <a class="status-card__link" href="/standards/std-01-temporal-rights">
-          Read Spec
+      <footer class="reference-dashboard__footer">
+        <p class="muted">Maintained by the Institute of Ethotechnics.</p>
+        <a href="https://ethotechnics.com">
+          Need implementation support? Visit the Studio (.com) \u2192
         </a>
-      </article>
-      <article class="status-card">
-        <p class="status-card__eyebrow">Tool highlight</p>
-        <p class="status-card__title">
-          Validator: Check System Latency
-        </p>
-        <a class="status-card__link" href="/validators/latency-audit">
-          Run Audit
-        </a>
-      </article>
-    </div>
+      </footer>
+    </section>
+  </SectionBlock>
 
-    <footer class="reference-dashboard__footer">
-      <p class="muted">Maintained by the Institute of Ethotechnics.</p>
-      <a href="https://ethotechnics.com">
-        Need implementation support? Visit the Studio (.com) \u2192
-      </a>
-    </footer>
-  </section>
+  <SectionBlock
+    eyebrow="Featured standards"
+    title="Canonical references in the publishing queue"
+    description="Start with active doctrine and the primary reference indices."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        eyebrow="STD-01"
+        title="The Temporal Bill of Rights"
+        description="Defines the seven inalienable rights protecting human time against automated systems."
+      >
+        <a slot="footer" class="muted" href="/standards/std-01-temporal-rights">
+          Read STD-01
+        </a>
+      </CardItem>
+      <CardItem
+        eyebrow="Reference"
+        title="Core axioms"
+        description="First principles for accountable system design and governance."
+      >
+        <a slot="footer" class="muted" href="/standards/core-axioms">
+          View axioms
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    eyebrow="Validators"
+    title="Run diagnostics with guardrails"
+    description="Evaluate performance, burden, and operational safety before systems ship."
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        eyebrow="Diagnostics"
+        title="Latency audit"
+        description="Measure response time risk against the reference thresholds."
+      >
+        <a slot="footer" class="muted" href="/validators/latency-audit">
+          Run audit
+        </a>
+      </CardItem>
+      <CardItem
+        eyebrow="Diagnostics"
+        title="Maintenance simulator"
+        description="Model long-term upkeep costs and required caretaking cycles."
+      >
+        <a slot="footer" class="muted" href="/diagnostics/maintenance-simulator">
+          Launch simulator
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    eyebrow="Studio"
+    title="Work with the Institute"
+    description="Partner with the Ethotechnics Studio for implementation, audits, and advisory."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        eyebrow="Implementation"
+        title="Partner on accountable system delivery"
+        description="Translate standards into roadmaps, tooling, and training for your teams."
+      >
+        <a slot="footer" class="muted" href="https://ethotechnics.com">
+          Visit the Studio
+        </a>
+      </CardItem>
+      <CardItem
+        eyebrow="Engagement"
+        title="Request a standards briefing"
+        description="Schedule a walkthrough of the doctrine, validators, and delivery checklist."
+      >
+        <a slot="footer" class="muted" href="https://ethotechnics.com/contact">
+          Request briefing
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
 </BaseLayout>
