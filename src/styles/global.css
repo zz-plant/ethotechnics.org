@@ -2117,6 +2117,31 @@ html {
   margin-top: 1.5rem;
 }
 
+.highlight__grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.highlight__panel {
+  padding: 1.45rem;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--surface) 96%, white 4%),
+    color-mix(in srgb, var(--panel) 90%, white 10%)
+  );
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+}
+
+.highlight__panel .pill-list {
+  margin: 0;
+}
+
 .callout {
   padding: 1.55rem;
   background: linear-gradient(

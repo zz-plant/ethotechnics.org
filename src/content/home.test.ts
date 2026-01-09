@@ -17,7 +17,7 @@ describe("home content", () => {
     const homeEntry = await loadHomeEntry();
 
     expect(homeEntry?.hero?.heading).toBe(
-      "Get clarity, patterns, and help—fast.",
+      "Make accountability the fastest path to launch.",
     );
   });
 });

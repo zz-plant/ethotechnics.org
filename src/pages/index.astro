@@ -36,6 +36,13 @@ const {
     </div>
     <div class="hero__layout">
       <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-icon" aria-hidden="true">✶</span>
+          <div class="hero__badge-copy">
+            <p class="hero__badge-label">{hero.badge.label}</p>
+            <p class="hero__badge-title">{hero.badge.title}</p>
+          </div>
+        </div>
         <div class="hero__header">
           <p class="eyebrow">{hero.eyebrow}</p>
           <p class="muted hero__subheadline">{hero.subheadline}</p>
@@ -285,7 +292,7 @@ const {
       <h2>{highlight.heading}</h2>
       <p class="muted">{highlight.body}</p>
     </div>
-    <div class="highlight__content">
+    <div class="highlight__content highlight__grid">
       <div class="callout">
         <p class="muted">Field note</p>
         <h3>{highlight.note.title}</h3>
@@ -293,13 +300,21 @@ const {
         <ul>
           {highlight.note.actions.map((action) => <li>{action}</li>)}
         </ul>
-        <ul class="pill-list pill-list--wrap">
-          {highlight.pills.map((pill) => <li>{pill}</li>)}
-        </ul>
         <a class="button ghost" href={highlight.note.link.href}>
           {highlight.note.link.label}
         </a>
       </div>
+      <aside class="highlight__panel">
+        <p class="muted">Themes</p>
+        <h3>{highlight.panel.title}</h3>
+        <p class="muted">{highlight.panel.body}</p>
+        <ul class="pill-list pill-list--wrap">
+          {highlight.pills.map((pill) => <li>{pill}</li>)}
+        </ul>
+        <a class="button ghost button--compact" href={highlight.panel.link.href}>
+          {highlight.panel.link.label}
+        </a>
+      </aside>
     </div>
   </section>
 
