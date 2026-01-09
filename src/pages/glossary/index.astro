@@ -140,7 +140,7 @@ const citationYear = new Date().getFullYear();
           name="glossary-filter"
           type="search"
           inputmode="search"
-          placeholder="Start typing to narrow the index (e.g., consent)"
+          placeholder="Filter terms (e.g., consent)"
           autocomplete="off"
           value={searchQuery}
         />
@@ -153,14 +153,8 @@ const citationYear = new Date().getFullYear();
         Clear filter
       </button>
     </div>
-    <p class="muted glossary-filter__hint">Start typing to filter entries.</p>
     <p class="muted glossary-filter__hint">
-      Keep typing to filter the list, then open a matching term to grab its
-      permalink or scan nearby entries.
-    </p>
-    <p class="muted small">
-      Tip: open any term below to copy APA/BibTeX citations for reports and
-      briefs.
+      Type to filter, then open a term to grab its permalink or citations.
     </p>
     <p
       class="muted glossary-filter__count"
@@ -229,8 +223,7 @@ const citationYear = new Date().getFullYear();
       }
     </div>
     <p class="glossary__cta muted">
-      Each index link jumps to the canonical permalink so research notes and
-      diagnostics share the same language.
+      Index links jump to canonical permalinks.
     </p>
   </SectionBlock>
 
@@ -238,7 +231,7 @@ const citationYear = new Date().getFullYear();
     id="territory-map"
     eyebrow="Map"
     title="Territory map"
-    description="Quick scan of glossary areas with entry counts to help you jump to the right section."
+    description="Browse glossary areas with entry counts."
     variant="alt"
   >
     <details>
@@ -405,8 +398,7 @@ const citationYear = new Date().getFullYear();
                       ))}
                     </ul>
                     <p class="muted small glossary-entry__patterns-hint">
-                      Explore the full steps and diagnostics in the pattern
-                      library.
+                      See the full pattern library.
                     </p>
                   </div>
                 )}
