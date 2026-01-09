@@ -43,6 +43,8 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
   - `bun run lint` for Astro and TypeScript sources under `src/`.
   - `bun run typecheck` for strict TypeScript validation.
   - `bun test` for the unit and component test suite.
+  - `bun run test:unit:ci` to generate coverage with the lcov reporter.
+    - Coverage reports land in `coverage/lcov.info`.
 - End-to-end tests require browsers: install them once with `bunx playwright install --with-deps`
   before running `bun run test:e2e`.
 
