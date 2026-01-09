@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="MEC-04 — The Hard Clock"
+  description="Specification sheet for enforcing bounded duration in accountable systems."
+  mainClass="page page--wide"
+>
+  <article class="mechanism-sheet">
+    <header class="mechanism-sheet__header">
+      <div>
+        <p class="mechanism-sheet__id">MEC-04</p>
+        <h1>The Hard Clock</h1>
+        <p class="mechanism-sheet__type">Type: Governance Mechanism</p>
+      </div>
+      <div class="mechanism-sheet__meta">
+        <p class="muted">Specification Sheet</p>
+        <p class="mechanism-sheet__status">Status: Draft</p>
+      </div>
+    </header>
+
+    <section class="mechanism-sheet__section">
+      <h2>Definition</h2>
+      <p>
+        The Hard Clock is a bounded-duration control that enforces maximum time limits for every
+        system state, ensuring no process persists indefinitely without escalation or resolution.
+      </p>
+    </section>
+
+    <section class="mechanism-sheet__section">
+      <h2>The Violation</h2>
+      <p>
+        <strong>The Infinite Wait:</strong> Users are trapped in “pending,” “processing,” or
+        “reviewing” states with no deadline, escalation path, or exit option.
+      </p>
+    </section>
+
+    <section class="mechanism-sheet__section">
+      <h2>The Spec</h2>
+      <ul class="mechanism-sheet__list">
+        <li>Every system state must declare a maximum duration in minutes or hours.</li>
+        <li>When the maximum duration expires, the system must fail safe or escalate to a human.</li>
+        <li>Users must see the declared duration before committing to the process.</li>
+        <li>Timeouts must be logged and reviewed monthly by a named steward.</li>
+      </ul>
+    </section>
+
+    <section class="mechanism-sheet__section">
+      <h2>Assets</h2>
+      <div class="mechanism-sheet__assets">
+        <a
+          class="button"
+          href="/assets/mec-04-hard-clock-facilitation-script.pdf"
+          download
+        >
+          Facilitation Script (PDF)
+        </a>
+        <button class="button ghost" type="button" data-copy-policy>
+          Copy Policy Text for Terms of Service
+        </button>
+      </div>
+      <pre class="mechanism-sheet__policy" data-policy-text>
+All automated requests must declare a maximum processing duration and provide a human escalation
+path when the declared duration is exceeded. Requests exceeding the declared duration will fail safe
+and preserve user state for re-entry.
+      </pre>
+    </section>
+  </article>
+</BaseLayout>
+
+<script>
+  const policyButton = document.querySelector("[data-copy-policy]");
+  const policyText = document.querySelector("[data-policy-text]");
+
+  policyButton?.addEventListener("click", async () => {
+    if (!policyText) return;
+    const text = policyText.textContent?.trim() ?? "";
+
+    try {
+      await navigator.clipboard.writeText(text);
+      policyButton.textContent = "Policy copied";
+      window.setTimeout(() => {
+        policyButton.textContent = "Copy Policy Text for Terms of Service";
+      }, 1600);
+    } catch (error) {
+      console.error("Copy failed", error);
+      policyButton.textContent = "Copy failed";
+      window.setTimeout(() => {
+        policyButton.textContent = "Copy Policy Text for Terms of Service";
+      }, 1600);
+    }
+  });
+</script>

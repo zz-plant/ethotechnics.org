@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+---
+
+<BaseLayout
+  title="Core Axioms — Ethotechnics Institute"
+  description="The core axioms that ground Ethotechnics standards."
+>
+  <PageIntro
+    eyebrow="Doctrine"
+    title="Core Axioms"
+    description="Foundational claims that anchor every standard and mechanism authored by the Institute."
+    permalink="/standards/core-axioms"
+    anchorLinks={[{ href: "#axioms", label: "Axioms" }]}
+    panelCopy={{
+      eyebrow: "Status",
+      title: "Versioned doctrine",
+      description:
+        "Axioms are immutable, cross-referenced in standards, and maintained alongside the glossary.",
+    }}
+  />
+
+  <SectionBlock
+    id="axioms"
+    eyebrow="Axioms"
+    title="The axioms of accountable systems"
+    description="Use these as a doctrinal checklist when authoring or auditing standards."
+  >
+    <ol class="axiom-list">
+      <li>
+        <strong>Axiom 1 — Finitude:</strong> Human attention is finite and must be treated
+        as a protected resource.
+      </li>
+      <li>
+        <strong>Axiom 2 — Consent:</strong> Legitimate systems secure informed consent at
+        every critical handoff.
+      </li>
+      <li>
+        <strong>Axiom 3 — Stewardship:</strong> Operators accept full responsibility for
+        the outcomes and latency of their automation.
+      </li>
+      <li>
+        <strong>Axiom 4 — Reversibility:</strong> High-impact actions require safe rollback
+        paths and transparent appeal channels.
+      </li>
+      <li>
+        <strong>Axiom 5 — Legibility:</strong> Users must be able to see, understand, and
+        audit the burden imposed on them.
+      </li>
+    </ol>
+  </SectionBlock>
+</BaseLayout>

@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+---
+
+<BaseLayout
+  title="Standards — Ethotechnics Institute"
+  description="Canonical standards and doctrine stewarded by the Institute of Ethotechnics."
+>
+  <PageIntro
+    eyebrow="Standards"
+    title="Standards"
+    description="Immutable doctrine, ratified rights, and canonical definitions for accountable systems."
+    permalink="/standards"
+    anchorLinks={[
+      { href: "#active", label: "Active standards" },
+      { href: "#doctrine", label: "Doctrine" },
+    ]}
+    panelCopy={{
+      eyebrow: "Stewardship",
+      title: "Documented for citation",
+      description:
+        "Each standard ships with stable IDs, publication metadata, and direct references to mechanisms.",
+    }}
+  />
+
+  <SectionBlock
+    id="active"
+    eyebrow="Active standard"
+    title="Now active"
+    description="Drafts and ratified standards in the publication queue."
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        eyebrow="STD-01"
+        title="The Temporal Bill of Rights"
+        description="Defines the seven inalienable rights protecting human time against automated systems."
+      >
+        <a slot="footer" class="muted" href="/standards/std-01-temporal-rights">
+          Read STD-01
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="doctrine"
+    eyebrow="Doctrine"
+    title="Core doctrine"
+    description="Supporting doctrine and canonical references that accompany the standards."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        eyebrow="Doctrine"
+        title="Core axioms"
+        description="First principles for accountable system design and governance."
+      >
+        <a slot="footer" class="muted" href="/standards/core-axioms">
+          View axioms
+        </a>
+      </CardItem>
+      <CardItem
+        eyebrow="Reference"
+        title="Glossary"
+        description="Immutable terminology and canonical definitions."
+      >
+        <a slot="footer" class="muted" href="/glossary">
+          Browse glossary
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>

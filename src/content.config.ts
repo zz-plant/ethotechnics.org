@@ -265,7 +265,7 @@ const library = defineCollection({
     patterns: z.object({
       filters: z.array(
         z.object({
-          slug: z.enum(["governance", "design-ethics", "policy"]),
+          slug: z.enum(["governance", "friction", "policy"]),
           label: z.string(),
           description: z.string(),
         }),
@@ -275,7 +275,7 @@ const library = defineCollection({
           slug: z.string(),
           title: z.string(),
           summary: z.string(),
-          filters: z.array(z.enum(["governance", "design-ethics", "policy"])),
+          filters: z.array(z.enum(["governance", "friction", "policy"])),
           glossaryRefs: z.array(z.string()),
           cues: z.array(z.string()),
           diagnostics: z.array(z.string()),

@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+---
+
+<BaseLayout
+  title="Team — Ethotechnics Institute"
+  description="Stewards, editors, and reviewers behind the Ethotechnics standards."
+>
+  <PageIntro
+    eyebrow="Institute"
+    title="Team"
+    description="The standards program is stewarded by a cross-disciplinary team of researchers,
+    designers, and policy practitioners."
+    permalink="/institute/team"
+    anchorLinks={[{ href: "#stewards", label: "Stewards" }]}
+    panelCopy={{
+      eyebrow: "Governance",
+      title: "Accountable stewardship",
+      description:
+        "Every standard is authored, reviewed, and ratified by named stewards and peer reviewers.",
+    }}
+  />
+
+  <SectionBlock
+    id="stewards"
+    eyebrow="Stewards"
+    title="Standards stewardship"
+    description="Named stewards ensure every publication remains transparent and accountable."
+  >
+    <ul class="axiom-list">
+      <li><strong>Standards Editor-in-Chief:</strong> Coordinates ratification cycles.</li>
+      <li><strong>Mechanisms Lead:</strong> Maintains specification sheets and assets.</li>
+      <li><strong>Validators Lead:</strong> Audits validator scoring logic and thresholds.</li>
+      <li><strong>Doctrine Council:</strong> Oversees axioms, glossary, and compliance guidance.</li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>
