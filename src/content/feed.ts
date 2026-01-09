@@ -1,7 +1,8 @@
+import { getEntry } from 'astro:content';
+
 import { diagnosticsContent } from './diagnostics';
 import { fieldNotesContent } from './fieldNotes';
 import type { FieldNoteEntry } from './fieldNotes';
-import { homeContent } from './home';
 import { instituteContent } from './institute';
 import { libraryContent } from './library';
 import { researchContent } from './research';
@@ -30,13 +31,15 @@ const fieldNoteToFeedItem = (entry: FieldNoteEntry): ContentFeedItem => ({
   pubDate: latestPublicationDate(entry),
 });
 
-export const loadRecentContent = (): ContentFeedItem[] => {
+export const loadRecentContent = async (): Promise<ContentFeedItem[]> => {
+  const homeEntry = (await getEntry('home', 'home'))!;
+  const homeData = homeEntry.data;
   const primaryPages: ContentFeedItem[] = [
     {
-      title: homeContent.highlight.note.title,
-      description: homeContent.highlight.note.description,
+      title: homeData.highlight.note.title,
+      description: homeData.highlight.note.description,
       path: '/#insights',
-      pubDate: latestPublicationDate(homeContent.highlight.note),
+      pubDate: latestPublicationDate(homeData.highlight.note),
     },
     {
       title: libraryContent.pageTitle,

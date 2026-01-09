@@ -4,7 +4,8 @@ Detailed, testable expectations for each route. Use these specs when adding cont
 
 ## Home (`/`)
 
-- **Data sources:** Pull `homeContent` from `src/content/home.ts`; do not inline copy. Metrics must include `aria-label` text for sparklines via `trendLabel`.
+- **Data sources:** Pull home copy from the `home` content collection (`getEntry("home", "home")`);
+  do not inline copy. Metrics must include `aria-label` text for sparklines via `trendLabel`.
 - **Layout:**
   - Hero uses the two-column layout with the beam canvas, headline stack, action buttons, and a figure with AVIF image defaults and figcaption when provided.
   - Retain the "How this works" info strip with two badges (Institute charter, CC BY 4.0 license) and maintain `aria-label` values on the badge list.
@@ -170,7 +171,9 @@ Detailed, testable expectations for each route. Use these specs when adding cont
 
 ## RSS feed (`/rss.xml`)
 
-- **Data sources:** Combines the site title and description from `homeContent` with recent entries returned by `loadRecentContent()`; items missing required fields or invalid dates are skipped.
+- **Data sources:** Combines the site title and description from the `home` content collection with
+  recent entries returned by `loadRecentContent()`; items missing required fields or invalid dates
+  are skipped.
 - **Layout:**
   - Emits standard RSS 2.0 XML with channel metadata (`<title>`, `<link>`, `<description>`, `<language>`).
   - Each `<item>` includes a title, link/guid pair pointing to the content path, a CDATA-wrapped description, and a UTC pubDate.

@@ -1,7 +1,17 @@
 import type { APIContext } from 'astro';
 import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
 
-import { GET } from '../pages/rss.xml';
+const mockGetEntry = mock(() => ({
+  data: {
+    pageTitle: 'Ethotechnics — Build technology people can trust',
+    pageDescription:
+      'Ethotechnics pairs open guidance with facilitated diagnostics so teams can deliver accountable, human-centered technology.',
+  },
+}));
+
+mock.module('astro:content', () => ({
+  getEntry: mockGetEntry,
+}));
 
 // Mock the feed module
 const mockLoadRecentContent = mock(() => [] as any[]);
@@ -31,13 +41,16 @@ const baseFeedItems = [
   },
 ];
 
-beforeEach(() => {
+let getHandler: typeof import('../pages/rss.xml').GET;
+
+beforeEach(async () => {
   mockLoadRecentContent.mockReturnValue(baseFeedItems);
+  ({ GET: getHandler } = await import('../pages/rss.xml'));
 });
 
 describe('rss feed item links', () => {
   it('uses fallback host when site is missing', async () => {
-    const response = GET({
+    const response = await getHandler({
       request: new Request('https://example.test/rss.xml'),
       site: undefined,
     } as APIContext);
@@ -52,7 +65,7 @@ describe('rss feed item links', () => {
   });
 
   it('uses provided site when present', async () => {
-    const response = GET({
+    const response = await getHandler({
       request: new Request('https://example.test/rss.xml'),
       site: new URL('https://example.org'),
     } as APIContext);
@@ -74,7 +87,7 @@ describe('rss feed item links', () => {
       { title: 'Untitled', description: '', path: '/missing', pubDate: 'invalid-date' },
     ]);
 
-    const response = GET({
+    const response = await getHandler({
       request: new Request('https://example.test/rss.xml'),
       site: undefined,
     } as APIContext);
