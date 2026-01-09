@@ -29,24 +29,24 @@ const knowledgeChecks = [
     question: 'What keeps syllabus links trustworthy when you share them in specs or briefings?',
     options: [
       'Copying screenshots of the glossary so teams do not need the site.',
-      'Linking the stable permalinks for primers, glossary anchors, and pattern filters.',
+      'Linking the stable permalinks for primers, glossary anchors, and mechanism filters.',
       'Asking every team to draft their own definitions in a separate doc.',
     ],
     correct: 1,
     explanation:
-      'Use the existing permalinks for the primer, glossary anchors, and pattern filters so teams land on the same references.',
+      'Use the existing permalinks for the primer, glossary anchors, and mechanism filters so teams land on the same references.',
   },
   {
     moduleId: 'field-ready-research',
-    question: 'How should research outputs connect back to the library during this module?',
+    question: 'How should research outputs connect back to the mechanisms during this module?',
     options: [
       'Skip links entirely and rely on word-of-mouth summaries.',
-      'Tag findings with glossary anchors and pattern cues so teams can reuse them.',
+      'Tag findings with glossary anchors and mechanism cues so teams can reuse them.',
       'Wait until the end of the project to decide which terms to use.',
     ],
     correct: 1,
     explanation:
-      'Tagging field findings with glossary anchors and pattern cues keeps the handoff fast and traceable.',
+      'Tagging field findings with glossary anchors and mechanism cues keeps the handoff fast and traceable.',
   },
   {
     moduleId: 'governance-and-maintenance',
@@ -65,7 +65,7 @@ const knowledgeChecks = [
 const moduleResources = {
   orientation: {
     diagnostics: ['burden-modeler'],
-    libraryLink: { href: `${libraryContent.permalink}#primer`, label: 'Library primer' },
+    libraryLink: { href: `${libraryContent.permalink}#primer`, label: 'Mechanisms primer' },
   },
   'field-ready-research': {
     diagnostics: ['llm-capacity-benchmark'],
@@ -73,7 +73,7 @@ const moduleResources = {
   },
   'governance-and-maintenance': {
     diagnostics: ['maintenance-simulator'],
-    libraryLink: { href: `${libraryContent.permalink}#patterns`, label: 'Pattern language' },
+    libraryLink: { href: `${libraryContent.permalink}#mechanisms`, label: 'Mechanism language' },
   },
 };
 
@@ -86,7 +86,7 @@ const { cspNonce } = Astro.locals;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
-    eyebrow="Library syllabus"
+    eyebrow="Mechanisms syllabus"
     title="Syllabus hub"
     description={pageDescription}
     permalink="/syllabus"
@@ -273,7 +273,7 @@ const { cspNonce } = Astro.locals;
     id="certificate"
     eyebrow="Completion certificate"
     title="Generate a sharable summary."
-    description="Download a PDF or copy a link that lists the modules you finished with their diagnostic and library anchors."
+    description="Download a PDF or copy a link that lists the modules you finished with their diagnostic and mechanism anchors."
     variant="alt"
   >
     <div class="certificate" data-certificate>
@@ -300,7 +300,7 @@ const { cspNonce } = Astro.locals;
 
       <div class="certificate__body">
         <p class="small muted" data-certificate-empty>
-          Complete at least one module to populate your certificate. Required links back to diagnostics and library anchors will
+          Complete at least one module to populate your certificate. Required links back to diagnostics and mechanism anchors will
           appear here.
         </p>
         <ul class="certificate__list" data-certificate-list></ul>

@@ -176,11 +176,11 @@ export const researchContent: ResearchContent = {
     },
     {
       slug: "pattern-language-review",
-      title: "Ethotechnics pattern language review",
+      title: "Ethotechnics mechanism language review",
       type: "Systematic review",
       summary:
-        "Structured review mapping pattern adoption across policy, design, and governance programs.",
-      tags: ["systematic review", "patterns", "policy"],
+        "Structured review mapping mechanism adoption across policy, design, and governance programs.",
+      tags: ["systematic review", "mechanisms", "policy"],
       href: "/research/bridge-artifacts#pattern-language-review",
     },
   ],

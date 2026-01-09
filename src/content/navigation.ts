@@ -55,25 +55,25 @@ export const navSections: NavSection[] = [
       "Specification sheets that operationalize standards into governance, friction, and policy controls.",
     links: [
       {
-        href: "/library",
+        href: "/mechanisms",
         label: "Mechanisms",
         description: "Reference mechanisms and specification sheets.",
         primary: true,
       },
       {
-        href: "/library#governance",
+        href: "/mechanisms#governance",
         label: "Governance",
         description:
           "Decision rights, escalation paths, and accountability ledgers.",
       },
       {
-        href: "/library#friction",
+        href: "/mechanisms#friction",
         label: "Friction",
         description:
           "Consent prompts, exit ramps, and humane default safeguards.",
       },
       {
-        href: "/library#policy",
+        href: "/mechanisms#policy",
         label: "Policy",
         description: "Contracts, charters, and enforceable commitments.",
       },
@@ -114,7 +114,7 @@ export const navSections: NavSection[] = [
     links: [
       {
         href: "/institute",
-        label: "Mission",
+        label: "Institute",
         description:
           "Why the Institute exists and how standards are stewarded.",
         primary: true,

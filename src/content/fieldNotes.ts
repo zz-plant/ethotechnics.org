@@ -70,7 +70,7 @@ export const fieldNotesContent: FieldNotesContent = {
         "Design sprint notes on re-requesting consent with clear exits and translated summaries.",
       format: "dispatch",
       relatedTerms: ["consent-journey", "safety-valve"],
-      links: ["/library#progressive-consent"],
+      links: ["/mechanisms#progressive-consent"],
       published: "2024-10-08T00:00:00Z",
     },
     {

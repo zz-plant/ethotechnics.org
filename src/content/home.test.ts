@@ -17,7 +17,7 @@ describe("home content", () => {
     const homeEntry = await loadHomeEntry();
 
     expect(homeEntry?.hero?.heading).toBe(
-      "Make accountability the fastest path to launch.",
+      "The Reference Standard for Accountable Systems.",
     );
   });
 });

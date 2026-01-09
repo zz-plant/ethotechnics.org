@@ -318,8 +318,8 @@ export const glossaryContent: GlossaryContent = {
           tags: ["community", "platforms", "mutual-aid"],
           resources: [
             {
-              label: "Patterns library",
-              href: "/patterns/",
+              label: "Mechanisms catalog",
+              href: "/mechanisms",
               type: "Reference",
             },
           ],
@@ -418,7 +418,7 @@ export const glossaryContent: GlossaryContent = {
               type: "Guide",
             },
             {
-              label: "Resource library",
+              label: "Reference archive",
               href: "/resources/",
               type: "Essay",
             },
@@ -783,7 +783,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>Uncompensated seizure of life-hours (time, attention, opportunity cost) as the price of accessing a right or correction.</p><p>Temporal exaction is a form of <a href=\"#extraction\">extraction</a> that inflates the <a href=\"#user-burden-ratio\">user burden ratio</a>.</p>",
+            '<p>Uncompensated seizure of life-hours (time, attention, opportunity cost) as the price of accessing a right or correction.</p><p>Temporal exaction is a form of <a href="#extraction">extraction</a> that inflates the <a href="#user-burden-ratio">user burden ratio</a>.</p>',
         },
         {
           id: "asymmetric-sustaining",
@@ -969,7 +969,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>Control exercised by keeping matters unresolved long enough that time itself produces the outcome.</p><p>Governance by suspension relies on <a href=\"#non-decision\">non-decisions</a> and exploits <a href=\"#endurance-asymmetry\">endurance asymmetry</a>.</p>",
+            '<p>Control exercised by keeping matters unresolved long enough that time itself produces the outcome.</p><p>Governance by suspension relies on <a href="#non-decision">non-decisions</a> and exploits <a href="#endurance-asymmetry">endurance asymmetry</a>.</p>',
         },
         {
           id: "endurance-asymmetry",
@@ -977,7 +977,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>Institutions can persist indefinitely; humans cannot. This makes delay an allocation mechanism.</p><p>Endurance asymmetry underwrites <a href=\"#continuity-privilege\">continuity privilege</a> and <a href=\"#punitive-friction\">punitive friction</a>.</p>",
+            '<p>Institutions can persist indefinitely; humans cannot. This makes delay an allocation mechanism.</p><p>Endurance asymmetry underwrites <a href="#continuity-privilege">continuity privilege</a> and <a href="#punitive-friction">punitive friction</a>.</p>',
         },
         {
           id: "continuity-privilege",
@@ -985,7 +985,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>Unequal access to enforceability produced by unequal capacity to maintain standing over time (attention, health, documentation, slack).</p><p>Continuity privilege steepens the <a href=\"#burden-gradient\">burden gradient</a> for those without reserves.</p>",
+            '<p>Unequal access to enforceability produced by unequal capacity to maintain standing over time (attention, health, documentation, slack).</p><p>Continuity privilege steepens the <a href="#burden-gradient">burden gradient</a> for those without reserves.</p>',
         },
         {
           id: "proxy-privilege",
@@ -993,7 +993,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>Unequal enforceability produced by unequal ability to delegate persistence (agents, intermediaries, automation).</p><p>Proxy privilege lets some parties bypass the <a href=\"#futility-threshold\">futility threshold</a> that others face alone.</p>",
+            '<p>Unequal enforceability produced by unequal ability to delegate persistence (agents, intermediaries, automation).</p><p>Proxy privilege lets some parties bypass the <a href="#futility-threshold">futility threshold</a> that others face alone.</p>',
         },
         {
           id: "latency-as-action",
@@ -1001,7 +1001,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>The principle that delay produced predictably by system rules (queues, resets, blocked escalation, absent deadlines) is attributable power, not mere inaction.</p><p>Latency-as-action frames delay as governance and grounds <a href=\"#decision-artifact\">decision artifacts</a>.</p>",
+            '<p>The principle that delay produced predictably by system rules (queues, resets, blocked escalation, absent deadlines) is attributable power, not mere inaction.</p><p>Latency-as-action frames delay as governance and grounds <a href="#decision-artifact">decision artifacts</a>.</p>',
         },
         {
           id: "bounded-duration",
@@ -1009,7 +1009,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>A fixed maximum time-to-resolution; breach triggers an enforceable disposition.</p><p>Bounded duration pairs with a <a href=\"#stable-clock\">stable clock</a> and <a href=\"#time-transparency\">time transparency</a>.</p>",
+            '<p>A fixed maximum time-to-resolution; breach triggers an enforceable disposition.</p><p>Bounded duration pairs with a <a href="#stable-clock">stable clock</a> and <a href="#time-transparency">time transparency</a>.</p>',
         },
         {
           id: "continuity-of-state",
@@ -1017,7 +1017,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>A persistent cumulative record; no forced repetition of validated inputs.</p><p>Continuity of state reduces <a href=\"#temporal-exaction\">temporal exaction</a> and protects <a href=\"#contestability\">contestability</a>.</p>",
+            '<p>A persistent cumulative record; no forced repetition of validated inputs.</p><p>Continuity of state reduces <a href="#temporal-exaction">temporal exaction</a> and protects <a href="#contestability">contestability</a>.</p>',
         },
         {
           id: "safe-pause",
@@ -1025,7 +1025,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>No adverse consequences while review is pending (except narrow, reviewable emergency exception).</p><p>Safe pause preserves the <a href=\"#utility-window\">utility window</a> and keeps people whole during appeal.</p>",
+            '<p>No adverse consequences while review is pending (except narrow, reviewable emergency exception).</p><p>Safe pause preserves the <a href="#utility-window">utility window</a> and keeps people whole during appeal.</p>',
         },
         {
           id: "traceable-ownership",
@@ -1033,7 +1033,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>A named responsible party with authority to override automation when bounds are breached.</p><p>Traceable ownership clarifies <a href=\"#design-authority\">design authority</a> and accelerates <a href=\"#time-to-restore\">time-to-restore</a>.</p>",
+            '<p>A named responsible party with authority to override automation when bounds are breached.</p><p>Traceable ownership clarifies <a href="#design-authority">design authority</a> and accelerates <a href="#time-to-restore">time-to-restore</a>.</p>',
         },
         {
           id: "time-transparency",
@@ -1041,7 +1041,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>Legible process state: current step, blocking condition, time remaining, next decision point, escalation triggers; no fake progress.</p><p>Time transparency supports <a href=\"#contestability\">contestability</a> and a <a href=\"#stable-clock\">stable clock</a>.</p>",
+            '<p>Legible process state: current step, blocking condition, time remaining, next decision point, escalation triggers; no fake progress.</p><p>Time transparency supports <a href="#contestability">contestability</a> and a <a href="#stable-clock">stable clock</a>.</p>',
         },
       ],
     },
@@ -1140,7 +1140,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>A discrete, attributable, contestable output: outcome + reason + timestamp + accountable owner.</p><p>Decision artifacts anchor <a href=\"#traceable-ownership\">traceable ownership</a> and make <a href=\"#contestability\">contestability</a> measurable.</p>",
+            '<p>A discrete, attributable, contestable output: outcome + reason + timestamp + accountable owner.</p><p>Decision artifacts anchor <a href="#traceable-ownership">traceable ownership</a> and make <a href="#contestability">contestability</a> measurable.</p>',
         },
         {
           id: "non-decision",
@@ -1148,7 +1148,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>A stable administrative disposition where a system withholds a contestable outcome (\u201cpending,\u201d \u201cin review\u201d) while consequences accrue.</p><p>Non-decisions stretch <a href=\"#moral-latency\">moral latency</a> and erode <a href=\"#contestability\">contestability</a> by keeping people in limbo.</p>",
+            '<p>A stable administrative disposition where a system withholds a contestable outcome (\u201cpending,\u201d \u201cin review\u201d) while consequences accrue.</p><p>Non-decisions stretch <a href="#moral-latency">moral latency</a> and erode <a href="#contestability">contestability</a> by keeping people in limbo.</p>',
         },
         {
           id: "stable-clock",
@@ -1156,7 +1156,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>A non-resettable timeline for a case; the system cannot restart time via re-ticketing, re-verification, or channel switching.</p><p>Stable clocks enforce <a href=\"#bounded-duration\">bounded duration</a> and keep timelines legible.</p>",
+            '<p>A non-resettable timeline for a case; the system cannot restart time via re-ticketing, re-verification, or channel switching.</p><p>Stable clocks enforce <a href="#bounded-duration">bounded duration</a> and keep timelines legible.</p>',
         },
         {
           id: "utility-window",
@@ -1164,7 +1164,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>The time span during which relief can still prevent the relevant harm.</p><p>Designing for a clear utility window keeps <a href=\"#time-to-restore\">time-to-restore</a> accountable.</p>",
+            '<p>The time span during which relief can still prevent the relevant harm.</p><p>Designing for a clear utility window keeps <a href="#time-to-restore">time-to-restore</a> accountable.</p>',
         },
         {
           id: "utility-expiry",
@@ -1172,7 +1172,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>Crossing the utility window; relief arrives too late to matter.</p><p>Utility expiry converts support into paperwork and should trigger <a href=\"#constructive-denial\">constructive denial</a> or repair.</p>",
+            '<p>Crossing the utility window; relief arrives too late to matter.</p><p>Utility expiry converts support into paperwork and should trigger <a href="#constructive-denial">constructive denial</a> or repair.</p>',
         },
         {
           id: "futility-threshold",
@@ -1180,7 +1180,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>The point where time-on-task or repetition becomes so costly that valid claimants predictably abandon pursuit.</p><p>Systems that hit the futility threshold signal <a href=\"#punitive-friction\">punitive friction</a> and low <a href=\"#contestability\">contestability</a>.</p>",
+            '<p>The point where time-on-task or repetition becomes so costly that valid claimants predictably abandon pursuit.</p><p>Systems that hit the futility threshold signal <a href="#punitive-friction">punitive friction</a> and low <a href="#contestability">contestability</a>.</p>',
         },
         {
           id: "constructive-denial",
@@ -1188,7 +1188,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            "<p>A legal state where delay is treated as refusal because it destroys utility or makes pursuit futile.</p><p>Constructive denial recognizes <a href=\"#utility-expiry\">utility expiry</a> and forces accountable remedies.</p>",
+            '<p>A legal state where delay is treated as refusal because it destroys utility or makes pursuit futile.</p><p>Constructive denial recognizes <a href="#utility-expiry">utility expiry</a> and forces accountable remedies.</p>',
         },
         {
           id: "critical-action",

@@ -161,7 +161,7 @@ const stripHtml = (value: string) =>
       eyebrow: "Using the glossary",
       title: "Stable anchors for Ethotechnic language.",
       description:
-        "Each term is a pattern card with related Library patterns and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.",
+        "Each term is a mechanism card with related mechanism specs and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.",
     }}
   />
   <ScholarlyMeta publication={publication} permalink={permalink} />
@@ -417,7 +417,7 @@ const stripHtml = (value: string) =>
 
                 return {
                   title: pattern.title,
-                  href: `/library/patterns/${pattern.slug}`,
+                  href: `/mechanisms/patterns/${pattern.slug}`,
                   filterLabels: pattern.filters.map(
                     (filter) => patternFilterLabels[filter] ?? filter
                   ),
@@ -544,7 +544,7 @@ const stripHtml = (value: string) =>
                 </div>
                 {relatedPatterns.length > 0 && (
                   <div class="glossary-entry__block glossary-entry__block--patterns">
-                    <p class="eyebrow">Related patterns</p>
+                    <p class="eyebrow">Related mechanisms</p>
                     <ul class="glossary-entry__patterns-list">
                       {relatedPatterns.map((relatedPattern) => (
                         <li class="glossary-entry__pattern-card">
@@ -563,7 +563,7 @@ const stripHtml = (value: string) =>
                       ))}
                     </ul>
                     <p class="muted small glossary-entry__patterns-hint">
-                      See the full pattern library.
+                      See the full mechanisms catalog.
                     </p>
                   </div>
                 )}

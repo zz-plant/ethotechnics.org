@@ -128,7 +128,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     {
       title: "Link to shared language",
       description:
-        "Recommendations connect to the pattern language so product, policy, and ops teams can move together.",
+        "Recommendations connect to the mechanism language so product, policy, and ops teams can move together.",
     },
   ],
   facilitation: {
@@ -149,7 +149,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       {
         title: "Leave with a next step",
         detail:
-          "You get a linkable readout, pattern references, and the off-ramp to ethotechnics.com/studio if you need facilitation.",
+          "You get a linkable readout, mechanism references, and the off-ramp to ethotechnics.com/studio if you need facilitation.",
       },
     ],
     note: "Diagnostics are written for visitors: no prior relationship needed, and every tool is CC BY through the Institute.",
@@ -293,7 +293,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         procedure: [
           "Run prompts through the interface and capture disclosures.",
           "Score consent journey checkpoints against rubric.",
-          "Document gaps and map recommendations to pattern language.",
+          "Document gaps and map recommendations to mechanism language.",
         ],
         outputs: [
           "Readiness summary highlighting consent gaps.",
@@ -315,7 +315,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         scoringLogic: [
           "Aggregate checkpoint scores into readiness tiers.",
           "Flag any score ≤2 as a mandatory mitigation.",
-          "Summarize recommendations by pattern category.",
+          "Summarize recommendations by mechanism category.",
         ],
       },
       validation: {
@@ -334,7 +334,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Compile prompt set and UI flow map.",
           "Run the rubric with two reviewers.",
           "Document scores and differences in a shared sheet.",
-          "Publish the summary with linked pattern recommendations.",
+          "Publish the summary with linked mechanism recommendations.",
         ],
         exampleOutputs: [
           "Consent checkpoint scorecard with mitigation notes.",
@@ -349,7 +349,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       outputs: [
         "Readiness summary that highlights consent journey gaps.",
-        "UI nits and mitigation guidance tied to pattern language filters.",
+        "UI nits and mitigation guidance tied to mechanism language filters.",
         "Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.",
       ],
       estimatedTime: "30–45 minutes",

@@ -30,9 +30,13 @@ export const instituteStudioComparisonContent: InstituteStudioComparisonContent 
         eyebrow: "Institute",
         title: "Open guidance and self-serve diagnostics.",
         description:
-          "Use the open-source library to align teams and run diagnostics when you want a quick readiness pulse.",
+          "Use the open-source mechanisms catalog to align teams and run diagnostics when you want a quick readiness pulse.",
         actions: [
-          { label: "Browse the library", href: "/library", variant: "primary" },
+          {
+            label: "Browse mechanisms",
+            href: "/mechanisms",
+            variant: "primary",
+          },
           { label: "Run a diagnostic", href: "/diagnostics", variant: "ghost" },
         ],
       },
