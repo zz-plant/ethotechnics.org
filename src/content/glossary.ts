@@ -67,8 +67,8 @@ export const glossaryContent: GlossaryContent = {
       },
     ],
     contact: "research@ethotechnics.org",
-    published: "2024-09-01T00:00:00Z",
-    updated: "2024-11-15T00:00:00Z",
+    published: "2025-12-03T00:00:00Z",
+    updated: "2026-01-09T00:00:00Z",
     version: "v1.1.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
@@ -76,13 +76,13 @@ export const glossaryContent: GlossaryContent = {
     changelog: [
       {
         version: "v1.1.0",
-        date: "2024-11-15",
+        date: "2026-01-09",
         summary:
           "Expanded scholarly metadata, operational tests, and provenance notes.",
       },
       {
         version: "v1.0.0",
-        date: "2024-09-01",
+        date: "2025-12-03",
         summary: "Initial glossary release with stable permalinks.",
       },
     ],

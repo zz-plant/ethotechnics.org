@@ -75,8 +75,8 @@ export const diagnosticsContent: DiagnosticsContent = {
   pageDescription:
     "Pick a diagnostic, arrive with a question, and leave with a decision-ready summary and a clear off-ramp.",
   permalink: "/diagnostics",
-  published: "2024-09-01T00:00:00Z",
-  updated: "2024-11-15T00:00:00Z",
+  published: "2025-12-03T00:00:00Z",
+  updated: "2026-01-09T00:00:00Z",
   publication: {
     authors: [
       {
@@ -86,8 +86,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
     ],
     contact: "diagnostics@ethotechnics.org",
-    published: "2024-09-01T00:00:00Z",
-    updated: "2024-11-15T00:00:00Z",
+    published: "2025-12-03T00:00:00Z",
+    updated: "2026-01-09T00:00:00Z",
     version: "v1.1.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
@@ -95,13 +95,13 @@ export const diagnosticsContent: DiagnosticsContent = {
     changelog: [
       {
         version: "v1.1.0",
-        date: "2024-11-15",
+        date: "2026-01-09",
         summary:
           "Published method cards, transparency notes, and replicability guidance for each diagnostic.",
       },
       {
         version: "v1.0.0",
-        date: "2024-09-01",
+        date: "2025-12-03",
         summary: "Initial diagnostics suite release.",
       },
     ],
