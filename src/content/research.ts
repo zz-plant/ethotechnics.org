@@ -69,8 +69,8 @@ export const researchContent: ResearchContent = {
   pageDescription:
     "Inquiries, methods, and study findings that surface the human impacts of technology.",
   permalink: "/research",
-  published: "2024-09-01T00:00:00Z",
-  updated: "2024-11-15T00:00:00Z",
+  published: "2025-12-03T00:00:00Z",
+  updated: "2026-01-09T00:00:00Z",
   publication: {
     authors: [
       {
@@ -80,8 +80,8 @@ export const researchContent: ResearchContent = {
       },
     ],
     contact: "research@ethotechnics.org",
-    published: "2024-09-01T00:00:00Z",
-    updated: "2024-11-15T00:00:00Z",
+    published: "2025-12-03T00:00:00Z",
+    updated: "2026-01-09T00:00:00Z",
     version: "v1.1.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
@@ -89,13 +89,13 @@ export const researchContent: ResearchContent = {
     changelog: [
       {
         version: "v1.1.0",
-        date: "2024-11-15",
+        date: "2026-01-09",
         summary:
           "Added structured abstracts, data transparency notes, and bridge artifact citations.",
       },
       {
         version: "v1.0.0",
-        date: "2024-09-01",
+        date: "2025-12-03",
         summary: "Initial research agenda and publication list.",
       },
     ],
@@ -106,7 +106,7 @@ export const researchContent: ResearchContent = {
     attribution:
       "Credit Ethotechnics Institute Research Team, include the page title + version, and link to the canonical permalink.",
   },
-  lastUpdated: "2024-10-15T00:00:00Z",
+  lastUpdated: "2026-01-09T00:00:00Z",
   updateCadence:
     "Updates publish on a quarterly cadence with interim Field Notes.",
   anchorLinks: [
