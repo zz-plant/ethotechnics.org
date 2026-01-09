@@ -194,6 +194,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
     variant="alt"
   >
     <div class="pattern-filter__anchors" aria-hidden="true">
+      <span class="pattern-filter__anchor" id="patterns" />
       {
         patterns.filters.map((filter) => (
           <span class="pattern-filter__anchor" id={filter.slug} />
