@@ -1,5 +1,9 @@
 import type { GlossaryTerm } from "./glossary";
-import type { PageWithPermalink, PublishedContent } from "./types";
+import type {
+  PageWithPermalink,
+  PublicationMetadata,
+  PublishedContent,
+} from "./types";
 
 import { glossaryContent, glossaryTerms } from "./glossary";
 
@@ -37,6 +41,7 @@ export type SyllabusModule = {
 
 export type LibraryContent = PageWithPermalink &
   PublishedContent & {
+    publication: PublicationMetadata;
     primer: PrimerSection[];
     glossary: { terms: GlossaryTerm[]; permalink: string };
     patterns: { filters: PatternFilter[]; entries: Pattern[] };
@@ -55,6 +60,41 @@ export const libraryContent: LibraryContent = {
     "Open-source library and engine room for accountable AI theory, with citation-ready primers, glossary entries, and reusable patterns.",
   permalink: "/library",
   published: "2024-09-01T00:00:00Z",
+  updated: "2024-11-15T00:00:00Z",
+  publication: {
+    authors: [
+      {
+        name: "Ethotechnics Institute Research Team",
+        affiliation: "Ethotechnics Institute",
+        email: "research@ethotechnics.org",
+      },
+    ],
+    contact: "research@ethotechnics.org",
+    published: "2024-09-01T00:00:00Z",
+    updated: "2024-11-15T00:00:00Z",
+    version: "v1.1.0",
+    doi: "Pending Zenodo deposit",
+    archiveUrl: "https://web.archive.org/save/https://ethotechnics.org/library",
+    changelog: [
+      {
+        version: "v1.1.0",
+        date: "2024-11-15",
+        summary:
+          "Added citation metadata, library-level authorship details, and structured usage guidance.",
+      },
+      {
+        version: "v1.0.0",
+        date: "2024-09-01",
+        summary: "Initial public library release.",
+      },
+    ],
+    license: {
+      label: "CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
+    },
+    attribution:
+      "Credit Ethotechnics Institute, include the page title + version, and link to the canonical permalink.",
+  },
   quickStart: [
     "Skim the primer for a 5-minute orientation and shared vocabulary.",
     "Jump to the glossary for stable definitions you can cite immediately.",

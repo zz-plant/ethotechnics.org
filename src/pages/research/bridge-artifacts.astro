@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { researchContent } from "../../content/research";
+
+const { bridgeArtifacts, publication } = researchContent;
+const pageTitle = "Bridge artifacts — Research";
+const pageDescription =
+  "Citable syntheses, instruments, and case series that translate Ethotechnics practice into scholarly artifacts.";
+const permalink = "/research/bridge-artifacts";
+const anchorLinks = bridgeArtifacts.map((artifact) => ({
+  href: `#${artifact.slug}`,
+  label: artifact.title,
+}));
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Research"
+    title="Bridge artifacts"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Citable outputs",
+      title: "Frameworks, instruments, and case series.",
+      description:
+        "Each artifact includes a stable anchor, citation formats, and version metadata so scholars can reference durable objects.",
+    }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+  />
+
+  {bridgeArtifacts.map((artifact, index) => (
+    <SectionBlock
+      id={artifact.slug}
+      eyebrow={`Artifact ${index + 1}`}
+      title={artifact.title}
+      description={artifact.summary}
+      variant={index % 2 === 0 ? "default" : "alt"}
+    >
+      <p class="muted">Type: {artifact.type}</p>
+      <div class="pill-row">
+        {artifact.tags.map((tag) => (
+          <span class="pill pill--muted">{tag}</span>
+        ))}
+      </div>
+      <p class="muted">
+        See the full artifact details at <a href={artifact.href}>{artifact.href}</a>.
+      </p>
+      <CitationBlock
+        title={artifact.title}
+        permalink={`${permalink}#${artifact.slug}`}
+        publication={publication}
+        citationKey={`artifact_${artifact.slug}`}
+        summaryLabel="Cite this artifact"
+      />
+    </SectionBlock>
+  ))}
+</BaseLayout>

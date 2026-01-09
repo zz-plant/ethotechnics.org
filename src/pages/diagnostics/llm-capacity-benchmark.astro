@@ -6,10 +6,9 @@ import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
-import BurdenModelerWidget from "../../features/burden-modeler/BurdenModeler";
 
 const tool = diagnosticsContent.tools.find(
-  (entry) => entry.slug === "burden-modeler"
+  (entry) => entry.slug === "llm-capacity-benchmark"
 );
 
 if (!tool) {
@@ -28,15 +27,11 @@ const anchorLinks = [
   { href: "#overview", label: "Overview" },
   { href: "#methodology", label: "Methodology" },
   { href: "#sample-output", label: "Sample output" },
-  { href: "#run-tool", label: "Run the tool" },
+  { href: "#request", label: "Request via Studio" },
 ];
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  mainClass="page page--wide"
->
+<BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Diagnostics"
     title={tool.title}
@@ -45,7 +40,7 @@ const anchorLinks = [
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "What you receive",
-      title: "Decision-ready burden readout.",
+      title: "Consent and context readiness summary.",
       description: tool.outputs.join(" "),
     }}
   />
@@ -60,7 +55,7 @@ const anchorLinks = [
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="When to use the Burden Modeler."
+    title="When to use the LLM Capacity Benchmark."
     description={tool.bestFor}
   >
     <ul class="muted">
@@ -76,7 +71,7 @@ const anchorLinks = [
     id="methodology"
     eyebrow="Methodology"
     title="Method, transparency, and replicability."
-    description="Inputs, scoring logic, validation notes, and failure modes used in the model."
+    description="Inputs, scoring logic, validation notes, and failure modes used in the benchmark."
     variant="alt"
   >
     <DiagnosticMethodology
@@ -91,8 +86,8 @@ const anchorLinks = [
   <SectionBlock
     id="sample-output"
     eyebrow="Sample output"
-    title="Preview the burden readout."
-    description="See the summary format, hotspot ranking, and mitigation callouts."
+    title="Preview a benchmark summary."
+    description="Review the readiness scorecard and mitigation notes."
   >
     <a class="button ghost" href={tool.exampleHref}>
       {tool.exampleLabel}
@@ -100,12 +95,14 @@ const anchorLinks = [
   </SectionBlock>
 
   <SectionBlock
-    id="run-tool"
-    eyebrow="Run the tool"
-    title="Start a new burden scenario."
-    description="Run the model and export your scenario readout."
+    id="request"
+    eyebrow="Request via Studio"
+    title="Schedule a facilitated benchmark."
+    description="We run the benchmark with you and deliver the linked readout."
     variant="alt"
   >
-    <BurdenModelerWidget client:only="react" />
+    <a class="button primary" href={tool.ctaHref} aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}>
+      {tool.ctaLabel}
+    </a>
   </SectionBlock>
 </BaseLayout>

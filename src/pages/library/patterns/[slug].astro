@@ -3,7 +3,9 @@ import { getEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import CardGrid from "../../../components/CardGrid.astro";
 import CardItem from "../../../components/CardItem.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import type { DiagnosticTool } from "../../../content/diagnostics";
 import { diagnosticsContent } from "../../../content/diagnostics";
@@ -15,6 +17,7 @@ const pattern = libraryEntry.data.patterns.entries.find(
   (entry) => entry.slug === slug
 );
 const libraryContent = libraryEntry.data;
+const publication = libraryContent.publication;
 
 if (!pattern) {
   return Astro.response(
@@ -66,6 +69,13 @@ const anchorLinks = [
       title: "Filters and handoffs",
       description: panelDescription,
     }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pattern.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`pattern_${pattern.slug}`}
   />
 
   {

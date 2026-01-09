@@ -4,7 +4,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import PatternFilter from "../../components/PatternFilter.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 
@@ -18,6 +20,7 @@ const {
   syllabus,
   quickStart,
   recommended,
+  publication,
 } = libraryEntry.data;
 const diagnosticTitles = Object.fromEntries(
   diagnosticsContent.tools.map((tool) => [tool.slug, tool.title])
@@ -47,6 +50,12 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
       description:
         "Stable permalinks and filters keep research, design, and diagnostics aligned.",
     }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
   />
   <div class="callout">
     <h3>Quick start</h3>

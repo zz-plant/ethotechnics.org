@@ -1,60 +1,111 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import CapacityForecasterWidget from '../../features/capacity-forecaster/CapacityForecaster';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
+import CapacityForecasterWidget from "../../features/capacity-forecaster/CapacityForecaster";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "capacity-forecaster"
+);
+
+if (!tool) {
+  return Astro.response(
+    new Response("Diagnostic not found", {
+      status: 404,
+    })
+  );
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#methodology", label: "Methodology" },
+  { href: "#sample-output", label: "Sample output" },
+  { href: "#run-tool", label: "Run the tool" },
+];
 ---
+
 <BaseLayout
-  title="Technical Capacity Forecaster — Ethotechnics"
-  description="Model compound decay against remediation tactics to see when teams saturate."
+  title={pageTitle}
+  description={pageDescription}
   mainClass="page page--wide"
 >
-  <section class="section">
-    <div class="section__header">
-      <p class="eyebrow">Diagnostics</p>
-      <h1>Technical Capacity Forecaster</h1>
-      <p class="muted">
-        Lightweight simulation for teams balancing stability, operational friction, and refusal windows. Use this tool when you
-        need to stress-test delivery plans and export a PDF snapshot for stakeholders.
-      </p>
-      <div class="callout">
-        <h2>Model assumptions</h2>
-        <ul class="muted">
-          <li>Baseline capacity declines unless remediation is scheduled.</li>
-          <li>Refusal windows represent periods when teams pause new delivery.</li>
-          <li>Forecasts compare “do nothing” vs. mitigation timelines.</li>
-        </ul>
-      </div>
-      <div class="callout">
-        <h2>Preview the output</h2>
-        <p class="muted">
-          You will export a PDF snapshot that compares baseline and remediated capacity over time.
-        </p>
-        <ul class="muted">
-          <li>Inputs needed: baseline capacity, remediation timing, and refusal windows.</li>
-          <li>Outputs include saturation callouts and stakeholder-ready notes.</li>
-        </ul>
-        <a
-          class="button ghost"
-          href="https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster"
-        >
-          View a sample PDF snapshot
-        </a>
-      </div>
-      <p class="muted">
-        Modeling assumptions and inputs are documented in the
-        <a href="https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-capacity-forecaster.md">diagnostics
-        guide</a>
-        for contributors.
-      </p>
-      <p class="muted">Permanent link: <a href="/diagnostics/capacity-forecaster">/diagnostics/capacity-forecaster</a></p>
-      <p class="muted">Exporting the results gives you a PDF summary to share with leadership or delivery partners.</p>
-      <ol class="muted">
-        <li>Set baseline capacity, delivery targets, and current operational friction.</li>
-        <li>Schedule remediation timing and define any refusal windows.</li>
-        <li>Run the simulation to compare baseline versus mitigated trajectories.</li>
-        <li>Download the PDF snapshot for distribution and follow-up.</li>
-      </ol>
-    </div>
+  <PageIntro
+    eyebrow="Diagnostics"
+    title={tool.title}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "What you receive",
+      title: "Forecasts with stakeholder-ready PDF exports.",
+      description: tool.outputs.join(" "),
+    }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={tool.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`diagnostic_${tool.slug}`}
+  />
 
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="When to use the Technical Capacity Forecaster."
+    description={tool.bestFor}
+  >
+    <ul class="muted">
+      {tool.prepChecklist.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+    <p class="muted">Estimated time: {tool.estimatedTime}</p>
+    <p class="muted">{tool.studioNote}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="methodology"
+    eyebrow="Methodology"
+    title="Method, transparency, and replicability."
+    description="Inputs, scoring logic, validation notes, and failure modes used in the model."
+    variant="alt"
+  >
+    <DiagnosticMethodology
+      methodCards={tool.methodCards}
+      methodOverview={tool.methodOverview}
+      instrument={tool.instrument}
+      validation={tool.validation}
+      replicability={tool.replicability}
+    />
+  </SectionBlock>
+
+  <SectionBlock
+    id="sample-output"
+    eyebrow="Sample output"
+    title="Preview the forecast snapshot."
+    description="See the PDF summary format and saturation callouts."
+  >
+    <a class="button ghost" href={tool.exampleHref}>
+      {tool.exampleLabel}
+    </a>
+  </SectionBlock>
+
+  <SectionBlock
+    id="run-tool"
+    eyebrow="Run the tool"
+    title="Start a new capacity forecast."
+    description="Model baseline vs. remediated trajectories and export a PDF."
+    variant="alt"
+  >
     <CapacityForecasterWidget client:only="react" />
-  </section>
+  </SectionBlock>
 </BaseLayout>

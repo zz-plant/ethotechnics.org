@@ -1,4 +1,4 @@
-import type { PageWithPermalink } from "./types";
+import type { PageWithPermalink, PublicationMetadata } from "./types";
 
 export type GlossaryTerm = {
   slug: string;
@@ -25,6 +25,11 @@ export type GlossaryEntry = {
   status: string | null;
   classes?: string[];
   bodyHtml: string;
+  scope?: string;
+  adjacentTerms?: string[];
+  operationalTests?: string[];
+  genealogy?: string;
+  references?: GlossaryResource[];
   examples?: string[];
   tags?: string[];
   resources?: GlossaryResource[];
@@ -40,6 +45,7 @@ export type GlossaryCategory = {
 };
 
 export type GlossaryContent = PageWithPermalink & {
+  publication: PublicationMetadata;
   territoryMap: GlossaryTerritory[];
   categories: GlossaryCategory[];
   starterTerms: { id: string; label: string; description: string }[];
@@ -52,6 +58,41 @@ export const glossaryContent: GlossaryContent = {
   pageDescription:
     "Ethotechnics glossary of moral system design and ethical technology: definitions, examples, and resources organized by territory with stable permalinks for research and policy teams.",
   permalink: "/glossary",
+  publication: {
+    authors: [
+      {
+        name: "Ethotechnics Institute Research Team",
+        affiliation: "Ethotechnics Institute",
+        email: "research@ethotechnics.org",
+      },
+    ],
+    contact: "research@ethotechnics.org",
+    published: "2024-09-01T00:00:00Z",
+    updated: "2024-11-15T00:00:00Z",
+    version: "v1.1.0",
+    doi: "Pending Zenodo deposit",
+    archiveUrl:
+      "https://web.archive.org/save/https://ethotechnics.org/glossary",
+    changelog: [
+      {
+        version: "v1.1.0",
+        date: "2024-11-15",
+        summary:
+          "Expanded scholarly metadata, operational tests, and provenance notes.",
+      },
+      {
+        version: "v1.0.0",
+        date: "2024-09-01",
+        summary: "Initial glossary release with stable permalinks.",
+      },
+    ],
+    license: {
+      label: "CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
+    },
+    attribution:
+      "Credit Ethotechnics Institute, include the term title + version, and link to the glossary permalink.",
+  },
   starterTerms: [
     {
       id: "ethotechnics",

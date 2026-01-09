@@ -1,0 +1,85 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const libraryEntry = (await getEntry("library", "library"))!;
+const { publication } = libraryEntry.data;
+const pageTitle = "How to cite the Library — Ethotechnics";
+const pageDescription =
+  "Citation guidance, versioning notes, and licensing details for the Ethotechnics Library.";
+const permalink = "/library/cite";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Library"
+    title="How to cite the Library"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#citation-guidance", label: "Citation guidance" },
+      { href: "#versioning", label: "Versioning & governance" },
+      { href: "#licensing", label: "Licensing & attribution" },
+    ]}
+    panelCopy={{
+      eyebrow: "Citable objects",
+      title: "Stable versions with traceable evidence.",
+      description:
+        "Use the citation block, version history, and archive links to reference durable Library artifacts in scholarship.",
+    }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+  />
+
+  <SectionBlock
+    id="citation-guidance"
+    eyebrow="Citation guidance"
+    title="Cite the Library as a scholarly object."
+    description="Use the permalink and version number in your bibliography."
+  >
+    <ul class="muted">
+      <li>Prefer the citation formats in the “Cite this page” block.</li>
+      <li>Include the version number to anchor stable content.</li>
+      <li>Use term-level citations for glossary entries when possible.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="versioning"
+    eyebrow="Versioning & governance"
+    title="Track revisions and stable releases."
+    description="Each Library release is versioned and logged so academic citations can point to a stable object."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Major updates trigger a new version tag and changelog entry.</li>
+      <li>Stable releases are prepared for Zenodo DOI deposits.</li>
+      <li>Archive snapshots preserve the state of each release.</li>
+    </ul>
+    {publication.archiveUrl && (
+      <p class="muted">
+        Archive snapshots: <a href={publication.archiveUrl}>{publication.archiveUrl}</a>
+      </p>
+    )}
+  </SectionBlock>
+
+  <SectionBlock
+    id="licensing"
+    eyebrow="Licensing & attribution"
+    title="Reuse is encouraged with clear credit."
+    description="Library materials are published under an open license with attribution guidance."
+  >
+    <p class="muted">
+      License: <a href={publication.license.href}>{publication.license.label}</a>
+    </p>
+    <p class="muted">{publication.attribution}</p>
+  </SectionBlock>
+</BaseLayout>
