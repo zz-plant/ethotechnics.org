@@ -42,19 +42,19 @@ project favors lean, fast-loading pages and clear storytelling.
 
 ## Common scripts
 
-| Command            | Purpose                                                       |
-| ------------------ | ------------------------------------------------------------- |
-| `bun dev`          | Run the Astro development server.                             |
-| `bun run build`    | Validate content JSON and build the Worker bundle (`dist/_worker.js`). |
-| `bun run preview`  | Preview the Worker build locally.                             |
-| `bun run check`    | Run linting, tests, TypeScript checks, the Astro checker, and JSON validation. |
-| `bun run lint`     | Lint Astro and TypeScript sources under `src/`.               |
-| `bun run lint:fix` | Lint and auto-fix Astro and TypeScript sources under `src/`.  |
-| `bun run format`   | Format Markdown and source files with Prettier.               |
-| `bun run format:check` | Check formatting with Prettier (CI-friendly).            |
-| `bun test`         | Run unit and component tests with Bun.                        |
-| `bun run test:e2e` | Build and run Playwright against the preview server.          |
-| `bun run deploy`   | Deploy the Worker to Cloudflare using Wrangler.               |
+| Command                | Purpose                                                                        |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| `bun dev`              | Run the Astro development server.                                              |
+| `bun run build`        | Validate content JSON and build the Worker bundle (`dist/_worker.js`).         |
+| `bun run preview`      | Preview the Worker build locally.                                              |
+| `bun run check`        | Run linting, tests, TypeScript checks, the Astro checker, and JSON validation. |
+| `bun run lint`         | Lint Astro and TypeScript sources under `src/`.                                |
+| `bun run lint:fix`     | Lint and auto-fix Astro and TypeScript sources under `src/`.                   |
+| `bun run format`       | Format Markdown and source files with Prettier.                                |
+| `bun run format:check` | Check formatting with Prettier (CI-friendly).                                  |
+| `bun test`             | Run unit and component tests with Bun.                                         |
+| `bun run test:e2e`     | Build and run Playwright against the preview server.                           |
+| `bun run deploy`       | Deploy the Worker to Cloudflare using Wrangler.                                |
 
 ## Testing
 
@@ -126,13 +126,25 @@ Session storage is not enabled by default; if you add it later, define the KV bi
   new guide, and formatting expectations.
 - [`docs/architecture.md`](docs/architecture.md) covers the rendering model, middleware, and
   Cloudflare Worker deployment. Update it when routing, layouts, or adapters change.
+- [`docs/specifications.md`](docs/specifications.md) provides a high-level snapshot of site goals,
+  routing, and delivery defaults.
 - [`docs/adding-pages.md`](docs/adding-pages.md) walks through creating new Astro routes without
   breaking shared navigation and metadata. Use it as the checklist for new content.
+- [`docs/page-specifications.md`](docs/page-specifications.md) lists route-by-route expectations
+  for data, layout, and accessibility.
 - [`docs/content-components.md`](docs/content-components.md) catalogs the page intro, section
   blocks, cards, and other building blocks reused across routes. Extend it when adding shared UI.
+- [`docs/local-development.md`](docs/local-development.md) captures local setup, previews, and
+  troubleshooting tips.
 - [`docs/cloudflare-playwright.md`](docs/cloudflare-playwright.md) captures how to run the
   Playwright suite on Cloudflare Pages after the Worker build completes and how to surface test
   results in that environment.
+- [`docs/testing-todos.md`](docs/testing-todos.md) tracks current test coverage and outstanding
+  gaps to prioritize.
+- [`docs/glossary.md`](docs/glossary.md) defines shared terminology used across the site and docs.
+- [`docs/diagnostics-outputs.md`](docs/diagnostics-outputs.md) and
+  [`docs/usability-audit.md`](docs/usability-audit.md) collect diagnostics output references and UX
+  review findings.
 
 ## Project structure
 
