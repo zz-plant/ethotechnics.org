@@ -11,6 +11,7 @@ import robotsTxt from 'astro-robots-txt';
 
 export default defineConfig({
   site: 'https://ethotechnics.org',
+  prefetch: true,
   output: 'server',
   server: {
     host: true,
