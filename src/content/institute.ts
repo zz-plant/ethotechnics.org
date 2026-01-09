@@ -51,7 +51,7 @@ export type InstituteContent = PageWithPermalink &
 export const instituteContent: InstituteContent = {
   pageTitle: "Institute — Ethotechnics",
   pageDescription:
-    "A visitor guide to Institute programs, decision forums, and how to involve the Studio when you need a partner.",
+    "Ethotechnics.org is the Institute. This visitor guide covers programs, decision forums, and when to involve the Studio.",
   published: "2024-09-01T00:00:00Z",
   permalink: "/institute",
   anchorLinks: [
@@ -116,8 +116,7 @@ export const instituteContent: InstituteContent = {
     },
     {
       title: "Publishing pipeline",
-      detail:
-        "Turn internal research into open guides.",
+      detail: "Turn internal research into open guides.",
       outcome:
         "Outputs: edited copy, citations, and release notes in the Library so readers can trust the source.",
       status: "By request",
@@ -148,8 +147,7 @@ export const instituteContent: InstituteContent = {
     {
       name: "Kanav Jain",
       role: "Institute Lead",
-      focus:
-        "Roadmapping programs and coordinating Studio partners.",
+      focus: "Roadmapping programs and coordinating Studio partners.",
       contactLabel: "Contact Kanav",
       contactHref:
         "mailto:hello@ethotechnics.org?subject=Institute%20steward%20contact",

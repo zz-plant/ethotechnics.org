@@ -200,21 +200,24 @@ import { Icon } from "astro-icon/components";
 
   async function initPagefind() {
     if (pagefind) return pagefind;
-    try {
-      // @ts-expect-error Pagefind is only present in production builds.
-      const loadedPagefind = (await import("/pagefind/pagefind.js")) as PagefindModule;
-      pagefind = loadedPagefind;
-      await loadedPagefind.options({
-        excerptLength: 20,
-      });
-      return loadedPagefind;
-    } catch (error) {
-      console.warn(
-        "Pagefind not found. Search may not work in dev mode.",
-        error
-      );
+    const pagefindPath = "/pagefind/pagefind.js";
+    const loadedPagefind = (await import(
+      /* @vite-ignore */
+      pagefindPath
+    ).catch((error) => {
+      console.warn("Pagefind not found. Search may not work in dev mode.", error);
+      return null;
+    })) as PagefindModule | null;
+
+    if (!loadedPagefind) {
       return null;
     }
+
+    pagefind = loadedPagefind;
+    await loadedPagefind.options({
+      excerptLength: 20,
+    });
+    return loadedPagefind;
   }
 
   const trigger = document.getElementById("search-trigger");
