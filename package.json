@@ -18,14 +18,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "bun run validate:json && astro build",
+    "build": "bun run validate:json && bun run validate:glossary && astro build",
     "preview": "astro preview",
     "deploy": "bunx wrangler deploy ./dist/_worker.js --no-bundle",
     "astro:check": "astro check",
     "typecheck": "bun run --bun tsc --noEmit",
     "lint": "bun run --bun eslint \"src/**/*.{ts,tsx,astro}\"",
     "lint:fix": "bun run --bun eslint \"src/**/*.{ts,tsx,astro}\" --fix",
-    "check": "bun run lint && bun run test:unit:ci && bun run typecheck && bun run astro:check && bun run validate:json",
+    "check": "bun run lint && bun run test:unit:ci && bun run typecheck && bun run astro:check && bun run validate:json && bun run validate:glossary",
     "format": "bunx prettier --write .",
     "format:check": "bunx prettier --check .",
     "test:unit": "bun test src",
@@ -34,7 +34,8 @@
     "test:e2e:ci": "bun run build && bunx playwright test --reporter=line",
     "test:visual": "bunx playwright test --project=chromium --grep @visual",
     "mcp": "bun run scripts/mcp-server.ts",
-    "validate:json": "bun run validate-json.ts"
+    "validate:json": "bun run validate-json.ts",
+    "validate:glossary": "bun run validate-glossary.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
