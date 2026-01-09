@@ -7,4 +7,5 @@ Use these fields when drafting GitHub Issues so roadmap work stays consistent an
 - **Context link:** `Issue: <GitHub link> / Spec: <section anchor>`
 - **Summary:** One sentence describing the user-facing outcome.
 - **Acceptance criteria:** Short, testable bullet list.
+- **Dependencies/risks:** Short list of blockers or related work.
 - **Notes:** Dependencies, open questions, or links to relevant assets.
