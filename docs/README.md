@@ -6,19 +6,43 @@ Use this map before adding new guidance so information stays discoverable and cu
 
 ## Quick links
 
+### Planning and contributor guidance
+
 - [`roadmap.md`](roadmap.md) tracks the now/next/later roadmap, spec template, and pickup guidance.
 - [`issue-templates.md`](issue-templates.md) defines the consistent fields for roadmap-related GitHub
   Issues.
-- [`architecture.md`](architecture.md) outlines the layout shell, routing model, middleware, and Worker deployment.
-- [`adding-pages.md`](adding-pages.md) provides the checklist for new Astro routes and shared navigation updates.
-- [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used across pages.
-- [`cloudflare-playwright.md`](cloudflare-playwright.md) documents how to run Playwright in Cloudflare Pages builds and where
-  test results show up.
-- [`local-development.md`](local-development.md) captures setup, dev server tips, and how to preview builds locally.
-- [`agent-developer-experience.md`](agent-developer-experience.md) aggregates agent-specific references and to-do items.
-- [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and [`visual-textures.md`](visual-textures.md) capture specialized troubleshooting
-  and design notes.
-- [`page-specifications.md`](page-specifications.md) lists route-by-route expectations for data, layout, and accessibility.
+- [`agent-developer-experience.md`](agent-developer-experience.md) aggregates agent-specific
+  references and to-do items.
+
+### Architecture, layout, and content
+
+- [`architecture.md`](architecture.md) outlines the layout shell, routing model, middleware, and
+  Worker deployment.
+- [`specifications.md`](specifications.md) captures the site purpose, routing, and delivery
+  defaults.
+- [`adding-pages.md`](adding-pages.md) provides the checklist for new Astro routes and shared
+  navigation updates.
+- [`page-specifications.md`](page-specifications.md) lists route-by-route expectations for data,
+  layout, and accessibility.
+- [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used
+  across pages.
+- [`glossary.md`](glossary.md) defines core vocabulary and terms referenced across the site.
+
+### Testing, local development, and deployment
+
+- [`local-development.md`](local-development.md) captures setup, dev server tips, and how to preview
+  builds locally.
+- [`testing-todos.md`](testing-todos.md) summarizes existing coverage and remaining test gaps.
+- [`cloudflare-playwright.md`](cloudflare-playwright.md) documents how to run Playwright in
+  Cloudflare Pages builds and where test results show up.
+
+### Diagnostics, design, and UX references
+
+- [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and
+  [`diagnostics-outputs.md`](diagnostics-outputs.md) capture diagnostics tooling notes and
+  troubleshooting steps.
+- [`visual-textures.md`](visual-textures.md) catalogs texture treatments and visual system notes.
+- [`usability-audit.md`](usability-audit.md) tracks UX review findings and follow-up tasks.
 
 ## How to add or update docs
 
