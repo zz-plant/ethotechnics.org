@@ -1,0 +1,232 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="STD-01 — The Temporal Bill of Rights"
+  description="The draft standard defining the seven temporal rights protecting human time."
+  mainClass="page page--wide standard-document"
+>
+  <article class="standard-document">
+    <header class="standard-header">
+      <div>
+        <p class="standard-header__id">STANDARD STD-01</p>
+        <h1 class="standard-header__title">The Temporal Bill of Rights</h1>
+      </div>
+      <dl class="standard-header__meta">
+        <div>
+          <dt>Document ID</dt>
+          <dd>STD-01</dd>
+        </div>
+        <div>
+          <dt>Version</dt>
+          <dd>1.0 (Draft for Ratification)</dd>
+        </div>
+        <div>
+          <dt>Effective Date</dt>
+          <dd>January 2026</dd>
+        </div>
+        <div>
+          <dt>Authority</dt>
+          <dd>The Institute of Ethotechnics</dd>
+        </div>
+      </dl>
+    </header>
+
+    <div class="standard-body">
+      <div class="standard-main">
+        <section class="standard-section">
+          <h2>Preamble: The Doctrine of Finitude</h2>
+          <p>
+            We hold that human attention is a finite, non-renewable biological resource. In the
+            Machine Age, the disparity between the infinite speed of automated systems and the
+            fixed processing speed of the human mind has created a structural crisis of dignity.
+          </p>
+          <p>
+            When a system wastes human time through negligence, obfuscation, or coercive design,
+            it is not merely a "bad user experience"; it is a Temporal Taking—an unauthorized
+            extraction of life.
+          </p>
+          <p>
+            To defend the human subject against the scale of the machine, we establish these
+            seven inalienable rights. Any system that violates these articles is declared
+            Non-Compliant.
+          </p>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article I: The Right to Stoppability</h2>
+          <p class="standard-article-quote">
+            "No system shall force a user to complete a process they wish to abandon."
+          </p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§1.1</span>
+              Immediate Cessation: Every active process must possess a clearly visible,
+              universally accessible mechanism to halt operation immediately.
+            </li>
+            <li>
+              <span class="standard-clause-id">§1.2</span>
+              Preservation of State: Halting a process must not result in the punitive destruction
+              of data. The system must save the "Paused State" for a reasonable duration, allowing
+              the user to return without penalty.
+            </li>
+            <li>
+              <span class="standard-clause-id">§1.3</span>
+              The Prohibition of The Tunnel: No interface may lock a user into a linear sequence
+              (a "wizard" or "flow") without a permanent exit option available on every screen.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article II: The Right to Resignation</h2>
+          <p class="standard-article-quote">"The user must always be able to leave."</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§2.1</span>
+              The Universal Exit: A user must be able to sever their relationship with a system
+              (delete account, unsubscribe, cancel contract) with equal or lesser friction than
+              was required to create it.
+            </li>
+            <li>
+              <span class="standard-clause-id">§2.2</span>
+              The One-Step Rule: If entry required one click, exit shall require no more than one
+              click.
+            </li>
+            <li>
+              <span class="standard-clause-id">§2.3</span>
+              Prohibition of Retention Scripts: Systems may not force users to navigate "retention
+              flows," "exit surveys," or "confirmations of loss" as a prerequisite for resignation.
+              These act as Constructive Denial by artificially inflating the cost of leaving.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article III: The Right to Bounded Duration</h2>
+          <p class="standard-article-quote">"No process may be infinite."</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§3.1</span>
+              The Hard Clock: Every system state must have a defined maximum duration. "Pending,"
+              "Processing," or "Reviewing" states cannot persist indefinitely.
+            </li>
+            <li>
+              <span class="standard-clause-id">§3.2</span>
+              The Timeout Guarantee: If a system cannot resolve a request within a declared
+              timeframe, it must default to a failure state or a human escalation. It may not loop
+              forever.
+            </li>
+            <li>
+              <span class="standard-clause-id">§3.3</span>
+              Estimation of Burden: Before a user commits to a process, the system must declare the
+              estimated time to completion. Concealing the duration of a task to secure engagement
+              is a violation of consent.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article IV: The Right to Reversibility</h2>
+          <p class="standard-article-quote">"To err is human; the system must forgive."</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§4.1</span>
+              The Undo Window: For any action with consequential effects (deletion, transfer,
+              publication), the system must provide a "Grace Period" during which the action can be
+              reversed without administrative intervention.
+            </li>
+            <li>
+              <span class="standard-clause-id">§4.2</span>
+              Non-Destructive Defaults: Systems shall not permanently destroy user data based on a
+              single input. "Soft Delete" (archival) must be the default engineering state for all
+              removal actions.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article V: The Right to Non-Coercive Waiting</h2>
+          <p class="standard-article-quote">"Silence is not a valid status."</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§5.1</span>
+              Visibility of Queue: When a user is placed in a waiting state, the system must
+              provide accurate, real-time telemetry regarding their position and expected wait
+              time.
+            </li>
+            <li>
+              <span class="standard-clause-id">§5.2</span>
+              The Prohibition of False Activity: Systems shall not use "fake progress bars,"
+              "placebo buttons," or looping animations to simulate activity when the system is
+              idle or stalled.
+            </li>
+            <li>
+              <span class="standard-clause-id">§5.3</span>
+              Asynchronous Option: No user shall be forced to hold an active connection (keep a
+              window open, stay on the phone) to maintain their place in a queue. Systems must
+              offer callback or notification options for waits exceeding 5 minutes.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article VI: The Right to Human Override</h2>
+          <p class="standard-article-quote">"The machine is a tool, not a judge."</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§6.1</span>
+              The Escalation Path: Any automated decision that denies a user access, service, or
+              property must include a clearly defined path to appeal to a human agent.
+            </li>
+            <li>
+              <span class="standard-clause-id">§6.2</span>
+              The Liability of Automata: A system may not hide behind "algorithmic error." The
+              operating institution accepts full liability for the latency and errors of its
+              automated agents.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article VII: The Right to Transparent Burden</h2>
+          <p class="standard-article-quote">"The system must show the receipt."</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§7.1</span>
+              The Cost of Compliance: Institutions must measure and publish the "Time Tax" their
+              bureaucracy imposes on the public.
+            </li>
+            <li>
+              <span class="standard-clause-id">§7.2</span>
+              Burden Impact Statement: Major system updates must be audited to ensure they do not
+              increase the cognitive load or time requirement for existing tasks.
+            </li>
+          </ol>
+        </section>
+
+      </div>
+
+      <aside class="standard-sidebar">
+        <div class="standard-sidebar__panel">
+          <p class="standard-sidebar__eyebrow">Related mechanisms</p>
+          <ul>
+            <li>
+              <a href="/mechanisms/mec-04-hard-clock">MEC-04: The Hard Clock</a>
+            </li>
+            <li>
+              <a href="/library/patterns/kill-switch">MEC-05: Kill Switch</a>
+            </li>
+            <li>
+              <a href="/library/patterns/decision-log">MEC-01: Decision Log</a>
+            </li>
+            <li>
+              <a href="/library/patterns/progressive-consent">MEC-02: Progressive Consent</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

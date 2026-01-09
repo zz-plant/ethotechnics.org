@@ -1,23 +1,23 @@
 :root {
   color-scheme: light;
-  --bg: #eff3f8;
-  --surface: #fdfefe;
-  --panel: #f1f5fa;
-  --card: #e6edf5;
-  --border: #cdd7e3;
-  --text: #18212f;
-  --muted: #4a596a;
-  --accent: #3b62c7;
-  --accent-strong: #2c4a97;
-  --gold: #d2a14f;
-  --teal: #2f7f7a;
-  --radius: 18px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --shadow-color: rgba(18, 24, 35, 0.08);
-  --shadow: 0 16px 40px var(--shadow-color), 0 4px 12px rgba(0, 0, 0, 0.04);
-  --shadow-xs: 0 4px 12px var(--shadow-color);
-  --shadow-sm: 0 8px 24px var(--shadow-color);
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --panel: #f7f7f7;
+  --card: #f3f3f3;
+  --border: #d6d6d6;
+  --text: #111111;
+  --muted: #4a4a4a;
+  --accent: #ff5500;
+  --accent-strong: #d9480f;
+  --gold: #ff5500;
+  --teal: #0044ff;
+  --radius: 8px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow: 0 8px 20px var(--shadow-color);
+  --shadow-xs: 0 2px 8px var(--shadow-color);
+  --shadow-sm: 0 4px 12px var(--shadow-color);
   --space-1: 0.4rem;
   --space-2: 0.75rem;
   --space-3: 1.15rem;
@@ -33,33 +33,13 @@
   --color-foreground: var(--text);
   --color-foreground-muted: var(--muted);
   --color-foreground-subtle: color-mix(in srgb, var(--muted) 60%, transparent);
-  --glow-wash:
-    radial-gradient(
-      circle at 18% 20%,
-      color-mix(in srgb, var(--accent) 12%, transparent) 0,
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 82% 18%,
-      color-mix(in srgb, var(--accent-strong) 14%, transparent) 0,
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 30% 90%,
-      color-mix(in srgb, var(--teal) 10%, transparent) 0,
-      transparent 42%
-    );
-  --halftone: radial-gradient(
-    circle at 1px 1px,
-    color-mix(in srgb, var(--border) 40%, transparent) 0,
-    transparent 1.2px
-  );
-  --grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.22'/%3E%3C/svg%3E");
+  --glow-wash: none;
+  --halftone: none;
+  --grain-texture: none;
   --font-size-sm: 0.9rem;
-  --sans:
-    "Plus Jakarta Sans Variable", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, sans-serif;
-  --serif: "Source Serif 4 Variable", "Garamond", "Times New Roman", serif;
+  --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Merriweather", "Lora", "Times New Roman", serif;
+  --mono: "Roboto Mono", "Courier Prime", "Courier New", monospace;
 }
 
 * {
@@ -72,36 +52,11 @@ body {
   font-optical-sizing: auto;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
-  background:
-    var(--grain-texture), var(--halftone), var(--glow-wash),
-    radial-gradient(
-      circle at 10% 18%,
-      color-mix(in srgb, var(--accent) 6%, white) 0,
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 88% 14%,
-      color-mix(in srgb, var(--accent-strong) 8%, white) 0,
-      transparent 26%
-    ),
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, var(--surface) 80%, white 20%),
-      var(--bg)
-    );
-  background-blend-mode:
-    multiply, soft-light, soft-light, normal, normal, normal;
-  background-size:
-    320px 320px,
-    18px 18px,
-    auto,
-    auto,
-    auto,
-    auto;
+  background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  line-height: 1.65;
-  letter-spacing: 0.005em;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
   font-size: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
   -webkit-font-smoothing: antialiased;
   position: relative;
@@ -116,11 +71,11 @@ body {
 h1,
 h2,
 h3 {
-  font-family: var(--sans);
-  font-weight: 650;
-  letter-spacing: -0.015em;
+  font-family: var(--mono);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   font-optical-sizing: auto;
-  color: #18212f;
+  color: var(--text);
 }
 
 p {
@@ -129,8 +84,10 @@ p {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 a:hover,

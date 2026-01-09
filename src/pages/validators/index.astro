@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+---
+
+<BaseLayout
+  title="Validators — Ethotechnics Institute"
+  description="Interactive validators that score systems against Ethotechnics standards."
+>
+  <PageIntro
+    eyebrow="Validators"
+    title="Validators"
+    description="Run diagnostic validators that output report cards and corrective mechanisms."
+    permalink="/validators"
+    anchorLinks={[
+      { href: "#tools", label: "Validator tools" },
+      { href: "#method", label: "Method" },
+    ]}
+    panelCopy={{
+      eyebrow: "Outputs",
+      title: "Report-card ready",
+      description:
+        "Every validator produces a score, a risk statement, and a mechanism to remediate gaps.",
+    }}
+  />
+
+  <section id="tools" class="section">
+    <CardGrid className="grid--two">
+      <CardItem
+        eyebrow="VAL-01"
+        title="Burden Modeler"
+        description="Score time tax and constructive denial risk across user journeys."
+      >
+        <a slot="footer" class="muted" href="/validators/burden-modeler">
+          Run Burden Modeler
+        </a>
+      </CardItem>
+      <CardItem
+        eyebrow="VAL-02"
+        title="Risk Radar"
+        description="Surface cumulative exposure across high-friction touchpoints."
+      >
+        <a slot="footer" class="muted" href="/validators/risk-radar">
+          Run Risk Radar
+        </a>
+      </CardItem>
+      <CardItem
+        eyebrow="VAL-03"
+        title="Latency Audit"
+        description="Validate bounded duration requirements against system latency."
+      >
+        <a slot="footer" class="muted" href="/validators/latency-audit">
+          Run Latency Audit
+        </a>
+      </CardItem>
+    </CardGrid>
+  </section>
+
+  <section id="method" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">Method</p>
+      <h2>How validators score systems</h2>
+      <p class="muted">
+        Validators translate STD clauses into input fields, then surface a report card with an
+        actionable mechanism for remediation.
+      </p>
+    </div>
+    <ul class="validator-method">
+      <li>Collect minimal inputs from operators or QA teams.</li>
+      <li>Evaluate against published thresholds and temporal rights.</li>
+      <li>Generate a report card with a visible Red / Yellow / Green status.</li>
+    </ul>
+  </section>
+</BaseLayout>

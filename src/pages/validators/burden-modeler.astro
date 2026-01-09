@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Burden Modeler — Validator"
+  description="Score time tax and constructive denial risk for user journeys."
+  mainClass="page page--wide"
+>
+  <section class="validator">
+    <header class="validator__header">
+      <div>
+        <p class="validator__id">VAL-01</p>
+        <h1>Burden Modeler</h1>
+        <p class="muted">
+          Estimate time tax and surface constructive denial risk in a single report card.
+        </p>
+      </div>
+      <a class="validator__standard" href="/standards/std-01-temporal-rights">
+        Linked standard: STD-01
+      </a>
+    </header>
+
+    <form class="validator__form" data-validator-form>
+      <label class="validator__field">
+        Estimated time to completion (minutes)
+        <input type="number" name="duration" min="1" value="12" required />
+      </label>
+      <label class="validator__field">
+        Number of required steps
+        <input type="number" name="steps" min="1" value="4" required />
+      </label>
+      <label class="validator__field">
+        Exit available on every screen?
+        <select name="exit">
+          <option value="yes" selected>Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+      <button class="button primary" type="submit">Generate report card</button>
+    </form>
+
+    <div class="validator__report" data-validator-report hidden>
+      <div class="validator__status" data-validator-status>
+        <span class="status-pill status-pill--green">Green</span>
+        <p class="validator__status-text">Low risk: consent burden within bounds.</p>
+      </div>
+      <p class="validator__recommendation">
+        Fix this using <a href="/mechanisms/mec-04-hard-clock">MEC-04: The Hard Clock</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>(
+    "[data-validator-form]"
+  );
+  const report = document.querySelector<HTMLElement>(
+    "[data-validator-report]"
+  );
+  const status = document.querySelector<HTMLElement>(
+    "[data-validator-status]"
+  );
+
+  const updateStatus = (
+    level: "red" | "yellow" | "green",
+    message: string
+  ) => {
+    if (!status) return;
+    status.innerHTML = `<span class="status-pill status-pill--${level}">${
+      level.charAt(0).toUpperCase() + level.slice(1)
+    }</span><p class="validator__status-text">${message}</p>`;
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form || !report) return;
+
+    const data = new FormData(form);
+    const duration = Number(data.get("duration"));
+    const steps = Number(data.get("steps"));
+    const exit = data.get("exit");
+
+    if (duration > 25 || steps > 7 || exit === "no") {
+      updateStatus("red", "High risk: constructive denial detected.");
+    } else if (duration > 15 || steps > 5) {
+      updateStatus("yellow", "Medium risk: burden nearing the upper bound.");
+    } else {
+      updateStatus("green", "Low risk: consent burden within bounds.");
+    }
+
+    report.removeAttribute("hidden");
+    report.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+</script>

@@ -1,8 +1,8 @@
 [
   {
     "id": "library",
-    "pageTitle": "Library — Ethotechnics",
-    "pageDescription": "Reference shelf for primers, glossary entries, and reusable patterns.",
+    "pageTitle": "Mechanisms — Ethotechnics",
+    "pageDescription": "Specification-ready mechanisms for accountable systems, with cited primers, glossary entries, and reusable safeguards.",
     "permalink": "/library",
     "published": "2024-09-01T00:00:00Z",
     "updated": "2024-11-15T00:00:00Z",
@@ -41,24 +41,24 @@
     "quickStart": [
       "Skim the primer for a 5-minute orientation and shared vocabulary.",
       "Jump to the glossary for stable definitions you can cite immediately.",
-      "Use the pattern language filters to pull the right safeguards for your scenario."
+      "Use the mechanism filters to pull the right safeguards for your scenario."
     ],
     "recommended": {
-      "title": "Key patterns",
-      "description": "Three high-signal patterns teams reuse most often when onboarding or auditing a system.",
+      "title": "Key mechanisms",
+      "description": "Three high-signal mechanisms teams reuse most often when onboarding or auditing a system.",
       "items": [
         {
-          "title": "Decision log with dissent",
+          "title": "MEC-01 Decision log with dissent",
           "description": "Keep decisions legible with dissent, ownership, and follow-up dates.",
           "href": "/library/patterns/decision-log"
         },
         {
-          "title": "Progressive consent prompts",
+          "title": "MEC-02 Progressive consent prompts",
           "description": "Stage consent requests with clear exits and reversible defaults.",
           "href": "/library/patterns/progressive-consent"
         },
         {
-          "title": "Maintenance windowing",
+          "title": "MEC-03 Maintenance windowing",
           "description": "Plan downtime and comms so stewardship stays visible.",
           "href": "/library/patterns/maintenance-windowing"
         }
@@ -74,12 +74,12 @@
           "summary": "Prioritize stoppability, rollback readiness, and safe maintenance rhythms.",
           "items": [
             {
-              "title": "Kill switch for runaway automation",
+              "title": "MEC-05 Kill switch for runaway automation",
               "description": "Stoppability playbook with triggers, operators, and restoration drills.",
               "href": "/library/patterns/kill-switch"
             },
             {
-              "title": "Maintenance windowing",
+              "title": "MEC-03 Maintenance windowing",
               "description": "Plan safe downtime, fallback coverage, and stewardship windows.",
               "href": "/library/patterns/maintenance-windowing"
             },
@@ -96,12 +96,12 @@
           "summary": "Design consent, appeals, and accountability into the user journey.",
           "items": [
             {
-              "title": "Progressive consent prompts",
+              "title": "MEC-02 Progressive consent prompts",
               "description": "Stage consent requests with clear exits and reversible defaults.",
               "href": "/library/patterns/progressive-consent"
             },
             {
-              "title": "Appeal paths inside the UI",
+              "title": "MEC-06 Appeal paths inside the UI",
               "description": "Bake dispute routes and human review into the experience.",
               "href": "/library/patterns/appeal-paths"
             },
@@ -118,12 +118,12 @@
           "summary": "Focus on accountability logs, audit trails, and remediation evidence.",
           "items": [
             {
-              "title": "Decision log with dissent",
+              "title": "MEC-01 Decision log with dissent",
               "description": "Accountability logs with owners, dissent, and review dates.",
               "href": "/library/patterns/decision-log"
             },
             {
-              "title": "Maintenance windowing",
+              "title": "MEC-03 Maintenance windowing",
               "description": "Operational evidence of stewardship windows and documented fixes.",
               "href": "/library/patterns/maintenance-windowing"
             },
@@ -139,11 +139,11 @@
     "primer": [
       {
         "title": "Primer",
-        "summary": "Short explainers teams can skim before working with the rest of the library.",
+        "summary": "Short explainers teams can skim before working with the mechanisms.",
         "takeaways": [
           "Why burden, consent, and stewardship matter for socio-technical systems.",
           "How to align governance artifacts with the lived experience of the people using your product.",
-          "What “pattern language” means for UI safeguards, facilitation prompts, and escalation design."
+          "What “mechanism language” means for UI safeguards, facilitation prompts, and escalation design."
         ]
       },
       {
@@ -151,7 +151,7 @@
         "summary": "How to adapt the materials to your org without slowing delivery.",
         "takeaways": [
           "Each section ships with permalinks; link directly in design docs or runbooks to keep teams aligned.",
-          "Filters call out whether a pattern is governance-first, design-ethics guidance, or a policy control.",
+          "Filters call out whether a mechanism is governance-first, friction guidance, or a policy control.",
           "Glossary terms stay stable so research, field notes, and diagnostics can cross-link without drift."
         ]
       }
@@ -164,8 +164,8 @@
           "description": "Decision logs, maintenance windows, and escalation paths backed by diagnostics."
         },
         {
-          "slug": "design-ethics",
-          "label": "Design ethics",
+          "slug": "friction",
+          "label": "Friction",
           "description": "Consent prompts, appeal paths, and humane defaults that keep interfaces accountable."
         },
         {
@@ -177,7 +177,7 @@
       "entries": [
         {
           "slug": "decision-log",
-          "title": "Decision log with dissent",
+          "title": "MEC-01 Decision log with dissent",
           "summary": "Capture high-stakes calls, dissenting views, and follow-ups so governance stays legible to teams and impacted people.",
           "filters": ["governance", "policy"],
           "glossaryRefs": ["design-authority", "repair-log", "contestability"],
@@ -213,9 +213,9 @@
         },
         {
           "slug": "progressive-consent",
-          "title": "Progressive consent prompts",
+          "title": "MEC-02 Progressive consent prompts",
           "summary": "Stage requests for data or automation over time, with reminders and exits that honor the consent journey.",
-          "filters": ["design-ethics", "policy"],
+          "filters": ["friction", "policy"],
           "glossaryRefs": [
             "consent-journey",
             "permission-surface",
@@ -253,7 +253,7 @@
         },
         {
           "slug": "maintenance-windowing",
-          "title": "Maintenance windows",
+          "title": "MEC-03 Maintenance windowing",
           "summary": "Schedule improvements, monitoring, and resourcing using a visible stewardship window.",
           "filters": ["governance", "policy"],
           "glossaryRefs": [
@@ -293,9 +293,9 @@
         },
         {
           "slug": "kill-switch",
-          "title": "Kill switch for runaway automation",
+          "title": "MEC-05 Kill switch for runaway automation",
           "summary": "Pre-authorized halt paths with named stewards, thresholds, and restoration drills so harms stop in seconds.",
-          "filters": ["governance", "design-ethics"],
+          "filters": ["governance", "friction"],
           "glossaryRefs": ["stopability", "ethical-interrupts", "time-to-halt"],
           "cues": [
             "Define triggers tied to moral performance indicators and frontline reports.",
@@ -329,9 +329,9 @@
         },
         {
           "slug": "appeal-paths",
-          "title": "Appeal paths inside the UI",
+          "title": "MEC-06 Appeal paths inside the UI",
           "summary": "Give people a built-in channel to dispute outputs, get human review, or learn how a decision was made.",
-          "filters": ["design-ethics", "governance"],
+          "filters": ["friction", "governance"],
           "glossaryRefs": [
             "contestability",
             "appeal-passage-rate",

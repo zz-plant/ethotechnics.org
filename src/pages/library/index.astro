@@ -34,8 +34,8 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
-    eyebrow="Library"
-    title="Library"
+    eyebrow="Mechanisms"
+    title="Mechanisms"
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
@@ -43,14 +43,14 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
       { href: "#role-pathways", label: "Role-based pathways" },
       { href: "#primer", label: "Primer" },
       { href: "#glossary", label: "Glossary" },
-      { href: "#patterns", label: "Pattern language" },
+      { href: "#mechanisms", label: "Mechanism specs" },
       { href: "#syllabus", label: "Syllabus" },
     ]}
     panelCopy={{
       eyebrow: "How to use this shelf",
-      title: "Structured, linkable content",
+      title: "Structured, linkable specifications",
       description:
-        "Stable permalinks and filters keep research, design, and diagnostics aligned.",
+        "Stable permalinks and filters keep standards, mechanisms, and validators aligned.",
     }}
   />
   <ScholarlyMeta publication={publication} permalink={permalink} />
@@ -115,7 +115,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
     id="themes"
     eyebrow="Browse by theme"
     title="Jump directly to the work you need."
-    description="Use tags to pre-filter the pattern language."
+    description="Use tags to pre-filter the mechanisms catalog."
   >
     <div class="tag-rail">
       <ul class="pill-list pill-list--wrap">
@@ -142,7 +142,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
   <SectionBlock
     id="primer"
     eyebrow="Primer"
-    title="Start here before diving into patterns."
+    title="Start here before diving into mechanisms."
     description="Short overviews for onboarding and briefings."
     variant="alt"
   >
@@ -187,13 +187,14 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
   </SectionBlock>
 
   <SectionBlock
-    id="patterns"
-    eyebrow="Pattern language"
-    title="Governance, design ethics, and policy patterns with diagnostic links."
-    description="Filters route work quickly and keep diagnostics in reach."
+    id="mechanisms"
+    eyebrow="Mechanisms"
+    title="Governance, friction, and policy mechanisms with validator links."
+    description="Filters route work quickly and keep validators in reach."
     variant="alt"
   >
     <div class="pattern-filter__anchors" aria-hidden="true">
+      <span class="pattern-filter__anchor" id="patterns" />
       {
         patterns.filters.map((filter) => (
           <span class="pattern-filter__anchor" id={filter.slug} />

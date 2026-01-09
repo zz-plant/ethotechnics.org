@@ -14,7 +14,7 @@ export type PrimerSection = {
 };
 
 export type PatternFilter = {
-  slug: "governance" | "design-ethics" | "policy";
+  slug: "governance" | "friction" | "policy";
   label: string;
   description: string;
 };
@@ -65,9 +65,9 @@ export type LibraryContent = PageWithPermalink &
   };
 
 export const libraryContent: LibraryContent = {
-  pageTitle: "Library — Ethotechnics Institute",
+  pageTitle: "Mechanisms — Ethotechnics Institute",
   pageDescription:
-    "Open-source library and engine room for accountable AI theory, with citation-ready primers, glossary entries, and reusable patterns.",
+    "Specification-ready mechanisms for accountable systems, with cited primers, glossary entries, and reusable safeguards.",
   permalink: "/library",
   published: "2024-09-01T00:00:00Z",
   updated: "2024-11-15T00:00:00Z",
@@ -108,28 +108,28 @@ export const libraryContent: LibraryContent = {
   quickStart: [
     "Skim the primer for a 5-minute orientation and shared vocabulary.",
     "Jump to the glossary for stable definitions you can cite immediately.",
-    "Use the pattern language filters to pull the right safeguards for your scenario.",
+    "Use the mechanism filters to pull the right safeguards for your scenario.",
     "Cite the permalinks in papers, policy memos, or peer reviews to anchor legitimacy.",
   ],
   recommended: {
     title: "Recommended starters",
     description:
-      "Three high-signal patterns teams reuse most often when onboarding or auditing a system.",
+      "Three high-signal mechanisms teams reuse most often when onboarding or auditing a system.",
     items: [
       {
-        title: "Decision log with dissent",
+        title: "MEC-01 Decision log with dissent",
         description:
           "Keep decisions legible with dissent, ownership, and follow-up dates.",
         href: "/library/patterns/decision-log",
       },
       {
-        title: "Progressive consent prompts",
+        title: "MEC-02 Progressive consent prompts",
         description:
           "Stage consent requests with clear exits and reversible defaults.",
         href: "/library/patterns/progressive-consent",
       },
       {
-        title: "Maintenance windowing",
+        title: "MEC-03 Maintenance windowing",
         description: "Plan downtime and comms so stewardship stays visible.",
         href: "/library/patterns/maintenance-windowing",
       },
@@ -143,16 +143,17 @@ export const libraryContent: LibraryContent = {
       {
         id: "engineer",
         label: "I'm an Engineer",
-        summary: "Prioritize stoppability, rollback readiness, and safe maintenance rhythms.",
+        summary:
+          "Prioritize stoppability, rollback readiness, and safe maintenance rhythms.",
         items: [
           {
-            title: "Kill switch for runaway automation",
+            title: "MEC-05 Kill switch for runaway automation",
             description:
               "Stoppability playbook with triggers, operators, and restoration drills.",
             href: "/library/patterns/kill-switch",
           },
           {
-            title: "Maintenance windowing",
+            title: "MEC-03 Maintenance windowing",
             description:
               "Plan safe downtime, fallback coverage, and stewardship windows.",
             href: "/library/patterns/maintenance-windowing",
@@ -168,16 +169,17 @@ export const libraryContent: LibraryContent = {
       {
         id: "product-manager",
         label: "I'm a Product Manager",
-        summary: "Design consent, appeals, and accountability into the user journey.",
+        summary:
+          "Design consent, appeals, and accountability into the user journey.",
         items: [
           {
-            title: "Progressive consent prompts",
+            title: "MEC-02 Progressive consent prompts",
             description:
               "Stage consent requests with clear exits and reversible defaults.",
             href: "/library/patterns/progressive-consent",
           },
           {
-            title: "Appeal paths inside the UI",
+            title: "MEC-06 Appeal paths inside the UI",
             description:
               "Bake dispute routes and human review into the experience.",
             href: "/library/patterns/appeal-paths",
@@ -193,15 +195,17 @@ export const libraryContent: LibraryContent = {
       {
         id: "regulator",
         label: "I'm a Regulator",
-        summary: "Focus on accountability logs, audit trails, and remediation evidence.",
+        summary:
+          "Focus on accountability logs, audit trails, and remediation evidence.",
         items: [
           {
-            title: "Decision log with dissent",
-            description: "Accountability logs with owners, dissent, and review dates.",
+            title: "MEC-01 Decision log with dissent",
+            description:
+              "Accountability logs with owners, dissent, and review dates.",
             href: "/library/patterns/decision-log",
           },
           {
-            title: "Maintenance windowing",
+            title: "MEC-03 Maintenance windowing",
             description:
               "Operational evidence of stewardship windows and documented fixes.",
             href: "/library/patterns/maintenance-windowing",
@@ -220,11 +224,11 @@ export const libraryContent: LibraryContent = {
     {
       title: "Primer",
       summary:
-        "Short explainers teams can skim before working with the rest of the library.",
+        "Short explainers teams can skim before working with the rest of the mechanisms.",
       takeaways: [
         "Why burden, consent, and stewardship matter for socio-technical systems.",
         "How to align governance artifacts with the lived experience of the people using your product.",
-        "What “pattern language” means for UI safeguards, facilitation prompts, and escalation design.",
+        "What “mechanism language” means for UI safeguards, facilitation prompts, and escalation design.",
       ],
     },
     {
@@ -233,7 +237,7 @@ export const libraryContent: LibraryContent = {
         "How to adapt the materials to your org without slowing delivery.",
       takeaways: [
         "Each section ships with permalinks; link directly in design docs or runbooks to keep teams aligned.",
-        "Filters call out whether a pattern is governance-first, design-ethics guidance, or a policy control.",
+        "Filters call out whether a mechanism is governance-first, friction guidance, or a policy control.",
         "Glossary terms stay stable so research, field notes, and diagnostics can cross-link without drift.",
       ],
     },
@@ -251,8 +255,8 @@ export const libraryContent: LibraryContent = {
           "Decision logs, maintenance windows, and escalation paths backed by diagnostics.",
       },
       {
-        slug: "design-ethics",
-        label: "Design ethics",
+        slug: "friction",
+        label: "Friction",
         description:
           "Consent prompts, appeal paths, and humane defaults that keep interfaces accountable.",
       },
@@ -266,7 +270,7 @@ export const libraryContent: LibraryContent = {
     entries: [
       {
         slug: "decision-log",
-        title: "Decision log with dissent",
+        title: "MEC-01 Decision log with dissent",
         summary:
           "Capture high-stakes calls, dissenting views, and follow-ups so governance stays legible to teams and impacted people.",
         filters: ["governance", "policy"],
@@ -307,10 +311,10 @@ export const libraryContent: LibraryContent = {
       },
       {
         slug: "progressive-consent",
-        title: "Progressive consent prompts",
+        title: "MEC-02 Progressive consent prompts",
         summary:
           "Stage requests for data or automation over time, with reminders and exits that honor the consent journey.",
-        filters: ["design-ethics", "policy"],
+        filters: ["friction", "policy"],
         glossaryRefs: ["consent-journey", "permission-surface", "safety-valve"],
         cues: [
           "Pair each ask with why it is needed and how to revoke it.",
@@ -348,7 +352,7 @@ export const libraryContent: LibraryContent = {
       },
       {
         slug: "maintenance-windowing",
-        title: "Maintenance windowing",
+        title: "MEC-03 Maintenance windowing",
         summary:
           "Schedule improvements, monitoring, and resourcing using a visible stewardship window.",
         filters: ["governance", "policy"],
@@ -393,10 +397,10 @@ export const libraryContent: LibraryContent = {
       },
       {
         slug: "kill-switch",
-        title: "Kill switch for runaway automation",
+        title: "MEC-05 Kill switch for runaway automation",
         summary:
           "Pre-authorized halt paths with named stewards, thresholds, and restoration drills so harms stop in seconds.",
-        filters: ["governance", "design-ethics"],
+        filters: ["governance", "friction"],
         glossaryRefs: ["stopability", "ethical-interrupts", "time-to-halt"],
         cues: [
           "Define triggers tied to moral performance indicators and frontline reports.",
@@ -434,10 +438,10 @@ export const libraryContent: LibraryContent = {
       },
       {
         slug: "appeal-paths",
-        title: "Appeal paths inside the UI",
+        title: "MEC-06 Appeal paths inside the UI",
         summary:
           "Give people a built-in channel to dispute outputs, get human review, or learn how a decision was made.",
-        filters: ["design-ethics", "governance"],
+        filters: ["friction", "governance"],
         glossaryRefs: [
           "contestability",
           "appeal-passage-rate",
@@ -481,13 +485,13 @@ export const libraryContent: LibraryContent = {
   },
   syllabus: {
     overview:
-      "A guided track for teams adopting the library. Each module links to glossary anchors and patterns you can cite in docs.",
+      "A guided track for teams adopting the mechanisms. Each module links to glossary anchors and specifications you can cite in docs.",
     modules: [
       {
         title: "Orientation",
         duration: "60 minutes",
         topics: [
-          "Library tour and how to use permalinks in specs",
+          "Mechanisms tour and how to use permalinks in specs",
           "Primer on burden, consent, and stewardship",
           "Navigation of governance, design ethics, and policy filters",
         ],

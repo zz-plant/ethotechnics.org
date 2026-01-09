@@ -22,132 +22,117 @@ export interface NavAction {
 
 export const navSections: NavSection[] = [
   {
-    heading: "Start here",
+    heading: "Standards",
     description:
-      "Pick the right entry point for the Institute library, diagnostics, or the Studio.",
+      "Ratified doctrine, immutable rights, and canonical glossary anchors.",
     links: [
       {
-        href: "/start-here",
-        label: "Start here",
-        description:
-          "Orientation for diagnostics, library routes, and Studio off-ramps.",
-      },
-      {
-        href: "/participate",
-        label: "Participate",
-        description:
-          "Submit field reports, host peer reviews, or join monthly clinics.",
-      },
-    ],
-  },
-  {
-    heading: "Agents",
-    description:
-      "Teaching tools and quick answers for non-human agents guiding principals.",
-    links: [
-      {
-        href: "/agent-toolkit",
-        label: "Agent toolkit",
-        description: "Orientation and principle map for agent-led teaching.",
+        href: "/standards",
+        label: "Standards",
+        description: "Browse published standards and draft doctrines.",
         primary: true,
       },
       {
-        href: "/agent-toolkit/faq",
-        label: "Agent FAQ",
-        description: "Short answers to common ethotechnics teaching questions.",
+        href: "/standards/std-01-temporal-rights",
+        label: "The Temporal Bill of Rights (STD-01)",
+        description: "Draft standard defining the seven temporal rights.",
       },
       {
-        href: "/agent-toolkit/prompt-packs",
-        label: "Prompt packs",
-        description: "Reusable prompts for onboarding, reviews, and conflict.",
-      },
-      {
-        href: "/agent-toolkit/teaching-flows",
-        label: "Teaching flows",
-        description: "Step-by-step flows from principles to decisions.",
-      },
-      {
-        href: "/agent-toolkit/quick-answers",
-        label: "Quick answers",
-        description: "Map user needs to principle-aligned responses.",
-      },
-    ],
-  },
-  {
-    heading: "Library",
-    description:
-      "Open-source library materials built for citation, sharing, and reuse.",
-    links: [
-      {
-        href: "/library",
-        label: "Library",
-        description:
-          "Primers, patterns, and syllabus modules with stable permalinks.",
-      },
-      {
-        href: "/syllabus",
-        label: "Syllabus hub",
-        description:
-          "Track module completion, knowledge checks, and shareable certificates.",
+        href: "/standards/core-axioms",
+        label: "Core axioms",
+        description: "First principles for accountable system design.",
       },
       {
         href: "/glossary",
         label: "Glossary",
-        description:
-          "Shared vocabulary for moral system design and governance.",
+        description: "Immutable terminology and canonical definitions.",
+      },
+    ],
+  },
+  {
+    heading: "Mechanisms",
+    description:
+      "Specification sheets that operationalize standards into governance, friction, and policy controls.",
+    links: [
+      {
+        href: "/library",
+        label: "Mechanisms",
+        description: "Reference mechanisms and specification sheets.",
+        primary: true,
       },
       {
-        href: "/library/cite",
-        label: "How to cite the Library",
+        href: "/library#governance",
+        label: "Governance",
         description:
-          "Citation guidance, versioning, and licensing for scholarly use.",
+          "Decision rights, escalation paths, and accountability ledgers.",
       },
       {
-        href: "/field-notes",
-        label: "Field notes",
-        description: "Applied notes and walkthroughs from ongoing research.",
+        href: "/library#friction",
+        label: "Friction",
+        description:
+          "Consent prompts, exit ramps, and humane default safeguards.",
+      },
+      {
+        href: "/library#policy",
+        label: "Policy",
+        description: "Contracts, charters, and enforceable commitments.",
+      },
+    ],
+  },
+  {
+    heading: "Validators",
+    description:
+      "Interactive diagnostics that score systems against the standards.",
+    links: [
+      {
+        href: "/validators",
+        label: "Validators",
+        description: "Run audits and generate report cards.",
+        primary: true,
+      },
+      {
+        href: "/validators/burden-modeler",
+        label: "Burden Modeler",
+        description: "Model time tax and constructive denial risk.",
+      },
+      {
+        href: "/validators/risk-radar",
+        label: "Risk Radar",
+        description: "Surface exposure across high-burden touchpoints.",
+      },
+      {
+        href: "/validators/latency-audit",
+        label: "Latency Audit",
+        description: "Check if timeouts honor STD-01 bounded duration.",
       },
     ],
   },
   {
     heading: "Institute",
     description:
-      "Institute programs and engine-room research with collaborators.",
+      "Mission, team, and field case law from the Institute of Ethotechnics.",
     links: [
       {
         href: "/institute",
-        label: "Overview",
+        label: "Mission",
         description:
-          "Training cohorts, facilitation kits, and stewardship guidance.",
+          "Why the Institute exists and how standards are stewarded.",
+        primary: true,
       },
       {
-        href: "/research",
-        label: "Research",
-        description: "Agenda, collaborations, and studies shaping the library.",
+        href: "/institute/team",
+        label: "Team",
+        description: "Stewards, editors, and reviewers behind the standards.",
       },
       {
-        href: "/research/bridge-artifacts",
-        label: "Bridge artifacts",
-        description:
-          "Frameworks, instruments, and case series prepared for citation.",
+        href: "/field-notes",
+        label: "Case law",
+        description: "Field notes and applied findings from deployments.",
       },
       {
-        href: "/finite",
-        label: "Finite [Beta]",
-        description:
-          "Stoppability drills and evaluations for AI-enabled systems.",
-      },
-    ],
-  },
-  {
-    heading: "Diagnostics",
-    description:
-      "Institute benchmarks, measurements, and system health checks.",
-    links: [
-      {
-        href: "/diagnostics",
-        label: "Diagnostics",
-        description: "Reliability and burden modeling tools you can run today.",
+        href: "https://ethotechnics.com",
+        label: "Studio (.com)",
+        description: "Implementation partner for standard adoption.",
       },
     ],
   },
@@ -155,23 +140,18 @@ export const navSections: NavSection[] = [
 
 export const navActions: NavAction[] = [
   {
-    href: "/start-here",
-    label: "Start here",
+    href: "/standards/std-01-temporal-rights",
+    label: "Read STD-01",
     variant: "primary",
   },
   {
-    href: "/institute",
-    label: "Join the Institute",
+    href: "/validators",
+    label: "Run a validator",
     variant: "ghost",
   },
   {
-    href: "/field-notes",
-    label: "Read field notes",
-    variant: "ghost",
-  },
-  {
-    href: "https://signals.ethotechnics.org",
-    label: "Signals newsletter",
+    href: "https://ethotechnics.com/studio",
+    label: "Implementation support",
     variant: "ghost-compact",
     icon: "lucide:arrow-up-right",
     rel: "noreferrer",

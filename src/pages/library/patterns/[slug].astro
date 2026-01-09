@@ -30,7 +30,7 @@ if (!pattern) {
 const filterLabels = Object.fromEntries(
   libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label])
 );
-const diagnosticLinks = pattern.diagnostics
+const validatorLinks = pattern.diagnostics
   .map((diagnosticSlug) =>
     diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug)
   )
@@ -40,26 +40,26 @@ const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
   label: getGlossaryLabel(slug),
   href: `${glossaryPermalink}#${slug}`,
 }));
-const pageTitle = `${pattern.title} — Pattern language`;
+const pageTitle = `${pattern.title} — Mechanism specification`;
 const pageDescription = pattern.summary;
 const permalink = `/library/patterns/${pattern.slug}`;
 const panelDescription = `Tagged for ${pattern.filters
   .map((filter) => filterLabels[filter] ?? filter)
-  .join(", ")} with diagnostic handshakes.`;
+  .join(", ")} with validator handshakes.`;
 const anchorLinks = [
   ...(glossaryAnchors.length
     ? [{ href: "#glossary", label: "Glossary anchors" }]
     : []),
   { href: "#steps", label: "Steps" },
-  { href: "#artifacts", label: "Artifacts" },
+  { href: "#assets", label: "Assets" },
   { href: "#example", label: "Example usage" },
-  { href: "#diagnostics", label: "Diagnostics" },
+  { href: "#validators", label: "Validators" },
 ];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
-    eyebrow="Pattern language"
+    eyebrow="Specification sheet"
     title={pattern.title}
     description={pageDescription}
     permalink={permalink}
@@ -103,8 +103,8 @@ const anchorLinks = [
   <SectionBlock
     id="steps"
     eyebrow="Steps"
-    title="Put the pattern in motion."
-    description="Start with the field cues, then use the artifacts to keep the work legible."
+    title="Put the mechanism in motion."
+    description="Start with the field cues, then use the assets to keep the work legible."
   >
     <div class="pattern-detail__checklist-progress" hidden>
       <p class="muted small">
@@ -137,10 +137,10 @@ const anchorLinks = [
   </SectionBlock>
 
   <SectionBlock
-    id="artifacts"
-    eyebrow="Artifacts"
+    id="assets"
+    eyebrow="Assets"
     title="Keep outputs reusable."
-    description="Link or copy these artifacts into design docs, runbooks, and briefs so the pattern travels with the work."
+    description="Link or copy these assets into design docs, runbooks, and briefs so the mechanism travels with the work."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -170,9 +170,9 @@ const anchorLinks = [
   </SectionBlock>
 
   <SectionBlock
-    id="diagnostics"
-    eyebrow="Diagnostics"
-    title="Pair diagnostics with this pattern."
+    id="validators"
+    eyebrow="Validators"
+    title="Pair validators with this mechanism."
     description="Use these tools to size risk and keep the stewardship path visible."
     variant="alt"
   >
@@ -191,7 +191,7 @@ const anchorLinks = [
 
       <div class="pattern-detail__diagnostic-list">
         {
-          diagnosticLinks.map((tool) => (
+          validatorLinks.map((tool) => (
             <article
               class="card pattern-detail__diagnostic-card"
               id={tool.slug}
@@ -199,13 +199,13 @@ const anchorLinks = [
               <div class="card__glow" aria-hidden="true" />
               <div class="pattern-detail__diagnostic-header">
                 <div>
-                  <p class="muted">Diagnostic</p>
+                  <p class="muted">Validator</p>
                   <h3>{tool.title}</h3>
                 </div>
                 <button
                   class="copy-button"
                   type="button"
-                  data-copy-link={`/diagnostics#${tool.slug}`}
+                  data-copy-link={`/validators/${tool.slug}`}
                   aria-label={`Copy link to ${tool.title}`}
                 >
                   Copy link

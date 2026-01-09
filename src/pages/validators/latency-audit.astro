@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Latency Audit — Validator"
+  description="Audit bounded duration compliance against system latency."
+  mainClass="page page--wide"
+>
+  <section class="validator">
+    <header class="validator__header">
+      <div>
+        <p class="validator__id">VAL-03</p>
+        <h1>Latency Audit</h1>
+        <p class="muted">
+          Compare declared timeouts against observed latency to test STD-01 Article III.
+        </p>
+      </div>
+      <a class="validator__standard" href="/standards/std-01-temporal-rights">
+        Linked standard: STD-01
+      </a>
+    </header>
+
+    <form class="validator__form" data-validator-form>
+      <label class="validator__field">
+        Declared timeout (seconds)
+        <input type="number" name="timeout" min="10" value="120" required />
+      </label>
+      <label class="validator__field">
+        Observed max latency (seconds)
+        <input type="number" name="latency" min="1" value="95" required />
+      </label>
+      <label class="validator__field">
+        Human escalation path in place?
+        <select name="escalation">
+          <option value="yes" selected>Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+      <button class="button primary" type="submit">Generate report card</button>
+    </form>
+
+    <div class="validator__report" data-validator-report hidden>
+      <div class="validator__status" data-validator-status>
+        <span class="status-pill status-pill--green">Green</span>
+        <p class="validator__status-text">Timeouts align with bounded duration.</p>
+      </div>
+      <p class="validator__recommendation">
+        Fix this using <a href="/mechanisms/mec-04-hard-clock">MEC-04: The Hard Clock</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>(
+    "[data-validator-form]"
+  );
+  const report = document.querySelector<HTMLElement>(
+    "[data-validator-report]"
+  );
+  const status = document.querySelector<HTMLElement>(
+    "[data-validator-status]"
+  );
+
+  const updateStatus = (
+    level: "red" | "yellow" | "green",
+    message: string
+  ) => {
+    if (!status) return;
+    status.innerHTML = `<span class="status-pill status-pill--${level}">${
+      level.charAt(0).toUpperCase() + level.slice(1)
+    }</span><p class="validator__status-text">${message}</p>`;
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form || !report) return;
+
+    const data = new FormData(form);
+    const timeout = Number(data.get("timeout"));
+    const latency = Number(data.get("latency"));
+    const escalation = data.get("escalation");
+
+    if (latency > timeout || escalation === "no") {
+      updateStatus("red", "High risk: bounded duration violated.");
+    } else if (latency > timeout * 0.8) {
+      updateStatus("yellow", "Medium risk: latency near timeout threshold.");
+    } else {
+      updateStatus("green", "Low risk: bounded duration honored.");
+    }
+
+    report.removeAttribute("hidden");
+    report.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+</script>
