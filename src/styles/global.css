@@ -2,6 +2,45 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --text-hero: clamp(2.4rem, 3vw + 1rem, 3.8rem);
+  --text-lede: clamp(1.05rem, 0.6vw + 0.95rem, 1.2rem);
+  --text-body: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
+}
+
+.text-hero {
+  font-size: var(--text-hero);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.text-lede {
+  font-size: var(--text-lede);
+  text-wrap: balance;
+}
+
+.text-body {
+  font-size: var(--text-body);
+}
+
+h1 {
+  font-variation-settings:
+    "wght" 720,
+    "opsz" 36;
+}
+
+h2 {
+  font-variation-settings:
+    "wght" 660,
+    "opsz" 28;
+}
+
+h3 {
+  font-variation-settings:
+    "wght" 620,
+    "opsz" 22;
+}
+
 .skip-link {
   position: absolute;
   left: 0.75rem;
@@ -736,7 +775,7 @@ html {
 }
 
 .hero__content h1 {
-  font-size: clamp(2.4rem, 3vw + 1rem, 3.8rem);
+  font-size: var(--text-hero);
   margin: 0.35rem 0 0.85rem;
   line-height: 1.05;
   text-wrap: balance;
@@ -847,8 +886,9 @@ html {
 
 .hero__content .lede {
   color: color-mix(in srgb, var(--muted) 88%, var(--text));
-  font-size: clamp(1rem, 0.6vw + 0.9rem, 1.15rem);
+  font-size: var(--text-lede);
   max-width: 62ch;
+  text-wrap: balance;
 }
 
 .hero__note {
@@ -1553,7 +1593,8 @@ html {
 }
 
 .page-intro__lede {
-  font-size: 1.05rem;
+  font-size: var(--text-lede);
+  text-wrap: balance;
 }
 
 .page-intro__permalink {
