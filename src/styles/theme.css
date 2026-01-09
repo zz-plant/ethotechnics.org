@@ -170,6 +170,24 @@ svg {
   }
 }
 
+@media (min-width: 1280px) and (min-height: 720px) and (hover: none) and (pointer: coarse) {
+  :root {
+    --page-gutter: clamp(1.6rem, 3.2vw, 4.2rem);
+    --section-padding: clamp(2.4rem, 4.8vw, 4.8rem);
+    --section-gap: clamp(1.6rem, 3vw, 3rem);
+    --space-2: 0.9rem;
+    --space-3: 1.3rem;
+    --space-4: 1.9rem;
+    --space-6: 3rem;
+    --font-size-sm: 1rem;
+  }
+
+  body {
+    font-size: clamp(1.1rem, 0.45vw + 1rem, 1.35rem);
+    line-height: 1.8;
+  }
+}
+
 @media (min-width: 2600px) {
   :root {
     --content-max: 1760px;
