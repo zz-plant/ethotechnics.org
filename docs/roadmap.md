@@ -21,6 +21,18 @@ Use this template when starting new work or clarifying requirements.
 - **UX/Tech notes:**
 - **Acceptance criteria:**
 
+## GitHub Issues integration
+
+Treat this in-repo doc as the canonical source of roadmap and spec truth. When creating a GitHub
+Issue, point it back to the relevant section here for full context.
+
+**Template line:** `Issue: <GitHub link> / Spec: <section anchor>`
+
+### Roadmap-to-issue checklist
+
+- **Title format:** `Roadmap: <Feature>`
+- **Required labels:** `roadmap`, `spec`, `good first issue`
+
 ## How to pick up work
 
 - Start with the roadmap table and pull from **Now**, then **Next** if no **Now** items exist.
