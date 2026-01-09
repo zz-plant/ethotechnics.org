@@ -38,6 +38,19 @@ const normalizePath = (path: string) => {
 const isHome = normalizePath(currentPath) === "/";
 const isCurrentLink = (href: string) =>
   normalizePath(href) === normalizePath(currentPath);
+const toViewTransitionName = (
+  href: string,
+  scope: "desktop" | "mobile"
+) => {
+  const normalized = normalizePath(href);
+  const slug = normalized
+    .replace(/^\/|\/$/g, "")
+    .replace(/[^a-zA-Z0-9-]+/g, "-")
+    .toLowerCase()
+    .replace(/^-+|-+$/g, "");
+
+  return `nav-link-${scope}-${slug || "home"}`;
+};
 
 const topLevelLinks = navPrimaryLinks;
 ---
@@ -50,6 +63,7 @@ const topLevelLinks = navPrimaryLinks;
         class="nav__brand"
         aria-label="Go to the homepage"
         aria-current={isHome ? "page" : undefined}
+        style="view-transition-name: nav-brand;"
       >
         <Logo class="nav__brand-logo" title="Ethotechnics" />
       </a>
@@ -88,6 +102,10 @@ const topLevelLinks = navPrimaryLinks;
               class="nav__link"
               href={link.href}
               aria-current={isCurrentLink(link.href) ? "page" : undefined}
+              style={`view-transition-name: ${toViewTransitionName(
+                link.href,
+                "desktop"
+              )};`}
             >
               {link.label}
             </a>
@@ -109,6 +127,10 @@ const topLevelLinks = navPrimaryLinks;
                 class="nav__link"
                 href={link.href}
                 aria-current={isCurrentLink(link.href) ? "page" : undefined}
+                style={`view-transition-name: ${toViewTransitionName(
+                  link.href,
+                  "mobile"
+                )};`}
               >
                 {link.label}
               </a>
@@ -450,6 +472,11 @@ const topLevelLinks = navPrimaryLinks;
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
   }
 
+  .nav__menu-toggle:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-xs);
+  }
+
   .nav__menu-toggle:hover .nav__menu-toggle-fill,
   .nav__menu-toggle:focus-visible .nav__menu-toggle-fill {
     opacity: 1;
@@ -626,6 +653,11 @@ const topLevelLinks = navPrimaryLinks;
       box-shadow 0.2s ease;
   }
 
+  .nav__menu-toggle:active .nav__menu-toggle-icon {
+    transform: scale(0.98);
+    box-shadow: var(--shadow-xs);
+  }
+
   .nav__menu-toggle svg {
     width: 1.1rem;
     height: 1.1rem;
@@ -660,7 +692,8 @@ const topLevelLinks = navPrimaryLinks;
     transition:
       transform 0.15s ease,
       border-color 0.15s ease,
-      box-shadow 0.15s ease;
+      box-shadow 0.15s ease,
+      background 0.15s ease;
   }
 
   .nav__link:hover,
@@ -668,6 +701,13 @@ const topLevelLinks = navPrimaryLinks;
     transform: translateY(-1px);
     border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
     box-shadow: var(--shadow-xs);
+    background: color-mix(in srgb, var(--surface) 92%, white 8%);
+  }
+
+  .nav__link:active {
+    transform: translateY(0);
+    box-shadow: none;
+    background: color-mix(in srgb, var(--surface) 90%, white 10%);
   }
 
   .nav__link:focus-visible {
@@ -1069,6 +1109,30 @@ const topLevelLinks = navPrimaryLinks;
 
     .nav__content {
       max-width: 1280px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav__menu-toggle,
+    .nav__menu-toggle-fill,
+    .nav__menu-toggle-icon,
+    .nav__link,
+    .nav__menu-close,
+    .nav__scrim,
+    .nav__content {
+      transition: none;
+    }
+
+    .nav__menu-toggle:hover,
+    .nav__menu-toggle:focus-visible,
+    .nav__menu-toggle:active,
+    .nav__menu-toggle:active .nav__menu-toggle-icon,
+    .nav__link:hover,
+    .nav__link:focus-visible,
+    .nav__link:active,
+    .nav--menu-open .nav__menu-toggle-icon,
+    .nav--menu-open .nav__content {
+      transform: none;
     }
   }
 </style>
