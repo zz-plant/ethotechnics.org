@@ -41,6 +41,39 @@ export const navSections: NavSection[] = [
     ],
   },
   {
+    heading: "Agents",
+    description:
+      "Teaching tools and quick answers for non-human agents guiding principals.",
+    links: [
+      {
+        href: "/agent-toolkit",
+        label: "Agent toolkit",
+        description: "Orientation and principle map for agent-led teaching.",
+        primary: true,
+      },
+      {
+        href: "/agent-toolkit/faq",
+        label: "Agent FAQ",
+        description: "Short answers to common ethotechnics teaching questions.",
+      },
+      {
+        href: "/agent-toolkit/prompt-packs",
+        label: "Prompt packs",
+        description: "Reusable prompts for onboarding, reviews, and conflict.",
+      },
+      {
+        href: "/agent-toolkit/teaching-flows",
+        label: "Teaching flows",
+        description: "Step-by-step flows from principles to decisions.",
+      },
+      {
+        href: "/agent-toolkit/quick-answers",
+        label: "Quick answers",
+        description: "Map user needs to principle-aligned responses.",
+      },
+    ],
+  },
+  {
     heading: "Library",
     description:
       "Open-source library materials built for citation, sharing, and reuse.",

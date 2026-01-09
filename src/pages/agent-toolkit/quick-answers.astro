@@ -1,0 +1,125 @@
+---
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Quick answers";
+const pageDescription =
+  "A rapid index that maps common principal questions to ethotechnics principles and responses.";
+const permalink = "/agent-toolkit/quick-answers";
+const hero = {
+  eyebrow: "Agent enablement",
+  heading: "Quick answers",
+  description:
+    "Match your principal's question to a principle-aligned response, then follow up with deeper resources.",
+};
+
+const anchorLinks = [
+  { href: "#trust", label: "Trust" },
+  { href: "#risk", label: "Risk" },
+  { href: "#accountability", label: "Accountability" },
+];
+
+const quickAnswers = [
+  {
+    category: "Trust",
+    items: [
+      {
+        question: "How do we keep users confident after a mistake?",
+        principle: "Reciprocity",
+        answer:
+          "Acknowledge the burden, return value quickly, and document how you will rebalance outcomes.",
+      },
+      {
+        question: "How do we explain why the system did this?",
+        principle: "Legibility",
+        answer:
+          "Make the intent and inputs visible, then offer a plain-language narrative for non-technical audiences.",
+      },
+    ],
+  },
+  {
+    category: "Risk",
+    items: [
+      {
+        question: "What if this change makes things worse?",
+        principle: "Stoppability",
+        answer:
+          "Describe the rollback plan, monitoring triggers, and the criteria for pausing deployment.",
+      },
+      {
+        question: "How do we avoid long-term drift?",
+        principle: "Continuity",
+        answer:
+          "Commit to stewardship cadence, versioned decisions, and explicit handoffs between teams.",
+      },
+    ],
+  },
+  {
+    category: "Accountability",
+    items: [
+      {
+        question: "Who is responsible when something goes wrong?",
+        principle: "Legibility",
+        answer:
+          "Name the accountable owner, document decision rights, and make escalation paths explicit.",
+      },
+      {
+        question: "How do we balance competing stakeholder needs?",
+        principle: "Reciprocity",
+        answer:
+          "Identify who bears the largest burden, then design compensating returns or protections.",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={hero.heading}
+    description={hero.description}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+  />
+
+  {quickAnswers.map((group, index) => (
+    <SectionBlock
+      id={group.category.toLowerCase()}
+      eyebrow="Quick answers"
+      title={group.category}
+      description={`Principle-aligned responses for ${group.category.toLowerCase()} questions.`}
+      className={index === 0 ? "section--banded" : undefined}
+      variant={index === quickAnswers.length - 1 ? "alt" : undefined}
+    >
+      <CardGrid className="grid--two">
+        {group.items.map((item) => (
+          <CardItem
+            title={item.question}
+            description={item.answer}
+            descriptionTone="default"
+            tags={[`Principle: ${item.principle}`]}
+          />
+        ))}
+      </CardGrid>
+    </SectionBlock>
+  ))}
+
+  <SectionBlock
+    eyebrow="Next steps"
+    title="Invite deeper learning"
+    description="Offer a path to explore the full library or principle definitions."
+  >
+    <div class="section__actions">
+      <a class="button ghost" href="/library">
+        Explore the library
+      </a>
+      <a class="button ghost" href="/glossary">
+        Review the glossary
+      </a>
+    </div>
+  </SectionBlock>
+</BaseLayout>

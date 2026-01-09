@@ -1,0 +1,155 @@
+---
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Teaching flows";
+const pageDescription =
+  "Step-by-step teaching flows that move from ethotechnics principles to concrete decisions.";
+const permalink = "/agent-toolkit/teaching-flows";
+const hero = {
+  eyebrow: "Agent enablement",
+  heading: "Teaching flows",
+  description:
+    "Use these structured flows to guide principals from a principle to an action in under 15 minutes.",
+};
+
+const anchorLinks = [
+  { href: "#decision", label: "Decision flow" },
+  { href: "#risk", label: "Risk review" },
+  { href: "#stewardship", label: "Stewardship" },
+];
+
+const decisionFlows = [
+  {
+    title: "New system onboarding",
+    steps: [
+      "Define the principal, decision horizon, and immediate outcomes.",
+      "Name the ethotechnics principle most at risk if the system scales quickly.",
+      "Identify the top irreversible decisions and existing exit ramps.",
+      "Close with one action that increases legibility in the next week.",
+    ],
+    outcome: "A shared map of scope, stakes, and next steps.",
+  },
+  {
+    title: "Feature release review",
+    steps: [
+      "Summarize the release goal and who benefits most.",
+      "Ask how the change shifts incentives or accountability.",
+      "Confirm rollback options and monitoring signals.",
+      "Record a follow-up checkpoint aligned to the principle.",
+    ],
+    outcome: "A release decision grounded in principle and reversibility.",
+  },
+];
+
+const riskFlows = [
+  {
+    title: "Incident response teaching",
+    steps: [
+      "Name the impacted group and the harm surface area.",
+      "Identify which principle failed and why it was hard to see.",
+      "List the minimum viable changes to restore legibility and reciprocity.",
+      "Capture a governance action to prevent recurrence.",
+    ],
+    outcome: "A shared understanding of failure modes and corrective action.",
+  },
+  {
+    title: "Model swap evaluation",
+    steps: [
+      "State what is changing and what must remain continuous.",
+      "Assess the new risks to accountability and explainability.",
+      "Review stoppability options if the new model underperforms.",
+      "Decide how to measure trust restoration after the swap.",
+    ],
+    outcome: "A go/no-go decision with clear continuity safeguards.",
+  },
+];
+
+const stewardshipFlows = [
+  {
+    title: "Governance briefing",
+    steps: [
+      "Describe the system in one sentence for a non-technical steward.",
+      "Align on the principle that defines acceptable tradeoffs.",
+      "Clarify who signs off on reversibility and escalation.",
+      "Set a cadence for audits or learning reviews.",
+    ],
+    outcome: "An agreed governance rhythm with clear accountability.",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={hero.heading}
+    description={hero.description}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="decision"
+    eyebrow="Decision flow"
+    title="Move from principle to decision fast"
+    description="Run these flows during onboarding or release reviews."
+    className="section--banded"
+  >
+    <CardGrid className="grid--two">
+      {decisionFlows.map((flow) => (
+        <CardItem title={flow.title} descriptionTone="default">
+          <ol class="muted">
+            {flow.steps.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ol>
+          <p class="muted small">Outcome: {flow.outcome}</p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="risk"
+    eyebrow="Risk review"
+    title="Clarify failure modes and recovery"
+    description="Use these flows when ethics failures or regressions surface."
+  >
+    <CardGrid className="grid--two">
+      {riskFlows.map((flow) => (
+        <CardItem title={flow.title} descriptionTone="default">
+          <ol class="muted">
+            {flow.steps.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ol>
+          <p class="muted small">Outcome: {flow.outcome}</p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="stewardship"
+    eyebrow="Stewardship"
+    title="Keep long-term oversight aligned"
+    description="Use these flows to brief human stewards and align governance."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {stewardshipFlows.map((flow) => (
+        <CardItem title={flow.title} descriptionTone="default">
+          <ol class="muted">
+            {flow.steps.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ol>
+          <p class="muted small">Outcome: {flow.outcome}</p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>
