@@ -9,12 +9,14 @@ import SectionBlock from '../../components/SectionBlock.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 import diagnosticsFilterScript from '../../scripts/diagnostics-filter.ts?url';
+import diagnosticsScoreScript from '../../scripts/diagnostics-score.ts?url';
 
 const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation, publication } =
   diagnosticsContent;
 const patternBase = `${libraryContent.permalink}#patterns`;
 const anchorLinks = [
   { href: '#why-diagnostics', label: 'What you get' },
+  { href: '#risk-radar', label: 'Risk radar pulse' },
   { href: '#how-it-works', label: 'How sessions run' },
   { href: '#diagnostic-tools', label: 'Diagnostics menu' },
   ...tools.map((tool) => ({ href: `#${tool.slug}`, label: tool.title })),
@@ -86,6 +88,55 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
         <CardItem title={item.title} description={item.description} />
       ))}
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="risk-radar"
+    eyebrow="Playable diagnostic"
+    title="Risk radar: what is your team's burnout score?"
+    description="Slide each signal to estimate how strained the system feels today. Share the output to start the conversation."
+    variant="alt"
+  >
+    <div class="diagnostics__calculator" data-diagnostics-calculator>
+      <div class="diagnostics__slider-grid">
+        <label class="diagnostics__slider">
+          <div class="diagnostics__slider-heading">
+            <span>Workload intensity</span>
+            <output class="diagnostics__slider-value" data-score-output="workload">5</output>
+          </div>
+          <input type="range" min="0" max="10" value="5" step="1" data-score-input="workload" />
+          <p class="muted small">0 is manageable, 10 is constantly overflowing.</p>
+        </label>
+        <label class="diagnostics__slider">
+          <div class="diagnostics__slider-heading">
+            <span>Context switching</span>
+            <output class="diagnostics__slider-value" data-score-output="volatility">5</output>
+          </div>
+          <input type="range" min="0" max="10" value="5" step="1" data-score-input="volatility" />
+          <p class="muted small">0 is focused, 10 is constant fire drills.</p>
+        </label>
+        <label class="diagnostics__slider">
+          <div class="diagnostics__slider-heading">
+            <span>Recovery capacity</span>
+            <output class="diagnostics__slider-value" data-score-output="recovery">5</output>
+          </div>
+          <input type="range" min="0" max="10" value="5" step="1" data-score-input="recovery" />
+          <p class="muted small">0 is no breathing room, 10 is sustainable with slack.</p>
+        </label>
+      </div>
+      <div class="diagnostics__scorecard" aria-live="polite">
+        <p class="eyebrow">Burnout score</p>
+        <p class="diagnostics__score" data-score-value>50</p>
+        <p class="muted diagnostics__score-label" data-score-label>Elevated load</p>
+        <p class="muted small" data-score-recommendation>
+          Use the Burden Modeler to quantify hotspots before the next cycle lands.
+        </p>
+        <div class="section__actions">
+          <a class="button primary" href="/diagnostics/burden-modeler">Run the Burden Modeler</a>
+          <a class="button ghost" href="/diagnostics/capacity-forecaster">Open the Capacity Forecaster</a>
+        </div>
+      </div>
+    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -206,4 +257,5 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
     </CardGrid>
   </SectionBlock>
   <script type="module" src={diagnosticsFilterScript}></script>
+  <script type="module" src={diagnosticsScoreScript}></script>
 </BaseLayout>
