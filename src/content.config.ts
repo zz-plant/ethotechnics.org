@@ -7,11 +7,24 @@ const pageCopySchema = z.object({
   pageDescription: z.string(),
 });
 
-const actionSchema = z.object({
+const actionVariantSchema = z.enum(["primary", "ghost"]);
+const linkSchema = z.object({
   label: z.string(),
   href: z.string(),
-  variant: z.enum(['primary', 'ghost']).optional(),
+});
+const actionSchema = linkSchema.extend({
   icon: z.string().optional(),
+  variant: actionVariantSchema.optional(),
+});
+const actionWithAriaSchema = actionSchema.extend({
+  ariaLabel: z.string().optional(),
+  detail: z.string().optional(),
+});
+const promptSchema = z.object({
+  question: z.string(),
+  answer: z.string(),
+  href: z.string(),
+  label: z.string(),
 });
 
 const featureCardSchema = z.object({
@@ -21,14 +34,11 @@ const featureCardSchema = z.object({
   emphasis: z.boolean().optional(),
   eyebrow: z.string().optional(),
   pills: z.array(z.string()).optional(),
-  actions: z.array(z.object({
-    label: z.string(),
-    href: z.string(),
-  })).optional(),
+  actions: z.array(linkSchema).optional(),
 });
 
 const home = defineCollection({
-  loader: file('src/content/home.json'),
+  loader: file("src/content/home.json"),
   schema: pageCopySchema.extend({
     hero: z.object({
       eyebrow: z.string(),
@@ -37,10 +47,24 @@ const home = defineCollection({
       lede: z.string(),
       map: z.string(),
       actions: z.array(actionSchema),
-      quickLinks: z.array(z.object({ href: z.string(), label: z.string() })),
-      metrics: z.array(z.object({ label: z.string(), value: z.string(), icon: z.string().optional() })),
-      panel: z.object({ title: z.string(), description: z.string(), pills: z.array(z.string()) }),
-      media: z.object({ src: z.string(), alt: z.string(), caption: z.string().optional() }),
+      quickLinks: z.array(linkSchema),
+      metrics: z.array(
+        z.object({
+          label: z.string(),
+          value: z.string(),
+          icon: z.string().optional(),
+        }),
+      ),
+      panel: z.object({
+        title: z.string(),
+        description: z.string(),
+        pills: z.array(z.string()),
+      }),
+      media: z.object({
+        src: z.string(),
+        alt: z.string(),
+        caption: z.string().optional(),
+      }),
     }),
     about: z.object({
       eyebrow: z.string(),
@@ -54,12 +78,7 @@ const home = defineCollection({
       body: z.string(),
       promptTitle: z.string(),
       promptNote: z.string(),
-      prompts: z.array(z.object({
-        question: z.string(),
-        answer: z.string(),
-        href: z.string(),
-        label: z.string(),
-      })),
+      prompts: z.array(promptSchema),
       cards: z.array(featureCardSchema),
     }),
     features: z.object({
@@ -78,10 +97,7 @@ const home = defineCollection({
         published: z.string(),
         updated: z.string().optional(),
         actions: z.array(z.string()),
-        link: z.object({
-          label: z.string(),
-          href: z.string(),
-        }),
+        link: linkSchema,
       }),
       pills: z.array(z.string()),
     }),
@@ -102,37 +118,49 @@ const glossaryEntrySchema = z.object({
   bodyHtml: z.string(),
   examples: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
-  resources: z.array(z.object({
-    label: z.string(),
-    href: z.string(),
-    type: z.string(),
-  })).optional(),
+  resources: z
+    .array(
+      z.object({
+        label: z.string(),
+        href: z.string(),
+        type: z.string(),
+      }),
+    )
+    .optional(),
   relatedPatterns: z.array(z.string()).optional(),
 });
 
 const glossary = defineCollection({
-  loader: file('src/content/glossary.json'),
+  loader: file("src/content/glossary.json"),
   schema: pageCopySchema.extend({
     permalink: z.string(),
-    territoryMap: z.array(z.object({
-      id: z.string(),
-      label: z.string(),
-      tooltip: z.string(),
-    })),
-    categories: z.array(z.object({
-      id: z.string(),
-      heading: z.string(),
-      descriptionHtml: z.string(),
-      comingSoon: z.boolean(),
-      entries: z.array(glossaryEntrySchema),
-    })),
-    starterTerms: z.array(z.object({ id: z.string(), label: z.string(), description: z.string() })),
-    categoryHighlights: z.array(z.object({ id: z.string(), label: z.string(), description: z.string() })),
+    territoryMap: z.array(
+      z.object({
+        id: z.string(),
+        label: z.string(),
+        tooltip: z.string(),
+      }),
+    ),
+    categories: z.array(
+      z.object({
+        id: z.string(),
+        heading: z.string(),
+        descriptionHtml: z.string(),
+        comingSoon: z.boolean(),
+        entries: z.array(glossaryEntrySchema),
+      }),
+    ),
+    starterTerms: z.array(
+      z.object({ id: z.string(), label: z.string(), description: z.string() }),
+    ),
+    categoryHighlights: z.array(
+      z.object({ id: z.string(), label: z.string(), description: z.string() }),
+    ),
   }),
 });
 
 const library = defineCollection({
-  loader: file('src/content/library.json'),
+  loader: file("src/content/library.json"),
   schema: pageCopySchema.extend({
     permalink: z.string(),
     published: z.string(),
@@ -140,46 +168,62 @@ const library = defineCollection({
     recommended: z.object({
       title: z.string(),
       description: z.string(),
-      items: z.array(z.object({ title: z.string(), description: z.string(), href: z.string() })),
+      items: z.array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+          href: z.string(),
+        }),
+      ),
     }),
-    primer: z.array(z.object({
-      title: z.string(),
-      summary: z.string(),
-      takeaways: z.array(z.string()),
-    })),
-    patterns: z.object({
-      filters: z.array(z.object({
-        slug: z.enum(['governance', 'design-ethics', 'policy']),
-        label: z.string(),
-        description: z.string(),
-      })),
-      entries: z.array(z.object({
-        slug: z.string(),
+    primer: z.array(
+      z.object({
         title: z.string(),
         summary: z.string(),
-        filters: z.array(z.enum(['governance', 'design-ethics', 'policy'])),
-        glossaryRefs: z.array(z.string()),
-        cues: z.array(z.string()),
-        diagnostics: z.array(z.string()),
-        steps: z.array(z.string()),
-        artifacts: z.array(z.object({ name: z.string(), purpose: z.string() })),
-        example: z.object({ title: z.string(), description: z.string() }),
-      })),
+        takeaways: z.array(z.string()),
+      }),
+    ),
+    patterns: z.object({
+      filters: z.array(
+        z.object({
+          slug: z.enum(["governance", "design-ethics", "policy"]),
+          label: z.string(),
+          description: z.string(),
+        }),
+      ),
+      entries: z.array(
+        z.object({
+          slug: z.string(),
+          title: z.string(),
+          summary: z.string(),
+          filters: z.array(z.enum(["governance", "design-ethics", "policy"])),
+          glossaryRefs: z.array(z.string()),
+          cues: z.array(z.string()),
+          diagnostics: z.array(z.string()),
+          steps: z.array(z.string()),
+          artifacts: z.array(
+            z.object({ name: z.string(), purpose: z.string() }),
+          ),
+          example: z.object({ title: z.string(), description: z.string() }),
+        }),
+      ),
     }),
     syllabus: z.object({
       overview: z.string(),
-      modules: z.array(z.object({
-        title: z.string(),
-        duration: z.string(),
-        topics: z.array(z.string()),
-        outcome: z.string(),
-      })),
+      modules: z.array(
+        z.object({
+          title: z.string(),
+          duration: z.string(),
+          topics: z.array(z.string()),
+          outcome: z.string(),
+        }),
+      ),
     }),
   }),
 });
 
 const startHere = defineCollection({
-  loader: file('src/content/start-here.json'),
+  loader: file("src/content/start-here.json"),
   schema: pageCopySchema.extend({
     permalink: z.string(),
     hero: z.object({
@@ -190,51 +234,50 @@ const startHere = defineCollection({
       quickSummary: z.string(),
       deliverables: z.array(z.string()),
       panel: z.object({ title: z.string(), description: z.string() }),
-      actions: z.array(z.object({
-        label: z.string(),
-        href: z.string(),
-        ariaLabel: z.string().optional(),
-        variant: z.enum(['primary', 'ghost']),
-      })),
+      actions: z.array(
+        linkSchema.extend({
+          ariaLabel: z.string().optional(),
+          variant: actionVariantSchema,
+        }),
+      ),
     }),
-    anchorLinks: z.array(z.object({ href: z.string(), label: z.string() })),
+    anchorLinks: z.array(linkSchema),
     routes: z.object({
       eyebrow: z.string(),
       title: z.string(),
       description: z.string(),
-      cards: z.array(z.object({
-        title: z.string(),
-        description: z.string(),
-        bestFor: z.string(),
-        href: z.string(),
-        tags: z.array(z.string()),
-        recommendedTag: z.string().optional(),
-        recommendedNote: z.string().optional(),
-        time: z.string(),
-      })),
+      cards: z.array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+          bestFor: z.string(),
+          href: z.string(),
+          tags: z.array(z.string()),
+          recommendedTag: z.string().optional(),
+          recommendedNote: z.string().optional(),
+          time: z.string(),
+        }),
+      ),
     }),
     decisionGuide: z.object({
       eyebrow: z.string(),
       title: z.string(),
       description: z.string(),
-      prompts: z.array(z.object({
-        question: z.string(),
-        answer: z.string(),
-        href: z.string(),
-        label: z.string(),
-      })),
+      prompts: z.array(promptSchema),
     }),
     artifacts: z.object({
       eyebrow: z.string(),
       title: z.string(),
       description: z.string(),
-      previews: z.array(z.object({
-        title: z.string(),
-        description: z.string(),
-        label: z.string(),
-        href: z.string(),
-        note: z.string(),
-      })),
+      previews: z.array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+          label: z.string(),
+          href: z.string(),
+          note: z.string(),
+        }),
+      ),
     }),
     framing: z.object({
       eyebrow: z.string(),
@@ -265,7 +308,7 @@ const startHere = defineCollection({
 });
 
 const fieldNotes = defineCollection({
-  loader: file('src/content/field-notes.json'),
+  loader: file("src/content/field-notes.json"),
   schema: pageCopySchema.extend({
     permalink: z.string(),
     published: z.string(),
@@ -277,51 +320,52 @@ const fieldNotes = defineCollection({
       href: z.string(),
       ctaLabel: z.string(),
     }),
-    sections: z.array(z.object({
-      title: z.string(),
-      description: z.string(),
-      format: z.enum(['dispatch', 'case-study', 'signal']),
-    })),
-    entries: z.array(z.object({
-      slug: z.string(),
-      title: z.string(),
-      summary: z.string(),
-      format: z.enum(['dispatch', 'case-study', 'signal']),
-      relatedTerms: z.array(z.string()),
-      links: z.array(z.string()).optional(),
-      published: z.string(),
-    })),
+    sections: z.array(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        format: z.enum(["dispatch", "case-study", "signal"]),
+      }),
+    ),
+    entries: z.array(
+      z.object({
+        slug: z.string(),
+        title: z.string(),
+        summary: z.string(),
+        format: z.enum(["dispatch", "case-study", "signal"]),
+        relatedTerms: z.array(z.string()),
+        links: z.array(z.string()).optional(),
+        published: z.string(),
+      }),
+    ),
   }),
 });
 
 const participation = defineCollection({
-  loader: file('src/content/participation.json'),
+  loader: file("src/content/participation.json"),
   schema: pageCopySchema.extend({
     permalink: z.string(),
     hero: z.object({
       eyebrow: z.string(),
       heading: z.string(),
       description: z.string(),
-      anchorLinks: z.array(z.object({ href: z.string(), label: z.string() })),
+      anchorLinks: z.array(linkSchema),
       panel: z.object({
         title: z.string(),
         description: z.string(),
         eyebrow: z.string().optional(),
       }),
     }),
-    pathways: z.array(z.object({
-      id: z.string(),
-      title: z.string(),
-      description: z.string(),
-      tags: z.array(z.string()).optional(),
-      actions: z.array(z.object({
-        label: z.string(),
-        href: z.string(),
-        ariaLabel: z.string().optional(),
-        detail: z.string().optional(),
-      })),
-      checklist: z.array(z.string()),
-    })),
+    pathways: z.array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        description: z.string(),
+        tags: z.array(z.string()).optional(),
+        actions: z.array(actionWithAriaSchema),
+        checklist: z.array(z.string()),
+      }),
+    ),
     intake: z.object({
       eyebrow: z.string(),
       title: z.string(),
@@ -333,27 +377,31 @@ const participation = defineCollection({
       form: z.object({
         action: z.string(),
         submitLabel: z.string(),
-        fields: z.array(z.object({
-          id: z.string(),
-          label: z.string(),
-          type: z.enum(['text', 'email', 'textarea']),
-          placeholder: z.string(),
-          required: z.boolean().optional(),
-        })),
+        fields: z.array(
+          z.object({
+            id: z.string(),
+            label: z.string(),
+            type: z.enum(["text", "email", "textarea"]),
+            placeholder: z.string(),
+            required: z.boolean().optional(),
+          }),
+        ),
       }),
     }),
     feedback: z.object({
       eyebrow: z.string(),
       title: z.string(),
       description: z.string(),
-      actions: z.array(z.object({
-        label: z.string(),
-        href: z.string(),
-        ariaLabel: z.string().optional(),
-        detail: z.string().optional(),
-      })),
+      actions: z.array(actionWithAriaSchema),
     }),
   }),
 });
 
-export const collections = { home, glossary, library, startHere, fieldNotes, participation };
+export const collections = {
+  home,
+  glossary,
+  library,
+  startHere,
+  fieldNotes,
+  participation,
+};
