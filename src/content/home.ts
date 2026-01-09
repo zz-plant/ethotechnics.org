@@ -106,25 +106,25 @@ export type HomeContent = PageCopy & {
 };
 
 export const homeContent = {
-  pageTitle: "Ethotechnics Institute — Open-source library for accountable AI",
+  pageTitle: "Ethotechnics — A workbench for accountable systems",
   pageDescription:
-    "Ethotechnics.org is the Institute: an open-source library and engine room for accountable AI theory, research, and governance.",
+    "Run fast system health checks, borrow design patterns, learn the fundamentals, or work with the Studio.",
   hero: {
-    eyebrow: "Ethotechnics Institute",
-    heading: "The open-source library for accountable AI theory.",
+    eyebrow: "A workbench for accountable systems",
+    heading: "Get clarity, patterns, and help—fast.",
     subheadline:
-      "A research archive and engine room for legitimacy, citations, and peer review.",
-    lede: "Use the Start Here map to pick a first step, then explore the library, glossary, and diagnostics.",
-    map: 'Ethotechnics.org is the Institute. Start with the <a href="/start-here">orientation page</a> for the fastest path through the library and diagnostics. Everything is CC BY, with optional <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> support.',
+      "Finish a system health check, grab spec-ready patterns, learn the fundamentals, or bring in the Studio.",
+    lede: "Four fast paths help you turn unease into action: assess a project, borrow a mechanism, learn the frame, or hire the experts.",
+    map: 'Start with a <a href="/diagnostics">System Health Check</a>, browse the <a href="/library">Design Library</a>, learn the <a href="/start-here#framing">Fundamentals</a>, or go straight to the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> for hands-on help.',
     actions: [
       {
-        label: "Start here",
-        href: "/start-here",
+        label: "Run a System Health Check",
+        href: "/diagnostics",
         variant: "primary",
-        icon: "lucide:map-pin",
+        icon: "lucide:stethoscope",
       },
       {
-        label: "Explore the library",
+        label: "Browse the Design Library",
         href: "/library",
         variant: "ghost",
         icon: "lucide:library",
@@ -138,26 +138,30 @@ export const homeContent = {
     ],
     metrics: [
       {
-        label: "Open-source library",
-        value: "Accountable AI playbooks and citations",
-        icon: "lucide:book-open-check",
+        label: "System health checks",
+        value: "3–5 question diagnostics with shareable readouts",
+        icon: "lucide:stethoscope",
       },
       {
-        label: "Theory legitimacy",
-        value: "Deep work, peer review, and provenance",
-        icon: "lucide:badge-check",
+        label: "Design library",
+        value: "Spec-ready patterns and copy blocks",
+        icon: "lucide:library",
       },
       {
-        label: "Studio partner",
-        value: "Facilitation when you need it",
+        label: "Studio support",
+        value: "Workshops, audits, and co-delivery",
         icon: "lucide:heart-handshake",
       },
     ],
     panel: {
-      title: "Where to start",
-      description:
-        "Pick the track that fits your research or delivery question: library, diagnostics, or partner support.",
-      pills: ["Orientation", "Open library", "Diagnostics"],
+      title: "Finish a task in minutes",
+      description: "Pick the path that gets you unstuck quickly.",
+      pills: [
+        "Health check",
+        "Design library",
+        "Fundamentals",
+        "Studio support",
+      ],
     },
     media: {
       src: "/assets/ethotechnics-hero-map.svg",
@@ -168,31 +172,32 @@ export const homeContent = {
   },
   about: {
     eyebrow: "About the Institute",
-    heading: "The Institute is the open-source engine room.",
-    body: "Ethotechnics documents the theory, evidence, and accountable AI playbooks without filtering for corporate comfort.",
+    heading: "Practical guidance for accountable systems.",
+    body: "Ethotechnics pairs diagnostics, patterns, and primers so teams can make accountable decisions quickly.",
     features: [
       {
         icon: "lucide:bolt",
-        title: "Built for deep work",
+        title: "Built for real teams",
         description:
-          "Archive-grade playbooks, prompts, and annotated research for citation.",
+          "Concise playbooks and prompts that fit day-to-day delivery.",
       },
       {
         icon: "lucide:compass",
-        title: "Wayfinding you can trust",
-        description: "Clear cues on legitimacy, peer review, and stewardship.",
+        title: "Guidance you can trust",
+        description:
+          "Clear cues on when to pause, who to involve, and how to make informed trade-offs.",
       },
       {
         icon: "lucide:palette",
         title: "Accessible by design",
         description:
-          "Plain-language explanations and stable permalinks make sharing easy.",
+          "Plain-language explanations and visuals keep the library easy to share.",
       },
       {
         icon: "lucide:users",
         title: "Built with the community",
         description:
-          "Peer feedback and practitioner evidence keep the library grounded.",
+          "Peer feedback and practitioner evidence keep the library grounded in real-world work.",
         actions: [
           {
             label: "Submit a field report",
@@ -205,74 +210,94 @@ export const homeContent = {
     ],
   },
   tracks: {
-    eyebrow: "Choose your path",
-    heading: "Pick the right entry point.",
-    body: "Start with the track that matches your urgency, then deepen as needed.",
-    promptTitle: "Not sure where to begin?",
-    promptNote: "Match your current decision, then explore related playbooks.",
+    eyebrow: "Quick paths",
+    heading: "Complete a task in under three minutes.",
+    body: "Choose the task that matches your need; each link gets you to a practical output fast.",
+    promptTitle: "What do you need right now?",
+    promptNote:
+      "Each path is designed for a quick start and a shareable output.",
     prompts: [
       {
-        question: "Need a fast answer for a live decision?",
-        answer: "Start with a diagnostic and leave with a shareable readout.",
-        href: "/diagnostics",
-        label: "Run a diagnostic",
-      },
-      {
-        question: "Looking for reusable guidance or language?",
+        question: "Run a System Health Check",
         answer:
-          "Browse the library for primers, glossary anchors, and patterns.",
-        href: "/library",
-        label: "Open the library",
+          "Use a free diagnostic tool to spot hidden risks before you launch.",
+        href: "/diagnostics",
+        label: "Open diagnostics",
       },
       {
-        question: "Need facilitation or a partner to execute?",
-        answer: "Bring in the Studio for co-delivery support.",
+        question: "Browse the Design Library",
+        answer:
+          "Find proven strategies and copy spec-ready language into your tickets.",
+        href: "/library",
+        label: "Browse the library",
+      },
+      {
+        question: "Learn the Fundamentals",
+        answer: "Get the core thesis of Ethotechnics in minutes, not hours.",
+        href: "/start-here#framing",
+        label: "Read the primer",
+      },
+      {
+        question: "Work with the Studio",
+        answer:
+          "Bring in experts to audit systems, train teams, or co-deliver.",
         href: "https://ethotechnics.com/studio",
         label: "Visit the Studio",
       },
     ],
     cards: [
       {
-        icon: "lucide:map",
-        eyebrow: "I need a fast orientation",
-        title: "Navigate the library",
+        icon: "lucide:stethoscope",
+        eyebrow: "Assess a project",
+        title: "Run a system health check",
         description:
-          "Quick orientation and reusable playbooks for a clear start.",
-        pills: ["Start here", "Library map"],
+          "Answer 3–5 questions and leave with a shareable readout like “High Maintenance Debt Risk.”",
+        pills: ["3–5 questions", "Shareable readout", "Risk vocabulary"],
         actions: [
-          { label: "Orientation page", href: "/start-here" },
+          { label: "Open diagnostics", href: "/diagnostics" },
+          {
+            label: "View sample readout",
+            href: "/assets/start-here/diagnostic-readout.pdf",
+          },
+        ],
+      },
+      {
+        icon: "lucide:library",
+        eyebrow: "Find a mechanism",
+        title: "Browse the design library",
+        description:
+          "Find proven strategies for appeals, consent flows, or safe shutdowns—then copy the spec-ready text.",
+        pills: ["Pattern library", "Copy for specs", "Reusable mechanics"],
+        actions: [
           { label: "Browse the library", href: "/library" },
+          { label: "Explore the glossary", href: "/glossary" },
         ],
       },
       {
-        icon: "lucide:activity-square",
-        eyebrow: "I need a decision fast",
-        title: "Run a diagnostic",
+        icon: "lucide:book-open-check",
+        eyebrow: "Understand the frame",
+        title: "Learn the fundamentals",
         description:
-          "Structured reviews that turn risk into a shareable readout.",
-        pills: ["Readiness reviews", "Governance roadmaps"],
+          "Get the gist of Ethotechnics: a practical framework for building accountable systems that respect human limits.",
+        pills: ["Framework primer", "Core thesis", "5-minute read"],
         actions: [
-          { label: "Book a diagnostic", href: "/diagnostics" },
+          { label: "Read the fundamentals", href: "/start-here#framing" },
+          { label: "Explore the glossary", href: "/glossary" },
+        ],
+      },
+      {
+        icon: "lucide:heart-handshake",
+        eyebrow: "Work with experts",
+        title: "Work with the Studio",
+        description:
+          "Need hands-on help? Our Studio audits systems, trains teams, and co-delivers ethical infrastructure.",
+        pills: ["Workshops", "Audits", "Co-delivery"],
+        actions: [
+          {
+            label: "Visit the Studio",
+            href: "https://ethotechnics.com/studio",
+          },
           { label: "See Institute vs. Studio", href: "/institute" },
-        ],
-      },
-      {
-        icon: "lucide:users",
-        eyebrow: "I want to contribute",
-        title: "Collaborate and contribute",
-        description:
-          "Contribute evidence, join peer review, and stay connected.",
-        pills: ["Field reports", "Peer review", "Signals newsletter"],
-        actions: [
-          {
-            label: "Submit a field report",
-            href: "/participate#field-reports",
-          },
-          { label: "Join peer review", href: "/participate#peer-review" },
-          {
-            label: "Follow the Signals feed",
-            href: "https://signals.ethotechnics.org",
-          },
         ],
       },
     ],
@@ -280,12 +305,12 @@ export const homeContent = {
   features: {
     eyebrow: "Focus areas",
     heading: "Frameworks you can put to work.",
-    body: "Each guide includes checklists, prompts, and facilitation steps.",
+    body: "Each guide includes checklists, prompts, and facilitation steps you can adapt quickly.",
     cards: [
       {
         title: "Responsible product delivery",
         description:
-          "Keep consent, safety, and accountability visible across delivery.",
+          "Keep consent, safety, and accountability visible throughout discovery, build, and rollout.",
         emphasis: true,
         pills: [
           "Respectful defaults",
@@ -296,7 +321,7 @@ export const homeContent = {
       {
         title: "Research and synthesis",
         description:
-          "Field reports turn research and policy reviews into shareable patterns.",
+          "Field reports translate interviews, participatory sessions, and policy reviews into shareable patterns.",
         actions: [
           { label: "Share a case study", href: "/participate#field-reports" },
           { label: "Contribute evidence", href: "/participate#peer-review" },
@@ -305,12 +330,12 @@ export const homeContent = {
       {
         title: "Governance you can explain",
         description:
-          "Decision records, stewardship plans, and escalation paths to share.",
+          "Decision records, data stewardship plans, and escalation paths you can share with stakeholders.",
       },
       {
         title: "Tools and references",
         description:
-          "Checklists, workshop kits, and curated readings made actionable.",
+          "Checklists, workshop kits, and curated readings that make ethical intent actionable.",
         actions: [
           { label: "Join monthly clinics", href: "/participate#clinics" },
           { label: "Send feedback", href: "/participate#feedback" },
@@ -321,11 +346,11 @@ export const homeContent = {
   highlight: {
     eyebrow: "Latest notes",
     heading: "Practical recommendations for accountable systems.",
-    body: "Use these prompts in reviews or debriefs to align on care.",
+    body: "Use these prompts in reviews or debriefs to keep everyone aligned on what care looks like.",
     note: {
       title: "Design for consent, not just conversion.",
       description:
-        "Pair every major action with context: why you ask, what happens next, and how to opt out.",
+        "Pair every major action with clear context: why you are asking, what happens next, and how to opt out without penalty.",
       published: "2024-10-01T00:00:00Z",
       actions: [
         "Label links and buttons honestly so people know where they are headed.",
@@ -341,26 +366,26 @@ export const homeContent = {
   },
   cta: {
     eyebrow: "Stay connected",
-    heading: "Start with the orientation.",
-    body: "Use the Start Here map, then explore the library or diagnostics.",
+    heading: "Start with a system health check.",
+    body: "Run a diagnostic, borrow a pattern, or bring in the Studio when you need hands-on support.",
     actions: [
       {
-        label: "Start here",
-        href: "/start-here",
+        label: "Run a System Health Check",
+        href: "/diagnostics",
         variant: "primary",
-        icon: "lucide:map-pin",
+        icon: "lucide:stethoscope",
       },
       {
-        label: "Explore the library",
+        label: "Browse the Design Library",
         href: "/library",
         variant: "ghost",
         icon: "lucide:library",
       },
       {
-        label: "Explore diagnostics",
-        href: "/diagnostics",
+        label: "Work with the Studio",
+        href: "https://ethotechnics.com/studio",
         variant: "ghost",
-        icon: "lucide:activity-square",
+        icon: "lucide:heart-handshake",
       },
     ],
   },
