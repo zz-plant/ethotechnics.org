@@ -106,16 +106,16 @@ export type HomeContent = PageCopy & {
 };
 
 export const homeContent = {
-  pageTitle: "Ethotechnics — Build technology people can trust",
+  pageTitle: "Ethotechnics Institute — Open-source library for accountable AI",
   pageDescription:
-    "Ethotechnics pairs open guidance with facilitated diagnostics so teams can deliver accountable, human-centered technology.",
+    "Ethotechnics.org is the Institute: an open-source library and engine room for accountable AI theory, research, and governance.",
   hero: {
-    eyebrow: "Practical ethics for product teams",
-    heading: "Build technology people can trust.",
+    eyebrow: "Ethotechnics Institute",
+    heading: "The open-source library for accountable AI theory.",
     subheadline:
-      "Respectful, explainable choices mapped for busy teams.",
-    lede: "Use the Start Here map to pick a first step, then dive deeper as needed.",
-    map: 'Start with the <a href="/start-here">orientation page</a> for the fastest path through the library and diagnostics. Everything is CC BY, with optional <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> support.',
+      "A research archive and engine room for legitimacy, citations, and peer review.",
+    lede: "Use the Start Here map to pick a first step, then explore the library, glossary, and diagnostics.",
+    map: 'Ethotechnics.org is the Institute. Start with the <a href="/start-here">orientation page</a> for the fastest path through the library and diagnostics. Everything is CC BY, with optional <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> support.',
     actions: [
       {
         label: "Start here",
@@ -138,26 +138,26 @@ export const homeContent = {
     ],
     metrics: [
       {
-        label: "Open library",
-        value: "Guides, playbooks, worksheets",
+        label: "Open-source library",
+        value: "Accountable AI playbooks and citations",
         icon: "lucide:book-open-check",
       },
       {
-        label: "Team diagnostics",
-        value: "Readiness reviews and roadmaps",
-        icon: "lucide:stethoscope",
+        label: "Theory legitimacy",
+        value: "Deep work, peer review, and provenance",
+        icon: "lucide:badge-check",
       },
       {
-        label: "Partner Studio",
-        value: "Embedded support when you need it",
+        label: "Studio partner",
+        value: "Facilitation when you need it",
         icon: "lucide:heart-handshake",
       },
     ],
     panel: {
       title: "Where to start",
       description:
-        "Pick the track that fits your team today: guidance, diagnostics, or delivery support.",
-      pills: ["Orientation", "Guided diagnostic", "Partner delivery"],
+        "Pick the track that fits your research or delivery question: library, diagnostics, or partner support.",
+      pills: ["Orientation", "Open library", "Diagnostics"],
     },
     media: {
       src: "/assets/ethotechnics-hero-map.svg",
@@ -168,24 +168,25 @@ export const homeContent = {
   },
   about: {
     eyebrow: "About the Institute",
-    heading: "Practical guidance for ethical technology.",
-    body: "Ethotechnics documents the steps that keep digital products respectful and explainable.",
+    heading: "The Institute is the open-source engine room.",
+    body: "Ethotechnics documents the theory, evidence, and accountable AI playbooks without filtering for corporate comfort.",
     features: [
       {
         icon: "lucide:bolt",
-        title: "Built for real teams",
-        description: "Concise playbooks and prompts for day-to-day delivery.",
+        title: "Built for deep work",
+        description:
+          "Archive-grade playbooks, prompts, and annotated research for citation.",
       },
       {
         icon: "lucide:compass",
         title: "Wayfinding you can trust",
-        description:
-          "Clear cues on when to pause, who to involve, and how to make trade-offs.",
+        description: "Clear cues on legitimacy, peer review, and stewardship.",
       },
       {
         icon: "lucide:palette",
         title: "Accessible by design",
-        description: "Plain-language explanations and visuals make sharing easy.",
+        description:
+          "Plain-language explanations and stable permalinks make sharing easy.",
       },
       {
         icon: "lucide:users",
@@ -218,7 +219,8 @@ export const homeContent = {
       },
       {
         question: "Looking for reusable guidance or language?",
-        answer: "Browse the library for primers, glossary anchors, and patterns.",
+        answer:
+          "Browse the library for primers, glossary anchors, and patterns.",
         href: "/library",
         label: "Open the library",
       },

@@ -50,15 +50,16 @@ export type LibraryContent = PageWithPermalink &
   };
 
 export const libraryContent: LibraryContent = {
-  pageTitle: "Library — Ethotechnics",
+  pageTitle: "Library — Ethotechnics Institute",
   pageDescription:
-    "Reference shelf for primers, glossary entries, and reusable patterns.",
+    "Open-source library and engine room for accountable AI theory, with citation-ready primers, glossary entries, and reusable patterns.",
   permalink: "/library",
   published: "2024-09-01T00:00:00Z",
   quickStart: [
     "Skim the primer for a 5-minute orientation and shared vocabulary.",
     "Jump to the glossary for stable definitions you can cite immediately.",
     "Use the pattern language filters to pull the right safeguards for your scenario.",
+    "Cite the permalinks in papers, policy memos, or peer reviews to anchor legitimacy.",
   ],
   recommended: {
     title: "Recommended starters",
