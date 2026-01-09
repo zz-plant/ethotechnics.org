@@ -882,6 +882,19 @@ html {
   font-size: 0.94rem;
 }
 
+.pill:hover,
+.pill:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--border));
+  box-shadow: 0 10px 22px rgba(27, 18, 11, 0.12);
+  text-decoration: none;
+}
+
+.pill:focus-visible {
+  outline: 2px solid
+    color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline-offset: 2px;
+}
+
 .pill--ghost {
   background: linear-gradient(
     140deg,
@@ -1928,6 +1941,19 @@ html {
   display: block;
   width: 100%;
   text-align: left;
+}
+
+.pill-list__item:hover,
+.pill-list__item:focus-within {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 26%, var(--border));
+}
+
+.pill-list__button:focus-visible {
+  outline: 2px solid
+    color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline-offset: 2px;
+  border-radius: 10px;
 }
 
 .pill-list__item--active {
