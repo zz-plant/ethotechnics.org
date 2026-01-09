@@ -1,7 +1,8 @@
+import { getEntry } from 'astro:content';
+
 import { diagnosticsContent } from './diagnostics';
 import { fieldNotesContent } from './fieldNotes';
 import type { FieldNoteEntry } from './fieldNotes';
-import { homeContent } from './home';
 import { instituteContent } from './institute';
 import { libraryContent } from './library';
 import { researchContent } from './research';
@@ -30,14 +31,25 @@ const fieldNoteToFeedItem = (entry: FieldNoteEntry): ContentFeedItem => ({
   pubDate: latestPublicationDate(entry),
 });
 
-export const loadRecentContent = (): ContentFeedItem[] => {
+export const loadRecentContent = async (): Promise<ContentFeedItem[]> => {
+  const homeEntry = await getEntry('home', 'home');
+  const highlightNote = homeEntry?.data.highlight?.note;
+
+  if (!highlightNote) {
+    console.warn('Home content is missing highlight note data for the feed.');
+  }
+
   const primaryPages: ContentFeedItem[] = [
-    {
-      title: homeContent.highlight.note.title,
-      description: homeContent.highlight.note.description,
-      path: '/#insights',
-      pubDate: latestPublicationDate(homeContent.highlight.note),
-    },
+    ...(highlightNote
+      ? [
+          {
+            title: highlightNote.title,
+            description: highlightNote.description,
+            path: '/#insights',
+            pubDate: latestPublicationDate(highlightNote),
+          },
+        ]
+      : []),
     {
       title: libraryContent.pageTitle,
       description: libraryContent.pageDescription,
