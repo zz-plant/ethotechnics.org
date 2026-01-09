@@ -45,7 +45,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
       eyebrow: "How to use this shelf",
       title: "Structured, linkable content",
       description:
-        "Every entry ships with stable permalinks so you can cite them in research reports, design docs, and diagnostics. Filters call out whether a pattern is governance-first, design-ethics guidance, or a policy control to keep collaboration fast.",
+        "Stable permalinks and filters keep research, design, and diagnostics aligned.",
     }}
   />
   <div class="callout">
@@ -73,7 +73,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
     id="themes"
     eyebrow="Browse by theme"
     title="Jump directly to the work you need."
-    description="Use tags to pre-filter the pattern language and keep links aligned with glossary anchors."
+    description="Use tags to pre-filter the pattern language."
   >
     <div class="tag-rail">
       <ul class="pill-list pill-list--wrap">
@@ -94,9 +94,6 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
           ))
         }
       </ul>
-      <p class="muted tag-rail__hint">
-        Tags also work as filters in the pattern language below.
-      </p>
     </div>
   </SectionBlock>
 
@@ -104,7 +101,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
     id="primer"
     eyebrow="Primer"
     title="Start here before diving into patterns."
-    description="Short overviews you can link inside onboarding decks and briefings."
+    description="Short overviews for onboarding and briefings."
     variant="alt"
   >
     <CardGrid>
@@ -124,7 +121,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
     id="glossary"
     eyebrow="Glossary"
     title="Stable terms with per-entry permalinks."
-    description="Use these anchors in Field Notes, Research, and Diagnostics so teams share the same language."
+    description="Use these anchors across Field Notes, Research, and Diagnostics."
   >
     <CardGrid>
       {
@@ -143,9 +140,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
       }
     </CardGrid>
     <p class="muted glossary__cta">
-      Explore the full glossary in the dedicated section: <a
-        href={glossaryContent.permalink}>/glossary</a
-      >
+      Full glossary: <a href={glossaryContent.permalink}>/glossary</a>
     </p>
   </SectionBlock>
 
@@ -153,13 +148,9 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
     id="patterns"
     eyebrow="Pattern language"
     title="Governance, design ethics, and policy patterns with diagnostic links."
-    description="Filters help you route work quickly and keep diagnostic references within reach."
+    description="Filters route work quickly and keep diagnostics in reach."
     variant="alt"
   >
-    <p class="muted patterns__hint">
-      Use the search field to jump straight to a pattern or filter by the themes
-      above.
-    </p>
     <div class="pattern-filter__anchors" aria-hidden="true">
       {
         patterns.filters.map((filter) => (
@@ -193,10 +184,5 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
         ))
       }
     </CardGrid>
-    <p class="muted tag-rail__hint">
-      Track completion, knowledge checks, and certificates in the <a
-        href="/syllabus">syllabus hub</a
-      >.
-    </p>
   </SectionBlock>
 </BaseLayout>
