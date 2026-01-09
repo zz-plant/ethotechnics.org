@@ -38,6 +38,12 @@ html {
   view-transition-name: page;
 }
 
+::view-transition-old(page),
+::view-transition-new(page) {
+  animation-duration: 0.25s;
+  animation-timing-function: ease;
+}
+
 .page--wide {
   width: min(1440px, 96vw);
   margin: 0 auto;

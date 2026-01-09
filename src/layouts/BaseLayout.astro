@@ -1,5 +1,6 @@
 ---
 import { SEO } from 'astro-seo';
+import { ViewTransitions } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
 import { siteFooter } from '../content/site-footer';
 import '../styles/theme.css';
@@ -61,6 +62,7 @@ const currentPath = Astro.url.pathname;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <ViewTransitions />
     <SEO
       title={title}
       titleDefault={defaultTitle}
