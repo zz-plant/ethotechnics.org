@@ -1,0 +1,103 @@
+---
+import type { PublicationMetadata } from "../content/types";
+
+type Props = {
+  publication: PublicationMetadata;
+  label?: string;
+  permalink?: string;
+};
+
+const {
+  publication,
+  label = "Scholarly metadata",
+  permalink,
+} = Astro.props as Props;
+const pageUrl = permalink
+  ? Astro.site
+    ? new URL(permalink, Astro.site).toString()
+    : permalink
+  : null;
+const archiveUrl = publication.archiveUrl ?? (pageUrl ? `https://web.archive.org/save/${pageUrl}` : null);
+const publishedDate = new Date(publication.published).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+const updatedDate = publication.updated
+  ? new Date(publication.updated).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+  : null;
+---
+
+<div class="callout scholarly-meta">
+  <p class="eyebrow">{label}</p>
+  <div class="scholarly-meta__grid">
+    <div>
+      <p class="muted small">Authorship</p>
+      <ul class="scholarly-meta__authors">
+        {publication.authors.map((author) => (
+          <li>
+            <strong>{author.name}</strong>
+            <span class="muted"> · {author.affiliation}</span>
+            {author.email && (
+              <span class="muted">
+                {" "}
+                · <a href={`mailto:${author.email}`}>{author.email}</a>
+              </span>
+            )}
+            {author.orcid && (
+              <span class="muted">
+                {" "}
+                · <a href={`https://orcid.org/${author.orcid}`}>ORCID {author.orcid}</a>
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+      <p class="muted small">
+        Contact: <a href={`mailto:${publication.contact}`}>{publication.contact}</a>
+      </p>
+    </div>
+    <div>
+      <p class="muted small">Publication details</p>
+      <ul class="scholarly-meta__details">
+        <li>
+          <span class="muted">Published:</span> {publishedDate}
+        </li>
+        {updatedDate && (
+          <li>
+            <span class="muted">Last updated:</span> {updatedDate}
+          </li>
+        )}
+        <li>
+          <span class="muted">Version:</span> {publication.version}
+        </li>
+        <li>
+          <span class="muted">DOI:</span> {publication.doi ?? "Not yet minted"}
+        </li>
+      </ul>
+      <p class="muted small">
+        License: <a href={publication.license.href}>{publication.license.label}</a>
+      </p>
+      <p class="muted small">{publication.attribution}</p>
+      {archiveUrl && (
+        <p class="muted small">
+          Archive snapshot: <a href={archiveUrl}>Wayback capture</a>
+        </p>
+      )}
+    </div>
+  </div>
+  <div class="scholarly-meta__changelog">
+    <p class="muted small">Changelog</p>
+    <ul>
+      {publication.changelog.map((entry) => (
+        <li>
+          <strong>{entry.version}</strong> · {entry.date} — {entry.summary}
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

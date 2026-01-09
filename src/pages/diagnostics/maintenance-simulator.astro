@@ -1,44 +1,111 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import MaintenanceSimulatorWidget from '../../features/maintenance-simulator';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
+import MaintenanceSimulatorWidget from "../../features/maintenance-simulator";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "maintenance-simulator"
+);
+
+if (!tool) {
+  return Astro.response(
+    new Response("Diagnostic not found", {
+      status: 404,
+    })
+  );
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#methodology", label: "Methodology" },
+  { href: "#sample-output", label: "Sample output" },
+  { href: "#run-tool", label: "Run the tool" },
+];
 ---
 
 <BaseLayout
-  title="Maintenance Simulator — Ethotechnics"
-  description="Tabletop outages, maintenance windows, and handoffs to stress-test coverage before you run."
+  title={pageTitle}
+  description={pageDescription}
   mainClass="page page--wide"
 >
-  <section class="section">
-    <div class="section__header">
-      <p class="eyebrow">Tools</p>
-      <h1>Maintenance Simulator</h1>
-      <p class="muted">
-        Rehearse outage, maintenance, and handoff branches before you commit to a live window. This simulator
-        surfaces missing owners, halt lanes, and communications so teams can practice the tabletop and share a
-        confident plan.
-      </p>
-      <p class="muted">
-        Part of the <a href="/diagnostics">diagnostics suite</a> for surfacing operational risk early.
-      </p>
-      <ul class="muted">
-        <li>Scenario runs with ownership and escalation checkpoints.</li>
-        <li>Communication templates aligned to risk levels.</li>
-        <li>Shareable result page for routing follow-ups.</li>
-      </ul>
-      <p class="muted">Permanent link: <a href="/tools/maintenance-simulator">/tools/maintenance-simulator</a></p>
-    </div>
-    <div class="callout">
-      <h2>How to begin</h2>
-      <ol class="muted">
-        <li>Pick a scenario and stress level that match your upcoming window.</li>
-        <li>Confirm the escalation owner, rollback plan, and communication templates.</li>
-        <li>Run the tabletop and save the output for your maintenance packet.</li>
-      </ol>
-      <a class="button ghost" href="/tools/maintenance-simulator?scenario=scheduled-maintenance&risk=elevated">
-        Use the sample scenario
-      </a>
-    </div>
+  <PageIntro
+    eyebrow="Diagnostics"
+    title={tool.title}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "What you receive",
+      title: "Tabletop-ready maintenance outputs.",
+      description: tool.outputs.join(" "),
+    }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={tool.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`diagnostic_${tool.slug}`}
+  />
 
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="When to use the Maintenance Simulator."
+    description={tool.bestFor}
+  >
+    <ul class="muted">
+      {tool.prepChecklist.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+    <p class="muted">Estimated time: {tool.estimatedTime}</p>
+    <p class="muted">{tool.studioNote}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="methodology"
+    eyebrow="Methodology"
+    title="Method, transparency, and replicability."
+    description="Inputs, scoring logic, validation notes, and failure modes used in the tabletop."
+    variant="alt"
+  >
+    <DiagnosticMethodology
+      methodCards={tool.methodCards}
+      methodOverview={tool.methodOverview}
+      instrument={tool.instrument}
+      validation={tool.validation}
+      replicability={tool.replicability}
+    />
+  </SectionBlock>
+
+  <SectionBlock
+    id="sample-output"
+    eyebrow="Sample output"
+    title="Preview a simulated run."
+    description="Use the sample output to see the summary format and comms templates."
+  >
+    <a class="button ghost" href={tool.exampleHref}>
+      {tool.exampleLabel}
+    </a>
+  </SectionBlock>
+
+  <SectionBlock
+    id="run-tool"
+    eyebrow="Run the tool"
+    title="Start a maintenance scenario."
+    description="Run the tabletop and export the summary for your maintenance packet."
+    variant="alt"
+  >
     <MaintenanceSimulatorWidget client:only="react" />
-  </section>
+  </SectionBlock>
 </BaseLayout>

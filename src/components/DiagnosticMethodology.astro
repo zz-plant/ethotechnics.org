@@ -1,0 +1,130 @@
+---
+import type {
+  DiagnosticInstrument,
+  DiagnosticMethodCards,
+  DiagnosticMethodOverview,
+  DiagnosticReplicability,
+  DiagnosticValidation,
+} from "../content/diagnostics";
+
+type Props = {
+  methodCards: DiagnosticMethodCards;
+  methodOverview: DiagnosticMethodOverview;
+  instrument: DiagnosticInstrument;
+  validation: DiagnosticValidation;
+  replicability: DiagnosticReplicability;
+};
+
+const { methodCards, methodOverview, instrument, validation, replicability } =
+  Astro.props as Props;
+---
+
+<div class="diagnostic-method">
+  <div class="diagnostic-method__overview">
+    <div>
+      <p class="eyebrow">Inputs</p>
+      <ul class="muted">
+        {methodOverview.inputs.map((input) => (
+          <li>{input}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Procedure</p>
+      <ol class="muted">
+        {methodOverview.procedure.map((step) => (
+          <li>{step}</li>
+        ))}
+      </ol>
+    </div>
+    <div>
+      <p class="eyebrow">Outputs</p>
+      <ul class="muted">
+        {methodOverview.outputs.map((output) => (
+          <li>{output}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="diagnostic-method__cards">
+    <article class="card diagnostic-method__card">
+      <p class="eyebrow">Measures</p>
+      <ul class="muted">
+        {methodCards.measures.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </article>
+    <article class="card diagnostic-method__card">
+      <p class="eyebrow">Does not measure</p>
+      <ul class="muted">
+        {methodCards.doesNotMeasure.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </article>
+    <article class="card diagnostic-method__card">
+      <p class="eyebrow">Assumptions</p>
+      <ul class="muted">
+        {methodCards.assumptions.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </article>
+  </div>
+
+  <div class="diagnostic-method__transparency">
+    <div>
+      <p class="eyebrow">Instrument prompts</p>
+      <ul class="muted">
+        {instrument.prompts.map((prompt) => (
+          <li>{prompt}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Rubric</p>
+      <ul class="muted">
+        {instrument.rubric.map((rule) => (
+          <li>{rule}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Scoring logic</p>
+      <ul class="muted">
+        {instrument.scoringLogic.map((logic) => (
+          <li>{logic}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="diagnostic-method__validation">
+    <div class="card diagnostic-method__card">
+      <p class="eyebrow">Validation notes</p>
+      <p class="muted">{validation.pilotNotes}</p>
+      <p class="muted">{validation.reliability}</p>
+      <ul class="muted">
+        {validation.failureModes.map((mode) => (
+          <li>{mode}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="card diagnostic-method__card">
+      <p class="eyebrow">Replicability</p>
+      <ul class="muted">
+        {replicability.runSteps.map((step) => (
+          <li>{step}</li>
+        ))}
+      </ul>
+      <p class="eyebrow">Example outputs</p>
+      <ul class="muted">
+        {replicability.exampleOutputs.map((example) => (
+          <li>{example}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>

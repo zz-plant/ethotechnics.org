@@ -2,13 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
+import CitationBlock from '../../components/CitationBlock.astro';
 import PageIntro from '../../components/PageIntro.astro';
+import ScholarlyMeta from '../../components/ScholarlyMeta.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 import diagnosticsFilterScript from '../../scripts/diagnostics-filter.ts?url';
 
-const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation } =
+const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation, publication } =
   diagnosticsContent;
 const patternBase = `${libraryContent.permalink}#patterns`;
 const anchorLinks = [
@@ -36,6 +38,12 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
         href: '#compare-tools',
       },
     }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
   />
 
   <SectionBlock
@@ -177,6 +185,9 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
             <div class="section__actions">
               <a class="button primary" href={tool.ctaHref} aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}>
                 {tool.ctaLabel}
+              </a>
+              <a class="button ghost" href={`/diagnostics/${tool.slug}`}>
+                Method details
               </a>
               <a
                 class="button ghost"

@@ -64,6 +64,12 @@ export const navSections: NavSection[] = [
           "Shared vocabulary for moral system design and governance.",
       },
       {
+        href: "/library/cite",
+        label: "How to cite the Library",
+        description:
+          "Citation guidance, versioning, and licensing for scholarly use.",
+      },
+      {
         href: "/field-notes",
         label: "Field notes",
         description: "Applied notes and walkthroughs from ongoing research.",
@@ -85,6 +91,12 @@ export const navSections: NavSection[] = [
         href: "/research",
         label: "Research",
         description: "Agenda, collaborations, and studies shaping the library.",
+      },
+      {
+        href: "/research/bridge-artifacts",
+        label: "Bridge artifacts",
+        description:
+          "Frameworks, instruments, and case series prepared for citation.",
       },
       {
         href: "/finite",

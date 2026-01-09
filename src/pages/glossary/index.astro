@@ -1,10 +1,11 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import glossaryFilterScript from "../../scripts/glossary-filter.ts?url";
-import glossaryCitationsScript from "../../scripts/glossary-citations.ts?url";
 
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const libraryEntry = (await getEntry("library", "library"))!;
@@ -13,6 +14,7 @@ const {
   pageTitle,
   pageDescription,
   permalink,
+  publication,
   territoryMap,
   categories,
   starterTerms,
@@ -114,7 +116,11 @@ const structuredData = {
   },
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
-const citationYear = new Date().getFullYear();
+const citationYear = new Date(
+  publication.updated ?? publication.published
+).getFullYear();
+const stripHtml = (value: string) =>
+  value.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -130,6 +136,12 @@ const citationYear = new Date().getFullYear();
       description:
         "Each term is a pattern card with related Library patterns and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.",
     }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
   />
   <div class="glossary-filter">
     <div class="glossary-filter__controls">
@@ -300,8 +312,38 @@ const citationYear = new Date().getFullYear();
               ...(entry.classes ?? []),
             ].join(" ");
             const entryUrl = `${pageUrl}#${entry.id}`;
-            const citationApa = `Ethotechnics. (${citationYear}). ${entry.title}. In Ethotechnics glossary. ${entryUrl}`;
-            const citationBibtex = `@misc{ethotechnics_${entry.id}_${citationYear}, title={${entry.title}}, author={Ethotechnics}, year={${citationYear}}, howpublished={Ethotechnics glossary}, url={${entryUrl}}}`;
+            const glossaryAuthor =
+              publication.authors.map((author) => author.name).join(", ") ??
+              "Ethotechnics Institute";
+            const citationApa = `${glossaryAuthor}. (${citationYear}). ${entry.title}. In Ethotechnics glossary. ${entryUrl}`;
+            const citationMla = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary, ${citationYear}, ${entryUrl}.`;
+            const citationChicago = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary. ${citationYear}. ${entryUrl}.`;
+            const citationBibtex = `@misc{ethotechnics_${entry.id}_${citationYear}, title={${entry.title}}, author={${glossaryAuthor}}, year={${citationYear}}, howpublished={Ethotechnics glossary}, url={${entryUrl}}}`;
+            const citationRis = [
+              "TY  - WEB",
+              `TI  - ${entry.title}`,
+              ...publication.authors.map(
+                (author) => `AU  - ${author.name}`
+              ),
+              `PY  - ${citationYear}`,
+              `UR  - ${entryUrl}`,
+              "ER  -",
+            ].join("\n");
+            const scopeText =
+              entry.scope ??
+              `${category.heading}. ${stripHtml(category.descriptionHtml)}`;
+            const adjacentTerms =
+              entry.adjacentTerms ?? entry.tags ?? [];
+            const operationalTests =
+              entry.operationalTests ?? [
+                `Evidence appears in documentation, interface cues, or governance artifacts that reflect ${entry.title.toLowerCase()}.`,
+                `Teams can point to a concrete example that demonstrates ${entry.title.toLowerCase()} in practice.`,
+              ];
+            const genealogy =
+              entry.genealogy ??
+              `Ethotechnics uses ${entry.title} to extend the ${category.heading.toLowerCase()} vocabulary and connect governance, design, and policy teams.`;
+            const references =
+              entry.references ?? entry.resources ?? [];
             const relatedPatterns: GlossaryRelatedPattern[] = (
               entry.relatedPatterns ?? []
             )
@@ -363,20 +405,78 @@ const citationYear = new Date().getFullYear();
                       <button
                         class="copy-button"
                         type="button"
+                        data-citation-text={citationMla}
+                        data-citation-format="mla"
+                        aria-label={`Copy MLA citation for ${entry.title}`}
+                      >
+                        Copy MLA
+                      </button>
+                      <button
+                        class="copy-button"
+                        type="button"
+                        data-citation-text={citationChicago}
+                        data-citation-format="chicago"
+                        aria-label={`Copy Chicago citation for ${entry.title}`}
+                      >
+                        Copy Chicago
+                      </button>
+                      <button
+                        class="copy-button"
+                        type="button"
                         data-citation-text={citationBibtex}
                         data-citation-format="bibtex"
                         aria-label={`Copy BibTeX citation for ${entry.title}`}
                       >
                         Copy BibTeX
                       </button>
+                      <button
+                        class="copy-button"
+                        type="button"
+                        data-citation-text={citationRis}
+                        data-citation-format="ris"
+                        aria-label={`Copy RIS citation for ${entry.title}`}
+                      >
+                        Copy RIS
+                      </button>
                     </div>
                   </div>
                 </header>
-                <div
-                  class="glossary-entry__body"
-                  set:html={entry.bodyHtml}
-                  itemprop="description"
-                />
+                <div class="glossary-entry__block">
+                  <p class="eyebrow">Definition</p>
+                  <div
+                    class="glossary-entry__body"
+                    set:html={entry.bodyHtml}
+                    itemprop="description"
+                  />
+                </div>
+                <div class="glossary-entry__block">
+                  <p class="eyebrow">Scope</p>
+                  <p class="muted">{scopeText}</p>
+                </div>
+                {adjacentTerms.length > 0 && (
+                  <div class="glossary-entry__block">
+                    <p class="eyebrow">Adjacent terms</p>
+                    <div class="pill-row">
+                      {adjacentTerms.map((term) => (
+                        <span class="pill pill--muted" itemprop="keywords">
+                          {term}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div class="glossary-entry__block">
+                  <p class="eyebrow">Operational tests</p>
+                  <ul class="muted">
+                    {operationalTests.map((test) => (
+                      <li>{test}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="glossary-entry__block">
+                  <p class="eyebrow">Genealogy</p>
+                  <p class="muted">{genealogy}</p>
+                </div>
                 {relatedPatterns.length > 0 && (
                   <div class="glossary-entry__block glossary-entry__block--patterns">
                     <p class="eyebrow">Related patterns</p>
@@ -404,7 +504,7 @@ const citationYear = new Date().getFullYear();
                 )}
                 {entry.examples && entry.examples.length > 0 && (
                   <div class="glossary-entry__block">
-                    <p class="eyebrow">Examples</p>
+                    <p class="eyebrow">Example corpus</p>
                     <ul class="muted">
                       {entry.examples.map((example) => (
                         <li>{example}</li>
@@ -412,23 +512,11 @@ const citationYear = new Date().getFullYear();
                     </ul>
                   </div>
                 )}
-                {entry.tags && entry.tags.length > 0 && (
+                {references.length > 0 && (
                   <div class="glossary-entry__block">
-                    <p class="eyebrow">Tags</p>
-                    <div class="pill-row">
-                      {entry.tags.map((tag) => (
-                        <span class="pill pill--muted" itemprop="keywords">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {entry.resources && entry.resources.length > 0 && (
-                  <div class="glossary-entry__block">
-                    <p class="eyebrow">Resources</p>
+                    <p class="eyebrow">References</p>
                     <ul class="muted glossary-entry__resources">
-                      {entry.resources.map((resource) => (
+                      {references.map((resource) => (
                         <li>
                           <a href={resource.href}>{resource.label}</a>
                           {resource.type && (
@@ -449,5 +537,4 @@ const citationYear = new Date().getFullYear();
 
   <script type="application/ld+json" set:html={structuredDataJson} />
   <script type="module" src={glossaryFilterScript}></script>
-  <script type="module" src={glossaryCitationsScript}></script>
 </BaseLayout>

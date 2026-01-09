@@ -8,6 +8,26 @@ export type PublishedContent = {
   updated?: string;
 };
 
+export type Author = {
+  name: string;
+  affiliation: string;
+  email?: string;
+  orcid?: string;
+};
+
+export type PublicationMetadata = {
+  authors: Author[];
+  contact: string;
+  published: string;
+  updated?: string;
+  version: string;
+  doi?: string;
+  archiveUrl?: string;
+  changelog: { version: string; date: string; summary: string }[];
+  license: { label: string; href: string };
+  attribution: string;
+};
+
 export type PageWithPermalink = PageCopy & {
   permalink: string;
 };

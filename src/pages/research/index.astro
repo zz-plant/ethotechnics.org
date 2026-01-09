@@ -3,6 +3,8 @@ import PageIntro from "../../components/PageIntro.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { getGlossaryLabel, glossaryPermalink } from "../../utils/glossary";
 import { researchContent } from "../../content/research";
@@ -11,9 +13,11 @@ const {
   pageTitle,
   pageDescription,
   permalink,
+  publication,
   anchorLinks,
   panelCopy,
   orientationCards,
+  bridgeArtifacts,
   agenda,
   focusAreas,
   publications,
@@ -32,6 +36,12 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
   />
   <p class="muted small">
     Last updated {
@@ -60,6 +70,32 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
           />
         ))
       }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="bridge-artifacts"
+    eyebrow="Bridge artifacts"
+    title="Whitepaper-style artifacts academics can cite."
+    description="Frameworks, taxonomies, instruments, and case series that sit between practice and scholarship."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {bridgeArtifacts.map((artifact) => (
+        <CardItem
+          id={artifact.slug}
+          meta={artifact.type}
+          title={artifact.title}
+          description={artifact.summary}
+          tags={artifact.tags}
+        >
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={artifact.href}>
+              View artifact
+            </a>
+          </div>
+        </CardItem>
+      ))}
     </CardGrid>
   </SectionBlock>
 
@@ -132,6 +168,48 @@ const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
               label: getGlossaryLabel(slug),
             }))}
           >
+            <div class="research__abstract">
+              <p class="eyebrow">Structured abstract</p>
+              <ul class="muted">
+                <li>
+                  <strong>Question:</strong> {publication.structuredAbstract.question}
+                </li>
+                <li>
+                  <strong>Method:</strong> {publication.structuredAbstract.method}
+                </li>
+                <li>
+                  <strong>Sample/context:</strong> {publication.structuredAbstract.sample}
+                </li>
+                <li>
+                  <strong>Findings:</strong> {publication.structuredAbstract.findings}
+                </li>
+                <li>
+                  <strong>Limitations:</strong> {publication.structuredAbstract.limitations}
+                </li>
+              </ul>
+            </div>
+            <div class="research__data">
+              <p class="eyebrow">Data & artifacts</p>
+              <ul class="muted">
+                {publication.datasets.map((dataset) => (
+                  <li>{dataset}</li>
+                ))}
+              </ul>
+              <p class="eyebrow">Ethics & consent</p>
+              <ul class="muted">
+                {publication.ethicsNotes.map((note) => (
+                  <li>{note}</li>
+                ))}
+              </ul>
+              <p class="eyebrow">References</p>
+              <ul class="muted">
+                {publication.references.map((reference) => (
+                  <li>
+                    <a href={reference.href}>{reference.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div slot="footer" class="card__footer">
               <a class="button ghost button--compact" href={publication.href}>
                 {publication.ctaLabel}

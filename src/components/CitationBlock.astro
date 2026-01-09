@@ -1,0 +1,137 @@
+---
+import type { PublicationMetadata } from "../content/types";
+import citationCopyScript from "../scripts/citation-copy.ts?url";
+
+type Props = {
+  title: string;
+  permalink: string;
+  publication: PublicationMetadata;
+  publisher?: string;
+  citationKey?: string;
+  summaryLabel?: string;
+};
+
+const {
+  title,
+  permalink,
+  publication,
+  publisher = "Ethotechnics Institute",
+  citationKey,
+  summaryLabel = "Cite this page",
+} = Astro.props as Props;
+const pageUrl = Astro.site ? new URL(permalink, Astro.site).toString() : permalink;
+const year = new Date(publication.updated ?? publication.published).getFullYear();
+const authorNames = publication.authors.map((author) => author.name).join(", ");
+const updatedDate = new Date(publication.updated ?? publication.published).toLocaleDateString(
+  "en-US",
+  {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }
+);
+const citationKeyValue =
+  citationKey ??
+  `ethotechnics_${permalink.replace(/[^a-zA-Z0-9]+/g, "_").replace(/^_+|_+$/g, "")}`;
+const doi = publication.doi;
+const doiValue = doi?.replace(/^https?:\/\/doi\.org\//, "");
+const hasDoi = Boolean(doiValue && doiValue.startsWith("10."));
+
+const apa = `${authorNames}. (${year}). ${title}. ${publisher}. ${pageUrl}`;
+const mla = `${authorNames}. "${title}." ${publisher}, ${year}, ${pageUrl}.`;
+const chicago = `${authorNames}. "${title}." ${publisher}. ${updatedDate}. ${pageUrl}.`;
+const bibtex = `@misc{${citationKeyValue},
+  title={${title}},
+  author={${authorNames}},
+  year={${year}},
+  howpublished={${publisher}},
+  url={${pageUrl}},
+  version={${publication.version}}${hasDoi ? `,\n  doi={${doiValue}}` : ""}
+}`;
+const risLines = [
+  "TY  - WEB",
+  `TI  - ${title}`,
+  ...publication.authors.map((author) => `AU  - ${author.name}`),
+  `PY  - ${year}`,
+  `UR  - ${pageUrl}`,
+  ...(hasDoi ? [`DO  - ${doiValue}`] : []),
+  "ER  -",
+];
+const ris = risLines.join("\n");
+---
+
+<details class="citation-block">
+  <summary class="citation-block__summary">
+    {summaryLabel}
+    <span class="muted small">Formats: APA, MLA, Chicago, BibTeX, RIS</span>
+  </summary>
+  <div class="citation-block__body">
+    <div class="citation-block__meta">
+      <div>
+        <p class="muted small">Version</p>
+        <p>{publication.version}</p>
+      </div>
+      <div>
+        <p class="muted small">Last updated</p>
+        <p>{updatedDate}</p>
+      </div>
+      <div>
+        <p class="muted small">Permalink</p>
+        <a href={pageUrl}>{pageUrl}</a>
+      </div>
+      <div>
+        <p class="muted small">DOI</p>
+        <p>{doi ?? "Not yet minted"}</p>
+      </div>
+    </div>
+    <div class="citation-block__formats">
+      <div class="citation-block__format">
+        <p class="eyebrow">APA</p>
+        <pre>{apa}</pre>
+        <button class="copy-button" type="button" data-citation-text={apa} data-citation-format="APA">
+          Copy APA
+        </button>
+      </div>
+      <div class="citation-block__format">
+        <p class="eyebrow">MLA</p>
+        <pre>{mla}</pre>
+        <button class="copy-button" type="button" data-citation-text={mla} data-citation-format="MLA">
+          Copy MLA
+        </button>
+      </div>
+      <div class="citation-block__format">
+        <p class="eyebrow">Chicago</p>
+        <pre>{chicago}</pre>
+        <button
+          class="copy-button"
+          type="button"
+          data-citation-text={chicago}
+          data-citation-format="Chicago"
+        >
+          Copy Chicago
+        </button>
+      </div>
+      <div class="citation-block__format">
+        <p class="eyebrow">BibTeX</p>
+        <pre>{bibtex}</pre>
+        <button
+          class="copy-button"
+          type="button"
+          data-citation-text={bibtex}
+          data-citation-format="BibTeX"
+        >
+          Copy BibTeX
+        </button>
+      </div>
+      <div class="citation-block__format">
+        <p class="eyebrow">RIS</p>
+        <pre>{ris}</pre>
+        <button class="copy-button" type="button" data-citation-text={ris} data-citation-format="RIS">
+          Copy RIS
+        </button>
+      </div>
+    </div>
+  </div>
+</details>
+
+<script type="module" src={citationCopyScript}></script>

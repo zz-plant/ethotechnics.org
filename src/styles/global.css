@@ -2960,6 +2960,109 @@ html {
   color: var(--text);
 }
 
+.scholarly-meta__grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.scholarly-meta__authors,
+.scholarly-meta__details,
+.scholarly-meta__changelog ul {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.scholarly-meta__changelog {
+  margin-top: var(--space-3);
+}
+
+.citation-block {
+  margin: var(--space-4) 0;
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-subtle);
+  background: color-mix(in srgb, var(--color-surface) 96%, transparent);
+  box-shadow: var(--shadow-xs);
+}
+
+.citation-block__summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.citation-block__body {
+  margin-top: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.citation-block__meta {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.citation-block__formats {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.citation-block__format {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface);
+}
+
+.citation-block__format pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: var(--font-size-sm);
+  font-family: var(--mono);
+  color: var(--color-foreground);
+}
+
+.diagnostic-method {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.diagnostic-method__overview,
+.diagnostic-method__transparency {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.diagnostic-method__cards,
+.diagnostic-method__validation {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.diagnostic-method__card {
+  padding: var(--space-2);
+}
+
+.research__abstract,
+.research__data {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
 @media (max-width: 720px) {
   .syllabus-module__content {
     grid-template-columns: 1fr;
