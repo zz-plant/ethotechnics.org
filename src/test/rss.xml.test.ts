@@ -1,7 +1,7 @@
 import type { APIContext } from 'astro';
 import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
 
-import { GET } from './rss.xml';
+import { GET } from '../pages/rss.xml';
 
 // Mock the feed module
 const mockLoadRecentContent = mock(() => [] as any[]);
@@ -86,4 +86,3 @@ describe('rss feed item links', () => {
     warnSpy.mockRestore();
   });
 });
-
