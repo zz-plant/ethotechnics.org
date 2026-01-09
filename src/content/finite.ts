@@ -67,6 +67,11 @@ export type FiniteContent = PageWithPermalink & {
     bullets: string[];
     note: string;
   };
+  agentReady: {
+    title: string;
+    description: string;
+    items: FiniteCard[];
+  };
   measures: {
     title: string;
     description: string;
@@ -148,6 +153,7 @@ export const finiteContent = {
       "Engagements focus on agreed drills, scorecards, and recommendations tied to the defined workflow.",
       "SLAs and delivery timelines are set per pilot plan; no always-on monitoring or production support SLA is implied.",
       "Data handling minimizes exposure: only logs, traces, and artifacts needed for drills are shared, and sensitive data should be redacted where possible.",
+      "Finite packages drills into agent-readable runbooks so agents and operators can rehearse together.",
       "Findings support internal decision-making; ownership of mitigation and implementation stays with your team.",
     ],
   },
@@ -185,6 +191,7 @@ export const finiteContent = {
     steps: [
       "Name the system or workflow you want to test, plus one recent incident or near-miss.",
       "Identify who can halt or roll back the system today—and where that ownership is unclear.",
+      "Draft an agent brief with tool permissions, stop signals, and escalation rules.",
       "Schedule a tabletop run with operators, support, and governance partners.",
     ],
     whoFor: [
@@ -202,6 +209,33 @@ export const finiteContent = {
       "Re-run the drill to compare stoppability posture as safeguards and rollback paths evolve.",
     ],
     note: "Request the reference task doc to mirror the baseline scenario in your stack.",
+  },
+  agentReady: {
+    title: "Make Finite usable by agents",
+    description:
+      "Finite turns drills into agent-ready materials so AI systems can participate safely and consistently.",
+    items: [
+      {
+        title: "Agent briefing packet",
+        detail:
+          "Summarize system goals, allowed tools, stop commands, and hard boundaries in a short, agent-readable brief.",
+      },
+      {
+        title: "Scenario prompt pack",
+        detail:
+          "Seed prompts and counterfactuals that let agents replay incidents and compare outcomes across runs.",
+      },
+      {
+        title: "Stop and rollback signals",
+        detail:
+          "Define deterministic stop phrases, escalation markers, and rollback checkpoints so agents know when to halt.",
+      },
+      {
+        title: "Run log schema",
+        detail:
+          "Capture agent actions, operator interventions, and recovery notes in a structured template that feeds the scorecard.",
+      },
+    ],
   },
   measures: {
     title: "What Finite measures",

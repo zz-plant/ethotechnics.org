@@ -16,6 +16,7 @@ const {
   useCases,
   gettingStarted,
   referenceTask,
+  agentReady,
   measures,
   workflow,
   fit,
@@ -29,6 +30,7 @@ const anchorLinks = [
   { href: '#when', label: 'When to use' },
   { href: '#getting-started', label: 'Getting started' },
   { href: '#reference-task', label: 'Reference task' },
+  { href: '#agent-ready', label: 'Agent-ready materials' },
   { href: '#measures', label: 'What it measures' },
   { href: '#workflow', label: 'How it works' },
   { href: '#fit', label: 'Where Finite fits' },
@@ -157,6 +159,20 @@ const anchorLinks = [
           </a>
         </div>
       </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="agent-ready"
+    eyebrow="Agent-ready materials"
+    title={agentReady.title}
+    description={agentReady.description}
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {agentReady.items.map((item) => (
+        <CardItem title={item.title} description={item.detail} descriptionTone="default" />
+      ))}
     </CardGrid>
   </SectionBlock>
 
