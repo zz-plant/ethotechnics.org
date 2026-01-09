@@ -125,10 +125,10 @@ export const homeContent = {
     "Run fast system health checks, borrow design patterns, learn the fundamentals, or work with the Studio.",
   hero: {
     eyebrow: "A workbench for accountable systems",
-    heading: "Make accountability the fastest path to launch.",
+    heading: "Advance accountable systems from research to delivery.",
     subheadline:
-      "Diagnostics, patterns, and coaching for teams shipping high-stakes systems.",
-    lede: "Run a three-minute health check, lift spec-ready patterns, or bring in the Studio when you need hands-on help.",
+      "Our mission is to make accountability practical through diagnostics, patterns, and Studio support.",
+    lede: "Focus on responsible delivery, research synthesis, and governance while you run quick health checks, reuse spec-ready patterns, or bring in hands-on coaching.",
     map: 'Start with a <a href="/diagnostics">System Health Check</a>, borrow a pattern from the <a href="/library">Design Library</a>, learn the <a href="/start-here#framing">Fundamentals</a>, or work directly with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
     badge: {
       label: "Institute + Studio",
@@ -229,8 +229,8 @@ export const homeContent = {
   },
   tracks: {
     eyebrow: "Quick paths",
-    heading: "Choose the task you need to finish today.",
-    body: "Each path is designed for a fast start and a concrete output you can share.",
+    heading: "Choose a mission-aligned task in delivery, research, or governance.",
+    body: "Each path moves accountable systems forward with a fast start and a concrete output you can share.",
     promptTitle: "Start with the fastest win",
     promptNote:
       "Pick a task to unblock your next meeting, review, or roadmap update.",
