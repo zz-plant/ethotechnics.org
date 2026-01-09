@@ -158,6 +158,34 @@ svg {
   }
 }
 
+@media (min-width: 2000px) {
+  :root {
+    --content-max: 1560px;
+    --content-max-wide: 1880px;
+    --page-gutter: clamp(1.5rem, 3vw, 4rem);
+    --section-padding: clamp(2.2rem, 4vw, 4.5rem);
+    --section-gap: clamp(1.6rem, 2.8vw, 2.8rem);
+    --space-4: 1.85rem;
+    --space-6: 2.8rem;
+  }
+}
+
+@media (min-width: 2600px) {
+  :root {
+    --content-max: 1760px;
+    --content-max-wide: 2120px;
+    --page-gutter: clamp(2rem, 3.6vw, 4.8rem);
+    --section-padding: clamp(2.6rem, 4.5vw, 5.2rem);
+    --section-gap: clamp(1.9rem, 3vw, 3.2rem);
+    --space-4: 2rem;
+    --space-6: 3.2rem;
+  }
+
+  body {
+    font-size: clamp(1.05rem, 0.35vw + 1rem, 1.2rem);
+  }
+}
+
 @media (max-width: 360px), (max-height: 360px) {
   :root {
     --page-gutter: 0.7rem;
