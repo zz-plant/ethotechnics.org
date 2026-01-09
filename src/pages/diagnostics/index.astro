@@ -13,7 +13,7 @@ import diagnosticsScoreScript from '../../scripts/diagnostics-score.ts?url';
 
 const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation, publication } =
   diagnosticsContent;
-const patternBase = `${libraryContent.permalink}#patterns`;
+const mechanismBase = `${libraryContent.permalink}#mechanisms`;
 const anchorLinks = [
   { href: '#why-diagnostics', label: 'What you get' },
   { href: '#risk-radar', label: 'Risk radar pulse' },
@@ -34,7 +34,7 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
       eyebrow: 'Results and off-ramps',
       title: 'Every diagnostic leaves you with a linkable readout.',
       description:
-        'Outputs include a stable URL, the off-ramp to ethotechnics.com/studio, and pattern language references for follow-up.',
+        'Outputs include a stable URL, the off-ramp to ethotechnics.com/studio, and mechanism language references for follow-up.',
       link: {
         label: 'Compare tools',
         href: '#compare-tools',
@@ -69,9 +69,9 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
         <p class="muted">Scan the readout list and prep checklist to confirm the lift.</p>
       </li>
       <li>
-        <p class="muted diagnostics__label">Pattern language</p>
+        <p class="muted diagnostics__label">Mechanism language</p>
         <p class="muted">
-          Use the <a href={patternBase}>pattern library</a> to align mitigations after you compare.
+          Use the <a href={mechanismBase}>mechanisms catalog</a> to align mitigations after you compare.
         </p>
       </li>
     </ul>
@@ -249,7 +249,7 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
               </a>
             </div>
             <p class="muted diagnostics__pairing">
-              Pair with <a href={patternBase}>pattern language</a> entries referenced in Library for consistent mitigation.
+              Pair with <a href={mechanismBase}>mechanism language</a> entries for consistent mitigation.
             </p>
           </div>
         </CardItem>

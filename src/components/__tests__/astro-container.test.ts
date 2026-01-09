@@ -31,10 +31,10 @@ describe.skip("Navigation component", () => {
       .filter(Boolean);
 
     expect(mobilePrimaryLinks).toEqual([
-      "Start here",
-      "Library",
+      "Standards",
+      "Mechanisms",
+      "Validators",
       "Institute",
-      "Diagnostics",
     ]);
 
     const mobileUtilityLinks = Array.from(
@@ -65,20 +65,22 @@ describe.skip("Navigation component", () => {
       navContent?.querySelectorAll(".nav__link-label") ?? [],
     ).map((link) => link.textContent?.trim());
     expect(linkTexts).toEqual([
-      "Start here",
-      "Participate",
-      "Library",
-      "Syllabus hub",
+      "Standards",
+      "The Temporal Bill of Rights (STD-01)",
+      "Core axioms",
       "Glossary",
-      "Field notes",
-      "Institute",
-      "Research",
-      "Finite [Beta]",
-      "Diagnostics",
-      "Maintenance Simulator",
+      "Mechanisms",
       "Governance",
-      "Design ethics",
+      "Friction",
       "Policy",
+      "Validators",
+      "Burden Modeler",
+      "Risk Radar",
+      "Latency Audit",
+      "Institute",
+      "Team",
+      "Case law",
+      "Studio (.com)",
     ]);
 
     const actionTexts = Array.from(
@@ -104,7 +106,7 @@ describe.skip("BaseLayout", () => {
       slots: {
         default: "<section><h1>Slot heading</h1><p>Slot content</p></section>",
       },
-      request: new Request("https://ethotechnics.org/library"),
+      request: new Request("https://ethotechnics.org/mechanisms"),
       partial: false,
     });
     const document = parseHtml(html);
@@ -148,7 +150,7 @@ describe.skip("BaseLayout", () => {
     ).toBe("630");
     expect(
       document.querySelector('link[rel="canonical"]')?.getAttribute("href"),
-    ).toBe("https://ethotechnics.org/library");
+    ).toBe("https://ethotechnics.org/mechanisms");
     expect(
       document.querySelector('link[rel="icon"]')?.getAttribute("href"),
     ).toBe("/favicon.svg");
@@ -186,6 +188,5 @@ describe.skip("BaseLayout", () => {
       "Work with the Studio",
       "Connect",
     ]);
-
   });
 });

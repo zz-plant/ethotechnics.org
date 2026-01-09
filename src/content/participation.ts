@@ -59,7 +59,7 @@ type ParticipationContent = PageCopy & {
 };
 
 export const participationContent: ParticipationContent = {
-  pageTitle: "Participate — Strengthen the Ethotechnics library",
+  pageTitle: "Participate — Strengthen the Ethotechnics mechanisms catalog",
   pageDescription:
     "Share field reports, host peer reviews, and join monthly clinics to keep the Institute grounded in practitioner evidence.",
   permalink: "/participate",
@@ -208,19 +208,21 @@ export const participationContent: ParticipationContent = {
     eyebrow: "Feedback",
     title: "Prefer to send quick notes?",
     description:
-      "Tell us what would make the library more useful—missing artifacts, unclear steps, or examples you need to see.",
+      "Tell us what would make the mechanisms catalog more useful—missing artifacts, unclear steps, or examples you need to see.",
     actions: [
       {
         label: "Contact the inbox",
         href: "mailto:hello@ethotechnics.org?subject=Library%20feedback",
-        ariaLabel: "Email hello@ethotechnics.org with library feedback",
-        detail: "Best for quick corrections, missing links, or content requests.",
+        ariaLabel: "Email hello@ethotechnics.org with mechanisms feedback",
+        detail:
+          "Best for quick corrections, missing links, or content requests.",
       },
       {
         label: "Share facilitation feedback",
         href: "mailto:studio@ethotechnics.org?subject=Facilitation%20feedback",
         ariaLabel: "Email studio@ethotechnics.org with facilitation feedback",
-        detail: "Best for workshop retros, facilitation notes, and delivery insights.",
+        detail:
+          "Best for workshop retros, facilitation notes, and delivery insights.",
       },
     ],
   },

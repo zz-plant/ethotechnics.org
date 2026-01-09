@@ -120,16 +120,17 @@ export type HomeContent = PageCopy & {
 };
 
 export const homeContent = {
-  pageTitle: "Ethotechnics — A workbench for accountable systems",
+  pageTitle:
+    "Ethotechnics Institute — The Reference Standard for Accountable Systems",
   pageDescription:
-    "Run fast system health checks, borrow design patterns, learn the fundamentals, or work with the Studio.",
+    "Documentation hub for standards, mechanisms, and validators stewarded by the Institute of Ethotechnics.",
   hero: {
     eyebrow: "A workbench for accountable systems",
-    heading: "Advance accountable systems from research to delivery.",
+    heading: "The Reference Standard for Accountable Systems.",
     subheadline:
-      "Our mission is to make accountability practical through diagnostics, patterns, and Studio support.",
-    lede: "Focus on responsible delivery, research synthesis, and governance while you run quick health checks, reuse spec-ready patterns, or bring in hands-on coaching.",
-    map: 'Start with a <a href="/diagnostics">System Health Check</a>, borrow a pattern from the <a href="/library">Design Library</a>, learn the <a href="/start-here#framing">Fundamentals</a>, or work directly with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
+      "Standards, mechanisms, and validators for teams shipping high-stakes systems.",
+    lede: "Search the documentation, review active standards, and align delivery with the Institute's doctrine.",
+    map: 'Start with <a href="/standards">Standards</a>, explore <a href="/mechanisms">Mechanisms</a>, run <a href="/validators">Validators</a>, or connect with the <a href="/institute">Institute</a>.',
     badge: {
       label: "Institute + Studio",
       title: "Move from insight to delivery with the right support.",
@@ -142,8 +143,8 @@ export const homeContent = {
         icon: "lucide:stethoscope",
       },
       {
-        label: "Browse the Design Library",
-        href: "/library",
+        label: "Browse mechanisms",
+        href: "/mechanisms",
         variant: "ghost",
         icon: "lucide:library",
       },
@@ -161,8 +162,8 @@ export const homeContent = {
         icon: "lucide:stethoscope",
       },
       {
-        label: "Design library",
-        value: "Spec-ready patterns and facilitation prompts",
+        label: "Mechanisms catalog",
+        value: "Spec-ready mechanisms and facilitation prompts",
         icon: "lucide:library",
       },
       {
@@ -174,12 +175,7 @@ export const homeContent = {
     panel: {
       title: "Plan the next step",
       description: "Pick the pathway that removes the most risk, fastest.",
-      pills: [
-        "Diagnostics",
-        "Design patterns",
-        "Fundamentals",
-        "Studio support",
-      ],
+      pills: ["Diagnostics", "Mechanisms", "Fundamentals", "Studio support"],
     },
     media: {
       src: "/assets/ethotechnics-hero-map.svg",
@@ -191,7 +187,7 @@ export const homeContent = {
   about: {
     eyebrow: "About the Institute",
     heading: "Practical guidance for accountable systems.",
-    body: "Ethotechnics pairs diagnostics, patterns, and primers so teams can make accountable decisions quickly.",
+    body: "Ethotechnics pairs diagnostics, mechanisms, and primers so teams can make accountable decisions quickly.",
     features: [
       {
         icon: "lucide:bolt",
@@ -209,13 +205,13 @@ export const homeContent = {
         icon: "lucide:palette",
         title: "Accessible by design",
         description:
-          "Plain-language explanations and visuals keep the library easy to share.",
+          "Plain-language explanations and visuals keep the mechanisms catalog easy to share.",
       },
       {
         icon: "lucide:users",
         title: "Built with the community",
         description:
-          "Peer feedback and practitioner evidence keep the library grounded in real-world work.",
+          "Peer feedback and practitioner evidence keep the mechanisms catalog grounded in real-world work.",
         actions: [
           {
             label: "Submit a field report",
@@ -229,7 +225,8 @@ export const homeContent = {
   },
   tracks: {
     eyebrow: "Quick paths",
-    heading: "Choose a mission-aligned task in delivery, research, or governance.",
+    heading:
+      "Choose a mission-aligned task in delivery, research, or governance.",
     body: "Each path moves accountable systems forward with a fast start and a concrete output you can share.",
     promptTitle: "Start with the fastest win",
     promptNote:
@@ -242,10 +239,10 @@ export const homeContent = {
         label: "Open diagnostics",
       },
       {
-        question: "Browse the Design Library",
+        question: "Browse mechanisms",
         answer: "Pull proven strategies and copy spec-ready language.",
-        href: "/library",
-        label: "Browse the library",
+        href: "/mechanisms",
+        label: "Browse mechanisms",
       },
       {
         question: "Learn the Fundamentals",
@@ -280,12 +277,12 @@ export const homeContent = {
       {
         icon: "lucide:library",
         eyebrow: "Find a mechanism",
-        title: "Browse the design library",
+        title: "Browse mechanisms",
         description:
           "Find strategies for appeals, consent flows, or safe shutdowns—then copy the spec-ready text.",
-        pills: ["Pattern library", "Copy for specs", "Reusable mechanisms"],
+        pills: ["Mechanisms catalog", "Copy for specs", "Reusable mechanisms"],
         actions: [
-          { label: "Browse the library", href: "/library" },
+          { label: "Browse mechanisms", href: "/mechanisms" },
           { label: "Explore the glossary", href: "/glossary" },
         ],
       },
@@ -337,7 +334,7 @@ export const homeContent = {
       {
         title: "Research and synthesis",
         description:
-          "Field reports translate interviews, participatory sessions, and policy reviews into patterns.",
+          "Field reports translate interviews, participatory sessions, and policy reviews into mechanisms.",
         actions: [
           { label: "Share a case study", href: "/participate#field-reports" },
           { label: "Contribute evidence", href: "/participate#peer-review" },
@@ -383,15 +380,15 @@ export const homeContent = {
       title: "Themes to explore next",
       body: "Use these themes as prompts for reviews, retrospectives, or roadmap planning.",
       link: {
-        label: "Browse the Design Library",
-        href: "/library",
+        label: "Browse mechanisms",
+        href: "/mechanisms",
       },
     },
   },
   cta: {
     eyebrow: "Stay connected",
     heading: "Start with a system health check.",
-    body: "Run a diagnostic, borrow a pattern, or bring in the Studio when you need hands-on support.",
+    body: "Run a diagnostic, borrow a mechanism, or bring in the Studio when you need hands-on support.",
     actions: [
       {
         label: "Run a System Health Check",
@@ -400,8 +397,8 @@ export const homeContent = {
         icon: "lucide:stethoscope",
       },
       {
-        label: "Browse the Design Library",
-        href: "/library",
+        label: "Browse mechanisms",
+        href: "/mechanisms",
         variant: "ghost",
         icon: "lucide:library",
       },

@@ -43,8 +43,8 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               data-filter={filter.slug}
               aria-label={
                 filter.slug === 'all'
-                  ? 'Show all patterns'
-                  : `Filter patterns by ${filter.label} and update visible results`
+                  ? 'Show all mechanisms'
+                  : `Filter mechanisms by ${filter.label} and update visible results`
               }
             >
               {filter.label}
@@ -57,26 +57,26 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
       })}
     </ul>
     <label class="pattern-filter__search" for={searchInputId}>
-      <span class="muted">Search patterns</span>
+      <span class="muted">Search mechanisms</span>
       <input
         id={searchInputId}
         type="search"
         class="pattern-filter__search-input"
         placeholder="Search by title, summary, or cue"
         data-search-input
-        aria-label="Search patterns by title, summary, or cue"
+        aria-label="Search mechanisms by title, summary, or cue"
       />
     </label>
     <p class="muted" role="status" aria-live="polite" data-filter-status>
-      Showing all patterns.
+      Showing all mechanisms.
     </p>
     <div class="pattern-bundle" data-pattern-bundle>
       <div class="pattern-bundle__header">
         <div class="pattern-bundle__copy">
-          <p class="muted">Pattern bundle</p>
-          <h3>Save selected patterns.</h3>
+          <p class="muted">Mechanism bundle</p>
+          <h3>Save selected mechanisms.</h3>
           <p class="muted small" data-selection-status aria-live="polite">
-            No patterns selected yet.
+            No mechanisms selected yet.
           </p>
         </div>
         <div class="pattern-bundle__actions">
@@ -115,7 +115,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
         </p>
       </form>
       <p class="muted small pattern-bundle__hint">
-        <a class="pattern-bundle__link" href="#patterns" data-bundle-link>
+        <a class="pattern-bundle__link" href="#mechanisms" data-bundle-link>
           Current bundle link
         </a>
       </p>
@@ -126,7 +126,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
       const appliedFilters = pattern.filters
         .map((filter) => filterLabels[filter] ?? filter)
         .join(', ');
-      const detailHref = `/library/patterns/${pattern.slug}`;
+      const detailHref = `/mechanisms/patterns/${pattern.slug}`;
       const teaserSteps = pattern.steps.slice(0, 2);
       const searchContent = [
         pattern.title,
@@ -197,7 +197,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
             </ul>
             <p class="muted pattern-card__example">Example: {pattern.example.title}</p>
             <a class="pattern-card__link" href={detailHref}>
-              Open pattern detail
+              Open mechanism detail
             </a>
           </details>
           <p class="muted">
@@ -232,7 +232,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
       );
     })}
     <p class="muted" data-empty hidden>
-      No patterns match your filters yet.
+      No mechanisms match your filters yet.
     </p>
   </div>
 </div>

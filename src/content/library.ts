@@ -68,7 +68,7 @@ export const libraryContent: LibraryContent = {
   pageTitle: "Mechanisms — Ethotechnics Institute",
   pageDescription:
     "Specification-ready mechanisms for accountable systems, with cited primers, glossary entries, and reusable safeguards.",
-  permalink: "/library",
+  permalink: "/mechanisms",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-01-09T00:00:00Z",
   publication: {
@@ -84,18 +84,19 @@ export const libraryContent: LibraryContent = {
     updated: "2026-01-09T00:00:00Z",
     version: "v1.1.0",
     doi: "Pending Zenodo deposit",
-    archiveUrl: "https://web.archive.org/save/https://ethotechnics.org/library",
+    archiveUrl:
+      "https://web.archive.org/save/https://ethotechnics.org/mechanisms",
     changelog: [
       {
         version: "v1.1.0",
         date: "2026-01-09",
         summary:
-          "Added citation metadata, library-level authorship details, and structured usage guidance.",
+          "Added citation metadata, mechanisms-level authorship details, and structured usage guidance.",
       },
       {
         version: "v1.0.0",
         date: "2025-12-03",
-        summary: "Initial public library release.",
+        summary: "Initial public mechanisms release.",
       },
     ],
     license: {
@@ -120,18 +121,18 @@ export const libraryContent: LibraryContent = {
         title: "MEC-01 Decision log with dissent",
         description:
           "Keep decisions legible with dissent, ownership, and follow-up dates.",
-        href: "/library/patterns/decision-log",
+        href: "/mechanisms/patterns/decision-log",
       },
       {
         title: "MEC-02 Progressive consent prompts",
         description:
           "Stage consent requests with clear exits and reversible defaults.",
-        href: "/library/patterns/progressive-consent",
+        href: "/mechanisms/patterns/progressive-consent",
       },
       {
         title: "MEC-03 Maintenance windowing",
         description: "Plan downtime and comms so stewardship stays visible.",
-        href: "/library/patterns/maintenance-windowing",
+        href: "/mechanisms/patterns/maintenance-windowing",
       },
     ],
   },
@@ -150,13 +151,13 @@ export const libraryContent: LibraryContent = {
             title: "MEC-05 Kill switch for runaway automation",
             description:
               "Stoppability playbook with triggers, operators, and restoration drills.",
-            href: "/library/patterns/kill-switch",
+            href: "/mechanisms/patterns/kill-switch",
           },
           {
             title: "MEC-03 Maintenance windowing",
             description:
               "Plan safe downtime, fallback coverage, and stewardship windows.",
-            href: "/library/patterns/maintenance-windowing",
+            href: "/mechanisms/patterns/maintenance-windowing",
           },
           {
             title: "Glossary: Stopability",
@@ -176,13 +177,13 @@ export const libraryContent: LibraryContent = {
             title: "MEC-02 Progressive consent prompts",
             description:
               "Stage consent requests with clear exits and reversible defaults.",
-            href: "/library/patterns/progressive-consent",
+            href: "/mechanisms/patterns/progressive-consent",
           },
           {
             title: "MEC-06 Appeal paths inside the UI",
             description:
               "Bake dispute routes and human review into the experience.",
-            href: "/library/patterns/appeal-paths",
+            href: "/mechanisms/patterns/appeal-paths",
           },
           {
             title: "Glossary: Consent journey",
@@ -202,13 +203,13 @@ export const libraryContent: LibraryContent = {
             title: "MEC-01 Decision log with dissent",
             description:
               "Accountability logs with owners, dissent, and review dates.",
-            href: "/library/patterns/decision-log",
+            href: "/mechanisms/patterns/decision-log",
           },
           {
             title: "MEC-03 Maintenance windowing",
             description:
               "Operational evidence of stewardship windows and documented fixes.",
-            href: "/library/patterns/maintenance-windowing",
+            href: "/mechanisms/patterns/maintenance-windowing",
           },
           {
             title: "Glossary: Repair log",
@@ -507,14 +508,14 @@ export const libraryContent: LibraryContent = {
           "Building appeal paths and consent prompts into prototypes",
         ],
         outcome:
-          "Practitioners share findings with linked terms and pattern cues that ship with the work.",
+          "Practitioners share findings with linked terms and mechanism cues that ship with the work.",
       },
       {
         title: "Governance and maintenance",
         duration: "75 minutes",
         topics: [
           "Decision logs, stewardship windows, and escalation readiness",
-          "Pairing diagnostics with pattern rollout",
+          "Pairing diagnostics with mechanism rollout",
           "Designing safety valves for high-burden scenarios",
         ],
         outcome:
