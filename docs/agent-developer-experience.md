@@ -28,6 +28,14 @@ This file summarizes agent-facing references so onboarding stays short and consi
 - Format docs with `bunx prettier --write docs/*.md` before committing.
 - Keep changes small, readable, and scoped to the task.
 
+## Picking work
+
+- Start with the roadmap/specs hub in
+  [`docs/page-specifications.md`](./page-specifications.md) for the current priority list.
+- Prefer items marked “Now” or labeled “good first issue” when you want a bounded, high-confidence
+  starting point.
+- If multiple items are viable, pick the one with the clearest acceptance notes and required files.
+
 ## Editor and IDE helpers
 
 - Workspace recommendations for VS Code live in `.vscode/extensions.json`; install them to pick up
