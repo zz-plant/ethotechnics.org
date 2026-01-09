@@ -158,8 +158,20 @@ svg {
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 360px), (max-height: 360px) {
   :root {
-    --page-gutter: 0.9rem;
+    --page-gutter: 0.7rem;
+    --section-padding: clamp(1.1rem, 5vw, 1.8rem);
+    --section-gap: clamp(0.85rem, 3vw, 1.3rem);
+    --space-1: 0.35rem;
+    --space-2: 0.6rem;
+    --space-3: 0.9rem;
+    --space-4: 1.2rem;
+    --space-6: 1.8rem;
+  }
+
+  body {
+    font-size: clamp(0.88rem, 0.6vw + 0.82rem, 0.98rem);
+    line-height: 1.5;
   }
 }
