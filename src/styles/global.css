@@ -818,6 +818,34 @@ html {
   }
 }
 
+@media (min-width: 2000px) {
+  .hero {
+    padding: clamp(2.6rem, 3vw, 3.4rem);
+  }
+
+  .hero__layout {
+    gap: 2.2rem;
+  }
+
+  .hero__content h1 {
+    font-size: clamp(3rem, 1.6vw + 2.4rem, 4.4rem);
+  }
+
+  .hero__content .lede {
+    font-size: clamp(1.1rem, 0.45vw + 1rem, 1.35rem);
+  }
+}
+
+@media (min-width: 2600px) {
+  .hero__layout {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .hero__content h1 {
+    font-size: clamp(3.3rem, 1.5vw + 2.8rem, 4.8rem);
+  }
+}
+
 .hero__jump-links .pill {
   text-decoration: none;
   font-size: 0.86rem;
