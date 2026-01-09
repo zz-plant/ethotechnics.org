@@ -73,15 +73,6 @@ const home = defineCollection({
         label: z.string(),
         title: z.string(),
       }),
-      summary: z.object({
-        title: z.string(),
-        items: z.array(
-          z.object({
-            title: z.string(),
-            description: z.string(),
-          }),
-        ),
-      }),
       actions: z.array(actionSchema),
       quickLinks: z.array(z.object({ href: z.string(), label: z.string() })),
       metrics: z.array(

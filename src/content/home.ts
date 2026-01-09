@@ -32,11 +32,6 @@ export type HeroBadge = {
   title: string;
 };
 
-export type HeroSummaryItem = {
-  title: string;
-  description: string;
-};
-
 export type HeroAction = {
   label: string;
   href: string;
@@ -58,10 +53,6 @@ export type HomeContent = PageCopy & {
     lede: string;
     map: string;
     badge: HeroBadge;
-    summary: {
-      title: string;
-      items: HeroSummaryItem[];
-    };
     actions: HeroAction[];
     quickLinks: {
       href: string;
@@ -142,26 +133,6 @@ export const homeContent = {
     badge: {
       label: "Institute + Studio",
       title: "Move from insight to delivery with the right support.",
-    },
-    summary: {
-      title: "What you can do in minutes",
-      items: [
-        {
-          title: "Surface risk early",
-          description:
-            "Answer a few questions to generate a shareable readout and next-step checklist.",
-        },
-        {
-          title: "Drop in a proven mechanism",
-          description:
-            "Copy consent, escalation, or shutdown patterns straight into specs and roadmaps.",
-        },
-        {
-          title: "Align the team fast",
-          description:
-            "Use primers and facilitation guides to build shared language before you ship.",
-        },
-      ],
     },
     actions: [
       {

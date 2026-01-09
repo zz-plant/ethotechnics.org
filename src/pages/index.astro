@@ -51,17 +51,6 @@ const {
           <h1>{hero.heading}</h1>
           <p class="lede">{hero.lede}</p>
         </div>
-        <div class="hero__summary">
-          <p class="muted small">{hero.summary.title}</p>
-          <ul>
-            {hero.summary.items.map((item) => (
-              <li>
-                <p class="hero__summary-title">{item.title}</p>
-                <p class="muted small">{item.description}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
         <div class="hero__note" set:html={hero.map}></div>
         <div class="hero__footer">
           <div class="actions">
