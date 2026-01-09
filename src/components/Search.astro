@@ -26,6 +26,10 @@ import { Icon } from "astro-icon/components";
         <Icon name="lucide:x" />
       </button>
     </div>
+    <div id="search-recent" class="search-recent" aria-live="polite" hidden>
+      <span class="search-recent__label">Recent:</span>
+      <div id="search-recent-list" class="search-recent__list"></div>
+    </div>
     <div id="search-results" class="search-results">
       <p class="search-empty">Start typing to search...</p>
     </div>
@@ -140,6 +144,45 @@ import { Icon } from "astro-icon/components";
     color: var(--color-text, #212529);
   }
 
+  .search-recent {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem 0;
+    flex-wrap: wrap;
+  }
+
+  .search-recent__label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted, #6c757d);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .search-recent__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .search-recent__item {
+    border: 1px solid var(--color-border, #e9ecef);
+    background: var(--color-surface, #ffffff);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: var(--color-text, #212529);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .search-recent__item:hover,
+  .search-recent__item:focus-visible {
+    border-color: var(--color-primary, #007bff);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+    outline: none;
+  }
+
   .search-results {
     min-height: 200px;
     max-height: 50vh;
@@ -184,6 +227,10 @@ import { Icon } from "astro-icon/components";
     excerpt: string;
     meta: {
       title: string;
+      type?: string;
+      section?: string;
+      category?: string;
+      contentType?: string;
     };
   };
 
@@ -225,11 +272,28 @@ import { Icon } from "astro-icon/components";
   const closeBtn = document.getElementById("search-close");
   const input = document.getElementById("search-input") as HTMLInputElement;
   const resultsContainer = document.getElementById("search-results");
+  const recentContainer = document.getElementById("search-recent");
+  const recentList = document.getElementById("search-recent-list");
+
+  const RECENT_SEARCH_KEY = "et3-search-recent";
+  const MAX_RECENT_SEARCHES = 6;
+  const GROUP_LABELS = ["Standards", "Validators", "Mechanisms", "Other"];
+  const CONTENT_TYPE_MAP: Record<string, string> = {
+    standards: "Standards",
+    standard: "Standards",
+    validators: "Validators",
+    validator: "Validators",
+    mechanisms: "Mechanisms",
+    mechanism: "Mechanisms",
+  };
+  let activeIndex = -1;
+  let currentQuery = "";
 
   trigger?.addEventListener("click", () => {
     dialog?.showModal();
     initPagefind();
     input?.focus();
+    renderRecentSearches();
   });
 
   closeBtn?.addEventListener("click", () => {
@@ -240,6 +304,10 @@ import { Icon } from "astro-icon/components";
     if (event.target === dialog) {
       dialog.close();
     }
+  });
+
+  dialog?.addEventListener("close", () => {
+    activeIndex = -1;
   });
 
   document.addEventListener("keydown", (e) => {
@@ -253,46 +321,133 @@ import { Icon } from "astro-icon/components";
       dialog?.showModal();
       initPagefind();
       input?.focus();
+      renderRecentSearches();
     }
+  });
+
+  dialog?.addEventListener("keydown", (event) => {
+    if (!dialog?.open) return;
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      dialog.close();
+      trigger?.focus();
+      return;
+    }
+
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      const items = getResultItems();
+      if (items.length === 0) return;
+
+      event.preventDefault();
+      const direction = event.key === "ArrowDown" ? 1 : -1;
+      const nextIndex =
+        activeIndex === -1
+          ? direction === 1
+            ? 0
+            : items.length - 1
+          : (activeIndex + direction + items.length) % items.length;
+
+      setActiveIndex(nextIndex, items);
+    }
+
+    if (event.key === "Enter") {
+      const items = getResultItems();
+      if (items.length === 0) return;
+
+      if (activeIndex === -1) {
+        setActiveIndex(0, items);
+      }
+
+      const activeItem = items[activeIndex];
+      if (activeItem) {
+        event.preventDefault();
+        activeItem.click();
+        saveRecentSearch(currentQuery);
+      }
+    }
+  });
+
+  resultsContainer?.addEventListener("focusin", (event) => {
+    const target = event.target as HTMLElement | null;
+    if (!target?.classList.contains("search-result-item")) return;
+    const items = getResultItems();
+    activeIndex = items.indexOf(target as HTMLAnchorElement);
+    items.forEach((item, index) =>
+      item.classList.toggle("is-active", index === activeIndex)
+    );
   });
 
   let debounceTimer: ReturnType<typeof setTimeout> | undefined;
   input?.addEventListener("input", async (event) => {
     const query = (event.target as HTMLInputElement).value;
+    currentQuery = query.trim();
 
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(async () => {
-      if (!query) {
-        if (resultsContainer)
-          resultsContainer.innerHTML =
-            '<p class="search-empty">Start typing to search...</p>';
-        return;
-      }
+      await performSearch(currentQuery);
+    }, 200);
+  });
 
-      const pf = await initPagefind();
-      if (!pf) {
-        if (resultsContainer)
-          resultsContainer.innerHTML =
-            '<p class="search-empty">Search is only available in production builds.</p>';
-        return;
-      }
+  function getResultItems() {
+    return Array.from(
+      resultsContainer?.querySelectorAll<HTMLAnchorElement>(".search-result-item") ??
+        []
+    );
+  }
 
-      const search = await pf.search(query);
-      if (search.results.length === 0) {
-        if (resultsContainer)
-          resultsContainer.innerHTML = `<p class="search-empty">No results found for "${query}"</p>`;
-        return;
-      }
+  function setActiveIndex(index: number, items = getResultItems()) {
+    activeIndex = index;
+    items.forEach((item, itemIndex) => {
+      item.classList.toggle("is-active", itemIndex === activeIndex);
+    });
+    items[activeIndex]?.focus();
+  }
 
-      if (resultsContainer) resultsContainer.innerHTML = "";
+  async function performSearch(query: string) {
+    activeIndex = -1;
+    if (!query) {
+      if (resultsContainer)
+        resultsContainer.innerHTML =
+          '<p class="search-empty">Start typing to search...</p>';
+      return;
+    }
 
-      const results = await Promise.all(
-        search.results
-          .slice(0, 8)
-          .map((result: PagefindSearchResult) => result.data())
-      );
+    const pf = await initPagefind();
+    if (!pf) {
+      if (resultsContainer)
+        resultsContainer.innerHTML =
+          '<p class="search-empty">Search is only available in production builds.</p>';
+      return;
+    }
 
-      results.forEach((data: PagefindResultData) => {
+    const search = await pf.search(query);
+    if (search.results.length === 0) {
+      if (resultsContainer)
+        resultsContainer.innerHTML = `<p class="search-empty">No results found for "${query}"</p>`;
+      return;
+    }
+
+    if (resultsContainer) resultsContainer.innerHTML = "";
+
+    const results = await Promise.all(
+      search.results
+        .slice(0, 12)
+        .map((result: PagefindSearchResult) => result.data())
+    );
+
+    const groupedResults = groupResultsByType(results);
+
+    groupedResults.forEach(([groupLabel, groupItems]) => {
+      const group = document.createElement("div");
+      group.className = "search-results-group";
+      group.innerHTML = `
+        <div class="search-results-heading">${groupLabel}</div>
+        <div class="search-results-list"></div>
+      `;
+      const list = group.querySelector(".search-results-list");
+
+      groupItems.forEach((data) => {
         const item = document.createElement("a");
         item.href = data.url;
         item.className = "search-result-item";
@@ -302,10 +457,94 @@ import { Icon } from "astro-icon/components";
             <p class="search-result-excerpt">${data.excerpt}</p>
           </div>
         `;
-        resultsContainer?.appendChild(item);
+        item.addEventListener("click", () => {
+          saveRecentSearch(query);
+        });
+        list?.appendChild(item);
       });
-    }, 200);
-  });
+
+      resultsContainer?.appendChild(group);
+    });
+  }
+
+  function groupResultsByType(results: PagefindResultData[]) {
+    const grouped = new Map<string, PagefindResultData[]>();
+
+    results.forEach((data) => {
+      const label = resolveContentTypeLabel(data.meta) ?? "Other";
+      const bucket = grouped.get(label) ?? [];
+      bucket.push(data);
+      grouped.set(label, bucket);
+    });
+
+    return GROUP_LABELS.flatMap((label) =>
+      grouped.has(label) ? [[label, grouped.get(label)!] as const] : []
+    );
+  }
+
+  function resolveContentTypeLabel(meta: PagefindResultData["meta"]) {
+    const rawType = (
+      meta.type ??
+      meta.contentType ??
+      meta.category ??
+      meta.section ??
+      ""
+    )
+      .toString()
+      .trim()
+      .toLowerCase();
+    return CONTENT_TYPE_MAP[rawType] ?? null;
+  }
+
+  function loadRecentSearches() {
+    if (typeof localStorage === "undefined") return [];
+    const stored = localStorage.getItem(RECENT_SEARCH_KEY);
+    if (!stored) return [];
+    try {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) {
+        return parsed.filter((item) => typeof item === "string");
+      }
+    } catch (error) {
+      console.warn("Unable to parse recent searches", error);
+    }
+    return [];
+  }
+
+  function saveRecentSearch(query: string) {
+    const trimmed = query.trim();
+    if (!trimmed || typeof localStorage === "undefined") return;
+    const current = loadRecentSearches().filter((item) => item !== trimmed);
+    current.unshift(trimmed);
+    const next = current.slice(0, MAX_RECENT_SEARCHES);
+    localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(next));
+    renderRecentSearches(next);
+  }
+
+  function renderRecentSearches(recent = loadRecentSearches()) {
+    if (!recentContainer || !recentList) return;
+
+    recentList.innerHTML = "";
+    if (recent.length === 0) {
+      recentContainer.hidden = true;
+      return;
+    }
+
+    recentContainer.hidden = false;
+    recent.forEach((term) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "search-recent__item";
+      button.textContent = term;
+      button.addEventListener("click", () => {
+        input.value = term;
+        currentQuery = term;
+        input.focus();
+        performSearch(term);
+      });
+      recentList.appendChild(button);
+    });
+  }
 </script>
 
 <style is:global>
@@ -316,11 +555,37 @@ import { Icon } from "astro-icon/components";
     text-decoration: none;
     color: inherit;
     transition: background 0.2s ease;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .search-result-item:hover {
     background: var(--color-surface-dim, #f8f9fa);
+  }
+
+  .search-result-item:focus-visible,
+  .search-result-item.is-active {
+    background: var(--color-surface-dim, #f8f9fa);
+    outline: 2px solid var(--color-primary, #007bff);
+    outline-offset: 2px;
+  }
+
+  .search-results-group {
+    margin-bottom: 1rem;
+  }
+
+  .search-results-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted, #6c757d);
+    margin-bottom: 0.5rem;
+  }
+
+  .search-results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .search-result-title {
