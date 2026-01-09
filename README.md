@@ -110,6 +110,7 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 3. Build the Worker bundle: `bun run build`. The generated Worker entry is emitted to
    `dist/_worker.js`.
 4. Deploy with Wrangler using the repo defaults: `bun run deploy`.
+   - The deploy script runs Wrangler via `bunx`, so no global installation is required.
    - The deploy command uses `--no-bundle` to skip Wrangler's bundling step since Astro already
      emits the Worker bundle, reducing deploy time.
    - The build copies `.assetsignore` from `public/` to `dist/` so Wrangler skips `_worker.js` and
