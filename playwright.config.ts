@@ -33,7 +33,7 @@ export default defineConfig({
   webServer: process.env.CF_PAGES_URL
     ? undefined
     : {
-        command: "npm run preview -- --host 0.0.0.0 --port 4321",
+        command: "bun run preview -- --host 0.0.0.0 --port 4321",
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,

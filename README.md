@@ -45,9 +45,9 @@ project favors lean, fast-loading pages and clear storytelling.
 | Command            | Purpose                                                       |
 | ------------------ | ------------------------------------------------------------- |
 | `bun dev`          | Run the Astro development server.                             |
-| `bun run build`    | Build the Worker bundle (`dist/_worker.js`).                  |
+| `bun run build`    | Validate content JSON and build the Worker bundle (`dist/_worker.js`). |
 | `bun run preview`  | Preview the Worker build locally.                             |
-| `bun run check`    | Run linting, tests, TypeScript checks, and the Astro checker. |
+| `bun run check`    | Run linting, tests, TypeScript checks, the Astro checker, and JSON validation. |
 | `bun run lint`     | Lint Astro and TypeScript sources under `src/`.               |
 | `bun test`         | Run unit and component tests with Bun.                        |
 | `bun run test:e2e` | Build and run Playwright against the preview server.          |
