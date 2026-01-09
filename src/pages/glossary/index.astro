@@ -42,6 +42,30 @@ const anchorLinks = [
   })),
 ];
 
+const entryLabelIndex = new Map(
+  categories.flatMap((category) =>
+    category.entries.map((entry) => [entry.id, entry.title] as const)
+  )
+);
+const categoryFilters = categories.map((category) => ({
+  id: category.id,
+  label: category.heading.replace(/^[A-Z]\.\s*/, ""),
+}));
+const tagFilters = Array.from(
+  new Set(
+    categories.flatMap((category) =>
+      category.entries.flatMap((entry) => entry.tags ?? [])
+    )
+  )
+).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+const statusFilters = Array.from(
+  new Set(
+    categories
+      .flatMap((category) => category.entries.map((entry) => entry.status))
+      .filter((status): status is string => Boolean(status))
+  )
+).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+
 const entryIndex = categories
   .flatMap((category) => {
     const categoryLabel = category.heading.replace(/^[A-Z]\.\s*/, "");
@@ -59,7 +83,10 @@ const entryIndex = categories
       return {
         id: entry.id,
         title: entry.title,
+        status: entry.status,
+        tags: entry.tags ?? [],
         categoryLabel,
+        categoryId: category.id,
         searchText,
       };
     });
@@ -157,6 +184,37 @@ const stripHtml = (value: string) =>
           value={searchQuery}
         />
       </label>
+      <label class="glossary-filter__facet">
+        Territory
+        <select class="glossary-filter__select" data-glossary-filter="category">
+          <option value="">All territories</option>
+          {categoryFilters.map((category) => (
+            <option value={category.id}>{category.label}</option>
+          ))}
+        </select>
+      </label>
+      {tagFilters.length > 0 && (
+        <label class="glossary-filter__facet">
+          Tag
+          <select class="glossary-filter__select" data-glossary-filter="tag">
+            <option value="">All tags</option>
+            {tagFilters.map((tag) => (
+              <option value={tag}>{tag}</option>
+            ))}
+          </select>
+        </label>
+      )}
+      {statusFilters.length > 0 && (
+        <label class="glossary-filter__facet">
+          Status
+          <select class="glossary-filter__select" data-glossary-filter="status">
+            <option value="">All statuses</option>
+            {statusFilters.map((status) => (
+              <option value={status}>{status}</option>
+            ))}
+          </select>
+        </label>
+      )}
       <button
         class="button ghost button--compact glossary-filter__clear"
         type="button"
@@ -166,7 +224,7 @@ const stripHtml = (value: string) =>
       </button>
     </div>
     <p class="muted glossary-filter__hint">
-      Type to filter, then open a term to grab its permalink or citations.
+      Search across all terms or narrow by territory, tag, or status.
     </p>
     <p
       class="muted glossary-filter__count"
@@ -178,8 +236,8 @@ const stripHtml = (value: string) =>
       {hasSearchQuery && ` for “${searchQuery}”`}
     </p>
     <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
-      No entries match that search. Try another keyword or browse the territory
-      map for nearby concepts.
+      No entries match that search or filter. Try another keyword or browse the
+      territory map for nearby concepts.
     </p>
   </div>
   <div class="callout glossary__starter">
@@ -223,6 +281,9 @@ const stripHtml = (value: string) =>
               href={`${permalink}#${entry.id}`}
               data-title={entry.title}
               data-category={entry.categoryLabel}
+              data-category-id={entry.categoryId}
+              data-tags={entry.tags.join(" ")}
+              data-status={entry.status ?? ""}
               data-search={entry.searchText}
             >
               <span class="glossary-index__term">{entry.title}</span>
@@ -458,9 +519,13 @@ const stripHtml = (value: string) =>
                     <p class="eyebrow">Adjacent terms</p>
                     <div class="pill-row">
                       {adjacentTerms.map((term) => (
-                        <span class="pill pill--muted" itemprop="keywords">
-                          {term}
-                        </span>
+                        <a
+                          class="pill pill--muted"
+                          href={`${permalink}#${term}`}
+                          itemprop="keywords"
+                        >
+                          {entryLabelIndex.get(term) ?? term}
+                        </a>
                       ))}
                     </div>
                   </div>
