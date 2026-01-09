@@ -17,7 +17,7 @@ describe("home content", () => {
     const homeEntry = await loadHomeEntry();
 
     expect(homeEntry?.hero?.heading).toBe(
-      "Build technology people can trust.",
+      "Get clarity, patterns, and help—fast.",
     );
   });
 });

@@ -158,19 +158,25 @@ describe.skip("BaseLayout", () => {
         ?.getAttribute("href"),
     ).toBe("/rss.xml");
     expect(
-      document.querySelector('meta[name="twitter:card"]')?.getAttribute("content"),
+      document
+        .querySelector('meta[name="twitter:card"]')
+        ?.getAttribute("content"),
     ).toBe("summary_large_image");
     expect(
-      document.querySelector('meta[name="twitter:image:alt"]')?.getAttribute("content"),
+      document
+        .querySelector('meta[name="twitter:image:alt"]')
+        ?.getAttribute("content"),
     ).toBe("Linework illustration of Ethotechnics focus areas");
     expect(
-      document.querySelector('meta[name="theme-color"]')?.getAttribute("content"),
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.getAttribute("content"),
     ).toBe("#f0ece4");
 
     const structuredData = document
       .querySelector('script[type="application/ld+json"]')
       ?.textContent?.trim();
-    expect(structuredData?.includes('Ethotechnics Institute')).toBe(true);
+    expect(structuredData?.includes("Ethotechnics Institute")).toBe(true);
 
     const main = document.querySelector("main.page.container");
     expect(main?.querySelector("h1")?.textContent?.trim()).toBe("Slot heading");
@@ -179,7 +185,12 @@ describe.skip("BaseLayout", () => {
     const footerHeadings = Array.from(
       document.querySelectorAll("footer .footer__heading"),
     ).map((heading) => heading.textContent?.trim());
-    expect(footerHeadings).toEqual(["Identity", "Network", "Connect"]);
+    expect(footerHeadings).toEqual([
+      "Identity",
+      "Network",
+      "Work with the Studio",
+      "Connect",
+    ]);
 
     const rssLink = document.querySelector('a.footer__link[href="/rss.xml"]');
     expect(rssLink?.textContent?.trim()).toBe("RSS feed");
