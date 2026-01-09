@@ -1,0 +1,158 @@
+---
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Prompt packs";
+const pageDescription =
+  "Reusable prompts for non-human agents teaching ethotechnics across onboarding, reviews, and conflict resolution.";
+const permalink = "/agent-toolkit/prompt-packs";
+const hero = {
+  eyebrow: "Agent enablement",
+  heading: "Prompt packs",
+  description:
+    "Copy these prompt patterns to lead structured teaching sessions and answer common questions in minutes.",
+};
+
+const anchorLinks = [
+  { href: "#onboarding", label: "Onboarding" },
+  { href: "#decisions", label: "Decision reviews" },
+  { href: "#conflict", label: "Conflict resolution" },
+];
+
+const onboardingPrompts = [
+  {
+    title: "Principal orientation",
+    prompts: [
+      "Summarize the principal's mandate, constraints, and top risks in three bullets.",
+      "Name the ethotechnics principle that matters most for the next 30 days and why.",
+      "List the top two irreversible decisions in this system and the current exit ramps.",
+    ],
+  },
+  {
+    title: "System snapshot",
+    prompts: [
+      "Describe the system in one sentence for a non-technical stakeholder.",
+      "Identify the incentive that could undermine ethical outcomes if left unchecked.",
+      "Name the data or signal we need to make the system legible.",
+    ],
+  },
+];
+
+const decisionPrompts = [
+  {
+    title: "Release readiness",
+    prompts: [
+      "What would make this release unsafe to ship, even if it meets performance targets?",
+      "Which user group bears the largest burden if the system fails?",
+      "What rollback path do we have if we discover harm in the first week?",
+    ],
+  },
+  {
+    title: "Tradeoff review",
+    prompts: [
+      "State the tradeoff in plain language and who it affects.",
+      "Which principle is most threatened by this decision, and how can we offset it?",
+      "What evidence would change our minds later?",
+    ],
+  },
+];
+
+const conflictPrompts = [
+  {
+    title: "Values alignment",
+    prompts: [
+      "Name the value conflict in neutral language without assigning blame.",
+      "Which principle gives us a shared reference point to resolve the conflict?",
+      "What is the smallest decision we can make now that keeps options open?",
+    ],
+  },
+  {
+    title: "Escalation check",
+    prompts: [
+      "Does this decision create irreversible harm or regulatory exposure?",
+      "Who needs to be informed or sign off to keep accountability intact?",
+      "What documentation should we capture for future audits?",
+    ],
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={hero.heading}
+    description={hero.description}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="onboarding"
+    eyebrow="Onboarding"
+    title="Kick off a new principal relationship"
+    description="Use these prompts to align on scope, stakes, and accountability."
+    className="section--banded"
+  >
+    <CardGrid className="grid--two">
+      {onboardingPrompts.map((pack) => (
+        <CardItem title={pack.title} descriptionTone="default">
+          <ul class="muted">
+            {pack.prompts.map((prompt) => (
+              <li>{prompt}</li>
+            ))}
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="decisions"
+    eyebrow="Decision reviews"
+    title="Guide principled tradeoffs under pressure"
+    description="Structure decision reviews so the principle stays visible."
+  >
+    <CardGrid className="grid--two">
+      {decisionPrompts.map((pack) => (
+        <CardItem title={pack.title} descriptionTone="default">
+          <ul class="muted">
+            {pack.prompts.map((prompt) => (
+              <li>{prompt}</li>
+            ))}
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="conflict"
+    eyebrow="Conflict resolution"
+    title="Handle disagreements while preserving trust"
+    description="Use these prompts when decisions are contested or values collide."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {conflictPrompts.map((pack) => (
+        <CardItem title={pack.title} descriptionTone="default">
+          <ul class="muted">
+            {pack.prompts.map((prompt) => (
+              <li>{prompt}</li>
+            ))}
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+    <p class="muted small">
+      Pair these prompts with the glossary to keep terms consistent across teams.
+    </p>
+    <div class="section__actions">
+      <a class="button ghost" href="/glossary">
+        Reference the glossary
+      </a>
+    </div>
+  </SectionBlock>
+</BaseLayout>

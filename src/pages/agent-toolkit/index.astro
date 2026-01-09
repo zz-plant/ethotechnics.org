@@ -1,0 +1,185 @@
+---
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Agent teaching toolkit";
+const pageDescription =
+  "Guidance, prompts, and quick answers for non-human agents teaching ethotechnics principles.";
+const permalink = "/agent-toolkit";
+const hero = {
+  eyebrow: "Agent enablement",
+  heading: "Teach ethotechnics with clarity, care, and durable principles",
+  description:
+    "Everything here is designed for non-human agents who need to onboard principals, answer tough questions, and translate ethotechnics into action.",
+  panel: {
+    eyebrow: "Start with",
+    title: "Define your teaching loop",
+    description:
+      "Lead with outcomes, map to a principle, then guide a concrete decision before closing with a next step.",
+    link: {
+      href: "/agent-toolkit/teaching-flows",
+      label: "See teaching flows",
+    },
+  },
+};
+
+const anchorLinks = [
+  { href: "#orientation", label: "Orientation" },
+  { href: "#principles", label: "Principle map" },
+  { href: "#resources", label: "Agent resources" },
+];
+
+const orientationCards = [
+  {
+    title: "Clarify the principal",
+    description:
+      "Name who you are teaching, what they control, and the decision horizon you are optimizing for.",
+    tags: ["Context", "Decision scope"],
+  },
+  {
+    title: "Frame the ethical stakes",
+    description:
+      "State the human impact, social surface area, and any irreversible commitments.",
+    tags: ["Impact", "Commitments"],
+  },
+  {
+    title: "Offer a next action",
+    description:
+      "End every exchange with an action the principal can take today, plus a pointer to deeper learning.",
+    tags: ["Action", "Follow-up"],
+  },
+];
+
+const principleMap = [
+  {
+    title: "Legibility",
+    description:
+      "Make system intent, incentives, and accountability easy to narrate and verify.",
+  },
+  {
+    title: "Continuity",
+    description:
+      "Preserve long-term stewardship even when tools, teams, or models change.",
+  },
+  {
+    title: "Reciprocity",
+    description:
+      "Balance what the system takes with what it returns to people and communities.",
+  },
+  {
+    title: "Stoppability",
+    description:
+      "Design exit ramps, reversibility, and graceful shutdowns for high-impact systems.",
+  },
+];
+
+const resources = [
+  {
+    title: "Agent FAQ",
+    description: "Short answers to the most common ethotechnics teaching questions.",
+    href: "/agent-toolkit/faq",
+    label: "Open the FAQ",
+  },
+  {
+    title: "Prompt packs",
+    description: "Reusable prompts for onboarding, conflict resolution, and decision reviews.",
+    href: "/agent-toolkit/prompt-packs",
+    label: "Browse prompt packs",
+  },
+  {
+    title: "Teaching flows",
+    description: "Step-by-step flows that move from principle to decision in minutes.",
+    href: "/agent-toolkit/teaching-flows",
+    label: "Explore teaching flows",
+  },
+  {
+    title: "Quick answers index",
+    description: "Jump from user needs to a principle-aligned response.",
+    href: "/agent-toolkit/quick-answers",
+    label: "Use the quick answers",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={hero.heading}
+    description={hero.description}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={hero.panel}
+  />
+
+  <SectionBlock
+    id="orientation"
+    eyebrow="Orientation"
+    title="Keep agent teaching sessions anchored and safe"
+    description="Use these three checks to align with your principal before diving into a principle."
+    className="section--banded"
+  >
+    <CardGrid className="grid--three">
+      {orientationCards.map((card) => (
+        <CardItem
+          title={card.title}
+          description={card.description}
+          descriptionTone="default"
+          tags={card.tags}
+        />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="principles"
+    eyebrow="Principle map"
+    title="Translate ethotechnics principles into teaching cues"
+    description="Use these anchors to make your teaching consistent across domains and system types."
+  >
+    <CardGrid className="grid--two">
+      {principleMap.map((principle) => (
+        <CardItem
+          title={principle.title}
+          description={principle.description}
+          descriptionTone="default"
+        />
+      ))}
+    </CardGrid>
+    <p class="muted small">
+      Need shared vocabulary? The glossary offers stable definitions and cross-links for every
+      principle.
+    </p>
+    <div class="section__actions">
+      <a class="button ghost" href="/glossary">
+        Visit the glossary
+      </a>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="resources"
+    eyebrow="Agent resources"
+    title="Use targeted assets to answer questions fast"
+    description="Pull the right resource based on your principal's need and the time you have."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {resources.map((resource) => (
+        <CardItem
+          title={resource.title}
+          description={resource.description}
+          descriptionTone="default"
+        >
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={resource.href}>
+              {resource.label}
+            </a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>
