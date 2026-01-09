@@ -149,4 +149,7 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 
 ## License
 
-This project is currently unlicensed. All rights reserved.
+This project is licensed under the Creative Commons Attribution-ShareAlike 4.0 International
+license (CC BY-SA 4.0). Unless otherwise noted, you may share and adapt the content with proper
+attribution and under the same license terms. See
+https://creativecommons.org/licenses/by-sa/4.0/ for details.
