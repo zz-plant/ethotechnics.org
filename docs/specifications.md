@@ -51,14 +51,14 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 
 ## Testing commands
 
-- `npm run check`: lint, type-check, tests, and Astro diagnostics; run before committing.
-- `npm test` or `npm run test:ci`: Vitest suites (watch or single pass with coverage).
-- `npm run e2e`: build then execute Playwright against the preview server; install browsers via
-  `npx playwright install --with-deps` first.
+- `bun run check`: lint, type-check, tests, and Astro diagnostics; run before committing.
+- `bun test` or `bun run test:unit:ci`: Bun test suites (watch or single pass with coverage).
+- `bun run test:e2e`: build then execute Playwright against the preview server; install browsers via
+  `bunx playwright install --with-deps` first.
 
 ## Deployment flow
 
-- `npm run build` emits the Worker bundle at `dist/_worker.js` plus static assets in `dist/`
+- `bun run build` emits the Worker bundle at `dist/_worker.js` plus static assets in `dist/`
   (see [Architecture](architecture.md) for adapter details).
-- Deploy to Cloudflare Workers with `npm run deploy`; `wrangler.toml` carries the Worker settings
+- Deploy to Cloudflare Workers with `bun run deploy`; `wrangler.toml` carries the Worker settings
   and assets binding.

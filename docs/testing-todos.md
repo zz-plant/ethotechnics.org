@@ -6,8 +6,8 @@ Playwright.
 ## Vitest unit and component tests
 
 - Vitest shares the project's Astro/Vite settings through
-  [`vitest.config.ts`](../vitest.config.ts). Run `npm test` during development for watch mode and
-  `npm run test:ci` for a full run with coverage.
+  [`vitest.config.ts`](../vitest.config.ts). Run `bun test` during development for watch mode and
+  `bun run test:unit:ci` for a full run with coverage.
 - Component specs live in [`src/components/__tests__/`](../src/components/__tests__/), relying on
   [`src/test/astro-container.ts`](../src/test/astro-container.ts) to render Astro components without
   starting a server. Extend coverage there by adding new `*.test.ts` files or assertions alongside
@@ -21,11 +21,12 @@ Playwright.
 
 ## Playwright smoke coverage
 
-- End-to-end smoke tests live in [`tests/e2e/`](../tests/e2e/) and run against `npm run preview` via
+- End-to-end smoke tests live in [`tests/e2e/`](../tests/e2e/) and run against `bun run preview` via
   `playwright.config.ts`. They currently cover the homepage hero, navigation interactions, and the
   RSS feed.
-- Run `npm run e2e` locally to build and execute the suite with the HTML reporter, or
-  `npm run e2e:ci` to use the line reporter in CI. Respect `PLAYWRIGHT_BASE_URL` or
+- Run `bun run test:e2e` locally to build and execute the suite with the HTML reporter, or
+  `bun run test:e2e:ci` to use the line reporter in CI. Respect `PLAYWRIGHT_BASE_URL` or
   `CF_PAGES_URL` if you already have a preview running.
-- If Playwright installation fails due to missing system packages, rerun `npx playwright install --with-deps`
-  to pull the required dependencies before retrying the suite.
+- If Playwright installation fails due to missing system packages, rerun
+  `bunx playwright install --with-deps` to pull the required dependencies before retrying the
+  suite.

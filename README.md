@@ -42,16 +42,16 @@ project favors lean, fast-loading pages and clear storytelling.
 
 ## Common scripts
 
-| Command            | Purpose                                                       |
-| ------------------ | ------------------------------------------------------------- |
-| `bun dev`          | Run the Astro development server.                             |
-| `bun run build`    | Validate content JSON and build the Worker bundle (`dist/_worker.js`). |
-| `bun run preview`  | Preview the Worker build locally.                             |
+| Command            | Purpose                                                                        |
+| ------------------ | ------------------------------------------------------------------------------ |
+| `bun dev`          | Run the Astro development server.                                              |
+| `bun run build`    | Validate content JSON and build the Worker bundle (`dist/_worker.js`).         |
+| `bun run preview`  | Preview the Worker build locally.                                              |
 | `bun run check`    | Run linting, tests, TypeScript checks, the Astro checker, and JSON validation. |
-| `bun run lint`     | Lint Astro and TypeScript sources under `src/`.               |
-| `bun test`         | Run unit and component tests with Bun.                        |
-| `bun run test:e2e` | Build and run Playwright against the preview server.          |
-| `bun run deploy`   | Deploy the Worker to Cloudflare using Wrangler.               |
+| `bun run lint`     | Lint Astro and TypeScript sources under `src/`.                                |
+| `bun test`         | Run unit and component tests with Bun.                                         |
+| `bun run test:e2e` | Build and run Playwright against the preview server.                           |
+| `bun run deploy`   | Deploy the Worker to Cloudflare using Wrangler.                                |
 
 ## Testing
 
@@ -123,10 +123,17 @@ Session storage is not enabled by default; if you add it later, define the KV bi
   new guide, and formatting expectations.
 - [`docs/architecture.md`](docs/architecture.md) covers the rendering model, middleware, and
   Cloudflare Worker deployment. Update it when routing, layouts, or adapters change.
+- [`docs/specifications.md`](docs/specifications.md) summarizes the site purpose, architecture
+  snapshot, and delivery flow.
+- [`docs/page-specifications.md`](docs/page-specifications.md) lists route-by-route expectations
+  for data, layout, and accessibility.
 - [`docs/adding-pages.md`](docs/adding-pages.md) walks through creating new Astro routes without
   breaking shared navigation and metadata. Use it as the checklist for new content.
 - [`docs/content-components.md`](docs/content-components.md) catalogs the page intro, section
   blocks, cards, and other building blocks reused across routes. Extend it when adding shared UI.
+- [`docs/glossary.md`](docs/glossary.md) defines the key terminology used in site content.
+- [`docs/testing-todos.md`](docs/testing-todos.md) captures the current unit/component and
+  end-to-end test coverage and remaining follow-ups.
 - [`docs/cloudflare-playwright.md`](docs/cloudflare-playwright.md) captures how to run the
   Playwright suite on Cloudflare Pages after the Worker build completes and how to surface test
   results in that environment.
