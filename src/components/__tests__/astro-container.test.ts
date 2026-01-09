@@ -45,7 +45,7 @@ describe.skip("Navigation component", () => {
       .map((link) => link.textContent?.trim())
       .filter(Boolean);
 
-    expect(mobileUtilityLinks).toEqual(["Donate", "Ethotechnics Studio"]);
+    expect(mobileUtilityLinks).toEqual(["GitHub", "Ethotechnics Studio"]);
   });
 
   it("keeps the desktop navigation content visible in the DOM", async () => {
