@@ -69,6 +69,19 @@ const home = defineCollection({
       subheadline: z.string(),
       lede: z.string(),
       map: z.string(),
+      badge: z.object({
+        label: z.string(),
+        title: z.string(),
+      }),
+      summary: z.object({
+        title: z.string(),
+        items: z.array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+          }),
+        ),
+      }),
       actions: z.array(actionSchema),
       quickLinks: z.array(z.object({ href: z.string(), label: z.string() })),
       metrics: z.array(
@@ -133,6 +146,14 @@ const home = defineCollection({
         }),
       }),
       pills: z.array(z.string()),
+      panel: z.object({
+        title: z.string(),
+        body: z.string(),
+        link: z.object({
+          label: z.string(),
+          href: z.string(),
+        }),
+      }),
     }),
     cta: z.object({
       eyebrow: z.string(),

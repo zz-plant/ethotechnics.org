@@ -27,6 +27,16 @@ export type Panel = {
   pills: string[];
 };
 
+export type HeroBadge = {
+  label: string;
+  title: string;
+};
+
+export type HeroSummaryItem = {
+  title: string;
+  description: string;
+};
+
 export type HeroAction = {
   label: string;
   href: string;
@@ -47,6 +57,11 @@ export type HomeContent = PageCopy & {
     subheadline: string;
     lede: string;
     map: string;
+    badge: HeroBadge;
+    summary: {
+      title: string;
+      items: HeroSummaryItem[];
+    };
     actions: HeroAction[];
     quickLinks: {
       href: string;
@@ -96,6 +111,14 @@ export type HomeContent = PageCopy & {
       };
     };
     pills: string[];
+    panel: {
+      title: string;
+      body: string;
+      link: {
+        label: string;
+        href: string;
+      };
+    };
   };
   cta: {
     eyebrow: string;
@@ -111,11 +134,35 @@ export const homeContent = {
     "Run fast system health checks, borrow design patterns, learn the fundamentals, or work with the Studio.",
   hero: {
     eyebrow: "A workbench for accountable systems",
-    heading: "Get clarity, patterns, and help—fast.",
+    heading: "Make accountability the fastest path to launch.",
     subheadline:
-      "Finish a system health check, grab spec-ready patterns, learn the fundamentals, or bring in the Studio.",
-    lede: "Four fast paths help you turn unease into action: assess a project, borrow a mechanism, learn the frame, or hire the experts.",
-    map: 'Start with a <a href="/diagnostics">System Health Check</a>, browse the <a href="/library">Design Library</a>, learn the <a href="/start-here#framing">Fundamentals</a>, or go straight to the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a> for hands-on help.',
+      "Diagnostics, patterns, and coaching for teams shipping high-stakes systems.",
+    lede: "Run a three-minute health check, lift spec-ready patterns, or bring in the Studio when you need hands-on help.",
+    map: 'Start with a <a href="/diagnostics">System Health Check</a>, borrow a pattern from the <a href="/library">Design Library</a>, learn the <a href="/start-here#framing">Fundamentals</a>, or work directly with the <a href="https://ethotechnics.com/studio" rel="noreferrer">Studio</a>.',
+    badge: {
+      label: "Institute + Studio",
+      title: "Move from insight to delivery with the right support.",
+    },
+    summary: {
+      title: "What you can do in minutes",
+      items: [
+        {
+          title: "Surface risk early",
+          description:
+            "Answer a few questions to generate a shareable readout and next-step checklist.",
+        },
+        {
+          title: "Drop in a proven mechanism",
+          description:
+            "Copy consent, escalation, or shutdown patterns straight into specs and roadmaps.",
+        },
+        {
+          title: "Align the team fast",
+          description:
+            "Use primers and facilitation guides to build shared language before you ship.",
+        },
+      ],
+    },
     actions: [
       {
         label: "Run a System Health Check",
@@ -139,26 +186,26 @@ export const homeContent = {
     metrics: [
       {
         label: "System health checks",
-        value: "3–5 question diagnostics with shareable readouts",
+        value: "3–5 questions with shareable risk readouts",
         icon: "lucide:stethoscope",
       },
       {
         label: "Design library",
-        value: "Spec-ready patterns and copy blocks",
+        value: "Spec-ready patterns and facilitation prompts",
         icon: "lucide:library",
       },
       {
         label: "Studio support",
-        value: "Workshops, audits, and co-delivery",
+        value: "Workshops, audits, and embedded co-delivery",
         icon: "lucide:heart-handshake",
       },
     ],
     panel: {
-      title: "Finish a task in minutes",
-      description: "Pick the path that gets you unstuck quickly.",
+      title: "Plan the next step",
+      description: "Pick the pathway that removes the most risk, fastest.",
       pills: [
-        "Health check",
-        "Design library",
+        "Diagnostics",
+        "Design patterns",
         "Fundamentals",
         "Studio support",
       ],
@@ -211,29 +258,27 @@ export const homeContent = {
   },
   tracks: {
     eyebrow: "Quick paths",
-    heading: "Complete a task in under three minutes.",
-    body: "Choose the task that matches your need; each link gets you to a practical output fast.",
-    promptTitle: "What do you need right now?",
+    heading: "Choose the task you need to finish today.",
+    body: "Each path is designed for a fast start and a concrete output you can share.",
+    promptTitle: "Start with the fastest win",
     promptNote:
-      "Each path is designed for a quick start and a shareable output.",
+      "Pick a task to unblock your next meeting, review, or roadmap update.",
     prompts: [
       {
         question: "Run a System Health Check",
-        answer:
-          "Use a free diagnostic tool to spot hidden risks before you launch.",
+        answer: "Spot hidden risk before you launch or get stuck in rework.",
         href: "/diagnostics",
         label: "Open diagnostics",
       },
       {
         question: "Browse the Design Library",
-        answer:
-          "Find proven strategies and copy spec-ready language into your tickets.",
+        answer: "Pull proven strategies and copy spec-ready language.",
         href: "/library",
         label: "Browse the library",
       },
       {
         question: "Learn the Fundamentals",
-        answer: "Get the core thesis of Ethotechnics in minutes, not hours.",
+        answer: "Get the core Ethotechnics frame in a short, skimmable primer.",
         href: "/start-here#framing",
         label: "Read the primer",
       },
@@ -251,8 +296,8 @@ export const homeContent = {
         eyebrow: "Assess a project",
         title: "Run a system health check",
         description:
-          "Answer 3–5 questions and leave with a shareable readout like “High Maintenance Debt Risk.”",
-        pills: ["3–5 questions", "Shareable readout", "Risk vocabulary"],
+          "Answer a few questions and leave with a shareable readout like “High Maintenance Debt Risk.”",
+        pills: ["3–5 questions", "Shareable readout", "Risk signals"],
         actions: [
           { label: "Open diagnostics", href: "/diagnostics" },
           {
@@ -266,8 +311,8 @@ export const homeContent = {
         eyebrow: "Find a mechanism",
         title: "Browse the design library",
         description:
-          "Find proven strategies for appeals, consent flows, or safe shutdowns—then copy the spec-ready text.",
-        pills: ["Pattern library", "Copy for specs", "Reusable mechanics"],
+          "Find strategies for appeals, consent flows, or safe shutdowns—then copy the spec-ready text.",
+        pills: ["Pattern library", "Copy for specs", "Reusable mechanisms"],
         actions: [
           { label: "Browse the library", href: "/library" },
           { label: "Explore the glossary", href: "/glossary" },
@@ -278,7 +323,7 @@ export const homeContent = {
         eyebrow: "Understand the frame",
         title: "Learn the fundamentals",
         description:
-          "Get the gist of Ethotechnics: a practical framework for building accountable systems that respect human limits.",
+          "Get the Ethotechnics framework: a practical guide to building accountable systems.",
         pills: ["Framework primer", "Core thesis", "5-minute read"],
         actions: [
           { label: "Read the fundamentals", href: "/start-here#framing" },
@@ -290,7 +335,7 @@ export const homeContent = {
         eyebrow: "Work with experts",
         title: "Work with the Studio",
         description:
-          "Need hands-on help? Our Studio audits systems, trains teams, and co-delivers ethical infrastructure.",
+          "Bring in the Studio for audits, training, and co-delivery on high-stakes work.",
         pills: ["Workshops", "Audits", "Co-delivery"],
         actions: [
           {
@@ -310,7 +355,7 @@ export const homeContent = {
       {
         title: "Responsible product delivery",
         description:
-          "Keep consent, safety, and accountability visible throughout discovery, build, and rollout.",
+          "Keep consent, safety, and accountability visible through discovery, build, and rollout.",
         emphasis: true,
         pills: [
           "Respectful defaults",
@@ -321,7 +366,7 @@ export const homeContent = {
       {
         title: "Research and synthesis",
         description:
-          "Field reports translate interviews, participatory sessions, and policy reviews into shareable patterns.",
+          "Field reports translate interviews, participatory sessions, and policy reviews into patterns.",
         actions: [
           { label: "Share a case study", href: "/participate#field-reports" },
           { label: "Contribute evidence", href: "/participate#peer-review" },
@@ -330,12 +375,12 @@ export const homeContent = {
       {
         title: "Governance you can explain",
         description:
-          "Decision records, data stewardship plans, and escalation paths you can share with stakeholders.",
+          "Decision records, data stewardship plans, and escalation paths you can share.",
       },
       {
         title: "Tools and references",
         description:
-          "Checklists, workshop kits, and curated readings that make ethical intent actionable.",
+          "Checklists, workshop kits, and curated readings that make intent actionable.",
         actions: [
           { label: "Join monthly clinics", href: "/participate#clinics" },
           { label: "Send feedback", href: "/participate#feedback" },
@@ -363,6 +408,14 @@ export const homeContent = {
       },
     },
     pills: ["Respectful defaults", "Community input", "Long-term stewardship"],
+    panel: {
+      title: "Themes to explore next",
+      body: "Use these themes as prompts for reviews, retrospectives, or roadmap planning.",
+      link: {
+        label: "Browse the Design Library",
+        href: "/library",
+      },
+    },
   },
   cta: {
     eyebrow: "Stay connected",
