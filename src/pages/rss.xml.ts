@@ -1,7 +1,8 @@
 import type { APIContext } from 'astro';
+import { getEntry } from 'astro:content';
+
 import type { ContentFeedItem } from '../content/feed';
 import { loadRecentContent } from '../content/feed';
-import { homeContent } from '../content/home';
 
 type ValidatedFeedItem = ContentFeedItem & { pubDate: Date };
 
@@ -15,10 +16,15 @@ const escapeXml = (value: string) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 
-export function GET({ site }: APIContext) {
+export async function GET({ site }: APIContext) {
   const siteUrl = site ?? new URL(fallbackSite);
+  const homeEntry = await getEntry('home', 'home');
 
-  const feedItems = loadRecentContent();
+  if (!homeEntry) {
+    throw new Error('Home content entry is missing.');
+  }
+
+  const feedItems = await loadRecentContent();
   const itemsWithValidDates: ValidatedFeedItem[] = feedItems.flatMap((item) => {
     if (!item.title || !item.description || !item.path || !item.pubDate) {
       console.warn('Skipping feed item missing required fields', item);
@@ -54,9 +60,9 @@ export function GET({ site }: APIContext) {
   const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>${escapeXml(homeContent.pageTitle)}</title>
+    <title>${escapeXml(homeEntry.data.pageTitle)}</title>
     <link>${siteUrl.toString()}</link>
-    <description>${escapeXml(homeContent.pageDescription)}</description>
+    <description>${escapeXml(homeEntry.data.pageDescription)}</description>
     <language>en</language>
 ${items}
   </channel>
