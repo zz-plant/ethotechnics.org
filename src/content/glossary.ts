@@ -778,6 +778,14 @@ export const glossaryContent: GlossaryContent = {
             "<p>Extra work users or operators must do to behave ethically within a bad system.</p>",
         },
         {
+          id: "temporal-exaction",
+          title: "Temporal Exaction",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Uncompensated seizure of life-hours (time, attention, opportunity cost) as the price of accessing a right or correction.</p><p>Temporal exaction is a form of <a href=\"#extraction\">extraction</a> that inflates the <a href=\"#user-burden-ratio\">user burden ratio</a>.</p>",
+        },
+        {
           id: "asymmetric-sustaining",
           title: "Asymmetric Sustaining",
           status: null,
@@ -955,6 +963,86 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>A negotiated period where teams pause growth work to focus on care, maintenance, and accountability.</p><p>Stewardship windows bundle <a href="#maintenance-window">maintenance windows</a>, publish <a href="#service-level-indicators">SLJs</a> for the pause, and commit to closing items in the <a href="#repair-log">repair log</a> before resuming throughput.</p>',
         },
+        {
+          id: "governance-by-suspension",
+          title: "Governance by Suspension",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Control exercised by keeping matters unresolved long enough that time itself produces the outcome.</p><p>Governance by suspension relies on <a href=\"#non-decision\">non-decisions</a> and exploits <a href=\"#endurance-asymmetry\">endurance asymmetry</a>.</p>",
+        },
+        {
+          id: "endurance-asymmetry",
+          title: "Endurance Asymmetry",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Institutions can persist indefinitely; humans cannot. This makes delay an allocation mechanism.</p><p>Endurance asymmetry underwrites <a href=\"#continuity-privilege\">continuity privilege</a> and <a href=\"#punitive-friction\">punitive friction</a>.</p>",
+        },
+        {
+          id: "continuity-privilege",
+          title: "Continuity Privilege",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Unequal access to enforceability produced by unequal capacity to maintain standing over time (attention, health, documentation, slack).</p><p>Continuity privilege steepens the <a href=\"#burden-gradient\">burden gradient</a> for those without reserves.</p>",
+        },
+        {
+          id: "proxy-privilege",
+          title: "Proxy Privilege",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Unequal enforceability produced by unequal ability to delegate persistence (agents, intermediaries, automation).</p><p>Proxy privilege lets some parties bypass the <a href=\"#futility-threshold\">futility threshold</a> that others face alone.</p>",
+        },
+        {
+          id: "latency-as-action",
+          title: "Latency-as-Action",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The principle that delay produced predictably by system rules (queues, resets, blocked escalation, absent deadlines) is attributable power, not mere inaction.</p><p>Latency-as-action frames delay as governance and grounds <a href=\"#decision-artifact\">decision artifacts</a>.</p>",
+        },
+        {
+          id: "bounded-duration",
+          title: "Bounded Duration",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A fixed maximum time-to-resolution; breach triggers an enforceable disposition.</p><p>Bounded duration pairs with a <a href=\"#stable-clock\">stable clock</a> and <a href=\"#time-transparency\">time transparency</a>.</p>",
+        },
+        {
+          id: "continuity-of-state",
+          title: "Continuity of State",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A persistent cumulative record; no forced repetition of validated inputs.</p><p>Continuity of state reduces <a href=\"#temporal-exaction\">temporal exaction</a> and protects <a href=\"#contestability\">contestability</a>.</p>",
+        },
+        {
+          id: "safe-pause",
+          title: "Safe Pause / Status Quo During Pendency",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>No adverse consequences while review is pending (except narrow, reviewable emergency exception).</p><p>Safe pause preserves the <a href=\"#utility-window\">utility window</a> and keeps people whole during appeal.</p>",
+        },
+        {
+          id: "traceable-ownership",
+          title: "Traceable Ownership",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A named responsible party with authority to override automation when bounds are breached.</p><p>Traceable ownership clarifies <a href=\"#design-authority\">design authority</a> and accelerates <a href=\"#time-to-restore\">time-to-restore</a>.</p>",
+        },
+        {
+          id: "time-transparency",
+          title: "Time Transparency",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Legible process state: current step, blocking condition, time remaining, next decision point, escalation triggers; no fake progress.</p><p>Time transparency supports <a href=\"#contestability\">contestability</a> and a <a href=\"#stable-clock\">stable clock</a>.</p>",
+        },
       ],
     },
     {
@@ -1045,6 +1133,62 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>The precise moment when a choice shifts from reversible to consequential. Making the decision edge visible enables <a href="#dignity-friction">dignity friction</a>, clearer consent, and routing to <a href="#ethical-interrupts">ethical interrupts</a> when risk spikes.</p>',
+        },
+        {
+          id: "decision-artifact",
+          title: "Decision Artifact",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A discrete, attributable, contestable output: outcome + reason + timestamp + accountable owner.</p><p>Decision artifacts anchor <a href=\"#traceable-ownership\">traceable ownership</a> and make <a href=\"#contestability\">contestability</a> measurable.</p>",
+        },
+        {
+          id: "non-decision",
+          title: "Non-Decision",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A stable administrative disposition where a system withholds a contestable outcome (\u201cpending,\u201d \u201cin review\u201d) while consequences accrue.</p><p>Non-decisions stretch <a href=\"#moral-latency\">moral latency</a> and erode <a href=\"#contestability\">contestability</a> by keeping people in limbo.</p>",
+        },
+        {
+          id: "stable-clock",
+          title: "Stable Clock",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A non-resettable timeline for a case; the system cannot restart time via re-ticketing, re-verification, or channel switching.</p><p>Stable clocks enforce <a href=\"#bounded-duration\">bounded duration</a> and keep timelines legible.</p>",
+        },
+        {
+          id: "utility-window",
+          title: "Utility Window",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The time span during which relief can still prevent the relevant harm.</p><p>Designing for a clear utility window keeps <a href=\"#time-to-restore\">time-to-restore</a> accountable.</p>",
+        },
+        {
+          id: "utility-expiry",
+          title: "Utility Expiry",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Crossing the utility window; relief arrives too late to matter.</p><p>Utility expiry converts support into paperwork and should trigger <a href=\"#constructive-denial\">constructive denial</a> or repair.</p>",
+        },
+        {
+          id: "futility-threshold",
+          title: "Futility Threshold",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The point where time-on-task or repetition becomes so costly that valid claimants predictably abandon pursuit.</p><p>Systems that hit the futility threshold signal <a href=\"#punitive-friction\">punitive friction</a> and low <a href=\"#contestability\">contestability</a>.</p>",
+        },
+        {
+          id: "constructive-denial",
+          title: "Constructive Denial",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A legal state where delay is treated as refusal because it destroys utility or makes pursuit futile.</p><p>Constructive denial recognizes <a href=\"#utility-expiry\">utility expiry</a> and forces accountable remedies.</p>",
         },
         {
           id: "critical-action",
@@ -1873,6 +2017,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["F. Burden & load"],
   },
   {
+    slug: "temporal-exaction",
+    term: "Temporal Exaction",
+    definition:
+      "Uncompensated seizure of life-hours (time, attention, opportunity cost) as the price of accessing a right or correction. Temporal exaction is a form of extraction that inflates the user burden ratio.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
     slug: "burden-index",
     term: "Burden Index",
     definition:
@@ -2013,6 +2164,76 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["H. Governance & power"],
   },
   {
+    slug: "governance-by-suspension",
+    term: "Governance by Suspension",
+    definition:
+      "Control exercised by keeping matters unresolved long enough that time itself produces the outcome. Governance by suspension relies on non-decisions and exploits endurance asymmetry.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "endurance-asymmetry",
+    term: "Endurance Asymmetry",
+    definition:
+      "Institutions can persist indefinitely; humans cannot. This makes delay an allocation mechanism that underwrites continuity privilege and punitive friction.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "continuity-privilege",
+    term: "Continuity Privilege",
+    definition:
+      "Unequal access to enforceability produced by unequal capacity to maintain standing over time (attention, health, documentation, slack). Continuity privilege steepens the burden gradient for those without reserves.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "proxy-privilege",
+    term: "Proxy Privilege",
+    definition:
+      "Unequal enforceability produced by unequal ability to delegate persistence (agents, intermediaries, automation). Proxy privilege lets some parties bypass futility thresholds that others face alone.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "latency-as-action",
+    term: "Latency-as-Action",
+    definition:
+      "The principle that delay produced predictably by system rules (queues, resets, blocked escalation, absent deadlines) is attributable power, not mere inaction.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "bounded-duration",
+    term: "Bounded Duration",
+    definition:
+      "A fixed maximum time-to-resolution; breach triggers an enforceable disposition. Bounded duration pairs with stable clocks and time transparency.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "continuity-of-state",
+    term: "Continuity of State",
+    definition:
+      "A persistent cumulative record; no forced repetition of validated inputs. Continuity of state reduces temporal exaction and protects contestability.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "safe-pause",
+    term: "Safe Pause / Status Quo During Pendency",
+    definition:
+      "No adverse consequences while review is pending (except narrow, reviewable emergency exception). Safe pause preserves the utility window and keeps people whole during appeal.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "traceable-ownership",
+    term: "Traceable Ownership",
+    definition:
+      "A named responsible party with authority to override automation when bounds are breached. Traceable ownership clarifies design authority and accelerates time-to-restore.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "time-transparency",
+    term: "Time Transparency",
+    definition:
+      "Legible process state: current step, blocking condition, time remaining, next decision point, escalation triggers; no fake progress. Time transparency supports contestability and stable clocks.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
     slug: "protective-friction",
     term: "Protective Friction",
     definition:
@@ -2073,6 +2294,55 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Decision Edge",
     definition:
       "The precise moment when a choice shifts from reversible to consequential. Making the decision edge visible enables dignity friction , clearer consent, and routing to ethical interrupts when risk spikes.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "decision-artifact",
+    term: "Decision Artifact",
+    definition:
+      "A discrete, attributable, contestable output: outcome + reason + timestamp + accountable owner. Decision artifacts anchor traceable ownership and make contestability measurable.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "non-decision",
+    term: "Non-Decision",
+    definition:
+      "A stable administrative disposition where a system withholds a contestable outcome (pending, in review) while consequences accrue. Non-decisions stretch moral latency and keep people in limbo.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "stable-clock",
+    term: "Stable Clock",
+    definition:
+      "A non-resettable timeline for a case; the system cannot restart time via re-ticketing, re-verification, or channel switching. Stable clocks enforce bounded duration and keep timelines legible.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "utility-window",
+    term: "Utility Window",
+    definition:
+      "The time span during which relief can still prevent the relevant harm. Designing for a clear utility window keeps time-to-restore accountable.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "utility-expiry",
+    term: "Utility Expiry",
+    definition:
+      "Crossing the utility window; relief arrives too late to matter. Utility expiry should trigger constructive denial or repair.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "futility-threshold",
+    term: "Futility Threshold",
+    definition:
+      "The point where time-on-task or repetition becomes so costly that valid claimants predictably abandon pursuit. Systems that hit the futility threshold signal punitive friction and low contestability.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "constructive-denial",
+    term: "Constructive Denial",
+    definition:
+      "A legal state where delay is treated as refusal because it destroys utility or makes pursuit futile. Constructive denial recognizes utility expiry and forces accountable remedies.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
