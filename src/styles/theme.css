@@ -1,20 +1,20 @@
 :root {
   color-scheme: light;
-  --bg: #f6f2e9;
-  --surface: #fbf9f4;
-  --panel: #f1ede5;
-  --card: #e8e1d8;
-  --border: #cfc7bb;
-  --text: #201b15;
-  --muted: #4c463d;
-  --accent: #2f3f64;
-  --accent-strong: #222f4a;
-  --gold: #b38b4d;
-  --teal: #3d5e5e;
+  --bg: #eff3f8;
+  --surface: #fdfefe;
+  --panel: #f1f5fa;
+  --card: #e6edf5;
+  --border: #cdd7e3;
+  --text: #18212f;
+  --muted: #4a596a;
+  --accent: #3b62c7;
+  --accent-strong: #2c4a97;
+  --gold: #d2a14f;
+  --teal: #2f7f7a;
   --radius: 18px;
   --radius-md: 14px;
   --radius-lg: 22px;
-  --shadow-color: rgba(26, 24, 20, 0.08);
+  --shadow-color: rgba(18, 24, 35, 0.08);
   --shadow: 0 16px 40px var(--shadow-color), 0 4px 12px rgba(0, 0, 0, 0.04);
   --shadow-xs: 0 4px 12px var(--shadow-color);
   --shadow-sm: 0 8px 24px var(--shadow-color);
@@ -54,7 +54,7 @@
     color-mix(in srgb, var(--border) 40%, transparent) 0,
     transparent 1.2px
   );
-  --grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.35'/%3E%3C/svg%3E");
+  --grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.22'/%3E%3C/svg%3E");
   --font-size-sm: 0.9rem;
   --sans:
     "Plus Jakarta Sans Variable", system-ui, -apple-system, BlinkMacSystemFont,
@@ -68,7 +68,7 @@
 
 body {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-optical-sizing: auto;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
@@ -100,7 +100,7 @@ body {
     auto;
   color: var(--text);
   min-height: 100vh;
-  line-height: 1.7;
+  line-height: 1.65;
   letter-spacing: 0.005em;
   font-size: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
   -webkit-font-smoothing: antialiased;
@@ -116,11 +116,11 @@ body {
 h1,
 h2,
 h3 {
-  font-family: var(--serif);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-family: var(--sans);
+  font-weight: 650;
+  letter-spacing: -0.015em;
   font-optical-sizing: auto;
-  color: #1f1a14;
+  color: #18212f;
 }
 
 p {
