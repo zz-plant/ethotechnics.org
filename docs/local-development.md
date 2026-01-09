@@ -41,6 +41,9 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
   analyzer where configured.
 - Targeted runs when iterating:
   - `bun run lint` for Astro and TypeScript sources under `src/`.
+  - `bun run lint:fix` to auto-fix lintable issues in Astro and TypeScript sources.
+  - `bun run format` to apply Prettier formatting across the repo.
+  - `bun run format:check` for a CI-friendly formatting check.
   - `bun run typecheck` for strict TypeScript validation.
   - `bun test` for the unit and component test suite.
   - `bun run test:unit:ci` to generate coverage with the lcov reporter.
