@@ -237,6 +237,24 @@ const library = defineCollection({
         }),
       ),
     }),
+    rolePathways: z.object({
+      title: z.string(),
+      description: z.string(),
+      roles: z.array(
+        z.object({
+          id: z.string(),
+          label: z.string(),
+          summary: z.string(),
+          items: z.array(
+            z.object({
+              title: z.string(),
+              description: z.string(),
+              href: z.string(),
+            }),
+          ),
+        }),
+      ),
+    }),
     primer: z.array(
       z.object({
         title: z.string(),

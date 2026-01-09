@@ -20,6 +20,7 @@ const {
   syllabus,
   quickStart,
   recommended,
+  rolePathways,
   publication,
 } = libraryEntry.data;
 const diagnosticTitles = Object.fromEntries(
@@ -39,6 +40,7 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
     permalink={permalink}
     anchorLinks={[
       { href: "#themes", label: "Browse by theme" },
+      { href: "#role-pathways", label: "Role-based pathways" },
       { href: "#primer", label: "Primer" },
       { href: "#glossary", label: "Glossary" },
       { href: "#patterns", label: "Pattern language" },
@@ -57,6 +59,37 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
     permalink={permalink}
     publication={publication}
   />
+  <SectionBlock
+    id="role-pathways"
+    eyebrow="Role-based pathways"
+    title={rolePathways.title}
+    description={rolePathways.description}
+  >
+    <div class="library__role-buttons">
+      {rolePathways.roles.map((role) => (
+        <a class="button primary library__role-button" href={`#${role.id}`}>
+          {role.label}
+        </a>
+      ))}
+    </div>
+    <div class="library__role-lists">
+      {rolePathways.roles.map((role) => (
+        <div class="library__role-list" id={role.id}>
+          <h3>{role.label}</h3>
+          <p class="muted">{role.summary}</p>
+          <CardGrid>
+            {role.items.map((item) => (
+              <CardItem title={item.title} description={item.description}>
+                <a slot="footer" class="muted" href={item.href}>
+                  Open reading
+                </a>
+              </CardItem>
+            ))}
+          </CardGrid>
+        </div>
+      ))}
+    </div>
+  </SectionBlock>
   <div class="callout">
     <h3>Quick start</h3>
     <ul class="muted">
