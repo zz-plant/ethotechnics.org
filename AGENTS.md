@@ -21,6 +21,14 @@ This repository is small, so keep guidance concise and easy to follow.
 - Use the pinned Node.js 20.x toolchain (`nvm use`) before installing dependencies or running scripts.
 - Capture any new workflows, scripts, or conventions in the closest relevant README or AGENTS file.
 
+## Repository orientation
+
+- Site content lives in `src/pages`, while shared layouts and components live in `src/layouts` and
+  `src/components`.
+- Global styling and tokens live in `src/styles`; update theme-wide changes there instead of
+  per-page overrides.
+- Look for scoped `AGENTS.md` files under `src/` before changing UI components or routes.
+
 ## Formatting and tooling
 
 - Use Bun (respecting `bun.lock`); do not use npm or yarn.
@@ -34,6 +42,12 @@ This repository is small, so keep guidance concise and easy to follow.
   docs-only edits.
 - If `bun run check` is intentionally skipped (for example, a docs-only change that does not
   touch code), call it out in the PR body.
+
+## Validation tips
+
+- Prefer `bun run lint` or targeted tests if a change only affects a narrow area, but still run
+  `bun run check` before commit for non-docs work.
+- Capture manual UI checks in the PR summary when visual changes are involved.
 
 ## Quick review checklist
 
