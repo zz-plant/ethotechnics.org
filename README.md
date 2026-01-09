@@ -49,6 +49,9 @@ project favors lean, fast-loading pages and clear storytelling.
 | `bun run preview`  | Preview the Worker build locally.                             |
 | `bun run check`    | Run linting, tests, TypeScript checks, the Astro checker, and JSON validation. |
 | `bun run lint`     | Lint Astro and TypeScript sources under `src/`.               |
+| `bun run lint:fix` | Lint and auto-fix Astro and TypeScript sources under `src/`.  |
+| `bun run format`   | Format Markdown and source files with Prettier.               |
+| `bun run format:check` | Check formatting with Prettier (CI-friendly).            |
 | `bun test`         | Run unit and component tests with Bun.                        |
 | `bun run test:e2e` | Build and run Playwright against the preview server.          |
 | `bun run deploy`   | Deploy the Worker to Cloudflare using Wrangler.               |
