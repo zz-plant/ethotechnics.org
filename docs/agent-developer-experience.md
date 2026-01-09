@@ -10,6 +10,7 @@ This file summarizes agent-facing references so onboarding stays short and consi
   [Contributing](../README.md#contributing).
 - Docs-specific expectations live in [`docs/AGENTS.md`](./AGENTS.md).
 - The docs map and when to add guidance live in [`docs/README.md`](./README.md).
+- The roadmap, spec template, and pickup guidance live in [`docs/roadmap.md`](./roadmap.md).
 - Repository-wide expectations live in [`AGENTS.md`](../AGENTS.md).
 - File-level conventions live with the code in
   [`src/AGENTS.md`](../src/AGENTS.md),

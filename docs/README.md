@@ -6,6 +6,7 @@ Use this map before adding new guidance so information stays discoverable and cu
 
 ## Quick links
 
+- [`roadmap.md`](roadmap.md) tracks the now/next/later roadmap, spec template, and pickup guidance.
 - [`architecture.md`](architecture.md) outlines the layout shell, routing model, middleware, and Worker deployment.
 - [`adding-pages.md`](adding-pages.md) provides the checklist for new Astro routes and shared navigation updates.
 - [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used across pages.
