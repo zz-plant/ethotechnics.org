@@ -1,5 +1,5 @@
 const escapeHash = (value: string) => {
-  if (typeof CSS === 'undefined' || !CSS.escape) {
+  if (typeof CSS === "undefined" || !CSS.escape) {
     return value;
   }
 
@@ -7,11 +7,20 @@ const escapeHash = (value: string) => {
 };
 
 const initializeFieldNotes = (container: HTMLElement) => {
-  const tabs = Array.from(container.querySelectorAll<HTMLAnchorElement>('[data-field-notes-tab]'));
-  const panels = Array.from(container.querySelectorAll<HTMLElement>('[data-field-notes-panel]'));
-  const entries = Array.from(container.querySelectorAll<HTMLElement>('[data-field-notes-entry]'));
-  const headings = Array.from(container.querySelectorAll<HTMLElement>('[data-field-notes-heading]'));
-  const defaultFormat = container.dataset.defaultFormat ?? tabs[0]?.dataset.format ?? '';
+  const tabs = Array.from(
+    container.querySelectorAll<HTMLAnchorElement>("[data-field-notes-tab]"),
+  );
+  const panels = Array.from(
+    container.querySelectorAll<HTMLElement>("[data-field-notes-panel]"),
+  );
+  const entries = Array.from(
+    container.querySelectorAll<HTMLElement>("[data-field-notes-entry]"),
+  );
+  const headings = Array.from(
+    container.querySelectorAll<HTMLElement>("[data-field-notes-heading]"),
+  );
+  const defaultFormat =
+    container.dataset.defaultFormat ?? tabs[0]?.dataset.format ?? "";
 
   if (tabs.length === 0) {
     return;
@@ -24,22 +33,38 @@ const initializeFieldNotes = (container: HTMLElement) => {
       return;
     }
 
-    const target = container.querySelector('#' + escapeHash(hash));
+    const target = container.querySelector("#" + escapeHash(hash));
 
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const rect = target.getBoundingClientRect();
+      const topVisible = rect.top >= 0 && rect.top <= 4;
+
+      if (topVisible) {
+        return;
+      }
+
+      const prefersReducedMotion = window.matchMedia?.(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      target.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
     }
   };
 
   const setActiveFormat = (format: string) => {
-    const resolvedFormat = tabs.some((tab) => tab.dataset.format === format) ? format : defaultFormat;
+    const resolvedFormat = tabs.some((tab) => tab.dataset.format === format)
+      ? format
+      : defaultFormat;
 
     tabs.forEach((tab) => {
       const isActive = tab.dataset.format === resolvedFormat;
 
-      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      tab.setAttribute('tabindex', isActive ? '0' : '-1');
-      tab.parentElement?.classList.toggle('pill-list__item--active', isActive);
+      tab.setAttribute("aria-selected", isActive ? "true" : "false");
+      tab.setAttribute("tabindex", isActive ? "0" : "-1");
+      tab.parentElement?.classList.toggle("pill-list__item--active", isActive);
     });
 
     panels.forEach((panel) => {
@@ -56,7 +81,7 @@ const initializeFieldNotes = (container: HTMLElement) => {
   };
 
   const syncFromHash = () => {
-    const hash = window.location.hash.replace('#', '');
+    const hash = window.location.hash.replace("#", "");
 
     if (!hash) {
       setActiveFormat(defaultFormat);
@@ -84,7 +109,7 @@ const initializeFieldNotes = (container: HTMLElement) => {
   let observer: IntersectionObserver | null = null;
 
   const maybeSyncFromHash = () => {
-    if (!('IntersectionObserver' in window)) {
+    if (!("IntersectionObserver" in window)) {
       syncFromHash();
       return;
     }
@@ -108,7 +133,9 @@ const initializeFieldNotes = (container: HTMLElement) => {
     tab.focus();
 
     if (format) {
-      window.location.hash = format;
+      const nextUrl = new URL(window.location.href);
+      nextUrl.hash = format;
+      history.pushState(null, "", nextUrl);
     }
   };
 
@@ -119,15 +146,28 @@ const initializeFieldNotes = (container: HTMLElement) => {
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
-      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
+      if (
+        ![
+          "ArrowLeft",
+          "ArrowRight",
+          "ArrowUp",
+          "ArrowDown",
+          "Home",
+          "End",
+        ].includes(event.key)
+      ) {
         return;
       }
 
-      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+      if (
+        ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)
+      ) {
         event.preventDefault();
       }
 
-      const currentIndex = tabs.indexOf(event.currentTarget as HTMLAnchorElement);
+      const currentIndex = tabs.indexOf(
+        event.currentTarget as HTMLAnchorElement,
+      );
 
       if (currentIndex === -1) {
         return;
@@ -135,13 +175,13 @@ const initializeFieldNotes = (container: HTMLElement) => {
 
       let targetIndex = currentIndex;
 
-      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
         targetIndex = (currentIndex + 1) % tabs.length;
-      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
         targetIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-      } else if (event.key === 'Home') {
+      } else if (event.key === "Home") {
         targetIndex = 0;
-      } else if (event.key === 'End') {
+      } else if (event.key === "End") {
         targetIndex = tabs.length - 1;
       }
 
@@ -152,20 +192,22 @@ const initializeFieldNotes = (container: HTMLElement) => {
       }
     };
 
-    tab.addEventListener('click', handleClick);
-    tab.addEventListener('keydown', handleKeydown);
+    tab.addEventListener("click", handleClick);
+    tab.addEventListener("keydown", handleKeydown);
 
     cleanupCallbacks.push(() => {
-      tab.removeEventListener('click', handleClick);
-      tab.removeEventListener('keydown', handleKeydown);
+      tab.removeEventListener("click", handleClick);
+      tab.removeEventListener("keydown", handleKeydown);
     });
   });
 
   const handleHashChange = () => syncFromHash();
 
-  window.addEventListener('hashchange', handleHashChange);
+  window.addEventListener("hashchange", handleHashChange);
+  window.addEventListener("popstate", handleHashChange);
   cleanupCallbacks.push(() => {
-    window.removeEventListener('hashchange', handleHashChange);
+    window.removeEventListener("hashchange", handleHashChange);
+    window.removeEventListener("popstate", handleHashChange);
   });
 
   setActiveFormat(defaultFormat);
@@ -189,10 +231,12 @@ const initializeFieldNotes = (container: HTMLElement) => {
 };
 
 const initFieldNotesTabs = () => {
-  const containers = Array.from(document.querySelectorAll<HTMLElement>('[data-field-notes]'));
+  const containers = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-field-notes]"),
+  );
   const cleanups = containers
     .map((container) => initializeFieldNotes(container))
-    .filter((cleanup): cleanup is () => void => typeof cleanup === 'function');
+    .filter((cleanup): cleanup is () => void => typeof cleanup === "function");
 
   if (cleanups.length === 0) {
     return;
@@ -200,16 +244,16 @@ const initFieldNotesTabs = () => {
 
   const runCleanup = () => {
     cleanups.forEach((cleanup) => cleanup());
-    window.removeEventListener('astro:before-swap', runCleanup);
-    window.removeEventListener('pagehide', runCleanup);
+    window.removeEventListener("astro:before-swap", runCleanup);
+    window.removeEventListener("pagehide", runCleanup);
   };
 
-  window.addEventListener('astro:before-swap', runCleanup);
-  window.addEventListener('pagehide', runCleanup);
+  window.addEventListener("astro:before-swap", runCleanup);
+  window.addEventListener("pagehide", runCleanup);
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initFieldNotesTabs);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initFieldNotesTabs);
 } else {
   initFieldNotesTabs();
 }
