@@ -7,6 +7,8 @@ Detailed, testable expectations for each route. Use these specs when adding cont
 - **Data sources:** Pull `homeContent` from `src/content/home.ts`; do not inline copy. Metrics must include `aria-label` text for sparklines via `trendLabel`.
 - **Layout:**
   - Hero uses the two-column layout with the beam canvas, headline stack, action buttons, and a figure with AVIF image defaults and figcaption when provided.
+  - Hero headline/subheadline state the mission and name the focus areas (delivery, research,
+    governance) early.
   - Retain the "How this works" info strip with two badges (Institute charter, CC BY 4.0 license) and maintain `aria-label` values on the badge list.
   - `about` renders as a `section` with a three-card bento grid; `features` uses a `grid--two` layout with the illustration in the first column and a nested two-column card grid in the second.
   - `highlight` includes the callout block with a list of three actions and a pill rail; `cta` ends the page with two actions rendered as `<a class="button">` links.
