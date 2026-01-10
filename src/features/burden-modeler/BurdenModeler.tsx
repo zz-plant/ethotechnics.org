@@ -31,9 +31,22 @@ export function BurdenModeler() {
   const [ratings, setRatings] = useState<BurdenRatings>(buildDefaultRatings());
 
   const results = useMemo(() => calculateBurdenModel(ratings), [ratings]);
+  const averageRating = useMemo(() => {
+    const values = Object.values(ratings);
+    if (!values.length) return 0;
+    return values.reduce((sum, value) => sum + value, 0) / values.length;
+  }, [ratings]);
+  const topCategory = useMemo(() => {
+    if (!results.categoryScores.length) return null;
+    return results.categoryScores.reduce((leader, score) => (score.value > leader.value ? score : leader));
+  }, [results.categoryScores]);
 
   const updateRating = (driverId: keyof BurdenRatings, value: number) => {
     setRatings((prev) => ({ ...prev, [driverId]: value }));
+  };
+  const resetModeler = () => {
+    setScenario('Baseline');
+    setRatings(buildDefaultRatings());
   };
 
   return (
@@ -65,6 +78,33 @@ export function BurdenModeler() {
               onChange={(event) => setScenario(event.target.value)}
               placeholder="e.g., Q3 release train or support queue"
             />
+          </div>
+
+          <div className="input-card input-card--legend">
+            <div className="input-card__header">
+              <div>
+                <p className="eyebrow">Rating scale</p>
+                <p className="muted small">0 = resting, 10 = unsustainable.</p>
+              </div>
+              <button type="button" className="button ghost button--compact" onClick={resetModeler}>
+                Reset inputs
+              </button>
+            </div>
+            <div className="scale-legend">
+              <div className="scale-legend__bar" aria-hidden="true" />
+              <div className="scale-legend__labels">
+                <span>0</span>
+                <span>2</span>
+                <span>5</span>
+                <span>8</span>
+                <span>10</span>
+              </div>
+              <div className="scale-legend__descriptors">
+                {ratingDescriptors.map((descriptor) => (
+                  <span key={descriptor}>{descriptor}</span>
+                ))}
+              </div>
+            </div>
           </div>
 
           {burdenCategories.map((category) => (
@@ -123,6 +163,21 @@ export function BurdenModeler() {
               </div>
             </div>
             <p className="muted">{burdenLevelCopy[results.burdenLevel].description}</p>
+
+            <div className="result-card__summary">
+              <div className="summary-item">
+                <p className="muted small">Average rating</p>
+                <p className="summary-item__value">{averageRating.toFixed(1)}</p>
+              </div>
+              <div className="summary-item">
+                <p className="muted small">Top category</p>
+                <p className="summary-item__value">{topCategory?.label ?? '—'}</p>
+              </div>
+              <div className="summary-item">
+                <p className="muted small">Top driver</p>
+                <p className="summary-item__value">{results.hotspots[0]?.label ?? '—'}</p>
+              </div>
+            </div>
 
             <div className="result-card__grid">
               {results.categoryScores.map((category) => (
