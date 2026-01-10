@@ -348,6 +348,46 @@ export const glossaryContent: GlossaryContent = {
             },
           ],
         },
+        {
+          id: "mechanism-first-analysis",
+          title: "Mechanism-first Analysis",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>An approach that prioritizes system mechanics\u2014defaults, authority, clocks, reversibility\u2014over declared values or intentions, because mechanics determine outcomes under load.</p>",
+        },
+        {
+          id: "architecture-over-values",
+          title: "Architecture over Values",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The claim that \u201cethical\u201d outcomes depend less on what institutions say they value and more on the enforceable structure of how decisions are made and reversed.</p>",
+        },
+        {
+          id: "state-plus-clocks-model",
+          title: "State + Clocks Model",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A way of seeing power as state transitions plus time: who can change state, how quickly, and whether reversal is time-bound.</p>",
+        },
+        {
+          id: "contestability-architecture",
+          title: "Contestability Architecture",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The set of design features that make contestation real: decision objects, clock-start, binding authority, evidence parity, and guaranteed override paths.</p>",
+        },
+        {
+          id: "control-loops-constraints-framing",
+          title: "Control Loops (Constraints Framing)",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A safety lens where governance is modeled as feedback: detect harm, trigger intervention, enforce constraints, and learn. Useful for translating Ethotechnics into engineering terms.</p>",
+        },
       ],
     },
     {
@@ -485,6 +525,14 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>When rigid policy checklists replace judgment, causing teams to follow rules while harm worsens. Compliance collapses occur when <a href="#design-authority">design authority</a> is weak and <a href="#contestability">contestability</a> is low, leaving no path to pause or repair.</p>',
         },
+        {
+          id: "unseen-harm",
+          title: "Unseen Harm",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Harm that does not produce immediately legible signals\u2014silence, withdrawal, dropout, dissociation\u2014and is therefore misread as \u201cno issue.\u201d</p>",
+        },
       ],
     },
     {
@@ -509,7 +557,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: ["glossary-entry--diagram"],
           bodyHtml:
-            '<p>Critical actions can be undone. Damage is not permanent by default, and <a href="#time-to-restore">time-to-restore</a> stays low.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Reversibility diagram</title>\n                            <path d="M70 24c12 4 20 15 18 27-2 15-17 27-34 22-17-5-24-25-14-40 8-12 24-16 37-10" class="diagram-loop"></path>\n                            <polyline points="70,24 70,42 52,42" class="diagram-loop-arrow"></polyline>\n                          </svg>\n                        </figure>',
+            '<p>The ease with which a system can undo a harmful state change\u2014restore access, correct a record, reverse a flag\u2014without extraordinary effort or power. Reversibility is a governance property: it determines whether mistakes are survivable.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Reversibility diagram</title>\n                            <path d="M70 24c12 4 20 15 18 27-2 15-17 27-34 22-17-5-24-25-14-40 8-12 24-16 37-10" class="diagram-loop"></path>\n                            <polyline points="70,24 70,42 52,42" class="diagram-loop-arrow"></polyline>\n                          </svg>\n                        </figure>',
         },
         {
           id: "fair-burden-distribution",
@@ -525,7 +573,15 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: ["glossary-entry--diagram"],
           bodyHtml:
-            '<p>People affected by system decisions can challenge, change, or overturn them\u2014and win. Contestability combines <a href="#permission-surface">permission surface</a> and <a href="#appeal-passage-rate">appeal passage rate</a>.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Contestability diagram</title>\n                            <path d="M24 64 L24 20 L48 20 L48 40 L72 40 L72 20 L96 20 L96 64" class="diagram-portal"></path>\n                            <circle cx="48" cy="52" r="8" class="diagram-voice"></circle>\n                            <line x1="48" y1="52" x2="64" y2="52" class="diagram-voice-line"></line>\n                          </svg>\n                        </figure>',
+            '<p>The property of a system that allows affected people to force a decision to become a contestable object: something with reasons, a clock, an accountable authority, and a pathway to reversal. A system has contestability when \u201cthat\u2019s wrong\u201d can reliably become \u201chere is the specific decision, here is who can change it, and here is when they must respond.\u201d</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Contestability diagram</title>\n                            <path d="M24 64 L24 20 L48 20 L48 40 L72 40 L72 20 L96 20 L96 64" class="diagram-portal"></path>\n                            <circle cx="48" cy="52" r="8" class="diagram-voice"></circle>\n                            <line x1="48" y1="52" x2="64" y2="52" class="diagram-voice-line"></line>\n                          </svg>\n                        </figure>',
+        },
+        {
+          id: "refusability",
+          title: "Refusability",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A system\u2019s ability to let people say \u201cno\u201d without punishment or degradation\u2014including refusing data extraction, risky defaults, or coercive workflows\u2014while still preserving basic access and dignity. Refusability is not \u201copt-out exists\u201d; it\u2019s whether refusal is treated as a legitimate state rather than an error condition.</p>",
         },
         {
           id: "explainability-for-accountability",
@@ -545,11 +601,11 @@ export const glossaryContent: GlossaryContent = {
         },
         {
           id: "graceful-degradation",
-          title: "Graceful Degradation",
+          title: "Fail-soft / Graceful Degradation",
           status: null,
           classes: [],
           bodyHtml:
-            '<p>The system sheds features or load in controlled stages while keeping people safe. Graceful degradation prioritizes <a href="#care-floor-guarantees">care floor guarantees</a>, maintains <a href="#stopability">stopability</a>, and keeps <a href="#time-to-restore">time-to-restore</a> low.</p>',
+            "<p>A design principle where systems degrade safely under stress\u2014reduced capability rather than catastrophic denial\u2014especially under accessibility constraints.</p>",
         },
         {
           id: "soft-edges",
@@ -706,6 +762,38 @@ export const glossaryContent: GlossaryContent = {
             '<p>Tasks people avoid because the system punishes mistakes or withholds relief. Dread work signals missing <a href="#soft-edges">soft edges</a>, low <a href="#contestability">contestability</a>, and declining <a href="#compassion-bandwidth">compassion bandwidth</a>.</p>',
         },
         {
+          id: "executive-function-class-axis",
+          title: "Executive Function (as a Class Axis)",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The idea that modern systems sort people by their capacity to perform sustained administrative labor\u2014tracking tasks, managing documentation, navigating ambiguity\u2014making disability and burnout into structural disadvantage.</p>",
+        },
+        {
+          id: "human-factors",
+          title: "Human Factors",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A discipline that studies how systems interact with real human limits\u2014fatigue, confusion, stress\u2014often revealing that \u201cuser error\u201d is actually design failure.</p>",
+        },
+        {
+          id: "operator-centered",
+          title: "Operator-centered",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Design that treats front-line workers as key safety components and ensures they have authority, tools, and non-punitive reporting to prevent harm.</p>",
+        },
+        {
+          id: "legibility-illegibility",
+          title: "Legibility / Illegibility",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p><strong>Legibility:</strong> being representable in the system\u2019s categories and workflows.</p><p><strong>Illegibility:</strong> being real but not representable, leading to churn, delay, or denial.</p>",
+        },
+        {
           id: "refusal-budget",
           title: "Refusal Budget",
           status: null,
@@ -752,6 +840,22 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>Moments when system failure pushes labor onto humans, often triggering <a href="#moral-overhead">moral overhead</a>.</p>',
+        },
+        {
+          id: "cost-assignment",
+          title: "Cost Assignment / Burden Shifting",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A mechanism where systems offload the labor of safety, clarity, and follow-through onto individuals (forms, documentation, vigilance) while keeping institutional obligation low. It\u2019s how \u201cchoice\u201d becomes unpaid work.</p>",
+        },
+        {
+          id: "attention-tax",
+          title: "Attention Tax",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The ongoing monitoring burden imposed on individuals to prevent harm: checking portals, tracking deadlines, resubmitting documents, watching for silent rule changes. Attention becomes a cost of staying eligible.</p>",
         },
         {
           id: "maintenance-metabolism",
@@ -906,6 +1010,22 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>The trustworthiness of alerts, metrics, and reports used to govern a system.</p><p>High signal credibility pairs transparent sampling, <a href="#explainability-for-accountability">explainability for accountability</a>, and human testimony so warnings trigger action instead of alert fatigue or dismissal.</p>',
         },
+        {
+          id: "reversal-cost",
+          title: "Reversal Cost",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The time, money, emotional labor, documentation, and social risk required to undo an outcome. High reversal cost makes errors durable and turns \u201crights\u201d into luxuries.</p>",
+        },
+        {
+          id: "durability-of-error",
+          title: "Durability of Error",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>How long a wrong state persists once created, and how far it propagates (downstream systems, eligibility, reputation). A system is dangerous when it can create durable errors quickly but correct them slowly.</p>",
+        },
       ],
     },
     {
@@ -941,11 +1061,11 @@ export const glossaryContent: GlossaryContent = {
         },
         {
           id: "right-of-exit",
-          title: "Right of Exit",
+          title: "Exit Rights",
           status: null,
           classes: [],
           bodyHtml:
-            "<p>The ability to leave a system without ruinous cost or retaliation. A foundational condition for ethical participation.</p>",
+            "<p>Guaranteed, non-punitive ways to leave a system (or refuse a pathway) while preserving access to essentials, records, and future participation. Exit rights treat departure as a legitimate action, not a breach.</p>",
         },
         {
           id: "externalized-harm-channels",
@@ -1043,6 +1163,158 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>Legible process state: current step, blocking condition, time remaining, next decision point, escalation triggers; no fake progress.</p><p>Time transparency supports <a href="#contestability">contestability</a> and a <a href="#stable-clock">stable clock</a>.</p>',
         },
+        {
+          id: "bindingness",
+          title: "Bindingness",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The degree to which a system\u2019s outputs create enforceable obligations\u2014deadlines, duties, remedies, or reversals\u2014rather than mere communications. Bindingness is the difference between \u201cwe received your request\u201d and \u201cwe must decide by Friday or you win.\u201d</p>",
+        },
+        {
+          id: "non-bindingness",
+          title: "Non-bindingness / Nonbindingness",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The condition where a system can interact, respond, and even apologize without being compelled to change state. Non-bindingness is power without accountability: activity without obligation.</p>",
+        },
+        {
+          id: "standing-vs-belief",
+          title: "Standing (vs Belief)",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Standing is the recognized right to make the system bind itself to engage, decide, and remedy\u2014regardless of whether your story is believed, liked, or emotionally legible. \u201cBelief\u201d is narrative validation; standing is enforceable access to decision power.</p>",
+        },
+        {
+          id: "binding-authority",
+          title: "Binding Authority",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A person or role that can change the underlying state and is obligated to respond. Binding authority is not \u201ca human is involved\u201d; it\u2019s a human with power + duty + traceable accountability.</p>",
+        },
+        {
+          id: "evidence-parity",
+          title: "Evidence Parity",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A condition where affected people have a fair chance to meet the evidentiary burden\u2014access to the relevant facts, rules, and records\u2014rather than being asked to prove things the institution can\u2019t or won\u2019t disclose. Without evidence parity, appeals become theater.</p>",
+        },
+        {
+          id: "authority-chain",
+          title: "Authority Chain",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The mapping of who can change what state, at which stage, under what constraints. Authority chains determine whether escalation is real.</p>",
+        },
+        {
+          id: "authority-mutation",
+          title: "Authority Mutation",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A pattern where escalation changes how the institution speaks without changing who has power to reverse outcomes. Authority mutates when the channel upgrades (more polite, more official, more complex) but the underlying ability to bind remains absent.</p>",
+        },
+        {
+          id: "defaults-as-governance",
+          title: "Defaults (as Governance)",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The idea that the baseline state\u2014what happens if nobody intervenes\u2014is a primary allocator of outcomes and costs. Defaults govern by deciding who must spend time, attention, and stamina to avoid harm.</p>",
+        },
+        {
+          id: "procedural-caste",
+          title: "Procedural Caste",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A stratification system where people are divided by their ability to force binding action: who can start clocks, reach authorities, obtain reversals, and make claims legible. It\u2019s a caste system of enforceability, not worth.</p>",
+        },
+        {
+          id: "escalation-without-authority",
+          title: "Escalation (without Authority)",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A channel change that does not increase binding power\u2014more forms, more tiers, more waiting\u2014while the underlying decision remains unchangeable. It\u2019s escalation as delay management, not remedy.</p>",
+        },
+        {
+          id: "redress",
+          title: "Redress",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The set of mechanisms that can correct harm: appeal, review, reversal, compensation, restoration. Redress is real when it is time-bound and reaches binding authority.</p>",
+        },
+        {
+          id: "override-path",
+          title: "Override Path",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A clearly defined mechanism that can supersede the default workflow when the default would cause harm\u2014e.g., human escalation with real authority, emergency reversal, exception handling with deadlines. Override paths are where \u201ccare\u201d becomes material.</p>",
+        },
+        {
+          id: "structured-exit",
+          title: "Structured Exit",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>An exit process designed to protect the leaver: clear steps, data portability, timelines, anti-retaliation constraints, and closure that doesn\u2019t require ongoing performance. Structured exit turns leaving into a governed pathway instead of an endurance test.</p>",
+        },
+        {
+          id: "paywalled-rights",
+          title: "Paywalled Rights",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>When access to contestation, speed, or binding review is effectively purchased\u2014through fees, premium support, lawyers, consultants, or time flexibility. Rights exist, but only for those who can pay in money or stamina.</p>",
+        },
+        {
+          id: "logs-as-power",
+          title: "Logs-as-power",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The idea that control over records\u2014what is logged, who can see it, what counts as evidence\u2014shapes who can contest outcomes. Recordkeeping is governance.</p>",
+        },
+        {
+          id: "audit-trail",
+          title: "Audit Trail",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A trace of events and decisions\u2014what happened, when, by whom, under what rule\u2014used for accountability. Audit trails matter only if they connect to reversal power.</p>",
+        },
+        {
+          id: "administrative-reality",
+          title: "Administrative Reality",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The world as the system recognizes it: what counts, what is recordable, what triggers action. Administrative reality often diverges from lived reality.</p>",
+        },
+        {
+          id: "contract-of-adhesion",
+          title: "Contract of Adhesion",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A take-it-or-leave-it contract offered by a more powerful party where negotiation is impossible; a common substrate for coerced \u201cchoice.\u201d</p>",
+        },
+        {
+          id: "nda-retaliation-narrative-erasure",
+          title: "NDA Retaliation / Narrative Erasure",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Mechanisms that suppress exit stories\u2014legal threats, informal retaliation, reputational control\u2014preventing systems from being held accountable by shared evidence.</p>",
+        },
       ],
     },
     {
@@ -1102,6 +1374,14 @@ export const glossaryContent: GlossaryContent = {
             '<p>The sequenced touchpoints where a person learns what a system will do, grants or denies permission, and can revise that choice over time.</p><p>Strong consent journeys use <a href="#anticipatory-consent">anticipatory consent</a>, visible <a href="#permission-surface">permission surfaces</a>, and healthy <a href="#refusal-budget">refusal budgets</a> so pausing or exiting does not jeopardize access or care.</p>',
         },
         {
+          id: "coercive-consent",
+          title: "Coercive Consent",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>\u201cAgreement\u201d obtained through defaults, asymmetry, or threats of exclusion\u2014consent produced by lack of viable refusal.</p>",
+        },
+        {
           id: "humane-friction",
           title: "Humane Friction",
           status: null,
@@ -1135,12 +1415,36 @@ export const glossaryContent: GlossaryContent = {
             '<p>The precise moment when a choice shifts from reversible to consequential. Making the decision edge visible enables <a href="#dignity-friction">dignity friction</a>, clearer consent, and routing to <a href="#ethical-interrupts">ethical interrupts</a> when risk spikes.</p>',
         },
         {
+          id: "decision-surface",
+          title: "Decision Surface",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The part of a system where decisions become visible, addressable, and contestable. Many systems minimize the decision surface to avoid accountability.</p>",
+        },
+        {
           id: "decision-artifact",
           title: "Decision Artifact",
           status: null,
           classes: [],
           bodyHtml:
             '<p>A discrete, attributable, contestable output: outcome + reason + timestamp + accountable owner.</p><p>Decision artifacts anchor <a href="#traceable-ownership">traceable ownership</a> and make <a href="#contestability">contestability</a> measurable.</p>',
+        },
+        {
+          id: "decision-object",
+          title: "Decision Object",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A discrete, addressable unit of institutional action that can be challenged: what was decided, when, under which rule, by what authority, with what evidence. Decision objects are the \u201chandles\u201d that make contestation possible.</p>",
+        },
+        {
+          id: "object-formation",
+          title: "Object Formation",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The process by which a complaint, harm, or request becomes a decision object\u2014assigned an identifier, a category, an owner, a standard of review, and a clock. Systems often block accountability by preventing object formation (\u201cnothing exists to appeal\u201d).</p>",
         },
         {
           id: "non-decision",
@@ -1151,12 +1455,52 @@ export const glossaryContent: GlossaryContent = {
             '<p>A stable administrative disposition where a system withholds a contestable outcome (\u201cpending,\u201d \u201cin review\u201d) while consequences accrue.</p><p>Non-decisions stretch <a href="#moral-latency">moral latency</a> and erode <a href="#contestability">contestability</a> by keeping people in limbo.</p>',
         },
         {
+          id: "pendingness",
+          title: "Pending / Pendingness",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A default state where nothing is decided and no one is obligated\u2014often presented as neutral but functioning as an outcome allocator. Pendingness becomes harm when it lacks a clock, an owner, or a forced next step.</p>",
+        },
+        {
+          id: "settlement",
+          title: "Settlement",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The moment a claim becomes resolved in a way that changes the underlying state\u2014approved, denied with appeal rights, remediated, reversed, paid, restored, or otherwise closed with consequences. Settlement is not closure in the CRM; it\u2019s resolution that binds.</p>",
+        },
+        {
+          id: "non-settlement",
+          title: "Non-settlement / Nonsettlement",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>An institutional mode where claims are acknowledged and processed indefinitely without producing a binding resolution. The system offers intake, updates, and politeness while keeping obligation optional.</p>",
+        },
+        {
           id: "stable-clock",
           title: "Stable Clock",
           status: null,
           classes: [],
           bodyHtml:
             '<p>A non-resettable timeline for a case; the system cannot restart time via re-ticketing, re-verification, or channel switching.</p><p>Stable clocks enforce <a href="#bounded-duration">bounded duration</a> and keep timelines legible.</p>',
+        },
+        {
+          id: "clock-start-clock-mismatch",
+          title: "Clock-start / Clock mismatch",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p><strong>Clock-start:</strong> the moment a system becomes time-bound\u2014deadlines begin, obligations attach, escalation becomes meaningful.</p><p><strong>Clock mismatch:</strong> when institutional execution is fast (instant flags, freezes, denials) but redress is slow (weeks-months-human review), making errors durable and contestation scarce.</p>",
+        },
+        {
+          id: "slow-redress-fast-execution",
+          title: "Slow Redress / Fast Execution",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A governance asymmetry where harmful state changes are immediate but appeals are delayed, discretionary, and exhausting. This is one of the main engines of modern coercion.</p>",
         },
         {
           id: "utility-window",
@@ -1199,12 +1543,44 @@ export const glossaryContent: GlossaryContent = {
             '<p>Any system action that meaningfully alters a person\u2019s status, access, or trajectory. Critical actions require <a href="#dignity-friction">dignity friction</a>.</p>',
         },
         {
+          id: "irreversibility",
+          title: "Irreversibility",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A state where reversal is practically unavailable (too slow, too expensive, too discretionary) even if it is theoretically possible. Irreversibility is often produced by missing clocks, missing authority, or asymmetric evidence demands.</p>",
+        },
+        {
           id: "irreversible-boundary",
           title: "Irreversible Boundary",
           status: null,
           classes: [],
           bodyHtml:
             '<p>A threshold the system cannot automatically undo\u2014account closures, public releases, or data publication. Crossing it demands heightened <a href="#contestability">contestability</a>, audited <a href="#explainability-for-accountability">explanations</a>, and explicit <a href="#time-to-restore">time-to-restore</a> plans.</p>',
+        },
+        {
+          id: "backstop",
+          title: "Backstop",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A guaranteed fallback mechanism that triggers when the main process fails\u2014timeouts, automatic approvals, emergency restoration, or external review.</p>",
+        },
+        {
+          id: "rollback",
+          title: "Rollback",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A designed ability to revert the system to a prior safe state\u2014restoring access, undoing propagation, correcting records\u2014ideally with minimal friction.</p>",
+        },
+        {
+          id: "auto-close-auto-renew-auto-share",
+          title: "Auto-close / Auto-renew / Auto-share",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Default state transitions that happen without active consent\u2014closing claims, renewing contracts, expanding data use\u2014often presented as convenience while functioning as governance by inertia.</p>",
         },
         {
           id: "ethical-interrupts",
@@ -1271,6 +1647,118 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>When harmful defaults become entrenched through dependencies, network effects, or contracts that block reform. Moral lock-in is prevented by <a href="#moral-feature-gating">moral feature gating</a>, <a href="#contestability">contestability</a>, and vigilant <a href="#moral-drift-control">moral drift control</a>.</p>',
+        },
+        {
+          id: "legitimacy-laundering",
+          title: "Legitimacy Laundering",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The process of converting coercive or indifferent outcomes into reputational legitimacy through procedural signals\u2014case IDs, polite updates, \u201cin review\u201d\u2014without delivering binding resolution. The system looks responsible while staying unbound.</p>",
+        },
+        {
+          id: "polite-coercion",
+          title: "Polite Coercion",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Coercion delivered through soothing language and \u201chelpful\u201d workflows that make refusal costly or stigmatized. Polite coercion is power that avoids looking like power.</p>",
+        },
+        {
+          id: "documentation-loop",
+          title: "Documentation Loop / Resubmission Loop",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A repeating pattern where the system continually requests more evidence or re-uploads without moving toward a binding decision. Often used to shift labor onto claimants and to manufacture dropout.</p>",
+        },
+        {
+          id: "precision-demands",
+          title: "Precision Demands",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Requests for ever-greater specificity that function less as truth-seeking and more as denial hooks\u2014ways to keep a case non-objectified or non-decidable. Precision demands are a technique of delay.</p>",
+        },
+        {
+          id: "procedural-alibi",
+          title: "Procedural Alibi",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A record of \u201cprocess\u201d used to defend outcomes (\u201cwe followed procedure\u201d) even when the procedure cannot bind the institution to remedy. The alibi is the trace of activity, not accountability.</p>",
+        },
+        {
+          id: "tone-policing",
+          title: "Tone Policing (as Governance Technology)",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The use of \u201cappropriate tone\u201d requirements to control access to remedy\u2014penalizing anger, urgency, neurodivergent communication, or exhaustion. Tone policing converts distress into disqualification.</p>",
+        },
+        {
+          id: "dropout-as-legitimation",
+          title: "Dropout-as-legitimation",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>When systems treat nonresponse, fatigue, or disappearance as consent or closure (\u201ccase closed\u2014no reply\u201d), laundering coercion into \u201cresolved.\u201d Dropout becomes the mechanism that protects the institution.</p>",
+        },
+        {
+          id: "churn-as-closure",
+          title: "Churn (as Closure Mechanism)",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The engineered cycling of people through forms, queues, and handoffs until they give up, miss a deadline, or become \u201cinactive,\u201d allowing the system to close without settlement.</p>",
+        },
+        {
+          id: "paper-compliance",
+          title: "Paper Compliance / Checkbox Governance",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Compliance regimes focused on producing documentation of doing the right thing rather than mechanisms that can actually prevent harm or force remedy. The paperwork stands in for power.</p>",
+        },
+        {
+          id: "transparency-theater",
+          title: "Transparency Theater",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Disclosures that do not increase contestability\u2014more text, more dashboards, more \u201cexplanations\u201d\u2014without deadlines, authority, or reversal paths. Visibility substitutes for enforceability.</p>",
+        },
+        {
+          id: "explainability-decoy",
+          title: "Explainability Decoy",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A focus on explaining model decisions that distracts from the harder question: can the decision be contested, reversed, and time-bounded? The decoy offers epistemics where governance is needed.</p>",
+        },
+        {
+          id: "human-in-the-loop-legitimacy",
+          title: "Human-in-the-loop (as Legitimacy Artifact)",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A human reviewer inserted to create legitimacy while lacking binding authority, deadlines, or meaningful discretion. The loop becomes a comfort signal, not a power shift.</p>",
+        },
+        {
+          id: "procedural-realism",
+          title: "Procedural Realism",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A style of analysis (and sometimes art) that treats procedures, channels, and workflows as the real plot\u2014where power is shown through process.</p>",
+        },
+        {
+          id: "intake-cinema",
+          title: "Intake Cinema",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A label for stories where the drama is the intake/eligibility channel\u2014forms, interviews, caseworkers, waiting rooms\u2014rather than a single decisive confrontation.</p>",
         },
       ],
     },
@@ -1707,6 +2195,41 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["rail", "sre", "maturity"],
   },
   {
+    slug: "mechanism-first-analysis",
+    term: "Mechanism-first Analysis",
+    definition:
+      "An approach that prioritizes system mechanics—defaults, authority, clocks, reversibility—over declared values or intentions, because mechanics determine outcomes under load.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "architecture-over-values",
+    term: "Architecture over Values",
+    definition:
+      "The claim that “ethical” outcomes depend less on what institutions say they value and more on the enforceable structure of how decisions are made and reversed.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "state-plus-clocks-model",
+    term: "State + Clocks Model",
+    definition:
+      "A way of seeing power as state transitions plus time: who can change state, how quickly, and whether reversal is time-bound.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "contestability-architecture",
+    term: "Contestability Architecture",
+    definition:
+      "The set of design features that make contestation real: decision objects, clock-start, binding authority, evidence parity, and guaranteed override paths.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "control-loops-constraints-framing",
+    term: "Control Loops (Constraints Framing)",
+    definition:
+      "A safety lens where governance is modeled as feedback: detect harm, trigger intervention, enforce constraints, and learn. Useful for translating Ethotechnics into engineering terms.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
     slug: "moral-latency",
     term: "Moral Latency",
     definition:
@@ -1777,6 +2300,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
+    slug: "unseen-harm",
+    term: "Unseen Harm",
+    definition:
+      "Harm that does not produce immediately legible signals—silence, withdrawal, dropout, dissociation—and is therefore misread as “no issue.”",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
     slug: "stopability",
     term: "Stopability",
     definition:
@@ -1789,7 +2319,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "reversibility",
     term: "Reversibility",
     definition:
-      "Critical actions can be undone. Damage is not permanent by default, and time-to-restore stays low. Reversibility diagram",
+      "The ease with which a system can undo a harmful state change\u2014restore access, correct a record, reverse a flag\u2014without extraordinary effort or power. Reversibility is a governance property: it determines whether mistakes are survivable. Reversibility diagram",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -1807,7 +2337,16 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "contestability",
     term: "Contestability",
     definition:
-      "People affected by system decisions can challenge, change, or overturn them\u2014and win. Contestability combines permission surface and appeal passage rate . Contestability diagram",
+      "The property of a system that allows affected people to force a decision to become a contestable object: something with reasons, a clock, an accountable authority, and a pathway to reversal. A system has contestability when \u201cthat\u2019s wrong\u201d can reliably become \u201chere is the specific decision, here is who can change it, and here is when they must respond.\u201d Contestability diagram",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "refusability",
+    term: "Refusability",
+    definition:
+      "A system\u2019s ability to let people say \u201cno\u201d without punishment or degradation\u2014including refusing data extraction, risky defaults, or coercive workflows\u2014while still preserving basic access and dignity. Refusability is not \u201copt-out exists\u201d; it\u2019s whether refusal is treated as a legitimate state rather than an error condition.",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -1832,9 +2371,9 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     slug: "graceful-degradation",
-    term: "Graceful Degradation",
+    term: "Fail-soft / Graceful Degradation",
     definition:
-      "The system sheds features or load in controlled stages while keeping people safe. Graceful degradation prioritizes care floor guarantees , maintains stopability , and keeps time-to-restore low.",
+      "A design principle where systems degrade safely under stress\u2014reduced capability rather than catastrophic denial\u2014especially under accessibility constraints.",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -1961,6 +2500,34 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["E. Human limits & experience"],
   },
   {
+    slug: "executive-function-class-axis",
+    term: "Executive Function (as a Class Axis)",
+    definition:
+      "The idea that modern systems sort people by their capacity to perform sustained administrative labor—tracking tasks, managing documentation, navigating ambiguity—making disability and burnout into structural disadvantage.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
+    slug: "human-factors",
+    term: "Human Factors",
+    definition:
+      "A discipline that studies how systems interact with real human limits—fatigue, confusion, stress—often revealing that “user error” is actually design failure.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
+    slug: "operator-centered",
+    term: "Operator-centered",
+    definition:
+      "Design that treats front-line workers as key safety components and ensures they have authority, tools, and non-punitive reporting to prevent harm.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
+    slug: "legibility-illegibility",
+    term: "Legibility / Illegibility",
+    definition:
+      "Legibility: being representable in the system’s categories and workflows. Illegibility: being real but not representable, leading to churn, delay, or denial.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
     slug: "refusal-budget",
     term: "Refusal Budget",
     definition:
@@ -1993,6 +2560,20 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Burden Transfer Event",
     definition:
       "Moments when system failure pushes labor onto humans, often triggering moral overhead .",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "cost-assignment",
+    term: "Cost Assignment / Burden Shifting",
+    definition:
+      "A mechanism where systems offload the labor of safety, clarity, and follow-through onto individuals (forms, documentation, vigilance) while keeping institutional obligation low. It’s how “choice” becomes unpaid work.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "attention-tax",
+    term: "Attention Tax",
+    definition:
+      "The ongoing monitoring burden imposed on individuals to prevent harm: checking portals, tracking deadlines, resubmitting documents, watching for silent rule changes. Attention becomes a cost of staying eligible.",
     appliesTo: ["F. Burden & load"],
   },
   {
@@ -2115,6 +2696,20 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["G. Measures & indicators"],
   },
   {
+    slug: "reversal-cost",
+    term: "Reversal Cost",
+    definition:
+      "The time, money, emotional labor, documentation, and social risk required to undo an outcome. High reversal cost makes errors durable and turns “rights” into luxuries.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "durability-of-error",
+    term: "Durability of Error",
+    definition:
+      "How long a wrong state persists once created, and how far it propagates (downstream systems, eligibility, reputation). A system is dangerous when it can create durable errors quickly but correct them slowly.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
     slug: "moral-debt",
     term: "Moral Debt",
     definition:
@@ -2144,9 +2739,9 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     slug: "right-of-exit",
-    term: "Right of Exit",
+    term: "Exit Rights",
     definition:
-      "The ability to leave a system without ruinous cost or retaliation. A foundational condition for ethical participation.",
+      "Guaranteed, non-punitive ways to leave a system (or refuse a pathway) while preserving access to essentials, records, and future participation. Exit rights treat departure as a legitimate action, not a breach.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2234,6 +2829,139 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["H. Governance & power"],
   },
   {
+    slug: "bindingness",
+    term: "Bindingness",
+    definition:
+      "The degree to which a system’s outputs create enforceable obligations—deadlines, duties, remedies, or reversals—rather than mere communications. Bindingness is the difference between “we received your request” and “we must decide by Friday or you win.”",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "non-bindingness",
+    term: "Non-bindingness / Nonbindingness",
+    definition:
+      "The condition where a system can interact, respond, and even apologize without being compelled to change state. Non-bindingness is power without accountability: activity without obligation.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "standing-vs-belief",
+    term: "Standing (vs Belief)",
+    definition:
+      "Standing is the recognized right to make the system bind itself to engage, decide, and remedy—regardless of whether your story is believed, liked, or emotionally legible. “Belief” is narrative validation; standing is enforceable access to decision power.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "binding-authority",
+    term: "Binding Authority",
+    definition:
+      "A person or role that can change the underlying state and is obligated to respond. Binding authority is not “a human is involved”; it’s a human with power + duty + traceable accountability.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "evidence-parity",
+    term: "Evidence Parity",
+    definition:
+      "A condition where affected people have a fair chance to meet the evidentiary burden—access to the relevant facts, rules, and records—rather than being asked to prove things the institution can’t or won’t disclose. Without evidence parity, appeals become theater.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "authority-chain",
+    term: "Authority Chain",
+    definition:
+      "The mapping of who can change what state, at which stage, under what constraints. Authority chains determine whether escalation is real.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "authority-mutation",
+    term: "Authority Mutation",
+    definition:
+      "A pattern where escalation changes how the institution speaks without changing who has power to reverse outcomes. Authority mutates when the channel upgrades (more polite, more official, more complex) but the underlying ability to bind remains absent.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "defaults-as-governance",
+    term: "Defaults (as Governance)",
+    definition:
+      "The idea that the baseline state—what happens if nobody intervenes—is a primary allocator of outcomes and costs. Defaults govern by deciding who must spend time, attention, and stamina to avoid harm.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "procedural-caste",
+    term: "Procedural Caste",
+    definition:
+      "A stratification system where people are divided by their ability to force binding action: who can start clocks, reach authorities, obtain reversals, and make claims legible. It’s a caste system of enforceability, not worth.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "escalation-without-authority",
+    term: "Escalation (without Authority)",
+    definition:
+      "A channel change that does not increase binding power—more forms, more tiers, more waiting—while the underlying decision remains unchangeable. It’s escalation as delay management, not remedy.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "redress",
+    term: "Redress",
+    definition:
+      "The set of mechanisms that can correct harm: appeal, review, reversal, compensation, restoration. Redress is real when it is time-bound and reaches binding authority.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "override-path",
+    term: "Override Path",
+    definition:
+      "A clearly defined mechanism that can supersede the default workflow when the default would cause harm—e.g., human escalation with real authority, emergency reversal, exception handling with deadlines. Override paths are where “care” becomes material.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "structured-exit",
+    term: "Structured Exit",
+    definition:
+      "An exit process designed to protect the leaver: clear steps, data portability, timelines, anti-retaliation constraints, and closure that doesn’t require ongoing performance. Structured exit turns leaving into a governed pathway instead of an endurance test.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "paywalled-rights",
+    term: "Paywalled Rights",
+    definition:
+      "When access to contestation, speed, or binding review is effectively purchased—through fees, premium support, lawyers, consultants, or time flexibility. Rights exist, but only for those who can pay in money or stamina.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "logs-as-power",
+    term: "Logs-as-power",
+    definition:
+      "The idea that control over records—what is logged, who can see it, what counts as evidence—shapes who can contest outcomes. Recordkeeping is governance.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "audit-trail",
+    term: "Audit Trail",
+    definition:
+      "A trace of events and decisions—what happened, when, by whom, under what rule—used for accountability. Audit trails matter only if they connect to reversal power.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "administrative-reality",
+    term: "Administrative Reality",
+    definition:
+      "The world as the system recognizes it: what counts, what is recordable, what triggers action. Administrative reality often diverges from lived reality.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "contract-of-adhesion",
+    term: "Contract of Adhesion",
+    definition:
+      "A take-it-or-leave-it contract offered by a more powerful party where negotiation is impossible; a common substrate for coerced “choice.”",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "nda-retaliation-narrative-erasure",
+    term: "NDA Retaliation / Narrative Erasure",
+    definition:
+      "Mechanisms that suppress exit stories—legal threats, informal retaliation, reputational control—preventing systems from being held accountable by shared evidence.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
     slug: "protective-friction",
     term: "Protective Friction",
     definition:
@@ -2276,6 +3004,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["I. Friction & flow"],
   },
   {
+    slug: "coercive-consent",
+    term: "Coercive Consent",
+    definition:
+      "“Agreement” obtained through defaults, asymmetry, or threats of exclusion—consent produced by lack of viable refusal.",
+    appliesTo: ["I. Friction & flow"],
+  },
+  {
     slug: "humane-friction",
     term: "Humane Friction",
     definition:
@@ -2297,10 +3032,31 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["J. Decision states & edges"],
   },
   {
+    slug: "decision-surface",
+    term: "Decision Surface",
+    definition:
+      "The part of a system where decisions become visible, addressable, and contestable. Many systems minimize the decision surface to avoid accountability.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
     slug: "decision-artifact",
     term: "Decision Artifact",
     definition:
       "A discrete, attributable, contestable output: outcome + reason + timestamp + accountable owner. Decision artifacts anchor traceable ownership and make contestability measurable.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "decision-object",
+    term: "Decision Object",
+    definition:
+      "A discrete, addressable unit of institutional action that can be challenged: what was decided, when, under which rule, by what authority, with what evidence. Decision objects are the “handles” that make contestation possible.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "object-formation",
+    term: "Object Formation",
+    definition:
+      "The process by which a complaint, harm, or request becomes a decision object—assigned an identifier, a category, an owner, a standard of review, and a clock. Systems often block accountability by preventing object formation (“nothing exists to appeal”).",
     appliesTo: ["J. Decision states & edges"],
   },
   {
@@ -2311,10 +3067,45 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["J. Decision states & edges"],
   },
   {
+    slug: "pendingness",
+    term: "Pending / Pendingness",
+    definition:
+      "A default state where nothing is decided and no one is obligated—often presented as neutral but functioning as an outcome allocator. Pendingness becomes harm when it lacks a clock, an owner, or a forced next step.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "settlement",
+    term: "Settlement",
+    definition:
+      "The moment a claim becomes resolved in a way that changes the underlying state—approved, denied with appeal rights, remediated, reversed, paid, restored, or otherwise closed with consequences. Settlement is not closure in the CRM; it’s resolution that binds.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "non-settlement",
+    term: "Non-settlement / Nonsettlement",
+    definition:
+      "An institutional mode where claims are acknowledged and processed indefinitely without producing a binding resolution. The system offers intake, updates, and politeness while keeping obligation optional.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
     slug: "stable-clock",
     term: "Stable Clock",
     definition:
       "A non-resettable timeline for a case; the system cannot restart time via re-ticketing, re-verification, or channel switching. Stable clocks enforce bounded duration and keep timelines legible.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "clock-start-clock-mismatch",
+    term: "Clock-start / Clock mismatch",
+    definition:
+      "Clock-start: the moment a system becomes time-bound—deadlines begin, obligations attach, escalation becomes meaningful. Clock mismatch: when institutional execution is fast (instant flags, freezes, denials) but redress is slow (weeks-months-human review), making errors durable and contestation scarce.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "slow-redress-fast-execution",
+    term: "Slow Redress / Fast Execution",
+    definition:
+      "A governance asymmetry where harmful state changes are immediate but appeals are delayed, discretionary, and exhausting. This is one of the main engines of modern coercion.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
@@ -2353,10 +3144,38 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["J. Decision states & edges"],
   },
   {
+    slug: "irreversibility",
+    term: "Irreversibility",
+    definition:
+      "A state where reversal is practically unavailable (too slow, too expensive, too discretionary) even if it is theoretically possible. Irreversibility is often produced by missing clocks, missing authority, or asymmetric evidence demands.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
     slug: "irreversible-boundary",
     term: "Irreversible Boundary",
     definition:
       "A threshold the system cannot automatically undo\u2014account closures, public releases, or data publication. Crossing it demands heightened contestability , audited explanations , and explicit time-to-restore plans.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "backstop",
+    term: "Backstop",
+    definition:
+      "A guaranteed fallback mechanism that triggers when the main process fails—timeouts, automatic approvals, emergency restoration, or external review.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "rollback",
+    term: "Rollback",
+    definition:
+      "A designed ability to revert the system to a prior safe state—restoring access, undoing propagation, correcting records—ideally with minimal friction.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "auto-close-auto-renew-auto-share",
+    term: "Auto-close / Auto-renew / Auto-share",
+    definition:
+      "Default state transitions that happen without active consent—closing claims, renewing contracts, expanding data use—often presented as convenience while functioning as governance by inertia.",
     appliesTo: ["J. Decision states & edges"],
   },
   {
@@ -2406,6 +3225,104 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Moral Lock-In",
     definition:
       "When harmful defaults become entrenched through dependencies, network effects, or contracts that block reform. Moral lock-in is prevented by moral feature gating , contestability , and vigilant moral drift control .",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "legitimacy-laundering",
+    term: "Legitimacy Laundering",
+    definition:
+      "The process of converting coercive or indifferent outcomes into reputational legitimacy through procedural signals—case IDs, polite updates, “in review”—without delivering binding resolution. The system looks responsible while staying unbound.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "polite-coercion",
+    term: "Polite Coercion",
+    definition:
+      "Coercion delivered through soothing language and “helpful” workflows that make refusal costly or stigmatized. Polite coercion is power that avoids looking like power.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "documentation-loop",
+    term: "Documentation Loop / Resubmission Loop",
+    definition:
+      "A repeating pattern where the system continually requests more evidence or re-uploads without moving toward a binding decision. Often used to shift labor onto claimants and to manufacture dropout.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "precision-demands",
+    term: "Precision Demands",
+    definition:
+      "Requests for ever-greater specificity that function less as truth-seeking and more as denial hooks—ways to keep a case non-objectified or non-decidable. Precision demands are a technique of delay.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "procedural-alibi",
+    term: "Procedural Alibi",
+    definition:
+      "A record of “process” used to defend outcomes (“we followed procedure”) even when the procedure cannot bind the institution to remedy. The alibi is the trace of activity, not accountability.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "tone-policing",
+    term: "Tone Policing (as Governance Technology)",
+    definition:
+      "The use of “appropriate tone” requirements to control access to remedy—penalizing anger, urgency, neurodivergent communication, or exhaustion. Tone policing converts distress into disqualification.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "dropout-as-legitimation",
+    term: "Dropout-as-legitimation",
+    definition:
+      "When systems treat nonresponse, fatigue, or disappearance as consent or closure (“case closed—no reply”), laundering coercion into “resolved.” Dropout becomes the mechanism that protects the institution.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "churn-as-closure",
+    term: "Churn (as Closure Mechanism)",
+    definition:
+      "The engineered cycling of people through forms, queues, and handoffs until they give up, miss a deadline, or become “inactive,” allowing the system to close without settlement.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "paper-compliance",
+    term: "Paper Compliance / Checkbox Governance",
+    definition:
+      "Compliance regimes focused on producing documentation of doing the right thing rather than mechanisms that can actually prevent harm or force remedy. The paperwork stands in for power.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "transparency-theater",
+    term: "Transparency Theater",
+    definition:
+      "Disclosures that do not increase contestability—more text, more dashboards, more “explanations”—without deadlines, authority, or reversal paths. Visibility substitutes for enforceability.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "explainability-decoy",
+    term: "Explainability Decoy",
+    definition:
+      "A focus on explaining model decisions that distracts from the harder question: can the decision be contested, reversed, and time-bounded? The decoy offers epistemics where governance is needed.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "human-in-the-loop-legitimacy",
+    term: "Human-in-the-loop (as Legitimacy Artifact)",
+    definition:
+      "A human reviewer inserted to create legitimacy while lacking binding authority, deadlines, or meaningful discretion. The loop becomes a comfort signal, not a power shift.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "procedural-realism",
+    term: "Procedural Realism",
+    definition:
+      "A style of analysis (and sometimes art) that treats procedures, channels, and workflows as the real plot—where power is shown through process.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "intake-cinema",
+    term: "Intake Cinema",
+    definition:
+      "A label for stories where the drama is the intake/eligibility channel—forms, interviews, caseworkers, waiting rooms—rather than a single decisive confrontation.",
     appliesTo: ["K. System patterns & anti-patterns"],
   },
   {
