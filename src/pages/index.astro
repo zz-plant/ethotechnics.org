@@ -31,17 +31,35 @@ const { pageTitle, pageDescription } = homeEntry.data;
 
       <div class="reference-dashboard__search">
         <p class="reference-dashboard__search-label" id="dashboard-search-label">
-          Search the documentation
+          Search the library
         </p>
-        <div class="reference-dashboard__search-bar">
+        <p class="reference-dashboard__search-helper" id="dashboard-search-helper">
+          Routes to the glossary index so you can pinpoint standards, mechanisms, and terminology.
+        </p>
+        <form
+          class="reference-dashboard__search-bar"
+          role="search"
+          action="/glossary"
+          method="get"
+        >
           <input
             id="dashboard-search"
             type="search"
             name="query"
             aria-labelledby="dashboard-search-label"
-            placeholder="Search for standards (e.g., 'Stoppability') or mechanisms..."
+            aria-describedby="dashboard-search-helper"
+            placeholder="Search for standards (e.g., “Stoppability”) or mechanisms..."
           />
-          <button class="button primary" type="button">Search</button>
+          <button class="button primary" type="submit">Search</button>
+        </form>
+        <div class="reference-dashboard__quick-links" aria-label="Quick links">
+          <p class="reference-dashboard__quick-label">Quick links</p>
+          <div class="reference-dashboard__quick-list">
+            <a class="pill pill--ghost" href="/standards">Standards</a>
+            <a class="pill pill--ghost" href="/validators">Validators</a>
+            <a class="pill pill--ghost" href="/diagnostics">Diagnostics</a>
+            <a class="pill pill--ghost" href="/glossary">Glossary</a>
+          </div>
         </div>
       </div>
 
