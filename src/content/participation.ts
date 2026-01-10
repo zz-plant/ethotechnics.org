@@ -208,14 +208,14 @@ export const participationContent: ParticipationContent = {
     eyebrow: "Feedback",
     title: "Prefer to send quick notes?",
     description:
-      "Tell us what would make the mechanisms catalog more useful—missing artifacts, unclear steps, examples you need to see, or accessibility barriers we should fix.",
+      "Tell us what would make the mechanisms catalog more useful—missing artifacts, unclear steps, examples you need to see, or accessibility barriers we should fix. Messages route to the Institute team within 2–3 business days. Include the page URL and any assistive tech notes for accessibility reports.",
     actions: [
       {
         label: "Contact the inbox",
         href: "mailto:hello@ethotechnics.org?subject=Library%20feedback",
         ariaLabel: "Email hello@ethotechnics.org with mechanisms feedback",
         detail:
-          "Best for quick corrections, missing links, or content requests.",
+          "Best for quick corrections, missing links, content requests, or accessibility fixes.",
       },
       {
         label: "Share facilitation feedback",

@@ -22,9 +22,32 @@ export interface NavAction {
 
 export const navSections: NavSection[] = [
   {
+    heading: "Start here",
+    description:
+      "Guided entry points for first-time visitors and quick orientation.",
+    links: [
+      {
+        href: "/start-here",
+        label: "Start here",
+        description: "Guided overview of standards, mechanisms, and research.",
+        primary: true,
+      },
+      {
+        href: "/participate",
+        label: "Participate",
+        description: "Share feedback, field reports, and peer review requests.",
+      },
+      {
+        href: "/institute",
+        label: "Institute overview",
+        description: "How the Institute stewards standards and research.",
+      },
+    ],
+  },
+  {
     heading: "Standards",
     description:
-      "Ratified doctrine, immutable rights, and canonical glossary anchors.",
+      "Canonical standards, rights, and glossary anchors for reference.",
     links: [
       {
         href: "/standards",
@@ -108,9 +131,37 @@ export const navSections: NavSection[] = [
     ],
   },
   {
+    heading: "Research",
+    description:
+      "Research agenda, bridge artifacts, and field notes tied to glossary anchors.",
+    links: [
+      {
+        href: "/research",
+        label: "Research",
+        description: "Research agendas, publications, and bridge artifacts.",
+        primary: true,
+      },
+      {
+        href: "/research/agenda",
+        label: "Research agenda",
+        description: "In-flight questions and lines of inquiry.",
+      },
+      {
+        href: "/research/bridge-artifacts",
+        label: "Bridge artifacts",
+        description: "Citable frameworks and tools between practice and scholarship.",
+      },
+      {
+        href: "/field-notes",
+        label: "Field Notes",
+        description: "Case studies and dispatches from applied work.",
+      },
+    ],
+  },
+  {
     heading: "Institute",
     description:
-      "Mission, team, and field case law from the Institute of Ethotechnics.",
+      "Mission, governance, and stewardship for the Institute of Ethotechnics.",
     links: [
       {
         href: "/institute",
