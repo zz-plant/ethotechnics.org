@@ -223,7 +223,7 @@
             "title": "Ethotechnic Audit",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A structured assessment of a system’s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where <a href=\"#stopability\">stopability</a> or <a href=\"#reversibility\">reversibility</a> fail and guide concrete remediation steps.</p>",
+            "bodyHtml": "<p>A structured assessment of a system’s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where <a href=\"#stoppability\">stoppability</a> or <a href=\"#reversibility\">reversibility</a> fail and guide concrete remediation steps.</p>",
             "examples": [
               "A platform review board runs an Ethotechnic audit after an outage to trace who could have halted or reversed the release."
             ],
@@ -412,11 +412,11 @@
         "comingSoon": false,
         "entries": [
           {
-            "id": "stopability",
-            "title": "Stopability",
+            "id": "stoppability",
+            "title": "Stoppability",
             "status": null,
             "classes": ["glossary-entry--diagram"],
-            "bodyHtml": "<p>A system’s ability to halt harmful processes quickly and automatically—without requiring heroism or escalation.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Stopability diagram</title>\n                            <rect x=\"10\" y=\"30\" width=\"70\" height=\"20\" rx=\"10\" class=\"diagram-track\"></rect>\n                            <circle cx=\"40\" cy=\"40\" r=\"22\" class=\"diagram-stop\"></circle>\n                            <line x1=\"85\" y1=\"40\" x2=\"110\" y2=\"40\" class=\"diagram-flow\"></line>\n                            <path d=\"M40 28 L48 40 L40 52 L32 40 Z\" class=\"diagram-stop-symbol\"></path>\n                          </svg>\n                        </figure>",
+            "bodyHtml": "<p>A system’s ability to halt harmful processes quickly and automatically—without requiring heroism or escalation.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Stoppability diagram</title>\n                            <rect x=\"10\" y=\"30\" width=\"70\" height=\"20\" rx=\"10\" class=\"diagram-track\"></rect>\n                            <circle cx=\"40\" cy=\"40\" r=\"22\" class=\"diagram-stop\"></circle>\n                            <line x1=\"85\" y1=\"40\" x2=\"110\" y2=\"40\" class=\"diagram-flow\"></line>\n                            <path d=\"M40 28 L48 40 L40 52 L32 40 Z\" class=\"diagram-stop-symbol\"></path>\n                          </svg>\n                        </figure>",
             "relatedPatterns": ["kill-switch", "maintenance-windowing"]
           },
           {
@@ -459,7 +459,7 @@
             "title": "Graceful Degradation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The system sheds features or load in controlled stages while keeping people safe. Graceful degradation prioritizes <a href=\"#care-floor-guarantees\">care floor guarantees</a>, maintains <a href=\"#stopability\">stopability</a>, and keeps <a href=\"#time-to-restore\">time-to-restore</a> low.</p>"
+            "bodyHtml": "<p>The system sheds features or load in controlled stages while keeping people safe. Graceful degradation prioritizes <a href=\"#care-floor-guarantees\">care floor guarantees</a>, maintains <a href=\"#stoppability\">stoppability</a>, and keeps <a href=\"#time-to-restore\">time-to-restore</a> low.</p>"
           },
           {
             "id": "soft-edges",
@@ -481,7 +481,7 @@
             "title": "Fail-Safe Mode",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The system defaults to the safest possible behavior when uncertain, prioritizing <a href=\"#stopability\">stopability</a>.</p>"
+            "bodyHtml": "<p>The system defaults to the safest possible behavior when uncertain, prioritizing <a href=\"#stoppability\">stoppability</a>.</p>"
           },
           {
             "id": "fail-open",
@@ -537,7 +537,7 @@
             "title": "Maintenance Window",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A scheduled calm state where teams intentionally slow or stop throughput so inspections, upgrades, and rehearsals can happen without crisis pressure. Maintenance windows make <a href=\"#stopability\">stopability</a> routine instead of reactive.</p><p>Each window is negotiated with the people impacted, includes published service guarantees, and documents which safeguards were tested so unfinished work rolls into the shared <a href=\"#repair-log\">repair log</a>.</p>"
+            "bodyHtml": "<p>A scheduled calm state where teams intentionally slow or stop throughput so inspections, upgrades, and rehearsals can happen without crisis pressure. Maintenance windows make <a href=\"#stoppability\">stoppability</a> routine instead of reactive.</p><p>Each window is negotiated with the people impacted, includes published service guarantees, and documents which safeguards were tested so unfinished work rolls into the shared <a href=\"#repair-log\">repair log</a>.</p>"
           },
           {
             "id": "care-retrospective",
@@ -672,7 +672,7 @@
             "title": "Asymmetric Sustaining",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for “resilience” while masking <a href=\"#extraction\">extraction</a>.</p><p>Ethotechnic practice flattens this by lowering the <a href=\"#burden-gradient\">burden gradient</a> and designing for <a href=\"#stopability\">stopability</a> so resilience is institutional, not personal.</p>"
+            "bodyHtml": "<p>When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for “resilience” while masking <a href=\"#extraction\">extraction</a>.</p><p>Ethotechnic practice flattens this by lowering the <a href=\"#burden-gradient\">burden gradient</a> and designing for <a href=\"#stoppability\">stoppability</a> so resilience is institutional, not personal.</p>"
           },
           {
             "id": "fragility-subsidy",
@@ -722,7 +722,7 @@
             "title": "Time-to-Halt (TTH)",
             "status": null,
             "classes": ["glossary-entry--diagram"],
-            "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it—an essential complement to <a href=\"#stopability\">stopability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Time to halt diagram</title>\n                            <line x1=\"20\" y1=\"50\" x2=\"100\" y2=\"50\" class=\"diagram-axis\"></line>\n                            <circle cx=\"40\" cy=\"50\" r=\"6\" class=\"diagram-event\"></circle>\n                            <rect x=\"40\" y=\"32\" width=\"46\" height=\"12\" class=\"diagram-timer\"></rect>\n                            <polygon points=\"86,38 100,50 86,62\" class=\"diagram-stop-flag\"></polygon>\n                          </svg>\n                        </figure>",
+            "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it—an essential complement to <a href=\"#stoppability\">stoppability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <title>Time to halt diagram</title>\n                            <line x1=\"20\" y1=\"50\" x2=\"100\" y2=\"50\" class=\"diagram-axis\"></line>\n                            <circle cx=\"40\" cy=\"50\" r=\"6\" class=\"diagram-event\"></circle>\n                            <rect x=\"40\" y=\"32\" width=\"46\" height=\"12\" class=\"diagram-timer\"></rect>\n                            <polygon points=\"86,38 100,50 86,62\" class=\"diagram-stop-flag\"></polygon>\n                          </svg>\n                        </figure>",
             "relatedPatterns": ["kill-switch"]
           },
           {
@@ -935,7 +935,7 @@
             "title": "Safety Valve",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A deliberate release point that lets people slow, pause, or reroute automation before harm compounds.</p><p>Safety valves pair <a href=\"#stopability\">stopability</a> with <a href=\"#dignity-friction\">dignity friction</a> so high-stakes flows default to reversible states and route to humans without penalty.</p>",
+            "bodyHtml": "<p>A deliberate release point that lets people slow, pause, or reroute automation before harm compounds.</p><p>Safety valves pair <a href=\"#stoppability\">stoppability</a> with <a href=\"#dignity-friction\">dignity friction</a> so high-stakes flows default to reversible states and route to humans without penalty.</p>",
             "relatedPatterns": ["progressive-consent", "kill-switch"]
           },
           {
@@ -1042,7 +1042,7 @@
             "title": "Ethical Interrupts",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize <a href=\"#stopability\">stopability</a>.</p>",
+            "bodyHtml": "<p>Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize <a href=\"#stoppability\">stoppability</a>.</p>",
             "relatedPatterns": ["kill-switch", "appeal-paths"]
           }
         ]
@@ -1058,7 +1058,7 @@
             "title": "Heroism-Dependent Systems",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor <a href=\"#stopability\">stopability</a> and high <a href=\"#failure-load\">failure load</a>.</p>"
+            "bodyHtml": "<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor <a href=\"#stoppability\">stoppability</a> and high <a href=\"#failure-load\">failure load</a>.</p>"
           },
           {
             "id": "empathy-surrogacy",
@@ -1389,7 +1389,7 @@
             "title": "The Conservancy Principle",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Designers steward human dignity and collective resources; they must leave systems safer and more reparable than they found them. Conservancy prioritizes <a href=\"#repair-log\">repair</a>, <a href=\"#stopability\">stopability</a>, and minimizing <a href=\"#moral-debt\">moral debt</a>.</p>"
+            "bodyHtml": "<p>Designers steward human dignity and collective resources; they must leave systems safer and more reparable than they found them. Conservancy prioritizes <a href=\"#repair-log\">repair</a>, <a href=\"#stoppability\">stoppability</a>, and minimizing <a href=\"#moral-debt\">moral debt</a>.</p>"
           },
           {
             "id": "burden-inversion-rule",

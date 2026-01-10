@@ -160,10 +160,10 @@ export const libraryContent: LibraryContent = {
             href: "/mechanisms/patterns/maintenance-windowing",
           },
           {
-            title: "Glossary: Stopability",
+            title: "Glossary: Stoppability",
             description:
               "Shared language for halts, safety valves, and time-to-halt targets.",
-            href: "/glossary/stopability",
+            href: "/glossary/stoppability",
           },
         ],
       },
@@ -402,7 +402,7 @@ export const libraryContent: LibraryContent = {
         summary:
           "Pre-authorized halt paths with named stewards, thresholds, and restoration drills so harms stop in seconds.",
         filters: ["governance", "friction"],
-        glossaryRefs: ["stopability", "ethical-interrupts", "time-to-halt"],
+        glossaryRefs: ["stoppability", "ethical-interrupts", "time-to-halt"],
         cues: [
           "Define triggers tied to moral performance indicators and frontline reports.",
           "Name the people who can fire the switch and protect them from retaliation.",

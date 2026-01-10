@@ -292,7 +292,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>A structured assessment of a system\u2019s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where <a href="#stopability">stopability</a> or <a href="#reversibility">reversibility</a> fail and guide concrete remediation steps.</p>',
+            '<p>A structured assessment of a system\u2019s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where <a href="#stoppability">stoppability</a> or <a href="#reversibility">reversibility</a> fail and guide concrete remediation steps.</p>',
           examples: [
             "A platform review board runs an Ethotechnic audit after an outage to trace who could have halted or reversed the release.",
           ],
@@ -543,12 +543,12 @@ export const glossaryContent: GlossaryContent = {
       comingSoon: false,
       entries: [
         {
-          id: "stopability",
-          title: "Stopability",
+          id: "stoppability",
+          title: "Stoppability",
           status: null,
           classes: ["glossary-entry--diagram"],
           bodyHtml:
-            '<p>A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Stopability diagram</title>\n                            <rect x="10" y="30" width="70" height="20" rx="10" class="diagram-track"></rect>\n                            <circle cx="40" cy="40" r="22" class="diagram-stop"></circle>\n                            <line x1="85" y1="40" x2="110" y2="40" class="diagram-flow"></line>\n                            <path d="M40 28 L48 40 L40 52 L32 40 Z" class="diagram-stop-symbol"></path>\n                          </svg>\n                        </figure>',
+            '<p>A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Stoppability diagram</title>\n                            <rect x="10" y="30" width="70" height="20" rx="10" class="diagram-track"></rect>\n                            <circle cx="40" cy="40" r="22" class="diagram-stop"></circle>\n                            <line x1="85" y1="40" x2="110" y2="40" class="diagram-flow"></line>\n                            <path d="M40 28 L48 40 L40 52 L32 40 Z" class="diagram-stop-symbol"></path>\n                          </svg>\n                        </figure>',
           relatedPatterns: ["kill-switch", "maintenance-windowing"],
         },
         {
@@ -630,7 +630,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>The system defaults to the safest possible behavior when uncertain, prioritizing <a href="#stopability">stopability</a>.</p>',
+            '<p>The system defaults to the safest possible behavior when uncertain, prioritizing <a href="#stoppability">stoppability</a>.</p>',
         },
         {
           id: "fail-open",
@@ -694,7 +694,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>A scheduled calm state where teams intentionally slow or stop throughput so inspections, upgrades, and rehearsals can happen without crisis pressure. Maintenance windows make <a href="#stopability">stopability</a> routine instead of reactive.</p><p>Each window is negotiated with the people impacted, includes published service guarantees, and documents which safeguards were tested so unfinished work rolls into the shared <a href="#repair-log">repair log</a>.</p>',
+            '<p>A scheduled calm state where teams intentionally slow or stop throughput so inspections, upgrades, and rehearsals can happen without crisis pressure. Maintenance windows make <a href="#stoppability">stoppability</a> routine instead of reactive.</p><p>Each window is negotiated with the people impacted, includes published service guarantees, and documents which safeguards were tested so unfinished work rolls into the shared <a href="#repair-log">repair log</a>.</p>',
         },
         {
           id: "care-retrospective",
@@ -895,7 +895,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for \u201cresilience\u201d while masking <a href="#extraction">extraction</a>.</p><p>Ethotechnic practice flattens this by lowering the <a href="#burden-gradient">burden gradient</a> and designing for <a href="#stopability">stopability</a> so resilience is institutional, not personal.</p>',
+            '<p>When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for \u201cresilience\u201d while masking <a href="#extraction">extraction</a>.</p><p>Ethotechnic practice flattens this by lowering the <a href="#burden-gradient">burden gradient</a> and designing for <a href="#stoppability">stoppability</a> so resilience is institutional, not personal.</p>',
         },
         {
           id: "fragility-subsidy",
@@ -951,7 +951,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: ["glossary-entry--diagram"],
           bodyHtml:
-            '<p>Seconds between a harmful process beginning and the system stopping it\u2014an essential complement to <a href="#stopability">stopability</a>.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Time to halt diagram</title>\n                            <line x1="20" y1="50" x2="100" y2="50" class="diagram-axis"></line>\n                            <circle cx="40" cy="50" r="6" class="diagram-event"></circle>\n                            <rect x="40" y="32" width="46" height="12" class="diagram-timer"></rect>\n                            <polygon points="86,38 100,50 86,62" class="diagram-stop-flag"></polygon>\n                          </svg>\n                        </figure>',
+            '<p>Seconds between a harmful process beginning and the system stopping it\u2014an essential complement to <a href="#stoppability">stoppability</a>.</p>\n                        <figure class="micro-diagram" aria-hidden="true">\n                          <svg viewBox="0 0 120 80" role="presentation">\n                            <title>Time to halt diagram</title>\n                            <line x1="20" y1="50" x2="100" y2="50" class="diagram-axis"></line>\n                            <circle cx="40" cy="50" r="6" class="diagram-event"></circle>\n                            <rect x="40" y="32" width="46" height="12" class="diagram-timer"></rect>\n                            <polygon points="86,38 100,50 86,62" class="diagram-stop-flag"></polygon>\n                          </svg>\n                        </figure>',
           relatedPatterns: ["kill-switch"],
         },
         {
@@ -1362,7 +1362,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>A deliberate release point that lets people slow, pause, or reroute automation before harm compounds.</p><p>Safety valves pair <a href="#stopability">stopability</a> with <a href="#dignity-friction">dignity friction</a> so high-stakes flows default to reversible states and route to humans without penalty.</p>',
+            '<p>A deliberate release point that lets people slow, pause, or reroute automation before harm compounds.</p><p>Safety valves pair <a href="#stoppability">stoppability</a> with <a href="#dignity-friction">dignity friction</a> so high-stakes flows default to reversible states and route to humans without penalty.</p>',
           relatedPatterns: ["progressive-consent", "kill-switch"],
         },
         {
@@ -1588,7 +1588,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize <a href="#stopability">stopability</a>.</p>',
+            '<p>Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize <a href="#stoppability">stoppability</a>.</p>',
           relatedPatterns: ["kill-switch", "appeal-paths"],
         },
       ],
@@ -1606,7 +1606,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor <a href="#stopability">stopability</a> and high <a href="#failure-load">failure load</a>.</p>',
+            '<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor <a href="#stoppability">stoppability</a> and high <a href="#failure-load">failure load</a>.</p>',
         },
         {
           id: "empathy-surrogacy",
@@ -2096,7 +2096,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>Designers steward human dignity and collective resources; they must leave systems safer and more reparable than they found them. Conservancy prioritizes <a href="#repair-log">repair</a>, <a href="#stopability">stopability</a>, and minimizing <a href="#moral-debt">moral debt</a>.</p>',
+            '<p>Designers steward human dignity and collective resources; they must leave systems safer and more reparable than they found them. Conservancy prioritizes <a href="#repair-log">repair</a>, <a href="#stoppability">stoppability</a>, and minimizing <a href="#moral-debt">moral debt</a>.</p>',
         },
         {
           id: "burden-inversion-rule",
@@ -2177,7 +2177,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "ethotechnic-audit",
     term: "Ethotechnic Audit",
     definition:
-      "A structured assessment of a system\u2019s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where stopability or reversibility fail and guide concrete remediation steps.",
+      "A structured assessment of a system\u2019s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where stoppability or reversibility fail and guide concrete remediation steps.",
     appliesTo: ["platforms", "audits", "sre"],
   },
   {
@@ -2307,10 +2307,10 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
-    slug: "stopability",
-    term: "Stopability",
+    slug: "stoppability",
+    term: "Stoppability",
     definition:
-      "A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation. Stopability diagram",
+      "A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation. Stoppability diagram",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -2391,7 +2391,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "fail-safe",
     term: "Fail-Safe Mode",
     definition:
-      "The system defaults to the safest possible behavior when uncertain, prioritizing stopability .",
+      "The system defaults to the safest possible behavior when uncertain, prioritizing stoppability .",
     appliesTo: ["D. System states & architectures"],
   },
   {
@@ -2447,7 +2447,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "maintenance-window",
     term: "Maintenance Window",
     definition:
-      "A scheduled calm state where teams intentionally slow or stop throughput so inspections, upgrades, and rehearsals can happen without crisis pressure. Maintenance windows make stopability routine instead of reactive. Each window is negotiated with the people impacted, includes published service guarantees, and documents which safeguards were tested so unfinished work rolls into the shared repair log .",
+      "A scheduled calm state where teams intentionally slow or stop throughput so inspections, upgrades, and rehearsals can happen without crisis pressure. Maintenance windows make stoppability routine instead of reactive. Each window is negotiated with the people impacted, includes published service guarantees, and documents which safeguards were tested so unfinished work rolls into the shared repair log .",
     appliesTo: ["D. System states & architectures"],
   },
   {
@@ -2615,7 +2615,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "asymmetric-sustaining",
     term: "Asymmetric Sustaining",
     definition:
-      "When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for \u201cresilience\u201d while masking extraction . Ethotechnic practice flattens this by lowering the burden gradient and designing for stopability so resilience is institutional, not personal.",
+      "When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for \u201cresilience\u201d while masking extraction . Ethotechnic practice flattens this by lowering the burden gradient and designing for stoppability so resilience is institutional, not personal.",
     appliesTo: ["F. Burden & load"],
   },
   {
@@ -2650,7 +2650,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "time-to-halt",
     term: "Time-to-Halt (TTH)",
     definition:
-      "Seconds between a harmful process beginning and the system stopping it\u2014an essential complement to stopability . Time to halt diagram",
+      "Seconds between a harmful process beginning and the system stopping it\u2014an essential complement to stoppability . Time to halt diagram",
     appliesTo: ["G. Measures & indicators"],
   },
   {
@@ -2993,7 +2993,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "safety-valve",
     term: "Safety Valve",
     definition:
-      "A deliberate release point that lets people slow, pause, or reroute automation before harm compounds. Safety valves pair stopability with dignity friction so high-stakes flows default to reversible states and route to humans without penalty.",
+      "A deliberate release point that lets people slow, pause, or reroute automation before harm compounds. Safety valves pair stoppability with dignity friction so high-stakes flows default to reversible states and route to humans without penalty.",
     appliesTo: ["I. Friction & flow"],
   },
   {
@@ -3182,14 +3182,14 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "ethical-interrupts",
     term: "Ethical Interrupts",
     definition:
-      "Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize stopability .",
+      "Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize stoppability .",
     appliesTo: ["J. Decision states & edges"],
   },
   {
     slug: "heroism-dependent-systems",
     term: "Heroism-Dependent Systems",
     definition:
-      "Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor stopability and high failure load .",
+      "Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor stoppability and high failure load .",
     appliesTo: ["K. System patterns & anti-patterns"],
   },
   {
@@ -3602,7 +3602,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "conservancy-principle",
     term: "The Conservancy Principle",
     definition:
-      "Designers steward human dignity and collective resources; they must leave systems safer and more reparable than they found them. Conservancy prioritizes repair , stopability , and minimizing moral debt .",
+      "Designers steward human dignity and collective resources; they must leave systems safer and more reparable than they found them. Conservancy prioritizes repair , stoppability , and minimizing moral debt .",
     appliesTo: ["M. Foundational Ethotechnic principles"],
   },
   {
