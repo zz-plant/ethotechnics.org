@@ -33,11 +33,11 @@ export const siteFooter: SiteFooterContent = {
   identity: {
     heading: "Identity",
     brand: {
-      name: "The Institute",
+      name: "Ethotechnics Institute",
       href: "/",
-      ariaLabel: "The Institute home",
+      ariaLabel: "Ethotechnics Institute home",
       logoSrc: "/favicon.svg",
-      logoAlt: "The Institute seal",
+      logoAlt: "Ethotechnics Institute seal",
     },
     description:
       "Content licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.",
