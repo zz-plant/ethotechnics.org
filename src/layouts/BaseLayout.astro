@@ -2,6 +2,7 @@
 import { SEO } from 'astro-seo';
 import { ViewTransitions } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
+import Wordmark from '../components/Wordmark.astro';
 import { siteFooter } from '../content/site-footer';
 import '../styles/theme.css';
 import '../styles/global.css';
@@ -154,7 +155,7 @@ const currentPath = Astro.url.pathname;
                     class="footer__logo"
                     loading="lazy"
                   />
-                  <span class="footer__brand-name">{identity.brand.name}</span>
+                  <Wordmark class="footer__wordmark" title={identity.brand.name} />
                 </a>
                 <p class="muted">{identity.description}</p>
                 <a
