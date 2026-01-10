@@ -478,7 +478,7 @@ const participation = defineCollection({
           actions: z.array(
             z.object({
               label: z.string(),
-              href: z.string(),
+              href: z.string().refine((val) => ["http", "/", "#", "mailto:"].some(prefix => val.startsWith(prefix)), { message: "href must be a valid URL, mailto, or path" }),
               ariaLabel: z.string().optional(),
               detail: z.string().optional(),
             }),
