@@ -4,7 +4,7 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
 
 ## Setup
 
-- Use Bun 1.1+ (the project relies on Bun's runtime and package manager).
+- Use Bun 1.3+ (the project relies on Bun's runtime and package manager).
 - Copy `.env.example` to `.env.local`; no variables are required yet, but the file keeps future
   additions discoverable.
 - Install dependencies with `bun install`.

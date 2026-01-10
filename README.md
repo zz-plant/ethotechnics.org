@@ -32,7 +32,7 @@ project favors lean, fast-loading pages and clear storytelling.
 ## Requirements
 
 - Node.js 20.x (use `nvm use` to match the pinned toolchain).
-- Bun 1.1+ (see `.nvmrc` for the Node version and `bun.lock` for dependencies).
+- Bun 1.3+ (see `.nvmrc` for the Node version and `bun.lock` for dependencies).
 
 ## Quick start
 
