@@ -68,6 +68,15 @@ const initGlossaryFilter = () => {
     return control.selectedOptions[0]?.textContent?.trim() ?? control.value;
   };
 
+  const indexedItems = items.map((item) => ({
+    element: item,
+    searchText:
+      item.dataset.search?.toLowerCase() ?? item.textContent?.toLowerCase() ?? "",
+    categoryId: item.dataset.categoryId ?? "",
+    tags: (item.dataset.tags ?? "").split(" ").filter(Boolean),
+    status: item.dataset.status ?? "",
+  }));
+
   const updateFilter = () => {
     const rawQuery = filterInput.value.trim();
     const query = rawQuery.toLowerCase();
@@ -76,19 +85,15 @@ const initGlossaryFilter = () => {
     const activeStatus = getFacetValue("status");
     let visible = 0;
 
-    items.forEach((item) => {
-      const searchText = item.dataset.search ?? item.textContent ?? "";
-      const itemCategory = item.dataset.categoryId ?? "";
-      const itemTags = (item.dataset.tags ?? "").split(" ").filter(Boolean);
-      const itemStatus = item.dataset.status ?? "";
-      const matchesQuery = searchText.toLowerCase().includes(query);
+    indexedItems.forEach((item) => {
+      const matchesQuery = item.searchText.includes(query);
       const matchesCategory =
-        !activeCategory || itemCategory === activeCategory;
-      const matchesTag = !activeTag || itemTags.includes(activeTag);
-      const matchesStatus = !activeStatus || itemStatus === activeStatus;
+        !activeCategory || item.categoryId === activeCategory;
+      const matchesTag = !activeTag || item.tags.includes(activeTag);
+      const matchesStatus = !activeStatus || item.status === activeStatus;
       const matches =
         matchesQuery && matchesCategory && matchesTag && matchesStatus;
-      item.classList.toggle("is-hidden", !matches);
+      item.element.classList.toggle("is-hidden", !matches);
 
       if (matches) {
         visible += 1;
@@ -149,7 +154,18 @@ const initGlossaryFilter = () => {
     }
   }
 
-  filterInput.addEventListener("input", updateFilter);
+  let animationFrame: number | null = null;
+  const scheduleUpdate = () => {
+    if (animationFrame !== null) {
+      window.cancelAnimationFrame(animationFrame);
+    }
+    animationFrame = window.requestAnimationFrame(() => {
+      animationFrame = null;
+      updateFilter();
+    });
+  };
+
+  filterInput.addEventListener("input", scheduleUpdate);
   filterInput.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && filterInput.value) {
       event.preventDefault();
@@ -158,7 +174,7 @@ const initGlossaryFilter = () => {
     }
   });
   facetControls.forEach((control) => {
-    control.addEventListener("change", updateFilter);
+    control.addEventListener("change", scheduleUpdate);
   });
   clearButton.addEventListener("click", () => {
     filterInput.value = "";
