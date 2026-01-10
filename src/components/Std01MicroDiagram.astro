@@ -13,20 +13,20 @@
 
     <style>
       .ink {
-        fill: #1f2937;
+        fill: var(--text, #1f2937);
       }
       .muted {
-        fill: #6b7280;
+        fill: var(--muted, #6b7280);
       }
       .line {
-        stroke: #374151;
+        stroke: var(--border, #374151);
         stroke-width: 2;
         fill: none;
         stroke-linecap: round;
         stroke-linejoin: round;
       }
       .line-strong {
-        stroke: #374151;
+        stroke: var(--border, #374151);
         stroke-width: 3.5;
         fill: none;
         stroke-linecap: round;
@@ -39,15 +39,18 @@
         stroke-dasharray: 2 6;
       }
       .band-a {
-        fill: #f8fafc;
+        fill: var(--surface, #f8fafc);
       }
       .band-b {
-        fill: #f1f5f9;
+        fill: var(--panel, #f1f5f9);
       }
       .chip {
-        fill: #ffffff;
-        stroke: #374151;
+        fill: var(--surface, #ffffff);
+        stroke: var(--border, #374151);
         stroke-width: 2;
+      }
+      .fill-border {
+        fill: var(--border, #374151);
       }
       .chip-state {
         rx: 10;
@@ -81,8 +84,8 @@
     <line x1="40" y1="96" x2="920" y2="96" class="line" />
     <line x1="40" y1="200" x2="920" y2="200" class="line" />
 
-    <path d="M920 96 L906 88 L906 104 Z" fill="#374151" />
-    <path d="M920 200 L906 192 L906 208 Z" fill="#374151" />
+    <path d="M920 96 L906 88 L906 104 Z" class="fill-border" />
+    <path d="M920 200 L906 192 L906 208 Z" class="fill-border" />
 
     <rect x="120" y="70" width="140" height="34" class="chip chip-state" />
     <text x="190" y="92" text-anchor="middle" class="label ink">Submit request</text>
@@ -98,7 +101,7 @@
     <text x="620" y="196" text-anchor="middle" class="label ink">Appeal / review</text>
     <text x="620" y="216" text-anchor="middle" class="small muted">days–weeks</text>
 
-    <rect x="330" y="128" width="390" height="8" fill="#374151" opacity="0.10" />
+    <rect x="330" y="128" width="390" height="8" class="fill-border" opacity="0.10" />
     <line x1="330" y1="96" x2="330" y2="200" class="line dash" />
     <line x1="720" y1="96" x2="720" y2="200" class="line dash" />
 
