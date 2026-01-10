@@ -208,7 +208,7 @@ export const participationContent: ParticipationContent = {
     eyebrow: "Feedback",
     title: "Prefer to send quick notes?",
     description:
-      "Tell us what would make the mechanisms catalog more useful—missing artifacts, unclear steps, or examples you need to see.",
+      "Tell us what would make the mechanisms catalog more useful—missing artifacts, unclear steps, examples you need to see, or accessibility barriers we should fix.",
     actions: [
       {
         label: "Contact the inbox",

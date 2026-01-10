@@ -2334,6 +2334,36 @@ h3 {
   box-shadow: var(--shadow-sm);
 }
 
+.summary-callout {
+  display: grid;
+  gap: 1.4rem;
+  margin: 1.6rem 0;
+}
+
+.summary-callout__intro h2 {
+  margin: 0.35rem 0 0.55rem;
+}
+
+.summary-callout__body {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.summary-callout__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (min-width: 900px) {
+  .summary-callout__body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: 1.8rem;
+  }
+}
+
 .tracks__prompt {
   display: grid;
   gap: 1.25rem;

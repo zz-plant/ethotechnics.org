@@ -49,6 +49,11 @@ const anchorLinks = [
     label: category.heading,
   })),
 ];
+const summaryLinks = [
+  { href: "#starter-terms", label: "Starter terms" },
+  { href: "#glossary-index", label: "A–Z index" },
+  { href: "#territory-map", label: "Territory map" },
+];
 
 const entryLabelIndex = new Map(
   categories.flatMap((category) =>
@@ -198,6 +203,36 @@ const glossaryAuthor = getGlossaryAuthor(publication);
         "Each term is a mechanism card with related mechanism specs and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.",
     }}
   />
+  <div class="callout summary-callout">
+    <div class="summary-callout__intro">
+      <p class="eyebrow">Summary</p>
+      <h2>Glossary wayfinding at a glance</h2>
+      <p class="muted">
+        Use this index to align language quickly, then jump straight to the
+        sections that match your research or review window.
+      </p>
+    </div>
+    <div class="summary-callout__body">
+      <div>
+        <p class="eyebrow">Key takeaways</p>
+        <ul class="muted">
+          <li>Every term links to a permalink so citations stay stable.</li>
+          <li>Territory maps cluster definitions for faster scanning.</li>
+          <li>Related mechanisms connect definitions to implementation work.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Jump to</p>
+        <ul class="summary-callout__links">
+          {summaryLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
@@ -274,7 +309,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       territory map for nearby concepts.
     </p>
   </div>
-  <div class="callout glossary__starter">
+  <div class="callout glossary__starter" id="starter-terms">
     <h3>Start with these terms</h3>
     <p class="muted">
       New to the glossary? These anchors provide the shared vocabulary most
