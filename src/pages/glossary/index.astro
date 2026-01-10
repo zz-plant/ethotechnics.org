@@ -22,6 +22,13 @@ const {
   categoryHighlights,
 } = glossaryEntry.data;
 const libraryContent = libraryEntry.data;
+const stripHtml = (value: string) =>
+  value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const searchParams = Astro.url.searchParams;
+const searchQuery = searchParams.get("query")?.trim() ?? "";
+const activeCategory = searchParams.get("category")?.trim() ?? "";
+const activeTag = searchParams.get("tag")?.trim() ?? "";
+const activeStatus = searchParams.get("status")?.trim() ?? "";
 
 const patternIndex = new Map(
   libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern])
@@ -72,10 +79,7 @@ const entryIndex = categories
     const categoryLabel = category.heading.replace(/^[A-Z]\.\s*/, "");
 
     return category.entries.map((entry) => {
-      const plainDescription = entry.bodyHtml
-        .replace(/<[^>]+>/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
+      const plainDescription = stripHtml(entry.bodyHtml);
       const tags = entry.tags?.join(" ") ?? "";
       const examples = entry.examples?.join(" ") ?? "";
       const searchText =
@@ -89,12 +93,17 @@ const entryIndex = categories
         categoryLabel,
         categoryId: category.id,
         searchText,
+        searchTextLower: searchText.toLowerCase(),
+        plainDescription,
       };
     });
   })
   .sort((a, b) =>
     a.title.localeCompare(b.title, "en", { sensitivity: "base" })
   );
+const entryIndexMap = new Map(
+  entryIndex.map((entry) => [entry.id, entry] as const)
+);
 
 const territoryCounts = new Map(
   categories.map((category) => [category.id, category.entries.length])
@@ -106,23 +115,48 @@ const glossaryEntryUrl = (slug: string) =>
   Astro.site
     ? new URL(glossaryEntryPermalink(slug), Astro.site).toString()
     : glossaryEntryPermalink(slug);
-const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
 const normalizedQuery = searchQuery.toLowerCase();
 const hasSearchQuery = normalizedQuery.length > 0;
-const filteredEntries = hasSearchQuery
-  ? entryIndex.filter((entry) =>
-      entry.searchText.toLowerCase().includes(normalizedQuery)
-    )
-  : entryIndex;
+const hasFacetFilters = Boolean(activeCategory || activeTag || activeStatus);
+const matchesEntry = (entry: (typeof entryIndex)[number]) => {
+  const matchesQuery = !normalizedQuery
+    ? true
+    : entry.searchTextLower.includes(normalizedQuery);
+  const matchesCategory = !activeCategory
+    ? true
+    : entry.categoryId === activeCategory;
+  const matchesTag = !activeTag ? true : entry.tags.includes(activeTag);
+  const matchesStatus = !activeStatus
+    ? true
+    : entry.status === activeStatus;
+
+  return matchesQuery && matchesCategory && matchesTag && matchesStatus;
+};
+const filteredEntries =
+  hasSearchQuery || hasFacetFilters
+    ? entryIndex.filter(matchesEntry)
+    : entryIndex;
 const totalEntries = entryIndex.length;
 const visibleEntries = filteredEntries.length;
+const categoryLabelById = new Map(
+  categoryFilters.map((category) => [category.id, category.label] as const)
+);
+const statusLabelByValue = new Map(
+  statusFilters.map((status) => [status, status] as const)
+);
+const initialFilterLabels = [
+  activeCategory ? categoryLabelById.get(activeCategory) : "",
+  activeTag,
+  activeStatus ? statusLabelByValue.get(activeStatus) : "",
+].filter(Boolean);
+const initialFilterSuffix = initialFilterLabels.length
+  ? ` · ${initialFilterLabels.join(", ")}`
+  : "";
 
 const structuredEntries = categories.flatMap((category) =>
   category.entries.map((entry) => {
-    const plainDescription = entry.bodyHtml
-      .replace(/<[^>]+>/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
+    const plainDescription =
+      entryIndexMap.get(entry.id)?.plainDescription ?? "";
 
     return {
       "@type": "DefinedTerm",
@@ -151,8 +185,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const citationYear = new Date(
   publication.updated ?? publication.published
 ).getFullYear();
-const stripHtml = (value: string) =>
-  value.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const glossaryAuthor =
+  publication.authors.map((author) => author.name).join(", ") ??
+  "Ethotechnics Institute";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -194,7 +229,12 @@ const stripHtml = (value: string) =>
         <select class="glossary-filter__select" data-glossary-filter="category">
           <option value="">All territories</option>
           {categoryFilters.map((category) => (
-            <option value={category.id}>{category.label}</option>
+            <option
+              value={category.id}
+              selected={category.id === activeCategory}
+            >
+              {category.label}
+            </option>
           ))}
         </select>
       </label>
@@ -204,7 +244,9 @@ const stripHtml = (value: string) =>
           <select class="glossary-filter__select" data-glossary-filter="tag">
             <option value="">All tags</option>
             {tagFilters.map((tag) => (
-              <option value={tag}>{tag}</option>
+              <option value={tag} selected={tag === activeTag}>
+                {tag}
+              </option>
             ))}
           </select>
         </label>
@@ -215,7 +257,9 @@ const stripHtml = (value: string) =>
           <select class="glossary-filter__select" data-glossary-filter="status">
             <option value="">All statuses</option>
             {statusFilters.map((status) => (
-              <option value={status}>{status}</option>
+              <option value={status} selected={status === activeStatus}>
+                {status}
+              </option>
             ))}
           </select>
         </label>
@@ -238,7 +282,8 @@ const stripHtml = (value: string) =>
       data-total={totalEntries}
     >
       Showing {visibleEntries} of {totalEntries} terms
-      {hasSearchQuery && ` for “${searchQuery}”`}
+      {hasSearchQuery ? ` for “${searchQuery}”` : ""}
+      {initialFilterSuffix}
     </p>
     <p class="muted glossary-index__empty" hidden={visibleEntries > 0}>
       No entries match that search or filter. Try another keyword or browse the
@@ -272,12 +317,14 @@ const stripHtml = (value: string) =>
     <div class="glossary-index" role="navigation" aria-label="Glossary index">
       {
         entryIndex.map((entry) => {
-          const matchesQuery = entry.searchText
-            .toLowerCase()
-            .includes(normalizedQuery);
+          const matchesQuery = matchesEntry(entry);
           const entryClasses = [
             "glossary-index__item",
-            ...(hasSearchQuery && !matchesQuery ? ["is-hidden"] : []),
+            ...(hasSearchQuery || hasFacetFilters
+              ? !matchesQuery
+                ? ["is-hidden"]
+                : []
+              : []),
           ].join(" ");
 
           return (
@@ -289,7 +336,7 @@ const stripHtml = (value: string) =>
               data-category-id={entry.categoryId}
               data-tags={entry.tags.join(" ")}
               data-status={entry.status ?? ""}
-              data-search={entry.searchText}
+              data-search={entry.searchTextLower}
             >
               <span class="glossary-index__term">{entry.title}</span>
               <span class="muted glossary-index__category">
@@ -378,9 +425,6 @@ const stripHtml = (value: string) =>
               ...(entry.classes ?? []),
             ].join(" ");
             const entryUrl = glossaryEntryUrl(entry.id);
-            const glossaryAuthor =
-              publication.authors.map((author) => author.name).join(", ") ??
-              "Ethotechnics Institute";
             const citationApa = `${glossaryAuthor}. (${citationYear}). ${entry.title}. In Ethotechnics glossary. ${entryUrl}`;
             const citationMla = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary, ${citationYear}, ${entryUrl}.`;
             const citationChicago = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary. ${citationYear}. ${entryUrl}.`;

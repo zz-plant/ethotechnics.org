@@ -14,6 +14,13 @@ const initGlossaryFilter = () => {
   const facetControls = Array.from(
     document.querySelectorAll<HTMLSelectElement>("[data-glossary-filter]"),
   );
+  const itemMeta = items.map((item) => ({
+    element: item,
+    searchText: item.dataset.search ?? "",
+    categoryId: item.dataset.categoryId ?? "",
+    tags: (item.dataset.tags ?? "").split(" ").filter(Boolean),
+    status: item.dataset.status ?? "",
+  }));
 
   if (
     !(filterInput instanceof HTMLInputElement) ||
@@ -26,6 +33,11 @@ const initGlossaryFilter = () => {
   }
 
   const total = Number(count.dataset.total) || items.length;
+  const facetLookup = new Map(
+    facetControls
+      .map((control) => [control.dataset.glossaryFilter ?? "", control] as const)
+      .filter(([key]) => Boolean(key)),
+  );
 
   const syncQueryParam = (
     value: string,
@@ -54,13 +66,10 @@ const initGlossaryFilter = () => {
   };
 
   const getFacetValue = (key: string) =>
-    facetControls.find((control) => control.dataset.glossaryFilter === key)
-      ?.value ?? "";
+    facetLookup.get(key)?.value ?? "";
 
   const getFacetLabel = (key: string) => {
-    const control = facetControls.find(
-      (item) => item.dataset.glossaryFilter === key,
-    );
+    const control = facetLookup.get(key);
     if (!control?.value) {
       return "";
     }
@@ -76,19 +85,15 @@ const initGlossaryFilter = () => {
     const activeStatus = getFacetValue("status");
     let visible = 0;
 
-    items.forEach((item) => {
-      const searchText = item.dataset.search ?? item.textContent ?? "";
-      const itemCategory = item.dataset.categoryId ?? "";
-      const itemTags = (item.dataset.tags ?? "").split(" ").filter(Boolean);
-      const itemStatus = item.dataset.status ?? "";
-      const matchesQuery = searchText.toLowerCase().includes(query);
+    itemMeta.forEach((item) => {
+      const matchesQuery = item.searchText.includes(query);
       const matchesCategory =
-        !activeCategory || itemCategory === activeCategory;
-      const matchesTag = !activeTag || itemTags.includes(activeTag);
-      const matchesStatus = !activeStatus || itemStatus === activeStatus;
+        !activeCategory || item.categoryId === activeCategory;
+      const matchesTag = !activeTag || item.tags.includes(activeTag);
+      const matchesStatus = !activeStatus || item.status === activeStatus;
       const matches =
         matchesQuery && matchesCategory && matchesTag && matchesStatus;
-      item.classList.toggle("is-hidden", !matches);
+      item.element.classList.toggle("is-hidden", !matches);
 
       if (matches) {
         visible += 1;
@@ -112,6 +117,17 @@ const initGlossaryFilter = () => {
       category: activeCategory,
       tag: activeTag,
       status: activeStatus,
+    });
+  };
+  let updateQueued = false;
+  const queueUpdate = () => {
+    if (updateQueued) {
+      return;
+    }
+    updateQueued = true;
+    window.requestAnimationFrame(() => {
+      updateQueued = false;
+      updateFilter();
     });
   };
 
@@ -149,16 +165,16 @@ const initGlossaryFilter = () => {
     }
   }
 
-  filterInput.addEventListener("input", updateFilter);
+  filterInput.addEventListener("input", queueUpdate);
   filterInput.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && filterInput.value) {
       event.preventDefault();
       filterInput.value = "";
-      updateFilter();
+      queueUpdate();
     }
   });
   facetControls.forEach((control) => {
-    control.addEventListener("change", updateFilter);
+    control.addEventListener("change", queueUpdate);
   });
   clearButton.addEventListener("click", () => {
     filterInput.value = "";
@@ -166,7 +182,7 @@ const initGlossaryFilter = () => {
       control.value = "";
     });
     filterInput.focus();
-    updateFilter();
+    queueUpdate();
   });
   updateFilter();
 };
