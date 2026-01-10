@@ -5,6 +5,11 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
+import {
+  getGlossaryEntryDefaults,
+  normalizeGlossaryHeading,
+  stripHtml,
+} from "../../utils/glossary-helpers";
 
 export async function getStaticPaths() {
   const glossaryEntry = await getEntry("glossary", "glossary");
@@ -53,7 +58,7 @@ if (!entryRecord) {
 }
 
 const { entry, category } = entryRecord;
-const categoryLabel = category.heading.replace(/^[A-Z]\.\s*/, "");
+const categoryLabel = normalizeGlossaryHeading(category.heading);
 const pagePermalink = glossaryEntryPermalink(entry.id);
 const pageUrl = Astro.site
   ? new URL(pagePermalink, Astro.site).toString()
@@ -61,27 +66,14 @@ const pageUrl = Astro.site
 const glossaryUrl = Astro.site
   ? new URL(glossaryPermalink, Astro.site).toString()
   : glossaryPermalink;
-const stripHtml = (value: string) =>
-  value.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 const plainDescription = stripHtml(entry.bodyHtml);
 const descriptionBase = `Definition of ${entry.title} in the Ethotechnics glossary (${categoryLabel}). ${plainDescription}`;
 const pageDescription =
   descriptionBase.length > 180
     ? `${descriptionBase.slice(0, 177).trim()}…`
     : descriptionBase;
-const scopeText =
-  entry.scope ??
-  `${category.heading}. ${stripHtml(category.descriptionHtml)}`;
-const adjacentTerms = entry.adjacentTerms ?? entry.tags ?? [];
-const operationalTests =
-  entry.operationalTests ?? [
-    `Evidence appears in documentation, interface cues, or governance artifacts that reflect ${entry.title.toLowerCase()}.`,
-    `Teams can point to a concrete example that demonstrates ${entry.title.toLowerCase()} in practice.`,
-  ];
-const genealogy =
-  entry.genealogy ??
-  `Ethotechnics uses ${entry.title} to extend the ${category.heading.toLowerCase()} vocabulary and connect governance, design, and policy teams.`;
-const references = entry.references ?? entry.resources ?? [];
+const { scopeText, adjacentTerms, operationalTests, genealogy, references } =
+  getGlossaryEntryDefaults(entry, category);
 const patternIndex = new Map(
   libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern])
 );
@@ -128,16 +120,54 @@ const anchorLinks = [
 ];
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "DefinedTerm",
-  name: entry.title,
-  description: plainDescription,
-  url: pageUrl,
-  inDefinedTermSet: {
-    "@type": "DefinedTermSet",
-    name: glossaryTitle,
-    description: glossaryDescription,
-    url: glossaryUrl,
-  },
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": pageUrl,
+      name: `${entry.title} — Ethotechnics glossary`,
+      description: pageDescription,
+      url: pageUrl,
+      mainEntity: {
+        "@id": `${pageUrl}#defined-term`,
+      },
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": `${pageUrl}#defined-term`,
+      name: entry.title,
+      description: plainDescription,
+      url: pageUrl,
+      inDefinedTermSet: {
+        "@type": "DefinedTermSet",
+        name: glossaryTitle,
+        description: glossaryDescription,
+        url: glossaryUrl,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: Astro.site ? new URL("/", Astro.site).toString() : "/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Glossary",
+          item: glossaryUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: entry.title,
+          item: pageUrl,
+        },
+      ],
+    },
+  ],
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---

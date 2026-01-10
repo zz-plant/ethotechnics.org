@@ -7,6 +7,13 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import glossaryFilterScript from "../../scripts/glossary-filter.ts?url";
 import { glossaryEntryPermalink } from "../../utils/glossary";
+import {
+  buildGlossaryEntrySearchText,
+  getGlossaryAuthor,
+  getGlossaryEntryDefaults,
+  normalizeGlossaryHeading,
+  stripHtml,
+} from "../../utils/glossary-helpers";
 
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const libraryEntry = (await getEntry("library", "library"))!;
@@ -50,7 +57,7 @@ const entryLabelIndex = new Map(
 );
 const categoryFilters = categories.map((category) => ({
   id: category.id,
-  label: category.heading.replace(/^[A-Z]\.\s*/, ""),
+  label: normalizeGlossaryHeading(category.heading),
 }));
 const tagFilters = Array.from(
   new Set(
@@ -69,17 +76,10 @@ const statusFilters = Array.from(
 
 const entryIndex = categories
   .flatMap((category) => {
-    const categoryLabel = category.heading.replace(/^[A-Z]\.\s*/, "");
+    const categoryLabel = normalizeGlossaryHeading(category.heading);
 
     return category.entries.map((entry) => {
-      const plainDescription = entry.bodyHtml
-        .replace(/<[^>]+>/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-      const tags = entry.tags?.join(" ") ?? "";
-      const examples = entry.examples?.join(" ") ?? "";
-      const searchText =
-        `${entry.title} ${categoryLabel} ${plainDescription} ${tags} ${examples}`.trim();
+      const searchText = buildGlossaryEntrySearchText(entry, categoryLabel);
 
       return {
         id: entry.id,
@@ -111,7 +111,7 @@ const normalizedQuery = searchQuery.toLowerCase();
 const hasSearchQuery = normalizedQuery.length > 0;
 const filteredEntries = hasSearchQuery
   ? entryIndex.filter((entry) =>
-      entry.searchText.toLowerCase().includes(normalizedQuery)
+      entry.searchText.includes(normalizedQuery)
     )
   : entryIndex;
 const totalEntries = entryIndex.length;
@@ -119,10 +119,7 @@ const visibleEntries = filteredEntries.length;
 
 const structuredEntries = categories.flatMap((category) =>
   category.entries.map((entry) => {
-    const plainDescription = entry.bodyHtml
-      .replace(/<[^>]+>/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
+    const plainDescription = stripHtml(entry.bodyHtml);
 
     return {
       "@type": "DefinedTerm",
@@ -134,25 +131,57 @@ const structuredEntries = categories.flatMap((category) =>
   })
 );
 
+const homeUrl = Astro.site ? new URL("/", Astro.site).toString() : "/";
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "DefinedTermSet",
-  name: pageTitle,
-  description: pageDescription,
-  url: pageUrl,
-  hasDefinedTerm: structuredEntries,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${pageUrl}?query={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": pageUrl,
+      name: pageTitle,
+      description: pageDescription,
+      url: pageUrl,
+      mainEntity: {
+        "@id": `${pageUrl}#defined-term-set`,
+      },
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": `${pageUrl}#defined-term-set`,
+      name: pageTitle,
+      description: pageDescription,
+      url: pageUrl,
+      hasDefinedTerm: structuredEntries,
+      potentialAction: {
+        "@type": "SearchAction",
+        target: `${pageUrl}?query={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: homeUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Glossary",
+          item: pageUrl,
+        },
+      ],
+    },
+  ],
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const citationYear = new Date(
   publication.updated ?? publication.published
 ).getFullYear();
-const stripHtml = (value: string) =>
-  value.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const glossaryAuthor = getGlossaryAuthor(publication);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -181,7 +210,7 @@ const stripHtml = (value: string) =>
         <span class="visually-hidden">Filter glossary terms</span>
         <input
           id="glossary-filter"
-          name="glossary-filter"
+          name="query"
           type="search"
           inputmode="search"
           placeholder="Filter terms (e.g., consent)"
@@ -272,9 +301,7 @@ const stripHtml = (value: string) =>
     <div class="glossary-index" role="navigation" aria-label="Glossary index">
       {
         entryIndex.map((entry) => {
-          const matchesQuery = entry.searchText
-            .toLowerCase()
-            .includes(normalizedQuery);
+          const matchesQuery = entry.searchText.includes(normalizedQuery);
           const entryClasses = [
             "glossary-index__item",
             ...(hasSearchQuery && !matchesQuery ? ["is-hidden"] : []),
@@ -378,9 +405,6 @@ const stripHtml = (value: string) =>
               ...(entry.classes ?? []),
             ].join(" ");
             const entryUrl = glossaryEntryUrl(entry.id);
-            const glossaryAuthor =
-              publication.authors.map((author) => author.name).join(", ") ??
-              "Ethotechnics Institute";
             const citationApa = `${glossaryAuthor}. (${citationYear}). ${entry.title}. In Ethotechnics glossary. ${entryUrl}`;
             const citationMla = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary, ${citationYear}, ${entryUrl}.`;
             const citationChicago = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary. ${citationYear}. ${entryUrl}.`;
@@ -395,21 +419,13 @@ const stripHtml = (value: string) =>
               `UR  - ${entryUrl}`,
               "ER  -",
             ].join("\n");
-            const scopeText =
-              entry.scope ??
-              `${category.heading}. ${stripHtml(category.descriptionHtml)}`;
-            const adjacentTerms =
-              entry.adjacentTerms ?? entry.tags ?? [];
-            const operationalTests =
-              entry.operationalTests ?? [
-                `Evidence appears in documentation, interface cues, or governance artifacts that reflect ${entry.title.toLowerCase()}.`,
-                `Teams can point to a concrete example that demonstrates ${entry.title.toLowerCase()} in practice.`,
-              ];
-            const genealogy =
-              entry.genealogy ??
-              `Ethotechnics uses ${entry.title} to extend the ${category.heading.toLowerCase()} vocabulary and connect governance, design, and policy teams.`;
-            const references =
-              entry.references ?? entry.resources ?? [];
+            const {
+              scopeText,
+              adjacentTerms,
+              operationalTests,
+              genealogy,
+              references,
+            } = getGlossaryEntryDefaults(entry, category);
             const relatedPatterns: GlossaryRelatedPattern[] = (
               entry.relatedPatterns ?? []
             )
