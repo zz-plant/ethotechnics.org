@@ -44,6 +44,13 @@ export type ResearchContent = PageWithPermalink &
     publication: PublicationMetadata;
     anchorLinks: AnchorLink[];
     panelCopy: PanelCopy;
+    standardsTimeline: {
+      period: string;
+      title: string;
+      summary: string;
+      standardRef: string;
+      href: string;
+    }[];
     orientationCards: {
       title: string;
       description: string;
@@ -112,6 +119,7 @@ export const researchContent: ResearchContent = {
   anchorLinks: [
     { href: "#orientation", label: "Orientation" },
     { href: "#bridge-artifacts", label: "Bridge artifacts" },
+    { href: "#standards-timeline", label: "Standards timeline" },
     { href: "#agenda", label: "Agenda" },
     { href: "#focus-areas", label: "Focus areas" },
     { href: "#publications", label: "Publications" },
@@ -122,6 +130,40 @@ export const researchContent: ResearchContent = {
     description:
       "Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions. Use them when citing Field Notes or diagnostics results to keep language consistent.",
   },
+  standardsTimeline: [
+    {
+      period: "2024 Q4",
+      title: "Temporal rights field synthesis",
+      summary:
+        "Collected stoppability and resignation signals from high-friction service flows to draft STD-01 clauses.",
+      standardRef: "STD-01",
+      href: "/standards/std-01-temporal-rights",
+    },
+    {
+      period: "2025 Q1",
+      title: "Consent journey instrumentation",
+      summary:
+        "Measured time-to-exit and burden indicators to validate bounded duration and reversibility requirements.",
+      standardRef: "STD-01",
+      href: "/standards/std-01-temporal-rights",
+    },
+    {
+      period: "2025 Q3",
+      title: "Bridge artifact publication",
+      summary:
+        "Published instrument packs and governance notes that map temporal rights to implementation playbooks.",
+      standardRef: "STD-01",
+      href: "/standards/std-01-temporal-rights",
+    },
+    {
+      period: "2026 Q1",
+      title: "Ratification readiness review",
+      summary:
+        "Compiled validator outputs and research memos to finalize STD-01 for ratification.",
+      standardRef: "STD-01",
+      href: "/standards/std-01-temporal-rights",
+    },
+  ],
   orientationCards: [
     {
       title: "Protocols with receipts",

@@ -31,6 +31,27 @@ const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const glossaryContent = glossaryEntry.data;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
+const pageUrl = Astro.site
+  ? new URL(permalink, Astro.site).toString()
+  : permalink;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": pageUrl,
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  hasPart: patterns.entries.map((pattern) => ({
+    "@type": "CreativeWork",
+    name: pattern.title,
+    description: pattern.summary,
+    url: Astro.site
+      ? new URL(`/mechanisms/patterns/${pattern.slug}`, Astro.site).toString()
+      : `/mechanisms/patterns/${pattern.slug}`,
+    keywords: pattern.filters,
+  })),
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -229,4 +250,5 @@ type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
       }
     </CardGrid>
   </SectionBlock>
+  <script type="application/ld+json" set:html={structuredDataJson} />
 </BaseLayout>

@@ -17,6 +17,7 @@ const {
   publication,
   anchorLinks,
   panelCopy,
+  standardsTimeline,
   orientationCards,
   bridgeArtifacts,
   agenda,
@@ -26,7 +27,7 @@ const {
   updateCadence,
 } = researchContent;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
-const summaryLinks = anchorLinks.slice(0, 4);
+const summaryLinks = anchorLinks.slice(0, 5);
 const researchTags = Array.from(
   new Set([
     ...bridgeArtifacts.flatMap((artifact) => artifact.tags),
@@ -64,6 +65,38 @@ const totalResearchItems =
   agenda.length +
   focusAreas.length +
   publications.length;
+const pageUrl = Astro.site
+  ? new URL(permalink, Astro.site).toString()
+  : permalink;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": pageUrl,
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  hasPart: [
+    ...bridgeArtifacts.map((artifact) => ({
+      "@type": "CreativeWork",
+      name: artifact.title,
+      description: artifact.summary,
+      url: Astro.site
+        ? new URL(artifact.href, Astro.site).toString()
+        : artifact.href,
+      keywords: artifact.tags,
+    })),
+    ...publications.map((publication) => ({
+      "@type": "Report",
+      name: publication.title,
+      description: publication.summary,
+      url: Astro.site
+        ? new URL(publication.href, Astro.site).toString()
+        : publication.href,
+      keywords: publication.tags,
+    })),
+  ],
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -111,6 +144,28 @@ const totalResearchItems =
     permalink={permalink}
     publication={publication}
   />
+  <SectionBlock
+    id="standards-timeline"
+    eyebrow="Timeline"
+    title="Research contributions to standards"
+    description="Milestones that connect field work to STD-01 clauses."
+    variant="alt"
+  >
+    <ol class="standards-timeline" aria-label="Standards research timeline">
+      {standardsTimeline.map((entry) => (
+        <li class="standards-timeline__item">
+          <div class="standards-timeline__badge">{entry.period}</div>
+          <div class="standards-timeline__body">
+            <h3>{entry.title}</h3>
+            <p class="muted">{entry.summary}</p>
+            <a class="standards-timeline__link" href={entry.href}>
+              View {entry.standardRef}
+            </a>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </SectionBlock>
   <div class="research-filter" data-research-filter>
     <div class="research-filter__controls">
       <label class="research-filter__label" for="research-filter">
@@ -190,25 +245,36 @@ const totalResearchItems =
     description="The research backlog combines field-ready protocols with governance anchors so findings travel cleanly into diagnostics and delivery."
     className="section--banded"
   >
-    <CardGrid className="grid--two research__grid">
-      {
-        orientationCards.map((card) => (
-          <div
-            class="research-filter__item"
-            data-research-item
-            data-section="orientation"
-            data-tags={card.tags.join(" ")}
-            data-search={buildSearchText(card.title, card.description, card.tags)}
-          >
-            <CardItem
-              title={card.title}
-              description={card.description}
-              tags={card.tags}
-            />
-          </div>
-        ))
-      }
-    </CardGrid>
+    <details class="chunked-section" open data-default-open="true">
+      <summary class="chunked-section__summary">
+        Orientation cards ({orientationCards.length})
+      </summary>
+      <div class="chunked-section__body">
+        <CardGrid className="grid--two research__grid">
+          {
+            orientationCards.map((card) => (
+              <div
+                class="research-filter__item"
+                data-research-item
+                data-section="orientation"
+                data-tags={card.tags.join(" ")}
+                data-search={buildSearchText(
+                  card.title,
+                  card.description,
+                  card.tags
+                )}
+              >
+                <CardItem
+                  title={card.title}
+                  description={card.description}
+                  tags={card.tags}
+                />
+              </div>
+            ))
+          }
+        </CardGrid>
+      </div>
+    </details>
   </SectionBlock>
 
   <SectionBlock
@@ -218,36 +284,43 @@ const totalResearchItems =
     description="Frameworks, taxonomies, instruments, and case series that sit between practice and scholarship."
     variant="alt"
   >
-    <CardGrid className="grid--two">
-      {bridgeArtifacts.map((artifact) => (
-        <div
-          class="research-filter__item"
-          data-research-item
-          data-section="bridge-artifacts"
-          data-tags={artifact.tags.join(" ")}
-          data-search={buildSearchText(
-            artifact.title,
-            artifact.summary,
-            artifact.type,
-            artifact.tags
-          )}
-        >
-          <CardItem
-            id={artifact.slug}
-            meta={artifact.type}
-            title={artifact.title}
-            description={artifact.summary}
-            tags={artifact.tags}
-          >
-            <div slot="footer" class="card__footer">
-              <a class="button ghost button--compact" href={artifact.href}>
-                View artifact
-              </a>
+    <details class="chunked-section" data-default-open="false">
+      <summary class="chunked-section__summary">
+        Bridge artifacts ({bridgeArtifacts.length})
+      </summary>
+      <div class="chunked-section__body">
+        <CardGrid className="grid--two">
+          {bridgeArtifacts.map((artifact) => (
+            <div
+              class="research-filter__item"
+              data-research-item
+              data-section="bridge-artifacts"
+              data-tags={artifact.tags.join(" ")}
+              data-search={buildSearchText(
+                artifact.title,
+                artifact.summary,
+                artifact.type,
+                artifact.tags
+              )}
+            >
+              <CardItem
+                id={artifact.slug}
+                meta={artifact.type}
+                title={artifact.title}
+                description={artifact.summary}
+                tags={artifact.tags}
+              >
+                <div slot="footer" class="card__footer">
+                  <a class="button ghost button--compact" href={artifact.href}>
+                    View artifact
+                  </a>
+                </div>
+              </CardItem>
             </div>
-          </CardItem>
-        </div>
-      ))}
-    </CardGrid>
+          ))}
+        </CardGrid>
+      </div>
+    </details>
   </SectionBlock>
 
   <SectionBlock
@@ -257,29 +330,40 @@ const totalResearchItems =
     description="Each line links to glossary terms you can reference in protocols and design docs."
     variant="alt"
   >
-    <CardGrid>
-      {
-        agenda.map((item) => (
-          <div
-            class="research-filter__item"
-            data-research-item
-            data-section="agenda"
-            data-tags=""
-            data-search={buildSearchText(item.title, item.timeframe, item.goals)}
-          >
-            <CardItem
-              meta={item.timeframe}
-              title={item.title}
-              tags={item.goals}
-              glossaryLinks={item.glossaryRefs.map((slug) => ({
-                href: glossaryHref(slug),
-                label: getGlossaryLabel(slug),
-              }))}
-            />
-          </div>
-        ))
-      }
-    </CardGrid>
+    <details class="chunked-section" data-default-open="false">
+      <summary class="chunked-section__summary">
+        Agenda entries ({agenda.length})
+      </summary>
+      <div class="chunked-section__body">
+        <CardGrid>
+          {
+            agenda.map((item) => (
+              <div
+                class="research-filter__item"
+                data-research-item
+                data-section="agenda"
+                data-tags=""
+                data-search={buildSearchText(
+                  item.title,
+                  item.timeframe,
+                  item.goals
+                )}
+              >
+                <CardItem
+                  meta={item.timeframe}
+                  title={item.title}
+                  tags={item.goals}
+                  glossaryLinks={item.glossaryRefs.map((slug) => ({
+                    href: glossaryHref(slug),
+                    label: getGlossaryLabel(slug),
+                  }))}
+                />
+              </div>
+            ))
+          }
+        </CardGrid>
+      </div>
+    </details>
   </SectionBlock>
 
   <SectionBlock
@@ -288,30 +372,41 @@ const totalResearchItems =
     title="Where we spend our attention."
     description="Use these anchors to align research, Field Notes, and diagnostics around the same questions."
   >
-    <CardGrid>
-      {
-        focusAreas.map((area) => (
-          <div
-            class="research-filter__item"
-            data-research-item
-            data-section="focus-areas"
-            data-tags=""
-            data-search={buildSearchText(area.title, area.description, area.questions)}
-          >
-            <CardItem
-              id={area.slug}
-              title={area.title}
-              description={area.description}
-              tags={area.questions}
-              glossaryLinks={area.glossaryRefs.map((slug) => ({
-                href: glossaryHref(slug),
-                label: getGlossaryLabel(slug),
-              }))}
-            />
-          </div>
-        ))
-      }
-    </CardGrid>
+    <details class="chunked-section" data-default-open="false">
+      <summary class="chunked-section__summary">
+        Focus areas ({focusAreas.length})
+      </summary>
+      <div class="chunked-section__body">
+        <CardGrid>
+          {
+            focusAreas.map((area) => (
+              <div
+                class="research-filter__item"
+                data-research-item
+                data-section="focus-areas"
+                data-tags=""
+                data-search={buildSearchText(
+                  area.title,
+                  area.description,
+                  area.questions
+                )}
+              >
+                <CardItem
+                  id={area.slug}
+                  title={area.title}
+                  description={area.description}
+                  tags={area.questions}
+                  glossaryLinks={area.glossaryRefs.map((slug) => ({
+                    href: glossaryHref(slug),
+                    label: getGlossaryLabel(slug),
+                  }))}
+                />
+              </div>
+            ))
+          }
+        </CardGrid>
+      </div>
+    </details>
   </SectionBlock>
 
   <SectionBlock
@@ -321,89 +416,101 @@ const totalResearchItems =
     description="Each entry is tagged with glossary links to help readers dig deeper in the Library."
     variant="alt"
   >
-    <CardGrid>
-      {
-        publications.map((publication) => (
-          <div
-            class="research-filter__item"
-            data-research-item
-            data-section="publications"
-            data-tags={publication.tags.join(" ")}
-            data-search={buildSearchText(
-              publication.title,
-              publication.summary,
-              publication.type,
-              publication.tags,
-              publication.structuredAbstract.question
-            )}
-          >
-            <CardItem
-              meta={publication.type}
-              title={publication.title}
-              description={publication.summary}
-              descriptionTone="default"
-              tags={publication.tags}
-              glossaryLinks={publication.glossaryRefs.map((slug) => ({
-                href: glossaryHref(slug),
-                label: getGlossaryLabel(slug),
-              }))}
-            >
-              <div class="research__abstract">
-                <p class="eyebrow">Structured abstract</p>
-                <ul class="muted">
-                  <li>
-                    <strong>Question:</strong>{" "}
-                    {publication.structuredAbstract.question}
-                  </li>
-                  <li>
-                    <strong>Method:</strong> {publication.structuredAbstract.method}
-                  </li>
-                  <li>
-                    <strong>Sample/context:</strong>{" "}
-                    {publication.structuredAbstract.sample}
-                  </li>
-                  <li>
-                    <strong>Findings:</strong>{" "}
-                    {publication.structuredAbstract.findings}
-                  </li>
-                  <li>
-                    <strong>Limitations:</strong>{" "}
-                    {publication.structuredAbstract.limitations}
-                  </li>
-                </ul>
+    <details class="chunked-section" data-default-open="false">
+      <summary class="chunked-section__summary">
+        Publications ({publications.length})
+      </summary>
+      <div class="chunked-section__body">
+        <CardGrid>
+          {
+            publications.map((publication) => (
+              <div
+                class="research-filter__item"
+                data-research-item
+                data-section="publications"
+                data-tags={publication.tags.join(" ")}
+                data-search={buildSearchText(
+                  publication.title,
+                  publication.summary,
+                  publication.type,
+                  publication.tags,
+                  publication.structuredAbstract.question
+                )}
+              >
+                <CardItem
+                  meta={publication.type}
+                  title={publication.title}
+                  description={publication.summary}
+                  descriptionTone="default"
+                  tags={publication.tags}
+                  glossaryLinks={publication.glossaryRefs.map((slug) => ({
+                    href: glossaryHref(slug),
+                    label: getGlossaryLabel(slug),
+                  }))}
+                >
+                  <div class="research__abstract">
+                    <p class="eyebrow">Structured abstract</p>
+                    <ul class="muted">
+                      <li>
+                        <strong>Question:</strong>{" "}
+                        {publication.structuredAbstract.question}
+                      </li>
+                      <li>
+                        <strong>Method:</strong>{" "}
+                        {publication.structuredAbstract.method}
+                      </li>
+                      <li>
+                        <strong>Sample/context:</strong>{" "}
+                        {publication.structuredAbstract.sample}
+                      </li>
+                      <li>
+                        <strong>Findings:</strong>{" "}
+                        {publication.structuredAbstract.findings}
+                      </li>
+                      <li>
+                        <strong>Limitations:</strong>{" "}
+                        {publication.structuredAbstract.limitations}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="research__data">
+                    <p class="eyebrow">Data & artifacts</p>
+                    <ul class="muted">
+                      {publication.datasets.map((dataset) => (
+                        <li>{dataset}</li>
+                      ))}
+                    </ul>
+                    <p class="eyebrow">Ethics & consent</p>
+                    <ul class="muted">
+                      {publication.ethicsNotes.map((note) => (
+                        <li>{note}</li>
+                      ))}
+                    </ul>
+                    <p class="eyebrow">References</p>
+                    <ul class="muted">
+                      {publication.references.map((reference) => (
+                        <li>
+                          <a href={reference.href}>{reference.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div slot="footer" class="card__footer">
+                    <a
+                      class="button ghost button--compact"
+                      href={publication.href}
+                    >
+                      {publication.ctaLabel}
+                    </a>
+                  </div>
+                </CardItem>
               </div>
-              <div class="research__data">
-                <p class="eyebrow">Data & artifacts</p>
-                <ul class="muted">
-                  {publication.datasets.map((dataset) => (
-                    <li>{dataset}</li>
-                  ))}
-                </ul>
-                <p class="eyebrow">Ethics & consent</p>
-                <ul class="muted">
-                  {publication.ethicsNotes.map((note) => (
-                    <li>{note}</li>
-                  ))}
-                </ul>
-                <p class="eyebrow">References</p>
-                <ul class="muted">
-                  {publication.references.map((reference) => (
-                    <li>
-                      <a href={reference.href}>{reference.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div slot="footer" class="card__footer">
-                <a class="button ghost button--compact" href={publication.href}>
-                  {publication.ctaLabel}
-                </a>
-              </div>
-            </CardItem>
-          </div>
-        ))
-      }
-    </CardGrid>
+            ))
+          }
+        </CardGrid>
+      </div>
+    </details>
   </SectionBlock>
+  <script type="application/ld+json" set:html={structuredDataJson} />
   <script type="module" src={researchFilterScript}></script>
 </BaseLayout>

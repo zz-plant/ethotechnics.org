@@ -14,6 +14,9 @@ const initResearchFilter = () => {
   const facetControls = Array.from(
     document.querySelectorAll<HTMLSelectElement>("[data-research-filter]"),
   );
+  const chunkedSections = Array.from(
+    document.querySelectorAll<HTMLDetailsElement>(".chunked-section"),
+  );
 
   if (
     !(filterInput instanceof HTMLInputElement) ||
@@ -108,6 +111,14 @@ const initResearchFilter = () => {
     count.textContent = `Showing ${visible} of ${total} entries${querySuffix}${facetSuffix}`;
     const hasFacets = facetControls.some((control) => control.value);
     clearButton.disabled = rawQuery.length === 0 && !hasFacets;
+    const shouldExpand = rawQuery.length > 0 || hasFacets;
+    chunkedSections.forEach((section) => {
+      if (shouldExpand) {
+        section.open = true;
+      } else {
+        section.open = section.dataset.defaultOpen === "true";
+      }
+    });
     syncQueryParam(rawQuery, {
       section: activeSection,
       tag: activeTag,
