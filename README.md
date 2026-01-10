@@ -1,5 +1,6 @@
 # ethotechnics.org
 
+[![Site checks](https://github.com/ethotechnics/et3/actions/workflows/site-checks.yml/badge.svg)](https://github.com/ethotechnics/et3/actions/workflows/site-checks.yml)
 [![CC BY-SA 4.0 license badge](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 This repository powers [ethotechnics.org](https://ethotechnics.org), a content-driven site exploring
@@ -163,6 +164,7 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 - Keep changes focused and easy to review; align with existing naming and formatting.
 - Use Bun (not npm or yarn) and format Markdown/code with `bunx prettier --write`.
 - Run `bun run check` for code or mixed changes; docs-only updates can skip it.
+- CI mirrors `bun run check` on pull requests via the Site checks workflow.
 - Read [`AGENTS.md`](AGENTS.md) and [`docs/README.md`](docs/README.md) before making larger updates.
 
 ## License
