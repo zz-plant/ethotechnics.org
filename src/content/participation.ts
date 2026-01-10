@@ -30,6 +30,17 @@ type ParticipationContent = PageCopy & {
     };
   };
   pathways: ParticipationPathway[];
+  openSource: {
+    id: string;
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: {
+      title: string;
+      description: string;
+      actions: ParticipationAction[];
+    }[];
+  };
   intake: {
     eyebrow: string;
     title: string;
@@ -72,6 +83,7 @@ export const participationContent: ParticipationContent = {
       { href: "#field-reports", label: "Submit a field report" },
       { href: "#peer-review", label: "Host a peer review" },
       { href: "#clinics", label: "Join monthly clinics" },
+      { href: "#open-source", label: "Use the public repo" },
       { href: "#intake", label: "Share a request" },
       { href: "#feedback", label: "Send feedback" },
     ],
@@ -150,6 +162,77 @@ export const participationContent: ParticipationContent = {
       ],
     },
   ],
+  openSource: {
+    id: "open-source",
+    eyebrow: "Open-source integrations",
+    title: "Build on the public repository",
+    description:
+      "The public repo unlocks automation, shared data feeds, and contribution paths that keep the site in sync with the community.",
+    items: [
+      {
+        title: "Automated docs-to-site checks",
+        description:
+          "Every pull request runs the full content and code checks so public edits ship with the same guardrails as internal updates.",
+        actions: [
+          {
+            label: "View the CI workflow",
+            href: "https://github.com/ethotechnics/et3/actions/workflows/site-checks.yml",
+            ariaLabel: "View the site checks workflow on GitHub",
+          },
+          {
+            label: "Check current CI status",
+            href: "https://github.com/ethotechnics/et3/actions",
+            ariaLabel: "View current GitHub Actions status",
+          },
+        ],
+      },
+      {
+        title: "Public content index API",
+        description:
+          "A single JSON endpoint enumerates core standards, validators, and research references for external tooling.",
+        actions: [
+          {
+            label: "Open site index API",
+            href: "/api/site-index.json",
+          },
+        ],
+      },
+      {
+        title: "Structured contribution intake",
+        description:
+          "Issue and PR templates route community requests into the same intake workflow used by the Institute.",
+        actions: [
+          {
+            label: "Open contribution templates",
+            href: "https://github.com/ethotechnics/et3/issues/new/choose",
+            ariaLabel: "Open GitHub issue templates for the repository",
+          },
+        ],
+      },
+      {
+        title: "Release intelligence feed",
+        description:
+          "Changelog metadata powers release notes, external dashboards, and automated communications.",
+        actions: [
+          {
+            label: "View changelog feed",
+            href: "/api/changelog.json",
+          },
+        ],
+      },
+      {
+        title: "Badge & embed manifest",
+        description:
+          "Badge URLs and embed metadata make it easy to surface trust signals across partner sites and reports.",
+        actions: [
+          {
+            label: "Browse badge manifest",
+            href: "/api/badges.json",
+          },
+        ],
+      },
+    ],
+  },
   intake: {
     eyebrow: "Low-friction intake",
     title: "Send a contribution request in one step.",

@@ -1,0 +1,42 @@
+name: Content request
+description: Suggest new standards, validators, or documentation additions.
+title: "Content: "
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share the context and any sources that should be cited or linked.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area should this land in?
+      options:
+        - Standards
+        - Mechanisms
+        - Validators
+        - Research
+        - Glossary
+        - Field notes
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Briefly describe the request and who it supports.
+      placeholder: "We need a validator covering..."
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Supporting sources
+      description: Links, documents, or citations we should reference.
+      placeholder: "https://..."
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact or urgency
+      description: What decisions does this unlock?
+      placeholder: "Helps teams audit..."

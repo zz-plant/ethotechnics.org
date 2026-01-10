@@ -466,6 +466,26 @@ const participation = defineCollection({
         checklist: z.array(z.string()),
       }),
     ),
+    openSource: z.object({
+      id: z.string(),
+      eyebrow: z.string(),
+      title: z.string(),
+      description: z.string(),
+      items: z.array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+          actions: z.array(
+            z.object({
+              label: z.string(),
+              href: z.string(),
+              ariaLabel: z.string().optional(),
+              detail: z.string().optional(),
+            }),
+          ),
+        }),
+      ),
+    }),
     intake: z.object({
       eyebrow: z.string(),
       title: z.string(),

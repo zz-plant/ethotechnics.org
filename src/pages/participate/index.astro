@@ -9,8 +9,16 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const participationEntry = (await getEntry("participation", "participation"))!;
-const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback } =
-  participationEntry.data;
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  hero,
+  pathways,
+  openSource,
+  intake,
+  feedback,
+} = participationEntry.data;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -59,6 +67,36 @@ const { pageTitle, pageDescription, permalink, hero, pathways, intake, feedback 
                 ))}
               </ul>
             ) : null}
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id={openSource.id}
+    eyebrow={openSource.eyebrow}
+    title={openSource.title}
+    description={openSource.description}
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        openSource.items.map((item) => (
+          <CardItem title={item.title} description={item.description}>
+            <ul class="card__list">
+              {item.actions.map((action) => (
+                <li>
+                  <a
+                    href={action.href}
+                    aria-label={action.ariaLabel ?? action.label}
+                    rel={action.href.startsWith("http") ? "noreferrer" : undefined}
+                  >
+                    {action.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </CardItem>
         ))
       }
