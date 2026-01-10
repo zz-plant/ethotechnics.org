@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Std01MicroDiagram from "../../components/Std01MicroDiagram.astro";
 import TemporalRightsDiagram from "../../components/TemporalRightsDiagram.astro";
 
 const rights = [
@@ -140,6 +141,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="standard-main">
         <section class="standard-section">
           <TemporalRightsDiagram rights={rights} />
+        </section>
+
+        <section class="standard-section">
+          <h2>Execution vs redress clocks</h2>
+          <p>
+            Show the execution vs redress clock mismatch and highlight the irreversibility window
+            that STD-01 is designed to constrain.
+          </p>
+          <Std01MicroDiagram />
         </section>
 
         <section class="standard-section">
