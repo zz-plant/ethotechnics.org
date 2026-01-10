@@ -3,7 +3,6 @@ import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import FieldNotesTabs from "../../components/FieldNotesTabs.astro";
-import { glossaryPermalink } from "../../utils/glossary";
 
 const fieldNotesEntry = (await getEntry("fieldNotes", "field-notes"))!;
 const {
@@ -15,7 +14,6 @@ const {
   latestUpdate,
   highlight,
 } = fieldNotesEntry.data;
-const glossaryBase = glossaryPermalink;
 const anchorLinks = sections.map((section) => ({
   href: `#${section.format}`,
   label: section.title,
@@ -53,9 +51,5 @@ const anchorLinks = sections.map((section) => ({
       {highlight.ctaLabel}
     </a>
   </div>
-  <FieldNotesTabs
-    sections={sections}
-    entries={entries}
-    glossaryBase={glossaryBase}
-  />
+  <FieldNotesTabs sections={sections} entries={entries} />
 </BaseLayout>

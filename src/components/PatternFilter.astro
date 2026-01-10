@@ -2,7 +2,7 @@
 import { randomUUID } from 'node:crypto';
 
 import type { Pattern, PatternFilter } from '../content/library';
-import { getGlossaryLabel, glossaryPermalink } from '../utils/glossary';
+import { getGlossaryLabel, glossaryEntryPermalink } from '../utils/glossary';
 import patternFilterScript from '../scripts/pattern-filter.ts?url';
 
 type Props = {
@@ -16,7 +16,6 @@ const { filters, entries, diagnosticTitles, searchId } = Astro.props as Props;
 const filterLabels = Object.fromEntries(
   filters.map((filter) => [filter.slug, filter.label])
 );
-const glossaryBase = glossaryPermalink;
 const filtersWithAll: Array<{ slug: string; label: string; description?: string }> = [
   { slug: 'all', label: 'All themes' },
   ...filters,
@@ -142,7 +141,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
       const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
         slug,
         label: getGlossaryLabel(slug),
-        href: `${glossaryBase}#${slug}`,
+        href: glossaryEntryPermalink(slug),
       }));
 
       return (

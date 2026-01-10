@@ -6,6 +6,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import glossaryFilterScript from "../../scripts/glossary-filter.ts?url";
+import { glossaryEntryPermalink } from "../../utils/glossary";
 
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const libraryEntry = (await getEntry("library", "library"))!;
@@ -101,6 +102,10 @@ const territoryCounts = new Map(
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : permalink;
+const glossaryEntryUrl = (slug: string) =>
+  Astro.site
+    ? new URL(glossaryEntryPermalink(slug), Astro.site).toString()
+    : glossaryEntryPermalink(slug);
 const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
 const normalizedQuery = searchQuery.toLowerCase();
 const hasSearchQuery = normalizedQuery.length > 0;
@@ -122,7 +127,7 @@ const structuredEntries = categories.flatMap((category) =>
     return {
       "@type": "DefinedTerm",
       name: entry.title,
-      url: `${pageUrl}#${entry.id}`,
+      url: glossaryEntryUrl(entry.id),
       inDefinedTermSet: pageUrl,
       description: plainDescription,
     };
@@ -250,7 +255,7 @@ const stripHtml = (value: string) =>
       {
         starterTerms.map((term) => (
           <li>
-            <a href={`${permalink}#${term.id}`}>{term.label}</a>
+            <a href={glossaryEntryUrl(term.id)}>{term.label}</a>
             <p class="muted small">{term.description}</p>
           </li>
         ))
@@ -278,7 +283,7 @@ const stripHtml = (value: string) =>
           return (
             <a
               class={entryClasses}
-              href={`${permalink}#${entry.id}`}
+              href={glossaryEntryUrl(entry.id)}
               data-title={entry.title}
               data-category={entry.categoryLabel}
               data-category-id={entry.categoryId}
@@ -372,7 +377,7 @@ const stripHtml = (value: string) =>
               "glossary-entry",
               ...(entry.classes ?? []),
             ].join(" ");
-            const entryUrl = `${pageUrl}#${entry.id}`;
+            const entryUrl = glossaryEntryUrl(entry.id);
             const glossaryAuthor =
               publication.authors.map((author) => author.name).join(", ") ??
               "Ethotechnics Institute";
@@ -521,7 +526,7 @@ const stripHtml = (value: string) =>
                       {adjacentTerms.map((term) => (
                         <a
                           class="pill pill--muted"
-                          href={`${permalink}#${term}`}
+                          href={glossaryEntryUrl(term)}
                           itemprop="keywords"
                         >
                           {entryLabelIndex.get(term) ?? term}
