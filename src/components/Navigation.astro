@@ -340,31 +340,23 @@ const topLevelLinks = navPrimaryLinks;
     position: sticky;
     top: 0;
     z-index: 10;
-    background:
-      linear-gradient(
-        120deg,
-        color-mix(in srgb, var(--surface) 90%, white 10%),
-        color-mix(in srgb, var(--panel) 88%, white 12%)
-      ),
-      var(--glow-wash);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    box-shadow: 0 12px 28px rgba(27, 18, 11, 0.08);
-    backdrop-filter: blur(14px) saturate(118%);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    box-shadow: 0 8px 18px rgba(64, 52, 40, 0.06);
+    backdrop-filter: none;
   }
 
   @media (max-width: 991px) {
     .nav {
-      backdrop-filter: none;
-      background: color-mix(in srgb, var(--surface) 95%, white 5%);
-      box-shadow: 0 10px 24px rgba(27, 18, 11, 0.08);
+      background: color-mix(in srgb, var(--surface) 96%, white 4%);
+      box-shadow: 0 10px 20px rgba(64, 52, 40, 0.08);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .nav {
-      backdrop-filter: none;
-      background: color-mix(in srgb, var(--surface) 94%, white 6%);
-      box-shadow: 0 10px 20px rgba(27, 18, 11, 0.08);
+      background: color-mix(in srgb, var(--surface) 96%, white 4%);
+      box-shadow: 0 10px 20px rgba(64, 52, 40, 0.08);
     }
   }
 
@@ -420,8 +412,8 @@ const topLevelLinks = navPrimaryLinks;
     margin-left: auto;
     padding: 0.65rem 0.85rem;
     border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, white 6%);
+    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
     color: inherit;
     font-weight: 750;
     text-decoration: none;
@@ -430,7 +422,7 @@ const topLevelLinks = navPrimaryLinks;
     isolation: isolate;
     min-width: 0;
     max-width: 100%;
-    box-shadow: var(--shadow-xs);
+    box-shadow: 0 6px 14px rgba(64, 52, 40, 0.08);
     transition:
       transform 0.2s ease,
       border-color 0.2s ease,
@@ -441,23 +433,12 @@ const topLevelLinks = navPrimaryLinks;
   .nav__menu-toggle-fill {
     position: absolute;
     inset: -0.65rem -0.55rem;
-    background:
-      radial-gradient(
-        circle at 20% 20%,
-        rgba(40, 192, 255, 0.18),
-        transparent 34%
-      ),
-      radial-gradient(
-        circle at 80% 16%,
-        rgba(238, 160, 255, 0.18),
-        transparent 36%
-      ),
-      linear-gradient(
-        120deg,
-        color-mix(in srgb, var(--surface) 95%, white 5%),
-        var(--surface)
-      );
-    opacity: 0.92;
+    background: linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--surface) 96%, white 4%),
+      color-mix(in srgb, var(--panel) 92%, white 8%)
+    );
+    opacity: 0.85;
     transition: opacity 0.25s ease;
     z-index: 0;
   }
@@ -467,7 +448,7 @@ const topLevelLinks = navPrimaryLinks;
     transform: translateY(-1px);
     border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
     box-shadow:
-      0 14px 34px rgba(27, 18, 11, 0.14),
+      0 14px 28px rgba(64, 52, 40, 0.12),
       var(--shadow-sm);
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
   }
@@ -483,11 +464,10 @@ const topLevelLinks = navPrimaryLinks;
   }
 
   .nav__menu-toggle:focus-visible {
-    outline: 2px solid
-      color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+    outline: 2px solid var(--accent-strong);
     outline-offset: 2px;
     box-shadow:
-      0 14px 34px rgba(27, 18, 11, 0.14),
+      0 14px 34px rgba(64, 52, 40, 0.14),
       var(--shadow-sm),
       0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
   }
@@ -641,13 +621,10 @@ const topLevelLinks = navPrimaryLinks;
     height: 2.75rem;
     border-radius: 16px;
     padding: 0.35rem 0.45rem;
-    background: linear-gradient(
-      135deg,
-      var(--accent-strong),
-      color-mix(in srgb, var(--teal) 72%, white 8%)
-    );
-    color: white;
-    box-shadow: var(--shadow-sm);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+    box-shadow: 0 6px 14px rgba(64, 52, 40, 0.08);
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease;
@@ -667,8 +644,8 @@ const topLevelLinks = navPrimaryLinks;
     width: 0.6rem;
     height: 0.6rem;
     border-radius: 50%;
-    background: color-mix(in srgb, white 90%, var(--accent-strong));
-    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.12);
+    background: color-mix(in srgb, var(--accent) 40%, transparent);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12);
   }
 
   .nav--menu-open .nav__menu-toggle-icon {
@@ -682,10 +659,10 @@ const topLevelLinks = navPrimaryLinks;
   .nav__link {
     display: inline-flex;
     align-items: center;
-    padding: 0.55rem 0.75rem;
-    border-radius: 10px;
-    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, white 6%);
+    padding: 0.45rem 0.35rem;
+    border-radius: 0;
+    border: 0;
+    background: transparent;
     font-weight: 750;
     color: inherit;
     text-decoration: none;
@@ -699,29 +676,27 @@ const topLevelLinks = navPrimaryLinks;
   .nav__link:hover,
   .nav__link:focus-visible {
     transform: translateY(-1px);
-    border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
-    box-shadow: var(--shadow-xs);
-    background: color-mix(in srgb, var(--surface) 92%, white 8%);
+    color: var(--accent-strong);
+    background: transparent;
   }
 
   .nav__link:active {
     transform: translateY(0);
     box-shadow: none;
-    background: color-mix(in srgb, var(--surface) 90%, white 10%);
+    background: transparent;
   }
 
   .nav__link:focus-visible {
-    outline: 2px solid
-      color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+    outline: 2px solid var(--accent-strong);
     outline-offset: 2px;
-    box-shadow:
-      var(--shadow-xs),
-      0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
   }
 
   .nav__link[aria-current="page"] {
-    border-color: color-mix(in srgb, var(--accent-strong) 32%, var(--border));
-    box-shadow: 0 10px 22px rgba(27, 18, 11, 0.12);
+    color: var(--accent-strong);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
   }
 
   .nav__utility--desktop {
@@ -749,17 +724,19 @@ const topLevelLinks = navPrimaryLinks;
   }
 
   .nav__brand {
-    font-family: var(--mono);
-    font-weight: 650;
+    font-family: var(--serif);
+    font-weight: 600;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.3rem 0.65rem;
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    border-radius: var(--radius-md);
+    padding: 0.35rem 0.55rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+    border-radius: 999px;
     background: color-mix(in srgb, var(--surface) 92%, white 8%);
-    box-shadow: var(--shadow-xs);
-    letter-spacing: -0.01em;
+    box-shadow: 0 8px 18px rgba(64, 52, 40, 0.08);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
   .nav__brand-logo {
@@ -808,18 +785,7 @@ const topLevelLinks = navPrimaryLinks;
   .nav__scrim {
     position: fixed;
     inset: 0;
-    background:
-      radial-gradient(
-        circle at 10% 20%,
-        rgba(40, 210, 190, 0.12),
-        transparent 32%
-      ),
-      radial-gradient(
-        circle at 80% 10%,
-        rgba(255, 183, 94, 0.12),
-        transparent 35%
-      ),
-      color-mix(in srgb, rgba(7, 5, 2, 0.65) 86%, var(--surface) 14%);
+    background: rgba(30, 24, 18, 0.55);
     opacity: 0;
     visibility: hidden;
     transition:
@@ -845,17 +811,11 @@ const topLevelLinks = navPrimaryLinks;
     inset: clamp(0.45rem, 1.6vw, 0.75rem);
     display: grid;
     align-items: start;
-    background:
-      linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--panel) 92%, white 8%),
-        color-mix(in srgb, var(--surface) 96%, white 4%)
-      ),
-      var(--glow-wash);
-    border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     border-radius: clamp(12px, 2vw, 16px);
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(12px) saturate(115%);
+    box-shadow: 0 28px 60px rgba(64, 52, 40, 0.16);
+    backdrop-filter: none;
     overflow: hidden auto;
     max-height: calc(100vh - 1.1rem);
     max-width: 1180px;
@@ -874,14 +834,8 @@ const topLevelLinks = navPrimaryLinks;
 
   @media (max-width: 991px) {
     .nav__content {
-      background:
-        linear-gradient(
-          135deg,
-          color-mix(in srgb, var(--panel) 94%, white 6%),
-          color-mix(in srgb, var(--surface) 94%, white 6%)
-        ),
-        var(--glow-wash);
-      box-shadow: var(--shadow-sm);
+      background: color-mix(in srgb, var(--surface) 96%, white 4%);
+      box-shadow: 0 20px 40px rgba(64, 52, 40, 0.16);
       backdrop-filter: none;
     }
   }
@@ -990,8 +944,8 @@ const topLevelLinks = navPrimaryLinks;
   .nav__menu-close {
     padding: 0.55rem 0.85rem;
     border-radius: 10px;
-    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-    background: color-mix(in srgb, var(--surface) 94%, white 6%);
+    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
     font-weight: 750;
     cursor: pointer;
     transition:
@@ -1008,8 +962,7 @@ const topLevelLinks = navPrimaryLinks;
   }
 
   .nav__menu-close:focus-visible {
-    outline: 2px solid
-      color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+    outline: 2px solid var(--accent-strong);
     outline-offset: 2px;
     box-shadow:
       var(--shadow-xs),

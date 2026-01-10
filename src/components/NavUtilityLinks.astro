@@ -80,11 +80,11 @@ const isCurrentLink = (href: string) => {
     padding: 0.6rem 0.85rem;
     border-radius: 10px;
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    background: color-mix(in srgb, var(--surface) 92%, white 8%);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
     color: var(--text);
     font-weight: 700;
     text-decoration: none;
-    box-shadow: var(--shadow-xs);
+    box-shadow: 0 6px 14px rgba(64, 52, 40, 0.08);
     transition:
       transform 0.16s ease,
       border-color 0.16s ease;
@@ -97,8 +97,7 @@ const isCurrentLink = (href: string) => {
   }
 
   .nav__utility-link:focus-visible {
-    outline: 2px solid
-      color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+    outline: 2px solid var(--accent-strong);
     outline-offset: 2px;
     box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
   }

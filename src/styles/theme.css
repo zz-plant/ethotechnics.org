@@ -1,20 +1,20 @@
 :root {
   color-scheme: light;
-  --bg: #f6f7f8;
-  --surface: #ffffff;
-  --panel: #eef1f3;
-  --card: #e8ecef;
-  --border: #cbd3d9;
-  --text: #111418;
-  --muted: #4d5b66;
-  --accent: #2a6f8f;
-  --accent-strong: #1f566f;
-  --gold: #c5a25c;
-  --teal: #3a7f8f;
-  --radius: 6px;
-  --radius-md: 6px;
+  --bg: #f5f0e6;
+  --surface: #fbf7f0;
+  --panel: #f0e9dc;
+  --card: #eee5d6;
+  --border: #d9cfbd;
+  --text: #2a2621;
+  --muted: #6d6357;
+  --accent: #6b3e35;
+  --accent-strong: #542e27;
+  --gold: #a8844f;
+  --teal: #6d7a70;
+  --radius: 5px;
+  --radius-md: 5px;
   --radius-lg: 8px;
-  --shadow-color: rgba(17, 20, 24, 0.08);
+  --shadow-color: rgba(42, 38, 33, 0.08);
   --shadow: 0 10px 24px var(--shadow-color);
   --shadow-xs: 0 2px 6px var(--shadow-color);
   --shadow-sm: 0 4px 10px var(--shadow-color);
@@ -37,9 +37,9 @@
   --halftone: none;
   --grain-texture: none;
   --font-size-sm: 0.9rem;
-  --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --serif: "Merriweather", "Lora", "Times New Roman", serif;
-  --mono: "Roboto Mono", "Courier Prime", "Courier New", monospace;
+  --sans: "Source Sans 3", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Crimson Pro", "Spectral", "Times New Roman", serif;
+  --mono: "IBM Plex Mono", "Courier Prime", "Courier New", monospace;
 }
 
 * {
@@ -48,11 +48,13 @@
 
 body {
   margin: 0;
-  font-family: var(--sans);
+  font-family: var(--serif);
   font-optical-sizing: auto;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
-  background: var(--bg);
+  background:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    var(--bg);
   color: var(--text);
   min-height: 100vh;
   line-height: 1.7;
@@ -63,6 +65,32 @@ body {
   overflow-x: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 255, 255, 0.7),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 82% 22%,
+      rgba(255, 255, 255, 0.5),
+      transparent 50%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.45),
+      rgba(245, 237, 222, 0.35)
+    );
+  opacity: 0.65;
+  pointer-events: none;
+  filter: url("#paper-grain");
+  z-index: -1;
+}
+
 ::selection {
   background: color-mix(in srgb, var(--accent) 22%, transparent);
   color: var(--text);
@@ -71,9 +99,9 @@ body {
 h1,
 h2,
 h3 {
-  font-family: var(--mono);
+  font-family: var(--serif);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   font-optical-sizing: auto;
   color: var(--text);
 }
