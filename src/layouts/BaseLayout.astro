@@ -165,6 +165,18 @@ const currentPath = Astro.url.pathname;
                 >
                   {identity.license.label}
                 </a>
+                <a
+                  class="footer__badge"
+                  href={identity.license.href}
+                  rel={identity.license.external ? 'noreferrer' : undefined}
+                  target={identity.license.external ? '_blank' : undefined}
+                >
+                  <img
+                    src={identity.licenseBadge.src}
+                    alt={identity.licenseBadge.alt}
+                    loading="lazy"
+                  />
+                </a>
               </div>
             </section>
             {navigation.map((section) => (

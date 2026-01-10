@@ -21,6 +21,10 @@ export type SiteFooterContent = {
     };
     description: string;
     license: FooterLink;
+    licenseBadge: {
+      src: string;
+      alt: string;
+    };
   };
   navigation: FooterSection[];
 };
@@ -36,11 +40,15 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics logo",
     },
     description:
-      "Content licensed under the Creative Commons Attribution 4.0 International License.",
+      "Content licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.",
     license: {
-      label: "View the CC BY 4.0 license",
-      href: "https://creativecommons.org/licenses/by/4.0/",
+      label: "View the CC BY-SA 4.0 license",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
       external: true,
+    },
+    licenseBadge: {
+      src: "https://licensebuttons.net/l/by-sa/4.0/88x31.png",
+      alt: "Creative Commons Attribution-ShareAlike 4.0 International License badge",
     },
   },
   navigation: [
