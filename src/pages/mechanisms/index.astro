@@ -9,6 +9,7 @@ import PatternFilter from "../../components/PatternFilter.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
+import { glossaryEntryPermalink } from "../../utils/glossary";
 
 const libraryEntry = (await getEntry("library", "library"))!;
 const {
@@ -28,7 +29,7 @@ const diagnosticTitles = Object.fromEntries(
 );
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const glossaryContent = glossaryEntry.data;
-const glossaryHref = (slug: string) => `${glossaryContent.permalink}#${slug}`;
+const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
 ---
 

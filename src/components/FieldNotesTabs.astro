@@ -1,18 +1,17 @@
 ---
-import { getGlossaryLabel } from "../utils/glossary";
+import { getGlossaryLabel, glossaryEntryPermalink } from "../utils/glossary";
 import type { FieldNoteEntry, FieldNotesContent } from "../content/fieldNotes";
 import fieldNotesTabsScript from "../scripts/field-notes-tabs.ts?url";
 
 export interface Props {
   sections: FieldNotesContent["sections"];
   entries: FieldNoteEntry[];
-  glossaryBase: string;
 }
 
-const { sections, entries, glossaryBase } = Astro.props;
+const { sections, entries } = Astro.props;
 const initialFormat = sections[0]?.format ?? "";
 
-const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
+const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 ---
 
 {

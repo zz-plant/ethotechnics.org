@@ -1,4 +1,4 @@
-import glossaryData from '../content/glossary.json';
+import glossaryData from "../content/glossary.json";
 
 // Types for glossary entries
 export type GlossaryEntry = {
@@ -34,9 +34,9 @@ if (data && data.categories) {
 
 const formatSlug = (slug: string): string =>
   slug
-    .split('-')
+    .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
+    .join(" ");
 
 /**
  * Get a human-readable label for a glossary term by its slug.
@@ -48,4 +48,11 @@ export const getGlossaryLabel = (slug: string): string =>
 /**
  * Get the permalink for the glossary page.
  */
-export const glossaryPermalink = data?.permalink ?? '/glossary';
+export const glossaryPermalink = data?.permalink ?? "/glossary";
+const normalizedGlossaryPermalink = glossaryPermalink.replace(/\/+$/, "");
+
+/**
+ * Get the permalink for a glossary entry page.
+ */
+export const glossaryEntryPermalink = (slug: string): string =>
+  `${normalizedGlossaryPermalink}/${slug}`;

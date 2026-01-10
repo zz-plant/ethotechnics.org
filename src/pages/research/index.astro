@@ -6,7 +6,7 @@ import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import { getGlossaryLabel, glossaryPermalink } from "../../utils/glossary";
+import { getGlossaryLabel, glossaryEntryPermalink } from "../../utils/glossary";
 import { researchContent } from "../../content/research";
 
 const {
@@ -24,8 +24,7 @@ const {
   lastUpdated,
   updateCadence,
 } = researchContent;
-const glossaryBase = glossaryPermalink;
-const glossaryHref = (slug: string) => `${glossaryBase}#${slug}`;
+const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>

@@ -163,7 +163,7 @@ export const libraryContent: LibraryContent = {
             title: "Glossary: Stopability",
             description:
               "Shared language for halts, safety valves, and time-to-halt targets.",
-            href: "/glossary#stopability",
+            href: "/glossary/stopability",
           },
         ],
       },
@@ -189,7 +189,7 @@ export const libraryContent: LibraryContent = {
             title: "Glossary: Consent journey",
             description:
               "Map how people move through requests, opt-outs, and follow-ups.",
-            href: "/glossary#consent-journey",
+            href: "/glossary/consent-journey",
           },
         ],
       },
@@ -215,7 +215,7 @@ export const libraryContent: LibraryContent = {
             title: "Glossary: Repair log",
             description:
               "Trace fixes, follow-ups, and published commitments over time.",
-            href: "/glossary#repair-log",
+            href: "/glossary/repair-log",
           },
         ],
       },

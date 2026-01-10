@@ -1,0 +1,276 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import { glossaryEntryPermalink } from "../../utils/glossary";
+
+export async function getStaticPaths() {
+  const glossaryEntry = await getEntry("glossary", "glossary");
+
+  if (!glossaryEntry) {
+    return [];
+  }
+
+  return glossaryEntry.data.categories.flatMap((category) =>
+    category.entries.map((entry) => ({
+      params: { slug: entry.id },
+    }))
+  );
+}
+
+const { slug } = Astro.params;
+const glossaryEntry = (await getEntry("glossary", "glossary"))!;
+const libraryEntry = (await getEntry("library", "library"))!;
+const {
+  pageTitle: glossaryTitle,
+  pageDescription: glossaryDescription,
+  permalink: glossaryPermalink,
+  publication,
+  categories,
+} = glossaryEntry.data;
+const entryLabelIndex = new Map(
+  categories.flatMap((category) =>
+    category.entries.map((entry) => [entry.id, entry.title] as const)
+  )
+);
+const entryRecord = categories
+  .flatMap((category) =>
+    category.entries.map((entry) => ({
+      entry,
+      category,
+    }))
+  )
+  .find(({ entry }) => entry.id === slug);
+
+if (!entryRecord) {
+  return Astro.response(
+    new Response("Glossary entry not found", {
+      status: 404,
+    })
+  );
+}
+
+const { entry, category } = entryRecord;
+const categoryLabel = category.heading.replace(/^[A-Z]\.\s*/, "");
+const pagePermalink = glossaryEntryPermalink(entry.id);
+const pageUrl = Astro.site
+  ? new URL(pagePermalink, Astro.site).toString()
+  : pagePermalink;
+const glossaryUrl = Astro.site
+  ? new URL(glossaryPermalink, Astro.site).toString()
+  : glossaryPermalink;
+const stripHtml = (value: string) =>
+  value.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const plainDescription = stripHtml(entry.bodyHtml);
+const descriptionBase = `Definition of ${entry.title} in the Ethotechnics glossary (${categoryLabel}). ${plainDescription}`;
+const pageDescription =
+  descriptionBase.length > 180
+    ? `${descriptionBase.slice(0, 177).trim()}…`
+    : descriptionBase;
+const scopeText =
+  entry.scope ??
+  `${category.heading}. ${stripHtml(category.descriptionHtml)}`;
+const adjacentTerms = entry.adjacentTerms ?? entry.tags ?? [];
+const operationalTests =
+  entry.operationalTests ?? [
+    `Evidence appears in documentation, interface cues, or governance artifacts that reflect ${entry.title.toLowerCase()}.`,
+    `Teams can point to a concrete example that demonstrates ${entry.title.toLowerCase()} in practice.`,
+  ];
+const genealogy =
+  entry.genealogy ??
+  `Ethotechnics uses ${entry.title} to extend the ${category.heading.toLowerCase()} vocabulary and connect governance, design, and policy teams.`;
+const references = entry.references ?? entry.resources ?? [];
+const patternIndex = new Map(
+  libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern])
+);
+const patternFilterLabels = Object.fromEntries(
+  libraryEntry.data.patterns.filters.map((filter) => [filter.slug, filter.label])
+);
+const relatedPatterns = (entry.relatedPatterns ?? [])
+  .map((relatedSlug) => {
+    const pattern = patternIndex.get(relatedSlug);
+
+    if (!pattern) {
+      return null;
+    }
+
+    return {
+      title: pattern.title,
+      href: `/mechanisms/patterns/${pattern.slug}`,
+      filterLabels: pattern.filters.map(
+        (filter) => patternFilterLabels[filter] ?? filter
+      ),
+    };
+  })
+  .filter(
+    (pattern): pattern is { title: string; href: string; filterLabels: string[] } =>
+      Boolean(pattern)
+  );
+const anchorLinks = [
+  { href: "#definition", label: "Definition" },
+  { href: "#scope", label: "Scope" },
+  ...(adjacentTerms.length
+    ? [{ href: "#adjacent-terms", label: "Adjacent terms" }]
+    : []),
+  { href: "#operational-tests", label: "Operational tests" },
+  { href: "#genealogy", label: "Genealogy" },
+  ...(relatedPatterns.length
+    ? [{ href: "#related-mechanisms", label: "Related mechanisms" }]
+    : []),
+  ...(entry.examples?.length
+    ? [{ href: "#example-corpus", label: "Example corpus" }]
+    : []),
+  ...(references.length
+    ? [{ href: "#references", label: "References" }]
+    : []),
+];
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  name: entry.title,
+  description: plainDescription,
+  url: pageUrl,
+  inDefinedTermSet: {
+    "@type": "DefinedTermSet",
+    name: glossaryTitle,
+    description: glossaryDescription,
+    url: glossaryUrl,
+  },
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
+---
+
+<BaseLayout
+  title={`${entry.title} — Ethotechnics glossary`}
+  description={pageDescription}
+>
+  <PageIntro
+    eyebrow="Glossary entry"
+    title={entry.title}
+    description={pageDescription}
+    permalink={pagePermalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Glossary index",
+      title: "Return to the glossary index.",
+      description: `Explore ${categories.length} glossary territories and search ${entryLabelIndex.size} terms from one place.`,
+      link: { label: "Browse the glossary", href: glossaryPermalink },
+    }}
+  />
+  <ScholarlyMeta publication={publication} permalink={pagePermalink} />
+  <CitationBlock
+    title={entry.title}
+    permalink={pagePermalink}
+    publication={publication}
+    publisher="Ethotechnics glossary"
+    citationKey={`glossary_${entry.id}`}
+    summaryLabel="Cite this glossary entry"
+  />
+
+  <article
+    class="glossary-entry"
+    itemscope
+    itemtype="https://schema.org/DefinedTerm"
+  >
+    <meta itemprop="name" content={entry.title} />
+    <meta itemprop="url" content={pageUrl} />
+    <meta itemprop="inDefinedTermSet" content={glossaryUrl} />
+    <div id="definition" class="glossary-entry__block">
+      <p class="eyebrow">Definition</p>
+      <div
+        class="glossary-entry__body"
+        set:html={entry.bodyHtml}
+        itemprop="description"
+      />
+    </div>
+    <div id="scope" class="glossary-entry__block">
+      <p class="eyebrow">Scope</p>
+      <p class="muted">{scopeText}</p>
+    </div>
+    {adjacentTerms.length > 0 && (
+      <div id="adjacent-terms" class="glossary-entry__block">
+        <p class="eyebrow">Adjacent terms</p>
+        <div class="pill-row">
+          {adjacentTerms.map((term) => (
+            <a
+              class="pill pill--muted"
+              href={glossaryEntryPermalink(term)}
+              itemprop="keywords"
+            >
+              {entryLabelIndex.get(term) ?? term}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+    <div id="operational-tests" class="glossary-entry__block">
+      <p class="eyebrow">Operational tests</p>
+      <ul class="muted">
+        {operationalTests.map((test) => (
+          <li>{test}</li>
+        ))}
+      </ul>
+    </div>
+    <div id="genealogy" class="glossary-entry__block">
+      <p class="eyebrow">Genealogy</p>
+      <p class="muted">{genealogy}</p>
+    </div>
+    {relatedPatterns.length > 0 && (
+      <div
+        id="related-mechanisms"
+        class="glossary-entry__block glossary-entry__block--patterns"
+      >
+        <p class="eyebrow">Related mechanisms</p>
+        <ul class="glossary-entry__patterns-list">
+          {relatedPatterns.map((relatedPattern) => (
+            <li class="glossary-entry__pattern-card">
+              <a
+                class="glossary-entry__pattern-link"
+                href={relatedPattern.href}
+              >
+                <span class="glossary-entry__pattern-title">
+                  {relatedPattern.title}
+                </span>
+                <span class="muted small">
+                  {relatedPattern.filterLabels.join(", ")}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="muted small glossary-entry__patterns-hint">
+          See the full mechanisms catalog.
+        </p>
+      </div>
+    )}
+    {entry.examples && entry.examples.length > 0 && (
+      <div id="example-corpus" class="glossary-entry__block">
+        <p class="eyebrow">Example corpus</p>
+        <ul class="muted">
+          {entry.examples.map((example) => (
+            <li>{example}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+    {references.length > 0 && (
+      <div id="references" class="glossary-entry__block">
+        <p class="eyebrow">References</p>
+        <ul class="muted glossary-entry__resources">
+          {references.map((resource) => (
+            <li>
+              <a href={resource.href}>{resource.label}</a>
+              {resource.type && (
+                <span class="muted"> · {resource.type}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </article>
+
+  <script type="application/ld+json" set:html={structuredDataJson} />
+</BaseLayout>
