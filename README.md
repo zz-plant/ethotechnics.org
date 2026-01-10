@@ -1,5 +1,7 @@
 # ethotechnics.org
 
+[![CC BY-SA 4.0 license badge](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
+
 This repository powers [ethotechnics.org](https://ethotechnics.org), a content-driven site exploring
 ethical technology, human-centered design, and the sociotechnical systems that shape them. The
 project favors lean, fast-loading pages and clear storytelling.
