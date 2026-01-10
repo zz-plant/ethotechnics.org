@@ -83,6 +83,10 @@ export const siteFooter: SiteFooterContent = {
           external: true,
         },
         {
+          label: "Send feedback (including accessibility)",
+          href: "/participate#feedback",
+        },
+        {
           label: "Ethotechnics on GitHub",
           href: "https://github.com/ethotechnics",
           external: true,
