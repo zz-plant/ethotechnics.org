@@ -17,6 +17,12 @@ const initResearchFilter = () => {
   const chunkedSections = Array.from(
     document.querySelectorAll<HTMLDetailsElement>(".chunked-section"),
   );
+  const expandAllButton = document.querySelector<HTMLButtonElement>(
+    "[data-research-expand]",
+  );
+  const collapseAllButton = document.querySelector<HTMLButtonElement>(
+    "[data-research-collapse]",
+  );
 
   if (
     !(filterInput instanceof HTMLInputElement) ||
@@ -80,6 +86,12 @@ const initResearchFilter = () => {
     section: item.dataset.section ?? "",
     tags: (item.dataset.tags ?? "").split(" ").filter(Boolean),
   }));
+
+  const setSectionsOpen = (isOpen: boolean) => {
+    chunkedSections.forEach((section) => {
+      section.open = isOpen;
+    });
+  };
 
   const updateFilter = () => {
     const rawQuery = filterInput.value.trim();
@@ -179,6 +191,12 @@ const initResearchFilter = () => {
     });
     filterInput.focus();
     updateFilter();
+  });
+  expandAllButton?.addEventListener("click", () => {
+    setSectionsOpen(true);
+  });
+  collapseAllButton?.addEventListener("click", () => {
+    setSectionsOpen(false);
   });
   updateFilter();
 };

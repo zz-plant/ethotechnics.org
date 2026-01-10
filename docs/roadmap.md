@@ -9,14 +9,14 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Update entries as priorities change.
 Keep each item short (verb + outcome) and link to a spec section below once scoped.
 
-| Now                                                                  | Next                                                                        | Later                                                                          |
-| -------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| Highest-priority work in progress.                                   | Ready-to-start items with scoped specs.                                     | Ideas to revisit when capacity frees up.                                       |
-| Keep entries small and actionable.                                   | Add owners or dates only when needed.                                       | Capture rough ideas, not full specs.                                           |
-| ✅ [Navigation clarity refresh](#navigation-clarity-refresh)         | ✅ [Glossary + research search filters](#glossary--research-search-filters) | ✅ [Interactive diagrams + timelines](#interactive-diagrams--timelines)        |
-| [Long-page summaries + wayfinding](#long-page-summaries--wayfinding) | ✅ [Accessibility + semantic audit](#accessibility--semantic-audit)         | ✅ [Performance chunking for long lists](#performance-chunking-for-long-lists) |
-| ✅ [Institute vs. Studio clarity](#institute-vs-studio-clarity)      | ✅ [Role-specific quick-start guides](#role-specific-quick-start-guides)    | ✅ [Agent-ready metadata + API](#agent-ready-metadata--api)                    |
-| ✅ [Feedback channel](#feedback-channel)                             |                                                                             |                                                                                |
+| Now                                                                     | Next                                                                        | Later                                                                          |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Highest-priority work in progress.                                      | Ready-to-start items with scoped specs.                                     | Ideas to revisit when capacity frees up.                                       |
+| Keep entries small and actionable.                                      | Add owners or dates only when needed.                                       | Capture rough ideas, not full specs.                                           |
+| ✅ [Navigation clarity refresh](#navigation-clarity-refresh)            | ✅ [Glossary + research search filters](#glossary--research-search-filters) | ✅ [Interactive diagrams + timelines](#interactive-diagrams--timelines)        |
+| ✅ [Long-page summaries + wayfinding](#long-page-summaries--wayfinding) | ✅ [Accessibility + semantic audit](#accessibility--semantic-audit)         | ✅ [Performance chunking for long lists](#performance-chunking-for-long-lists) |
+| ✅ [Institute vs. Studio clarity](#institute-vs-studio-clarity)         | ✅ [Role-specific quick-start guides](#role-specific-quick-start-guides)    | ✅ [Agent-ready metadata + API](#agent-ready-metadata--api)                    |
+| ✅ [Feedback channel](#feedback-channel)                                |                                                                             |                                                                                |
 
 ## Spec template
 
@@ -59,6 +59,7 @@ under this heading and link to it from the roadmap table.
 ## Long-page summaries + wayfinding
 
 - **Problem:** Long pages (glossary, research) lack an at-a-glance summary and orientation.
+- **Status:** ✅ Completed.
 - **Scope:** Add an intro paragraph and a concise “Key takeaways” list to the glossary and research
   landing pages; add visual wayfinding cues for related sections.
 - **UX/Tech notes:** Use existing layout patterns; keep summaries short, with anchor links to major
@@ -67,6 +68,8 @@ under this heading and link to it from the roadmap table.
   - Glossary and research pages open with a summary block and takeaways list.
   - Summary block includes anchor links to key sections.
   - Content is concise and matches existing tone.
+- **Outcome:** Added related-section quick links in glossary and research summaries to complement
+  the jump-to anchors.
 - **Dependencies/risks:** Requires content review to avoid duplication across pages.
 - **Issue link:** Issue: TBD / Spec: #long-page-summaries--wayfinding
 
@@ -124,6 +127,7 @@ under this heading and link to it from the roadmap table.
   - Audit checklist completed with issues logged.
   - High-priority fixes applied to navigation, headings, and link text.
   - Breadcrumb approach decided and documented.
+- **Outcome:** Added visible breadcrumb navigation in page intros to reinforce semantic structure.
 - **Dependencies/risks:** Requires cross-page review; may touch multiple templates.
 - **Issue link:** Issue: TBD / Spec: #accessibility--semantic-audit
 
@@ -168,8 +172,8 @@ under this heading and link to it from the roadmap table.
   - Long list pages updated with chunking or lazy loading.
   - Load time improvements measured or noted.
 - **Outcome:** Implemented collapsible list sections in glossary and research pages, opening the
-  first section by default and expanding all sections when filters are active; noted expected
-  scroll/load relief without formal benchmarking.
+  first section by default and expanding all sections when filters are active; added manual
+  expand/collapse controls to help manage long lists without forced scrolling.
 - **Dependencies/risks:** Requires performance measurement and UX validation.
 - **Issue link:** Issue: TBD / Spec: #performance-chunking-for-long-lists
 

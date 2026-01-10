@@ -17,6 +17,12 @@ const initGlossaryFilter = () => {
   const chunkedSections = Array.from(
     document.querySelectorAll<HTMLDetailsElement>(".chunked-section"),
   );
+  const expandAllButton = document.querySelector<HTMLButtonElement>(
+    "[data-glossary-expand]",
+  );
+  const collapseAllButton = document.querySelector<HTMLButtonElement>(
+    "[data-glossary-collapse]",
+  );
 
   if (
     !(filterInput instanceof HTMLInputElement) ||
@@ -81,6 +87,12 @@ const initGlossaryFilter = () => {
     tags: (item.dataset.tags ?? "").split(" ").filter(Boolean),
     status: item.dataset.status ?? "",
   }));
+
+  const setSectionsOpen = (isOpen: boolean) => {
+    chunkedSections.forEach((section) => {
+      section.open = isOpen;
+    });
+  };
 
   const updateFilter = () => {
     const rawQuery = filterInput.value.trim();
@@ -196,6 +208,12 @@ const initGlossaryFilter = () => {
     });
     filterInput.focus();
     updateFilter();
+  });
+  expandAllButton?.addEventListener("click", () => {
+    setSectionsOpen(true);
+  });
+  collapseAllButton?.addEventListener("click", () => {
+    setSectionsOpen(false);
   });
   updateFilter();
 };

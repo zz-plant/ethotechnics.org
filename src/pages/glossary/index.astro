@@ -54,6 +54,11 @@ const summaryLinks = [
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#territory-map", label: "Territory map" },
 ];
+const summaryRelatedLinks = [
+  { href: "/mechanisms", label: "Mechanisms" },
+  { href: "/standards", label: "Standards" },
+  { href: "/research", label: "Research" },
+];
 
 const entryLabelIndex = new Map(
   categories.flatMap((category) =>
@@ -223,6 +228,18 @@ const glossaryAuthor = getGlossaryAuthor(publication);
         </ul>
       </div>
       <div>
+        <p class="eyebrow">Related sections</p>
+        <ul class="pill-list">
+          {summaryRelatedLinks.map((link) => (
+            <li class="pill-list__item">
+              <a class="pill-list__button" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
         <p class="eyebrow">Jump to</p>
         <ul class="summary-callout__links">
           {summaryLinks.map((link) => (
@@ -292,6 +309,22 @@ const glossaryAuthor = getGlossaryAuthor(publication);
         data-clear-filter
       >
         Clear filter
+      </button>
+    </div>
+    <div class="glossary-filter__actions">
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-glossary-expand
+      >
+        Expand sections
+      </button>
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-glossary-collapse
+      >
+        Collapse sections
       </button>
     </div>
     <p class="muted glossary-filter__hint">

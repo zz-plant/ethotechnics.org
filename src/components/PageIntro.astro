@@ -55,17 +55,30 @@ function buildBreadcrumbItems(path: string, baseUrl: string, pageTitle: string) 
   const breadcrumbUrl = new URL(path, baseUrl);
   const segments = breadcrumbUrl.pathname.split('/').filter(Boolean);
 
-  return segments.map((segment, index) => {
+  if (segments.length === 0) {
+    return [];
+  }
+
+  const homeItem = {
+    '@type': 'ListItem',
+    position: 1,
+    name: 'Home',
+    item: new URL('/', baseUrl).toString(),
+  } as const;
+
+  const segmentItems = segments.map((segment, index) => {
     const name = index === segments.length - 1 ? pageTitle : titleize(segment);
     const itemPath = `/${segments.slice(0, index + 1).join('/')}`;
 
     return {
       '@type': 'ListItem',
-      position: index + 1,
+      position: index + 2,
       name,
       item: new URL(itemPath, baseUrl).toString(),
     } as const;
   });
+
+  return [homeItem, ...segmentItems];
 }
 
 function titleize(segment: string) {
@@ -83,6 +96,21 @@ function titleize(segment: string) {
 <section class="section page-intro">
   <div class="page-intro__grid">
     <div class="page-intro__lead">
+      {breadcrumbItems.length > 1 && (
+        <nav class="page-intro__breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            {breadcrumbItems.map((item, index) => (
+              <li>
+                {index === breadcrumbItems.length - 1 ? (
+                  <span aria-current="page">{item.name}</span>
+                ) : (
+                  <a href={item.item}>{item.name}</a>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
       <div class="page-intro__meta">
         <p class="eyebrow">{eyebrow}</p>
         <p class="page-intro__permalink">
