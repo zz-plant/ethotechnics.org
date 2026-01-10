@@ -367,6 +367,11 @@ const startHere = defineCollection({
         }),
       ),
     }),
+    quickStart: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      description: z.string(),
+    }),
     framing: z.object({
       eyebrow: z.string(),
       title: z.string(),

@@ -9,14 +9,23 @@ import { Icon } from "astro-icon/components";
     <kbd class="search-kbd">/</kbd>
   </button>
 
-  <dialog id="search-dialog" class="search-dialog">
+  <dialog
+    id="search-dialog"
+    class="search-dialog"
+    aria-labelledby="search-dialog-title"
+  >
     <div class="search-dialog__header">
       <Icon name="lucide:search" class="search-dialog__icon" />
+      <span id="search-dialog-title" class="visually-hidden">
+        Site search
+      </span>
       <input
         type="text"
         id="search-input"
         placeholder="Search for standards, mechanisms, and validators..."
         autocomplete="off"
+        aria-describedby="search-help-text"
+        aria-label="Search the library"
       />
       <button
         id="search-close"
@@ -34,6 +43,9 @@ import { Icon } from "astro-icon/components";
       <p class="search-empty">Start typing to search...</p>
     </div>
     <div class="search-dialog__footer">
+      <p id="search-help-text" class="visually-hidden">
+        Search standards, mechanisms, validators, research, and glossary entries.
+      </p>
       <div class="search-help">
         <span><kbd>↑↓</kbd> to navigate</span>
         <span><kbd>↵</kbd> to select</span>

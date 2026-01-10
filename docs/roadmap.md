@@ -9,14 +9,14 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Update entries as priorities change.
 Keep each item short (verb + outcome) and link to a spec section below once scoped.
 
-| Now                                                                  | Next                                                                     | Later                                                                       |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
-| Highest-priority work in progress.                                   | Ready-to-start items with scoped specs.                                  | Ideas to revisit when capacity frees up.                                    |
-| Keep entries small and actionable.                                   | Add owners or dates only when needed.                                    | Capture rough ideas, not full specs.                                        |
-| ✅ [Navigation clarity refresh](#navigation-clarity-refresh)         | [Glossary + research search filters](#glossary--research-search-filters) | [Interactive diagrams + timelines](#interactive-diagrams--timelines)        |
-| [Long-page summaries + wayfinding](#long-page-summaries--wayfinding) | [Accessibility + semantic audit](#accessibility--semantic-audit)         | [Performance chunking for long lists](#performance-chunking-for-long-lists) |
-| ✅ [Institute vs. Studio clarity](#institute-vs-studio-clarity)      | [Role-specific quick-start guides](#role-specific-quick-start-guides)    | [Agent-ready metadata + API](#agent-ready-metadata--api)                    |
-| ✅ [Feedback channel](#feedback-channel)                             |                                                                          |                                                                             |
+| Now                                                                  | Next                                                                        | Later                                                                       |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Highest-priority work in progress.                                   | Ready-to-start items with scoped specs.                                     | Ideas to revisit when capacity frees up.                                    |
+| Keep entries small and actionable.                                   | Add owners or dates only when needed.                                       | Capture rough ideas, not full specs.                                        |
+| ✅ [Navigation clarity refresh](#navigation-clarity-refresh)         | ✅ [Glossary + research search filters](#glossary--research-search-filters) | [Interactive diagrams + timelines](#interactive-diagrams--timelines)        |
+| [Long-page summaries + wayfinding](#long-page-summaries--wayfinding) | ✅ [Accessibility + semantic audit](#accessibility--semantic-audit)         | [Performance chunking for long lists](#performance-chunking-for-long-lists) |
+| ✅ [Institute vs. Studio clarity](#institute-vs-studio-clarity)      | ✅ [Role-specific quick-start guides](#role-specific-quick-start-guides)    | [Agent-ready metadata + API](#agent-ready-metadata--api)                    |
+| ✅ [Feedback channel](#feedback-channel)                             |                                                                             |                                                                             |
 
 ## Spec template
 
@@ -102,6 +102,7 @@ under this heading and link to it from the roadmap table.
 ## Glossary + research search filters
 
 - **Problem:** Filtering exists but lacks quick search and combined filters for speed.
+- **Status:** ✅ Completed.
 - **Scope:** Add a live search input with auto-complete to glossary and research lists; allow
   users to combine filters.
 - **UX/Tech notes:** Favor client-side search with clear empty-state messaging.
@@ -115,6 +116,7 @@ under this heading and link to it from the roadmap table.
 ## Accessibility + semantic audit
 
 - **Problem:** Accessibility improvements are needed for headings, link text, and semantic structure.
+- **Status:** ✅ Completed.
 - **Scope:** Audit headings, link text, image alt text, contrast, and breadcrumbs across core pages.
 - **UX/Tech notes:** Prioritize semantic HTML (`header`, `nav`, `main`, `section`) and descriptive
   link labels; ensure consistent heading hierarchy.
@@ -128,6 +130,7 @@ under this heading and link to it from the roadmap table.
 ## Role-specific quick-start guides
 
 - **Problem:** Different audiences need tailored entry points to standards and mechanisms.
+- **Status:** ✅ Completed.
 - **Scope:** Create quick-start guide pages for policy makers, designers, engineers, and
   researchers, each with key links.
 - **UX/Tech notes:** Use consistent layout and keep guides short; cross-link to core resources.

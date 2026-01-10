@@ -1,0 +1,59 @@
+---
+import PageIntro from "../../components/PageIntro.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { quickStartGuides, quickStartIntro } from "../../content/quick-start";
+
+const { pageTitle, pageDescription, permalink, eyebrow, title, description } =
+  quickStartIntro;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={eyebrow}
+    title={title}
+    description={description}
+    permalink={permalink}
+    anchorLinks={quickStartGuides.map((guide) => ({
+      href: `#${guide.slug}`,
+      label: guide.title,
+    }))}
+    panelCopy={{
+      eyebrow: "Who these guides serve",
+      title: "Jump straight to the guidance you need.",
+      description:
+        "Each guide links to the standards, mechanisms, validators, and research most relevant to your role.",
+    }}
+  />
+
+  <SectionBlock
+    eyebrow="Guides"
+    title="Choose the role that matches your responsibilities."
+    description="Each guide includes focus areas, key reads, and first moves to unblock your next step."
+    className="section--banded"
+  >
+    <CardGrid className="grid--two">
+      {quickStartGuides.map((guide) => (
+        <CardItem
+          id={guide.slug}
+          title={guide.title}
+          description={guide.summary}
+          descriptionTone="default"
+        >
+          <ul class="muted">
+            {guide.focusAreas.map((area) => (
+              <li>{area}</li>
+            ))}
+          </ul>
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={`/quick-start/${guide.slug}`}>
+              Open guide
+            </a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>

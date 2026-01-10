@@ -5,6 +5,7 @@ import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { quickStartGuides } from "../../content/quick-start";
 
 const startHereData = (await getEntry("startHere", "start-here"))!;
 const {
@@ -16,6 +17,7 @@ const {
   routes,
   decisionGuide,
   artifacts,
+  quickStart,
   framing,
   studio,
   footerCta,
@@ -136,6 +138,34 @@ const recommendedDetails = recommendedCard
           </CardItem>
         ))
       }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="quick-start"
+    eyebrow={quickStart.eyebrow}
+    title={quickStart.title}
+    description={quickStart.description}
+  >
+    <CardGrid className="grid--two">
+      {quickStartGuides.map((guide) => (
+        <CardItem
+          title={guide.title}
+          description={guide.summary}
+          descriptionTone="default"
+        >
+          <ul class="muted">
+            {guide.focusAreas.map((area) => (
+              <li>{area}</li>
+            ))}
+          </ul>
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={`/quick-start/${guide.slug}`}>
+              Open {guide.title.toLowerCase()} guide
+            </a>
+          </div>
+        </CardItem>
+      ))}
     </CardGrid>
   </SectionBlock>
 
