@@ -34,7 +34,7 @@ const { pageTitle, pageDescription } = homeEntry.data;
           Search the library
         </p>
         <p class="reference-dashboard__search-helper" id="dashboard-search-helper">
-          Routes to the glossary index so you can pinpoint standards, mechanisms, and terminology.
+          Route to the glossary index to pinpoint standards, mechanisms, and terminology.
         </p>
         <form
           class="reference-dashboard__search-bar"
@@ -52,6 +52,15 @@ const { pageTitle, pageDescription } = homeEntry.data;
           />
           <button class="button primary" type="submit">Search</button>
         </form>
+        <div class="reference-dashboard__actions" aria-label="Getting started">
+          <p class="muted">
+            New to the standard? Start with the guided overview or explore how the Institute works.
+          </p>
+          <div class="reference-dashboard__action-buttons">
+            <a class="button primary" href="/start-here">Start here</a>
+            <a class="button ghost" href="/institute">How the Institute works</a>
+          </div>
+        </div>
         <div class="reference-dashboard__quick-links" aria-label="Quick links">
           <p class="reference-dashboard__quick-label">Quick links</p>
           <div class="reference-dashboard__quick-list">
@@ -91,6 +100,42 @@ const { pageTitle, pageDescription } = homeEntry.data;
         </a>
       </footer>
     </section>
+  </SectionBlock>
+
+  <SectionBlock
+    eyebrow="Get oriented"
+    title="Pick a starting path"
+    description="Use the guided overview, see the research backlog, or learn how to participate."
+  >
+    <CardGrid>
+      <CardItem
+        eyebrow="Onboarding"
+        title="Start here"
+        description="A guided walkthrough of the standards and how to navigate the reference library."
+      >
+        <a slot="footer" class="muted" href="/start-here">
+          View the overview
+        </a>
+      </CardItem>
+      <CardItem
+        eyebrow="Institute"
+        title="How the program runs"
+        description="Understand the governance model, contributors, and update cadence."
+      >
+        <a slot="footer" class="muted" href="/institute">
+          Explore the Institute
+        </a>
+      </CardItem>
+      <CardItem
+        eyebrow="Participate"
+        title="Join the queue"
+        description="See how to propose a standard, validator, or new research thread."
+      >
+        <a slot="footer" class="muted" href="/participate">
+          Participate
+        </a>
+      </CardItem>
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock
