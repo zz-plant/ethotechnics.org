@@ -101,7 +101,12 @@ h3 {
   gap: clamp(1.5rem, 3vw, 2.5rem);
   padding: clamp(1.75rem, 3vw, 3rem);
   border: 1px solid var(--border);
-  background: var(--surface);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface) 88%, var(--panel) 12%),
+    var(--surface)
+  );
   box-shadow: var(--shadow-xs);
 }
 
@@ -130,6 +135,10 @@ h3 {
 .reference-dashboard__search {
   display: grid;
   gap: 0.75rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  background: color-mix(in srgb, var(--panel) 92%, white 8%);
 }
 
 .reference-dashboard__search-label {
@@ -155,12 +164,13 @@ h3 {
 .reference-dashboard__search-bar input {
   width: 100%;
   padding: 1rem 1.2rem;
-  border-radius: 0;
+  border-radius: var(--radius-md);
   border: 2px solid var(--text);
   background: #fff;
   color: var(--text);
   font-size: 1.1rem;
   font-family: var(--sans);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 55%, transparent);
 }
 
 .reference-dashboard__search-bar input:focus-visible {
@@ -198,10 +208,11 @@ h3 {
 
 .status-card {
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 1.25rem;
   display: grid;
   gap: 0.6rem;
-  background: var(--surface);
+  background: color-mix(in srgb, var(--panel) 88%, white 12%);
   box-shadow: var(--shadow-xs);
   transition:
     transform 0.18s ease,
