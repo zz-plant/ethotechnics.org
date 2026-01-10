@@ -24,12 +24,12 @@ export const navSections: NavSection[] = [
   {
     heading: "Standards",
     description:
-      "Ratified doctrine, immutable rights, and canonical glossary anchors.",
+      "Published doctrine, immutable rights, and the canonical glossary anchors.",
     links: [
       {
         href: "/standards",
         label: "Standards",
-        description: "Browse published standards and draft doctrines.",
+        description: "Browse published standards and in-flight drafts.",
         primary: true,
       },
       {
@@ -52,12 +52,12 @@ export const navSections: NavSection[] = [
   {
     heading: "Mechanisms",
     description:
-      "Specification sheets that operationalize standards into governance, friction, and policy controls.",
+      "Spec sheets that turn standards into governance, friction, and policy controls.",
     links: [
       {
         href: "/mechanisms",
         label: "Mechanisms",
-        description: "Reference mechanisms and specification sheets.",
+        description: "Reference mechanisms and their implementation sheets.",
         primary: true,
       },
       {
@@ -82,12 +82,12 @@ export const navSections: NavSection[] = [
   {
     heading: "Validators",
     description:
-      "Interactive diagnostics that score systems against the standards.",
+      "Diagnostics that score systems against published standards.",
     links: [
       {
         href: "/validators",
         label: "Validators",
-        description: "Run audits and generate report cards.",
+        description: "Run audits, simulations, and report cards.",
         primary: true,
       },
       {
@@ -108,9 +108,36 @@ export const navSections: NavSection[] = [
     ],
   },
   {
+    heading: "Research",
+    description: "Orientation, agenda, and publications that ground the standards.",
+    links: [
+      {
+        href: "/research",
+        label: "Research",
+        description: "Scan the research agenda, artifacts, and publications.",
+        primary: true,
+      },
+      {
+        href: "/field-notes",
+        label: "Field notes",
+        description: "Applied case studies and implementation learnings.",
+      },
+      {
+        href: "/glossary",
+        label: "Glossary",
+        description: "Shared definitions and canonical term anchors.",
+      },
+      {
+        href: "/start-here",
+        label: "Start here",
+        description: "Guided overview for new visitors.",
+      },
+    ],
+  },
+  {
     heading: "Institute",
     description:
-      "Mission, team, and field case law from the Institute of Ethotechnics.",
+      "Mission, team, and programs stewarded by the Institute of Ethotechnics.",
     links: [
       {
         href: "/institute",
@@ -140,14 +167,19 @@ export const navSections: NavSection[] = [
 
 export const navActions: NavAction[] = [
   {
-    href: "/standards/std-01-temporal-rights",
-    label: "Read STD-01",
+    href: "/start-here",
+    label: "Start here",
     variant: "primary",
   },
   {
     href: "/validators",
     label: "Run a validator",
     variant: "ghost",
+  },
+  {
+    href: "/standards/std-01-temporal-rights",
+    label: "Read STD-01",
+    variant: "ghost-compact",
   },
   {
     href: "https://ethotechnics.com/studio",
