@@ -1,0 +1,166 @@
+---
+export interface ValidatorMicroDiagramProps {
+  variant: "burden" | "latency" | "risk";
+}
+
+const { variant } = Astro.props;
+
+const variants = {
+  burden: {
+    title: "Burden modeler micro-diagram",
+    desc: "Steps and declared duration feed a burden badge to show cumulative time tax.",
+    label: "Burden index",
+  },
+  latency: {
+    title: "Latency audit micro-diagram",
+    desc: "Observed latency crosses a declared timeout threshold with a human escalation path.",
+    label: "Timeout ≤ 120s",
+  },
+  risk: {
+    title: "Risk radar micro-diagram",
+    desc: "Multiple touchpoints feed a risk badge inside a system boundary.",
+    label: "Risk cluster",
+  },
+} as const;
+
+const diagram = variants[variant as keyof typeof variants];
+const titleId = `validator-${variant}-title`;
+const descId = `validator-${variant}-desc`;
+---
+
+<figure class="validator-diagram">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 360 120"
+    role="img"
+    aria-labelledby={`${titleId} ${descId}`}
+  >
+    <title id={titleId}>{diagram.title}</title>
+    <desc id={descId}>{diagram.desc}</desc>
+
+    <style>
+      .ink {
+        fill: var(--text, #1f2937);
+      }
+      .muted {
+        fill: var(--muted, #6b7280);
+      }
+      .line {
+        stroke: var(--border, #374151);
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .line-strong {
+        stroke: var(--border, #374151);
+        stroke-width: 3.5;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .dash {
+        stroke-dasharray: 6 6;
+      }
+      .dot {
+        stroke-dasharray: 2 6;
+      }
+      .band {
+        fill: var(--surface, #f8fafc);
+      }
+      .chip {
+        fill: var(--surface, #ffffff);
+        stroke: var(--border, #374151);
+        stroke-width: 2;
+      }
+      .fill-border {
+        fill: var(--border, #374151);
+      }
+      .chip-state {
+        rx: 10;
+        ry: 10;
+      }
+      .chip-agent {
+        rx: 999;
+        ry: 999;
+      }
+      .chip-badge {
+        rx: 8;
+        ry: 8;
+      }
+      .label {
+        font: 600 12px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto;
+      }
+      .small {
+        font: 500 10.5px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto;
+      }
+    </style>
+
+    {variant === "burden" ? (
+      <>
+        <rect x="16" y="18" width="328" height="84" class="band" rx="12" />
+        <line x1="28" y1="60" x2="210" y2="60" class="line" />
+        <path d="M210 60 L198 52 L198 68 Z" class="fill-border" />
+
+        <rect x="36" y="42" width="70" height="36" class="chip chip-state" />
+        <text x="71" y="64" text-anchor="middle" class="label ink">Steps</text>
+
+        <rect x="120" y="42" width="90" height="36" class="chip chip-state" />
+        <text x="165" y="64" text-anchor="middle" class="label ink">Duration</text>
+
+        <line x1="210" y1="60" x2="250" y2="60" class="line dot" />
+
+        <rect x="250" y="42" width="84" height="36" class="chip chip-badge" />
+        <text x="292" y="64" text-anchor="middle" class="label ink">
+          {diagram.label}
+        </text>
+      </>
+    ) : null}
+
+    {variant === "latency" ? (
+      <>
+        <rect x="16" y="18" width="328" height="84" class="band" rx="12" />
+        <line x1="32" y1="60" x2="320" y2="60" class="line" />
+        <path d="M320 60 L308 52 L308 68 Z" class="fill-border" />
+
+        <line x1="120" y1="34" x2="120" y2="86" class="line dash" />
+        <text x="120" y="30" text-anchor="middle" class="small muted">
+          {diagram.label}
+        </text>
+
+        <rect x="160" y="44" width="92" height="32" class="chip chip-state" />
+        <text x="206" y="64" text-anchor="middle" class="label ink">Latency</text>
+
+        <rect x="260" y="44" width="70" height="32" class="chip chip-agent" />
+        <text x="295" y="64" text-anchor="middle" class="label ink">Escalate</text>
+
+        <path d="M252 60 L260 60" class="line-strong" />
+      </>
+    ) : null}
+
+    {variant === "risk" ? (
+      <>
+        <rect x="16" y="18" width="328" height="84" class="band" rx="12" />
+        <rect x="28" y="30" width="220" height="60" class="line dash" rx="12" />
+        <text x="38" y="46" class="small muted">System boundary</text>
+
+        <rect x="44" y="56" width="64" height="26" class="chip chip-state" />
+        <text x="76" y="73" text-anchor="middle" class="small ink">Touchpoint</text>
+
+        <rect x="118" y="56" width="64" height="26" class="chip chip-state" />
+        <text x="150" y="73" text-anchor="middle" class="small ink">Touchpoint</text>
+
+        <rect x="192" y="56" width="64" height="26" class="chip chip-state" />
+        <text x="224" y="73" text-anchor="middle" class="small ink">Touchpoint</text>
+
+        <line x1="248" y1="69" x2="268" y2="69" class="line" />
+        <path d="M268 69 L258 63 L258 75 Z" class="fill-border" />
+
+        <rect x="268" y="52" width="72" height="34" class="chip chip-badge" />
+        <text x="304" y="73" text-anchor="middle" class="label ink">
+          {diagram.label}
+        </text>
+      </>
+    ) : null}
+  </svg>
+</figure>
