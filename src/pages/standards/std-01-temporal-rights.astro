@@ -1,5 +1,108 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import TemporalRightsDiagram from "../../components/TemporalRightsDiagram.astro";
+
+const rights = [
+  {
+    id: "stoppability",
+    title: "Stoppability",
+    summary: "Always offer a clear and immediate way to stop a process.",
+    clauses: [
+      "Immediate cessation with a visible halt control.",
+      "Preserve state so users can resume without penalty.",
+      "No forced tunnel without a permanent exit option.",
+    ],
+  },
+  {
+    id: "resignation",
+    title: "Resignation",
+    summary: "Make it as easy to leave as it was to join.",
+    clauses: [
+      "Universal exit with equal or less friction than entry.",
+      "One-step rule for exits that matched one-step entries.",
+      "No retention scripts required to resign.",
+    ],
+  },
+  {
+    id: "bounded-duration",
+    title: "Bounded duration",
+    summary: "Every process has a defined maximum duration.",
+    clauses: [
+      "Hard clocks for pending, processing, or review states.",
+      "Timeout guarantees with failure or human escalation.",
+      "Declare expected duration before commitment.",
+    ],
+  },
+  {
+    id: "reversibility",
+    title: "Reversibility",
+    summary: "Provide graceful recovery windows for consequential actions.",
+    clauses: [
+      "Undo window for deletions, transfers, or publication.",
+      "Non-destructive defaults with soft-delete as standard.",
+    ],
+  },
+  {
+    id: "non-coercive-waiting",
+    title: "Non-coercive waiting",
+    summary: "Waiting states must be honest and transparent.",
+    clauses: [
+      "Visibility of queue position and expected wait time.",
+      "No fake progress or placebo activity signals.",
+      "Offer async options for waits exceeding five minutes.",
+    ],
+  },
+  {
+    id: "human-override",
+    title: "Human override",
+    summary: "Guarantee a human path for appeals and accountability.",
+    clauses: [
+      "Defined escalation path for automated denials.",
+      "Operating institution accepts liability for automation.",
+    ],
+  },
+  {
+    id: "transparent-burden",
+    title: "Transparent burden",
+    summary: "Publish the time tax placed on people.",
+    clauses: [
+      "Measure and publish the time tax for compliance.",
+      "Track burden as a reportable governance metric.",
+    ],
+  },
+];
+
+const pageUrl = Astro.site
+  ? new URL("/standards/std-01-temporal-rights", Astro.site).toString()
+  : "/standards/std-01-temporal-rights";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": pageUrl,
+  headline: "STD-01 — The Temporal Bill of Rights",
+  description:
+    "The draft standard defining the seven temporal rights protecting human time.",
+  url: pageUrl,
+  datePublished: "2026-01-01",
+  version: "1.0",
+  identifier: "STD-01",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: Astro.site ? new URL("/", Astro.site).toString() : "/",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: Astro.site ? new URL("/standards", Astro.site).toString() : "/standards",
+  },
+  hasPart: rights.map((right) => ({
+    "@type": "CreativeWork",
+    name: right.title,
+    description: right.summary,
+  })),
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
@@ -35,6 +138,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
     <div class="standard-body">
       <div class="standard-main">
+        <section class="standard-section">
+          <TemporalRightsDiagram rights={rights} />
+        </section>
+
         <section class="standard-section">
           <h2>Preamble: The Doctrine of Finitude</h2>
           <p>
@@ -229,4 +336,5 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </aside>
     </div>
   </article>
+  <script type="application/ld+json" set:html={structuredDataJson} />
 </BaseLayout>

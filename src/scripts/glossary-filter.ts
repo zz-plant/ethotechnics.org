@@ -14,6 +14,9 @@ const initGlossaryFilter = () => {
   const facetControls = Array.from(
     document.querySelectorAll<HTMLSelectElement>("[data-glossary-filter]"),
   );
+  const chunkedSections = Array.from(
+    document.querySelectorAll<HTMLDetailsElement>(".chunked-section"),
+  );
 
   if (
     !(filterInput instanceof HTMLInputElement) ||
@@ -71,7 +74,9 @@ const initGlossaryFilter = () => {
   const indexedItems = items.map((item) => ({
     element: item,
     searchText:
-      item.dataset.search?.toLowerCase() ?? item.textContent?.toLowerCase() ?? "",
+      item.dataset.search?.toLowerCase() ??
+      item.textContent?.toLowerCase() ??
+      "",
     categoryId: item.dataset.categoryId ?? "",
     tags: (item.dataset.tags ?? "").split(" ").filter(Boolean),
     status: item.dataset.status ?? "",
@@ -113,6 +118,14 @@ const initGlossaryFilter = () => {
     count.textContent = `Showing ${visible} of ${total} terms${querySuffix}${facetSuffix}`;
     const hasFacets = facetControls.some((control) => control.value);
     clearButton.disabled = rawQuery.length === 0 && !hasFacets;
+    const shouldExpand = rawQuery.length > 0 || hasFacets;
+    chunkedSections.forEach((section) => {
+      if (shouldExpand) {
+        section.open = true;
+      } else {
+        section.open = section.dataset.defaultOpen === "true";
+      }
+    });
     syncQueryParam(rawQuery, {
       category: activeCategory,
       tag: activeTag,

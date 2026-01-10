@@ -27,6 +27,8 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used
   across pages.
 - [`glossary.md`](glossary.md) defines core vocabulary and terms referenced across the site.
+- [`agent-metadata.md`](agent-metadata.md) documents JSON-LD coverage and the public JSON APIs for
+  agents.
 
 ### Testing, local development, and deployment
 

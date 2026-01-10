@@ -4,27 +4,63 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import { standardsContent } from "../../content/standards";
+
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  anchorLinks,
+  panelCopy,
+  standards,
+  doctrine,
+} = standardsContent;
+const pageUrl = Astro.site
+  ? new URL(permalink, Astro.site).toString()
+  : permalink;
+const standardsUrl = (slug: string) =>
+  Astro.site
+    ? new URL(`/standards/${slug}`, Astro.site).toString()
+    : `/standards/${slug}`;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": pageUrl,
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  hasPart: [
+    ...standards.map((standard) => ({
+      "@type": "CreativeWork",
+      name: `${standard.id} — ${standard.title}`,
+      description: standard.description,
+      url: standardsUrl(standard.slug),
+      identifier: standard.id,
+      version: standard.version,
+      datePublished: standard.published,
+    })),
+    ...doctrine.map((item) => ({
+      "@type": "CreativeWork",
+      name: item.title,
+      description: item.description,
+      url: Astro.site ? new URL(item.href, Astro.site).toString() : item.href,
+    })),
+  ],
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
 <BaseLayout
-  title="Standards — Ethotechnics Institute"
-  description="Canonical standards and doctrine stewarded by the Institute of Ethotechnics."
+  title={pageTitle}
+  description={pageDescription}
 >
   <PageIntro
     eyebrow="Standards"
     title="Standards"
     description="Immutable doctrine, ratified rights, and canonical definitions for accountable systems."
-    permalink="/standards"
-    anchorLinks={[
-      { href: "#active", label: "Active standards" },
-      { href: "#doctrine", label: "Doctrine" },
-    ]}
-    panelCopy={{
-      eyebrow: "Stewardship",
-      title: "Documented for citation",
-      description:
-        "Each standard ships with stable IDs, publication metadata, and direct references to mechanisms.",
-    }}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={panelCopy}
   />
 
   <SectionBlock
@@ -34,15 +70,21 @@ import CardItem from "../../components/CardItem.astro";
     description="Drafts and ratified standards in the publication queue."
   >
     <CardGrid className="grid--two">
-      <CardItem
-        eyebrow="STD-01"
-        title="The Temporal Bill of Rights"
-        description="Defines the seven inalienable rights protecting human time against automated systems."
-      >
-        <a slot="footer" class="muted" href="/standards/std-01-temporal-rights">
-          Read STD-01
-        </a>
-      </CardItem>
+      {standards.map((standard) => (
+        <CardItem
+          eyebrow={standard.id}
+          title={standard.title}
+          description={standard.description}
+        >
+          <a
+            slot="footer"
+            class="muted"
+            href={`/standards/${standard.slug}`}
+          >
+            Read {standard.id}
+          </a>
+        </CardItem>
+      ))}
     </CardGrid>
   </SectionBlock>
 
@@ -54,24 +96,18 @@ import CardItem from "../../components/CardItem.astro";
     variant="alt"
   >
     <CardGrid className="grid--two">
-      <CardItem
-        eyebrow="Doctrine"
-        title="Core axioms"
-        description="First principles for accountable system design and governance."
-      >
-        <a slot="footer" class="muted" href="/standards/core-axioms">
-          View axioms
-        </a>
-      </CardItem>
-      <CardItem
-        eyebrow="Reference"
-        title="Glossary"
-        description="Immutable terminology and canonical definitions."
-      >
-        <a slot="footer" class="muted" href="/glossary">
-          Browse glossary
-        </a>
-      </CardItem>
+      {doctrine.map((item) => (
+        <CardItem
+          eyebrow={item.eyebrow}
+          title={item.title}
+          description={item.description}
+        >
+          <a slot="footer" class="muted" href={item.href}>
+            {item.ctaLabel}
+          </a>
+        </CardItem>
+      ))}
     </CardGrid>
   </SectionBlock>
+  <script type="application/ld+json" set:html={structuredDataJson} />
 </BaseLayout>

@@ -9,14 +9,14 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Update entries as priorities change.
 Keep each item short (verb + outcome) and link to a spec section below once scoped.
 
-| Now                                                                  | Next                                                                        | Later                                                                       |
-| -------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Highest-priority work in progress.                                   | Ready-to-start items with scoped specs.                                     | Ideas to revisit when capacity frees up.                                    |
-| Keep entries small and actionable.                                   | Add owners or dates only when needed.                                       | Capture rough ideas, not full specs.                                        |
-| ✅ [Navigation clarity refresh](#navigation-clarity-refresh)         | ✅ [Glossary + research search filters](#glossary--research-search-filters) | [Interactive diagrams + timelines](#interactive-diagrams--timelines)        |
-| [Long-page summaries + wayfinding](#long-page-summaries--wayfinding) | ✅ [Accessibility + semantic audit](#accessibility--semantic-audit)         | [Performance chunking for long lists](#performance-chunking-for-long-lists) |
-| ✅ [Institute vs. Studio clarity](#institute-vs-studio-clarity)      | ✅ [Role-specific quick-start guides](#role-specific-quick-start-guides)    | [Agent-ready metadata + API](#agent-ready-metadata--api)                    |
-| ✅ [Feedback channel](#feedback-channel)                             |                                                                             |                                                                             |
+| Now                                                                  | Next                                                                        | Later                                                                          |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Highest-priority work in progress.                                   | Ready-to-start items with scoped specs.                                     | Ideas to revisit when capacity frees up.                                       |
+| Keep entries small and actionable.                                   | Add owners or dates only when needed.                                       | Capture rough ideas, not full specs.                                           |
+| ✅ [Navigation clarity refresh](#navigation-clarity-refresh)         | ✅ [Glossary + research search filters](#glossary--research-search-filters) | ✅ [Interactive diagrams + timelines](#interactive-diagrams--timelines)        |
+| [Long-page summaries + wayfinding](#long-page-summaries--wayfinding) | ✅ [Accessibility + semantic audit](#accessibility--semantic-audit)         | ✅ [Performance chunking for long lists](#performance-chunking-for-long-lists) |
+| ✅ [Institute vs. Studio clarity](#institute-vs-studio-clarity)      | ✅ [Role-specific quick-start guides](#role-specific-quick-start-guides)    | ✅ [Agent-ready metadata + API](#agent-ready-metadata--api)                    |
+| ✅ [Feedback channel](#feedback-channel)                             |                                                                             |                                                                                |
 
 ## Spec template
 
@@ -144,6 +144,7 @@ under this heading and link to it from the roadmap table.
 ## Interactive diagrams + timelines
 
 - **Problem:** Key concepts (Temporal Bill of Rights) are text-heavy and hard to scan.
+- **Status:** ✅ Completed.
 - **Scope:** Design an interactive diagram for the seven rights and a timeline showing research
   contributions to standards.
 - **UX/Tech notes:** Ensure fallback text for accessibility; keep interactions lightweight.
@@ -151,24 +152,31 @@ under this heading and link to it from the roadmap table.
   - Diagram spec and timeline outline completed.
   - Interactive elements have accessible text alternatives.
   - Prototype approved for implementation.
+- **Outcome:** Added an expandable rights diagram in STD-01 plus a research timeline section that
+  links each milestone to the related standard.
 - **Dependencies/risks:** Requires design and front-end capacity.
 - **Issue link:** Issue: TBD / Spec: #interactive-diagrams--timelines
 
 ## Performance chunking for long lists
 
 - **Problem:** Long lists (glossary, research) can be slow to load and scroll.
+- **Status:** ✅ Completed.
 - **Scope:** Investigate chunking via tabs/accordions or lazy loading for large lists.
 - **UX/Tech notes:** Balance performance with discoverability; avoid hiding critical content.
 - **Acceptance criteria:**
   - Performance approach chosen and documented.
   - Long list pages updated with chunking or lazy loading.
   - Load time improvements measured or noted.
+- **Outcome:** Implemented collapsible list sections in glossary and research pages, opening the
+  first section by default and expanding all sections when filters are active; noted expected
+  scroll/load relief without formal benchmarking.
 - **Dependencies/risks:** Requires performance measurement and UX validation.
 - **Issue link:** Issue: TBD / Spec: #performance-chunking-for-long-lists
 
 ## Agent-ready metadata + API
 
 - **Problem:** Agents need machine-readable metadata and structured access to content.
+- **Status:** ✅ Completed.
 - **Scope:** Add JSON-LD for standards, mechanisms, validators, glossary entries, and research
   artifacts; outline API endpoints and plugin manifest requirements.
 - **UX/Tech notes:** Use Schema.org types (`Article`, `CreativeWorkSeries`, `Dataset`) and
@@ -177,6 +185,8 @@ under this heading and link to it from the roadmap table.
   - JSON-LD schema strategy documented with sample payloads.
   - API surface defined for `/api/standards`, `/api/mechanisms`, `/api/glossary`, `/api/research`.
   - Sitemap and robots guidance documented for agent access.
+- **Outcome:** Implemented JSON-LD for standards, mechanisms, validators, and research; added API
+  endpoints plus documentation with example payloads and agent discovery notes.
 - **Dependencies/risks:** Requires backend/API decisions and content modeling.
 - **Issue link:** Issue: TBD / Spec: #agent-ready-metadata--api
 
