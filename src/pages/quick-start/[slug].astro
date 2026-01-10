@@ -1,0 +1,92 @@
+---
+import PageIntro from "../../components/PageIntro.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { quickStartGuides } from "../../content/quick-start";
+
+export const getStaticPaths = () =>
+  quickStartGuides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { guide },
+  }));
+
+type QuickStartGuide = (typeof quickStartGuides)[number];
+
+const { guide } = Astro.props as { guide: QuickStartGuide };
+const pageTitle = `${guide.title} quick-start — Ethotechnics`;
+const pageDescription = guide.summary;
+const permalink = `/quick-start/${guide.slug}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Quick-start guide"
+    title={guide.title}
+    description={guide.summary}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#focus", label: "Focus areas" },
+      { href: "#reads", label: "Key reads" },
+      { href: "#first-moves", label: "First moves" },
+    ]}
+    panelCopy={{
+      eyebrow: "How to use this guide",
+      title: "Start with the focus areas, then open the key reads.",
+      description:
+        "Use these links to align standards, mechanisms, validators, and research with your delivery responsibilities.",
+    }}
+  />
+
+  <SectionBlock
+    id="focus"
+    eyebrow="Focus areas"
+    title="Where to concentrate your first pass."
+    description="Use these prompts to scope the decision you need to make next."
+    className="section--banded"
+  >
+    <CardGrid>
+      {guide.focusAreas.map((area) => (
+        <CardItem description={area} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="reads"
+    eyebrow="Key reads"
+    title="Core references to open first."
+    description="Each link maps to a standard, mechanism, validator, or research anchor."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {guide.keyLinks.map((link) => (
+        <CardItem
+          title={link.label}
+          description={link.note ?? "Open the reference to align your team."}
+          descriptionTone="default"
+        >
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={link.href}>
+              Open reference
+            </a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="first-moves"
+    eyebrow="First moves"
+    title="Concrete actions to take this week."
+    description="Turn the guidance into next steps you can schedule or delegate."
+  >
+    <CardGrid>
+      {guide.firstMoves.map((move) => (
+        <CardItem description={move} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>

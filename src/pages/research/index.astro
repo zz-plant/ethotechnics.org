@@ -8,6 +8,7 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { getGlossaryLabel, glossaryEntryPermalink } from "../../utils/glossary";
 import { researchContent } from "../../content/research";
+import researchFilterScript from "../../scripts/research-filter.ts?url";
 
 const {
   pageTitle,
@@ -26,6 +27,43 @@ const {
 } = researchContent;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const summaryLinks = anchorLinks.slice(0, 4);
+const researchTags = Array.from(
+  new Set([
+    ...bridgeArtifacts.flatMap((artifact) => artifact.tags),
+    ...publications.flatMap((publication) => publication.tags),
+  ])
+).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+const researchSuggestions = Array.from(
+  new Set([
+    ...orientationCards.map((card) => card.title),
+    ...bridgeArtifacts.flatMap((artifact) => [artifact.title, ...artifact.tags]),
+    ...publications.flatMap((publication) => [
+      publication.title,
+      ...publication.tags,
+    ]),
+    ...agenda.map((item) => item.title),
+    ...focusAreas.map((area) => area.title),
+  ])
+).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+const researchSections = [
+  { id: "", label: "All sections" },
+  { id: "orientation", label: "Orientation" },
+  { id: "bridge-artifacts", label: "Bridge artifacts" },
+  { id: "agenda", label: "Agenda" },
+  { id: "focus-areas", label: "Focus areas" },
+  { id: "publications", label: "Publications" },
+];
+const buildSearchText = (...parts: Array<string | string[] | undefined>) =>
+  parts
+    .flatMap((part) => (Array.isArray(part) ? part : part ? [part] : []))
+    .join(" ")
+    .trim();
+const totalResearchItems =
+  orientationCards.length +
+  bridgeArtifacts.length +
+  agenda.length +
+  focusAreas.length +
+  publications.length;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -73,6 +111,68 @@ const summaryLinks = anchorLinks.slice(0, 4);
     permalink={permalink}
     publication={publication}
   />
+  <div class="research-filter" data-research-filter>
+    <div class="research-filter__controls">
+      <label class="research-filter__label" for="research-filter">
+        <span class="visually-hidden">Search research entries</span>
+        <input
+          id="research-filter"
+          name="query"
+          type="search"
+          inputmode="search"
+          placeholder="Search research (e.g., consent)"
+          autocomplete="off"
+          list="research-filter-suggestions"
+        />
+      </label>
+      <label class="research-filter__facet">
+        Section
+        <select class="research-filter__select" data-research-filter="section">
+          {researchSections.map((section) => (
+            <option value={section.id}>{section.label}</option>
+          ))}
+        </select>
+      </label>
+      {researchTags.length > 0 && (
+        <label class="research-filter__facet">
+          Tag
+          <select class="research-filter__select" data-research-filter="tag">
+            <option value="">All tags</option>
+            {researchTags.map((tag) => (
+              <option value={tag}>{tag}</option>
+            ))}
+          </select>
+        </label>
+      )}
+      <button
+        class="button ghost button--compact research-filter__clear"
+        type="button"
+        data-clear-research-filter
+      >
+        Clear filter
+      </button>
+    </div>
+    <datalist id="research-filter-suggestions">
+      {researchSuggestions.map((suggestion) => (
+        <option value={suggestion} />
+      ))}
+    </datalist>
+    <p class="muted research-filter__hint">
+      Search across research entries or narrow by section and tags.
+    </p>
+    <p
+      class="muted research-filter__count"
+      aria-live="polite"
+      aria-atomic="true"
+      data-total={totalResearchItems}
+    >
+      Showing {totalResearchItems} entries
+    </p>
+    <p class="muted research-filter__empty" hidden>
+      No entries match that search or filter. Try another keyword or browse the
+      sections below.
+    </p>
+  </div>
   <p class="muted small">
     Last updated {
       new Date(lastUpdated).toLocaleDateString("en-US", {
@@ -93,11 +193,19 @@ const summaryLinks = anchorLinks.slice(0, 4);
     <CardGrid className="grid--two research__grid">
       {
         orientationCards.map((card) => (
-          <CardItem
-            title={card.title}
-            description={card.description}
-            tags={card.tags}
-          />
+          <div
+            class="research-filter__item"
+            data-research-item
+            data-section="orientation"
+            data-tags={card.tags.join(" ")}
+            data-search={buildSearchText(card.title, card.description, card.tags)}
+          >
+            <CardItem
+              title={card.title}
+              description={card.description}
+              tags={card.tags}
+            />
+          </div>
         ))
       }
     </CardGrid>
@@ -112,19 +220,32 @@ const summaryLinks = anchorLinks.slice(0, 4);
   >
     <CardGrid className="grid--two">
       {bridgeArtifacts.map((artifact) => (
-        <CardItem
-          id={artifact.slug}
-          meta={artifact.type}
-          title={artifact.title}
-          description={artifact.summary}
-          tags={artifact.tags}
+        <div
+          class="research-filter__item"
+          data-research-item
+          data-section="bridge-artifacts"
+          data-tags={artifact.tags.join(" ")}
+          data-search={buildSearchText(
+            artifact.title,
+            artifact.summary,
+            artifact.type,
+            artifact.tags
+          )}
         >
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={artifact.href}>
-              View artifact
-            </a>
-          </div>
-        </CardItem>
+          <CardItem
+            id={artifact.slug}
+            meta={artifact.type}
+            title={artifact.title}
+            description={artifact.summary}
+            tags={artifact.tags}
+          >
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={artifact.href}>
+                View artifact
+              </a>
+            </div>
+          </CardItem>
+        </div>
       ))}
     </CardGrid>
   </SectionBlock>
@@ -139,15 +260,23 @@ const summaryLinks = anchorLinks.slice(0, 4);
     <CardGrid>
       {
         agenda.map((item) => (
-          <CardItem
-            meta={item.timeframe}
-            title={item.title}
-            tags={item.goals}
-            glossaryLinks={item.glossaryRefs.map((slug) => ({
-              href: glossaryHref(slug),
-              label: getGlossaryLabel(slug),
-            }))}
-          />
+          <div
+            class="research-filter__item"
+            data-research-item
+            data-section="agenda"
+            data-tags=""
+            data-search={buildSearchText(item.title, item.timeframe, item.goals)}
+          >
+            <CardItem
+              meta={item.timeframe}
+              title={item.title}
+              tags={item.goals}
+              glossaryLinks={item.glossaryRefs.map((slug) => ({
+                href: glossaryHref(slug),
+                label: getGlossaryLabel(slug),
+              }))}
+            />
+          </div>
         ))
       }
     </CardGrid>
@@ -162,16 +291,24 @@ const summaryLinks = anchorLinks.slice(0, 4);
     <CardGrid>
       {
         focusAreas.map((area) => (
-          <CardItem
-            id={area.slug}
-            title={area.title}
-            description={area.description}
-            tags={area.questions}
-            glossaryLinks={area.glossaryRefs.map((slug) => ({
-              href: glossaryHref(slug),
-              label: getGlossaryLabel(slug),
-            }))}
-          />
+          <div
+            class="research-filter__item"
+            data-research-item
+            data-section="focus-areas"
+            data-tags=""
+            data-search={buildSearchText(area.title, area.description, area.questions)}
+          >
+            <CardItem
+              id={area.slug}
+              title={area.title}
+              description={area.description}
+              tags={area.questions}
+              glossaryLinks={area.glossaryRefs.map((slug) => ({
+                href: glossaryHref(slug),
+                label: getGlossaryLabel(slug),
+              }))}
+            />
+          </div>
         ))
       }
     </CardGrid>
@@ -187,67 +324,86 @@ const summaryLinks = anchorLinks.slice(0, 4);
     <CardGrid>
       {
         publications.map((publication) => (
-          <CardItem
-            meta={publication.type}
-            title={publication.title}
-            description={publication.summary}
-            descriptionTone="default"
-            tags={publication.tags}
-            glossaryLinks={publication.glossaryRefs.map((slug) => ({
-              href: glossaryHref(slug),
-              label: getGlossaryLabel(slug),
-            }))}
+          <div
+            class="research-filter__item"
+            data-research-item
+            data-section="publications"
+            data-tags={publication.tags.join(" ")}
+            data-search={buildSearchText(
+              publication.title,
+              publication.summary,
+              publication.type,
+              publication.tags,
+              publication.structuredAbstract.question
+            )}
           >
-            <div class="research__abstract">
-              <p class="eyebrow">Structured abstract</p>
-              <ul class="muted">
-                <li>
-                  <strong>Question:</strong> {publication.structuredAbstract.question}
-                </li>
-                <li>
-                  <strong>Method:</strong> {publication.structuredAbstract.method}
-                </li>
-                <li>
-                  <strong>Sample/context:</strong> {publication.structuredAbstract.sample}
-                </li>
-                <li>
-                  <strong>Findings:</strong> {publication.structuredAbstract.findings}
-                </li>
-                <li>
-                  <strong>Limitations:</strong> {publication.structuredAbstract.limitations}
-                </li>
-              </ul>
-            </div>
-            <div class="research__data">
-              <p class="eyebrow">Data & artifacts</p>
-              <ul class="muted">
-                {publication.datasets.map((dataset) => (
-                  <li>{dataset}</li>
-                ))}
-              </ul>
-              <p class="eyebrow">Ethics & consent</p>
-              <ul class="muted">
-                {publication.ethicsNotes.map((note) => (
-                  <li>{note}</li>
-                ))}
-              </ul>
-              <p class="eyebrow">References</p>
-              <ul class="muted">
-                {publication.references.map((reference) => (
+            <CardItem
+              meta={publication.type}
+              title={publication.title}
+              description={publication.summary}
+              descriptionTone="default"
+              tags={publication.tags}
+              glossaryLinks={publication.glossaryRefs.map((slug) => ({
+                href: glossaryHref(slug),
+                label: getGlossaryLabel(slug),
+              }))}
+            >
+              <div class="research__abstract">
+                <p class="eyebrow">Structured abstract</p>
+                <ul class="muted">
                   <li>
-                    <a href={reference.href}>{reference.label}</a>
+                    <strong>Question:</strong>{" "}
+                    {publication.structuredAbstract.question}
                   </li>
-                ))}
-              </ul>
-            </div>
-            <div slot="footer" class="card__footer">
-              <a class="button ghost button--compact" href={publication.href}>
-                {publication.ctaLabel}
-              </a>
-            </div>
-          </CardItem>
+                  <li>
+                    <strong>Method:</strong> {publication.structuredAbstract.method}
+                  </li>
+                  <li>
+                    <strong>Sample/context:</strong>{" "}
+                    {publication.structuredAbstract.sample}
+                  </li>
+                  <li>
+                    <strong>Findings:</strong>{" "}
+                    {publication.structuredAbstract.findings}
+                  </li>
+                  <li>
+                    <strong>Limitations:</strong>{" "}
+                    {publication.structuredAbstract.limitations}
+                  </li>
+                </ul>
+              </div>
+              <div class="research__data">
+                <p class="eyebrow">Data & artifacts</p>
+                <ul class="muted">
+                  {publication.datasets.map((dataset) => (
+                    <li>{dataset}</li>
+                  ))}
+                </ul>
+                <p class="eyebrow">Ethics & consent</p>
+                <ul class="muted">
+                  {publication.ethicsNotes.map((note) => (
+                    <li>{note}</li>
+                  ))}
+                </ul>
+                <p class="eyebrow">References</p>
+                <ul class="muted">
+                  {publication.references.map((reference) => (
+                    <li>
+                      <a href={reference.href}>{reference.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div slot="footer" class="card__footer">
+                <a class="button ghost button--compact" href={publication.href}>
+                  {publication.ctaLabel}
+                </a>
+              </div>
+            </CardItem>
+          </div>
         ))
       }
     </CardGrid>
   </SectionBlock>
+  <script type="module" src={researchFilterScript}></script>
 </BaseLayout>

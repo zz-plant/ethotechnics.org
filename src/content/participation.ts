@@ -224,6 +224,12 @@ export const participationContent: ParticipationContent = {
         detail:
           "Best for workshop retros, facilitation notes, and delivery insights.",
       },
+      {
+        label: "Report an accessibility issue",
+        href: "mailto:hello@ethotechnics.org?subject=Accessibility%20feedback",
+        ariaLabel: "Email hello@ethotechnics.org with accessibility feedback",
+        detail: "Flag barriers or assistive technology issues we should fix.",
+      },
     ],
   },
 } satisfies ParticipationContent;

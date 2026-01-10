@@ -77,6 +77,7 @@ export const siteFooter: SiteFooterContent = {
     {
       heading: "Connect",
       links: [
+        { label: "Send feedback", href: "/participate#feedback" },
         {
           label: "Signals newsletter",
           href: "https://signals.ethotechnics.org",

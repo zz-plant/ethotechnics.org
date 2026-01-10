@@ -100,6 +100,7 @@ const entryIndex = categories
   .sort((a, b) =>
     a.title.localeCompare(b.title, "en", { sensitivity: "base" })
   );
+const glossarySuggestions = entryIndex.map((entry) => entry.title);
 
 const territoryCounts = new Map(
   categories.map((category) => [category.id, category.entries.length])
@@ -250,6 +251,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
           inputmode="search"
           placeholder="Filter terms (e.g., consent)"
           autocomplete="off"
+          list="glossary-filter-suggestions"
           value={searchQuery}
         />
       </label>
@@ -309,6 +311,11 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       territory map for nearby concepts.
     </p>
   </div>
+  <datalist id="glossary-filter-suggestions">
+    {glossarySuggestions.map((suggestion) => (
+      <option value={suggestion} />
+    ))}
+  </datalist>
   <div class="callout glossary__starter" id="starter-terms">
     <h3>Start with these terms</h3>
     <p class="muted">
