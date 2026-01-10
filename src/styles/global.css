@@ -139,6 +139,12 @@ h3 {
   letter-spacing: 0.18em;
 }
 
+.reference-dashboard__search-helper {
+  margin: 0;
+  color: var(--muted);
+  max-width: 44rem;
+}
+
 .reference-dashboard__search-bar {
   display: grid;
   gap: 0.75rem;
@@ -162,6 +168,28 @@ h3 {
   outline-offset: 2px;
 }
 
+.reference-dashboard__quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+}
+
+.reference-dashboard__quick-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin: 0;
+  color: var(--muted);
+}
+
+.reference-dashboard__quick-list {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
 .reference-dashboard__status {
   display: grid;
   gap: 1rem;
@@ -175,6 +203,17 @@ h3 {
   gap: 0.6rem;
   background: var(--surface);
   box-shadow: var(--shadow-xs);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.status-card:hover,
+.status-card:focus-within {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 22%, var(--border));
+  box-shadow: var(--shadow-sm);
 }
 
 .status-card__eyebrow {
@@ -199,6 +238,13 @@ h3 {
   letter-spacing: 0.14em;
 }
 
+.status-card__link:focus-visible {
+  outline: 2px solid
+    color-mix(in srgb, var(--accent-strong) 70%, var(--teal) 30%);
+  outline-offset: 3px;
+  text-decoration: none;
+}
+
 .reference-dashboard__footer {
   display: flex;
   flex-wrap: wrap;
@@ -211,6 +257,10 @@ h3 {
 @media (max-width: 720px) {
   .reference-dashboard__search-bar {
     grid-template-columns: 1fr;
+  }
+
+  .reference-dashboard__quick-links {
+    align-items: flex-start;
   }
 
   .reference-dashboard__footer {
