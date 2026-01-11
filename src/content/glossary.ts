@@ -388,6 +388,44 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             "<p>A safety lens where governance is modeled as feedback: detect harm, trigger intervention, enforce constraints, and learn. Useful for translating Ethotechnics into engineering terms.</p>",
         },
+        {
+          id: "legibility",
+          title: "Legibility",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>How understandable a system\u2019s actions, reasoning, and ownership are to the people affected by it. Legibility complements <a href="#explainability-for-accountability">explainability for accountability</a> and transparent <a href="#design-authority">design authority</a>.</p>',
+          examples: [
+            "Residents receive a plain-language notice that cites the office and policy behind a zoning decision.",
+          ],
+          tags: ["transparency", "governance", "users"],
+          resources: [
+            {
+              label: "Civic services",
+              href: "/civic-services/",
+              type: "Essay",
+            },
+          ],
+        },
+        {
+          id: "sociotechnical-alignment",
+          title: "Sociotechnical Alignment",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>Alignment achieved not just in the model, but across tools, interfaces, incentives, workflows, and organizational structures. Sociotechnical alignment keeps the <a href="#ethical-load-path">ethical load path</a> intact under pressure.</p>',
+          examples: [
+            "Policy, tooling, and incentives all enforce the same stoppability rules.",
+          ],
+          tags: ["organizations", "governance", "systems"],
+          resources: [
+            {
+              label: "Accountability architectures",
+              href: "/accountability-architectures/",
+              type: "Guide",
+            },
+          ],
+        },
       ],
     },
     {
@@ -533,6 +571,82 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             "<p>Harm that does not produce immediately legible signals\u2014silence, withdrawal, dropout, dissociation\u2014and is therefore misread as \u201cno issue.\u201d</p>",
         },
+        {
+          id: "ethics-debt",
+          title: "Ethics Debt",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The accumulation of unresolved ethical risk from shipping capabilities faster than governance, ownership, and repair mechanisms. Ethics debt grows when <a href="#maintenance-debt">maintenance debt</a> outpaces the <a href="#repair-log">repair log</a>.</p>',
+          examples: [
+            "A recommender launches without consent review, adding unresolved risks to the repair log.",
+          ],
+          tags: ["governance", "risk", "maintenance"],
+          resources: [
+            {
+              label: "Maintenance guidance",
+              href: "/docs/maintenance/",
+              type: "Guide",
+            },
+          ],
+        },
+        {
+          id: "unowned-harm",
+          title: "Unowned Harm",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>Negative outcomes for which no clear individual or role is accountable, even though the system caused them. Unowned harm signals <a href="#accountability-diffusion">accountability diffusion</a> and weak <a href="#traceable-ownership">traceable ownership</a>.</p>',
+          examples: [
+            "Denied applicants cannot identify a responsible team to contest a decision.",
+          ],
+          tags: ["accountability", "governance", "harm"],
+          resources: [
+            {
+              label: "Accountability architectures",
+              href: "/accountability-architectures/",
+              type: "Guide",
+            },
+          ],
+        },
+        {
+          id: "capability-overhang",
+          title: "Capability Overhang",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>When a system\u2019s power exceeds the maturity of its controls, making failures likely even without malicious intent. Capability overhang shows up as strong automation but weak <a href="#stoppability">stoppability</a> or <a href="#reversibility">reversibility</a>.</p>',
+          examples: [
+            "A model can auto-approve loans, but rollback and auditing are manual and slow.",
+          ],
+          tags: ["risk", "safety", "governance"],
+          resources: [
+            {
+              label: "Mechanisms catalog",
+              href: "/mechanisms",
+              type: "Reference",
+            },
+          ],
+        },
+        {
+          id: "ethics-theater",
+          title: "Ethics Theater",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>Public displays of ethical concern without operational mechanisms that change system behavior. Ethics theater often masks <a href="#compliance-collapse">compliance collapse</a> and low <a href="#contestability">contestability</a>.</p>',
+          examples: [
+            "The team publishes a code of ethics but lacks monitoring or a repair log.",
+          ],
+          tags: ["governance", "trust", "risk"],
+          resources: [
+            {
+              label: "Governance playbook",
+              href: "/docs/governance/",
+              type: "Guide",
+            },
+          ],
+        },
       ],
     },
     {
@@ -614,6 +728,44 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>Boundary conditions designed to cushion people instead of penalizing them\u2014graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce <a href="#failure-load">failure load</a> and guard against <a href="#brittleness">brittleness</a>.</p>',
+        },
+        {
+          id: "governability",
+          title: "Governability",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The degree to which a system can be steered, paused, audited, corrected, or shut down after deployment. High governability requires <a href="#stoppability">stoppability</a>, <a href="#reversibility">reversibility</a>, and durable <a href="#contestability">contestability</a>.</p>',
+          examples: [
+            "The city\u2019s benefits system can be paused, rolled back, and audited within hours.",
+          ],
+          tags: ["governance", "controls", "safety"],
+          resources: [
+            {
+              label: "Mechanisms catalog",
+              href: "/mechanisms",
+              type: "Reference",
+            },
+          ],
+        },
+        {
+          id: "incident-literacy",
+          title: "Incident Literacy",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The ability to recognize failures as incidents (not anomalies) and respond with containment, logging, escalation, and repair. It pairs <a href="#ethical-interrupts">ethical interrupts</a> with a living <a href="#repair-log">repair log</a>.</p>',
+          examples: [
+            "A moderation team opens an incident ticket for bias spikes, not just a bug report.",
+          ],
+          tags: ["operations", "safety", "response"],
+          resources: [
+            {
+              label: "Maintenance playbooks",
+              href: "/maintenance-playbooks/",
+              type: "Resource",
+            },
+          ],
         },
       ],
     },
@@ -801,6 +953,25 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>The number of times a person can decline, pause, or question a request without retaliation. Healthy refusal budgets, backed by <a href="#human-refusal-tolerance">refusal tolerance</a> and <a href="#right-of-exit">rights of exit</a>, prevent coercion and surface <a href="#heat-maps-of-refusal">heat maps of refusal</a>.</p>',
         },
+        {
+          id: "behavioral-shaping",
+          title: "Behavioral Shaping",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The way systems nudge, constrain, or normalize user behavior through defaults and design choices. Behavioral shaping is amplified by <a href="#velocity-friction">velocity friction</a> and narrow <a href="#permission-surface">permission surfaces</a>.</p>',
+          examples: [
+            "Default opt-ins normalize data sharing even when users are uncertain.",
+          ],
+          tags: ["ux", "behavior", "policy"],
+          resources: [
+            {
+              label: "AI governance",
+              href: "/ai-governance/",
+              type: "Resource",
+            },
+          ],
+        },
       ],
     },
     {
@@ -912,6 +1083,44 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>A composite measure of how much effort, time, and emotional labor people expend to use or recover from a system.</p><p>Inputs include the <a href="#user-burden-ratio">user burden ratio</a>, <a href="#human-substitution-index">human substitution index</a>, and <a href="#failure-load">failure load</a>; rising scores signal extraction or <a href="#asymmetric-sustaining">asymmetric sustaining</a>.</p>',
+        },
+        {
+          id: "harm-internalization",
+          title: "Harm Internalization",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>Designing systems so creators and operators bear the costs of failures instead of externalizing them to users or society. Harm internalization improves <a href="#fair-burden-distribution">fair burden distribution</a> and prevents <a href="#externalization">externalization</a>.</p>',
+          examples: [
+            "A vendor funds remediation and user support when their model causes harm.",
+          ],
+          tags: ["accountability", "burden", "governance"],
+          resources: [
+            {
+              label: "Accountability architectures",
+              href: "/accountability-architectures/",
+              type: "Guide",
+            },
+          ],
+        },
+        {
+          id: "maintenance-ethics",
+          title: "Maintenance Ethics",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The idea that ethical responsibility continues after deployment through monitoring, updates, incident response, and repair. Maintenance ethics turns <a href="#maintenance-metabolism">maintenance metabolism</a> and the <a href="#repair-log">repair log</a> into ongoing commitments.</p>',
+          examples: [
+            "Teams publish repair logs and schedule maintenance windows after each major release.",
+          ],
+          tags: ["maintenance", "governance", "operations"],
+          resources: [
+            {
+              label: "Maintenance guidance",
+              href: "/docs/maintenance/",
+              type: "Guide",
+            },
+          ],
         },
       ],
     },
@@ -1060,6 +1269,63 @@ export const glossaryContent: GlossaryContent = {
             '<p>What users can do without institutional approval \u2014 a measure of autonomy and a prerequisite for <a href="#contestability">contestability</a>.</p>',
         },
         {
+          id: "bounded-autonomy",
+          title: "Bounded Autonomy",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>Autonomy granted only within explicit limits; approaching or crossing those limits must trigger escalation to <a href="#design-authority">design authority</a> or a documented <a href="#oversight-horizon">oversight horizon</a>.</p>',
+          examples: [
+            "A claims assistant can approve payouts up to $500, but anything higher is routed to a supervisor.",
+          ],
+          tags: ["governance", "autonomy", "escalation"],
+          resources: [
+            {
+              label: "Governance playbook",
+              href: "/docs/governance/",
+              type: "Guide",
+            },
+          ],
+        },
+        {
+          id: "earned-autonomy",
+          title: "Earned Autonomy",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>Autonomy that expands only after demonstrated reliability, monitoring, and accountability. Permission surfaces widen as <a href="#traceable-ownership">traceable ownership</a> and <a href="#repair-log">repair logs</a> prove the system can handle more scope.</p>',
+          examples: [
+            "After six months of clean audits, the escalation bot gains approval rights for low-risk cases.",
+          ],
+          tags: ["automation", "accountability", "governance"],
+          resources: [
+            {
+              label: "Accountability architectures",
+              href: "/accountability-architectures/",
+              type: "Guide",
+            },
+          ],
+        },
+        {
+          id: "scope-discipline",
+          title: "Scope Discipline",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The practice of not exceeding one\u2019s mandate, even when doing so might appear helpful or efficient. Scope discipline enforces the <a href="#permission-surface">permission surface</a> and respects <a href="#bounded-autonomy">bounded autonomy</a>.</p>',
+          examples: [
+            "A support bot refuses to access customer data outside its assigned ticket.",
+          ],
+          tags: ["governance", "autonomy", "risk"],
+          resources: [
+            {
+              label: "Governance playbook",
+              href: "/docs/governance/",
+              type: "Guide",
+            },
+          ],
+        },
+        {
           id: "right-of-exit",
           title: "Exit Rights",
           status: null,
@@ -1082,6 +1348,25 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>A negotiated period where teams pause growth work to focus on care, maintenance, and accountability.</p><p>Stewardship windows bundle <a href="#maintenance-window">maintenance windows</a>, publish <a href="#service-level-indicators">SLJs</a> for the pause, and commit to closing items in the <a href="#repair-log">repair log</a> before resuming throughput.</p>',
+        },
+        {
+          id: "stewardship",
+          title: "Stewardship",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>An explicit, ongoing role responsible for system behavior over time, with authority to pause, fix, or retire it. Stewardship links <a href="#design-authority">design authority</a>, <a href="#stoppability">stoppability</a>, and <a href="#stewardship-window">stewardship windows</a>.</p>',
+          examples: [
+            "A named steward can pause a rollout and own the repair log.",
+          ],
+          tags: ["governance", "accountability", "operations"],
+          resources: [
+            {
+              label: "Maintenance playbooks",
+              href: "/maintenance-playbooks/",
+              type: "Resource",
+            },
+          ],
         },
         {
           id: "governance-by-suspension",
@@ -1390,6 +1675,25 @@ export const glossaryContent: GlossaryContent = {
             "<p>The calibrated blend of protective, dignity, and velocity frictions.</p>",
         },
         {
+          id: "appropriate-friction",
+          title: "Appropriate Friction",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>Deliberate slowdowns or checkpoints inserted where harm would be costly or irreversible. Appropriate friction treats <a href="#velocity-friction">velocity friction</a> and <a href="#ethical-interrupts">ethical interrupts</a> as safety features.</p>',
+          examples: [
+            "High-risk data exports require a second reviewer before completion.",
+          ],
+          tags: ["safety", "friction", "compliance"],
+          resources: [
+            {
+              label: "Mechanisms catalog",
+              href: "/mechanisms",
+              type: "Reference",
+            },
+          ],
+        },
+        {
           id: "frictionless-harm",
           title: "Frictionless Harm",
           status: null,
@@ -1590,6 +1894,44 @@ export const glossaryContent: GlossaryContent = {
           bodyHtml:
             '<p>Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize <a href="#stoppability">stoppability</a>.</p>',
           relatedPatterns: ["kill-switch", "appeal-paths"],
+        },
+        {
+          id: "actionability-threshold",
+          title: "Actionability Threshold",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>The level of confidence, authorization, and oversight required before information becomes action. Raising the actionability threshold protects against low-signal decisions and clarifies <a href="#design-authority">design authority</a>.</p>',
+          examples: [
+            "A fraud alert triggers action only after confidence and authorization checks.",
+          ],
+          tags: ["decision-making", "governance", "risk"],
+          resources: [
+            {
+              label: "Governance playbook",
+              href: "/docs/governance/",
+              type: "Guide",
+            },
+          ],
+        },
+        {
+          id: "normative-uncertainty",
+          title: "Normative Uncertainty",
+          status: null,
+          classes: [],
+          bodyHtml:
+            '<p>Situations where it is unclear what the \u201cright\u201d action is, requiring caution, clarification, or human judgment rather than confident automation. Normative uncertainty often triggers <a href="#ethical-interrupts">ethical interrupts</a> and a higher <a href="#actionability-threshold">actionability threshold</a>.</p>',
+          examples: [
+            "When guidance conflicts, the system pauses and requests human judgment.",
+          ],
+          tags: ["decision-making", "policy", "risk"],
+          resources: [
+            {
+              label: "Governance playbook",
+              href: "/docs/governance/",
+              type: "Guide",
+            },
+          ],
         },
       ],
     },
