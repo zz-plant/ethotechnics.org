@@ -6,22 +6,43 @@ import CitationBlock from '../../components/CitationBlock.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import ScholarlyMeta from '../../components/ScholarlyMeta.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
+import StudioBadge from '../../components/StudioBadge.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 import diagnosticsFilterScript from '../../scripts/diagnostics-filter.ts?url';
-import diagnosticsScoreScript from '../../scripts/diagnostics-score.ts?url';
 
-const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation, publication } =
+const { pageTitle, pageDescription, permalink, tools, valueProps, facilitation, publication } =
   diagnosticsContent;
 const mechanismBase = `${libraryContent.permalink}#mechanisms`;
 const anchorLinks = [
   { href: '#why-diagnostics', label: 'What you get' },
-  { href: '#risk-radar', label: 'Risk radar pulse' },
+  { href: '#output-baseline', label: 'Output baseline' },
+  { href: '#quick-triage', label: 'Quick triage' },
   { href: '#how-it-works', label: 'How sessions run' },
   { href: '#diagnostic-tools', label: 'Diagnostics menu' },
   ...tools.map((tool) => ({ href: `#${tool.slug}`, label: tool.title })),
 ];
-const introDescription = `${pageDescription} These tools are public under CC BY through the Institute; Studio uses the same models with bespoke facilitation via ethotechnics.com/studio.`;
+const introDescription = pageDescription;
+const quickTriagePrompts = [
+  {
+    question: 'Do you need a fast workload snapshot before teams hit burnout thresholds?',
+    description: 'Quantify task load and hotspot relief paths.',
+    href: '/diagnostics/burden-modeler',
+    label: 'Open Burden Modeler',
+  },
+  {
+    question: 'Are you rehearsing outage coverage or escalation ownership?',
+    description: 'Simulate maintenance branches and comms coverage.',
+    href: '/diagnostics/maintenance-simulator',
+    label: 'Open Maintenance Simulator',
+  },
+  {
+    question: 'Are you modeling capacity decay or saturation risk over time?',
+    description: 'Forecast long-term stability and remediation timing.',
+    href: '/diagnostics/capacity-forecaster',
+    label: 'Open Capacity Forecaster',
+  },
+];
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -31,21 +52,24 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
-      eyebrow: 'Results and off-ramps',
+      eyebrow: 'Decision-ready outputs',
       title: 'Every diagnostic leaves you with a linkable readout.',
-      description:
-        'Outputs include a stable URL, the off-ramp to ethotechnics.com/studio, and mechanism language references for follow-up.',
+      description: 'Outputs include a stable URL and mechanism language references for follow-up.',
       link: {
         label: 'Compare tools',
         href: '#compare-tools',
       },
     }}
   />
+  <div class="section__actions">
+    <StudioBadge />
+  </div>
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
     permalink={permalink}
     publication={publication}
+    variant="compact"
   />
 
   <SectionBlock
@@ -91,52 +115,35 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
   </SectionBlock>
 
   <SectionBlock
-    id="risk-radar"
-    eyebrow="Playable diagnostic"
-    title="Risk radar: what is your team's burnout score?"
-    description="Slide each signal to estimate how strained the system feels today. Share the output to start the conversation."
+    id="output-baseline"
+    eyebrow="Output baseline"
+    title="What every diagnostic output includes."
+    description="Use the shared baseline to align teams before diving into tool specifics."
     variant="alt"
   >
-    <div class="diagnostics__calculator" data-diagnostics-calculator>
-      <div class="diagnostics__slider-grid">
-        <label class="diagnostics__slider">
-          <div class="diagnostics__slider-heading">
-            <span>Workload intensity</span>
-            <output class="diagnostics__slider-value" data-score-output="workload">5</output>
-          </div>
-          <input type="range" min="0" max="10" value="5" step="1" data-score-input="workload" />
-          <p class="muted small">0 is manageable, 10 is constantly overflowing.</p>
-        </label>
-        <label class="diagnostics__slider">
-          <div class="diagnostics__slider-heading">
-            <span>Context switching</span>
-            <output class="diagnostics__slider-value" data-score-output="volatility">5</output>
-          </div>
-          <input type="range" min="0" max="10" value="5" step="1" data-score-input="volatility" />
-          <p class="muted small">0 is focused, 10 is constant fire drills.</p>
-        </label>
-        <label class="diagnostics__slider">
-          <div class="diagnostics__slider-heading">
-            <span>Recovery capacity</span>
-            <output class="diagnostics__slider-value" data-score-output="recovery">5</output>
-          </div>
-          <input type="range" min="0" max="10" value="5" step="1" data-score-input="recovery" />
-          <p class="muted small">0 is no breathing room, 10 is sustainable with slack.</p>
-        </label>
-      </div>
-      <div class="diagnostics__scorecard" aria-live="polite">
-        <p class="eyebrow">Burnout score</p>
-        <p class="diagnostics__score" data-score-value>50</p>
-        <p class="muted diagnostics__score-label" data-score-label>Elevated load</p>
-        <p class="muted small" data-score-recommendation>
-          Use the Burden Modeler to quantify hotspots before the next cycle lands.
-        </p>
-        <div class="section__actions">
-          <a class="button primary" href="/diagnostics/burden-modeler">Run the Burden Modeler</a>
-          <a class="button ghost" href="/diagnostics/capacity-forecaster">Open the Capacity Forecaster</a>
-        </div>
-      </div>
-    </div>
+    <ul class="muted">
+      <li>Linkable results page and a shareable PDF summary.</li>
+      <li>Mechanism language references to keep mitigations consistent.</li>
+      <li>Optional facilitation handoff when ambiguity or risk stays high.</li>
+    </ul>
+    <StudioBadge />
+  </SectionBlock>
+
+  <SectionBlock
+    id="quick-triage"
+    eyebrow="Quick triage"
+    title="Pick the fastest diagnostic path in three questions."
+    description="Use these prompts to route to the right tool without the demo widget."
+  >
+    <CardGrid className="grid--three">
+      {quickTriagePrompts.map((prompt) => (
+        <CardItem title={prompt.question} description={prompt.description} descriptionTone="default">
+          <a slot="footer" class="muted" href={prompt.href}>
+            {prompt.label}
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock
@@ -161,7 +168,7 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
     id="diagnostic-tools"
     eyebrow="Diagnostics menu"
     title="Pick the tool that matches your situation."
-    description={`Every diagnostic ships with a linkable result and an off-ramp. ${offRampNote}`}
+    description="Every diagnostic ships with a linkable result and mechanism references."
   >
     <div class="diagnostics__filters" data-diagnostics-filters>
       <p class="muted">Filter by delivery type</p>
@@ -230,7 +237,6 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
                 </ul>
               </li>
             </ul>
-            <p class="muted small">{tool.studioNote}</p>
           </div>
           <div class="diagnostics__card-footer">
             <div class="section__actions">
@@ -248,14 +254,10 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
                 {tool.exampleLabel}
               </a>
             </div>
-            <p class="muted diagnostics__pairing">
-              Pair with <a href={mechanismBase}>mechanism language</a> entries for consistent mitigation.
-            </p>
           </div>
         </CardItem>
       ))}
     </CardGrid>
   </SectionBlock>
   <script type="module" src={diagnosticsFilterScript}></script>
-  <script type="module" src={diagnosticsScoreScript}></script>
 </BaseLayout>

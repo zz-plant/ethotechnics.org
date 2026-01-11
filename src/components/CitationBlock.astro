@@ -9,6 +9,8 @@ type Props = {
   publisher?: string;
   citationKey?: string;
   summaryLabel?: string;
+  variant?: "compact" | "full";
+  moreFormatsHref?: string;
 };
 
 const {
@@ -18,6 +20,8 @@ const {
   publisher = "Ethotechnics Institute",
   citationKey,
   summaryLabel = "Cite this page",
+  variant = "full",
+  moreFormatsHref = "/mechanisms/cite",
 } = Astro.props as Props;
 const pageUrl = Astro.site ? new URL(permalink, Astro.site).toString() : permalink;
 const year = new Date(publication.updated ?? publication.published).getFullYear();
@@ -62,7 +66,9 @@ const ris = risLines.join("\n");
 
 <div class="citation-block">
   <div class="citation-block__quick">
-    <p class="muted small">Copy citation (APA/BibTeX)</p>
+    <p class="muted small">
+      {variant === "compact" ? "Copy citation (APA)" : "Copy citation (APA/BibTeX)"}
+    </p>
     <div class="citation-block__quick-actions">
       <button
         class="copy-button"
@@ -70,106 +76,115 @@ const ris = risLines.join("\n");
         data-citation-text={apa}
         data-citation-format="APA"
       >
-        Copy citation (APA)
+        Copy APA
       </button>
-      <button
-        class="copy-button"
-        type="button"
-        data-citation-text={bibtex}
-        data-citation-format="BibTeX"
-      >
-        Copy citation (BibTeX)
-      </button>
+      {variant === "full" && (
+        <button
+          class="copy-button"
+          type="button"
+          data-citation-text={bibtex}
+          data-citation-format="BibTeX"
+        >
+          Copy citation (BibTeX)
+        </button>
+      )}
+      {variant === "compact" && (
+        <a class="muted small" href={moreFormatsHref}>
+          More formats
+        </a>
+      )}
     </div>
   </div>
-  <details class="citation-block__details">
-    <summary class="citation-block__summary">
-      {summaryLabel}
-      <span class="muted small">Formats: APA, MLA, Chicago, BibTeX, RIS</span>
-    </summary>
-    <div class="citation-block__body">
-      <div class="citation-block__meta">
-        <div>
-          <p class="muted small">Version</p>
-          <p>{publication.version}</p>
+  {variant === "full" && (
+    <details class="citation-block__details">
+      <summary class="citation-block__summary">
+        {summaryLabel}
+        <span class="muted small">Formats: APA, MLA, Chicago, BibTeX, RIS</span>
+      </summary>
+      <div class="citation-block__body">
+        <div class="citation-block__meta">
+          <div>
+            <p class="muted small">Version</p>
+            <p>{publication.version}</p>
+          </div>
+          <div>
+            <p class="muted small">Last updated</p>
+            <p>{updatedDate}</p>
+          </div>
+          <div>
+            <p class="muted small">Permalink</p>
+            <a href={pageUrl}>{pageUrl}</a>
+          </div>
+          <div>
+            <p class="muted small">DOI</p>
+            <p>{doi ?? "Not yet minted"}</p>
+          </div>
         </div>
-        <div>
-          <p class="muted small">Last updated</p>
-          <p>{updatedDate}</p>
-        </div>
-        <div>
-          <p class="muted small">Permalink</p>
-          <a href={pageUrl}>{pageUrl}</a>
-        </div>
-        <div>
-          <p class="muted small">DOI</p>
-          <p>{doi ?? "Not yet minted"}</p>
+        <div class="citation-block__formats">
+          <div class="citation-block__format">
+            <p class="eyebrow">APA</p>
+            <pre>{apa}</pre>
+            <button
+              class="copy-button"
+              type="button"
+              data-citation-text={apa}
+              data-citation-format="APA"
+            >
+              Copy APA
+            </button>
+          </div>
+          <div class="citation-block__format">
+            <p class="eyebrow">MLA</p>
+            <pre>{mla}</pre>
+            <button
+              class="copy-button"
+              type="button"
+              data-citation-text={mla}
+              data-citation-format="MLA"
+            >
+              Copy MLA
+            </button>
+          </div>
+          <div class="citation-block__format">
+            <p class="eyebrow">Chicago</p>
+            <pre>{chicago}</pre>
+            <button
+              class="copy-button"
+              type="button"
+              data-citation-text={chicago}
+              data-citation-format="Chicago"
+            >
+              Copy Chicago
+            </button>
+          </div>
+          <div class="citation-block__format">
+            <p class="eyebrow">BibTeX</p>
+            <pre>{bibtex}</pre>
+            <button
+              class="copy-button"
+              type="button"
+              data-citation-text={bibtex}
+              data-citation-format="BibTeX"
+            >
+              Copy BibTeX
+            </button>
+          </div>
+          <div class="citation-block__format">
+            <p class="eyebrow">RIS</p>
+            <pre>{ris}</pre>
+            <button
+              class="copy-button"
+              type="button"
+              data-citation-text={ris}
+              data-citation-format="RIS"
+            >
+              Copy RIS
+            </button>
+          </div>
         </div>
       </div>
-      <div class="citation-block__formats">
-        <div class="citation-block__format">
-          <p class="eyebrow">APA</p>
-          <pre>{apa}</pre>
-          <button
-            class="copy-button"
-            type="button"
-            data-citation-text={apa}
-            data-citation-format="APA"
-          >
-            Copy APA
-          </button>
-        </div>
-        <div class="citation-block__format">
-          <p class="eyebrow">MLA</p>
-          <pre>{mla}</pre>
-          <button
-            class="copy-button"
-            type="button"
-            data-citation-text={mla}
-            data-citation-format="MLA"
-          >
-            Copy MLA
-          </button>
-        </div>
-        <div class="citation-block__format">
-          <p class="eyebrow">Chicago</p>
-          <pre>{chicago}</pre>
-          <button
-            class="copy-button"
-            type="button"
-            data-citation-text={chicago}
-            data-citation-format="Chicago"
-          >
-            Copy Chicago
-          </button>
-        </div>
-        <div class="citation-block__format">
-          <p class="eyebrow">BibTeX</p>
-          <pre>{bibtex}</pre>
-          <button
-            class="copy-button"
-            type="button"
-            data-citation-text={bibtex}
-            data-citation-format="BibTeX"
-          >
-            Copy BibTeX
-          </button>
-        </div>
-        <div class="citation-block__format">
-          <p class="eyebrow">RIS</p>
-          <pre>{ris}</pre>
-          <button
-            class="copy-button"
-            type="button"
-            data-citation-text={ris}
-            data-citation-format="RIS"
-          >
-            Copy RIS
-          </button>
-        </div>
-      </div>
-    </div>
-  </details>
+    </details>
+  )}
 </div>
 
 <script type="module" src={citationCopyScript}></script>

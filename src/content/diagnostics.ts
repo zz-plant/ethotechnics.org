@@ -60,7 +60,6 @@ export type DiagnosticsContent = PageWithPermalink &
   PublishedContent & {
     publication: PublicationMetadata;
     tools: DiagnosticTool[];
-    offRampNote: string;
     valueProps: { title: string; description: string }[];
     facilitation: {
       title: string;
@@ -73,7 +72,7 @@ export type DiagnosticsContent = PageWithPermalink &
 export const diagnosticsContent: DiagnosticsContent = {
   pageTitle: "Diagnostics — Ethotechnics",
   pageDescription:
-    "Pick a diagnostic, arrive with a question, and leave with a decision-ready summary and a clear off-ramp.",
+    "Pick a diagnostic, arrive with a question, and leave with a decision-ready summary.",
   permalink: "/diagnostics",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-01-09T00:00:00Z",
@@ -112,8 +111,6 @@ export const diagnosticsContent: DiagnosticsContent = {
     attribution:
       "Credit Ethotechnics Institute Diagnostics Lab, include tool name + version, and link to the canonical permalink.",
   },
-  offRampNote:
-    "If a diagnostic surfaces high risk or ambiguity, we route you to a facilitated deep dive through ethotechnics.com/studio.",
   valueProps: [
     {
       title: "Decide quickly",
@@ -121,9 +118,9 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Each diagnostic is scoped to a single question so you can share a concise readout with executives, regulators, or partners.",
     },
     {
-      title: "Land on an off-ramp",
+      title: "Shareable outputs",
       description:
-        "Every result page includes the escalation path to ethotechnics.com/studio when risk or ambiguity shows up.",
+        "Every tool produces a linkable report you can pass to leadership, regulators, or partners.",
     },
     {
       title: "Link to shared language",
@@ -149,7 +146,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       {
         title: "Leave with a next step",
         detail:
-          "You get a linkable readout, mechanism references, and the off-ramp to ethotechnics.com/studio if you need facilitation.",
+          "You get a linkable readout, mechanism references, and a next-step path.",
       },
     ],
     note: "Diagnostics are written for visitors: no prior relationship needed, and every tool is CC BY through the Institute.",
@@ -244,7 +241,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       outputs: [
         "Burden index score with plain-language findings tied to your scenario.",
         "Ranked hotspots with mitigation paths and expected relief per action.",
-        "Result page with a persistent off-ramp to ethotechnics.com/studio.",
+        "PDF summary built for quick stakeholder forwarding.",
       ],
       estimatedTime: "10–15 minutes",
       prepChecklist: [
@@ -350,7 +347,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       outputs: [
         "Readiness summary that highlights consent journey gaps.",
         "UI nits and mitigation guidance tied to mechanism language filters.",
-        "Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.",
+        "Tiered scorecard that clarifies the readiness ceiling.",
       ],
       estimatedTime: "30–45 minutes",
       prepChecklist: [
@@ -457,7 +454,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       outputs: [
         "Scenario runs with clear ownership, mitigation branches, and time-to-halt expectations.",
         "Communication templates mapped to risk levels, roles, and escalation routes.",
-        "Result page summarizing coverage gaps with the off-ramp to ethotechnics.com/studio.",
+        "Coverage map that highlights readiness gaps per team.",
       ],
       estimatedTime: "20–30 minutes",
       prepChecklist: [
@@ -562,7 +559,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       outputs: [
         "Side-by-side baseline and remediated capacity projections.",
         "PDF export with saturation callouts for stakeholder sharing.",
-        "Result page reiterating the off-ramp link to ethotechnics.com/studio for complex findings.",
+        "Scenario table that clarifies timing trade-offs for leadership.",
       ],
       estimatedTime: "15–20 minutes",
       prepChecklist: [
