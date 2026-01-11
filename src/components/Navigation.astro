@@ -931,18 +931,17 @@ const topLevelLinks = navPrimaryLinks;
   }
 
   .nav__content-header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: flex-start;
     gap: 1rem;
-    flex-wrap: wrap;
   }
 
   .nav__content-actions {
     display: inline-flex;
     gap: 0.5rem;
     align-items: center;
-    margin-left: auto;
+    justify-self: end;
   }
 
   .nav__menu-close {

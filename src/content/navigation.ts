@@ -104,6 +104,11 @@ export const navSections: NavSection[] = [
         label: "Latency Audit",
         description: "Check if timeouts honor STD-01 bounded duration.",
       },
+      {
+        href: "/diagnostics",
+        label: "Diagnostics",
+        description: "Run simulations and maintenance diagnostics.",
+      },
     ],
   },
   {
@@ -129,14 +134,14 @@ export const navSections: NavSection[] = [
         description: "Applied case studies and implementation learnings.",
       },
       {
-        href: "/glossary",
-        label: "Glossary",
-        description: "Shared definitions and canonical term anchors.",
+        href: "/syllabus",
+        label: "Syllabus",
+        description: "Structured learning path through standards and tools.",
       },
       {
-        href: "/start-here",
-        label: "Start here",
-        description: "Guided overview for new visitors.",
+        href: "/agent-toolkit",
+        label: "Agent toolkit",
+        description: "Operational playbooks and agent enablement tools.",
       },
     ],
   },
@@ -158,9 +163,9 @@ export const navSections: NavSection[] = [
         description: "Stewards, editors, and reviewers behind the standards.",
       },
       {
-        href: "/field-notes",
-        label: "Case law",
-        description: "Field notes and applied findings from deployments.",
+        href: "/participate",
+        label: "Participate",
+        description: "Submit proposals, join reviews, or share feedback.",
       },
       {
         href: "https://ethotechnics.com",
