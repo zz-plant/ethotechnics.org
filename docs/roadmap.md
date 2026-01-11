@@ -9,21 +9,17 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                | Next                                                                                              | Later                                                                           |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Highest-priority work in progress. | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                        |
-| Keep entries small and actionable. | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                            |
-| - None currently.                  | - [Redundancy compression pass](#redundancy-compression-pass)                                     | - [Where this binds (non-legal translation surface)](#where-this-binds-surface) |
-|                                    | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) |                                                                                 |
-|                                    | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   |                                                                                 |
-|                                    | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               |                                                                                 |
-|                                    | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 |                                                                                 |
-|                                    | - [Contestability pattern library](#contestability-pattern-library)                               |                                                                                 |
-|                                    | - [Governance lessons from incidents](#governance-lessons-from-incidents)                         |                                                                                 |
-|                                    | - [Language people can use](#language-people-can-use)                                             |                                                                                 |
-|                                    | - [Democratic vs. coercive governability page](#democratic-vs-coercive-governability)             |                                                                                 |
-|                                    | - [Public memory for contestability terms](#public-memory-for-contestability-terms)               |                                                                                 |
-|                                    | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)                 |                                                                                 |
+| Now                                | Next                                                                                              | Later                                                                               |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Highest-priority work in progress. | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                            |
+| Keep entries small and actionable. | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                                |
+| - None currently.                  | - [Redundancy compression pass](#redundancy-compression-pass)                                     | - [Where this binds (non-legal translation surface)](#where-this-binds-surface)     |
+|                                    | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) | - [Contestability pattern library](#contestability-pattern-library)                 |
+|                                    | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
+|                                    | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               | - [Language people can use](#language-people-can-use)                               |
+|                                    | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
+|                                    |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
+|                                    |                                                                                                   | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
 
 ## Spec template
 
@@ -47,45 +43,6 @@ under this heading and link to it from the roadmap table.
 - Acceptance criteria are testable.
 - Dependencies and blockers are listed.
 - If needed, a GitHub Issue exists and links back here.
-
-## End-to-end mapping artifact (brandless)
-
-- **Problem:** The composability chain (harm → right → validator → mechanism → binding change) is
-  hard to understand in one view.
-- **Scope:** Create one synthetic, brandless scenario (e.g., service eligibility denial) mapped to
-  STD-01 clause IDs, validators, mechanisms, and concrete system changes. Present as a table with
-  arrows, not narrative.
-- **UX/Tech notes:** Publish as a standalone page with a stable permalink; include APA and BibTeX
-  citation blocks; cross-link to standards, validators, and mechanisms.
-- **Acceptance criteria:** A reader can explain the full chain in under three minutes. No personas,
-  no storytelling, no brand references. The mapping is reusable across domains.
-- **Dependencies/risks:** Needs agreement on canonical clause IDs and link targets.
-- **Issue link:** Issue: TBD / Spec: #end-to-end-mapping-artifact-brandless
-
-## Micro-diagram language specification
-
-- **Problem:** Diagram semantics can drift as more visuals are added.
-- **Scope:** Define canonical shapes (state, agent, boundary, authority), line styles (causal,
-  authority, contingent), and axes (time, authority, burden). Include examples for execution vs.
-  redress clocks and stoppability/reversibility.
-- **UX/Tech notes:** Publish as a one-page spec with Markdown and SVG snippets. Reference it from
-  future diagrams.
-- **Acceptance criteria:** Every diagram can be explained using the spec alone. Shapes are
-  unambiguous. Grayscale-readable and accessible.
-- **Dependencies/risks:** Requires alignment with existing diagrams to avoid breaking semantics.
-- **Issue link:** Issue: TBD / Spec: #micro-diagram-language-specification
-
-## Minimum binding set specification
-
-- **Problem:** Standards can be adopted in partial, symbolic, or checkbox ways.
-- **Scope:** Define minimum binding requirements per right, starting with STD-01. Example: for
-  Bounded Duration, require a hard clock, escalation path, and declared duration pre-commitment.
-  Include clause-level references and an explicit list of insufficient implementations.
-- **UX/Tech notes:** Publish as a STD-01 appendix or standalone spec with clear enforcement logic.
-- **Acceptance criteria:** Impossible to claim compliance with a single surface change. Auditors and
-  reviewers can apply the logic consistently.
-- **Dependencies/risks:** Requires agreement on enforcement language and clause references.
-- **Issue link:** Issue: TBD / Spec: #minimum-binding-set-specification
 
 ## Redundancy compression pass
 
