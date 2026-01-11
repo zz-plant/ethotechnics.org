@@ -1,0 +1,134 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Where this binds";
+const pageDescription =
+  "A non-authoritative guide to citing Ethotechnics standards in contracts, procurement language, and audits.";
+const permalink = "/standards/where-this-binds";
+const anchorLinks = [
+  { href: "#contracts", label: "Contracts" },
+  { href: "#procurement", label: "Procurement" },
+  { href: "#audits", label: "Audits" },
+  { href: "#language", label: "Sample language" },
+  { href: "#citations", label: "Citations" },
+];
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Governance Council",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2026-03-01T00:00:00Z",
+  updated: "2026-03-01T00:00:00Z",
+  version: "v1.0.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v1.0.0",
+      date: "2026-03-01",
+      summary: "Published a governance-oriented guide to binding language.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Governance Council, include the page title + version, and link to the canonical permalink.",
+};
+---
+
+<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription} mainClass="page page--wide">
+  <PageIntro
+    eyebrow="Standards"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Non-authoritative",
+      title: "Translate standards into binding language.",
+      description:
+        "These examples are meant for orientation and should be adapted with counsel for your jurisdiction.",
+      link: {
+        label: "Review STD-01",
+        href: "/standards/std-01-temporal-rights",
+      },
+    }}
+  />
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+
+  <SectionBlock
+    id="contracts"
+    eyebrow="Contracts"
+    title="Reference the standard in agreements and SOWs."
+    description="Use stable IDs and clause references so obligations remain clear over time."
+  >
+    <ul class="muted">
+      <li>Reference STD-01 by ID, version, and permalink in the contract appendix.</li>
+      <li>List the specific rights and clauses that apply to the engagement scope.</li>
+      <li>Require evidence artifacts (validator outputs, logs, or mechanism checklists).</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="procurement"
+    eyebrow="Procurement"
+    title="Use the standards as requirement language."
+    description="Procurement language should specify which validators and mechanisms are expected."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Ask vendors to submit validator results aligned to STD-01 rights.</li>
+      <li>Specify required mechanisms (e.g., hard clocks, appeal paths) in RFPs.</li>
+      <li>Require remediation timelines when validator scores fall below thresholds.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="audits"
+    eyebrow="Audits"
+    title="Anchor audits to validator outputs and mechanism evidence."
+    description="Audits should pair the standard text with measurable evidence."
+  >
+    <ul class="muted">
+      <li>Use validator report cards as audit artifacts, not just narrative summaries.</li>
+      <li>Crosswalk audit findings to STD-01 clause IDs and mechanism coverage.</li>
+      <li>Retain permalinks in audit logs to maintain versioned evidence chains.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="language"
+    eyebrow="Sample language"
+    title="Use this as a starting point."
+    description="Adapt with counsel and ensure it aligns to your jurisdiction."
+    variant="alt"
+  >
+    <pre>
+Supplier will maintain compliance with Ethotechnics Institute Standard STD-01 v1.0.0, including
+the rights to Stoppability, Exit, and Bounded Duration. Supplier will provide validator outputs
+for VAL-01, VAL-02, and VAL-03 upon request, and will document remediation mechanisms aligned to
+the Institute's mechanisms catalog.
+    </pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="citations"
+    eyebrow="Citations"
+    title="Reference this guidance."
+    description="Use the canonical permalink so governance documents stay aligned."
+  >
+    <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+  </SectionBlock>
+</BaseLayout>

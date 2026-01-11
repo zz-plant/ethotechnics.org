@@ -1,0 +1,235 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "STD-01 rights \u2192 validators \u2192 mechanisms matrix";
+const pageDescription =
+  "A reference matrix linking STD-01 temporal rights to validator coverage and enforcement mechanisms.";
+const permalink = "/standards/std-01-rights-matrix";
+const anchorLinks = [
+  { href: "#matrix", label: "Matrix" },
+  { href: "#notes", label: "Coverage notes" },
+  { href: "#citations", label: "Citations" },
+];
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Standards Working Group",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2026-03-01T00:00:00Z",
+  updated: "2026-03-01T00:00:00Z",
+  version: "v1.0.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v1.0.0",
+      date: "2026-03-01",
+      summary:
+        "Published the first crosswalk of STD-01 rights, validator coverage, and mechanisms.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Standards Working Group, include the page title + version, and link to the canonical permalink.",
+};
+
+const matrix = [
+  {
+    right: "Stoppability (STD-01 \u00a71)",
+    validators: [
+      { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
+      { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
+    ],
+    mechanisms: [
+      { label: "MEC-05 Kill switch", href: "/mechanisms/patterns/kill-switch" },
+      { label: "MEC-01 Decision log with dissent", href: "/mechanisms/patterns/decision-log" },
+    ],
+    notes: "Use halt controls plus decision logging to make stoppability enforceable.",
+  },
+  {
+    right: "Exit / Resignation (STD-01 \u00a72)",
+    validators: [
+      { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
+      { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
+    ],
+    mechanisms: [
+      { label: "MEC-02 Progressive consent", href: "/mechanisms/patterns/progressive-consent" },
+      { label: "MEC-06 Appeal paths", href: "/mechanisms/patterns/appeal-paths" },
+    ],
+    notes: "Model time-to-exit and enforce clear resignation paths in the UI.",
+  },
+  {
+    right: "Bounded duration (STD-01 \u00a73)",
+    validators: [
+      { label: "VAL-03 Latency Audit", href: "/validators/latency-audit" },
+    ],
+    mechanisms: [
+      { label: "MEC-04 Hard Clock", href: "/mechanisms/mec-04-hard-clock" },
+      { label: "MEC-03 Maintenance windowing", href: "/mechanisms/patterns/maintenance-windowing" },
+    ],
+    notes: "Every state needs a deadline, escalation path, and declared window.",
+  },
+  {
+    right: "Reversibility (STD-01 \u00a74)",
+    validators: [
+      { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
+      { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
+    ],
+    mechanisms: [
+      { label: "MEC-02 Progressive consent", href: "/mechanisms/patterns/progressive-consent" },
+      { label: "MEC-01 Decision log with dissent", href: "/mechanisms/patterns/decision-log" },
+    ],
+    notes: "Guard irreversible actions with rollback windows and decision traceability.",
+  },
+  {
+    right: "Non-coercive waiting (STD-01 \u00a75)",
+    validators: [
+      { label: "VAL-03 Latency Audit", href: "/validators/latency-audit" },
+      { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
+    ],
+    mechanisms: [
+      { label: "MEC-03 Maintenance windowing", href: "/mechanisms/patterns/maintenance-windowing" },
+      { label: "MEC-02 Progressive consent", href: "/mechanisms/patterns/progressive-consent" },
+    ],
+    notes: "Expose wait-time truth and provide alternate paths for long delays.",
+  },
+  {
+    right: "Human override (STD-01 \u00a76)",
+    validators: [
+      { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
+      { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
+    ],
+    mechanisms: [
+      { label: "MEC-06 Appeal paths", href: "/mechanisms/patterns/appeal-paths" },
+      { label: "MEC-01 Decision log with dissent", href: "/mechanisms/patterns/decision-log" },
+    ],
+    notes: "Ensure escalations route to accountable humans with visible ownership.",
+  },
+  {
+    right: "Transparent burden (STD-01 \u00a77)",
+    validators: [
+      { label: "VAL-01 Burden Modeler", href: "/validators/burden-modeler" },
+      { label: "VAL-02 Risk Radar", href: "/validators/risk-radar" },
+    ],
+    mechanisms: [
+      { label: "MEC-01 Decision log with dissent", href: "/mechanisms/patterns/decision-log" },
+      { label: "MEC-03 Maintenance windowing", href: "/mechanisms/patterns/maintenance-windowing" },
+    ],
+    notes: "Publish time tax metrics and bind remediation to logged decisions.",
+  },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription} mainClass="page page--wide">
+  <PageIntro
+    eyebrow="Standards"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Why this exists",
+      title: "One lookup table for triage.",
+      description:
+        "Use this matrix to locate the right validator and mechanism before you open the full standard.",
+      link: {
+        label: "Open the mapping artifact",
+        href: "/standards/std-01-mapping-artifact",
+      },
+    }}
+  />
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+
+  <SectionBlock
+    id="matrix"
+    eyebrow="Crosswalk"
+    title="STD-01 rights mapped to validators and mechanisms."
+    description="Each row lists the validator coverage and enforcement mechanisms typically used together."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">STD-01 right</th>
+            <th scope="col">Validators</th>
+            <th scope="col">Mechanisms</th>
+            <th scope="col">Coverage note</th>
+          </tr>
+        </thead>
+        <tbody>
+          {matrix.map((row) => (
+            <tr>
+              <td>
+                <strong>{row.right}</strong>
+              </td>
+              <td>
+                <ul>
+                  {row.validators.map((validator) => (
+                    <li>
+                      <a href={validator.href}>{validator.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {row.mechanisms.map((mechanism) => (
+                    <li>
+                      <a href={mechanism.href}>{mechanism.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </td>
+              <td>{row.notes}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="notes"
+    eyebrow="Coverage notes"
+    title="The matrix is additive, not exhaustive."
+    description="Use the minimum binding set and mapping artifact to confirm clause-level coverage."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>
+        The same validator may cover multiple rights; use the diagnostics output to confirm specific
+        clause gaps.
+      </li>
+      <li>
+        Mechanisms listed here are primary enforcers. Pair them with additional governance or policy
+        mechanisms as needed.
+      </li>
+      <li>
+        Review the <a href="/standards/std-01-minimum-binding-set">minimum binding set</a> for
+        per-right requirements and insufficiencies.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="citations"
+    eyebrow="Citations"
+    title="Reference this matrix in audits and work plans."
+    description="Use the permalink and version to keep audit trails consistent."
+  >
+    <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+  </SectionBlock>
+</BaseLayout>

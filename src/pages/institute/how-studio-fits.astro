@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import InstituteStudioComparison from "../../components/InstituteStudioComparison.astro";
+import StudioBadge from "../../components/StudioBadge.astro";
+import { instituteStudioComparisonContent } from "../../content/comparison";
+
+const pageTitle = "How Studio fits";
+const pageDescription =
+  "A concise guide to when the Institute is enough and when Studio support is the right escalation.";
+const permalink = "/institute/how-studio-fits";
+const anchorLinks = [
+  { href: "#positioning", label: "Institute vs Studio" },
+  { href: "#self-serve", label: "Stay self-serve" },
+  { href: "#escalation", label: "When to escalate" },
+  { href: "#boundaries", label: "Engagement boundaries" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Institute`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Institute"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Quick signal",
+      title: "Self-serve by default.",
+      description:
+        "Use the Institute when you want open guidance. Escalate to Studio when timing, risk, or facilitation demand a partner.",
+    }}
+  />
+
+  <div class="section__actions">
+    <StudioBadge />
+  </div>
+
+  <SectionBlock
+    id="positioning"
+    eyebrow="Positioning"
+    title="Institute vs. Studio"
+    description="Both are aligned, but they serve different moments in the work."
+  >
+    <InstituteStudioComparison content={instituteStudioComparisonContent} />
+  </SectionBlock>
+
+  <SectionBlock
+    id="self-serve"
+    eyebrow="Stay self-serve"
+    title="Use the Institute when the answer is already in the library."
+    description="Self-serve paths are designed for teams that need clarity without a full engagement."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Run a diagnostic to translate risk into a report card.</li>
+      <li>Pull mechanism specs for governance, friction, or policy safeguards.</li>
+      <li>Use stable permalinks in memos, audits, or decision logs.</li>
+      <li>Share draft standards internally before committing to delivery changes.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="escalation"
+    eyebrow="When to escalate"
+    title="Bring in the Studio when the decision window is tight."
+    description="Studio support is for facilitation, mediation, or delivery tasks that need a partner."
+  >
+    <ul class="muted">
+      <li>You need a neutral facilitator for governance or appeals.</li>
+      <li>Multiple teams are blocked on a binding policy decision.</li>
+      <li>A diagnostic surfaced risk and needs rapid remediation.</li>
+      <li>You are designing a high-stakes launch and want shared accountability.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="boundaries"
+    eyebrow="Boundaries"
+    title="Studio engagements stay aligned to published standards."
+    description="Engagements focus on delivery and facilitation, not rewriting the public standard."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Studio engagements reference the same standards and mechanisms published here.</li>
+      <li>Outcomes feed back into public artifacts when possible.</li>
+      <li>Escalations should still preserve open access to the Institute materials.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="contact"
+    eyebrow="Contact"
+    title="Ready to escalate?"
+    description="Use the Studio intake channels when you need facilitation support."
+  >
+    <p class="muted">
+      Email <a href="mailto:studio@ethotechnics.org">studio@ethotechnics.org</a> with the diagnostic
+      output or risk brief so the team can route you to the right forum.
+    </p>
+  </SectionBlock>
+</BaseLayout>
