@@ -1,0 +1,256 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "End-to-end mapping artifact (brandless)";
+const pageDescription =
+  "A synthetic, brandless walk-through that maps harm to rights, validators, mechanisms, and binding change.";
+const permalink = "/standards/std-01-mapping-artifact";
+const anchorLinks = [
+  { href: "#scenario", label: "Scenario snapshot" },
+  { href: "#mapping", label: "Mapping table" },
+  { href: "#references", label: "Validator + mechanism references" },
+  { href: "#citations", label: "Citations" },
+];
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Standards Office",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2026-02-01T00:00:00Z",
+  updated: "2026-02-01T00:00:00Z",
+  version: "v1.0.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v1.0.0",
+      date: "2026-02-01",
+      summary: "Published the brandless mapping table and binding change guidance.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",
+};
+
+const mappingRows = [
+  {
+    harm: "Eligibility request is auto-denied after a silent review window.",
+    right: {
+      title: "Human override",
+      clauses: ["§6.1", "§6.2"],
+      href: "/standards/std-01-temporal-rights",
+    },
+    validator: {
+      title: "Latency Audit",
+      href: "/validators/latency-audit",
+    },
+    mechanism: {
+      title: "MEC-06: Appeal paths inside the UI",
+      href: "/mechanisms/patterns/appeal-paths",
+    },
+    bindingChange:
+      "Expose an appeal intake with SLA, named reviewers, and institutional liability language.",
+  },
+  {
+    harm: "Applicants cannot exit a multi-step form without losing progress.",
+    right: {
+      title: "Stoppability",
+      clauses: ["§1.1", "§1.2", "§1.3"],
+      href: "/standards/std-01-temporal-rights",
+    },
+    validator: {
+      title: "Risk Radar",
+      href: "/validators/risk-radar",
+    },
+    mechanism: {
+      title: "MEC-05: Kill switch for runaway automation",
+      href: "/mechanisms/patterns/kill-switch",
+    },
+    bindingChange:
+      "Add a persistent stop control plus a pause token that preserves state without penalty.",
+  },
+  {
+    harm: "Queue status is opaque and requires staying online to hold a place.",
+    right: {
+      title: "Non-coercive waiting",
+      clauses: ["§5.1", "§5.2", "§5.3"],
+      href: "/standards/std-01-temporal-rights",
+    },
+    validator: {
+      title: "Burden Modeler",
+      href: "/validators/burden-modeler",
+    },
+    mechanism: {
+      title: "MEC-04: The Hard Clock",
+      href: "/mechanisms/mec-04-hard-clock",
+    },
+    bindingChange:
+      "Publish queue position + ETA, offer callback, and cap wait times with an escalation clock.",
+  },
+  {
+    harm: "Processing time is undisclosed until after submission.",
+    right: {
+      title: "Bounded duration",
+      clauses: ["§3.1", "§3.2", "§3.3"],
+      href: "/standards/std-01-temporal-rights",
+    },
+    validator: {
+      title: "Latency Audit",
+      href: "/validators/latency-audit",
+    },
+    mechanism: {
+      title: "MEC-04: The Hard Clock",
+      href: "/mechanisms/mec-04-hard-clock",
+    },
+    bindingChange:
+      "Declare expected duration pre-commitment and enforce timeout or human escalation on overrun.",
+  },
+];
+---
+
+<BaseLayout
+  title={`${pageTitle} — STD-01`}
+  description={pageDescription}
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="STD-01 reference"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Cross-reference",
+      title: "Move from harm to binding change.",
+      description:
+        "This artifact links a synthetic harm to STD-01 clauses, a validator entry point, and the mechanism that binds the response.",
+      link: {
+        label: "Read STD-01",
+        href: "/standards/std-01-temporal-rights",
+      },
+    }}
+  />
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+
+  <SectionBlock
+    id="scenario"
+    eyebrow="Scenario"
+    title="Synthetic eligibility denial snapshot."
+    description="One brandless sequence, kept abstract for reuse across domains."
+  >
+    <ul class="muted">
+      <li>A person submits an eligibility request for a public benefit.</li>
+      <li>The system marks the request as “under review” with no timer or ETA.</li>
+      <li>After two weeks, the system auto-denies the request without a clear path to appeal.</li>
+      <li>The user cannot see their queue position or exit without restarting later.</li>
+    </ul>
+    <p class="muted">
+      The mapping below aligns each harm moment to the relevant right, validator, mechanism, and
+      binding change.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="mapping"
+    eyebrow="Mapping"
+    title="Harm → Right → Validator → Mechanism → Binding change."
+    description="Each row is a single end-to-end chain, expressed without personas or branding."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th>Harm trigger →</th>
+            <th>Right (STD-01) →</th>
+            <th>Validator →</th>
+            <th>Mechanism →</th>
+            <th>Binding change</th>
+          </tr>
+        </thead>
+        <tbody>
+          {mappingRows.map((row) => (
+            <tr>
+              <td>{row.harm}</td>
+              <td>
+                <a href={row.right.href}>{row.right.title}</a>
+                <div class="muted small">{row.right.clauses.join(" · ")}</div>
+              </td>
+              <td>
+                <a href={row.validator.href}>{row.validator.title}</a>
+              </td>
+              <td>
+                <a href={row.mechanism.href}>{row.mechanism.title}</a>
+              </td>
+              <td>{row.bindingChange}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="references"
+    eyebrow="References"
+    title="Validator and mechanism anchors used in this mapping."
+    description="Cross-links to the supporting standard, validators, and mechanisms."
+  >
+    <div class="reference-grid">
+      <div>
+        <p class="eyebrow">Standard</p>
+        <ul>
+          <li>
+            <a href="/standards/std-01-temporal-rights">STD-01 — The Temporal Bill of Rights</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Validators</p>
+        <ul>
+          <li><a href="/validators/latency-audit">Latency Audit</a></li>
+          <li><a href="/validators/burden-modeler">Burden Modeler</a></li>
+          <li><a href="/validators/risk-radar">Risk Radar</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Mechanisms</p>
+        <ul>
+          <li><a href="/mechanisms/mec-04-hard-clock">MEC-04 — The Hard Clock</a></li>
+          <li><a href="/mechanisms/patterns/appeal-paths">MEC-06 — Appeal paths inside the UI</a></li>
+          <li><a href="/mechanisms/patterns/kill-switch">MEC-05 — Kill switch for runaway automation</a></li>
+        </ul>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="citations"
+    eyebrow="Citations"
+    title="Cite this mapping artifact."
+    description="APA and BibTeX are provided for reuse in briefs, audits, and research."
+    variant="alt"
+  >
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      citationKey="std_01_mapping_artifact"
+      summaryLabel="Cite this mapping artifact"
+    />
+  </SectionBlock>
+</BaseLayout>
