@@ -1,0 +1,36 @@
+---
+type CalloutAction = {
+  label: string;
+  href: string;
+  variant?: "primary" | "ghost";
+  rel?: string;
+  target?: string;
+};
+
+type Props = {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  actions: CalloutAction[];
+};
+
+const { eyebrow, title, description, actions } = Astro.props;
+---
+
+<div class="callout">
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <h3>{title}</h3>
+  <p class="muted">{description}</p>
+  <div class="section__actions">
+    {actions.map((action) => (
+      <a
+        class={`button ${action.variant ?? "ghost"}`}
+        href={action.href}
+        rel={action.rel}
+        target={action.target}
+      >
+        {action.label}
+      </a>
+    ))}
+  </div>
+</div>

@@ -9,13 +9,12 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                | Next                                                                                              | Later                                                                           |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Highest-priority work in progress. | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                        |
-| Keep entries small and actionable. | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                            |
-| - None currently.                  | - [Redundancy compression pass](#redundancy-compression-pass)                                     | - [Where this binds (non-legal translation surface)](#where-this-binds-surface) |
-|                                    | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) |                                                                                 |
-|                                    |                                                                                                   |                                                                                 |
+| Now                                | Next                                    | Later                                    |
+| ---------------------------------- | --------------------------------------- | ---------------------------------------- |
+| Highest-priority work in progress. | Ready-to-start items with scoped specs. | Ideas to revisit when capacity frees up. |
+| Keep entries small and actionable. | Add owners or dates only when needed.   | Capture rough ideas, not full specs.     |
+| - None currently.                  | - None currently.                       | - None currently.                        |
+|                                    |                                         |                                          |
 
 ## Spec template
 
@@ -243,3 +242,28 @@ Issue, point it back to the relevant section here for full context.
 - Draft or update the spec using the template above before changing code.
 - Confirm dependencies or blockers in the spec so follow-on work stays clear.
 - Keep updates lightweight and scoped to the smallest useful change.
+
+### Redundancy compression pass
+
+- **Problem:** Repeated language increased maintenance cost and reading fatigue.
+- **Outcome:** Centralized Studio off-ramp messaging and Institute vs. Studio explanations into
+  shared callouts and references across Diagnostics and Start Here.
+- **Notes:** Diagnostics now link to the rights matrix and use a single off-ramp callout; Start
+  Here points to the canonical comparison component.
+- **Issue link:** Issue: TBD / Spec: #redundancy-compression-pass
+
+### Rights → validators → mechanisms matrix
+
+- **Problem:** Practitioners needed faster lookups across rights, validators, and mechanisms.
+- **Outcome:** Published a printable crosswalk page for STD-01 with linked validators and
+  mechanisms, plus references from STD-01 and Diagnostics.
+- **Notes:** The matrix is formatted as a static table and cross-linked from standards navigation.
+- **Issue link:** Issue: TBD / Spec: #rights-to-validators-to-mechanisms-matrix
+
+### Where this binds (surface)
+
+- **Problem:** Policy and procurement teams needed a non-legal translation surface.
+- **Outcome:** Published a non-legal guidance page with policy, procurement, and audit translation
+  patterns plus scope boundaries.
+- **Notes:** Includes abstract examples and a link to the rights matrix for implementation detail.
+- **Issue link:** Issue: TBD / Spec: #where-this-binds-surface

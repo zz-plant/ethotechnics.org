@@ -5,6 +5,7 @@ import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro"
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import StudioOffRampCallout from "../../components/StudioOffRampCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import BurdenModelerWidget from "../../features/burden-modeler/BurdenModeler";
 
@@ -21,6 +22,7 @@ if (!tool) {
 }
 
 const { publication } = diagnosticsContent;
+const { offRampCallout } = diagnosticsContent;
 const pageTitle = `${tool.title} — Diagnostics`;
 const pageDescription = tool.description;
 const permalink = `/diagnostics/${tool.slug}`;
@@ -69,7 +71,7 @@ const anchorLinks = [
       ))}
     </ul>
     <p class="muted">Estimated time: {tool.estimatedTime}</p>
-    <p class="muted">{tool.studioNote}</p>
+    <StudioOffRampCallout {...offRampCallout} />
   </SectionBlock>
 
   <SectionBlock

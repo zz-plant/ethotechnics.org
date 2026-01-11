@@ -74,6 +74,15 @@ export const standardsContent: StandardsContent = {
       ctaLabel: "Open mapping",
     },
     {
+      id: "std-01-rights-matrix",
+      title: "STD-01 rights → validators → mechanisms matrix",
+      description:
+        "Printable crosswalk from rights to validator and mechanism references.",
+      href: "/standards/std-01-rights-matrix",
+      eyebrow: "STD-01 reference",
+      ctaLabel: "View matrix",
+    },
+    {
       id: "micro-diagram-language",
       title: "Micro-diagram language",
       description: "Canonical diagram shapes, line styles, and axes.",
@@ -89,6 +98,15 @@ export const standardsContent: StandardsContent = {
       href: "/standards/std-01-minimum-binding-set",
       eyebrow: "STD-01 reference",
       ctaLabel: "Review binding set",
+    },
+    {
+      id: "where-this-binds",
+      title: "Where this binds (non-legal guidance)",
+      description:
+        "Plain-language guidance for citing standards in policy, procurement, and audit work.",
+      href: "/standards/where-this-binds",
+      eyebrow: "Guidance",
+      ctaLabel: "View guidance",
     },
     {
       id: "glossary",

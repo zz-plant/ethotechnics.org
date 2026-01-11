@@ -38,9 +38,20 @@ export const navSections: NavSection[] = [
         description: "Draft standard defining the seven temporal rights.",
       },
       {
+        href: "/standards/std-01-rights-matrix",
+        label: "Rights → validators → mechanisms matrix",
+        description:
+          "Printable crosswalk from rights to validator and mechanism references.",
+      },
+      {
         href: "/standards/core-axioms",
         label: "Core axioms",
         description: "First principles for accountable system design.",
+      },
+      {
+        href: "/standards/where-this-binds",
+        label: "Where this binds (non-legal guidance)",
+        description: "Policy, procurement, and audit translation surface.",
       },
       {
         href: "/glossary",

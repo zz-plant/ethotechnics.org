@@ -1,0 +1,138 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Where this binds (non-legal guidance)";
+const pageDescription =
+  "A plain-language surface for citing Ethotechnics standards in policy, procurement, and audit work.";
+const permalink = "/standards/where-this-binds";
+const anchorLinks = [
+  { href: "#surface", label: "Translation surface" },
+  { href: "#examples", label: "Abstract examples" },
+  { href: "#boundaries", label: "Boundaries" },
+];
+
+const surfaces = [
+  {
+    title: "Internal policy",
+    description:
+      "Use standards as named references inside policy statements, playbooks, and operating guidance.",
+    bullets: [
+      "Cite the standard ID (ex: STD-01) in policy sections that govern time-bound commitments.",
+      "Reference the linked mechanisms as the enforcement layer for teams executing the policy.",
+      "Keep the citation descriptive, not prescriptive: focus on the expected outcome and escalation path.",
+    ],
+  },
+  {
+    title: "Procurement language",
+    description:
+      "Translate standards into vendor requirements without prescribing legal enforcement.",
+    bullets: [
+      "Request documentation that maps the vendor’s workflows to STD-01 rights and validators.",
+      "Require evidence of mechanism implementation (ex: hard clocks, appeal paths, decision logs).",
+      "Ask for a remediation plan tied to validator results, not just a checklist claim.",
+    ],
+  },
+  {
+    title: "Audit frameworks",
+    description:
+      "Use standards as a rubric for audit scope and evidence collection.",
+    bullets: [
+      "Treat validators as the audit entry point and capture their outputs as evidence.",
+      "Verify that mechanism language is implemented in product, policy, or support workflows.",
+      "Log deviations and remediation timelines with clear ownership and deadlines.",
+    ],
+  },
+];
+
+const examples = [
+  {
+    eyebrow: "Policy example",
+    text: "“All customer support flows must conform to STD-01 (Bounded Duration), with validator evidence logged per quarter.”",
+  },
+  {
+    eyebrow: "Procurement example",
+    text: "“Vendors must supply a mapping of STD-01 rights to implemented mechanisms and validator outputs.”",
+  },
+  {
+    eyebrow: "Audit example",
+    text: "“Audit scope includes validator outputs and mechanism evidence for STD-01 Human Override.”",
+  },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Non-legal guidance"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "How to use",
+      title: "A translation surface, not legal advice.",
+      description:
+        "This page helps policy and procurement teams cite standards without implying regulatory authority.",
+      link: {
+        label: "Read STD-01",
+        href: "/standards/std-01-temporal-rights",
+      },
+    }}
+  />
+
+  <SectionBlock
+    id="surface"
+    eyebrow="Translation surface"
+    title="Where standards bind without legal claims."
+    description="Use these surfaces to anchor standards in your own governance documents."
+  >
+    <CardGrid className="grid--three">
+      {surfaces.map((surface) => (
+        <CardItem title={surface.title} description={surface.description} descriptionTone="default">
+          <ul class="muted">
+            {surface.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="examples"
+    eyebrow="Abstract examples"
+    title="Language patterns to adapt."
+    description="Examples are deliberately generic. Replace the placeholders with your own context."
+    variant="alt"
+  >
+    <div class="reference-grid">
+      {examples.map((example) => (
+        <div>
+          <p class="eyebrow">{example.eyebrow}</p>
+          <p class="muted">{example.text}</p>
+        </div>
+      ))}
+    </div>
+    <p class="muted">
+      For enforcement specifics, pair these citations with the
+      <a href="/standards/std-01-rights-matrix">rights → validators → mechanisms matrix</a>.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="boundaries"
+    eyebrow="Boundaries"
+    title="What this page is not."
+    description="Keep the guidance non-legal, non-jurisdictional, and scoped to internal use."
+  >
+    <ul class="muted">
+      <li>This is not legal advice or regulatory interpretation.</li>
+      <li>Standards citations should not be presented as statutory requirements.</li>
+      <li>Use counsel to translate standards into jurisdiction-specific obligations.</li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>
