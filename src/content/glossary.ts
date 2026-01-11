@@ -577,7 +577,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>The accumulation of unresolved ethical risk from shipping capabilities faster than governance, ownership, and repair mechanisms. Ethics debt grows when <a href="#maintenance-debt">maintenance debt</a> outpaces the <a href="#repair-log">repair log</a>.</p>',
+            "<p>The accumulated gap between capability and governability, whose interest is paid as incidents, backlash, and legal constraint.</p><p><strong>Metrics:</strong> unresolved known-risk count, time-to-fix, incident frequency/severity trend, % capabilities lacking rollback/appeals, liability cost trajectory.</p><p><strong>Failure mode:</strong> A compounding cycle: ship \u2192 harm \u2192 patch \u2192 ship again, until a shock event forces a freeze or external takeover.</p>",
           examples: [
             "A recommender launches without consent review, adding unresolved risks to the repair log.",
           ],
@@ -615,7 +615,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>When a system\u2019s power exceeds the maturity of its controls, making failures likely even without malicious intent. Capability overhang shows up as strong automation but weak <a href="#stoppability">stoppability</a> or <a href="#reversibility">reversibility</a>.</p>',
+            "<p>A precise mismatch where system power exceeds controls (brakes, owners, audits, reversibility, recourse).</p><p><strong>Metrics:</strong> overhang ratio (capabilities / controls), % irreversible actions without approval, tool permission breadth, audit coverage, rollback feasibility score.</p><p><strong>Failure mode:</strong> \u201cIt can do it, but no one can govern it\u201d\u2014the system becomes uninsurable and politically toxic.</p>",
           examples: [
             "A model can auto-approve loans, but rollback and auditing are manual and slow.",
           ],
@@ -839,6 +839,15 @@ export const glossaryContent: GlossaryContent = {
           classes: [],
           bodyHtml:
             '<p>The moments, interfaces, and channels where people experience system decisions and can intervene. Mapping the interaction surface reveals where to place <a href="#dignity-friction">dignity friction</a>, widen the <a href="#permission-surface">permission surface</a>, and detect <a href="#dead-user-zones">dead-user zones</a>.</p>',
+        },
+        {
+          id: "bifurcation-by-contestability",
+          title: "Bifurcation by Contestability",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Systems split into high-contestability (slower, trusted, deployable in high stakes) and low-contestability (fast, then blocked).</p><p><strong>Metrics:</strong> contestability index (appeal path + receipts + reversal capacity + SLAs), deployment permission in regulated domains, incident/regulatory actions over time.</p><p><strong>Failure mode:</strong> Low-contestability systems hit a \u201clegitimacy ceiling\u201d\u2014growth stalls via lawsuits, bans, procurement exclusion, or reputational collapse.</p>",
+          tags: ["contestability", "deployment", "risk"],
         },
         {
           id: "maintenance-window",
@@ -1147,6 +1156,15 @@ export const glossaryContent: GlossaryContent = {
             "<p>Operational metrics tied directly to fairness, safety, and dignity. SLJs should sit alongside uptime and latency commitments.</p>",
         },
         {
+          id: "recourse-performance",
+          title: "Recourse Performance",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>How well a system delivers review \u2192 reversal \u2192 remedy under realistic load and stress.</p><p><strong>Metrics:</strong> time-to-acknowledge, time-to-decision, time-to-remedy, rollback success rate, escalation correctness, irreversible-harm rate, % cases resolved within SLA.</p><p><strong>Failure mode:</strong> \u201cSupport ticket governance\u201d\u2014appeals disappear into queues, reversals are rare, and remedies arrive after harm has hardened.</p>",
+          tags: ["recourse", "metrics", "operations"],
+        },
+        {
           id: "institutional-metabolism-mapping",
           title: "Institutional Metabolism Mapping",
           status: null,
@@ -1261,6 +1279,60 @@ export const glossaryContent: GlossaryContent = {
             '<p>The distance regulators, auditors, or affected communities can see into a system\u2019s decisions and their effects. Extending the horizon\u2014through <a href="#harm-visibility">harm visibility</a>, traceable models, and shared <a href="#repair-log">repair logs</a>\u2014shrinks <a href="#dead-zones">dead zones</a>.</p>',
         },
         {
+          id: "contestability-legitimacy-hinge",
+          title: "Contestability as the Legitimacy Hinge",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>A system is legitimate insofar as affected parties have standing, voice, and remedy against its decisions/actions.</p><p><strong>Metrics:</strong> appeal availability (% decisions with an appeal path), uptake rate, overturn rate, reviewer independence, evidence access, retaliation/penalty rate for appealing, remedy completeness.</p><p><strong>Failure mode:</strong> Accuracy becomes fate\u2014people experience the system as arbitrary even if it\u2019s \u201cright on average.\u201d</p>",
+          tags: ["contestability", "legitimacy", "governance"],
+        },
+        {
+          id: "maintenance-budgets-legitimacy-budgets",
+          title: "Maintenance Budgets are Legitimacy Budgets",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The practical capacity to monitor, review, and repair is a political/organizational legitimacy input, not overhead.</p><p><strong>Metrics:</strong> redress staffing per 1k cases, queue depth, SLA compliance, incident response MTTA/MTTR, budget share for ops/review, postmortem closure rate.</p><p><strong>Failure mode:</strong> Chronic backlog \u2192 delayed remedies \u2192 public loss of trust \u2192 regulation or revolt-by-other-means.</p>",
+          tags: ["maintenance", "governance", "operations"],
+        },
+        {
+          id: "receipts-by-default",
+          title: "Receipts-by-Default as a Legitimacy Interface",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>People should automatically get \u201cwhat happened\u201d records: actions taken, permissions used, reasons, and accountable owners.</p><p><strong>Metrics:</strong> receipt coverage rate, completeness score (actions/reasons/permissions/owners), user comprehension rate, audit log integrity, retrieval latency.</p><p><strong>Failure mode:</strong> \u201cTrust us\u201d UX\u2014users can\u2019t tell what occurred or who to contact, so disputes escalate to social/legal conflict.</p>",
+          tags: ["transparency", "recourse", "accountability"],
+        },
+        {
+          id: "sovereignty-constraint-imposition",
+          title: "Sovereignty as Constraint-Imposition Capacity",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Sovereignty is the ability to impose enforceable constraints on infrastructure operating in your territory (compute, data, identity, platforms, supply chains).</p><p><strong>Metrics:</strong> audit/enforcement capacity, compliance rates, local control over identity/keys, procurement leverage, compute/data residency enforceability, incident response coordination.</p><p><strong>Failure mode:</strong> Outsourced sovereignty: vendors set the de facto rules because the state can\u2019t inspect, enforce, or run remedies.</p>",
+          tags: ["sovereignty", "governance", "infrastructure"],
+        },
+        {
+          id: "standards-wars-recourse-wars",
+          title: "Standards Wars as Recourse Wars",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>Global competition shifts to whose regimes for auditability, liability, and redress become default through supply chains and procurement.</p><p><strong>Metrics:</strong> adoption of standards in contracts, cross-border compliance cost, \u201cregulatory gravity\u201d (extraterritorial uptake), vendor certification prevalence.</p><p><strong>Failure mode:</strong> Lowest-common-denominator governance wins short-term; then scandals force abrupt, fragmented clampdowns.</p>",
+          tags: ["standards", "recourse", "policy"],
+        },
+        {
+          id: "democratic-vs-coercive-governability",
+          title: "Democratic vs Coercive Governability",
+          status: null,
+          classes: [],
+          bodyHtml:
+            "<p>The same governance infrastructure can either enable rights-preserving contestability or scaled conduct control\u2014depending on who has standing and remedy.</p><p><strong>Metrics:</strong> independent oversight presence, due process guarantees, transparency to affected parties, surveillance scope, error correction rate, retaliation/chilling indicators.</p><p><strong>Failure mode:</strong> Governance becomes control: appeals are performative, oversight is captured, and \u201csafety\u201d becomes justification for domination.</p>",
+          tags: ["governance", "rights", "legitimacy"],
+        },
+        {
           id: "permission-surface",
           title: "Permission Surface",
           status: null,
@@ -1293,7 +1365,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>Autonomy that expands only after demonstrated reliability, monitoring, and accountability. Permission surfaces widen as <a href="#traceable-ownership">traceable ownership</a> and <a href="#repair-log">repair logs</a> prove the system can handle more scope.</p>',
+            "<p>Agent autonomy is a conditional privilege granted only when monitoring, brakes, and recourse capacity are demonstrably adequate.</p><p><strong>Metrics:</strong> autonomy level by risk tier, % high-impact actions requiring approval, policy-compliance rate, injection-resistance, incident rate per autonomy tier.</p><p><strong>Failure mode:</strong> Autonomy outpaces control: agents take irreversible or unauthorized actions, then everyone scrambles to explain.</p>",
           examples: [
             "After six months of clean audits, the escalation bot gains approval rights for low-risk cases.",
           ],
@@ -1680,7 +1752,7 @@ export const glossaryContent: GlossaryContent = {
           status: null,
           classes: [],
           bodyHtml:
-            '<p>Deliberate slowdowns or checkpoints inserted where harm would be costly or irreversible. Appropriate friction treats <a href="#velocity-friction">velocity friction</a> and <a href="#ethical-interrupts">ethical interrupts</a> as safety features.</p>',
+            "<p>Add checkpoints where stakes are high so that fairness and safety survive speed and scale.</p><p><strong>Metrics:</strong> high-impact gate coverage, confirmation effectiveness (reduction in bad actions), false-friction rate, user bypass rate, time added per risk tier.</p><p><strong>Failure mode:</strong> \u201cFrictionless harm\u201d: the system is delightful until it\u2019s devastating\u2014and then legitimacy evaporates.</p>",
           examples: [
             "High-risk data exports require a second reviewer before completion.",
           ],
@@ -2649,6 +2721,20 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
+    slug: "ethics-debt",
+    term: "Ethics Debt",
+    definition:
+      "The accumulated gap between capability and governability, whose interest is paid as incidents, backlash, and legal constraint.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "capability-overhang",
+    term: "Capability Overhang",
+    definition:
+      "A precise mismatch where system power exceeds controls (brakes, owners, audits, reversibility, recourse).",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
     slug: "stoppability",
     term: "Stoppability",
     definition:
@@ -2783,6 +2869,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Interaction Surface",
     definition:
       "The moments, interfaces, and channels where people experience system decisions and can intervene. Mapping the interaction surface reveals where to place dignity friction , widen the permission surface , and detect dead-user zones .",
+    appliesTo: ["D. System states & architectures"],
+  },
+  {
+    slug: "bifurcation-by-contestability",
+    term: "Bifurcation by Contestability",
+    definition:
+      "Systems split into high-contestability (slower, trusted, deployable in high stakes) and low-contestability (fast, then blocked).",
     appliesTo: ["D. System states & architectures"],
   },
   {
@@ -2982,6 +3075,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["G. Measures & indicators"],
   },
   {
+    slug: "recourse-performance",
+    term: "Recourse Performance",
+    definition:
+      "How well a system delivers review \u2192 reversal \u2192 remedy under realistic load and stress.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
     slug: "institutional-metabolism-mapping",
     term: "Institutional Metabolism Mapping",
     definition:
@@ -3073,10 +3173,59 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["H. Governance & power"],
   },
   {
+    slug: "contestability-legitimacy-hinge",
+    term: "Contestability as the Legitimacy Hinge",
+    definition:
+      "A system is legitimate insofar as affected parties have standing, voice, and remedy against its decisions/actions.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "maintenance-budgets-legitimacy-budgets",
+    term: "Maintenance Budgets are Legitimacy Budgets",
+    definition:
+      "The practical capacity to monitor, review, and repair is a political/organizational legitimacy input, not overhead.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "receipts-by-default",
+    term: "Receipts-by-Default as a Legitimacy Interface",
+    definition:
+      "People should automatically get “what happened” records: actions taken, permissions used, reasons, and accountable owners.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "sovereignty-constraint-imposition",
+    term: "Sovereignty as Constraint-Imposition Capacity",
+    definition:
+      "Sovereignty is the ability to impose enforceable constraints on infrastructure operating in your territory.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "standards-wars-recourse-wars",
+    term: "Standards Wars as Recourse Wars",
+    definition:
+      "Global competition shifts to whose regimes for auditability, liability, and redress become default through supply chains and procurement.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "democratic-vs-coercive-governability",
+    term: "Democratic vs Coercive Governability",
+    definition:
+      "Governance infrastructure can either enable rights-preserving contestability or scaled conduct control, depending on who has standing and remedy.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
     slug: "permission-surface",
     term: "Permission Surface",
     definition:
       "What users can do without institutional approval \u2014 a measure of autonomy and a prerequisite for contestability .",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "earned-autonomy",
+    term: "Earned Autonomy",
+    definition:
+      "Agent autonomy is a conditional privilege granted only when monitoring, brakes, and recourse capacity are demonstrably adequate.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -3357,6 +3506,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Humane Friction",
     definition:
       "The calibrated blend of protective, dignity, and velocity frictions.",
+    appliesTo: ["I. Friction & flow"],
+  },
+  {
+    slug: "appropriate-friction",
+    term: "Appropriate Friction",
+    definition:
+      "Add checkpoints where stakes are high so that fairness and safety survive speed and scale.",
     appliesTo: ["I. Friction & flow"],
   },
   {
