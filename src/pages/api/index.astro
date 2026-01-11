@@ -1,0 +1,157 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Reference API & ontology";
+const pageDescription =
+  "Canonical objects and a read-only API plan for consuming Ethotechnics standards in tools and audits.";
+const permalink = "/api";
+const anchorLinks = [
+  { href: "#objects", label: "Canonical objects" },
+  { href: "#endpoints", label: "Read-only endpoints" },
+  { href: "#versioning", label: "Versioning" },
+  { href: "#roadmap", label: "Roadmap" },
+];
+
+const canonicalObjects = [
+  {
+    name: "Standard",
+    description: "Top-level standard metadata, version, and published clauses.",
+  },
+  {
+    name: "Clause",
+    description: "Atomic right requirement with a stable clause ID (e.g., \u00a73.2).",
+  },
+  {
+    name: "Mechanism",
+    description: "Reusable enforcement spec with tags, artifacts, and implementation notes.",
+  },
+  {
+    name: "Validator",
+    description: "Diagnostic definition with inputs, thresholds, and output schema.",
+  },
+  {
+    name: "Diagnostic result",
+    description: "Generated report card, risk statement, and remediation recommendations.",
+  },
+  {
+    name: "Diagram",
+    description: "Diagram objects aligned to the micro-diagram language spec.",
+  },
+];
+
+const endpoints = [
+  {
+    path: "/api/site-index.json",
+    description: "Index of standards, validators, and research metadata.",
+  },
+  {
+    path: "/api/standards.json",
+    description: "Standard metadata and clause references.",
+  },
+  {
+    path: "/api/mechanisms.json",
+    description: "Mechanism catalog entries with filters and citations.",
+  },
+  {
+    path: "/api/validators.json",
+    description: "Validator definitions aligned to STD-01.",
+  },
+  {
+    path: "/api/glossary.json",
+    description: "Glossary terms with permalinks.",
+  },
+  {
+    path: "/api/research.json",
+    description: "Research publications and bridge artifacts.",
+  },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Ethotechnics`} description={pageDescription} mainClass="page page--wide">
+  <PageIntro
+    eyebrow="Reference API"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Machine-readable",
+      title: "Plan for programmatic access.",
+      description:
+        "The goal is a stable object model that tools can cite, cache, and validate against.",
+    }}
+  />
+
+  <SectionBlock
+    id="objects"
+    eyebrow="Canonical objects"
+    title="The object model this API will publish."
+    description="Use these names in integrations and audit tooling."
+  >
+    <ul class="muted">
+      {canonicalObjects.map((object) => (
+        <li>
+          <strong>{object.name}:</strong> {object.description}
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="endpoints"
+    eyebrow="Read-only endpoints"
+    title="Current machine-readable exports."
+    description="These endpoints are designed for consumption by agents and audit tools."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Endpoint</th>
+            <th scope="col">Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          {endpoints.map((endpoint) => (
+            <tr>
+              <td>
+                <a href={endpoint.path}>{endpoint.path}</a>
+              </td>
+              <td>{endpoint.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="versioning"
+    eyebrow="Versioning"
+    title="Versioned citations stay stable."
+    description="Each object should carry a version, updated timestamp, and canonical permalink."
+  >
+    <ul class="muted">
+      <li>Semantic versioning for standards, mechanisms, and validators.</li>
+      <li>Immutable permalinks for citations in contracts and audit logs.</li>
+      <li>Changelogs that describe material changes to rights or thresholds.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="roadmap"
+    eyebrow="Roadmap"
+    title="Planned additions."
+    description="The next phase exposes object-level schemas and diffable release notes."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>JSON schemas for each canonical object type.</li>
+      <li>Clause-level links between validators and mechanisms.</li>
+      <li>Signed releases with verifiable citation hashes.</li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

@@ -5,6 +5,7 @@ import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import InstituteStudioComparison from '../../components/InstituteStudioComparison.astro';
+import StudioBadge from '../../components/StudioBadge.astro';
 import { instituteStudioComparisonContent } from '../../content/comparison';
 import { instituteContent } from '../../content/institute';
 
@@ -33,10 +34,10 @@ const {
   <div class="callout">
     <p class="eyebrow">Institute vs. Studio</p>
     <p class="muted">
-      Ethotechnics Institute (.org) publishes open standards and research;
-      Ethotechnics Studio (.com) provides delivery support when you need
-      hands-on help.
+      The Institute stays open and self-serve. Studio support is optional when you need a delivery
+      partner or facilitation.
     </p>
+    <StudioBadge />
   </div>
 
   <SectionBlock

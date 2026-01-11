@@ -1,31 +1,14 @@
 ---
 import Logo from "./Logo.astro";
 import Search from "./Search.astro";
-import NavActions from "./NavActions.astro";
-import NavQuickLinks from "./NavQuickLinks.astro";
-import NavSectionList from "./NavSectionList.astro";
 import NavUtilityLinks from "./NavUtilityLinks.astro";
-import { libraryContent } from "../content/library";
-import {
-  navActions,
-  navPrimaryLinks,
-  navSections,
-} from "../content/navigation";
+import { navPrimaryLinks } from "../content/navigation";
 
 interface Props {
   currentPath?: string;
-  cspNonce?: string;
 }
 
-const navTags = libraryContent.patterns.filters.map((filter) => ({
-  href: `${libraryContent.permalink}#${filter.slug}`,
-  label: filter.label,
-  description: filter.description,
-}));
-
-const { currentPath = Astro.url.pathname, cspNonce: propNonce } =
-  Astro.props as Props;
-const cspNonce = propNonce ?? Astro.locals?.cspNonce;
+const { currentPath = Astro.url.pathname } = Astro.props as Props;
 const normalizePath = (path: string) => {
   const [clean] = path.split("#");
   if (!clean) return "/";
@@ -38,7 +21,6 @@ const normalizePath = (path: string) => {
 const isHome = normalizePath(currentPath) === "/";
 const isCurrentLink = (href: string) =>
   normalizePath(href) === normalizePath(currentPath);
-const showNavigator = isHome;
 const toViewTransitionName = (
   href: string,
   scope: "desktop" | "mobile"
@@ -72,31 +54,6 @@ const topLevelLinks = navPrimaryLinks;
       <div class="nav__search-desktop">
         <Search />
       </div>
-
-      {showNavigator && (
-        <button
-          class="nav__menu-toggle"
-          type="button"
-          data-nav-toggle
-          aria-expanded="false"
-          aria-controls="nav-menu"
-        >
-          <span class="nav__menu-toggle-fill" aria-hidden="true"></span>
-          <span class="nav__menu-toggle-label">
-            <span class="nav__menu-toggle-eyebrow">Navigator</span>
-            <span class="nav__menu-toggle-title">Browse the Library</span>
-          </span>
-          <span class="nav__menu-toggle-icon" aria-hidden="true">
-            <span class="nav__menu-toggle-pip"></span>
-            <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-              <path
-                fill="currentColor"
-                d="M8.47 4.97a.75.75 0 1 0-1.06 1.06L13.44 12l-6.03 5.97a.75.75 0 1 0 1.06 1.06l6.56-6.5a.75.75 0 0 0 0-1.06Z"
-              ></path>
-            </svg>
-          </span>
-        </button>
-      )}
 
       <div class="nav__links nav__links--desktop" aria-label="Primary">
         {
@@ -147,203 +104,8 @@ const topLevelLinks = navPrimaryLinks;
       </div>
     </div>
 
-    {showNavigator && (
-      <Fragment>
-        <div class="nav__scrim" data-nav-scrim hidden></div>
-        <div class="nav__content" id="nav-menu" aria-labelledby="nav-menu-title">
-          <div class="nav__content-body">
-            <div class="nav__content-header">
-              <div class="nav__content-title" id="nav-menu-title">
-                <p class="eyebrow">Navigator</p>
-                <p class="muted">
-                  Navigate standards, mechanisms, validators, research, and the
-                  Institute stewarding them.
-                </p>
-                <p class="muted small">
-                  Ethotechnics Institute (.org) publishes open standards and
-                  research; Ethotechnics Studio (.com) provides delivery support.
-                </p>
-              </div>
-              <div class="nav__content-actions">
-                <button
-                  class="nav__menu-close"
-                  type="button"
-                  data-nav-close
-                  aria-label="Close menu"
-                >
-                  Close
-                </button>
-                <div class="nav__utility nav__utility--desktop">
-                  <NavUtilityLinks currentPath={currentPath} />
-                </div>
-              </div>
-            </div>
-            <div class="nav__content-grid">
-              <div class="nav__primary">
-                <NavSectionList sections={navSections} currentPath={currentPath} />
-              </div>
-              <div class="nav__secondary">
-                <NavQuickLinks links={navTags} />
-                <NavActions actions={navActions} />
-                <div class="nav__utility nav__utility--panel">
-                  <NavUtilityLinks currentPath={currentPath} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Fragment>
-    )}
   </div>
 </nav>
-
-<script is:inline nonce={cspNonce}>
-  const nav = document.querySelector("[data-nav]");
-  const menuToggle = nav?.querySelector("[data-nav-toggle]");
-  const drawer = nav?.querySelector(".nav__content");
-  const closeButton = nav?.querySelector("[data-nav-close]");
-  const scrim = nav?.querySelector("[data-nav-scrim]");
-  const desktopMediaQuery = window.matchMedia("(min-width: 992px)");
-  const focusableSelector =
-    'a[href], button:not([disabled]), textarea, input, select, details, [tabindex]:not([tabindex="-1"])';
-
-  const isDesktop = () => desktopMediaQuery.matches;
-
-  const getFocusable = () => {
-    if (!drawer) return [];
-    return Array.from(drawer.querySelectorAll(focusableSelector)).filter(
-      (node) => !node.hasAttribute("disabled") && node.tabIndex !== -1
-    );
-  };
-
-  let lastFocusedElement = null;
-
-  const setDrawerAccessibility = (isOpen) => {
-    if (!drawer) return;
-
-    if (isDesktop()) {
-      drawer.removeAttribute("role");
-      drawer.removeAttribute("aria-modal");
-      drawer.removeAttribute("aria-hidden");
-      drawer.removeAttribute("inert");
-      return;
-    }
-
-    if (isOpen) {
-      drawer.setAttribute("role", "dialog");
-      drawer.setAttribute("aria-modal", "true");
-      drawer.setAttribute("aria-hidden", "false");
-      drawer.removeAttribute("inert");
-    } else {
-      drawer.removeAttribute("role");
-      drawer.removeAttribute("aria-modal");
-      drawer.setAttribute("aria-hidden", "true");
-      drawer.setAttribute("inert", "");
-    }
-  };
-
-  const setMenuState = (isOpen) => {
-    if (!nav || !menuToggle || !drawer) return;
-
-    nav.classList.toggle("nav--menu-open", isOpen);
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-    setDrawerAccessibility(isOpen);
-    scrim?.toggleAttribute("hidden", !isOpen || isDesktop());
-
-    if (isOpen && !isDesktop()) {
-      document.body.style.setProperty("overflow", "hidden");
-    } else {
-      document.body.style.removeProperty("overflow");
-    }
-  };
-
-  const trapFocus = (event) => {
-    if (event.key !== "Tab" || !nav?.classList.contains("nav--menu-open"))
-      return;
-
-    const focusable = getFocusable();
-    if (focusable.length === 0) return;
-
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  };
-
-  const closeMenu = () => {
-    if (!nav || !menuToggle) return;
-    setMenuState(false);
-    document.removeEventListener("keydown", onKeyDown);
-    (lastFocusedElement ?? menuToggle).focus();
-  };
-
-  const openMenu = () => {
-    if (!nav || !closeButton) return;
-    lastFocusedElement =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-    setMenuState(true);
-    document.addEventListener("keydown", onKeyDown);
-
-    const focusTarget = getFocusable()[0] ?? closeButton;
-    focusTarget?.focus();
-  };
-
-  const onKeyDown = (event) => {
-    if (event.key === "Escape") {
-      event.preventDefault();
-      closeMenu();
-      return;
-    }
-
-    trapFocus(event);
-  };
-
-  const syncForDesktop = () => {
-    if (!drawer || !menuToggle) return;
-    if (isDesktop()) {
-      setDrawerAccessibility(false);
-      nav?.classList.remove("nav--menu-open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      document.body.style.removeProperty("overflow");
-      scrim?.setAttribute("hidden", "");
-    } else {
-      setDrawerAccessibility(nav?.classList.contains("nav--menu-open"));
-    }
-  };
-
-  if (nav && menuToggle && drawer && closeButton) {
-    syncForDesktop();
-
-    menuToggle.addEventListener("click", () => {
-      const isOpen = nav.classList.contains("nav--menu-open");
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-
-    closeButton.addEventListener("click", closeMenu);
-
-    drawer.addEventListener("click", (event) => {
-      if (event.target === drawer && !isDesktop()) {
-        closeMenu();
-      }
-    });
-
-    scrim?.addEventListener("click", closeMenu);
-
-    desktopMediaQuery.addEventListener("change", syncForDesktop);
-  }
-</script>
 
 <style>
   .nav {

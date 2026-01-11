@@ -65,10 +65,14 @@ export const siteFooter: SiteFooterContent = {
       ],
     },
     {
-      heading: "Work with the Studio",
+      heading: "Studio",
       links: [
         {
-          label: "Need help implementing this? Visit the Studio",
+          label: "How Studio fits",
+          href: "/institute/how-studio-fits",
+        },
+        {
+          label: "Ethotechnics Studio (.com)",
           href: "https://ethotechnics.com/studio",
           external: true,
         },
@@ -77,6 +81,7 @@ export const siteFooter: SiteFooterContent = {
     {
       heading: "Connect",
       links: [
+        { label: "Reference API", href: "/api" },
         { label: "Send feedback", href: "/participate#feedback" },
         {
           label: "Signals newsletter",
