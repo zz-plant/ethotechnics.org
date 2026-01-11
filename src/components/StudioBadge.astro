@@ -1,0 +1,24 @@
+---
+interface Props {
+  href?: string;
+  className?: string;
+  label?: string;
+  linkLabel?: string;
+}
+
+const {
+  href = "/start-here#studio",
+  className,
+  label = "Self-serve by default \u2022 Studio optional",
+  linkLabel = "How Studio fits",
+} = Astro.props as Props;
+
+const wrapperClass = ["studio-badge", className].filter(Boolean).join(" ");
+---
+
+<div class={wrapperClass}>
+  <span class="pill pill--ghost">{label}</span>
+  <a class="muted small" href={href}>
+    {linkLabel}
+  </a>
+</div>

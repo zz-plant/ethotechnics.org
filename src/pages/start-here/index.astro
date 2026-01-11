@@ -5,6 +5,7 @@ import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StudioBadge from "../../components/StudioBadge.astro";
 import { quickStartGuides } from "../../content/quick-start";
 
 const startHereData = (await getEntry("startHere", "start-here"))!;
@@ -64,6 +65,9 @@ const recommendedDetails = recommendedCard
       </div>
     )
   }
+  <div class="section__actions">
+    <StudioBadge />
+  </div>
   <p class="muted small">{hero.quickNote}</p>
   <p class="muted">{hero.quickSummary}</p>
   <ul class="muted">
