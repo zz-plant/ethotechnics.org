@@ -1,0 +1,401 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "CH-01 — Temporal Governance Studies";
+const pageDescription =
+  "A research program convened by Ethotechnics to make high-velocity governance binding, reversible, and legitimate.";
+const permalink = "/research/temporal-governance-studies";
+const anchorLinks = [
+  { href: "#why", label: "Why this exists" },
+  { href: "#problem", label: "The problem" },
+  { href: "#boundary", label: "Why existing fields fall short" },
+  { href: "#questions", label: "Core questions" },
+  { href: "#vocabulary", label: "Working vocabulary" },
+  { href: "#failure-modes", label: "Canonical failure modes" },
+  { href: "#ethotechnics", label: "What Ethotechnics contributes" },
+  { href: "#research-directions", label: "Research directions" },
+  { href: "#engage", label: "How to engage" },
+  { href: "#scope", label: "Scope" },
+];
+const quickLinks = [
+  {
+    title: "Glossary",
+    description: "Definitions for temporal sovereignty, reconciliation, and bindingness.",
+    href: "/glossary",
+    label: "Read the glossary",
+  },
+  {
+    title: "Case library",
+    description: "Field Notes that document real-world cascade failures.",
+    href: "/field-notes",
+    label: "Explore Field Notes",
+  },
+  {
+    title: "Design patterns",
+    description: "Mechanism specs and implementation patterns for reversibility.",
+    href: "/mechanisms",
+    label: "Review mechanisms",
+  },
+  {
+    title: "Validators",
+    description: "Diagnostics that test systems against temporal governance risks.",
+    href: "/validators",
+    label: "Run a validator",
+  },
+];
+const workingVocabulary = [
+  {
+    term: "Temporal sovereignty",
+    definition: "Control over when decisions must occur or be reversed.",
+  },
+  {
+    term: "Bindingness architecture",
+    definition: "What makes outcomes enforceable versus advisory.",
+  },
+  {
+    term: "Cascade propagation",
+    definition: "Amplification of error across systems at speed.",
+  },
+  {
+    term: "Reality fork",
+    definition: "Incompatible truth claims with no convergence path.",
+  },
+  {
+    term: "Reconciliation protocol",
+    definition: "Mechanisms that force authoritative convergence.",
+  },
+  {
+    term: "Decision object / anti-object",
+    definition: "Outputs that enable or prevent contestation.",
+  },
+  {
+    term: "Default-judgment clock",
+    definition: "Time-bound mechanism that forces disposition.",
+  },
+  {
+    term: "Circuit breaker",
+    definition: "Authority to halt or quarantine automated execution.",
+  },
+];
+const failureModes = [
+  {
+    title: "Velocity cascade",
+    detail: "Rights-terminating execution outpaces human intervention.",
+  },
+  {
+    title: "Algorithmic deadlock",
+    detail: "Circular dependencies prevent resolution.",
+  },
+  {
+    title: "Reality fork",
+    detail: "Systems disagree on ground truth with no arbiter.",
+  },
+  {
+    title: "Infinite review",
+    detail: "Acknowledgement without binding disposition.",
+  },
+  {
+    title: "Legibility collapse",
+    detail: "Causal trace cannot be produced for appeal.",
+  },
+];
+const researchDirections = [
+  "Empirical mapping of cascade failures across jurisdictions.",
+  "Architectural patterns for halting and reconciling automated systems.",
+  "Comparative analysis (e.g., trading halts as time-binding precedent).",
+  "Constitutional theory of temporal sovereignty and time-to-remedy.",
+  "Binding-first regulatory frameworks (beyond transparency).",
+  "Measurement standards for resolution and reversal authority.",
+];
+const engagementPaths = [
+  "Document lived experience of algorithmic deadlock.",
+  "Design systems that must halt safely under uncertainty.",
+  "Study administrative delay as power.",
+  "Build or audit high-frequency decision pipelines.",
+];
+const startHereLinks = [
+  {
+    label: "Read the glossary",
+    href: "/glossary",
+  },
+  {
+    label: "Explore the case library",
+    href: "/field-notes",
+  },
+  {
+    label: "Review design patterns",
+    href: "/mechanisms",
+  },
+  {
+    label: "Contribute a working paper",
+    href: "/participate#field-reports",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="CH-01"
+    title="Temporal Governance Studies"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Research program",
+      title: "A field-definition charter, not a standard.",
+      description:
+        "This program names the failure mode and sets the agenda for standards, specs, and tools that follow.",
+    }}
+  />
+
+  <div class="callout">
+    <p class="eyebrow">Charter positioning</p>
+    <p class="muted">
+      CH-01 defines the field and invites work that will later harden into specifications and
+      standards. It is not a conformance document.
+    </p>
+  </div>
+
+  <SectionBlock
+    id="why"
+    eyebrow="Why this exists (start here)"
+    title="Modern systems terminate rights in milliseconds—but take months to correct."
+    description="Temporal Governance Studies names and designs against that mismatch."
+  >
+    <p>
+      Across healthcare, housing, banking, employment, and public benefits, automated decision
+      pipelines execute at computational speed while contestation remains trapped in human time.
+      The result is not just bad decisions, but ungovernable cascades: state changes that propagate
+      faster than any appeal mechanism can halt, often without ever becoming a contestable
+      decision at all.
+    </p>
+    <p>
+      Temporal Governance Studies names and studies this failure mode—and designs the
+      infrastructure required to make high-speed governance binding, reversible, and legitimate.
+    </p>
+    <p class="muted">
+      Ethotechnics convenes this program to diagnose velocity-driven governance failures, design
+      reconciliation and circuit-breaker architectures, and specify enforceable patterns that
+      preserve speed and contestability.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="problem"
+    eyebrow="The problem the field addresses"
+    title="Automated adjudication without algorithmic contestability infrastructure."
+    description="Failure emerges when execution runs faster than any mechanism designed to contest it."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Benefits terminated faster than proof can be processed.</li>
+      <li>Accounts frozen across interconnected systems with no single authority to reverse.</li>
+      <li>Pending or under review becomes a durable state rather than temporary.</li>
+      <li>Conflicting databases that cannot converge on ground truth.</li>
+    </ul>
+    <p>
+      Temporal Governance Studies treats this mismatch between computational velocity and juridical
+      temporality—not model accuracy or transparency alone—as the primary unit of analysis.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="boundary"
+    eyebrow="Why existing fields don’t fully contain this work"
+    title="This program sits at the intersection of mature fields—and is reducible to none."
+    description="The failure mode appears between domains when systems act faster than contestability."
+  >
+    <ul class="muted">
+      <li>
+        <strong>AI ethics</strong> often lacks tools for analyzing time-to-reversal, cascade
+        propagation, or authority to force binding change.
+      </li>
+      <li>
+        <strong>Administrative law</strong> assumes paper-era timelines and singular authorities, not
+        distributed systems that fork reality at machine speed.
+      </li>
+      <li>
+        <strong>STS and critical scholarship</strong> describe how power operates through
+        sociotechnical systems, but rarely specify executable reconciliation protocols.
+      </li>
+      <li>
+        <strong>Platform governance</strong> can treat delay as neutral rather than as an allocative
+        mechanism with political economy.
+      </li>
+    </ul>
+    <p class="muted">
+      Temporal Governance Studies focuses on the gap between execution speed and contestability
+      authority.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="questions"
+    eyebrow="What Temporal Governance Studies examines"
+    title="Decision velocity, contestability, authority, and reconciliation."
+    description="Core questions guide how high-frequency execution can remain legitimate."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem title="Velocity and contestability" descriptionTone="default">
+        <ul class="muted">
+          <li>At what speeds does adjudication become ungovernable?</li>
+          <li>How do cascade failures propagate across interconnected systems?</li>
+          <li>What constitutes an effective circuit breaker for automated execution?</li>
+        </ul>
+      </CardItem>
+      <CardItem title="Bindingness in distributed authority" descriptionTone="default">
+        <ul class="muted">
+          <li>What makes a decision enforceable when no single actor controls all ledgers?</li>
+          <li>How do systems force reconciliation after reality forks?</li>
+          <li>What replaces default judgment when systems can defer indefinitely?</li>
+        </ul>
+      </CardItem>
+      <CardItem title="Temporal sovereignty" descriptionTone="default">
+        <ul class="muted">
+          <li>Who controls when decisions must be made—or reversed?</li>
+          <li>How is infinite deferral used as a governance strategy?</li>
+          <li>What are the constitutional implications of temporal control?</li>
+        </ul>
+      </CardItem>
+      <CardItem title="Reconciliation protocols" descriptionTone="default">
+        <ul class="muted">
+          <li>What infrastructure detects cascades in real time?</li>
+          <li>How do systems converge on authoritative state after error?</li>
+          <li>What authority is required to halt or unwind execution?</li>
+        </ul>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="vocabulary"
+    eyebrow="Working vocabulary"
+    title="Shared language for time-based governance failures."
+    description="These terms anchor analysis across specs, cases, and tools."
+  >
+    <CardGrid className="grid--two">
+      {workingVocabulary.map((entry) => (
+        <CardItem
+          title={entry.term}
+          description={entry.definition}
+          descriptionTone="default"
+        />
+      ))}
+    </CardGrid>
+    <p class="muted">
+      See the <a href="/glossary">Glossary</a> for full definitions and citation-ready entries.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-modes"
+    eyebrow="Canonical failure modes"
+    title="Recurring patterns that appear across domains."
+    description="These are structural consequences of velocity mismatches, not isolated bugs."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {failureModes.map((mode) => (
+        <CardItem title={mode.title} description={mode.detail} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="What Ethotechnics contributes"
+    title="A convening node and design lab."
+    description="Ethotechnics translates diagnosis into enforceable infrastructure."
+  >
+    <ul class="muted">
+      <li>Design patterns for circuit breakers and override paths.</li>
+      <li>Reconciliation protocols for distributed systems.</li>
+      <li>Temporal metrics (time-to-bindingness, reversal asymmetry).</li>
+      <li>Specification-level artifacts that can be implemented, audited, and tested.</li>
+    </ul>
+    <p>
+      Other institutions, researchers, and practitioners are expected to extend, critique, and
+      evolve this work.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="research-directions"
+    eyebrow="Research directions"
+    title="Current areas of focus"
+    description="Active lines of inquiry shaping the research agenda."
+    variant="alt"
+  >
+    <ol class="muted">
+      {researchDirections.map((direction) => (
+        <li>{direction}</li>
+      ))}
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="engage"
+    eyebrow="How to engage"
+    title="Start where your work already touches temporal governance."
+    description="If these bullet points sound familiar, this program is already in your stack."
+  >
+    <ul class="muted">
+      {engagementPaths.map((path) => (
+        <li>{path}</li>
+      ))}
+    </ul>
+    <div class="callout">
+      <p class="eyebrow">Start here</p>
+      <CardGrid className="grid--two">
+        {quickLinks.map((link) => (
+          <CardItem title={link.title} description={link.description} descriptionTone="default">
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={link.href}>
+                {link.label}
+              </a>
+            </div>
+          </CardItem>
+        ))}
+      </CardGrid>
+    </div>
+    <div class="panel panel--glass">
+      <p class="eyebrow">Contribute a working paper</p>
+      <p class="muted">
+        Share field evidence, protocol drafts, or validation data so they can be refined into
+        citable artifacts.
+      </p>
+      <a class="button primary" href="/participate#field-reports">
+        Submit a draft
+      </a>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="scope"
+    eyebrow="A note on scope"
+    title="Temporal Governance Studies is not anti-automation."
+    description="It is anti-non-binding automation."
+    variant="alt"
+  >
+    <p>
+      Speed without reversibility is not efficiency—it is coercion by default. This page is a
+      living document and will evolve as the field sharpens and produces enforceable alternatives.
+    </p>
+    <p class="muted">
+      For correspondence or collaboration: Ethotechnics Institute —
+      <a href="mailto:hello@ethotechnics.org">hello@ethotechnics.org</a>.
+    </p>
+    <div class="pill-row">
+      {startHereLinks.map((link) => (
+        <a class="pill pill--muted" href={link.href}>
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </SectionBlock>
+</BaseLayout>

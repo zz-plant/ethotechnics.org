@@ -81,8 +81,7 @@ export const navSections: NavSection[] = [
   },
   {
     heading: "Validators",
-    description:
-      "Diagnostics that score systems against published standards.",
+    description: "Diagnostics that score systems against published standards.",
     links: [
       {
         href: "/validators",
@@ -109,13 +108,20 @@ export const navSections: NavSection[] = [
   },
   {
     heading: "Research",
-    description: "Orientation, agenda, and publications that ground the standards.",
+    description:
+      "Orientation, agenda, and publications that ground the standards.",
     links: [
       {
         href: "/research",
         label: "Research",
         description: "Scan the research agenda, artifacts, and publications.",
         primary: true,
+      },
+      {
+        href: "/research/temporal-governance-studies",
+        label: "Temporal Governance Studies (CH-01)",
+        description:
+          "Field-definition charter for the temporal governance research program.",
       },
       {
         href: "/field-notes",
