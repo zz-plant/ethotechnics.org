@@ -1,0 +1,232 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "STD-01 minimum binding set";
+const pageDescription =
+  "The minimum binding requirements per right for STD-01, including clause references and insufficient implementations.";
+const permalink = "/standards/std-01-minimum-binding-set";
+const anchorLinks = [
+  { href: "#principles", label: "Minimum-binding principles" },
+  { href: "#requirements", label: "Per-right requirements" },
+  { href: "#citations", label: "Citations" },
+];
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Standards Office",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2026-02-01T00:00:00Z",
+  updated: "2026-02-01T00:00:00Z",
+  version: "v1.0.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v1.0.0",
+      date: "2026-02-01",
+      summary: "Published minimum binding sets for all seven temporal rights.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",
+};
+
+const bindingSets = [
+  {
+    title: "Stoppability",
+    clauses: ["§1.1", "§1.2", "§1.3"],
+    requirements: [
+      "A visible, always-available stop control for every active process.",
+      "State preservation with a durable pause token that restores progress.",
+      "A permanent exit on every screen; no forced tunnels without escape.",
+    ],
+    insufficient: [
+      "A hidden or delayed cancel link that appears only after a timeout.",
+      "A stop button that deletes progress or forces a restart.",
+    ],
+  },
+  {
+    title: "Exit (Resignation)",
+    clauses: ["§2.1", "§2.2", "§2.3"],
+    requirements: [
+      "Exit flow with equal or less friction than entry, measured by steps and time.",
+      "One-step exit when entry was one-step, with no retention gating.",
+      "Immediate confirmation that account, subscription, or contract is closed.",
+    ],
+    insufficient: [
+      "Exit paths that require support tickets or scheduled calls.",
+      "Mandatory surveys or retention scripts before exit is accepted.",
+    ],
+  },
+  {
+    title: "Bounded duration",
+    clauses: ["§3.1", "§3.2", "§3.3"],
+    requirements: [
+      "Hard clocks for every pending or review state with a public maximum duration.",
+      "Automatic escalation or failure state when the clock expires.",
+      "Declared time-to-completion before commitment, including worst-case ranges.",
+    ],
+    insufficient: [
+      "A generic “we’ll email you” without a duration commitment.",
+      "Soft internal SLAs without user-facing time guarantees.",
+    ],
+  },
+  {
+    title: "Reversibility",
+    clauses: ["§4.1", "§4.2"],
+    requirements: [
+      "A grace window that allows reversal without staff intervention.",
+      "Default soft-delete or reversible states for destructive actions.",
+      "Explicit countdowns or timers for the reversal window.",
+    ],
+    insufficient: [
+      "A help-center article that says reversals are “case by case.”",
+      "Reversal windows that require administrative overrides to access.",
+    ],
+  },
+  {
+    title: "Non-coercive waiting",
+    clauses: ["§5.1", "§5.2", "§5.3"],
+    requirements: [
+      "Live queue position and ETA visibility during waits.",
+      "No fake progress indicators or looping placebo activity.",
+      "Async callback or notification option for waits longer than five minutes.",
+    ],
+    insufficient: [
+      "Unlabeled spinners with no ETA or queue transparency.",
+      "Hold-forever queues that reset if a user disconnects.",
+    ],
+  },
+  {
+    title: "Human override",
+    clauses: ["§6.1", "§6.2"],
+    requirements: [
+      "A named appeal path to a human reviewer with response time commitments.",
+      "Clear statement of institutional liability for automated decisions.",
+      "Appeal intake that is reachable from the decision surface itself.",
+    ],
+    insufficient: [
+      "A generic support inbox with no appeal routing or SLA.",
+      "Automated denials that provide no human escalation option.",
+    ],
+  },
+  {
+    title: "Transparent burden",
+    clauses: ["§7.1", "§7.2"],
+    requirements: [
+      "Published time-tax metrics tied to real user workflows.",
+      "Impact statements for major releases that measure added burden.",
+      "A governance review when burden increases beyond declared thresholds.",
+    ],
+    insufficient: [
+      "A one-time survey in place of ongoing burden measurement.",
+      "Release notes without quantified time or effort impacts.",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${pageTitle} — Standards`}
+  description={pageDescription}
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="STD-01 reference"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "How to use",
+      title: "Block symbolic compliance.",
+      description:
+        "Each right requires multiple binding conditions; no single UI tweak should qualify as compliance.",
+      link: {
+        label: "Read STD-01",
+        href: "/standards/std-01-temporal-rights",
+      },
+    }}
+  />
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+
+  <SectionBlock
+    id="principles"
+    eyebrow="Principles"
+    title="Minimum binding means multiple enforceable commitments."
+    description="Use this appendix to enforce STD-01 without symbolic adoption."
+  >
+    <ul class="muted">
+      <li>All requirements in a right must be met to claim compliance.</li>
+      <li>Each requirement must map to a documented mechanism or policy control.</li>
+      <li>Insufficient implementations are explicitly excluded from compliance claims.</li>
+    </ul>
+    <p class="muted">
+      Clause references map to the canonical standard at
+      <a href="/standards/std-01-temporal-rights">STD-01 — The Temporal Bill of Rights</a>.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="requirements"
+    eyebrow="Per right"
+    title="Minimum binding sets by article."
+    description="Every right requires multiple binding controls, not a single surface fix."
+    variant="alt"
+  >
+    <div class="binding-grid">
+      {bindingSets.map((set) => (
+        <article class="panel binding-card">
+          <p class="eyebrow">Clause references</p>
+          <h3>{set.title}</h3>
+          <p class="muted small">{set.clauses.join(" · ")}</p>
+          <div class="binding-card__section">
+            <p class="muted">Minimum binding set</p>
+            <ul>
+              {set.requirements.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="binding-card__section">
+            <p class="muted">Insufficient implementations</p>
+            <ul>
+              {set.insufficient.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="citations"
+    eyebrow="Citations"
+    title="Cite this minimum binding set."
+    description="Use the citation block for audits, procurement, and policy references."
+  >
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      citationKey="std_01_minimum_binding_set"
+      summaryLabel="Cite this minimum binding set"
+    />
+  </SectionBlock>
+</BaseLayout>

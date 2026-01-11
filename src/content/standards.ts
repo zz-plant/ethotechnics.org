@@ -66,6 +66,31 @@ export const standardsContent: StandardsContent = {
       ctaLabel: "View axioms",
     },
     {
+      id: "std-01-mapping-artifact",
+      title: "STD-01 mapping artifact",
+      description: "Brandless end-to-end mapping from harm to binding change.",
+      href: "/standards/std-01-mapping-artifact",
+      eyebrow: "STD-01 reference",
+      ctaLabel: "Open mapping",
+    },
+    {
+      id: "micro-diagram-language",
+      title: "Micro-diagram language",
+      description: "Canonical diagram shapes, line styles, and axes.",
+      href: "/standards/micro-diagram-language",
+      eyebrow: "Reference",
+      ctaLabel: "View diagram spec",
+    },
+    {
+      id: "std-01-minimum-binding-set",
+      title: "STD-01 minimum binding set",
+      description:
+        "Minimum binding requirements per right with clause references.",
+      href: "/standards/std-01-minimum-binding-set",
+      eyebrow: "STD-01 reference",
+      ctaLabel: "Review binding set",
+    },
+    {
       id: "glossary",
       title: "Glossary",
       description: "Immutable terminology and canonical definitions.",

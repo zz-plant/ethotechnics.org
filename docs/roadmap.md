@@ -9,13 +9,13 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                                                                            | Next                                                                                              | Later                                                                           |
-| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Highest-priority work in progress.                                                             | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                        |
-| Keep entries small and actionable.                                                             | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                            |
-| - [End-to-end mapping artifact (synthetic, brandless)](#end-to-end-mapping-artifact-brandless) | - [Redundancy compression pass](#redundancy-compression-pass)                                     | - [Where this binds (non-legal translation surface)](#where-this-binds-surface) |
-| - [Micro-diagram language specification](#micro-diagram-language-specification)                | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) |                                                                                 |
-| - [Minimum binding set specification](#minimum-binding-set-specification)                      |                                                                                                   |                                                                                 |
+| Now                                | Next                                                                                              | Later                                                                           |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Highest-priority work in progress. | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                        |
+| Keep entries small and actionable. | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                            |
+| - None currently.                  | - [Redundancy compression pass](#redundancy-compression-pass)                                     | - [Where this binds (non-legal translation surface)](#where-this-binds-surface) |
+|                                    | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) |                                                                                 |
+|                                    |                                                                                                   |                                                                                 |
 
 ## Spec template
 
@@ -115,6 +115,31 @@ under this heading and link to it from the roadmap table.
 
 Keep completed specs here for quick reference. Trim to the essentials and capture outcomes so
 future updates can build on what already shipped.
+
+### End-to-end mapping artifact (brandless)
+
+- **Problem:** The composability chain (harm → right → validator → mechanism → binding change) was
+  hard to parse in one view.
+- **Outcome:** Published a brandless mapping artifact with a synthetic scenario, table-based
+  chain, and cross-links to STD-01, validators, and mechanisms.
+- **Notes:** Includes citation blocks and a stable permalink for reuse in briefs and audits.
+- **Issue link:** Issue: TBD / Spec: #end-to-end-mapping-artifact-brandless
+
+### Micro-diagram language specification
+
+- **Problem:** Diagram semantics could drift as more visuals were added.
+- **Outcome:** Published a canonical micro-diagram language with shapes, line styles, axes, and
+  example SVG snippets.
+- **Notes:** Examples cover execution vs. redress clocks and stoppability vs. reversibility.
+- **Issue link:** Issue: TBD / Spec: #micro-diagram-language-specification
+
+### Minimum binding set specification
+
+- **Problem:** Standards could be adopted in partial or symbolic ways without enforcement.
+- **Outcome:** Published STD-01 minimum binding sets per right with clause references and explicit
+  insufficient implementations.
+- **Notes:** Intended for auditors and policy teams to prevent checkbox compliance.
+- **Issue link:** Issue: TBD / Spec: #minimum-binding-set-specification
 
 ### Navigation clarity refresh
 
