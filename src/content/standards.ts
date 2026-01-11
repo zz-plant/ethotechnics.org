@@ -54,6 +54,17 @@ export const standardsContent: StandardsContent = {
       effectiveDate: "January 2026",
       published: "2026-01-01",
     },
+    {
+      id: "STD-02",
+      slug: "std-02-contestability-recourse",
+      title: "The Contestability & Recourse Standard",
+      description:
+        "Defines contestability, review, and remedy obligations for consequential systems.",
+      status: "Draft for Peer Review",
+      version: "0.9",
+      effectiveDate: "TBD (proposed 2026)",
+      published: "2026-01-01",
+    },
   ],
   doctrine: [
     {

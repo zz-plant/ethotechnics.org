@@ -38,6 +38,12 @@ export const navSections: NavSection[] = [
         description: "Draft standard defining the seven temporal rights.",
       },
       {
+        href: "/standards/std-02-contestability-recourse",
+        label: "The Contestability & Recourse Standard (STD-02)",
+        description:
+          "Draft standard defining contestability, review, and remedy obligations.",
+      },
+      {
         href: "/standards/core-axioms",
         label: "Core axioms",
         description: "First principles for accountable system design.",
@@ -188,8 +194,8 @@ export const navActions: NavAction[] = [
     variant: "ghost",
   },
   {
-    href: "/standards/std-01-temporal-rights",
-    label: "Read STD-01",
+    href: "/standards/std-02-contestability-recourse",
+    label: "Read STD-02",
     variant: "ghost-compact",
   },
   {

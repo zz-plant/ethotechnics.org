@@ -1,0 +1,341 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const obligations = [
+  {
+    id: "notice",
+    title: "Notice",
+    summary: "People must be told when an agent/system acted and what changed.",
+  },
+  {
+    id: "receipts",
+    title: "Receipts",
+    summary: "Systems must produce an audit-grade record of what happened.",
+  },
+  {
+    id: "standing",
+    title: "Standing",
+    summary: "Affected people must be able to trigger review without retaliation.",
+  },
+  {
+    id: "timelines",
+    title: "Timelines",
+    summary: "Review and remedy must run on published clocks (SLAs).",
+  },
+  {
+    id: "remedy",
+    title: "Remedy",
+    summary: "Reversal, correction, and compensation pathways must be real and usable.",
+  },
+];
+
+const performanceMetrics = [
+  "Escalation correctness rate (did the agent request approval when thresholds were crossed?)",
+  "Receipt completeness score (action ledger + reasons + owner + timestamps)",
+  "Time-to-acknowledge / time-to-resolution (published vs. actual)",
+  "Rollback success rate (when rollback is possible)",
+  "Irreversible harm rate (the KPI that matters)",
+  "Remedy rate (how often valid contests produce correction/compensation)",
+];
+
+const pageUrl = Astro.site
+  ? new URL("/standards/std-02-contestability-recourse", Astro.site).toString()
+  : "/standards/std-02-contestability-recourse";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": pageUrl,
+  headline: "STD-02 — The Contestability & Recourse Standard",
+  description:
+    "The draft standard defining contestability, review, and remedy obligations for automated systems.",
+  url: pageUrl,
+  datePublished: "2026-01-01",
+  version: "0.9",
+  identifier: "STD-02",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: Astro.site ? new URL("/", Astro.site).toString() : "/",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: Astro.site ? new URL("/standards", Astro.site).toString() : "/standards",
+  },
+  hasPart: obligations.map((obligation) => ({
+    "@type": "CreativeWork",
+    name: obligation.title,
+    description: obligation.summary,
+  })),
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
+---
+
+<BaseLayout
+  title="STD-02 — The Contestability & Recourse Standard"
+  description="The draft standard defining contestability, review, and remedy obligations for automated systems."
+  mainClass="page page--wide standard-document"
+>
+  <article class="standard-document">
+    <header class="standard-header">
+      <div>
+        <p class="standard-header__id">STANDARD STD-02</p>
+        <h1 class="standard-header__title">The Contestability &amp; Recourse Standard</h1>
+      </div>
+      <dl class="standard-header__meta">
+        <div>
+          <dt>Document ID</dt>
+          <dd>STD-02</dd>
+        </div>
+        <div>
+          <dt>Version</dt>
+          <dd>0.9 (Draft for Peer Review)</dd>
+        </div>
+        <div>
+          <dt>Effective Date</dt>
+          <dd>TBD (proposed 2026)</dd>
+        </div>
+        <div>
+          <dt>Authority</dt>
+          <dd>The Institute of Ethotechnics</dd>
+        </div>
+      </dl>
+    </header>
+
+    <div class="standard-body">
+      <div class="standard-main">
+        <section class="standard-section">
+          <h2>Five obligations at a glance</h2>
+          <p>
+            A compact summary of the core obligations, modeled on STD-01’s “Seven rights at a
+            glance.”
+          </p>
+          <ol class="standard-clauses">
+            {obligations.map((obligation) => (
+              <li>
+                <strong>{obligation.title}</strong> — {obligation.summary}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Preamble: The Doctrine of Contestability</h2>
+          <p>
+            We hold that any system exercising consequential power over people must remain
+            corrigible: capable of being challenged, reviewed, reversed, and repaired. In the
+            Agentic Age, the speed and opacity of automated action creates a structural legitimacy
+            gap: execution happens in milliseconds, while human redress often takes days, weeks, or
+            never arrives.
+          </p>
+          <p>
+            When a system cannot be contested—when no one can see what happened, no one is
+            obligated to listen, and no one can restore what was taken—the system becomes arbitrary
+            power, regardless of its average accuracy or stated principles.
+          </p>
+          <p>
+            To defend human agency against unreviewable automation, we establish these articles.
+            Any system that violates them is declared non-compliant with STD-02.
+          </p>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article I: The Right to Notice</h2>
+          <p class="standard-article-quote">
+            “No system shall alter a person’s status, access, or resources without intelligible
+            notice.”
+          </p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§1.1</span>
+              Notice of automation: If an automated agent or decision system materially affects a
+              person, the system must disclose that automation occurred.
+            </li>
+            <li>
+              <span class="standard-clause-id">§1.2</span>
+              Notice of effect: The system must state what changed (status, access, ranking, funds,
+              eligibility, visibility, etc.).
+            </li>
+            <li>
+              <span class="standard-clause-id">§1.3</span>
+              Notice of next steps: The system must provide an immediate path to review/appeal and
+              state expected timelines.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article II: The Right to Receipts</h2>
+          <p class="standard-article-quote">“The system must show the receipt.”</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§2.1</span>
+              Action ledger: The system must maintain a record of actions taken (including tool
+              calls, external side effects, and state changes).
+            </li>
+            <li>
+              <span class="standard-clause-id">§2.2</span>
+              Reasons + inputs: The receipt must include the reason codes or policy basis used, and
+              the key inputs relied upon (appropriately redacted for safety/privacy).
+            </li>
+            <li>
+              <span class="standard-clause-id">§2.3</span>
+              Ownership and contact: The receipt must identify the accountable operator/steward and
+              provide a contact channel that reaches a reviewer with authority.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article III: The Right to Standing</h2>
+          <p class="standard-article-quote">“Anyone materially affected has standing to contest.”</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§3.1</span>
+              Standing by impact: Standing is granted by being affected, not by being a paying
+              customer, insider, or credentialed party.
+            </li>
+            <li>
+              <span class="standard-clause-id">§3.2</span>
+              Non-retaliation: A system may not punish contestation (e.g., degrading service,
+              delaying queues, escalating scrutiny) as a consequence of filing an appeal.
+            </li>
+            <li>
+              <span class="standard-clause-id">§3.3</span>
+              Accessibility: Contestation pathways must be reachable by the same channel in which
+              the decision was delivered (in-product, not buried).
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article IV: The Right to Timelines</h2>
+          <p class="standard-article-quote">“Appeals shall run on clocks, not promises.”</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§4.1</span>
+              Published review clocks: The system must publish target timelines for acknowledgment,
+              review, and resolution.
+            </li>
+            <li>
+              <span class="standard-clause-id">§4.2</span>
+              Queue transparency for high-stakes: For high-stakes domains, systems must provide
+              honest status updates (received → in review → resolved) and expected
+              time-to-resolution.
+            </li>
+            <li>
+              <span class="standard-clause-id">§4.3</span>
+              Escalation on breach: If deadlines are missed, the system must automatically escalate
+              to a higher-authority reviewer and/or trigger a failsafe remedy.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article V: The Right to Remedy</h2>
+          <p class="standard-article-quote">“A contest without remedy is a performance.”</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§5.1</span>
+              Reversal and correction: For reversible harms, the system must support undo/rollback/
+              correction without requiring extraordinary effort from the affected person.
+            </li>
+            <li>
+              <span class="standard-clause-id">§5.2</span>
+              Compensation for irreversible harm: When harms cannot be reversed (lost
+              opportunities, fees incurred, wrongful deprivation), the operator must provide a
+              defined compensation pathway.
+            </li>
+            <li>
+              <span class="standard-clause-id">§5.3</span>
+              Remedy authority: Remedy must be executable by named humans with explicit authority
+              (not “we’ll forward to the team”). If no one can authorize reversal or compensation,
+              the system is non-compliant.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article VI: The Right to Independent Review</h2>
+          <p class="standard-article-quote">
+            “The judge cannot be the same process that caused the harm.”
+          </p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§6.1</span>
+              Human review for consequential outcomes: Automated denials or actions must route to a
+              human reviewer on request.
+            </li>
+            <li>
+              <span class="standard-clause-id">§6.2</span>
+              Separation of interests: Reviewers must not be evaluated primarily on denial-rate,
+              speed-only metrics, or other incentives that structurally bias against remedies.
+            </li>
+            <li>
+              <span class="standard-clause-id">§6.3</span>
+              Record integrity: Logs used for review must be tamper-evident and retained long
+              enough to support investigation and redress.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Article VII: The Liability of Automation</h2>
+          <p class="standard-article-quote">“Institutions may not outsource responsibility.”</p>
+          <ol class="standard-clauses">
+            <li>
+              <span class="standard-clause-id">§7.1</span>
+              Operator liability: The operating institution accepts liability for errors, latency,
+              and harms caused by its automated agents.
+            </li>
+            <li>
+              <span class="standard-clause-id">§7.2</span>
+              Vendor non-evasion: Vendor contracts may not eliminate contestability obligations; if
+              vendors hold the logs or controls, the operator must still guarantee access and
+              remedy.
+            </li>
+            <li>
+              <span class="standard-clause-id">§7.3</span>
+              Remedy budget: Systems must fund review capacity proportional to action throughput;
+              increasing automation without scaling appeals is non-compliant.
+            </li>
+          </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Recourse performance metrics (benchmark targets)</h2>
+          <p>
+            Benchmark targets for validators and diagnostics. These are not the full standard, but
+            the metrics likely to anchor compliance.
+          </p>
+          <ul class="standard-clauses">
+            {performanceMetrics.map((metric) => (
+              <li>{metric}</li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <aside class="standard-sidebar">
+        <div class="standard-sidebar__panel">
+          <p class="standard-sidebar__eyebrow">Related mechanisms</p>
+          <ul>
+            <li>
+              <a href="/mechanisms/patterns/decision-log">MEC-01: Decision log with dissent</a>
+            </li>
+            <li>
+              <a href="/mechanisms/patterns/appeal-paths">MEC-06: Appeal paths inside the UI</a>
+            </li>
+            <li>
+              <a href="/mechanisms/patterns/kill-switch">MEC-05: Kill switch</a>
+            </li>
+            <li>
+              <a href="/glossary/repair-log">Glossary: Repair log</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </article>
+  <script type="application/ld+json" set:html={structuredDataJson} />
+</BaseLayout>
