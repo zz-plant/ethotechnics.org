@@ -383,10 +383,6 @@ const startHere = defineCollection({
       eyebrow: z.string(),
       title: z.string(),
       description: z.string(),
-      bullets: z.array(z.string()),
-      ctaLabel: z.string(),
-      ctaHref: z.string(),
-      ctaAriaLabel: z.string(),
     }),
     footerCta: z.object({
       eyebrow: z.string(),
@@ -478,7 +474,15 @@ const participation = defineCollection({
           actions: z.array(
             z.object({
               label: z.string(),
-              href: z.string().refine((val) => ["http", "/", "#", "mailto:"].some(prefix => val.startsWith(prefix)), { message: "href must be a valid URL, mailto, or path" }),
+              href: z
+                .string()
+                .refine(
+                  (val) =>
+                    ["http", "/", "#", "mailto:"].some((prefix) =>
+                      val.startsWith(prefix),
+                    ),
+                  { message: "href must be a valid URL, mailto, or path" },
+                ),
               ariaLabel: z.string().optional(),
               detail: z.string().optional(),
             }),

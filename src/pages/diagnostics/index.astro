@@ -6,13 +6,24 @@ import CitationBlock from '../../components/CitationBlock.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import ScholarlyMeta from '../../components/ScholarlyMeta.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
+import StudioOffRampCallout from '../../components/StudioOffRampCallout.astro';
+import { instituteStudioComparisonContent } from '../../content/comparison';
 import { diagnosticsContent } from '../../content/diagnostics';
 import { libraryContent } from '../../content/library';
 import diagnosticsFilterScript from '../../scripts/diagnostics-filter.ts?url';
 import diagnosticsScoreScript from '../../scripts/diagnostics-score.ts?url';
 
-const { pageTitle, pageDescription, permalink, tools, offRampNote, valueProps, facilitation, publication } =
-  diagnosticsContent;
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  tools,
+  offRampNote,
+  offRampCallout,
+  valueProps,
+  facilitation,
+  publication,
+} = diagnosticsContent;
 const mechanismBase = `${libraryContent.permalink}#mechanisms`;
 const anchorLinks = [
   { href: '#why-diagnostics', label: 'What you get' },
@@ -21,7 +32,7 @@ const anchorLinks = [
   { href: '#diagnostic-tools', label: 'Diagnostics menu' },
   ...tools.map((tool) => ({ href: `#${tool.slug}`, label: tool.title })),
 ];
-const introDescription = `${pageDescription} These tools are public under CC BY through the Institute; Studio uses the same models with bespoke facilitation via ethotechnics.com/studio.`;
+const introDescription = `${pageDescription} ${instituteStudioComparisonContent.description}`;
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -75,6 +86,10 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
         </p>
       </li>
     </ul>
+    <p class="muted">
+      Need the crosswalk? See the
+      <a href="/standards/std-01-rights-matrix">rights → validators → mechanisms matrix</a>.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -157,6 +172,8 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
     <p class="muted diagnostics__footnote">{facilitation.note}</p>
   </SectionBlock>
 
+  <StudioOffRampCallout {...offRampCallout} />
+
   <SectionBlock
     id="diagnostic-tools"
     eyebrow="Diagnostics menu"
@@ -230,7 +247,6 @@ const introDescription = `${pageDescription} These tools are public under CC BY 
                 </ul>
               </li>
             </ul>
-            <p class="muted small">{tool.studioNote}</p>
           </div>
           <div class="diagnostics__card-footer">
             <div class="section__actions">
