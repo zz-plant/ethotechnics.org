@@ -15,7 +15,15 @@ outcome) and link to a spec section below once scoped.
 | Keep entries small and actionable. | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                            |
 | - None currently.                  | - [Redundancy compression pass](#redundancy-compression-pass)                                     | - [Where this binds (non-legal translation surface)](#where-this-binds-surface) |
 |                                    | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) |                                                                                 |
-|                                    |                                                                                                   |                                                                                 |
+|                                    | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   |                                                                                 |
+|                                    | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               |                                                                                 |
+|                                    | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 |                                                                                 |
+|                                    | - [Contestability pattern library](#contestability-pattern-library)                               |                                                                                 |
+|                                    | - [Governance lessons from incidents](#governance-lessons-from-incidents)                         |                                                                                 |
+|                                    | - [Language people can use](#language-people-can-use)                                             |                                                                                 |
+|                                    | - [Democratic vs. coercive governability page](#democratic-vs-coercive-governability)             |                                                                                 |
+|                                    | - [Public memory for contestability terms](#public-memory-for-contestability-terms)               |                                                                                 |
+|                                    | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)                 |                                                                                 |
 
 ## Spec template
 
@@ -110,6 +118,116 @@ under this heading and link to it from the roadmap table.
   advice or jurisdictional claims.
 - **Dependencies/risks:** Needs careful review to avoid legal framing.
 - **Issue link:** Issue: TBD / Spec: #where-this-binds-surface
+
+## Contestability checklist + plain-language explainers
+
+- **Problem:** Visitors lack shared vocabulary for recognizing uncontestable systems.
+- **Scope:** Publish a plain-language “Can I contest this?” checklist plus three short explainers:
+  “What contestability actually means,” “Why ‘contact support’ is not due process,” and “What
+  makes an appeal real vs performative.”
+- **UX/Tech notes:** One landing page with a printable checklist block and three expandable
+  explainers; cross-link from Diagnostics and Start Here.
+- **Acceptance criteria:** A non-expert can answer the checklist in under two minutes and leave
+  with a clear definition of contestability vs. support-only processes.
+- **Dependencies/risks:** Needs alignment with existing glossary terms for contestability and
+  due process language.
+- **Issue link:** Issue: TBD / Spec: #contestability-checklist--plain-language-explainers
+
+## Minimum viable contestability standard
+
+- **Problem:** Advocates and journalists lack a concrete, shareable yardstick for accountability.
+- **Scope:** Publish a short, non-jargony “Minimum Viable Contestability” standard covering
+  standing, reasons, records, timelines, remedies, and non-retaliation.
+- **UX/Tech notes:** Deliver as a printable page with a one-screen summary and a text-only
+  version for linking or quoting.
+- **Acceptance criteria:** Readers can point to the standard to assess whether a system meets a
+  baseline contestability threshold.
+- **Dependencies/risks:** Must align with STD-01 framing without re-litigating standards language.
+- **Issue link:** Issue: TBD / Spec: #minimum-viable-contestability-standard
+
+## Self-defense diagnostic tools
+
+- **Problem:** People need fast, concrete diagnostics to move from frustration to structured
+  critique.
+- **Scope:** Create three short tools: “Is this system governable?” (5–10 yes/no questions), “Is
+  this appeal real or fake?”, and “Who actually holds power here?”
+- **UX/Tech notes:** Use consistent question blocks that work for benefits portals, workplace
+  tools, platform bans, and AI agent interactions; include a print/export option.
+- **Acceptance criteria:** Each tool yields a clear result (governable vs. not, appeal real vs.
+  performative, power map) with next-step links.
+- **Dependencies/risks:** Needs careful wording to avoid implying legal advice.
+- **Issue link:** Issue: TBD / Spec: #self-defense-diagnostic-tools
+
+## Contestability pattern library
+
+- **Problem:** Teams lack concrete examples of contestability patterns (good and bad).
+- **Scope:** Publish a pattern library with anti-patterns (“trust us governance,” “black-box
+  denial,” “appeal without remedy,” “AI says no”) and positive patterns (reversible decisions,
+  human escalation, logged reasons, compensation after error).
+- **UX/Tech notes:** Structure as a library with short pattern cards; avoid naming specific
+  organizations and focus on design patterns.
+- **Acceptance criteria:** Readers can identify a pattern and map it to their own system without
+  needing vendor-specific knowledge.
+- **Dependencies/risks:** Requires consistent terminology with glossary and diagnostics.
+- **Issue link:** Issue: TBD / Spec: #contestability-pattern-library
+
+## Governance lessons from incidents
+
+- **Problem:** Public incidents are framed as “bad tech” rather than governance failures.
+- **Scope:** Create a recurring “governance lessons” format that analyzes incidents for missing
+  contestability, failed oversight, and what would have caught or repaired harm earlier.
+- **UX/Tech notes:** Keep tone non-polemical; use a repeatable template with structural questions
+  and links to relevant standards.
+- **Acceptance criteria:** Each incident entry yields a short list of structural failures and a
+  concrete remediation checklist.
+- **Dependencies/risks:** Requires careful sourcing and avoids naming-and-shaming.
+- **Issue link:** Issue: TBD / Spec: #governance-lessons-from-incidents
+
+## Language people can use
+
+- **Problem:** People need exact phrases for demanding contestability and accountability.
+- **Scope:** Publish a “language people can use” page with succinct statements such as “This
+  decision lacks contestability,” “What is the escalation path and remedy?” and “Who is the
+  accountable steward?”
+- **UX/Tech notes:** Provide copy blocks with short context notes for workplaces, public services,
+  and platforms; include a printable version.
+- **Acceptance criteria:** Readers can copy/paste a phrase and understand when to deploy it.
+- **Dependencies/risks:** Align with any existing glossary or FAQ language.
+- **Issue link:** Issue: TBD / Spec: #language-people-can-use
+
+## Democratic vs. coercive governability
+
+- **Problem:** “Governability” can drift into compliance engineering without explicit contrast.
+- **Scope:** Publish a short page explaining how contestability, proportionality, and independent
+  oversight distinguish democratic from coercive governability.
+- **UX/Tech notes:** Keep the page simple, with a visual compare table and minimal footnotes.
+- **Acceptance criteria:** Readers can describe the difference in one paragraph and recognize
+  governance tools deployed without democratic safeguards.
+- **Dependencies/risks:** Needs careful political framing without partisan cues.
+- **Issue link:** Issue: TBD / Spec: #democratic-vs-coercive-governability
+
+## Public memory for contestability terms
+
+- **Problem:** Governance language drifts and institutional memory fades, causing repeated harm.
+- **Scope:** Maintain a public memory page tracking stable definitions and language drift (e.g.,
+  “responsible AI,” “trustworthy AI”) with short historical notes.
+- **UX/Tech notes:** Use a timeline or changelog format with short entries and clear sources.
+- **Acceptance criteria:** Visitors can see how terms shifted and locate prior meanings easily.
+- **Dependencies/risks:** Requires periodic updates and sourcing discipline.
+- **Issue link:** Issue: TBD / Spec: #public-memory-for-contestability-terms
+
+## Site framing sentence for public role
+
+- **Problem:** The site needs a concise public-facing framing line to anchor its role.
+- **Scope:** Introduce a tight framing sentence for the site (e.g., “Ethotechnics helps people see
+  where power lives in systems—and whether they can challenge it.”) and identify the placement
+  location(s).
+- **UX/Tech notes:** Coordinate with homepage and About/Institute page tone; keep the line short,
+  single sentence.
+- **Acceptance criteria:** The sentence appears in agreed locations and is reused consistently in
+  summaries or metadata.
+- **Dependencies/risks:** Must align with existing mission statements and avoid duplication.
+- **Issue link:** Issue: TBD / Spec: #site-framing-sentence-for-public-role
 
 ## Completed work (archive)
 
