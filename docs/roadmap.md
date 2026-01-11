@@ -9,11 +9,13 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                                        | Next                                                    | Later                                                  |
-| ---------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------ |
-| Highest-priority work in progress.                         | Ready-to-start items with scoped specs.                 | Ideas to revisit when capacity frees up.               |
-| Keep entries small and actionable.                         | Add owners or dates only when needed.                   | Capture rough ideas, not full specs.                   |
-| _No active items yet — add new priorities as they emerge._ | _No queued items yet — draft specs before moving work._ | _Backlog ideas go here once they are worth capturing._ |
+| Now                                                                                            | Next                                                                                              | Later                                                                           |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                                                             | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                        |
+| Keep entries small and actionable.                                                             | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                            |
+| - [End-to-end mapping artifact (synthetic, brandless)](#end-to-end-mapping-artifact-brandless) | - [Redundancy compression pass](#redundancy-compression-pass)                                     | - [Where this binds (non-legal translation surface)](#where-this-binds-surface) |
+| - [Micro-diagram language specification](#micro-diagram-language-specification)                | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) |                                                                                 |
+| - [Minimum binding set specification](#minimum-binding-set-specification)                      |                                                                                                   |                                                                                 |
 
 ## Spec template
 
@@ -37,6 +39,77 @@ under this heading and link to it from the roadmap table.
 - Acceptance criteria are testable.
 - Dependencies and blockers are listed.
 - If needed, a GitHub Issue exists and links back here.
+
+## End-to-end mapping artifact (brandless)
+
+- **Problem:** The composability chain (harm → right → validator → mechanism → binding change) is
+  hard to understand in one view.
+- **Scope:** Create one synthetic, brandless scenario (e.g., service eligibility denial) mapped to
+  STD-01 clause IDs, validators, mechanisms, and concrete system changes. Present as a table with
+  arrows, not narrative.
+- **UX/Tech notes:** Publish as a standalone page with a stable permalink; include APA and BibTeX
+  citation blocks; cross-link to standards, validators, and mechanisms.
+- **Acceptance criteria:** A reader can explain the full chain in under three minutes. No personas,
+  no storytelling, no brand references. The mapping is reusable across domains.
+- **Dependencies/risks:** Needs agreement on canonical clause IDs and link targets.
+- **Issue link:** Issue: TBD / Spec: #end-to-end-mapping-artifact-brandless
+
+## Micro-diagram language specification
+
+- **Problem:** Diagram semantics can drift as more visuals are added.
+- **Scope:** Define canonical shapes (state, agent, boundary, authority), line styles (causal,
+  authority, contingent), and axes (time, authority, burden). Include examples for execution vs.
+  redress clocks and stoppability/reversibility.
+- **UX/Tech notes:** Publish as a one-page spec with Markdown and SVG snippets. Reference it from
+  future diagrams.
+- **Acceptance criteria:** Every diagram can be explained using the spec alone. Shapes are
+  unambiguous. Grayscale-readable and accessible.
+- **Dependencies/risks:** Requires alignment with existing diagrams to avoid breaking semantics.
+- **Issue link:** Issue: TBD / Spec: #micro-diagram-language-specification
+
+## Minimum binding set specification
+
+- **Problem:** Standards can be adopted in partial, symbolic, or checkbox ways.
+- **Scope:** Define minimum binding requirements per right, starting with STD-01. Example: for
+  Bounded Duration, require a hard clock, escalation path, and declared duration pre-commitment.
+  Include clause-level references and an explicit list of insufficient implementations.
+- **UX/Tech notes:** Publish as a STD-01 appendix or standalone spec with clear enforcement logic.
+- **Acceptance criteria:** Impossible to claim compliance with a single surface change. Auditors and
+  reviewers can apply the logic consistently.
+- **Dependencies/risks:** Requires agreement on enforcement language and clause references.
+- **Issue link:** Issue: TBD / Spec: #minimum-binding-set-specification
+
+## Redundancy compression pass
+
+- **Problem:** Repeated language increases maintenance cost and reading fatigue.
+- **Scope:** Audit repetition (Institute vs. Studio explanations, diagnostic off-ramp language) and
+  replace repeats with canonical callouts or references.
+- **UX/Tech notes:** Keep copy tone unchanged; create a single authoritative explanation per concept.
+- **Acceptance criteria:** Fewer repeated paragraphs with no loss of clarity for first-time readers.
+- **Dependencies/risks:** Requires coordination across Diagnostics and Start Here pages.
+- **Issue link:** Issue: TBD / Spec: #redundancy-compression-pass
+
+## Rights → validators → mechanisms matrix
+
+- **Problem:** Practitioners need faster lookups across rights, validators, and mechanisms.
+- **Scope:** Create a static, printable matrix mapping STD-01 rights to validators and mechanisms.
+  Link from STD-01 and Diagnostics.
+- **UX/Tech notes:** Deliver as one table or SVG. Avoid introducing new concepts.
+- **Acceptance criteria:** Enables fast navigation without explanation. No prioritization or
+  rankings.
+- **Dependencies/risks:** Needs stable identifiers for rights, validators, and mechanisms.
+- **Issue link:** Issue: TBD / Spec: #rights-to-validators-to-mechanisms-matrix
+
+## Where this binds (surface)
+
+- **Problem:** Policy and procurement teams need a non-legal translation surface.
+- **Scope:** Explain how standards can be cited in internal policy, procurement requirements, and
+  audit frameworks using abstract examples only.
+- **UX/Tech notes:** Publish as a clearly labeled “non-legal guidance” page.
+- **Acceptance criteria:** Useful to policy teams without reading as regulatory authority. No legal
+  advice or jurisdictional claims.
+- **Dependencies/risks:** Needs careful review to avoid legal framing.
+- **Issue link:** Issue: TBD / Spec: #where-this-binds-surface
 
 ## Completed work (archive)
 
