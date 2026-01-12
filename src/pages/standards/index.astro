@@ -76,6 +76,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           title={standard.title}
           description={standard.description}
         >
+          {standard.id === "STD-02" && (
+            <p class="muted">
+              Practice:{" "}
+              <a href="/standards/ethotechnics-for-agents">Ethotechnics for Agents</a> — Mechanism-first
+              practice for implementing STD-01 and STD-02 in real agent systems.
+            </p>
+          )}
           <a
             slot="footer"
             class="muted"

@@ -1,0 +1,385 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Ethotechnics for Agents";
+const pageDescription =
+  "Mechanism-first safety practice for turning ethics goals into enforceable agent controls.";
+const permalink = "/standards/ethotechnics-for-agents";
+const anchorLinks = [
+  { href: "#overview", label: "Practice snapshot" },
+  { href: "#what-this-is", label: "What this is" },
+  { href: "#core-premise", label: "Core premise" },
+  { href: "#requirements", label: "1. Requirements" },
+  { href: "#failure-design", label: "2. Failure-first design" },
+  { href: "#accountability", label: "3. Accountability" },
+  { href: "#contestability", label: "4. Contestability" },
+  { href: "#risk-backlog", label: "5. Risk backlog" },
+  { href: "#pressure-test", label: "6. Pressure-test claims" },
+  { href: "#boundaries", label: "Practice boundaries" },
+];
+
+const practiceSections = [
+  {
+    id: "requirements",
+    eyebrow: "Practice 1",
+    title: "Translate values into agent requirements",
+    summary:
+      "Safety goals are translated into explicit agent-level requirements, not left implicit.",
+    requirements: [
+      "Autonomy level (recommend vs. act)",
+      "Delegation rights (sub-tasks, sub-agents)",
+      "Allowed vs. forbidden action classes",
+      "Tool and API scopes (least privilege)",
+      "Spend, rate, and time limits",
+      "Data rules (access, retention, scoped memory, deletion/export)",
+      "Consent rules (when explicit approval is required)",
+    ],
+    signals: [
+      "Unsafe-action rate (optionally severity-weighted)",
+      "Human override / intervention rate",
+      "Time-to-detection and time-to-mitigation",
+      "Task success vs. error cost and blast radius",
+    ],
+    mechanisms: [
+      {
+        title: "MEC-02 Progressive consent prompts",
+        href: "/mechanisms/patterns/progressive-consent",
+      },
+      {
+        title: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
+      {
+        title: "MEC-04 The Hard Clock",
+        href: "/mechanisms/mec-04-hard-clock",
+      },
+    ],
+    gaps: [
+      "Action-class taxonomy for allowed vs. forbidden agent actions.",
+      "Delegation authority registry for sub-agents and sub-tasks.",
+      "Agent data retention + memory deletion controls.",
+    ],
+  },
+  {
+    id: "failure-design",
+    eyebrow: "Practice 2",
+    title: "Design for failure before deployment",
+    summary:
+      "Agent failure is assumed; the goal is containment, recovery, and bounded harm.",
+    requirements: [
+      "Pause / disable authority with escalation paths",
+      "Confirmation gates for high-impact actions",
+      "Rate limits and circuit breakers by action class",
+      "Sandbox or dry-run mode",
+      "Safe mode under uncertainty or policy conflict",
+      "Compensating actions where reversibility is not literal",
+      "Incident runbooks (who acts, in what order)",
+    ],
+    mechanisms: [
+      {
+        title: "MEC-05 Kill switch for runaway automation",
+        href: "/mechanisms/patterns/kill-switch",
+      },
+      {
+        title: "MEC-04 The Hard Clock",
+        href: "/mechanisms/mec-04-hard-clock",
+      },
+      {
+        title: "MEC-03 Maintenance windowing",
+        href: "/mechanisms/patterns/maintenance-windowing",
+      },
+    ],
+    gaps: [
+      "Sandbox/dry-run specification for agent tooling and API calls.",
+      "Safe-mode policy for conflicting or ambiguous instructions.",
+      "Compensating-action playbooks for irreversible actions.",
+    ],
+  },
+  {
+    id: "accountability",
+    eyebrow: "Practice 3",
+    title: "Make accountability explicit",
+    summary:
+      "Each deployed agent must have named owners for permissions, prompts, and operations.",
+    requirements: [
+      "Tool permissions and integration scopes",
+      "Prompt and policy changes",
+      "Deployment and versioning",
+      "Monitoring and alerting",
+      "Authority to ship, pause, or disable",
+    ],
+    mechanisms: [
+      {
+        title: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
+      {
+        title: "MEC-03 Maintenance windowing",
+        href: "/mechanisms/patterns/maintenance-windowing",
+      },
+    ],
+    gaps: [
+      "Permission ownership register for agent tool scopes.",
+      "Prompt/policy change control with audit trail and approvers.",
+      "On-call escalation map for agent stoppability authority.",
+    ],
+  },
+  {
+    id: "contestability",
+    eyebrow: "Practice 4",
+    title: "Build contestability into the agent experience",
+    summary:
+      "Agents must be contestable by the people they affect, with visible recourse paths.",
+    requirements: [
+      "User-visible action logs",
+      "Attribution (why this happened)",
+      "Undo or revert where possible",
+      "\u201cDon\u2019t do this again\u201d controls",
+      "Appeal or escalation path to human review",
+      "Evidence submission",
+      "Clear timelines and remedies",
+    ],
+    mechanisms: [
+      {
+        title: "MEC-06 Appeal paths inside the UI",
+        href: "/mechanisms/patterns/appeal-paths",
+      },
+      {
+        title: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
+      {
+        title: "MEC-02 Progressive consent prompts",
+        href: "/mechanisms/patterns/progressive-consent",
+      },
+    ],
+    gaps: [
+      "Undo/revert interface pattern for automated actions.",
+      "Evidence submission intake specification.",
+      "Persistent \u201cdo not repeat\u201d preference registry.",
+    ],
+  },
+  {
+    id: "risk-backlog",
+    eyebrow: "Practice 5",
+    title: "Maintain a live risk backlog",
+    summary:
+      "Agent risk evolves with new capabilities; the backlog is treated as safety debt.",
+    requirements: [
+      "Tool-use evaluations (by tool and action class)",
+      "Red-teaming for misgeneralization and prompt injection",
+      "Permission audits and secrets handling",
+      "Drift detection on behavior and tool calls",
+      "Abuse monitoring and anomaly detection",
+    ],
+    mechanisms: [
+      {
+        title: "MEC-03 Maintenance windowing",
+        href: "/mechanisms/patterns/maintenance-windowing",
+      },
+      {
+        title: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
+    ],
+    gaps: [
+      "Risk backlog governance mechanism with severity ranking and owners.",
+      "Red-team cadence and prompt-injection test harness specification.",
+      "Behavior drift monitoring and tool-call anomaly checklist.",
+    ],
+  },
+  {
+    id: "pressure-test",
+    eyebrow: "Practice 6",
+    title: "Pressure-test safety claims",
+    summary:
+      "Any claim that an agent is \u201csafe\u201d must answer concrete control questions.",
+    requirements: [
+      "What can it do without asking?",
+      "Which actions are irreversible, and what is the blast radius?",
+      "Where are the circuit breakers, and who can trigger them?",
+      "What is logged, at what granularity, and who reviews it?",
+      "What is the user\u2019s undo or appeal path?",
+    ],
+    mechanisms: [
+      {
+        title: "MEC-04 The Hard Clock",
+        href: "/mechanisms/mec-04-hard-clock",
+      },
+      {
+        title: "MEC-05 Kill switch for runaway automation",
+        href: "/mechanisms/patterns/kill-switch",
+      },
+      {
+        title: "MEC-01 Decision log with dissent",
+        href: "/mechanisms/patterns/decision-log",
+      },
+    ],
+    gaps: [
+      "Safety-claim checklist with traceable evidence requirements.",
+      "Blast-radius measurement template tied to action classes.",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${pageTitle} \u2014 Standards`}
+  description={pageDescription}
+>
+  <PageIntro
+    eyebrow="Practice"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Status",
+      title: "Active",
+      description:
+        "Scope: autonomous and semi-autonomous agents, workflow automation, and decision engines. Related: STD-01 and STD-02.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Practice snapshot"
+    title="Mechanism-first safety practice"
+    description="A doctrine for making safety enforceable in agent systems."
+  >
+    <dl class="standard-definitions">
+      <div>
+        <dt>Status</dt>
+        <dd>Active</dd>
+      </div>
+      <div>
+        <dt>Scope</dt>
+        <dd>Autonomous and semi-autonomous agents, workflow automation, decision engines.</dd>
+      </div>
+      <div>
+        <dt>Related</dt>
+        <dd>
+          <a href="/standards/std-01-temporal-rights">STD-01: The Temporal Bill of Rights</a>
+          <br />
+          <a href="/standards/std-02-contestability-recourse">
+            STD-02: Contestability &amp; Recourse
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </SectionBlock>
+
+  <SectionBlock
+    id="what-this-is"
+    eyebrow="What this is"
+    title="Ethotechnics is not a philosophy."
+    description="It is a mechanism-first discipline for building safe agent systems."
+    variant="alt"
+  >
+    <p>
+      Ethotechnics is a mechanism-first discipline for turning safety and ethics goals into
+      concrete design and operational decisions for agents\u2014things that can be specified, built,
+      tested, audited, and owned.
+    </p>
+    <p>This practice exists to answer a single question:</p>
+    <p class="standard-article-quote">
+      \u201cWhat must be true, structurally, for an agent to be safe to operate?\u201d
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="core-premise"
+    eyebrow="Core premise"
+    title="Agents are not opinions. They are actors."
+    description="Any system that can act must specify its constraints and recourse pathways."
+  >
+    <p>Any system that can act must define:</p>
+    <ul class="standard-clauses">
+      <li>What it can do.</li>
+      <li>Under what conditions it can do it.</li>
+      <li>Who can stop it.</li>
+      <li>How failure is detected and contained.</li>
+      <li>How affected users can contest outcomes.</li>
+    </ul>
+    <p>
+      If a safety claim cannot be expressed as a constraint, control surface, or measurable
+      signal, it is not enforceable.
+    </p>
+  </SectionBlock>
+
+  {practiceSections.map((section, index) => (
+    <SectionBlock
+      id={section.id}
+      eyebrow={section.eyebrow}
+      title={section.title}
+      description={section.summary}
+      variant={index % 2 === 0 ? "alt" : undefined}
+    >
+      <div class="grid grid--two">
+        <div>
+          <p class="eyebrow">Required specifications</p>
+          <ul class="standard-clauses">
+            {section.requirements.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        {section.signals ? (
+          <div>
+            <p class="eyebrow">Required signals</p>
+            <ul class="standard-clauses">
+              {section.signals.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div class="panel">
+            <p class="eyebrow">Required signals</p>
+            <p class="muted">Define measurable signals that prove containment or recovery.</p>
+          </div>
+        )}
+      </div>
+
+      <div class="grid grid--two">
+        <div class="panel">
+          <p class="eyebrow">Mapped mechanisms</p>
+          <ul class="muted">
+            {section.mechanisms.map((mechanism) => (
+              <li>
+                <a href={mechanism.href}>{mechanism.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="panel">
+          <p class="eyebrow">Coverage gaps</p>
+          <ul class="muted">
+            {section.gaps.map((gap) => (
+              <li>{gap}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </SectionBlock>
+  ))}
+
+  <SectionBlock
+    id="boundaries"
+    eyebrow="Boundary"
+    title="What this practice does\u2014and does not\u2014do"
+    description="Mechanism-first safety does not erase tradeoffs, but it makes them enforceable."
+  >
+    <p>
+      This discipline does not eliminate tradeoffs or value conflicts. It keeps safety grounded in
+      permissions, controls, ownership, contestability, and recovery\u2014the parts of the system that
+      can actually be improved.
+    </p>
+    <p>
+      If a system lacks clear constraints, control surfaces, or named owners, it has not yet
+      translated ethics into operations.
+    </p>
+  </SectionBlock>
+</BaseLayout>

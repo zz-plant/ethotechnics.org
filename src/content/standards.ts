@@ -77,6 +77,15 @@ export const standardsContent: StandardsContent = {
       ctaLabel: "View axioms",
     },
     {
+      id: "ethotechnics-for-agents",
+      title: "Ethotechnics for Agents",
+      description:
+        "Mechanism-first practice for implementing STD-01 and STD-02 in real agent systems.",
+      href: "/standards/ethotechnics-for-agents",
+      eyebrow: "Practice",
+      ctaLabel: "View practice",
+    },
+    {
       id: "std-01-mapping-artifact",
       title: "STD-01 mapping artifact",
       description: "Brandless end-to-end mapping from harm to binding change.",
