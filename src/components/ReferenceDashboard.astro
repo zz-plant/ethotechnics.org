@@ -280,12 +280,23 @@ import StudioBadge from "./StudioBadge.astro";
   }
 
   @media (max-width: 720px) {
+    .reference-dashboard__search {
+      padding: 1rem;
+    }
+
     .reference-dashboard__search-bar {
       grid-template-columns: 1fr;
     }
 
+    .reference-dashboard__action-buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
     .reference-dashboard__quick-links {
+      flex-direction: column;
       align-items: flex-start;
+      gap: 0.5rem;
     }
 
     .reference-dashboard__footer {
