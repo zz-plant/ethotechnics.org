@@ -8,6 +8,7 @@
  * - meta: Muted line placed above the title (e.g., timeframe or type).
  * - title: Card heading text. Omit to use custom slot content instead.
  * - headingLevel: Heading tag to render for the title (defaults to `h3`).
+ * - titleId: Optional id for the title, used to connect `aria-labelledby`.
  * - description: Supporting copy, muted by default.
  * - descriptionTone: Set to `default` to render the description without the muted class.
  * - tags: Renders as a `.pill-list` under the description.
@@ -34,6 +35,7 @@ interface Props {
   headingLevel?: 'h2' | 'h3' | 'h4';
   description?: string;
   descriptionTone?: 'default' | 'muted';
+  titleId?: string;
   tags?: string[];
   tagsClassName?: string;
   glossaryLinks?: GlossaryLink[];
@@ -53,6 +55,7 @@ const {
   headingLevel = 'h3',
   description,
   descriptionTone = 'muted',
+  titleId,
   tags = [],
   tagsClassName,
   glossaryLinks = [],
@@ -68,8 +71,16 @@ const hasTags = tags.length > 0;
 const hasGlossaryLinks = glossaryLinks.length > 0;
 const cardClass = ['card', className].filter(Boolean).join(' ');
 const tagListClass = ['pill-list', tagsClassName].filter(Boolean).join(' ');
+const resolvedTitleId = title ? titleId || (id ? `${id}-title` : undefined) : undefined;
+const labelledBy = ariaLabel ? undefined : resolvedTitleId;
 ---
-<article class={cardClass} id={id} data-delivery={dataDelivery} aria-label={ariaLabel}>
+<article
+  class={cardClass}
+  id={id}
+  data-delivery={dataDelivery}
+  aria-label={ariaLabel}
+  aria-labelledby={labelledBy}
+>
   <div class="card__glow" aria-hidden="true" />
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   {meta && <p class="muted">{meta}</p>}
@@ -78,7 +89,7 @@ const tagListClass = ['pill-list', tagsClassName].filter(Boolean).join(' ');
       <Icon name={icon} />
     </div>
   )}
-  {title && <HeadingTag>{title}</HeadingTag>}
+  {title && <HeadingTag id={resolvedTitleId}>{title}</HeadingTag>}
   {description && <p class={descriptionClass}>{description}</p>}
   <slot />
   {hasTags && (
