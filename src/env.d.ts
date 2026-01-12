@@ -1,13 +1,17 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
+/// <reference types="@cloudflare/workers-types" />
 
 declare module "*.astro" {
   const Component: import("astro/runtime/server").AstroComponentFactory;
   export default Component;
 }
 
+// Cloudflare runtime type for Astro.locals.runtime
+type Runtime = import("@astrojs/cloudflare").Runtime<Env>;
+
 declare namespace App {
-  interface Locals {
+  interface Locals extends Runtime {
     cspNonce: string;
   }
 }

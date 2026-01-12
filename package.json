@@ -21,7 +21,10 @@
     "start": "bunx astro dev",
     "build": "bun run validate:json && bun run validate:glossary && bunx astro build",
     "preview": "bunx astro preview",
+    "preview:cf": "bunx wrangler dev ./dist/_worker.js --local",
     "deploy": "bunx wrangler deploy ./dist/_worker.js --no-bundle",
+    "deploy:preview": "bunx wrangler deploy ./dist/_worker.js --no-bundle --env preview",
+    "types:cf": "bunx wrangler types",
     "astro:check": "bunx astro check",
     "typecheck": "bun run --bun tsc --noEmit",
     "lint": "bun run --bun eslint \"src/**/*.{ts,tsx,astro}\"",
@@ -56,6 +59,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250109.0",
     "@astrojs/check": "^0.9.6",
     "@eslint/js": "^9.39.1",
     "@happy-dom/global-registrator": "^20.1.0",

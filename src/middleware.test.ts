@@ -27,7 +27,7 @@ describe('middleware', () => {
         url,
         headers: new Headers({ host }),
       } as unknown as Request;
-      const locals: App.Locals = { cspNonce: '' };
+      const locals = { cspNonce: '' } as App.Locals;
       const next = mock(async () => new Response('next'));
 
       const response = await onRequest({ request, locals } as any, next);
@@ -51,7 +51,7 @@ describe('middleware', () => {
 
     for (const headers of cases) {
       const request = new Request('https://example.com/path', { headers });
-      const locals: App.Locals = { cspNonce: '' };
+      const locals = { cspNonce: '' } as App.Locals;
       const next = mock(async () => new Response('next'));
 
       const response = await onRequest({ request, locals } as any, next);

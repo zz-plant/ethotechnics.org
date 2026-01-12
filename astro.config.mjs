@@ -20,6 +20,10 @@ export default defineConfig({
   adapter: cloudflare({
     platform: 'workers',
     imageService: 'cloudflare',
+    platformProxy: {
+      enabled: true,
+      configPath: './wrangler.toml',
+    },
     routes: {
       extend: {
         exclude: [{ pattern: '/_astro/*' }, { pattern: '/assets/*' }],
