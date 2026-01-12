@@ -91,8 +91,9 @@ const endpoints = [
     description: "Portable diagnostic result artifacts.",
   },
   {
-    path: "/api/rag-corpus.jsonl",
-    description: "JSONL corpus for retrieval pipelines.",
+    path: "/api/rag-corpus.jsonl?limit=200",
+    description:
+      "JSONL corpus for retrieval pipelines (add a limit query param for previews).",
   },
   {
     path: "/api/glossary.json",

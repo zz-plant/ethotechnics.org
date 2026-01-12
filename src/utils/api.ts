@@ -240,7 +240,7 @@ export const diagnosticResultsCatalog = [
   },
 ];
 
-export const getRagCorpusLines = () => {
+export const getRagCorpusLines = (options?: { limit?: number }) => {
   const lines: string[] = [];
   const standards = getStandardsForApi();
   const clauses = getClausesForApi();
@@ -329,6 +329,10 @@ export const getRagCorpusLines = () => {
       }),
     );
   });
+
+  if (options?.limit && options.limit > 0) {
+    return lines.slice(0, options.limit).join("\n");
+  }
 
   return lines.join("\n");
 };
