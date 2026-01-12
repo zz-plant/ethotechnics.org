@@ -5,7 +5,7 @@ import StudioBadge from "./StudioBadge.astro";
 <section class="reference-dashboard">
   <header class="reference-dashboard__header">
     <div class="reference-dashboard__identity">
-      <p class="reference-dashboard__logo">Ethotechnics Institute</p>
+      <p class="reference-dashboard__logo u-ink-text">Ethotechnics Institute</p>
       <p class="reference-dashboard__tagline">
         The 21st Century reference hub for accountable systems.
       </p>
@@ -99,6 +99,21 @@ import StudioBadge from "./StudioBadge.astro";
     border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--surface) 92%, white 8%);
     box-shadow: 0 18px 36px rgba(64, 52, 40, 0.08);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .reference-dashboard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/generated/grid-dots.svg');
+    background-size: 20px 20px;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: -1;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
   }
 
   .reference-dashboard__header {

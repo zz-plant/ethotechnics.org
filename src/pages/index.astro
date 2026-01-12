@@ -4,7 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "../components/CardGrid.astro";
 import CardItem from "../components/CardItem.astro";
 import SectionBlock from "../components/SectionBlock.astro";
-import StudioBadge from "../components/StudioBadge.astro";
+
 import ReferenceDashboard from "../components/ReferenceDashboard.astro";
 
 const homeEntry = (await getEntry("home", "home"))!;
@@ -21,10 +21,10 @@ const { pageTitle, pageDescription } = homeEntry.data;
     title="Search the reference standard"
     description="Start with the latest standards, validators, and institutional guidance."
   >
-    description="Start with the latest standards, validators, and institutional guidance."
-  >
     <ReferenceDashboard />
   </SectionBlock>
+
+  <div class="divider-wave" aria-hidden="true"></div>
 
   <SectionBlock
     eyebrow="Get oriented"
@@ -46,6 +46,12 @@ const { pageTitle, pageDescription } = homeEntry.data;
         title="How the program runs"
         description="Understand the governance model, contributors, and update cadence."
       >
+        <img
+          src="/assets/generated/network-graph.svg"
+          alt=""
+          style="position: absolute; right: -10px; bottom: -10px; width: 140px; opacity: 0.12; transform: rotate(-15deg); pointer-events: none;"
+          aria-hidden="true"
+        />
         <a slot="footer" class="muted" href="/institute">
           Explore the Institute
         </a>
