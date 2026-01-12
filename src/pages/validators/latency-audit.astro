@@ -1,6 +1,17 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro";
+import { validatorsContent } from "../../content/validators";
+
+const validatorMeta =
+  validatorsContent.validators.find((validator) => validator.id === "VAL-03") ??
+  {
+    id: "VAL-03",
+    standardRef: "STD-01",
+    clauseRefs: [],
+    mechanismRefs: [],
+  };
+const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
@@ -24,7 +35,7 @@ import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro"
 
     <ValidatorMicroDiagram variant="latency" />
 
-    <form class="validator__form" data-validator-form>
+    <form class="validator__form" data-validator-form data-validator-meta={validatorMetaJson}>
       <label class="validator__field">
         Declared timeout (seconds)
         <input type="number" name="timeout" min="10" value="120" required />
@@ -51,6 +62,9 @@ import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro"
       <p class="validator__recommendation">
         Fix this using <a href="/mechanisms/mec-04-hard-clock">MEC-04: The Hard Clock</a>.
       </p>
+      <button class="button ghost" type="button" data-validator-download>
+        Download JSON
+      </button>
     </div>
   </section>
 </BaseLayout>
@@ -59,11 +73,27 @@ import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro"
   const form = document.querySelector<HTMLFormElement>(
     "[data-validator-form]"
   );
+  const validatorMeta = form?.dataset.validatorMeta
+    ? (JSON.parse(form.dataset.validatorMeta) as {
+        id: string;
+        standardRef: string;
+        clauseRefs: string[];
+        mechanismRefs: string[];
+      })
+    : {
+        id: "VAL-03",
+        standardRef: "STD-01",
+        clauseRefs: [],
+        mechanismRefs: [],
+      };
   const report = document.querySelector<HTMLElement>(
     "[data-validator-report]"
   );
   const status = document.querySelector<HTMLElement>(
     "[data-validator-status]"
+  );
+  const downloadButton = document.querySelector<HTMLButtonElement>(
+    "[data-validator-download]"
   );
 
   const updateStatus = (
@@ -76,6 +106,46 @@ import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro"
     }</span><p class="validator__status-text">${message}</p>`;
   };
 
+  const buildResult = (
+    level: "red" | "yellow" | "green",
+    message: string,
+    inputs: {
+      timeout: number;
+      latency: number;
+      escalation: FormDataEntryValue | null;
+    }
+  ) => {
+    const clauseMap = {
+      green: [],
+      yellow: validatorMeta.clauseRefs.slice(0, 2),
+      red: validatorMeta.clauseRefs,
+    };
+    const severityMap = {
+      green: "low",
+      yellow: "medium",
+      red: "high",
+    };
+
+    return {
+      result_id: crypto.randomUUID(),
+      generated_at: new Date().toISOString(),
+      validator_id: validatorMeta.id,
+      standard_id: validatorMeta.standardRef,
+      inputs,
+      status: level,
+      severity: severityMap[level],
+      risk_statement: message,
+      violated_clauses: clauseMap[level],
+      recommended_mechanisms: validatorMeta.mechanismRefs,
+      next_actions: [
+        `Apply ${validatorMeta.mechanismRefs.join(", ")} safeguards.`,
+        "Re-run the validator after remediation.",
+      ],
+    };
+  };
+
+  let latestResult: ReturnType<typeof buildResult> | null = null;
+
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!form || !report) return;
@@ -84,16 +154,36 @@ import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro"
     const timeout = Number(data.get("timeout"));
     const latency = Number(data.get("latency"));
     const escalation = data.get("escalation");
+    let level: "red" | "yellow" | "green" = "green";
+    let message = "Low risk: bounded duration honored.";
 
     if (latency > timeout || escalation === "no") {
-      updateStatus("red", "High risk: bounded duration violated.");
+      level = "red";
+      message = "High risk: bounded duration violated.";
     } else if (latency > timeout * 0.8) {
-      updateStatus("yellow", "Medium risk: latency near timeout threshold.");
+      level = "yellow";
+      message = "Medium risk: latency near timeout threshold.";
     } else {
-      updateStatus("green", "Low risk: bounded duration honored.");
+      level = "green";
+      message = "Low risk: bounded duration honored.";
     }
 
+    updateStatus(level, message);
+    latestResult = buildResult(level, message, { timeout, latency, escalation });
     report.removeAttribute("hidden");
     report.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  downloadButton?.addEventListener("click", () => {
+    if (!latestResult) return;
+    const blob = new Blob([JSON.stringify(latestResult, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${validatorMeta.id.toLowerCase()}-result.json`;
+    link.click();
+    URL.revokeObjectURL(url);
   });
 </script>
