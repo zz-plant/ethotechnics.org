@@ -1,0 +1,287 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Using Ethotechnics as an AI Agent";
+const pageDescription =
+  "A clear contract for how agents apply standards, produce findings, and cite mechanisms with confidence.";
+const permalink = "/agent-toolkit/agent-contract";
+const hero = {
+  eyebrow: "Agent enablement",
+  heading: "Using Ethotechnics as an AI Agent",
+  description:
+    "This contract defines the inputs, outputs, and evidence required when an agent applies Ethotechnics. Use it to keep audits, red-teams, and design reviews consistent.",
+};
+
+const anchorLinks = [
+  { href: "#scope", label: "Supported tasks" },
+  { href: "#inputs", label: "Expected inputs" },
+  { href: "#outputs", label: "Canonical outputs" },
+  { href: "#citation", label: "Citation rules" },
+  { href: "#clause-schema", label: "Clause schema" },
+  { href: "#finding-schema", label: "Finding object" },
+  { href: "#antipatterns", label: "Anti-patterns" },
+  { href: "#prompt-tests", label: "Test prompts" },
+  { href: "#versioning", label: "Versioning" },
+  { href: "#boundaries", label: "Boundaries" },
+  { href: "#ontology", label: "Governance ontology" },
+];
+
+const supportedTasks = [
+  "Audit a system against STD-01/STD-02 clauses",
+  "Red-team for contestability, stoppability, and irreversible harm",
+  "Design assist: map risks to mechanisms and integration steps",
+  "Policy drafting: translate standards into enforceable requirements",
+];
+
+const expectedInputs = [
+  "System description with actors, authority boundaries, and action surface",
+  "Policy or specification text (draft or live)",
+  "UI flows or interaction maps for affected users",
+  "Observed evidence: logs, decision receipts, or appeal metrics",
+];
+
+const canonicalOutputs = [
+  "Diagnostic report with violated clauses and evidence notes",
+  "Finding objects that chain risks to mechanisms",
+  "Mechanism set with implementation cues and coverage gaps",
+  "Remediation checklist with owner + timeline",
+];
+
+const citationRules = [
+  "Cite standards as STD-01.C# or STD-02.C# with clause IDs.",
+  "Cite mechanisms as MEC-## with the canonical permalink.",
+  "Cite validators as VAL-## with output references.",
+  "Pin versions in reports (e.g., STD-02@0.9, MEC@v1.1.0).",
+];
+
+const clauseSchema = `{
+  "std_id": "STD-02",
+  "clause_id": "STD-02.C3",
+  "requirement_type": "MUST",
+  "subject": "system",
+  "condition": "automated state change affecting user rights",
+  "obligation": "provide contestable reversal path",
+  "time_bound": "≤72h",
+  "evidence_required": ["decision_log", "appeal_endpoint"],
+  "failure_mode": "non-contestable execution"
+}`;
+
+const findingSchema = `{
+  "finding_id": "FND-2026-041",
+  "severity": "high",
+  "trigger": "fast execution + slow reversal",
+  "violated_clauses": ["STD-01.C2", "STD-02.C3"],
+  "risk": "irreversible harm propagation",
+  "recommended_mechanisms": ["MEC-04", "MEC-07"],
+  "confidence": 0.83
+}`;
+
+const antiPatterns = [
+  {
+    title: "Non-binding review promises",
+    failure:
+      "Says “human review available” without any timeline or authority; violates STD-02.C1/C3.",
+    warning: "False positives occur when timelines exist but are buried in legalese.",
+  },
+  {
+    title: "Appeals that cannot touch the outcome",
+    failure:
+      "Provides an intake form but never connects to a decision reversal or remedy pathway.",
+    warning: "Legitimate appeals show reversible state changes and audit receipts.",
+  },
+  {
+    title: "Consent without exit ramps",
+    failure: "Uses soft opt-outs that keep automation running or ignore revocation.",
+    warning: "If the exit pauses automation and records the event, it is compliant.",
+  },
+];
+
+const promptTests = [
+  "Given a system description, enumerate violated clauses with clause IDs.",
+  "Map each risk to at least one MEC with justification and required artifacts.",
+  "Rewrite this policy snippet to satisfy STD-02.C3 with time-bound remedies.",
+];
+
+const versioningSteps = [
+  "Pin analysis to an explicit release: ethotechnics@2026.1 or STD-02@0.9.",
+  "Surface diffs when clauses change, with deprecated-to-replacement pointers.",
+  "Include change log references in every report.",
+];
+
+const boundaries = [
+  "Ethotechnics does not rank social values or resolve political tradeoffs.",
+  "Ethotechnics does not certify moral intent; it audits controls and evidence.",
+  "Ethotechnics does not replace governance; it supplies enforceable primitives.",
+];
+
+const ontologyTerms = [
+  "Actor",
+  "Authority",
+  "Decision",
+  "State change",
+  "Reversal",
+  "Standing",
+  "Contestability",
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow={hero.eyebrow}
+    title={hero.heading}
+    description={hero.description}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="scope"
+    eyebrow="Agent contract"
+    title="Supported tasks"
+    description="Use Ethotechnics for structured audits and mechanism-first remediation."
+  >
+    <ul class="muted">
+      {supportedTasks.map((task) => (
+        <li>{task}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="inputs"
+    eyebrow="Inputs"
+    title="Expected inputs"
+    description="The minimum information an agent needs to form evidence-backed findings."
+    variant="alt"
+  >
+    <ul class="muted">
+      {expectedInputs.map((input) => (
+        <li>{input}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="outputs"
+    eyebrow="Outputs"
+    title="Canonical outputs"
+    description="Define the artifact set so results stay portable across tools."
+  >
+    <ul class="muted">
+      {canonicalOutputs.map((output) => (
+        <li>{output}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="citation"
+    eyebrow="Citations"
+    title="How to cite standards, mechanisms, and validators"
+    description="Citations should make evidence traceable and enforceable."
+    variant="alt"
+  >
+    <ul class="muted">
+      {citationRules.map((rule) => (
+        <li>{rule}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clause-schema"
+    eyebrow="Executable standards"
+    title="Clause schema for agent-readable obligations"
+    description="Every clause should be represented as a structured object with evidence requirements."
+  >
+    <pre class="code-block">{clauseSchema}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="finding-schema"
+    eyebrow="Finding object"
+    title="Portable diagnostic artifacts"
+    description="Findings let agents chain risks to mechanisms and remediation."
+    variant="alt"
+  >
+    <pre class="code-block">{findingSchema}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="antipatterns"
+    eyebrow="Negative examples"
+    title="Known bad patterns and false-positive warnings"
+    description="Use these to avoid superficial compliance and improve detection precision."
+  >
+    <ul class="muted">
+      {antiPatterns.map((pattern) => (
+        <li>
+          <strong>{pattern.title}:</strong> {pattern.failure}
+          <br />
+          <span class="small">False-positive warning: {pattern.warning}</span>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="prompt-tests"
+    eyebrow="Prompt library"
+    title="Agent-ready test prompts"
+    description="Pair these prompts with the prompt packs for consistent diagnostics."
+    variant="alt"
+  >
+    <ul class="muted">
+      {promptTests.map((prompt) => (
+        <li>{prompt}</li>
+      ))}
+    </ul>
+    <div class="section__actions">
+      <a class="button ghost" href="/agent-toolkit/prompt-packs">
+        Go to prompt packs
+      </a>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="versioning"
+    eyebrow="Versioning"
+    title="Diffable, pinned releases"
+    description="Use versioned releases so agents can compare results over time."
+  >
+    <ul class="muted">
+      {versioningSteps.map((step) => (
+        <li>{step}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="boundaries"
+    eyebrow="Boundaries"
+    title="What Ethotechnics does not decide"
+    description="Ethotechnics is procedural, not moral authority."
+    variant="alt"
+  >
+    <ul class="muted">
+      {boundaries.map((boundary) => (
+        <li>{boundary}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ontology"
+    eyebrow="Optional"
+    title="Governance ontology primitives"
+    description="These primitives keep symbolic reasoning consistent across systems."
+  >
+    <ul class="muted">
+      {ontologyTerms.map((term) => (
+        <li>{term}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+</BaseLayout>

@@ -20,6 +20,7 @@ const anchorLinks = [
   { href: "#onboarding", label: "Onboarding" },
   { href: "#decisions", label: "Decision reviews" },
   { href: "#conflict", label: "Conflict resolution" },
+  { href: "#diagnostics", label: "Diagnostics prompts" },
 ];
 
 const onboardingPrompts = [
@@ -77,6 +78,48 @@ const conflictPrompts = [
       "What documentation should we capture for future audits?",
     ],
   },
+];
+
+const diagnosticPrompts = [
+  {
+    title: "Clause violation sweep",
+    prompts: [
+      "Given this system description, enumerate violated STD clauses and cite clause IDs.",
+      "List the evidence needed to confirm each violation (logs, receipts, timelines).",
+      "Flag any missing inputs that prevent a determination.",
+    ],
+  },
+  {
+    title: "Mechanism mapping",
+    prompts: [
+      "Map each violated clause to at least one MEC with justification.",
+      "List the artifacts needed to implement each mechanism.",
+      "Call out any mechanism coverage gaps or tradeoffs.",
+    ],
+  },
+  {
+    title: "Remedy rewrite",
+    prompts: [
+      "Rewrite this policy to satisfy STD-02.C3 with a time-bound reversal path.",
+      "Include who owns the remedy and how affected users can contest it.",
+      "State how success will be measured (receipt completeness, time-to-remedy).",
+    ],
+  },
+];
+
+const diagnosticOutputFormat = `{\n  "system": "short description",\n  "violated_clauses": ["STD-01.C2", "STD-02.C3"],\n  "evidence_required": ["decision_log", "appeal_endpoint"],\n  "findings": [{\n    "finding_id": "FND-2026-041",\n    "severity": "high",\n    "risk": "irreversible harm",\n    "recommended_mechanisms": ["MEC-04"]\n  }],\n  "open_questions": ["missing appeal SLA"]\n}`;
+
+const diagnosticRubric = [
+  "Clause IDs are correct and traceable to the standard text.",
+  "Evidence requirements are explicit and actionable.",
+  "Mechanisms map directly to stated risks or clauses.",
+  "Outputs include owners, timelines, or remediation steps.",
+];
+
+const diagnosticFailureModes = [
+  "Only summarizing values without citing clauses.",
+  "Listing mechanisms without evidence or artifact requirements.",
+  "Ignoring missing inputs or uncertainty.",
 ];
 ---
 
@@ -153,6 +196,45 @@ const conflictPrompts = [
       <a class="button ghost" href="/glossary">
         Reference the glossary
       </a>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="diagnostics"
+    eyebrow="Diagnostics prompts"
+    title="Run consistent clause and mechanism checks"
+    description="Use these prompts when you need repeatable audit-quality outputs."
+  >
+    <CardGrid className="grid--two">
+      {diagnosticPrompts.map((pack) => (
+        <CardItem title={pack.title} descriptionTone="default">
+          <ul class="muted">
+            {pack.prompts.map((prompt) => (
+              <li>{prompt}</li>
+            ))}
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Expected output format</p>
+        <pre class="code-block">{diagnosticOutputFormat}</pre>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Scoring rubric</p>
+        <ul class="muted">
+          {diagnosticRubric.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <p class="eyebrow">Common failure modes</p>
+        <ul class="muted">
+          {diagnosticFailureModes.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   </SectionBlock>
 </BaseLayout>

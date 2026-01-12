@@ -46,6 +46,7 @@ const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const panelDescription = `Tagged for ${pattern.filters
   .map((filter) => filterLabels[filter] ?? filter)
   .join(", ")} with validator handshakes.`;
+const hasAntiPatterns = pattern.antiPatterns?.length > 0;
 const anchorLinks = [
   ...(glossaryAnchors.length
     ? [{ href: "#glossary", label: "Glossary anchors" }]
@@ -53,6 +54,9 @@ const anchorLinks = [
   { href: "#steps", label: "Steps" },
   { href: "#assets", label: "Assets" },
   { href: "#example", label: "Example usage" },
+  ...(hasAntiPatterns
+    ? [{ href: "#anti-patterns", label: "Anti-patterns" }]
+    : []),
   { href: "#validators", label: "Validators" },
 ];
 ---
@@ -168,6 +172,28 @@ const anchorLinks = [
       </div>
     </div>
   </SectionBlock>
+
+  {
+    hasAntiPatterns && (
+      <SectionBlock
+        id="anti-patterns"
+        eyebrow="Anti-patterns"
+        title="Common failure cases and counterfactuals"
+        description="Use these to avoid superficial compliance and clarify what success requires."
+        variant="alt"
+      >
+        <CardGrid className="grid--two">
+          {pattern.antiPatterns.map((pattern) => (
+            <CardItem title={pattern.title} descriptionTone="default">
+              <p class="muted">{pattern.failure}</p>
+              <p class="muted small">Counterfactual: {pattern.counterfactual}</p>
+              <p class="muted small">False-positive warning: {pattern.warning}</p>
+            </CardItem>
+          ))}
+        </CardGrid>
+      </SectionBlock>
+    )
+  }
 
   <SectionBlock
     id="validators"
