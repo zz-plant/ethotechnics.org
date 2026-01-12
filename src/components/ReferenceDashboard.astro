@@ -4,12 +4,10 @@ import StudioBadge from "./StudioBadge.astro";
 
 <section class="reference-dashboard">
   <header class="reference-dashboard__header">
-    <div class="reference-dashboard__identity">
-      <p class="reference-dashboard__logo u-ink-text">Ethotechnics Institute</p>
-      <p class="reference-dashboard__tagline">
-        The 21st Century reference hub for accountable systems.
-      </p>
-    </div>
+    <p class="reference-dashboard__logo u-ink-text">Ethotechnics Institute</p>
+    <p class="reference-dashboard__tagline">
+      The 21st Century reference hub for accountable systems.
+    </p>
   </header>
 
   <div class="reference-dashboard__search">
@@ -36,26 +34,24 @@ import StudioBadge from "./StudioBadge.astro";
       />
       <button class="button primary" type="submit">Search</button>
     </form>
-    <div class="reference-dashboard__actions" aria-label="Getting started">
-      <p class="muted">
-        New to the standard? Start with the guided overview or explore how the
-        Institute works.
-      </p>
-      <div class="reference-dashboard__action-buttons">
-        <a class="button primary" href="/start-here">Start here</a>
-        <a class="button ghost" href="/institute">How the Institute works</a>
-      </div>
-    </div>
-    <div class="reference-dashboard__quick-links" aria-label="Quick links">
-      <p class="reference-dashboard__quick-label">Quick links</p>
-      <div class="reference-dashboard__quick-list">
-        <a class="pill pill--ghost" href="/standards">Standards</a>
-        <a class="pill pill--ghost" href="/validators">Validators</a>
-        <a class="pill pill--ghost" href="/diagnostics">Diagnostics</a>
-        <a class="pill pill--ghost" href="/glossary">Glossary</a>
-      </div>
-    </div>
   </div>
+
+  <div class="reference-dashboard__actions" aria-label="Getting started">
+    <p class="muted">
+      New to the standard? Start with the guided overview or explore how the
+      Institute works.
+    </p>
+    <a class="button primary" href="/start-here">Start here</a>
+    <a class="button ghost" href="/institute">How the Institute works</a>
+  </div>
+
+  <nav class="reference-dashboard__quick-links" aria-label="Quick links">
+    <p class="reference-dashboard__quick-label">Quick links</p>
+    <a class="pill pill--ghost" href="/standards">Standards</a>
+    <a class="pill pill--ghost" href="/validators">Validators</a>
+    <a class="pill pill--ghost" href="/diagnostics">Diagnostics</a>
+    <a class="pill pill--ghost" href="/glossary">Glossary</a>
+  </nav>
 
   <div class="reference-dashboard__status">
     <article class="status-card">
@@ -117,10 +113,8 @@ import StudioBadge from "./StudioBadge.astro";
   }
 
   .reference-dashboard__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
+    display: grid;
+    gap: 0.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
@@ -168,14 +162,13 @@ import StudioBadge from "./StudioBadge.astro";
   }
 
   .reference-dashboard__actions {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .reference-dashboard__action-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+
+  .reference-dashboard__actions p {
+    flex-basis: 100%;
   }
 
   .reference-dashboard__search-bar input {
@@ -209,12 +202,7 @@ import StudioBadge from "./StudioBadge.astro";
     letter-spacing: 0.2em;
     margin: 0;
     color: var(--muted);
-  }
-
-  .reference-dashboard__quick-list {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
+    flex-basis: 100%;
   }
 
   .reference-dashboard__status {
@@ -288,7 +276,7 @@ import StudioBadge from "./StudioBadge.astro";
       grid-template-columns: 1fr;
     }
 
-    .reference-dashboard__action-buttons {
+    .reference-dashboard__actions {
       flex-direction: column;
       align-items: stretch;
     }
