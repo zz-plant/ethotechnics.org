@@ -1,22 +1,17 @@
 import type { APIRoute } from "astro";
 
 import { libraryContent } from "../../content/library";
+import { getMechanismsForApi, releaseInfo } from "../../utils/api";
 
-export const GET: APIRoute = async () => {
-  const patterns = libraryContent.patterns.entries.map((pattern) => ({
-    slug: pattern.slug,
-    title: pattern.title,
-    summary: pattern.summary,
-    filters: pattern.filters,
-    glossaryRefs: pattern.glossaryRefs,
-    href: `/mechanisms/patterns/${pattern.slug}`,
-  }));
+export const GET: APIRoute = () => {
+  const patterns = getMechanismsForApi();
 
   const payload = {
     meta: {
       generatedAt: new Date().toISOString(),
       count: patterns.length,
       permalink: libraryContent.permalink,
+      release: releaseInfo,
     },
     patterns,
   };

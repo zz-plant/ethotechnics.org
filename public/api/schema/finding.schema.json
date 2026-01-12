@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/finding.schema.json",
+  "title": "Ethotechnics Finding",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "summary",
+    "violated_clauses",
+    "impact",
+    "closure",
+    "recommended_mechanisms"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string" },
+    "summary": { "type": "string" },
+    "violated_clauses": { "type": "array", "items": { "type": "string" } },
+    "impact": { "type": "string" },
+    "closure": { "type": "string" },
+    "severity": { "type": "string" },
+    "confidence": { "type": "number" },
+    "recommended_mechanisms": { "type": "array", "items": { "type": "string" } },
+    "refs": { "type": "array", "items": { "type": "string" } },
+    "deprecated_by": { "type": ["string", "null"] },
+    "supersedes": { "type": "array", "items": { "type": "string" } }
+  }
+}

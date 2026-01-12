@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/mechanisms.schema.json",
+  "title": "Ethotechnics Mechanisms",
+  "type": "object",
+  "required": ["meta", "patterns"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["generatedAt", "count", "permalink", "release"],
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "count": { "type": "number" },
+        "permalink": { "type": "string" },
+        "release": { "type": "object" }
+      }
+    },
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "title", "summary", "href"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "slug": { "type": "string" },
+          "title": { "type": "string" },
+          "summary": { "type": "string" },
+          "filters": { "type": "array", "items": { "type": "string" } },
+          "glossary_refs": { "type": "array", "items": { "type": "string" } },
+          "href": { "type": "string" },
+          "refs": { "type": "array", "items": { "type": "string" } },
+          "deprecated_by": { "type": ["string", "null"] },
+          "supersedes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

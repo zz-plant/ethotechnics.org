@@ -1,8 +1,10 @@
 import type { APIRoute } from "astro";
 
-import { libraryContent } from "../../content/library";
-import { researchContent } from "../../content/research";
-import { getStandardsForApi, getValidatorsForApi, releaseInfo } from "../../utils/api";
+import { libraryContent } from "../../../../content/library";
+import { researchContent } from "../../../../content/research";
+import { standardsContent } from "../../../../content/standards";
+import { validatorsContent } from "../../../../content/validators";
+import { getStandardsForApi, getValidatorsForApi, releaseInfo } from "../../../../utils/api";
 
 export const GET: APIRoute = () => {
   const standards = getStandardsForApi().map((standard) => ({
@@ -66,20 +68,22 @@ export const GET: APIRoute = () => {
       diagnosticResults: "/api/schema/diagnostic-results.schema.json",
     },
     endpoints: [
-      "/api/site-index.json",
-      "/api/standards.json",
-      "/api/clauses.json",
-      "/api/mechanisms.json",
-      "/api/validators.json",
-      "/api/glossary.json",
-      "/api/anti-patterns.json",
-      "/api/evidence-packs.json",
-      "/api/findings.json",
-      "/api/diagnostic-results.json",
-      "/api/rag-corpus.jsonl",
-      "/api/releases.json",
-      "/api/changelog.json",
+      "/api/v/2026.01/site-index.json",
+      "/api/v/2026.01/standards.json",
+      "/api/v/2026.01/clauses.json",
+      "/api/v/2026.01/mechanisms.json",
+      "/api/v/2026.01/validators.json",
+      "/api/v/2026.01/glossary.json",
+      "/api/v/2026.01/anti-patterns.json",
+      "/api/v/2026.01/evidence-packs.json",
+      "/api/v/2026.01/findings.json",
+      "/api/v/2026.01/diagnostic-results.json",
+      "/api/v/2026.01/rag-corpus.jsonl",
     ],
+    snapshots: {
+      standards: `${standardsContent.permalink}`,
+      validators: `${validatorsContent.permalink}`,
+    },
   };
 
   return new Response(JSON.stringify(payload, null, 2), {

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/clauses.schema.json",
+  "title": "Ethotechnics Clauses",
+  "type": "object",
+  "required": ["meta", "clauses"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["generatedAt", "count", "permalink", "release"],
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "count": { "type": "number" },
+        "permalink": { "type": "string" },
+        "release": { "type": "object" }
+      }
+    },
+    "clauses": {
+      "type": "array",
+      "items": { "$ref": "#definitions/clause" }
+    }
+  },
+  "definitions": {
+    "clause": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "clause_id",
+        "standard_id",
+        "level",
+        "condition",
+        "obligation",
+        "evidence_required",
+        "related_mechanisms",
+        "related_validators",
+        "href",
+        "refs"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "clause_id": { "type": "string" },
+        "standard_id": { "type": "string" },
+        "display_id": { "type": "string" },
+        "clause_type": { "type": "string" },
+        "level": { "type": "string" },
+        "condition": { "type": "string" },
+        "obligation": { "type": "string" },
+        "time_bound": { "type": ["string", "null"] },
+        "evidence_required": { "type": "array", "items": { "type": "string" } },
+        "failure_modes": { "type": "array", "items": { "type": "string" } },
+        "related_mechanisms": { "type": "array", "items": { "type": "string" } },
+        "related_validators": { "type": "array", "items": { "type": "string" } },
+        "href": { "type": "string" },
+        "refs": { "type": "array", "items": { "type": "string" } },
+        "deprecated_by": { "type": ["string", "null"] },
+        "supersedes": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

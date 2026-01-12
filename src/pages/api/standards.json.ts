@@ -1,25 +1,17 @@
 import type { APIRoute } from "astro";
 
-import { standardClauses, standardsContent } from "../../content/standards";
+import { standardsContent } from "../../content/standards";
+import { getStandardsForApi, releaseInfo } from "../../utils/api";
 
 export const GET: APIRoute = () => {
-  const standards = standardsContent.standards.map((standard) => ({
-    id: standard.id,
-    title: standard.title,
-    description: standard.description,
-    status: standard.status,
-    version: standard.version,
-    effectiveDate: standard.effectiveDate,
-    published: standard.published,
-    href: `/standards/${standard.slug}`,
-    clauses: standardClauses[standard.id] ?? [],
-  }));
+  const standards = getStandardsForApi();
 
   const payload = {
     meta: {
       generatedAt: new Date().toISOString(),
       count: standards.length,
       permalink: standardsContent.permalink,
+      release: releaseInfo,
     },
     standards,
   };

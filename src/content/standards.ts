@@ -40,6 +40,7 @@ export type StandardClause = {
   obligation: string;
   evidenceRequired: string[];
   timeBound: string;
+  failureModes?: string[];
   relatedMechanisms: string[];
   relatedValidators: string[];
 };

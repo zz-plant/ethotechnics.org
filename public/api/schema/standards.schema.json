@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/standards.schema.json",
+  "title": "Ethotechnics Standards",
+  "type": "object",
+  "required": ["meta", "standards"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["generatedAt", "count", "permalink", "release"],
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "count": { "type": "number" },
+        "permalink": { "type": "string" },
+        "release": { "type": "object" }
+      }
+    },
+    "standards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "title", "description", "version", "href", "clauses"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "status": { "type": "string" },
+          "version": { "type": "string" },
+          "effectiveDate": { "type": "string" },
+          "published": { "type": "string" },
+          "href": { "type": "string" },
+          "clauses": {
+            "type": "array",
+            "items": { "$ref": "https://ethotechnics.org/api/schema/clauses.schema.json#/definitions/clause" }
+          },
+          "clause_ids": { "type": "array", "items": { "type": "string" } },
+          "refs": { "type": "array", "items": { "type": "string" } },
+          "deprecated_by": { "type": ["string", "null"] },
+          "supersedes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

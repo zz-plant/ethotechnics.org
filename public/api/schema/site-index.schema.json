@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/site-index.schema.json",
+  "title": "Ethotechnics Site Index",
+  "type": "object",
+  "required": ["meta", "standards", "validators", "research", "mechanisms", "schemas", "endpoints"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "generatedAt",
+        "standardsCount",
+        "validatorsCount",
+        "publicationsCount",
+        "release"
+      ],
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "standardsCount": { "type": "number" },
+        "validatorsCount": { "type": "number" },
+        "publicationsCount": { "type": "number" },
+        "release": { "type": "object" }
+      }
+    },
+    "standards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "href", "type"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "status": { "type": "string" },
+          "version": { "type": "string" },
+          "effectiveDate": { "type": "string" },
+          "published": { "type": "string" },
+          "href": { "type": "string" },
+          "type": { "type": "string" },
+          "refs": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "validators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "href", "type"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "standardRef": { "type": "string" },
+          "href": { "type": "string" },
+          "type": { "type": "string" },
+          "refs": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "research": { "type": "object" },
+    "mechanisms": { "type": "object" },
+    "schemas": { "type": "object" },
+    "endpoints": { "type": "array", "items": { "type": "string" } }
+  }
+}
