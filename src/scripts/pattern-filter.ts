@@ -239,7 +239,7 @@ const initializePatternFilter = (root: HTMLElement) => {
     pre.style.padding = "1.4rem";
 
     printWindow.document.body.innerHTML = "";
-    printWindow.document.body.append(pre);
+    printWindow.document.body.appendChild(pre);
     printWindow.focus();
     printWindow.print();
   };

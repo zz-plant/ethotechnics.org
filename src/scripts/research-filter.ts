@@ -12,8 +12,8 @@ const initResearchFilter = () => {
     "[data-clear-research-filter]",
   );
   const facetControls = Array.from(
-    document.querySelectorAll<HTMLSelectElement>("[data-research-filter]"),
-  );
+    document.querySelectorAll("[data-research-filter]"),
+  ) as unknown as HTMLSelectElement[];
   const chunkedSections = Array.from(
     document.querySelectorAll<HTMLDetailsElement>(".chunked-section"),
   );
@@ -69,7 +69,7 @@ const initResearchFilter = () => {
   const getFacetLabel = (key: string) => {
     const control = facetControls.find(
       (item) => item.dataset.researchFilter === key,
-    );
+    ) as HTMLSelectElement | undefined;
     if (!control?.value) {
       return "";
     }
@@ -121,7 +121,7 @@ const initResearchFilter = () => {
       ? ` · ${facetLabels.join(", ")}`
       : "";
     count.textContent = `Showing ${visible} of ${total} entries${querySuffix}${facetSuffix}`;
-    const hasFacets = facetControls.some((control) => control.value);
+    const hasFacets = facetControls.some((control) => !!control.value);
     clearButton.disabled = rawQuery.length === 0 && !hasFacets;
     const shouldExpand = rawQuery.length > 0 || hasFacets;
     chunkedSections.forEach((section) => {
@@ -148,7 +148,7 @@ const initResearchFilter = () => {
   if (initialSection) {
     const control = facetControls.find(
       (item) => item.dataset.researchFilter === "section",
-    );
+    ) as HTMLSelectElement | undefined;
     if (control) {
       control.value = initialSection;
     }
@@ -156,7 +156,7 @@ const initResearchFilter = () => {
   if (initialTag) {
     const control = facetControls.find(
       (item) => item.dataset.researchFilter === "tag",
-    );
+    ) as HTMLSelectElement | undefined;
     if (control) {
       control.value = initialTag;
     }

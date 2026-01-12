@@ -12,8 +12,8 @@ const initGlossaryFilter = () => {
     "[data-clear-filter]",
   );
   const facetControls = Array.from(
-    document.querySelectorAll<HTMLSelectElement>("[data-glossary-filter]"),
-  );
+    document.querySelectorAll("[data-glossary-filter]"),
+  ) as unknown as HTMLSelectElement[];
   const chunkedSections = Array.from(
     document.querySelectorAll<HTMLDetailsElement>(".chunked-section"),
   );
@@ -69,7 +69,7 @@ const initGlossaryFilter = () => {
   const getFacetLabel = (key: string) => {
     const control = facetControls.find(
       (item) => item.dataset.glossaryFilter === key,
-    );
+    ) as HTMLSelectElement | undefined;
     if (!control?.value) {
       return "";
     }
@@ -128,7 +128,7 @@ const initGlossaryFilter = () => {
       ? ` · ${facetLabels.join(", ")}`
       : "";
     count.textContent = `Showing ${visible} of ${total} terms${querySuffix}${facetSuffix}`;
-    const hasFacets = facetControls.some((control) => control.value);
+    const hasFacets = facetControls.some((control) => !!control.value);
     clearButton.disabled = rawQuery.length === 0 && !hasFacets;
     const shouldExpand = rawQuery.length > 0 || hasFacets;
     chunkedSections.forEach((section) => {
@@ -157,7 +157,7 @@ const initGlossaryFilter = () => {
   if (initialCategory) {
     const control = facetControls.find(
       (item) => item.dataset.glossaryFilter === "category",
-    );
+    ) as HTMLSelectElement | undefined;
     if (control) {
       control.value = initialCategory;
     }
@@ -165,7 +165,7 @@ const initGlossaryFilter = () => {
   if (initialTag) {
     const control = facetControls.find(
       (item) => item.dataset.glossaryFilter === "tag",
-    );
+    ) as HTMLSelectElement | undefined;
     if (control) {
       control.value = initialTag;
     }
@@ -173,7 +173,7 @@ const initGlossaryFilter = () => {
   if (initialStatus) {
     const control = facetControls.find(
       (item) => item.dataset.glossaryFilter === "status",
-    );
+    ) as HTMLSelectElement | undefined;
     if (control) {
       control.value = initialStatus;
     }
