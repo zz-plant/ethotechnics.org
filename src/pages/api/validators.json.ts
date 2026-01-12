@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 
 import { validatorsContent } from "../../content/validators";
 
+export const prerender = true;
+
 export const GET: APIRoute = () => {
   const validators = validatorsContent.validators.map((validator) => ({
     id: validator.id,
