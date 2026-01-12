@@ -105,3 +105,30 @@ const tagListClass = ['pill-list', tagsClassName].filter(Boolean).join(' ');
   )}
   <slot name="footer" />
 </article>
+
+<style>
+  .card {
+    position: relative;
+    background: color-mix(in srgb, var(--surface) 95%, white 5%);
+    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+    border-radius: calc(var(--radius) - 2px);
+    padding: 1.5rem;
+    box-shadow: 0 12px 24px rgba(64, 52, 40, 0.06);
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .card__glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.45),
+      rgba(255, 255, 255, 0)
+    );
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: -1;
+    mix-blend-mode: screen;
+  }
+</style>

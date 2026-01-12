@@ -5,6 +5,7 @@ import CardGrid from "../components/CardGrid.astro";
 import CardItem from "../components/CardItem.astro";
 import SectionBlock from "../components/SectionBlock.astro";
 import StudioBadge from "../components/StudioBadge.astro";
+import ReferenceDashboard from "../components/ReferenceDashboard.astro";
 
 const homeEntry = (await getEntry("home", "home"))!;
 const { pageTitle, pageDescription } = homeEntry.data;
@@ -20,93 +21,9 @@ const { pageTitle, pageDescription } = homeEntry.data;
     title="Search the reference standard"
     description="Start with the latest standards, validators, and institutional guidance."
   >
-    <section class="reference-dashboard">
-      <header class="reference-dashboard__header">
-        <div class="reference-dashboard__identity">
-          <p class="reference-dashboard__logo">Ethotechnics Institute</p>
-          <p class="reference-dashboard__tagline">
-            The 21st Century reference hub for accountable systems.
-          </p>
-        </div>
-      </header>
-
-      <div class="reference-dashboard__search">
-        <p class="reference-dashboard__search-label" id="dashboard-search-label">
-          Search the library
-        </p>
-        <p class="reference-dashboard__search-helper" id="dashboard-search-helper">
-          Route to the glossary index to pinpoint standards, mechanisms, and terminology.
-        </p>
-        <form
-          class="reference-dashboard__search-bar"
-          role="search"
-          action="/glossary"
-          method="get"
-        >
-          <input
-            id="dashboard-search"
-            type="search"
-            name="query"
-            aria-labelledby="dashboard-search-label"
-            aria-describedby="dashboard-search-helper"
-            placeholder="Search for standards (e.g., “Stoppability”) or mechanisms..."
-          />
-          <button class="button primary" type="submit">Search</button>
-        </form>
-        <div class="reference-dashboard__actions" aria-label="Getting started">
-          <p class="muted">
-            New to the standard? Start with the guided overview or explore how the Institute works.
-          </p>
-          <div class="reference-dashboard__action-buttons">
-            <a class="button primary" href="/start-here">Start here</a>
-            <a class="button ghost" href="/institute">How the Institute works</a>
-          </div>
-        </div>
-        <div class="reference-dashboard__quick-links" aria-label="Quick links">
-          <p class="reference-dashboard__quick-label">Quick links</p>
-          <div class="reference-dashboard__quick-list">
-            <a class="pill pill--ghost" href="/standards">Standards</a>
-            <a class="pill pill--ghost" href="/validators">Validators</a>
-            <a class="pill pill--ghost" href="/diagnostics">Diagnostics</a>
-            <a class="pill pill--ghost" href="/glossary">Glossary</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="reference-dashboard__status">
-        <article class="status-card">
-          <p class="status-card__eyebrow">Newest standard</p>
-          <p class="status-card__title">
-            Now Active: STD-01: The Temporal Bill of Rights
-          </p>
-          <a
-            class="status-card__link"
-            href="/standards/std-01-temporal-rights"
-            aria-label="Read STD-01: The Temporal Bill of Rights"
-          >
-            Read Spec
-          </a>
-        </article>
-        <article class="status-card">
-          <p class="status-card__eyebrow">Tool highlight</p>
-          <p class="status-card__title">
-            Validator: Check System Latency
-          </p>
-          <a
-            class="status-card__link"
-            href="/validators/latency-audit"
-            aria-label="Run the latency audit validator"
-          >
-            Run Audit
-          </a>
-        </article>
-      </div>
-
-      <footer class="reference-dashboard__footer">
-        <p class="muted">Maintained by the Institute of Ethotechnics.</p>
-        <StudioBadge />
-      </footer>
-    </section>
+    description="Start with the latest standards, validators, and institutional guidance."
+  >
+    <ReferenceDashboard />
   </SectionBlock>
 
   <SectionBlock
