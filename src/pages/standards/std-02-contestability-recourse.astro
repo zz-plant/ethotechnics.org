@@ -38,6 +38,27 @@ const performanceMetrics = [
   "Remedy rate (how often valid contests produce correction/compensation)",
 ];
 
+const clauseSchema = `{\n  "std_id": "STD-02",\n  "clause_id": "STD-02.C3",\n  "requirement_type": "MUST",\n  "subject": "system",\n  "condition": "automated state change affecting user rights",\n  "obligation": "provide contestable reversal path",\n  "time_bound": "≤72h",\n  "evidence_required": ["decision_log", "appeal_endpoint"],\n  "failure_mode": "non-contestable execution"\n}`;
+
+const antiPatterns = [
+  {
+    title: "Review without authority",
+    failure:
+      "Offers “human review” but the reviewer cannot reverse or remedy the outcome.",
+    counterfactual:
+      "A reviewer with binding authority can reverse the state change within the published SLA.",
+    warning: "Legitimate reviews show authority, timeline, and a logged remedy.",
+  },
+  {
+    title: "Appeal intake without receipt",
+    failure:
+      "Collects appeals but never provides a receipt with reasons, owners, and timestamps.",
+    counterfactual:
+      "Every appeal generates a receipt and binds it to a specific owner and timeline.",
+    warning: "Receipts can be redacted, but they must be complete and referenceable.",
+  },
+];
+
 const pageUrl = Astro.site
   ? new URL("/standards/std-02-contestability-recourse", Astro.site).toString()
   : "/standards/std-02-contestability-recourse";
@@ -151,6 +172,31 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </a>
             .
           </p>
+        </section>
+
+        <section class="standard-section">
+          <h2>Clause schema (agent-readable)</h2>
+          <p>
+            Express every clause as a structured object so agents can validate compliance and
+            request evidence.
+          </p>
+          <pre class="code-block">{clauseSchema}</pre>
+        </section>
+
+        <section class="standard-section">
+          <h2>Anti-patterns and counterfactuals</h2>
+          <p>Use these to detect superficial compliance and clarify what success looks like.</p>
+          <ul class="standard-clauses">
+            {antiPatterns.map((pattern) => (
+              <li>
+                <strong>{pattern.title}:</strong> {pattern.failure}
+                <br />
+                <span class="muted">Counterfactual: {pattern.counterfactual}</span>
+                <br />
+                <span class="muted">False-positive warning: {pattern.warning}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section class="standard-section">

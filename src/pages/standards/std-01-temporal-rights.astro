@@ -73,6 +73,27 @@ const rights = [
   },
 ];
 
+const clauseSchema = `{\n  "std_id": "STD-01",\n  "clause_id": "STD-01.C1",\n  "requirement_type": "MUST",\n  "subject": "interface",\n  "condition": "active automated process",\n  "obligation": "provide immediate exit control",\n  "time_bound": "instant",\n  "evidence_required": ["ui_state", "event_log"],\n  "failure_mode": "forced tunnel"\n}`;
+
+const antiPatterns = [
+  {
+    title: "Hidden exit controls",
+    failure:
+      "A stoppability control exists but is buried behind multiple screens or support hints.",
+    counterfactual:
+      "Exit controls are visible on every screen and halt the process immediately.",
+    warning: "If the exit is labeled clearly and consistently, it likely meets the bar.",
+  },
+  {
+    title: "Reversal without proof",
+    failure:
+      "Promises reversal but does not preserve state or provide a receipt that it happened.",
+    counterfactual:
+      "Reversal preserves state, emits a receipt, and provides a clear next step.",
+    warning: "Temporary preservation can be compliant if timelines are explicit and honored.",
+  },
+];
+
 const pageUrl = Astro.site
   ? new URL("/standards/std-01-temporal-rights", Astro.site).toString()
   : "/standards/std-01-temporal-rights";
@@ -170,6 +191,31 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             seven inalienable rights. Any system that violates these articles is declared
             non-compliant with STD-01.
           </p>
+        </section>
+
+        <section class="standard-section">
+          <h2>Clause schema (agent-readable)</h2>
+          <p>
+            Express every clause as a structured object so agents can validate compliance and
+            request evidence.
+          </p>
+          <pre class="code-block">{clauseSchema}</pre>
+        </section>
+
+        <section class="standard-section">
+          <h2>Anti-patterns and counterfactuals</h2>
+          <p>Use these to detect superficial compliance and clarify what success looks like.</p>
+          <ul class="standard-clauses">
+            {antiPatterns.map((pattern) => (
+              <li>
+                <strong>{pattern.title}:</strong> {pattern.failure}
+                <br />
+                <span class="muted">Counterfactual: {pattern.counterfactual}</span>
+                <br />
+                <span class="muted">False-positive warning: {pattern.warning}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section class="standard-section">

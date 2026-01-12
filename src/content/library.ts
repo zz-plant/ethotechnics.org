@@ -30,6 +30,12 @@ export type Pattern = {
   steps: string[];
   artifacts: { name: string; purpose: string }[];
   example: { title: string; description: string };
+  antiPatterns: {
+    title: string;
+    failure: string;
+    counterfactual: string;
+    warning: string;
+  }[];
 };
 
 export type SyllabusModule = {
@@ -309,6 +315,26 @@ export const libraryContent: LibraryContent = {
           description:
             "A cross-functional team logs why an automation launch was delayed, notes dissent from support leads, links the appeal path, and schedules a stewardship review in six weeks.",
         },
+        antiPatterns: [
+          {
+            title: "Logs without dissent",
+            failure:
+              "Records the decision but omits rejected options and dissenting views.",
+            counterfactual:
+              "Decision logs include rejected options, dissent, and a dated review owner.",
+            warning:
+              "If no dissent exists, log the absence explicitly so future reviewers can see it was considered.",
+          },
+          {
+            title: "Out-of-band records",
+            failure:
+              "Keeps accountability logs in private documents that impacted teams cannot access.",
+            counterfactual:
+              "Logs live in the canonical record with a shareable receipt link.",
+            warning:
+              "Sensitive data can be redacted, but the receipt must remain referenceable.",
+          },
+        ],
       },
       {
         slug: "progressive-consent",
@@ -350,6 +376,26 @@ export const libraryContent: LibraryContent = {
           description:
             "Product and legal teams stage data collection prompts over several sessions, preview how opting out affects recommendations, and keep a global “pause automation” control visible in the UI.",
         },
+        antiPatterns: [
+          {
+            title: "One-shot consent bundles",
+            failure:
+              "Asks for every permission at once without explaining timing or scope.",
+            counterfactual:
+              "Requests are staged with clear rationale, timing, and reversible defaults.",
+            warning:
+              "Bundling can be acceptable if the scope is minimal and opt-outs are explicit.",
+          },
+          {
+            title: "Opt-out that does not stick",
+            failure:
+              "Offers a toggle but automation continues or re-enables without notice.",
+            counterfactual:
+              "Opt-outs pause automation and are logged with a visible confirmation.",
+            warning:
+              "Some baseline data use can remain if it is disclosed and required for service safety.",
+          },
+        ],
       },
       {
         slug: "maintenance-windowing",
@@ -395,6 +441,26 @@ export const libraryContent: LibraryContent = {
           description:
             "Engineering and operations publish a two-week window with a fallback matrix, schedule status updates by audience, and rehearse degraded-mode protocols before shipping changes.",
         },
+        antiPatterns: [
+          {
+            title: "Stewardship without owners",
+            failure:
+              "Publishes a maintenance window without naming accountable owners or success criteria.",
+            counterfactual:
+              "Each window has a named owner, success criteria, and rollback authority.",
+            warning:
+              "Shared ownership is fine if responsibilities are explicit and visible.",
+          },
+          {
+            title: "Silent maintenance",
+            failure:
+              "Ships changes without comms or status updates, leaving users unaware of risks.",
+            counterfactual:
+              "Comms are published by audience and risk tier, with fallback coverage noted.",
+            warning:
+              "Emergency patches can shorten comms, but they still require an after-action log.",
+          },
+        ],
       },
       {
         slug: "kill-switch",
@@ -436,6 +502,26 @@ export const libraryContent: LibraryContent = {
           description:
             "Operations staff notice a spike in appeals and trip the kill switch, freezing recommendations, routing cases to humans, and restoring with updated thresholds before re-enabling automation.",
         },
+        antiPatterns: [
+          {
+            title: "Kill switch without rehearsal",
+            failure:
+              "A halt path exists but no drills confirm that it works under pressure.",
+            counterfactual:
+              "Teams rehearse halts and document restore steps with time-to-halt targets.",
+            warning:
+              "Simulation is acceptable when production drills are risky, but it must be documented.",
+          },
+          {
+            title: "Single-point approval",
+            failure:
+              "Only one person can trigger the halt, creating dead zones off-hours.",
+            counterfactual:
+              "A pre-authorized roster can halt automation without retaliation risk.",
+            warning:
+              "Small teams can assign a primary/secondary if coverage is explicit.",
+          },
+        ],
       },
       {
         slug: "appeal-paths",
@@ -481,6 +567,26 @@ export const libraryContent: LibraryContent = {
           description:
             "The team adds an on-screen “Dispute this score” link with expected response times, routes submissions to a staffed rota, and logs turnaround data to improve credibility with regulators.",
         },
+        antiPatterns: [
+          {
+            title: "Appeal link buried",
+            failure:
+              "Appeals exist but are hidden in help docs or separate portals far from the decision.",
+            counterfactual:
+              "Appeal entry points sit next to the affected decision with visible timelines.",
+            warning:
+              "Low-frequency contexts can use a help center if it is still clear and accessible.",
+          },
+          {
+            title: "Appeals without feedback",
+            failure:
+              "Collects disputes but provides no receipt, timeline, or outcome signal.",
+            counterfactual:
+              "Every appeal generates a receipt, timeline, and outcome log.",
+            warning:
+              "Timelines can vary by case complexity if the variance is stated and tracked.",
+          },
+        ],
       },
     ],
   },
