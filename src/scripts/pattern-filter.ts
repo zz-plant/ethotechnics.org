@@ -158,10 +158,10 @@ const initializePatternFilter = (root: HTMLElement) => {
     }
 
     try {
-      const parsed = JSON.parse(saved);
+      const parsed = JSON.parse(saved) as string[];
 
       if (Array.isArray(parsed)) {
-        return parsed.filter((value) => typeof value === "string");
+        return parsed.filter((value): value is string => typeof value === "string");
       }
     } catch (error) {
       console.error("Unable to parse saved bundle selection", error);
@@ -449,20 +449,22 @@ const initializePatternFilter = (root: HTMLElement) => {
       openPrintView(markdown);
     });
 
-    copyBundleButton?.addEventListener("click", async () => {
-      const link = getBundleLink();
-      const defaultLabel =
-        copyBundleButton.textContent?.trim() ?? "Copy bundle link";
+    copyBundleButton?.addEventListener("click", () => {
+      void (async () => {
+        const link = getBundleLink();
+        const defaultLabel =
+          copyBundleButton.textContent?.trim() ?? "Copy bundle link";
 
-      try {
-        await navigator.clipboard.writeText(link);
-        copyBundleButton.textContent = "Copied";
-        window.setTimeout(() => {
-          copyBundleButton.textContent = defaultLabel;
-        }, 1400);
-      } catch (error) {
-        console.error("Unable to copy bundle link", error);
-      }
+        try {
+          await navigator.clipboard.writeText(link);
+          copyBundleButton.textContent = "Copied";
+          window.setTimeout(() => {
+            copyBundleButton.textContent = defaultLabel;
+          }, 1400);
+        } catch (error) {
+          console.error("Unable to copy bundle link", error);
+        }
+      })().catch((err) => console.error("Copy handler failed", err));
     });
 
     emailForm?.addEventListener("submit", (event) => {

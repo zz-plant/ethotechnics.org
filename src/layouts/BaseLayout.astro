@@ -1,6 +1,8 @@
 ---
+import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource-variable/source-serif-4';
 import { SEO } from 'astro-seo';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import Navigation from '../components/Navigation.astro';
 import Wordmark from '../components/Wordmark.astro';
 import { siteFooter } from '../content/site-footer';
@@ -58,13 +60,35 @@ const structuredDataJson = JSON.stringify(structuredData);
 const { identity, navigation } = siteFooter;
 const { cspNonce } = Astro.locals;
 const currentPath = Astro.url.pathname;
+
+const pathSegments = currentPath.split('/').filter(Boolean);
+if (pathSegments.length > 0) {
+  const breadcrumbItems = pathSegments.map((segment, index) => {
+    const url = new URL(
+      `${pathSegments.slice(0, index + 1).join('/')}`,
+      siteBase
+    ).toString();
+    return {
+      '@type': 'ListItem',
+      position: index + 1,
+      name: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+      item: url,
+    };
+  });
+
+  structuredData.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbItems,
+  });
+}
 ---
 <!doctype html>
 <html lang="en" id="top">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <ViewTransitions />
+    <ClientRouter />
     <SEO
       title={title}
       titleDefault={defaultTitle}
@@ -101,6 +125,7 @@ const currentPath = Astro.url.pathname;
       extend={{
         link: [
           { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+          { rel: 'manifest', href: '/site.webmanifest' },
         ],
         meta: [{ name: 'theme-color', content: '#ffffff' }],
       }}

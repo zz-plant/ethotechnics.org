@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page Not Found" description="The signal has been lost.">
+  <div class="page-404">
+    <div class="content-404">
+      <h1 class="glitch-text" data-text="404">404</h1>
+      <p class="subtitle">Signal Lost</p>
+      <p class="description">
+        The coordinates you entered do not correspond to a known sector of the
+        Institute.
+      </p>
+      <div class="actions">
+        <a href="/" class="button primary">Return to Base</a>
+        <a href="/search" class="button secondary">Search Archives</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-404 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+  }
+
+  .content-404 {
+    max-width: 500px;
+    padding: var(--scale-4);
+  }
+
+  h1 {
+    font-size: var(--scale-8);
+    font-family: var(--mono);
+    line-height: 1;
+    margin-bottom: var(--scale-2);
+    color: var(--color-text-strong);
+  }
+
+  .subtitle {
+    font-size: var(--scale-4);
+    font-weight: 500;
+    margin-bottom: var(--scale-3);
+    color: var(--color-text-strong);
+  }
+
+  .description {
+    font-size: var(--scale-2);
+    color: var(--color-text-muted);
+    margin-bottom: var(--scale-5);
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--scale-3);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .glitch-text {
+    position: relative;
+  }
+  
+  /* Simple optional glitch effect preference */
+  @media (prefers-reduced-motion: no-preference) {
+    .glitch-text:hover {
+      text-shadow: 2px 0 var(--color-primary-base), -2px 0 var(--color-accent-base);
+    }
+  }
+</style>

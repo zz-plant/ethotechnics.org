@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 
 import { standardsContent } from "../../content/standards";
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = () => {
   const standards = standardsContent.standards.map((standard) => ({
     id: standard.id,
     title: standard.title,

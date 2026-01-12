@@ -69,7 +69,7 @@ const initGlossaryFilter = () => {
   const getFacetLabel = (key: string) => {
     const control = facetControls.find(
       (item) => item.dataset.glossaryFilter === key,
-    ) as HTMLSelectElement | undefined;
+    );
     if (!control?.value) {
       return "";
     }
@@ -157,7 +157,7 @@ const initGlossaryFilter = () => {
   if (initialCategory) {
     const control = facetControls.find(
       (item) => item.dataset.glossaryFilter === "category",
-    ) as HTMLSelectElement | undefined;
+    );
     if (control) {
       control.value = initialCategory;
     }
@@ -165,7 +165,7 @@ const initGlossaryFilter = () => {
   if (initialTag) {
     const control = facetControls.find(
       (item) => item.dataset.glossaryFilter === "tag",
-    ) as HTMLSelectElement | undefined;
+    );
     if (control) {
       control.value = initialTag;
     }
@@ -173,7 +173,7 @@ const initGlossaryFilter = () => {
   if (initialStatus) {
     const control = facetControls.find(
       (item) => item.dataset.glossaryFilter === "status",
-    ) as HTMLSelectElement | undefined;
+    );
     if (control) {
       control.value = initialStatus;
     }

@@ -11,22 +11,24 @@ citationButtons.forEach((button) => {
     return;
   }
 
-  button.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(citationText);
-      button.textContent = "Copied";
-      button.setAttribute("aria-live", "polite");
-      button.setAttribute("aria-label", `${format} copied`);
-      window.setTimeout(() => {
-        button.textContent = defaultLabel;
-        button.setAttribute("aria-label", `Copy ${format}`);
-      }, 1600);
-    } catch (error) {
-      console.error("Unable to copy citation", error);
-      button.textContent = "Copy failed";
-      window.setTimeout(() => {
-        button.textContent = defaultLabel;
-      }, 1600);
-    }
+  button.addEventListener("click", () => {
+    void (async () => {
+      try {
+        await navigator.clipboard.writeText(citationText);
+        button.textContent = "Copied";
+        button.setAttribute("aria-live", "polite");
+        button.setAttribute("aria-label", `${format} copied`);
+        window.setTimeout(() => {
+          button.textContent = defaultLabel;
+          button.setAttribute("aria-label", `Copy ${format}`);
+        }, 1600);
+      } catch (error) {
+        console.error("Unable to copy citation", error);
+        button.textContent = "Copy failed";
+        window.setTimeout(() => {
+          button.textContent = defaultLabel;
+        }, 1600);
+      }
+    })().catch((err) => console.error("Async click handler failed", err));
   });
 });

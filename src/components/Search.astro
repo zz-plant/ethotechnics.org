@@ -210,6 +210,13 @@ import { Icon } from "astro-icon/components";
     margin-top: 3rem;
   }
 
+  .search-suggestions {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #6c757d);
+    line-height: 1.6;
+  }
+
   .search-dialog__footer {
     display: flex;
     justify-content: space-between;
@@ -427,6 +434,9 @@ import { Icon } from "astro-icon/components";
       return;
     }
 
+    if (resultsContainer)
+      resultsContainer.innerHTML = '<p class="search-empty">Searching...</p>';
+
     const pf = await initPagefind();
     if (!pf) {
       if (resultsContainer)
@@ -438,7 +448,17 @@ import { Icon } from "astro-icon/components";
     const search = await pf.search(query);
     if (search.results.length === 0) {
       if (resultsContainer)
-        resultsContainer.innerHTML = `<p class="search-empty">No results found for "${query}"</p>`;
+        resultsContainer.innerHTML = `
+          <div class="search-empty">
+            <p>No results found for "<strong>${query}</strong>"</p>
+            <p class="search-suggestions">
+              Suggestions:<br/>
+              • Check for typos<br/>
+              • Try broader terms like "standard" or "validator"<br/>
+              • Search for specific ID (e.g., "STD-01")
+            </p>
+          </div>
+        `;
       return;
     }
 

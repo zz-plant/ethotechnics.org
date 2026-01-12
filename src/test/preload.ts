@@ -13,6 +13,6 @@ import { mock } from "bun:test";
 GlobalRegistrator.register();
 
 // Mock Astro virtual modules
-mock.module("astro:react:opts", () => ({
+await mock.module("astro:react:opts", () => ({
   default: {},
 }));

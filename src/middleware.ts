@@ -18,6 +18,7 @@ const createSecurityHeaders = (nonce: string): Record<string, string> => ({
       "style-src 'self' 'unsafe-inline'",
     ].join('; '),
   'Referrer-Policy': 'no-referrer',
+  'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'Permissions-Policy': 'camera=(), geolocation=(), microphone=(), payment=()',
 });

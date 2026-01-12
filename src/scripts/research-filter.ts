@@ -69,7 +69,7 @@ const initResearchFilter = () => {
   const getFacetLabel = (key: string) => {
     const control = facetControls.find(
       (item) => item.dataset.researchFilter === key,
-    ) as HTMLSelectElement | undefined;
+    );
     if (!control?.value) {
       return "";
     }
@@ -148,7 +148,7 @@ const initResearchFilter = () => {
   if (initialSection) {
     const control = facetControls.find(
       (item) => item.dataset.researchFilter === "section",
-    ) as HTMLSelectElement | undefined;
+    );
     if (control) {
       control.value = initialSection;
     }
@@ -156,7 +156,7 @@ const initResearchFilter = () => {
   if (initialTag) {
     const control = facetControls.find(
       (item) => item.dataset.researchFilter === "tag",
-    ) as HTMLSelectElement | undefined;
+    );
     if (control) {
       control.value = initialTag;
     }
