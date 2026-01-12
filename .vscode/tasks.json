@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev",
+      "type": "shell",
+      "command": "bun run dev",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "bun run build",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "lint",
+      "type": "shell",
+      "command": "bun run lint",
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "test:unit",
+      "type": "shell",
+      "command": "bun run test:unit",
+      "group": "test"
+    },
+    {
+      "label": "test:e2e",
+      "type": "shell",
+      "command": "bun run test:e2e",
+      "group": "test"
+    },
+    {
+      "label": "preview:cf",
+      "type": "shell",
+      "command": "bun run preview:cf",
+      "group": "test"
+    },
+    {
+      "label": "deploy",
+      "type": "shell",
+      "command": "bun run deploy",
+      "group": "none"
+    },
+    {
+      "label": "deploy:preview",
+      "type": "shell",
+      "command": "bun run deploy:preview",
+      "group": "none"
+    }
+  ]
+}

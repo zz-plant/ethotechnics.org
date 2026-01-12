@@ -117,16 +117,28 @@ const tagListClass = ['pill-list', tagsClassName].filter(Boolean).join(' ');
     isolation: isolate;
     overflow: hidden;
   }
+  
+  /* Apply grain texture if available */
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--grain-texture, none);
+    opacity: 0.03; /* Subtle grain */
+    pointer-events: none;
+    z-index: -1;
+    mix-blend-mode: multiply;
+  }
 
   .card__glow {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      140deg,
-      rgba(255, 255, 255, 0.45),
-      rgba(255, 255, 255, 0)
+    background: radial-gradient(
+      circle at top left,
+      rgba(255, 255, 255, 0.6),
+      transparent 60%
     );
-    opacity: 0.35;
+    opacity: 0.4;
     pointer-events: none;
     z-index: -1;
     mix-blend-mode: screen;
