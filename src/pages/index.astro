@@ -5,8 +5,6 @@ import CardGrid from "../components/CardGrid.astro";
 import CardItem from "../components/CardItem.astro";
 import SectionBlock from "../components/SectionBlock.astro";
 
-import ReferenceDashboard from "../components/ReferenceDashboard.astro";
-
 const homeEntry = (await getEntry("home", "home"))!;
 const { pageTitle, pageDescription } = homeEntry.data;
 ---
@@ -16,120 +14,184 @@ const { pageTitle, pageDescription } = homeEntry.data;
   description={pageDescription}
   mainClass="page page--wide"
 >
+  <section class="hero">
+    <div class="hero__canvas" aria-hidden="true">
+      <span class="beam beam--one"></span>
+      <span class="beam beam--two"></span>
+      <span class="beam beam--three"></span>
+      <span class="gridlines"></span>
+    </div>
+    <div class="hero__layout">
+      <div class="hero__content">
+        <p class="eyebrow">Ethotechnics Institute</p>
+        <h1>Governance artifacts for automated systems that produce citeable findings, evidence demands, and remediation paths.</h1>
+        <div class="actions">
+          <a class="button primary" href="/diagnostics">Run a diagnostic</a>
+          <a class="button ghost" href="/standards">Browse standards</a>
+          <a class="button ghost" href="/mechanisms">View mechanism library</a>
+        </div>
+      </div>
+      <div class="hero__panel">
+        <div class="panel panel--glass">
+          <p class="eyebrow">Workflow-ready</p>
+          <h2>Attachable outputs, not decks.</h2>
+          <p class="muted">
+            Diagnostics, findings, clauses, evidence packs, and mechanisms are published as versioned artifacts so teams can
+            cite and remediate faster.
+          </p>
+          <a class="button ghost button--compact" href="/api">Reference API</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <SectionBlock
-    eyebrow="Reference dashboard"
-    title="Search the reference standard"
-    description="Start with the latest standards, validators, and institutional guidance."
+    id="outputs"
+    eyebrow="What it produces"
+    title="Concrete outputs you can attach to existing processes."
+    description="Every output is stable, citeable, and built to travel across tickets, audits, and reviews."
   >
-    <ReferenceDashboard />
+    <ul class="card__list">
+      <li id="diagnostic-results">
+        <a href="#diagnostic-results">Diagnostic Results</a> → portable artifacts (JSON / PDF) you can attach to tickets,
+        audits, and reviews.
+      </li>
+      <li id="findings">
+        <a href="#findings">Findings</a> → structured statements of what's wrong, why it matters, and what closes the gap.
+      </li>
+      <li id="standards-clauses">
+        <a href="#standards-clauses">Standards & Clauses</a> → citeable obligations with stable IDs.
+      </li>
+      <li id="evidence-packs">
+        <a href="#evidence-packs">Evidence Packs</a> → minimum proof required to verify compliance.
+      </li>
+      <li id="mechanism-library">
+        <a href="#mechanism-library">Mechanism Library</a> → concrete ways to fix identified gaps.
+      </li>
+    </ul>
   </SectionBlock>
 
-  <div class="divider-wave" aria-hidden="true"></div>
-
   <SectionBlock
-    eyebrow="Get oriented"
-    title="Pick a starting path"
-    description="Use the guided overview, see the research backlog, or learn how to participate."
-  >
-    <CardGrid>
-      <CardItem
-        eyebrow="Onboarding"
-        title="Start here"
-        description="A guided walkthrough of the standards and how to navigate the reference library."
-      >
-        <a slot="footer" class="muted" href="/start-here">
-          View the overview
-        </a>
-      </CardItem>
-      <CardItem
-        eyebrow="Institute"
-        title="How the program runs"
-        description="Understand the governance model, contributors, and update cadence."
-      >
-        <img
-          src="/assets/generated/network-graph.svg"
-          alt=""
-          style="position: absolute; right: -10px; bottom: -10px; width: 140px; opacity: 0.12; transform: rotate(-15deg); pointer-events: none;"
-          aria-hidden="true"
-        />
-        <a slot="footer" class="muted" href="/institute">
-          Explore the Institute
-        </a>
-      </CardItem>
-      <CardItem
-        eyebrow="Participate"
-        title="Join the queue"
-        description="See how to propose a standard, validator, or new research thread."
-      >
-        <a slot="footer" class="muted" href="/participate">
-          Participate
-        </a>
-      </CardItem>
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    eyebrow="Featured standards"
-    title="Canonical references in the publishing queue"
-    description="Start with active doctrine and the primary reference indices."
+    id="workflow"
+    eyebrow="Where it fits"
+    title="Map Ethotechnics to the workflows you already run."
+    description="Use the same artifacts across review, policy, red teaming, audit prep, and agent tooling."
     variant="alt"
   >
     <CardGrid className="grid--two">
       <CardItem
-        eyebrow="STD-01"
-        title="The Temporal Bill of Rights"
-        description="Defines the seven inalienable rights protecting human time against automated systems."
-      >
-        <a slot="footer" class="muted" href="/standards/std-01-temporal-rights">
-          Read STD-01
-        </a>
-      </CardItem>
+        title="Design review"
+        description="Run a diagnostic → attach the result to the review ticket."
+      />
       <CardItem
-        eyebrow="Reference"
-        title="Core axioms"
-        description="First principles for accountable system design and governance."
-      >
-        <a slot="footer" class="muted" href="/standards/core-axioms">
-          View axioms
-        </a>
-      </CardItem>
+        title="Policy drafting"
+        description="Cite clauses → request evidence packs from owners."
+      />
       <CardItem
-        eyebrow="Practice"
-        title="Ethotechnics for Agents"
-        description="Turning safety obligations into enforceable agent controls."
-      >
-        <a slot="footer" class="muted" href="/standards/ethotechnics-for-agents">
-          View the practice
-        </a>
-      </CardItem>
+        title="Red teaming"
+        description="Generate findings → map to mechanisms for remediation."
+      />
+      <CardItem
+        title="Audit prep"
+        description="Use versioned standards → bundle evidence for export."
+      />
+      <CardItem
+        title="Agent tooling"
+        description="Consume APIs → emit findings in automated workflows."
+      />
     </CardGrid>
   </SectionBlock>
 
   <SectionBlock
-    eyebrow="Validators"
-    title="Run diagnostics with guardrails"
-    description="Evaluate performance, burden, and operational safety before systems ship."
+    id="purpose"
+    eyebrow="Why it exists"
+    title="Enforceability over intent."
+    description="Modern systems act faster than they can be contested. Most governance frameworks focus on values, transparency, or intent. Ethotechnics focuses on enforceability: what can be stopped, reversed, evidenced, and repaired."
+  />
+
+  <SectionBlock
+    id="difference"
+    eyebrow="How it's different"
+    title="A clear contrast with traditional governance decks."
+    description="Designed to augment compliance teams with artifacts they can actually use."
+    variant="alt"
   >
-    <CardGrid className="grid--two">
-      <CardItem
-        eyebrow="Diagnostics"
-        title="Latency audit"
-        description="Measure response time risk against the reference thresholds."
-      >
-        <a slot="footer" class="muted" href="/validators/latency-audit">
-          Run audit
-        </a>
-      </CardItem>
-      <CardItem
-        eyebrow="Diagnostics"
-        title="Maintenance simulator"
-        description="Model long-term upkeep costs and required caretaking cycles."
-      >
-        <a slot="footer" class="muted" href="/diagnostics/maintenance-simulator">
-          Launch simulator
-        </a>
-      </CardItem>
-    </CardGrid>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">This is not</th>
+            <th scope="col">This is</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ethics principles</td>
+            <td>Testable obligations</td>
+          </tr>
+          <tr>
+            <td>Policy PDFs</td>
+            <td>Versioned artifacts</td>
+          </tr>
+          <tr>
+            <td>Review committees</td>
+            <td>Diagnostic outputs</td>
+          </tr>
+          <tr>
+            <td>Trust-based governance</td>
+            <td>Evidence-based governance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </SectionBlock>
 
+  <SectionBlock
+    id="agents"
+    eyebrow="For agents & tools"
+    title="Machine-readable by default."
+    description="All standards, clauses, mechanisms, findings, and evidence packs ship as versioned, machine-readable objects with stable IDs."
+  >
+    <ul class="card__list">
+      <li>
+        <a href="/api">Reference API</a>
+      </li>
+      <li>
+        <a href="/api#objects">Object model</a>
+      </li>
+      <li>
+        <a href="/api/releases.json">Releases</a>
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="limits"
+    eyebrow="What it does not do"
+    title="Clear boundaries to reduce scope anxiety."
+    description="Ethotechnics is a tool for governance operations, not a certification or moral framework."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Does not certify systems as 'ethical.'</li>
+      <li>Does not replace legal compliance.</li>
+      <li>Does not decide moral tradeoffs.</li>
+      <li>Does not require organizational buy-in to use.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="get-started"
+    eyebrow="Entry points"
+    title="Pick the path that matches your role."
+    description="Each path leads directly to the artifacts in your workflow."
+  >
+    <div class="actions">
+      <a class="button primary" href="/diagnostics">Run a diagnostic</a>
+      <a class="button ghost" href="/standards">Browse standards</a>
+      <a class="button ghost" href="/mechanisms">View mechanism library</a>
+      <a class="button ghost" href="/api">Reference API</a>
+      <a class="button ghost" href="/field-notes">Read the theory</a>
+    </div>
+  </SectionBlock>
 </BaseLayout>
