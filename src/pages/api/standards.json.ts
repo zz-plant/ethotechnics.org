@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-import { standardsContent } from "../../content/standards";
+import { standardClauses, standardsContent } from "../../content/standards";
 
 export const GET: APIRoute = () => {
   const standards = standardsContent.standards.map((standard) => ({
@@ -12,6 +12,7 @@ export const GET: APIRoute = () => {
     effectiveDate: standard.effectiveDate,
     published: standard.published,
     href: `/standards/${standard.slug}`,
+    clauses: standardClauses[standard.id] ?? [],
   }));
 
   const payload = {
