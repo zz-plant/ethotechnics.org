@@ -1,21 +1,19 @@
 import type { APIRoute } from "astro";
 
-import { validatorsContent } from "../../content/validators";
-import { getValidatorsForApi, releaseInfo } from "../../utils/api";
-
-export const prerender = true;
+import { glossaryContent } from "../../../../content/glossary";
+import { getGlossaryEntriesForApi, releaseInfo } from "../../../../utils/api";
 
 export const GET: APIRoute = () => {
-  const validators = getValidatorsForApi();
+  const entries = getGlossaryEntriesForApi();
 
   const payload = {
     meta: {
       generatedAt: new Date().toISOString(),
-      count: validators.length,
-      permalink: validatorsContent.permalink,
+      count: entries.length,
+      permalink: glossaryContent.permalink,
       release: releaseInfo,
     },
-    validators,
+    entries,
   };
 
   return new Response(JSON.stringify(payload, null, 2), {

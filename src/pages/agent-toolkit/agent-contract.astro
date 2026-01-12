@@ -57,24 +57,26 @@ const citationRules = [
 ];
 
 const clauseSchema = `{
-  "std_id": "STD-02",
-  "clause_id": "STD-02.C3",
-  "requirement_type": "MUST",
-  "subject": "system",
-  "condition": "automated state change affecting user rights",
-  "obligation": "provide contestable reversal path",
-  "time_bound": "≤72h",
-  "evidence_required": ["decision_log", "appeal_endpoint"],
-  "failure_mode": "non-contestable execution"
+  "clause_id": "STD-01.3.2",
+  "standard_id": "STD-01",
+  "level": "MUST",
+  "condition": "timeout threshold is reached",
+  "obligation": "provide a failure response or human escalation",
+  "time_bound": "at timeout",
+  "evidence_required": ["escalation_policy", "event_log"],
+  "failure_modes": ["timeout without escalation"],
+  "related_mechanisms": ["MEC-04", "MEC-06"],
+  "related_validators": ["VAL-03"]
 }`;
 
 const findingSchema = `{
   "finding_id": "FND-2026-041",
   "severity": "high",
-  "trigger": "fast execution + slow reversal",
-  "violated_clauses": ["STD-01.C2", "STD-02.C3"],
-  "risk": "irreversible harm propagation",
-  "recommended_mechanisms": ["MEC-04", "MEC-07"],
+  "summary": "Exit flow introduces retention scripts before cancellation.",
+  "violated_clauses": ["STD-01.2.3"],
+  "impact": "Users cannot exit without added friction.",
+  "closure": "Remove retention gate and keep one-step cancellation.",
+  "recommended_mechanisms": ["MEC-02"],
   "confidence": 0.83
 }`;
 

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/diagnostic-result.schema.json",
+  "title": "Ethotechnics Diagnostic Result",
+  "type": "object",
+  "required": [
+    "result_id",
+    "generated_at",
+    "inputs",
+    "findings",
+    "violated_clauses",
+    "recommended_mechanisms",
+    "confidence",
+    "severity"
+  ],
+  "properties": {
+    "result_id": { "type": "string" },
+    "generated_at": { "type": "string" },
+    "inputs": { "type": "object" },
+    "findings": { "type": "array", "items": { "type": "string" } },
+    "violated_clauses": { "type": "array", "items": { "type": "string" } },
+    "recommended_mechanisms": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "type": "number" },
+    "severity": { "type": "string" }
+  }
+}

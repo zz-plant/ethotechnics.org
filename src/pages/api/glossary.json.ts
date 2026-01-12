@@ -1,28 +1,17 @@
 import type { APIRoute } from "astro";
 
 import { glossaryContent } from "../../content/glossary";
-import { glossaryEntryPermalink } from "../../utils/glossary";
+import { getGlossaryEntriesForApi, releaseInfo } from "../../utils/api";
 
-export const GET: APIRoute = async () => {
-  const entries = glossaryContent.categories.flatMap((category) =>
-    category.entries.map((entry) => ({
-      id: entry.id,
-      title: entry.title,
-      status: entry.status,
-      category: {
-        id: category.id,
-        heading: category.heading,
-      },
-      tags: entry.tags ?? [],
-      href: glossaryEntryPermalink(entry.id),
-    })),
-  );
+export const GET: APIRoute = () => {
+  const entries = getGlossaryEntriesForApi();
 
   const payload = {
     meta: {
       generatedAt: new Date().toISOString(),
       count: entries.length,
       permalink: glossaryContent.permalink,
+      release: releaseInfo,
     },
     entries,
   };

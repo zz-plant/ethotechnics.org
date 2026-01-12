@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/findings.schema.json",
+  "title": "Ethotechnics Findings",
+  "type": "object",
+  "required": ["meta", "findings"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["generatedAt", "count", "release"],
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "count": { "type": "number" },
+        "release": { "type": "object" }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "summary",
+          "violated_clauses",
+          "impact",
+          "closure",
+          "recommended_mechanisms"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "summary": { "type": "string" },
+          "violated_clauses": { "type": "array", "items": { "type": "string" } },
+          "impact": { "type": "string" },
+          "closure": { "type": "string" },
+          "severity": { "type": "string" },
+          "confidence": { "type": "number" },
+          "recommended_mechanisms": { "type": "array", "items": { "type": "string" } },
+          "refs": { "type": "array", "items": { "type": "string" } },
+          "deprecated_by": { "type": ["string", "null"] },
+          "supersedes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

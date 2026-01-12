@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/validators.schema.json",
+  "title": "Ethotechnics Validators",
+  "type": "object",
+  "required": ["meta", "validators"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["generatedAt", "count", "permalink", "release"],
+      "properties": {
+        "generatedAt": { "type": "string" },
+        "count": { "type": "number" },
+        "permalink": { "type": "string" },
+        "release": { "type": "object" }
+      }
+    },
+    "validators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "title", "standardRef", "href"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "standardRef": { "type": "string" },
+          "href": { "type": "string" },
+          "inputs": { "type": "array" },
+          "thresholds": { "type": "array" },
+          "clauseRefs": { "type": "array", "items": { "type": "string" } },
+          "mechanismRefs": { "type": "array", "items": { "type": "string" } },
+          "outputSchema": { "type": "object" },
+          "refs": { "type": "array", "items": { "type": "string" } },
+          "deprecated_by": { "type": ["string", "null"] },
+          "supersedes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

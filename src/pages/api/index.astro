@@ -32,8 +32,20 @@ const canonicalObjects = [
     description: "Diagnostic definition with inputs, thresholds, and output schema.",
   },
   {
+    name: "Finding",
+    description: "Canonical diagnostic artifact linking gaps to clauses and fixes.",
+  },
+  {
     name: "Diagnostic result",
     description: "Generated report card, risk statement, and remediation recommendations.",
+  },
+  {
+    name: "Evidence pack",
+    description: "Minimum evidence bundles required to verify clause compliance.",
+  },
+  {
+    name: "Anti-pattern",
+    description: "Negative examples that look compliant but fail the clause intent.",
   },
   {
     name: "Diagram",
@@ -48,7 +60,11 @@ const endpoints = [
   },
   {
     path: "/api/standards.json",
-    description: "Standard metadata and clause references.",
+    description: "Standard metadata with embedded clause objects.",
+  },
+  {
+    path: "/api/clauses.json",
+    description: "Clause-level obligations with evidence requirements and mappings.",
   },
   {
     path: "/api/mechanisms.json",
@@ -56,7 +72,27 @@ const endpoints = [
   },
   {
     path: "/api/validators.json",
-    description: "Validator definitions aligned to STD-01.",
+    description: "Validator definitions with inputs, thresholds, and clause mappings.",
+  },
+  {
+    path: "/api/anti-patterns.json",
+    description: "Negative patterns that surface legitimacy theater risks.",
+  },
+  {
+    path: "/api/evidence-packs.json",
+    description: "Evidence pack templates per clause.",
+  },
+  {
+    path: "/api/findings.json",
+    description: "Canonical finding objects for remediation workflows.",
+  },
+  {
+    path: "/api/diagnostic-results.json",
+    description: "Portable diagnostic result artifacts.",
+  },
+  {
+    path: "/api/rag-corpus.jsonl",
+    description: "JSONL corpus for retrieval pipelines.",
   },
   {
     path: "/api/glossary.json",
@@ -65,6 +101,14 @@ const endpoints = [
   {
     path: "/api/research.json",
     description: "Research publications and bridge artifacts.",
+  },
+  {
+    path: "/api/releases.json",
+    description: "Versioned release index for stable citations.",
+  },
+  {
+    path: "/api/v/2026.01/",
+    description: "Versioned snapshot endpoints for reproducible analysis.",
   },
 ];
 ---
@@ -103,7 +147,7 @@ const endpoints = [
     id="endpoints"
     eyebrow="Read-only endpoints"
     title="Current machine-readable exports."
-    description="These endpoints are designed for consumption by agents and audit tools."
+    description="These endpoints are stable exports for tooling, audits, and archival use."
     variant="alt"
   >
     <div class="mapping-table__wrapper">
@@ -138,6 +182,7 @@ const endpoints = [
       <li>Semantic versioning for standards, mechanisms, and validators.</li>
       <li>Immutable permalinks for citations in contracts and audit logs.</li>
       <li>Changelogs that describe material changes to rights or thresholds.</li>
+      <li>Snapshot endpoints under /api/v/ to pin analyses in time.</li>
     </ul>
   </SectionBlock>
 
@@ -145,13 +190,13 @@ const endpoints = [
     id="roadmap"
     eyebrow="Roadmap"
     title="Planned additions."
-    description="The next phase exposes object-level schemas and diffable release notes."
+    description="The next phase expands coverage and release automation."
     variant="alt"
   >
     <ul class="muted">
-      <li>JSON schemas for each canonical object type.</li>
-      <li>Clause-level links between validators and mechanisms.</li>
       <li>Signed releases with verifiable citation hashes.</li>
+      <li>Schema validation automation for new objects.</li>
+      <li>Expanded clause mapping for emerging standards.</li>
     </ul>
   </SectionBlock>
 </BaseLayout>

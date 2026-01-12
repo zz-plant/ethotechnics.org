@@ -1,9 +1,7 @@
 import type { APIRoute } from "astro";
 
-import { validatorsContent } from "../../content/validators";
-import { getValidatorsForApi, releaseInfo } from "../../utils/api";
-
-export const prerender = true;
+import { validatorsContent } from "../../../../content/validators";
+import { getValidatorsForApi, releaseInfo } from "../../../../utils/api";
 
 export const GET: APIRoute = () => {
   const validators = getValidatorsForApi();
