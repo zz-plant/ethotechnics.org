@@ -57,7 +57,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <PageIntro
     eyebrow="Standards"
     title="Standards"
-    description="Immutable doctrine, ratified rights, and canonical definitions for accountable systems."
+    description={pageDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
@@ -115,6 +115,61 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </CardItem>
       ))}
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where standards are enforced"
+    description="Cross-links keep standards, bindings, and evidence packs aligned."
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-account-lock">Automated account lock</a>
+          </li>
+          <li>
+            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+          </li>
+          <li>
+            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#procurement">Procurement clauses</a>
+          </li>
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+          <li>
+            <a href="/bindings#runbooks">Runbook snippets</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
   <script type="application/ld+json" set:html={structuredDataJson} />
 </BaseLayout>

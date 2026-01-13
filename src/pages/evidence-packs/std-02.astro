@@ -40,8 +40,10 @@ const tiers = [
     anchorLinks={[
       { href: "#tiers", label: "Tiered model" },
       { href: "#clauses", label: "Clause evidence list" },
+      { href: "#anti-weaponization", label: "Anti-weaponization evidence" },
       { href: "#anti-fraud", label: "How teams fake this" },
       { href: "#auditors", label: "What auditors ask" },
+      { href: "#referenced-by", label: "Referenced by" },
     ]}
     panelCopy={{
       eyebrow: "Proof-carrying compliance",
@@ -91,6 +93,35 @@ const tiers = [
   </SectionBlock>
 
   <SectionBlock
+    id="anti-weaponization"
+    eyebrow="Anti-weaponization evidence"
+    title="Evidence requirements for AW-01 through AW-04"
+    description="Treat anti-weaponization clauses as enforceable contestability obligations."
+  >
+    <ul class="muted">
+      <li>
+        <strong>AW-01:</strong> Burden remediation plan tied to contestability metrics.
+      </li>
+      <li>
+        <strong>AW-02:</strong> Appeal path regression tests + public replacement notice.
+      </li>
+      <li>
+        <strong>AW-03:</strong> Receipts + clock compliance for automated downgrades.
+      </li>
+      <li>
+        <strong>AW-04:</strong> Assisted channel logs with escalation outcomes.
+      </li>
+    </ul>
+    <p class="muted">
+      Pair this with
+      {" "}
+      <a href="/diagnostics#anti-weaponization">diagnostics checks</a>
+      {" "}
+      to validate AW compliance.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
     id="anti-fraud"
     eyebrow="How teams fake this"
     title="Common compliance theater patterns"
@@ -117,5 +148,60 @@ const tiers = [
       <li>Provide evidence that exception classes are time-bounded and reviewed.</li>
       <li>Show how decision logs reference evidence packs for contested decisions.</li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where STD-02 evidence is enforced"
+    description="Cross-links keep evidence packs, examples, and bindings aligned."
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+          </li>
+          <li>
+            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+          </li>
+          <li>
+            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+          <li>
+            <a href="/bindings#incidents">Incident triggers</a>
+          </li>
+          <li>
+            <a href="/bindings#runbooks">Runbook snippets</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: STD-02 v0.9, STD-02.2.1, STD-02.3.1, AW-01, AW-02, AW-03, AW-04, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
 </BaseLayout>

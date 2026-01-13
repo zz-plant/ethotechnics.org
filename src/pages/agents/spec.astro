@@ -10,9 +10,12 @@ const pageDescription =
 const permalink = "/agents/spec";
 const anchorLinks = [
   { href: "#overview", label: "Overview" },
-  { href: "#fields", label: "Required fields" },
+  { href: "#example", label: "Example model" },
+  { href: "#fields", label: "Field guide" },
+  { href: "#failure-modes", label: "What breaks if missing" },
   { href: "#schema", label: "JSON schema" },
   { href: "#usage", label: "Usage" },
+  { href: "#referenced-by", label: "Referenced by" },
 ];
 
 const agentSafetyObjectModel = await readFile(
@@ -20,31 +23,106 @@ const agentSafetyObjectModel = await readFile(
   "utf-8",
 );
 
-const requiredFields = [
+const exampleModel = `{
+  "schema_version": "1.1.0",
+  "agent_id": "agent-risk-ops-v2",
+  "autonomy_level": {
+    "level": "execute_with_guardrails",
+    "description": "Agent can execute reversible actions within defined scopes."
+  },
+  "action_classes": [
+    { "class": "READ", "reversible": true, "approval_required": false },
+    { "class": "WRITE", "reversible": true, "approval_required": true },
+    { "class": "TRANSFER", "reversible": false, "approval_required": true }
+  ],
+  "stop_override_authority": {
+    "primary_owner": "Risk Operations",
+    "on_call_role": "Risk Steward",
+    "override_window_hours": 2,
+    "kill_switch": "/mechanisms/patterns/kill-switch"
+  },
+  "receipt_schema": { "href": "/standards/agent-receipt-schema.json", "version": "1.0.0" },
+  "clocks": { "ack": { "hours": 2 }, "review": { "hours": 24 }, "remedy": { "hours": 72 } },
+  "evidence_pack_references": [
+    { "standard": "STD-01", "href": "/evidence-packs/std-01" },
+    { "standard": "STD-02", "href": "/evidence-packs/std-02" }
+  ],
+  "required_signals": ["unsafe_action_rate", "human_override_rate", "time_to_detection"],
+  "mapped_mechanisms": [
+    { "id": "MEC-01", "href": "/mechanisms/patterns/decision-log" },
+    { "id": "MEC-05", "href": "/mechanisms/patterns/kill-switch" },
+    { "id": "MEC-06", "href": "/mechanisms/patterns/appeal-paths" }
+  ]
+}`;
+
+const fieldGuide = [
+  {
+    field: "schema_version",
+    example: "1.1.0",
+    purpose: "Version the contract so CI, validators, and auditors parse it consistently.",
+    failure: "Tooling cannot validate or diff the model when versions drift.",
+  },
+  {
+    field: "agent_id",
+    example: "agent-risk-ops-v2",
+    purpose: "A stable identifier that ties receipts, incidents, and evidence packs to one system.",
+    failure: "Evidence is orphaned; audits cannot trace decisions back to the agent.",
+  },
   {
     field: "autonomy_level",
-    description: "Declare whether the agent recommends, drafts, or executes actions.",
+    example: "execute_with_guardrails",
+    purpose: "Defines whether the agent drafts, recommends, or executes actions.",
+    failure: "Release gates cannot infer approval requirements or escalation scope.",
   },
   {
     field: "action_classes",
-    description: "Enumerate allowed action classes and their reversibility.",
+    example: "READ / WRITE / TRANSFER",
+    purpose: "Allowed actions and reversibility with default approvals.",
+    failure: "Receipts are ambiguous and controls cannot bind to irreversible actions.",
   },
   {
     field: "stop_override_authority",
-    description: "Define who can halt or override actions and under what authority.",
+    example: "Risk Operations / Risk Steward",
+    purpose: "Names the owner, on-call role, and kill switch authority.",
+    failure: "No one can halt automation quickly during incidents.",
   },
   {
     field: "receipt_schema",
-    description: "Link to the receipt schema that tools must emit for each action.",
+    example: "/standards/agent-receipt-schema.json",
+    purpose: "Specifies the receipt contract emitted by tools.",
+    failure: "Receipts become incomparable, breaking audits and evidence packs.",
   },
   {
     field: "clocks",
-    description: "Publish acknowledgment, review, and remedy clocks enforced in tooling.",
+    example: "ack 2h / review 24h / remedy 72h",
+    purpose: "Publishes acknowledgment, review, and remedy timers.",
+    failure: "Contestability becomes unenforceable without time-bound obligations.",
   },
   {
     field: "evidence_pack_references",
-    description: "Reference the evidence packs required to validate compliance.",
+    example: "STD-01 + STD-02 packs",
+    purpose: "Links the model to proof bundles for audits.",
+    failure: "Compliance claims lack evidence anchors.",
   },
+  {
+    field: "required_signals",
+    example: "unsafe_action_rate",
+    purpose: "Signals that must be monitored to prove control efficacy.",
+    failure: "Safety claims cannot be measured or validated.",
+  },
+  {
+    field: "mapped_mechanisms",
+    example: "MEC-01, MEC-05, MEC-06",
+    purpose: "Connects the model to enforced mechanisms and runbooks.",
+    failure: "Controls exist only on paper; mechanisms are not operationalized.",
+  },
+];
+
+const failureModes = [
+  "Missing action classes means approvals, reversibility, and clocks cannot be applied consistently.",
+  "Missing stop/override authority removes the kill switch owner needed for incident response.",
+  "Missing receipt schema version breaks downstream parsers and evidence pack validators.",
+  "Missing clocks removes enforceable time bounds for acknowledgment, review, and remedy.",
 ];
 ---
 
@@ -80,17 +158,59 @@ const requiredFields = [
   </SectionBlock>
 
   <SectionBlock
+    id="example"
+    eyebrow="Example"
+    title="Example Agent Safety Object Model"
+    description="Use this as a starting point, then replace IDs and clocks with your system values."
+    variant="alt"
+  >
+    <pre class="code-block">{exampleModel}</pre>
+    <p class="muted">
+      Every field is machine-validated. Keep the JSON human-readable so reviewers can inspect it in
+      change requests and audits.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
     id="fields"
-    eyebrow="Required fields"
-    title="Minimum set of fields to publish"
-    description="These fields turn agent safety into enforceable governance artifacts."
+    eyebrow="Field guide"
+    title="Field-level explanations"
+    description="Each field includes an example and a concrete failure mode when omitted."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Purpose</th>
+            <th>Example</th>
+            <th>What breaks if missing</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fieldGuide.map((item) => (
+            <tr>
+              <td>{item.field}</td>
+              <td>{item.purpose}</td>
+              <td>{item.example}</td>
+              <td>{item.failure}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-modes"
+    eyebrow="Failure modes"
+    title="What breaks if you omit fields"
+    description="These are the most common causes of failed audits and release gate rollbacks."
     variant="alt"
   >
     <ul class="muted">
-      {requiredFields.map((item) => (
-        <li>
-          <strong>{item.field}</strong> — {item.description}
-        </li>
+      {failureModes.map((item) => (
+        <li>{item}</li>
       ))}
     </ul>
   </SectionBlock>
@@ -122,5 +242,63 @@ const requiredFields = [
         Link receipts and clocks to <a href="/evidence-packs">evidence packs</a> for audits.
       </li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where this spec is enforced"
+    description="Cross-links keep audits, bindings, and examples aligned."
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-account-lock">Automated account lock</a>
+          </li>
+          <li>
+            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+          </li>
+          <li>
+            <a href="/examples/irreversible-payment-compensation">
+              Irreversible payment with compensation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+          <li>
+            <a href="/bindings#procurement">Procurement clauses</a>
+          </li>
+          <li>
+            <a href="/bindings#runbooks">Runbook snippets</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: ASOM 1.1.0, STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1,
+      MEC-01, MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
 </BaseLayout>

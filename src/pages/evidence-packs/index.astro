@@ -32,10 +32,13 @@ const packs = [
     title="Evidence packs"
     description={pageDescription}
     permalink={permalink}
-    anchorLinks={packs.map((pack) => ({
-      href: `#${pack.slug}`,
-      label: pack.title,
-    }))}
+    anchorLinks={[
+      ...packs.map((pack) => ({
+        href: `#${pack.slug}`,
+        label: pack.title,
+      })),
+      { href: "#referenced-by", label: "Referenced by" },
+    ]}
     panelCopy={{
       eyebrow: "Proof-carrying compliance",
       title: "Evidence tiers that survive audits",
@@ -58,5 +61,63 @@ const packs = [
         </CardItem>
       ))}
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where evidence packs are enforced"
+    description="Cross-links keep evidence packs aligned with examples, bindings, and diagnostics."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-account-lock">Automated account lock</a>
+          </li>
+          <li>
+            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+          </li>
+          <li>
+            <a href="/examples/irreversible-payment-compensation">
+              Irreversible payment with compensation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+          <li>
+            <a href="/bindings#procurement">Procurement clauses</a>
+          </li>
+          <li>
+            <a href="/bindings#runbooks">Runbook snippets</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
 </BaseLayout>

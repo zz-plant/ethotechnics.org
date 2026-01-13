@@ -34,6 +34,39 @@ const constraints = [
       "When burden ratios exceed targets, organizations MUST offer assisted channels (human support or concierge).",
   },
 ];
+
+const evidenceRequirements = [
+  {
+    id: "AW-01",
+    evidence:
+      "Burden metrics dashboard + remediation staffing plan approved for the next window.",
+  },
+  {
+    id: "AW-02",
+    evidence:
+      "Appeal path regression tests + published replacement window for any changes.",
+  },
+  {
+    id: "AW-03",
+    evidence:
+      "Receipts and clock compliance report for downgrades triggered by automation or policy.",
+  },
+  {
+    id: "AW-04",
+    evidence:
+      "Assisted channel SLA, staffing roster, and handoff logs for high-burden flows.",
+  },
+];
+
+const procurementBinding = `Procurement clause (AW-01\u2013AW-04)
+Supplier SHALL provide evidence that anti-weaponization clauses AW-01 through AW-04
+are enforced, with quarterly reporting and remediation commitments.`;
+
+const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
+[ ] Burden metrics include remediation staffing plan.
+[ ] Appeal paths tested for non-regression + replacement notice.
+[ ] Downgrades emit receipts with clocks (ack/review/remedy).
+[ ] Assisted channel or human escalation available for high-burden flows.`;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -42,10 +75,15 @@ const constraints = [
     title="Anti-weaponization constraints"
     description={pageDescription}
     permalink={permalink}
-    anchorLinks={constraints.map((constraint) => ({
-      href: `#${constraint.id}`,
-      label: constraint.id,
-    }))}
+    anchorLinks={[
+      ...constraints.map((constraint) => ({
+        href: `#${constraint.id}`,
+        label: constraint.id,
+      })),
+      { href: "#evidence", label: "Evidence requirements" },
+      { href: "#bindings", label: "Binding vectors" },
+      { href: "#referenced-by", label: "Referenced by" },
+    ]}
     panelCopy={{
       eyebrow: "Doctrine",
       title: "Constraints that prevent denial-by-design",
@@ -68,6 +106,54 @@ const constraints = [
         </li>
       ))}
     </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="evidence"
+    eyebrow="Evidence requirements"
+    title="Treat AW-01 through AW-04 like enforceable clauses"
+    description="Evidence is required for audits, release gates, and diagnostics."
+    variant="alt"
+  >
+    <ul class="standard-clauses">
+      {evidenceRequirements.map((item) => (
+        <li>
+          <strong>{item.id}</strong> — <span class="muted">{item.evidence}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="muted">
+      Attach these to
+      {" "}
+      <a href="/evidence-packs/std-01#anti-weaponization">STD-01 evidence packs</a>
+      {" "}
+      and
+      {" "}
+      <a href="/evidence-packs/std-02#anti-weaponization">STD-02 evidence packs</a>.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="bindings"
+    eyebrow="Binding vectors"
+    title="Procurement + release gate enforcement"
+    description="Bind anti-weaponization clauses to procurement and release workflows."
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Procurement clause</p>
+        <pre class="code-block">{procurementBinding}</pre>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Release gate checklist</p>
+        <pre class="code-block">{releaseGateBinding}</pre>
+      </div>
+    </div>
+    <p class="muted">
+      Also see{" "}
+      <a href="/bindings#anti-weaponization">binding vectors</a>{" "}
+      for copy-paste templates.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -99,5 +185,60 @@ const constraints = [
         to prove compliance with constraint IDs.
       </li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where anti-weaponization is enforced"
+    description="Cross-links keep constraints, diagnostics, and evidence aligned."
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+          </li>
+          <li>
+            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+          </li>
+          <li>
+            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#anti-weaponization">Anti-weaponization bindings</a>
+          </li>
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+          <li>
+            <a href="/bindings#procurement">Procurement clauses</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01#anti-weaponization">STD-01 AW evidence</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02#anti-weaponization">STD-02 AW evidence</a>
+          </li>
+          <li>
+            <a href="/diagnostics#anti-weaponization">Diagnostics checks</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: AW-01, AW-02, AW-03, AW-04, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
 </BaseLayout>

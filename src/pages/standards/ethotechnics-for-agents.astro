@@ -6,7 +6,7 @@ import { readFile } from "node:fs/promises";
 
 const pageTitle = "Ethotechnics for Agents";
 const pageDescription =
-  "Mechanism-first safety practice for turning ethics goals into enforceable agent controls.";
+  "This page is for teams building and operating automated systems. Mechanism-first safety practice for turning ethics goals into enforceable agent controls.";
 const permalink = "/standards/ethotechnics-for-agents";
 const anchorLinks = [
   { href: "#who-this-is-for", label: "Who this is for" },
@@ -28,6 +28,7 @@ const anchorLinks = [
   { href: "#safety-object-model", label: "Agent safety object model" },
   { href: "#boundaries", label: "Practice boundaries" },
   { href: "#fast-path", label: "Fast path" },
+  { href: "#referenced-by", label: "Referenced by" },
 ];
 
 const agentReceiptSchema = await readFile(
@@ -56,6 +57,13 @@ const actionClassRows = [
     reversibility: "Irreversible",
     controls:
       "Pre-action approval gate. Dual control + Hard Clock. Immediate receipt + appeal.",
+  },
+  {
+    actionClass: "EXECUTE",
+    examples: "Run jobs, trigger workflows, deploy changes.",
+    reversibility: "Often irreversible",
+    controls:
+      "Approval gate for high-impact runs. Kill switch + rollback plan. Receipt + decision log.",
   },
   {
     actionClass: "PUBLISH",
@@ -119,10 +127,13 @@ const signalIntegrityRows = [
 ];
 
 const controlChecklist = `- [ ] Receipt schema v1.0 implemented and validated against a JSON schema.
+- [ ] Receipts emitted for every automated decision (owner + action class included).
+- [ ] Human owner named with escalation authority and on-call coverage.
 - [ ] Decision log (MEC-01) captures dissent, owner, and outcome for every high-impact action.
 - [ ] Kill switch (MEC-05) tested with documented rollback criteria.
 - [ ] Appeal path (MEC-06) embedded in UI with timelines and escalation ladder.
 - [ ] Clocks published in UI (ack, review, remedy) and enforced in logging.
+- [ ] Action-class registry published with reversible/irreversible flags and approvals.
 - [ ] Evidence pack links attached to receipts (STD-01 + STD-02).
 - [ ] Sign-off: product owner + risk steward + on-call reviewer recorded.
 - [ ] Required logs exist: action log, override log, exception log, receipt log.
@@ -450,6 +461,34 @@ const practiceSections = [
       clocks, appeal path, and evidence pack anchors.
     </p>
     <pre class="code-block">{agentReceiptSchema}</pre>
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Field guide</p>
+        <ul class="muted">
+          <li>
+            <strong>owner:</strong> names the accountable human team or steward.
+          </li>
+          <li>
+            <strong>action.class:</strong> ties the decision to approvals and reversibility.
+          </li>
+          <li>
+            <strong>clocks:</strong> makes acknowledgment, review, and remedy enforceable.
+          </li>
+          <li>
+            <strong>appeal_path:</strong> gives the impacted person a live contestation route.
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">What breaks if missing</p>
+        <ul class="muted">
+          <li>Missing owner: no accountable steward to respond within clocks.</li>
+          <li>Missing action class: approvals and reversibility checks cannot run.</li>
+          <li>Missing clocks: remedies become optional rather than enforceable.</li>
+          <li>Missing evidence links: audits cannot trace proof back to clauses.</li>
+        </ul>
+      </div>
+    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -670,7 +709,9 @@ const practiceSections = [
       Publish a machine-readable index at{" "}
       <a href="/agents/spec.json">/agents/spec.json</a>
       {" "}
-      so deployment pipelines can confirm required governance artifacts exist.
+      so deployment pipelines can confirm required governance artifacts exist. The readable spec
+      lives at{" "}
+      <a href="/agents/spec">/agents/spec</a>.
     </p>
     <pre class="code-block">{agentSafetyObjectModel}</pre>
   </SectionBlock>
@@ -724,6 +765,70 @@ const practiceSections = [
       <li>
         Register action classes with reversible/irreversible flags and approvals.
       </li>
+      <li>
+        Publish the{" "}
+        <a href="/agents/spec">Agent Safety Object Model</a>
+        {" "}
+        for machine-verifiable controls.
+      </li>
     </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where this practice is enforced"
+    description="Cross-links keep practices, bindings, and evidence packs aligned."
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-account-lock">Automated account lock</a>
+          </li>
+          <li>
+            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+          </li>
+          <li>
+            <a href="/examples/irreversible-payment-compensation">
+              Irreversible payment with compensation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+          <li>
+            <a href="/bindings#procurement">Procurement clauses</a>
+          </li>
+          <li>
+            <a href="/bindings#runbooks">Runbook snippets</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, MEC-01, MEC-05,
+      MEC-06, VAL-01, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
 </BaseLayout>

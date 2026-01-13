@@ -64,9 +64,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       { href: "#themes", label: "Browse by theme" },
       { href: "#role-pathways", label: "Role-based pathways" },
       { href: "#primer", label: "Primer" },
+      { href: "#safety-object-model", label: "Agent safety object model" },
       { href: "#glossary", label: "Glossary" },
       { href: "#mechanisms", label: "Mechanism specs" },
       { href: "#syllabus", label: "Syllabus" },
+      { href: "#referenced-by", label: "Referenced by" },
     ]}
     panelCopy={{
       eyebrow: "How to use this shelf",
@@ -133,6 +135,27 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       }
     </ul>
   </div>
+
+  <SectionBlock
+    id="safety-object-model"
+    eyebrow="Agent Safety Object Model"
+    title="Link mechanisms to a machine-readable governance profile"
+    description="Publish the spec so mechanisms map to enforceable controls."
+    variant="alt"
+  >
+    <p class="muted">
+      The
+      {" "}
+      <a href="/agents/spec">Agent Safety Object Model</a>
+      {" "}
+      ties action classes, receipts, and kill-switch authority to specific mechanisms.
+    </p>
+    <ul class="muted">
+      <li>Map MEC-01, MEC-05, and MEC-06 into the model.</li>
+      <li>Declare clocks and approvals per action class.</li>
+      <li>Attach evidence packs to validate compliance.</li>
+    </ul>
+  </SectionBlock>
 
   <SectionBlock
     id="themes"
@@ -250,6 +273,62 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         ))
       }
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="How mechanisms connect to the rest of the system"
+    description="Cross-links keep mechanisms, standards, and audits aligned."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-account-lock">Automated account lock</a>
+          </li>
+          <li>
+            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+          </li>
+          <li>
+            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+          <li>
+            <a href="/bindings#incidents">Incident triggers</a>
+          </li>
+          <li>
+            <a href="/bindings#runbooks">Runbook snippets</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: MEC-01, MEC-03, MEC-05, MEC-06, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
   <script type="application/ld+json" set:html={structuredDataJson} />
 </BaseLayout>

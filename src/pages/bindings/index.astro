@@ -5,7 +5,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Binding vectors — Ethotechnics Institute";
 const pageDescription =
-  "Copy-paste adoption surfaces that turn standards into enforceable procurement, release, and runbook controls.";
+  "This page is for policy owners, procurement leads, and release managers binding standards to delivery. Copy-paste adoption surfaces that turn standards into enforceable procurement, release, and runbook controls.";
 const permalink = "/bindings";
 
 const procurementClause = `Supplier SHALL implement receipt-based contestability for automated
@@ -31,6 +31,18 @@ const runbookSnippet = `Runbook: Automated Lock Escalation
 2. Validate exception class and remaining clock time.
 3. If clocks breached, escalate to Steward-on-Call and trigger remedy.
 4. Attach decision log + evidence pack links to the incident record.`;
+
+const antiWeaponizationProcurement = `Supplier SHALL comply with Anti-Weaponization clauses AW-01 through AW-04.
+- AW-01: Burden metrics require resourcing within the next stewardship window.
+- AW-02: Appeal paths cannot be removed without replacement + review window.
+- AW-03: Downgrades require receipts + clocks regardless of automation source.
+- AW-04: High-burden flows require assisted channels or human escalation.`;
+
+const antiWeaponizationReleaseGate = `Release gate (AW-01–AW-04)
+[ ] Burden metrics include staffing/tooling remediation plan.
+[ ] Appeal paths tested for non-regression and replacement notice.
+[ ] Downgrades emit receipts with clocks (ack/review/remedy).
+[ ] Assisted channel or human escalation present for high-burden flows.`;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -42,8 +54,10 @@ const runbookSnippet = `Runbook: Automated Lock Escalation
     anchorLinks={[
       { href: "#procurement", label: "Procurement clauses" },
       { href: "#release-gates", label: "Release gates" },
+      { href: "#anti-weaponization", label: "Anti-weaponization bindings" },
       { href: "#incidents", label: "Incident triggers" },
       { href: "#runbooks", label: "Runbook snippets" },
+      { href: "#referenced-by", label: "Referenced by" },
     ]}
     panelCopy={{
       eyebrow: "Adoption surface",
@@ -119,6 +133,50 @@ const runbookSnippet = `Runbook: Automated Lock Escalation
   </SectionBlock>
 
   <SectionBlock
+    id="anti-weaponization"
+    eyebrow="Anti-weaponization"
+    title="Procurement + release gates for AW-01 through AW-04"
+    description="Treat anti-weaponization clauses as enforceable release criteria."
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Procurement clause</p>
+        <pre class="code-block">{antiWeaponizationProcurement}</pre>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Release gate checklist</p>
+        <pre class="code-block">{antiWeaponizationReleaseGate}</pre>
+      </div>
+    </div>
+    <p class="muted">References:</p>
+    <ul class="muted">
+      <li>
+        Clauses:
+        {" "}
+        <a href="/anti-weaponization#AW-01">AW-01</a>,
+        {" "}
+        <a href="/anti-weaponization#AW-02">AW-02</a>,
+        {" "}
+        <a href="/anti-weaponization#AW-03">AW-03</a>,
+        {" "}
+        <a href="/anti-weaponization#AW-04">AW-04</a>
+      </li>
+      <li>
+        Evidence packs:
+        {" "}
+        <a href="/evidence-packs/std-01#anti-weaponization">STD-01 AW evidence</a>,
+        {" "}
+        <a href="/evidence-packs/std-02#anti-weaponization">STD-02 AW evidence</a>
+      </li>
+      <li>
+        Diagnostics:
+        {" "}
+        <a href="/diagnostics#anti-weaponization">Anti-weaponization checks</a>
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
     id="incidents"
     eyebrow="Incident handling"
     title="Incident + postmortem triggers"
@@ -179,5 +237,60 @@ const runbookSnippet = `Runbook: Automated Lock Escalation
         <a href="/mechanisms/patterns/appeal-paths">MEC-06 Appeal paths</a>
       </li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where bindings connect to evidence"
+    description="Cross-links keep procurement, release gates, and audits aligned."
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-account-lock">Automated account lock</a>
+          </li>
+          <li>
+            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+          </li>
+          <li>
+            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/agents/spec">Agent Safety Object Model</a>
+          </li>
+          <li>
+            <a href="/standards/ethotechnics-for-agents#control-checklist">Control checklist</a>
+          </li>
+          <li>
+            <a href="/fast-path">Fast-path adoption</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: AW-01, AW-02, AW-03, AW-04, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
 </BaseLayout>
