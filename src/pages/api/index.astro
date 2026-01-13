@@ -9,6 +9,7 @@ const pageDescription =
 const permalink = "/api";
 const anchorLinks = [
   { href: "#objects", label: "Canonical objects" },
+  { href: "#agent-model", label: "Agent object model" },
   { href: "#endpoints", label: "Read-only endpoints" },
   { href: "#versioning", label: "Versioning" },
   { href: "#roadmap", label: "Roadmap" },
@@ -50,6 +51,11 @@ const canonicalObjects = [
   {
     name: "Diagram",
     description: "Diagram objects aligned to the micro-diagram language spec.",
+  },
+  {
+    name: "Agent safety object model",
+    description:
+      "Machine-readable profile for autonomy level, action classes, override authority, and receipts.",
   },
 ];
 
@@ -141,6 +147,27 @@ const endpoints = [
           <strong>{object.name}:</strong> {object.description}
         </li>
       ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="agent-model"
+    eyebrow="Agent object model"
+    title="Agent Safety Object Model"
+    description="Publish a machine-readable profile for agent governance in tooling."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>
+        Spec page:
+        {" "}
+        <a href="/agents/spec">/agents/spec</a>
+      </li>
+      <li>
+        JSON schema:
+        {" "}
+        <a href="/agents/spec.json">/agents/spec.json</a>
+      </li>
     </ul>
   </SectionBlock>
 

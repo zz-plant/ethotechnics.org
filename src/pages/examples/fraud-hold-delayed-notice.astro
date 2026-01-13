@@ -1,0 +1,124 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Fraud hold with delayed notice — Worked example";
+const pageDescription =
+  "A delayed-notice fraud hold that keeps receipts and clocks enforceable.";
+const permalink = "/examples/fraud-hold-delayed-notice";
+
+const receiptPayload = `{
+  "schema_version": "1.0.0",
+  "receipt_id": "RCP-2026-1284",
+  "issued_at": "2026-06-04T12:09:55Z",
+  "owner": { "name": "Fraud Operations", "role": "System owner" },
+  "subject": { "id": "acct-55129", "type": "account" },
+  "action": { "class": "WRITE", "description": "Place fraud hold", "reversible": true },
+  "decision": { "decision_type": "fraud_hold", "reason_codes": ["VELOCITY", "DEVICE-MISMATCH"] },
+  "clocks": { "ack": { "hours": 1 }, "review": { "hours": 12 }, "remedy": { "hours": 48 } },
+  "notice": { "delayed": true, "delay_hours": 24 },
+  "appeal_path": { "url": "/appeals/fraud-hold", "channel": "secure inbox" }
+}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Worked example"
+    title="Fraud hold with delayed notice"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#receipt", label: "Receipt" },
+      { href: "#clocks", label: "Clocks" },
+      { href: "#exceptions", label: "Exceptions" },
+      { href: "#remedy", label: "Remedy" },
+      { href: "#bindings", label: "Bindings" },
+    ]}
+    panelCopy={{
+      eyebrow: "Scenario",
+      title: "Investigation integrity with visible clocks",
+      description:
+        "Delayed notice is allowed, but the hold still requires receipts, clocks, and remedies.",
+    }}
+  />
+
+  <SectionBlock
+    id="receipt"
+    eyebrow="Receipt"
+    title="Receipt emitted even with delayed notice"
+    description="Receipts exist immediately, even if user notice is delayed for investigation."
+  >
+    <pre class="code-block">{receiptPayload}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clocks"
+    eyebrow="Clocks"
+    title="Short clocks for fraud holds"
+    description="Delayed notice cannot reset clock timelines."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      <CardItem title="Ack clock" description="1 hour">
+        <p class="muted">Owner acknowledges the hold and assigns a reviewer.</p>
+      </CardItem>
+      <CardItem title="Review clock" description="12 hours">
+        <p class="muted">Human review confirms, narrows, or removes the hold.</p>
+      </CardItem>
+      <CardItem title="Remedy clock" description="48 hours">
+        <p class="muted">Release the hold or provide a safe fallback with notice.</p>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="exceptions"
+    eyebrow="Exceptions"
+    title="Delayed notice must be justified and bounded"
+    description="Delays require explicit exception logging."
+  >
+    <ul class="muted">
+      <li>Delayed notice allowed only for active fraud investigation.</li>
+      <li>Maximum delay window is 24 hours before notice is required.</li>
+      <li>
+        Exceptions logged in the <a href="/exceptions">Exceptions framework</a> with steward review.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="remedy"
+    eyebrow="Remedy"
+    title="Release or compensate quickly"
+    description="Remedies must be visible immediately once notice is delivered."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Release the hold and restore access if fraud is not confirmed.</li>
+      <li>Provide limited-access alternatives if verification is needed.</li>
+      <li>Issue compensation for access loss tied to the decision log.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="bindings"
+    eyebrow="Bindings"
+    title="Tie the hold to enforceable artifacts"
+    description="Keep the flow auditable with bindings and evidence packs."
+  >
+    <ul class="muted">
+      <li>
+        Require receipts in <a href="/bindings#release-gates">release gates</a>.
+      </li>
+      <li>
+        Link evidence in <a href="/evidence-packs">STD-01 + STD-02 packs</a>.
+      </li>
+      <li>
+        Reference <a href="/anti-weaponization">anti-weaponization constraints</a> on delayed notice.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

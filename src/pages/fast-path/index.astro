@@ -7,30 +7,61 @@ import CardItem from "../../components/CardItem.astro";
 
 const pageTitle = "Fast-path adoption — Ethotechnics Institute";
 const pageDescription =
-  "A 30–60 minute adoption guide for teams that need immediate safeguards without slowing delivery.";
+  "A one-sprint adoption guide that delivers enforceable safeguards without slowing delivery.";
 const permalink = "/fast-path";
 
 const mechanisms = [
   {
     title: "Kill switch",
     owner: "Ops / Reliability",
-    effort: "30 minutes",
+    effort: "1 day",
     risk: "Stops runaway automation in seconds.",
     href: "/mechanisms/patterns/kill-switch",
   },
   {
     title: "Decision log with dissent",
     owner: "Product / Policy",
-    effort: "45 minutes",
+    effort: "2 days",
     risk: "Prevents silent governance drift and preserves rationale.",
     href: "/mechanisms/patterns/decision-log",
   },
   {
     title: "In-product appeal path",
     owner: "Support / Trust",
-    effort: "60 minutes",
+    effort: "2 days",
     risk: "Prevents contestability regressions and shortens recovery time.",
     href: "/mechanisms/patterns/appeal-paths",
+  },
+];
+
+const receiptSchema = `{
+  "schema_version": "1.0.0",
+  "receipt_id": "RCP-2026-0842",
+  "issued_at": "2026-04-11T18:12:09Z",
+  "owner": { "name": "Risk Operations", "role": "System owner" },
+  "action": { "class": "WRITE", "description": "Eligibility update", "reversible": true },
+  "clocks": { "ack": { "hours": 2 }, "review": { "hours": 24 }, "remedy": { "hours": 72 } },
+  "appeal_path": { "url": "/appeals/eligibility", "channel": "in-product form" }
+}`;
+
+const sprintDeliverables = [
+  {
+    title: "Receipt schema",
+    description: "Implement the canonical receipt payload and validate it in CI.",
+    href: "/standards/agent-receipt-schema.json",
+    label: "Receipt schema",
+  },
+  {
+    title: "Worked example",
+    description: "Ship at least one end-to-end scenario with receipts, clocks, and remedies.",
+    href: "/examples/automated-eligibility-denial",
+    label: "See example",
+  },
+  {
+    title: "Release gate binding",
+    description: "Copy the release gate checklist into your deployment template.",
+    href: "/bindings#release-gates",
+    label: "Open binding",
   },
 ];
 ---
@@ -38,11 +69,13 @@ const mechanisms = [
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Fast path"
-    title="30–60 minute adoption guide"
-    description={pageDescription}
+    title="Implementing Ethotechnics in one sprint"
+    description={`${pageDescription} This takes ~1 sprint and reduces worst-case failure risk.`}
     permalink={permalink}
     anchorLinks={[
       { href: "#mechanisms", label: "Mechanisms" },
+      { href: "#receipt", label: "Receipt schema" },
+      { href: "#deliverables", label: "Sprint deliverables" },
       { href: "#effort", label: "Effort + ownership" },
       { href: "#next", label: "Next steps" },
     ]}
@@ -50,7 +83,7 @@ const mechanisms = [
       eyebrow: "Why fast path",
       title: "Governance that speeds recovery",
       description:
-        "These three mechanisms reduce incident recovery time while satisfying core standards obligations.",
+        "These mechanisms, plus a receipt schema and release gate, reduce incident recovery time while satisfying core standards obligations.",
     }}
   />
 
@@ -76,10 +109,43 @@ const mechanisms = [
   </SectionBlock>
 
   <SectionBlock
+    id="receipt"
+    eyebrow="Receipt schema"
+    title="Ship one canonical receipt payload"
+    description="This payload is the minimum proof that a decision happened and can be contested."
+    variant="alt"
+  >
+    <pre class="code-block">{receiptSchema}</pre>
+    <p class="muted">
+      Validate against the{" "}
+      <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a>
+      {" "}
+      so tooling can parse your receipts automatically.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="deliverables"
+    eyebrow="Sprint deliverables"
+    title="Ship one receipt, one example, one binding"
+    description="These three artifacts make fast-path adoption enforceable."
+  >
+    <CardGrid className="grid--three">
+      {sprintDeliverables.map((deliverable) => (
+        <CardItem title={deliverable.title} description={deliverable.description}>
+          <a slot="footer" class="muted" href={deliverable.href}>
+            {deliverable.label}
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
     id="effort"
     eyebrow="Effort"
     title="Effort, owner, risk reduced"
-    description="Use this grid in a kickoff meeting to assign the first 60 minutes of work."
+    description="Use this grid in a kickoff meeting to assign the first sprint of work."
     variant="alt"
   >
     <div class="mapping-table__wrapper">

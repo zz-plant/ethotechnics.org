@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Automated eligibility denial — Worked example";
+const pageDescription =
+  "Eligibility denial with a named owner, appeal path, and enforceable remedy clocks.";
+const permalink = "/examples/automated-eligibility-denial";
+
+const receiptPayload = `{
+  "schema_version": "1.0.0",
+  "receipt_id": "RCP-2026-1124",
+  "issued_at": "2026-05-06T08:27:41Z",
+  "owner": { "name": "Eligibility Operations", "role": "System owner" },
+  "subject": { "id": "app-99114", "type": "application" },
+  "action": { "class": "WRITE", "description": "Deny eligibility", "reversible": true },
+  "decision": { "decision_type": "eligibility_denial", "reason_codes": ["INCOME-MISMATCH"] },
+  "clocks": { "ack": { "hours": 4 }, "review": { "hours": 48 }, "remedy": { "hours": 120 } },
+  "appeal_path": { "url": "/appeals/eligibility", "channel": "in-product form" }
+}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Worked example"
+    title="Automated eligibility denial"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#receipt", label: "Receipt" },
+      { href: "#clocks", label: "Clocks" },
+      { href: "#exceptions", label: "Exceptions" },
+      { href: "#remedy", label: "Remedy" },
+      { href: "#bindings", label: "Bindings" },
+    ]}
+    panelCopy={{
+      eyebrow: "Scenario",
+      title: "Eligibility decisions require contestability",
+      description:
+        "Eligibility outcomes must ship with receipts, owners, clocks, and remedies.",
+    }}
+  />
+
+  <SectionBlock
+    id="receipt"
+    eyebrow="Receipt"
+    title="Receipt issued at decision time"
+    description="Receipts make the denial traceable and contestable."
+  >
+    <pre class="code-block">{receiptPayload}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clocks"
+    eyebrow="Clocks"
+    title="Visible acknowledgment, review, and remedy clocks"
+    description="Clocks are visible to applicants and reviewers."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      <CardItem title="Ack clock" description="4 hours">
+        <p class="muted">Owner confirms responsibility and shares a review ETA.</p>
+      </CardItem>
+      <CardItem title="Review clock" description="48 hours">
+        <p class="muted">Human reviewer validates the denial or flags an exception.</p>
+      </CardItem>
+      <CardItem title="Remedy clock" description="120 hours">
+        <p class="muted">Reversal, compensation, or safe fallback is delivered.</p>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="exceptions"
+    eyebrow="Exceptions"
+    title="Exceptions must preserve the appeal path"
+    description="Exceptions can delay remedy, but never remove contestation."
+  >
+    <ul class="muted">
+      <li>Data-quality exceptions require a documented re-verification plan.</li>
+      <li>Legal exceptions require steward sign-off and review cadence.</li>
+      <li>
+        Exceptions are logged in the <a href="/exceptions">Exceptions framework</a>.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="remedy"
+    eyebrow="Remedy"
+    title="Remedy path is mandatory"
+    description="Remedy must be visible, time-bound, and actionable."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Reverse the denial when verification succeeds.</li>
+      <li>Offer assisted review for high-burden applicants.</li>
+      <li>Provide clear next steps and evidence requests.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="bindings"
+    eyebrow="Bindings"
+    title="Bind eligibility decisions to enforceable controls"
+    description="Tie eligibility decisions to evidence packs and bindings."
+  >
+    <ul class="muted">
+      <li>
+        Use <a href="/bindings#release-gates">release gates</a> for decision receipts.
+      </li>
+      <li>
+        Attach <a href="/evidence-packs">evidence packs</a> to denial receipts.
+      </li>
+      <li>
+        Add <a href="/anti-weaponization">anti-weaponization constraints</a> for burden checks.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

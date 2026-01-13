@@ -93,9 +93,14 @@ export const navSections: NavSection[] = [
         description: "Clause-like constraints that prevent denial-by-design.",
       },
       {
+        href: "/agents/spec",
+        label: "Agent Safety Object Model",
+        description: "Machine-readable agent governance profile for tooling.",
+      },
+      {
         href: "/fast-path",
         label: "Fast-path adoption",
-        description: "30–60 minute adoption guide for quick safeguards.",
+        description: "One-sprint adoption guide for quick safeguards.",
       },
       {
         href: "/diy-packs",
