@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { readFile } from "node:fs/promises";
 
 const pageTitle = "Ethotechnics for Agents";
 const pageDescription =
@@ -29,103 +30,10 @@ const anchorLinks = [
   { href: "#fast-path", label: "Fast path" },
 ];
 
-const agentReceiptSchema = `{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ethotechnics.org/standards/agent-receipt-schema.json",
-  "title": "Agent Receipt",
-  "type": "object",
-  "required": [
-    "schema_version",
-    "receipt_id",
-    "issued_at",
-    "owner",
-    "subject",
-    "action",
-    "decision",
-    "clocks",
-    "appeal_path",
-    "evidence_pack"
-  ],
-  "properties": {
-    "schema_version": { "type": "string", "pattern": "^1\\\\.\\\\d+\\\\.\\\\d+$" },
-    "receipt_id": { "type": "string" },
-    "issued_at": { "type": "string", "format": "date-time" },
-    "owner": {
-      "type": "object",
-      "required": ["name", "role", "contact"],
-      "properties": {
-        "name": { "type": "string" },
-        "role": { "type": "string" },
-        "contact": { "type": "string" },
-        "on_call": { "type": "boolean" }
-      }
-    },
-    "subject": {
-      "type": "object",
-      "required": ["id", "type"],
-      "properties": {
-        "id": { "type": "string" },
-        "type": { "type": "string" },
-        "region": { "type": "string" }
-      }
-    },
-    "action": {
-      "type": "object",
-      "required": ["class", "description", "reversible"],
-      "properties": {
-        "class": { "type": "string" },
-        "description": { "type": "string" },
-        "reversible": { "type": "boolean" },
-        "tools": { "type": "array", "items": { "type": "string" } }
-      }
-    },
-    "decision": {
-      "type": "object",
-      "required": ["decision_type", "reason_codes", "inputs"],
-      "properties": {
-        "decision_type": { "type": "string" },
-        "reason_codes": { "type": "array", "items": { "type": "string" } },
-        "inputs": { "type": "array", "items": { "type": "string" } },
-        "confidence": { "type": "number" }
-      }
-    },
-    "clocks": {
-      "type": "object",
-      "required": ["ack", "review", "remedy"],
-      "properties": {
-        "ack": { "type": "object", "properties": { "hours": { "type": "number" } } },
-        "review": { "type": "object", "properties": { "hours": { "type": "number" } } },
-        "remedy": { "type": "object", "properties": { "hours": { "type": "number" } } },
-        "appeal": { "type": "object", "properties": { "hours": { "type": "number" } } }
-      }
-    },
-    "appeal_path": {
-      "type": "object",
-      "required": ["url", "channel", "expected_response"],
-      "properties": {
-        "url": { "type": "string" },
-        "channel": { "type": "string" },
-        "expected_response": { "type": "string" }
-      }
-    },
-    "evidence_pack": {
-      "type": "object",
-      "required": ["href", "standard_refs"],
-      "properties": {
-        "href": { "type": "string" },
-        "standard_refs": { "type": "array", "items": { "type": "string" } }
-      }
-    },
-    "exceptions": {
-      "type": "object",
-      "properties": {
-        "class": { "type": "string" },
-        "justification": { "type": "string" },
-        "expires_at": { "type": "string", "format": "date-time" }
-      }
-    }
-  }
-}`;
+const agentReceiptSchema = await readFile(
+  new URL("../../../public/standards/agent-receipt-schema.json", import.meta.url),
+  "utf-8",
+);
 
 const actionClassRows = [
   {
@@ -220,32 +128,10 @@ const controlChecklist = `- [ ] Receipt schema v1.0 implemented and validated ag
 - [ ] Required logs exist: action log, override log, exception log, receipt log.
 - [ ] Rollback trigger defined (unsafe-action spike, audit failure, or contested-remedy breach).`;
 
-const agentSafetyObjectModel = `{
-  "schema_version": "1.0.0",
-  "agent_id": "agent-risk-ops-v2",
-  "required_specs": [
-    "action_class_taxonomy",
-    "receipt_schema_v1",
-    "exception_policy",
-    "appeal_path"
-  ],
-  "required_signals": [
-    "unsafe_action_rate",
-    "human_override_rate",
-    "time_to_detection",
-    "time_to_remedy"
-  ],
-  "mapped_mechanisms": [
-    { "id": "MEC-01", "href": "/mechanisms/patterns/decision-log" },
-    { "id": "MEC-05", "href": "/mechanisms/patterns/kill-switch" },
-    { "id": "MEC-06", "href": "/mechanisms/patterns/appeal-paths" }
-  ],
-  "evidence_packs": [
-    { "standard": "STD-01", "href": "/evidence-packs/std-01" },
-    { "standard": "STD-02", "href": "/evidence-packs/std-02" }
-  ],
-  "receipts": { "schema": "/standards/agent-receipt-schema.json" }
-}`;
+const agentSafetyObjectModel = await readFile(
+  new URL("../../../public/standards/agent-safety-object-model.json", import.meta.url),
+  "utf-8",
+);
 
 const practiceSections = [
   {
