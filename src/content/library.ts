@@ -30,7 +30,7 @@ export type Pattern = {
   steps: string[];
   artifacts: { name: string; purpose: string }[];
   example: { title: string; description: string };
-  antiPatterns: {
+  antiPatterns?: {
     title: string;
     failure: string;
     counterfactual: string;

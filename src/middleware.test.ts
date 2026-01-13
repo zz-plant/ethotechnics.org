@@ -1,4 +1,5 @@
 import { describe, expect, it, mock } from 'bun:test';
+import type { APIContext } from 'astro';
 
 import { onRequest } from './middleware';
 
@@ -28,9 +29,9 @@ describe('middleware', () => {
         headers: new Headers({ host }),
       } as unknown as Request;
       const locals = { cspNonce: '' } as App.Locals;
-      const next = mock(async () => new Response('next'));
+      const next = mock(() => Promise.resolve(new Response('next')));
 
-      const response = await onRequest({ request, locals } as any, next);
+      const response = await onRequest({ request, locals } as APIContext, next);
 
       if (!response) {
         throw new Error('Expected redirect response');
@@ -52,9 +53,9 @@ describe('middleware', () => {
     for (const headers of cases) {
       const request = new Request('https://example.com/path', { headers });
       const locals = { cspNonce: '' } as App.Locals;
-      const next = mock(async () => new Response('next'));
+      const next = mock(() => Promise.resolve(new Response('next')));
 
-      const response = await onRequest({ request, locals } as any, next);
+      const response = await onRequest({ request, locals } as APIContext, next);
 
       if (!response) {
         throw new Error('Expected next response');
@@ -73,4 +74,3 @@ describe('middleware', () => {
     }
   });
 });
-
