@@ -8,17 +8,244 @@ const pageDescription =
   "Mechanism-first safety practice for turning ethics goals into enforceable agent controls.";
 const permalink = "/standards/ethotechnics-for-agents";
 const anchorLinks = [
+  { href: "#who-this-is-for", label: "Who this is for" },
   { href: "#overview", label: "Practice snapshot" },
   { href: "#what-this-is", label: "What this is" },
   { href: "#core-premise", label: "Core premise" },
+  { href: "#receipt-schema", label: "Agent receipt schema" },
+  { href: "#action-taxonomy", label: "Action-class taxonomy" },
+  { href: "#contestability-surface", label: "Contestability surface" },
+  { href: "#exception-policy", label: "Exception policy" },
   { href: "#requirements", label: "1. Requirements" },
   { href: "#failure-design", label: "2. Failure-first design" },
   { href: "#accountability", label: "3. Accountability" },
   { href: "#contestability", label: "4. Contestability" },
   { href: "#risk-backlog", label: "5. Risk backlog" },
   { href: "#pressure-test", label: "6. Pressure-test claims" },
+  { href: "#signal-integrity", label: "Signal integrity" },
+  { href: "#control-checklist", label: "Control checklist" },
+  { href: "#safety-object-model", label: "Agent safety object model" },
   { href: "#boundaries", label: "Practice boundaries" },
+  { href: "#fast-path", label: "Fast path" },
 ];
+
+const agentReceiptSchema = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/agent-receipt-schema.json",
+  "title": "Agent Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "issued_at",
+    "owner",
+    "subject",
+    "action",
+    "decision",
+    "clocks",
+    "appeal_path",
+    "evidence_pack"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\\\.\\\\d+\\\\.\\\\d+$" },
+    "receipt_id": { "type": "string" },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "owner": {
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contact": { "type": "string" },
+        "on_call": { "type": "boolean" }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "region": { "type": "string" }
+      }
+    },
+    "action": {
+      "type": "object",
+      "required": ["class", "description", "reversible"],
+      "properties": {
+        "class": { "type": "string" },
+        "description": { "type": "string" },
+        "reversible": { "type": "boolean" },
+        "tools": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "required": ["decision_type", "reason_codes", "inputs"],
+      "properties": {
+        "decision_type": { "type": "string" },
+        "reason_codes": { "type": "array", "items": { "type": "string" } },
+        "inputs": { "type": "array", "items": { "type": "string" } },
+        "confidence": { "type": "number" }
+      }
+    },
+    "clocks": {
+      "type": "object",
+      "required": ["ack", "review", "remedy"],
+      "properties": {
+        "ack": { "type": "object", "properties": { "hours": { "type": "number" } } },
+        "review": { "type": "object", "properties": { "hours": { "type": "number" } } },
+        "remedy": { "type": "object", "properties": { "hours": { "type": "number" } } },
+        "appeal": { "type": "object", "properties": { "hours": { "type": "number" } } }
+      }
+    },
+    "appeal_path": {
+      "type": "object",
+      "required": ["url", "channel", "expected_response"],
+      "properties": {
+        "url": { "type": "string" },
+        "channel": { "type": "string" },
+        "expected_response": { "type": "string" }
+      }
+    },
+    "evidence_pack": {
+      "type": "object",
+      "required": ["href", "standard_refs"],
+      "properties": {
+        "href": { "type": "string" },
+        "standard_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "exceptions": {
+      "type": "object",
+      "properties": {
+        "class": { "type": "string" },
+        "justification": { "type": "string" },
+        "expires_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}`;
+
+const actionClassRows = [
+  {
+    actionClass: "READ",
+    examples: "Fetch account data, view records, list files.",
+    reversibility: "Reversible",
+    controls:
+      "Receipt + log. Auto-approve within scope. 24h review clock if flagged.",
+  },
+  {
+    actionClass: "WRITE",
+    examples: "Update profile fields, edit records, sync CRM notes.",
+    reversibility: "Reversible",
+    controls:
+      "Receipt + diff capture. Undo path required. Review clock for material changes.",
+  },
+  {
+    actionClass: "TRANSFER",
+    examples: "Move funds, transfer assets, change ownership.",
+    reversibility: "Irreversible",
+    controls:
+      "Pre-action approval gate. Dual control + Hard Clock. Immediate receipt + appeal.",
+  },
+  {
+    actionClass: "PUBLISH",
+    examples: "Post public content, send broadcasts, trigger notifications.",
+    reversibility: "Often irreversible",
+    controls:
+      "Progressive consent prompt. Delay window for rollback. Evidence pack anchor required.",
+  },
+  {
+    actionClass: "DELETE",
+    examples: "Delete records, revoke access, purge data.",
+    reversibility: "Irreversible",
+    controls:
+      "Two-step confirmation + reversible buffer. Remedy clock + owner sign-off.",
+  },
+  {
+    actionClass: "CONTACT_HUMAN",
+    examples: "Send emails, create tickets, call users.",
+    reversibility: "Partially reversible",
+    controls:
+      "Human-readable rationale + opt-out. Rate limits. Receipt issued to recipient.",
+  },
+  {
+    actionClass: "EXECUTE_CODE",
+    examples: "Run scripts, deploy changes, trigger workflows.",
+    reversibility: "Irreversible",
+    controls:
+      "Sandbox first. Manual approval for prod. Circuit breaker on anomaly.",
+  },
+];
+
+const signalIntegrityRows = [
+  {
+    signal: "Unsafe-action rate",
+    gaming: "Downgrade severity or reclassify incidents to reduce counts.",
+    detection: "Compare receipts to incident logs; sample audits on action class tags.",
+    tiers:
+      "Tier 0: manual incident tally. Tier 1: receipt-to-incident reconciliation. Tier 2: automated anomaly alerts by class.",
+  },
+  {
+    signal: "Human override rate",
+    gaming: "Route overrides through informal channels to avoid logging.",
+    detection: "Require override receipts and diff logs; reconcile with chat/ticket systems.",
+    tiers:
+      "Tier 0: weekly override count. Tier 1: override receipts tied to decision IDs. Tier 2: real-time override dashboards with owner sign-off.",
+  },
+  {
+    signal: "Time-to-detection & mitigation",
+    gaming: "Reset clocks by closing and reopening incidents.",
+    detection: "Immutable event timestamps; auditor view of first-seen vs. closed.",
+    tiers:
+      "Tier 0: manual timestamps. Tier 1: system-generated clocks. Tier 2: independent monitoring clock source.",
+  },
+  {
+    signal: "Task success vs. error cost & blast radius",
+    gaming: "Count partial success as success; ignore downstream cost.",
+    detection: "Link receipts to outcome metrics and remediation costs.",
+    tiers:
+      "Tier 0: aggregate success rate. Tier 1: success with cost tagging. Tier 2: cost + blast radius per action class.",
+  },
+];
+
+const controlChecklist = `- [ ] Receipt schema v1.0 implemented and validated against a JSON schema.
+- [ ] Decision log (MEC-01) captures dissent, owner, and outcome for every high-impact action.
+- [ ] Kill switch (MEC-05) tested with documented rollback criteria.
+- [ ] Appeal path (MEC-06) embedded in UI with timelines and escalation ladder.
+- [ ] Clocks published in UI (ack, review, remedy) and enforced in logging.
+- [ ] Evidence pack links attached to receipts (STD-01 + STD-02).
+- [ ] Sign-off: product owner + risk steward + on-call reviewer recorded.
+- [ ] Required logs exist: action log, override log, exception log, receipt log.
+- [ ] Rollback trigger defined (unsafe-action spike, audit failure, or contested-remedy breach).`;
+
+const agentSafetyObjectModel = `{
+  "schema_version": "1.0.0",
+  "agent_id": "agent-risk-ops-v2",
+  "required_specs": [
+    "action_class_taxonomy",
+    "receipt_schema_v1",
+    "exception_policy",
+    "appeal_path"
+  ],
+  "required_signals": [
+    "unsafe_action_rate",
+    "human_override_rate",
+    "time_to_detection",
+    "time_to_remedy"
+  ],
+  "mapped_mechanisms": [
+    { "id": "MEC-01", "href": "/mechanisms/patterns/decision-log" },
+    { "id": "MEC-05", "href": "/mechanisms/patterns/kill-switch" },
+    { "id": "MEC-06", "href": "/mechanisms/patterns/appeal-paths" }
+  ],
+  "evidence_packs": [
+    { "standard": "STD-01", "href": "/evidence-packs/std-01" },
+    { "standard": "STD-02", "href": "/evidence-packs/std-02" }
+  ],
+  "receipts": { "schema": "/standards/agent-receipt-schema.json" }
+}`;
 
 const practiceSections = [
   {
@@ -57,7 +284,7 @@ const practiceSections = [
       },
     ],
     gaps: [
-      "Action-class taxonomy for allowed vs. forbidden agent actions.",
+      "Action-class taxonomy calibration per tool scope and domain.",
       "Delegation authority registry for sub-agents and sub-tasks.",
       "Agent data retention + memory deletion controls.",
     ],
@@ -157,7 +384,6 @@ const practiceSections = [
     ],
     gaps: [
       "Undo/revert interface pattern for automated actions.",
-      "Evidence submission intake specification.",
       "Persistent \u201cdo not repeat\u201d preference registry.",
     ],
   },
@@ -218,7 +444,6 @@ const practiceSections = [
       },
     ],
     gaps: [
-      "Safety-claim checklist with traceable evidence requirements.",
       "Blast-radius measurement template tied to action classes.",
     ],
   },
@@ -242,6 +467,19 @@ const practiceSections = [
         "Scope: autonomous and semi-autonomous agents, workflow automation, and decision engines. Related: STD-01 and STD-02.",
     }}
   />
+
+  <SectionBlock
+    id="who-this-is-for"
+    eyebrow="Audience"
+    title="Who this is for"
+    description="Make it explicit who the practice is designed to serve."
+    variant="alt"
+  >
+    <p>
+      This is for teams building and operating agents. Agents don\u2019t follow ethics; systems
+      constrain agents.
+    </p>
+  </SectionBlock>
 
   <SectionBlock
     id="overview"
@@ -309,6 +547,129 @@ const practiceSections = [
     </p>
   </SectionBlock>
 
+  <SectionBlock
+    id="receipt-schema"
+    eyebrow="P0 artifact"
+    title="Canonical agent receipt schema (JSON)"
+    description="Receipts are the universal integration point. Make them stable and versioned."
+    variant="alt"
+  >
+    <p>
+      Publish a single canonical schema and emit it everywhere a decision happens. The canonical
+      JSON schema lives at{" "}
+      <a href="/standards/agent-receipt-schema.json">/standards/agent-receipt-schema.json</a>.
+    </p>
+    <p class="muted">
+      Required fields: schema version, receipt ID, owner, subject, action class, decision inputs,
+      clocks, appeal path, and evidence pack anchors.
+    </p>
+    <pre class="code-block">{agentReceiptSchema}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="action-taxonomy"
+    eyebrow="P0 artifact"
+    title="Action-class taxonomy template"
+    description="Define allowed actions, reversibility, and default approval gates."
+  >
+    <p>
+      Action classes make enforcement legible. Attach reversibility, clocks, and approvals to each
+      class so teams can ship controls quickly.
+    </p>
+    <table class="mapping-table">
+      <thead>
+        <tr>
+          <th>Action class</th>
+          <th>Examples</th>
+          <th>Reversible?</th>
+          <th>Default controls</th>
+        </tr>
+      </thead>
+      <tbody>
+        {actionClassRows.map((row) => (
+          <tr>
+            <td>{row.actionClass}</td>
+            <td>{row.examples}</td>
+            <td>{row.reversibility}</td>
+            <td>{row.controls}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="muted">
+      Mark any irreversible class as approval-gated by default and attach the Hard Clock + Kill
+      switch to production runs.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="contestability-surface"
+    eyebrow="P1 artifact"
+    title="Contestability surface: minimum shipping spec"
+    description="Define the UI patterns, copy, and escalation ladder that make contestation real."
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Minimum UI patterns</p>
+        <ul class="muted">
+          <li>Decision log view with timestamp, owner, and action class.</li>
+          <li>Undo or revert controls where possible, plus fallback remedies.</li>
+          <li>\u201cDon\u2019t do this again\u201d preference toggle tied to policy.</li>
+          <li>Inline appeal button that opens a pre-filled dispute form.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Copy requirements</p>
+        <ul class="muted">
+          <li>\u201cWhy this happened\u201d field with reason codes and inputs used.</li>
+          <li>State the decision owner and how to reach a reviewer.</li>
+          <li>Provide clock timelines: acknowledge, review, remedy.</li>
+          <li>Explain what changes if the appeal is upheld.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Evidence upload constraints</p>
+        <ul class="muted">
+          <li>Accept files, links, and inline statements (max 25 MB per file).</li>
+          <li>Capture timestamps and author identity for each submission.</li>
+          <li>Log evidence hashes in the receipt for auditability.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Default escalation ladder</p>
+        <ul class="muted">
+          <li>Tier 1: on-call owner review within 24 hours.</li>
+          <li>Tier 2: risk steward review within 72 hours.</li>
+          <li>Tier 3: independent escalation board within 7 days.</li>
+        </ul>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="exception-policy"
+    eyebrow="P1 artifact"
+    title="Agent exception policy (explicit and bounded)"
+    description="Tie the agent practice to the bounded exceptions framework."
+  >
+    <ul class="standard-clauses">
+      <li>Agents may suppress notice only under fraud, security, or abuse exceptions.</li>
+      <li>
+        Even under exceptions, the system must still issue receipts, name owners, and run clocks.
+      </li>
+      <li>Exceptions expire on defined cadences and require steward review to renew.</li>
+      <li>
+        Use the{" "}
+        <a href="/exceptions">Exceptions framework</a>
+        {" "}
+        and link receipt payloads to the canonical schema.
+      </li>
+    </ul>
+  </SectionBlock>
+
   {practiceSections.map((section, index) => (
     <SectionBlock
       id={section.id}
@@ -367,6 +728,70 @@ const practiceSections = [
   ))}
 
   <SectionBlock
+    id="signal-integrity"
+    eyebrow="P1 artifact"
+    title="Anti-gaming guidance for required signals"
+    description="Assume teams will optimize metrics. Instrument what detects gaming."
+    variant="alt"
+  >
+    <table class="mapping-table">
+      <thead>
+        <tr>
+          <th>Signal</th>
+          <th>How teams fake it</th>
+          <th>Detect gaming</th>
+          <th>Tier 0 / 1 / 2 measurement</th>
+        </tr>
+      </thead>
+      <tbody>
+        {signalIntegrityRows.map((row) => (
+          <tr>
+            <td>{row.signal}</td>
+            <td>{row.gaming}</td>
+            <td>{row.detection}</td>
+            <td>{row.tiers}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="muted">
+      Pair with
+      {" "}
+      <a href="/measurement-tiers">Measurement tiers</a>
+      {" "}
+      to set the minimum acceptable signal maturity.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="control-checklist"
+    eyebrow="P2 artifact"
+    title="Control checklist for deployment gates"
+    description="Use this as a go/no-go gate for agent rollout."
+  >
+    <p>Copy-paste this checklist into your deployment template or runbook.</p>
+    <pre class="code-block">{controlChecklist}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="safety-object-model"
+    eyebrow="P2 artifact"
+    title="Agent Safety Object Model (machine-readable)"
+    description="A minimal JSON index that CI systems can validate."
+    variant="alt"
+  >
+    <p>
+      Publish a machine-readable index at{" "}
+      <a href="/standards/agent-safety-object-model.json">
+        /standards/agent-safety-object-model.json
+      </a>
+      {" "}
+      so deployment pipelines can confirm required governance artifacts exist.
+    </p>
+    <pre class="code-block">{agentSafetyObjectModel}</pre>
+  </SectionBlock>
+
+  <SectionBlock
     id="boundaries"
     eyebrow="Boundary"
     title="What this practice does\u2014and does not\u2014do"
@@ -381,5 +806,40 @@ const practiceSections = [
       If a system lacks clear constraints, control surfaces, or named owners, it has not yet
       translated ethics into operations.
     </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="fast-path"
+    eyebrow="Fast path"
+    title="Minimum viable integration (<1 sprint)"
+    description="Do this first to make agent systems enforceable quickly."
+    variant="alt"
+  >
+    <ol class="standard-clauses">
+      <li>
+        Ship{" "}
+        <a href="/mechanisms/patterns/decision-log">MEC-01 Decision Log</a>
+        {" "}
+        with dissent and owner sign-off.
+      </li>
+      <li>
+        Implement{" "}
+        <a href="/mechanisms/patterns/kill-switch">MEC-05 Kill switch</a>
+        {" "}
+        with rollback criteria and on-call authority.
+      </li>
+      <li>
+        Embed{" "}
+        <a href="/mechanisms/patterns/appeal-paths">MEC-06 Appeal paths</a>
+        {" "}
+        in the UI with clocks and escalation ladder.
+      </li>
+      <li>
+        Emit receipts using the canonical schema + publish clocks in UI.
+      </li>
+      <li>
+        Register action classes with reversible/irreversible flags and approvals.
+      </li>
+    </ol>
   </SectionBlock>
 </BaseLayout>

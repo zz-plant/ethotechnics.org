@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "agent_id": "agent-risk-ops-v2",
+  "required_specs": [
+    "action_class_taxonomy",
+    "receipt_schema_v1",
+    "exception_policy",
+    "appeal_path"
+  ],
+  "required_signals": [
+    "unsafe_action_rate",
+    "human_override_rate",
+    "time_to_detection",
+    "time_to_remedy"
+  ],
+  "mapped_mechanisms": [
+    { "id": "MEC-01", "href": "/mechanisms/patterns/decision-log" },
+    { "id": "MEC-05", "href": "/mechanisms/patterns/kill-switch" },
+    { "id": "MEC-06", "href": "/mechanisms/patterns/appeal-paths" }
+  ],
+  "evidence_packs": [
+    { "standard": "STD-01", "href": "/evidence-packs/std-01" },
+    { "standard": "STD-02", "href": "/evidence-packs/std-02" }
+  ],
+  "receipts": { "schema": "/standards/agent-receipt-schema.json" }
+}

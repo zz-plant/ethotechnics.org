@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/agent-receipt-schema.json",
+  "title": "Agent Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "issued_at",
+    "owner",
+    "subject",
+    "action",
+    "decision",
+    "clocks",
+    "appeal_path",
+    "evidence_pack"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
+    "receipt_id": { "type": "string" },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "owner": {
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contact": { "type": "string" },
+        "on_call": { "type": "boolean" }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "region": { "type": "string" }
+      }
+    },
+    "action": {
+      "type": "object",
+      "required": ["class", "description", "reversible"],
+      "properties": {
+        "class": { "type": "string" },
+        "description": { "type": "string" },
+        "reversible": { "type": "boolean" },
+        "tools": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "required": ["decision_type", "reason_codes", "inputs"],
+      "properties": {
+        "decision_type": { "type": "string" },
+        "reason_codes": { "type": "array", "items": { "type": "string" } },
+        "inputs": { "type": "array", "items": { "type": "string" } },
+        "confidence": { "type": "number" }
+      }
+    },
+    "clocks": {
+      "type": "object",
+      "required": ["ack", "review", "remedy"],
+      "properties": {
+        "ack": {
+          "type": "object",
+          "properties": { "hours": { "type": "number" } }
+        },
+        "review": {
+          "type": "object",
+          "properties": { "hours": { "type": "number" } }
+        },
+        "remedy": {
+          "type": "object",
+          "properties": { "hours": { "type": "number" } }
+        },
+        "appeal": {
+          "type": "object",
+          "properties": { "hours": { "type": "number" } }
+        }
+      }
+    },
+    "appeal_path": {
+      "type": "object",
+      "required": ["url", "channel", "expected_response"],
+      "properties": {
+        "url": { "type": "string" },
+        "channel": { "type": "string" },
+        "expected_response": { "type": "string" }
+      }
+    },
+    "evidence_pack": {
+      "type": "object",
+      "required": ["href", "standard_refs"],
+      "properties": {
+        "href": { "type": "string" },
+        "standard_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "exceptions": {
+      "type": "object",
+      "properties": {
+        "class": { "type": "string" },
+        "justification": { "type": "string" },
+        "expires_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}
