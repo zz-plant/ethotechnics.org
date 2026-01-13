@@ -1,11 +1,18 @@
 import { join } from "node:path";
 
-const files = [
-  "src/content/home.json",
-  "src/content/library.json",
-  "src/content/start-here.json",
-  "src/content/glossary.json",
-];
+const glob = new Bun.Glob("src/content/*.json");
+const files: string[] = [];
+
+for await (const file of glob.scan({ cwd: process.cwd() })) {
+  files.push(file);
+}
+
+files.sort();
+
+if (files.length === 0) {
+  console.error("❌ No JSON files found in src/content.");
+  process.exit(1);
+}
 
 let hasError = false;
 

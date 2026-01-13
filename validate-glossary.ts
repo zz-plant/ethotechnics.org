@@ -1,4 +1,5 @@
 import { join } from "node:path";
+import { z } from "zod";
 
 type GlossaryEntry = {
   id: string;
@@ -29,6 +30,59 @@ const readJson = async <T>(relativePath: string): Promise<T> => {
   return JSON.parse(content) as T;
 };
 
+const glossarySchema = z
+  .array(
+    z.object({
+      categories: z.array(
+        z.object({
+          id: z.string(),
+          heading: z.string(),
+          entries: z.array(
+            z.object({
+              id: z.string(),
+              title: z.string(),
+              adjacentTerms: z.array(z.string()).optional(),
+              relatedPatterns: z.array(z.string()).optional(),
+              references: z
+                .array(
+                  z.object({
+                    label: z.string(),
+                    href: z.string(),
+                    type: z.string(),
+                  }),
+                )
+                .optional(),
+              resources: z
+                .array(
+                  z.object({
+                    label: z.string(),
+                    href: z.string(),
+                    type: z.string(),
+                  }),
+                )
+                .optional(),
+            }),
+          ),
+        }),
+      ),
+    }),
+  )
+  .min(1, { message: "Glossary content must include at least one entry." });
+
+const librarySchema = z
+  .array(
+    z.object({
+      patterns: z.object({
+        entries: z.array(
+          z.object({
+            slug: z.string(),
+          }),
+        ),
+      }),
+    }),
+  )
+  .min(1, { message: "Library content must include at least one entry." });
+
 const isValidHref = (href: string): boolean => {
   if (!href.trim()) {
     return false;
@@ -57,13 +111,22 @@ const libraryData = await readJson<LibraryContent[]>(
   "src/content/library.json",
 );
 
-const glossary = glossaryData[0];
-const library = libraryData[0];
-
-if (!glossary || !library) {
-  console.error("❌ Glossary or library content is missing.");
+const glossaryResult = glossarySchema.safeParse(glossaryData);
+if (!glossaryResult.success) {
+  console.error("❌ Glossary content failed schema validation.");
+  console.error(JSON.stringify(glossaryResult.error.issues, null, 2));
   process.exit(1);
 }
+
+const libraryResult = librarySchema.safeParse(libraryData);
+if (!libraryResult.success) {
+  console.error("❌ Library content failed schema validation.");
+  console.error(JSON.stringify(libraryResult.error.issues, null, 2));
+  process.exit(1);
+}
+
+const glossary = glossaryResult.data[0];
+const library = libraryResult.data[0];
 
 const errors: string[] = [];
 const glossaryIds = new Set<string>();
