@@ -2,6 +2,7 @@
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -113,13 +114,13 @@ const quickAnswers = [
     title="Invite deeper learning"
     description="Offer a path to explore the full mechanisms catalog or principle definitions."
   >
-    <div class="section__actions">
+    <SectionActions>
       <a class="button ghost" href="/mechanisms">
         Explore the mechanisms
       </a>
       <a class="button ghost" href="/glossary">
         Review the glossary
       </a>
-    </div>
+    </SectionActions>
   </SectionBlock>
 </BaseLayout>

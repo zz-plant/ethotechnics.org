@@ -5,6 +5,7 @@ import CardItem from '../../components/CardItem.astro';
 import CitationBlock from '../../components/CitationBlock.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import ScholarlyMeta from '../../components/ScholarlyMeta.astro';
+import SectionActions from '../../components/SectionActions.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import StudioBadge from '../../components/StudioBadge.astro';
 import { diagnosticsContent } from '../../content/diagnostics';
@@ -65,9 +66,9 @@ const quickTriagePrompts = [
       },
     }}
   />
-  <div class="section__actions">
+  <SectionActions>
     <StudioBadge />
-  </div>
+  </SectionActions>
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
@@ -274,7 +275,7 @@ const quickTriagePrompts = [
             </ul>
           </div>
           <div class="diagnostics__card-footer">
-            <div class="section__actions">
+            <SectionActions>
               <a class="button primary" href={tool.ctaHref} aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}>
                 {tool.ctaLabel}
               </a>
@@ -288,7 +289,7 @@ const quickTriagePrompts = [
               >
                 {tool.exampleLabel}
               </a>
-            </div>
+            </SectionActions>
           </div>
         </CardItem>
       ))}

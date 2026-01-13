@@ -3,6 +3,7 @@ import { getEntry } from "astro:content";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
@@ -51,7 +52,7 @@ const recommendedDetails = recommendedCard
         {recommendedDetails.map((detail) => (
           <p class={detail.className}>{detail.text}</p>
         ))}
-        <div class="section__actions">
+        <SectionActions>
           {hero.actions.map((action) => (
             <a
               class={`button ${action.variant}`}
@@ -61,13 +62,13 @@ const recommendedDetails = recommendedCard
               {action.label}
             </a>
           ))}
-        </div>
+        </SectionActions>
       </div>
     )
   }
-  <div class="section__actions">
+  <SectionActions>
     <StudioBadge />
-  </div>
+  </SectionActions>
   <p class="muted small">{hero.quickNote}</p>
   <p class="muted">{hero.quickSummary}</p>
   <ul class="muted">
@@ -257,13 +258,13 @@ const recommendedDetails = recommendedCard
     description={footerCta.description}
     variant="alt"
   >
-    <div class="section__actions">
+    <SectionActions>
       <a class="button primary" href={footerCta.primaryHref}>
         {footerCta.primaryLabel}
       </a>
       <a class="button ghost" href={footerCta.secondaryHref}>
         {footerCta.secondaryLabel}
       </a>
-    </div>
+    </SectionActions>
   </SectionBlock>
 </BaseLayout>

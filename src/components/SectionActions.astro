@@ -1,0 +1,13 @@
+---
+interface Props {
+  className?: string;
+  ariaLabel?: string;
+}
+
+const { className, ariaLabel } = Astro.props as Props;
+const classes = ["section__actions", className].filter(Boolean).join(" ");
+---
+
+<div class={classes} aria-label={ariaLabel}>
+  <slot />
+</div>
