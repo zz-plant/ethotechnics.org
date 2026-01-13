@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { standardClauses } from "../../content/standards";
+
+const pageTitle = "STD-01 Evidence Pack — Ethotechnics Institute";
+const pageDescription =
+  "Tiered evidence requirements for the Temporal Bill of Rights with anti-fraud and audit guidance.";
+const permalink = "/evidence-packs/std-01";
+
+const clauses = standardClauses["STD-01"];
+const clauseAnchor = (id: string) => id.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+const tiers = [
+  {
+    tier: "Tier 0 (minimum)",
+    description: "System outputs that prove the clause is instrumented.",
+    evidence: "Event logs, UI snapshots, and receipt payloads.",
+  },
+  {
+    tier: "Tier 1 (operational)",
+    description: "Evidence the control is used and reviewed.",
+    evidence: "Decision logs, appeal outcomes, reviewer rosters, and clock compliance reports.",
+  },
+  {
+    tier: "Tier 2 (resilient)",
+    description: "Stress-tested proof that controls survive real incidents.",
+    evidence: "Incident postmortems, drill results, and remediation follow-through.",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Evidence pack"
+    title="STD-01 Evidence Pack"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#tiers", label: "Tiered model" },
+      { href: "#clauses", label: "Clause evidence list" },
+      { href: "#anti-fraud", label: "How teams fake this" },
+      { href: "#auditors", label: "What auditors ask" },
+    ]}
+    panelCopy={{
+      eyebrow: "Proof-carrying compliance",
+      title: "Tiered evidence for temporal rights",
+      description:
+        "STD-01 proof bundles align with clause IDs so auditors can validate obligations without guesswork.",
+    }}
+  />
+
+  <SectionBlock
+    id="tiers"
+    eyebrow="Tiered evidence model"
+    title="Tier 0 to Tier 2 minimum"
+    description="Start at Tier 0 for baseline proof, then scale to Tier 2 for resilience."
+  >
+    <ul class="muted">
+      {tiers.map((tier) => (
+        <li>
+          <strong>{tier.tier}:</strong> {tier.description} <span class="muted">{tier.evidence}</span>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clauses"
+    eyebrow="Clause evidence list"
+    title="Evidence packs per clause"
+    description="Each clause lists the minimum evidence bundle required for proof-carrying compliance."
+    variant="alt"
+  >
+    <ul class="standard-clauses">
+      {clauses.map((clause) => (
+        <li id={clauseAnchor(clause.id)}>
+          <strong>{clause.id}</strong> ({clause.displayId}) — {clause.obligation} when {clause.condition}.
+          <br />
+          <span class="muted">Evidence: {clause.evidenceRequired.join(", ")}</span>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="anti-fraud"
+    eyebrow="How teams fake this"
+    title="Common compliance theater patterns"
+    description="Use these patterns to catch hollow compliance before audits do."
+  >
+    <ul class="muted">
+      <li>Receipts exist but omit owner, clocks, or appeal path.</li>
+      <li>UI screenshots are staged once and never updated after release.</li>
+      <li>Event logs exist but are not tied to decision log entries or remedy outcomes.</li>
+      <li>Kill switch drills are logged without showing the actual halt time or restoration proof.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="auditors"
+    eyebrow="What auditors ask"
+    title="Audit questions to prepare for"
+    description="Answer these with links to the clause evidence list and decision records."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Show the last five receipts for halted flows and their remedy outcomes.</li>
+      <li>Provide evidence that exit paths match entry friction across the top three flows.</li>
+      <li>Demonstrate a recent kill switch drill and its time-to-halt measurement.</li>
+      <li>Explain how exceptions are reviewed and how long they lasted.</li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

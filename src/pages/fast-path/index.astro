@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Fast-path adoption — Ethotechnics Institute";
+const pageDescription =
+  "A 30–60 minute adoption guide for teams that need immediate safeguards without slowing delivery.";
+const permalink = "/fast-path";
+
+const mechanisms = [
+  {
+    title: "Kill switch",
+    owner: "Ops / Reliability",
+    effort: "30 minutes",
+    risk: "Stops runaway automation in seconds.",
+    href: "/mechanisms/patterns/kill-switch",
+  },
+  {
+    title: "Decision log with dissent",
+    owner: "Product / Policy",
+    effort: "45 minutes",
+    risk: "Prevents silent governance drift and preserves rationale.",
+    href: "/mechanisms/patterns/decision-log",
+  },
+  {
+    title: "In-product appeal path",
+    owner: "Support / Trust",
+    effort: "60 minutes",
+    risk: "Prevents contestability regressions and shortens recovery time.",
+    href: "/mechanisms/patterns/appeal-paths",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Fast path"
+    title="30–60 minute adoption guide"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#mechanisms", label: "Mechanisms" },
+      { href: "#effort", label: "Effort + ownership" },
+      { href: "#next", label: "Next steps" },
+    ]}
+    panelCopy={{
+      eyebrow: "Why fast path",
+      title: "Governance that speeds recovery",
+      description:
+        "These three mechanisms reduce incident recovery time while satisfying core standards obligations.",
+    }}
+  />
+
+  <SectionBlock
+    id="mechanisms"
+    eyebrow="Mechanisms"
+    title="Pick three mechanisms"
+    description="Each mechanism delivers immediate risk reduction with minimal setup."
+  >
+    <CardGrid className="grid--three">
+      {mechanisms.map((mechanism) => (
+        <CardItem title={mechanism.title} description={mechanism.risk}>
+          <ul class="muted">
+            <li>Owner: {mechanism.owner}</li>
+            <li>Effort: {mechanism.effort}</li>
+          </ul>
+          <a slot="footer" class="muted" href={mechanism.href}>
+            Open mechanism
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="effort"
+    eyebrow="Effort"
+    title="Effort, owner, risk reduced"
+    description="Use this grid in a kickoff meeting to assign the first 60 minutes of work."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th>Mechanism</th>
+            <th>Owner</th>
+            <th>Effort</th>
+            <th>Risk reduced</th>
+          </tr>
+        </thead>
+        <tbody>
+          {mechanisms.map((mechanism) => (
+            <tr>
+              <td>{mechanism.title}</td>
+              <td>{mechanism.owner}</td>
+              <td>{mechanism.effort}</td>
+              <td>{mechanism.risk}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="next"
+    eyebrow="Next steps"
+    title="Attach evidence + bindings"
+    description="Make fast-path work auditable by adding evidence packs and binding vectors."
+  >
+    <ul class="muted">
+      <li>
+        Link each mechanism to the
+        {" "}
+        <a href="/evidence-packs">Evidence Pack</a>
+        {" "}
+        for STD-01 and STD-02.
+      </li>
+      <li>
+        Copy procurement and runbook language from
+        {" "}
+        <a href="/bindings">Binding vectors</a>
+        {" "}
+        into your release workflow.
+      </li>
+      <li>
+        Add exceptions coverage using the
+        {" "}
+        <a href="/exceptions">Exceptions framework</a>
+        {" "}
+        to keep clocks intact during security events.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

@@ -1,0 +1,127 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "DIY implementation packs — Ethotechnics Institute";
+const pageDescription =
+  "Self-serve implementation pack with templates, evidence checklists, sample tickets, and telemetry specs.";
+const permalink = "/diy-packs";
+
+const templates = [
+  {
+    title: "Decision log template",
+    detail: "Fields for owner, dissent, clocks, and remedy outcomes.",
+  },
+  {
+    title: "Receipt payload schema",
+    detail: "JSON schema for receipt issuance and clause references.",
+  },
+  {
+    title: "Appeal intake form",
+    detail: "Pre-filled appeal form with clock expectations and escalation path.",
+  },
+];
+
+const tickets = [
+  "Add receipt issuance to automated lock flow (STD-02.2.1).",
+  "Wire decision log entry to appeals workflow (MEC-01).",
+  "Publish acknowledgment, review, and remedy clocks in UI.",
+  "Add exception class handling with expiry enforcement.",
+];
+
+const telemetry = [
+  "Decision ID, clause IDs, and receipt ID emitted on every automated decision.",
+  "Clock timestamps (ack, review, remedy) recorded with owner ID.",
+  "Appeal intake and outcome codes with reviewer ID.",
+  "Exception class, justification, and expiry timestamp.",
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="DIY pack"
+    title="DIY implementation pack"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#templates", label: "Templates" },
+      { href: "#checklist", label: "Evidence checklist" },
+      { href: "#tickets", label: "Sample tickets" },
+      { href: "#telemetry", label: "Telemetry spec" },
+    ]}
+    panelCopy={{
+      eyebrow: "Self-serve",
+      title: "Ship without a consultancy funnel",
+      description:
+        "This pack includes the minimum assets teams need to implement STD-01 and STD-02 on their own.",
+    }}
+  />
+
+  <SectionBlock
+    id="templates"
+    eyebrow="Templates"
+    title="Copyable templates"
+    description="Paste into your internal docs or issue trackers."
+  >
+    <CardGrid className="grid--two">
+      {templates.map((template) => (
+        <CardItem title={template.title} description={template.detail}>
+          <p class="muted">Available in the evidence packs and bindings hubs.</p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Evidence checklist"
+    title="Minimum evidence checklist"
+    description="Use this to verify that your rollout is proof-carrying."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Receipt payloads linked to clause IDs.</li>
+      <li>Decision log entries with dissent and owner sign-off.</li>
+      <li>Clock compliance report for acknowledgment, review, and remedy.</li>
+      <li>Appeal outcome list with reversal or remedy details.</li>
+      <li>Exception register with expiry dates and review cadence.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="tickets"
+    eyebrow="Sample tickets"
+    title="Sample implementation tickets"
+    description="Copy these into your backlog to get started quickly."
+  >
+    <ul class="muted">
+      {tickets.map((ticket) => (
+        <li>{ticket}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="telemetry"
+    eyebrow="Minimal telemetry"
+    title="Minimal telemetry spec"
+    description="The smallest telemetry set needed to prove compliance."
+    variant="alt"
+  >
+    <ul class="muted">
+      {telemetry.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+    <p class="muted">
+      Pair this with the
+      {" "}
+      <a href="/evidence-packs">Evidence Packs</a>
+      {" "}
+      to align telemetry to clause-level proof.
+    </p>
+  </SectionBlock>
+</BaseLayout>

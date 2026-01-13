@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { standardClauses } from "../../content/standards";
+
+const pageTitle = "STD-02 Evidence Pack — Ethotechnics Institute";
+const pageDescription =
+  "Tiered evidence requirements for contestability, review, and remedy obligations in STD-02.";
+const permalink = "/evidence-packs/std-02";
+
+const clauses = standardClauses["STD-02"];
+const clauseAnchor = (id: string) => id.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+const tiers = [
+  {
+    tier: "Tier 0 (minimum)",
+    description: "Proof the contestation path exists and is reachable in-product.",
+    evidence: "UI links, receipt payloads, and appeal intake records.",
+  },
+  {
+    tier: "Tier 1 (operational)",
+    description: "Proof that appeals are reviewed and clocks are honored.",
+    evidence: "Reviewer rosters, appeal outcomes, and clock compliance dashboards.",
+  },
+  {
+    tier: "Tier 2 (resilient)",
+    description: "Proof that contestation survives scale, incident load, and exceptions.",
+    evidence: "Postmortems, exception audits, and throughput stress tests.",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Evidence pack"
+    title="STD-02 Evidence Pack"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#tiers", label: "Tiered model" },
+      { href: "#clauses", label: "Clause evidence list" },
+      { href: "#anti-fraud", label: "How teams fake this" },
+      { href: "#auditors", label: "What auditors ask" },
+    ]}
+    panelCopy={{
+      eyebrow: "Proof-carrying compliance",
+      title: "Evidence bundles for contestability",
+      description:
+        "STD-02 evidence packs show who reviews decisions, how fast, and how remedies land.",
+    }}
+  />
+
+  <SectionBlock
+    id="tiers"
+    eyebrow="Tiered evidence model"
+    title="Tier 0 to Tier 2 minimum"
+    description="Begin with Tier 0 to prove access, then move up to resilience evidence."
+  >
+    <ul class="muted">
+      {tiers.map((tier) => (
+        <li>
+          <strong>{tier.tier}:</strong> {tier.description} <span class="muted">{tier.evidence}</span>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clauses"
+    eyebrow="Clause evidence list"
+    title="Evidence packs per clause"
+    description="Minimum bundles for each STD-02 clause."
+    variant="alt"
+  >
+    <ul class="standard-clauses">
+      {clauses.map((clause) => (
+        <li id={clauseAnchor(clause.id)}>
+          <strong>{clause.id}</strong> ({clause.displayId}) — {clause.obligation} when {clause.condition}.
+          <br />
+          <span class="muted">Evidence: {clause.evidenceRequired.join(", ")}</span>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="anti-fraud"
+    eyebrow="How teams fake this"
+    title="Common compliance theater patterns"
+    description="Spot and prevent adversarial compliance behaviors."
+  >
+    <ul class="muted">
+      <li>Appeal links exist but lead to dead ends or generic inboxes.</li>
+      <li>Review clocks are defined but not visible to impacted people.</li>
+      <li>Manual review happens, but there is no audit trail of outcomes or reversals.</li>
+      <li>Exception paths are used to avoid remedies without any expiry or review cadence.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="auditors"
+    eyebrow="What auditors ask"
+    title="Audit questions to prepare for"
+    description="Provide clause-linked evidence and decision logs in response."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Show appeal outcomes for the last quarter and the median review time.</li>
+      <li>Demonstrate how many remedies were delivered within the remedy clock.</li>
+      <li>Provide evidence that exception classes are time-bounded and reviewed.</li>
+      <li>Show how decision logs reference evidence packs for contested decisions.</li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

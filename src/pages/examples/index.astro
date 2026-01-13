@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Worked examples — Ethotechnics Institute";
+const pageDescription =
+  "End-to-end worked scenarios that prove standards can ship with receipts, clocks, and enforceable remedies.";
+const permalink = "/examples";
+
+const examples = [
+  {
+    slug: "automated-account-lock",
+    title: "Automated account lock & eligibility flip",
+    summary:
+      "A real-time fraud lock shows how receipts, owners, clocks, and remedies survive high-risk automation.",
+    tags: ["Receipt", "Clocks", "Remedy"],
+  },
+];
+
+const requiredSignals = [
+  "Receipt issued at the moment the decision is enforced.",
+  "Named owner + authority path with escalation rights.",
+  "Clocks for acknowledgment, review, and remedy.",
+  "Exception handling with bounded duration and review cadence.",
+  "Remedy path with reversal, compensation, or safe fallback.",
+  "Generated artifacts (decision log, evidence pack list, audit trail).",
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Worked examples"
+    title="Worked examples"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#scenarios", label: "Scenarios" },
+      { href: "#requirements", label: "Required signals" },
+      { href: "#how-to-use", label: "How to use" },
+    ]}
+    panelCopy={{
+      eyebrow: "Why these matter",
+      title: "One complete example answers four critiques.",
+      description:
+        "Each scenario proves the standards are enforceable, faster to ship, and measurable without audit theater.",
+    }}
+  />
+
+  <SectionBlock
+    id="scenarios"
+    eyebrow="Scenarios"
+    title="End-to-end worked scenarios"
+    description="Each scenario includes the receipt, owner, clocks, and evidence bundle required for audit-ready compliance."
+  >
+    <CardGrid className="grid--two">
+      {examples.map((example) => (
+        <CardItem
+          id={example.slug}
+          title={example.title}
+          description={example.summary}
+          tags={example.tags}
+        >
+          <a slot="footer" class="button ghost button--compact" href={`/examples/${example.slug}`}>
+            View worked example
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="requirements"
+    eyebrow="Required signals"
+    title="What every worked example must show"
+    description="Use this checklist to validate that a scenario is enforceable and not just explanatory."
+    variant="alt"
+  >
+    <ul class="muted">
+      {requiredSignals.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="how-to-use"
+    eyebrow="How to use"
+    title="Turn the example into binding adoption"
+    description="These scenarios double as copy-paste templates for change requests and release gates."
+  >
+    <ul class="muted">
+      <li>
+        Start with the receipt payload and map it to your own system state and logging tools.
+      </li>
+      <li>
+        Translate the owner + authority block into your on-call rotation and escalation policies.
+      </li>
+      <li>
+        Connect the evidence pack list to the
+        {" "}
+        <a href="/evidence-packs">Evidence Pack</a>
+        {" "}
+        requirements before your next audit window.
+      </li>
+      <li>
+        Use the
+        {" "}
+        <a href="/bindings">Binding vectors</a>
+        {" "}
+        to tie the example to procurement language, release gates, and runbooks.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

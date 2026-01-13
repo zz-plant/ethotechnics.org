@@ -1,0 +1,234 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Automated account lock & eligibility flip — Worked example";
+const pageDescription =
+  "An end-to-end fraud lock scenario showing receipts, owners, clocks, exceptions, and remedies.";
+const permalink = "/examples/automated-account-lock";
+
+const receiptPayload = `{
+  "receipt_id": "RCP-2026-0441",
+  "decision_type": "account_lock",
+  "trigger": "fraud_model_score",
+  "system_owner": "Risk Operations",
+  "decision_authority": "Fraud Steward (on call)",
+  "issued_at": "2026-02-14T14:03:22Z",
+  "ack_clock_hours": 2,
+  "review_clock_hours": 24,
+  "remedy_clock_hours": 72,
+  "appeal_path": "/appeals/account-lock",
+  "evidence_pack": "/evidence-packs/std-02#std-02-2-1"
+}`;
+
+const timeline = [
+  {
+    title: "Trigger + receipt",
+    detail:
+      "Fraud model crosses threshold. System issues a receipt to the user and logs the decision payload.",
+  },
+  {
+    title: "Acknowledgment clock",
+    detail:
+      "Within 2 hours, Risk Ops acknowledges the case, confirms owner, and publishes the review ETA.",
+  },
+  {
+    title: "Review clock",
+    detail:
+      "Within 24 hours, a human reviewer validates the lock, flags exceptions, or reverses the decision.",
+  },
+  {
+    title: "Remedy clock",
+    detail:
+      "Within 72 hours, the system provides remedy: unlock, compensation, or safe fallback for critical access.",
+  },
+];
+
+const artifacts = [
+  {
+    title: "Decision log entry",
+    description:
+      "MEC-01 record of the model output, dissenting reviewer notes, and review outcome.",
+    href: "/mechanisms/patterns/decision-log",
+  },
+  {
+    title: "Evidence pack list",
+    description:
+      "Proof bundle for STD-01 and STD-02 clauses tied to contestability and remedy.",
+    href: "/evidence-packs",
+  },
+  {
+    title: "Appeal intake record",
+    description:
+      "MEC-06 appeal path captures the dispute, pre-filled context, and decision trace.",
+    href: "/mechanisms/patterns/appeal-paths",
+  },
+  {
+    title: "Exception log",
+    description:
+      "Bounded exception entry if the lock is tied to security or legal hold.",
+    href: "/exceptions",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Worked example"
+    title="Automated account lock & eligibility flip"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#overview", label: "Overview" },
+      { href: "#receipt", label: "Receipt" },
+      { href: "#owner", label: "Owner + authority" },
+      { href: "#clocks", label: "Clocks" },
+      { href: "#exceptions", label: "Exception handling" },
+      { href: "#remedy", label: "Remedy path" },
+      { href: "#artifacts", label: "Generated artifacts" },
+    ]}
+    panelCopy={{
+      eyebrow: "Scenario",
+      title: "Fraud-triggered lock with contestable remedies",
+      description:
+        "An automated lock must remain enforceable even under fraud risk, legal holds, or safety escalations.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="End-to-end scenario"
+    description="A fraud model freezes access after detecting anomalous behavior. The system must still issue a receipt, assign authority, and deliver a remedy within bounded clocks."
+  >
+    <ol class="muted">
+      {timeline.map((step) => (
+        <li>
+          <strong>{step.title}:</strong> {step.detail}
+        </li>
+      ))}
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="receipt"
+    eyebrow="Receipt"
+    title="Immediate receipt issued to the impacted person"
+    description="The receipt is proof that a decision happened, who owns it, and how to contest it."
+    variant="alt"
+  >
+    <pre class="code-block">{receiptPayload}</pre>
+    <p class="muted">
+      Receipt includes clause references (STD-01.1.1, STD-02.2.1), the appeal path, and the evidence
+      pack anchor used during review.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="owner"
+    eyebrow="Owner + authority"
+    title="Named owner and escalation authority"
+    description="The lock cannot be anonymous. Ownership is explicit and time-bound."
+  >
+    <ul class="muted">
+      <li>
+        <strong>Owner:</strong> Risk Operations (primary steward responsible for acknowledgement).
+      </li>
+      <li>
+        <strong>Authority:</strong> Fraud Steward (on-call) empowered to reverse the lock without
+        manager approval.
+      </li>
+      <li>
+        <strong>Escalation:</strong> Security & Legal Review Board if the case hits irreversibility
+        or legal hold criteria.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clocks"
+    eyebrow="Clocks"
+    title="Acknowledgment, review, and remedy clocks"
+    description="Each clock is visible to the person impacted and logged in the decision record."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      <CardItem title="Ack clock" description="2 hours">
+        <p class="muted">Owner confirms the case is assigned and shares review ETA.</p>
+      </CardItem>
+      <CardItem title="Review clock" description="24 hours">
+        <p class="muted">Human reviewer validates the lock, exception, or reversal.</p>
+      </CardItem>
+      <CardItem title="Remedy clock" description="72 hours">
+        <p class="muted">Unlock, compensate, or provide a safe fallback path.</p>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="exceptions"
+    eyebrow="Exception handling"
+    title="Bounded exceptions for security or legal holds"
+    description="Exceptions never erase the receipt or clocks. They only delay specific actions."
+  >
+    <ul class="muted">
+      <li>
+        <strong>Security exception:</strong> Lock can remain in place, but acknowledgment and review
+        clocks still run with a maximum 72-hour extension.
+      </li>
+      <li>
+        <strong>Legal hold:</strong> Remedy may be delayed, but a partial access fallback (read-only
+        statements, withdrawal visibility) is required.
+      </li>
+      <li>
+        <strong>Escalation:</strong> Exceptions are logged in the
+        {" "}
+        <a href="/exceptions">Exceptions register</a>
+        {" "}
+        with steward review cadence.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="remedy"
+    eyebrow="Remedy path"
+    title="Remedy must be visible, reversible, and time-bound"
+    description="A remedy path guarantees contestability and reduces collateral harm."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>
+        <strong>Primary remedy:</strong> Unlock the account and restore eligibility within the
+        remedy clock when no fraud is confirmed.
+      </li>
+      <li>
+        <strong>Alternative remedy:</strong> Provide a safe fallback (manual review queue, limited
+        access) if the lock must stand.
+      </li>
+      <li>
+        <strong>Compensation:</strong> Issue credits for service downtime tied to the decision log.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow="Generated artifacts"
+    title="Decision log, evidence packs, and appeal record"
+    description="These artifacts prove the system is proof-carrying, not just policy-driven."
+  >
+    <CardGrid className="grid--two">
+      {artifacts.map((artifact) => (
+        <CardItem title={artifact.title} description={artifact.description}>
+          <a slot="footer" class="muted" href={artifact.href}>
+            Open artifact
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>
