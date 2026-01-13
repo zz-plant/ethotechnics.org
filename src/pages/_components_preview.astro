@@ -27,10 +27,7 @@ import Layout from "../layouts/BaseLayout.astro";
 
     <hr />
 
-    <section
-      id="card-item"
-      style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));"
-    >
+    <section id="card-item" class="component-preview__grid">
       <h2>CardItem</h2>
 
       <CardItem
@@ -57,3 +54,11 @@ import Layout from "../layouts/BaseLayout.astro";
     </section>
   </main>
 </Layout>
+
+<style>
+  .component-preview__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+</style>
