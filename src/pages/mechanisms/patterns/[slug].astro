@@ -46,7 +46,7 @@ const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const panelDescription = `Tagged for ${pattern.filters
   .map((filter) => filterLabels[filter] ?? filter)
   .join(", ")} with validator handshakes.`;
-const hasAntiPatterns = pattern.antiPatterns?.length > 0;
+const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   ...(glossaryAnchors.length
     ? [{ href: "#glossary", label: "Glossary anchors" }]
@@ -183,11 +183,15 @@ const anchorLinks = [
         variant="alt"
       >
         <CardGrid className="grid--two">
-          {pattern.antiPatterns.map((pattern) => (
-            <CardItem title={pattern.title} descriptionTone="default">
-              <p class="muted">{pattern.failure}</p>
-              <p class="muted small">Counterfactual: {pattern.counterfactual}</p>
-              <p class="muted small">False-positive warning: {pattern.warning}</p>
+          {pattern.antiPatterns?.map((antiPattern) => (
+            <CardItem title={antiPattern.title} descriptionTone="default">
+              <p class="muted">{antiPattern.failure}</p>
+              <p class="muted small">
+                Counterfactual: {antiPattern.counterfactual}
+              </p>
+              <p class="muted small">
+                False-positive warning: {antiPattern.warning}
+              </p>
             </CardItem>
           ))}
         </CardGrid>

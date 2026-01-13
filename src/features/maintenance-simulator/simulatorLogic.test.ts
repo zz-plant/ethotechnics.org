@@ -44,14 +44,16 @@ describe('buildSimulationPlan', () => {
 
     const plan = buildSimulationPlan(template, missingCoverage, 'elevated');
     const outageStage = plan.stagePlan.find((stage) => stage.phase === 'Outage');
+    const expectedBlockers = [
+      'No accountable escalation owner for the outage branch.',
+      'Rollback lane is missing; set a halt timer before continuing.',
+    ];
 
     expect(outageStage?.severity).toBe('at-risk');
-    expect(outageStage?.blockers).toEqual(
-      expect.arrayContaining([
-        'No accountable escalation owner for the outage branch.',
-        'Rollback lane is missing; set a halt timer before continuing.',
-      ]),
-    );
+    const blockers = outageStage?.blockers ?? [];
+    for (const blocker of expectedBlockers) {
+      expect(blockers).toContain(blocker);
+    }
   });
 
   it('keeps stages ready when coverage exists and stress is steady', () => {

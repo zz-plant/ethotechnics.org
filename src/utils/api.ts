@@ -161,7 +161,7 @@ export const getAntiPatternsForApi = () =>
     const mechanismId = extractMechanismId(pattern.title, pattern.slug);
     const mechanismHref = `/mechanisms/patterns/${pattern.slug}`;
 
-    return pattern.antiPatterns.map((antiPattern, index) => ({
+    return (pattern.antiPatterns ?? []).map((antiPattern, index) => ({
       id: `${mechanismId}-AP-${index + 1}`,
       type: "anti-pattern",
       title: antiPattern.title,

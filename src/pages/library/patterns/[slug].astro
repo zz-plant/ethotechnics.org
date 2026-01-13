@@ -1,4 +1,3 @@
 ---
-const { slug } = Astro.params;
-return Astro.redirect(`/mechanisms/patterns/${slug}`, 301);
+return Astro.redirect(`/mechanisms/patterns/${Astro.params.slug}`, 301);
 ---
