@@ -63,6 +63,12 @@ const sprintDeliverables = [
     href: "/bindings#release-gates",
     label: "Open binding",
   },
+  {
+    title: "Agent Safety Object Model",
+    description: "Publish the machine-readable governance profile for CI validation.",
+    href: "/agents/spec",
+    label: "Open spec",
+  },
 ];
 ---
 
@@ -78,6 +84,7 @@ const sprintDeliverables = [
       { href: "#deliverables", label: "Sprint deliverables" },
       { href: "#effort", label: "Effort + ownership" },
       { href: "#next", label: "Next steps" },
+      { href: "#referenced-by", label: "Referenced by" },
     ]}
     panelCopy={{
       eyebrow: "Why fast path",
@@ -200,6 +207,72 @@ const sprintDeliverables = [
         {" "}
         to keep clocks intact during security events.
       </li>
+      <li>
+        Publish the
+        {" "}
+        <a href="/agents/spec">Agent Safety Object Model</a>
+        {" "}
+        to make controls machine-verifiable.
+      </li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where the fast path is enforced"
+    description="Cross-links keep adoption artifacts aligned across the system."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-account-lock">Automated account lock</a>
+          </li>
+          <li>
+            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+          </li>
+          <li>
+            <a href="/examples/irreversible-payment-compensation">
+              Irreversible payment with compensation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+          <li>
+            <a href="/bindings#procurement">Procurement clauses</a>
+          </li>
+          <li>
+            <a href="/bindings#runbooks">Runbook snippets</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, MEC-01, MEC-05,
+      MEC-06, VAL-01, VAL-02, VAL-03.
+    </p>
   </SectionBlock>
 </BaseLayout>

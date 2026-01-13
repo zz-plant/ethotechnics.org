@@ -17,12 +17,16 @@ const mechanismBase = `${libraryContent.permalink}#mechanisms`;
 const anchorLinks = [
   { href: '#why-diagnostics', label: 'What you get' },
   { href: '#output-baseline', label: 'Output baseline' },
+  { href: '#anti-weaponization', label: 'Anti-weaponization checks' },
   { href: '#quick-triage', label: 'Quick triage' },
   { href: '#how-it-works', label: 'How sessions run' },
   { href: '#diagnostic-tools', label: 'Diagnostics menu' },
+  { href: '#referenced-by', label: 'Referenced by' },
   ...tools.map((tool) => ({ href: `#${tool.slug}`, label: tool.title })),
 ];
-const introDescription = pageDescription;
+const introDescription =
+  "This page is for operators, governance teams, and auditors who need decision-ready diagnostics. " +
+  pageDescription;
 const quickTriagePrompts = [
   {
     question: 'Do you need a fast workload snapshot before teams hit burnout thresholds?',
@@ -127,6 +131,37 @@ const quickTriagePrompts = [
       <li>Optional facilitation handoff when ambiguity or risk stays high.</li>
     </ul>
     <StudioBadge />
+  </SectionBlock>
+
+  <SectionBlock
+    id="anti-weaponization"
+    eyebrow="Anti-weaponization"
+    title="Diagnostics must verify AW-01 through AW-04"
+    description="Every diagnostic output should include evidence that anti-weaponization clauses are honored."
+  >
+    <ul class="muted">
+      <li>
+        AW-01: Burden metrics include a remediation plan and staffing allocation.
+      </li>
+      <li>
+        AW-02: Appeal paths are tested for non-regression and public replacement windows.
+      </li>
+      <li>
+        AW-03: Downgrades or eligibility changes always emit receipts and clocks.
+      </li>
+      <li>
+        AW-04: High-burden flows include assisted channels or human escalation.
+      </li>
+    </ul>
+    <p class="muted">
+      Reference:
+      {" "}
+      <a href="/anti-weaponization">Anti-weaponization constraints</a>
+      {" "}
+      and the
+      {" "}
+      <a href="/evidence-packs/std-02#anti-weaponization">evidence requirements</a>.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -258,6 +293,62 @@ const quickTriagePrompts = [
         </CardItem>
       ))}
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where diagnostics connect to enforcement"
+    description="Cross-links keep diagnostic outputs aligned with standards, bindings, and evidence packs."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Used in examples</p>
+        <ul class="muted">
+          <li>
+            <a href="/examples/automated-account-lock">Automated account lock</a>
+          </li>
+          <li>
+            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+          </li>
+          <li>
+            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#incidents">Incident triggers</a>
+          </li>
+          <li>
+            <a href="/bindings#runbooks">Runbook snippets</a>
+          </li>
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      Search IDs: AW-01, AW-02, AW-03, AW-04, VAL-01, VAL-02, VAL-03, STD-02.2.1, STD-02.3.1.
+    </p>
   </SectionBlock>
   <script type="module" src={diagnosticsFilterScript}></script>
 </BaseLayout>
