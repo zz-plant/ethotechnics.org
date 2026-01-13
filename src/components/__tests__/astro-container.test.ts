@@ -5,10 +5,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { createAstroContainer, parseHtml } from "../../test/astro-container";
 import NavigationShell from "./NavigationShell.astro";
 
+type AstroComponentFactory = Parameters<
+  Awaited<ReturnType<typeof createAstroContainer>>["renderToString"]
+>[0];
+
+const navigationShellComponent = NavigationShell as AstroComponentFactory;
+const baseLayoutComponent = BaseLayout as AstroComponentFactory;
+
 describe.skip("Navigation component", () => {
   it("renders primary and utility links without a toggle for small screens", async () => {
     const container = await createAstroContainer();
-    const html = await container.renderToString(NavigationShell, {
+    const html = await container.renderToString(navigationShellComponent, {
       request: new Request("https://ethotechnics.org/"),
     });
     const document = parseHtml(html);
@@ -50,7 +57,7 @@ describe.skip("Navigation component", () => {
 
   it("keeps the desktop navigation content visible in the DOM", async () => {
     const container = await createAstroContainer();
-    const html = await container.renderToString(NavigationShell, {
+    const html = await container.renderToString(navigationShellComponent, {
       request: new Request("https://ethotechnics.org/"),
     });
     const document = parseHtml(html);
@@ -98,7 +105,7 @@ describe.skip("Navigation component", () => {
 describe.skip("BaseLayout", () => {
   it("renders SEO metadata and footer links from props", async () => {
     const container = await createAstroContainer();
-    const html = await container.renderToString(BaseLayout, {
+    const html = await container.renderToString(baseLayoutComponent, {
       props: {
         title: "Custom title",
         description: "Custom description",

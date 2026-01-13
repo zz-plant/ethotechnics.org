@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 
 const repoSlug = "ethotechnics/et3";
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = () => {
   const payload = {
     meta: {
       generatedAt: new Date().toISOString(),

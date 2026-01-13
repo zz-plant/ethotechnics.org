@@ -22,7 +22,7 @@ const changelogEntries = [
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
 );
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = () => {
   const payload = {
     meta: {
       generatedAt: new Date().toISOString(),

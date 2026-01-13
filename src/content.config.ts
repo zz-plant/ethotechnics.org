@@ -284,6 +284,16 @@ const library = defineCollection({
             z.object({ name: z.string(), purpose: z.string() }),
           ),
           example: z.object({ title: z.string(), description: z.string() }),
+          antiPatterns: z
+            .array(
+              z.object({
+                title: z.string(),
+                failure: z.string(),
+                counterfactual: z.string(),
+                warning: z.string(),
+              }),
+            )
+            .optional(),
         }),
       ),
     }),
