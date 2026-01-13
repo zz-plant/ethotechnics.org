@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Anti-weaponization constraints — Ethotechnics Institute";
+const pageDescription =
+  "Doctrine clauses that prevent standards from being used to deny care, reduce access, or raise burdens.";
+const permalink = "/anti-weaponization";
+
+const constraints = [
+  {
+    id: "AW-01",
+    title: "Burden metrics imply duty to reduce burden",
+    detail:
+      "If a system measures burden, it MUST allocate time, staffing, or tooling to reduce it within the next stewardship window.",
+  },
+  {
+    id: "AW-02",
+    title: "Non-regression of contestation paths",
+    detail:
+      "Teams MUST NOT remove or degrade appeal paths without a published replacement and review window.",
+  },
+  {
+    id: "AW-03",
+    title: "No silent downgrades",
+    detail:
+      "Access or eligibility downgrades require receipts and remedy clocks even when triggered by model updates.",
+  },
+  {
+    id: "AW-04",
+    title: "Assistance duty on high-burden flows",
+    detail:
+      "When burden ratios exceed targets, organizations MUST offer assisted channels (human support or concierge).",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Constraints"
+    title="Anti-weaponization constraints"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={constraints.map((constraint) => ({
+      href: `#${constraint.id}`,
+      label: constraint.id,
+    }))}
+    panelCopy={{
+      eyebrow: "Doctrine",
+      title: "Constraints that prevent denial-by-design",
+      description:
+        "These clause-like constraints ensure standards cannot be used to reduce access or deny care.",
+    }}
+  />
+
+  <SectionBlock
+    eyebrow="Constraints"
+    title="Referenceable IDs"
+    description="Treat these IDs like doctrine clauses in policy, procurement, and audits."
+  >
+    <ol class="standard-clauses">
+      {constraints.map((constraint) => (
+        <li id={constraint.id}>
+          <strong>{constraint.id}</strong> — {constraint.title}
+          <br />
+          <span class="muted">{constraint.detail}</span>
+        </li>
+      ))}
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    eyebrow="Related guidance"
+    title="Connect to evidence and bindings"
+    description="Use these constraints alongside evidence packs and binding vectors."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>
+        Link anti-weaponization checks to
+        {" "}
+        <a href="/measurement-tiers">MPI measurement tiers</a>
+        {" "}
+        for burden and appeal metrics.
+      </li>
+      <li>
+        Add these clauses to
+        {" "}
+        <a href="/bindings">binding vectors</a>
+        {" "}
+        to enforce non-regression in procurement and release gates.
+      </li>
+      <li>
+        Reference
+        {" "}
+        <a href="/evidence-packs">evidence packs</a>
+        {" "}
+        to prove compliance with constraint IDs.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

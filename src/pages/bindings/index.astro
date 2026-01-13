@@ -1,0 +1,183 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Binding vectors — Ethotechnics Institute";
+const pageDescription =
+  "Copy-paste adoption surfaces that turn standards into enforceable procurement, release, and runbook controls.";
+const permalink = "/bindings";
+
+const procurementClause = `Supplier SHALL implement receipt-based contestability for automated
+account locks and eligibility flips. Minimum controls include:
+- Receipt issuance at decision time with owner, authority, and appeal path.
+- Acknowledgment, review, and remedy clocks published to the impacted party.
+- Evidence pack delivery aligned to STD-01.1.1 and STD-02.2.1.
+Non-compliance triggers remedy obligations and service credits.`;
+
+const releaseGate = `Release gate (STD-02.2.1 / STD-01.1.1)
+[ ] Receipt payload emitted for every lock or eligibility flip.
+[ ] Ack, review, and remedy clocks visible in-product.
+[ ] Decision log entry linked to evidence pack bundle.
+[ ] Appeal path tested with human review coverage.`;
+
+const incidentTrigger = `Trigger a postmortem when:
+- Any lock exceeds the remedy clock.
+- Appeals backlog breaches the review clock.
+- An exception class (security/legal) runs past its maximum duration.`;
+
+const runbookSnippet = `Runbook: Automated Lock Escalation
+1. Confirm receipt issued and owner acknowledged.
+2. Validate exception class and remaining clock time.
+3. If clocks breached, escalate to Steward-on-Call and trigger remedy.
+4. Attach decision log + evidence pack links to the incident record.`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Binding vectors"
+    title="Binding vectors"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#procurement", label: "Procurement clauses" },
+      { href: "#release-gates", label: "Release gates" },
+      { href: "#incidents", label: "Incident triggers" },
+      { href: "#runbooks", label: "Runbook snippets" },
+    ]}
+    panelCopy={{
+      eyebrow: "Adoption surface",
+      title: "Copy-paste artifacts that bind",
+      description:
+        "Each binding ships with clause IDs, evidence pack anchors, and mechanisms so teams can adopt without translation.",
+    }}
+  />
+
+  <SectionBlock
+    id="procurement"
+    eyebrow="Procurement"
+    title="Procurement clauses"
+    description="Drop these into RFPs, MSAs, or vendor appendices."
+  >
+    <pre class="code-block">{procurementClause}</pre>
+    <p class="muted">References:</p>
+    <ul class="muted">
+      <li>
+        Clauses:
+        {" "}
+        <a href="/evidence-packs/std-01#std-01-1-1">STD-01.1.1</a>,
+        {" "}
+        <a href="/evidence-packs/std-02#std-02-2-1">STD-02.2.1</a>
+      </li>
+      <li>
+        Evidence packs:
+        {" "}
+        <a href="/evidence-packs/std-01">STD-01 pack</a>,
+        {" "}
+        <a href="/evidence-packs/std-02">STD-02 pack</a>
+      </li>
+      <li>
+        Mechanisms:
+        {" "}
+        <a href="/mechanisms/patterns/decision-log">MEC-01 Decision log</a>,
+        {" "}
+        <a href="/mechanisms/patterns/appeal-paths">MEC-06 Appeal paths</a>
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="release-gates"
+    eyebrow="Release gates"
+    title="Release gate / PR checklist items"
+    description="Gate launches on clause-level evidence."
+    variant="alt"
+  >
+    <pre class="code-block">{releaseGate}</pre>
+    <p class="muted">References:</p>
+    <ul class="muted">
+      <li>
+        Clauses:
+        {" "}
+        <a href="/evidence-packs/std-02#std-02-2-1">STD-02.2.1</a>,
+        {" "}
+        <a href="/evidence-packs/std-01#std-01-1-1">STD-01.1.1</a>
+      </li>
+      <li>
+        Evidence packs:
+        {" "}
+        <a href="/evidence-packs/std-02">STD-02 pack</a>
+      </li>
+      <li>
+        Mechanisms:
+        {" "}
+        <a href="/mechanisms/patterns/kill-switch">MEC-05 Kill switch</a>,
+        {" "}
+        <a href="/mechanisms/patterns/decision-log">MEC-01 Decision log</a>
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="incidents"
+    eyebrow="Incident handling"
+    title="Incident + postmortem triggers"
+    description="Ensure breaches automatically generate reviewable incidents."
+  >
+    <pre class="code-block">{incidentTrigger}</pre>
+    <p class="muted">References:</p>
+    <ul class="muted">
+      <li>
+        Clauses:
+        {" "}
+        <a href="/evidence-packs/std-02#std-02-2-2">STD-02.2.2</a>,
+        {" "}
+        <a href="/evidence-packs/std-02#std-02-3-1">STD-02.3.1</a>
+      </li>
+      <li>
+        Evidence packs:
+        {" "}
+        <a href="/evidence-packs/std-02">STD-02 pack</a>
+      </li>
+      <li>
+        Mechanisms:
+        {" "}
+        <a href="/mechanisms/patterns/maintenance-windowing">MEC-03 Maintenance windowing</a>,
+        {" "}
+        <a href="/mechanisms/patterns/decision-log">MEC-01 Decision log</a>
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="runbooks"
+    eyebrow="Runbooks"
+    title="Runbook snippets"
+    description="Operational steps that bind on-call teams to the standards."
+    variant="alt"
+  >
+    <pre class="code-block">{runbookSnippet}</pre>
+    <p class="muted">References:</p>
+    <ul class="muted">
+      <li>
+        Clauses:
+        {" "}
+        <a href="/evidence-packs/std-01#std-01-5-1">STD-01.5.1</a>,
+        {" "}
+        <a href="/evidence-packs/std-02#std-02-1-2">STD-02.1.2</a>
+      </li>
+      <li>
+        Evidence packs:
+        {" "}
+        <a href="/evidence-packs/std-01">STD-01 pack</a>
+      </li>
+      <li>
+        Mechanisms:
+        {" "}
+        <a href="/mechanisms/patterns/kill-switch">MEC-05 Kill switch</a>,
+        {" "}
+        <a href="/mechanisms/patterns/appeal-paths">MEC-06 Appeal paths</a>
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

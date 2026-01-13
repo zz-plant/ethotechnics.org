@@ -1,0 +1,148 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Measurement tiers — Ethotechnics Institute";
+const pageDescription =
+  "Tiered measurement guidance for Moral Performance Indicators (MPIs) with anti-gaming controls.";
+const permalink = "/measurement-tiers";
+
+const mpis = [
+  {
+    id: "time-to-halt",
+    title: "Time-to-halt (TTH)",
+    summary: "Elapsed time from detection to a confirmed automation halt.",
+    tiers: [
+      {
+        tier: "Tier 0",
+        evidence: "System logs showing halt trigger and halt completion timestamps.",
+      },
+      {
+        tier: "Tier 1",
+        evidence: "Drill reports with median and p95 halt times by team and system.",
+      },
+      {
+        tier: "Tier 2",
+        evidence: "Incident postmortems verifying real-world halt times under load.",
+      },
+    ],
+    gaming: "Halt tests run on low-traffic sandboxes instead of production paths.",
+    detection: "Validator compares drill environment IDs against production system inventory.",
+  },
+  {
+    id: "reversibility",
+    title: "Reversibility rate",
+    summary: "Percent of automated decisions that can be reversed without collateral harm.",
+    tiers: [
+      {
+        tier: "Tier 0",
+        evidence: "Decision logs with reversal flags and rollbacks executed.",
+      },
+      {
+        tier: "Tier 1",
+        evidence: "Appeal outcomes segmented by decision type and reversal latency.",
+      },
+      {
+        tier: "Tier 2",
+        evidence: "Quarterly audits that test reversal paths on randomly sampled cases.",
+      },
+    ],
+    gaming: "Counting only low-stakes cases while excluding high-impact reversals.",
+    detection: "Validator samples by impact tier and checks for missing high-severity cases.",
+  },
+  {
+    id: "appeal-success",
+    title: "Appeal success rate",
+    summary: "Share of contested decisions that result in reversal or remedy.",
+    tiers: [
+      {
+        tier: "Tier 0",
+        evidence: "Appeal intake records with outcomes and timestamps.",
+      },
+      {
+        tier: "Tier 1",
+        evidence: "Reviewer roster coverage and SLA compliance for appeals.",
+      },
+      {
+        tier: "Tier 2",
+        evidence: "External audit sampling of appeal outcomes for consistency.",
+      },
+    ],
+    gaming: "Redirecting appeals to off-platform channels so they are not counted.",
+    detection: "Validator checks for mismatch between receipts issued and appeals recorded.",
+  },
+  {
+    id: "burden-ratio",
+    title: "Burden ratio",
+    summary: "Relative time cost imposed on impacted people versus internal operators.",
+    tiers: [
+      {
+        tier: "Tier 0",
+        evidence: "Journey maps with time cost logs for entry, exit, and appeal flows.",
+      },
+      {
+        tier: "Tier 1",
+        evidence: "Time-on-task analytics with segmentation by user cohort.",
+      },
+      {
+        tier: "Tier 2",
+        evidence: "Independent usability studies verifying time cost deltas.",
+      },
+    ],
+    gaming: "Measuring only successful flows while ignoring drop-offs or abandoned cases.",
+    detection: "Validator requires abandonment rates and cross-checks with support tickets.",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Measurement tiers"
+    title="Measurement tiers + anti-gaming guidance"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={mpis.map((mpi) => ({ href: `#${mpi.id}`, label: mpi.title }))}
+    panelCopy={{
+      eyebrow: "Why tiers",
+      title: "Metrics without anti-gaming become weapons",
+      description:
+        "Each MPI ships with tiered evidence, gaming patterns, and validator detection logic.",
+    }}
+  />
+
+  <SectionBlock
+    eyebrow="How to use"
+    title="Apply tiers to every MPI"
+    description="Start at Tier 0 for baseline proof and move up as governance maturity improves."
+  >
+    <ul class="muted">
+      <li>Tier 0 proves instrumentation exists.</li>
+      <li>Tier 1 proves the system is operated and reviewed.</li>
+      <li>Tier 2 proves resilience under real incidents and audit sampling.</li>
+    </ul>
+  </SectionBlock>
+
+  {mpis.map((mpi, index) => (
+    <SectionBlock
+      id={mpi.id}
+      eyebrow="MPI"
+      title={mpi.title}
+      description={mpi.summary}
+      variant={index % 2 === 1 ? "alt" : undefined}
+    >
+      <h3>Tiered measurement model</h3>
+      <ul class="muted">
+        {mpi.tiers.map((tier) => (
+          <li>
+            <strong>{tier.tier}:</strong> {tier.evidence}
+          </li>
+        ))}
+      </ul>
+      <h3>Known gaming pattern</h3>
+      <p class="muted">{mpi.gaming}</p>
+      <h3>Validator detection logic</h3>
+      <p class="muted">{mpi.detection}</p>
+    </SectionBlock>
+  ))}
+</BaseLayout>

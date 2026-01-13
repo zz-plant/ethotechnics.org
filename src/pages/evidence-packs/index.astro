@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Evidence packs — Ethotechnics Institute";
+const pageDescription =
+  "Proof-carrying compliance bundles for STD-01 and STD-02 with tiered evidence and audit guidance.";
+const permalink = "/evidence-packs";
+
+const packs = [
+  {
+    slug: "std-01",
+    title: "STD-01 Evidence Pack",
+    summary:
+      "Tiered evidence for the Temporal Bill of Rights, with anti-fraud guidance and audit prompts.",
+  },
+  {
+    slug: "std-02",
+    title: "STD-02 Evidence Pack",
+    summary:
+      "Proof bundles for contestability, review, and remedy obligations.",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Evidence packs"
+    title="Evidence packs"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={packs.map((pack) => ({
+      href: `#${pack.slug}`,
+      label: pack.title,
+    }))}
+    panelCopy={{
+      eyebrow: "Proof-carrying compliance",
+      title: "Evidence tiers that survive audits",
+      description:
+        "Tier 0 through Tier 2 evidence lets teams prove compliance without audit theater or vague attestations.",
+    }}
+  />
+
+  <SectionBlock
+    eyebrow="Evidence packs"
+    title="Select the standard"
+    description="Each pack includes tiered evidence, anti-fraud guidance, and auditor prompts."
+  >
+    <CardGrid className="grid--two">
+      {packs.map((pack) => (
+        <CardItem id={pack.slug} title={pack.title} description={pack.summary}>
+          <a slot="footer" class="button ghost button--compact" href={`/evidence-packs/${pack.slug}`}>
+            Open evidence pack
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>

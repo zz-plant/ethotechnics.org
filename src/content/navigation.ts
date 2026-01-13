@@ -56,6 +56,55 @@ export const navSections: NavSection[] = [
     ],
   },
   {
+    heading: "Adoption",
+    description:
+      "Worked examples, evidence packs, and binding vectors that turn standards into enforceable practice.",
+    links: [
+      {
+        href: "/examples",
+        label: "Worked examples",
+        description:
+          "End-to-end scenarios with receipts, clocks, and remedies.",
+        primary: true,
+      },
+      {
+        href: "/bindings",
+        label: "Binding vectors",
+        description: "Copy-paste clauses, release gates, and runbook snippets.",
+      },
+      {
+        href: "/evidence-packs",
+        label: "Evidence packs",
+        description: "Tiered proof bundles for STD-01 and STD-02.",
+      },
+      {
+        href: "/exceptions",
+        label: "Exceptions framework",
+        description: "Bounded exceptions that preserve receipts and clocks.",
+      },
+      {
+        href: "/measurement-tiers",
+        label: "Measurement tiers",
+        description: "MPI measurement guidance with anti-gaming controls.",
+      },
+      {
+        href: "/anti-weaponization",
+        label: "Anti-weaponization constraints",
+        description: "Clause-like constraints that prevent denial-by-design.",
+      },
+      {
+        href: "/fast-path",
+        label: "Fast-path adoption",
+        description: "30–60 minute adoption guide for quick safeguards.",
+      },
+      {
+        href: "/diy-packs",
+        label: "DIY implementation pack",
+        description: "Templates, sample tickets, and minimal telemetry specs.",
+      },
+    ],
+  },
+  {
     heading: "Mechanisms",
     description:
       "Spec sheets that turn standards into governance, friction, and policy controls.",

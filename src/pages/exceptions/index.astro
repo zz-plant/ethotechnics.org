@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Exceptions framework — Ethotechnics Institute";
+const pageDescription =
+  "Bounded exceptions that preserve receipts, owners, and clocks even under fraud, security, or legal holds.";
+const permalink = "/exceptions";
+
+const exceptions = [
+  {
+    id: "fraud",
+    title: "Fraud",
+    delayed: "Remedy execution may pause while fraud is validated.",
+    musts: "Receipt, owner assignment, and review clock remain mandatory.",
+    cadence: "Max duration: 72 hours. Review cadence: every 12 hours.",
+  },
+  {
+    id: "abuse-safety",
+    title: "Abuse / safety",
+    delayed: "Full remediation can pause if immediate harm is likely.",
+    musts: "Receipt, owner, and acknowledgment clock still required.",
+    cadence: "Max duration: 48 hours. Review cadence: every 8 hours.",
+  },
+  {
+    id: "security",
+    title: "Security",
+    delayed: "Remedy may be staged to preserve forensic integrity.",
+    musts: "Receipt, owner, and review clock still required.",
+    cadence: "Max duration: 96 hours. Review cadence: every 24 hours.",
+  },
+  {
+    id: "legal-hold",
+    title: "Legal hold",
+    delayed: "Remedy may be deferred while counsel confirms constraints.",
+    musts: "Receipt, owner, and acknowledgment clock remain mandatory.",
+    cadence: "Max duration: 14 days. Review cadence: every 72 hours.",
+  },
+  {
+    id: "irreversibility",
+    title: "Irreversibility",
+    delayed: "Final remedy can pause while reversible alternatives are prepared.",
+    musts: "Receipt, owner, and review clock remain mandatory.",
+    cadence: "Max duration: 7 days. Review cadence: every 48 hours.",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Exceptions"
+    title="Bounded exceptions framework"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={exceptions.map((exception) => ({
+      href: `#${exception.id}`,
+      label: exception.title,
+    }))}
+    panelCopy={{
+      eyebrow: "Why exceptions matter",
+      title: "Make universal MUSTs credible",
+      description:
+        "Exceptions only delay specific actions. They never erase receipts, owners, or clocks.",
+    }}
+  />
+
+  <SectionBlock
+    eyebrow="Exception classes"
+    title="Bounded exceptions with required minimums"
+    description="Every class defines what is delayed, what remains mandatory, and the maximum duration."
+  >
+    <CardGrid className="grid--two">
+      {exceptions.map((exception) => (
+        <CardItem id={exception.id} title={exception.title} description={exception.delayed}>
+          <ul class="muted">
+            <li>{exception.musts}</li>
+            <li>{exception.cadence}</li>
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    eyebrow="Operational guidance"
+    title="Minimum artifact requirements"
+    description="Every exception entry must include these artifacts for auditability."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Receipt ID and decision payload linked to the impacted person.</li>
+      <li>Named owner and escalation authority with on-call coverage.</li>
+      <li>Clock timestamps for acknowledgment, review, and remedy.</li>
+      <li>Justification and expiry date for the exception class.</li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>
