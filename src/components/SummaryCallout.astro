@@ -1,0 +1,76 @@
+---
+/**
+ * Shared summary callout with quick takeaways and navigation links.
+ *
+ * Props:
+ * - eyebrow: Optional label above the callout title.
+ * - title: Callout heading text.
+ * - description: Supporting copy under the title.
+ * - takeaways: Bullet list of key takeaways.
+ * - relatedLinks: Pill-style links to related sections.
+ * - jumpLinks: Simple list of anchor links for quick navigation.
+ */
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  takeaways: string[];
+  relatedLinks: LinkItem[];
+  jumpLinks: LinkItem[];
+}
+
+const props = Astro.props as Props;
+const {
+  eyebrow = "Summary",
+  title,
+  description,
+  takeaways,
+  relatedLinks,
+  jumpLinks,
+} = props;
+---
+
+<div class="callout summary-callout">
+  <div class="summary-callout__intro">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2>{title}</h2>
+    <p class="muted">{description}</p>
+  </div>
+  <div class="summary-callout__body">
+    <div>
+      <p class="eyebrow">Key takeaways</p>
+      <ul class="muted">
+        {takeaways.map((takeaway) => (
+          <li>{takeaway}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Related sections</p>
+      <ul class="pill-list">
+        {relatedLinks.map((link) => (
+          <li class="pill-list__item">
+            <a class="pill-list__button" href={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Jump to</p>
+      <ul class="summary-callout__links">
+        {jumpLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>
