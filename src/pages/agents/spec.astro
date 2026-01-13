@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { readFile } from "node:fs/promises";
+
+const pageTitle = "Agent Safety Object Model";
+const pageDescription =
+  "A machine-readable agent governance profile for autonomy, action classes, and override authority.";
+const permalink = "/agents/spec";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#fields", label: "Required fields" },
+  { href: "#schema", label: "JSON schema" },
+  { href: "#usage", label: "Usage" },
+];
+
+const agentSafetyObjectModel = await readFile(
+  new URL("../../../public/agents/spec.json", import.meta.url),
+  "utf-8",
+);
+
+const requiredFields = [
+  {
+    field: "autonomy_level",
+    description: "Declare whether the agent recommends, drafts, or executes actions.",
+  },
+  {
+    field: "action_classes",
+    description: "Enumerate allowed action classes and their reversibility.",
+  },
+  {
+    field: "stop_override_authority",
+    description: "Define who can halt or override actions and under what authority.",
+  },
+  {
+    field: "receipt_schema",
+    description: "Link to the receipt schema that tools must emit for each action.",
+  },
+  {
+    field: "clocks",
+    description: "Publish acknowledgment, review, and remedy clocks enforced in tooling.",
+  },
+  {
+    field: "evidence_pack_references",
+    description: "Reference the evidence packs required to validate compliance.",
+  },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Ethotechnics`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Agent specification"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Machine-readable",
+      title: "Treat this like infrastructure",
+      description:
+        "This model gives CI systems, auditors, and agents a shared contract for governance controls.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="A concrete schema for agent governance"
+    description="Publish this file so automated systems can validate agent controls and evidence."
+  >
+    <ul class="muted">
+      <li>
+        Spec page: <a href="/agents/spec">/agents/spec</a>
+      </li>
+      <li>
+        JSON schema: <a href="/agents/spec.json">/agents/spec.json</a>
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="fields"
+    eyebrow="Required fields"
+    title="Minimum set of fields to publish"
+    description="These fields turn agent safety into enforceable governance artifacts."
+    variant="alt"
+  >
+    <ul class="muted">
+      {requiredFields.map((item) => (
+        <li>
+          <strong>{item.field}</strong> — {item.description}
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="schema"
+    eyebrow="Schema"
+    title="Machine-readable JSON"
+    description="Use this schema in CI and linting pipelines to enforce agent governance."
+  >
+    <pre class="code-block">{agentSafetyObjectModel}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="usage"
+    eyebrow="Usage"
+    title="Where to use it"
+    description="Bind the schema to deployment gates and audit workflows."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>
+        Validate new agent releases with <a href="/bindings#release-gates">release gates</a>.
+      </li>
+      <li>
+        Map action classes to <a href="/standards/ethotechnics-for-agents">agent standards</a>.
+      </li>
+      <li>
+        Link receipts and clocks to <a href="/evidence-packs">evidence packs</a> for audits.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

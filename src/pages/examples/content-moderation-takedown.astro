@@ -1,0 +1,127 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Content moderation takedown — Worked example";
+const pageDescription =
+  "A rapid content removal flow with receipts, clocks, exceptions, and remedy commitments.";
+const permalink = "/examples/content-moderation-takedown";
+
+const receiptPayload = `{
+  "schema_version": "1.0.0",
+  "receipt_id": "RCP-2026-1188",
+  "issued_at": "2026-05-21T09:44:10Z",
+  "owner": { "name": "Trust & Safety", "role": "System owner" },
+  "subject": { "id": "post-88014", "type": "content" },
+  "action": { "class": "PUBLISH", "description": "Remove content", "reversible": true },
+  "decision": { "decision_type": "takedown", "reason_codes": ["HARASSMENT", "POLICY-3.2"] },
+  "clocks": { "ack": { "hours": 2 }, "review": { "hours": 24 }, "remedy": { "hours": 72 } },
+  "appeal_path": { "url": "/appeals/content", "channel": "in-app form" }
+}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Worked example"
+    title="Content moderation takedown"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#receipt", label: "Receipt" },
+      { href: "#clocks", label: "Clocks" },
+      { href: "#exceptions", label: "Exceptions" },
+      { href: "#remedy", label: "Remedy" },
+      { href: "#bindings", label: "Bindings" },
+    ]}
+    panelCopy={{
+      eyebrow: "Scenario",
+      title: "High-velocity takedown with contestability",
+      description:
+        "Content removals must be fast, but still provide receipts, clocks, and remedy paths.",
+    }}
+  />
+
+  <SectionBlock
+    id="receipt"
+    eyebrow="Receipt"
+    title="Receipt issued at removal time"
+    description="Every takedown emits a receipt that names the owner and appeal path."
+  >
+    <pre class="code-block">{receiptPayload}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clocks"
+    eyebrow="Clocks"
+    title="Acknowledgment, review, and remedy clocks"
+    description="Clocks stay visible even during high-volume enforcement."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      <CardItem title="Ack clock" description="2 hours">
+        <p class="muted">Owner confirms the case is assigned and publishes review ETA.</p>
+      </CardItem>
+      <CardItem title="Review clock" description="24 hours">
+        <p class="muted">Human review confirms the removal or restores the content.</p>
+      </CardItem>
+      <CardItem title="Remedy clock" description="72 hours">
+        <p class="muted">Restoration, explanation, or alternative remedy is delivered.</p>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="exceptions"
+    eyebrow="Exceptions"
+    title="Bounded exceptions for safety or legal holds"
+    description="Exceptions never erase the receipt or clocks."
+  >
+    <ul class="muted">
+      <li>
+        Safety escalation can delay restoration, but the review clock must still complete.
+      </li>
+      <li>
+        Legal hold allows temporary suppression, but the appeal path remains open.
+      </li>
+      <li>
+        Exceptions are logged in the <a href="/exceptions">Exceptions register</a>.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="remedy"
+    eyebrow="Remedy"
+    title="Restore, explain, or compensate"
+    description="Remedy paths are visible to the impacted creator or user."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Restore content if the takedown is overturned.</li>
+      <li>Provide a clear explanation and evidence bundle when upheld.</li>
+      <li>Offer an expedited appeal review when removal impacts income or access.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="bindings"
+    eyebrow="Bindings"
+    title="Bind the scenario to enforceable controls"
+    description="Use release gates and evidence packs to make this repeatable."
+  >
+    <ul class="muted">
+      <li>
+        Attach receipts to <a href="/bindings#release-gates">release gate checklists</a>.
+      </li>
+      <li>
+        Map to <a href="/evidence-packs">evidence packs</a> for STD-01 and STD-02.
+      </li>
+      <li>
+        Add procurement language from <a href="/bindings#procurement">binding vectors</a>.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

@@ -24,7 +24,10 @@ const { pageTitle, pageDescription } = homeEntry.data;
     <div class="hero__layout">
       <div class="hero__content">
         <p class="eyebrow">Ethotechnics Institute</p>
-        <h1>Governance artifacts for automated systems that produce citeable findings, evidence demands, and remediation paths.</h1>
+        <h1>
+          We publish enforceable governance artifacts for automated systems: standards, bindings,
+          evidence, and exceptions that survive audits and failure.
+        </h1>
         <div class="actions">
           <a class="button primary" href="/diagnostics">Run a diagnostic</a>
           <a class="button ghost" href="/standards">Browse standards</a>
@@ -147,6 +150,20 @@ const { pageTitle, pageDescription } = homeEntry.data;
   </SectionBlock>
 
   <SectionBlock
+    id="failure-modes"
+    eyebrow="Failure modes"
+    title="What happens if you omit this"
+    description="Concrete downstream risks when enforceable governance is missing."
+  >
+    <ul class="card__list">
+      <li>Legal exposure from unprovable decision trails.</li>
+      <li>Audit failures when evidence packs cannot be produced on demand.</li>
+      <li>Operational brittleness when exceptions or overrides are undocumented.</li>
+      <li>Reputational risk from silent or unreviewable automated actions.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
     id="agents"
     eyebrow="For agents & tools"
     title="Machine-readable by default."
@@ -158,6 +175,9 @@ const { pageTitle, pageDescription } = homeEntry.data;
       </li>
       <li>
         <a href="/api#objects">Object model</a>
+      </li>
+      <li>
+        <a href="/agents/spec">Agent Safety Object Model</a>
       </li>
       <li>
         <a href="/api/releases.json">Releases</a>
@@ -181,17 +201,77 @@ const { pageTitle, pageDescription } = homeEntry.data;
   </SectionBlock>
 
   <SectionBlock
-    id="get-started"
-    eyebrow="Entry points"
-    title="Pick the path that matches your role."
-    description="Each path leads directly to the artifacts in your workflow."
+    id="audience"
+    eyebrow="Audience selector"
+    title="Route to the right artifacts in one click."
+    description="Each audience path reorders the stack to match the work you do."
+    variant="alt"
   >
-    <div class="actions">
-      <a class="button primary" href="/diagnostics">Run a diagnostic</a>
-      <a class="button ghost" href="/standards">Browse standards</a>
-      <a class="button ghost" href="/mechanisms">View mechanism library</a>
-      <a class="button ghost" href="/api">Reference API</a>
-      <a class="button ghost" href="/field-notes">Read the theory</a>
-    </div>
+    <CardGrid className="grid--two">
+      <CardItem
+        title="I am building an automated system or agent"
+        description="Fast path, mechanisms, and concrete implementation examples."
+      >
+        <ul class="muted">
+          <li>
+            <a href="/fast-path">Fast path</a>
+          </li>
+          <li>
+            <a href="/mechanisms">Mechanisms</a>
+          </li>
+          <li>
+            <a href="/examples">Worked examples</a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="I am auditing or governing a system"
+        description="Evidence, bindings, and minimum enforceable requirements."
+      >
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs">Evidence packs</a>
+          </li>
+          <li>
+            <a href="/bindings">Binding vectors</a>
+          </li>
+          <li>
+            <a href="/standards">Minimum binding sets</a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="I am writing policy or procurement language"
+        description="Standards, where they bind, and enforceable clauses."
+      >
+        <ul class="muted">
+          <li>
+            <a href="/standards">Standards + clauses</a>
+          </li>
+          <li>
+            <a href="/bindings#procurement">Procurement language</a>
+          </li>
+          <li>
+            <a href="/anti-weaponization">Anti-weaponization constraints</a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="I am researching or teaching"
+        description="Research, glossary anchors, and mapping artifacts."
+      >
+        <ul class="muted">
+          <li>
+            <a href="/research">Research</a>
+          </li>
+          <li>
+            <a href="/glossary">Glossary</a>
+          </li>
+          <li>
+            <a href="/field-notes">Field notes</a>
+          </li>
+        </ul>
+      </CardItem>
+    </CardGrid>
   </SectionBlock>
 </BaseLayout>

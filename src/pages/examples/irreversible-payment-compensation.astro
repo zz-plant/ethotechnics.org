@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Irreversible payment with compensation — Worked example";
+const pageDescription =
+  "An irreversible payment flow that binds receipts, clocks, and compensation commitments.";
+const permalink = "/examples/irreversible-payment-compensation";
+
+const receiptPayload = `{
+  "schema_version": "1.0.0",
+  "receipt_id": "RCP-2026-1362",
+  "issued_at": "2026-06-19T16:21:33Z",
+  "owner": { "name": "Payments Risk", "role": "System owner" },
+  "subject": { "id": "txn-22098", "type": "payment" },
+  "action": { "class": "TRANSFER", "description": "Release irreversible payout", "reversible": false },
+  "decision": { "decision_type": "payout_release", "reason_codes": ["RISK-LOW"] },
+  "clocks": { "ack": { "hours": 1 }, "review": { "hours": 8 }, "remedy": { "hours": 48 } },
+  "appeal_path": { "url": "/appeals/payout", "channel": "in-app form" }
+}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Worked example"
+    title="Irreversible payment with compensation"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#receipt", label: "Receipt" },
+      { href: "#clocks", label: "Clocks" },
+      { href: "#exceptions", label: "Exceptions" },
+      { href: "#remedy", label: "Remedy" },
+      { href: "#bindings", label: "Bindings" },
+    ]}
+    panelCopy={{
+      eyebrow: "Scenario",
+      title: "Irreversible actions still need remedy paths",
+      description:
+        "When actions cannot be rolled back, compensation and review clocks become non-negotiable.",
+    }}
+  />
+
+  <SectionBlock
+    id="receipt"
+    eyebrow="Receipt"
+    title="Receipt issued before release"
+    description="Irreversible actions must emit a receipt before execution."
+  >
+    <pre class="code-block">{receiptPayload}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clocks"
+    eyebrow="Clocks"
+    title="Short review windows for irreversible actions"
+    description="Clocks ensure review and remedy timelines are explicit."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      <CardItem title="Ack clock" description="1 hour">
+        <p class="muted">Owner acknowledges the payout and names the reviewer.</p>
+      </CardItem>
+      <CardItem title="Review clock" description="8 hours">
+        <p class="muted">Human review checks for fraud, sanctions, or payout errors.</p>
+      </CardItem>
+      <CardItem title="Remedy clock" description="48 hours">
+        <p class="muted">Compensation, reversal substitute, or dispute resolution begins.</p>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="exceptions"
+    eyebrow="Exceptions"
+    title="Exceptions require immediate logging"
+    description="AML or legal holds cannot erase receipts or clocks."
+  >
+    <ul class="muted">
+      <li>Legal holds can pause payout but must keep clocks active.</li>
+      <li>Security escalations require steward sign-off and audit trace.</li>
+      <li>
+        Exception entries live in the <a href="/exceptions">Exceptions framework</a>.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="remedy"
+    eyebrow="Remedy"
+    title="Compensation is the default fallback"
+    description="Irreversible actions must guarantee a compensation path."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Issue credits or chargebacks within the remedy clock.</li>
+      <li>Provide a human review escalation path within 24 hours.</li>
+      <li>Notify impacted parties with evidence pack references.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="bindings"
+    eyebrow="Bindings"
+    title="Bind the payout to enforceable artifacts"
+    description="Release gates and evidence packs keep the flow auditable."
+  >
+    <ul class="muted">
+      <li>
+        Add payout checks to <a href="/bindings#release-gates">release gates</a>.
+      </li>
+      <li>
+        Attach <a href="/evidence-packs">evidence packs</a> to payout receipts.
+      </li>
+      <li>
+        Reference <a href="/mechanisms/patterns/decision-log">decision log</a> entries.
+      </li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

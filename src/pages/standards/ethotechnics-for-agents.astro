@@ -129,7 +129,7 @@ const controlChecklist = `- [ ] Receipt schema v1.0 implemented and validated ag
 - [ ] Rollback trigger defined (unsafe-action spike, audit failure, or contested-remedy breach).`;
 
 const agentSafetyObjectModel = await readFile(
-  new URL("../../../public/standards/agent-safety-object-model.json", import.meta.url),
+  new URL("../../../public/agents/spec.json", import.meta.url),
   "utf-8",
 );
 
@@ -668,9 +668,7 @@ const practiceSections = [
   >
     <p>
       Publish a machine-readable index at{" "}
-      <a href="/standards/agent-safety-object-model.json">
-        /standards/agent-safety-object-model.json
-      </a>
+      <a href="/agents/spec.json">/agents/spec.json</a>
       {" "}
       so deployment pipelines can confirm required governance artifacts exist.
     </p>
