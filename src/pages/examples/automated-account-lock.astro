@@ -11,17 +11,44 @@ const pageDescription =
 const permalink = "/examples/automated-account-lock";
 
 const receiptPayload = `{
+  "schema_version": "1.0.0",
   "receipt_id": "RCP-2026-0441",
-  "decision_type": "account_lock",
-  "trigger": "fraud_model_score",
-  "system_owner": "Risk Operations",
-  "decision_authority": "Fraud Steward (on call)",
   "issued_at": "2026-02-14T14:03:22Z",
-  "ack_clock_hours": 2,
-  "review_clock_hours": 24,
-  "remedy_clock_hours": 72,
-  "appeal_path": "/appeals/account-lock",
-  "evidence_pack": "/evidence-packs/std-02#std-02-2-1"
+  "owner": {
+    "name": "Risk Operations",
+    "role": "System owner",
+    "contact": "risk-ops@company.example",
+    "on_call": true
+  },
+  "subject": {
+    "id": "usr-103991",
+    "type": "account"
+  },
+  "action": {
+    "class": "WRITE",
+    "description": "Lock account access for review",
+    "reversible": true,
+    "tools": ["fraud_model", "account_admin_api"]
+  },
+  "decision": {
+    "decision_type": "account_lock",
+    "reason_codes": ["FRAUD-THRESHOLD", "VELOCITY-SPIKE"],
+    "inputs": ["score:0.93", "velocity:4.2x"]
+  },
+  "clocks": {
+    "ack": { "hours": 2 },
+    "review": { "hours": 24 },
+    "remedy": { "hours": 72 }
+  },
+  "appeal_path": {
+    "url": "/appeals/account-lock",
+    "channel": "in-app form",
+    "expected_response": "Human review within 24 hours"
+  },
+  "evidence_pack": {
+    "href": "/evidence-packs/std-02#std-02-2-1",
+    "standard_refs": ["STD-01.1.1", "STD-02.2.1"]
+  }
 }`;
 
 const timeline = [
@@ -123,7 +150,8 @@ const artifacts = [
     <pre class="code-block">{receiptPayload}</pre>
     <p class="muted">
       Receipt includes clause references (STD-01.1.1, STD-02.2.1), the appeal path, and the evidence
-      pack anchor used during review.
+      pack anchor used during review. Align payloads to the{" "}
+      <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a>.
     </p>
   </SectionBlock>
 

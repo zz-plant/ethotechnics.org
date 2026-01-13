@@ -18,6 +18,7 @@ const templates = [
   {
     title: "Receipt payload schema",
     detail: "JSON schema for receipt issuance and clause references.",
+    href: "/standards/agent-receipt-schema.json",
   },
   {
     title: "Appeal intake form",
@@ -69,7 +70,14 @@ const telemetry = [
     <CardGrid className="grid--two">
       {templates.map((template) => (
         <CardItem title={template.title} description={template.detail}>
-          <p class="muted">Available in the evidence packs and bindings hubs.</p>
+          {template.href ? (
+            <p class="muted">
+              Download:{" "}
+              <a href={template.href}>{template.href}</a>
+            </p>
+          ) : (
+            <p class="muted">Available in the evidence packs and bindings hubs.</p>
+          )}
         </CardItem>
       ))}
     </CardGrid>
