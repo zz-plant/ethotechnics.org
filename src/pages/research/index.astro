@@ -6,6 +6,7 @@ import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
 import { getGlossaryLabel, glossaryEntryPermalink } from "../../utils/glossary";
 import { researchContent } from "../../content/research";
 import researchFilterScript from "../../scripts/research-filter.ts?url";
@@ -32,6 +33,11 @@ const summaryRelatedLinks = [
   { href: "/glossary", label: "Glossary" },
   { href: "/standards", label: "Standards" },
   { href: "/mechanisms", label: "Mechanisms" },
+];
+const summaryTakeaways = [
+  "Every research line is linked back to glossary anchors.",
+  "Bridge artifacts translate field work into citable outputs.",
+  "Publications surface data, ethics, and structured abstracts.",
 ];
 const researchTags = Array.from(
   new Set([
@@ -113,48 +119,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
   />
-  <div class="callout summary-callout">
-    <div class="summary-callout__intro">
-      <p class="eyebrow">Summary</p>
-      <h2>Research wayfinding at a glance</h2>
-      <p class="muted">
-        Start with the orientation, then scan active agendas and focus areas to
-        see what is in flight and ready to cite.
-      </p>
-    </div>
-    <div class="summary-callout__body">
-      <div>
-        <p class="eyebrow">Key takeaways</p>
-        <ul class="muted">
-          <li>Every research line is linked back to glossary anchors.</li>
-          <li>Bridge artifacts translate field work into citable outputs.</li>
-          <li>Publications surface data, ethics, and structured abstracts.</li>
-        </ul>
-      </div>
-      <div>
-        <p class="eyebrow">Related sections</p>
-        <ul class="pill-list">
-          {summaryRelatedLinks.map((link) => (
-            <li class="pill-list__item">
-              <a class="pill-list__button" href={link.href}>
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <p class="eyebrow">Jump to</p>
-        <ul class="summary-callout__links">
-          {summaryLinks.map((link) => (
-            <li>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </div>
+  <SummaryCallout
+    title="Research wayfinding at a glance"
+    description="Start with the orientation, then scan active agendas and focus areas to see what is in flight and ready to cite."
+    takeaways={summaryTakeaways}
+    relatedLinks={summaryRelatedLinks}
+    jumpLinks={summaryLinks}
+  />
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
