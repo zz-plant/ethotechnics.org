@@ -26,6 +26,8 @@ Use this map before adding new guidance so information stays discoverable and cu
   navigation updates.
 - [`page-specifications.md`](page-specifications.md) lists route-by-route expectations for data,
   layout, and accessibility.
+- [`content-data.md`](content-data.md) documents JSON-backed content sources, schemas, and
+  validation steps.
 - [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used
   across pages.
 - [`glossary.md`](glossary.md) defines core vocabulary and terms referenced across the site.
