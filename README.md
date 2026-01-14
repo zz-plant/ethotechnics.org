@@ -127,6 +127,8 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 
 - Start with [`docs/README.md`](docs/README.md) for how the docs folder is organized, when to add a
   new guide, and formatting expectations.
+- [`docs/contributor-workflow.md`](docs/contributor-workflow.md) outlines the change loop, required
+  checks, and formatting conventions for day-to-day work.
 - [`docs/architecture.md`](docs/architecture.md) covers the rendering model, middleware, and
   Cloudflare Worker deployment. Update it when routing, layouts, or adapters change.
 - [`docs/specifications.md`](docs/specifications.md) provides a high-level snapshot of site goals,

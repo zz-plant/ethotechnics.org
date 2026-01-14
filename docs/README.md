@@ -13,6 +13,8 @@ Use this map before adding new guidance so information stays discoverable and cu
   Issues.
 - [`agent-developer-experience.md`](agent-developer-experience.md) aggregates agent-specific
   references and to-do items.
+- [`contributor-workflow.md`](contributor-workflow.md) captures the day-to-day change loop, required
+  checks, and formatting expectations.
 
 ### Architecture, layout, and content
 
