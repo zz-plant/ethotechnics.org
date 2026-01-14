@@ -21,7 +21,7 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
 ## Running the dev server
 
 - Start Astro locally with `bun dev`.
-  - Expected log: `[@astrojs/compiler] ready` and `Local  http://localhost:4321/`.
+  - Expected log: `[@astrojs/compiler] ready` and `Local http://localhost:4321/`.
   - The server binds to `0.0.0.0`; use `bun dev --port 4322` if another process already
     occupies port 4321.
 - Stop and restart the server after dependency upgrades so Vite picks up plugin changes.
