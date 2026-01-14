@@ -135,6 +135,8 @@ Session storage is not enabled by default; if you add it later, define the KV bi
   breaking shared navigation and metadata. Use it as the checklist for new content.
 - [`docs/page-specifications.md`](docs/page-specifications.md) lists route-by-route expectations
   for data, layout, and accessibility.
+- [`docs/content-data.md`](docs/content-data.md) documents JSON-backed content sources, schemas,
+  and validation steps.
 - [`docs/content-components.md`](docs/content-components.md) catalogs the page intro, section
   blocks, cards, and other building blocks reused across routes. Extend it when adding shared UI.
 - [`docs/local-development.md`](docs/local-development.md) captures local setup, previews, and
