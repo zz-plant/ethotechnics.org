@@ -213,7 +213,11 @@ const recommendedDetails = recommendedCard
               <a
                 class="button ghost button--compact"
                 href={prompt.href}
-                rel={prompt.href.startsWith("http") ? "noreferrer" : undefined}
+                rel={
+                  prompt.href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
                 target={prompt.href.startsWith("http") ? "_blank" : undefined}
               >
                 {prompt.label}
@@ -242,7 +246,7 @@ const recommendedDetails = recommendedCard
             class="button ghost"
             href={studio.ctaHref}
             aria-label={studio.ctaAriaLabel}
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             {studio.ctaLabel}
           </a>
