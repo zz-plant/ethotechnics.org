@@ -257,7 +257,7 @@ export const navActions: NavAction[] = [
     label: "Implementation support",
     variant: "ghost-compact",
     icon: "lucide:arrow-up-right",
-    rel: "noreferrer",
+    rel: "noopener noreferrer",
     target: "_blank",
   },
 ];

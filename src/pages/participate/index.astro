@@ -90,7 +90,11 @@ const {
                   <a
                     href={action.href}
                     aria-label={action.ariaLabel ?? action.label}
-                    rel={action.href.startsWith("http") ? "noreferrer" : undefined}
+                    rel={
+                      action.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                   >
                     {action.label}
                   </a>
@@ -178,7 +182,11 @@ const {
               class="info-strip__badge"
               href={action.href}
               aria-label={action.ariaLabel ?? action.label}
-              rel={action.href.startsWith("http") ? "noreferrer" : undefined}
+              rel={
+                action.href.startsWith("http")
+                  ? "noopener noreferrer"
+                  : undefined
+              }
             >
               <span class="info-strip__icon" aria-hidden="true">
                 <Icon

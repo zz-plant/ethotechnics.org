@@ -50,7 +50,7 @@ export const instituteStudioComparisonContent: InstituteStudioComparisonContent 
             label: "Visit the Studio",
             href: "https://ethotechnics.com/studio",
             variant: "primary",
-            rel: "noreferrer",
+            rel: "noopener noreferrer",
           },
           {
             label: "Email the Studio team",
