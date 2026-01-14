@@ -35,5 +35,5 @@ notes to tune the model and interpret the charted trajectories.
 
 ## Tests
 
-Vitest coverage in `src/features/capacity-forecaster/utils/projectionEngine.test.ts` locks expected
-decay curves and saturation detection for representative inputs.
+Bun test coverage in `src/features/capacity-forecaster/utils/projectionEngine.test.ts` locks
+expected decay curves and saturation detection for representative inputs.
