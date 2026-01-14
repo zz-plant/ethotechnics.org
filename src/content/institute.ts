@@ -34,6 +34,11 @@ export type InstituteContent = PageWithPermalink &
       detail: string;
       tags: string[];
     }[];
+    boundaries: {
+      title: string;
+      detail: string;
+      tags: string[];
+    }[];
     programs: {
       title: string;
       detail: string;
@@ -51,12 +56,13 @@ export type InstituteContent = PageWithPermalink &
 export const instituteContent: InstituteContent = {
   pageTitle: "Institute — Ethotechnics",
   pageDescription:
-    "Ethotechnics.org is the Institute. This visitor guide covers programs, decision forums, and when to involve the Studio.",
+    "Open research arm developing Ethotechnics theory and methods, with clear routes to Studio support.",
   published: "2024-09-01T00:00:00Z",
   permalink: "/institute",
   anchorLinks: [
-    { href: "#overview", label: "What you can do" },
-    { href: "#programs", label: "Programs" },
+    { href: "#overview", label: "What we do" },
+    { href: "#boundaries", label: "What we don't do" },
+    { href: "#programs", label: "Release stewardship" },
     { href: "#studio", label: "Studio partnership" },
     { href: "#governance", label: "Governance" },
     { href: "#stewards", label: "Stewards" },
@@ -64,66 +70,90 @@ export const instituteContent: InstituteContent = {
   ],
   panelCopy: {
     eyebrow: "Fast track",
-    title: "Already know you need help? Start with the Studio.",
+    title: "Need implementation support? Start with the Studio.",
     description:
-      "Run a diagnostic first when you can. If risk shows up or you need a facilitator, email the Studio to get routed to the right forum.",
+      "The Institute stays open and self-serve. The Studio helps with facilitation, audits, and co-delivery.",
   },
   highlights: [
     {
-      title: "Start with open guidance",
+      title: "Publish open frameworks and patterns",
       detail:
-        "Pull prompts, templates, and diagnostics from the Library to get a quick read on risk before involving a partner.",
-      tags: ["Self-serve", "Open CC BY 4.0", "Library-first"],
+        "Release frameworks, patterns, and tools that practitioners can reuse without gatekeeping.",
+      tags: ["Open research", "Patterns", "Tools"],
     },
     {
-      title: "Choose the right program",
+      title: "Maintain the glossary and resource library",
       detail:
-        "Join a sprint, research cohort, or forum that matches your decision window.",
-      tags: ["Sprints", "Cohorts", "Forums"],
+        "Keep shared terminology and pattern guidance stable for citation and reuse.",
+      tags: ["Glossary", "Library", "Stable permalinks"],
     },
     {
-      title: "Know when to escalate",
+      title: "Share case studies and field notes",
       detail:
-        "If a diagnostic surfaces risk, see how the Studio steps in so escalation feels like help, not red tape.",
-      tags: ["Escalation", "Studio partnership", "Fast triage"],
+        "Publish applied findings that translate practice into reusable guidance.",
+      tags: ["Field notes", "Case studies", "Applied research"],
+    },
+    {
+      title: "Support scholars and practitioners",
+      detail:
+        "Offer clear citations, research metadata, and resources for academic and field use.",
+      tags: ["Citations", "Research support", "Practitioner-ready"],
+    },
+  ],
+  boundaries: [
+    {
+      title: "No direct consulting",
+      detail:
+        "Implementation support lives with Ethotechnics Studio, not the Institute.",
+      tags: ["Studio", "Implementation"],
+    },
+    {
+      title: "No certification or credentialing",
+      detail:
+        "The Institute does not offer certification programs at this time.",
+      tags: ["No credentialing"],
+    },
+    {
+      title: "No active community facilitation",
+      detail:
+        "Resources are self-serve; community facilitation is not a current offering.",
+      tags: ["Self-serve", "Resources"],
     },
   ],
   programs: [
     {
-      title: "Readiness diagnostics",
+      title: "Framework releases",
       detail:
-        "Short exercises to score risk across data stewardship, consent, and downstream impact.",
+        "Open releases of frameworks, patterns, and tooling documentation.",
       outcome:
-        "Outputs: a risk map, suggested mitigations, and links back to Library pages so teams can act.",
-      status: "Rolling access",
+        "Outputs: versioned releases with citations, changelogs, and permalinks.",
+      status: "Active development",
       howToJoin:
-        "Start with the diagnostics menu and share your readout for routing.",
-      ctaLabel: "Request a diagnostic review",
-      ctaHref:
-        "mailto:studio@ethotechnics.org?subject=Diagnostic%20review%20request",
+        "Follow updates on the Research and Mechanisms pages.",
+      ctaLabel: "Browse frameworks",
+      ctaHref: "/standards",
     },
     {
-      title: "Decision forums",
+      title: "Research synthesis",
       detail:
-        "Lightweight governance reviews for teams that want a second set of eyes without slowing delivery.",
+        "Working papers, field notes, and bridge artifacts for scholars and practitioners.",
       outcome:
-        "Outputs: a logged decision, accountable steward, and follow-ups with owners and dates.",
-      status: "Quarterly cohorts",
-      howToJoin: "Email the Studio to be matched with the next forum window.",
-      ctaLabel: "Join the next forum",
-      ctaHref:
-        "mailto:studio@ethotechnics.org?subject=Decision%20forum%20request",
+        "Outputs: structured abstracts, datasets, and citation guidance.",
+      status: "Rolling publication",
+      howToJoin: "Browse the Research section for current releases.",
+      ctaLabel: "Read research",
+      ctaHref: "/research",
     },
     {
-      title: "Publishing pipeline",
-      detail: "Turn internal research into open guides.",
+      title: "Case study publishing",
+      detail:
+        "Applied case studies shared through Field Notes and research artifacts.",
       outcome:
-        "Outputs: edited copy, citations, and release notes in the Library so readers can trust the source.",
-      status: "By request",
-      howToJoin: "Send a draft or outline for intake and scheduling.",
-      ctaLabel: "Submit a draft",
-      ctaHref:
-        "mailto:hello@ethotechnics.org?subject=Publishing%20pipeline%20intake",
+        "Outputs: anonymized case narratives, pattern links, and recommended next steps.",
+      status: "As available",
+      howToJoin: "Share a field note or case study when you have one.",
+      ctaLabel: "Share a field note",
+      ctaHref: "/field-notes",
     },
   ],
   governance: [
@@ -162,11 +192,11 @@ export const instituteContent: InstituteContent = {
       linkLabel: "Email Studio",
     },
     {
-      label: "Propose a program partnership",
-      href: "mailto:studio@ethotechnics.org",
+      label: "Research inquiries",
+      href: "mailto:research@ethotechnics.org",
       description:
-        "Co-develop a cohort, publish a playbook, or request facilitation support.",
-      linkLabel: "Email Studio",
+        "Questions about citations, working papers, or scholarly collaboration.",
+      linkLabel: "Email research@ethotechnics.org",
     },
     {
       label: "Press and speaking",

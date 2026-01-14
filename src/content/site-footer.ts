@@ -40,7 +40,7 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics Institute seal",
     },
     description:
-      "Content licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.",
+      "Ethotechnics Institute — founded and directed by Kanav Jain. Open research for care-centered technology. Content licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.",
     license: {
       label: "View the CC BY-SA 4.0 license",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
@@ -59,6 +59,11 @@ export const siteFooter: SiteFooterContent = {
         {
           label: "Ethotechnics Studio",
           href: "https://ethotechnics.com",
+          external: true,
+        },
+        {
+          label: "Implementation partnerships",
+          href: "https://ethotechnics.com/services",
           external: true,
         },
         { label: "Syadvada", href: "https://syadvada.org", external: true },
@@ -82,6 +87,10 @@ export const siteFooter: SiteFooterContent = {
       heading: "Connect",
       links: [
         { label: "Reference API", href: "/api" },
+        {
+          label: "Research inquiries",
+          href: "mailto:research@ethotechnics.org",
+        },
         { label: "Send feedback", href: "/participate#feedback" },
         {
           label: "Signals newsletter",

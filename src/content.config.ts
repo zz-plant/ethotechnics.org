@@ -215,6 +215,15 @@ const glossary = defineCollection({
     categoryHighlights: z.array(
       z.object({ id: z.string(), label: z.string(), description: z.string() }),
     ),
+    priorityTiers: z.array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        description: z.string(),
+        termIds: z.array(z.string()),
+      }),
+    ),
+    freezeNotice: z.string(),
   }),
 });
 

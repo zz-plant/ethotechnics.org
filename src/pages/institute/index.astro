@@ -16,6 +16,7 @@ const {
   anchorLinks,
   panelCopy,
   highlights,
+  boundaries,
   programs,
   governance,
   stewards,
@@ -42,9 +43,9 @@ const {
 
   <SectionBlock
     id="overview"
-    eyebrow="What you can do here"
-    title="Pick the path that matches your visit."
-    description="Use the Institute when you want open guidance; we point you to the Studio when hands-on help is faster."
+    eyebrow="What we do"
+    title="Open research and reusable guidance."
+    description="Use the Institute for free frameworks, patterns, and research you can cite and share."
     className="section--banded"
   >
     <p class="muted small">
@@ -60,13 +61,26 @@ const {
   </SectionBlock>
 
   <SectionBlock
-    id="programs"
-    eyebrow="Programs"
-    title="What is in motion right now."
-    description="Join the track that fits your decision window; everything links back to the Library so you can act quickly."
+    id="boundaries"
+    eyebrow="What we don't do"
+    title="Clear boundaries so expectations stay aligned."
+    description="The Institute is an open research commons, not a consulting or credentialing body."
     variant="alt"
   >
-    <p class="muted small">Programs refresh on a quarterly cadence. Reach out for current availability.</p>
+    <CardGrid>
+      {boundaries.map((item) => (
+        <CardItem title={item.title} description={item.detail} tags={item.tags} />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="programs"
+    eyebrow="Release stewardship"
+    title="What the Institute maintains."
+    description="These releases stay open, versioned, and available for citation."
+  >
+    <p class="muted small">Releases update as research and field work evolve.</p>
     <CardGrid>
       {programs.map((program) => (
         <CardItem
