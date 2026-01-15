@@ -113,14 +113,19 @@ p {
 
 a {
   color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+  text-decoration: none;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 2px; /* Breathing room for the underline */
+  transition: background-size 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
 }
 
 a:hover,
 a:focus-visible {
   color: var(--accent-strong);
+  background-size: 100% 2px;
 }
 
 img,

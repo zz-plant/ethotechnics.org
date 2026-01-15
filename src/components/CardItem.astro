@@ -19,7 +19,7 @@
  * - className: Optional class name appended to the card root.
  * - ariaLabel: Optional aria-label for the card root.
  */
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 interface GlossaryLink {
   href: string;
@@ -32,9 +32,9 @@ interface Props {
   meta?: string;
   icon?: string;
   title?: string;
-  headingLevel?: 'h2' | 'h3' | 'h4';
+  headingLevel?: "h2" | "h3" | "h4";
   description?: string;
-  descriptionTone?: 'default' | 'muted';
+  descriptionTone?: "default" | "muted";
   titleId?: string;
   tags?: string[];
   tagsClassName?: string;
@@ -52,28 +52,31 @@ const {
   meta,
   icon,
   title,
-  headingLevel = 'h3',
+  headingLevel = "h3",
   description,
-  descriptionTone = 'muted',
+  descriptionTone = "muted",
   titleId,
   tags = [],
   tagsClassName,
   glossaryLinks = [],
-  glossaryLabel = 'Glossary',
+  glossaryLabel = "Glossary",
   dataDelivery,
   className,
   ariaLabel,
 } = props;
 
 const HeadingTag = headingLevel;
-const descriptionClass = descriptionTone === 'muted' ? 'muted' : undefined;
+const descriptionClass = descriptionTone === "muted" ? "muted" : undefined;
 const hasTags = tags.length > 0;
 const hasGlossaryLinks = glossaryLinks.length > 0;
-const cardClass = ['card', className].filter(Boolean).join(' ');
-const tagListClass = ['pill-list', tagsClassName].filter(Boolean).join(' ');
-const resolvedTitleId = title ? titleId || (id ? `${id}-title` : undefined) : undefined;
+const cardClass = ["card", className].filter(Boolean).join(" ");
+const tagListClass = ["pill-list", tagsClassName].filter(Boolean).join(" ");
+const resolvedTitleId = title
+  ? titleId || (id ? `${id}-title` : undefined)
+  : undefined;
 const labelledBy = ariaLabel ? undefined : resolvedTitleId;
 ---
+
 <article
   class={cardClass}
   id={id}
@@ -81,39 +84,45 @@ const labelledBy = ariaLabel ? undefined : resolvedTitleId;
   aria-label={ariaLabel}
   aria-labelledby={labelledBy}
 >
-  <div class="card__glow" aria-hidden="true" />
+  <div class="card__glow" aria-hidden="true"></div>
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   {meta && <p class="muted">{meta}</p>}
-  {icon && (
-    <div class="icon" aria-hidden="true">
-      <Icon name={icon} />
-    </div>
-  )}
+  {
+    icon && (
+      <div class="icon" aria-hidden="true">
+        <Icon name={icon} />
+      </div>
+    )
+  }
   {title && <HeadingTag id={resolvedTitleId}>{title}</HeadingTag>}
   {description && <p class={descriptionClass}>{description}</p>}
   <slot />
-  {hasTags && (
-    <ul class={tagListClass}>
-      {tags.map((tag) => (
-        <li>{tag}</li>
-      ))}
-    </ul>
-  )}
-  {hasGlossaryLinks && (
-    <p class="muted">
-      {glossaryLabel}:{' '}
-      {glossaryLinks.map((link, index) => {
-        const separator = index < glossaryLinks.length - 1 ? ', ' : '';
+  {
+    hasTags && (
+      <ul class={tagListClass}>
+        {tags.map((tag) => (
+          <li>{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    hasGlossaryLinks && (
+      <p class="muted">
+        {glossaryLabel}:{" "}
+        {glossaryLinks.map((link, index) => {
+          const separator = index < glossaryLinks.length - 1 ? ", " : "";
 
-        return (
-          <>
-            <a href={link.href}>{link.label}</a>
-            {separator}
-          </>
-        );
-      })}
-    </p>
-  )}
+          return (
+            <>
+              <a href={link.href}>{link.label}</a>
+              {separator}
+            </>
+          );
+        })}
+      </p>
+    )
+  }
   <slot name="footer" />
 </article>
 
@@ -127,8 +136,19 @@ const labelledBy = ariaLabel ? undefined : resolvedTitleId;
     box-shadow: 0 12px 24px rgba(64, 52, 40, 0.06);
     isolation: isolate;
     overflow: hidden;
+    transition:
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
-  
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      0 20px 48px rgba(64, 52, 40, 0.12),
+      0 8px 16px rgba(64, 52, 40, 0.04);
+    z-index: 1;
+  }
+
   /* Apply grain texture if available */
   .card::after {
     content: "";

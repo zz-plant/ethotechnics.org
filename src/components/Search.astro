@@ -44,7 +44,8 @@ import { Icon } from "astro-icon/components";
     </div>
     <div class="search-dialog__footer">
       <p id="search-help-text" class="visually-hidden">
-        Search standards, mechanisms, validators, research, and glossary entries.
+        Search standards, mechanisms, validators, research, and glossary
+        entries.
       </p>
       <div class="search-help">
         <span><kbd>↑↓</kbd> to navigate</span>
@@ -86,9 +87,17 @@ import { Icon } from "astro-icon/components";
   }
 
   .search-trigger:focus-visible {
-    outline: 2px solid var(--accent-strong);
-    outline-offset: 2px;
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+    outline: none;
+    border-color: var(--gold);
+    background: linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--surface) 98%, white 2%),
+      color-mix(in srgb, var(--gold) 15%, transparent)
+    );
+    box-shadow:
+      0 4px 12px rgba(168, 132, 79, 0.15),
+      0 0 0 2px var(--gold);
+    transform: scale(1.02);
   }
 
   .search-icon {
@@ -214,7 +223,9 @@ import { Icon } from "astro-icon/components";
     font-size: 0.75rem;
     cursor: pointer;
     color: var(--text);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .search-recent__item:hover,
@@ -302,7 +313,10 @@ import { Icon } from "astro-icon/components";
       /* @vite-ignore */
       pagefindPath
     ).catch((error) => {
-      console.warn("Pagefind not found. Search may not work in dev mode.", error);
+      console.warn(
+        "Pagefind not found. Search may not work in dev mode.",
+        error
+      );
       return null;
     })) as PagefindModule | null;
 
@@ -441,8 +455,9 @@ import { Icon } from "astro-icon/components";
 
   function getResultItems() {
     return Array.from(
-      resultsContainer?.querySelectorAll<HTMLAnchorElement>(".search-result-item") ??
-        []
+      resultsContainer?.querySelectorAll<HTMLAnchorElement>(
+        ".search-result-item"
+      ) ?? []
     );
   }
 
