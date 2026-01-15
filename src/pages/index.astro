@@ -49,6 +49,81 @@ const { pageTitle, pageDescription } = homeEntry.data;
   </section>
 
   <SectionBlock
+    id="audience"
+    eyebrow="Audience selector"
+    title="Route to the right artifacts in one click."
+    description="Each audience path reorders the stack to match the work you do."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="I am building an automated system or agent"
+        description="Fast path, mechanisms, and concrete implementation examples."
+      >
+        <ul class="muted">
+          <li>
+            <a href="/fast-path">Fast path</a>
+          </li>
+          <li>
+            <a href="/mechanisms">Mechanisms</a>
+          </li>
+          <li>
+            <a href="/examples">Worked examples</a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="I am auditing or governing a system"
+        description="Evidence, bindings, and minimum enforceable requirements."
+      >
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs">Evidence packs</a>
+          </li>
+          <li>
+            <a href="/bindings">Binding vectors</a>
+          </li>
+          <li>
+            <a href="/standards">Minimum binding sets</a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="I am writing policy or procurement language"
+        description="Standards, where they bind, and enforceable clauses."
+      >
+        <ul class="muted">
+          <li>
+            <a href="/standards">Standards + clauses</a>
+          </li>
+          <li>
+            <a href="/bindings#procurement">Procurement language</a>
+          </li>
+          <li>
+            <a href="/anti-weaponization">Anti-weaponization constraints</a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="I am researching or teaching"
+        description="Research, glossary anchors, and mapping artifacts."
+      >
+        <ul class="muted">
+          <li>
+            <a href="/research">Research</a>
+          </li>
+          <li>
+            <a href="/glossary">Glossary</a>
+          </li>
+          <li>
+            <a href="/field-notes">Field notes</a>
+          </li>
+        </ul>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
     id="outputs"
     eyebrow="What it produces"
     title="Concrete outputs you can attach to existing processes."
@@ -198,80 +273,5 @@ const { pageTitle, pageDescription } = homeEntry.data;
       <li>Does not decide moral tradeoffs.</li>
       <li>Does not require organizational buy-in to use.</li>
     </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="audience"
-    eyebrow="Audience selector"
-    title="Route to the right artifacts in one click."
-    description="Each audience path reorders the stack to match the work you do."
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      <CardItem
-        title="I am building an automated system or agent"
-        description="Fast path, mechanisms, and concrete implementation examples."
-      >
-        <ul class="muted">
-          <li>
-            <a href="/fast-path">Fast path</a>
-          </li>
-          <li>
-            <a href="/mechanisms">Mechanisms</a>
-          </li>
-          <li>
-            <a href="/examples">Worked examples</a>
-          </li>
-        </ul>
-      </CardItem>
-      <CardItem
-        title="I am auditing or governing a system"
-        description="Evidence, bindings, and minimum enforceable requirements."
-      >
-        <ul class="muted">
-          <li>
-            <a href="/evidence-packs">Evidence packs</a>
-          </li>
-          <li>
-            <a href="/bindings">Binding vectors</a>
-          </li>
-          <li>
-            <a href="/standards">Minimum binding sets</a>
-          </li>
-        </ul>
-      </CardItem>
-      <CardItem
-        title="I am writing policy or procurement language"
-        description="Standards, where they bind, and enforceable clauses."
-      >
-        <ul class="muted">
-          <li>
-            <a href="/standards">Standards + clauses</a>
-          </li>
-          <li>
-            <a href="/bindings#procurement">Procurement language</a>
-          </li>
-          <li>
-            <a href="/anti-weaponization">Anti-weaponization constraints</a>
-          </li>
-        </ul>
-      </CardItem>
-      <CardItem
-        title="I am researching or teaching"
-        description="Research, glossary anchors, and mapping artifacts."
-      >
-        <ul class="muted">
-          <li>
-            <a href="/research">Research</a>
-          </li>
-          <li>
-            <a href="/glossary">Glossary</a>
-          </li>
-          <li>
-            <a href="/field-notes">Field notes</a>
-          </li>
-        </ul>
-      </CardItem>
-    </CardGrid>
   </SectionBlock>
 </BaseLayout>

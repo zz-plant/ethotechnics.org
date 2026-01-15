@@ -76,6 +76,26 @@ const recommendedDetails = recommendedCard
   </ul>
 
   <SectionBlock
+    id="framing"
+    eyebrow={framing.eyebrow}
+    title={framing.title}
+    description={framing.description}
+  >
+    <CardGrid className="grid--two">
+      <CardItem title="This page is" descriptionTone="default">
+        <ul class="muted">
+          {framing.isList.map((item) => <li>{item}</li>)}
+        </ul>
+      </CardItem>
+      <CardItem title="This page is not" descriptionTone="default">
+        <ul class="muted">
+          {framing.isNotList.map((item) => <li>{item}</li>)}
+        </ul>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
     id="routes"
     eyebrow={routes.eyebrow}
     title={routes.title}
@@ -116,37 +136,6 @@ const recommendedDetails = recommendedCard
   </SectionBlock>
 
   <SectionBlock
-    id="artifacts"
-    eyebrow={artifacts.eyebrow}
-    title={artifacts.title}
-    description={artifacts.description}
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      {
-        artifacts.previews.map((preview) => (
-          <CardItem
-            title={preview.title}
-            description={preview.description}
-            descriptionTone="default"
-          >
-            <p class="muted">{preview.note}</p>
-            <div slot="footer" class="card__footer">
-              <a
-                class="button primary button--compact"
-                href={preview.href}
-                aria-label={preview.label}
-              >
-                {preview.label}
-              </a>
-            </div>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
     id="quick-start"
     eyebrow={quickStart.eyebrow}
     title={quickStart.title}
@@ -175,22 +164,33 @@ const recommendedDetails = recommendedCard
   </SectionBlock>
 
   <SectionBlock
-    id="framing"
-    eyebrow={framing.eyebrow}
-    title={framing.title}
-    description={framing.description}
+    id="artifacts"
+    eyebrow={artifacts.eyebrow}
+    title={artifacts.title}
+    description={artifacts.description}
+    variant="alt"
   >
     <CardGrid className="grid--two">
-      <CardItem title="This page is" descriptionTone="default">
-        <ul class="muted">
-          {framing.isList.map((item) => <li>{item}</li>)}
-        </ul>
-      </CardItem>
-      <CardItem title="This page is not" descriptionTone="default">
-        <ul class="muted">
-          {framing.isNotList.map((item) => <li>{item}</li>)}
-        </ul>
-      </CardItem>
+      {
+        artifacts.previews.map((preview) => (
+          <CardItem
+            title={preview.title}
+            description={preview.description}
+            descriptionTone="default"
+          >
+            <p class="muted">{preview.note}</p>
+            <div slot="footer" class="card__footer">
+              <a
+                class="button primary button--compact"
+                href={preview.href}
+                aria-label={preview.label}
+              >
+                {preview.label}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
