@@ -1,22 +1,25 @@
-import { defineAction, z } from 'astro:actions';
+import { defineAction } from 'astro:actions';
+import { z } from 'astro:content';
+
+const intakeSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Invalid email address'),
+  organization: z.string().optional(),
+  topic: z.string().min(1, 'Topic is required'),
+  details: z.string().min(10, 'Details must be at least 10 characters'),
+});
 
 export const server = {
   intake: defineAction({
     accept: 'form',
-    input: z.object({
-      name: z.string().min(1, 'Name is required'),
-      email: z.string().email('Invalid email address'),
-      organization: z.string().optional(),
-      topic: z.string().min(1, 'Topic is required'),
-      details: z.string().min(10, 'Details must be at least 10 characters'),
-    }),
-    handler: async (input) => {
+    input: intakeSchema,
+    handler: async (input: z.infer<typeof intakeSchema>) => {
       // In a real application, you would save this to a database or send an email.
       // For now, we'll just log it and return success.
       console.log('Intake form submission:', input);
-      
+
       // Simulate a small delay
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       return {
         success: true,
