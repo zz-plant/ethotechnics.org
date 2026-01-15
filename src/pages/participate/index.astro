@@ -114,51 +114,125 @@ const {
     description={intake.description}
   >
     <p class="muted small">{intake.formatNote}</p>
-    <form
-      class="intake-form"
-      action={intake.form.action}
-      method="post"
-      enctype="text/plain"
-    >
-      <div class="intake-form__grid">
-        {
-          intake.form.fields.map((field) => (
-            <label
-              class={`intake-form__field${
-                field.type === "textarea" ? " intake-form__field--full" : ""
-              }`}
-            >
-              <span class="muted">{field.label}</span>
-              {field.type === "textarea" ? (
-                <textarea
-                  id={field.id}
-                  name={field.id}
-                  placeholder={field.placeholder}
-                  required={field.required}
-                  rows={4}
-                />
-              ) : (
-                <input
-                  id={field.id}
-                  name={field.id}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  required={field.required}
-                />
-              )}
-            </label>
-          ))
-        }
+    <p class="muted small">{intake.formatNote}</p>
+
+    <div id="intake-form-container">
+      <form id="intake-form" class="intake-form" method="POST">
+        <div class="intake-form__grid">
+          {
+            intake.form.fields.map((field) => (
+              <label
+                class={`intake-form__field${
+                  field.type === "textarea" ? " intake-form__field--full" : ""
+                }`}
+              >
+                <span class="muted">{field.label}</span>
+                {field.type === "textarea" ? (
+                  <textarea
+                    id={field.id}
+                    name={field.id === "message" ? "details" : field.id}
+                    placeholder={field.placeholder}
+                    required={field.required}
+                    rows={4}
+                  />
+                ) : (
+                  <input
+                    id={field.id}
+                    name={field.id}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    required={field.required}
+                  />
+                )}
+              </label>
+            ))
+          }
+        </div>
+        <div class="intake-form__actions">
+          <button class="button primary" type="submit" id="submit-btn">
+            {intake.form.submitLabel}
+          </button>
+          <p class="muted small">{intake.responseNote}</p>
+          <p class="muted small">{intake.timelineNote}</p>
+        </div>
+        <p class="muted small">{intake.privacyNote}</p>
+        <div id="form-message" class="form-message" aria-live="polite"></div>
+      </form>
+
+      <div id="success-message" class="success-message" hidden>
+        <div class="success-message__content">
+          <div class="success-message__icon">
+            <Icon name="lucide:check" />
+          </div>
+          <h3>Received</h3>
+          <p>Thank you for your submission. We'll be in touch soon.</p>
+          <button class="button ghost" id="reset-btn">Send another</button>
+        </div>
       </div>
-      <div class="intake-form__actions">
-        <button class="button primary" type="submit">
-          {intake.form.submitLabel}
-        </button>
-        <p class="muted small">{intake.responseNote}</p>
-        <p class="muted small">{intake.timelineNote}</p>
-      </div>
-      <p class="muted small">{intake.privacyNote}</p>
-    </form>
+    </div>
+
+    <script>
+      import { actions } from "astro:actions";
+
+      const form = document.getElementById("intake-form") as HTMLFormElement;
+      const submitBtn = document.getElementById(
+        "submit-btn"
+      ) as HTMLButtonElement;
+      const messageDiv = document.getElementById("form-message");
+      const container = document.getElementById("intake-form-container");
+      const successDiv = document.getElementById("success-message");
+      const resetBtn = document.getElementById("reset-btn");
+
+      if (
+        form &&
+        submitBtn &&
+        messageDiv &&
+        container &&
+        successDiv &&
+        resetBtn
+      ) {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // Reset previous states
+          messageDiv.textContent = "";
+          messageDiv.className = "form-message";
+          submitBtn.disabled = true;
+          const originalBtnText = submitBtn.textContent;
+          submitBtn.textContent = "Sending...";
+
+          const formData = new FormData(form);
+
+          // Map fields if necessary to match action schema
+          // The form fields in content might not match exactly what our action expects
+          // We'll trust the form content matches or is close enough, checking specific overrides
+
+          const result = await actions.intake(formData);
+
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+
+          if (!result.error) {
+            // Success
+            form.hidden = true;
+            successDiv.hidden = false;
+            form.reset();
+          } else {
+            // Error
+            messageDiv.textContent =
+              result.error.message || "Something went wrong. Please try again.";
+            messageDiv.classList.add("error");
+          }
+        });
+
+        resetBtn.addEventListener("click", () => {
+          successDiv.hidden = true;
+          form.hidden = false;
+          messageDiv.textContent = "";
+          messageDiv.className = "form-message";
+        });
+      }
+    </script>
   </SectionBlock>
 
   <SectionBlock
