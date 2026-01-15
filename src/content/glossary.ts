@@ -44,12 +44,21 @@ export type GlossaryCategory = {
   entries: GlossaryEntry[];
 };
 
+export type GlossaryPriorityTier = {
+  id: string;
+  title: string;
+  description: string;
+  termIds: string[];
+};
+
 export type GlossaryContent = PageWithPermalink & {
   publication: PublicationMetadata;
   territoryMap: GlossaryTerritory[];
   categories: GlossaryCategory[];
   starterTerms: { id: string; label: string; description: string }[];
   categoryHighlights: { id: string; label: string; description: string }[];
+  priorityTiers: GlossaryPriorityTier[];
+  freezeNotice: string;
 };
 
 export const glossaryContent: GlossaryContent = {
@@ -93,6 +102,8 @@ export const glossaryContent: GlossaryContent = {
     attribution:
       "Credit Ethotechnics Institute, include the term title + version, and link to the glossary permalink.",
   },
+  freezeNotice:
+    "This glossary captures Ethotechnics concepts as of January 2026. New theoretical development appears in the Research section.",
   starterTerms: [
     {
       id: "ethotechnics",
@@ -137,6 +148,54 @@ export const glossaryContent: GlossaryContent = {
       label: "Friction & flow",
       description:
         "Where to slow, pause, or redirect experience to protect people.",
+    },
+  ],
+  priorityTiers: [
+    {
+      id: "core",
+      title: "Core concepts",
+      description:
+        "Essential terms for understanding Ethotechnics theory and practice.",
+      termIds: [
+        "ethotechnics",
+        "moral-behavior",
+        "ethical-load-path",
+        "consent-journey",
+        "contestability",
+        "stoppability",
+        "repair-log",
+        "burden-index",
+      ],
+    },
+    {
+      id: "applied",
+      title: "Applied concepts",
+      description:
+        "Terms practitioners use when designing or auditing care-centered systems.",
+      termIds: [
+        "permission-surface",
+        "safety-valve",
+        "stewardship-window",
+        "appeal-passage-rate",
+        "maintenance-window",
+        "signal-credibility",
+        "fair-burden-distribution",
+        "time-to-halt",
+      ],
+    },
+    {
+      id: "emerging",
+      title: "Emerging concepts",
+      description:
+        "Exploratory areas that are evolving with ongoing research.",
+      termIds: [
+        "moral-drift-control",
+        "care-redundancy",
+        "burden-elasticity",
+        "adaptive-refusal-pathways",
+        "ambiguity-budgets",
+        "ethical-load-testing",
+      ],
     },
   ],
   territoryMap: [

@@ -1,6 +1,8 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
@@ -28,6 +30,8 @@ const {
   categories,
   starterTerms,
   categoryHighlights,
+  priorityTiers,
+  freezeNotice,
 } = glossaryEntry.data;
 const libraryContent = libraryEntry.data;
 
@@ -43,6 +47,7 @@ type GlossaryRelatedPattern = {
   filterLabels: string[];
 };
 const anchorLinks = [
+  { href: "#priority-tiers", label: "Priority tiers" },
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#territory-map", label: "Territory map" },
   ...categories.map((category) => ({
@@ -52,6 +57,7 @@ const anchorLinks = [
 ];
 const summaryLinks = [
   { href: "#starter-terms", label: "Starter terms" },
+  { href: "#priority-tiers", label: "Priority tiers" },
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#territory-map", label: "Territory map" },
 ];
@@ -229,6 +235,29 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     publication={publication}
     variant="compact"
   />
+  <SectionBlock
+    id="priority-tiers"
+    eyebrow="Priority tiers"
+    title="Start with core, then applied, then emerging."
+    description={freezeNotice}
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      {priorityTiers.map((tier) => (
+        <CardItem title={tier.title} description={tier.description}>
+          <ul class="muted">
+            {tier.termIds.map((termId) => (
+              <li>
+                <a href={glossaryEntryUrl(termId)}>
+                  {entryLabelIndex.get(termId) ?? termId}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
   <div class="glossary-filter">
     <div class="glossary-filter__controls">
       <label class="glossary-filter__label" for="glossary-filter">

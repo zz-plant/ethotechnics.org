@@ -22,171 +22,58 @@ export interface NavAction {
 
 export const navSections: NavSection[] = [
   {
-    heading: "Standards",
-    description:
-      "Published doctrine, immutable rights, and the canonical glossary anchors.",
+    heading: "Frameworks",
+    description: "Core concepts, standards, and glossary anchors.",
     links: [
       {
         href: "/standards",
-        label: "Standards",
-        description: "Browse published standards and in-flight drafts.",
+        label: "Frameworks",
+        description: "Open standards and foundational doctrine.",
         primary: true,
-      },
-      {
-        href: "/standards/std-01-temporal-rights",
-        label: "The Temporal Bill of Rights (STD-01)",
-        description: "Draft standard defining the seven temporal rights.",
-      },
-      {
-        href: "/standards/std-02-contestability-recourse",
-        label: "The Contestability & Recourse Standard (STD-02)",
-        description:
-          "Draft standard defining contestability, review, and remedy obligations.",
       },
       {
         href: "/standards/core-axioms",
         label: "Core axioms",
-        description: "First principles for accountable system design.",
+        description: "First principles for care-centered technology.",
       },
       {
         href: "/glossary",
         label: "Glossary",
-        description: "Immutable terminology and canonical definitions.",
+        description: "Stable terms with citation-ready definitions.",
       },
     ],
   },
   {
-    heading: "Adoption",
-    description:
-      "Worked examples, evidence packs, and binding vectors that turn standards into enforceable practice.",
-    links: [
-      {
-        href: "/examples",
-        label: "Worked examples",
-        description:
-          "End-to-end scenarios with receipts, clocks, and remedies.",
-        primary: true,
-      },
-      {
-        href: "/bindings",
-        label: "Binding vectors",
-        description: "Copy-paste clauses, release gates, and runbook snippets.",
-      },
-      {
-        href: "/evidence-packs",
-        label: "Evidence packs",
-        description: "Tiered proof bundles for STD-01 and STD-02.",
-      },
-      {
-        href: "/exceptions",
-        label: "Exceptions framework",
-        description: "Bounded exceptions that preserve receipts and clocks.",
-      },
-      {
-        href: "/measurement-tiers",
-        label: "Measurement tiers",
-        description: "MPI measurement guidance with anti-gaming controls.",
-      },
-      {
-        href: "/anti-weaponization",
-        label: "Anti-weaponization constraints",
-        description: "Clause-like constraints that prevent denial-by-design.",
-      },
-      {
-        href: "/agents/spec",
-        label: "Agent Safety Object Model",
-        description: "Machine-readable agent governance profile for tooling.",
-      },
-      {
-        href: "/fast-path",
-        label: "Fast-path adoption",
-        description: "One-sprint adoption guide for quick safeguards.",
-      },
-      {
-        href: "/diy-packs",
-        label: "DIY implementation pack",
-        description: "Templates, sample tickets, and minimal telemetry specs.",
-      },
-    ],
-  },
-  {
-    heading: "Mechanisms",
-    description:
-      "Spec sheets that turn standards into governance, friction, and policy controls.",
+    heading: "Patterns",
+    description: "Pattern library for diagnostics, interventions, and upkeep.",
     links: [
       {
         href: "/mechanisms",
-        label: "Mechanisms",
-        description: "Reference mechanisms and their implementation sheets.",
+        label: "Pattern library",
+        description: "Reusable patterns with implementation guidance.",
         primary: true,
-      },
-      {
-        href: "/mechanisms#governance",
-        label: "Governance",
-        description:
-          "Decision rights, escalation paths, and accountability ledgers.",
-      },
-      {
-        href: "/mechanisms#friction",
-        label: "Friction",
-        description:
-          "Consent prompts, exit ramps, and humane default safeguards.",
-      },
-      {
-        href: "/mechanisms#policy",
-        label: "Policy",
-        description: "Contracts, charters, and enforceable commitments.",
-      },
-    ],
-  },
-  {
-    heading: "Validators",
-    description: "Diagnostics that score systems against published standards.",
-    links: [
-      {
-        href: "/validators",
-        label: "Validators",
-        description: "Run audits, simulations, and report cards.",
-        primary: true,
-      },
-      {
-        href: "/validators/burden-modeler",
-        label: "Burden Modeler",
-        description: "Model time tax and constructive denial risk.",
-      },
-      {
-        href: "/validators/risk-radar",
-        label: "Risk Radar",
-        description: "Surface exposure across high-burden touchpoints.",
-      },
-      {
-        href: "/validators/latency-audit",
-        label: "Latency Audit",
-        description: "Check if timeouts honor STD-01 bounded duration.",
       },
       {
         href: "/diagnostics",
         label: "Diagnostics",
-        description: "Run simulations and maintenance diagnostics.",
+        description: "Assess burden, readiness, and risk signals.",
+      },
+      {
+        href: "/validators",
+        label: "Validators",
+        description: "Run audits and report cards against the standards.",
       },
     ],
   },
   {
     heading: "Research",
-    description:
-      "Orientation, agenda, and publications that ground the standards.",
+    description: "Case studies, working papers, and field notes.",
     links: [
       {
         href: "/research",
         label: "Research",
-        description: "Scan the research agenda, artifacts, and publications.",
+        description: "Agenda, publications, and bridge artifacts.",
         primary: true,
-      },
-      {
-        href: "/research/temporal-governance-studies",
-        label: "Temporal Governance Studies (CH-01)",
-        description:
-          "Field-definition charter for the temporal governance research program.",
       },
       {
         href: "/field-notes",
@@ -196,41 +83,29 @@ export const navSections: NavSection[] = [
       {
         href: "/syllabus",
         label: "Syllabus",
-        description: "Structured learning path through standards and tools.",
-      },
-      {
-        href: "/agent-toolkit",
-        label: "Agent toolkit",
-        description: "Operational playbooks and agent enablement tools.",
+        description: "Structured learning path through core materials.",
       },
     ],
   },
   {
-    heading: "Institute",
-    description:
-      "Mission, team, and programs stewarded by the Institute of Ethotechnics.",
+    heading: "About",
+    description: "Institute mission, boundaries, and Studio relationship.",
     links: [
       {
         href: "/institute",
-        label: "Institute",
-        description:
-          "Why the Institute exists and how standards are stewarded.",
+        label: "About the Institute",
+        description: "Why the Institute exists and how it is stewarded.",
         primary: true,
       },
       {
-        href: "/institute/team",
-        label: "Team",
-        description: "Stewards, editors, and reviewers behind the standards.",
+        href: "/start-here",
+        label: "Start here",
+        description: "Decision tree for researchers and practitioners.",
       },
       {
-        href: "/participate",
-        label: "Participate",
-        description: "Submit proposals, join reviews, or share feedback.",
-      },
-      {
-        href: "https://ethotechnics.com",
-        label: "Studio (.com)",
-        description: "Implementation partner for standard adoption.",
+        href: "/institute/how-studio-fits",
+        label: "How Studio fits",
+        description: "When to bring in implementation support.",
       },
     ],
   },
@@ -243,13 +118,13 @@ export const navActions: NavAction[] = [
     variant: "primary",
   },
   {
-    href: "/validators",
-    label: "Run a validator",
+    href: "/mechanisms",
+    label: "Browse patterns",
     variant: "ghost",
   },
   {
-    href: "/standards/std-02-contestability-recourse",
-    label: "Read STD-02",
+    href: "/research",
+    label: "Read research",
     variant: "ghost-compact",
   },
   {

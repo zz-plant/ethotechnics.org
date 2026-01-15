@@ -21,11 +21,13 @@ const {
   standardsTimeline,
   orientationCards,
   bridgeArtifacts,
+  types,
   agenda,
   focusAreas,
   publications,
   lastUpdated,
   updateCadence,
+  citationGuide,
 } = researchContent;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const summaryLinks = anchorLinks.slice(0, 5);
@@ -48,6 +50,7 @@ const researchTags = Array.from(
 const researchSuggestions = Array.from(
   new Set([
     ...orientationCards.map((card) => card.title),
+    ...types.map((type) => type.title),
     ...bridgeArtifacts.flatMap((artifact) => [artifact.title, ...artifact.tags]),
     ...publications.flatMap((publication) => [
       publication.title,
@@ -60,6 +63,7 @@ const researchSuggestions = Array.from(
 const researchSections = [
   { id: "", label: "All sections" },
   { id: "orientation", label: "Orientation" },
+  { id: "research-types", label: "Research types" },
   { id: "bridge-artifacts", label: "Bridge artifacts" },
   { id: "agenda", label: "Agenda" },
   { id: "focus-areas", label: "Focus areas" },
@@ -72,6 +76,7 @@ const buildSearchText = (...parts: Array<string | string[] | undefined>) =>
     .trim();
 const totalResearchItems =
   orientationCards.length +
+  types.length +
   bridgeArtifacts.length +
   agenda.length +
   focusAreas.length +
@@ -126,6 +131,33 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     relatedLinks={summaryRelatedLinks}
     jumpLinks={summaryLinks}
   />
+  <SectionBlock
+    id="research-types"
+    eyebrow="Research types"
+    title="What kind of work you will find here."
+    description="Choose the collection that matches your need for rigor or speed."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {types.map((type) => (
+        <div
+          class="research-filter__item"
+          data-research-item
+          data-section="research-types"
+          data-tags=""
+          data-search={buildSearchText(type.title, type.description)}
+        >
+          <CardItem title={type.title} description={type.description}>
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={type.href}>
+                {type.label}
+              </a>
+            </div>
+          </CardItem>
+        </div>
+      ))}
+    </CardGrid>
+  </SectionBlock>
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
@@ -133,6 +165,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     publication={publication}
     variant="compact"
   />
+  <SectionBlock
+    id="how-to-cite"
+    eyebrow="How to cite"
+    title={citationGuide.heading}
+    description={citationGuide.description}
+  >
+    <div class="callout">
+      <p class="muted">{citationGuide.citation}</p>
+      <ul class="muted">
+        {citationGuide.notes.map((note) => (
+          <li>{note}</li>
+        ))}
+      </ul>
+    </div>
+  </SectionBlock>
   <SectionBlock
     id="standards-timeline"
     eyebrow="Timeline"

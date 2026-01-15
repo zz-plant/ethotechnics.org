@@ -20,6 +20,13 @@ export type FocusArea = GlossaryLinked & {
   questions: string[];
 };
 
+export type ResearchType = {
+  title: string;
+  description: string;
+  href: string;
+  label: string;
+};
+
 export type Publication = GlossaryLinked & {
   title: string;
   type: "protocol" | "report" | "deck";
@@ -64,17 +71,24 @@ export type ResearchContent = PageWithPermalink &
       tags: string[];
       href: string;
     }[];
+    types: ResearchType[];
     agenda: AgendaItem[];
     focusAreas: FocusArea[];
     publications: Publication[];
     lastUpdated: string;
     updateCadence: string;
+    citationGuide: {
+      heading: string;
+      description: string;
+      citation: string;
+      notes: string[];
+    };
   };
 
 export const researchContent: ResearchContent = {
   pageTitle: "Research — Ethotechnics",
   pageDescription:
-    "Inquiries, methods, and study findings that surface the human impacts of technology.",
+    "Case studies, working papers, field notes, and published work on care-centered technology.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-01-09T00:00:00Z",
@@ -118,11 +132,13 @@ export const researchContent: ResearchContent = {
     "Updates publish on a quarterly cadence with interim Field Notes.",
   anchorLinks: [
     { href: "#orientation", label: "Orientation" },
+    { href: "#research-types", label: "Research types" },
     { href: "#bridge-artifacts", label: "Bridge artifacts" },
     { href: "#standards-timeline", label: "Standards timeline" },
     { href: "#agenda", label: "Agenda" },
     { href: "#focus-areas", label: "Focus areas" },
     { href: "#publications", label: "Publications" },
+    { href: "#how-to-cite", label: "How to cite" },
   ],
   panelCopy: {
     eyebrow: "How to read these entries",
@@ -224,6 +240,36 @@ export const researchContent: ResearchContent = {
         "Structured review mapping mechanism adoption across policy, design, and governance programs.",
       tags: ["systematic review", "mechanisms", "policy"],
       href: "/research/bridge-artifacts#pattern-language-review",
+    },
+  ],
+  types: [
+    {
+      title: "Case studies",
+      description:
+        "Anonymized studies from Studio partnerships, shared as applied learning.",
+      href: "/field-notes",
+      label: "Browse case studies",
+    },
+    {
+      title: "Working papers",
+      description:
+        "Draft academic articles and framework papers with structured abstracts.",
+      href: "/research#bridge-artifacts",
+      label: "Browse working papers",
+    },
+    {
+      title: "Field notes",
+      description:
+        "Short observations and implementation reflections from active projects.",
+      href: "/field-notes",
+      label: "Browse field notes",
+    },
+    {
+      title: "Published work",
+      description:
+        "Peer-reviewed or finalized publications ready for citation.",
+      href: "/research#publications",
+      label: "Browse published work",
     },
   ],
   agenda: [
@@ -409,4 +455,16 @@ export const researchContent: ResearchContent = {
       ],
     },
   ],
+  citationGuide: {
+    heading: "How to cite Ethotechnics research",
+    description:
+      "Use the citation below for the Research landing page. Each artifact includes its own citation and stable link.",
+    citation:
+      "Ethotechnics Institute Research Team. (2026). Research — Ethotechnics. https://ethotechnics.org/research",
+    notes: [
+      "Use permalinks for individual artifacts or glossary terms when possible.",
+      "Include version numbers from the citation block for formal publications.",
+      "Contact research@ethotechnics.org for citation questions.",
+    ],
+  },
 };
