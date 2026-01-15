@@ -29,6 +29,35 @@ const ndjsonResponse = (payload: string) =>
     headers: ndjsonHeaders,
   });
 
+const buildEndpointMap = (
+  basePath: string,
+  options?: { includeReleaseEndpoints?: boolean },
+) => {
+  const normalizedBase = basePath.replace(/\/$/, "");
+
+  return {
+    agentIndex: `${normalizedBase}/agent-index.json`,
+    siteIndex: `${normalizedBase}/site-index.json`,
+    standards: `${normalizedBase}/standards.json`,
+    clauses: `${normalizedBase}/clauses.json`,
+    mechanisms: `${normalizedBase}/mechanisms.json`,
+    validators: `${normalizedBase}/validators.json`,
+    glossary: `${normalizedBase}/glossary.json`,
+    antiPatterns: `${normalizedBase}/anti-patterns.json`,
+    evidencePacks: `${normalizedBase}/evidence-packs.json`,
+    findings: `${normalizedBase}/findings.json`,
+    diagnosticResults: `${normalizedBase}/diagnostic-results.json`,
+    ragCorpus: `${normalizedBase}/rag-corpus.jsonl`,
+    research: `${normalizedBase}/research.json`,
+    ...(options?.includeReleaseEndpoints
+      ? {
+          releases: `${normalizedBase}/releases.json`,
+          changelog: `${normalizedBase}/changelog.json`,
+        }
+      : {}),
+  };
+};
+
 export const createClausesResponse = () => {
   const clauses = getClausesForApi();
 
@@ -65,8 +94,8 @@ const buildEndpoints = (
   basePath: string,
   options?: { includeReleaseEndpoints?: boolean },
 ) => {
-  const normalizedBase = basePath.replace(/\/$/, "");
   const core = [
+    "agent-index.json",
     "site-index.json",
     "standards.json",
     "clauses.json",
@@ -78,12 +107,56 @@ const buildEndpoints = (
     "findings.json",
     "diagnostic-results.json",
     "rag-corpus.jsonl",
+    "research.json",
   ];
   const release = options?.includeReleaseEndpoints
     ? ["releases.json", "changelog.json"]
     : [];
 
+  const normalizedBase = basePath.replace(/\/$/, "");
+
   return [...core, ...release].map((endpoint) => `${normalizedBase}/${endpoint}`);
+};
+
+export const createAgentIndexResponse = (options: {
+  basePath: string;
+  includeReleaseEndpoints?: boolean;
+}) => {
+  const endpointMap = buildEndpointMap(options.basePath, {
+    includeReleaseEndpoints: options.includeReleaseEndpoints,
+  });
+
+  const payload = {
+    meta: {
+      generatedAt: new Date().toISOString(),
+      release: releaseInfo,
+      permalink: endpointMap.agentIndex,
+    },
+    discovery: {
+      sitemap: "/sitemap.xml",
+      robots: "/robots.txt",
+    },
+    docs: {
+      apiReference: "/api",
+      agentObjectModel: "/agents/spec",
+      agentObjectSchema: "/agents/spec.json",
+    },
+    recommended: {
+      quickStart: [
+        endpointMap.siteIndex,
+        endpointMap.standards,
+        endpointMap.clauses,
+        endpointMap.mechanisms,
+        endpointMap.validators,
+        endpointMap.glossary,
+        endpointMap.research,
+      ],
+      ragCorpusPreview: `${endpointMap.ragCorpus}?limit=200`,
+    },
+    endpoints: endpointMap,
+  };
+
+  return jsonResponse(payload);
 };
 
 export const createSiteIndexResponse = (options: {

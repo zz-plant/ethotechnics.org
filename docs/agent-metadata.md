@@ -62,10 +62,12 @@ Guidance for machine-readable metadata, JSON-LD coverage, and the public JSON en
 
 The public API endpoints provide lightweight JSON for agents and tooling:
 
-- `/api/standards` — standard metadata and permalinks.
-- `/api/mechanisms` — mechanism patterns, filters, and glossary references.
-- `/api/glossary` — flattened glossary entries with category labels.
-- `/api/research` — orientation cards, agenda items, focus areas, publications, and timeline data.
+- `/api/agent-index.json` — quick-start discovery index with core endpoints and docs links.
+- `/api/standards.json` — standard metadata and permalinks.
+- `/api/mechanisms.json` — mechanism patterns, filters, and glossary references.
+- `/api/glossary.json` — flattened glossary entries with category labels.
+- `/api/research.json` — orientation cards, agenda items, focus areas, publications, and timeline
+  data.
 
 Each response includes a `meta` block with `generatedAt` and a `permalink` reference.
 
