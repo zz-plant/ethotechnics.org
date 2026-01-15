@@ -29,7 +29,7 @@
     "typecheck": "bun run --bun tsc --noEmit",
     "lint": "bun run --bun eslint \"src/**/*.{ts,tsx,astro}\"",
     "lint:fix": "bun run --bun eslint \"src/**/*.{ts,tsx,astro}\" --fix",
-    "check": "bun run lint && bun run test:unit:ci && bun run typecheck && bun run astro:check && bun run validate:json && bun run validate:glossary",
+    "check": "bun run scripts/check-parallel.ts",
     "format": "bunx prettier --write .",
     "format:check": "bunx prettier --check .",
     "test:unit": "bun test src",

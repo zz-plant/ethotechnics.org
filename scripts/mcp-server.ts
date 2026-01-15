@@ -212,6 +212,85 @@ server.tool(
   },
 );
 
+// Tool: Get file tree with depth and path options
+server.tool(
+  "get_file_tree",
+  "Get a directory tree starting from a specific path with optional depth limit",
+  {
+    path: z
+      .string()
+      .optional()
+      .default(".")
+      .describe("The path to start the tree from (relative to project root)"),
+    depth: z.number().optional().default(2).describe("Maximum depth of the tree"),
+  },
+  async ({ path, depth }) => {
+    try {
+      const rootPath = resolve(getProjectRoot(), path || ".");
+      const files: string[] = [];
+      const excludes = [
+        "node_modules",
+        ".git",
+        "dist",
+        ".wrangler",
+        "coverage",
+      ];
+
+      async function scan(dir: string, currentDepth: number) {
+        if (depth !== undefined && currentDepth > depth) return;
+        const entries = await readdir(dir, { withFileTypes: true });
+        for (const entry of entries) {
+          if (excludes.includes(entry.name)) continue;
+          const fullPath = join(dir, entry.name);
+          const relPath = relative(rootPath, fullPath);
+          files.push(
+            `${"  ".repeat(currentDepth)}${entry.isDirectory() ? "📁" : "📄"} ${relPath}`,
+          );
+          if (entry.isDirectory()) {
+            await scan(fullPath, currentDepth + 1);
+          }
+        }
+      }
+
+      await scan(rootPath, 0);
+
+      return textResponse(
+        files.length > 0 ? files.join("\n") : "No files found or depth exceeded.",
+      );
+    } catch (error) {
+      return errorResponse(
+        `Error getting file tree: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+// Tool: Run project check
+server.tool(
+  "run_check",
+  "Run the full project check (lint, tests, types, etc.)",
+  {},
+  async () => {
+    try {
+      const proc = Bun.spawn(["bun", "run", "check"], {
+        stdout: "pipe",
+        stderr: "pipe",
+      });
+      const stdout = await Bun.readableStreamToText(proc.stdout);
+      const stderr = await Bun.readableStreamToText(proc.stderr);
+      await proc.exited;
+
+      const status = proc.exitCode === 0 ? "✅ PASS" : "❌ FAIL";
+      return textResponse(`Status: ${status}\n\nSTDOUT:\n${stdout}\n\nSTDERR:\n${stderr}`);
+    } catch (error) {
+      return errorResponse(
+        `Error running check: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+
 // Start server
 async function main() {
   const transport = new StdioServerTransport();

@@ -1,10 +1,17 @@
 [test]
 # Enable test coverage reporting
 coverage = true
-
+# Coverage directory for CI integration
+coverageDir = "./coverage"
 # Preload files for test setup
 preload = ["./src/test/preload.ts"]
+
+[run]
+# Enable source maps for better stack traces
+sourcemap = true
 
 [install]
 # Use lockfile for reproducible installs
 frozenLockfile = true
+# Automatically install peer dependencies
+peer = true
