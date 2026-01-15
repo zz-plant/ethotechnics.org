@@ -336,6 +336,7 @@ import { Icon } from "astro-icon/components";
     mechanisms: "Mechanisms",
     mechanism: "Mechanisms",
   };
+  const isDev = import.meta.env.DEV;
   let activeIndex = -1;
   let currentQuery = "";
 
@@ -470,7 +471,9 @@ import { Icon } from "astro-icon/components";
     if (!pf) {
       if (resultsContainer)
         resultsContainer.innerHTML =
-          '<p class="search-empty">Search is only available in production builds.</p>';
+          isDev
+            ? '<p class="search-empty">Search is only available in production builds. Run <code>bun run build</code> and <code>bun run preview</code> to test it locally.</p>'
+            : '<p class="search-empty">Search is temporarily unavailable. Please try again later.</p>';
       return;
     }
 
