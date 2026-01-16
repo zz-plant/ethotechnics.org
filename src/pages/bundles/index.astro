@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import { bundleIndex } from "../../content/bundles";
+
+const pageTitle = "Bundles — Ethotechnics Institute";
+const pageDescription =
+  "Curated bundles of clauses, evidence, and diagnostics artifacts with one-click exports.";
+const permalink = "/bundles";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Bundles"
+    title="Bundled artifacts"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      ...bundleIndex.map((bundle) => ({
+        href: `#${bundle.slug}`,
+        label: bundle.title,
+      })),
+      { href: "#export-options", label: "Export options" },
+    ]}
+    panelCopy={{
+      eyebrow: "One-click exports",
+      title: "Bundle the artifacts that make standards real",
+      description:
+        "Each bundle packages clause language, evidence references, and deliverable-ready templates for fast adoption.",
+    }}
+  />
+
+  <SectionBlock
+    eyebrow="Bundle catalog"
+    title="Pick a bundle to export"
+    description="Each bundle includes scoped artifacts, use-case guidance, and update cadence notes."
+  >
+    <CardGrid className="grid--two">
+      {bundleIndex.map((bundle) => (
+        <CardItem
+          id={bundle.slug}
+          title={bundle.title}
+          description={bundle.summary}
+        >
+          <p class="muted">Scope: {bundle.scope}</p>
+          <p class="muted">Update cadence: {bundle.updateCadence}</p>
+          <a
+            slot="footer"
+            class="button ghost button--compact"
+            href={`/bundles/${bundle.slug}`}
+          >
+            Open bundle
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="export-options"
+    eyebrow="Export options"
+    title="Start with GitHub, then extend"
+    description="GitHub exports are live now. Notion and PDF workflows are queued next."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>GitHub exports ship versioned Markdown, CSV, and change logs.</li>
+      <li>Notion exports will copy tasks, templates, and review dashboards.</li>
+      <li>PDF exports will package shareable summaries for procurement and audit reviews.</li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>
