@@ -1,0 +1,12 @@
+---
+import TaxonomyEntryPage from "../../components/TaxonomyEntryPage.astro";
+import { taxonomyEntriesBySlug, type TaxonomyEntry } from "../../content/taxonomy";
+
+const entry = taxonomyEntriesBySlug.get("assurance");
+
+if (!entry) {
+  throw new Error("Missing taxonomy entry for assurance.");
+}
+---
+
+<TaxonomyEntryPage entry={entry as TaxonomyEntry} basePath="/assurance" eyebrow="Domain" />

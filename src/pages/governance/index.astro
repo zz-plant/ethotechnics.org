@@ -1,0 +1,16 @@
+---
+import TaxonomyEntryPage from "../../components/TaxonomyEntryPage.astro";
+import { taxonomyEntriesBySlug, type TaxonomyEntry } from "../../content/taxonomy";
+
+const entry = taxonomyEntriesBySlug.get("governance");
+
+if (!entry) {
+  throw new Error("Missing taxonomy entry for governance.");
+}
+---
+
+<TaxonomyEntryPage
+  entry={entry as TaxonomyEntry}
+  basePath="/governance"
+  eyebrow="Domain"
+/>
