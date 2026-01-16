@@ -57,6 +57,23 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Lists of readiness and outputs remain semantic `<ul>` groups.
   - Off-ramp copy includes an inline link to the pattern language with descriptive text.
 
+## Governance Gap Score (`/tools/governance-gap-score`)
+
+- **Data sources:** Static copy in the page; results are derived from form inputs and query params.
+- **Layout:**
+  - `PageIntro` includes anchors for Assessment and Results plus a panel CTA to Diagnostics.
+  - Assessment section presents a 4-step intake form with Next/Back navigation and a single submit
+    action on the final step.
+  - Results section uses `GovernanceGapResults` to show score summary, disclaimer, and next-step CTAs
+    to Diagnostics and Evidence Packs.
+- **Behavior:**
+  - Update query params (`owner`, `evidence`, `escalation`, `audit`, `score`, `tier`) after completion
+    so results are shareable and render on load.
+  - Provide JSON export for the computed score and inputs.
+- **Accessibility:**
+  - Each step uses a labeled form control with required validation on step advance.
+  - Results content remains navigable with visible focus states on share/export actions.
+
 ## Diagnostics — Technical Capacity Forecaster (`/diagnostics/capacity-forecaster`)
 
 - **Data sources:** Uses the React widget at `src/features/capacity-forecaster/CapacityForecaster` with static header copy in the page frontmatter.
