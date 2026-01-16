@@ -1,0 +1,24 @@
+---
+import TaxonomyEntryPage from "../../components/TaxonomyEntryPage.astro";
+import {
+  getTaxonomyBranch,
+  type TaxonomyEntry,
+} from "../../content/taxonomy";
+
+export const prerender = true;
+const rootSlug = "assurance";
+const branchEntries = getTaxonomyBranch(rootSlug).filter(
+  (entry) => entry.slug !== rootSlug,
+);
+
+export function getStaticPaths() {
+  return branchEntries.map((entry) => ({
+    params: { slug: entry.slug.split("/").slice(1).join("/") },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: TaxonomyEntry };
+---
+
+<TaxonomyEntryPage entry={entry} basePath="/assurance" eyebrow="Domain" />

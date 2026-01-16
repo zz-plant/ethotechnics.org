@@ -18,3 +18,13 @@ export type TaxonomyEntry = {
 };
 
 export const taxonomyEntries = taxonomyData as TaxonomyEntry[];
+
+export const taxonomyEntriesBySlug = new Map(
+  taxonomyEntries.map((entry) => [entry.slug, entry]),
+);
+
+export const getTaxonomyBranch = (rootSlug: string) =>
+  taxonomyEntries.filter(
+    (entry) =>
+      entry.slug === rootSlug || entry.slug.startsWith(`${rootSlug}/`),
+  );

@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { taxonomyEntries } from "../../content/taxonomy";
+
+const pageTitle = "Taxonomy — Ethotechnics Institute";
+const pageDescription =
+  "Taxonomy-driven domains and capabilities that anchor governance, delivery, assurance, and experience.";
+const permalink = "/taxonomy";
+
+const topLevelEntries = taxonomyEntries.filter(
+  (entry) => !entry.slug.includes("/"),
+);
+
+const childEntriesFor = (rootSlug: string) =>
+  taxonomyEntries.filter(
+    (entry) =>
+      entry.slug.startsWith(`${rootSlug}/`) &&
+      entry.slug.split("/").length === 2,
+  );
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Taxonomy"
+    title="Ethotechnics taxonomy"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#domains", label: "Domains" },
+      { href: "#use", label: "How to use" },
+    ]}
+    panelCopy={{
+      eyebrow: "SEO signal",
+      title: "Every level is a crawlable, linkable page.",
+      description:
+        "Use the domain pages to group assets, then drill into capability and practice levels for programmatic SEO coverage.",
+    }}
+  />
+
+  <SectionBlock
+    id="domains"
+    eyebrow="Domains"
+    title="Start with the top-level domains"
+    description="Each domain page connects standards, mechanisms, validators, and supporting artifacts."
+  >
+    <CardGrid className="grid--two">
+      {topLevelEntries.map((entry) => {
+        const childEntries = childEntriesFor(entry.slug);
+
+        return (
+          <CardItem
+            title={entry.title}
+            description={entry.summary}
+            descriptionTone="default"
+          >
+            {childEntries.length > 0 && (
+              <ul class="pill-list pill-list--wrap">
+                {childEntries.map((child) => (
+                  <li>
+                    <a href={`/taxonomy/${child.slug}`}>{child.title}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={`/${entry.slug}`}>
+                Open domain page
+              </a>
+              <a class="muted" href={`/taxonomy/${entry.slug}`}>
+                View taxonomy entry
+              </a>
+            </div>
+          </CardItem>
+        );
+      })}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="use"
+    eyebrow="How to use"
+    title="Turn the taxonomy into SEO coverage"
+    description="These steps keep internal linking consistent across domains and artifacts."
+    variant="alt"
+  >
+    <ol class="muted">
+      <li>Link every standard, mechanism, and validator back to its domain page.</li>
+      <li>Use the capability and practice pages for programmatic templates and FAQs.</li>
+      <li>Keep related artifacts on each level updated as new content ships.</li>
+    </ol>
+  </SectionBlock>
+</BaseLayout>
