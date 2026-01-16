@@ -1,0 +1,182 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { taxonomyEntries, type TaxonomyEntry } from "../../content/taxonomy";
+
+export const prerender = true;
+
+const taxonomyBySlug = new Map(
+  taxonomyEntries.map((entry) => [entry.slug, entry]),
+);
+
+export function getStaticPaths() {
+  return taxonomyEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: TaxonomyEntry };
+
+const segments = entry.slug.split("/");
+const parentSlug =
+  segments.length > 1 ? segments.slice(0, -1).join("/") : null;
+const parentEntry = parentSlug ? taxonomyBySlug.get(parentSlug) : null;
+
+const siblingEntries = taxonomyEntries.filter((candidate) => {
+  if (candidate.slug === entry.slug) {
+    return false;
+  }
+
+  const candidateParent =
+    candidate.slug.split("/").slice(0, -1).join("/") || null;
+
+  return candidateParent === parentSlug;
+});
+
+const childEntries = taxonomyEntries.filter((candidate) => {
+  return (
+    candidate.slug.startsWith(`${entry.slug}/`) &&
+    candidate.slug.split("/").length === segments.length + 1
+  );
+});
+
+const pageTitle = `${entry.title} taxonomy — Ethotechnics Institute`;
+const pageDescription = entry.summary;
+const permalink = `/taxonomy/${entry.slug}`;
+
+const anchorLinks = [
+  { href: "#summary", label: "Summary" },
+  { href: "#metadata", label: "Metadata" },
+  { href: "#artifacts", label: "Related artifacts" },
+  { href: "#navigation", label: "Navigation" },
+];
+
+const levelLabel = segments.length === 1 ? "Domain" : `Level ${segments.length}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Taxonomy"
+    title={entry.title}
+    description={entry.summary}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Metadata",
+      title: levelLabel,
+      description: `Owner: ${entry.owner}. Scope: ${entry.scope}. Readiness: ${entry.readiness}.`,
+      link: parentEntry
+        ? {
+            label: `Parent level: ${parentEntry.title}`,
+            href: `/taxonomy/${parentEntry.slug}`,
+          }
+        : undefined,
+    }}
+  />
+
+  <SectionBlock
+    id="summary"
+    eyebrow="Summary"
+    title="Scope overview"
+    description="Use this statement to align teams on what this taxonomy level includes."
+  >
+    <div class="panel">
+      <p>{entry.summary}</p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="metadata"
+    eyebrow="Metadata"
+    title="Ownership and readiness"
+    description="Capture the steward, scope, and readiness for this taxonomy level."
+    variant="alt"
+  >
+    <dl class="standard-definitions">
+      <div>
+        <dt>Owner</dt>
+        <dd>{entry.owner}</dd>
+      </div>
+      <div>
+        <dt>Scope</dt>
+        <dd>{entry.scope}</dd>
+      </div>
+      <div>
+        <dt>Readiness</dt>
+        <dd>{entry.readiness}</dd>
+      </div>
+    </dl>
+  </SectionBlock>
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow="Related artifacts"
+    title="Assets that reinforce this level"
+    description="Link to the standards, tools, and references that define expected outcomes."
+  >
+    <CardGrid className="grid--two">
+      {entry.relatedArtifacts.map((artifact) => (
+        <CardItem
+          eyebrow={artifact.type}
+          title={artifact.label}
+          description="Reference this artifact to align delivery and audits."
+          descriptionTone="default"
+        >
+          <p class="muted">
+            <a href={artifact.href}>Open the {artifact.type}</a>
+          </p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="navigation"
+    eyebrow="Navigation"
+    title="Adjacent taxonomy levels"
+    description="Move between parent, sibling, and child levels for consistent coverage."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      <CardItem title="Parent level" descriptionTone="default">
+        {parentEntry ? (
+          <p class="muted">
+            <a href={`/taxonomy/${parentEntry.slug}`}>{parentEntry.title}</a>
+          </p>
+        ) : (
+          <p class="muted">This is a top-level domain with no parent.</p>
+        )}
+      </CardItem>
+      <CardItem title="Sibling levels" descriptionTone="default">
+        {siblingEntries.length > 0 ? (
+          <ul class="pill-list pill-list--wrap">
+            {siblingEntries.map((sibling) => (
+              <li>
+                <a href={`/taxonomy/${sibling.slug}`}>{sibling.title}</a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No siblings at this level yet.</p>
+        )}
+      </CardItem>
+      <CardItem title="Child levels" descriptionTone="default">
+        {childEntries.length > 0 ? (
+          <ul class="pill-list pill-list--wrap">
+            {childEntries.map((child) => (
+              <li>
+                <a href={`/taxonomy/${child.slug}`}>{child.title}</a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No child levels defined beneath this entry.</p>
+        )}
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>
