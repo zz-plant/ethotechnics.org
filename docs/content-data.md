@@ -18,6 +18,7 @@ keep it consistent.
 - `src/content/start-here.json` captures the onboarding flow content for the start-here route.
 - `src/content/glossary.json` and `src/content/library.json` contain the glossary terms and library
   patterns used across the site.
+- `src/content/taxonomy.json` defines taxonomy entries and metadata for the `/taxonomy/*` routes.
 - `src/content/field-notes.json` and `src/content/participation.json` store long-form page copy for
   those routes.
 
@@ -27,6 +28,9 @@ keep it consistent.
   `src/content.config.ts`.
 - If you add a new field, update both the content schema and the related TypeScript type before
   wiring it into a page or component.
+- For taxonomy entries, keep `slug` values nested (for example `governance/oversight`) so the page
+  template can derive parent, sibling, and child navigation. Keep `owner`, `scope`, and `readiness`
+  populated to avoid thin metadata.
 - Fields ending in `Html` (for example `bodyHtml` or `descriptionHtml`) expect HTML strings; keep
   tags minimal and rely on existing typography styles.
 - When you add or rename glossary term IDs or library pattern slugs, confirm that cross-links are
@@ -37,6 +41,8 @@ keep it consistent.
 - `bun run validate:json` verifies every `src/content/*.json` file is valid JSON.
 - `bun run validate:glossary` enforces glossary uniqueness, validates glossary-to-library links, and
   checks that glossary resource URLs are valid.
+- `astro check` validates the taxonomy schema in `src/content.config.ts`, including required
+  metadata fields and related artifacts.
 - `bun run build` and `bun run check` both include the JSON and glossary validation steps, so they
   are good smoke tests after editing content data.
 

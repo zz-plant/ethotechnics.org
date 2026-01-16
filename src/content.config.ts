@@ -60,6 +60,23 @@ const featureCardSchema = z.object({
     .optional(),
 });
 
+const taxonomyArtifactSchema = z.object({
+  label: z.string(),
+  href: z.string(),
+  type: z.string(),
+});
+
+const taxonomyEntrySchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  slug: z.string(),
+  summary: z.string(),
+  owner: z.string(),
+  scope: z.string(),
+  readiness: z.enum(["draft", "alpha", "beta", "stable"]),
+  relatedArtifacts: z.array(taxonomyArtifactSchema),
+});
+
 const home = defineCollection({
   loader: file("src/content/home.json"),
   schema: pageCopySchema.extend({
@@ -153,6 +170,11 @@ const home = defineCollection({
       actions: z.array(actionSchema),
     }),
   }),
+});
+
+const taxonomy = defineCollection({
+  loader: file("src/content/taxonomy.json"),
+  schema: taxonomyEntrySchema,
 });
 
 const glossaryEntrySchema = z.object({
@@ -536,6 +558,7 @@ const participation = defineCollection({
 
 export const collections = {
   home,
+  taxonomy,
   glossary,
   library,
   startHere,
