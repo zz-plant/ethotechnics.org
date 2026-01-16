@@ -1,0 +1,154 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CardGrid from "./CardGrid.astro";
+import CardItem from "./CardItem.astro";
+import PageIntro from "./PageIntro.astro";
+import SectionBlock from "./SectionBlock.astro";
+
+interface CtaLink {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  ctaLabel: string;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  permalink: string;
+  glossary: {
+    href: string;
+    label: string;
+  };
+  definition: string[];
+  example: string;
+  ctas: CtaLink[];
+  faqs: FaqItem[];
+}
+
+const {
+  title,
+  description,
+  permalink,
+  glossary,
+  definition,
+  example,
+  ctas,
+  faqs,
+} = Astro.props as Props;
+
+const anchorLinks = [
+  { href: "#definition", label: "Definition" },
+  { href: "#example", label: "Example use case" },
+  { href: "#artifacts", label: "Related artifacts" },
+  { href: "#faq", label: "FAQ" },
+];
+
+const pageUrl = Astro.site
+  ? new URL(permalink, Astro.site).toString()
+  : permalink;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": pageUrl,
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
+---
+
+<BaseLayout title={title} description={description}>
+  <PageIntro
+    eyebrow="Explainer"
+    title={title}
+    description={description}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Glossary anchor",
+      title: glossary.label,
+      description:
+        "Connect the explainer to the canonical definition for citations and shared language.",
+      link: {
+        label: "Open glossary entry",
+        href: glossary.href,
+      },
+    }}
+  />
+
+  <SectionBlock
+    id="definition"
+    eyebrow="Definition"
+    title="Short definition"
+    description="Two-to-four sentences you can drop into briefs or specs."
+  >
+    {definition.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </SectionBlock>
+
+  <SectionBlock
+    id="example"
+    eyebrow="Example"
+    title="Example use case"
+    description="A concrete scenario to ground the term in operations."
+    variant="alt"
+  >
+    <p>{example}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow="CTAs"
+    title="Related artifacts"
+    description="Standards, bindings, and evidence packs to move from concept to adoption."
+  >
+    <CardGrid className="grid--three">
+      {ctas.map((cta) => (
+        <CardItem
+          eyebrow={cta.eyebrow}
+          title={cta.title}
+          description={cta.description}
+        >
+          <p slot="footer">
+            <a class="button ghost button--compact" href={cta.href}>
+              {cta.ctaLabel}
+            </a>
+          </p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="faq"
+    eyebrow="FAQ"
+    title="Quick answers"
+    description="Short replies for common implementation questions."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {faqs.map((faq) => (
+        <CardItem
+          title={faq.question}
+          description={faq.answer}
+          descriptionTone="default"
+        />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <script type="application/ld+json" set:html={structuredDataJson} />
+</BaseLayout>

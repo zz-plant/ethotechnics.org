@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What are Ethical Interrupts?";
+const pageDescription =
+  "Ethical interrupts are deliberate checkpoints that pause automation when risk thresholds are crossed.";
+const permalink = "/explainers/ethical-interrupts";
+
+const definition = [
+  "Ethical interrupts are explicit checkpoints that pause automation when ethical risk thresholds are crossed. They require a human review or deliberate confirmation before the system proceeds.",
+  "Well-designed interrupts are visible, logged, and tied to a reversible path so the pause itself becomes accountable.",
+];
+
+const example =
+  "A content moderation pipeline triggers an ethical interrupt when model confidence drops below a threshold and harm severity is high, routing the case to a human reviewer.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "STD-01 — The Temporal Bill of Rights",
+    description: "Use ethical interrupts to enforce stoppability and bounded duration obligations.",
+    href: "/standards/std-01-temporal-rights",
+    ctaLabel: "Read STD-01",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Embed interrupt triggers into release gates and runbooks.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-01 evidence pack",
+    description: "Capture interrupt logs, reviewer assignments, and halt receipts.",
+    href: "/evidence-packs/std-01",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "When should an ethical interrupt trigger?",
+    answer:
+      "Trigger interrupts when automated confidence is low, potential harm is high, or outcomes are irreversible without human review.",
+  },
+  {
+    question: "Do ethical interrupts slow systems too much?",
+    answer:
+      "They add deliberate friction only at risk thresholds, preserving speed for low-risk cases while protecting people in high-stakes flows.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/ethical-interrupts", label: "Ethical Interrupts" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>

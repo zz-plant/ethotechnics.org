@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What is a Burden Index?";
+const pageDescription =
+  "A burden index quantifies the time and effort a system imposes on people.";
+const permalink = "/explainers/burden-index";
+
+const definition = [
+  "A burden index quantifies the time and effort a system imposes on people to comply, appeal, or recover. It translates friction into a measurable metric so teams can reduce the time tax they create.",
+  "Publishing the burden index keeps the human cost visible and accountable over time.",
+];
+
+const example =
+  "A benefits portal tracks total minutes spent per appeal, publishes a monthly burden index, and commits to reducing the index quarter over quarter.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "STD-01 — The Temporal Bill of Rights",
+    description: "Tie burden metrics to the transparent burden and bounded duration clauses.",
+    href: "/standards/std-01-temporal-rights",
+    ctaLabel: "Read STD-01",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Bake burden reporting into procurement clauses and operational gates.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-01 evidence pack",
+    description: "Document burden measurements and remediation actions.",
+    href: "/evidence-packs/std-01",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "What inputs should the burden index include?",
+    answer:
+      "Include time-to-complete tasks, number of steps, waiting time, and any support escalations required to resolve issues.",
+  },
+  {
+    question: "How often should it be reported?",
+    answer:
+      "Report at least monthly for high-impact systems, with interim checks during peak volume or incident windows.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/burden-index", label: "Burden Index" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>

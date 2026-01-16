@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What is a Consent Journey?";
+const pageDescription =
+  "A consent journey maps how consent is requested, renewed, revoked, and recorded over time.";
+const permalink = "/explainers/consent-journey";
+
+const definition = [
+  "A consent journey maps the full lifecycle of consent from initial request to renewal, revocation, and expiration. It treats consent as a sequence of explicit choices rather than a single checkbox.",
+  "Strong consent journeys issue receipts and log every change so people can prove what they agreed to and when.",
+];
+
+const example =
+  "A health data app asks for consent at onboarding, requires renewal every 90 days, and provides a one-click revoke option with a downloadable receipt.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "Ethotechnics for Agents",
+    description: "Apply consent journey checkpoints to agent permissions and escalation paths.",
+    href: "/standards/ethotechnics-for-agents",
+    ctaLabel: "Read the standard",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Translate consent journeys into procurement clauses and release gates.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-02 evidence pack",
+    description: "Document consent receipts and review clocks alongside contestability evidence.",
+    href: "/evidence-packs/std-02",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "How often should consent be renewed?",
+    answer:
+      "Renewal should match risk and sensitivity; higher-risk data flows warrant shorter renewal windows and clear reminders.",
+  },
+  {
+    question: "What makes a consent journey auditable?",
+    answer:
+      "Auditability requires receipts for every consent state change, plus logs that tie the change to scope, purpose, and owner.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/consent-journey", label: "Consent Journey" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>

@@ -1,6 +1,8 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
@@ -44,6 +46,7 @@ type GlossaryRelatedPattern = {
 };
 const anchorLinks = [
   { href: "#glossary-index", label: "A–Z index" },
+  { href: "#explainer-links", label: "Explainers" },
   { href: "#territory-map", label: "Territory map" },
   ...categories.map((category) => ({
     href: `#${category.id}`,
@@ -52,6 +55,7 @@ const anchorLinks = [
 ];
 const summaryLinks = [
   { href: "#starter-terms", label: "Starter terms" },
+  { href: "#explainer-links", label: "Explainers" },
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#territory-map", label: "Territory map" },
 ];
@@ -123,6 +127,68 @@ const glossaryEntryUrl = (slug: string) =>
   Astro.site
     ? new URL(glossaryEntryPermalink(slug), Astro.site).toString()
     : glossaryEntryPermalink(slug);
+const explainerLinks = [
+  {
+    title: "Stoppability",
+    description: "Learn how halt controls protect people from forced tunnels.",
+    href: "/explainers/stoppability",
+    glossaryHref: glossaryEntryUrl("stoppability"),
+  },
+  {
+    title: "Time-to-Halt (TTH)",
+    description: "Define the latency budget for stopping automated actions.",
+    href: "/explainers/time-to-halt",
+    glossaryHref: glossaryEntryUrl("time-to-halt"),
+  },
+  {
+    title: "Ethical Interrupts",
+    description: "Pause automation at risk thresholds with accountable checkpoints.",
+    href: "/explainers/ethical-interrupts",
+    glossaryHref: glossaryEntryUrl("ethical-interrupts"),
+  },
+  {
+    title: "Consent Journey",
+    description: "Map consent across onboarding, renewal, and revocation.",
+    href: "/explainers/consent-journey",
+    glossaryHref: glossaryEntryUrl("consent-journey"),
+  },
+  {
+    title: "Safety Valve",
+    description: "Build fallbacks that release pressure without harm.",
+    href: "/explainers/safety-valve",
+    glossaryHref: glossaryEntryUrl("safety-valve"),
+  },
+  {
+    title: "Repair Log",
+    description: "Track remediation actions with receipts and owners.",
+    href: "/explainers/repair-log",
+    glossaryHref: glossaryEntryUrl("repair-log"),
+  },
+  {
+    title: "Contestability",
+    description: "Ensure people can challenge and reverse automated decisions.",
+    href: "/explainers/contestability",
+    glossaryHref: glossaryEntryUrl("contestability"),
+  },
+  {
+    title: "Design Authority",
+    description: "Assign accountable owners with governance power.",
+    href: "/explainers/design-authority",
+    glossaryHref: glossaryEntryUrl("design-authority"),
+  },
+  {
+    title: "Burden Index",
+    description: "Quantify the time tax systems impose on people.",
+    href: "/explainers/burden-index",
+    glossaryHref: glossaryEntryUrl("burden-index"),
+  },
+  {
+    title: "Permission Surface",
+    description: "Map every permission and access point over time.",
+    href: "/explainers/permission-surface",
+    glossaryHref: glossaryEntryUrl("permission-surface"),
+  },
+];
 const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
 const normalizedQuery = searchQuery.toLowerCase();
 const hasSearchQuery = normalizedQuery.length > 0;
@@ -338,6 +404,30 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       }
     </ul>
   </div>
+
+  <SectionBlock
+    id="explainer-links"
+    eyebrow="Explainers"
+    title="High-intent glossary explainers"
+    description="Short, reusable definitions with examples and next-step artifacts."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      {explainerLinks.map((explainer) => (
+        <CardItem title={explainer.title} description={explainer.description}>
+          <p slot="footer">
+            <a class="button ghost button--compact" href={explainer.href}>
+              Read explainer
+            </a>
+            <span class="muted">
+              {" "}
+              • <a href={explainer.glossaryHref}>Glossary entry</a>
+            </span>
+          </p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="glossary-index"

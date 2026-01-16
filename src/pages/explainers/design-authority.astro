@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What is Design Authority?";
+const pageDescription =
+  "Design authority names the accountable owner who can approve, change, or halt a system’s design.";
+const permalink = "/explainers/design-authority";
+
+const definition = [
+  "Design authority identifies the accountable owner empowered to approve, change, or halt a system’s design. It prevents diffusion of responsibility by naming a steward with decision rights.",
+  "Clear design authority ties governance decisions to a person or office that can sign off on risks and remediation.",
+];
+
+const example =
+  "A platform names a Design Authority for its recommender system and requires that role to sign off on any changes to ranking logic or safety thresholds.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "Ethotechnics for Agents",
+    description: "Use the standard to align design authority with oversight and receipt requirements.",
+    href: "/standards/ethotechnics-for-agents",
+    ctaLabel: "Read the standard",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Translate design authority into procurement and release gate clauses.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-02 evidence pack",
+    description: "Capture ownership proofs and decision logs that show authority in action.",
+    href: "/evidence-packs/std-02",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "How is design authority different from product ownership?",
+    answer:
+      "Product ownership focuses on delivery goals, while design authority carries governance power to approve, halt, or remediate based on ethical risk.",
+  },
+  {
+    question: "What happens when authority changes?",
+    answer:
+      "Update the authority record, issue a receipt for the handoff, and ensure prior decisions remain traceable to the former owner.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/design-authority", label: "Design Authority" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>

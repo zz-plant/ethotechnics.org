@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What is Contestability?";
+const pageDescription =
+  "Contestability ensures people can challenge automated decisions and receive binding review.";
+const permalink = "/explainers/contestability";
+
+const definition = [
+  "Contestability is the ability for affected people to challenge and reverse automated decisions. It requires notice, a clear appeal path, and binding authority to change outcomes.",
+  "Contestability turns accountability into a workflow with receipts, timelines, and documented remedies.",
+];
+
+const example =
+  "An eligibility denial includes an appeal button that guarantees a human review within 72 hours and provides a receipt for every step.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "STD-02 — Contestability & Recourse",
+    description: "Use the standard’s five obligations to design contestability flows.",
+    href: "/standards/std-02-contestability-recourse",
+    ctaLabel: "Read STD-02",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Adopt contestability language in procurement and release gates.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-02 evidence pack",
+    description: "Collect receipts, timelines, and remedy evidence tied to contests.",
+    href: "/evidence-packs/std-02",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "What is the minimum contestability path?",
+    answer:
+      "At minimum, provide notice, a clear appeal channel, a human decision-maker with authority, and a published review clock.",
+  },
+  {
+    question: "How is contestability measured?",
+    answer:
+      "Measure receipt completeness, time-to-review, remedy rates, and the percentage of reversible decisions.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/contestability", label: "Contestability" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>

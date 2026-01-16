@@ -131,6 +131,21 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Search input uses `type="search"` and a visually hidden label; maintain `aria-live` region for result counts from the filter script.
   - Each entry exposes an `id` for permalink targets; ensure headings remain `<h3>` within cards to keep the hierarchy intact.
 
+## Explainers (`/explainers/*`)
+
+- **Data sources:** Each explainer page defines its definition, example, CTAs, and FAQ content in
+  frontmatter and renders via `ExplainerLayout`.
+- **Layout:**
+  - `PageIntro` includes anchors for definition, example, artifacts, and FAQ; the panel links back
+    to the canonical glossary entry for citations.
+  - The definition section contains 2–4 sentences; example use cases appear in a single paragraph.
+  - Related artifacts render three CTA cards linking to a standard, binding vectors, and an
+    evidence pack.
+  - FAQ sections render in a two-column card grid with concise answers.
+- **Accessibility + SEO:**
+  - Maintain one `<h1>` from `PageIntro` and keep section headings as `<h2>` for hierarchy.
+  - Each explainer emits FAQ JSON-LD structured data for search visibility.
+
 ## Field Notes (`/field-notes`)
 
 - **Data sources:** Driven by `fieldNotesContent` with `sections` and `entries`; glossary links use `glossaryContent.permalink`.
