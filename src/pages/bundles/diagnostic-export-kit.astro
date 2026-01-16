@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { getBundle } from "../../content/bundles";
+
+const bundle = getBundle("diagnostic-export-kit");
+
+if (!bundle) {
+  throw new Error("Diagnostic Export Kit bundle not found.");
+}
+
+const pageTitle = `${bundle.title} — Ethotechnics Institute`;
+const pageDescription = bundle.summary;
+const permalink = `/bundles/${bundle.slug}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Bundle"
+    title={bundle.title}
+    description={bundle.summary}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#overview", label: "Overview" },
+      { href: "#artifacts", label: "Included artifacts" },
+      { href: "#use-cases", label: "Use cases" },
+      { href: "#exports", label: "Export options" },
+    ]}
+    panelCopy={{
+      eyebrow: "Diagnostic-ready",
+      title: "Ship a decision-ready export",
+      description:
+        "Package diagnostics into summaries, mechanism follow-ups, and evidence references without rewriting.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Scope and cadence"
+    description="Who this bundle is for, and how often it refreshes."
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Scope</p>
+        <p class="muted">{bundle.scope}</p>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Update cadence</p>
+        <p class="muted">{bundle.updateCadence}</p>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow="Included artifacts"
+    title="What ships in the bundle"
+    description="Each artifact is ready to share with stakeholders."
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      {bundle.includedArtifacts.map((artifact) => (
+        <div class="panel">
+          <p class="eyebrow">{artifact.title}</p>
+          <p class="muted">{artifact.detail}</p>
+        </div>
+      ))}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="use-cases"
+    eyebrow="Use cases"
+    title="Where teams apply this bundle"
+    description="Common scenarios that benefit from the export kit."
+  >
+    <ul class="muted">
+      {bundle.useCases.map((useCase) => (
+        <li>{useCase}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="exports"
+    eyebrow="Export options"
+    title="One-click exports"
+    description="Start with GitHub today; Notion and PDF exports are on deck."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      {bundle.exports.map((option) => (
+        <div class="panel">
+          <p class="eyebrow">{option.format}</p>
+          <p class="muted">{option.description}</p>
+          {option.status === "available" && option.href ? (
+            <a class="button ghost button--compact" href={option.href}>
+              {option.ctaLabel ?? `Open ${option.format} export`}
+            </a>
+          ) : (
+            <p class="muted">Coming soon</p>
+          )}
+        </div>
+      ))}
+    </div>
+  </SectionBlock>
+</BaseLayout>

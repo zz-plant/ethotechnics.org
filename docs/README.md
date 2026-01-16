@@ -28,6 +28,7 @@ Use this map before adding new guidance so information stays discoverable and cu
   layout, and accessibility.
 - [`content-data.md`](content-data.md) documents JSON-backed content sources, schemas, and
   validation steps.
+- [`bundles.md`](bundles.md) documents bundle metadata, export options, and landing page workflow.
 - [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used
   across pages.
 - [`glossary.md`](glossary.md) defines core vocabulary and terms referenced across the site.
