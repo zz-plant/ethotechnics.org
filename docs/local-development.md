@@ -17,6 +17,8 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
   `Source: Fix All` commands available for other editors.
 - The workspace pin to `node_modules/typescript/lib` keeps the TypeScript version consistent with
   the toolchain used by the scripts and checks.
+- VS Code tasks are prewired for common flows (`dev`, `build`, `check`, `lint`, `format`, and
+  testing). Use **Terminal → Run Task** to trigger them without leaving the editor.
 
 ## Running the dev server
 
