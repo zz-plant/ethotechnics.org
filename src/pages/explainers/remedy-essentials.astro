@@ -1,0 +1,303 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
+
+const pageTitle = "Remedy essentials for accountable systems";
+const pageDescription =
+  "A visual guide to the eight mechanisms that keep contestability real: bounded queues, clear escalation, enforceable clocks, and proof that remedy is delivered.";
+const permalink = "/explainers/remedy-essentials";
+
+const anchorLinks = [
+  { href: "#map", label: "Remedy backbone map" },
+  { href: "#essentials", label: "Eight essential mechanisms" },
+  { href: "#deployment", label: "Deployment checklist" },
+];
+
+const essentials = [
+  {
+    title: "Bounded pending",
+    description:
+      "Every contested state has a published maximum duration. No account, benefit, or payment sits in limbo indefinitely.",
+    why:
+      "Without bounds, systems drift into silent denial. Time caps force decisions and prevent hidden backlogs from becoming policy.",
+    signals: "Pending states are time-boxed, with auto-escalation or fallback when the clock expires.",
+  },
+  {
+    title: "Remedy SLAs",
+    description:
+      "Publish acknowledgment, review, and remedy clocks so affected people know when action will land.",
+    why:
+      "Explicit SLAs turn promises into enforceable commitments, making delays measurable and fixable.",
+    signals: "Receipts include timestamps, owners, and SLA targets for every stage.",
+  },
+  {
+    title: "Default provisional reinstatement",
+    description:
+      "When evidence is incomplete, restore access or privilege provisionally while review continues.",
+    why:
+      "It minimizes collateral harm by making the default state reversible, especially for essential services.",
+    signals: "Systems can grant safe, limited access pending review with a clear rollback plan.",
+  },
+  {
+    title: "Clear escalation paths",
+    description:
+      "Escalation ladders name who can override, with a defined path to human authority.",
+    why:
+      "Escalation is the fail-safe that stops automated error from turning into institutional inertia.",
+    signals: "On-call rosters and authority scopes are visible in receipts and internal playbooks.",
+  },
+  {
+    title: "Compensation or fee shifting",
+    description:
+      "Wrongful harm triggers automatic credits, fee waivers, or restitution timelines.",
+    why:
+      "Compensation aligns incentives and makes the cost of error explicit to operators.",
+    signals: "Remedy outcomes log restitution amounts and delivery dates.",
+  },
+  {
+    title: "Time-to-remedy distribution",
+    description:
+      "Track the full distribution, not just averages, of how long remedies take.",
+    why:
+      "Distributions reveal tail risk, showing who waits the longest and where equity gaps hide.",
+    signals: "Dashboards show median, p90, and p99 remedy times by segment.",
+  },
+  {
+    title: "Constraints on discretionary holds",
+    description:
+      "Holds need clear criteria, owners, and maximum durations even under fraud or legal review.",
+    why:
+      "Discretion without guardrails is indistinguishable from silent denial.",
+    signals: "Hold policies specify reasons, clocks, and appeal paths; exceptions are audited.",
+  },
+  {
+    title: "Reversal drills and error budgets",
+    description:
+      "Practice reversals and quantify how much error the system can tolerate before halting.",
+    why:
+      "Drills prove readiness, while error budgets prevent slow degradation of remedy performance.",
+    signals: "Quarterly drills, post-incident reviews, and error budget burn alerts are documented.",
+  },
+];
+
+const mapLanes = [
+  {
+    title: "Guardrails before harm",
+    items: ["Constraints on discretionary holds", "Default provisional reinstatement"],
+  },
+  {
+    title: "Clocks + escalation during review",
+    items: ["Bounded pending", "Remedy SLAs", "Clear escalation paths"],
+  },
+  {
+    title: "Proof of remedy delivery",
+    items: ["Time-to-remedy distribution", "Compensation or fee shifting"],
+  },
+  {
+    title: "Readiness and resilience",
+    items: ["Reversal drills and error budgets"],
+  },
+];
+
+const checklist = [
+  "Publish acknowledgment, review, and remedy clocks in the UI.",
+  "Trigger auto-escalation or safe fallback when the pending clock expires.",
+  "Default to provisional reinstatement for essential access unless safety criteria block it.",
+  "Document escalation authority with contactable, on-call owners.",
+  "Log remedy outcomes, restitution amounts, and delivery dates.",
+  "Track time-to-remedy distributions across cohorts and exception types.",
+  "Audit discretionary holds monthly to confirm criteria, owners, and bounded durations.",
+  "Run reversal drills and track error budget burn for remedy SLAs.",
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Explainer"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Why it matters",
+      title: "Remedy is the credibility test",
+      description:
+        "Contestability only works when remedies are fast, bounded, and backed by clear authority. These eight mechanisms form the minimum viable spine for trustworthy recourse.",
+      link: { label: "Read STD-02", href: "/standards/std-02-contestability-recourse" },
+    }}
+  />
+
+  <SectionBlock
+    id="map"
+    eyebrow="Visualization"
+    title="The remedy backbone"
+    description="Each mechanism anchors a specific phase of the remedy lifecycle. Together they keep review bounded, equitable, and enforceable."
+  >
+    <div class="remedy-map" role="list">
+      {mapLanes.map((lane) => (
+        <div class="remedy-map__lane" role="listitem">
+          <p class="eyebrow">{lane.title}</p>
+          <ul>
+            {lane.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="essentials"
+    eyebrow="Essentials"
+    title="Why every mechanism is non-negotiable"
+    description="Each piece reinforces the others: clocks without escalation stall, and escalation without compensation leaves harm unresolved."
+    variant="alt"
+  >
+    <CardGrid>
+      {essentials.map((item) => (
+        <CardItem
+          title={item.title}
+          description={item.description}
+          descriptionTone="default"
+        >
+          <div class="remedy-card__icon" aria-hidden="true">
+            <svg class="remedy-icon" viewBox="0 0 48 48" role="presentation">
+              <circle class="remedy-icon__pulse" cx="24" cy="24" r="10">
+                <animate attributeName="r" values="8;16;8" dur="3.2s" repeatCount="indefinite" />
+                <animate
+                  attributeName="opacity"
+                  values="0.45;0.05;0.45"
+                  dur="3.2s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle class="remedy-icon__core" cx="24" cy="24" r="6" />
+              <path
+                class="remedy-icon__arc"
+                d="M14 24a10 10 0 0 1 20 0"
+                pathLength="40"
+              >
+                <animate
+                  attributeName="stroke-dashoffset"
+                  values="0;40"
+                  dur="2.6s"
+                  repeatCount="indefinite"
+                />
+              </path>
+            </svg>
+          </div>
+          <p class="muted">Why it matters: {item.why}</p>
+          <p class="muted">Signal: {item.signals}</p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="deployment"
+    eyebrow="Implementation"
+    title="Deployment checklist"
+    description="Use this quick list to wire the essentials into policy, UI, and operations."
+  >
+    <SummaryCallout
+      title="Operationalize the essentials"
+      description="Start with visible clocks and escalation ownership, then layer in restitution and distribution tracking."
+      takeaways={checklist}
+      relatedLinks={[
+        { label: "Remedy clocks", href: "/standards/std-02-contestability-recourse" },
+        { label: "Bounded exceptions", href: "/exceptions" },
+        { label: "Evidence packs", href: "/evidence-packs" },
+      ]}
+      jumpLinks={anchorLinks}
+    />
+  </SectionBlock>
+</BaseLayout>
+
+<style>
+  .remedy-map {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    margin-top: 2rem;
+  }
+
+  .remedy-map__lane {
+    background: linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--card) 90%, white 10%),
+      color-mix(in srgb, var(--surface) 92%, white 8%)
+    );
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    padding: 1.25rem 1.25rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .remedy-map__lane::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 20% 10%,
+      color-mix(in srgb, var(--accent) 18%, transparent) 0,
+      transparent 45%
+    );
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .remedy-map__lane ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .remedy-map__lane li {
+    background: color-mix(in srgb, var(--surface) 92%, white 8%);
+    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font-weight: 600;
+  }
+
+  .remedy-card__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    background: color-mix(in srgb, var(--surface) 88%, white 12%);
+  }
+
+  .remedy-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    overflow: visible;
+  }
+
+  .remedy-icon__pulse {
+    fill: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  .remedy-icon__core {
+    fill: color-mix(in srgb, var(--accent) 60%, white 40%);
+  }
+
+  .remedy-icon__arc {
+    fill: none;
+    stroke: color-mix(in srgb, var(--teal) 55%, white 45%);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 40;
+  }
+</style>
