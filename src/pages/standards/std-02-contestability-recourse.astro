@@ -28,6 +28,28 @@ const obligations = [
     summary: "Reversal, correction, and compensation pathways must be real and usable.",
   },
 ];
+const explainerLinks = [
+  {
+    title: "Contestability",
+    description: "Build appeal paths with binding authority and timelines.",
+    href: "/explainers/contestability",
+  },
+  {
+    title: "Repair Log",
+    description: "Track remediation actions with receipts and owners.",
+    href: "/explainers/repair-log",
+  },
+  {
+    title: "Consent Journey",
+    description: "Map consent changes and receipts over time.",
+    href: "/explainers/consent-journey",
+  },
+  {
+    title: "Design Authority",
+    description: "Name the accountable owner who can approve or halt changes.",
+    href: "/explainers/design-authority",
+  },
+];
 
 const performanceMetrics = [
   "Escalation correctness rate (did the agent request approval when thresholds were crossed?)",
@@ -138,6 +160,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               </li>
             ))}
           </ol>
+        </section>
+
+        <section class="standard-section">
+          <h2>Related explainers</h2>
+          <p>Share these quick explainers when implementing contestability workflows.</p>
+          <ul class="standard-clauses">
+            {explainerLinks.map((explainer) => (
+              <li>
+                <strong>
+                  <a href={explainer.href}>{explainer.title}</a>
+                </strong>{" "}
+                — {explainer.description}
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section class="standard-section">

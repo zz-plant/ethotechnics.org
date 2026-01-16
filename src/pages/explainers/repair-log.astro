@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What is a Repair Log?";
+const pageDescription =
+  "Repair logs track remediation actions after harm or errors and tie them to receipts and owners.";
+const permalink = "/explainers/repair-log";
+
+const definition = [
+  "A repair log is a chronological record of remediation actions taken after a system causes harm or errors. It links each repair to a receipt, owner, and resolution status so corrections remain visible and auditable.",
+  "Teams use repair logs to prove that remedies happened and to detect recurring failure patterns.",
+];
+
+const example =
+  "After an automated account lock is reversed, the repair log records the reversal, compensation details, and the time-to-remedy clock.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "STD-02 — Contestability & Recourse",
+    description: "Align repair logs to the notice, receipt, and remedy obligations in STD-02.",
+    href: "/standards/std-02-contestability-recourse",
+    ctaLabel: "Read STD-02",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Reuse repair log language in procurement clauses and incident triggers.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-02 evidence pack",
+    description: "Attach repair logs to receipts, decision logs, and remedy clocks.",
+    href: "/evidence-packs/std-02",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "Who owns the repair log?",
+    answer:
+      "Ownership should sit with the accountable operator or steward responsible for remedy decisions, not just the support queue.",
+  },
+  {
+    question: "What belongs in each repair entry?",
+    answer:
+      "Each entry should include the triggering receipt, action taken, owner, timestamps, and a link to evidence proving the repair.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/repair-log", label: "Repair Log" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>

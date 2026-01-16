@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What is a Safety Valve?";
+const pageDescription =
+  "Safety valves are fallback mechanisms that release pressure when automation risks harm.";
+const permalink = "/explainers/safety-valve";
+
+const definition = [
+  "A safety valve is a mechanism that releases pressure when systems are overloaded, uncertain, or error-prone. It creates a safe fallback path, often human-led, instead of allowing harmful automation to continue unchecked.",
+  "Safety valves keep accountability intact during exceptions by making the fallback visible and logged.",
+];
+
+const example =
+  "During a surge in automated appeals, the system routes high-risk cases to a human review queue instead of auto-denying to meet deadlines.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "Ethotechnics for Agents",
+    description: "Design safety valves that align with agent governance and escalation requirements.",
+    href: "/standards/ethotechnics-for-agents",
+    ctaLabel: "Read the standard",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Codify safety valve triggers in release gates and runbook snippets.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-01 evidence pack",
+    description: "Capture fallback decisions and time-bound escalations for review.",
+    href: "/evidence-packs/std-01",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is a safety valve the same as an exception?",
+    answer:
+      "Exceptions are category labels, while safety valves are the concrete fallback mechanisms that keep people safe when exceptions occur.",
+  },
+  {
+    question: "What evidence shows a safety valve works?",
+    answer:
+      "Proof includes trigger logs, reviewer assignments, and outcomes that show the fallback prevented harm or escalation.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/safety-valve", label: "Safety Valve" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>

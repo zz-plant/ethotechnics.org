@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What is a Permission Surface?";
+const pageDescription =
+  "Permission surface maps every permission and access point a system grants or requests.";
+const permalink = "/explainers/permission-surface";
+
+const definition = [
+  "The permission surface is the full set of permissions and access points a system grants or requests across its lifecycle. It shows where authority is delegated, revoked, or escalated so teams can see hidden exposure.",
+  "Managing the surface helps prevent silent privilege creep and supports consent-driven governance.",
+];
+
+const example =
+  "A workplace AI tool maintains a live inventory of permissions, who approved them, and when each permission expires or is revoked.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "Ethotechnics for Agents",
+    description: "Align permission surfaces to agent governance and escalation requirements.",
+    href: "/standards/ethotechnics-for-agents",
+    ctaLabel: "Read the standard",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Translate permission inventory checks into procurement and release gates.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-02 evidence pack",
+    description: "Capture permission inventories alongside receipts and decision logs.",
+    href: "/evidence-packs/std-02",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "How does a permission surface relate to consent?",
+    answer:
+      "Consent states what people agree to, while the permission surface shows every system-level access point that must honor that consent.",
+  },
+  {
+    question: "What tooling helps map the surface?",
+    answer:
+      "Use access inventories, role-based access reviews, and automated permission diff reports tied to receipts and change logs.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/permission-surface", label: "Permission Surface" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>

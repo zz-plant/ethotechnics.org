@@ -72,6 +72,28 @@ const rights = [
     ],
   },
 ];
+const explainerLinks = [
+  {
+    title: "Stoppability",
+    description: "How halt controls protect people from forced tunnels.",
+    href: "/explainers/stoppability",
+  },
+  {
+    title: "Time-to-Halt (TTH)",
+    description: "Measure how quickly systems honor a stop request.",
+    href: "/explainers/time-to-halt",
+  },
+  {
+    title: "Ethical Interrupts",
+    description: "Pause automation at risk thresholds with accountable checkpoints.",
+    href: "/explainers/ethical-interrupts",
+  },
+  {
+    title: "Burden Index",
+    description: "Quantify the time tax the system imposes on people.",
+    href: "/explainers/burden-index",
+  },
+];
 
 const clauseSchema = `{\n  "std_id": "STD-01",\n  "clause_id": "STD-01.C1",\n  "requirement_type": "MUST",\n  "subject": "interface",\n  "condition": "active automated process",\n  "obligation": "provide immediate exit control",\n  "time_bound": "instant",\n  "evidence_required": ["ui_state", "event_log"],\n  "failure_mode": "forced tunnel"\n}`;
 
@@ -162,6 +184,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="standard-main">
         <section class="standard-section">
           <TemporalRightsDiagram rights={rights} />
+        </section>
+
+        <section class="standard-section">
+          <h2>Related explainers</h2>
+          <p>Use these short explainers when translating the rights for policy or product teams.</p>
+          <ul class="standard-clauses">
+            {explainerLinks.map((explainer) => (
+              <li>
+                <strong>
+                  <a href={explainer.href}>{explainer.title}</a>
+                </strong>{" "}
+                — {explainer.description}
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section class="standard-section">

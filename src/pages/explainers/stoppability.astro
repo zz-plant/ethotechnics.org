@@ -1,0 +1,64 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "What is Stoppability?";
+const pageDescription =
+  "Stoppability explains the right to halt automated processes and protect people from forced tunnels.";
+const permalink = "/explainers/stoppability";
+
+const definition = [
+  "Stoppability is the requirement that people can halt an automated process instantly without losing their place or facing penalties. It centers on visible stop controls, state preservation, and the ability to walk away without retribution.",
+  "Teams use stoppability to prevent forced tunnels and to prove that systems respect human time and agency.",
+];
+
+const example =
+  "A loan application flow includes a persistent “Stop and resume later” control that saves progress, issues a receipt, and confirms the application will not be penalized for pausing.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "STD-01 — The Temporal Bill of Rights",
+    description: "See how Stoppability anchors Article I and the surrounding temporal rights.",
+    href: "/standards/std-01-temporal-rights",
+    ctaLabel: "Read STD-01",
+  },
+  {
+    eyebrow: "Binding",
+    title: "Binding vectors",
+    description: "Copy procurement and release gates that enforce stoppability controls.",
+    href: "/bindings",
+    ctaLabel: "View binding vectors",
+  },
+  {
+    eyebrow: "Evidence pack",
+    title: "STD-01 evidence pack",
+    description: "Collect receipts, UI proofs, and logs that validate stoppability compliance.",
+    href: "/evidence-packs/std-01",
+    ctaLabel: "Open evidence pack",
+  },
+];
+
+const faqs = [
+  {
+    question: "How is stoppability different from cancellation?",
+    answer:
+      "Cancellation ends a process, while stoppability ensures people can pause or halt it immediately without losing state or being penalized for stopping.",
+  },
+  {
+    question: "What evidence demonstrates stoppability?",
+    answer:
+      "UI recordings of the halt control, event logs showing immediate cessation, and receipts proving state preservation are the core proofs.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{ href: "/glossary/stoppability", label: "Stoppability" }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>
