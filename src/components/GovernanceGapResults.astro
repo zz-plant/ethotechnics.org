@@ -1,0 +1,72 @@
+---
+import CardGrid from "./CardGrid.astro";
+import CardItem from "./CardItem.astro";
+import SectionBlock from "./SectionBlock.astro";
+
+interface Props {
+  id?: string;
+}
+
+const { id = "results" } = Astro.props;
+---
+
+<div data-gap-results hidden>
+  <SectionBlock
+    id={id}
+    eyebrow="Results"
+    title="Governance Gap Score"
+    description="Shareable output to align remediation, evidence packs, and diagnostic follow-ups."
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Score summary"
+        description="A quick readout of governance ownership, evidence cadence, and escalation coverage."
+      >
+        <p class="muted">Overall score</p>
+        <p class="metric" data-gap-score>--</p>
+        <span class="status-pill status-pill--yellow" data-gap-status>Steady</span>
+        <p class="muted" data-gap-summary>
+          Capture the missing evidence and rerun the check after remediation.
+        </p>
+        <label class="intake-form__field intake-form__field--full">
+          Shareable link
+          <input
+            id="gap-share-link"
+            name="gap-share-link"
+            type="text"
+            readonly
+            data-gap-share
+            aria-label="Shareable results link"
+          />
+        </label>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-gap-copy>
+            Copy share link
+          </button>
+          <button class="button ghost" type="button" data-gap-download>
+            Download JSON
+          </button>
+        </div>
+      </CardItem>
+      <CardItem
+        title="Disclaimer"
+        description="This tool is a directional snapshot, not a full audit or legal assessment."
+      >
+        <ul class="muted">
+          <li>Use it to triage governance gaps before formal reviews.</li>
+          <li>Confirm outputs with internal policy, legal, and security owners.</li>
+          <li>Pair the score with evidence packs for verifiable proof.</li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Recommended next steps"
+        description="Move from scoring to remediation with the Institute toolchain."
+      >
+        <div class="actions">
+          <a class="button primary" href="/diagnostics">Run deeper diagnostics</a>
+          <a class="button ghost" href="/evidence-packs">Review evidence packs</a>
+        </div>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+</div>

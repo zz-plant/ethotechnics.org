@@ -1,0 +1,412 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GovernanceGapResults from "../../components/GovernanceGapResults.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+---
+
+<BaseLayout
+  title="Governance Gap Score"
+  description="Assess governance ownership, evidence cadence, and escalation readiness in 4 steps."
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="Tools"
+    title="Governance Gap Score"
+    description="A quick, shareable scoring tool to surface governance gaps and route remediation work."
+    permalink="/tools/governance-gap-score"
+    anchorLinks={[
+      { href: "#assessment", label: "Assessment" },
+      { href: "#results", label: "Results" },
+    ]}
+    panelCopy={{
+      eyebrow: "Output",
+      title: "Shareable governance readout",
+      description:
+        "Generate a scorecard with next steps and export-ready JSON for tickets and audits.",
+      link: {
+        label: "Browse diagnostics",
+        href: "/diagnostics",
+      },
+    }}
+  />
+
+  <SectionBlock
+    id="assessment"
+    eyebrow="Assessment"
+    title="Answer four questions"
+    description="Move through each step to calculate a governance gap score out of 100."
+  >
+    <form class="intake-form" data-gap-form>
+      <p class="muted" data-gap-progress>Step 1 of 4</p>
+
+      <fieldset class="intake-form__grid" data-step="1">
+        <label class="intake-form__field">
+          Governance owner coverage
+          <select id="owner" name="owner" required>
+            <option value="dedicated">Dedicated owner per system</option>
+            <option value="shared">Shared ownership across teams</option>
+            <option value="none">No assigned owner</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="intake-form__grid" data-step="2">
+        <label class="intake-form__field">
+          Evidence pack cadence
+          <select id="evidence" name="evidence" required>
+            <option value="release">Every release</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="ad-hoc">Ad hoc / on request</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="intake-form__grid" data-step="3">
+        <label class="intake-form__field">
+          Escalation path for exceptions
+          <select id="escalation" name="escalation" required>
+            <option value="tested">Documented and tested</option>
+            <option value="documented">Documented but untested</option>
+            <option value="none">Not defined</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="intake-form__grid" data-step="4">
+        <label class="intake-form__field">
+          External audit readiness
+          <select id="audit" name="audit" required>
+            <option value="fast">Artifacts ready within 5 days</option>
+            <option value="slow">Artifacts ready within 2–4 weeks</option>
+            <option value="not-ready">Not ready</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="intake-form__actions">
+        <button class="button ghost" type="button" data-step-prev>
+          Back
+        </button>
+        <button class="button primary" type="button" data-step-next>
+          Next
+        </button>
+        <button class="button primary" type="submit" data-step-submit>
+          Calculate score
+        </button>
+      </div>
+    </form>
+  </SectionBlock>
+
+  <GovernanceGapResults />
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-gap-form]");
+  const progress = document.querySelector<HTMLElement>("[data-gap-progress]");
+  const steps = form
+    ? Array.from(form.querySelectorAll<HTMLElement>("[data-step]"))
+    : [];
+  const prevButton = form?.querySelector<HTMLButtonElement>("[data-step-prev]");
+  const nextButton = form?.querySelector<HTMLButtonElement>("[data-step-next]");
+  const submitButton = form?.querySelector<HTMLButtonElement>(
+    "[data-step-submit]"
+  );
+  const resultsWrapper = document.querySelector<HTMLElement>("[data-gap-results]");
+  const scoreValue = document.querySelector<HTMLElement>("[data-gap-score]");
+  const statusPill = document.querySelector<HTMLElement>("[data-gap-status]");
+  const summaryText = document.querySelector<HTMLElement>("[data-gap-summary]");
+  const shareInput = document.querySelector<HTMLInputElement>("[data-gap-share]");
+  const downloadButton = document.querySelector<HTMLButtonElement>(
+    "[data-gap-download]"
+  );
+  const shareButton = document.querySelector<HTMLButtonElement>("[data-gap-copy]");
+
+  const scoreMatrix = {
+    owner: {
+      dedicated: 25,
+      shared: 15,
+      none: 5,
+    },
+    evidence: {
+      release: 25,
+      quarterly: 15,
+      "ad-hoc": 5,
+    },
+    escalation: {
+      tested: 25,
+      documented: 15,
+      none: 0,
+    },
+    audit: {
+      fast: 25,
+      slow: 15,
+      "not-ready": 0,
+    },
+  };
+
+  const tierMap = [
+    {
+      label: "Strong",
+      min: 80,
+      status: "green",
+      summary: "Governance coverage is strong; lock in evidence packs and keep cadence steady.",
+    },
+    {
+      label: "Steady",
+      min: 60,
+      status: "yellow",
+      summary: "Coverage is stable but uneven; prioritize evidence cadence and escalation drills.",
+    },
+    {
+      label: "Exposed",
+      min: 40,
+      status: "red",
+      summary: "Gaps are material; assign ownership and formalize escalation before launch.",
+    },
+    {
+      label: "Critical",
+      min: 0,
+      status: "red",
+      summary: "Governance coverage is missing; pause for diagnostics and evidence collection.",
+    },
+  ];
+
+  let currentStep = 0;
+  let latestResult: Record<string, unknown> | null = null;
+  let hasStarted = false;
+
+  type AnalyticsWindow = typeof window & {
+    plausible?: (event: string, options?: { props: Record<string, unknown> }) => void;
+    analytics?: { track?: (event: string, data: Record<string, unknown>) => void };
+  };
+
+  const trackEvent = (eventName: string, detail: Record<string, unknown>) => {
+    const payload = {
+      tool: "governance-gap-score",
+      ...detail,
+    };
+
+    const { plausible, analytics } = window as AnalyticsWindow;
+
+    if (plausible) {
+      plausible(eventName, { props: payload });
+    }
+
+    if (analytics?.track) {
+      analytics.track(eventName, payload);
+    }
+
+    window.dispatchEvent(
+      new CustomEvent("tool:analytics", {
+        detail: {
+          event: eventName,
+          ...payload,
+        },
+      })
+    );
+  };
+
+  const getTier = (score: number) =>
+    tierMap.find((tier) => score >= tier.min) || tierMap[tierMap.length - 1];
+
+  const calculateScore = (values: Record<string, string>) => {
+    const ownerScore = scoreMatrix.owner[values.owner as keyof typeof scoreMatrix.owner] ?? 0;
+    const evidenceScore =
+      scoreMatrix.evidence[values.evidence as keyof typeof scoreMatrix.evidence] ?? 0;
+    const escalationScore =
+      scoreMatrix.escalation[values.escalation as keyof typeof scoreMatrix.escalation] ?? 0;
+    const auditScore = scoreMatrix.audit[values.audit as keyof typeof scoreMatrix.audit] ?? 0;
+
+    return ownerScore + evidenceScore + escalationScore + auditScore;
+  };
+
+  const updateStepState = () => {
+    steps.forEach((step, index) => {
+      step.hidden = index !== currentStep;
+    });
+
+    if (progress) {
+      progress.textContent = `Step ${currentStep + 1} of ${steps.length}`;
+    }
+
+    if (prevButton) {
+      prevButton.disabled = currentStep === 0;
+    }
+
+    if (nextButton) {
+      nextButton.hidden = currentStep === steps.length - 1;
+    }
+
+    if (submitButton) {
+      submitButton.hidden = currentStep !== steps.length - 1;
+    }
+  };
+
+  const setShareUrl = (values: Record<string, string>, score: number, tier: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("owner", values.owner);
+    url.searchParams.set("evidence", values.evidence);
+    url.searchParams.set("escalation", values.escalation);
+    url.searchParams.set("audit", values.audit);
+    url.searchParams.set("score", score.toString());
+    url.searchParams.set("tier", tier.toLowerCase());
+
+    history.replaceState(null, "", url.toString());
+
+    if (shareInput) {
+      shareInput.value = url.toString();
+    }
+  };
+
+  const renderResults = (values: Record<string, string>, score: number) => {
+    if (!resultsWrapper || !scoreValue || !statusPill || !summaryText) return;
+
+    const tier = getTier(score);
+    const statusClass = `status-pill--${tier.status}`;
+
+    scoreValue.textContent = `${score} / 100`;
+    statusPill.textContent = tier.label;
+    statusPill.classList.remove("status-pill--green", "status-pill--yellow", "status-pill--red");
+    statusPill.classList.add(statusClass);
+    summaryText.textContent = tier.summary;
+
+    latestResult = {
+      result_id: crypto.randomUUID(),
+      generated_at: new Date().toISOString(),
+      tool_id: "governance-gap-score",
+      inputs: values,
+      score,
+      tier: tier.label,
+      summary: tier.summary,
+      recommendations: [
+        "Assign a named governance owner for every automated system.",
+        "Refresh evidence packs before each release cycle.",
+        "Test exception escalation paths quarterly.",
+      ],
+    };
+
+    setShareUrl(values, score, tier.label);
+    resultsWrapper.hidden = false;
+    resultsWrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const applyParams = () => {
+    const params = new URLSearchParams(window.location.search);
+    const owner = params.get("owner") ?? "";
+    const evidence = params.get("evidence") ?? "";
+    const escalation = params.get("escalation") ?? "";
+    const audit = params.get("audit") ?? "";
+    const scoreParam = params.get("score");
+
+    if (!form) return;
+
+    const values = { owner, evidence, escalation, audit };
+    const hasInputs = Object.values(values).every((value) => value);
+
+    if (hasInputs) {
+      const ownerField = form.elements.namedItem("owner") as HTMLSelectElement | null;
+      const evidenceField = form.elements.namedItem("evidence") as HTMLSelectElement | null;
+      const escalationField = form.elements.namedItem("escalation") as HTMLSelectElement | null;
+      const auditField = form.elements.namedItem("audit") as HTMLSelectElement | null;
+
+      if (ownerField) ownerField.value = owner;
+      if (evidenceField) evidenceField.value = evidence;
+      if (escalationField) escalationField.value = escalation;
+      if (auditField) auditField.value = audit;
+    }
+
+    if (hasInputs) {
+      renderResults(values, calculateScore(values));
+    } else if (scoreParam) {
+      const score = Number(scoreParam);
+      if (!Number.isNaN(score)) {
+        renderResults(values, score);
+      }
+    }
+  };
+
+  const validateStep = () => {
+    const step = steps[currentStep];
+    if (!step) return true;
+
+    const requiredInput = step.querySelector("select, input");
+    if (
+      requiredInput &&
+      "checkValidity" in requiredInput &&
+      typeof requiredInput.checkValidity === "function"
+    ) {
+      const field = requiredInput as HTMLInputElement | HTMLSelectElement;
+      if (!field.checkValidity()) {
+        field.reportValidity();
+        return false;
+      }
+    }
+    return true;
+  };
+
+  updateStepState();
+  applyParams();
+
+  nextButton?.addEventListener("click", () => {
+    if (!validateStep()) return;
+
+    if (!hasStarted) {
+      hasStarted = true;
+      trackEvent("governance_gap_score_start", { step: currentStep + 1 });
+    }
+
+    currentStep = Math.min(currentStep + 1, steps.length - 1);
+    updateStepState();
+  });
+
+  prevButton?.addEventListener("click", () => {
+    currentStep = Math.max(currentStep - 1, 0);
+    updateStepState();
+  });
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form) return;
+
+    if (!validateStep()) return;
+
+    const data = new FormData(form);
+    const values = {
+      owner: (data.get("owner") as string) ?? "",
+      evidence: (data.get("evidence") as string) ?? "",
+      escalation: (data.get("escalation") as string) ?? "",
+      audit: (data.get("audit") as string) ?? "",
+    };
+
+    const score = calculateScore(values);
+    renderResults(values, score);
+    trackEvent("governance_gap_score_complete", { score });
+  });
+
+  downloadButton?.addEventListener("click", () => {
+    if (!latestResult) return;
+
+    const blob = new Blob([JSON.stringify(latestResult, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "governance-gap-score.json";
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+
+  shareButton?.addEventListener("click", async () => {
+    if (!shareInput) return;
+    shareInput.select();
+
+    try {
+      await navigator.clipboard.writeText(shareInput.value);
+      trackEvent("governance_gap_score_share", { channel: "clipboard" });
+    } catch {
+      trackEvent("governance_gap_score_share", { channel: "manual" });
+    }
+  });
+</script>
