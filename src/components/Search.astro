@@ -69,7 +69,7 @@ import { Icon } from "astro-icon/components";
     align-items: center;
     gap: 0.75rem;
     width: 100%;
-    min-height: 2.6rem;
+    min-height: 44px;
     padding: 0.55rem 0.75rem;
     background: color-mix(in srgb, var(--surface) 94%, white 6%);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
@@ -78,6 +78,7 @@ import { Icon } from "astro-icon/components";
     font-size: 0.95rem;
     line-height: 1.2;
     cursor: pointer;
+    touch-action: manipulation;
     transition: all 0.2s ease;
   }
 
@@ -176,11 +177,14 @@ import { Icon } from "astro-icon/components";
 
   .search-dialog__close {
     padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
     background: transparent;
     border: none;
     color: var(--muted);
     cursor: pointer;
     border-radius: 4px;
+    touch-action: manipulation;
   }
 
   .search-dialog__close:hover {
@@ -223,6 +227,8 @@ import { Icon } from "astro-icon/components";
     font-size: 0.75rem;
     cursor: pointer;
     color: var(--text);
+    min-height: 44px;
+    touch-action: manipulation;
     transition:
       border-color 0.2s ease,
       box-shadow 0.2s ease;
@@ -240,6 +246,7 @@ import { Icon } from "astro-icon/components";
     max-height: 50vh;
     overflow-y: auto;
     padding: 1rem;
+    overscroll-behavior: contain;
   }
 
   .search-empty {
@@ -340,8 +347,11 @@ import { Icon } from "astro-icon/components";
   const recentList = document.getElementById("search-recent-list");
 
   const RECENT_SEARCH_KEY = "et3-search-recent";
+  const SEARCH_QUERY_STORAGE_KEY = "et3-search-query";
   const MAX_RECENT_SEARCHES = 6;
   const GROUP_LABELS = ["Standards", "Validators", "Mechanisms", "Other"];
+  const SEARCH_MODAL_PARAM = "modal";
+  const SEARCH_QUERY_PARAM = "q";
   const CONTENT_TYPE_MAP: Record<string, string> = {
     standards: "Standards",
     standard: "Standards",
@@ -353,25 +363,126 @@ import { Icon } from "astro-icon/components";
   let activeIndex = -1;
   let currentQuery = "";
 
-  trigger?.addEventListener("click", () => {
-    dialog?.showModal();
+  function openDialog({ pushHistory = true } = {}) {
+    if (!dialog || dialog.open) return;
+    dialog.showModal();
     initPagefind();
     input?.focus();
     renderRecentSearches();
+
+    if (pushHistory) {
+      const url = new URL(window.location.href);
+      url.searchParams.set(SEARCH_MODAL_PARAM, "search");
+      if (currentQuery) {
+        url.searchParams.set(SEARCH_QUERY_PARAM, currentQuery);
+      } else {
+        url.searchParams.delete(SEARCH_QUERY_PARAM);
+      }
+      history.pushState({ modal: "search" }, "", url);
+    }
+  }
+
+  function closeDialog({ fromHistory = false } = {}) {
+    if (!dialog?.open) return;
+    dialog.close();
+
+    if (fromHistory) return;
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete(SEARCH_MODAL_PARAM);
+    if (!currentQuery) {
+      url.searchParams.delete(SEARCH_QUERY_PARAM);
+    }
+    history.replaceState(history.state ?? {}, "", url);
+  }
+
+  function requestDialogClose() {
+    if (!dialog?.open) return;
+    if (history.state?.modal === "search") {
+      history.back();
+      return;
+    }
+    closeDialog();
+  }
+
+  function updateQueryParam(query: string) {
+    const url = new URL(window.location.href);
+    if (dialog?.open) {
+      url.searchParams.set(SEARCH_MODAL_PARAM, "search");
+    }
+    if (query) {
+      url.searchParams.set(SEARCH_QUERY_PARAM, query);
+    } else {
+      url.searchParams.delete(SEARCH_QUERY_PARAM);
+    }
+    history.replaceState(history.state ?? {}, "", url);
+    if (typeof sessionStorage !== "undefined") {
+      if (query) {
+        sessionStorage.setItem(SEARCH_QUERY_STORAGE_KEY, query);
+      } else {
+        sessionStorage.removeItem(SEARCH_QUERY_STORAGE_KEY);
+      }
+    }
+  }
+
+  function loadStoredQuery() {
+    if (typeof sessionStorage === "undefined") return "";
+    return sessionStorage.getItem(SEARCH_QUERY_STORAGE_KEY) ?? "";
+  }
+
+  function syncDialogWithUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const shouldOpen = params.get(SEARCH_MODAL_PARAM) === "search";
+    const query = params.get(SEARCH_QUERY_PARAM) ?? "";
+
+    let resolvedQuery = query;
+    if (shouldOpen && !query) {
+      resolvedQuery = loadStoredQuery();
+      if (resolvedQuery) {
+        updateQueryParam(resolvedQuery);
+      }
+    }
+
+    if (input) {
+      input.value = resolvedQuery;
+    }
+    currentQuery = resolvedQuery.trim();
+
+    if (shouldOpen && !dialog?.open) {
+      openDialog({ pushHistory: false });
+    }
+
+    if (!shouldOpen && dialog?.open) {
+      closeDialog({ fromHistory: true });
+    }
+
+    if (shouldOpen) {
+      if (currentQuery) {
+        performSearch(currentQuery);
+      } else if (resultsContainer) {
+        resultsContainer.innerHTML =
+          '<p class="search-empty">Start typing to search...</p>';
+      }
+    }
+  }
+
+  trigger?.addEventListener("click", () => {
+    openDialog();
   });
 
   closeBtn?.addEventListener("click", () => {
-    dialog?.close();
+    requestDialogClose();
   });
 
   dialog?.addEventListener("click", (event) => {
     if (event.target === dialog) {
-      dialog.close();
+      requestDialogClose();
     }
   });
 
   dialog?.addEventListener("close", () => {
     activeIndex = -1;
+    trigger?.focus();
   });
 
   document.addEventListener("keydown", (e) => {
@@ -382,10 +493,7 @@ import { Icon } from "astro-icon/components";
       document.activeElement?.tagName !== "TEXTAREA"
     ) {
       e.preventDefault();
-      dialog?.showModal();
-      initPagefind();
-      input?.focus();
-      renderRecentSearches();
+      openDialog();
     }
   });
 
@@ -394,8 +502,7 @@ import { Icon } from "astro-icon/components";
 
     if (event.key === "Escape") {
       event.preventDefault();
-      dialog.close();
-      trigger?.focus();
+      requestDialogClose();
       return;
     }
 
@@ -446,6 +553,7 @@ import { Icon } from "astro-icon/components";
   input?.addEventListener("input", async (event) => {
     const query = (event.target as HTMLInputElement).value;
     currentQuery = query.trim();
+    updateQueryParam(currentQuery);
 
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(async () => {
@@ -617,21 +725,30 @@ import { Icon } from "astro-icon/components";
       button.addEventListener("click", () => {
         input.value = term;
         currentQuery = term;
+        updateQueryParam(currentQuery);
         input.focus();
         performSearch(term);
       });
       recentList.appendChild(button);
     });
   }
+
+  window.addEventListener("popstate", () => {
+    syncDialogWithUrl();
+  });
+
+  syncDialogWithUrl();
 </script>
 
 <style is:global>
   .search-result-item {
     display: block;
     padding: 0.75rem;
+    min-height: 44px;
     border-radius: 6px;
     text-decoration: none;
     color: inherit;
+    touch-action: manipulation;
     transition: background 0.2s ease;
     margin-bottom: 0;
   }

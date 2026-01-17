@@ -184,6 +184,7 @@ const topLevelLinks = navPrimaryLinks;
     gap: 0.8rem;
     margin-left: auto;
     padding: 0.65rem 0.85rem;
+    min-height: 44px;
     border-radius: 999px;
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
@@ -196,6 +197,7 @@ const topLevelLinks = navPrimaryLinks;
     min-width: 0;
     max-width: 100%;
     box-shadow: 0 6px 14px rgba(64, 52, 40, 0.08);
+    touch-action: manipulation;
     transition:
       transform 0.2s ease,
       border-color 0.2s ease,
@@ -443,12 +445,14 @@ const topLevelLinks = navPrimaryLinks;
     display: inline-flex;
     align-items: center;
     padding: 0.45rem 0.75rem;
+    min-height: 44px;
     border-radius: 999px;
     border: 1px solid transparent;
     background: transparent;
     font-weight: 700;
     color: inherit;
     text-decoration: none;
+    touch-action: manipulation;
     transition:
       transform 0.15s ease,
       border-color 0.15s ease,
@@ -554,6 +558,7 @@ const topLevelLinks = navPrimaryLinks;
     padding: 0.15rem 0;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
+    overscroll-behavior: contain;
   }
 
   .nav__links--mobile,
@@ -611,6 +616,7 @@ const topLevelLinks = navPrimaryLinks;
     box-shadow: 0 28px 60px rgba(64, 52, 40, 0.16);
     backdrop-filter: none;
     overflow: hidden auto;
+    overscroll-behavior: contain;
     max-height: calc(100vh - 1.1rem);
     max-width: 1180px;
     width: calc(100% - 1.1rem);
@@ -709,6 +715,7 @@ const topLevelLinks = navPrimaryLinks;
     margin: 0 auto;
     max-height: calc(100vh - 1.6rem);
     overflow: auto;
+    overscroll-behavior: contain;
   }
 
   @media (min-width: 992px) {
@@ -736,11 +743,13 @@ const topLevelLinks = navPrimaryLinks;
 
   .nav__menu-close {
     padding: 0.55rem 0.85rem;
+    min-height: 44px;
     border-radius: 10px;
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
     font-weight: 750;
     cursor: pointer;
+    touch-action: manipulation;
     transition:
       transform 0.15s ease,
       border-color 0.15s ease,

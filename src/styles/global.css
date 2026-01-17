@@ -8,6 +8,12 @@ html {
   --text-body: clamp(0.96rem, 0.3vw + 0.95rem, 1.1rem);
 }
 
+input,
+select,
+textarea {
+  font-size: 1rem;
+}
+
 .text-hero {
   font-size: var(--text-hero);
   line-height: 1.05;
@@ -230,6 +236,7 @@ h3 {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 1.4rem;
+  min-height: 44px;
   border-radius: var(--radius-md);
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   font-weight: 600;
@@ -245,6 +252,7 @@ h3 {
   cursor: pointer;
   text-decoration: none;
   color: var(--text);
+  touch-action: manipulation;
 }
 
 .button:hover {
@@ -1894,6 +1902,11 @@ h3 {
   color: inherit;
   font-weight: 650;
   text-decoration-thickness: 0.12em;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.2rem 0.1rem;
+  touch-action: manipulation;
 }
 
 .tile__list a:hover,
@@ -1940,6 +1953,8 @@ h3 {
   display: block;
   width: 100%;
   text-align: left;
+  min-height: 44px;
+  touch-action: manipulation;
 }
 
 .pill-list__item:hover,
@@ -2594,6 +2609,9 @@ h3 {
   padding: 0.35rem 0.8rem;
   font-weight: 700;
   cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -2695,6 +2713,11 @@ h3 {
 .footer__link {
   color: inherit;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.2rem 0;
+  touch-action: manipulation;
 }
 
 .footer__link:hover,
