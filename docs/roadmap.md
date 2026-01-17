@@ -18,7 +18,7 @@ outcome) and link to a spec section below once scoped.
 |                                    | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
 |                                    | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               | - [Language people can use](#language-people-can-use)                               |
 |                                    | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
-|                                    |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
+|                                    | - [Agent skill install cards](#agent-skill-install-cards)                                         | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
 |                                    |                                                                                                   | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
 
 ## Spec template
@@ -114,6 +114,27 @@ under this heading and link to it from the roadmap table.
   performative, power map) with next-step links.
 - **Dependencies/risks:** Needs careful wording to avoid implying legal advice.
 - **Issue link:** Issue: TBD / Spec: #self-defense-diagnostic-tools
+
+## Agent skill install cards
+
+- **Problem:** Teams want a fast, concrete way to adopt agent guidance in their own AI tooling,
+  but current pages rely on long-form reading without an install flow.
+- **Scope:** Define a compact “skill install” card pattern (download → add to project → invoke)
+  and identify where it should surface:
+  - Primary: `/agent-toolkit` hub and `/agent-toolkit/prompt-packs`.
+  - Secondary: `/standards/ethotechnics-for-agents` for builders landing on standards first.
+  - Optional: DIY packs when an installable asset is available.
+- **UX/Tech notes:** Keep the card static and zero-JS. Allow a short, copyable path snippet and
+  a short “invoke” example that matches the prompt pack naming.
+- **Stories:**
+  - As a tool builder, I can download a skill file and see exactly where it belongs in my repo.
+  - As a principal, I can copy a one-line invocation to test the skill quickly in my assistant.
+  - As a reviewer, I can confirm which pack/version is installed without scanning long pages.
+- **Acceptance criteria:** At least one agent toolkit page ships with the three-step card and a
+  downloadable asset; pages list the same install steps and version labels.
+- **Dependencies/risks:** Requires a final naming scheme for skill files and a stable download
+  location. Avoids implying endorsement of any specific vendor or IDE.
+- **Issue link:** Issue: TBD / Spec: #agent-skill-install-cards
 
 ## Contestability pattern library
 
