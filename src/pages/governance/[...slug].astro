@@ -7,11 +7,11 @@ import {
 
 export const prerender = true;
 const rootSlug = "governance";
-const branchEntries = getTaxonomyBranch(rootSlug).filter(
-  (entry) => entry.slug !== rootSlug,
-);
 
 export function getStaticPaths() {
+  const branchEntries = getTaxonomyBranch(rootSlug).filter(
+    (entry) => entry.slug !== rootSlug,
+  );
   return branchEntries.map((entry) => ({
     params: { slug: entry.slug.split("/").slice(1).join("/") },
     props: { entry },
