@@ -38,15 +38,29 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     <form class="validator__form" data-validator-form data-validator-meta={validatorMetaJson}>
       <label class="validator__field">
         Estimated time to completion (minutes)
-        <input type="number" name="duration" min="1" value="12" required />
+        <input
+          id="burden-duration"
+          type="number"
+          name="duration"
+          min="1"
+          value="12"
+          required
+        />
       </label>
       <label class="validator__field">
         Number of required steps
-        <input type="number" name="steps" min="1" value="4" required />
+        <input
+          id="burden-steps"
+          type="number"
+          name="steps"
+          min="1"
+          value="4"
+          required
+        />
       </label>
       <label class="validator__field">
         Exit available on every screen?
-        <select name="exit">
+        <select id="burden-exit" name="exit">
           <option value="yes" selected>Yes</option>
           <option value="no">No</option>
         </select>
@@ -56,8 +70,16 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
     <div class="validator__report" data-validator-report hidden>
       <div class="validator__status" data-validator-status>
-        <span class="status-pill status-pill--green">Green</span>
-        <p class="validator__status-text">Low risk: consent burden within bounds.</p>
+        <span class="status-pill status-pill--green" data-validator-pill>
+          Green
+        </span>
+        <output
+          class="validator__status-text"
+          data-validator-output
+          for="burden-duration burden-steps burden-exit"
+        >
+          Low risk: consent burden within bounds.
+        </output>
       </div>
       <p class="validator__recommendation">
         Fix this using <a href="/mechanisms/mec-04-hard-clock">MEC-04: The Hard Clock</a>.
@@ -89,8 +111,11 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
   const report = document.querySelector<HTMLElement>(
     "[data-validator-report]"
   );
-  const status = document.querySelector<HTMLElement>(
-    "[data-validator-status]"
+  const statusPill = document.querySelector<HTMLElement>(
+    "[data-validator-pill]"
+  );
+  const statusOutput = document.querySelector<HTMLOutputElement>(
+    "[data-validator-output]"
   );
   const downloadButton = document.querySelector<HTMLButtonElement>(
     "[data-validator-download]"
@@ -100,10 +125,15 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     level: "red" | "yellow" | "green",
     message: string
   ) => {
-    if (!status) return;
-    status.innerHTML = `<span class="status-pill status-pill--${level}">${
-      level.charAt(0).toUpperCase() + level.slice(1)
-    }</span><p class="validator__status-text">${message}</p>`;
+    if (!statusPill || !statusOutput) return;
+    statusPill.classList.remove(
+      "status-pill--red",
+      "status-pill--yellow",
+      "status-pill--green",
+    );
+    statusPill.classList.add(`status-pill--${level}`);
+    statusPill.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+    statusOutput.textContent = message;
   };
 
   const buildResult = (

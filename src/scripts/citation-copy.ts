@@ -1,6 +1,24 @@
 const citationButtons = Array.from(
   document.querySelectorAll<HTMLButtonElement>("[data-citation-text]"),
 );
+const copyPopover = document.createElement("div");
+copyPopover.className = "copy-popover";
+copyPopover.setAttribute("popover", "manual");
+copyPopover.setAttribute("role", "status");
+document.body?.appendChild(copyPopover);
+const POPOVER_VISIBILITY_DURATION = 1600;
+let popoverTimer: number | undefined;
+
+const showCopyPopover = (message: string) => {
+  copyPopover.textContent = message;
+  if (typeof copyPopover.showPopover === "function") {
+    copyPopover.showPopover();
+    window.clearTimeout(popoverTimer);
+    popoverTimer = window.setTimeout(() => {
+      copyPopover.hidePopover();
+    }, 1600);
+  }
+};
 
 citationButtons.forEach((button) => {
   const citationText = button.getAttribute("data-citation-text");
@@ -18,6 +36,7 @@ citationButtons.forEach((button) => {
         button.textContent = "Copied";
         button.setAttribute("aria-live", "polite");
         button.setAttribute("aria-label", `${format} copied`);
+        showCopyPopover(`${format} copied.`);
         window.setTimeout(() => {
           button.textContent = defaultLabel;
           button.setAttribute("aria-label", `Copy ${format}`);
@@ -25,6 +44,7 @@ citationButtons.forEach((button) => {
       } catch (error) {
         console.error("Unable to copy citation", error);
         button.textContent = "Copy failed";
+        showCopyPopover("Copy failed.");
         window.setTimeout(() => {
           button.textContent = defaultLabel;
         }, 1600);

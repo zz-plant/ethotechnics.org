@@ -19,14 +19,17 @@ import { Icon } from "astro-icon/components";
       <span id="search-dialog-title" class="visually-hidden">
         Site search
       </span>
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Search for standards, mechanisms, and validators..."
-        autocomplete="off"
-        aria-describedby="search-help-text"
-        aria-label="Search the library"
-      />
+      <search class="search-dialog__search" role="search">
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Search for standards, mechanisms, and validators..."
+          autocomplete="off"
+          enterkeyhint="search"
+          aria-describedby="search-help-text"
+          aria-label="Search the library"
+        />
+      </search>
       <button
         id="search-close"
         class="search-dialog__close"
@@ -152,7 +155,13 @@ import { Icon } from "astro-icon/components";
     color: var(--muted);
   }
 
-  .search-dialog input {
+  .search-dialog__search {
+    flex: 1;
+    margin: 0;
+  }
+
+  .search-dialog__search input {
+    width: 100%;
     flex: 1;
     border: none;
     background: transparent;
@@ -164,11 +173,11 @@ import { Icon } from "astro-icon/components";
     border-radius: 8px;
   }
 
-  .search-dialog input::placeholder {
+  .search-dialog__search input::placeholder {
     color: color-mix(in srgb, var(--muted) 80%, transparent);
   }
 
-  .search-dialog input:focus-visible {
+  .search-dialog__search input:focus-visible {
     outline: 2px solid var(--accent-strong);
     outline-offset: 2px;
     box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);

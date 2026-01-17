@@ -38,15 +38,29 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     <form class="validator__form" data-validator-form data-validator-meta={validatorMetaJson}>
       <label class="validator__field">
         Number of high-friction touchpoints
-        <input type="number" name="touchpoints" min="0" value="3" required />
+        <input
+          id="risk-touchpoints"
+          type="number"
+          name="touchpoints"
+          min="0"
+          value="3"
+          required
+        />
       </label>
       <label class="validator__field">
         Average wait time (minutes)
-        <input type="number" name="wait" min="0" value="4" required />
+        <input
+          id="risk-wait"
+          type="number"
+          name="wait"
+          min="0"
+          value="4"
+          required
+        />
       </label>
       <label class="validator__field">
         Appeal path available for every touchpoint?
-        <select name="appeal">
+        <select id="risk-appeal" name="appeal">
           <option value="yes" selected>Yes</option>
           <option value="no">No</option>
         </select>
@@ -56,8 +70,16 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
     <div class="validator__report" data-validator-report hidden>
       <div class="validator__status" data-validator-status>
-        <span class="status-pill status-pill--green">Green</span>
-        <p class="validator__status-text">Risk posture within acceptable range.</p>
+        <span class="status-pill status-pill--green" data-validator-pill>
+          Green
+        </span>
+        <output
+          class="validator__status-text"
+          data-validator-output
+          for="risk-touchpoints risk-wait risk-appeal"
+        >
+          Risk posture within acceptable range.
+        </output>
       </div>
       <p class="validator__recommendation">
         Fix this using <a href="/mechanisms/patterns/appeal-paths">MEC-06: Appeal Paths</a>.
@@ -89,8 +111,11 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
   const report = document.querySelector<HTMLElement>(
     "[data-validator-report]"
   );
-  const status = document.querySelector<HTMLElement>(
-    "[data-validator-status]"
+  const statusPill = document.querySelector<HTMLElement>(
+    "[data-validator-pill]"
+  );
+  const statusOutput = document.querySelector<HTMLOutputElement>(
+    "[data-validator-output]"
   );
   const downloadButton = document.querySelector<HTMLButtonElement>(
     "[data-validator-download]"
@@ -100,10 +125,15 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     level: "red" | "yellow" | "green",
     message: string
   ) => {
-    if (!status) return;
-    status.innerHTML = `<span class="status-pill status-pill--${level}">${
-      level.charAt(0).toUpperCase() + level.slice(1)
-    }</span><p class="validator__status-text">${message}</p>`;
+    if (!statusPill || !statusOutput) return;
+    statusPill.classList.remove(
+      "status-pill--red",
+      "status-pill--yellow",
+      "status-pill--green",
+    );
+    statusPill.classList.add(`status-pill--${level}`);
+    statusPill.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+    statusOutput.textContent = message;
   };
 
   const buildResult = (
