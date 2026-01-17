@@ -52,6 +52,17 @@ component is for and where it appears.
   - Default slot appears after the description (useful for extra paragraphs or metadata).
   - `footer` slot renders after tags and glossary links for permalinks or calls to action.
 
+## PromptPackInstallCard.astro
+
+- Usage: Reusable install card for the agent prompt pack download, path, and invocation steps.
+- Reference: `src/pages/agent-toolkit/prompt-packs.astro`.
+- Props:
+  - `title`: Card heading text.
+  - `version`: Display version for the prompt pack.
+  - `downloadUrl`: Public asset URL for the downloadable file.
+  - `pathSnippet`: Repository path snippet where the pack should live.
+  - `invokeExample`: Single-line invocation example that matches the pack name.
+
 ## Illustration.astro
 
 - Usage: Figure wrapper with a framed image, halo treatment, and optional caption.

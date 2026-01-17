@@ -2,6 +2,7 @@
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -31,6 +32,7 @@ const anchorLinks = [
   { href: "#orientation", label: "Orientation" },
   { href: "#principles", label: "Principle map" },
   { href: "#resources", label: "Agent resources" },
+  { href: "#install", label: "Install prompt pack" },
 ];
 
 const orientationCards = [
@@ -110,6 +112,15 @@ const resources = [
     label: "Use the quick answers",
   },
 ];
+
+const promptPackInstall = {
+  title: "Ethotechnics agent prompt pack",
+  version: "v1.0.0",
+  downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  pathSnippet:
+    "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  invokeExample: "use: ethotechnics-agent-prompt-pack-v1.0.0",
+};
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -188,6 +199,17 @@ const resources = [
           </div>
         </CardItem>
       ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="install"
+    eyebrow="Install"
+    title="Pin the prompt pack for repeatable teaching sessions"
+    description="Download the canonical prompt pack once and reuse it across agents."
+  >
+    <CardGrid className="grid--two">
+      <PromptPackInstallCard {...promptPackInstall} />
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

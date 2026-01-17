@@ -1,0 +1,41 @@
+---
+import CardItem from "./CardItem.astro";
+
+interface Props {
+  title: string;
+  version: string;
+  downloadUrl: string;
+  pathSnippet: string;
+  invokeExample: string;
+}
+
+const { title, version, downloadUrl, pathSnippet, invokeExample } =
+  Astro.props as Props;
+const downloadLabel = `Download ${version}`;
+---
+
+<CardItem
+  eyebrow="Install"
+  title={title}
+  meta={`Prompt pack ${version}`}
+  description="Pin the prompt pack once and reuse it across agent workflows."
+  descriptionTone="default"
+>
+  <ol class="muted">
+    <li>Download the pack and keep the version label intact.</li>
+    <li>
+      Add it to your project at <code>{pathSnippet}</code>.
+    </li>
+    <li>
+      Invoke it with <code>{invokeExample}</code>.
+    </li>
+  </ol>
+  <p class="muted small">
+    Public asset: <code>{downloadUrl}</code>
+  </p>
+  <div slot="footer" class="card__footer">
+    <a class="button ghost button--compact" href={downloadUrl} download>
+      {downloadLabel}
+    </a>
+  </div>
+</CardItem>

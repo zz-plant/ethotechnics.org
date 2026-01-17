@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { readFile } from "node:fs/promises";
 
@@ -143,6 +144,15 @@ const agentSafetyObjectModel = await readFile(
   new URL("../../../public/agents/spec.json", import.meta.url),
   "utf-8",
 );
+
+const promptPackInstall = {
+  title: "Ethotechnics agent prompt pack",
+  version: "v1.0.0",
+  downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  pathSnippet:
+    "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  invokeExample: "use: ethotechnics-agent-prompt-pack-v1.0.0",
+};
 
 const practiceSections = [
   {
@@ -772,6 +782,12 @@ const practiceSections = [
         for machine-verifiable controls.
       </li>
     </ol>
+    <p class="muted">
+      Keep onboarding and diagnostics prompts versioned alongside your integration checklist.
+    </p>
+    <div class="grid grid--two">
+      <PromptPackInstallCard {...promptPackInstall} />
+    </div>
   </SectionBlock>
 
   <SectionBlock

@@ -2,6 +2,7 @@
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -18,11 +19,21 @@ const hero = {
 };
 
 const anchorLinks = [
+  { href: "#install", label: "Install" },
   { href: "#onboarding", label: "Onboarding" },
   { href: "#decisions", label: "Decision reviews" },
   { href: "#conflict", label: "Conflict resolution" },
   { href: "#diagnostics", label: "Diagnostics prompts" },
 ];
+
+const promptPackInstall = {
+  title: "Ethotechnics agent prompt pack",
+  version: "v1.0.0",
+  downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  pathSnippet:
+    "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  invokeExample: "use: ethotechnics-agent-prompt-pack-v1.0.0",
+};
 
 const onboardingPrompts = [
   {
@@ -132,6 +143,17 @@ const diagnosticFailureModes = [
     permalink={permalink}
     anchorLinks={anchorLinks}
   />
+
+  <SectionBlock
+    id="install"
+    eyebrow="Install"
+    title="Install the prompt pack once"
+    description="Download the canonical pack and keep a versioned copy in your repo."
+  >
+    <CardGrid className="grid--two">
+      <PromptPackInstallCard {...promptPackInstall} />
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="onboarding"
