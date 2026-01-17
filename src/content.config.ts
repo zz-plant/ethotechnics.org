@@ -438,6 +438,7 @@ const fieldNotes = defineCollection({
     permalink: z.string(),
     published: z.string(),
     latestUpdate: z.string(),
+    cadenceNote: z.string(),
     highlight: z.object({
       title: z.string(),
       summary: z.string(),
