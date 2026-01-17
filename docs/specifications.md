@@ -55,6 +55,16 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 - `bun run test:e2e`: build then execute Playwright against the preview server; install browsers
   via `bunx playwright install --with-deps` first.
 
+## Experience improvement initiatives
+
+- Desktop navigation should expose primary destinations without opening the overlay menu.
+- Homepage copy should surface the mission and focus areas (delivery, research, governance) in the
+  hero and “How this works” strip without changing layout structure.
+- Diagnostics cards should use action-oriented primary CTAs plus consistent example/output links.
+- Pattern cards should include a server-rendered details action that leads to fuller guidance.
+- Hero typography or imagery changes must maintain CLS=0 and LCP < 2.5s, with explicit image sizing
+  and stable textures.
+
 ## Deployment flow
 
 - `bun run build` emits the Worker bundle at `dist/_worker.js` plus static assets in `dist/`
