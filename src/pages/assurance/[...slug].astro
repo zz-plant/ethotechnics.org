@@ -6,11 +6,10 @@ import {
 } from "../../content/taxonomy";
 
 export const prerender = true;
-const rootSlug = "assurance";
 
 export function getStaticPaths() {
-  const branchEntries = getTaxonomyBranch(rootSlug).filter(
-    (entry) => entry.slug !== rootSlug,
+  const branchEntries = getTaxonomyBranch("assurance").filter(
+    (entry) => entry.slug !== "assurance",
   );
   return branchEntries.map((entry) => ({
     params: { slug: entry.slug.split("/").slice(1).join("/") },
