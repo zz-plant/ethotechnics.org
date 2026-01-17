@@ -1,5 +1,6 @@
 ---
 import { getEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "../components/CardGrid.astro";
 import CardItem from "../components/CardItem.astro";
@@ -24,14 +25,43 @@ const { pageTitle, pageDescription } = homeEntry.data;
     <div class="hero__layout">
       <div class="hero__content">
         <p class="eyebrow">Ethotechnics Institute</p>
-        <h1>
-          We publish enforceable governance artifacts for automated systems: standards, bindings,
-          evidence, and exceptions that survive audits and failure.
-        </h1>
+        <h1>Enforceable governance artifacts for automated systems.</h1>
+        <p class="lede">
+          Standards, bindings, evidence, and exceptions that survive audits, reviews, and failure.
+        </p>
         <div class="actions">
           <a class="button primary" href="/diagnostics">Run a diagnostic</a>
           <a class="button ghost" href="/standards">Browse standards</a>
           <a class="button ghost" href="/mechanisms">View mechanism library</a>
+        </div>
+        <div class="hero__meta">
+          <article class="stat-card">
+            <div class="stat-card__header">
+              <span class="stat-card__icon" aria-hidden="true">
+                <Icon name="lucide:scan-search" />
+              </span>
+              <p class="metric">Diagnostics</p>
+            </div>
+            <p class="muted">Export evidence-ready diagnostics with stable IDs and change logs.</p>
+          </article>
+          <article class="stat-card">
+            <div class="stat-card__header">
+              <span class="stat-card__icon" aria-hidden="true">
+                <Icon name="lucide:file-text" />
+              </span>
+              <p class="metric">Bindings</p>
+            </div>
+            <p class="muted">Translate standards into enforceable clauses and procurement language.</p>
+          </article>
+          <article class="stat-card">
+            <div class="stat-card__header">
+              <span class="stat-card__icon" aria-hidden="true">
+                <Icon name="lucide:layers" />
+              </span>
+              <p class="metric">Mechanisms</p>
+            </div>
+            <p class="muted">Jump from findings to remediation mechanisms without context loss.</p>
+          </article>
         </div>
       </div>
       <div class="hero__panel">
@@ -39,9 +69,14 @@ const { pageTitle, pageDescription } = homeEntry.data;
           <p class="eyebrow">Workflow-ready</p>
           <h2>Attachable outputs, not decks.</h2>
           <p class="muted">
-            Diagnostics, findings, clauses, evidence packs, and mechanisms are published as versioned artifacts so teams can
-            cite and remediate faster.
+            Diagnostics, findings, clauses, evidence packs, and mechanisms are published as versioned
+            artifacts so teams can cite and remediate faster.
           </p>
+          <ul class="panel__list">
+            <li>Structured outputs that map directly to audit and review checklists.</li>
+            <li>Machine-readable artifacts to plug into ticketing, policy, and agent tooling.</li>
+            <li>Evidence packs you can reuse across teams without reformatting.</li>
+          </ul>
           <a class="button ghost button--compact" href="/api">Reference API</a>
         </div>
       </div>
