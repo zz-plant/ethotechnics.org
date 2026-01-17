@@ -6,6 +6,7 @@ copyPopover.className = "copy-popover";
 copyPopover.setAttribute("popover", "manual");
 copyPopover.setAttribute("role", "status");
 document.body?.appendChild(copyPopover);
+const POPOVER_VISIBILITY_DURATION = 1600;
 let popoverTimer: number | undefined;
 
 const showCopyPopover = (message: string) => {
