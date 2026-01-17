@@ -146,7 +146,7 @@ const labelledBy = ariaLabel ? undefined : resolvedTitleId;
     box-shadow:
       0 20px 48px rgba(64, 52, 40, 0.12),
       0 8px 16px rgba(64, 52, 40, 0.04);
-    z-index: 1;
+    z-index: var(--z-raised);
   }
 
   /* Apply grain texture if available */
@@ -157,7 +157,7 @@ const labelledBy = ariaLabel ? undefined : resolvedTitleId;
     background-image: var(--grain-texture, none);
     opacity: 0.03; /* Subtle grain */
     pointer-events: none;
-    z-index: -1;
+    z-index: var(--z-underlay);
     mix-blend-mode: multiply;
   }
 
@@ -171,7 +171,7 @@ const labelledBy = ariaLabel ? undefined : resolvedTitleId;
     );
     opacity: 0.4;
     pointer-events: none;
-    z-index: -1;
+    z-index: var(--z-underlay);
     mix-blend-mode: screen;
   }
 </style>

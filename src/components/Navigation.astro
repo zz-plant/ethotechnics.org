@@ -111,7 +111,7 @@ const topLevelLinks = navPrimaryLinks;
   .nav {
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: var(--z-overlay);
     background: color-mix(in srgb, var(--surface) 94%, white 6%);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
     box-shadow: 0 6px 16px rgba(45, 38, 30, 0.08);
@@ -213,7 +213,7 @@ const topLevelLinks = navPrimaryLinks;
     );
     opacity: 0.85;
     transition: opacity 0.25s ease;
-    z-index: 0;
+    z-index: var(--z-base);
   }
 
   .nav__menu-toggle:hover,
@@ -247,7 +247,7 @@ const topLevelLinks = navPrimaryLinks;
 
   .nav__menu-toggle-label {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-raised);
     display: grid;
     gap: 0.08rem;
     text-align: left;
@@ -395,7 +395,7 @@ const topLevelLinks = navPrimaryLinks;
 
   .nav__menu-toggle-icon {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-raised);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -585,7 +585,7 @@ const topLevelLinks = navPrimaryLinks;
     transition:
       opacity 140ms ease,
       visibility 0s linear 140ms;
-    z-index: 10;
+    z-index: var(--z-overlay);
   }
 
   .nav--menu-open .nav__scrim {
@@ -623,7 +623,7 @@ const topLevelLinks = navPrimaryLinks;
       opacity 180ms ease,
       transform 200ms ease,
       visibility 0s linear 200ms;
-    z-index: 11;
+    z-index: var(--z-overlay-top);
   }
 
   @media (max-width: 991px) {

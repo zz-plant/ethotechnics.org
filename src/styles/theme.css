@@ -18,6 +18,12 @@
   --shadow: 0 10px 24px var(--shadow-color);
   --shadow-xs: 0 2px 6px var(--shadow-color);
   --shadow-sm: 0 4px 10px var(--shadow-color);
+  --z-underlay: -1;
+  --z-base: 0;
+  --z-raised: 1;
+  --z-overlay: 10;
+  --z-overlay-top: 11;
+  --z-skip-link: 20;
   --space-1: 0.4rem;
   --space-2: 0.75rem;
   --space-3: 1.15rem;
@@ -88,7 +94,7 @@ body::before {
   opacity: 0.65;
   pointer-events: none;
   filter: url("#paper-grain");
-  z-index: -1;
+  z-index: var(--z-underlay);
 }
 
 ::selection {
@@ -104,11 +110,17 @@ h3 {
   letter-spacing: 0.01em;
   font-optical-sizing: auto;
   color: var(--text);
+  text-wrap: balance;
 }
 
 p {
   color: var(--text);
   margin: 0 0 0.5rem;
+  text-wrap: pretty;
+}
+
+li {
+  text-wrap: pretty;
 }
 
 a {
