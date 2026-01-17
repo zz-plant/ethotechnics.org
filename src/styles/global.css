@@ -14,6 +14,10 @@ textarea {
   font-size: 1rem;
 }
 
+a {
+  touch-action: manipulation;
+}
+
 .text-hero {
   font-size: var(--text-hero);
   line-height: 1.05;
@@ -1163,6 +1167,14 @@ h3 {
   overflow: hidden;
 }
 
+.panel__list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.1rem;
+  color: color-mix(in srgb, var(--muted) 88%, var(--text));
+  display: grid;
+  gap: 0.5rem;
+}
+
 .panel--glass::after {
   content: "";
   position: absolute;
@@ -1203,6 +1215,7 @@ h3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
   gap: 0.75rem;
+  margin-top: 1.4rem;
 }
 
 @media (max-width: 640px) {
@@ -1915,6 +1928,13 @@ h3 {
 .card__list a:focus-visible {
   color: var(--accent);
   text-decoration-color: var(--accent);
+}
+
+.tile__list a:focus-visible,
+.card__list a:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 .pill-list {
