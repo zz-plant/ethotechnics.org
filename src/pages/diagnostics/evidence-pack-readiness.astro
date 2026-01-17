@@ -1,0 +1,350 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "evidence-pack-readiness",
+);
+
+if (!tool) {
+  return Astro.response(
+    new Response("Diagnostic not found", {
+      status: 404,
+    }),
+  );
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#methodology", label: "Methodology" },
+  { href: "#run-tool", label: "Run the tool" },
+  { href: "#results", label: "Results" },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="Diagnostics"
+    title={tool.title}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "What you receive",
+      title: "Evidence readiness summary.",
+      description: tool.outputs.join(" "),
+    }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={tool.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`diagnostic_${tool.slug}`}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="When to use evidence pack readiness."
+    description={tool.bestFor}
+  >
+    <ul class="muted">
+      {tool.prepChecklist.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="muted">Estimated time: {tool.estimatedTime}</p>
+    <p class="muted">{tool.studioNote}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="methodology"
+    eyebrow="Methodology"
+    title="Evidence readiness scoring model."
+    description="Inputs, scoring logic, validation notes, and failure modes used in the readiness check."
+    variant="alt"
+  >
+    <DiagnosticMethodology
+      methodCards={tool.methodCards}
+      methodOverview={tool.methodOverview}
+      instrument={tool.instrument}
+      validation={tool.validation}
+      replicability={tool.replicability}
+    />
+  </SectionBlock>
+
+  <SectionBlock
+    id="run-tool"
+    eyebrow="Run the tool"
+    title="Score evidence pack readiness."
+    description="Input cadence, completeness, and response timing to generate a readiness score."
+  >
+    <form class="intake-form" data-evidence-form>
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          Evidence cadence
+          <select id="cadence" name="cadence" required>
+            <option value="release">Every release</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="ad-hoc">Ad hoc</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Artifact completeness
+          <select id="completeness" name="completeness" required>
+            <option value="high">More than 90% ready</option>
+            <option value="medium">70–90% ready</option>
+            <option value="low">Less than 70% ready</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Audit response timing
+          <select id="timing" name="timing" required>
+            <option value="fast">Under 5 days</option>
+            <option value="steady">1–4 weeks</option>
+            <option value="slow">Over 1 month</option>
+          </select>
+        </label>
+      </fieldset>
+      <div class="intake-form__actions">
+        <button class="button primary" type="submit" data-evidence-submit>
+          Calculate readiness
+        </button>
+      </div>
+    </form>
+  </SectionBlock>
+
+  <SectionBlock
+    id="results"
+    eyebrow="Results"
+    title="Evidence readiness readout."
+    description="Use the summary link in evidence packs and audit briefs."
+    variant="alt"
+  >
+    <div class="panel" data-evidence-results hidden>
+      <p class="muted">Readiness score</p>
+      <p class="metric" data-evidence-score>--</p>
+      <span class="status-pill status-pill--yellow" data-evidence-tier
+        >Steady</span
+      >
+      <p class="muted" data-evidence-summary>
+        Complete the form above to generate your readiness score.
+      </p>
+      <label class="intake-form__field intake-form__field--full">
+        Shareable link
+        <input
+          type="text"
+          readonly
+          data-evidence-share
+          aria-label="Shareable results link"
+        />
+      </label>
+      <div class="intake-form__actions">
+        <button class="button ghost" type="button" data-evidence-copy>
+          Copy share link
+        </button>
+      </div>
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-evidence-form]");
+  const results = document.querySelector<HTMLElement>(
+    "[data-evidence-results]",
+  );
+  const scoreValue = document.querySelector<HTMLElement>(
+    "[data-evidence-score]",
+  );
+  const tierLabel = document.querySelector<HTMLElement>("[data-evidence-tier]");
+  const summaryText = document.querySelector<HTMLElement>(
+    "[data-evidence-summary]",
+  );
+  const shareInput = document.querySelector<HTMLInputElement>(
+    "[data-evidence-share]",
+  );
+  const copyButton = document.querySelector<HTMLButtonElement>(
+    "[data-evidence-copy]",
+  );
+
+  type CadenceValue = "release" | "quarterly" | "ad-hoc";
+  type CompletenessValue = "high" | "medium" | "low";
+  type TimingValue = "fast" | "steady" | "slow";
+  type EvidenceValues = {
+    cadence: CadenceValue;
+    completeness: CompletenessValue;
+    timing: TimingValue;
+  };
+
+  const scoreMatrix = {
+    cadence: {
+      release: 35,
+      quarterly: 22,
+      "ad-hoc": 10,
+    },
+    completeness: {
+      high: 40,
+      medium: 25,
+      low: 10,
+    },
+    timing: {
+      fast: 25,
+      steady: 15,
+      slow: 5,
+    },
+  };
+
+  const tierMap = [
+    {
+      label: "Strong",
+      min: 80,
+      status: "green",
+      summary:
+        "Readiness is strong. Keep cadence steady and confirm artifact coverage.",
+    },
+    {
+      label: "Steady",
+      min: 60,
+      status: "yellow",
+      summary:
+        "Readiness is workable but incomplete. Prioritize missing artifacts.",
+    },
+    {
+      label: "Exposed",
+      min: 40,
+      status: "red",
+      summary:
+        "Evidence gaps are material. Address cadence and coverage quickly.",
+    },
+    {
+      label: "Critical",
+      min: 0,
+      status: "red",
+      summary:
+        "Readiness is missing. Pause for evidence collection before audits.",
+    },
+  ];
+
+  const getTier = (score: number) =>
+    tierMap.find((tier) => score >= tier.min) ?? tierMap[tierMap.length - 1];
+
+  const calculateScore = (values: EvidenceValues) => {
+    const cadenceScore = scoreMatrix.cadence[values.cadence] ?? 0;
+    const completenessScore =
+      scoreMatrix.completeness[values.completeness] ?? 0;
+    const timingScore = scoreMatrix.timing[values.timing] ?? 0;
+
+    return cadenceScore + completenessScore + timingScore;
+  };
+
+  const setShareUrl = (values: EvidenceValues, score: number, tier: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("cadence", values.cadence);
+    url.searchParams.set("completeness", values.completeness);
+    url.searchParams.set("timing", values.timing);
+    url.searchParams.set("score", String(score));
+    url.searchParams.set("tier", tier.toLowerCase());
+    history.replaceState(null, "", url.toString());
+    if (shareInput) {
+      shareInput.value = url.toString();
+    }
+  };
+
+  const renderResults = (values: EvidenceValues, score: number) => {
+    if (!results || !scoreValue || !tierLabel || !summaryText) return;
+
+    const tier = getTier(score);
+    scoreValue.textContent = `${score} / 100`;
+    tierLabel.textContent = tier.label;
+    tierLabel.classList.remove(
+      "status-pill--green",
+      "status-pill--yellow",
+      "status-pill--red",
+    );
+    tierLabel.classList.add(`status-pill--${tier.status}`);
+    summaryText.textContent = tier.summary;
+    results.hidden = false;
+    setShareUrl(values, score, tier.label);
+  };
+
+  const applyParams = () => {
+    if (!form) return;
+    const params = new URLSearchParams(window.location.search);
+    const cadence = params.get("cadence") ?? "";
+    const completeness = params.get("completeness") ?? "";
+    const timing = params.get("timing") ?? "";
+
+    const isCadenceValue = (value: string): value is CadenceValue =>
+      ["release", "quarterly", "ad-hoc"].includes(value);
+    const isCompletenessValue = (value: string): value is CompletenessValue =>
+      ["high", "medium", "low"].includes(value);
+    const isTimingValue = (value: string): value is TimingValue =>
+      ["fast", "steady", "slow"].includes(value);
+
+    if (
+      isCadenceValue(cadence) &&
+      isCompletenessValue(completeness) &&
+      isTimingValue(timing)
+    ) {
+      const cadenceField = form.elements.namedItem("cadence");
+      const completenessField = form.elements.namedItem("completeness");
+      const timingField = form.elements.namedItem("timing");
+      if (cadenceField instanceof HTMLSelectElement)
+        cadenceField.value = cadence;
+      if (completenessField instanceof HTMLSelectElement)
+        completenessField.value = completeness;
+      if (timingField instanceof HTMLSelectElement) timingField.value = timing;
+      const values = { cadence, completeness, timing };
+      renderResults(values, calculateScore(values));
+    }
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form) return;
+
+    if (!form.reportValidity()) return;
+    const data = new FormData(form);
+    const cadence = String(data.get("cadence") ?? "");
+    const completeness = String(data.get("completeness") ?? "");
+    const timing = String(data.get("timing") ?? "");
+
+    if (
+      (cadence === "release" ||
+        cadence === "quarterly" ||
+        cadence === "ad-hoc") &&
+      (completeness === "high" ||
+        completeness === "medium" ||
+        completeness === "low") &&
+      (timing === "fast" || timing === "steady" || timing === "slow")
+    ) {
+      const values: EvidenceValues = { cadence, completeness, timing };
+      renderResults(values, calculateScore(values));
+      results?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  copyButton?.addEventListener("click", async () => {
+    if (!(shareInput instanceof HTMLInputElement)) return;
+    shareInput.select();
+    try {
+      await navigator.clipboard.writeText(shareInput.value);
+    } catch {
+      // fall back to manual copy
+    }
+  });
+
+  applyParams();
+</script>

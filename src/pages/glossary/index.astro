@@ -34,10 +34,10 @@ const {
 const libraryContent = libraryEntry.data;
 
 const patternIndex = new Map(
-  libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern])
+  libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
 const patternFilterLabels = Object.fromEntries(
-  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label])
+  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label]),
 );
 type GlossaryRelatedPattern = {
   title: string;
@@ -72,8 +72,8 @@ const summaryTakeaways = [
 
 const entryLabelIndex = new Map(
   categories.flatMap((category) =>
-    category.entries.map((entry) => [entry.id, entry.title] as const)
-  )
+    category.entries.map((entry) => [entry.id, entry.title] as const),
+  ),
 );
 const categoryFilters = categories.map((category) => ({
   id: category.id,
@@ -82,16 +82,16 @@ const categoryFilters = categories.map((category) => ({
 const tagFilters = Array.from(
   new Set(
     categories.flatMap((category) =>
-      category.entries.flatMap((entry) => entry.tags ?? [])
-    )
-  )
+      category.entries.flatMap((entry) => entry.tags ?? []),
+    ),
+  ),
 ).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
 const statusFilters = Array.from(
   new Set(
     categories
       .flatMap((category) => category.entries.map((entry) => entry.status))
-      .filter((status): status is string => Boolean(status))
-  )
+      .filter((status): status is string => Boolean(status)),
+  ),
 ).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
 
 const entryIndex = categories
@@ -113,12 +113,12 @@ const entryIndex = categories
     });
   })
   .sort((a, b) =>
-    a.title.localeCompare(b.title, "en", { sensitivity: "base" })
+    a.title.localeCompare(b.title, "en", { sensitivity: "base" }),
   );
 const glossarySuggestions = entryIndex.map((entry) => entry.title);
 
 const territoryCounts = new Map(
-  categories.map((category) => [category.id, category.entries.length])
+  categories.map((category) => [category.id, category.entries.length]),
 );
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
@@ -142,7 +142,8 @@ const explainerLinks = [
   },
   {
     title: "Ethical Interrupts",
-    description: "Pause automation at risk thresholds with accountable checkpoints.",
+    description:
+      "Pause automation at risk thresholds with accountable checkpoints.",
     href: "/explainers/ethical-interrupts",
     glossaryHref: glossaryEntryUrl("ethical-interrupts"),
   },
@@ -193,9 +194,7 @@ const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
 const normalizedQuery = searchQuery.toLowerCase();
 const hasSearchQuery = normalizedQuery.length > 0;
 const filteredEntries = hasSearchQuery
-  ? entryIndex.filter((entry) =>
-      entry.searchText.includes(normalizedQuery)
-    )
+  ? entryIndex.filter((entry) => entry.searchText.includes(normalizedQuery))
   : entryIndex;
 const totalEntries = entryIndex.length;
 const visibleEntries = filteredEntries.length;
@@ -211,7 +210,7 @@ const structuredEntries = categories.flatMap((category) =>
       inDefinedTermSet: pageUrl,
       description: plainDescription,
     };
-  })
+  }),
 );
 
 const homeUrl = Astro.site ? new URL("/", Astro.site).toString() : "/";
@@ -262,7 +261,7 @@ const structuredData = {
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const citationYear = new Date(
-  publication.updated ?? publication.published
+  publication.updated ?? publication.published,
 ).getFullYear();
 const glossaryAuthor = getGlossaryAuthor(publication);
 ---
@@ -314,33 +313,42 @@ const glossaryAuthor = getGlossaryAuthor(publication);
         Territory
         <select class="glossary-filter__select" data-glossary-filter="category">
           <option value="">All territories</option>
-          {categoryFilters.map((category) => (
-            <option value={category.id}>{category.label}</option>
-          ))}
+          {
+            categoryFilters.map((category) => (
+              <option value={category.id}>{category.label}</option>
+            ))
+          }
         </select>
       </label>
-      {tagFilters.length > 0 && (
-        <label class="glossary-filter__facet">
-          Tag
-          <select class="glossary-filter__select" data-glossary-filter="tag">
-            <option value="">All tags</option>
-            {tagFilters.map((tag) => (
-              <option value={tag}>{tag}</option>
-            ))}
-          </select>
-        </label>
-      )}
-      {statusFilters.length > 0 && (
-        <label class="glossary-filter__facet">
-          Status
-          <select class="glossary-filter__select" data-glossary-filter="status">
-            <option value="">All statuses</option>
-            {statusFilters.map((status) => (
-              <option value={status}>{status}</option>
-            ))}
-          </select>
-        </label>
-      )}
+      {
+        tagFilters.length > 0 && (
+          <label class="glossary-filter__facet">
+            Tag
+            <select class="glossary-filter__select" data-glossary-filter="tag">
+              <option value="">All tags</option>
+              {tagFilters.map((tag) => (
+                <option value={tag}>{tag}</option>
+              ))}
+            </select>
+          </label>
+        )
+      }
+      {
+        statusFilters.length > 0 && (
+          <label class="glossary-filter__facet">
+            Status
+            <select
+              class="glossary-filter__select"
+              data-glossary-filter="status"
+            >
+              <option value="">All statuses</option>
+              {statusFilters.map((status) => (
+                <option value={status}>{status}</option>
+              ))}
+            </select>
+          </label>
+        )
+      }
       <button
         class="button ghost button--compact glossary-filter__clear"
         type="button"
@@ -383,9 +391,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     </p>
   </div>
   <datalist id="glossary-filter-suggestions">
-    {glossarySuggestions.map((suggestion) => (
-      <option value={suggestion} />
-    ))}
+    {glossarySuggestions.map((suggestion) => <option value={suggestion} />)}
   </datalist>
   <div class="callout glossary__starter" id="starter-terms">
     <h3>Start with these terms</h3>
@@ -413,19 +419,21 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     variant="alt"
   >
     <CardGrid className="grid--three">
-      {explainerLinks.map((explainer) => (
-        <CardItem title={explainer.title} description={explainer.description}>
-          <p slot="footer">
-            <a class="button ghost button--compact" href={explainer.href}>
-              Read explainer
-            </a>
-            <span class="muted">
-              {" "}
-              • <a href={explainer.glossaryHref}>Glossary entry</a>
-            </span>
-          </p>
-        </CardItem>
-      ))}
+      {
+        explainerLinks.map((explainer) => (
+          <CardItem title={explainer.title} description={explainer.description}>
+            <p slot="footer">
+              <a class="button ghost button--compact" href={explainer.href}>
+                Read explainer
+              </a>
+              <span class="muted">
+                {" "}
+                • <a href={explainer.glossaryHref}>Glossary entry</a>
+              </span>
+            </p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -464,9 +472,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
         })
       }
     </div>
-    <p class="glossary__cta muted">
-      Index links jump to canonical permalinks.
-    </p>
+    <p class="glossary__cta muted">Index links jump to canonical permalinks.</p>
   </SectionBlock>
 
   <SectionBlock
@@ -559,7 +565,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
                   "TY  - WEB",
                   `TI  - ${entry.title}`,
                   ...publication.authors.map(
-                    (author) => `AU  - ${author.name}`
+                    (author) => `AU  - ${author.name}`,
                   ),
                   `PY  - ${citationYear}`,
                   `UR  - ${entryUrl}`,
@@ -586,12 +592,12 @@ const glossaryAuthor = getGlossaryAuthor(publication);
                       title: pattern.title,
                       href: `/mechanisms/patterns/${pattern.slug}`,
                       filterLabels: pattern.filters.map(
-                        (filter) => patternFilterLabels[filter] ?? filter
+                        (filter) => patternFilterLabels[filter] ?? filter,
                       ),
                     } satisfies GlossaryRelatedPattern;
                   })
                   .filter((pattern): pattern is GlossaryRelatedPattern =>
-                    Boolean(pattern)
+                    Boolean(pattern),
                   );
                 return (
                   <article
@@ -769,6 +775,6 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     ))
   }
 
-  <script type="application/ld+json" set:html={structuredDataJson} />
-  <script type="module" src={glossaryFilterScript}></script>
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <script type="module" src={glossaryFilterScript} is:inline></script>
 </BaseLayout>

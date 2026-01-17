@@ -1,89 +1,106 @@
 ---
-import { getEntry } from 'astro:content';
-import CardGrid from '../../components/CardGrid.astro';
-import CardItem from '../../components/CardItem.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { diagnosticsContent } from '../../content/diagnostics';
+import { getEntry } from "astro:content";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
 
-const libraryEntry = (await getEntry('library', 'library'))!;
-const startHereEntry = (await getEntry('startHere', 'start-here'))!;
+const libraryEntry = (await getEntry("library", "library"))!;
+const startHereEntry = (await getEntry("startHere", "start-here"))!;
 
 const libraryContent = libraryEntry.data;
 const startHereContent = startHereEntry.data;
-const pageTitle = 'Syllabus hub — Ethotechnics';
-const pageDescription = 'Track each syllabus module, complete knowledge checks, and export a shareable completion summary.';
+const pageTitle = "Syllabus hub — Ethotechnics";
+const pageDescription =
+  "Track each syllabus module, complete knowledge checks, and export a shareable completion summary.";
 
 const modules = libraryContent.syllabus.modules.map((module) => ({
   ...module,
   id: module.title
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, ''),
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, ""),
 }));
 
 const knowledgeChecks = [
   {
-    moduleId: 'orientation',
-    question: 'What keeps syllabus links trustworthy when you share them in specs or briefings?',
+    moduleId: "orientation",
+    question:
+      "What keeps syllabus links trustworthy when you share them in specs or briefings?",
     options: [
-      'Copying screenshots of the glossary so teams do not need the site.',
-      'Linking the stable permalinks for primers, glossary anchors, and mechanism filters.',
-      'Asking every team to draft their own definitions in a separate doc.',
+      "Copying screenshots of the glossary so teams do not need the site.",
+      "Linking the stable permalinks for primers, glossary anchors, and mechanism filters.",
+      "Asking every team to draft their own definitions in a separate doc.",
     ],
     correct: 1,
     explanation:
-      'Use the existing permalinks for the primer, glossary anchors, and mechanism filters so teams land on the same references.',
+      "Use the existing permalinks for the primer, glossary anchors, and mechanism filters so teams land on the same references.",
   },
   {
-    moduleId: 'field-ready-research',
-    question: 'How should research outputs connect back to the mechanisms during this module?',
+    moduleId: "field-ready-research",
+    question:
+      "How should research outputs connect back to the mechanisms during this module?",
     options: [
-      'Skip links entirely and rely on word-of-mouth summaries.',
-      'Tag findings with glossary anchors and mechanism cues so teams can reuse them.',
-      'Wait until the end of the project to decide which terms to use.',
+      "Skip links entirely and rely on word-of-mouth summaries.",
+      "Tag findings with glossary anchors and mechanism cues so teams can reuse them.",
+      "Wait until the end of the project to decide which terms to use.",
     ],
     correct: 1,
     explanation:
-      'Tagging field findings with glossary anchors and mechanism cues keeps the handoff fast and traceable.',
+      "Tagging field findings with glossary anchors and mechanism cues keeps the handoff fast and traceable.",
   },
   {
-    moduleId: 'governance-and-maintenance',
-    question: 'Before marking this module complete, what should the team confirm?',
+    moduleId: "governance-and-maintenance",
+    question:
+      "Before marking this module complete, what should the team confirm?",
     options: [
-      'That maintenance windows, appeal paths, and escalation owners are visible and linked.',
-      'That only the design team knows how to find the decision log.',
-      'That governance documents stay private to avoid scrutiny.',
+      "That maintenance windows, appeal paths, and escalation owners are visible and linked.",
+      "That only the design team knows how to find the decision log.",
+      "That governance documents stay private to avoid scrutiny.",
     ],
     correct: 0,
     explanation:
-      'Completion means governance links are visible: the maintenance window, appeal paths, and escalation owners are documented.',
+      "Completion means governance links are visible: the maintenance window, appeal paths, and escalation owners are documented.",
   },
 ];
 
 const moduleResources = {
   orientation: {
-    diagnostics: ['burden-modeler'],
-    libraryLink: { href: `${libraryContent.permalink}#primer`, label: 'Mechanisms primer' },
+    diagnostics: ["burden-modeler"],
+    libraryLink: {
+      href: `${libraryContent.permalink}#primer`,
+      label: "Mechanisms primer",
+    },
   },
-  'field-ready-research': {
-    diagnostics: ['llm-capacity-benchmark'],
-    libraryLink: { href: `${libraryContent.permalink}#glossary`, label: 'Glossary anchors' },
+  "field-ready-research": {
+    diagnostics: ["llm-capacity-benchmark"],
+    libraryLink: {
+      href: `${libraryContent.permalink}#glossary`,
+      label: "Glossary anchors",
+    },
   },
-  'governance-and-maintenance': {
-    diagnostics: ['maintenance-simulator'],
-    libraryLink: { href: `${libraryContent.permalink}#mechanisms`, label: 'Mechanism language' },
+  "governance-and-maintenance": {
+    diagnostics: ["maintenance-simulator"],
+    libraryLink: {
+      href: `${libraryContent.permalink}#mechanisms`,
+      label: "Mechanism language",
+    },
   },
 };
 
 const diagnosticLinks = Object.fromEntries(
-  diagnosticsContent.tools.map((tool) => [tool.slug, { title: tool.title, href: tool.ctaHref ?? diagnosticsContent.permalink }])
+  diagnosticsContent.tools.map((tool) => [
+    tool.slug,
+    { title: tool.title, href: tool.ctaHref ?? diagnosticsContent.permalink },
+  ]),
 );
 
 const artifactPreviews = startHereContent.artifacts.previews;
 const { cspNonce } = Astro.locals;
 ---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Mechanisms syllabus"
@@ -91,15 +108,15 @@ const { cspNonce } = Astro.locals;
     description={pageDescription}
     permalink="/syllabus"
     anchorLinks={[
-      { href: '#artifacts', label: 'Required artifacts' },
-      { href: '#modules', label: 'Track modules' },
-      { href: '#certificate', label: 'Completion summary' },
+      { href: "#artifacts", label: "Required artifacts" },
+      { href: "#modules", label: "Track modules" },
+      { href: "#certificate", label: "Completion summary" },
     ]}
     panelCopy={{
-      eyebrow: 'How it works',
-      title: 'Follow the modules, keep proof, and share the link.',
+      eyebrow: "How it works",
+      title: "Follow the modules, keep proof, and share the link.",
       description:
-        'Review the diagnostic and playbook PDFs, answer the knowledge checks, then mark each module complete. Generate a sharable summary once you finish.',
+        "Review the diagnostic and playbook PDFs, answer the knowledge checks, then mark each module complete. Generate a sharable summary once you finish.",
     }}
   />
   <div class="panel panel--glass progress-summary" data-progress-summary>
@@ -107,20 +124,27 @@ const { cspNonce } = Astro.locals;
       <div>
         <p class="eyebrow">Progress snapshot</p>
         <h2>Track your syllabus completion.</h2>
-        <p class="muted" data-progress-count>0/{modules.length} modules completed.</p>
+        <p class="muted" data-progress-count>
+          0/{modules.length} modules completed.
+        </p>
       </div>
       <ul class="progress-summary__list">
         <li>
           <span class="progress-summary__badge" aria-hidden="true">✓</span>
-          <span data-progress-modules>0/{modules.length} modules completed</span>
+          <span data-progress-modules>0/{modules.length} modules completed</span
+          >
         </li>
         <li>
           <span class="progress-summary__badge" aria-hidden="true">✓</span>
-          <span data-progress-readings>0/{modules.length} readings confirmed</span>
+          <span data-progress-readings
+            >0/{modules.length} readings confirmed</span
+          >
         </li>
         <li>
           <span class="progress-summary__badge" aria-hidden="true">✓</span>
-          <span data-progress-quiz>0/{modules.length} knowledge checks passed</span>
+          <span data-progress-quiz
+            >0/{modules.length} knowledge checks passed</span
+          >
         </li>
       </ul>
     </div>
@@ -144,16 +168,26 @@ const { cspNonce } = Astro.locals;
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {artifactPreviews.map((preview) => (
-        <CardItem title={preview.title} description={preview.description} descriptionTone="default">
-          <p class="muted">{preview.note}</p>
-          <div slot="footer" class="card__footer">
-            <a class="button primary button--compact" href={preview.href} aria-label={preview.label}>
-              {preview.label}
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        artifactPreviews.map((preview) => (
+          <CardItem
+            title={preview.title}
+            description={preview.description}
+            descriptionTone="default"
+          >
+            <p class="muted">{preview.note}</p>
+            <div slot="footer" class="card__footer">
+              <a
+                class="button primary button--compact"
+                href={preview.href}
+                aria-label={preview.label}
+              >
+                {preview.label}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -164,108 +198,135 @@ const { cspNonce } = Astro.locals;
     description="Mark a module complete only after you confirm the required readings and answer the check correctly. Progress saves in your browser so you can return later."
   >
     <p class="muted small">
-      Progress is stored locally in your browser. Use the shareable link below if you need to view completion status on another device.
+      Progress is stored locally in your browser. Use the shareable link below
+      if you need to view completion status on another device.
     </p>
     <div class="syllabus-grid" data-syllabus>
-      {modules.map((module, index) => {
-        const check = knowledgeChecks.find((item) => item.moduleId === module.id);
-        const resources = moduleResources[module.id as keyof typeof moduleResources];
-        const diagnosticTitles = resources?.diagnostics.map((slug) => diagnosticLinks[slug]);
+      {
+        modules.map((module, index) => {
+          const check = knowledgeChecks.find(
+            (item) => item.moduleId === module.id,
+          );
+          const resources =
+            moduleResources[module.id as keyof typeof moduleResources];
+          const diagnosticTitles = resources?.diagnostics.map(
+            (slug) => diagnosticLinks[slug],
+          );
 
-        return (
-          <article class="panel syllabus-module" data-module={module.id}>
-            <div class="syllabus-module__heading">
-              <div class="syllabus-module__eyebrow">
-                <p class="eyebrow">Module {index + 1}</p>
-                <p class="pill pill--ghost syllabus-module__duration">Time to complete: {module.duration}</p>
-              </div>
-              <h2>{module.title}</h2>
-              <p class="muted">Outcome: {module.outcome}</p>
-            </div>
-
-            <div class="syllabus-module__content">
-              <div class="syllabus-module__topics">
-                <h3 class="eyebrow">Topics</h3>
-                <ul class="muted">
-                  {module.topics.map((topic) => (
-                    <li>{topic}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="syllabus-module__requirements">
-                <h3 class="eyebrow">Required readings</h3>
-                <ul class="muted syllabus-module__links">
-                  {artifactPreviews.map((artifact) => (
-                    <li>
-                      <a href={artifact.href}>{artifact.title}</a>
-                    </li>
-                  ))}
-                </ul>
-                <label class="syllabus-module__checkbox">
-                  <input type="checkbox" data-reading /> I reviewed the diagnostic readout and playbook excerpt.
-                </label>
-              </div>
-
-              {check && (
-                <div class="syllabus-module__knowledge" data-quiz={module.id}>
-                  <h3 class="eyebrow">Knowledge check</h3>
-                  <p class="muted">{check.question}</p>
-                  <div class="syllabus-module__options" role="group" aria-label={`Knowledge check for ${module.title}`}>
-                    {check.options.map((option, optionIndex) => (
-                      <label class="syllabus-module__option">
-                        <input
-                          type="radio"
-                          name={`${module.id}-quiz`}
-                          value={String(optionIndex)}
-                          data-quiz-option
-                          data-correct={optionIndex === check.correct}
-                        />
-                        <span>{option}</span>
-                      </label>
-                    ))}
-                  </div>
-                  <p class="small muted" data-quiz-feedback>
-                    Select the correct statement to unlock completion.
+          return (
+            <article class="panel syllabus-module" data-module={module.id}>
+              <div class="syllabus-module__heading">
+                <div class="syllabus-module__eyebrow">
+                  <p class="eyebrow">Module {index + 1}</p>
+                  <p class="pill pill--ghost syllabus-module__duration">
+                    Time to complete: {module.duration}
                   </p>
                 </div>
-              )}
+                <h2>{module.title}</h2>
+                <p class="muted">Outcome: {module.outcome}</p>
+              </div>
 
-              {resources && (
-                <div class="syllabus-module__resources">
-                  <h3 class="eyebrow">Linked references</h3>
-                  <ul class="muted syllabus-module__links">
-                    {resources.libraryLink && (
-                      <li>
-                        <a href={resources.libraryLink.href}>{resources.libraryLink.label}</a>
-                      </li>
-                    )}
-                    {diagnosticTitles?.map((diagnostic) => (
-                      <li>
-                        <a href={diagnostic?.href}>{diagnostic?.title}</a>
-                      </li>
+              <div class="syllabus-module__content">
+                <div class="syllabus-module__topics">
+                  <h3 class="eyebrow">Topics</h3>
+                  <ul class="muted">
+                    {module.topics.map((topic) => (
+                      <li>{topic}</li>
                     ))}
                   </ul>
                 </div>
-              )}
-            </div>
 
-            <div class="syllabus-module__footer">
-              <div class="syllabus-module__actions">
-                <button type="button" class="button primary" data-complete disabled>
-                  Mark module complete
-                </button>
-                <button type="button" class="button ghost button--compact" data-reset>
-                  Reset module
-                </button>
+                <div class="syllabus-module__requirements">
+                  <h3 class="eyebrow">Required readings</h3>
+                  <ul class="muted syllabus-module__links">
+                    {artifactPreviews.map((artifact) => (
+                      <li>
+                        <a href={artifact.href}>{artifact.title}</a>
+                      </li>
+                    ))}
+                  </ul>
+                  <label class="syllabus-module__checkbox">
+                    <input type="checkbox" data-reading /> I reviewed the
+                    diagnostic readout and playbook excerpt.
+                  </label>
+                </div>
+
+                {check && (
+                  <div class="syllabus-module__knowledge" data-quiz={module.id}>
+                    <h3 class="eyebrow">Knowledge check</h3>
+                    <p class="muted">{check.question}</p>
+                    <div
+                      class="syllabus-module__options"
+                      role="group"
+                      aria-label={`Knowledge check for ${module.title}`}
+                    >
+                      {check.options.map((option, optionIndex) => (
+                        <label class="syllabus-module__option">
+                          <input
+                            type="radio"
+                            name={`${module.id}-quiz`}
+                            value={String(optionIndex)}
+                            data-quiz-option
+                            data-correct={optionIndex === check.correct}
+                          />
+                          <span>{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                    <p class="small muted" data-quiz-feedback>
+                      Select the correct statement to unlock completion.
+                    </p>
+                  </div>
+                )}
+
+                {resources && (
+                  <div class="syllabus-module__resources">
+                    <h3 class="eyebrow">Linked references</h3>
+                    <ul class="muted syllabus-module__links">
+                      {resources.libraryLink && (
+                        <li>
+                          <a href={resources.libraryLink.href}>
+                            {resources.libraryLink.label}
+                          </a>
+                        </li>
+                      )}
+                      {diagnosticTitles?.map((diagnostic) => (
+                        <li>
+                          <a href={diagnostic?.href}>{diagnostic?.title}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-              <p class="small muted" data-status>
-                Required readings and a correct knowledge check unlock the completion button.
-              </p>
-            </div>
-          </article>
-        );
-      })}
+
+              <div class="syllabus-module__footer">
+                <div class="syllabus-module__actions">
+                  <button
+                    type="button"
+                    class="button primary"
+                    data-complete
+                    disabled
+                  >
+                    Mark module complete
+                  </button>
+                  <button
+                    type="button"
+                    class="button ghost button--compact"
+                    data-reset
+                  >
+                    Reset module
+                  </button>
+                </div>
+                <p class="small muted" data-status>
+                  Required readings and a correct knowledge check unlock the
+                  completion button.
+                </p>
+              </div>
+            </article>
+          );
+        })
+      }
     </div>
   </SectionBlock>
 
@@ -281,18 +342,41 @@ const { cspNonce } = Astro.locals;
         <div>
           <p class="eyebrow">Status</p>
           <p class="muted certificate__intro">
-            The list updates automatically as you mark modules complete. Use the link below to share your progress with partners
-            or capture it as a PDF.
+            The list updates automatically as you mark modules complete. Use the
+            link below to share your progress with partners or capture it as a
+            PDF.
           </p>
         </div>
         <div class="certificate__actions">
-          <button type="button" class="button primary button--compact" data-print>
+          <button
+            type="button"
+            class="button primary button--compact"
+            data-print
+          >
             Download PDF
           </button>
           <button type="button" class="button ghost button--compact" data-share>
             Copy shareable link
           </button>
-          <button type="button" class="button ghost button--compact" data-reset-all>
+          <button
+            type="button"
+            class="button ghost button--compact"
+            data-export-progress
+          >
+            Export progress JSON
+          </button>
+          <button
+            type="button"
+            class="button ghost button--compact"
+            data-import-progress
+          >
+            Import progress JSON
+          </button>
+          <button
+            type="button"
+            class="button ghost button--compact"
+            data-reset-all
+          >
             Reset all progress
           </button>
         </div>
@@ -300,8 +384,8 @@ const { cspNonce } = Astro.locals;
 
       <div class="certificate__body">
         <p class="small muted" data-certificate-empty>
-          Complete at least one module to populate your certificate. Required links back to diagnostics and mechanism anchors will
-          appear here.
+          Complete at least one module to populate your certificate. Required
+          links back to diagnostics and mechanism anchors will appear here.
         </p>
         <ul class="certificate__list" data-certificate-list></ul>
       </div>
@@ -311,24 +395,42 @@ const { cspNonce } = Astro.locals;
           <span class="muted">Shareable link</span>
           <input type="text" readonly data-share-link value="" />
         </label>
+        <input
+          class="visually-hidden"
+          type="file"
+          accept="application/json"
+          data-import-input
+        />
         <p class="small muted" data-share-status>
-          The shareable link appears after you copy it. Recipients can see which modules you finished.
+          The shareable link appears after you copy it. Recipients can see which
+          modules you finished.
         </p>
       </div>
     </div>
   </SectionBlock>
 
-  <script type="application/json" id="syllabus-data" is:inline>
-    {JSON.stringify({ modules, knowledgeChecks, moduleResources, diagnosticLinks, artifactPreviews })}
-  </script>
+  <script
+    type="application/json"
+    id="syllabus-data"
+    is:inline
+    set:html={JSON.stringify({
+      modules,
+      knowledgeChecks,
+      moduleResources,
+      diagnosticLinks,
+      artifactPreviews,
+    })}
+  />
   <script is:inline nonce={cspNonce}>
-    const dataElement = document.querySelector('#syllabus-data');
-    const parsed = dataElement ? JSON.parse(dataElement.textContent || '{}') : {};
+    const dataElement = document.querySelector("#syllabus-data");
+    const parsed = dataElement
+      ? JSON.parse(dataElement.textContent || "{}")
+      : {};
     const modules = parsed.modules ?? [];
     const knowledgeChecks = parsed.knowledgeChecks ?? [];
     const moduleResources = parsed.moduleResources ?? {};
     const diagnosticLinks = parsed.diagnosticLinks ?? {};
-    const storageKey = 'syllabusProgress';
+    const storageKey = "syllabusProgress";
 
     const defaultState = modules.reduce((state, module) => {
       state[module.id] = {
@@ -347,7 +449,7 @@ const { cspNonce } = Astro.locals;
         const parsedState = JSON.parse(stored);
         return { ...defaultState, ...parsedState };
       } catch (error) {
-        console.error('Unable to load syllabus progress', error);
+        console.error("Unable to load syllabus progress", error);
         return { ...defaultState };
       }
     };
@@ -356,16 +458,18 @@ const { cspNonce } = Astro.locals;
       try {
         localStorage.setItem(storageKey, JSON.stringify(state));
       } catch (error) {
-        console.error('Unable to persist syllabus progress', error);
+        console.error("Unable to persist syllabus progress", error);
       }
     };
 
     const state = loadState();
 
-    const sharedCompleted = new URL(window.location.href).searchParams.get('completed');
+    const sharedCompleted = new URL(window.location.href).searchParams.get(
+      "completed",
+    );
     if (sharedCompleted) {
       sharedCompleted
-        .split(',')
+        .split(",")
         .map((id) => id.trim())
         .filter(Boolean)
         .forEach((id) => {
@@ -380,26 +484,41 @@ const { cspNonce } = Astro.locals;
         });
     }
 
-    const syllabus = document.querySelector('[data-syllabus]');
-    const certificateList = document.querySelector('[data-certificate-list]');
-    const certificateEmpty = document.querySelector('[data-certificate-empty]');
-    const shareInput = document.querySelector('[data-share-link]');
-    const shareStatus = document.querySelector('[data-share-status]');
-    const shareButton = document.querySelector('[data-share]');
-    const printButton = document.querySelector('[data-print]');
-    const resetAllButton = document.querySelector('[data-reset-all]');
-    const progressSummary = document.querySelector('[data-progress-summary]');
-    const progressCount = progressSummary?.querySelector('[data-progress-count]');
-    const progressModules = progressSummary?.querySelector('[data-progress-modules]');
-    const progressReadings = progressSummary?.querySelector('[data-progress-readings]');
-    const progressQuiz = progressSummary?.querySelector('[data-progress-quiz]');
-    const progressBar = progressSummary?.querySelector('[data-progress-bar]');
-    const progressFill = progressSummary?.querySelector('[data-progress-fill]');
+    const syllabus = document.querySelector("[data-syllabus]");
+    const certificateList = document.querySelector("[data-certificate-list]");
+    const certificateEmpty = document.querySelector("[data-certificate-empty]");
+    const shareInput = document.querySelector("[data-share-link]");
+    const shareStatus = document.querySelector("[data-share-status]");
+    const shareButton = document.querySelector("[data-share]");
+    const printButton = document.querySelector("[data-print]");
+    const exportButton = document.querySelector("[data-export-progress]");
+    const importButton = document.querySelector("[data-import-progress]");
+    const importInput = document.querySelector("[data-import-input]");
+    const resetAllButton = document.querySelector("[data-reset-all]");
+    const progressSummary = document.querySelector("[data-progress-summary]");
+    const progressCount = progressSummary?.querySelector(
+      "[data-progress-count]",
+    );
+    const progressModules = progressSummary?.querySelector(
+      "[data-progress-modules]",
+    );
+    const progressReadings = progressSummary?.querySelector(
+      "[data-progress-readings]",
+    );
+    const progressQuiz = progressSummary?.querySelector("[data-progress-quiz]");
+    const progressBar = progressSummary?.querySelector("[data-progress-bar]");
+    const progressFill = progressSummary?.querySelector("[data-progress-fill]");
 
     const updateProgressSummary = () => {
-      const completedModules = modules.filter((module) => state[module.id]?.completed);
-      const completedReadings = modules.filter((module) => state[module.id]?.readingsComplete);
-      const completedChecks = modules.filter((module) => state[module.id]?.quizCorrect);
+      const completedModules = modules.filter(
+        (module) => state[module.id]?.completed,
+      );
+      const completedReadings = modules.filter(
+        (module) => state[module.id]?.readingsComplete,
+      );
+      const completedChecks = modules.filter(
+        (module) => state[module.id]?.quizCorrect,
+      );
       const count = completedModules.length;
       const readingsCount = completedReadings.length;
       const checksCount = completedChecks.length;
@@ -423,8 +542,8 @@ const { cspNonce } = Astro.locals;
       }
 
       if (progressBar) {
-        progressBar.setAttribute('aria-valuenow', String(count));
-        progressBar.setAttribute('aria-valuemax', String(total));
+        progressBar.setAttribute("aria-valuenow", String(count));
+        progressBar.setAttribute("aria-valuemax", String(total));
       }
 
       if (progressFill) {
@@ -434,28 +553,33 @@ const { cspNonce } = Astro.locals;
 
     const updateCertificate = () => {
       if (!certificateList) return;
-      certificateList.innerHTML = '';
+      certificateList.innerHTML = "";
 
-      const completedModules = modules.filter((module) => state[module.id]?.completed);
+      const completedModules = modules.filter(
+        (module) => state[module.id]?.completed,
+      );
       if (certificateEmpty) {
         certificateEmpty.hidden = completedModules.length > 0;
       }
 
       completedModules.forEach((module) => {
         const resources = moduleResources[module.id] ?? {};
-        const diagnostics = resources.diagnostics?.map((slug) => diagnosticLinks[slug]).filter(Boolean) ?? [];
-        const entry = document.createElement('li');
-        entry.className = 'certificate__item';
+        const diagnostics =
+          resources.diagnostics
+            ?.map((slug) => diagnosticLinks[slug])
+            .filter(Boolean) ?? [];
+        const entry = document.createElement("li");
+        entry.className = "certificate__item";
         entry.innerHTML = `
           <div>
             <p class="eyebrow">${module.title}</p>
             <p class="muted small">${module.outcome}</p>
           </div>
           <div class="certificate__links">
-            ${resources.libraryLink ? `<a href="${resources.libraryLink.href}">${resources.libraryLink.label}</a>` : ''}
+            ${resources.libraryLink ? `<a href="${resources.libraryLink.href}">${resources.libraryLink.label}</a>` : ""}
             ${diagnostics
               .map((diag) => `<a href="${diag.href}">${diag.title}</a>`)
-              .join('')}
+              .join("")}
           </div>
         `;
         certificateList.appendChild(entry);
@@ -464,29 +588,77 @@ const { cspNonce } = Astro.locals;
 
     const updateShareLink = () => {
       if (!shareInput) return;
-      const completedModules = modules.filter((module) => state[module.id]?.completed).map((module) => module.id);
+      const completedModules = modules
+        .filter((module) => state[module.id]?.completed)
+        .map((module) => module.id);
       if (completedModules.length === 0) {
-        shareInput.value = '';
+        shareInput.value = "";
         return;
       }
 
       const url = new URL(window.location.href);
-      url.searchParams.set('completed', completedModules.join(','));
+      url.searchParams.set("completed", completedModules.join(","));
       shareInput.value = url.toString();
     };
 
+    const exportProgress = () => {
+      const blob = new Blob([JSON.stringify(state, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "syllabus-progress.json";
+      link.click();
+      URL.revokeObjectURL(url);
+      if (shareStatus) {
+        shareStatus.textContent = "Exported your syllabus progress as JSON.";
+      }
+    };
+
+    const importProgress = (payload) => {
+      if (!payload || typeof payload !== "object") {
+        if (shareStatus) {
+          shareStatus.textContent =
+            "Import failed. The file did not match the expected structure.";
+        }
+        return;
+      }
+
+      modules.forEach((module) => {
+        if (payload[module.id]) {
+          state[module.id] = {
+            ...defaultState[module.id],
+            ...payload[module.id],
+          };
+        }
+      });
+      saveState(state);
+      modules.forEach((module) => updateModuleUI(module.id));
+      updateCertificate();
+      updateShareLink();
+      updateProgressSummary();
+      if (shareStatus) {
+        shareStatus.textContent = "Imported syllabus progress from JSON.";
+      }
+    };
+
     const updateModuleUI = (moduleId) => {
-      const moduleElement = syllabus?.querySelector(`[data-module="${moduleId}"]`);
+      const moduleElement = syllabus?.querySelector(
+        `[data-module="${moduleId}"]`,
+      );
       const moduleState = state[moduleId];
-      const moduleCheck = knowledgeChecks.find((item) => item.moduleId === moduleId);
+      const moduleCheck = knowledgeChecks.find(
+        (item) => item.moduleId === moduleId,
+      );
       if (!moduleElement || !moduleState) return;
 
-      const completeButton = moduleElement.querySelector('[data-complete]');
-      const resetButton = moduleElement.querySelector('[data-reset]');
-      const status = moduleElement.querySelector('[data-status]');
-      const readingCheckbox = moduleElement.querySelector('[data-reading]');
-      const quizFeedback = moduleElement.querySelector('[data-quiz-feedback]');
-      const quizOptions = moduleElement.querySelectorAll('[data-quiz-option]');
+      const completeButton = moduleElement.querySelector("[data-complete]");
+      const resetButton = moduleElement.querySelector("[data-reset]");
+      const status = moduleElement.querySelector("[data-status]");
+      const readingCheckbox = moduleElement.querySelector("[data-reading]");
+      const quizFeedback = moduleElement.querySelector("[data-quiz-feedback]");
+      const quizOptions = moduleElement.querySelectorAll("[data-quiz-option]");
 
       if (readingCheckbox) {
         readingCheckbox.checked = moduleState.readingsComplete;
@@ -497,11 +669,17 @@ const { cspNonce } = Astro.locals;
         input.checked = isMatch;
       });
 
-      const readyForCompletion = moduleState.readingsComplete && moduleState.quizCorrect;
+      const readyForCompletion =
+        moduleState.readingsComplete && moduleState.quizCorrect;
       if (completeButton) {
         completeButton.disabled = !readyForCompletion;
-        completeButton.textContent = moduleState.completed ? 'Completed' : 'Mark module complete';
-        completeButton.setAttribute('aria-pressed', String(moduleState.completed));
+        completeButton.textContent = moduleState.completed
+          ? "Completed"
+          : "Mark module complete";
+        completeButton.setAttribute(
+          "aria-pressed",
+          String(moduleState.completed),
+        );
       }
 
       if (resetButton) {
@@ -510,38 +688,43 @@ const { cspNonce } = Astro.locals;
 
       if (status) {
         status.textContent = moduleState.completed
-          ? 'Module finished. You can reset it or generate the shareable certificate below.'
+          ? "Module finished. You can reset it or generate the shareable certificate below."
           : readyForCompletion
-            ? 'Ready to mark complete. Save your progress to update the certificate.'
-            : 'Required readings and a correct knowledge check unlock the completion button.';
+            ? "Ready to mark complete. Save your progress to update the certificate."
+            : "Required readings and a correct knowledge check unlock the completion button.";
       }
 
       if (quizFeedback) {
         if (moduleState.quizCorrect) {
           quizFeedback.textContent =
-            moduleCheck?.explanation ?? 'Correct. You can mark the module complete after confirming the readings.';
-          quizFeedback.classList.add('syllabus-module__feedback--success');
+            moduleCheck?.explanation ??
+            "Correct. You can mark the module complete after confirming the readings.";
+          quizFeedback.classList.add("syllabus-module__feedback--success");
         } else if (moduleState.quizAnswer !== null) {
-          quizFeedback.textContent = 'Not quite. Re-read the required artifacts and try again.';
-          quizFeedback.classList.remove('syllabus-module__feedback--success');
+          quizFeedback.textContent =
+            "Not quite. Re-read the required artifacts and try again.";
+          quizFeedback.classList.remove("syllabus-module__feedback--success");
         } else {
-          quizFeedback.textContent = 'Select the correct statement to unlock completion.';
-          quizFeedback.classList.remove('syllabus-module__feedback--success');
+          quizFeedback.textContent =
+            "Select the correct statement to unlock completion.";
+          quizFeedback.classList.remove("syllabus-module__feedback--success");
         }
       }
     };
 
     const bindModule = (moduleId) => {
-      const moduleElement = syllabus?.querySelector(`[data-module="${moduleId}"]`);
+      const moduleElement = syllabus?.querySelector(
+        `[data-module="${moduleId}"]`,
+      );
       const moduleState = state[moduleId];
       if (!moduleElement || !moduleState) return;
 
-      const readingCheckbox = moduleElement.querySelector('[data-reading]');
-      const completeButton = moduleElement.querySelector('[data-complete]');
-      const resetButton = moduleElement.querySelector('[data-reset]');
-      const quizOptions = moduleElement.querySelectorAll('[data-quiz-option]');
+      const readingCheckbox = moduleElement.querySelector("[data-reading]");
+      const completeButton = moduleElement.querySelector("[data-complete]");
+      const resetButton = moduleElement.querySelector("[data-reset]");
+      const quizOptions = moduleElement.querySelectorAll("[data-quiz-option]");
 
-      readingCheckbox?.addEventListener('change', (event) => {
+      readingCheckbox?.addEventListener("change", (event) => {
         const target = event.target;
         if (!(target instanceof HTMLInputElement)) return;
         moduleState.readingsComplete = target.checked;
@@ -556,11 +739,11 @@ const { cspNonce } = Astro.locals;
       });
 
       quizOptions.forEach((option) => {
-        option.addEventListener('change', (event) => {
+        option.addEventListener("change", (event) => {
           const input = event.target;
           if (!(input instanceof HTMLInputElement)) return;
           moduleState.quizAnswer = input.value;
-          moduleState.quizCorrect = input.dataset.correct === 'true';
+          moduleState.quizCorrect = input.dataset.correct === "true";
           if (!moduleState.quizCorrect) {
             moduleState.completed = false;
           }
@@ -572,7 +755,7 @@ const { cspNonce } = Astro.locals;
         });
       });
 
-      completeButton?.addEventListener('click', () => {
+      completeButton?.addEventListener("click", () => {
         if (completeButton.disabled) return;
         moduleState.completed = true;
         saveState(state);
@@ -582,7 +765,7 @@ const { cspNonce } = Astro.locals;
         updateProgressSummary();
       });
 
-      resetButton?.addEventListener('click', () => {
+      resetButton?.addEventListener("click", () => {
         state[moduleId] = { ...defaultState[moduleId] };
         saveState(state);
         updateModuleUI(moduleId);
@@ -604,7 +787,7 @@ const { cspNonce } = Astro.locals;
 
     initialize();
 
-    resetAllButton?.addEventListener('click', () => {
+    resetAllButton?.addEventListener("click", () => {
       modules.forEach((module) => {
         state[module.id] = { ...defaultState[module.id] };
         updateModuleUI(module.id);
@@ -614,30 +797,66 @@ const { cspNonce } = Astro.locals;
       updateShareLink();
       updateProgressSummary();
       if (shareStatus) {
-        shareStatus.textContent = 'All progress reset. Complete a module to generate a new shareable link.';
+        shareStatus.textContent =
+          "All progress reset. Complete a module to generate a new shareable link.";
       }
     });
 
-    shareButton?.addEventListener('click', async () => {
+    shareButton?.addEventListener("click", async () => {
       updateShareLink();
       if (!shareStatus) return;
       if (!shareInput || !shareInput.value) {
-        shareStatus.textContent = 'Complete a module before generating a shareable link.';
+        shareStatus.textContent =
+          "Complete a module before generating a shareable link.";
         return;
       }
 
       try {
         await navigator.clipboard.writeText(shareInput.value);
-        shareStatus.textContent = 'Copied the shareable link to your clipboard.';
+        shareStatus.textContent =
+          "Copied the shareable link to your clipboard.";
       } catch {
-        shareStatus.textContent = 'Copy failed. Manually select the link and copy it.';
+        shareStatus.textContent =
+          "Copy failed. Manually select the link and copy it.";
       }
     });
 
-    printButton?.addEventListener('click', () => {
+    printButton?.addEventListener("click", () => {
       updateCertificate();
       window.print();
     });
-  </script>
 
+    exportButton?.addEventListener("click", () => {
+      exportProgress();
+    });
+
+    importButton?.addEventListener("click", () => {
+      if (importInput instanceof HTMLInputElement) {
+        importInput.value = "";
+        importInput.click();
+      }
+    });
+
+    importInput?.addEventListener("change", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      const file = target.files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(reader.result?.toString() ?? "{}");
+          importProgress(parsed);
+        } catch (error) {
+          console.error("Unable to import progress", error);
+          if (shareStatus) {
+            shareStatus.textContent =
+              "Import failed. The file did not parse as JSON.";
+          }
+        }
+      };
+      reader.readAsText(file);
+    });
+  </script>
 </BaseLayout>

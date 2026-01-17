@@ -25,7 +25,7 @@ const {
   publication,
 } = libraryEntry.data;
 const diagnosticTitles = Object.fromEntries(
-  diagnosticsContent.tools.map((tool) => [tool.slug, tool.title])
+  diagnosticsContent.tools.map((tool) => [tool.slug, tool.title]),
 );
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const glossaryContent = glossaryEntry.data;
@@ -91,28 +91,32 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={rolePathways.description}
   >
     <div class="library__role-buttons">
-      {rolePathways.roles.map((role) => (
-        <a class="button primary library__role-button" href={`#${role.id}`}>
-          {role.label}
-        </a>
-      ))}
+      {
+        rolePathways.roles.map((role) => (
+          <a class="button primary library__role-button" href={`#${role.id}`}>
+            {role.label}
+          </a>
+        ))
+      }
     </div>
     <div class="library__role-lists">
-      {rolePathways.roles.map((role) => (
-        <div class="library__role-list" id={role.id}>
-          <h3>{role.label}</h3>
-          <p class="muted">{role.summary}</p>
-          <CardGrid>
-            {role.items.map((item) => (
-              <CardItem title={item.title} description={item.description}>
-                <a slot="footer" class="muted" href={item.href}>
-                  Open reading
-                </a>
-              </CardItem>
-            ))}
-          </CardGrid>
-        </div>
-      ))}
+      {
+        rolePathways.roles.map((role) => (
+          <div class="library__role-list" id={role.id}>
+            <h3>{role.label}</h3>
+            <p class="muted">{role.summary}</p>
+            <CardGrid>
+              {role.items.map((item) => (
+                <CardItem title={item.title} description={item.description}>
+                  <a slot="footer" class="muted" href={item.href}>
+                    Open reading
+                  </a>
+                </CardItem>
+              ))}
+            </CardGrid>
+          </div>
+        ))
+      }
     </div>
   </SectionBlock>
   <div class="callout">
@@ -240,7 +244,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     variant="alt"
   >
     <div class="pattern-filter__anchors" aria-hidden="true">
-      <span class="pattern-filter__anchor" id="mechanisms" />
+      <span class="pattern-filter__anchor" id="mechanisms"></span>
       {
         patterns.filters.map((filter) => (
           <span class="pattern-filter__anchor" id={filter.slug} />
@@ -287,13 +291,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a>
+            <a href="/examples/automated-account-lock">Automated account lock</a
+            >
           </li>
           <li>
-            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+            <a href="/examples/content-moderation-takedown"
+              >Content moderation takedown</a
+            >
           </li>
           <li>
-            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+            <a href="/examples/fraud-hold-delayed-notice"
+              >Fraud hold with delayed notice</a
+            >
           </li>
         </ul>
       </div>
@@ -327,8 +336,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </div>
     <p class="muted">
-      Search IDs: MEC-01, MEC-03, MEC-05, MEC-06, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+      Search IDs: MEC-01, MEC-03, MEC-05, MEC-06, STD-01.1.1, STD-02.2.1,
+      VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
-  <script type="application/ld+json" set:html={structuredDataJson} />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>

@@ -1,13 +1,13 @@
 ---
-import '@fontsource-variable/plus-jakarta-sans';
-import '@fontsource-variable/source-serif-4';
-import { SEO } from 'astro-seo';
-import { ClientRouter } from 'astro:transitions';
-import Navigation from '../components/Navigation.astro';
-import Wordmark from '../components/Wordmark.astro';
-import { siteFooter } from '../content/site-footer';
-import '../styles/theme.css';
-import '../styles/global.css';
+import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource-variable/source-serif-4";
+import { SEO } from "astro-seo";
+import { ClientRouter } from "astro:transitions";
+import Navigation from "../components/Navigation.astro";
+import Wordmark from "../components/Wordmark.astro";
+import { siteFooter } from "../content/site-footer";
+import "../styles/theme.css";
+import "../styles/global.css";
 
 interface Props {
   title?: string;
@@ -20,55 +20,64 @@ interface Props {
   mainClass?: string;
 }
 
-const siteName = 'Ethotechnics Institute';
+const siteName = "Ethotechnics Institute";
 const defaultTitle =
-  'Ethotechnics Institute — The Reference Standard for Accountable Systems';
+  "Ethotechnics Institute — The Reference Standard for Accountable Systems";
 const defaultDescription =
-  'Ethotechnics.org is the Institute: standards, mechanisms, and validators for accountable system governance.';
+  "Ethotechnics.org is the Institute: standards, mechanisms, and validators for accountable system governance.";
 
-const { title = defaultTitle, description = defaultDescription, mainClass = 'page container' } =
-  Astro.props as Props;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.href;
+const {
+  title = defaultTitle,
+  description = defaultDescription,
+  mainClass = "page container",
+} = Astro.props as Props;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).toString()
+  : Astro.url.href;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const seoImage = {
-  src: new URL('/assets/ethotechnics-hero-map.svg', siteBase).toString(),
-  alt: 'Linework illustration of Ethotechnics focus areas',
+  src: new URL("/assets/ethotechnics-hero-map.svg", siteBase).toString(),
+  alt: "Linework illustration of Ethotechnics focus areas",
   width: 1200,
   height: 630,
 };
 const structuredData: Array<Record<string, unknown>> = [
   {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
+    "@context": "https://schema.org",
+    "@type": "Organization",
     name: siteName,
     url: siteBase,
-    sameAs: ['https://ethotechnics.com', 'https://signals.ethotechnics.org', 'https://github.com/ethotechnics'],
+    sameAs: [
+      "https://ethotechnics.com",
+      "https://signals.ethotechnics.org",
+      "https://github.com/ethotechnics",
+    ],
   },
   {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
+    "@context": "https://schema.org",
+    "@type": "WebSite",
     name: siteName,
     url: siteBase,
     potentialAction: {
-      '@type': 'SearchAction',
-      target: `${new URL('/glossary', siteBase).toString()}?query={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      "@type": "SearchAction",
+      target: `${new URL("/search", siteBase).toString()}?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
     },
   },
   {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
     name: title,
     description,
     url: canonical,
-    inLanguage: 'en',
+    inLanguage: "en",
     isPartOf: {
-      '@type': 'WebSite',
+      "@type": "WebSite",
       name: siteName,
       url: siteBase,
     },
     primaryImageOfPage: {
-      '@type': 'ImageObject',
+      "@type": "ImageObject",
       url: seoImage.src,
       width: seoImage.width,
       height: seoImage.height,
@@ -80,19 +89,19 @@ const { identity, navigation } = siteFooter;
 const { cspNonce } = Astro.locals;
 const currentPath = Astro.url.pathname;
 
-const pathSegments = currentPath.split('/').filter(Boolean);
+const pathSegments = currentPath.split("/").filter(Boolean);
 if (pathSegments.length > 0) {
   const breadcrumbItems = pathSegments.map((segment, index) => {
     const url = new URL(
-      `${pathSegments.slice(0, index + 1).join('/')}`,
-      siteBase
+      `${pathSegments.slice(0, index + 1).join("/")}`,
+      siteBase,
     ).toString();
     const formattedSegment = segment
-      .split('-')
+      .split("-")
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(' ');
+      .join(" ");
     return {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: index + 1,
       name: formattedSegment,
       item: url,
@@ -100,46 +109,50 @@ if (pathSegments.length > 0) {
   });
 
   structuredData.push({
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: breadcrumbItems,
   });
 }
 ---
+
 <!doctype html>
 <html lang="en" id="top">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <ClientRouter />
     <SEO
       title={title}
       titleDefault={defaultTitle}
       description={description}
       canonical={canonical}
-      languageAlternates={[{ hrefLang: 'en', href: canonical }]}
+      languageAlternates={[{ hrefLang: "en", href: canonical }]}
       openGraph={{
         basic: {
           title,
-          type: 'website',
+          type: "website",
           image: seoImage.src,
           url: canonical,
         },
         optional: {
           description,
-          locale: 'en_US',
+          locale: "en_US",
           siteName,
         },
         image: {
           alt: seoImage.alt,
           secureUrl: seoImage.src,
-          type: 'image/svg+xml',
+          type: "image/svg+xml",
           width: seoImage.width,
           height: seoImage.height,
         },
       }}
       twitter={{
-        card: 'summary_large_image',
+        card: "summary_large_image",
         title,
         description,
         image: seoImage.src,
@@ -147,10 +160,10 @@ if (pathSegments.length > 0) {
       }}
       extend={{
         link: [
-          { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-          { rel: 'manifest', href: '/site.webmanifest' },
+          { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+          { rel: "manifest", href: "/site.webmanifest" },
         ],
-        meta: [{ name: 'theme-color', content: '#ffffff' }],
+        meta: [{ name: "theme-color", content: "#ffffff" }],
       }}
     />
     <script
@@ -158,34 +171,55 @@ if (pathSegments.length > 0) {
       nonce={cspNonce}
       set:html={structuredDataJson}
       is:inline
-    ></script>
+    />
     <slot name="head" />
   </head>
   <body>
     <svg aria-hidden="true" focusable="false" class="svg-defs">
       <defs>
         <filter id="paper-grain" x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" seed="4" stitchTiles="stitch" />
-          <feColorMatrix type="saturate" values="0" />
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.8"
+            numOctaves="3"
+            seed="4"
+            stitchTiles="stitch"></feTurbulence>
+          <feColorMatrix type="saturate" values="0"></feColorMatrix>
           <feComponentTransfer>
-            <feFuncR type="linear" slope="0.3" intercept="0.45" />
-            <feFuncG type="linear" slope="0.3" intercept="0.45" />
-            <feFuncB type="linear" slope="0.3" intercept="0.45" />
+            <feFuncR type="linear" slope="0.3" intercept="0.45"></feFuncR>
+            <feFuncG type="linear" slope="0.3" intercept="0.45"></feFuncG>
+            <feFuncB type="linear" slope="0.3" intercept="0.45"></feFuncB>
           </feComponentTransfer>
         </filter>
         <filter id="ink-hatch" x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="8" stitchTiles="stitch" result="grain" />
-          <feColorMatrix in="grain" type="saturate" values="0" result="mono" />
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.9"
+            numOctaves="2"
+            seed="8"
+            stitchTiles="stitch"
+            result="grain"></feTurbulence>
+          <feColorMatrix in="grain" type="saturate" values="0" result="mono"
+          ></feColorMatrix>
           <feComponentTransfer in="mono" result="ink">
-            <feFuncR type="linear" slope="0.25" intercept="0.25" />
-            <feFuncG type="linear" slope="0.25" intercept="0.25" />
-            <feFuncB type="linear" slope="0.25" intercept="0.25" />
+            <feFuncR type="linear" slope="0.25" intercept="0.25"></feFuncR>
+            <feFuncG type="linear" slope="0.25" intercept="0.25"></feFuncG>
+            <feFuncB type="linear" slope="0.25" intercept="0.25"></feFuncB>
           </feComponentTransfer>
         </filter>
         <filter id="ink-bleed">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
-          <feGaussianBlur stdDeviation="0.5" />
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.8"
+            numOctaves="3"
+            result="noise"></feTurbulence>
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="2"
+            xChannelSelector="R"
+            yChannelSelector="G"></feDisplacementMap>
+          <feGaussianBlur stdDeviation="0.5"></feGaussianBlur>
         </filter>
       </defs>
     </svg>
@@ -201,29 +235,40 @@ if (pathSegments.length > 0) {
             <section class="footer__section">
               <h2 class="eyebrow footer__heading">{identity.heading}</h2>
               <div class="footer__identity">
-                <a class="footer__brand" href={identity.brand.href} aria-label={identity.brand.ariaLabel}>
+                <a
+                  class="footer__brand"
+                  href={identity.brand.href}
+                  aria-label={identity.brand.ariaLabel}
+                >
                   <img
                     src={identity.brand.logoSrc}
                     alt={identity.brand.logoAlt}
                     class="footer__logo"
                     loading="lazy"
                   />
-                  <Wordmark class="footer__wordmark" title={identity.brand.name} />
+                  <Wordmark
+                    class="footer__wordmark"
+                    title={identity.brand.name}
+                  />
                 </a>
                 <p class="muted">{identity.description}</p>
                 <a
                   class="footer__link"
                   href={identity.license.href}
-                  rel={identity.license.external ? 'noopener noreferrer' : undefined}
-                  target={identity.license.external ? '_blank' : undefined}
+                  rel={identity.license.external
+                    ? "noopener noreferrer"
+                    : undefined}
+                  target={identity.license.external ? "_blank" : undefined}
                 >
                   {identity.license.label}
                 </a>
                 <a
                   class="footer__badge"
                   href={identity.license.href}
-                  rel={identity.license.external ? 'noopener noreferrer' : undefined}
-                  target={identity.license.external ? '_blank' : undefined}
+                  rel={identity.license.external
+                    ? "noopener noreferrer"
+                    : undefined}
+                  target={identity.license.external ? "_blank" : undefined}
                 >
                   <img
                     src={identity.licenseBadge.src}
@@ -233,25 +278,29 @@ if (pathSegments.length > 0) {
                 </a>
               </div>
             </section>
-            {navigation.map((section) => (
-              <section class="footer__section">
-                <h2 class="eyebrow footer__heading">{section.heading}</h2>
-                <ul class="footer__list">
-                  {section.links.map((link) => (
-                    <li>
-                      <a
-                        class="footer__link"
-                        href={link.href}
-                        rel={link.external ? 'noopener noreferrer' : undefined}
-                        target={link.external ? '_blank' : undefined}
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
+            {
+              navigation.map((section) => (
+                <section class="footer__section">
+                  <h2 class="eyebrow footer__heading">{section.heading}</h2>
+                  <ul class="footer__list">
+                    {section.links.map((link) => (
+                      <li>
+                        <a
+                          class="footer__link"
+                          href={link.href}
+                          rel={
+                            link.external ? "noopener noreferrer" : undefined
+                          }
+                          target={link.external ? "_blank" : undefined}
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))
+            }
           </footer>
         </div>
       </div>

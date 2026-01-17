@@ -109,18 +109,26 @@ import SectionBlock from "../../components/SectionBlock.astro";
     : [];
   const prevButton = form?.querySelector<HTMLButtonElement>("[data-step-prev]");
   const nextButton = form?.querySelector<HTMLButtonElement>("[data-step-next]");
-  const submitButton = form?.querySelector<HTMLButtonElement>(
-    "[data-step-submit]"
-  );
-  const resultsWrapper = document.querySelector<HTMLElement>("[data-gap-results]");
+  const submitButton =
+    form?.querySelector<HTMLButtonElement>("[data-step-submit]");
+  const resultsWrapper =
+    document.querySelector<HTMLElement>("[data-gap-results]");
   const scoreValue = document.querySelector<HTMLElement>("[data-gap-score]");
   const statusPill = document.querySelector<HTMLElement>("[data-gap-status]");
   const summaryText = document.querySelector<HTMLElement>("[data-gap-summary]");
-  const shareInput = document.querySelector<HTMLInputElement>("[data-gap-share]");
+  const shareInput =
+    document.querySelector<HTMLInputElement>("[data-gap-share]");
   const downloadButton = document.querySelector<HTMLButtonElement>(
-    "[data-gap-download]"
+    "[data-gap-download]",
   );
-  const shareButton = document.querySelector<HTMLButtonElement>("[data-gap-copy]");
+  const downloadCsvButton = document.querySelector<HTMLButtonElement>(
+    "[data-gap-download-csv]",
+  );
+  const downloadPdfButton = document.querySelector<HTMLButtonElement>(
+    "[data-gap-download-pdf]",
+  );
+  const shareButton =
+    document.querySelector<HTMLButtonElement>("[data-gap-copy]");
 
   const scoreMatrix = {
     owner: {
@@ -150,35 +158,61 @@ import SectionBlock from "../../components/SectionBlock.astro";
       label: "Strong",
       min: 80,
       status: "green",
-      summary: "Governance coverage is strong; lock in evidence packs and keep cadence steady.",
+      summary:
+        "Governance coverage is strong; lock in evidence packs and keep cadence steady.",
     },
     {
       label: "Steady",
       min: 60,
       status: "yellow",
-      summary: "Coverage is stable but uneven; prioritize evidence cadence and escalation drills.",
+      summary:
+        "Coverage is stable but uneven; prioritize evidence cadence and escalation drills.",
     },
     {
       label: "Exposed",
       min: 40,
       status: "red",
-      summary: "Gaps are material; assign ownership and formalize escalation before launch.",
+      summary:
+        "Gaps are material; assign ownership and formalize escalation before launch.",
     },
     {
       label: "Critical",
       min: 0,
       status: "red",
-      summary: "Governance coverage is missing; pause for diagnostics and evidence collection.",
+      summary:
+        "Governance coverage is missing; pause for diagnostics and evidence collection.",
     },
   ];
 
   let currentStep = 0;
-  let latestResult: Record<string, unknown> | null = null;
+  type GapInputs = {
+    owner: string;
+    evidence: string;
+    escalation: string;
+    audit: string;
+  };
+  type GapResult = {
+    result_id: string;
+    generated_at: string;
+    tool_id: string;
+    inputs: GapInputs;
+    score: number;
+    tier: string;
+    summary: string;
+    recommendations: string[];
+  };
+
+  let latestResult: GapResult | null = null;
   let hasStarted = false;
 
   type AnalyticsWindow = typeof window & {
-    plausible?: (event: string, options?: { props: Record<string, unknown> }) => void;
-    analytics?: { track?: (event: string, data: Record<string, unknown>) => void };
+    plausible?: (
+      event: string,
+      options?: { props: Record<string, unknown> },
+    ) => void;
+    analytics?: {
+      track?: (event: string, data: Record<string, unknown>) => void;
+    };
   };
 
   const trackEvent = (eventName: string, detail: Record<string, unknown>) => {
@@ -203,20 +237,26 @@ import SectionBlock from "../../components/SectionBlock.astro";
           event: eventName,
           ...payload,
         },
-      })
+      }),
     );
   };
 
   const getTier = (score: number) =>
     tierMap.find((tier) => score >= tier.min) || tierMap[tierMap.length - 1];
 
-  const calculateScore = (values: Record<string, string>) => {
-    const ownerScore = scoreMatrix.owner[values.owner as keyof typeof scoreMatrix.owner] ?? 0;
+  const calculateScore = (values: GapInputs) => {
+    const ownerScore =
+      scoreMatrix.owner[values.owner as keyof typeof scoreMatrix.owner] ?? 0;
     const evidenceScore =
-      scoreMatrix.evidence[values.evidence as keyof typeof scoreMatrix.evidence] ?? 0;
+      scoreMatrix.evidence[
+        values.evidence as keyof typeof scoreMatrix.evidence
+      ] ?? 0;
     const escalationScore =
-      scoreMatrix.escalation[values.escalation as keyof typeof scoreMatrix.escalation] ?? 0;
-    const auditScore = scoreMatrix.audit[values.audit as keyof typeof scoreMatrix.audit] ?? 0;
+      scoreMatrix.escalation[
+        values.escalation as keyof typeof scoreMatrix.escalation
+      ] ?? 0;
+    const auditScore =
+      scoreMatrix.audit[values.audit as keyof typeof scoreMatrix.audit] ?? 0;
 
     return ownerScore + evidenceScore + escalationScore + auditScore;
   };
@@ -243,7 +283,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
     }
   };
 
-  const setShareUrl = (values: Record<string, string>, score: number, tier: string) => {
+  const setShareUrl = (values: GapInputs, score: number, tier: string) => {
     const url = new URL(window.location.href);
     url.searchParams.set("owner", values.owner);
     url.searchParams.set("evidence", values.evidence);
@@ -259,7 +299,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
     }
   };
 
-  const renderResults = (values: Record<string, string>, score: number) => {
+  const renderResults = (values: GapInputs, score: number) => {
     if (!resultsWrapper || !scoreValue || !statusPill || !summaryText) return;
 
     const tier = getTier(score);
@@ -267,7 +307,11 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
     scoreValue.textContent = `${score} / 100`;
     statusPill.textContent = tier.label;
-    statusPill.classList.remove("status-pill--green", "status-pill--yellow", "status-pill--red");
+    statusPill.classList.remove(
+      "status-pill--green",
+      "status-pill--yellow",
+      "status-pill--red",
+    );
     statusPill.classList.add(statusClass);
     summaryText.textContent = tier.summary;
 
@@ -291,6 +335,71 @@ import SectionBlock from "../../components/SectionBlock.astro";
     resultsWrapper.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const triggerDownload = (content: string, filename: string, type: string) => {
+    const blob = new Blob([content], { type });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const buildCsv = (payload: GapResult) => {
+    const rows = [
+      ["result_id", payload.result_id],
+      ["generated_at", payload.generated_at],
+      ["tool_id", payload.tool_id],
+      ["score", payload.score],
+      ["tier", payload.tier],
+      ["summary", payload.summary],
+      ["owner", payload.inputs?.owner],
+      ["evidence", payload.inputs?.evidence],
+      ["escalation", payload.inputs?.escalation],
+      ["audit", payload.inputs?.audit],
+    ];
+
+    return rows
+      .map((row) =>
+        row
+          .map((cell) => {
+            const value = String(cell ?? "");
+            return `"${value.replace(/\"/g, '""')}"`;
+          })
+          .join(","),
+      )
+      .join("\n");
+  };
+
+  const openPrintView = (payload: GapResult) => {
+    const printWindow = window.open("", "_blank", "noopener");
+    if (!printWindow) {
+      return;
+    }
+
+    const content = `
+      <main style="font-family: 'Source Serif 4', serif; padding: 2rem;">
+        <h1>Governance Gap Score</h1>
+        <p><strong>Score:</strong> ${payload.score} / 100</p>
+        <p><strong>Tier:</strong> ${payload.tier}</p>
+        <p><strong>Summary:</strong> ${payload.summary}</p>
+        <h2>Inputs</h2>
+        <ul>
+          <li><strong>Owner:</strong> ${payload.inputs?.owner}</li>
+          <li><strong>Evidence cadence:</strong> ${payload.inputs?.evidence}</li>
+          <li><strong>Escalation:</strong> ${payload.inputs?.escalation}</li>
+          <li><strong>Audit readiness:</strong> ${payload.inputs?.audit}</li>
+        </ul>
+        <p><strong>Generated:</strong> ${payload.generated_at}</p>
+      </main>
+    `;
+
+    printWindow.document.title = "Governance Gap Score";
+    printWindow.document.body.innerHTML = content;
+    printWindow.focus();
+    printWindow.print();
+  };
+
   const applyParams = () => {
     const params = new URLSearchParams(window.location.search);
     const owner = params.get("owner") ?? "";
@@ -301,14 +410,22 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
     if (!form) return;
 
-    const values = { owner, evidence, escalation, audit };
+    const values: GapInputs = { owner, evidence, escalation, audit };
     const hasInputs = Object.values(values).every((value) => value);
 
     if (hasInputs) {
-      const ownerField = form.elements.namedItem("owner") as HTMLSelectElement | null;
-      const evidenceField = form.elements.namedItem("evidence") as HTMLSelectElement | null;
-      const escalationField = form.elements.namedItem("escalation") as HTMLSelectElement | null;
-      const auditField = form.elements.namedItem("audit") as HTMLSelectElement | null;
+      const ownerField = form.elements.namedItem(
+        "owner",
+      ) as HTMLSelectElement | null;
+      const evidenceField = form.elements.namedItem(
+        "evidence",
+      ) as HTMLSelectElement | null;
+      const escalationField = form.elements.namedItem(
+        "escalation",
+      ) as HTMLSelectElement | null;
+      const auditField = form.elements.namedItem(
+        "audit",
+      ) as HTMLSelectElement | null;
 
       if (ownerField) ownerField.value = owner;
       if (evidenceField) evidenceField.value = evidence;
@@ -372,7 +489,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
     if (!validateStep()) return;
 
     const data = new FormData(form);
-    const values = {
+    const values: GapInputs = {
       owner: (data.get("owner") as string) ?? "",
       evidence: (data.get("evidence") as string) ?? "",
       escalation: (data.get("escalation") as string) ?? "",
@@ -387,15 +504,25 @@ import SectionBlock from "../../components/SectionBlock.astro";
   downloadButton?.addEventListener("click", () => {
     if (!latestResult) return;
 
-    const blob = new Blob([JSON.stringify(latestResult, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "governance-gap-score.json";
-    link.click();
-    URL.revokeObjectURL(url);
+    triggerDownload(
+      JSON.stringify(latestResult, null, 2),
+      "governance-gap-score.json",
+      "application/json",
+    );
+  });
+
+  downloadCsvButton?.addEventListener("click", () => {
+    if (!latestResult) return;
+    triggerDownload(
+      buildCsv(latestResult),
+      "governance-gap-score.csv",
+      "text/csv",
+    );
+  });
+
+  downloadPdfButton?.addEventListener("click", () => {
+    if (!latestResult) return;
+    openPrintView(latestResult);
   });
 
   shareButton?.addEventListener("click", async () => {

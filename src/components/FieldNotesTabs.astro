@@ -1,5 +1,9 @@
 ---
-import { getGlossaryLabel, glossaryEntryPermalink } from "../utils/glossary";
+import {
+  getGlossaryDefinition,
+  getGlossaryLabel,
+  glossaryEntryPermalink,
+} from "../utils/glossary";
 import type { FieldNoteEntry, FieldNotesContent } from "../content/fieldNotes";
 import fieldNotesTabsScript from "../scripts/field-notes-tabs.ts?url";
 
@@ -56,13 +60,13 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
                   </a>
                 </li>
               );
-            }
+            },
           )}
         </ul>
       </div>
       {sections.map((section: FieldNotesContent["sections"][number]) => {
         const sectionEntries = entries.filter(
-          (entry: FieldNoteEntry) => entry.format === section.format
+          (entry: FieldNoteEntry) => entry.format === section.format,
         );
 
         return (
@@ -100,13 +104,16 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 
                         return (
                           <span>
-                            <a href={glossaryHref(slug)}>
+                            <a
+                              href={glossaryHref(slug)}
+                              title={getGlossaryDefinition(slug) || undefined}
+                            >
                               {getGlossaryLabel(slug)}
                             </a>
                             {separator}
                           </span>
                         );
-                      }
+                      },
                     )}
                   </p>
                   {entry.links ? (
@@ -137,4 +144,4 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
   ) : null
 }
 
-<script type="module" src={fieldNotesTabsScript}></script>
+<script type="module" src={fieldNotesTabsScript} is:inline></script>

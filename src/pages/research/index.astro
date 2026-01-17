@@ -7,7 +7,11 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
-import { getGlossaryLabel, glossaryEntryPermalink } from "../../utils/glossary";
+import {
+  getGlossaryDefinition,
+  getGlossaryLabel,
+  glossaryEntryPermalink,
+} from "../../utils/glossary";
 import { researchContent } from "../../content/research";
 import researchFilterScript from "../../scripts/research-filter.ts?url";
 
@@ -43,19 +47,25 @@ const researchTags = Array.from(
   new Set([
     ...bridgeArtifacts.flatMap((artifact) => artifact.tags),
     ...publications.flatMap((publication) => publication.tags),
-  ])
+  ]),
+).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+const publicationTypes = Array.from(
+  new Set(publications.map((publication) => publication.type)),
 ).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
 const researchSuggestions = Array.from(
   new Set([
     ...orientationCards.map((card) => card.title),
-    ...bridgeArtifacts.flatMap((artifact) => [artifact.title, ...artifact.tags]),
+    ...bridgeArtifacts.flatMap((artifact) => [
+      artifact.title,
+      ...artifact.tags,
+    ]),
     ...publications.flatMap((publication) => [
       publication.title,
       ...publication.tags,
     ]),
     ...agenda.map((item) => item.title),
     ...focusAreas.map((area) => area.title),
-  ])
+  ]),
 ).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
 const researchSections = [
   { id: "", label: "All sections" },
@@ -141,18 +151,20 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     variant="alt"
   >
     <ol class="standards-timeline" aria-label="Standards research timeline">
-      {standardsTimeline.map((entry) => (
-        <li class="standards-timeline__item">
-          <div class="standards-timeline__badge">{entry.period}</div>
-          <div class="standards-timeline__body">
-            <h3>{entry.title}</h3>
-            <p class="muted">{entry.summary}</p>
-            <a class="standards-timeline__link" href={entry.href}>
-              View {entry.standardRef}
-            </a>
-          </div>
-        </li>
-      ))}
+      {
+        standardsTimeline.map((entry) => (
+          <li class="standards-timeline__item">
+            <div class="standards-timeline__badge">{entry.period}</div>
+            <div class="standards-timeline__body">
+              <h3>{entry.title}</h3>
+              <p class="muted">{entry.summary}</p>
+              <a class="standards-timeline__link" href={entry.href}>
+                View {entry.standardRef}
+              </a>
+            </div>
+          </li>
+        ))
+      }
     </ol>
   </SectionBlock>
   <div class="research-filter" data-research-filter>
@@ -172,22 +184,39 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <label class="research-filter__facet">
         Section
         <select class="research-filter__select" data-research-filter="section">
-          {researchSections.map((section) => (
-            <option value={section.id}>{section.label}</option>
-          ))}
+          {
+            researchSections.map((section) => (
+              <option value={section.id}>{section.label}</option>
+            ))
+          }
         </select>
       </label>
-      {researchTags.length > 0 && (
-        <label class="research-filter__facet">
-          Tag
-          <select class="research-filter__select" data-research-filter="tag">
-            <option value="">All tags</option>
-            {researchTags.map((tag) => (
-              <option value={tag}>{tag}</option>
-            ))}
-          </select>
-        </label>
-      )}
+      {
+        researchTags.length > 0 && (
+          <label class="research-filter__facet">
+            Tag
+            <select class="research-filter__select" data-research-filter="tag">
+              <option value="">All tags</option>
+              {researchTags.map((tag) => (
+                <option value={tag}>{tag}</option>
+              ))}
+            </select>
+          </label>
+        )
+      }
+      {
+        publicationTypes.length > 0 && (
+          <label class="research-filter__facet">
+            Publication type
+            <select class="research-filter__select" data-research-filter="type">
+              <option value="">All publication types</option>
+              {publicationTypes.map((type) => (
+                <option value={type}>{type}</option>
+              ))}
+            </select>
+          </label>
+        )
+      }
       <button
         class="button ghost button--compact research-filter__clear"
         type="button"
@@ -213,9 +242,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </button>
     </div>
     <datalist id="research-filter-suggestions">
-      {researchSuggestions.map((suggestion) => (
-        <option value={suggestion} />
-      ))}
+      {researchSuggestions.map((suggestion) => <option value={suggestion} />)}
     </datalist>
     <p class="muted research-filter__hint">
       Search across research entries or narrow by section and tags.
@@ -263,10 +290,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 data-research-item
                 data-section="orientation"
                 data-tags={card.tags.join(" ")}
+                data-type=""
                 data-search={buildSearchText(
                   card.title,
                   card.description,
-                  card.tags
+                  card.tags,
                 )}
               >
                 <CardItem
@@ -295,34 +323,40 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </summary>
       <div class="chunked-section__body">
         <CardGrid className="grid--two">
-          {bridgeArtifacts.map((artifact) => (
-            <div
-              class="research-filter__item"
-              data-research-item
-              data-section="bridge-artifacts"
-              data-tags={artifact.tags.join(" ")}
-              data-search={buildSearchText(
-                artifact.title,
-                artifact.summary,
-                artifact.type,
-                artifact.tags
-              )}
-            >
-              <CardItem
-                id={artifact.slug}
-                meta={artifact.type}
-                title={artifact.title}
-                description={artifact.summary}
-                tags={artifact.tags}
+          {
+            bridgeArtifacts.map((artifact) => (
+              <div
+                class="research-filter__item"
+                data-research-item
+                data-section="bridge-artifacts"
+                data-tags={artifact.tags.join(" ")}
+                data-type={artifact.type ?? ""}
+                data-search={buildSearchText(
+                  artifact.title,
+                  artifact.summary,
+                  artifact.type,
+                  artifact.tags,
+                )}
               >
-                <div slot="footer" class="card__footer">
-                  <a class="button ghost button--compact" href={artifact.href}>
-                    View artifact
-                  </a>
-                </div>
-              </CardItem>
-            </div>
-          ))}
+                <CardItem
+                  id={artifact.slug}
+                  meta={artifact.type}
+                  title={artifact.title}
+                  description={artifact.summary}
+                  tags={artifact.tags}
+                >
+                  <div slot="footer" class="card__footer">
+                    <a
+                      class="button ghost button--compact"
+                      href={artifact.href}
+                    >
+                      View artifact
+                    </a>
+                  </div>
+                </CardItem>
+              </div>
+            ))
+          }
         </CardGrid>
       </div>
     </details>
@@ -348,10 +382,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 data-research-item
                 data-section="agenda"
                 data-tags=""
+                data-type=""
                 data-search={buildSearchText(
                   item.title,
                   item.timeframe,
-                  item.goals
+                  item.goals,
                 )}
               >
                 <CardItem
@@ -361,6 +396,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   glossaryLinks={item.glossaryRefs.map((slug) => ({
                     href: glossaryHref(slug),
                     label: getGlossaryLabel(slug),
+                    definition: getGlossaryDefinition(slug),
                   }))}
                 />
               </div>
@@ -390,10 +426,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 data-research-item
                 data-section="focus-areas"
                 data-tags=""
+                data-type=""
                 data-search={buildSearchText(
                   area.title,
                   area.description,
-                  area.questions
+                  area.questions,
                 )}
               >
                 <CardItem
@@ -404,6 +441,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   glossaryLinks={area.glossaryRefs.map((slug) => ({
                     href: glossaryHref(slug),
                     label: getGlossaryLabel(slug),
+                    definition: getGlossaryDefinition(slug),
                   }))}
                 />
               </div>
@@ -434,12 +472,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 data-research-item
                 data-section="publications"
                 data-tags={publication.tags.join(" ")}
+                data-type={publication.type}
                 data-search={buildSearchText(
                   publication.title,
                   publication.summary,
                   publication.type,
                   publication.tags,
-                  publication.structuredAbstract.question
+                  publication.structuredAbstract.question,
                 )}
               >
                 <CardItem
@@ -451,6 +490,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   glossaryLinks={publication.glossaryRefs.map((slug) => ({
                     href: glossaryHref(slug),
                     label: getGlossaryLabel(slug),
+                    definition: getGlossaryDefinition(slug),
                   }))}
                 >
                   <div class="research__abstract">
@@ -516,6 +556,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </details>
   </SectionBlock>
-  <script type="application/ld+json" set:html={structuredDataJson} />
-  <script type="module" src={researchFilterScript}></script>
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <script type="module" src={researchFilterScript} is:inline></script>
 </BaseLayout>

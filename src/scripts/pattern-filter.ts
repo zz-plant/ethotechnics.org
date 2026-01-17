@@ -12,8 +12,7 @@ export type PatternBundleEntry = {
 };
 
 const BUNDLE_STORAGE_KEY = "pattern-bundle-selection";
-const normalizeHash = (hash: string) => hash.replace("#", "");
-const hashFromFilter = (filter: string | null) => `#${filter ?? "mechanisms"}`;
+const FILTER_STORAGE_KEY = "pattern-filter-state";
 
 export const composePatternBundle = (entries: PatternBundleEntry[]) => {
   const lines = [
@@ -116,6 +115,16 @@ const initializePatternFilter = (root: HTMLElement) => {
   const emailStatus = root.querySelector<HTMLElement>("[data-email-status]");
   const emptyState = root.querySelector<HTMLElement>("[data-empty]");
   const status = root.querySelector<HTMLElement>("[data-filter-status]");
+  const saveFiltersButton = root.querySelector<HTMLButtonElement>(
+    "[data-save-filters]",
+  );
+  const restoreFiltersButton = root.querySelector<HTMLButtonElement>(
+    "[data-restore-filters]",
+  );
+  const clearFiltersButton = root.querySelector<HTMLButtonElement>(
+    "[data-clear-filters]",
+  );
+  const savedStatus = root.querySelector<HTMLElement>("[data-saved-status]");
   const patternPayloads = new Map<string, PatternBundleEntry>();
 
   cards.forEach((card) => {
@@ -161,7 +170,9 @@ const initializePatternFilter = (root: HTMLElement) => {
       const parsed = JSON.parse(saved) as string[];
 
       if (Array.isArray(parsed)) {
-        return parsed.filter((value): value is string => typeof value === "string");
+        return parsed.filter(
+          (value): value is string => typeof value === "string",
+        );
       }
     } catch (error) {
       console.error("Unable to parse saved bundle selection", error);
@@ -249,28 +260,33 @@ const initializePatternFilter = (root: HTMLElement) => {
       .map((slug) => patternPayloads.get(slug))
       .filter((entry): entry is PatternBundleEntry => Boolean(entry));
 
-  const updateHash = () => {
-    const targetHash = hashFromFilter(selectedFilter);
-    const currentHash = window.location.hash;
-    const normalizedCurrent = normalizeHash(currentHash);
+  const getUrlState = () => {
+    const params = new URLSearchParams(window.location.search);
+    const filter = params.get("filter");
+    const queryParam = params.get("q") ?? "";
+
+    return {
+      filter: filter && filters.includes(filter) ? filter : null,
+      query: queryParam,
+    };
+  };
+
+  const updateUrlState = () => {
+    const url = new URL(window.location.href);
 
     if (selectedFilter) {
-      if (currentHash !== targetHash) {
-        window.history.replaceState(null, "", targetHash);
-      }
-
-      return;
+      url.searchParams.set("filter", selectedFilter);
+    } else {
+      url.searchParams.delete("filter");
     }
 
-    if (
-      !normalizedCurrent ||
-      normalizedCurrent === "mechanisms" ||
-      filters.includes(normalizedCurrent)
-    ) {
-      if (currentHash !== targetHash) {
-        window.history.replaceState(null, "", targetHash);
-      }
+    if (query.trim()) {
+      url.searchParams.set("q", query.trim());
+    } else {
+      url.searchParams.delete("q");
     }
+
+    window.history.replaceState(null, "", url.toString());
   };
 
   const updateFilterButtons = () => {
@@ -324,19 +340,6 @@ const initializePatternFilter = (root: HTMLElement) => {
     }
   };
 
-  const applyHash = (hash: string) => {
-    const normalized = normalizeHash(hash);
-
-    if (filters.includes(normalized)) {
-      selectedFilter = normalized;
-      return;
-    }
-
-    if (!normalized || normalized === "mechanisms") {
-      selectedFilter = null;
-    }
-  };
-
   const handleFilterChange = (filter: string) => {
     if (filter === "all") {
       selectedFilter = null;
@@ -344,7 +347,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       selectedFilter = selectedFilter === filter ? null : filter;
     }
 
-    updateHash();
+    updateUrlState();
     updateFilterButtons();
     scheduleFilterApplication();
   };
@@ -362,14 +365,81 @@ const initializePatternFilter = (root: HTMLElement) => {
     });
   };
 
-  const handleHashChange = () => {
-    applyHash(window.location.hash);
+  const applySavedStatus = (message: string) => {
+    if (!savedStatus) {
+      return;
+    }
+
+    savedStatus.textContent = message;
+  };
+
+  const saveFilters = () => {
+    localStorage.setItem(
+      FILTER_STORAGE_KEY,
+      JSON.stringify({ filter: selectedFilter, query }),
+    );
+    applySavedStatus("Saved current filters to this device.");
+  };
+
+  const restoreFilters = () => {
+    const saved = localStorage.getItem(FILTER_STORAGE_KEY);
+
+    if (!saved) {
+      applySavedStatus("No saved filters found yet.");
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(saved) as {
+        filter?: string | null;
+        query?: string;
+      };
+      selectedFilter =
+        parsed.filter && filters.includes(parsed.filter) ? parsed.filter : null;
+      query = parsed.query ?? "";
+      if (searchInput) {
+        searchInput.value = query;
+      }
+      updateUrlState();
+      updateFilterButtons();
+      scheduleFilterApplication();
+      applySavedStatus("Restored your saved filters.");
+    } catch (error) {
+      console.error("Unable to parse saved filters", error);
+      applySavedStatus("Saved filters could not be loaded.");
+    }
+  };
+
+  const clearFilters = () => {
+    selectedFilter = null;
+    query = "";
+    if (searchInput) {
+      searchInput.value = "";
+    }
+    updateUrlState();
+    updateFilterButtons();
+    scheduleFilterApplication();
+    applySavedStatus("Cleared filters and search.");
+  };
+
+  const handlePopState = () => {
+    const urlState = getUrlState();
+    selectedFilter = urlState.filter;
+    query = urlState.query;
+    if (searchInput) {
+      searchInput.value = query;
+    }
     updateFilterButtons();
     scheduleFilterApplication();
   };
 
   const initialize = () => {
-    applyHash(window.location.hash);
+    const urlState = getUrlState();
+    selectedFilter = urlState.filter;
+    query = urlState.query;
+    if (searchInput) {
+      searchInput.value = query;
+    }
     updateFilterButtons();
     applyFilters();
 
@@ -392,6 +462,7 @@ const initializePatternFilter = (root: HTMLElement) => {
     }
 
     updateBundleControls();
+    updateUrlState();
 
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -413,6 +484,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       }
 
       query = target.value;
+      updateUrlState();
       scheduleFilterApplication();
     });
 
@@ -500,7 +572,10 @@ const initializePatternFilter = (root: HTMLElement) => {
       }
     });
 
-    window.addEventListener("hashchange", handleHashChange);
+    saveFiltersButton?.addEventListener("click", saveFilters);
+    restoreFiltersButton?.addEventListener("click", restoreFilters);
+    clearFiltersButton?.addEventListener("click", clearFilters);
+    window.addEventListener("popstate", handlePopState);
   };
 
   if ("IntersectionObserver" in window) {

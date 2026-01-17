@@ -33,6 +33,7 @@ const recommendedDetails = recommendedCard
       { text: recommendedCard.description, className: "muted small" },
     ].filter((detail) => detail.text)
   : [];
+const { cspNonce } = Astro.locals;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -142,24 +143,29 @@ const recommendedDetails = recommendedCard
     description={quickStart.description}
   >
     <CardGrid className="grid--two">
-      {quickStartGuides.map((guide) => (
-        <CardItem
-          title={guide.title}
-          description={guide.summary}
-          descriptionTone="default"
-        >
-          <ul class="muted">
-            {guide.focusAreas.map((area) => (
-              <li>{area}</li>
-            ))}
-          </ul>
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={`/quick-start/${guide.slug}`}>
-              Open {guide.title.toLowerCase()} guide
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        quickStartGuides.map((guide) => (
+          <CardItem
+            title={guide.title}
+            description={guide.summary}
+            descriptionTone="default"
+          >
+            <ul class="muted">
+              {guide.focusAreas.map((area) => (
+                <li>{area}</li>
+              ))}
+            </ul>
+            <div slot="footer" class="card__footer">
+              <a
+                class="button ghost button--compact"
+                href={`/quick-start/${guide.slug}`}
+              >
+                Open {guide.title.toLowerCase()} guide
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -192,6 +198,28 @@ const recommendedDetails = recommendedCard
         ))
       }
     </CardGrid>
+    <SectionActions
+      className="artifacts__actions"
+      ariaLabel="Artifact bundle actions"
+    >
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-artifact-download
+      >
+        Download artifact list
+      </button>
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-artifact-copy
+      >
+        Copy artifact list
+      </button>
+    </SectionActions>
+    <p class="muted small" data-artifact-status>
+      Generate a shareable list of required artifacts for your team.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -271,4 +299,63 @@ const recommendedDetails = recommendedCard
       </a>
     </SectionActions>
   </SectionBlock>
+  <script
+    type="application/json"
+    id="artifact-data"
+    is:inline
+    set:html={JSON.stringify({ artifacts: artifacts.previews })}
+  />
+  <script is:inline nonce={cspNonce}>
+    const artifactData = document.querySelector("#artifact-data");
+    const parsedArtifacts = artifactData
+      ? JSON.parse(artifactData.textContent || "{}")
+      : {};
+    const artifactsList = parsedArtifacts.artifacts ?? [];
+    const downloadButton = document.querySelector("[data-artifact-download]");
+    const copyButton = document.querySelector("[data-artifact-copy]");
+    const status = document.querySelector("[data-artifact-status]");
+
+    const buildArtifactMarkdown = () => {
+      const lines = [
+        "# Required artifacts",
+        "Generated from ethotechnics.org/start-here",
+        "",
+      ];
+      artifactsList.forEach((artifact) => {
+        lines.push(`- ${artifact.title}: ${artifact.href}`);
+      });
+      return lines.join("\\n");
+    };
+
+    const triggerDownload = (content) => {
+      const blob = new Blob([content], { type: "text/markdown" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "ethotechnics-artifacts.md";
+      anchor.click();
+      URL.revokeObjectURL(url);
+    };
+
+    downloadButton?.addEventListener("click", () => {
+      triggerDownload(buildArtifactMarkdown());
+      if (status) {
+        status.textContent = "Downloaded the artifact list as markdown.";
+      }
+    });
+
+    copyButton?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(buildArtifactMarkdown());
+        if (status) {
+          status.textContent = "Copied the artifact list to your clipboard.";
+        }
+      } catch {
+        if (status) {
+          status.textContent =
+            "Copy failed. Select the text manually after download.";
+        }
+      }
+    });
+  </script>
 </BaseLayout>

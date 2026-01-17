@@ -13,7 +13,7 @@
  * - descriptionTone: Set to `default` to render the description without the muted class.
  * - tags: Renders as a `.pill-list` under the description.
  * - tagsClassName: Optional class name appended to the tags list.
- * - glossaryLinks: Array of `{ href, label }` rendered as a "Glossary" line with comma separators.
+ * - glossaryLinks: Array of `{ href, label, definition? }` rendered as a "Glossary" line with comma separators.
  * - glossaryLabel: Override the glossary label (defaults to "Glossary").
  * - icon: Optional astro-icon name rendered above the title.
  * - className: Optional class name appended to the card root.
@@ -24,6 +24,7 @@ import { Icon } from "astro-icon/components";
 interface GlossaryLink {
   href: string;
   label: string;
+  definition?: string;
 }
 
 interface Props {
@@ -115,7 +116,9 @@ const labelledBy = ariaLabel ? undefined : resolvedTitleId;
 
           return (
             <>
-              <a href={link.href}>{link.label}</a>
+              <a href={link.href} title={link.definition || undefined}>
+                {link.label}
+              </a>
               {separator}
             </>
           );

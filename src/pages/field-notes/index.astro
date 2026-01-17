@@ -21,6 +21,14 @@ const anchorLinks = sections.map((section) => ({
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="/field-notes/rss.xml"
+      title="Field Notes RSS"
+    />
+  </Fragment>
   <PageIntro
     eyebrow="Field Notes"
     title="Field Notes"
@@ -36,11 +44,16 @@ const anchorLinks = sections.map((section) => ({
   />
   <p class="muted small">
     Latest update{" "}
-    {new Date(latestUpdate).toLocaleDateString("en-US", {
-      month: "short",
-      year: "numeric",
-    })}
+    {
+      new Date(latestUpdate).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
+    }
     .
+  </p>
+  <p class="muted small">
+    Subscribe via <a href="/field-notes/rss.xml">RSS</a>.
   </p>
   <div class="callout field-notes__highlight">
     <p class="eyebrow">Latest highlight</p>

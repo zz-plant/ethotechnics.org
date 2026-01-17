@@ -85,7 +85,8 @@ const explainerLinks = [
   },
   {
     title: "Ethical Interrupts",
-    description: "Pause automation at risk thresholds with accountable checkpoints.",
+    description:
+      "Pause automation at risk thresholds with accountable checkpoints.",
     href: "/explainers/ethical-interrupts",
   },
   {
@@ -104,7 +105,8 @@ const antiPatterns = [
       "A stoppability control exists but is buried behind multiple screens or support hints.",
     counterfactual:
       "Exit controls are visible on every screen and halt the process immediately.",
-    warning: "If the exit is labeled clearly and consistently, it likely meets the bar.",
+    warning:
+      "If the exit is labeled clearly and consistently, it likely meets the bar.",
   },
   {
     title: "Reversal without proof",
@@ -112,7 +114,8 @@ const antiPatterns = [
       "Promises reversal but does not preserve state or provide a receipt that it happened.",
     counterfactual:
       "Reversal preserves state, emits a receipt, and provides a clear next step.",
-    warning: "Temporary preservation can be compliant if timelines are explicit and honored.",
+    warning:
+      "Temporary preservation can be compliant if timelines are explicit and honored.",
   },
 ];
 
@@ -138,7 +141,9 @@ const structuredData = {
   isPartOf: {
     "@type": "CollectionPage",
     name: "Standards — Ethotechnics Institute",
-    url: Astro.site ? new URL("/standards", Astro.site).toString() : "/standards",
+    url: Astro.site
+      ? new URL("/standards", Astro.site).toString()
+      : "/standards",
   },
   hasPart: rights.map((right) => ({
     "@type": "CreativeWork",
@@ -188,24 +193,29 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
         <section class="standard-section">
           <h2>Related explainers</h2>
-          <p>Use these short explainers when translating the rights for policy or product teams.</p>
+          <p>
+            Use these short explainers when translating the rights for policy or
+            product teams.
+          </p>
           <ul class="standard-clauses">
-            {explainerLinks.map((explainer) => (
-              <li>
-                <strong>
-                  <a href={explainer.href}>{explainer.title}</a>
-                </strong>{" "}
-                — {explainer.description}
-              </li>
-            ))}
+            {
+              explainerLinks.map((explainer) => (
+                <li>
+                  <strong>
+                    <a href={explainer.href}>{explainer.title}</a>
+                  </strong>{" "}
+                  — {explainer.description}
+                </li>
+              ))
+            }
           </ul>
         </section>
 
         <section class="standard-section">
           <h2>Execution vs redress clocks</h2>
           <p>
-            Show the execution vs redress clock mismatch and highlight the irreversibility window
-            that STD-01 is designed to constrain.
+            Show the execution vs redress clock mismatch and highlight the
+            irreversibility window that STD-01 is designed to constrain.
           </p>
           <Std01MicroDiagram />
         </section>
@@ -213,52 +223,63 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <section class="standard-section">
           <h2>Preamble: The Doctrine of Finitude</h2>
           <p>
-            We hold that human attention is a finite, non-renewable biological resource. In the
-            Machine Age, the disparity between the infinite speed of automated systems and the
-            fixed processing speed of the human mind has created a structural crisis of dignity.
+            We hold that human attention is a finite, non-renewable biological
+            resource. In the Machine Age, the disparity between the infinite
+            speed of automated systems and the fixed processing speed of the
+            human mind has created a structural crisis of dignity.
           </p>
           <p>
-            When a system wastes human time through negligence, obfuscation, or coercive design,
-            it is not merely a "bad user experience"; it is a Temporal Taking—an unauthorized
-            extraction of life. It is measurable as a time tax with durable costs and documented
-            burden.
+            When a system wastes human time through negligence, obfuscation, or
+            coercive design, it is not merely a "bad user experience"; it is a
+            Temporal Taking—an unauthorized extraction of life. It is measurable
+            as a time tax with durable costs and documented burden.
           </p>
           <p>
-            To defend the human subject against the scale of the machine, we establish these
-            seven inalienable rights. Any system that violates these articles is declared
-            non-compliant with STD-01.
+            To defend the human subject against the scale of the machine, we
+            establish these seven inalienable rights. Any system that violates
+            these articles is declared non-compliant with STD-01.
           </p>
         </section>
 
         <section class="standard-section">
           <h2>Clause schema (agent-readable)</h2>
           <p>
-            Express every clause as a structured object so agents can validate compliance and
-            request evidence.
+            Express every clause as a structured object so agents can validate
+            compliance and request evidence.
           </p>
           <pre class="code-block">{clauseSchema}</pre>
         </section>
 
         <section class="standard-section">
           <h2>Anti-patterns and counterfactuals</h2>
-          <p>Use these to detect superficial compliance and clarify what success looks like.</p>
+          <p>
+            Use these to detect superficial compliance and clarify what success
+            looks like.
+          </p>
           <ul class="standard-clauses">
-            {antiPatterns.map((pattern) => (
-              <li>
-                <strong>{pattern.title}:</strong> {pattern.failure}
-                <br />
-                <span class="muted">Counterfactual: {pattern.counterfactual}</span>
-                <br />
-                <span class="muted">False-positive warning: {pattern.warning}</span>
-              </li>
-            ))}
+            {
+              antiPatterns.map((pattern) => (
+                <li>
+                  <strong>{pattern.title}:</strong> {pattern.failure}
+                  <br />
+                  <span class="muted">
+                    Counterfactual: {pattern.counterfactual}
+                  </span>
+                  <br />
+                  <span class="muted">
+                    False-positive warning: {pattern.warning}
+                  </span>
+                </li>
+              ))
+            }
           </ul>
         </section>
 
         <section class="standard-section">
           <h2>Article I: The Right to Stoppability</h2>
           <p class="standard-article-quote">
-            "No system shall force a user to complete a process they wish to abandon."
+            "No system shall force a user to complete a process they wish to
+            abandon."
           </p>
           <ol class="standard-clauses">
             <li>
@@ -268,39 +289,42 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </li>
             <li>
               <span class="standard-clause-id">§1.2</span>
-              Preservation of State: Halting a process must not result in the punitive destruction
-              of data. The system must save the "Paused State" for a reasonable duration, allowing
-              the user to return without penalty.
+              Preservation of State: Halting a process must not result in the punitive
+              destruction of data. The system must save the "Paused State" for a reasonable
+              duration, allowing the user to return without penalty.
             </li>
             <li>
               <span class="standard-clause-id">§1.3</span>
-              The Prohibition of the Forced Tunnel: No interface may lock a user into a linear
-              sequence without a permanent exit option available on every screen; "wizards" or
-              "flows" are common examples.
+              The Prohibition of the Forced Tunnel: No interface may lock a user into
+              a linear sequence without a permanent exit option available on every
+              screen; "wizards" or "flows" are common examples.
             </li>
           </ol>
         </section>
 
         <section class="standard-section">
           <h2>Article II: The Right to Exit (Resignation)</h2>
-          <p class="standard-article-quote">"The user must always be able to leave."</p>
+          <p class="standard-article-quote">
+            "The user must always be able to leave."
+          </p>
           <ol class="standard-clauses">
             <li>
               <span class="standard-clause-id">§2.1</span>
-              The Universal Exit: A user must be able to sever their relationship with a system
-              (delete account, unsubscribe, cancel contract) with equal or lesser friction than
-              was required to create it.
+              The Universal Exit: A user must be able to sever their relationship
+              with a system (delete account, unsubscribe, cancel contract) with equal
+              or lesser friction than was required to create it.
             </li>
             <li>
               <span class="standard-clause-id">§2.2</span>
-              The One-Step Rule: If entry required one click, exit shall require no more than one
-              click.
+              The One-Step Rule: If entry required one click, exit shall require no
+              more than one click.
             </li>
             <li>
               <span class="standard-clause-id">§2.3</span>
-              Prohibition of Retention Scripts: Systems may not force users to navigate "retention
-              flows," "exit surveys," or "confirmations of loss" as a prerequisite for exit. These
-              act as Constructive Denial (blocking exit by inflating friction).
+              Prohibition of Retention Scripts: Systems may not force users to navigate
+              "retention flows," "exit surveys," or "confirmations of loss" as a prerequisite
+              for exit. These act as Constructive Denial (blocking exit by inflating
+              friction).
             </li>
           </ol>
         </section>
@@ -311,39 +335,41 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <ol class="standard-clauses">
             <li>
               <span class="standard-clause-id">§3.1</span>
-              The Hard Clock: Every system state must have a defined maximum duration. "Pending,"
-              "Processing," or "Reviewing" states cannot persist indefinitely.
+              The Hard Clock: Every system state must have a defined maximum duration.
+              "Pending," "Processing," or "Reviewing" states cannot persist indefinitely.
             </li>
             <li>
               <span class="standard-clause-id">§3.2</span>
-              The Timeout Guarantee: If a system cannot resolve a request within a declared
-              timeframe, it must default to a failure state or a human escalation. It may not loop
-              forever.
+              The Timeout Guarantee: If a system cannot resolve a request within a
+              declared timeframe, it must default to a failure state or a human escalation.
+              It may not loop forever.
             </li>
             <li>
               <span class="standard-clause-id">§3.3</span>
-              Estimation of Burden: Before a user commits to a process, the system must declare the
-              estimated time to completion. Concealing the duration of a task to secure engagement
-              is a violation of consent.
+              Estimation of Burden: Before a user commits to a process, the system
+              must declare the estimated time to completion. Concealing the duration
+              of a task to secure engagement is a violation of consent.
             </li>
           </ol>
         </section>
 
         <section class="standard-section">
           <h2>Article IV: The Right to Reversibility</h2>
-          <p class="standard-article-quote">"To err is human; the system must forgive."</p>
+          <p class="standard-article-quote">
+            "To err is human; the system must forgive."
+          </p>
           <ol class="standard-clauses">
             <li>
               <span class="standard-clause-id">§4.1</span>
-              The Undo Window: For any action with consequential effects (deletion, transfer,
-              publication), the system must provide a "Grace Period" during which the action can be
-              reversed without administrative intervention.
+              The Undo Window: For any action with consequential effects (deletion,
+              transfer, publication), the system must provide a "Grace Period" during
+              which the action can be reversed without administrative intervention.
             </li>
             <li>
               <span class="standard-clause-id">§4.2</span>
-              Non-Destructive Defaults: Systems shall not permanently destroy user data based on a
-              single input. "Soft Delete" (archival) must be the default engineering state for all
-              removal actions.
+              Non-Destructive Defaults: Systems shall not permanently destroy user
+              data based on a single input. "Soft Delete" (archival) must be the default
+              engineering state for all removal actions.
             </li>
           </ol>
         </section>
@@ -354,60 +380,66 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <ol class="standard-clauses">
             <li>
               <span class="standard-clause-id">§5.1</span>
-              Visibility of Queue: When a user is placed in a waiting state, the system must
-              provide accurate, real-time telemetry regarding their position and expected wait
-              time.
+              Visibility of Queue: When a user is placed in a waiting state, the system
+              must provide accurate, real-time telemetry regarding their position
+              and expected wait time.
             </li>
             <li>
               <span class="standard-clause-id">§5.2</span>
-              The Prohibition of False Activity: Systems shall not use "fake progress bars,"
-              "placebo buttons," or looping animations to simulate activity when the system is
-              idle or stalled.
+              The Prohibition of False Activity: Systems shall not use "fake progress
+              bars," "placebo buttons," or looping animations to simulate activity
+              when the system is idle or stalled.
             </li>
             <li>
               <span class="standard-clause-id">§5.3</span>
-              Asynchronous Option: No user shall be forced to hold an active connection (keep a
-              window open, stay on the phone) to maintain their place in a queue. Systems must
-              offer callback or notification options for waits exceeding 5 minutes.
+              Asynchronous Option: No user shall be forced to hold an active connection
+              (keep a window open, stay on the phone) to maintain their place in a
+              queue. Systems must offer callback or notification options for waits
+              exceeding 5 minutes.
             </li>
           </ol>
         </section>
 
         <section class="standard-section">
           <h2>Article VI: The Right to Human Override</h2>
-          <p class="standard-article-quote">"The machine is a tool, not a judge."</p>
+          <p class="standard-article-quote">
+            "The machine is a tool, not a judge."
+          </p>
           <ol class="standard-clauses">
             <li>
               <span class="standard-clause-id">§6.1</span>
-              The Escalation Path: Any automated decision that denies a user access, service, or
-              property must include a clearly defined path to appeal to a human agent.
+              The Escalation Path: Any automated decision that denies a user access,
+              service, or property must include a clearly defined path to appeal to
+              a human agent.
             </li>
             <li>
               <span class="standard-clause-id">§6.2</span>
-              The Liability of Automata: A system may not hide behind "algorithmic error." The
-              operating institution accepts full liability for the latency and errors of its
-              automated agents.
+              The Liability of Automata: A system may not hide behind "algorithmic
+              error." The operating institution accepts full liability for the latency
+              and errors of its automated agents.
             </li>
           </ol>
         </section>
 
         <section class="standard-section">
           <h2>Article VII: The Right to Transparent Burden</h2>
-          <p class="standard-article-quote">"The system must show the receipt."</p>
+          <p class="standard-article-quote">
+            "The system must show the receipt."
+          </p>
           <ol class="standard-clauses">
             <li>
               <span class="standard-clause-id">§7.1</span>
-              The Cost of Compliance: Institutions must measure and publish the "Time Tax" their
-              bureaucracy imposes on the public.
+              The Cost of Compliance: Institutions must measure and publish the "Time
+              Tax" their bureaucracy imposes on the public.
             </li>
             <li>
               <span class="standard-clause-id">§7.2</span>
-              Burden Impact Statement: Major system updates must be audited to ensure they do not
-              increase the cognitive load or time requirement for existing tasks.
+              Burden Impact Statement: Major system updates must be audited to ensure
+              they do not increase the cognitive load or time requirement for existing
+              tasks.
             </li>
           </ol>
         </section>
-
       </div>
 
       <aside class="standard-sidebar">
@@ -421,10 +453,14 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               <a href="/mechanisms/patterns/kill-switch">MEC-05: Kill Switch</a>
             </li>
             <li>
-              <a href="/mechanisms/patterns/decision-log">MEC-01: Decision Log</a>
+              <a href="/mechanisms/patterns/decision-log"
+                >MEC-01: Decision Log</a
+              >
             </li>
             <li>
-              <a href="/mechanisms/patterns/progressive-consent">MEC-02: Progressive Consent</a>
+              <a href="/mechanisms/patterns/progressive-consent"
+                >MEC-02: Progressive Consent</a
+              >
             </li>
           </ul>
         </div>
@@ -432,18 +468,24 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <p class="standard-sidebar__eyebrow">STD-01 references</p>
           <ul>
             <li>
-              <a href="/standards/std-01-mapping-artifact">End-to-end mapping artifact</a>
+              <a href="/standards/std-01-mapping-artifact"
+                >End-to-end mapping artifact</a
+              >
             </li>
             <li>
-              <a href="/standards/std-01-minimum-binding-set">Minimum binding set</a>
+              <a href="/standards/std-01-minimum-binding-set"
+                >Minimum binding set</a
+              >
             </li>
             <li>
-              <a href="/standards/micro-diagram-language">Micro-diagram language specification</a>
+              <a href="/standards/micro-diagram-language"
+                >Micro-diagram language specification</a
+              >
             </li>
           </ul>
         </div>
       </aside>
     </div>
   </article>
-  <script type="application/ld+json" set:html={structuredDataJson} />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>

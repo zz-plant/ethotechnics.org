@@ -243,6 +243,12 @@ export const navActions: NavAction[] = [
     variant: "primary",
   },
   {
+    href: "/search",
+    label: "Search",
+    variant: "ghost-compact",
+    icon: "lucide:search",
+  },
+  {
     href: "/validators",
     label: "Run a validator",
     variant: "ghost",

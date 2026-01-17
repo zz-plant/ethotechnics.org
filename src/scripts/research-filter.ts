@@ -85,6 +85,7 @@ const initResearchFilter = () => {
       "",
     section: item.dataset.section ?? "",
     tags: (item.dataset.tags ?? "").split(" ").filter(Boolean),
+    type: item.dataset.type ?? "",
   }));
 
   const setSectionsOpen = (isOpen: boolean) => {
@@ -98,13 +99,16 @@ const initResearchFilter = () => {
     const query = rawQuery.toLowerCase();
     const activeSection = getFacetValue("section");
     const activeTag = getFacetValue("tag");
+    const activeType = getFacetValue("type");
     let visible = 0;
 
     indexedItems.forEach((item) => {
       const matchesQuery = item.searchText.includes(query);
       const matchesSection = !activeSection || item.section === activeSection;
       const matchesTag = !activeTag || item.tags.includes(activeTag);
-      const matches = matchesQuery && matchesSection && matchesTag;
+      const matchesType = !activeType || item.type === activeType;
+      const matches =
+        matchesQuery && matchesSection && matchesTag && matchesType;
       item.element.classList.toggle("is-hidden", !matches);
 
       if (matches) {
@@ -114,9 +118,11 @@ const initResearchFilter = () => {
 
     emptyState.hidden = visible > 0;
     const querySuffix = rawQuery ? ` for “${rawQuery}”` : "";
-    const facetLabels = [getFacetLabel("section"), getFacetLabel("tag")].filter(
-      Boolean,
-    );
+    const facetLabels = [
+      getFacetLabel("section"),
+      getFacetLabel("tag"),
+      getFacetLabel("type"),
+    ].filter(Boolean);
     const facetSuffix = facetLabels.length
       ? ` · ${facetLabels.join(", ")}`
       : "";
@@ -134,6 +140,7 @@ const initResearchFilter = () => {
     syncQueryParam(rawQuery, {
       section: activeSection,
       tag: activeTag,
+      type: activeType,
     });
   };
 
@@ -141,6 +148,7 @@ const initResearchFilter = () => {
   const initialQuery = params.get("query")?.trim();
   const initialSection = params.get("section")?.trim();
   const initialTag = params.get("tag")?.trim();
+  const initialType = params.get("type")?.trim();
 
   if (initialQuery) {
     filterInput.value = initialQuery;
@@ -159,6 +167,14 @@ const initResearchFilter = () => {
     );
     if (control) {
       control.value = initialTag;
+    }
+  }
+  if (initialType) {
+    const control = facetControls.find(
+      (item) => item.dataset.researchFilter === "type",
+    );
+    if (control) {
+      control.value = initialType;
     }
   }
 
