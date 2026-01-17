@@ -148,16 +148,14 @@ const { cspNonce } = Astro.locals;
         </li>
       </ul>
     </div>
-    <div
+    <progress
       class="progress-summary__bar"
-      role="progressbar"
-      aria-valuemin="0"
-      aria-valuemax={modules.length}
-      aria-valuenow="0"
+      value="0"
+      max={modules.length}
       data-progress-bar
     >
-      <span class="progress-summary__fill" data-progress-fill></span>
-    </div>
+      0 of {modules.length} modules completed
+    </progress>
   </div>
 
   <SectionBlock
@@ -506,8 +504,9 @@ const { cspNonce } = Astro.locals;
       "[data-progress-readings]",
     );
     const progressQuiz = progressSummary?.querySelector("[data-progress-quiz]");
-    const progressBar = progressSummary?.querySelector("[data-progress-bar]");
-    const progressFill = progressSummary?.querySelector("[data-progress-fill]");
+    const progressBar = progressSummary?.querySelector(
+      "[data-progress-bar]",
+    );
 
     const updateProgressSummary = () => {
       const completedModules = modules.filter(
@@ -523,7 +522,6 @@ const { cspNonce } = Astro.locals;
       const readingsCount = completedReadings.length;
       const checksCount = completedChecks.length;
       const total = modules.length;
-      const percent = total > 0 ? Math.round((count / total) * 100) : 0;
 
       if (progressCount) {
         progressCount.textContent = `${count}/${total} modules completed.`;
@@ -541,13 +539,9 @@ const { cspNonce } = Astro.locals;
         progressQuiz.textContent = `${checksCount}/${total} knowledge checks passed`;
       }
 
-      if (progressBar) {
-        progressBar.setAttribute("aria-valuenow", String(count));
-        progressBar.setAttribute("aria-valuemax", String(total));
-      }
-
-      if (progressFill) {
-        progressFill.style.width = `${percent}%`;
+      if (progressBar instanceof HTMLProgressElement) {
+        progressBar.value = count;
+        progressBar.max = total;
       }
     };
 

@@ -2,16 +2,51 @@
 export interface IllustrationProps {
   src: string;
   alt: string;
+  width: number;
+  height: number;
+  sizes?: string;
+  imgSrcset?: string;
+  avifSrcset?: string;
+  webpSrcset?: string;
   caption?: string;
   className?: string;
   variant?: 'panel' | 'card';
 }
 
-const { src, alt, caption, className, variant = 'panel' } = Astro.props;
+const {
+  src,
+  alt,
+  width,
+  height,
+  sizes,
+  imgSrcset,
+  avifSrcset,
+  webpSrcset,
+  caption,
+  className,
+  variant = 'panel',
+} = Astro.props;
 ---
-<figure class:list={[`illustration illustration--${variant}`, className]}> 
+<figure class:list={[`illustration illustration--${variant}`, className]}>
   <div class="illustration__frame">
-    <img src={src} alt={alt} loading="lazy" decoding="async" />
+    <picture>
+      {avifSrcset ? (
+        <source type="image/avif" srcset={avifSrcset} sizes={sizes} />
+      ) : null}
+      {webpSrcset ? (
+        <source type="image/webp" srcset={webpSrcset} sizes={sizes} />
+      ) : null}
+      <img
+        src={src}
+        srcset={imgSrcset}
+        sizes={sizes}
+        width={width}
+        height={height}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
     <span class="illustration__halo" aria-hidden="true" />
   </div>
   {caption ? <figcaption class="muted">{caption}</figcaption> : null}
