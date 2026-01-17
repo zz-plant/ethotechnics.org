@@ -251,10 +251,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio for risky or unclear scores.",
-      ctaLabel: "Open the burden modeler",
+      ctaLabel: "Run the burden modeler",
       ctaHref: "/diagnostics/burden-modeler",
-      ctaAriaLabel: "Open the burden modeler diagnostic tool",
-      exampleLabel: "See burden model outputs",
+      ctaAriaLabel: "Run the Burden Modeler diagnostic tool",
+      exampleLabel: "View burden model output sample",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#burden-modeler",
       deliveryType: "self-serve",
@@ -357,7 +357,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
-      ctaLabel: "Request via Studio",
+      ctaLabel: "Request a facilitation session",
       ctaHref: "https://ethotechnics.com/studio",
       ctaAriaLabel:
         "Request an LLM readiness check through ethotechnics.com/studio",
@@ -464,9 +464,9 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.",
-      ctaLabel: "Open the maintenance simulator",
+      ctaLabel: "Run the maintenance simulator",
       ctaHref: "/diagnostics/maintenance-simulator",
-      ctaAriaLabel: "Open the maintenance simulator",
+      ctaAriaLabel: "Run the Maintenance Windowing simulator",
       exampleLabel: "Preview a simulation output",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#maintenance-simulator",
@@ -569,9 +569,9 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
-      ctaLabel: "Open the capacity forecaster",
+      ctaLabel: "Run the capacity forecaster",
       ctaHref: "/diagnostics/capacity-forecaster",
-      ctaAriaLabel: "Open the Technical Capacity Forecaster tool",
+      ctaAriaLabel: "Run the Technical Capacity Forecaster tool",
       exampleLabel: "View capacity forecast examples",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
@@ -673,9 +673,9 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Use the Studio handoff if ownership or coverage changes are contested.",
-      ctaLabel: "Open the escalation coverage planner",
+      ctaLabel: "Run the escalation coverage planner",
       ctaHref: "/diagnostics/escalation-coverage-planner",
-      ctaAriaLabel: "Open the Escalation Coverage Planner",
+      ctaAriaLabel: "Run the Escalation Coverage Planner",
       exampleLabel: "View output baseline",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",
@@ -776,9 +776,9 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Studio support is recommended if evidence gaps affect launch readiness.",
-      ctaLabel: "Open evidence readiness check",
+      ctaLabel: "Run evidence readiness check",
       ctaHref: "/diagnostics/evidence-pack-readiness",
-      ctaAriaLabel: "Open the Evidence Pack Readiness tool",
+      ctaAriaLabel: "Run the Evidence Pack Readiness tool",
       exampleLabel: "View output baseline",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",

@@ -222,6 +222,15 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               </a>
             </h3>
             <p>{pattern.summary}</p>
+            <div class="pattern-card__actions">
+              <a
+                class="button ghost button--compact"
+                href={detailHref}
+                aria-label={`Read the full ${pattern.title} mechanism`}
+              >
+                Read full mechanism
+              </a>
+            </div>
             {glossaryAnchors.length > 0 && (
               <p class="muted pattern-card__glossary">
                 Glossary anchors:{" "}

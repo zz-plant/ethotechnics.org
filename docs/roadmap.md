@@ -17,9 +17,11 @@ outcome) and link to a spec section below once scoped.
 |                                                               | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   | - [Contestability pattern library](#contestability-pattern-library)                 |
 |                                                               | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
 |                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Language people can use](#language-people-can-use)                               |
-|                                                               |                                                                                                   | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
-|                                                               |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
-|                                                               |                                                                                                   | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
+|                                                               | - [Desktop navigation visibility](#desktop-navigation-visibility)                                 | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
+|                                                               | - [Homepage narrative clarity](#homepage-narrative-clarity)                                       | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
+|                                                               | - [Diagnostics CTA clarity](#diagnostics-cta-clarity)                                             | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
+|                                                               | - [Pattern detail actions](#pattern-detail-actions)                                               |                                                                                     |
+|                                                               | - [Hero hierarchy performance audit](#hero-hierarchy-performance-audit)                           |                                                                                     |
 
 ## Spec template
 
@@ -64,6 +66,62 @@ under this heading and link to it from the roadmap table.
   rankings.
 - **Dependencies/risks:** Needs stable identifiers for rights, validators, and mechanisms.
 - **Issue link:** Issue: TBD / Spec: #rights-to-validators-to-mechanisms-matrix
+
+## Desktop navigation visibility
+
+- **Problem:** Core destinations remain hidden behind the navigation overlay on desktop.
+- **Scope:** Expose top-level links (Library, Institute, Diagnostics) in the desktop header while
+  keeping the overlay for deeper navigation.
+- **UX/Tech notes:** Keep SSR navigation and skip-link behavior; avoid layout shifts and preserve
+  current structure in `Navigation.astro`.
+- **Acceptance criteria:** Desktop nav surfaces the primary destinations without opening the panel;
+  keyboard focus order remains predictable.
+- **Dependencies/risks:** Requires coordinated styling updates in global navigation styles.
+- **Issue link:** Issue: TBD / Spec: #desktop-navigation-visibility
+
+## Homepage narrative clarity
+
+- **Problem:** The homepage narrative can undersell the mission and focus areas early.
+- **Scope:** Strengthen hero/subheadline and the “How this works” strip copy via `homeContent`
+  updates only.
+- **UX/Tech notes:** Preserve layout per page specs; update content module instead of inline copy.
+- **Acceptance criteria:** Hero explicitly names delivery, research, and governance; info strip
+  reinforces the mission without layout changes.
+- **Dependencies/risks:** Needs copy alignment across home and start-here routes.
+- **Issue link:** Issue: TBD / Spec: #homepage-narrative-clarity
+
+## Diagnostics CTA clarity
+
+- **Problem:** Diagnostics cards lack clear “start” actions and consistent examples.
+- **Scope:** Revise CTA labels and aria-label fallbacks in `diagnosticsContent` to be action-oriented
+  and consistent across tools.
+- **UX/Tech notes:** Keep primary/ghost action structure; update content rather than layout.
+- **Acceptance criteria:** Each tool has a distinct primary CTA and a consistent example/output
+  action with accessible labels.
+- **Dependencies/risks:** Requires syncing labels with tool descriptions and outputs copy.
+- **Issue link:** Issue: TBD / Spec: #diagnostics-cta-clarity
+
+## Pattern detail actions
+
+- **Problem:** Pattern cards stop at summaries without a path to deeper usage guidance.
+- **Scope:** Add a server-rendered details action per pattern and, if needed, new detail routes.
+- **UX/Tech notes:** Favor SSR routes over client-side expansions; reuse CardGrid/CardItem patterns.
+- **Acceptance criteria:** Pattern entries include a clear “Details” or “Read more” action that leads
+  to fuller content without additional JS.
+- **Dependencies/risks:** Requires defining the detail route structure and content ownership.
+- **Issue link:** Issue: TBD / Spec: #pattern-detail-actions
+
+## Hero hierarchy performance audit
+
+- **Problem:** Typography or hero imagery changes can risk CLS/LCP regressions.
+- **Scope:** Audit hero imagery, typography scale, and layout to confirm CLS=0 and LCP < 2.5s after
+  hierarchy changes.
+- **UX/Tech notes:** Enforce explicit image dimensions/aspect ratios; reuse `--grain-texture` and
+  avoid runtime filters on large surfaces.
+- **Acceptance criteria:** Hero changes ship with no CLS regressions, LCP remains within budget, and
+  manual timing notes recorded when visuals change.
+- **Dependencies/risks:** Requires manual verification and possible image optimization.
+- **Issue link:** Issue: TBD / Spec: #hero-hierarchy-performance-audit
 
 ## Where this binds (surface)
 
