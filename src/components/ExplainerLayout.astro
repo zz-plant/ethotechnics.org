@@ -94,9 +94,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="Short definition"
     description="Two-to-four sentences you can drop into briefs or specs."
   >
-    {definition.map((paragraph) => (
-      <p>{paragraph}</p>
-    ))}
+    {definition.map((paragraph) => <p>{paragraph}</p>)}
   </SectionBlock>
 
   <SectionBlock
@@ -116,19 +114,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Standards, bindings, and evidence packs to move from concept to adoption."
   >
     <CardGrid className="grid--three">
-      {ctas.map((cta) => (
-        <CardItem
-          eyebrow={cta.eyebrow}
-          title={cta.title}
-          description={cta.description}
-        >
-          <p slot="footer">
-            <a class="button ghost button--compact" href={cta.href}>
-              {cta.ctaLabel}
-            </a>
-          </p>
-        </CardItem>
-      ))}
+      {
+        ctas.map((cta) => (
+          <CardItem
+            eyebrow={cta.eyebrow}
+            title={cta.title}
+            description={cta.description}
+          >
+            <p slot="footer">
+              <a class="button ghost button--compact" href={cta.href}>
+                {cta.ctaLabel}
+              </a>
+            </p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -140,15 +140,17 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {faqs.map((faq) => (
-        <CardItem
-          title={faq.question}
-          description={faq.answer}
-          descriptionTone="default"
-        />
-      ))}
+      {
+        faqs.map((faq) => (
+          <CardItem
+            title={faq.question}
+            description={faq.answer}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
-  <script type="application/ld+json" set:html={structuredDataJson} />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>

@@ -577,5 +577,211 @@ export const diagnosticsContent: DiagnosticsContent = {
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
       deliveryType: "self-serve",
     },
+    {
+      slug: "escalation-coverage-planner",
+      title: "Escalation Coverage Planner",
+      description:
+        "Scores escalation readiness so you can see where owners, on-call coverage, and drill cadence are still thin.",
+      methodCards: {
+        measures: [
+          "Ownership coverage across systems and routes.",
+          "On-call coverage windows for escalation.",
+          "Drill cadence for testing and response readiness.",
+        ],
+        doesNotMeasure: [
+          "Incident volume or severity forecasts.",
+          "Legal compliance posture.",
+          "Individual performance assessments.",
+        ],
+        assumptions: [
+          "Escalation ownership is documented and current.",
+          "Coverage windows reflect actual staffing.",
+          "Drills are comparable across teams.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "Ownership model for escalations.",
+          "Coverage window for escalation response.",
+          "Drill cadence for escalation paths.",
+        ],
+        procedure: [
+          "Score each input against the readiness rubric.",
+          "Generate a coverage score and tier.",
+          "Export the shareable link for audits.",
+        ],
+        outputs: [
+          "Coverage score out of 100 with tier label.",
+          "Priority notes for addressing weak coverage.",
+          "Shareable URL for reviews and runbooks.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "Ownership model for escalations.",
+          "Coverage window for response.",
+          "Drill cadence for escalation paths.",
+        ],
+        rubric: [
+          "Ownership scored on dedicated/shared/none.",
+          "Coverage scored on 24/7, business-hours, ad hoc.",
+          "Drills scored on quarterly, annual, never.",
+        ],
+        scoringLogic: [
+          "Total score combines ownership, coverage, and drill cadence.",
+          "Tier labels map to score thresholds.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Calibrated against escalation readiness reviews in incident retrospectives.",
+        reliability:
+          "Scores align when multiple stakeholders confirm coverage windows.",
+        failureModes: [
+          "Missing ownership records skew coverage scores downward.",
+          "Overstated coverage hours inflate readiness.",
+          "Drill cadence definitions vary across teams.",
+        ],
+      },
+      replicability: {
+        runSteps: [
+          "Confirm escalation owners and coverage windows.",
+          "Enter the current drill cadence.",
+          "Review the readiness tier and share the link.",
+        ],
+        exampleOutputs: [
+          "Coverage scorecard with tier and readiness notes.",
+          "Audit-ready link for escalation evidence packs.",
+        ],
+      },
+      bestFor:
+        "Best for governance teams validating escalation coverage before launch or policy changes.",
+      readiness: [
+        "Run before launches or policy shifts to verify on-call coverage.",
+        "Use during audits to confirm escalation paths are tested.",
+      ],
+      outputs: [
+        "Escalation coverage score with tier label.",
+        "Linkable results page for audit trails.",
+        "Priority notes for tightening coverage gaps.",
+      ],
+      estimatedTime: "8–10 minutes",
+      prepChecklist: [
+        "Named escalation owners.",
+        "Current on-call coverage window.",
+        "Recent drill or tabletop cadence.",
+      ],
+      studioNote:
+        "Use the Studio handoff if ownership or coverage changes are contested.",
+      ctaLabel: "Open the escalation coverage planner",
+      ctaHref: "/diagnostics/escalation-coverage-planner",
+      ctaAriaLabel: "Open the Escalation Coverage Planner",
+      exampleLabel: "View output baseline",
+      exampleHref: "/diagnostics#output-baseline",
+      deliveryType: "self-serve",
+    },
+    {
+      slug: "evidence-pack-readiness",
+      title: "Evidence Pack Readiness",
+      description:
+        "Benchmarks evidence pack maturity so teams can prioritize what is missing before audits.",
+      methodCards: {
+        measures: [
+          "Evidence cadence coverage for releases.",
+          "Artifact completeness across standards.",
+          "Audit response timing confidence.",
+        ],
+        doesNotMeasure: [
+          "Legal conclusions or policy compliance.",
+          "Individual accountability assessments.",
+          "External regulator outcomes.",
+        ],
+        assumptions: [
+          "Artifact inventories are up to date.",
+          "Cadence reflects actual release rhythm.",
+          "Teams agree on audit response targets.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "Evidence cadence and artifact completeness.",
+          "Audit response timing target.",
+          "Known gaps by standard.",
+        ],
+        procedure: [
+          "Score evidence cadence, completeness, and response timing.",
+          "Generate a readiness tier and checklist.",
+          "Share the readout with governance partners.",
+        ],
+        outputs: [
+          "Readiness score and tier label.",
+          "Checklist of missing artifacts.",
+          "Shareable summary link.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "Evidence cadence for releases.",
+          "Percent of required artifacts ready.",
+          "Audit response time target.",
+        ],
+        rubric: [
+          "Cadence scored on release/quarterly/ad hoc.",
+          "Completeness scored on >90%, 70–90%, <70%.",
+          "Response timing scored on <5 days, 1–4 weeks, >1 month.",
+        ],
+        scoringLogic: [
+          "Total score combines cadence, completeness, and response timing.",
+          "Tier labels map to score thresholds.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Aligned with evidence pack reviews and release gate retrospectives.",
+        reliability:
+          "Scores stabilize when evidence inventories are reviewed quarterly.",
+        failureModes: [
+          "Incomplete inventories understate readiness.",
+          "Overstated completeness inflates scores.",
+          "Response timing assumptions vary by regulator.",
+        ],
+      },
+      replicability: {
+        runSteps: [
+          "Confirm evidence cadence and artifact inventory.",
+          "Score readiness across cadence, completeness, timing.",
+          "Share the readout with audit partners.",
+        ],
+        exampleOutputs: [
+          "Evidence pack readiness scorecard.",
+          "Checklist of missing evidence artifacts.",
+        ],
+      },
+      bestFor:
+        "Best for teams preparing evidence packs before audits or procurement reviews.",
+      readiness: [
+        "Run before audits to confirm artifact readiness.",
+        "Use for procurement or vendor checks to validate evidence cadence.",
+      ],
+      outputs: [
+        "Evidence readiness score and tier.",
+        "Checklist for missing artifacts and timing gaps.",
+        "Linkable summary for audits or procurement.",
+      ],
+      estimatedTime: "10–12 minutes",
+      prepChecklist: [
+        "Latest evidence pack inventory.",
+        "Release cadence or audit schedule.",
+        "Audit response target window.",
+      ],
+      studioNote:
+        "Studio support is recommended if evidence gaps affect launch readiness.",
+      ctaLabel: "Open evidence readiness check",
+      ctaHref: "/diagnostics/evidence-pack-readiness",
+      ctaAriaLabel: "Open the Evidence Pack Readiness tool",
+      exampleLabel: "View output baseline",
+      exampleHref: "/diagnostics#output-baseline",
+      deliveryType: "self-serve",
+    },
   ],
 };

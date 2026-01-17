@@ -1,9 +1,13 @@
 ---
-import { randomUUID } from 'node:crypto';
+import { randomUUID } from "node:crypto";
 
-import type { Pattern, PatternFilter } from '../content/library';
-import { getGlossaryLabel, glossaryEntryPermalink } from '../utils/glossary';
-import patternFilterScript from '../scripts/pattern-filter.ts?url';
+import type { Pattern, PatternFilter } from "../content/library";
+import {
+  getGlossaryDefinition,
+  getGlossaryLabel,
+  glossaryEntryPermalink,
+} from "../utils/glossary";
+import patternFilterScript from "../scripts/pattern-filter.ts?url";
 
 type Props = {
   filters: PatternFilter[];
@@ -14,46 +18,54 @@ type Props = {
 
 const { filters, entries, diagnosticTitles, searchId } = Astro.props as Props;
 const filterLabels = Object.fromEntries(
-  filters.map((filter) => [filter.slug, filter.label])
+  filters.map((filter) => [filter.slug, filter.label]),
 );
-const filtersWithAll: Array<{ slug: string; label: string; description?: string }> = [
-  { slug: 'all', label: 'All themes' },
-  ...filters,
-];
+const filtersWithAll: Array<{
+  slug: string;
+  label: string;
+  description?: string;
+}> = [{ slug: "all", label: "All themes" }, ...filters];
 const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
 ---
+
 <div
   class="pattern-filter"
   data-pattern-filter
-  data-filters={filters.map((filter) => filter.slug).join(',')}
+  data-filters={filters.map((filter) => filter.slug).join(",")}
   data-filter-labels={JSON.stringify(filterLabels)}
 >
   <div class="pattern-filter__controls">
     <ul class="pill-list">
-      {filtersWithAll.map((filter) => {
-        const isAll = filter.slug === 'all';
+      {
+        filtersWithAll.map((filter) => {
+          const isAll = filter.slug === "all";
 
-        return (
-          <li class={`pill-list__item${isAll ? ' pill-list__item--active' : ''}`}>
-            <button
-              type="button"
-              class="pill-list__button"
-              aria-pressed={isAll}
-              data-filter={filter.slug}
-              aria-label={
-                filter.slug === 'all'
-                  ? 'Show all mechanisms'
-                  : `Filter mechanisms by ${filter.label} and update visible results`
-              }
+          return (
+            <li
+              class={`pill-list__item${isAll ? " pill-list__item--active" : ""}`}
             >
-              {filter.label}
-            </button>
-            {!isAll && filter.description ? (
-              <p class="muted small pattern-filter__description">{filter.description}</p>
-            ) : null}
-          </li>
-        );
-      })}
+              <button
+                type="button"
+                class="pill-list__button"
+                aria-pressed={isAll}
+                data-filter={filter.slug}
+                aria-label={
+                  filter.slug === "all"
+                    ? "Show all mechanisms"
+                    : `Filter mechanisms by ${filter.label} and update visible results`
+                }
+              >
+                {filter.label}
+              </button>
+              {!isAll && filter.description ? (
+                <p class="muted small pattern-filter__description">
+                  {filter.description}
+                </p>
+              ) : null}
+            </li>
+          );
+        })
+      }
     </ul>
     <label class="pattern-filter__search" for={searchInputId}>
       <span class="muted">Search mechanisms</span>
@@ -69,6 +81,32 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
     <p class="muted" role="status" aria-live="polite" data-filter-status>
       Showing all mechanisms.
     </p>
+    <div class="pattern-filter__saved">
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-save-filters
+      >
+        Save filters
+      </button>
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-restore-filters
+      >
+        Restore saved
+      </button>
+      <button
+        class="button ghost button--compact"
+        type="button"
+        data-clear-filters
+      >
+        Clear filters
+      </button>
+      <p class="muted small" data-saved-status aria-live="polite">
+        Filters are stored locally.
+      </p>
+    </div>
     <div class="pattern-bundle" data-pattern-bundle>
       <div class="pattern-bundle__header">
         <div class="pattern-bundle__copy">
@@ -82,7 +120,12 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
           <button class="button" type="button" data-download-bundle disabled>
             Download markdown
           </button>
-          <button class="button button--subtle" type="button" data-print-bundle disabled>
+          <button
+            class="button button--subtle"
+            type="button"
+            data-print-bundle
+            disabled
+          >
             Save as PDF
           </button>
           <button class="copy-button" type="button" data-copy-bundle disabled>
@@ -121,119 +164,137 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
     </div>
   </div>
   <div class="grid" data-pattern-results>
-    {entries.map((pattern) => {
-      const appliedFilters = pattern.filters
-        .map((filter) => filterLabels[filter] ?? filter)
-        .join(', ');
-      const detailHref = `/mechanisms/patterns/${pattern.slug}`;
-      const teaserSteps = pattern.steps.slice(0, 2);
-      const searchContent = [
-        pattern.title,
-        pattern.summary,
-        pattern.cues.join(' '),
-        pattern.steps.join(' '),
-        pattern.artifacts.map((artifact) => `${artifact.name} ${artifact.purpose}`).join(' '),
-        pattern.glossaryRefs.map((slug) => getGlossaryLabel(slug)).join(' '),
-        pattern.example.description,
-      ]
-        .join(' ')
-        .toLowerCase();
-      const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
-        slug,
-        label: getGlossaryLabel(slug),
-        href: glossaryEntryPermalink(slug),
-      }));
+    {
+      entries.map((pattern) => {
+        const appliedFilters = pattern.filters
+          .map((filter) => filterLabels[filter] ?? filter)
+          .join(", ");
+        const detailHref = `/mechanisms/patterns/${pattern.slug}`;
+        const teaserSteps = pattern.steps.slice(0, 2);
+        const searchContent = [
+          pattern.title,
+          pattern.summary,
+          pattern.cues.join(" "),
+          pattern.steps.join(" "),
+          pattern.artifacts
+            .map((artifact) => `${artifact.name} ${artifact.purpose}`)
+            .join(" "),
+          pattern.glossaryRefs.map((slug) => getGlossaryLabel(slug)).join(" "),
+          pattern.example.description,
+        ]
+          .join(" ")
+          .toLowerCase();
+        const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
+          slug,
+          label: getGlossaryLabel(slug),
+          definition: getGlossaryDefinition(slug),
+          href: glossaryEntryPermalink(slug),
+        }));
 
-      return (
-        <article
-          class="card"
-          id={pattern.slug}
-          data-pattern-card
-          data-filters={pattern.filters.join(',')}
-          data-search={searchContent}
-        >
-          <div class="card__glow" aria-hidden="true" />
-          <div class="pattern-card__meta">
-            <p class="muted">Filters: {appliedFilters}</p>
-            <label class="pattern-card__select" for={`${pattern.slug}-bundle`}>
-              <input
-                id={`${pattern.slug}-bundle`}
-                type="checkbox"
-                value={pattern.slug}
-                data-pattern-select
-                aria-label={`Save ${pattern.title} to your bundle`}
-              />
-              <span>Save to bundle</span>
-            </label>
-          </div>
-          <h3>
-            <a class="pattern-card__title" href={detailHref}>
-              {pattern.title}
-            </a>
-          </h3>
-          <p>{pattern.summary}</p>
-          {glossaryAnchors.length > 0 && (
-            <p class="muted pattern-card__glossary">
-              Glossary anchors:{' '}
-              {glossaryAnchors.map((anchor, index) => {
-                const separator = index < glossaryAnchors.length - 1 ? ', ' : '';
+        return (
+          <article
+            class="card"
+            id={pattern.slug}
+            data-pattern-card
+            data-filters={pattern.filters.join(",")}
+            data-search={searchContent}
+          >
+            <div class="card__glow" aria-hidden="true" />
+            <div class="pattern-card__meta">
+              <p class="muted">Filters: {appliedFilters}</p>
+              <label
+                class="pattern-card__select"
+                for={`${pattern.slug}-bundle`}
+              >
+                <input
+                  id={`${pattern.slug}-bundle`}
+                  type="checkbox"
+                  value={pattern.slug}
+                  data-pattern-select
+                  aria-label={`Save ${pattern.title} to your bundle`}
+                />
+                <span>Save to bundle</span>
+              </label>
+            </div>
+            <h3>
+              <a class="pattern-card__title" href={detailHref}>
+                {pattern.title}
+              </a>
+            </h3>
+            <p>{pattern.summary}</p>
+            {glossaryAnchors.length > 0 && (
+              <p class="muted pattern-card__glossary">
+                Glossary anchors:{" "}
+                {glossaryAnchors.map((anchor, index) => {
+                  const separator =
+                    index < glossaryAnchors.length - 1 ? ", " : "";
+
+                  return (
+                    <span>
+                      <a
+                        href={anchor.href}
+                        title={anchor.definition || undefined}
+                      >
+                        {anchor.label}
+                      </a>
+                      {separator}
+                    </span>
+                  );
+                })}
+              </p>
+            )}
+            <details class="pattern-card__teaser">
+              <summary>Preview steps</summary>
+              <ul class="pill-list">
+                {teaserSteps.map((cue) => (
+                  <li>{cue}</li>
+                ))}
+              </ul>
+              <p class="muted pattern-card__example">
+                Example: {pattern.example.title}
+              </p>
+              <a class="pattern-card__link" href={detailHref}>
+                Open mechanism detail
+              </a>
+            </details>
+            <p class="muted">
+              Diagnostics{" "}
+              {pattern.diagnostics.map((slug, index) => {
+                const label = diagnosticTitles[slug] ?? slug;
+                const separator =
+                  index < pattern.diagnostics.length - 1 ? ", " : "";
 
                 return (
                   <span>
-                    <a href={anchor.href}>{anchor.label}</a>
+                    <a href={`/diagnostics#${slug}`}>{label}</a>
                     {separator}
                   </span>
                 );
               })}
             </p>
-          )}
-          <details class="pattern-card__teaser">
-            <summary>Preview steps</summary>
-            <ul class="pill-list">
-              {teaserSteps.map((cue) => (
-                <li>{cue}</li>
-              ))}
-            </ul>
-            <p class="muted pattern-card__example">Example: {pattern.example.title}</p>
-            <a class="pattern-card__link" href={detailHref}>
-              Open mechanism detail
-            </a>
-          </details>
-          <p class="muted">
-            Diagnostics{' '}
-            {pattern.diagnostics.map((slug, index) => {
-              const label = diagnosticTitles[slug] ?? slug;
-              const separator = index < pattern.diagnostics.length - 1 ? ', ' : '';
-
-              return (
-                <span>
-                  <a href={`/diagnostics#${slug}`}>{label}</a>
-                  {separator}
-                </span>
-              );
-            })}
-          </p>
-          <script type="application/json" data-pattern-payload>
-            {JSON.stringify({
-              slug: pattern.slug,
-              title: pattern.title,
-              summary: pattern.summary,
-              filters: pattern.filters,
-              glossaryRefs: pattern.glossaryRefs,
-              cues: pattern.cues,
-              diagnostics: pattern.diagnostics,
-              steps: pattern.steps,
-              artifacts: pattern.artifacts,
-              example: pattern.example,
-            })}
-          </script>
-        </article>
-      );
-    })}
-    <p class="muted" data-empty hidden>
-      No mechanisms match your filters yet.
-    </p>
+            <script
+              type="application/json"
+              data-pattern-payload
+              is:inline
+              set:html={JSON.stringify({
+                slug: pattern.slug,
+                title: pattern.title,
+                summary: pattern.summary,
+                filters: pattern.filters,
+                glossaryRefs: pattern.glossaryRefs,
+                cues: pattern.cues,
+                diagnostics: pattern.diagnostics,
+                steps: pattern.steps,
+                artifacts: pattern.artifacts,
+                example: pattern.example,
+              })}
+            />
+          </article>
+        );
+      })
+    }
+    <p class="muted" data-empty hidden>No mechanisms match your filters yet.</p>
   </div>
 </div>
 
-<script type="module" src={patternFilterScript}></script>
+<script type="module" src={patternFilterScript} is:inline></script>

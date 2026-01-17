@@ -24,7 +24,9 @@ const { id = "results" } = Astro.props;
       >
         <p class="muted">Overall score</p>
         <p class="metric" data-gap-score>--</p>
-        <span class="status-pill status-pill--yellow" data-gap-status>Steady</span>
+        <span class="status-pill status-pill--yellow" data-gap-status
+          >Steady</span
+        >
         <p class="muted" data-gap-summary>
           Capture the missing evidence and rerun the check after remediation.
         </p>
@@ -46,6 +48,12 @@ const { id = "results" } = Astro.props;
           <button class="button ghost" type="button" data-gap-download>
             Download JSON
           </button>
+          <button class="button ghost" type="button" data-gap-download-csv>
+            Download CSV
+          </button>
+          <button class="button ghost" type="button" data-gap-download-pdf>
+            Save PDF
+          </button>
         </div>
       </CardItem>
       <CardItem
@@ -54,7 +62,9 @@ const { id = "results" } = Astro.props;
       >
         <ul class="muted">
           <li>Use it to triage governance gaps before formal reviews.</li>
-          <li>Confirm outputs with internal policy, legal, and security owners.</li>
+          <li>
+            Confirm outputs with internal policy, legal, and security owners.
+          </li>
           <li>Pair the score with evidence packs for verifiable proof.</li>
         </ul>
       </CardItem>
@@ -63,8 +73,12 @@ const { id = "results" } = Astro.props;
         description="Move from scoring to remediation with the Institute toolchain."
       >
         <div class="actions">
-          <a class="button primary" href="/diagnostics">Run deeper diagnostics</a>
-          <a class="button ghost" href="/evidence-packs">Review evidence packs</a>
+          <a class="button primary" href="/diagnostics"
+            >Run deeper diagnostics</a
+          >
+          <a class="button ghost" href="/evidence-packs"
+            >Review evidence packs</a
+          >
         </div>
       </CardItem>
     </CardGrid>

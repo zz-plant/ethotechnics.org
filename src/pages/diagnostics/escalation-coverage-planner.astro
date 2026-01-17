@@ -1,0 +1,346 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "escalation-coverage-planner",
+);
+
+if (!tool) {
+  return Astro.response(
+    new Response("Diagnostic not found", {
+      status: 404,
+    }),
+  );
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#methodology", label: "Methodology" },
+  { href: "#run-tool", label: "Run the tool" },
+  { href: "#results", label: "Results" },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="Diagnostics"
+    title={tool.title}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "What you receive",
+      title: "Escalation coverage scorecard.",
+      description: tool.outputs.join(" "),
+    }}
+  />
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={tool.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`diagnostic_${tool.slug}`}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="When to use the escalation coverage planner."
+    description={tool.bestFor}
+  >
+    <ul class="muted">
+      {tool.prepChecklist.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="muted">Estimated time: {tool.estimatedTime}</p>
+    <p class="muted">{tool.studioNote}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="methodology"
+    eyebrow="Methodology"
+    title="Coverage scoring inputs and thresholds."
+    description="Inputs, scoring logic, validation notes, and failure modes used in the planner."
+    variant="alt"
+  >
+    <DiagnosticMethodology
+      methodCards={tool.methodCards}
+      methodOverview={tool.methodOverview}
+      instrument={tool.instrument}
+      validation={tool.validation}
+      replicability={tool.replicability}
+    />
+  </SectionBlock>
+
+  <SectionBlock
+    id="run-tool"
+    eyebrow="Run the tool"
+    title="Score escalation coverage."
+    description="Use three inputs to calculate a shareable coverage score."
+  >
+    <form class="intake-form" data-coverage-form>
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          Escalation owner coverage
+          <select id="owner" name="owner" required>
+            <option value="dedicated">Dedicated owner per system</option>
+            <option value="shared">Shared ownership across teams</option>
+            <option value="none">No assigned owner</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          On-call coverage window
+          <select id="coverage" name="coverage" required>
+            <option value="24-7">24/7 coverage</option>
+            <option value="business">Business hours only</option>
+            <option value="ad-hoc">Ad hoc coverage</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Escalation drill cadence
+          <select id="drills" name="drills" required>
+            <option value="quarterly">Quarterly drills</option>
+            <option value="annual">Annual drills</option>
+            <option value="never">No drills yet</option>
+          </select>
+        </label>
+      </fieldset>
+      <div class="intake-form__actions">
+        <button class="button primary" type="submit" data-coverage-submit>
+          Calculate coverage
+        </button>
+      </div>
+    </form>
+  </SectionBlock>
+
+  <SectionBlock
+    id="results"
+    eyebrow="Results"
+    title="Escalation coverage readout."
+    description="Share the readout with governance partners or include it in evidence packs."
+    variant="alt"
+  >
+    <div class="panel" data-coverage-results hidden>
+      <p class="muted">Coverage score</p>
+      <p class="metric" data-coverage-score>--</p>
+      <span class="status-pill status-pill--yellow" data-coverage-tier
+        >Steady</span
+      >
+      <p class="muted" data-coverage-summary>
+        Complete the form above to generate your score.
+      </p>
+      <label class="intake-form__field intake-form__field--full">
+        Shareable link
+        <input
+          type="text"
+          readonly
+          data-coverage-share
+          aria-label="Shareable results link"
+        />
+      </label>
+      <div class="intake-form__actions">
+        <button class="button ghost" type="button" data-coverage-copy>
+          Copy share link
+        </button>
+      </div>
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-coverage-form]");
+  const results = document.querySelector<HTMLElement>(
+    "[data-coverage-results]",
+  );
+  const scoreValue = document.querySelector<HTMLElement>(
+    "[data-coverage-score]",
+  );
+  const tierLabel = document.querySelector<HTMLElement>("[data-coverage-tier]");
+  const summaryText = document.querySelector<HTMLElement>(
+    "[data-coverage-summary]",
+  );
+  const shareInput = document.querySelector<HTMLInputElement>(
+    "[data-coverage-share]",
+  );
+  const copyButton = document.querySelector<HTMLButtonElement>(
+    "[data-coverage-copy]",
+  );
+
+  type OwnerValue = "dedicated" | "shared" | "none";
+  type CoverageValue = "24-7" | "business" | "ad-hoc";
+  type DrillValue = "quarterly" | "annual" | "never";
+  type CoverageValues = {
+    owner: OwnerValue;
+    coverage: CoverageValue;
+    drills: DrillValue;
+  };
+
+  const scoreMatrix = {
+    owner: {
+      dedicated: 40,
+      shared: 25,
+      none: 10,
+    },
+    coverage: {
+      "24-7": 40,
+      business: 25,
+      "ad-hoc": 10,
+    },
+    drills: {
+      quarterly: 20,
+      annual: 12,
+      never: 5,
+    },
+  };
+
+  const tierMap = [
+    {
+      label: "Strong",
+      min: 80,
+      status: "green",
+      summary:
+        "Coverage is resilient. Keep drills on cadence and confirm owners quarterly.",
+    },
+    {
+      label: "Steady",
+      min: 60,
+      status: "yellow",
+      summary:
+        "Coverage is workable but uneven. Confirm coverage windows and drill cadence.",
+    },
+    {
+      label: "Exposed",
+      min: 40,
+      status: "red",
+      summary:
+        "Coverage gaps are material. Assign owners and formalize response windows.",
+    },
+    {
+      label: "Critical",
+      min: 0,
+      status: "red",
+      summary:
+        "Coverage is missing. Pause launch plans until escalation coverage is defined.",
+    },
+  ];
+
+  const getTier = (score: number) =>
+    tierMap.find((tier) => score >= tier.min) ?? tierMap[tierMap.length - 1];
+
+  const calculateScore = (values: CoverageValues) => {
+    const ownerScore = scoreMatrix.owner[values.owner] ?? 0;
+    const coverageScore = scoreMatrix.coverage[values.coverage] ?? 0;
+    const drillsScore = scoreMatrix.drills[values.drills] ?? 0;
+
+    return ownerScore + coverageScore + drillsScore;
+  };
+
+  const setShareUrl = (values: CoverageValues, score: number, tier: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("owner", values.owner);
+    url.searchParams.set("coverage", values.coverage);
+    url.searchParams.set("drills", values.drills);
+    url.searchParams.set("score", String(score));
+    url.searchParams.set("tier", tier.toLowerCase());
+    history.replaceState(null, "", url.toString());
+    if (shareInput) {
+      shareInput.value = url.toString();
+    }
+  };
+
+  const renderResults = (values: CoverageValues, score: number) => {
+    if (!results || !scoreValue || !tierLabel || !summaryText) return;
+
+    const tier = getTier(score);
+    scoreValue.textContent = `${score} / 100`;
+    tierLabel.textContent = tier.label;
+    tierLabel.classList.remove(
+      "status-pill--green",
+      "status-pill--yellow",
+      "status-pill--red",
+    );
+    tierLabel.classList.add(`status-pill--${tier.status}`);
+    summaryText.textContent = tier.summary;
+    results.hidden = false;
+    setShareUrl(values, score, tier.label);
+  };
+
+  const applyParams = () => {
+    if (!form) return;
+    const params = new URLSearchParams(window.location.search);
+    const owner = params.get("owner") ?? "";
+    const coverage = params.get("coverage") ?? "";
+    const drills = params.get("drills") ?? "";
+
+    const isOwnerValue = (value: string): value is OwnerValue =>
+      ["dedicated", "shared", "none"].includes(value);
+    const isCoverageValue = (value: string): value is CoverageValue =>
+      ["24-7", "business", "ad-hoc"].includes(value);
+    const isDrillValue = (value: string): value is DrillValue =>
+      ["quarterly", "annual", "never"].includes(value);
+
+    if (
+      isOwnerValue(owner) &&
+      isCoverageValue(coverage) &&
+      isDrillValue(drills)
+    ) {
+      const ownerField = form.elements.namedItem("owner");
+      const coverageField = form.elements.namedItem("coverage");
+      const drillsField = form.elements.namedItem("drills");
+      if (ownerField instanceof HTMLSelectElement) ownerField.value = owner;
+      if (coverageField instanceof HTMLSelectElement)
+        coverageField.value = coverage;
+      if (drillsField instanceof HTMLSelectElement) drillsField.value = drills;
+      const values = { owner, coverage, drills };
+      renderResults(values, calculateScore(values));
+    }
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form) return;
+
+    if (!form.reportValidity()) return;
+    const data = new FormData(form);
+    const owner = String(data.get("owner") ?? "");
+    const coverage = String(data.get("coverage") ?? "");
+    const drills = String(data.get("drills") ?? "");
+
+    if (
+      (owner === "dedicated" || owner === "shared" || owner === "none") &&
+      (coverage === "24-7" ||
+        coverage === "business" ||
+        coverage === "ad-hoc") &&
+      (drills === "quarterly" || drills === "annual" || drills === "never")
+    ) {
+      const values: CoverageValues = { owner, coverage, drills };
+      renderResults(values, calculateScore(values));
+      results?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  copyButton?.addEventListener("click", async () => {
+    if (!(shareInput instanceof HTMLInputElement)) return;
+    shareInput.select();
+    try {
+      await navigator.clipboard.writeText(shareInput.value);
+    } catch {
+      // fall back to manual copy
+    }
+  });
+
+  applyParams();
+</script>

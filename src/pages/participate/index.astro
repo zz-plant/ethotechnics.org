@@ -178,7 +178,7 @@ const {
 
       const form = document.getElementById("intake-form") as HTMLFormElement;
       const submitBtn = document.getElementById(
-        "submit-btn"
+        "submit-btn",
       ) as HTMLButtonElement;
       const messageDiv = document.getElementById("form-message");
       const container = document.getElementById("intake-form-container");
@@ -193,6 +193,36 @@ const {
         successDiv &&
         resetBtn
       ) {
+        const storageKey = "participation-intake";
+        const saveDraft = () => {
+          const formData = new FormData(form);
+          const payload = Object.fromEntries(formData.entries());
+          localStorage.setItem(storageKey, JSON.stringify(payload));
+        };
+
+        const restoreDraft = () => {
+          const saved = localStorage.getItem(storageKey);
+          if (!saved) return;
+          try {
+            const parsed = JSON.parse(saved);
+            Object.entries(parsed).forEach(([key, value]) => {
+              const field = form.elements.namedItem(key);
+              if (
+                field instanceof HTMLInputElement ||
+                field instanceof HTMLTextAreaElement
+              ) {
+                field.value = String(value);
+              }
+            });
+          } catch (error) {
+            console.error("Unable to restore intake draft", error);
+          }
+        };
+
+        restoreDraft();
+        form.addEventListener("input", saveDraft);
+        form.addEventListener("blur", saveDraft, true);
+
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
@@ -219,6 +249,7 @@ const {
             form.hidden = true;
             successDiv.hidden = false;
             form.reset();
+            localStorage.removeItem(storageKey);
           } else {
             // Error
             messageDiv.textContent =
@@ -233,6 +264,8 @@ const {
           form.hidden = false;
           messageDiv.textContent = "";
           messageDiv.className = "form-message";
+          form.reset();
+          localStorage.removeItem(storageKey);
         });
       }
     </script>

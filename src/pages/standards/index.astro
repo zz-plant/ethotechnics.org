@@ -50,10 +50,7 @@ const structuredData = {
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
->
+<BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Standards"
     title="Standards"
@@ -70,28 +67,29 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Drafts and ratified standards in the publication queue."
   >
     <CardGrid className="grid--two">
-      {standards.map((standard) => (
-        <CardItem
-          eyebrow={standard.id}
-          title={standard.title}
-          description={standard.description}
-        >
-          {standard.id === "STD-02" && (
-            <p class="muted">
-              Practice:{" "}
-              <a href="/standards/ethotechnics-for-agents">Ethotechnics for Agents</a> — Mechanism-first
-              practice for implementing STD-01 and STD-02 in real agent systems.
-            </p>
-          )}
-          <a
-            slot="footer"
-            class="muted"
-            href={`/standards/${standard.slug}`}
+      {
+        standards.map((standard) => (
+          <CardItem
+            eyebrow={standard.id}
+            title={standard.title}
+            description={standard.description}
           >
-            Read {standard.id}
-          </a>
-        </CardItem>
-      ))}
+            {standard.id === "STD-02" && (
+              <p class="muted">
+                Practice:{" "}
+                <a href="/standards/ethotechnics-for-agents">
+                  Ethotechnics for Agents
+                </a>{" "}
+                — Mechanism-first practice for implementing STD-01 and STD-02 in
+                real agent systems.
+              </p>
+            )}
+            <a slot="footer" class="muted" href={`/standards/${standard.slug}`}>
+              Read {standard.id}
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -103,17 +101,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {doctrine.map((item) => (
-        <CardItem
-          eyebrow={item.eyebrow}
-          title={item.title}
-          description={item.description}
-        >
-          <a slot="footer" class="muted" href={item.href}>
-            {item.ctaLabel}
-          </a>
-        </CardItem>
-      ))}
+      {
+        doctrine.map((item) => (
+          <CardItem
+            eyebrow={item.eyebrow}
+            title={item.title}
+            description={item.description}
+          >
+            <a slot="footer" class="muted" href={item.href}>
+              {item.ctaLabel}
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -128,13 +128,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a>
+            <a href="/examples/automated-account-lock">Automated account lock</a
+            >
           </li>
           <li>
-            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+            <a href="/examples/content-moderation-takedown"
+              >Content moderation takedown</a
+            >
           </li>
           <li>
-            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+            <a href="/examples/automated-eligibility-denial"
+              >Automated eligibility denial</a
+            >
           </li>
         </ul>
       </div>
@@ -177,8 +182,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a href="/bundles/diagnostic-export-kit">Diagnostic Export Kit</a>.
     </p>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, VAL-01,
+      VAL-02, VAL-03.
     </p>
   </SectionBlock>
-  <script type="application/ld+json" set:html={structuredDataJson} />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>

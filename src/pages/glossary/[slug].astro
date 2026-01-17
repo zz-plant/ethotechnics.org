@@ -23,7 +23,7 @@ export async function getStaticPaths() {
   return glossaryEntry.data.categories.flatMap((category) =>
     category.entries.map((entry) => ({
       params: { slug: entry.id },
-    }))
+    })),
   );
 }
 
@@ -39,15 +39,15 @@ const {
 } = glossaryEntry.data;
 const entryLabelIndex = new Map(
   categories.flatMap((category) =>
-    category.entries.map((entry) => [entry.id, entry.title] as const)
-  )
+    category.entries.map((entry) => [entry.id, entry.title] as const),
+  ),
 );
 const entryRecord = categories
   .flatMap((category) =>
     category.entries.map((entry) => ({
       entry,
       category,
-    }))
+    })),
   )
   .find(({ entry }) => entry.id === slug);
 
@@ -55,7 +55,7 @@ if (!entryRecord) {
   return Astro.response(
     new Response("Glossary entry not found", {
       status: 404,
-    })
+    }),
   );
 }
 
@@ -77,10 +77,13 @@ const pageDescription =
 const { scopeText, adjacentTerms, operationalTests, genealogy, references } =
   getGlossaryEntryDefaults(entry, category);
 const patternIndex = new Map(
-  libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern])
+  libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
 const patternFilterLabels = Object.fromEntries(
-  libraryEntry.data.patterns.filters.map((filter) => [filter.slug, filter.label])
+  libraryEntry.data.patterns.filters.map((filter) => [
+    filter.slug,
+    filter.label,
+  ]),
 );
 const relatedPatterns = (entry.relatedPatterns ?? [])
   .map((relatedSlug) => {
@@ -94,13 +97,15 @@ const relatedPatterns = (entry.relatedPatterns ?? [])
       title: pattern.title,
       href: `/mechanisms/patterns/${pattern.slug}`,
       filterLabels: pattern.filters.map(
-        (filter) => patternFilterLabels[filter] ?? filter
+        (filter) => patternFilterLabels[filter] ?? filter,
       ),
     };
   })
   .filter(
-    (pattern): pattern is { title: string; href: string; filterLabels: string[] } =>
-      Boolean(pattern)
+    (
+      pattern,
+    ): pattern is { title: string; href: string; filterLabels: string[] } =>
+      Boolean(pattern),
   );
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
@@ -116,9 +121,7 @@ const anchorLinks = [
   ...(entry.examples?.length
     ? [{ href: "#example-corpus", label: "Example corpus" }]
     : []),
-  ...(references.length
-    ? [{ href: "#references", label: "References" }]
-    : []),
+  ...(references.length ? [{ href: "#references", label: "References" }] : []),
 ];
 const structuredData = {
   "@context": "https://schema.org",
@@ -221,88 +224,92 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <p class="eyebrow">Scope</p>
       <p class="muted">{scopeText}</p>
     </div>
-    {adjacentTerms.length > 0 && (
-      <div id="adjacent-terms" class="glossary-entry__block">
-        <p class="eyebrow">Adjacent terms</p>
-        <div class="pill-row">
-          {adjacentTerms.map((term) => (
-            <a
-              class="pill pill--muted"
-              href={glossaryEntryPermalink(term)}
-              itemprop="keywords"
-            >
-              {entryLabelIndex.get(term) ?? term}
-            </a>
-          ))}
+    {
+      adjacentTerms.length > 0 && (
+        <div id="adjacent-terms" class="glossary-entry__block">
+          <p class="eyebrow">Adjacent terms</p>
+          <div class="pill-row">
+            {adjacentTerms.map((term) => (
+              <a
+                class="pill pill--muted"
+                href={glossaryEntryPermalink(term)}
+                itemprop="keywords"
+              >
+                {entryLabelIndex.get(term) ?? term}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    )}
+      )
+    }
     <div id="operational-tests" class="glossary-entry__block">
       <p class="eyebrow">Operational tests</p>
       <ul class="muted">
-        {operationalTests.map((test) => (
-          <li>{test}</li>
-        ))}
+        {operationalTests.map((test) => <li>{test}</li>)}
       </ul>
     </div>
     <div id="genealogy" class="glossary-entry__block">
       <p class="eyebrow">Genealogy</p>
       <p class="muted">{genealogy}</p>
     </div>
-    {relatedPatterns.length > 0 && (
-      <div
-        id="related-mechanisms"
-        class="glossary-entry__block glossary-entry__block--patterns"
-      >
-        <p class="eyebrow">Related mechanisms</p>
-        <ul class="glossary-entry__patterns-list">
-          {relatedPatterns.map((relatedPattern) => (
-            <li class="glossary-entry__pattern-card">
-              <a
-                class="glossary-entry__pattern-link"
-                href={relatedPattern.href}
-              >
-                <span class="glossary-entry__pattern-title">
-                  {relatedPattern.title}
-                </span>
-                <span class="muted small">
-                  {relatedPattern.filterLabels.join(", ")}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p class="muted small glossary-entry__patterns-hint">
-          See the full mechanisms catalog.
-        </p>
-      </div>
-    )}
-    {entry.examples && entry.examples.length > 0 && (
-      <div id="example-corpus" class="glossary-entry__block">
-        <p class="eyebrow">Example corpus</p>
-        <ul class="muted">
-          {entry.examples.map((example) => (
-            <li>{example}</li>
-          ))}
-        </ul>
-      </div>
-    )}
-    {references.length > 0 && (
-      <div id="references" class="glossary-entry__block">
-        <p class="eyebrow">References</p>
-        <ul class="muted glossary-entry__resources">
-          {references.map((resource) => (
-            <li>
-              <a href={resource.href}>{resource.label}</a>
-              {resource.type && (
-                <span class="muted"> · {resource.type}</span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
+    {
+      relatedPatterns.length > 0 && (
+        <div
+          id="related-mechanisms"
+          class="glossary-entry__block glossary-entry__block--patterns"
+        >
+          <p class="eyebrow">Related mechanisms</p>
+          <ul class="glossary-entry__patterns-list">
+            {relatedPatterns.map((relatedPattern) => (
+              <li class="glossary-entry__pattern-card">
+                <a
+                  class="glossary-entry__pattern-link"
+                  href={relatedPattern.href}
+                >
+                  <span class="glossary-entry__pattern-title">
+                    {relatedPattern.title}
+                  </span>
+                  <span class="muted small">
+                    {relatedPattern.filterLabels.join(", ")}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="muted small glossary-entry__patterns-hint">
+            See the full mechanisms catalog.
+          </p>
+        </div>
+      )
+    }
+    {
+      entry.examples && entry.examples.length > 0 && (
+        <div id="example-corpus" class="glossary-entry__block">
+          <p class="eyebrow">Example corpus</p>
+          <ul class="muted">
+            {entry.examples.map((example) => (
+              <li>{example}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    {
+      references.length > 0 && (
+        <div id="references" class="glossary-entry__block">
+          <p class="eyebrow">References</p>
+          <ul class="muted glossary-entry__resources">
+            {references.map((resource) => (
+              <li>
+                <a href={resource.href}>{resource.label}</a>
+                {resource.type && <span class="muted"> · {resource.type}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
   </article>
 
-  <script type="application/ld+json" set:html={structuredDataJson} />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>

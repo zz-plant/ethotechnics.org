@@ -39,10 +39,7 @@ const structuredData = {
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
->
+<BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Validators"
     title="Validators"
@@ -54,21 +51,23 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <section id="tools" class="section">
     <CardGrid className="grid--two">
-      {validators.map((validator) => (
-        <CardItem
-          eyebrow={validator.id}
-          title={validator.title}
-          description={validator.description}
-        >
-          <a
-            slot="footer"
-            class="muted"
-            href={`/validators/${validator.slug}`}
+      {
+        validators.map((validator) => (
+          <CardItem
+            eyebrow={validator.id}
+            title={validator.title}
+            description={validator.description}
           >
-            Run {validator.title}
-          </a>
-        </CardItem>
-      ))}
+            <a
+              slot="footer"
+              class="muted"
+              href={`/validators/${validator.slug}`}
+            >
+              Run {validator.title}
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </section>
 
@@ -79,10 +78,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <p class="muted">{method.description}</p>
     </div>
     <ul class="validator-method">
-      {method.steps.map((step) => (
-        <li>{step}</li>
-      ))}
+      {method.steps.map((step) => <li>{step}</li>)}
     </ul>
   </section>
-  <script type="application/ld+json" set:html={structuredDataJson} />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>

@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
+import { fieldNotesContent } from "../../content/fieldNotes";
+import { glossaryTerms } from "../../content/glossary";
+import { navSections } from "../../content/navigation";
+import siteSearchScript from "../../scripts/site-search.ts?url";
+
+const pageTitle = "Site search — Ethotechnics";
+const pageDescription =
+  "Search standards, diagnostics, glossary entries, and field notes in one place.";
+type SearchEntry = {
+  title: string;
+  description: string;
+  href: string;
+  category: string;
+  tags?: string[];
+};
+
+const navEntries: SearchEntry[] = navSections.flatMap((section) =>
+  section.links.map((link) => ({
+    title: link.label,
+    description: link.description ?? section.description,
+    href: link.href,
+    category: section.heading,
+  })),
+);
+const diagnosticEntries: SearchEntry[] = diagnosticsContent.tools.map(
+  (tool) => ({
+    title: tool.title,
+    description: tool.description,
+    href: `/diagnostics/${tool.slug}`,
+    category: "Diagnostics",
+    tags: [tool.deliveryType, tool.estimatedTime],
+  }),
+);
+const glossaryEntries: SearchEntry[] = glossaryTerms.map((term) => ({
+  title: term.term,
+  description: term.definition,
+  href: `/glossary/${term.slug}`,
+  category: "Glossary",
+  tags: term.appliesTo,
+}));
+const fieldNoteEntries: SearchEntry[] = fieldNotesContent.entries.map(
+  (entry) => ({
+    title: entry.title,
+    description: entry.summary,
+    href: `${fieldNotesContent.permalink}#${entry.slug}`,
+    category: "Field Notes",
+    tags: entry.relatedTerms,
+  }),
+);
+
+const entries = [
+  ...navEntries,
+  ...diagnosticEntries,
+  ...glossaryEntries,
+  ...fieldNoteEntries,
+];
+const uniqueEntries = new Map<string, SearchEntry>();
+entries.forEach((entry) => {
+  if (!uniqueEntries.has(entry.href)) {
+    uniqueEntries.set(entry.href, entry);
+  }
+});
+const searchEntries = Array.from(uniqueEntries.values());
+const suggestions = searchEntries
+  .map((entry) => entry.title)
+  .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+const buildSearchText = (entry: SearchEntry) =>
+  [entry.title, entry.description, entry.category, entry.tags?.join(" ")]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Search"
+    title="Search the site"
+    description={pageDescription}
+    permalink="/search"
+    anchorLinks={[{ href: "#search", label: "Search" }]}
+    panelCopy={{
+      eyebrow: "Scope",
+      title: "One search bar for the full catalog.",
+      description:
+        "Search standards, diagnostics, the glossary, and field notes with URL-based queries for easy sharing.",
+    }}
+  />
+
+  <SectionBlock
+    id="search"
+    eyebrow="Search"
+    title="Find standards, diagnostics, and field notes."
+    description="Search is URL-based, so you can share queries with ?q= in the address bar."
+  >
+    <div class="site-search" data-site-search>
+      <div class="site-search__controls">
+        <label for="site-search" class="site-search__label">
+          <span class="muted"
+            >Search across the entire Ethotechnics catalog.</span
+          >
+          <input
+            id="site-search"
+            class="site-search__input"
+            type="search"
+            inputmode="search"
+            placeholder="Search terms, diagnostics, standards, or field notes"
+            autocomplete="off"
+            list="site-search-suggestions"
+            data-site-search-input
+          />
+        </label>
+        <datalist id="site-search-suggestions">
+          {suggestions.map((suggestion) => <option value={suggestion} />)}
+        </datalist>
+        <p
+          class="muted"
+          role="status"
+          aria-live="polite"
+          data-site-search-status
+        >
+          Showing {searchEntries.length} results.
+        </p>
+      </div>
+      <div class="site-search__results">
+        {
+          searchEntries.map((entry) => (
+            <article
+              class="card site-search__item"
+              data-site-search-item
+              data-search={buildSearchText(entry)}
+            >
+              <div class="card__glow" aria-hidden="true" />
+              <p class="eyebrow">{entry.category}</p>
+              <h3>
+                <a href={entry.href}>{entry.title}</a>
+              </h3>
+              <p class="muted">{entry.description}</p>
+              {entry.tags?.length ? (
+                <ul class="pill-list pill-list--wrap">
+                  {entry.tags.map((tag) => (
+                    <li>{tag}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </article>
+          ))
+        }
+        <p class="muted" data-site-search-empty hidden>
+          No results yet. Try another keyword or clear the search query.
+        </p>
+      </div>
+    </div>
+  </SectionBlock>
+  <script type="module" src={siteSearchScript} is:inline></script>
+</BaseLayout>

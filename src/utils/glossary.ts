@@ -1,4 +1,5 @@
 import glossaryData from "../content/glossary.json";
+import { glossaryTerms } from "../content/glossary";
 
 // Types for glossary entries
 export type GlossaryEntry = {
@@ -38,12 +39,22 @@ const formatSlug = (slug: string): string =>
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
 
+const glossaryDefinitionIndex = Object.fromEntries(
+  glossaryTerms.map((term) => [term.slug, term.definition]),
+);
+
 /**
  * Get a human-readable label for a glossary term by its slug.
  * Falls back to a formatted version of the slug if not found.
  */
 export const getGlossaryLabel = (slug: string): string =>
   glossaryIndex[slug]?.term ?? formatSlug(slug);
+
+/**
+ * Get the short definition for a glossary term by its slug.
+ */
+export const getGlossaryDefinition = (slug: string): string =>
+  glossaryDefinitionIndex[slug] ?? "";
 
 /**
  * Get the permalink for the glossary page.
