@@ -50,6 +50,8 @@ Use this map before adding new guidance so information stays discoverable and cu
   troubleshooting steps.
 - [`visual-textures.md`](visual-textures.md) catalogs texture treatments and visual system notes.
 - [`usability-audit.md`](usability-audit.md) tracks UX review findings and follow-up tasks.
+- [`design-references.md`](design-references.md) collects external touchpoints for visual system
+  alignment.
 
 ## How to add or update docs
 

@@ -166,7 +166,9 @@ const {
           </div>
           <h3>Received</h3>
           <p>Thank you for your submission. We'll be in touch soon.</p>
-          <button class="button ghost" id="reset-btn">Send another</button>
+          <button class="button ghost" id="reset-btn">
+            Send another submission
+          </button>
         </div>
       </div>
     </div>
@@ -220,7 +222,8 @@ const {
           } else {
             // Error
             messageDiv.textContent =
-              result.error.message || "Something went wrong. Please try again.";
+              result.error.message ||
+              "Something went wrong. Please try again or use the feedback inbox below.";
             messageDiv.classList.add("error");
           }
         });
