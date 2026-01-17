@@ -45,7 +45,7 @@ describe("robots.txt", () => {
 
 describe("sitemap.xml", () => {
   it("includes key routes with metadata", async () => {
-    const response = getSitemap({
+    const response = await getSitemap({
       request: new Request("https://example.test/sitemap.xml"),
       site: new URL("https://example.org"),
     } as APIContext);
@@ -60,7 +60,7 @@ describe("sitemap.xml", () => {
     expect(locs).toEqual(
       expect.arrayContaining([
         "https://example.org/start-here/",
-        "https://example.org/tools/maintenance-simulator",
+        "https://example.org/diagnostics/maintenance-simulator",
       ])
     );
     expect(locs).not.toEqual(expect.arrayContaining([expect.stringMatching(/\[/)]));
