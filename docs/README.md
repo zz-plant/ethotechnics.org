@@ -40,6 +40,8 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`local-development.md`](local-development.md) captures setup, dev server tips, and how to preview
   builds locally.
 - [`testing-todos.md`](testing-todos.md) summarizes existing coverage and remaining test gaps.
+- [`performance-guardrails.md`](performance-guardrails.md) documents Core Web Vitals budgets and
+  console-clean checks enforced in Playwright.
 - [`cloudflare-playwright.md`](cloudflare-playwright.md) documents how to run Playwright in
   Cloudflare Pages builds and where test results show up.
 
