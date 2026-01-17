@@ -9,17 +9,17 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                | Next                                                                                              | Later                                                                               |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Highest-priority work in progress. | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                            |
-| Keep entries small and actionable. | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                                |
-| - None currently.                  | - [Redundancy compression pass](#redundancy-compression-pass)                                     | - [Where this binds (non-legal translation surface)](#where-this-binds-surface)     |
-|                                    | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) | - [Contestability pattern library](#contestability-pattern-library)                 |
-|                                    | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
-|                                    | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               | - [Language people can use](#language-people-can-use)                               |
-|                                    | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
-|                                    |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
-|                                    |                                                                                                   | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
+| Now                                                           | Next                                                                                              | Later                                                                               |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                            | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                            |
+| Keep entries small and actionable.                            | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                                |
+| - [Redundancy compression pass](#redundancy-compression-pass) | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) | - [Where this binds (non-legal translation surface)](#where-this-binds-surface)     |
+|                                                               | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   | - [Contestability pattern library](#contestability-pattern-library)                 |
+|                                                               | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
+|                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Language people can use](#language-people-can-use)                               |
+|                                                               |                                                                                                   | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
+|                                                               |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
+|                                                               |                                                                                                   | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
 
 ## Spec template
 
