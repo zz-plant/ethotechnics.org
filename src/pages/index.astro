@@ -1,6 +1,5 @@
 ---
 import { getEntry } from "astro:content";
-import { Icon } from "astro-icon/components";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "../components/CardGrid.astro";
 import CardItem from "../components/CardItem.astro";
@@ -32,37 +31,21 @@ const { pageTitle, pageDescription } = homeEntry.data;
         <div class="actions">
           <a class="button primary" href="/diagnostics">Run a diagnostic</a>
           <a class="button ghost" href="/standards">Browse standards</a>
-          <a class="button ghost" href="/mechanisms">View mechanism library</a>
         </div>
-        <div class="hero__meta">
-          <article class="stat-card">
-            <div class="stat-card__header">
-              <span class="stat-card__icon" aria-hidden="true">
-                <Icon name="lucide:scan-search" />
-              </span>
-              <p class="metric">Diagnostics</p>
-            </div>
-            <p class="muted">Export evidence-ready diagnostics with stable IDs and change logs.</p>
-          </article>
-          <article class="stat-card">
-            <div class="stat-card__header">
-              <span class="stat-card__icon" aria-hidden="true">
-                <Icon name="lucide:file-text" />
-              </span>
-              <p class="metric">Bindings</p>
-            </div>
-            <p class="muted">Translate standards into enforceable clauses and procurement language.</p>
-          </article>
-          <article class="stat-card">
-            <div class="stat-card__header">
-              <span class="stat-card__icon" aria-hidden="true">
-                <Icon name="lucide:layers" />
-              </span>
-              <p class="metric">Mechanisms</p>
-            </div>
-            <p class="muted">Jump from findings to remediation mechanisms without context loss.</p>
-          </article>
-        </div>
+        <p class="hero__helper">
+          Prefer a fix-first view? <a href="/mechanisms">Browse the mechanism library</a>.
+        </p>
+        <ul class="hero__highlights">
+          <li>
+            <strong>Diagnostics</strong> Export evidence-ready assessments with stable IDs and change logs.
+          </li>
+          <li>
+            <strong>Bindings</strong> Translate standards into enforceable clauses and procurement language.
+          </li>
+          <li>
+            <strong>Mechanisms</strong> Jump from findings to remediation without context loss.
+          </li>
+        </ul>
       </div>
       <div class="hero__panel">
         <div class="panel panel--glass">
