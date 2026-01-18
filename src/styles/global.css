@@ -1235,11 +1235,45 @@
   margin: 0;
 }
 
-.hero__meta {
+.hero__helper {
+  margin: 0.9rem 0 0;
+  color: color-mix(in srgb, var(--muted) 86%, var(--text));
+}
+
+.hero__helper a {
+  font-weight: 600;
+}
+
+.hero__highlights {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
-  gap: 0.75rem;
-  margin-top: 1.4rem;
+  gap: 0.65rem;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: color-mix(in srgb, var(--muted) 86%, var(--text));
+}
+
+.hero__highlights li {
+  display: grid;
+  gap: 0.25rem;
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.hero__highlights li::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.hero__highlights strong {
+  color: var(--text);
+  font-weight: 650;
 }
 
 @media (max-width: 640px) {
@@ -1251,76 +1285,6 @@
     width: 100%;
     justify-content: center;
   }
-}
-
-.stat-card {
-  position: relative;
-  background: linear-gradient(
-    145deg,
-    color-mix(in srgb, var(--surface) 92%, transparent),
-    color-mix(in srgb, var(--panel) 86%, transparent)
-  );
-  border: 1px solid
-    color-mix(
-      in srgb,
-      var(--border) 76%,
-      color-mix(in srgb, var(--accent) 16%, transparent)
-    );
-  border-radius: 16px;
-  padding: 1.05rem 1.2rem;
-  display: grid;
-  gap: 0.4rem;
-  box-shadow:
-    0 12px 28px rgba(47, 41, 35, 0.12),
-    inset 0 1px 0 color-mix(in srgb, white 8%, transparent);
-  overflow: hidden;
-  backdrop-filter: blur(10px) saturate(108%);
-}
-
-.stat-card::after {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: 15px;
-  background: radial-gradient(
-    circle at 18% 20%,
-    color-mix(in srgb, white 12%, transparent),
-    transparent 35%
-  );
-  pointer-events: none;
-}
-
-.stat-card__header {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.stat-card__icon {
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 12px;
-  background: linear-gradient(
-    130deg,
-    color-mix(in srgb, var(--panel) 88%, transparent),
-    color-mix(in srgb, var(--surface) 94%, transparent)
-  );
-  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-  color: var(--text);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stat-card__icon [data-icon] {
-  width: 1.2rem;
-  height: 1.2rem;
-  display: block;
-}
-
-.metric {
-  font-size: 1.35rem;
-  font-weight: 800;
 }
 
 .section {
