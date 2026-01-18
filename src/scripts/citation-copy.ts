@@ -16,7 +16,7 @@ const showCopyPopover = (message: string) => {
     window.clearTimeout(popoverTimer);
     popoverTimer = window.setTimeout(() => {
       copyPopover.hidePopover();
-    }, 1600);
+    }, POPOVER_VISIBILITY_DURATION);
   }
 };
 
@@ -40,14 +40,14 @@ citationButtons.forEach((button) => {
         window.setTimeout(() => {
           button.textContent = defaultLabel;
           button.setAttribute("aria-label", `Copy ${format}`);
-        }, 1600);
+        }, POPOVER_VISIBILITY_DURATION);
       } catch (error) {
         console.error("Unable to copy citation", error);
         button.textContent = "Copy failed";
         showCopyPopover("Copy failed.");
         window.setTimeout(() => {
           button.textContent = defaultLabel;
-        }, 1600);
+        }, POPOVER_VISIBILITY_DURATION);
       }
     })().catch((err) => console.error("Async click handler failed", err));
   });

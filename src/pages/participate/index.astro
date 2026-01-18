@@ -125,6 +125,7 @@ const {
                 class={`intake-form__field${
                   field.type === "textarea" ? " intake-form__field--full" : ""
                 }`}
+                for={field.id}
               >
                 <span class="muted">{field.label}</span>
                 {field.type === "textarea" ? (
@@ -166,7 +167,7 @@ const {
           </div>
           <h3>Received</h3>
           <p>Thank you for your submission. We'll be in touch soon.</p>
-          <button class="button ghost" id="reset-btn">
+          <button class="button ghost" id="reset-btn" type="button">
             Send another submission
           </button>
         </div>

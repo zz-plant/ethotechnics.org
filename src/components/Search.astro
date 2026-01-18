@@ -3,7 +3,12 @@ import { Icon } from "astro-icon/components";
 ---
 
 <div class="search-container">
-  <button class="search-trigger" id="search-trigger" aria-label="Open search">
+  <button
+    class="search-trigger"
+    id="search-trigger"
+    type="button"
+    aria-label="Open search"
+  >
     <Icon name="lucide:search" class="search-icon" />
     <span class="search-label">Search standards...</span>
     <kbd class="search-kbd">/</kbd>
@@ -20,19 +25,22 @@ import { Icon } from "astro-icon/components";
         Site search
       </span>
       <search class="search-dialog__search" role="search">
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Search for standards, mechanisms, and validators..."
-          autocomplete="off"
-          enterkeyhint="search"
-          aria-describedby="search-help-text"
-          aria-label="Search the library"
-        />
+        <label class="search-dialog__label" for="search-input">
+          <span class="visually-hidden">Search the library</span>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search for standards, mechanisms, and validators..."
+            autocomplete="off"
+            enterkeyhint="search"
+            aria-describedby="search-help-text"
+          />
+        </label>
       </search>
       <button
         id="search-close"
         class="search-dialog__close"
+        type="button"
         aria-label="Close search"
       >
         <Icon name="lucide:x" />
@@ -96,7 +104,8 @@ import { Icon } from "astro-icon/components";
   }
 
   .search-trigger:focus-visible {
-    outline: none;
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
     border-color: var(--gold);
     background: linear-gradient(
       120deg,
@@ -165,13 +174,19 @@ import { Icon } from "astro-icon/components";
     margin: 0;
   }
 
+  .search-dialog__label {
+    display: flex;
+    width: 100%;
+  }
+
   .search-dialog__search input {
     width: 100%;
     flex: 1;
     border: none;
     background: transparent;
     font-size: 1.125rem;
-    outline: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     color: var(--text);
     font-family: var(--serif);
     padding: 0.35rem 0.25rem;
@@ -252,7 +267,8 @@ import { Icon } from "astro-icon/components";
   .search-recent__item:focus-visible {
     border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent);
-    outline: none;
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 2px;
   }
 
   .search-results {
