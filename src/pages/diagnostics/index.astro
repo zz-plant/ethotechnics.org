@@ -289,7 +289,7 @@ const quickTriagePrompts = [
           const deliveryDetail = isStudio
             ? "Facilitation required; request a session to run this diagnostic."
             : "Run on demand and share the linkable readout immediately.";
-          const primaryCtaLabel = isStudio ? "Request session" : "Run";
+          const primaryCtaLabel = tool.ctaLabel;
 
           return (
             <CardItem
@@ -340,7 +340,7 @@ const quickTriagePrompts = [
                     class="button primary"
                     href={tool.ctaHref}
                     aria-label={
-                      tool.ctaAriaLabel ?? `${primaryCtaLabel} ${tool.title}`
+                      tool.ctaAriaLabel ?? primaryCtaLabel
                     }
                   >
                     {primaryCtaLabel}

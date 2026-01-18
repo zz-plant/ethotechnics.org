@@ -1,13 +1,23 @@
 import { expect, test } from "@playwright/test";
 import { navPrimaryLinks } from "../../src/content/navigation";
+import { diagnosticsContent } from "../../src/content/diagnostics";
 
 const HERO_HEADING =
   "Technology should serve people — not the other way around.";
 const PRIMARY_NAV_LINKS = navPrimaryLinks.map((link) => link.label);
 const PRIMARY_NAV_TARGET = navPrimaryLinks[0];
+const BURDEN_TOOL = diagnosticsContent.tools.find(
+  (tool) => tool.slug === "burden-modeler",
+);
 
 if (!PRIMARY_NAV_TARGET) {
   throw new Error("Primary navigation links are missing; check navSections.");
+}
+
+if (!BURDEN_TOOL) {
+  throw new Error(
+    "Burden Modeler diagnostic tool is missing; check diagnostics content.",
+  );
 }
 
 test.describe("Homepage smoke", () => {
@@ -60,5 +70,40 @@ test.describe("Navigation", () => {
     ).toBeVisible();
     await expect(page.locator(".nav__content")).not.toHaveClass(/is-open/);
     await expect(html).not.toHaveClass(/nav-locked/);
+  });
+
+  test("shows top destinations on desktop without opening the menu", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto("/");
+
+    const quickNav = page.locator(".nav__quick");
+    await expect(quickNav).toBeVisible();
+
+    for (const label of PRIMARY_NAV_LINKS) {
+      await expect(quickNav.getByRole("link", { name: label })).toBeVisible();
+    }
+  });
+});
+
+test.describe("Diagnostics page", () => {
+  test("surfaces primary CTAs and example outputs", async ({ page }) => {
+    await page.goto("/diagnostics");
+
+    await expect(
+      page.getByRole("link", { name: BURDEN_TOOL.ctaLabel }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: BURDEN_TOOL.exampleLabel }),
+    ).toBeVisible();
+  });
+});
+
+test.describe("Mechanisms library", () => {
+  test("offers copyable diagnostic links in pattern cards", async ({ page }) => {
+    await page.goto("/mechanisms");
+
+    await expect(
+      page.getByRole("button", { name: "Copy diagnostic links" }).first(),
+    ).toBeVisible();
   });
 });
