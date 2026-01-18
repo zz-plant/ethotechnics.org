@@ -120,11 +120,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
           <button class="button" type="button" data-download-bundle>
             Download markdown
           </button>
-          <button
-            class="button button--subtle"
-            type="button"
-            data-print-bundle
-          >
+          <button class="button button--subtle" type="button" data-print-bundle>
             Save as PDF
           </button>
           <button class="copy-button" type="button" data-copy-bundle>
@@ -172,7 +168,6 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
           .map((filter) => filterLabels[filter] ?? filter)
           .join(", ");
         const detailHref = `/mechanisms/patterns/${pattern.slug}`;
-        const teaserSteps = pattern.steps.slice(0, 2);
         const searchContent = [
           pattern.title,
           pattern.summary,
@@ -255,15 +250,32 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               </p>
             )}
             <details class="pattern-card__teaser">
-              <summary>Preview steps</summary>
-              <ul class="pill-list">
-                {teaserSteps.map((cue) => (
-                  <li>{cue}</li>
-                ))}
-              </ul>
-              <p class="muted pattern-card__example">
-                Example: {pattern.example.title}
-              </p>
+              <summary>Execution details</summary>
+              <div class="pattern-card__section">
+                <p class="muted small">Steps</p>
+                <ol class="pattern-card__list">
+                  {pattern.steps.map((cue) => (
+                    <li>{cue}</li>
+                  ))}
+                </ol>
+              </div>
+              <div class="pattern-card__section">
+                <p class="muted small">Artifacts</p>
+                <ul class="pattern-card__list">
+                  {pattern.artifacts.map((artifact) => (
+                    <li>
+                      <strong>{artifact.name}.</strong> {artifact.purpose}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="pattern-card__section">
+                <p class="muted small">Example usage</p>
+                <p class="pattern-card__example">
+                  <strong>{pattern.example.title}.</strong>{" "}
+                  {pattern.example.description}
+                </p>
+              </div>
               <a class="pattern-card__link" href={detailHref}>
                 Open mechanism detail
               </a>
