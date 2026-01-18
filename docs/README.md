@@ -15,6 +15,8 @@ Use this map before adding new guidance so information stays discoverable and cu
   references and to-do items.
 - [`contributor-workflow.md`](contributor-workflow.md) captures the day-to-day change loop, required
   checks, and formatting expectations.
+- [`agents/README.md`](agents/README.md) collects the expanded AGENTS guidance split out of the
+  repository root.
 
 ### Architecture, layout, and content
 
