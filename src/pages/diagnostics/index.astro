@@ -281,75 +281,85 @@ const quickTriagePrompts = [
     </div>
     <CardGrid className="diagnostics__tool-grid" data-diagnostics-grid>
       {
-        tools.map((tool) => (
-          <CardItem
-            id={tool.slug}
-            eyebrow="Diagnostic tool"
-            title={tool.title}
-            description={tool.description}
-            headingLevel="h2"
-            dataDelivery={tool.deliveryType}
-          >
-            <div class="diagnostics__card-body">
-              <div>
-                <p class="muted small">
-                  {tool.deliveryType === "studio"
-                    ? "Studio-facilitated"
-                    : "Self-serve"}
-                </p>
-                <p class="muted small">Estimated time: {tool.estimatedTime}</p>
+        tools.map((tool) => {
+          const isStudio = tool.deliveryType === "studio";
+          const deliveryLabel = isStudio
+            ? "Studio-facilitated session"
+            : "Self-serve tool";
+          const deliveryDetail = isStudio
+            ? "Facilitation required; request a session to run this diagnostic."
+            : "Run on demand and share the linkable readout immediately.";
+          const primaryCtaLabel = isStudio ? "Request session" : "Run";
+
+          return (
+            <CardItem
+              id={tool.slug}
+              eyebrow="Diagnostic tool"
+              title={tool.title}
+              description={tool.description}
+              headingLevel="h2"
+              dataDelivery={tool.deliveryType}
+            >
+              <div class="diagnostics__card-body">
+                <div>
+                  <p class="muted small">{deliveryLabel}</p>
+                  <p class="muted small">{deliveryDetail}</p>
+                  <p class="muted small">Estimated time: {tool.estimatedTime}</p>
+                </div>
+                <p class="muted small diagnostics__best-for">{tool.bestFor}</p>
+                <ul class="diagnostics__summary">
+                  <li>
+                    <p class="muted diagnostics__label">Use this when</p>
+                    <ul class="pill-list pill-list--wrap">
+                      {tool.readiness.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </li>
+                  <li>
+                    <p class="muted diagnostics__label">What you receive</p>
+                    <ul class="pill-list pill-list--wrap">
+                      {tool.outputs.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </li>
+                  <li>
+                    <p class="muted diagnostics__label">Prep checklist</p>
+                    <ul class="pill-list pill-list--wrap">
+                      {tool.prepChecklist.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </li>
+                </ul>
               </div>
-              <p class="muted small diagnostics__best-for">{tool.bestFor}</p>
-              <ul class="diagnostics__summary">
-                <li>
-                  <p class="muted diagnostics__label">Use this when</p>
-                  <ul class="pill-list pill-list--wrap">
-                    {tool.readiness.map((item) => (
-                      <li>{item}</li>
-                    ))}
-                  </ul>
-                </li>
-                <li>
-                  <p class="muted diagnostics__label">What you receive</p>
-                  <ul class="pill-list pill-list--wrap">
-                    {tool.outputs.map((item) => (
-                      <li>{item}</li>
-                    ))}
-                  </ul>
-                </li>
-                <li>
-                  <p class="muted diagnostics__label">Prep checklist</p>
-                  <ul class="pill-list pill-list--wrap">
-                    {tool.prepChecklist.map((item) => (
-                      <li>{item}</li>
-                    ))}
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div class="diagnostics__card-footer">
-              <SectionActions>
-                <a
-                  class="button primary"
-                  href={tool.ctaHref}
-                  aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}
-                >
-                  {tool.ctaLabel}
-                </a>
-                <a class="button ghost" href={`/diagnostics/${tool.slug}`}>
-                  Method details
-                </a>
-                <a
-                  class="button ghost"
-                  href={tool.exampleHref}
-                  aria-label={`View example outputs for ${tool.title}`}
-                >
-                  {tool.exampleLabel}
-                </a>
-              </SectionActions>
-            </div>
-          </CardItem>
-        ))
+              <div class="diagnostics__card-footer">
+                <SectionActions>
+                  <a
+                    class="button primary"
+                    href={tool.ctaHref}
+                    aria-label={
+                      tool.ctaAriaLabel ?? `${primaryCtaLabel} ${tool.title}`
+                    }
+                  >
+                    {primaryCtaLabel}
+                  </a>
+                  <a class="button ghost" href={`/diagnostics/${tool.slug}`}>
+                    Method details
+                  </a>
+                  <a
+                    class="button ghost"
+                    href={tool.exampleHref}
+                    aria-label={`View example outputs for ${tool.title}`}
+                  >
+                    {tool.exampleLabel}
+                  </a>
+                </SectionActions>
+              </div>
+            </CardItem>
+          );
+        })
       }
     </CardGrid>
   </SectionBlock>
