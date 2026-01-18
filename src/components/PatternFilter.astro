@@ -280,21 +280,35 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                 Open mechanism detail
               </a>
             </details>
-            <p class="muted">
-              Diagnostics{" "}
-              {pattern.diagnostics.map((slug, index) => {
-                const label = diagnosticTitles[slug] ?? slug;
-                const separator =
-                  index < pattern.diagnostics.length - 1 ? ", " : "";
+            <div class="pattern-card__diagnostics">
+              <p class="muted">
+                Diagnostics{" "}
+                {pattern.diagnostics.map((slug, index) => {
+                  const label = diagnosticTitles[slug] ?? slug;
+                  const separator =
+                    index < pattern.diagnostics.length - 1 ? ", " : "";
 
-                return (
-                  <span>
-                    <a href={`/diagnostics#${slug}`}>{label}</a>
-                    {separator}
-                  </span>
-                );
-              })}
-            </p>
+                  return (
+                    <span>
+                      <a href={`/diagnostics#${slug}`} data-diagnostic-link>
+                        {label}
+                      </a>
+                      {separator}
+                    </span>
+                  );
+                })}
+              </p>
+              <div class="pattern-card__diagnostics-actions">
+                <button
+                  class="copy-button"
+                  type="button"
+                  data-copy-diagnostics
+                >
+                  Copy diagnostic links
+                </button>
+                <span class="muted small" data-diagnostic-status aria-live="polite"></span>
+              </div>
+            </div>
             <script
               type="application/json"
               data-pattern-payload

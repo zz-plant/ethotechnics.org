@@ -145,6 +145,25 @@ const initializePatternFilter = (root: HTMLElement) => {
     }
   });
 
+  const createDiagnosticCopyText = (card: HTMLElement) => {
+    const links = Array.from(
+      card.querySelectorAll<HTMLAnchorElement>("[data-diagnostic-link]"),
+    );
+
+    return links
+      .map((link) => {
+        const label = link.textContent?.trim() ?? "";
+        const href = link.getAttribute("href") ?? "";
+        if (!href) {
+          return label;
+        }
+        const absolute = new URL(href, window.location.origin).toString();
+        return label ? `${label} — ${absolute}` : absolute;
+      })
+      .filter(Boolean)
+      .join("\n");
+  };
+
   let selectedFilter: string | null = null;
   let query = "";
   const selection = new Set<string>();
@@ -499,6 +518,51 @@ const initializePatternFilter = (root: HTMLElement) => {
         }
 
         handleFilterChange(filter);
+      });
+    });
+
+    cards.forEach((card) => {
+      const copyButton = card.querySelector<HTMLButtonElement>(
+        "[data-copy-diagnostics]",
+      );
+      const status = card.querySelector<HTMLElement>(
+        "[data-diagnostic-status]",
+      );
+
+      if (!copyButton) {
+        return;
+      }
+
+      const defaultLabel =
+        copyButton.textContent?.trim() ?? "Copy diagnostic links";
+
+      copyButton.addEventListener("click", () => {
+        const diagnostics = createDiagnosticCopyText(card);
+
+        if (!diagnostics) {
+          if (status) {
+            status.textContent = "No diagnostics listed for this mechanism.";
+          }
+          return;
+        }
+
+        void (async () => {
+          try {
+            await navigator.clipboard.writeText(diagnostics);
+            copyButton.textContent = "Copied";
+            if (status) {
+              status.textContent = "Diagnostic links copied.";
+            }
+            window.setTimeout(() => {
+              copyButton.textContent = defaultLabel;
+            }, 1400);
+          } catch (error) {
+            console.error("Unable to copy diagnostic links", error);
+            if (status) {
+              status.textContent = "Copy failed. Please try again.";
+            }
+          }
+        })().catch((err) => console.error("Copy handler failed", err));
       });
     });
 
