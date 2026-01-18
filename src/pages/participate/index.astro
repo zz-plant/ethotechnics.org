@@ -226,6 +226,12 @@ const {
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
+          if (!form.reportValidity()) {
+            const firstInvalid = form.querySelector<HTMLElement>(":invalid");
+            firstInvalid?.focus();
+            return;
+          }
+
           // Reset previous states
           messageDiv.textContent = "";
           messageDiv.className = "form-message";

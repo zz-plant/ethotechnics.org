@@ -46,9 +46,10 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 
               return (
                 <li class={isActive ? "pill-list__item--active" : ""}>
-                  <a
+                  <button
+                    class="pill-list__button"
                     id={`${section.format}-tab`}
-                    href={`#${section.format}`}
+                    type="button"
                     role="tab"
                     aria-selected={isActive}
                     aria-controls={`${section.format}-panel`}
@@ -57,7 +58,7 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
                     data-field-notes-tab
                   >
                     {section.title}
-                  </a>
+                  </button>
                 </li>
               );
             },

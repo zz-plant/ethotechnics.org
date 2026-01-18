@@ -178,6 +178,7 @@ const anchorLinks = [
   const copyButton = document.querySelector<HTMLButtonElement>(
     "[data-evidence-copy]",
   );
+  const STORAGE_KEY = "evidence-pack-readiness";
 
   type CadenceValue = "release" | "quarterly" | "ad-hoc";
   type CompletenessValue = "high" | "medium" | "low";
@@ -262,6 +263,26 @@ const anchorLinks = [
     }
   };
 
+  const saveDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  };
+
+  const restoreDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return null;
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+    try {
+      const parsed = JSON.parse(saved) as Partial<EvidenceValues>;
+      return parsed;
+    } catch (error) {
+      console.error("Unable to restore readiness draft", error);
+      return null;
+    }
+  };
+
   const renderResults = (values: EvidenceValues, score: number) => {
     if (!results || !scoreValue || !tierLabel || !summaryText) return;
 
@@ -308,6 +329,36 @@ const anchorLinks = [
       if (timingField instanceof HTMLSelectElement) timingField.value = timing;
       const values = { cadence, completeness, timing };
       renderResults(values, calculateScore(values));
+      return;
+    }
+
+    const stored = restoreDraft();
+    const storedCadence = stored?.cadence;
+    const storedCompleteness = stored?.completeness;
+    const storedTiming = stored?.timing;
+    if (
+      storedCadence &&
+      storedCompleteness &&
+      storedTiming &&
+      isCadenceValue(storedCadence) &&
+      isCompletenessValue(storedCompleteness) &&
+      isTimingValue(storedTiming)
+    ) {
+      const cadenceField = form.elements.namedItem("cadence");
+      const completenessField = form.elements.namedItem("completeness");
+      const timingField = form.elements.namedItem("timing");
+      if (cadenceField instanceof HTMLSelectElement)
+        cadenceField.value = storedCadence;
+      if (completenessField instanceof HTMLSelectElement)
+        completenessField.value = storedCompleteness;
+      if (timingField instanceof HTMLSelectElement)
+        timingField.value = storedTiming;
+      const values: EvidenceValues = {
+        cadence: storedCadence,
+        completeness: storedCompleteness,
+        timing: storedTiming,
+      };
+      renderResults(values, calculateScore(values));
     }
   };
 
@@ -315,7 +366,11 @@ const anchorLinks = [
     event.preventDefault();
     if (!form) return;
 
-    if (!form.reportValidity()) return;
+    if (!form.reportValidity()) {
+      const firstInvalid = form.querySelector<HTMLElement>(":invalid");
+      firstInvalid?.focus();
+      return;
+    }
     const data = new FormData(form);
     const cadence = String(data.get("cadence") ?? "");
     const completeness = String(data.get("completeness") ?? "");
@@ -347,4 +402,6 @@ const anchorLinks = [
   });
 
   applyParams();
+  form?.addEventListener("input", saveDraft);
+  form?.addEventListener("blur", saveDraft, true);
 </script>

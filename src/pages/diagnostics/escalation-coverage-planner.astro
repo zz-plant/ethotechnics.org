@@ -178,6 +178,7 @@ const anchorLinks = [
   const copyButton = document.querySelector<HTMLButtonElement>(
     "[data-coverage-copy]",
   );
+  const STORAGE_KEY = "escalation-coverage-planner";
 
   type OwnerValue = "dedicated" | "shared" | "none";
   type CoverageValue = "24-7" | "business" | "ad-hoc";
@@ -261,6 +262,25 @@ const anchorLinks = [
     }
   };
 
+  const saveDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  };
+
+  const restoreDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return null;
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+    try {
+      return JSON.parse(saved) as Partial<CoverageValues>;
+    } catch (error) {
+      console.error("Unable to restore coverage draft", error);
+      return null;
+    }
+  };
+
   const renderResults = (values: CoverageValues, score: number) => {
     if (!results || !scoreValue || !tierLabel || !summaryText) return;
 
@@ -306,6 +326,36 @@ const anchorLinks = [
       if (drillsField instanceof HTMLSelectElement) drillsField.value = drills;
       const values = { owner, coverage, drills };
       renderResults(values, calculateScore(values));
+      return;
+    }
+
+    const stored = restoreDraft();
+    const storedOwner = stored?.owner;
+    const storedCoverage = stored?.coverage;
+    const storedDrills = stored?.drills;
+    if (
+      storedOwner &&
+      storedCoverage &&
+      storedDrills &&
+      isOwnerValue(storedOwner) &&
+      isCoverageValue(storedCoverage) &&
+      isDrillValue(storedDrills)
+    ) {
+      const ownerField = form.elements.namedItem("owner");
+      const coverageField = form.elements.namedItem("coverage");
+      const drillsField = form.elements.namedItem("drills");
+      if (ownerField instanceof HTMLSelectElement)
+        ownerField.value = storedOwner;
+      if (coverageField instanceof HTMLSelectElement)
+        coverageField.value = storedCoverage;
+      if (drillsField instanceof HTMLSelectElement)
+        drillsField.value = storedDrills;
+      const values: CoverageValues = {
+        owner: storedOwner,
+        coverage: storedCoverage,
+        drills: storedDrills,
+      };
+      renderResults(values, calculateScore(values));
     }
   };
 
@@ -313,7 +363,11 @@ const anchorLinks = [
     event.preventDefault();
     if (!form) return;
 
-    if (!form.reportValidity()) return;
+    if (!form.reportValidity()) {
+      const firstInvalid = form.querySelector<HTMLElement>(":invalid");
+      firstInvalid?.focus();
+      return;
+    }
     const data = new FormData(form);
     const owner = String(data.get("owner") ?? "");
     const coverage = String(data.get("coverage") ?? "");
@@ -343,4 +397,6 @@ const anchorLinks = [
   });
 
   applyParams();
+  form?.addEventListener("input", saveDraft);
+  form?.addEventListener("blur", saveDraft, true);
 </script>

@@ -129,6 +129,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
   );
   const shareButton =
     document.querySelector<HTMLButtonElement>("[data-gap-copy]");
+  const STORAGE_KEY = "governance-gap-score";
 
   const scoreMatrix = {
     owner: {
@@ -280,6 +281,35 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
     if (submitButton) {
       submitButton.hidden = currentStep !== steps.length - 1;
+    }
+  };
+
+  const resolveStepFromForm = () => {
+    if (!steps.length) return;
+    const nextIndex = steps.findIndex((step) => {
+      const field = step.querySelector("select");
+      return field instanceof HTMLSelectElement && !field.value;
+    });
+    currentStep = nextIndex === -1 ? steps.length - 1 : nextIndex;
+    updateStepState();
+  };
+
+  const saveDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  };
+
+  const restoreDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return null;
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+    try {
+      return JSON.parse(saved) as Partial<GapInputs>;
+    } catch (error) {
+      console.error("Unable to restore governance gap draft", error);
+      return null;
     }
   };
 
@@ -441,6 +471,33 @@ import SectionBlock from "../../components/SectionBlock.astro";
         renderResults(values, score);
       }
     }
+
+    if (!hasInputs) {
+      const stored = restoreDraft();
+      if (stored) {
+        const ownerField = form.elements.namedItem(
+          "owner",
+        ) as HTMLSelectElement | null;
+        const evidenceField = form.elements.namedItem(
+          "evidence",
+        ) as HTMLSelectElement | null;
+        const escalationField = form.elements.namedItem(
+          "escalation",
+        ) as HTMLSelectElement | null;
+        const auditField = form.elements.namedItem(
+          "audit",
+        ) as HTMLSelectElement | null;
+
+        if (stored.owner && ownerField) ownerField.value = stored.owner;
+        if (stored.evidence && evidenceField)
+          evidenceField.value = stored.evidence;
+        if (stored.escalation && escalationField)
+          escalationField.value = stored.escalation;
+        if (stored.audit && auditField) auditField.value = stored.audit;
+      }
+    }
+
+    resolveStepFromForm();
   };
 
   const validateStep = () => {
@@ -536,4 +593,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
       trackEvent("governance_gap_score_share", { channel: "manual" });
     }
   });
+
+  form?.addEventListener("input", saveDraft);
+  form?.addEventListener("blur", saveDraft, true);
 </script>

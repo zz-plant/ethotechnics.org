@@ -120,6 +120,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
   const downloadButton = document.querySelector<HTMLButtonElement>(
     "[data-validator-download]"
   );
+  const STORAGE_KEY = "validator-risk-radar";
 
   const updateStatus = (
     level: "red" | "yellow" | "green",
@@ -176,9 +177,42 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
   let latestResult: ReturnType<typeof buildResult> | null = null;
 
+  const saveDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  };
+
+  const restoreDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return;
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+    try {
+      const parsed = JSON.parse(saved) as Record<string, string>;
+      Object.entries(parsed).forEach(([key, value]) => {
+        const field = form.elements.namedItem(key);
+        if (
+          field instanceof HTMLInputElement ||
+          field instanceof HTMLSelectElement
+        ) {
+          field.value = String(value);
+        }
+      });
+    } catch (error) {
+      console.error("Unable to restore risk radar draft", error);
+    }
+  };
+
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!form || !report) return;
+
+    if (!form.reportValidity()) {
+      const firstInvalid = form.querySelector<HTMLElement>(":invalid");
+      firstInvalid?.focus();
+      return;
+    }
 
     const data = new FormData(form);
     const touchpoints = Number(data.get("touchpoints"));
@@ -216,4 +250,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     link.click();
     URL.revokeObjectURL(url);
   });
+
+  restoreDraft();
+  form?.addEventListener("input", saveDraft);
+  form?.addEventListener("blur", saveDraft, true);
 </script>
