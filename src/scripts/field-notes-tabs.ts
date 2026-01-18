@@ -6,9 +6,11 @@ const escapeHash = (value: string) => {
   return CSS.escape(value);
 };
 
+const TAB_PARAM = "tab";
+
 const initializeFieldNotes = (container: HTMLElement) => {
   const tabs = Array.from(
-    container.querySelectorAll<HTMLAnchorElement>("[data-field-notes-tab]"),
+    container.querySelectorAll<HTMLButtonElement>("[data-field-notes-tab]"),
   );
   const panels = Array.from(
     container.querySelectorAll<HTMLElement>("[data-field-notes-panel]"),
@@ -80,44 +82,57 @@ const initializeFieldNotes = (container: HTMLElement) => {
     });
   };
 
-  const syncFromHash = () => {
-    const hash = window.location.hash.replace("#", "");
+  const getHash = () => window.location.hash.replace("#", "");
 
-    if (!hash) {
-      setActiveFormat(defaultFormat);
-      return;
+  const getTabParam = () => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get(TAB_PARAM) ?? "";
+
+    return tabs.some((tabItem) => tabItem.dataset.format === tab) ? tab : "";
+  };
+
+  const syncFromUrl = () => {
+    const hash = getHash();
+    const tabParam = getTabParam();
+    let resolvedFormat = tabParam;
+
+    if (!resolvedFormat && hash) {
+      const matchingTab = tabs.find((tab) => tab.dataset.format === hash);
+
+      if (matchingTab) {
+        resolvedFormat = hash;
+      } else {
+        const matchingEntry = entries.find((entry) => entry.id === hash);
+
+        if (matchingEntry) {
+          resolvedFormat = matchingEntry.dataset.format ?? defaultFormat;
+        }
+      }
     }
 
-    const matchingTab = tabs.find((tab) => tab.dataset.format === hash);
-
-    if (matchingTab) {
-      setActiveFormat(hash);
-      scrollToHash(hash);
-      return;
+    if (!resolvedFormat) {
+      resolvedFormat = defaultFormat;
     }
 
-    const matchingEntry = entries.find((entry) => entry.id === hash);
+    setActiveFormat(resolvedFormat);
 
-    if (matchingEntry) {
-      const entryFormat = matchingEntry.dataset.format ?? defaultFormat;
-
-      setActiveFormat(entryFormat);
+    if (hash) {
       scrollToHash(hash);
     }
   };
 
   let observer: IntersectionObserver | null = null;
 
-  const maybeSyncFromHash = () => {
+  const maybeSyncFromUrl = () => {
     if (!("IntersectionObserver" in window)) {
-      syncFromHash();
+      syncFromUrl();
       return;
     }
 
     observer = new IntersectionObserver((entriesList) => {
       entriesList.forEach((entry) => {
         if (entry.isIntersecting) {
-          syncFromHash();
+          syncFromUrl();
           observer?.disconnect();
         }
       });
@@ -126,7 +141,7 @@ const initializeFieldNotes = (container: HTMLElement) => {
     observer.observe(container);
   };
 
-  const activateTab = (tab: HTMLAnchorElement) => {
+  const activateTab = (tab: HTMLButtonElement) => {
     const format = tab.dataset.format ?? defaultFormat;
 
     setActiveFormat(format);
@@ -134,7 +149,7 @@ const initializeFieldNotes = (container: HTMLElement) => {
 
     if (format) {
       const nextUrl = new URL(window.location.href);
-      nextUrl.hash = format;
+      nextUrl.searchParams.set(TAB_PARAM, format);
       history.pushState(null, "", nextUrl);
     }
   };
@@ -166,7 +181,7 @@ const initializeFieldNotes = (container: HTMLElement) => {
       }
 
       const currentIndex = tabs.indexOf(
-        event.currentTarget as HTMLAnchorElement,
+        event.currentTarget as HTMLButtonElement,
       );
 
       if (currentIndex === -1) {
@@ -201,17 +216,17 @@ const initializeFieldNotes = (container: HTMLElement) => {
     });
   });
 
-  const handleHashChange = () => syncFromHash();
+  const handleUrlChange = () => syncFromUrl();
 
-  window.addEventListener("hashchange", handleHashChange);
-  window.addEventListener("popstate", handleHashChange);
+  window.addEventListener("hashchange", handleUrlChange);
+  window.addEventListener("popstate", handleUrlChange);
   cleanupCallbacks.push(() => {
-    window.removeEventListener("hashchange", handleHashChange);
-    window.removeEventListener("popstate", handleHashChange);
+    window.removeEventListener("hashchange", handleUrlChange);
+    window.removeEventListener("popstate", handleUrlChange);
   });
 
   setActiveFormat(defaultFormat);
-  maybeSyncFromHash();
+  maybeSyncFromUrl();
 
   return () => {
     if (observer) {
