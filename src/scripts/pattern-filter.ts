@@ -148,6 +148,7 @@ const initializePatternFilter = (root: HTMLElement) => {
   let selectedFilter: string | null = null;
   let query = "";
   const selection = new Set<string>();
+  const defaultEmailStatus = emailStatus?.textContent ?? "";
 
   const getFilterLabel = (filter: string) => filterLabels[filter] ?? filter;
 
@@ -206,16 +207,26 @@ const initializePatternFilter = (root: HTMLElement) => {
     const count = selection.size;
     const hasSelection = count > 0;
 
-    downloadButton?.toggleAttribute("disabled", !hasSelection);
-    printButton?.toggleAttribute("disabled", !hasSelection);
-    copyBundleButton?.toggleAttribute("disabled", !hasSelection);
-    emailSubmit?.toggleAttribute("disabled", !hasSelection);
+    [
+      downloadButton,
+      printButton,
+      copyBundleButton,
+      emailSubmit,
+    ].forEach((button) => {
+      if (!button) return;
+      button.setAttribute("aria-disabled", hasSelection ? "false" : "true");
+      button.classList.toggle("is-disabled", !hasSelection);
+    });
 
     if (bundleStatus) {
       const pluralized = count === 1 ? "mechanism" : "mechanisms";
       bundleStatus.textContent = hasSelection
         ? `${count} ${pluralized} saved for your bundle.`
         : "No mechanisms selected yet.";
+    }
+
+    if (emailStatus && emailStatus.textContent !== defaultEmailStatus) {
+      emailStatus.textContent = defaultEmailStatus;
     }
 
     if (bundleLink) {
@@ -259,6 +270,21 @@ const initializePatternFilter = (root: HTMLElement) => {
     Array.from(selection)
       .map((slug) => patternPayloads.get(slug))
       .filter((entry): entry is PatternBundleEntry => Boolean(entry));
+
+  const announceSelectionRequired = (
+    message: string,
+    target?: HTMLElement | null,
+  ) => {
+    if (target) {
+      target.textContent = message;
+    }
+
+    if (bundleStatus && target !== bundleStatus) {
+      bundleStatus.textContent = message;
+    }
+
+    selectionInputs[0]?.focus();
+  };
 
   const getUrlState = () => {
     const params = new URLSearchParams(window.location.search);
@@ -508,6 +534,13 @@ const initializePatternFilter = (root: HTMLElement) => {
     });
 
     downloadButton?.addEventListener("click", () => {
+      if (!selection.size) {
+        announceSelectionRequired(
+          "Select at least one mechanism to download the bundle.",
+          bundleStatus,
+        );
+        return;
+      }
       const payloads = getSelectedPayloads();
       const markdown = composePatternBundle(payloads);
 
@@ -515,6 +548,13 @@ const initializePatternFilter = (root: HTMLElement) => {
     });
 
     printButton?.addEventListener("click", () => {
+      if (!selection.size) {
+        announceSelectionRequired(
+          "Select at least one mechanism to save the bundle as PDF.",
+          bundleStatus,
+        );
+        return;
+      }
       const payloads = getSelectedPayloads();
       const markdown = composePatternBundle(payloads);
 
@@ -522,6 +562,13 @@ const initializePatternFilter = (root: HTMLElement) => {
     });
 
     copyBundleButton?.addEventListener("click", () => {
+      if (!selection.size) {
+        announceSelectionRequired(
+          "Select at least one mechanism to copy a bundle link.",
+          bundleStatus,
+        );
+        return;
+      }
       void (async () => {
         const link = getBundleLink();
         const defaultLabel =
@@ -542,18 +589,24 @@ const initializePatternFilter = (root: HTMLElement) => {
     emailForm?.addEventListener("submit", (event) => {
       event.preventDefault();
 
+      if (!selection.size) {
+        announceSelectionRequired(
+          "Select at least one mechanism to draft a bundle email.",
+          emailStatus,
+        );
+        return;
+      }
+
       const email = emailInput?.value.trim();
 
       if (!email) {
-        emailStatus?.toggleAttribute("data-error", true);
         if (emailStatus) {
           emailStatus.textContent =
             "Add an email to draft your bundle message.";
         }
+        emailInput?.focus();
         return;
       }
-
-      emailStatus?.removeAttribute("data-error");
 
       const payloads = getSelectedPayloads();
       const markdown = composePatternBundle(payloads);

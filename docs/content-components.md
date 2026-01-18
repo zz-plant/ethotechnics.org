@@ -96,6 +96,8 @@ component is for and where it appears.
 ## PatternFilter.astro
 
 - Usage: Filter, search, and bundle controls for library pattern listings.
+- Notes: Bundle actions stay enabled; when nothing is selected, actions prompt via the bundle status
+  line and focus the first mechanism checkbox.
 - Reference: `src/pages/library/index.astro`.
 
 ## Navigation.astro

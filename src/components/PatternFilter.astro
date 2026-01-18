@@ -117,25 +117,27 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
           </p>
         </div>
         <div class="pattern-bundle__actions">
-          <button class="button" type="button" data-download-bundle disabled>
+          <button class="button" type="button" data-download-bundle>
             Download markdown
           </button>
           <button
             class="button button--subtle"
             type="button"
             data-print-bundle
-            disabled
           >
             Save as PDF
           </button>
-          <button class="copy-button" type="button" data-copy-bundle disabled>
+          <button class="copy-button" type="button" data-copy-bundle>
             Copy bundle link
           </button>
         </div>
       </div>
       <form class="pattern-bundle__email" data-email-form>
         <div class="pattern-bundle__email-row">
-          <label class="pattern-bundle__email-label">
+          <label
+            class="pattern-bundle__email-label"
+            for={`${searchInputId}-email`}
+          >
             <span>Email the bundle link (optional)</span>
             <input
               id={`${searchInputId}-email`}
@@ -148,11 +150,11 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               data-bundle-email
             />
           </label>
-          <button class="button" type="submit" data-email-submit disabled>
+          <button class="button" type="submit" data-email-submit>
             Draft email
           </button>
         </div>
-        <p class="muted small" data-email-status>
+        <p class="muted small" data-email-status aria-live="polite">
           Selections stay on this device.
         </p>
       </form>
