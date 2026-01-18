@@ -35,7 +35,12 @@ const toViewTransitionName = (
   return `nav-link-${scope}-${slug || "home"}`;
 };
 
-const topLevelLinks = navPrimaryLinks;
+const mobileLinks = navPrimaryLinks;
+const desktopLinks = [
+  { href: "/library", label: "Library" },
+  { href: "/institute", label: "Institute" },
+  { href: "/diagnostics", label: "Diagnostics" },
+];
 ---
 
 <nav class="nav" aria-label="Primary" data-nav>
@@ -57,7 +62,7 @@ const topLevelLinks = navPrimaryLinks;
 
       <div class="nav__links nav__links--desktop" aria-label="Primary">
         {
-          topLevelLinks.map((link) => (
+          desktopLinks.map((link) => (
             <a
               class="nav__link"
               href={link.href}
@@ -82,7 +87,7 @@ const topLevelLinks = navPrimaryLinks;
       <div class="nav__mobile-row">
         <div class="nav__links nav__links--mobile">
           {
-            topLevelLinks.map((link) => (
+            mobileLinks.map((link) => (
               <a
                 class="nav__link"
                 href={link.href}
