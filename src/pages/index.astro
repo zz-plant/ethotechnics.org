@@ -31,8 +31,11 @@ const { pageTitle, pageDescription } = homeEntry.data;
         <div class="actions">
           <a class="button primary" href="/diagnostics">Run a diagnostic</a>
         </div>
-        <div class="hero__jump-links">
-          <span class="eyebrow">Jump to</span>
+        <details class="hero__jump-links">
+          <summary class="hero__jump-summary">
+            <span class="eyebrow">Jump to</span>
+            <span class="hero__jump-label">Explore sections</span>
+          </summary>
           <ul>
             <li>
               <a class="pill" href="#audience">Audience</a>
@@ -50,7 +53,7 @@ const { pageTitle, pageDescription } = homeEntry.data;
               <a class="pill" href="#agents">APIs</a>
             </li>
           </ul>
-        </div>
+        </details>
         <p class="hero__helper">
           Prefer a fix-first view? <a href="/mechanisms">Browse the mechanism library</a>. Need the full doctrine?
           <a href="/standards">Browse standards</a>.

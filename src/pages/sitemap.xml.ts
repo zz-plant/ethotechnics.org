@@ -2,6 +2,8 @@ import { getEntry } from "astro:content";
 import type { APIContext } from "astro";
 
 import { glossaryContent } from "../content/glossary";
+import type { GlossaryCategory, GlossaryEntry } from "../content/glossary";
+import type { Pattern } from "../content/library";
 import { quickStartGuides } from "../content/quick-start";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
@@ -124,11 +126,12 @@ export async function GET({ site }: APIContext) {
   const glossaryLastmod = normalizeLastmod(
     glossaryData.publication.updated ?? glossaryData.publication.published,
   );
-  const glossaryPaths = glossaryData.categories.flatMap((category) =>
-    category.entries.map((entry) => ({
-      path: glossaryEntryPermalink(entry.id),
-      lastmod: glossaryLastmod,
-    })),
+  const glossaryPaths = glossaryData.categories.flatMap(
+    (category: GlossaryCategory) =>
+      category.entries.map((entry: GlossaryEntry) => ({
+        path: glossaryEntryPermalink(entry.id),
+        lastmod: glossaryLastmod,
+      })),
   );
   const libraryEntry = await getEntry("library", "library");
   const libraryLastmod = libraryEntry
@@ -137,7 +140,7 @@ export async function GET({ site }: APIContext) {
       )
     : undefined;
   const patternPaths =
-    libraryEntry?.data.patterns.entries.map((pattern) => ({
+    libraryEntry?.data.patterns.entries.map((pattern: Pattern) => ({
       path: `/mechanisms/patterns/${pattern.slug}`,
       lastmod: libraryLastmod,
     })) ?? [];
