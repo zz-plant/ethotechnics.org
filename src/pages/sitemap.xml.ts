@@ -1,20 +1,25 @@
-import type { APIContext } from 'astro';
+import { getEntry } from "astro:content";
+import type { APIContext } from "astro";
 
-const fallbackSite = 'https://ethotechnics.org';
+import { quickStartGuides } from "../content/quick-start";
+import { glossaryEntryPermalink } from "../utils/glossary";
 
-const fallbackPaths = ['/'];
+const fallbackSite = "https://ethotechnics.org";
+
+const fallbackPaths = ["/"];
+const fallbackLastmod = new Date().toISOString();
 
 const loadPageModules = async () => {
-  if (typeof import.meta.glob === 'function') {
-    return import.meta.glob('./**/*.astro', { eager: true });
+  if (typeof import.meta.glob === "function") {
+    return import.meta.glob("./**/*.astro", { eager: true });
   }
 
-  if (typeof Bun !== 'undefined') {
+  if (typeof Bun !== "undefined") {
     const modules: Record<string, true> = {};
-    const glob = new Bun.Glob('src/pages/**/*.astro');
+    const glob = new Bun.Glob("src/pages/**/*.astro");
 
     for await (const file of glob.scan({ cwd: process.cwd() })) {
-      const relativePath = file.replace(/^src\/pages\//, '');
+      const relativePath = file.replace(/^src\/pages\//, "");
       modules[`./${relativePath}`] = true;
     }
 
@@ -25,38 +30,72 @@ const loadPageModules = async () => {
 };
 
 const normalizeRoutePath = (filePath: string) => {
-  const withoutPrefix = filePath.replace(/^\.\//, '').replace(/\.astro$/, '');
+  const withoutPrefix = filePath.replace(/^\.\//, "").replace(/\.astro$/, "");
 
-  if (withoutPrefix.includes('[')) {
+  if (withoutPrefix.includes("[")) {
     return null;
   }
 
-  if (withoutPrefix === 'index') {
-    return '/';
+  if (withoutPrefix === "index") {
+    return "/";
   }
 
-  if (withoutPrefix.endsWith('/index')) {
+  if (withoutPrefix.endsWith("/index")) {
     return `/${withoutPrefix.slice(0, -6)}/`;
   }
 
   return `/${withoutPrefix}`;
 };
 
-const buildUrlSet = (base: URL, pagePaths: string[]) => {
-  const lastmod = new Date().toISOString();
+const isPublicPath = (path: string) => {
+  if (path === "/404") {
+    return false;
+  }
 
-  return pagePaths.map((path) => {
+  if (path.startsWith("/api")) {
+    return false;
+  }
+
+  return !path
+    .split("/")
+    .filter(Boolean)
+    .some((segment) => segment.startsWith("_"));
+};
+
+const normalizeLastmod = (value?: string) => {
+  if (!value) {
+    return fallbackLastmod;
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return fallbackLastmod;
+  }
+
+  return date.toISOString();
+};
+
+type SitemapEntry = {
+  path: string;
+  lastmod?: string;
+  changefreq?: string;
+  priority?: string;
+};
+
+const buildUrlSet = (base: URL, entries: SitemapEntry[]) =>
+  entries.map((entry) => {
+    const { path, lastmod, changefreq, priority } = entry;
     const loc = new URL(path, base).toString();
-    const isHome = path === '/';
+    const isHome = path === "/";
 
     return {
       loc,
-      lastmod,
-      changefreq: isHome ? 'weekly' : 'monthly',
-      priority: isHome ? '1.0' : undefined,
+      lastmod: normalizeLastmod(lastmod),
+      changefreq: changefreq ?? (isHome ? "weekly" : "monthly"),
+      priority: priority ?? (isHome ? "1.0" : undefined),
     };
   });
-};
 
 const renderUrl = ({
   loc,
@@ -64,8 +103,10 @@ const renderUrl = ({
   changefreq,
   priority,
 }: ReturnType<typeof buildUrlSet>[number]) => {
-  const changefreqTag = changefreq ? `\n  <changefreq>${changefreq}</changefreq>` : '';
-  const priorityTag = priority ? `\n  <priority>${priority}</priority>` : '';
+  const changefreqTag = changefreq
+    ? `\n  <changefreq>${changefreq}</changefreq>`
+    : "";
+  const priorityTag = priority ? `\n  <priority>${priority}</priority>` : "";
 
   return `<url>\n  <loc>${loc}</loc>\n  <lastmod>${lastmod}</lastmod>${changefreqTag}${priorityTag}\n</url>`;
 };
@@ -75,17 +116,66 @@ export async function GET({ site }: APIContext) {
   const pageModules = await loadPageModules();
   const pagePaths = Object.keys(pageModules)
     .map(normalizeRoutePath)
-    .filter((path): path is string => Boolean(path));
-  const paths = pagePaths.length > 0 ? pagePaths : fallbackPaths;
-  const urls = buildUrlSet(siteUrl, paths).map(renderUrl).join('\n');
+    .filter((path): path is string => Boolean(path))
+    .filter(isPublicPath);
+  const glossaryEntry = await getEntry("glossary", "glossary");
+  const glossaryLastmod = glossaryEntry
+    ? normalizeLastmod(
+        glossaryEntry.data.publication.updated ??
+          glossaryEntry.data.publication.published,
+      )
+    : undefined;
+  const glossaryPaths =
+    glossaryEntry?.data.categories.flatMap((category) =>
+      category.entries.map((entry) => ({
+        path: glossaryEntryPermalink(entry.id),
+        lastmod: glossaryLastmod,
+      })),
+    ) ?? [];
+  const libraryEntry = await getEntry("library", "library");
+  const libraryLastmod = libraryEntry
+    ? normalizeLastmod(
+        libraryEntry.data.updated ?? libraryEntry.data.published,
+      )
+    : undefined;
+  const patternPaths =
+    libraryEntry?.data.patterns.entries.map((pattern) => ({
+      path: `/mechanisms/patterns/${pattern.slug}`,
+      lastmod: libraryLastmod,
+    })) ?? [];
+  const quickStartPaths = quickStartGuides.map((guide) => ({
+    path: `/quick-start/${guide.slug}`,
+  }));
+  const entries: SitemapEntry[] = [
+    ...(pagePaths.length > 0
+      ? pagePaths.map((path) => ({ path }))
+      : fallbackPaths.map((path) => ({ path }))),
+    ...glossaryPaths,
+    ...patternPaths,
+    ...quickStartPaths,
+  ];
+  const entryMap = new Map<string, SitemapEntry>();
+
+  entries.forEach((entry) => {
+    entryMap.set(entry.path, entry);
+  });
+
+  const urls = buildUrlSet(
+    siteUrl,
+    Array.from(entryMap.values()).sort((a, b) =>
+      a.path.localeCompare(b.path),
+    ),
+  )
+    .map(renderUrl)
+    .join("\n");
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
 
   return new Response(sitemap, {
     status: 200,
     headers: {
-      'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600',
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600",
     },
   });
 }
