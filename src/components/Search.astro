@@ -10,7 +10,7 @@ import { Icon } from "astro-icon/components";
     aria-label="Open search"
   >
     <Icon name="lucide:search" class="search-icon" />
-    <span class="search-label">Search standards...</span>
+    <span class="search-label">Search the library...</span>
     <kbd class="search-kbd">/</kbd>
   </button>
 
@@ -379,7 +379,13 @@ import { Icon } from "astro-icon/components";
   const RECENT_SEARCH_KEY = "et3-search-recent";
   const SEARCH_QUERY_STORAGE_KEY = "et3-search-query";
   const MAX_RECENT_SEARCHES = 6;
-  const GROUP_LABELS = ["Standards", "Validators", "Mechanisms", "Other"];
+  const GROUP_LABELS = [
+    "Standards",
+    "Validators",
+    "Mechanisms",
+    "Research",
+    "Other",
+  ];
   const SEARCH_MODAL_PARAM = "modal";
   const SEARCH_QUERY_PARAM = "q";
   const CONTENT_TYPE_MAP: Record<string, string> = {
@@ -389,6 +395,9 @@ import { Icon } from "astro-icon/components";
     validator: "Validators",
     mechanisms: "Mechanisms",
     mechanism: "Mechanisms",
+    research: "Research",
+    paper: "Research",
+    report: "Research",
   };
   let activeIndex = -1;
   let currentQuery = "";
