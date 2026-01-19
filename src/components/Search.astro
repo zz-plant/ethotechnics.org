@@ -584,6 +584,13 @@ import { Icon } from "astro-icon/components";
     const query = (event.target as HTMLInputElement).value;
     currentQuery = query.trim();
     updateQueryParam(currentQuery);
+    activeIndex = -1;
+
+    if (resultsContainer) {
+      resultsContainer.innerHTML = currentQuery
+        ? '<p class="search-empty">Searching...</p>'
+        : '<p class="search-empty">Start typing to search...</p>';
+    }
 
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(async () => {
