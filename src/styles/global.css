@@ -5,6 +5,12 @@
     scroll-behavior: smooth;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   :root {
     --text-hero: clamp(2rem, 3vw + 1rem, 3.8rem);
     --text-lede: clamp(1rem, 0.6vw + 0.95rem, 1.2rem);
