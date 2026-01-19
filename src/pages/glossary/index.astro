@@ -45,6 +45,7 @@ type GlossaryRelatedPattern = {
   filterLabels: string[];
 };
 const anchorLinks = [
+  { href: "#glossary-pathways", label: "Glossary pathways" },
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#explainer-links", label: "Explainers" },
   { href: "#territory-map", label: "Territory map" },
@@ -55,6 +56,7 @@ const anchorLinks = [
 ];
 const summaryLinks = [
   { href: "#starter-terms", label: "Starter terms" },
+  { href: "#glossary-pathways", label: "Glossary pathways" },
   { href: "#explainer-links", label: "Explainers" },
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#territory-map", label: "Territory map" },
@@ -190,6 +192,36 @@ const explainerLinks = [
     glossaryHref: glossaryEntryUrl("permission-surface"),
   },
 ];
+const glossaryPathways = [
+  {
+    title: "Ethical technology standards",
+    description:
+      "Use glossary definitions when drafting AI governance requirements, accountability checkpoints, and consent safeguards.",
+    href: "/standards",
+    linkLabel: "Explore ethical technology standards",
+  },
+  {
+    title: "Human-centered design research",
+    description:
+      "Pair field research and diagnostics with stable terminology for human-centered design and moral system reviews.",
+    href: "/research",
+    linkLabel: "Browse human-centered design research",
+  },
+  {
+    title: "Mechanisms and controls library",
+    description:
+      "Jump from glossary terms to implementation mechanisms like stoppability, safety valves, and contestability patterns.",
+    href: "/mechanisms",
+    linkLabel: "Review AI governance mechanisms",
+  },
+  {
+    title: "Field notes and practice briefs",
+    description:
+      "Trace how glossary anchors show up in real-world audits, incident reviews, and remediation playbooks.",
+    href: "/field-notes",
+    linkLabel: "Read ethical tech field notes",
+  },
+];
 const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
 const normalizedQuery = searchQuery.toLowerCase();
 const hasSearchQuery = normalizedQuery.length > 0;
@@ -222,6 +254,14 @@ const structuredData = {
       "@id": pageUrl,
       name: pageTitle,
       description: pageDescription,
+      keywords: [
+        "ethical technology glossary",
+        "AI governance terms",
+        "human-centered design definitions",
+        "algorithmic accountability vocabulary",
+        "consent and safety terminology",
+        "stewardship glossary",
+      ],
       url: pageUrl,
       mainEntity: {
         "@id": `${pageUrl}#defined-term-set`,
@@ -287,6 +327,27 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     relatedLinks={summaryRelatedLinks}
     jumpLinks={summaryLinks}
   />
+  <SectionBlock
+    id="glossary-pathways"
+    eyebrow="Pathways"
+    title="Glossary pathways for ethical technology teams"
+    description="Start with shared definitions, then follow the glossary into AI governance standards, research artifacts, and human-centered design mechanisms."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        glossaryPathways.map((pathway) => (
+          <CardItem title={pathway.title} description={pathway.description}>
+            <p slot="footer">
+              <a class="button ghost button--compact" href={pathway.href}>
+                {pathway.linkLabel}
+              </a>
+            </p>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
