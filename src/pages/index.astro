@@ -31,6 +31,26 @@ const { pageTitle, pageDescription } = homeEntry.data;
         <div class="actions">
           <a class="button primary" href="/diagnostics">Run a diagnostic</a>
         </div>
+        <div class="hero__jump-links">
+          <span class="eyebrow">Jump to</span>
+          <ul>
+            <li>
+              <a class="pill" href="#audience">Audience</a>
+            </li>
+            <li>
+              <a class="pill" href="#outputs">Outputs</a>
+            </li>
+            <li>
+              <a class="pill" href="#workflow">Workflow</a>
+            </li>
+            <li>
+              <a class="pill" href="#difference">Difference</a>
+            </li>
+            <li>
+              <a class="pill" href="#agents">APIs</a>
+            </li>
+          </ul>
+        </div>
         <p class="hero__helper">
           Prefer a fix-first view? <a href="/mechanisms">Browse the mechanism library</a>. Need the full doctrine?
           <a href="/standards">Browse standards</a>.
@@ -78,7 +98,7 @@ const { pageTitle, pageDescription } = homeEntry.data;
         title="I am building an automated system or agent"
         description="Fast path, mechanisms, and concrete implementation examples."
       >
-        <a class="button primary button--compact" href="/start-here">
+        <a class="button primary button--compact" href="/start-here?persona=builder">
           Start: Build & ship
         </a>
         <ul class="muted">
@@ -97,7 +117,7 @@ const { pageTitle, pageDescription } = homeEntry.data;
         title="I am auditing or governing a system"
         description="Evidence, bindings, and minimum enforceable requirements."
       >
-        <a class="button primary button--compact" href="/start-here">
+        <a class="button primary button--compact" href="/start-here?persona=auditor">
           Start: Audit & govern
         </a>
         <ul class="muted">
@@ -116,7 +136,7 @@ const { pageTitle, pageDescription } = homeEntry.data;
         title="I am writing policy or procurement language"
         description="Standards, where they bind, and enforceable clauses."
       >
-        <a class="button primary button--compact" href="/start-here">
+        <a class="button primary button--compact" href="/start-here?persona=policy">
           Start: Draft policy
         </a>
         <ul class="muted">
@@ -135,7 +155,7 @@ const { pageTitle, pageDescription } = homeEntry.data;
         title="I am researching or teaching"
         description="Research, glossary anchors, and mapping artifacts."
       >
-        <a class="button primary button--compact" href="/start-here">
+        <a class="button primary button--compact" href="/start-here?persona=research">
           Start: Teach & research
         </a>
         <ul class="muted">
@@ -229,7 +249,7 @@ const { pageTitle, pageDescription } = homeEntry.data;
     variant="alt"
   >
     <div class="mapping-table__wrapper">
-      <table class="mapping-table">
+      <table class="mapping-table mapping-table--compare">
         <thead>
           <tr>
             <th scope="col">This is not</th>
@@ -238,20 +258,20 @@ const { pageTitle, pageDescription } = homeEntry.data;
         </thead>
         <tbody>
           <tr>
-            <td>Ethics principles</td>
-            <td>Testable obligations</td>
+            <td data-label="This is not">Ethics principles</td>
+            <td data-label="This is">Testable obligations</td>
           </tr>
           <tr>
-            <td>Policy PDFs</td>
-            <td>Versioned artifacts</td>
+            <td data-label="This is not">Policy PDFs</td>
+            <td data-label="This is">Versioned artifacts</td>
           </tr>
           <tr>
-            <td>Review committees</td>
-            <td>Diagnostic outputs</td>
+            <td data-label="This is not">Review committees</td>
+            <td data-label="This is">Diagnostic outputs</td>
           </tr>
           <tr>
-            <td>Trust-based governance</td>
-            <td>Evidence-based governance</td>
+            <td data-label="This is not">Trust-based governance</td>
+            <td data-label="This is">Evidence-based governance</td>
           </tr>
         </tbody>
       </table>
