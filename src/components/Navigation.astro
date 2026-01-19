@@ -79,29 +79,6 @@ const desktopLinks = navPrimaryLinks;
       </div>
     </div>
 
-    <div class="nav__quick" role="navigation" aria-label="Top destinations">
-      <span class="nav__quick-label muted">Top destinations</span>
-      <ul class="nav__quick-links">
-        {
-          desktopLinks.map((link) => (
-            <li class="nav__quick-item">
-              <a
-                class="nav__link"
-                href={link.href}
-                aria-current={isCurrentLink(link.href) ? "page" : undefined}
-                style={`view-transition-name: ${toViewTransitionName(
-                  link.href,
-                  "desktop"
-                )};`}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-
     <div class="nav__mobile" aria-label="Primary">
       <div class="nav__mobile-row">
         <div class="nav__links nav__links--mobile">
@@ -465,35 +442,6 @@ const desktopLinks = navPrimaryLinks;
     display: none;
   }
 
-  .nav__quick {
-    display: none;
-    align-items: center;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    padding: 0.4rem 0.4rem 0;
-  }
-
-  .nav__quick-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 700;
-    color: var(--muted);
-  }
-
-  .nav__quick-links {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nav__quick-item {
-    display: inline-flex;
-  }
-
   .nav__link {
     display: inline-flex;
     align-items: center;
@@ -763,10 +711,6 @@ const desktopLinks = navPrimaryLinks;
   @media (min-width: 1200px) {
     .nav__links--desktop {
       display: none;
-    }
-
-    .nav__quick {
-      display: flex;
     }
   }
 

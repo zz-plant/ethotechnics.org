@@ -174,18 +174,6 @@
   opacity: 0.55;
   pointer-events: none;
   z-index: var(--z-base);
-  animation: grain-breathe 8s ease-in-out infinite alternate;
-}
-
-@keyframes grain-breathe {
-  0% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0.65;
-    transform: scale(1.01);
-  }
 }
 
 .page-shell::after {
@@ -1244,38 +1232,6 @@
   font-weight: 600;
 }
 
-.hero__highlights {
-  display: grid;
-  gap: 0.65rem;
-  margin: 1.2rem 0 0;
-  padding: 0;
-  list-style: none;
-  color: color-mix(in srgb, var(--muted) 86%, var(--text));
-}
-
-.hero__highlights li {
-  display: grid;
-  gap: 0.25rem;
-  padding-left: 1.1rem;
-  position: relative;
-}
-
-.hero__highlights li::before {
-  content: "";
-  position: absolute;
-  top: 0.5rem;
-  left: 0;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--accent) 60%, transparent);
-}
-
-.hero__highlights strong {
-  color: var(--text);
-  font-weight: 650;
-}
-
 @media (max-width: 640px) {
   .hero .actions {
     flex-direction: column;
@@ -1640,6 +1596,53 @@
     box-shadow 220ms ease,
     background-color 220ms ease,
     color 220ms ease;
+}
+
+.card__details {
+  border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+  padding-top: 0.4rem;
+}
+
+.card__summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text);
+  touch-action: manipulation;
+}
+
+.card__summary::marker,
+.card__summary::-webkit-details-marker {
+  display: none;
+}
+
+.card__summary::after {
+  content: "+";
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.card__details[open] .card__summary::after {
+  content: "–";
+}
+
+.card__summary:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.card__link-list {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.35rem;
 }
 
 .card__glow {
