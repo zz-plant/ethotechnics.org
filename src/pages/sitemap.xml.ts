@@ -1,6 +1,7 @@
 import { getEntry } from "astro:content";
 import type { APIContext } from "astro";
 
+import { glossaryContent } from "../content/glossary";
 import { quickStartGuides } from "../content/quick-start";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
@@ -119,19 +120,16 @@ export async function GET({ site }: APIContext) {
     .filter((path): path is string => Boolean(path))
     .filter(isPublicPath);
   const glossaryEntry = await getEntry("glossary", "glossary");
-  const glossaryLastmod = glossaryEntry
-    ? normalizeLastmod(
-        glossaryEntry.data.publication.updated ??
-          glossaryEntry.data.publication.published,
-      )
-    : undefined;
-  const glossaryPaths =
-    glossaryEntry?.data.categories.flatMap((category) =>
-      category.entries.map((entry) => ({
-        path: glossaryEntryPermalink(entry.id),
-        lastmod: glossaryLastmod,
-      })),
-    ) ?? [];
+  const glossaryData = glossaryEntry?.data ?? glossaryContent;
+  const glossaryLastmod = normalizeLastmod(
+    glossaryData.publication.updated ?? glossaryData.publication.published,
+  );
+  const glossaryPaths = glossaryData.categories.flatMap((category) =>
+    category.entries.map((entry) => ({
+      path: glossaryEntryPermalink(entry.id),
+      lastmod: glossaryLastmod,
+    })),
+  );
   const libraryEntry = await getEntry("library", "library");
   const libraryLastmod = libraryEntry
     ? normalizeLastmod(
