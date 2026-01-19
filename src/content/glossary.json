@@ -1,7 +1,7 @@
 [
   {
     "id": "glossary",
-    "pageTitle": "Ethotechnics glossary \u2014 Ethical technology, AI governance, and moral system terms",
+    "pageTitle": "Ethotechnics glossary — Ethical technology, AI governance, and moral system terms",
     "pageDescription": "Search the Ethotechnics glossary for ethical technology and AI governance terms. Find definitions, scope notes, and citations across moral system design, accountability, consent, safety, and stewardship.",
     "permalink": "/glossary",
     "publication": {
@@ -154,11 +154,15 @@
             "title": "Ethotechnics",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The craft of designing systems that can behave morally. Where ethics asks \u201cWhat should I do?\u201d and systems theory asks \u201cHow does it behave?\u201d, Ethotechnics asks: <strong>How can it behave well?</strong> Moral behavior is treated as an architectural capability, not a personal virtue.</p>",
+            "bodyHtml": "<p>The discipline of designing sociotechnical systems that reliably uphold moral obligations. It treats moral behavior as engineered capability expressed in policy, interfaces, and operations—so harm can be prevented, stopped, and repaired.</p>",
             "examples": [
-              "A hospital release board adds Ethotechnic stop-checks before deploying triage updates to keep clinicians in control."
+              "A hospital release board requires consent checks, stop controls, and named repair owners before deploying triage updates."
             ],
-            "tags": ["hospitals", "platforms", "governance"],
+            "tags": [
+              "hospitals",
+              "platforms",
+              "governance"
+            ],
             "resources": [
               {
                 "label": "AI governance",
@@ -173,10 +177,10 @@
             ],
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethotechnics.",
-              "Teams can point to a concrete example that demonstrates ethotechnics in practice."
+              "Documentation maps moral obligations to concrete mechanisms (stoppability, contestability, repair ownership).",
+              "Teams can show a shipped feature where moral performance was designed, measured, and iterated."
             ],
-            "genealogy": "Ethotechnics uses Ethotechnics to extend the a. core concepts vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Draws from ethics, safety engineering, and systems design to align governance, product, and operations around observable moral performance.",
             "references": [
               {
                 "label": "AI governance",
@@ -195,11 +199,15 @@
             "title": "Moral Behavior (of Systems)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Observable patterns of system behavior that prevent harm, share burden fairly, and keep people contestable and whole. Moral behavior is evaluated through <a href=\"#moral-performance-indicators\">MPIs</a> such as <a href=\"#time-to-halt\">time-to-halt</a>, <a href=\"#reversibility\">reversibility</a>, and <a href=\"#fair-burden-distribution\">fair burden distribution</a>\u2014not by stated intent.</p>",
+            "bodyHtml": "<p>Observable system outcomes that prevent harm, distribute burden fairly, and keep people able to contest and recover. Moral behavior is evaluated via <a href=\"#moral-performance-indicators\">MPIs</a> like <a href=\"#time-to-halt\">time-to-halt</a>, <a href=\"#reversibility\">reversibility</a>, and <a href=\"#fair-burden-distribution\">fair burden distribution</a>—not by stated intent.</p>",
             "examples": [
-              "A payments platform throttles recommendations when fraud signals spike until human reviewers clear the backlog."
+              "A payments platform slows risky recommendations, surfaces a human review queue, and documents reversals when fraud indicators spike."
             ],
-            "tags": ["platforms", "finance", "safety"],
+            "tags": [
+              "platforms",
+              "finance",
+              "safety"
+            ],
             "resources": [
               {
                 "label": "Civic services",
@@ -214,10 +222,10 @@
             ],
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect moral behavior (of systems).",
-              "Teams can point to a concrete example that demonstrates moral behavior (of systems) in practice."
+              "MPIs are tracked and drive operational thresholds or pause rules.",
+              "Post-incident reviews tie outcomes to system controls rather than intent statements."
             ],
-            "genealogy": "Ethotechnics uses Moral Behavior (of Systems) to extend the a. core concepts vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Defines the observable outcomes Ethotechnics expects across governance, design, and operations.",
             "references": [
               {
                 "label": "Civic services",
@@ -236,11 +244,15 @@
             "title": "Ethical Load Path",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The route moral responsibility travels through a system\u2014across automation, humans, and institutions. A clear ethical load path shows who can stop, reverse, or repair harm at each stage, linking <a href=\"#design-authority\">design authority</a>, <a href=\"#oversight-horizon\">oversight horizons</a>, and the <a href=\"#repair-log\">repair log</a>.</p>",
+            "bodyHtml": "<p>The traceable chain of authority and actions that carries moral responsibility through a system. A clear ethical load path shows who can stop, reverse, or repair harm at each stage, linking <a href=\"#design-authority\">design authority</a>, <a href=\"#oversight-horizon\">oversight horizons</a>, and the <a href=\"#repair-log\">repair log</a>.</p>",
             "examples": [
-              "A transit authority publishes who can halt automated dispatch at each escalation step, including night-shift supervisors."
+              "A transit authority publishes a named escalation map for halting automated dispatch, including after-hours owners."
             ],
-            "tags": ["transit", "ops-teams", "oversight"],
+            "tags": [
+              "transit",
+              "ops-teams",
+              "oversight"
+            ],
             "resources": [
               {
                 "label": "Governance playbook",
@@ -255,10 +267,10 @@
             ],
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethical load path.",
-              "Teams can point to a concrete example that demonstrates ethical load path in practice."
+              "Escalation maps name owners for stop, reverse, and repair actions at each lifecycle stage.",
+              "Pause or rollback drills confirm the path works under operational pressure."
             ],
-            "genealogy": "Ethotechnics uses Ethical Load Path to extend the a. core concepts vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Connects accountability structures to day-to-day operations so responsibility does not vanish in handoffs.",
             "references": [
               {
                 "label": "Governance playbook",
@@ -277,11 +289,15 @@
             "title": "Ethotechnic Audit",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A structured assessment of a system\u2019s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where <a href=\"#stoppability\">stoppability</a> or <a href=\"#reversibility\">reversibility</a> fail and guide concrete remediation steps.</p>",
+            "bodyHtml": "<p>A structured assessment of a system’s moral capabilities, including stoppability, reversibility, burden distribution, contestability, and accountability. Audits surface gaps, validate evidence, and define remediation steps with owners.</p>",
             "examples": [
-              "A platform review board runs an Ethotechnic audit after an outage to trace who could have halted or reversed the release."
+              "After a harmful rollout, a platform audit verifies stop controls, reversal paths, and repair ownership before relaunch."
             ],
-            "tags": ["platforms", "audits", "sre"],
+            "tags": [
+              "platforms",
+              "audits",
+              "sre"
+            ],
             "resources": [
               {
                 "label": "AI governance",
@@ -291,10 +307,10 @@
             ],
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethotechnic audit.",
-              "Teams can point to a concrete example that demonstrates ethotechnic audit in practice."
+              "The audit produces findings tied to specific mechanisms, owners, and deadlines.",
+              "Follow-up audits track remediation and show measurable improvement."
             ],
-            "genealogy": "Ethotechnics uses Ethotechnic Audit to extend the a. core concepts vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Adapts safety and compliance auditing to focus on moral performance rather than policy adherence alone.",
             "references": [
               {
                 "label": "AI governance",
@@ -308,11 +324,15 @@
             "title": "Conviviality",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The degree to which tools and institutions expand people\u2019s agency, cooperation, and right of refusal instead of enclosing them. Convivial systems keep <a href=\"#permission-surface\">permission surfaces</a> wide and make opting out safe, so people can shape the service without being consumed by it.</p>",
+            "bodyHtml": "<p>The degree to which tools and institutions expand people’s agency, cooperation, and right of refusal instead of enclosing them. Convivial systems keep <a href=\"#permission-surface\">permission surfaces</a> wide, make opting out safe, and let communities shape the service.</p>",
             "examples": [
               "A mutual aid platform lets neighbors pause notifications or change delivery preferences without losing access to support."
             ],
-            "tags": ["community", "platforms", "mutual-aid"],
+            "tags": [
+              "community",
+              "platforms",
+              "mutual-aid"
+            ],
             "resources": [
               {
                 "label": "Mechanisms catalog",
@@ -322,10 +342,10 @@
             ],
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect conviviality.",
-              "Teams can point to a concrete example that demonstrates conviviality in practice."
+              "People can refuse or change terms without losing core access or being penalized.",
+              "Interfaces surface shared control settings instead of only provider defaults."
             ],
-            "genealogy": "Ethotechnics uses Conviviality to extend the a. core concepts vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Extends human-centered design by insisting that agency and refusal remain durable at scale.",
             "references": [
               {
                 "label": "Mechanisms catalog",
@@ -339,11 +359,15 @@
             "title": "Ethotechnic Maturity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A developmental scale describing how fully a system embodies Ethotechnic capabilities. Early maturity focuses on stopping acute harms; later stages add <a href=\"#graceful-degradation\">graceful degradation</a>, <a href=\"#contestability\">contestability</a>, and regular <a href=\"#care-retrospective\">care retrospectives</a>. The highest level treats ethics as continuous operations, with published <a href=\"#service-level-indicators\">SLJs</a> and funded maintenance practice.</p>",
+            "bodyHtml": "<p>A developmental scale describing how consistently a system embodies Ethotechnic capabilities across its lifecycle. Early maturity focuses on stopping acute harms; later stages add <a href=\"#graceful-degradation\">graceful degradation</a>, <a href=\"#contestability\">contestability</a>, and routine <a href=\"#care-retrospective\">care retrospectives</a>. Mature systems publish <a href=\"#service-level-indicators\">SLJs</a> and fund maintenance as core operations.</p>",
             "examples": [
-              "A rail operator publishes service-level justice metrics and funds quarterly pause drills to keep reversibility fresh."
+              "A rail operator publishes service-level justice metrics, runs quarterly pause drills, and funds dedicated repair staffing."
             ],
-            "tags": ["rail", "sre", "maturity"],
+            "tags": [
+              "rail",
+              "sre",
+              "maturity"
+            ],
             "resources": [
               {
                 "label": "Maintenance guidance",
@@ -358,10 +382,10 @@
             ],
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethotechnic maturity.",
-              "Teams can point to a concrete example that demonstrates ethotechnic maturity in practice."
+              "A maturity level is documented with evidence for each capability and reviewed on a cadence.",
+              "Maintenance and repair budgets are recurring, not ad hoc."
             ],
-            "genealogy": "Ethotechnics uses Ethotechnic Maturity to extend the a. core concepts vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Translates maturity modeling into a roadmap for moral performance and ongoing care.",
             "references": [
               {
                 "label": "Maintenance guidance",
@@ -380,11 +404,15 @@
             "title": "Legibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How understandable a system\u2019s actions, reasoning, and ownership are to the people affected by it. Legibility complements <a href=\"#explainability-for-accountability\">explainability for accountability</a> and transparent <a href=\"#design-authority\">design authority</a>.</p>",
+            "bodyHtml": "<p>How understandable a system’s actions, reasoning, and ownership are to the people affected by it. Legibility complements <a href=\"#explainability-for-accountability\">explainability for accountability</a> and transparent <a href=\"#design-authority\">design authority</a> so people can act on what they learn.</p>",
             "examples": [
-              "Residents receive a plain-language notice that cites the office and policy behind a zoning decision."
+              "Residents receive a plain-language notice that names the office, rule, and appeal path behind a zoning decision."
             ],
-            "tags": ["transparency", "governance", "users"],
+            "tags": [
+              "transparency",
+              "governance",
+              "users"
+            ],
             "resources": [
               {
                 "label": "Civic services",
@@ -394,10 +422,10 @@
             ],
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect legibility.",
-              "Teams can point to a concrete example that demonstrates legibility in practice."
+              "Decisions include a plain-language rationale, owner, and next step for contesting.",
+              "Affected people can locate the policy basis and escalation path within one click."
             ],
-            "genealogy": "Ethotechnics uses Legibility to extend the a. core concepts vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Moves transparency from disclosure to actionable understanding.",
             "references": [
               {
                 "label": "Civic services",
@@ -415,7 +443,11 @@
             "examples": [
               "Policy, tooling, and incentives all enforce the same stoppability rules."
             ],
-            "tags": ["organizations", "governance", "systems"],
+            "tags": [
+              "organizations",
+              "governance",
+              "systems"
+            ],
             "resources": [
               {
                 "label": "Accountability architectures",
@@ -425,10 +457,10 @@
             ],
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect sociotechnical alignment.",
-              "Teams can point to a concrete example that demonstrates sociotechnical alignment in practice."
+              "Incentives and KPIs reinforce, rather than undermine, moral requirements.",
+              "Incident reviews can trace breakdowns between policy intent and operational tooling."
             ],
-            "genealogy": "Ethotechnics uses Sociotechnical Alignment to extend the a. core concepts vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Bridges organizational design and system behavior to keep moral intent durable.",
             "references": [
               {
                 "label": "Accountability architectures",
@@ -450,11 +482,15 @@
             "title": "Moral Latency",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The delay between harm occurring and the system recognizing it. Automated systems create harms faster than human oversight can register, demanding <a href=\"#velocity-friction\">velocity friction</a> and <a href=\"#ethical-interrupts\">ethical interrupts</a>.</p>",
+            "bodyHtml": "<p>The lag between harm occurring and the system detecting or responding to it. Automation can scale harm faster than oversight, requiring <a href=\"#velocity-friction\">velocity friction</a> and <a href=\"#ethical-interrupts\">ethical interrupts</a>.</p>",
             "examples": [
-              "A clinic triage chatbot keeps routing people while harm reports queue for hours, hiding the moral latency from clinicians."
+              "A clinic triage chatbot keeps routing patients while harm reports queue for hours, delaying escalation."
             ],
-            "tags": ["hospitals", "automation", "latency"],
+            "tags": [
+              "hospitals",
+              "automation",
+              "latency"
+            ],
             "resources": [
               {
                 "label": "Healthcare safeguards",
@@ -464,10 +500,10 @@
             ],
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect moral latency.",
-              "Teams can point to a concrete example that demonstrates moral latency in practice."
+              "Time-to-detect harm is longer than time-to-scale the impact.",
+              "Alerting lacks moral indicators tied to pause or rollback controls."
             ],
-            "genealogy": "Ethotechnics uses Moral Latency to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Highlights the need to compress detection and response windows.",
             "references": [
               {
                 "label": "Healthcare safeguards",
@@ -481,11 +517,15 @@
             "title": "Accountability Diffusion",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Responsibility dissolves across teams, tools, and incentives until no one can intervene. A defining pattern of modern institutions and a direct threat to clear <a href=\"#design-authority\">design authority</a>.</p>",
+            "bodyHtml": "<p>Responsibility spreads across teams, vendors, and incentives until no one can intervene. Accountability diffusion erodes <a href=\"#design-authority\">design authority</a> and slows response to harm.</p>",
             "examples": [
               "A support ticket bounces between a vendor and a hospital compliance team with no one empowered to pause the rollout."
             ],
-            "tags": ["platforms", "governance", "hospitals"],
+            "tags": [
+              "platforms",
+              "governance",
+              "hospitals"
+            ],
             "resources": [
               {
                 "label": "Governance playbook",
@@ -500,10 +540,10 @@
             ],
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect accountability diffusion.",
-              "Teams can point to a concrete example that demonstrates accountability diffusion in practice."
+              "Escalation maps lack a single owner with authority to stop or repair.",
+              "Incidents show repeated handoffs without a clear decision point."
             ],
-            "genealogy": "Ethotechnics uses Accountability Diffusion to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Names the structural cause of unowned harm in complex institutions.",
             "references": [
               {
                 "label": "Governance playbook",
@@ -522,11 +562,15 @@
             "title": "Extraction",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When a system pulls value\u2014data, attention, labor, or social capital\u2014without returning care, consent, or repair. Extraction hides true costs through <a href=\"#externalization\">externalization</a> and steep <a href=\"#burden-gradient\">burden gradients</a>, hollowing trust.</p>",
+            "bodyHtml": "<p>When a system pulls value—data, attention, labor, or social capital—without returning care, consent, or repair. Extraction hides true costs through <a href=\"#externalization\">externalization</a> and steep <a href=\"#burden-gradient\">burden gradients</a>, hollowing trust.</p>",
             "examples": [
               "A data-labeling program offloads unpaid overnight verification to gig workers while the platform reports clean metrics."
             ],
-            "tags": ["labor", "platforms", "ai"],
+            "tags": [
+              "labor",
+              "platforms",
+              "ai"
+            ],
             "resources": [
               {
                 "label": "AI governance",
@@ -541,10 +585,10 @@
             ],
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect extraction.",
-              "Teams can point to a concrete example that demonstrates extraction in practice."
+              "Value metrics are tracked without corresponding burden or consent metrics.",
+              "Unpaid or unacknowledged labor is required to keep the system functioning."
             ],
-            "genealogy": "Ethotechnics uses Extraction to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Frames value capture as a moral risk, not just an economic one.",
             "references": [
               {
                 "label": "AI governance",
@@ -563,13 +607,13 @@
             "title": "Extraction by Endurance",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Systems that depend on workers or users absorbing fragility through burnout, emotional labor, or unpaid cognitive work\u2014often mislabeled as \u201cresilience.\u201d Ethotechnic practice aims to invert this burden with <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p>",
+            "bodyHtml": "<p>Systems that rely on workers or users absorbing fragility through burnout, emotional labor, or unpaid cognitive work—often mislabeled as “resilience.” Ethotechnic practice aims to invert this burden with <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect extraction by endurance.",
-              "Teams can point to a concrete example that demonstrates extraction by endurance in practice."
+              "Sustained service quality depends on overtime, heroics, or unpaid labor.",
+              "Reported stability drops when people stop compensating for failures."
             ],
-            "genealogy": "Ethotechnics uses Extraction by Endurance to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Calls out resilience narratives that mask structural fragility.",
             "references": []
           },
           {
@@ -577,13 +621,13 @@
             "title": "Drift (System Drift)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The natural tendency of systems to externalize harm over time unless constrained by <a href=\"#protective-friction\">protective friction</a> and <a href=\"#moral-performance-indicators\">moral performance indicators</a>.</p>",
+            "bodyHtml": "<p>The tendency of systems to drift toward harm over time when incentives, data, or constraints shift. Without <a href=\"#protective-friction\">protective friction</a> and <a href=\"#moral-performance-indicators\">moral performance indicators</a>, drift quietly erodes safeguards.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect drift (system drift).",
-              "Teams can point to a concrete example that demonstrates drift (system drift) in practice."
+              "Performance metrics improve while harm or complaints trend upward.",
+              "Controls are not reviewed when data, vendors, or policies change."
             ],
-            "genealogy": "Ethotechnics uses Drift (System Drift) to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Warns that stability requires ongoing recalibration.",
             "references": []
           },
           {
@@ -591,13 +635,13 @@
             "title": "Externalization",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Pushing risk, cost, or harm onto other teams, communities, or the future so metrics look clean. Externalization shows up as pollution, shadow labor, or brittle dependencies that live outside audits.</p><p>Ethotechnics counters it with <a href=\"#oversight-horizon\">oversight horizons</a>, <a href=\"#moral-performance-indicators\">MPIs</a>, and transparent <a href=\"#repair-log\">repair logs</a>.</p>",
+            "bodyHtml": "<p>Pushing risk, cost, or harm onto other teams, communities, or the future so internal metrics look clean. Externalization appears as pollution, shadow labor, or brittle dependencies outside audits.</p><p>Ethotechnics counters it with <a href=\"#oversight-horizon\">oversight horizons</a>, <a href=\"#moral-performance-indicators\">MPIs</a>, and transparent <a href=\"#repair-log\">repair logs</a>.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect externalization.",
-              "Teams can point to a concrete example that demonstrates externalization in practice."
+              "Costs show up in downstream teams without corresponding resources or ownership.",
+              "Audits exclude dependencies where harms are reported."
             ],
-            "genealogy": "Ethotechnics uses Externalization to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Names the gap between local optimization and systemic responsibility.",
             "references": []
           },
           {
@@ -605,18 +649,22 @@
             "title": "Brittleness",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When a system shatters under real-world variance\u2014unexpected inputs, refusals, or edge cases\u2014forcing humans to absorb impact. Brittleness signals missing <a href=\"#soft-edges\">soft edges</a>, thin <a href=\"#graceful-degradation\">graceful degradation</a>, and poor <a href=\"#human-refusal-tolerance\">refusal tolerance</a>.</p>",
+            "bodyHtml": "<p>When a system fractures under real-world variance—unexpected inputs, refusals, or edge cases—forcing humans to absorb the impact. Brittleness signals missing <a href=\"#soft-edges\">soft edges</a>, thin <a href=\"#graceful-degradation\">graceful degradation</a>, and poor <a href=\"#human-refusal-tolerance\">refusal tolerance</a>.</p>",
             "examples": [
-              "A flight booking bot fails on hyphenated surnames, forcing airport agents to override tickets at the counter."
+              "A flight booking bot fails on hyphenated surnames, forcing agents to rebook travelers at the counter."
             ],
-            "tags": ["aviation", "automation", "support"],
+            "tags": [
+              "aviation",
+              "automation",
+              "support"
+            ],
             "resources": [],
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect brittleness.",
-              "Teams can point to a concrete example that demonstrates brittleness in practice."
+              "Small input variance triggers hard failures instead of safe fallbacks.",
+              "Human operators routinely patch failures without tooling support."
             ],
-            "genealogy": "Ethotechnics uses Brittleness to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Highlights the need for soft edges and refusal tolerance.",
             "references": []
           },
           {
@@ -624,13 +672,13 @@
             "title": "Optimization Myopia",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Metric-chasing that narrows attention to throughput or growth while ignoring <a href=\"#moral-performance-indicators\">MPIs</a>. Myopic optimization erodes <a href=\"#contestability\">contestability</a>, raises <a href=\"#failure-load\">failure load</a>, and often fuels <a href=\"#extraction\">extraction</a>.</p>",
+            "bodyHtml": "<p>Metric chasing that narrows attention to throughput or growth while ignoring <a href=\"#moral-performance-indicators\">MPIs</a>. Myopic optimization erodes <a href=\"#contestability\">contestability</a>, raises <a href=\"#failure-load\">failure load</a>, and often fuels <a href=\"#extraction\">extraction</a>.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect optimization myopia.",
-              "Teams can point to a concrete example that demonstrates optimization myopia in practice."
+              "Success metrics improve while contestability or reversibility degrades.",
+              "Teams cannot articulate the moral tradeoffs behind optimizations."
             ],
-            "genealogy": "Ethotechnics uses Optimization Myopia to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Warns against single-metric tuning that crowds out moral performance.",
             "references": []
           },
           {
@@ -641,10 +689,10 @@
             "bodyHtml": "<p>Using detailed metrics or probabilistic scores to disguise inequity as objectivity. Precision laundering hides <a href=\"#burden-gradient\">burden gradients</a> and <a href=\"#externalization\">externalization</a> behind statistical gloss, undermining <a href=\"#explainability-for-accountability\">explainability for accountability</a>.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect precision laundering.",
-              "Teams can point to a concrete example that demonstrates precision laundering in practice."
+              "High-confidence scores are presented without error bounds or contestability paths.",
+              "Stakeholders treat model output as unquestionable despite uneven impacts."
             ],
-            "genealogy": "Ethotechnics uses Precision Laundering to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Calls out false certainty in quantified systems.",
             "references": []
           },
           {
@@ -652,13 +700,13 @@
             "title": "Compliance Collapse",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When rigid policy checklists replace judgment, causing teams to follow rules while harm worsens. Compliance collapses occur when <a href=\"#design-authority\">design authority</a> is weak and <a href=\"#contestability\">contestability</a> is low, leaving no path to pause or repair.</p>",
+            "bodyHtml": "<p>When rigid policy checklists replace judgment, causing teams to follow rules while harm worsens. Compliance collapse occurs when <a href=\"#design-authority\">design authority</a> is weak and <a href=\"#contestability\">contestability</a> is low, leaving no path to pause or repair.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect compliance collapse.",
-              "Teams can point to a concrete example that demonstrates compliance collapse in practice."
+              "Teams meet checklist requirements but still cannot stop or reverse harm.",
+              "Escalations stall because procedures lack discretionary authority."
             ],
-            "genealogy": "Ethotechnics uses Compliance Collapse to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Warns when compliance becomes a substitute for care and accountability.",
             "references": []
           },
           {
@@ -666,11 +714,15 @@
             "title": "Ethics Debt",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The accumulation of unresolved ethical risk from shipping capabilities faster than governance, ownership, and repair mechanisms. Ethics debt grows when <a href=\"#maintenance-debt\">maintenance debt</a> outpaces the <a href=\"#repair-log\">repair log</a>.</p>",
+            "bodyHtml": "<p>The accumulation of unresolved ethical risk from shipping capabilities faster than governance, ownership, and repair mechanisms. Ethics debt grows when <a href=\"#maintenance-debt\">maintenance debt</a> outpaces the <a href=\"#repair-log\">repair log</a> and risks remain unfunded.</p>",
             "examples": [
-              "A recommender launches without consent review, adding unresolved risks to the repair log."
+              "A recommender launches without consent review, adding unresolved risks to the repair log backlog."
             ],
-            "tags": ["governance", "risk", "maintenance"],
+            "tags": [
+              "governance",
+              "risk",
+              "maintenance"
+            ],
             "resources": [
               {
                 "label": "Maintenance guidance",
@@ -680,10 +732,10 @@
             ],
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethics debt.",
-              "Teams can point to a concrete example that demonstrates ethics debt in practice."
+              "Open ethical risks outnumber resourced remediation plans.",
+              "New launches add obligations without increasing repair capacity."
             ],
-            "genealogy": "Ethotechnics uses Ethics Debt to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Frames ethical risk as a backlog that compounds without investment.",
             "references": [
               {
                 "label": "Maintenance guidance",
@@ -699,9 +751,13 @@
             "classes": [],
             "bodyHtml": "<p>Negative outcomes for which no clear individual or role is accountable, even though the system caused them. Unowned harm signals <a href=\"#accountability-diffusion\">accountability diffusion</a> and weak <a href=\"#traceable-ownership\">traceable ownership</a>.</p>",
             "examples": [
-              "Denied applicants cannot identify a responsible team to contest a decision."
+              "Denied applicants cannot identify a responsible team to contest a decision or request reversal."
             ],
-            "tags": ["accountability", "governance", "harm"],
+            "tags": [
+              "accountability",
+              "governance",
+              "harm"
+            ],
             "resources": [
               {
                 "label": "Accountability architectures",
@@ -711,10 +767,10 @@
             ],
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
-              "Evidence appears in documentation, interface cues, or governance artifacts that reflect unowned harm.",
-              "Teams can point to a concrete example that demonstrates unowned harm in practice."
+              "Affected people cannot find a named owner or appeal path within the product.",
+              "Incident reviews conclude with no accountable role assigned."
             ],
-            "genealogy": "Ethotechnics uses Unowned Harm to extend the b. failure modes (why ethotechnics exists) vocabulary and connect governance, design, and policy teams.",
+            "genealogy": "Names the moral gap created when accountability is absent.",
             "references": [
               {
                 "label": "Accountability architectures",
@@ -728,11 +784,15 @@
             "title": "Capability Overhang",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When a system\u2019s power exceeds the maturity of its controls, making failures likely even without malicious intent. Capability overhang shows up as strong automation but weak <a href=\"#stoppability\">stoppability</a> or <a href=\"#reversibility\">reversibility</a>.</p>",
+            "bodyHtml": "<p>When a system’s power exceeds the maturity of its controls, making failures likely even without malicious intent. Capability overhang shows up as strong automation but weak <a href=\"#stoppability\">stoppability</a> or <a href=\"#reversibility\">reversibility</a>.</p>",
             "examples": [
               "A model can auto-approve loans, but rollback and auditing are manual and slow."
             ],
-            "tags": ["risk", "safety", "governance"],
+            "tags": [
+              "risk",
+              "safety",
+              "governance"
+            ],
             "resources": [
               {
                 "label": "Mechanisms catalog",
@@ -763,7 +823,11 @@
             "examples": [
               "The team publishes a code of ethics but lacks monitoring or a repair log."
             ],
-            "tags": ["governance", "trust", "risk"],
+            "tags": [
+              "governance",
+              "trust",
+              "risk"
+            ],
             "resources": [
               {
                 "label": "Governance playbook",
@@ -797,9 +861,14 @@
             "id": "stoppability",
             "title": "Stoppability",
             "status": null,
-            "classes": ["glossary-entry--diagram"],
-            "bodyHtml": "<p>A system\u2019s ability to halt harmful processes quickly and automatically\u2014without requiring heroism or escalation.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-stoppability\"></use>\n                          </svg>\n                        </figure>",
-            "relatedPatterns": ["kill-switch", "maintenance-windowing"],
+            "classes": [
+              "glossary-entry--diagram"
+            ],
+            "bodyHtml": "<p>A system’s ability to halt harmful processes quickly and automatically—without requiring heroism or escalation.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-stoppability\"></use>\n                          </svg>\n                        </figure>",
+            "relatedPatterns": [
+              "kill-switch",
+              "maintenance-windowing"
+            ],
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect stoppability.",
@@ -812,7 +881,9 @@
             "id": "reversibility",
             "title": "Reversibility",
             "status": null,
-            "classes": ["glossary-entry--diagram"],
+            "classes": [
+              "glossary-entry--diagram"
+            ],
             "bodyHtml": "<p>Critical actions can be undone. Damage is not permanent by default, and <a href=\"#time-to-restore\">time-to-restore</a> stays low.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-reversibility\"></use>\n                          </svg>\n                        </figure>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
@@ -826,7 +897,9 @@
             "id": "fair-burden-distribution",
             "title": "Fair Burden Distribution",
             "status": null,
-            "classes": ["glossary-entry--diagram"],
+            "classes": [
+              "glossary-entry--diagram"
+            ],
             "bodyHtml": "<p>Failures do not fall hardest on the most vulnerable. Burden is treated as a design variable and measured via the <a href=\"#user-burden-ratio\">user burden ratio</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-fair-burden\"></use>\n                          </svg>\n                        </figure>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
@@ -840,8 +913,10 @@
             "id": "contestability",
             "title": "Contestability",
             "status": null,
-            "classes": ["glossary-entry--diagram"],
-            "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them\u2014and win. Contestability combines <a href=\"#permission-surface\">permission surface</a> and <a href=\"#appeal-passage-rate\">appeal passage rate</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-contestability\"></use>\n                          </svg>\n                        </figure>",
+            "classes": [
+              "glossary-entry--diagram"
+            ],
+            "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them—and win. Contestability combines <a href=\"#permission-surface\">permission surface</a> and <a href=\"#appeal-passage-rate\">appeal passage rate</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-contestability\"></use>\n                          </svg>\n                        </figure>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect contestability.",
@@ -854,7 +929,9 @@
             "id": "explainability-for-accountability",
             "title": "Explainability for Accountability",
             "status": null,
-            "classes": ["glossary-entry--diagram"],
+            "classes": [
+              "glossary-entry--diagram"
+            ],
             "bodyHtml": "<p>Explanations that are actionable, not decorative. They reveal who made a decision and how it can be corrected, enabling <a href=\"#contestability\">contestability</a> and <a href=\"#ethotechnic-audit\">audits</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-explainability\"></use>\n                          </svg>\n                        </figure>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
@@ -897,7 +974,7 @@
             "title": "Soft Edges",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Boundary conditions designed to cushion people instead of penalizing them\u2014graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce <a href=\"#failure-load\">failure load</a> and guard against <a href=\"#brittleness\">brittleness</a>.</p>",
+            "bodyHtml": "<p>Boundary conditions designed to cushion people instead of penalizing them—graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce <a href=\"#failure-load\">failure load</a> and guard against <a href=\"#brittleness\">brittleness</a>.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect soft edges.",
@@ -913,9 +990,13 @@
             "classes": [],
             "bodyHtml": "<p>The degree to which a system can be steered, paused, audited, corrected, or shut down after deployment. High governability requires <a href=\"#stoppability\">stoppability</a>, <a href=\"#reversibility\">reversibility</a>, and durable <a href=\"#contestability\">contestability</a>.</p>",
             "examples": [
-              "The city\u2019s benefits system can be paused, rolled back, and audited within hours."
+              "The city’s benefits system can be paused, rolled back, and audited within hours."
             ],
-            "tags": ["governance", "controls", "safety"],
+            "tags": [
+              "governance",
+              "controls",
+              "safety"
+            ],
             "resources": [
               {
                 "label": "Mechanisms catalog",
@@ -946,7 +1027,11 @@
             "examples": [
               "A moderation team opens an incident ticket for bias spikes, not just a bug report."
             ],
-            "tags": ["operations", "safety", "response"],
+            "tags": [
+              "operations",
+              "safety",
+              "response"
+            ],
             "resources": [
               {
                 "label": "Maintenance playbooks",
@@ -973,7 +1058,7 @@
       {
         "id": "system-states",
         "heading": "D. System states & architectures",
-        "descriptionHtml": "Operational postures that determine how harm is absorbed\u2014or amplified.",
+        "descriptionHtml": "Operational postures that determine how harm is absorbed—or amplified.",
         "comingSoon": false,
         "entries": [
           {
@@ -982,7 +1067,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>The system defaults to the safest possible behavior when uncertain, prioritizing <a href=\"#stoppability\">stoppability</a>.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect fail-safe mode.",
               "Teams can point to a concrete example that demonstrates fail-safe mode in practice."
@@ -995,8 +1080,8 @@
             "title": "Fail-Open Mode",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The system defaults to permissiveness under failure\u2014sometimes necessary, sometimes dangerous. Must be paired with <a href=\"#velocity-friction\">velocity friction</a>.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "bodyHtml": "<p>The system defaults to permissiveness under failure—sometimes necessary, sometimes dangerous. Must be paired with <a href=\"#velocity-friction\">velocity friction</a>.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect fail-open mode.",
               "Teams can point to a concrete example that demonstrates fail-open mode in practice."
@@ -1010,7 +1095,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>A harmful state where systems fail without signaling it; the worst possible form of failure because it hides <a href=\"#moral-latency\">moral latency</a>.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect fail-silent mode.",
               "Teams can point to a concrete example that demonstrates fail-silent mode in practice."
@@ -1024,7 +1109,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>Originally: machines absorb force so people survive. Digitally: people absorb system failures so machines stay smooth. Ethotechnics reverses this direction of impact.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect crumple zone / human-as-crumple-zone.",
               "Teams can point to a concrete example that demonstrates crumple zone / human-as-crumple-zone in practice."
@@ -1038,7 +1123,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>How plainly a system exposes the human impact of its decisions in real time. High harm visibility pairs logs, narratives, and alerts so <a href=\"#oversight-horizon\">oversight horizons</a> extend beyond dashboards and <a href=\"#ethical-interrupts\">ethical interrupts</a> trigger on lived effects, not just technical anomalies.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect harm visibility.",
               "Teams can point to a concrete example that demonstrates harm visibility in practice."
@@ -1052,7 +1137,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>Places in a system where harm occurs but no one can see, trace, or intervene. Closing dead zones is a goal of <a href=\"#oversight-horizon\">oversight horizons</a>.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect dead zones / moral dead zones.",
               "Teams can point to a concrete example that demonstrates dead zones / moral dead zones in practice."
@@ -1066,7 +1151,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>The predefined point where automated control must yield to human judgment because risk, ambiguity, or <a href=\"#moral-latency\">moral latency</a> is rising. Escalation horizons activate <a href=\"#ethical-interrupts\">ethical interrupts</a> and route cases to accountable stewards before crossing an <a href=\"#irreversible-boundary\">irreversible boundary</a>.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect escalation horizon.",
               "Teams can point to a concrete example that demonstrates escalation horizon in practice."
@@ -1080,7 +1165,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>The moments, interfaces, and channels where people experience system decisions and can intervene. Mapping the interaction surface reveals where to place <a href=\"#dignity-friction\">dignity friction</a>, widen the <a href=\"#permission-surface\">permission surface</a>, and detect <a href=\"#dead-user-zones\">dead-user zones</a>.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect interaction surface.",
               "Teams can point to a concrete example that demonstrates interaction surface in practice."
@@ -1094,7 +1179,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>A scheduled calm state where teams intentionally slow or stop throughput so inspections, upgrades, and rehearsals can happen without crisis pressure. Maintenance windows make <a href=\"#stoppability\">stoppability</a> routine instead of reactive.</p><p>Each window is negotiated with the people impacted, includes published service guarantees, and documents which safeguards were tested so unfinished work rolls into the shared <a href=\"#repair-log\">repair log</a>.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect maintenance window.",
               "Teams can point to a concrete example that demonstrates maintenance window in practice."
@@ -1108,7 +1193,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>A facilitated reflection held while the system is still in a warning band to examine how maintenance load, emotional labor, and unresolved incidents are accumulating. Care retrospectives combine telemetry with frontline testimony.</p><p>They redistribute responsibilities before burnout or harm escalates, triggering new <a href=\"#maintenance-window\">maintenance windows</a> or policy fixes when the team cannot keep absorbing risk.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect care retrospective.",
               "Teams can point to a concrete example that demonstrates care retrospective in practice."
@@ -1122,7 +1207,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>A living record of every mitigation, decision, and resource commitment made after a fault. Repair logs make accountability legible by linking people harmed, who intervened, and what evidence was used.</p><p>They inform future <a href=\"#care-retrospective\">care retrospectives</a>, power audits, and service-level reports so follow-up work is traceable and burden does not drift back to the same communities.</p>",
-            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed\u2014or amplified.",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect repair log.",
               "Teams can point to a concrete example that demonstrates repair log in practice."
@@ -1157,7 +1242,7 @@
             "title": "Cognitive Saturation Point",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The load level at which human decision quality collapses\u2014too many alerts, too little time, or excessive context switching. Ethotechnic design lowers saturation by adding <a href=\"#velocity-friction\">velocity friction</a>, simplifying <a href=\"#interaction-surface\">interaction surfaces</a>, and staffing to real <a href=\"#maintenance-metabolism\">maintenance metabolism</a>.</p>",
+            "bodyHtml": "<p>The load level at which human decision quality collapses—too many alerts, too little time, or excessive context switching. Ethotechnic design lowers saturation by adding <a href=\"#velocity-friction\">velocity friction</a>, simplifying <a href=\"#interaction-surface\">interaction surfaces</a>, and staffing to real <a href=\"#maintenance-metabolism\">maintenance metabolism</a>.</p>",
             "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect cognitive saturation point.",
@@ -1171,7 +1256,7 @@
             "title": "Compassion Bandwidth",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The sustainable amount of emotional labor a system asks of people\u2014care teams, moderators, frontline staff, or users. When compassion bandwidth is exceeded, <a href=\"#dread-work\">dread work</a> grows and <a href=\"#extraction-by-endurance\">extraction by endurance</a> sets in.</p>",
+            "bodyHtml": "<p>The sustainable amount of emotional labor a system asks of people—care teams, moderators, frontline staff, or users. When compassion bandwidth is exceeded, <a href=\"#dread-work\">dread work</a> grows and <a href=\"#extraction-by-endurance\">extraction by endurance</a> sets in.</p>",
             "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect compassion bandwidth.",
@@ -1231,7 +1316,11 @@
             "examples": [
               "Default opt-ins normalize data sharing even when users are uncertain."
             ],
-            "tags": ["ux", "behavior", "policy"],
+            "tags": [
+              "ux",
+              "behavior",
+              "policy"
+            ],
             "resources": [
               {
                 "label": "AI governance",
@@ -1266,7 +1355,7 @@
             "title": "Burden Distribution",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How a system allocates the cost of operation or failure\u2014time, attention, stress, and emotional labor.</p>",
+            "bodyHtml": "<p>How a system allocates the cost of operation or failure—time, attention, stress, and emotional labor.</p>",
             "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect burden distribution.",
@@ -1322,7 +1411,7 @@
             "title": "Maintenance Metabolism",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The baseline flow of upkeep\u2014patching, cleaning, rehearsing, and caring\u2014that keeps a service alive when nothing is on fire. Healthy maintenance metabolism is budgeted, scheduled, and shared rather than squeezed between crises.</p><p>Falling below it signals rising <a href=\"#maintenance-debt\">maintenance debt</a> and invites <a href=\"#maintenance-window\">maintenance windows</a> before fragility compounds.</p>",
+            "bodyHtml": "<p>The baseline flow of upkeep—patching, cleaning, rehearsing, and caring—that keeps a service alive when nothing is on fire. Healthy maintenance metabolism is budgeted, scheduled, and shared rather than squeezed between crises.</p><p>Falling below it signals rising <a href=\"#maintenance-debt\">maintenance debt</a> and invites <a href=\"#maintenance-window\">maintenance windows</a> before fragility compounds.</p>",
             "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect maintenance metabolism.",
@@ -1378,7 +1467,7 @@
             "title": "Asymmetric Sustaining",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for \u201cresilience\u201d while masking <a href=\"#extraction\">extraction</a>.</p><p>Ethotechnic practice flattens this by lowering the <a href=\"#burden-gradient\">burden gradient</a> and designing for <a href=\"#stoppability\">stoppability</a> so resilience is institutional, not personal.</p>",
+            "bodyHtml": "<p>When one group continually absorbs the toil of keeping a system alive so another group can move fast or claim success. It often hides behind gratitude for “resilience” while masking <a href=\"#extraction\">extraction</a>.</p><p>Ethotechnic practice flattens this by lowering the <a href=\"#burden-gradient\">burden gradient</a> and designing for <a href=\"#stoppability\">stoppability</a> so resilience is institutional, not personal.</p>",
             "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect asymmetric sustaining.",
@@ -1424,7 +1513,11 @@
             "examples": [
               "A vendor funds remediation and user support when their model causes harm."
             ],
-            "tags": ["accountability", "burden", "governance"],
+            "tags": [
+              "accountability",
+              "burden",
+              "governance"
+            ],
             "resources": [
               {
                 "label": "Accountability architectures",
@@ -1455,7 +1548,11 @@
             "examples": [
               "Teams publish repair logs and schedule maintenance windows after each major release."
             ],
-            "tags": ["maintenance", "governance", "operations"],
+            "tags": [
+              "maintenance",
+              "governance",
+              "operations"
+            ],
             "resources": [
               {
                 "label": "Maintenance guidance",
@@ -1489,8 +1586,10 @@
             "id": "moral-performance-indicators",
             "title": "Moral Performance Indicators (MPIs)",
             "status": null,
-            "classes": ["glossary-entry--diagram"],
-            "bodyHtml": "<p>Key metrics that show a system\u2019s ethical functioning: time-to-halt (TTH), reversibility rate, appeal success rate, burden ratios, and more. MPIs complement traditional KPIs by tracking how safely and fairly a system operates, not just how fast it grows.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-mpi\"></use>\n                          </svg>\n                        </figure>",
+            "classes": [
+              "glossary-entry--diagram"
+            ],
+            "bodyHtml": "<p>Key metrics that show a system’s ethical functioning: time-to-halt (TTH), reversibility rate, appeal success rate, burden ratios, and more. MPIs complement traditional KPIs by tracking how safely and fairly a system operates, not just how fast it grows.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-mpi\"></use>\n                          </svg>\n                        </figure>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect moral performance indicators (mpis).",
@@ -1531,9 +1630,13 @@
             "id": "time-to-halt",
             "title": "Time-to-Halt (TTH)",
             "status": null,
-            "classes": ["glossary-entry--diagram"],
-            "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it\u2014an essential complement to <a href=\"#stoppability\">stoppability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-time-to-halt\"></use>\n                          </svg>\n                        </figure>",
-            "relatedPatterns": ["kill-switch"],
+            "classes": [
+              "glossary-entry--diagram"
+            ],
+            "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it—an essential complement to <a href=\"#stoppability\">stoppability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-time-to-halt\"></use>\n                          </svg>\n                        </figure>",
+            "relatedPatterns": [
+              "kill-switch"
+            ],
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect time-to-halt (tth).",
@@ -1603,7 +1706,7 @@
             "title": "Human Substitution Index",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A measure of how often humans must step in to compensate for system shortcomings\u2014manual reviews, ad-hoc patches, or empathy work. A rising index exposes <a href=\"#heroism-dependent-systems\">heroism-dependent systems</a> and motivates investment in <a href=\"#graceful-degradation\">graceful degradation</a>.</p>",
+            "bodyHtml": "<p>A measure of how often humans must step in to compensate for system shortcomings—manual reviews, ad-hoc patches, or empathy work. A rising index exposes <a href=\"#heroism-dependent-systems\">heroism-dependent systems</a> and motivates investment in <a href=\"#graceful-degradation\">graceful degradation</a>.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect human substitution index.",
@@ -1667,7 +1770,7 @@
             "title": "Oversight Horizon",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The distance regulators, auditors, or affected communities can see into a system\u2019s decisions and their effects. Extending the horizon\u2014through <a href=\"#harm-visibility\">harm visibility</a>, traceable models, and shared <a href=\"#repair-log\">repair logs</a>\u2014shrinks <a href=\"#dead-zones\">dead zones</a>.</p>",
+            "bodyHtml": "<p>The distance regulators, auditors, or affected communities can see into a system’s decisions and their effects. Extending the horizon—through <a href=\"#harm-visibility\">harm visibility</a>, traceable models, and shared <a href=\"#repair-log\">repair logs</a>—shrinks <a href=\"#dead-zones\">dead zones</a>.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect oversight horizon.",
@@ -1681,7 +1784,7 @@
             "title": "Permission Surface",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>What users can do without institutional approval \u2014 a measure of autonomy and a prerequisite for <a href=\"#contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>What users can do without institutional approval — a measure of autonomy and a prerequisite for <a href=\"#contestability\">contestability</a>.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect permission surface.",
@@ -1699,7 +1802,11 @@
             "examples": [
               "A claims assistant can approve payouts up to $500, but anything higher is routed to a supervisor."
             ],
-            "tags": ["governance", "autonomy", "escalation"],
+            "tags": [
+              "governance",
+              "autonomy",
+              "escalation"
+            ],
             "resources": [
               {
                 "label": "Governance playbook",
@@ -1730,7 +1837,11 @@
             "examples": [
               "After six months of clean audits, the escalation bot gains approval rights for low-risk cases."
             ],
-            "tags": ["automation", "accountability", "governance"],
+            "tags": [
+              "automation",
+              "accountability",
+              "governance"
+            ],
             "resources": [
               {
                 "label": "Accountability architectures",
@@ -1757,11 +1868,15 @@
             "title": "Scope Discipline",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The practice of not exceeding one\u2019s mandate, even when doing so might appear helpful or efficient. Scope discipline enforces the <a href=\"#permission-surface\">permission surface</a> and respects <a href=\"#bounded-autonomy\">bounded autonomy</a>.</p>",
+            "bodyHtml": "<p>The practice of not exceeding one’s mandate, even when doing so might appear helpful or efficient. Scope discipline enforces the <a href=\"#permission-surface\">permission surface</a> and respects <a href=\"#bounded-autonomy\">bounded autonomy</a>.</p>",
             "examples": [
               "A support bot refuses to access customer data outside its assigned ticket."
             ],
-            "tags": ["governance", "autonomy", "risk"],
+            "tags": [
+              "governance",
+              "autonomy",
+              "risk"
+            ],
             "resources": [
               {
                 "label": "Governance playbook",
@@ -1834,7 +1949,11 @@
             "examples": [
               "A named steward can pause a rollout and own the repair log."
             ],
-            "tags": ["governance", "accountability", "operations"],
+            "tags": [
+              "governance",
+              "accountability",
+              "operations"
+            ],
             "resources": [
               {
                 "label": "Maintenance playbooks",
@@ -2023,7 +2142,7 @@
             "title": "Punitive Friction",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Friction that punishes users\u2014often hidden in bureaucratic loops. Signals <a href=\"#extraction-by-endurance\">extraction by endurance</a>.</p>",
+            "bodyHtml": "<p>Friction that punishes users—often hidden in bureaucratic loops. Signals <a href=\"#extraction-by-endurance\">extraction by endurance</a>.</p>",
             "scope": "I. Friction & flow. Designing intentional friction that protects people while keeping harm contained.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect punitive friction.",
@@ -2066,7 +2185,10 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>A deliberate release point that lets people slow, pause, or reroute automation before harm compounds.</p><p>Safety valves pair <a href=\"#stoppability\">stoppability</a> with <a href=\"#dignity-friction\">dignity friction</a> so high-stakes flows default to reversible states and route to humans without penalty.</p>",
-            "relatedPatterns": ["progressive-consent", "kill-switch"],
+            "relatedPatterns": [
+              "progressive-consent",
+              "kill-switch"
+            ],
             "scope": "I. Friction & flow. Designing intentional friction that protects people while keeping harm contained.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect safety valve.",
@@ -2112,7 +2234,11 @@
             "examples": [
               "High-risk data exports require a second reviewer before completion."
             ],
-            "tags": ["safety", "friction", "compliance"],
+            "tags": [
+              "safety",
+              "friction",
+              "compliance"
+            ],
             "resources": [
               {
                 "label": "Mechanisms catalog",
@@ -2189,7 +2315,7 @@
             "title": "Non-Decision",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A stable administrative disposition where a system withholds a contestable outcome (\u201cpending,\u201d \u201cin review\u201d) while consequences accrue.</p><p>Non-decisions stretch <a href=\"#moral-latency\">moral latency</a> and erode <a href=\"#contestability\">contestability</a> by keeping people in limbo.</p>",
+            "bodyHtml": "<p>A stable administrative disposition where a system withholds a contestable outcome (“pending,” “in review”) while consequences accrue.</p><p>Non-decisions stretch <a href=\"#moral-latency\">moral latency</a> and erode <a href=\"#contestability\">contestability</a> by keeping people in limbo.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect non-decision.",
@@ -2273,7 +2399,7 @@
             "title": "Critical Action",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Any system action that meaningfully alters a person\u2019s status, access, or trajectory. Critical actions require <a href=\"#dignity-friction\">dignity friction</a>.</p>",
+            "bodyHtml": "<p>Any system action that meaningfully alters a person’s status, access, or trajectory. Critical actions require <a href=\"#dignity-friction\">dignity friction</a>.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect critical action.",
@@ -2287,7 +2413,7 @@
             "title": "Irreversible Boundary",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A threshold the system cannot automatically undo\u2014account closures, public releases, or data publication. Crossing it demands heightened <a href=\"#contestability\">contestability</a>, audited <a href=\"#explainability-for-accountability\">explanations</a>, and explicit <a href=\"#time-to-restore\">time-to-restore</a> plans.</p>",
+            "bodyHtml": "<p>A threshold the system cannot automatically undo—account closures, public releases, or data publication. Crossing it demands heightened <a href=\"#contestability\">contestability</a>, audited <a href=\"#explainability-for-accountability\">explanations</a>, and explicit <a href=\"#time-to-restore\">time-to-restore</a> plans.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect irreversible boundary.",
@@ -2302,7 +2428,10 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>Automatic system-level halts triggered by anomalies or harm indicators. Ethical interrupts operationalize <a href=\"#stoppability\">stoppability</a>.</p>",
-            "relatedPatterns": ["kill-switch", "appeal-paths"],
+            "relatedPatterns": [
+              "kill-switch",
+              "appeal-paths"
+            ],
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethical interrupts.",
@@ -2320,7 +2449,11 @@
             "examples": [
               "A fraud alert triggers action only after confidence and authorization checks."
             ],
-            "tags": ["decision-making", "governance", "risk"],
+            "tags": [
+              "decision-making",
+              "governance",
+              "risk"
+            ],
             "resources": [
               {
                 "label": "Governance playbook",
@@ -2347,11 +2480,15 @@
             "title": "Normative Uncertainty",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Situations where it is unclear what the \u201cright\u201d action is, requiring caution, clarification, or human judgment rather than confident automation. Normative uncertainty often triggers <a href=\"#ethical-interrupts\">ethical interrupts</a> and a higher <a href=\"#actionability-threshold\">actionability threshold</a>.</p>",
+            "bodyHtml": "<p>Situations where it is unclear what the “right” action is, requiring caution, clarification, or human judgment rather than confident automation. Normative uncertainty often triggers <a href=\"#ethical-interrupts\">ethical interrupts</a> and a higher <a href=\"#actionability-threshold\">actionability threshold</a>.</p>",
             "examples": [
               "When guidance conflicts, the system pauses and requests human judgment."
             ],
-            "tags": ["decision-making", "policy", "risk"],
+            "tags": [
+              "decision-making",
+              "policy",
+              "risk"
+            ],
             "resources": [
               {
                 "label": "Governance playbook",
@@ -2400,7 +2537,7 @@
             "title": "Empathy Surrogacy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Simulated warmth\u2014chatbots, scripted apologies, tone guidelines\u2014used to mask structural harm or delay fixes. Empathy surrogacy diverts attention from <a href=\"#repair-log\">repair</a> and weakens <a href=\"#contestability\">contestability</a> by substituting sentiment for remedy.</p>",
+            "bodyHtml": "<p>Simulated warmth—chatbots, scripted apologies, tone guidelines—used to mask structural harm or delay fixes. Empathy surrogacy diverts attention from <a href=\"#repair-log\">repair</a> and weakens <a href=\"#contestability\">contestability</a> by substituting sentiment for remedy.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect empathy surrogacy.",
@@ -2428,7 +2565,7 @@
             "title": "Invisible Fallbacks",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Hidden behaviors that appear under stress\u2014shadow queues, silent throttling, or undocumented overrides. Invisible fallbacks obscure <a href=\"#ethical-load-path\">ethical load paths</a> and should be surfaced through <a href=\"#graceful-rollback-lanes\">graceful rollback lanes</a> and rehearsed in <a href=\"#maintenance-window\">maintenance windows</a>.</p>",
+            "bodyHtml": "<p>Hidden behaviors that appear under stress—shadow queues, silent throttling, or undocumented overrides. Invisible fallbacks obscure <a href=\"#ethical-load-path\">ethical load paths</a> and should be surfaced through <a href=\"#graceful-rollback-lanes\">graceful rollback lanes</a> and rehearsed in <a href=\"#maintenance-window\">maintenance windows</a>.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect invisible fallbacks.",
@@ -2442,7 +2579,7 @@
             "title": "Dead-User Zones",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Places where people affected by decisions cannot contest, appeal, or exit\u2014opaque rankings, automated bans, or unmoderated queues. Closing dead-user zones requires widening the <a href=\"#permission-surface\">permission surface</a> and raising <a href=\"#appeal-passage-rate\">appeal passage rates</a>.</p>",
+            "bodyHtml": "<p>Places where people affected by decisions cannot contest, appeal, or exit—opaque rankings, automated bans, or unmoderated queues. Closing dead-user zones requires widening the <a href=\"#permission-surface\">permission surface</a> and raising <a href=\"#appeal-passage-rate\">appeal passage rates</a>.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect dead-user zones.",
@@ -2478,7 +2615,7 @@
             "title": "Moral Drift Control",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Instrumentation and controls that detect when system behavior drifts from ethical baselines\u2014through <a href=\"#moral-performance-indicators\">MPIs</a> or user testimony\u2014and automatically trigger <a href=\"#ethical-interrupts\">interrupts</a> or design changes.</p>",
+            "bodyHtml": "<p>Instrumentation and controls that detect when system behavior drifts from ethical baselines—through <a href=\"#moral-performance-indicators\">MPIs</a> or user testimony—and automatically trigger <a href=\"#ethical-interrupts\">interrupts</a> or design changes.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect moral drift control.",
@@ -2520,7 +2657,7 @@
             "title": "Care Redundancy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Overlapping care pathways\u2014humans, automation, and policy\u2014that ensure someone is caught when another safeguard fails. Care redundancy pairs with <a href=\"#graceful-degradation\">graceful degradation</a> to keep <a href=\"#failure-load\">failure load</a> low.</p>",
+            "bodyHtml": "<p>Overlapping care pathways—humans, automation, and policy—that ensure someone is caught when another safeguard fails. Care redundancy pairs with <a href=\"#graceful-degradation\">graceful degradation</a> to keep <a href=\"#failure-load\">failure load</a> low.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect care redundancy.",
@@ -2534,7 +2671,7 @@
             "title": "Meta-Contestability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Mechanisms that let people challenge not just outcomes but the rules of challenge themselves\u2014who may appeal, what evidence counts, and who sits on review panels. Meta-contestability keeps <a href=\"#contestability\">contestability</a> from ossifying.</p>",
+            "bodyHtml": "<p>Mechanisms that let people challenge not just outcomes but the rules of challenge themselves—who may appeal, what evidence counts, and who sits on review panels. Meta-contestability keeps <a href=\"#contestability\">contestability</a> from ossifying.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect meta-contestability.",
@@ -2548,7 +2685,7 @@
             "title": "User-State Modeling for Harm Prevention",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Inferring user states\u2014fatigue, distress, inattention\u2014to adapt pacing, add <a href=\"#protective-friction\">protective friction</a>, or route to humans before harm compounds. Models must respect <a href=\"#anticipatory-consent\">anticipatory consent</a> and avoid new <a href=\"#burden-transfer-event\">burden transfers</a>.</p>",
+            "bodyHtml": "<p>Inferring user states—fatigue, distress, inattention—to adapt pacing, add <a href=\"#protective-friction\">protective friction</a>, or route to humans before harm compounds. Models must respect <a href=\"#anticipatory-consent\">anticipatory consent</a> and avoid new <a href=\"#burden-transfer-event\">burden transfers</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect user-state modeling for harm prevention.",
@@ -2590,7 +2727,7 @@
             "title": "Ethotechnic Failure Taxonomy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A common vocabulary for classifying moral failure modes\u2014<a href=\"#optimization-myopia\">optimization myopia</a>, <a href=\"#brittleness\">brittleness</a>, <a href=\"#extraction\">extraction</a>, and more\u2014so incidents can be compared, learned from, and prevented.</p>",
+            "bodyHtml": "<p>A common vocabulary for classifying moral failure modes—<a href=\"#optimization-myopia\">optimization myopia</a>, <a href=\"#brittleness\">brittleness</a>, <a href=\"#extraction\">extraction</a>, and more—so incidents can be compared, learned from, and prevented.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethotechnic failure taxonomy.",
@@ -2632,7 +2769,7 @@
             "title": "Alignment Dividend",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The measurable upside\u2014trust, retention, safety\u2014generated when systems align with human values. Tracking the dividend builds the business case for sustained investment in <a href=\"#moral-performance-indicators\">MPIs</a> and <a href=\"#maintenance-metabolism\">maintenance metabolism</a>.</p>",
+            "bodyHtml": "<p>The measurable upside—trust, retention, safety—generated when systems align with human values. Tracking the dividend builds the business case for sustained investment in <a href=\"#moral-performance-indicators\">MPIs</a> and <a href=\"#maintenance-metabolism\">maintenance metabolism</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect alignment dividend.",
@@ -2674,7 +2811,7 @@
             "title": "Boundary of Acceptable Harm",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Dynamic thresholds defining when moral risk exceeds the system\u2019s mandate and operations must halt or escalate. Boundaries are tied to <a href=\"#service-level-indicators\">SLJs</a> and enforced through <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a>.</p>",
+            "bodyHtml": "<p>Dynamic thresholds defining when moral risk exceeds the system’s mandate and operations must halt or escalate. Boundaries are tied to <a href=\"#service-level-indicators\">SLJs</a> and enforced through <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect boundary of acceptable harm.",
@@ -2688,7 +2825,7 @@
             "title": "Care Floor Guarantees",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Baseline commitments a service maintains even during outages or crises\u2014live support, data export, or safe defaults. Care floors protect users when <a href=\"#graceful-degradation\">graceful degradation</a> activates.</p>",
+            "bodyHtml": "<p>Baseline commitments a service maintains even during outages or crises—live support, data export, or safe defaults. Care floors protect users when <a href=\"#graceful-degradation\">graceful degradation</a> activates.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect care floor guarantees.",
@@ -2702,7 +2839,7 @@
             "title": "Compassion Telemetry",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Signals that show whether interactions feel humane\u2014response tone, wait times during distress, quality of follow-up. Compassion telemetry complements technical metrics to protect <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>",
+            "bodyHtml": "<p>Signals that show whether interactions feel humane—response tone, wait times during distress, quality of follow-up. Compassion telemetry complements technical metrics to protect <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect compassion telemetry.",
@@ -2716,7 +2853,7 @@
             "title": "Conflict Observability",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Instrumentation that makes value conflicts visible in logs and dashboards before they erupt\u2014flagging when <a href=\"#service-level-indicators\">SLJs</a> trade off against throughput or when appeals spike. High observability enables earlier <a href=\"#moral-drift-control\">moral drift control</a>.</p>",
+            "bodyHtml": "<p>Instrumentation that makes value conflicts visible in logs and dashboards before they erupt—flagging when <a href=\"#service-level-indicators\">SLJs</a> trade off against throughput or when appeals spike. High observability enables earlier <a href=\"#moral-drift-control\">moral drift control</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect conflict observability.",
@@ -2730,7 +2867,7 @@
             "title": "Counter-Abuse Guardrails",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Limits that prevent tools from being repurposed for harassment, exploitation, or coercion\u2014rate limits, anomaly detection, and <a href=\"#human-override-lanes\">human override lanes</a> tuned for abuse scenarios.</p>",
+            "bodyHtml": "<p>Limits that prevent tools from being repurposed for harassment, exploitation, or coercion—rate limits, anomaly detection, and <a href=\"#human-override-lanes\">human override lanes</a> tuned for abuse scenarios.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect counter-abuse guardrails.",
@@ -2800,7 +2937,7 @@
             "title": "Ethical Circuit Breakers",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Automated stops that trip when moral risk indicators cross predefined set points\u2014surges in appeals, bias metrics, or <a href=\"#moral-debt\">moral debt</a>. They are the safety counterpart to financial circuit breakers.</p>",
+            "bodyHtml": "<p>Automated stops that trip when moral risk indicators cross predefined set points—surges in appeals, bias metrics, or <a href=\"#moral-debt\">moral debt</a>. They are the safety counterpart to financial circuit breakers.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethical circuit breakers.",
@@ -2814,7 +2951,7 @@
             "title": "Ethical Load Testing",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Deliberate exercises that probe how systems behave under moral stress\u2014simulated harassment, mass appeals, or outage scenarios\u2014to validate <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a> and <a href=\"#care-floor-guarantees\">care floors</a>.</p>",
+            "bodyHtml": "<p>Deliberate exercises that probe how systems behave under moral stress—simulated harassment, mass appeals, or outage scenarios—to validate <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a> and <a href=\"#care-floor-guarantees\">care floors</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect ethical load testing.",
@@ -2828,7 +2965,7 @@
             "title": "Exhaustion Triggers",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Signals that detect operator or user fatigue\u2014error streaks, long queues, late-night decisions\u2014and automatically slow, pause, or hand off flows before mistakes multiply. Triggers protect <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>",
+            "bodyHtml": "<p>Signals that detect operator or user fatigue—error streaks, long queues, late-night decisions—and automatically slow, pause, or hand off flows before mistakes multiply. Triggers protect <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect exhaustion triggers.",
@@ -2884,7 +3021,7 @@
             "title": "Heat Maps of Refusal",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Visualizations showing where users opt out, churn, or appeal\u2014revealing coercion hotspots early. Heat maps help tune <a href=\"#refusal-budget\">refusal budgets</a> and redesign <a href=\"#interaction-surface\">interaction surfaces</a>.</p>",
+            "bodyHtml": "<p>Visualizations showing where users opt out, churn, or appeal—revealing coercion hotspots early. Heat maps help tune <a href=\"#refusal-budget\">refusal budgets</a> and redesign <a href=\"#interaction-surface\">interaction surfaces</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect heat maps of refusal.",
@@ -2940,7 +3077,7 @@
             "title": "Moral Feature Gating",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Controls that block feature launch until moral readiness criteria\u2014oversight plans, <a href=\"#contestability\">contestability</a> pathways, and <a href=\"#care-floor-guarantees\">care floors</a>\u2014are met.</p>",
+            "bodyHtml": "<p>Controls that block feature launch until moral readiness criteria—oversight plans, <a href=\"#contestability\">contestability</a> pathways, and <a href=\"#care-floor-guarantees\">care floors</a>—are met.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect moral feature gating.",
@@ -3010,7 +3147,7 @@
             "title": "Rest Cycle Enforcement",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Built-in mechanisms that enforce rest and recovery\u2014rotation policies, cooldown timers, enforced downtime\u2014so fatigue does not translate into harm. Enforcement protects <a href=\"#maintenance-metabolism\">maintenance metabolism</a> and <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>",
+            "bodyHtml": "<p>Built-in mechanisms that enforce rest and recovery—rotation policies, cooldown timers, enforced downtime—so fatigue does not translate into harm. Enforcement protects <a href=\"#maintenance-metabolism\">maintenance metabolism</a> and <a href=\"#compassion-bandwidth\">compassion bandwidth</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect rest cycle enforcement.",
@@ -3074,7 +3211,7 @@
             "title": "The Maintenance Doctrine",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Ethical performance depends on continuous upkeep\u2014funded <a href=\"#maintenance-metabolism\">maintenance metabolism</a>, scheduled <a href=\"#maintenance-window\">maintenance windows</a>, and transparent <a href=\"#repair-log\">logs</a>.</p>",
+            "bodyHtml": "<p>Ethical performance depends on continuous upkeep—funded <a href=\"#maintenance-metabolism\">maintenance metabolism</a>, scheduled <a href=\"#maintenance-window\">maintenance windows</a>, and transparent <a href=\"#repair-log\">logs</a>.</p>",
             "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect the maintenance doctrine.",
@@ -3116,7 +3253,7 @@
             "title": "The Contestability Guarantee",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them\u2014and win. Guarantees include wide <a href=\"#permission-surface\">permission surfaces</a>, high <a href=\"#appeal-passage-rate\">appeal passage rates</a>, and transparent <a href=\"#design-authority\">design authority</a>.</p>",
+            "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them—and win. Guarantees include wide <a href=\"#permission-surface\">permission surfaces</a>, high <a href=\"#appeal-passage-rate\">appeal passage rates</a>, and transparent <a href=\"#design-authority\">design authority</a>.</p>",
             "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect the contestability guarantee.",
