@@ -4,8 +4,12 @@ import { lstat, realpath } from "node:fs/promises";
 import { relative, resolve, sep } from "node:path";
 
 import { glossaryContent } from "../content/glossary";
-import type { GlossaryCategory, GlossaryEntry } from "../content/glossary";
-import type { Pattern } from "../content/library";
+import type {
+  GlossaryCategory,
+  GlossaryContent,
+  GlossaryEntry,
+} from "../content/glossary";
+import type { LibraryContent, Pattern } from "../content/library";
 import { quickStartGuides } from "../content/quick-start";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
@@ -88,6 +92,12 @@ const normalizeLastmod = (value?: string) => {
   return date.toISOString();
 };
 
+const hasEntryData = <TData>(
+  value: unknown,
+): value is {
+  data: TData;
+} => typeof value === "object" && value !== null && "data" in value;
+
 type SitemapEntry = {
   path: string;
   lastmod?: string;
@@ -130,8 +140,12 @@ export async function GET({ site }: APIContext) {
     .map(normalizeRoutePath)
     .filter((path): path is string => Boolean(path))
     .filter(isPublicPath);
-  const glossaryEntry = await getEntry("glossary", "glossary");
-  const glossaryData = glossaryEntry?.data ?? glossaryContent;
+  const glossaryEntry = (await getEntry("glossary", "glossary")) as unknown;
+  const glossaryData: GlossaryContent = hasEntryData<GlossaryContent>(
+    glossaryEntry,
+  )
+    ? glossaryEntry.data
+    : glossaryContent;
   const glossaryLastmod = normalizeLastmod(
     glossaryData.publication.updated ?? glossaryData.publication.published,
   );
@@ -142,17 +156,19 @@ export async function GET({ site }: APIContext) {
         lastmod: glossaryLastmod,
       })),
   );
-  const libraryEntry = await getEntry("library", "library");
-  const libraryLastmod = libraryEntry
-    ? normalizeLastmod(
-        libraryEntry.data.updated ?? libraryEntry.data.published,
-      )
+  const libraryEntry = (await getEntry("library", "library")) as unknown;
+  const libraryData = hasEntryData<LibraryContent>(libraryEntry)
+    ? libraryEntry.data
     : undefined;
-  const patternPaths =
-    libraryEntry?.data.patterns.entries.map((pattern: Pattern) => ({
-      path: `/mechanisms/patterns/${pattern.slug}`,
-      lastmod: libraryLastmod,
-    })) ?? [];
+  const libraryLastmod = libraryData
+    ? normalizeLastmod(libraryData.updated ?? libraryData.published)
+    : undefined;
+  const patternPaths = libraryData
+    ? libraryData.patterns.entries.map((pattern: Pattern) => ({
+        path: `/mechanisms/patterns/${pattern.slug}`,
+        lastmod: libraryLastmod,
+      }))
+    : [];
   const quickStartPaths = quickStartGuides.map((guide) => ({
     path: `/quick-start/${guide.slug}`,
   }));
