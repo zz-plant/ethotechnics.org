@@ -210,82 +210,94 @@ const { pageTitle, pageDescription } = homeEntry.data;
     description="Each audience path reorders the stack to match the work you do."
     variant="alt"
   >
-    <CardGrid className="grid--two">
+    <CardGrid className="grid--two audience-grid">
       <CardItem
         title="I am building an automated system or agent"
         description="Fast path, mechanisms, and concrete implementation examples."
+        className="audience-card"
       >
-        <a class="button primary button--compact" href="/start-here?persona=builder">
-          Start: Build & ship
-        </a>
-        <ul class="muted">
-          <li>
-            <a href="/fast-path">Fast path</a>
-          </li>
-          <li>
-            <a href="/mechanisms">Mechanisms</a>
-          </li>
-          <li>
-            <a href="/examples">Worked examples</a>
-          </li>
-        </ul>
+        <div class="audience-card__actions">
+          <a class="button primary button--compact" href="/start-here?persona=builder">
+            Start: Build & ship
+          </a>
+          <ul class="audience-card__links muted">
+            <li>
+              <a href="/fast-path">Fast path</a>
+            </li>
+            <li>
+              <a href="/mechanisms">Mechanisms</a>
+            </li>
+            <li>
+              <a href="/examples">Worked examples</a>
+            </li>
+          </ul>
+        </div>
       </CardItem>
       <CardItem
         title="I am auditing or governing a system"
         description="Evidence, bindings, and minimum enforceable requirements."
+        className="audience-card"
       >
-        <a class="button primary button--compact" href="/start-here?persona=auditor">
-          Start: Audit & govern
-        </a>
-        <ul class="muted">
-          <li>
-            <a href="/evidence-packs">Evidence packs</a>
-          </li>
-          <li>
-            <a href="/bindings">Binding vectors</a>
-          </li>
-          <li>
-            <a href="/standards">Minimum binding sets</a>
-          </li>
-        </ul>
+        <div class="audience-card__actions">
+          <a class="button primary button--compact" href="/start-here?persona=auditor">
+            Start: Audit & govern
+          </a>
+          <ul class="audience-card__links muted">
+            <li>
+              <a href="/evidence-packs">Evidence packs</a>
+            </li>
+            <li>
+              <a href="/bindings">Binding vectors</a>
+            </li>
+            <li>
+              <a href="/standards">Minimum binding sets</a>
+            </li>
+          </ul>
+        </div>
       </CardItem>
       <CardItem
         title="I am writing policy or procurement language"
         description="Standards, where they bind, and enforceable clauses."
+        className="audience-card"
       >
-        <a class="button primary button--compact" href="/start-here?persona=policy">
-          Start: Draft policy
-        </a>
-        <ul class="muted">
-          <li>
-            <a href="/standards">Standards + clauses</a>
-          </li>
-          <li>
-            <a href="/bindings#procurement">Procurement language</a>
-          </li>
-          <li>
-            <a href="/anti-weaponization">Anti-weaponization constraints</a>
-          </li>
-        </ul>
+        <div class="audience-card__actions">
+          <a class="button primary button--compact" href="/start-here?persona=policy">
+            Start: Draft policy
+          </a>
+          <ul class="audience-card__links muted">
+            <li>
+              <a href="/standards">Standards + clauses</a>
+            </li>
+            <li>
+              <a href="/bindings#procurement">Procurement language</a>
+            </li>
+            <li>
+              <a href="/anti-weaponization">Anti-weaponization constraints</a>
+            </li>
+          </ul>
+        </div>
       </CardItem>
       <CardItem
         title="I am researching or teaching"
         description="Research, glossary anchors, and mapping artifacts."
+        className="audience-card"
       >
-        <a class="button primary button--compact" href="/start-here?persona=research">
-          Start: Teach & research
-        </a>
-        <ul class="muted">
-          <li>
-            <a href="/research">Research</a>
-          </li>
-          <li>
-            <a href="/glossary">Glossary</a>
-          </li>
-          <li>
-            <a href="/field-notes">Field notes</a>
-          </li>
-        </ul>
+        <div class="audience-card__actions">
+          <a class="button primary button--compact" href="/start-here?persona=research">
+            Start: Teach & research
+          </a>
+          <ul class="audience-card__links muted">
+            <li>
+              <a href="/research">Research</a>
+            </li>
+            <li>
+              <a href="/glossary">Glossary</a>
+            </li>
+            <li>
+              <a href="/field-notes">Field notes</a>
+            </li>
+          </ul>
+        </div>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -296,26 +308,46 @@ const { pageTitle, pageDescription } = homeEntry.data;
     title="Concrete outputs you can attach to existing processes."
     description="Every output is stable, citeable, and built to travel across tickets, audits, and reviews."
   >
-    <ul class="card__list">
+    <ul class="output-grid">
       <li id="diagnostic-results">
-        <a href="/diagnostics">Diagnostic Results</a> → portable artifacts (JSON / PDF) you can attach to tickets,
-        audits, and reviews.
+        <a class="output-card" href="/diagnostics">
+          <span class="output-card__title">Diagnostic Results</span>
+          <span class="output-card__description">
+            Portable artifacts (JSON / PDF) you can attach to tickets, audits, and reviews.
+          </span>
+        </a>
       </li>
       <li id="governance-gap-score">
-        <a href="/tools/governance-gap-score">Governance Gap Score</a> → shareable scoring tool for governance gaps.
+        <a class="output-card" href="/tools/governance-gap-score">
+          <span class="output-card__title">Governance Gap Score</span>
+          <span class="output-card__description">Shareable scoring tool for governance gaps.</span>
+        </a>
       </li>
       <li id="findings">
-        <a href="/api/findings.json">Findings</a> → structured statements of what's wrong, why it matters, and what closes
-        the gap.
+        <a class="output-card" href="/api/findings.json">
+          <span class="output-card__title">Findings</span>
+          <span class="output-card__description">
+            Structured statements of what's wrong, why it matters, and what closes the gap.
+          </span>
+        </a>
       </li>
       <li id="standards-clauses">
-        <a href="/standards">Standards & Clauses</a> → citeable obligations with stable IDs.
+        <a class="output-card" href="/standards">
+          <span class="output-card__title">Standards & Clauses</span>
+          <span class="output-card__description">Citeable obligations with stable IDs.</span>
+        </a>
       </li>
       <li id="evidence-packs">
-        <a href="/evidence-packs">Evidence Packs</a> → minimum proof required to verify compliance.
+        <a class="output-card" href="/evidence-packs">
+          <span class="output-card__title">Evidence Packs</span>
+          <span class="output-card__description">Minimum proof required to verify compliance.</span>
+        </a>
       </li>
       <li id="mechanism-library">
-        <a href="/mechanisms">Mechanism Library</a> → concrete ways to fix identified gaps.
+        <a class="output-card" href="/mechanisms">
+          <span class="output-card__title">Mechanism Library</span>
+          <span class="output-card__description">Concrete ways to fix identified gaps.</span>
+        </a>
       </li>
     </ul>
   </SectionBlock>
