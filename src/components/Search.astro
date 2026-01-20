@@ -10,7 +10,7 @@ import { Icon } from "astro-icon/components";
     aria-label="Open search"
   >
     <Icon name="lucide:search" class="search-icon" />
-    <span class="search-label">Search the library...</span>
+    <span class="search-label">Search the library…</span>
     <kbd class="search-kbd">/</kbd>
   </button>
 
@@ -30,7 +30,7 @@ import { Icon } from "astro-icon/components";
           <input
             type="search"
             id="search-input"
-            placeholder="Search for standards, mechanisms, and validators..."
+            placeholder="Search the library…"
             autocomplete="off"
             enterkeyhint="search"
             aria-describedby="search-help-text"
@@ -115,7 +115,6 @@ import { Icon } from "astro-icon/components";
     box-shadow:
       0 4px 12px rgba(168, 132, 79, 0.15),
       0 0 0 2px var(--gold);
-    transform: scale(1.02);
   }
 
   .search-icon {
@@ -236,7 +235,7 @@ import { Icon } from "astro-icon/components";
   }
 
   .search-recent__label {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -301,13 +300,14 @@ import { Icon } from "astro-icon/components";
     padding: 0.75rem 1rem;
     background: color-mix(in srgb, var(--surface) 92%, white 8%);
     border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: var(--muted);
   }
 
   .search-help {
     display: flex;
     gap: 1rem;
+    font-size: 0.85rem;
   }
 
   .search-help kbd {
