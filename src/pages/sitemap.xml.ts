@@ -1,5 +1,7 @@
 import { getEntry } from "astro:content";
 import type { APIContext } from "astro";
+import { lstat, realpath } from "node:fs/promises";
+import { relative, resolve, sep } from "node:path";
 
 import { glossaryContent } from "../content/glossary";
 import type { GlossaryCategory, GlossaryEntry } from "../content/glossary";
@@ -21,9 +23,16 @@ const loadPageModules = async () => {
     const modules: Record<string, true> = {};
     const glob = new Bun.Glob("src/pages/**/*.astro");
 
-    for await (const file of glob.scan({ cwd: process.cwd() })) {
-      const relativePath = file.replace(/^src\/pages\//, "");
-      modules[`./${relativePath}`] = true;
+    const rootPath = await realpath(process.cwd());
+    const pagesRoot = await realpath(resolve(rootPath, "src", "pages"));
+
+    for await (const file of glob.scan({ cwd: rootPath })) {
+      const fullPath = resolve(rootPath, file);
+      const stats = await lstat(fullPath);
+      if (stats.isSymbolicLink()) continue;
+      const relativePath = relative(pagesRoot, fullPath);
+      if (relativePath.startsWith("..")) continue;
+      modules[`./${relativePath.split(sep).join("/")}`] = true;
     }
 
     return modules;

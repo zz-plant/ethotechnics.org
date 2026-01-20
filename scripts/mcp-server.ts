@@ -4,7 +4,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 
 import { join, relative, resolve, sep } from "node:path";
-import { stat, readdir } from "node:fs/promises";
+import { lstat, readdir, realpath, stat } from "node:fs/promises";
 
 // Initialize server
 const server = new McpServer({
@@ -50,6 +50,9 @@ server.tool(
 
       const files: string[] = [];
       for await (const file of glob.scan({ cwd: componentsDir })) {
+        const fullPath = join(componentsDir, file);
+        const stats = await lstat(fullPath);
+        if (stats.isSymbolicLink()) continue;
         files.push(file);
       }
 
@@ -82,9 +85,11 @@ server.tool(
       ];
 
       for await (const file of glob.scan({ cwd: root, onlyFiles: false })) {
-        if (!excludes.some((excluded) => file.startsWith(excluded))) {
-          files.push(file);
-        }
+        if (excludes.some((excluded) => file.startsWith(excluded))) continue;
+        const fullPath = join(root, file);
+        const stats = await lstat(fullPath);
+        if (stats.isSymbolicLink()) continue;
+        files.push(file);
       }
 
       return textResponse(files.sort().join("\n"));
@@ -108,6 +113,9 @@ server.tool(
       const files: string[] = [];
 
       for await (const file of glob.scan({ cwd: pagesDir })) {
+        const fullPath = join(pagesDir, file);
+        const stats = await lstat(fullPath);
+        if (stats.isSymbolicLink()) continue;
         files.push(file);
       }
 
@@ -163,15 +171,16 @@ server.tool(
         const entries = await readdir(dir, { withFileTypes: true });
         for (const entry of entries) {
           const fullPath = join(dir, entry.name);
-          if (entry.isDirectory()) {
+          const entryStats = await lstat(fullPath);
+          if (entryStats.isSymbolicLink()) continue;
+          if (entryStats.isDirectory()) {
             await scan(fullPath);
-          } else {
-            const stats = await stat(fullPath);
-            files.push({
-              path: relative(distDir, fullPath),
-              size: stats.size,
-            });
+            continue;
           }
+          files.push({
+            path: relative(distDir, fullPath),
+            size: entryStats.size,
+          });
         }
       }
 
@@ -226,8 +235,13 @@ server.tool(
   },
   async ({ path, depth }) => {
     try {
-      const projectRoot = resolve(getProjectRoot());
-      const rootPath = resolve(projectRoot, path || ".");
+      const projectRoot = await realpath(getProjectRoot());
+      const requestedPath = resolve(projectRoot, path || ".");
+      const requestedStats = await lstat(requestedPath);
+      if (requestedStats.isSymbolicLink()) {
+        throw new Error("Invalid path: Symlinks are not allowed");
+      }
+      const rootPath = await realpath(requestedPath);
       const safePrefix = `${projectRoot}${sep}`;
       if (rootPath !== projectRoot && !rootPath.startsWith(safePrefix)) {
         throw new Error("Invalid path: Access denied");
@@ -252,11 +266,13 @@ server.tool(
         for (const entry of entries) {
           if (excludes.includes(entry.name)) continue;
           const fullPath = join(dir, entry.name);
+          const entryStats = await lstat(fullPath);
+          if (entryStats.isSymbolicLink()) continue;
           const relPath = relative(rootPath, fullPath);
           files.push(
-            `${"  ".repeat(currentDepth)}${entry.isDirectory() ? "📁" : "📄"} ${relPath}`,
+            `${"  ".repeat(currentDepth)}${entryStats.isDirectory() ? "📁" : "📄"} ${relPath}`,
           );
-          if (entry.isDirectory()) {
+          if (entryStats.isDirectory()) {
             await scan(fullPath, currentDepth + 1);
           }
         }
