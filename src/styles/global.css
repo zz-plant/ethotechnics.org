@@ -167,17 +167,16 @@
   background:
     radial-gradient(
       circle at 20% 12%,
-      rgba(255, 255, 255, 0.6),
-      transparent 42%
+      rgba(255, 255, 255, 0.35),
+      transparent 45%
     ),
     radial-gradient(
       circle at 78% 18%,
-      rgba(255, 255, 255, 0.45),
-      transparent 46%
+      rgba(255, 255, 255, 0.3),
+      transparent 50%
     ),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 60%);
-  filter: url("#paper-grain");
-  opacity: 0.28;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 60%);
+  opacity: 0.16;
   pointer-events: none;
   z-index: var(--z-base);
 }
@@ -190,12 +189,12 @@
   border-radius: calc(var(--radius-lg) + 8px);
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.35),
-    rgba(245, 238, 225, 0.05)
+    rgba(255, 255, 255, 0.18),
+    rgba(245, 238, 225, 0.02)
   );
   mask: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 70%);
-  box-shadow: 0 40px 120px rgba(64, 52, 40, 0.08);
-  opacity: 0.4;
+  box-shadow: 0 32px 90px rgba(64, 52, 40, 0.05);
+  opacity: 0.22;
   pointer-events: none;
   z-index: var(--z-base);
 }
@@ -229,14 +228,14 @@
 
 .page-shell__panel::before {
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0)),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0)),
     radial-gradient(
       circle at 20% 30%,
-      rgba(255, 255, 255, 0.5),
-      transparent 50%
+      rgba(255, 255, 255, 0.35),
+      transparent 55%
     );
   mix-blend-mode: screen;
-  opacity: 0.35;
+  opacity: 0.2;
 }
 
 .page-shell__panel::after {

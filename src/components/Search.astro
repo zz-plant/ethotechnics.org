@@ -82,10 +82,10 @@ import { Icon } from "astro-icon/components";
     width: 100%;
     min-height: 44px;
     padding: 0.55rem 0.75rem;
-    background: color-mix(in srgb, var(--surface) 94%, white 6%);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    background: color-mix(in srgb, var(--surface) 97%, white 3%);
+    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
     border-radius: 6px;
-    color: var(--muted);
+    color: var(--text);
     font-size: 0.95rem;
     line-height: 1.2;
     cursor: pointer;
@@ -100,7 +100,7 @@ import { Icon } from "astro-icon/components";
 
   .search-trigger:hover {
     background: color-mix(in srgb, var(--surface) 98%, white 2%);
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
   }
 
   .search-trigger:focus-visible {
@@ -137,9 +137,9 @@ import { Icon } from "astro-icon/components";
   }
 
   .search-dialog {
-    width: 90vw;
-    max-width: 600px;
-    max-height: 80vh;
+    width: min(92vw, 760px);
+    max-width: 760px;
+    max-height: 86vh;
     padding: 0;
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     border-radius: 12px;
@@ -193,7 +193,7 @@ import { Icon } from "astro-icon/components";
   }
 
   .search-dialog__search input::placeholder {
-    color: color-mix(in srgb, var(--muted) 80%, transparent);
+    color: var(--muted);
   }
 
   .search-dialog__search input:focus-visible {
