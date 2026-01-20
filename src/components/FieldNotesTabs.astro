@@ -21,19 +21,23 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 {
   sections.length ? (
     <section
-      class="section section--alt"
+      class="section section--alt field-notes"
       data-field-notes
       data-default-format={initialFormat}
     >
-      <div class="section__header">
+      <div class="section__header field-notes__header">
         {sections.map((section: FieldNotesContent["sections"][number]) => (
-          <div data-field-notes-heading data-format={section.format}>
+          <div
+            class="field-notes__heading"
+            data-field-notes-heading
+            data-format={section.format}
+          >
             <p class="eyebrow">{section.title}</p>
             <h2>{section.description}</h2>
           </div>
         ))}
         <ul
-          class="pill-list pill-list--wrap"
+          class="pill-list pill-list--wrap field-notes__tabs"
           role="tablist"
           aria-label="Field note formats"
           data-field-notes-tablist
@@ -45,7 +49,11 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
                 (index === 0 && !initialFormat);
 
               return (
-                <li class={isActive ? "pill-list__item--active" : ""}>
+                <li
+                  class={`pill-list__item field-notes__tab${
+                    isActive ? " pill-list__item--active" : ""
+                  }`}
+                >
                   <button
                     class="pill-list__button"
                     id={`${section.format}-tab`}
@@ -86,7 +94,7 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
             >
               {sectionEntries.map((entry: FieldNoteEntry) => (
                 <article
-                  class="card"
+                  class="card field-notes__card"
                   id={entry.slug}
                   data-field-notes-entry
                   data-format={entry.format}
