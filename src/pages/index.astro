@@ -37,12 +37,12 @@ const { pageTitle, pageDescription } = homeEntry.data;
             Start with a pathway
           </a>
         </div>
-        <details class="hero__jump-links">
-          <summary class="hero__jump-summary">
+        <nav class="hero__jump-links" aria-label="Jump to sections">
+          <div class="hero__jump-header">
             <span class="eyebrow">Jump to</span>
             <span class="hero__jump-label">Explore sections</span>
-          </summary>
-          <ul>
+          </div>
+          <ul class="hero__jump-list">
             <li>
               <a class="pill" href="#quickstart">Quickstart</a>
             </li>
@@ -62,7 +62,7 @@ const { pageTitle, pageDescription } = homeEntry.data;
               <a class="pill" href="#agents">APIs</a>
             </li>
           </ul>
-        </details>
+        </nav>
         <p class="hero__helper">
           Need a full policy backbone? <a href="/standards">Browse standards</a>. Want remediation-first guidance?
           <a href="/mechanisms">Browse the mechanism library</a>.
@@ -110,75 +110,87 @@ const { pageTitle, pageDescription } = homeEntry.data;
       <CardItem
         title="Run a diagnostic"
         description="Export a structured report to attach to a review or audit ticket."
+        className="quickstart-card"
       >
-        <a class="button primary button--compact" href="/diagnostics">
-          Launch diagnostics
-        </a>
-        <ul class="muted">
-          <li>
-            <a href="/diagnostics/evidence-pack-readiness">
-              Evidence pack readiness
-            </a>
-          </li>
-          <li>
-            <a href="/diagnostics/escalation-coverage-planner">
-              Escalation coverage planner
-            </a>
-          </li>
-        </ul>
+        <div class="quickstart-card__actions">
+          <a class="button primary button--compact" href="/diagnostics">
+            Launch diagnostics
+          </a>
+          <ul class="quickstart-card__links muted">
+            <li>
+              <a href="/diagnostics/evidence-pack-readiness">
+                Evidence pack readiness
+              </a>
+            </li>
+            <li>
+              <a href="/diagnostics/escalation-coverage-planner">
+                Escalation coverage planner
+              </a>
+            </li>
+          </ul>
+        </div>
       </CardItem>
       <CardItem
         title="Score governance gaps"
         description="Quantify the highest-risk gaps and share a scorecard internally."
+        className="quickstart-card"
       >
-        <a
-          class="button primary button--compact"
-          href="/tools/governance-gap-score"
-        >
-          Run the gap score
-        </a>
-        <ul class="muted">
-          <li>
-            <a href="/tools/governance-gap-score#methodology">Review methodology</a>
-          </li>
-          <li>
-            <a href="/diagnostics">Pair with diagnostics</a>
-          </li>
-        </ul>
+        <div class="quickstart-card__actions">
+          <a
+            class="button primary button--compact"
+            href="/tools/governance-gap-score"
+          >
+            Run the gap score
+          </a>
+          <ul class="quickstart-card__links muted">
+            <li>
+              <a href="/tools/governance-gap-score#methodology">Review methodology</a>
+            </li>
+            <li>
+              <a href="/diagnostics">Pair with diagnostics</a>
+            </li>
+          </ul>
+        </div>
       </CardItem>
       <CardItem
         title="Attach enforceable clauses"
         description="Hand legal or procurement teams ready-to-use binding language."
+        className="quickstart-card"
       >
-        <a class="button primary button--compact" href="/bindings">
-          Browse bindings
-        </a>
-        <ul class="muted">
-          <li>
-            <a href="/standards">Minimum binding sets</a>
-          </li>
-          <li>
-            <a href="/bundles/procurement-clause-pack">
-              Procurement clause pack
-            </a>
-          </li>
-        </ul>
+        <div class="quickstart-card__actions">
+          <a class="button primary button--compact" href="/bindings">
+            Browse bindings
+          </a>
+          <ul class="quickstart-card__links muted">
+            <li>
+              <a href="/standards">Minimum binding sets</a>
+            </li>
+            <li>
+              <a href="/bundles/procurement-clause-pack">
+                Procurement clause pack
+              </a>
+            </li>
+          </ul>
+        </div>
       </CardItem>
       <CardItem
         title="Align on rollout"
         description="Share your workflow so we can map the right artifacts to your team."
+        className="quickstart-card"
       >
-        <a class="button ghost button--compact" href="/participate#intake">
-          Share your workflow
-        </a>
-        <ul class="muted">
-          <li>
-            <a href="/participate#field-reports">What to send</a>
-          </li>
-          <li>
-            <a href="/participate#feedback">Feedback channels</a>
-          </li>
-        </ul>
+        <div class="quickstart-card__actions">
+          <a class="button ghost button--compact" href="/participate#intake">
+            Share your workflow
+          </a>
+          <ul class="quickstart-card__links muted">
+            <li>
+              <a href="/participate#field-reports">What to send</a>
+            </li>
+            <li>
+              <a href="/participate#feedback">Feedback channels</a>
+            </li>
+          </ul>
+        </div>
       </CardItem>
     </CardGrid>
   </SectionBlock>
