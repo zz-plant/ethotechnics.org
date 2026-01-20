@@ -9,6 +9,7 @@ import type {
   GlossaryContent,
   GlossaryEntry,
 } from "../content/glossary";
+import { glossaryTerms } from "../content/glossary";
 import type { LibraryContent, Pattern } from "../content/library";
 import { quickStartGuides } from "../content/quick-start";
 import { glossaryEntryPermalink } from "../utils/glossary";
@@ -149,13 +150,20 @@ export async function GET({ site }: APIContext) {
   const glossaryLastmod = normalizeLastmod(
     glossaryData.publication.updated ?? glossaryData.publication.published,
   );
-  const glossaryPaths = glossaryData.categories.flatMap(
-    (category: GlossaryCategory) =>
-      category.entries.map((entry: GlossaryEntry) => ({
-        path: glossaryEntryPermalink(entry.id),
-        lastmod: glossaryLastmod,
-      })),
+  const glossarySlugSet = new Set<string>(
+    glossaryTerms.map((term) => term.slug),
   );
+
+  glossaryData.categories.forEach((category: GlossaryCategory) => {
+    category.entries.forEach((entry: GlossaryEntry) => {
+      glossarySlugSet.add(entry.id);
+    });
+  });
+
+  const glossaryPaths = Array.from(glossarySlugSet).map((slug) => ({
+    path: glossaryEntryPermalink(slug),
+    lastmod: glossaryLastmod,
+  }));
   const libraryEntry = (await getEntry("library", "library")) as unknown;
   const libraryData = hasEntryData<LibraryContent>(libraryEntry)
     ? libraryEntry.data
