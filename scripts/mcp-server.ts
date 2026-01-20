@@ -237,12 +237,15 @@ server.tool(
     try {
       const projectRoot = await realpath(getProjectRoot());
       const requestedPath = resolve(projectRoot, path || ".");
+      const safePrefix = `${projectRoot}${sep}`;
+      if (requestedPath !== projectRoot && !requestedPath.startsWith(safePrefix)) {
+        throw new Error("Invalid path: Access denied");
+      }
       const requestedStats = await lstat(requestedPath);
       if (requestedStats.isSymbolicLink()) {
         throw new Error("Invalid path: Symlinks are not allowed");
       }
       const rootPath = await realpath(requestedPath);
-      const safePrefix = `${projectRoot}${sep}`;
       if (rootPath !== projectRoot && !rootPath.startsWith(safePrefix)) {
         throw new Error("Invalid path: Access denied");
       }
