@@ -110,6 +110,34 @@ export const navSections: NavSection[] = [
     ],
   },
   {
+    heading: "Library",
+    description:
+      "Patterns, primers, and glossary anchors that keep diagnostics and delivery aligned.",
+    links: [
+      {
+        href: "/library",
+        label: "Library",
+        description: "Browse themes, patterns, primers, and the syllabus.",
+        primary: true,
+      },
+      {
+        href: "/library#patterns",
+        label: "Pattern language",
+        description: "Mechanism patterns with execution-ready details.",
+      },
+      {
+        href: "/library#primer",
+        label: "Primer",
+        description: "Short orientation for accountable delivery practices.",
+      },
+      {
+        href: "/library#glossary",
+        label: "Glossary anchors",
+        description: "Stable terms for diagnostics and reporting.",
+      },
+    ],
+  },
+  {
     heading: "Mechanisms",
     description:
       "Spec sheets that turn standards into governance, friction, and policy controls.",
@@ -136,6 +164,34 @@ export const navSections: NavSection[] = [
         href: "/mechanisms#policy",
         label: "Policy",
         description: "Contracts, charters, and enforceable commitments.",
+      },
+    ],
+  },
+  {
+    heading: "Diagnostics",
+    description:
+      "Run decision-ready diagnostics with action-oriented outputs and examples.",
+    links: [
+      {
+        href: "/diagnostics",
+        label: "Diagnostics",
+        description: "Choose a diagnostic and leave with a shareable readout.",
+        primary: true,
+      },
+      {
+        href: "/diagnostics/burden-modeler",
+        label: "Burden Modeler",
+        description: "Quantify toil, friction, and overload signals.",
+      },
+      {
+        href: "/diagnostics/maintenance-simulator",
+        label: "Maintenance Simulator",
+        description: "Stress-test coverage with tabletop scenarios.",
+      },
+      {
+        href: "/diagnostics/capacity-forecaster",
+        label: "Capacity Forecaster",
+        description: "Model long-term delivery saturation risks.",
       },
     ],
   },
