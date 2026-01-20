@@ -6,9 +6,9 @@ import {
 } from "../../content/taxonomy";
 
 export const prerender = true;
-const rootSlug = "experience";
 
 export function getStaticPaths() {
+  const rootSlug = "experience";
   const branchEntries = getTaxonomyBranch(rootSlug).filter(
     (entry) => entry.slug !== rootSlug,
   );
