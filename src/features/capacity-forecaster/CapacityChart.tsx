@@ -56,6 +56,7 @@ export function CapacityChart({
 }: CapacityChartProps) {
   const chartTitleId = useId();
   const chartDescriptionId = useId();
+  const chartSvgDescriptionId = useId();
   const gradientId = useId();
   const baselineGradientId = `baselineArea-${gradientId}`;
   const remediatedGradientId = `remediatedArea-${gradientId}`;
@@ -136,8 +137,13 @@ export function CapacityChart({
           viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
           role="img"
           aria-labelledby={chartTitleId}
-          aria-describedby={chartDescriptionId}
+          aria-describedby={`${chartDescriptionId} ${chartSvgDescriptionId}`}
         >
+          <desc id={chartSvgDescriptionId}>
+            Two area lines show baseline capacity declining faster than the
+            remediated line, with a vertical marker indicating the saturation
+            date when the baseline reaches zero.
+          </desc>
           <defs>
             <linearGradient
               id={baselineGradientId}
