@@ -226,7 +226,17 @@ server.tool(
   },
   async ({ path, depth }) => {
     try {
-      const rootPath = resolve(getProjectRoot(), path || ".");
+      const projectRoot = resolve(getProjectRoot());
+      const rootPath = resolve(projectRoot, path || ".");
+      const safePrefix = `${projectRoot}${sep}`;
+      if (rootPath !== projectRoot && !rootPath.startsWith(safePrefix)) {
+        throw new Error("Invalid path: Access denied");
+      }
+      const rootStats = await stat(rootPath);
+      if (rootStats.isFile()) {
+        return textResponse(`📄 ${relative(projectRoot, rootPath)}`);
+      }
+
       const files: string[] = [];
       const excludes = [
         "node_modules",
