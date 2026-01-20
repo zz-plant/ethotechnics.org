@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import "./maintenanceSimulator.css";
 import {
@@ -17,6 +17,71 @@ const initialCoverage: CoverageChecklist = {
   communicationsReady: false,
   appealPath: false,
   handoffPlan: true,
+};
+
+const STORAGE_KEY = "maintenance-simulator-state";
+const QUERY_KEYS = {
+  scenario: "scenario",
+  risk: "risk",
+  coverage: "coverage",
+} as const;
+const VALID_RISKS: RiskLevel[] = ["steady", "elevated", "critical"];
+
+const parseCoverageParam = (value: string | null) => {
+  if (!value) return null;
+  const enabled = value.split(",").map((item) => item.trim());
+  if (!enabled.length) return null;
+
+  const nextCoverage = { ...initialCoverage };
+  coverageItems.forEach((item) => {
+    nextCoverage[item.key] = enabled.includes(item.key);
+  });
+  return nextCoverage;
+};
+
+const readStoredState = () => {
+  if (typeof window === "undefined") return null;
+  try {
+    const storedValue = window.sessionStorage.getItem(STORAGE_KEY);
+    if (!storedValue) return null;
+    return JSON.parse(storedValue) as {
+      templateId?: string;
+      riskLevel?: RiskLevel;
+      coverage?: CoverageChecklist;
+    };
+  } catch {
+    return null;
+  }
+};
+
+const resolveInitialState = () => {
+  if (typeof window === "undefined") {
+    return {
+      templateId: "scheduled-maintenance",
+      riskLevel: "elevated" as RiskLevel,
+      coverage: initialCoverage,
+    };
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const storedState = readStoredState();
+  const scenarioParam = params.get(QUERY_KEYS.scenario);
+  const riskParam = params.get(QUERY_KEYS.risk);
+  const coverageParam = parseCoverageParam(params.get(QUERY_KEYS.coverage));
+
+  const templateId =
+    (scenarioParam &&
+      scenarioTemplates.some((scenario) => scenario.id === scenarioParam) &&
+      scenarioParam) ||
+    storedState?.templateId ||
+    "scheduled-maintenance";
+  const riskLevel =
+    (riskParam && VALID_RISKS.includes(riskParam as RiskLevel)
+      ? (riskParam as RiskLevel)
+      : storedState?.riskLevel) || "elevated";
+  const coverage = coverageParam || storedState?.coverage || initialCoverage;
+
+  return { templateId, riskLevel, coverage };
 };
 
 const riskLabels: Record<RiskLevel, string> = {
@@ -266,26 +331,15 @@ const CoverageControls = ({
 };
 
 const MaintenanceSimulator = () => {
-  const [templateId, setTemplateId] = useState("scheduled-maintenance");
-  const [riskLevel, setRiskLevel] = useState<RiskLevel>("elevated");
-  const [coverage, setCoverage] = useState<CoverageChecklist>(initialCoverage);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const scenarioParam = params.get("scenario");
-    const riskParam = params.get("risk");
-
-    if (
-      scenarioParam &&
-      scenarioTemplates.some((scenario) => scenario.id === scenarioParam)
-    ) {
-      setTemplateId(scenarioParam);
-    }
-
-    if (riskParam && ["steady", "elevated", "critical"].includes(riskParam)) {
-      setRiskLevel(riskParam as RiskLevel);
-    }
-  }, []);
+  const initialState = useMemo(() => resolveInitialState(), []);
+  const [templateId, setTemplateId] = useState(initialState.templateId);
+  const [riskLevel, setRiskLevel] = useState<RiskLevel>(
+    initialState.riskLevel,
+  );
+  const [coverage, setCoverage] = useState<CoverageChecklist>(
+    initialState.coverage,
+  );
+  const hasSyncedUrl = useRef(false);
 
   const template = useMemo(
     () =>
@@ -307,6 +361,57 @@ const MaintenanceSimulator = () => {
   const handleRiskChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
     setRiskLevel(value as RiskLevel);
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const params = new URLSearchParams(window.location.search);
+    params.set(QUERY_KEYS.scenario, templateId);
+    params.set(QUERY_KEYS.risk, riskLevel);
+    const enabledCoverage = coverageItems
+      .filter((item) => coverage[item.key])
+      .map((item) => item.key)
+      .join(",");
+    params.set(QUERY_KEYS.coverage, enabledCoverage);
+
+    const nextSearch = params.toString();
+    const nextSearchWithPrefix = nextSearch ? `?${nextSearch}` : "";
+    const nextUrl = `${window.location.pathname}${nextSearchWithPrefix}${window.location.hash}`;
+
+    if (window.location.search !== nextSearchWithPrefix) {
+      if (hasSyncedUrl.current) {
+        window.history.pushState({}, "", nextUrl);
+      } else {
+        window.history.replaceState({}, "", nextUrl);
+        hasSyncedUrl.current = true;
+      }
+    } else if (!hasSyncedUrl.current) {
+      hasSyncedUrl.current = true;
+    }
+
+    window.sessionStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ templateId, riskLevel, coverage }),
+    );
+  }, [templateId, riskLevel, coverage]);
+
+  const handleExportJson = () => {
+    const data = {
+      template,
+      riskLevel,
+      coverage,
+      plan: simulationPlan,
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `maintenance-simulation-${templateId}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -349,27 +454,16 @@ const MaintenanceSimulator = () => {
             </select>
           </label>
           <div className="simulator__actions">
-            <button 
-              className="button ghost button--compact" 
-              onClick={() => {
-                const data = {
-                  template,
-                  riskLevel,
-                  coverage,
-                  plan: simulationPlan
-                };
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `maintenance-simulation-${templateId}.json`;
-                a.click();
-              }}
+            <button
+              type="button"
+              className="button ghost button--compact"
+              onClick={handleExportJson}
             >
               Export JSON
             </button>
-            <button 
-              className="button primary button--compact" 
+            <button
+              type="button"
+              className="button primary button--compact"
               onClick={() => window.print()}
             >
               Export PDF
