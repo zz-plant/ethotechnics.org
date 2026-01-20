@@ -4528,6 +4528,81 @@
   }
 }
 
+/* Field Notes Layout */
+
+.field-notes__header {
+  display: grid;
+  gap: 1.5rem;
+  align-items: end;
+}
+
+.field-notes__heading {
+  max-width: 34rem;
+}
+
+.field-notes__heading h2 {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.6rem, 1.2vw + 1.4rem, 2rem);
+}
+
+.field-notes__tabs {
+  margin: 0;
+  padding: 0.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 92%, white 8%);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  gap: 0.35rem;
+}
+
+.field-notes__tabs .pill-list__item {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.field-notes__tabs .pill-list__button {
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.field-notes__tabs .pill-list__item--active .pill-list__button {
+  background: var(--surface);
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+  box-shadow: var(--shadow-sm);
+}
+
+.field-notes .grid {
+  gap: 1.25rem;
+}
+
+.field-notes__card {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--card) 92%, white 8%),
+    color-mix(in srgb, var(--surface) 88%, white 12%)
+  );
+  border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
+  --glow-opacity: 0.18;
+}
+
+.field-notes__card h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.field-notes__card .muted {
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 900px) {
+  .field-notes__header {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
 /* Field Notes Animations */
 
 [data-field-notes-panel]:not([hidden]) {
