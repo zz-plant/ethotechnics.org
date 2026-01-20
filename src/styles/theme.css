@@ -59,7 +59,7 @@ body {
   font-kerning: normal;
   text-rendering: optimizeLegibility;
   background:
-    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), transparent 45%),
     var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -78,22 +78,16 @@ body::before {
   background:
     radial-gradient(
       circle at 12% 18%,
-      rgba(255, 255, 255, 0.7),
-      transparent 45%
+      rgba(255, 255, 255, 0.55),
+      transparent 48%
     ),
     radial-gradient(
       circle at 82% 22%,
-      rgba(255, 255, 255, 0.5),
-      transparent 50%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.45),
-      rgba(245, 237, 222, 0.35)
+      rgba(255, 255, 255, 0.4),
+      transparent 52%
     );
-  opacity: 0.45;
+  opacity: 0.2;
   pointer-events: none;
-  filter: url("#paper-grain");
   z-index: var(--z-underlay);
 }
 

@@ -118,23 +118,23 @@ const desktopLinks = navPrimaryLinks;
     position: sticky;
     top: 0;
     z-index: var(--z-overlay);
-    background: color-mix(in srgb, var(--surface) 94%, white 6%);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    box-shadow: 0 6px 16px rgba(45, 38, 30, 0.08);
-    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--surface) 97%, white 3%);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    box-shadow: 0 4px 10px rgba(45, 38, 30, 0.06);
+    backdrop-filter: none;
   }
 
   @media (max-width: 991px) {
     .nav {
-      background: color-mix(in srgb, var(--surface) 96%, white 4%);
-      box-shadow: 0 8px 18px rgba(45, 38, 30, 0.1);
+      background: color-mix(in srgb, var(--surface) 97%, white 3%);
+      box-shadow: 0 6px 14px rgba(45, 38, 30, 0.08);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .nav {
-      background: color-mix(in srgb, var(--surface) 96%, white 4%);
-      box-shadow: 0 8px 18px rgba(45, 38, 30, 0.1);
+      background: color-mix(in srgb, var(--surface) 97%, white 3%);
+      box-shadow: 0 6px 14px rgba(45, 38, 30, 0.08);
     }
   }
 
@@ -539,11 +539,11 @@ const desktopLinks = navPrimaryLinks;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.3rem 0.55rem;
-    border-radius: 14px;
-    border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
-    background: color-mix(in srgb, var(--surface) 90%, white 10%);
-    box-shadow: 0 6px 14px rgba(45, 38, 30, 0.08);
+    padding: 0.25rem 0.45rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
     letter-spacing: 0.02em;
     text-transform: none;
     color: var(--accent);
@@ -589,11 +589,11 @@ const desktopLinks = navPrimaryLinks;
   }
 
   .nav__links--mobile::-webkit-scrollbar {
-    height: 4px;
+    height: 6px;
   }
 
   .nav__links--mobile::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--accent) 25%, transparent);
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
     border-radius: 999px;
   }
 
@@ -741,12 +741,6 @@ const desktopLinks = navPrimaryLinks;
   @media (min-width: 640px) {
     .nav__wordmark {
       display: block;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .nav__links--desktop {
-      display: none;
     }
   }
 
