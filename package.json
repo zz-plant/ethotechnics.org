@@ -19,7 +19,8 @@
   "scripts": {
     "dev": "bunx astro dev",
     "start": "bunx astro dev",
-    "build": "bun run validate:json && bun run validate:glossary && bunx astro build",
+    "build": "bun run validate:json && bun run validate:glossary && bunx astro build && bun run build:search",
+    "build:search": "bunx pagefind --site dist",
     "preview": "bunx astro preview",
     "preview:cf": "bunx wrangler dev ./dist/_worker.js --local",
     "deploy": "bunx wrangler deploy ./dist/_worker.js --no-bundle",
@@ -79,6 +80,7 @@
     "happy-dom": "^20.1.0",
     "jsdom": "^27.2.0",
     "lightningcss": "^1.27.0",
+    "pagefind": "^1.4.0",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.1",
