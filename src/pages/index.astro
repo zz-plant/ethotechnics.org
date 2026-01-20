@@ -24,12 +24,18 @@ const { pageTitle, pageDescription } = homeEntry.data;
     <div class="hero__layout">
       <div class="hero__content">
         <p class="eyebrow">Ethotechnics Institute</p>
-        <h1>Delivery-ready governance for automated systems.</h1>
+        <h1>Turn audits into concrete fixes for automated systems.</h1>
         <p class="lede">
-          Research, governance, and delivery artifacts that survive audits, reviews, and failure.
+          Build governance artifacts your team can run in production: diagnostics, bindings, mechanisms,
+          and evidence packs that map directly to review and remediation workflows.
         </p>
         <div class="actions">
-          <a class="button primary" href="/diagnostics">Run a diagnostic</a>
+          <a class="button primary" href="/diagnostics">
+            Run a diagnostic
+          </a>
+          <a class="button ghost" href="/start-here">
+            Start with a pathway
+          </a>
         </div>
         <details class="hero__jump-links">
           <summary class="hero__jump-summary">
@@ -38,13 +44,16 @@ const { pageTitle, pageDescription } = homeEntry.data;
           </summary>
           <ul>
             <li>
+              <a class="pill" href="#quickstart">Quickstart</a>
+            </li>
+            <li>
               <a class="pill" href="#audience">Audience</a>
             </li>
             <li>
               <a class="pill" href="#outputs">Outputs</a>
             </li>
             <li>
-              <a class="pill" href="#workflow">Workflow</a>
+              <a class="pill" href="#how-it-works">How it works</a>
             </li>
             <li>
               <a class="pill" href="#difference">Difference</a>
@@ -55,8 +64,8 @@ const { pageTitle, pageDescription } = homeEntry.data;
           </ul>
         </details>
         <p class="hero__helper">
-          Prefer a fix-first view? <a href="/mechanisms">Browse the mechanism library</a>. Need the full doctrine?
-          <a href="/standards">Browse standards</a>.
+          Need a full policy backbone? <a href="/standards">Browse standards</a>. Want remediation-first guidance?
+          <a href="/mechanisms">Browse the mechanism library</a>.
         </p>
         <ul class="hero__highlights">
           <li>
@@ -88,6 +97,109 @@ const { pageTitle, pageDescription } = homeEntry.data;
       </div>
     </div>
   </section>
+
+  <SectionBlock
+    id="quickstart"
+    eyebrow="Quickstart"
+    title="Produce a governance artifact in under an hour."
+    description="Choose a track and hand the output to the people who need evidence, language, or remediation."
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Run a diagnostic"
+        description="Export a structured report to attach to a review or audit ticket."
+      >
+        <a class="button primary button--compact" href="/diagnostics">
+          Launch diagnostics
+        </a>
+        <ul class="muted">
+          <li>
+            <a href="/diagnostics/evidence-pack-readiness">
+              Evidence pack readiness
+            </a>
+          </li>
+          <li>
+            <a href="/diagnostics/escalation-coverage-planner">
+              Escalation coverage planner
+            </a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Score governance gaps"
+        description="Quantify the highest-risk gaps and share a scorecard internally."
+      >
+        <a
+          class="button primary button--compact"
+          href="/tools/governance-gap-score"
+        >
+          Run the gap score
+        </a>
+        <ul class="muted">
+          <li>
+            <a href="/tools/governance-gap-score#methodology">Review methodology</a>
+          </li>
+          <li>
+            <a href="/diagnostics">Pair with diagnostics</a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Attach enforceable clauses"
+        description="Hand legal or procurement teams ready-to-use binding language."
+      >
+        <a class="button primary button--compact" href="/bindings">
+          Browse bindings
+        </a>
+        <ul class="muted">
+          <li>
+            <a href="/standards">Minimum binding sets</a>
+          </li>
+          <li>
+            <a href="/bundles/procurement-clause-pack">
+              Procurement clause pack
+            </a>
+          </li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Align on rollout"
+        description="Share your workflow so we can map the right artifacts to your team."
+      >
+        <a class="button ghost button--compact" href="/participate#intake">
+          Share your workflow
+        </a>
+        <ul class="muted">
+          <li>
+            <a href="/participate#field-reports">What to send</a>
+          </li>
+          <li>
+            <a href="/participate#feedback">Feedback channels</a>
+          </li>
+        </ul>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="how-it-works"
+    eyebrow="How it works"
+    title="Go from review to remediation in three moves."
+    description="Ethotechnics keeps audits actionable by linking every output to an owner, evidence, and fix."
+    variant="alt"
+  >
+    <ol class="card__list">
+      <li>
+        <strong>Run a diagnostic.</strong> Capture gaps, owners, and evidence expectations in a structured output.
+      </li>
+      <li>
+        <strong>Bind the obligation.</strong> Map gaps to clauses, standards, or procurement language teams can enforce.
+      </li>
+      <li>
+        <strong>Deploy a mechanism.</strong> Use remediation patterns to close the gap without losing context.
+      </li>
+    </ol>
+  </SectionBlock>
 
   <SectionBlock
     id="audience"
@@ -211,7 +323,6 @@ const { pageTitle, pageDescription } = homeEntry.data;
     eyebrow="Where it fits"
     title="Map Ethotechnics to the workflows you already run."
     description="Use the same artifacts across review, policy, red teaming, audit prep, and agent tooling."
-    variant="alt"
   >
     <CardGrid className="grid--two">
       <CardItem
