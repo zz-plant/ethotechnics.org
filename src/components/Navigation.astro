@@ -4,6 +4,7 @@ import Search from "./Search.astro";
 import NavUtilityLinks from "./NavUtilityLinks.astro";
 import Wordmark from "./Wordmark.astro";
 import { navPrimaryLinks } from "../content/navigation";
+import type { NavLink } from "../content/navigation";
 
 interface Props {
   currentPath?: string;
@@ -37,7 +38,10 @@ const toViewTransitionName = (
 };
 
 const mobileLinks = navPrimaryLinks;
-const desktopLinks = navPrimaryLinks;
+const desktopPrimaryLabels = ["Library", "Diagnostics", "Institute"];
+const desktopLinks = desktopPrimaryLabels
+  .map((label) => navPrimaryLinks.find((link) => link.label === label))
+  .filter((link): link is NavLink => Boolean(link));
 ---
 
 <nav class="nav" aria-label="Primary" data-nav>

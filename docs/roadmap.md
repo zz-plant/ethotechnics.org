@@ -17,7 +17,7 @@ outcome) and link to a spec section below once scoped.
 |                                                               | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   | - [Contestability pattern library](#contestability-pattern-library)                 |
 |                                                               | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
 |                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Language people can use](#language-people-can-use)                               |
-|                                                               | - [Desktop navigation visibility](#desktop-navigation-visibility)                                 | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
+|                                                               |                                                                                                   | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
 |                                                               | - [Homepage narrative clarity](#homepage-narrative-clarity)                                       | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
 |                                                               | - [Diagnostics CTA clarity](#diagnostics-cta-clarity)                                             | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
 |                                                               | - [Pattern detail actions](#pattern-detail-actions)                                               |                                                                                     |
@@ -325,6 +325,14 @@ future updates can build on what already shipped.
 - **Notes:** Decision logged on whether to introduce a “Start here” entry; updates reflected in
   navigation components.
 - **Issue link:** Issue: TBD / Spec: #navigation-clarity-refresh
+
+### Desktop navigation visibility
+
+- **Problem:** Core destinations remained hidden behind the navigation overlay on desktop.
+- **Outcome:** Exposed Library, Diagnostics, and Institute links directly in the desktop header
+  while keeping the full overlay navigation for deeper destinations.
+- **Notes:** Kept SSR navigation structure intact and preserved predictable focus order.
+- **Issue link:** Issue: TBD / Spec: #desktop-navigation-visibility
 
 ### Long-page summaries + wayfinding
 
