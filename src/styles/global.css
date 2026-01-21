@@ -803,6 +803,25 @@
   }
 }
 
+@media (max-width: 640px) {
+  .hero__jump-links {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .hero__jump-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .hero__jump-links .pill {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 0.45rem 0.6rem;
+  }
+}
+
 @media (min-width: 2000px) {
   .hero {
     padding: clamp(2.6rem, 3vw, 3.4rem);
