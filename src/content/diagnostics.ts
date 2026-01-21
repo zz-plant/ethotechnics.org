@@ -251,10 +251,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio for risky or unclear scores.",
-      ctaLabel: "Run the burden modeler",
+      ctaLabel: "Start the Burden Modeler",
       ctaHref: "/diagnostics/burden-modeler",
-      ctaAriaLabel: "Run the Burden Modeler diagnostic tool",
-      exampleLabel: "View burden model output sample",
+      ctaAriaLabel: "Start the Burden Modeler diagnostic tool",
+      exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#burden-modeler",
       deliveryType: "self-serve",
@@ -357,11 +357,11 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
-      ctaLabel: "Request a facilitation session",
+      ctaLabel: "Request facilitation",
       ctaHref: "https://ethotechnics.com/studio",
       ctaAriaLabel:
-        "Request an LLM readiness check through ethotechnics.com/studio",
-      exampleLabel: "Review a benchmark output sample",
+        "Request facilitation for the LLM Capacity Benchmark via ethotechnics.com/studio",
+      exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark",
       deliveryType: "studio",
@@ -464,10 +464,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.",
-      ctaLabel: "Run the maintenance simulator",
+      ctaLabel: "Start the Maintenance Simulator",
       ctaHref: "/diagnostics/maintenance-simulator",
-      ctaAriaLabel: "Run the Maintenance Windowing simulator",
-      exampleLabel: "Preview a simulation output",
+      ctaAriaLabel: "Start the Maintenance Simulator diagnostic tool",
+      exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#maintenance-simulator",
       deliveryType: "self-serve",
@@ -569,10 +569,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
-      ctaLabel: "Run the capacity forecaster",
+      ctaLabel: "Start the Capacity Forecaster",
       ctaHref: "/diagnostics/capacity-forecaster",
-      ctaAriaLabel: "Run the Technical Capacity Forecaster tool",
-      exampleLabel: "View capacity forecast examples",
+      ctaAriaLabel: "Start the Technical Capacity Forecaster diagnostic tool",
+      exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
       deliveryType: "self-serve",
@@ -673,10 +673,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Use the Studio handoff if ownership or coverage changes are contested.",
-      ctaLabel: "Run the escalation coverage planner",
+      ctaLabel: "Start the Escalation Coverage Planner",
       ctaHref: "/diagnostics/escalation-coverage-planner",
-      ctaAriaLabel: "Run the Escalation Coverage Planner",
-      exampleLabel: "View output baseline",
+      ctaAriaLabel: "Start the Escalation Coverage Planner diagnostic tool",
+      exampleLabel: "View sample output",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",
     },
@@ -776,10 +776,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Studio support is recommended if evidence gaps affect launch readiness.",
-      ctaLabel: "Run evidence readiness check",
+      ctaLabel: "Start Evidence Pack Readiness",
       ctaHref: "/diagnostics/evidence-pack-readiness",
-      ctaAriaLabel: "Run the Evidence Pack Readiness tool",
-      exampleLabel: "View output baseline",
+      ctaAriaLabel: "Start the Evidence Pack Readiness diagnostic tool",
+      exampleLabel: "View sample output",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",
     },
