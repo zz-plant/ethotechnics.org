@@ -34,6 +34,8 @@ export type GlossaryEntry = {
   bodyHtml: string;
   scope?: string;
   adjacentTerms?: string[];
+  presenceChecks?: string[];
+  missingExpectations?: string[];
   operationalTests?: string[];
   minimumEvidence: GlossaryMinimumEvidence;
   genealogy?: string;

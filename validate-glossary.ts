@@ -5,6 +5,8 @@ type GlossaryEntry = {
   id: string;
   title: string;
   adjacentTerms?: string[];
+  presenceChecks?: string[];
+  missingExpectations?: string[];
   relatedPatterns?: string[];
   references?: { label: string; href: string; type: string }[];
   resources?: { label: string; href: string; type: string }[];
@@ -42,6 +44,8 @@ const glossarySchema = z
               id: z.string(),
               title: z.string(),
               adjacentTerms: z.array(z.string()).optional(),
+              presenceChecks: z.array(z.string()).optional(),
+              missingExpectations: z.array(z.string()).optional(),
               relatedPatterns: z.array(z.string()).optional(),
               references: z
                 .array(
@@ -153,6 +157,26 @@ for (const category of glossary.categories) {
         if (!glossaryIds.has(term)) {
           errors.push(
             `Adjacent term "${term}" referenced by "${entry.id}" does not exist.`,
+          );
+        }
+      });
+    }
+
+    if (entry.presenceChecks) {
+      entry.presenceChecks.forEach((term) => {
+        if (!glossaryIds.has(term)) {
+          errors.push(
+            `Presence check "${term}" referenced by "${entry.id}" does not exist.`,
+          );
+        }
+      });
+    }
+
+    if (entry.missingExpectations) {
+      entry.missingExpectations.forEach((term) => {
+        if (!glossaryIds.has(term)) {
+          errors.push(
+            `Missing expectation "${term}" referenced by "${entry.id}" does not exist.`,
           );
         }
       });
