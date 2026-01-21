@@ -6,6 +6,7 @@ import { ClientRouter } from "astro:transitions";
 import Navigation from "../components/Navigation.astro";
 import Wordmark from "../components/Wordmark.astro";
 import { siteFooter } from "../content/site-footer";
+import glossaryHighlightsScript from "../scripts/glossary-highlights.ts?url";
 import "../styles/theme.css";
 import "../styles/global.css";
 
@@ -18,6 +19,7 @@ interface Props {
    * "page page--wide" to allow full-bleed or alternative padding.
    */
   mainClass?: string;
+  enableGlossaryHighlights?: boolean;
 }
 
 const siteName = "Ethotechnics Institute";
@@ -30,6 +32,7 @@ const {
   title = defaultTitle,
   description = defaultDescription,
   mainClass = "page container",
+  enableGlossaryHighlights = true,
 } = Astro.props as Props;
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).toString()
@@ -342,7 +345,14 @@ if (pathSegments.length > 0) {
       <Navigation currentPath={currentPath} />
       <div class="page-shell__canvas">
         <div class="page-shell__panel">
-          <main id="main-content" class={mainClass} tabindex="-1">
+          <main
+            id="main-content"
+            class={mainClass}
+            tabindex="-1"
+            data-glossary-highlights={
+              enableGlossaryHighlights ? "true" : undefined
+            }
+          >
             <slot />
           </main>
           <footer class="footer container" aria-label="Site footer">
@@ -423,5 +433,8 @@ if (pathSegments.length > 0) {
         </div>
       </div>
     </div>
+    {enableGlossaryHighlights && (
+      <script type="module" src={glossaryHighlightsScript} is:inline></script>
+    )}
   </body>
 </html>

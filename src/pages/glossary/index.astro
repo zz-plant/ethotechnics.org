@@ -306,7 +306,11 @@ const citationYear = new Date(
 const glossaryAuthor = getGlossaryAuthor(publication);
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  enableGlossaryHighlights={false}
+>
   <PageIntro
     eyebrow="Glossary"
     title="Ethotechnics glossary"
