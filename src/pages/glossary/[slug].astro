@@ -74,8 +74,14 @@ const pageDescription =
   descriptionBase.length > 180
     ? `${descriptionBase.slice(0, 177).trim()}…`
     : descriptionBase;
-const { scopeText, adjacentTerms, operationalTests, genealogy, references } =
-  getGlossaryEntryDefaults(entry, category);
+const {
+  scopeText,
+  adjacentTerms,
+  operationalTests,
+  minimumEvidence,
+  genealogy,
+  references,
+} = getGlossaryEntryDefaults(entry, category);
 const patternIndex = new Map(
   libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
@@ -114,6 +120,7 @@ const anchorLinks = [
     ? [{ href: "#adjacent-terms", label: "Adjacent terms" }]
     : []),
   { href: "#operational-tests", label: "Operational tests" },
+  { href: "#minimum-evidence", label: "Minimum evidence" },
   { href: "#genealogy", label: "Genealogy" },
   ...(relatedPatterns.length
     ? [{ href: "#related-mechanisms", label: "Related mechanisms" }]
@@ -247,6 +254,20 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <p class="eyebrow">Operational tests</p>
       <ul class="muted">
         {operationalTests.map((test) => <li>{test}</li>)}
+      </ul>
+    </div>
+    <div id="minimum-evidence" class="glossary-entry__block">
+      <p class="eyebrow">Minimum evidence</p>
+      <ul class="muted">
+        <li>
+          <strong>Artifact:</strong> {minimumEvidence.artifact}
+        </li>
+        <li>
+          <strong>Behavior:</strong> {minimumEvidence.behavior}
+        </li>
+        <li>
+          <strong>Metric:</strong> {minimumEvidence.metric}
+        </li>
       </ul>
     </div>
     <div id="genealogy" class="glossary-entry__block">
