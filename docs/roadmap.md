@@ -22,6 +22,9 @@ outcome) and link to a spec section below once scoped.
 |                                                               | - [Diagnostics CTA clarity](#diagnostics-cta-clarity)                                             | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
 |                                                               | - [Pattern detail actions](#pattern-detail-actions)                                               |                                                                                     |
 |                                                               | - [Hero hierarchy performance audit](#hero-hierarchy-performance-audit)                           |                                                                                     |
+|                                                               | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)           |                                                                                     |
+|                                                               | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds)         |                                                                                     |
+|                                                               | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)                     |                                                                                     |
 
 ## Spec template
 
@@ -122,6 +125,46 @@ under this heading and link to it from the roadmap table.
   manual timing notes recorded when visuals change.
 - **Dependencies/risks:** Requires manual verification and possible image optimization.
 - **Issue link:** Issue: TBD / Spec: #hero-hierarchy-performance-audit
+
+## Capacity forecaster v2 (scenario compare)
+
+- **Problem:** The capacity forecaster only supports one scenario at a time, slowing comparative
+  planning.
+- **Scope:** Add a two-scenario compare mode with mirrored sliders, delta summaries, and a clear
+  reset path to return to single-scenario mode.
+- **UX/Tech notes:** Reuse the existing chart styles and export flow; keep keyboard access for all
+  controls.
+- **Acceptance criteria:** Users can create two scenarios, see a delta summary, and export each
+  scenario or the comparison snapshot.
+- **Dependencies/risks:** Needs chart updates and content copy for comparison framing.
+- **Issue link:** Issue: TBD / Spec: #capacity-forecaster-v2-scenario-compare
+
+## Maintenance simulator v2 (risk thresholds)
+
+- **Problem:** The simulator results lack clear guardrails for when mitigation steps become
+  mandatory.
+- **Scope:** Introduce configurable risk thresholds with labeled bands and auto-suggested
+  interventions when results cross a threshold.
+- **UX/Tech notes:** Keep calculations server-side only; expose thresholds as labeled presets with
+  a short explainer tooltip.
+- **Acceptance criteria:** Results display threshold bands, highlight the current risk tier, and
+  surface a recommended intervention list per tier.
+- **Dependencies/risks:** Requires content alignment on threshold definitions and recommendation
+  copy.
+- **Issue link:** Issue: TBD / Spec: #maintenance-simulator-v2-risk-thresholds
+
+## Burden modeler v2 (equity snapshots)
+
+- **Problem:** The burden modeler reports totals but does not highlight equity deltas across
+  segments.
+- **Scope:** Add an equity snapshot panel that compares the top three impacted segments and flags
+  any imbalance beyond a configurable delta.
+- **UX/Tech notes:** Use existing data structures; present snapshots as a compact table with
+  plain-language labels and an exportable summary.
+- **Acceptance criteria:** Users see a clear equity snapshot, flagged deltas, and a single-click
+  export of the snapshot data.
+- **Dependencies/risks:** Needs clarity on segment definitions and acceptable delta thresholds.
+- **Issue link:** Issue: TBD / Spec: #burden-modeler-v2-equity-snapshots
 
 ## Where this binds (surface)
 
