@@ -185,6 +185,8 @@ const glossaryEntrySchema = z.object({
   bodyHtml: z.string(),
   scope: z.string().optional(),
   adjacentTerms: z.array(z.string()).optional(),
+  presenceChecks: z.array(z.string()).optional(),
+  missingExpectations: z.array(z.string()).optional(),
   operationalTests: z.array(z.string()).optional(),
   minimumEvidence: z.object({
     artifact: z.string(),

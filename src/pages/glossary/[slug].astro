@@ -82,6 +82,8 @@ const {
   genealogy,
   references,
 } = getGlossaryEntryDefaults(entry, category);
+const presenceChecks = entry.presenceChecks ?? [];
+const missingExpectations = entry.missingExpectations ?? [];
 const patternIndex = new Map(
   libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
@@ -118,6 +120,12 @@ const anchorLinks = [
   { href: "#scope", label: "Scope" },
   ...(adjacentTerms.length
     ? [{ href: "#adjacent-terms", label: "Adjacent terms" }]
+    : []),
+  ...(presenceChecks.length
+    ? [{ href: "#presence-checks", label: "Presence checks" }]
+    : []),
+  ...(missingExpectations.length
+    ? [{ href: "#missing-expectations", label: "Missing expectations" }]
     : []),
   { href: "#operational-tests", label: "Operational tests" },
   { href: "#minimum-evidence", label: "Minimum evidence" },
@@ -247,6 +255,40 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               </a>
             ))}
           </div>
+        </div>
+      )
+    }
+    {
+      (presenceChecks.length > 0 || missingExpectations.length > 0) && (
+        <div class="glossary-entry__block">
+          {presenceChecks.length > 0 && (
+            <div id="presence-checks">
+              <p class="eyebrow">If this is present, check for</p>
+              <ul class="muted">
+                {presenceChecks.map((term) => (
+                  <li>
+                    <a href={glossaryEntryPermalink(term)}>
+                      {entryLabelIndex.get(term) ?? term}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {missingExpectations.length > 0 && (
+            <div id="missing-expectations">
+              <p class="eyebrow">If this is missing, expect</p>
+              <ul class="muted">
+                {missingExpectations.map((term) => (
+                  <li>
+                    <a href={glossaryEntryPermalink(term)}>
+                      {entryLabelIndex.get(term) ?? term}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )
     }
