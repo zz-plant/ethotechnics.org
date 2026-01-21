@@ -1290,10 +1290,14 @@
   font-weight: 600;
 }
 
+.hero__highlight-label {
+  margin-top: 1.2rem;
+}
+
 .hero__highlights {
   display: grid;
   gap: 0.65rem;
-  margin: 1.2rem 0 0;
+  margin: 0.65rem 0 0;
   padding: 0;
   list-style: none;
   color: color-mix(in srgb, var(--muted) 86%, var(--text));
@@ -1319,7 +1323,19 @@
   background: color-mix(in srgb, var(--accent) 60%, transparent);
 }
 
-.hero__highlights strong {
+.hero__highlight-link {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.hero__highlight-link:hover .hero__highlight-title,
+.hero__highlight-link:focus-visible .hero__highlight-title {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.hero__highlight-title {
   color: var(--text);
   font-weight: 650;
   display: block;
