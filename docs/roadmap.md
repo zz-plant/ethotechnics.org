@@ -18,7 +18,7 @@ outcome) and link to a spec section below once scoped.
 |                                                               | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
 |                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Language people can use](#language-people-can-use)                               |
 |                                                               |                                                                                                   | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
-|                                                               | - [Homepage narrative clarity](#homepage-narrative-clarity)                                       | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
+|                                                               |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
 |                                                               | - [Diagnostics CTA clarity](#diagnostics-cta-clarity)                                             | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
 |                                                               | - [Pattern detail actions](#pattern-detail-actions)                                               |                                                                                     |
 |                                                               | - [Hero hierarchy performance audit](#hero-hierarchy-performance-audit)                           |                                                                                     |
@@ -81,17 +81,6 @@ under this heading and link to it from the roadmap table.
   keyboard focus order remains predictable.
 - **Dependencies/risks:** Requires coordinated styling updates in global navigation styles.
 - **Issue link:** Issue: TBD / Spec: #desktop-navigation-visibility
-
-## Homepage narrative clarity
-
-- **Problem:** The homepage narrative can undersell the mission and focus areas early.
-- **Scope:** Strengthen hero/subheadline and the “How this works” strip copy via `homeContent`
-  updates only.
-- **UX/Tech notes:** Preserve layout per page specs; update content module instead of inline copy.
-- **Acceptance criteria:** Hero explicitly names delivery, research, and governance; info strip
-  reinforces the mission without layout changes.
-- **Dependencies/risks:** Needs copy alignment across home and start-here routes.
-- **Issue link:** Issue: TBD / Spec: #homepage-narrative-clarity
 
 ## Diagnostics CTA clarity
 
@@ -325,6 +314,14 @@ future updates can build on what already shipped.
 - **Notes:** Decision logged on whether to introduce a “Start here” entry; updates reflected in
   navigation components.
 - **Issue link:** Issue: TBD / Spec: #navigation-clarity-refresh
+
+### Homepage narrative clarity
+
+- **Problem:** The homepage narrative can undersell the mission and focus areas early.
+- **Outcome:** Updated the hero and “How it works” copy to highlight delivery, research, and
+  governance with clearer action framing.
+- **Notes:** Kept layout and structure intact while refining mission-focused language.
+- **Issue link:** Issue: TBD / Spec: #homepage-narrative-clarity
 
 ### Desktop navigation visibility
 
