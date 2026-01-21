@@ -16,13 +16,29 @@ const DEFAULT_PARAMS: SimulationParams = {
   refusalWeeks: 4,
 };
 
+type ScenarioState = {
+  metrics: OperationalMetrics;
+  params: SimulationParams;
+};
+
+type ViewMode = 'single' | 'compare';
+
 const STABILITY_ORDER: SystemStability[] = ['RESILIENT', 'DEGRADED', 'UNSTABLE'];
 const STORAGE_KEY = 'capacity-forecaster-state';
 const QUERY_KEYS = {
-  velocityIndex: 'velocity',
-  interruptionRate: 'interruptions',
-  stability: 'stability',
-  refusalWeeks: 'refusal',
+  scenarioA: {
+    velocityIndex: 'velocity',
+    interruptionRate: 'interruptions',
+    stability: 'stability',
+    refusalWeeks: 'refusal',
+  },
+  scenarioB: {
+    velocityIndex: 'velocityB',
+    interruptionRate: 'interruptionsB',
+    stability: 'stabilityB',
+    refusalWeeks: 'refusalB',
+  },
+  viewMode: 'mode',
 } as const;
 
 const clamp = (value: number, min: number, max: number) =>
@@ -41,8 +57,8 @@ const parseNumericParam = (
   return clamp(numericValue, min, max);
 };
 
-const parseStabilityParam = (params: URLSearchParams) => {
-  const rawValue = params.get(QUERY_KEYS.stability);
+const parseStabilityParam = (params: URLSearchParams, key: string) => {
+  const rawValue = params.get(key);
   if (!rawValue) return null;
   if (STABILITY_ORDER.includes(rawValue as SystemStability)) {
     return rawValue as SystemStability;
@@ -58,77 +74,210 @@ const readStoredState = () => {
     return JSON.parse(storedValue) as {
       metrics?: Partial<OperationalMetrics>;
       params?: Partial<SimulationParams>;
+      scenarioA?: Partial<ScenarioState>;
+      scenarioB?: Partial<ScenarioState>;
+      viewMode?: ViewMode;
     };
   } catch {
     return null;
   }
 };
 
-const resolveInitialState = () => {
+type ScenarioQueryKeys = {
+  velocityIndex: string;
+  interruptionRate: string;
+  stability: string;
+  refusalWeeks: string;
+};
+
+const resolveScenarioState = (
+  searchParams: URLSearchParams,
+  keys: ScenarioQueryKeys,
+  fallback: ScenarioState,
+): ScenarioState => {
+  const velocityIndex = parseNumericParam(searchParams, keys.velocityIndex, 0, 100);
+  const interruptionRate = parseNumericParam(searchParams, keys.interruptionRate, 0, 100);
+  const stability = parseStabilityParam(searchParams, keys.stability);
+  const refusalWeeks = parseNumericParam(searchParams, keys.refusalWeeks, 0, 12);
+
+  return {
+    metrics: {
+      velocityIndex: velocityIndex ?? fallback.metrics.velocityIndex,
+      interruptionRate: interruptionRate ?? fallback.metrics.interruptionRate,
+      stability: stability ?? fallback.metrics.stability,
+    },
+    params: {
+      refusalWeeks: refusalWeeks ?? fallback.params.refusalWeeks,
+    },
+  };
+};
+
+const resolveViewMode = (
+  searchParams: URLSearchParams,
+  storedMode: ViewMode | undefined,
+): ViewMode => {
+  const rawMode = searchParams.get(QUERY_KEYS.viewMode);
+  if (rawMode === 'compare') {
+    return 'compare';
+  }
+  if (rawMode === 'single') {
+    return 'single';
+  }
+  return storedMode ?? 'single';
+};
+
+const resolveInitialState = (): {
+  scenarioA: ScenarioState;
+  scenarioB: ScenarioState;
+  viewMode: ViewMode;
+} => {
   if (typeof window === 'undefined') {
-    return { metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS };
+    return {
+      scenarioA: { metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS },
+      scenarioB: { metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS },
+      viewMode: 'single',
+    };
   }
 
   const storedState = readStoredState();
   const searchParams = new URLSearchParams(window.location.search);
-  const metrics = {
-    ...DEFAULT_METRICS,
-    ...storedState?.metrics,
-  } as OperationalMetrics;
-  const params = {
-    ...DEFAULT_PARAMS,
-    ...storedState?.params,
-  } as SimulationParams;
-
-  const velocityIndex = parseNumericParam(searchParams, QUERY_KEYS.velocityIndex, 0, 100);
-  const interruptionRate = parseNumericParam(searchParams, QUERY_KEYS.interruptionRate, 0, 100);
-  const stability = parseStabilityParam(searchParams);
-  const refusalWeeks = parseNumericParam(searchParams, QUERY_KEYS.refusalWeeks, 0, 12);
-
-  return {
+  const legacyScenario = storedState?.metrics || storedState?.params
+    ? {
+        metrics: storedState.metrics ?? {},
+        params: storedState.params ?? {},
+      }
+    : null;
+  const baseScenarioA = {
     metrics: {
-      velocityIndex: velocityIndex ?? metrics.velocityIndex,
-      interruptionRate: interruptionRate ?? metrics.interruptionRate,
-      stability: stability ?? metrics.stability,
+      ...DEFAULT_METRICS,
+      ...legacyScenario?.metrics,
+      ...storedState?.scenarioA?.metrics,
     },
     params: {
-      refusalWeeks: refusalWeeks ?? params.refusalWeeks,
+      ...DEFAULT_PARAMS,
+      ...legacyScenario?.params,
+      ...storedState?.scenarioA?.params,
     },
-  };
+  } as ScenarioState;
+  const baseScenarioB = {
+    metrics: {
+      ...baseScenarioA.metrics,
+      ...storedState?.scenarioB?.metrics,
+    },
+    params: {
+      ...baseScenarioA.params,
+      ...storedState?.scenarioB?.params,
+    },
+  } as ScenarioState;
+
+  const scenarioA = resolveScenarioState(
+    searchParams,
+    QUERY_KEYS.scenarioA,
+    baseScenarioA,
+  );
+  const scenarioB = resolveScenarioState(
+    searchParams,
+    QUERY_KEYS.scenarioB,
+    baseScenarioB,
+  );
+  const viewMode = resolveViewMode(searchParams, storedState?.viewMode);
+
+  return { scenarioA, scenarioB, viewMode };
 };
 
 export const useCapacityForecast = () => {
   const startDate = useMemo(() => new Date(), []);
   const initialState = useMemo(() => resolveInitialState(), []);
-  const [metrics, setMetrics] = useState<OperationalMetrics>(initialState.metrics);
-  const [params, setParams] = useState<SimulationParams>(initialState.params);
+  const [scenarioA, setScenarioA] = useState<ScenarioState>(initialState.scenarioA);
+  const [scenarioB, setScenarioB] = useState<ScenarioState>(initialState.scenarioB);
+  const [viewMode, setViewMode] = useState<ViewMode>(initialState.viewMode);
   const hasSyncedUrl = useRef(false);
-  const forecast = useMemo(
-    () => projectCapacity(metrics, params, startDate),
-    [metrics, params, startDate],
+  const forecastA = useMemo(
+    () => projectCapacity(scenarioA.metrics, scenarioA.params, startDate),
+    [scenarioA.metrics, scenarioA.params, startDate],
+  );
+  const forecastB = useMemo(
+    () => projectCapacity(scenarioB.metrics, scenarioB.params, startDate),
+    [scenarioB.metrics, scenarioB.params, startDate],
   );
 
-  const updateMetrics = (updates: Partial<OperationalMetrics>) => {
-    setMetrics((current) => ({ ...current, ...updates }));
+  const updateMetrics = (
+    scenarioId: 'A' | 'B',
+    updates: Partial<OperationalMetrics>,
+  ) => {
+    const updater = scenarioId === 'A' ? setScenarioA : setScenarioB;
+    updater((current) => ({
+      ...current,
+      metrics: { ...current.metrics, ...updates },
+    }));
   };
 
-  const updateParams = (updates: Partial<SimulationParams>) => {
-    setParams((current) => ({ ...current, ...updates }));
+  const updateParams = (
+    scenarioId: 'A' | 'B',
+    updates: Partial<SimulationParams>,
+  ) => {
+    const updater = scenarioId === 'A' ? setScenarioA : setScenarioB;
+    updater((current) => ({
+      ...current,
+      params: { ...current.params, ...updates },
+    }));
+  };
+
+  const resetToSingleScenario = () => {
+    setScenarioB({
+      metrics: { ...scenarioA.metrics },
+      params: { ...scenarioA.params },
+    });
+    setViewMode('single');
   };
 
   const reset = () => {
-    setMetrics(DEFAULT_METRICS);
-    setParams(DEFAULT_PARAMS);
+    setScenarioA({ metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS });
+    setScenarioB({ metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS });
+    setViewMode('single');
   };
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set(QUERY_KEYS.velocityIndex, String(metrics.velocityIndex));
-    searchParams.set(QUERY_KEYS.interruptionRate, String(metrics.interruptionRate));
-    searchParams.set(QUERY_KEYS.stability, metrics.stability);
-    searchParams.set(QUERY_KEYS.refusalWeeks, String(params.refusalWeeks));
+    searchParams.set(
+      QUERY_KEYS.scenarioA.velocityIndex,
+      String(scenarioA.metrics.velocityIndex),
+    );
+    searchParams.set(
+      QUERY_KEYS.scenarioA.interruptionRate,
+      String(scenarioA.metrics.interruptionRate),
+    );
+    searchParams.set(
+      QUERY_KEYS.scenarioA.stability,
+      scenarioA.metrics.stability,
+    );
+    searchParams.set(
+      QUERY_KEYS.scenarioA.refusalWeeks,
+      String(scenarioA.params.refusalWeeks),
+    );
+    searchParams.set(
+      QUERY_KEYS.scenarioB.velocityIndex,
+      String(scenarioB.metrics.velocityIndex),
+    );
+    searchParams.set(
+      QUERY_KEYS.scenarioB.interruptionRate,
+      String(scenarioB.metrics.interruptionRate),
+    );
+    searchParams.set(
+      QUERY_KEYS.scenarioB.stability,
+      scenarioB.metrics.stability,
+    );
+    searchParams.set(
+      QUERY_KEYS.scenarioB.refusalWeeks,
+      String(scenarioB.params.refusalWeeks),
+    );
+    if (viewMode === 'compare') {
+      searchParams.set(QUERY_KEYS.viewMode, 'compare');
+    } else {
+      searchParams.delete(QUERY_KEYS.viewMode);
+    }
 
     const nextSearch = searchParams.toString();
     const nextSearchWithPrefix = nextSearch ? `?${nextSearch}` : '';
@@ -147,17 +296,21 @@ export const useCapacityForecast = () => {
 
     window.sessionStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ metrics, params }),
+      JSON.stringify({ scenarioA, scenarioB, viewMode }),
     );
-  }, [metrics, params]);
+  }, [scenarioA, scenarioB, viewMode]);
 
   return {
-    metrics,
-    params,
-    forecast,
+    scenarioA,
+    scenarioB,
+    forecastA,
+    forecastB,
     updateMetrics,
     updateParams,
     reset,
+    resetToSingleScenario,
+    viewMode,
+    setViewMode,
     stabilityOptions: STABILITY_ORDER,
   };
 };
