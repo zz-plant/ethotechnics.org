@@ -357,10 +357,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
-      ctaLabel: "Request facilitation",
+      ctaLabel: "Request LLM Capacity Benchmark",
       ctaHref: "https://ethotechnics.com/studio",
       ctaAriaLabel:
-        "Request facilitation for the LLM Capacity Benchmark via ethotechnics.com/studio",
+        "Request the LLM Capacity Benchmark diagnostic session",
       exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/ethotechnics/et3/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark",
@@ -569,7 +569,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
-      ctaLabel: "Start the Capacity Forecaster",
+      ctaLabel: "Start the Technical Capacity Forecaster",
       ctaHref: "/diagnostics/capacity-forecaster",
       ctaAriaLabel: "Start the Technical Capacity Forecaster diagnostic tool",
       exampleLabel: "View sample output",
@@ -776,7 +776,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Studio support is recommended if evidence gaps affect launch readiness.",
-      ctaLabel: "Start Evidence Pack Readiness",
+      ctaLabel: "Start the Evidence Pack Readiness",
       ctaHref: "/diagnostics/evidence-pack-readiness",
       ctaAriaLabel: "Start the Evidence Pack Readiness diagnostic tool",
       exampleLabel: "View sample output",

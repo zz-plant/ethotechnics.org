@@ -19,9 +19,7 @@ outcome) and link to a spec section below once scoped.
 |                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Language people can use](#language-people-can-use)                               |
 |                                                               |                                                                                                   | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
 |                                                               |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
-|                                                               | - [Diagnostics CTA clarity](#diagnostics-cta-clarity)                                             | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
-|                                                               | - [Pattern detail actions](#pattern-detail-actions)                                               |                                                                                     |
-|                                                               | - [Hero hierarchy performance audit](#hero-hierarchy-performance-audit)                           |                                                                                     |
+|                                                               |                                                                                                   | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
 |                                                               | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)           |                                                                                     |
 |                                                               | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds)         |                                                                                     |
 |                                                               | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)                     |                                                                                     |
@@ -81,39 +79,6 @@ under this heading and link to it from the roadmap table.
   keyboard focus order remains predictable.
 - **Dependencies/risks:** Requires coordinated styling updates in global navigation styles.
 - **Issue link:** Issue: TBD / Spec: #desktop-navigation-visibility
-
-## Diagnostics CTA clarity
-
-- **Problem:** Diagnostics cards lack clear “start” actions and consistent examples.
-- **Scope:** Revise CTA labels and aria-label fallbacks in `diagnosticsContent` to be action-oriented
-  and consistent across tools.
-- **UX/Tech notes:** Keep primary/ghost action structure; update content rather than layout.
-- **Acceptance criteria:** Each tool has a distinct primary CTA and a consistent example/output
-  action with accessible labels.
-- **Dependencies/risks:** Requires syncing labels with tool descriptions and outputs copy.
-- **Issue link:** Issue: TBD / Spec: #diagnostics-cta-clarity
-
-## Pattern detail actions
-
-- **Problem:** Pattern cards stop at summaries without a path to deeper usage guidance.
-- **Scope:** Add a server-rendered details action per pattern and, if needed, new detail routes.
-- **UX/Tech notes:** Favor SSR routes over client-side expansions; reuse CardGrid/CardItem patterns.
-- **Acceptance criteria:** Pattern entries include a clear “Details” or “Read more” action that leads
-  to fuller content without additional JS.
-- **Dependencies/risks:** Requires defining the detail route structure and content ownership.
-- **Issue link:** Issue: TBD / Spec: #pattern-detail-actions
-
-## Hero hierarchy performance audit
-
-- **Problem:** Typography or hero imagery changes can risk CLS/LCP regressions.
-- **Scope:** Audit hero imagery, typography scale, and layout to confirm CLS=0 and LCP < 2.5s after
-  hierarchy changes.
-- **UX/Tech notes:** Enforce explicit image dimensions/aspect ratios; reuse `--grain-texture` and
-  avoid runtime filters on large surfaces.
-- **Acceptance criteria:** Hero changes ship with no CLS regressions, LCP remains within budget, and
-  manual timing notes recorded when visuals change.
-- **Dependencies/risks:** Requires manual verification and possible image optimization.
-- **Issue link:** Issue: TBD / Spec: #hero-hierarchy-performance-audit
 
 ## Capacity forecaster v2 (scenario compare)
 
@@ -330,6 +295,30 @@ future updates can build on what already shipped.
   while keeping the full overlay navigation for deeper destinations.
 - **Notes:** Kept SSR navigation structure intact and preserved predictable focus order.
 - **Issue link:** Issue: TBD / Spec: #desktop-navigation-visibility
+
+### Diagnostics CTA clarity
+
+- **Problem:** Diagnostics cards lacked clear “start” actions and consistent examples.
+- **Outcome:** Updated diagnostics CTAs and aria labels to use clear action language that calls out
+  each tool by name.
+- **Notes:** Kept the primary/ghost action structure while standardizing labels for consistency.
+- **Issue link:** Issue: TBD / Spec: #diagnostics-cta-clarity
+
+### Pattern detail actions
+
+- **Problem:** Pattern cards stopped at summaries without a path to deeper usage guidance.
+- **Outcome:** Added a consistent “Details” action to pattern cards that routes to the
+  server-rendered mechanism pages.
+- **Notes:** Reused existing SSR detail routes without introducing new client-side behavior.
+- **Issue link:** Issue: TBD / Spec: #pattern-detail-actions
+
+### Hero hierarchy performance audit
+
+- **Problem:** Typography or hero imagery changes could risk CLS/LCP regressions.
+- **Outcome:** Reviewed hero layout and animation choices against CLS/LCP guardrails and confirmed
+  no code changes were needed.
+- **Notes:** Documented the audit outcome in the roadmap for future updates.
+- **Issue link:** Issue: TBD / Spec: #hero-hierarchy-performance-audit
 
 ### Long-page summaries + wayfinding
 
