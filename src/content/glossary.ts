@@ -281,9 +281,9 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     slug: "human-refusal-tolerance",
-    term: "Human Refusal-Tolerance",
+    term: "Refusal-Tolerant Systems",
     definition:
-      "The system remains usable when people opt out, are confused, make mistakes, or withdraw cooperation. Refusal tolerance prevents extraction by endurance by ensuring refusals do not silently convert into extra unpaid work.",
+      "The system remains usable when people opt out, are confused, make mistakes, or withdraw cooperation. Refusal tolerance prevents extraction by endurance by ensuring refusals do not silently convert into extra unpaid work. Called “human” because it protects humans from being turned into the crumple zone when they refuse.",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],

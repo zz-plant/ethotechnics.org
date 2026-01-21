@@ -154,7 +154,7 @@
             "title": "Ethotechnics",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The discipline of designing sociotechnical systems that reliably uphold moral obligations. It treats moral behavior as engineered capability expressed in policy, interfaces, and operations—so harm can be prevented, stopped, and repaired.</p>",
+            "bodyHtml": "<p>The discipline of designing sociotechnical systems that reliably uphold moral obligations. It treats moral behavior as engineered capability expressed in policy, interfaces, and operations—so harm can be prevented, stopped, and repaired on a clock with a named owner.</p>",
             "examples": [
               "A hospital release board requires consent checks, stop controls, and named repair owners before deploying triage updates."
             ],
@@ -199,7 +199,7 @@
             "title": "Moral Behavior (of Systems)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Observable system outcomes that prevent harm, distribute burden fairly, and keep people able to contest and recover. Moral behavior is evaluated via <a href=\"#moral-performance-indicators\">MPIs</a> like <a href=\"#time-to-halt\">time-to-halt</a>, <a href=\"#reversibility\">reversibility</a>, and <a href=\"#fair-burden-distribution\">fair burden distribution</a>—not by stated intent.</p>",
+            "bodyHtml": "<p>Observable system outcomes that prevent harm, distribute burden fairly, and keep people able to contest and recover. Moral behavior is evaluated via <a href=\"#moral-performance-indicators\">MPIs</a> like <a href=\"#time-to-halt\">time-to-halt</a>, <a href=\"#reversibility\">reversibility</a>, and <a href=\"#fair-burden-distribution\">fair burden distribution</a>—not by stated intent. A system does not “behave morally” if MPIs are tracked but do not trigger pause rules, remediation, or resourcing.</p>",
             "examples": [
               "A payments platform slows risky recommendations, surfaces a human review queue, and documents reversals when fraud indicators spike."
             ],
@@ -404,7 +404,7 @@
             "title": "Legibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How understandable a system’s actions, reasoning, and ownership are to the people affected by it. Legibility complements <a href=\"#explainability-for-accountability\">explainability for accountability</a> and transparent <a href=\"#design-authority\">design authority</a> so people can find who decided, why, and how to respond.</p>",
+            "bodyHtml": "<p>How understandable a system’s actions, reasoning, and ownership are to the people affected by it. Legibility complements <a href=\"#explainability-for-accountability\">explainability for accountability</a> and transparent <a href=\"#design-authority\">design authority</a> so people can find who decided, why, and how to respond. Legibility is discoverability of who/why/what-next; it does not guarantee the system can be changed.</p>",
             "examples": [
               "Residents receive a plain-language notice that names the office, rule, and appeal path behind a zoning decision."
             ],
@@ -517,7 +517,7 @@
             "title": "Accountability Diffusion",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Responsibility spreads across teams, vendors, and incentives until no one can intervene. Accountability diffusion erodes <a href=\"#design-authority\">design authority</a> and leaves harm without a decisive owner.</p>",
+            "bodyHtml": "<p>Responsibility spreads across teams, vendors, and incentives until no one can intervene. Accountability diffusion erodes <a href=\"#design-authority\">design authority</a> and leaves harm without a decisive owner. If no one can unilaterally stop or reverse the harm, accountability is diffused.</p>",
             "examples": [
               "A support ticket bounces between a vendor and a hospital compliance team with no one empowered to pause the rollout."
             ],
@@ -920,7 +920,8 @@
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Appeals route to empowered reviewers with authority to overturn outcomes.",
-              "Appeal passage rate and response time are tracked and used to improve decisions."
+              "Appeal passage rate and response time are tracked and used to improve decisions.",
+              "Appeal outcomes include overturns, restorations, and policy changes—not just “review completed.”"
             ],
             "genealogy": "Draws from due process norms so people can challenge and reverse harm.",
             "references": []
@@ -932,7 +933,7 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>Explanations that are actionable, not decorative. They identify the decision owner, the data or policy basis, and how the outcome can be corrected, enabling <a href=\"#contestability\">contestability</a> and <a href=\"#ethotechnic-audit\">audits</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-explainability\"></use>\n                          </svg>\n                        </figure>",
+            "bodyHtml": "<p>Explanations that are actionable, not decorative. They identify the decision owner, the data or policy basis, and how the outcome can be corrected, enabling <a href=\"#contestability\">contestability</a> and <a href=\"#ethotechnic-audit\">audits</a>. Explainability for accountability is legibility plus a working correction path.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-explainability\"></use>\n                          </svg>\n                        </figure>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Decision notices include the reason, data source, owner, and path to contest.",
@@ -943,10 +944,10 @@
           },
           {
             "id": "human-refusal-tolerance",
-            "title": "Human Refusal-Tolerance",
+            "title": "Refusal-Tolerant Systems",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The system remains usable when people opt out, are confused, make mistakes, or withdraw cooperation. Refusal tolerance prevents <a href=\"#extraction-by-endurance\">extraction by endurance</a> by treating refusal as a valid input, not a failure state.</p>",
+            "bodyHtml": "<p>The system remains usable when people opt out, are confused, make mistakes, or withdraw cooperation. Refusal tolerance prevents <a href=\"#extraction-by-endurance\">extraction by endurance</a> by treating refusal as a valid input, not a failure state. Called “human” because it protects humans from being turned into the crumple zone when they refuse.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Opt-out or decline flows keep core services available without punitive delays.",
@@ -1084,7 +1085,8 @@
             "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect fail-open mode.",
-              "Teams can point to a concrete example that demonstrates fail-open mode in practice."
+              "Teams can point to a concrete example that demonstrates fail-open mode in practice.",
+              "Fail-open modes have explicit thresholds where they automatically switch to fail-safe or escalate to human review."
             ],
             "genealogy": "Ethotechnics uses Fail-Open Mode to extend the d. system states & architectures vocabulary and connect governance, design, and policy teams.",
             "references": []
@@ -1206,7 +1208,7 @@
             "title": "Repair Log",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A living record of every mitigation, decision, and resource commitment made after a fault. Repair logs make accountability legible by linking people harmed, who intervened, and what evidence was used.</p><p>They inform future <a href=\"#care-retrospective\">care retrospectives</a>, power audits, and service-level reports so follow-up work is traceable and burden does not drift back to the same communities.</p>",
+            "bodyHtml": "<p>A living record of every mitigation, decision, and resource commitment made after a fault. Repair logs make accountability legible by linking people harmed, who intervened, and what evidence was used. Repair logs include whether affected people were restored, how long it took, and what remains unrepaired.</p><p>They inform future <a href=\"#care-retrospective\">care retrospectives</a>, power audits, and service-level reports so follow-up work is traceable and burden does not drift back to the same communities.</p>",
             "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect repair log.",
@@ -1284,7 +1286,7 @@
             "title": "Virtue as Access Control",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Composure, clarity, gratitude, “professionalism,” or patience become requirements for baseline safety or remedy.</p><p>Virtue as access control turns emotional labor into a gate and magnifies <a href=\"#administrative-shame\">administrative shame</a>.</p>",
+            "bodyHtml": "<p>Composure, clarity, gratitude, “professionalism,” or patience become requirements for baseline safety or remedy.</p><p>Virtue as access control turns emotional labor into a gate and magnifies <a href=\"#administrative-shame\">administrative shame</a>. Violates <a href=\"#affect-invariance\">affect-invariance</a>.</p>",
             "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect virtue as access control.",
@@ -1298,7 +1300,7 @@
             "title": "Affect-Invariance",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Baseline safety and remedy should not change based on distress, fatigue, disability, fear, or anger.</p><p>Affect-invariance reinforces <a href=\"#care-floor-guarantees\">care floor guarantees</a> and protects <a href=\"#contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>Baseline safety and remedy should not change based on distress, fatigue, disability, fear, or anger. Primary threat model: <a href=\"#virtue-as-access-control\">virtue as access control</a>.</p><p>Affect-invariance reinforces <a href=\"#care-floor-guarantees\">care floor guarantees</a> and protects <a href=\"#contestability\">contestability</a>.</p>",
             "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect affect-invariance.",
