@@ -121,17 +121,17 @@ export const navSections: NavSection[] = [
         primary: true,
       },
       {
-        href: "/library#patterns",
+        href: "/mechanisms#patterns",
         label: "Pattern language",
         description: "Mechanism patterns with execution-ready details.",
       },
       {
-        href: "/library#primer",
+        href: "/mechanisms#primer",
         label: "Primer",
         description: "Short orientation for accountable delivery practices.",
       },
       {
-        href: "/library#glossary",
+        href: "/mechanisms#glossary",
         label: "Glossary anchors",
         description: "Stable terms for diagnostics and reporting.",
       },
