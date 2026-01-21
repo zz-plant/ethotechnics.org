@@ -36,6 +36,7 @@ export const getGlossaryEntryDefaults = (
   scopeText: string;
   adjacentTerms: string[];
   operationalTests: string[];
+  minimumEvidence: GlossaryEntry["minimumEvidence"];
   genealogy: string;
   references: GlossaryResource[];
 } => {
@@ -48,6 +49,11 @@ export const getGlossaryEntryDefaults = (
       `Evidence appears in documentation, interface cues, or governance artifacts that reflect ${entry.title.toLowerCase()}.`,
       `Teams can point to a concrete example that demonstrates ${entry.title.toLowerCase()} in practice.`,
     ];
+  const minimumEvidence = entry.minimumEvidence ?? {
+    artifact: `Artifact documenting how ${entry.title} is expected, enforced, or governed.`,
+    behavior: `Observed behavior showing ${entry.title} in practice during real use or drills.`,
+    metric: `Metric tracked to monitor ${entry.title} performance over time.`,
+  };
   const genealogy =
     entry.genealogy ??
     `Ethotechnics uses ${entry.title} to extend the ${category.heading.toLowerCase()} vocabulary and connect governance, design, and policy teams.`;
@@ -58,6 +64,7 @@ export const getGlossaryEntryDefaults = (
     scopeText,
     adjacentTerms,
     operationalTests,
+    minimumEvidence,
     genealogy,
     references,
   };

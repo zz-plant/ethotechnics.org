@@ -20,6 +20,12 @@ export type GlossaryResource = {
   type: string;
 };
 
+export type GlossaryMinimumEvidence = {
+  artifact: string;
+  behavior: string;
+  metric: string;
+};
+
 export type GlossaryEntry = {
   id: string;
   title: string;
@@ -29,6 +35,7 @@ export type GlossaryEntry = {
   scope?: string;
   adjacentTerms?: string[];
   operationalTests?: string[];
+  minimumEvidence: GlossaryMinimumEvidence;
   genealogy?: string;
   references?: GlossaryResource[];
   examples?: string[];

@@ -186,6 +186,11 @@ const glossaryEntrySchema = z.object({
   scope: z.string().optional(),
   adjacentTerms: z.array(z.string()).optional(),
   operationalTests: z.array(z.string()).optional(),
+  minimumEvidence: z.object({
+    artifact: z.string(),
+    behavior: z.string(),
+    metric: z.string(),
+  }),
   genealogy: z.string().optional(),
   references: z
     .array(
