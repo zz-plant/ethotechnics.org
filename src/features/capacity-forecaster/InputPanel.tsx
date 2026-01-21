@@ -18,10 +18,25 @@ type SliderFieldProps = {
 };
 
 type InputPanelProps = {
-  metrics: OperationalMetrics;
-  params: SimulationParams;
-  onMetricsChange: (updates: Partial<OperationalMetrics>) => void;
-  onParamsChange: (updates: Partial<SimulationParams>) => void;
+  scenarioA: {
+    metrics: OperationalMetrics;
+    params: SimulationParams;
+  };
+  scenarioB: {
+    metrics: OperationalMetrics;
+    params: SimulationParams;
+  };
+  viewMode: "single" | "compare";
+  onViewModeChange: (mode: "single" | "compare") => void;
+  onResetToSingleScenario: () => void;
+  onMetricsChange: (
+    scenarioId: "A" | "B",
+    updates: Partial<OperationalMetrics>,
+  ) => void;
+  onParamsChange: (
+    scenarioId: "A" | "B",
+    updates: Partial<SimulationParams>,
+  ) => void;
   stabilityOptions: SystemStability[];
 };
 
@@ -94,13 +109,111 @@ const SliderField = ({
   );
 };
 
-export function InputPanel({
+type ScenarioPanelProps = {
+  label: string;
+  summary: string;
+  metrics: OperationalMetrics;
+  params: SimulationParams;
+  stabilityOptions: SystemStability[];
+  onMetricsChange: (updates: Partial<OperationalMetrics>) => void;
+  onParamsChange: (updates: Partial<SimulationParams>) => void;
+};
+
+const ScenarioPanel = ({
+  label,
+  summary,
   metrics,
   params,
+  stabilityOptions,
+  onMetricsChange,
+  onParamsChange,
+}: ScenarioPanelProps) => (
+  <div className="forecaster__scenario">
+    <div className="forecaster__scenario-header">
+      <div>
+        <p className="eyebrow">{label}</p>
+        <p className="muted">{summary}</p>
+      </div>
+      <span className="pill pill--ghost">{label}</span>
+    </div>
+
+    <SliderField
+      label="Velocity index"
+      description="Higher values increase the decay rate as the team is stretched thin."
+      value={metrics.velocityIndex}
+      min={0}
+      max={100}
+      onChange={(value) => onMetricsChange({ velocityIndex: value })}
+    />
+
+    <SliderField
+      label="Interruption rate"
+      description="Context-switching and support load erode capacity in parallel."
+      value={metrics.interruptionRate}
+      min={0}
+      max={100}
+      onChange={(value) => onMetricsChange({ interruptionRate: value })}
+    />
+
+    <div className="forecaster__control">
+      <div className="forecaster__label-row">
+        <div>
+          <p className="muted">Stability profile</p>
+          <p className="forecaster__description">
+            Choose how resilient the system is under load.
+          </p>
+        </div>
+      </div>
+      <ul className="pill-list pill-list--wrap forecaster__stability">
+        {stabilityOptions.map((option) => {
+          const isActive = metrics.stability === option;
+
+          return (
+            <li
+              key={option}
+              className={isActive ? "pill-list__item--active" : ""}
+            >
+              <button
+                type="button"
+                className="pill-list__button"
+                aria-pressed={isActive}
+                onClick={() => onMetricsChange({ stability: option })}
+              >
+                {option}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+
+    <SliderField
+      label="Refusal runway (weeks)"
+      description="Pause decay while teams push back on unsustainable requests."
+      value={params.refusalWeeks}
+      min={0}
+      max={12}
+      step={1}
+      onChange={(value) => onParamsChange({ refusalWeeks: value })}
+    />
+  </div>
+);
+
+export function InputPanel({
+  scenarioA,
+  scenarioB,
+  viewMode,
+  onViewModeChange,
+  onResetToSingleScenario,
   onMetricsChange,
   onParamsChange,
   stabilityOptions,
 }: InputPanelProps) {
+  const viewModes = [
+    { id: "single", label: "Single" },
+    { id: "compare", label: "Compare" },
+  ] as const;
+
   return (
     <div className="card forecaster__card">
       <div className="card__glow" aria-hidden="true" />
@@ -112,65 +225,69 @@ export function InputPanel({
         approaches risk territory.
       </p>
 
-      <SliderField
-        label="Velocity index"
-        description="Higher values increase the decay rate as the team is stretched thin."
-        value={metrics.velocityIndex}
-        min={0}
-        max={100}
-        onChange={(value) => onMetricsChange({ velocityIndex: value })}
-      />
-
-      <SliderField
-        label="Interruption rate"
-        description="Context-switching and support load erode capacity in parallel."
-        value={metrics.interruptionRate}
-        min={0}
-        max={100}
-        onChange={(value) => onMetricsChange({ interruptionRate: value })}
-      />
-
-      <div className="forecaster__control">
-        <div className="forecaster__label-row">
-          <div>
-            <p className="muted">Stability profile</p>
-            <p className="forecaster__description">
-              Choose how resilient the system is under load.
-            </p>
-          </div>
+      <div className="forecaster__mode">
+        <div>
+          <p className="muted">Scenario view</p>
+          <p className="forecaster__description">
+            Toggle between a single forecast and side-by-side comparison inputs.
+          </p>
         </div>
-        <ul className="pill-list pill-list--wrap forecaster__stability">
-          {stabilityOptions.map((option) => {
-            const isActive = metrics.stability === option;
+        <div className="forecaster__mode-actions">
+          <ul className="pill-list forecaster__mode-toggle">
+            {viewModes.map((mode) => {
+              const isActive = viewMode === mode.id;
 
-            return (
-              <li
-                key={option}
-                className={isActive ? "pill-list__item--active" : ""}
-              >
-                <button
-                  type="button"
-                  className="pill-list__button"
-                  aria-pressed={isActive}
-                  onClick={() => onMetricsChange({ stability: option })}
+              return (
+                <li
+                  key={mode.id}
+                  className={isActive ? "pill-list__item--active" : ""}
                 >
-                  {option}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+                  <button
+                    type="button"
+                    className="pill-list__button"
+                    aria-pressed={isActive}
+                    onClick={() => onViewModeChange(mode.id)}
+                  >
+                    {mode.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+          {viewMode === "compare" ? (
+            <button
+              type="button"
+              className="button ghost button--compact"
+              onClick={onResetToSingleScenario}
+            >
+              Reset to single scenario
+            </button>
+          ) : null}
+        </div>
       </div>
 
-      <SliderField
-        label="Refusal runway (weeks)"
-        description="Pause decay while teams push back on unsustainable requests."
-        value={params.refusalWeeks}
-        min={0}
-        max={12}
-        step={1}
-        onChange={(value) => onParamsChange({ refusalWeeks: value })}
-      />
+      <div className="forecaster__scenario-grid">
+        <ScenarioPanel
+          label="Scenario A"
+          summary="Primary forecast inputs for the baseline plan."
+          metrics={scenarioA.metrics}
+          params={scenarioA.params}
+          stabilityOptions={stabilityOptions}
+          onMetricsChange={(updates) => onMetricsChange("A", updates)}
+          onParamsChange={(updates) => onParamsChange("A", updates)}
+        />
+        {viewMode === "compare" ? (
+          <ScenarioPanel
+            label="Scenario B"
+            summary="Alternate inputs to compare assumptions or trade-offs."
+            metrics={scenarioB.metrics}
+            params={scenarioB.params}
+            stabilityOptions={stabilityOptions}
+            onMetricsChange={(updates) => onMetricsChange("B", updates)}
+            onParamsChange={(updates) => onParamsChange("B", updates)}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }

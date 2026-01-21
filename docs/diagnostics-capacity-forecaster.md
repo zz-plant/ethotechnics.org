@@ -11,6 +11,14 @@ notes to tune the model and interpret the charted trajectories.
   multiplier.
 - **Refusal window (weeks):** Number of weeks the team can decline work before remediation benefits
   start.
+- **Compare mode:** Duplicates the sliders for scenario A and scenario B so you can contrast
+  alternate assumptions side by side.
+
+## Compare outputs
+
+- The chart overlays both scenarios with distinct styling and reports the horizon delta for baseline
+  and remediated capacity (scenario B minus scenario A).
+- Export options include scenario A, scenario B, and a comparison snapshot JSON payload.
 
 ## Configuration
 

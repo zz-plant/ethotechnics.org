@@ -20,17 +20,27 @@ afterEach(cleanup);
 
 describe("CapacityChart gradients", () => {
   it("generates unique gradient IDs and wires fills to matching defs", () => {
+    const scenarioA = {
+      data: sampleData,
+      saturationIndex: 1,
+      saturationDate: sampleData[1]?.dateLabel ?? null,
+    };
+    const scenarioB = {
+      data: sampleData,
+      saturationIndex: 2,
+      saturationDate: sampleData[2]?.dateLabel ?? null,
+    };
     const { container } = render(
       <>
         <CapacityChart
-          data={sampleData}
-          saturationIndex={1}
-          saturationDate={sampleData[1]?.dateLabel ?? null}
+          scenarioA={scenarioA}
+          scenarioB={scenarioB}
+          viewMode="compare"
         />
         <CapacityChart
-          data={sampleData}
-          saturationIndex={2}
-          saturationDate={sampleData[2]?.dateLabel ?? null}
+          scenarioA={scenarioB}
+          scenarioB={scenarioA}
+          viewMode="compare"
         />
       </>,
     );
@@ -46,7 +56,7 @@ describe("CapacityChart gradients", () => {
 
     charts.forEach((chart) => {
       const chartGradients = Array.from(chart.querySelectorAll("linearGradient"));
-      expect(chartGradients).toHaveLength(2);
+      expect(chartGradients).toHaveLength(4);
 
       const chartGradientIds = chartGradients.map((gradient) => gradient.id);
       const baselineFillId = extractGradientId(
@@ -55,12 +65,20 @@ describe("CapacityChart gradients", () => {
       const remediatedFillId = extractGradientId(
         chart.querySelector(".forecaster__chart-area--remediated"),
       );
+      const baselineBFillId = extractGradientId(
+        chart.querySelector(".forecaster__chart-area--baseline-b"),
+      );
+      const remediatedBFillId = extractGradientId(
+        chart.querySelector(".forecaster__chart-area--remediated-b"),
+      );
 
-      if (!baselineFillId || !remediatedFillId) {
+      if (!baselineFillId || !remediatedFillId || !baselineBFillId || !remediatedBFillId) {
         throw new Error("Expected chart fill IDs to reference gradient definitions.");
       }
       expect(chartGradientIds).toContain(baselineFillId);
       expect(chartGradientIds).toContain(remediatedFillId);
+      expect(chartGradientIds).toContain(baselineBFillId);
+      expect(chartGradientIds).toContain(remediatedBFillId);
     });
   });
 });
