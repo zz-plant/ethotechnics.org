@@ -135,6 +135,11 @@ export const navSections: NavSection[] = [
         label: "Glossary anchors",
         description: "Stable terms for diagnostics and reporting.",
       },
+      {
+        href: "/explainers/contestability-checklist",
+        label: "Contestability checklist",
+        description: "Printable checklist for real contestability and recourse.",
+      },
     ],
   },
   {

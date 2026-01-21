@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Contestability checklist";
+const pageDescription =
+  "A printable checklist and explainer set for verifying real contestability and enforceable recourse.";
+const permalink = "/explainers/contestability-checklist";
+
+const anchorLinks = [
+  { href: "#checklist", label: "Checklist" },
+  { href: "#explainers", label: "Explainers" },
+];
+
+const checklistItems = [
+  "Do I receive a specific decision object with reasons, timestamps, and scope?",
+  "Is there a named, accountable authority who can change or reverse the decision?",
+  "Is the review clock explicit, with a deadline that forces a response?",
+  "Can I trigger an appeal without permission gates or hidden prerequisites?",
+  "Is there a clear reversal or remedy path once the decision is contested?",
+  "Can I see evidence that appeals can succeed (not just be processed)?",
+];
+
+const explainerItems = [
+  {
+    title: "What contestability actually means",
+    body: [
+      "Contestability is the system property that turns “that’s wrong” into a contestable object: a decision with reasons, a clock, an accountable authority, and a pathway to reversal.",
+      "If people cannot force a decision into that state, contestability doesn’t exist, even if a form or hotline is present.",
+      "See the glossary entry for the full definition and adjacent terms.",
+    ],
+    link: {
+      href: "/glossary/contestability",
+      label: "Read the glossary definition",
+    },
+  },
+  {
+    title: "Why “contact support” is not due process",
+    body: [
+      "“Contact support” is a queue, not a contestable object. Without a receipt, a clock, and a named authority, it is only a request for help.",
+      "Due process requires a bounded timeline, enforceable escalation, and a binding decision path. Otherwise, requests linger and never convert into reversals.",
+    ],
+    link: {
+      href: "/standards/std-02-contestability-recourse",
+      label: "Review STD-02 contestability obligations",
+    },
+  },
+  {
+    title: "What makes an appeal real vs performative",
+    body: [
+      "The Contestability Guarantee means people can challenge, change, or overturn decisions — and win. It requires wide permission surfaces, high appeal passage rates, and transparent design authority.",
+      "A real appeal shows its success rate, names who can reverse outcomes, and exposes where evidence is evaluated. Performative appeals hide authority, suppress win rates, or end in untraceable queues.",
+    ],
+    link: {
+      href: "/standards/std-02-contestability-recourse",
+      label: "See the standard for enforceable recourse",
+    },
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Explainer"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Contestability",
+      title: "A quick check for real recourse",
+      description:
+        "Use this checklist to confirm decisions can be contested with clocks, accountable authority, and reversal paths. Aligns with the contestability glossary definition and the Contestability Guarantee.",
+      link: { label: "Read STD-02", href: "/standards/std-02-contestability-recourse" },
+    }}
+  />
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Can I contest this?"
+    title="Contestability checklist"
+    description="Print and use this as a quick pass/fail screen before shipping or auditing a decision flow."
+  >
+    <div class="contestability-checklist" role="group" aria-label="Contestability checklist">
+      <p class="contestability-checklist__title">Can I contest this?</p>
+      <ul>
+        {checklistItems.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <p class="muted contestability-checklist__note">
+        Built from the contestability definition in the glossary and the Contestability
+        Guarantee standard.
+        {" "}
+        <a href="/glossary/contestability">Glossary term</a>
+        {" "}
+        ·
+        {" "}
+        <a href="/standards/std-02-contestability-recourse">STD-02</a>
+      </p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="explainers"
+    eyebrow="Explainers"
+    title="Three clarifiers to share with teams"
+    description="Each section expands on the checklist so teams know what to fix, not just what to flag."
+    variant="alt"
+  >
+    <div class="contestability-expanders">
+      {explainerItems.map((item) => (
+        <details class="contestability-expander">
+          <summary>{item.title}</summary>
+          <div class="contestability-expander__body">
+            {item.body.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            <p>
+              <a href={item.link.href}>{item.link.label}</a>
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<style>
+  .contestability-checklist {
+    border: 1px solid var(--theme-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: var(--theme-surface);
+  }
+
+  .contestability-checklist__title {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .contestability-checklist ul {
+    margin: 0 0 1rem;
+    padding-left: 1.25rem;
+  }
+
+  .contestability-checklist__note {
+    margin: 0;
+  }
+
+  .contestability-expanders {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .contestability-expander {
+    border: 1px solid var(--theme-border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    background: var(--theme-surface);
+  }
+
+  .contestability-expander summary {
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .contestability-expander__body {
+    margin-top: 0.75rem;
+  }
+
+  @media print {
+    .contestability-checklist {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      background: #fff;
+      border: 2px solid #111;
+      box-shadow: none;
+    }
+
+    .contestability-checklist__note {
+      font-size: 0.9rem;
+    }
+  }
+</style>
