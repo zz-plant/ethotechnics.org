@@ -17,7 +17,7 @@ describe("home content", () => {
     const homeEntry = await loadHomeEntry();
 
     expect(homeEntry?.hero?.heading).toBe(
-      "The Reference Standard for Accountable Systems.",
+      "Delivery, research, and governance for accountable systems.",
     );
   });
 });
