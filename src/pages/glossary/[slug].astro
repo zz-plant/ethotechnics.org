@@ -237,16 +237,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           itemprop="description"
         />
       </div>
-      <div class="glossary-entry__hero-panel">
-        <section id="scope" class="glossary-entry__panel-section">
-          <p class="eyebrow">Scope</p>
-          <p class="muted">{scopeText}</p>
-        </section>
-        <section id="genealogy" class="glossary-entry__panel-section">
-          <p class="eyebrow">Genealogy</p>
-          <p class="muted">{genealogy}</p>
-        </section>
-      </div>
+      <dl class="glossary-entry__meta">
+        <div id="scope" class="glossary-entry__meta-item">
+          <dt class="eyebrow">Scope</dt>
+          <dd class="muted">{scopeText}</dd>
+        </div>
+        <div id="genealogy" class="glossary-entry__meta-item">
+          <dt class="eyebrow">Genealogy</dt>
+          <dd class="muted">{genealogy}</dd>
+        </div>
+      </dl>
     </header>
     <div class="glossary-entry__layout">
       <div class="glossary-entry__main">
@@ -272,7 +272,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           (presenceChecks.length > 0 || missingExpectations.length > 0) && (
             <section class="glossary-entry__section glossary-entry__section--checks">
               {presenceChecks.length > 0 && (
-                <div id="presence-checks" class="glossary-entry__check-card">
+                <div id="presence-checks" class="glossary-entry__check">
                   <p class="eyebrow">If this is present, check for</p>
                   <ul class="muted">
                     {presenceChecks.map((term) => (
@@ -286,10 +286,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 </div>
               )}
               {missingExpectations.length > 0 && (
-                <div
-                  id="missing-expectations"
-                  class="glossary-entry__check-card"
-                >
+                <div id="missing-expectations" class="glossary-entry__check">
                   <p class="eyebrow">If this is missing, expect</p>
                   <ul class="muted">
                     {missingExpectations.map((term) => (
@@ -336,7 +333,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         }
       </div>
       <aside class="glossary-entry__sidebar">
-        <section id="operational-tests" class="glossary-entry__card">
+        <section id="operational-tests" class="glossary-entry__section">
           <p class="eyebrow">Operational tests</p>
           <ul class="muted">
             {operationalTests.map((test) => (
@@ -344,7 +341,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             ))}
           </ul>
         </section>
-        <section id="minimum-evidence" class="glossary-entry__card">
+        <section id="minimum-evidence" class="glossary-entry__section">
           <p class="eyebrow">Minimum evidence</p>
           <ul class="muted">
             <li>
@@ -362,7 +359,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           relatedPatterns.length > 0 && (
             <section
               id="related-mechanisms"
-              class="glossary-entry__card glossary-entry__card--patterns"
+              class="glossary-entry__section glossary-entry__section--patterns"
             >
               <p class="eyebrow">Related mechanisms</p>
               <ul class="glossary-entry__patterns-list">

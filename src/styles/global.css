@@ -3421,7 +3421,7 @@
 }
 
 .glossary-entry--detail {
-  padding: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+  padding: clamp(1.5rem, 2vw + 1rem, 2.25rem);
   gap: var(--space-4);
 }
 
@@ -3432,19 +3432,20 @@
   padding-bottom: var(--space-3);
 }
 
-.glossary-entry__hero-panel {
+.glossary-entry__meta {
+  margin: 0;
   display: grid;
   gap: var(--space-2);
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 90%, transparent);
-  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  box-shadow: var(--shadow-xs);
 }
 
-.glossary-entry__panel-section + .glossary-entry__panel-section {
-  padding-top: var(--space-2);
-  border-top: 1px dashed color-mix(in srgb, var(--color-border-subtle) 80%, transparent);
+.glossary-entry__meta-item {
+  margin: 0;
+  padding-left: var(--space-2);
+  border-left: 2px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent);
+}
+
+.glossary-entry__meta-item dd {
+  margin: 0.3rem 0 0;
 }
 
 .glossary-entry__layout {
@@ -3458,27 +3459,19 @@
 }
 
 .glossary-entry__section {
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-subtle);
-  background: color-mix(in srgb, var(--color-surface) 96%, transparent);
-  box-shadow: var(--shadow-xs);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .glossary-entry__section--checks {
   display: grid;
-  gap: var(--space-2);
-  padding: 0;
-  border: none;
-  box-shadow: none;
-  background: transparent;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
 }
 
-.glossary-entry__check-card {
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-subtle);
-  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+.glossary-entry__check {
+  padding-left: var(--space-2);
+  border-left: 2px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent);
 }
 
 .glossary-entry__sidebar {
@@ -3486,17 +3479,9 @@
   gap: var(--space-3);
 }
 
-.glossary-entry__card {
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-subtle);
-  background: color-mix(in srgb, var(--color-surface) 93%, transparent);
-  box-shadow: var(--shadow-xs);
-}
-
-.glossary-entry__card--patterns {
-  gap: var(--space-2);
+.glossary-entry__section--patterns {
   display: grid;
+  gap: var(--space-2);
 }
 
 .glossary-territory__count {
