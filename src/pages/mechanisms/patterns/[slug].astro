@@ -53,6 +53,7 @@ const anchorLinks = [
     : []),
   { href: "#steps", label: "Steps" },
   { href: "#assets", label: "Assets" },
+  { href: "#reuse-snippets", label: "Reuse-ready snippets" },
   { href: "#example", label: "Example usage" },
   ...(hasAntiPatterns
     ? [{ href: "#anti-patterns", label: "Anti-patterns" }]
@@ -154,6 +155,32 @@ const anchorLinks = [
         ))
       }
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="reuse-snippets"
+    eyebrow="Reuse-ready snippets"
+    title="Copy policy, audit, and incident language."
+    description="Use these snippets in requirements, audits, and postmortems with the mechanism permalink."
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Policy requirement</p>
+        <pre class="code-block">{pattern.policyRequirement}</pre>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Product requirement</p>
+        <pre class="code-block">{pattern.productRequirement}</pre>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Audit evidence checklist</p>
+        <pre class="code-block">{pattern.auditEvidenceChecklist}</pre>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Postmortem trigger</p>
+        <pre class="code-block">{pattern.postmortemTrigger}</pre>
+      </div>
+    </div>
   </SectionBlock>
 
   <SectionBlock

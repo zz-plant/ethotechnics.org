@@ -24,6 +24,11 @@ export type GlossaryMinimumEvidence = {
   artifact: string;
   behavior: string;
   metric: string;
+  definition?: string;
+  unit?: string;
+  dataSource?: string;
+  calculation?: string;
+  threshold?: string;
 };
 
 export type GlossaryEntry = {
