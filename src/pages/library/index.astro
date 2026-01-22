@@ -1,3 +1,135 @@
 ---
-return Astro.redirect("/mechanisms", 301);
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CardItem from '../../components/CardItem.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
+
+const pageTitle = 'Library — Ethotechnics Institute';
+const pageDescription =
+  'The library now lives in the Mechanisms catalog. Use this hub to jump into themes, pathways, and core references.';
+const permalink = '/library';
+const anchorLinks = [
+  { href: '#mechanisms', label: 'Mechanisms catalog' },
+  { href: '#pathways', label: 'Role-based pathways' },
+  { href: '#start', label: 'Quick start' },
+];
 ---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Library"
+    title="Library"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: 'Now in Mechanisms',
+      title: 'Same catalog, clearer routing',
+      description:
+        'The library content is maintained at /mechanisms. This page is a front door that points to the right shelves.',
+      link: {
+        label: 'Go to mechanisms',
+        href: '/mechanisms',
+      },
+    }}
+  />
+
+  <SectionBlock
+    id="mechanisms"
+    eyebrow="Mechanisms catalog"
+    title="Start with the canonical mechanisms library."
+    description="Browse patterns, primers, and the syllabus in one canonical location."
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Pattern language"
+        description="Browse governance, friction, and policy mechanisms with filters."
+      >
+        <a slot="footer" class="muted" href="/mechanisms#patterns">
+          Open pattern filters
+        </a>
+      </CardItem>
+      <CardItem
+        title="Primer"
+        description="Short onboarding notes to align teams on accountable delivery."
+      >
+        <a slot="footer" class="muted" href="/mechanisms#primer">
+          Read the primer
+        </a>
+      </CardItem>
+      <CardItem
+        title="Glossary anchors"
+        description="Stable definitions that tie diagnostics and mechanisms together."
+      >
+        <a slot="footer" class="muted" href="/mechanisms#glossary">
+          Jump to glossary
+        </a>
+      </CardItem>
+      <CardItem
+        title="Syllabus"
+        description="Structured modules for teams onboarding mechanisms."
+      >
+        <a slot="footer" class="muted" href="/mechanisms#syllabus">
+          Open the syllabus
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="pathways"
+    eyebrow="Role-based pathways"
+    title="Pick the track that matches your responsibilities."
+    description="Each pathway highlights the highest signal mechanisms for that role."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Engineer"
+        description="Stoppability, rollback drills, and maintenance readiness."
+      >
+        <a slot="footer" class="muted" href="/mechanisms#engineer">
+          Open engineer pathway
+        </a>
+      </CardItem>
+      <CardItem
+        title="Product"
+        description="Consent, appeals, and accountability in the user journey."
+      >
+        <a slot="footer" class="muted" href="/mechanisms#product-manager">
+          Open product pathway
+        </a>
+      </CardItem>
+      <CardItem
+        title="Regulator"
+        description="Audit trails, accountability logs, and evidence collection."
+      >
+        <a slot="footer" class="muted" href="/mechanisms#regulator">
+          Open regulator pathway
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="start"
+    eyebrow="Quick start"
+    title="A fast path into the library."
+    description="If you only have a few minutes, use this sequence."
+  >
+    <ul class="muted">
+      <li>Read the primer to align on shared vocabulary.</li>
+      <li>Use the pattern filters to find the highest-impact mechanisms.</li>
+      <li>Anchor your work in glossary definitions and permalinks.</li>
+    </ul>
+    <div class="actions">
+      <a class="button primary" href="/mechanisms">
+        Open mechanisms
+      </a>
+      <a class="button ghost" href="/start-here">
+        Start here
+      </a>
+    </div>
+  </SectionBlock>
+</BaseLayout>
