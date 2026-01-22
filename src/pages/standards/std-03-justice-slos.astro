@@ -1,0 +1,261 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const standardFields = [
+  {
+    title: "Metric",
+    description:
+      "Define the justice metric (TTR, TTH, Appeal Passage Rate, User Burden Ratio, Irreversibility Index).",
+  },
+  {
+    title: "Target, budget, or ceiling",
+    description:
+      "Set the numeric threshold by harm class or workflow class (target, budget, or ceiling).",
+  },
+  {
+    title: "Measurement window",
+    description:
+      "Specify the window and statistic (for example, weekly p95 or rolling 30-day p99).",
+  },
+  {
+    title: "Breach action",
+    description:
+      "Define the required breach behavior (safe pause, circuit breaker, rollback lane activation, staffing trigger).",
+  },
+  {
+    title: "Owner",
+    description: "Name the accountable owner who can pause or remediate.",
+  },
+  {
+    title: "Public surface",
+    description:
+      "Publish time transparency plus decision artifacts that show the metric and response.",
+  },
+];
+
+const metricLinks = [
+  {
+    title: "Time-to-Restore (TTR)",
+    description: "Restoration speed for reversing harm.",
+    href: "/glossary/time-to-restore",
+  },
+  {
+    title: "Time-to-Halt (TTH)",
+    description: "Stop time for ongoing harm.",
+    href: "/glossary/time-to-halt",
+  },
+  {
+    title: "Appeal Passage Rate",
+    description: "Contestability success rate by class.",
+    href: "/glossary/appeal-passage-rate",
+  },
+  {
+    title: "User Burden Ratio",
+    description: "Procedural burden imposed on users.",
+    href: "/glossary/user-burden-ratio",
+  },
+  {
+    title: "Irreversibility Index",
+    description: "Share of actions that cannot be undone.",
+    href: "/glossary/irreversibility-index",
+  },
+];
+
+const breachPlaybook = [
+  "Safe pause for the affected workflow class.",
+  "Ethical circuit breaker activation with escalation.",
+  "Rollback lane activation or temporary manual overrides.",
+  "Staffing surge or dedicated remediation queue.",
+];
+
+const pageUrl = Astro.site
+  ? new URL("/standards/std-03-justice-slos", Astro.site).toString()
+  : "/standards/std-03-justice-slos";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": pageUrl,
+  headline: "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)",
+  description:
+    "A standard defining how justice metrics tie to targets, budgets, and breach actions.",
+  url: pageUrl,
+  datePublished: "2026-01-01",
+  version: "0.6",
+  identifier: "STD-03",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: Astro.site ? new URL("/", Astro.site).toString() : "/",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: Astro.site
+      ? new URL("/standards", Astro.site).toString()
+      : "/standards",
+  },
+  hasPart: [
+    ...standardFields.map((field) => ({
+      "@type": "CreativeWork",
+      name: field.title,
+      description: field.description,
+    })),
+    ...metricLinks.map((metric) => ({
+      "@type": "CreativeWork",
+      name: metric.title,
+      description: metric.description,
+    })),
+  ],
+};
+const structuredDataJson = JSON.stringify(structuredData, null, 2);
+---
+
+<BaseLayout
+  title="STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)"
+  description="A standard defining how justice metrics tie to targets, budgets, and breach actions."
+  mainClass="page page--wide standard-document"
+  enableGlossaryHighlights={false}
+>
+  <article class="standard-document">
+    <header class="standard-header">
+      <div>
+        <p class="standard-header__id">STANDARD STD-03</p>
+        <h1 class="standard-header__title">
+          Justice SLOs (Targets, Budgets, and Breach Actions)
+        </h1>
+      </div>
+      <dl class="standard-header__meta">
+        <div>
+          <dt>Document ID</dt>
+          <dd>STD-03</dd>
+        </div>
+        <div>
+          <dt>Version</dt>
+          <dd>0.6 (Draft for Review)</dd>
+        </div>
+        <div>
+          <dt>Effective Date</dt>
+          <dd>TBD (proposed 2026)</dd>
+        </div>
+        <div>
+          <dt>Authority</dt>
+          <dd>The Institute of Ethotechnics</dd>
+        </div>
+      </dl>
+    </header>
+
+    <div class="standard-body">
+      <div class="standard-main">
+        <section class="standard-section">
+          <h2>Standard intent</h2>
+          <p>
+            Justice service-level objectives (SLJs) must include explicit
+            targets, budgets, and breach actions. This standard binds metrics to
+            enforcement, turning SLJs into operational obligations rather than
+            aspirational vocabulary.
+          </p>
+        </section>
+
+        <section class="standard-section">
+          <h2>Required structure for every SLJ</h2>
+          <p>
+            Each justice metric must be documented with the following fields so
+            breach actions are predictable and enforceable.
+          </p>
+          <dl class="standard-definitions">
+            {
+              standardFields.map((field) => (
+                <div>
+                  <dt>{field.title}</dt>
+                  <dd>{field.description}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </section>
+
+        <section class="standard-section">
+          <h2>Required metric coverage</h2>
+          <p>
+            Every consequential workflow class must publish targets, budgets, or
+            ceilings for these justice metrics.
+          </p>
+          <div class="grid grid--two">
+            {
+              metricLinks.map((metric) => (
+                <article class="panel">
+                  <p class="eyebrow">Metric</p>
+                  <p>
+                    <strong>
+                      <a href={metric.href}>{metric.title}</a>
+                    </strong>
+                  </p>
+                  <p class="muted">{metric.description}</p>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class="standard-section">
+          <h2>Breach actions</h2>
+          <p>
+            Breach actions must be defined in advance, rehearsed, and executed
+            immediately when thresholds are missed.
+          </p>
+          <div class="grid grid--two">
+            {breachPlaybook.map((action) => (
+              <div class="panel">
+                <p>{action}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="standard-section">
+          <h2>Ownership and public surface</h2>
+          <p>
+            Each SLJ must name an accountable owner with authority to pause,
+            rollback, or staff remediation. Public surfaces must provide time
+            transparency and link to decision artifacts so impacted people can
+            verify that breach actions occurred.
+          </p>
+        </section>
+      </div>
+
+      <aside class="standard-sidebar">
+        <div class="standard-sidebar__panel">
+          <p class="standard-sidebar__eyebrow">Quick requirements</p>
+          <ul>
+            <li>Targets, budgets, or ceilings set by workflow class.</li>
+            <li>Measurement windows defined (p95, weekly, rolling).</li>
+            <li>Breach actions wired to pause, rollback, or escalation.</li>
+            <li>Named owner with authority to remediate.</li>
+          </ul>
+        </div>
+        <div class="standard-sidebar__panel">
+          <p class="standard-sidebar__eyebrow">Key terms</p>
+          <ul>
+            <li>
+              <a href="/glossary/irreversibility-budget">Irreversibility Budget</a>
+            </li>
+            <li>
+              <a href="/glossary/burden-ceiling">Burden Ceiling</a>
+            </li>
+            <li>
+              <a href="/glossary/ethical-circuit-breakers">
+                Ethical circuit breakers
+              </a>
+            </li>
+            <li>
+              <a href="/glossary/graceful-rollback-lanes">
+                Graceful rollback lanes
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </article>
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+</BaseLayout>
