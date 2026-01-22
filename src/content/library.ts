@@ -28,6 +28,10 @@ export type Pattern = {
   cues: string[];
   diagnostics: string[];
   steps: string[];
+  policyRequirement: string;
+  productRequirement: string;
+  auditEvidenceChecklist: string;
+  postmortemTrigger: string;
   artifacts: { name: string; purpose: string }[];
   example: { title: string; description: string };
   antiPatterns?: {
@@ -293,6 +297,19 @@ export const libraryContent: LibraryContent = {
           "Attach a short summary alongside the canonical record for external readers.",
           "Set a review date with a clear owner tied to the stewardship window.",
         ],
+        policyRequirement: `Policy requirement (MEC-01 Decision log with dissent)
+- Maintain a decision log for high-stakes changes with dissenting views and a dated review owner.
+- Store the log in a shared system of record and retain links in audit and incident records.
+Reference: https://ethotechnics.org/mechanisms/patterns/decision-log`,
+        productRequirement: `Product requirement (MEC-01)
+- Every high-stakes automated decision emits a decision-log entry ID in the receipt.
+- The UI links to a plain-language summary within two clicks of the decision outcome.`,
+        auditEvidenceChecklist: `Audit evidence checklist (MEC-01)
+[ ] Decision log entries include owner, dissent, and review date.
+[ ] Plain-language summaries are attached and shareable.
+[ ] Stewardship reviews were completed on schedule.`,
+        postmortemTrigger: `Postmortem trigger (MEC-01)
+Trigger review if a high-stakes decision ships without a logged entry or dissent record.`,
         artifacts: [
           {
             name: "Decision record template",
@@ -354,6 +371,19 @@ export const libraryContent: LibraryContent = {
           "Preview what happens if someone opts out and keep the path visible.",
           "Offer a safety valve that defaults to privacy-preserving behavior.",
         ],
+        policyRequirement: `Policy requirement (MEC-02 Progressive consent prompts)
+- Stage consent requests with clear revocation paths and visible opt-out impacts.
+- Document safety-valve defaults that preserve privacy when consent is withheld.
+Reference: https://ethotechnics.org/mechanisms/patterns/progressive-consent`,
+        productRequirement: `Product requirement (MEC-02)
+- Each consent request includes purpose, duration, and revocation instructions.
+- Opt-out paths remain visible and do not degrade core safety access.`,
+        auditEvidenceChecklist: `Audit evidence checklist (MEC-02)
+[ ] Consent journey map shows each ask, rationale, and rollback path.
+[ ] Opt-out copy kit deployed across UI, email, and help surfaces.
+[ ] Safety-valve defaults verified in staging and production.`,
+        postmortemTrigger: `Postmortem trigger (MEC-02)
+Trigger review if opt-out actions fail, are ignored, or re-enable without notice.`,
         artifacts: [
           {
             name: "Consent journey map",
@@ -419,6 +449,19 @@ export const libraryContent: LibraryContent = {
           "Publish communication cadences by risk level and audience.",
           "Check dependencies so degraded modes route to safe fallbacks.",
         ],
+        policyRequirement: `Policy requirement (MEC-03 Maintenance windowing)
+- Publish stewardship windows with named owners, success criteria, and rollback authority.
+- Require comms cadences by risk tier before shipping changes.
+Reference: https://ethotechnics.org/mechanisms/patterns/maintenance-windowing`,
+        productRequirement: `Product requirement (MEC-03)
+- Release plans include a window ID and owner in change tickets.
+- Status updates and fallback behavior are visible to affected users.`,
+        auditEvidenceChecklist: `Audit evidence checklist (MEC-03)
+[ ] Window calendar lists owners, coverage, and success criteria.
+[ ] Comms templates are published by risk level and audience.
+[ ] Fallback matrix confirms safe degraded modes for dependencies.`,
+        postmortemTrigger: `Postmortem trigger (MEC-03)
+Trigger review if changes ship outside the stewardship window or without comms.`,
         artifacts: [
           {
             name: "Window calendar",
@@ -480,6 +523,19 @@ export const libraryContent: LibraryContent = {
           "Set tripwires for ethical interrupts that align with time-to-halt targets.",
           "Run drills that practice firing, communicating, and restoring from the halt.",
         ],
+        policyRequirement: `Policy requirement (MEC-05 Kill switch for runaway automation)
+- Maintain a pre-authorized halt path with a named roster and protection from retaliation.
+- Publish tripwires tied to moral performance indicators and time-to-halt targets.
+Reference: https://ethotechnics.org/mechanisms/patterns/kill-switch`,
+        productRequirement: `Product requirement (MEC-05)
+- The kill switch is reachable within one operational step from monitoring dashboards.
+- Halt events emit receipts with owner, trigger, and restoration checklist links.`,
+        auditEvidenceChecklist: `Audit evidence checklist (MEC-05)
+[ ] Kill switch runbook names authorized operators and triggers.
+[ ] Drill logs demonstrate time-to-halt performance.
+[ ] Rollback checklists show safe restoration steps.`,
+        postmortemTrigger: `Postmortem trigger (MEC-05)
+Trigger review when time-to-halt targets are exceeded or the kill switch is unavailable.`,
         artifacts: [
           {
             name: "Kill switch runbook",
@@ -545,6 +601,19 @@ export const libraryContent: LibraryContent = {
           "Pre-fill context so people can submit without rebuilding the story.",
           "Track outcomes and feed them back into product and policy updates.",
         ],
+        policyRequirement: `Policy requirement (MEC-06 Appeal paths inside the UI)
+- Provide an in-product appeal channel with published response timelines.
+- Log appeal outcomes and feed them into governance review cycles.
+Reference: https://ethotechnics.org/mechanisms/patterns/appeal-paths`,
+        productRequirement: `Product requirement (MEC-06)
+- Every appeal submission generates a receipt with response timeline and owner.
+- Appeals are accessible from the decision surface without extra navigation.`,
+        auditEvidenceChecklist: `Audit evidence checklist (MEC-06)
+[ ] Appeal intake form includes pre-filled context.
+[ ] Reviewer rota and escalation paths are documented.
+[ ] Outcome log tracks response times and resolutions.`,
+        postmortemTrigger: `Postmortem trigger (MEC-06)
+Trigger review when appeal backlogs breach published response timelines.`,
         artifacts: [
           {
             name: "Appeal intake form",

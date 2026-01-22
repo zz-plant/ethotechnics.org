@@ -88,9 +88,12 @@ export const getStandardsForApi = () =>
     };
   });
 
-export const getMechanismsForApi = () =>
-  libraryContent.patterns.entries.map((pattern) => {
+export const getMechanismsForApi = () => {
+  const publication = libraryContent.publication;
+
+  return libraryContent.patterns.entries.map((pattern) => {
     const id = extractMechanismId(pattern.title, pattern.slug);
+    const href = `/mechanisms/patterns/${pattern.slug}`;
 
     return {
       id,
@@ -100,12 +103,33 @@ export const getMechanismsForApi = () =>
       summary: pattern.summary,
       filters: pattern.filters,
       glossary_refs: pattern.glossaryRefs,
-      href: `/mechanisms/patterns/${pattern.slug}`,
+      cues: pattern.cues,
+      diagnostics: pattern.diagnostics,
+      steps: pattern.steps,
+      artifacts: pattern.artifacts,
+      example: pattern.example,
+      anti_patterns: pattern.antiPatterns ?? [],
+      policy_requirement: pattern.policyRequirement,
+      product_requirement: pattern.productRequirement,
+      audit_evidence_checklist: pattern.auditEvidenceChecklist,
+      postmortem_trigger: pattern.postmortemTrigger,
+      citation: {
+        permalink: href,
+        version: publication.version,
+        published: publication.published,
+        updated: publication.updated ?? publication.published,
+        doi: publication.doi ?? null,
+        archive_url: publication.archiveUrl ?? null,
+        license: publication.license,
+        attribution: publication.attribution,
+      },
+      href,
       refs: pattern.glossaryRefs,
       deprecated_by: null,
       supersedes: [],
     };
   });
+};
 
 export const getValidatorsForApi = () =>
   validatorsContent.validators.map((validator) => ({
@@ -138,6 +162,12 @@ export const getGlossaryEntriesForApi = () =>
         ...(entry.references?.map((reference) => reference.href) ?? []),
       ];
 
+      const minimumEvidence = entry.minimumEvidence ?? {
+        artifact: `Artifact documenting how ${entry.title} is expected, enforced, or governed.`,
+        behavior: `Observed behavior showing ${entry.title} in practice during real use or drills.`,
+        metric: `Metric tracked to monitor ${entry.title} performance over time.`,
+      };
+
       return {
         id: entry.id,
         type: "glossary",
@@ -148,6 +178,16 @@ export const getGlossaryEntriesForApi = () =>
           heading: category.heading,
         },
         tags: entry.tags ?? [],
+        minimum_evidence: {
+          artifact: minimumEvidence.artifact,
+          behavior: minimumEvidence.behavior,
+          metric: minimumEvidence.metric,
+          definition: minimumEvidence.definition ?? null,
+          unit: minimumEvidence.unit ?? null,
+          data_source: minimumEvidence.dataSource ?? null,
+          calculation: minimumEvidence.calculation ?? null,
+          threshold: minimumEvidence.threshold ?? null,
+        },
         href: glossaryEntryPermalink(entry.id),
         refs,
         deprecated_by: null,

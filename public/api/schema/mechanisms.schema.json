@@ -28,6 +28,73 @@
           "summary": { "type": "string" },
           "filters": { "type": "array", "items": { "type": "string" } },
           "glossary_refs": { "type": "array", "items": { "type": "string" } },
+          "cues": { "type": "array", "items": { "type": "string" } },
+          "diagnostics": { "type": "array", "items": { "type": "string" } },
+          "steps": { "type": "array", "items": { "type": "string" } },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "purpose"],
+              "properties": {
+                "name": { "type": "string" },
+                "purpose": { "type": "string" }
+              }
+            }
+          },
+          "example": {
+            "type": "object",
+            "required": ["title", "description"],
+            "properties": {
+              "title": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          },
+          "anti_patterns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["title", "failure", "counterfactual", "warning"],
+              "properties": {
+                "title": { "type": "string" },
+                "failure": { "type": "string" },
+                "counterfactual": { "type": "string" },
+                "warning": { "type": "string" }
+              }
+            }
+          },
+          "policy_requirement": { "type": "string" },
+          "product_requirement": { "type": "string" },
+          "audit_evidence_checklist": { "type": "string" },
+          "postmortem_trigger": { "type": "string" },
+          "citation": {
+            "type": "object",
+            "required": [
+              "permalink",
+              "version",
+              "published",
+              "updated",
+              "license",
+              "attribution"
+            ],
+            "properties": {
+              "permalink": { "type": "string" },
+              "version": { "type": "string" },
+              "published": { "type": "string" },
+              "updated": { "type": "string" },
+              "doi": { "type": ["string", "null"] },
+              "archive_url": { "type": ["string", "null"] },
+              "license": {
+                "type": "object",
+                "required": ["label", "href"],
+                "properties": {
+                  "label": { "type": "string" },
+                  "href": { "type": "string" }
+                }
+              },
+              "attribution": { "type": "string" }
+            }
+          },
           "href": { "type": "string" },
           "refs": { "type": "array", "items": { "type": "string" } },
           "deprecated_by": { "type": ["string", "null"] },

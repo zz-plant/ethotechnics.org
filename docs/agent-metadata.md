@@ -64,7 +64,8 @@ The public API endpoints provide lightweight JSON for agents and tooling:
 
 - `/api/agent-index.json` — quick-start discovery index with core endpoints and docs links.
 - `/api/standards.json` — standard metadata and permalinks.
-- `/api/mechanisms.json` — mechanism patterns, filters, and glossary references.
+- `/api/mechanisms.json` — mechanism specs, reuse-ready snippets, and citation metadata alongside
+  filters and glossary references.
 - `/api/glossary.json` — flattened glossary entries with category labels.
 - `/api/research.json` — orientation cards, agenda items, focus areas, publications, and timeline
   data.

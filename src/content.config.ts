@@ -192,6 +192,11 @@ const glossaryEntrySchema = z.object({
     artifact: z.string(),
     behavior: z.string(),
     metric: z.string(),
+    definition: z.string().optional(),
+    unit: z.string().optional(),
+    dataSource: z.string().optional(),
+    calculation: z.string().optional(),
+    threshold: z.string().optional(),
   }),
   genealogy: z.string().optional(),
   references: z
@@ -309,6 +314,10 @@ const library = defineCollection({
           cues: z.array(z.string()),
           diagnostics: z.array(z.string()),
           steps: z.array(z.string()),
+          policyRequirement: z.string(),
+          productRequirement: z.string(),
+          auditEvidenceChecklist: z.string(),
+          postmortemTrigger: z.string(),
           artifacts: z.array(
             z.object({ name: z.string(), purpose: z.string() }),
           ),

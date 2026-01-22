@@ -54,6 +54,16 @@ export const getGlossaryEntryDefaults = (
     behavior: `Observed behavior showing ${entry.title} in practice during real use or drills.`,
     metric: `Metric tracked to monitor ${entry.title} performance over time.`,
   };
+  const minimumEvidenceWithDefaults = {
+    artifact: minimumEvidence.artifact,
+    behavior: minimumEvidence.behavior,
+    metric: minimumEvidence.metric,
+    definition: minimumEvidence.definition ?? "Not specified yet.",
+    unit: minimumEvidence.unit ?? "Not specified yet.",
+    dataSource: minimumEvidence.dataSource ?? "Not specified yet.",
+    calculation: minimumEvidence.calculation ?? "Not specified yet.",
+    threshold: minimumEvidence.threshold ?? "Not specified yet.",
+  };
   const genealogy =
     entry.genealogy ??
     `Ethotechnics uses ${entry.title} to extend the ${category.heading.toLowerCase()} vocabulary and connect governance, design, and policy teams.`;
@@ -64,7 +74,7 @@ export const getGlossaryEntryDefaults = (
     scopeText,
     adjacentTerms,
     operationalTests,
-    minimumEvidence,
+    minimumEvidence: minimumEvidenceWithDefaults,
     genealogy,
     references,
   };
