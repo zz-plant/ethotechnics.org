@@ -265,16 +265,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       link: { label: "Browse the glossary", href: glossaryPermalink },
     }}
   />
-  <ScholarlyMeta publication={publication} permalink={pagePermalink} />
-  <CitationBlock
-    title={entry.title}
-    permalink={pagePermalink}
-    publication={publication}
-    publisher="Ethotechnics glossary"
-    citationKey={`glossary_${entry.id}`}
-    summaryLabel="Cite this glossary entry"
-  />
-
   <article
     class="glossary-entry glossary-entry--detail"
     itemscope
@@ -309,16 +299,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </header>
     <div class="glossary-entry__layout">
       <div class="glossary-entry__main">
-        {category.descriptionHtml && (
-          <section class="glossary-entry__section">
-            <p class="eyebrow">Glossary territory</p>
-            <div class="glossary-entry__body" set:html={category.descriptionHtml} />
-            <p class="muted small">
-              Explore {categoryLabel} in the{" "}
-              <a href={glossaryPermalink}>glossary index</a>.
-            </p>
-          </section>
-        )}
         {
           adjacentTerms.length > 0 && (
             <section id="adjacent-terms" class="glossary-entry__section">
@@ -407,14 +387,28 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </section>
           )
         }
-        <section class="glossary-entry__section">
-          <p class="muted small">
-            Last updated: {termUpdatedDate} · Term version: {termVersion} ·{" "}
-            <a href={termChangelog}>Changelog</a>
-          </p>
-        </section>
       </div>
       <aside class="glossary-entry__sidebar">
+        {category.descriptionHtml && (
+          <section class="glossary-entry__section">
+            <p class="eyebrow">Glossary territory</p>
+            <div class="glossary-entry__body" set:html={category.descriptionHtml} />
+            <p class="muted small">
+              Explore {categoryLabel} in the{" "}
+              <a href={glossaryPermalink}>glossary index</a>.
+            </p>
+          </section>
+        )}
+        <section class="glossary-entry__section">
+          <p class="eyebrow">Entry details</p>
+          <ul class="muted">
+            <li>Last updated: {termUpdatedDate}</li>
+            <li>Term version: {termVersion}</li>
+            <li>
+              Changelog: <a href={termChangelog}>View updates</a>
+            </li>
+          </ul>
+        </section>
         {operationalTests.length > 0 && (
           <section id="operational-tests" class="glossary-entry__section">
             <p class="eyebrow">Operational tests</p>
@@ -493,6 +487,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </aside>
     </div>
   </article>
+
+  <CitationBlock
+    title={entry.title}
+    permalink={pagePermalink}
+    publication={publication}
+    publisher="Ethotechnics glossary"
+    citationKey={`glossary_${entry.id}`}
+    summaryLabel="Cite this glossary entry"
+  />
+  <ScholarlyMeta publication={publication} permalink={pagePermalink} />
 
   <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>
