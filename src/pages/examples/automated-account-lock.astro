@@ -4,6 +4,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Automated account lock & eligibility flip — Worked example";
 const pageDescription =
@@ -116,6 +117,7 @@ const artifacts = [
       { href: "#exceptions", label: "Exception handling" },
       { href: "#remedy", label: "Remedy path" },
       { href: "#artifacts", label: "Generated artifacts" },
+      { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
     panelCopy={{
       eyebrow: "Scenario",
@@ -259,4 +261,6 @@ const artifacts = [
       ))}
     </CardGrid>
   </SectionBlock>
+
+  <GlossaryAnchorsBlock />
 </BaseLayout>

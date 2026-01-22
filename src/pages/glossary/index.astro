@@ -640,6 +640,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
                   scopeText,
                   adjacentTerms,
                   operationalTests,
+                  commonCounterfeits,
                   genealogy,
                   references,
                 } = getGlossaryEntryDefaults(entry, category);
@@ -776,6 +777,16 @@ const glossaryAuthor = getGlossaryAuthor(publication);
                         ))}
                       </ul>
                     </div>
+                    {commonCounterfeits.length > 0 && (
+                      <div class="glossary-entry__block">
+                        <p class="eyebrow">Common counterfeits</p>
+                        <ul class="muted">
+                          {commonCounterfeits.map((counterfeit) => (
+                            <li>{counterfeit}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     <div class="glossary-entry__block">
                       <p class="eyebrow">Genealogy</p>
                       <p class="muted">{genealogy}</p>
