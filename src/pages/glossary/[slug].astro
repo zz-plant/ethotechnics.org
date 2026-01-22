@@ -74,10 +74,15 @@ const pageDescription =
   descriptionBase.length > 180
     ? `${descriptionBase.slice(0, 177).trim()}…`
     : descriptionBase;
+const termUpdated = entry.termUpdated ?? publication.updated;
+const termVersion = entry.termVersion ?? publication.version;
+const termChangelog = entry.termChangelog ?? "/api/changelog.json";
+const termUpdatedDate = termUpdated ? termUpdated.split("T")[0] : "TBD";
 const {
   scopeText,
   adjacentTerms,
   operationalTests,
+  commonCounterfeits,
   minimumEvidence,
   genealogy,
   references,
@@ -331,6 +336,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </section>
           )
         }
+        <section class="glossary-entry__section">
+          <p class="muted small">
+            Last updated: {termUpdatedDate} · Term version: {termVersion} ·{" "}
+            <a href={termChangelog}>Changelog</a>
+          </p>
+        </section>
       </div>
       <aside class="glossary-entry__sidebar">
         <section id="operational-tests" class="glossary-entry__section">
@@ -341,6 +352,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             ))}
           </ul>
         </section>
+        {
+          commonCounterfeits.length > 0 && (
+            <section id="common-counterfeits" class="glossary-entry__section">
+              <p class="eyebrow">Common counterfeits</p>
+              <ul class="muted">
+                {commonCounterfeits.map((counterfeit) => (
+                  <li>{counterfeit}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
         <section id="minimum-evidence" class="glossary-entry__section">
           <p class="eyebrow">Minimum evidence</p>
           <ul class="muted">

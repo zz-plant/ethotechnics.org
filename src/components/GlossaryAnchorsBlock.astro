@@ -1,0 +1,72 @@
+---
+import SectionBlock from "./SectionBlock.astro";
+
+type AnchorLink = {
+  label: string;
+  href: string;
+};
+
+type AnchorItem = {
+  links: AnchorLink[];
+};
+
+const {
+  id = "glossary-anchors",
+  eyebrow = "Glossary anchors",
+  title = "Glossary anchors used",
+  description =
+    "This worked example ties back to glossary terms that bind clocks, artifacts, and ownership.",
+  variant,
+} = Astro.props;
+
+const anchors: AnchorItem[] = [
+  {
+    links: [{ label: "Time Transparency", href: "/glossary/time-transparency" }],
+  },
+  {
+    links: [
+      { label: "Stable Clock", href: "/glossary/stable-clock" },
+      { label: "Bounded Duration", href: "/glossary/bounded-duration" },
+    ],
+  },
+  {
+    links: [{ label: "Decision Artifact", href: "/glossary/decision-artifact" }],
+  },
+  {
+    links: [{ label: "Traceable Ownership", href: "/glossary/traceable-ownership" }],
+  },
+  {
+    links: [{ label: "Safe Pause", href: "/glossary/safe-pause" }],
+  },
+  {
+    links: [{ label: "Time-to-Restore (TTR)", href: "/glossary/time-to-restore" }],
+  },
+  {
+    links: [{ label: "Time-to-Halt (TTH)", href: "/glossary/time-to-halt" }],
+  },
+  {
+    links: [{ label: "Appeal Passage Rate", href: "/glossary/appeal-passage-rate" }],
+  },
+];
+---
+
+<SectionBlock
+  id={id}
+  eyebrow={eyebrow}
+  title={title}
+  description={description}
+  variant={variant}
+>
+  <ul class="muted">
+    {anchors.map((anchor) => (
+      <li>
+        {anchor.links.map((link, index) => (
+          <>
+            <a href={link.href}>{link.label}</a>
+            {index < anchor.links.length - 1 && " / "}
+          </>
+        ))}
+      </li>
+    ))}
+  </ul>
+</SectionBlock>

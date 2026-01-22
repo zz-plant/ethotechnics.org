@@ -999,7 +999,7 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>Critical actions can be undone and people restored to a safe prior state. Damage is not permanent by default, and <a href=\"#time-to-restore\">time-to-restore</a> stays low.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-reversibility\"></use>\n                          </svg>\n                        </figure>",
+            "bodyHtml": "<p>Critical actions can be undone and people restored to a safe prior state. Damage is not permanent by default, and <a href=\"#time-to-restore\">time-to-restore</a> stays low.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-reversibility\"></use>\n                          </svg>\n                        </figure><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Critical actions have tested rollback or remediation paths that restore data and access.",
@@ -1046,7 +1046,9 @@
             "operationalTests": [
               "Appeals route to empowered reviewers with authority to overturn outcomes.",
               "Appeal passage rate and response time are tracked and used to improve decisions.",
-              "Appeal outcomes include overturns, restorations, and policy changes—not just “review completed.”"
+              "Appeal outcomes include overturns, restorations, and policy changes—not just “review completed.”",
+              "Floor: if appeal passage rate stays below 5% for 30 days, trigger a forced redesign review.",
+              "Artifact requirement: Percentage of appeals that emit a decision artifact is tracked and published."
             ],
             "presenceChecks": [
               "permission-surface",
@@ -1436,7 +1438,7 @@
             "title": "Repair Log",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A living record of every mitigation, decision, and resource commitment made after a fault. Repair logs make accountability legible by linking people harmed, who intervened, and what evidence was used. Repair logs include whether affected people were restored, how long it took, and what remains unrepaired.</p><p>They inform future <a href=\"#care-retrospective\">care retrospectives</a>, power audits, and service-level reports so follow-up work is traceable and burden does not drift back to the same communities.</p>",
+            "bodyHtml": "<p>A living record of every mitigation, decision, and resource commitment made after a fault. Repair logs make accountability legible by linking people harmed, who intervened, and what evidence was used. Repair logs include whether affected people were restored, how long it took, and what remains unrepaired.</p><p>They inform future <a href=\"#care-retrospective\">care retrospectives</a>, power audits, and service-level reports so follow-up work is traceable and burden does not drift back to the same communities.</p><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
             "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect repair log.",
@@ -2085,7 +2087,7 @@
             "title": "Evidence Burden Ceiling",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A hard cap on documentation demands placed on claimants for a given harm class. Evidence burden ceilings enforce <a href=\"#fair-burden-distribution\">fair burden distribution</a> during appeals.</p>",
+            "bodyHtml": "<p>A hard cap on documentation demands placed on claimants for a given harm class. Evidence burden ceilings enforce <a href=\"#fair-burden-distribution\">fair burden distribution</a> during appeals.</p><p><strong>Feeds into:</strong> <a href=\"#user-burden-ratio\">User Burden Ratio</a>, <a href=\"#burden-index\">Burden Index</a>.</p>",
             "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
             "operationalTests": [
               "Maximum documentation counts, minutes, or steps are enforced in UI and policy.",
@@ -2231,7 +2233,7 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it—an essential complement to <a href=\"#stoppability\">stoppability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-time-to-halt\"></use>\n                          </svg>\n                        </figure>\n                        <p><strong>Targets.</strong> <strong>Typical targets:</strong> p95 halt within seconds for automated enforcement, minutes for human-in-loop queues. <strong>Target selection guidance:</strong> tie to harm windows, irreversibility boundaries, and utility expiry by class. <strong>Breach behavior:</strong> trigger a safe pause or <a href=\"#ethical-circuit-breakers\">ethical circuit breaker</a> with escalation.</p>",
+            "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it—an essential complement to <a href=\"#stoppability\">stoppability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-time-to-halt\"></use>\n                          </svg>\n                        </figure>\n                        <p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly p95; monthly p99. <strong>Target / floor / ceiling:</strong> target ≤ 30s (automated) / ≤ 5 min (human), floor 15 min, ceiling 60 min. <strong>Owner:</strong> <a href=\"#traceable-ownership\">Traceable Ownership</a> (must have). <strong>Breach action:</strong> trigger <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a>, <a href=\"#safe-pause\">safe pause</a>, or rollback lane activation with escalation. <strong>Public surface:</strong> receipt + <a href=\"#time-transparency\">time transparency</a> showing halt status and <a href=\"#decision-artifact\">decision artifact</a>.</p>",
             "relatedPatterns": [
               "kill-switch"
             ],
@@ -2253,7 +2255,7 @@
             "title": "Time-to-Restore (TTR)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How long it takes to reverse harm and return a person to their prior state. Low TTR is a signal of effective <a href=\"#reversibility\">reversibility</a>.</p><p><strong>Targets.</strong> <strong>Typical targets:</strong> restore access within hours for access loss, within days for benefit corrections, immediate for safety-critical reversals. <strong>Target selection guidance:</strong> align with utility windows, irreversibility boundaries, and harm class severity. <strong>Breach behavior:</strong> activate <a href=\"#graceful-rollback-lanes\">rollback lanes</a> or staffed remediation until restoration is complete.</p>",
+            "bodyHtml": "<p>How long it takes to reverse harm and return a person to their prior state. Low TTR is a signal of effective <a href=\"#reversibility\">reversibility</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly p95; monthly median. <strong>Target / floor / ceiling:</strong> target ≤ 24h, floor ≤ 72h, ceiling 7d. <strong>Owner:</strong> <a href=\"#traceable-ownership\">Traceable Ownership</a> (must have). <strong>Breach action:</strong> activate <a href=\"#graceful-rollback-lanes\">rollback lanes</a>, switch to staffed remediation, or trigger <a href=\"#safe-pause\">safe pause</a> with escalation. <strong>Public surface:</strong> receipt + <a href=\"#time-transparency\">time transparency</a> with restoration ETA and <a href=\"#decision-artifact\">decision artifact</a>.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect time-to-restore (ttr).",
@@ -2272,11 +2274,14 @@
             "title": "Appeal Passage Rate",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The percentage of appeals resolved <em>in favor of the user</em>, a leading indicator of true <a href=\"#contestability\">contestability</a>.</p><p><strong>Targets.</strong> <strong>Typical targets:</strong> maintain non-zero correction floors by harm class (for example, \u22655\u201315% for high-impact decisions), with higher expected rates after policy changes. <strong>Target selection guidance:</strong> tie to known error rates, contestability debt, and appeal volume. <strong>Breach behavior:</strong> trigger decision-rule audits, staffing surges, and pause automation in the affected class.</p>",
+            "bodyHtml": "<p>The percentage of appeals resolved <em>in favor of the user</em>, a leading indicator of true <a href=\"#contestability\">contestability</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly rolling median; monthly review. <strong>Target / floor / ceiling:</strong> target 10\u201320% by harm class, floor 5%, ceiling 30% (investigate systemic error). <strong>Owner:</strong> <a href=\"#traceable-ownership\">Traceable Ownership</a> (must have). <strong>Breach action:</strong> trigger decision-rule audits, staffing surges, or pause automation in the affected class. <strong>Public surface:</strong> published appeal outcomes with receipt, <a href=\"#time-transparency\">time transparency</a>, and <a href=\"#decision-artifact\">decision artifacts</a>.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect appeal passage rate.",
               "Teams can point to a concrete example that demonstrates appeal passage rate in practice."
+            ],
+            "commonCounterfeits": [
+              "Lots of “reviews,” no reversals."
             ],
             "genealogy": "Ethotechnics uses Appeal Passage Rate to extend the g. measures & indicators vocabulary and connect governance, design, and policy teams.",
             "references": [],
@@ -2291,7 +2296,7 @@
             "title": "Irreversibility Index",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The share of system actions that cannot be undone. Aim to keep this as low as possible through <a href=\"#reversibility\">reversibility</a> and <a href=\"#graceful-degradation\">graceful degradation</a>.</p><p><strong>Targets.</strong> <strong>Typical targets:</strong> keep irreversible actions under 1% for critical workflows and under 5% for standard flows (set locally). <strong>Target selection guidance:</strong> map irreversibility boundaries and compare to the <a href=\"#irreversibility-budget\">irreversibility budget</a> by class. <strong>Breach behavior:</strong> invoke <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a> and require rollback lane activation or redesign.</p>",
+            "bodyHtml": "<p>The share of system actions that cannot be undone. Aim to keep this as low as possible through <a href=\"#reversibility\">reversibility</a> and <a href=\"#graceful-degradation\">graceful degradation</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly p95; monthly median. <strong>Target / floor / ceiling:</strong> target \u2264 1%, floor \u2264 2%, ceiling 5%. <strong>Owner:</strong> <a href=\"#traceable-ownership\">Traceable Ownership</a> (must have). <strong>Breach action:</strong> invoke <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a>, activate <a href=\"#graceful-rollback-lanes\">rollback lanes</a>, or trigger <a href=\"#safe-pause\">safe pause</a>. <strong>Public surface:</strong> receipts and <a href=\"#time-transparency\">time transparency</a> on irreversible boundaries.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect irreversibility index.",
@@ -2330,7 +2335,7 @@
             "title": "User Burden Ratio",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How much work a user must perform to correct or navigate system errors. This metric feeds directly into <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p><p><strong>Targets.</strong> <strong>Typical targets:</strong> appeal or correction flows \u226410 minutes, \u22645 steps, \u22642 documents; ratio stays below the <a href=\"#burden-ceiling\">burden ceiling</a>. <strong>Target selection guidance:</strong> tie to utility windows, harm classes, and accessibility constraints. <strong>Breach behavior:</strong> switch to <a href=\"#burden-inversion-rule\">burden inversion</a> with staffed alternatives.</p>",
+            "bodyHtml": "<p>How much work a user must perform to correct or navigate system errors. This metric feeds directly into <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p><p><strong>Interpretation:</strong> UBR must be evaluated against the <a href=\"#evidence-burden-ceiling\">Evidence Burden Ceiling</a> (documentation) plus time/steps caps (process).</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly median; monthly p95. <strong>Target / floor / ceiling:</strong> target \u2264 10 minutes, \u2264 5 steps, \u2264 2 documents; floor \u2264 15 minutes, \u2264 8 steps; ceiling 20 minutes / 10 steps. <strong>Owner:</strong> <a href=\"#traceable-ownership\">Traceable Ownership</a> (must have). <strong>Breach action:</strong> switch to <a href=\"#burden-inversion-rule\">burden inversion</a>, offer staffed alternatives, or trigger <a href=\"#safe-pause\">safe pause</a>. <strong>Public surface:</strong> receipt + <a href=\"#time-transparency\">time transparency</a> + <a href=\"#decision-artifact\">decision artifact</a> showing burden caps.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect user burden ratio.",
@@ -2349,7 +2354,7 @@
             "title": "Human Substitution Index",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A measure of how often humans must step in to compensate for system shortcomings—manual reviews, ad-hoc patches, or empathy work. A rising index exposes <a href=\"#heroism-dependent-systems\">heroism-dependent systems</a> and motivates investment in <a href=\"#graceful-degradation\">graceful degradation</a>.</p>",
+            "bodyHtml": "<p>A measure of how often humans must step in to compensate for system shortcomings—manual reviews, ad-hoc patches, or empathy work. A rising index exposes <a href=\"#heroism-dependent-systems\">heroism-dependent systems</a> and motivates investment in <a href=\"#graceful-degradation\">graceful degradation</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly median; monthly review. <strong>Target / floor / ceiling:</strong> target \u2264 5% of cases, floor 10%, ceiling 20%. <strong>Owner:</strong> <a href=\"#traceable-ownership\">Traceable Ownership</a> (must have). <strong>Breach action:</strong> expand <a href=\"#graceful-degradation\">graceful degradation</a>, add staffing, or pause automation in the affected class. <strong>Public surface:</strong> receipt + <a href=\"#time-transparency\">time transparency</a> that flags human review and <a href=\"#decision-artifact\">decision artifact</a>.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect human substitution index.",
@@ -2368,7 +2373,7 @@
             "title": "Moral Debt",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The accumulated harm a system has caused but not repaired. Moral debt accrues interest as <a href=\"#moral-latency\">moral latency</a> grows and people lose trust; it is paid down through <a href=\"#pathways-to-restitution\">pathways to restitution</a>, transparent <a href=\"#repair-log\">repair logs</a>, and lowered <a href=\"#time-to-restore\">time-to-restore</a>.</p>",
+            "bodyHtml": "<p>The accumulated harm a system has caused but not repaired. Moral debt accrues interest as <a href=\"#moral-latency\">moral latency</a> grows and people lose trust; it is paid down through <a href=\"#pathways-to-restitution\">pathways to restitution</a>, transparent <a href=\"#repair-log\">repair logs</a>, and lowered <a href=\"#time-to-restore\">time-to-restore</a>.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> monthly backlog review; quarterly audit. <strong>Target / floor / ceiling:</strong> target 0 unresolved cases, floor \u2264 30 days outstanding, ceiling 90 days. <strong>Owner:</strong> <a href=\"#traceable-ownership\">Traceable Ownership</a> (must have). <strong>Breach action:</strong> trigger restitution sprints, funding escalation, or safe pause of new harm classes. <strong>Public surface:</strong> <a href=\"#repair-log\">repair log</a> updates plus receipts and <a href=\"#time-transparency\">time transparency</a> on restoration timelines.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect moral debt.",
@@ -2387,7 +2392,7 @@
             "title": "Signal Credibility",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The trustworthiness of alerts, metrics, and reports used to govern a system.</p><p>High signal credibility pairs transparent sampling, <a href=\"#explainability-for-accountability\">explainability for accountability</a>, and human testimony so warnings trigger action instead of alert fatigue or dismissal.</p>",
+            "bodyHtml": "<p>The trustworthiness of alerts, metrics, and reports used to govern a system.</p><p>High signal credibility pairs transparent sampling, <a href=\"#explainability-for-accountability\">explainability for accountability</a>, and human testimony so warnings trigger action instead of alert fatigue or dismissal.</p><p><strong>Targets &amp; breach behavior.</strong> <strong>Measurement window:</strong> weekly precision/recall review; monthly audit. <strong>Target / floor / ceiling:</strong> target \u2265 0.85 precision, floor \u2265 0.70, ceiling false-positive rate \u2265 0.40. <strong>Owner:</strong> <a href=\"#traceable-ownership\">Traceable Ownership</a> (must have). <strong>Breach action:</strong> pause dependent automation, recalibrate models, or require human confirmation. <strong>Public surface:</strong> published signal health via receipt, <a href=\"#time-transparency\">time transparency</a>, and <a href=\"#decision-artifact\">decision artifacts</a>.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect signal credibility.",
@@ -2840,7 +2845,7 @@
             "title": "Bounded Duration",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A fixed maximum time-to-resolution; breach triggers an enforceable disposition.</p><p>Bounded duration pairs with a <a href=\"#stable-clock\">stable clock</a> and <a href=\"#time-transparency\">time transparency</a>.</p>",
+            "bodyHtml": "<p>A fixed maximum time-to-resolution; breach triggers an enforceable disposition.</p><p>Bounded duration pairs with a <a href=\"#stable-clock\">stable clock</a> and <a href=\"#time-transparency\">time transparency</a>.</p><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect bounded duration.",
@@ -2878,11 +2883,14 @@
             "title": "Safe Pause / Status Quo During Pendency",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>No adverse consequences while review is pending (except narrow, reviewable emergency exception).</p><p>Safe pause preserves the <a href=\"#utility-window\">utility window</a> and keeps people whole during appeal.</p>",
+            "bodyHtml": "<p>No adverse consequences while review is pending (except narrow, reviewable emergency exception).</p><p>Safe pause preserves the <a href=\"#utility-window\">utility window</a> and keeps people whole during appeal.</p><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect safe pause / status quo during pendency.",
               "Teams can point to a concrete example that demonstrates safe pause / status quo during pendency in practice."
+            ],
+            "commonCounterfeits": [
+              "“We won’t punish you” while consequences quietly accrue."
             ],
             "genealogy": "Ethotechnics uses Safe Pause / Status Quo During Pendency to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
             "references": [],
@@ -2897,11 +2905,14 @@
             "title": "Traceable Ownership",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A named responsible party with authority to override automation when bounds are breached.</p><p>Traceable ownership clarifies <a href=\"#design-authority\">design authority</a> and accelerates <a href=\"#time-to-restore\">time-to-restore</a>.</p>",
+            "bodyHtml": "<p>A named responsible party with authority to override automation when bounds are breached.</p><p>Traceable ownership clarifies <a href=\"#design-authority\">design authority</a> and accelerates <a href=\"#time-to-restore\">time-to-restore</a>.</p><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect traceable ownership.",
               "Teams can point to a concrete example that demonstrates traceable ownership in practice."
+            ],
+            "commonCounterfeits": [
+              "Team inbox or triage queue with no override authority."
             ],
             "genealogy": "Ethotechnics uses Traceable Ownership to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
             "references": [],
@@ -2916,11 +2927,14 @@
             "title": "Time Transparency",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Legible process state: current step, blocking condition, time remaining, next decision point, escalation triggers; no fake progress.</p><p>Time transparency supports <a href=\"#contestability\">contestability</a> and a <a href=\"#stable-clock\">stable clock</a>.</p>",
+            "bodyHtml": "<p>Legible process state: current step, blocking condition, time remaining, next decision point, escalation triggers; no fake progress.</p><p>Time transparency supports <a href=\"#contestability\">contestability</a> and a <a href=\"#stable-clock\">stable clock</a>.</p><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect time transparency.",
               "Teams can point to a concrete example that demonstrates time transparency in practice."
+            ],
+            "commonCounterfeits": [
+              "“Status updates” with no time remaining or escalation triggers."
             ],
             "genealogy": "Ethotechnics uses Time Transparency to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
             "references": [],
@@ -3546,7 +3560,7 @@
             "title": "Decision Artifact",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A discrete, attributable, contestable output: outcome + reason + timestamp + accountable owner.</p><p>Decision artifacts anchor <a href=\"#traceable-ownership\">traceable ownership</a> and make <a href=\"#contestability\">contestability</a> measurable.</p>",
+            "bodyHtml": "<p>A discrete, attributable, contestable output: outcome + reason + timestamp + accountable owner.</p><p>Decision artifacts anchor <a href=\"#traceable-ownership\">traceable ownership</a> and make <a href=\"#contestability\">contestability</a> measurable.</p><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect decision artifact.",
@@ -3565,7 +3579,7 @@
             "title": "Decision Object",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A concrete, contestable artifact that records what was decided, by whom, on what basis, plus the appeal window and reversal conditions.</p><p>Decision objects keep <a href=\"#decision-artifact\">decision artifacts</a> legible and protect <a href=\"#contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>A concrete, contestable artifact that records what was decided, by whom, on what basis, plus the appeal window and reversal conditions.</p><p>Decision objects keep <a href=\"#decision-artifact\">decision artifacts</a> legible and protect <a href=\"#contestability\">contestability</a>.</p><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect decision object.",

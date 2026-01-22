@@ -4,6 +4,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Content moderation takedown — Worked example";
 const pageDescription =
@@ -35,6 +36,7 @@ const receiptPayload = `{
       { href: "#exceptions", label: "Exceptions" },
       { href: "#remedy", label: "Remedy" },
       { href: "#bindings", label: "Bindings" },
+      { href: "#glossary-anchors", label: "Glossary anchors" },
     ]}
     panelCopy={{
       eyebrow: "Scenario",
@@ -124,4 +126,6 @@ const receiptPayload = `{
       </li>
     </ul>
   </SectionBlock>
+
+  <GlossaryAnchorsBlock />
 </BaseLayout>

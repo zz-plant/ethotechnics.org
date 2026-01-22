@@ -37,11 +37,15 @@ export type GlossaryEntry = {
   status: string | null;
   classes?: string[];
   bodyHtml: string;
+  termUpdated?: string;
+  termVersion?: string;
+  termChangelog?: string;
   scope?: string;
   adjacentTerms?: string[];
   presenceChecks?: string[];
   missingExpectations?: string[];
   operationalTests?: string[];
+  commonCounterfeits?: string[];
   minimumEvidence: GlossaryMinimumEvidence;
   genealogy?: string;
   references?: GlossaryResource[];
