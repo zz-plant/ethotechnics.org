@@ -1449,6 +1449,63 @@
               "behavior": "Observed behavior showing Repair Log in practice during real use or drills.",
               "metric": "Metric tracked to monitor Repair Log performance over time."
             }
+          },
+          {
+            "id": "restoration-completeness",
+            "title": "Restoration Completeness",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>“Restored” means the person is actually back to the prior state across downstream systems, not just locally unblocked. Restoration completeness ensures <a href=\"#time-to-restore\">time-to-restore</a> includes reconciliation with dependencies.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "Reconciliation across dependencies confirms restoration beyond the local system.",
+              "Affected people confirm their state is restored and downstream impacts are cleared."
+            ],
+            "genealogy": "Ethotechnics uses Restoration Completeness to extend the d. system states & architectures vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Restoration Completeness is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Restoration Completeness in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Restoration Completeness performance over time."
+            }
+          },
+          {
+            "id": "downstream-harm-trace",
+            "title": "Downstream Harm Trace",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A record of where a harmful decision propagated across vendors, data brokers, internal teams, and agencies. Downstream harm traces extend the <a href=\"#repair-log\">repair log</a> so remedies follow the harm.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "Every critical action produces a propagation map of downstream recipients.",
+              "Trace data is stored with the repair log and accessible during remediation."
+            ],
+            "genealogy": "Ethotechnics uses Downstream Harm Trace to extend the d. system states & architectures vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Downstream Harm Trace is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Downstream Harm Trace in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Downstream Harm Trace performance over time."
+            }
+          },
+          {
+            "id": "shadow-queue",
+            "title": "Shadow Queue",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A queue users cannot see—internal backlogs, vendor queues, or “pending review” pools—that still determines outcomes. Shadow queues erode <a href=\"#time-transparency\">time transparency</a> and <a href=\"#contestability\">contestability</a>.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "Every queue has public existence, time transparency, and bounded duration.",
+              "Users can see the queues influencing their case and their place within them."
+            ],
+            "genealogy": "Ethotechnics uses Shadow Queue to extend the d. system states & architectures vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Shadow Queue is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Shadow Queue in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Shadow Queue performance over time."
+            }
           }
         ]
       },
@@ -2003,6 +2060,82 @@
               "behavior": "Observed behavior showing Maintenance Ethics in practice during real use or drills.",
               "metric": "Metric tracked to monitor Maintenance Ethics performance over time."
             }
+          },
+          {
+            "id": "channel-switching-penalty",
+            "title": "Channel Switching Penalty",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The hidden harm of being bounced between phone, email, chat, and portal channels, often resetting clocks or losing context. Channel switching penalties increase <a href=\"#procedural-burden-as-price\">procedural burden</a> and delay repair.</p>",
+            "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
+            "operationalTests": [
+              "Switching channels does not reset case age or evidence sets.",
+              "Case history and documentation follow the claimant across every channel."
+            ],
+            "genealogy": "Ethotechnics uses Channel Switching Penalty to extend the f. burden & load vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Channel Switching Penalty is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Channel Switching Penalty in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Channel Switching Penalty performance over time."
+            }
+          },
+          {
+            "id": "evidence-burden-ceiling",
+            "title": "Evidence Burden Ceiling",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A hard cap on documentation demands placed on claimants for a given harm class. Evidence burden ceilings enforce <a href=\"#fair-burden-distribution\">fair burden distribution</a> during appeals.</p>",
+            "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
+            "operationalTests": [
+              "Maximum documentation counts, minutes, or steps are enforced in UI and policy.",
+              "Requests beyond the ceiling require justification and escalation approval."
+            ],
+            "genealogy": "Ethotechnics uses Evidence Burden Ceiling to extend the f. burden & load vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Evidence Burden Ceiling is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Evidence Burden Ceiling in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Evidence Burden Ceiling performance over time."
+            }
+          },
+          {
+            "id": "evidence-recycling",
+            "title": "Evidence Recycling",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The system reuses previously verified information so people do not have to re-prove identity or harm repeatedly. Evidence recycling applies <a href=\"#continuity-of-state\">continuity of state</a> to documentation, not just case status.</p>",
+            "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
+            "operationalTests": [
+              "Previously verified identity or harm evidence auto-attaches to new cases.",
+              "Continuity of state is applied to evidence across workflows and channels."
+            ],
+            "genealogy": "Ethotechnics uses Evidence Recycling to extend the f. burden & load vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Evidence Recycling is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Evidence Recycling in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Evidence Recycling performance over time."
+            }
+          },
+          {
+            "id": "verification-harm",
+            "title": "Verification Harm",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>When verification itself causes harm through delays, denials, exclusion, or stress spirals. Verification harm raises the <a href=\"#burden-index\">burden index</a> and erodes <a href=\"#contestability\">contestability</a>.</p>",
+            "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
+            "operationalTests": [
+              "Utility expiry attributable to verification steps is measured and tracked.",
+              "Verification workflows are revised when measured harm exceeds agreed thresholds."
+            ],
+            "genealogy": "Ethotechnics uses Verification Harm to extend the f. burden & load vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Verification Harm is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Verification Harm in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Verification Harm performance over time."
+            }
           }
         ]
       },
@@ -2226,6 +2359,63 @@
               "artifact": "Artifact documenting how Signal Credibility is expected, enforced, or governed.",
               "behavior": "Observed behavior showing Signal Credibility in practice during real use or drills.",
               "metric": "Metric tracked to monitor Signal Credibility performance over time."
+            }
+          },
+          {
+            "id": "identity-fragility-index",
+            "title": "Identity Fragility Index",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>How likely identity or eligibility checks are to fail under ordinary variance like name changes, address shifts, disability, or homelessness. A high identity fragility index signals brittle verification paths.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "Failure rates for common life events are measured and tracked.",
+              "False-negative rates are reported by group and monitored over time."
+            ],
+            "genealogy": "Ethotechnics uses Identity Fragility Index to extend the g. measures & indicators vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Identity Fragility Index is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Identity Fragility Index in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Identity Fragility Index performance over time."
+            }
+          },
+          {
+            "id": "consent-revocation-latency",
+            "title": "Consent Revocation Latency",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>How long it takes for “I revoke consent” to change system behavior everywhere it should, across processors and data stores. Lower latency keeps <a href=\"#consent-journey\">consent journeys</a> credible.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "Time-to-effective-revocation is measured across processors and data stores.",
+              "Revocation SLAs trigger alerts when latency exceeds agreed bounds."
+            ],
+            "genealogy": "Ethotechnics uses Consent Revocation Latency to extend the g. measures & indicators vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Consent Revocation Latency is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Consent Revocation Latency in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Consent Revocation Latency performance over time."
+            }
+          },
+          {
+            "id": "repair-debt-interest-rate",
+            "title": "Repair Debt Interest Rate",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The rate at which unrepaired harm compounds through financial penalties, health risk, eviction risk, or reputational spread. Repair debt interest rates convert <a href=\"#moral-debt\">moral debt</a> into time-bound obligations.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "Compounding curves are quantified for each harm class with bounded-duration rules.",
+              "Remediation plans use the interest rate to prioritize funding and repair timelines."
+            ],
+            "genealogy": "Ethotechnics uses Repair Debt Interest Rate to extend the g. measures & indicators vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Repair Debt Interest Rate is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Repair Debt Interest Rate in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Repair Debt Interest Rate performance over time."
             }
           }
         ]
@@ -2908,6 +3098,158 @@
               "behavior": "Observed behavior showing Exit Coercion in practice during real use or drills.",
               "metric": "Metric tracked to monitor Exit Coercion performance over time."
             }
+          },
+          {
+            "id": "retaliation-surface",
+            "title": "Retaliation Surface",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Where the system can punish people for contesting, pausing, refusing, or exiting—through throttling, stricter scrutiny, “account review,” or service withdrawal. Mapping the retaliation surface protects <a href=\"#contestability\">contestability</a> and the <a href=\"#right-of-exit\">right of exit</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Teams can name every lever that can worsen a claimant’s state after an appeal is filed, including throttling, scrutiny, account review, or service withdrawal.",
+              "Safeguards document how retaliation levers are disabled or monitored during appeals."
+            ],
+            "genealogy": "Ethotechnics uses Retaliation Surface to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Retaliation Surface is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Retaliation Surface in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Retaliation Surface performance over time."
+            }
+          },
+          {
+            "id": "non-retaliation-guarantee",
+            "title": "Non-Retaliation Guarantee",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A binding commitment that contesting, pausing, refusing, or exiting will not trigger adverse treatment. A non-retaliation guarantee makes <a href=\"#contestability\">contestability</a> and the <a href=\"#right-of-exit\">right of exit</a> safe to exercise.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Adverse-action rates are tracked for users who appeal versus those who do not.",
+              "Policies and interfaces explicitly state that contesting, pausing, refusing, or exiting will not trigger adverse treatment."
+            ],
+            "genealogy": "Ethotechnics uses Non-Retaliation Guarantee to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Non-Retaliation Guarantee is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Non-Retaliation Guarantee in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Non-Retaliation Guarantee performance over time."
+            }
+          },
+          {
+            "id": "appeal-integrity",
+            "title": "Appeal Integrity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Appeals are judged on their merits, not routed into soft-denial loops or review theater. Appeal integrity ensures <a href=\"#contestability\">contestability</a> produces real decisions with accountable authority.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The share of appeals receiving a decision artifact is tracked and published.",
+              "Appeals include named authority with overturn power rather than advisory review only."
+            ],
+            "genealogy": "Ethotechnics uses Appeal Integrity to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Appeal Integrity is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Appeal Integrity in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Appeal Integrity performance over time."
+            }
+          },
+          {
+            "id": "escalation-reliability",
+            "title": "Escalation Reliability",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Escalation paths work under load, after hours, and for novices—not just in theory. Reliable escalation keeps <a href=\"#ethical-load-path\">ethical load paths</a> intact when stress is highest.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Escalation drills hit time-to-human and time-to-decision targets across nights, weekends, and peak load.",
+              "Novice users can reach the same escalation path without privileged channels."
+            ],
+            "genealogy": "Ethotechnics uses Escalation Reliability to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Escalation Reliability is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Escalation Reliability in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Escalation Reliability performance over time."
+            }
+          },
+          {
+            "id": "decision-reversal-authority",
+            "title": "Decision Reversal Authority",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A formally granted power to undo harms, not just recommend or note them. Decision reversal authority turns <a href=\"#reversibility\">reversibility</a> into a real, named capability.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "A named role has unilateral reversal power for defined classes of harm.",
+              "Policy and tooling document how reversals are executed and logged."
+            ],
+            "genealogy": "Ethotechnics uses Decision Reversal Authority to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Decision Reversal Authority is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Decision Reversal Authority in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Decision Reversal Authority performance over time."
+            }
+          },
+          {
+            "id": "restitution-ladder",
+            "title": "Restitution Ladder",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A tiered remedy system that moves from apology to reversal, compensation, repair service, and systemic fix triggers. The restitution ladder ensures <a href=\"#pathways-to-restitution\">pathways to restitution</a> stay practical and selectable.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The restitution ladder exists, is selectable in policy or tooling, and is routinely used.",
+              "Case reviews show remedies advancing beyond apologies when harm warrants compensation or repair services."
+            ],
+            "genealogy": "Ethotechnics uses Restitution Ladder to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Restitution Ladder is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Restitution Ladder in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Restitution Ladder performance over time."
+            }
+          },
+          {
+            "id": "remedy-equivalence",
+            "title": "Remedy Equivalence",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Manual paths offer the same outcomes as automated paths, eliminating “manual penalties.” Remedy equivalence keeps <a href=\"#contestability\">contestability</a> fair across channels.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Appeal passage rates and time-to-resolution are compared across manual and automated channels.",
+              "Policy guarantees that manual paths can reach the same remedy outcomes as automated paths."
+            ],
+            "genealogy": "Ethotechnics uses Remedy Equivalence to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Remedy Equivalence is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Remedy Equivalence in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Remedy Equivalence performance over time."
+            }
+          },
+          {
+            "id": "case-ownership-continuity",
+            "title": "Case Ownership Continuity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Cases do not become orphaned across handoffs; ownership persists through vacations, organizational changes, or vendor transfers. Case ownership continuity strengthens <a href=\"#traceable-ownership\">traceable ownership</a> for contested decisions.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Cases never enter a “no owner” state, and ownership transitions are logged and visible.",
+              "Handoff procedures assign a new owner with backup coverage before the previous owner exits."
+            ],
+            "genealogy": "Ethotechnics uses Case Ownership Continuity to extend the h. governance & power vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Case Ownership Continuity is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Case Ownership Continuity in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Case Ownership Continuity performance over time."
+            }
           }
         ]
       },
@@ -3469,6 +3811,44 @@
               "artifact": "Artifact documenting how Normative Uncertainty is expected, enforced, or governed.",
               "behavior": "Observed behavior showing Normative Uncertainty in practice during real use or drills.",
               "metric": "Metric tracked to monitor Normative Uncertainty performance over time."
+            }
+          },
+          {
+            "id": "harm-receipt",
+            "title": "Harm Receipt",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A claimant-facing artifact documenting what happened, what the system believes, and what it will do next, by when. Harm receipts make <a href=\"#decision-artifact\">decision artifacts</a> legible to affected people.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Receipts are issued automatically for defined incident classes and include named owner and clock.",
+              "Receipts capture what happened, the system’s belief, and the next steps with timelines."
+            ],
+            "genealogy": "Ethotechnics uses Harm Receipt to extend the j. decision states & edges vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Harm Receipt is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Harm Receipt in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Harm Receipt performance over time."
+            }
+          },
+          {
+            "id": "access-cliff",
+            "title": "Access Cliff",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A threshold where small variance causes catastrophic loss of service, such as lockout, termination, or loss of benefits. Access cliffs are mitigated with <a href=\"#soft-edges\">soft edges</a> and gradual ramps.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "An access cliff inventory exists with mandated soft edges or gradual ramps.",
+              "Policies prohibit catastrophic loss from minor variance without a graduated path."
+            ],
+            "genealogy": "Ethotechnics uses Access Cliff to extend the j. decision states & edges vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Access Cliff is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Access Cliff in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Access Cliff performance over time."
             }
           }
         ]
