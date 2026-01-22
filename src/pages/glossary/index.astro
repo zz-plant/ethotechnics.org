@@ -749,10 +749,12 @@ const glossaryAuthor = getGlossaryAuthor(publication);
                         itemprop="description"
                       />
                     </div>
-                    <div class="glossary-entry__block">
-                      <p class="eyebrow">Scope</p>
-                      <p class="muted">{scopeText}</p>
-                    </div>
+                    {scopeText && (
+                      <div class="glossary-entry__block">
+                        <p class="eyebrow">Scope</p>
+                        <p class="muted">{scopeText}</p>
+                      </div>
+                    )}
                     {adjacentTerms.length > 0 && (
                       <div class="glossary-entry__block">
                         <p class="eyebrow">Adjacent terms</p>
@@ -769,14 +771,16 @@ const glossaryAuthor = getGlossaryAuthor(publication);
                         </div>
                       </div>
                     )}
-                    <div class="glossary-entry__block">
-                      <p class="eyebrow">Operational tests</p>
-                      <ul class="muted">
-                        {operationalTests.map((test) => (
-                          <li>{test}</li>
-                        ))}
-                      </ul>
-                    </div>
+                    {operationalTests.length > 0 && (
+                      <div class="glossary-entry__block">
+                        <p class="eyebrow">Operational tests</p>
+                        <ul class="muted">
+                          {operationalTests.map((test) => (
+                            <li>{test}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     {commonCounterfeits.length > 0 && (
                       <div class="glossary-entry__block">
                         <p class="eyebrow">Common counterfeits</p>
@@ -787,10 +791,12 @@ const glossaryAuthor = getGlossaryAuthor(publication);
                         </ul>
                       </div>
                     )}
-                    <div class="glossary-entry__block">
-                      <p class="eyebrow">Genealogy</p>
-                      <p class="muted">{genealogy}</p>
-                    </div>
+                    {genealogy && (
+                      <div class="glossary-entry__block">
+                        <p class="eyebrow">Genealogy</p>
+                        <p class="muted">{genealogy}</p>
+                      </div>
+                    )}
                     {relatedPatterns.length > 0 && (
                       <div class="glossary-entry__block glossary-entry__block--patterns">
                         <p class="eyebrow">Related mechanisms</p>

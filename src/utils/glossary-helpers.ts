@@ -33,23 +33,18 @@ export const getGlossaryEntryDefaults = (
   category: GlossaryCategory,
 ): {
   categoryLabel: string;
-  scopeText: string;
+  scopeText?: string;
   adjacentTerms: string[];
   operationalTests: string[];
   commonCounterfeits: string[];
   minimumEvidence: GlossaryEntry["minimumEvidence"];
-  genealogy: string;
+  genealogy?: string;
   references: GlossaryResource[];
 } => {
   const categoryLabel = normalizeGlossaryHeading(category.heading);
-  const scopeText =
-    entry.scope ?? `${category.heading}. ${stripHtml(category.descriptionHtml)}`;
+  const scopeText = entry.scope ?? "";
   const adjacentTerms = entry.adjacentTerms ?? entry.tags ?? [];
-  const operationalTests =
-    entry.operationalTests ?? [
-      `Evidence appears in documentation, interface cues, or governance artifacts that reflect ${entry.title.toLowerCase()}.`,
-      `Teams can point to a concrete example that demonstrates ${entry.title.toLowerCase()} in practice.`,
-    ];
+  const operationalTests = entry.operationalTests ?? [];
   const commonCounterfeits = entry.commonCounterfeits ?? [];
   const minimumEvidence = entry.minimumEvidence ?? {
     artifact: `Artifact documenting how ${entry.title} is expected, enforced, or governed.`,
@@ -60,25 +55,23 @@ export const getGlossaryEntryDefaults = (
     artifact: minimumEvidence.artifact,
     behavior: minimumEvidence.behavior,
     metric: minimumEvidence.metric,
-    definition: minimumEvidence.definition ?? "Not specified yet.",
-    unit: minimumEvidence.unit ?? "Not specified yet.",
-    dataSource: minimumEvidence.dataSource ?? "Not specified yet.",
-    calculation: minimumEvidence.calculation ?? "Not specified yet.",
-    threshold: minimumEvidence.threshold ?? "Not specified yet.",
+    definition: minimumEvidence.definition,
+    unit: minimumEvidence.unit,
+    dataSource: minimumEvidence.dataSource,
+    calculation: minimumEvidence.calculation,
+    threshold: minimumEvidence.threshold,
   };
-  const genealogy =
-    entry.genealogy ??
-    `Ethotechnics uses ${entry.title} to extend the ${category.heading.toLowerCase()} vocabulary and connect governance, design, and policy teams.`;
+  const genealogy = entry.genealogy ?? "";
   const references = entry.references ?? entry.resources ?? [];
 
   return {
     categoryLabel,
-    scopeText,
+    scopeText: scopeText || undefined,
     adjacentTerms,
     operationalTests,
     commonCounterfeits,
     minimumEvidence: minimumEvidenceWithDefaults,
-    genealogy,
+    genealogy: genealogy || undefined,
     references,
   };
 };

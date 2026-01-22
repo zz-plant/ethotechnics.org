@@ -69,11 +69,19 @@ const glossaryUrl = Astro.site
   ? new URL(glossaryPermalink, Astro.site).toString()
   : glossaryPermalink;
 const plainDescription = stripHtml(entry.bodyHtml);
+const buildMetaDescription = (value: string): string => {
+  const sentenceMatch = value.match(/[^.!?]+[.!?]+/);
+  const candidate = sentenceMatch ? sentenceMatch[0].trim() : value;
+
+  if (candidate.length <= 180) {
+    return candidate;
+  }
+
+  return `${candidate.slice(0, 177).trim()}…`;
+};
 const descriptionBase = `Definition of ${entry.title} in the Ethotechnics glossary (${categoryLabel}). ${plainDescription}`;
-const pageDescription =
-  descriptionBase.length > 180
-    ? `${descriptionBase.slice(0, 177).trim()}…`
-    : descriptionBase;
+const pageDescription = buildMetaDescription(descriptionBase);
+const introDescription = `Glossary entry in ${categoryLabel}. Definitions, checks, and evidence for ${entry.title}.`;
 const termUpdated = entry.termUpdated ?? publication.updated;
 const termVersion = entry.termVersion ?? publication.version;
 const termChangelog = entry.termChangelog ?? "/api/changelog.json";
@@ -89,6 +97,44 @@ const {
 } = getGlossaryEntryDefaults(entry, category);
 const presenceChecks = entry.presenceChecks ?? [];
 const missingExpectations = entry.missingExpectations ?? [];
+const metaItems = [
+  scopeText
+    ? { id: "scope", label: "Scope", value: scopeText }
+    : undefined,
+  genealogy
+    ? { id: "genealogy", label: "Genealogy", value: genealogy }
+    : undefined,
+].filter(
+  (
+    item,
+  ): item is { id: string; label: string; value: string } => Boolean(item),
+);
+const hasMinimumEvidenceDetails = Boolean(
+  minimumEvidence.definition ||
+    minimumEvidence.unit ||
+    minimumEvidence.dataSource ||
+    minimumEvidence.calculation ||
+    minimumEvidence.threshold,
+);
+const minimumEvidenceItems = [
+  { label: "Artifact", value: minimumEvidence.artifact },
+  { label: "Behavior", value: minimumEvidence.behavior },
+  { label: "Metric", value: minimumEvidence.metric },
+  { label: "Metric definition", value: minimumEvidence.definition },
+  { label: "Metric unit", value: minimumEvidence.unit },
+  { label: "Data source", value: minimumEvidence.dataSource },
+  { label: "Calculation", value: minimumEvidence.calculation },
+  { label: "Threshold", value: minimumEvidence.threshold },
+].filter(
+  (item): item is { label: string; value: string } => Boolean(item.value),
+);
+const showMinimumEvidence = hasMinimumEvidenceDetails;
+const missingMetadata = [
+  !scopeText ? "Scope" : null,
+  !genealogy ? "Genealogy" : null,
+  operationalTests.length === 0 ? "Operational tests" : null,
+  !hasMinimumEvidenceDetails ? "Minimum evidence details" : null,
+].filter((item): item is string => Boolean(item));
 const patternIndex = new Map(
   libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
@@ -122,7 +168,7 @@ const relatedPatterns = (entry.relatedPatterns ?? [])
   );
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
-  { href: "#scope", label: "Scope" },
+  ...(scopeText ? [{ href: "#scope", label: "Scope" }] : []),
   ...(adjacentTerms.length
     ? [{ href: "#adjacent-terms", label: "Adjacent terms" }]
     : []),
@@ -132,9 +178,13 @@ const anchorLinks = [
   ...(missingExpectations.length
     ? [{ href: "#missing-expectations", label: "Missing expectations" }]
     : []),
-  { href: "#operational-tests", label: "Operational tests" },
-  { href: "#minimum-evidence", label: "Minimum evidence" },
-  { href: "#genealogy", label: "Genealogy" },
+  ...(operationalTests.length
+    ? [{ href: "#operational-tests", label: "Operational tests" }]
+    : []),
+  ...(showMinimumEvidence
+    ? [{ href: "#minimum-evidence", label: "Minimum evidence" }]
+    : []),
+  ...(genealogy ? [{ href: "#genealogy", label: "Genealogy" }] : []),
   ...(relatedPatterns.length
     ? [{ href: "#related-mechanisms", label: "Related mechanisms" }]
     : []),
@@ -205,7 +255,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <PageIntro
     eyebrow="Glossary entry"
     title={entry.title}
-    description={pageDescription}
+    description={introDescription}
     permalink={pagePermalink}
     anchorLinks={anchorLinks}
     panelCopy={{
@@ -242,19 +292,33 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           itemprop="description"
         />
       </div>
-      <dl class="glossary-entry__meta">
-        <div id="scope" class="glossary-entry__meta-item">
-          <dt class="eyebrow">Scope</dt>
-          <dd class="muted">{scopeText}</dd>
-        </div>
-        <div id="genealogy" class="glossary-entry__meta-item">
-          <dt class="eyebrow">Genealogy</dt>
-          <dd class="muted">{genealogy}</dd>
-        </div>
-      </dl>
+      {metaItems.length > 0 && (
+        <dl class="glossary-entry__meta">
+          {metaItems.map((item) => (
+            <>
+              <dt id={item.id} class="glossary-entry__meta-term eyebrow">
+                {item.label}
+              </dt>
+              <dd class="glossary-entry__meta-definition muted">
+                {item.value}
+              </dd>
+            </>
+          ))}
+        </dl>
+      )}
     </header>
     <div class="glossary-entry__layout">
       <div class="glossary-entry__main">
+        {category.descriptionHtml && (
+          <section class="glossary-entry__section">
+            <p class="eyebrow">Glossary territory</p>
+            <div class="glossary-entry__body" set:html={category.descriptionHtml} />
+            <p class="muted small">
+              Explore {categoryLabel} in the{" "}
+              <a href={glossaryPermalink}>glossary index</a>.
+            </p>
+          </section>
+        )}
         {
           adjacentTerms.length > 0 && (
             <section id="adjacent-terms" class="glossary-entry__section">
@@ -279,6 +343,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               {presenceChecks.length > 0 && (
                 <div id="presence-checks" class="glossary-entry__check">
                   <p class="eyebrow">If this is present, check for</p>
+                  <p class="muted small">
+                    Signals and companion artifacts to verify when this term
+                    shows up.
+                  </p>
                   <ul class="muted">
                     {presenceChecks.map((term) => (
                       <li>
@@ -293,6 +361,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               {missingExpectations.length > 0 && (
                 <div id="missing-expectations" class="glossary-entry__check">
                   <p class="eyebrow">If this is missing, expect</p>
+                  <p class="muted small">
+                    Outcomes to watch for when this capability is absent.
+                  </p>
                   <ul class="muted">
                     {missingExpectations.map((term) => (
                       <li>
@@ -344,14 +415,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </section>
       </div>
       <aside class="glossary-entry__sidebar">
-        <section id="operational-tests" class="glossary-entry__section">
-          <p class="eyebrow">Operational tests</p>
-          <ul class="muted">
-            {operationalTests.map((test) => (
-              <li>{test}</li>
-            ))}
-          </ul>
-        </section>
+        {operationalTests.length > 0 && (
+          <section id="operational-tests" class="glossary-entry__section">
+            <p class="eyebrow">Operational tests</p>
+            <ul class="muted">
+              {operationalTests.map((test) => (
+                <li>{test}</li>
+              ))}
+            </ul>
+          </section>
+        )}
         {
           commonCounterfeits.length > 0 && (
             <section id="common-counterfeits" class="glossary-entry__section">
@@ -364,35 +437,29 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </section>
           )
         }
-        <section id="minimum-evidence" class="glossary-entry__section">
-          <p class="eyebrow">Minimum evidence</p>
-          <ul class="muted">
-            <li>
-              <strong>Artifact:</strong> {minimumEvidence.artifact}
-            </li>
-            <li>
-              <strong>Behavior:</strong> {minimumEvidence.behavior}
-            </li>
-            <li>
-              <strong>Metric:</strong> {minimumEvidence.metric}
-            </li>
-            <li>
-              <strong>Metric definition:</strong> {minimumEvidence.definition}
-            </li>
-            <li>
-              <strong>Metric unit:</strong> {minimumEvidence.unit}
-            </li>
-            <li>
-              <strong>Data source:</strong> {minimumEvidence.dataSource}
-            </li>
-            <li>
-              <strong>Calculation:</strong> {minimumEvidence.calculation}
-            </li>
-            <li>
-              <strong>Threshold:</strong> {minimumEvidence.threshold}
-            </li>
-          </ul>
-        </section>
+        {showMinimumEvidence && (
+          <section id="minimum-evidence" class="glossary-entry__section">
+            <p class="eyebrow">Minimum evidence</p>
+            <ul class="muted">
+              {minimumEvidenceItems.map((item) => (
+                <li>
+                  <strong>{item.label}:</strong> {item.value}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {missingMetadata.length > 0 && (
+          <div class="callout">
+            <p class="eyebrow">Entry completeness</p>
+            <h3>Additional term details are in progress.</h3>
+            <ul class="muted">
+              {missingMetadata.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {
           relatedPatterns.length > 0 && (
             <section
