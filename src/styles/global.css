@@ -3420,6 +3420,70 @@
   gap: var(--space-3);
 }
 
+.glossary-entry--detail {
+  padding: clamp(1.5rem, 2vw + 1rem, 2.25rem);
+  gap: var(--space-4);
+}
+
+.glossary-entry__hero {
+  display: grid;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-3);
+}
+
+.glossary-entry__meta {
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.glossary-entry__meta-item {
+  margin: 0;
+  padding-left: var(--space-2);
+  border-left: 2px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent);
+}
+
+.glossary-entry__meta-item dd {
+  margin: 0.3rem 0 0;
+}
+
+.glossary-entry__layout {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.glossary-entry__main {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.glossary-entry__section {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.glossary-entry__section--checks {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+}
+
+.glossary-entry__check {
+  padding-left: var(--space-2);
+  border-left: 2px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent);
+}
+
+.glossary-entry__sidebar {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.glossary-entry__section--patterns {
+  display: grid;
+  gap: var(--space-2);
+}
+
 .glossary-territory__count {
   font-size: var(--font-size-sm);
   color: var(--color-foreground-subtle);
@@ -3586,6 +3650,23 @@
 
 .glossary-entry__patterns-hint {
   margin: 0;
+}
+
+@media (min-width: 900px) {
+  .glossary-entry__hero {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+  }
+
+  .glossary-entry__layout {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+  }
+
+  .glossary-entry__sidebar {
+    position: sticky;
+    top: var(--space-4);
+  }
 }
 
 .glossary__cta {

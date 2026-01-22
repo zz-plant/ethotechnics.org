@@ -221,158 +221,172 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   />
 
   <article
-    class="glossary-entry"
+    class="glossary-entry glossary-entry--detail"
     itemscope
     itemtype="https://schema.org/DefinedTerm"
   >
     <meta itemprop="name" content={entry.title} />
     <meta itemprop="url" content={pageUrl} />
     <meta itemprop="inDefinedTermSet" content={glossaryUrl} />
-    <div id="definition" class="glossary-entry__block">
-      <p class="eyebrow">Definition</p>
-      <div
-        class="glossary-entry__body"
-        set:html={entry.bodyHtml}
-        itemprop="description"
-      />
-    </div>
-    <div id="scope" class="glossary-entry__block">
-      <p class="eyebrow">Scope</p>
-      <p class="muted">{scopeText}</p>
-    </div>
-    {
-      adjacentTerms.length > 0 && (
-        <div id="adjacent-terms" class="glossary-entry__block">
-          <p class="eyebrow">Adjacent terms</p>
-          <div class="pill-row">
-            {adjacentTerms.map((term) => (
-              <a
-                class="pill pill--muted"
-                href={glossaryEntryPermalink(term)}
-                itemprop="keywords"
-              >
-                {entryLabelIndex.get(term) ?? term}
-              </a>
-            ))}
-          </div>
-        </div>
-      )
-    }
-    {
-      (presenceChecks.length > 0 || missingExpectations.length > 0) && (
-        <div class="glossary-entry__block">
-          {presenceChecks.length > 0 && (
-            <div id="presence-checks">
-              <p class="eyebrow">If this is present, check for</p>
-              <ul class="muted">
-                {presenceChecks.map((term) => (
-                  <li>
-                    <a href={glossaryEntryPermalink(term)}>
-                      {entryLabelIndex.get(term) ?? term}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {missingExpectations.length > 0 && (
-            <div id="missing-expectations">
-              <p class="eyebrow">If this is missing, expect</p>
-              <ul class="muted">
-                {missingExpectations.map((term) => (
-                  <li>
-                    <a href={glossaryEntryPermalink(term)}>
-                      {entryLabelIndex.get(term) ?? term}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      )
-    }
-    <div id="operational-tests" class="glossary-entry__block">
-      <p class="eyebrow">Operational tests</p>
-      <ul class="muted">
-        {operationalTests.map((test) => <li>{test}</li>)}
-      </ul>
-    </div>
-    <div id="minimum-evidence" class="glossary-entry__block">
-      <p class="eyebrow">Minimum evidence</p>
-      <ul class="muted">
-        <li>
-          <strong>Artifact:</strong> {minimumEvidence.artifact}
-        </li>
-        <li>
-          <strong>Behavior:</strong> {minimumEvidence.behavior}
-        </li>
-        <li>
-          <strong>Metric:</strong> {minimumEvidence.metric}
-        </li>
-      </ul>
-    </div>
-    <div id="genealogy" class="glossary-entry__block">
-      <p class="eyebrow">Genealogy</p>
-      <p class="muted">{genealogy}</p>
-    </div>
-    {
-      relatedPatterns.length > 0 && (
+    <header id="definition" class="glossary-entry__hero">
+      <div class="glossary-entry__hero-copy">
+        <p class="eyebrow">Definition</p>
         <div
-          id="related-mechanisms"
-          class="glossary-entry__block glossary-entry__block--patterns"
-        >
-          <p class="eyebrow">Related mechanisms</p>
-          <ul class="glossary-entry__patterns-list">
-            {relatedPatterns.map((relatedPattern) => (
-              <li class="glossary-entry__pattern-card">
-                <a
-                  class="glossary-entry__pattern-link"
-                  href={relatedPattern.href}
-                >
-                  <span class="glossary-entry__pattern-title">
-                    {relatedPattern.title}
-                  </span>
-                  <span class="muted small">
-                    {relatedPattern.filterLabels.join(", ")}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p class="muted small glossary-entry__patterns-hint">
-            See the full mechanisms catalog.
-          </p>
+          class="glossary-entry__body"
+          set:html={entry.bodyHtml}
+          itemprop="description"
+        />
+      </div>
+      <dl class="glossary-entry__meta">
+        <div id="scope" class="glossary-entry__meta-item">
+          <dt class="eyebrow">Scope</dt>
+          <dd class="muted">{scopeText}</dd>
         </div>
-      )
-    }
-    {
-      entry.examples && entry.examples.length > 0 && (
-        <div id="example-corpus" class="glossary-entry__block">
-          <p class="eyebrow">Example corpus</p>
+        <div id="genealogy" class="glossary-entry__meta-item">
+          <dt class="eyebrow">Genealogy</dt>
+          <dd class="muted">{genealogy}</dd>
+        </div>
+      </dl>
+    </header>
+    <div class="glossary-entry__layout">
+      <div class="glossary-entry__main">
+        {
+          adjacentTerms.length > 0 && (
+            <section id="adjacent-terms" class="glossary-entry__section">
+              <p class="eyebrow">Adjacent terms</p>
+              <div class="pill-row">
+                {adjacentTerms.map((term) => (
+                  <a
+                    class="pill pill--muted"
+                    href={glossaryEntryPermalink(term)}
+                    itemprop="keywords"
+                  >
+                    {entryLabelIndex.get(term) ?? term}
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
+        {
+          (presenceChecks.length > 0 || missingExpectations.length > 0) && (
+            <section class="glossary-entry__section glossary-entry__section--checks">
+              {presenceChecks.length > 0 && (
+                <div id="presence-checks" class="glossary-entry__check">
+                  <p class="eyebrow">If this is present, check for</p>
+                  <ul class="muted">
+                    {presenceChecks.map((term) => (
+                      <li>
+                        <a href={glossaryEntryPermalink(term)}>
+                          {entryLabelIndex.get(term) ?? term}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {missingExpectations.length > 0 && (
+                <div id="missing-expectations" class="glossary-entry__check">
+                  <p class="eyebrow">If this is missing, expect</p>
+                  <ul class="muted">
+                    {missingExpectations.map((term) => (
+                      <li>
+                        <a href={glossaryEntryPermalink(term)}>
+                          {entryLabelIndex.get(term) ?? term}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          )
+        }
+        {
+          entry.examples && entry.examples.length > 0 && (
+            <section id="example-corpus" class="glossary-entry__section">
+              <p class="eyebrow">Example corpus</p>
+              <ul class="muted">
+                {entry.examples.map((example) => (
+                  <li>{example}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+        {
+          references.length > 0 && (
+            <section id="references" class="glossary-entry__section">
+              <p class="eyebrow">References</p>
+              <ul class="muted glossary-entry__resources">
+                {references.map((resource) => (
+                  <li>
+                    <a href={resource.href}>{resource.label}</a>
+                    {resource.type && (
+                      <span class="muted"> · {resource.type}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </div>
+      <aside class="glossary-entry__sidebar">
+        <section id="operational-tests" class="glossary-entry__section">
+          <p class="eyebrow">Operational tests</p>
           <ul class="muted">
-            {entry.examples.map((example) => (
-              <li>{example}</li>
+            {operationalTests.map((test) => (
+              <li>{test}</li>
             ))}
           </ul>
-        </div>
-      )
-    }
-    {
-      references.length > 0 && (
-        <div id="references" class="glossary-entry__block">
-          <p class="eyebrow">References</p>
-          <ul class="muted glossary-entry__resources">
-            {references.map((resource) => (
-              <li>
-                <a href={resource.href}>{resource.label}</a>
-                {resource.type && <span class="muted"> · {resource.type}</span>}
-              </li>
-            ))}
+        </section>
+        <section id="minimum-evidence" class="glossary-entry__section">
+          <p class="eyebrow">Minimum evidence</p>
+          <ul class="muted">
+            <li>
+              <strong>Artifact:</strong> {minimumEvidence.artifact}
+            </li>
+            <li>
+              <strong>Behavior:</strong> {minimumEvidence.behavior}
+            </li>
+            <li>
+              <strong>Metric:</strong> {minimumEvidence.metric}
+            </li>
           </ul>
-        </div>
-      )
-    }
+        </section>
+        {
+          relatedPatterns.length > 0 && (
+            <section
+              id="related-mechanisms"
+              class="glossary-entry__section glossary-entry__section--patterns"
+            >
+              <p class="eyebrow">Related mechanisms</p>
+              <ul class="glossary-entry__patterns-list">
+                {relatedPatterns.map((relatedPattern) => (
+                  <li class="glossary-entry__pattern-card">
+                    <a
+                      class="glossary-entry__pattern-link"
+                      href={relatedPattern.href}
+                    >
+                      <span class="glossary-entry__pattern-title">
+                        {relatedPattern.title}
+                      </span>
+                      <span class="muted small">
+                        {relatedPattern.filterLabels.join(", ")}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p class="muted small glossary-entry__patterns-hint">
+                See the full mechanisms catalog.
+              </p>
+            </section>
+          )
+        }
+      </aside>
+    </div>
   </article>
 
   <script type="application/ld+json" set:html={structuredDataJson} is:inline />
