@@ -552,6 +552,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["F. Burden & load"],
   },
   {
+    slug: "burden-ceiling",
+    term: "Burden Ceiling",
+    definition:
+      "The maximum allowable procedural burden a system can impose on someone seeking safety, correction, or relief. Ceilings are defined per harm class and enforced through UI, staffing, and policy.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
     slug: "asymmetric-sustaining",
     term: "Asymmetric Sustaining",
     definition:
@@ -619,6 +626,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Irreversibility Index",
     definition:
       "The share of system actions that cannot be undone. Aim to keep this as low as possible through reversibility and graceful degradation .",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "irreversibility-budget",
+    term: "Irreversibility Budget",
+    definition:
+      "A predefined cap on the share of actions allowed to be effectively irreversible in a given system or workflow class. Budgets force designers to minimize irreversible boundaries and build rollback lanes for everything else.",
     appliesTo: ["G. Measures & indicators"],
   },
   {

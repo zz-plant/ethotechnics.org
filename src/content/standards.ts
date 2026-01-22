@@ -84,6 +84,17 @@ export const standardsContent: StandardsContent = {
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-01-01",
     },
+    {
+      id: "STD-03",
+      slug: "std-03-justice-slos",
+      title: "Justice SLOs (Targets, Budgets, and Breach Actions)",
+      description:
+        "Defines targets, budgets, and breach actions for justice metrics.",
+      status: "Draft for Review",
+      version: "0.6",
+      effectiveDate: "TBD (proposed 2026)",
+      published: "2026-01-01",
+    },
   ],
   doctrine: [
     {

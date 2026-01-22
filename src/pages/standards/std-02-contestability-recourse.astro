@@ -124,6 +124,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   title="STD-02 — The Contestability & Recourse Standard"
   description="The draft standard defining contestability, review, and remedy obligations for automated systems."
   mainClass="page page--wide standard-document"
+  enableGlossaryHighlights={false}
 >
   <article class="standard-document">
     <header class="standard-header">
@@ -161,15 +162,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             A compact summary of the core obligations, modeled on STD-01’s
             “Seven rights at a glance.”
           </p>
-          <ol class="standard-clauses">
+          <dl class="standard-definitions">
             {
               obligations.map((obligation) => (
-                <li>
-                  <strong>{obligation.title}</strong> — {obligation.summary}
-                </li>
+                <div>
+                  <dt>{obligation.title}</dt>
+                  <dd>{obligation.summary}</dd>
+                </div>
               ))
             }
-          </ol>
+          </dl>
         </section>
 
         <section class="standard-section">
@@ -178,18 +180,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             Share these quick explainers when implementing contestability
             workflows.
           </p>
-          <ul class="standard-clauses">
+          <div class="grid grid--two">
             {
               explainerLinks.map((explainer) => (
-                <li>
-                  <strong>
-                    <a href={explainer.href}>{explainer.title}</a>
-                  </strong>{" "}
-                  — {explainer.description}
-                </li>
+                <article class="panel">
+                  <p class="eyebrow">Explainer</p>
+                  <p>
+                    <strong>
+                      <a href={explainer.href}>{explainer.title}</a>
+                    </strong>
+                  </p>
+                  <p class="muted">{explainer.description}</p>
+                </article>
               ))
             }
-          </ul>
+          </div>
         </section>
 
         <section class="standard-section">

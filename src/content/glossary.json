@@ -2100,6 +2100,26 @@
             }
           },
           {
+            "id": "burden-ceiling",
+            "title": "Burden Ceiling",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A maximum allowable procedural burden a system may impose on a user to obtain baseline safety, correction, or relief—defined per harm class and enforced through UI, staffing, and policy. Burden ceilings bind the <a href=\"#user-burden-ratio\">user burden ratio</a> and activate <a href=\"#burden-inversion-rule\">burden inversion</a> when crossed.</p>",
+            "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
+            "operationalTests": [
+              "A ceiling exists per workflow (for example, appeal submission must take \u226410 minutes, \u22645 steps, \u22642 documents).",
+              "The <a href=\"#user-burden-ratio\">User Burden Ratio</a> is tracked and must remain below the ceiling.",
+              "When exceeded, the system shifts to burden inversion (system does the work first) and/or offers staffed alternatives."
+            ],
+            "genealogy": "Ethotechnics uses Burden Ceiling to extend the f. burden & load vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Burden Ceiling is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Burden Ceiling in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Burden Ceiling performance over time."
+            }
+          },
+          {
             "id": "evidence-recycling",
             "title": "Evidence Recycling",
             "status": null,
@@ -2211,7 +2231,7 @@
             "classes": [
               "glossary-entry--diagram"
             ],
-            "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it—an essential complement to <a href=\"#stoppability\">stoppability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-time-to-halt\"></use>\n                          </svg>\n                        </figure>",
+            "bodyHtml": "<p>Seconds between a harmful process beginning and the system stopping it—an essential complement to <a href=\"#stoppability\">stoppability</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-time-to-halt\"></use>\n                          </svg>\n                        </figure>\n                        <p><strong>Targets.</strong> <strong>Typical targets:</strong> p95 halt within seconds for automated enforcement, minutes for human-in-loop queues. <strong>Target selection guidance:</strong> tie to harm windows, irreversibility boundaries, and utility expiry by class. <strong>Breach behavior:</strong> trigger a safe pause or <a href=\"#ethical-circuit-breakers\">ethical circuit breaker</a> with escalation.</p>",
             "relatedPatterns": [
               "kill-switch"
             ],
@@ -2233,7 +2253,7 @@
             "title": "Time-to-Restore (TTR)",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How long it takes to reverse harm and return a person to their prior state. Low TTR is a signal of effective <a href=\"#reversibility\">reversibility</a>.</p>",
+            "bodyHtml": "<p>How long it takes to reverse harm and return a person to their prior state. Low TTR is a signal of effective <a href=\"#reversibility\">reversibility</a>.</p><p><strong>Targets.</strong> <strong>Typical targets:</strong> restore access within hours for access loss, within days for benefit corrections, immediate for safety-critical reversals. <strong>Target selection guidance:</strong> align with utility windows, irreversibility boundaries, and harm class severity. <strong>Breach behavior:</strong> activate <a href=\"#graceful-rollback-lanes\">rollback lanes</a> or staffed remediation until restoration is complete.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect time-to-restore (ttr).",
@@ -2252,7 +2272,7 @@
             "title": "Appeal Passage Rate",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The percentage of appeals resolved <em>in favor of the user</em>, a leading indicator of true <a href=\"#contestability\">contestability</a>.</p>",
+            "bodyHtml": "<p>The percentage of appeals resolved <em>in favor of the user</em>, a leading indicator of true <a href=\"#contestability\">contestability</a>.</p><p><strong>Targets.</strong> <strong>Typical targets:</strong> maintain non-zero correction floors by harm class (for example, \u22655\u201315% for high-impact decisions), with higher expected rates after policy changes. <strong>Target selection guidance:</strong> tie to known error rates, contestability debt, and appeal volume. <strong>Breach behavior:</strong> trigger decision-rule audits, staffing surges, and pause automation in the affected class.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect appeal passage rate.",
@@ -2271,7 +2291,7 @@
             "title": "Irreversibility Index",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The share of system actions that cannot be undone. Aim to keep this as low as possible through <a href=\"#reversibility\">reversibility</a> and <a href=\"#graceful-degradation\">graceful degradation</a>.</p>",
+            "bodyHtml": "<p>The share of system actions that cannot be undone. Aim to keep this as low as possible through <a href=\"#reversibility\">reversibility</a> and <a href=\"#graceful-degradation\">graceful degradation</a>.</p><p><strong>Targets.</strong> <strong>Typical targets:</strong> keep irreversible actions under 1% for critical workflows and under 5% for standard flows (set locally). <strong>Target selection guidance:</strong> map irreversibility boundaries and compare to the <a href=\"#irreversibility-budget\">irreversibility budget</a> by class. <strong>Breach behavior:</strong> invoke <a href=\"#ethical-circuit-breakers\">ethical circuit breakers</a> and require rollback lane activation or redesign.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect irreversibility index.",
@@ -2286,11 +2306,31 @@
             }
           },
           {
+            "id": "irreversibility-budget",
+            "title": "Irreversibility Budget",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A predefined cap on the share of actions allowed to be effectively irreversible in a given system or workflow class. Budgets force designers to minimize irreversible boundaries and build <a href=\"#graceful-rollback-lanes\">rollback lanes</a> for everything else.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "A documented budget exists per critical-action class (for example, account closures or benefit terminations).",
+              "The <a href=\"#irreversibility-index\">Irreversibility Index</a> is measured continuously and compared to the budget.",
+              "Budget breaches trigger an <a href=\"#ethical-circuit-breakers\">ethical circuit breaker</a> (pause, rollback, or escalation), not a retrospective."
+            ],
+            "genealogy": "Ethotechnics uses Irreversibility Budget to extend the g. measures & indicators vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Irreversibility Budget is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Irreversibility Budget in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Irreversibility Budget performance over time."
+            }
+          },
+          {
             "id": "user-burden-ratio",
             "title": "User Burden Ratio",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>How much work a user must perform to correct or navigate system errors. This metric feeds directly into <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p>",
+            "bodyHtml": "<p>How much work a user must perform to correct or navigate system errors. This metric feeds directly into <a href=\"#fair-burden-distribution\">fair burden distribution</a>.</p><p><strong>Targets.</strong> <strong>Typical targets:</strong> appeal or correction flows \u226410 minutes, \u22645 steps, \u22642 documents; ratio stays below the <a href=\"#burden-ceiling\">burden ceiling</a>. <strong>Target selection guidance:</strong> tie to utility windows, harm classes, and accessibility constraints. <strong>Breach behavior:</strong> switch to <a href=\"#burden-inversion-rule\">burden inversion</a> with staffed alternatives.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect user burden ratio.",
