@@ -178,6 +178,13 @@ export const getGlossaryEntriesForApi = () =>
           heading: category.heading,
         },
         tags: entry.tags ?? [],
+        domains: entry.domains ?? [],
+        scale: entry.scale ?? null,
+        phase: entry.phase ?? [],
+        measurability: entry.measurability ?? null,
+        maturity: entry.maturity ?? null,
+        clusters: entry.clusters ?? [],
+        legacy_territory: entry.legacyTerritory ?? category.id,
         minimum_evidence: {
           artifact: minimumEvidence.artifact,
           behavior: minimumEvidence.behavior,

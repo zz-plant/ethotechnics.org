@@ -21,9 +21,13 @@ export const buildGlossaryEntrySearchText = (
 ): string => {
   const plainDescription = stripHtml(entry.bodyHtml);
   const tags = entry.tags?.join(" ") ?? "";
+  const domains = entry.domains?.join(" ") ?? "";
+  const phases = entry.phase?.join(" ") ?? "";
+  const measurability = entry.measurability ?? "";
+  const maturity = entry.maturity ?? "";
   const examples = entry.examples?.join(" ") ?? "";
   const searchText =
-    `${entry.title} ${categoryLabel} ${plainDescription} ${tags} ${examples}`.trim();
+    `${entry.title} ${categoryLabel} ${plainDescription} ${tags} ${domains} ${phases} ${measurability} ${maturity} ${examples}`.trim();
 
   return searchText.toLowerCase();
 };

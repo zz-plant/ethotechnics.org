@@ -183,6 +183,34 @@ const glossaryEntrySchema = z.object({
   status: z.string().nullable(),
   classes: z.array(z.string()).optional(),
   bodyHtml: z.string(),
+  domains: z
+    .array(
+      z.enum([
+        "temporal",
+        "visibility",
+        "agency",
+        "burden",
+        "patterns",
+        "measurable",
+        "structural",
+        "diagnostic",
+      ]),
+    )
+    .optional(),
+  scale: z.enum(["individual", "organizational", "systemic"]).nullable().optional(),
+  phase: z
+    .array(z.enum(["design", "deployment", "audit", "repair"]))
+    .optional(),
+  measurability: z
+    .enum(["qualitative", "semi_quantitative", "fully_measurable"])
+    .nullable()
+    .optional(),
+  maturity: z
+    .enum(["core_concept", "active_research", "speculative"])
+    .nullable()
+    .optional(),
+  clusters: z.array(z.string()).optional(),
+  legacyTerritory: z.string().optional(),
   termUpdated: z.string().optional(),
   termVersion: z.string().optional(),
   termChangelog: z.string().optional(),
