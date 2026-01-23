@@ -253,45 +253,89 @@ const StageCard = ({
   </article>
 );
 
-const CommunicationTable = ({ template }: { template: ScenarioTemplate }) => (
-  <div className="simulator__card" aria-labelledby="communications-title">
-    <div className="simulator__card-header">
-      <div>
-        <p className="eyebrow">Communications</p>
-        <h3 id="communications-title">Keep communications on cadence</h3>
-        <p className="muted">
-          Pair each status update with the owner roster and how to appeal. Reuse
-          these templates to keep teams aligned during the run.
-        </p>
-      </div>
-    </div>
-    <div
-      className="simulator__table"
-      role="table"
-      aria-label="Communication templates"
-    >
-      <div
-        className="simulator__table-row simulator__table-row--header"
-        role="row"
-      >
-        <div role="columnheader">Audience</div>
-        <div role="columnheader">Trigger</div>
-        <div role="columnheader">Message</div>
-      </div>
-      {template.communications.map((communication) => (
-        <div
-          key={communication.trigger + communication.audience}
-          className="simulator__table-row"
-          role="row"
-        >
-          <div role="cell">{communication.audience}</div>
-          <div role="cell">{communication.trigger}</div>
-          <div role="cell">{communication.message}</div>
+const CommunicationTable = ({ template }: { template: ScenarioTemplate }) => {
+  const handleCopyMessage = (message: string) => {
+    if (typeof navigator === "undefined") return;
+    if (navigator.clipboard?.writeText) {
+      void navigator.clipboard.writeText(message);
+      return;
+    }
+    const textarea = document.createElement("textarea");
+    textarea.value = message;
+    textarea.setAttribute("readonly", "true");
+    textarea.style.position = "absolute";
+    textarea.style.left = "-9999px";
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+  };
+
+  return (
+    <div className="simulator__card" aria-labelledby="communications-title">
+      <div className="simulator__card-header">
+        <div>
+          <p className="eyebrow">Communications</p>
+          <h3 id="communications-title">Keep communications on cadence</h3>
+          <p className="muted">
+            Pair each status update with the owner roster and how to appeal.
+            Reuse these templates to keep teams aligned during the run.
+          </p>
         </div>
-      ))}
+      </div>
+      <table className="simulator__table" aria-label="Communication templates">
+        <thead>
+          <tr>
+            <th scope="col">Audience</th>
+            <th scope="col">Trigger</th>
+            <th scope="col">Message</th>
+            <th scope="col">Copy</th>
+          </tr>
+        </thead>
+        <tbody>
+          {template.communications.map((communication) => (
+            <tr key={communication.trigger + communication.audience}>
+              <td>
+                <div className="simulator__table-cell">
+                  <span className="simulator__table-label">Audience</span>
+                  <span className="simulator__table-value">
+                    {communication.audience}
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div className="simulator__table-cell">
+                  <span className="simulator__table-label">Trigger</span>
+                  <span className="simulator__table-value">
+                    {communication.trigger}
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div className="simulator__table-cell">
+                  <span className="simulator__table-label">Message</span>
+                  <span className="simulator__table-message">
+                    {communication.message}
+                  </span>
+                </div>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  className="simulator__copy-button"
+                  onClick={() => handleCopyMessage(communication.message)}
+                  aria-label={`Copy message for ${communication.audience}`}
+                >
+                  Copy message
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-  </div>
-);
+  );
+};
 
 const CoverageControls = ({
   coverage,

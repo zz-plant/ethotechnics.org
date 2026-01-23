@@ -189,23 +189,81 @@
 }
 
 .simulator__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+
+.simulator__table thead th {
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 0.5rem 0.35rem;
+  color: var(--text-subtle);
+}
+
+.simulator__table tbody tr {
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px var(--color-border-subtle);
+}
+
+.simulator__table tbody td {
+  padding: 0.75rem 0.9rem;
+  vertical-align: top;
+}
+
+.simulator__table tbody td:first-child {
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
+
+.simulator__table tbody td:last-child {
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+.simulator__table-cell {
   display: grid;
   gap: 0.35rem;
 }
 
-.simulator__table-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.5rem;
-  padding: 0.75rem;
-  border-radius: 0.75rem;
-  background: var(--panel);
+.simulator__table-label {
+  display: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
 }
 
-.simulator__table-row--header {
+.simulator__table-value {
   font-weight: 700;
-  background: transparent;
-  padding: 0.35rem 0.5rem;
+}
+
+.simulator__table-message {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.simulator__copy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.simulator__copy-button:hover,
+.simulator__copy-button:focus-visible {
+  border-color: var(--border);
 }
 
 .simulator__card--stage ul {
@@ -219,6 +277,39 @@
 
   .simulator__grid {
     grid-template-columns: 1fr;
+  }
+
+  .simulator__table {
+    border-spacing: 0 0.75rem;
+  }
+
+  .simulator__table thead {
+    display: none;
+  }
+
+  .simulator__table tbody tr {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.85rem;
+  }
+
+  .simulator__table tbody td {
+    padding: 0;
+  }
+
+  .simulator__table tbody td:first-child,
+  .simulator__table tbody td:last-child {
+    border-radius: 0;
+  }
+
+  .simulator__table-label {
+    display: inline-block;
+  }
+
+  .simulator__copy-button {
+    width: 100%;
+    justify-content: center;
   }
 }
 
