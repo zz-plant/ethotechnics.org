@@ -1,9 +1,10 @@
 ---
 import Logo from "./Logo.astro";
+import NavSectionList from "./NavSectionList.astro";
 import Search from "./Search.astro";
 import NavUtilityLinks from "./NavUtilityLinks.astro";
 import Wordmark from "./Wordmark.astro";
-import { navPrimaryLinks } from "../content/navigation";
+import { navPrimaryLinks, navSections } from "../content/navigation";
 import type { NavLink } from "../content/navigation";
 
 interface Props {
@@ -42,6 +43,7 @@ const desktopPrimaryLabels = ["Library", "Diagnostics", "Institute"];
 const desktopLinks = desktopPrimaryLabels
   .map((label) => navPrimaryLinks.find((link) => link.label === label))
   .filter((link): link is NavLink => Boolean(link));
+const desktopExploreId = "desktop-explore-panel";
 ---
 
 <nav class="nav" aria-label="Primary" data-nav>
@@ -80,6 +82,51 @@ const desktopLinks = desktopPrimaryLabels
         }
       </div>
 
+      <div class="nav__explore">
+        <button
+          class="nav__explore-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls={desktopExploreId}
+          aria-haspopup="dialog"
+          data-explore-toggle
+        >
+          <span class="nav__explore-toggle-label">Explore</span>
+          <span class="nav__explore-toggle-icon" aria-hidden="true">↗</span>
+        </button>
+        <dialog
+          class="nav__explore-panel"
+          id={desktopExploreId}
+          aria-labelledby="desktop-explore-title"
+          data-explore-dialog
+        >
+          <div class="nav__explore-panel-inner">
+            <div class="nav__explore-header">
+              <div class="nav__explore-title">
+                <p class="eyebrow" id="desktop-explore-title">
+                  Explore
+                </p>
+                <p class="muted">Browse every section in one place.</p>
+              </div>
+              <button
+                class="nav__explore-close"
+                type="button"
+                data-explore-close
+              >
+                Close
+              </button>
+            </div>
+            <div class="nav__explore-grid">
+              <NavSectionList
+                sections={navSections}
+                currentPath={currentPath}
+                class="nav__section--explore"
+              />
+            </div>
+          </div>
+        </dialog>
+      </div>
+
       <div class="nav__utility nav__utility--desktop">
         <NavUtilityLinks currentPath={currentPath} />
       </div>
@@ -116,6 +163,58 @@ const desktopLinks = desktopPrimaryLabels
 
   </div>
 </nav>
+
+<script is:inline>
+  const nav = document.querySelector("[data-nav]");
+  if (nav) {
+    const exploreToggle = nav.querySelector("[data-explore-toggle]");
+    const exploreDialog = nav.querySelector("[data-explore-dialog]");
+    const exploreClose = nav.querySelector("[data-explore-close]");
+    if (exploreDialog instanceof HTMLDialogElement && exploreToggle) {
+      let lastFocused = null;
+      const openDialog = () => {
+        lastFocused = document.activeElement;
+        exploreDialog.showModal();
+        exploreToggle.setAttribute("aria-expanded", "true");
+        requestAnimationFrame(() => {
+          if (exploreClose instanceof HTMLElement) {
+            exploreClose.focus();
+          }
+        });
+      };
+      const closeDialog = () => {
+        if (exploreDialog.open) {
+          exploreDialog.close();
+        }
+      };
+
+      exploreToggle.addEventListener("click", () => {
+        if (exploreDialog.open) {
+          closeDialog();
+          return;
+        }
+        openDialog();
+      });
+
+      if (exploreClose instanceof HTMLElement) {
+        exploreClose.addEventListener("click", closeDialog);
+      }
+
+      exploreDialog.addEventListener("click", (event) => {
+        if (event.target === exploreDialog) {
+          closeDialog();
+        }
+      });
+
+      exploreDialog.addEventListener("close", () => {
+        exploreToggle.setAttribute("aria-expanded", "false");
+        if (lastFocused instanceof HTMLElement) {
+          lastFocused.focus();
+        }
+      });
+    }
+  }
+</script>
 
 <style>
   .nav {
@@ -459,6 +558,142 @@ const desktopLinks = desktopPrimaryLabels
     display: none;
   }
 
+  .nav__explore {
+    display: none;
+    align-items: center;
+    position: relative;
+  }
+
+  .nav__explore-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    min-height: 44px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    background: color-mix(in srgb, var(--surface) 94%, white 6%);
+    font-weight: 700;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      background 0.15s ease;
+  }
+
+  .nav__explore-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    color: var(--accent-strong);
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  .nav__explore-toggle:hover,
+  .nav__explore-toggle:focus-visible {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+    box-shadow: var(--shadow-xs);
+  }
+
+  .nav__explore-toggle:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 2px;
+    box-shadow:
+      var(--shadow-xs),
+      0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+
+  .nav__explore-panel {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 18px;
+    width: min(1100px, 92vw);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    box-shadow: 0 30px 60px rgba(41, 34, 25, 0.2);
+    position: fixed;
+    top: 5.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav__explore-panel::backdrop {
+    background: rgba(30, 24, 18, 0.5);
+  }
+
+  .nav__explore-panel-inner {
+    display: grid;
+    gap: 1.2rem;
+    padding: 1.4rem 1.4rem 1.6rem;
+    max-height: min(70vh, 760px);
+    overflow: auto;
+  }
+
+  .nav__explore-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .nav__explore-title {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .nav__explore-title .eyebrow,
+  .nav__explore-title .muted {
+    margin: 0;
+  }
+
+  .nav__explore-close {
+    padding: 0.45rem 0.8rem;
+    min-height: 40px;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    background: color-mix(in srgb, var(--surface) 94%, white 6%);
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .nav__explore-close:hover,
+  .nav__explore-close:focus-visible {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+    box-shadow: var(--shadow-xs);
+  }
+
+  .nav__explore-close:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 2px;
+    box-shadow:
+      var(--shadow-xs),
+      0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+
+  .nav__explore-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .nav__section--explore {
+    background: color-mix(in srgb, var(--panel) 95%, white 5%);
+  }
+
   .nav__link {
     display: inline-flex;
     align-items: center;
@@ -696,6 +931,10 @@ const desktopLinks = desktopPrimaryLabels
     }
 
     .nav__links--desktop {
+      display: inline-flex;
+    }
+
+    .nav__explore {
       display: inline-flex;
     }
 
