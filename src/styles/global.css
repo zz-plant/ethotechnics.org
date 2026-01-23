@@ -4239,6 +4239,38 @@
   background: color-mix(in srgb, var(--surface) 94%, white 6%);
 }
 
+.rights-matrix__filters {
+  margin-bottom: var(--space-4);
+}
+
+.rights-matrix__jump {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.rights-matrix__row.is-dimmed {
+  opacity: 0.35;
+}
+
+.rights-matrix__row.is-highlighted td {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
+@media print {
+  .rights-matrix__filters {
+    display: none;
+  }
+
+  .rights-matrix__row.is-dimmed,
+  .rights-matrix__row.is-highlighted {
+    opacity: 1;
+  }
+
+  .rights-matrix__row.is-highlighted td {
+    background: transparent;
+  }
+}
+
 @media (max-width: 720px) {
   .mapping-table--compare {
     min-width: 100%;
