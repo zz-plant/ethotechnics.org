@@ -3818,6 +3818,72 @@
   margin: 0;
 }
 
+@media (max-width: 720px) {
+  .glossary-filter {
+    gap: var(--space-3);
+  }
+
+  .glossary-filter__controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+    align-items: stretch;
+  }
+
+  .glossary-filter__label,
+  .glossary-filter input[type="search"] {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .glossary-filter__tabs {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: var(--space-2);
+    overflow-x: auto;
+    padding-bottom: var(--space-1);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .glossary-filter__tab {
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
+  .glossary-filter__actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-2);
+    align-items: stretch;
+  }
+
+  .glossary-filter__actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .glossary-index {
+    grid-template-columns: 1fr;
+  }
+
+  .glossary-entry__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .glossary-entry__actions,
+  .glossary-entry__citation-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .glossary-entry__citation-buttons .copy-button {
+    flex: 1 1 170px;
+  }
+}
+
 @media (min-width: 900px) {
   .glossary-entry__hero {
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
