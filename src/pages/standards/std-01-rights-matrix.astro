@@ -15,6 +15,12 @@ const anchorLinks = [
   { href: "#citations", label: "Citations" },
 ];
 
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
 const publication = {
   authors: [
     {
@@ -130,6 +136,33 @@ const matrix = [
     notes: "Publish time tax metrics and bind remediation to logged decisions.",
   },
 ];
+
+const rights = matrix.map((row) => {
+  const slug = slugify(row.right);
+  return {
+    label: row.right,
+    slug,
+    id: `right-${slug}`,
+  };
+});
+
+type MatrixEntry = {
+  label: string;
+  href: string;
+};
+
+const collectUnique = (entries: MatrixEntry[]) => {
+  const seen = new Map<string, MatrixEntry>();
+  entries.forEach((entry) => {
+    if (!seen.has(entry.label)) {
+      seen.set(entry.label, entry);
+    }
+  });
+  return Array.from(seen.values());
+};
+
+const validators = collectUnique(matrix.flatMap((row) => row.validators));
+const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
 ---
 
 <BaseLayout title={`${pageTitle} — Standards`} description={pageDescription} mainClass="page page--wide">
@@ -180,6 +213,67 @@ const matrix = [
     title="STD-01 rights mapped to validators and mechanisms."
     description="Each row lists the validator coverage and enforcement mechanisms typically used together."
   >
+    <div class="glossary-filter rights-matrix__filters" data-matrix-filters>
+      <div class="glossary-filter__controls">
+        <label class="glossary-filter__facet">
+          <span class="glossary-filter__label">STD-01 right</span>
+          <select class="glossary-filter__select" name="right" data-matrix-select="right">
+            <option value="all">All rights</option>
+            {rights.map((right) => (
+              <option value={right.slug}>{right.label}</option>
+            ))}
+          </select>
+        </label>
+        <label class="glossary-filter__facet">
+          <span class="glossary-filter__label">Validator</span>
+          <select
+            class="glossary-filter__select"
+            name="validator"
+            data-matrix-select="validator"
+          >
+            <option value="all">All validators</option>
+            {validators.map((validator) => (
+              <option value={slugify(validator.label)}>{validator.label}</option>
+            ))}
+          </select>
+        </label>
+        <label class="glossary-filter__facet">
+          <span class="glossary-filter__label">Mechanism</span>
+          <select
+            class="glossary-filter__select"
+            name="mechanism"
+            data-matrix-select="mechanism"
+          >
+            <option value="all">All mechanisms</option>
+            {mechanisms.map((mechanism) => (
+              <option value={slugify(mechanism.label)}>{mechanism.label}</option>
+            ))}
+          </select>
+        </label>
+        <div class="glossary-filter__actions">
+          <button
+            class="button secondary glossary-filter__clear"
+            type="button"
+            data-matrix-reset
+          >
+            Clear filters
+          </button>
+        </div>
+      </div>
+      <p class="glossary-filter__count muted" data-matrix-status aria-live="polite">
+        Showing all {matrix.length} rights.
+      </p>
+      <div class="rights-matrix__jump">
+        <span class="glossary-filter__label">Quick jump</span>
+        <div class="glossary-filter__chips">
+          {rights.map((right) => (
+            <a class="glossary-filter__chip" href={`#${right.id}`}>
+              {right.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
     <div class="mapping-table__wrapper">
       <table class="mapping-table">
         <thead>
@@ -191,8 +285,15 @@ const matrix = [
           </tr>
         </thead>
         <tbody>
-          {matrix.map((row) => (
-            <tr>
+          {matrix.map((row, index) => (
+            <tr
+              id={rights[index].id}
+              class="rights-matrix__row"
+              data-matrix-row
+              data-right={rights[index].slug}
+              data-validators={row.validators.map((validator) => slugify(validator.label)).join("|")}
+              data-mechanisms={row.mechanisms.map((mechanism) => slugify(mechanism.label)).join("|")}
+            >
               <td>
                 <strong>{row.right}</strong>
               </td>
@@ -220,6 +321,87 @@ const matrix = [
         </tbody>
       </table>
     </div>
+    <script>
+      const filters = document.querySelector("[data-matrix-filters]");
+      if (filters) {
+        const selects = Array.from(
+          filters.querySelectorAll("[data-matrix-select]"),
+        );
+        const rows = Array.from(document.querySelectorAll("[data-matrix-row]"));
+        const status = filters.querySelector("[data-matrix-status]");
+        const reset = filters.querySelector("[data-matrix-reset]");
+        const totals = rows.length;
+        const state = {
+          right: "all",
+          validator: "all",
+          mechanism: "all",
+        };
+
+        const applyFilters = () => {
+          const active = Object.values(state).some((value) => value !== "all");
+          let visibleCount = 0;
+
+          rows.forEach((row) => {
+            if (!(row instanceof HTMLTableRowElement)) return;
+            const matchesRight =
+              state.right === "all" || row.dataset.right === state.right;
+            const matchesValidator =
+              state.validator === "all" ||
+              row.dataset.validators?.split("|").includes(state.validator);
+            const matchesMechanism =
+              state.mechanism === "all" ||
+              row.dataset.mechanisms?.split("|").includes(state.mechanism);
+            const matches = matchesRight && matchesValidator && matchesMechanism;
+
+            row.classList.toggle("is-highlighted", active && matches);
+            row.classList.toggle("is-dimmed", active && !matches);
+            if (matches) visibleCount += 1;
+          });
+
+          if (status) {
+            status.textContent = active
+              ? `Showing ${visibleCount} of ${totals} rights.`
+              : `Showing all ${totals} rights.`;
+          }
+        };
+
+        selects.forEach((select) => {
+          if (!(select instanceof HTMLSelectElement)) return;
+          select.addEventListener("change", (event) => {
+            const target = event.target;
+            if (!(target instanceof HTMLSelectElement)) return;
+            const { value } = target;
+            const key = target.dataset.matrixSelect;
+            if (key === "right") {
+              state.right = value;
+            } else if (key === "validator") {
+              state.validator = value;
+            } else if (key === "mechanism") {
+              state.mechanism = value;
+            }
+            applyFilters();
+          });
+        });
+
+        if (reset) {
+          reset.addEventListener("click", () => {
+            selects.forEach((select) => {
+              if (!(select instanceof HTMLSelectElement)) return;
+              select.value = "all";
+              const key = select.dataset.matrixSelect;
+              if (key === "right") {
+                state.right = "all";
+              } else if (key === "validator") {
+                state.validator = "all";
+              } else if (key === "mechanism") {
+                state.mechanism = "all";
+              }
+            });
+            applyFilters();
+          });
+        }
+      }
+    </script>
   </SectionBlock>
 
   <SectionBlock
