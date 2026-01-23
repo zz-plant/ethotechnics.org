@@ -19,7 +19,6 @@ outcome) and link to a spec section below once scoped.
 |                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Language people can use](#language-people-can-use)                               |
 |                                                               |                                                                                                   | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
 |                                                               |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
-|                                                               |                                                                                                   | - [Site framing sentence for public role](#site-framing-sentence-for-public-role)   |
 |                                                               | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)           |                                                                                     |
 |                                                               | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds)         |                                                                                     |
 |                                                               | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)                     |                                                                                     |
@@ -228,19 +227,6 @@ under this heading and link to it from the roadmap table.
 - **Dependencies/risks:** Requires periodic updates and sourcing discipline.
 - **Issue link:** Issue: TBD / Spec: #public-memory-for-contestability-terms
 
-## Site framing sentence for public role
-
-- **Problem:** The site needs a concise public-facing framing line to anchor its role.
-- **Scope:** Introduce a tight framing sentence for the site (e.g., “Ethotechnics helps people see
-  where power lives in systems—and whether they can challenge it.”) and identify the placement
-  location(s).
-- **UX/Tech notes:** Coordinate with homepage and About/Institute page tone; keep the line short,
-  single sentence.
-- **Acceptance criteria:** The sentence appears in agreed locations and is reused consistently in
-  summaries or metadata.
-- **Dependencies/risks:** Must align with existing mission statements and avoid duplication.
-- **Issue link:** Issue: TBD / Spec: #site-framing-sentence-for-public-role
-
 ## Completed work (archive)
 
 Keep completed specs here for quick reference. Trim to the essentials and capture outcomes so
@@ -392,6 +378,14 @@ future updates can build on what already shipped.
   endpoints plus documentation with example payloads and agent discovery notes.
 - **Notes:** Defined Schema.org types, canonical URLs, and versioning guidance.
 - **Issue link:** Issue: TBD / Spec: #agent-ready-metadata--api
+
+### Site framing sentence for public role
+
+- **Problem:** The site needed a concise public-facing framing line to anchor its role.
+- **Outcome:** Added a single-sentence framing line to the homepage hero copy that explains where
+  power lives in systems and whether it can be challenged.
+- **Notes:** Kept the sentence short and aligned with existing mission language.
+- **Issue link:** Issue: TBD / Spec: #site-framing-sentence-for-public-role
 
 ## GitHub Issues integration
 
