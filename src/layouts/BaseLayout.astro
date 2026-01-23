@@ -40,6 +40,9 @@ const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).toString()
   : Astro.url.href;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const organizationId = `${siteBase}#organization`;
+const websiteId = `${siteBase}#website`;
+const webpageId = canonical;
 const seoImage = {
   src: new URL("/assets/ethotechnics-hero-map.svg", siteBase).toString(),
   alt: "Linework illustration of Ethotechnics focus areas",
@@ -50,6 +53,7 @@ const structuredData: Array<Record<string, unknown>> = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId,
     name: siteName,
     url: siteBase,
     sameAs: [
@@ -61,8 +65,12 @@ const structuredData: Array<Record<string, unknown>> = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": websiteId,
     name: siteName,
     url: siteBase,
+    publisher: {
+      "@id": organizationId,
+    },
     potentialAction: {
       "@type": "SearchAction",
       target: `${new URL("/search", siteBase).toString()}?q={search_term_string}`,
@@ -72,14 +80,16 @@ const structuredData: Array<Record<string, unknown>> = [
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
+    "@id": webpageId,
     name: title,
     description,
     url: canonical,
     inLanguage: "en",
     isPartOf: {
-      "@type": "WebSite",
-      name: siteName,
-      url: siteBase,
+      "@id": websiteId,
+    },
+    publisher: {
+      "@id": organizationId,
     },
     primaryImageOfPage: {
       "@type": "ImageObject",
