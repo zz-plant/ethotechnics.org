@@ -32,6 +32,7 @@ const {
   categoryHighlights,
 } = glossaryEntry.data;
 const libraryContent = libraryEntry.data;
+const { cspNonce } = Astro.locals;
 
 const patternIndex = new Map(
   libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
@@ -981,6 +982,11 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     ))
   }
 
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <script
+    type="application/ld+json"
+    nonce={cspNonce}
+    set:html={structuredDataJson}
+    is:inline
+  />
   <script type="module" src={glossaryFilterScript} is:inline></script>
 </BaseLayout>
