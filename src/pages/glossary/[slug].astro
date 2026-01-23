@@ -93,6 +93,9 @@ if (!entryRecord) {
 const { entry, category } = entryRecord;
 const categoryLabel = normalizeGlossaryHeading(category.heading);
 const pagePermalink = glossaryEntryPermalink(entry.id);
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const organizationId = `${siteBase}#organization`;
+const websiteId = `${siteBase}#website`;
 const pageUrl = Astro.site
   ? new URL(pagePermalink, Astro.site).toString()
   : pagePermalink;
@@ -335,6 +338,12 @@ const structuredData = {
       name: `${entry.title} — Ethotechnics glossary`,
       description: pageDescription,
       url: pageUrl,
+      isPartOf: {
+        "@id": websiteId,
+      },
+      publisher: {
+        "@id": organizationId,
+      },
       mainEntity: {
         "@id": `${pageUrl}#defined-term`,
       },
