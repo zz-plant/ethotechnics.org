@@ -37,6 +37,12 @@ const {
 const { cspNonce } = Astro.locals;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const normalizedPermalink = permalink?.trim();
+const permalinkUrl = normalizedPermalink
+  ? new URL(normalizedPermalink, siteBase)
+  : null;
+const abbreviatedPermalink = permalinkUrl
+  ? `${permalinkUrl.pathname}${permalinkUrl.hash}`
+  : normalizedPermalink;
 const breadcrumbItems = normalizedPermalink
   ? buildBreadcrumbItems(normalizedPermalink, siteBase, title)
   : [];
@@ -116,7 +122,24 @@ function titleize(segment: string) {
         <p class="page-intro__permalink">
           <span aria-hidden="true">↺</span>
           <span class="page-intro__permalink-label">Permanent link</span>
-          <a href={permalink}>{permalink}</a>
+          <a class="page-intro__permalink-path" href={permalink}>
+            {abbreviatedPermalink}
+          </a>
+          <button
+            class="copy-button page-intro__permalink-copy"
+            type="button"
+            data-permalink-copy
+            data-copy-value={permalinkUrl?.toString() ?? normalizedPermalink}
+            aria-label="Copy permanent link to this page"
+          >
+            Copy link
+          </button>
+          <span
+            class="page-intro__permalink-status"
+            data-permalink-status
+            role="status"
+            aria-live="polite"
+          ></span>
         </p>
       </div>
       <HeadingTag>{title}</HeadingTag>
@@ -158,3 +181,39 @@ function titleize(segment: string) {
     </div>
   </div>
 </section>
+
+<script nonce={cspNonce} is:inline>
+  const copyButtons = Array.from(
+    document.querySelectorAll("[data-permalink-copy]")
+  );
+
+  copyButtons.forEach((button) => {
+    const status = button
+      .closest(".page-intro__permalink")
+      ?.querySelector("[data-permalink-status]");
+    const value = button.getAttribute("data-copy-value");
+
+    if (!status || !value) {
+      return;
+    }
+
+    let resetTimer;
+
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(value);
+        status.textContent = "Copied";
+        status.classList.add("is-visible");
+      } catch (error) {
+        status.textContent = "Copy failed";
+        status.classList.add("is-visible");
+      }
+
+      clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        status.textContent = "";
+        status.classList.remove("is-visible");
+      }, 2000);
+    });
+  });
+</script>
