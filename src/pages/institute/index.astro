@@ -1,11 +1,13 @@
 ---
-import PageIntro from '../../components/PageIntro.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
 import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
 import InstituteStudioComparison from '../../components/InstituteStudioComparison.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import ReferenceCallout from '../../components/ReferenceCallout.astro';
+import SectionBlock from '../../components/SectionBlock.astro';
 import StudioBadge from '../../components/StudioBadge.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { instituteStudioCallout } from '../../content/callouts';
 import {
   instituteStudioComparisonContent,
   instituteStudioGuidance,
@@ -34,11 +36,14 @@ const {
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
   />
-  <div class="callout">
-    <p class="eyebrow">Institute vs. Studio</p>
-    <p class="muted">{instituteStudioGuidance.callout}</p>
-    <StudioBadge />
-  </div>
+  <ReferenceCallout
+    title={instituteStudioCallout.title}
+    summary={instituteStudioCallout.summary}
+    href={instituteStudioCallout.href}
+    linkLabel={instituteStudioCallout.linkLabel}
+    ariaLabel={instituteStudioCallout.ariaLabel}
+  />
+  <StudioBadge />
 
   <SectionBlock
     id="overview"

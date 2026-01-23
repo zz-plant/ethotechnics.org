@@ -47,7 +47,7 @@ export type DiagnosticTool = {
   outputs: string[];
   estimatedTime: string;
   prepChecklist: string[];
-  studioNote: string;
+  studioNote?: string;
   ctaLabel: string;
   ctaHref: string;
   ctaAriaLabel?: string;
@@ -55,9 +55,6 @@ export type DiagnosticTool = {
   exampleHref: string;
   deliveryType: "self-serve" | "studio";
 };
-
-const studioOffRampNote =
-  "Result pages include the off-ramp to ethotechnics.com/studio so teams can escalate when scores are risky or unclear.";
 
 export type DiagnosticsContent = PageWithPermalink &
   PublishedContent & {
@@ -252,7 +249,6 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Rough task volume or handoff counts.",
         "Known friction points or escalation paths.",
       ],
-      studioNote: studioOffRampNote,
       ctaLabel: "Start the Burden Modeler",
       ctaHref: "/diagnostics/burden-modeler",
       ctaAriaLabel: "Start the Burden Modeler diagnostic tool",
@@ -357,7 +353,6 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Current consent or disclosure copy.",
         "Stakeholder who owns model and UI decisions.",
       ],
-      studioNote: studioOffRampNote,
       ctaLabel: "Request LLM Capacity Benchmark",
       ctaHref: "https://ethotechnics.com/studio",
       ctaAriaLabel:
@@ -463,7 +458,6 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Named escalation owner and comms partner.",
         "Known dependency or rollback risks.",
       ],
-      studioNote: studioOffRampNote,
       ctaLabel: "Start the Maintenance Simulator",
       ctaHref: "/diagnostics/maintenance-simulator",
       ctaAriaLabel: "Start the Maintenance Simulator diagnostic tool",
@@ -567,7 +561,6 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Known remediation options or refusal windows.",
         "Stakeholder who needs the output PDF.",
       ],
-      studioNote: studioOffRampNote,
       ctaLabel: "Start the Technical Capacity Forecaster",
       ctaHref: "/diagnostics/capacity-forecaster",
       ctaAriaLabel: "Start the Technical Capacity Forecaster diagnostic tool",

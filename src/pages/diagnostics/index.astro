@@ -65,27 +65,10 @@ const quickTriagePrompts = [
     description={introDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Decision-ready outputs",
-      title: "Every diagnostic leaves you with a linkable readout.",
-      description:
-        "Outputs include a stable URL and mechanism language references for follow-up.",
-      link: {
-        label: "Compare tools",
-        href: "#compare-tools",
-      },
-    }}
   />
   <SectionActions>
     <StudioBadge />
   </SectionActions>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
-    variant="compact"
-  />
 
   <SectionBlock
     id="compare-tools"
@@ -123,6 +106,13 @@ const quickTriagePrompts = [
       </li>
     </ul>
   </SectionBlock>
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+    variant="compact"
+  />
 
   <SectionBlock
     id="why-diagnostics"
