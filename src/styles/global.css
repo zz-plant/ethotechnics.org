@@ -3818,6 +3818,44 @@
   margin: 0;
 }
 
+@media (max-width: 720px) {
+  .glossary-filter__controls {
+    align-items: stretch;
+  }
+
+  .glossary-filter__label,
+  .glossary-filter__facet,
+  .glossary-filter input[type="search"],
+  .glossary-filter__select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .glossary-filter__tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: var(--space-1);
+  }
+
+  .glossary-filter__tab {
+    flex-shrink: 0;
+  }
+
+  .glossary-entry {
+    padding: var(--space-3);
+  }
+
+  .glossary-entry__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .glossary-entry__actions,
+  .glossary-entry__citation-buttons {
+    justify-content: flex-start;
+  }
+}
+
 @media (min-width: 900px) {
   .glossary-entry__hero {
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
