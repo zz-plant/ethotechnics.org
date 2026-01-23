@@ -56,6 +56,9 @@ export type DiagnosticTool = {
   deliveryType: "self-serve" | "studio";
 };
 
+const studioOffRampNote =
+  "Result pages include the off-ramp to ethotechnics.com/studio so teams can escalate when scores are risky or unclear.";
+
 export type DiagnosticsContent = PageWithPermalink &
   PublishedContent & {
     publication: PublicationMetadata;
@@ -249,8 +252,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Rough task volume or handoff counts.",
         "Known friction points or escalation paths.",
       ],
-      studioNote:
-        "Result pages always include the off-ramp to ethotechnics.com/studio for risky or unclear scores.",
+      studioNote: studioOffRampNote,
       ctaLabel: "Start the Burden Modeler",
       ctaHref: "/diagnostics/burden-modeler",
       ctaAriaLabel: "Start the Burden Modeler diagnostic tool",
@@ -355,8 +357,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Current consent or disclosure copy.",
         "Stakeholder who owns model and UI decisions.",
       ],
-      studioNote:
-        "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
+      studioNote: studioOffRampNote,
       ctaLabel: "Request LLM Capacity Benchmark",
       ctaHref: "https://ethotechnics.com/studio",
       ctaAriaLabel:
@@ -462,8 +463,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Named escalation owner and comms partner.",
         "Known dependency or rollback risks.",
       ],
-      studioNote:
-        "Result pages always include the off-ramp to ethotechnics.com/studio so teams know where to escalate.",
+      studioNote: studioOffRampNote,
       ctaLabel: "Start the Maintenance Simulator",
       ctaHref: "/diagnostics/maintenance-simulator",
       ctaAriaLabel: "Start the Maintenance Simulator diagnostic tool",
@@ -567,8 +567,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Known remediation options or refusal windows.",
         "Stakeholder who needs the output PDF.",
       ],
-      studioNote:
-        "Result pages always include the off-ramp to ethotechnics.com/studio before finalizing recommendations.",
+      studioNote: studioOffRampNote,
       ctaLabel: "Start the Technical Capacity Forecaster",
       ctaHref: "/diagnostics/capacity-forecaster",
       ctaAriaLabel: "Start the Technical Capacity Forecaster diagnostic tool",

@@ -19,6 +19,17 @@ export type InstituteStudioComparisonContent = {
   cards: ComparisonCard[];
 };
 
+export const instituteStudioGuidance = {
+  callout:
+    "The Institute stays open and self-serve. Studio support is optional when you need a delivery partner or facilitation.",
+  overviewDescription:
+    "Use the Institute when you want open guidance; we point you to the Studio when hands-on help is faster.",
+  panelDescription:
+    "Use the Institute when you want open guidance. Escalate to Studio when timing, risk, or facilitation demand a partner.",
+  escalationDescription:
+    "The Ethotechnics Institute stays open and self-serve; the Studio steps in when you need facilitation, mediation, or delivery support.",
+};
+
 export const instituteStudioComparisonContent: InstituteStudioComparisonContent =
   {
     eyebrow: "Where to start",

@@ -6,7 +6,10 @@ import CardItem from '../../components/CardItem.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
 import InstituteStudioComparison from '../../components/InstituteStudioComparison.astro';
 import StudioBadge from '../../components/StudioBadge.astro';
-import { instituteStudioComparisonContent } from '../../content/comparison';
+import {
+  instituteStudioComparisonContent,
+  instituteStudioGuidance,
+} from '../../content/comparison';
 import { instituteContent } from '../../content/institute';
 
 const {
@@ -33,10 +36,7 @@ const {
   />
   <div class="callout">
     <p class="eyebrow">Institute vs. Studio</p>
-    <p class="muted">
-      The Institute stays open and self-serve. Studio support is optional when you need a delivery
-      partner or facilitation.
-    </p>
+    <p class="muted">{instituteStudioGuidance.callout}</p>
     <StudioBadge />
   </div>
 
@@ -44,7 +44,7 @@ const {
     id="overview"
     eyebrow="What you can do here"
     title="Pick the path that matches your visit."
-    description="Use the Institute when you want open guidance; we point you to the Studio when hands-on help is faster."
+    description={instituteStudioGuidance.overviewDescription}
     className="section--banded"
   >
     <p class="muted small">
@@ -91,7 +91,7 @@ const {
     id="studio"
     eyebrow="Studio partnership"
     title="When a diagnostic shows risk, bring in the Studio."
-    description="The Ethotechnics Institute stays open and self-serve; the Studio steps in when you need facilitation, mediation, or delivery support."
+    description={instituteStudioGuidance.escalationDescription}
   >
     <InstituteStudioComparison content={instituteStudioComparisonContent} />
   </SectionBlock>

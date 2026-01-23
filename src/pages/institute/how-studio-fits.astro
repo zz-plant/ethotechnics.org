@@ -5,7 +5,10 @@ import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import InstituteStudioComparison from "../../components/InstituteStudioComparison.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
-import { instituteStudioComparisonContent } from "../../content/comparison";
+import {
+  instituteStudioComparisonContent,
+  instituteStudioGuidance,
+} from "../../content/comparison";
 
 const pageTitle = "How Studio fits";
 const pageDescription =
@@ -30,8 +33,7 @@ const anchorLinks = [
     panelCopy={{
       eyebrow: "Quick signal",
       title: "Self-serve by default.",
-      description:
-        "Use the Institute when you want open guidance. Escalate to Studio when timing, risk, or facilitation demand a partner.",
+      description: instituteStudioGuidance.panelDescription,
     }}
   />
 
