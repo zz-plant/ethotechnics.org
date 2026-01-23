@@ -43,63 +43,81 @@ const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
 const webpageId = canonical;
+const { identity, navigation } = siteFooter;
+const logoUrl = new URL(identity.brand.logoSrc, siteBase).toString();
+const logoId = `${siteBase}#logo`;
+const primaryImageId = `${canonical}#primaryimage`;
 const seoImage = {
   src: new URL("/assets/ethotechnics-hero-map.svg", siteBase).toString(),
   alt: "Linework illustration of Ethotechnics focus areas",
   width: 1200,
   height: 630,
 };
-const structuredData: Array<Record<string, unknown>> = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": organizationId,
+  name: siteName,
+  url: siteBase,
+  description: defaultDescription,
+  logo: {
+    "@type": "ImageObject",
+    "@id": logoId,
+    url: logoUrl,
+  },
+  sameAs: [
+    "https://ethotechnics.com",
+    "https://signals.ethotechnics.org",
+    "https://github.com/ethotechnics",
+  ],
+};
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": websiteId,
+  name: siteName,
+  url: siteBase,
+  inLanguage: "en",
+  publisher: {
     "@id": organizationId,
-    name: siteName,
-    url: siteBase,
-    sameAs: [
-      "https://ethotechnics.com",
-      "https://signals.ethotechnics.org",
-      "https://github.com/ethotechnics",
-    ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${new URL("/search", siteBase).toString()}?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+};
+const webpage: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": webpageId,
+  name: title,
+  description,
+  url: canonical,
+  inLanguage: "en",
+  isPartOf: {
     "@id": websiteId,
-    name: siteName,
-    url: siteBase,
-    publisher: {
-      "@id": organizationId,
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${new URL("/search", siteBase).toString()}?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": webpageId,
-    name: title,
-    description,
-    url: canonical,
-    inLanguage: "en",
-    isPartOf: {
-      "@id": websiteId,
-    },
-    publisher: {
-      "@id": organizationId,
-    },
-    primaryImageOfPage: {
-      "@type": "ImageObject",
-      url: seoImage.src,
-      width: seoImage.width,
-      height: seoImage.height,
-    },
+  publisher: {
+    "@id": organizationId,
   },
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+    "@id": primaryImageId,
+    url: seoImage.src,
+    width: seoImage.width,
+    height: seoImage.height,
+    caption: seoImage.alt,
+  },
+  image: {
+    "@id": primaryImageId,
+  },
+};
+const structuredData: Array<Record<string, unknown>> = [
+  organization,
+  website,
+  webpage,
 ];
-const { identity, navigation } = siteFooter;
 const { cspNonce } = Astro.locals;
 const currentPath = Astro.url.pathname;
 
@@ -116,8 +134,13 @@ if (breadcrumbItems?.length) {
   structuredData.push({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${canonical}#breadcrumb`,
     itemListElement: breadcrumbList,
   });
+
+  webpage.breadcrumb = {
+    "@id": `${canonical}#breadcrumb`,
+  };
 }
 
 const structuredDataJson = JSON.stringify(structuredData);
