@@ -37,15 +37,70 @@ const templates = [
   {
     title: "Decision log template",
     detail: "Fields for owner, dissent, clocks, and remedy outcomes.",
+    format: "Doc outline",
+    availability: "Evidence packs + bindings hub",
+    sampleLines: [
+      "Decision ID:",
+      "Owner + reviewer:",
+      "Dissent summary:",
+      "Remedy outcome + timestamp:",
+    ],
+    actions: [
+      {
+        label: "Copy link",
+        variant: "ghost",
+      },
+      {
+        label: "View preview",
+        variant: "primary",
+        href: "/evidence-packs",
+      },
+    ],
   },
   {
     title: "Receipt payload schema",
     detail: "JSON schema for receipt issuance and clause references.",
     href: "/standards/agent-receipt-schema.json",
+    format: "JSON schema",
+    availability: "Downloadable",
+    snippet: `{
+  "receiptId": "rcpt_123",
+  "clauses": ["STD-02.2.1"],
+  "issuedAt": "2024-03-10T18:41:00Z"
+}`,
+    actions: [
+      {
+        label: "Open template",
+        variant: "primary",
+        href: "/standards/agent-receipt-schema.json",
+      },
+      {
+        label: "Copy link",
+        variant: "ghost",
+      },
+    ],
   },
   {
     title: "Appeal intake form",
     detail: "Pre-filled appeal form with clock expectations and escalation path.",
+    format: "Form prompt",
+    availability: "Evidence packs + DIY kits",
+    sampleLines: [
+      "Appeal ID:",
+      "Clock expectations disclosed:",
+      "Escalation path + owner:",
+    ],
+    actions: [
+      {
+        label: "Open template",
+        variant: "primary",
+        href: "/evidence-packs",
+      },
+      {
+        label: "Copy link",
+        variant: "ghost",
+      },
+    ],
   },
 ];
 
@@ -117,14 +172,39 @@ const telemetry = [
     <CardGrid className="grid--two">
       {templates.map((template) => (
         <CardItem title={template.title} description={template.detail}>
-          {template.href ? (
+          <p class="muted">Format: {template.format}</p>
+          <p class="muted">Availability: {template.availability}</p>
+          {template.href && (
             <p class="muted">
-              Download:{" "}
-              <a href={template.href}>{template.href}</a>
+              <a href={template.href}>Download JSON schema</a>
             </p>
-          ) : (
-            <p class="muted">Available in the evidence packs and bindings hubs.</p>
           )}
+          {(template.snippet || template.sampleLines) && (
+            <pre class="code-block">
+              {template.snippet || template.sampleLines?.join("\n")}
+            </pre>
+          )}
+          <div slot="footer" class="actions">
+            {template.actions?.map((action) =>
+              action.href ? (
+                <a
+                  class={`button ${action.variant}`}
+                  href={action.href}
+                  aria-label={`${action.label} for ${template.title}`}
+                >
+                  {action.label}
+                </a>
+              ) : (
+                <button
+                  class={`button ${action.variant}`}
+                  type="button"
+                  aria-label={`${action.label} for ${template.title}`}
+                >
+                  {action.label}
+                </button>
+              )
+            )}
+          </div>
         </CardItem>
       ))}
     </CardGrid>
