@@ -14,8 +14,14 @@ const buildDeltaSummary = (
 
   const horizonA = scenarioAData[scenarioAData.length - 1];
   const horizonB = scenarioBData[scenarioBData.length - 1];
+  const saturationIndexA = scenarioAData.findIndex((point) => point.isSaturated);
+  const saturationIndexB = scenarioBData.findIndex((point) => point.isSaturated);
 
   return {
+    saturationDelta:
+      saturationIndexA >= 0 && saturationIndexB >= 0
+        ? saturationIndexB - saturationIndexA
+        : null,
     baselineDelta: horizonB.baseline - horizonA.baseline,
     remediatedDelta: horizonB.remediated - horizonA.remediated,
   };
@@ -37,6 +43,23 @@ export function CapacityForecaster() {
   const finalPointA = forecastA.data[forecastA.data.length - 1];
   const finalPointB = forecastB.data[forecastB.data.length - 1];
   const isCompare = viewMode === 'compare';
+  const deltaSummary = isCompare
+    ? buildDeltaSummary(forecastA.data, forecastB.data)
+    : null;
+
+  const formatPercent = (value?: number) =>
+    typeof value === 'number' ? `${Math.round(value * 100)}%` : '—';
+  const formatDeltaPercent = (value: number | null | undefined) => {
+    if (typeof value !== 'number') return '—';
+    const rounded = Math.round(value * 100);
+    return `${rounded > 0 ? '+' : ''}${rounded} pp`;
+  };
+  const formatSaturation = (value: string | null) =>
+    value ?? 'No saturation within 24 months';
+  const formatMonthDelta = (value: number | null | undefined) => {
+    if (typeof value !== 'number') return '—';
+    return `${value > 0 ? '+' : ''}${value} mo`;
+  };
 
   const handleExport = (variant: 'scenario-a' | 'scenario-b' | 'comparison') => {
     const deltaSummary = buildDeltaSummary(forecastA.data, forecastB.data);
@@ -93,36 +116,77 @@ export function CapacityForecaster() {
       }`}
     >
       <div className="forecaster__header">
-        <p className="eyebrow">Technical Capacity Forecaster</p>
-        <h2>Simulate decay, remediation, and refusal windows.</h2>
-        <p className="muted">
-          Blend operational metrics with a refusal runway to see where delivery capacity saturates. The model applies compound
-          decay to a 24-month horizon and highlights the first saturation point on the chart. Use compare mode to visualize two
-          scenarios side-by-side and export JSON snapshots for stakeholder review.
-        </p>
-        <div className="forecaster__actions">
-          <button
-            type="button"
-            className="button ghost button--compact"
-            onClick={() => handleExport('scenario-a')}
-          >
-            Export scenario A
-          </button>
-          <button
-            type="button"
-            className="button ghost button--compact"
-            onClick={() => handleExport('scenario-b')}
-          >
-            Export scenario B
-          </button>
-          <button
-            type="button"
-            className="button primary button--compact"
-            onClick={() => handleExport('comparison')}
-            disabled={!isCompare}
-          >
-            Export comparison
-          </button>
+        <div className="forecaster__header-copy">
+          <p className="eyebrow">Technical Capacity Forecaster</p>
+          <h2>Simulate decay, remediation, and refusal windows.</h2>
+          <p className="muted">
+            Blend operational metrics with a refusal runway to see where delivery capacity saturates. The model applies compound
+            decay to a 24-month horizon and highlights the first saturation point on the chart. Use compare mode to visualize
+            two scenarios side-by-side and export JSON snapshots for stakeholder review.
+          </p>
+        </div>
+        <div className="forecaster__header-tools">
+          <div className="forecaster__actions">
+            <button
+              type="button"
+              className="button ghost button--compact"
+              onClick={() => handleExport('scenario-a')}
+            >
+              Export scenario A
+            </button>
+            <button
+              type="button"
+              className="button ghost button--compact"
+              onClick={() => handleExport('scenario-b')}
+            >
+              Export scenario B
+            </button>
+            <button
+              type="button"
+              className="button primary button--compact"
+              onClick={() => handleExport('comparison')}
+              disabled={!isCompare}
+            >
+              Export comparison
+            </button>
+          </div>
+          {isCompare ? (
+            <div className="forecaster__delta-table">
+              <table className="forecaster__delta-grid">
+                <caption className="forecaster__delta-caption">
+                  Scenario A vs B summary
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Metric</th>
+                    <th scope="col">Scenario A</th>
+                    <th scope="col">Scenario B</th>
+                    <th scope="col">Delta (B - A)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Saturation point</th>
+                    <td>{formatSaturation(forecastA.saturationDate)}</td>
+                    <td>{formatSaturation(forecastB.saturationDate)}</td>
+                    <td>{formatMonthDelta(deltaSummary?.saturationDelta)}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Baseline horizon</th>
+                    <td>{formatPercent(finalPointA?.baseline)}</td>
+                    <td>{formatPercent(finalPointB?.baseline)}</td>
+                    <td>{formatDeltaPercent(deltaSummary?.baselineDelta)}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Remediated horizon</th>
+                    <td>{formatPercent(finalPointA?.remediated)}</td>
+                    <td>{formatPercent(finalPointB?.remediated)}</td>
+                    <td>{formatDeltaPercent(deltaSummary?.remediatedDelta)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ) : null}
         </div>
       </div>
 

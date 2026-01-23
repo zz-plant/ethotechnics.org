@@ -5,14 +5,26 @@
 
 .forecaster__header {
   display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: start;
+}
+
+.forecaster__header-copy {
+  display: grid;
   gap: 0.45rem;
+}
+
+.forecaster__header-tools {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
 }
 
 .forecaster__actions {
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
-  margin-top: 0.35rem;
 }
 
 .forecaster__grid {
@@ -317,6 +329,50 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.forecaster__delta-table {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  padding: 0.6rem 0.75rem;
+  overflow-x: auto;
+}
+
+.forecaster__delta-grid {
+  width: 100%;
+  min-width: 360px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.forecaster__delta-caption {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.forecaster__delta-grid thead th {
+  text-align: left;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.35rem 0.4rem;
+}
+
+.forecaster__delta-grid tbody th,
+.forecaster__delta-grid tbody td {
+  padding: 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  vertical-align: top;
+}
+
+.forecaster__delta-grid tbody th {
+  font-weight: 600;
+  color: var(--text);
 }
 
 .forecaster__meta {
