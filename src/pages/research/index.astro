@@ -31,6 +31,7 @@ const {
   lastUpdated,
   updateCadence,
 } = researchContent;
+const { cspNonce } = Astro.locals;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const summaryLinks = anchorLinks.slice(0, 5);
 const summaryRelatedLinks = [
@@ -556,6 +557,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </details>
   </SectionBlock>
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <script
+    type="application/ld+json"
+    nonce={cspNonce}
+    set:html={structuredDataJson}
+    is:inline
+  />
   <script type="module" src={researchFilterScript} is:inline></script>
 </BaseLayout>

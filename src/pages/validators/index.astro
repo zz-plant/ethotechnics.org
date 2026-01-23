@@ -14,6 +14,7 @@ const {
   validators,
   method,
 } = validatorsContent;
+const { cspNonce } = Astro.locals;
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : permalink;
@@ -81,5 +82,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       {method.steps.map((step) => <li>{step}</li>)}
     </ul>
   </section>
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <script
+    type="application/ld+json"
+    nonce={cspNonce}
+    set:html={structuredDataJson}
+    is:inline
+  />
 </BaseLayout>

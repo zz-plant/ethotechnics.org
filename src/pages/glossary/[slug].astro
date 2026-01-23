@@ -30,6 +30,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const libraryEntry = (await getEntry("library", "library"))!;
+const { cspNonce } = Astro.locals;
 const {
   pageTitle: glossaryTitle,
   pageDescription: glossaryDescription,
@@ -691,5 +692,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   />
   <ScholarlyMeta publication={publication} permalink={pagePermalink} />
 
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <script
+    type="application/ld+json"
+    nonce={cspNonce}
+    set:html={structuredDataJson}
+    is:inline
+  />
 </BaseLayout>
