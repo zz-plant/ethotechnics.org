@@ -82,8 +82,49 @@ const explainerItems = [
     title="Contestability checklist"
     description="Print and use this as a quick pass/fail screen before shipping or auditing a decision flow."
   >
-    <div class="contestability-checklist" role="group" aria-label="Contestability checklist">
-      <p class="contestability-checklist__title">Can I contest this?</p>
+    <div class="contestability-layout screen-only">
+      <div class="contestability-layout__main">
+        <div class="contestability-checklist" role="group" aria-label="Contestability checklist">
+          <p class="contestability-checklist__title">Can I contest this?</p>
+          <ul data-checklist-items>
+            {checklistItems.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <p class="muted contestability-checklist__note">
+            Built from the contestability definition in the glossary and the Contestability
+            Guarantee standard.
+            {" "}
+            <a href="/glossary/contestability">Glossary term</a>
+            {" "}
+            ·
+            {" "}
+            <a href="/standards/std-02-contestability-recourse">STD-02</a>
+          </p>
+        </div>
+      </div>
+      <aside class="contestability-summary" aria-label="Checklist summary">
+        <p class="eyebrow contestability-summary__eyebrow">2-minute checklist</p>
+        <p class="contestability-summary__title">Contestability checklist</p>
+        <p class="muted contestability-summary__copy">
+          Keep this open while auditing decision flows for real reversals and clocked reviews.
+        </p>
+        <div class="contestability-summary__actions">
+          <button class="button ghost" type="button" data-checklist-print>
+            Print checklist
+          </button>
+          <button class="button ghost" type="button" data-checklist-copy>
+            Copy checklist
+          </button>
+        </div>
+      </aside>
+    </div>
+    <div
+      class="contestability-checklist contestability-checklist--print print-only"
+      role="group"
+      aria-label="Contestability checklist"
+    >
+      <p class="contestability-checklist__title">Contestability checklist</p>
       <ul>
         {checklistItems.map((item) => (
           <li>{item}</li>
@@ -112,7 +153,13 @@ const explainerItems = [
     <div class="contestability-expanders">
       {explainerItems.map((item) => (
         <details class="contestability-expander">
-          <summary>{item.title}</summary>
+          <summary>
+            <span class="contestability-expander__title">{item.title}</span>
+            <span class="contestability-expander__toggle" aria-hidden="true">
+              <span class="contestability-expander__toggle-text--expand">Expand</span>
+              <span class="contestability-expander__toggle-text--collapse">Collapse</span>
+            </span>
+          </summary>
           <div class="contestability-expander__body">
             {item.body.map((paragraph) => (
               <p>{paragraph}</p>
@@ -127,7 +174,65 @@ const explainerItems = [
   </SectionBlock>
 </BaseLayout>
 
+<script>
+  const copyButton = document.querySelector<HTMLButtonElement>(
+    "[data-checklist-copy]",
+  );
+  const printButton = document.querySelector<HTMLButtonElement>(
+    "[data-checklist-print]",
+  );
+  const checklistItemsList = document.querySelector<HTMLUListElement>(
+    "[data-checklist-items]",
+  );
+
+  if (printButton) {
+    printButton.addEventListener("click", () => {
+      window.print();
+    });
+  }
+
+  if (copyButton && checklistItemsList) {
+    copyButton.addEventListener("click", async () => {
+      const items = Array.from(checklistItemsList.querySelectorAll("li")).map(
+        (item) => item.textContent?.trim() ?? "",
+      );
+      const checklistText = ["Contestability checklist", "", ...items.map((item) => `- ${item}`)]
+        .filter(Boolean)
+        .join("\n");
+      try {
+        await navigator.clipboard.writeText(checklistText);
+        copyButton.textContent = "Checklist copied";
+        window.setTimeout(() => {
+          copyButton.textContent = "Copy checklist";
+        }, 2000);
+      } catch (error) {
+        copyButton.textContent = "Copy failed";
+        window.setTimeout(() => {
+          copyButton.textContent = "Copy checklist";
+        }, 2000);
+      }
+    });
+  }
+</script>
+
 <style>
+  .screen-only {
+    display: block;
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  .contestability-layout {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .contestability-layout__main {
+    min-width: 0;
+  }
+
   .contestability-checklist {
     border: 1px solid var(--theme-border);
     border-radius: 12px;
@@ -149,6 +254,33 @@ const explainerItems = [
     margin: 0;
   }
 
+  .contestability-summary {
+    border: 1px solid var(--theme-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    background: var(--theme-surface);
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .contestability-summary__eyebrow {
+    margin: 0;
+  }
+
+  .contestability-summary__title {
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .contestability-summary__copy {
+    margin: 0;
+  }
+
+  .contestability-summary__actions {
+    display: grid;
+    gap: 0.5rem;
+  }
+
   .contestability-expanders {
     display: grid;
     gap: 1rem;
@@ -164,13 +296,56 @@ const explainerItems = [
   .contestability-expander summary {
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .contestability-expander__toggle {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--theme-muted);
+  }
+
+  .contestability-expander__toggle-text--collapse {
+    display: none;
+  }
+
+  .contestability-expander[open] .contestability-expander__toggle-text--expand {
+    display: none;
+  }
+
+  .contestability-expander[open] .contestability-expander__toggle-text--collapse {
+    display: inline;
   }
 
   .contestability-expander__body {
     margin-top: 0.75rem;
   }
 
+  @media (min-width: 900px) {
+    .contestability-layout {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .contestability-summary {
+      position: sticky;
+      top: var(--space-4);
+    }
+  }
+
   @media print {
+    .screen-only {
+      display: none;
+    }
+
+    .print-only {
+      display: block;
+    }
+
     .contestability-checklist {
       break-inside: avoid;
       page-break-inside: avoid;
