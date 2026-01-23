@@ -19,6 +19,15 @@ const {
   intake,
   feedback,
 } = participationEntry.data;
+const intakeFieldNameMap: Record<string, string> = {
+  "participant-name": "name",
+  "participant-organization": "organization",
+  "participant-email": "email",
+  "participant-type": "topic",
+  "participant-summary": "details",
+};
+const resolveIntakeFieldName = (fieldId: string) =>
+  intakeFieldNameMap[fieldId] ?? fieldId;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -114,39 +123,42 @@ const {
     description={intake.description}
   >
     <p class="muted small">{intake.formatNote}</p>
-    <p class="muted small">{intake.formatNote}</p>
 
     <div id="intake-form-container">
       <form id="intake-form" class="intake-form" method="POST">
         <div class="intake-form__grid">
           {
-            intake.form.fields.map((field) => (
-              <label
-                class={`intake-form__field${
-                  field.type === "textarea" ? " intake-form__field--full" : ""
-                }`}
-                for={field.id}
-              >
-                <span class="muted">{field.label}</span>
-                {field.type === "textarea" ? (
-                  <textarea
-                    id={field.id}
-                    name={field.id === "message" ? "details" : field.id}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    rows={4}
-                  />
-                ) : (
-                  <input
-                    id={field.id}
-                    name={field.id}
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                  />
-                )}
-              </label>
-            ))
+            intake.form.fields.map((field) => {
+              const fieldName = resolveIntakeFieldName(field.id);
+
+              return (
+                <label
+                  class={`intake-form__field${
+                    field.type === "textarea" ? " intake-form__field--full" : ""
+                  }`}
+                  for={field.id}
+                >
+                  <span class="muted">{field.label}</span>
+                  {field.type === "textarea" ? (
+                    <textarea
+                      id={field.id}
+                      name={fieldName}
+                      placeholder={field.placeholder}
+                      required={field.required}
+                      rows={4}
+                    />
+                  ) : (
+                    <input
+                      id={field.id}
+                      name={fieldName}
+                      type={field.type}
+                      placeholder={field.placeholder}
+                      required={field.required}
+                    />
+                  )}
+                </label>
+              );
+            })
           }
         </div>
         <div class="intake-form__actions">
