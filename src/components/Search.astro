@@ -419,30 +419,46 @@ const helpTextId = `search-help-text-${instanceId}`;
     search: (query: string) => Promise<{ results: PagefindSearchResult[] }>;
   };
 
-  let pagefind: PagefindModule | null;
+  const PAGEFIND_PATH = "/pagefind/pagefind.js";
+  const SEARCH_RESULTS_LIMIT = 12;
+  const SEARCH_DEBOUNCE_MS = 200;
+
+  let pagefindPromise: Promise<PagefindModule | null> | null = null;
+  let pagefindConfigured = false;
+
+  async function loadPagefind() {
+    if (pagefindPromise) return pagefindPromise;
+
+    pagefindPromise = import(
+      /* @vite-ignore */
+      PAGEFIND_PATH
+    )
+      .then((module) => module as PagefindModule)
+      .catch((error) => {
+        console.warn(
+          "Pagefind not found. Search may not work in dev mode.",
+          error
+        );
+        pagefindPromise = null;
+        return null;
+      });
+
+    return pagefindPromise;
+  }
 
   async function initPagefind() {
-    if (pagefind) return pagefind;
-    const pagefindPath = "/pagefind/pagefind.js";
-    const loadedPagefind = (await import(
-      /* @vite-ignore */
-      pagefindPath
-    ).catch((error) => {
-      console.warn(
-        "Pagefind not found. Search may not work in dev mode.",
-        error
-      );
-      return null;
-    })) as PagefindModule | null;
-
+    const loadedPagefind = await loadPagefind();
     if (!loadedPagefind) {
       return null;
     }
 
-    pagefind = loadedPagefind;
-    await loadedPagefind.options({
-      excerptLength: 20,
-    });
+    if (!pagefindConfigured) {
+      await loadedPagefind.options({
+        excerptLength: 20,
+      });
+      pagefindConfigured = true;
+    }
+
     return loadedPagefind;
   }
 
@@ -562,6 +578,7 @@ const helpTextId = `search-help-text-${instanceId}`;
 
     let activeIndex = -1;
     let currentQuery = "";
+    let searchToken = 0;
 
     function isActiveInstance() {
       if (!scope) return true;
@@ -754,8 +771,10 @@ const helpTextId = `search-help-text-${instanceId}`;
     }
 
     async function performSearch(query: string) {
+      const trimmedQuery = query.trim();
+      const currentToken = (searchToken += 1);
       activeIndex = -1;
-      if (!query) {
+      if (!trimmedQuery) {
         if (resultsContainer)
           resultsContainer.innerHTML =
             '<p class="search-empty">Start typing to search...</p>';
@@ -766,6 +785,7 @@ const helpTextId = `search-help-text-${instanceId}`;
         resultsContainer.innerHTML = '<p class="search-empty">Searching...</p>';
 
       const pf = await initPagefind();
+      if (currentToken !== searchToken) return;
       if (!pf) {
         if (resultsContainer)
           resultsContainer.innerHTML =
@@ -773,12 +793,13 @@ const helpTextId = `search-help-text-${instanceId}`;
         return;
       }
 
-      const search = await pf.search(query);
+      const search = await pf.search(trimmedQuery);
+      if (currentToken !== searchToken) return;
       if (search.results.length === 0) {
         if (resultsContainer)
           resultsContainer.innerHTML = `
             <div class="search-empty">
-              <p>No results found for "<strong>${query}</strong>"</p>
+              <p>No results found for "<strong>${trimmedQuery}</strong>"</p>
               <p class="search-suggestions">
                 Suggestions:<br/>
                 • Check for typos<br/>
@@ -794,9 +815,10 @@ const helpTextId = `search-help-text-${instanceId}`;
 
       const results = await Promise.all(
         search.results
-          .slice(0, 12)
+          .slice(0, SEARCH_RESULTS_LIMIT)
           .map((result: PagefindSearchResult) => result.data())
       );
+      if (currentToken !== searchToken) return;
 
       const groupedResults = groupResultsByType(results);
 
@@ -820,7 +842,7 @@ const helpTextId = `search-help-text-${instanceId}`;
             </div>
           `;
           item.addEventListener("click", () => {
-            saveRecentSearch(query);
+            saveRecentSearch(trimmedQuery);
           });
           list?.appendChild(item);
         });
@@ -1006,7 +1028,7 @@ const helpTextId = `search-help-text-${instanceId}`;
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(async () => {
         await performSearch(currentQuery);
-      }, 200);
+      }, SEARCH_DEBOUNCE_MS);
     });
 
     return {
