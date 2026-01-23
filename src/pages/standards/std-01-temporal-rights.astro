@@ -3,6 +3,16 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Std01MicroDiagram from "../../components/Std01MicroDiagram.astro";
 import TemporalRightsDiagram from "../../components/TemporalRightsDiagram.astro";
 
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const breadcrumbItems = [
+  { name: "Home", url: new URL("/", siteBase).toString() },
+  { name: "Standards", url: new URL("/standards", siteBase).toString() },
+  {
+    name: "The Temporal Bill of Rights",
+    url: new URL("/standards/std-01-temporal-rights", siteBase).toString(),
+  },
+];
+
 const rights = [
   {
     id: "stoppability",
@@ -159,6 +169,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   description="The draft standard defining the seven temporal rights protecting human time."
   mainClass="page page--wide standard-document"
   enableGlossaryHighlights={false}
+  breadcrumbItems={breadcrumbItems}
 >
   <article class="standard-document">
     <header class="standard-header">

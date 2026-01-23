@@ -1,11 +1,22 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const breadcrumbItems = [
+  { name: "Home", url: new URL("/", siteBase).toString() },
+  { name: "Mechanisms", url: new URL("/mechanisms", siteBase).toString() },
+  {
+    name: "The Hard Clock",
+    url: new URL("/mechanisms/mec-04-hard-clock", siteBase).toString(),
+  },
+];
 ---
 
 <BaseLayout
   title="MEC-04 — The Hard Clock"
   description="Specification sheet for enforcing bounded duration in accountable systems."
   mainClass="page page--wide"
+  breadcrumbItems={breadcrumbItems}
 >
   <article class="mechanism-sheet">
     <header class="mechanism-sheet__header">

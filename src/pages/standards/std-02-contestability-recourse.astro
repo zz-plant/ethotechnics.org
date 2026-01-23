@@ -1,6 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const breadcrumbItems = [
+  { name: "Home", url: new URL("/", siteBase).toString() },
+  { name: "Standards", url: new URL("/standards", siteBase).toString() },
+  {
+    name: "The Contestability & Recourse Standard",
+    url: new URL("/standards/std-02-contestability-recourse", siteBase).toString(),
+  },
+];
+
 const obligations = [
   {
     id: "notice",
@@ -125,6 +135,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   description="The draft standard defining contestability, review, and remedy obligations for automated systems."
   mainClass="page page--wide standard-document"
   enableGlossaryHighlights={false}
+  breadcrumbItems={breadcrumbItems}
 >
   <article class="standard-document">
     <header class="standard-header">

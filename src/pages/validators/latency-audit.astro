@@ -11,6 +11,15 @@ const validatorMeta =
     clauseRefs: [],
     mechanismRefs: [],
   };
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const breadcrumbItems = [
+  { name: "Home", url: new URL("/", siteBase).toString() },
+  { name: "Validators", url: new URL("/validators", siteBase).toString() },
+  {
+    name: "Latency Audit",
+    url: new URL("/validators/latency-audit", siteBase).toString(),
+  },
+];
 const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
@@ -18,6 +27,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
   title="Latency Audit — Validator"
   description="Audit bounded duration compliance against system latency."
   mainClass="page page--wide"
+  breadcrumbItems={breadcrumbItems}
 >
   <section class="validator">
     <header class="validator__header">

@@ -20,6 +20,7 @@ interface Props {
    */
   mainClass?: string;
   enableGlossaryHighlights?: boolean;
+  breadcrumbItems?: Array<{ name: string; url: string }>;
 }
 
 const siteName = "Ethotechnics Institute";
@@ -33,6 +34,7 @@ const {
   description = defaultDescription,
   mainClass = "page container",
   enableGlossaryHighlights = true,
+  breadcrumbItems,
 } = Astro.props as Props;
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).toString()
@@ -87,37 +89,28 @@ const structuredData: Array<Record<string, unknown>> = [
     },
   },
 ];
-const structuredDataJson = JSON.stringify(structuredData);
 const { identity, navigation } = siteFooter;
 const { cspNonce } = Astro.locals;
 const currentPath = Astro.url.pathname;
 
 const pathSegments = currentPath.split("/").filter(Boolean);
 const pagefindType = pathSegments[0] ?? "";
-if (pathSegments.length > 0) {
-  const breadcrumbItems = pathSegments.map((segment, index) => {
-    const url = new URL(
-      `${pathSegments.slice(0, index + 1).join("/")}`,
-      siteBase,
-    ).toString();
-    const formattedSegment = segment
-      .split("-")
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(" ");
-    return {
-      "@type": "ListItem",
-      position: index + 1,
-      name: formattedSegment,
-      item: url,
-    };
-  });
+if (breadcrumbItems?.length) {
+  const breadcrumbList = breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    item: item.url,
+  }));
 
   structuredData.push({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: breadcrumbItems,
+    itemListElement: breadcrumbList,
   });
 }
+
+const structuredDataJson = JSON.stringify(structuredData);
 ---
 
 <!doctype html>

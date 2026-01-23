@@ -1,6 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const breadcrumbItems = [
+  { name: "Home", url: new URL("/", siteBase).toString() },
+  { name: "Standards", url: new URL("/standards", siteBase).toString() },
+  {
+    name: "Justice SLOs (Targets, Budgets, and Breach Actions)",
+    url: new URL("/standards/std-03-justice-slos", siteBase).toString(),
+  },
+];
+
 const standardFields = [
   {
     title: "Metric",
@@ -115,6 +125,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   description="A standard defining how justice metrics tie to targets, budgets, and breach actions."
   mainClass="page page--wide standard-document"
   enableGlossaryHighlights={false}
+  breadcrumbItems={breadcrumbItems}
 >
   <article class="standard-document">
     <header class="standard-header">

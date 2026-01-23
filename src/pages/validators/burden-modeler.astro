@@ -11,6 +11,15 @@ const validatorMeta =
     clauseRefs: [],
     mechanismRefs: [],
   };
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const breadcrumbItems = [
+  { name: "Home", url: new URL("/", siteBase).toString() },
+  { name: "Validators", url: new URL("/validators", siteBase).toString() },
+  {
+    name: "Burden Modeler",
+    url: new URL("/validators/burden-modeler", siteBase).toString(),
+  },
+];
 const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
@@ -18,6 +27,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
   title="Burden Modeler — Validator"
   description="Score time tax and constructive denial risk for user journeys."
   mainClass="page page--wide"
+  breadcrumbItems={breadcrumbItems}
 >
   <section class="validator">
     <header class="validator__header">
