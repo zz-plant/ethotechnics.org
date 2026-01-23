@@ -188,24 +188,71 @@
   box-shadow: 0 0 0 1px rgba(192, 57, 43, 0.1);
 }
 
-.simulator__table {
-  display: grid;
-  gap: 0.35rem;
+.simulator__table-container {
+  width: 100%;
 }
 
-.simulator__table-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.5rem;
-  padding: 0.75rem;
-  border-radius: 0.75rem;
+.simulator__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+
+.simulator__table thead th {
+  text-align: left;
+  font-weight: 700;
+  padding: 0.35rem 0.5rem;
+  color: var(--text);
+}
+
+.simulator__table tbody tr {
   background: var(--panel);
 }
 
-.simulator__table-row--header {
-  font-weight: 700;
-  background: transparent;
-  padding: 0.35rem 0.5rem;
+.simulator__table tbody td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.simulator__table tbody tr td:first-child {
+  border-radius: 0.75rem 0 0 0.75rem;
+}
+
+.simulator__table tbody tr td:last-child {
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+
+.simulator__table-message {
+  min-width: 260px;
+  line-height: 1.5;
+}
+
+.simulator__table-action {
+  width: 140px;
+}
+
+.simulator__copy-button {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.simulator__copy-button:hover {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+.simulator__copy-button:focus-visible {
+  outline: 2px solid var(--accent, #4c6ef5);
+  outline-offset: 2px;
 }
 
 .simulator__card--stage ul {
@@ -219,6 +266,18 @@
 
   .simulator__grid {
     grid-template-columns: 1fr;
+  }
+
+  .simulator__table-container {
+    overflow-x: auto;
+  }
+
+  .simulator__table {
+    min-width: 520px;
+  }
+
+  .simulator__table-message {
+    min-width: 240px;
   }
 }
 

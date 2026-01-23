@@ -253,45 +253,95 @@ const StageCard = ({
   </article>
 );
 
-const CommunicationTable = ({ template }: { template: ScenarioTemplate }) => (
-  <div className="simulator__card" aria-labelledby="communications-title">
-    <div className="simulator__card-header">
-      <div>
-        <p className="eyebrow">Communications</p>
-        <h3 id="communications-title">Keep communications on cadence</h3>
-        <p className="muted">
-          Pair each status update with the owner roster and how to appeal. Reuse
-          these templates to keep teams aligned during the run.
-        </p>
-      </div>
-    </div>
-    <div
-      className="simulator__table"
-      role="table"
-      aria-label="Communication templates"
-    >
-      <div
-        className="simulator__table-row simulator__table-row--header"
-        role="row"
-      >
-        <div role="columnheader">Audience</div>
-        <div role="columnheader">Trigger</div>
-        <div role="columnheader">Message</div>
-      </div>
-      {template.communications.map((communication) => (
-        <div
-          key={communication.trigger + communication.audience}
-          className="simulator__table-row"
-          role="row"
-        >
-          <div role="cell">{communication.audience}</div>
-          <div role="cell">{communication.trigger}</div>
-          <div role="cell">{communication.message}</div>
+const CommunicationTable = ({ template }: { template: ScenarioTemplate }) => {
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const copyTimeoutRef = useRef<number | null>(null);
+
+  useEffect(
+    () => () => {
+      if (copyTimeoutRef.current) {
+        window.clearTimeout(copyTimeoutRef.current);
+      }
+    },
+    [],
+  );
+
+  const handleCopy = async (message: string, key: string) => {
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopiedKey(key);
+      if (copyTimeoutRef.current) {
+        window.clearTimeout(copyTimeoutRef.current);
+      }
+      copyTimeoutRef.current = window.setTimeout(() => {
+        setCopiedKey(null);
+      }, 1800);
+    } catch {
+      setCopiedKey(null);
+    }
+  };
+
+  return (
+    <div className="simulator__card" aria-labelledby="communications-title">
+      <div className="simulator__card-header">
+        <div>
+          <p className="eyebrow">Communications</p>
+          <h3 id="communications-title">Keep communications on cadence</h3>
+          <p className="muted">
+            Pair each status update with the owner roster and how to appeal.
+            Reuse these templates to keep teams aligned during the run.
+          </p>
         </div>
-      ))}
+      </div>
+      <div className="simulator__table-container">
+        <table className="simulator__table" aria-label="Communication templates">
+          <thead>
+            <tr>
+              <th scope="col">Audience</th>
+              <th scope="col">Trigger</th>
+              <th scope="col">Message</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {template.communications.map((communication) => {
+              const rowKey = `${communication.trigger}-${communication.audience}`;
+              const isCopied = copiedKey === rowKey;
+              return (
+                <tr key={rowKey}>
+                  <td>{communication.audience}</td>
+                  <td>{communication.trigger}</td>
+                  <td className="simulator__table-message">
+                    {communication.message}
+                  </td>
+                  <td className="simulator__table-action">
+                    <button
+                      className="simulator__copy-button"
+                      type="button"
+                      onClick={() =>
+                        void handleCopy(communication.message, rowKey)
+                      }
+                    >
+                      {isCopied ? "Copied!" : "Copy message"}
+                    </button>
+                    {isCopied && (
+                      <span
+                        className="visually-hidden"
+                        aria-live="polite"
+                      >
+                        Message copied to clipboard.
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const CoverageControls = ({
   coverage,
