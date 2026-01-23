@@ -93,6 +93,7 @@ const { cspNonce } = Astro.locals;
 const currentPath = Astro.url.pathname;
 
 const pathSegments = currentPath.split("/").filter(Boolean);
+const pagefindType = pathSegments[0] ?? "";
 if (pathSegments.length > 0) {
   const breadcrumbItems = pathSegments.map((segment, index) => {
     const url = new URL(
@@ -175,6 +176,11 @@ if (pathSegments.length > 0) {
       set:html={structuredDataJson}
       is:inline
     />
+    <meta data-pagefind-meta="title" content={title} />
+    <meta data-pagefind-meta="description" content={description} />
+    {pagefindType ? (
+      <meta data-pagefind-meta="type" content={pagefindType} />
+    ) : null}
     <slot name="head" />
   </head>
   <body>
@@ -352,6 +358,7 @@ if (pathSegments.length > 0) {
             data-glossary-highlights={
               enableGlossaryHighlights ? "true" : undefined
             }
+            data-pagefind-body
           >
             <slot />
           </main>
