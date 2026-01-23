@@ -84,12 +84,12 @@ under this heading and link to it from the roadmap table.
 
 - **Problem:** The capacity forecaster only supports one scenario at a time, slowing comparative
   planning.
-- **Scope:** Add a two-scenario compare mode with mirrored sliders, delta summaries, and a clear
-  reset path to return to single-scenario mode.
-- **UX/Tech notes:** Reuse the existing chart styles and export flow; keep keyboard access for all
-  controls.
-- **Acceptance criteria:** Users can create two scenarios, see a delta summary, and export each
-  scenario or the comparison snapshot.
+- **Scope:** Add a two-scenario compare mode with mirrored sliders, delta summaries, a
+  side-by-side delta table, and a clear reset path to return to single-scenario mode.
+- **UX/Tech notes:** Reuse the existing chart styles; keep keyboard access for all controls; add
+  an export option for each scenario and the comparison snapshot.
+- **Acceptance criteria:** Users can create two scenarios, see delta readouts at a glance, and
+  export each scenario or a combined comparison snapshot.
 - **Dependencies/risks:** Needs chart updates and content copy for comparison framing.
 - **Issue link:** Issue: TBD / Spec: #capacity-forecaster-v2-scenario-compare
 
@@ -97,12 +97,12 @@ under this heading and link to it from the roadmap table.
 
 - **Problem:** The simulator results lack clear guardrails for when mitigation steps become
   mandatory.
-- **Scope:** Introduce configurable risk thresholds with labeled bands and auto-suggested
-  interventions when results cross a threshold.
+- **Scope:** Introduce configurable risk thresholds with labeled bands and explicit guidance on
+  when to act for each tier.
 - **UX/Tech notes:** Keep calculations server-side only; expose thresholds as labeled presets with
-  a short explainer tooltip.
+  a short explainer tooltip describing what each tier means.
 - **Acceptance criteria:** Results display threshold bands, highlight the current risk tier, and
-  surface a recommended intervention list per tier.
+  surface recommended interventions plus an “act now” signal when thresholds are crossed.
 - **Dependencies/risks:** Requires content alignment on threshold definitions and recommendation
   copy.
 - **Issue link:** Issue: TBD / Spec: #maintenance-simulator-v2-risk-thresholds
@@ -111,12 +111,12 @@ under this heading and link to it from the roadmap table.
 
 - **Problem:** The burden modeler reports totals but does not highlight equity deltas across
   segments.
-- **Scope:** Add an equity snapshot panel that compares the top three impacted segments and flags
-  any imbalance beyond a configurable delta.
-- **UX/Tech notes:** Use existing data structures; present snapshots as a compact table with
-  plain-language labels and an exportable summary.
+- **Scope:** Add an equity snapshot panel that compares the top three impacted segments, shows
+  deltas between them, and flags any imbalance beyond a configurable threshold.
+- **UX/Tech notes:** Use existing data structures; present snapshots as a compact comparison table
+  with plain-language labels and an exportable summary.
 - **Acceptance criteria:** Users see a clear equity snapshot, flagged deltas, and a single-click
-  export of the snapshot data.
+  export of the snapshot comparison data.
 - **Dependencies/risks:** Needs clarity on segment definitions and acceptable delta thresholds.
 - **Issue link:** Issue: TBD / Spec: #burden-modeler-v2-equity-snapshots
 
