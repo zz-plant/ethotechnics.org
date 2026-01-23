@@ -42,6 +42,37 @@ const entryLabelIndex = new Map(
     category.entries.map((entry) => [entry.id, entry.title] as const),
   ),
 );
+const domainLabels: Record<string, string> = {
+  temporal: "Temporal",
+  visibility: "Visibility",
+  agency: "Agency",
+  burden: "Burden",
+  patterns: "Patterns",
+  measurable: "Measurable",
+  structural: "Structural",
+  diagnostic: "Diagnostic",
+};
+const phaseLabels: Record<string, string> = {
+  design: "Design",
+  deployment: "Deployment",
+  audit: "Audit",
+  repair: "Repair",
+};
+const measurabilityLabels: Record<string, string> = {
+  qualitative: "Qualitative",
+  semi_quantitative: "Semi-quantitative",
+  fully_measurable: "Fully measurable",
+};
+const maturityLabels: Record<string, string> = {
+  core_concept: "Core concept",
+  active_research: "Active research",
+  speculative: "Speculative",
+};
+const scaleLabels: Record<string, string> = {
+  individual: "Individual",
+  organizational: "Organizational",
+  systemic: "Systemic",
+};
 const entryRecord = categories
   .flatMap((category) =>
     category.entries.map((entry) => ({
@@ -135,6 +166,105 @@ const missingMetadata = [
   operationalTests.length === 0 ? "Operational tests" : null,
   !hasMinimumEvidenceDetails ? "Minimum evidence details" : null,
 ].filter((item): item is string => Boolean(item));
+const domains = entry.domains ?? [];
+const phases = entry.phase ?? [];
+const measurability = entry.measurability ?? "";
+const maturity = entry.maturity ?? "";
+const scale = entry.scale ?? "";
+const domainPills = domains.map((domain) => domainLabels[domain] ?? domain);
+const phaseList = phases.map((phase) => phaseLabels[phase] ?? phase).join(", ");
+const metaLine = [
+  scale ? `Scale: ${scaleLabels[scale] ?? scale}` : null,
+  phases.length ? `Phases: ${phaseList}` : null,
+  measurability
+    ? `Measurability: ${measurabilityLabels[measurability] ?? measurability}`
+    : null,
+  maturity
+    ? `Maturity: ${maturityLabels[maturity] ?? maturity}`
+    : null,
+]
+  .filter((item): item is string => Boolean(item))
+  .join(" · ");
+const allEntries = categories.flatMap((category) => category.entries);
+const formatClusterLabel = (value: string) =>
+  value
+    .split("_")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+const clusters = entry.clusters ?? [];
+const relatedClusters = clusters
+  .map((cluster) => ({
+    id: cluster,
+    label: formatClusterLabel(cluster),
+    entries: allEntries
+      .filter(
+        (candidate) =>
+          candidate.id !== entry.id &&
+          (candidate.clusters ?? []).includes(cluster),
+      )
+      .map((candidate) => ({
+        id: candidate.id,
+        title: candidate.title,
+      }))
+      .slice(0, 6),
+  }))
+  .filter((group) => group.entries.length > 0);
+const relatedDomains = domains
+  .map((domain) => ({
+    id: domain,
+    label: domainLabels[domain] ?? domain,
+    entries: allEntries
+      .filter(
+        (candidate) =>
+          candidate.id !== entry.id &&
+          (candidate.domains ?? []).includes(domain),
+      )
+      .map((candidate) => ({
+        id: candidate.id,
+        title: candidate.title,
+      }))
+      .slice(0, 6),
+  }))
+  .filter((group) => group.entries.length > 0);
+const hasRelatedConcepts =
+  relatedClusters.length > 0 || relatedDomains.length > 0;
+const filterParams = Astro.url.searchParams;
+const filterBreadcrumbParts = [
+  filterParams.get("domains")
+    ? `Domains: ${filterParams
+        .get("domains")
+        ?.split(",")
+        .filter(Boolean)
+        .map((domain) => domainLabels[domain] ?? domain)
+        .join(", ")}`
+    : null,
+  filterParams.get("phases")
+    ? `Phases: ${filterParams
+        .get("phases")
+        ?.split(",")
+        .filter(Boolean)
+        .map((phase) => phaseLabels[phase] ?? phase)
+        .join(", ")}`
+    : null,
+  filterParams.get("measurability")
+    ? `Measurability: ${filterParams
+        .get("measurability")
+        ?.split(",")
+        .filter(Boolean)
+        .map(
+          (option) => measurabilityLabels[option] ?? option,
+        )
+        .join(", ")}`
+    : null,
+  filterParams.get("status")
+    ? `Status: ${filterParams.get("status")}`
+    : null,
+  filterParams.get("query")
+    ? `Query: “${filterParams.get("query")}”`
+    : null,
+].filter((item): item is string => Boolean(item));
+const glossaryFilterUrl = `${glossaryPermalink}${Astro.url.search}`;
+const hasFilterBreadcrumb = filterBreadcrumbParts.length > 0;
 const patternIndex = new Map(
   libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
@@ -171,6 +301,9 @@ const anchorLinks = [
   ...(scopeText ? [{ href: "#scope", label: "Scope" }] : []),
   ...(adjacentTerms.length
     ? [{ href: "#adjacent-terms", label: "Adjacent terms" }]
+    : []),
+  ...(hasRelatedConcepts
+    ? [{ href: "#related-concepts", label: "Related concepts" }]
     : []),
   ...(presenceChecks.length
     ? [{ href: "#presence-checks", label: "Presence checks" }]
@@ -273,6 +406,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <meta itemprop="name" content={entry.title} />
     <meta itemprop="url" content={pageUrl} />
     <meta itemprop="inDefinedTermSet" content={glossaryUrl} />
+    {hasFilterBreadcrumb && (
+      <nav class="glossary-entry__breadcrumb" aria-label="Glossary breadcrumbs">
+        <a href={glossaryFilterUrl}>Glossary</a>
+        <span class="glossary-entry__breadcrumb-divider">/</span>
+        <span class="muted">
+          Filtered by: {filterBreadcrumbParts.join(" · ")}
+        </span>
+      </nav>
+    )}
     <header id="definition" class="glossary-entry__hero">
       <div class="glossary-entry__hero-copy">
         <p class="eyebrow">Definition</p>
@@ -281,6 +423,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           set:html={entry.bodyHtml}
           itemprop="description"
         />
+        {(domainPills.length > 0 || metaLine) && (
+          <div class="glossary-entry__tagline">
+            {domainPills.length > 0 && (
+              <div class="pill-row">
+                {domainPills.map((domain) => (
+                  <span class="pill pill--ghost">{domain}</span>
+                ))}
+              </div>
+            )}
+            {metaLine && <p class="muted small">{metaLine}</p>}
+          </div>
+        )}
       </div>
       {metaItems.length > 0 && (
         <dl class="glossary-entry__meta">
@@ -317,6 +471,45 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </section>
           )
         }
+        {hasRelatedConcepts && (
+          <section id="related-concepts" class="glossary-entry__section">
+            <p class="eyebrow">Related concepts</p>
+            {relatedClusters.map((group) => (
+              <div class="glossary-entry__related-group">
+                <p class="muted small">
+                  Part of cluster: <strong>{group.label}</strong>
+                </p>
+                <div class="pill-row">
+                  {group.entries.map((term) => (
+                    <a
+                      class="pill pill--muted"
+                      href={glossaryEntryPermalink(term.id)}
+                    >
+                      {term.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+            {relatedDomains.map((group) => (
+              <div class="glossary-entry__related-group">
+                <p class="muted small">
+                  Also tagged: <strong>{group.label}</strong>
+                </p>
+                <div class="pill-row">
+                  {group.entries.map((term) => (
+                    <a
+                      class="pill pill--muted"
+                      href={glossaryEntryPermalink(term.id)}
+                    >
+                      {term.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
         {
           (presenceChecks.length > 0 || missingExpectations.length > 0) && (
             <section class="glossary-entry__section glossary-entry__section--checks">

@@ -77,17 +77,27 @@ const entryLabelIndex = new Map(
     category.entries.map((entry) => [entry.id, entry.title] as const),
   ),
 );
-const categoryFilters = categories.map((category) => ({
-  id: category.id,
-  label: normalizeGlossaryHeading(category.heading),
-}));
-const tagFilters = Array.from(
-  new Set(
-    categories.flatMap((category) =>
-      category.entries.flatMap((entry) => entry.tags ?? []),
-    ),
-  ),
-).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+const domainFilters = [
+  { id: "temporal", label: "Temporal" },
+  { id: "visibility", label: "Visibility" },
+  { id: "agency", label: "Agency" },
+  { id: "burden", label: "Burden" },
+  { id: "patterns", label: "Patterns" },
+  { id: "measurable", label: "Measurable" },
+  { id: "structural", label: "Structural" },
+  { id: "diagnostic", label: "Diagnostic" },
+];
+const phaseFilters = [
+  { id: "design", label: "Design" },
+  { id: "deployment", label: "Deployment" },
+  { id: "audit", label: "Audit" },
+  { id: "repair", label: "Repair" },
+];
+const measurabilityFilters = [
+  { id: "qualitative", label: "Qualitative" },
+  { id: "semi_quantitative", label: "Semi-quantitative" },
+  { id: "fully_measurable", label: "Fully measurable" },
+];
 const statusFilters = Array.from(
   new Set(
     categories
@@ -108,6 +118,11 @@ const entryIndex = categories
         title: entry.title,
         status: entry.status,
         tags: entry.tags ?? [],
+        domains: entry.domains ?? [],
+        phases: entry.phase ?? [],
+        measurability: entry.measurability ?? "",
+        maturity: entry.maturity ?? "",
+        scale: entry.scale ?? "",
         categoryLabel,
         categoryId: category.id,
         searchText,
@@ -374,46 +389,150 @@ const glossaryAuthor = getGlossaryAuthor(publication);
           value={searchQuery}
         />
       </label>
-      <label class="glossary-filter__facet">
-        Territory
-        <select class="glossary-filter__select" data-glossary-filter="category">
-          <option value="">All territories</option>
-          {
-            categoryFilters.map((category) => (
-              <option value={category.id}>{category.label}</option>
-            ))
-          }
-        </select>
-      </label>
-      {
-        tagFilters.length > 0 && (
-          <label class="glossary-filter__facet">
-            Tag
-            <select class="glossary-filter__select" data-glossary-filter="tag">
-              <option value="">All tags</option>
-              {tagFilters.map((tag) => (
-                <option value={tag}>{tag}</option>
-              ))}
-            </select>
-          </label>
-        )
-      }
-      {
-        statusFilters.length > 0 && (
-          <label class="glossary-filter__facet">
-            Status
-            <select
-              class="glossary-filter__select"
-              data-glossary-filter="status"
-            >
-              <option value="">All statuses</option>
-              {statusFilters.map((status) => (
-                <option value={status}>{status}</option>
-              ))}
-            </select>
-          </label>
-        )
-      }
+      <div class="glossary-filter__tabs" role="tablist">
+        <button
+          class="glossary-filter__tab is-active"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          data-glossary-tab="all"
+        >
+          All entries <span data-glossary-total>{totalEntries}</span>
+        </button>
+        <button
+          class="glossary-filter__tab"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-glossary-tab="domains"
+        >
+          By Domain
+        </button>
+        <button
+          class="glossary-filter__tab"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-glossary-tab="phases"
+        >
+          By Phase
+        </button>
+        <button
+          class="glossary-filter__tab"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          data-glossary-tab="measurability"
+        >
+          By Measurability
+        </button>
+      </div>
+    </div>
+    <div class="glossary-filter__panels">
+      <div
+        class="glossary-filter__panel"
+        role="tabpanel"
+        data-glossary-panel="all"
+      >
+        <p class="muted">Currently viewing: All entries</p>
+      </div>
+      <fieldset
+        class="glossary-filter__panel"
+        role="tabpanel"
+        data-glossary-panel="domains"
+        hidden
+      >
+        <legend>Filter by domain</legend>
+        <div class="glossary-filter__chips">
+          {domainFilters.map((domain) => (
+            <label class="glossary-filter__chip">
+              <input
+                type="checkbox"
+                value={domain.id}
+                data-glossary-filter="domains"
+                data-glossary-label={domain.label}
+              />
+              <span class="glossary-filter__chip-label">{domain.label}</span>
+              <span class="glossary-filter__chip-count" data-glossary-count />
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset
+        class="glossary-filter__panel"
+        role="tabpanel"
+        data-glossary-panel="phases"
+        hidden
+      >
+        <legend>Filter by phase</legend>
+        <div class="glossary-filter__chips">
+          {phaseFilters.map((phase) => (
+            <label class="glossary-filter__chip">
+              <input
+                type="checkbox"
+                value={phase.id}
+                data-glossary-filter="phases"
+                data-glossary-label={phase.label}
+              />
+              <span class="glossary-filter__chip-label">{phase.label}</span>
+              <span class="glossary-filter__chip-count" data-glossary-count />
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset
+        class="glossary-filter__panel"
+        role="tabpanel"
+        data-glossary-panel="measurability"
+        hidden
+      >
+        <legend>Filter by measurability</legend>
+        <div class="glossary-filter__chips">
+          {measurabilityFilters.map((option) => (
+            <label class="glossary-filter__chip">
+              <input
+                type="checkbox"
+                value={option.id}
+                data-glossary-filter="measurability"
+                data-glossary-label={option.label}
+              />
+              <span class="glossary-filter__chip-label">
+                {option.label}
+              </span>
+              <span class="glossary-filter__chip-count" data-glossary-count />
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      {statusFilters.length > 0 && (
+        <fieldset
+          class="glossary-filter__panel glossary-filter__panel--status"
+          role="tabpanel"
+          data-glossary-panel="status"
+        >
+          <legend>Filter by status</legend>
+          <div class="glossary-filter__chips">
+            {statusFilters.map((status) => (
+              <label class="glossary-filter__chip">
+                <input
+                  type="checkbox"
+                  value={status}
+                  data-glossary-filter="status"
+                  data-glossary-label={status}
+                />
+                <span class="glossary-filter__chip-label">{status}</span>
+                <span class="glossary-filter__chip-count" data-glossary-count />
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+    </div>
+    <div class="glossary-filter__active" data-glossary-active hidden>
+      <p class="muted">Active filters:</p>
+      <div class="glossary-filter__active-chips"></div>
+    </div>
+    <div class="glossary-filter__actions">
       <button
         class="button ghost button--compact glossary-filter__clear"
         type="button"
@@ -421,8 +540,6 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       >
         Clear filter
       </button>
-    </div>
-    <div class="glossary-filter__actions">
       <button
         class="button ghost button--compact"
         type="button"
@@ -439,7 +556,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       </button>
     </div>
     <p class="muted glossary-filter__hint">
-      Search across all terms or narrow by territory, tag, or status.
+      Search across all terms or narrow by domain, phase, or measurability.
     </p>
     <p
       class="muted glossary-filter__count"
@@ -521,10 +638,16 @@ const glossaryAuthor = getGlossaryAuthor(publication);
             <a
               class={entryClasses}
               href={glossaryEntryUrl(entry.id)}
+              data-glossary-entry-link
               data-title={entry.title}
               data-category={entry.categoryLabel}
               data-category-id={entry.categoryId}
               data-tags={entry.tags.join(" ")}
+              data-domains={entry.domains.join(" ")}
+              data-phases={entry.phases.join(" ")}
+              data-measurability={entry.measurability}
+              data-maturity={entry.maturity}
+              data-scale={entry.scale}
               data-status={entry.status ?? ""}
               data-search={entry.searchText}
             >
@@ -683,6 +806,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
                         <a
                           class="glossary-entry__permalink"
                           href={entryUrl}
+                          data-glossary-entry-link
                           aria-label={`Permalink to ${entry.title}`}
                           rel="bookmark"
                           itemprop="mainEntityOfPage"

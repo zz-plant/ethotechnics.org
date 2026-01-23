@@ -20,6 +20,30 @@ export type GlossaryResource = {
   type: string;
 };
 
+export type GlossaryDomain =
+  | "temporal"
+  | "visibility"
+  | "agency"
+  | "burden"
+  | "patterns"
+  | "measurable"
+  | "structural"
+  | "diagnostic";
+
+export type GlossaryScale = "individual" | "organizational" | "systemic";
+
+export type GlossaryPhase = "design" | "deployment" | "audit" | "repair";
+
+export type GlossaryMeasurability =
+  | "qualitative"
+  | "semi_quantitative"
+  | "fully_measurable";
+
+export type GlossaryMaturity =
+  | "core_concept"
+  | "active_research"
+  | "speculative";
+
 export type GlossaryMinimumEvidence = {
   artifact: string;
   behavior: string;
@@ -37,6 +61,13 @@ export type GlossaryEntry = {
   status: string | null;
   classes?: string[];
   bodyHtml: string;
+  domains?: GlossaryDomain[];
+  scale?: GlossaryScale | null;
+  phase?: GlossaryPhase[];
+  measurability?: GlossaryMeasurability | null;
+  maturity?: GlossaryMaturity | null;
+  clusters?: string[];
+  legacyTerritory?: string;
   termUpdated?: string;
   termVersion?: string;
   termChangelog?: string;

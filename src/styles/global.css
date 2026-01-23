@@ -3236,6 +3236,103 @@
   gap: var(--space-2);
 }
 
+.glossary-filter__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.glossary-filter__tab {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-subtle);
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+}
+
+.glossary-filter__tab.is-active {
+  border-color: var(--color-foreground);
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.glossary-filter__panels {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.glossary-filter__panel {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.glossary-filter__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.glossary-filter__chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-subtle);
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.glossary-filter__chip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+}
+
+.glossary-filter__chip:has(input:checked) {
+  border-color: var(--color-foreground);
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.glossary-filter__chip:focus-within {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+.glossary-filter__chip-count {
+  font-size: var(--text-xs);
+  opacity: 0.75;
+}
+
+.glossary-filter__active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.glossary-filter__active-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.glossary-filter__active-chip {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  color: var(--color-foreground);
+}
+
 .glossary-filter__actions {
   display: flex;
   align-items: center;
@@ -3294,6 +3391,29 @@
 
 .glossary-filter__clear {
   padding-inline: var(--space-3) var(--space-4);
+}
+
+.glossary-entry__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.glossary-entry__breadcrumb-divider {
+  opacity: 0.5;
+}
+
+.glossary-entry__tagline {
+  margin-top: var(--space-2);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.glossary-entry__related-group {
+  margin-top: var(--space-2);
 }
 
 .research-filter {
