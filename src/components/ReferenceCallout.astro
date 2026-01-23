@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  linkLabel?: string;
+  ariaLabel?: string;
+}
+
+const {
+  title,
+  summary,
+  href,
+  linkLabel = "Read more",
+  ariaLabel,
+} = Astro.props as Props;
+
+const headingId = `callout-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+const isExternal = href.startsWith("http");
+const linkAriaLabel = ariaLabel ?? `Read more about ${title}`;
+---
+
+<aside class="callout reference-callout" aria-labelledby={headingId}>
+  <h3 id={headingId}>{title}</h3>
+  <p class="muted">{summary}</p>
+  <a
+    class="reference-callout__link"
+    href={href}
+    aria-label={linkAriaLabel}
+    rel={isExternal ? "noopener noreferrer" : undefined}
+    target={isExternal ? "_blank" : undefined}
+  >
+    {linkLabel}
+  </a>
+</aside>

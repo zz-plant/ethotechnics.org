@@ -3,8 +3,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import ReferenceCallout from "../../components/ReferenceCallout.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 import MaintenanceSimulatorWidget from "../../features/maintenance-simulator";
 
@@ -43,18 +45,6 @@ const anchorLinks = [
     description={pageDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "What you receive",
-      title: "Tabletop-ready maintenance outputs.",
-      description: tool.outputs.join(" "),
-    }}
-  />
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={tool.title}
-    permalink={permalink}
-    publication={publication}
-    citationKey={`diagnostic_${tool.slug}`}
   />
 
   <SectionBlock
@@ -69,8 +59,22 @@ const anchorLinks = [
       ))}
     </ul>
     <p class="muted">Estimated time: {tool.estimatedTime}</p>
-    <p class="muted">{tool.studioNote}</p>
+    <ReferenceCallout
+      title={diagnosticsStudioOffRampCallout.title}
+      summary={diagnosticsStudioOffRampCallout.summary}
+      href={diagnosticsStudioOffRampCallout.href}
+      linkLabel={diagnosticsStudioOffRampCallout.linkLabel}
+      ariaLabel={diagnosticsStudioOffRampCallout.ariaLabel}
+    />
+    {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
   </SectionBlock>
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={tool.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`diagnostic_${tool.slug}`}
+  />
 
   <SectionBlock
     id="methodology"

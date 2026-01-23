@@ -3,10 +3,12 @@ import { getEntry } from "astro:content";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import ReferenceCallout from "../../components/ReferenceCallout.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
+import { instituteStudioCallout } from "../../content/callouts";
 import { quickStartGuides } from "../../content/quick-start";
 
 const startHereData = (await getEntry("startHere", "start-here"))!;
@@ -266,6 +268,13 @@ const { cspNonce } = Astro.locals;
   >
     <CardGrid>
       <CardItem descriptionTone="default">
+        <ReferenceCallout
+          title={instituteStudioCallout.title}
+          summary={instituteStudioCallout.summary}
+          href={instituteStudioCallout.href}
+          linkLabel={instituteStudioCallout.linkLabel}
+          ariaLabel={instituteStudioCallout.ariaLabel}
+        />
         <ul class="muted">
           {studio.bullets.map((bullet) => <li>{bullet}</li>)}
         </ul>
