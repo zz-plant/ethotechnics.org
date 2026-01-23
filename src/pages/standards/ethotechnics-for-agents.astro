@@ -511,26 +511,29 @@ const practiceSections = [
       Action classes make enforcement legible. Attach reversibility, clocks, and approvals to each
       class so teams can ship controls quickly.
     </p>
-    <table class="mapping-table">
-      <thead>
-        <tr>
-          <th>Action class</th>
-          <th>Examples</th>
-          <th>Reversible?</th>
-          <th>Default controls</th>
-        </tr>
-      </thead>
-      <tbody>
-        {actionClassRows.map((row) => (
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--compare">
+        <caption class="visually-hidden">Action-class taxonomy template</caption>
+        <thead>
           <tr>
-            <td>{row.actionClass}</td>
-            <td>{row.examples}</td>
-            <td>{row.reversibility}</td>
-            <td>{row.controls}</td>
+            <th>Action class</th>
+            <th>Examples</th>
+            <th>Reversible?</th>
+            <th>Default controls</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {actionClassRows.map((row) => (
+            <tr>
+              <td data-label="Action class">{row.actionClass}</td>
+              <td data-label="Examples">{row.examples}</td>
+              <td data-label="Reversible?">{row.reversibility}</td>
+              <td data-label="Default controls">{row.controls}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     <p class="muted">
       Mark any irreversible class as approval-gated by default and attach the Hard Clock + Kill
       switch to production runs.
