@@ -43,8 +43,8 @@ keep it consistent.
   checks that glossary resource URLs are valid.
 - `astro check` validates the taxonomy schema in `src/content.config.ts`, including required
   metadata fields and related artifacts.
-- `bun test` exercises `tests/content-collections.test.ts` to confirm every JSON file under
-  `src/content` is wired into `src/content.config.ts`.
+- `bun run test:unit` exercises `tests/content-collections.test.ts` to confirm every JSON file
+  under `src/content` is wired into `src/content.config.ts`.
 - `bun run build` and `bun run check` both include the JSON and glossary validation steps, so they
   are good smoke tests after editing content data.
 

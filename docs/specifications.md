@@ -51,7 +51,8 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 ## Testing commands
 
 - `bun run check`: lint, type-check, tests, and Astro diagnostics; run before committing.
-- `bun test` or `bun run test:unit:ci`: Bun test suites (watch or single pass with coverage).
+- `bun run test:unit` or `bun run test:unit:ci`: Bun test suites (watch or single pass with
+  coverage).
 - `bun run test:e2e`: build then execute Playwright against the preview server; install browsers
   via `bunx playwright install --with-deps` first.
 

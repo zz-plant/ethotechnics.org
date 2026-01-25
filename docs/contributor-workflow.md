@@ -14,7 +14,7 @@ Practical guidance for keeping changes small, consistent, and easy to review.
    `src/layouts`.
 2. Run targeted commands while you work:
    - `bun run lint` for source edits.
-   - `bun test` for unit and component coverage.
+   - `bun run test:unit` for unit and component coverage.
    - `bun run validate:json` when editing JSON data files.
    - `bun run validate:glossary` when glossary terms or references change.
 3. Run `bun run check` before committing for code or mixed changes.
