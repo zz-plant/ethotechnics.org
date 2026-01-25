@@ -47,7 +47,7 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
   - `bun run format` to apply Prettier formatting across the repo.
   - `bun run format:check` for a CI-friendly formatting check.
   - `bun run typecheck` for strict TypeScript validation.
-  - `bun test` for the unit and component test suite.
+  - `bun run test:unit` for the unit and component test suite.
   - `bun run test:unit:ci` to generate coverage with the lcov reporter.
     - Coverage reports land in `coverage/lcov.info`.
 - End-to-end tests require browsers: install them once with `bunx playwright install --with-deps`
