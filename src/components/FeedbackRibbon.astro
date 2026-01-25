@@ -1,0 +1,52 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface FeedbackAction {
+  label: string;
+  href: string;
+  ariaLabel?: string;
+  detail?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  actions: FeedbackAction[];
+}
+
+const { eyebrow, title, description, actions } = Astro.props as Props;
+
+const resolveIconName = (label: string) =>
+  label.toLowerCase().includes("inbox") ? "lucide:inbox" : "lucide:message-circle";
+---
+<div class="feedback-ribbon" aria-label="Feedback channels">
+  <div class="feedback-ribbon__lead">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h3>{title}</h3>
+    <p class="muted">{description}</p>
+  </div>
+  <div class="feedback-ribbon__actions" aria-label="Ways to contact the team">
+    {actions.map((action) => (
+      <a
+        class="feedback-ribbon__card"
+        href={action.href}
+        aria-label={action.ariaLabel ?? action.label}
+        rel={action.href.startsWith("http") ? "noopener noreferrer" : undefined}
+      >
+        <span class="feedback-ribbon__icon" aria-hidden="true">
+          <Icon name={resolveIconName(action.label)} />
+        </span>
+        <span class="feedback-ribbon__copy">
+          <span class="feedback-ribbon__label">{action.label}</span>
+          <span class="feedback-ribbon__title">
+            {action.href.replace("mailto:", "")}
+          </span>
+          {action.detail ? (
+            <span class="feedback-ribbon__detail">{action.detail}</span>
+          ) : null}
+        </span>
+      </a>
+    ))}
+  </div>
+</div>

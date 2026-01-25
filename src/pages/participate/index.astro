@@ -4,6 +4,7 @@ import { Icon } from "astro-icon/components";
 
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import FeedbackRibbon from "../../components/FeedbackRibbon.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -297,48 +298,11 @@ const resolveIntakeFieldName = (fieldId: string) =>
     description={feedback.description}
     variant="alt"
   >
-    <div class="info-strip" aria-label="Feedback channels">
-      <div class="info-strip__lead">
-        <p class="eyebrow">Feedback inboxes</p>
-        <p class="muted">
-          Share quick notes, unclear steps, or examples you want us to add.
-        </p>
-      </div>
-      <div class="info-strip__actions" aria-label="Ways to contact the team">
-        {
-          feedback.actions.map((action) => (
-            <a
-              class="info-strip__badge"
-              href={action.href}
-              aria-label={action.ariaLabel ?? action.label}
-              rel={
-                action.href.startsWith("http")
-                  ? "noopener noreferrer"
-                  : undefined
-              }
-            >
-              <span class="info-strip__icon" aria-hidden="true">
-                <Icon
-                  name={
-                    action.label.includes("inbox")
-                      ? "lucide:inbox"
-                      : "lucide:sparkles"
-                  }
-                />
-              </span>
-              <span class="info-strip__copy">
-                <span class="info-strip__label">{action.label}</span>
-                <span class="info-strip__title">
-                  {action.href.replace("mailto:", "")}
-                </span>
-                {action.detail ? (
-                  <span class="info-strip__detail">{action.detail}</span>
-                ) : null}
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
+    <FeedbackRibbon
+      eyebrow="Feedback inboxes"
+      title="Send notes, critiques, or missing references."
+      description="Share unclear steps, missing citations, or examples you want us to add."
+      actions={feedback.actions}
+    />
   </SectionBlock>
 </BaseLayout>

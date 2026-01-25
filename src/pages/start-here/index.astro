@@ -2,7 +2,9 @@
 import { getEntry } from "astro:content";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import DecisionSplit from "../../components/DecisionSplit.astro";
 import PageIntro from "../../components/PageIntro.astro";
+import QuickSignalPanel from "../../components/QuickSignalPanel.astro";
 import ReferenceCallout from "../../components/ReferenceCallout.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -72,11 +74,13 @@ const { cspNonce } = Astro.locals;
   <SectionActions>
     <StudioBadge />
   </SectionActions>
-  <p class="muted small">{hero.quickNote}</p>
-  <p class="muted">{hero.quickSummary}</p>
-  <ul class="muted">
-    {hero.deliverables.map((item) => <li>{item}</li>)}
-  </ul>
+  <QuickSignalPanel
+    eyebrow="Fast orientation"
+    title="Navigate the fastest next step."
+    summary={hero.quickSummary}
+    bullets={hero.deliverables}
+    note={hero.quickNote}
+  />
 
   <SectionBlock
     id="framing"
@@ -84,18 +88,13 @@ const { cspNonce } = Astro.locals;
     title={framing.title}
     description={framing.description}
   >
-    <CardGrid className="grid--two">
-      <CardItem title="This page is" descriptionTone="default">
-        <ul class="muted">
-          {framing.isList.map((item) => <li>{item}</li>)}
-        </ul>
-      </CardItem>
-      <CardItem title="This page is not" descriptionTone="default">
-        <ul class="muted">
-          {framing.isNotList.map((item) => <li>{item}</li>)}
-        </ul>
-      </CardItem>
-    </CardGrid>
+    <DecisionSplit
+      leftTitle="This page is"
+      leftItems={framing.isList}
+      rightTitle="This page is not"
+      rightItems={framing.isNotList}
+      note="Every link is a permalink that stays updated as guidance changes."
+    />
   </SectionBlock>
 
   <SectionBlock

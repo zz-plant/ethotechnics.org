@@ -1,0 +1,22 @@
+---
+interface StatItem {
+  value: string;
+  label: string;
+  detail?: string;
+}
+
+interface Props {
+  items: StatItem[];
+}
+
+const { items } = Astro.props as Props;
+---
+<dl class="stat-cluster" aria-label="Institute metrics">
+  {items.map((item) => (
+    <div class="stat-cluster__item">
+      <dt class="stat-cluster__label">{item.label}</dt>
+      <dd class="stat-cluster__value">{item.value}</dd>
+      {item.detail && <p class="stat-cluster__detail muted">{item.detail}</p>}
+    </div>
+  ))}
+</dl>

@@ -1,0 +1,31 @@
+---
+interface Props {
+  leftTitle: string;
+  leftItems: string[];
+  rightTitle: string;
+  rightItems: string[];
+  note?: string;
+}
+
+const { leftTitle, leftItems, rightTitle, rightItems, note } =
+  Astro.props as Props;
+---
+<div class="decision-split" aria-label={`${leftTitle} and ${rightTitle}`}>
+  <div class="decision-split__panel decision-split__panel--positive">
+    <h3 class="decision-split__title">{leftTitle}</h3>
+    <ul class="decision-split__list muted">
+      {leftItems.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </div>
+  <div class="decision-split__panel decision-split__panel--neutral">
+    <h3 class="decision-split__title">{rightTitle}</h3>
+    <ul class="decision-split__list muted">
+      {rightItems.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </div>
+  {note && <p class="decision-split__note muted small">{note}</p>}
+</div>

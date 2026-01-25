@@ -3,8 +3,10 @@ import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
 import InstituteStudioComparison from '../../components/InstituteStudioComparison.astro';
 import PageIntro from '../../components/PageIntro.astro';
+import QuoteHighlight from '../../components/QuoteHighlight.astro';
 import ReferenceCallout from '../../components/ReferenceCallout.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
+import StatCluster from '../../components/StatCluster.astro';
 import StudioBadge from '../../components/StudioBadge.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { instituteStudioCallout } from '../../content/callouts';
@@ -26,6 +28,28 @@ const {
   stewards,
   contact,
 } = instituteContent;
+const instituteStats = [
+  {
+    value: `${highlights.length}`,
+    label: 'Engagement paths',
+    detail: 'Ways visitors can collaborate with the Institute.',
+  },
+  {
+    value: `${programs.length}`,
+    label: 'Active programs',
+    detail: 'Tracks running with defined outcomes and status.',
+  },
+  {
+    value: `${governance.length}`,
+    label: 'Governance commitments',
+    detail: 'Policies that keep releases accountable.',
+  },
+  {
+    value: `${stewards.length}`,
+    label: 'Stewards available',
+    detail: 'People prepared to triage requests.',
+  },
+];
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
@@ -44,6 +68,20 @@ const {
     ariaLabel={instituteStudioCallout.ariaLabel}
   />
   <StudioBadge />
+
+  <SectionBlock
+    eyebrow="Institute signal"
+    title="A clear view of what is active and accountable."
+    description="These metrics summarize how the Institute stays responsive to contributors and program partners."
+    className="section--banded"
+  >
+    <StatCluster items={instituteStats} />
+    <QuoteHighlight
+      quote="We publish governance alongside delivery so every release earns its credibility in the open."
+      attribution="Institute steward council"
+      context="Ethotechnics program oversight"
+    />
+  </SectionBlock>
 
   <SectionBlock
     id="overview"
