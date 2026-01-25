@@ -1,0 +1,492 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ReferenceCallout from "../../components/ReferenceCallout.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsContent } from "../../content/diagnostics";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "maintenance-debt-calculator",
+);
+
+if (!tool) {
+  return Astro.response(
+    new Response("Diagnostic not found", {
+      status: 404,
+    }),
+  );
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#methodology", label: "Methodology" },
+  { href: "#run-tool", label: "Run the tool" },
+  { href: "#results", label: "Results" },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="Diagnostics"
+    title={tool.title}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="When to use the Maintenance Debt Calculator."
+    description={tool.bestFor}
+  >
+    <ul class="muted">
+      {tool.prepChecklist.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="muted">Estimated time: {tool.estimatedTime}</p>
+    <ReferenceCallout
+      title={diagnosticsStudioOffRampCallout.title}
+      summary={diagnosticsStudioOffRampCallout.summary}
+      href={diagnosticsStudioOffRampCallout.href}
+      linkLabel={diagnosticsStudioOffRampCallout.linkLabel}
+      ariaLabel={diagnosticsStudioOffRampCallout.ariaLabel}
+    />
+    {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
+  </SectionBlock>
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={tool.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`diagnostic_${tool.slug}`}
+  />
+
+  <SectionBlock
+    id="methodology"
+    eyebrow="Methodology"
+    title="Maintenance debt scoring model."
+    description="Inputs, scoring logic, validation notes, and failure modes used in the calculator."
+    variant="alt"
+  >
+    <DiagnosticMethodology
+      methodCards={tool.methodCards}
+      methodOverview={tool.methodOverview}
+      instrument={tool.instrument}
+      validation={tool.validation}
+      replicability={tool.replicability}
+    />
+  </SectionBlock>
+
+  <SectionBlock
+    id="run-tool"
+    eyebrow="Run the tool"
+    title="Calculate maintenance debt exposure."
+    description="Model uncontrolled versus stoppable action costs with a few inputs."
+  >
+    <form class="intake-form" data-debt-form>
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          Decision speed
+          <select id="speed" name="speed" required>
+            <option value="rapid">Milliseconds or automated</option>
+            <option value="steady">Seconds with quick review</option>
+            <option value="deliberate">Minutes with human review</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Intervention readiness
+          <select id="readiness" name="readiness" required>
+            <option value="limited">Limited coverage</option>
+            <option value="partial">Partial coverage</option>
+            <option value="comprehensive">Comprehensive coverage</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Response window
+          <select id="response" name="response" required>
+            <option value="fast">Under 5 minutes</option>
+            <option value="moderate">15–60 minutes</option>
+            <option value="slow">Over 1 hour</option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Revenue exposure
+          <select id="exposure" name="exposure" required>
+            <option value="low">Low (under $250k)</option>
+            <option value="medium">Medium ($250k–$1.5M)</option>
+            <option value="high">High ($1.5M+)</option>
+          </select>
+        </label>
+      </fieldset>
+      <div class="intake-form__actions">
+        <button class="button primary" type="submit" data-debt-submit>
+          Calculate maintenance debt
+        </button>
+      </div>
+    </form>
+  </SectionBlock>
+
+  <SectionBlock
+    id="results"
+    eyebrow="Results"
+    title="Maintenance debt readout."
+    description="Use the shareable link in budget and governance briefs."
+    variant="alt"
+  >
+    <div class="panel" data-debt-results hidden>
+      <p class="muted">Maintenance debt score</p>
+      <p class="metric" data-debt-score>--</p>
+      <span class="status-pill status-pill--yellow" data-debt-tier>Moderate</span>
+      <p class="muted" data-debt-summary>
+        Complete the form above to generate your maintenance debt score.
+      </p>
+      <div class="metrics-grid">
+        <div>
+          <p class="muted">Uncontrolled action cost</p>
+          <p class="metric" data-debt-uncontrolled>--</p>
+        </div>
+        <div>
+          <p class="muted">Stoppable action cost</p>
+          <p class="metric" data-debt-stoppable>--</p>
+        </div>
+        <div>
+          <p class="muted">Estimated savings</p>
+          <p class="metric" data-debt-delta>--</p>
+        </div>
+      </div>
+      <label class="intake-form__field intake-form__field--full">
+        Shareable link
+        <input
+          type="text"
+          readonly
+          data-debt-share
+          aria-label="Shareable results link"
+        />
+      </label>
+      <div class="intake-form__actions">
+        <button class="button ghost" type="button" data-debt-copy>
+          Copy share link
+        </button>
+      </div>
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-debt-form]");
+  const results = document.querySelector<HTMLElement>("[data-debt-results]");
+  const scoreValue = document.querySelector<HTMLElement>("[data-debt-score]");
+  const tierLabel = document.querySelector<HTMLElement>("[data-debt-tier]");
+  const summaryText = document.querySelector<HTMLElement>(
+    "[data-debt-summary]",
+  );
+  const uncontrolledValue = document.querySelector<HTMLElement>(
+    "[data-debt-uncontrolled]",
+  );
+  const stoppableValue = document.querySelector<HTMLElement>(
+    "[data-debt-stoppable]",
+  );
+  const deltaValue = document.querySelector<HTMLElement>("[data-debt-delta]");
+  const shareInput = document.querySelector<HTMLInputElement>(
+    "[data-debt-share]",
+  );
+  const copyButton = document.querySelector<HTMLButtonElement>(
+    "[data-debt-copy]",
+  );
+  const STORAGE_KEY = "maintenance-debt-calculator";
+
+  type SpeedValue = "rapid" | "steady" | "deliberate";
+  type ReadinessValue = "limited" | "partial" | "comprehensive";
+  type ResponseValue = "fast" | "moderate" | "slow";
+  type ExposureValue = "low" | "medium" | "high";
+  type DebtValues = {
+    speed: SpeedValue;
+    readiness: ReadinessValue;
+    response: ResponseValue;
+    exposure: ExposureValue;
+  };
+
+  const scoreMatrix = {
+    speed: {
+      rapid: 30,
+      steady: 20,
+      deliberate: 10,
+    },
+    readiness: {
+      limited: 30,
+      partial: 20,
+      comprehensive: 10,
+    },
+    response: {
+      fast: 5,
+      moderate: 15,
+      slow: 25,
+    },
+    exposure: {
+      low: 5,
+      medium: 10,
+      high: 15,
+    },
+  };
+
+  const exposureBase = {
+    low: 250000,
+    medium: 1500000,
+    high: 5000000,
+  };
+
+  const tierMap = [
+    {
+      label: "Critical",
+      min: 80,
+      status: "red",
+      summary:
+        "Debt risk is critical. Budget for rapid intervention coverage and slower decision loops.",
+    },
+    {
+      label: "High",
+      min: 60,
+      status: "red",
+      summary:
+        "Debt risk is high. Prioritize intervention coverage and response speed.",
+    },
+    {
+      label: "Moderate",
+      min: 40,
+      status: "yellow",
+      summary:
+        "Debt risk is moderate. Invest in targeted coverage and escalation readiness.",
+    },
+    {
+      label: "Low",
+      min: 0,
+      status: "green",
+      summary:
+        "Debt risk is low. Maintain coverage and keep response windows aligned to decision speed.",
+    },
+  ];
+
+  const getTier = (score: number) =>
+    tierMap.find((tier) => score >= tier.min) ?? tierMap[tierMap.length - 1];
+
+  const calculateScore = (values: DebtValues) => {
+    const speedScore = scoreMatrix.speed[values.speed] ?? 0;
+    const readinessScore = scoreMatrix.readiness[values.readiness] ?? 0;
+    const responseScore = scoreMatrix.response[values.response] ?? 0;
+    const exposureScore = scoreMatrix.exposure[values.exposure] ?? 0;
+
+    return speedScore + readinessScore + responseScore + exposureScore;
+  };
+
+  const formatCurrency = (value: number) =>
+    value.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    });
+
+  const calculateCosts = (values: DebtValues, score: number) => {
+    const base = exposureBase[values.exposure] ?? 0;
+    const riskFactor = 0.6 + score / 100;
+    const stoppableFactor = 0.3 + score / 200;
+    const uncontrolled = base * riskFactor;
+    const stoppable = base * stoppableFactor;
+    const delta = Math.max(uncontrolled - stoppable, 0);
+
+    return { uncontrolled, stoppable, delta };
+  };
+
+  const setShareUrl = (values: DebtValues, score: number, tier: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("speed", values.speed);
+    url.searchParams.set("readiness", values.readiness);
+    url.searchParams.set("response", values.response);
+    url.searchParams.set("exposure", values.exposure);
+    url.searchParams.set("score", String(score));
+    url.searchParams.set("tier", tier.toLowerCase());
+    history.replaceState(null, "", url.toString());
+    if (shareInput) {
+      shareInput.value = url.toString();
+    }
+  };
+
+  const saveDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  };
+
+  const restoreDraft = () => {
+    if (!form || typeof sessionStorage === "undefined") return null;
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+    try {
+      const parsed = JSON.parse(saved) as Partial<DebtValues>;
+      return parsed;
+    } catch (error) {
+      console.error("Unable to restore maintenance debt draft", error);
+      return null;
+    }
+  };
+
+  const renderResults = (values: DebtValues, score: number) => {
+    if (
+      !results ||
+      !scoreValue ||
+      !tierLabel ||
+      !summaryText ||
+      !uncontrolledValue ||
+      !stoppableValue ||
+      !deltaValue
+    )
+      return;
+
+    const tier = getTier(score);
+    const costs = calculateCosts(values, score);
+    scoreValue.textContent = `${score} / 100`;
+    tierLabel.textContent = tier.label;
+    tierLabel.classList.remove(
+      "status-pill--green",
+      "status-pill--yellow",
+      "status-pill--red",
+    );
+    tierLabel.classList.add(`status-pill--${tier.status}`);
+    summaryText.textContent = tier.summary;
+    uncontrolledValue.textContent = formatCurrency(costs.uncontrolled);
+    stoppableValue.textContent = formatCurrency(costs.stoppable);
+    deltaValue.textContent = formatCurrency(costs.delta);
+    results.hidden = false;
+    setShareUrl(values, score, tier.label);
+  };
+
+  const applyParams = () => {
+    if (!form) return;
+    const params = new URLSearchParams(window.location.search);
+    const speed = params.get("speed") ?? "";
+    const readiness = params.get("readiness") ?? "";
+    const response = params.get("response") ?? "";
+    const exposure = params.get("exposure") ?? "";
+
+    const isSpeedValue = (value: string): value is SpeedValue =>
+      ["rapid", "steady", "deliberate"].includes(value);
+    const isReadinessValue = (value: string): value is ReadinessValue =>
+      ["limited", "partial", "comprehensive"].includes(value);
+    const isResponseValue = (value: string): value is ResponseValue =>
+      ["fast", "moderate", "slow"].includes(value);
+    const isExposureValue = (value: string): value is ExposureValue =>
+      ["low", "medium", "high"].includes(value);
+
+    if (
+      isSpeedValue(speed) &&
+      isReadinessValue(readiness) &&
+      isResponseValue(response) &&
+      isExposureValue(exposure)
+    ) {
+      const speedField = form.elements.namedItem("speed");
+      const readinessField = form.elements.namedItem("readiness");
+      const responseField = form.elements.namedItem("response");
+      const exposureField = form.elements.namedItem("exposure");
+      if (speedField instanceof HTMLSelectElement) speedField.value = speed;
+      if (readinessField instanceof HTMLSelectElement)
+        readinessField.value = readiness;
+      if (responseField instanceof HTMLSelectElement)
+        responseField.value = response;
+      if (exposureField instanceof HTMLSelectElement)
+        exposureField.value = exposure;
+      const values = { speed, readiness, response, exposure };
+      renderResults(values, calculateScore(values));
+      return;
+    }
+
+    const stored = restoreDraft();
+    const storedSpeed = stored?.speed;
+    const storedReadiness = stored?.readiness;
+    const storedResponse = stored?.response;
+    const storedExposure = stored?.exposure;
+    if (
+      storedSpeed &&
+      storedReadiness &&
+      storedResponse &&
+      storedExposure &&
+      isSpeedValue(storedSpeed) &&
+      isReadinessValue(storedReadiness) &&
+      isResponseValue(storedResponse) &&
+      isExposureValue(storedExposure)
+    ) {
+      const speedField = form.elements.namedItem("speed");
+      const readinessField = form.elements.namedItem("readiness");
+      const responseField = form.elements.namedItem("response");
+      const exposureField = form.elements.namedItem("exposure");
+      if (speedField instanceof HTMLSelectElement) speedField.value = storedSpeed;
+      if (readinessField instanceof HTMLSelectElement)
+        readinessField.value = storedReadiness;
+      if (responseField instanceof HTMLSelectElement)
+        responseField.value = storedResponse;
+      if (exposureField instanceof HTMLSelectElement)
+        exposureField.value = storedExposure;
+      const values: DebtValues = {
+        speed: storedSpeed,
+        readiness: storedReadiness,
+        response: storedResponse,
+        exposure: storedExposure,
+      };
+      renderResults(values, calculateScore(values));
+    }
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form) return;
+
+    if (!form.reportValidity()) {
+      const firstInvalid = form.querySelector<HTMLElement>(":invalid");
+      firstInvalid?.focus();
+      return;
+    }
+    const data = new FormData(form);
+    const speed = String(data.get("speed") ?? "");
+    const readiness = String(data.get("readiness") ?? "");
+    const response = String(data.get("response") ?? "");
+    const exposure = String(data.get("exposure") ?? "");
+
+    if (
+      (speed === "rapid" || speed === "steady" || speed === "deliberate") &&
+      (readiness === "limited" ||
+        readiness === "partial" ||
+        readiness === "comprehensive") &&
+      (response === "fast" || response === "moderate" || response === "slow") &&
+      (exposure === "low" || exposure === "medium" || exposure === "high")
+    ) {
+      const values: DebtValues = { speed, readiness, response, exposure };
+      renderResults(values, calculateScore(values));
+      results?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  copyButton?.addEventListener("click", async () => {
+    if (!(shareInput instanceof HTMLInputElement)) return;
+    shareInput.select();
+    try {
+      await navigator.clipboard.writeText(shareInput.value);
+    } catch {
+      // fall back to manual copy
+    }
+  });
+
+  applyParams();
+  form?.addEventListener("input", saveDraft);
+  form?.addEventListener("blur", saveDraft, true);
+</script>

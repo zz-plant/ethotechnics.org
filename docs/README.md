@@ -11,6 +11,7 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`roadmap.md`](roadmap.md) tracks the now/next/later roadmap, spec template, and pickup guidance.
 - [`issue-templates.md`](issue-templates.md) defines the consistent fields for roadmap-related GitHub
   Issues.
+- [`mini-prds.md`](mini-prds.md) drafts the accountability tooling Mini-PRDs and homepage blurb.
 - [`agent-developer-experience.md`](agent-developer-experience.md) aggregates agent-specific
   references and to-do items.
 - [`contributor-workflow.md`](contributor-workflow.md) captures the day-to-day change loop, required
