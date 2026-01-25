@@ -40,7 +40,7 @@ project favors lean, fast-loading pages and clear storytelling.
 1. Install dependencies: `bun install`
 2. Run the dev server: `bun dev`
 3. Build the Worker bundle: `bun run build`
-4. Preview the build: `bun run preview`
+4. Preview the build: `bun run preview` (Astro) or `bun run preview:cf` (Wrangler Worker)
 5. For deeper setup and troubleshooting tips, see [`docs/local-development.md`](docs/local-development.md).
 
 ## Common scripts
@@ -49,7 +49,9 @@ project favors lean, fast-loading pages and clear storytelling.
 | ---------------------- | ------------------------------------------------------------------------------ |
 | `bun dev`              | Run the Astro development server.                                              |
 | `bun run build`        | Validate content JSON and build the Worker bundle (`dist/_worker.js`).         |
+| `bun run build:search` | Generate the Pagefind search index in `dist/pagefind`.                         |
 | `bun run preview`      | Preview the Worker build locally.                                              |
+| `bun run preview:cf`   | Preview the Worker build via Wrangler with local bindings.                     |
 | `bun run check`        | Run linting, tests, TypeScript checks, the Astro checker, and JSON validation. |
 | `bun run lint`         | Lint Astro and TypeScript sources under `src/`.                                |
 | `bun run lint:fix`     | Lint and auto-fix Astro and TypeScript sources under `src/`.                   |
@@ -66,6 +68,8 @@ project favors lean, fast-loading pages and clear storytelling.
 - After installing dependencies, run `bunx playwright install --with-deps` to install browser
   binaries and system packages.
 - `bun run test:e2e` builds the Worker bundle and runs Playwright against `bun run preview`.
+- Use `bun run preview:cf` when you need to validate Worker runtime behavior (Durable Objects,
+  bindings, or Workers KV) locally.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
 - Cloudflare Pages can run the suite using `CF_PAGES_URL`; enable testing in the dashboard to run
   Playwright after the Worker build.
