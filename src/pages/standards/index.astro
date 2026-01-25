@@ -4,6 +4,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import { implementationExamples } from "../../content/implementation-examples";
 import { standardsContent } from "../../content/standards";
 
 const {
@@ -67,7 +68,7 @@ const adoptedStandards = [
     href: "/standards/meta-critique",
   },
 ];
-const implementationExamples = [
+const implementationExampleCards = [
   {
     title: "Implementation examples overview",
     description:
@@ -75,48 +76,12 @@ const implementationExamples = [
     href: "/standards/implementation-examples",
     ctaLabel: "Open guide",
   },
-  {
-    title: "Loan approval systems",
-    description:
-      "Credit scoring and eligibility workflows with enforceable stop authority.",
-    href: "/standards/implementation-examples/loan-approval",
+  ...implementationExamples.map((example) => ({
+    title: example.title,
+    description: example.cardDescription,
+    href: `/standards/implementation-examples/${example.slug}`,
     ctaLabel: "View example",
-  },
-  {
-    title: "Healthcare diagnostic AI",
-    description:
-      "Clinical risk tools built around reversibility, stoppability, and plural oversight.",
-    href: "/standards/implementation-examples/healthcare-diagnostics",
-    ctaLabel: "View example",
-  },
-  {
-    title: "Customer service chatbots",
-    description:
-      "High-volume support automation with guaranteed exit and recovery paths.",
-    href: "/standards/implementation-examples/customer-service-chatbots",
-    ctaLabel: "View example",
-  },
-  {
-    title: "Financial fraud detection",
-    description:
-      "Account protection systems that measure recovery time alongside detection.",
-    href: "/standards/implementation-examples/financial-fraud-detection",
-    ctaLabel: "View example",
-  },
-  {
-    title: "Retail personalization",
-    description:
-      "Recommendation systems with user stoppability and real-time advocate control.",
-    href: "/standards/implementation-examples/retail-personalization",
-    ctaLabel: "View example",
-  },
-  {
-    title: "Government public services",
-    description:
-      "Public sector automation with community veto authority and rapid restoration.",
-    href: "/standards/implementation-examples/public-services",
-    ctaLabel: "View example",
-  },
+  })),
 ];
 const structuredData = {
   "@context": "https://schema.org",
@@ -648,7 +613,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
   >
     <CardGrid className="grid--two">
       {
-        implementationExamples.map((item) => (
+        implementationExampleCards.map((item) => (
           <CardItem
             title={item.title}
             description={item.description}

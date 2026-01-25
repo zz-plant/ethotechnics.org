@@ -6,6 +6,10 @@ import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
+import {
+  createImplementationPublication,
+  implementationExamples,
+} from "../../../content/implementation-examples";
 
 const pageTitle = "Implementation examples: Ethotechnics vs standard AI governance";
 const pageDescription =
@@ -18,79 +22,10 @@ const anchorLinks = [
   { href: "#citations", label: "Cite this page" },
 ];
 
-const publication = {
-  authors: [
-    {
-      name: "Ethotechnics Standards Office",
-      affiliation: "Ethotechnics Institute",
-      email: "standards@ethotechnics.org",
-    },
-  ],
-  contact: "standards@ethotechnics.org",
-  published: "2025-02-01T00:00:00Z",
-  updated: "2025-02-01T00:00:00Z",
-  version: "v1.0.0",
-  doi: "Pending Zenodo deposit",
-  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
-  changelog: [
-    {
-      version: "v1.0.0",
-      date: "2025-02-01",
-      summary: "Published the domain comparison playbook with six scenario pages.",
-    },
-  ],
-  license: {
-    label: "CC BY 4.0",
-    href: "https://creativecommons.org/licenses/by/4.0/",
-  },
-  attribution:
-    "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",
-};
-
-const domains = [
-  {
-    slug: "loan-approval",
-    title: "Loan approval systems",
-    summary:
-      "Credit scoring and eligibility flows where stoppability and contestability must survive automation.",
-    tags: ["Stoppability", "Contestability", "Time-to-halt"],
-  },
-  {
-    slug: "healthcare-diagnostics",
-    title: "Healthcare diagnostic AI",
-    summary:
-      "Clinical risk and diagnostic tools that require plural oversight and fast reversibility.",
-    tags: ["Reversibility", "Safety valves", "Ethical interrupts"],
-  },
-  {
-    slug: "customer-service-chatbots",
-    title: "Customer service chatbots",
-    summary:
-      "High-volume support systems where intervention speed matters more than automation confidence.",
-    tags: ["Contestability", "Stoppability", "Care floors"],
-  },
-  {
-    slug: "financial-fraud-detection",
-    title: "Financial fraud detection",
-    summary:
-      "Real-time account protection that must restore legitimate access quickly and audibly.",
-    tags: ["Time-to-restore", "Receipt", "Repair log"],
-  },
-  {
-    slug: "retail-personalization",
-    title: "Retail personalization",
-    summary:
-      "Recommendation engines where users need direct control over automation behavior.",
-    tags: ["Safety valves", "Stoppability", "Transparency"],
-  },
-  {
-    slug: "public-services",
-    title: "Government public services",
-    summary:
-      "Benefits and civic service automation that require community authority in the runtime.",
-    tags: ["Design authority", "Contestability", "Recovery"],
-  },
-];
+const publication = createImplementationPublication(
+  permalink,
+  "Published the domain comparison playbook with six scenario pages.",
+);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -135,7 +70,7 @@ const domains = [
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {domains.map((domain) => (
+      {implementationExamples.map((domain) => (
         <CardItem
           title={domain.title}
           description={domain.summary}

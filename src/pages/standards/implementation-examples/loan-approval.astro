@@ -4,47 +4,20 @@ import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
+import {
+  createImplementationPublication,
+  implementationExampleAnchorLinks,
+} from "../../../content/implementation-examples";
 
 const pageTitle = "Loan approval systems: implementation comparison";
 const pageDescription =
   "Compare standard AI governance and Ethotechnics implementation for credit scoring and loan approval workflows.";
 const permalink = "/standards/implementation-examples/loan-approval";
-const anchorLinks = [
-  { href: "#overview", label: "Overview" },
-  { href: "#standard", label: "Standard governance" },
-  { href: "#ethotechnics", label: "Ethotechnics implementation" },
-  { href: "#checklist", label: "Implementation checklist" },
-  { href: "#citations", label: "Cite this page" },
-];
-
-const publication = {
-  authors: [
-    {
-      name: "Ethotechnics Standards Office",
-      affiliation: "Ethotechnics Institute",
-      email: "standards@ethotechnics.org",
-    },
-  ],
-  contact: "standards@ethotechnics.org",
-  published: "2025-02-01T00:00:00Z",
-  updated: "2025-02-01T00:00:00Z",
-  version: "v1.0.0",
-  doi: "Pending Zenodo deposit",
-  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
-  changelog: [
-    {
-      version: "v1.0.0",
-      date: "2025-02-01",
-      summary: "Published the loan approval implementation comparison.",
-    },
-  ],
-  license: {
-    label: "CC BY 4.0",
-    href: "https://creativecommons.org/licenses/by/4.0/",
-  },
-  attribution:
-    "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",
-};
+const anchorLinks = implementationExampleAnchorLinks;
+const publication = createImplementationPublication(
+  permalink,
+  "Published the loan approval implementation comparison.",
+);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
