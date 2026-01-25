@@ -69,6 +69,14 @@ const searchEntries = Array.from(uniqueEntries.values());
 const suggestions = searchEntries
   .map((entry) => entry.title)
   .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+const quickSearchSuggestions = [
+  "Diagnostics",
+  "Standards",
+  "Glossary",
+  "Contestability",
+  "Evidence pack readiness",
+  "Field notes",
+];
 const buildSearchText = (entry: SearchEntry) =>
   [entry.title, entry.description, entry.category, entry.tags?.join(" ")]
     .filter(Boolean)
@@ -77,32 +85,26 @@ const buildSearchText = (entry: SearchEntry) =>
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <PageIntro
-    eyebrow="Search"
-    title="Search the site"
-    description={pageDescription}
-    permalink="/search"
-    anchorLinks={[{ href: "#search", label: "Search" }]}
-    panelCopy={{
-      eyebrow: "Scope",
-      title: "One search bar for the full catalog.",
-      description:
-        "Search standards, diagnostics, the glossary, and field notes with URL-based queries for easy sharing.",
-    }}
-  />
-
-  <SectionBlock
-    id="search"
-    eyebrow="Search"
-    title="Find standards, diagnostics, and field notes."
-    description="Search is URL-based, so you can share queries with ?q= in the address bar."
-  >
-    <div class="site-search" data-site-search>
-      <div class="site-search__controls">
+  <div data-site-search>
+    <PageIntro
+      eyebrow="Search"
+      title="Search the site"
+      description={pageDescription}
+      permalink="/search"
+      anchorLinks={[{ href: "#search", label: "Search" }]}
+      panelCopy={{
+        eyebrow: "Scope",
+        title: "One search bar for the full catalog.",
+        description:
+          "Search standards, diagnostics, the glossary, and field notes with URL-based queries for easy sharing.",
+      }}
+    >
+      <div slot="aside" class="panel page-intro__search-panel">
+        <p class="muted">Quick search</p>
         <label for="site-search" class="site-search__label">
-          <span class="muted"
-            >Search across the entire Ethotechnics catalog.</span
-          >
+          <span class="muted small">
+            Search across the entire Ethotechnics catalog.
+          </span>
           <input
             id="site-search"
             class="site-search__input"
@@ -118,43 +120,65 @@ const buildSearchText = (entry: SearchEntry) =>
           {suggestions.map((suggestion) => <option value={suggestion} />)}
         </datalist>
         <p
-          class="muted"
+          class="muted small"
           role="status"
           aria-live="polite"
           data-site-search-status
         >
           Showing {searchEntries.length} results.
         </p>
+        <ul class="pill-list pill-list--wrap site-search__suggestions">
+          {quickSearchSuggestions.map((suggestion) => (
+            <li>
+              <a
+                class="pill-list__button"
+                href={`/search?q=${encodeURIComponent(suggestion)}`}
+              >
+                {suggestion}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div class="site-search__results">
-        {
-          searchEntries.map((entry) => (
-            <article
-              class="card site-search__item"
-              data-site-search-item
-              data-search={buildSearchText(entry)}
-            >
-              <div class="card__glow" aria-hidden="true" />
-              <p class="eyebrow">{entry.category}</p>
-              <h3>
-                <a href={entry.href}>{entry.title}</a>
-              </h3>
-              <p class="muted">{entry.description}</p>
-              {entry.tags?.length ? (
-                <ul class="pill-list pill-list--wrap">
-                  {entry.tags.map((tag) => (
-                    <li>{tag}</li>
-                  ))}
-                </ul>
-              ) : null}
-            </article>
-          ))
-        }
-        <p class="muted" data-site-search-empty hidden>
-          No results yet. Try another keyword or clear the search query.
-        </p>
+    </PageIntro>
+
+    <SectionBlock
+      id="search"
+      eyebrow="Search"
+      title="Find standards, diagnostics, and field notes."
+      description="Search is URL-based, so you can share queries with ?q= in the address bar."
+    >
+      <div class="site-search">
+        <div class="site-search__results">
+          {
+            searchEntries.map((entry) => (
+              <article
+                class="card site-search__item"
+                data-site-search-item
+                data-search={buildSearchText(entry)}
+              >
+                <div class="card__glow" aria-hidden="true" />
+                <p class="eyebrow">{entry.category}</p>
+                <h3>
+                  <a href={entry.href}>{entry.title}</a>
+                </h3>
+                <p class="muted">{entry.description}</p>
+                {entry.tags?.length ? (
+                  <ul class="pill-list pill-list--wrap">
+                    {entry.tags.map((tag) => (
+                      <li>{tag}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </article>
+            ))
+          }
+          <p class="muted" data-site-search-empty hidden>
+            No results yet. Try another keyword or clear the search query.
+          </p>
+        </div>
       </div>
-    </div>
-  </SectionBlock>
-  <script type="module" src={siteSearchScript} is:inline></script>
+    </SectionBlock>
+    <script type="module" src={siteSearchScript} is:inline></script>
+  </div>
 </BaseLayout>

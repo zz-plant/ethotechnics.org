@@ -32,6 +32,7 @@ const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 const glossaryContent = glossaryEntry.data;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 type GlossaryStarterTerm = (typeof glossaryContent.starterTerms)[number];
+const quickFilters = patterns.filters.slice(0, 6);
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : permalink;
@@ -62,6 +63,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
+      { href: "#quick-filters", label: "Quick filters" },
       { href: "#themes", label: "Browse by theme" },
       { href: "#role-pathways", label: "Role-based pathways" },
       { href: "#primer", label: "Primer" },
@@ -108,6 +110,23 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </a>
     </div>
   </div>
+  <SectionBlock
+    id="quick-filters"
+    eyebrow="Quick filters"
+    title="Jump into the most-used mechanism lenses."
+    description="Start with a targeted filter before exploring the full catalog."
+    variant="alt"
+  >
+    <ul class="pill-list pill-list--wrap">
+      {quickFilters.map((filter) => (
+        <li>
+          <a class="pill-list__button" href={`/mechanisms?filter=${filter.slug}`}>
+            {filter.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
   <SectionBlock
     id="role-pathways"
     eyebrow="Role-based pathways"

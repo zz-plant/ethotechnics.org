@@ -117,6 +117,7 @@ const buildMetaDescription = (value: string): string => {
 const descriptionBase = `Definition of ${entry.title} in the Ethotechnics glossary (${categoryLabel}). ${plainDescription}`;
 const pageDescription = buildMetaDescription(descriptionBase);
 const introDescription = `Glossary entry in ${categoryLabel}. Definitions, checks, and evidence for ${entry.title}.`;
+const definitionSummary = buildMetaDescription(plainDescription);
 const termUpdated = entry.termUpdated ?? publication.updated;
 const termVersion = entry.termVersion ?? publication.version;
 const termChangelog = entry.termChangelog ?? "/api/changelog.json";
@@ -232,6 +233,12 @@ const relatedDomains = domains
   .filter((group) => group.entries.length > 0);
 const hasRelatedConcepts =
   relatedClusters.length > 0 || relatedDomains.length > 0;
+const quickTakeawayLinks = [
+  { href: "#definition", label: "Definition" },
+  { href: "#presence-checks", label: "Presence checks" },
+  { href: "#minimum-evidence", label: "Minimum evidence" },
+  { href: "#operational-tests", label: "Operational tests" },
+];
 const filterParams = Astro.url.searchParams;
 const filterBreadcrumbParts = [
   filterParams.get("domains")
@@ -408,6 +415,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       link: { label: "Browse the glossary", href: glossaryPermalink },
     }}
   />
+  <div class="callout glossary-entry__summary">
+    <p class="eyebrow">Quick takeaways</p>
+    <p class="muted">{definitionSummary}</p>
+    <ul class="pill-list pill-list--wrap glossary-entry__summary-links">
+      {quickTakeawayLinks.map((link) => (
+        <li>
+          <a class="pill-list__button" href={link.href}>
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
   <article
     class="glossary-entry glossary-entry--detail"
     itemscope

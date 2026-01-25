@@ -45,7 +45,9 @@ const pageDescription = pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const panelDescription = `Tagged for ${pattern.filters
   .map((filter) => filterLabels[filter] ?? filter)
-  .join(", ")} with validator handshakes.`;
+  .join(", ")} with validator handshakes. Includes ${pattern.steps.length} steps, ${
+  pattern.artifacts.length
+} reusable assets, and ${pattern.policyRequirement ? 4 : 0} snippet blocks.`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   ...(glossaryAnchors.length
@@ -111,6 +113,12 @@ const anchorLinks = [
     title="Put the mechanism in motion."
     description="Start with the field cues, then use the assets to keep the work legible."
   >
+    <div class="pattern-detail__step-summary">
+      <p class="muted">
+        {pattern.steps.length} steps with checklist-ready owners, plus linked assets for
+        handoffs.
+      </p>
+    </div>
     <div class="pattern-detail__checklist-progress" hidden>
       <p class="muted small">
         <span id="checklist-count">0</span> of {pattern.steps.length} steps complete
@@ -164,19 +172,19 @@ const anchorLinks = [
     description="Use these snippets in requirements, audits, and postmortems with the mechanism permalink."
   >
     <div class="grid grid--two">
-      <div class="panel">
+      <div class="panel pattern-detail__snippet" data-snippet="policy">
         <p class="eyebrow">Policy requirement</p>
         <pre class="code-block">{pattern.policyRequirement}</pre>
       </div>
-      <div class="panel">
+      <div class="panel pattern-detail__snippet" data-snippet="product">
         <p class="eyebrow">Product requirement</p>
         <pre class="code-block">{pattern.productRequirement}</pre>
       </div>
-      <div class="panel">
+      <div class="panel pattern-detail__snippet" data-snippet="audit">
         <p class="eyebrow">Audit evidence checklist</p>
         <pre class="code-block">{pattern.auditEvidenceChecklist}</pre>
       </div>
-      <div class="panel">
+      <div class="panel pattern-detail__snippet" data-snippet="postmortem">
         <p class="eyebrow">Postmortem trigger</p>
         <pre class="code-block">{pattern.postmortemTrigger}</pre>
       </div>

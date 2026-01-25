@@ -356,6 +356,23 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     relatedLinks={summaryRelatedLinks}
     jumpLinks={summaryLinks}
   />
+  <div class="callout glossary__starter" id="starter-terms">
+    <h3>Start with these terms</h3>
+    <p class="muted">
+      New to the glossary? These anchors provide the shared vocabulary most
+      teams cite first.
+    </p>
+    <ul class="glossary__starter-list">
+      {
+        starterTerms.map((term) => (
+          <li>
+            <a href={glossaryEntryUrl(term.id)}>{term.label}</a>
+            <p class="muted small">{term.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
   <SectionBlock
     id="glossary-pathways"
     eyebrow="Pathways"
@@ -585,24 +602,6 @@ const glossaryAuthor = getGlossaryAuthor(publication);
   <datalist id="glossary-filter-suggestions">
     {glossarySuggestions.map((suggestion) => <option value={suggestion} />)}
   </datalist>
-  <div class="callout glossary__starter" id="starter-terms">
-    <h3>Start with these terms</h3>
-    <p class="muted">
-      New to the glossary? These anchors provide the shared vocabulary most
-      teams cite first.
-    </p>
-    <ul class="glossary__starter-list">
-      {
-        starterTerms.map((term) => (
-          <li>
-            <a href={glossaryEntryUrl(term.id)}>{term.label}</a>
-            <p class="muted small">{term.description}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-
   <SectionBlock
     id="explainer-links"
     eyebrow="Explainers"
