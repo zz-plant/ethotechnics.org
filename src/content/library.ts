@@ -657,6 +657,80 @@ Trigger review when appeal backlogs breach published response timelines.`,
           },
         ],
       },
+      {
+        slug: "accountability-latency-tracker",
+        title: "MEC-07 Accountability latency tracker",
+        summary:
+          "Measure how quickly teams can intervene, halt, and restore systems when accountability is on the line.",
+        filters: ["governance", "policy"],
+        glossaryRefs: ["audit-trail", "design-authority", "time-to-halt"],
+        cues: [
+          "Instrument veto, halt, and restore events with owner and trigger metadata.",
+          "Publish accountability latency targets alongside time-to-halt SLAs.",
+          "Tie latency deltas to post-incident repair log entries.",
+        ],
+        diagnostics: ["maintenance-simulator"],
+        steps: [
+          "Define the telemetry contract for veto, halt, and restoration events.",
+          "Surface a dashboard that shows median latency and breach incidents.",
+          "Review latency drift during governance reviews and update runbooks.",
+        ],
+        policyRequirement: `Policy requirement (MEC-07 Accountability latency tracker)
+- Track veto, halt, and restore latencies with owner, trigger, and system context.
+- Publish accountability latency targets in incident response runbooks.
+Reference: https://ethotechnics.org/mechanisms/patterns/accountability-latency-tracker`,
+        productRequirement: `Product requirement (MEC-07)
+- Monitoring dashboards show accountability latency alongside time-to-halt metrics.
+- Veto events emit receipts linked to the repair log and designated escalation owners.`,
+        auditEvidenceChecklist: `Audit evidence checklist (MEC-07)
+[ ] Telemetry captures veto, halt, and restore events with timestamps.
+[ ] Dashboards report median and worst-case accountability latency.
+[ ] Incident reviews include latency deltas and corrective actions.`,
+        postmortemTrigger: `Postmortem trigger (MEC-07)
+Trigger review when accountability latency breaches published targets or telemetry is missing.`,
+        artifacts: [
+          {
+            name: "Telemetry contract",
+            purpose:
+              "Defines event names, required fields, and tags for observability tooling.",
+          },
+          {
+            name: "Dashboard snapshot",
+            purpose:
+              "Shares latency trends and breach annotations for governance reviews.",
+          },
+          {
+            name: "Latency response runbook",
+            purpose:
+              "Outlines response owners, escalation paths, and remediation steps.",
+          },
+        ],
+        example: {
+          title: "Tracking veto response time during an incident",
+          description:
+            "Operations teams add veto latency tracking to their Datadog dashboards, review weekly deltas, and tie missed targets to repair log updates and training.",
+        },
+        antiPatterns: [
+          {
+            title: "Latency tracked without owners",
+            failure:
+              "Metrics exist, but no one is accountable for acting on latency breaches.",
+            counterfactual:
+              "Dashboards list named owners and escalation paths for each latency tier.",
+            warning:
+              "Shared ownership works when escalation paths are explicit and rehearsed.",
+          },
+          {
+            title: "Telemetry without repair links",
+            failure:
+              "Latency events are logged but never tied to remediation plans.",
+            counterfactual:
+              "Every breach links to a repair log entry with follow-up actions.",
+            warning:
+              "If the repair log lives elsewhere, provide a canonical cross-link.",
+          },
+        ],
+      },
     ],
   },
   syllabus: {
