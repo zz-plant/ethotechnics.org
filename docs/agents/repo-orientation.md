@@ -12,7 +12,8 @@
 - Find scoped agent guidance with `rg --files -g 'AGENTS.md'`.
 - Package scripts live in `package.json`; use it to discover available checks or tasks.
 - Deployment and runtime configuration lives in `astro.config.mjs` and `wrangler.toml`.
-- Look for content and marketing copy in `src/pages` before adding new directories.
+- Look for content and marketing copy in `src/content` and follow the guidance in
+  `docs/adding-pages.md` and `docs/content-data.md` before editing page components.
 
 ## Structure highlights
 
