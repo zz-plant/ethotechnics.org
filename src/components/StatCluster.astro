@@ -16,7 +16,7 @@ const { items } = Astro.props as Props;
     <div class="stat-cluster__item">
       <dt class="stat-cluster__label">{item.label}</dt>
       <dd class="stat-cluster__value">{item.value}</dd>
-      {item.detail && <p class="stat-cluster__detail muted">{item.detail}</p>}
+      {item.detail && <dd class="stat-cluster__detail muted">{item.detail}</dd>}
     </div>
   ))}
 </dl>
