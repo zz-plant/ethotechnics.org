@@ -1,0 +1,740 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionActions from "../../components/SectionActions.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Governance as operational capability";
+const pageDescription =
+  "Ethotechnics defines governance as operational capability—stoppability, reversibility, recovery time, and contestability—rather than documentation and intent.";
+const permalink = "/explainers/governance-capability";
+
+const heroCopy =
+  "Most AI governance frameworks improve documentation, oversight, and accountability. Ethotechnics changes what governance is for. If responsibility is defined as operational capability rather than stated intent, different institutional behaviors become visible—and many accepted ones become indefensible.";
+
+const executiveSummary = [
+  {
+    href: "#performance-spec",
+    text: "Governance becomes a performance specification: stop, reverse, restore must work under stress.",
+  },
+  {
+    href: "#time",
+    text: "Time becomes an ethical resource: slow reversals and procedural limbo are governance failures.",
+  },
+  {
+    href: "#recovery",
+    text: "Maturity is measured by recovery, not coverage: documentation cannot substitute for restoration.",
+  },
+  {
+    href: "#stop-rights",
+    text: "Authority shifts from consensus to stop rights: interruption is a legitimate state transition.",
+  },
+  {
+    href: "#standing",
+    text: "Affected parties gain standing: contestation must change state without stamina.",
+  },
+  {
+    href: "#monitoring-liability",
+    text: "Monitoring without intervention becomes liability: visibility creates duty unless brakes exist.",
+  },
+];
+
+const coreImplications = [
+  {
+    id: "performance-spec",
+    title: "Governance becomes a performance specification",
+    commonModel:
+      "Governance is demonstrated through policies, principles, reviews, and artifacts.",
+    ethotechnicsModel:
+      "Governance is demonstrated through live capability: halt harmful behavior, reverse decisions, restore affected parties.",
+    implication: "Responsibility becomes measurable capacity, not moral alignment.",
+    requirements: [
+      "Production stop conditions (“if X, halt Y”) with a defined trigger path.",
+      "A rollback or safe-mode path that reliably restores a prior safe state.",
+      "A restoration pathway that changes system state for affected parties (not just tickets).",
+      "Regular drills that exercise stop/rollback/restore end-to-end.",
+      "Measured metrics: time-to-halt, time-to-restore, time-in-harm.",
+    ],
+    signals: [
+      "Stop is possible only via exec escalation.",
+      "“Fix forward” is the only option.",
+    ],
+  },
+  {
+    id: "time",
+    title: "Time becomes an ethical resource",
+    commonModel:
+      "Time is treated as incidental (\"we’re investigating,\" \"pending\").",
+    ethotechnicsModel:
+      "Time-in-harm is the governing variable. Unbounded review is a harm state.",
+    implication: "Indefinite waiting becomes a governance failure.",
+    requirements: [
+      "Binding clocks for contested states (max time in exposure).",
+      "Interim protections while disputes run (continuity, safe-mode defaults).",
+      "Expiration rules: when clocks run out, revert to safer state.",
+      "Named ownership for “pending” states and queue growth.",
+      "Distribution reporting (not just averages) for time-in-harm.",
+    ],
+    signals: [
+      "Appeals timelines are undefined.",
+      "“Pending” can persist indefinitely.",
+    ],
+  },
+  {
+    id: "recovery",
+    title: "Maturity is measured by recovery, not coverage",
+    commonModel:
+      "Maturity is policy coverage, ownership, monitoring, audit readiness.",
+    ethotechnicsModel:
+      "Maturity is repeatable recovery: halt, reverse, restore without heroics.",
+    implication: "Documentation without restoration is immaturity.",
+    requirements: [
+      "SLOs for reversal/restoration (not only uptime).",
+      "Per-workflow restore paths (not one generic support channel).",
+      "Restoration that is systematic, not bespoke engineering.",
+      "Post-incident actions that improve control surfaces (not only narrative).",
+      "Load-tested recovery operations (tools + staffing).",
+    ],
+  },
+  {
+    id: "stop-rights",
+    title: "Authority shifts from consensus to stop rights",
+    commonModel:
+      "Committees and escalation chains determine whether to interrupt.",
+    ethotechnicsModel:
+      "Stop authority is legitimate on its own; escalation is a state transition.",
+    implication: "The org must designate stoppers and protect them structurally.",
+    requirements: [
+      "Explicit stop roles with scope (“what can be stopped, when, how”).",
+      "Non-retaliation protections tied to stop actions.",
+      "Safe-interrupt architecture (stopping doesn’t create chaos).",
+      "Separation of stop authority from consensus permissioning.",
+      "Post-stop procedures oriented to restoration, not blame.",
+    ],
+  },
+  {
+    id: "standing",
+    title: "Affected parties gain standing, not just visibility",
+    commonModel:
+      "Transparency + explanation + appeals that may not change outcomes.",
+    ethotechnicsModel:
+      "Contestation must change state; clocks and interim protections apply.",
+    implication: "If contestation can’t compel change, it isn’t governance.",
+    requirements: [
+      "A contestation channel with state mutation authority.",
+      "Clear evidence expectations and burden limits.",
+      "Interim protections during contestation.",
+      "Escalation to stop rights when thresholds are crossed.",
+      "A pathway that doesn’t require repeated contact or endurance.",
+    ],
+  },
+  {
+    id: "monitoring-liability",
+    title: "Monitoring without intervention becomes liability",
+    commonModel: "Monitoring is treated as governance progress.",
+    ethotechnicsModel:
+      "Visibility without brakes increases responsibility: “knowing and continuing.”",
+    implication: "Instrumentation creates duty unless intervention exists.",
+    requirements: [
+      "Monitoring wired to stop conditions and safe states.",
+      "Runbooks that include halt/restore, not only investigate.",
+      "Staffing that can act within harm budgets.",
+      "Anti-theater design: prevent alert fatigue from nullifying governance.",
+      "Mechanical escalation paths, not discretionary ones.",
+    ],
+  },
+];
+
+const additionalImplications = [
+  {
+    id: "budgets",
+    title: "Budgets move from paperwork to infrastructure",
+    implication:
+      "Governance spend becomes reliability/product/ops engineering.",
+    requirements: [
+      "Restoration tooling as a funded roadmap item.",
+      "Rollback engineering capacity, not ad hoc fixes.",
+      "Scheduled drills on the operations calendar.",
+    ],
+  },
+  {
+    id: "slow-harm",
+    title: "Slow, diffuse harm becomes structurally unacceptable",
+    implication: "Attrition becomes measurable harm (time-in-harm, burden transfer).",
+    requirements: [
+      "Harm distribution metrics, not only aggregate scores.",
+      "Thresholds that force safe-mode or reversal when tails expand.",
+    ],
+  },
+  {
+    id: "vendors",
+    title: "Vendor governance becomes reversibility, not attestation",
+    implication: "Trust shifts from reputation to exit rights.",
+    requirements: [
+      "Integration kill switches and fallback modes.",
+      "Rollback terms in vendor contracts.",
+      "Restoration commitments with time bounds.",
+    ],
+  },
+  {
+    id: "enforcement",
+    title: "Enforcement shifts from punishment to constraint design",
+    implication: "The best enforcement is built-in inability to sustain harm.",
+    requirements: [
+      "Binding clocks with safe-state reversion.",
+      "Independent stop rights that can trigger interruption.",
+      "Drills that prove constraints work under stress.",
+    ],
+  },
+  {
+    id: "culture",
+    title: "Culture stops being the primary safeguard",
+    implication: "If ethics requires heroism, the system is unethical.",
+    requirements: [
+      "Structural protection for stoppers and whistleblowers.",
+      "Tools and staffing that make interruption feasible.",
+      "Incentive-aware design that prevents quiet overrides.",
+    ],
+  },
+];
+
+const relatedLinks = [
+  {
+    href: "/mechanisms#governance",
+    label: "How it works (control surfaces, clocks, drills)",
+  },
+  {
+    href: "/standards",
+    label: "Standards comparison (NIST / ISO / EU vs Ethotechnics)",
+  },
+  {
+    href: "/field-notes",
+    label: "Field Notes (examples of compounding harm)",
+  },
+];
+
+const anchorLinks = executiveSummary.map(({ href, text }) => ({
+  href,
+  label: text.split(":")[0],
+}));
+
+const { cspNonce } = Astro.locals;
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toString();
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Explainer"
+    title={pageTitle}
+    description={heroCopy}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Purpose",
+      title: "From intent to capability",
+      description:
+        "Operational capability—stop, reverse, restore, contest—is the unit of accountability. This spec focuses on what has to work under stress, not what is promised in documentation.",
+    }}
+  />
+
+  <SectionBlock
+    id="executive-summary"
+    eyebrow="Executive summary"
+    title="Six implications that change governance"
+    description="Each item links to the expanded implication below."
+  >
+    <ul class="summary-list">
+      {executiveSummary.map((item) => (
+        <li>
+          <a href={item.href}>{item.text}</a>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="core-implications"
+    eyebrow="Core implications"
+    title="What operational governance reveals"
+    description="All six core implications are expanded by default."
+    variant="alt"
+  >
+    <SectionActions className="implication-controls" ariaLabel="Implication controls">
+      <button class="button ghost" type="button" data-expand-all>
+        Expand all
+      </button>
+      <button class="button ghost" type="button" data-collapse-all>
+        Collapse all
+      </button>
+    </SectionActions>
+    <div class="implications" data-implications>
+      {coreImplications.map((item) => (
+        <details
+          class="implication"
+          open
+          data-default-open="true"
+          data-implication
+          data-implication-id={item.id}
+        >
+          <summary class="implication__summary">
+            <div class="implication__summary-main">
+              <h3 id={item.id} class="implication__title">
+                {item.title}
+              </h3>
+              <div class="implication__summary-actions">
+                <a
+                  class="implication__permalink"
+                  href={`#${item.id}`}
+                  aria-label={`Permalink to ${item.title}`}
+                  data-implication-anchor
+                >
+                  #
+                </a>
+                <button
+                  class="copy-button"
+                  type="button"
+                  data-copy-link
+                  data-copy-value={buildAnchor(item.id)}
+                  aria-label={`Copy link to ${item.title}`}
+                >
+                  Copy link
+                </button>
+                <span
+                  class="implication__status"
+                  data-copy-status
+                  role="status"
+                  aria-live="polite"
+                ></span>
+              </div>
+            </div>
+            <span class="implication__toggle" aria-hidden="true">
+              <span class="implication__toggle-text--expand">Expand</span>
+              <span class="implication__toggle-text--collapse">Collapse</span>
+            </span>
+          </summary>
+          <div class="implication__body">
+            <p class="implication__label">Common model</p>
+            <p>{item.commonModel}</p>
+            <p class="implication__label">Ethotechnics model</p>
+            <p>{item.ethotechnicsModel}</p>
+            <p class="implication__statement">
+              <strong>Implication:</strong> {item.implication}
+            </p>
+            <div class="implication__requirements">
+              <p class="implication__label">What this requires</p>
+              <ul>
+                {item.requirements.map((requirement) => (
+                  <li>{requirement}</li>
+                ))}
+              </ul>
+            </div>
+            {item.signals && (
+              <details class="implication__signals" data-default-open="false">
+                <summary>Signals you’re failing this</summary>
+                <ul>
+                  {item.signals.map((signal) => (
+                    <li>{signal}</li>
+                  ))}
+                </ul>
+              </details>
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="additional-implications"
+    eyebrow="Additional implications"
+    title="Secondary shifts once capability is required"
+    description="These sections are collapsed by default for quick scanning."
+  >
+    <div class="implications" data-implications>
+      {additionalImplications.map((item) => (
+        <details
+          class="implication"
+          data-default-open="false"
+          data-implication
+          data-implication-id={item.id}
+        >
+          <summary class="implication__summary">
+            <div class="implication__summary-main">
+              <h3 id={item.id} class="implication__title">
+                {item.title}
+              </h3>
+              <div class="implication__summary-actions">
+                <a
+                  class="implication__permalink"
+                  href={`#${item.id}`}
+                  aria-label={`Permalink to ${item.title}`}
+                  data-implication-anchor
+                >
+                  #
+                </a>
+                <button
+                  class="copy-button"
+                  type="button"
+                  data-copy-link
+                  data-copy-value={buildAnchor(item.id)}
+                  aria-label={`Copy link to ${item.title}`}
+                >
+                  Copy link
+                </button>
+                <span
+                  class="implication__status"
+                  data-copy-status
+                  role="status"
+                  aria-live="polite"
+                ></span>
+              </div>
+            </div>
+            <span class="implication__toggle" aria-hidden="true">
+              <span class="implication__toggle-text--expand">Expand</span>
+              <span class="implication__toggle-text--collapse">Collapse</span>
+            </span>
+          </summary>
+          <div class="implication__body">
+            <p class="implication__statement">
+              <strong>Implication:</strong> {item.implication}
+            </p>
+            <div class="implication__requirements">
+              <p class="implication__label">What this requires</p>
+              <ul>
+                {item.requirements.map((requirement) => (
+                  <li>{requirement}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </details>
+      ))}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="legitimacy-standard"
+    eyebrow="Legitimacy standard"
+    title="The legitimacy standard"
+    description="A concise test for operational responsibility."
+    variant="alt"
+  >
+    <div class="legitimacy-standard">
+      <p>
+        A system is not responsible because it intends to be fair, documents its risks,
+        or convenes oversight committees. A system is responsible only if it cannot
+        continue harming people faster than it can be compelled to stop and repair.
+      </p>
+      <p class="muted">
+        This standard would cause many currently “compliant” systems to fail—not because
+        they are malicious, but because they are operationally unstoppable.
+      </p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="related"
+    eyebrow="Related"
+    title="Related"
+    description="Additional modules that connect capability governance to delivery."
+  >
+    <ul class="related-links">
+      {relatedLinks.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+    <p class="muted small footnote">
+      Use stable anchors when citing this spec in memos, briefs, or governance playbooks.
+    </p>
+  </SectionBlock>
+</BaseLayout>
+
+<script nonce={cspNonce} is:inline>
+  const detailBlocks = Array.from(
+    document.querySelectorAll("details[data-implication]")
+  );
+  const expandAllButton = document.querySelector("[data-expand-all]");
+  const collapseAllButton = document.querySelector("[data-collapse-all]");
+
+  const setAll = (open) => {
+    detailBlocks.forEach((detail) => {
+      detail.open = open;
+    });
+  };
+
+  if (expandAllButton) {
+    expandAllButton.addEventListener("click", () => setAll(true));
+  }
+
+  if (collapseAllButton) {
+    collapseAllButton.addEventListener("click", () => setAll(false));
+  }
+
+  const openFromHash = (hash) => {
+    if (!hash) {
+      return;
+    }
+
+    const targetId = hash.replace("#", "");
+    const target = document.getElementById(targetId);
+
+    if (!target) {
+      return;
+    }
+
+    const parentDetails = target.closest("details");
+
+    if (parentDetails && !parentDetails.open) {
+      parentDetails.open = true;
+    }
+  };
+
+  openFromHash(window.location.hash);
+  window.addEventListener("hashchange", () => openFromHash(window.location.hash));
+
+  const copyButtons = Array.from(
+    document.querySelectorAll("[data-copy-link]")
+  );
+
+  copyButtons.forEach((button) => {
+    const status = button
+      .closest(".implication__summary")
+      ?.querySelector("[data-copy-status]");
+    const value = button.getAttribute("data-copy-value");
+
+    if (!status || !value) {
+      return;
+    }
+
+    let resetTimer;
+
+    button.addEventListener("click", async (event) => {
+      event.stopPropagation();
+      try {
+        await navigator.clipboard.writeText(value);
+        status.textContent = "Copied";
+        status.classList.add("is-visible");
+      } catch (error) {
+        status.textContent = "Copy failed";
+        status.classList.add("is-visible");
+      }
+
+      clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        status.textContent = "";
+        status.classList.remove("is-visible");
+      }, 2000);
+    });
+  });
+
+  const anchorLinks = Array.from(
+    document.querySelectorAll("[data-implication-anchor]")
+  );
+
+  anchorLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const href = link.getAttribute("href");
+
+      if (!href) {
+        return;
+      }
+
+      history.pushState(null, "", href);
+      openFromHash(href);
+    });
+  });
+</script>
+
+<style>
+  .summary-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .summary-list a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .summary-list a:hover,
+  .summary-list a:focus {
+    text-decoration: underline;
+  }
+
+  .implication-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .implications {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .implication {
+    border: 1px solid var(--panel-border);
+    border-radius: 1rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--panel);
+  }
+
+  .implication__summary {
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+  }
+
+  .implication__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .implication__summary-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .implication__summary-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .implication__title {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .implication__permalink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--panel-border);
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .implication__permalink:hover,
+  .implication__permalink:focus {
+    background: var(--panel-strong);
+  }
+
+  .implication__status {
+    font-size: 0.85rem;
+    color: var(--muted);
+    min-width: 4rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .implication__status.is-visible {
+    opacity: 1;
+  }
+
+  .implication__toggle {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.35rem;
+    white-space: nowrap;
+  }
+
+  .implication__toggle-text--collapse {
+    display: none;
+  }
+
+  details[open] .implication__toggle-text--collapse {
+    display: inline;
+  }
+
+  details[open] .implication__toggle-text--expand {
+    display: none;
+  }
+
+  .implication__body {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .implication__label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .implication__statement {
+    margin: 0;
+  }
+
+  .implication__requirements ul,
+  .implication__signals ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .implication__signals {
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--panel-border);
+    padding-top: 0.75rem;
+  }
+
+  .implication__signals summary {
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .legitimacy-standard {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 70ch;
+  }
+
+  .related-links {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .footnote {
+    margin-top: 1.5rem;
+    max-width: 70ch;
+  }
+
+  @media (max-width: 720px) {
+    .implication {
+      padding: 0.75rem 1rem;
+    }
+
+    .implication__summary {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .implication__toggle {
+      margin-top: 0;
+    }
+  }
+</style>

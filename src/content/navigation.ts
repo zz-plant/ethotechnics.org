@@ -140,6 +140,11 @@ export const navSections: NavSection[] = [
         label: "Contestability checklist",
         description: "Printable checklist for real contestability and recourse.",
       },
+      {
+        href: "/explainers/governance-capability",
+        label: "Governance as operational capability",
+        description: "Define governance by stop, reverse, restore, and contest.",
+      },
     ],
   },
   {
