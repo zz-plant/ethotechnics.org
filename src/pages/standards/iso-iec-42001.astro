@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "ISO/IEC 42001 (AI Management Systems)";
+const pageDescription =
+  "Ethotechnics-style critique of ISO/IEC 42001 and its management-system approach to AI governance.";
+const permalink = "/standards/iso-iec-42001";
+const anchorLinks = [
+  { href: "#overview", label: "What it is" },
+  { href: "#critique", label: "Ethotechnics critique" },
+  { href: "#failure-mode", label: "Failure mode" },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Adopted standard"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Ethotechnics read",
+      title: "Certified effort vs. governable systems",
+      description:
+        "Management-system audits can miss whether systems are stoppable mid-incident.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="What it is"
+    description="A management-system standard for establishing and improving AI governance policies and processes."
+  >
+    <p>
+      ISO/IEC 42001 specifies how organizations set up, implement, and maintain
+      an AI management system, including roles, policies, objectives, and continual
+      improvement cycles.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="critique"
+    eyebrow="Ethotechnics critique"
+    title="Where the standard falls short"
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Governance effort ≠ governability:</strong> Audits can certify documented
+        controls while the system remains hard to stop mid-incident.
+      </li>
+      <li>
+        <strong>Continuous improvement can normalize slow harm:</strong> “We’re improving”
+        can coexist with multi-quarter remediation cycles in high-stakes contexts.
+      </li>
+      <li>
+        <strong>Artifacts over interruption capacity:</strong> Documentation, training, and
+        lifecycle governance are easier to evidence than tested rollback authority.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-mode"
+    eyebrow="Failure mode"
+    title="Certified responsibility + unresolved time-in-harm"
+    description="Well-managed organizations can still leave users stuck in harm windows."
+  >
+    <p>
+      The failure mode is a system that passes audits while users still cannot
+      compel reversal on a clock.
+    </p>
+  </SectionBlock>
+</BaseLayout>

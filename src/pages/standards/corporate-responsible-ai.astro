@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Corporate Responsible AI Programs";
+const pageDescription =
+  "Ethotechnics-style critique of internal responsible AI principles, ethics boards, and review gates.";
+const permalink = "/standards/corporate-responsible-ai";
+const anchorLinks = [
+  { href: "#overview", label: "What they are" },
+  { href: "#critique", label: "Ethotechnics critique" },
+  { href: "#failure-mode", label: "Failure mode" },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Corporate programs"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Ethotechnics read",
+      title: "Ethics theater under pressure",
+      description:
+        "Internal governance rarely grants stop rights to affected parties.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="What they are"
+    description="Internal principles, review boards, and monitoring programs derived from broad ethics frameworks."
+  >
+    <p>
+      Corporate responsible AI standards typically combine principles (fairness,
+      transparency, safety) with committees, review gates, training, and monitoring.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="critique"
+    eyebrow="Ethotechnics critique"
+    title="Where the programs fall short"
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Centralized review becomes a bottleneck:</strong> At scale, boards
+        either slow the business or become routinized and symbolic.
+      </li>
+      <li>
+        <strong>Judgment-based governance is fragile:</strong> Under deadline pressure,
+        discretionary controls degrade first while the system keeps running.
+      </li>
+      <li>
+        <strong>The affected party lacks standing:</strong> Governance is inward-facing,
+        not power the public can exercise.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-mode"
+    eyebrow="Failure mode"
+    title="Ethics theater under pressure"
+    description="Good principles and sincere people without enforceable stop rights downstream."
+  >
+    <p>
+      The failure mode is a well-intended program that collapses into symbolic
+      oversight when incentives conflict with restraint.
+    </p>
+  </SectionBlock>
+</BaseLayout>

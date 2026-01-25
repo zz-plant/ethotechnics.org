@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "OECD AI Principles";
+const pageDescription =
+  "Ethotechnics-style critique of the OECD AI Principles and principles-based responsible AI programs.";
+const permalink = "/standards/oecd-ai-principles";
+const anchorLinks = [
+  { href: "#overview", label: "What they are" },
+  { href: "#critique", label: "Ethotechnics critique" },
+  { href: "#failure-mode", label: "Failure mode" },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Adopted standard"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Ethotechnics read",
+      title: "Failure-mode diagnostics",
+      description:
+        "Principles do not automatically create stop authority, clocks, or rollback guarantees.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="What they are"
+    description="Values-based principles and recommendations adopted by governments and industry."
+  >
+    <p>
+      OECD AI Principles are intentionally flexible, values-oriented guidelines that
+      governments and organizations adopt to shape “responsible AI” programs.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="critique"
+    eyebrow="Ethotechnics critique"
+    title="Where the principles fall short"
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Non-binding by design:</strong> Accountability becomes interpretive,
+        and almost any program can claim alignment after harm.
+      </li>
+      <li>
+        <strong>No allocation of power:</strong> The principles rarely specify who
+        can halt a system, under what triggers, or on what clock.
+      </li>
+      <li>
+        <strong>Intervention without mechanism:</strong> “Human intervention where
+        necessary” gestures at action but does not require tested stop paths,
+        restoration SLAs, or bounded pending states.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-mode"
+    eyebrow="Failure mode"
+    title="Legible virtue + unstoppable systems"
+    description="Good narratives and training without reliable brakes."
+  >
+    <p>
+      The dominant failure mode is a system that sounds responsible on paper yet
+      cannot be interrupted quickly when harm emerges.
+    </p>
+  </SectionBlock>
+</BaseLayout>

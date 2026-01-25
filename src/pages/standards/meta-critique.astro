@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Meta-critique across standards";
+const pageDescription =
+  "Ethotechnics’ core critique of prevailing AI governance standards and regimes.";
+const permalink = "/standards/meta-critique";
+const anchorLinks = [
+  { href: "#overview", label: "Core critique" },
+  { href: "#contrast", label: "Governance by control" },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Meta-critique"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Ethotechnics stance",
+      title: "From representation to control",
+      description:
+        "Modern harm requires enforceable stop rules, clocks, and rollback authority.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Core critique"
+    title="Governance by representation isn’t enough"
+    description="Most standards govern via documents, roles, reviews, and attestations."
+  >
+    <p>
+      Ethotechnics’ critique isn’t that prevailing standards are “bad.” It’s that
+      they mostly govern by representation: documents, roles, reviews, and
+      attestations. Modern harm requires governance by control.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="contrast"
+    eyebrow="Governance by control"
+    title="What Ethotechnics insists on"
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Stop rules that define explicit triggers and authority.</li>
+      <li>Binding clocks with escalation paths and measurable recovery time.</li>
+      <li>Rollback authority and restoration performance under stress.</li>
+      <li>Contestability that changes state, not just narrative.</li>
+    </ul>
+  </SectionBlock>
+</BaseLayout>

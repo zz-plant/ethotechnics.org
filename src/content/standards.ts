@@ -53,6 +53,7 @@ export const standardsContent: StandardsContent = {
   anchorLinks: [
     { href: "#active", label: "Active standards" },
     { href: "#doctrine", label: "Doctrine" },
+    { href: "#adopted-standards", label: "Adopted standards" },
     { href: "#referenced-by", label: "Referenced by" },
   ],
   panelCopy: {

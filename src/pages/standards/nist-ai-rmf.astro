@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "NIST AI Risk Management Framework (AI RMF 1.0)";
+const pageDescription =
+  "Ethotechnics-style critique of the NIST AI Risk Management Framework and its voluntary governance model.";
+const permalink = "/standards/nist-ai-rmf";
+const anchorLinks = [
+  { href: "#overview", label: "What it is" },
+  { href: "#critique", label: "Ethotechnics critique" },
+  { href: "#failure-mode", label: "Failure mode" },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Adopted standard"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Ethotechnics read",
+      title: "Process evidence vs. runtime control",
+      description:
+        "Good risk management can coexist with slow or missing rollback authority.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="What it is"
+    description="A voluntary risk management framework organized around Govern, Map, Measure, Manage."
+  >
+    <p>
+      The AI RMF is explicitly not a checklist. It emphasizes mapping risks,
+      measuring performance, and managing controls across the AI lifecycle.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="critique"
+    eyebrow="Ethotechnics critique"
+    title="Where the framework falls short"
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Risk framing privileges prediction over control:</strong> “Map/Measure”
+        improves anticipation and documentation but does not force operational reversibility.
+      </li>
+      <li>
+        <strong>Voluntary + profile-driven:</strong> Organizations can adopt maturity-shaped
+        artifacts without building hard stop or rollback infrastructure.
+      </li>
+      <li>
+        <strong>Governance becomes management activity:</strong> The RMF supports internal
+        practice but does not require demonstrations that a running system can be halted quickly.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-mode"
+    eyebrow="Failure mode"
+    title="Excellent process evidence + slow repair"
+    description="The harmed person still carries the time and coordination burden."
+  >
+    <p>
+      The failure mode is a well-documented process that still leaves people
+      exposed while the institution “manages risk” on a slow clock.
+    </p>
+  </SectionBlock>
+</BaseLayout>
