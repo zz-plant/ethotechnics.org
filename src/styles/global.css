@@ -1521,7 +1521,7 @@
 .section__anchor-icon {
   font-size: 0.85em;
   color: color-mix(in srgb, var(--accent) 75%, var(--text));
-  opacity: 0.35;
+  opacity: 0;
   transform: translateY(1px);
   transition:
     opacity 0.2s ease,
@@ -1638,7 +1638,7 @@
   box-shadow: var(--shadow-xs);
 }
 
-.page-intro__permalink span {
+.page-intro__permalink-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1702,10 +1702,10 @@
 }
 
 .page-intro__anchors {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
+  display: grid;
+  grid-template-columns: minmax(140px, 180px) 1fr;
+  align-items: start;
+  gap: 0.8rem 1.2rem;
   padding: 0.85rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
@@ -1724,8 +1724,7 @@
 
 @media (max-width: 720px) {
   .page-intro__anchors {
-    flex-direction: column;
-    align-items: flex-start;
+    grid-template-columns: 1fr;
   }
 }
 
