@@ -30,11 +30,14 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
 
 ## Building and previewing
 
-- Build the Cloudflare Worker bundle with `bun run build`; success logs include `Built in` timings
-  and emit `dist/_worker.js`.
+- Build the Cloudflare Worker bundle with `bun run build`; success logs include `Built in` timings,
+  emit `dist/_worker.js`, and generate the Pagefind search index under `dist/pagefind`.
+- Regenerate just the search index with `bun run build:search` after a build if you are tuning
+  search ranking or content without changing the Worker bundle.
 - The build skips compressed-size reporting to avoid extra gzip/Brotli passes; re-enable it in
   `astro.config.mjs` if you need those numbers for an investigation.
-- Preview locally with `bun run preview` to mimic the deployed output.
+- Preview locally with `bun run preview` to mimic the deployed output via Astro's preview server.
+- Use `bun run preview:cf` when you need to exercise Worker runtime behavior or bindings.
 - Combine both steps to sanity-check production output: `bun run build && bun run preview`.
 
 ## Checks and tests
@@ -55,8 +58,8 @@ Guidelines to spin up the site locally, run checks, and troubleshoot build issue
 
 ## Troubleshooting
 
-- Verify Bun version with `bun -v`; reinstall dependencies if versions drift: `rm -rf node_modules bun.lock`
-  and `bun install`.
+- Verify Bun version with `bun -v`; reinstall dependencies if versions drift:
+  `rm -rf node_modules bun.lock` and `bun install`.
 - Clear Astro's cache when layout or config changes behave oddly: remove the `.astro/` directory
   before rebuilding.
 - If preview requests fail, confirm the Worker build emitted `dist/_worker.js` and that
