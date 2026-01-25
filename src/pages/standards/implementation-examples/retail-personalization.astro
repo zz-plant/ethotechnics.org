@@ -1,0 +1,150 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+
+const pageTitle = "Retail personalization: implementation comparison";
+const pageDescription =
+  "Compare standard AI governance and Ethotechnics implementation for recommendation and personalization systems.";
+const permalink = "/standards/implementation-examples/retail-personalization";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#standard", label: "Standard governance" },
+  { href: "#ethotechnics", label: "Ethotechnics implementation" },
+  { href: "#checklist", label: "Implementation checklist" },
+  { href: "#citations", label: "Cite this page" },
+];
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Standards Office",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2025-02-01T00:00:00Z",
+  updated: "2025-02-01T00:00:00Z",
+  version: "v1.0.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v1.0.0",
+      date: "2025-02-01",
+      summary: "Published the retail personalization implementation comparison.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Focus",
+      title: "Personalization without lock-in",
+      description:
+        "Recommendation systems shape behavior over time. Ethotechnics centers user authority to halt or redirect these patterns immediately.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Where governance breaks down"
+    description="Personalization can quietly compound bias when users lack direct control over targeting loops."
+  >
+    <p>
+      Standard governance emphasizes data exclusions and ethical reviews.
+      Ethotechnics requires runtime controls so users and advocates can halt
+      personalization patterns in real time.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard AI governance implements"
+    description="Policy constraints and review gates with limited runtime authority."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Exclude sensitive attributes such as gender or age.</li>
+      <li>Cross-functional ethical reviews before deployment.</li>
+      <li>Transparency notices about data usage and tracking.</li>
+      <li>Human oversight for high-impact recommendation changes.</li>
+      <li>Periodic audits for demographic skew or unintended patterns.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when governance becomes infrastructure"
+    description="Personalization becomes stoppable, contestable, and reversible on demand."
+  >
+    <ul class="card__list">
+      <li>
+        Users receive direct <a href="/glossary/stoppability">stoppability</a> controls
+        to halt recommendation patterns without penalties.
+      </li>
+      <li>
+        Independent advocates can activate kill switches when targeting harms emerge.
+      </li>
+      <li>
+        <a href="/glossary/safety-valve">Safety valves</a> create forced interruption points
+        before filter bubbles compound.
+      </li>
+      <li>
+        <a href="/glossary/contestability">Contestability</a> ensures users can demand a
+        reasoned explanation, a clock, and a reversal path.
+      </li>
+      <li>
+        Time-based rollback requirements measure how quickly personalization changes can be
+        undone.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to verify before launch"
+    description="Confirm user control over automated targeting loops."
+  >
+    <ul class="muted">
+      <li>Expose a persistent stop control for personalization behavior.</li>
+      <li>Publish response clocks for user appeals and preference resets.</li>
+      <li>Provide advocates a direct halt path for harmful targeting patterns.</li>
+      <li>
+        Measure <a href="/glossary/time-to-restore">time-to-restore</a> for mistaken
+        personalization changes.
+      </li>
+      <li>Document rollback drills in the repair log.</li>
+    </ul>
+  </SectionBlock>
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>

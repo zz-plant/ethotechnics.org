@@ -54,6 +54,7 @@ export const standardsContent: StandardsContent = {
     { href: "#active", label: "Active standards" },
     { href: "#doctrine", label: "Doctrine" },
     { href: "#adopted-standards", label: "Adopted standards" },
+    { href: "#implementation-examples", label: "Implementation examples" },
     { href: "#referenced-by", label: "Referenced by" },
   ],
   panelCopy: {

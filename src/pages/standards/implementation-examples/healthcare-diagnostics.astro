@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+
+const pageTitle = "Healthcare diagnostic AI: implementation comparison";
+const pageDescription =
+  "Compare standard AI governance and Ethotechnics implementation for clinical risk and diagnostic tools.";
+const permalink = "/standards/implementation-examples/healthcare-diagnostics";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#standard", label: "Standard governance" },
+  { href: "#ethotechnics", label: "Ethotechnics implementation" },
+  { href: "#checklist", label: "Implementation checklist" },
+  { href: "#citations", label: "Cite this page" },
+];
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Standards Office",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2025-02-01T00:00:00Z",
+  updated: "2025-02-01T00:00:00Z",
+  version: "v1.0.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v1.0.0",
+      date: "2025-02-01",
+      summary: "Published the healthcare diagnostic implementation comparison.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Focus",
+      title: "Clinical decisions with irreversible consequences",
+      description:
+        "Diagnostic automation needs multiple medical perspectives and immediate intervention pathways when patient harm is likely.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Where governance breaks down"
+    description="Diagnostic AI can reinforce inequities when real-time overrides are slow or informal."
+  >
+    <p>
+      Standard governance emphasizes validation, monitoring, and clinician oversight.
+      Ethotechnics requires competing clinical authorities and fast reversibility before harm
+      reaches patients.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard AI governance implements"
+    description="Lifecycle controls that often move slower than clinical decision windows."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Pre-deployment validation and ongoing bias monitoring.</li>
+      <li>Explainability layers to surface contributing clinical factors.</li>
+      <li>Governance committees empowered to review and update models.</li>
+      <li>Clinician override protocols for exceptions and edge cases.</li>
+      <li>Periodic retraining when disparate impact is detected.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when governance becomes infrastructure"
+    description="Clinical authority is plural, stoppable, and measurable on a clock."
+  >
+    <ul class="card__list">
+      <li>
+        Embed competing medical ontologies (clinical protocol, patient advocacy,
+        adversarial safety review) with independent veto authority.
+      </li>
+      <li>
+        Require continuous <a href="/glossary/stoppability">stoppability</a> verification
+        so patients can challenge risk classifications immediately.
+      </li>
+      <li>
+        Track <a href="/explainers/time-to-halt">time-to-halt</a> and
+        <a href="/glossary/reversibility">reversibility</a> targets for harmful
+        recommendations.
+      </li>
+      <li>
+        Use <a href="/glossary/ethical-interrupts">ethical interrupts</a> to freeze
+        recommendations when bias signals trigger.
+      </li>
+      <li>
+        Publish recovery pathways that restore care access and repair downstream delays.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to verify before launch"
+    description="Confirm intervention speed and authority before clinical deployment."
+  >
+    <ul class="muted">
+      <li>Document which parties can halt recommendations and how they are notified.</li>
+      <li>Define time-to-halt targets for each diagnostic workflow.</li>
+      <li>Provide patients a contestability path with stated response clocks.</li>
+      <li>
+        Publish <a href="/glossary/safety-valve">safety valve</a> procedures for pausing
+        the system during anomalies.
+      </li>
+      <li>Track restoration completeness after erroneous diagnoses.</li>
+    </ul>
+  </SectionBlock>
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>

@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+
+const pageTitle = "Government public services: implementation comparison";
+const pageDescription =
+  "Compare standard AI governance and Ethotechnics implementation for public sector automation and benefits systems.";
+const permalink = "/standards/implementation-examples/public-services";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#standard", label: "Standard governance" },
+  { href: "#ethotechnics", label: "Ethotechnics implementation" },
+  { href: "#checklist", label: "Implementation checklist" },
+  { href: "#citations", label: "Cite this page" },
+];
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Standards Office",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2025-02-01T00:00:00Z",
+  updated: "2025-02-01T00:00:00Z",
+  version: "v1.0.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v1.0.0",
+      date: "2025-02-01",
+      summary: "Published the public services implementation comparison.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Focus",
+      title: "Public systems with real-time community authority",
+      description:
+        "Public sector automation needs enforceable community veto power, not just advisory feedback loops.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Where governance breaks down"
+    description="Public services can move faster than appeals, leaving residents without immediate recourse."
+  >
+    <p>
+      Standard governance relies on sandboxes, impact assessments, and advisory boards.
+      Ethotechnics requires runtime authority for affected communities to halt harmful
+      decisions immediately.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard AI governance implements"
+    description="Program oversight that often arrives after harm is already done."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Regulatory sandbox pilots before full deployment.</li>
+      <li>Impact assessments with public comment windows.</li>
+      <li>Ethics and oversight boards for advisory review.</li>
+      <li>Clear accountability structures for policy owners.</li>
+      <li>Monitoring dashboards and periodic audits.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when governance becomes infrastructure"
+    description="Community veto power and recovery time become non-negotiable system controls."
+  >
+    <ul class="card__list">
+      <li>
+        Community representatives hold real-time authority to halt automated decisions
+        affecting their population.
+      </li>
+      <li>
+        <a href="/glossary/stoppability">Stoppability</a> drills test whether benefits or
+        eligibility decisions can be frozen within seconds.
+      </li>
+      <li>
+        <a href="/glossary/contestability">Contestability</a> requires transparent reasons,
+        response clocks, and a named decision owner.
+      </li>
+      <li>
+        Recovery protocols restore benefits and repair downstream harm before reactivation.
+      </li>
+      <li>
+        <a href="/glossary/design-authority">Design authority</a> is shared with affected
+        communities, not just agencies.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to verify before launch"
+    description="Confirm public systems can be halted, repaired, and restored quickly."
+  >
+    <ul class="muted">
+      <li>Publish who can halt automated decisions and their escalation authority.</li>
+      <li>
+        Define <a href="/explainers/time-to-halt">time-to-halt</a> and
+        <a href="/glossary/time-to-restore">time-to-restore</a> targets for benefits
+        decisions.
+      </li>
+      <li>Provide residents a contestability pathway with a guaranteed response clock.</li>
+      <li>Document recovery steps to restore benefits and repair downstream effects.</li>
+      <li>Schedule stoppability drills and publish results.</li>
+    </ul>
+  </SectionBlock>
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>

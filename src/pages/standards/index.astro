@@ -67,6 +67,57 @@ const adoptedStandards = [
     href: "/standards/meta-critique",
   },
 ];
+const implementationExamples = [
+  {
+    title: "Implementation examples overview",
+    description:
+      "Domain-by-domain comparisons showing how Ethotechnics changes system architecture.",
+    href: "/standards/implementation-examples",
+    ctaLabel: "Open guide",
+  },
+  {
+    title: "Loan approval systems",
+    description:
+      "Credit scoring and eligibility workflows with enforceable stop authority.",
+    href: "/standards/implementation-examples/loan-approval",
+    ctaLabel: "View example",
+  },
+  {
+    title: "Healthcare diagnostic AI",
+    description:
+      "Clinical risk tools built around reversibility, stoppability, and plural oversight.",
+    href: "/standards/implementation-examples/healthcare-diagnostics",
+    ctaLabel: "View example",
+  },
+  {
+    title: "Customer service chatbots",
+    description:
+      "High-volume support automation with guaranteed exit and recovery paths.",
+    href: "/standards/implementation-examples/customer-service-chatbots",
+    ctaLabel: "View example",
+  },
+  {
+    title: "Financial fraud detection",
+    description:
+      "Account protection systems that measure recovery time alongside detection.",
+    href: "/standards/implementation-examples/financial-fraud-detection",
+    ctaLabel: "View example",
+  },
+  {
+    title: "Retail personalization",
+    description:
+      "Recommendation systems with user stoppability and real-time advocate control.",
+    href: "/standards/implementation-examples/retail-personalization",
+    ctaLabel: "View example",
+  },
+  {
+    title: "Government public services",
+    description:
+      "Public sector automation with community veto authority and rapid restoration.",
+    href: "/standards/implementation-examples/public-services",
+    ctaLabel: "View example",
+  },
+];
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -586,6 +637,29 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </p>
       </div>
     </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="implementation-examples"
+    eyebrow="Implementation examples"
+    title="Domain-by-domain comparisons"
+    description="Concrete system-level contrasts for teams implementing Ethotechnics."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        implementationExamples.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.description}
+          >
+            <a slot="footer" class="muted" href={item.href}>
+              {item.ctaLabel}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock
