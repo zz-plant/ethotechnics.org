@@ -1346,10 +1346,23 @@
   margin-top: 1.2rem;
 }
 
+.hero__role-panel {
+  margin-top: 1.1rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--surface) 96%, white 4%);
+  box-shadow: 0 12px 20px rgba(64, 52, 40, 0.08);
+}
+
+.hero__role-note {
+  margin: 0.25rem 0 0.75rem;
+}
+
 .hero__highlights {
   display: grid;
   gap: 0.65rem;
-  margin: 0.65rem 0 0;
+  margin: 0.35rem 0 0;
   padding: 0;
   list-style: none;
   color: color-mix(in srgb, var(--muted) 86%, var(--text));
@@ -1672,6 +1685,20 @@
 .page-intro__aside {
   display: grid;
   gap: 0.9rem;
+}
+
+.page-intro__aside-custom {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.page-intro__search-panel {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.page-intro__search-panel .site-search__input {
+  background: var(--surface);
 }
 
 .page-intro__anchors {
@@ -2326,6 +2353,23 @@
   outline-offset: 2px;
 }
 
+.site-search__suggestions {
+  margin: 0;
+}
+
+.site-search__suggestions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  background: color-mix(in srgb, var(--surface) 96%, white 4%);
+  font-weight: 600;
+  text-decoration: none;
+  color: inherit;
+}
+
 .site-search__results {
   display: grid;
   gap: 1.2rem;
@@ -2544,6 +2588,14 @@
   gap: 1rem;
 }
 
+.pattern-detail__step-summary {
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  background: color-mix(in srgb, var(--surface) 96%, white 4%);
+}
+
 .pattern-detail__glossary-links {
   margin: 0;
   display: flex;
@@ -2561,6 +2613,23 @@
 .pattern-detail__example {
   display: grid;
   gap: 1rem;
+}
+
+.pattern-detail__snippet {
+  border-left: 4px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  padding-left: 1.35rem;
+}
+
+.pattern-detail__snippet[data-snippet="product"] {
+  border-left-color: color-mix(in srgb, var(--teal) 55%, transparent);
+}
+
+.pattern-detail__snippet[data-snippet="audit"] {
+  border-left-color: color-mix(in srgb, var(--accent-strong) 60%, transparent);
+}
+
+.pattern-detail__snippet[data-snippet="postmortem"] {
+  border-left-color: color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 .pattern-detail__example-copy {
@@ -2859,6 +2928,16 @@
   margin: 1.5rem 0 2rem;
 }
 
+.glossary-entry__summary {
+  margin: 1.5rem 0 2rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.glossary-entry__summary-links {
+  margin: 0;
+}
+
 .glossary__starter-list {
   list-style: none;
   margin: 1rem 0 0;
@@ -2888,6 +2967,15 @@
 .intake-form {
   display: grid;
   gap: 1.5rem;
+}
+
+.diagnostic-tool__form {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--panel) 95%, white 5%),
+    color-mix(in srgb, var(--surface) 92%, white 8%)
+  );
+  border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
 }
 
 .intake-form__grid {

@@ -33,6 +33,7 @@ const {
   anchorLinks,
   panelCopy,
 } = Astro.props;
+const hasCustomAside = Astro.slots.has("aside");
 
 const { cspNonce } = Astro.locals;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
@@ -157,6 +158,12 @@ function titleize(segment: string) {
               <a href={panelCopy.link.href}>{panelCopy.link.label}</a>
             </p>
           )}
+        </div>
+      )}
+
+      {hasCustomAside && (
+        <div class="page-intro__aside-custom">
+          <slot name="aside" />
         </div>
       )}
 
