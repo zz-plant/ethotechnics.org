@@ -235,9 +235,15 @@ const hasRelatedConcepts =
   relatedClusters.length > 0 || relatedDomains.length > 0;
 const quickTakeawayLinks = [
   { href: "#definition", label: "Definition" },
-  { href: "#presence-checks", label: "Presence checks" },
-  { href: "#minimum-evidence", label: "Minimum evidence" },
-  { href: "#operational-tests", label: "Operational tests" },
+  ...(presenceChecks.length
+    ? [{ href: "#presence-checks", label: "Presence checks" }]
+    : []),
+  ...(showMinimumEvidence
+    ? [{ href: "#minimum-evidence", label: "Minimum evidence" }]
+    : []),
+  ...(operationalTests.length
+    ? [{ href: "#operational-tests", label: "Operational tests" }]
+    : []),
 ];
 const filterParams = Astro.url.searchParams;
 const filterBreadcrumbParts = [
