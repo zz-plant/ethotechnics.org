@@ -23,6 +23,50 @@ const standardsUrl = (slug: string) =>
   Astro.site
     ? new URL(`/standards/${slug}`, Astro.site).toString()
     : `/standards/${slug}`;
+const adoptedStandards = [
+  {
+    eyebrow: "OECD",
+    title: "OECD AI Principles",
+    description:
+      "Principles-based guidance that lacks binding stop authority and time-bounded remediation.",
+    href: "/standards/oecd-ai-principles",
+  },
+  {
+    eyebrow: "NIST",
+    title: "NIST AI RMF 1.0",
+    description:
+      "Risk management maturity without mandatory rollback, halt, or restoration guarantees.",
+    href: "/standards/nist-ai-rmf",
+  },
+  {
+    eyebrow: "ISO",
+    title: "ISO/IEC 42001",
+    description:
+      "Management-system certification that can miss runtime stoppability requirements.",
+    href: "/standards/iso-iec-42001",
+  },
+  {
+    eyebrow: "EU",
+    title: "EU AI Act",
+    description:
+      "Regulatory compliance framework where enforcement is slower than machine-speed harm.",
+    href: "/standards/eu-ai-act",
+  },
+  {
+    eyebrow: "Corporate",
+    title: "Responsible AI programs",
+    description:
+      "Internal principles and review boards that rarely grant stop rights to the affected.",
+    href: "/standards/corporate-responsible-ai",
+  },
+  {
+    eyebrow: "Meta-critique",
+    title: "Governance by control",
+    description:
+      "The core Ethotechnics critique: representation without enforceable control planes.",
+    href: "/standards/meta-critique",
+  },
+];
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -41,6 +85,12 @@ const structuredData = {
       datePublished: standard.published,
     })),
     ...doctrine.map((item) => ({
+      "@type": "CreativeWork",
+      name: item.title,
+      description: item.description,
+      url: Astro.site ? new URL(item.href, Astro.site).toString() : item.href,
+    })),
+    ...adoptedStandards.map((item) => ({
       "@type": "CreativeWork",
       name: item.title,
       description: item.description,
@@ -111,6 +161,29 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           >
             <a slot="footer" class="muted" href={item.href}>
               {item.ctaLabel}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="adopted-standards"
+    eyebrow="Adopted standards"
+    title="Ethotechnics critiques of widely adopted regimes"
+    description="Failure-mode diagnostics for the most widely referenced AI governance standards."
+  >
+    <CardGrid className="grid--two">
+      {
+        adoptedStandards.map((item) => (
+          <CardItem
+            eyebrow={item.eyebrow}
+            title={item.title}
+            description={item.description}
+          >
+            <a slot="footer" class="muted" href={item.href}>
+              Read critique
             </a>
           </CardItem>
         ))

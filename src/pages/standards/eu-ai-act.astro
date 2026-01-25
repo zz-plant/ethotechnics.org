@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "EU AI Act";
+const pageDescription =
+  "Ethotechnics-style critique of the EU AI Act’s risk-tiered regulatory regime.";
+const permalink = "/standards/eu-ai-act";
+const anchorLinks = [
+  { href: "#overview", label: "What it is" },
+  { href: "#critique", label: "Ethotechnics critique" },
+  { href: "#failure-mode", label: "Failure mode" },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Regulatory regime"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Ethotechnics read",
+      title: "Compliance vs. machine-speed harm",
+      description:
+        "Documentation and enforcement matter, but they are not the primary brake.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="What it is"
+    description="A legal regime with risk-tiering, conformity assessment, and market surveillance."
+  >
+    <p>
+      The EU AI Act establishes obligations for high-risk systems, requires human
+      oversight, and enforces compliance through EU and national authorities.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="critique"
+    eyebrow="Ethotechnics critique"
+    title="Where the regime falls short"
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Compliance is document-mediated:</strong> Conformity assessment and
+        technical documentation improve accountability but do not ensure fast intervention.
+      </li>
+      <li>
+        <strong>Human oversight is underspecified:</strong> Oversight obligations do not
+        impose recovery-time targets or stoppability drills.
+      </li>
+      <li>
+        <strong>External enforcement is slower than harm:</strong> Market surveillance can
+        deter and punish, but it is not a primary braking system for compounding harm.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-mode"
+    eyebrow="Failure mode"
+    title="Lawful deployment + harmful latency"
+    description="Compliance can coexist with prolonged pending states and slow restoration."
+  >
+    <p>
+      The failure mode is a system that is compliant yet still traps people in
+      extended “pending” states without enforceable restoration timelines.
+    </p>
+  </SectionBlock>
+</BaseLayout>
