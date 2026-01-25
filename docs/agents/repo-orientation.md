@@ -9,8 +9,10 @@
 
 ## Structure highlights
 
-- Site content lives in `src/pages`.
+- Route entry points live in `src/pages`.
+- Content collections and authored copy live in `src/content`.
 - Shared layouts and components live in `src/layouts` and `src/components`.
+- Feature-specific modules live in `src/features`.
 - Global styling and tokens live in `src/styles`; update theme-wide changes there instead of
   per-page overrides.
 - Look for scoped `AGENTS.md` files under `src/` before changing UI components or routes.
