@@ -467,6 +467,113 @@ export const diagnosticsContent: DiagnosticsContent = {
       deliveryType: "self-serve",
     },
     {
+      slug: "maintenance-debt-calculator",
+      title: "Maintenance Debt Calculator",
+      description:
+        "Maps decision speed, intervention readiness, and revenue exposure to quantify maintenance debt risk.",
+      methodCards: {
+        measures: [
+          "Decision speed relative to escalation capacity.",
+          "Intervention readiness and recovery coverage.",
+          "Revenue exposure if uncontrolled actions occur.",
+        ],
+        doesNotMeasure: [
+          "Exact financial outcomes or legal liability.",
+          "Market share shifts unrelated to the incident.",
+          "Individual or team performance accountability.",
+        ],
+        assumptions: [
+          "Inputs reflect realistic ranges for the scenario.",
+          "Revenue exposure estimates are directional, not audited.",
+          "Intervention coverage mirrors current runbooks.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "Decision speed band for the system.",
+          "Intervention readiness and response window.",
+          "Revenue exposure tier and recovery cost.",
+        ],
+        procedure: [
+          "Score decision speed, readiness, and exposure.",
+          "Calculate maintenance debt risk tier.",
+          "Generate cost delta between uncontrolled and stoppable actions.",
+        ],
+        outputs: [
+          "Maintenance debt score and tier.",
+          "Estimated uncontrolled action cost range.",
+          "Shareable summary link for budget discussions.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "Decision speed band (milliseconds, seconds, minutes).",
+          "Intervention readiness coverage.",
+          "Escalation response window.",
+          "Revenue exposure tier.",
+        ],
+        rubric: [
+          "Decision speed scored on rapid / steady / deliberate.",
+          "Readiness scored on limited / partial / comprehensive.",
+          "Response window scored on under 5 minutes / 15–60 minutes / over 1 hour.",
+          "Revenue exposure scored on low / medium / high.",
+        ],
+        scoringLogic: [
+          "Total score combines speed, readiness, response window, and exposure.",
+          "Debt tier mapped to score thresholds.",
+          "Cost delta derived from exposure tier multiplied by debt factor.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Calibrated with budget planning sessions and post-incident finance reviews.",
+        reliability:
+          "Scores stabilize when scenario owners align on exposure ranges and response windows.",
+        failureModes: [
+          "Overstated revenue exposure inflates cost deltas.",
+          "Understated response windows hide readiness gaps.",
+          "Outdated runbooks skew intervention readiness inputs.",
+        ],
+      },
+      replicability: {
+        runSteps: [
+          "Collect decision speed and response window inputs.",
+          "Confirm intervention readiness with operations leads.",
+          "Estimate revenue exposure tier and recovery costs.",
+          "Share the readout with finance or governance partners.",
+        ],
+        exampleOutputs: [
+          "Maintenance debt scorecard with cost delta.",
+          "Budget-ready summary slide for leadership.",
+        ],
+      },
+      bestFor:
+        "Best for ethics leads and executives translating maintenance debt into budget-ready risk language.",
+      readiness: [
+        "Use before budgeting cycles to size safety engineering investment.",
+        "Pair with incident retrospectives to calibrate exposure assumptions.",
+      ],
+      outputs: [
+        "Maintenance debt tier with CFO-ready language.",
+        "Estimated cost delta between uncontrolled and stoppable actions.",
+        "Shareable link for budget and governance briefs.",
+      ],
+      estimatedTime: "10–12 minutes",
+      prepChecklist: [
+        "Decision speed estimates for the system.",
+        "Runbook response window and escalation plan.",
+        "Revenue exposure range or recovery cost estimate.",
+      ],
+      studioNote:
+        "Studio support can help translate debt tiers into funding scenarios.",
+      ctaLabel: "Start the Maintenance Debt Calculator",
+      ctaHref: "/diagnostics/maintenance-debt-calculator",
+      ctaAriaLabel: "Start the Maintenance Debt Calculator diagnostic tool",
+      exampleLabel: "View sample output",
+      exampleHref: "/diagnostics#output-baseline",
+      deliveryType: "self-serve",
+    },
+    {
       slug: "capacity-forecaster",
       title: "Technical Capacity Forecaster",
       description:
