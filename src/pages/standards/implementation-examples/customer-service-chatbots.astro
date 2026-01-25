@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import {
+  createImplementationPublication,
+  implementationExampleAnchorLinks,
+} from "../../../content/implementation-examples";
+
+const pageTitle = "Customer service chatbots: implementation comparison";
+const pageDescription =
+  "Compare standard AI governance and Ethotechnics implementation for automated customer support systems.";
+const permalink = "/standards/implementation-examples/customer-service-chatbots";
+const anchorLinks = implementationExampleAnchorLinks;
+const publication = createImplementationPublication(
+  permalink,
+  "Published the customer service chatbot implementation comparison.",
+);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Focus",
+      title: "High-volume support without trapped users",
+      description:
+        "Support bots scale fast. Ethotechnics ensures users can exit, escalate, and recover without waiting on queue-based goodwill.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Where governance breaks down"
+    description="Customer support automation can trap users in loops when escalation is a fallback instead of a right."
+  >
+    <p>
+      Standard governance emphasizes transparency, hand-offs, and monitoring dashboards.
+      Ethotechnics embeds escalation rights and enforceable stop authority directly into
+      the bot’s runtime.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard AI governance implements"
+    description="Process-driven controls that prioritize system performance over user exit speed."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Disclosure that the user is speaking with an automated system.</li>
+      <li>Confidence-based escalation to human agents for complex cases.</li>
+      <li>Logging and review for quality assurance and bias monitoring.</li>
+      <li>Complaint intake and escalation pathways for post-incident review.</li>
+      <li>Regular audits of hand-off effectiveness and anomaly detection.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when governance becomes infrastructure"
+    description="Escalation becomes a guaranteed exit path with measurable intervention latency."
+  >
+    <ul class="card__list">
+      <li>
+        Distributed kill switches are accessible to frontline staff, user advocates,
+        and adversarial reviewers.
+      </li>
+      <li>
+        <a href="/glossary/stoppability">Stoppability</a> and
+        <a href="/glossary/contestability">contestability</a> are enforced by default,
+        not triggered only by low confidence scores.
+      </li>
+      <li>
+        The bot operates at speeds that preserve human intervention windows, with
+        <a href="/explainers/time-to-halt">time-to-halt</a> targets tied to service-level
+        obligations.
+      </li>
+      <li>
+        Escalation is a structural exit point with guaranteed response clocks and
+        recovery protocols.
+      </li>
+      <li>
+        <a href="/glossary/ethical-interrupts">Ethical interrupts</a> pause sessions
+        when harm patterns surface.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to verify before launch"
+    description="Ensure users can escape, escalate, and repair quickly."
+  >
+    <ul class="muted">
+      <li>Expose a visible stop control without penalties or loss of state.</li>
+      <li>Define escalation response times and publish them in user receipts.</li>
+      <li>Provide staff and advocates a direct halt path during harm spikes.</li>
+      <li>Document recovery steps for incorrect advice or denied access.</li>
+      <li>Log stoppability drills and measure intervention latency weekly.</li>
+    </ul>
+  </SectionBlock>
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>

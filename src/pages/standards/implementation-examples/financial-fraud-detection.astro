@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import {
+  createImplementationPublication,
+  implementationExampleAnchorLinks,
+} from "../../../content/implementation-examples";
+
+const pageTitle = "Financial fraud detection: implementation comparison";
+const pageDescription =
+  "Compare standard AI governance and Ethotechnics implementation for fraud monitoring and account protection systems.";
+const permalink = "/standards/implementation-examples/financial-fraud-detection";
+const anchorLinks = implementationExampleAnchorLinks;
+const publication = createImplementationPublication(
+  permalink,
+  "Published the financial fraud detection implementation comparison.",
+);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Focus",
+      title: "Fraud prevention without collateral damage",
+      description:
+        "Fraud systems act fast and freeze access. Ethotechnics makes recovery time and authority just as fast.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Where governance breaks down"
+    description="Fraud systems often optimize detection rates while leaving restoration slow and opaque."
+  >
+    <p>
+      Standard governance emphasizes compliance logging and human review of flagged activity.
+      Ethotechnics measures success by how fast legitimate customers can recover access.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard AI governance implements"
+    description="Controls focused on detection accuracy and regulatory reporting."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Real-time monitoring with automated alerts for suspicious patterns.</li>
+      <li>Audit logs aligned to AML and compliance requirements.</li>
+      <li>Human review queues for flagged transactions or accounts.</li>
+      <li>Explanations that list triggering factors for the freeze.</li>
+      <li>Ownership structures for compliance escalation and review.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when governance becomes infrastructure"
+    description="Fraud controls embed recovery speed, plural oversight, and reversal authority."
+  >
+    <ul class="card__list">
+      <li>
+        Poly-ontological review lanes give legal, customer advocacy, and security teams
+        independent veto power over account freezes.
+      </li>
+      <li>
+        Recovery metrics track <a href="/glossary/time-to-restore">time-to-restore</a>
+        alongside detection accuracy.
+      </li>
+      <li>
+        <a href="/glossary/stoppability">Stoppability</a> drills validate that wrongful
+        freezes can be halted rapidly.
+      </li>
+      <li>
+        User-facing receipts show the freeze reason, owner, and response clock to ensure
+        <a href="/glossary/contestability">contestability</a>.
+      </li>
+      <li>
+        Restoration events are logged in a public <a href="/glossary/repair-log">repair log</a>
+        to prevent silent failure load.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to verify before launch"
+    description="Prove that account freezes are reversible on a clock."
+  >
+    <ul class="muted">
+      <li>Define restoration time targets for false positives.</li>
+      <li>Provide customers a direct override request with clear response clocks.</li>
+      <li>Document who can halt freezes and how they are alerted in real time.</li>
+      <li>Publish receipt payloads that include reasons and ownership metadata.</li>
+      <li>Track restoration completeness for downstream financial harm.</li>
+    </ul>
+  </SectionBlock>
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>

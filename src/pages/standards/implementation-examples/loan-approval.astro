@@ -1,0 +1,125 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import {
+  createImplementationPublication,
+  implementationExampleAnchorLinks,
+} from "../../../content/implementation-examples";
+
+const pageTitle = "Loan approval systems: implementation comparison";
+const pageDescription =
+  "Compare standard AI governance and Ethotechnics implementation for credit scoring and loan approval workflows.";
+const permalink = "/standards/implementation-examples/loan-approval";
+const anchorLinks = implementationExampleAnchorLinks;
+const publication = createImplementationPublication(
+  permalink,
+  "Published the loan approval implementation comparison.",
+);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Focus",
+      title: "Credit decisions at machine speed",
+      description:
+        "Loan approvals compress decision time while consequences compound slowly. Ethotechnics centers fast intervention authority and recovery.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Where governance breaks down"
+    description="Loan approval systems are fast, consequential, and hard to contest once downstream damage starts."
+  >
+    <p>
+      Standard governance focuses on fairness audits, documentation, and periodic review.
+      Ethotechnics asks whether affected applicants can stop or reverse harm quickly when
+      discriminatory patterns appear.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard AI governance implements"
+    description="Oversight layers that sit on top of existing credit scoring pipelines."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Quarterly bias and fairness audits against protected characteristics.</li>
+      <li>Governance committee reviews, documentation, and compliance sign-offs.</li>
+      <li>Manual review for high-risk or edge-case applications.</li>
+      <li>Explainability outputs showing key factors (income, credit history, DTI).</li>
+      <li>Audit trails and reporting for regulatory readiness.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when governance becomes infrastructure"
+    description="Control authority and recovery time are built into the runtime, not layered on later."
+  >
+    <ul class="card__list">
+      <li>
+        Structural veto lanes allow community representatives, legal oversight, and
+        adversarial reviewers to pause approvals in real time.
+      </li>
+      <li>
+        <a href="/glossary/stoppability">Stoppability</a> drills test how fast approvals
+        can be frozen once discriminatory patterns emerge.
+      </li>
+      <li>
+        <a href="/explainers/time-to-halt">Time-to-halt</a> and
+        <a href="/glossary/reversibility">reversibility</a> targets measure how quickly
+        denied applicants can challenge outcomes before harm compounds.
+      </li>
+      <li>
+        Recovery metrics track restoration completeness, including whether missed housing
+        opportunities or credit damage are reversed.
+      </li>
+      <li>
+        <a href="/glossary/contestability">Contestability</a> is enforced with named owners,
+        clocks, and a visible path to override.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to verify before launch"
+    description="Use these checks to confirm the system is governable on a clock."
+  >
+    <ul class="muted">
+      <li>Document who can halt approvals and how their veto is triggered.</li>
+      <li>Define p95 and p99 time-to-halt targets for discriminatory patterns.</li>
+      <li>Provide applicants a direct contestability path with an owned response clock.</li>
+      <li>Publish recovery steps that restore credit and reverse downstream harm.</li>
+      <li>
+        Log stoppability drills and publish results in the
+        <a href="/glossary/repair-log"> repair log</a>.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>

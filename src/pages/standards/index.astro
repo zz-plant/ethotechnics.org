@@ -4,6 +4,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import { implementationExamples } from "../../content/implementation-examples";
 import { standardsContent } from "../../content/standards";
 
 const {
@@ -66,6 +67,21 @@ const adoptedStandards = [
       "The core Ethotechnics critique: representation without enforceable control planes.",
     href: "/standards/meta-critique",
   },
+];
+const implementationExampleCards = [
+  {
+    title: "Implementation examples overview",
+    description:
+      "Domain-by-domain comparisons showing how Ethotechnics changes system architecture.",
+    href: "/standards/implementation-examples",
+    ctaLabel: "Open guide",
+  },
+  ...implementationExamples.map((example) => ({
+    title: example.title,
+    description: example.cardDescription,
+    href: `/standards/implementation-examples/${example.slug}`,
+    ctaLabel: "View example",
+  })),
 ];
 const structuredData = {
   "@context": "https://schema.org",
@@ -586,6 +602,29 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </p>
       </div>
     </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="implementation-examples"
+    eyebrow="Implementation examples"
+    title="Domain-by-domain comparisons"
+    description="Concrete system-level contrasts for teams implementing Ethotechnics."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        implementationExampleCards.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.description}
+          >
+            <a slot="footer" class="muted" href={item.href}>
+              {item.ctaLabel}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock

@@ -1,0 +1,124 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CardGrid from "../../../components/CardGrid.astro";
+import CardItem from "../../../components/CardItem.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import {
+  createImplementationPublication,
+  implementationExamples,
+} from "../../../content/implementation-examples";
+
+const pageTitle = "Implementation examples: Ethotechnics vs standard AI governance";
+const pageDescription =
+  "Domain-by-domain implementation contrasts that show how Ethotechnics changes system architecture, not just oversight.";
+const permalink = "/standards/implementation-examples";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#domains", label: "Domains" },
+  { href: "#how-to-use", label: "How to use" },
+  { href: "#citations", label: "Cite this page" },
+];
+
+const publication = createImplementationPublication(
+  permalink,
+  "Published the domain comparison playbook with six scenario pages.",
+);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Implementation examples"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Why this exists",
+      title: "Implementation evidence, not governance theater.",
+      description:
+        "Each domain shows how to translate Ethotechnics standards into enforceable system behavior with clear clocks and stop authority.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="What these examples show"
+    description="Side-by-side implementation differences that reveal where oversight becomes infrastructure."
+  >
+    <p>
+      Standard AI governance tends to add oversight processes to existing systems.
+      Ethotechnics requires re-architecting the system so that stoppability, contestability,
+      and reversibility are embedded in runtime behavior. These comparisons make the
+      difference concrete by focusing on decision velocity, intervention authority, and
+      recovery time.
+    </p>
+    <p class="muted">
+      Use these pages when translating a policy requirement into specific controls, runbooks,
+      and architectural constraints.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="domains"
+    eyebrow="Domains"
+    title="Domain-by-domain implementation comparisons"
+    description="Open a scenario to see how standard governance and Ethotechnics diverge in practice."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {implementationExamples.map((domain) => (
+        <CardItem
+          title={domain.title}
+          description={domain.summary}
+          tags={domain.tags}
+        >
+          <a
+            slot="footer"
+            class="button ghost button--compact"
+            href={`/standards/implementation-examples/${domain.slug}`}
+          >
+            View comparison
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="how-to-use"
+    eyebrow="How to use"
+    title="Turn the comparison into implementation work"
+    description="Each page is structured so teams can map requirements to architecture changes."
+  >
+    <ul class="muted">
+      <li>
+        Start with the standard governance block to capture baseline controls, audits, and
+        committee processes.
+      </li>
+      <li>
+        Translate the Ethotechnics block into enforceable runtime mechanisms like
+        <a href="/glossary/stoppability"> stoppability</a>,
+        <a href="/glossary/contestability"> contestability</a>, and
+        <a href="/glossary/reversibility"> reversibility</a>.
+      </li>
+      <li>
+        Use the implementation checklist to define specific receipts, clocks, and escalation
+        paths for your system.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation guide"
+    />
+  </div>
+</BaseLayout>
