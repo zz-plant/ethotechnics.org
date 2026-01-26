@@ -190,15 +190,16 @@ bun run mcp
 | `read_docs`              | Read documentation files   |
 | `run_check\`              | Execute full project check |
 | \`get_repo_map\`           | Birds-eye view of folders    |
-| \`list_workflows\`         | Agent workflow definitions |
+| `list_workflows`         | Agent skill definitions     |
 
-## Agent workflows
+## Agent skills
 
-Predefined workflows live in `.agent/workflows/`:
+Modular capabilities live in `.agent/skills/`:
 
-- **qa.md** — run full QA suite
-- **fix-types.md** — resolve TypeScript errors
-- **ui-verify.md** — browser-based verification
+- **fix-types** — resolve TypeScript errors
+- **qa** — run full QA suite
+- **ui-verify** — browser-based verification
+- **design-engineer** — maintain premium design standards
 
 ## Improvements still needed
 

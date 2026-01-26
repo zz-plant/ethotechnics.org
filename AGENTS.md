@@ -34,13 +34,14 @@ Available MCP capabilities:
 - **Prompts:** design-engineer mode, code review templates
 - **Tools:** list scripts, read docs, analyze builds, run checks
 
-## Agent workflows
+## Agent skills
 
-Check `.agent/workflows/` for predefined task workflows:
+Check `.agent/skills/` for modular task capabilities:
 
-- `qa.md` — full quality assurance checks
-- `fix-types.md` — TypeScript error resolution
-- `ui-verify.md` — browser-based UI verification
+- `fix-types` — TypeScript error resolution
+- `qa` — full quality assurance checks
+- `ui-verify` — browser-based UI verification
+- `design-engineer` — taste and visual system alignment
 
 ## Where to look next
 
