@@ -49,21 +49,6 @@ under this heading and link to it from the roadmap table.
 - Dependencies and blockers are listed.
 - If needed, a GitHub Issue exists and links back here.
 
-## JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)
-
-- **Problem:** Contestability artifacts lack shared schema definitions, making validation and
-  interoperability inconsistent.
-- **Scope:** Draft JSON Schema (2020-12) definitions for decision records, appeal events,
-  pause reversals, burden hours, and repair SLAs with versioned examples.
-- **UX/Tech notes:** Keep field names aligned with the glossary; ship a bundle index for
-  machine consumption and a human-readable reference.
-- **Acceptance criteria:** Schemas validate sample payloads; required vs. optional fields are
-  documented; versioning guidance is included.
-- **Dependencies/risks:** Depends on STD-01 terminology alignment; risk of schema churn while
-  APIs stabilize.
-- **Issue link:** Issue: TBD / Spec:
-  #json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla
-
 ## AsyncAPI events spec
 
 - **Problem:** Event payloads and channel names vary, making integrations brittle.
@@ -243,14 +228,20 @@ under this heading and link to it from the roadmap table.
 Keep completed specs here for quick reference. Trim to the essentials and capture outcomes so
 future updates can build on what already shipped.
 
-### OpenAPI control-plane spec
+### JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)
 
-- **Problem:** Control-plane endpoints were not standardized, slowing client and SDK work.
-- **Outcome:** Published a versioned OpenAPI spec covering decision retrieval, appeal intake,
-  auth, error formats, and response examples, linked from the API hub.
-- **Notes:** Spec lives under `/standards/ethotechnics-control-plane.openapi.yaml` and aligns with
-  the JSON schema set for payload definitions.
-- **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
+- **Problem:** Contestability artifacts lacked shared schema definitions, making validation and
+  interoperability inconsistent.
+- **Outcome:** Published JSON Schema (2020-12) definitions for decision records, appeal events,
+  pause reversals, burden hours, and repair SLAs with versioned examples and stable references.
+- **Notes:** The published JSON schemas are available as public artifacts:
+  - [decision-record.schema.json](/standards/decision-record.schema.json)
+  - [appeal-event.schema.json](/standards/appeal-event.schema.json)
+  - [pause-reversal.schema.json](/standards/pause-reversal.schema.json)
+  - [burden-hours.schema.json](/standards/burden-hours.schema.json)
+  - [repair-sla.schema.json](/standards/repair-sla.schema.json)
+- **Issue link:** Issue: TBD / Spec:
+  #json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla
 
 ### AsyncAPI events spec
 
