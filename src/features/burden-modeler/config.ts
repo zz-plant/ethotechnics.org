@@ -1,6 +1,7 @@
 import type { BurdenCategory, BurdenDriver } from './types';
 
 export const MAX_DRIVER_SCORE = 10;
+export const SEGMENT_IMBALANCE_THRESHOLD = 12;
 
 export const burdenCategories: BurdenCategory[] = [
   {

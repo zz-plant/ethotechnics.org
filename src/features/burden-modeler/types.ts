@@ -38,11 +38,16 @@ export type CategoryScore = {
   id: BurdenCategoryId;
   label: string;
   value: number;
+  delta: number;
+  isImbalanced: boolean;
 };
+
+export type SegmentImpact = CategoryScore;
 
 export type BurdenModelResult = {
   burdenIndex: number;
   burdenLevel: 'Healthy' | 'Watch' | 'Overloaded';
   categoryScores: CategoryScore[];
   hotspots: DriverScore[];
+  topSegments: SegmentImpact[];
 };

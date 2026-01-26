@@ -79,6 +79,12 @@
   color: var(--text);
 }
 
+.badge--warning {
+  background: rgba(251, 191, 36, 0.2);
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  color: #92400e;
+}
+
 .slider {
   display: flex;
   flex-direction: column;
@@ -170,6 +176,37 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.segment-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--panel);
+}
+
+.segment-table__row {
+  display: grid;
+  grid-template-columns: minmax(140px, 1.2fr) minmax(70px, 0.6fr) minmax(160px, 1fr) minmax(80px, 0.6fr);
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.segment-table__row--header {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--text) 65%, transparent);
+  font-weight: 600;
+}
+
+.segment-table__row:not(.segment-table__row--header) {
+  padding: 0.35rem 0;
+  border-top: 1px solid var(--border);
 }
 
 .burden-meter {

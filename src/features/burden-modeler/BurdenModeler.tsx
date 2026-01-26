@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { burdenCategories, burdenDrivers, MAX_DRIVER_SCORE } from './config';
+import { burdenCategories, burdenDrivers, MAX_DRIVER_SCORE, SEGMENT_IMBALANCE_THRESHOLD } from './config';
 import { buildDefaultRatings, calculateBurdenModel, categoryDescription } from './modelUtils';
 import type { BurdenRatings } from './types';
 import './burdenModeler.css';
@@ -26,6 +26,19 @@ const descriptorForRating = (rating: number) => {
   return ratingDescriptors[bucket];
 };
 
+const deltaLabel = (delta: number) => {
+  if (delta === 0) return 'On baseline';
+  if (delta > 0) return `+${delta} pts above baseline`;
+  return `${Math.abs(delta)} pts below baseline`;
+};
+
+const buildSnapshot = (scenario: string, ratings: BurdenRatings, results: ReturnType<typeof calculateBurdenModel>) => ({
+  scenario,
+  capturedAt: new Date().toISOString(),
+  ratings,
+  results,
+});
+
 export function BurdenModeler() {
   const [scenario, setScenario] = useState('Baseline');
   const [ratings, setRatings] = useState<BurdenRatings>(buildDefaultRatings());
@@ -47,6 +60,18 @@ export function BurdenModeler() {
   const resetModeler = () => {
     setScenario('Baseline');
     setRatings(buildDefaultRatings());
+  };
+  const exportSnapshot = () => {
+    const snapshot = buildSnapshot(scenario || 'Scenario', ratings, results);
+    const fileSafeScenario = (scenario || 'scenario').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const timestamp = new Date().toISOString().slice(0, 10);
+    const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `burden-snapshot-${fileSafeScenario}-${timestamp}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -177,6 +202,10 @@ export function BurdenModeler() {
                 <p className="muted small">Top driver</p>
                 <p className="summary-item__value">{results.hotspots[0]?.label ?? '—'}</p>
               </div>
+              <div className="summary-item">
+                <p className="muted small">Imbalance threshold</p>
+                <p className="summary-item__value">{SEGMENT_IMBALANCE_THRESHOLD} pts</p>
+              </div>
             </div>
 
             <div className="result-card__grid">
@@ -185,6 +214,43 @@ export function BurdenModeler() {
                   <p className="muted small">{category.label}</p>
                   <p className="result-card__stat-value">{category.value}%</p>
                   <p className="muted small">{categoryDescription(category.id)}</p>
+                </div>
+              ))}
+            </div>
+
+            <button type="button" className="button ghost button--compact" onClick={exportSnapshot}>
+              Export snapshot
+            </button>
+          </div>
+
+          <div className="result-card">
+            <div className="result-card__header">
+              <div>
+                <p className="eyebrow">Segments</p>
+                <h3>Top impacted segments</h3>
+                <p className="muted small">Compare category scores against the category baseline.</p>
+              </div>
+            </div>
+
+            <div className="segment-table" role="table" aria-label="Segment comparison table">
+              <div className="segment-table__row segment-table__row--header" role="row">
+                <span role="columnheader">Segment</span>
+                <span role="columnheader">Score</span>
+                <span role="columnheader">Delta</span>
+                <span role="columnheader">Flag</span>
+              </div>
+              {results.topSegments.map((segment) => (
+                <div key={segment.id} className="segment-table__row" role="row">
+                  <span role="cell">{segment.label}</span>
+                  <span role="cell">{segment.value}%</span>
+                  <span role="cell">{deltaLabel(segment.delta)}</span>
+                  <span role="cell">
+                    {segment.isImbalanced ? (
+                      <span className="badge badge--warning">Imbalance</span>
+                    ) : (
+                      <span className="muted small">Stable</span>
+                    )}
+                  </span>
                 </div>
               ))}
             </div>
