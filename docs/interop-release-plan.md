@@ -35,13 +35,19 @@ In-repo artifacts (planned location):
 
 ## TypeScript SDK
 
-Scope: provide embeddable client primitives for web apps and services that emit governance events.
+Scope: provide embeddable client primitives for product teams shipping TypeScript-native apps
+and services.
+
+Target: real product teams working in web apps, admin consoles, and decision dashboards.
+
+Why: governance dies on the vine if product teams cannot integrate it; cloud infra tooling is
+increasingly TypeScript-native.
 
 Initial modules:
 
-- Event emitter with batching, retries, and opt-in transport adapters.
+- SDK for emitting Ethotechnics events.
 - Decision-log middleware for Node and edge runtimes.
-- Frontend-safe shared types for decisions, harms, and burden summaries.
+- Frontend-safe shared types for appeals and status.
 
 In-repo artifacts (planned location):
 

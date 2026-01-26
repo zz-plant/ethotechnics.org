@@ -78,9 +78,15 @@ under this heading and link to it from the roadmap table.
 
 ## TypeScript SDK
 
-- **Problem:** Implementers need typed client access to control-plane endpoints and events.
-- **Scope:** Deliver a TypeScript SDK with typed models, control-plane client helpers, and
-  event payload types.
+- **Problem:** Product teams need TypeScript-native governance tooling or integration stalls.
+- **Scope:** Implement TypeScript deliverables that are product-facing and infra-adjacent.
+- **Target:** Real product teams shipping web apps, admin consoles, and decision dashboards.
+- **Why:** Cloud infrastructure tooling is increasingly TypeScript-native, so governance
+  must live in the same stack to avoid being sidelined.
+- **What to ship:**
+  - SDK for emitting Ethotechnics events.
+  - Decision-log middleware for Node and edge runtimes.
+  - Frontend-safe types for appeals and status.
 - **UX/Tech notes:** Prefer ESM, tree-shakeable exports, and generated types from schemas
   and OpenAPI definitions.
 - **Acceptance criteria:** Package installs cleanly, exposes typed clients and models, and
