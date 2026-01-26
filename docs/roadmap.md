@@ -14,17 +14,15 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                                                                                                                                                                 | Next                                                                                      | Later                                                                            |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| Highest-priority work in progress.                                                                                                                                                  | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                         |
-| Keep entries small and actionable.                                                                                                                                                  | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                             |
-|                                                                                                                                                                                     | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)              |
-| - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) |                                                                                           | - [Governance lessons from incidents](#governance-lessons-from-incidents)        |
-|                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   |                                                                                  |
-|                                                                                                                                                                                     | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability) |
-|                                                                                                                                                                                     | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [TypeScript SDK](#typescript-sdk)                                              |
-|                                                                                                                                                                                     | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | - [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas)    |
-|                                                                                                                                                                                     | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             |                                                                                  |
+| Now                                          | Next                                                                                      | Later                                                                            |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Highest-priority work in progress.           | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                         |
+| Keep entries small and actionable.           | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                             |
+| No active **Now** items. Pull from **Next**. | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | - [Contestability pattern library](#contestability-pattern-library)              |
+|                                              | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Governance lessons from incidents](#governance-lessons-from-incidents)        |
+|                                              | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability) |
+|                                              | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | - [TypeScript SDK](#typescript-sdk)                                              |
+|                                              | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             | - [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas)    |
 
 ## Spec template
 
@@ -49,18 +47,32 @@ under this heading and link to it from the roadmap table.
 - Dependencies and blockers are listed.
 - If needed, a GitHub Issue exists and links back here.
 
-## AsyncAPI events spec
+## Capacity forecaster v2 (scenario compare)
 
-- **Problem:** Event payloads and channel names vary, making integrations brittle.
-- **Scope:** Define an AsyncAPI spec for key events (decision issued, appeal opened,
-  pause reversal, repair completed, burden hours updated) with schema references.
-- **UX/Tech notes:** Reuse JSON schemas as message payloads; document channel naming and
-  correlation fields.
-- **Acceptance criteria:** Spec validates, includes example events, and maps events to
-  schema references.
-- **Dependencies/risks:** Depends on JSON schema set and control-plane decisions; risk of
-  event taxonomy churn.
-- **Issue link:** Issue: TBD / Spec: #asyncapi-events-spec
+- **Problem:** The capacity forecaster only supports one scenario at a time, slowing comparative
+  planning.
+- **Scope:** Add a two-scenario compare mode with mirrored sliders, delta summaries, a
+  side-by-side delta table, and a clear reset path to return to single-scenario mode.
+- **UX/Tech notes:** Reuse the existing chart styles; keep keyboard access for all controls; add
+  an export option for each scenario and the comparison snapshot.
+- **Acceptance criteria:** Users can create two scenarios, see delta readouts at a glance, and
+  export each scenario or a combined comparison snapshot.
+- **Dependencies/risks:** Needs chart updates and content copy for comparison framing.
+- **Issue link:** Issue: TBD / Spec: #capacity-forecaster-v2-scenario-compare
+
+## OpenAPI control-plane spec
+
+- **Problem:** Control-plane endpoints are described informally, leading to inconsistent
+  implementations across tools and SDKs.
+- **Scope:** Define an OpenAPI spec covering decision records, appeal lifecycle actions, pause
+  or reversal updates, repair SLA tracking, and burden-hours telemetry.
+- **UX/Tech notes:** Align naming with JSON schemas and AsyncAPI channels; include auth and
+  pagination notes plus example requests and responses.
+- **Acceptance criteria:** Spec validates, includes examples for each resource, and supports
+  client generation for Python and TypeScript.
+- **Dependencies/risks:** Depends on JSON schema set and event taxonomy; risk of drift without
+  a single source of truth.
+- **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
 
 ## Python evaluation toolkit
 
@@ -75,6 +87,69 @@ under this heading and link to it from the roadmap table.
   scoring functions, and RMF / ISO clause-mapping evaluators.
 - **Dependencies/risks:** Depends on JSON schema set; risk of duplicated logic with SDKs.
 - **Issue link:** Issue: TBD / Spec: #python-evaluation-toolkit
+
+## Maintenance simulator v2 (risk thresholds)
+
+- **Problem:** The simulator results lack clear guardrails for when mitigation steps become
+  mandatory.
+- **Scope:** Introduce configurable risk thresholds with labeled bands and explicit guidance on
+  when to act for each tier.
+- **UX/Tech notes:** Keep calculations server-side only; expose thresholds as labeled presets with
+  a short explainer tooltip describing what each tier means.
+- **Acceptance criteria:** Results display threshold bands, highlight the current risk tier, and
+  surface recommended interventions plus an “act now” signal when thresholds are crossed.
+- **Dependencies/risks:** Requires content alignment on threshold definitions and recommendation
+  copy.
+- **Issue link:** Issue: TBD / Spec: #maintenance-simulator-v2-risk-thresholds
+
+## Burden modeler v2 (equity snapshots)
+
+- **Problem:** The burden modeler reports totals but does not highlight equity deltas across
+  segments.
+- **Scope:** Add an equity snapshot panel that compares the top three impacted segments, shows
+  deltas between them, and flags any imbalance beyond a configurable threshold.
+- **UX/Tech notes:** Use existing data structures; present snapshots as a compact comparison table
+  with plain-language labels and an exportable summary.
+- **Acceptance criteria:** Users see a clear equity snapshot, flagged deltas, and a single-click
+  export of the snapshot comparison data.
+- **Dependencies/risks:** Needs clarity on segment definitions and acceptable delta thresholds.
+- **Issue link:** Issue: TBD / Spec: #burden-modeler-v2-equity-snapshots
+
+## Contestability pattern library
+
+- **Problem:** Teams lack concrete examples of contestability patterns (good and bad).
+- **Scope:** Publish a pattern library with anti-patterns (“trust us governance,” “black-box
+  denial,” “appeal without remedy,” “AI says no”) and positive patterns (reversible decisions,
+  human escalation, logged reasons, compensation after error).
+- **UX/Tech notes:** Structure as a library with short pattern cards; avoid naming specific
+  organizations and focus on design patterns.
+- **Acceptance criteria:** Readers can identify a pattern and map it to their own system without
+  needing vendor-specific knowledge.
+- **Dependencies/risks:** Requires consistent terminology with glossary and diagnostics.
+- **Issue link:** Issue: TBD / Spec: #contestability-pattern-library
+
+## Governance lessons from incidents
+
+- **Problem:** Public incidents are framed as “bad tech” rather than governance failures.
+- **Scope:** Create a recurring “governance lessons” format that analyzes incidents for missing
+  contestability, failed oversight, and what would have caught or repaired harm earlier.
+- **UX/Tech notes:** Keep tone non-polemical; use a repeatable template with structural questions
+  and links to relevant standards.
+- **Acceptance criteria:** Each incident entry yields a short list of structural failures and a
+  concrete remediation checklist.
+- **Dependencies/risks:** Requires careful sourcing and avoids naming-and-shaming.
+- **Issue link:** Issue: TBD / Spec: #governance-lessons-from-incidents
+
+## Democratic vs. coercive governability
+
+- **Problem:** “Governability” can drift into compliance engineering without explicit contrast.
+- **Scope:** Publish a short page explaining how contestability, proportionality, and independent
+  oversight distinguish democratic from coercive governability.
+- **UX/Tech notes:** Keep the page simple, with a visual compare table and minimal footnotes.
+- **Acceptance criteria:** Readers can describe the difference in one paragraph and recognize
+  governance tools deployed without democratic safeguards.
+- **Dependencies/risks:** Needs careful political framing without partisan cues.
+- **Issue link:** Issue: TBD / Spec: #democratic-vs-coercive-governability
 
 ## TypeScript SDK
 
@@ -107,116 +182,6 @@ under this heading and link to it from the roadmap table.
 - **Dependencies/risks:** Depends on JSON schema set and domain review; risk of standards
   misalignment without partner input.
 - **Issue link:** Issue: TBD / Spec: #fhir-profile-set-and-w3c-vc-schemas
-
-## Capacity forecaster v2 (scenario compare)
-
-- **Problem:** The capacity forecaster only supports one scenario at a time, slowing comparative
-  planning.
-- **Scope:** Add a two-scenario compare mode with mirrored sliders, delta summaries, a
-  side-by-side delta table, and a clear reset path to return to single-scenario mode.
-- **UX/Tech notes:** Reuse the existing chart styles; keep keyboard access for all controls; add
-  an export option for each scenario and the comparison snapshot.
-- **Acceptance criteria:** Users can create two scenarios, see delta readouts at a glance, and
-  export each scenario or a combined comparison snapshot.
-- **Dependencies/risks:** Needs chart updates and content copy for comparison framing.
-- **Issue link:** Issue: TBD / Spec: #capacity-forecaster-v2-scenario-compare
-
-## Maintenance simulator v2 (risk thresholds)
-
-- **Problem:** The simulator results lack clear guardrails for when mitigation steps become
-  mandatory.
-- **Scope:** Introduce configurable risk thresholds with labeled bands and explicit guidance on
-  when to act for each tier.
-- **UX/Tech notes:** Keep calculations server-side only; expose thresholds as labeled presets with
-  a short explainer tooltip describing what each tier means.
-- **Acceptance criteria:** Results display threshold bands, highlight the current risk tier, and
-  surface recommended interventions plus an “act now” signal when thresholds are crossed.
-- **Dependencies/risks:** Requires content alignment on threshold definitions and recommendation
-  copy.
-- **Issue link:** Issue: TBD / Spec: #maintenance-simulator-v2-risk-thresholds
-
-## Burden modeler v2 (equity snapshots)
-
-- **Problem:** The burden modeler reports totals but does not highlight equity deltas across
-  segments.
-- **Scope:** Add an equity snapshot panel that compares the top three impacted segments, shows
-  deltas between them, and flags any imbalance beyond a configurable threshold.
-- **UX/Tech notes:** Use existing data structures; present snapshots as a compact comparison table
-  with plain-language labels and an exportable summary.
-- **Acceptance criteria:** Users see a clear equity snapshot, flagged deltas, and a single-click
-  export of the snapshot comparison data.
-- **Dependencies/risks:** Needs clarity on segment definitions and acceptable delta thresholds.
-- **Issue link:** Issue: TBD / Spec: #burden-modeler-v2-equity-snapshots
-
-## Minimum viable contestability standard
-
-- **Problem:** Advocates and journalists lack a concrete, shareable yardstick for accountability.
-- **Scope:** Publish a short, non-jargony “Minimum Viable Contestability” standard covering
-  standing, reasons, records, timelines, remedies, and non-retaliation.
-- **UX/Tech notes:** Deliver as a printable page with a one-screen summary and a text-only
-  version for linking or quoting.
-- **Acceptance criteria:** Readers can point to the standard to assess whether a system meets a
-  baseline contestability threshold.
-- **Dependencies/risks:** Must align with STD-01 framing without re-litigating standards language.
-- **Issue link:** Issue: TBD / Spec: #minimum-viable-contestability-standard
-
-## Contestability pattern library
-
-- **Problem:** Teams lack concrete examples of contestability patterns (good and bad).
-- **Scope:** Publish a pattern library with anti-patterns (“trust us governance,” “black-box
-  denial,” “appeal without remedy,” “AI says no”) and positive patterns (reversible decisions,
-  human escalation, logged reasons, compensation after error).
-- **UX/Tech notes:** Structure as a library with short pattern cards; avoid naming specific
-  organizations and focus on design patterns.
-- **Acceptance criteria:** Readers can identify a pattern and map it to their own system without
-  needing vendor-specific knowledge.
-- **Dependencies/risks:** Requires consistent terminology with glossary and diagnostics.
-- **Issue link:** Issue: TBD / Spec: #contestability-pattern-library
-
-## Governance lessons from incidents
-
-- **Problem:** Public incidents are framed as “bad tech” rather than governance failures.
-- **Scope:** Create a recurring “governance lessons” format that analyzes incidents for missing
-  contestability, failed oversight, and what would have caught or repaired harm earlier.
-- **UX/Tech notes:** Keep tone non-polemical; use a repeatable template with structural questions
-  and links to relevant standards.
-- **Acceptance criteria:** Each incident entry yields a short list of structural failures and a
-  concrete remediation checklist.
-- **Dependencies/risks:** Requires careful sourcing and avoids naming-and-shaming.
-- **Issue link:** Issue: TBD / Spec: #governance-lessons-from-incidents
-
-## Language people can use
-
-- **Problem:** People need exact phrases for demanding contestability and accountability.
-- **Scope:** Publish a “language people can use” page with succinct statements such as “This
-  decision lacks contestability,” “What is the escalation path and remedy?” and “Who is the
-  accountable steward?”
-- **UX/Tech notes:** Provide copy blocks with short context notes for workplaces, public services,
-  and platforms; include a printable version.
-- **Acceptance criteria:** Readers can copy/paste a phrase and understand when to deploy it.
-- **Dependencies/risks:** Align with any existing glossary or FAQ language.
-- **Issue link:** Issue: TBD / Spec: #language-people-can-use
-
-## Democratic vs. coercive governability
-
-- **Problem:** “Governability” can drift into compliance engineering without explicit contrast.
-- **Scope:** Publish a short page explaining how contestability, proportionality, and independent
-  oversight distinguish democratic from coercive governability.
-- **UX/Tech notes:** Keep the page simple, with a visual compare table and minimal footnotes.
-- **Acceptance criteria:** Readers can describe the difference in one paragraph and recognize
-  governance tools deployed without democratic safeguards.
-- **Dependencies/risks:** Needs careful political framing without partisan cues.
-- **Issue link:** Issue: TBD / Spec: #democratic-vs-coercive-governability
-
-## Public memory for contestability terms
-
-- **Problem:** Governance language drifts and institutional memory fades, causing repeated harm.
-- **Scope:** Maintain a public memory page tracking stable definitions and language drift (e.g.,
-  “responsible AI,” “trustworthy AI”) with short historical notes.
-- **UX/Tech notes:** Use a timeline or changelog format with short entries and clear sources.
-- **Acceptance criteria:** Visitors can see how terms shifted and locate prior meanings easily.
-- **Dependencies/risks:** Requires periodic updates and sourcing discipline.
-- **Issue link:** Issue: TBD / Spec: #public-memory-for-contestability-terms
 
 ## Completed work (archive)
 
@@ -264,6 +229,7 @@ future updates can build on what already shipped.
   power mapping, each with a printable sheet and next-step links.
 - **Notes:** The tools live under the diagnostics menu and include print-ready question blocks.
 - **Issue link:** Issue: TBD / Spec: #self-defense-diagnostic-tools
+
 ### Minimum viable contestability standard
 
 - **Problem:** Advocates and journalists lacked a concrete, shareable yardstick for accountability.
