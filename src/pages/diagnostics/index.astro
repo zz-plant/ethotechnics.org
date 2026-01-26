@@ -8,6 +8,7 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import { libraryContent } from "../../content/library";
 import diagnosticsFilterScript from "../../scripts/diagnostics-filter.ts?url";
@@ -75,6 +76,25 @@ const quickTriagePrompts = [
       </a>
     </Fragment>
   </PageIntro>
+  <SummaryCallout
+    title="Pick the fastest diagnostic first"
+    description="Use the quick triage prompts to choose a tool, then compare outputs before running the full menu."
+    takeaways={[
+      "Each diagnostic produces a shareable, linkable report.",
+      "Every output references mechanisms for remediation.",
+      "Anti-weaponization checks are built into the baseline.",
+    ]}
+    relatedLinks={[
+      { href: "#quick-triage", label: "Quick triage" },
+      { href: "#compare-tools", label: "Compare tools" },
+      { href: "#diagnostic-tools", label: "Diagnostics menu" },
+    ]}
+    jumpLinks={[
+      { href: "#quick-triage", label: "Quick triage" },
+      { href: "#output-baseline", label: "Output baseline" },
+      { href: "#diagnostic-tools", label: "Diagnostics menu" },
+    ]}
+  />
   <SectionActions>
     <StudioBadge />
   </SectionActions>
@@ -114,6 +134,30 @@ const quickTriagePrompts = [
         </p>
       </li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="quick-triage"
+    eyebrow="Quick triage"
+    title="Pick the fastest diagnostic path in three questions."
+    description="Use these prompts to route to the right tool without the demo widget."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      {
+        quickTriagePrompts.map((prompt) => (
+          <CardItem
+            title={prompt.question}
+            description={prompt.description}
+            descriptionTone="default"
+          >
+            <a slot="footer" class="muted" href={prompt.href}>
+              {prompt.label}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
   </SectionBlock>
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
@@ -194,29 +238,6 @@ const quickTriagePrompts = [
         >evidence requirements</a
       >.
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="quick-triage"
-    eyebrow="Quick triage"
-    title="Pick the fastest diagnostic path in three questions."
-    description="Use these prompts to route to the right tool without the demo widget."
-  >
-    <CardGrid className="grid--three">
-      {
-        quickTriagePrompts.map((prompt) => (
-          <CardItem
-            title={prompt.question}
-            description={prompt.description}
-            descriptionTone="default"
-          >
-            <a slot="footer" class="muted" href={prompt.href}>
-              {prompt.label}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
   </SectionBlock>
 
   <SectionBlock

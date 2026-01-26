@@ -3,6 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
 import { validatorsContent } from "../../content/validators";
 
 const {
@@ -64,6 +66,25 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </a>
     </Fragment>
   </PageIntro>
+  <SummaryCallout
+    title="Run one validator before you run them all"
+    description="Start with a featured validator to get a report card, then expand into the full menu for deeper coverage."
+    takeaways={[
+      "Validators translate standards into scorecards and remediation steps.",
+      "Each tool links to the mechanisms that close the gap.",
+      "Start with the validator that matches your highest-risk touchpoint.",
+    ]}
+    relatedLinks={[
+      { href: "/standards/std-01-temporal-rights", label: "STD-01" },
+      { href: "/mechanisms", label: "Mechanisms" },
+      { href: "/diagnostics", label: "Diagnostics" },
+    ]}
+    jumpLinks={[
+      { href: "#featured", label: "Featured validators" },
+      { href: "#tools", label: "All validators" },
+      { href: "#method", label: "Method" },
+    ]}
+  />
   <div class="callout">
     <h3>Cross-link to rights and mechanisms</h3>
     <p class="muted">
@@ -88,6 +109,34 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </a>
     </div>
   </div>
+
+  <SectionBlock
+    id="featured"
+    eyebrow="Start here"
+    title="Featured validators for a fast report card."
+    description="Run one of these first to get a quick score and remediation path."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        featuredValidators.map((validator) => (
+          <CardItem
+            eyebrow={validator.id}
+            title={validator.title}
+            description={validator.description}
+          >
+            <a
+              slot="footer"
+              class="button ghost button--compact"
+              href={`/validators/${validator.slug}`}
+            >
+              Run {validator.title}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
 
   <section id="tools" class="section">
     <CardGrid className="grid--two">

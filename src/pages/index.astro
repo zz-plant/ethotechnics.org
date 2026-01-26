@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "../components/CardGrid.astro";
 import CardItem from "../components/CardItem.astro";
 import SectionBlock from "../components/SectionBlock.astro";
+import SummaryCallout from "../components/SummaryCallout.astro";
 
 const homeEntry = (await getEntry("home", "home"))!;
 const { pageTitle, pageDescription } = homeEntry.data;
@@ -33,14 +34,6 @@ const { pageTitle, pageDescription } = homeEntry.data;
           study, and remediate high-stakes systems in a shared governance workflow. Ethotechnics helps
           people see where power lives in systems—and whether they can challenge it.
         </p>
-        <div class="hero__signals">
-          <p class="eyebrow">Creative direction</p>
-          <ul class="hero__signal-list">
-            <li><span class="pill">Evidence-first delivery</span></li>
-            <li><span class="pill">Risk-aware governance</span></li>
-            <li><span class="pill">Human-centered systems</span></li>
-          </ul>
-        </div>
         <div class="actions">
           <a class="button primary" href="/diagnostics">
             Run a diagnostic
@@ -74,46 +67,6 @@ const { pageTitle, pageDescription } = homeEntry.data;
             </li>
           </ul>
         </nav>
-        <div class="hero__role-panel">
-          <p class="eyebrow hero__highlight-label">Start with your role</p>
-          <p class="muted hero__role-note">
-            Pick the pathway that matches how you show up to the work.
-          </p>
-          <ul class="hero__highlights">
-            <li>
-              <a class="hero__highlight-link" href="/start-here?persona=builder">
-                <span class="hero__highlight-title">Builder</span>
-                <span class="hero__highlight-body">
-                  Ship accountable systems with fast paths, mechanisms, and examples.
-                </span>
-              </a>
-            </li>
-            <li>
-              <a class="hero__highlight-link" href="/start-here?persona=auditor">
-                <span class="hero__highlight-title">Auditor / Governance</span>
-                <span class="hero__highlight-body">
-                  Use evidence packs, bindings, and standards built for review.
-                </span>
-              </a>
-            </li>
-            <li>
-              <a class="hero__highlight-link" href="/start-here?persona=policy">
-                <span class="hero__highlight-title">Policy / Procurement</span>
-                <span class="hero__highlight-body">
-                  Draft enforceable language with standards and clause packs.
-                </span>
-              </a>
-            </li>
-            <li>
-              <a class="hero__highlight-link" href="/start-here?persona=research">
-                <span class="hero__highlight-title">Research / Teaching</span>
-                <span class="hero__highlight-body">
-                  Anchor your work with research, glossary entries, and field notes.
-                </span>
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
       <div class="hero__panel">
         <div class="panel panel--glass panel--muted">
@@ -135,6 +88,27 @@ const { pageTitle, pageDescription } = homeEntry.data;
   </section>
 
   <div class="divider-wave divider-wave--spacious" aria-hidden="true"></div>
+
+  <SummaryCallout
+    eyebrow="Fast orientation"
+    title="Start with one action, then route to the right artifact."
+    description="This site is built for teams who need governance-ready outputs without a long ramp."
+    takeaways={[
+      "Evidence-first delivery with machine-readable, citable artifacts.",
+      "Risk-aware governance that turns reviews into enforceable obligations.",
+      "Human-centered systems with bounded clocks and accountable owners.",
+    ]}
+    relatedLinks={[
+      { href: "/start-here", label: "Start here" },
+      { href: "/standards", label: "Standards" },
+      { href: "/diagnostics", label: "Diagnostics" },
+    ]}
+    jumpLinks={[
+      { href: "#quickstart", label: "Quickstart" },
+      { href: "#how-it-works", label: "How it works" },
+      { href: "#audience", label: "Audience selector" },
+    ]}
+  />
 
   <SectionBlock
     id="quickstart"
