@@ -170,6 +170,7 @@ bun run mcp
 | `project://structure`       | Project layout and key paths |
 | `project://scripts`         | Package.json scripts         |
 | `project://agents-guidance` | Aggregated AGENTS.md content |
+| `agent://onboarding`       | Agent Quick Start & Mission  |
 | `docs://index`              | Documentation listing        |
 
 ### Available prompts
@@ -187,8 +188,9 @@ bun run mcp
 | `list_available_scripts` | Package.json scripts       |
 | `get_component_list`     | Astro components in src/   |
 | `read_docs`              | Read documentation files   |
-| `run_check`              | Execute full project check |
-| `list_workflows`         | Agent workflow definitions |
+| `run_check\`              | Execute full project check |
+| \`get_repo_map\`           | Birds-eye view of folders    |
+| \`list_workflows\`         | Agent workflow definitions |
 
 ## Agent workflows
 

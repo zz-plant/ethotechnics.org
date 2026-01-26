@@ -294,30 +294,41 @@ server.tool(
   },
 );
 
-// Tool: Run project check
+// Tool: Get repo map (folders only, depth 2)
 server.tool(
-  "run_check",
-  "Run the full project check (lint, tests, types, etc.)",
+  "get_repo_map",
+  "Get a high-level map of the repository (folders only, depth 2)",
   {},
   async () => {
     try {
-      const proc = Bun.spawn(["bun", "run", "check"], {
-        stdout: "pipe",
-        stderr: "pipe",
-      });
-      const stdout = await Bun.readableStreamToText(proc.stdout);
-      const stderr = await Bun.readableStreamToText(proc.stderr);
-      await proc.exited;
+      const root = getProjectRoot();
+      const glob = new Bun.Glob("**/");
+      const dirs: string[] = [];
+      const excludes = ["node_modules", ".git", "dist", ".wrangler", "coverage"];
 
-      const status = proc.exitCode === 0 ? "✅ PASS" : "❌ FAIL";
-      return textResponse(`Status: ${status}\n\nSTDOUT:\n${stdout}\n\nSTDERR:\n${stderr}`);
+      for await (const dir of glob.scan({ cwd: root, onlyFiles: false })) {
+        if (excludes.some((ex) => dir.startsWith(ex))) continue;
+        const depth = dir.split(sep).filter(Boolean).length;
+        if (depth > 2) continue;
+        dirs.push(dir);
+      }
+
+      const map = dirs
+        .sort()
+        .map((d) => {
+          const depth = d.split(sep).filter(Boolean).length;
+          return `${"  ".repeat(depth)}📁 ${d}`;
+        })
+        .join("\n");
+
+      return textResponse(`# Repository Map\n\n${map}`);
     } catch (error) {
-      return errorResponse(
-        `Error running check: ${error instanceof Error ? error.message : String(error)}`,
-      );
+      return errorResponse(`Error mapping repo: ${error instanceof Error ? error.message : String(error)}`);
     }
   },
 );
+
+// Tool: Run project check
 
 // Tool: List workflows
 server.tool(
@@ -596,30 +607,40 @@ server.resource(
   },
 );
 
-// Resource: Documentation index
+// Resource: Agent onboarding
 server.resource(
-  "docs://index",
-  "docs://index",
+  "agent://onboarding",
+  "agent://onboarding",
   async () => {
-    const docsDir = join(getProjectRoot(), "docs");
-    const glob = new Bun.Glob("**/*.md");
-    const files: string[] = [];
+    const onboarding = `# Agent Onboarding & Quick Start
 
-    for await (const file of glob.scan({ cwd: docsDir })) {
-      files.push(`- [${file}](docs/${file})`);
-    }
+## 🎯 Mission
+This repo powers ethotechnics.org. We prioritize ethical technology and human-centered design.
 
+## 🚀 Getting Started
+1. Run \`bun run agent:doctor\` to verify your environment.
+2. Use \`project://structure\` to understand where things live.
+3. Explore \`project://workflows\` for common task loops.
+
+## 🛠️ Key Tools
+- \`run_check\`: Run full project validation.
+- \`get_repo_map\`: Get a birds-eye view of the project.
+- \`get_agents_guidance\`: Get scoped instructions for any file.
+
+## 📚 Essential Reading
+- \`AGENTS.md\`: Core working agreement.
+- \`docs/agents/repo-orientation.md\`: Deep dive into repo structure.
+- \`docs/agent-developer-experience.md\`: This agent experience overview.
+`;
     return {
       contents: [
-        {
-          uri: "docs://index",
-          text: `# Documentation Index\n\n${files.sort().join("\n")}`,
-          mimeType: "text/markdown",
-        },
+        { uri: "agent://onboarding", text: onboarding, mimeType: "text/markdown" },
       ],
     };
   },
 );
+
+// Resource: Documentation index
 
 // ============================================================================
 // MCP PROMPTS
