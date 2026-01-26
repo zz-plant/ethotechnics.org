@@ -50,19 +50,6 @@ under this heading and link to it from the roadmap table.
 - Dependencies and blockers are listed.
 - If needed, a GitHub Issue exists and links back here.
 
-## OpenAPI control-plane spec
-
-- **Problem:** Control-plane endpoints are not standardized, slowing client and SDK work.
-- **Scope:** Publish an OpenAPI spec covering core control-plane endpoints, auth schemes,
-  shared error formats, and response examples.
-- **UX/Tech notes:** Version the spec explicitly and reuse the JSON schema set for payload
-  definitions.
-- **Acceptance criteria:** Spec validates with OpenAPI tooling, includes examples for each
-  endpoint, and is linked from the docs hub.
-- **Dependencies/risks:** Depends on JSON schema set; risk of endpoint churn as workflows
-  evolve.
-- **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
-
 ## AsyncAPI events spec
 
 - **Problem:** Event payloads and channel names vary, making integrations brittle.
@@ -394,6 +381,14 @@ future updates can build on what already shipped.
   support for combined filters.
 - **Notes:** Search results update without page reload and include clear empty-state messaging.
 - **Issue link:** Issue: TBD / Spec: #glossary--research-search-filters
+
+### Public memory for contestability terms
+
+- **Problem:** Governance language drifts and institutional memory fades, causing repeated harm.
+- **Outcome:** Published a public memory explainer with a timeline of language drift, stable
+  glossary anchors to cite, and source links for every entry.
+- **Notes:** Includes usage guidance for audits and briefs plus links to STD-02 and evidence packs.
+- **Issue link:** Issue: TBD / Spec: #public-memory-for-contestability-terms
 
 ### Accessibility + semantic audit
 
