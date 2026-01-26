@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/burden-hours.schema.json",
+  "title": "Burden Hours",
+  "description": "Captures the time burden imposed on people during decision, appeal, or repair journeys.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_id",
+    "period_start",
+    "period_end",
+    "scope",
+    "total_hours",
+    "unit"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
+    "record_id": { "type": "string" },
+    "period_start": { "type": "string", "format": "date" },
+    "period_end": { "type": "string", "format": "date" },
+    "scope": { "type": "string" },
+    "unit": { "type": "string", "enum": ["hours"] },
+    "total_hours": { "type": "number" },
+    "population": {
+      "type": "object",
+      "properties": {
+        "count": { "type": "number" },
+        "segment": { "type": "string" }
+      }
+    },
+    "measurement_method": { "type": "string" },
+    "touchpoints": { "type": "number" },
+    "by_step": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step", "hours"],
+        "properties": {
+          "step": { "type": "string" },
+          "hours": { "type": "number" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

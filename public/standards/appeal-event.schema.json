@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/appeal-event.schema.json",
+  "title": "Appeal Event",
+  "description": "A single appeal lifecycle event tied to a decision receipt, reviewer, and outcome.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "appeal_id",
+    "receipt_id",
+    "decision_id",
+    "submitted_at",
+    "channel",
+    "status",
+    "owner"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
+    "appeal_id": { "type": "string" },
+    "receipt_id": { "type": "string" },
+    "decision_id": { "type": "string" },
+    "submitted_at": { "type": "string", "format": "date-time" },
+    "channel": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_review", "upheld", "reversed", "withdrawn", "resolved"]
+    },
+    "owner": {
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contact": { "type": "string" },
+        "on_call": { "type": "boolean" }
+      }
+    },
+    "appellant": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "contact": { "type": "string" }
+      }
+    },
+    "review_clock": {
+      "type": "object",
+      "properties": { "hours": { "type": "number" } }
+    },
+    "outcome": {
+      "type": "object",
+      "properties": {
+        "decision": { "type": "string" },
+        "resolved_at": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["href"],
+        "properties": {
+          "href": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/repair-sla.schema.json",
+  "title": "Repair SLA",
+  "description": "Published commitments for acknowledgment, review, and remedy timelines after a decision is contested.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "sla_id",
+    "published_at",
+    "owner",
+    "scope",
+    "targets"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
+    "sla_id": { "type": "string" },
+    "published_at": { "type": "string", "format": "date-time" },
+    "effective_from": { "type": "string", "format": "date-time" },
+    "effective_to": { "type": "string", "format": "date-time" },
+    "owner": {
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contact": { "type": "string" },
+        "on_call": { "type": "boolean" }
+      }
+    },
+    "scope": { "type": "string" },
+    "targets": {
+      "type": "object",
+      "required": ["ack_hours", "review_hours", "remedy_hours"],
+      "properties": {
+        "ack_hours": { "type": "number" },
+        "review_hours": { "type": "number" },
+        "remedy_hours": { "type": "number" },
+        "appeal_hours": { "type": "number" }
+      }
+    },
+    "escalation_path": {
+      "type": "object",
+      "properties": {
+        "href": { "type": "string" },
+        "channel": { "type": "string" }
+      }
+    },
+    "measurement_window": { "type": "string" }
+  }
+}
