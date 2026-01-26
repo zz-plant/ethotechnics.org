@@ -22,7 +22,6 @@ outcome) and link to a spec section below once scoped.
 | - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)        |
 |                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   |                                                                                  |
 |                                                                                                                                                                                     | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability) |
-|                                                                                                                                                                                     | - [AsyncAPI events spec](#asyncapi-events-spec)                                           |                                                                                  |
 |                                                                                                                                                                                     | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [TypeScript SDK](#typescript-sdk)                                              |
 |                                                                                                                                                                                     | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | - [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas)    |
 |                                                                                                                                                                                     | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             |                                                                                  |
@@ -252,6 +251,16 @@ future updates can build on what already shipped.
 - **Notes:** Spec lives under `/standards/ethotechnics-control-plane.openapi.yaml` and aligns with
   the JSON schema set for payload definitions.
 - **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
+
+### AsyncAPI events spec
+
+- **Problem:** Event payloads and channel names varied, making integrations brittle.
+- **Outcome:** Published a versioned AsyncAPI contract covering decision issuance, appeal
+  openings, pause or reversal updates, repair completion updates, burden hours telemetry, and
+  deadline reminders.
+- **Notes:** Event payloads reference the JSON schema set and include example messages for each
+  channel, with legacy repair log updates retained for continuity.
+- **Issue link:** Issue: TBD / Spec: #asyncapi-events-spec
 
 ### Language people can use
 
