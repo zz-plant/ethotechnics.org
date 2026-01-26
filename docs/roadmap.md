@@ -65,12 +65,14 @@ under this heading and link to it from the roadmap table.
 ## Python evaluation toolkit
 
 - **Problem:** Evaluators lack a shared toolkit to validate payloads and run basic checks.
-- **Scope:** Build a Python package with schema validation, CLI helpers, and starter datasets
-  for evaluation workflows.
-- **UX/Tech notes:** Target Python 3.11+, keep dependencies minimal, and ship typed APIs and
-  clear CLI help output.
-- **Acceptance criteria:** `pip install` works, CLI validates sample payloads, and docs show
-  a minimal end-to-end evaluation run.
+- **Scope:** Build a Python package of reference implementations and evaluators for researchers,
+  auditors, risk teams, and internal tools.
+- **UX/Tech notes:** Target Python 3.11+, keep dependencies minimal, and ship typed APIs with
+  notebook-friendly examples.
+- **Acceptance criteria:** `pip install` works, CLI validates sample payloads, and docs show a
+  minimal end-to-end evaluation run.
+- **What to ship:** Reference validators for schemas, time-in-harm calculators, burden-hour
+  scoring functions, and RMF / ISO clause-mapping evaluators.
 - **Dependencies/risks:** Depends on JSON schema set; risk of duplicated logic with SDKs.
 - **Issue link:** Issue: TBD / Spec: #python-evaluation-toolkit
 

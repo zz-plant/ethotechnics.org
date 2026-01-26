@@ -6,6 +6,21 @@ Short-term release plan for cross-stack interoperability deliverables.
 
 Scope: ship evaluation utilities that can run in offline analysis pipelines and backend services.
 
+Target: researchers, auditors, risk teams, and internal governance tooling.
+
+Why:
+
+- Python dominates compliance analytics, risk modeling, and governance research.
+- It embeds easily in notebooks, audits, and prototype pipelines.
+
+What to ship:
+
+- Reference validators for schemas.
+- Time-in-harm calculators.
+- Burden-hour scoring functions.
+- RMF / ISO clause-mapping evaluators.
+- A pip-installable package (`ethotechnics-eval`) with typed APIs and docs.
+
 Initial modules:
 
 - Schema validators for inputs/outputs used by burden and harm tracking.
