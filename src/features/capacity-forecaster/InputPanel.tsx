@@ -29,6 +29,8 @@ type InputPanelProps = {
   viewMode: "single" | "compare";
   onViewModeChange: (mode: "single" | "compare") => void;
   onResetToSingleScenario: () => void;
+  onMirrorScenario: (source: "A" | "B", target: "A" | "B") => void;
+  onExportScenario: (scenarioId: "A" | "B") => void;
   onMetricsChange: (
     scenarioId: "A" | "B",
     updates: Partial<OperationalMetrics>,
@@ -115,6 +117,7 @@ type ScenarioPanelProps = {
   metrics: OperationalMetrics;
   params: SimulationParams;
   stabilityOptions: SystemStability[];
+  onExport: () => void;
   onMetricsChange: (updates: Partial<OperationalMetrics>) => void;
   onParamsChange: (updates: Partial<SimulationParams>) => void;
 };
@@ -125,6 +128,7 @@ const ScenarioPanel = ({
   metrics,
   params,
   stabilityOptions,
+  onExport,
   onMetricsChange,
   onParamsChange,
 }: ScenarioPanelProps) => (
@@ -134,7 +138,17 @@ const ScenarioPanel = ({
         <p className="eyebrow">{label}</p>
         <p className="muted">{summary}</p>
       </div>
-      <span className="pill pill--ghost">{label}</span>
+      <div className="forecaster__scenario-actions">
+        <span className="pill pill--ghost">{label}</span>
+        <button
+          type="button"
+          className="button ghost button--compact"
+          onClick={onExport}
+          aria-label={`Export ${label}`}
+        >
+          Export
+        </button>
+      </div>
     </div>
 
     <SliderField
@@ -205,6 +219,8 @@ export function InputPanel({
   viewMode,
   onViewModeChange,
   onResetToSingleScenario,
+  onMirrorScenario,
+  onExportScenario,
   onMetricsChange,
   onParamsChange,
   stabilityOptions,
@@ -254,7 +270,26 @@ export function InputPanel({
               );
             })}
           </ul>
-          {viewMode === "compare" ? (
+        </div>
+      </div>
+      {viewMode === "compare" ? (
+        <div className="forecaster__compare-actions">
+          <p className="muted">Compare shortcuts</p>
+          <div className="forecaster__compare-buttons">
+            <button
+              type="button"
+              className="button ghost button--compact"
+              onClick={() => onMirrorScenario("A", "B")}
+            >
+              Mirror A → B
+            </button>
+            <button
+              type="button"
+              className="button ghost button--compact"
+              onClick={() => onMirrorScenario("B", "A")}
+            >
+              Mirror B → A
+            </button>
             <button
               type="button"
               className="button ghost button--compact"
@@ -262,9 +297,9 @@ export function InputPanel({
             >
               Reset to single scenario
             </button>
-          ) : null}
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <div className="forecaster__scenario-grid">
         <ScenarioPanel
@@ -273,6 +308,7 @@ export function InputPanel({
           metrics={scenarioA.metrics}
           params={scenarioA.params}
           stabilityOptions={stabilityOptions}
+          onExport={() => onExportScenario("A")}
           onMetricsChange={(updates) => onMetricsChange("A", updates)}
           onParamsChange={(updates) => onParamsChange("A", updates)}
         />
@@ -283,6 +319,7 @@ export function InputPanel({
             metrics={scenarioB.metrics}
             params={scenarioB.params}
             stabilityOptions={stabilityOptions}
+            onExport={() => onExportScenario("B")}
             onMetricsChange={(updates) => onMetricsChange("B", updates)}
             onParamsChange={(updates) => onParamsChange("B", updates)}
           />

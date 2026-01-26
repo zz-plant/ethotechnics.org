@@ -38,6 +38,7 @@ export function CapacityForecaster() {
     updateMetrics,
     updateParams,
     resetToSingleScenario,
+    mirrorScenario,
     stabilityOptions,
   } = useCapacityForecast();
   const finalPointA = forecastA.data[forecastA.data.length - 1];
@@ -129,27 +130,40 @@ export function CapacityForecaster() {
           <div className="forecaster__actions">
             <button
               type="button"
-              className="button ghost button--compact"
-              onClick={() => handleExport('scenario-a')}
-            >
-              Export scenario A
-            </button>
-            <button
-              type="button"
-              className="button ghost button--compact"
-              onClick={() => handleExport('scenario-b')}
-            >
-              Export scenario B
-            </button>
-            <button
-              type="button"
               className="button primary button--compact"
               onClick={() => handleExport('comparison')}
               disabled={!isCompare}
             >
               Export comparison
             </button>
+            {isCompare ? (
+              <button
+                type="button"
+                className="button ghost button--compact"
+                onClick={resetToSingleScenario}
+              >
+                Reset to single scenario
+              </button>
+            ) : null}
           </div>
+          {isCompare ? (
+            <div className="forecaster__delta">
+              <p className="forecaster__delta-title">Delta highlights</p>
+              <div className="forecaster__delta-values">
+                <span>
+                  Saturation: {formatMonthDelta(deltaSummary?.saturationDelta)}
+                </span>
+                <span>
+                  Baseline horizon:{' '}
+                  {formatDeltaPercent(deltaSummary?.baselineDelta)}
+                </span>
+                <span>
+                  Remediated horizon:{' '}
+                  {formatDeltaPercent(deltaSummary?.remediatedDelta)}
+                </span>
+              </div>
+            </div>
+          ) : null}
           {isCompare ? (
             <div className="forecaster__delta-table">
               <table className="forecaster__delta-grid">
@@ -197,6 +211,12 @@ export function CapacityForecaster() {
           viewMode={viewMode}
           onViewModeChange={setViewMode}
           onResetToSingleScenario={resetToSingleScenario}
+          onMirrorScenario={mirrorScenario}
+          onExportScenario={(scenarioId) =>
+            handleExport(
+              scenarioId === 'A' ? 'scenario-a' : 'scenario-b',
+            )
+          }
           stabilityOptions={stabilityOptions}
           onMetricsChange={updateMetrics}
           onParamsChange={updateParams}
