@@ -4,6 +4,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
 
 const pageTitle = "Worked examples — Ethotechnics Institute";
 const pageDescription =
@@ -86,6 +87,49 @@ const requiredSignals = [
       </a>
     </Fragment>
   </PageIntro>
+  <SummaryCallout
+    title="Start with a single end-to-end example"
+    description="Pick the featured scenario first, then use the required signals checklist to validate what your team ships."
+    takeaways={[
+      "Every scenario includes receipts, owners, clocks, and remedies.",
+      "Required signals ensure enforceability, not just documentation.",
+      "Examples double as adoption templates for release gates.",
+    ]}
+    relatedLinks={[
+      { href: `/examples/${featuredExample.slug}`, label: "Featured example" },
+      { href: "/bindings", label: "Binding vectors" },
+      { href: "/evidence-packs", label: "Evidence packs" },
+    ]}
+    jumpLinks={[
+      { href: "#featured", label: "Featured scenario" },
+      { href: "#scenarios", label: "Scenarios" },
+      { href: "#requirements", label: "Required signals" },
+    ]}
+  />
+
+  <SectionBlock
+    id="featured"
+    eyebrow="Featured scenario"
+    title={featuredExample.title}
+    description="A full walkthrough that shows receipts, clocks, and remedies working together."
+    variant="alt"
+  >
+    <CardGrid>
+      <CardItem
+        title="What this scenario demonstrates"
+        description="Use the featured example as the baseline template before reviewing the broader catalog."
+      >
+        <ul class="muted">
+          <li>Receipt and owner metadata issued at decision time.</li>
+          <li>Visible clocks for review, appeal, and remedy.</li>
+          <li>Remediation path that ties into bindings and evidence packs.</li>
+        </ul>
+        <a slot="footer" class="button ghost button--compact" href={`/examples/${featuredExample.slug}`}>
+          View featured example
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="scenarios"

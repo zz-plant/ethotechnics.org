@@ -8,6 +8,7 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PatternFilter from "../../components/PatternFilter.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 
@@ -89,6 +90,25 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </a>
     </Fragment>
   </PageIntro>
+  <SummaryCallout
+    title="Start with filters, then deepen with primers and specs"
+    description="Use the quick filters to pick a lens, then follow the primer and mechanism specs to implement."
+    takeaways={[
+      "Role pathways surface the highest-signal mechanisms.",
+      "Quick filters help you jump into governance, friction, or policy lenses.",
+      "Mechanism specs link directly to validators and evidence packs.",
+    ]}
+    relatedLinks={[
+      { href: "#quick-filters", label: "Quick filters" },
+      { href: "#primer", label: "Primer" },
+      { href: "#mechanisms", label: "Mechanism specs" },
+    ]}
+    jumpLinks={[
+      { href: "#role-pathways", label: "Role pathways" },
+      { href: "#themes", label: "Browse by theme" },
+      { href: "#syllabus", label: "Syllabus" },
+    ]}
+  />
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}
@@ -171,26 +191,39 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       }
     </div>
   </SectionBlock>
-  <div class="callout">
-    <h3>Quick start</h3>
-    <ul class="muted">
-      {quickStart.map((item) => <li>{item}</li>)}
-    </ul>
-  </div>
-  <div class="callout library__recommended">
-    <h3>{recommended.title}</h3>
-    <p class="muted">{recommended.description}</p>
-    <ul class="library__recommended-list">
-      {
-        recommended.items.map((item) => (
-          <li>
-            <a href={item.href}>{item.title}</a>
-            <p class="muted small">{item.description}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  <SectionBlock
+    id="start-here"
+    eyebrow="Start here"
+    title="A quick route into the mechanisms catalog."
+    description="Use the quick start and recommended stack to prioritize what to read first."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Quick start sequence"
+        description="Use this sequence if you need a fast on-ramp."
+      >
+        <ul class="muted">
+          {quickStart.map((item) => <li>{item}</li>)}
+        </ul>
+      </CardItem>
+      <CardItem
+        title={recommended.title}
+        description={recommended.description}
+      >
+        <ul class="library__recommended-list">
+          {
+            recommended.items.map((item) => (
+              <li>
+                <a href={item.href}>{item.title}</a>
+                <p class="muted small">{item.description}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="safety-object-model"

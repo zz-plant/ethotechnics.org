@@ -4,6 +4,7 @@ import CardGrid from '../../components/CardGrid.astro';
 import CardItem from '../../components/CardItem.astro';
 import PageIntro from '../../components/PageIntro.astro';
 import SectionBlock from '../../components/SectionBlock.astro';
+import SummaryCallout from '../../components/SummaryCallout.astro';
 
 const pageTitle = 'Library — Ethotechnics Institute';
 const pageDescription =
@@ -24,10 +25,10 @@ const anchorLinks = [
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
-      eyebrow: 'Now in Mechanisms',
-      title: 'Same catalog, clearer routing',
+      eyebrow: 'Library routing',
+      title: 'Use this page to pick your shelf',
       description:
-        'The library content is maintained at /mechanisms. This page is a front door that points to the right shelves.',
+        'The canonical catalog lives in /mechanisms. This page helps you choose a role path or quick filter before jumping in.',
       link: {
         label: 'Go to mechanisms',
         href: '/mechanisms',
@@ -43,6 +44,21 @@ const anchorLinks = [
       </a>
     </Fragment>
   </PageIntro>
+  <SummaryCallout
+    title="Choose a role or a shelf first"
+    description="Use the quick filters for the fastest jump, then head into the mechanisms catalog for full detail."
+    takeaways={[
+      "Role pathways prioritize what matters most for your work.",
+      "Quick filters jump to patterns, primer, glossary, and syllabus.",
+      "Mechanisms is the canonical library for specs and deep links.",
+    ]}
+    relatedLinks={[
+      { href: "/mechanisms", label: "Mechanisms catalog" },
+      { href: "/start-here", label: "Start here" },
+      { href: "/glossary", label: "Glossary" },
+    ]}
+    jumpLinks={anchorLinks}
+  />
 
   <nav class="library-filters" aria-label="Library quick filters">
     <div>

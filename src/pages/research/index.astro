@@ -146,6 +146,40 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     relatedLinks={summaryRelatedLinks}
     jumpLinks={summaryLinks}
   />
+  <SectionBlock
+    id="research-start"
+    eyebrow="Start here"
+    title="Three entry points for new readers."
+    description="Use the orientation cards, then scan the agenda and publications to find what to cite."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Orientation"
+        description="How the research program runs and how findings turn into standards."
+      >
+        <a slot="footer" class="muted" href="#orientation">
+          Open orientation
+        </a>
+      </CardItem>
+      <CardItem
+        title="Agenda"
+        description="In-flight lines of inquiry tied to glossary anchors."
+      >
+        <a slot="footer" class="muted" href="#agenda">
+          View agenda
+        </a>
+      </CardItem>
+      <CardItem
+        title="Publications"
+        description="Protocols, decks, and reports with structured abstracts."
+      >
+        <a slot="footer" class="muted" href="#publications">
+          Browse publications
+        </a>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}

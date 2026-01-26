@@ -8,6 +8,7 @@ import QuickSignalPanel from "../../components/QuickSignalPanel.astro";
 import ReferenceCallout from "../../components/ReferenceCallout.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
 import { instituteStudioCallout } from "../../content/callouts";
@@ -56,17 +57,36 @@ const { cspNonce } = Astro.locals;
     panelCopy={hero.panel}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#routes">
-        Choose your path
+      <a class="button primary" href="#recommended">
+        Start with the recommendation
       </a>
-      <a class="button ghost" href="#quick-start">
-        Quick-start guides
+      <a class="button ghost" href="#routes">
+        Browse all pathways
       </a>
     </Fragment>
   </PageIntro>
+  <SummaryCallout
+    title="A guided way through the entry points"
+    description="Start with the recommended first step, then choose a pathway and pull the artifacts that match your role."
+    takeaways={[
+      "Follow the recommended first step if you're new.",
+      "Use pathways to match your role and decision window.",
+      "Collect artifact bundles before you hand off to governance.",
+    ]}
+    relatedLinks={[
+      { href: "#routes", label: "Pathways" },
+      { href: "#quick-start", label: "Quick-start guides" },
+      { href: "#artifacts", label: "Artifact bundles" },
+    ]}
+    jumpLinks={[
+      { href: "#recommended", label: "Recommendation" },
+      { href: "#routes", label: "Pathways" },
+      { href: "#decision-guide", label: "Decision guide" },
+    ]}
+  />
   {
     recommendedCard && (
-      <div class="callout callout--emphasis">
+      <div class="callout callout--emphasis" id="recommended">
         <p class="eyebrow">Recommended first step</p>
         <h3>{recommendedCard.title}</h3>
         {recommendedDetails.map((detail) => (
@@ -81,17 +101,6 @@ const { cspNonce } = Astro.locals;
           <a class="button ghost" href="#routes">
             View all pathways
           </a>
-        </SectionActions>
-        <SectionActions className="callout__actions-secondary">
-          {hero.actions.map((action) => (
-            <a
-              class={`button ${action.variant}`}
-              href={action.href}
-              aria-label={action.ariaLabel ?? action.label}
-            >
-              {action.label}
-            </a>
-          ))}
         </SectionActions>
       </div>
     )
