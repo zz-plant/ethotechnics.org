@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
 import { readFile } from "node:fs/promises";
 
 const pageTitle = "Ethotechnics for Agents";
@@ -30,6 +31,23 @@ const anchorLinks = [
   { href: "#boundaries", label: "Practice boundaries" },
   { href: "#fast-path", label: "Fast path" },
   { href: "#referenced-by", label: "Referenced by" },
+];
+
+const summaryTakeaways = [
+  "Align agent capabilities with explicit action classes and receipts.",
+  "Use failure-first controls like kill switches, hard clocks, and rollback paths.",
+  "Anchor remediation with contestability paths and evidence packs.",
+];
+const summaryRelatedLinks = [
+  { label: "Mechanisms", href: "/mechanisms" },
+  { label: "Diagnostics", href: "/diagnostics" },
+  { label: "Evidence packs", href: "/evidence-packs" },
+];
+const summaryJumpLinks = [
+  { label: "Requirements", href: "#requirements" },
+  { label: "Failure-first design", href: "#failure-design" },
+  { label: "Contestability", href: "#contestability" },
+  { label: "Control checklist", href: "#control-checklist" },
 ];
 
 const agentReceiptSchema = await readFile(
@@ -373,6 +391,15 @@ const practiceSections = [
       description:
         "Scope: autonomous and semi-autonomous agents, workflow automation, and decision engines. Related: STD-01 and STD-02.",
     }}
+  />
+
+  <SummaryCallout
+    eyebrow="Reading guide"
+    title="Fast orientation for long-form standards"
+    description="Use this summary to skim the framework before diving into the full requirements."
+    takeaways={summaryTakeaways}
+    relatedLinks={summaryRelatedLinks}
+    jumpLinks={summaryJumpLinks}
   />
 
   <SectionBlock

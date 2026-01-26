@@ -37,6 +37,12 @@ const recommendedDetails = recommendedCard
       { text: recommendedCard.description, className: "muted small" },
     ].filter((detail) => detail.text)
   : [];
+const recommendedAction = recommendedCard?.href
+  ? {
+      href: recommendedCard.href,
+      label: `Start ${recommendedCard.title.toLowerCase()}`,
+    }
+  : null;
 const { cspNonce } = Astro.locals;
 ---
 
@@ -51,13 +57,23 @@ const { cspNonce } = Astro.locals;
   />
   {
     recommendedCard && (
-      <div class="callout">
+      <div class="callout callout--emphasis">
         <p class="eyebrow">Recommended first step</p>
         <h3>{recommendedCard.title}</h3>
         {recommendedDetails.map((detail) => (
           <p class={detail.className}>{detail.text}</p>
         ))}
-        <SectionActions>
+        <SectionActions className="callout__actions">
+          {recommendedAction && (
+            <a class="button primary" href={recommendedAction.href}>
+              {recommendedAction.label}
+            </a>
+          )}
+          <a class="button ghost" href="#routes">
+            View all pathways
+          </a>
+        </SectionActions>
+        <SectionActions className="callout__actions-secondary">
           {hero.actions.map((action) => (
             <a
               class={`button ${action.variant}`}
