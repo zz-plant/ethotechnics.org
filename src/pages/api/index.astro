@@ -184,6 +184,31 @@ const endpoints = [
         </li>
       ))}
     </ul>
+    <div>
+      <p class="eyebrow">FHIR resources</p>
+      <h3>FHIR Resources (healthcare-specific interop)</h3>
+      <ul class="muted">
+        <li>
+          <strong>Target:</strong> healthcare payers, providers, regulators.
+        </li>
+        <li>If you care about healthcare, this is non-optional.</li>
+        <li>
+          <strong>Why:</strong> FHIR is the only sanctioned exchange substrate in
+          U.S. health. TEFCA rides on top of it.
+        </li>
+        <li>
+          <strong>What to ship:</strong> custom FHIR profiles for:
+          <ul>
+            <li>Decision</li>
+            <li>Denial</li>
+            <li>Appeal</li>
+            <li>RepairStatus</li>
+            <li>PendingClock</li>
+          </ul>
+        </li>
+        <li>FHIR makes refusal + repair first-class healthcare data.</li>
+      </ul>
+    </div>
     <ul class="muted">
       <li>
         Decision retrieval: <code>GET /api/decisions/{`{decision_id}`}</code>
