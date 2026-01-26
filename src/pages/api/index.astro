@@ -9,6 +9,7 @@ const pageDescription =
 const permalink = "/api";
 const anchorLinks = [
   { href: "#objects", label: "Canonical objects" },
+  { href: "#interoperability", label: "Interoperability specs" },
   { href: "#agent-model", label: "Agent object model" },
   { href: "#endpoints", label: "Read-only endpoints" },
   { href: "#versioning", label: "Versioning" },
@@ -56,6 +57,21 @@ const canonicalObjects = [
     name: "Agent safety object model",
     description:
       "Machine-readable profile for autonomy level, action classes, override authority, and receipts.",
+  },
+];
+
+const interoperabilitySpecs = [
+  {
+    name: "Control plane OpenAPI",
+    href: "/standards/ethotechnics-control-plane.openapi.yaml",
+    description:
+      "Decision retrieval and appeal intake endpoints aligned to the agent receipt schema.",
+  },
+  {
+    name: "Events AsyncAPI",
+    href: "/standards/ethotechnics-events.asyncapi.yaml",
+    description:
+      "Deadline and repair log events for clocked governance and remediation workflows.",
   },
 ];
 
@@ -155,6 +171,33 @@ const endpoints = [
   </SectionBlock>
 
   <SectionBlock
+    id="interoperability"
+    eyebrow="Interoperability specs"
+    title="Draft contracts for decision and repair workflows."
+    description="Use these specs to wire decisions, appeals, and clock events into tooling."
+  >
+    <ul class="muted">
+      {interoperabilitySpecs.map((spec) => (
+        <li>
+          <strong>{spec.name}:</strong>{" "}
+          <a href={spec.href}>{spec.href}</a> — {spec.description}
+        </li>
+      ))}
+    </ul>
+    <ul class="muted">
+      <li>
+        Decision retrieval: <code>GET /api/decisions/{`{decision_id}`}</code>
+      </li>
+      <li>Appeal submission: <code>POST /api/appeals</code></li>
+      <li>
+        Events: <code>decision.deadline.reminder</code>,{" "}
+        <code>appeal.deadline.breached</code>,{" "}
+        <code>repair.log.updated</code>
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
     id="agent-model"
     eyebrow="Agent object model"
     title="Agent Safety Object Model"
@@ -229,6 +272,8 @@ const endpoints = [
       <li>Signed releases with verifiable citation hashes.</li>
       <li>Schema validation automation for new objects.</li>
       <li>Expanded clause mapping for emerging standards.</li>
+      <li>OpenAPI draft for decision retrieval and appeal intake.</li>
+      <li>AsyncAPI events for deadline clocks and repair log updates.</li>
     </ul>
   </SectionBlock>
 </BaseLayout>

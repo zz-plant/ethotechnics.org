@@ -1,0 +1,91 @@
+asyncapi: 2.6.0
+info:
+  title: Ethotechnics Events
+  version: 0.1.0
+  description: >-
+    Draft AsyncAPI contract for contestability clocks and repair telemetry. Event payloads
+    reuse receipt identifiers and clock terminology from /standards/agent-receipt-schema.json.
+servers:
+  production:
+    url: https://ethotechnics.org/events
+    protocol: https
+channels:
+  decision.deadline.reminder:
+    description: Reminder emitted before a decision review or remedy clock expires.
+    publish:
+      message:
+        $ref: "#/components/messages/DeadlineReminder"
+  appeal.deadline.breached:
+    description: Emitted when an appeal response deadline is missed.
+    publish:
+      message:
+        $ref: "#/components/messages/DeadlineBreached"
+  repair.log.updated:
+    description: Emitted when a repair log entry is created or updated.
+    publish:
+      message:
+        $ref: "#/components/messages/RepairLogUpdated"
+components:
+  messages:
+    DeadlineReminder:
+      name: DeadlineReminder
+      title: Decision deadline reminder
+      payload:
+        $ref: "#/components/schemas/DeadlineEvent"
+    DeadlineBreached:
+      name: DeadlineBreached
+      title: Appeal deadline breached
+      payload:
+        $ref: "#/components/schemas/DeadlineEvent"
+    RepairLogUpdated:
+      name: RepairLogUpdated
+      title: Repair log updated
+      payload:
+        $ref: "#/components/schemas/RepairEvent"
+  schemas:
+    DeadlineEvent:
+      type: object
+      required:
+        - decision_id
+        - receipt_id
+        - clock_type
+        - due_at
+        - status
+      properties:
+        decision_id:
+          type: string
+        receipt_id:
+          type: string
+        appeal_id:
+          type: string
+        clock_type:
+          type: string
+          enum: [ack, review, remedy, appeal]
+        due_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [reminder, breached]
+    RepairEvent:
+      type: object
+      required:
+        - repair_id
+        - decision_id
+        - updated_at
+        - status
+      properties:
+        repair_id:
+          type: string
+        decision_id:
+          type: string
+        appeal_id:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [opened, in_progress, resolved]
+        notes:
+          type: string
