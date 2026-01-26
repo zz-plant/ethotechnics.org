@@ -147,6 +147,12 @@ export const navSections: NavSection[] = [
           "Copy-ready phrases for demanding contestability and accountable remedy.",
       },
       {
+        href: "/explainers/public-memory",
+        label: "Public memory for contestability terms",
+        description:
+          "Track language drift and cite stable definitions for accountability work.",
+      },
+      {
         href: "/explainers/governance-capability",
         label: "Governance as operational capability",
         description: "Define governance by stop, reverse, restore, and contest.",
