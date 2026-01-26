@@ -1,0 +1,127 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import {
+  createImplementationPublication,
+  implementationExampleAnchorLinks,
+} from "../../../content/implementation-examples";
+
+const pageTitle = "FHIR resources for healthcare interop";
+const pageDescription =
+  "FHIR-native refusal, appeal, and repair workflows for payers, providers, and regulators.";
+const permalink = "/standards/implementation-examples/fhir-resources";
+const anchorLinks = implementationExampleAnchorLinks;
+const publication = createImplementationPublication(
+  permalink,
+  "Published the FHIR interoperability implementation comparison.",
+);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Implementation example"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Target",
+      title: "Healthcare payers, providers, and regulators",
+      description:
+        "If you care about healthcare, this is non-optional. FHIR is the sanctioned exchange substrate in U.S. health, and TEFCA rides on top of it.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Why FHIR has to carry refusal and repair"
+    description="Healthcare interoperability demands that denial and repair become exchangeable data."
+  >
+    <p>
+      FHIR is how U.S. healthcare systems move data between payers, providers, and
+      regulators. If refusal and repair are not in the exchange substrate, they vanish at
+      the moment a decision crosses organizational boundaries.
+    </p>
+    <p class="muted">
+      Ethotechnics treats refusals, appeals, and repair as first-class healthcare data so
+      intervention rights remain visible, time-bound, and enforceable in every system that
+      touches the decision.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Standard governance"
+    title="What standard AI governance implements"
+    description="Process notes and case logs that do not travel with the clinical record."
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>Decisioning logic captured in payer or provider-specific case systems.</li>
+      <li>Denials stored as narrative notes or PDF attachments.</li>
+      <li>Appeals tracked in separate customer service workflows.</li>
+      <li>Repair actions logged internally without interoperable status data.</li>
+      <li>Regulators left to reconstruct timelines from siloed audit trails.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="ethotechnics"
+    eyebrow="Ethotechnics implementation"
+    title="What changes when FHIR is the control plane"
+    description="FHIR profiles that make refusal, appeal, and repair real healthcare data."
+  >
+    <ul class="card__list">
+      <li>
+        Ship custom FHIR profiles for <strong>Decision</strong>, <strong>Denial</strong>,
+        <strong>Appeal</strong>, <strong>RepairStatus</strong>, and
+        <strong>PendingClock</strong> resources.
+      </li>
+      <li>
+        Treat denial as a structured resource that references the clinical decision, reason
+        codes, and responsible authority.
+      </li>
+      <li>
+        Represent appeals as stateful resources with SLA clocks, escalation paths, and
+        required evidence attachments.
+      </li>
+      <li>
+        Publish repair status updates that flow to every system touched by the decision,
+        including provider EHRs and regulator dashboards.
+      </li>
+      <li>
+        Expose pending clocks as interoperable countdowns so time-to-repair is visible and
+        enforceable across organizations.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="checklist"
+    eyebrow="Implementation checklist"
+    title="Signals to verify before launch"
+    description="Confirm that refusal and repair survive cross-organizational exchange."
+  >
+    <ul class="muted">
+      <li>Register custom FHIR profiles and ensure they validate in payer + provider stacks.</li>
+      <li>Map denial reasons to standardized codes and publish them through the Denial resource.</li>
+      <li>Guarantee Appeal status transitions update downstream systems within stated clocks.</li>
+      <li>Expose PendingClock resources through TEFCA-compatible exchange endpoints.</li>
+      <li>Publish RepairStatus updates as auditable evidence for regulators and care teams.</li>
+    </ul>
+  </SectionBlock>
+
+  <div id="citations">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+      summaryLabel="Cite this implementation example"
+    />
+  </div>
+</BaseLayout>

@@ -65,20 +65,28 @@ under this heading and link to it from the roadmap table.
 ## Python evaluation toolkit
 
 - **Problem:** Evaluators lack a shared toolkit to validate payloads and run basic checks.
-- **Scope:** Build a Python package with schema validation, CLI helpers, and starter datasets
-  for evaluation workflows.
-- **UX/Tech notes:** Target Python 3.11+, keep dependencies minimal, and ship typed APIs and
-  clear CLI help output.
-- **Acceptance criteria:** `pip install` works, CLI validates sample payloads, and docs show
-  a minimal end-to-end evaluation run.
+- **Scope:** Build a Python package of reference implementations and evaluators for researchers,
+  auditors, risk teams, and internal tools.
+- **UX/Tech notes:** Target Python 3.11+, keep dependencies minimal, and ship typed APIs with
+  notebook-friendly examples.
+- **Acceptance criteria:** `pip install` works, CLI validates sample payloads, and docs show a
+  minimal end-to-end evaluation run.
+- **What to ship:** Reference validators for schemas, time-in-harm calculators, burden-hour
+  scoring functions, and RMF / ISO clause-mapping evaluators.
 - **Dependencies/risks:** Depends on JSON schema set; risk of duplicated logic with SDKs.
 - **Issue link:** Issue: TBD / Spec: #python-evaluation-toolkit
 
 ## TypeScript SDK
 
-- **Problem:** Implementers need typed client access to control-plane endpoints and events.
-- **Scope:** Deliver a TypeScript SDK with typed models, control-plane client helpers, and
-  event payload types.
+- **Problem:** Product teams need TypeScript-native governance tooling or integration stalls.
+- **Scope:** Implement TypeScript deliverables that are product-facing and infra-adjacent.
+- **Target:** Real product teams shipping web apps, admin consoles, and decision dashboards.
+- **Why:** Cloud infrastructure tooling is increasingly TypeScript-native, so governance
+  must live in the same stack to avoid being sidelined.
+- **What to ship:**
+  - SDK for emitting Ethotechnics events.
+  - Decision-log middleware for Node and edge runtimes.
+  - Frontend-safe types for appeals and status.
 - **UX/Tech notes:** Prefer ESM, tree-shakeable exports, and generated types from schemas
   and OpenAPI definitions.
 - **Acceptance criteria:** Package installs cleanly, exposes typed clients and models, and
@@ -256,6 +264,14 @@ future updates can build on what already shipped.
   power mapping, each with a printable sheet and next-step links.
 - **Notes:** The tools live under the diagnostics menu and include print-ready question blocks.
 - **Issue link:** Issue: TBD / Spec: #self-defense-diagnostic-tools
+### Minimum viable contestability standard
+
+- **Problem:** Advocates and journalists lacked a concrete, shareable yardstick for accountability.
+- **Outcome:** Published a minimum viable contestability standard with a one-screen summary, text-
+  only version, and requirement-by-requirement evidence checklists.
+- **Notes:** The standard ships as a printable page focused on standing, reasons, records,
+  timelines, remedies, and non-retaliation.
+- **Issue link:** Issue: TBD / Spec: #minimum-viable-contestability-standard
 
 ### End-to-end mapping artifact (brandless)
 

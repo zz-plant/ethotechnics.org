@@ -87,6 +87,17 @@ export const standardsContent: StandardsContent = {
       published: "2026-01-01",
     },
     {
+      id: "MVC-01",
+      slug: "minimum-viable-contestability",
+      title: "Minimum viable contestability standard",
+      description:
+        "A one-page baseline for standing, reasons, records, timelines, remedies, and non-retaliation.",
+      status: "Published",
+      version: "1.0",
+      effectiveDate: "Immediate",
+      published: "2025-01-01",
+    },
+    {
       id: "STD-03",
       slug: "std-03-justice-slos",
       title: "Justice SLOs (Targets, Budgets, and Breach Actions)",
