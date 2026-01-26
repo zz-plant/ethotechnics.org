@@ -4,6 +4,11 @@ This doc centralizes the lightweight roadmap, spec template, and pickup guidance
 align quickly. Treat it as the in-repo tracker, and mirror key items to GitHub Issues when you
 need assignment, notifications, or automation.
 
+## Related plans
+
+- [`interop-release-plan.md`](interop-release-plan.md) covers planned Python, TypeScript, FHIR, and
+  W3C VC deliverables.
+
 ## Active roadmap
 
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
