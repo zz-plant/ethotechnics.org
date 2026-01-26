@@ -130,12 +130,14 @@ const resolveInitialState = (): {
   scenarioA: ScenarioState;
   scenarioB: ScenarioState;
   viewMode: ViewMode;
+  hasCustomScenarioB: boolean;
 } => {
   if (typeof window === 'undefined') {
     return {
       scenarioA: { metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS },
       scenarioB: { metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS },
       viewMode: 'single',
+      hasCustomScenarioB: false,
     };
   }
 
@@ -181,8 +183,12 @@ const resolveInitialState = (): {
     baseScenarioB,
   );
   const viewMode = resolveViewMode(searchParams, storedState?.viewMode);
+  const hasScenarioBParams = Object.values(QUERY_KEYS.scenarioB).some((key) =>
+    searchParams.has(key),
+  );
+  const hasCustomScenarioB = Boolean(storedState?.scenarioB || hasScenarioBParams);
 
-  return { scenarioA, scenarioB, viewMode };
+  return { scenarioA, scenarioB, viewMode, hasCustomScenarioB };
 };
 
 export const useCapacityForecast = () => {
@@ -192,6 +198,7 @@ export const useCapacityForecast = () => {
   const [scenarioB, setScenarioB] = useState<ScenarioState>(initialState.scenarioB);
   const [viewMode, setViewModeState] = useState<ViewMode>(initialState.viewMode);
   const hasSyncedUrl = useRef(false);
+  const hasCustomScenarioB = useRef(initialState.hasCustomScenarioB);
   const forecastA = useMemo(
     () => projectCapacity(scenarioA.metrics, scenarioA.params, startDate),
     [scenarioA.metrics, scenarioA.params, startDate],
@@ -206,6 +213,9 @@ export const useCapacityForecast = () => {
     updates: Partial<OperationalMetrics>,
   ) => {
     const updater = scenarioId === 'A' ? setScenarioA : setScenarioB;
+    if (scenarioId === 'B') {
+      hasCustomScenarioB.current = true;
+    }
     updater((current) => ({
       ...current,
       metrics: { ...current.metrics, ...updates },
@@ -217,6 +227,9 @@ export const useCapacityForecast = () => {
     updates: Partial<SimulationParams>,
   ) => {
     const updater = scenarioId === 'A' ? setScenarioA : setScenarioB;
+    if (scenarioId === 'B') {
+      hasCustomScenarioB.current = true;
+    }
     updater((current) => ({
       ...current,
       params: { ...current.params, ...updates },
@@ -228,6 +241,7 @@ export const useCapacityForecast = () => {
       metrics: { ...scenarioA.metrics },
       params: { ...scenarioA.params },
     });
+    hasCustomScenarioB.current = false;
     setViewModeState('single');
   };
 
@@ -235,6 +249,9 @@ export const useCapacityForecast = () => {
     if (source === target) return;
     const sourceScenario = source === 'A' ? scenarioA : scenarioB;
     const targetSetter = target === 'A' ? setScenarioA : setScenarioB;
+    if (target === 'B') {
+      hasCustomScenarioB.current = true;
+    }
     targetSetter({
       metrics: { ...sourceScenario.metrics },
       params: { ...sourceScenario.params },
@@ -243,7 +260,7 @@ export const useCapacityForecast = () => {
 
   const setViewMode = (mode: ViewMode) => {
     setViewModeState((current) => {
-      if (mode === 'compare' && current === 'single') {
+      if (mode === 'compare' && current === 'single' && !hasCustomScenarioB.current) {
         setScenarioB({
           metrics: { ...scenarioA.metrics },
           params: { ...scenarioA.params },
@@ -256,6 +273,7 @@ export const useCapacityForecast = () => {
   const reset = () => {
     setScenarioA({ metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS });
     setScenarioB({ metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS });
+    hasCustomScenarioB.current = false;
     setViewModeState('single');
   };
 
