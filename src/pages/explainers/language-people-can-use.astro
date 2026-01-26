@@ -1,0 +1,318 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Language people can use";
+const pageDescription =
+  "Copy-ready phrases for demanding contestability, escalation clarity, and real remedy.";
+const permalink = "/explainers/language-people-can-use";
+
+const anchorLinks = [
+  { href: "#phrases", label: "Copy-ready phrases" },
+  { href: "#contexts", label: "Context blocks" },
+  { href: "#print", label: "Printable sheet" },
+];
+
+const phrases = [
+  {
+    title: "This decision lacks contestability.",
+    description:
+      "Use when a decision has no visible reasons, owner, or path to reversal.",
+  },
+  {
+    title: "What is the escalation path and remedy if this is wrong?",
+    description:
+      "Use when you are asked to accept an outcome without a clear appeal route.",
+  },
+  {
+    title: "Please provide the decision record, timestamps, and accountable owner.",
+    description:
+      "Use to request a contestable object you can track and share.",
+  },
+  {
+    title: "I need the review clock and the deadline for a final response.",
+    description:
+      "Use to demand a time-bound response instead of an open-ended queue.",
+  },
+  {
+    title: "Who can override this decision and how do I reach them?",
+    description:
+      "Use when escalation authority is implied but unnamed.",
+  },
+  {
+    title: "If this cannot be reversed, state that in writing.",
+    description:
+      "Use to clarify finality and make accountability explicit.",
+  },
+];
+
+const contextBlocks = [
+  {
+    title: "Workplace systems",
+    description:
+      "For HR, scheduling, access control, or performance decisions inside companies.",
+    phrases: [
+      "I am requesting the accountable owner for this decision and their escalation path.",
+      "Please document the review clock and when a final response is due.",
+      "If this decision is final, confirm the remedy options that remain available.",
+    ],
+  },
+  {
+    title: "Public services",
+    description:
+      "For benefits, housing, healthcare, or licensing decisions run by public agencies.",
+    phrases: [
+      "Please provide the decision record and the statutory timeline for appeal.",
+      "What is the remedy if this determination is wrong, and who approves it?",
+      "I need a written explanation of the reasons and evidence relied on.",
+    ],
+  },
+  {
+    title: "Platforms and marketplaces",
+    description:
+      "For content moderation, account restrictions, payouts, or ranking changes.",
+    phrases: [
+      "What evidence triggered this action and how can I contest it?",
+      "Who has authority to reverse this decision, and how do I reach them?",
+      "Please confirm the escalation path, review clock, and remedy options.",
+    ],
+  },
+];
+
+const printSheet = {
+  title: "Language people can use",
+  intro:
+    "Use these phrases to demand contestability, escalation clarity, and enforceable remedy.",
+  sections: [
+    {
+      title: "Core phrases",
+      items: phrases.map((item) => item.title),
+    },
+    {
+      title: "Workplace systems",
+      items: contextBlocks[0].phrases,
+    },
+    {
+      title: "Public services",
+      items: contextBlocks[1].phrases,
+    },
+    {
+      title: "Platforms and marketplaces",
+      items: contextBlocks[2].phrases,
+    },
+  ],
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Explainer"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Contestability",
+      title: "Make accountability verbal and concrete",
+      description:
+        "These phrases translate contestability into plain language so people can ask for reasons, clocks, and remedies without legalese.",
+      link: { label: "Read STD-02", href: "/standards/std-02-contestability-recourse" },
+    }}
+  />
+
+  <SectionBlock
+    id="phrases"
+    eyebrow="Copy-ready"
+    title="Six phrases that surface accountability"
+    description="Use these in email, chat, or intake forms to demand a contestable record."
+  >
+    <CardGrid className="grid--two">
+      {phrases.map((phrase) => (
+        <CardItem
+          title={phrase.title}
+          description={phrase.description}
+          descriptionTone="default"
+        />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="contexts"
+    eyebrow="Context blocks"
+    title="Adapt the language to your setting"
+    description="Each block includes a short explanation and ready-to-send phrasing."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {contextBlocks.map((block) => (
+        <CardItem
+          title={block.title}
+          description={block.description}
+          descriptionTone="default"
+        >
+          <ul class="language-list">
+            {block.phrases.map((phrase) => (
+              <li>{phrase}</li>
+            ))}
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="print"
+    eyebrow="Printable"
+    title="One-page language sheet"
+    description="Print this sheet or save it as a PDF for quick reference."
+  >
+    <div class="language-print screen-only">
+      <div class="language-print__panel">
+        <p class="eyebrow">Print or save</p>
+        <h3>{printSheet.title}</h3>
+        <p class="muted">{printSheet.intro}</p>
+        <div class="actions">
+          <button class="button ghost" type="button" data-language-print>
+            Print sheet
+          </button>
+        </div>
+      </div>
+      <div class="language-print__preview" aria-label="Printable preview">
+        {printSheet.sections.map((section) => (
+          <div class="language-print__section">
+            <p class="language-print__title">{section.title}</p>
+            <ul>
+              {section.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="language-print language-print--print print-only" aria-label="Printable sheet">
+      <h2>{printSheet.title}</h2>
+      <p>{printSheet.intro}</p>
+      {printSheet.sections.map((section) => (
+        <div class="language-print__section">
+          <p class="language-print__title">{section.title}</p>
+          <ul>
+            {section.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <p class="muted language-print__note">
+        Source: Ethotechnics contestability guidance · <a href={permalink}>{permalink}</a>
+      </p>
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<script>
+  const printButton = document.querySelector<HTMLButtonElement>(
+    "[data-language-print]",
+  );
+
+  if (printButton) {
+    printButton.addEventListener("click", () => {
+      window.print();
+    });
+  }
+</script>
+
+<style>
+  .screen-only {
+    display: block;
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  .language-list {
+    list-style: disc;
+    padding-left: 1.2rem;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .language-print {
+    border: 1px solid var(--theme-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    background: var(--theme-surface);
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .language-print__panel {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .language-print__preview {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .language-print__section {
+    border: 1px solid color-mix(in srgb, var(--theme-border) 70%, transparent);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .language-print__title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .language-print__note {
+    margin-top: 1.5rem;
+  }
+
+  .language-print--print {
+    gap: 1rem;
+  }
+
+  .language-print--print h2 {
+    margin-bottom: 0.4rem;
+  }
+
+  .language-print--print ul {
+    padding-left: 1.1rem;
+  }
+
+  @media (min-width: 960px) {
+    .language-print {
+      grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  @media print {
+    .screen-only {
+      display: none;
+    }
+
+    .print-only {
+      display: block;
+    }
+
+    .language-print--print {
+      border: none;
+      padding: 0;
+    }
+
+    .language-print__section {
+      border: 1px solid var(--theme-border);
+      break-inside: avoid;
+    }
+  }
+</style>

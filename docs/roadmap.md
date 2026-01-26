@@ -20,7 +20,7 @@ outcome) and link to a spec section below once scoped.
 | Keep entries small and actionable.                                                                                                                                                  | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                                |
 | - [Redundancy compression pass](#redundancy-compression-pass)                                                                                                                       | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)                 |
 | - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
-|                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | - [Language people can use](#language-people-can-use)                               |
+|                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   |                                                                                     |
 |                                                                                                                                                                                     | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
 |                                                                                                                                                                                     | - [AsyncAPI events spec](#asyncapi-events-spec)                                           | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
 |                                                                                                                                                                                     | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [TypeScript SDK](#typescript-sdk)                                                 |
@@ -266,6 +266,14 @@ under this heading and link to it from the roadmap table.
 
 Keep completed specs here for quick reference. Trim to the essentials and capture outcomes so
 future updates can build on what already shipped.
+
+### Language people can use
+
+- **Problem:** People need exact phrases for demanding contestability and accountability.
+- **Outcome:** Published a “Language people can use” explainer with copy-ready phrases, context
+  blocks for workplaces, public services, and platforms, plus a printable sheet.
+- **Notes:** Includes a print view with grouped phrases to share in audits or appeals.
+- **Issue link:** Issue: TBD / Spec: #language-people-can-use
 
 ### End-to-end mapping artifact (brandless)
 

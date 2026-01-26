@@ -141,6 +141,12 @@ export const navSections: NavSection[] = [
         description: "Printable checklist for real contestability and recourse.",
       },
       {
+        href: "/explainers/language-people-can-use",
+        label: "Language people can use",
+        description:
+          "Copy-ready phrases for demanding contestability and accountable remedy.",
+      },
+      {
         href: "/explainers/governance-capability",
         label: "Governance as operational capability",
         description: "Define governance by stop, reverse, restore, and contest.",
