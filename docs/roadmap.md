@@ -248,8 +248,12 @@ future updates can build on what already shipped.
   interoperability inconsistent.
 - **Outcome:** Published JSON Schema (2020-12) definitions for decision records, appeal events,
   pause reversals, burden hours, and repair SLAs with versioned examples and stable references.
-- **Notes:** Schemas are available as public artifacts and linked from standards guidance for
-  machine consumption and human review.
+- **Notes:** The published JSON schemas are available as public artifacts:
+  - [decision-record.schema.json](/standards/decision-record.schema.json)
+  - [appeal-event.schema.json](/standards/appeal-event.schema.json)
+  - [pause-reversal.schema.json](/standards/pause-reversal.schema.json)
+  - [burden-hours.schema.json](/standards/burden-hours.schema.json)
+  - [repair-sla.schema.json](/standards/repair-sla.schema.json)
 - **Issue link:** Issue: TBD / Spec:
   #json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla
 
