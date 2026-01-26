@@ -9,19 +9,17 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                                           | Next                                                                                              | Later                                                                               |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Highest-priority work in progress.                            | Ready-to-start items with scoped specs.                                                           | Ideas to revisit when capacity frees up.                                            |
-| Keep entries small and actionable.                            | Add owners or dates only when needed.                                                             | Capture rough ideas, not full specs.                                                |
-| - [Redundancy compression pass](#redundancy-compression-pass) | - [Rights → validators → mechanisms reference matrix](#rights-to-validators-to-mechanisms-matrix) | - [Where this binds (non-legal translation surface)](#where-this-binds-surface)     |
-|                                                               | - [Contestability checklist + explainers](#contestability-checklist--plain-language-explainers)   | - [Contestability pattern library](#contestability-pattern-library)                 |
-|                                                               | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)               | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
-|                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                                 | - [Language people can use](#language-people-can-use)                               |
-|                                                               |                                                                                                   | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
-|                                                               |                                                                                                   | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
-|                                                               | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)           |                                                                                     |
-|                                                               | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds)         |                                                                                     |
-|                                                               | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)                     |                                                                                     |
+| Now                                                           | Next                                                                                      | Later                                                                               |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                            | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                            |
+| Keep entries small and actionable.                            | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                                |
+| - [Redundancy compression pass](#redundancy-compression-pass) | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)                 |
+|                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
+|                                                               | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | - [Language people can use](#language-people-can-use)                               |
+|                                                               |                                                                                           | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
+|                                                               |                                                                                           | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
+|                                                               | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) |                                                                                     |
+|                                                               | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             |                                                                                     |
 
 ## Spec template
 
@@ -55,29 +53,6 @@ under this heading and link to it from the roadmap table.
 - **Acceptance criteria:** Fewer repeated paragraphs with no loss of clarity for first-time readers.
 - **Dependencies/risks:** Requires coordination across Diagnostics and Start Here pages.
 - **Issue link:** Issue: TBD / Spec: #redundancy-compression-pass
-
-## Rights → validators → mechanisms matrix
-
-- **Problem:** Practitioners need faster lookups across rights, validators, and mechanisms.
-- **Scope:** Create a static, printable matrix mapping STD-01 rights to validators and mechanisms.
-  Link from STD-01 and Diagnostics.
-- **UX/Tech notes:** Deliver as one table or SVG. Avoid introducing new concepts.
-- **Acceptance criteria:** Enables fast navigation without explanation. No prioritization or
-  rankings.
-- **Dependencies/risks:** Needs stable identifiers for rights, validators, and mechanisms.
-- **Issue link:** Issue: TBD / Spec: #rights-to-validators-to-mechanisms-matrix
-
-## Desktop navigation visibility
-
-- **Problem:** Core destinations remain hidden behind the navigation overlay on desktop.
-- **Scope:** Expose top-level links (Library, Institute, Diagnostics) in the desktop header while
-  keeping the overlay for deeper navigation.
-- **UX/Tech notes:** Keep SSR navigation and skip-link behavior; avoid layout shifts and preserve
-  current structure in `Navigation.astro`.
-- **Acceptance criteria:** Desktop nav surfaces the primary destinations without opening the panel;
-  keyboard focus order remains predictable.
-- **Dependencies/risks:** Requires coordinated styling updates in global navigation styles.
-- **Issue link:** Issue: TBD / Spec: #desktop-navigation-visibility
 
 ## Capacity forecaster v2 (scenario compare)
 
@@ -118,31 +93,6 @@ under this heading and link to it from the roadmap table.
   export of the snapshot comparison data.
 - **Dependencies/risks:** Needs clarity on segment definitions and acceptable delta thresholds.
 - **Issue link:** Issue: TBD / Spec: #burden-modeler-v2-equity-snapshots
-
-## Where this binds (surface)
-
-- **Problem:** Policy and procurement teams need a non-legal translation surface.
-- **Scope:** Explain how standards can be cited in internal policy, procurement requirements, and
-  audit frameworks using abstract examples only.
-- **UX/Tech notes:** Publish as a clearly labeled “non-legal guidance” page.
-- **Acceptance criteria:** Useful to policy teams without reading as regulatory authority. No legal
-  advice or jurisdictional claims.
-- **Dependencies/risks:** Needs careful review to avoid legal framing.
-- **Issue link:** Issue: TBD / Spec: #where-this-binds-surface
-
-## Contestability checklist + plain-language explainers
-
-- **Problem:** Visitors lack shared vocabulary for recognizing uncontestable systems.
-- **Scope:** Publish a plain-language “Can I contest this?” checklist plus three short explainers:
-  “What contestability actually means,” “Why ‘contact support’ is not due process,” and “What
-  makes an appeal real vs performative.”
-- **UX/Tech notes:** One landing page with a printable checklist block and three expandable
-  explainers; cross-link from Diagnostics and Start Here.
-- **Acceptance criteria:** A non-expert can answer the checklist in under two minutes and leave
-  with a clear definition of contestability vs. support-only processes.
-- **Dependencies/risks:** Needs alignment with existing glossary terms for contestability and
-  due process language.
-- **Issue link:** Issue: TBD / Spec: #contestability-checklist--plain-language-explainers
 
 ## Minimum viable contestability standard
 
@@ -256,6 +206,30 @@ future updates can build on what already shipped.
   insufficient implementations.
 - **Notes:** Intended for auditors and policy teams to prevent checkbox compliance.
 - **Issue link:** Issue: TBD / Spec: #minimum-binding-set-specification
+
+### Rights → validators → mechanisms matrix
+
+- **Problem:** Practitioners need faster lookups across rights, validators, and mechanisms.
+- **Outcome:** Published the STD-01 rights matrix mapping rights to validators and mechanisms with
+  a dedicated permalink.
+- **Notes:** Linked from standards and validator/mechanism hubs to keep navigation fast.
+- **Issue link:** Issue: TBD / Spec: #rights-to-validators-to-mechanisms-matrix
+
+### Contestability checklist + plain-language explainers
+
+- **Problem:** Visitors lack shared vocabulary for recognizing uncontestable systems.
+- **Outcome:** Published a printable contestability checklist with expandable explainers and
+  cross-links to STD-02 and the glossary.
+- **Notes:** Checklist includes a print layout and a short summary panel for fast scanning.
+- **Issue link:** Issue: TBD / Spec: #contestability-checklist--plain-language-explainers
+
+### Where this binds (surface)
+
+- **Problem:** Policy and procurement teams need a non-legal translation surface.
+- **Outcome:** Published a non-authoritative guide to citing standards in procurement language and
+  audits, including sample clauses.
+- **Notes:** Framing stays explicitly non-legal and points to standards for context.
+- **Issue link:** Issue: TBD / Spec: #where-this-binds-surface
 
 ### Navigation clarity refresh
 
