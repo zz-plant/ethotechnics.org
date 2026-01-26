@@ -1,0 +1,397 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Self-defense diagnostic tools";
+const pageDescription =
+  "Three fast checks for determining governability, appeal legitimacy, and power ownership.";
+const permalink = "/diagnostics/self-defense-tools";
+
+const anchorLinks = [
+  { href: "#how-to-use", label: "How to use" },
+  { href: "#governable", label: "Is this system governable?" },
+  { href: "#appeal-real", label: "Is this appeal real?" },
+  { href: "#power-map", label: "Who holds power?" },
+  { href: "#print", label: "Printable sheet" },
+];
+
+const tools = [
+  {
+    id: "governable",
+    eyebrow: "Tool 1",
+    title: "Is this system governable?",
+    description:
+      "Answer these yes/no prompts to determine whether the system can actually be contested.",
+    questions: [
+      "Can you name the accountable owner for this decision?",
+      "Do you have the exact reasons and evidence used?",
+      "Is there a clock for when a response is due?",
+      "Can you reach a human with override authority?",
+      "Is there a documented remedy if the decision is wrong?",
+      "Will you receive a written record of any review outcome?",
+      "Is retaliation or penalty explicitly prohibited?",
+    ],
+    outcomes: [
+      {
+        title: "Mostly yes",
+        result: "Governable enough to proceed",
+        description:
+          "You have the minimum signals needed to contest the decision and document outcomes.",
+        nextSteps: [
+          { label: "Use copy-ready language", href: "/explainers/language-people-can-use" },
+          { label: "Review STD-02 contestability", href: "/standards/std-02-contestability-recourse" },
+          { label: "Log the decision record", href: "/standards/ethotechnics-for-agents" },
+        ],
+      },
+      {
+        title: "Mostly no",
+        result: "Not governable yet",
+        description:
+          "Missing owners, clocks, or remedies means the system is currently uncontestable.",
+        nextSteps: [
+          { label: "Demand a decision record", href: "/standards/std-02-contestability-recourse" },
+          { label: "Review mechanism options", href: "/mechanisms" },
+          { label: "See escalation patterns", href: "/bindings" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "appeal-real",
+    eyebrow: "Tool 2",
+    title: "Is this appeal real or performative?",
+    description:
+      "Check whether the appeal path offers real review or just deflects accountability.",
+    questions: [
+      "Does the appeal route allow new evidence or corrections?",
+      "Is the reviewer independent from the original decision maker?",
+      "Is there a timeline for when a decision will be issued?",
+      "Does the appeal include a remedy if the decision is wrong?",
+      "Can you confirm who approves the reversal?",
+      "Will you receive written reasons for the appeal outcome?",
+    ],
+    outcomes: [
+      {
+        title: "Appeal is real",
+        result: "Substantive review",
+        description:
+          "The appeal path has independent review, a clock, and a clear remedy.",
+        nextSteps: [
+          { label: "Prepare evidence pack inputs", href: "/evidence-packs/std-02" },
+          { label: "Share escalation language", href: "/explainers/language-people-can-use" },
+          { label: "Track response deadlines", href: "/standards/std-02-contestability-recourse" },
+        ],
+      },
+      {
+        title: "Appeal is performative",
+        result: "Deflection without remedy",
+        description:
+          "If there is no reviewer independence or remedy, treat the appeal as symbolic.",
+        nextSteps: [
+          { label: "Request a real escalation path", href: "/standards/std-02-contestability-recourse" },
+          { label: "Document the gap", href: "/diagnostics" },
+          { label: "Reference contestability bindings", href: "/bindings" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "power-map",
+    eyebrow: "Tool 3",
+    title: "Who actually holds power here?",
+    description:
+      "Map the people, institutions, and leverage points that can change the outcome.",
+    questions: [
+      "Who can reverse or pause the decision today?",
+      "Who owns the policy or model behind the decision?",
+      "Which team controls the evidence or logs you need?",
+      "Who is accountable for harm if this goes wrong?",
+      "Which regulator, union, or authority can compel action?",
+      "What reputational or contractual leverage exists?",
+    ],
+    outcomes: [
+      {
+        title: "Power map is clear",
+        result: "Named stewards and levers",
+        description:
+          "You can identify at least one accountable owner and one external lever.",
+        nextSteps: [
+          { label: "Build an escalation path", href: "/mechanisms" },
+          { label: "Check binding requirements", href: "/bindings" },
+          { label: "Align with validators", href: "/validators" },
+        ],
+      },
+      {
+        title: "Power map is opaque",
+        result: "Diffuse ownership",
+        description:
+          "If no accountable owner or lever is visible, treat the system as high risk.",
+        nextSteps: [
+          { label: "Use governance gap prompts", href: "/tools/governance-gap-score" },
+          { label: "Reference accountability language", href: "/explainers/language-people-can-use" },
+          { label: "Document for evidence packs", href: "/evidence-packs" },
+        ],
+      },
+    ],
+  },
+];
+
+const printSheet = {
+  title: "Self-defense diagnostic tools",
+  intro:
+    "Print or save this sheet to run the three quick diagnostics during an appeal or review.",
+  sections: tools.map((tool) => ({
+    title: tool.title,
+    items: tool.questions,
+  })),
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Diagnostics"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Contestability",
+      title: "Self-serve, short-form diagnostics",
+      description:
+        "Use these tools to identify missing owners, fake appeals, and hidden leverage before you escalate.",
+      link: {
+        label: "Read STD-02",
+        href: "/standards/std-02-contestability-recourse",
+      },
+    }}
+  />
+
+  <SectionBlock
+    id="how-to-use"
+    eyebrow="How to use"
+    title="Run each tool in under five minutes."
+    description="Answer yes/no, tally the results, and use the next-step links to move forward."
+  >
+    <ol class="muted self-defense__steps">
+      <li>Pick the tool that matches your situation.</li>
+      <li>Answer each question with a clear yes or no.</li>
+      <li>Count your yes answers and compare to the outcomes below.</li>
+      <li>Use the next-step links to request evidence, remedies, or escalation.</li>
+    </ol>
+  </SectionBlock>
+
+  {tools.map((tool) => (
+    <SectionBlock
+      id={tool.id}
+      eyebrow={tool.eyebrow}
+      title={tool.title}
+      description={tool.description}
+      variant="alt"
+    >
+      <div class="self-defense__tool">
+        <div>
+          <p class="eyebrow">Yes/No prompts</p>
+          <ol class="muted self-defense__questions">
+            {tool.questions.map((question) => (
+              <li>{question}</li>
+            ))}
+          </ol>
+        </div>
+        <div>
+          <p class="eyebrow">Result guidance</p>
+          <CardGrid className="grid--two">
+            {tool.outcomes.map((outcome) => (
+              <CardItem
+                title={outcome.title}
+                description={outcome.description}
+                descriptionTone="default"
+              >
+                <p class="muted small">{outcome.result}</p>
+                <ul class="self-defense__next-steps">
+                  {outcome.nextSteps.map((step) => (
+                    <li>
+                      <a href={step.href}>{step.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </CardItem>
+            ))}
+          </CardGrid>
+        </div>
+      </div>
+    </SectionBlock>
+  ))}
+
+  <SectionBlock
+    id="print"
+    eyebrow="Printable"
+    title="One-page self-defense sheet"
+    description="Print or save the questions so you can run the diagnostics offline."
+  >
+    <div class="self-defense-print screen-only">
+      <div class="self-defense-print__panel">
+        <p class="eyebrow">Print or save</p>
+        <h3>{printSheet.title}</h3>
+        <p class="muted">{printSheet.intro}</p>
+        <div class="actions">
+          <button class="button ghost" type="button" data-self-defense-print>
+            Print sheet
+          </button>
+        </div>
+      </div>
+      <div class="self-defense-print__preview" aria-label="Printable preview">
+        {printSheet.sections.map((section) => (
+          <div class="self-defense-print__section">
+            <p class="self-defense-print__title">{section.title}</p>
+            <ol>
+              {section.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div
+      class="self-defense-print self-defense-print--print print-only"
+      aria-label="Printable sheet"
+    >
+      <h2>{printSheet.title}</h2>
+      <p>{printSheet.intro}</p>
+      {printSheet.sections.map((section) => (
+        <div class="self-defense-print__section">
+          <p class="self-defense-print__title">{section.title}</p>
+          <ol>
+            {section.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ol>
+        </div>
+      ))}
+      <p class="muted self-defense-print__note">
+        Source: Ethotechnics self-defense diagnostics · <a href={permalink}>{permalink}</a>
+      </p>
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<script>
+  const printButton = document.querySelector<HTMLButtonElement>(
+    "[data-self-defense-print]",
+  );
+
+  if (printButton) {
+    printButton.addEventListener("click", () => {
+      window.print();
+    });
+  }
+</script>
+
+<style>
+  .screen-only {
+    display: block;
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  .self-defense__steps,
+  .self-defense__questions,
+  .self-defense__next-steps {
+    padding-left: 1.2rem;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .self-defense__tool {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .self-defense__next-steps {
+    margin-top: 0.8rem;
+  }
+
+  .self-defense-print {
+    border: 1px solid var(--theme-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    background: var(--theme-surface);
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .self-defense-print__panel {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .self-defense-print__preview {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .self-defense-print__section {
+    border: 1px solid color-mix(in srgb, var(--theme-border) 70%, transparent);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .self-defense-print__title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .self-defense-print__note {
+    margin-top: 1.5rem;
+  }
+
+  .self-defense-print--print {
+    gap: 1rem;
+  }
+
+  .self-defense-print--print h2 {
+    margin-bottom: 0.4rem;
+  }
+
+  .self-defense-print--print ol {
+    padding-left: 1.1rem;
+  }
+
+  @media (min-width: 960px) {
+    .self-defense__tool {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .self-defense-print {
+      grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  @media print {
+    .screen-only {
+      display: none;
+    }
+
+    .print-only {
+      display: block;
+    }
+
+    .self-defense-print--print {
+      border: none;
+      padding: 0;
+    }
+
+    .self-defense-print__section {
+      border: 1px solid var(--theme-border);
+      break-inside: avoid;
+    }
+  }
+</style>

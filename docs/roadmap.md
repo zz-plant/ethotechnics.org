@@ -18,8 +18,8 @@ outcome) and link to a spec section below once scoped.
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | Highest-priority work in progress.                                                                                                                                                  | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                         |
 | Keep entries small and actionable.                                                                                                                                                  | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                             |
-|                                                                                                                                                                                     |                                                                                           | - [Contestability pattern library](#contestability-pattern-library)              |
-| - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)        |
+|                                                                                                                                                                                     | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)              |
+| - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) |                                                                                           | - [Governance lessons from incidents](#governance-lessons-from-incidents)        |
 |                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   |                                                                                  |
 |                                                                                                                                                                                     | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability) |
 |                                                                                                                                                                                     | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [TypeScript SDK](#typescript-sdk)                                              |
@@ -160,19 +160,6 @@ under this heading and link to it from the roadmap table.
 - **Dependencies/risks:** Must align with STD-01 framing without re-litigating standards language.
 - **Issue link:** Issue: TBD / Spec: #minimum-viable-contestability-standard
 
-## Self-defense diagnostic tools
-
-- **Problem:** People need fast, concrete diagnostics to move from frustration to structured
-  critique.
-- **Scope:** Create three short tools: “Is this system governable?” (5–10 yes/no questions), “Is
-  this appeal real or fake?”, and “Who actually holds power here?”
-- **UX/Tech notes:** Use consistent question blocks that work for benefits portals, workplace
-  tools, platform bans, and AI agent interactions; include a print/export option.
-- **Acceptance criteria:** Each tool yields a clear result (governable vs. not, appeal real vs.
-  performative, power map) with next-step links.
-- **Dependencies/risks:** Needs careful wording to avoid implying legal advice.
-- **Issue link:** Issue: TBD / Spec: #self-defense-diagnostic-tools
-
 ## Contestability pattern library
 
 - **Problem:** Teams lack concrete examples of contestability patterns (good and bad).
@@ -269,6 +256,14 @@ future updates can build on what already shipped.
 - **Notes:** Includes a print view with grouped phrases to share in audits or appeals.
 - **Issue link:** Issue: TBD / Spec: #language-people-can-use
 
+### Self-defense diagnostic tools
+
+- **Problem:** People need fast, concrete diagnostics to move from frustration to structured
+  critique.
+- **Outcome:** Published three short tools that cover governability checks, appeal legitimacy, and
+  power mapping, each with a printable sheet and next-step links.
+- **Notes:** The tools live under the diagnostics menu and include print-ready question blocks.
+- **Issue link:** Issue: TBD / Spec: #self-defense-diagnostic-tools
 ### Minimum viable contestability standard
 
 - **Problem:** Advocates and journalists lacked a concrete, shareable yardstick for accountability.
