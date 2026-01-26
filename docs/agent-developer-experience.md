@@ -154,6 +154,50 @@ Make bad outcomes hard.
 - `.vscode/settings.json` pins format-on-save behavior and uses the workspace TypeScript version so
   diagnostics match the scripts in `package.json`.
 
+## MCP integration
+
+If your environment supports [Model Context Protocol](https://modelcontextprotocol.io), enable the
+project MCP server for structured access to project context:
+
+```bash
+bun run mcp
+```
+
+### Available resources
+
+| URI                         | Description                  |
+| --------------------------- | ---------------------------- |
+| `project://structure`       | Project layout and key paths |
+| `project://scripts`         | Package.json scripts         |
+| `project://agents-guidance` | Aggregated AGENTS.md content |
+| `docs://index`              | Documentation listing        |
+
+### Available prompts
+
+| Name              | Purpose                     |
+| ----------------- | --------------------------- |
+| `design-engineer` | Design-engineer mode prompt |
+| `code-review`     | Code review template        |
+| `new-component`   | Astro component scaffolding |
+
+### Key tools
+
+| Tool                     | Description                |
+| ------------------------ | -------------------------- |
+| `list_available_scripts` | Package.json scripts       |
+| `get_component_list`     | Astro components in src/   |
+| `read_docs`              | Read documentation files   |
+| `run_check`              | Execute full project check |
+| `list_workflows`         | Agent workflow definitions |
+
+## Agent workflows
+
+Predefined workflows live in `.agent/workflows/`:
+
+- **qa.md** — run full QA suite
+- **fix-types.md** — resolve TypeScript errors
+- **ui-verify.md** — browser-based verification
+
 ## Improvements still needed
 
 - None noted.

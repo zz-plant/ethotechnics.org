@@ -23,6 +23,25 @@ and easy to review.
 - Run `bun run check` before committing for code or mixed changes.
 - Check for scoped `AGENTS.md` files in subfolders before editing.
 
+## Tool-supported agents (MCP)
+
+If your AI tooling supports [Model Context Protocol](https://modelcontextprotocol.io), start the
+MCP server with `bun run mcp` to access project context, docs, and workflows programmatically.
+
+Available MCP capabilities:
+
+- **Resources:** project structure, documentation index, AGENTS guidance
+- **Prompts:** design-engineer mode, code review templates
+- **Tools:** list scripts, read docs, analyze builds, run checks
+
+## Agent workflows
+
+Check `.agent/workflows/` for predefined task workflows:
+
+- `qa.md` — full quality assurance checks
+- `fix-types.md` — TypeScript error resolution
+- `ui-verify.md` — browser-based UI verification
+
 ## Where to look next
 
 - Repository orientation: `docs/agents/repo-orientation.md`

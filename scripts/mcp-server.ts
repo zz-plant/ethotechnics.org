@@ -319,6 +319,431 @@ server.tool(
   },
 );
 
+// Tool: List workflows
+server.tool(
+  "list_workflows",
+  "List available agent workflows from .agent/workflows/",
+  {},
+  async () => {
+    try {
+      const workflowsDir = join(getProjectRoot(), ".agent", "workflows");
+      const glob = new Bun.Glob("*.md");
+      const workflows: { name: string; description: string }[] = [];
+
+      for await (const file of glob.scan({ cwd: workflowsDir })) {
+        const fullPath = join(workflowsDir, file);
+        const content = await Bun.file(fullPath).text();
+        // Extract description from frontmatter
+        const match = content.match(/^---\s*\n(?:.*\n)*?description:\s*(.+)\n(?:.*\n)*?---/m);
+        const description = match?.[1] || "No description";
+        workflows.push({ name: file.replace(".md", ""), description });
+      }
+
+      return textResponse(
+        workflows.map((w) => `${w.name}: ${w.description}`).join("\n") || "No workflows found",
+      );
+    } catch (error) {
+      return errorResponse(
+        `Error listing workflows: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+// Tool: Read workflow
+server.tool(
+  "read_workflow",
+  "Read a specific agent workflow definition",
+  {
+    name: z.string().describe("The workflow name (without .md extension)"),
+  },
+  async ({ name }) => {
+    try {
+      const workflowPath = join(getProjectRoot(), ".agent", "workflows", `${name}.md`);
+      const content = await Bun.file(workflowPath).text();
+      return textResponse(content);
+    } catch (error) {
+      return errorResponse(
+        `Error reading workflow: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+// Tool: Search docs
+server.tool(
+  "search_docs",
+  "Search documentation files for a pattern",
+  {
+    query: z.string().describe("The search pattern to look for"),
+  },
+  async ({ query }) => {
+    try {
+      const docsDir = join(getProjectRoot(), "docs");
+      const glob = new Bun.Glob("**/*.md");
+      const results: { file: string; line: number; content: string }[] = [];
+
+      for await (const file of glob.scan({ cwd: docsDir })) {
+        const fullPath = join(docsDir, file);
+        const content = await Bun.file(fullPath).text();
+        const lines = content.split("\n");
+
+        lines.forEach((line, index) => {
+          if (line.toLowerCase().includes(query.toLowerCase())) {
+            results.push({
+              file,
+              line: index + 1,
+              content: line.trim().substring(0, 100),
+            });
+          }
+        });
+      }
+
+      if (results.length === 0) {
+        return textResponse(`No matches found for "${query}"`);
+      }
+
+      return textResponse(
+        results
+          .slice(0, 20) // Limit to 20 results
+          .map((r) => `${r.file}:${r.line}: ${r.content}`)
+          .join("\n"),
+      );
+    } catch (error) {
+      return errorResponse(
+        `Error searching docs: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+// Tool: Get AGENTS guidance for a path
+server.tool(
+  "get_agents_guidance",
+  "Get the applicable AGENTS.md guidance for a file path",
+  {
+    filepath: z.string().describe("The file path to get guidance for (relative to project root)"),
+  },
+  async ({ filepath }) => {
+    try {
+      const projectRoot = getProjectRoot();
+      const targetPath = resolve(projectRoot, filepath);
+
+      // Walk up from the target path looking for AGENTS.md files
+      const agentsFiles: string[] = [];
+      let currentDir = targetPath;
+
+      while (currentDir.startsWith(projectRoot)) {
+        const stats = await lstat(currentDir).catch(() => null);
+        if (stats?.isFile()) {
+          currentDir = resolve(currentDir, "..");
+        }
+        const agentsPath = join(currentDir, "AGENTS.md");
+        try {
+          await lstat(agentsPath);
+          agentsFiles.push(agentsPath);
+        } catch {
+          // No AGENTS.md at this level
+        }
+        const parent = resolve(currentDir, "..");
+        if (parent === currentDir) break;
+        currentDir = parent;
+      }
+
+      if (agentsFiles.length === 0) {
+        return textResponse("No AGENTS.md files found in path hierarchy");
+      }
+
+      // Read all found AGENTS.md files (most specific first)
+      const contents = await Promise.all(
+        agentsFiles.map(async (path) => {
+          const content = await Bun.file(path).text();
+          return `--- ${relative(projectRoot, path)} ---\n${content}`;
+        }),
+      );
+
+      return textResponse(contents.join("\n\n"));
+    } catch (error) {
+      return errorResponse(
+        `Error getting AGENTS guidance: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+// ============================================================================
+// MCP RESOURCES
+// ============================================================================
+
+// Resource: Project structure
+server.resource(
+  "project://structure",
+  "project://structure",
+  async () => {
+    const structure = `# Project Structure
+
+## Key Directories
+- src/pages/ — Astro route files
+- src/components/ — Shared UI components
+- src/layouts/ — Page layouts (BaseLayout)
+- src/styles/ — Global CSS and tokens
+- src/content/ — Content collections
+- docs/ — Documentation
+- scripts/ — Build and utility scripts
+- .agent/workflows/ — Agent task workflows
+
+## Configuration Files
+- astro.config.mjs — Astro configuration
+- wrangler.toml — Cloudflare Workers config
+- package.json — Dependencies and scripts
+- tsconfig.json — TypeScript configuration
+
+## Agent Guidance
+- AGENTS.md — Root agent instructions
+- src/AGENTS.md — Source code conventions
+- docs/AGENTS.md — Documentation conventions
+`;
+    return { contents: [{ uri: "project://structure", text: structure, mimeType: "text/markdown" }] };
+  },
+);
+
+// Resource: Package scripts
+server.resource(
+  "project://scripts",
+  "project://scripts",
+  async () => {
+    const pkg = (await Bun.file(join(getProjectRoot(), "package.json")).json()) as {
+      scripts?: Record<string, string>;
+    };
+    const scripts = Object.entries(pkg.scripts || {})
+      .map(([name, cmd]) => `- \`${name}\`: ${cmd}`)
+      .join("\n");
+    return {
+      contents: [
+        { uri: "project://scripts", text: `# Available Scripts\n\n${scripts}`, mimeType: "text/markdown" },
+      ],
+    };
+  },
+);
+
+// Resource: Aggregated AGENTS guidance
+server.resource(
+  "project://agents-guidance",
+  "project://agents-guidance",
+  async () => {
+    const projectRoot = getProjectRoot();
+    const agentsPaths = [
+      "AGENTS.md",
+      "src/AGENTS.md",
+      "src/pages/AGENTS.md",
+      "src/components/AGENTS.md",
+      "docs/AGENTS.md",
+    ];
+
+    const contents: string[] = [];
+    for (const relPath of agentsPaths) {
+      try {
+        const content = await Bun.file(join(projectRoot, relPath)).text();
+        contents.push(`## ${relPath}\n\n${content}`);
+      } catch {
+        // File doesn't exist, skip
+      }
+    }
+
+    return {
+      contents: [
+        {
+          uri: "project://agents-guidance",
+          text: `# Aggregated AGENTS Guidance\n\n${contents.join("\n\n---\n\n")}`,
+          mimeType: "text/markdown",
+        },
+      ],
+    };
+  },
+);
+
+// Resource: Agent workflows
+server.resource(
+  "project://workflows",
+  "project://workflows",
+  async () => {
+    const workflowsDir = join(getProjectRoot(), ".agent", "workflows");
+    const glob = new Bun.Glob("*.md");
+    const workflows: string[] = [];
+
+    try {
+      for await (const file of glob.scan({ cwd: workflowsDir })) {
+        const fullPath = join(workflowsDir, file);
+        const content = await Bun.file(fullPath).text();
+        workflows.push(`## ${file}\n\n${content}`);
+      }
+    } catch {
+      // Workflows directory might not exist
+    }
+
+    return {
+      contents: [
+        {
+          uri: "project://workflows",
+          text:
+            workflows.length > 0
+              ? `# Agent Workflows\n\n${workflows.join("\n\n---\n\n")}`
+              : "# Agent Workflows\n\nNo workflows defined yet.",
+          mimeType: "text/markdown",
+        },
+      ],
+    };
+  },
+);
+
+// Resource: Documentation index
+server.resource(
+  "docs://index",
+  "docs://index",
+  async () => {
+    const docsDir = join(getProjectRoot(), "docs");
+    const glob = new Bun.Glob("**/*.md");
+    const files: string[] = [];
+
+    for await (const file of glob.scan({ cwd: docsDir })) {
+      files.push(`- [${file}](docs/${file})`);
+    }
+
+    return {
+      contents: [
+        {
+          uri: "docs://index",
+          text: `# Documentation Index\n\n${files.sort().join("\n")}`,
+          mimeType: "text/markdown",
+        },
+      ],
+    };
+  },
+);
+
+// ============================================================================
+// MCP PROMPTS
+// ============================================================================
+
+// Prompt: Design engineer mode
+server.prompt(
+  "design-engineer",
+  "Activate design-engineer mode for taste-focused development",
+  async () => ({
+    messages: [
+      {
+        role: "user",
+        content: {
+          type: "text",
+          text: `SYSTEM PROMPT — Design-Engineer Mode
+
+You are operating as a design engineer.
+Your job is to encode taste as structure, not to ship one-off solutions.
+
+Global Constraints (Always On)
+
+1. Prefer composable systems
+   - Decompose work into orthogonal primitives
+   - Primitives must compose safely
+   - Avoid bespoke or tightly coupled logic unless unavoidable
+
+2. Expose perceptual controls
+   - Public interfaces use human-meaningful parameters: duration, delay, easing, intensity, distance
+   - Hide low-level mechanics unless explicitly required
+   - Defaults must feel intentional
+
+3. Accessibility is default
+   - Automatically respect system accessibility settings
+   - Reduced-motion behavior must minimize spatial movement while preserving non-spatial affordances
+   - No opt-in accessibility
+
+4. Performance is UX
+   - Prefer GPU-friendly, predictable execution
+   - Avoid layout-thrashing patterns
+   - Assume mid-range mobile hardware
+
+5. Exploration-first
+   - Designs must be safe to experiment with
+   - Use bounded ranges and sensible defaults
+   - Easy to reset, tweak, or undo
+
+6. Optimize for legibility
+   - Code should communicate intent
+   - Favor clarity over cleverness
+
+7. Ship complete surfaces
+   - Outputs must be usable and integrable
+   - Avoid demo-only abstractions
+
+Decision Heuristic: fewer primitives, clearer knobs, safer defaults, better composability.`,
+        },
+      },
+    ],
+  }),
+);
+
+// Prompt: Code review
+server.prompt(
+  "code-review",
+  "Template for reviewing code changes",
+  {
+    files: z.string().optional().describe("Comma-separated list of files to review"),
+  },
+  async ({ files }) => ({
+    messages: [
+      {
+        role: "user",
+        content: {
+          type: "text",
+          text: `Please review the following code changes${files ? ` in: ${files}` : ""}.
+
+Check for:
+1. **Correctness**: Does the code do what it's supposed to?
+2. **TypeScript**: Are types explicit and avoiding \`any\`?
+3. **Accessibility**: Are focus states, ARIA labels, and semantic HTML correct?
+4. **Performance**: Are there unnecessary re-renders, large bundles, or layout thrashing?
+5. **Consistency**: Does the code match existing patterns in the codebase?
+6. **Testing**: Are there tests for new behavior?
+
+Provide specific, actionable feedback with file locations and suggested fixes.`,
+        },
+      },
+    ],
+  }),
+);
+
+// Prompt: New component
+server.prompt(
+  "new-component",
+  "Scaffold a new Astro component",
+  {
+    name: z.string().describe("Name of the component (PascalCase)"),
+    description: z.string().optional().describe("Brief description of the component"),
+  },
+  async ({ name, description }) => ({
+    messages: [
+      {
+        role: "user",
+        content: {
+          type: "text",
+          text: `Create a new Astro component called \`${name}\`${description ? `: ${description}` : ""}.
+
+Requirements:
+1. Place in \`src/components/${name}.astro\`
+2. Use TypeScript interface for props
+3. Follow existing component patterns in the codebase
+4. Prefer server-side rendering (no \`client:*\` unless interaction is required)
+5. Use semantic HTML and existing CSS utility classes from \`src/styles/global.css\`
+6. Include accessible focus states and ARIA attributes where appropriate
+7. Document optional props with JSDoc comments
+
+Provide the complete component code.`,
+        },
+      },
+    ],
+  }),
+);
+
 
 // Start server
 async function main() {
