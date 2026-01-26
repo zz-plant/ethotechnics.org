@@ -137,16 +137,16 @@ export const homeContent = {
     },
     actions: [
       {
-        label: "Run a System Health Check",
-        href: "/diagnostics",
+        label: "Start here",
+        href: "/start-here",
         variant: "primary",
-        icon: "lucide:stethoscope",
+        icon: "lucide:compass",
       },
       {
-        label: "Browse mechanisms",
-        href: "/mechanisms",
+        label: "Run a System Health Check",
+        href: "/diagnostics",
         variant: "ghost",
-        icon: "lucide:library",
+        icon: "lucide:stethoscope",
       },
     ],
     quickLinks: [
@@ -174,8 +174,9 @@ export const homeContent = {
     ],
     panel: {
       title: "Plan the next step",
-      description: "Pick the pathway that removes the most risk, fastest.",
-      pills: ["Diagnostics", "Mechanisms", "Fundamentals", "Studio support"],
+      description:
+        "Start with the guided entry points, then choose the pathway that removes the most risk, fastest.",
+      pills: ["Start here", "Diagnostics", "Mechanisms", "Studio support"],
     },
     media: {
       src: "/assets/ethotechnics-hero-map.svg",

@@ -31,6 +31,7 @@ const {
   lastUpdated,
   updateCadence,
 } = researchContent;
+const priorityAgenda = agenda.slice(0, 3);
 const { cspNonce } = Astro.locals;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const summaryLinks = anchorLinks.slice(0, 5);
@@ -146,6 +147,29 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     relatedLinks={summaryRelatedLinks}
     jumpLinks={summaryLinks}
   />
+  <SectionBlock
+    id="priorities"
+    eyebrow="Current priorities"
+    title="Three agenda lines to start with."
+    description="Begin here if you want the most active research questions in motion."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {
+        priorityAgenda.map((item) => (
+          <CardItem
+            meta={item.timeframe}
+            title={item.title}
+            description={item.goals?.[0]}
+          >
+            <a slot="footer" class="muted" href="#agenda">
+              View agenda entry
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
   <SectionBlock
     id="research-start"
     eyebrow="Start here"
@@ -289,7 +313,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       {researchSuggestions.map((suggestion) => <option value={suggestion} />)}
     </datalist>
     <p class="muted research-filter__hint">
-      Search across research entries or narrow by section and tags.
+      Search across research entries, use section filters for roadmap items, and
+      tags to find related publications and artifacts.
     </p>
     <p
       class="muted research-filter__count"

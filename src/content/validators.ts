@@ -58,6 +58,7 @@ export const validatorsContent: ValidatorsContent = {
     "Interactive validators that score systems against Ethotechnics standards.",
   permalink: "/validators",
   anchorLinks: [
+    { href: "#focus", label: "Browse by focus" },
     { href: "#tools", label: "Validator tools" },
     { href: "#method", label: "Method" },
   ],
