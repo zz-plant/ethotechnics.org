@@ -84,6 +84,10 @@ const { cspNonce } = Astro.locals;
       { href: "#decision-guide", label: "Decision guide" },
     ]}
   />
+  <p class="muted small">
+    If you only do one thing today, follow the recommended first step and pull
+    the artifact list for your team.
+  </p>
   {
     recommendedCard && (
       <div class="callout callout--emphasis" id="recommended">
@@ -100,6 +104,26 @@ const { cspNonce } = Astro.locals;
           )}
           <a class="button ghost" href="#routes">
             View all pathways
+          </a>
+        </SectionActions>
+      </div>
+    )
+  }
+  {
+    !recommendedCard && (
+      <div class="callout callout--emphasis" id="recommended">
+        <p class="eyebrow">Recommended first step</p>
+        <h3>Start with the pathways</h3>
+        <p class="muted">
+          Use the pathway list to match your role, then grab the artifact bundle
+          before your next handoff.
+        </p>
+        <SectionActions className="callout__actions">
+          <a class="button primary" href="#routes">
+            View pathways
+          </a>
+          <a class="button ghost" href="#artifacts">
+            Jump to artifacts
           </a>
         </SectionActions>
       </div>

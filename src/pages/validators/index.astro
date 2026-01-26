@@ -17,6 +17,19 @@ const {
   method,
 } = validatorsContent;
 const featuredValidators = validators.slice(0, 2);
+const focusGroups = [
+  {
+    title: "Time burden & friction",
+    description:
+      "Validators that surface constructive denial and high-friction risk.",
+    validators: validators.slice(0, 2),
+  },
+  {
+    title: "Latency & bounded duration",
+    description: "Validators that confirm time limits and escalation readiness.",
+    validators: validators.slice(2, 3),
+  },
+];
 const { cspNonce } = Astro.locals;
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
@@ -85,6 +98,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       { href: "#method", label: "Method" },
     ]}
   />
+  <p class="muted small">
+    Diagnostics help you explore system conditions; validators score those
+    conditions against standards and return a pass/fail-style report card.
+  </p>
   <div class="callout">
     <h3>Cross-link to rights and mechanisms</h3>
     <p class="muted">
@@ -132,6 +149,31 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             >
               Run {validator.title}
             </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="focus"
+    eyebrow="Browse by focus"
+    title="Pick the validator that matches your highest-risk touchpoint."
+    description="Use these focus groups to scan the right validator quickly."
+  >
+    <CardGrid className="grid--two">
+      {
+        focusGroups.map((group) => (
+          <CardItem title={group.title} description={group.description}>
+            <ul class="muted">
+              {group.validators.map((validator) => (
+                <li>
+                  <a href={`/validators/${validator.slug}`}>
+                    {validator.id}: {validator.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </CardItem>
         ))
       }
