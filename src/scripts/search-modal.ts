@@ -95,6 +95,9 @@ type SearchInstance = {
   handleDocumentClick: (event: MouseEvent) => void;
 };
 
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 const initSearch = () => {
   const searchContainers = Array.from(
     document.querySelectorAll<HTMLElement>("[data-search-container]"),
@@ -219,13 +222,15 @@ const initSearch = () => {
     `;
 
     if (query) {
+      const escapedQuery = escapeRegExp(query);
+      const highlightRegex = new RegExp(`(${escapedQuery})`, "gi");
       wrapper
         .querySelectorAll<HTMLElement>(
           ".search-result__title, .search-result__excerpt",
         )
         .forEach((node) => {
           node.innerHTML = node.innerHTML.replace(
-            new RegExp(`(${query})`, "gi"),
+            highlightRegex,
             "<mark>$1</mark>",
           );
         });
