@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: Ethotechnics Control Plane API
+  version: 0.1.0
+  description: >-
+    Draft OpenAPI specification for decision receipts and appeal intake. Payloads mirror
+    the canonical agent receipt schema (decision, appeal_path, clocks) published at
+    /standards/agent-receipt-schema.json.
+servers:
+  - url: https://ethotechnics.org
+paths:
+  /api/decisions/{decision_id}:
+    get:
+      summary: Retrieve a decision receipt
+      description: Resolve a single decision record with contestability fields and clocks.
+      parameters:
+        - in: path
+          name: decision_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Decision receipt payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DecisionReceipt"
+        "404":
+          description: Decision not found
+  /api/appeals:
+    post:
+      summary: Submit an appeal
+      description: Intake an appeal tied to a decision receipt and return a tracking ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppealSubmission"
+      responses:
+        "202":
+          description: Appeal accepted for review
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppealReceipt"
+components:
+  schemas:
+    DecisionReceipt:
+      type: object
+      required:
+        - decision_id
+        - receipt_id
+        - issued_at
+        - decision
+        - appeal_path
+        - clocks
+      properties:
+        decision_id:
+          type: string
+        receipt_id:
+          type: string
+        issued_at:
+          type: string
+          format: date-time
+        decision:
+          type: object
+          required: [decision_type, reason_codes, inputs]
+          properties:
+            decision_type:
+              type: string
+            reason_codes:
+              type: array
+              items:
+                type: string
+            inputs:
+              type: array
+              items:
+                type: string
+        appeal_path:
+          type: object
+          required: [url, channel, expected_response]
+          properties:
+            url:
+              type: string
+            channel:
+              type: string
+            expected_response:
+              type: string
+        clocks:
+          type: object
+          properties:
+            ack:
+              type: object
+              properties:
+                hours:
+                  type: number
+            review:
+              type: object
+              properties:
+                hours:
+                  type: number
+            remedy:
+              type: object
+              properties:
+                hours:
+                  type: number
+            appeal:
+              type: object
+              properties:
+                hours:
+                  type: number
+    AppealSubmission:
+      type: object
+      required:
+        - decision_id
+        - appellant
+        - reason
+      properties:
+        decision_id:
+          type: string
+        appellant:
+          type: object
+          required: [id, contact]
+          properties:
+            id:
+              type: string
+            contact:
+              type: string
+        reason:
+          type: string
+        attachments:
+          type: array
+          items:
+            type: string
+    AppealReceipt:
+      type: object
+      required:
+        - appeal_id
+        - decision_id
+        - submitted_at
+        - status
+      properties:
+        appeal_id:
+          type: string
+        decision_id:
+          type: string
+        submitted_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [accepted, queued, rejected]
+        expected_response:
+          type: string
