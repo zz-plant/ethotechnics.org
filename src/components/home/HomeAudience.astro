@@ -1,0 +1,104 @@
+---
+import CardGrid from "../CardGrid.astro";
+import CardItem from "../CardItem.astro";
+import SectionBlock from "../SectionBlock.astro";
+---
+
+<SectionBlock
+  id="audience"
+  eyebrow="Audience selector"
+  title="Route to the right artifacts in one click."
+  description="Each audience path reorders the stack to match the work you do."
+  variant="alt"
+>
+  <CardGrid className="grid--two audience-grid">
+    <CardItem
+      title="I am building an automated system or agent"
+      description="Fast path, mechanisms, and concrete implementation examples."
+      className="audience-card"
+    >
+      <div class="audience-card__actions">
+        <a class="button primary button--compact" href="/start-here?persona=builder">
+          Start: Build & ship
+        </a>
+        <ul class="audience-card__links muted">
+          <li>
+            <a href="/fast-path">Fast path</a>
+          </li>
+          <li>
+            <a href="/mechanisms">Mechanisms</a>
+          </li>
+          <li>
+            <a href="/examples">Worked examples</a>
+          </li>
+        </ul>
+      </div>
+    </CardItem>
+    <CardItem
+      title="I am auditing or governing a system"
+      description="Evidence, bindings, and minimum enforceable requirements."
+      className="audience-card"
+    >
+      <div class="audience-card__actions">
+        <a class="button primary button--compact" href="/start-here?persona=auditor">
+          Start: Audit & govern
+        </a>
+        <ul class="audience-card__links muted">
+          <li>
+            <a href="/evidence-packs">Evidence packs</a>
+          </li>
+          <li>
+            <a href="/bindings">Binding vectors</a>
+          </li>
+          <li>
+            <a href="/standards">Minimum binding sets</a>
+          </li>
+        </ul>
+      </div>
+    </CardItem>
+    <CardItem
+      title="I am writing policy or procurement language"
+      description="Standards, where they bind, and enforceable clauses."
+      className="audience-card"
+    >
+      <div class="audience-card__actions">
+        <a class="button primary button--compact" href="/start-here?persona=policy">
+          Start: Draft policy
+        </a>
+        <ul class="audience-card__links muted">
+          <li>
+            <a href="/standards">Standards + clauses</a>
+          </li>
+          <li>
+            <a href="/bindings#procurement">Procurement language</a>
+          </li>
+          <li>
+            <a href="/anti-weaponization">Anti-weaponization constraints</a>
+          </li>
+        </ul>
+      </div>
+    </CardItem>
+    <CardItem
+      title="I am researching or teaching"
+      description="Research, glossary anchors, and mapping artifacts."
+      className="audience-card"
+    >
+      <div class="audience-card__actions">
+        <a class="button primary button--compact" href="/start-here?persona=research">
+          Start: Teach & research
+        </a>
+        <ul class="audience-card__links muted">
+          <li>
+            <a href="/research">Research</a>
+          </li>
+          <li>
+            <a href="/glossary">Glossary</a>
+          </li>
+          <li>
+            <a href="/field-notes">Field notes</a>
+          </li>
+        </ul>
+      </div>
+    </CardItem>
+  </CardGrid>
+</SectionBlock>

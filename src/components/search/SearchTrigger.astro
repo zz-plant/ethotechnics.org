@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  label?: string;
+  shortcut?: string;
+}
+
+const { label = "Search the library…", shortcut = "/" } = Astro.props;
+---
+
+<button
+  class="search-trigger"
+  type="button"
+  aria-label="Open search"
+  data-search-trigger
+>
+  <Icon name="lucide:search" class="search-icon" />
+  <span class="search-label">{label}</span>
+  <kbd class="search-kbd">{shortcut}</kbd>
+</button>
