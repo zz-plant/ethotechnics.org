@@ -30,6 +30,7 @@ const anchorLinks = [
   { href: "#anti-weaponization", label: "Anti-weaponization checks" },
   { href: "#quick-triage", label: "Quick triage" },
   { href: "#how-it-works", label: "How sessions run" },
+  { href: "#self-defense-tools", label: "Self-defense tools" },
   { href: "#diagnostic-tools", label: "Diagnostics menu" },
   { href: "#referenced-by", label: "Referenced by" },
 ];
@@ -55,6 +56,29 @@ const quickTriagePrompts = [
     description: "Forecast long-term stability and remediation timing.",
     href: "/diagnostics/capacity-forecaster",
     label: "Open Capacity Forecaster",
+  },
+];
+const selfDefenseTools = [
+  {
+    title: "Is this system governable?",
+    description:
+      "Seven yes/no checks to confirm whether the decision can be contested.",
+    href: "/diagnostics/self-defense-tools#governable",
+    label: "Run governability check",
+  },
+  {
+    title: "Is this appeal real?",
+    description:
+      "Detect whether an appeal is substantive or performative.",
+    href: "/diagnostics/self-defense-tools#appeal-real",
+    label: "Run appeal check",
+  },
+  {
+    title: "Who holds power?",
+    description:
+      "Map the people and levers that can reverse the outcome.",
+    href: "/diagnostics/self-defense-tools#power-map",
+    label: "Map power",
   },
 ];
 ---
@@ -263,6 +287,29 @@ const quickTriagePrompts = [
       }
     </ol>
     <p class="muted diagnostics__footnote">{facilitation.note}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="self-defense-tools"
+    eyebrow="Self-defense diagnostics"
+    title="Short-form checks for appeal, governability, and power."
+    description="Use these three tools when you need fast answers before escalating."
+  >
+    <CardGrid className="grid--three">
+      {
+        selfDefenseTools.map((tool) => (
+          <CardItem
+            title={tool.title}
+            description={tool.description}
+            descriptionTone="default"
+          >
+            <a slot="footer" class="muted" href={tool.href}>
+              {tool.label}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock
