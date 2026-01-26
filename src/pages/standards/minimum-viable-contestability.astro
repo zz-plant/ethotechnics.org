@@ -1,0 +1,270 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { minimumViableContestabilityContent } from "../../content/minimum-viable-contestability";
+
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  anchorLinks,
+  panelCopy,
+  summary,
+  sections,
+  textOnly,
+} = minimumViableContestabilityContent;
+
+const textOnlyContent = [
+  summary.title,
+  `Permalink: ${permalink}`,
+  "",
+  "One-screen summary",
+  ...summary.items.map((item) => `- ${item.title}: ${item.description}`),
+  "",
+  "Baseline requirements",
+  ...sections.flatMap((section) => [
+    section.title,
+    ...section.requirements.map((requirement) => `- ${requirement}`),
+    "",
+  ]),
+]
+  .join("\n")
+  .trim();
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Standard"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={panelCopy}
+  />
+
+  <SectionBlock
+    id="summary"
+    eyebrow="One-screen summary"
+    title={summary.title}
+    description={summary.description}
+  >
+    <div class="mvc-summary screen-only">
+      <div class="mvc-summary__list" aria-label="Minimum viable contestability summary">
+        <ul>
+          {summary.items.map((item) => (
+            <li>
+              <strong>{item.title}:</strong>
+              {" "}
+              {item.description}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <aside class="mvc-summary__actions" aria-label="Summary actions">
+        <p class="eyebrow">Quick actions</p>
+        <h3>Share or print this baseline</h3>
+        <p class="muted">
+          Use the one-page summary for audits, briefings, or stakeholder alignment.
+        </p>
+        <div class="mvc-summary__buttons">
+          <button class="button ghost" type="button" data-summary-print>
+            Print summary
+          </button>
+          <button class="button ghost" type="button" data-text-copy>
+            Copy text-only version
+          </button>
+        </div>
+        <p class="muted mvc-summary__note">
+          Use the text-only version to quote the standard in tickets or email.
+        </p>
+      </aside>
+    </div>
+    <div class="mvc-summary mvc-summary--print print-only">
+      <h2>{summary.title}</h2>
+      <p>{summary.description}</p>
+      <ul>
+        {summary.items.map((item) => (
+          <li>
+            <strong>{item.title}:</strong>
+            {" "}
+            {item.description}
+          </li>
+        ))}
+      </ul>
+      <p class="muted mvc-summary__note">Source: {permalink}</p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="standard"
+    eyebrow="Baseline requirements"
+    title="Minimum viable contestability standard"
+    description="Each requirement is written to be direct, auditable, and safe for affected people."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {sections.map((section) => (
+        <CardItem
+          id={section.id}
+          title={section.title}
+          description={section.summary}
+          descriptionTone="default"
+        >
+          <ul class="mvc-list">
+            {section.requirements.map((requirement) => (
+              <li>{requirement}</li>
+            ))}
+          </ul>
+          <p class="eyebrow mvc-evidence__eyebrow">Minimum evidence</p>
+          <ul class="mvc-evidence">
+            {section.evidence.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="text"
+    eyebrow={textOnly.title}
+    title="Text-only version for quoting"
+    description={textOnly.description}
+  >
+    <div class="mvc-text" aria-label="Text-only version">
+      <pre class="mvc-text__block" data-text-block>{textOnlyContent}</pre>
+    </div>
+  </SectionBlock>
+</BaseLayout>
+
+<script>
+  const printButton = document.querySelector<HTMLButtonElement>(
+    "[data-summary-print]",
+  );
+  const copyButton = document.querySelector<HTMLButtonElement>(
+    "[data-text-copy]",
+  );
+  const textBlock = document.querySelector<HTMLElement>("[data-text-block]");
+
+  if (printButton) {
+    printButton.addEventListener("click", () => {
+      window.print();
+    });
+  }
+
+  if (copyButton && textBlock) {
+    copyButton.addEventListener("click", async () => {
+      const text = textBlock.textContent?.trim() ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+        copyButton.textContent = "Text copied";
+        window.setTimeout(() => {
+          copyButton.textContent = "Copy text-only version";
+        }, 2000);
+      } catch (error) {
+        copyButton.textContent = "Copy failed";
+        window.setTimeout(() => {
+          copyButton.textContent = "Copy text-only version";
+        }, 2000);
+      }
+    });
+  }
+</script>
+
+<style>
+  .screen-only {
+    display: block;
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  .mvc-summary {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .mvc-summary__list ul {
+    display: grid;
+    gap: 1rem;
+    padding-left: 1.2rem;
+    margin: 0;
+  }
+
+  .mvc-summary__list li {
+    line-height: 1.6;
+  }
+
+  .mvc-summary__actions {
+    border: 1px solid var(--theme-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    background: var(--theme-surface);
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .mvc-summary__buttons {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .mvc-summary__note {
+    margin-top: 0.5rem;
+  }
+
+  .mvc-list,
+  .mvc-evidence {
+    list-style: disc;
+    padding-left: 1.2rem;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .mvc-evidence__eyebrow {
+    margin-top: 1rem;
+  }
+
+  .mvc-text {
+    border: 1px solid var(--theme-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    background: var(--theme-surface);
+  }
+
+  .mvc-text__block {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: "Source Serif 4", "Times New Roman", serif;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .mvc-summary {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media print {
+    .screen-only {
+      display: none;
+    }
+
+    .print-only {
+      display: block;
+    }
+
+    .mvc-summary {
+      border: none;
+      padding: 0;
+    }
+  }
+</style>

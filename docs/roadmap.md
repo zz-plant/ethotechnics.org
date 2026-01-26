@@ -18,7 +18,7 @@ outcome) and link to a spec section below once scoped.
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | Highest-priority work in progress.                                                                                                                                                  | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                         |
 | Keep entries small and actionable.                                                                                                                                                  | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                             |
-|                                                                                                                                                                                     | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)              |
+|                                                                                                                                                                                     |                                                                                           | - [Contestability pattern library](#contestability-pattern-library)              |
 | - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)        |
 |                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   |                                                                                  |
 |                                                                                                                                                                                     | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability) |
@@ -260,6 +260,15 @@ future updates can build on what already shipped.
   blocks for workplaces, public services, and platforms, plus a printable sheet.
 - **Notes:** Includes a print view with grouped phrases to share in audits or appeals.
 - **Issue link:** Issue: TBD / Spec: #language-people-can-use
+
+### Minimum viable contestability standard
+
+- **Problem:** Advocates and journalists lacked a concrete, shareable yardstick for accountability.
+- **Outcome:** Published a minimum viable contestability standard with a one-screen summary, text-
+  only version, and requirement-by-requirement evidence checklists.
+- **Notes:** The standard ships as a printable page focused on standing, reasons, records,
+  timelines, remedies, and non-retaliation.
+- **Issue link:** Issue: TBD / Spec: #minimum-viable-contestability-standard
 
 ### End-to-end mapping artifact (brandless)
 

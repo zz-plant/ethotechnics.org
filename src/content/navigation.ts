@@ -44,6 +44,12 @@ export const navSections: NavSection[] = [
           "Draft standard defining contestability, review, and remedy obligations.",
       },
       {
+        href: "/standards/minimum-viable-contestability",
+        label: "Minimum viable contestability standard",
+        description:
+          "One-page baseline for standing, reasons, records, timelines, remedies, and non-retaliation.",
+      },
+      {
         href: "/standards/core-axioms",
         label: "Core axioms",
         description: "First principles for accountable system design.",
