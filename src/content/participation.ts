@@ -176,12 +176,12 @@ export const participationContent: ParticipationContent = {
         actions: [
           {
             label: "View the CI workflow",
-            href: "https://github.com/ethotechnics/et3/actions/workflows/site-checks.yml",
+            href: "https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml",
             ariaLabel: "View the site checks workflow on GitHub",
           },
           {
             label: "Check current CI status",
-            href: "https://github.com/ethotechnics/et3/actions",
+            href: "https://github.com/zz-plant/ethotechnics.org/actions",
             ariaLabel: "View current GitHub Actions status",
           },
         ],
@@ -204,7 +204,7 @@ export const participationContent: ParticipationContent = {
         actions: [
           {
             label: "Open contribution templates",
-            href: "https://github.com/ethotechnics/et3/issues/new/choose",
+            href: "https://github.com/zz-plant/ethotechnics.org/issues/new/choose",
             ariaLabel: "Open GitHub issue templates for the repository",
           },
         ],

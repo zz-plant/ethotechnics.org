@@ -1,13 +1,13 @@
 # ethotechnics.org
 
-[![Site checks](https://github.com/ethotechnics/et3/actions/workflows/site-checks.yml/badge.svg)](https://github.com/ethotechnics/et3/actions/workflows/site-checks.yml)
+[![Site checks](https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml/badge.svg)](https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml)
 [![CC BY-SA 4.0 license badge](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 This repository powers [ethotechnics.org](https://ethotechnics.org), a content-driven site exploring
 ethical technology, human-centered design, and the sociotechnical systems that shape them. The
 project favors lean, fast-loading pages and clear storytelling.
 
-**Live site:** https://ethotechnics.org
+**Live site:** <https://ethotechnics.org>
 
 ## Table of contents
 
@@ -180,4 +180,4 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 This project is licensed under the Creative Commons Attribution-ShareAlike 4.0 International
 license (CC BY-SA 4.0). Unless otherwise noted, you may share and adapt the content with proper
 attribution and under the same license terms. See
-https://creativecommons.org/licenses/by-sa/4.0/ for details.
+<https://creativecommons.org/licenses/by-sa/4.0/> for details.

@@ -61,7 +61,7 @@ export const siteFooter: SiteFooterContent = {
           href: "https://ethotechnics.com",
           external: true,
         },
-        { label: "Syadvada", href: "https://syadvada.org", external: true },
+        { label: "The Crumple Zone", href: "https://syadvada.com", external: true },
       ],
     },
     {
@@ -84,13 +84,13 @@ export const siteFooter: SiteFooterContent = {
         { label: "Reference API", href: "/api" },
         { label: "Send feedback", href: "/participate#feedback" },
         {
-          label: "Signals newsletter",
-          href: "https://signals.ethotechnics.org",
+          label: "The Crumple Zone",
+          href: "https://syadvada.com",
           external: true,
         },
         {
           label: "Ethotechnics on GitHub",
-          href: "https://github.com/ethotechnics",
+          href: "https://github.com/zz-plant/ethotechnics.org",
           external: true,
         },
       ],

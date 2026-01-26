@@ -67,8 +67,8 @@ const organization = {
   },
   sameAs: [
     "https://ethotechnics.com",
-    "https://signals.ethotechnics.org",
-    "https://github.com/ethotechnics",
+    "https://syadvada.com",
+    "https://github.com/zz-plant/ethotechnics.org",
   ],
 };
 const website = {
@@ -204,9 +204,11 @@ const structuredDataJson = JSON.stringify(structuredData);
     />
     <meta data-pagefind-meta="title" content={title} />
     <meta data-pagefind-meta="description" content={description} />
-    {pagefindType ? (
-      <meta data-pagefind-meta="type" content={pagefindType} />
-    ) : null}
+    {
+      pagefindType ? (
+        <meta data-pagefind-meta="type" content={pagefindType} />
+      ) : null
+    }
     <slot name="head" />
   </head>
   <body>
@@ -381,9 +383,9 @@ const structuredDataJson = JSON.stringify(structuredData);
             id="main-content"
             class={mainClass}
             tabindex="-1"
-            data-glossary-highlights={
-              enableGlossaryHighlights ? "true" : undefined
-            }
+            data-glossary-highlights={enableGlossaryHighlights
+              ? "true"
+              : undefined}
             data-pagefind-body
           >
             <slot />
@@ -466,8 +468,10 @@ const structuredDataJson = JSON.stringify(structuredData);
         </div>
       </div>
     </div>
-    {enableGlossaryHighlights && (
-      <script type="module" src={glossaryHighlightsScript} is:inline></script>
-    )}
+    {
+      enableGlossaryHighlights && (
+        <script type="module" src={glossaryHighlightsScript} is:inline />
+      )
+    }
   </body>
 </html>

@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-const repoSlug = "ethotechnics/et3";
+const repoSlug = "zz-plant/ethotechnics.org";
 
 export const GET: APIRoute = () => {
   const payload = {

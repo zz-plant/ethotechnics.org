@@ -6,7 +6,7 @@ Security updates apply to the `main` branch and the current production deploymen
 
 ## Reporting a Vulnerability
 
-Please report security issues privately by [opening a security advisory](https://github.com/ethotechnics/et3/security/advisories/new). Do not open
+Please report security issues privately by [opening a security advisory](https://github.com/zz-plant/ethotechnics.org/security/advisories/new). Do not open
 public issues for security vulnerabilities.
 
 When reporting, include:
