@@ -20,11 +20,6 @@ const MARGINS = { top: 16, right: 16, bottom: 40, left: 54 };
 
 const formatPercent = (value: number) => `${Math.round(value * 100)}%`;
 
-const formatDelta = (value: number) => {
-  const rounded = Math.round(value * 100);
-  return `${rounded > 0 ? "+" : ""}${rounded}%`;
-};
-
 const buildLinePath = (
   points: CapacityPoint[],
   xForIndex: (index: number) => number,
@@ -191,15 +186,6 @@ export function CapacityChart({
     scenarioB.saturationDate,
     xForIndex,
   );
-  const horizonA = scenarioA.data[scenarioA.data.length - 1];
-  const horizonB = scenarioB.data[scenarioB.data.length - 1];
-  const deltaSummary = horizonA && horizonB
-    ? {
-        baseline: horizonB.baseline - horizonA.baseline,
-        remediated: horizonB.remediated - horizonA.remediated,
-      }
-    : null;
-
   return (
     <div className="forecaster__chart">
       <div className="forecaster__chart-header">
@@ -451,21 +437,6 @@ export function CapacityChart({
             </>
           ) : null}
         </div>
-        {isCompare && deltaSummary ? (
-          <div className="forecaster__delta">
-            <p className="forecaster__delta-title">
-              Horizon delta (Scenario B vs A)
-            </p>
-            <div className="forecaster__delta-values">
-              <span>
-                Baseline: {formatDelta(deltaSummary.baseline)}
-              </span>
-              <span>
-                Remediated: {formatDelta(deltaSummary.remediated)}
-              </span>
-            </div>
-          </div>
-        ) : null}
       </div>
     </div>
   );

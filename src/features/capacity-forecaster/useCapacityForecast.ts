@@ -190,7 +190,7 @@ export const useCapacityForecast = () => {
   const initialState = useMemo(() => resolveInitialState(), []);
   const [scenarioA, setScenarioA] = useState<ScenarioState>(initialState.scenarioA);
   const [scenarioB, setScenarioB] = useState<ScenarioState>(initialState.scenarioB);
-  const [viewMode, setViewMode] = useState<ViewMode>(initialState.viewMode);
+  const [viewMode, setViewModeState] = useState<ViewMode>(initialState.viewMode);
   const hasSyncedUrl = useRef(false);
   const forecastA = useMemo(
     () => projectCapacity(scenarioA.metrics, scenarioA.params, startDate),
@@ -228,13 +228,35 @@ export const useCapacityForecast = () => {
       metrics: { ...scenarioA.metrics },
       params: { ...scenarioA.params },
     });
-    setViewMode('single');
+    setViewModeState('single');
+  };
+
+  const mirrorScenario = (source: 'A' | 'B', target: 'A' | 'B') => {
+    if (source === target) return;
+    const sourceScenario = source === 'A' ? scenarioA : scenarioB;
+    const targetSetter = target === 'A' ? setScenarioA : setScenarioB;
+    targetSetter({
+      metrics: { ...sourceScenario.metrics },
+      params: { ...sourceScenario.params },
+    });
+  };
+
+  const setViewMode = (mode: ViewMode) => {
+    setViewModeState((current) => {
+      if (mode === 'compare' && current === 'single') {
+        setScenarioB({
+          metrics: { ...scenarioA.metrics },
+          params: { ...scenarioA.params },
+        });
+      }
+      return mode;
+    });
   };
 
   const reset = () => {
     setScenarioA({ metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS });
     setScenarioB({ metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS });
-    setViewMode('single');
+    setViewModeState('single');
   };
 
   useEffect(() => {
@@ -309,6 +331,7 @@ export const useCapacityForecast = () => {
     updateParams,
     reset,
     resetToSingleScenario,
+    mirrorScenario,
     viewMode,
     setViewMode,
     stabilityOptions: STABILITY_ORDER,
