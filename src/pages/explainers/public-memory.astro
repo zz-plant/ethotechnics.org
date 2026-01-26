@@ -1,0 +1,223 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
+
+const pageTitle = "Public memory for contestability terms";
+const pageDescription =
+  "A living record of how accountability language shifts so teams can cite stable definitions and avoid drift.";
+const permalink = "/explainers/public-memory";
+
+const anchorLinks = [
+  { href: "#purpose", label: "Why this matters" },
+  { href: "#timeline", label: "Language drift timeline" },
+  { href: "#definitions", label: "Stable definitions" },
+  { href: "#usage", label: "How to use" },
+];
+
+const timelineEntries = [
+  {
+    period: "2019",
+    title: "Trustworthy AI becomes the umbrella phrase.",
+    summary:
+      "OECD principles frame trustworthy AI around transparency, robustness, and accountability. The phrase later drifts into a compliance label without enforceable remedy pathways.",
+    sourceLabel: "OECD AI Principles",
+    sourceHref: "https://oecd.ai/en/ai-principles",
+  },
+  {
+    period: "2020",
+    title: "Responsible AI consolidates around vendor playbooks.",
+    summary:
+      "Industry guidance emphasizes responsible AI toolkits, but often omits binding ownership and appeal guarantees. The language shifts from shared obligations to internal process checklists.",
+    sourceLabel: "Google Responsible AI practices",
+    sourceHref: "https://ai.google/responsibility/",
+  },
+  {
+    period: "2022",
+    title: "Rights framing enters public policy.",
+    summary:
+      "The White House AI Bill of Rights centers notice, explanation, and human alternatives, yet enforcement remains discretionary. The term “rights” is used while review clocks and escalation authority stay vague.",
+    sourceLabel: "Blueprint for an AI Bill of Rights",
+    sourceHref: "https://www.whitehouse.gov/ostp/ai-bill-of-rights/",
+  },
+  {
+    period: "2023",
+    title: "Risk management vocabulary takes hold.",
+    summary:
+      "NIST AI RMF codifies governance and accountability functions, but organizations often stop at risk scoring without publishing recourse evidence. The language drifts toward risk acceptance without remedy capacity.",
+    sourceLabel: "NIST AI RMF 1.0",
+    sourceHref: "https://www.nist.gov/itl/ai-risk-management-framework",
+  },
+  {
+    period: "2024",
+    title: "Regulatory language converges on transparency and oversight.",
+    summary:
+      "The EU AI Act emphasizes transparency, human oversight, and documentation. Without a shared contestability baseline, implementation can still omit appeal passage rates and enforceable reversals.",
+    sourceLabel: "EU AI Act overview",
+    sourceHref: "https://artificialintelligenceact.eu/",
+  },
+];
+
+const definitionCards = [
+  {
+    title: "Contestability",
+    description:
+      "Ability for affected people to challenge, change, or overturn decisions with visible pathways.",
+    href: "/glossary/contestability",
+  },
+  {
+    title: "Explainability for accountability",
+    description:
+      "Actionable explanations that name decision owners, evidence, and correction paths.",
+    href: "/glossary/explainability-for-accountability",
+  },
+  {
+    title: "Appeal passage rate",
+    description:
+      "Percentage of appeals resolved in favor of the user, signalling real contestability.",
+    href: "/glossary/appeal-passage-rate",
+  },
+  {
+    title: "Time transparency",
+    description:
+      "Clear, legible process state with clocks, blockers, and escalation triggers.",
+    href: "/glossary/time-transparency",
+  },
+  {
+    title: "Design authority",
+    description:
+      "Named owners with the power to set safeguards and approve reversals.",
+    href: "/glossary/design-authority",
+  },
+];
+
+const usageSteps = [
+  "Cite glossary anchors in briefs, audits, and press summaries so terms stay stable.",
+  "Pair policy language with measurable evidence (appeal passage rates, review clocks, remedy logs).",
+  "Document drift: track when terms are used as labels without enforcement mechanisms.",
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Explainer"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Glossary anchors",
+      title: "Cite the stable definitions",
+      description:
+        "Use glossary permalinks to lock in meaning when accountability language starts to drift.",
+      link: {
+        label: "Open the glossary",
+        href: "/glossary",
+      },
+    }}
+  />
+
+  <SummaryCallout
+    title="Keep contestability language anchored"
+    description="This page tracks how governance terms shift over time so teams can keep requirements enforceable."
+    takeaways={[
+      "Document how popular terms drift into checklists without remedies.",
+      "Use stable glossary anchors for contestability, accountability, and time transparency.",
+      "Attach sources so policy language stays traceable to its origin.",
+    ]}
+    relatedLinks={[
+      { href: "/standards/std-02-contestability-recourse", label: "STD-02 contestability" },
+      { href: "/bindings", label: "Binding vectors" },
+      { href: "/evidence-packs", label: "Evidence packs" },
+    ]}
+    jumpLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="purpose"
+    eyebrow="Why this matters"
+    title="Language drift hides accountability gaps"
+    description="When words evolve without evidence, accountability promises get weaker."
+  >
+    <p>
+      Contestability terms travel through policy, procurement, and public narratives. When a term
+      like “responsible AI” becomes a label rather than a measurable commitment, people lose the
+      ability to demand remedies. This page preserves the original intent behind governance
+      language so it can be cited with precision.
+    </p>
+    <ul class="muted">
+      <li>Terms must map to enforceable actions, not just internal checklists.</li>
+      <li>Stable definitions make audits, procurement, and public accountability easier.</li>
+      <li>Documenting drift keeps teams honest about what is actually delivered.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="timeline"
+    eyebrow="Timeline"
+    title="Language drift and memory log"
+    description="A snapshot of how accountability vocabulary has shifted across policy and practice."
+    variant="alt"
+  >
+    <ol class="standards-timeline" aria-label="Contestability language drift timeline">
+      {
+        timelineEntries.map((entry) => (
+          <li class="standards-timeline__item">
+            <div class="standards-timeline__badge">{entry.period}</div>
+            <div class="standards-timeline__body">
+              <h3>{entry.title}</h3>
+              <p class="muted">{entry.summary}</p>
+              <a class="standards-timeline__link" href={entry.sourceHref}>
+                Source: {entry.sourceLabel}
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="definitions"
+    eyebrow="Stable definitions"
+    title="Terms to cite verbatim"
+    description="Use glossary anchors so governance language stays enforceable."
+  >
+    <CardGrid className="grid--two">
+      {
+        definitionCards.map((card) => (
+          <CardItem title={card.title} description={card.description}>
+            <a slot="footer" class="muted" href={card.href}>
+              View glossary entry
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="usage"
+    eyebrow="How to use"
+    title="Turn memory into enforceable requirements"
+    description="Treat this page as a living appendix for briefs, audits, and public statements."
+    variant="alt"
+  >
+    <ul class="muted">
+      {usageSteps.map((step) => (
+        <li>{step}</li>
+      ))}
+    </ul>
+    <div class="actions">
+      <a class="button primary" href="/glossary">
+        Open glossary anchors
+      </a>
+      <a class="button ghost" href="/standards/std-02-contestability-recourse">
+        Read STD-02
+      </a>
+    </div>
+  </SectionBlock>
+</BaseLayout>
