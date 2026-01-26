@@ -4,11 +4,15 @@ import "./maintenanceSimulator.css";
 import {
   buildSimulationPlan,
   coverageItems,
-  evaluateReadiness,
+  getThresholdPreset,
+  getThresholdStatus,
   scenarioTemplates,
+  thresholdPresets,
   type CoverageChecklist,
   type RiskLevel,
   type ScenarioTemplate,
+  type ThresholdPreset,
+  type ThresholdStatus,
 } from "./simulatorLogic";
 
 const initialCoverage: CoverageChecklist = {
@@ -24,8 +28,10 @@ const QUERY_KEYS = {
   scenario: "scenario",
   risk: "risk",
   coverage: "coverage",
+  preset: "preset",
 } as const;
 const VALID_RISKS: RiskLevel[] = ["steady", "elevated", "critical"];
+const VALID_PRESETS = thresholdPresets.map((preset) => preset.id);
 
 const parseCoverageParam = (value: string | null) => {
   if (!value) return null;
@@ -48,6 +54,7 @@ const readStoredState = () => {
       templateId?: string;
       riskLevel?: RiskLevel;
       coverage?: CoverageChecklist;
+      thresholdPresetId?: string;
     };
   } catch {
     return null;
@@ -60,6 +67,7 @@ const resolveInitialState = () => {
       templateId: "scheduled-maintenance",
       riskLevel: "elevated" as RiskLevel,
       coverage: initialCoverage,
+      thresholdPresetId: "balanced",
     };
   }
 
@@ -68,6 +76,7 @@ const resolveInitialState = () => {
   const scenarioParam = params.get(QUERY_KEYS.scenario);
   const riskParam = params.get(QUERY_KEYS.risk);
   const coverageParam = parseCoverageParam(params.get(QUERY_KEYS.coverage));
+  const presetParam = params.get(QUERY_KEYS.preset);
 
   const templateId =
     (scenarioParam &&
@@ -80,8 +89,12 @@ const resolveInitialState = () => {
       ? (riskParam as RiskLevel)
       : storedState?.riskLevel) || "elevated";
   const coverage = coverageParam || storedState?.coverage || initialCoverage;
+  const thresholdPresetId =
+    (presetParam && VALID_PRESETS.includes(presetParam)
+      ? presetParam
+      : storedState?.thresholdPresetId) || "balanced";
 
-  return { templateId, riskLevel, coverage };
+  return { templateId, riskLevel, coverage, thresholdPresetId };
 };
 
 const riskLabels: Record<RiskLevel, string> = {
@@ -126,19 +139,16 @@ const TemplateSummary = ({ template }: { template: ScenarioTemplate }) => (
 );
 
 const ReadinessPanel = ({
-  template,
+  readinessScore,
+  gaps,
   coverage,
-  riskLevel,
+  thresholdStatus,
 }: {
-  template: ScenarioTemplate;
+  readinessScore: number;
+  gaps: string[];
   coverage: CoverageChecklist;
-  riskLevel: RiskLevel;
+  thresholdStatus: ThresholdStatus;
 }) => {
-  const readiness = useMemo(
-    () => evaluateReadiness(coverage, riskLevel, template),
-    [coverage, riskLevel, template],
-  );
-
   return (
     <div
       className="simulator__card simulator__card--inline"
@@ -147,7 +157,7 @@ const ReadinessPanel = ({
       <div className="simulator__card-header">
         <div>
           <p className="eyebrow">Coverage score</p>
-          <h3 id="readiness-title">{readiness.score}% ready to run</h3>
+          <h3 id="readiness-title">{readinessScore}% ready to run</h3>
           <p className="muted">
             Score drops when required owners, halt lanes, or communication
             templates are missing. Use the toggles to calibrate readiness before
@@ -155,12 +165,18 @@ const ReadinessPanel = ({
           </p>
         </div>
       </div>
+      {thresholdStatus.actNow ? (
+        <div className="simulator__alert simulator__alert--act" role="alert">
+          <strong>Act now:</strong> Readiness is below the {thresholdStatus.band.label}{" "}
+          threshold. Pause the window and close critical gaps before proceeding.
+        </div>
+      ) : null}
       <div className="simulator__grid">
         <div>
           <p className="muted simulator__label">Gaps to close</p>
-          {readiness.gaps.length > 0 ? (
+          {gaps.length > 0 ? (
             <ul className="simulator__list">
-              {readiness.gaps.map((gap) => (
+              {gaps.map((gap) => (
                 <li key={gap}>{gap}</li>
               ))}
             </ul>
@@ -199,6 +215,63 @@ const ReadinessPanel = ({
     </div>
   );
 };
+
+const ThresholdPanel = ({
+  preset,
+  status,
+}: {
+  preset: ThresholdPreset;
+  status: ThresholdStatus;
+}) => (
+  <div className="simulator__card" aria-labelledby="thresholds-title">
+    <div className="simulator__card-header">
+      <div>
+        <p className="eyebrow">Readiness thresholds</p>
+        <h3 id="thresholds-title">Bands and recommended interventions</h3>
+        <p className="muted">{preset.description}</p>
+      </div>
+      <div className="simulator__badge">{preset.name}</div>
+    </div>
+    <div className="simulator__grid">
+      <div>
+        <p className="muted simulator__label">Threshold bands</p>
+        <ul className="simulator__threshold-list">
+          {preset.bands.map((band) => {
+            const isActive = band.id === status.band.id;
+            return (
+              <li
+                key={band.id}
+                className={`simulator__threshold-band${
+                  isActive ? " simulator__threshold-band--active" : ""
+                }${band.actNow ? " simulator__threshold-band--act" : ""}`}
+              >
+                <div>
+                  <p className="simulator__threshold-label">{band.label}</p>
+                  <p className="muted simulator__threshold-range">
+                    {band.rangeLabel}
+                  </p>
+                </div>
+                <p className="muted simulator__threshold-description">
+                  {band.description}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div>
+        <p className="muted simulator__label">
+          Recommended interventions
+        </p>
+        <ul className="simulator__list">
+          {status.recommendedInterventions.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+);
 
 const StageCard = ({
   name,
@@ -383,6 +456,9 @@ const MaintenanceSimulator = () => {
   const [coverage, setCoverage] = useState<CoverageChecklist>(
     initialState.coverage,
   );
+  const [thresholdPresetId, setThresholdPresetId] = useState(
+    initialState.thresholdPresetId,
+  );
   const hasSyncedUrl = useRef(false);
 
   const template = useMemo(
@@ -396,6 +472,14 @@ const MaintenanceSimulator = () => {
     () => buildSimulationPlan(template, coverage, riskLevel),
     [template, coverage, riskLevel],
   );
+  const thresholdPreset = useMemo(
+    () => getThresholdPreset(thresholdPresetId),
+    [thresholdPresetId],
+  );
+  const thresholdStatus = useMemo(
+    () => getThresholdStatus(simulationPlan.readinessScore, thresholdPreset),
+    [simulationPlan.readinessScore, thresholdPreset],
+  );
 
   const handleTemplateChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
@@ -407,12 +491,20 @@ const MaintenanceSimulator = () => {
     setRiskLevel(value as RiskLevel);
   };
 
+  const handleThresholdPresetChange = (
+    event: ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const { value } = event.target;
+    setThresholdPresetId(value);
+  };
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const params = new URLSearchParams(window.location.search);
     params.set(QUERY_KEYS.scenario, templateId);
     params.set(QUERY_KEYS.risk, riskLevel);
+    params.set(QUERY_KEYS.preset, thresholdPresetId);
     const enabledCoverage = coverageItems
       .filter((item) => coverage[item.key])
       .map((item) => item.key)
@@ -436,15 +528,17 @@ const MaintenanceSimulator = () => {
 
     window.sessionStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ templateId, riskLevel, coverage }),
+      JSON.stringify({ templateId, riskLevel, coverage, thresholdPresetId }),
     );
-  }, [templateId, riskLevel, coverage]);
+  }, [templateId, riskLevel, coverage, thresholdPresetId]);
 
   const handleExportJson = () => {
     const data = {
       template,
       riskLevel,
       coverage,
+      thresholdPreset,
+      thresholdStatus,
       plan: simulationPlan,
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -497,6 +591,43 @@ const MaintenanceSimulator = () => {
               ))}
             </select>
           </label>
+          <label className="simulator__selector">
+            <span className="simulator__selector-label">
+              Threshold preset
+              <span className="simulator__tooltip">
+                <button
+                  type="button"
+                  className="simulator__tooltip-trigger"
+                  aria-label="Explain threshold presets"
+                  aria-describedby="threshold-preset-tooltip"
+                >
+                  ?
+                </button>
+                <span
+                  id="threshold-preset-tooltip"
+                  role="tooltip"
+                  className="simulator__tooltip-content"
+                >
+                  Presets define the score bands that trigger watch or act-now
+                  actions. Choose the profile that matches your risk appetite.
+                </span>
+              </span>
+            </span>
+            <select
+              value={thresholdPresetId}
+              onChange={handleThresholdPresetChange}
+              aria-label="Select readiness threshold preset"
+            >
+              {thresholdPresets.map((preset) => (
+                <option key={preset.id} value={preset.id}>
+                  {preset.name}
+                </option>
+              ))}
+            </select>
+            <p className="muted simulator__selector-detail">
+              {thresholdPreset.description}
+            </p>
+          </label>
           <div className="simulator__actions">
             <button
               type="button"
@@ -524,10 +655,13 @@ const MaintenanceSimulator = () => {
       <CoverageControls coverage={coverage} setCoverage={setCoverage} />
 
       <ReadinessPanel
-        template={template}
+        readinessScore={simulationPlan.readinessScore}
+        gaps={simulationPlan.gaps}
         coverage={coverage}
-        riskLevel={riskLevel}
+        thresholdStatus={thresholdStatus}
       />
+
+      <ThresholdPanel preset={thresholdPreset} status={thresholdStatus} />
 
       <div className="simulator__card" aria-labelledby="stages-title">
         <div className="simulator__card-header">

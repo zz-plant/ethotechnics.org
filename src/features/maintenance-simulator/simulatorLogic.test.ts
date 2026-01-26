@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'bun:test';
-import { buildSimulationPlan, evaluateReadiness, scenarioTemplates, type CoverageChecklist } from './simulatorLogic';
+import {
+  buildSimulationPlan,
+  evaluateReadiness,
+  getThresholdPreset,
+  getThresholdStatus,
+  scenarioTemplates,
+  type CoverageChecklist,
+} from './simulatorLogic';
 
 const fullCoverage: CoverageChecklist = {
   escalationOwner: true,
@@ -65,5 +72,23 @@ describe('buildSimulationPlan', () => {
 
     expect(plan.stagePlan.every((stage) => stage.severity === 'ready')).toBe(true);
     expect(plan.gaps).toHaveLength(0);
+  });
+});
+
+describe('getThresholdStatus', () => {
+  it('selects the correct band for balanced presets', () => {
+    const preset = getThresholdPreset('balanced');
+    const status = getThresholdStatus(88, preset);
+
+    expect(status.band.label).toBe('Run-ready');
+    expect(status.actNow).toBe(false);
+  });
+
+  it('flags act-now when the score falls below the preset threshold', () => {
+    const preset = getThresholdPreset('conservative');
+    const status = getThresholdStatus(60, preset);
+
+    expect(status.band.label).toBe('Act now');
+    expect(status.actNow).toBe(true);
   });
 });

@@ -45,6 +45,31 @@ export interface SimulationPlan {
   stagePlan: StagePlan[];
 }
 
+export interface ThresholdBand {
+  id: string;
+  label: string;
+  rangeLabel: string;
+  description: string;
+  minScore: number;
+  maxScore: number;
+  actNow?: boolean;
+  recommendedInterventions: string[];
+}
+
+export interface ThresholdPreset {
+  id: string;
+  name: string;
+  description: string;
+  tooltip: string;
+  bands: ThresholdBand[];
+}
+
+export interface ThresholdStatus {
+  band: ThresholdBand;
+  actNow: boolean;
+  recommendedInterventions: string[];
+}
+
 export const coverageItems: { key: keyof CoverageChecklist; label: string; detail: string }[] = [
   {
     key: 'escalationOwner',
@@ -238,6 +263,156 @@ export const scenarioTemplates: ScenarioTemplate[] = [
   },
 ];
 
+export const thresholdPresets: ThresholdPreset[] = [
+  {
+    id: 'balanced',
+    name: 'Balanced',
+    description: 'Default thresholds that balance readiness with momentum.',
+    tooltip:
+      'Presets tune the readiness cutoffs that trigger watch or act-now modes. Balanced fits most tabletop runs.',
+    bands: [
+      {
+        id: 'ready',
+        label: 'Run-ready',
+        rangeLabel: '85–100',
+        description: 'Coverage is strong. Maintain cadence and watch for drift.',
+        minScore: 85,
+        maxScore: 100,
+        recommendedInterventions: [
+          'Confirm the halt timer and escalation owner are visible.',
+          'Keep comms templates open during the window.',
+          'Proceed with the run and log any deviations.',
+        ],
+      },
+      {
+        id: 'watch',
+        label: 'Tighten coverage',
+        rangeLabel: '70–84',
+        description: 'Risk is rising. Close critical gaps before scheduling.',
+        minScore: 70,
+        maxScore: 84,
+        recommendedInterventions: [
+          'Assign missing owners and confirm the appeal path.',
+          'Rehearse rollback steps with time-to-halt checkpoints.',
+          'Delay the window until communication templates are ready.',
+        ],
+      },
+      {
+        id: 'act-now',
+        label: 'Act now',
+        rangeLabel: '0–69',
+        description: 'Coverage is too thin. Pause until baseline protections exist.',
+        minScore: 0,
+        maxScore: 69,
+        actNow: true,
+        recommendedInterventions: [
+          'Pause the window and brief leadership on the risk gap.',
+          'Staff the escalation owner and rollback lane immediately.',
+          'Re-run the tabletop after blockers are closed.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'conservative',
+    name: 'Conservative',
+    description: 'Higher thresholds for regulated or high-impact systems.',
+    tooltip:
+      'Conservative presets raise the bar so teams pause sooner in sensitive environments.',
+    bands: [
+      {
+        id: 'ready',
+        label: 'Run-ready',
+        rangeLabel: '92–100',
+        description: 'Only minor gaps remain; maintain heightened vigilance.',
+        minScore: 92,
+        maxScore: 100,
+        recommendedInterventions: [
+          'Confirm executive escalation coverage.',
+          'Keep an extra reviewer on standby during the window.',
+          'Schedule a post-run verification checkpoint.',
+        ],
+      },
+      {
+        id: 'watch',
+        label: 'Hold and harden',
+        rangeLabel: '80–91',
+        description: 'Pause to harden coverage before a go decision.',
+        minScore: 80,
+        maxScore: 91,
+        recommendedInterventions: [
+          'Add backup owners for every phase.',
+          'Revalidate rollback assets and approval flow.',
+          'Delay the window until comms templates are reviewed.',
+        ],
+      },
+      {
+        id: 'act-now',
+        label: 'Act now',
+        rangeLabel: '0–79',
+        description: 'Insufficient safeguards for high-impact work.',
+        minScore: 0,
+        maxScore: 79,
+        actNow: true,
+        recommendedInterventions: [
+          'Freeze the maintenance plan and notify stakeholders.',
+          'Close owner gaps before rescheduling.',
+          'Require a fresh tabletop with leadership present.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'rapid',
+    name: 'Rapid response',
+    description: 'Lower thresholds for time-critical restoration work.',
+    tooltip:
+      'Rapid response presets accept lower readiness when urgency outweighs delay, but still flag act-now risks.',
+    bands: [
+      {
+        id: 'ready',
+        label: 'Run-ready',
+        rangeLabel: '80–100',
+        description: 'Adequate coverage for a fast-moving response.',
+        minScore: 80,
+        maxScore: 100,
+        recommendedInterventions: [
+          'Keep the halt timer visible throughout the run.',
+          'Assign a comms lead to maintain cadence.',
+          'Document decisions in real time.',
+        ],
+      },
+      {
+        id: 'watch',
+        label: 'Shorten scope',
+        rangeLabel: '65–79',
+        description: 'Trim scope and add safeguards before proceeding.',
+        minScore: 65,
+        maxScore: 79,
+        recommendedInterventions: [
+          'Reduce the change scope to essentials only.',
+          'Confirm escalation coverage and rollback checkpoints.',
+          'Set an earlier decision point for halting.',
+        ],
+      },
+      {
+        id: 'act-now',
+        label: 'Act now',
+        rangeLabel: '0–64',
+        description: 'Stop and stabilize before attempting restoration.',
+        minScore: 0,
+        maxScore: 64,
+        actNow: true,
+        recommendedInterventions: [
+          'Stabilize the system and reassess staffing.',
+          'Move to containment steps instead of restoration.',
+          'Run the tabletop with updated incident context.',
+        ],
+      },
+    ],
+  },
+];
+
 const coverageImpact: Record<keyof CoverageChecklist, { penalty: number; gap: string }> = {
   escalationOwner: {
     penalty: 18,
@@ -284,6 +459,26 @@ export const evaluateReadiness = (
   }
 
   return { score: baseScore, gaps };
+};
+
+export const getThresholdPreset = (presetId: string): ThresholdPreset =>
+  thresholdPresets.find((preset) => preset.id === presetId) ?? thresholdPresets[0];
+
+export const getThresholdStatus = (
+  score: number,
+  preset: ThresholdPreset,
+): ThresholdStatus => {
+  const normalizedScore = Math.max(0, Math.min(100, score));
+  const matchedBand =
+    preset.bands.find(
+      (band) => normalizedScore >= band.minScore && normalizedScore <= band.maxScore,
+    ) ?? preset.bands[preset.bands.length - 1];
+
+  return {
+    band: matchedBand,
+    actNow: Boolean(matchedBand.actNow),
+    recommendedInterventions: matchedBand.recommendedInterventions,
+  };
 };
 
 export const buildSimulationPlan = (
