@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/pause-reversal.schema.json",
+  "title": "Pause or Reversal Event",
+  "description": "Records a pause, resumption, reversal, or restoration tied to a decision receipt.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_id",
+    "decision_id",
+    "receipt_id",
+    "event_type",
+    "requested_at",
+    "owner",
+    "reason"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
+    "event_id": { "type": "string" },
+    "decision_id": { "type": "string" },
+    "receipt_id": { "type": "string" },
+    "event_type": {
+      "type": "string",
+      "enum": ["pause", "resume", "reversal", "restoration"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["requested", "in_progress", "completed", "rejected"]
+    },
+    "requested_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": "string", "format": "date-time" },
+    "owner": {
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contact": { "type": "string" },
+        "on_call": { "type": "boolean" }
+      }
+    },
+    "reason": { "type": "string" },
+    "affected_state": {
+      "type": "object",
+      "properties": {
+        "before": { "type": "string" },
+        "after": { "type": "string" }
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "href"],
+        "properties": {
+          "type": { "type": "string" },
+          "href": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}
