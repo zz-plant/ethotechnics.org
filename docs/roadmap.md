@@ -12,17 +12,33 @@ need assignment, notifications, or automation.
 ## Active roadmap
 
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
-outcome) and link to a spec section below once scoped.
+outcome) and link to a spec section below once scoped. Priority order is top to bottom within
+each column.
 
-| Now                                          | Next                                                                                      | Later                                                                            |
-| -------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| Highest-priority work in progress.           | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                         |
-| Keep entries small and actionable.           | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                             |
-| No active **Now** items. Pull from **Next**. | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | - [Contestability pattern library](#contestability-pattern-library)              |
-|                                              | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Governance lessons from incidents](#governance-lessons-from-incidents)        |
-|                                              | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability) |
-|                                              | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | - [TypeScript SDK](#typescript-sdk)                                              |
-|                                              | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             | - [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas)    |
+**Status tags:** `[Spec ready]` means the section below is ready for pickup. `[Needs alignment]`
+flags work that depends on cross-team decisions or external input.
+
+| Now                                                       | Next                                                                                    | Later                                                                                              |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                        | Ready-to-start items with scoped specs.                                                 | Ideas to revisit when capacity frees up.                                                           |
+| Keep entries small and actionable.                        | Add owners or dates only when needed.                                                   | Capture rough ideas, not full specs.                                                               |
+| [OpenAPI control-plane spec](#openapi-control-plane-spec) | [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
+| `[Spec ready]`                                            | `[Spec ready]`                                                                          |                                                                                                    |
+| [Python evaluation toolkit](#python-evaluation-toolkit)   | [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
+| `[Spec ready]`                                            | `[Spec ready]`                                                                          |                                                                                                    |
+|                                                           | [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
+|                                                           | `[Spec ready]`                                                                          |                                                                                                    |
+|                                                           | [TypeScript SDK](#typescript-sdk)                                                       | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
+|                                                           | `[Spec ready]`                                                                          |                                                                                                    |
+
+**Priority snapshot**
+
+- **Foundation specs:** OpenAPI control-plane spec + Python evaluation toolkit unblock SDKs and
+  evaluation workflows.
+- **Modeling + simulation:** capacity forecaster, maintenance simulator, and burden modeler
+  updates land after foundation specs are moving.
+- **Publishing + standards:** content and standards work stays queued until alignment work is
+  complete.
 
 ## Spec template
 
