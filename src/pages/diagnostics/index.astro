@@ -23,6 +23,7 @@ const {
 } = diagnosticsContent;
 const mechanismBase = `${libraryContent.permalink}#mechanisms`;
 const anchorLinks = [
+  { href: "#compare-tools", label: "Compare tools" },
   { href: "#why-diagnostics", label: "What you get" },
   { href: "#output-baseline", label: "Output baseline" },
   { href: "#anti-weaponization", label: "Anti-weaponization checks" },
@@ -30,7 +31,6 @@ const anchorLinks = [
   { href: "#how-it-works", label: "How sessions run" },
   { href: "#diagnostic-tools", label: "Diagnostics menu" },
   { href: "#referenced-by", label: "Referenced by" },
-  ...tools.map((tool) => ({ href: `#${tool.slug}`, label: tool.title })),
 ];
 const introDescription =
   "This page is for operators, governance teams, and auditors who need decision-ready diagnostics. " +
@@ -65,7 +65,16 @@ const quickTriagePrompts = [
     description={introDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="#compare-tools">
+        Compare tools
+      </a>
+      <a class="button ghost" href="#quick-triage">
+        Quick triage
+      </a>
+    </Fragment>
+  </PageIntro>
   <SectionActions>
     <StudioBadge />
   </SectionActions>

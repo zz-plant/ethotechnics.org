@@ -14,7 +14,7 @@ const navUtilityLinks: NavUtilityLink[] = [
   {
     href: "https://github.com/ethotechnics/et3",
     label: "GitHub",
-    class: "button ghost button--compact",
+    class: "nav__utility-link nav__utility-link--quiet",
     rel: "noopener noreferrer",
     target: "_blank",
     icon: "lucide:github",
@@ -22,7 +22,7 @@ const navUtilityLinks: NavUtilityLink[] = [
   {
     href: "/participate#feedback",
     label: "Send feedback",
-    class: "button ghost button--compact",
+    class: "nav__utility-link nav__utility-link--quiet",
     icon: "lucide:message-circle",
   },
   {
@@ -104,10 +104,24 @@ const isCurrentLink = (href: string) => {
     transform: translateY(-1px);
   }
 
-  .nav__utility-link:focus-visible {
-    outline: 2px solid var(--accent-strong);
-    outline-offset: 2px;
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+    .nav__utility-link:focus-visible {
+      outline: 2px solid var(--accent-strong);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+    }
+
+  .nav__utility-link--quiet {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--muted) 50%, var(--text));
+  }
+
+  .nav__utility-link--quiet:hover,
+  .nav__utility-link--quiet:focus-visible {
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    border-color: color-mix(in srgb, var(--border) 78%, transparent);
   }
 
   .nav__icon {

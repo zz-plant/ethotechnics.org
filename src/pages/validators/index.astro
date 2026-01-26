@@ -14,6 +14,7 @@ const {
   validators,
   method,
 } = validatorsContent;
+const featuredValidators = validators.slice(0, 2);
 const { cspNonce } = Astro.locals;
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
@@ -48,7 +49,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
-  />
+  >
+    <Fragment slot="actions">
+      {featuredValidators.map((validator, index) => (
+        <a
+          class={`button ${index === 0 ? "primary" : "ghost"}`}
+          href={`/validators/${validator.slug}`}
+        >
+          Run {validator.title}
+        </a>
+      ))}
+      <a class="button ghost" href="#tools">
+        Browse all validators
+      </a>
+    </Fragment>
+  </PageIntro>
   <div class="callout">
     <h3>Cross-link to rights and mechanisms</h3>
     <p class="muted">

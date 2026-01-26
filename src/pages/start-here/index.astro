@@ -54,7 +54,16 @@ const { cspNonce } = Astro.locals;
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={hero.panel}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="#routes">
+        Choose your path
+      </a>
+      <a class="button ghost" href="#quick-start">
+        Quick-start guides
+      </a>
+    </Fragment>
+  </PageIntro>
   {
     recommendedCard && (
       <div class="callout callout--emphasis">
