@@ -14,17 +14,18 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                                           | Next                                                                                      | Later                                                                               |
-| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Highest-priority work in progress.                            | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                            |
-| Keep entries small and actionable.                            | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                                |
-| - [Redundancy compression pass](#redundancy-compression-pass) | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)                 |
-|                                                               | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
-|                                                               | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | - [Language people can use](#language-people-can-use)                               |
-|                                                               |                                                                                           | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
-|                                                               |                                                                                           | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
-|                                                               | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) |                                                                                     |
-|                                                               | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             |                                                                                     |
+| Now                                                                                                                                                                                 | Next                                                                                      | Later                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                                                                                                                                                  | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                            |
+| Keep entries small and actionable.                                                                                                                                                  | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                                |
+| - [Redundancy compression pass](#redundancy-compression-pass)                                                                                                                       | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)                 |
+| - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
+|                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | - [Language people can use](#language-people-can-use)                               |
+|                                                                                                                                                                                     | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
+|                                                                                                                                                                                     | - [AsyncAPI events spec](#asyncapi-events-spec)                                           | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
+|                                                                                                                                                                                     | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [TypeScript SDK](#typescript-sdk)                                                 |
+|                                                                                                                                                                                     | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | - [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas)       |
+|                                                                                                                                                                                     | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             |                                                                                     |
 
 ## Spec template
 
@@ -48,6 +49,85 @@ under this heading and link to it from the roadmap table.
 - Acceptance criteria are testable.
 - Dependencies and blockers are listed.
 - If needed, a GitHub Issue exists and links back here.
+
+## JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)
+
+- **Problem:** Contestability artifacts lack shared schema definitions, making validation and
+  interoperability inconsistent.
+- **Scope:** Draft JSON Schema (2020-12) definitions for decision records, appeal events,
+  pause reversals, burden hours, and repair SLAs with versioned examples.
+- **UX/Tech notes:** Keep field names aligned with the glossary; ship a bundle index for
+  machine consumption and a human-readable reference.
+- **Acceptance criteria:** Schemas validate sample payloads; required vs. optional fields are
+  documented; versioning guidance is included.
+- **Dependencies/risks:** Depends on STD-01 terminology alignment; risk of schema churn while
+  APIs stabilize.
+- **Issue link:** Issue: TBD / Spec:
+  #json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla
+
+## OpenAPI control-plane spec
+
+- **Problem:** Control-plane endpoints are not standardized, slowing client and SDK work.
+- **Scope:** Publish an OpenAPI spec covering core control-plane endpoints, auth schemes,
+  shared error formats, and response examples.
+- **UX/Tech notes:** Version the spec explicitly and reuse the JSON schema set for payload
+  definitions.
+- **Acceptance criteria:** Spec validates with OpenAPI tooling, includes examples for each
+  endpoint, and is linked from the docs hub.
+- **Dependencies/risks:** Depends on JSON schema set; risk of endpoint churn as workflows
+  evolve.
+- **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
+
+## AsyncAPI events spec
+
+- **Problem:** Event payloads and channel names vary, making integrations brittle.
+- **Scope:** Define an AsyncAPI spec for key events (decision issued, appeal opened,
+  pause reversal, repair completed, burden hours updated) with schema references.
+- **UX/Tech notes:** Reuse JSON schemas as message payloads; document channel naming and
+  correlation fields.
+- **Acceptance criteria:** Spec validates, includes example events, and maps events to
+  schema references.
+- **Dependencies/risks:** Depends on JSON schema set and control-plane decisions; risk of
+  event taxonomy churn.
+- **Issue link:** Issue: TBD / Spec: #asyncapi-events-spec
+
+## Python evaluation toolkit
+
+- **Problem:** Evaluators lack a shared toolkit to validate payloads and run basic checks.
+- **Scope:** Build a Python package with schema validation, CLI helpers, and starter datasets
+  for evaluation workflows.
+- **UX/Tech notes:** Target Python 3.11+, keep dependencies minimal, and ship typed APIs and
+  clear CLI help output.
+- **Acceptance criteria:** `pip install` works, CLI validates sample payloads, and docs show
+  a minimal end-to-end evaluation run.
+- **Dependencies/risks:** Depends on JSON schema set; risk of duplicated logic with SDKs.
+- **Issue link:** Issue: TBD / Spec: #python-evaluation-toolkit
+
+## TypeScript SDK
+
+- **Problem:** Implementers need typed client access to control-plane endpoints and events.
+- **Scope:** Deliver a TypeScript SDK with typed models, control-plane client helpers, and
+  event payload types.
+- **UX/Tech notes:** Prefer ESM, tree-shakeable exports, and generated types from schemas
+  and OpenAPI definitions.
+- **Acceptance criteria:** Package installs cleanly, exposes typed clients and models, and
+  includes a short usage example.
+- **Dependencies/risks:** Depends on JSON schema set and OpenAPI spec; risk of API drift.
+- **Issue link:** Issue: TBD / Spec: #typescript-sdk
+
+## FHIR profile set and W3C VC schemas
+
+- **Problem:** Healthcare and credential workflows need standards-aligned representations of
+  contestability artifacts.
+- **Scope:** Define FHIR profiles and W3C Verifiable Credential schemas for decision records,
+  appeal events, and repair outcomes, with mapping guidance.
+- **UX/Tech notes:** Use canonical URLs, provide JSON-LD contexts for VC schemas, and cite
+  base resources for each profile.
+- **Acceptance criteria:** Profiles and VC schemas are published, mapping notes are included,
+  and examples validate against the new definitions.
+- **Dependencies/risks:** Depends on JSON schema set and domain review; risk of standards
+  misalignment without partner input.
+- **Issue link:** Issue: TBD / Spec: #fhir-profile-set-and-w3c-vc-schemas
 
 ## Redundancy compression pass
 
