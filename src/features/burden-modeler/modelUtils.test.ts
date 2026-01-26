@@ -16,6 +16,7 @@ describe('calculateBurdenModel', () => {
     expect(result.burdenLevel).toBe('Healthy');
     expect(result.burdenIndex).toBeGreaterThan(0);
     expect(result.hotspots).toHaveLength(3);
+    expect(result.topSegments).toHaveLength(3);
   });
 
   it('raises the burden index as scores climb', () => {

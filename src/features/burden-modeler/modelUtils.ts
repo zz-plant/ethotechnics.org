@@ -1,4 +1,4 @@
-import { burdenCategories, burdenDrivers, MAX_DRIVER_SCORE } from './config';
+import { burdenCategories, burdenDrivers, MAX_DRIVER_SCORE, SEGMENT_IMBALANCE_THRESHOLD } from './config';
 import type {
   BurdenCategoryId,
   BurdenModelResult,
@@ -50,7 +50,7 @@ export const calculateBurdenModel = (ratings: BurdenRatings): BurdenModelResult 
     (driverScores.reduce((sum, driver) => sum + driver.weightedScore, 0) / maxWeightedScore) * 100,
   );
 
-  const categoryScores = burdenCategories.map<CategoryScore>((category) => {
+  const rawCategoryScores = burdenCategories.map<Omit<CategoryScore, 'delta' | 'isImbalanced'>>((category) => {
     const categoryDrivers = driverScores.filter((driver) => driver.category === category.id);
     const categoryWeight = categoryDrivers.reduce((sum, driver) => sum + driver.weightedScore, 0);
     const categoryMaxWeight = burdenDrivers
@@ -63,6 +63,21 @@ export const calculateBurdenModel = (ratings: BurdenRatings): BurdenModelResult 
       value: Math.round((categoryWeight / categoryMaxWeight) * 100),
     };
   });
+  const averageCategoryValue =
+    rawCategoryScores.reduce((sum, score) => sum + score.value, 0) / rawCategoryScores.length;
+  const categoryScores = rawCategoryScores.map<CategoryScore>((score) => {
+    const delta = Math.round(score.value - averageCategoryValue);
+    return {
+      ...score,
+      delta,
+      isImbalanced: Math.abs(delta) >= SEGMENT_IMBALANCE_THRESHOLD,
+    };
+  });
+
+  const topSegments = categoryScores
+    .slice()
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 3);
 
   const hotspots = driverScores
     .slice()
@@ -74,6 +89,7 @@ export const calculateBurdenModel = (ratings: BurdenRatings): BurdenModelResult 
     burdenLevel: burdenLevelForIndex(burdenIndex),
     categoryScores,
     hotspots,
+    topSegments,
   };
 };
 
