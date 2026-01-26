@@ -12,6 +12,7 @@ const anchorLinks = [
   { href: "#agent-model", label: "Agent object model" },
   { href: "#endpoints", label: "Read-only endpoints" },
   { href: "#versioning", label: "Versioning" },
+  { href: "#interop", label: "Interoperability stack" },
   { href: "#roadmap", label: "Roadmap" },
 ];
 
@@ -242,16 +243,56 @@ const endpoints = [
   </SectionBlock>
 
   <SectionBlock
+    id="interop"
+    eyebrow="Interoperability stack"
+    title="Make Ethotechnics adoptable across governance toolchains."
+    description="Ship boring, legible formats before bespoke platforms or DSLs."
+  >
+    <div class="grid">
+      <div>
+        <h3>Schema ports and plugs</h3>
+        <ul class="muted">
+          <li>decision-record.schema.json</li>
+          <li>appeal-event.schema.json</li>
+          <li>pause-reversal.schema.json</li>
+          <li>burden-hours.schema.json</li>
+          <li>repair-sla.schema.json</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Exchange standards</h3>
+        <ul class="muted">
+          <li>OpenAPI control-plane definitions for read/write inspection.</li>
+          <li>AsyncAPI event schemas for denials, appeals, and SLA breaches.</li>
+          <li>FHIR profiles for healthcare decision, appeal, and repair status.</li>
+          <li>W3C Verifiable Credentials for portable proof of rights and compliance.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Reference tooling</h3>
+        <ul class="muted">
+          <li>Python validators, time-in-harm calculators, and clause mapping evaluators.</li>
+          <li>TypeScript SDKs for event emission, middleware, and dashboard-safe types.</li>
+          <li>Markdown-to-PDF, CSV, and spreadsheet exports for auditors.</li>
+        </ul>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
     id="roadmap"
     eyebrow="Roadmap"
-    title="Planned additions."
-    description="The next phase expands coverage and release automation."
+    title="Prioritized release sequence."
+    description="Release order favors auditability, interoperability, and institutional adoption."
     variant="alt"
   >
     <ul class="muted">
+      <li>JSON schemas + YAML specs for evidence artifacts and control definitions.</li>
+      <li>OpenAPI + AsyncAPI definitions for system-to-system interoperability.</li>
+      <li>Python evaluation toolkit for auditors and researchers.</li>
+      <li>TypeScript SDK and middleware for product integrations.</li>
+      <li>Domain extensions (FHIR profiles, verifiable credentials).</li>
       <li>Signed releases with verifiable citation hashes.</li>
-      <li>Schema validation automation for new objects.</li>
-      <li>Expanded clause mapping for emerging standards.</li>
     </ul>
   </SectionBlock>
 </BaseLayout>
