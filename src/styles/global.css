@@ -1329,6 +1329,18 @@
   pointer-events: none;
 }
 
+.panel--muted {
+  background:
+    var(--halftone),
+    linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--surface) 96%, white 4%),
+      color-mix(in srgb, var(--panel) 92%, white 8%)
+    );
+  border-color: color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow: 0 8px 16px rgba(64, 52, 40, 0.08);
+}
+
 .comparison {
   margin: 2rem 0 3rem;
   display: grid;

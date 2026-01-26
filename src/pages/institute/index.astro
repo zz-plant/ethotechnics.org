@@ -59,7 +59,16 @@ const instituteStats = [
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="#programs">
+        View programs
+      </a>
+      <a class="button ghost" href="#stewards">
+        Meet the stewards
+      </a>
+    </Fragment>
+  </PageIntro>
   <ReferenceCallout
     title={instituteStudioCallout.title}
     summary={instituteStudioCallout.summary}

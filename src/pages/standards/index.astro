@@ -125,7 +125,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="/standards/std-01-temporal-rights">
+        Read STD-01
+      </a>
+      <a class="button ghost" href="/standards/std-02-contestability-recourse">
+        Read STD-02
+      </a>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="active"

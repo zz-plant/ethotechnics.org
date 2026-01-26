@@ -47,6 +47,7 @@ const examples = [
     tags: ["Receipt", "Clocks", "Appeal"],
   },
 ];
+const featuredExample = examples[0];
 
 const requiredSignals = [
   "Receipt issued at the moment the decision is enforced.",
@@ -75,7 +76,16 @@ const requiredSignals = [
       description:
         "Each scenario proves the standards are enforceable, faster to ship, and measurable without audit theater.",
     }}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href={`/examples/${featuredExample.slug}`}>
+        View featured example
+      </a>
+      <a class="button ghost" href="#scenarios">
+        Browse scenarios
+      </a>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="scenarios"

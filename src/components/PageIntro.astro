@@ -34,6 +34,7 @@ const {
   panelCopy,
 } = Astro.props;
 const hasCustomAside = Astro.slots.has("aside");
+const hasActions = Astro.slots.has("actions");
 
 const { cspNonce } = Astro.locals;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
@@ -145,6 +146,11 @@ function titleize(segment: string) {
       </div>
       <HeadingTag>{title}</HeadingTag>
       <p class="muted page-intro__lede">{description}</p>
+      {hasActions && (
+        <div class="page-intro__actions section__actions">
+          <slot name="actions" />
+        </div>
+      )}
     </div>
 
     <div class="page-intro__aside">

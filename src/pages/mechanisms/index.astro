@@ -79,7 +79,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       description:
         "Stable permalinks and filters keep standards, mechanisms, and validators aligned.",
     }}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="#quick-filters">
+        Browse quick filters
+      </a>
+      <a class="button ghost" href="#primer">
+        Read the primer
+      </a>
+    </Fragment>
+  </PageIntro>
   <ScholarlyMeta publication={publication} permalink={permalink} />
   <CitationBlock
     title={pageTitle}

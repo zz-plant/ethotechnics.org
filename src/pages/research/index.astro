@@ -129,7 +129,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="#agenda">
+        View research agenda
+      </a>
+      <a class="button ghost" href="#publications">
+        Browse publications
+      </a>
+    </Fragment>
+  </PageIntro>
   <SummaryCallout
     title="Research wayfinding at a glance"
     description="Start with the orientation, then scan active agendas and focus areas to see what is in flight and ready to cite."
