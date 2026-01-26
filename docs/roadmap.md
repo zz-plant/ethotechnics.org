@@ -18,7 +18,7 @@ outcome) and link to a spec section below once scoped.
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | Highest-priority work in progress.                                                                                                                                                  | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                            |
 | Keep entries small and actionable.                                                                                                                                                  | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                                |
-| - [Redundancy compression pass](#redundancy-compression-pass)                                                                                                                       | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)                 |
+|                                                                                                                                                                                     | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)                 |
 | - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
 |                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | - [Language people can use](#language-people-can-use)                               |
 |                                                                                                                                                                                     | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
@@ -128,16 +128,6 @@ under this heading and link to it from the roadmap table.
 - **Dependencies/risks:** Depends on JSON schema set and domain review; risk of standards
   misalignment without partner input.
 - **Issue link:** Issue: TBD / Spec: #fhir-profile-set-and-w3c-vc-schemas
-
-## Redundancy compression pass
-
-- **Problem:** Repeated language increases maintenance cost and reading fatigue.
-- **Scope:** Audit repetition (Institute vs. Studio explanations, diagnostic off-ramp language) and
-  replace repeats with canonical callouts or references.
-- **UX/Tech notes:** Keep copy tone unchanged; create a single authoritative explanation per concept.
-- **Acceptance criteria:** Fewer repeated paragraphs with no loss of clarity for first-time readers.
-- **Dependencies/risks:** Requires coordination across Diagnostics and Start Here pages.
-- **Issue link:** Issue: TBD / Spec: #redundancy-compression-pass
 
 ## Capacity forecaster v2 (scenario compare)
 
@@ -445,6 +435,14 @@ future updates can build on what already shipped.
   power lives in systems and whether it can be challenged.
 - **Notes:** Kept the sentence short and aligned with existing mission language.
 - **Issue link:** Issue: TBD / Spec: #site-framing-sentence-for-public-role
+
+### Redundancy compression pass
+
+- **Problem:** Repeated language increases maintenance cost and reading fatigue.
+- **Outcome:** Centralized Institute vs. Studio callout copy so shared guidance stays consistent
+  without duplicating sentences across content sources.
+- **Notes:** Shared phrasing now lives in one content module for reuse.
+- **Issue link:** Issue: TBD / Spec: #redundancy-compression-pass
 
 ## GitHub Issues integration
 

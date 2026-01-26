@@ -1,3 +1,5 @@
+import { instituteStudioGuidance } from "./comparison";
+
 export type ReferenceCalloutContent = {
   title: string;
   summary: string;
@@ -8,8 +10,7 @@ export type ReferenceCalloutContent = {
 
 export const instituteStudioCallout: ReferenceCalloutContent = {
   title: "Institute vs. Studio",
-  summary:
-    "The Institute stays open and self-serve. Studio support is optional when you need a delivery partner or facilitation.",
+  summary: instituteStudioGuidance.callout,
   href: "/institute/how-studio-fits",
   linkLabel: "Read more",
   ariaLabel: "Read more about how the Institute and Studio work together",
