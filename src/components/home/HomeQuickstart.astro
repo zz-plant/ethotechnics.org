@@ -1,0 +1,100 @@
+---
+import CardGrid from "../CardGrid.astro";
+import CardItem from "../CardItem.astro";
+import SectionBlock from "../SectionBlock.astro";
+---
+
+<SectionBlock
+  id="quickstart"
+  eyebrow="Quickstart"
+  title="Produce a governance artifact in under an hour."
+  description="Choose a track and hand the output to the people who need evidence, language, or remediation."
+>
+  <CardGrid className="grid--two">
+    <CardItem
+      title="Run a diagnostic"
+      description="Export a structured report to attach to a review or audit ticket."
+      className="quickstart-card"
+    >
+      <div class="quickstart-card__actions">
+        <a class="button primary button--compact" href="/diagnostics">
+          Launch diagnostics
+        </a>
+        <ul class="quickstart-card__links muted">
+          <li>
+            <a href="/diagnostics/evidence-pack-readiness">
+              Evidence pack readiness
+            </a>
+          </li>
+          <li>
+            <a href="/diagnostics/escalation-coverage-planner">
+              Escalation coverage planner
+            </a>
+          </li>
+        </ul>
+      </div>
+    </CardItem>
+    <CardItem
+      title="Score governance gaps"
+      description="Quantify the highest-risk gaps and share a scorecard internally."
+      className="quickstart-card"
+    >
+      <div class="quickstart-card__actions">
+        <a
+          class="button primary button--compact"
+          href="/tools/governance-gap-score"
+        >
+          Run the gap score
+        </a>
+        <ul class="quickstart-card__links muted">
+          <li>
+            <a href="/tools/governance-gap-score#methodology">Review methodology</a>
+          </li>
+          <li>
+            <a href="/diagnostics">Pair with diagnostics</a>
+          </li>
+        </ul>
+      </div>
+    </CardItem>
+    <CardItem
+      title="Attach enforceable clauses"
+      description="Hand legal or procurement teams ready-to-use binding language."
+      className="quickstart-card"
+    >
+      <div class="quickstart-card__actions">
+        <a class="button primary button--compact" href="/bindings">
+          Browse bindings
+        </a>
+        <ul class="quickstart-card__links muted">
+          <li>
+            <a href="/standards">Minimum binding sets</a>
+          </li>
+          <li>
+            <a href="/bundles/procurement-clause-pack">
+              Procurement clause pack
+            </a>
+          </li>
+        </ul>
+      </div>
+    </CardItem>
+    <CardItem
+      title="Align on rollout"
+      description="Share your workflow so we can map the right artifacts to your team."
+      className="quickstart-card"
+    >
+      <div class="quickstart-card__actions">
+        <a class="button ghost button--compact" href="/participate#intake">
+          Share your workflow
+        </a>
+        <ul class="quickstart-card__links muted">
+          <li>
+            <a href="/participate#field-reports">What to send</a>
+          </li>
+          <li>
+            <a href="/participate#feedback">Feedback channels</a>
+          </li>
+        </ul>
+      </div>
+    </CardItem>
+  </CardGrid>
+</SectionBlock>

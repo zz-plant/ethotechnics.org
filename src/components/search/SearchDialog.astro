@@ -1,0 +1,75 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  dialogTitleId: string;
+  inputId: string;
+  helpTextId: string;
+}
+
+const { dialogTitleId, inputId, helpTextId } = Astro.props as Props;
+---
+
+<dialog
+  class="search-dialog"
+  aria-labelledby={dialogTitleId}
+  data-search-dialog
+>
+  <div class="search-dialog__header">
+    <div class="search-dialog__title">
+      <Icon name="lucide:search" class="search-dialog__icon" />
+      <div>
+        <h2 id={dialogTitleId} class="search-dialog__title-text">
+          Library search
+        </h2>
+        <p class="search-dialog__subtitle">
+          Standards, validators, mechanisms, research, and glossary entries.
+        </p>
+      </div>
+    </div>
+    <button
+      class="search-dialog__close"
+      type="button"
+      aria-label="Close search"
+      data-search-close
+    >
+      <Icon name="lucide:x" />
+    </button>
+  </div>
+  <div class="search-dialog__body">
+    <search class="search-dialog__search" role="search">
+      <label class="search-dialog__label" for={inputId}>
+        <Icon name="lucide:search" class="search-dialog__input-icon" />
+        <span class="visually-hidden">Search the library</span>
+        <input
+          type="search"
+          id={inputId}
+          placeholder="Search the library…"
+          autocomplete="off"
+          enterkeyhint="search"
+          aria-describedby={helpTextId}
+          data-search-input
+        />
+      </label>
+    </search>
+    <p id={helpTextId} class="search-dialog__hint">
+      Try short IDs like <strong>STD-01</strong> or topics like{" "}
+      <strong>consent</strong>.
+    </p>
+    <div class="search-recent" aria-live="polite" hidden data-search-recent>
+      <span class="search-recent__label">Recent:</span>
+      <div class="search-recent__list" data-search-recent-list></div>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-empty">Start typing to search...</p>
+    </div>
+  </div>
+  <div class="search-dialog__footer">
+    <div class="search-help">
+      <span><kbd>↑↓</kbd> to navigate</span>
+      <span><kbd>↵</kbd> to select</span>
+      <span><kbd>esc</kbd> to close</span>
+    </div>
+    <div class="search-powered">Powered by Pagefind</div>
+  </div>
+</dialog>

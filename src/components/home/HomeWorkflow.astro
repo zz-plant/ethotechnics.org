@@ -1,0 +1,35 @@
+---
+import CardGrid from "../CardGrid.astro";
+import CardItem from "../CardItem.astro";
+import SectionBlock from "../SectionBlock.astro";
+---
+
+<SectionBlock
+  id="workflow"
+  eyebrow="Where it fits"
+  title="Map Ethotechnics to the workflows you already run."
+  description="Use the same artifacts across review, policy, red teaming, audit prep, and agent tooling."
+>
+  <CardGrid className="grid--two">
+    <CardItem
+      title="Design review"
+      description="Run a diagnostic → attach the result to the review ticket."
+    />
+    <CardItem
+      title="Policy drafting"
+      description="Cite clauses → request evidence packs from owners."
+    />
+    <CardItem
+      title="Red teaming"
+      description="Generate findings → map to mechanisms for remediation."
+    />
+    <CardItem
+      title="Audit prep"
+      description="Use versioned standards → bundle evidence for export."
+    />
+    <CardItem
+      title="Agent tooling"
+      description="Consume APIs → emit findings in automated workflows."
+    />
+  </CardGrid>
+</SectionBlock>
