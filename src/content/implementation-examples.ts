@@ -28,6 +28,15 @@ export const implementationExamples: ImplementationExample[] = [
       "Clinical risk tools built around reversibility, stoppability, and plural oversight.",
   },
   {
+    slug: "fhir-resources",
+    title: "FHIR resources for healthcare interop",
+    summary:
+      "FHIR-native refusal, appeal, and repair signals that regulators, payers, and providers must share.",
+    tags: ["Interoperability", "Repair status", "Decision clocks"],
+    cardDescription:
+      "FHIR profiles that make refusals, appeals, and repair clocks exchangeable data.",
+  },
+  {
     slug: "customer-service-chatbots",
     title: "Customer service chatbots",
     summary:
