@@ -65,19 +65,6 @@ under this heading and link to it from the roadmap table.
 - **Issue link:** Issue: TBD / Spec:
   #json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla
 
-## OpenAPI control-plane spec
-
-- **Problem:** Control-plane endpoints are not standardized, slowing client and SDK work.
-- **Scope:** Publish an OpenAPI spec covering core control-plane endpoints, auth schemes,
-  shared error formats, and response examples.
-- **UX/Tech notes:** Version the spec explicitly and reuse the JSON schema set for payload
-  definitions.
-- **Acceptance criteria:** Spec validates with OpenAPI tooling, includes examples for each
-  endpoint, and is linked from the docs hub.
-- **Dependencies/risks:** Depends on JSON schema set; risk of endpoint churn as workflows
-  evolve.
-- **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
-
 ## AsyncAPI events spec
 
 - **Problem:** Event payloads and channel names vary, making integrations brittle.
@@ -256,6 +243,15 @@ under this heading and link to it from the roadmap table.
 
 Keep completed specs here for quick reference. Trim to the essentials and capture outcomes so
 future updates can build on what already shipped.
+
+### OpenAPI control-plane spec
+
+- **Problem:** Control-plane endpoints were not standardized, slowing client and SDK work.
+- **Outcome:** Published a versioned OpenAPI spec covering decision retrieval, appeal intake,
+  auth, error formats, and response examples, linked from the API hub.
+- **Notes:** Spec lives under `/standards/ethotechnics-control-plane.openapi.yaml` and aligns with
+  the JSON schema set for payload definitions.
+- **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
 
 ### Language people can use
 
