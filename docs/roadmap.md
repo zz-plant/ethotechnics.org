@@ -14,18 +14,17 @@ need assignment, notifications, or automation.
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
 outcome) and link to a spec section below once scoped.
 
-| Now                                | Next                                                                                      | Later                                                                               |
-| ---------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Highest-priority work in progress. | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                            |
-| Keep entries small and actionable. | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                                |
-|                                    | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)                 |
-|                                    | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)           |
-|                                    | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   |                                                                                     |
-|                                    | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability)    |
-|                                    | - [AsyncAPI events spec](#asyncapi-events-spec)                                           | - [Public memory for contestability terms](#public-memory-for-contestability-terms) |
-|                                    | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [TypeScript SDK](#typescript-sdk)                                                 |
-|                                    | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | - [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas)       |
-|                                    | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             |                                                                                     |
+| Now                                                                                                                                                                                 | Next                                                                                      | Later                                                                            |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                                                                                                                                                  | Ready-to-start items with scoped specs.                                                   | Ideas to revisit when capacity frees up.                                         |
+| Keep entries small and actionable.                                                                                                                                                  | Add owners or dates only when needed.                                                     | Capture rough ideas, not full specs.                                             |
+|                                                                                                                                                                                     | - [Minimum viable contestability standard](#minimum-viable-contestability-standard)       | - [Contestability pattern library](#contestability-pattern-library)              |
+| - [JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)](#json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla) | - [Self-defense diagnostic tools](#self-defense-diagnostic-tools)                         | - [Governance lessons from incidents](#governance-lessons-from-incidents)        |
+|                                                                                                                                                                                     | - [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   |                                                                                  |
+|                                                                                                                                                                                     | - [OpenAPI control-plane spec](#openapi-control-plane-spec)                               | - [Democratic vs. coercive governability](#democratic-vs-coercive-governability) |
+|                                                                                                                                                                                     | - [Python evaluation toolkit](#python-evaluation-toolkit)                                 | - [TypeScript SDK](#typescript-sdk)                                              |
+|                                                                                                                                                                                     | - [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | - [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas)    |
+|                                                                                                                                                                                     | - [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             |                                                                                  |
 
 ## Spec template
 
@@ -243,6 +242,16 @@ future updates can build on what already shipped.
   - [repair-sla.schema.json](/standards/repair-sla.schema.json)
 - **Issue link:** Issue: TBD / Spec:
   #json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla
+
+### AsyncAPI events spec
+
+- **Problem:** Event payloads and channel names varied, making integrations brittle.
+- **Outcome:** Published a versioned AsyncAPI contract covering decision issuance, appeal
+  openings, pause or reversal updates, repair completion updates, burden hours telemetry, and
+  deadline reminders.
+- **Notes:** Event payloads reference the JSON schema set and include example messages for each
+  channel, with legacy repair log updates retained for continuity.
+- **Issue link:** Issue: TBD / Spec: #asyncapi-events-spec
 
 ### Language people can use
 

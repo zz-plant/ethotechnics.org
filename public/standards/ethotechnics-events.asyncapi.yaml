@@ -1,15 +1,40 @@
 asyncapi: 2.6.0
 info:
   title: Ethotechnics Events
-  version: 0.1.0
+  version: 0.2.0
   description: >-
-    Draft AsyncAPI contract for contestability clocks and repair telemetry. Event payloads
-    reuse receipt identifiers and clock terminology from /standards/agent-receipt-schema.json.
+    Draft AsyncAPI contract for contestability events and telemetry. Event payloads reuse receipt
+    identifiers and clock terminology from /standards/agent-receipt-schema.json.
 servers:
   production:
     url: https://ethotechnics.org/events
     protocol: https
 channels:
+  decision.issued:
+    description: Emitted when a decision record is issued.
+    publish:
+      message:
+        $ref: "#/components/messages/DecisionIssued"
+  appeal.opened:
+    description: Emitted when an appeal is opened against a decision.
+    publish:
+      message:
+        $ref: "#/components/messages/AppealOpened"
+  pause.reversal.recorded:
+    description: Emitted when a pause, reversal, or restoration is recorded.
+    publish:
+      message:
+        $ref: "#/components/messages/PauseReversalRecorded"
+  repair.completed:
+    description: Emitted when a repair is completed and the decision record is updated.
+    publish:
+      message:
+        $ref: "#/components/messages/RepairCompleted"
+  burden.hours.updated:
+    description: Emitted when burden hours are updated for a reporting window.
+    publish:
+      message:
+        $ref: "#/components/messages/BurdenHoursUpdated"
   decision.deadline.reminder:
     description: Reminder emitted before a decision review or remedy clock expires.
     publish:
@@ -27,22 +52,184 @@ channels:
         $ref: "#/components/messages/RepairLogUpdated"
 components:
   messages:
+    DecisionIssued:
+      name: DecisionIssued
+      title: Decision issued
+      payload:
+        $ref: "#/components/schemas/DecisionRecord"
+      examples:
+        - name: DecisionIssuedExample
+          payload:
+            schema_version: 1.0.0
+            record_id: decision-1001
+            receipt_id: receipt-9001
+            issued_at: "2024-07-01T12:00:00Z"
+            owner:
+              name: Review Desk
+              role: Case manager
+              contact: support@example.org
+            subject:
+              id: person-442
+              type: applicant
+            action:
+              class: benefit
+              description: Housing voucher eligibility
+              reversible: true
+            decision:
+              decision_type: denied
+              reason_codes: [income_threshold]
+              inputs: [income_statement_2024]
+            clocks:
+              ack:
+                hours: 24
+              review:
+                hours: 72
+              remedy:
+                hours: 168
+            evidence_refs:
+              - type: policy
+                href: https://ethotechnics.org/standards/std-01
+    AppealOpened:
+      name: AppealOpened
+      title: Appeal opened
+      payload:
+        $ref: "#/components/schemas/AppealEvent"
+      examples:
+        - name: AppealOpenedExample
+          payload:
+            schema_version: 1.0.0
+            appeal_id: appeal-220
+            receipt_id: receipt-9001
+            decision_id: decision-1001
+            submitted_at: "2024-07-02T09:30:00Z"
+            channel: web
+            status: pending
+            owner:
+              name: Appeals Desk
+              role: Appeals reviewer
+              contact: appeals@example.org
+    PauseReversalRecorded:
+      name: PauseReversalRecorded
+      title: Pause or reversal recorded
+      payload:
+        $ref: "#/components/schemas/PauseReversalEvent"
+      examples:
+        - name: PauseReversalExample
+          payload:
+            schema_version: 1.0.0
+            event_id: pause-77
+            decision_id: decision-1001
+            receipt_id: receipt-9001
+            event_type: reversal
+            requested_at: "2024-07-02T10:10:00Z"
+            owner:
+              name: Case Lead
+              role: Supervisor
+              contact: supervisor@example.org
+            reason: Evidence verified and decision overturned.
+    RepairCompleted:
+      name: RepairCompleted
+      title: Repair completed
+      payload:
+        $ref: "#/components/schemas/DecisionRecord"
+      examples:
+        - name: RepairCompletedExample
+          payload:
+            schema_version: 1.0.0
+            record_id: decision-1001
+            receipt_id: receipt-9001
+            issued_at: "2024-07-01T12:00:00Z"
+            owner:
+              name: Review Desk
+              role: Case manager
+              contact: support@example.org
+            subject:
+              id: person-442
+              type: applicant
+            action:
+              class: benefit
+              description: Housing voucher eligibility
+              reversible: true
+            decision:
+              decision_type: approved
+              reason_codes: [appeal_remedy]
+              inputs: [appeal_packet_2024]
+            clocks:
+              ack:
+                hours: 24
+              review:
+                hours: 72
+              remedy:
+                hours: 168
+            status: remedied
+            evidence_refs:
+              - type: remedy
+                href: https://ethotechnics.org/standards/repair-sla.schema.json
+    BurdenHoursUpdated:
+      name: BurdenHoursUpdated
+      title: Burden hours updated
+      payload:
+        $ref: "#/components/schemas/BurdenHours"
+      examples:
+        - name: BurdenHoursExample
+          payload:
+            schema_version: 1.0.0
+            record_id: burden-2024-q2
+            period_start: "2024-04-01"
+            period_end: "2024-06-30"
+            scope: housing-appeals
+            total_hours: 820.5
+            unit: hours
+            population:
+              count: 240
+              segment: applicants
     DeadlineReminder:
       name: DeadlineReminder
       title: Decision deadline reminder
       payload:
         $ref: "#/components/schemas/DeadlineEvent"
+      examples:
+        - name: DeadlineReminderExample
+          payload:
+            decision_id: decision-1001
+            receipt_id: receipt-9001
+            clock_type: review
+            due_at: "2024-07-05T12:00:00Z"
+            status: reminder
     DeadlineBreached:
       name: DeadlineBreached
       title: Appeal deadline breached
       payload:
         $ref: "#/components/schemas/DeadlineEvent"
+      examples:
+        - name: DeadlineBreachedExample
+          payload:
+            decision_id: decision-1001
+            receipt_id: receipt-9001
+            clock_type: appeal
+            due_at: "2024-07-03T12:00:00Z"
+            status: breached
     RepairLogUpdated:
       name: RepairLogUpdated
       title: Repair log updated
       payload:
         $ref: "#/components/schemas/RepairEvent"
+      examples:
+        - name: RepairLogUpdatedExample
+          payload:
+            repair_id: repair-55
+            decision_id: decision-1001
+            updated_at: "2024-07-02T12:30:00Z"
+            status: in_progress
   schemas:
+    DecisionRecord:
+      $ref: https://ethotechnics.org/standards/decision-record.schema.json
+    AppealEvent:
+      $ref: https://ethotechnics.org/standards/appeal-event.schema.json
+    PauseReversalEvent:
+      $ref: https://ethotechnics.org/standards/pause-reversal.schema.json
+    BurdenHours:
+      $ref: https://ethotechnics.org/standards/burden-hours.schema.json
     DeadlineEvent:
       type: object
       required:
