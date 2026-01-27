@@ -1,17 +1,74 @@
 openapi: 3.0.3
 info:
   title: Ethotechnics Control Plane API
-  version: 0.1.0
+  version: 0.2.0
   description: >-
-    Draft OpenAPI specification for decision receipts and appeal intake. Payloads mirror
-    the canonical agent receipt schema (decision, appeal_path, clocks) published at
+    Draft OpenAPI specification for decision records, appeal lifecycle actions, pause or
+    reversal updates, repair SLA tracking, and burden-hours telemetry. Payloads align with the
+    JSON schemas published under /standards and the agent receipt schema at
     /standards/agent-receipt-schema.json.
 servers:
   - url: https://ethotechnics.org
+security:
+  - bearerAuth: []
+tags:
+  - name: Decisions
+    description: Decision record retrieval and updates.
+  - name: Appeals
+    description: Appeal intake and lifecycle management.
+  - name: Repairs
+    description: Repair SLA tracking for remedial actions.
+  - name: Burden hours
+    description: Burden-hours telemetry reporting and retrieval.
 paths:
+  /api/decisions:
+    get:
+      tags: [Decisions]
+      summary: List decision records
+      description: Return a paginated list of decision records with contestability metadata.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [active, paused, reversed, repaired]
+      responses:
+        "200":
+          description: Paginated decision records
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DecisionRecordPage"
+              examples:
+                default:
+                  value:
+                    data:
+                      - decision_id: dec_123
+                        subject_id: subj_901
+                        issued_at: "2024-05-14T20:45:00Z"
+                        status: active
+                        decision_type: eligibility
+                        reason_codes: [insufficient_history]
+                        inputs: ["application_v2"]
+                        owner: "risk-team"
+                    page:
+                      next_cursor: "cursor_456"
+                      limit: 50
   /api/decisions/{decision_id}:
     get:
-      summary: Retrieve a decision receipt
+      tags: [Decisions]
+      summary: Retrieve a decision record
       description: Resolve a single decision record with contestability fields and clocks.
       parameters:
         - in: path
@@ -21,23 +78,116 @@ paths:
             type: string
       responses:
         "200":
-          description: Decision receipt payload
+          description: Decision record payload
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionReceipt"
+                $ref: "#/components/schemas/DecisionRecord"
+              examples:
+                default:
+                  value:
+                    decision_id: dec_123
+                    subject_id: subj_901
+                    issued_at: "2024-05-14T20:45:00Z"
+                    status: active
+                    decision_type: eligibility
+                    reason_codes: [insufficient_history]
+                    inputs: ["application_v2"]
+                    owner: "risk-team"
+                    appeal_path:
+                      url: "https://ethotechnics.org/appeals/dec_123"
+                      channel: "web"
+                      expected_response: "Within 48 hours"
+                    clocks:
+                      ack: { hours: 24 }
+                      review: { hours: 72 }
+                      remedy: { hours: 168 }
         "404":
           description: Decision not found
-  /api/appeals:
+  /api/decisions/{decision_id}/pause-reversal:
     post:
+      tags: [Decisions]
+      summary: Record a pause or reversal update
+      description: Log a pause or reversal event linked to the decision record.
+      parameters:
+        - in: path
+          name: decision_id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PauseReversalUpdate"
+            examples:
+              pause:
+                value:
+                  action: paused
+                  reason: "awaiting external review"
+                  effective_at: "2024-05-15T10:00:00Z"
+              reversal:
+                value:
+                  action: reversed
+                  reason: "new evidence provided"
+                  effective_at: "2024-05-16T09:30:00Z"
+      responses:
+        "201":
+          description: Pause or reversal recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PauseReversalRecord"
+  /api/appeals:
+    get:
+      tags: [Appeals]
+      summary: List appeals
+      description: Return a paginated list of appeal records with current status.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [received, queued, in_review, resolved, rejected]
+      responses:
+        "200":
+          description: Paginated appeal records
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppealRecordPage"
+    post:
+      tags: [Appeals]
       summary: Submit an appeal
-      description: Intake an appeal tied to a decision receipt and return a tracking ID.
+      description: Intake an appeal tied to a decision record and return a tracking ID.
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/AppealSubmission"
+            examples:
+              default:
+                value:
+                  decision_id: dec_123
+                  appellant:
+                    id: "acct_555"
+                    contact: "applicant@example.com"
+                  reason: "Supporting documentation was missing from review"
+                  attachments:
+                    - "https://files.example.com/appeal/dec_123/supporting-doc.pdf"
       responses:
         "202":
           description: Appeal accepted for review
@@ -45,39 +195,234 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppealReceipt"
+              examples:
+                default:
+                  value:
+                    appeal_id: app_456
+                    decision_id: dec_123
+                    submitted_at: "2024-05-15T09:00:00Z"
+                    status: received
+                    expected_response: "Within 48 hours"
+  /api/appeals/{appeal_id}:
+    get:
+      tags: [Appeals]
+      summary: Retrieve an appeal record
+      description: Fetch an appeal record with current status and resolution notes.
+      parameters:
+        - in: path
+          name: appeal_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Appeal record payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppealRecord"
+        "404":
+          description: Appeal not found
+    patch:
+      tags: [Appeals]
+      summary: Update an appeal status
+      description: Record lifecycle updates such as review start, resolution, or rejection.
+      parameters:
+        - in: path
+          name: appeal_id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppealStatusUpdate"
+            examples:
+              resolved:
+                value:
+                  status: resolved
+                  resolution: "decision reversed"
+                  updated_at: "2024-05-17T14:20:00Z"
+      responses:
+        "200":
+          description: Appeal updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppealRecord"
+  /api/repairs:
+    get:
+      tags: [Repairs]
+      summary: List repair SLA records
+      description: Return a paginated list of repair SLA tracking records.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [open, in_progress, met, breached]
+      responses:
+        "200":
+          description: Paginated repair SLA records
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RepairSlaRecordPage"
+    post:
+      tags: [Repairs]
+      summary: Create a repair SLA record
+      description: Start tracking a repair obligation tied to a decision or appeal.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RepairSlaCreate"
+      responses:
+        "201":
+          description: Repair SLA record created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RepairSlaRecord"
+  /api/repairs/{repair_id}:
+    get:
+      tags: [Repairs]
+      summary: Retrieve a repair SLA record
+      parameters:
+        - in: path
+          name: repair_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Repair SLA payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RepairSlaRecord"
+        "404":
+          description: Repair SLA record not found
+    patch:
+      tags: [Repairs]
+      summary: Update a repair SLA record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RepairSlaUpdate"
+      responses:
+        "200":
+          description: Repair SLA record updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RepairSlaRecord"
+  /api/burden-hours:
+    get:
+      tags: [Burden hours]
+      summary: List burden-hours telemetry
+      description: Return aggregated burden-hours telemetry for the selected window.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: window_start
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: window_end
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Paginated burden-hours telemetry
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BurdenHoursRecordPage"
+    post:
+      tags: [Burden hours]
+      summary: Submit burden-hours telemetry
+      description: Capture burden-hours measurements for downstream analytics.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BurdenHoursRecord"
+      responses:
+        "201":
+          description: Burden-hours telemetry recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BurdenHoursRecord"
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
-    DecisionReceipt:
+    DecisionRecord:
       type: object
       required:
         - decision_id
-        - receipt_id
+        - subject_id
         - issued_at
-        - decision
-        - appeal_path
-        - clocks
+        - status
+        - decision_type
+        - reason_codes
       properties:
         decision_id:
           type: string
-        receipt_id:
+        subject_id:
           type: string
         issued_at:
           type: string
           format: date-time
-        decision:
-          type: object
-          required: [decision_type, reason_codes, inputs]
-          properties:
-            decision_type:
-              type: string
-            reason_codes:
-              type: array
-              items:
-                type: string
-            inputs:
-              type: array
-              items:
-                type: string
+        status:
+          type: string
+          enum: [active, paused, reversed, repaired]
+        decision_type:
+          type: string
+        reason_codes:
+          type: array
+          items:
+            type: string
+        inputs:
+          type: array
+          items:
+            type: string
+        owner:
+          type: string
         appeal_path:
           type: object
           required: [url, channel, expected_response]
@@ -112,6 +457,16 @@ components:
               properties:
                 hours:
                   type: number
+    DecisionRecordPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/DecisionRecord"
+        page:
+          $ref: "#/components/schemas/PageInfo"
     AppealSubmission:
       type: object
       required:
@@ -152,6 +507,185 @@ components:
           format: date-time
         status:
           type: string
-          enum: [accepted, queued, rejected]
+          enum: [received, queued, in_review, resolved, rejected]
         expected_response:
           type: string
+    AppealRecord:
+      type: object
+      required:
+        - appeal_id
+        - decision_id
+        - submitted_at
+        - status
+      properties:
+        appeal_id:
+          type: string
+        decision_id:
+          type: string
+        submitted_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [received, queued, in_review, resolved, rejected]
+        assigned_to:
+          type: string
+        resolution:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+    AppealStatusUpdate:
+      type: object
+      required: [status, updated_at]
+      properties:
+        status:
+          type: string
+          enum: [received, queued, in_review, resolved, rejected]
+        resolution:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+    AppealRecordPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/AppealRecord"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    PauseReversalUpdate:
+      type: object
+      required: [action, effective_at]
+      properties:
+        action:
+          type: string
+          enum: [paused, reversed]
+        reason:
+          type: string
+        effective_at:
+          type: string
+          format: date-time
+    PauseReversalRecord:
+      type: object
+      required: [decision_id, action, effective_at]
+      properties:
+        pause_reversal_id:
+          type: string
+        decision_id:
+          type: string
+        action:
+          type: string
+          enum: [paused, reversed]
+        reason:
+          type: string
+        effective_at:
+          type: string
+          format: date-time
+    RepairSlaCreate:
+      type: object
+      required: [decision_id, obligation, target_hours]
+      properties:
+        decision_id:
+          type: string
+        appeal_id:
+          type: string
+        obligation:
+          type: string
+        target_hours:
+          type: number
+        notes:
+          type: string
+    RepairSlaUpdate:
+      type: object
+      required: [status, updated_at]
+      properties:
+        status:
+          type: string
+          enum: [open, in_progress, met, breached]
+        updated_at:
+          type: string
+          format: date-time
+        completion_notes:
+          type: string
+    RepairSlaRecord:
+      type: object
+      required:
+        - repair_id
+        - decision_id
+        - status
+        - created_at
+        - target_hours
+      properties:
+        repair_id:
+          type: string
+        decision_id:
+          type: string
+        appeal_id:
+          type: string
+        obligation:
+          type: string
+        status:
+          type: string
+          enum: [open, in_progress, met, breached]
+        created_at:
+          type: string
+          format: date-time
+        target_hours:
+          type: number
+        updated_at:
+          type: string
+          format: date-time
+        completion_notes:
+          type: string
+    RepairSlaRecordPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/RepairSlaRecord"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    BurdenHoursRecord:
+      type: object
+      required: [record_id, window_start, window_end, total_hours]
+      properties:
+        record_id:
+          type: string
+        decision_id:
+          type: string
+        window_start:
+          type: string
+          format: date
+        window_end:
+          type: string
+          format: date
+        total_hours:
+          type: number
+        segment:
+          type: string
+        notes:
+          type: string
+    BurdenHoursRecordPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/BurdenHoursRecord"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    PageInfo:
+      type: object
+      required: [limit]
+      properties:
+        next_cursor:
+          type: string
+        limit:
+          type: integer
