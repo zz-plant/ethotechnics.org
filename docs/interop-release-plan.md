@@ -8,6 +8,8 @@ Scope: ship evaluation utilities that can run in offline analysis pipelines and 
 
 Target: researchers, auditors, risk teams, and internal governance tooling.
 
+Spec: see [Python evaluation toolkit](python-evaluation-toolkit.md) for module and CLI details.
+
 Why:
 
 - Python dominates compliance analytics, risk modeling, and governance research.
