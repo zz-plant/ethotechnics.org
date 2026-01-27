@@ -87,7 +87,7 @@ under this heading and link to it from the roadmap table.
 - **What to ship:** Reference validators for schemas, time-in-harm calculators, burden-hour
   scoring functions, and RMF / ISO clause-mapping evaluators.
 - **Dependencies/risks:** Depends on JSON schema set; risk of duplicated logic with SDKs.
-- **Issue link:** Issue: TBD / Spec: #python-evaluation-toolkit
+- **Issue link:** Issue: TBD / Spec: docs/python-evaluation-toolkit.md
 
 ## Maintenance simulator v2 (risk thresholds)
 

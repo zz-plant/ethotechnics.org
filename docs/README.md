@@ -11,6 +11,8 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`roadmap.md`](roadmap.md) tracks the now/next/later roadmap, spec template, and pickup guidance.
 - [`interop-release-plan.md`](interop-release-plan.md) summarizes planned interop packages and
   schema artifacts.
+- [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md) specifies the Python evaluation
+  toolkit package scope, modules, and CLI expectations.
 - [`issue-templates.md`](issue-templates.md) defines the consistent fields for roadmap-related GitHub
   Issues.
 - [`mini-prds.md`](mini-prds.md) drafts the accountability tooling Mini-PRDs and homepage blurb.
