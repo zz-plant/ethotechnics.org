@@ -65,6 +65,18 @@ paths:
                     page:
                       next_cursor: "cursor_456"
                       limit: 50
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/decisions/{decision_id}:
     get:
       tags: [Decisions]
@@ -102,8 +114,24 @@ paths:
                       ack: { hours: 24 }
                       review: { hours: 72 }
                       remedy: { hours: 168 }
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "404":
           description: Decision not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/decisions/{decision_id}/pause-reversal:
     post:
       tags: [Decisions]
@@ -139,6 +167,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PauseReversalRecord"
+              examples:
+                paused:
+                  value:
+                    pause_reversal_id: pr_789
+                    decision_id: dec_123
+                    action: paused
+                    reason: "awaiting external review"
+                    effective_at: "2024-05-15T10:00:00Z"
+                reversed:
+                  value:
+                    pause_reversal_id: pr_790
+                    decision_id: dec_123
+                    action: reversed
+                    reason: "new evidence provided"
+                    effective_at: "2024-05-16T09:30:00Z"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/appeals:
     get:
       tags: [Appeals]
@@ -168,6 +223,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppealRecordPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     post:
       tags: [Appeals]
       summary: Submit an appeal
@@ -203,6 +270,18 @@ paths:
                     submitted_at: "2024-05-15T09:00:00Z"
                     status: received
                     expected_response: "Within 48 hours"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/appeals/{appeal_id}:
     get:
       tags: [Appeals]
@@ -221,8 +300,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppealRecord"
+              examples:
+                default:
+                  value:
+                    appeal_id: app_456
+                    decision_id: dec_123
+                    submitted_at: "2024-05-15T09:00:00Z"
+                    status: in_review
+                    assigned_to: "appeals-queue-a"
+                    updated_at: "2024-05-16T08:30:00Z"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "404":
           description: Appeal not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     patch:
       tags: [Appeals]
       summary: Update an appeal status
@@ -252,6 +356,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppealRecord"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/repairs:
     get:
       tags: [Repairs]
@@ -281,6 +397,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RepairSlaRecordPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     post:
       tags: [Repairs]
       summary: Create a repair SLA record
@@ -298,6 +426,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RepairSlaRecord"
+              examples:
+                default:
+                  value:
+                    repair_id: rep_100
+                    decision_id: dec_123
+                    obligation: "re-evaluate eligibility"
+                    status: open
+                    created_at: "2024-05-15T12:00:00Z"
+                    target_hours: 72
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/repairs/{repair_id}:
     get:
       tags: [Repairs]
@@ -315,8 +464,34 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RepairSlaRecord"
+              examples:
+                default:
+                  value:
+                    repair_id: rep_100
+                    decision_id: dec_123
+                    obligation: "re-evaluate eligibility"
+                    status: in_progress
+                    created_at: "2024-05-15T12:00:00Z"
+                    target_hours: 72
+                    updated_at: "2024-05-16T10:30:00Z"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "404":
           description: Repair SLA record not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     patch:
       tags: [Repairs]
       summary: Update a repair SLA record
@@ -333,6 +508,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RepairSlaRecord"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /api/burden-hours:
     get:
       tags: [Burden hours]
@@ -367,6 +554,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BurdenHoursRecordPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     post:
       tags: [Burden hours]
       summary: Submit burden-hours telemetry
@@ -384,6 +583,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BurdenHoursRecord"
+              examples:
+                default:
+                  value:
+                    record_id: bh_456
+                    decision_id: dec_123
+                    window_start: "2024-05-01"
+                    window_end: "2024-05-31"
+                    total_hours: 18.5
+                    segment: "applicants"
+                    notes: "Includes appeal prep time"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   securitySchemes:
     bearerAuth:
@@ -689,3 +910,13 @@ components:
           type: string
         limit:
           type: integer
+    ErrorResponse:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
