@@ -19,8 +19,7 @@
   "scripts": {
     "dev": "bunx astro dev",
     "start": "bunx astro dev",
-    "build": "bun run validate:json && bun run validate:glossary && bunx astro build && bun run build:search",
-    "build:search": "bunx pagefind --site dist",
+    "build": "bun run validate:json && bun run validate:glossary && bunx astro build && bunx pagefind --site dist",
     "preview": "bunx astro preview",
     "preview:cf": "bunx wrangler dev ./dist/_worker.js --local",
     "deploy": "bunx wrangler deploy ./dist/_worker.js --no-bundle",
