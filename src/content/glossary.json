@@ -4762,7 +4762,7 @@
             "title": "Decision Object",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A concrete, contestable artifact that records what was decided, by whom, on what basis, plus the appeal window and reversal conditions.</p><p>Decision objects keep <a href=\"#decision-artifact\">decision artifacts</a> legible and protect <a href=\"#contestability\">contestability</a>.</p><div class=\"callout\"><p class=\"eyebrow\">Minimum evidence</p><ul class=\"muted\"><li>User-facing artifact.</li><li>Internal log.</li><li>Drill / rehearsal.</li></ul></div>",
+            "bodyHtml": "<p><strong>Normative definition.</strong> A Decision Object is a versioned, inspectable record that encodes the rules, inputs, thresholds, and authority governing an operational decision.</p><p>Decision objects are first-class governance artifacts, not just logic. They must specify ownership, appealability, reversibility, and temporal obligations. Decisions that affect access, status, or rights must be backed by an active decision object.</p><p><strong>Minimal JSON schema (governance-grade).</strong></p><pre><code class=\"language-json\">{\n  \"decision_object_id\": \"DO-ACCESS-0041\",\n  \"decision_name\": \"Eligibility Determination\",\n  \"status\": \"active\",\n  \"owner_role\": \"Risk Operations\",\n  \"authority\": {\n    \"issuing_body\": \"Eligibility Committee\",\n    \"delegation_basis\": \"Policy \u00a74.2\"\n  },\n  \"inputs\": [\n    {\"name\": \"income_verified\", \"type\": \"boolean\"},\n    {\"name\": \"employment_duration_months\", \"type\": \"integer\"}\n  ],\n  \"decision_logic\": {\n    \"model_type\": \"ruleset\",\n    \"description\": \"Income verification + minimum employment duration\"\n  },\n  \"outputs\": [\n    {\"value\": \"approved\"},\n    {\"value\": \"denied\"},\n    {\"value\": \"pending_review\"}\n  ],\n  \"reversibility\": {\n    \"allowed\": true,\n    \"mechanism\": \"human_override\",\n    \"reversal_sla_id\": \"RSLA-002\"\n  },\n  \"contestability\": {\n    \"appealable\": true,\n    \"appeal_channel\": \"formal_request\",\n    \"binding_clock_id\": \"BC-010\"\n  },\n  \"audit\": {\n    \"last_updated\": \"2026-01-10\",\n    \"version\": \"1.3.0\",\n    \"change_log_ref\": \"CH-884\"\n  }\n}</code></pre><p><strong>Ethotechnics move.</strong> This reframes \u201cthe system decided\u201d into \u201cthis object did.\u201d Once the object exists, accountability stops being philosophical.</p>",
             "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect decision object.",
@@ -4774,6 +4774,62 @@
               "artifact": "Artifact documenting how Decision Object is expected, enforced, or governed.",
               "behavior": "Observed behavior showing Decision Object in practice during real use or drills.",
               "metric": "Metric tracked to monitor Decision Object performance over time."
+            },
+            "domains": [
+              "temporal"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "binding-clock",
+            "title": "Binding Clock",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p><strong>Normative definition.</strong> A Binding Clock is an enforceable timer governing system obligations once a decision enters a pending or contested state.</p><p>The clock continues to accrue regardless of internal workload, staffing constraints, or review queues unless explicitly paused under defined conditions.</p><p><strong>Clock semantics (design-legible).</strong></p><pre><code class=\"language-yaml\">binding_clock_id: BC-010\ntrigger_event: decision_status == \"pending_review\"\nstart_condition: timestamp_of_trigger\npause_conditions:\n  - mutual_extension_agreed\n  - documented_external_dependency\npause_requires:\n  approver_role: Ombuds Officer\n  public_log: true\ntimeout_effects:\n  - default_to_human_review\n  - interim_access_granted\nclock_visibility: user_visible</code></pre><p><strong>Why this matters.</strong> Without a binding clock, delay is power, silence is treated as consent, and \u201cwe\u2019re reviewing\u201d becomes infinite. With it, time itself becomes a governed surface and institutions pay for waiting.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Evidence appears in documentation, interface cues, or governance artifacts that reflect binding clock.",
+              "Teams can point to a concrete example that demonstrates binding clock in practice."
+            ],
+            "genealogy": "Ethotechnics uses Binding Clock to extend the j. decision states & edges vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Binding Clock is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Binding Clock in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Binding Clock performance over time."
+            },
+            "domains": [
+              "temporal"
+            ],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "reversal-sla",
+            "title": "Reversal SLA",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p><strong>Normative definition.</strong> A Reversal SLA specifies maximum allowable time, authority, and procedure for undoing or correcting a decision once contested or found erroneous.</p><p>Reversal performance is a core reliability metric, not an exception.</p><p><strong>Contract-ready clause.</strong></p><p><em>Reversal Commitment.</em> Upon receipt of a valid reversal request, Provider shall initiate human review within 24 hours and complete reversal or affirm decision within 5 business days. Failure to meet this obligation shall result in interim restoration of access and applicable service credits.</p><p><strong>Operational metrics (what you actually track).</strong></p><pre><code class=\"language-json\">{\n  \"reversal_sla_id\": \"RSLA-002\",\n  \"time_to_human_hours\": 24,\n  \"time_to_reversal_days\": 5,\n  \"escalation_path\": [\n    \"Ops Lead\",\n    \"Risk Director\",\n    \"Independent Reviewer\"\n  ],\n  \"breach_consequence\": \"automatic_interim_restoration\"\n}</code></pre><p><strong>Ethotechnics move.</strong> Most systems optimize time-to-deny. This forces optimization of time-to-repair.</p><p><strong>Interlock.</strong> <a href=\"#decision-object\">Decision Objects</a> define what happened and who owns it. <a href=\"#binding-clock\">Binding Clocks</a> govern how long uncertainty is allowed to exist. Reversal SLAs enforce how quickly harm must be undone. Together, \u201cYou can appeal\u201d becomes \u201cAppeal changes the system\u2019s obligations.\u201d</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Evidence appears in documentation, interface cues, or governance artifacts that reflect reversal SLA.",
+              "Teams can point to a concrete example that demonstrates reversal SLA in practice."
+            ],
+            "genealogy": "Ethotechnics uses Reversal SLA to extend the j. decision states & edges vocabulary and connect governance, design, and policy teams.",
+            "references": [],
+            "minimumEvidence": {
+              "artifact": "Artifact documenting how Reversal SLA is expected, enforced, or governed.",
+              "behavior": "Observed behavior showing Reversal SLA in practice during real use or drills.",
+              "metric": "Metric tracked to monitor Reversal SLA performance over time."
             },
             "domains": [
               "temporal"
