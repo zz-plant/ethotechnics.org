@@ -18,23 +18,22 @@ each column.
 **Status tags:** `[Spec ready]` means the section below is ready for pickup. `[Needs alignment]`
 flags work that depends on cross-team decisions or external input.
 
-| Now                                                       | Next                                                                                    | Later                                                                                              |
-| --------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Highest-priority work in progress.                        | Ready-to-start items with scoped specs.                                                 | Ideas to revisit when capacity frees up.                                                           |
-| Keep entries small and actionable.                        | Add owners or dates only when needed.                                                   | Capture rough ideas, not full specs.                                                               |
-| [OpenAPI control-plane spec](#openapi-control-plane-spec) | [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
-| `[Spec ready]`                                            | `[Spec ready]`                                                                          |                                                                                                    |
-| [Python evaluation toolkit](#python-evaluation-toolkit)   | [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
-| `[Spec ready]`                                            | `[Spec ready]`                                                                          |                                                                                                    |
-|                                                           | [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
-|                                                           | `[Spec ready]`                                                                          |                                                                                                    |
-|                                                           | [TypeScript SDK](#typescript-sdk)                                                       | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
-|                                                           | `[Spec ready]`                                                                          |                                                                                                    |
+| Now                                                     | Next                                                                                    | Later                                                                                              |
+| ------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                      | Ready-to-start items with scoped specs.                                                 | Ideas to revisit when capacity frees up.                                                           |
+| Keep entries small and actionable.                      | Add owners or dates only when needed.                                                   | Capture rough ideas, not full specs.                                                               |
+|                                                         | [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
+|                                                         | `[Spec ready]`                                                                          |                                                                                                    |
+| [Python evaluation toolkit](#python-evaluation-toolkit) | [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
+| `[Spec ready]`                                          | `[Spec ready]`                                                                          |                                                                                                    |
+|                                                         | [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
+|                                                         | `[Spec ready]`                                                                          |                                                                                                    |
+|                                                         | [TypeScript SDK](#typescript-sdk)                                                       | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
+|                                                         | `[Spec ready]`                                                                          |                                                                                                    |
 
 **Priority snapshot**
 
-- **Foundation specs:** OpenAPI control-plane spec + Python evaluation toolkit unblock SDKs and
-  evaluation workflows.
+- **Foundation specs:** Python evaluation toolkit unblocks SDKs and evaluation workflows.
 - **Modeling + simulation:** capacity forecaster, maintenance simulator, and burden modeler
   updates land after foundation specs are moving.
 - **Publishing + standards:** content and standards work stays queued until alignment work is
@@ -75,20 +74,6 @@ under this heading and link to it from the roadmap table.
   export each scenario or a combined comparison snapshot.
 - **Dependencies/risks:** Needs chart updates and content copy for comparison framing.
 - **Issue link:** Issue: TBD / Spec: #capacity-forecaster-v2-scenario-compare
-
-## OpenAPI control-plane spec
-
-- **Problem:** Control-plane endpoints are described informally, leading to inconsistent
-  implementations across tools and SDKs.
-- **Scope:** Define an OpenAPI spec covering decision records, appeal lifecycle actions, pause
-  or reversal updates, repair SLA tracking, and burden-hours telemetry.
-- **UX/Tech notes:** Align naming with JSON schemas and AsyncAPI channels; include auth and
-  pagination notes plus example requests and responses.
-- **Acceptance criteria:** Spec validates, includes examples for each resource, and supports
-  client generation for Python and TypeScript.
-- **Dependencies/risks:** Depends on JSON schema set and event taxonomy; risk of drift without
-  a single source of truth.
-- **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
 
 ## Python evaluation toolkit
 
@@ -218,6 +203,17 @@ future updates can build on what already shipped.
   - [repair-sla.schema.json](/standards/repair-sla.schema.json)
 - **Issue link:** Issue: TBD / Spec:
   #json-schema-set-decision-record-appeal-event-pause-reversal-burden-hours-repair-sla
+
+### OpenAPI control-plane spec
+
+- **Problem:** Control-plane endpoints were described informally, leading to inconsistent
+  implementations across tools and SDKs.
+- **Outcome:** Published a validated OpenAPI spec covering decision records, appeals, pause or
+  reversal updates, repair SLA tracking, and burden-hours telemetry with shared error responses
+  and concrete examples for common workflows.
+- **Notes:** The draft OpenAPI specification lives at
+  [ethotechnics-control-plane.openapi.yaml](/standards/ethotechnics-control-plane.openapi.yaml).
+- **Issue link:** Issue: TBD / Spec: #openapi-control-plane-spec
 
 ### AsyncAPI events spec
 
