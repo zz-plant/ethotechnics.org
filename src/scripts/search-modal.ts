@@ -98,6 +98,40 @@ type SearchInstance = {
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+const setSearchMessage = (container: HTMLElement, message: string) => {
+  const text = document.createElement("p");
+  text.className = "search-empty";
+  text.textContent = message;
+  container.replaceChildren(text);
+};
+
+const applyHighlight = (element: HTMLElement, query: string) => {
+  if (!query) return;
+  const text = element.textContent ?? "";
+  if (!text) return;
+  const escapedQuery = escapeRegExp(query);
+  const highlightRegex = new RegExp(escapedQuery, "gi");
+  const fragment = document.createDocumentFragment();
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = highlightRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      fragment.append(text.slice(lastIndex, match.index));
+    }
+    const mark = document.createElement("mark");
+    mark.textContent = match[0];
+    fragment.append(mark);
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    fragment.append(text.slice(lastIndex));
+  }
+
+  element.replaceChildren(fragment);
+};
+
 const initSearch = () => {
   const searchContainers = Array.from(
     document.querySelectorAll<HTMLElement>("[data-search-container]"),
@@ -170,7 +204,7 @@ const initSearch = () => {
     handler: (value: string) => void,
   ) => {
     const recent = getRecentSearches();
-    list.innerHTML = "";
+    list.replaceChildren();
 
     recent.forEach((item) => {
       const button = document.createElement("button");
@@ -207,33 +241,35 @@ const initSearch = () => {
         );
       });
 
-    wrapper.innerHTML = `
-      <a href="${url}">
-        <div class="search-result__title">${title}</div>
-        ${
-          metaLabels.length
-            ? `<div class="search-result__meta">${metaLabels
-                .map((label) => `<span>${label}</span>`)
-                .join("")}</div>`
-            : ""
-        }
-        <p class="search-result__excerpt">${excerpt}</p>
-      </a>
-    `;
+    const link = document.createElement("a");
+    link.href = url;
+
+    const titleElement = document.createElement("div");
+    titleElement.className = "search-result__title";
+    titleElement.textContent = title;
+    link.appendChild(titleElement);
+
+    if (metaLabels.length) {
+      const meta = document.createElement("div");
+      meta.className = "search-result__meta";
+      metaLabels.forEach((label) => {
+        const pill = document.createElement("span");
+        pill.textContent = label;
+        meta.appendChild(pill);
+      });
+      link.appendChild(meta);
+    }
+
+    const excerptElement = document.createElement("p");
+    excerptElement.className = "search-result__excerpt";
+    excerptElement.textContent = excerpt;
+    link.appendChild(excerptElement);
+
+    wrapper.appendChild(link);
 
     if (query) {
-      const escapedQuery = escapeRegExp(query);
-      const highlightRegex = new RegExp(`(${escapedQuery})`, "gi");
-      wrapper
-        .querySelectorAll<HTMLElement>(
-          ".search-result__title, .search-result__excerpt",
-        )
-        .forEach((node) => {
-          node.innerHTML = node.innerHTML.replace(
-            highlightRegex,
-            "<mark>$1</mark>",
-          );
-        });
+      applyHighlight(titleElement, query);
+      applyHighlight(excerptElement, query);
     }
 
     return wrapper;
@@ -273,11 +309,10 @@ const initSearch = () => {
     results: PagefindResultData[],
     query: string,
   ) => {
-    container.innerHTML = "";
+    container.replaceChildren();
 
     if (!results.length) {
-      container.innerHTML =
-        "<p class=\"search-empty\">No matches yet. Try another term.</p>";
+      setSearchMessage(container, "No matches yet. Try another term.");
       return;
     }
 
@@ -287,7 +322,10 @@ const initSearch = () => {
     labels.forEach((label) => {
       const group = document.createElement("section");
       group.className = "search-results__group";
-      group.innerHTML = `<h3 class="search-results__group-title">${label}</h3>`;
+      const title = document.createElement("h3");
+      title.className = "search-results__group-title";
+      title.textContent = label;
+      group.appendChild(title);
       const list = document.createElement("div");
       list.className = "search-results__list";
       groups[label].forEach((result) => {
@@ -308,8 +346,7 @@ const initSearch = () => {
     sessionStorage.getItem(SEARCH_QUERY_STORAGE_KEY) ?? "";
 
   const clearSearchResults = (container: HTMLElement) => {
-    container.innerHTML =
-      "<p class=\"search-empty\">Start typing to search...</p>";
+    setSearchMessage(container, "Start typing to search...");
   };
 
   const bindSearchInstance = ({
@@ -441,8 +478,7 @@ const initSearch = () => {
 
       const pagefind = await initPagefind();
       if (!pagefind) {
-        results.innerHTML =
-          "<p class=\"search-empty\">Search is unavailable right now.</p>";
+        setSearchMessage(results, "Search is unavailable right now.");
         return;
       }
 

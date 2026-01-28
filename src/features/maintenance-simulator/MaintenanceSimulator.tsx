@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 import "./maintenanceSimulator.css";
 import {
   buildSimulationPlan,
@@ -415,10 +415,10 @@ const CoverageControls = ({
   setCoverage,
 }: {
   coverage: CoverageChecklist;
-  setCoverage: (value: CoverageChecklist) => void;
+  setCoverage: Dispatch<SetStateAction<CoverageChecklist>>;
 }) => {
   const toggleCoverage = (key: keyof CoverageChecklist) => {
-    setCoverage({ ...coverage, [key]: !coverage[key] });
+    setCoverage((current) => ({ ...current, [key]: !current[key] }));
   };
 
   return (
