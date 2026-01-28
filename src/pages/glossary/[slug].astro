@@ -8,6 +8,12 @@ import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import {
+  getGlossaryTestSlugs,
+  glossarySectionPermalink,
+  glossarySections,
+  glossaryTestPermalink,
+} from "../../utils/glossary-sections";
+import {
   getGlossaryEntryDefaults,
   normalizeGlossaryHeading,
   stripHtml,
@@ -131,6 +137,16 @@ const {
   genealogy,
   references,
 } = getGlossaryEntryDefaults(entry, category);
+const glossarySectionLinks = glossarySections.map((section) => ({
+  label: section.label,
+  href: glossarySectionPermalink(entry.id, section.id),
+}));
+const operationalTestLinks = getGlossaryTestSlugs(operationalTests).map(
+  (test) => ({
+    label: test.label,
+    href: glossaryTestPermalink(entry.id, test.slug),
+  }),
+);
 const presenceChecks = entry.presenceChecks ?? [];
 const missingExpectations = entry.missingExpectations ?? [];
 const metaItems = [
@@ -638,12 +654,24 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </li>
           </ul>
         </section>
+        <section class="glossary-entry__section">
+          <p class="eyebrow">Glossary deep links</p>
+          <ul class="muted">
+            {glossarySectionLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
         {operationalTests.length > 0 && (
           <section id="operational-tests" class="glossary-entry__section">
             <p class="eyebrow">Operational tests</p>
             <ul class="muted">
-              {operationalTests.map((test) => (
-                <li>{test}</li>
+              {operationalTestLinks.map((test) => (
+                <li>
+                  <a href={test.href}>{test.label}</a>
+                </li>
               ))}
             </ul>
           </section>

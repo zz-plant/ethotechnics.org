@@ -19,6 +19,12 @@ import { incidentLessons } from "../content/incidents";
 import { fieldNotesContent } from "../content/fieldNotes";
 import type { FieldNotesContent } from "../content/fieldNotes";
 import { glossaryEntryPermalink } from "../utils/glossary";
+import {
+  getGlossaryTestSlugs,
+  glossarySectionPermalink,
+  glossarySections,
+  glossaryTestPermalink,
+} from "../utils/glossary-sections";
 
 const fallbackSite = "https://ethotechnics.org";
 
@@ -194,6 +200,28 @@ export async function GET({ site }: APIContext) {
     path: glossaryEntryPermalink(slug),
     lastmod: glossaryLastmod,
   }));
+  const glossarySectionPaths = glossaryData.categories.flatMap(
+    (category: GlossaryCategory) =>
+      category.entries.flatMap((entry: GlossaryEntry) =>
+        glossarySections.map((section) => ({
+          path: glossarySectionPermalink(entry.id, section.id),
+          lastmod: glossaryLastmod,
+          changefreq: "monthly",
+          priority: "0.4",
+        })),
+      ),
+  );
+  const glossaryTestPaths = glossaryData.categories.flatMap(
+    (category: GlossaryCategory) =>
+      category.entries.flatMap((entry: GlossaryEntry) =>
+        getGlossaryTestSlugs(entry.operationalTests ?? []).map((test) => ({
+          path: glossaryTestPermalink(entry.id, test.slug),
+          lastmod: glossaryLastmod,
+          changefreq: "monthly",
+          priority: "0.3",
+        })),
+      ),
+  );
   const libraryEntry = (await getEntry("library", "library")) as unknown;
   const libraryData = hasEntryData<LibraryContent>(libraryEntry)
     ? libraryEntry.data
@@ -309,6 +337,8 @@ export async function GET({ site }: APIContext) {
       ? pagePaths.map((path) => ({ path }))
       : fallbackPaths.map((path) => ({ path }))),
     ...glossaryPaths,
+    ...glossarySectionPaths,
+    ...glossaryTestPaths,
     ...incidentPaths,
     ...patternPaths,
     ...libraryPatternPaths,
