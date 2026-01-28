@@ -34,20 +34,25 @@ const entryPath = normalizedBasePath
 const entryUrlForSlug = (slug: string) =>
   normalizedBasePath ? `${normalizedBasePath}/${slug}` : `/${slug}`;
 
-const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const canonicalUrl = Astro.site
-  ? new URL(entryPath, siteBase).toString()
-  : entryPath;
-const collectionPath = normalizedBasePath || "/taxonomy";
-const collectionUrl = Astro.site
-  ? new URL(collectionPath, siteBase).toString()
-  : collectionPath;
-const { cspNonce } = Astro.locals;
-
 const segments = entry.slug.split("/");
 const parentSlug =
   segments.length > 1 ? segments.slice(0, -1).join("/") : null;
 const parentEntry = parentSlug ? taxonomyEntriesBySlug.get(parentSlug) : null;
+
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const canonicalUrl = Astro.site
+  ? new URL(entryPath, siteBase).toString()
+  : entryPath;
+const collectionPath =
+  normalizedBasePath === "/taxonomy"
+    ? "/taxonomy"
+    : parentEntry
+      ? entryUrlForSlug(parentEntry.slug)
+      : normalizedBasePath || "/taxonomy";
+const collectionUrl = Astro.site
+  ? new URL(collectionPath, siteBase).toString()
+  : collectionPath;
+const { cspNonce } = Astro.locals;
 
 const siblingEntries = taxonomyEntries.filter((candidate) => {
   if (candidate.slug === entry.slug) {
