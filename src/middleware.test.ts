@@ -24,10 +24,7 @@ describe('middleware', () => {
     ];
 
     for (const { url, host, expectedLocation } of redirectCases) {
-      const request = {
-        url,
-        headers: new Headers({ host }),
-      } as unknown as Request;
+      const request = new Request(url, { headers: new Headers({ host }) });
       const locals = { cspNonce: '' } as App.Locals;
       const next = mock(() => Promise.resolve(new Response('next')));
 

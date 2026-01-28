@@ -12,8 +12,13 @@ const initResearchFilter = () => {
     "[data-clear-research-filter]",
   );
   const facetControls = Array.from(
-    document.querySelectorAll("[data-research-filter]"),
-  ) as unknown as HTMLSelectElement[];
+    document.querySelectorAll("select[data-research-filter]"),
+  ).reduce<HTMLSelectElement[]>((acc, control) => {
+    if (control instanceof HTMLSelectElement) {
+      acc.push(control);
+    }
+    return acc;
+  }, []);
   const chunkedSections = Array.from(
     document.querySelectorAll<HTMLDetailsElement>(".chunked-section"),
   );

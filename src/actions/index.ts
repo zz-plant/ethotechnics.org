@@ -13,17 +13,13 @@ export const server = {
   intake: defineAction({
     accept: 'form',
     input: intakeSchema,
-    handler: async (_input: z.infer<typeof intakeSchema>) => {
+    handler: (input: z.infer<typeof intakeSchema>) => {
       // In a real application, you would save this to a database or send an email.
-      void _input;
+      const { name, topic } = input;
       // For now, we'll just return success.
-
-      // Simulate a small delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
       return {
         success: true,
-        message: "Thank you for your submission. We've received your details.",
+        message: `Thank you, ${name}. We've received your ${topic} request.`,
       };
     },
   }),
