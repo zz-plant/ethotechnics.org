@@ -67,6 +67,9 @@ const normalizeRoutePath = (filePath: string) => {
   return `/${withoutPrefix}`;
 };
 
+const normalizeOverrideKey = (path: string) =>
+  path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
+
 const isPublicPath = (path: string) => {
   if (path === "/404") {
     return false;
@@ -223,9 +226,10 @@ export async function GET({ site }: APIContext) {
       return;
     }
 
+    const overrideKey = normalizeOverrideKey(path);
     const normalized = normalizeLastmod(lastmod);
-    lastmodOverrides.set(path, normalized);
-    changefreqOverrides.set(path, inferChangefreq(normalized));
+    lastmodOverrides.set(overrideKey, normalized);
+    changefreqOverrides.set(overrideKey, inferChangefreq(normalized));
   };
 
   addOverride("/glossary", glossaryLastmod);
@@ -252,7 +256,7 @@ export async function GET({ site }: APIContext) {
   });
 
   ["/glossary", "/mechanisms", "/standards", "/research", "/taxonomy"].forEach(
-    (path) => priorityOverrides.set(path, "0.8"),
+    (path) => priorityOverrides.set(normalizeOverrideKey(path), "0.8"),
   );
   const entries: SitemapEntry[] = [
     ...(pagePaths.length > 0
@@ -267,15 +271,17 @@ export async function GET({ site }: APIContext) {
   const entryMap = new Map<string, SitemapEntry>();
 
   entries.forEach((entry) => {
-    entryMap.set(entry.path, entry);
+    entryMap.set(normalizeOverrideKey(entry.path), entry);
   });
 
-  const entriesWithOverrides = Array.from(entryMap.values()).map((entry) => ({
-    ...entry,
-    lastmod: lastmodOverrides.get(entry.path) ?? entry.lastmod,
-    changefreq: changefreqOverrides.get(entry.path) ?? entry.changefreq,
-    priority: priorityOverrides.get(entry.path) ?? entry.priority,
-  }));
+  const entriesWithOverrides = Array.from(entryMap.entries()).map(
+    ([entryKey, entry]) => ({
+      ...entry,
+      lastmod: lastmodOverrides.get(entryKey) ?? entry.lastmod,
+      changefreq: changefreqOverrides.get(entryKey) ?? entry.changefreq,
+      priority: priorityOverrides.get(entryKey) ?? entry.priority,
+    }),
+  );
 
   const urls = buildUrlSet(
     siteUrl,
