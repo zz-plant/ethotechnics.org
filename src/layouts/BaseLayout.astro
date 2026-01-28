@@ -207,7 +207,16 @@ const structuredDataJson = JSON.stringify(structuredData);
           { rel: "manifest", href: "/site.webmanifest" },
           ...jsonAlternateLinks,
         ],
-        meta: [{ name: "theme-color", content: "#ffffff" }],
+        meta: [
+          {
+            name: "robots",
+            content:
+              "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+          },
+          { name: "author", content: siteName },
+          { name: "publisher", content: siteName },
+          { name: "theme-color", content: "#ffffff" },
+        ],
       }}
     />
     <script
