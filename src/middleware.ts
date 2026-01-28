@@ -44,7 +44,8 @@ export const onRequest: MiddlewareHandler = async ({ request, locals }, next) =>
     locals.cspNonce = nonce;
   }
 
-  const host = request.headers.get('host');
+  const requestUrl = new URL(request.url);
+  const host = request.headers.get('host') ?? requestUrl.host;
 
   if (!host) {
     const response = await next();
