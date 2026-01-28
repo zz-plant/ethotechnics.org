@@ -1,0 +1,75 @@
+---
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+const pageTitle = "Democratic vs. coercive governability";
+const pageDescription =
+  "Governability can protect rights through contestability or enforce control without standing and remedy.";
+const permalink = "/explainers/democratic-vs-coercive-governability";
+
+const definition = [
+  "Democratic governability is governance infrastructure that expands standing, makes contestation possible, and guarantees remedies when harm occurs.",
+  "Coercive governability is control infrastructure that optimizes for compliance and extraction without enforceable rights, independent oversight, or repair obligations.",
+];
+
+const example =
+  "A benefits platform exposes appeal routes, repair SLAs, and human escalation. A coercive counterpart offers only one-way notices, no reversal pathway, and opaque denial tooling.";
+
+const ctas = [
+  {
+    eyebrow: "Standard",
+    title: "STD-02 contestability & recourse",
+    description:
+      "Bind democratic governability to standing, timelines, and remedy obligations.",
+    href: "/standards/std-02-contestability-recourse",
+    ctaLabel: "Open the standard",
+  },
+  {
+    eyebrow: "Explainer",
+    title: "Governance as operational capability",
+    description:
+      "Reframe governance as stoppability, reversibility, and restoration capacity.",
+    href: "/explainers/governance-capability",
+    ctaLabel: "Read the explainer",
+  },
+  {
+    eyebrow: "Field guide",
+    title: "Contestability checklist",
+    description:
+      "Audit whether contestation changes state or just logs dissent.",
+    href: "/explainers/contestability-checklist",
+    ctaLabel: "View checklist",
+  },
+];
+
+const faqs = [
+  {
+    question: "What separates democratic governability from compliance theater?",
+    answer:
+      "Democratic governability gives affected parties standing, binds timelines to remedy, and changes outcomes when harm is confirmed.",
+  },
+  {
+    question: "How do you detect coercive governability early?",
+    answer:
+      "Look for decision systems that log disputes but never change outcomes, rely on delay, or restrict escalation to internal-only channels.",
+  },
+  {
+    question: "Which metrics make this measurable?",
+    answer:
+      "Track appeal passage rates, time-to-restore, time-in-harm, and the share of decisions that can be reversed without executive override.",
+  },
+];
+---
+
+<ExplainerLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  glossary={{
+    href: "/glossary/democratic-vs-coercive-governability",
+    label: "Democratic vs Coercive Governability",
+  }}
+  definition={definition}
+  example={example}
+  ctas={ctas}
+  faqs={faqs}
+/>
