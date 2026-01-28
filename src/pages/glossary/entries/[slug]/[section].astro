@@ -85,11 +85,26 @@ const relatedPatterns = entry.relatedPatterns ?? [];
 const relatedPatternIndex = new Map(
   libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
-const relatedPatternLinks = relatedPatterns.map((patternSlug) => ({
-  slug: patternSlug,
-  label: relatedPatternIndex.get(patternSlug)?.title ?? patternSlug,
-  href: `/library/patterns/${patternSlug}`,
-}));
+const relatedPatternLinks = relatedPatterns
+  .map((patternSlug) => {
+    const pattern = relatedPatternIndex.get(patternSlug);
+
+    if (!pattern) {
+      return null;
+    }
+
+    return {
+      slug: pattern.slug,
+      label: pattern.title,
+      href: `/library/patterns/${pattern.slug}`,
+    };
+  })
+  .filter(
+    (
+      pattern,
+    ): pattern is { slug: string; label: string; href: string } =>
+      Boolean(pattern),
+  );
 
 const evidenceMetaRows = [
   { label: "Definition", value: minimumEvidence.definition },
