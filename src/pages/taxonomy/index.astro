@@ -11,6 +11,12 @@ const pageDescription =
   "Taxonomy-driven domains and capabilities that anchor governance, delivery, assurance, and experience.";
 const permalink = "/taxonomy";
 
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const canonicalUrl = Astro.site
+  ? new URL(permalink, siteBase).toString()
+  : permalink;
+const { cspNonce } = Astro.locals;
+
 const topLevelEntries = taxonomyEntries.filter(
   (entry) => !entry.slug.includes("/"),
 );
@@ -21,9 +27,34 @@ const childEntriesFor = (rootSlug: string) =>
       entry.slug.startsWith(`${rootSlug}/`) &&
       entry.slug.split("/").length === 2,
   );
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: pageTitle,
+  description: pageDescription,
+  url: canonicalUrl,
+  hasPart: taxonomyEntries.map((entry) => ({
+    "@type": "CreativeWork",
+    name: entry.title,
+    identifier: entry.id,
+    url: Astro.site
+      ? new URL(`/taxonomy/${entry.slug}`, siteBase).toString()
+      : `/taxonomy/${entry.slug}`,
+  })),
+};
+const structuredDataJson = JSON.stringify(structuredData);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      nonce={cspNonce}
+      set:html={structuredDataJson}
+      is:inline
+    />
+  </Fragment>
   <PageIntro
     eyebrow="Taxonomy"
     title="Ethotechnics taxonomy"

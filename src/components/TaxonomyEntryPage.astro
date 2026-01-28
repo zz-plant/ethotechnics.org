@@ -34,6 +34,16 @@ const entryPath = normalizedBasePath
 const entryUrlForSlug = (slug: string) =>
   normalizedBasePath ? `${normalizedBasePath}/${slug}` : `/${slug}`;
 
+const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const canonicalUrl = Astro.site
+  ? new URL(entryPath, siteBase).toString()
+  : entryPath;
+const collectionPath = normalizedBasePath || "/taxonomy";
+const collectionUrl = Astro.site
+  ? new URL(collectionPath, siteBase).toString()
+  : collectionPath;
+const { cspNonce } = Astro.locals;
+
 const segments = entry.slug.split("/");
 const parentSlug =
   segments.length > 1 ? segments.slice(0, -1).join("/") : null;
@@ -69,9 +79,74 @@ const anchorLinks = [
 ];
 
 const levelLabel = segments.length === 1 ? "Domain" : `Level ${segments.length}`;
+
+const collectionLabel =
+  normalizedBasePath === "/taxonomy"
+    ? "Taxonomy"
+    : parentEntry?.title ?? entry.title;
+
+const breadcrumbItems = [
+  {
+    name: "Home",
+    url: Astro.site ? new URL("/", siteBase).toString() : "/",
+  },
+  {
+    name: collectionLabel,
+    url: collectionUrl,
+  },
+  {
+    name: entry.title,
+    url: canonicalUrl,
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${collectionUrl}#collection`,
+      name: `${collectionLabel} taxonomy`,
+      url: collectionUrl,
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": `${canonicalUrl}#taxonomy-entry`,
+      name: entry.title,
+      description: entry.summary,
+      identifier: entry.id,
+      url: canonicalUrl,
+      isPartOf: {
+        "@id": `${collectionUrl}#collection`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
+    },
+  ],
+};
+const structuredDataJson = JSON.stringify(structuredData);
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  breadcrumbItems={breadcrumbItems}
+>
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      nonce={cspNonce}
+      set:html={structuredDataJson}
+      is:inline
+    />
+  </Fragment>
   <PageIntro
     eyebrow={eyebrow}
     title={entry.title}

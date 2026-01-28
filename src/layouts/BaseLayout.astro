@@ -21,6 +21,7 @@ interface Props {
   mainClass?: string;
   enableGlossaryHighlights?: boolean;
   breadcrumbItems?: Array<{ name: string; url: string }>;
+  jsonAlternates?: Array<{ href: string; title?: string }>;
 }
 
 const siteName = "Ethotechnics Institute";
@@ -35,6 +36,7 @@ const {
   mainClass = "page container",
   enableGlossaryHighlights = true,
   breadcrumbItems,
+  jsonAlternates,
 } = Astro.props as Props;
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).toString()
@@ -47,9 +49,13 @@ const { identity, navigation } = siteFooter;
 const logoUrl = new URL(identity.brand.logoSrc, siteBase).toString();
 const logoId = `${siteBase}#logo`;
 const primaryImageId = `${canonical}#primaryimage`;
+const ogImageUrl = new URL("/api/og.svg", siteBase);
+ogImageUrl.searchParams.set("title", title);
+ogImageUrl.searchParams.set("description", description);
+
 const seoImage = {
-  src: new URL("/assets/ethotechnics-hero-map.svg", siteBase).toString(),
-  alt: "Linework illustration of Ethotechnics focus areas",
+  src: ogImageUrl.toString(),
+  alt: `${title} — Ethotechnics Institute`,
   width: 1200,
   height: 630,
 };
@@ -120,6 +126,13 @@ const structuredData: Array<Record<string, unknown>> = [
 ];
 const { cspNonce } = Astro.locals;
 const currentPath = Astro.url.pathname;
+const jsonAlternateLinks =
+  jsonAlternates?.map((link) => ({
+    rel: "alternate",
+    type: "application/json",
+    href: link.href,
+    title: link.title,
+  })) ?? [];
 
 const pathSegments = currentPath.split("/").filter(Boolean);
 const pagefindType = pathSegments[0] ?? "";
@@ -192,6 +205,7 @@ const structuredDataJson = JSON.stringify(structuredData);
         link: [
           { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
           { rel: "manifest", href: "/site.webmanifest" },
+          ...jsonAlternateLinks,
         ],
         meta: [{ name: "theme-color", content: "#ffffff" }],
       }}

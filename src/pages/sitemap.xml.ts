@@ -11,6 +11,9 @@ import type {
 } from "../content/glossary";
 import { glossaryTerms } from "../content/glossary";
 import type { LibraryContent, Pattern } from "../content/library";
+import { researchContent } from "../content/research";
+import { standardsContent } from "../content/standards";
+import { taxonomyEntries, getTaxonomyBranch } from "../content/taxonomy";
 import { quickStartGuides } from "../content/quick-start";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
@@ -91,6 +94,27 @@ const normalizeLastmod = (value?: string) => {
   }
 
   return date.toISOString();
+};
+
+const inferChangefreq = (lastmod: string) => {
+  const lastmodDate = new Date(lastmod);
+  const diffMs = Date.now() - lastmodDate.getTime();
+
+  if (Number.isNaN(lastmodDate.getTime()) || diffMs < 0) {
+    return "monthly";
+  }
+
+  const days = diffMs / (1000 * 60 * 60 * 24);
+
+  if (days <= 30) {
+    return "weekly";
+  }
+
+  if (days <= 180) {
+    return "monthly";
+  }
+
+  return "yearly";
 };
 
 const hasEntryData = <TData>(
@@ -180,6 +204,56 @@ export async function GET({ site }: APIContext) {
   const quickStartPaths = quickStartGuides.map((guide) => ({
     path: `/quick-start/${guide.slug}`,
   }));
+  const taxonomyPaths = taxonomyEntries.map((entry) => ({
+    path: `/taxonomy/${entry.slug}`,
+  }));
+  const domainRoots = ["governance", "delivery", "assurance", "experience"];
+  const domainPaths = domainRoots.flatMap((rootSlug) =>
+    getTaxonomyBranch(rootSlug)
+      .filter((entry) => entry.slug !== rootSlug)
+      .map((entry) => ({
+        path: `/${rootSlug}/${entry.slug.split("/").slice(1).join("/")}`,
+      })),
+  );
+  const lastmodOverrides = new Map<string, string>();
+  const changefreqOverrides = new Map<string, string>();
+  const priorityOverrides = new Map<string, string>();
+  const addOverride = (path: string, lastmod?: string) => {
+    if (!lastmod) {
+      return;
+    }
+
+    const normalized = normalizeLastmod(lastmod);
+    lastmodOverrides.set(path, normalized);
+    changefreqOverrides.set(path, inferChangefreq(normalized));
+  };
+
+  addOverride("/glossary", glossaryLastmod);
+  if (libraryLastmod) {
+    addOverride("/mechanisms", libraryLastmod);
+  }
+
+  addOverride(
+    "/research",
+    researchContent.updated ?? researchContent.published,
+  );
+
+  if (standardsContent.standards.length > 0) {
+    const latestStandard = standardsContent.standards.reduce((latest, entry) =>
+      new Date(entry.published).getTime() > new Date(latest.published).getTime()
+        ? entry
+        : latest,
+    );
+    addOverride("/standards", latestStandard.published);
+  }
+
+  standardsContent.standards.forEach((standard) => {
+    addOverride(`/standards/${standard.slug}`, standard.published);
+  });
+
+  ["/glossary", "/mechanisms", "/standards", "/research", "/taxonomy"].forEach(
+    (path) => priorityOverrides.set(path, "0.8"),
+  );
   const entries: SitemapEntry[] = [
     ...(pagePaths.length > 0
       ? pagePaths.map((path) => ({ path }))
@@ -187,6 +261,8 @@ export async function GET({ site }: APIContext) {
     ...glossaryPaths,
     ...patternPaths,
     ...quickStartPaths,
+    ...taxonomyPaths,
+    ...domainPaths,
   ];
   const entryMap = new Map<string, SitemapEntry>();
 
@@ -194,11 +270,16 @@ export async function GET({ site }: APIContext) {
     entryMap.set(entry.path, entry);
   });
 
+  const entriesWithOverrides = Array.from(entryMap.values()).map((entry) => ({
+    ...entry,
+    lastmod: lastmodOverrides.get(entry.path) ?? entry.lastmod,
+    changefreq: changefreqOverrides.get(entry.path) ?? entry.changefreq,
+    priority: priorityOverrides.get(entry.path) ?? entry.priority,
+  }));
+
   const urls = buildUrlSet(
     siteUrl,
-    Array.from(entryMap.values()).sort((a, b) =>
-      a.path.localeCompare(b.path),
-    ),
+    entriesWithOverrides.sort((a, b) => a.path.localeCompare(b.path)),
   )
     .map(renderUrl)
     .join("\n");

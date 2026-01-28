@@ -75,9 +75,33 @@ const governanceFaqs = [
       "Escalate when there are irreversible harms, contested values, or regulatory exposure that exceeds your mandate.",
   },
 ];
+
+const { cspNonce } = Astro.locals;
+const allFaqs = [...framingFaqs, ...teachingFaqs, ...governanceFaqs];
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: allFaqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+const structuredDataJson = JSON.stringify(structuredData);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      nonce={cspNonce}
+      set:html={structuredDataJson}
+      is:inline
+    />
+  </Fragment>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
