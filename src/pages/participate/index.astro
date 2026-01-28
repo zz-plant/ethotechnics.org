@@ -27,8 +27,40 @@ const intakeFieldNameMap: Record<string, string> = {
   "participant-type": "topic",
   "participant-summary": "details",
 };
+const intakeFieldAutocompleteMap: Record<string, string> = {
+  "participant-name": "name",
+  "participant-organization": "organization",
+  "participant-email": "email",
+  "participant-type": "off",
+  "participant-summary": "off",
+};
+type InputMode =
+  | "none"
+  | "text"
+  | "tel"
+  | "url"
+  | "email"
+  | "numeric"
+  | "decimal"
+  | "search";
+const intakeFieldInputModeMap: Record<string, InputMode> = {
+  "participant-email": "email",
+};
+const intakeFieldAutocapitalizeMap: Record<string, string> = {
+  "participant-name": "words",
+  "participant-organization": "words",
+  "participant-email": "none",
+  "participant-type": "sentences",
+  "participant-summary": "sentences",
+};
 const resolveIntakeFieldName = (fieldId: string) =>
   intakeFieldNameMap[fieldId] ?? fieldId;
+const resolveIntakeFieldAutocomplete = (fieldId: string) =>
+  intakeFieldAutocompleteMap[fieldId] ?? "off";
+const resolveIntakeFieldInputMode = (fieldId: string) =>
+  intakeFieldInputModeMap[fieldId];
+const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
+  intakeFieldAutocapitalizeMap[fieldId] ?? "sentences";
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -123,14 +155,26 @@ const resolveIntakeFieldName = (fieldId: string) =>
     title={intake.title}
     description={intake.description}
   >
-    <p class="muted small">{intake.formatNote}</p>
+    <p class="muted small" id="intake-format-note">
+      {intake.formatNote}
+    </p>
 
     <div id="intake-form-container">
-      <form id="intake-form" class="intake-form" method="POST">
+      <form
+        id="intake-form"
+        class="intake-form"
+        method="POST"
+        aria-describedby="intake-format-note intake-response-note intake-timeline-note intake-privacy-note"
+      >
         <div class="intake-form__grid">
           {
             intake.form.fields.map((field) => {
               const fieldName = resolveIntakeFieldName(field.id);
+              const fieldAutocomplete = resolveIntakeFieldAutocomplete(field.id);
+              const fieldInputMode = resolveIntakeFieldInputMode(field.id);
+              const fieldAutocapitalize = resolveIntakeFieldAutocapitalize(
+                field.id,
+              );
 
               return (
                 <label
@@ -145,6 +189,9 @@ const resolveIntakeFieldName = (fieldId: string) =>
                       id={field.id}
                       name={fieldName}
                       placeholder={field.placeholder}
+                      autocomplete={fieldAutocomplete}
+                      inputmode={fieldInputMode}
+                      autocapitalize={fieldAutocapitalize}
                       required={field.required}
                       rows={4}
                     />
@@ -154,6 +201,9 @@ const resolveIntakeFieldName = (fieldId: string) =>
                       name={fieldName}
                       type={field.type}
                       placeholder={field.placeholder}
+                      autocomplete={fieldAutocomplete}
+                      inputmode={fieldInputMode}
+                      autocapitalize={fieldAutocapitalize}
                       required={field.required}
                     />
                   )}
@@ -166,14 +216,32 @@ const resolveIntakeFieldName = (fieldId: string) =>
           <button class="button primary" type="submit" id="submit-btn">
             {intake.form.submitLabel}
           </button>
-          <p class="muted small">{intake.responseNote}</p>
-          <p class="muted small">{intake.timelineNote}</p>
+          <p class="muted small" id="intake-response-note">
+            {intake.responseNote}
+          </p>
+          <p class="muted small" id="intake-timeline-note">
+            {intake.timelineNote}
+          </p>
         </div>
-        <p class="muted small">{intake.privacyNote}</p>
-        <div id="form-message" class="form-message" aria-live="polite"></div>
+        <p class="muted small" id="intake-privacy-note">
+          {intake.privacyNote}
+        </p>
+        <div
+          id="form-message"
+          class="form-message"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        ></div>
       </form>
 
-      <div id="success-message" class="success-message" hidden>
+      <div
+        id="success-message"
+        class="success-message"
+        role="status"
+        aria-live="polite"
+        hidden
+      >
         <div class="success-message__content">
           <div class="success-message__icon">
             <Icon name="lucide:check" />
