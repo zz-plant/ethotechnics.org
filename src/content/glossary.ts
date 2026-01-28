@@ -117,14 +117,14 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "moral-behavior",
     term: "Moral Behavior (of Systems)",
     definition:
-      "Observable patterns of system behavior that prevent harm, share burden fairly, and keep people contestable and whole. Moral behavior is evaluated through MPIs such as time-to-halt , reversibility , and fair burden distribution \u2014not by stated intent.",
+      "Observable patterns of system behavior that prevent harm, share burden fairly, and keep people contestable and whole. Moral behavior is evaluated through MPIs such as time-to-halt, reversibility, and fair burden distribution\u2014not by stated intent.",
     appliesTo: ["platforms", "finance", "safety"],
   },
   {
     slug: "ethical-load-path",
     term: "Ethical Load Path",
     definition:
-      "The route moral responsibility travels through a system\u2014across automation, humans, and institutions. A clear ethical load path shows who can stop, reverse, or repair harm at each stage, linking design authority , oversight horizons , and the repair log .",
+      "The route moral responsibility travels through a system\u2014across automation, humans, and institutions. A clear ethical load path shows who can stop, reverse, or repair harm at each stage, linking design authority, oversight horizons, and the repair log.",
     appliesTo: ["transit", "ops-teams", "oversight"],
   },
   {
@@ -145,7 +145,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "ethotechnic-maturity",
     term: "Ethotechnic Maturity",
     definition:
-      "A developmental scale describing how fully a system embodies Ethotechnic capabilities. Early maturity focuses on stopping acute harms; later stages add graceful degradation , contestability , and regular care retrospectives . The highest level treats ethics as continuous operations, with published SLJs and funded maintenance practice.",
+      "A developmental scale describing how fully a system embodies Ethotechnic capabilities. Early maturity focuses on stopping acute harms; later stages add graceful degradation, contestability, and regular care retrospectives. The highest level treats ethics as continuous operations, with published SLJs and funded maintenance practice.",
     appliesTo: ["rail", "sre", "maturity"],
   },
   {
@@ -187,63 +187,63 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "moral-latency",
     term: "Moral Latency",
     definition:
-      "The delay between harm occurring and the system recognizing it. Automated systems create harms faster than human oversight can register, demanding velocity friction and ethical interrupts .",
+      "The delay between harm occurring and the system recognizing it. Automated systems create harms faster than human oversight can register, demanding velocity friction and ethical interrupts.",
     appliesTo: ["hospitals", "automation", "latency"],
   },
   {
     slug: "accountability-diffusion",
     term: "Accountability Diffusion",
     definition:
-      "Responsibility dissolves across teams, tools, and incentives until no one can intervene. A defining pattern of modern institutions and a direct threat to clear design authority .",
+      "Responsibility dissolves across teams, tools, and incentives until no one can intervene. A defining pattern of modern institutions and a direct threat to clear design authority.",
     appliesTo: ["platforms", "governance", "hospitals"],
   },
   {
     slug: "extraction",
     term: "Extraction",
     definition:
-      "When a system pulls value\u2014data, attention, labor, or social capital\u2014without returning care, consent, or repair. Extraction hides true costs through externalization and steep burden gradients , hollowing trust.",
+      "When a system pulls value\u2014data, attention, labor, or social capital\u2014without returning care, consent, or repair. Extraction hides true costs through externalization and steep burden gradients, hollowing trust.",
     appliesTo: ["labor", "platforms", "ai"],
   },
   {
     slug: "extraction-by-endurance",
     term: "Extraction by Endurance",
     definition:
-      "Systems that depend on workers or users absorbing fragility through burnout, emotional labor, or unpaid cognitive work\u2014often mislabeled as \u201cresilience.\u201d Ethotechnic practice aims to invert this burden with fair burden distribution .",
+      "Systems that depend on workers or users absorbing fragility through burnout, emotional labor, or unpaid cognitive work\u2014often mislabeled as \u201cresilience.\u201d Ethotechnic practice aims to invert this burden with fair burden distribution.",
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
     slug: "drift",
     term: "Drift (System Drift)",
     definition:
-      "The natural tendency of systems to externalize harm over time unless constrained by protective friction and moral performance indicators .",
+      "The natural tendency of systems to externalize harm over time unless constrained by protective friction and moral performance indicators.",
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
     slug: "externalization",
     term: "Externalization",
     definition:
-      "Pushing risk, cost, or harm onto other teams, communities, or the future so metrics look clean. Externalization shows up as pollution, shadow labor, or brittle dependencies that live outside audits. Ethotechnics counters it with oversight horizons , MPIs , and transparent repair logs .",
+      "Pushing risk, cost, or harm onto other teams, communities, or the future so metrics look clean. Externalization shows up as pollution, shadow labor, or brittle dependencies that live outside audits. Ethotechnics counters it with oversight horizons, MPIs, and transparent repair logs.",
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
     slug: "brittleness",
     term: "Brittleness",
     definition:
-      "When a system shatters under real-world variance\u2014unexpected inputs, refusals, or edge cases\u2014forcing humans to absorb impact. Brittleness signals missing soft edges , thin graceful degradation , and poor refusal tolerance .",
+      "When a system shatters under real-world variance\u2014unexpected inputs, refusals, or edge cases\u2014forcing humans to absorb impact. Brittleness signals missing soft edges, thin graceful degradation, and poor refusal tolerance.",
     appliesTo: ["aviation", "automation", "support"],
   },
   {
     slug: "optimization-myopia",
     term: "Optimization Myopia",
     definition:
-      "Metric-chasing that narrows attention to throughput or growth while ignoring MPIs . Myopic optimization erodes contestability , raises failure load , and often fuels extraction .",
+      "Metric-chasing that narrows attention to throughput or growth while ignoring MPIs. Myopic optimization erodes contestability, raises failure load, and often fuels extraction.",
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
     slug: "precision-laundering",
     term: "Precision Laundering",
     definition:
-      "Using detailed metrics or probabilistic scores to disguise inequity as objectivity. Precision laundering hides burden gradients and externalization behind statistical gloss, undermining explainability for accountability .",
+      "Using detailed metrics or probabilistic scores to disguise inequity as objectivity. Precision laundering hides burden gradients and externalization behind statistical gloss, undermining explainability for accountability.",
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
@@ -296,7 +296,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "fair-burden-distribution",
     term: "Fair Burden Distribution",
     definition:
-      "Failures do not fall hardest on the most vulnerable. Burden is treated as a design variable and measured via the user burden ratio . Fair burden distribution diagram",
+      "Failures do not fall hardest on the most vulnerable. Burden is treated as a design variable and measured via the user burden ratio. Fair burden distribution diagram",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -323,7 +323,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "explainability-for-accountability",
     term: "Explainability for Accountability",
     definition:
-      "Explanations that are actionable, not decorative. They reveal who made a decision and how it can be corrected, enabling contestability and audits . Explainability diagram",
+      "Explanations that are actionable, not decorative. They reveal who made a decision and how it can be corrected, enabling contestability and audits. Explainability diagram",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -350,7 +350,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "soft-edges",
     term: "Soft Edges",
     definition:
-      "Boundary conditions designed to cushion people instead of penalizing them\u2014graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce failure load and guard against brittleness .",
+      "Boundary conditions designed to cushion people instead of penalizing them\u2014graduated responses, warnings before lockouts, and reversible defaults. Soft edges reduce failure load and guard against brittleness.",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -359,21 +359,21 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "fail-safe",
     term: "Fail-Safe Mode",
     definition:
-      "The system defaults to the safest possible behavior when uncertain, prioritizing stoppability .",
+      "The system defaults to the safest possible behavior when uncertain, prioritizing stoppability.",
     appliesTo: ["D. System states & architectures"],
   },
   {
     slug: "fail-open",
     term: "Fail-Open Mode",
     definition:
-      "The system defaults to permissiveness under failure\u2014sometimes necessary, sometimes dangerous. Must be paired with velocity friction .",
+      "The system defaults to permissiveness under failure\u2014sometimes necessary, sometimes dangerous. Must be paired with velocity friction.",
     appliesTo: ["D. System states & architectures"],
   },
   {
     slug: "fail-silent",
     term: "Fail-Silent Mode",
     definition:
-      "A harmful state where systems fail without signaling it; the worst possible form of failure because it hides moral latency .",
+      "A harmful state where systems fail without signaling it; the worst possible form of failure because it hides moral latency.",
     appliesTo: ["D. System states & architectures"],
   },
   {
