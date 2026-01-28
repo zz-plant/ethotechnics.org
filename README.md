@@ -2,6 +2,8 @@
 
 [![Site checks](https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml/badge.svg)](https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml)
 [![CC BY-SA 4.0 license badge](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![GitHub stars](https://img.shields.io/github/stars/zz-plant/ethotechnics.org?style=flat)](https://github.com/zz-plant/ethotechnics.org/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/zz-plant/ethotechnics.org?style=flat)](https://github.com/zz-plant/ethotechnics.org/commits/main)
 
 This repository powers [ethotechnics.org](https://ethotechnics.org), a content-driven site exploring
 ethical technology, human-centered design, and the sociotechnical systems that shape them. The
@@ -29,6 +31,17 @@ project favors lean, fast-loading pages and clear storytelling.
 - Cloudflare Workers deployment with a dedicated `wrangler.toml` configuration.
 - Hardened security headers set in `src/middleware.ts`.
 - Playwright end-to-end tests plus Bun unit/component coverage.
+
+## Support the project
+
+- Star the repo to help others discover ethical technology and human-centered design resources.
+- Share the live site with teammates or students who care about responsible technology practice.
+- Follow updates on GitHub to track new essays, research notes, and design references.
+
+## Keywords
+
+Ethical technology, human-centered design, sociotechnical systems, Astro, Cloudflare Workers,
+accessible web performance, content strategy, digital ethics, UX research, responsible innovation.
 
 ## Requirements
 
