@@ -108,6 +108,28 @@ export const standardsContent: StandardsContent = {
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-01-01",
     },
+    {
+      id: "STD-04",
+      slug: "fhir-profile-set",
+      title: "FHIR profile set for contestability artifacts",
+      description:
+        "FHIR profiles for decision records, appeal events, and repair outcomes with governance metadata.",
+      status: "Draft for Alignment",
+      version: "0.3",
+      effectiveDate: "TBD (proposed 2026)",
+      published: "2026-02-15",
+    },
+    {
+      id: "STD-05",
+      slug: "w3c-vc-schemas",
+      title: "W3C Verifiable Credential schemas for contestability",
+      description:
+        "Verifiable Credential schemas and JSON-LD contexts for decision records, appeals, and remedies.",
+      status: "Draft for Alignment",
+      version: "0.3",
+      effectiveDate: "TBD (proposed 2026)",
+      published: "2026-02-15",
+    },
   ],
   doctrine: [
     {

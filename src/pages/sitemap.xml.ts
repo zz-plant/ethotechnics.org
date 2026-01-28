@@ -15,6 +15,7 @@ import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
 import { taxonomyEntries, getTaxonomyBranch } from "../content/taxonomy";
 import { quickStartGuides } from "../content/quick-start";
+import { incidentLessons } from "../content/incidents";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
 const fallbackSite = "https://ethotechnics.org";
@@ -207,6 +208,10 @@ export async function GET({ site }: APIContext) {
   const quickStartPaths = quickStartGuides.map((guide) => ({
     path: `/quick-start/${guide.slug}`,
   }));
+  const incidentPaths = incidentLessons.map((lesson) => ({
+    path: `/incidents/${lesson.slug}`,
+    lastmod: lesson.updated ?? lesson.published,
+  }));
   const taxonomyPaths = taxonomyEntries.map((entry) => ({
     path: `/taxonomy/${entry.slug}`,
   }));
@@ -242,6 +247,19 @@ export async function GET({ site }: APIContext) {
     researchContent.updated ?? researchContent.published,
   );
 
+  if (incidentLessons.length > 0) {
+    const latestIncident = incidentLessons.reduce((latest, lesson) =>
+      new Date(lesson.updated ?? lesson.published).getTime() >
+      new Date(latest.updated ?? latest.published).getTime()
+        ? lesson
+        : latest,
+    );
+    addOverride(
+      "/incidents",
+      latestIncident.updated ?? latestIncident.published,
+    );
+  }
+
   if (standardsContent.standards.length > 0) {
     const latestStandard = standardsContent.standards.reduce((latest, entry) =>
       new Date(entry.published).getTime() > new Date(latest.published).getTime()
@@ -255,14 +273,20 @@ export async function GET({ site }: APIContext) {
     addOverride(`/standards/${standard.slug}`, standard.published);
   });
 
-  ["/glossary", "/mechanisms", "/standards", "/research", "/taxonomy"].forEach(
-    (path) => priorityOverrides.set(normalizeOverrideKey(path), "0.8"),
-  );
+  [
+    "/glossary",
+    "/incidents",
+    "/mechanisms",
+    "/standards",
+    "/research",
+    "/taxonomy",
+  ].forEach((path) => priorityOverrides.set(normalizeOverrideKey(path), "0.8"));
   const entries: SitemapEntry[] = [
     ...(pagePaths.length > 0
       ? pagePaths.map((path) => ({ path }))
       : fallbackPaths.map((path) => ({ path }))),
     ...glossaryPaths,
+    ...incidentPaths,
     ...patternPaths,
     ...quickStartPaths,
     ...taxonomyPaths,

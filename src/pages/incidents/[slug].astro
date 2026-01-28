@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { incidentLessons } from "../../content/incidents";
+
+export const prerender = true;
+
+export const getStaticPaths = () =>
+  incidentLessons.map((lesson) => ({
+    params: { slug: lesson.slug },
+    props: { lesson },
+  }));
+
+type IncidentLesson = (typeof incidentLessons)[number];
+
+const { lesson } = Astro.props as { lesson: IncidentLesson };
+const pageTitle = `${lesson.title} — Governance lesson — Ethotechnics`;
+const pageDescription = lesson.summary;
+const permalink = `/incidents/${lesson.slug}`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Governance lesson"
+    title={lesson.title}
+    description={lesson.summary}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#incident", label: "Incident snapshot" },
+      { href: "#failures", label: "Governance failures" },
+      { href: "#signals", label: "Signals to watch" },
+      { href: "#remediation", label: "Remediation checklist" },
+      { href: "#sources", label: "Sources" },
+    ]}
+    panelCopy={{
+      eyebrow: "Why it matters",
+      title: lesson.incident.headline,
+      description: lesson.incident.impact,
+    }}
+  />
+
+  <SectionBlock
+    id="incident"
+    eyebrow="Incident snapshot"
+    title="Where governance broke down."
+    description="Use the snapshot to align stakeholders before designing the fix."
+    className="section--banded"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Sector"
+        description={lesson.incident.sector}
+        descriptionTone="default"
+      />
+      <CardItem
+        title="Timeframe"
+        description={lesson.incident.timeframe}
+        descriptionTone="default"
+      />
+      <CardItem
+        title="Headline"
+        description={lesson.incident.headline}
+        descriptionTone="default"
+      />
+      <CardItem
+        title="Impact"
+        description={lesson.incident.impact}
+        descriptionTone="default"
+      />
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failures"
+    eyebrow="Governance failures"
+    title="What was missing or misaligned."
+    description="Capture the structural gaps that enabled the incident."
+    variant="alt"
+  >
+    <CardGrid>
+      {lesson.governanceFailures.map((failure) => (
+        <CardItem description={failure} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="signals"
+    eyebrow="Signals to watch"
+    title="Early indicators to monitor."
+    description="Instrument these signals to surface risk before impact escalates."
+  >
+    <CardGrid>
+      {lesson.signalsToWatch.map((signal) => (
+        <CardItem description={signal} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="remediation"
+    eyebrow="Remediation checklist"
+    title="Actions to close the gap."
+    description="Turn the lesson into concrete fixes your team can own."
+    variant="alt"
+  >
+    <CardGrid>
+      {lesson.remediationChecklist.map((item) => (
+        <CardItem description={item} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="sources"
+    eyebrow="Sources"
+    title="Reference the standards and playbooks."
+    description="Keep the documentation linked for rapid remediation alignment."
+  >
+    <CardGrid className="grid--two">
+      {lesson.sources.map((source) => (
+        <CardItem title={source.label} descriptionTone="muted">
+          <div slot="footer" class="card__footer">
+            <a class="button ghost button--compact" href={source.href}>
+              Open source
+            </a>
+          </div>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>

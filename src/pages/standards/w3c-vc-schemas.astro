@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "W3C Verifiable Credential schemas for contestability";
+const pageDescription =
+  "Credential schemas and JSON-LD contexts that let contestability artifacts travel across credential ecosystems.";
+const permalink = "/standards/w3c-vc-schemas";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#schemas", label: "Schema set" },
+  { href: "#contexts", label: "JSON-LD contexts" },
+  { href: "#issuance", label: "Issuance guidance" },
+];
+
+const schemaCards = [
+  {
+    title: "Decision Record Credential",
+    description:
+      "Credential schema for decision evidence, accountable owners, and appeal eligibility metadata.",
+  },
+  {
+    title: "Appeal Event Credential",
+    description:
+      "Credential schema for appeal intake, review status, and timeline commitments.",
+  },
+  {
+    title: "Repair Outcome Credential",
+    description:
+      "Credential schema for remediation actions, completion confirmations, and repair SLA adherence.",
+  },
+  {
+    title: "Burden Hours Credential",
+    description:
+      "Credential schema for burden-hour telemetry and time-in-harm measurements.",
+  },
+];
+
+const contextGuidance = [
+  "Publish versioned JSON-LD contexts for each credential type with canonical URLs.",
+  "Map credential properties back to the JSON schema identifiers to keep validation aligned.",
+  "Include governance-specific vocabularies for standing, remedy, and escalation tiers.",
+];
+
+const issuanceGuidance = [
+  "Issue credentials at each lifecycle state change (decision, appeal intake, repair completion).",
+  "Require issuer metadata that names the accountable team and escalation owner.",
+  "Provide verifier guidance for checking remedy status and SLA compliance.",
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription}>
+  <PageIntro
+    eyebrow="STD-05 draft"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Interoperability goal",
+      title: "Credentialize contestability artifacts.",
+      description:
+        "These schemas make governance evidence portable across identity and credential ecosystems.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Portable contestability evidence"
+    description="Shared credential schemas make decision governance artifacts verifiable across systems."
+  >
+    <p>
+      The credential set defines how decision, appeal, and repair evidence can be issued
+      and verified without reformatting, enabling third-party oversight and cross-domain
+      portability.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="schemas"
+    eyebrow="Schema set"
+    title="Core credential schemas"
+    description="Each credential anchors a specific governance artifact."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {schemaCards.map((card) => (
+        <CardItem title={card.title} description={card.description} descriptionTone="default" />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="contexts"
+    eyebrow="JSON-LD contexts"
+    title="Vocabulary alignment"
+    description="Publish canonical contexts that map to contestability schema fields."
+  >
+    <ul class="card__list">
+      {contextGuidance.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="issuance"
+    eyebrow="Issuance guidance"
+    title="Credential release flow"
+    description="Issue credentials at key state changes to preserve traceability."
+    variant="alt"
+  >
+    <ul class="card__list">
+      {issuanceGuidance.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+</BaseLayout>

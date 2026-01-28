@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "FHIR profile set for contestability artifacts";
+const pageDescription =
+  "FHIR-aligned profiles for decision records, appeal events, and repair outcomes to support healthcare governance workflows.";
+const permalink = "/standards/fhir-profile-set";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#profiles", label: "Profile set" },
+  { href: "#mapping", label: "Mapping guidance" },
+  { href: "#validation", label: "Validation" },
+];
+
+const profiles = [
+  {
+    title: "Decision record profile",
+    description:
+      "DocumentReference extension capturing decision context, model metadata, and accountable owners.",
+    resource: "FHIR DocumentReference",
+  },
+  {
+    title: "Appeal event profile",
+    description:
+      "Task + Provenance bundle capturing appeal intake, status, and review milestones.",
+    resource: "FHIR Task + Provenance",
+  },
+  {
+    title: "Repair outcome profile",
+    description:
+      "ServiceRequest and CarePlan linkage for remediation actions and verified completion.",
+    resource: "FHIR ServiceRequest + CarePlan",
+  },
+  {
+    title: "Burden-hours observation",
+    description:
+      "Observation profile for time-in-harm, user burden ratio, and SLA adherence metrics.",
+    resource: "FHIR Observation",
+  },
+];
+
+const mappingGuidance = [
+  "Use shared identifiers across profiles to trace a decision through appeal and repair phases.",
+  "Require a governance metadata extension for accountable owner, risk tier, and escalation path.",
+  "Align timestamps to FHIR Provenance to preserve auditability and sequence of events.",
+];
+
+const validationChecklist = [
+  "Profiles must validate against the JSON schema set for decision-record, appeal-event, and repair-sla.",
+  "Publish canonical URLs and profile versions for registry indexing.",
+  "Include sample bundles that pass both FHIR validation and contestability checks.",
+];
+---
+
+<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription}>
+  <PageIntro
+    eyebrow="STD-04 draft"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Standards intent",
+      title: "Make contestability artifacts interoperable in healthcare flows.",
+      description:
+        "These profiles align governance evidence with existing clinical and administrative systems.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="FHIR-aligned contestability artifacts"
+    description="Standard profiles that keep decision governance artifacts portable across healthcare systems."
+  >
+    <p>
+      The profile set defines a shared representation for decision records, appeal
+      events, and repair outcomes so health systems can exchange contestability
+      data without breaking existing clinical workflows.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="profiles"
+    eyebrow="Profile set"
+    title="Core profiles to publish"
+    description="Each profile maps contestability artifacts onto core FHIR resources."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      {profiles.map((profile) => (
+        <CardItem
+          title={profile.title}
+          description={profile.description}
+          descriptionTone="default"
+        >
+          <p class="muted">{profile.resource}</p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="mapping"
+    eyebrow="Mapping guidance"
+    title="How to connect profiles"
+    description="Keep traceability intact across decision, appeal, and repair stages."
+  >
+    <ul class="card__list">
+      {mappingGuidance.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="validation"
+    eyebrow="Validation"
+    title="Release checklist"
+    description="Ship profile guidance with validation assets and sample bundles."
+    variant="alt"
+  >
+    <ul class="card__list">
+      {validationChecklist.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+</BaseLayout>
