@@ -16,6 +16,8 @@ import { standardsContent } from "../content/standards";
 import { taxonomyEntries, getTaxonomyBranch } from "../content/taxonomy";
 import { quickStartGuides } from "../content/quick-start";
 import { incidentLessons } from "../content/incidents";
+import { fieldNotesContent } from "../content/fieldNotes";
+import type { FieldNotesContent } from "../content/fieldNotes";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
 const fallbackSite = "https://ethotechnics.org";
@@ -205,6 +207,12 @@ export async function GET({ site }: APIContext) {
         lastmod: libraryLastmod,
       }))
     : [];
+  const libraryPatternPaths = libraryData
+    ? libraryData.patterns.entries.map((pattern: Pattern) => ({
+        path: `/library/patterns/${pattern.slug}`,
+        lastmod: libraryLastmod,
+      }))
+    : [];
   const quickStartPaths = quickStartGuides.map((guide) => ({
     path: `/quick-start/${guide.slug}`,
   }));
@@ -240,11 +248,26 @@ export async function GET({ site }: APIContext) {
   addOverride("/glossary", glossaryLastmod);
   if (libraryLastmod) {
     addOverride("/mechanisms", libraryLastmod);
+    addOverride("/library", libraryLastmod);
   }
 
   addOverride(
     "/research",
     researchContent.updated ?? researchContent.published,
+  );
+
+  const fieldNotesEntry = (await getEntry(
+    "fieldNotes",
+    "field-notes",
+  )) as unknown;
+  const fieldNotesData = hasEntryData<FieldNotesContent>(fieldNotesEntry)
+    ? fieldNotesEntry.data
+    : fieldNotesContent;
+  addOverride(
+    "/field-notes",
+    fieldNotesData.latestUpdate ??
+      fieldNotesData.updated ??
+      fieldNotesData.published,
   );
 
   if (incidentLessons.length > 0) {
@@ -288,6 +311,7 @@ export async function GET({ site }: APIContext) {
     ...glossaryPaths,
     ...incidentPaths,
     ...patternPaths,
+    ...libraryPatternPaths,
     ...quickStartPaths,
     ...taxonomyPaths,
     ...domainPaths,
