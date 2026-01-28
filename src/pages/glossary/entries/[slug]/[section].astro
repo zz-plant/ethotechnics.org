@@ -1,0 +1,466 @@
+---
+import { getEntry } from "astro:content";
+
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import PageIntro from "../../../../components/PageIntro.astro";
+import SectionBlock from "../../../../components/SectionBlock.astro";
+import { glossaryEntryPermalink } from "../../../../utils/glossary";
+import {
+  buildGlossarySectionLinks,
+  getGlossarySectionById,
+  getGlossaryTestSlugs,
+  glossarySectionPermalink,
+  glossaryTestPermalink,
+} from "../../../../utils/glossary-sections";
+import {
+  getGlossaryEntryDefaults,
+  normalizeGlossaryHeading,
+  stripHtml,
+} from "../../../../utils/glossary-helpers";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const glossaryEntry = await getEntry("glossary", "glossary");
+
+  if (!glossaryEntry) {
+    return [];
+  }
+
+  return glossaryEntry.data.categories.flatMap((category) =>
+    category.entries.flatMap((entry) =>
+      buildGlossarySectionLinks(entry).map((link) => ({
+        params: { slug: entry.id, section: link.href.split("/").pop() },
+      })),
+    ),
+  );
+}
+
+const { slug, section } = Astro.params;
+const glossaryEntry = (await getEntry("glossary", "glossary"))!;
+const libraryEntry = (await getEntry("library", "library"))!;
+const sectionDefinition = section ? getGlossarySectionById(section) : null;
+
+const entryRecord = glossaryEntry.data.categories
+  .flatMap((category) =>
+    category.entries.map((entry) => ({
+      entry,
+      category,
+    })),
+  )
+  .find(({ entry }) => entry.id === slug);
+
+if (!entryRecord || !sectionDefinition) {
+  return Astro.response(
+    new Response("Glossary section not found", {
+      status: 404,
+    }),
+  );
+}
+
+const { entry, category } = entryRecord;
+const categoryLabel = normalizeGlossaryHeading(category.heading);
+const pagePermalink = glossarySectionPermalink(entry.id, sectionDefinition.id);
+const sectionLinks = buildGlossarySectionLinks(entry);
+const operationalTestLinks = getGlossaryTestSlugs(
+  entry.operationalTests ?? [],
+).map((test) => ({
+  label: test.label,
+  href: glossaryTestPermalink(entry.id, test.slug),
+}));
+const plainDescription = stripHtml(entry.bodyHtml);
+const introDescription = `${sectionDefinition.description} Part of the ${entry.title} glossary entry.`;
+const pageTitle = `${entry.title} — ${sectionDefinition.label}`;
+const { cspNonce } = Astro.locals;
+
+const {
+  scopeText,
+  commonCounterfeits,
+  minimumEvidence,
+  genealogy,
+  references,
+} = getGlossaryEntryDefaults(entry, category);
+
+const relatedPatterns = entry.relatedPatterns ?? [];
+const relatedPatternIndex = new Map(
+  libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
+);
+const relatedPatternLinks = relatedPatterns.map((patternSlug) => ({
+  slug: patternSlug,
+  label: relatedPatternIndex.get(patternSlug)?.title ?? patternSlug,
+  href: `/library/patterns/${patternSlug}`,
+}));
+
+const evidenceMetaRows = [
+  { label: "Definition", value: minimumEvidence.definition },
+  { label: "Unit", value: minimumEvidence.unit },
+  { label: "Data source", value: minimumEvidence.dataSource },
+  { label: "Calculation", value: minimumEvidence.calculation },
+  { label: "Threshold", value: minimumEvidence.threshold },
+].filter((row) => Boolean(row.value));
+
+const statusRows = [
+  { label: "Status", value: entry.status },
+  { label: "Last updated", value: entry.termUpdated },
+  { label: "Version", value: entry.termVersion },
+  { label: "Changelog", value: entry.termChangelog },
+].filter((row) => Boolean(row.value));
+
+const classificationRows = [
+  {
+    label: "Domains",
+    value: entry.domains?.length ? entry.domains.join(", ") : "Not tagged",
+  },
+  {
+    label: "Scale",
+    value: entry.scale ?? "Not specified",
+  },
+  {
+    label: "Measurability",
+    value: entry.measurability ?? "Not specified",
+  },
+  {
+    label: "Maturity",
+    value: entry.maturity ?? "Not specified",
+  },
+  {
+    label: "Phase",
+    value: entry.phase?.length ? entry.phase.join(", ") : "Not specified",
+  },
+];
+
+const pageDescription = `${entry.title} glossary section: ${sectionDefinition.label}. ${plainDescription}`;
+const anchorLinks = [
+  { href: "#summary", label: "Summary" },
+  { href: "#details", label: sectionDefinition.label },
+  { href: "#related", label: "Related links" },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Glossary section"
+    title={pageTitle}
+    description={introDescription}
+    permalink={pagePermalink}
+    anchorLinks={anchorLinks}
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href={glossaryEntryPermalink(entry.id)}>
+        View full glossary entry
+      </a>
+      <a class="button ghost" href="/glossary">
+        Browse glossary
+      </a>
+    </Fragment>
+  </PageIntro>
+
+  <section id="summary" class="section">
+    <p class="eyebrow">Glossary entry</p>
+    <h2>{entry.title}</h2>
+    <p class="muted">Category: {categoryLabel}</p>
+    <div class="prose" set:html={entry.bodyHtml} />
+    <p class="muted">
+      This focused section highlights the {sectionDefinition.label.toLowerCase()} for the term.
+      For the complete entry, visit the full glossary page.
+    </p>
+  </section>
+
+  <SectionBlock
+    id="details"
+    eyebrow="Section focus"
+    title={sectionDefinition.label}
+    description={sectionDefinition.description}
+    variant="alt"
+  >
+    {sectionDefinition.id === "overview" && (
+      <>
+        <p class="muted">{plainDescription}</p>
+        {entry.examples?.length ? (
+          <div>
+            <h3>Example highlights</h3>
+            <ul>
+              {entry.examples.map((example) => (
+                <li>{example}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p class="muted">No example highlights have been documented yet.</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "scope" && (
+      <>
+        <p>{scopeText || "Scope details will be published as the glossary expands."}</p>
+        {entry.presenceChecks?.length ? (
+          <div>
+            <h3>Presence checks</h3>
+            <ul>
+              {entry.presenceChecks.map((check) => (
+                <li>{check}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {entry.missingExpectations?.length ? (
+          <div>
+            <h3>Missing expectations</h3>
+            <ul>
+              {entry.missingExpectations.map((expectation) => (
+                <li>{expectation}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </>
+    )}
+
+    {sectionDefinition.id === "operational-tests" && (
+      <>
+        <p class="muted">
+          Use these operational tests to validate whether the term holds during live operations.
+        </p>
+        <ul>
+          {operationalTestLinks.map((test) => (
+            <li>
+              <a href={test.href}>{test.label}</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+
+    {sectionDefinition.id === "minimum-evidence" && (
+      <>
+        <p class="muted">
+          Minimum evidence translates the term into artifacts, behavior, and metrics.
+        </p>
+        <dl>
+          <dt>Artifact</dt>
+          <dd>{minimumEvidence.artifact}</dd>
+          <dt>Behavior</dt>
+          <dd>{minimumEvidence.behavior}</dd>
+          <dt>Metric</dt>
+          <dd>{minimumEvidence.metric}</dd>
+        </dl>
+        {evidenceMetaRows.length > 0 && (
+          <div>
+            <h3>Evidence detail</h3>
+            <ul>
+              {evidenceMetaRows.map((row) => (
+                <li>
+                  <strong>{row.label}:</strong> {row.value}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "evidence-artifact" && (
+      <>
+        <h3>Artifact</h3>
+        <p>{minimumEvidence.artifact}</p>
+        {minimumEvidence.definition && (
+          <p class="muted">{minimumEvidence.definition}</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "evidence-behavior" && (
+      <>
+        <h3>Behavior</h3>
+        <p>{minimumEvidence.behavior}</p>
+        {minimumEvidence.dataSource && (
+          <p class="muted">Data source: {minimumEvidence.dataSource}</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "evidence-metric" && (
+      <>
+        <h3>Metric</h3>
+        <p>{minimumEvidence.metric}</p>
+        {minimumEvidence.calculation && (
+          <p class="muted">Calculation: {minimumEvidence.calculation}</p>
+        )}
+        {minimumEvidence.threshold && (
+          <p class="muted">Threshold: {minimumEvidence.threshold}</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "genealogy" && (
+      <>
+        <p>{genealogy || "Genealogy details will be documented soon."}</p>
+      </>
+    )}
+
+    {sectionDefinition.id === "status" && (
+      <>
+        <p class="muted">Revision metadata for the glossary entry.</p>
+        {statusRows.length > 0 ? (
+          <ul>
+            {statusRows.map((row) => (
+              <li>
+                <strong>{row.label}:</strong> {row.value}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No status metadata has been published yet.</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "classification" && (
+      <>
+        <p class="muted">Domains, scale, and maturity context for the term.</p>
+        <ul>
+          {classificationRows.map((row) => (
+            <li>
+              <strong>{row.label}:</strong> {row.value}
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+
+    {sectionDefinition.id === "tags" && (
+      <>
+        <p class="muted">Tags align this term with related topics.</p>
+        {entry.tags?.length ? (
+          <ul>
+            {entry.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No tags have been assigned yet.</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "references" && (
+      <>
+        {references.length ? (
+          <ul>
+            {references.map((reference) => (
+              <li>
+                <a href={reference.href}>{reference.label}</a> ({reference.type})
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No references have been recorded yet.</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "resources" && (
+      <>
+        {entry.resources?.length ? (
+          <ul>
+            {entry.resources.map((resource) => (
+              <li>
+                <a href={resource.href}>{resource.label}</a> ({resource.type})
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No supporting resources have been added yet.</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "examples" && (
+      <>
+        {entry.examples?.length ? (
+          <ul>
+            {entry.examples.map((example) => (
+              <li>{example}</li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No examples have been documented yet.</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "related-patterns" && (
+      <>
+        {relatedPatternLinks.length ? (
+          <ul>
+            {relatedPatternLinks.map((pattern) => (
+              <li>
+                <a href={pattern.href}>{pattern.label}</a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No related patterns have been listed yet.</p>
+        )}
+      </>
+    )}
+
+    {sectionDefinition.id === "operational-tests" &&
+      commonCounterfeits.length > 0 && (
+        <div>
+          <h3>Common counterfeits</h3>
+          <ul>
+            {commonCounterfeits.map((counterfeit) => (
+              <li>{counterfeit}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+  </SectionBlock>
+
+  <SectionBlock
+    id="related"
+    eyebrow="Next steps"
+    title="Continue exploring"
+    description="Jump to another glossary section or return to the full entry."
+  >
+    <ul>
+      <li>
+        <a href={glossaryEntryPermalink(entry.id)}>
+          View the full glossary entry
+        </a>
+      </li>
+      {sectionLinks.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))}
+      {operationalTestLinks.map((test) => (
+        <li>
+          <a href={test.href}>Operational test: {test.label}</a>
+        </li>
+      ))}
+    </ul>
+    <p class="muted">
+      Share feedback at <a href="mailto:glossary@ethotechnics.org">glossary@ethotechnics.org</a>.
+    </p>
+  </SectionBlock>
+
+  <script nonce={cspNonce} is:inline>
+    const copyButtons = Array.from(
+      document.querySelectorAll("[data-permalink-copy]"),
+    );
+    copyButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const value = button.getAttribute("data-copy-value");
+        if (!value) return;
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch (error) {
+          console.warn("Failed to copy permalink", error);
+        }
+      });
+    });
+  </script>
+</BaseLayout>

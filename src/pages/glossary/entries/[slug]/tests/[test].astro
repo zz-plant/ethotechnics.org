@@ -1,0 +1,163 @@
+---
+import { getEntry } from "astro:content";
+
+import BaseLayout from "../../../../../layouts/BaseLayout.astro";
+import PageIntro from "../../../../../components/PageIntro.astro";
+import SectionBlock from "../../../../../components/SectionBlock.astro";
+import { glossaryEntryPermalink } from "../../../../../utils/glossary";
+import {
+  buildGlossarySectionLinks,
+  getGlossaryTestSlugs,
+  glossaryTestPermalink,
+} from "../../../../../utils/glossary-sections";
+import {
+  getGlossaryEntryDefaults,
+  normalizeGlossaryHeading,
+  stripHtml,
+} from "../../../../../utils/glossary-helpers";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const glossaryEntry = await getEntry("glossary", "glossary");
+
+  if (!glossaryEntry) {
+    return [];
+  }
+
+  return glossaryEntry.data.categories.flatMap((category) =>
+    category.entries.flatMap((entry) =>
+      getGlossaryTestSlugs(entry.operationalTests ?? []).map((test) => ({
+        params: { slug: entry.id, test: test.slug },
+      })),
+    ),
+  );
+}
+
+const { slug, test } = Astro.params;
+const glossaryEntry = (await getEntry("glossary", "glossary"))!;
+
+const entryRecord = glossaryEntry.data.categories
+  .flatMap((category) =>
+    category.entries.map((entry) => ({
+      entry,
+      category,
+    })),
+  )
+  .find(({ entry }) => entry.id === slug);
+
+if (!entryRecord) {
+  return Astro.response(
+    new Response("Glossary entry not found", {
+      status: 404,
+    }),
+  );
+}
+
+const { entry, category } = entryRecord;
+const operationalTests = getGlossaryTestSlugs(entry.operationalTests ?? []);
+const testRecord = operationalTests.find((item) => item.slug === test) ?? null;
+
+if (!testRecord) {
+  return Astro.response(
+    new Response("Operational test not found", {
+      status: 404,
+    }),
+  );
+}
+
+const categoryLabel = normalizeGlossaryHeading(category.heading);
+const pagePermalink = glossaryTestPermalink(entry.id, testRecord.slug);
+const plainDescription = stripHtml(entry.bodyHtml);
+const introDescription = `Operational test "${testRecord.label}" for ${entry.title} in the ${categoryLabel} glossary category.`;
+const pageTitle = `${entry.title} — Operational test: ${testRecord.label}`;
+const sectionLinks = buildGlossarySectionLinks(entry);
+
+const { scopeText, minimumEvidence, genealogy } = getGlossaryEntryDefaults(
+  entry,
+  category,
+);
+
+const pageDescription = `${entry.title} operational test: ${testRecord.label}. ${plainDescription}`;
+const anchorLinks = [
+  { href: "#test", label: "Test" },
+  { href: "#context", label: "Context" },
+  { href: "#related", label: "Related tests" },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Glossary operational test"
+    title={pageTitle}
+    description={introDescription}
+    permalink={pagePermalink}
+    anchorLinks={anchorLinks}
+  >
+    <Fragment slot="actions">
+      <a class="button ghost" href={glossaryEntryPermalink(entry.id)}>
+        View full glossary entry
+      </a>
+      <a class="button ghost" href="/glossary">
+        Browse glossary
+      </a>
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="test"
+    eyebrow="Operational test"
+    title={testRecord.label}
+    description="Use this test to validate operational readiness."
+    variant="alt"
+  >
+    <p class="muted">
+      Pair this test with the minimum evidence criteria to capture both qualitative and quantitative signals.
+    </p>
+    <ul>
+      <li>
+        <strong>Evidence artifact:</strong> {minimumEvidence.artifact}
+      </li>
+      <li>
+        <strong>Behavior signal:</strong> {minimumEvidence.behavior}
+      </li>
+      <li>
+        <strong>Metric signal:</strong> {minimumEvidence.metric}
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="context"
+    eyebrow="Context"
+    title="How this test fits the glossary entry"
+    description={`Category: ${categoryLabel}`}
+  >
+    <p class="muted">{plainDescription}</p>
+    <p>{scopeText || "Scope details will be added as the glossary expands."}</p>
+    <p>{genealogy || "Genealogy notes will be published soon."}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="related"
+    eyebrow="Related tests"
+    title="Explore more operational tests"
+    description="Continue with the other operational tests for this glossary entry."
+  >
+    <ul>
+      {operationalTests.map((item) => (
+        <li>
+          <a href={glossaryTestPermalink(entry.id, item.slug)}>{item.label}</a>
+        </li>
+      ))}
+    </ul>
+    <p class="muted">Or jump to another glossary section.</p>
+    <ul>
+      {sectionLinks.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+</BaseLayout>
