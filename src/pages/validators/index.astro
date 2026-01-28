@@ -56,7 +56,11 @@ const structuredData = {
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  jsonAlternates={[{ href: "/api/validators.json", title: "Validators JSON" }]}
+>
   <PageIntro
     eyebrow="Validators"
     title="Validators"
