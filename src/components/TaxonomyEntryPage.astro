@@ -38,6 +38,14 @@ const segments = entry.slug.split("/");
 const parentSlug =
   segments.length > 1 ? segments.slice(0, -1).join("/") : null;
 const parentEntry = parentSlug ? taxonomyEntriesBySlug.get(parentSlug) : null;
+const basePathRoot =
+  normalizedBasePath && normalizedBasePath !== "/taxonomy"
+    ? normalizedBasePath.replace(/^\//, "")
+    : "";
+const parentPathSlug =
+  parentEntry && basePathRoot && parentEntry.slug.startsWith(`${basePathRoot}/`)
+    ? parentEntry.slug.replace(`${basePathRoot}/`, "")
+    : parentEntry?.slug;
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const canonicalUrl = Astro.site
@@ -46,8 +54,8 @@ const canonicalUrl = Astro.site
 const collectionPath =
   normalizedBasePath === "/taxonomy"
     ? "/taxonomy"
-    : parentEntry
-      ? entryUrlForSlug(parentEntry.slug)
+    : parentPathSlug
+      ? entryUrlForSlug(parentPathSlug)
       : normalizedBasePath || "/taxonomy";
 const collectionUrl = Astro.site
   ? new URL(collectionPath, siteBase).toString()
