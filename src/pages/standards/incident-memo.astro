@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Incident memo template";
+const pageDescription =
+  "A governance-ready memo structure for documenting incidents, timelines, impacts, and remediation commitments.";
+const permalink = "/standards/incident-memo";
+const anchorLinks = [
+  { href: "#when-to-use", label: "When to use" },
+  { href: "#structure", label: "Structure" },
+  { href: "#template", label: "Template" },
+  { href: "#citations", label: "Citations" },
+];
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Governance Council",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2026-03-01T00:00:00Z",
+  updated: "2026-03-01T00:00:00Z",
+  version: "v0.1.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v0.1.0",
+      date: "2026-03-01",
+      summary: "Initial incident memo template for governance reporting.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Governance Council, include the page title + version, and link to the canonical permalink.",
+};
+
+const incidentTemplate = `Incident memo (Template)
+
+1) Executive summary
+- One-paragraph summary of the incident and outcome.
+- Date(s) and affected systems.
+- Primary impact on people, partners, or operations.
+
+2) Timeline (UTC)
+- T0: Trigger detected (signal/alert/source).
+- T1: Triage decision + owner.
+- T2: Mitigation steps deployed.
+- T3: Incident resolved or stabilized.
+
+3) Impact summary
+- Who was impacted, how, and for how long.
+- Scope metrics (counts, regions, cohorts).
+- Residual harm or unresolved exposure.
+
+4) Root cause + contributing factors
+- Primary failure mode.
+- Contributing governance gaps.
+- Missing safeguards or controls.
+
+5) Governance breakdowns
+- Decision or escalation failures.
+- Missing accountability artifacts.
+- Policy or mechanism gaps.
+
+6) Remediation plan
+- Immediate fixes (with owners + due dates).
+- Medium-term prevention work.
+- Long-term governance upgrades.
+
+7) Evidence + artifacts
+- Links to decision logs, validator outputs, receipts.
+- Incident-specific data snapshots and charts.
+- Audit-ready documentation references.
+
+8) Follow-up commitments
+- Next review date.
+- Owner for validation.
+- Comms or transparency commitments.`;
+---
+
+<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Standards"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Governance artifact",
+      title: "Keep incident reporting consistent.",
+      description:
+        "Use this memo to align governance, legal, and operational teams on incident impact, accountability, and remediation.",
+      link: {
+        label: "See incident lessons",
+        href: "/incidents",
+      },
+    }}
+  />
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+
+  <SectionBlock
+    id="when-to-use"
+    eyebrow="When to use"
+    title="Document incidents with a shared structure."
+    description="Use this memo after any material harm, breach, or escalation so follow-up work is traceable and auditable."
+  >
+    <ul class="muted">
+      <li>Attach the memo to incident tickets, postmortems, and audit logs.</li>
+      <li>Publish a redacted version if external transparency is required.</li>
+      <li>Link to mechanism evidence and diagnostics outputs for remediation.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="structure"
+    eyebrow="Structure"
+    title="Cover impact, root cause, and remediation."
+    description="Keep sections short and factual so the memo can ship quickly while remaining evidence-ready."
+    variant="alt"
+  >
+    <ul class="muted">
+      <li>Lead with a one-paragraph summary and the affected population.</li>
+      <li>Use a timestamped timeline to remove ambiguity about actions taken.</li>
+      <li>Close with remediation owners and deadlines to enforce accountability.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="template"
+    eyebrow="Template"
+    title="Copy and adapt this memo."
+    description="Replace the prompts with incident-specific details and link to receipts or logs where possible."
+  >
+    <pre class="code-block">{incidentTemplate}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="citations"
+    eyebrow="Citations"
+    title="Reference this template."
+    description="Use the canonical permalink and version to keep incident documentation aligned."
+    variant="alt"
+  >
+    <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+  </SectionBlock>
+</BaseLayout>
