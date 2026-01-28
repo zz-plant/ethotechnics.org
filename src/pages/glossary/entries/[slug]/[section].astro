@@ -8,7 +8,9 @@ import { glossaryEntryPermalink } from "../../../../utils/glossary";
 import {
   buildGlossarySectionLinks,
   getGlossarySectionById,
+  getGlossaryTestSlugs,
   glossarySectionPermalink,
+  glossaryTestPermalink,
 } from "../../../../utils/glossary-sections";
 import {
   getGlossaryEntryDefaults,
@@ -60,6 +62,12 @@ const { entry, category } = entryRecord;
 const categoryLabel = normalizeGlossaryHeading(category.heading);
 const pagePermalink = glossarySectionPermalink(entry.id, sectionDefinition.id);
 const sectionLinks = buildGlossarySectionLinks(entry);
+const operationalTestLinks = getGlossaryTestSlugs(
+  entry.operationalTests ?? [],
+).map((test) => ({
+  label: test.label,
+  href: glossaryTestPermalink(entry.id, test.slug),
+}));
 const plainDescription = stripHtml(entry.bodyHtml);
 const introDescription = `${sectionDefinition.description} Part of the ${entry.title} glossary entry.`;
 const pageTitle = `${entry.title} — ${sectionDefinition.label}`;
@@ -67,7 +75,6 @@ const { cspNonce } = Astro.locals;
 
 const {
   scopeText,
-  operationalTests,
   commonCounterfeits,
   minimumEvidence,
   genealogy,
@@ -216,8 +223,10 @@ const anchorLinks = [
           Use these operational tests to validate whether the term holds during live operations.
         </p>
         <ul>
-          {operationalTests.map((test) => (
-            <li>{test}</li>
+          {operationalTestLinks.map((test) => (
+            <li>
+              <a href={test.href}>{test.label}</a>
+            </li>
           ))}
         </ul>
       </>
@@ -425,6 +434,11 @@ const anchorLinks = [
       {sectionLinks.map((link) => (
         <li>
           <a href={link.href}>{link.label}</a>
+        </li>
+      ))}
+      {operationalTestLinks.map((test) => (
+        <li>
+          <a href={test.href}>Operational test: {test.label}</a>
         </li>
       ))}
     </ul>

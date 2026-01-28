@@ -6,6 +6,7 @@ import PageIntro from "../../../../../components/PageIntro.astro";
 import SectionBlock from "../../../../../components/SectionBlock.astro";
 import { glossaryEntryPermalink } from "../../../../../utils/glossary";
 import {
+  buildGlossarySectionLinks,
   getGlossaryTestSlugs,
   glossaryTestPermalink,
 } from "../../../../../utils/glossary-sections";
@@ -70,6 +71,7 @@ const pagePermalink = glossaryTestPermalink(entry.id, testRecord.slug);
 const plainDescription = stripHtml(entry.bodyHtml);
 const introDescription = `Operational test "${testRecord.label}" for ${entry.title} in the ${categoryLabel} glossary category.`;
 const pageTitle = `${entry.title} — Operational test: ${testRecord.label}`;
+const sectionLinks = buildGlossarySectionLinks(entry);
 
 const { scopeText, minimumEvidence, genealogy } = getGlossaryEntryDefaults(
   entry,
@@ -146,6 +148,14 @@ const anchorLinks = [
       {operationalTests.map((item) => (
         <li>
           <a href={glossaryTestPermalink(entry.id, item.slug)}>{item.label}</a>
+        </li>
+      ))}
+    </ul>
+    <p class="muted">Or jump to another glossary section.</p>
+    <ul>
+      {sectionLinks.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
         </li>
       ))}
     </ul>
