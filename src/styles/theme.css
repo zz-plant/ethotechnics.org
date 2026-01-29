@@ -71,6 +71,18 @@ body {
   overflow-x: hidden;
 }
 
+@supports (height: 100svh) {
+  body {
+    min-height: 100svh;
+  }
+}
+
+@supports (height: 100dvh) {
+  body {
+    min-height: 100dvh;
+  }
+}
+
 body::before {
   content: "";
   position: fixed;

@@ -284,6 +284,12 @@
       width: calc(100% - 0.7rem);
     }
 
+    @supports (height: 100dvh) {
+      .nav__content {
+        max-height: calc(100dvh - 0.7rem);
+      }
+    }
+
     .nav__content-body {
       padding: 0.2rem 0.2rem 0.8rem;
       gap: 0.75rem;
@@ -684,6 +690,12 @@
     z-index: var(--z-overlay-top);
   }
 
+  @supports (height: 100dvh) {
+    .nav__content {
+      max-height: calc(100dvh - 1.1rem);
+    }
+  }
+
   @media (max-width: 991px) {
     .nav__content {
       background: color-mix(in srgb, var(--surface) 96%, white 4%);
@@ -778,6 +790,12 @@
     max-height: calc(100vh - 1.6rem);
     overflow: auto;
     overscroll-behavior: contain;
+  }
+
+  @supports (height: 100dvh) {
+    .nav__content-body {
+      max-height: calc(100dvh - 1.6rem);
+    }
   }
 
   @media (min-width: 992px) {
