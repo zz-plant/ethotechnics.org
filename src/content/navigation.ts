@@ -44,6 +44,12 @@ export const navSections: NavSection[] = [
           "Draft standard defining contestability, review, and remedy obligations.",
       },
       {
+        href: "/standards/std-06-human-impact-safety-case",
+        label: "Human Impact Safety Case (STD-06)",
+        description:
+          "Standard tests, thresholds, and evidence artifacts that block unsafe deployment.",
+      },
+      {
         href: "/standards/minimum-viable-contestability",
         label: "Minimum viable contestability standard",
         description:

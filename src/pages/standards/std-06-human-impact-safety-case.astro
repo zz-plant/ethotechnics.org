@@ -1,0 +1,283 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "STD-06 Human Impact Safety Case — Ethotechnics Institute";
+const pageDescription =
+  "Standard tests, thresholds, and evidence artifacts that define a do-not-deploy safety case for human impact.";
+const permalink = "/standards/std-06-human-impact-safety-case";
+
+const testBattery = [
+  {
+    name: "Time-to-halt (TTH)",
+    threshold: "≤ 5 minutes for high-impact flows; ≤ 30 minutes for medium-impact flows",
+    evidence: "Kill authority roster, halt drill receipts, time-to-halt logs",
+    breachAction: "Auto-pause automation + notify steward-on-call",
+  },
+  {
+    name: "Time-to-remedy (TTR)",
+    threshold: "≤ 7 days for reversible harm; ≤ 30 days for complex remediation",
+    evidence: "Remedy ledger, payout or restoration receipts, verification logs",
+    breachAction: "Escalate to remedy owner + public clock disclosure",
+  },
+  {
+    name: "Contestability access",
+    threshold: "Appeal path within 1 step; no fee, no permission gate",
+    evidence: "Interface captures, routing logs, assisted channel roster",
+    breachAction: "Switch to staffed review + suspend automation",
+  },
+  {
+    name: "Burden ceiling",
+    threshold: "≤ 10 minutes, ≤ 5 steps, ≤ 2 documents to trigger remedy",
+    evidence: "Burden measurements, UX flow map, intake telemetry",
+    breachAction: "Activate burden inversion + provide staffed alternatives",
+  },
+  {
+    name: "Disclosure latency",
+    threshold: "Decision receipt delivered within 24 hours; updates within 48 hours",
+    evidence: "Receipt payloads, notification logs, disclosure pack",
+    breachAction: "Freeze new decisions + send corrective disclosures",
+  },
+];
+
+const bindingShifts = [
+  {
+    title: "Kill authority is operational and independent",
+    detail:
+      "Named halt owners can stop systems without business approval, with protected escalation paths.",
+  },
+  {
+    title: "Remedy obligations are funded and clocked",
+    detail:
+      "Remedy owners are assigned, budgets are pre-allocated, and clocks are visible to impacted people.",
+  },
+  {
+    title: "Mandatory disclosures are non-negotiable",
+    detail:
+      "Every consequential decision ships with a receipt, reason, and appeal path, plus a public evidence summary.",
+  },
+  {
+    title: "Authority shifts toward the affected",
+    detail:
+      "Affected parties can trigger review without permission gates or retaliation risk.",
+  },
+];
+
+const portableArtifacts = [
+  {
+    title: "Human Impact Safety Case (HISC) summary",
+    purpose: "One-page snapshot of tests, thresholds, and breach actions.",
+    portability: "PDF + JSON export with stable IDs for audit and disclosure use.",
+  },
+  {
+    title: "Kill authority roster + halt receipts",
+    purpose: "Named roles with authority plus evidence of recent halt drills.",
+    portability: "Signed roster + time-stamped receipts for regulators and affected people.",
+  },
+  {
+    title: "Remedy obligations ledger",
+    purpose: "Shows remedy owners, clocks, and outcomes for each harm class.",
+    portability: "CSV + signed log export with receipt IDs.",
+  },
+  {
+    title: "Disclosure packet",
+    purpose: "Decision receipts, reasons, and appeal steps presented in plain language.",
+    portability: "Machine-readable receipt payload + public-facing summary.",
+  },
+  {
+    title: "Do-not-deploy boundary register",
+    purpose: "Lists breach conditions that block deployment and the last audit date.",
+    portability: "Public summary + internal checklist linked to release gates.",
+  },
+];
+
+const boundaryConditions = [
+  "No named kill authority roster or halt drill evidence within 90 days.",
+  "Remedy clocks exceed thresholds without documented exceptions and approvals.",
+  "Disclosure receipts missing required fields (owner, reason, appeal path, clocks).",
+  "Burden ceiling breached for two consecutive review windows.",
+  "Contestability access requires payment, permission, or retaliation risk.",
+];
+
+const safetyCaseTemplate = `Human Impact Safety Case (STD-06)
+- System name + owner
+- Impact class + affected populations
+- Test battery results (TTH, TTR, contestability, burden, disclosure)
+- Evidence bundle links + receipt IDs
+- Binding authority roster + escalation ladder
+- Do-not-deploy boundary status
+- Last audit date + next review window`;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Standard"
+    title="Human Impact Safety Case (STD-06)"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#overview", label: "Overview" },
+      { href: "#tests", label: "Test battery + thresholds" },
+      { href: "#bindings", label: "Binding power shifts" },
+      { href: "#artifacts", label: "Portable evidence artifacts" },
+      { href: "#boundaries", label: "Do-not-deploy boundaries" },
+      { href: "#implementation", label: "Implementation" },
+      { href: "#referenced-by", label: "Referenced by" },
+    ]}
+    panelCopy={{
+      eyebrow: "Safety case",
+      title: "Make human impact auditable",
+      description:
+        "STD-06 defines the minimum tests, thresholds, and evidence artifacts required before deployment.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Intent"
+    title="What the safety case proves"
+    description="STD-06 treats human impact as a safety case with binding thresholds and evidence that travels across audits."
+  >
+    <ul class="muted">
+      <li>Operational tests replace principle checklists.</li>
+      <li>Thresholds define when deployment is blocked, not merely monitored.</li>
+      <li>Evidence artifacts are designed for regulators, auditors, and affected people.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="tests"
+    eyebrow="Standard tests"
+    title="Test battery with threshold requirements"
+    description="Every system must pass the test battery below or be classified as do-not-deploy."
+    variant="alt"
+  >
+    <table class="mapping-table">
+      <thead>
+        <tr>
+          <th scope="col">Test</th>
+          <th scope="col">Threshold</th>
+          <th scope="col">Required evidence</th>
+          <th scope="col">Breach action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {testBattery.map((test) => (
+          <tr>
+            <th scope="row">{test.name}</th>
+            <td>{test.threshold}</td>
+            <td>{test.evidence}</td>
+            <td>{test.breachAction}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </SectionBlock>
+
+  <SectionBlock
+    id="bindings"
+    eyebrow="Binding power shifts"
+    title="Shift authority toward stoppability and remedy"
+    description="These shifts are enforceable obligations, not advisory governance."
+  >
+    <div class="grid grid--two">
+      {bindingShifts.map((shift) => (
+        <div class="panel">
+          <p class="eyebrow">{shift.title}</p>
+          <p class="muted">{shift.detail}</p>
+        </div>
+      ))}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow="Portable evidence"
+    title="Artifacts auditors and impacted people can use"
+    description="Each artifact must be exportable, timestamped, and linked to receipts."
+    variant="alt"
+  >
+    <ul class="muted">
+      {portableArtifacts.map((artifact) => (
+        <li>
+          <strong>{artifact.title}:</strong> {artifact.purpose} <span class="muted">{artifact.portability}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="eyebrow">Safety case template</p>
+    <pre class="code-block">{safetyCaseTemplate}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="boundaries"
+    eyebrow="No-go conditions"
+    title="Do-not-deploy boundary conditions"
+    description="If any boundary condition is true, deployment is blocked until remediation is verified."
+  >
+    <ul class="muted">
+      {boundaryConditions.map((condition) => (
+        <li>{condition}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="implementation"
+    eyebrow="Implementation"
+    title="How teams adopt STD-06"
+    description="Treat this as a release gate and procurement appendix from day one."
+    variant="alt"
+  >
+    <ol class="muted">
+      <li>Bind the test battery to release gates and procurement clauses.</li>
+      <li>Publish the safety case summary to affected people before launch.</li>
+      <li>Re-run tests after every major model or policy change.</li>
+      <li>Use evidence packs and validators to maintain proof over time.</li>
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where STD-06 is enforced"
+    description="Cross-links keep safety case requirements aligned across adoption surfaces."
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Binding vectors</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#safety-case">Safety case bindings</a>
+          </li>
+          <li>
+            <a href="/bindings#release-gates">Release gate checklist</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Evidence packs</p>
+        <ul class="muted">
+          <li>
+            <a href="/evidence-packs/std-06">STD-06 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Validators + diagnostics</p>
+        <ul class="muted">
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+          <li>
+            <a href="/diagnostics">Diagnostics catalog</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">Search ID: STD-06 v0.4.</p>
+  </SectionBlock>
+</BaseLayout>

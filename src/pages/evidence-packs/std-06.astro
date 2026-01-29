@@ -1,0 +1,197 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "STD-06 Evidence Pack — Ethotechnics Institute";
+const pageDescription =
+  "Portable evidence artifacts and threshold tests for the Human Impact Safety Case standard.";
+const permalink = "/evidence-packs/std-06";
+
+const tiers = [
+  {
+    tier: "Tier 0 (minimum)",
+    description: "Proof the test battery and safety case are recorded.",
+    evidence: "Safety case summary, threshold dashboard, receipt payloads.",
+  },
+  {
+    tier: "Tier 1 (operational)",
+    description: "Proof the controls are used with real people.",
+    evidence: "Halt drill receipts, remedy ledger entries, disclosure packets.",
+  },
+  {
+    tier: "Tier 2 (resilient)",
+    description: "Proof the controls hold during incidents.",
+    evidence: "Incident memos, regulator-ready exports, remedy verification logs.",
+  },
+];
+
+const artifacts = [
+  {
+    title: "Safety case summary",
+    details: "Scope, impact class, and test battery results with timestamps.",
+  },
+  {
+    title: "Kill authority roster",
+    details: "Named halt owners, delegation basis, and coverage schedule.",
+  },
+  {
+    title: "Remedy obligations ledger",
+    details: "Owner, clock status, and resolution proof for each harm class.",
+  },
+  {
+    title: "Disclosure packet",
+    details: "Receipt, reason, appeal path, and clock visibility for affected people.",
+  },
+  {
+    title: "Do-not-deploy boundary register",
+    details: "Active boundary breaches and the last remediation review date.",
+  },
+];
+
+const testEvidence = [
+  "Time-to-halt logs + halt receipts with stopwatch measurement.",
+  "Time-to-remedy tracking with evidence of verification and follow-up.",
+  "Contestability access audit (1-step test, no-paywall).",
+  "Burden ceiling measurements with UX flow maps.",
+  "Disclosure latency report with receipt delivery timestamps.",
+];
+
+const portabilityChecklist = [
+  "Artifacts exportable as PDF + JSON/CSV with stable IDs.",
+  "Time-stamped, signed, and linked to receipt IDs.",
+  "Plain-language summary included for impacted people.",
+  "Retention policy documented and published in the safety case.",
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Evidence pack"
+    title="STD-06 Evidence Pack"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#tiers", label: "Tiered model" },
+      { href: "#artifacts", label: "Artifact inventory" },
+      { href: "#tests", label: "Test battery evidence" },
+      { href: "#portability", label: "Portability checklist" },
+      { href: "#auditors", label: "What auditors ask" },
+      { href: "#referenced-by", label: "Referenced by" },
+    ]}
+    panelCopy={{
+      eyebrow: "Proof-carrying safety",
+      title: "Evidence that survives scrutiny",
+      description:
+        "STD-06 evidence packs make safety cases portable across auditors, regulators, and affected people.",
+    }}
+  />
+
+  <SectionBlock
+    id="tiers"
+    eyebrow="Tiered evidence model"
+    title="Tier 0 to Tier 2 minimum"
+    description="Start with Tier 0 for baseline proof, then scale to Tier 2 for resilience."
+  >
+    <ul class="muted">
+      {tiers.map((tier) => (
+        <li>
+          <strong>{tier.tier}:</strong> {tier.description} <span class="muted">{tier.evidence}</span>
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="artifacts"
+    eyebrow="Portable artifacts"
+    title="Evidence artifacts required in every safety case"
+    description="Artifacts must be timestamped, exportable, and tied to receipts."
+    variant="alt"
+  >
+    <ul class="muted">
+      {artifacts.map((artifact) => (
+        <li>
+          <strong>{artifact.title}:</strong> {artifact.details}
+        </li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="tests"
+    eyebrow="Test battery"
+    title="Evidence per threshold test"
+    description="Provide proof for every test in STD-06 before deployment."
+  >
+    <ul class="muted">
+      {testEvidence.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="portability"
+    eyebrow="Portability"
+    title="Checklist for regulator-ready exports"
+    description="Artifacts must travel across vendors, auditors, and community review."
+    variant="alt"
+  >
+    <ul class="muted">
+      {portabilityChecklist.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="auditors"
+    eyebrow="What auditors ask"
+    title="Audit questions to prepare for"
+    description="Answer these with links to the evidence pack and safety case summary."
+  >
+    <ul class="muted">
+      <li>Show the latest safety case summary and its test battery results.</li>
+      <li>Provide the last three halt drill receipts with time-to-halt measurements.</li>
+      <li>Demonstrate remedy clock compliance with verification evidence.</li>
+      <li>Show the public-facing disclosure packet used for affected people.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="referenced-by"
+    eyebrow="Referenced by"
+    title="Where STD-06 evidence is enforced"
+    description="Cross-links keep evidence packs, bindings, and standards aligned."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      <div class="panel">
+        <p class="eyebrow">Standard</p>
+        <ul class="muted">
+          <li>
+            <a href="/standards/std-06-human-impact-safety-case">STD-06 Safety Case</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Required by bindings</p>
+        <ul class="muted">
+          <li>
+            <a href="/bindings#safety-case">Safety case bindings</a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Verified by</p>
+        <ul class="muted">
+          <li>
+            <a href="/validators">Validators (VAL-01–VAL-03)</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">Search ID: STD-06 v0.4.</p>
+  </SectionBlock>
+</BaseLayout>
