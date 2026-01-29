@@ -66,6 +66,25 @@
     font-family: var(--mono);
   }
 
+  @media (max-width: 720px) {
+    .search-container[data-search-scope="mobile"] {
+      width: auto;
+      max-width: none;
+    }
+
+    .search-container[data-search-scope="mobile"] .search-trigger {
+      width: auto;
+      min-width: 44px;
+      padding: 0.45rem 0.55rem;
+      gap: 0.4rem;
+    }
+
+    .search-container[data-search-scope="mobile"] .search-label,
+    .search-container[data-search-scope="mobile"] .search-kbd {
+      display: none;
+    }
+  }
+
   .search-dialog {
     width: min(92vw, 760px);
     max-width: 760px;
