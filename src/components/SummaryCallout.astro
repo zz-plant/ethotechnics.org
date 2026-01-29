@@ -64,10 +64,12 @@ const {
     </div>
     <div>
       <p class="eyebrow">Jump to</p>
-      <ul class="summary-callout__links">
+      <ul class="summary-callout__links pill-list">
         {jumpLinks.map((link) => (
-          <li>
-            <a href={link.href}>{link.label}</a>
+          <li class="pill-list__item">
+            <a class="pill-list__button" href={link.href}>
+              {link.label}
+            </a>
           </li>
         ))}
       </ul>
