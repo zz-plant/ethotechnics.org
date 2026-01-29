@@ -130,6 +130,17 @@ export const standardsContent: StandardsContent = {
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-02-15",
     },
+    {
+      id: "STD-06",
+      slug: "std-06-human-impact-safety-case",
+      title: "Human Impact Safety Case",
+      description:
+        "Standard tests, thresholds, and evidence artifacts that define a do-not-deploy safety case for human impact.",
+      status: "Draft for Review",
+      version: "0.4",
+      effectiveDate: "TBD (proposed 2026)",
+      published: "2026-03-01",
+    },
   ],
   doctrine: [
     {

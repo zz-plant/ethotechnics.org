@@ -21,6 +21,20 @@ const releaseGate = `Release gate (STD-02.2.1 / STD-01.1.1)
 [ ] Decision log entry linked to evidence pack bundle.
 [ ] Appeal path tested with human review coverage.`;
 
+const safetyCaseBinding = `Procurement clause (STD-06 Human Impact Safety Case)
+Supplier SHALL maintain a Human Impact Safety Case with:
+- Named kill authority roster with protected halt rights.
+- Remedy obligations that publish clocks and fund remediation.
+- Mandatory disclosures (receipt, reason, appeal path) for all consequential decisions.
+- Evidence pack delivery that includes safety case artifacts and test results.
+Non-compliance blocks deployment and triggers remedy obligations.`;
+
+const safetyCaseReleaseGate = `Release gate (STD-06)
+[ ] Safety case summary published with test battery results.
+[ ] Kill authority roster verified + halt drill receipt attached.
+[ ] Remedy ledger shows active clocks and owners.
+[ ] Disclosure packet validated for completeness and delivery time.`;
+
 const incidentTrigger = `Trigger a postmortem when:
 - Any lock exceeds the remedy clock.
 - Appeals backlog breaches the review clock.
@@ -54,6 +68,7 @@ const antiWeaponizationReleaseGate = `Release gate (AW-01–AW-04)
     anchorLinks={[
       { href: "#procurement", label: "Procurement clauses" },
       { href: "#release-gates", label: "Release gates" },
+      { href: "#safety-case", label: "Safety case bindings" },
       { href: "#anti-weaponization", label: "Anti-weaponization bindings" },
       { href: "#incidents", label: "Incident triggers" },
       { href: "#runbooks", label: "Runbook snippets" },
@@ -121,6 +136,44 @@ const antiWeaponizationReleaseGate = `Release gate (AW-01–AW-04)
         Evidence packs:
         {" "}
         <a href="/evidence-packs/std-02">STD-02 pack</a>
+      </li>
+      <li>
+        Mechanisms:
+        {" "}
+        <a href="/mechanisms/patterns/kill-switch">MEC-05 Kill switch</a>,
+        {" "}
+        <a href="/mechanisms/patterns/decision-log">MEC-01 Decision log</a>
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="safety-case"
+    eyebrow="Safety case"
+    title="Human impact safety case bindings"
+    description="Bind kill authority, remedy obligations, and disclosure requirements."
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Procurement clause</p>
+        <pre class="code-block">{safetyCaseBinding}</pre>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Release gate checklist</p>
+        <pre class="code-block">{safetyCaseReleaseGate}</pre>
+      </div>
+    </div>
+    <p class="muted">References:</p>
+    <ul class="muted">
+      <li>
+        Standard:
+        {" "}
+        <a href="/standards/std-06-human-impact-safety-case">STD-06 safety case</a>
+      </li>
+      <li>
+        Evidence pack:
+        {" "}
+        <a href="/evidence-packs/std-06">STD-06 pack</a>
       </li>
       <li>
         Mechanisms:
