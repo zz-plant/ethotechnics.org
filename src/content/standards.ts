@@ -98,6 +98,17 @@ export const standardsContent: StandardsContent = {
       published: "2025-01-01",
     },
     {
+      id: "PM-01",
+      slug: "pm-01-failure-postmortem-template",
+      title: "Institutional Failure Postmortem Template",
+      description:
+        "A one-page postmortem template grounded in clocks, reversibility, burden allocation, and repair paths.",
+      status: "Published",
+      version: "1.0",
+      effectiveDate: "Immediate",
+      published: "2026-04-15",
+    },
+    {
       id: "STD-03",
       slug: "std-03-justice-slos",
       title: "Justice SLOs (Targets, Budgets, and Breach Actions)",
