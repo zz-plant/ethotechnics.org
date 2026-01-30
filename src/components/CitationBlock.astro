@@ -43,6 +43,7 @@ const citationKeyValue =
 const doi = publication.doi;
 const doiValue = doi?.replace(/^https?:\/\/doi\.org\//, "");
 const hasDoi = Boolean(doiValue && doiValue.startsWith("10."));
+const doiHref = hasDoi ? `https://doi.org/${doiValue}` : null;
 
 const apa = `${authorNames}. (${year}). ${title}. ${publisher}. ${pageUrl}`;
 const mla = `${authorNames}. "${title}." ${publisher}, ${year}, ${pageUrl}.`;
@@ -85,6 +86,14 @@ const ris = risLines.join("\n");
       >
         Copy APA
       </button>
+      <button
+        class="copy-button"
+        type="button"
+        data-citation-text={pageUrl}
+        data-citation-format="Permalink"
+      >
+        Copy permalink
+      </button>
       {
         variant === "full" && (
           <button
@@ -104,6 +113,11 @@ const ris = risLines.join("\n");
           </a>
         )
       }
+      {hasDoi && (
+        <a class="muted small" href={doiHref}>
+          Open DOI
+        </a>
+      )}
     </div>
   </div>
   {
@@ -131,7 +145,7 @@ const ris = risLines.join("\n");
             </div>
             <div>
               <p class="muted small">DOI</p>
-              <p>{doi ?? "Not yet minted"}</p>
+              {hasDoi ? <a href={doiHref}>{doi}</a> : <p>{doi ?? "Not yet minted"}</p>}
             </div>
           </div>
           <div class="citation-block__formats">
