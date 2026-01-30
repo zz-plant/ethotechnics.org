@@ -201,10 +201,6 @@
       border-radius: 12px;
     }
 
-    .nav__mobile {
-      padding: 0.15rem 0.35rem 0.35rem;
-    }
-
     .nav__mobile-row {
       flex-direction: column;
       align-items: stretch;
@@ -216,11 +212,6 @@
       width: 100%;
       max-width: 100%;
       flex: 1 1 100%;
-    }
-
-    .nav__links--mobile .nav__link {
-      padding: 0.45rem 0.75rem;
-      font-size: 0.92rem;
     }
 
     .nav__utility--mobile {
@@ -654,6 +645,17 @@
     padding: 0.55rem 0.85rem;
     font-size: 0.95rem;
     scroll-snap-align: start;
+  }
+
+  @media (max-width: 720px) {
+    .nav__mobile {
+      padding: 0.15rem 0.35rem 0.35rem;
+    }
+
+    .nav__links--mobile .nav__link {
+      padding: 0.45rem 0.75rem;
+      font-size: 0.92rem;
+    }
   }
 
   .nav__utility--panel {
