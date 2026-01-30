@@ -59,6 +59,8 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and
   [`diagnostics-outputs.md`](diagnostics-outputs.md) capture diagnostics tooling notes and
   troubleshooting steps.
+- [`seo-audit.md`](seo-audit.md) summarizes the latest SEO review findings and follow-up tasks.
+- [`seo-metadata-report.md`](seo-metadata-report.md) lists pages missing title or description props.
 - [`visual-textures.md`](visual-textures.md) catalogs texture treatments and visual system notes.
 - [`usability-audit.md`](usability-audit.md) tracks UX review findings and follow-up tasks.
 - [`design-references.md`](design-references.md) collects external touchpoints for visual system
