@@ -1,0 +1,81 @@
+---
+import CardGrid from "../CardGrid.astro";
+import CardItem from "../CardItem.astro";
+import SectionBlock from "../SectionBlock.astro";
+import { fieldNotesContent } from "../../content/fieldNotes";
+
+const { highlight, entries, latestUpdate, permalink } = fieldNotesContent;
+const formatLabels = {
+  dispatch: "Dispatch",
+  "case-study": "Case study",
+  signal: "Signal",
+} as const;
+const formatDate = (value: string, options: Intl.DateTimeFormatOptions) =>
+  new Date(value).toLocaleDateString("en-US", options);
+const latestUpdateLabel = formatDate(latestUpdate, {
+  month: "short",
+  year: "numeric",
+});
+const entryList = entries.slice(0, 3).map((entry) => ({
+  ...entry,
+  meta: `${formatLabels[entry.format]} · ${formatDate(entry.published, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })}`,
+  href: `${permalink}#${entry.slug}`,
+}));
+---
+
+<SectionBlock
+  id="field-notes"
+  eyebrow="Field notes"
+  title="Signals, dispatches, and case studies from the field."
+  description="Track how governance shifts in practice with concise notes, reusable terms, and fresh case studies."
+  variant="alt"
+>
+  <div class="field-notes__home">
+    <CardItem
+      className="field-notes__highlight-card"
+      eyebrow="Latest highlight"
+      title={highlight.title}
+      description={highlight.summary}
+      descriptionTone="muted"
+    >
+      <p>{highlight.whyItMatters}</p>
+      <div class="field-notes__meta">
+        <p class="muted small">Latest update {latestUpdateLabel}.</p>
+        <p class="muted small">
+          Explore the full archive in <a href={permalink}>Field Notes</a>.
+        </p>
+      </div>
+      <div class="field-notes__actions">
+        <a class="button primary button--compact" href={highlight.href}>
+          {highlight.ctaLabel}
+        </a>
+        <a class="button ghost button--compact" href={permalink}>
+          Browse Field Notes
+        </a>
+      </div>
+    </CardItem>
+    <div class="field-notes__entries">
+      <p class="eyebrow">Latest entries</p>
+      <CardGrid className="field-notes__grid">
+        {entryList.map((entry) => (
+          <CardItem
+            title={entry.title}
+            description={entry.summary}
+            meta={entry.meta}
+            className="field-notes__entry-card"
+          >
+            <div class="field-notes__entry-actions">
+              <a class="button ghost button--compact" href={entry.href}>
+                Read entry
+              </a>
+            </div>
+          </CardItem>
+        ))}
+      </CardGrid>
+    </div>
+  </div>
+</SectionBlock>
