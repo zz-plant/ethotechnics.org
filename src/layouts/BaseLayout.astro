@@ -44,7 +44,7 @@ const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
 const webpageId = canonical;
-const { identity, navigation } = siteFooter;
+const { identity, navigation, cta } = siteFooter;
 const logoUrl = new URL(identity.brand.logoSrc, siteBase).toString();
 const logoId = `${siteBase}#logo`;
 const primaryImageId = `${canonical}#primaryimage`;
@@ -473,6 +473,26 @@ const structuredDataJson = JSON.stringify(structuredData);
                 </a>
               </div>
             </section>
+            {
+              cta && (
+                <section class="footer__section footer__cta">
+                  <h2 class="eyebrow footer__heading">{cta.heading}</h2>
+                  <p class="muted">{cta.description}</p>
+                  <div class="footer__cta-actions">
+                    {cta.links.map((link, index) => (
+                      <a
+                        class={`button button--compact ${
+                          index === 0 ? "primary" : "ghost"
+                        }`}
+                        href={link.href}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              )
+            }
             {
               navigation.map((section) => (
                 <section class="footer__section">
