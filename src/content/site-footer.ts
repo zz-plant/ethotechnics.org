@@ -26,6 +26,11 @@ export type SiteFooterContent = {
       alt: string;
     };
   };
+  cta?: {
+    heading: string;
+    description: string;
+    links: FooterLink[];
+  };
   navigation: FooterSection[];
 };
 
@@ -50,6 +55,15 @@ export const siteFooter: SiteFooterContent = {
       src: "https://licensebuttons.net/l/by-sa/4.0/88x31.png",
       alt: "Creative Commons Attribution-ShareAlike 4.0 International License badge",
     },
+  },
+  cta: {
+    heading: "Get oriented fast",
+    description:
+      "Start with the guided pathways or browse the latest field notes to see governance in practice.",
+    links: [
+      { label: "Start here", href: "/start-here" },
+      { label: "Browse Field Notes", href: "/field-notes" },
+    ],
   },
   navigation: [
     {

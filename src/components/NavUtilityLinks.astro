@@ -12,6 +12,12 @@ interface NavUtilityLink {
 
 const navUtilityLinks: NavUtilityLink[] = [
   {
+    href: "/start-here",
+    label: "Start here",
+    class: "nav__utility-link nav__utility-link--primary",
+    icon: "lucide:arrow-right",
+  },
+  {
     href: "https://github.com/zz-plant/ethotechnics.org",
     label: "GitHub",
     class: "nav__utility-link nav__utility-link--quiet",
@@ -104,11 +110,25 @@ const isCurrentLink = (href: string) => {
     transform: translateY(-1px);
   }
 
-    .nav__utility-link:focus-visible {
-      outline: 2px solid var(--accent-strong);
-      outline-offset: 2px;
-      box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
-    }
+  .nav__utility-link:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+
+  .nav__utility-link--primary {
+    background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+    color: var(--accent-strong);
+    box-shadow: 0 12px 24px rgba(64, 52, 40, 0.12);
+  }
+
+  .nav__utility-link--primary:hover,
+  .nav__utility-link--primary:focus-visible {
+    border-color: var(--accent-strong);
+    color: var(--accent-strong);
+    transform: translateY(-2px);
+  }
 
   .nav__utility-link--quiet {
     background: transparent;

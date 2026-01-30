@@ -8,6 +8,18 @@ import SectionBlock from "../SectionBlock.astro";
   title="Machine-readable by default."
   description="All standards, clauses, mechanisms, findings, and evidence packs ship as versioned, machine-readable objects with stable IDs."
 >
+  <div class="agents__example">
+    <p class="muted">
+      Example object payloads are designed for direct ingestion by governance tooling.
+    </p>
+    <pre class="code-block">{`{
+  "id": "finding:std-02-043",
+  "title": "Missing contestability path",
+  "severity": "high",
+  "evidence": ["ticket:REV-204", "pack:recourse-v1"],
+  "remediation": "mechanism:appeals-pathway"
+}`}</pre>
+  </div>
   <ul class="card__list">
     <li>
       <a href="/api">Reference API</a>
