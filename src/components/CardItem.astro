@@ -153,6 +153,26 @@ const labelledBy = ariaLabel ? undefined : resolvedTitleId;
     z-index: var(--z-raised);
   }
 
+  .card--quiet {
+    background: color-mix(in srgb, var(--surface) 98%, white 2%);
+    border-color: color-mix(in srgb, var(--border) 72%, transparent);
+    box-shadow: none;
+  }
+
+  .card--quiet:hover,
+  .card--quiet:focus-within {
+    transform: none;
+    box-shadow: 0 10px 20px rgba(64, 52, 40, 0.04);
+  }
+
+  .card--quiet::after {
+    opacity: 0;
+  }
+
+  .card--quiet .card__glow {
+    opacity: 0;
+  }
+
   /* Apply grain texture if available */
   .card::after {
     content: "";

@@ -8,7 +8,7 @@ import SectionBlock from "../SectionBlock.astro";
   id="quickstart"
   eyebrow="Quickstart"
   title="Produce a governance artifact in under an hour."
-  description="Choose a track and hand the output to the people who need evidence, language, or remediation."
+  description="Choose a track and share the output with the people who need it."
 >
   <CardGrid className="grid--two">
     <CardItem
@@ -16,24 +16,18 @@ import SectionBlock from "../SectionBlock.astro";
       description="Export a structured report to attach to a review or audit ticket."
       icon="lucide:scan"
       tags={["Diagnostic", "Evidence-ready"]}
-      className="quickstart-card"
+      className="quickstart-card card--quiet"
     >
       <div class="quickstart-card__actions">
         <a class="button primary button--compact" href="/diagnostics">
           Launch diagnostics
         </a>
-        <ul class="quickstart-card__links muted">
-          <li>
-            <a href="/diagnostics/evidence-pack-readiness">
-              Evidence pack readiness
-            </a>
-          </li>
-          <li>
-            <a href="/diagnostics/escalation-coverage-planner">
-              Escalation coverage planner
-            </a>
-          </li>
-        </ul>
+        <p class="quickstart-card__note muted">
+          Start with
+          {" "}
+          <a href="/diagnostics/evidence-pack-readiness">evidence pack readiness</a>
+          .
+        </p>
       </div>
     </CardItem>
     <CardItem
@@ -41,7 +35,7 @@ import SectionBlock from "../SectionBlock.astro";
       description="Quantify the highest-risk gaps and share a scorecard internally."
       icon="lucide:gauge"
       tags={["Scorecard", "Risk-ranked"]}
-      className="quickstart-card"
+      className="quickstart-card card--quiet"
     >
       <div class="quickstart-card__actions">
         <a
@@ -50,14 +44,12 @@ import SectionBlock from "../SectionBlock.astro";
         >
           Run the gap score
         </a>
-        <ul class="quickstart-card__links muted">
-          <li>
-            <a href="/tools/governance-gap-score#methodology">Review methodology</a>
-          </li>
-          <li>
-            <a href="/diagnostics">Pair with diagnostics</a>
-          </li>
-        </ul>
+        <p class="quickstart-card__note muted">
+          Review the
+          {" "}
+          <a href="/tools/governance-gap-score#methodology">methodology</a>
+          .
+        </p>
       </div>
     </CardItem>
     <CardItem
@@ -65,43 +57,18 @@ import SectionBlock from "../SectionBlock.astro";
       description="Hand legal or procurement teams ready-to-use binding language."
       icon="lucide:file-text"
       tags={["Clause pack", "Procurement"]}
-      className="quickstart-card"
+      className="quickstart-card card--quiet"
     >
       <div class="quickstart-card__actions">
         <a class="button primary button--compact" href="/bindings">
           Browse bindings
         </a>
-        <ul class="quickstart-card__links muted">
-          <li>
-            <a href="/standards">Minimum binding sets</a>
-          </li>
-          <li>
-            <a href="/bundles/procurement-clause-pack">
-              Procurement clause pack
-            </a>
-          </li>
-        </ul>
-      </div>
-    </CardItem>
-    <CardItem
-      title="Align on rollout"
-      description="Share your workflow so we can map the right artifacts to your team."
-      icon="lucide:route"
-      tags={["Intake", "Workflow map"]}
-      className="quickstart-card"
-    >
-      <div class="quickstart-card__actions">
-        <a class="button ghost button--compact" href="/participate#intake">
-          Share your workflow
-        </a>
-        <ul class="quickstart-card__links muted">
-          <li>
-            <a href="/participate#field-reports">What to send</a>
-          </li>
-          <li>
-            <a href="/participate#feedback">Feedback channels</a>
-          </li>
-        </ul>
+        <p class="quickstart-card__note muted">
+          Use the
+          {" "}
+          <a href="/bundles/procurement-clause-pack">procurement clause pack</a>
+          .
+        </p>
       </div>
     </CardItem>
   </CardGrid>
