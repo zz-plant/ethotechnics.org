@@ -28,3 +28,10 @@ declare module "/pagefind/pagefind.js" {
     }[];
   }>;
 }
+
+declare module "@resvg/resvg-js" {
+  export class Resvg {
+    constructor(svg: string, options?: Record<string, unknown>);
+    render(): { asPng(): Uint8Array };
+  }
+}
