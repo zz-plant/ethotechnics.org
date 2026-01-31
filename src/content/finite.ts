@@ -113,21 +113,21 @@ export type FiniteContent = PageWithPermalink & {
 };
 
 export const finiteContent = {
-  pageTitle: "Finite [Beta] — Stoppability drills for AI-enabled systems",
+  pageTitle: "Finite [Beta] — Stoppability drills for AI agents and systems",
   pageDescription:
-    "Finite is an evaluation and training environment for stoppable systems that can halt, reverse, and recover without exporting harm to people.",
+    "Finite is an evaluation and training environment for AI-enabled agents and systems that can halt, reverse, and recover without exporting harm to people.",
   permalink: "/finite",
   hero: {
     eyebrow: "Finite [Beta]",
     heading: "Finite",
-    lede: "An evaluation and training environment for stoppable systems that can halt, reverse, and recover without dumping failure onto humans.",
+    lede: "An evaluation and training environment for AI-enabled agents and systems that can halt, reverse, and recover without dumping failure onto humans.",
     summary:
-      "Most AI benchmarks reward power. Finite measures how stoppable a system is—and who pays when it fails.",
+      "Most AI benchmarks reward power. Finite measures how stoppable agent systems are—and who pays when they fail.",
     highlight: "Scroll to explore",
     bullets: [
-      "Run stoppability drills that show whether operators can halt AI-enabled systems quickly and cleanly.",
-      "Trace and reverse actions so recovery work does not become heroic, manual cleanup.",
-      "See where volatility is exported to people, other services, or users before incidents grow.",
+      "Run stoppability drills that show whether operators can halt AI-enabled agents quickly and cleanly.",
+      "Trace and reverse agent actions so recovery work does not become heroic, manual cleanup.",
+      "See where volatility is exported to people, other services, or users before agent incidents grow.",
     ],
     actions: [
       { label: "Explore pilot details", href: "#pilot", variant: "primary" },
@@ -159,8 +159,8 @@ export const finiteContent = {
   },
   why: {
     title: "Why Finite exists",
-    description: "Stop, reverse, and protect the people around AI systems.",
-    body: "Teams are wiring agents into support, operations, finance, civic services, and internal tools. We know how to push them to do more. Finite gives language and drills to stop systems under stress, undo the harm, and see who absorbs the cleanup. The suite turns hidden maintenance work into a first-class signal so stoppability, reversibility, and human impact are visible before launch—not after an incident.",
+    description: "Stop, reverse, and protect the people around agent systems.",
+    body: "Teams are wiring agents into support, operations, finance, civic services, and internal tools. We know how to push them to do more. Finite gives language and drills to stop agent systems under stress, undo the harm, and see who absorbs the cleanup. The suite turns hidden maintenance work into a first-class signal so stoppability, reversibility, and human impact are visible before launch—not after an incident.",
   },
   useCases: {
     title: "When to use Finite",
@@ -191,7 +191,7 @@ export const finiteContent = {
     steps: [
       "Name the system or workflow you want to test, plus one recent incident or near-miss.",
       "Identify who can halt or roll back the system today—and where that ownership is unclear.",
-      "Draft an agent brief with tool permissions, stop signals, and escalation rules.",
+      "Draft an agent brief with tool permissions, stop signals, rollback gates, and escalation rules.",
       "Schedule a tabletop run with operators, support, and governance partners.",
     ],
     whoFor: [
@@ -213,7 +213,7 @@ export const finiteContent = {
   agentReady: {
     title: "Make Finite usable by agents",
     description:
-      "Finite turns drills into agent-ready materials so AI systems can participate safely and consistently.",
+      "Finite ships drills as agent-ready materials with clear tool schemas, stop signals, and escalation paths.",
     items: [
       {
         title: "Agent briefing packet",
@@ -233,7 +233,12 @@ export const finiteContent = {
       {
         title: "Run log schema",
         detail:
-          "Capture agent actions, operator interventions, and recovery notes in a structured template that feeds the scorecard.",
+          "Capture agent actions, tool calls, operator interventions, and recovery notes in a structured template.",
+      },
+      {
+        title: "Tool contract checklist",
+        detail:
+          "List tool permissions, rate limits, and rollback verbs per tool.",
       },
     ],
   },
@@ -311,7 +316,7 @@ export const finiteContent = {
   practice: {
     title: "Practice, not just a score",
     description:
-      "Finite produces ratings, but its main use is a practice loop: onboard new agents with base drills, turn past incidents into reusable scenarios, and re-run tests to catch eroding safeguards as systems evolve.",
+      "Finite produces ratings, but its main use is a practice loop: onboard new agents with base drills, turn past incidents into reusable scenarios, and re-run tests to catch eroding safeguards as agent systems evolve.",
   },
   pilot: {
     title: "Join the pilot",
