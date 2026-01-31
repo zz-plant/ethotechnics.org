@@ -114,14 +114,18 @@ const initGlossaryFilter = () => {
     });
   };
 
-  const getFacetValues = (key: string) =>
+  const facetKeys = ["domains", "phases", "measurability", "status"] as const;
+  type FacetKey = (typeof facetKeys)[number];
+  type FacetSelections = Record<FacetKey, string[]>;
+
+  const getFacetValues = (key: FacetKey) =>
     facetControls
       .filter((control) => control.dataset.glossaryFilter === key)
       .filter((control) => control.checked)
       .map((control) => control.value)
       .filter(Boolean);
 
-  const getFacetLabels = (key: string) =>
+  const getFacetLabels = (key: FacetKey) =>
     facetControls
       .filter((control) => control.dataset.glossaryFilter === key)
       .filter((control) => control.checked)
@@ -156,12 +160,7 @@ const initGlossaryFilter = () => {
   const matchesItem = (
     item: (typeof indexedItems)[number],
     query: string,
-    selections: {
-      domains: string[];
-      phases: string[];
-      measurability: string[];
-      status: string[];
-    },
+    selections: FacetSelections,
   ) => {
     const matchesQuery = item.searchText.includes(query);
     const matchesLetter =
@@ -191,12 +190,7 @@ const initGlossaryFilter = () => {
 
   const countMatches = (
     query: string,
-    selections: {
-      domains: string[];
-      phases: string[];
-      measurability: string[];
-      status: string[];
-    },
+    selections: FacetSelections,
   ) => indexedItems.filter((item) => matchesItem(item, query, selections)).length;
 
   const setSectionsOpen = (isOpen: boolean) => {
@@ -205,15 +199,16 @@ const initGlossaryFilter = () => {
     });
   };
 
+  const buildSelections = (): FacetSelections =>
+    facetKeys.reduce(
+      (acc, key) => ({ ...acc, [key]: getFacetValues(key) }),
+      {} as FacetSelections,
+    );
+
   const updateFilter = () => {
     const rawQuery = filterInput.value.trim();
     const query = rawQuery.toLowerCase();
-    const selections = {
-      domains: getFacetValues("domains"),
-      phases: getFacetValues("phases"),
-      measurability: getFacetValues("measurability"),
-      status: getFacetValues("status"),
-    };
+    const selections = buildSelections();
     let visible = 0;
 
     indexedItems.forEach((item) => {
@@ -227,14 +222,8 @@ const initGlossaryFilter = () => {
 
     emptyState.hidden = visible > 0;
     const querySuffix = rawQuery ? ` for “${rawQuery}”` : "";
-    const letterSuffix =
-      activeLetter !== "all" ? ` · ${activeLetter}` : "";
-    const facetLabels = [
-      ...getFacetLabels("domains"),
-      ...getFacetLabels("phases"),
-      ...getFacetLabels("measurability"),
-      ...getFacetLabels("status"),
-    ];
+    const letterSuffix = activeLetter !== "all" ? ` · ${activeLetter}` : "";
+    const facetLabels = facetKeys.flatMap((key) => getFacetLabels(key));
     const facetSuffix = facetLabels.length
       ? ` · ${facetLabels.join(", ")}`
       : "";
@@ -243,8 +232,7 @@ const initGlossaryFilter = () => {
     const hasLetterFilter = activeLetter !== "all";
     clearButton.disabled =
       rawQuery.length === 0 && !hasFacets && !hasLetterFilter;
-    const shouldExpand =
-      rawQuery.length > 0 || hasFacets || hasLetterFilter;
+    const shouldExpand = rawQuery.length > 0 || hasFacets || hasLetterFilter;
     chunkedSections.forEach((section) => {
       if (shouldExpand) {
         section.open = true;
@@ -254,15 +242,18 @@ const initGlossaryFilter = () => {
     });
 
     facetControls.forEach((control) => {
-      const key = control.dataset.glossaryFilter ?? "";
-      const currentValues = selections[key as keyof typeof selections] ?? [];
+      const key = control.dataset.glossaryFilter as FacetKey | undefined;
+      if (!key) {
+        return;
+      }
+      const currentValues = selections[key];
       const nextValues = control.checked
         ? currentValues
         : [...currentValues, control.value];
       const nextSelections = {
         ...selections,
         [key]: nextValues,
-      } as typeof selections;
+      } as FacetSelections;
       const countValue = countMatches(query, nextSelections);
       const countElement = control
         .closest(".glossary-filter__chip")
@@ -321,19 +312,21 @@ const initGlossaryFilter = () => {
 
   const params = new URLSearchParams(window.location.search);
   const initialQuery = params.get("query")?.trim();
-  const initialDomains = params.get("domains")?.split(",").filter(Boolean);
-  const initialPhases = params.get("phases")?.split(",").filter(Boolean);
-  const initialMeasurability = params
-    .get("measurability")
-    ?.split(",")
-    .filter(Boolean);
-  const initialStatus = params.get("status")?.split(",").filter(Boolean);
+  const getParamList = (key: FacetKey) =>
+    params.get(key)?.split(",").filter(Boolean);
+  const initialDomains = getParamList("domains");
+  const initialPhases = getParamList("phases");
+  const initialMeasurability = getParamList("measurability");
+  const initialStatus = getParamList("status");
 
   if (initialQuery) {
     filterInput.value = initialQuery;
   }
 
-  const applyInitialSelection = (key: string, values: string[] | undefined) => {
+  const applyInitialSelection = (
+    key: FacetKey,
+    values: string[] | undefined,
+  ) => {
     if (!values?.length) {
       return;
     }
@@ -349,14 +342,13 @@ const initGlossaryFilter = () => {
   applyInitialSelection("measurability", initialMeasurability);
   applyInitialSelection("status", initialStatus);
 
-  let initialTab = "all";
-  if (initialDomains?.length) {
-    initialTab = "domains";
-  } else if (initialPhases?.length) {
-    initialTab = "phases";
-  } else if (initialMeasurability?.length) {
-    initialTab = "measurability";
-  }
+  const initialTab = initialDomains?.length
+    ? "domains"
+    : initialPhases?.length
+      ? "phases"
+      : initialMeasurability?.length
+        ? "measurability"
+        : "all";
   setActiveTab(initialTab);
 
   let animationFrame: number | null = null;
