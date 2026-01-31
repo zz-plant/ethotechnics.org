@@ -1,7 +1,12 @@
 import type { APIContext } from 'astro';
 
 const fallbackSite = 'https://ethotechnics.org';
-const productionHosts = new Set(['ethotechnics.org', 'www.ethotechnics.org']);
+const productionHosts = new Set([
+  'ethotechnics.org',
+  'www.ethotechnics.org',
+  'ethotechnics.com',
+  'www.ethotechnics.com',
+]);
 
 const buildRobots = (siteUrl: URL, allowIndexing: boolean) => {
   if (!allowIndexing) {
