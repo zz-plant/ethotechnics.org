@@ -4,6 +4,7 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
 import { researchContent } from "../../content/research";
 
 const { bridgeArtifacts, publication } = researchContent;
@@ -31,12 +32,28 @@ const anchorLinks = bridgeArtifacts.map((artifact) => ({
         "Each artifact includes a stable anchor, citation formats, and version metadata so scholars can reference durable objects.",
     }}
   />
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
+  <SummaryCallout
+    title="On this page"
+    description="Scan the artifacts below or jump straight to the citations you need."
+    takeaways={[
+      "Every artifact includes a permalink and citation formats.",
+      "Tags clarify whether an artifact is a synthesis, instrument, or case series.",
+      "Use the anchor list to share a single artifact directly.",
+    ]}
+    relatedLinks={[
+      { href: "/research", label: "Research overview" },
+      { href: "/standards", label: "Standards" },
+    ]}
+    jumpLinks={anchorLinks}
   />
+  <div class="research-meta">
+    <ScholarlyMeta publication={publication} permalink={permalink} />
+    <CitationBlock
+      title={pageTitle}
+      permalink={permalink}
+      publication={publication}
+    />
+  </div>
 
   {bridgeArtifacts.map((artifact, index) => (
     <SectionBlock

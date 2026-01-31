@@ -30,11 +30,19 @@ const {
   footerCta,
 } = startHereData.data;
 const recommendedCard = routes.cards.find((card) => card.recommendedTag);
+const recommendedPills = recommendedCard
+  ? [
+      recommendedCard.time
+        ? { label: "Estimated time", value: recommendedCard.time }
+        : null,
+      recommendedCard.bestFor
+        ? { label: "Best for", value: recommendedCard.bestFor }
+        : null,
+    ].filter((item): item is { label: string; value: string } => Boolean(item))
+  : [];
 const recommendedDetails = recommendedCard
   ? [
       { text: recommendedCard.recommendedNote, className: "muted" },
-      { text: recommendedCard.bestFor, className: "muted small" },
-      { text: recommendedCard.time, className: "muted small" },
       { text: recommendedCard.description, className: "muted small" },
     ].filter((detail) => detail.text)
   : [];
@@ -93,6 +101,16 @@ const { cspNonce } = Astro.locals;
       <div class="callout callout--emphasis" id="recommended">
         <p class="eyebrow">Recommended first step</p>
         <h3>{recommendedCard.title}</h3>
+        {recommendedPills.length > 0 && (
+          <div class="callout__metrics" aria-label="Recommendation metadata">
+            {recommendedPills.map((pill) => (
+              <span class="pill pill--muted">
+                <span class="callout__metric-label">{pill.label}:</span>{" "}
+                {pill.value}
+              </span>
+            ))}
+          </div>
+        )}
         {recommendedDetails.map((detail) => (
           <p class={detail.className}>{detail.text}</p>
         ))}
