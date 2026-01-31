@@ -12,10 +12,18 @@ export interface Props {
   entries: FieldNoteEntry[];
 }
 
-const { sections, entries } = Astro.props;
+const { sections, entries } = Astro.props as Props;
 const initialFormat = sections[0]?.format ?? "";
 
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
+const listSeparator = (index: number, total: number) =>
+  index < total - 1 ? ", " : "";
+const fieldNoteSections = sections.map((section, index) => ({
+  section,
+  entries: entries.filter((entry) => entry.format === section.format),
+  isActive:
+    section.format === initialFormat || (index === 0 && !initialFormat),
+}));
 ---
 
 {
@@ -26,7 +34,7 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
       data-default-format={initialFormat}
     >
       <div class="section__header field-notes__header">
-        {sections.map((section: FieldNotesContent["sections"][number]) => (
+        {fieldNoteSections.map(({ section }) => (
           <div
             class="field-notes__heading"
             data-field-notes-heading
@@ -42,57 +50,48 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
           aria-label="Field note formats"
           data-field-notes-tablist
         >
-          {sections.map(
-            (section: FieldNotesContent["sections"][number], index: number) => {
-              const isActive =
-                section.format === initialFormat ||
-                (index === 0 && !initialFormat);
-
-              return (
-                <li
-                  class={`pill-list__item field-notes__tab${
-                    isActive ? " pill-list__item--active" : ""
-                  }`}
-                >
-                  <button
-                    class="pill-list__button"
-                    id={`${section.format}-tab`}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    aria-controls={`${section.format}-panel`}
-                    tabindex={isActive ? 0 : -1}
-                    data-format={section.format}
-                    data-field-notes-tab
-                  >
-                    {section.title}
-                  </button>
-                </li>
-              );
-            },
-          )}
+          {fieldNoteSections.map(({ section, isActive }) => (
+            <li
+              class={`pill-list__item field-notes__tab${
+                isActive ? " pill-list__item--active" : ""
+              }`}
+            >
+              <button
+                class="pill-list__button"
+                id={`${section.format}-tab`}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`${section.format}-panel`}
+                tabindex={isActive ? 0 : -1}
+                data-format={section.format}
+                data-field-notes-tab
+              >
+                {section.title}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
-      {sections.map((section: FieldNotesContent["sections"][number]) => {
-        const sectionEntries = entries.filter(
-          (entry: FieldNoteEntry) => entry.format === section.format,
-        );
-
-        return (
+      {fieldNoteSections.map(({ section, entries: sectionEntries }) => (
+        <div
+          id={section.format}
+          data-field-notes-section
+          data-format={section.format}
+        >
           <div
-            id={section.format}
-            data-field-notes-section
+            class="grid"
+            id={`${section.format}-panel`}
+            role="tabpanel"
+            aria-labelledby={`${section.format}-tab`}
+            data-field-notes-panel
             data-format={section.format}
           >
-            <div
-              class="grid"
-              id={`${section.format}-panel`}
-              role="tabpanel"
-              aria-labelledby={`${section.format}-tab`}
-              data-field-notes-panel
-              data-format={section.format}
-            >
-              {sectionEntries.map((entry: FieldNoteEntry) => (
+            {sectionEntries.map((entry) => {
+              const links = entry.links ?? [];
+              const hasLinks = links.length > 0;
+
+              return (
                 <article
                   class="card field-notes__card"
                   id={entry.slug}
@@ -104,51 +103,35 @@ const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
                   <p class="muted">{entry.summary}</p>
                   <p class="muted">
                     Glossary{" "}
-                    {entry.relatedTerms.map(
-                      (slug: string, relatedIndex: number) => {
-                        const separator =
-                          relatedIndex < entry.relatedTerms.length - 1
-                            ? ", "
-                            : "";
-
-                        return (
-                          <span>
-                            <a
-                              href={glossaryHref(slug)}
-                              title={getGlossaryDefinition(slug) || undefined}
-                            >
-                              {getGlossaryLabel(slug)}
-                            </a>
-                            {separator}
-                          </span>
-                        );
-                      },
-                    )}
+                    {entry.relatedTerms.map((slug, relatedIndex) => (
+                      <span>
+                        <a
+                          href={glossaryHref(slug)}
+                          title={getGlossaryDefinition(slug) || undefined}
+                        >
+                          {getGlossaryLabel(slug)}
+                        </a>
+                        {listSeparator(relatedIndex, entry.relatedTerms.length)}
+                      </span>
+                    ))}
                   </p>
-                  {entry.links ? (
+                  {hasLinks ? (
                     <p class="muted">
                       Related links{" "}
-                      {entry.links.map((link: string, linkIndex: number) => {
-                        const separator =
-                          linkIndex < (entry.links?.length ?? 0) - 1
-                            ? ", "
-                            : "";
-
-                        return (
-                          <span>
-                            <a href={link}>{link}</a>
-                            {separator}
-                          </span>
-                        );
-                      })}
+                      {links.map((link, linkIndex) => (
+                        <span>
+                          <a href={link}>{link}</a>
+                          {listSeparator(linkIndex, links.length)}
+                        </span>
+                      ))}
                     </p>
                   ) : null}
                 </article>
-              ))}
-            </div>
+              );
+            })}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </section>
   ) : null
 }
