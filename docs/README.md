@@ -46,6 +46,8 @@ Use this map before adding new guidance so information stays discoverable and cu
 
 - [`local-development.md`](local-development.md) captures setup, dev server tips, and how to preview
   builds locally.
+- [`deployment.md`](deployment.md) describes the Cloudflare Workers deploy flow and verification
+  checklist.
 - [`manual-qa.md`](manual-qa.md) provides a checklist for hands-on testing of UI changes and
   interaction flows.
 - [`testing-todos.md`](testing-todos.md) summarizes existing coverage and remaining test gaps.
