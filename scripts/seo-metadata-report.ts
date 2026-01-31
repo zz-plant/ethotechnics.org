@@ -18,6 +18,44 @@ const walk = async (dir: string): Promise<string[]> => {
   return files.flat();
 };
 
+const REDIRECT_MARKER = "Astro.redirect(";
+
+type LayoutComponent = {
+  component: string;
+  requiredProps: string[];
+};
+
+const LAYOUT_COMPONENTS: LayoutComponent[] = [
+  { component: "BaseLayout", requiredProps: ["title", "description"] },
+  { component: "ExplainerLayout", requiredProps: ["title", "description"] },
+  { component: "TaxonomyEntryPage", requiredProps: [] },
+];
+
+const findImportedAlias = (content: string, component: string) => {
+  const importMatch = content.match(
+    new RegExp(
+      `import\\s+(\\w+)\\s+from\\s+["'][^"']*${component}\\.astro["']`
+    )
+  );
+  return importMatch?.[1] ?? null;
+};
+
+const findLayoutUsage = (content: string) => {
+  for (const layout of LAYOUT_COMPONENTS) {
+    const alias = findImportedAlias(content, layout.component);
+    if (!alias) {
+      continue;
+    }
+    const tagMatch = content.match(
+      new RegExp(`<${alias}(\\s|>|\\n)[\\s\\S]*?>`)
+    );
+    if (tagMatch) {
+      return { layout, alias, tag: tagMatch[0] };
+    }
+  }
+  return null;
+};
+
 const formatMissing = (missingTitle: boolean, missingDescription: boolean) => {
   const missing = [] as string[];
   if (missingTitle) missing.push("title");
@@ -35,20 +73,22 @@ const run = async () => {
 
   for (const file of astroFiles) {
     const content = await readFile(file, "utf-8");
-    if (!content.includes("BaseLayout")) {
+    if (content.includes(REDIRECT_MARKER)) {
+      continue;
+    }
+
+    const layoutUsage = findLayoutUsage(content);
+    if (!layoutUsage) {
       pagesWithoutBaseLayout.push(file);
       continue;
     }
 
-    const baseLayoutMatch = content.match(/<BaseLayout[\s\S]*?>/);
-    if (!baseLayoutMatch) {
-      pagesWithoutBaseLayout.push(file);
-      continue;
-    }
-
-    const tag = baseLayoutMatch[0];
-    const missingTitle = !/\btitle=/.test(tag);
-    const missingDescription = !/\bdescription=/.test(tag);
+    const { layout, tag } = layoutUsage;
+    const missingTitle =
+      layout.requiredProps.includes("title") && !/\btitle=/.test(tag);
+    const missingDescription =
+      layout.requiredProps.includes("description") &&
+      !/\bdescription=/.test(tag);
 
     if (missingTitle || missingDescription) {
       missingEntries.push({

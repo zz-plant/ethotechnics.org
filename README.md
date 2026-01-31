@@ -17,6 +17,7 @@ project favors lean, fast-loading pages and clear storytelling.
 
 - [Highlights](#highlights)
 - [Requirements](#requirements)
+- [Contributor quick start](#contributor-quick-start)
 - [Quick start](#quick-start)
 - [Common scripts](#common-scripts)
 - [Testing](#testing)
@@ -52,6 +53,12 @@ accessible web performance, content strategy, digital ethics, UX research, respo
 
 - Node.js 20.x (use `nvm use` to match the pinned toolchain).
 - Bun 1.3+ (see `.nvmrc` for the Node version and `bun.lock` for dependencies).
+
+## Contributor quick start
+
+1. Align toolchains: `nvm use`
+2. Install dependencies: `bun install`
+3. Run the full check suite: `bun run check`
 
 ## Quick start
 

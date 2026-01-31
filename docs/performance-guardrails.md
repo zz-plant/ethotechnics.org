@@ -5,7 +5,7 @@ Keep the site fast and stable with explicit budgets enforced in automation.
 ## Budgets and checks
 
 - CLS must remain 0 for primary page loads.
-- LCP must stay under 2.5 seconds on the homepage.
+- LCP must stay under 2.5 seconds on key routes (home, start here, library).
 - Console output must remain clean (no warnings or errors) on core routes.
 
 ## Where the checks live

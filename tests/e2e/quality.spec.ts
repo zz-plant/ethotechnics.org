@@ -6,6 +6,7 @@ type ConsoleMessage = {
 };
 
 const CORE_ROUTES = ["/", "/standards", "/library", "/start-here"];
+const PERFORMANCE_ROUTES = ["/", "/start-here", "/library"];
 
 const collectConsoleMessages = (page: Page) => {
   const messages: ConsoleMessage[] = [];
@@ -35,7 +36,7 @@ test.describe("Quality guardrails", () => {
     expect(messages).toEqual([]);
   });
 
-  test("homepage meets core web vital budgets", async ({ page }) => {
+  test("key routes meet core web vital budgets", async ({ page }) => {
     await page.addInitScript(() => {
       window.__metrics = { cls: 0, lcp: 0 };
 
@@ -62,15 +63,17 @@ test.describe("Quality guardrails", () => {
       lcpObserver.observe({ type: "largest-contentful-paint", buffered: true });
     });
 
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
-    await page.waitForTimeout(500);
+    for (const route of PERFORMANCE_ROUTES) {
+      await page.goto(route);
+      await page.waitForLoadState("networkidle");
+      await page.waitForTimeout(500);
 
-    const metrics = await page.evaluate(() => window.__metrics);
+      const metrics = await page.evaluate(() => window.__metrics);
 
-    expect(metrics.cls).toBe(0);
-    expect(metrics.lcp).toBeGreaterThan(0);
-    expect(metrics.lcp).toBeLessThan(2500);
+      expect(metrics.cls, `${route} CLS`).toBe(0);
+      expect(metrics.lcp, `${route} LCP`).toBeGreaterThan(0);
+      expect(metrics.lcp, `${route} LCP`).toBeLessThan(2500);
+    }
   });
 });
 
