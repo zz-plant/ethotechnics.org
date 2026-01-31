@@ -642,29 +642,37 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     title="A–Z of Ethotechnic terms"
     description={`Alphabetical list with ${entryIndex.length} definitions ready to link directly.`}
   >
-    <div
-      class="glossary-index__letters"
-      role="navigation"
-      aria-label="Filter by letter"
-    >
-      <button
-        class="pill pill--ghost is-active"
-        type="button"
-        data-glossary-letter="all"
-        aria-pressed="true"
+    <div class="glossary-index__toolbar">
+      <div>
+        <p class="eyebrow">Quick jump</p>
+        <p class="muted glossary-index__hint">
+          Filter by letter to scan faster, then open a term for full citations.
+        </p>
+      </div>
+      <div
+        class="glossary-index__letters"
+        role="navigation"
+        aria-label="Filter by letter"
       >
-        All
-      </button>
-      {glossaryLetters.map((letter) => (
         <button
-          class="pill pill--ghost"
+          class="pill pill--ghost is-active"
           type="button"
-          data-glossary-letter={letter}
-          aria-pressed="false"
+          data-glossary-letter="all"
+          aria-pressed="true"
         >
-          {letter}
+          All
         </button>
-      ))}
+        {glossaryLetters.map((letter) => (
+          <button
+            class="pill pill--ghost"
+            type="button"
+            data-glossary-letter={letter}
+            aria-pressed="false"
+          >
+            {letter}
+          </button>
+        ))}
+      </div>
     </div>
     <div class="glossary-index" role="navigation" aria-label="Glossary index">
       {
