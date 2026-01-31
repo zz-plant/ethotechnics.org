@@ -30,6 +30,18 @@ describe("robots.txt", () => {
     expect(body).toContain("https://ethotechnics.org/sitemap.xml");
   });
 
+  it("allows indexing for the .com canonical host", async () => {
+    const response = getRobots({
+      request: new Request("https://ethotechnics.com/robots.txt"),
+      site: new URL("https://ethotechnics.org"),
+    } as APIContext);
+
+    const body = await response.text();
+
+    expect(body).toContain("Allow: /");
+    expect(response.headers.get("X-Robots-Tag")).toBeNull();
+  });
+
   it("blocks indexing on non-production hosts", async () => {
     const response = getRobots({
       request: new Request("https://preview.ethotechnics.org/robots.txt"),
