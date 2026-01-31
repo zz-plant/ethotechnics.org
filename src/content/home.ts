@@ -365,7 +365,7 @@ export const homeContent = {
       title: "Design for consent, not just conversion.",
       description:
         "Pair every major action with clear context: why you are asking, what happens next, and how to opt out without penalty.",
-      published: "2024-10-01T00:00:00Z",
+      published: "2025-10-01T00:00:00Z",
       actions: [
         "Label links and buttons honestly so people know where they are headed.",
         "Give people a reversible path—avoid dead ends or forced funnels.",

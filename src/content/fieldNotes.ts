@@ -32,8 +32,8 @@ export const fieldNotesContent: FieldNotesContent = {
   pageDescription:
     "Dispatches, reflections, and signals from ongoing practice in ethical technology.",
   permalink: "/field-notes",
-  published: "2024-09-01T00:00:00Z",
-  latestUpdate: "2024-10-08T00:00:00Z",
+  published: "2025-09-01T00:00:00Z",
+  latestUpdate: "2025-10-08T00:00:00Z",
   highlight: {
     title: "Refreshing consent after policy shifts",
     summary:
@@ -71,7 +71,7 @@ export const fieldNotesContent: FieldNotesContent = {
       format: "dispatch",
       relatedTerms: ["consent-journey", "safety-valve"],
       links: ["/mechanisms#progressive-consent"],
-      published: "2024-10-08T00:00:00Z",
+      published: "2025-10-08T00:00:00Z",
     },
     {
       slug: "appeals-in-production",
@@ -81,7 +81,7 @@ export const fieldNotesContent: FieldNotesContent = {
       format: "case-study",
       relatedTerms: ["safety-valve", "burden-index"],
       links: ["/diagnostics#burden-modeler"],
-      published: "2024-09-12T00:00:00Z",
+      published: "2025-09-12T00:00:00Z",
     },
     {
       slug: "maintenance-drift",
@@ -91,7 +91,7 @@ export const fieldNotesContent: FieldNotesContent = {
       format: "signal",
       relatedTerms: ["stewardship-window"],
       links: ["/diagnostics#maintenance-simulator"],
-      published: "2024-08-28T00:00:00Z",
+      published: "2025-08-28T00:00:00Z",
     },
   ],
 };

@@ -52,7 +52,7 @@ export const instituteContent: InstituteContent = {
   pageTitle: "Institute — Ethotechnics",
   pageDescription:
     "Ethotechnics.org is the Institute. This visitor guide covers programs, decision forums, and when to involve the Studio.",
-  published: "2024-09-01T00:00:00Z",
+  published: "2025-09-01T00:00:00Z",
   permalink: "/institute",
   anchorLinks: [
     { href: "#overview", label: "What you can do" },
