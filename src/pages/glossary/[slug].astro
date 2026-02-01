@@ -205,6 +205,22 @@ const metaLine = [
 ]
   .filter((item): item is string => Boolean(item))
   .join(" · ");
+const keywordList = Array.from(
+  new Set(
+    [
+      "Ethotechnics glossary",
+      entry.title,
+      categoryLabel,
+      ...domainPills,
+      ...phases.map((phase) => phaseLabels[phase] ?? phase),
+      measurability ? measurabilityLabels[measurability] ?? measurability : null,
+      maturity ? maturityLabels[maturity] ?? maturity : null,
+      scale ? scaleLabels[scale] ?? scale : null,
+      ...(entry.tags ?? []),
+    ].filter((item): item is string => Boolean(item)),
+  ),
+);
+const keywordContent = keywordList.join(", ");
 const allEntries = categories.flatMap((category) => category.entries);
 const formatClusterLabel = (value: string) =>
   value
@@ -366,6 +382,7 @@ const structuredData = {
       "@id": pageUrl,
       name: `${entry.title} — Ethotechnics glossary`,
       description: pageDescription,
+      keywords: keywordList,
       url: pageUrl,
       isPartOf: {
         "@id": websiteId,
@@ -382,6 +399,7 @@ const structuredData = {
       "@id": `${pageUrl}#defined-term`,
       name: entry.title,
       description: plainDescription,
+      keywords: keywordList,
       url: pageUrl,
       inDefinedTermSet: {
         "@type": "DefinedTermSet",
@@ -421,8 +439,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 <BaseLayout
   title={`${entry.title} — Ethotechnics glossary`}
   description={pageDescription}
+  openGraphType="article"
   enableGlossaryHighlights={false}
 >
+  <Fragment slot="head">
+    <meta name="keywords" content={keywordContent} />
+    <meta property="article:section" content={categoryLabel} />
+    {(entry.tags ?? []).map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+  </Fragment>
   <PageIntro
     eyebrow="Glossary entry"
     title={entry.title}

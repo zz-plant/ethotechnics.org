@@ -145,6 +145,23 @@ const classificationRows = [
 ];
 
 const pageDescription = `${entry.title} glossary section: ${sectionDefinition.label}. ${plainDescription}`;
+const keywordList = Array.from(
+  new Set(
+    [
+      "Ethotechnics glossary",
+      entry.title,
+      categoryLabel,
+      sectionDefinition.label,
+      ...(entry.domains ?? []),
+      ...(entry.phase ?? []),
+      entry.measurability ?? null,
+      entry.maturity ?? null,
+      entry.scale ?? null,
+      ...(entry.tags ?? []),
+    ].filter((item): item is string => Boolean(item)),
+  ),
+);
+const keywordContent = keywordList.join(", ");
 const anchorLinks = [
   { href: "#summary", label: "Summary" },
   { href: "#details", label: sectionDefinition.label },
@@ -152,7 +169,14 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout title={pageTitle} description={pageDescription} openGraphType="article">
+  <Fragment slot="head">
+    <meta name="keywords" content={keywordContent} />
+    <meta property="article:section" content={categoryLabel} />
+    {(entry.tags ?? []).map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+  </Fragment>
   <PageIntro
     eyebrow="Glossary section"
     title={pageTitle}
