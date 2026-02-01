@@ -272,6 +272,21 @@ const structuredEntries = categories.flatMap((category) =>
 );
 
 const homeUrl = Astro.site ? new URL("/", Astro.site).toString() : "/";
+const glossaryKeywords = Array.from(
+  new Set([
+    "Ethotechnics glossary",
+    "ethical technology",
+    "AI governance",
+    "human-centered design",
+    "algorithmic accountability",
+    "consent frameworks",
+    "safety and stewardship",
+    ...categories.map((category) =>
+      normalizeGlossaryHeading(category.heading),
+    ),
+  ]),
+);
+const glossaryKeywordsContent = glossaryKeywords.join(", ");
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -280,14 +295,7 @@ const structuredData = {
       "@id": pageUrl,
       name: pageTitle,
       description: pageDescription,
-      keywords: [
-        "ethical technology glossary",
-        "AI governance terms",
-        "human-centered design definitions",
-        "algorithmic accountability vocabulary",
-        "consent and safety terminology",
-        "stewardship glossary",
-      ],
+      keywords: glossaryKeywords,
       url: pageUrl,
       isPartOf: {
         "@id": websiteId,
@@ -305,6 +313,7 @@ const structuredData = {
       name: pageTitle,
       description: pageDescription,
       url: pageUrl,
+      keywords: glossaryKeywords,
       hasDefinedTerm: structuredEntries,
       potentialAction: {
         "@type": "SearchAction",
@@ -344,6 +353,9 @@ const glossaryAuthor = getGlossaryAuthor(publication);
   enableGlossaryHighlights={false}
   jsonAlternates={[{ href: "/api/glossary.json", title: "Glossary JSON" }]}
 >
+  <Fragment slot="head">
+    <meta name="keywords" content={glossaryKeywordsContent} />
+  </Fragment>
   <PageIntro
     eyebrow="Glossary"
     title="Ethotechnics glossary"

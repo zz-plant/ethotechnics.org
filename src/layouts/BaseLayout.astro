@@ -12,6 +12,7 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  openGraphType?: string;
   /**
    * Optional class list for the <main> wrapper. Defaults to the standard
    * constrained layout (`"page container"`). Pass a custom value such as
@@ -32,6 +33,7 @@ const defaultDescription =
 const {
   title = defaultTitle,
   description = defaultDescription,
+  openGraphType = "website",
   mainClass = "page container",
   enableGlossaryHighlights = true,
   breadcrumbItems,
@@ -186,7 +188,7 @@ const structuredDataJson = JSON.stringify(structuredData);
       openGraph={{
         basic: {
           title,
-          type: "website",
+          type: openGraphType,
           image: seoImage.src,
           url: canonical,
         },
