@@ -17,6 +17,13 @@ import {
   normalizeGlossaryHeading,
   stripHtml,
 } from "../../utils/glossary-helpers";
+import {
+  glossaryDomainLabels,
+  glossaryMaturityLabels,
+  glossaryMeasurabilityLabels,
+  glossaryPhaseLabels,
+  glossaryScaleLabels,
+} from "../../utils/glossary-metadata";
 
 export async function getStaticPaths() {
   const glossaryEntry = await getEntry("glossary", "glossary");
@@ -48,37 +55,6 @@ const entryLabelIndex = new Map(
     category.entries.map((entry) => [entry.id, entry.title] as const),
   ),
 );
-const domainLabels: Record<string, string> = {
-  temporal: "Temporal",
-  visibility: "Visibility",
-  agency: "Agency",
-  burden: "Burden",
-  patterns: "Patterns",
-  measurable: "Measurable",
-  structural: "Structural",
-  diagnostic: "Diagnostic",
-};
-const phaseLabels: Record<string, string> = {
-  design: "Design",
-  deployment: "Deployment",
-  audit: "Audit",
-  repair: "Repair",
-};
-const measurabilityLabels: Record<string, string> = {
-  qualitative: "Qualitative",
-  semi_quantitative: "Semi-quantitative",
-  fully_measurable: "Fully measurable",
-};
-const maturityLabels: Record<string, string> = {
-  core_concept: "Core concept",
-  active_research: "Active research",
-  speculative: "Speculative",
-};
-const scaleLabels: Record<string, string> = {
-  individual: "Individual",
-  organizational: "Organizational",
-  systemic: "Systemic",
-};
 const entryRecord = categories
   .flatMap((category) =>
     category.entries.map((entry) => ({
@@ -191,16 +167,20 @@ const phases = entry.phase ?? [];
 const measurability = entry.measurability ?? "";
 const maturity = entry.maturity ?? "";
 const scale = entry.scale ?? "";
-const domainPills = domains.map((domain) => domainLabels[domain] ?? domain);
-const phaseList = phases.map((phase) => phaseLabels[phase] ?? phase).join(", ");
+const domainPills = domains.map(
+  (domain) => glossaryDomainLabels[domain] ?? domain,
+);
+const phaseList = phases
+  .map((phase) => glossaryPhaseLabels[phase] ?? phase)
+  .join(", ");
 const metaLine = [
-  scale ? `Scale: ${scaleLabels[scale] ?? scale}` : null,
+  scale ? `Scale: ${glossaryScaleLabels[scale] ?? scale}` : null,
   phases.length ? `Phases: ${phaseList}` : null,
   measurability
-    ? `Measurability: ${measurabilityLabels[measurability] ?? measurability}`
+    ? `Measurability: ${glossaryMeasurabilityLabels[measurability] ?? measurability}`
     : null,
   maturity
-    ? `Maturity: ${maturityLabels[maturity] ?? maturity}`
+    ? `Maturity: ${glossaryMaturityLabels[maturity] ?? maturity}`
     : null,
 ]
   .filter((item): item is string => Boolean(item))
@@ -212,10 +192,12 @@ const keywordList = Array.from(
       entry.title,
       categoryLabel,
       ...domainPills,
-      ...phases.map((phase) => phaseLabels[phase] ?? phase),
-      measurability ? measurabilityLabels[measurability] ?? measurability : null,
-      maturity ? maturityLabels[maturity] ?? maturity : null,
-      scale ? scaleLabels[scale] ?? scale : null,
+      ...phases.map((phase) => glossaryPhaseLabels[phase] ?? phase),
+      measurability
+        ? glossaryMeasurabilityLabels[measurability] ?? measurability
+        : null,
+      maturity ? glossaryMaturityLabels[maturity] ?? maturity : null,
+      scale ? glossaryScaleLabels[scale] ?? scale : null,
       ...(entry.tags ?? []),
     ].filter((item): item is string => Boolean(item)),
   ),
@@ -248,7 +230,7 @@ const relatedClusters = clusters
 const relatedDomains = domains
   .map((domain) => ({
     id: domain,
-    label: domainLabels[domain] ?? domain,
+    label: glossaryDomainLabels[domain] ?? domain,
     entries: allEntries
       .filter(
         (candidate) =>
@@ -283,7 +265,7 @@ const filterBreadcrumbParts = [
         .get("domains")
         ?.split(",")
         .filter(Boolean)
-        .map((domain) => domainLabels[domain] ?? domain)
+        .map((domain) => glossaryDomainLabels[domain] ?? domain)
         .join(", ")}`
     : null,
   filterParams.get("phases")
@@ -291,7 +273,7 @@ const filterBreadcrumbParts = [
         .get("phases")
         ?.split(",")
         .filter(Boolean)
-        .map((phase) => phaseLabels[phase] ?? phase)
+        .map((phase) => glossaryPhaseLabels[phase] ?? phase)
         .join(", ")}`
     : null,
   filterParams.get("measurability")
@@ -300,7 +282,7 @@ const filterBreadcrumbParts = [
         ?.split(",")
         .filter(Boolean)
         .map(
-          (option) => measurabilityLabels[option] ?? option,
+          (option) => glossaryMeasurabilityLabels[option] ?? option,
         )
         .join(", ")}`
     : null,
