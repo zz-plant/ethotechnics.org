@@ -9,6 +9,15 @@ How the site is structured and deployed so contributors can navigate the stack q
   keyboard users.
 - `Navigation.astro` is server-rendered and keeps its DOM mounted between navigations.
 
+## Project layout
+
+- `src/pages` owns file-based routes; `src/layouts` keeps shared layout and metadata wiring.
+- `src/components` groups reusable UI (navigation, footers, cards) used across pages.
+- `src/features` houses larger feature slices, including the diagnostics tooling islands.
+- `src/content` and `src/content.config.ts` define typed content sources and schemas.
+- `src/styles` holds global styles and shared tokens; `public/` stores static assets copied as-is.
+- `src/utils` centralizes shared helpers for formatting, metadata, and data transformations.
+
 ## Routing
 
 - Astro's file-based routes live in `src/pages` with standard server-rendered navigation and no
@@ -26,6 +35,8 @@ How the site is structured and deployed so contributors can navigate the stack q
 - `src/content` holds typed data for pages (home, research, library, glossary, and footer).
 - Content modules export structured objects consumed by Astro pages and layouts instead of sourcing
   copy inline.
+- Structured JSON content is validated by the JSON and glossary scripts described in
+  [`content-data.md`](content-data.md).
 
 ## Middleware, headers, and redirects
 
@@ -33,6 +44,13 @@ How the site is structured and deployed so contributors can navigate the stack q
   redirect.
 - The middleware appends security headers (HSTS, CSP, Referrer-Policy, X-Content-Type-Options, and
   Permissions-Policy) to every response, including redirects.
+
+## Build outputs and assets
+
+- Static assets from `public/` copy into the build output unchanged; Astro builds page HTML and
+  island JavaScript into `dist/`.
+- `/_astro/` and `/assets/` remain static so the Cloudflare Worker only handles HTML responses and
+  middleware logic.
 
 ## Cloudflare adapter and deployment
 
