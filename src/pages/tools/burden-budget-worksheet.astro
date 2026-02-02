@@ -1,0 +1,286 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const pageTitle = "Burden budget worksheet — Ethotechnics Institute";
+const pageDescription =
+  "A one-page, pre-incident accounting worksheet that records burden ceilings, enforcement triggers, and repair paths.";
+const permalink = "/tools/burden-budget-worksheet";
+
+const downloads = [
+  {
+    title: "Printable worksheet",
+    detail: "Single-page PDF for print or PDF annotation.",
+    format: "PDF",
+    href: "/assets/burden-budget/burden-budget-worksheet.pdf",
+  },
+  {
+    title: "Copyable template",
+    detail: "Plain-text template for docs and repositories.",
+    format: "Markdown",
+    href: "/assets/burden-budget/burden-budget-worksheet.md",
+  },
+  {
+    title: "Tabular export",
+    detail: "CSV layout for spreadsheets and intake systems.",
+    format: "CSV",
+    href: "/assets/burden-budget/burden-budget-worksheet.csv",
+  },
+  {
+    title: "Schema export",
+    detail: "Machine-readable schema for automation and validation.",
+    format: "JSON",
+    href: "/assets/burden-budget/burden-budget-worksheet.schema.json",
+  },
+];
+
+const worksheetSections = [
+  "System action",
+  "Worst-case error",
+  "Who experiences harm",
+  "Forms of burden",
+  "Estimated burden per person (ranges + assumptions)",
+  "Who absorbs the burden",
+  "Maximum acceptable burden (ceiling)",
+  "Enforcement trigger",
+  "Repair pathway",
+  "Owner + review cadence",
+];
+
+const burdenTypes = [
+  "Time (hours)",
+  "Money (USD)",
+  "Delay (days)",
+  "Cognitive load (ordinal 1–5)",
+  "Humiliation / indignity (ordinal 1–5)",
+  "Risk exposure (ordinal 1–5 with rationale)",
+];
+
+const generatorRequirements = [
+  "Ranges for min / likely / max estimates.",
+  "Assumptions captured alongside every estimate.",
+  "Multiple harmed roles per worksheet.",
+  "Multiple burden forms per role.",
+  "Explicit ceilings in hours, dollars, and days plus at least one ordinal scale.",
+  "Threshold condition, mandated action, owner, and timeframe for enforcement.",
+  "Repair entry points, required documents, turnaround, and interim protections.",
+  "Versioned outputs with revision history and changelog.",
+  "Compare view that highlights deltas between revisions.",
+];
+
+const privacyNotes = [
+  "No personal data required.",
+  "Avoid pasting case IDs, account numbers, or contact details.",
+];
+
+const workedExample = `Burden budget worksheet (hypothetical)
+
+System action
+- Automated eligibility decision for public benefits.
+
+Worst-case error
+- False denial when income match fails on seasonal earnings.
+
+Who experiences harm
+- Applicants awaiting eligibility decisions.
+
+Forms of burden
+- Time, money, delay, cognitive load, humiliation / indignity, risk exposure.
+
+Estimated burden per person (ranges + assumptions)
+- Time: 4 / 9 / 18 hours (form completion + call wait + document gathering).
+- Money: $0 / $180 / $520 (missed benefits + fees).
+- Delay: 3 / 9 / 21 days (review backlog during peak season).
+- Cognitive load: 3 (multiple forms, unclear rejection reason).
+- Humiliation / indignity: 2 (in-person verification required once).
+- Risk exposure: 4 (medication access risk during delay).
+- Assumptions: peak season staffing, single appeal cycle, no legal aid.
+
+Who absorbs the burden
+- Time and delay: applicants.
+- Money: applicants; agency backpay on reversal.
+- Cognitive load: applicants.
+
+Maximum acceptable burden (ceiling)
+- Time ceiling: 6 hours.
+- Money ceiling: $100.
+- Delay ceiling: 5 days.
+- Ordinal ceiling: risk exposure ≤ 3.
+
+Enforcement trigger
+- Threshold condition: delay > 5 days or risk exposure ≥ 4.
+- Mandated action: auto-approve temporary benefits and route to senior review.
+- Action owner: Benefits Ops Manager.
+- Action timeframe: within 24 hours.
+
+Repair pathway
+- Entry points: in-product appeal form, hotline, in-person desk.
+- Required documents: income statement, ID, case number.
+- Promised turnaround: 5 business days.
+- Interim protections: temporary benefits activation, collections hold.
+
+Owner + review cadence
+- Accountable owner/team: Benefits Operations, eligibility review lead.
+- Review cadence: quarterly.`;
+
+const exampleLibrary = [
+  "Benefits denial",
+  "Fraud hold",
+  "Identity verification lockout",
+  "Content moderation appeal",
+  "Medical prior authorization",
+];
+
+const faqItems = [
+  {
+    question: "What counts as burden?",
+    answer:
+      "Any cost imposed on a person to contest, reverse, or survive a system error: time, money, delay, risk, humiliation, or cognitive load.",
+  },
+  {
+    question: "How should ceilings be set?",
+    answer:
+      "Use ranges, document assumptions, and set thresholds that trigger a mandatory action before harm compounds.",
+  },
+  {
+    question: "How should teams use the worksheet?",
+    answer:
+      "Treat it as a pre-incident accounting record that ties owners to thresholds and repair paths.",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Binding artifact"
+    title="Burden budget worksheet"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#downloads", label: "Template downloads" },
+      { href: "#sections", label: "Worksheet sections" },
+      { href: "#burden", label: "Burden measures" },
+      { href: "#generator", label: "Generator requirements" },
+      { href: "#example", label: "Worked example" },
+      { href: "#library", label: "Example library" },
+      { href: "#faq", label: "FAQ" },
+    ]}
+    panelCopy={{
+      eyebrow: "Pre-incident accounting",
+      title: "Make burden legible and bounded",
+      description:
+        "Record who pays when a system is wrong, what the burden ceilings are, and what triggers enforcement and repair.",
+    }}
+  />
+
+  <SectionBlock
+    id="downloads"
+    eyebrow="Template downloads"
+    title="Export bundle"
+    description="Download the worksheet without the generator."
+  >
+    <CardGrid className="grid--two">
+      {downloads.map((item) => (
+        <CardItem title={item.title} description={item.detail}>
+          <p class="muted">Format: {item.format}</p>
+          <p class="muted">
+            <a href={item.href}>Download {item.format}</a>
+          </p>
+        </CardItem>
+      ))}
+    </CardGrid>
+    <p class="muted">
+      Each export includes an artifact ID, version, timestamp, system name, and
+      unique worksheet ID.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="sections"
+    eyebrow="Worksheet sections"
+    title="Required fields"
+    description="Ten sections keep the worksheet citeable and diffable."
+    variant="alt"
+  >
+    <ol class="muted">
+      {worksheetSections.map((section) => (
+        <li>{section}</li>
+      ))}
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="burden"
+    eyebrow="Burden measures"
+    title="Multi-axis, no single score"
+    description="Track each burden axis separately to avoid false precision."
+  >
+    <ul class="muted">
+      {burdenTypes.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="generator"
+    eyebrow="Generator"
+    title="Guided form requirements"
+    description="The generator mirrors the worksheet and enforces ceilings."
+    variant="alt"
+  >
+    <ul class="muted">
+      {generatorRequirements.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+    <p class="muted">Privacy note:</p>
+    <ul class="muted">
+      {privacyNotes.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="example"
+    eyebrow="Worked example"
+    title="One hypothetical worksheet"
+    description="Example for structure and tone. Not tied to a real system."
+  >
+    <pre class="code-block">{workedExample}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="library"
+    eyebrow="Example library"
+    title="Hypothetical scenarios to replicate"
+    description="Examples are explicitly labeled as hypothetical."
+    variant="alt"
+  >
+    <ul class="muted">
+      {exampleLibrary.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="faq"
+    eyebrow="FAQ"
+    title="Common questions"
+    description="Short answers for policy, engineering, and audit teams."
+  >
+    <dl class="muted">
+      {faqItems.map((item) => (
+        <div>
+          <dt>{item.question}</dt>
+          <dd>{item.answer}</dd>
+        </div>
+      ))}
+    </dl>
+  </SectionBlock>
+</BaseLayout>

@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/assets/burden-budget/burden-budget-worksheet.schema.json",
+  "title": "Burden budget worksheet schema",
+  "type": "object",
+  "required": [
+    "artifact_id",
+    "artifact_version",
+    "worksheet_id",
+    "timestamp",
+    "system_name",
+    "system_action",
+    "worst_case_error",
+    "harm_roles",
+    "burdens",
+    "absorbers",
+    "burden_ceiling",
+    "enforcement_triggers",
+    "repair_pathway",
+    "owner",
+    "review_cadence",
+    "revision_history"
+  ],
+  "properties": {
+    "artifact_id": {
+      "const": "BB-01"
+    },
+    "artifact_version": {
+      "type": "string",
+      "description": "Artifact version label.",
+      "default": "0.1.0"
+    },
+    "worksheet_id": {
+      "type": "string",
+      "description": "Unique worksheet identifier."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 UTC timestamp."
+    },
+    "system_name": {
+      "type": "string"
+    },
+    "system_action": {
+      "type": "string"
+    },
+    "worst_case_error": {
+      "type": "string"
+    },
+    "harm_roles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["role", "description"],
+        "properties": {
+          "role": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "burdens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["role", "type", "estimate"],
+        "properties": {
+          "role": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["time", "money", "delay", "cognitive", "humiliation", "risk"]
+          },
+          "estimate": {
+            "type": "object",
+            "required": ["min", "likely", "max", "unit"],
+            "properties": {
+              "min": { "type": "number" },
+              "likely": { "type": "number" },
+              "max": { "type": "number" },
+              "unit": { "type": "string" }
+            }
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "absorbers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "burden_type", "absorber"],
+        "properties": {
+          "role": { "type": "string" },
+          "burden_type": { "type": "string" },
+          "absorber": { "type": "string" }
+        }
+      }
+    },
+    "burden_ceiling": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["role", "type", "threshold", "unit"],
+        "properties": {
+          "role": { "type": "string" },
+          "type": { "type": "string" },
+          "threshold": { "type": "number" },
+          "unit": { "type": "string" }
+        }
+      }
+    },
+    "enforcement_triggers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["threshold", "action", "owner", "timeframe"],
+        "properties": {
+          "threshold": { "type": "string" },
+          "action": { "type": "string" },
+          "owner": { "type": "string" },
+          "timeframe": { "type": "string" }
+        }
+      }
+    },
+    "repair_pathway": {
+      "type": "object",
+      "required": ["entry_points", "requirements", "turnaround", "interim_protections"],
+      "properties": {
+        "entry_points": { "type": "array", "items": { "type": "string" } },
+        "requirements": { "type": "array", "items": { "type": "string" } },
+        "turnaround": { "type": "string" },
+        "interim_protections": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "owner": {
+      "type": "string"
+    },
+    "review_cadence": {
+      "type": "string"
+    },
+    "revision_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["revision", "timestamp", "summary"],
+        "properties": {
+          "revision": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "summary": { "type": "string" }
+        }
+      }
+    }
+  }
+}
