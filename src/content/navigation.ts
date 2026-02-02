@@ -119,6 +119,11 @@ export const navSections: NavSection[] = [
         label: "DIY implementation pack",
         description: "Templates, sample tickets, and minimal telemetry specs.",
       },
+      {
+        href: "/tools/burden-budget-worksheet",
+        label: "Burden budget worksheet",
+        description: "One-page worksheet for burden ceilings and repair paths.",
+      },
     ],
   },
   {
