@@ -1,0 +1,1311 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const pageTitle = "Burden budget worksheet";
+const pageDescription =
+  "A one-page worksheet for documenting burden ceilings, enforcement triggers, and repair pathways for high-stakes systems.";
+const permalink = "/tools/burden-budget-worksheet";
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#downloads", label: "Template downloads" },
+  { href: "#generator", label: "Generator" },
+  { href: "#example", label: "Worked example" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#changelog", label: "Changelog" },
+];
+
+const downloads = [
+  {
+    label: "PDF one-pager",
+    detail: "Printable, single-page worksheet.",
+    href: "/burden-budget/burden-budget-worksheet.pdf",
+  },
+  {
+    label: "Markdown",
+    detail: "Copy-ready template for repos and docs.",
+    href: "/burden-budget/burden-budget-worksheet.md",
+  },
+  {
+    label: "CSV",
+    detail: "Tabular worksheet for spreadsheets.",
+    href: "/burden-budget/burden-budget-worksheet.csv",
+  },
+  {
+    label: "JSON",
+    detail: "Machine-readable template aligned to the worksheet fields.",
+    href: "/burden-budget/burden-budget-worksheet.json",
+  },
+];
+
+const exampleSummary = [
+  "System action: Automated benefits eligibility decisioning.",
+  "Worst-case error: Denies eligible households for 21 days.",
+  "Harmed roles: Applicants, caretakers, frontline caseworkers.",
+  "Burden ceiling: 4 hours, $150, 7 days, ordinal 3+ thresholds.",
+  "Enforcement trigger: Auto-pause when delay exceeds 5 days.",
+];
+
+const faqItems = [
+  {
+    question: "What counts as burden?",
+    answer:
+      "Burden covers time, money, delay, risk exposure, humiliation, and cognitive load required to reverse, contest, or survive an error.",
+  },
+  {
+    question: "How should ceilings be set?",
+    answer:
+      "Set ceilings at the maximum cost a normal person should face before enforcement actions begin. Use ranges and document assumptions.",
+  },
+  {
+    question: "What if a field is unknown?",
+    answer:
+      "Leave it blank, note the gap in the assumptions field, and schedule the next review cadence to close it.",
+  },
+  {
+    question: "Is this a risk register?",
+    answer:
+      "No. It records external burden and repair obligations, not internal operational risk.",
+  },
+];
+
+const changelog = [
+  {
+    version: "v0.1",
+    date: "2026-05-01",
+    summary: "Initial worksheet template, generator, and export bundle.",
+  },
+];
+---
+
+<BaseLayout title={`${pageTitle} — Tools`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Binding artifact"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Worksheet",
+      title: "Account for burden before harm.",
+      description:
+        "Use the worksheet to document who pays when a system is wrong, the maximum acceptable burden, and what triggers repair.",
+    }}
+  />
+
+  <SectionBlock
+    id="overview"
+    eyebrow="Overview"
+    title="Make burden ceilings explicit."
+    description="Capture who is harmed, the burden they carry, and what enforcement must occur."
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Purpose</p>
+        <ul class="muted">
+          <li>Record burden in time, money, delay, risk, humiliation, and load.</li>
+          <li>Set maximum acceptable burden before enforcement activates.</li>
+          <li>Define repair pathways with owners and review cadence.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">What this is not</p>
+        <ul class="muted">
+          <li>Not a general ethics framework or values statement.</li>
+          <li>Not a postmortem or internal risk register.</li>
+          <li>Not a compliance checklist or narrative summary.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted">
+      The worksheet is a single-page accounting object. Keep language factual
+      and avoid narrative framing.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="downloads"
+    eyebrow="Template downloads"
+    title="Download the worksheet template."
+    description="Exports are available without using the generator."
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      {downloads.map((download) => (
+        <article class="panel">
+          <h3>{download.label}</h3>
+          <p class="muted">{download.detail}</p>
+          <a class="button ghost" href={download.href}>
+            Download
+          </a>
+        </article>
+      ))}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="generator"
+    eyebrow="Generator"
+    title="Create a worksheet and export it."
+    description="Fill the worksheet, then export to PDF, Markdown, CSV, or JSON."
+    className="diagnostic-tool__form"
+  >
+    <form class="intake-form" data-burden-form>
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          System name
+          <input type="text" name="system_name" data-field="system_name" />
+        </label>
+        <label class="intake-form__field">
+          System action
+          <input type="text" name="system_action" data-field="system_action" />
+        </label>
+        <label class="intake-form__field">
+          Worst-case error
+          <input
+            type="text"
+            name="worst_case_error"
+            data-field="worst_case_error"
+          />
+        </label>
+        <label class="intake-form__field intake-form__field--full">
+          Assumptions (global)
+          <textarea
+            name="assumptions"
+            rows="3"
+            data-field="assumptions"
+          ></textarea>
+        </label>
+      </fieldset>
+
+      <div class="panel">
+        <p class="eyebrow">Harmed roles</p>
+        <div class="intake-form__grid" data-role-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-role>
+            Add harmed role
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Burden estimates per role</p>
+        <div class="intake-form__grid" data-burden-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-burden>
+            Add burden estimate
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Optional burden totals</p>
+        <div class="intake-form__grid" data-total-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-total>
+            Add burden total
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Who absorbs the burden</p>
+        <div class="intake-form__grid" data-absorber-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-absorber>
+            Add absorber mapping
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Burden ceiling</p>
+        <div class="intake-form__grid" data-ceiling-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-ceiling>
+            Add ceiling threshold
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Enforcement trigger</p>
+        <div class="intake-form__grid" data-trigger-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-trigger>
+            Add enforcement trigger
+          </button>
+        </div>
+      </div>
+
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          Repair entry points
+          <textarea
+            name="repair_entry"
+            rows="3"
+            data-field="repair_entry"
+          ></textarea>
+        </label>
+        <label class="intake-form__field">
+          Required documents
+          <textarea
+            name="repair_documents"
+            rows="3"
+            data-field="repair_documents"
+          ></textarea>
+        </label>
+        <label class="intake-form__field">
+          Promised turnaround
+          <input type="text" name="repair_sla" data-field="repair_sla" />
+        </label>
+        <label class="intake-form__field">
+          Interim protections
+          <textarea
+            name="repair_interim"
+            rows="3"
+            data-field="repair_interim"
+          ></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset class="intake-form__grid">
+        <label class="intake-form__field">
+          Owner
+          <input type="text" name="owner" data-field="owner" />
+        </label>
+        <label class="intake-form__field">
+          Review cadence
+          <input type="text" name="review_cadence" data-field="review_cadence" />
+        </label>
+        <label class="intake-form__field">
+          Revision number
+          <input
+            type="text"
+            name="revision"
+            placeholder="1"
+            data-field="revision"
+          />
+        </label>
+        <label class="intake-form__field">
+          Worksheet version
+          <input
+            type="text"
+            name="version"
+            placeholder="1.0.0"
+            data-field="version"
+          />
+        </label>
+        <label class="intake-form__field intake-form__field--full">
+          Changelog entry
+          <textarea
+            name="changelog"
+            rows="2"
+            data-field="changelog"
+          ></textarea>
+        </label>
+      </fieldset>
+
+      <div class="panel">
+        <p class="eyebrow">Exports</p>
+        <p class="muted">
+          Data stays in your browser. Avoid pasting sensitive information.
+        </p>
+        <div class="intake-form__actions">
+          <button class="button primary" type="button" data-export="pdf">
+            Export PDF
+          </button>
+          <button class="button ghost" type="button" data-export="md">
+            Export Markdown
+          </button>
+          <button class="button ghost" type="button" data-export="csv">
+            Export CSV
+          </button>
+          <button class="button ghost" type="button" data-export="json">
+            Export JSON
+          </button>
+        </div>
+        <p class="muted" data-export-status>
+          Complete the worksheet to generate exports.
+        </p>
+      </div>
+    </form>
+
+    <div class="panel" data-compare-panel>
+      <p class="eyebrow">Compare revisions</p>
+      <p class="muted">
+        Paste a previous JSON export to highlight changes against the current
+        worksheet fields.
+      </p>
+      <div class="intake-form__grid">
+        <label class="intake-form__field intake-form__field--full">
+          Previous worksheet JSON
+          <textarea
+            rows="6"
+            data-compare-input
+            placeholder='{"artifact_id":"...","system_name":"..."}'
+          ></textarea>
+        </label>
+      </div>
+      <div class="intake-form__actions">
+        <button class="button ghost" type="button" data-compare-button>
+          Compare
+        </button>
+      </div>
+      <div class="panel" data-compare-results hidden>
+        <p class="muted">Detected changes</p>
+        <ul class="muted" data-compare-list></ul>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="example"
+    eyebrow="Worked example"
+    title="Hypothetical worksheet summary."
+    description="This example is fictional and provided for structure only."
+  >
+    <div class="panel">
+      <p class="eyebrow">Summary</p>
+      <ul class="muted">
+        {exampleSummary.map((line) => (
+          <li>{line}</li>
+        ))}
+      </ul>
+      <p class="muted">
+        Example library (hypothetical): benefits denial, identity verification
+        lockout, content moderation appeal, medical prior authorization.
+      </p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="faq"
+    eyebrow="FAQ"
+    title="Common questions."
+    description="Short answers for governance and audit teams."
+    variant="alt"
+  >
+    <dl class="standard-definitions">
+      {faqItems.map((item) => (
+        <div>
+          <dt>{item.question}</dt>
+          <dd>{item.answer}</dd>
+        </div>
+      ))}
+    </dl>
+  </SectionBlock>
+
+  <SectionBlock
+    id="changelog"
+    eyebrow="Changelog"
+    title="Release notes."
+    description="Track updates to the worksheet format."
+  >
+    <div class="panel">
+      <ul class="muted">
+        {changelog.map((entry) => (
+          <li>
+            <strong>{entry.version}</strong> — {entry.date}: {entry.summary}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </SectionBlock>
+
+  <template data-role-template>
+    <fieldset class="intake-form__grid" data-role-row>
+      <label class="intake-form__field">
+        Role label
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Role description
+        <input type="text" data-field="description" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-burden-template>
+    <fieldset class="intake-form__grid" data-burden-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Burden type
+        <select data-field="type">
+          <option value="">Select</option>
+          <option value="time">Time</option>
+          <option value="money">Money</option>
+          <option value="delay">Delay</option>
+          <option value="cognitive">Cognitive load</option>
+          <option value="humiliation">Humiliation</option>
+          <option value="risk">Risk exposure</option>
+        </select>
+      </label>
+      <label class="intake-form__field">
+        Min
+        <input type="text" data-field="min" />
+      </label>
+      <label class="intake-form__field">
+        Likely
+        <input type="text" data-field="likely" />
+      </label>
+      <label class="intake-form__field">
+        Max
+        <input type="text" data-field="max" />
+      </label>
+      <label class="intake-form__field">
+        Unit
+        <input type="text" data-field="unit" />
+      </label>
+      <label class="intake-form__field intake-form__field--full">
+        Assumptions
+        <input type="text" data-field="assumptions" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-total-template>
+    <fieldset class="intake-form__grid" data-total-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Time (hours)
+        <input type="text" data-field="time" />
+      </label>
+      <label class="intake-form__field">
+        Money ($)
+        <input type="text" data-field="money" />
+      </label>
+      <label class="intake-form__field">
+        Delay (days)
+        <input type="text" data-field="delay" />
+      </label>
+      <label class="intake-form__field">
+        Cognitive load (1–5)
+        <input type="text" data-field="cognitive" />
+      </label>
+      <label class="intake-form__field">
+        Humiliation (1–5)
+        <input type="text" data-field="humiliation" />
+      </label>
+      <label class="intake-form__field">
+        Risk exposure (1–5)
+        <input type="text" data-field="risk" />
+      </label>
+      <label class="intake-form__field intake-form__field--full">
+        Risk rationale
+        <input type="text" data-field="rationale" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-absorber-template>
+    <fieldset class="intake-form__grid" data-absorber-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Burden type
+        <select data-field="type">
+          <option value="">Select</option>
+          <option value="time">Time</option>
+          <option value="money">Money</option>
+          <option value="delay">Delay</option>
+          <option value="cognitive">Cognitive load</option>
+          <option value="humiliation">Humiliation</option>
+          <option value="risk">Risk exposure</option>
+        </select>
+      </label>
+      <label class="intake-form__field">
+        Absorber
+        <select data-field="absorber">
+          <option value="">Select</option>
+          <option value="user">User</option>
+          <option value="institution">Institution</option>
+          <option value="third-party">Third party</option>
+        </select>
+      </label>
+      <label class="intake-form__field intake-form__field--full">
+        Notes
+        <input type="text" data-field="notes" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-ceiling-template>
+    <fieldset class="intake-form__grid" data-ceiling-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Burden type
+        <select data-field="type">
+          <option value="">Select</option>
+          <option value="time">Time</option>
+          <option value="money">Money</option>
+          <option value="delay">Delay</option>
+          <option value="cognitive">Cognitive load</option>
+          <option value="humiliation">Humiliation</option>
+          <option value="risk">Risk exposure</option>
+        </select>
+      </label>
+      <label class="intake-form__field">
+        Threshold
+        <input type="text" data-field="threshold" />
+      </label>
+      <label class="intake-form__field">
+        Unit
+        <input type="text" data-field="unit" />
+      </label>
+      <label class="intake-form__field intake-form__field--full">
+        Condition
+        <input type="text" data-field="condition" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+
+  <template data-trigger-template>
+    <fieldset class="intake-form__grid" data-trigger-row>
+      <label class="intake-form__field">
+        Role
+        <input type="text" data-field="role" />
+      </label>
+      <label class="intake-form__field">
+        Threshold condition
+        <input type="text" data-field="threshold" />
+      </label>
+      <label class="intake-form__field">
+        Mandated action
+        <input type="text" data-field="action" />
+      </label>
+      <label class="intake-form__field">
+        Action owner
+        <input type="text" data-field="owner" />
+      </label>
+      <label class="intake-form__field">
+        Action timeframe
+        <input type="text" data-field="timeframe" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+</BaseLayout>
+
+<script>
+  const ARTIFACT_ID = "BB-01";
+  const DEFAULT_VERSION = "1.0.0";
+  const form = document.querySelector<HTMLFormElement>("[data-burden-form]");
+  const exportStatus = document.querySelector<HTMLElement>(
+    "[data-export-status]",
+  );
+  const compareInput = document.querySelector<HTMLTextAreaElement>(
+    "[data-compare-input]",
+  );
+  const compareButton = document.querySelector<HTMLButtonElement>(
+    "[data-compare-button]",
+  );
+  const compareResults = document.querySelector<HTMLElement>(
+    "[data-compare-results]",
+  );
+  const compareList = document.querySelector<HTMLUListElement>(
+    "[data-compare-list]",
+  );
+
+  type HarmRole = {
+    role: string;
+    description: string;
+  };
+
+  type BurdenEstimate = {
+    role: string;
+    type: string;
+    estimate: {
+      min: number | null;
+      likely: number | null;
+      max: number | null;
+      unit: string;
+    };
+    assumptions: string;
+  };
+
+  type BurdenTotal = {
+    role: string;
+    time_hours: number | null;
+    money_usd: number | null;
+    delay_days: number | null;
+    cognitive_load: number | null;
+    humiliation: number | null;
+    risk_exposure: number | null;
+    risk_rationale: string;
+  };
+
+  type AbsorberEntry = {
+    role: string;
+    type: string;
+    absorber: string;
+    notes: string;
+  };
+
+  type BurdenCeiling = {
+    role: string;
+    type: string;
+    threshold: string;
+    unit: string;
+    condition: string;
+  };
+
+  type EnforcementTrigger = {
+    role: string;
+    threshold: string;
+    action: string;
+    owner: string;
+    timeframe: string;
+  };
+
+  type RepairPathway = {
+    entry_points: string;
+    required_documents: string;
+    promised_turnaround: string;
+    interim_protections: string;
+  };
+
+  type RevisionEntry = {
+    version: string;
+    revision: string;
+    date: string;
+    summary: string;
+  };
+
+  type Worksheet = {
+    artifact_id: string;
+    artifact_version: string;
+    worksheet_id: string;
+    revision: string;
+    timestamp: string;
+    system_name: string;
+    system_action: string;
+    worst_case_error: string;
+    harm_roles: HarmRole[];
+    burden_estimates: BurdenEstimate[];
+    burden_totals: BurdenTotal[];
+    absorbers: AbsorberEntry[];
+    burden_ceiling: BurdenCeiling[];
+    enforcement_triggers: EnforcementTrigger[];
+    repair_pathway: RepairPathway;
+    owner: string;
+    review_cadence: string;
+    assumptions: string;
+    revision_history: RevisionEntry[];
+  };
+
+  const rowConfigs = [
+    {
+      listSelector: "[data-role-list]",
+      templateSelector: "[data-role-template]",
+      addSelector: "[data-add-role]",
+    },
+    {
+      listSelector: "[data-burden-list]",
+      templateSelector: "[data-burden-template]",
+      addSelector: "[data-add-burden]",
+    },
+    {
+      listSelector: "[data-total-list]",
+      templateSelector: "[data-total-template]",
+      addSelector: "[data-add-total]",
+    },
+    {
+      listSelector: "[data-absorber-list]",
+      templateSelector: "[data-absorber-template]",
+      addSelector: "[data-add-absorber]",
+    },
+    {
+      listSelector: "[data-ceiling-list]",
+      templateSelector: "[data-ceiling-template]",
+      addSelector: "[data-add-ceiling]",
+    },
+    {
+      listSelector: "[data-trigger-list]",
+      templateSelector: "[data-trigger-template]",
+      addSelector: "[data-add-trigger]",
+    },
+  ];
+
+  const addRow = (list: Element | null, template: HTMLTemplateElement | null) => {
+    if (!list || !template) return;
+    const clone = template.content.cloneNode(true) as DocumentFragment;
+    list.appendChild(clone);
+  };
+
+  const setupRepeater = () => {
+    rowConfigs.forEach(({ listSelector, templateSelector, addSelector }) => {
+      const list = document.querySelector(listSelector);
+      const template = document.querySelector<HTMLTemplateElement>(
+        templateSelector,
+      );
+      const addButton = document.querySelector<HTMLButtonElement>(addSelector);
+      addButton?.addEventListener("click", () => addRow(list, template));
+      addRow(list, template);
+      list?.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const removeButton = target.closest("[data-remove-row]");
+        if (!removeButton) return;
+        const row = target.closest("[data-role-row], [data-burden-row], [data-total-row], [data-absorber-row], [data-ceiling-row], [data-trigger-row]");
+        row?.remove();
+      });
+    });
+  };
+
+  const fieldValue = (parent: Element, field: string) => {
+    const input = parent.querySelector(`[data-field="${field}"]`);
+    if (
+      input instanceof HTMLInputElement ||
+      input instanceof HTMLTextAreaElement ||
+      input instanceof HTMLSelectElement
+    ) {
+      return input.value.trim();
+    }
+    return "";
+  };
+
+  const parseNumber = (value: string) => {
+    if (!value) return null;
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  };
+
+  const collectRows = <T,>(
+    selector: string,
+    mapper: (row: Element) => T,
+    isEmpty: (row: T) => boolean,
+  ) => {
+    if (!form) return [] as T[];
+    return Array.from(form.querySelectorAll(selector))
+      .map(mapper)
+      .filter((row) => !isEmpty(row));
+  };
+
+  const buildWorksheet = (): Worksheet | null => {
+    if (!form) return null;
+    const worksheetId =
+      form.dataset.worksheetId ??
+      (globalThis.crypto?.randomUUID?.() ?? `worksheet-${Date.now()}`);
+    form.dataset.worksheetId = worksheetId;
+
+    const systemName = fieldValue(form, "system_name");
+    const systemAction = fieldValue(form, "system_action");
+    const worstCaseError = fieldValue(form, "worst_case_error");
+    const assumptions = fieldValue(form, "assumptions");
+    const owner = fieldValue(form, "owner");
+    const reviewCadence = fieldValue(form, "review_cadence");
+    const revision = fieldValue(form, "revision");
+    const version = fieldValue(form, "version") || DEFAULT_VERSION;
+    const changelog = fieldValue(form, "changelog");
+
+    const harmRoles = collectRows(
+      "[data-role-row]",
+      (row) => ({
+        role: fieldValue(row, "role"),
+        description: fieldValue(row, "description"),
+      }),
+      (row) => !row.role && !row.description,
+    );
+
+    const burdens = collectRows(
+      "[data-burden-row]",
+      (row) => ({
+        role: fieldValue(row, "role"),
+        type: fieldValue(row, "type"),
+        estimate: {
+          min: parseNumber(fieldValue(row, "min")),
+          likely: parseNumber(fieldValue(row, "likely")),
+          max: parseNumber(fieldValue(row, "max")),
+          unit: fieldValue(row, "unit"),
+        },
+        assumptions: fieldValue(row, "assumptions"),
+      }),
+      (row) => !row.role && !row.type,
+    );
+
+    const burdenTotals = collectRows(
+      "[data-total-row]",
+      (row) => ({
+        role: fieldValue(row, "role"),
+        time_hours: parseNumber(fieldValue(row, "time")),
+        money_usd: parseNumber(fieldValue(row, "money")),
+        delay_days: parseNumber(fieldValue(row, "delay")),
+        cognitive_load: parseNumber(fieldValue(row, "cognitive")),
+        humiliation: parseNumber(fieldValue(row, "humiliation")),
+        risk_exposure: parseNumber(fieldValue(row, "risk")),
+        risk_rationale: fieldValue(row, "rationale"),
+      }),
+      (row) =>
+        !row.role &&
+        row.time_hours === null &&
+        row.money_usd === null &&
+        row.delay_days === null &&
+        row.cognitive_load === null &&
+        row.humiliation === null &&
+        row.risk_exposure === null &&
+        !row.risk_rationale,
+    );
+
+    const absorbers = collectRows(
+      "[data-absorber-row]",
+      (row) => ({
+        role: fieldValue(row, "role"),
+        type: fieldValue(row, "type"),
+        absorber: fieldValue(row, "absorber"),
+        notes: fieldValue(row, "notes"),
+      }),
+      (row) => !row.role && !row.type && !row.absorber,
+    );
+
+    const burdenCeiling = collectRows(
+      "[data-ceiling-row]",
+      (row) => ({
+        role: fieldValue(row, "role"),
+        type: fieldValue(row, "type"),
+        threshold: fieldValue(row, "threshold"),
+        unit: fieldValue(row, "unit"),
+        condition: fieldValue(row, "condition"),
+      }),
+      (row) => !row.role && !row.type && !row.threshold,
+    );
+
+    const enforcementTriggers = collectRows(
+      "[data-trigger-row]",
+      (row) => ({
+        role: fieldValue(row, "role"),
+        threshold: fieldValue(row, "threshold"),
+        action: fieldValue(row, "action"),
+        owner: fieldValue(row, "owner"),
+        timeframe: fieldValue(row, "timeframe"),
+      }),
+      (row) => !row.role && !row.threshold && !row.action,
+    );
+
+    const repairPathway: RepairPathway = {
+      entry_points: fieldValue(form, "repair_entry"),
+      required_documents: fieldValue(form, "repair_documents"),
+      promised_turnaround: fieldValue(form, "repair_sla"),
+      interim_protections: fieldValue(form, "repair_interim"),
+    };
+
+    return {
+      artifact_id: ARTIFACT_ID,
+      artifact_version: version,
+      worksheet_id: worksheetId,
+      revision,
+      timestamp: new Date().toISOString(),
+      system_name: systemName,
+      system_action: systemAction,
+      worst_case_error: worstCaseError,
+      harm_roles: harmRoles,
+      burden_estimates: burdens,
+      burden_totals: burdenTotals,
+      absorbers,
+      burden_ceiling: burdenCeiling,
+      enforcement_triggers: enforcementTriggers,
+      repair_pathway: repairPathway,
+      owner,
+      review_cadence: reviewCadence,
+      assumptions,
+      revision_history: changelog
+        ? [
+            {
+              version,
+              revision,
+              date: new Date().toISOString().slice(0, 10),
+              summary: changelog,
+            },
+          ]
+        : [],
+    };
+  };
+
+  const downloadFile = (content: string, filename: string, type: string) => {
+    const blob = new Blob([content], { type });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const toMarkdown = (worksheet: Worksheet) => {
+    return `---\nartifact_id: "${worksheet.artifact_id}"\nartifact_version: "${worksheet.artifact_version}"\nworksheet_id: "${worksheet.worksheet_id}"\ntimestamp: "${worksheet.timestamp}"\nsystem_name: "${worksheet.system_name}"\n---\n\n# Burden budget worksheet\n\n## 1) System action\n${worksheet.system_action || ""}\n\n## 2) Worst-case error\n${worksheet.worst_case_error || ""}\n\n## 3) Who experiences harm\n${worksheet.harm_roles
+      .map((role) => `- ${role.role}${role.description ? ` — ${role.description}` : ""}`)
+      .join("\n")}\n\n## 4) Forms of burden\n${worksheet.burden_estimates
+      .map(
+        (item) =>
+          `- ${item.role} | ${item.type} | ${item.estimate.min ?? ""} / ${item.estimate.likely ?? ""} / ${item.estimate.max ?? ""} ${item.estimate.unit || ""} | ${item.assumptions || ""}`,
+      )
+      .join("\n")}\n\n## 5) Estimated burden totals (optional)\n${worksheet.burden_totals
+      .map(
+        (total) =>
+          `- ${total.role} | ${total.time_hours ?? ""} hrs | ${total.money_usd ?? ""} USD | ${total.delay_days ?? ""} days | cognitive ${total.cognitive_load ?? ""} | humiliation ${total.humiliation ?? ""} | risk ${total.risk_exposure ?? ""} (${total.risk_rationale || ""})`,
+      )
+      .join("\n")}\n\n## 6) Who absorbs the burden\n${worksheet.absorbers
+      .map(
+        (item) =>
+          `- ${item.role} | ${item.type} | ${item.absorber} | ${item.notes || ""}`,
+      )
+      .join("\n")}\n\n## 7) Maximum acceptable burden\n${worksheet.burden_ceiling
+      .map(
+        (item) =>
+          `- ${item.role} | ${item.type} | ${item.threshold} ${item.unit || ""} | ${item.condition || ""}`,
+      )
+      .join("\n")}\n\n## 8) Enforcement trigger\n${worksheet.enforcement_triggers
+      .map(
+        (item) =>
+          `- ${item.role} | ${item.threshold} | ${item.action} | ${item.owner} | ${item.timeframe}`,
+      )
+      .join("\n")}\n\n## 9) Repair pathway\n- Entry points: ${worksheet.repair_pathway.entry_points || ""}\n- Required documents: ${worksheet.repair_pathway.required_documents || ""}\n- Promised turnaround: ${worksheet.repair_pathway.promised_turnaround || ""}\n- Interim protections: ${worksheet.repair_pathway.interim_protections || ""}\n\n## 10) Owner + review cadence\n- Owner: ${worksheet.owner || ""}\n- Review cadence: ${worksheet.review_cadence || ""}\n\n## Assumptions\n${worksheet.assumptions || ""}\n\n## Revision history\n${worksheet.revision_history
+      .map(
+        (item) =>
+          `- ${item.version || ""} (${item.revision || ""}) ${item.date || ""}: ${item.summary || ""}`,
+      )
+      .join("\n")}`;
+  };
+
+  const toCsv = (worksheet: Worksheet) => {
+    const rows = [
+      ["record_type", "section", "field", "value", "notes"],
+      ["meta", "artifact", "artifact_id", worksheet.artifact_id, ""],
+      ["meta", "artifact", "artifact_version", worksheet.artifact_version, ""],
+      ["meta", "worksheet", "worksheet_id", worksheet.worksheet_id, ""],
+      ["meta", "worksheet", "timestamp", worksheet.timestamp, ""],
+      ["meta", "system", "system_name", worksheet.system_name, ""],
+      ["system", "system", "system_action", worksheet.system_action, ""],
+      ["system", "system", "worst_case_error", worksheet.worst_case_error, ""],
+      ["system", "assumptions", "assumptions", worksheet.assumptions, ""],
+    ];
+
+    worksheet.harm_roles.forEach((role) => {
+      rows.push(["harm_role", "harm", role.role, role.description || "", ""]);
+    });
+
+    worksheet.burden_estimates.forEach((item) => {
+      rows.push([
+        "burden",
+        "estimate",
+        `${item.role} | ${item.type}`,
+        `${item.estimate.min ?? ""}|${item.estimate.likely ?? ""}|${item.estimate.max ?? ""} ${item.estimate.unit || ""}`,
+        item.assumptions || "",
+      ]);
+    });
+
+    worksheet.burden_totals.forEach((item) => {
+      rows.push([
+        "burden",
+        "total",
+        item.role,
+        `time:${item.time_hours ?? ""}h money:${item.money_usd ?? ""} delay:${item.delay_days ?? ""} cognitive:${item.cognitive_load ?? ""} humiliation:${item.humiliation ?? ""} risk:${item.risk_exposure ?? ""}`,
+        item.risk_rationale || "",
+      ]);
+    });
+
+    worksheet.absorbers.forEach((item) => {
+      rows.push([
+        "absorber",
+        "allocation",
+        `${item.role} | ${item.type}`,
+        item.absorber,
+        item.notes || "",
+      ]);
+    });
+
+    worksheet.burden_ceiling.forEach((item) => {
+      rows.push([
+        "ceiling",
+        "threshold",
+        `${item.role} | ${item.type}`,
+        `${item.threshold} ${item.unit || ""}`,
+        item.condition || "",
+      ]);
+    });
+
+    worksheet.enforcement_triggers.forEach((item) => {
+      rows.push([
+        "trigger",
+        "enforcement",
+        `${item.role} | ${item.threshold}`,
+        `${item.action} | ${item.owner} | ${item.timeframe}`,
+        "",
+      ]);
+    });
+
+    rows.push([
+      "repair",
+      "pathway",
+      "entry_points",
+      worksheet.repair_pathway.entry_points,
+      "",
+    ]);
+    rows.push([
+      "repair",
+      "pathway",
+      "required_documents",
+      worksheet.repair_pathway.required_documents,
+      "",
+    ]);
+    rows.push([
+      "repair",
+      "pathway",
+      "promised_turnaround",
+      worksheet.repair_pathway.promised_turnaround,
+      "",
+    ]);
+    rows.push([
+      "repair",
+      "pathway",
+      "interim_protections",
+      worksheet.repair_pathway.interim_protections,
+      "",
+    ]);
+    rows.push(["owner", "owner", "owner", worksheet.owner, ""]);
+    rows.push([
+      "owner",
+      "owner",
+      "review_cadence",
+      worksheet.review_cadence,
+      "",
+    ]);
+
+    worksheet.revision_history.forEach((item) => {
+      rows.push([
+        "revision",
+        "history",
+        item.version || "",
+        item.summary || "",
+        item.date || "",
+      ]);
+    });
+
+    return rows
+      .map((row) =>
+        row
+          .map((value) => `"${String(value ?? "").replace(/"/g, '""')}"`)
+          .join(","),
+      )
+      .join("\n");
+  };
+
+  const printPdf = (worksheet: Worksheet) => {
+    const lines = [
+      "Burden budget worksheet",
+      `System: ${worksheet.system_name}`,
+      `Action: ${worksheet.system_action}`,
+      `Worst-case error: ${worksheet.worst_case_error}`,
+      "",
+      "Harmed roles:",
+      ...worksheet.harm_roles.map(
+        (role) => `- ${role.role}${role.description ? ` — ${role.description}` : ""}`,
+      ),
+      "",
+      "Burden estimates:",
+      ...worksheet.burden_estimates.map(
+        (item) =>
+          `- ${item.role} | ${item.type} | ${item.estimate.min ?? ""}/${item.estimate.likely ?? ""}/${item.estimate.max ?? ""} ${item.estimate.unit || ""}`,
+      ),
+      "",
+      "Burden ceiling:",
+      ...worksheet.burden_ceiling.map(
+        (item) => `- ${item.role} | ${item.type} | ${item.threshold} ${item.unit || ""}`,
+      ),
+      "",
+      "Enforcement trigger:",
+      ...worksheet.enforcement_triggers.map(
+        (item) => `- ${item.threshold} | ${item.action} | ${item.owner}`,
+      ),
+      "",
+      "Repair pathway:",
+      `Entry points: ${worksheet.repair_pathway.entry_points}`,
+      `Required documents: ${worksheet.repair_pathway.required_documents}`,
+      `Promised turnaround: ${worksheet.repair_pathway.promised_turnaround}`,
+      `Interim protections: ${worksheet.repair_pathway.interim_protections}`,
+      "",
+      `Owner: ${worksheet.owner}`,
+      `Review cadence: ${worksheet.review_cadence}`,
+    ];
+
+    const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Burden budget worksheet</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 32px; font-size: 12px; }
+  h1 { font-size: 18px; margin-bottom: 12px; }
+  pre { white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<h1>Burden budget worksheet</h1>
+<pre>${lines.join("\n")}</pre>
+</body>
+</html>`;
+
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return;
+    printWindow.document.write(html);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+  };
+
+  const updateStatus = (message: string) => {
+    if (!exportStatus) return;
+    exportStatus.textContent = message;
+  };
+
+  const handleExport = (format: string) => {
+    const worksheet = buildWorksheet();
+    if (!worksheet) return;
+    const baseName = `burden-budget-worksheet-${worksheet.worksheet_id}`;
+
+    if (format === "md") {
+      downloadFile(toMarkdown(worksheet), `${baseName}.md`, "text/markdown");
+      updateStatus("Markdown export ready.");
+      return;
+    }
+
+    if (format === "csv") {
+      downloadFile(toCsv(worksheet), `${baseName}.csv`, "text/csv");
+      updateStatus("CSV export ready.");
+      return;
+    }
+
+    if (format === "json") {
+      downloadFile(
+        JSON.stringify(worksheet, null, 2),
+        `${baseName}.json`,
+        "application/json",
+      );
+      updateStatus("JSON export ready.");
+      return;
+    }
+
+    if (format === "pdf") {
+      printPdf(worksheet);
+      updateStatus("PDF export opened in print dialog.");
+    }
+  };
+
+  const compareWorksheets = () => {
+    if (!compareInput || !compareList || !compareResults) return;
+    const worksheet = buildWorksheet();
+    if (!worksheet) return;
+    let previous: Partial<Worksheet>;
+    try {
+      previous = JSON.parse(compareInput.value || "{}") as Partial<Worksheet>;
+    } catch {
+      compareResults.hidden = false;
+      compareList.innerHTML = "<li>Invalid JSON provided.</li>";
+      return;
+    }
+
+    type ComparableField =
+      | "system_name"
+      | "system_action"
+      | "worst_case_error"
+      | "owner"
+      | "review_cadence"
+      | "assumptions";
+    const fields: ComparableField[] = [
+      "system_name",
+      "system_action",
+      "worst_case_error",
+      "owner",
+      "review_cadence",
+      "assumptions",
+    ];
+    const changes = fields
+      .filter((field) => worksheet[field] !== previous[field])
+      .map((field) => `${field} changed`);
+
+    if (
+      worksheet.harm_roles.length !== (previous.harm_roles?.length ?? 0) ||
+      worksheet.burden_estimates.length !==
+        (previous.burden_estimates?.length ?? 0)
+    ) {
+      changes.push("role or burden rows changed");
+    }
+
+    if (
+      worksheet.burden_ceiling.length !== (previous.burden_ceiling?.length ?? 0)
+    ) {
+      changes.push("burden ceiling rows changed");
+    }
+
+    if (
+      worksheet.enforcement_triggers.length !==
+      (previous.enforcement_triggers?.length ?? 0)
+    ) {
+      changes.push("enforcement trigger rows changed");
+    }
+
+    compareResults.hidden = false;
+    compareList.innerHTML = changes.length
+      ? changes.map((change) => `<li>${change}</li>`).join("")
+      : "<li>No differences detected in compared fields.</li>";
+  };
+
+  setupRepeater();
+
+  document.querySelectorAll<HTMLButtonElement>("[data-export]")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const format = button.dataset.export || "";
+        handleExport(format);
+      });
+    });
+
+  compareButton?.addEventListener("click", compareWorksheets);
+</script>
