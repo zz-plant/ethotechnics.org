@@ -6,6 +6,10 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
+import {
+  knowledgeChecks,
+  moduleResources,
+} from "../../content/page-data/syllabus";
 
 const libraryEntry = (await getEntry("library", "library"))!;
 const startHereEntry = (await getEntry("startHere", "start-here"))!;
@@ -24,71 +28,18 @@ const modules = libraryContent.syllabus.modules.map((module) => ({
     .replace(/^-|-$/g, ""),
 }));
 
-const knowledgeChecks = [
-  {
-    moduleId: "orientation",
-    question:
-      "What keeps syllabus links trustworthy when you share them in specs or briefings?",
-    options: [
-      "Copying screenshots of the glossary so teams do not need the site.",
-      "Linking the stable permalinks for primers, glossary anchors, and mechanism filters.",
-      "Asking every team to draft their own definitions in a separate doc.",
-    ],
-    correct: 1,
-    explanation:
-      "Use the existing permalinks for the primer, glossary anchors, and mechanism filters so teams land on the same references.",
-  },
-  {
-    moduleId: "field-ready-research",
-    question:
-      "How should research outputs connect back to the mechanisms during this module?",
-    options: [
-      "Skip links entirely and rely on word-of-mouth summaries.",
-      "Tag findings with glossary anchors and mechanism cues so teams can reuse them.",
-      "Wait until the end of the project to decide which terms to use.",
-    ],
-    correct: 1,
-    explanation:
-      "Tagging field findings with glossary anchors and mechanism cues keeps the handoff fast and traceable.",
-  },
-  {
-    moduleId: "governance-and-maintenance",
-    question:
-      "Before marking this module complete, what should the team confirm?",
-    options: [
-      "That maintenance windows, appeal paths, and escalation owners are visible and linked.",
-      "That only the design team knows how to find the decision log.",
-      "That governance documents stay private to avoid scrutiny.",
-    ],
-    correct: 0,
-    explanation:
-      "Completion means governance links are visible: the maintenance window, appeal paths, and escalation owners are documented.",
-  },
-];
-
-const moduleResources = {
-  orientation: {
-    diagnostics: ["burden-modeler"],
-    libraryLink: {
-      href: `${libraryContent.permalink}#primer`,
-      label: "Mechanisms primer",
+const moduleResourcesWithLinks = Object.fromEntries(
+  Object.entries(moduleResources).map(([key, resource]) => [
+    key,
+    {
+      ...resource,
+      libraryLink: {
+        ...resource.libraryLink,
+        href: `${libraryContent.permalink}${resource.libraryLink.href}`,
+      },
     },
-  },
-  "field-ready-research": {
-    diagnostics: ["llm-capacity-benchmark"],
-    libraryLink: {
-      href: `${libraryContent.permalink}#glossary`,
-      label: "Glossary anchors",
-    },
-  },
-  "governance-and-maintenance": {
-    diagnostics: ["maintenance-simulator"],
-    libraryLink: {
-      href: `${libraryContent.permalink}#mechanisms`,
-      label: "Mechanism language",
-    },
-  },
-};
+  ]),
+);
 
 const diagnosticLinks = Object.fromEntries(
   diagnosticsContent.tools.map((tool) => [
@@ -206,7 +157,9 @@ const { cspNonce } = Astro.locals;
             (item) => item.moduleId === module.id,
           );
           const resources =
-            moduleResources[module.id as keyof typeof moduleResources];
+            moduleResourcesWithLinks[
+              module.id as keyof typeof moduleResourcesWithLinks
+            ];
           const diagnosticTitles = resources?.diagnostics.map(
             (slug) => diagnosticLinks[slug],
           );

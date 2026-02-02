@@ -1,76 +1,12 @@
-export type PatternBundleEntry = {
-  slug: string;
-  title: string;
-  summary: string;
-  filters: string[];
-  glossaryRefs: string[];
-  cues: string[];
-  diagnostics: string[];
-  steps: string[];
-  artifacts: { name: string; purpose: string }[];
-  example: { title: string; description: string };
-};
-
-const BUNDLE_STORAGE_KEY = "pattern-bundle-selection";
-const FILTER_STORAGE_KEY = "pattern-filter-state";
-
-export const composePatternBundle = (entries: PatternBundleEntry[]) => {
-  const lines = [
-    "# Mechanism bundle",
-    `Generated from ethotechnics.org/mechanisms on ${new Date().toISOString().slice(0, 10)}`,
-    "",
-  ];
-
-  entries.forEach((entry) => {
-    lines.push(`## ${entry.title}`, entry.summary, "");
-
-    if (entry.cues.length) {
-      lines.push("### Cues", ...entry.cues.map((cue) => `- ${cue}`), "");
-    }
-
-    if (entry.steps.length) {
-      lines.push(
-        "### Steps",
-        ...entry.steps.map((step, index) => `${index + 1}. ${step}`),
-        "",
-      );
-    }
-
-    if (entry.artifacts.length) {
-      lines.push("### Artifacts");
-      entry.artifacts.forEach((artifact) => {
-        lines.push(`- **${artifact.name}** — ${artifact.purpose}`);
-      });
-      lines.push("");
-    }
-
-    lines.push(
-      "### Example",
-      `- ${entry.example.title}`,
-      "",
-      entry.example.description,
-      "",
-    );
-
-    if (entry.glossaryRefs?.length) {
-      lines.push(
-        "### Glossary anchors",
-        ...entry.glossaryRefs.map((ref) => `- ${ref}`),
-        "",
-      );
-    }
-
-    if (entry.diagnostics.length) {
-      lines.push(
-        "### Diagnostics",
-        ...entry.diagnostics.map((diagnostic) => `- ${diagnostic}`),
-        "",
-      );
-    }
-  });
-
-  return lines.join("\n");
-};
+import { composePatternBundle } from "./pattern-filter/bundle";
+import { createDiagnosticCopyText } from "./pattern-filter/diagnostics";
+import {
+  loadFilterState,
+  loadSelection,
+  saveFilterState,
+  saveSelection,
+} from "./pattern-filter/storage";
+import type { PatternBundleEntry } from "./pattern-filter/types";
 
 const initializePatternFilter = (root: HTMLElement) => {
   const filters = (root.getAttribute("data-filters") ?? "")
@@ -145,25 +81,6 @@ const initializePatternFilter = (root: HTMLElement) => {
     }
   });
 
-  const createDiagnosticCopyText = (card: HTMLElement) => {
-    const links = Array.from(
-      card.querySelectorAll<HTMLAnchorElement>("[data-diagnostic-link]"),
-    );
-
-    return links
-      .map((link) => {
-        const label = link.textContent?.trim() ?? "";
-        const href = link.getAttribute("href") ?? "";
-        if (!href) {
-          return label;
-        }
-        const absolute = new URL(href, window.location.origin).toString();
-        return label ? `${label} — ${absolute}` : absolute;
-      })
-      .filter(Boolean)
-      .join("\n");
-  };
-
   let selectedFilter: string | null = null;
   let query = "";
   const selection = new Set<string>();
@@ -177,35 +94,6 @@ const initializePatternFilter = (root: HTMLElement) => {
     selectionInputs.forEach((input) => {
       input.checked = selection.has(input.value);
     });
-  };
-
-  const loadSelection = () => {
-    const saved = localStorage.getItem(BUNDLE_STORAGE_KEY);
-
-    if (!saved) {
-      return [];
-    }
-
-    try {
-      const parsed = JSON.parse(saved) as string[];
-
-      if (Array.isArray(parsed)) {
-        return parsed.filter(
-          (value): value is string => typeof value === "string",
-        );
-      }
-    } catch (error) {
-      console.error("Unable to parse saved bundle selection", error);
-    }
-
-    return [];
-  };
-
-  const saveSelection = () => {
-    localStorage.setItem(
-      BUNDLE_STORAGE_KEY,
-      JSON.stringify(Array.from(selection)),
-    );
   };
 
   const getBundleLink = () => {
@@ -419,40 +307,27 @@ const initializePatternFilter = (root: HTMLElement) => {
   };
 
   const saveFilters = () => {
-    localStorage.setItem(
-      FILTER_STORAGE_KEY,
-      JSON.stringify({ filter: selectedFilter, query }),
-    );
+    saveFilterState({ filter: selectedFilter, query });
     applySavedStatus("Saved current filters to this device.");
   };
 
   const restoreFilters = () => {
-    const saved = localStorage.getItem(FILTER_STORAGE_KEY);
+    const saved = loadFilterState(filters);
 
     if (!saved) {
       applySavedStatus("No saved filters found yet.");
       return;
     }
 
-    try {
-      const parsed = JSON.parse(saved) as {
-        filter?: string | null;
-        query?: string;
-      };
-      selectedFilter =
-        parsed.filter && filters.includes(parsed.filter) ? parsed.filter : null;
-      query = parsed.query ?? "";
-      if (searchInput) {
-        searchInput.value = query;
-      }
-      updateUrlState();
-      updateFilterButtons();
-      scheduleFilterApplication();
-      applySavedStatus("Restored your saved filters.");
-    } catch (error) {
-      console.error("Unable to parse saved filters", error);
-      applySavedStatus("Saved filters could not be loaded.");
+    selectedFilter = saved.filter;
+    query = saved.query;
+    if (searchInput) {
+      searchInput.value = query;
     }
+    updateUrlState();
+    updateFilterButtons();
+    scheduleFilterApplication();
+    applySavedStatus("Restored your saved filters.");
   };
 
   const clearFilters = () => {
@@ -592,7 +467,7 @@ const initializePatternFilter = (root: HTMLElement) => {
           selection.delete(target.value);
         }
 
-        saveSelection();
+        saveSelection(selection);
         updateBundleControls();
       });
     });
