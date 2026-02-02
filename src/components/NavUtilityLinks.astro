@@ -97,6 +97,7 @@ const isCurrentLink = (href: string) => {
     color: var(--text);
     font-weight: 700;
     text-decoration: none;
+    white-space: nowrap;
     box-shadow: none;
     touch-action: manipulation;
     transition:
@@ -161,6 +162,19 @@ const isCurrentLink = (href: string) => {
     .nav__utility-link {
       min-height: 2.9rem;
       padding-inline: 0.85rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .nav__utility-link {
+      padding: 0.45rem 0.7rem;
+      min-height: 36px;
+      font-size: 0.9rem;
+    }
+
+    .nav__icon {
+      width: 0.95rem;
+      height: 0.95rem;
     }
   }
 </style>
