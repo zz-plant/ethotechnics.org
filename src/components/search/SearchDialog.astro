@@ -13,6 +13,7 @@ const { dialogTitleId, inputId, helpTextId } = Astro.props as Props;
 <dialog
   class="search-dialog"
   aria-labelledby={dialogTitleId}
+  aria-modal="true"
   data-search-dialog
 >
   <div class="search-dialog__header">
@@ -60,7 +61,12 @@ const { dialogTitleId, inputId, helpTextId } = Astro.props as Props;
       <span class="search-recent__label">Recent:</span>
       <div class="search-recent__list" data-search-recent-list></div>
     </div>
-    <div class="search-results" data-search-results>
+    <div
+      class="search-results"
+      aria-live="polite"
+      aria-atomic="true"
+      data-search-results
+    >
       <p class="search-empty">Start typing to search...</p>
     </div>
   </div>
