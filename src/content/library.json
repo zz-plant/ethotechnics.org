@@ -427,6 +427,246 @@
             "title": "Tracking veto response time during an incident",
             "description": "Operations teams add veto latency tracking to their Datadog dashboards, review weekly deltas, and tie missed targets to repair log updates and training."
           }
+        },
+        {
+          "slug": "contestation-apis",
+          "title": "MEC-08 Contestation APIs",
+          "summary": "Expose programmatic interfaces that let affected people challenge decisions and trigger binding state changes.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["contestability", "permission-surface", "escalation"],
+          "cues": [
+            "Publish a stable API contract that documents inputs, owners, and response timelines.",
+            "Return receipts with contest IDs, status, and escalation paths on submission.",
+            "Require binding authority to update system state when contests are upheld."
+          ],
+          "diagnostics": ["burden-modeler", "maintenance-simulator"],
+          "steps": [
+            "Define an authenticated contestation endpoint with required evidence fields.",
+            "Emit status updates via webhooks or receipts tied to the decision record.",
+            "Link contest outcomes to state-change logs and remedy tracking."
+          ],
+          "policyRequirement": "Policy requirement (MEC-08 Contestation APIs)\n- Publish a contestation API with binding authority and response timelines.\n- Ensure contest outcomes can trigger state changes without manual re-entry.\nReference: https://ethotechnics.org/mechanisms/patterns/contestation-apis",
+          "productRequirement": "Product requirement (MEC-08)\n- Each contest submission returns a receipt with owner, SLA clock, and escalation path.\n- Contest outcomes update the decision state and notify the impacted party.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-08)\n[ ] API contract and auth policy are documented and versioned.\n[ ] Receipts include timestamps, owners, and escalation metadata.\n[ ] State-change logs link contest outcomes to remediation steps.",
+          "postmortemTrigger": "Postmortem trigger (MEC-08)\nTrigger review when contest outcomes fail to update system state within the SLA.",
+          "artifacts": [
+            {
+              "name": "Contestation API spec",
+              "purpose": "Defines endpoints, required fields, and receipt payloads."
+            },
+            {
+              "name": "Receipt + webhook schema",
+              "purpose": "Standardizes status updates and escalation metadata for contested decisions."
+            },
+            {
+              "name": "State-change log",
+              "purpose": "Links contest outcomes to decision reversals and remedy actions."
+            }
+          ],
+          "example": {
+            "title": "Appeal API for eligibility reversals",
+            "description": "A benefits platform ships an appeal API that accepts structured evidence, returns a receipt with a 72-hour SLA, and automatically updates eligibility state when reviewers reverse the decision."
+          },
+          "antiPatterns": [
+            {
+              "title": "Contest intake without state change",
+              "failure": "Contests are accepted but never mutate the underlying decision state.",
+              "counterfactual": "Contestation outcomes are wired directly to state-change workflows.",
+              "warning": "Manual overrides are acceptable only when logs prove timely updates."
+            }
+          ]
+        },
+        {
+          "slug": "burden-dashboards",
+          "title": "MEC-09 Burden dashboards",
+          "summary": "Make user burden visible with dashboards that track time, steps, and escalation effort across cohorts.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["burden-index", "user-burden-ratio", "time-to-halt"],
+          "cues": [
+            "Publish burden metrics alongside outcome and SLA dashboards.",
+            "Segment burden by cohort, channel, and escalation tier.",
+            "Flag burden spikes as governance incidents with owners."
+          ],
+          "diagnostics": ["burden-modeler"],
+          "steps": [
+            "Define burden signals (time, steps, waiting, handoffs) and thresholds.",
+            "Build a dashboard view with cohort breakdowns and trend lines.",
+            "Review burden deltas during governance or product reviews."
+          ],
+          "policyRequirement": "Policy requirement (MEC-09 Burden dashboards)\n- Publish burden metrics and thresholds for high-impact systems.\n- Assign owners to remediate burden spikes within a defined window.\nReference: https://ethotechnics.org/mechanisms/patterns/burden-dashboards",
+          "productRequirement": "Product requirement (MEC-09)\n- Dashboards report median and tail burden metrics by cohort.\n- Burden alerts trigger a remediation task with accountable owners.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-09)\n[ ] Burden signals are defined and logged consistently.\n[ ] Dashboards include cohort breakdowns and escalation visibility.\n[ ] Remediation actions are tracked against burden alerts.",
+          "postmortemTrigger": "Postmortem trigger (MEC-09)\nTrigger review when burden thresholds are exceeded without remediation.",
+          "artifacts": [
+            {
+              "name": "Burden metric spec",
+              "purpose": "Defines calculation inputs and thresholds for burden tracking."
+            },
+            {
+              "name": "Dashboard snapshot",
+              "purpose": "Shows burden trends by cohort and escalation tier."
+            },
+            {
+              "name": "Burden remediation log",
+              "purpose": "Tracks actions taken to reduce burden spikes."
+            }
+          ],
+          "example": {
+            "title": "Publishing a monthly burden readout",
+            "description": "A city services portal ships a burden dashboard that highlights time spent per appeal, escalations required, and targeted reductions quarter over quarter."
+          },
+          "antiPatterns": [
+            {
+              "title": "Burden tracking without action",
+              "failure": "Teams measure burden but do not assign remediation owners.",
+              "counterfactual": "Burden alerts route to named owners with fix timelines.",
+              "warning": "Small teams can use rotating ownership if coverage is clear."
+            }
+          ]
+        },
+        {
+          "slug": "reversibility-audit-logs",
+          "title": "MEC-10 Reversibility audit logs",
+          "summary": "Track which actions can be reversed, how long reversal takes, and why irreversibility exists.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["reversibility", "audit-trail", "irreversibility-index"],
+          "cues": [
+            "Document reversibility status and rationale for every high-impact action.",
+            "Log reversal attempts with time-to-restore metrics.",
+            "Surface irreversibility as a risk flag in governance reviews."
+          ],
+          "diagnostics": ["maintenance-simulator"],
+          "steps": [
+            "Tag actions with reversibility status and documented rationale.",
+            "Log every reversal attempt with timestamps and outcome.",
+            "Review irreversibility trends and update mitigation plans."
+          ],
+          "policyRequirement": "Policy requirement (MEC-10 Reversibility audit logs)\n- Maintain an audit log that tracks reversibility status and rationale.\n- Record reversal attempts with time-to-restore outcomes.\nReference: https://ethotechnics.org/mechanisms/patterns/reversibility-audit-logs",
+          "productRequirement": "Product requirement (MEC-10)\n- Decision records display reversibility status and owner.\n- Reversal attempts emit receipts with timestamps and outcomes.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-10)\n[ ] Reversibility status is captured for high-impact actions.\n[ ] Reversal attempts are logged with time-to-restore metrics.\n[ ] Irreversibility rationale is documented and reviewed.",
+          "postmortemTrigger": "Postmortem trigger (MEC-10)\nTrigger review when reversibility logs are missing or reversal attempts exceed targets.",
+          "artifacts": [
+            {
+              "name": "Reversibility status registry",
+              "purpose": "Lists actions with reversibility status, owners, and rationales."
+            },
+            {
+              "name": "Reversal attempt log",
+              "purpose": "Tracks reversal attempts, outcomes, and time-to-restore metrics."
+            },
+            {
+              "name": "Irreversibility review memo",
+              "purpose": "Summarizes irreversibility rationale and mitigation commitments."
+            }
+          ],
+          "example": {
+            "title": "Logging reversal attempts in a claims system",
+            "description": "A healthcare claims team logs every reversal attempt, including time-to-restore and irreversibility rationale, and reviews the audit log quarterly."
+          },
+          "antiPatterns": [
+            {
+              "title": "Implicit irreversibility",
+              "failure": "Actions are treated as irreversible without documenting why.",
+              "counterfactual": "Reversibility status and rationale are explicit and reviewed.",
+              "warning": "Short-term irreversibility is acceptable if mitigations are documented."
+            }
+          ]
+        },
+        {
+          "slug": "escalation-slas",
+          "title": "MEC-11 Escalation SLAs",
+          "summary": "Guarantee response times for human escalation when automated decisions are contested.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["escalation", "contestability", "time-to-halt"],
+          "cues": [
+            "Publish escalation clocks with named owners and coverage windows.",
+            "Tie escalation SLAs to staffing plans and on-call rosters.",
+            "Trigger safe-mode or reversal when escalation SLAs are breached."
+          ],
+          "diagnostics": ["maintenance-simulator"],
+          "steps": [
+            "Define escalation tiers with SLA targets and authority scopes.",
+            "Instrument SLA tracking with receipts and breach alerts.",
+            "Review breach trends and adjust staffing or automation guardrails."
+          ],
+          "policyRequirement": "Policy requirement (MEC-11 Escalation SLAs)\n- Publish escalation response time guarantees and owners.\n- Define breach actions that trigger safe-mode or reversal.\nReference: https://ethotechnics.org/mechanisms/patterns/escalation-slas",
+          "productRequirement": "Product requirement (MEC-11)\n- Escalation receipts include SLA targets and responsible owners.\n- SLA breaches trigger automatic fallback or halt actions.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-11)\n[ ] Escalation SLAs and owners are published.\n[ ] Breach alerts and fallback actions are logged.\n[ ] Staffing plans map to escalation coverage requirements.",
+          "postmortemTrigger": "Postmortem trigger (MEC-11)\nTrigger review when escalation SLA breaches exceed thresholds.",
+          "artifacts": [
+            {
+              "name": "Escalation SLA matrix",
+              "purpose": "Lists tiers, response targets, and authority scopes."
+            },
+            {
+              "name": "Coverage roster",
+              "purpose": "Shows staffing coverage aligned to SLA commitments."
+            },
+            {
+              "name": "Breach response log",
+              "purpose": "Tracks SLA breaches and fallback actions."
+            }
+          ],
+          "example": {
+            "title": "24-hour escalation guarantee for disputes",
+            "description": "A financial platform publishes a 24-hour human escalation SLA for contested denials and routes breaches into automatic provisional reinstatement."
+          },
+          "antiPatterns": [
+            {
+              "title": "Escalation without coverage",
+              "failure": "Escalation timelines exist but no staffing covers nights or weekends.",
+              "counterfactual": "Coverage rosters align with published escalation SLAs.",
+              "warning": "Limited hours are acceptable if clearly disclosed and mitigated."
+            }
+          ]
+        },
+        {
+          "slug": "stoppability-testing",
+          "title": "MEC-12 Stoppability testing",
+          "summary": "Verify pre-deployment that systems can be halted by authorized stakeholders under defined conditions.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["stoppability", "time-to-halt", "design-authority"],
+          "cues": [
+            "Run stoppability drills before launch and after major changes.",
+            "Document who can halt, how, and the expected time-to-halt.",
+            "Log stoppability test outcomes and remediation actions."
+          ],
+          "diagnostics": ["maintenance-simulator"],
+          "steps": [
+            "Define stoppability test scenarios with triggers and owners.",
+            "Execute drills that measure time-to-halt and safe restoration.",
+            "Publish test results and close gaps before release."
+          ],
+          "policyRequirement": "Policy requirement (MEC-12 Stoppability testing)\n- Require stoppability drills before launch and after major changes.\n- Publish time-to-halt targets and authorized halt owners.\nReference: https://ethotechnics.org/mechanisms/patterns/stoppability-testing",
+          "productRequirement": "Product requirement (MEC-12)\n- Stoppability tests log time-to-halt and restoration outcomes.\n- Launch gates verify test completion and remediation.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-12)\n[ ] Drill logs include time-to-halt metrics and outcomes.\n[ ] Authorized halt owners are documented.\n[ ] Remediation actions are tracked to closure.",
+          "postmortemTrigger": "Postmortem trigger (MEC-12)\nTrigger review when stoppability tests are skipped or time-to-halt targets are missed.",
+          "artifacts": [
+            {
+              "name": "Stoppability test plan",
+              "purpose": "Defines scenarios, triggers, and expected time-to-halt targets."
+            },
+            {
+              "name": "Drill log",
+              "purpose": "Records stoppability test outcomes and restoration steps."
+            },
+            {
+              "name": "Launch gate checklist",
+              "purpose": "Confirms stoppability tests are complete before deployment."
+            }
+          ],
+          "example": {
+            "title": "Pre-launch halt drill for automated approvals",
+            "description": "A public benefits team runs a stoppability drill before release, measuring time-to-halt and verifying restoration steps before approving launch."
+          },
+          "antiPatterns": [
+            {
+              "title": "Stoppability assumed, not tested",
+              "failure": "Teams rely on documentation without running drills.",
+              "counterfactual": "Stoppability drills run on a calendar and log outcomes.",
+              "warning": "Simulated drills are acceptable if production tests are risky."
+            }
+          ]
         }
       ]
     },
