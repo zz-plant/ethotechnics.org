@@ -188,6 +188,8 @@ const structuredEntries = categories.flatMap((category) =>
 );
 
 const homeUrl = Astro.site ? new URL("/", Astro.site).toString() : "/";
+const glossaryPublished = publication.published ?? null;
+const glossaryUpdated = publication.updated ?? publication.published ?? null;
 const glossaryKeywords = Array.from(
   new Set([
     "Ethotechnics glossary",
@@ -203,6 +205,12 @@ const glossaryKeywords = Array.from(
   ]),
 );
 const glossaryKeywordsContent = glossaryKeywords.join(", ");
+const glossaryAbout = Array.from(
+  new Set(
+    categories.map((category) => normalizeGlossaryHeading(category.heading)),
+  ),
+);
+const glossarySetId = `${pageUrl}#defined-term-set`;
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -213,6 +221,9 @@ const structuredData = {
       description: pageDescription,
       keywords: glossaryKeywords,
       url: pageUrl,
+      inLanguage: "en",
+      datePublished: glossaryPublished,
+      dateModified: glossaryUpdated,
       isPartOf: {
         "@id": websiteId,
       },
@@ -220,16 +231,27 @@ const structuredData = {
         "@id": organizationId,
       },
       mainEntity: {
-        "@id": `${pageUrl}#defined-term-set`,
+        "@id": glossarySetId,
       },
     },
     {
       "@type": "DefinedTermSet",
-      "@id": `${pageUrl}#defined-term-set`,
+      "@id": glossarySetId,
       name: pageTitle,
       description: pageDescription,
       url: pageUrl,
+      inLanguage: "en",
+      datePublished: glossaryPublished,
+      dateModified: glossaryUpdated,
       keywords: glossaryKeywords,
+      about: glossaryAbout,
+      numberOfItems: totalEntries,
+      isPartOf: {
+        "@id": pageUrl,
+      },
+      publisher: {
+        "@id": organizationId,
+      },
       hasDefinedTerm: structuredEntries,
       potentialAction: {
         "@type": "SearchAction",
