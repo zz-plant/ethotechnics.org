@@ -1,6 +1,8 @@
 ---
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
@@ -45,11 +47,26 @@ const permalink = "/mechanisms/cite";
     title="Cite the Mechanisms as a scholarly object."
     description="Use the permalink and version number in your bibliography."
   >
-    <ul class="muted">
-      <li>Prefer the citation formats in the “Cite this page” block.</li>
-      <li>Include the version number to anchor stable content.</li>
-      <li>Use term-level citations for glossary entries when possible.</li>
-    </ul>
+    <CardGrid className="grid--two mechanisms__cite-grid">
+      <CardItem
+        title="Use the citation block"
+        description="Copy the preferred format and version for your bibliography."
+      >
+        <ul class="muted">
+          <li>Prefer the citation formats in the “Cite this page” block.</li>
+          <li>Include the version number to anchor stable content.</li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Reference definitions"
+        description="Anchor glossary terms when the mechanism uses specialized language."
+      >
+        <ul class="muted">
+          <li>Use term-level citations for glossary entries when possible.</li>
+          <li>Share permalinks in reading lists and briefs.</li>
+        </ul>
+      </CardItem>
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock

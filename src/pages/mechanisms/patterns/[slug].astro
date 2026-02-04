@@ -35,6 +35,10 @@ const validatorLinks = pattern.diagnostics
     diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug)
   )
   .filter((tool): tool is DiagnosticTool => Boolean(tool));
+const stepCount = pattern.steps.length;
+const assetCount = pattern.artifacts.length;
+const snippetCount = pattern.policyRequirement ? 4 : 0;
+const validatorCount = validatorLinks.length;
 const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
   slug,
   label: getGlossaryLabel(slug),
@@ -45,14 +49,13 @@ const pageDescription = pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const panelDescription = `Tagged for ${pattern.filters
   .map((filter) => filterLabels[filter] ?? filter)
-  .join(", ")} with validator handshakes. Includes ${pattern.steps.length} steps, ${
-  pattern.artifacts.length
-} reusable assets, and ${pattern.policyRequirement ? 4 : 0} snippet blocks.`;
+  .join(", ")} with validator handshakes. Includes ${stepCount} steps, ${assetCount} reusable assets, and ${snippetCount} snippet blocks.`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   ...(glossaryAnchors.length
     ? [{ href: "#glossary", label: "Glossary anchors" }]
     : []),
+  { href: "#overview", label: "Overview" },
   { href: "#steps", label: "Steps" },
   { href: "#assets", label: "Assets" },
   { href: "#reuse-snippets", label: "Reuse-ready snippets" },
@@ -84,6 +87,49 @@ const anchorLinks = [
     publication={publication}
     citationKey={`mechanism_${pattern.slug}`}
   />
+  <SectionBlock
+    id="overview"
+    eyebrow="Specification overview"
+    title="At-a-glance details for planning and handoffs."
+    description="Capture the scope, assets, and validator handshakes before diving into the steps."
+    variant="alt"
+  >
+    <div class="grid grid--two mechanisms__spec-grid">
+      <div class="panel mechanisms__spec-card">
+        <p class="eyebrow">Spec essentials</p>
+        <h3>What ships with this mechanism</h3>
+        <ul class="panel__list">
+          <li>{stepCount} steps with checklist-ready owners.</li>
+          <li>{assetCount} reusable assets for briefs and runbooks.</li>
+          <li>{snippetCount} reuse-ready snippet blocks.</li>
+          {
+            glossaryAnchors.length > 0 && (
+              <li>{glossaryAnchors.length} glossary anchors for shared terms.</li>
+            )
+          }
+        </ul>
+      </div>
+      <div class="panel mechanisms__spec-card">
+        <p class="eyebrow">Filters & validators</p>
+        <h3>Where this spec sits in the system</h3>
+        <p class="muted">
+          Tagged in {pattern.filters.length} filters with {validatorCount} linked
+          validators.
+        </p>
+        <ul class="pill-list pill-list--wrap mechanisms__spec-filters">
+          {
+            pattern.filters.map((filter) => (
+              <li>
+                <a class="pill-list__button" href={`/mechanisms#${filter}`}>
+                  {filterLabels[filter] ?? filter}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </SectionBlock>
 
   {
     glossaryAnchors.length > 0 && (
@@ -115,13 +161,13 @@ const anchorLinks = [
   >
     <div class="pattern-detail__step-summary">
       <p class="muted">
-        {pattern.steps.length} steps with checklist-ready owners, plus linked assets for
+        {stepCount} steps with checklist-ready owners, plus linked assets for
         handoffs.
       </p>
     </div>
     <div class="pattern-detail__checklist-progress" hidden>
       <p class="muted small">
-        <span id="checklist-count">0</span> of {pattern.steps.length} steps complete
+        <span id="checklist-count">0</span> of {stepCount} steps complete
       </p>
       <div class="progress-bar">
         <div class="progress-bar__fill" id="checklist-bar"></div>
