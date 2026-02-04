@@ -84,6 +84,7 @@ const pageUrl = Astro.site
 const glossaryUrl = Astro.site
   ? new URL(glossaryPermalink, Astro.site).toString()
   : glossaryPermalink;
+const glossarySetId = `${glossaryUrl}#defined-term-set`;
 const plainDescription = stripHtml(entry.bodyHtml);
 const buildMetaDescription = (value: string): string => {
   const sentenceMatch = value.match(/[^.!?]+[.!?]+/);
@@ -100,6 +101,8 @@ const pageDescription = buildMetaDescription(descriptionBase);
 const introDescription = `Glossary entry in ${categoryLabel}. Definitions, checks, and evidence for ${entry.title}.`;
 const definitionSummary = buildMetaDescription(plainDescription);
 const termUpdated = entry.termUpdated ?? publication.updated;
+const termPublished = publication.published ?? null;
+const termModified = termUpdated ?? publication.updated ?? publication.published ?? null;
 const termVersion = entry.termVersion ?? publication.version;
 const termChangelog = entry.termChangelog ?? "/api/changelog.json";
 const termUpdatedDate = termUpdated ? termUpdated.split("T")[0] : "TBD";
@@ -170,6 +173,16 @@ const scale = entry.scale ?? "";
 const domainPills = domains.map(
   (domain) => glossaryDomainLabels[domain] ?? domain,
 );
+const aboutItems = Array.from(
+  new Set([
+    categoryLabel,
+    ...domainPills,
+    ...phases.map((phase) => glossaryPhaseLabels[phase] ?? phase),
+  ]),
+).map((item) => ({
+  "@type": "Thing",
+  name: item,
+}));
 const phaseList = phases
   .map((phase) => glossaryPhaseLabels[phase] ?? phase)
   .join(", ");
@@ -366,6 +379,9 @@ const structuredData = {
       description: pageDescription,
       keywords: keywordList,
       url: pageUrl,
+      inLanguage: "en",
+      datePublished: termPublished,
+      dateModified: termModified,
       isPartOf: {
         "@id": websiteId,
       },
@@ -382,9 +398,21 @@ const structuredData = {
       name: entry.title,
       description: plainDescription,
       keywords: keywordList,
+      identifier: entry.id,
       url: pageUrl,
+      inLanguage: "en",
+      datePublished: termPublished,
+      dateModified: termModified,
+      about: aboutItems,
+      mainEntityOfPage: {
+        "@id": pageUrl,
+      },
+      publisher: {
+        "@id": organizationId,
+      },
       inDefinedTermSet: {
         "@type": "DefinedTermSet",
+        "@id": glossarySetId,
         name: glossaryTitle,
         description: glossaryDescription,
         url: glossaryUrl,
