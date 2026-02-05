@@ -39,8 +39,22 @@ const buildOgSvg = (title: string, description: string) => {
 </svg>`;
 };
 
+const renderOgPng = async (title: string, description: string) => {
+  const { Resvg } = await import("@resvg/resvg-js");
+  const svg = buildOgSvg(title, description);
+  const renderer = new Resvg(svg, {
+    fitTo: {
+      mode: "width",
+      value: WIDTH,
+    },
+  });
+
+  return renderer.render().asPng();
+};
+
 export {
   buildOgSvg,
+  renderOgPng,
   DEFAULT_DESCRIPTION,
   DEFAULT_TITLE,
   HEIGHT,
