@@ -84,7 +84,7 @@ accessible web performance, content strategy, digital ethics, UX research, respo
 | `bun run format:check` | Check formatting with Prettier (CI-friendly).                                  |
 | `bun test`             | Run unit and component tests with Bun.                                         |
 | `bun run test:e2e`     | Build and run Playwright against the preview server.                           |
-| `bun run deploy`       | Deploy the Worker to Cloudflare using Wrangler.                                |
+| `bun run deploy`       | Build and deploy the Worker to Cloudflare using Wrangler.                      |
 
 ## Testing
 
@@ -142,10 +142,11 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 2. The adapter is configured to use Cloudflare's image service and to exclude static assets
    (`/_astro/*`, `/assets/*`) from the server function so they can be served directly via the assets
    binding.
-3. Build the Worker bundle: `bun run build`. The generated Worker entry is emitted to
-   `dist/_worker.js`.
+3. Build the Worker bundle with `bun run build` when you need to preview or inspect the output.
+   The generated Worker entry is emitted to `dist/_worker.js`.
 4. Deploy with Wrangler using the repo defaults: `bun run deploy`.
    - The deploy script runs Wrangler via `bunx`, so no global installation is required.
+   - The deploy script runs `bun run build` first so the upload always reflects the latest bundle.
    - The deploy command uses `--no-bundle` to skip Wrangler's bundling step since Astro already
      emits the Worker bundle, reducing deploy time.
    - The build copies `.assetsignore` from `public/` to `dist/` so Wrangler skips `_worker.js` and
