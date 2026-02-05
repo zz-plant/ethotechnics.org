@@ -17,5 +17,5 @@ const { label = "Search the library…", shortcut = "/" } = Astro.props;
 >
   <Icon name="lucide:search" class="search-icon" />
   <span class="search-label">{label}</span>
-  <kbd class="search-kbd">{shortcut}</kbd>
+  {shortcut && <kbd class="search-kbd">{shortcut}</kbd>}
 </button>

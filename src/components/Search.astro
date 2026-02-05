@@ -6,9 +6,14 @@ import SearchTrigger from "./search/SearchTrigger.astro";
 
 interface Props {
   scope?: "desktop" | "mobile";
+  label?: string;
+  shortcut?: string;
 }
 
-const { scope } = Astro.props as Props;
+const { scope, label, shortcut } = Astro.props as Props;
+const resolvedLabel =
+  label ?? (scope === "mobile" ? "Search" : "Search the library…");
+const resolvedShortcut = shortcut ?? (scope === "mobile" ? undefined : "/");
 const instanceId = randomUUID();
 const dialogTitleId = `search-dialog-title-${instanceId}`;
 const inputId = `search-input-${instanceId}`;
@@ -16,7 +21,7 @@ const helpTextId = `search-help-text-${instanceId}`;
 ---
 
 <div class="search-container" data-search-container data-search-scope={scope}>
-  <SearchTrigger />
+  <SearchTrigger label={resolvedLabel} shortcut={resolvedShortcut} />
   <SearchDialog
     dialogTitleId={dialogTitleId}
     inputId={inputId}
