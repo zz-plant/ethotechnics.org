@@ -68,9 +68,6 @@ const { cspNonce } = Astro.locals;
       <a class="button primary" href="#recommended">
         Start with the recommendation
       </a>
-      <a class="button ghost" href="#routes">
-        Browse all pathways
-      </a>
     </Fragment>
   </PageIntro>
   <SummaryCallout
@@ -92,10 +89,6 @@ const { cspNonce } = Astro.locals;
       { href: "#decision-guide", label: "Decision guide" },
     ]}
   />
-  <p class="muted small">
-    If you only do one thing today, follow the recommended first step and pull
-    the artifact list for your team.
-  </p>
   {
     recommendedCard && (
       <div class="callout callout--emphasis" id="recommended">
@@ -120,9 +113,6 @@ const { cspNonce } = Astro.locals;
               {recommendedAction.label}
             </a>
           )}
-          <a class="button ghost" href="#routes">
-            View all pathways
-          </a>
         </SectionActions>
       </div>
     )
@@ -139,9 +129,6 @@ const { cspNonce } = Astro.locals;
         <SectionActions className="callout__actions">
           <a class="button primary" href="#routes">
             View pathways
-          </a>
-          <a class="button ghost" href="#artifacts">
-            Jump to artifacts
           </a>
         </SectionActions>
       </div>
