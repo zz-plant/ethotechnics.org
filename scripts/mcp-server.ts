@@ -329,6 +329,34 @@ server.tool(
 );
 
 // Tool: Run project check
+server.tool(
+  "run_check",
+  "Run the full project check (bun run check)",
+  {},
+  async () => {
+    try {
+      const proc = Bun.spawn(["bun", "run", "check"], {
+        cwd: getProjectRoot(),
+        stdout: "pipe",
+        stderr: "pipe",
+      });
+
+      const [stdout, stderr] = await Promise.all([
+        new Response(proc.stdout).text(),
+        new Response(proc.stderr).text(),
+      ]);
+      const exitCode = await proc.exited;
+
+      return textResponse(
+        `Exit code: ${exitCode}\n\nSTDOUT:\n${stdout || "(none)"}\n\nSTDERR:\n${stderr || "(none)"}`,
+      );
+    } catch (error) {
+      return errorResponse(
+        `Error running check: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
 
 // Tool: List workflows
 server.tool(
@@ -641,6 +669,44 @@ This repo powers ethotechnics.org. We prioritize ethical technology and human-ce
 );
 
 // Resource: Documentation index
+server.resource(
+  "project://docs-index",
+  "project://docs-index",
+  async () => {
+    const docsDir = join(getProjectRoot(), "docs");
+    const glob = new Bun.Glob("**/*.md");
+    const entries: string[] = [];
+
+    try {
+      for await (const file of glob.scan({ cwd: docsDir })) {
+        const content = await Bun.file(join(docsDir, file)).text();
+        const titleMatch = content.match(/^#\s+(.+)$/m);
+        const title = titleMatch ? ` — ${titleMatch[1].trim()}` : "";
+        entries.push(`- ${file}${title}`);
+      }
+    } catch (error) {
+      return {
+        contents: [
+          {
+            uri: "project://docs-index",
+            text: `Error building docs index: ${error instanceof Error ? error.message : String(error)}`,
+            mimeType: "text/plain",
+          },
+        ],
+      };
+    }
+
+    return {
+      contents: [
+        {
+          uri: "project://docs-index",
+          text: `# Documentation Index\n\n${entries.sort().join("\n") || "No docs found."}`,
+          mimeType: "text/markdown",
+        },
+      ],
+    };
+  },
+);
 
 // ============================================================================
 // MCP PROMPTS
