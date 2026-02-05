@@ -104,7 +104,12 @@ export const siteFooter: SiteFooterContent = {
         },
         {
           label: "Ethotechnics on GitHub",
-          href: "https://github.com/zz-plant/ethotechnics.org",
+          href: "https://github.com/zz-plant/ethotechnics",
+          external: true,
+        },
+        {
+          label: "GitHub discussions",
+          href: "https://github.com/zz-plant/ethotechnics/discussions",
           external: true,
         },
       ],
