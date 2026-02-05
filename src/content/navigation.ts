@@ -22,9 +22,41 @@ export interface NavAction {
 
 export const navSections: NavSection[] = [
   {
-    heading: "Standards",
+    heading: "Start",
+    description: "Orient to the mission, learning path, and fastest way to act.",
+    links: [
+      {
+        href: "/start-here",
+        label: "Start here",
+        description: "Quick orientation to rights, standards, and tooling.",
+        primary: true,
+      },
+      {
+        href: "/fast-path",
+        label: "Fast-path adoption",
+        description: "One-sprint on-ramp for shipping safeguards quickly.",
+      },
+      {
+        href: "/syllabus",
+        label: "Syllabus",
+        description: "Structured learning path through standards and tools.",
+      },
+      {
+        href: "/library",
+        label: "Library",
+        description: "Themes, patterns, primers, and foundational explainers.",
+      },
+      {
+        href: "/research",
+        label: "Research agenda",
+        description: "Field-building agenda, publications, and studies.",
+      },
+    ],
+  },
+  {
+    heading: "Standards & rights",
     description:
-      "Published doctrine, immutable rights, and the canonical glossary anchors.",
+      "Published doctrine, immutable rights, and canonical glossary anchors.",
     links: [
       {
         href: "/standards",
@@ -68,9 +100,9 @@ export const navSections: NavSection[] = [
     ],
   },
   {
-    heading: "Adoption",
+    heading: "Implementation",
     description:
-      "Worked examples, evidence packs, and binding vectors that turn standards into enforceable practice.",
+      "Playbooks, clauses, and mechanisms that turn standards into delivery.",
     links: [
       {
         href: "/examples",
@@ -78,6 +110,11 @@ export const navSections: NavSection[] = [
         description:
           "End-to-end scenarios with receipts, clocks, and remedies.",
         primary: true,
+      },
+      {
+        href: "/mechanisms",
+        label: "Mechanisms",
+        description: "Governance, friction, and policy control specs.",
       },
       {
         href: "/bindings",
@@ -110,11 +147,6 @@ export const navSections: NavSection[] = [
         description: "Machine-readable agent governance profile for tooling.",
       },
       {
-        href: "/fast-path",
-        label: "Fast-path adoption",
-        description: "One-sprint adoption guide for quick safeguards.",
-      },
-      {
         href: "/diy-packs",
         label: "DIY implementation pack",
         description: "Templates, sample tickets, and minimal telemetry specs.",
@@ -127,9 +159,56 @@ export const navSections: NavSection[] = [
     ],
   },
   {
-    heading: "Library",
+    heading: "Diagnostics & validators",
+    description: "Run assessments, simulations, and audits with shareable outputs.",
+    links: [
+      {
+        href: "/diagnostics",
+        label: "Diagnostics",
+        description: "Choose a diagnostic and leave with a shareable readout.",
+        primary: true,
+      },
+      {
+        href: "/diagnostics/burden-modeler",
+        label: "Burden Modeler",
+        description: "Quantify toil, friction, and overload signals.",
+      },
+      {
+        href: "/diagnostics/maintenance-simulator",
+        label: "Maintenance Simulator",
+        description: "Stress-test coverage with tabletop scenarios.",
+      },
+      {
+        href: "/diagnostics/capacity-forecaster",
+        label: "Capacity Forecaster",
+        description: "Model long-term delivery saturation risks.",
+      },
+      {
+        href: "/validators",
+        label: "Validators",
+        description: "Run audits, simulations, and report cards.",
+      },
+      {
+        href: "/validators/burden-modeler",
+        label: "Burden Modeler (validator)",
+        description: "Model time tax and constructive denial risk.",
+      },
+      {
+        href: "/validators/risk-radar",
+        label: "Risk Radar",
+        description: "Surface exposure across high-burden touchpoints.",
+      },
+      {
+        href: "/validators/latency-audit",
+        label: "Latency Audit",
+        description: "Check if timeouts honor STD-01 bounded duration.",
+      },
+    ],
+  },
+  {
+    heading: "Library & explainers",
     description:
-      "Patterns, primers, and glossary anchors that keep diagnostics and delivery aligned.",
+      "Patterns, primers, and glossary anchors that keep delivery aligned.",
     links: [
       {
         href: "/library",
@@ -177,99 +256,9 @@ export const navSections: NavSection[] = [
     ],
   },
   {
-    heading: "Mechanisms",
+    heading: "Research & institute",
     description:
-      "Spec sheets that turn standards into governance, friction, and policy controls.",
-    links: [
-      {
-        href: "/mechanisms",
-        label: "Mechanisms",
-        description: "Reference mechanisms and their implementation sheets.",
-        primary: true,
-      },
-      {
-        href: "/mechanisms#governance",
-        label: "Governance",
-        description:
-          "Decision rights, escalation paths, and accountability ledgers.",
-      },
-      {
-        href: "/mechanisms#friction",
-        label: "Friction",
-        description:
-          "Consent prompts, exit ramps, and humane default safeguards.",
-      },
-      {
-        href: "/mechanisms#policy",
-        label: "Policy",
-        description: "Contracts, charters, and enforceable commitments.",
-      },
-    ],
-  },
-  {
-    heading: "Diagnostics",
-    description:
-      "Run decision-ready diagnostics with action-oriented outputs and examples.",
-    links: [
-      {
-        href: "/diagnostics",
-        label: "Diagnostics",
-        description: "Choose a diagnostic and leave with a shareable readout.",
-        primary: true,
-      },
-      {
-        href: "/diagnostics/burden-modeler",
-        label: "Burden Modeler",
-        description: "Quantify toil, friction, and overload signals.",
-      },
-      {
-        href: "/diagnostics/maintenance-simulator",
-        label: "Maintenance Simulator",
-        description: "Stress-test coverage with tabletop scenarios.",
-      },
-      {
-        href: "/diagnostics/capacity-forecaster",
-        label: "Capacity Forecaster",
-        description: "Model long-term delivery saturation risks.",
-      },
-    ],
-  },
-  {
-    heading: "Validators",
-    description: "Diagnostics that score systems against published standards.",
-    links: [
-      {
-        href: "/validators",
-        label: "Validators",
-        description: "Run audits, simulations, and report cards.",
-        primary: true,
-      },
-      {
-        href: "/validators/burden-modeler",
-        label: "Burden Modeler",
-        description: "Model time tax and constructive denial risk.",
-      },
-      {
-        href: "/validators/risk-radar",
-        label: "Risk Radar",
-        description: "Surface exposure across high-burden touchpoints.",
-      },
-      {
-        href: "/validators/latency-audit",
-        label: "Latency Audit",
-        description: "Check if timeouts honor STD-01 bounded duration.",
-      },
-      {
-        href: "/diagnostics",
-        label: "Diagnostics",
-        description: "Run simulations and maintenance diagnostics.",
-      },
-    ],
-  },
-  {
-    heading: "Research",
-    description:
-      "Orientation, agenda, and publications that ground the standards.",
+      "Orientation, agenda, and stewardship behind the standards.",
     links: [
       {
         href: "/research",
@@ -289,28 +278,15 @@ export const navSections: NavSection[] = [
         description: "Applied case studies and implementation learnings.",
       },
       {
-        href: "/syllabus",
-        label: "Syllabus",
-        description: "Structured learning path through standards and tools.",
-      },
-      {
         href: "/agent-toolkit",
         label: "Agent toolkit",
         description: "Operational playbooks and agent enablement tools.",
       },
-    ],
-  },
-  {
-    heading: "Institute",
-    description:
-      "Mission, team, and programs stewarded by the Institute of Ethotechnics.",
-    links: [
       {
         href: "/institute",
         label: "Institute",
         description:
           "Why the Institute exists and how standards are stewarded.",
-        primary: true,
       },
       {
         href: "/institute/team",
@@ -344,8 +320,8 @@ export const navActions: NavAction[] = [
     icon: "lucide:search",
   },
   {
-    href: "/validators",
-    label: "Run a validator",
+    href: "/diagnostics",
+    label: "Run a diagnostic",
     variant: "ghost",
   },
   {
