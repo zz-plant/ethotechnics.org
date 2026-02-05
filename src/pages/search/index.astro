@@ -60,10 +60,24 @@ const entries = [
   ...fieldNoteEntries,
 ];
 const uniqueEntries = new Map<string, SearchEntry>();
+const navCategoryPriority = [
+  ...navSections.map((section) => section.heading).filter((heading) => heading !== "Start"),
+  "Start",
+];
+const navCategoryRanks = new Map(
+  navCategoryPriority.map((category, index) => [category, index]),
+);
+const getCategoryRank = (category: string) =>
+  navCategoryRanks.get(category) ?? navCategoryRanks.size;
+const pickPreferredEntry = (current: SearchEntry, next: SearchEntry) =>
+  getCategoryRank(next.category) < getCategoryRank(current.category) ? next : current;
 entries.forEach((entry) => {
-  if (!uniqueEntries.has(entry.href)) {
+  const existing = uniqueEntries.get(entry.href);
+  if (!existing) {
     uniqueEntries.set(entry.href, entry);
+    return;
   }
+  uniqueEntries.set(entry.href, pickPreferredEntry(existing, entry));
 });
 const searchEntries = Array.from(uniqueEntries.values());
 const suggestions = searchEntries
