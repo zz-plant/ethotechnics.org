@@ -4,6 +4,7 @@ import { standardClauses, standardsContent } from "../content/standards";
 import { validatorsContent } from "../content/validators";
 
 import { glossaryEntryPermalink } from "./glossary";
+import { getMinimumEvidenceDefaults } from "./glossary-helpers";
 
 export const releaseInfo = {
   id: "2026.01",
@@ -162,11 +163,7 @@ export const getGlossaryEntriesForApi = () =>
         ...(entry.references?.map((reference) => reference.href) ?? []),
       ];
 
-      const minimumEvidence = entry.minimumEvidence ?? {
-        artifact: `Artifact documenting how ${entry.title} is expected, enforced, or governed.`,
-        behavior: `Observed behavior showing ${entry.title} in practice during real use or drills.`,
-        metric: `Metric tracked to monitor ${entry.title} performance over time.`,
-      };
+      const minimumEvidence = getMinimumEvidenceDefaults(entry);
 
       return {
         id: entry.id,

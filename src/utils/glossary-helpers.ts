@@ -15,6 +15,15 @@ export const getGlossaryAuthor = (publication: PublicationMetadata): string =>
   publication.authors.map((author) => author.name).join(", ") ||
   "Ethotechnics Institute";
 
+export const getMinimumEvidenceDefaults = (
+  entry: Pick<GlossaryEntry, "minimumEvidence" | "title">,
+) =>
+  entry.minimumEvidence ?? {
+    artifact: `Artifact documenting how ${entry.title} is expected, enforced, or governed.`,
+    behavior: `Observed behavior showing ${entry.title} in practice during real use or drills.`,
+    metric: `Metric tracked to monitor ${entry.title} performance over time.`,
+  };
+
 export const buildGlossaryEntrySearchText = (
   entry: GlossaryEntry,
   categoryLabel: string,
@@ -50,11 +59,7 @@ export const getGlossaryEntryDefaults = (
   const adjacentTerms = entry.adjacentTerms ?? entry.tags ?? [];
   const operationalTests = entry.operationalTests ?? [];
   const commonCounterfeits = entry.commonCounterfeits ?? [];
-  const minimumEvidence = entry.minimumEvidence ?? {
-    artifact: `Artifact documenting how ${entry.title} is expected, enforced, or governed.`,
-    behavior: `Observed behavior showing ${entry.title} in practice during real use or drills.`,
-    metric: `Metric tracked to monitor ${entry.title} performance over time.`,
-  };
+  const minimumEvidence = getMinimumEvidenceDefaults(entry);
   const minimumEvidenceWithDefaults = {
     artifact: minimumEvidence.artifact,
     behavior: minimumEvidence.behavior,
