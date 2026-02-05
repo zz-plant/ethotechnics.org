@@ -201,6 +201,12 @@ export const createSiteIndexResponse = (options: {
       validatorsCount: validators.length,
       publicationsCount: publications.length,
       release: releaseInfo,
+      repo: {
+        href: "https://github.com/zz-plant/ethotechnics",
+        issues: "https://github.com/zz-plant/ethotechnics/issues",
+        discussions: "https://github.com/zz-plant/ethotechnics/discussions",
+        releases: "https://github.com/zz-plant/ethotechnics/releases",
+      },
     },
     standards,
     validators,

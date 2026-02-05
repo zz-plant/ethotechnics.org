@@ -12,14 +12,25 @@
         "standardsCount",
         "validatorsCount",
         "publicationsCount",
-        "release"
+        "release",
+        "repo"
       ],
       "properties": {
         "generatedAt": { "type": "string" },
         "standardsCount": { "type": "number" },
         "validatorsCount": { "type": "number" },
         "publicationsCount": { "type": "number" },
-        "release": { "type": "object" }
+        "release": { "type": "object" },
+        "repo": {
+          "type": "object",
+          "required": ["href", "issues", "discussions", "releases"],
+          "properties": {
+            "href": { "type": "string" },
+            "issues": { "type": "string" },
+            "discussions": { "type": "string" },
+            "releases": { "type": "string" }
+          }
+        }
       }
     },
     "standards": {

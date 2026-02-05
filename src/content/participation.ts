@@ -170,18 +170,45 @@ export const participationContent: ParticipationContent = {
       "The public repo unlocks automation, shared data feeds, and contribution paths that keep the site in sync with the community.",
     items: [
       {
+        title: "Repository hub",
+        description:
+          "Start from the canonical repo to follow updates, open issues, and review the site source of truth.",
+        actions: [
+          {
+            label: "Browse the repository",
+            href: "https://github.com/zz-plant/ethotechnics",
+            ariaLabel: "Browse the Ethotechnics repository on GitHub",
+          },
+          {
+            label: "Track open issues",
+            href: "https://github.com/zz-plant/ethotechnics/issues",
+            ariaLabel: "View open issues on the Ethotechnics repository",
+          },
+          {
+            label: "Join GitHub discussions",
+            href: "https://github.com/zz-plant/ethotechnics/discussions",
+            ariaLabel: "View GitHub discussions for the Ethotechnics repository",
+          },
+          {
+            label: "Review releases",
+            href: "https://github.com/zz-plant/ethotechnics/releases",
+            ariaLabel: "View releases for the Ethotechnics repository",
+          },
+        ],
+      },
+      {
         title: "Automated docs-to-site checks",
         description:
           "Every pull request runs the full content and code checks so public edits ship with the same guardrails as internal updates.",
         actions: [
           {
             label: "View the CI workflow",
-            href: "https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml",
+            href: "https://github.com/zz-plant/ethotechnics/actions/workflows/site-checks.yml",
             ariaLabel: "View the site checks workflow on GitHub",
           },
           {
             label: "Check current CI status",
-            href: "https://github.com/zz-plant/ethotechnics.org/actions",
+            href: "https://github.com/zz-plant/ethotechnics/actions",
             ariaLabel: "View current GitHub Actions status",
           },
         ],
@@ -204,7 +231,7 @@ export const participationContent: ParticipationContent = {
         actions: [
           {
             label: "Open contribution templates",
-            href: "https://github.com/zz-plant/ethotechnics.org/issues/new/choose",
+            href: "https://github.com/zz-plant/ethotechnics/issues/new/choose",
             ariaLabel: "Open GitHub issue templates for the repository",
           },
         ],

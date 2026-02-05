@@ -1,9 +1,9 @@
 # ethotechnics.org
 
-[![Site checks](https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml/badge.svg)](https://github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml)
+[![Site checks](https://github.com/zz-plant/ethotechnics/actions/workflows/site-checks.yml/badge.svg)](https://github.com/zz-plant/ethotechnics/actions/workflows/site-checks.yml)
 [![CC BY-SA 4.0 license badge](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
-[![GitHub stars](https://img.shields.io/github/stars/zz-plant/ethotechnics.org?style=flat)](https://github.com/zz-plant/ethotechnics.org/stargazers)
-[![Last commit](https://img.shields.io/github/last-commit/zz-plant/ethotechnics.org?style=flat)](https://github.com/zz-plant/ethotechnics.org/commits/main)
+[![GitHub stars](https://img.shields.io/github/stars/zz-plant/ethotechnics?style=flat)](https://github.com/zz-plant/ethotechnics/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/zz-plant/ethotechnics?style=flat)](https://github.com/zz-plant/ethotechnics/commits/main)
 [![Website](https://img.shields.io/badge/website-ethotechnics.org-2f4858?style=flat)](https://ethotechnics.org)
 [![Field Notes RSS](https://img.shields.io/badge/rss-field%20notes-f4a261?style=flat)](https://ethotechnics.org/field-notes/rss.xml)
 
