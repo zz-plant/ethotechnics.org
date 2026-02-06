@@ -64,12 +64,21 @@ const buildPageModules = async (
   return modules;
 };
 
+const canReadFileSystem =
+  typeof process !== "undefined" && Boolean(process.versions?.node);
+
 const loadPageModules = async () => {
   if (typeof import.meta.glob === "function") {
-    const { pagesRoot } = await getPagesRoot();
     const modules = import.meta.glob("./**/*.astro", { eager: true });
     const pagePaths = Object.keys(modules);
 
+    if (!canReadFileSystem) {
+      return Object.fromEntries(
+        pagePaths.map((pagePath) => [pagePath, {} as PageModule]),
+      );
+    }
+
+    const { pagesRoot } = await getPagesRoot();
     return buildPageModules(pagePaths, pagesRoot);
   }
 
