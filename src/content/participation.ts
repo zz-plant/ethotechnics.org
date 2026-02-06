@@ -70,9 +70,9 @@ type ParticipationContent = PageCopy & {
 };
 
 export const participationContent: ParticipationContent = {
-  pageTitle: "Participate — Strengthen the Ethotechnics mechanisms catalog",
+  pageTitle: "Participate — Contribute AI Governance Case Studies and Peer Reviews",
   pageDescription:
-    "Share field reports, host peer reviews, and join monthly clinics to keep the Institute grounded in practitioner evidence.",
+    "Contribute field reports, peer reviews, and clinic questions to improve practical AI governance guidance grounded in real delivery and recourse pressures.",
   permalink: "/participate",
   hero: {
     eyebrow: "Participate",
