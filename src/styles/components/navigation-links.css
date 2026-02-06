@@ -4,7 +4,7 @@
     align-items: center;
     padding: 0.5rem 0.85rem;
     min-height: 44px;
-    border-radius: var(--radius-lg);
+    border-radius: 999px;
     border: 1px solid transparent;
     background: transparent;
     font-weight: 700;
@@ -87,6 +87,13 @@
     letter-spacing: 0.02em;
     text-transform: none;
     color: var(--accent);
+  }
+
+  .nav__brand:hover,
+  .nav__brand:focus-visible {
+    color: var(--accent-strong);
+    border-color: color-mix(in srgb, var(--border) 70%, transparent);
+    background: color-mix(in srgb, var(--panel) 92%, white 8%);
   }
 
   .nav__brand-logo {
@@ -256,6 +263,10 @@
 
     .nav__links--desktop {
       display: inline-flex;
+      padding: 0.25rem;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+      background: color-mix(in srgb, var(--panel) 92%, white 8%);
     }
 
     .nav__explore {
