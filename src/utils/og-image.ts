@@ -1,3 +1,5 @@
+import wasmUrl from "@resvg/resvg-wasm/index_bg.wasm?url";
+
 const DEFAULT_TITLE = "Ethotechnics Institute";
 const DEFAULT_DESCRIPTION =
   "Standards, mechanisms, and validators for accountable system governance.";
@@ -39,8 +41,25 @@ const buildOgSvg = (title: string, description: string) => {
 </svg>`;
 };
 
+let resvgInitPromise: Promise<void> | null = null;
+
+const initResvg = async () => {
+  if (!resvgInitPromise) {
+    resvgInitPromise = (async () => {
+      const [{ initWasm }, response] = await Promise.all([
+        import("@resvg/resvg-wasm"),
+        fetch(wasmUrl),
+      ]);
+      await initWasm(await response.arrayBuffer());
+    })();
+  }
+
+  await resvgInitPromise;
+};
+
 const renderOgPng = async (title: string, description: string) => {
-  const { Resvg } = await import("@resvg/resvg-js");
+  await initResvg();
+  const { Resvg } = await import("@resvg/resvg-wasm");
   const svg = buildOgSvg(title, description);
   const renderer = new Resvg(svg, {
     fitTo: {
