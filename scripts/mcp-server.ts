@@ -367,7 +367,7 @@ server.tool(
     try {
       const skillsDir = join(getProjectRoot(), ".agent", "skills");
       const glob = new Bun.Glob("*/SKILL.md");
-      const workflows: { name: string; description: string }[] = [];
+      const workflows: { id: string; name: string; description: string }[] = [];
 
       for await (const file of glob.scan({ cwd: skillsDir })) {
         const fullPath = join(skillsDir, file);
@@ -379,11 +379,20 @@ server.tool(
         const description = match?.[1] || "No description";
         const nameMatch = content.match(/^---\s*\n(?:.*\n)*?name:\s*(.+)\n(?:.*\n)*?---/m);
         const nameFromDir = file.split(sep)[0];
-        workflows.push({ name: nameMatch?.[1] || nameFromDir, description });
+        workflows.push({
+          id: nameFromDir,
+          name: nameMatch?.[1] || nameFromDir,
+          description,
+        });
       }
 
       return textResponse(
-        workflows.map((w) => `${w.name}: ${w.description}`).join("\n") || "No workflows found",
+        workflows
+          .map((w) => {
+            const displayName = w.name !== w.id ? `${w.id} (${w.name})` : w.id;
+            return `${displayName}: ${w.description}`;
+          })
+          .join("\n") || "No workflows found",
       );
     } catch (error) {
       return errorResponse(
