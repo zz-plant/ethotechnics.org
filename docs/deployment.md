@@ -22,15 +22,23 @@ emits the Worker bundle; the output lives in `dist/_worker.js`.
 
 ## Configuration files to know
 
-- `wrangler.toml` defines the Worker name, compatibility date, bindings, and deployment target.
+- `wrangler.toml` defines the Worker name, compatibility date, compatibility flags, bindings, and deployment target.
 - `astro.config.mjs` controls the Cloudflare adapter and output mode.
 - `public/` assets are copied to the Worker bundle during `bun run build`.
 
 ## Verification checklist
 
 - Confirm the deploy output reports the expected Worker name and environment.
+- Confirm `wrangler.toml` uses the intended `compatibility_date` for the current release window.
+- Confirm `compatibility_flags` still match project expectations (notably `nodejs_compat`).
 - Load the homepage and a representative content page to verify layout, navigation, and metadata.
 - If you touched JSON-backed content, spot-check the affected pages for missing copy.
+
+## Current binding posture
+
+- Current binding usage is intentionally minimal: only `[assets]` with the `ASSETS` binding.
+- The Worker currently does **not** declare KV, D1, R2, Queues, Durable Objects, or AI bindings.
+- Revisit this section when introducing new platform services so deploy reviews catch binding drift.
 
 ## Rollback and recovery
 

@@ -18,6 +18,12 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`mini-prds.md`](mini-prds.md) drafts the accountability tooling Mini-PRDs and homepage blurb.
 - [`agent-developer-experience.md`](agent-developer-experience.md) aggregates agent-specific
   references and to-do items.
+- [`tech-stack-capabilities-scan-2026.md`](tech-stack-capabilities-scan-2026.md) summarizes
+  newer capabilities to evaluate across the current runtime, framework, and QA tooling.
+- [`tech-stack-upgrade-actions-2026-q1.md`](tech-stack-upgrade-actions-2026-q1.md) tracks
+  completion status for near-term upgrade actions from the capability scan.
+- [`tech-stack-upgrade-actions-2026-q2.md`](tech-stack-upgrade-actions-2026-q2.md) records
+  mid-term dependency refresh execution and validation outcomes.
 - [`contributor-workflow.md`](contributor-workflow.md) captures the day-to-day change loop, required
   checks, and formatting expectations.
 - [`agents/README.md`](agents/README.md) collects the expanded AGENTS guidance split out of the
