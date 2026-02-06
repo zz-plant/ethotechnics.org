@@ -39,5 +39,6 @@ Outcome:
 
 Recommended follow-on items after this refresh:
 
-- Evaluate a React 19 migration separately (intentional hold at React 18 for this cycle).
+- React and React DOM were upgraded to 19.2.x in this cycle; keep Astro island coverage
+  under observation in the next release.
 - Re-run visual and end-to-end suites in CI after any future framework major-version changes.

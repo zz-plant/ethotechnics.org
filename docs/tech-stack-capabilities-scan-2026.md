@@ -11,8 +11,8 @@ Action tracking: see [`tech-stack-upgrade-actions-2026-q1.md`](tech-stack-upgrad
 
 - Runtime and package manager: Bun 1.3.x
 - Framework: Astro 5.x with Cloudflare adapter
-- UI islands: React 18.x
-- Language and tooling: TypeScript 5.9, ESLint 9, Playwright 1.57
+- UI islands: React 19.x
+- Language and tooling: TypeScript 5.9, ESLint 9, Playwright 1.58
 - Deployment target: Cloudflare Workers via Wrangler 4.x
 
 Version source: `package.json` at the repository root.
