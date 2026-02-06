@@ -53,7 +53,6 @@ const toSlug = (value: string) =>
           <p class="eyebrow nav__section-eyebrow" id={`${sectionId}-title`}>
             {section.heading}
           </p>
-          <p class="muted nav__section-description">{section.description}</p>
         </header>
         <ul class="nav__section-links" aria-labelledby={`${sectionId}-title`}>
           {section.links.map((link) => (
@@ -64,11 +63,6 @@ const toSlug = (value: string) =>
                 aria-current={isCurrentLink(link.href) ? "page" : undefined}
               >
                 <span class="nav__link-label">{link.label}</span>
-                {link.description && (
-                  <span class="muted nav__link-description">
-                    {link.description}
-                  </span>
-                )}
               </a>
             </li>
           ))}
@@ -101,10 +95,6 @@ const toSlug = (value: string) =>
   }
 
   .nav__section-eyebrow {
-    margin: 0;
-  }
-
-  .nav__section-description {
     margin: 0;
   }
 
@@ -152,9 +142,5 @@ const toSlug = (value: string) =>
 
   .nav__link-label {
     font-weight: 750;
-  }
-
-  .nav__link-description {
-    font-size: 0.95rem;
   }
 </style>
