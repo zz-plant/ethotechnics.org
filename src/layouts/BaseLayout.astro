@@ -13,6 +13,7 @@ interface Props {
   title?: string;
   description?: string;
   openGraphType?: string;
+  robots?: string;
   /**
    * Optional class list for the <main> wrapper. Defaults to the standard
    * constrained layout (`"page container"`). Pass a custom value such as
@@ -29,11 +30,14 @@ const defaultTitle =
   "Ethotechnics Institute — The Reference Standard for Accountable Systems";
 const defaultDescription =
   "Ethotechnics.org is the Ethotechnics Institute: standards, mechanisms, and validators for ethical technology, AI governance, and accountable systems.";
+const defaultRobots =
+  "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
 const {
   title = defaultTitle,
   description = defaultDescription,
   openGraphType,
+  robots = defaultRobots,
   mainClass = "page container",
   enableGlossaryHighlights = true,
   breadcrumbItems,
@@ -253,8 +257,7 @@ const structuredDataJson = JSON.stringify(structuredData);
         meta: [
           {
             name: "robots",
-            content:
-              "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+            content: robots,
           },
           { name: "author", content: siteName },
           { name: "publisher", content: siteName },

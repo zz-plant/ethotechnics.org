@@ -101,7 +101,11 @@ const buildSearchText = (entry: SearchEntry) =>
     .toLowerCase();
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  robots="noindex, nofollow"
+>
   <div data-site-search>
     <PageIntro
       eyebrow="Search"
