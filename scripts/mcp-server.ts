@@ -361,21 +361,25 @@ server.tool(
 // Tool: List workflows
 server.tool(
   "list_workflows",
-  "List available agent workflows from .agent/workflows/",
+  "List available agent skills from .agent/skills/",
   {},
   async () => {
     try {
-      const workflowsDir = join(getProjectRoot(), ".agent", "workflows");
-      const glob = new Bun.Glob("*.md");
+      const skillsDir = join(getProjectRoot(), ".agent", "skills");
+      const glob = new Bun.Glob("*/SKILL.md");
       const workflows: { name: string; description: string }[] = [];
 
-      for await (const file of glob.scan({ cwd: workflowsDir })) {
-        const fullPath = join(workflowsDir, file);
+      for await (const file of glob.scan({ cwd: skillsDir })) {
+        const fullPath = join(skillsDir, file);
         const content = await Bun.file(fullPath).text();
         // Extract description from frontmatter
-        const match = content.match(/^---\s*\n(?:.*\n)*?description:\s*(.+)\n(?:.*\n)*?---/m);
+        const match = content.match(
+          /^---\s*\n(?:.*\n)*?description:\s*(.+)\n(?:.*\n)*?---/m,
+        );
         const description = match?.[1] || "No description";
-        workflows.push({ name: file.replace(".md", ""), description });
+        const nameMatch = content.match(/^---\s*\n(?:.*\n)*?name:\s*(.+)\n(?:.*\n)*?---/m);
+        const nameFromDir = file.split(sep)[0];
+        workflows.push({ name: nameMatch?.[1] || nameFromDir, description });
       }
 
       return textResponse(
@@ -392,13 +396,19 @@ server.tool(
 // Tool: Read workflow
 server.tool(
   "read_workflow",
-  "Read a specific agent workflow definition",
+  "Read a specific agent skill definition",
   {
-    name: z.string().describe("The workflow name (without .md extension)"),
+    name: z.string().describe("The skill name (folder name under .agent/skills)"),
   },
   async ({ name }) => {
     try {
-      const workflowPath = join(getProjectRoot(), ".agent", "workflows", `${name}.md`);
+      const workflowPath = join(
+        getProjectRoot(),
+        ".agent",
+        "skills",
+        name,
+        "SKILL.md",
+      );
       const content = await Bun.file(workflowPath).text();
       return textResponse(content);
     } catch (error) {
