@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import { join } from "node:path";
 import { existsSync } from "node:fs";
-import { lstat } from "node:fs/promises";
+import { lstat, readdir } from "node:fs/promises";
 
 async function check() {
   console.log("🛠️  Agent Doctor: Checking repository health for agents...\n");
@@ -64,20 +64,28 @@ async function check() {
     errors++;
   }
 
-  // 4. Workflow Check
-  const workflowsDir = join(process.cwd(), ".agent", "workflows");
-  if (existsSync(workflowsDir)) {
-    const stats = await lstat(workflowsDir);
+  // 4. Skill Check
+  const skillsDir = join(process.cwd(), ".agent", "skills");
+  if (existsSync(skillsDir)) {
+    const stats = await lstat(skillsDir);
     if (stats.isDirectory()) {
-      const workflows = (await Bun.file(join(workflowsDir, "qa.md")).exists()) ? 1 : 0;
-      if (workflows > 0) {
-        console.log("✅ Agent workflows found (qa.md exists).");
+      const entries = await readdir(skillsDir, { withFileTypes: true });
+      const skillDirs = entries.filter((entry) => entry.isDirectory());
+      let skillCount = 0;
+      for (const entry of skillDirs) {
+        const skillPath = join(skillsDir, entry.name, "SKILL.md");
+        if (await Bun.file(skillPath).exists()) {
+          skillCount += 1;
+        }
+      }
+      if (skillCount > 0) {
+        console.log(`✅ Agent skills found (${skillCount} SKILL.md files).`);
       } else {
-        console.warn("⚠️  Optional: qa.md workflow missing from .agent/workflows/");
+        console.warn("⚠️  Optional: SKILL.md files missing from .agent/skills/");
       }
     }
   } else {
-    console.warn("⚠️  .agent/workflows/ directory missing.");
+    console.warn("⚠️  .agent/skills/ directory missing.");
   }
 
   console.log(`\n🏁 Check complete. Total errors: ${errors}`);
