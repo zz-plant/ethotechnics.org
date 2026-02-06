@@ -11,14 +11,14 @@ Guidance for shipping the site to Cloudflare Workers and verifying production ou
 
 ## Standard deploy flow
 
-1. Build the Worker bundle: `bun run build`.
+1. Build the Worker bundle with `bun run build` when you need to preview or inspect the output.
 2. Preview the production output locally (optional but recommended):
    - `bun run preview` for the Astro preview server.
    - `bun run preview:cf` when you need to exercise Cloudflare bindings.
 3. Deploy with Wrangler: `bun run deploy`.
 
-The deploy script runs `wrangler deploy --no-bundle` because Astro already emits the Worker
-bundle; the output lives in `dist/_worker.js`.
+The deploy script runs `bun run build` and then `wrangler deploy --no-bundle` because Astro already
+emits the Worker bundle; the output lives in `dist/_worker.js`.
 
 ## Configuration files to know
 
@@ -35,7 +35,7 @@ bundle; the output lives in `dist/_worker.js`.
 ## Rollback and recovery
 
 - Re-deploy the last known good bundle by checking out the previous commit and running
-  `bun run build && bun run deploy`.
+  `bun run deploy`.
 - If the deploy failed before upload, keep the previous Worker version published and resolve the
   local build error first.
 
