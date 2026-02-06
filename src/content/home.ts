@@ -121,15 +121,15 @@ export type HomeContent = PageCopy & {
 
 export const homeContent = {
   pageTitle:
-    "Ethotechnics Institute — The Reference Standard for Accountable Systems",
+    "Ethotechnics Institute — Accountable AI Governance, Diagnostics, and Delivery",
   pageDescription:
-    "Documentation hub for standards, mechanisms, and validators stewarded by the Institute of Ethotechnics.",
+    "Practical guidance for teams building high-stakes AI systems: run diagnostics, strengthen appeal and recourse, and align delivery, research, and governance.",
   hero: {
     eyebrow: "A workbench for accountable systems",
-    heading: "Deliver, research, and govern accountable systems.",
+    heading: "Deliver, research, and govern accountable AI systems.",
     subheadline:
-      "Standards, diagnostics, and mechanisms that help teams ship, study, and govern high-stakes systems.",
-    lede: "Run diagnostics, align standards, and deploy mechanisms that connect delivery, research, and governance into enforceable action.",
+      "Standards, diagnostics, and mechanisms that help teams ship, study, and govern high-stakes AI systems.",
+    lede: "Run diagnostics, align standards, and deploy mechanisms that connect delivery, research, and governance into enforceable action teams can defend.",
     map: 'Start with <a href="/standards">Standards</a>, explore <a href="/mechanisms">Mechanisms</a>, run <a href="/validators">Validators</a>, or connect with the <a href="/institute">Institute</a>.',
     badge: {
       label: "Institute + Studio",

@@ -49,9 +49,9 @@ export type InstituteContent = PageWithPermalink &
   };
 
 export const instituteContent: InstituteContent = {
-  pageTitle: "Institute — Ethotechnics",
+  pageTitle: "Institute — AI Governance Programs and Decision Forums | Ethotechnics",
   pageDescription:
-    "Ethotechnics.org is the Institute. This visitor guide covers programs, decision forums, and when to involve the Studio.",
+    "Explore Institute programs for accountable AI: readiness diagnostics, governance decision forums, escalation pathways, and Studio support for high-stakes delivery.",
   published: "2025-09-01T00:00:00Z",
   permalink: "/institute",
   anchorLinks: [
