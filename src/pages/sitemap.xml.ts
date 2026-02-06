@@ -31,17 +31,53 @@ const fallbackSite = "https://ethotechnics.org";
 const fallbackPaths = ["/"];
 const fallbackLastmod = new Date().toISOString();
 
+type PageModule = {
+  lastmod?: string;
+};
+
+const getPagesRoot = async () => {
+  const rootPath = await realpath(process.cwd());
+  const pagesRoot = await realpath(resolve(rootPath, "src", "pages"));
+
+  return { rootPath, pagesRoot };
+};
+
+const buildPageModules = async (
+  pagePaths: string[],
+  pagesRoot: string,
+): Promise<Record<string, PageModule>> => {
+  const modules: Record<string, PageModule> = {};
+
+  await Promise.all(
+    pagePaths.map(async (pagePath) => {
+      const normalizedPath = pagePath.replace(/^\.\//, "");
+      const fullPath = resolve(pagesRoot, normalizedPath);
+      const stats = await lstat(fullPath);
+      if (stats.isSymbolicLink()) return;
+
+      modules[pagePath] = {
+        lastmod: stats.mtime.toISOString(),
+      };
+    }),
+  );
+
+  return modules;
+};
+
 const loadPageModules = async () => {
   if (typeof import.meta.glob === "function") {
-    return import.meta.glob("./**/*.astro", { eager: true });
+    const { pagesRoot } = await getPagesRoot();
+    const modules = import.meta.glob("./**/*.astro", { eager: true });
+    const pagePaths = Object.keys(modules);
+
+    return buildPageModules(pagePaths, pagesRoot);
   }
 
   if (typeof Bun !== "undefined") {
-    const modules: Record<string, true> = {};
     const glob = new Bun.Glob("src/pages/**/*.astro");
 
-    const rootPath = await realpath(process.cwd());
-    const pagesRoot = await realpath(resolve(rootPath, "src", "pages"));
+    const { rootPath, pagesRoot } = await getPagesRoot();
+    const pagePaths: string[] = [];
 
     for await (const file of glob.scan({ cwd: rootPath })) {
       const fullPath = resolve(rootPath, file);
@@ -49,10 +85,10 @@ const loadPageModules = async () => {
       if (stats.isSymbolicLink()) continue;
       const relativePath = relative(pagesRoot, fullPath);
       if (relativePath.startsWith("..")) continue;
-      modules[`./${relativePath.split(sep).join("/")}`] = true;
+      pagePaths.push(`./${relativePath.split(sep).join("/")}`);
     }
 
-    return modules;
+    return buildPageModules(pagePaths, pagesRoot);
   }
 
   return {};
@@ -173,10 +209,21 @@ const renderUrl = ({
 export async function GET({ site }: APIContext) {
   const siteUrl = site ?? new URL(fallbackSite);
   const pageModules = await loadPageModules();
-  const pagePaths = Object.keys(pageModules)
-    .map(normalizeRoutePath)
-    .filter((path): path is string => Boolean(path))
-    .filter(isPublicPath);
+  const pagePaths = Object.entries(pageModules)
+    .map(([path, module]) => {
+      const routePath = normalizeRoutePath(path);
+      if (!routePath) {
+        return null;
+      }
+
+      const entry: SitemapEntry = module.lastmod
+        ? { path: routePath, lastmod: module.lastmod }
+        : { path: routePath };
+
+      return entry;
+    })
+    .filter((entry): entry is SitemapEntry => entry !== null)
+    .filter((entry) => isPublicPath(entry.path));
   const glossaryEntry = (await getEntry("glossary", "glossary")) as unknown;
   const glossaryData: GlossaryContent = hasEntryData<GlossaryContent>(
     glossaryEntry,
@@ -334,7 +381,7 @@ export async function GET({ site }: APIContext) {
   ].forEach((path) => priorityOverrides.set(normalizeOverrideKey(path), "0.8"));
   const entries: SitemapEntry[] = [
     ...(pagePaths.length > 0
-      ? pagePaths.map((path) => ({ path }))
+      ? pagePaths
       : fallbackPaths.map((path) => ({ path }))),
     ...glossaryPaths,
     ...glossarySectionPaths,
