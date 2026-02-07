@@ -122,8 +122,8 @@ const agentSafetyObjectModel = await readFile(
   <SectionBlock
     id="core-premise"
     eyebrow="Core premise"
-    title="Agents are not opinions. They are actors."
-    description="Any system that can act must specify its constraints and recourse pathways."
+    title="Agents are actors, and humans live with the outcomes."
+    description="Any acting system must define constraints and recourse for both operators and affected people."
   >
     <p>Any system that can act must define:</p>
     <ul class="standard-clauses">
@@ -131,12 +131,58 @@ const agentSafetyObjectModel = await readFile(
       <li>Under what conditions it can do it.</li>
       <li>Who can stop it.</li>
       <li>How failure is detected and contained.</li>
-      <li>How affected users can contest outcomes.</li>
+      <li>How operators and affected users can contest outcomes.</li>
     </ul>
     <p>
       If a safety claim cannot be expressed as a constraint, control surface, or measurable
       signal, it is not enforceable.
     </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="knowing-differently"
+    eyebrow="Why this changes the conversation"
+    title="An infrastructure for knowing differently"
+    description="This standard changes what teams can ask, prove, and contest."
+  >
+    <p>
+      This infrastructure makes ethics operational. It shifts review conversations from
+      <em>declared intent</em> to <em>enforceable system behavior</em>: who can act, who can stop,
+      what clocks run, where reversal paths exist, and how those paths stay legible to people
+      affected by decisions.
+    </p>
+    <ul class="standard-clauses">
+      <li>From values-only claims to testable controls and receipts.</li>
+      <li>From one-off explanation to repeatable governance evidence.</li>
+      <li>From private judgment calls to shared, auditable decision objects for teams and the public.</li>
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="epistemic-obstacles"
+    eyebrow="Epistemology in practice"
+    title="Obstacles this standard is built to overcome"
+    description="Common ways teams think they know enough, and the controls that correct them."
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Obstacle</p>
+        <ul class="muted">
+          <li><strong>Intent theater:</strong> policy statements substitute for enforceability.</li>
+          <li><strong>Explainability decoy:</strong> narratives stand in for real recourse people can use.</li>
+          <li><strong>Memory loss:</strong> incidents are discussed, then forgotten in delivery.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Countermeasure in this practice</p>
+        <ul class="muted">
+          <li>Action classes + approval gates + accountable owners.</li>
+          <li>Contestability surfaces with live appeals and hard clocks that humans can actually access.</li>
+          <li>Receipts, decision logs, and linked evidence packs for cumulative learning.</li>
+        </ul>
+      </div>
+    </div>
   </SectionBlock>
 
   <SectionBlock

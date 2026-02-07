@@ -167,7 +167,7 @@ export const standardsContent: StandardsContent = {
       id: "ethotechnics-for-agents",
       title: "Ethotechnics for Agents",
       description:
-        "Mechanism-first practice for implementing STD-01 and STD-02 in real agent systems.",
+        "Mechanism-first practice for implementing STD-01 and STD-02 with enforceable human recourse in real agent systems.",
       href: "/standards/ethotechnics-for-agents",
       eyebrow: "Practice",
       ctaLabel: "View practice",
