@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  artifacts,
+  failureStates,
+  type FailureState,
+  type InstituteArtifact,
+} from "../../content/institute-site";
+
+const slug = Astro.params.slug;
+const state =
+  (Astro.props.state as FailureState | undefined) ??
+  failureStates.find((candidate) => candidate.slug === slug);
+
+if (!state) return Astro.redirect("/404");
+
+const stateArtifacts: InstituteArtifact[] = (state.artifactSlugs ?? [])
+  .map((artifactSlug) => artifacts.find((artifact) => artifact.slug === artifactSlug))
+  .filter((artifact): artifact is InstituteArtifact => Boolean(artifact));
+---
+
+<BaseLayout title={state.title} description={state.descriptionLine1}>
+  <section class="stack-lg institute-screen">
+    <h1>{state.title}</h1>
+    <p>{state.descriptionLine1}</p>
+    <p>{state.descriptionLine2}</p>
+
+    <h2>Artifacts designed for this failure</h2>
+    <div class="stack-sm" role="list">
+      {stateArtifacts.map((artifact) => (
+        <article class="card stack-sm" role="listitem">
+          <h3>
+            <a href={`/artifact/${artifact.slug}`}>
+              {artifact.name} → /artifact/{artifact.slug}
+            </a>
+          </h3>
+          <p>
+            <a class="button" href={`/artifact/${artifact.slug}`}>Use this artifact</a>
+          </p>
+        </article>
+      ))}
+    </div>
+
+    <p class="small muted">{state.footerLine}</p>
+  </section>
+</BaseLayout>

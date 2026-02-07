@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { artifacts } from "../content/institute-site";
+---
+
+<BaseLayout
+  title="Governance artifacts you can adopt as-is"
+  description="Operational defaults for ownership, reversibility, and burden limits."
+>
+  <section class="stack-lg institute-screen">
+    <h1>Governance artifacts you can adopt as-is</h1>
+    <p>
+      These are operational defaults, not guidance.<br />
+      Each artifact assigns ownership, enforces reversibility, and limits claimant burden.
+    </p>
+    <div class="artifact-grid" role="list">
+      {artifacts.map((artifact) => (
+        <article class="card stack-sm" role="listitem">
+          <h2>{artifact.name}</h2>
+          <p class="muted small">Operational governance artifact</p>
+          <a class="button" href={`/artifact/${artifact.slug}`}>View artifact details</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

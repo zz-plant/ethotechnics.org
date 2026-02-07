@@ -5883,4 +5883,61 @@
     align-items: center;
   }
 }
+
+.institute-banner {
+  margin: 0 auto;
+  padding: 0.65rem 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.institute-hero {
+  max-width: 960px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.failure-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.adopt-grid,
+.artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  background: var(--surface);
+}
+
+.institute-screen {
+  max-width: 960px;
+}
+
+@media (min-width: 900px) {
+  .failure-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .adopt-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .artifact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 }

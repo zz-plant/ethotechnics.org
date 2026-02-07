@@ -1,64 +1,110 @@
 ---
-import { getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HomeAgents from "../components/home/HomeAgents.astro";
-import HomeAudience from "../components/home/HomeAudience.astro";
-import HomeDifference from "../components/home/HomeDifference.astro";
-import HomeFailureModes from "../components/home/HomeFailureModes.astro";
-import HomeFieldNotes from "../components/home/HomeFieldNotes.astro";
-import HomeHero from "../components/home/HomeHero.astro";
-import HomeHowItWorks from "../components/home/HomeHowItWorks.astro";
-import HomeLimits from "../components/home/HomeLimits.astro";
-import HomeOutputs from "../components/home/HomeOutputs.astro";
-import HomePurpose from "../components/home/HomePurpose.astro";
-import HomeQuickstart from "../components/home/HomeQuickstart.astro";
-import HomeWorkflow from "../components/home/HomeWorkflow.astro";
-import SummaryCallout from "../components/SummaryCallout.astro";
-
-const homeEntry = (await getEntry("home", "home"))!;
-const { pageTitle, pageDescription } = homeEntry.data;
+import { failureStates } from "../content/institute-site";
 ---
 
 <BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  mainClass="page page--wide"
+  title="Ethotechnics Institute"
+  description="Open standards for high-stakes systems that must remain reversible under failure."
 >
-  <HomeHero />
+  <section class="institute-hero stack-lg">
+    <h1>Open standards for high-stakes systems that must remain reversible under failure.</h1>
+    <p>Stoppability rules, reversal clocks, burden ceilings, contestability mechanics.</p>
+    <div class="actions">
+      <a class="button primary" href="/#failure-intake">Start with a failure</a>
+      <a class="muted" href="/how-it-works">New here? See how this works →</a>
+    </div>
+  </section>
 
-  <SummaryCallout
-    eyebrow="Fast orientation"
-    title="Start here, then pick your next step."
-    description="A short path to governance-ready outputs. Begin with the guided entry point, then choose diagnostics or standards."
-    takeaways={[
-      "A single recommended first step for new teams.",
-      "Evidence-first delivery with citable outputs.",
-    ]}
-    relatedLinks={[
-      { href: "/start-here", label: "Start here" },
-      { href: "/diagnostics", label: "Diagnostics" },
-    ]}
-  />
+  <section id="failure-intake" class="stack-lg">
+    <h2>What’s not holding?</h2>
+    <p>Choose the closest match. This is about routing, not blame.</p>
+    <div class="failure-grid" aria-label="Failure routing options">
+      {failureStates.map((state) => (
+        <a class="button" href={`/failure/${state.slug}`}>
+          {state.shortLabel}
+        </a>
+      ))}
+    </div>
+    <p class="small muted">Each path routes to a ready-to-use governance artifact.</p>
+  </section>
 
-  <HomeQuickstart />
+  <section class="stack-lg">
+    <h2>How to adopt Ethotechnics</h2>
+    <p>
+      Choose the route that matches how your organization actually takes responsibility: policy,
+      operations, or build.
+    </p>
+    <div class="adopt-grid">
+      <article class="card stack-sm">
+        <h3>Legal / Compliance / Risk</h3>
+        <h4>Artifacts</h4>
+        <ul>
+          <li>Decision record template</li>
+          <li>Reversal SLA template</li>
+          <li>Contestability &amp; appeals playbook</li>
+        </ul>
+        <h4>Metrics</h4>
+        <ul>
+          <li>Reversal latency</li>
+          <li>Time-in-harm</li>
+        </ul>
+        <h4>First-week checklist</h4>
+        <ol>
+          <li>Name decision owners</li>
+          <li>Define reversal authority</li>
+          <li>Set appeal time bounds</li>
+          <li>Publish burden ceilings</li>
+          <li>Identify freeze conditions</li>
+        </ol>
+      </article>
 
-  <HomeHowItWorks />
+      <article class="card stack-sm">
+        <h3>Appeals / Incident response</h3>
+        <h4>Artifacts</h4>
+        <ul>
+          <li>Escalation ladder / freeze authority table</li>
+          <li>Harm receipt format</li>
+          <li>Reversal SLA template</li>
+        </ul>
+        <h4>Metrics</h4>
+        <ul>
+          <li>Appeal clearance time</li>
+          <li>Burden hours per case</li>
+        </ul>
+        <h4>First-week checklist</h4>
+        <ol>
+          <li>Map queues</li>
+          <li>Assign freeze roles</li>
+          <li>Define escalation clocks</li>
+          <li>Set claimant time caps</li>
+          <li>Run one tabletop</li>
+        </ol>
+      </article>
 
-  <HomeAudience />
-
-  <HomeOutputs />
-
-  <HomeFieldNotes />
-
-  <HomeWorkflow />
-
-  <HomePurpose />
-
-  <HomeDifference />
-
-  <HomeFailureModes />
-
-  <HomeAgents />
-
-  <HomeLimits />
+      <article class="card stack-sm">
+        <h3>Product / Engineering</h3>
+        <h4>Artifacts</h4>
+        <ul>
+          <li>Decision record system</li>
+          <li>Freeze authority table</li>
+          <li>Reversal testing checklist</li>
+        </ul>
+        <h4>Metrics</h4>
+        <ul>
+          <li>Mean time to stop</li>
+          <li>Reversal success rate</li>
+        </ul>
+        <h4>First-week checklist</h4>
+        <ol>
+          <li>Instrument reversibility</li>
+          <li>Bind ownership to code paths</li>
+          <li>Test rollback</li>
+          <li>Log reversals</li>
+          <li>Fail one drill intentionally</li>
+        </ol>
+      </article>
+    </div>
+    <p class="small"><strong>If you cannot complete the first-week checklist, pause adoption until the system is ready.</strong></p>
+  </section>
 </BaseLayout>
