@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { standardsContent } from "../../content/standards";
+import { validatorsContent } from "../../content/validators";
+
+const pageTitle = "Validators by standard — Ethotechnics";
+const pageDescription =
+  "Programmatic map of validators grouped by referenced standard for governance and assurance teams.";
+const permalink = "/library/validators-by-standard";
+
+const validatorsByStandard = standardsContent.standards.map((standard) => ({
+  standard,
+  validators: validatorsContent.validators.filter(
+    (validator) => validator.standardRef === standard.id,
+  ),
+}));
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} openGraphType="website">
+  <PageIntro
+    eyebrow="Programmatic index"
+    title="Validators by standard"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={validatorsByStandard.map(({ standard }) => ({
+      href: `#${standard.id.toLowerCase()}`,
+      label: standard.id,
+    }))}
+  />
+
+  {
+    validatorsByStandard.map(({ standard, validators }) => (
+      <SectionBlock
+        id={standard.id.toLowerCase()}
+        eyebrow={standard.id}
+        title={standard.title}
+        description={standard.description}
+      >
+        {validators.length > 0 ? (
+          <ul>
+            {validators.map((validator) => (
+              <li>
+                <a href={`/validators/${validator.slug}`}>{validator.title}</a>
+                <span class="muted"> — {validator.description}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No published validators currently mapped to this standard.</p>
+        )}
+      </SectionBlock>
+    ))
+  }
+</BaseLayout>
