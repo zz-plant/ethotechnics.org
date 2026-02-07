@@ -372,8 +372,10 @@ export const buildSitemapSections = async () => {
       .sort((a, b) => a.path.localeCompare(b.path));
   };
 
+  const corePaths = pagePaths.length > 0 ? pagePaths : [{ path: "/" }];
+
   return {
-    core: applyOverrides(pagePaths),
+    core: applyOverrides(corePaths),
     glossary: applyOverrides([
       ...glossaryPaths,
       ...glossarySectionPaths,
