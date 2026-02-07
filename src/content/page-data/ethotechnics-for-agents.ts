@@ -33,6 +33,8 @@ export const anchorLinks = [
   { href: "#overview", label: "Practice snapshot" },
   { href: "#what-this-is", label: "What this is" },
   { href: "#core-premise", label: "Core premise" },
+  { href: "#knowing-differently", label: "Infrastructure for knowing" },
+  { href: "#epistemic-obstacles", label: "Epistemic obstacles" },
   { href: "#receipt-schema", label: "Agent receipt schema" },
   { href: "#action-taxonomy", label: "Action-class taxonomy" },
   { href: "#contestability-surface", label: "Contestability surface" },
@@ -53,6 +55,7 @@ export const anchorLinks = [
 
 export const summaryTakeaways = [
   "Align agent capabilities with explicit action classes and receipts.",
+  "Move ethics conversations from intent claims to enforceable controls, clocks, and human recourse.",
   "Use failure-first controls like kill switches, hard clocks, and rollback paths.",
   "Anchor remediation with contestability paths and evidence packs.",
 ];
@@ -75,49 +78,57 @@ export const actionClassRows: ActionClassRow[] = [
     actionClass: "READ",
     examples: "Fetch account data, view records, list files.",
     reversibility: "Reversible",
-    controls: "Receipt + log. Auto-approve within scope. 24h review clock if flagged.",
+    controls:
+      "Receipt + log. Auto-approve within scope. 24h review clock if flagged.",
   },
   {
     actionClass: "WRITE",
     examples: "Update profile fields, edit records, sync CRM notes.",
     reversibility: "Reversible",
-    controls: "Receipt + diff capture. Undo path required. Review clock for material changes.",
+    controls:
+      "Receipt + diff capture. Undo path required. Review clock for material changes.",
   },
   {
     actionClass: "TRANSFER",
     examples: "Move funds, transfer assets, change ownership.",
     reversibility: "Irreversible",
-    controls: "Pre-action approval gate. Dual control + Hard Clock. Immediate receipt + appeal.",
+    controls:
+      "Pre-action approval gate. Dual control + Hard Clock. Immediate receipt + appeal.",
   },
   {
     actionClass: "EXECUTE",
     examples: "Run jobs, trigger workflows, deploy changes.",
     reversibility: "Often irreversible",
-    controls: "Approval gate for high-impact runs. Kill switch + rollback plan. Receipt + decision log.",
+    controls:
+      "Approval gate for high-impact runs. Kill switch + rollback plan. Receipt + decision log.",
   },
   {
     actionClass: "PUBLISH",
     examples: "Post public content, send broadcasts, trigger notifications.",
     reversibility: "Often irreversible",
-    controls: "Progressive consent prompt. Delay window for rollback. Evidence pack anchor required.",
+    controls:
+      "Progressive consent prompt. Delay window for rollback. Evidence pack anchor required.",
   },
   {
     actionClass: "DELETE",
     examples: "Delete records, revoke access, purge data.",
     reversibility: "Irreversible",
-    controls: "Two-step confirmation + reversible buffer. Remedy clock + owner sign-off.",
+    controls:
+      "Two-step confirmation + reversible buffer. Remedy clock + owner sign-off.",
   },
   {
     actionClass: "CONTACT_HUMAN",
     examples: "Send emails, create tickets, call users.",
     reversibility: "Partially reversible",
-    controls: "Human-readable rationale + opt-out. Rate limits. Receipt issued to recipient.",
+    controls:
+      "Human-readable rationale + opt-out. Rate limits. Receipt issued to recipient.",
   },
   {
     actionClass: "EXECUTE_CODE",
     examples: "Run scripts, deploy changes, trigger workflows.",
     reversibility: "Irreversible",
-    controls: "Sandbox first. Manual approval for prod. Circuit breaker on anomaly.",
+    controls:
+      "Sandbox first. Manual approval for prod. Circuit breaker on anomaly.",
   },
 ];
 
@@ -141,7 +152,8 @@ export const signalIntegrityRows: SignalIntegrityRow[] = [
   {
     signal: "Time-to-detection & mitigation",
     gaming: "Reset clocks by closing and reopening incidents.",
-    detection: "Immutable event timestamps; auditor view of first-seen vs. closed.",
+    detection:
+      "Immutable event timestamps; auditor view of first-seen vs. closed.",
     tiers:
       "Tier 0: manual timestamps. Tier 1: system-generated clocks. Tier 2: independent monitoring clock source.",
   },
