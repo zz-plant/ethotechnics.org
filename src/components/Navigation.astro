@@ -1,35 +1,19 @@
 ---
 import NavigationDesktop from "./navigation/NavigationDesktop.astro";
 import NavigationMobile from "./navigation/NavigationMobile.astro";
-import { navPrimaryLinks, navSections } from "../content/navigation";
-import type { NavLink } from "../content/navigation";
-import navigationExploreScript from "../scripts/navigation-explore.ts?url";
+import { navPrimaryLinks } from "../content/navigation";
 
 interface Props {
   currentPath?: string;
 }
 
 const { currentPath = Astro.url.pathname } = Astro.props as Props;
-
-const mobileLinks = navPrimaryLinks;
-const desktopPrimaryLabels = ["Library", "Diagnostics", "Institute"];
-const desktopLinks = desktopPrimaryLabels
-  .map((label) => navPrimaryLinks.find((link) => link.label === label))
-  .filter((link): link is NavLink => Boolean(link));
-const desktopExploreId = "desktop-explore-panel";
 ---
 
 <nav class="nav" aria-label="Primary" data-nav>
   <div class="nav__inner container">
-    <NavigationDesktop
-      currentPath={currentPath}
-      desktopExploreId={desktopExploreId}
-      desktopLinks={desktopLinks}
-      navSections={navSections}
-    />
+    <NavigationDesktop currentPath={currentPath} desktopLinks={navPrimaryLinks} />
 
-    <NavigationMobile currentPath={currentPath} mobileLinks={mobileLinks} />
+    <NavigationMobile currentPath={currentPath} mobileLinks={navPrimaryLinks} />
   </div>
 </nav>
-
-<script type="module" src={navigationExploreScript} is:inline></script>
