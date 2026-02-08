@@ -179,7 +179,7 @@ export const buildSitemapSections = async () => {
     .filter((entry): entry is SitemapEntry => entry !== null)
     .filter((entry) => isPublicPath(entry.path));
 
-  const glossaryEntry = (await getEntry("glossary", "glossary")) as unknown;
+  const glossaryEntry = await getEntry("glossary", "glossary");
   const glossaryData: GlossaryContent = hasEntryData<GlossaryContent>(
     glossaryEntry,
   )
@@ -227,7 +227,7 @@ export const buildSitemapSections = async () => {
       ),
   );
 
-  const libraryEntry = (await getEntry("library", "library")) as unknown;
+  const libraryEntry = await getEntry("library", "library");
   const libraryData = hasEntryData<LibraryContent>(libraryEntry)
     ? libraryEntry.data
     : undefined;
@@ -285,10 +285,10 @@ export const buildSitemapSections = async () => {
       })),
   );
 
-  const fieldNotesEntry = (await getEntry(
+  const fieldNotesEntry = await getEntry(
     "fieldNotes",
     "field-notes",
-  )) as unknown;
+  );
   const fieldNotesData = hasEntryData<FieldNotesContent>(fieldNotesEntry)
     ? fieldNotesEntry.data
     : fieldNotesContent;
