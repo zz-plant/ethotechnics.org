@@ -12,7 +12,10 @@ export async function GET({ request }: APIContext) {
     url.searchParams.get("description")?.trim() || DEFAULT_DESCRIPTION;
   const pngBuffer = await renderOgPng(title, description);
 
-  return new Response(pngBuffer as unknown as BodyInit, {
+  const pngData = Uint8Array.from(pngBuffer);
+  const pngBlob = new Blob([pngData], { type: "image/png" });
+
+  return new Response(pngBlob, {
     status: 200,
     headers: {
       "Content-Type": "image/png",
