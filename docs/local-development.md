@@ -16,10 +16,10 @@ Setup, run, and troubleshoot the site locally using the repository's supported t
 
 ## Daily commands
 
-- Start development server: `bun dev`
-- Build production bundle: `bun run build`
-- Preview production build: `bun run preview`
-- Preview Cloudflare Worker build: `bun run preview:cf`
+- Start development server: `bun dev`.
+- Build production bundle: `bun run build`.
+- Preview production build: `bun run preview`.
+- Preview Cloudflare Worker build: `bun run preview:cf`.
 
 ## Quality and validation commands
 
