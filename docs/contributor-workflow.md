@@ -7,6 +7,8 @@ Practical guidance for keeping changes small, consistent, and easy to review.
 - Read the root `README.md` for project goals and high-level commands.
 - Use Node.js 20 (`nvm use`) and Bun (`bun install`) to match the repo toolchain.
 - Check for scoped `AGENTS.md` files near the files you plan to touch.
+- If you are an AI contributor, start with `docs/agent-developer-experience.md` and then return
+  here for the shared delivery loop.
 
 ## Typical change loop
 
