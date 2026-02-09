@@ -50,7 +50,7 @@ Setup, run, and troubleshoot the site locally using the repository's supported t
 
 Install browsers once before running E2E tests:
 
-- `bunx playwright install --with-deps`
+- `bunx playwright install --with-deps`.
 
 If tests fail in CI-specific environments, see `docs/cloudflare-playwright.md`.
 
