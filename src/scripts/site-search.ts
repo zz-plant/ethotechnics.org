@@ -19,6 +19,9 @@ const initSiteSearch = () => {
   const items = Array.from(
     root?.querySelectorAll<HTMLElement>("[data-site-search-item]") ?? [],
   );
+  const resultsContainer = root?.querySelector<HTMLElement>(
+    ".site-search__results",
+  );
   const filterButtons = Array.from(
     root?.querySelectorAll<HTMLButtonElement>("[data-site-search-filter]") ??
       [],
@@ -27,6 +30,18 @@ const initSiteSearch = () => {
   if (!root || !input || items.length === 0) {
     return;
   }
+
+  const reorderResults = (orderedItems: Array<(typeof indexedItems)[number]>) => {
+    if (!resultsContainer) {
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    orderedItems.forEach((item) => {
+      fragment.append(item.element);
+    });
+    resultsContainer.insertBefore(fragment, resultsContainer.firstChild);
+  };
 
   const indexedItems = items.map((item) => ({
     element: item,
@@ -99,26 +114,31 @@ const initSiteSearch = () => {
       item.element
         .querySelector<HTMLElement>("[data-site-search-top-badge]")
         ?.toggleAttribute("hidden", true);
-      item.element.style.order = "0";
     });
 
     if (hasQuery) {
-      visibleItems
-        .sort(
-          (a, b) =>
-            b.score - a.score ||
-            a.title.localeCompare(b.title, "en", { sensitivity: "base" }),
-        )
-        .forEach((item, index) => {
-          item.element.style.order = `${index + 1}`;
-          const badge = item.element.querySelector<HTMLElement>(
-            "[data-site-search-top-badge]",
-          );
-          if (badge && index < 3 && item.score > 0) {
-            badge.toggleAttribute("hidden", false);
-            badge.textContent = index === 0 ? "Best match" : "Top match";
-          }
-        });
+      const rankedItems = visibleItems.sort(
+        (a, b) =>
+          b.score - a.score ||
+          a.title.localeCompare(b.title, "en", { sensitivity: "base" }),
+      );
+
+      reorderResults([
+        ...rankedItems,
+        ...indexedItems.filter((item) => item.element.hasAttribute("hidden")),
+      ]);
+
+      rankedItems.forEach((item, index) => {
+        const badge = item.element.querySelector<HTMLElement>(
+          "[data-site-search-top-badge]",
+        );
+        if (badge && index < 3 && item.score > 0) {
+          badge.toggleAttribute("hidden", false);
+          badge.textContent = index === 0 ? "Best match" : "Top match";
+        }
+      });
+    } else {
+      reorderResults(indexedItems);
     }
 
     rankingNote?.toggleAttribute("hidden", !hasQuery);
