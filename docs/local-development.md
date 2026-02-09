@@ -1,66 +1,65 @@
 # Local development
 
-Guidelines to spin up the site locally, run checks, and troubleshoot build issues.
+Setup, run, and troubleshoot the site locally using the repository's supported toolchain.
+
+## Prerequisites
+
+- Node.js 20.x (`nvm use`).
+- Bun 1.3+ (`bun --version`).
+- Optional: Playwright browser dependencies for end-to-end tests.
 
 ## Setup
 
-- Use Bun 1.3+ (the project relies on Bun's runtime and package manager).
-- Copy `.env.example` to `.env.local`; no variables are required yet, but the file keeps future
-  additions discoverable.
-- Install dependencies with `bun install`.
+1. `nvm use`
+2. `bun install`
+3. Copy `.env.example` to `.env.local` if needed for local overrides.
 
-## Editor integration
+## Daily commands
 
-- VS Code will prompt to install recommended extensions from `.vscode/extensions.json`; accept
-  them to enable Astro language services, ESLint, and Prettier formatting.
-- Workspace defaults format on save and expose ESLint quick fixes. Keep the `Format Document` and
-  `Source: Fix All` commands available for other editors.
-- The workspace pin to `node_modules/typescript/lib` keeps the TypeScript version consistent with
-  the toolchain used by the scripts and checks.
-- VS Code tasks are prewired for common flows (`dev`, `build`, `check`, `lint`, `format`, and
-  testing). Use **Terminal → Run Task** to trigger them without leaving the editor.
+- Start development server: `bun dev`
+- Build production bundle: `bun run build`
+- Preview production build: `bun run preview`
+- Preview Cloudflare Worker build: `bun run preview:cf`
 
-## Running the dev server
+## Quality and validation commands
 
-- Start Astro locally with `bun dev`.
-  - Expected log: `[@astrojs/compiler] ready` and `Local http://localhost:4321/`.
-  - The server binds to `0.0.0.0`; use `bun dev --port 4322` if another process already
-    occupies port 4321.
-- Stop and restart the server after dependency upgrades so Vite picks up plugin changes.
+### Required before committing code or mixed changes
 
-## Building and previewing
+- `bun run check`
 
-- Build the Cloudflare Worker bundle with `bun run build`; success logs include `Built in` timings,
-  emit `dist/_worker.js`, and generate the Pagefind search index under `dist/pagefind`.
-- Regenerate just the search index with `bun run build:search` after a build if you are tuning
-  search ranking or content without changing the Worker bundle.
-- The build skips compressed-size reporting to avoid extra gzip/Brotli passes; re-enable it in
-  `astro.config.mjs` if you need those numbers for an investigation.
-- Preview locally with `bun run preview` to mimic the deployed output via Astro's preview server.
-- Use `bun run preview:cf` when you need to exercise Worker runtime behavior or bindings.
-- Combine both steps to sanity-check production output: `bun run build && bun run preview`.
+`bun run check` runs:
 
-## Checks and tests
+1. `bun run agent:doctor`
+2. `bun run lint` and `bun run typecheck` (via `concurrently`)
+3. `bun run astro:check`
+4. `bun run validate:json`
+5. `bun run validate:glossary`
+6. `bun run test:unit:ci`
 
-- Run `bun run check` before sending changes; it chains linting, tests, type checks, and Astro's
-  analyzer where configured.
-- Targeted runs when iterating:
-  - `bun run lint` for Astro and TypeScript sources under `src/`.
-  - `bun run lint:fix` to auto-fix lintable issues in Astro and TypeScript sources.
-  - `bun run format` to apply Prettier formatting across the repo.
-  - `bun run format:check` for a CI-friendly formatting check.
-  - `bun run typecheck` for strict TypeScript validation.
-  - `bun run test:unit` for the unit and component test suite.
-  - `bun run test:unit:ci` to generate coverage with the lcov reporter.
-    - Coverage reports land in `coverage/lcov.info`.
-- End-to-end tests require browsers: install them once with `bunx playwright install --with-deps`
-  before running `bun run test:e2e`.
+### Common focused checks
+
+- `bun run lint`
+- `bun run lint:fix`
+- `bun run typecheck`
+- `bun run test:unit`
+- `bun run format`
+- `bun run format:check`
+- `bun run test:e2e` (requires Playwright browsers)
+
+## Playwright setup
+
+Install browsers once before running E2E tests:
+
+- `bunx playwright install --with-deps`
+
+If tests fail in CI-specific environments, see `docs/cloudflare-playwright.md`.
 
 ## Troubleshooting
 
-- Verify Bun version with `bun -v`; reinstall dependencies if versions drift:
-  `rm -rf node_modules bun.lock` and `bun install`.
-- Clear Astro's cache when layout or config changes behave oddly: remove the `.astro/` directory
-  before rebuilding.
-- If preview requests fail, confirm the Worker build emitted `dist/_worker.js` and that
-  `wrangler.toml` points to it.
+- Toolchain drift:
+  - Verify versions with `node -v` and `bun -v`.
+  - Reinstall dependencies: `rm -rf node_modules bun.lock && bun install`.
+- Astro cache issues:
+  - Remove `.astro/` and rerun the failing command.
+- Worker preview issues:
+  - Ensure `bun run build` produced `dist/_worker.js` before `bun run preview:cf`.

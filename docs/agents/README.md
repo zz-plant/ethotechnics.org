@@ -1,30 +1,27 @@
-# Agent guidance
+# Agent playbooks
 
-This folder is the implementation detail for agent-facing workflows. Treat
-`docs/agent-developer-experience.md` as the onboarding index, then use this folder for
-step-by-step execution details.
+Detailed execution guides for AI contributors.
 
-## Information architecture
+## Read in this order
 
-- **Entry point:** `../agent-developer-experience.md` (what to read, in what order).
-- **Execution playbooks:** files in this folder (how to perform work).
-- **Global constraints:** root `AGENTS.md` and scoped `AGENTS.md` files.
-- **Docs conventions:** `../AGENTS.md` and `../README.md`.
+1. [`workflow-and-checks.md`](workflow-and-checks.md)
+2. [`repo-orientation.md`](repo-orientation.md)
+3. [`coding-practices.md`](coding-practices.md)
+4. [`formatting-and-tooling.md`](formatting-and-tooling.md)
+5. [`version-control.md`](version-control.md)
+6. [`review-checklist.md`](review-checklist.md)
 
-## Quick start
+## What each guide owns
 
-1. Run `rg --files -g 'AGENTS.md'` to locate scoped instructions.
-2. Read `repo-orientation.md` to map the affected directories.
-3. Follow `workflow-and-checks.md` for required validation and commit flow.
-4. Use `formatting-and-tooling.md` and `coding-practices.md` while editing.
-5. Finish with `review-checklist.md` before opening a PR.
+- `workflow-and-checks.md`: required validation and when checks may be skipped.
+- `repo-orientation.md`: where to place code/docs changes.
+- `coding-practices.md`: implementation and maintainability expectations.
+- `formatting-and-tooling.md`: formatter/linter/script command references.
+- `version-control.md`: branch, commit, and PR hygiene.
+- `review-checklist.md`: final pre-handoff quality pass.
 
-## Contents
+## Ground rules
 
-- `repo-orientation.md`: where to look first and which folders matter.
-- `workflow-and-checks.md`: contribution flow and required checks.
-- `formatting-and-tooling.md`: formatting conventions and tooling notes.
-- `coding-practices.md`: expectations for code changes.
-- `version-control.md`: commit and status hygiene.
-- `review-checklist.md`: final verification before handoff.
-- `docs-structure.md`: target docs information architecture and ownership boundaries.
+- Follow the closest `AGENTS.md` for any file you edit.
+- Use Node.js 20 and Bun commands.
+- Prefer links to canonical docs over restating long instructions.

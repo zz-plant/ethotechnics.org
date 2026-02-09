@@ -1,44 +1,35 @@
-# Formatting and tooling
+# Agent formatting and tooling
 
-Maintain consistent code style with automated formatters and linters.
+Reference for contributor-safe commands and formatting expectations.
 
-## Prettier (formatting)
+## Runtime and package manager
 
-- Format all files with: `bunx prettier --write .`
-- Check formatting without modifying: `bunx prettier --check .`
-- Prettier handles Markdown, TypeScript, JavaScript, JSON, and Astro files.
-- Keep line wraps near 100 characters in Markdown to match existing docs.
+- Use Node.js 20 (`nvm use`).
+- Use Bun for dependency management and scripts.
+- Do not replace Bun commands with npm or yarn commands in docs.
 
-## ESLint (linting)
+## Core commands
 
-- Run linting: `bun run lint`
-- Auto-fix issues: `bun run lint:fix`
-- ESLint checks TypeScript and Astro files under `src/`.
-- The config uses `typescript-eslint` with strict type-aware rules.
+- Install: `bun install`
+- Full check: `bun run check`
+- Lint: `bun run lint`
+- Type check: `bun run typecheck`
+- Unit tests: `bun run test:unit`
+- Format write: `bun run format`
+- Format verify: `bun run format:check`
 
-## Astro check
+## Formatting rules
 
-- Run `bun run astro:check` for Astro-specific diagnostics.
-- This catches template errors, prop type mismatches, and component issues.
+- Keep Markdown concise and action-oriented.
+- Wrap lines near 100 characters.
+- Prefer short bullet lists over long paragraphs.
+- Use fenced code blocks for command snippets.
 
-## Editor integration
+## Docs formatting
 
-- Install recommended VS Code extensions from `.vscode/extensions.json`.
-- Workspace settings in `.vscode/settings.json` enable format-on-save.
-- Use the workspace TypeScript version for consistent diagnostics.
+- Whole repo: `bun run format`
+- Docs-only quick formatting (example): `bunx prettier --write docs/**/*.md`
+- Docs-only verification (example): `bunx prettier --check docs/**/*.md`
 
-## Pre-commit validation
-
-- The project uses lint-staged with husky for pre-commit hooks.
-- Staged files are automatically formatted and linted before commit.
-- If pre-commit fails, fix issues and re-stage files before committing.
-
-## Quick reference
-
-| Task             | Command                |
-| ---------------- | ---------------------- |
-| Format all       | `bun run format`       |
-| Check formatting | `bun run format:check` |
-| Lint             | `bun run lint`         |
-| Lint + fix       | `bun run lint:fix`     |
-| Full check       | `bun run check`        |
+Use file-scoped formatting when you want faster docs iteration, then rely on `bun run format`
+for full consistency before major merges.

@@ -1,104 +1,58 @@
 # Documentation guide
 
-Orientation for the docs folder so contributors can find and maintain guidance quickly.
-
-Use this map before adding new guidance so information stays discoverable and current.
+Use this map before adding or editing docs so guidance stays easy to find and maintain.
 
 ## Start here by audience
 
-### Human contributors (local development and delivery)
+### Contributors (human and AI)
 
-- [`contributor-workflow.md`](contributor-workflow.md) is the canonical day-to-day change loop.
-- [`local-development.md`](local-development.md) covers setup, scripts, and troubleshooting.
-- [`manual-qa.md`](manual-qa.md) captures manual UI checks for visual or interaction changes.
-- [`deployment.md`](deployment.md) explains release and post-deploy verification.
+- [`contributor-workflow.md`](contributor-workflow.md): canonical change loop for everyday work.
+- [`local-development.md`](local-development.md): setup, scripts, and troubleshooting.
+- [`manual-qa.md`](manual-qa.md): manual browser checks for visual and interaction changes.
+- [`deployment.md`](deployment.md): deploy flow and post-deploy verification.
 
-### Agent contributors (AI and MCP-enabled workflows)
+### Agent contributors
 
-- [`agent-developer-experience.md`](agent-developer-experience.md) is the agent onboarding index.
-- [`agents/README.md`](agents/README.md) maps the expanded agent playbooks.
-- [`agents/workflow-and-checks.md`](agents/workflow-and-checks.md) documents required checks.
-- [`agents/repo-orientation.md`](agents/repo-orientation.md) helps route changes to the right folder.
+- [`agent-developer-experience.md`](agent-developer-experience.md): agent onboarding and routing.
+- [`agents/README.md`](agents/README.md): agent playbook index.
+- [`agents/workflow-and-checks.md`](agents/workflow-and-checks.md): required validation rules.
+- [`agents/repo-orientation.md`](agents/repo-orientation.md): where different change types belong.
 
-### Planning and roadmap
+### Architecture and implementation references
 
-- [`roadmap.md`](roadmap.md) tracks the now/next/later roadmap, spec template, and pickup guidance.
-- [`interop-release-plan.md`](interop-release-plan.md) summarizes planned interop packages and
-  schema artifacts.
-- [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md) specifies the Python evaluation
-  toolkit package scope, modules, and CLI expectations.
-- [`issue-templates.md`](issue-templates.md) defines the consistent fields for roadmap-related GitHub
-  Issues.
-- [`mini-prds.md`](mini-prds.md) drafts the accountability tooling Mini-PRDs and homepage blurb.
-- [`tech-stack-capabilities-scan-2026.md`](tech-stack-capabilities-scan-2026.md) summarizes
-  newer capabilities to evaluate across the current runtime, framework, and QA tooling.
-- [`tech-stack-upgrade-actions-2026-q1.md`](tech-stack-upgrade-actions-2026-q1.md) tracks
-  completion status for near-term upgrade actions from the capability scan.
-- [`tech-stack-upgrade-actions-2026-q2.md`](tech-stack-upgrade-actions-2026-q2.md) records
-  mid-term dependency refresh execution and validation outcomes.
+- [`architecture.md`](architecture.md), [`specifications.md`](specifications.md), and
+  [`page-specifications.md`](page-specifications.md): routing and implementation expectations.
+- [`content-data.md`](content-data.md), [`bundles.md`](bundles.md),
+  [`content-components.md`](content-components.md): data and content systems.
+- [`agent-metadata.md`](agent-metadata.md): public JSON-LD and machine-readable APIs.
 
-### Architecture, layout, and content
+### QA, diagnostics, and performance
 
-- [`architecture.md`](architecture.md) outlines the layout shell, routing model, middleware, and
-  Worker deployment.
-- [`specifications.md`](specifications.md) captures the site purpose, routing, and delivery
-  defaults.
-- [`adding-pages.md`](adding-pages.md) provides the checklist for new Astro routes and shared
-  navigation updates.
-- [`page-specifications.md`](page-specifications.md) lists route-by-route expectations for data,
-  layout, and accessibility.
-- [`content-data.md`](content-data.md) documents JSON-backed content sources, schemas, and
-  validation steps.
-- [`bundles.md`](bundles.md) documents bundle metadata, export options, and landing page workflow.
-- [`content-components.md`](content-components.md) catalogs the reusable UI building blocks used
-  across pages.
-- [`glossary.md`](glossary.md) defines core vocabulary and terms referenced across the site.
-- [`agent-metadata.md`](agent-metadata.md) documents JSON-LD coverage and the public JSON APIs for
-  agents.
+- [`testing-todos.md`](testing-todos.md): coverage status and follow-up work.
+- [`performance-guardrails.md`](performance-guardrails.md): CWV budgets and Playwright checks.
+- [`cloudflare-playwright.md`](cloudflare-playwright.md): Playwright in Cloudflare builds.
+- [`diagnostics-outputs.md`](diagnostics-outputs.md) and
+  [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md): diagnostics tooling.
 
-### Testing, diagnostics, and quality references
+### Planning and roadmap docs
 
-- [`testing-todos.md`](testing-todos.md) summarizes existing coverage and remaining test gaps.
-- [`performance-guardrails.md`](performance-guardrails.md) documents Core Web Vitals budgets and
-  console-clean checks enforced in Playwright.
-- [`cloudflare-playwright.md`](cloudflare-playwright.md) documents how to run Playwright in
-  Cloudflare Pages builds and where test results show up.
+- [`roadmap.md`](roadmap.md), [`mini-prds.md`](mini-prds.md),
+  [`issue-templates.md`](issue-templates.md).
+- Tech stack and upgrade planning docs under `tech-stack-*.md`.
+- Interop and toolkit planning: [`interop-release-plan.md`](interop-release-plan.md) and
+  [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md).
 
-### Design and UX references
+## Documentation standards
 
-- [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and
-  [`diagnostics-outputs.md`](diagnostics-outputs.md) capture diagnostics tooling notes and
-  troubleshooting steps.
-- [`seo-audit.md`](seo-audit.md) summarizes the latest SEO review findings and follow-up tasks.
-- [`seo-metadata-report.md`](seo-metadata-report.md) lists pages missing title or description props.
-- [`visual-textures.md`](visual-textures.md) catalogs texture treatments and visual system notes.
-- [`usability-audit.md`](usability-audit.md) tracks UX review findings and follow-up tasks.
-- [`design-references.md`](design-references.md) collects external touchpoints for visual system
-  alignment.
+- Prefer one canonical guide per topic; link rather than duplicate.
+- Keep instructions imperative, short, and present tense.
+- Use repository scripts and Bun-based commands in examples.
+- Wrap lines near 100 characters for diff readability.
+- Keep links relative where possible.
 
-## How to add or update docs
+## Update checklist for doc changes
 
-- Check whether related guidance already exists before creating a new file.
-- Mirror existing naming and structure; prefer short, topic-focused files.
-- Include the command or script name when describing required checks.
-- Link out to relevant guides instead of repeating long explanations.
-- Add a brief note about context or prerequisites when linking external resources.
-- Refresh the Quick links list and related maps when docs move or retire so navigation stays
-  accurate.
-
-## Editing tips
-
-- Use short paragraphs and bullets; keep instructions direct and present tense.
-- Format Markdown with `bunx prettier --write docs/*.md` to match repo defaults.
-- Update nearby files instead of duplicating guidance; link to existing docs when possible.
-- Add a short note when pointing to external resources so readers know why the link matters.
-- Keep line wraps near 100 characters to stay readable in diffs.
-
-## When to add docs
-
-- Create or extend a doc when adding a new flow, toolchain change, or recurring contributor
-  question.
-- Include command snippets that match existing Bun scripts, and call out prerequisites for tests or
-  builds.
-- Add a short changelog-style note in PR descriptions when significant docs shift where people look
-  for information.
+- Confirm a nearby guide does not already cover the same instruction.
+- Update cross-links when files are renamed or moved.
+- Refresh this index when adding, retiring, or relocating contributor-facing docs.
+- Run formatting checks before commit.
