@@ -1,20 +1,40 @@
-# Workflow and checks
+# Agent workflow and checks
 
-## Contribution workflow
+Required execution flow for agent-authored changes.
 
-- Work in small, reviewable changes; keep diffs focused on the stated task.
-- Capture any new workflows, scripts, or conventions in the closest relevant README or AGENTS file.
-- Keep `git status` clean before finishing; use it to confirm only intended files changed.
+## 1) Start of task
 
-## Required checks
+- Read repository and scoped `AGENTS.md` files.
+- Confirm the relevant docs for the area you are editing.
+- Keep scope narrow; avoid unrelated refactors.
 
-- Run `bun run check` before committing for code or mixed changes.
-- Docs-only changes can skip `bun run check` per `docs/AGENTS.md`.
-- If `bun run check` is intentionally skipped, call it out in the PR body.
+## 2) During implementation
 
-## Validation tips
+Run focused checks as you iterate:
 
-- Prefer `bun run lint` or targeted tests when a change only affects a narrow area, but still run
-  `bun run check` before commit for non-docs work.
-- Capture manual UI checks in the PR summary when visual changes are involved.
-- Confirm Node and Bun versions are aligned before running scripts; see the root AGENTS guidance.
+- `bun run lint`.
+- `bun run typecheck`.
+- `bun run test:unit`.
+- `bun run validate:json` when JSON/content schemas change.
+- `bun run validate:glossary` for glossary updates.
+
+## 3) Before commit
+
+For code or mixed changes, run:
+
+- `bun run check`.
+
+This command includes linting, type checks, Astro checks, validations, unit tests, and
+`agent:doctor` preflight checks.
+
+For docs-only changes:
+
+- Run at least formatting checks (`bun run format:check` or equivalent file-scoped Prettier).
+- `bun run check` may be skipped if no code behavior changed.
+- Record the skip in commit/PR notes.
+
+## 4) Finalization
+
+- Ensure docs match current scripts and workflows.
+- Summarize commands run and outcomes.
+- Keep PR scope aligned to the request.

@@ -5,45 +5,42 @@ Scope: applies to the entire repository unless a more specific `AGENTS.md` overr
 ## Purpose
 
 This repo powers ethotechnics.org, a content-driven site about ethical technology and
-human-centered design. These instructions exist to keep contributions consistent, reliable,
-and easy to review.
-
-## Working agreement (best practices)
-
-- **Follow scope and precedence:** obey the closest `AGENTS.md` to the files you touch, with
-  deeper scopes taking priority.
-- **Keep instructions actionable:** prefer short, imperative bullets over long paragraphs.
-- **Avoid duplication:** link to deeper docs instead of restating them.
-- **Record what you ran:** mention tests/checks (or why they were skipped) in your summary.
+human-centered design. Follow these instructions to keep changes consistent and reviewable.
 
 ## Essentials
 
-- Package manager: **Bun** (do not use npm or yarn).
-- Use Node.js 20.x via `nvm use` before installing dependencies or running scripts.
-- Run `bun run check` before committing for code or mixed changes.
-- Check for scoped `AGENTS.md` files in subfolders before editing.
+- Package manager and script runner: **Bun**.
+- Runtime baseline: **Node.js 20.x** (`nvm use`).
+- Run `bun run check` before committing code or mixed changes.
+- Discover scoped overrides before editing: `rg --files -g 'AGENTS.md'`.
+
+## Working agreement
+
+- Follow scope precedence (nearest `AGENTS.md` wins).
+- Keep instructions short, actionable, and linked to canonical docs.
+- Record exactly which checks you ran and their outcomes.
+- Keep changes focused; avoid unrelated cleanup in task branches.
 
 ## Tool-supported agents (MCP)
 
-If your AI tooling supports [Model Context Protocol](https://modelcontextprotocol.io), start the
-MCP server with `bun run mcp` to access project context, docs, and workflows programmatically.
+Start MCP support with `bun run mcp` when your client supports Model Context Protocol.
 
-Available MCP capabilities:
+Available capabilities:
 
-- **Resources:** project structure, documentation index, AGENTS guidance
-- **Prompts:** design-engineer mode, code review templates
-- **Tools:** list scripts, read docs, analyze builds, run checks
+- **Resources:** project structure, docs index, AGENTS guidance.
+- **Prompts:** design-engineer mode and review templates.
+- **Tools:** script discovery, docs access, build analysis, checks.
 
 ## Agent skills
 
-Check `.agent/skills/` for modular task capabilities:
+Skill modules are in `.agent/skills/`:
 
-- `fix-types` — TypeScript error resolution
-- `qa` — full quality assurance checks
-- `ui-verify` — browser-based UI verification
-- `design-engineer` — taste and visual system alignment
+- `fix-types` — resolve TypeScript issues.
+- `qa` — run full quality validation workflows.
+- `ui-verify` — browser-based UI verification.
+- `design-engineer` — visual system and taste alignment.
 
-## Where to look next
+## Canonical references
 
 - Repository orientation: `docs/agents/repo-orientation.md`
 - Workflow and required checks: `docs/agents/workflow-and-checks.md`
@@ -51,4 +48,4 @@ Check `.agent/skills/` for modular task capabilities:
 - Coding practices: `docs/agents/coding-practices.md`
 - Version control: `docs/agents/version-control.md`
 - Review checklist: `docs/agents/review-checklist.md`
-- Suggested docs structure: `docs/agents/docs-structure.md`
+- Docs structure: `docs/agents/docs-structure.md`

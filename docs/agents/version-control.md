@@ -1,36 +1,31 @@
-# Version control
+# Agent version control guidance
 
-Keep the repository history clean, meaningful, and easy to navigate.
+Keep Git history readable, traceable, and easy to review.
 
-## Commit messages
+## Branch and scope hygiene
 
-- Write meaningful commit messages that describe the change, not the files touched.
-- Use imperative mood: "Add validation" not "Added validation" or "Adds validation."
-- Keep the first line under 72 characters; add details in the body if needed.
-- Reference issue numbers when applicable: `Fix #123: resolve login redirect loop`.
+- Keep each branch focused on one primary objective.
+- Avoid mixing drive-by refactors with the requested change.
+- If a rename/move is required, note it clearly in the PR summary.
 
-## Commit message examples
+## Commit quality
 
-```text
-Add glossary validation script
+- Commit after checks pass (or with explicit documented skip for docs-only work).
+- Use clear imperative commit messages.
+- Keep commits coherent; split unrelated edits.
 
-Validates that all terms have definitions and categories before build.
-```
+## Suggested commit message pattern
 
-```text
-Fix accessibility contrast on hero section
+- `<area>: <short imperative summary>`
 
-Adjust text color to meet WCAG AA standards (4.5:1 ratio).
-```
+Examples:
 
-## Branch conventions
+- `docs: modernize contributor and agent workflow guides`
+- `content: update glossary references for diagnostics page`
 
-- Work on feature branches; keep `main` deployable.
-- Use descriptive branch names: `feature/agent-workflows`, `fix/header-contrast`.
-- Keep branches short-lived; merge or delete after completion.
+## Pull request quality
 
-## Working tree hygiene
-
-- Run `git status` before finishing a task to confirm only intended files changed.
-- Avoid committing generated files, build artifacts, or IDE-specific settings.
-- Use `.gitignore` additions for new generated content patterns.
+- Summarize what changed and why.
+- Include commands run and outcomes.
+- Explicitly list skipped checks and rationale.
+- Link to related issues or planning docs when relevant.

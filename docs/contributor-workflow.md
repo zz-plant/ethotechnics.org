@@ -1,55 +1,39 @@
 # Contributor workflow
 
-Practical guidance for keeping changes small, consistent, and easy to review.
+Practical guidance for keeping changes small, verifiable, and easy to review.
 
-## Before you start
+## Quick start
 
-- Read the root `README.md` for project goals and high-level commands.
-- Use Node.js 20 (`nvm use`) and Bun (`bun install`) to match the repo toolchain.
-- Check for scoped `AGENTS.md` files near the files you plan to touch.
-- If you are an AI contributor, start with `docs/agent-developer-experience.md` and then return
-  here for the shared delivery loop.
+1. Use Node.js 20: `nvm use`.
+2. Install dependencies with Bun: `bun install`.
+3. Read `AGENTS.md` files in scope before editing.
+4. Run focused checks during development.
+5. Run the full required checks before commit.
 
-## Typical change loop
+## Standard change loop
 
-1. Create or update content under `src/pages` or shared UI under `src/components` and
-   `src/layouts`.
-2. Run targeted commands while you work:
-   - `bun run lint` for source edits.
-   - `bun run test:unit` for unit and component coverage.
-   - `bun run validate:json` when editing JSON data files.
-   - `bun run validate:glossary` when glossary terms or references change.
-3. Run `bun run check` before committing for code or mixed changes.
-4. Record any manual UI review notes when visuals or layout change.
+1. Implement changes in the relevant source folder (`src/pages`, `src/components`, `src/layouts`,
+   or `src/data`).
+2. Run targeted checks while iterating.
+   - `bun run lint`.
+   - `bun run typecheck`.
+   - `bun run test:unit`.
+   - `bun run validate:json` for JSON schema/content changes.
+   - `bun run validate:glossary` for glossary updates.
+3. Run `bun run check` before commit for code or mixed changes.
+4. For docs-only changes, run formatting checks and explicitly note skipped code checks.
+5. Summarize checks and outcomes in your commit/PR notes.
 
-## Formatting and structure
+## Docs-only update flow
 
-- Format Markdown and code with `bunx prettier --write .` before committing.
-- Keep Markdown line wraps near 100 characters for readability.
-- Prefer short, focused files. Link to existing docs instead of repeating long guidance.
-
-## Content and data updates
-
-- Site routes live in `src/pages`. Keep page content close to the route when practical.
-- Shared layout and UI building blocks live in `src/layouts` and `src/components`.
-- Global design tokens and styles live in `src/styles`. Update them for site-wide changes.
-- When editing JSON or glossary entries, update related docs or examples that reference them.
-
-## Checks and troubleshooting
-
-- `bun run check` runs linting, tests, TypeScript, the Astro checker, and content validation.
-- If `bun run check` fails, run the individual command that failed to get focused output.
-- For Playwright issues, see `docs/cloudflare-playwright.md` and `docs/local-development.md`.
-
-## When you change docs
-
-- Update `docs/README.md` if you add, remove, or rename a guide.
-- Keep docs concise and instructional, following `docs/AGENTS.md` tone guidance.
-- Mention skipped checks in the PR body for docs-only updates.
+- Keep docs concise and avoid duplicating guidance already captured elsewhere.
+- Update `docs/README.md` when docs are added, moved, or retired.
+- Prefer linking to canonical docs instead of copying full instructions.
+- If scripts or workflows changed, update both contributor and agent docs in the same change.
 
 ## Pre-commit checklist
 
-- `git status` shows only the intended files.
-- `bun run check` passes for code or mixed changes.
-- Docs and commands match the current scripts in `package.json`.
-- New workflows are captured in the closest README or `AGENTS.md` file.
+- `git status` contains only intended files.
+- Required checks were run (or intentionally skipped with reason).
+- Commands in docs match scripts in `package.json`.
+- Cross-links resolve after renames/moves.

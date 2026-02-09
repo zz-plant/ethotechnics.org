@@ -1,44 +1,44 @@
 # Docs structure and ownership
 
-Use this file to keep developer-facing and agent-facing docs easy to navigate.
+Use this guide when adding or reorganizing contributor-facing documentation.
 
-## Structure principles
+## Principles
 
-- Keep one obvious entry point per audience.
-- Keep process docs close to the workflows they govern.
-- Prefer links to canonical guides over duplicated instructions.
-- Update `docs/README.md` whenever docs are added, moved, or retired.
+- Keep one canonical page per workflow topic.
+- Route readers from indexes to detailed guides.
+- Prefer links over duplicated prose.
+- Update indexes when files move.
 
-## Current navigation model
+## Current structure
 
 ```text
 docs/
-├── README.md                        # Top-level map for all contributors
+├── README.md                        # Top-level discovery map
 ├── contributor-workflow.md          # Shared human + agent delivery loop
-├── local-development.md             # Toolchain, setup, troubleshooting
-├── agent-developer-experience.md    # Agent onboarding index and routing
+├── local-development.md             # Setup, scripts, troubleshooting
+├── agent-developer-experience.md    # Agent onboarding entry point
 ├── agents/
 │   ├── README.md                    # Agent playbook index
-│   ├── workflow-and-checks.md
-│   ├── formatting-and-tooling.md
-│   ├── repo-orientation.md
-│   ├── coding-practices.md
-│   ├── version-control.md
-│   └── review-checklist.md
-└── ...domain/topic docs             # Architecture, content, testing, design, diagnostics
+│   ├── workflow-and-checks.md       # Validation expectations
+│   ├── repo-orientation.md          # Where changes belong
+│   ├── coding-practices.md          # Coding conventions
+│   ├── formatting-and-tooling.md    # Commands and formatting rules
+│   ├── version-control.md           # Git hygiene and PR guidance
+│   └── review-checklist.md          # Final handoff checklist
+└── ...domain/topic docs             # Architecture, content, QA, diagnostics
 ```
 
 ## Ownership boundaries
 
-- `docs/README.md` owns discovery and high-level routing.
-- `docs/contributor-workflow.md` owns the canonical change loop for all contributors.
-- `docs/agent-developer-experience.md` owns agent onboarding and points to canonical playbooks.
-- `docs/agents/*.md` own execution details for agent behavior.
-- Domain docs own technical specifics (architecture, SEO, QA, diagnostics, etc.).
+- `docs/README.md` owns top-level navigation.
+- `docs/contributor-workflow.md` owns the shared contributor workflow.
+- `docs/agent-developer-experience.md` owns agent onboarding.
+- `docs/agents/*.md` own detailed agent execution practices.
+- Domain docs own technical depth for specific systems.
 
-## When restructuring docs
+## Restructure checklist
 
-1. Preserve permalinks when possible; otherwise update all incoming references.
-2. Keep a single canonical file for each workflow topic.
-3. Replace duplicated prose with short pointers to the canonical location.
-4. Update `docs/README.md` and any affected scoped `AGENTS.md` guidance.
+1. Update incoming links when files move.
+2. Retire duplicate text and replace it with canonical pointers.
+3. Refresh `docs/README.md` and affected `AGENTS.md` files.
+4. Verify command examples still match `package.json` scripts.
