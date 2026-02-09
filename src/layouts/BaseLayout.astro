@@ -229,10 +229,6 @@ if (resolvedStructuredDataType === "defined-term") {
   webpage.inDefinedTermSet = new URL("/glossary", siteBase).toString();
 }
 
-if (resolvedStructuredDataType === "tech-article") {
-  webpage["@type"] = "TechArticle";
-}
-
 if (resolvedOpenGraphType === "article") {
   const articleJsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
