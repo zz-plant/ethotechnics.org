@@ -14,12 +14,12 @@ Practical guidance for keeping changes small, verifiable, and easy to review.
 
 1. Implement changes in the relevant source folder (`src/pages`, `src/components`, `src/layouts`,
    or `src/data`).
-2. Run targeted checks while iterating:
-   - `bun run lint`
-   - `bun run typecheck`
-   - `bun run test:unit`
-   - `bun run validate:json` for JSON schema/content changes
-   - `bun run validate:glossary` for glossary updates
+2. Run targeted checks while iterating.
+   - `bun run lint`.
+   - `bun run typecheck`.
+   - `bun run test:unit`.
+   - `bun run validate:json` for JSON schema/content changes.
+   - `bun run validate:glossary` for glossary updates.
 3. Run `bun run check` before commit for code or mixed changes.
 4. For docs-only changes, run formatting checks and explicitly note skipped code checks.
 5. Summarize checks and outcomes in your commit/PR notes.
