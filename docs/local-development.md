@@ -25,26 +25,26 @@ Setup, run, and troubleshoot the site locally using the repository's supported t
 
 ### Required before committing code or mixed changes
 
-- `bun run check`
+- `bun run check`.
 
 `bun run check` runs:
 
-1. `bun run agent:doctor`
-2. `bun run lint` and `bun run typecheck` (via `concurrently`)
-3. `bun run astro:check`
-4. `bun run validate:json`
-5. `bun run validate:glossary`
-6. `bun run test:unit:ci`
+1. `bun run agent:doctor`.
+2. `bun run lint` and `bun run typecheck` (via `concurrently`).
+3. `bun run astro:check`.
+4. `bun run validate:json`.
+5. `bun run validate:glossary`.
+6. `bun run test:unit:ci`.
 
 ### Common focused checks
 
-- `bun run lint`
-- `bun run lint:fix`
-- `bun run typecheck`
-- `bun run test:unit`
-- `bun run format`
-- `bun run format:check`
-- `bun run test:e2e` (requires Playwright browsers)
+- `bun run lint`.
+- `bun run lint:fix`.
+- `bun run typecheck`.
+- `bun run test:unit`.
+- `bun run format`.
+- `bun run format:check`.
+- `bun run test:e2e` (requires Playwright browsers).
 
 ## Playwright setup
 
