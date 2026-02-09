@@ -10,13 +10,13 @@ Reference for contributor-safe commands and formatting expectations.
 
 ## Core commands
 
-- Install: `bun install`
-- Full check: `bun run check`
-- Lint: `bun run lint`
-- Type check: `bun run typecheck`
-- Unit tests: `bun run test:unit`
-- Format write: `bun run format`
-- Format verify: `bun run format:check`
+- Install: `bun install`.
+- Full check: `bun run check`.
+- Lint: `bun run lint`.
+- Type check: `bun run typecheck`.
+- Unit tests: `bun run test:unit`.
+- Format write: `bun run format`.
+- Format verify: `bun run format:check`.
 
 ## Formatting rules
 
