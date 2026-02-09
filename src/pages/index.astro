@@ -8,40 +8,52 @@ import { failureStates } from "../content/institute-site";
   description="Open standards for high-stakes systems that must remain reversible under failure."
 >
   <section class="institute-hero stack-lg">
-    <h1>
-      Open standards for high-stakes systems that must remain reversible under
-      failure.
-    </h1>
-    <p>
-      Stoppability rules, reversal clocks, burden ceilings, contestability
-      mechanics.
-    </p>
+    <h1>Find the right governance action fast.</h1>
+    <p>Pick a path below and start in under a minute.</p>
     <div class="actions">
       <a class="button primary" href="/#failure-intake">Start with a failure</a>
-      <a class="muted" href="/how-it-works">New here? See how this works →</a>
+      <a class="button" href="/quick-start">Quick start</a>
+      <a class="muted" href="/how-it-works">How it works →</a>
     </div>
   </section>
 
+  <section class="stack-lg" aria-labelledby="mobile-shortcuts-title">
+    <h2 id="mobile-shortcuts-title">What do you need right now?</h2>
+    <p>Pick one path and keep moving. Every route is optimized for quick scanning on phones.</p>
+    <ul class="mobile-shortcuts" aria-label="Quick mobile shortcuts">
+      <li>
+        <a class="mobile-shortcuts__item" href="/quick-start">
+          <span class="mobile-shortcuts__label">Need a checklist</span>
+          <strong>Use quick-start playbooks</strong>
+        </a>
+      </li>
+      <li>
+        <a class="mobile-shortcuts__item" href="/diagnostics">
+          <span class="mobile-shortcuts__label">Need evidence</span>
+          <strong>Run a diagnostic</strong>
+        </a>
+      </li>
+      <li>
+        <a class="mobile-shortcuts__item" href="/standards">
+          <span class="mobile-shortcuts__label">Need policy language</span>
+          <strong>Browse standards</strong>
+        </a>
+      </li>
+    </ul>
+  </section>
+
   <section class="stack-lg" aria-labelledby="start-sequence-title">
-    <h2 id="start-sequence-title">How to use this site</h2>
+    <h2 id="start-sequence-title">3 steps</h2>
     <ol class="card__list">
-      <li>
-        <strong>1. Choose a failure pathway:</strong> route to the closest live risk.
-      </li>
-      <li>
-        <strong>2. Open linked standards and mechanisms:</strong> align controls with
-        ownership.
-      </li>
-      <li>
-        <strong>3. Deploy artifacts:</strong> publish decision records, clocks, and
-        appeal workflows.
-      </li>
+      <li><strong>1.</strong> Pick the closest risk.</li>
+      <li><strong>2.</strong> Open the linked standard.</li>
+      <li><strong>3.</strong> Use the artifact template.</li>
     </ol>
   </section>
 
   <section id="failure-intake" class="stack-lg">
     <h2>What’s not holding?</h2>
-    <p>Choose the closest match. This is about routing, not blame.</p>
+    <p>Choose the closest match. This is routing, not blame.</p>
     <div class="failure-grid" aria-label="Failure routing options">
       {
         failureStates.map((state) => (
@@ -57,120 +69,49 @@ import { failureStates } from "../content/institute-site";
   </section>
 
   <section class="stack-lg" aria-labelledby="featured-resources-title">
-    <h2 id="featured-resources-title">Featured standards and explainers</h2>
-    <p>
-      Start with the most-cited resources for reversible AI governance,
-      contestability design, and operational accountability.
-    </p>
+    <h2 id="featured-resources-title">Top resources</h2>
     <ul>
-      <li>
-        <a href="/standards/std-01-temporal-rights">
-          STD-01 Temporal Rights standard for stoppability and time-to-halt
-          controls
-        </a>
-      </li>
-      <li>
-        <a href="/standards/std-02-contestability-recourse">
-          STD-02 Contestability &amp; Recourse standard for remedy clocks and
-          escalation
-        </a>
-      </li>
-      <li>
-        <a href="/explainers/remedy-essentials">
-          Remedy essentials explainer for implementing bounded queues and
-          reversal drills
-        </a>
-      </li>
-      <li>
-        <a href="/glossary">
-          Governance glossary with definitions for stoppability, burden
-          ceilings, and recourse
-        </a>
-      </li>
+      <li><a href="/standards/std-01-temporal-rights">STD-01 Temporal Rights</a></li>
+      <li><a href="/standards/std-02-contestability-recourse">STD-02 Contestability &amp; Recourse</a></li>
+      <li><a href="/explainers/remedy-essentials">Remedy essentials</a></li>
+      <li><a href="/glossary">Glossary</a></li>
     </ul>
   </section>
 
   <section class="stack-lg">
-    <h2>How to adopt Ethotechnics</h2>
-    <p>
-      Choose the route that matches how your organization actually takes
-      responsibility: policy, operations, or build.
-    </p>
+    <h2>Choose your team lane</h2>
     <div class="adopt-grid">
       <article class="card stack-sm">
-        <h3>Legal / Compliance / Risk</h3>
-        <h4>Artifacts</h4>
+        <h3>Legal / Compliance</h3>
         <ul>
-          <li>Decision record template</li>
-          <li>Reversal SLA template</li>
-          <li>Contestability &amp; appeals playbook</li>
+          <li>Assign decision owners</li>
+          <li>Set reversal time bounds</li>
+          <li>Publish appeal rules</li>
         </ul>
-        <h4>Metrics</h4>
-        <ul>
-          <li>Reversal latency</li>
-          <li>Time-in-harm</li>
-        </ul>
-        <h4>First-week checklist</h4>
-        <ol>
-          <li>Name decision owners</li>
-          <li>Define reversal authority</li>
-          <li>Set appeal time bounds</li>
-          <li>Publish burden ceilings</li>
-          <li>Identify freeze conditions</li>
-        </ol>
       </article>
 
       <article class="card stack-sm">
-        <h3>Appeals / Incident response</h3>
-        <h4>Artifacts</h4>
+        <h3>Appeals / Incident</h3>
         <ul>
-          <li>Escalation ladder / freeze authority table</li>
-          <li>Harm receipt format</li>
-          <li>Reversal SLA template</li>
-        </ul>
-        <h4>Metrics</h4>
-        <ul>
-          <li>Appeal clearance time</li>
-          <li>Burden hours per case</li>
-        </ul>
-        <h4>First-week checklist</h4>
-        <ol>
           <li>Map queues</li>
-          <li>Assign freeze roles</li>
-          <li>Define escalation clocks</li>
-          <li>Set claimant time caps</li>
+          <li>Name freeze authority</li>
           <li>Run one tabletop</li>
-        </ol>
+        </ul>
       </article>
 
       <article class="card stack-sm">
         <h3>Product / Engineering</h3>
-        <h4>Artifacts</h4>
         <ul>
-          <li>Decision record system</li>
-          <li>Freeze authority table</li>
-          <li>Reversal testing checklist</li>
-        </ul>
-        <h4>Metrics</h4>
-        <ul>
-          <li>Mean time to stop</li>
-          <li>Reversal success rate</li>
-        </ul>
-        <h4>First-week checklist</h4>
-        <ol>
           <li>Instrument reversibility</li>
-          <li>Bind ownership to code paths</li>
-          <li>Test rollback</li>
-          <li>Log reversals</li>
-          <li>Fail one drill intentionally</li>
-        </ol>
+          <li>Test rollback paths</li>
+          <li>Log every reversal</li>
+        </ul>
       </article>
     </div>
-    <p class="small">
-      <strong
-        >If you cannot complete the first-week checklist, pause adoption until
-        the system is ready.</strong
-      >
-    </p>
+    <div class="actions">
+      <a class="button" href="/adopt/policy">Policy lane</a>
+      <a class="button" href="/adopt/ops">Ops lane</a>
+      <a class="button" href="/adopt/build">Build lane</a>
+    </div>
   </section>
 </BaseLayout>
