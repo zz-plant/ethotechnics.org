@@ -51,38 +51,49 @@ const breadcrumbItems = normalizedPermalink
 const breadcrumbJson =
   breadcrumbItems.length > 0
     ? JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: breadcrumbItems,
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbItems.map((item) => ({
+          "@type": item["@type"],
+          position: item.position,
+          name: item.name,
+          item: item.item,
+        })),
       })
     : null;
 
 const HeadingTag = `h${titleLevel}` as const;
 
-function buildBreadcrumbItems(path: string, baseUrl: string, pageTitle: string) {
+function buildBreadcrumbItems(
+  path: string,
+  baseUrl: string,
+  pageTitle: string,
+) {
   const breadcrumbUrl = new URL(path, baseUrl);
-  const segments = breadcrumbUrl.pathname.split('/').filter(Boolean);
+  const segments = breadcrumbUrl.pathname.split("/").filter(Boolean);
 
   if (segments.length === 0) {
     return [];
   }
 
   const homeItem = {
-    '@type': 'ListItem',
+    "@type": "ListItem",
     position: 1,
-    name: 'Home',
-    item: new URL('/', baseUrl).toString(),
+    name: "Home",
+    item: new URL("/", baseUrl).toString(),
+    href: "/",
   } as const;
 
   const segmentItems = segments.map((segment, index) => {
     const name = index === segments.length - 1 ? pageTitle : titleize(segment);
-    const itemPath = `/${segments.slice(0, index + 1).join('/')}`;
+    const itemPath = `/${segments.slice(0, index + 1).join("/")}`;
 
     return {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: index + 2,
       name,
       item: new URL(itemPath, baseUrl).toString(),
+      href: itemPath,
     } as const;
   });
 
@@ -91,34 +102,44 @@ function buildBreadcrumbItems(path: string, baseUrl: string, pageTitle: string) 
 
 function titleize(segment: string) {
   return segment
-    .split('-')
+    .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
+    .join(" ");
 }
 ---
-{breadcrumbJson && (
-  <Fragment slot="head">
-    <script type="application/ld+json" nonce={cspNonce} set:html={breadcrumbJson} is:inline></script>
-  </Fragment>
-)}
+
+{
+  breadcrumbJson && (
+    <Fragment slot="head">
+      <script
+        type="application/ld+json"
+        nonce={cspNonce}
+        set:html={breadcrumbJson}
+        is:inline
+      />
+    </Fragment>
+  )
+}
 <section class="section page-intro">
   <div class="page-intro__grid">
     <div class="page-intro__lead">
-      {breadcrumbItems.length > 1 && (
-        <nav class="page-intro__breadcrumbs" aria-label="Breadcrumb">
-          <ol>
-            {breadcrumbItems.map((item, index) => (
-              <li>
-                {index === breadcrumbItems.length - 1 ? (
-                  <span aria-current="page">{item.name}</span>
-                ) : (
-                  <a href={item.item}>{item.name}</a>
-                )}
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )}
+      {
+        breadcrumbItems.length > 1 && (
+          <nav class="page-intro__breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+              {breadcrumbItems.map((item, index) => (
+                <li>
+                  {index === breadcrumbItems.length - 1 ? (
+                    <span aria-current="page">{item.name}</span>
+                  ) : (
+                    <a href={item.href}>{item.name}</a>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )
+      }
       <div class="page-intro__meta">
         <p class="eyebrow">{eyebrow}</p>
         <p class="page-intro__permalink">
@@ -140,64 +161,71 @@ function titleize(segment: string) {
             class="page-intro__permalink-status"
             data-permalink-status
             role="status"
-            aria-live="polite"
-          ></span>
+            aria-live="polite"></span>
         </p>
       </div>
       <HeadingTag>{title}</HeadingTag>
       <p class="muted page-intro__lede">{description}</p>
-      {hasActions && (
-        <div class="page-intro__actions section__actions">
-          <slot name="actions" />
-        </div>
-      )}
+      {
+        hasActions && (
+          <div class="page-intro__actions section__actions">
+            <slot name="actions" />
+          </div>
+        )
+      }
     </div>
 
     <div class="page-intro__aside">
-      {panelCopy && (
-        <div class="panel panel--glass page-intro__panel">
-          {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
-          <h2>{panelCopy.title}</h2>
-          <p>{panelCopy.description}</p>
-          {panelCopy.link && (
-            <p>
-              <a href={panelCopy.link.href}>{panelCopy.link.label}</a>
-            </p>
-          )}
-        </div>
-      )}
-
-      {hasCustomAside && (
-        <div class="page-intro__aside-custom">
-          <slot name="aside" />
-        </div>
-      )}
-
-      {anchorLinks.length > 0 && (
-        <nav aria-label="On-page links" class="page-intro__anchors">
-          <div>
-            <p class="muted">Jump to</p>
-            <p class="page-intro__anchors-title">Key sections</p>
+      {
+        panelCopy && (
+          <div class="panel panel--glass page-intro__panel">
+            {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
+            <h2>{panelCopy.title}</h2>
+            <p>{panelCopy.description}</p>
+            {panelCopy.link && (
+              <p>
+                <a href={panelCopy.link.href}>{panelCopy.link.label}</a>
+              </p>
+            )}
           </div>
-          <ul>
-            {anchorLinks.map((link, index) => (
-              <li>
-                <a href={link.href} class="pill pill--ghost">
-                  <span class="page-intro__anchor-index">{index + 1}</span>
-                  <span>{link.label}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+        )
+      }
+
+      {
+        hasCustomAside && (
+          <div class="page-intro__aside-custom">
+            <slot name="aside" />
+          </div>
+        )
+      }
+
+      {
+        anchorLinks.length > 0 && (
+          <nav aria-label="On-page links" class="page-intro__anchors">
+            <div>
+              <p class="muted">Jump to</p>
+              <p class="page-intro__anchors-title">Key sections</p>
+            </div>
+            <ul>
+              {anchorLinks.map((link, index) => (
+                <li>
+                  <a href={link.href} class="pill pill--ghost">
+                    <span class="page-intro__anchor-index">{index + 1}</span>
+                    <span>{link.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )
+      }
     </div>
   </div>
 </section>
 
 <script nonce={cspNonce} is:inline>
   const copyButtons = Array.from(
-    document.querySelectorAll("[data-permalink-copy]")
+    document.querySelectorAll("[data-permalink-copy]"),
   );
 
   copyButtons.forEach((button) => {

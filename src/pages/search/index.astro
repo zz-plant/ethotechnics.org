@@ -61,7 +61,9 @@ const entries = [
 ];
 const uniqueEntries = new Map<string, SearchEntry>();
 const navCategoryPriority = [
-  ...navSections.map((section) => section.heading).filter((heading) => heading !== "Start"),
+  ...navSections
+    .map((section) => section.heading)
+    .filter((heading) => heading !== "Start"),
   "Start",
 ];
 const navCategoryRanks = new Map(
@@ -70,7 +72,9 @@ const navCategoryRanks = new Map(
 const getCategoryRank = (category: string) =>
   navCategoryRanks.get(category) ?? navCategoryRanks.size;
 const pickPreferredEntry = (current: SearchEntry, next: SearchEntry) =>
-  getCategoryRank(next.category) < getCategoryRank(current.category) ? next : current;
+  getCategoryRank(next.category) < getCategoryRank(current.category)
+    ? next
+    : current;
 entries.forEach((entry) => {
   const existing = uniqueEntries.get(entry.href);
   if (!existing) {
@@ -127,16 +131,18 @@ const buildSearchText = (entry: SearchEntry) =>
           field to refine with filters.
         </p>
         <ul class="pill-list pill-list--wrap site-search__suggestions">
-          {quickSearchSuggestions.map((suggestion) => (
-            <li>
-              <a
-                class="pill-list__button"
-                href={`/search?q=${encodeURIComponent(suggestion)}`}
-              >
-                {suggestion}
-              </a>
-            </li>
-          ))}
+          {
+            quickSearchSuggestions.map((suggestion) => (
+              <li>
+                <a
+                  class="pill-list__button"
+                  href={`/search?q=${encodeURIComponent(suggestion)}`}
+                >
+                  {suggestion}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </PageIntro>
@@ -170,19 +176,21 @@ const buildSearchText = (entry: SearchEntry) =>
           <div class="site-search__filters">
             <p class="muted small">Filter by collection</p>
             <ul class="pill-list pill-list--wrap">
-              {categoryFilters.map((category) => (
-                <li class="pill-list__item">
-                  <button
-                    class="pill-list__button"
-                    type="button"
-                    data-site-search-filter
-                    data-filter-value={category}
-                    aria-pressed="false"
-                  >
-                    {category}
-                  </button>
-                </li>
-              ))}
+              {
+                categoryFilters.map((category) => (
+                  <li class="pill-list__item">
+                    <button
+                      class="pill-list__button"
+                      type="button"
+                      data-site-search-filter
+                      data-filter-value={category}
+                      aria-pressed="false"
+                    >
+                      {category}
+                    </button>
+                  </li>
+                ))
+              }
             </ul>
             <div class="site-search__filter-actions">
               <button
@@ -205,6 +213,9 @@ const buildSearchText = (entry: SearchEntry) =>
           >
             Showing {searchEntries.length} results.
           </p>
+          <p class="muted small" data-site-search-ranking-note hidden>
+            Showing ranked matches based on title, collection, and tag overlap.
+          </p>
         </div>
         <div class="site-search__results">
           {
@@ -213,10 +224,21 @@ const buildSearchText = (entry: SearchEntry) =>
                 class="card site-search__item"
                 data-site-search-item
                 data-search={buildSearchText(entry)}
+                data-title={entry.title.toLowerCase()}
                 data-category={entry.category}
+                data-tags={entry.tags?.join(" ").toLowerCase() ?? ""}
               >
                 <div class="card__glow" aria-hidden="true" />
-                <p class="eyebrow">{entry.category}</p>
+                <p class="eyebrow site-search__item-meta">
+                  <span>{entry.category}</span>
+                  <span
+                    class="site-search__top-badge"
+                    data-site-search-top-badge
+                    hidden
+                  >
+                    Top match
+                  </span>
+                </p>
                 <h3>
                   <a href={entry.href}>{entry.title}</a>
                 </h3>
