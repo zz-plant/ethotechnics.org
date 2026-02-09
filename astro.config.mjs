@@ -1,53 +1,51 @@
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath } from "node:url";
 
-import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
-import mdx from '@astrojs/mdx';
-import icon from 'astro-icon';
-import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
-
-import robotsTxt from 'astro-robots-txt';
+import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
+import mdx from "@astrojs/mdx";
+import icon from "astro-icon";
+import react from "@astrojs/react";
+import robotsTxt from "astro-robots-txt";
 
 export default defineConfig({
-  site: 'https://ethotechnics.org',
+  site: "https://ethotechnics.org",
   prefetch: true,
-  output: 'server',
+  output: "server",
   server: {
     host: true,
     port: 4321,
   },
   adapter: cloudflare({
-    platform: 'workers',
-    imageService: 'cloudflare',
+    platform: "workers",
+    imageService: "cloudflare",
     platformProxy: {
       enabled: true,
-      configPath: './wrangler.toml',
+      configPath: "./wrangler.toml",
     },
     routes: {
       extend: {
-        exclude: [{ pattern: '/_astro/*' }, { pattern: '/assets/*' }],
+        exclude: [{ pattern: "/_astro/*" }, { pattern: "/assets/*" }],
       },
     },
   }),
   session: {
-    driver: 'memory',
+    driver: "memory",
   },
   markdown: {
-    syntaxHighlight: 'prism',
+    syntaxHighlight: "prism",
   },
-  integrations: [react(), icon(), mdx(), sitemap(), robotsTxt()],
+  integrations: [react(), icon(), mdx(), robotsTxt()],
   vite: {
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
     build: {
-      cssMinify: 'lightningcss',
-      minify: 'esbuild',
+      cssMinify: "lightningcss",
+      minify: "esbuild",
       reportCompressedSize: false,
-      target: 'es2022',
+      target: "es2022",
       rollupOptions: {
         output: {
           experimentalMinChunkSize: 1000,
@@ -55,14 +53,14 @@ export default defineConfig({
       },
     },
     esbuild: {
-      target: 'es2022',
-      legalComments: 'none',
+      target: "es2022",
+      legalComments: "none",
     },
     optimizeDeps: {
-      include: ['react', 'react-dom'],
+      include: ["react", "react-dom"],
     },
     ssr: {
-      external: ['node:crypto', 'node:fs/promises', 'node:path', 'node:url'],
+      external: ["node:crypto", "node:fs/promises", "node:path", "node:url"],
     },
   },
 });

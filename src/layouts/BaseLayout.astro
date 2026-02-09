@@ -25,7 +25,12 @@ interface Props {
   enableGlossaryHighlights?: boolean;
   breadcrumbItems?: Array<{ name: string; url: string }>;
   jsonAlternates?: Array<{ href: string; title?: string }>;
-  structuredDataType?: "auto" | "collection" | "webpage" | "defined-term";
+  structuredDataType?:
+    | "auto"
+    | "collection"
+    | "webpage"
+    | "defined-term"
+    | "tech-article";
 }
 
 const siteName = "Ethotechnics Institute";
@@ -64,14 +69,17 @@ const nonArticleRoutes = new Set([
 const isGlossaryRoute = currentPath.startsWith("/glossary");
 const resolvedOpenGraphType =
   openGraphType ??
-  (isGlossaryRoute || nonArticleRoutes.has(currentPath) ? "website" : "article");
+  (isGlossaryRoute || nonArticleRoutes.has(currentPath)
+    ? "website"
+    : "article");
 const normalizeDateTime = (value?: string) => {
   if (!value) return undefined;
   const parsed = new Date(value);
   return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
 };
 const normalizedPublishedTime = normalizeDateTime(publishedTime);
-const normalizedModifiedTime = normalizeDateTime(modifiedTime) ?? normalizedPublishedTime;
+const normalizedModifiedTime =
+  normalizeDateTime(modifiedTime) ?? normalizedPublishedTime;
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
 const webpageId = canonical;
@@ -165,19 +173,20 @@ const jsonAlternateLinks =
 
 const pathSegments = currentPath.split("/").filter(Boolean);
 const pagefindType = pathSegments[0] ?? "";
-const inferredBreadcrumbItems =
-  breadcrumbItems?.length
-    ? breadcrumbItems
-    : [
-        { name: "Home", url: new URL("/", siteBase).toString() },
-        ...pathSegments.map((segment, index) => ({
-          name: segment
-            .replace(/-/g, " ")
-            .replace(/\b\w/g, (letter) => letter.toUpperCase()),
-          url: new URL(`/${pathSegments.slice(0, index + 1).join("/")}`, siteBase)
-            .toString(),
-        })),
-      ];
+const inferredBreadcrumbItems = breadcrumbItems?.length
+  ? breadcrumbItems
+  : [
+      { name: "Home", url: new URL("/", siteBase).toString() },
+      ...pathSegments.map((segment, index) => ({
+        name: segment
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (letter) => letter.toUpperCase()),
+        url: new URL(
+          `/${pathSegments.slice(0, index + 1).join("/")}`,
+          siteBase,
+        ).toString(),
+      })),
+    ];
 
 if (inferredBreadcrumbItems.length > 1) {
   const breadcrumbList = inferredBreadcrumbItems.map((item, index) => ({
@@ -200,7 +209,8 @@ if (inferredBreadcrumbItems.length > 1) {
 }
 
 const isIndexPage = currentPath === "/" || currentPath.endsWith("/");
-const isGlossaryTerm = currentPath.startsWith("/glossary/") && pathSegments.length === 2;
+const isGlossaryTerm =
+  currentPath.startsWith("/glossary/") && pathSegments.length === 2;
 const resolvedStructuredDataType =
   structuredDataType === "auto"
     ? isGlossaryTerm
@@ -219,10 +229,15 @@ if (resolvedStructuredDataType === "defined-term") {
   webpage.inDefinedTermSet = new URL("/glossary", siteBase).toString();
 }
 
+if (resolvedStructuredDataType === "tech-article") {
+  webpage["@type"] = "TechArticle";
+}
+
 if (resolvedOpenGraphType === "article") {
   const articleJsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type":
+      resolvedStructuredDataType === "tech-article" ? "TechArticle" : "Article",
     "@id": `${canonical}#article`,
     headline: title,
     description,

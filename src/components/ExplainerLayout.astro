@@ -4,6 +4,7 @@ import CardGrid from "./CardGrid.astro";
 import CardItem from "./CardItem.astro";
 import PageIntro from "./PageIntro.astro";
 import SectionBlock from "./SectionBlock.astro";
+import { getExplainerSeoMetadata } from "../utils/explainer-metadata";
 
 interface CtaLink {
   eyebrow: string;
@@ -43,6 +44,7 @@ const {
   faqs,
 } = Astro.props as Props;
 const { cspNonce } = Astro.locals;
+const explainerSeoMetadata = getExplainerSeoMetadata(permalink);
 
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
@@ -70,7 +72,13 @@ const structuredData = {
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={title}
+  description={description}
+  publishedTime={explainerSeoMetadata.publishedTime}
+  modifiedTime={explainerSeoMetadata.modifiedTime}
+  structuredDataType="tech-article"
+>
   <PageIntro
     eyebrow="Explainer"
     title={title}

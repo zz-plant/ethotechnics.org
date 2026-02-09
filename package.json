@@ -30,7 +30,7 @@
     "typecheck": "bunx tsc --noEmit",
     "lint": "bunx eslint \"src/**/*.{ts,tsx,astro}\"",
     "lint:fix": "bunx eslint \"src/**/*.{ts,tsx,astro}\" --fix",
-    "check": "bun run agent:doctor && concurrently \"bun run lint\" \"bun run typecheck\" && bun run astro:check && bun run validate:json && bun run validate:glossary && bun run test:unit:ci",
+    "check": "bun run agent:doctor && concurrently \"bun run lint\" \"bun run typecheck\" && bun run astro:check && bun run seo:audit && bun run validate:json && bun run validate:glossary && bun run test:unit:ci",
     "format": "bunx prettier --write .",
     "format:check": "bunx prettier --check .",
     "test:unit": "bun test src",
@@ -41,7 +41,8 @@
     "mcp": "bun run scripts/mcp-server.ts",
     "validate:json": "bun run validate-json.ts",
     "validate:glossary": "bun run validate-glossary.ts",
-    "agent:doctor": "bun run scripts/agent-doctor.ts"
+    "agent:doctor": "bun run scripts/agent-doctor.ts",
+    "seo:audit": "bun run scripts/seo-audit.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
