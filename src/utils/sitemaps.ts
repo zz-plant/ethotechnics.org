@@ -146,6 +146,14 @@ const inferChangefreq = (lastmod: string) => {
   return "yearly";
 };
 
+const escapeXml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+
 const hasEntryData = <TData>(
   value: unknown,
 ): value is {
@@ -165,8 +173,9 @@ const renderUrl = (base: URL, entry: SitemapEntry) => {
   const imageTags =
     entry.images?.map((image) => {
       const imageLoc = new URL(image.loc, base).toString();
+      const imageTitle = image.title ? escapeXml(image.title) : undefined;
       const titleTag = image.title ? `
-    <image:title>${image.title}</image:title>` : "";
+    <image:title>${imageTitle}</image:title>` : "";
       return `
   <image:image>
     <image:loc>${imageLoc}</image:loc>${titleTag}
