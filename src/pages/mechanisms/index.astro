@@ -60,9 +60,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
-  jsonAlternates={[
-    { href: "/api/mechanisms.json", title: "Mechanisms JSON" },
-  ]}
+  jsonAlternates={[{ href: "/api/mechanisms.json", title: "Mechanisms JSON" }]}
 >
   <PageIntro
     eyebrow="Mechanisms"
@@ -89,12 +87,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     }}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#quick-filters">
-        Browse quick filters
-      </a>
-      <a class="button ghost" href="#primer">
-        Read the primer
-      </a>
+      <a class="button primary" href="#quick-filters"> Browse quick filters </a>
+      <a class="button ghost" href="#primer"> Read the primer </a>
     </Fragment>
   </PageIntro>
   <SummaryCallout
@@ -123,6 +117,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Use this guided flow to land on the right specs, then loop back into validators."
     variant="alt"
   >
+    <div class="panel stack-sm">
+      <p class="eyebrow">Recommended first action</p>
+      <h3>Start with quick filters, then open one mechanism spec.</h3>
+      <p class="muted">
+        If you are unsure where to begin, pick one filter, review the top
+        matching mechanism, and then validate with a linked diagnostic.
+      </p>
+      <p>
+        <a class="button primary" href="#quick-filters"
+          >Start with quick filters</a
+        >
+      </p>
+    </div>
     <ol class="card__list">
       <li>
         <strong>Pick a lens:</strong>{" "}
@@ -136,7 +143,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </li>
       <li>
         <strong>Make it enforceable:</strong>{" "}
-        connect specs to the <a href="/standards/std-01-rights-matrix">rights matrix</a>{" "}
+        connect specs to the <a href="/standards/std-01-rights-matrix"
+          >rights matrix</a
+        >{" "}
         and <a href="/validators">validators</a>.
       </li>
     </ol>
@@ -167,13 +176,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     variant="alt"
   >
     <ul class="pill-list pill-list--wrap">
-      {quickFilters.map((filter) => (
-        <li>
-          <a class="pill-list__button" href={`/mechanisms?filter=${filter.slug}`}>
-            {filter.label}
-          </a>
-        </li>
-      ))}
+      {
+        quickFilters.map((filter) => (
+          <li>
+            <a
+              class="pill-list__button"
+              href={`/mechanisms?filter=${filter.slug}`}
+            >
+              {filter.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
   <SectionBlock
@@ -227,10 +241,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           {quickStart.map((item) => <li>{item}</li>)}
         </ul>
       </CardItem>
-      <CardItem
-        title={recommended.title}
-        description={recommended.description}
-      >
+      <CardItem title={recommended.title} description={recommended.description}>
         <ul class="library__recommended-list">
           {
             recommended.items.map((item) => (

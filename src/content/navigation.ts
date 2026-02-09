@@ -21,7 +21,7 @@ export interface NavAction {
 }
 
 export const navPrimaryLinks: NavLink[] = [
-  { href: "/#failure-intake", label: "Start with failure", primary: true },
+  { href: "/#failure-intake", label: "Failure pathways", primary: true },
   { href: "/artifacts", label: "Artifacts", primary: true },
   { href: "/standards", label: "Standards", primary: true },
   { href: "/diagnostics", label: "Diagnostics", primary: true },

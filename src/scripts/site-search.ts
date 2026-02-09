@@ -4,6 +4,9 @@ const initSiteSearch = () => {
     "[data-site-search-input]",
   );
   const status = root?.querySelector<HTMLElement>("[data-site-search-status]");
+  const rankingNote = root?.querySelector<HTMLElement>(
+    "[data-site-search-ranking-note]",
+  );
   const emptyState = root?.querySelector<HTMLElement>(
     "[data-site-search-empty]",
   );
@@ -31,7 +34,9 @@ const initSiteSearch = () => {
       item.dataset.search?.toLowerCase() ??
       item.textContent?.toLowerCase() ??
       "",
+    title: item.dataset.title?.toLowerCase() ?? "",
     category: item.dataset.category ?? "",
+    tags: item.dataset.tags?.toLowerCase() ?? "",
   }));
 
   let frame = 0;
@@ -70,7 +75,11 @@ const initSiteSearch = () => {
 
   const applyFilter = () => {
     const query = input.value.trim().toLowerCase();
+    const hasQuery = query.length > 0;
     let visibleCount = 0;
+    const visibleItems: Array<
+      (typeof indexedItems)[number] & { score: number }
+    > = [];
 
     indexedItems.forEach((item) => {
       const matchesQuery = !query || item.searchText.includes(query);
@@ -80,8 +89,39 @@ const initSiteSearch = () => {
       item.element.toggleAttribute("hidden", !matches);
       if (matches) {
         visibleCount += 1;
+        const titleHit = hasQuery && item.title.includes(query) ? 3 : 0;
+        const categoryHit =
+          hasQuery && item.category.toLowerCase().includes(query) ? 2 : 0;
+        const tagsHit = hasQuery && item.tags.includes(query) ? 1 : 0;
+        const score = titleHit + categoryHit + tagsHit;
+        visibleItems.push({ ...item, score });
       }
+      item.element
+        .querySelector<HTMLElement>("[data-site-search-top-badge]")
+        ?.toggleAttribute("hidden", true);
+      item.element.style.order = "0";
     });
+
+    if (hasQuery) {
+      visibleItems
+        .sort(
+          (a, b) =>
+            b.score - a.score ||
+            a.title.localeCompare(b.title, "en", { sensitivity: "base" }),
+        )
+        .forEach((item, index) => {
+          item.element.style.order = `${index + 1}`;
+          const badge = item.element.querySelector<HTMLElement>(
+            "[data-site-search-top-badge]",
+          );
+          if (badge && index < 3 && item.score > 0) {
+            badge.toggleAttribute("hidden", false);
+            badge.textContent = index === 0 ? "Best match" : "Top match";
+          }
+        });
+    }
+
+    rankingNote?.toggleAttribute("hidden", !hasQuery);
 
     if (status) {
       const plural = visibleCount === 1 ? "result" : "results";
