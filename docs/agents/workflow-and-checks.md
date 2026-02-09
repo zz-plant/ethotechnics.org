@@ -12,11 +12,11 @@ Required execution flow for agent-authored changes.
 
 Run focused checks as you iterate:
 
-- `bun run lint`
-- `bun run typecheck`
-- `bun run test:unit`
-- `bun run validate:json` when JSON/content schemas change
-- `bun run validate:glossary` for glossary updates
+- `bun run lint`.
+- `bun run typecheck`.
+- `bun run test:unit`.
+- `bun run validate:json` when JSON/content schemas change.
+- `bun run validate:glossary` for glossary updates.
 
 ## 3) Before commit
 
