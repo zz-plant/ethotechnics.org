@@ -10,8 +10,8 @@ Setup, run, and troubleshoot the site locally using the repository's supported t
 
 ## Setup
 
-1. `nvm use`
-2. `bun install`
+1. `nvm use`.
+2. `bun install`.
 3. Copy `.env.example` to `.env.local` if needed for local overrides.
 
 ## Daily commands
