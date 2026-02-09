@@ -16,6 +16,7 @@ import { quickStartGuides } from "../content/quick-start";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
 import { getTaxonomyBranch, taxonomyEntries } from "../content/taxonomy";
+import { homeContent } from "../content/home";
 import { glossaryEntryPermalink } from "../utils/glossary";
 import {
   getGlossaryTestSlugs,
@@ -30,11 +31,17 @@ type PageModule = {
   lastmod?: string;
 };
 
+type SitemapImage = {
+  loc: string;
+  title?: string;
+};
+
 type SitemapEntry = {
   path: string;
   lastmod?: string;
   changefreq?: string;
   priority?: string;
+  images?: SitemapImage[];
 };
 
 const normalizeOverrideKey = (path: string) =>
@@ -153,8 +160,22 @@ const renderUrl = (base: URL, entry: SitemapEntry) => {
   const changefreqTag = changefreq
     ? `\n  <changefreq>${changefreq}</changefreq>`
     : "";
-  const priorityTag = priority ? `\n  <priority>${priority}</priority>` : "";
-  return `<url>\n  <loc>${loc}</loc>\n  <lastmod>${lastmod}</lastmod>${changefreqTag}${priorityTag}\n</url>`;
+  const priorityTag = priority ? `
+  <priority>${priority}</priority>` : "";
+  const imageTags =
+    entry.images?.map((image) => {
+      const imageLoc = new URL(image.loc, base).toString();
+      const titleTag = image.title ? `
+    <image:title>${image.title}</image:title>` : "";
+      return `
+  <image:image>
+    <image:loc>${imageLoc}</image:loc>${titleTag}
+  </image:image>`;
+    }).join("") ?? "";
+  return `<url>
+  <loc>${loc}</loc>
+  <lastmod>${lastmod}</lastmod>${changefreqTag}${priorityTag}${imageTags}
+</url>`;
 };
 
 const contentMtime = async (filePath: string) => {
@@ -347,6 +368,17 @@ export const buildSitemapSections = async () => {
     addOverride(`/standards/${standard.slug}`, standard.published);
   });
 
+
+  const homePath = pagePaths.find((entry) => entry.path === "/");
+  if (homePath) {
+    homePath.images = [
+      {
+        loc: homeContent.hero.media.src,
+        title: homeContent.hero.media.alt,
+      },
+    ];
+  }
+
   [
     "/glossary",
     "/incidents",
@@ -399,14 +431,30 @@ export const buildSitemapSections = async () => {
 
 export const renderSitemap = (siteUrl: URL, entries: SitemapEntry[]) => {
   const urls = entries.map((entry) => renderUrl(siteUrl, entry)).join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
+  const hasImageEntries = entries.some((entry) => (entry.images?.length ?? 0) > 0);
+  const imageNamespace = hasImageEntries
+    ? ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'
+    : "";
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"${imageNamespace}>\n${urls}\n</urlset>`;
 };
 
-export const renderSitemapIndex = (siteUrl: URL, sitemapPaths: string[]) => {
-  const urls = sitemapPaths
-    .map((path) => {
-      const loc = new URL(path, siteUrl).toString();
-      return `<sitemap>\n  <loc>${loc}</loc>\n</sitemap>`;
+type SitemapIndexEntry = {
+  path: string;
+  lastmod?: string;
+};
+
+export const renderSitemapIndex = (
+  siteUrl: URL,
+  sitemapEntries: SitemapIndexEntry[],
+) => {
+  const urls = sitemapEntries
+    .map((entry) => {
+      const loc = new URL(entry.path, siteUrl).toString();
+      const lastmod = entry.lastmod
+        ? `\n  <lastmod>${normalizeLastmod(entry.lastmod)}</lastmod>`
+        : "";
+      return `<sitemap>\n  <loc>${loc}</loc>${lastmod}\n</sitemap>`;
     })
     .join("\n");
 

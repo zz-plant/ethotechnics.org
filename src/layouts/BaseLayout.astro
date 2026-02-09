@@ -14,6 +14,8 @@ interface Props {
   description?: string;
   openGraphType?: string;
   robots?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
   /**
    * Optional class list for the <main> wrapper. Defaults to the standard
    * constrained layout (`"page container"`). Pass a custom value such as
@@ -39,6 +41,8 @@ const {
   description = defaultDescription,
   openGraphType,
   robots = defaultRobots,
+  publishedTime,
+  modifiedTime,
   mainClass = "page container",
   enableGlossaryHighlights = true,
   breadcrumbItems,
@@ -61,6 +65,13 @@ const isGlossaryRoute = currentPath.startsWith("/glossary");
 const resolvedOpenGraphType =
   openGraphType ??
   (isGlossaryRoute || nonArticleRoutes.has(currentPath) ? "website" : "article");
+const normalizeDateTime = (value?: string) => {
+  if (!value) return undefined;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
+};
+const normalizedPublishedTime = normalizeDateTime(publishedTime);
+const normalizedModifiedTime = normalizeDateTime(modifiedTime) ?? normalizedPublishedTime;
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
 const webpageId = canonical;
@@ -209,7 +220,7 @@ if (resolvedStructuredDataType === "defined-term") {
 }
 
 if (resolvedOpenGraphType === "article") {
-  structuredData.push({
+  const articleJsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Article",
     "@id": `${canonical}#article`,
@@ -226,7 +237,18 @@ if (resolvedOpenGraphType === "article") {
       "@id": webpageId,
     },
     inLanguage: "en",
-  });
+  };
+
+  if (normalizedPublishedTime) {
+    articleJsonLd.datePublished = normalizedPublishedTime;
+  }
+
+  if (normalizedModifiedTime) {
+    articleJsonLd.dateModified = normalizedModifiedTime;
+    webpage.dateModified = normalizedModifiedTime;
+  }
+
+  structuredData.push(articleJsonLd);
 }
 
 const structuredDataJson = JSON.stringify(structuredData);
@@ -269,6 +291,13 @@ const structuredDataJson = JSON.stringify(structuredData);
           locale: "en_US",
           siteName,
         },
+        article:
+          resolvedOpenGraphType === "article"
+            ? {
+                publishedTime: normalizedPublishedTime,
+                modifiedTime: normalizedModifiedTime,
+              }
+            : undefined,
         image: {
           alt: seoImage.alt,
           secureUrl: seoImage.src,
