@@ -8,8 +8,14 @@ import { failureStates } from "../content/institute-site";
   description="Open standards for high-stakes systems that must remain reversible under failure."
 >
   <section class="institute-hero stack-lg">
-    <h1>Open standards for high-stakes systems that must remain reversible under failure.</h1>
-    <p>Stoppability rules, reversal clocks, burden ceilings, contestability mechanics.</p>
+    <h1>
+      Open standards for high-stakes systems that must remain reversible under
+      failure.
+    </h1>
+    <p>
+      Stoppability rules, reversal clocks, burden ceilings, contestability
+      mechanics.
+    </p>
     <div class="actions">
       <a class="button primary" href="/#failure-intake">Start with a failure</a>
       <a class="muted" href="/how-it-works">New here? See how this works →</a>
@@ -20,20 +26,58 @@ import { failureStates } from "../content/institute-site";
     <h2>What’s not holding?</h2>
     <p>Choose the closest match. This is about routing, not blame.</p>
     <div class="failure-grid" aria-label="Failure routing options">
-      {failureStates.map((state) => (
-        <a class="button" href={`/failure/${state.slug}`}>
-          {state.shortLabel}
-        </a>
-      ))}
+      {
+        failureStates.map((state) => (
+          <a class="button" href={`/failure/${state.slug}`}>
+            {state.shortLabel}
+          </a>
+        ))
+      }
     </div>
-    <p class="small muted">Each path routes to a ready-to-use governance artifact.</p>
+    <p class="small muted">
+      Each path routes to a ready-to-use governance artifact.
+    </p>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="featured-resources-title">
+    <h2 id="featured-resources-title">Featured standards and explainers</h2>
+    <p>
+      Start with the most-cited resources for reversible AI governance,
+      contestability design, and operational accountability.
+    </p>
+    <ul>
+      <li>
+        <a href="/standards/std-01-temporal-rights">
+          STD-01 Temporal Rights standard for stoppability and time-to-halt
+          controls
+        </a>
+      </li>
+      <li>
+        <a href="/standards/std-02-contestability-recourse">
+          STD-02 Contestability &amp; Recourse standard for remedy clocks and
+          escalation
+        </a>
+      </li>
+      <li>
+        <a href="/explainers/remedy-essentials">
+          Remedy essentials explainer for implementing bounded queues and
+          reversal drills
+        </a>
+      </li>
+      <li>
+        <a href="/glossary">
+          Governance glossary with definitions for stoppability, burden
+          ceilings, and recourse
+        </a>
+      </li>
+    </ul>
   </section>
 
   <section class="stack-lg">
     <h2>How to adopt Ethotechnics</h2>
     <p>
-      Choose the route that matches how your organization actually takes responsibility: policy,
-      operations, or build.
+      Choose the route that matches how your organization actually takes
+      responsibility: policy, operations, or build.
     </p>
     <div class="adopt-grid">
       <article class="card stack-sm">
@@ -105,6 +149,10 @@ import { failureStates } from "../content/institute-site";
         </ol>
       </article>
     </div>
-    <p class="small"><strong>If you cannot complete the first-week checklist, pause adoption until the system is ready.</strong></p>
+    <p class="small">
+      <strong
+        >If you cannot complete the first-week checklist, pause adoption until
+        the system is ready.</strong>
+    </p>
   </section>
 </BaseLayout>
