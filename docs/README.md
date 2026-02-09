@@ -4,9 +4,23 @@ Orientation for the docs folder so contributors can find and maintain guidance q
 
 Use this map before adding new guidance so information stays discoverable and current.
 
-## Quick links
+## Start here by audience
 
-### Planning and contributor guidance
+### Human contributors (local development and delivery)
+
+- [`contributor-workflow.md`](contributor-workflow.md) is the canonical day-to-day change loop.
+- [`local-development.md`](local-development.md) covers setup, scripts, and troubleshooting.
+- [`manual-qa.md`](manual-qa.md) captures manual UI checks for visual or interaction changes.
+- [`deployment.md`](deployment.md) explains release and post-deploy verification.
+
+### Agent contributors (AI and MCP-enabled workflows)
+
+- [`agent-developer-experience.md`](agent-developer-experience.md) is the agent onboarding index.
+- [`agents/README.md`](agents/README.md) maps the expanded agent playbooks.
+- [`agents/workflow-and-checks.md`](agents/workflow-and-checks.md) documents required checks.
+- [`agents/repo-orientation.md`](agents/repo-orientation.md) helps route changes to the right folder.
+
+### Planning and roadmap
 
 - [`roadmap.md`](roadmap.md) tracks the now/next/later roadmap, spec template, and pickup guidance.
 - [`interop-release-plan.md`](interop-release-plan.md) summarizes planned interop packages and
@@ -16,18 +30,12 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`issue-templates.md`](issue-templates.md) defines the consistent fields for roadmap-related GitHub
   Issues.
 - [`mini-prds.md`](mini-prds.md) drafts the accountability tooling Mini-PRDs and homepage blurb.
-- [`agent-developer-experience.md`](agent-developer-experience.md) aggregates agent-specific
-  references and to-do items.
 - [`tech-stack-capabilities-scan-2026.md`](tech-stack-capabilities-scan-2026.md) summarizes
   newer capabilities to evaluate across the current runtime, framework, and QA tooling.
 - [`tech-stack-upgrade-actions-2026-q1.md`](tech-stack-upgrade-actions-2026-q1.md) tracks
   completion status for near-term upgrade actions from the capability scan.
 - [`tech-stack-upgrade-actions-2026-q2.md`](tech-stack-upgrade-actions-2026-q2.md) records
   mid-term dependency refresh execution and validation outcomes.
-- [`contributor-workflow.md`](contributor-workflow.md) captures the day-to-day change loop, required
-  checks, and formatting expectations.
-- [`agents/README.md`](agents/README.md) collects the expanded AGENTS guidance split out of the
-  repository root.
 
 ### Architecture, layout, and content
 
@@ -48,21 +56,15 @@ Use this map before adding new guidance so information stays discoverable and cu
 - [`agent-metadata.md`](agent-metadata.md) documents JSON-LD coverage and the public JSON APIs for
   agents.
 
-### Testing, local development, and deployment
+### Testing, diagnostics, and quality references
 
-- [`local-development.md`](local-development.md) captures setup, dev server tips, and how to preview
-  builds locally.
-- [`deployment.md`](deployment.md) describes the Cloudflare Workers deploy flow and verification
-  checklist.
-- [`manual-qa.md`](manual-qa.md) provides a checklist for hands-on testing of UI changes and
-  interaction flows.
 - [`testing-todos.md`](testing-todos.md) summarizes existing coverage and remaining test gaps.
 - [`performance-guardrails.md`](performance-guardrails.md) documents Core Web Vitals budgets and
   console-clean checks enforced in Playwright.
 - [`cloudflare-playwright.md`](cloudflare-playwright.md) documents how to run Playwright in
   Cloudflare Pages builds and where test results show up.
 
-### Diagnostics, design, and UX references
+### Design and UX references
 
 - [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md) and
   [`diagnostics-outputs.md`](diagnostics-outputs.md) capture diagnostics tooling notes and

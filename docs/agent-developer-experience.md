@@ -1,33 +1,44 @@
 # Developer experience checklist for agents
 
-This file summarizes agent-facing references so onboarding stays short and consistent.
+Use this page as the single entry point for AI contributors. It routes you to the right source of
+truth without duplicating guidance that already lives elsewhere.
 
-## Current agent references
+## Canonical path
 
-- Project context, commands, and contributor expectations live in
-  [README.md](../README.md), especially [Quick start](../README.md#quick-start),
-  [Common scripts](../README.md#common-scripts), [Testing](../README.md#testing), and
-  [Contributing](../README.md#contributing).
-- Docs-specific expectations live in [`docs/AGENTS.md`](./AGENTS.md).
-- The docs map and when to add guidance live in [`docs/README.md`](./README.md).
-- The roadmap, spec template, and pickup guidance live in [`docs/roadmap.md`](./roadmap.md).
-- Repository-wide expectations live in [`AGENTS.md`](../AGENTS.md).
-- File-level conventions live with the code in
-  [`src/AGENTS.md`](../src/AGENTS.md),
-  [`src/pages/AGENTS.md`](../src/pages/AGENTS.md), and
-  [`src/components/AGENTS.md`](../src/components/AGENTS.md).
-- Environment configuration, including `.env` loading, is covered in
-  [README.md#environment-configuration](../README.md#environment-configuration).
-- Playwright browser download troubleshooting sits near the
-  [README.md#testing](../README.md#testing) e2e instructions.
+1. Read [`AGENTS.md`](../AGENTS.md) for repository-wide rules.
+2. Find scoped overrides with `rg --files -g 'AGENTS.md'`.
+3. Open [`docs/README.md`](./README.md) to route the task by audience and domain.
+4. Follow [`docs/agents/README.md`](./agents/README.md) for detailed execution playbooks.
+5. Use [`contributor-workflow.md`](./contributor-workflow.md) for the shared human/agent delivery
+   loop.
+
+## Source-of-truth map
+
+### Workflow and checks
+
+- Shared delivery loop: [`contributor-workflow.md`](./contributor-workflow.md).
+- Agent-required validation and handoff: [`agents/workflow-and-checks.md`](./agents/workflow-and-checks.md).
+- Formatting and tooling commands: [`agents/formatting-and-tooling.md`](./agents/formatting-and-tooling.md).
+
+### Repository and code conventions
+
+- Repository map: [`agents/repo-orientation.md`](./agents/repo-orientation.md).
+- Coding expectations: [`agents/coding-practices.md`](./agents/coding-practices.md).
+- Commit and branch hygiene: [`agents/version-control.md`](./agents/version-control.md).
+- Final review pass: [`agents/review-checklist.md`](./agents/review-checklist.md).
+
+### Environment and runtime notes
+
+- Setup and scripts: [`local-development.md`](./local-development.md).
+- Root project commands and env behavior: [`README.md`](../README.md).
+- MCP server usage: `bun run mcp` (also documented in root `AGENTS.md`).
 
 ## Agent workflow reminders
 
-- Use the pinned toolchain: `nvm use` for Node 20 and Bun for all scripts.
-- Run `bun run check` for code or mixed changes. Docs-only updates can skip it but note the skip
-  in the PR body.
-- Format docs with `bunx prettier --write docs/*.md` before committing.
-- Keep changes small, readable, and scoped to the task.
+- Use Node.js 20 via `nvm use` and run all scripts with Bun.
+- Run `bun run check` for code or mixed changes.
+- Docs-only updates may skip `bun run check`; if skipped, document it in the PR body.
+- Keep changes small and update docs maps when moving contributor-facing guidance.
 
 ## Design-engineer system prompt
 
@@ -138,69 +149,3 @@ better composability
 Make good outcomes easy.
 Make bad outcomes hard.
 ```
-
-## Picking work
-
-- Start with the roadmap/specs hub in
-  [`docs/page-specifications.md`](./page-specifications.md) for the current priority list.
-- Prefer items marked “Now” or labeled “good first issue” when you want a bounded, high-confidence
-  starting point.
-- If multiple items are viable, pick the one with the clearest acceptance notes and required files.
-
-## Editor and IDE helpers
-
-- Workspace recommendations for VS Code live in `.vscode/extensions.json`; install them to pick up
-  Astro IntelliSense, ESLint, and Prettier support.
-- `.vscode/settings.json` pins format-on-save behavior and uses the workspace TypeScript version so
-  diagnostics match the scripts in `package.json`.
-
-## MCP integration
-
-If your environment supports [Model Context Protocol](https://modelcontextprotocol.io), enable the
-project MCP server for structured access to project context:
-
-```bash
-bun run mcp
-```
-
-### Available resources
-
-| URI                         | Description                  |
-| --------------------------- | ---------------------------- |
-| `project://structure`       | Project layout and key paths |
-| `project://scripts`         | Package.json scripts         |
-| `project://agents-guidance` | Aggregated AGENTS.md content |
-| `agent://onboarding`        | Agent Quick Start & Mission  |
-| `docs://index`              | Documentation listing        |
-
-### Available prompts
-
-| Name              | Purpose                     |
-| ----------------- | --------------------------- |
-| `design-engineer` | Design-engineer mode prompt |
-| `code-review`     | Code review template        |
-| `new-component`   | Astro component scaffolding |
-
-### Key tools
-
-| Tool                     | Description                |
-| ------------------------ | -------------------------- |
-| `list_available_scripts` | Package.json scripts       |
-| `get_component_list`     | Astro components in src/   |
-| `read_docs`              | Read documentation files   |
-| `run_check\`             | Execute full project check |
-| \`get_repo_map\`         | Birds-eye view of folders  |
-| `list_workflows`         | Agent skill definitions    |
-
-## Agent skills
-
-Modular capabilities live in `.agent/skills/`:
-
-- **fix-types** — resolve TypeScript errors
-- **qa** — run full QA suite
-- **ui-verify** — browser-based verification
-- **design-engineer** — maintain premium design standards
-
-## Improvements still needed
-
-- None noted.
