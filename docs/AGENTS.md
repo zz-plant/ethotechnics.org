@@ -15,7 +15,7 @@ Scope: applies to documentation under `docs/`.
 
 ## Tooling
 
-- Format Markdown with Prettier defaults (`bunx prettier --write docs/*.md`).
+- Format Markdown with Prettier defaults (`bunx prettier --write "docs/**/*.md"`).
 
 ## Checks
 

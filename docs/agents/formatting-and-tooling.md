@@ -28,8 +28,8 @@ Reference for contributor-safe commands and formatting expectations.
 ## Docs formatting
 
 - Whole repo: `bun run format`
-- Docs-only quick formatting (example): `bunx prettier --write docs/**/*.md`
-- Docs-only verification (example): `bunx prettier --check docs/**/*.md`
+- Docs-only quick formatting (example): `bunx prettier --write "docs/**/*.md"`
+- Docs-only verification (example): `bunx prettier --check "docs/**/*.md"`
 
 Use file-scoped formatting when you want faster docs iteration, then rely on `bun run format`
 for full consistency before major merges.
