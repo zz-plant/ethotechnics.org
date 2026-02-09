@@ -1,19 +1,30 @@
 import type { APIContext } from "astro";
 
-import { renderSitemapIndex } from "../utils/sitemaps";
+import { buildSitemapSections, renderSitemapIndex } from "../utils/sitemaps";
 
 const fallbackSite = "https://ethotechnics.org";
 
-const sitemapPaths = [
-  "/sitemaps/core.xml",
-  "/sitemaps/glossary.xml",
-  "/sitemaps/standards.xml",
-  "/sitemaps/taxonomy.xml",
-];
+const sitemapPaths = ["core", "glossary", "standards", "taxonomy"] as const;
 
-export function GET({ site }: APIContext) {
+export async function GET({ site }: APIContext) {
   const siteUrl = site ?? new URL(fallbackSite);
-  const xml = renderSitemapIndex(siteUrl, sitemapPaths);
+  const sections = await buildSitemapSections();
+  const sitemapEntries = sitemapPaths.map((section) => {
+    const sectionEntries = sections[section];
+    const latestLastmod = sectionEntries.reduce<string | undefined>((latest, entry) => {
+      if (!entry.lastmod) return latest;
+      if (!latest) return entry.lastmod;
+      return new Date(entry.lastmod).getTime() > new Date(latest).getTime()
+        ? entry.lastmod
+        : latest;
+    }, undefined);
+
+    return {
+      path: `/sitemaps/${section}.xml`,
+      lastmod: latestLastmod,
+    };
+  });
+  const xml = renderSitemapIndex(siteUrl, sitemapEntries);
 
   return new Response(xml, {
     status: 200,
