@@ -22,7 +22,7 @@ Run focused checks as you iterate:
 
 For code or mixed changes, run:
 
-- `bun run check`
+- `bun run check`.
 
 This command includes linting, type checks, Astro checks, validations, unit tests, and
 `agent:doctor` preflight checks.
