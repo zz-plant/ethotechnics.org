@@ -27,8 +27,8 @@ interaction review of navigation, Library, and Diagnostics pages.
 
 **Constructive recommendations**
 
-- Add a one-line decision helper under the hero CTAs (e.g., “Use *failure* if something broke now; use
-  *quick start* if you are planning ahead”).
+- Add a one-line decision helper under the hero CTAs (e.g., “Use _failure_ if something broke now; use
+  _quick start_ if you are planning ahead”).
 - Consider progressive disclosure: keep one primary CTA and collapse secondary options behind a short
   “Other ways to start” toggle on small screens.
 
@@ -89,3 +89,79 @@ interaction review of navigation, Library, and Diagnostics pages.
 - **Opportunity:** reduce initial choice complexity and strengthen “what next” continuity between sections.
 - **Priority order:** (1) improve first-step clarity on homepage, (2) shorten path to diagnostic menu,
   (3) standardize post-read next-step prompts in Field Notes.
+
+## Mobile journey pass (iPhone 13 viewport)
+
+Snapshot of three common journeys run on a mobile viewport (`390x844`) in local dev.
+
+### Journey 1: First-time visitor tries to start quickly from homepage
+
+**Path traversed:** `/` → hero CTAs → “What do you need right now?” → team lane cards.
+
+**What works**
+
+- Hero copy sets urgency and intent quickly.
+- The “Start with a failure” CTA is visible without scrolling.
+- Card clusters create clear thematic groupings once users start scrolling.
+
+**Mobile friction observed**
+
+- The first screen stacks multiple competing CTAs before users understand the difference.
+- Several link labels are terse or abstract in isolation, which increases decision time on a narrow screen.
+- CTA density is high early in the page, so users may skim past context needed to choose confidently.
+
+**Constructive recommendations**
+
+- Keep one dominant primary CTA in the hero and visually demote secondary actions on mobile.
+- Add one sentence under hero CTAs that explains when to pick each route.
+- Delay lower-priority pathways until after a short orientation block (or collapse them behind “More ways to start”).
+
+### Journey 2: Practitioner goes to Diagnostics to run a tool quickly
+
+**Path traversed:** `/diagnostics` → intro / wayfinding links → first “Run …” tool CTA.
+
+**What works**
+
+- The page appears to include repeated jump links to the tools section, which supports fast navigation.
+- Tool CTAs are action-oriented and easy to identify while scrolling.
+
+**Mobile friction observed**
+
+- Intro and orientation content can feel long before users reach the full tool grid.
+- Multiple wayfinding links in close proximity can read as repetitive rather than progressive.
+- The user needs sustained scrolling before seeing enough tool options to compare.
+
+**Constructive recommendations**
+
+- Add a sticky “Jump to diagnostic tools” control after the first scroll.
+- Collapse supporting methodology detail by default on mobile, with expandable sections for depth.
+- Add a compact comparison row (time, effort, artifact output) immediately above the tool list.
+
+### Journey 3: Reader browses Field Notes and wants a clear next step
+
+**Path traversed:** `/field-notes` → browse entries → first note link.
+
+**What works**
+
+- Field Notes remains content-first, matching reader expectations for editorial browsing.
+- Link-rich note cards support exploration once users begin opening entries.
+
+**Mobile friction observed**
+
+- The page can feel visually dense on mobile, with weak progression cues between "read" and "do next".
+- “Next step” affordances are less explicit than on task-oriented pages (for example, diagnostics).
+
+**Constructive recommendations**
+
+- Add a repeatable “After this note, continue with …” block on each entry card.
+- Offer 2–3 mobile-first reading paths (for example, incident response, policy design, facilitation).
+- Keep RSS and archive actions visible, but visually separate them from action pathways.
+
+### Cross-journey mobile themes
+
+- **Strong:** clear mission-aligned language and action labels across core sections.
+- **Opportunity:** reduce top-of-page choice overload and make next-step guidance more explicit.
+- **Priority order:**
+  1. Simplify homepage CTA hierarchy.
+  2. Shorten the path from diagnostics intro to tool comparison.
+  3. Add consistent follow-on guidance in Field Notes.
