@@ -2,6 +2,11 @@
 /* eslint-disable no-console */
 import { spawn } from "bun";
 
+async function streamToText(stream: ReadableStream<Uint8Array> | null): Promise<string> {
+  if (!stream) return "";
+  return new Response(stream).text();
+}
+
 const commands = [
   { name: "Lint", cmd: ["bun", "run", "lint"] },
   { name: "Unit Tests", cmd: ["bun", "run", "test:unit:ci"] },
@@ -21,8 +26,8 @@ const results = await Promise.all(
       stderr: "pipe",
     });
 
-    const stdout = await Bun.readableStreamToText(proc.stdout);
-    const stderr = await Bun.readableStreamToText(proc.stderr);
+    const stdout = await streamToText(proc.stdout);
+    const stderr = await streamToText(proc.stderr);
     await proc.exited;
 
     const duration = ((Date.now() - start) / 1000).toFixed(2);
