@@ -166,6 +166,7 @@
     box-shadow: 0 18px 40px rgba(64, 52, 40, 0.08);
     backdrop-filter: none;
     overflow: hidden;
+    overflow: clip;
   }
 
   .page-shell__panel::before,
@@ -4439,6 +4440,34 @@
 
   .diagnostics__pairing {
     margin: 0;
+  }
+
+  .diagnostics__sticky-jump {
+    position: sticky;
+    top: 0.75rem;
+    z-index: var(--z-popover);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin: 1rem 0 1.25rem;
+    padding: 0.7rem;
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    background: color-mix(in srgb, var(--panel) 92%, white 8%);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .diagnostics__sticky-jump .button {
+    min-height: 2.35rem;
+    justify-content: center;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 900px) {
+    .diagnostics__sticky-jump {
+      display: none;
+    }
   }
 
   .diagnostics__compare {
