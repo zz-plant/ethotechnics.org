@@ -72,7 +72,9 @@ const adoptedStandards = [
 const featuredStandardIds = ["STD-01", "STD-02"];
 const featuredStandards = featuredStandardIds
   .map((id) => standards.find((standard) => standard.id === id))
-  .filter((standard): standard is (typeof standards)[number] => Boolean(standard));
+  .filter((standard): standard is (typeof standards)[number] =>
+    Boolean(standard),
+  );
 const coreDoctrine = doctrine.find((item) => item.title === "Core axioms");
 const starterCards = [
   ...featuredStandards.map((standard) => ({
@@ -146,9 +148,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
-  jsonAlternates={[
-    { href: "/api/standards.json", title: "Standards JSON" },
-  ]}
+  jsonAlternates={[{ href: "/api/standards.json", title: "Standards JSON" }]}
 >
   <PageIntro
     eyebrow="Standards"
@@ -156,6 +156,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
+    collapseAnchorLinks={true}
+    anchorLinksSummary="Show full standards outline"
     panelCopy={panelCopy}
   >
     <Fragment slot="actions">
@@ -190,6 +192,45 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     Recommended reading path: Start with STD-01, then STD-02, then scan Core
     axioms before reviewing the critique and implementation comparisons.
   </p>
+
+  <SectionBlock
+    id="goal-chooser"
+    eyebrow="Choose by objective"
+    title="If your goal is..."
+    description="Pick the route that matches your current governance task."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      <CardItem
+        title="Draft policy language"
+        description="Read doctrine and comparison notes to align terminology and enforceable expectations."
+      >
+        <a slot="footer" class="muted" href="/standards/core-axioms"
+          >Start with core axioms</a
+        >
+      </CardItem>
+      <CardItem
+        title="Prepare for audit"
+        description="Use minimum binding requirements and evidence packs to verify proof before review."
+      >
+        <a
+          slot="footer"
+          class="muted"
+          href="/standards/std-01-minimum-binding-set"
+        >
+          Review minimum binding set
+        </a>
+      </CardItem>
+      <CardItem
+        title="Oversee implementation"
+        description="Pair standards with implementation examples and mechanism references for delivery teams."
+      >
+        <a slot="footer" class="muted" href="#implementation-examples"
+          >Open implementation examples</a
+        >
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="starter-standards"
@@ -235,8 +276,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 <a href="/standards/ethotechnics-for-agents">
                   Ethotechnics for Agents
                 </a>{" "}
-                — Mechanism-first practice for implementing STD-01 and STD-02 with
-                enforceable human recourse in real agent systems.
+                — Mechanism-first practice for implementing STD-01 and STD-02
+                with enforceable human recourse in real agent systems.
               </p>
             )}
             <a slot="footer" class="muted" href={`/standards/${standard.slug}`}>
@@ -303,14 +344,23 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   >
     <p class="eyebrow">TL;DR</p>
     <ul class="card__list">
-      <li>Ethotechnics centers stoppability and time-in-harm over documentation.</li>
-      <li>Governance is a runtime control plane, not a post-hoc review process.</li>
+      <li>
+        Ethotechnics centers stoppability and time-in-harm over documentation.
+      </li>
+      <li>
+        Governance is a runtime control plane, not a post-hoc review process.
+      </li>
       <li>Oversight is only real when authority and clocks are enforceable.</li>
     </ul>
     <ul class="card__list">
-      <li>Ethotechnics prioritizes stoppability and time-in-harm, not only risk documentation.</li>
+      <li>
+        Ethotechnics prioritizes stoppability and time-in-harm, not only risk
+        documentation.
+      </li>
       <li>Control planes and stop rights are operational, not advisory.</li>
-      <li>Oversight is measured by recovery time and enforceable mechanisms.</li>
+      <li>
+        Oversight is measured by recovery time and enforceable mechanisms.
+      </li>
     </ul>
     <p>
       Most AI governance standards in use today are built to answer: “Did you
@@ -332,9 +382,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
     <div class="grid grid--two">
       <div class="panel">
-        <p class="eyebrow">
-          1. Risk management vs. runtime governability
-        </p>
+        <p class="eyebrow">1. Risk management vs. runtime governability</p>
         <p class="muted">
           Common standards (NIST AI RMF, ISO/IEC 42001) focus on identifying,
           assessing, documenting, and managing risks across the AI lifecycle.
@@ -346,9 +394,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>Weaker guarantees about what happens mid-incident.</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Treats governance as the set of
-          mechanisms that determine whether harm can be interrupted, contained,
-          reversed, and learned from in a bounded time.
+          <strong>Ethotechnics:</strong> Treats governance as the set of mechanisms
+          that determine whether harm can be interrupted, contained, reversed, and
+          learned from in a bounded time.
         </p>
         <p class="eyebrow">What this produces in practice</p>
         <ul class="card__list">
@@ -373,18 +421,22 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>Governance dependent on persuasion and escalation.</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Implements governance as a runtime
-          control plane: a layer of enforceable constraints, owners, and state
-          transitions that operate during system execution.
+          <strong>Ethotechnics:</strong> Implements governance as a runtime control
+          plane: a layer of enforceable constraints, owners, and state transitions
+          that operate during system execution.
         </p>
         <p class="eyebrow">Ethotechnics requires</p>
         <ul class="card__list">
           <li>Stop rights that do not require consensus.</li>
           <li>Binding escalation paths (owner + timer + action).</li>
           <li>Reversible states and restoration SLAs.</li>
-          <li>Safe degradation modes (manual fallback, rate limits, quarantine).</li>
+          <li>
+            Safe degradation modes (manual fallback, rate limits, quarantine).
+          </li>
         </ul>
-        <p class="muted">Policies describe intent. Control planes constrain behavior.</p>
+        <p class="muted">
+          Policies describe intent. Control planes constrain behavior.
+        </p>
       </div>
       <div class="panel">
         <p class="eyebrow">
@@ -402,13 +454,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>Intervention too slow to be real in incidents.</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Treats oversight as meaningless unless
-          it is operationally exercisable on a clock.
+          <strong>Ethotechnics:</strong> Treats oversight as meaningless unless it
+          is operationally exercisable on a clock.
         </p>
         <p class="eyebrow">Ethotechnics requires</p>
         <ul class="card__list">
           <li>Named roles with explicit authority to stop operation.</li>
-          <li>Low-friction interruption mechanisms (not a committee meeting).</li>
+          <li>
+            Low-friction interruption mechanisms (not a committee meeting).
+          </li>
           <li>Drill-proven ability to intervene under realistic conditions.</li>
           <li>Governance pathways that function during incident stress.</li>
         </ul>
@@ -428,13 +482,14 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>Disagreement resolved by hierarchy or schedule pressure.</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Treats pluralism as an architectural
-          requirement: multiple worldviews must have independent enforcement
-          power.
+          <strong>Ethotechnics:</strong> Treats pluralism as an architectural requirement:
+          multiple worldviews must have independent enforcement power.
         </p>
         <p class="eyebrow">What this means operationally</p>
         <ul class="card__list">
-          <li>Legal, community, and adversarial perspectives are not advisory.</li>
+          <li>
+            Legal, community, and adversarial perspectives are not advisory.
+          </li>
           <li>Each has defined stop authority and trigger conditions.</li>
           <li>The system must accommodate their constraints to operate.</li>
         </ul>
@@ -453,9 +508,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>Maturity measured by process coverage.</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Audits capability by asking how fast
-          you can stop, reverse, and restore—and how long someone remains exposed
-          while you “investigate.”
+          <strong>Ethotechnics:</strong> Audits capability by asking how fast you
+          can stop, reverse, and restore—and how long someone remains exposed while
+          you “investigate.”
         </p>
         <p class="eyebrow">Ethotechnics measures</p>
         <ul class="card__list">
@@ -479,8 +534,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>No guarantee of rapid containment.</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Treats monitoring as incomplete unless
-          it is directly linked to intervention pathways.
+          <strong>Ethotechnics:</strong> Treats monitoring as incomplete unless it
+          is directly linked to intervention pathways.
         </p>
         <p class="eyebrow">Ethotechnics requires</p>
         <ul class="card__list">
@@ -506,13 +561,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>Reliance on “we tested” as a substitute for “we can stop.”</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Treats time as the primary ethical
-          resource and designs constraints around it.
+          <strong>Ethotechnics:</strong> Treats time as the primary ethical resource
+          and designs constraints around it.
         </p>
         <p class="eyebrow">Ethotechnics requires</p>
         <ul class="card__list">
           <li>Systems cannot run faster than contestation.</li>
-          <li>Decisions that affect rights or access must be reversible quickly.</li>
+          <li>
+            Decisions that affect rights or access must be reversible quickly.
+          </li>
           <li>“Pending” must not be an unbounded holding cell.</li>
           <li>Interim protections when clocks exceed thresholds.</li>
         </ul>
@@ -530,9 +587,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>Limited protection for the person harmed today.</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Treats regulation as necessary but too
-          slow to be the main brake. Enforcement must be designed into system
-          operation as a first-line constraint.
+          <strong>Ethotechnics:</strong> Treats regulation as necessary but too slow
+          to be the main brake. Enforcement must be designed into system operation
+          as a first-line constraint.
         </p>
         <p class="eyebrow">Ethotechnics requires</p>
         <ul class="card__list">
@@ -557,8 +614,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <li>Ethics mediated by incentives and deadlines.</li>
         </ul>
         <p>
-          <strong>Ethotechnics:</strong> Treats certain conditions as
-          non-negotiable constraints for deployment.
+          <strong>Ethotechnics:</strong> Treats certain conditions as non-negotiable
+          constraints for deployment.
         </p>
         <p class="eyebrow">Examples of constraint claims</p>
         <ul class="card__list">
@@ -690,10 +747,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel">
         <p class="eyebrow">Diagrammatic version</p>
         <p>
-          A visual contrast between policy stacks and control planes, useful
-          for workshops and audits.
+          A visual contrast between policy stacks and control planes, useful for
+          workshops and audits.
         </p>
-        <pre class="code-block">{`Policy stack → policies → reviews → audits → reports
+        <pre
+          class="code-block">{`Policy stack → policies → reviews → audits → reports
 Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="muted">
           Use the diagram to highlight where enforcement is internal versus
@@ -713,10 +771,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     <CardGrid className="grid--two">
       {
         implementationExampleCards.map((item) => (
-          <CardItem
-            title={item.title}
-            description={item.description}
-          >
+          <CardItem title={item.title} description={item.description}>
             <a slot="footer" class="muted" href={item.href}>
               {item.ctaLabel}
             </a>

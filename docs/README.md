@@ -38,6 +38,8 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 
 - [`roadmap.md`](roadmap.md), [`mini-prds.md`](mini-prds.md),
   [`issue-templates.md`](issue-templates.md).
+- [`user-journey-critique.md`](user-journey-critique.md): representative UX journey walkthrough
+  with constructive recommendations.
 - Tech stack and upgrade planning docs under `tech-stack-*.md`.
 - Interop and toolkit planning: [`interop-release-plan.md`](interop-release-plan.md) and
   [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md).

@@ -3,14 +3,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro";
 import { validatorsContent } from "../../content/validators";
 
-const validatorMeta =
-  validatorsContent.validators.find((validator) => validator.id === "VAL-02") ??
-  {
-    id: "VAL-02",
-    standardRef: "STD-01",
-    clauseRefs: [],
-    mechanismRefs: [],
-  };
+const validatorMeta = validatorsContent.validators.find(
+  (validator) => validator.id === "VAL-02",
+) ?? {
+  id: "VAL-02",
+  standardRef: "STD-01",
+  clauseRefs: [],
+  mechanismRefs: [],
+};
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
@@ -35,7 +35,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         <p class="validator__id">VAL-02</p>
         <h1>Risk Radar</h1>
         <p class="muted">
-          Snapshot exposure across touchpoints to identify where constructive denial clusters.
+          Snapshot exposure across touchpoints to identify where constructive
+          denial clusters.
         </p>
       </div>
       <a class="validator__standard" href="/standards/std-01-temporal-rights">
@@ -45,7 +46,40 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
     <ValidatorMicroDiagram variant="risk" />
 
-    <form class="validator__form" data-validator-form data-validator-meta={validatorMetaJson}>
+    <section
+      class="callout callout--emphasis"
+      aria-label="Risk radar checklist"
+    >
+      <p class="eyebrow">Before you run this validator</p>
+      <h2>Assess → Select mechanism → Export artifact</h2>
+      <div class="callout__metrics" aria-label="Validator run details">
+        <span class="pill pill--muted"
+          ><strong>Estimated time:</strong> 3–5 minutes</span
+        >
+        <span class="pill pill--muted"
+          ><strong>Required inputs:</strong> touchpoints, wait time, appeal path</span
+        >
+      </div>
+      <p class="muted small">
+        After generating the report card, move directly to appeal-path
+        implementation and then download the JSON artifact for handoff.
+      </p>
+      <p class="muted small">
+        Next steps: <a href="/mechanisms/patterns/appeal-paths"
+          >Implement MEC-06</a
+        > ·
+        <a href="/tools/burden-budget-worksheet/"
+          >Open burden budget worksheet</a
+        > ·
+        <a href="/evidence-packs/std-01">Map to STD-01 evidence pack</a>
+      </p>
+    </section>
+
+    <form
+      class="validator__form"
+      data-validator-form
+      data-validator-meta={validatorMetaJson}
+    >
       <label class="validator__field">
         Number of high-friction touchpoints
         <input
@@ -92,7 +126,9 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         </output>
       </div>
       <p class="validator__recommendation">
-        Fix this using <a href="/mechanisms/patterns/appeal-paths">MEC-06: Appeal Paths</a>.
+        Fix this using <a href="/mechanisms/patterns/appeal-paths"
+          >MEC-06: Appeal Paths</a
+        >.
       </p>
       <button class="button ghost" type="button" data-validator-download>
         Download JSON
@@ -102,9 +138,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 </BaseLayout>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>(
-    "[data-validator-form]"
-  );
+  const form = document.querySelector<HTMLFormElement>("[data-validator-form]");
   const validatorMeta = form?.dataset.validatorMeta
     ? (JSON.parse(form.dataset.validatorMeta) as {
         id: string;
@@ -118,24 +152,19 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         clauseRefs: [],
         mechanismRefs: [],
       };
-  const report = document.querySelector<HTMLElement>(
-    "[data-validator-report]"
-  );
+  const report = document.querySelector<HTMLElement>("[data-validator-report]");
   const statusPill = document.querySelector<HTMLElement>(
-    "[data-validator-pill]"
+    "[data-validator-pill]",
   );
   const statusOutput = document.querySelector<HTMLOutputElement>(
-    "[data-validator-output]"
+    "[data-validator-output]",
   );
   const downloadButton = document.querySelector<HTMLButtonElement>(
-    "[data-validator-download]"
+    "[data-validator-download]",
   );
   const STORAGE_KEY = "validator-risk-radar";
 
-  const updateStatus = (
-    level: "red" | "yellow" | "green",
-    message: string
-  ) => {
+  const updateStatus = (level: "red" | "yellow" | "green", message: string) => {
     if (!statusPill || !statusOutput) return;
     statusPill.classList.remove(
       "status-pill--red",
@@ -154,7 +183,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
       touchpoints: number;
       wait: number;
       appeal: FormDataEntryValue | null;
-    }
+    },
   ) => {
     const clauseMap = {
       green: [],
