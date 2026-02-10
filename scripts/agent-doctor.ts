@@ -3,6 +3,11 @@ import { join } from "node:path";
 import { existsSync } from "node:fs";
 import { lstat, readdir } from "node:fs/promises";
 
+async function streamToText(stream: ReadableStream<Uint8Array> | null): Promise<string> {
+  if (!stream) return "";
+  return new Response(stream).text();
+}
+
 async function check() {
   console.log("🛠️  Agent Doctor: Checking repository health for agents...\n");
   let errors = 0;
@@ -26,7 +31,7 @@ async function check() {
         stdout: "ignore",
         stderr: "pipe",
       });
-      const stderr = await Bun.readableStreamToText(proc.stderr);
+      const stderr = await streamToText(proc.stderr);
       await proc.exited;
       if (proc.exitCode === 0) {
         console.log("✅ MCP server compiles successfully.");
