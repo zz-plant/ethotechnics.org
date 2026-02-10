@@ -66,5 +66,23 @@ const anchorLinks = sections.map((section) => ({
       {highlight.ctaLabel}
     </a>
   </div>
+  <section class="callout field-notes__paths" aria-labelledby="field-notes-paths-title">
+    <p class="eyebrow">Reading paths</p>
+    <h2 id="field-notes-paths-title">Pick a guided path before browsing tabs.</h2>
+    <div class="field-notes__path-grid">
+      <a class="field-notes__path-item" href="/diagnostics#quick-triage">
+        <span class="field-notes__path-label">Incident response path</span>
+        <strong>Start with diagnostics triage</strong>
+      </a>
+      <a class="field-notes__path-item" href="/mechanisms#patterns">
+        <span class="field-notes__path-label">Policy drafting path</span>
+        <strong>Review mechanisms and pattern language</strong>
+      </a>
+      <a class="field-notes__path-item" href="/glossary">
+        <span class="field-notes__path-label">Shared language path</span>
+        <strong>Anchor decisions in glossary definitions</strong>
+      </a>
+    </div>
+  </section>
   <FieldNotesTabs sections={sections} entries={entries} />
 </BaseLayout>

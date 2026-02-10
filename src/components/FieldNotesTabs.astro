@@ -90,6 +90,10 @@ const fieldNoteSections = sections.map((section, index) => ({
             {sectionEntries.map((entry) => {
               const links = entry.links ?? [];
               const hasLinks = links.length > 0;
+              const primaryTerm = entry.relatedTerms[0];
+              const primaryGlossaryHref = primaryTerm
+                ? glossaryHref(primaryTerm)
+                : "/glossary";
 
               return (
                 <article
@@ -126,6 +130,20 @@ const fieldNoteSections = sections.map((section, index) => ({
                       ))}
                     </p>
                   ) : null}
+                  <div class="field-notes__continue muted" aria-label="Continue with">
+                    <p class="eyebrow">Continue with</p>
+                    <ul>
+                      <li>
+                        <a href={primaryGlossaryHref}>Glossary definition</a>
+                      </li>
+                      <li>
+                        <a href={links[0] ?? "/mechanisms#patterns"}>Mechanism or pattern</a>
+                      </li>
+                      <li>
+                        <a href="/diagnostics#quick-triage">Diagnostic next step</a>
+                      </li>
+                    </ul>
+                  </div>
                 </article>
               );
             })}
