@@ -24,15 +24,15 @@ const {
 } = diagnosticsContent;
 const mechanismBase = `${libraryContent.permalink}#mechanisms`;
 const anchorLinks = [
-  { href: "#compare-tools", label: "Compare tools" },
-  { href: "#why-diagnostics", label: "What you get" },
-  { href: "#output-baseline", label: "Output baseline" },
-  { href: "#anti-weaponization", label: "Anti-weaponization checks" },
-  { href: "#quick-triage", label: "Quick triage" },
-  { href: "#how-it-works", label: "How sessions run" },
-  { href: "#self-defense-tools", label: "Self-defense tools" },
-  { href: "#diagnostic-tools", label: "Diagnostics menu" },
-  { href: "#referenced-by", label: "Referenced by" },
+  { href: "#compare-tools", label: "Compare options fast" },
+  { href: "#why-diagnostics", label: "See what you get" },
+  { href: "#output-baseline", label: "Review output baseline" },
+  { href: "#anti-weaponization", label: "Verify anti-weaponization checks" },
+  { href: "#quick-triage", label: "Choose a tool in 30 seconds" },
+  { href: "#how-it-works", label: "Understand session flow" },
+  { href: "#self-defense-tools", label: "Run self-defense checks" },
+  { href: "#diagnostic-tools", label: "Open full tools menu" },
+  { href: "#referenced-by", label: "See linked references" },
 ];
 const introDescription =
   "This page is for operators, governance teams, and auditors who need decision-ready diagnostics. " +
@@ -68,15 +68,13 @@ const selfDefenseTools = [
   },
   {
     title: "Is this appeal real?",
-    description:
-      "Detect whether an appeal is substantive or performative.",
+    description: "Detect whether an appeal is substantive or performative.",
     href: "/diagnostics/self-defense-tools#appeal-real",
     label: "Run appeal check",
   },
   {
     title: "Who holds power?",
-    description:
-      "Map the people and levers that can reverse the outcome.",
+    description: "Map the people and levers that can reverse the outcome.",
     href: "/diagnostics/self-defense-tools#power-map",
     label: "Map power",
   },
@@ -90,17 +88,15 @@ const selfDefenseTools = [
     description={introDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
+    collapseAnchorLinks={true}
+    anchorLinksSummary="More anchors"
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#compare-tools">
-        Compare tools
-      </a>
-      <a class="button" href="#diagnostic-tools">
-        Jump to tools
-      </a>
-      <a class="button ghost" href="#quick-triage">
-        Quick triage
-      </a>
+      <a class="button primary" href="#quick-triage"
+        >Choose a tool in 30 seconds</a
+      >
+      <a class="button" href="#diagnostic-tools">Open full tools menu</a>
+      <a class="button ghost" href="#compare-tools">Compare options fast</a>
     </Fragment>
   </PageIntro>
   <SummaryCallout
@@ -111,15 +107,9 @@ const selfDefenseTools = [
       "Every output references mechanisms for remediation.",
       "Anti-weaponization checks are built into the baseline.",
     ]}
-    relatedLinks={[
-      { href: "#quick-triage", label: "Quick triage" },
-      { href: "#compare-tools", label: "Compare tools" },
-      { href: "#diagnostic-tools", label: "Diagnostics menu" },
-    ]}
     jumpLinks={[
-      { href: "#quick-triage", label: "Quick triage" },
-      { href: "#output-baseline", label: "Output baseline" },
-      { href: "#diagnostic-tools", label: "Diagnostics menu" },
+      { href: "#quick-triage", label: "Choose a tool in 30 seconds" },
+      { href: "#diagnostic-tools", label: "Open full tools menu" },
     ]}
   />
   <p class="muted small">
@@ -127,10 +117,13 @@ const selfDefenseTools = [
     then review outputs and prep lists before booking a session or running
     self-serve.
   </p>
-  <nav class="diagnostics__sticky-jump" aria-label="Diagnostics quick navigation">
-    <a class="button ghost" href="#quick-triage">Quick triage</a>
-    <a class="button ghost" href="#compare-tools">Compare</a>
-    <a class="button primary" href="#diagnostic-tools">Jump to tools</a>
+  <nav
+    class="diagnostics__sticky-jump"
+    aria-label="Diagnostics quick navigation"
+  >
+    <a class="button ghost" href="#quick-triage">Choose in 30s</a>
+    <a class="button ghost" href="#compare-tools">Compare options</a>
+    <a class="button primary" href="#diagnostic-tools">Open tools menu</a>
   </nav>
   <SectionActions>
     <StudioBadge />
@@ -234,7 +227,8 @@ const selfDefenseTools = [
     <p class="muted">
       Need to verify recourse? Use the
       {" "}
-      <a href="/explainers/contestability-checklist">contestability checklist</a>
+      <a href="/explainers/contestability-checklist">contestability checklist</a
+      >
       {" "}
       before you publish outputs tied to appeals or reversals.
     </p>
@@ -391,7 +385,9 @@ const selfDefenseTools = [
                 <div>
                   <p class="muted small">{deliveryLabel}</p>
                   <p class="muted small">{deliveryDetail}</p>
-                  <p class="muted small">Estimated time: {tool.estimatedTime}</p>
+                  <p class="muted small">
+                    Estimated time: {tool.estimatedTime}
+                  </p>
                 </div>
                 <p class="muted small diagnostics__best-for">{tool.bestFor}</p>
                 <ul class="diagnostics__summary">
@@ -426,9 +422,7 @@ const selfDefenseTools = [
                   <a
                     class="button primary"
                     href={tool.ctaHref}
-                    aria-label={
-                      tool.ctaAriaLabel ?? primaryCtaLabel
-                    }
+                    aria-label={tool.ctaAriaLabel ?? primaryCtaLabel}
                   >
                     {primaryCtaLabel}
                   </a>

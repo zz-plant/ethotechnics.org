@@ -18,13 +18,18 @@ const { currentPath, mobileLinks } = Astro.props as Props;
           <a
             class="nav__link"
             href={link.href}
-            aria-current={isCurrentLink(link.href, currentPath) ? "page" : undefined}
+            aria-current={
+              isCurrentLink(link.href, currentPath) ? "page" : undefined
+            }
             style={`view-transition-name: ${toViewTransitionName(
               link.href,
               "mobile",
             )};`}
           >
-            {link.label}
+            <span class="nav__link-label">{link.label}</span>
+            {link.description ? (
+              <span class="nav__link-detail">{link.description}</span>
+            ) : null}
           </a>
         ))
       }
