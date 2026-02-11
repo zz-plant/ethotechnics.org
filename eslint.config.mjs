@@ -1,3 +1,4 @@
+import { defineConfig } from 'eslint/config';
 import js from '@eslint/js';
 import astro from 'eslint-plugin-astro';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -17,7 +18,7 @@ const astroRecommended = astro.configs['flat/recommended'].map((config) => ({
   },
 }));
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ['.astro/', 'dist/', 'node_modules/'] },
   {
     files: ['**/*.{ts,tsx}'],

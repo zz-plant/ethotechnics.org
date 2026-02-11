@@ -411,13 +411,17 @@ server.tool(
   },
   async ({ name }) => {
     try {
-      const workflowPath = join(
-        getProjectRoot(),
-        ".agent",
-        "skills",
-        name,
-        "SKILL.md",
-      );
+      const normalizedName = name.trim();
+      if (!/^[a-z0-9-]+$/i.test(normalizedName)) {
+        throw new Error("Invalid skill name. Use letters, numbers, and hyphens only.");
+      }
+
+      const skillsDir = resolve(getProjectRoot(), ".agent", "skills");
+      const workflowPath = resolve(skillsDir, normalizedName, "SKILL.md");
+      if (!workflowPath.startsWith(`${skillsDir}${sep}`)) {
+        throw new Error("Invalid path: Access denied");
+      }
+
       const content = await Bun.file(workflowPath).text();
       return textResponse(content);
     } catch (error) {
