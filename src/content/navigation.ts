@@ -21,11 +21,36 @@ export interface NavAction {
 }
 
 export const navPrimaryLinks: NavLink[] = [
-  { href: "/#failure-intake", label: "Failure pathways", primary: true },
-  { href: "/artifacts", label: "Artifacts", primary: true },
-  { href: "/standards", label: "Standards", primary: true },
-  { href: "/diagnostics", label: "Diagnostics", primary: true },
-  { href: "/glossary", label: "Glossary", primary: true },
+  {
+    href: "/#failure-intake",
+    label: "Failure pathways",
+    description: "Incident routing",
+    primary: true,
+  },
+  {
+    href: "/artifacts",
+    label: "Templates",
+    description: "Reusable artifacts",
+    primary: true,
+  },
+  {
+    href: "/standards",
+    label: "Standards",
+    description: "Policy language",
+    primary: true,
+  },
+  {
+    href: "/diagnostics",
+    label: "Diagnostics",
+    description: "Quick decision checks",
+    primary: true,
+  },
+  {
+    href: "/glossary",
+    label: "Glossary",
+    description: "Shared team terms",
+    primary: true,
+  },
 ];
 
 export const navSections: NavSection[] = [

@@ -40,6 +40,9 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
   [`issue-templates.md`](issue-templates.md).
 - [`user-journey-critique.md`](user-journey-critique.md): representative UX journey walkthrough
   with constructive recommendations.
+- [`ux-audit-kondo.md`](ux-audit-kondo.md): remove/move/modify UX audit with prioritized actions.
+- [`ux-audit-kondo-round2.md`](ux-audit-kondo-round2.md): follow-up UX audit with additional remove/move/modify recommendations.
+- [`ux-audit-kondo-round3.md`](ux-audit-kondo-round3.md): third-pass UX audit with remove/move/modify refinements.
 - Tech stack and upgrade planning docs under `tech-stack-*.md`.
 - Interop and toolkit planning: [`interop-release-plan.md`](interop-release-plan.md) and
   [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md).

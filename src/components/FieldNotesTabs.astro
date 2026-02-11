@@ -18,11 +18,37 @@ const initialFormat = sections[0]?.format ?? "";
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const listSeparator = (index: number, total: number) =>
   index < total - 1 ? ", " : "";
+const internalLinkLabelMap: Array<{ match: RegExp; label: string }> = [
+  { match: /^\/diagnostics/, label: "Open diagnostics" },
+  { match: /^\/mechanisms/, label: "Open mechanisms" },
+  { match: /^\/standards/, label: "Open standards" },
+  { match: /^\/glossary/, label: "Open glossary" },
+  { match: /^\/explainers/, label: "Open explainer" },
+];
+
+const relatedLinkLabel = (href: string) => {
+  const normalized = href.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+  if (href.startsWith("/")) {
+    const mapped = internalLinkLabelMap.find(({ match }) => match.test(href));
+
+    if (mapped) {
+      return mapped.label;
+    }
+
+    const segments = href.split("/").filter(Boolean);
+    const lastSegment = segments.at(-1) ?? "resource";
+    return `Open ${lastSegment.replace(/-/g, " ")}`;
+  }
+
+  const [host, ...rest] = normalized.split("/");
+  const pathLabel = rest.at(-1)?.replace(/[-_]/g, " ") ?? "resource";
+  return `Reference ${pathLabel} (${host})`;
+};
 const fieldNoteSections = sections.map((section, index) => ({
   section,
   entries: entries.filter((entry) => entry.format === section.format),
-  isActive:
-    section.format === initialFormat || (index === 0 && !initialFormat),
+  isActive: section.format === initialFormat || (index === 0 && !initialFormat),
 }));
 ---
 
@@ -124,23 +150,30 @@ const fieldNoteSections = sections.map((section, index) => ({
                       Related links{" "}
                       {links.map((link, linkIndex) => (
                         <span>
-                          <a href={link}>{link}</a>
+                          <a href={link}>{relatedLinkLabel(link)}</a>
                           {listSeparator(linkIndex, links.length)}
                         </span>
                       ))}
                     </p>
                   ) : null}
-                  <div class="field-notes__continue muted" aria-label="After this note">
+                  <div
+                    class="field-notes__continue muted"
+                    aria-label="After this note"
+                  >
                     <p class="eyebrow">After this note</p>
                     <ul>
                       <li>
                         <a href={primaryGlossaryHref}>Glossary definition</a>
                       </li>
                       <li>
-                        <a href={links[0] ?? "/mechanisms#patterns"}>Mechanism or pattern</a>
+                        <a href={links[0] ?? "/mechanisms#patterns"}>
+                          Mechanism or pattern
+                        </a>
                       </li>
                       <li>
-                        <a href="/diagnostics#quick-triage">Diagnostic next step</a>
+                        <a href="/diagnostics#quick-triage">
+                          Diagnostic next step
+                        </a>
                       </li>
                     </ul>
                   </div>

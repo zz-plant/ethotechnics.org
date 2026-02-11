@@ -20,46 +20,48 @@ import { failureStates } from "../content/institute-site";
     <details class="institute-hero__other-starts">
       <summary>Other ways to start</summary>
       <ul class="muted">
-        <li><a href="/quick-start">Quick start</a> for planning and team onboarding.</li>
-        <li><a href="/how-it-works">How it works</a> if you need implementation context.</li>
-        <li><a href="/standards">Browse standards</a> for policy language and references.</li>
-        <li><a href="/diagnostics">Run diagnostics</a> when you need evidence quickly.</li>
+        <li>
+          <a href="/quick-start">Quick start</a> for planning and team onboarding.
+        </li>
+        <li>
+          <a href="/how-it-works">How it works</a> if you need implementation context.
+        </li>
+        <li>
+          <a href="/standards">Browse standards</a> for policy language and references.
+        </li>
+        <li>
+          <a href="/diagnostics">Run diagnostics</a> when you need evidence quickly.
+        </li>
       </ul>
     </details>
   </section>
 
   <section class="stack-lg" aria-labelledby="mobile-shortcuts-title">
     <h2 id="mobile-shortcuts-title">What do you need right now?</h2>
-    <p>Pick one path and keep moving. Every route is optimized for quick scanning on phones.</p>
+    <p>
+      Pick one path and keep moving. Every route is optimized for quick scanning
+      on phones.
+    </p>
     <ul class="mobile-shortcuts" aria-label="Quick mobile shortcuts">
       <li>
         <a class="mobile-shortcuts__item" href="/quick-start">
-          <span class="mobile-shortcuts__label">Need a checklist</span>
-          <strong>Use quick-start playbooks</strong>
+          <span class="mobile-shortcuts__label">Need a checklist now?</span>
+          <strong>Start with quick-start playbooks</strong>
         </a>
       </li>
       <li>
         <a class="mobile-shortcuts__item" href="/diagnostics">
-          <span class="mobile-shortcuts__label">Need evidence</span>
-          <strong>Run a diagnostic</strong>
+          <span class="mobile-shortcuts__label">Need evidence now?</span>
+          <strong>Start with a diagnostic tool</strong>
         </a>
       </li>
       <li>
         <a class="mobile-shortcuts__item" href="/standards">
-          <span class="mobile-shortcuts__label">Need policy language</span>
-          <strong>Browse standards</strong>
+          <span class="mobile-shortcuts__label">Need policy language now?</span>
+          <strong>Start with standards language</strong>
         </a>
       </li>
     </ul>
-  </section>
-
-  <section class="stack-lg" aria-labelledby="start-sequence-title">
-    <h2 id="start-sequence-title">3 steps</h2>
-    <ol class="card__list">
-      <li><strong>1.</strong> Pick the closest risk.</li>
-      <li><strong>2.</strong> Open the linked standard.</li>
-      <li><strong>3.</strong> Use the artifact template.</li>
-    </ol>
   </section>
 
   <section id="failure-intake" class="stack-lg">
@@ -79,16 +81,6 @@ import { failureStates } from "../content/institute-site";
     </p>
   </section>
 
-  <section class="stack-lg" aria-labelledby="featured-resources-title">
-    <h2 id="featured-resources-title">Top resources</h2>
-    <ul>
-      <li><a href="/standards/std-01-temporal-rights">STD-01 Temporal Rights</a></li>
-      <li><a href="/standards/std-02-contestability-recourse">STD-02 Contestability &amp; Recourse</a></li>
-      <li><a href="/explainers/remedy-essentials">Remedy essentials</a></li>
-      <li><a href="/glossary">Glossary</a></li>
-    </ul>
-  </section>
-
   <section class="stack-lg">
     <h2>Choose your team lane</h2>
     <div class="adopt-grid">
@@ -99,6 +91,15 @@ import { failureStates } from "../content/institute-site";
           <li>Set reversal time bounds</li>
           <li>Publish appeal rules</li>
         </ul>
+        <p class="small muted">Continue with:</p>
+        <ul>
+          <li>
+            <a href="/standards/std-02-contestability-recourse"
+              >STD-02 Contestability &amp; Recourse</a
+            >
+          </li>
+          <li><a href="/adopt/policy">More for this lane</a></li>
+        </ul>
       </article>
 
       <article class="card stack-sm">
@@ -107,6 +108,11 @@ import { failureStates } from "../content/institute-site";
           <li>Map queues</li>
           <li>Name freeze authority</li>
           <li>Run one tabletop</li>
+        </ul>
+        <p class="small muted">Continue with:</p>
+        <ul>
+          <li><a href="/diagnostics">Diagnostics menu</a></li>
+          <li><a href="/adopt/ops">More for this lane</a></li>
         </ul>
       </article>
 
@@ -117,12 +123,30 @@ import { failureStates } from "../content/institute-site";
           <li>Test rollback paths</li>
           <li>Log every reversal</li>
         </ul>
+        <p class="small muted">Continue with:</p>
+        <ul>
+          <li>
+            <a href="/standards/std-01-temporal-rights"
+              >STD-01 Temporal Rights</a
+            >
+          </li>
+          <li><a href="/adopt/build">More for this lane</a></li>
+        </ul>
       </article>
     </div>
     <div class="actions">
-      <a class="button" href="/adopt/policy">Policy lane</a>
-      <a class="button" href="/adopt/ops">Ops lane</a>
-      <a class="button" href="/adopt/build">Build lane</a>
+      <a class="button" href="/adopt/policy">Generate policy draft</a>
+      <a class="button" href="/adopt/ops">Run incident readiness</a>
+      <a class="button" href="/adopt/build">Ship engineering controls</a>
     </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="start-sequence-title">
+    <h2 id="start-sequence-title">3 steps</h2>
+    <ol class="card__list">
+      <li><strong>1.</strong> Pick the closest risk.</li>
+      <li><strong>2.</strong> Open the linked standard.</li>
+      <li><strong>3.</strong> Use the artifact template.</li>
+    </ol>
   </section>
 </BaseLayout>

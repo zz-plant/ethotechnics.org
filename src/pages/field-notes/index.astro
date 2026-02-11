@@ -54,21 +54,26 @@ const anchorLinks = sections.map((section) => ({
     .
   </p>
   <p class="muted small">{cadenceNote}</p>
-  <p class="muted small">
-    Subscribe via <a href="/field-notes/rss.xml">RSS</a>.
-  </p>
   <div class="callout field-notes__highlight">
     <p class="eyebrow">Latest highlight</p>
     <h2>{highlight.title}</h2>
     <p class="muted">{highlight.summary}</p>
     <p>{highlight.whyItMatters}</p>
-    <a class="button ghost" href={highlight.href}>
-      {highlight.ctaLabel}
-    </a>
+    <div class="actions">
+      <a class="button ghost" href={highlight.href}>
+        {highlight.ctaLabel}
+      </a>
+      <a class="button" href="/field-notes/rss.xml">Subscribe via RSS</a>
+    </div>
   </div>
-  <section class="callout field-notes__paths" aria-labelledby="field-notes-paths-title">
+  <section
+    class="callout field-notes__paths"
+    aria-labelledby="field-notes-paths-title"
+  >
     <p class="eyebrow">Reading paths</p>
-    <h2 id="field-notes-paths-title">Pick a guided path before browsing tabs.</h2>
+    <h2 id="field-notes-paths-title">
+      Pick a guided path before browsing tabs.
+    </h2>
     <div class="field-notes__path-grid">
       <a class="field-notes__path-item" href="/diagnostics#quick-triage">
         <span class="field-notes__path-label">Incident response path</span>
