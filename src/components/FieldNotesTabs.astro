@@ -18,10 +18,24 @@ const initialFormat = sections[0]?.format ?? "";
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const listSeparator = (index: number, total: number) =>
   index < total - 1 ? ", " : "";
+const internalLinkLabelMap: Array<{ match: RegExp; label: string }> = [
+  { match: /^\/diagnostics/, label: "Open diagnostics" },
+  { match: /^\/mechanisms/, label: "Open mechanisms" },
+  { match: /^\/standards/, label: "Open standards" },
+  { match: /^\/glossary/, label: "Open glossary" },
+  { match: /^\/explainers/, label: "Open explainer" },
+];
+
 const relatedLinkLabel = (href: string) => {
   const normalized = href.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
   if (href.startsWith("/")) {
+    const mapped = internalLinkLabelMap.find(({ match }) => match.test(href));
+
+    if (mapped) {
+      return mapped.label;
+    }
+
     const segments = href.split("/").filter(Boolean);
     const lastSegment = segments.at(-1) ?? "resource";
     return `Open ${lastSegment.replace(/-/g, " ")}`;

@@ -24,31 +24,31 @@ export const navPrimaryLinks: NavLink[] = [
   {
     href: "/#failure-intake",
     label: "Failure pathways",
-    description: "Route from active incidents",
+    description: "Incident routing",
     primary: true,
   },
   {
     href: "/artifacts",
     label: "Templates",
-    description: "Reusable governance artifacts",
+    description: "Reusable artifacts",
     primary: true,
   },
   {
     href: "/standards",
     label: "Standards",
-    description: "Policy and implementation language",
+    description: "Policy language",
     primary: true,
   },
   {
     href: "/diagnostics",
     label: "Diagnostics",
-    description: "Run quick decision checks",
+    description: "Quick decision checks",
     primary: true,
   },
   {
     href: "/glossary",
     label: "Glossary",
-    description: "Shared terms for teams",
+    description: "Shared team terms",
     primary: true,
   },
 ];
