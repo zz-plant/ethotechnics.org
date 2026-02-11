@@ -24,6 +24,99 @@ const textResponse = (text: string) => ({
 });
 const errorResponse = (message: string) => textResponse(message);
 
+type CheckClassification = {
+  required: string[];
+  optional: string[];
+  reasons: string[];
+};
+
+const projectRootRealPathPromise = realpath(getProjectRoot());
+
+const checkCatalog = {
+  formatCheck: "bun run format:check",
+  validateJson: "bun run validate:json",
+  validateGlossary: "bun run validate:glossary",
+  fullCheck: "bun run check",
+} as const;
+
+const toPosixPath = (value: string) => value.replaceAll("\\", "/");
+
+const getRequiredChecksForFiles = (files: string[]): CheckClassification => {
+  const required = new Set<string>();
+  const optional = new Set<string>();
+  const reasons = new Set<string>();
+
+  if (files.length === 0) {
+    required.add(checkCatalog.formatCheck);
+    optional.add(checkCatalog.fullCheck);
+    reasons.add("No files provided; default to formatting guidance.");
+    return {
+      required: [...required],
+      optional: [...optional],
+      reasons: [...reasons],
+    };
+  }
+
+  let docsOnly = true;
+
+  for (const originalFile of files) {
+    const file = toPosixPath(originalFile.trim());
+    if (!file) continue;
+
+    const isMarkdown = file.endsWith(".md");
+    const isDocPath = file.startsWith("docs/") || isMarkdown;
+    if (!isDocPath) docsOnly = false;
+
+    if (file.startsWith("src/content/") && file.endsWith(".json")) {
+      required.add(checkCatalog.validateJson);
+      reasons.add("Content JSON changed; include schema/content validation.");
+    }
+
+    if (
+      file.includes("glossary") &&
+      (file.endsWith(".json") || file.endsWith(".ts"))
+    ) {
+      required.add(checkCatalog.validateGlossary);
+      reasons.add(
+        "Glossary data or helpers changed; include glossary validation.",
+      );
+    }
+
+    if (
+      /\.(ts|tsx|astro|js|mjs|cjs)$/.test(file) ||
+      file.startsWith("scripts/")
+    ) {
+      required.add(checkCatalog.fullCheck);
+      reasons.add("Code or script files changed; run full project checks.");
+    }
+  }
+
+  if (docsOnly) {
+    required.add(checkCatalog.formatCheck);
+    optional.add(checkCatalog.fullCheck);
+    reasons.add("Detected docs-only changes.");
+  }
+
+  if (required.size === 0) {
+    required.add(checkCatalog.fullCheck);
+    reasons.add(
+      "Could not classify file set confidently; defaulting to full check.",
+    );
+  }
+
+  return {
+    required: [...required],
+    optional: [...optional],
+    reasons: [...reasons],
+  };
+};
+
+const getStatusEmoji = (exitCode: number) => {
+  if (exitCode === 0) return "✅";
+  if (exitCode === 2) return "⚠️";
+  return "❌";
+};
+
 // Tool: List available scripts
 server.tool(
   "list_available_scripts",
@@ -231,14 +324,21 @@ server.tool(
       .optional()
       .default(".")
       .describe("The path to start the tree from (relative to project root)"),
-    depth: z.number().optional().default(2).describe("Maximum depth of the tree"),
+    depth: z
+      .number()
+      .optional()
+      .default(2)
+      .describe("Maximum depth of the tree"),
   },
   async ({ path, depth }) => {
     try {
       const projectRoot = await realpath(getProjectRoot());
       const requestedPath = resolve(projectRoot, path || ".");
       const safePrefix = `${projectRoot}${sep}`;
-      if (requestedPath !== projectRoot && !requestedPath.startsWith(safePrefix)) {
+      if (
+        requestedPath !== projectRoot &&
+        !requestedPath.startsWith(safePrefix)
+      ) {
         throw new Error("Invalid path: Access denied");
       }
       const requestedStats = await lstat(requestedPath);
@@ -284,7 +384,9 @@ server.tool(
       await scan(rootPath, 0);
 
       return textResponse(
-        files.length > 0 ? files.join("\n") : "No files found or depth exceeded.",
+        files.length > 0
+          ? files.join("\n")
+          : "No files found or depth exceeded.",
       );
     } catch (error) {
       return errorResponse(
@@ -304,7 +406,13 @@ server.tool(
       const root = getProjectRoot();
       const glob = new Bun.Glob("**/");
       const dirs: string[] = [];
-      const excludes = ["node_modules", ".git", "dist", ".wrangler", "coverage"];
+      const excludes = [
+        "node_modules",
+        ".git",
+        "dist",
+        ".wrangler",
+        "coverage",
+      ];
 
       for await (const dir of glob.scan({ cwd: root, onlyFiles: false })) {
         if (excludes.some((ex) => dir.startsWith(ex))) continue;
@@ -323,7 +431,9 @@ server.tool(
 
       return textResponse(`# Repository Map\n\n${map}`);
     } catch (error) {
-      return errorResponse(`Error mapping repo: ${error instanceof Error ? error.message : String(error)}`);
+      return errorResponse(
+        `Error mapping repo: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
   },
 );
@@ -358,6 +468,123 @@ server.tool(
   },
 );
 
+// Tool: Validate changed files
+server.tool(
+  "validate_changed_files",
+  "Classify changed files and return required/optional checks",
+  {
+    files: z
+      .array(z.string())
+      .describe("Changed file paths relative to the project root"),
+  },
+  async ({ files }) => {
+    try {
+      const projectRoot = await projectRootRealPathPromise;
+      const invalidFiles: string[] = [];
+      const normalizedFiles: string[] = [];
+
+      for (const file of files) {
+        const filePath = file.trim();
+        if (!filePath) continue;
+        const candidatePath = resolve(projectRoot, filePath);
+        const candidateRealPath = await realpath(candidatePath).catch(
+          () => null,
+        );
+        const safePrefix = `${projectRoot}${sep}`;
+        if (
+          candidatePath !== projectRoot &&
+          !candidatePath.startsWith(safePrefix) &&
+          !(
+            candidateRealPath &&
+            (candidateRealPath === projectRoot ||
+              candidateRealPath.startsWith(safePrefix))
+          )
+        ) {
+          invalidFiles.push(filePath);
+          continue;
+        }
+        normalizedFiles.push(toPosixPath(relative(projectRoot, candidatePath)));
+      }
+
+      if (invalidFiles.length > 0) {
+        return errorResponse(
+          `Invalid file path(s): ${invalidFiles.join(", ")}`,
+        );
+      }
+
+      const checks = getRequiredChecksForFiles(normalizedFiles);
+      const lines = [
+        "# Changed File Check Plan",
+        "",
+        normalizedFiles.length > 0
+          ? `Files (${normalizedFiles.length}):
+${normalizedFiles.map((f) => `- ${f}`).join("\n")}`
+          : "Files: (none provided)",
+        "",
+        "## Required",
+        ...checks.required.map((command) => `- ${command}`),
+      ];
+
+      if (checks.optional.length > 0) {
+        lines.push(
+          "",
+          "## Optional",
+          ...checks.optional.map((command) => `- ${command}`),
+        );
+      }
+
+      if (checks.reasons.length > 0) {
+        lines.push(
+          "",
+          "## Reasons",
+          ...checks.reasons.map((reason) => `- ${reason}`),
+        );
+      }
+
+      return textResponse(lines.join("\n"));
+    } catch (error) {
+      return errorResponse(
+        `Error validating changed files: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+// Tool: Summarize checks for PR notes
+server.tool(
+  "summarize_checks",
+  "Summarize command results as PR-ready markdown bullets",
+  {
+    checks: z
+      .array(
+        z.object({
+          command: z.string().describe("Command that was run"),
+          exitCode: z.number().int().describe("Process exit code"),
+          note: z.string().optional().describe("Optional short note"),
+        }),
+      )
+      .describe("List of check results"),
+  },
+  async ({ checks }) => {
+    try {
+      if (checks.length === 0) {
+        return textResponse("No checks provided.");
+      }
+
+      const summary = checks.map(({ command, exitCode, note }) => {
+        const suffix = note ? ` (${note})` : "";
+        return `${getStatusEmoji(exitCode)} \`${command}\`${suffix}`;
+      });
+
+      return textResponse(["# Check Summary", "", ...summary].join("\n"));
+    } catch (error) {
+      return errorResponse(
+        `Error summarizing checks: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
 // Tool: List workflows
 server.tool(
   "list_workflows",
@@ -377,7 +604,9 @@ server.tool(
           /^---\s*\n(?:.*\n)*?description:\s*(.+)\n(?:.*\n)*?---/m,
         );
         const description = match?.[1] || "No description";
-        const nameMatch = content.match(/^---\s*\n(?:.*\n)*?name:\s*(.+)\n(?:.*\n)*?---/m);
+        const nameMatch = content.match(
+          /^---\s*\n(?:.*\n)*?name:\s*(.+)\n(?:.*\n)*?---/m,
+        );
         const nameFromDir = file.split(sep)[0];
         workflows.push({
           id: nameFromDir,
@@ -407,13 +636,17 @@ server.tool(
   "read_workflow",
   "Read a specific agent skill definition",
   {
-    name: z.string().describe("The skill name (folder name under .agent/skills)"),
+    name: z
+      .string()
+      .describe("The skill name (folder name under .agent/skills)"),
   },
   async ({ name }) => {
     try {
       const normalizedName = name.trim();
       if (!/^[a-z0-9-]+$/i.test(normalizedName)) {
-        throw new Error("Invalid skill name. Use letters, numbers, and hyphens only.");
+        throw new Error(
+          "Invalid skill name. Use letters, numbers, and hyphens only.",
+        );
       }
 
       const skillsDir = resolve(getProjectRoot(), ".agent", "skills");
@@ -484,7 +717,9 @@ server.tool(
   "get_agents_guidance",
   "Get the applicable AGENTS.md guidance for a file path",
   {
-    filepath: z.string().describe("The file path to get guidance for (relative to project root)"),
+    filepath: z
+      .string()
+      .describe("The file path to get guidance for (relative to project root)"),
   },
   async ({ filepath }) => {
     try {
@@ -538,11 +773,8 @@ server.tool(
 // ============================================================================
 
 // Resource: Project structure
-server.resource(
-  "project://structure",
-  "project://structure",
-  async () => {
-    const structure = `# Project Structure
+server.resource("project://structure", "project://structure", async () => {
+  const structure = `# Project Structure
 
 ## Key Directories
 - src/pages/ — Astro route files
@@ -565,28 +797,37 @@ server.resource(
 - src/AGENTS.md — Source code conventions
 - docs/AGENTS.md — Documentation conventions
 `;
-    return { contents: [{ uri: "project://structure", text: structure, mimeType: "text/markdown" }] };
-  },
-);
+  return {
+    contents: [
+      {
+        uri: "project://structure",
+        text: structure,
+        mimeType: "text/markdown",
+      },
+    ],
+  };
+});
 
 // Resource: Package scripts
-server.resource(
-  "project://scripts",
-  "project://scripts",
-  async () => {
-    const pkg = (await Bun.file(join(getProjectRoot(), "package.json")).json()) as {
-      scripts?: Record<string, string>;
-    };
-    const scripts = Object.entries(pkg.scripts || {})
-      .map(([name, cmd]) => `- \`${name}\`: ${cmd}`)
-      .join("\n");
-    return {
-      contents: [
-        { uri: "project://scripts", text: `# Available Scripts\n\n${scripts}`, mimeType: "text/markdown" },
-      ],
-    };
-  },
-);
+server.resource("project://scripts", "project://scripts", async () => {
+  const pkg = (await Bun.file(
+    join(getProjectRoot(), "package.json"),
+  ).json()) as {
+    scripts?: Record<string, string>;
+  };
+  const scripts = Object.entries(pkg.scripts || {})
+    .map(([name, cmd]) => `- \`${name}\`: ${cmd}`)
+    .join("\n");
+  return {
+    contents: [
+      {
+        uri: "project://scripts",
+        text: `# Available Scripts\n\n${scripts}`,
+        mimeType: "text/markdown",
+      },
+    ],
+  };
+});
 
 // Resource: Aggregated AGENTS guidance
 server.resource(
@@ -625,45 +866,38 @@ server.resource(
 );
 
 // Resource: Agent workflows
-server.resource(
-  "project://workflows",
-  "project://workflows",
-  async () => {
-    const workflowsDir = join(getProjectRoot(), ".agent", "workflows");
-    const glob = new Bun.Glob("*.md");
-    const workflows: string[] = [];
+server.resource("project://workflows", "project://workflows", async () => {
+  const workflowsDir = join(getProjectRoot(), ".agent", "workflows");
+  const glob = new Bun.Glob("*.md");
+  const workflows: string[] = [];
 
-    try {
-      for await (const file of glob.scan({ cwd: workflowsDir })) {
-        const fullPath = join(workflowsDir, file);
-        const content = await Bun.file(fullPath).text();
-        workflows.push(`## ${file}\n\n${content}`);
-      }
-    } catch {
-      // Workflows directory might not exist
+  try {
+    for await (const file of glob.scan({ cwd: workflowsDir })) {
+      const fullPath = join(workflowsDir, file);
+      const content = await Bun.file(fullPath).text();
+      workflows.push(`## ${file}\n\n${content}`);
     }
+  } catch {
+    // Workflows directory might not exist
+  }
 
-    return {
-      contents: [
-        {
-          uri: "project://workflows",
-          text:
-            workflows.length > 0
-              ? `# Agent Workflows\n\n${workflows.join("\n\n---\n\n")}`
-              : "# Agent Workflows\n\nNo workflows defined yet.",
-          mimeType: "text/markdown",
-        },
-      ],
-    };
-  },
-);
+  return {
+    contents: [
+      {
+        uri: "project://workflows",
+        text:
+          workflows.length > 0
+            ? `# Agent Workflows\n\n${workflows.join("\n\n---\n\n")}`
+            : "# Agent Workflows\n\nNo workflows defined yet.",
+        mimeType: "text/markdown",
+      },
+    ],
+  };
+});
 
 // Resource: Agent onboarding
-server.resource(
-  "agent://onboarding",
-  "agent://onboarding",
-  async () => {
-    const onboarding = `# Agent Onboarding & Quick Start
+server.resource("agent://onboarding", "agent://onboarding", async () => {
+  const onboarding = `# Agent Onboarding & Quick Start
 
 ## 🎯 Mission
 This repo powers ethotechnics.org. We prioritize ethical technology and human-centered design.
@@ -683,53 +917,52 @@ This repo powers ethotechnics.org. We prioritize ethical technology and human-ce
 - \`docs/agents/repo-orientation.md\`: Deep dive into repo structure.
 - \`docs/agent-developer-experience.md\`: This agent experience overview.
 `;
-    return {
-      contents: [
-        { uri: "agent://onboarding", text: onboarding, mimeType: "text/markdown" },
-      ],
-    };
-  },
-);
+  return {
+    contents: [
+      {
+        uri: "agent://onboarding",
+        text: onboarding,
+        mimeType: "text/markdown",
+      },
+    ],
+  };
+});
 
 // Resource: Documentation index
-server.resource(
-  "project://docs-index",
-  "project://docs-index",
-  async () => {
-    const docsDir = join(getProjectRoot(), "docs");
-    const glob = new Bun.Glob("**/*.md");
-    const entries: string[] = [];
+server.resource("project://docs-index", "project://docs-index", async () => {
+  const docsDir = join(getProjectRoot(), "docs");
+  const glob = new Bun.Glob("**/*.md");
+  const entries: string[] = [];
 
-    try {
-      for await (const file of glob.scan({ cwd: docsDir })) {
-        const content = await Bun.file(join(docsDir, file)).text();
-        const titleMatch = content.match(/^#\s+(.+)$/m);
-        const title = titleMatch ? ` — ${titleMatch[1].trim()}` : "";
-        entries.push(`- ${file}${title}`);
-      }
-    } catch (error) {
-      return {
-        contents: [
-          {
-            uri: "project://docs-index",
-            text: `Error building docs index: ${error instanceof Error ? error.message : String(error)}`,
-            mimeType: "text/plain",
-          },
-        ],
-      };
+  try {
+    for await (const file of glob.scan({ cwd: docsDir })) {
+      const content = await Bun.file(join(docsDir, file)).text();
+      const titleMatch = content.match(/^#\s+(.+)$/m);
+      const title = titleMatch ? ` — ${titleMatch[1].trim()}` : "";
+      entries.push(`- ${file}${title}`);
     }
-
+  } catch (error) {
     return {
       contents: [
         {
           uri: "project://docs-index",
-          text: `# Documentation Index\n\n${entries.sort().join("\n") || "No docs found."}`,
-          mimeType: "text/markdown",
+          text: `Error building docs index: ${error instanceof Error ? error.message : String(error)}`,
+          mimeType: "text/plain",
         },
       ],
     };
-  },
-);
+  }
+
+  return {
+    contents: [
+      {
+        uri: "project://docs-index",
+        text: `# Documentation Index\n\n${entries.sort().join("\n") || "No docs found."}`,
+        mimeType: "text/markdown",
+      },
+    ],
+  };
+});
 
 // ============================================================================
 // MCP PROMPTS
@@ -797,7 +1030,10 @@ server.prompt(
   "code-review",
   "Template for reviewing code changes",
   {
-    files: z.string().optional().describe("Comma-separated list of files to review"),
+    files: z
+      .string()
+      .optional()
+      .describe("Comma-separated list of files to review"),
   },
   async ({ files }) => ({
     messages: [
@@ -828,7 +1064,10 @@ server.prompt(
   "Scaffold a new Astro component",
   {
     name: z.string().describe("Name of the component (PascalCase)"),
-    description: z.string().optional().describe("Brief description of the component"),
+    description: z
+      .string()
+      .optional()
+      .describe("Brief description of the component"),
   },
   async ({ name, description }) => ({
     messages: [
@@ -853,7 +1092,6 @@ Provide the complete component code.`,
     ],
   }),
 );
-
 
 // Start server
 async function main() {

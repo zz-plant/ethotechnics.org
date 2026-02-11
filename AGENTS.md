@@ -39,6 +39,7 @@ Skill modules are in `.agent/skills/`:
 - `qa` — run full quality validation workflows.
 - `ui-verify` — browser-based UI verification.
 - `design-engineer` — visual system and taste alignment.
+- `docs-maintainer` — docs placement, checks, and PR-ready reporting.
 
 ## Canonical references
 

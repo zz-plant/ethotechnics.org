@@ -14,6 +14,8 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 ### Agent contributors
 
 - [`agent-developer-experience.md`](agent-developer-experience.md): agent onboarding and routing.
+- [`mcp-and-skill-adoption-guide.md`](mcp-and-skill-adoption-guide.md): practical MCP and
+  skill implementation options for contributors and web-browsing agents.
 - [`agents/README.md`](agents/README.md): agent playbook index.
 - [`agents/workflow-and-checks.md`](agents/workflow-and-checks.md): required validation rules.
 - [`agents/repo-orientation.md`](agents/repo-orientation.md): where different change types belong.
