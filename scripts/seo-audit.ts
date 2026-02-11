@@ -24,6 +24,41 @@ const astroFiles = (await walk(pagesRoot)).filter((file) =>
 const issues: string[] = [];
 const warnings: string[] = [];
 
+const isInternalHref = (href: string): boolean => {
+  const trimmedHref = href.trim();
+
+  if (!trimmedHref || trimmedHref.startsWith("//")) {
+    return false;
+  }
+
+  if (/^[a-zA-Z][a-zA-Z\d+.-]*:/.test(trimmedHref)) {
+    return false;
+  }
+
+  return (
+    trimmedHref.startsWith("/") ||
+    trimmedHref.startsWith("#") ||
+    trimmedHref.startsWith("./") ||
+    trimmedHref.startsWith("../")
+  );
+};
+
+const countInternalLinks = (source: string): number => {
+  const hrefPattern =
+    /href\s*=\s*("([^"]*)"|'([^']*)'|\{\s*`([^`]*)`\s*\}|\{\s*"([^"]*)"\s*\}|\{\s*'([^']*)'\s*\})/g;
+
+  return [...source.matchAll(hrefPattern)].reduce((count, match) => {
+    const hrefValue =
+      match[2] ?? match[3] ?? match[4] ?? match[5] ?? match[6] ?? "";
+
+    if (hrefValue.includes("${")) {
+      return count;
+    }
+
+    return isInternalHref(hrefValue) ? count + 1 : count;
+  }, 0);
+};
+
 for (const filePath of astroFiles) {
   const relPath = path.relative(repoRoot, filePath);
   const source = await readFile(filePath, "utf8");
@@ -51,8 +86,7 @@ for (const filePath of astroFiles) {
   }
 
   const lineCount = source.split("\n").length;
-  const internalLinks = [...source.matchAll(/href=\{?"\/(?!\/)[^"}]+"\}?/g)]
-    .length;
+  const internalLinks = countInternalLinks(source);
   if (lineCount >= 120 && internalLinks < 3) {
     warnings.push(
       `${relPath}: long page has only ${internalLinks} internal links; consider adding descriptive internal links.`,
@@ -69,9 +103,9 @@ if (issues.length > 0) {
 }
 
 if (warnings.length > 0) {
-  console.warn("SEO audit warnings:\n");
+  console.log("SEO audit warnings:\n");
   for (const warning of warnings) {
-    console.warn(`- ${warning}`);
+    console.log(`- ${warning}`);
   }
 }
 
