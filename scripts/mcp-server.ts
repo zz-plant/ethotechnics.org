@@ -491,19 +491,28 @@ server.tool(
           () => null,
         );
         const safePrefix = `${projectRoot}${sep}`;
+        const candidatePathInRoot =
+          candidatePath === projectRoot || candidatePath.startsWith(safePrefix);
+        const candidateRealPathInRoot =
+          candidateRealPath !== null &&
+          (candidateRealPath === projectRoot ||
+            candidateRealPath.startsWith(safePrefix));
+
         if (
-          candidatePath !== projectRoot &&
-          !candidatePath.startsWith(safePrefix) &&
-          !(
-            candidateRealPath &&
-            (candidateRealPath === projectRoot ||
-              candidateRealPath.startsWith(safePrefix))
-          )
+          !candidatePathInRoot &&
+          !candidateRealPathInRoot
         ) {
           invalidFiles.push(filePath);
           continue;
         }
-        normalizedFiles.push(toPosixPath(relative(projectRoot, candidatePath)));
+
+        const normalizedPathSource = candidatePathInRoot
+          ? candidatePath
+          : (candidateRealPath as string);
+
+        normalizedFiles.push(
+          toPosixPath(relative(projectRoot, normalizedPathSource)),
+        );
       }
 
       if (invalidFiles.length > 0) {
