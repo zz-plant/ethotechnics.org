@@ -30,6 +30,15 @@ type CheckClassification = {
   reasons: string[];
 };
 
+type PriorityBucket = "P0" | "P1";
+
+type PriorityItem = {
+  priority: PriorityBucket;
+  title: string;
+  rationale: string;
+  source: string;
+};
+
 const projectRootRealPathPromise = realpath(getProjectRoot());
 
 const checkCatalog = {
@@ -115,6 +124,110 @@ const getStatusEmoji = (exitCode: number) => {
   if (exitCode === 0) return "✅";
   if (exitCode === 2) return "⚠️";
   return "❌";
+};
+
+const parseRoadmapPriorityItems = async (): Promise<PriorityItem[]> => {
+  const roadmapPath = join(getProjectRoot(), "docs", "roadmap.md");
+  const roadmap = await Bun.file(roadmapPath).text();
+  const lines = roadmap.split(/\r?\n/);
+  const acceptedTitles = new Set([
+    "Python evaluation toolkit",
+    "Capacity forecaster v2 (scenario compare)",
+    "Maintenance simulator v2 (risk thresholds)",
+    "Burden modeler v2 (equity snapshots)",
+    "TypeScript SDK",
+  ]);
+
+  const prioritized: PriorityItem[] = [];
+  let currentHeading = "";
+
+  for (const line of lines) {
+    const headingMatch = line.match(/^##\s+(.+)$/);
+    if (headingMatch) {
+      currentHeading = headingMatch[1].trim();
+      continue;
+    }
+
+    if (!acceptedTitles.has(currentHeading)) {
+      continue;
+    }
+
+    const problemMatch = line.match(/^- \*\*Problem:\*\*\s*(.+)$/);
+    if (problemMatch) {
+      const priority: PriorityBucket =
+        currentHeading === "Python evaluation toolkit" ? "P0" : "P1";
+
+      prioritized.push({
+        priority,
+        title: currentHeading,
+        rationale: problemMatch[1].trim(),
+        source: "docs/roadmap.md",
+      });
+    }
+  }
+
+  return prioritized;
+};
+
+const parseJourneyPriorities = async (): Promise<PriorityItem[]> => {
+  const critiquePath = join(
+    getProjectRoot(),
+    "docs",
+    "user-journey-critique.md",
+  );
+  const critique = await Bun.file(critiquePath).text();
+  const lines = critique.split(/\r?\n/);
+  const priorities: PriorityItem[] = [];
+  let inPrioritySection = false;
+
+  for (const line of lines) {
+    if (line.startsWith("## Priority improvements (near-term)")) {
+      inPrioritySection = true;
+      continue;
+    }
+
+    if (inPrioritySection && line.startsWith("## ")) {
+      break;
+    }
+
+    if (!inPrioritySection) {
+      continue;
+    }
+
+    const priorityMatch = line.match(/^\d+\.\s+(.+)$/);
+    if (priorityMatch) {
+      priorities.push({
+        priority: "P0",
+        title: priorityMatch[1].trim(),
+        rationale: "Near-term UX recommendation from journey critique.",
+        source: "docs/user-journey-critique.md",
+      });
+    }
+  }
+
+  return priorities;
+};
+
+const getPrioritizedFeatures = async () => {
+  const [roadmapPriorities, journeyPriorities] = await Promise.all([
+    parseRoadmapPriorityItems(),
+    parseJourneyPriorities(),
+  ]);
+
+  const seen = new Set<string>();
+  const merged = [...journeyPriorities, ...roadmapPriorities].filter((item) => {
+    const key = `${item.priority}:${item.title}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  return merged.sort((a, b) => {
+    if (a.priority !== b.priority) {
+      return a.priority === "P0" ? -1 : 1;
+    }
+    return a.title.localeCompare(b.title);
+  });
 };
 
 // Tool: List available scripts
@@ -498,10 +611,7 @@ server.tool(
           (candidateRealPath === projectRoot ||
             candidateRealPath.startsWith(safePrefix));
 
-        if (
-          !candidatePathInRoot &&
-          !candidateRealPathInRoot
-        ) {
+        if (!candidatePathInRoot && !candidateRealPathInRoot) {
           invalidFiles.push(filePath);
           continue;
         }
@@ -721,6 +831,31 @@ server.tool(
   },
 );
 
+server.tool(
+  "suggest_priority_features",
+  "Suggest P0 and P1 feature priorities from roadmap and journey critique docs",
+  {},
+  async () => {
+    try {
+      const priorities = await getPrioritizedFeatures();
+      const lines = priorities.map(
+        (item) =>
+          `- [${item.priority}] ${item.title}\n  - Why: ${item.rationale}\n  - Source: ${item.source}`,
+      );
+
+      return textResponse(
+        lines.length > 0
+          ? `# Suggested priority features\n\n${lines.join("\n")}`
+          : "No priority recommendations found in docs.",
+      );
+    } catch (error) {
+      return errorResponse(
+        `Error suggesting priorities: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
 // Tool: Get AGENTS guidance for a path
 server.tool(
   "get_agents_guidance",
@@ -874,20 +1009,21 @@ server.resource(
   },
 );
 
-// Resource: Agent workflows
+// Resource: Agent workflows and skills
 server.resource("project://workflows", "project://workflows", async () => {
-  const workflowsDir = join(getProjectRoot(), ".agent", "workflows");
-  const glob = new Bun.Glob("*.md");
+  const skillsDir = join(getProjectRoot(), ".agent", "skills");
+  const glob = new Bun.Glob("*/SKILL.md");
   const workflows: string[] = [];
 
   try {
-    for await (const file of glob.scan({ cwd: workflowsDir })) {
-      const fullPath = join(workflowsDir, file);
+    for await (const file of glob.scan({ cwd: skillsDir })) {
+      const fullPath = join(skillsDir, file);
       const content = await Bun.file(fullPath).text();
-      workflows.push(`## ${file}\n\n${content}`);
+      const [skillName] = file.split(sep);
+      workflows.push(`## ${skillName}\n\n${content}`);
     }
   } catch {
-    // Workflows directory might not exist
+    // Skills directory might not exist
   }
 
   return {
@@ -904,6 +1040,56 @@ server.resource("project://workflows", "project://workflows", async () => {
   };
 });
 
+server.resource(
+  "project://priority-features",
+  "project://priority-features",
+  async () => {
+    try {
+      const priorities = await getPrioritizedFeatures();
+      const grouped: Record<PriorityBucket, PriorityItem[]> = {
+        P0: [],
+        P1: [],
+      };
+
+      for (const item of priorities) {
+        grouped[item.priority].push(item);
+      }
+
+      const renderGroup = (priority: PriorityBucket) => {
+        const items = grouped[priority];
+        if (items.length === 0) return `## ${priority}\n\n- No items found.`;
+
+        return `## ${priority}\n\n${items
+          .map(
+            (item) =>
+              `- **${item.title}**\n  - Why: ${item.rationale}\n  - Source: \`${item.source}\``,
+          )
+          .join("\n")}`;
+      };
+
+      return {
+        contents: [
+          {
+            uri: "project://priority-features",
+            text: `# Priority features\n\n${renderGroup("P0")}\n\n${renderGroup("P1")}`,
+            mimeType: "text/markdown",
+          },
+        ],
+      };
+    } catch (error) {
+      return {
+        contents: [
+          {
+            uri: "project://priority-features",
+            text: `Error generating priority features: ${error instanceof Error ? error.message : String(error)}`,
+            mimeType: "text/plain",
+          },
+        ],
+      };
+    }
+  },
+);
+
 // Resource: Agent onboarding
 server.resource("agent://onboarding", "agent://onboarding", async () => {
   const onboarding = `# Agent Onboarding & Quick Start
@@ -914,7 +1100,7 @@ This repo powers ethotechnics.org. We prioritize ethical technology and human-ce
 ## 🚀 Getting Started
 1. Run \`bun run agent:doctor\` to verify your environment.
 2. Use \`project://structure\` to understand where things live.
-3. Explore \`project://workflows\` for common task loops.
+3. Explore \`project://workflows\` for skill guidance and \`project://priority-features\` for planning.
 
 ## 🛠️ Key Tools
 - \`run_check\`: Run full project validation.
