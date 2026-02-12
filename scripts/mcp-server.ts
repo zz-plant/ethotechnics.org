@@ -230,6 +230,115 @@ const getPrioritizedFeatures = async () => {
   });
 };
 
+type JourneyPlaybook = {
+  journey: string;
+  routes: string[];
+  recommendations: string[];
+};
+
+const parseJourneyPlaybooks = async (): Promise<JourneyPlaybook[]> => {
+  const critiquePath = join(
+    getProjectRoot(),
+    "docs",
+    "user-journey-critique.md",
+  );
+  const critique = await Bun.file(critiquePath).text();
+  const lines = critique.split(/\r?\n/);
+
+  const playbooks: JourneyPlaybook[] = [];
+  let currentJourney = "";
+  let inTypicalPath = false;
+  let inRecommendations = false;
+  let routes: string[] = [];
+  let recommendations: string[] = [];
+
+  const flushJourney = () => {
+    if (!currentJourney) return;
+    if (routes.length === 0 && recommendations.length === 0) return;
+
+    playbooks.push({
+      journey: currentJourney,
+      routes: [...routes],
+      recommendations: [...recommendations],
+    });
+  };
+
+  for (const line of lines) {
+    const journeyMatch = line.match(/^##\s+(Journey\s+\d+:\s+.+)$/);
+    if (journeyMatch) {
+      flushJourney();
+      currentJourney = journeyMatch[1].trim();
+      routes = [];
+      recommendations = [];
+      inTypicalPath = false;
+      inRecommendations = false;
+      continue;
+    }
+
+    if (line.startsWith("### Typical path")) {
+      inTypicalPath = true;
+      inRecommendations = false;
+      continue;
+    }
+
+    if (line.startsWith("### Constructive recommendations")) {
+      inTypicalPath = false;
+      inRecommendations = true;
+      continue;
+    }
+
+    if (line.startsWith("### ")) {
+      inTypicalPath = false;
+      inRecommendations = false;
+      continue;
+    }
+
+    if (inTypicalPath) {
+      const routeMatch = line.match(/\(`([^`]+)`\)/);
+      if (routeMatch) {
+        routes.push(routeMatch[1].trim());
+      }
+    }
+
+    if (inRecommendations) {
+      const recommendationMatch = line.match(/^-\s+(.+)$/);
+      if (recommendationMatch) {
+        recommendations.push(recommendationMatch[1].trim());
+      }
+    }
+  }
+
+  flushJourney();
+  return playbooks;
+};
+
+const normalizeRoute = (route: string) => {
+  const trimmed = route.trim();
+  if (!trimmed.startsWith("/")) return `/${trimmed}`;
+  return trimmed;
+};
+
+const findRoutePlaybook = (
+  route: string,
+  playbooks: JourneyPlaybook[],
+): JourneyPlaybook | null => {
+  const normalizedRoute = normalizeRoute(route).replace(/\/$/, "") || "/";
+
+  for (const playbook of playbooks) {
+    for (const routePattern of playbook.routes) {
+      const normalizedPattern = routePattern.replace(/\/$/, "") || "/";
+      if (
+        normalizedRoute === normalizedPattern ||
+        normalizedRoute.startsWith(`${normalizedPattern}/`)
+      ) {
+        return playbook;
+      }
+    }
+  }
+
+  return null;
+};
+
 // Tool: List available scripts
 server.tool(
   "list_available_scripts",
@@ -856,6 +965,54 @@ server.tool(
   },
 );
 
+server.tool(
+  "suggest_route_next_actions",
+  "Suggest next actions for a route using user journey playbooks",
+  {
+    route: z
+      .string()
+      .describe("A site route (for example: /validators/risk-radar/)")
+      .default("/"),
+  },
+  async ({ route }) => {
+    try {
+      const playbooks = await parseJourneyPlaybooks();
+      const matched = findRoutePlaybook(route, playbooks);
+
+      if (!matched) {
+        return textResponse(
+          [
+            `No journey playbook match found for \`${normalizeRoute(route)}\`.`,
+            "Try one of these known routes:",
+            ...playbooks
+              .flatMap((playbook) => playbook.routes)
+              .map((knownRoute) => `- ${knownRoute}`)
+              .slice(0, 12),
+          ].join("\n"),
+        );
+      }
+
+      return textResponse(
+        [
+          `# Next actions for ${normalizeRoute(route)}`,
+          "",
+          `Matched journey: **${matched.journey}**`,
+          "",
+          "Recommended next steps:",
+          ...matched.recommendations.map((item) => `- ${item}`),
+          "",
+          "Journey route sequence:",
+          ...matched.routes.map((item) => `- ${item}`),
+        ].join("\n"),
+      );
+    } catch (error) {
+      return errorResponse(
+        `Error suggesting route next actions: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
 // Tool: Get AGENTS guidance for a path
 server.tool(
   "get_agents_guidance",
@@ -1090,6 +1247,52 @@ server.resource(
   },
 );
 
+server.resource(
+  "project://journey-playbooks",
+  "project://journey-playbooks",
+  async () => {
+    try {
+      const playbooks = await parseJourneyPlaybooks();
+
+      return {
+        contents: [
+          {
+            uri: "project://journey-playbooks",
+            text:
+              playbooks.length > 0
+                ? `# Journey playbooks
+
+${playbooks
+  .map(
+    (playbook) =>
+      `## ${playbook.journey}
+
+### Typical path
+${playbook.routes.map((route) => `- ${route}`).join("\n")}
+
+### Recommended next actions
+${playbook.recommendations.map((item) => `- ${item}`).join("\n")}`,
+  )
+  .join("\n\n---\n\n")}`
+                : "# Journey playbooks\n\nNo journey playbooks found.",
+            mimeType: "text/markdown",
+          },
+        ],
+      };
+    } catch (error) {
+      return {
+        contents: [
+          {
+            uri: "project://journey-playbooks",
+            text: `Error building journey playbooks: ${error instanceof Error ? error.message : String(error)}`,
+            mimeType: "text/plain",
+          },
+        ],
+      };
+    }
+  },
+);
+
 // Resource: Agent onboarding
 server.resource("agent://onboarding", "agent://onboarding", async () => {
   const onboarding = `# Agent Onboarding & Quick Start
@@ -1100,12 +1303,13 @@ This repo powers ethotechnics.org. We prioritize ethical technology and human-ce
 ## 🚀 Getting Started
 1. Run \`bun run agent:doctor\` to verify your environment.
 2. Use \`project://structure\` to understand where things live.
-3. Explore \`project://workflows\` for skill guidance and \`project://priority-features\` for planning.
+3. Explore \`project://workflows\` for skill guidance, \`project://priority-features\` for planning, and \`project://journey-playbooks\` for route-level guidance.
 
 ## 🛠️ Key Tools
 - \`run_check\`: Run full project validation.
 - \`get_repo_map\`: Get a birds-eye view of the project.
 - \`get_agents_guidance\`: Get scoped instructions for any file.
+- \`suggest_route_next_actions\`: Get journey-based next actions for a route.
 
 ## 📚 Essential Reading
 - \`AGENTS.md\`: Core working agreement.
