@@ -38,6 +38,14 @@ Primary onboarding document for AI contributors.
 - [`../README.md`](../README.md)
 - MCP server command: `bun run mcp`
 
+### MCP planning and discovery helpers
+
+- `suggest_priority_features`: summarize P0/P1 roadmap and journey priorities.
+- `audit_priority_sources`: audit parser coverage and missing planning metadata.
+- `suggest_route_next_actions`: map route context to journey-based next actions.
+- `list_mcp_capabilities`: inventory all registered MCP tools/resources.
+- Resource references: `project://priority-features` and `project://journey-playbooks`.
+
 ## Handoff expectations
 
 - Keep diffs focused and scoped to one intent when practical.

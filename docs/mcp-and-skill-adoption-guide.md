@@ -38,6 +38,31 @@ Behavior:
   - `⚠️` for warning (`exitCode = 2`),
   - `❌` for failure (all other non-zero codes).
 
+### New MCP planning tools: `suggest_priority_features`, `audit_priority_sources`, `suggest_route_next_actions`
+
+Purpose: expose roadmap and journey planning data as actionable guidance.
+
+Behavior:
+
+- `suggest_priority_features`
+  - returns P0/P1 candidates from planning docs,
+  - includes rationale and Issue/Spec metadata when available.
+- `audit_priority_sources`
+  - reports parser coverage for roadmap/journey sources,
+  - lists sections missing required fields (for example `Problem` or `Issue link`).
+- `suggest_route_next_actions`
+  - accepts a route and maps it to a journey playbook,
+  - returns next-step recommendations and route sequence guidance.
+
+### New MCP discovery tool: `list_mcp_capabilities`
+
+Purpose: list MCP tools and resources available in the repository server.
+
+Behavior:
+
+- Extracts registered `server.tool(...)` and `server.resource(...)` definitions.
+- Returns a consolidated markdown inventory for onboarding and diagnostics.
+
 ### New skill: `docs-maintainer`
 
 Path: `.agent/skills/docs-maintainer/SKILL.md`.
@@ -65,8 +90,15 @@ Workflow includes:
 1. Run `validate_changed_files` for all changed files.
 2. Execute the required full-check path (`bun run check`) when code/script changes are present.
 3. Use `summarize_checks` for final reporting.
+4. Use `list_mcp_capabilities` when planning work that depends on MCP capability availability.
 
-## 3) Skill routing
+## 3) Contributor/agent flow for planning tasks
+
+1. Run `suggest_priority_features` to collect P0/P1 candidates from roadmap and journey docs.
+2. Run `audit_priority_sources` to confirm parser coverage and identify doc drift.
+3. For route-level UX planning, run `suggest_route_next_actions` with representative routes.
+
+## 4) Skill routing
 
 - Use `docs-maintainer` whenever the task is docs-only or docs-heavy.
 - Chain with `qa` if documentation also changes implementation behavior.
