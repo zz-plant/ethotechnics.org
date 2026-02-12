@@ -37,6 +37,15 @@ type PriorityItem = {
   title: string;
   rationale: string;
   source: string;
+  issueLink?: string;
+  specLink?: string;
+};
+
+type PriorityParseAudit = {
+  totalEligibleSections: number;
+  parsedItems: number;
+  missingProblem: string[];
+  missingIssueLink: string[];
 };
 
 const projectRootRealPathPromise = realpath(getProjectRoot());
@@ -127,9 +136,18 @@ const getStatusEmoji = (exitCode: number) => {
 };
 
 const parseRoadmapPriorityItems = async (): Promise<PriorityItem[]> => {
+  const { items } = await parseRoadmapPriorityItemsWithAudit();
+  return items;
+};
+
+const parseRoadmapPriorityItemsWithAudit = async (): Promise<{
+  items: PriorityItem[];
+  audit: PriorityParseAudit;
+}> => {
   const roadmapPath = join(getProjectRoot(), "docs", "roadmap.md");
   const roadmap = await Bun.file(roadmapPath).text();
   const lines = roadmap.split(/\r?\n/);
+
   const acceptedTitles = new Set([
     "Python evaluation toolkit",
     "Capacity forecaster v2 (scenario compare)",
@@ -138,35 +156,81 @@ const parseRoadmapPriorityItems = async (): Promise<PriorityItem[]> => {
     "TypeScript SDK",
   ]);
 
-  const prioritized: PriorityItem[] = [];
+  const sections = new Map<
+    string,
+    { problem?: string; issueLink?: string; specLink?: string }
+  >();
   let currentHeading = "";
 
   for (const line of lines) {
     const headingMatch = line.match(/^##\s+(.+)$/);
     if (headingMatch) {
       currentHeading = headingMatch[1].trim();
+      if (acceptedTitles.has(currentHeading) && !sections.has(currentHeading)) {
+        sections.set(currentHeading, {});
+      }
       continue;
     }
 
-    if (!acceptedTitles.has(currentHeading)) {
-      continue;
-    }
+    if (!acceptedTitles.has(currentHeading)) continue;
+
+    const section = sections.get(currentHeading);
+    if (!section) continue;
 
     const problemMatch = line.match(/^- \*\*Problem:\*\*\s*(.+)$/);
     if (problemMatch) {
-      const priority: PriorityBucket =
-        currentHeading === "Python evaluation toolkit" ? "P0" : "P1";
+      section.problem = problemMatch[1].trim();
+      continue;
+    }
 
-      prioritized.push({
-        priority,
-        title: currentHeading,
-        rationale: problemMatch[1].trim(),
-        source: "docs/roadmap.md",
-      });
+    const issueMatch = line.match(
+      /^- \*\*Issue link:\*\*\s*Issue:\s*(.+?)\s*\/\s*Spec:\s*(.+)$/,
+    );
+    if (issueMatch) {
+      section.issueLink = issueMatch[1].trim();
+      section.specLink = issueMatch[2].trim();
     }
   }
 
-  return prioritized;
+  const items: PriorityItem[] = [];
+  const missingProblem: string[] = [];
+  const missingIssueLink: string[] = [];
+
+  for (const title of acceptedTitles) {
+    const section = sections.get(title);
+    if (!section) continue;
+
+    if (!section.problem) {
+      missingProblem.push(title);
+      continue;
+    }
+
+    if (!section.issueLink) {
+      missingIssueLink.push(title);
+    }
+
+    const priority: PriorityBucket =
+      title === "Python evaluation toolkit" ? "P0" : "P1";
+
+    items.push({
+      priority,
+      title,
+      rationale: section.problem,
+      source: "docs/roadmap.md",
+      issueLink: section.issueLink,
+      specLink: section.specLink,
+    });
+  }
+
+  return {
+    items,
+    audit: {
+      totalEligibleSections: acceptedTitles.size,
+      parsedItems: items.length,
+      missingProblem,
+      missingIssueLink,
+    },
+  };
 };
 
 const parseJourneyPriorities = async (): Promise<PriorityItem[]> => {
@@ -228,6 +292,38 @@ const getPrioritizedFeatures = async () => {
     }
     return a.title.localeCompare(b.title);
   });
+};
+
+const getPrioritySourceAudit = async () => {
+  const [roadmap, journey] = await Promise.all([
+    parseRoadmapPriorityItemsWithAudit(),
+    parseJourneyPriorities(),
+  ]);
+
+  return {
+    roadmap: roadmap.audit,
+    journey: {
+      parsedItems: journey.length,
+      source: "docs/user-journey-critique.md",
+    },
+  };
+};
+
+const parseMcpCapabilitiesFromSource = async () => {
+  const source = await Bun.file(
+    join(getProjectRoot(), "scripts", "mcp-server.ts"),
+  ).text();
+  const tools = [
+    ...source.matchAll(/server\.tool\(\s*"([^"]+)"\s*,\s*"([^"]+)"/g),
+  ].map((match) => ({ name: match[1], description: match[2] }));
+  const resources = [
+    ...source.matchAll(/server\.resource\(\s*"([^"]+)"\s*,\s*"([^"]+)"/g),
+  ].map((match) => ({ name: match[1], uri: match[2] }));
+
+  return {
+    tools,
+    resources,
+  };
 };
 
 type JourneyPlaybook = {
@@ -947,10 +1043,16 @@ server.tool(
   async () => {
     try {
       const priorities = await getPrioritizedFeatures();
-      const lines = priorities.map(
-        (item) =>
-          `- [${item.priority}] ${item.title}\n  - Why: ${item.rationale}\n  - Source: ${item.source}`,
-      );
+      const lines = priorities.map((item) => {
+        const issueLine = item.issueLink
+          ? `\n  - Issue: ${item.issueLink}`
+          : "\n  - Issue: (not specified)";
+        const specLine = item.specLink
+          ? `\n  - Spec: ${item.specLink}`
+          : "\n  - Spec: (not specified)";
+
+        return `- [${item.priority}] ${item.title}\n  - Why: ${item.rationale}\n  - Source: ${item.source}${issueLine}${specLine}`;
+      });
 
       return textResponse(
         lines.length > 0
@@ -1008,6 +1110,68 @@ server.tool(
     } catch (error) {
       return errorResponse(
         `Error suggesting route next actions: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+server.tool(
+  "audit_priority_sources",
+  "Audit priority parsing coverage for roadmap and journey sources",
+  {},
+  async () => {
+    try {
+      const audit = await getPrioritySourceAudit();
+
+      return textResponse(
+        [
+          "# Priority source audit",
+          "",
+          `Roadmap eligible sections: ${audit.roadmap.totalEligibleSections}`,
+          `Roadmap parsed items: ${audit.roadmap.parsedItems}`,
+          `Roadmap sections missing **Problem**: ${audit.roadmap.missingProblem.length}`,
+          ...audit.roadmap.missingProblem.map((item) => `- ${item}`),
+          `Roadmap sections missing **Issue link**: ${audit.roadmap.missingIssueLink.length}`,
+          ...audit.roadmap.missingIssueLink.map((item) => `- ${item}`),
+          "",
+          `Journey parsed items: ${audit.journey.parsedItems}`,
+          `Journey source: ${audit.journey.source}`,
+        ].join("\n"),
+      );
+    } catch (error) {
+      return errorResponse(
+        `Error auditing priority sources: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+server.tool(
+  "list_mcp_capabilities",
+  "List MCP tools and resources registered in this server",
+  {},
+  async () => {
+    try {
+      const capabilities = await parseMcpCapabilitiesFromSource();
+
+      return textResponse(
+        [
+          "# MCP capabilities",
+          "",
+          "## Tools",
+          ...capabilities.tools.map(
+            (tool) => `- ${tool.name}: ${tool.description}`,
+          ),
+          "",
+          "## Resources",
+          ...capabilities.resources.map(
+            (resource) => `- ${resource.name} (${resource.uri})`,
+          ),
+        ].join("\n"),
+      );
+    } catch (error) {
+      return errorResponse(
+        `Error listing MCP capabilities: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   },
@@ -1219,7 +1383,7 @@ server.resource(
         return `## ${priority}\n\n${items
           .map(
             (item) =>
-              `- **${item.title}**\n  - Why: ${item.rationale}\n  - Source: \`${item.source}\``,
+              `- **${item.title}**\n  - Why: ${item.rationale}\n  - Source: \`${item.source}\`\n  - Issue: ${item.issueLink ?? "(not specified)"}\n  - Spec: ${item.specLink ?? "(not specified)"}`,
           )
           .join("\n")}`;
       };
@@ -1309,6 +1473,8 @@ This repo powers ethotechnics.org. We prioritize ethical technology and human-ce
 - \`run_check\`: Run full project validation.
 - \`get_repo_map\`: Get a birds-eye view of the project.
 - \`get_agents_guidance\`: Get scoped instructions for any file.
+- \`audit_priority_sources\`: Audit roadmap and journey parser coverage.
+- \`list_mcp_capabilities\`: List available MCP tools/resources.
 - \`suggest_route_next_actions\`: Get journey-based next actions for a route.
 
 ## 📚 Essential Reading
