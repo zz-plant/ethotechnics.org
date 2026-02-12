@@ -1,5 +1,5 @@
 const normalizePath = (path: string) => {
-  const [clean] = path.split("#");
+  const [clean] = path.split(/[?#]/, 1);
   if (!clean) return "/";
 
   const trimmed =
