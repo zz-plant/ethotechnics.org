@@ -18,32 +18,42 @@ const initialFormat = sections[0]?.format ?? "";
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const listSeparator = (index: number, total: number) =>
   index < total - 1 ? ", " : "";
-const internalLinkLabelMap: Array<{ match: RegExp; label: string }> = [
-  { match: /^\/diagnostics/, label: "Open diagnostics" },
-  { match: /^\/mechanisms/, label: "Open mechanisms" },
-  { match: /^\/standards/, label: "Open standards" },
-  { match: /^\/glossary/, label: "Open glossary" },
-  { match: /^\/explainers/, label: "Open explainer" },
+const internalLinkSectionMap: Array<{ match: RegExp; section: string }> = [
+  { match: /^\/diagnostics/, section: "Diagnostics" },
+  { match: /^\/mechanisms/, section: "Mechanisms" },
+  { match: /^\/standards/, section: "Standards" },
+  { match: /^\/glossary/, section: "Glossary" },
+  { match: /^\/explainers/, section: "Explainers" },
 ];
+
+const toTitleLabel = (value: string) =>
+  value
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 
 const relatedLinkLabel = (href: string) => {
   const normalized = href.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
   if (href.startsWith("/")) {
-    const mapped = internalLinkLabelMap.find(({ match }) => match.test(href));
+    const [path] = href.split("#");
+    const mapped = internalLinkSectionMap.find(({ match }) => match.test(path));
+    const segments = path.split("/").filter(Boolean);
+    const slug = segments.at(-1);
 
-    if (mapped) {
-      return mapped.label;
+    if (mapped && slug && slug !== mapped.section.toLowerCase()) {
+      return `${mapped.section}: ${toTitleLabel(slug)}`;
     }
 
-    const segments = href.split("/").filter(Boolean);
-    const lastSegment = segments.at(-1) ?? "resource";
-    return `Open ${lastSegment.replace(/-/g, " ")}`;
+    if (mapped) {
+      return mapped.section;
+    }
+
+    return toTitleLabel(slug ?? "Related resource");
   }
 
   const [host, ...rest] = normalized.split("/");
-  const pathLabel = rest.at(-1)?.replace(/[-_]/g, " ") ?? "resource";
-  return `Reference ${pathLabel} (${host})`;
+  const pathLabel = toTitleLabel(rest.at(-1) ?? host);
+  return `${pathLabel} (${host})`;
 };
 const fieldNoteSections = sections.map((section, index) => ({
   section,
