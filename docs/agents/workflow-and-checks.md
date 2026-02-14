@@ -23,9 +23,12 @@ Run focused checks as you iterate:
 For code or mixed changes, run:
 
 - `bun run check`.
+- `bun run check:full` for release prep or periodic deep validation.
 
-This command includes linting, type checks, Astro checks, validations, unit tests, and
-`agent:doctor` preflight checks.
+`bun run check` includes linting, type checks, Astro checks, JSON/glossary validation,
+unit tests, and `agent:doctor` preflight checks.
+
+`bun run check:full` adds the SEO audit and coverage unit test run.
 
 For docs-only changes:
 

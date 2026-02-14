@@ -58,7 +58,8 @@ accessible web performance, content strategy, digital ethics, UX research, respo
 
 1. Align toolchains: `nvm use`
 2. Install dependencies: `bun install`
-3. Run the full check suite: `bun run check`
+3. Run the default PR check suite: `bun run check`
+4. Run the full release/nightly checks when needed: `bun run check:full`
 
 ## Quick start
 
@@ -70,21 +71,23 @@ accessible web performance, content strategy, digital ethics, UX research, respo
 
 ## Common scripts
 
-| Command                | Purpose                                                                        |
-| ---------------------- | ------------------------------------------------------------------------------ |
-| `bun dev`              | Run the Astro development server.                                              |
-| `bun run build`        | Validate content JSON and build the Worker bundle (`dist/_worker.js`).         |
-| `bun run build:search` | Generate the Pagefind search index in `dist/pagefind`.                         |
-| `bun run preview`      | Preview the Worker build locally.                                              |
-| `bun run preview:cf`   | Preview the Worker build via Wrangler with local bindings.                     |
-| `bun run check`        | Run linting, tests, TypeScript checks, the Astro checker, and JSON validation. |
-| `bun run lint`         | Lint Astro and TypeScript sources under `src/`.                                |
-| `bun run lint:fix`     | Lint and auto-fix Astro and TypeScript sources under `src/`.                   |
-| `bun run format`       | Format Markdown and source files with Prettier.                                |
-| `bun run format:check` | Check formatting with Prettier (CI-friendly).                                  |
-| `bun test`             | Run unit and component tests with Bun.                                         |
-| `bun run test:e2e`     | Build and run Playwright against the preview server.                           |
-| `bun run deploy`       | Build and deploy the Worker to Cloudflare using Wrangler.                      |
+| Command                  | Purpose                                                                                  |
+| ------------------------ | ---------------------------------------------------------------------------------------- |
+| `bun dev`                | Run the Astro development server.                                                        |
+| `bun run build`          | Validate content JSON and build the Worker bundle (`dist/_worker.js`).                   |
+| `bun run build:search`   | Generate the Pagefind search index in `dist/pagefind`.                                   |
+| `bun run preview`        | Preview the Worker build locally.                                                        |
+| `bun run preview:cf`     | Preview the Worker build via Wrangler with local bindings.                               |
+| `bun run check`          | Run default PR checks: lint, type checks, Astro checks, JSON validation, and unit tests. |
+| `bun run check:full`     | Run deep checks: default PR checks plus SEO audit and coverage unit tests.               |
+| `bun run lint`           | Lint Astro and TypeScript sources under `src/`.                                          |
+| `bun run lint:fix`       | Lint and auto-fix Astro and TypeScript sources under `src/`.                             |
+| `bun run format`         | Format Markdown and source files with Prettier.                                          |
+| `bun run format:check`   | Check formatting with Prettier (CI-friendly).                                            |
+| `bun test`               | Run unit and component tests with Bun.                                                   |
+| `bun run test:e2e`       | Build and run Playwright against the preview server (Chromium, Firefox, WebKit).         |
+| `bun run test:e2e:smoke` | Build and run a Chromium-only Playwright smoke suite.                                    |
+| `bun run deploy`         | Build and deploy the Worker to Cloudflare using Wrangler.                                |
 
 ## Testing
 
@@ -92,7 +95,9 @@ accessible web performance, content strategy, digital ethics, UX research, respo
 
 - After installing dependencies, run `bunx playwright install --with-deps` to install browser
   binaries and system packages.
-- `bun run test:e2e` builds the Worker bundle and runs Playwright against `bun run preview`.
+- `bun run test:e2e` builds the Worker bundle and runs Playwright against `bun run preview`
+  across Chromium, Firefox, and WebKit.
+- `bun run test:e2e:smoke` runs the same flow on Chromium only for faster PR validation.
 - Use `bun run preview:cf` when you need to validate Worker runtime behavior (Durable Objects,
   bindings, or Workers KV) locally.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
@@ -197,7 +202,8 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 
 - Keep changes focused and easy to review; align with existing naming and formatting.
 - Use Bun (not npm or yarn) and format Markdown/code with `bunx prettier --write`.
-- Run `bun run check` for code or mixed changes; docs-only updates can skip it.
+- Run `bun run check` for code or mixed changes; run `bun run check:full` for release
+  prep or periodic deep validation. Docs-only updates can skip both.
 - CI mirrors `bun run check` on pull requests via the Site checks workflow.
 - Read [`AGENTS.md`](AGENTS.md) and [`docs/README.md`](docs/README.md) before making larger updates.
 

@@ -50,11 +50,16 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 
 ## Testing commands
 
-- `bun run check`: lint, type-check, tests, and Astro diagnostics; run before committing.
+- `bun run check`: default PR checks (lint, type-check, Astro diagnostics, content
+  validation, and unit tests); run before committing.
+- `bun run check:full`: deep checks for release prep or periodic QA (adds SEO audit and
+  coverage unit tests).
 - `bun run test:unit` or `bun run test:unit:ci`: Bun test suites (watch or single pass with
   coverage).
-- `bun run test:e2e`: build then execute Playwright against the preview server; install browsers
-  via `bunx playwright install --with-deps` first.
+- `bun run test:e2e`: build then execute Playwright against the preview server across
+  Chromium, Firefox, and WebKit; install browsers via
+  `bunx playwright install --with-deps` first.
+- `bun run test:e2e:smoke`: Chromium-only Playwright run for faster smoke validation.
 
 ## Experience improvement initiatives
 
