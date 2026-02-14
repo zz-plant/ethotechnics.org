@@ -1,10 +1,17 @@
+import { glossaryContent } from "../content/glossary";
 import { libraryContent } from "../content/library";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
 import { validatorsContent } from "../content/validators";
 
 import {
+  diagnosticResultsCatalog,
+  findingsCatalog,
+  getAntiPatternsForApi,
   getClausesForApi,
+  getEvidencePacksForApi,
+  getGlossaryEntriesForApi,
+  getMechanismsForApi,
   getRagCorpusLines,
   getStandardsForApi,
   getValidatorsForApi,
@@ -28,6 +35,25 @@ const ndjsonResponse = (payload: string) =>
   new Response(payload, {
     headers: ndjsonHeaders,
   });
+
+const createCollectionResponse = <T>(options: {
+  key: string;
+  items: T[];
+  permalink?: string;
+  release?: typeof releaseInfo;
+}) => {
+  const payload = {
+    meta: {
+      generatedAt: new Date().toISOString(),
+      count: options.items.length,
+      ...(options.permalink ? { permalink: options.permalink } : {}),
+      ...(options.release ? { release: options.release } : {}),
+    },
+    [options.key]: options.items,
+  };
+
+  return jsonResponse(payload);
+};
 
 const buildEndpointMap = (
   basePath: string,
@@ -58,37 +84,75 @@ const buildEndpointMap = (
   };
 };
 
-export const createClausesResponse = () => {
-  const clauses = getClausesForApi();
+export const createAntiPatternsResponse = () =>
+  createCollectionResponse({
+    key: "antiPatterns",
+    items: getAntiPatternsForApi(),
+    permalink: libraryContent.permalink,
+    release: releaseInfo,
+  });
 
-  const payload = {
-    meta: {
-      generatedAt: new Date().toISOString(),
-      count: clauses.length,
-      permalink: standardsContent.permalink,
-      release: releaseInfo,
-    },
-    clauses,
-  };
+export const createClausesResponse = () =>
+  createCollectionResponse({
+    key: "clauses",
+    items: getClausesForApi(),
+    permalink: standardsContent.permalink,
+    release: releaseInfo,
+  });
 
-  return jsonResponse(payload);
-};
+export const createDiagnosticResultsResponse = () =>
+  createCollectionResponse({
+    key: "results",
+    items: diagnosticResultsCatalog,
+    release: releaseInfo,
+  });
 
-export const createStandardsResponse = () => {
-  const standards = getStandardsForApi();
+export const createEvidencePacksResponse = () =>
+  createCollectionResponse({
+    key: "evidencePacks",
+    items: getEvidencePacksForApi(),
+    permalink: standardsContent.permalink,
+    release: releaseInfo,
+  });
 
-  const payload = {
-    meta: {
-      generatedAt: new Date().toISOString(),
-      count: standards.length,
-      permalink: standardsContent.permalink,
-      release: releaseInfo,
-    },
-    standards,
-  };
+export const createFindingsResponse = () =>
+  createCollectionResponse({
+    key: "findings",
+    items: findingsCatalog,
+    release: releaseInfo,
+  });
 
-  return jsonResponse(payload);
-};
+export const createGlossaryResponse = () =>
+  createCollectionResponse({
+    key: "entries",
+    items: getGlossaryEntriesForApi(),
+    permalink: glossaryContent.permalink,
+    release: releaseInfo,
+  });
+
+export const createMechanismsResponse = () =>
+  createCollectionResponse({
+    key: "patterns",
+    items: getMechanismsForApi(),
+    permalink: libraryContent.permalink,
+    release: releaseInfo,
+  });
+
+export const createStandardsResponse = () =>
+  createCollectionResponse({
+    key: "standards",
+    items: getStandardsForApi(),
+    permalink: standardsContent.permalink,
+    release: releaseInfo,
+  });
+
+export const createValidatorsResponse = () =>
+  createCollectionResponse({
+    key: "validators",
+    items: getValidatorsForApi(),
+    permalink: validatorsContent.permalink,
+    release: releaseInfo,
+  });
 
 const buildEndpoints = (
   basePath: string,
@@ -115,7 +179,9 @@ const buildEndpoints = (
 
   const normalizedBase = basePath.replace(/\/$/, "");
 
-  return [...core, ...release].map((endpoint) => `${normalizedBase}/${endpoint}`);
+  return [...core, ...release].map(
+    (endpoint) => `${normalizedBase}/${endpoint}`,
+  );
 };
 
 export const createAgentIndexResponse = (options: {

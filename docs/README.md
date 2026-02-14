@@ -39,7 +39,8 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 ### Planning and roadmap docs
 
 - [`roadmap.md`](roadmap.md), [`mini-prds.md`](mini-prds.md),
-  [`issue-templates.md`](issue-templates.md).
+  [`issue-templates.md`](issue-templates.md), and
+  [`full-refactor-plan.md`](full-refactor-plan.md).
 - [`user-journey-critique.md`](user-journey-critique.md): representative UX journey walkthrough
   with constructive recommendations.
 - [`ux-audit-kondo.md`](ux-audit-kondo.md): remove/move/modify UX audit with prioritized actions.
