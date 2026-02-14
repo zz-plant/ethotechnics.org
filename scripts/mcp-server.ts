@@ -332,6 +332,75 @@ type JourneyPlaybook = {
   recommendations: string[];
 };
 
+type SkillSummary = {
+  id: string;
+  name: string;
+  description: string;
+  path: string;
+};
+
+const parseSkillFrontmatterValue = (content: string, key: string) => {
+  const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+  if (!frontmatterMatch) return null;
+  const frontmatter = frontmatterMatch[1];
+  const keyMatch = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, "m"));
+  if (!keyMatch) return null;
+  return keyMatch[1].trim().replace(/^['\"]|['\"]$/g, "");
+};
+
+const listSkillSummaries = async (): Promise<SkillSummary[]> => {
+  const skillsDir = join(getProjectRoot(), ".agent", "skills");
+  const glob = new Bun.Glob("*/SKILL.md");
+  const skills: SkillSummary[] = [];
+
+  for await (const file of glob.scan({ cwd: skillsDir })) {
+    const fullPath = join(skillsDir, file);
+    const content = await Bun.file(fullPath).text();
+    const id = file.split(sep)[0];
+    const name = parseSkillFrontmatterValue(content, "name") ?? id;
+    const description =
+      parseSkillFrontmatterValue(content, "description") ??
+      "No description provided.";
+
+    skills.push({
+      id,
+      name,
+      description,
+      path: `.agent/skills/${id}/SKILL.md`,
+    });
+  }
+
+  return skills.sort((a, b) => a.id.localeCompare(b.id));
+};
+
+const getAgentInterfaceContract = async () => {
+  const [{ tools, resources }, skills] = await Promise.all([
+    parseMcpCapabilitiesFromSource(),
+    listSkillSummaries(),
+  ]);
+
+  return {
+    protocol: "Model Context Protocol (MCP)",
+    server: {
+      name: "etorg-mcp-server",
+      entrypoint: "bun run mcp",
+      transport: "stdio",
+    },
+    capabilities: {
+      tools,
+      resources,
+      prompts: ["design-engineer", "code-review"],
+    },
+    skills,
+    recommendedClientFlow: [
+      "Read agent://contract for machine-readable server and skill metadata.",
+      "Call list_mcp_capabilities to verify runtime-registered tools/resources.",
+      "Call list_workflows to discover skill IDs and then read_workflow for execution details.",
+      "Use validate_changed_files and summarize_checks for check planning and reporting.",
+    ],
+  };
+};
+
 const parseJourneyPlaybooks = async (): Promise<JourneyPlaybook[]> => {
   const critiquePath = join(
     getProjectRoot(),
@@ -916,28 +985,7 @@ server.tool(
   {},
   async () => {
     try {
-      const skillsDir = join(getProjectRoot(), ".agent", "skills");
-      const glob = new Bun.Glob("*/SKILL.md");
-      const workflows: { id: string; name: string; description: string }[] = [];
-
-      for await (const file of glob.scan({ cwd: skillsDir })) {
-        const fullPath = join(skillsDir, file);
-        const content = await Bun.file(fullPath).text();
-        // Extract description from frontmatter
-        const match = content.match(
-          /^---\s*\n(?:.*\n)*?description:\s*(.+)\n(?:.*\n)*?---/m,
-        );
-        const description = match?.[1] || "No description";
-        const nameMatch = content.match(
-          /^---\s*\n(?:.*\n)*?name:\s*(.+)\n(?:.*\n)*?---/m,
-        );
-        const nameFromDir = file.split(sep)[0];
-        workflows.push({
-          id: nameFromDir,
-          name: nameMatch?.[1] || nameFromDir,
-          description,
-        });
-      }
+      const workflows = await listSkillSummaries();
 
       return textResponse(
         workflows
@@ -950,6 +998,22 @@ server.tool(
     } catch (error) {
       return errorResponse(
         `Error listing workflows: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  },
+);
+
+server.tool(
+  "get_agent_interface_contract",
+  "Return machine-readable MCP and skill metadata for external agent clients",
+  {},
+  async () => {
+    try {
+      const contract = await getAgentInterfaceContract();
+      return textResponse(JSON.stringify(contract, null, 2));
+    } catch (error) {
+      return errorResponse(
+        `Error generating interface contract: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   },
@@ -1332,33 +1396,67 @@ server.resource(
 
 // Resource: Agent workflows and skills
 server.resource("project://workflows", "project://workflows", async () => {
-  const skillsDir = join(getProjectRoot(), ".agent", "skills");
-  const glob = new Bun.Glob("*/SKILL.md");
-  const workflows: string[] = [];
-
   try {
-    for await (const file of glob.scan({ cwd: skillsDir })) {
-      const fullPath = join(skillsDir, file);
-      const content = await Bun.file(fullPath).text();
-      const [skillName] = file.split(sep);
-      workflows.push(`## ${skillName}\n\n${content}`);
-    }
+    const workflows = await listSkillSummaries();
+    const sections = await Promise.all(
+      workflows.map(async (workflow) => {
+        const content = await Bun.file(
+          join(getProjectRoot(), workflow.path),
+        ).text();
+        return `## ${workflow.id}\n\n- Name: ${workflow.name}\n- Description: ${workflow.description}\n- Path: \`${workflow.path}\`\n\n${content}`;
+      }),
+    );
+
+    return {
+      contents: [
+        {
+          uri: "project://workflows",
+          text:
+            sections.length > 0
+              ? `# Agent Workflows\n\n${sections.join("\n\n---\n\n")}`
+              : "# Agent Workflows\n\nNo workflows defined yet.",
+          mimeType: "text/markdown",
+        },
+      ],
+    };
   } catch {
     // Skills directory might not exist
+    return {
+      contents: [
+        {
+          uri: "project://workflows",
+          text: "# Agent Workflows\n\nNo workflows defined yet.",
+          mimeType: "text/markdown",
+        },
+      ],
+    };
   }
+});
 
-  return {
-    contents: [
-      {
-        uri: "project://workflows",
-        text:
-          workflows.length > 0
-            ? `# Agent Workflows\n\n${workflows.join("\n\n---\n\n")}`
-            : "# Agent Workflows\n\nNo workflows defined yet.",
-        mimeType: "text/markdown",
-      },
-    ],
-  };
+server.resource("agent://contract", "agent://contract", async () => {
+  try {
+    const contract = await getAgentInterfaceContract();
+
+    return {
+      contents: [
+        {
+          uri: "agent://contract",
+          text: JSON.stringify(contract, null, 2),
+          mimeType: "application/json",
+        },
+      ],
+    };
+  } catch (error) {
+    return {
+      contents: [
+        {
+          uri: "agent://contract",
+          text: `Error generating agent contract: ${error instanceof Error ? error.message : String(error)}`,
+          mimeType: "text/plain",
+        },
+      ],
+    };
+  }
 });
 
 server.resource(

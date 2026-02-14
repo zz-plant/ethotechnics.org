@@ -2,6 +2,16 @@
 
 This guide now documents implemented MCP and skill upgrades for contributors and agent clients.
 
+## Recommended interoperability approach
+
+Use MCP as the primary interface boundary and skills as execution recipes:
+
+- **MCP handles discovery and invocation** (tools, resources, prompts).
+- **Skills handle procedure and quality gates** (what to run and in what order).
+
+This split makes the repository callable by external agentic LLM clients while preserving
+maintainer-controlled workflows.
+
 ## Implemented in this repository
 
 ### New MCP tool: `validate_changed_files`
@@ -63,6 +73,21 @@ Behavior:
 - Extracts registered `server.tool(...)` and `server.resource(...)` definitions.
 - Returns a consolidated markdown inventory for onboarding and diagnostics.
 
+### New MCP interoperability contract: `get_agent_interface_contract` and `agent://contract`
+
+Purpose: provide a machine-readable contract that external agent clients can consume without
+parsing source code.
+
+Behavior:
+
+- `get_agent_interface_contract` returns JSON via a tool call.
+- `agent://contract` exposes the same JSON as an MCP resource.
+- Contract includes:
+  - server identity and entrypoint (`bun run mcp`),
+  - registered tools/resources/prompts,
+  - available local skills with paths,
+  - a recommended client call sequence.
+
 ### New skill: `docs-maintainer`
 
 Path: `.agent/skills/docs-maintainer/SKILL.md`.
@@ -102,6 +127,14 @@ Workflow includes:
 
 - Use `docs-maintainer` whenever the task is docs-only or docs-heavy.
 - Chain with `qa` if documentation also changes implementation behavior.
+
+## 5) External agent client bootstrap sequence
+
+1. Read `agent://contract` (or call `get_agent_interface_contract`).
+2. Verify runtime capabilities with `list_mcp_capabilities`.
+3. Discover skill IDs with `list_workflows`.
+4. Read selected skill details with `read_workflow`.
+5. Execute work and use `validate_changed_files` + `summarize_checks` for reporting.
 
 ## Why this matters for web-browsing agents
 
