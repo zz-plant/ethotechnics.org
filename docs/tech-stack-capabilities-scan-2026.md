@@ -4,8 +4,7 @@ Snapshot of newer capabilities worth evaluating for the current stack.
 
 Use this as a planning input, not a migration mandate.
 
-Action tracking: see [`tech-stack-upgrade-actions-2026-q1.md`](tech-stack-upgrade-actions-2026-q1.md) and
-[`tech-stack-upgrade-actions-2026-q2.md`](tech-stack-upgrade-actions-2026-q2.md).
+Action tracking: see [`tech-stack-upgrade-actions-2026.md`](tech-stack-upgrade-actions-2026.md).
 
 ## Baseline in this repository
 
@@ -63,9 +62,9 @@ Suggested follow-up:
   explicit.
 - Add a periodic deploy verification checklist item for Worker runtime flags and compatibility dates.
 
-### React (18.x in Astro islands)
+### React (19.x in Astro islands)
 
-- **Stable concurrent rendering primitives**: React 18 APIs are mature and well supported for
+- **Modern concurrent rendering primitives**: React 19 APIs are mature and well supported for
   interactive islands where responsiveness matters.
 - **Streaming and selective hydration patterns**: Compatible Astro integration patterns continue to
   improve for progressive rendering.
@@ -87,7 +86,7 @@ Suggested follow-up:
 - Tighten compiler flags only where they remove real defects, not just stylistic differences.
 - Keep shared schema validation (for JSON content) aligned with TypeScript domain types.
 
-### Playwright (1.57)
+### Playwright (1.58)
 
 - **Stronger cross-browser consistency tools**: Recent releases improve diagnostics and failure
   traces for CI.
