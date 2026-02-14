@@ -36,6 +36,47 @@ const ndjsonResponse = (payload: string) =>
     headers: ndjsonHeaders,
   });
 
+const repoSlug = "zz-plant/ethotechnics";
+
+const changelogEntries = [
+  ...libraryContent.publication.changelog.map((entry) => ({
+    source: "Mechanisms",
+    version: entry.version,
+    date: entry.date,
+    summary: entry.summary,
+    href: libraryContent.permalink,
+  })),
+  ...researchContent.publication.changelog.map((entry) => ({
+    source: "Research",
+    version: entry.version,
+    date: entry.date,
+    summary: entry.summary,
+    href: researchContent.permalink,
+  })),
+].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+const releases = [
+  {
+    id: releaseInfo.id,
+    label: releaseInfo.label,
+    date: releaseInfo.date,
+    href: releaseInfo.permalink,
+    endpoints: {
+      siteIndex: `${releaseInfo.permalink}/site-index.json`,
+      standards: `${releaseInfo.permalink}/standards.json`,
+      clauses: `${releaseInfo.permalink}/clauses.json`,
+      mechanisms: `${releaseInfo.permalink}/mechanisms.json`,
+      validators: `${releaseInfo.permalink}/validators.json`,
+      glossary: `${releaseInfo.permalink}/glossary.json`,
+      findings: `${releaseInfo.permalink}/findings.json`,
+      diagnosticResults: `${releaseInfo.permalink}/diagnostic-results.json`,
+      antiPatterns: `${releaseInfo.permalink}/anti-patterns.json`,
+      evidencePacks: `${releaseInfo.permalink}/evidence-packs.json`,
+      ragCorpus: `${releaseInfo.permalink}/rag-corpus.jsonl`,
+    },
+  },
+];
+
 const createCollectionResponse = <T>(options: {
   key: string;
   items: T[];
@@ -153,6 +194,59 @@ export const createValidatorsResponse = () =>
     permalink: validatorsContent.permalink,
     release: releaseInfo,
   });
+
+export const createBadgesResponse = () => {
+  const payload = {
+    meta: {
+      generatedAt: new Date().toISOString(),
+      repo: repoSlug,
+    },
+    badges: {
+      siteChecks: {
+        label: "Site checks",
+        image: `https://github.com/${repoSlug}/actions/workflows/site-checks.yml/badge.svg`,
+        href: `https://github.com/${repoSlug}/actions/workflows/site-checks.yml`,
+      },
+      license: {
+        label: "CC BY-SA 4.0",
+        image: "https://licensebuttons.net/l/by-sa/4.0/88x31.png",
+        href: "https://creativecommons.org/licenses/by-sa/4.0/",
+      },
+    },
+  };
+
+  return jsonResponse(payload);
+};
+
+export const createChangelogResponse = () =>
+  createCollectionResponse({
+    key: "entries",
+    items: changelogEntries,
+  });
+
+export const createReleasesResponse = () =>
+  createCollectionResponse({
+    key: "releases",
+    items: releases,
+  });
+
+export const createResearchResponse = () => {
+  const payload = {
+    meta: {
+      generatedAt: new Date().toISOString(),
+      permalink: researchContent.permalink,
+      updated: researchContent.updated,
+    },
+    orientation: researchContent.orientationCards,
+    bridgeArtifacts: researchContent.bridgeArtifacts,
+    agenda: researchContent.agenda,
+    focusAreas: researchContent.focusAreas,
+    publications: researchContent.publications,
+    standardsTimeline: researchContent.standardsTimeline,
+  };
+
+  return jsonResponse(payload);
+};
 
 const buildEndpoints = (
   basePath: string,
