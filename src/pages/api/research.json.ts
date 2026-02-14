@@ -1,25 +1,5 @@
 import type { APIRoute } from "astro";
 
-import { researchContent } from "../../content/research";
+import { createResearchResponse } from "../../utils/api-responses";
 
-export const GET: APIRoute = () => {
-  const payload = {
-    meta: {
-      generatedAt: new Date().toISOString(),
-      permalink: researchContent.permalink,
-      updated: researchContent.updated,
-    },
-    orientation: researchContent.orientationCards,
-    bridgeArtifacts: researchContent.bridgeArtifacts,
-    agenda: researchContent.agenda,
-    focusAreas: researchContent.focusAreas,
-    publications: researchContent.publications,
-    standardsTimeline: researchContent.standardsTimeline,
-  };
-
-  return new Response(JSON.stringify(payload, null, 2), {
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-  });
-};
+export const GET: APIRoute = () => createResearchResponse();
