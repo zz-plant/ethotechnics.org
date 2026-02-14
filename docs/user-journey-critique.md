@@ -1,108 +1,89 @@
-# User journey critique (three representative flows)
+# User journey critique (2026)
 
-This review traverses three common journeys on the local site build and focuses on practical UX
-improvements that preserve the current information architecture.
+Consolidated UX journey review for representative contributor and practitioner flows.
+
+## Method
+
+- Run the site locally with `bun run dev --host 0.0.0.0 --port 4321`.
+- Traverse three representative journeys in a browser session:
+  - new visitor orientation,
+  - practitioner control selection,
+  - returning user search.
+- Capture constructive critique focused on clarity, wayfinding, and actionability.
 
 ## Journey 1: New visitor orientation
 
-### Typical path
+Path: `/` → `/#failure-intake` → `/failure/decision-appealed`.
 
-- Home (`/`)
-- Start Here (`/start-here/`)
-- How it works (`/how-it-works`)
+### What works
 
-### What works well
+- The homepage value proposition is clear and specific for high-stakes systems.
+- Failure-state cards make the first decision concrete and scannable.
+- Failure detail pages map directly to usable artifacts with clear CTAs.
 
-- The home headline is specific and action-oriented, with clear first-step options.
-- Home and Start Here both present multiple path choices, which supports users arriving with
-  different levels of urgency.
-- “How it works” provides clear institutional framing for users who need to understand scope
-  before acting.
+### Friction points
 
-### Friction observed
+- The top nav label "Start with failure" appears to route to an in-page anchor on home.
+  Users may expect a dedicated hub page.
+- The homepage surface area is dense. First-time users can miss the intended sequence
+  (choose failure state → pick standard/mechanism → download artifact).
 
-- The global navigation plus dense in-page links can feel crowded for first-time visitors.
-- On Start Here, anchor labels like “1 What this is” and “2 Choose your path” compete with
-  action CTAs and may create decision fatigue.
-- Repeated top-level language (“Open standards & artifacts…”) across pages can reduce signal for
-  users scanning for what changes from page to page.
+### Constructive improvements
 
-### Constructive recommendations
+- Rename the nav item to "Failure pathways" (or similar) and make destination behavior explicit
+  (anchor vs page).
+- Add a short three-step "How to use this site" rail near the top fold.
+- Consider progressive disclosure around specialist terms in the hero so non-experts are not
+  blocked early.
 
-- Add a single persistent “recommended next action” card near the top of each orientation page.
-- Demote lower-priority anchor links behind a “Show full outline” disclosure for first-time use.
-- Add one-line “You are here” context under each H1 to distinguish orientation, doctrine, and
-  execution pages.
+## Journey 2: Practitioner finding implementable controls
 
-## Journey 2: Practitioner trying a diagnostic + artifact
+Path: `/mechanisms` → `/mechanisms/patterns/kill-switch`.
 
-### Typical path
+### What works
 
-- Validators index (`/validators/`)
-- Risk Radar validator (`/validators/risk-radar/`)
-- Burden budget worksheet (`/tools/burden-budget-worksheet/`)
+- Mechanisms index provides multiple pathways (filters, navigator, themes, roles).
+- Pattern pages are rich and operational, with section anchors and implementation structure.
 
-### What works well
+### Friction points
 
-- The Validators index makes “run” actions easy to identify.
-- Risk Radar describes purpose in plain language and links to related standard/mechanism context.
-- The Burden budget worksheet offers multiple download formats (PDF/Markdown/CSV/JSON), which
-  supports adoption in varied team workflows.
+- Some breadcrumb or utility links render as absolute production URLs (for example,
+  `https://ethotechnics.org/`) during local traversal, which can unexpectedly pull users out of
+  context in non-production environments.
+- At least one breadcrumb-style item is rendered as a raw path string (for example,
+  `/mechanisms/patterns/kill-switch`) instead of a human-readable label.
 
-### Friction observed
+### Constructive improvements
 
-- Moving from validator insight to implementation artifact is conceptually possible but not always
-  obvious as a guided sequence.
-- Validator pages share structural sections that can dilute page-specific “do this next” clarity.
-- The amount of surrounding navigation can obscure task completion steps for time-constrained
-  operators.
+- Keep internal navigation environment-relative where possible to preserve continuity in preview
+  and local QA.
+- Replace path-like breadcrumb text with readable labels (for example, "Kill switch pattern").
+- Elevate one "recommended first action" on the mechanisms page for users who do not know where
+  to begin.
 
-### Constructive recommendations
+## Journey 3: Returning user search
 
-- Add a compact “After this validator” section with direct links to the top 2–3 implement-now
-  artifacts.
-- Introduce a standard status checklist pattern (e.g., “Assess → Select mechanism → Export
-  artifact”) on validator detail pages.
-- Add estimated completion time and required inputs near the top of each validator/tool page.
+Path: `/search` → `/search?q=consent`.
 
-## Journey 3: Researcher validating standards evidence
+### What works
 
-### Typical path
+- Search entry is easy to find and supports query URL parameters.
+- Suggested quick links provide useful query starters.
 
-- Standards index (`/standards/`)
-- STD-01 minimum binding set (`/standards/std-01-minimum-binding-set/`)
-- Evidence packs (`/evidence-packs/`)
+### Friction points
 
-### What works well
+- Result density appears very high, which risks cognitive overload without strong grouping.
+- Initial visible links prioritize navigation and shortcuts, so relevance cues for top results can
+  be easy to miss at first glance.
 
-- The standards index is rich and citation-friendly, with direct access to core doctrine.
-- The minimum binding set page gives concrete requirement structure and avoids vague policy prose.
-- Evidence packs make audit-readiness explicit and provide standard-specific proof pathways.
+### Constructive improvements
 
-### Friction observed
+- Add lightweight faceting (content type, topic, tool vs reference) above results.
+- Improve result snippet hierarchy: title, one-line context, then metadata chips.
+- Add "best match" or "top 3" treatment for common governance terms.
 
-- The Standards index is link-dense, which may slow “which document should I read first?”
-  decisions for newcomers.
-- The transition from standard interpretation to evidence assembly is present but not always
-  framed as a single workflow.
-- Users may need an explicit confidence cue that they selected the correct evidence tier.
+## Prioritized next steps
 
-### Constructive recommendations
-
-- Add a short “If your goal is…” chooser at the top of Standards (policy drafting, audit prep,
-  implementation oversight).
-- Add cross-page workflow chips that persist from standards pages into evidence packs.
-- Include “minimum acceptable evidence” examples per standard tier to reduce ambiguity during
-  assurance reviews.
-
-## Priority improvements (near-term)
-
-1. Add page-top next-action modules on key orientation and validator pages.
-2. Reduce initial cognitive load by collapsing secondary in-page outlines.
-3. Strengthen standards→evidence continuity with persistent workflow signposts.
-
-## How this critique was executed
-
-- Traversed the three journeys on a local dev server (`bun run dev --host 0.0.0.0 --port 4321`).
-- Validated headings, link density, and CTA visibility across each step using scripted HTML
-  inspection.
+1. Clarify navigation semantics (anchor vs page, readable breadcrumbs).
+2. Reduce first-session ambiguity with a short guided sequence.
+3. Improve search triage through grouping and stronger relevance signaling.
