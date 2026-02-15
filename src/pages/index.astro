@@ -1,6 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { failureStates } from "../content/institute-site";
+
+const failureChoiceLabels: Record<string, string> = {
+  "decision-appealed": "A decision was appealed",
+  "model-wrong": "The model made a harmful error",
+  "queue-stuck": "Appeals or reviews are stuck",
+  "user-harmed": "A user was harmed",
+  "no-owner": "No accountable owner is assigned",
+  "cant-explain": "We cannot clearly explain the decision",
+  "cant-stop": "We cannot quickly stop or roll back",
+};
+
+const failureChoiceIcons: Record<string, string[]> = {
+  "decision-appealed": ["M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3", "M8.5 10h7", "M8.5 13h4.5"],
+  "model-wrong": ["M10 4.5l6.8 11.8H3.2z", "M10 8.5v3.5", "M10 14.3h.01"],
+  "queue-stuck": ["M10 5a5 5 0 1 1-5 5", "M10 7.5v3", "M10 10.5h2.2"],
+  "user-harmed": ["M10 16.5s-5.5-3.1-5.5-7a3.2 3.2 0 0 1 5.5-2.3 3.2 3.2 0 0 1 5.5 2.3c0 3.9-5.5 7-5.5 7", "M7.9 9.4l4.2 4.2", "M12.1 9.4 7.9 13.6"],
+  "no-owner": ["M10 11a2.2 2.2 0 1 0-2.2-2.2A2.2 2.2 0 0 0 10 11z", "M5.5 15.5a4.5 4.5 0 0 1 9 0", "M14.2 5.8l3.2 3.2", "M17.4 5.8l-3.2 3.2"],
+  "cant-explain": ["M10 16.5a7 7 0 1 0-7-7", "M10 12.4v-.4a2 2 0 1 1 2-2", "M10 14.7h.01"],
+  "cant-stop": ["M4.5 4.5h11v11h-11z", "M8 8h4v4H8z"],
+};
 ---
 
 <BaseLayout
@@ -8,97 +28,193 @@ import { failureStates } from "../content/institute-site";
   description="Open standards for high-stakes systems that must remain reversible under failure."
 >
   <section class="institute-hero stack-lg">
-    <h1>Choose a governance path for your situation.</h1>
-    <p>Select one starting point. You can branch into diagnostics and standards from there.</p>
+    <p class="institute-hero__eyebrow">Ethotechnics Institute · Governance Standards Body</p>
+    <h1>Operational Standards for Stoppable, Reversible AI Systems</h1>
+    <p class="section-lead">
+      Formal governance standards, artifacts, and diagnostics for high-risk automated decision
+      systems.
+    </p>
+    <ul class="institute-hero__status" aria-label="Standards publication status">
+      <li>
+        <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+          <path d="M3.5 5.5h13v9h-13z" fill="none" />
+          <path d="M6 8h8" />
+          <path d="M6 11h6" />
+        </svg>
+        <span>Document IDs: STD-01 to STD-07</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+          <circle cx="10" cy="10" r="6.5" fill="none" />
+          <path d="M10 6.8v3.5" />
+          <path d="M10 12.8h.01" />
+        </svg>
+        <span>Publication status: active</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+          <path d="M10 3.7l5.6 2.1v3.7c0 3.6-2.4 5.9-5.6 6.9-3.2-1-5.6-3.3-5.6-6.9V5.8z" fill="none" />
+          <path d="M8.2 9.9l1.4 1.4 2.5-2.5" />
+        </svg>
+        <span>Ratification: institute-maintained stable references</span>
+      </li>
+    </ul>
+    <div class="actions" aria-label="Primary standards actions">
+      <a class="button primary" href="/standards/std-01-temporal-rights">Read STD-01</a>
+      <a class="button" href="/standards/std-06-operational-safety-case">View Safety Case (STD-06)</a>
+      <a class="button ghost" href="/diagnostics">Browse diagnostics</a>
+    </div>
     <ul class="mobile-shortcuts" aria-label="Primary start options">
       <li>
         <a class="mobile-shortcuts__item" href="/#failure-intake">
-          <span class="mobile-shortcuts__label">Something is broken now</span>
-          <strong class="mobile-shortcuts__title">Start with failure intake</strong>
+          <span class="mobile-shortcuts__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+              <path d="M12 3a9 9 0 1 0 9 9" fill="none" />
+              <path d="M12 7v6" />
+              <circle cx="12" cy="16.5" r=".75" />
+            </svg>
+          </span>
+          <span class="mobile-shortcuts__label">An incident is happening now</span>
+          <strong class="mobile-shortcuts__title">Start failure intake</strong>
         </a>
       </li>
       <li>
         <a class="mobile-shortcuts__item" href="/quick-start">
-          <span class="mobile-shortcuts__label">You are planning a release</span>
-          <strong class="mobile-shortcuts__title">Use quick-start playbooks</strong>
+          <span class="mobile-shortcuts__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+              <path d="M4 12h9" />
+              <path d="M10 7l5 5-5 5" />
+              <path d="M15 12h5" />
+            </svg>
+          </span>
+          <span class="mobile-shortcuts__label">You are planning a launch</span>
+          <strong class="mobile-shortcuts__title">Open quick-start playbooks</strong>
         </a>
       </li>
       <li>
         <a class="mobile-shortcuts__item" href="/standards">
-          <span class="mobile-shortcuts__label">You need policy language</span>
-          <strong class="mobile-shortcuts__title">Browse standards</strong>
+          <span class="mobile-shortcuts__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+              <path d="M6 4.5h8l4 4V19.5H6z" fill="none" />
+              <path d="M14 4.5v4h4" />
+              <path d="M9 13h6" />
+              <path d="M9 16h6" />
+            </svg>
+          </span>
+          <span class="mobile-shortcuts__label">You need policy wording</span>
+          <strong class="mobile-shortcuts__title">Open standards library</strong>
         </a>
       </li>
     </ul>
   </section>
 
   <section id="failure-intake" class="stack-lg">
-    <h2>What’s not holding?</h2>
-    <p>Choose the closest match. This is routing, not blame.</p>
+    <h2>What is failing right now?</h2>
+    <p class="section-lead">Pick the closest symptom. This is for routing to help, not for blame.</p>
     <div class="failure-grid" aria-label="Failure routing options">
       {
-        failureStates.map((state) => (
-          <a class="button" href={`/failure/${state.slug}`}>
-            {state.shortLabel}
-          </a>
-        ))
+        failureStates.map((state) => {
+          const iconPaths = failureChoiceIcons[state.slug] ?? ["M5 10h10", "M11 6l4 4-4 4"];
+
+          return (
+            <a class="button failure-grid__button" href={`/failure/${state.slug}`}>
+              <span class="failure-grid__label">
+                <span class="failure-grid__state-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" role="presentation" focusable="false">
+                    {iconPaths.map((pathValue) => (
+                      <path d={pathValue} />
+                    ))}
+                  </svg>
+                </span>
+                <span>{failureChoiceLabels[state.slug] ?? state.shortLabel}</span>
+              </span>
+              <svg
+                class="failure-grid__icon"
+                viewBox="0 0 20 20"
+                role="presentation"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M5 10h10" />
+                <path d="M11 6l4 4-4 4" />
+              </svg>
+            </a>
+          );
+        })
       }
     </div>
     <p class="small muted">
-      Each path routes to a ready-to-use governance artifact.
+      Each option opens clear next steps, owners, and ready-to-use governance artifacts.
     </p>
   </section>
 
   <section class="stack-lg">
-    <h2>Choose your team lane</h2>
+    <h2>Regulatory crosswalks and citation readiness</h2>
+    <p class="section-lead">
+      Every standard is structured for policy citation, internal audit review, and regulator-facing
+      evidence packs.
+    </p>
     <div class="adopt-grid">
-      <article class="card stack-sm">
-        <h3>Legal / Compliance</h3>
-        <ul>
-          <li>Assign decision owners</li>
-          <li>Set reversal time bounds</li>
-          <li>Publish appeal rules</li>
+      <article class="card lane-card stack-sm">
+        <h3 class="lane-card__heading">
+          <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
+            <path d="M4 6h16v12H4z" fill="none" />
+            <path d="M8 10h8" />
+            <path d="M8 14h6" />
+          </svg>
+          <span>Regulatory alignment</span>
+        </h3>
+        <ul class="lane-links">
+          <li>EU AI Act obligations</li>
+          <li>NIST AI RMF control mapping</li>
+          <li>ISO and sector supervision references</li>
         </ul>
-        <p class="small muted">Continue with:</p>
+        <p class="small muted">Start with:</p>
         <ul>
-          <li>
-            <a href="/standards/std-02-contestability-recourse"
-              >STD-02 Contestability &amp; Recourse</a
-            >
-          </li>
-          <li><a href="/adopt/policy">More for this lane</a></li>
-        </ul>
-      </article>
-
-      <article class="card stack-sm">
-        <h3>Appeals / Incident</h3>
-        <ul>
-          <li>Map queues</li>
-          <li>Name freeze authority</li>
-          <li>Run one tabletop</li>
-        </ul>
-        <p class="small muted">Continue with:</p>
-        <ul>
-          <li><a href="/diagnostics">Diagnostics menu</a></li>
-          <li><a href="/adopt/ops">More for this lane</a></li>
+          <li><a href="/standards">Standards index</a></li>
+          <li><a href="/glossary">Terminology and definitions</a></li>
         </ul>
       </article>
 
-      <article class="card stack-sm">
-        <h3>Product / Engineering</h3>
-        <ul>
-          <li>Instrument reversibility</li>
-          <li>Test rollback paths before release</li>
-          <li>Log every reversal</li>
+      <article class="card lane-card stack-sm">
+        <h3 class="lane-card__heading">
+          <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
+            <path d="M12 3.5l8 3v5c0 5.2-3.5 8.4-8 9.9-4.5-1.5-8-4.7-8-9.9v-5z" fill="none" />
+            <path d="M9.25 12.25l2 2 3.75-3.75" />
+          </svg>
+          <span>Audit interoperability</span>
+        </h3>
+        <ul class="lane-links">
+          <li>Evidence fields designed for GRC workflows</li>
+          <li>Structured ownership and escalation clocks</li>
+          <li>Exportable artifacts for regulator review</li>
         </ul>
-        <p class="small muted">Continue with:</p>
+        <p class="small muted">Start with:</p>
         <ul>
-          <li>
-            <a href="/standards/std-01-temporal-rights"
-              >STD-01 Temporal Rights</a
-            >
-          </li>
-          <li><a href="/adopt/build">More for this lane</a></li>
+          <li><a href="/templates">Artifact templates</a></li>
+          <li><a href="/diagnostics">Diagnostics and scorecards</a></li>
+        </ul>
+      </article>
+
+      <article class="card lane-card stack-sm">
+        <h3 class="lane-card__heading">
+          <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
+            <rect x="4" y="6" width="16" height="12" rx="2" fill="none" />
+            <path d="M8 12h3" />
+            <path d="M13 12h3" />
+            <path d="M10.5 9v6" />
+          </svg>
+          <span>Adoption pathways</span>
+        </h3>
+        <ul class="lane-links">
+          <li>Policy teams adopt document IDs and clauses</li>
+          <li>Operations teams install stoppability drills</li>
+          <li>Engineering teams bind rollback to release gates</li>
+        </ul>
+        <p class="small muted">Start with:</p>
+        <ul>
+          <li><a href="/quick-start">Quick-start playbooks</a></li>
+          <li><a href="/failure/decision-appealed">Failure intake pathways</a></li>
         </ul>
       </article>
     </div>
