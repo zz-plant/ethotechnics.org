@@ -38,20 +38,8 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 
 ### Planning and roadmap docs
 
-- [`roadmap.md`](roadmap.md), [`mini-prds.md`](mini-prds.md),
-  [`issue-templates.md`](issue-templates.md), and
-  [`full-refactor-plan.md`](full-refactor-plan.md).
-- [`user-journey-critique.md`](user-journey-critique.md): representative UX journey walkthrough
-  with constructive recommendations.
-- [`ux-audit-kondo.md`](ux-audit-kondo.md): remove/move/modify UX audit with prioritized actions.
-- [`ux-audit-kondo-round2.md`](ux-audit-kondo-round2.md): follow-up UX audit with additional remove/move/modify recommendations.
-- [`ux-audit-kondo-round3.md`](ux-audit-kondo-round3.md): third-pass UX audit with remove/move/modify refinements.
-- [`ux-audit-kondo-round4.md`](ux-audit-kondo-round4.md): route-based audit with remove/rebuild/modify recommendations.
-- [`ux-audit-kondo-round5.md`](ux-audit-kondo-round5.md): browser-traversed route critique with evidence snapshots, implementation tickets, and acceptance checks.
-- Tech stack planning and execution: [`tech-stack-capabilities-scan-2026.md`](tech-stack-capabilities-scan-2026.md) and
-  [`tech-stack-upgrade-actions-2026.md`](tech-stack-upgrade-actions-2026.md).
-- Interop and toolkit planning: [`interop-release-plan.md`](interop-release-plan.md) and
-  [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md).
+- [`planning/planning-and-audits.md`](planning/planning-and-audits.md): consolidated hub for roadmap, PRDs, UX
+  audits, and long-range strategy tracks.
 
 ## Documentation standards
 
