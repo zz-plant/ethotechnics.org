@@ -12,6 +12,7 @@ import SummaryCallout from "../../components/SummaryCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import { libraryContent } from "../../content/library";
 import diagnosticsFilterScript from "../../scripts/diagnostics-filter.ts?url";
+import routeMetricsScript from "../../scripts/route-metrics.ts?url";
 
 const {
   pageTitle,
@@ -82,6 +83,7 @@ const selfDefenseTools = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+  <div data-route-metrics="home-to-diagnostics" hidden></div>
   <PageIntro
     eyebrow="Diagnostics"
     title="Diagnostics"
@@ -90,14 +92,7 @@ const selfDefenseTools = [
     anchorLinks={anchorLinks}
     collapseAnchorLinks={true}
     anchorLinksSummary="More anchors"
-  >
-    <Fragment slot="actions">
-      <a class="button primary" href="#quick-triage"
-        >Choose a tool in 30 seconds</a
-      >
-      <a class="button" href="#diagnostic-tools">Open full tools menu</a>
-    </Fragment>
-  </PageIntro>
+  />
   <SummaryCallout
     title="Pick the fastest diagnostic first"
     description="Use the quick triage prompts to choose a tool, then compare outputs before running the full menu."
@@ -112,13 +107,48 @@ const selfDefenseTools = [
     then review outputs and prep lists before booking a session or running
     self-serve.
   </p>
+  <ol class="diagnostics__step-flow muted small" aria-label="Diagnostics steps">
+    <li>
+      <strong>Step 1:</strong>
+      <a href="#quick-triage" data-route-action="diagnostics-choose"
+        >Choose in 30s</a
+      >
+    </li>
+    <li>
+      <strong>Step 2:</strong>
+      <a href="#compare-tools" data-route-action="diagnostics-compare"
+        >Compare options</a
+      >
+    </li>
+    <li>
+      <strong>Step 3:</strong>
+      <a href="#diagnostic-tools" data-route-action="diagnostics-open-menu"
+        >Open tools menu</a
+      >
+    </li>
+  </ol>
   <nav
     class="diagnostics__sticky-jump"
     aria-label="Diagnostics quick navigation"
   >
-    <a class="button ghost" href="#quick-triage">Choose in 30s</a>
-    <a class="button primary" href="#diagnostic-tools">Open tools menu</a>
-    <a class="small muted" href="#compare-tools">Compare options</a>
+    <a
+      class="button primary"
+      href="#quick-triage"
+      data-route-action="diagnostics-choose">Choose in 30s</a
+    >
+    <a
+      class="button ghost"
+      href="#diagnostic-tools"
+      data-route-action="diagnostics-open-menu">Open tools menu</a
+    >
+    <details class="diagnostics__jump-more">
+      <summary class="small muted">More options</summary>
+      <a
+        class="small muted"
+        href="#compare-tools"
+        data-route-action="diagnostics-compare">Compare options</a
+      >
+    </details>
   </nav>
   <SectionActions>
     <StudioBadge />
@@ -513,4 +543,5 @@ const selfDefenseTools = [
     </p>
   </SectionBlock>
   <script type="module" src={diagnosticsFilterScript} is:inline></script>
+  <script type="module" src={routeMetricsScript}></script>
 </BaseLayout>

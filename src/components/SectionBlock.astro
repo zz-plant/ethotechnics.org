@@ -15,30 +15,41 @@ interface Props {
   eyebrow?: string;
   title: string;
   description?: string;
-  variant?: 'default' | 'alt';
+  variant?: "default" | "alt";
   className?: string;
 }
 
 const props = Astro.props as Props;
-const { id, eyebrow, title, description, variant = 'default', className } = props;
-const sectionClass = ['section', variant === 'alt' ? 'section--alt' : '', className]
+const {
+  id,
+  eyebrow,
+  title,
+  description,
+  variant = "default",
+  className,
+} = props;
+const sectionClass = [
+  "section",
+  variant === "alt" ? "section--alt" : "",
+  className,
+]
   .filter(Boolean)
-  .join(' ');
+  .join(" ");
 ---
+
 <section id={id} class={sectionClass}>
   <div class="section__header">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h2 class="section__heading">
-      {id ? (
-        <a class="section__anchor" href={`#${id}`}>
-          {title}
-          <span class="section__anchor-icon" aria-hidden="true">
-            #
-          </span>
-        </a>
-      ) : (
-        title
-      )}
+      {
+        id ? (
+          <a class="section__anchor" href={`#${id}`}>
+            {title}
+          </a>
+        ) : (
+          title
+        )
+      }
     </h2>
     {description && <p class="muted">{description}</p>}
   </div>

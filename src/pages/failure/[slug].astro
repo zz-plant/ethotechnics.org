@@ -6,6 +6,7 @@ import {
   type FailureState,
   type InstituteArtifact,
 } from "../../content/institute-site";
+import routeMetricsScript from "../../scripts/route-metrics.ts?url";
 
 const slug = Astro.params.slug;
 const state =
@@ -15,32 +16,106 @@ const state =
 if (!state) return Astro.redirect("/404");
 
 const stateArtifacts: InstituteArtifact[] = (state.artifactSlugs ?? [])
-  .map((artifactSlug) => artifacts.find((artifact) => artifact.slug === artifactSlug))
+  .map((artifactSlug) =>
+    artifacts.find((artifact) => artifact.slug === artifactSlug),
+  )
   .filter((artifact): artifact is InstituteArtifact => Boolean(artifact));
+
+if (stateArtifacts.length === 0) return Astro.redirect("/artifacts");
+
+const fallbackArtifact = stateArtifacts[0];
+
+const artifactBySlug = new Map(
+  stateArtifacts.map((artifact) => [artifact.slug, artifact]),
+);
+
+const workflowStages: {
+  key: string;
+  title: string;
+  description: string;
+  artifact: InstituteArtifact;
+}[] = [
+  {
+    key: "triage",
+    title: "Triage",
+    description:
+      "Capture the failure state and the decision context before downstream evidence drifts.",
+    artifact:
+      artifactBySlug.get("decision-record-template") ?? fallbackArtifact,
+  },
+  {
+    key: "contain",
+    title: "Contain",
+    description:
+      "Freeze or constrain harmful flow paths while ownership and guardrails are active.",
+    artifact:
+      artifactBySlug.get("escalation-ladder-freeze-authority") ??
+      stateArtifacts[1] ??
+      fallbackArtifact,
+  },
+  {
+    key: "document",
+    title: "Document",
+    description:
+      "Issue bounded user-facing records so repair obligations and timelines are explicit.",
+    artifact:
+      artifactBySlug.get("harm-receipt-format") ??
+      stateArtifacts[2] ??
+      fallbackArtifact,
+  },
+  {
+    key: "escalate",
+    title: "Escalate",
+    description:
+      "Bind reversal and appeals to explicit clocks so resolution is enforceable, not discretionary.",
+    artifact:
+      artifactBySlug.get("reversal-sla-template") ??
+      artifactBySlug.get("contestability-appeals-playbook") ??
+      fallbackArtifact,
+  },
+].filter((stage, index, arr) => {
+  if (!stage.artifact) return false;
+  return (
+    arr.findIndex(
+      (candidate) => candidate.artifact.slug === stage.artifact.slug,
+    ) === index
+  );
+});
 ---
 
 <BaseLayout title={state.title} description={state.descriptionLine1}>
+  <div data-route-metrics="home-to-failure-pathway" hidden></div>
   <section class="stack-lg institute-screen">
     <h1>{state.title}</h1>
     <p>{state.descriptionLine1}</p>
     <p>{state.descriptionLine2}</p>
 
-    <h2>Artifacts designed for this failure</h2>
-    <div class="stack-sm" role="list">
-      {stateArtifacts.map((artifact) => (
-        <article class="card stack-sm" role="listitem">
-          <h3>
-            <a href={`/artifact/${artifact.slug}`}>
-              {artifact.name} → /artifact/{artifact.slug}
-            </a>
-          </h3>
-          <p>
-            <a class="button" href={`/artifact/${artifact.slug}`}>Use this artifact</a>
-          </p>
-        </article>
-      ))}
-    </div>
+    <h2>Response workflow</h2>
+    <ol class="stack-sm">
+      {
+        workflowStages.map((stage) => (
+          <li class="card stack-sm">
+            <p class="eyebrow">{stage.title}</p>
+            <h3>{stage.artifact.name}</h3>
+            <p class="muted">{stage.description}</p>
+            <p>
+              <a
+                class="button"
+                href={`/artifact/${stage.artifact.slug}`}
+                data-route-action={`failure-${stage.key}-${stage.artifact.slug}`}
+              >
+                Open {stage.artifact.name}
+              </a>
+            </p>
+          </li>
+        ))
+      }
+    </ol>
 
+    <p class="small muted">
+      Artifact mapping follows triage → contain → document → escalate.
+    </p>
     <p class="small muted">{state.footerLine}</p>
   </section>
+  <script type="module" src={routeMetricsScript}></script>
 </BaseLayout>

@@ -5,12 +5,14 @@ import CardItem from "../../components/CardItem.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { quickStartGuides, quickStartIntro } from "../../content/quick-start";
+import routeMetricsScript from "../../scripts/route-metrics.ts?url";
 
 const { pageTitle, pageDescription, permalink, eyebrow, title, description } =
   quickStartIntro;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+  <div data-route-metrics="home-to-quick-start" hidden></div>
   <PageIntro
     eyebrow={eyebrow}
     title={title}
@@ -30,30 +32,37 @@ const { pageTitle, pageDescription, permalink, eyebrow, title, description } =
 
   <SectionBlock
     eyebrow="Guides"
-    title="Choose the role that matches your responsibilities."
-    description="Each guide includes focus areas, key reads, and first moves to unblock your next step."
+    title="Choose your role, then take one clear first action."
+    description="Each card names a concrete outcome and one primary guide to start now."
     className="section--banded"
   >
     <CardGrid className="grid--two">
-      {quickStartGuides.map((guide) => (
-        <CardItem
-          id={guide.slug}
-          title={guide.title}
-          description={guide.summary}
-          descriptionTone="default"
-        >
-          <ul class="muted">
-            {guide.focusAreas.map((area) => (
-              <li>{area}</li>
-            ))}
-          </ul>
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={`/quick-start/${guide.slug}`}>
-              Open guide
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        quickStartGuides.map((guide) => (
+          <CardItem
+            id={guide.slug}
+            title={guide.title}
+            descriptionTone="default"
+          >
+            <p class="muted small">Outcome in one session: {guide.summary}</p>
+            <ul class="muted">
+              {guide.focusAreas.map((area) => (
+                <li>{area}</li>
+              ))}
+            </ul>
+            <div slot="footer" class="card__footer">
+              <a
+                class="button ghost button--compact"
+                href={`/quick-start/${guide.slug}`}
+                data-route-action={`quick-start-${guide.slug}`}
+              >
+                Start {guide.title} guide
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
+  <script type="module" src={routeMetricsScript}></script>
 </BaseLayout>
