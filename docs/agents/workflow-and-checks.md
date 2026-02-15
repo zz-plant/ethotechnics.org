@@ -26,7 +26,11 @@ For code or mixed changes, run:
 - `bun run check:full` for release prep or periodic deep validation.
 
 `bun run check` includes linting, type checks, Astro checks, JSON/glossary validation,
-unit tests, and `agent:doctor` preflight checks.
+unit tests, and `agent:doctor` preflight checks. `agent:doctor` now also enforces
+research freshness for watchlisted standards pages via `scripts/research-watchlist.json`.
+
+When updating a watchlisted resource, always update `const lastUpdated = "YYYY-MM-DD"`
+in the page frontmatter area so the automation can track staleness in agentic flows.
 
 `bun run check:full` adds the SEO audit and coverage unit test run.
 
