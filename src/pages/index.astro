@@ -9,63 +9,24 @@ import { failureStates } from "../content/institute-site";
 >
   <section class="institute-hero stack-lg">
     <h1>Choose a governance path for your situation.</h1>
-    <p>
-      Select the path that best matches what you're working on.
-    </p>
-    <ul class="institute-hero__signals" aria-label="How to route your start">
-      <li><strong>Urgent failure:</strong> start with failure intake.</li>
-      <li><strong>Planned rollout:</strong> start with quick-start playbooks.</li>
-      <li><strong>Policy drafting:</strong> start with standards language.</li>
-    </ul>
-    <div class="actions">
-      <a class="button primary" href="/#failure-intake">Start with a failure</a>
-    </div>
-    <p class="muted small institute-hero__decision-helper">
-      Use <strong>Start with a failure</strong> when something is broken now.
-      Use <strong>Quick start</strong> when you are planning ahead.
-    </p>
-    <details class="institute-hero__other-starts">
-      <summary>Other ways to start</summary>
-      <ul class="muted">
-        <li>
-          <a href="/quick-start">Quick start</a> for planning and team onboarding.
-        </li>
-        <li>
-          <a href="/how-it-works">How it works</a> if you need implementation context.
-        </li>
-        <li>
-          <a href="/standards">Browse standards</a> for policy language and references.
-        </li>
-        <li>
-          <a href="/diagnostics">Run diagnostics</a> when you need evidence quickly.
-        </li>
-      </ul>
-    </details>
-  </section>
-
-  <section class="stack-lg" aria-labelledby="mobile-shortcuts-title">
-    <h2 id="mobile-shortcuts-title">What do you need right now?</h2>
-    <p>
-      Choose one path to begin. Routes are organized for quick scanning
-      on phones.
-    </p>
-    <ul class="mobile-shortcuts" aria-label="Quick mobile shortcuts">
+    <p>Select one starting point. You can branch into diagnostics and standards from there.</p>
+    <ul class="mobile-shortcuts" aria-label="Primary start options">
       <li>
-        <a class="mobile-shortcuts__item" href="/quick-start">
-          <span class="mobile-shortcuts__label">Need a checklist now?</span>
-          <strong class="mobile-shortcuts__title">Start with quick-start playbooks</strong>
+        <a class="mobile-shortcuts__item" href="/#failure-intake">
+          <span class="mobile-shortcuts__label">Something is broken now</span>
+          <strong class="mobile-shortcuts__title">Start with failure intake</strong>
         </a>
       </li>
       <li>
-        <a class="mobile-shortcuts__item" href="/diagnostics">
-          <span class="mobile-shortcuts__label">Need evidence now?</span>
-          <strong class="mobile-shortcuts__title">Start with a diagnostic tool</strong>
+        <a class="mobile-shortcuts__item" href="/quick-start">
+          <span class="mobile-shortcuts__label">You are planning a release</span>
+          <strong class="mobile-shortcuts__title">Use quick-start playbooks</strong>
         </a>
       </li>
       <li>
         <a class="mobile-shortcuts__item" href="/standards">
-          <span class="mobile-shortcuts__label">Need policy language now?</span>
-          <strong class="mobile-shortcuts__title">Start with standards language</strong>
+          <span class="mobile-shortcuts__label">You need policy language</span>
+          <strong class="mobile-shortcuts__title">Browse standards</strong>
         </a>
       </li>
     </ul>
@@ -143,12 +104,4 @@ import { failureStates } from "../content/institute-site";
     </div>
   </section>
 
-  <section class="stack-lg" aria-labelledby="start-sequence-title">
-    <h2 id="start-sequence-title">3 steps</h2>
-    <ol class="card__list">
-      <li><strong>1.</strong> Pick the closest risk.</li>
-      <li><strong>2.</strong> Open the linked standard.</li>
-      <li><strong>3.</strong> Use the artifact template.</li>
-    </ol>
-  </section>
 </BaseLayout>
