@@ -73,14 +73,7 @@ const workflowStages: {
       artifactBySlug.get("contestability-appeals-playbook") ??
       fallbackArtifact,
   },
-].filter((stage, index, arr) => {
-  if (!stage.artifact) return false;
-  return (
-    arr.findIndex(
-      (candidate) => candidate.artifact.slug === stage.artifact.slug,
-    ) === index
-  );
-});
+];
 ---
 
 <BaseLayout title={state.title} description={state.descriptionLine1}>
