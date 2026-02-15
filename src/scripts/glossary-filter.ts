@@ -60,16 +60,21 @@ const initGlossaryFilter = () => {
 
   const total = Number(count.dataset.total) || items.length;
 
+  const facetKeys = ["domains", "phases", "measurability", "status"] as const;
+  const QUERY_PARAM_KEY = "query";
+  type FacetKey = (typeof facetKeys)[number];
+  type FacetSelections = Record<FacetKey, string[]>;
+
   const syncQueryParam = (
     value: string,
-    facets: Record<string, string | undefined>,
+    facets: Partial<Record<FacetKey, string | undefined>>,
   ) => {
     const params = new URLSearchParams(window.location.search);
 
     if (value) {
-      params.set("query", value);
+      params.set(QUERY_PARAM_KEY, value);
     } else {
-      params.delete("query");
+      params.delete(QUERY_PARAM_KEY);
     }
 
     Object.entries(facets).forEach(([key, facetValue]) => {
@@ -113,10 +118,6 @@ const initGlossaryFilter = () => {
       panel.hidden = panelId !== tabId;
     });
   };
-
-  const facetKeys = ["domains", "phases", "measurability", "status"] as const;
-  type FacetKey = (typeof facetKeys)[number];
-  type FacetSelections = Record<FacetKey, string[]>;
 
   const getFacetValues = (key: FacetKey) =>
     facetControls
@@ -298,29 +299,39 @@ const initGlossaryFilter = () => {
         activeSelections.length === 0 && activeLetter === "all";
     }
 
-    const domainParam = selections.domains.join(",");
-    const phaseParam = selections.phases.join(",");
-    const measurabilityParam = selections.measurability.join(",");
-    const statusParam = selections.status.join(",");
-    syncQueryParam(rawQuery, {
-      domains: domainParam || undefined,
-      phases: phaseParam || undefined,
-      measurability: measurabilityParam || undefined,
-      status: statusParam || undefined,
-    });
+    const facetParams = facetKeys.reduce(
+      (acc, key) => {
+        const joinedValue = selections[key].join(",");
+        acc[key] = joinedValue || undefined;
+        return acc;
+      },
+      {} as Partial<Record<FacetKey, string | undefined>>,
+    );
+    syncQueryParam(rawQuery, facetParams);
   };
 
-  const params = new URLSearchParams(window.location.search);
-  const initialQuery = params.get("query")?.trim();
-  const getParamList = (key: FacetKey) =>
-    params.get(key)?.split(",").filter(Boolean);
-  const initialDomains = getParamList("domains");
-  const initialPhases = getParamList("phases");
-  const initialMeasurability = getParamList("measurability");
-  const initialStatus = getParamList("status");
+  const getUrlState = () => {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get(QUERY_PARAM_KEY)?.trim() ?? "";
+    const selections = facetKeys.reduce(
+      (acc, key) => {
+        const values = params.get(key)?.split(",").filter(Boolean) ?? [];
+        acc[key] = values;
+        return acc;
+      },
+      {} as FacetSelections,
+    );
 
-  if (initialQuery) {
-    filterInput.value = initialQuery;
+    return {
+      query,
+      selections,
+    };
+  };
+
+  const initialState = getUrlState();
+
+  if (initialState.query) {
+    filterInput.value = initialState.query;
   }
 
   const applyInitialSelection = (
@@ -337,16 +348,15 @@ const initGlossaryFilter = () => {
       });
   };
 
-  applyInitialSelection("domains", initialDomains);
-  applyInitialSelection("phases", initialPhases);
-  applyInitialSelection("measurability", initialMeasurability);
-  applyInitialSelection("status", initialStatus);
+  facetKeys.forEach((key) => {
+    applyInitialSelection(key, initialState.selections[key]);
+  });
 
-  const initialTab = initialDomains?.length
+  const initialTab = initialState.selections.domains.length
     ? "domains"
-    : initialPhases?.length
+    : initialState.selections.phases.length
       ? "phases"
-      : initialMeasurability?.length
+      : initialState.selections.measurability.length
         ? "measurability"
         : "all";
   setActiveTab(initialTab);
