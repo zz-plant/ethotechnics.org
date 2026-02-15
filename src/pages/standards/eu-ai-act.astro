@@ -7,10 +7,14 @@ const pageTitle = "EU AI Act";
 const pageDescription =
   "Ethotechnics-style critique of the EU AI Act’s risk-tiered regulatory regime.";
 const permalink = "/standards/eu-ai-act";
+const lastUpdated = "2026-02-15";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
+  { href: "#timeline", label: "Timeline status" },
+  { href: "#implications-now", label: "Implications now" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
+  { href: "#keep-current", label: "How we keep this current" },
 ];
 ---
 
@@ -39,6 +43,50 @@ const anchorLinks = [
       The EU AI Act establishes obligations for high-risk systems, requires human
       oversight, and enforces compliance through EU and national authorities.
     </p>
+    <p><strong>Resource status:</strong> reviewed and updated {lastUpdated}.</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="timeline"
+    eyebrow="Timeline status"
+    title="Direction is stable; dates can still move"
+    variant="alt"
+  >
+    <p>
+      We treat the Commission timeline as the canonical baseline: entry into force,
+      phased obligations, and later applicability windows for some categories.
+    </p>
+    <p>
+      We also track live policy updates (including proposals that could shift parts
+      of implementation timing). This means schedule details are politically live,
+      even while the governance direction remains consistent.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="implications-now"
+    eyebrow="Implications"
+    title="What organizations should optimize for right now"
+    description="Prepare for converging governance expectations, not a single date bet."
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Prioritize auditability primitives:</strong> receipts, decision records,
+        evidence packs, and repair logs that survive policy edits.
+      </li>
+      <li>
+        <strong>Operationalize time bounds:</strong> define and test time-to-human,
+        time-to-remedy, and escalation paths with named authority.
+      </li>
+      <li>
+        <strong>Design for contestability:</strong> include standing, non-retaliation,
+        and reliable recourse pathways that can be verified in an audit.
+      </li>
+      <li>
+        <strong>Crosswalk controls:</strong> map one control library across EU AI Act,
+        NIST AI RMF, and ISO/IEC 42001 so readiness does not hinge on one regime.
+      </li>
+    </ul>
   </SectionBlock>
 
   <SectionBlock
@@ -73,5 +121,31 @@ const anchorLinks = [
       The failure mode is a system that is compliant yet still traps people in
       extended “pending” states without enforceable restoration timelines.
     </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="keep-current"
+    eyebrow="Maintenance"
+    title="How this resource stays current"
+    variant="alt"
+  >
+    <ul class="card__list">
+      <li>
+        <strong>Source hierarchy:</strong> prioritize Commission primary materials,
+        then add reputable reporting to flag pending proposals and contested timing.
+      </li>
+      <li>
+        <strong>Change log discipline:</strong> update this page only when timelines,
+        obligation scopes, or enforcement mechanics materially change.
+      </li>
+      <li>
+        <strong>Language guardrail:</strong> avoid "locked date" claims; state what is
+        in force now, what is scheduled, and what is proposed.
+      </li>
+      <li>
+        <strong>Review cadence:</strong> reassess quarterly and after major Commission,
+        Parliament, or Council announcements.
+      </li>
+    </ul>
   </SectionBlock>
 </BaseLayout>
