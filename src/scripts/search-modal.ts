@@ -338,6 +338,26 @@ const initSearch = () => {
 
   const serializeQuery = (query: string) => query.trim().toLowerCase();
 
+  const getSearchParam = (name: string) => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  };
+
+  const updateUrlParams = (
+    mutate: (params: URLSearchParams) => void,
+    mode: "push" | "replace" = "replace",
+  ) => {
+    const url = new URL(window.location.href);
+    mutate(url.searchParams);
+
+    if (mode === "push") {
+      window.history.pushState({}, "", url.toString());
+      return;
+    }
+
+    window.history.replaceState({}, "", url.toString());
+  };
+
   const setQueryToStorage = (query: string) => {
     sessionStorage.setItem(SEARCH_QUERY_STORAGE_KEY, query);
   };
@@ -391,8 +411,7 @@ const initSearch = () => {
     };
 
     const applyQueryFromUrl = () => {
-      const params = new URLSearchParams(window.location.search);
-      const query = params.get(SEARCH_QUERY_PARAM) ?? "";
+      const query = getSearchParam(SEARCH_QUERY_PARAM) ?? "";
       if (query) {
         input.value = query;
         input.dispatchEvent(new Event("input"));
@@ -405,9 +424,10 @@ const initSearch = () => {
         dialog.showModal();
       }
       if (pushHistory) {
-        const url = new URL(window.location.href);
-        url.searchParams.set(SEARCH_MODAL_PARAM, "1");
-        window.history.pushState({}, "", url.toString());
+        updateUrlParams(
+          (params) => params.set(SEARCH_MODAL_PARAM, "1"),
+          "push",
+        );
       }
 
       requestAnimationFrame(() => {
@@ -423,10 +443,13 @@ const initSearch = () => {
 
       dialog.close();
       if (!fromHistory) {
-        const url = new URL(window.location.href);
-        url.searchParams.delete(SEARCH_MODAL_PARAM);
-        url.searchParams.delete(SEARCH_QUERY_PARAM);
-        window.history.pushState({}, "", url.toString());
+        updateUrlParams(
+          (params) => {
+            params.delete(SEARCH_MODAL_PARAM);
+            params.delete(SEARCH_QUERY_PARAM);
+          },
+          "push",
+        );
       }
 
       input.value = "";
@@ -438,8 +461,7 @@ const initSearch = () => {
     };
 
     const syncDialogWithUrl = () => {
-      const params = new URLSearchParams(window.location.search);
-      const modalOpen = params.get(SEARCH_MODAL_PARAM);
+      const modalOpen = getSearchParam(SEARCH_MODAL_PARAM);
       if (modalOpen) {
         openDialog();
       } else if (dialog.open) {
@@ -509,13 +531,14 @@ const initSearch = () => {
       const value = input.value;
       scheduleSearch(value);
 
-      const url = new URL(window.location.href);
-      if (value.trim()) {
-        url.searchParams.set(SEARCH_QUERY_PARAM, value.trim());
-      } else {
-        url.searchParams.delete(SEARCH_QUERY_PARAM);
-      }
-      window.history.replaceState({}, "", url.toString());
+      updateUrlParams((params) => {
+        if (value.trim()) {
+          params.set(SEARCH_QUERY_PARAM, value.trim());
+          return;
+        }
+
+        params.delete(SEARCH_QUERY_PARAM);
+      });
     });
 
     input.addEventListener("keydown", (event) => {
@@ -596,8 +619,7 @@ const initSearch = () => {
 
   const initialInstance = getActiveInstance();
   if (initialInstance) {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get(SEARCH_MODAL_PARAM)) {
+    if (getSearchParam(SEARCH_MODAL_PARAM)) {
       initialInstance.openDialog();
     }
   }
