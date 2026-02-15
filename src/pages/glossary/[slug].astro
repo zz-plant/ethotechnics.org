@@ -345,24 +345,14 @@ const anchorLinks = [
   ...(adjacentTerms.length
     ? [{ href: "#adjacent-terms", label: "Adjacent terms" }]
     : []),
-  ...(hasRelatedConcepts
-    ? [{ href: "#related-concepts", label: "Related concepts" }]
-    : []),
   ...(presenceChecks.length
     ? [{ href: "#presence-checks", label: "Presence checks" }]
     : []),
   ...(missingExpectations.length
     ? [{ href: "#missing-expectations", label: "Missing expectations" }]
     : []),
-  ...(operationalTests.length
-    ? [{ href: "#operational-tests", label: "Operational tests" }]
-    : []),
   ...(showMinimumEvidence
     ? [{ href: "#minimum-evidence", label: "Minimum evidence" }]
-    : []),
-  ...(genealogy ? [{ href: "#genealogy", label: "Genealogy" }] : []),
-  ...(relatedPatterns.length
-    ? [{ href: "#related-mechanisms", label: "Related mechanisms" }]
     : []),
   ...(entry.examples?.length
     ? [{ href: "#example-corpus", label: "Example corpus" }]
@@ -689,93 +679,103 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             </li>
           </ul>
         </section>
-        <section class="glossary-entry__section">
-          <p class="eyebrow">Glossary deep links</p>
-          <ul class="muted">
-            {glossarySectionLinks.map((link) => (
-              <li>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </section>
-        {operationalTests.length > 0 && (
-          <section id="operational-tests" class="glossary-entry__section">
-            <p class="eyebrow">Operational tests</p>
-            <ul class="muted">
-              {operationalTestLinks.map((test) => (
-                <li>
-                  <a href={test.href}>{test.label}</a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-        {
-          commonCounterfeits.length > 0 && (
-            <section id="common-counterfeits" class="glossary-entry__section">
-              <p class="eyebrow">Common counterfeits</p>
-              <ul class="muted">
-                {commonCounterfeits.map((counterfeit) => (
-                  <li>{counterfeit}</li>
-                ))}
-              </ul>
-            </section>
-          )
-        }
-        {showMinimumEvidence && (
-          <section id="minimum-evidence" class="glossary-entry__section">
-            <p class="eyebrow">Minimum evidence</p>
-            <ul class="muted">
-              {minimumEvidenceItems.map((item) => (
-                <li>
-                  <strong>{item.label}:</strong> {item.value}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-        {missingMetadata.length > 0 && (
-          <div class="callout">
-            <p class="eyebrow">Entry completeness</p>
-            <h3>Additional term details are in progress.</h3>
-            <ul class="muted">
-              {missingMetadata.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {
-          relatedPatterns.length > 0 && (
-            <section
-              id="related-mechanisms"
-              class="glossary-entry__section glossary-entry__section--patterns"
-            >
-              <p class="eyebrow">Related mechanisms</p>
-              <ul class="glossary-entry__patterns-list">
-                {relatedPatterns.map((relatedPattern) => (
-                  <li class="glossary-entry__pattern-card">
-                    <a
-                      class="glossary-entry__pattern-link"
-                      href={relatedPattern.href}
-                    >
-                      <span class="glossary-entry__pattern-title">
-                        {relatedPattern.title}
-                      </span>
-                      <span class="muted small">
-                        {relatedPattern.filterLabels.join(", ")}
-                      </span>
-                    </a>
+        <section class="glossary-entry__section glossary-entry__section--dense">
+          <p class="eyebrow">Extended routes</p>
+          <p class="muted small">
+            Supplementary links and diagnostics for deeper review.
+          </p>
+          <div class="glossary-entry__disclosures">
+            <details class="glossary-entry__disclosure">
+              <summary>Glossary deep links ({glossarySectionLinks.length})</summary>
+              <ul class="muted small glossary-entry__route-list">
+                {glossarySectionLinks.map((link) => (
+                  <li>
+                    <a href={link.href}>{link.label}</a>
                   </li>
                 ))}
               </ul>
-              <p class="muted small glossary-entry__patterns-hint">
-                See the full mechanisms catalog.
-              </p>
-            </section>
-          )
-        }
+            </details>
+            {operationalTests.length > 0 && (
+              <details
+                id="operational-tests"
+                class="glossary-entry__disclosure"
+              >
+                <summary>Operational tests ({operationalTestLinks.length})</summary>
+                <ul class="muted">
+                  {operationalTestLinks.map((test) => (
+                    <li>
+                      <a href={test.href}>{test.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
+            {commonCounterfeits.length > 0 && (
+              <details
+                id="common-counterfeits"
+                class="glossary-entry__disclosure"
+              >
+                <summary>Common counterfeits ({commonCounterfeits.length})</summary>
+                <ul class="muted">
+                  {commonCounterfeits.map((counterfeit) => (
+                    <li>{counterfeit}</li>
+                  ))}
+                </ul>
+              </details>
+            )}
+            {showMinimumEvidence && (
+              <details id="minimum-evidence" class="glossary-entry__disclosure">
+                <summary>Minimum evidence checklist</summary>
+                <ul class="muted">
+                  {minimumEvidenceItems.map((item) => (
+                    <li>
+                      <strong>{item.label}:</strong> {item.value}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
+            {missingMetadata.length > 0 && (
+              <details class="glossary-entry__disclosure">
+                <summary>Entry completeness notes</summary>
+                <p class="muted small">Additional term details are in progress.</p>
+                <ul class="muted">
+                  {missingMetadata.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </details>
+            )}
+            {relatedPatterns.length > 0 && (
+              <details
+                id="related-mechanisms"
+                class="glossary-entry__disclosure glossary-entry__section--patterns"
+              >
+                <summary>Related mechanisms ({relatedPatterns.length})</summary>
+                <ul class="glossary-entry__patterns-list">
+                  {relatedPatterns.map((relatedPattern) => (
+                    <li class="glossary-entry__pattern-card">
+                      <a
+                        class="glossary-entry__pattern-link"
+                        href={relatedPattern.href}
+                      >
+                        <span class="glossary-entry__pattern-title">
+                          {relatedPattern.title}
+                        </span>
+                        <span class="muted small">
+                          {relatedPattern.filterLabels.join(", ")}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p class="muted small glossary-entry__patterns-hint">
+                  See the full mechanisms catalog.
+                </p>
+              </details>
+            )}
+          </div>
+        </section>
       </aside>
     </div>
   </article>
