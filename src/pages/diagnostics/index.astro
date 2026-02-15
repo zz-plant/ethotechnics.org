@@ -103,30 +103,9 @@ const selfDefenseTools = [
     ]}
   />
   <p class="muted small">
-    Recommended path: answer the quick triage questions, confirm delivery type,
-    then review outputs and prep lists before booking a session or running
-    self-serve.
+    Recommended path: choose a diagnostic in 30 seconds, then run and share the
+    output.
   </p>
-  <ol class="diagnostics__step-flow muted small" aria-label="Diagnostics steps">
-    <li>
-      <strong>Step 1:</strong>
-      <a href="#quick-triage" data-route-action="diagnostics-choose"
-        >Choose in 30s</a
-      >
-    </li>
-    <li>
-      <strong>Step 2:</strong>
-      <a href="#compare-tools" data-route-action="diagnostics-compare"
-        >Compare options</a
-      >
-    </li>
-    <li>
-      <strong>Step 3:</strong>
-      <a href="#diagnostic-tools" data-route-action="diagnostics-open-menu"
-        >Open tools menu</a
-      >
-    </li>
-  </ol>
   <nav
     class="diagnostics__sticky-jump"
     aria-label="Diagnostics quick navigation"
@@ -134,21 +113,13 @@ const selfDefenseTools = [
     <a
       class="button primary"
       href="#quick-triage"
-      data-route-action="diagnostics-choose">Choose in 30s</a
+      data-route-action="diagnostics-choose">Open diagnostic triage</a
     >
     <a
       class="button ghost"
-      href="#diagnostic-tools"
-      data-route-action="diagnostics-open-menu">Open tools menu</a
+      href="#compare-tools"
+      data-route-action="diagnostics-compare">Compare options</a
     >
-    <details class="diagnostics__jump-more">
-      <summary class="small muted">More options</summary>
-      <a
-        class="small muted"
-        href="#compare-tools"
-        data-route-action="diagnostics-compare">Compare options</a
-      >
-    </details>
   </nav>
   <SectionActions>
     <StudioBadge />

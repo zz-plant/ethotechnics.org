@@ -24,56 +24,91 @@ const stateArtifacts: InstituteArtifact[] = (state.artifactSlugs ?? [])
 if (stateArtifacts.length === 0) return Astro.redirect("/artifacts");
 
 const fallbackArtifact = stateArtifacts[0];
-
 const artifactBySlug = new Map(
   stateArtifacts.map((artifact) => [artifact.slug, artifact]),
 );
+const usedArtifactSlugs = new Set<string>();
+
+const pickArtifact = (preferredSlugs: string[]): InstituteArtifact => {
+  for (const preferredSlug of preferredSlugs) {
+    const candidate = artifactBySlug.get(preferredSlug);
+    if (candidate && !usedArtifactSlugs.has(candidate.slug)) {
+      usedArtifactSlugs.add(candidate.slug);
+      return candidate;
+    }
+  }
+
+  const nextUnused = stateArtifacts.find(
+    (candidate) => !usedArtifactSlugs.has(candidate.slug),
+  );
+  if (nextUnused) {
+    usedArtifactSlugs.add(nextUnused.slug);
+    return nextUnused;
+  }
+
+  return fallbackArtifact;
+};
 
 const workflowStages: {
   key: string;
   title: string;
   description: string;
   artifact: InstituteArtifact;
+  diagnosticsHref: string;
+  diagnosticsLabel: string;
+  standardsHref: string;
+  standardsLabel: string;
 }[] = [
   {
     key: "triage",
     title: "Triage",
     description:
-      "Capture the failure state and the decision context before downstream evidence drifts.",
-    artifact:
-      artifactBySlug.get("decision-record-template") ?? fallbackArtifact,
+      "Capture the failure state and decision context before evidence drifts.",
+    artifact: pickArtifact(["decision-record-template"]),
+    diagnosticsHref: "/diagnostics/self-defense-tools#governable",
+    diagnosticsLabel: "Run governability check",
+    standardsHref: "/standards/std-02-contestability-recourse",
+    standardsLabel: "Review contestability standard",
   },
   {
-    key: "contain",
-    title: "Contain",
+    key: "stabilize",
+    title: "Stabilize",
     description:
-      "Freeze or constrain harmful flow paths while ownership and guardrails are active.",
-    artifact:
-      artifactBySlug.get("escalation-ladder-freeze-authority") ??
-      stateArtifacts[1] ??
-      fallbackArtifact,
+      "Constrain harmful flow paths while ownership and escalation coverage are active.",
+    artifact: pickArtifact(["escalation-ladder-freeze-authority"]),
+    diagnosticsHref: "/diagnostics/maintenance-simulator",
+    diagnosticsLabel: "Open escalation simulation",
+    standardsHref: "/standards/std-03-justice-slos",
+    standardsLabel: "Review justice SLO standard",
   },
   {
-    key: "document",
-    title: "Document",
+    key: "communicate",
+    title: "Communicate",
     description:
-      "Issue bounded user-facing records so repair obligations and timelines are explicit.",
-    artifact:
-      artifactBySlug.get("harm-receipt-format") ??
-      stateArtifacts[2] ??
-      fallbackArtifact,
+      "Issue user-facing records so repair obligations and timelines are explicit.",
+    artifact: pickArtifact(["harm-receipt-format"]),
+    diagnosticsHref: "/diagnostics/evidence-pack-readiness",
+    diagnosticsLabel: "Check evidence-pack readiness",
+    standardsHref: "/standards/std-01-temporal-rights",
+    standardsLabel: "Review temporal-rights standard",
   },
   {
-    key: "escalate",
-    title: "Escalate",
+    key: "prevent-recurrence",
+    title: "Prevent recurrence",
     description:
-      "Bind reversal and appeals to explicit clocks so resolution is enforceable, not discretionary.",
-    artifact:
-      artifactBySlug.get("reversal-sla-template") ??
-      artifactBySlug.get("contestability-appeals-playbook") ??
-      fallbackArtifact,
+      "Bind reversals and appeals to enforceable clocks and documented ownership.",
+    artifact: pickArtifact([
+      "reversal-sla-template",
+      "contestability-appeals-playbook",
+    ]),
+    diagnosticsHref: "/diagnostics/capacity-forecaster",
+    diagnosticsLabel: "Forecast capacity risk",
+    standardsHref: "/standards/std-02-contestability-recourse",
+    standardsLabel: "Recheck recourse controls",
   },
 ];
+
+const firstStage = workflowStages[0];
 ---
 
 <BaseLayout title={state.title} description={state.descriptionLine1}>
@@ -82,6 +117,21 @@ const workflowStages: {
     <h1>{state.title}</h1>
     <p>{state.descriptionLine1}</p>
     <p>{state.descriptionLine2}</p>
+
+    <div class="callout callout--emphasis">
+      <p class="eyebrow">Do this first</p>
+      <h2>{firstStage.title}</h2>
+      <p class="muted">{firstStage.description}</p>
+      <p>
+        <a
+          class="button primary"
+          href={`/artifact/${firstStage.artifact.slug}`}
+          data-route-action={`failure-${firstStage.key}-${firstStage.artifact.slug}`}
+        >
+          Open {firstStage.artifact.name}
+        </a>
+      </p>
+    </div>
 
     <h2>Response workflow</h2>
     <ol class="stack-sm">
@@ -100,13 +150,19 @@ const workflowStages: {
                 Open {stage.artifact.name}
               </a>
             </p>
+            <p class="muted small">Use this when: {stage.description}</p>
+            <p class="muted small">
+              Next checks:{" "}
+              <a href={stage.diagnosticsHref}>{stage.diagnosticsLabel}</a> ·
+              <a href={stage.standardsHref}>{stage.standardsLabel}</a>
+            </p>
           </li>
         ))
       }
     </ol>
 
     <p class="small muted">
-      Artifact mapping follows triage → contain → document → escalate.
+      Workflow follows triage → stabilize → communicate → prevent recurrence.
     </p>
     <p class="small muted">{state.footerLine}</p>
   </section>

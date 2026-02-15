@@ -49,7 +49,7 @@ const recommendedDetails = recommendedCard
 const recommendedAction = recommendedCard?.href
   ? {
       href: recommendedCard.href,
-      label: `Start ${recommendedCard.title.toLowerCase()}`,
+      label: `Open ${recommendedCard.title.toLowerCase()}`,
     }
   : null;
 const { cspNonce } = Astro.locals;
@@ -79,16 +79,6 @@ const { cspNonce } = Astro.locals;
       "Follow the recommended first step if you're new.",
       "Use pathways to match your role and decision window.",
       "Collect artifact bundles before you hand off to governance.",
-    ]}
-    relatedLinks={[
-      { href: "#routes", label: "Pathways" },
-      { href: "#quick-start", label: "Quick-start guides" },
-      { href: "#artifacts", label: "Artifact bundles" },
-    ]}
-    jumpLinks={[
-      { href: "#recommended", label: "Recommendation" },
-      { href: "#routes", label: "Pathways" },
-      { href: "#decision-guide", label: "Decision guide" },
     ]}
   />
   {
@@ -194,7 +184,7 @@ const { cspNonce } = Astro.locals;
                 href={card.href}
                 aria-label={`Go to ${card.title}`}
               >
-                Visit {card.title.toLowerCase()}
+                Open {card.title.toLowerCase()}
               </a>
             </div>
           </CardItem>
