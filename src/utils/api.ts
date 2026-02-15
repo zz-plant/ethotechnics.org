@@ -1,5 +1,9 @@
 import { glossaryContent } from "../content/glossary";
 import { libraryContent } from "../content/library";
+import {
+  governanceCrosswalks,
+  postMarketWorkflow,
+} from "../content/crosswalks";
 import { standardClauses, standardsContent } from "../content/standards";
 import { validatorsContent } from "../content/validators";
 
@@ -235,11 +239,42 @@ export const getEvidencePacksForApi = () =>
     supersedes: [],
   }));
 
+export const getCrosswalksForApi = () =>
+  governanceCrosswalks.map((control) => ({
+    id: control.controlId,
+    type: "crosswalk-control",
+    obligation: control.obligation,
+    frameworks: {
+      euAiAct: control.euAiAct,
+      nistAiRmf: control.nistAiRmf,
+      iso42001: control.iso42001,
+    },
+    evidence_artifacts: control.evidenceArtifacts,
+    operational_surface: control.operationalSurface,
+    href: "/standards/enforceable-governance-crosswalks",
+    refs: ["EU-AI-ACT", "NIST-AI-RMF", "ISO-IEC-42001"],
+    deprecated_by: null,
+    supersedes: [],
+  }));
+
+export const getPostMarketMonitoringForApi = () =>
+  postMarketWorkflow.map((step, index) => ({
+    id: `PMM-${index + 1}`,
+    type: "post-market-stage",
+    stage: step.stage,
+    outcome: step.outcome,
+    href: "/incidents",
+    refs: ["EU-AI-ACT-ART-72", "EU-AI-ACT-ART-73", "ISO-IEC-42001-9.1"],
+    deprecated_by: null,
+    supersedes: [],
+  }));
+
 export const findingsCatalog = [
   {
     id: "FND-2026-001",
     type: "finding",
-    summary: "Exit flow introduces retention script before allowing cancellation.",
+    summary:
+      "Exit flow introduces retention script before allowing cancellation.",
     violated_clauses: ["STD-01.2.3"],
     impact: "Users cannot exit without additional friction or persuasion.",
     closure: "Remove retention gate and ensure one-step cancellation path.",
@@ -256,7 +291,8 @@ export const findingsCatalog = [
     summary: "Queue wait times are hidden during high-volume spikes.",
     violated_clauses: ["STD-01.5.1"],
     impact: "Users lack legible expectations and cannot plan alternatives.",
-    closure: "Expose queue position and wait estimates with a fallback SLA notice.",
+    closure:
+      "Expose queue position and wait estimates with a fallback SLA notice.",
     severity: "medium",
     confidence: 0.7,
     recommended_mechanisms: ["MEC-04"],

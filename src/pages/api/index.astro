@@ -46,6 +46,14 @@ const canonicalObjects = [
     description: "Minimum evidence bundles required to verify clause compliance.",
   },
   {
+    name: "Crosswalk control",
+    description: "Control-level mapping across EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
+  },
+  {
+    name: "Post-market stage",
+    description: "Operational incident reporting stages with expected outcomes and references.",
+  },
+  {
     name: "Anti-pattern",
     description: "Negative examples that look compliant but fail the clause intent.",
   },
@@ -107,6 +115,14 @@ const endpoints = [
   {
     path: "/api/evidence-packs.json",
     description: "Evidence pack templates per clause.",
+  },
+  {
+    path: "/api/crosswalks.json",
+    description: "Control crosswalks with framework mappings and evidence artifacts.",
+  },
+  {
+    path: "/api/post-market-monitoring.json",
+    description: "Post-market monitoring and incident reporting workflow stages.",
   },
   {
     path: "/api/findings.json",

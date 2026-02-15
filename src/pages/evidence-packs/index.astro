@@ -4,6 +4,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
+import { evidencePackMinimumSet } from "../../content/crosswalks";
 
 const pageTitle = "Evidence packs — Ethotechnics Institute";
 const pageDescription =
@@ -43,6 +44,7 @@ const packs = [
         href: `#${pack.slug}`,
         label: pack.title,
       })),
+      { href: "#audit-minimum", label: "Audit minimum" },
       { href: "#referenced-by", label: "Referenced by" },
     ]}
     panelCopy={{
@@ -67,6 +69,26 @@ const packs = [
         </CardItem>
       ))}
     </CardGrid>
+  </SectionBlock>
+
+
+  <SectionBlock
+    id="audit-minimum"
+    eyebrow="Audit minimum"
+    title="Evidence-pack discipline baseline"
+    description="These artifacts are the minimum viable proof set teams should maintain continuously, not only before audits."
+    variant="alt"
+  >
+    <ul class="muted">
+      {evidencePackMinimumSet.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="muted">
+      See
+      {" "}
+      <a href="/standards/enforceable-governance-crosswalks">enforceable governance crosswalks</a>
+      {" "}
+      for control-level mapping to EU AI Act, NIST AI RMF, and ISO/IEC 42001.
+    </p>
   </SectionBlock>
 
   <SectionBlock

@@ -1,0 +1,167 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import {
+  evidencePackMinimumSet,
+  governanceCrosswalks,
+  postMarketWorkflow,
+} from "../../content/crosswalks";
+
+const pageTitle = "Enforceable governance crosswalks";
+const pageDescription =
+  "Control crosswalks connecting Ethotechnics governance controls to EU AI Act obligations, NIST AI RMF functions, and ISO/IEC 42001 clauses.";
+const permalink = "/standards/enforceable-governance-crosswalks";
+
+const publication = {
+  authors: [
+    {
+      name: "Ethotechnics Governance Council",
+      affiliation: "Ethotechnics Institute",
+      email: "standards@ethotechnics.org",
+    },
+  ],
+  contact: "standards@ethotechnics.org",
+  published: "2026-02-15T00:00:00Z",
+  updated: "2026-02-15T00:00:00Z",
+  version: "v0.1.0",
+  doi: "Pending Zenodo deposit",
+  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  changelog: [
+    {
+      version: "v0.1.0",
+      date: "2026-02-15",
+      summary:
+        "Published enforceable governance control crosswalks and evidence-pack operating guidance.",
+    },
+  ],
+  license: {
+    label: "CC BY 4.0",
+    href: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  attribution:
+    "Credit Ethotechnics Institute Governance Council, include title + version, and link to the canonical permalink.",
+};
+---
+
+<BaseLayout
+  title={`${pageTitle} — Standards`}
+  description={pageDescription}
+  jsonAlternates={[{ href: "/api/crosswalks.json", title: "Crosswalks JSON" }]}
+>
+  <PageIntro
+    eyebrow="Standards"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#controls", label: "Control crosswalks" },
+      { href: "#evidence-pack", label: "Evidence-pack minimum" },
+      { href: "#post-market", label: "Post-market workflow" },
+      { href: "#citations", label: "Citations" },
+    ]}
+    panelCopy={{
+      eyebrow: "Reference implementation",
+      title: "From standards language to enforceable operations",
+      description:
+        "These crosswalks align controls, evidence artifacts, and operational surfaces needed for audit and incident response.",
+      link: {
+        label: "View incident lessons",
+        href: "/incidents",
+      },
+    }}
+  />
+
+  <SectionBlock
+    id="controls"
+    eyebrow="Crosswalks"
+    title="Control mappings across major frameworks"
+    description="Each control keeps one obligation statement, framework references, and mandatory evidence surfaces."
+  >
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Control</th>
+            <th scope="col">EU AI Act</th>
+            <th scope="col">NIST AI RMF</th>
+            <th scope="col">ISO/IEC 42001</th>
+            <th scope="col">Required evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            governanceCrosswalks.map((control) => (
+              <tr>
+                <th scope="row">
+                  <p><strong>{control.controlId}</strong></p>
+                  <p class="muted">{control.obligation}</p>
+                  <p>
+                    <a href="/mechanisms">Operational surface: {control.operationalSurface}</a>
+                  </p>
+                </th>
+                <td>{control.euAiAct}</td>
+                <td>{control.nistAiRmf}</td>
+                <td>{control.iso42001}</td>
+                <td>
+                  <ul>
+                    {control.evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
+                  </ul>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="evidence-pack"
+    eyebrow="Evidence-pack discipline"
+    title="Minimum viable evidence pack for audits"
+    description="Treat this minimum set as required for every high-stakes release and major incident."
+    variant="alt"
+  >
+    <ul>
+      {evidencePackMinimumSet.map((item) => <li>{item}</li>)}
+    </ul>
+    <p>
+      Operationalize this with <a href="/diagnostics/evidence-pack-readiness">evidence pack readiness</a>
+      {" "}
+      before launch and as part of post-incident closure.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="post-market"
+    eyebrow="Post-market monitoring"
+    title="Incident reporting as a first-class governance flow"
+    description="Post-market work should be routable, time-bound, and exportable rather than buried in retrospectives."
+  >
+    <ol>
+      {
+        postMarketWorkflow.map((step) => (
+          <li>
+            <strong>{step.stage}:</strong> {step.outcome}
+          </li>
+        ))
+      }
+    </ol>
+    <p>
+      Run this flow with the <a href="/incidents">incident lessons hub</a> and publish evidence-state
+      updates into your governance record.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="citations"
+    eyebrow="Citation"
+    title="Reference this crosswalk"
+    description="Use the canonical permalink and version in policy, procurement, and audit artifacts."
+    variant="alt"
+  >
+    <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+  </SectionBlock>
+</BaseLayout>

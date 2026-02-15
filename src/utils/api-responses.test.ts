@@ -3,7 +3,9 @@ import { describe, expect, it } from "bun:test";
 import {
   createBadgesResponse,
   createChangelogResponse,
+  createCrosswalksResponse,
   createDiagnosticResultsResponse,
+  createPostMarketMonitoringResponse,
   createReleasesResponse,
   createValidatorsResponse,
 } from "./api-responses";
@@ -36,6 +38,16 @@ type ReleasesPayload = {
 type BadgesPayload = {
   meta: { repo: string };
   badges: { siteChecks: { href: string } };
+};
+
+type CrosswalksPayload = {
+  meta: { count: number; permalink: string };
+  controls: Array<{ frameworks: { euAiAct: string }; href: string }>;
+};
+
+type PostMarketMonitoringPayload = {
+  meta: { count: number; permalink: string };
+  stages: Array<{ stage: string; refs: string[]; href: string }>;
 };
 
 const parseJson = async <T>(response: Response): Promise<T> =>
@@ -99,5 +111,36 @@ describe("createBadgesResponse", () => {
     expect(payload.badges.siteChecks.href).toContain(
       "github.com/zz-plant/ethotechnics/actions/workflows/site-checks.yml",
     );
+  });
+});
+
+describe("createCrosswalksResponse", () => {
+  it("returns enforceable governance crosswalk controls", async () => {
+    const payload = await parseJson<CrosswalksPayload>(
+      createCrosswalksResponse(),
+    );
+
+    expect(payload.meta.count).toBeGreaterThan(0);
+    expect(payload.meta.permalink).toBe(
+      "/standards/enforceable-governance-crosswalks",
+    );
+    expect(payload.controls[0]?.frameworks.euAiAct.length).toBeGreaterThan(0);
+    expect(payload.controls[0]?.href).toBe(
+      "/standards/enforceable-governance-crosswalks",
+    );
+  });
+});
+
+describe("createPostMarketMonitoringResponse", () => {
+  it("returns post-market monitoring stages", async () => {
+    const payload = await parseJson<PostMarketMonitoringPayload>(
+      createPostMarketMonitoringResponse(),
+    );
+
+    expect(payload.meta.count).toBeGreaterThan(0);
+    expect(payload.meta.permalink).toBe("/incidents");
+    expect(payload.stages[0]?.stage.length).toBeGreaterThan(0);
+    expect(payload.stages[0]?.refs.length).toBeGreaterThan(0);
+    expect(payload.stages[0]?.href).toBe("/incidents");
   });
 });
