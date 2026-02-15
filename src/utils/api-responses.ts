@@ -9,9 +9,11 @@ import {
   findingsCatalog,
   getAntiPatternsForApi,
   getClausesForApi,
+  getCrosswalksForApi,
   getEvidencePacksForApi,
   getGlossaryEntriesForApi,
   getMechanismsForApi,
+  getPostMarketMonitoringForApi,
   getRagCorpusLines,
   getStandardsForApi,
   getValidatorsForApi,
@@ -72,6 +74,8 @@ const releases = [
       diagnosticResults: `${releaseInfo.permalink}/diagnostic-results.json`,
       antiPatterns: `${releaseInfo.permalink}/anti-patterns.json`,
       evidencePacks: `${releaseInfo.permalink}/evidence-packs.json`,
+      crosswalks: `${releaseInfo.permalink}/crosswalks.json`,
+      postMarketMonitoring: `${releaseInfo.permalink}/post-market-monitoring.json`,
       ragCorpus: `${releaseInfo.permalink}/rag-corpus.jsonl`,
     },
   },
@@ -112,6 +116,8 @@ const buildEndpointMap = (
     glossary: `${normalizedBase}/glossary.json`,
     antiPatterns: `${normalizedBase}/anti-patterns.json`,
     evidencePacks: `${normalizedBase}/evidence-packs.json`,
+    crosswalks: `${normalizedBase}/crosswalks.json`,
+    postMarketMonitoring: `${normalizedBase}/post-market-monitoring.json`,
     findings: `${normalizedBase}/findings.json`,
     diagnosticResults: `${normalizedBase}/diagnostic-results.json`,
     ragCorpus: `${normalizedBase}/rag-corpus.jsonl`,
@@ -156,10 +162,26 @@ export const createEvidencePacksResponse = () =>
     release: releaseInfo,
   });
 
+export const createCrosswalksResponse = () =>
+  createCollectionResponse({
+    key: "controls",
+    items: getCrosswalksForApi(),
+    permalink: "/standards/enforceable-governance-crosswalks",
+    release: releaseInfo,
+  });
+
 export const createFindingsResponse = () =>
   createCollectionResponse({
     key: "findings",
     items: findingsCatalog,
+    release: releaseInfo,
+  });
+
+export const createPostMarketMonitoringResponse = () =>
+  createCollectionResponse({
+    key: "stages",
+    items: getPostMarketMonitoringForApi(),
+    permalink: "/incidents",
     release: releaseInfo,
   });
 
@@ -262,6 +284,8 @@ const buildEndpoints = (
     "glossary.json",
     "anti-patterns.json",
     "evidence-packs.json",
+    "crosswalks.json",
+    "post-market-monitoring.json",
     "findings.json",
     "diagnostic-results.json",
     "rag-corpus.jsonl",
@@ -310,6 +334,8 @@ export const createAgentIndexResponse = (options: {
         endpointMap.validators,
         endpointMap.glossary,
         endpointMap.research,
+        endpointMap.crosswalks,
+        endpointMap.postMarketMonitoring,
       ],
       ragCorpusPreview: `${endpointMap.ragCorpus}?limit=200`,
     },
@@ -387,6 +413,8 @@ export const createSiteIndexResponse = (options: {
       clauses: "/api/schema/clauses.schema.json",
       mechanisms: "/api/schema/mechanisms.schema.json",
       validators: "/api/schema/validators.schema.json",
+      crosswalks: "/api/schema/crosswalks.schema.json",
+      postMarketMonitoring: "/api/schema/post-market-monitoring.schema.json",
       findings: "/api/schema/findings.schema.json",
       diagnosticResults: "/api/schema/diagnostic-results.schema.json",
     },

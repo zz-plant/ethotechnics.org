@@ -216,6 +216,15 @@ export const standardsContent: StandardsContent = {
       ctaLabel: "See guidance",
     },
     {
+      id: "enforceable-governance-crosswalks",
+      title: "Enforceable governance crosswalks",
+      description:
+        "Control mappings linking Ethotechnics obligations to EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
+      href: "/standards/enforceable-governance-crosswalks",
+      eyebrow: "Governance",
+      ctaLabel: "Open crosswalks",
+    },
+    {
       id: "glossary",
       title: "Glossary",
       description: "Immutable terminology and canonical definitions.",

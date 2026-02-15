@@ -18,21 +18,23 @@ each column.
 **Status tags:** `[Spec ready]` means the section below is ready for pickup. `[Needs alignment]`
 flags work that depends on cross-team decisions or external input.
 
-| Now                                                     | Next                                                                                    | Later                                                                                              |
-| ------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Highest-priority work in progress.                      | Ready-to-start items with scoped specs.                                                 | Ideas to revisit when capacity frees up.                                                           |
-| Keep entries small and actionable.                      | Add owners or dates only when needed.                                                   | Capture rough ideas, not full specs.                                                               |
-|                                                         | [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
-|                                                         | `[Spec ready]`                                                                          |                                                                                                    |
-| [Python evaluation toolkit](#python-evaluation-toolkit) | [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
-| `[Spec ready]`                                          | `[Spec ready]`                                                                          |                                                                                                    |
-|                                                         | [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
-|                                                         | `[Spec ready]`                                                                          |                                                                                                    |
-|                                                         | [TypeScript SDK](#typescript-sdk)                                                       | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
-|                                                         | `[Spec ready]`                                                                          |                                                                                                    |
+| Now                                                                                                 | Next                                                                                    | Later                                                                                              |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                                                                  | Ready-to-start items with scoped specs.                                                 | Ideas to revisit when capacity frees up.                                                           |
+| Keep entries small and actionable.                                                                  | Add owners or dates only when needed.                                                   | Capture rough ideas, not full specs.                                                               |
+| [Enforceable governance reference implementation](#enforceable-governance-reference-implementation) | [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
+| `[Spec ready]`                                                                                      | `[Spec ready]`                                                                          |                                                                                                    |
+| [Python evaluation toolkit](#python-evaluation-toolkit)                                             | [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
+| `[Spec ready]`                                                                                      | `[Spec ready]`                                                                          |                                                                                                    |
+|                                                                                                     | [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
+|                                                                                                     | `[Spec ready]`                                                                          |                                                                                                    |
+|                                                                                                     | [TypeScript SDK](#typescript-sdk)                                                       | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
+|                                                                                                     | `[Spec ready]`                                                                          |                                                                                                    |
 
 **Priority snapshot**
 
+- **Governance implementation first:** ship enforceable governance crosswalks, evidence-pack
+  discipline, and post-market accountability surfaces as the primary product story.
 - **Foundation specs:** Python evaluation toolkit unblocks SDKs and evaluation workflows.
 - **Modeling + simulation:** capacity forecaster, maintenance simulator, and burden modeler
   updates land after foundation specs are moving.
@@ -61,6 +63,34 @@ under this heading and link to it from the roadmap table.
 - Acceptance criteria are testable.
 - Dependencies and blockers are listed.
 - If needed, a GitHub Issue exists and links back here.
+
+## Enforceable governance reference implementation
+
+- **Problem:** The site describes governance concepts but does not yet behave like a reference
+  implementation of enforceable governance tied to statutory and standards obligations.
+- **Scope:**
+  - Publish canonical control crosswalks from Ethotechnics mechanisms to EU AI Act duties,
+    NIST AI RMF functions, and ISO/IEC 42001 clauses.
+  - Promote evidence-pack discipline from supporting guidance to a first-class operating model,
+    with required artifacts, ownership, and freshness rules.
+  - Elevate post-market monitoring and incident reporting to top-level, task-oriented user flows
+    with explicit intake, triage, remediation, and regulator-ready export paths.
+- **UX/Tech notes:**
+  - Add stable control IDs and machine-readable mapping objects so crosswalks can power APIs,
+    exports, and page-level references.
+  - Define an evidence-pack minimum viable set (policy record, risk register slice, test results,
+    human-oversight logs, incident ledger) and expose readiness scorecards.
+  - Build role-specific entry points (operator, auditor, procurement, regulator) that prioritize
+    monitoring and incident workflows ahead of explanatory content.
+- **Acceptance criteria:**
+  - Crosswalk pages and exports cover high-risk lifecycle obligations with bidirectional links
+    between controls, mechanisms, and evidence artifacts.
+  - Every high-stakes mechanism references a concrete evidence bundle and freshness cadence.
+  - Monitoring and incident pages support end-to-end reporting states, deadlines, and evidence
+    attachments, with no dead-end informational paths.
+- **Dependencies/risks:** Requires legal and standards review cadence, schema updates, and clear
+  ownership for ongoing mapping maintenance.
+- **Issue link:** Issue: TBD / Spec: #enforceable-governance-reference-implementation
 
 ## Capacity forecaster v2 (scenario compare)
 
