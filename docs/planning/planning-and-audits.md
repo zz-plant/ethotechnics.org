@@ -21,6 +21,9 @@ It consolidates references that were previously spread across multiple index sec
   - [`ux-audit-kondo-round4.md`](ux-audit-kondo-round4.md)
   - [`ux-audit-kondo-round5.md`](ux-audit-kondo-round5.md)
 
+- [`site-description-alignment-audit.md`](site-description-alignment-audit.md):
+  publication-readiness review for external site summaries.
+
 ## Technical strategy tracks
 
 - Tech stack evolution:
