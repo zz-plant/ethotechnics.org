@@ -102,13 +102,13 @@ const implementationExampleCards = [
     description:
       "Domain-by-domain comparisons showing how Ethotechnics changes system architecture.",
     href: "/standards/implementation-examples",
-    ctaLabel: "Open guide",
+    ctaLabel: "Read guide",
   },
   ...implementationExamples.map((example) => ({
     title: example.title,
     description: example.cardDescription,
     href: `/standards/implementation-examples/${example.slug}`,
-    ctaLabel: "View example",
+    ctaLabel: "Read example",
   })),
 ];
 const mostCitedStandardIds = ["STD-01", "STD-02", "MVC-01"];
@@ -147,6 +147,20 @@ const standardsGrouping = [
       Boolean(standard),
     ),
 }));
+const standardsLaneById = new Map(
+  standardsGrouping.flatMap((group) =>
+    group.ids.map((id) => [id, group.title.toLowerCase()]),
+  ),
+);
+const standardsFilterOptions = ["all", "core", "implementation", "reference"];
+const standardsLaneCounts = {
+  all: standards.length,
+  core: standards.filter((standard) => standardsLaneById.get(standard.id) === "core").length,
+  implementation: standards.filter(
+    (standard) => standardsLaneById.get(standard.id) === "implementation",
+  ).length,
+  reference: standards.filter((standard) => standardsLaneById.get(standard.id) === "reference").length,
+};
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -192,7 +206,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
-    collapseAnchorLinks={true}
+    collapseAnchorLinks={false}
+    collapseAnchorLinksOnMobile={true}
     anchorLinksSummary="Show full standards outline"
     panelCopy={panelCopy}
   >
@@ -397,35 +412,78 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="Now active"
     description="Drafts and ratified standards in the publication queue."
   >
-    <CardGrid className="grid--two">
+    <div class="standards-filter panel stack-sm" data-standards-filter>
+      <p class="eyebrow">Filter and sort</p>
+      <div class="standards-filter__controls">
+        <label>
+          Lane
+          <select data-standards-filter-lane>
+            {standardsFilterOptions.map((option) => (
+              <option value={option}>
+                {option === "all"
+                  ? `All lanes (${standardsLaneCounts.all})`
+                  : `${option.charAt(0).toUpperCase() + option.slice(1)} (${standardsLaneCounts[option as keyof typeof standardsLaneCounts]})`}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Sort
+          <select data-standards-filter-sort>
+            <option value="citation">Most cited first</option>
+            <option value="recent">Recently updated first</option>
+            <option value="id">Standard ID</option>
+          </select>
+        </label>
+      </div>
+      <p class="muted small" data-standards-filter-status>
+        Showing all active standards.
+      </p>
+    </div>
+    <CardGrid className="grid--two" data-standards-grid>
       {
-        standards.map((standard) => (
-          <CardItem
-            eyebrow={standard.id}
-            title={standard.title}
-            description={standard.description}
-          >
-            <p class="muted small">
-              Status: {standard.status} · v{standard.version} · Effective{" "}
-              {standard.effectiveDate}
-            </p>
-            {standard.id === "STD-02" && (
-              <p class="muted">
-                Practice:{" "}
-                <a href="/standards/ethotechnics-for-agents">
-                  Ethotechnics for Agents
-                </a>{" "}
-                — Mechanism-first practice for implementing STD-01 and STD-02
-                with enforceable human recourse in real agent systems.
-              </p>
-            )}
-            <a slot="footer" class="muted" href={`/standards/${standard.slug}`}>
-              Read {standard.id}
-            </a>
-          </CardItem>
-        ))
+        standards.map((standard) => {
+          const lane = standardsLaneById.get(standard.id) ?? "reference";
+
+          return (
+            <div
+              data-standard-card
+              data-standard-id={standard.id}
+              data-standard-lane={lane}
+              data-standard-published={standard.published}
+              data-standard-cited={mostCitedStandardIds.includes(standard.id) ? "1" : "0"}
+            >
+              <CardItem
+                eyebrow={standard.id}
+                title={standard.title}
+                description={standard.description}
+              >
+                <p class="muted small">
+                  Lane: {lane.charAt(0).toUpperCase() + lane.slice(1)} · Status: {standard.status} · v{standard.version} · Effective{" "}
+                  {standard.effectiveDate}
+                </p>
+                {standard.id === "STD-02" && (
+                  <p class="muted">
+                    Practice:{" "}
+                    <a href="/standards/ethotechnics-for-agents">
+                      Ethotechnics for Agents
+                    </a>{" "}
+                    — Mechanism-first practice for implementing STD-01 and STD-02
+                    with enforceable human recourse in real agent systems.
+                  </p>
+                )}
+                <a slot="footer" class="muted" href={`/standards/${standard.slug}`}>
+                  Read {standard.id}
+                </a>
+              </CardItem>
+            </div>
+          );
+        })
       }
     </CardGrid>
+    <p class="muted" data-standards-empty hidden>
+      No standards match this lane yet. Choose another lane or clear the filter.
+    </p>
   </SectionBlock>
 
   <SectionBlock
@@ -989,10 +1047,108 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
       VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
+  <script nonce={cspNonce} is:inline>
+    const standardsFilter = document.querySelector("[data-standards-filter]");
+
+    if (standardsFilter) {
+      const laneSelect = standardsFilter.querySelector("[data-standards-filter-lane]");
+      const sortSelect = standardsFilter.querySelector("[data-standards-filter-sort]");
+      const status = standardsFilter.querySelector("[data-standards-filter-status]");
+      const grid = document.querySelector("[data-standards-grid]");
+      const emptyState = document.querySelector("[data-standards-empty]");
+      const cards = Array.from(document.querySelectorAll("[data-standard-card]"));
+      const searchParams = new URLSearchParams(window.location.search);
+
+      const initialLane = searchParams.get("lane");
+      const initialSort = searchParams.get("sort");
+
+      if (
+        laneSelect &&
+        initialLane &&
+        ["all", "core", "implementation", "reference"].includes(initialLane)
+      ) {
+        laneSelect.value = initialLane;
+      }
+
+      if (sortSelect && initialSort && ["citation", "recent", "id"].includes(initialSort)) {
+        sortSelect.value = initialSort;
+      }
+
+      const sortCards = (activeCards, mode) => {
+        const sortedCards = [...activeCards].sort((a, b) => {
+          if (mode === "recent") {
+            return (
+              Date.parse(b.getAttribute("data-standard-published") ?? "") -
+              Date.parse(a.getAttribute("data-standard-published") ?? "")
+            );
+          }
+
+          if (mode === "id") {
+            return (a.getAttribute("data-standard-id") ?? "").localeCompare(
+              b.getAttribute("data-standard-id") ?? "",
+            );
+          }
+
+          const citedDifference =
+            Number(b.getAttribute("data-standard-cited") ?? "0") -
+            Number(a.getAttribute("data-standard-cited") ?? "0");
+
+          if (citedDifference !== 0) {
+            return citedDifference;
+          }
+
+          return (a.getAttribute("data-standard-id") ?? "").localeCompare(
+            b.getAttribute("data-standard-id") ?? "",
+          );
+        });
+
+        sortedCards.forEach((card) => {
+          grid?.append(card);
+        });
+      };
+
+      const updateCards = () => {
+        const lane = laneSelect?.value ?? "all";
+        const sortMode = sortSelect?.value ?? "citation";
+        const activeCards = cards.filter((card) => {
+          const cardLane = card.getAttribute("data-standard-lane") ?? "reference";
+          const isVisible = lane === "all" || cardLane === lane;
+          card.hidden = !isVisible;
+          return isVisible;
+        });
+
+        sortCards(activeCards, sortMode);
+
+        if (emptyState) {
+          emptyState.hidden = activeCards.length > 0;
+        }
+
+        const nextParams = new URLSearchParams(window.location.search);
+        nextParams.set("lane", lane);
+        nextParams.set("sort", sortMode);
+        const nextQuery = nextParams.toString();
+        const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}${window.location.hash}`;
+        window.history.replaceState({}, "", nextUrl);
+
+        if (status) {
+          status.textContent = `Showing ${activeCards.length} standard${
+            activeCards.length === 1 ? "" : "s"
+          } in ${lane === "all" ? "all lanes" : `${lane} lane`}.`;
+        }
+      };
+
+      laneSelect?.addEventListener("change", updateCards);
+      sortSelect?.addEventListener("change", updateCards);
+      updateCards();
+    }
+  </script>
+
   <script
     type="application/ld+json"
     nonce={cspNonce}
     set:html={structuredDataJson}
     is:inline
   />
+
+
 </BaseLayout>
