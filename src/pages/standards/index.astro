@@ -114,10 +114,39 @@ const implementationExampleCards = [
 const mostCitedStandardIds = ["STD-01", "STD-02", "MVC-01"];
 const mostCitedStandards = mostCitedStandardIds
   .map((id) => standards.find((standard) => standard.id === id))
-  .filter((standard): standard is (typeof standards)[number] => Boolean(standard));
+  .filter((standard): standard is (typeof standards)[number] =>
+    Boolean(standard),
+  );
 const recentlyUpdatedStandards = [...standards]
   .sort((a, b) => Date.parse(b.published) - Date.parse(a.published))
   .slice(0, 3);
+const standardsGrouping = [
+  {
+    title: "Core",
+    description:
+      "Foundational rights and contestability requirements to start with.",
+    ids: ["STD-01", "STD-02", "MVC-01"],
+  },
+  {
+    title: "Implementation",
+    description:
+      "Operational controls and templates for day-to-day governance delivery.",
+    ids: ["STD-03", "STD-06", "PM-01"],
+  },
+  {
+    title: "Reference",
+    description:
+      "Interoperability and record-format specifications used across ecosystems.",
+    ids: ["STD-04", "STD-05"],
+  },
+].map((group) => ({
+  ...group,
+  items: group.ids
+    .map((id) => standards.find((standard) => standard.id === id))
+    .filter((standard): standard is (typeof standards)[number] =>
+      Boolean(standard),
+    ),
+}));
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -174,7 +203,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a class="button ghost" href="/standards/std-02-contestability-recourse">
         Read STD-02
       </a>
-      <a class="button ghost" href="/standards/enforceable-governance-crosswalks">
+      <a
+        class="button ghost"
+        href="/standards/enforceable-governance-crosswalks"
+      >
         Open crosswalks
       </a>
     </Fragment>
@@ -192,7 +224,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       { href: "/standards/std-01-temporal-rights", label: "STD-01" },
       { href: "/standards/std-02-contestability-recourse", label: "STD-02" },
       { href: "/standards/core-axioms", label: "Core axioms" },
-      { href: "/standards/enforceable-governance-crosswalks", label: "Crosswalks" },
+      {
+        href: "/standards/enforceable-governance-crosswalks",
+        label: "Crosswalks",
+      },
     ]}
     jumpLinks={[
       { href: "#quick-lanes", label: "Most cited and newly updated" },
@@ -244,11 +279,53 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </div>
     <ul class="pill-list pill-list--wrap">
-      <li><a class="pill-list__button" href="#goal-chooser">Choose by objective</a></li>
-      <li><a class="pill-list__button" href="#active">All active standards</a></li>
-      <li><a class="pill-list__button" href="#comparison">Standards comparison</a></li>
-      <li><a class="pill-list__button" href="#implementation-examples">Implementation examples</a></li>
+      <li>
+        <a class="pill-list__button" href="#grouped-lanes"
+          >Browse grouped lanes</a>
+      </li>
+      <li>
+        <a class="pill-list__button" href="#goal-chooser"
+          >Choose by objective</a>
+      </li>
+      <li>
+        <a class="pill-list__button" href="#active">All active standards</a>
+      </li>
+      <li>
+        <a class="pill-list__button" href="#comparison">Standards comparison</a>
+      </li>
+      <li>
+        <a class="pill-list__button" href="#implementation-examples"
+          >Implementation examples</a>
+      </li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="grouped-lanes"
+    eyebrow="Grouped lanes"
+    title="Choose the standards lane that matches your work."
+    description="Each lane highlights a starting set so teams can triage reading without scanning the full catalog."
+    variant="alt"
+  >
+    <div class="grid grid--three">
+      {
+        standardsGrouping.map((group) => (
+          <div class="panel stack-sm">
+            <p class="eyebrow">{group.title}</p>
+            <p class="muted small">{group.description}</p>
+            <ul class="muted">
+              {group.items.map((standard) => (
+                <li>
+                  <a href={`/standards/${standard.slug}`}>
+                    {standard.id} · v{standard.version}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -328,6 +405,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             title={standard.title}
             description={standard.description}
           >
+            <p class="muted small">
+              Status: {standard.status} · v{standard.version} · Effective{" "}
+              {standard.effectiveDate}
+            </p>
             {standard.id === "STD-02" && (
               <p class="muted">
                 Practice:{" "}

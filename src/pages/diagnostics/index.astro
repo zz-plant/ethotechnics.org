@@ -206,6 +206,18 @@ const mostUsedTools = mostUsedToolSlugs
     description="Use these prompts to route to the right tool without the demo widget."
     variant="alt"
   >
+    <div class="panel stack-sm">
+      <p class="eyebrow">Start here sequence</p>
+      <ol class="muted">
+        <li>
+          Choose one prompt below that best matches your immediate decision.
+        </li>
+        <li>
+          Compare two candidate tools for delivery mode, prep, and outputs.
+        </li>
+        <li>Run one diagnostic and share the linkable output with owners.</li>
+      </ol>
+    </div>
     <CardGrid className="grid--three">
       {
         quickTriagePrompts.map((prompt) => (
@@ -355,6 +367,27 @@ const mostUsedTools = mostUsedToolSlugs
   >
     <div class="diagnostics__filters" data-diagnostics-filters>
       <p class="muted">Filter by delivery type</p>
+      <p class="muted small">Quick intent jumps</p>
+      <ul
+        class="pill-list pill-list--wrap"
+        aria-label="Diagnostic intent shortcuts"
+      >
+        <li>
+          <a class="pill-list__button" href="/diagnostics/burden-modeler"
+            >Planning</a>
+        </li>
+        <li>
+          <a
+            class="pill-list__button"
+            href="/diagnostics/evidence-pack-readiness">Audit prep</a>
+        </li>
+        <li>
+          <a
+            class="pill-list__button"
+            href="/diagnostics/escalation-coverage-planner"
+            >Incident response</a>
+        </li>
+      </ul>
       <ul
         class="pill-list pill-list--wrap"
         role="group"
@@ -427,7 +460,8 @@ const mostUsedTools = mostUsedToolSlugs
                   <strong>When to use:</strong> {tool.bestFor}
                 </p>
                 <p class="muted small">
-                  <strong>When to skip:</strong> {isStudio
+                  <strong>When to skip:</strong>{" "}
+                  {isStudio
                     ? "Choose a self-serve diagnostic if you need immediate outputs without facilitation."
                     : "Choose a studio-facilitated diagnostic when governance ownership or decision framing is unclear."}
                 </p>
