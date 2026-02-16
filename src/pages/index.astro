@@ -43,6 +43,21 @@ const heroPathways = [
   },
 ];
 
+const heroDecisionChips = [
+  {
+    label: "Something failed now",
+    href: "#failure-intake",
+  },
+  {
+    label: "Writing policy",
+    href: "/standards#active",
+  },
+  {
+    label: "Preparing for audit",
+    href: "/diagnostics#diagnostic-tools",
+  },
+];
+
 const failureChoiceIcons: Record<string, string[]> = {
   "decision-appealed": [
     "M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3",
@@ -96,20 +111,38 @@ const failureChoiceIcons: Record<string, string[]> = {
     </ul>
     <div class="institute-hero__starter panel stack-sm" aria-label="Homepage starter">
       <p class="eyebrow">Step 1 · Pick your immediate intent</p>
-      <div class="institute-hero__pathways">
+      <p class="institute-hero__decision-helper muted small">
+        Choose what you need right now and jump directly into the right workflow.
+      </p>
+      <ul class="institute-hero__decision-chips" aria-label="Choose your context">
         {
-          heroPathways.map((pathway) => (
-            <a class="institute-hero__pathway" href={pathway.href}>
-              <strong>{pathway.label}</strong>
-              <span>{pathway.detail}</span>
-              <span class="institute-hero__pathway-cta">{pathway.cta}</span>
-            </a>
+          heroDecisionChips.map((chip) => (
+            <li>
+              <a class="institute-hero__decision-chip" href={chip.href}>{chip.label}</a>
+            </li>
           ))
         }
-      </div>
+      </ul>
       <div class="actions" aria-label="Primary standards actions">
-        <a class="button primary" href="/start-here">Step 2 · Start guided pathway</a>
+        <a class="button primary institute-hero__primary-cta" href="#failure-intake">
+          Start incident intake
+        </a>
       </div>
+      <details class="institute-hero__other-starts">
+        <summary>Other ways to start</summary>
+        <ul>
+          {
+            heroPathways.map((pathway) => (
+              <li>
+                <a href={pathway.href}>{pathway.label}</a>: {pathway.cta}
+              </li>
+            ))
+          }
+          <li>
+            <a href="/start-here">Use the guided onboarding pathway</a>
+          </li>
+        </ul>
+      </details>
     </div>
   </section>
 

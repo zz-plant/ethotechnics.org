@@ -130,8 +130,8 @@ const mostUsedTools = mostUsedToolSlugs
     >
     <a
       class="button ghost"
-      href="#compare-tools"
-      data-route-action="diagnostics-compare" data-sticky-link="#compare-tools">Compare diagnostics</a
+      href="#diagnostic-tools"
+      data-route-action="diagnostics-open-menu" data-sticky-link="#diagnostic-tools">Jump to tools</a
     >
   </nav>
   <SectionActions>
@@ -265,20 +265,25 @@ const mostUsedTools = mostUsedToolSlugs
     description="Use the shared baseline to align teams before diving into tool specifics."
     variant="alt"
   >
-    <ul class="muted">
-      <li>Linkable results page and a shareable PDF summary.</li>
-      <li>Mechanism language references to keep mitigations consistent.</li>
-      <li>Optional facilitation handoff when ambiguity or risk stays high.</li>
-    </ul>
-    <p class="muted">
-      Need to verify recourse? Use the
-      {" "}
-      <a href="/explainers/contestability-checklist">contestability checklist</a
-      >
-      {" "}
-      before you publish outputs tied to appeals or reversals.
-    </p>
-    <StudioBadge />
+    <details class="chunked-section diagnostics__mobile-disclosure" data-collapse-mobile open>
+      <summary class="chunked-section__summary">Open output baseline details</summary>
+      <div class="chunked-section__body stack-sm">
+        <ul class="muted">
+          <li>Linkable results page and a shareable PDF summary.</li>
+          <li>Mechanism language references to keep mitigations consistent.</li>
+          <li>Optional facilitation handoff when ambiguity or risk stays high.</li>
+        </ul>
+        <p class="muted">
+          Need to verify recourse? Use the
+          {" "}
+          <a href="/explainers/contestability-checklist">contestability checklist</a
+          >
+          {" "}
+          before you publish outputs tied to appeals or reversals.
+        </p>
+        <StudioBadge />
+      </div>
+    </details>
   </SectionBlock>
 
   <SectionBlock
@@ -287,34 +292,39 @@ const mostUsedTools = mostUsedToolSlugs
     title="Diagnostics must verify AW-01 through AW-04"
     description="Every diagnostic output should include evidence that anti-weaponization clauses are honored."
   >
-    <ul class="muted">
-      <li>
-        AW-01: Burden metrics include a remediation plan and staffing
-        allocation.
-      </li>
-      <li>
-        AW-02: Appeal paths are tested for non-regression and public replacement
-        windows.
-      </li>
-      <li>
-        AW-03: Downgrades or eligibility changes always emit receipts and
-        clocks.
-      </li>
-      <li>
-        AW-04: High-burden flows include assisted channels or human escalation.
-      </li>
-    </ul>
-    <p class="muted">
-      Reference:
-      {" "}
-      <a href="/anti-weaponization">Anti-weaponization constraints</a>
-      {" "}
-      and the
-      {" "}
-      <a href="/evidence-packs/std-02#anti-weaponization"
-        >evidence requirements</a
-      >.
-    </p>
+    <details class="chunked-section diagnostics__mobile-disclosure" data-collapse-mobile open>
+      <summary class="chunked-section__summary">Open anti-weaponization checklist</summary>
+      <div class="chunked-section__body stack-sm">
+        <ul class="muted">
+          <li>
+            AW-01: Burden metrics include a remediation plan and staffing
+            allocation.
+          </li>
+          <li>
+            AW-02: Appeal paths are tested for non-regression and public replacement
+            windows.
+          </li>
+          <li>
+            AW-03: Downgrades or eligibility changes always emit receipts and
+            clocks.
+          </li>
+          <li>
+            AW-04: High-burden flows include assisted channels or human escalation.
+          </li>
+        </ul>
+        <p class="muted">
+          Reference:
+          {" "}
+          <a href="/anti-weaponization">Anti-weaponization constraints</a>
+          {" "}
+          and the
+          {" "}
+          <a href="/evidence-packs/std-02#anti-weaponization"
+            >evidence requirements</a
+          >.
+        </p>
+      </div>
+    </details>
   </SectionBlock>
 
   <SectionBlock
@@ -596,6 +606,26 @@ const mostUsedTools = mostUsedToolSlugs
 
   <script is:inline>
     const stickyNav = document.querySelector(".diagnostics__sticky-jump");
+    const mobileDisclosures = Array.from(document.querySelectorAll("[data-collapse-mobile]"));
+
+    const syncMobileDisclosures = () => {
+      if (mobileDisclosures.length === 0) {
+        return;
+      }
+
+      const isMobile = window.matchMedia("(max-width: 899px)").matches;
+
+      mobileDisclosures.forEach((disclosure) => {
+        if (!(disclosure instanceof HTMLDetailsElement)) {
+          return;
+        }
+
+        disclosure.open = !isMobile;
+      });
+    };
+
+    syncMobileDisclosures();
+    window.addEventListener("resize", syncMobileDisclosures, { passive: true });
 
     if (stickyNav) {
       const stickyLinks = Array.from(stickyNav.querySelectorAll("[data-sticky-link]"));
