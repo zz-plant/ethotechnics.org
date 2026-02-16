@@ -25,6 +25,7 @@ const {
 } = diagnosticsContent;
 const mechanismBase = `${libraryContent.permalink}#mechanisms`;
 const anchorLinks = [
+  { href: "#most-used", label: "Start with most-used tools" },
   { href: "#compare-tools", label: "Compare options fast" },
   { href: "#why-diagnostics", label: "See what you get" },
   { href: "#output-baseline", label: "Review output baseline" },
@@ -80,6 +81,17 @@ const selfDefenseTools = [
     label: "Map power",
   },
 ];
+const mostUsedToolSlugs = [
+  "burden-modeler",
+  "maintenance-simulator",
+  "capacity-forecaster",
+  "evidence-pack-readiness",
+  "escalation-coverage-planner",
+  "maintenance-debt-calculator",
+];
+const mostUsedTools = mostUsedToolSlugs
+  .map((slug) => tools.find((tool) => tool.slug === slug))
+  .filter((tool): tool is (typeof tools)[number] => Boolean(tool));
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -124,6 +136,31 @@ const selfDefenseTools = [
   <SectionActions>
     <StudioBadge />
   </SectionActions>
+
+  <SectionBlock
+    id="most-used"
+    eyebrow="Most-used diagnostics"
+    title="Start with the six diagnostics teams run most often."
+    description="If you are unsure where to begin, these paths handle the highest-volume governance questions first."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      {
+        mostUsedTools.map((tool) => (
+          <CardItem
+            title={tool.title}
+            description={tool.description}
+            descriptionTone="default"
+          >
+            <p class="muted small">Best for: {tool.bestFor}</p>
+            <a slot="footer" class="muted" href={tool.ctaHref}>
+              {tool.ctaLabel}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
 
   <SectionBlock
     id="compare-tools"
@@ -386,6 +423,14 @@ const selfDefenseTools = [
                   </p>
                 </div>
                 <p class="muted small diagnostics__best-for">{tool.bestFor}</p>
+                <p class="muted small">
+                  <strong>When to use:</strong> {tool.bestFor}
+                </p>
+                <p class="muted small">
+                  <strong>When to skip:</strong> {isStudio
+                    ? "Choose a self-serve diagnostic if you need immediate outputs without facilitation."
+                    : "Choose a studio-facilitated diagnostic when governance ownership or decision framing is unclear."}
+                </p>
                 <ul class="diagnostics__summary">
                   <li>
                     <p class="muted diagnostics__label">Use this when</p>

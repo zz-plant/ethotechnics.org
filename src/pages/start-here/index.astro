@@ -177,7 +177,16 @@ const { cspNonce } = Astro.locals;
               <p class="muted small">{card.recommendedNote}</p>
             )}
             <p class="muted">{card.bestFor}</p>
-            <p class="muted small">{card.time}</p>
+            <p class="muted small">
+              <strong>When to use:</strong> {card.bestFor}
+            </p>
+            <p class="muted small">
+              <strong>When to skip:</strong> If your team needs only policy language and no
+              workflow changes, start with the standards library first.
+            </p>
+            <div class="callout__metrics" aria-label={`Timing details for ${card.title}`}>
+              <span class="pill pill--muted">Estimated time: {card.time}</span>
+            </div>
             <div slot="footer" class="card__footer">
               <a
                 class="button ghost button--compact"
