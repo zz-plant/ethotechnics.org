@@ -49,7 +49,7 @@ const recommendedDetails = recommendedCard
 const recommendedAction = recommendedCard?.href
   ? {
       href: recommendedCard.href,
-      label: `Open ${recommendedCard.title.toLowerCase()}`,
+      label: `Start ${recommendedCard.title.toLowerCase()}`,
     }
   : null;
 const { cspNonce } = Astro.locals;
@@ -62,7 +62,8 @@ const { cspNonce } = Astro.locals;
     description={hero.description}
     permalink={permalink}
     anchorLinks={anchorLinks}
-    collapseAnchorLinks={true}
+    collapseAnchorLinks={false}
+    collapseAnchorLinksOnMobile={true}
     anchorLinksSummary="Show full outline for this page"
     panelCopy={hero.panel}
   >
@@ -176,7 +177,6 @@ const { cspNonce } = Astro.locals;
             {card.recommendedNote && (
               <p class="muted small">{card.recommendedNote}</p>
             )}
-            <p class="muted">{card.bestFor}</p>
             <p class="muted small">
               <strong>When to use:</strong> {card.bestFor}
             </p>
@@ -193,7 +193,7 @@ const { cspNonce } = Astro.locals;
                 href={card.href}
                 aria-label={`Go to ${card.title}`}
               >
-                Open {card.title.toLowerCase()}
+                Start {card.title.toLowerCase()}
               </a>
             </div>
           </CardItem>
@@ -227,7 +227,7 @@ const { cspNonce } = Astro.locals;
                 class="button ghost button--compact"
                 href={`/quick-start/${guide.slug}`}
               >
-                Open {guide.title.toLowerCase()} guide
+                Read {guide.title.toLowerCase()} guide
               </a>
             </div>
           </CardItem>

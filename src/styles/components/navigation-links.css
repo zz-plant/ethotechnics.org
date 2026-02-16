@@ -73,6 +73,14 @@
     min-width: 0;
   }
 
+  .nav__mobile-hint {
+    margin: 0;
+    padding: 0.2rem 0.35rem 0;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-top: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  }
+
   .nav__brand {
     font-family: var(--serif);
     font-weight: 700;
@@ -109,7 +117,7 @@
   }
 
   .nav__links--mobile .nav__link {
-    flex: 0 0 auto;
+    width: 100%;
     min-width: 0;
     justify-content: center;
     flex-direction: column;
@@ -130,48 +138,29 @@
   }
 
   .nav__links--mobile {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
     gap: 0.45rem;
     flex: 1 1 auto;
     min-width: 0;
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
+    overflow: visible;
     padding: 0.2rem 0.3rem;
     border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
-    scroll-snap-type: x proximity;
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--accent) 25%, transparent)
-      transparent;
-    overscroll-behavior: contain;
-    scroll-padding-inline: 0.4rem;
   }
 
-  .nav__links--mobile,
   .nav__content-body {
     -webkit-overflow-scrolling: touch;
   }
 
-  .nav__links--mobile::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .nav__links--mobile::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--accent) 35%, transparent);
-    border-radius: 999px;
-  }
-
-  .nav__links--mobile::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
   .nav__links--mobile .nav__link {
-    padding: 0.45rem 0.75rem;
+    padding: 0.5rem 0.75rem;
     font-size: 0.92rem;
     min-height: 40px;
-    scroll-snap-align: start;
   }
 
   @media (max-width: 720px) {
@@ -179,8 +168,12 @@
       padding: 0.1rem 0.3rem 0.3rem;
     }
 
+    .nav .nav__links--mobile {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     .nav .nav__links--mobile .nav__link {
-      padding: 0.4rem 0.65rem;
+      padding: 0.45rem 0.65rem;
       font-size: 0.88rem;
       min-height: 36px;
     }

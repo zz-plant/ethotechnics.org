@@ -12,8 +12,43 @@ const failureChoiceLabels: Record<string, string> = {
   "cant-stop": "We cannot quickly stop or roll back",
 };
 
+const failurePriorityBadges: Record<string, string> = {
+  "decision-appealed": "Priority: High · Owner within 24h",
+  "model-wrong": "Priority: Critical · Stop authority now",
+  "queue-stuck": "Priority: High · Escalate in 4h",
+  "user-harmed": "Priority: Critical · Human response now",
+  "no-owner": "Priority: High · Assign accountable owner",
+  "cant-explain": "Priority: Medium · Evidence review same day",
+  "cant-stop": "Priority: Critical · Activate hard halt",
+};
+
+const heroPathways = [
+  {
+    label: "Incident response",
+    detail: "You need to stop harm and route ownership.",
+    href: "/#failure-intake",
+    cta: "Start incident intake",
+  },
+  {
+    label: "Policy drafting",
+    detail: "You need enforceable language and reference standards.",
+    href: "/standards#active",
+    cta: "Read active standards",
+  },
+  {
+    label: "Audit preparation",
+    detail: "You need evidence-ready diagnostics and output baselines.",
+    href: "/diagnostics#diagnostic-tools",
+    cta: "Run diagnostics",
+  },
+];
+
 const failureChoiceIcons: Record<string, string[]> = {
-  "decision-appealed": ["M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3", "M8.5 10h7", "M8.5 13h4.5"],
+  "decision-appealed": [
+    "M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3",
+    "M8.5 10h7",
+    "M8.5 13h4.5",
+  ],
   "model-wrong": ["M10 4.5l6.8 11.8H3.2z", "M10 8.5v3.5", "M10 14.3h.01"],
   "queue-stuck": ["M10 5a5 5 0 1 1-5 5", "M10 7.5v3", "M10 10.5h2.2"],
   "user-harmed": ["M10 16.5s-5.5-3.1-5.5-7a3.2 3.2 0 0 1 5.5-2.3 3.2 3.2 0 0 1 5.5 2.3c0 3.9-5.5 7-5.5 7", "M7.9 9.4l4.2 4.2", "M12.1 9.4 7.9 13.6"],
@@ -59,85 +94,23 @@ const failureChoiceIcons: Record<string, string[]> = {
         <span>Ratification: institute-maintained stable references</span>
       </li>
     </ul>
-    <div class="actions" aria-label="Primary standards actions">
-      <a class="button primary" href="/standards/std-01-temporal-rights">Start with STD-01</a>
+    <div class="institute-hero__starter panel stack-sm" aria-label="Homepage starter">
+      <p class="eyebrow">Step 1 · Pick your immediate intent</p>
+      <div class="institute-hero__pathways">
+        {
+          heroPathways.map((pathway) => (
+            <a class="institute-hero__pathway" href={pathway.href}>
+              <strong>{pathway.label}</strong>
+              <span>{pathway.detail}</span>
+              <span class="institute-hero__pathway-cta">{pathway.cta}</span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="actions" aria-label="Primary standards actions">
+        <a class="button primary" href="/start-here">Step 2 · Start guided pathway</a>
+      </div>
     </div>
-    <div class="panel stack-sm" aria-label="Explore additional pathways">
-      <p class="eyebrow">Explore by intent</p>
-      <ul class="pill-list pill-list--wrap">
-        <li>
-          <a class="pill-list__button" href="/standards/std-06-human-impact-safety-case">
-            Validate with STD-06 safety case
-          </a>
-        </li>
-        <li>
-          <a class="pill-list__button" href="/diagnostics">
-            Choose a diagnostic tool
-          </a>
-        </li>
-        <li>
-          <a class="pill-list__button" href="/quick-start">
-            Open quick-start playbooks
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="institute-hero__role-start" aria-label="Role-based starting points">
-      <p class="small muted">Start here if you are:</p>
-      <ul class="pill-list pill-list--wrap">
-        <li>
-          <a class="pill-list__button" href="/start-here#routes">An operator handling a live decision</a>
-        </li>
-        <li>
-          <a class="pill-list__button" href="/standards#active">A policy lead drafting governance language</a>
-        </li>
-        <li>
-          <a class="pill-list__button" href="/diagnostics#diagnostic-tools">An auditor preparing evidence review</a>
-        </li>
-      </ul>
-    </div>
-    <ul class="mobile-shortcuts" aria-label="Primary start options">
-      <li>
-        <a class="mobile-shortcuts__item" href="/#failure-intake">
-          <span class="mobile-shortcuts__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
-              <path d="M12 3a9 9 0 1 0 9 9" fill="none" />
-              <path d="M12 7v6" />
-              <circle cx="12" cy="16.5" r=".75" />
-            </svg>
-          </span>
-          <span class="mobile-shortcuts__label">An incident is happening now</span>
-          <strong class="mobile-shortcuts__title">Start failure intake</strong>
-        </a>
-      </li>
-      <li>
-        <a class="mobile-shortcuts__item" href="/quick-start">
-          <span class="mobile-shortcuts__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
-              <path d="M4 12h9" />
-              <path d="M10 7l5 5-5 5" />
-              <path d="M15 12h5" />
-            </svg>
-          </span>
-          <span class="mobile-shortcuts__label">You are planning a launch</span>
-          <strong class="mobile-shortcuts__title">Open quick-start playbooks</strong>
-        </a>
-      </li>
-      <li>
-        <a class="mobile-shortcuts__item" href="/standards">
-          <span class="mobile-shortcuts__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
-              <path d="M6 4.5h8l4 4V19.5H6z" fill="none" />
-              <path d="M14 4.5v4h4" />
-              <path d="M9 13h6" />
-              <path d="M9 16h6" />
-            </svg>
-          </span>
-          <span class="mobile-shortcuts__label">You need policy wording</span>
-          <strong class="mobile-shortcuts__title">Open standards library</strong>
-        </a>
-      </li>
-    </ul>
   </section>
 
   <section id="failure-intake" class="stack-lg">
@@ -151,14 +124,19 @@ const failureChoiceIcons: Record<string, string[]> = {
           return (
             <a class="button failure-grid__button" href={`/failure/${state.slug}`}>
               <span class="failure-grid__label">
-                <span class="failure-grid__state-icon" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" role="presentation" focusable="false">
-                    {iconPaths.map((pathValue) => (
-                      <path d={pathValue} />
-                    ))}
-                  </svg>
+                <span class="failure-grid__title">
+                  <span class="failure-grid__state-icon" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" role="presentation" focusable="false">
+                      {iconPaths.map((pathValue) => (
+                        <path d={pathValue} />
+                      ))}
+                    </svg>
+                  </span>
+                  <span>{failureChoiceLabels[state.slug] ?? state.shortLabel}</span>
                 </span>
-                <span>{failureChoiceLabels[state.slug] ?? state.shortLabel}</span>
+                <span class="failure-grid__priority small muted">
+                  {failurePriorityBadges[state.slug] ?? "Priority: Review now"}
+                </span>
               </span>
               <svg
                 class="failure-grid__icon"

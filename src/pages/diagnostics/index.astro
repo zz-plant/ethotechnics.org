@@ -45,19 +45,19 @@ const quickTriagePrompts = [
       "Do you need a fast workload snapshot before teams hit burnout thresholds?",
     description: "Quantify task load and hotspot relief paths.",
     href: "/diagnostics/burden-modeler",
-    label: "Open Burden Modeler",
+    label: "Run Burden Modeler",
   },
   {
     question: "Are you rehearsing outage coverage or escalation ownership?",
     description: "Simulate maintenance branches and comms coverage.",
     href: "/diagnostics/maintenance-simulator",
-    label: "Open Maintenance Simulator",
+    label: "Run Maintenance Simulator",
   },
   {
     question: "Are you modeling capacity decay or saturation risk over time?",
     description: "Forecast long-term stability and remediation timing.",
     href: "/diagnostics/capacity-forecaster",
-    label: "Open Capacity Forecaster",
+    label: "Run Capacity Forecaster",
   },
 ];
 const selfDefenseTools = [
@@ -66,13 +66,13 @@ const selfDefenseTools = [
     description:
       "Seven yes/no checks to confirm whether the decision can be contested.",
     href: "/diagnostics/self-defense-tools#governable",
-    label: "Run governability check",
+    label: "Run governability diagnostic",
   },
   {
     title: "Is this appeal real?",
     description: "Detect whether an appeal is substantive or performative.",
     href: "/diagnostics/self-defense-tools#appeal-real",
-    label: "Run appeal check",
+    label: "Run appeal diagnostic",
   },
   {
     title: "Who holds power?",
@@ -102,7 +102,8 @@ const mostUsedTools = mostUsedToolSlugs
     description={introDescription}
     permalink={permalink}
     anchorLinks={anchorLinks}
-    collapseAnchorLinks={true}
+    collapseAnchorLinks={false}
+    collapseAnchorLinksOnMobile={true}
     anchorLinksSummary="More anchors"
   />
   <SummaryCallout
@@ -125,12 +126,12 @@ const mostUsedTools = mostUsedToolSlugs
     <a
       class="button primary"
       href="#quick-triage"
-      data-route-action="diagnostics-choose">Open diagnostic triage</a
+      data-route-action="diagnostics-choose" data-sticky-link="#quick-triage">Run diagnostic triage</a
     >
     <a
       class="button ghost"
       href="#compare-tools"
-      data-route-action="diagnostics-compare">Compare options</a
+      data-route-action="diagnostics-compare" data-sticky-link="#compare-tools">Compare diagnostics</a
     >
   </nav>
   <SectionActions>
@@ -592,6 +593,52 @@ const mostUsedTools = mostUsedToolSlugs
       STD-02.2.1, STD-02.3.1.
     </p>
   </SectionBlock>
+
+  <script is:inline>
+    const stickyNav = document.querySelector(".diagnostics__sticky-jump");
+
+    if (stickyNav) {
+      const stickyLinks = Array.from(stickyNav.querySelectorAll("[data-sticky-link]"));
+      const stickyTargets = stickyLinks
+        .map((link) => document.querySelector(link.getAttribute("data-sticky-link") ?? ""))
+        .filter(Boolean);
+
+      const setActiveLink = (targetId) => {
+        stickyLinks.forEach((link) => {
+          const href = link.getAttribute("data-sticky-link");
+          const isActive = href === targetId;
+          link.classList.toggle("is-active", isActive);
+
+          if (isActive) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      };
+
+      if (stickyTargets.length > 0 && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visibleEntries = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+            if (visibleEntries[0]?.target?.id) {
+              setActiveLink(`#${visibleEntries[0].target.id}`);
+            }
+          },
+          {
+            rootMargin: "-30% 0px -55% 0px",
+            threshold: [0.1, 0.35, 0.6],
+          },
+        );
+
+        stickyTargets.forEach((target) => observer.observe(target));
+      }
+    }
+  </script>
+
   <script type="module" src={diagnosticsFilterScript} is:inline></script>
   <script type="module" src={routeMetricsScript}></script>
 </BaseLayout>
