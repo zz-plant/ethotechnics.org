@@ -7,6 +7,9 @@ const initSiteSearch = () => {
   const rankingNote = root?.querySelector<HTMLElement>(
     "[data-site-search-ranking-note]",
   );
+  const contextText = root?.querySelector<HTMLElement>(
+    "[data-site-search-context]",
+  );
   const emptyState = root?.querySelector<HTMLElement>(
     "[data-site-search-empty]",
   );
@@ -31,7 +34,9 @@ const initSiteSearch = () => {
     return;
   }
 
-  const reorderResults = (orderedItems: Array<(typeof indexedItems)[number]>) => {
+  const reorderResults = (
+    orderedItems: Array<(typeof indexedItems)[number]>,
+  ) => {
     if (!resultsContainer) {
       return;
     }
@@ -153,6 +158,18 @@ const initSiteSearch = () => {
     }
 
     updateActiveFiltersText();
+
+    if (contextText) {
+      const activeQuery = query.length > 0 ? query : "none";
+      const filterSummary =
+        selectedFilters.size > 0
+          ? Array.from(selectedFilters)
+              .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }))
+              .join(", ")
+          : "all collections";
+      contextText.textContent = `Active query: ${activeQuery}. Filters: ${filterSummary}.`;
+    }
+
     updateUrl(query);
   };
 

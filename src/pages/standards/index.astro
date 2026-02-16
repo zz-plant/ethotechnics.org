@@ -111,6 +111,13 @@ const implementationExampleCards = [
     ctaLabel: "View example",
   })),
 ];
+const mostCitedStandardIds = ["STD-01", "STD-02", "MVC-01"];
+const mostCitedStandards = mostCitedStandardIds
+  .map((id) => standards.find((standard) => standard.id === id))
+  .filter((standard): standard is (typeof standards)[number] => Boolean(standard));
+const recentlyUpdatedStandards = [...standards]
+  .sort((a, b) => Date.parse(b.published) - Date.parse(a.published))
+  .slice(0, 3);
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -188,6 +195,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       { href: "/standards/enforceable-governance-crosswalks", label: "Crosswalks" },
     ]}
     jumpLinks={[
+      { href: "#quick-lanes", label: "Most cited and newly updated" },
       { href: "#active", label: "Active standards" },
       { href: "#comparison", label: "Standards comparison" },
       { href: "#implementation-examples", label: "Implementation examples" },
@@ -197,6 +205,51 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     Recommended reading path: Start with STD-01, then STD-02, then scan Core
     axioms before reviewing the critique and implementation comparisons.
   </p>
+
+  <SectionBlock
+    id="quick-lanes"
+    eyebrow="Quick lanes"
+    title="Most cited and recently updated standards"
+    description="Use these lanes to prioritize high-reference standards first, then catch the newest updates."
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Most cited</p>
+        <ul class="muted">
+          {
+            mostCitedStandards.map((standard) => (
+              <li>
+                <a href={`/standards/${standard.slug}`}>
+                  {standard.id}: {standard.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Recently updated</p>
+        <ul class="muted">
+          {
+            recentlyUpdatedStandards.map((standard) => (
+              <li>
+                <a href={`/standards/${standard.slug}`}>
+                  {standard.id} v{standard.version} · {standard.effectiveDate}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+    <ul class="pill-list pill-list--wrap">
+      <li><a class="pill-list__button" href="#goal-chooser">Choose by objective</a></li>
+      <li><a class="pill-list__button" href="#active">All active standards</a></li>
+      <li><a class="pill-list__button" href="#comparison">Standards comparison</a></li>
+      <li><a class="pill-list__button" href="#implementation-examples">Implementation examples</a></li>
+    </ul>
+  </SectionBlock>
 
   <SectionBlock
     id="goal-chooser"

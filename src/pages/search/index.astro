@@ -98,6 +98,14 @@ const quickSearchSuggestions = [
   "Evidence pack readiness",
   "Field notes",
 ];
+const starterQueries = [
+  "appeals",
+  "rollback",
+  "incident memo",
+  "time-to-halt",
+  "anti-weaponization",
+  "ownership",
+];
 const buildSearchText = (entry: SearchEntry) =>
   [entry.title, entry.description, entry.category, entry.tags?.join(" ")]
     .filter(Boolean)
@@ -173,6 +181,20 @@ const buildSearchText = (entry: SearchEntry) =>
           <datalist id="site-search-suggestions">
             {suggestions.map((suggestion) => <option value={suggestion} />)}
           </datalist>
+          <div class="site-search__starters">
+            <p class="muted small">Starter queries</p>
+            <ul class="pill-list pill-list--wrap">
+              {
+                starterQueries.map((query) => (
+                  <li>
+                    <a class="pill-list__button" href={`/search?q=${encodeURIComponent(query)}`}>
+                      {query}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
           <div class="site-search__filters">
             <p class="muted small">Filter by collection</p>
             <ul class="pill-list pill-list--wrap">
@@ -215,6 +237,9 @@ const buildSearchText = (entry: SearchEntry) =>
           </p>
           <p class="muted small" data-site-search-ranking-note hidden>
             Showing ranked matches based on title, collection, and tag overlap.
+          </p>
+          <p class="muted small" data-site-search-context>
+            Active query: none. Filters: all collections.
           </p>
         </div>
         <div class="site-search__results">

@@ -2383,6 +2383,15 @@
     gap: 0.6rem;
   }
 
+  .site-search__starters {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .site-search__starters .muted {
+    margin: 0;
+  }
+
   .site-search__filters .pill-list--wrap {
     margin-top: 0.4rem;
   }
@@ -2438,6 +2447,19 @@
   .site-search__results {
     display: grid;
     gap: 1.2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .site-search {
+      grid-template-columns: minmax(260px, 520px) minmax(0, 1fr);
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .site-search__controls {
+      position: sticky;
+      top: 1rem;
+    }
   }
 
   .site-search__item {
@@ -6193,6 +6215,16 @@
     flex-wrap: wrap;
     gap: 0.9rem;
     align-items: center;
+  }
+
+  .institute-hero__role-start {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 62rem;
+  }
+
+  .institute-hero__role-start .muted {
+    margin: 0;
   }
 
   .mobile-shortcuts {
