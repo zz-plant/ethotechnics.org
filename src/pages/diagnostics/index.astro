@@ -10,7 +10,6 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
-import { libraryContent } from "../../content/library";
 import diagnosticsFilterScript from "../../scripts/diagnostics-filter.ts?url";
 import routeMetricsScript from "../../scripts/route-metrics.ts?url";
 
@@ -23,10 +22,8 @@ const {
   facilitation,
   publication,
 } = diagnosticsContent;
-const mechanismBase = `${libraryContent.permalink}#mechanisms`;
 const anchorLinks = [
   { href: "#most-used", label: "Start with most-used tools" },
-  { href: "#compare-tools", label: "Compare options fast" },
   { href: "#why-diagnostics", label: "See what you get" },
   { href: "#output-baseline", label: "Review output baseline" },
   { href: "#anti-weaponization", label: "Verify anti-weaponization checks" },
@@ -161,43 +158,6 @@ const mostUsedTools = mostUsedToolSlugs
         ))
       }
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="compare-tools"
-    eyebrow="Compare tools"
-    title="Start with the quickest diagnostic that matches your decision."
-    description="Use the summary below to pick your best fit before scanning the full menu."
-    variant="alt"
-  >
-    <ul class="diagnostics__compare">
-      <li>
-        <p class="muted diagnostics__label">Delivery & timing</p>
-        <p class="muted">
-          Each tool notes whether it is self-serve or studio-facilitated, plus
-          the expected time.
-        </p>
-      </li>
-      <li>
-        <p class="muted diagnostics__label">Best for</p>
-        <p class="muted">
-          One sentence captures the scenario the tool is optimized for.
-        </p>
-      </li>
-      <li>
-        <p class="muted diagnostics__label">Outputs & prep</p>
-        <p class="muted">
-          Scan the readout list and prep checklist to confirm the lift.
-        </p>
-      </li>
-      <li>
-        <p class="muted diagnostics__label">Mechanism language</p>
-        <p class="muted">
-          Use the <a href={mechanismBase}>mechanisms catalog</a> to align mitigations
-          after you compare.
-        </p>
-      </li>
-    </ul>
   </SectionBlock>
 
   <SectionBlock

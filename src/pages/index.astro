@@ -22,27 +22,6 @@ const failurePriorityBadges: Record<string, string> = {
   "cant-stop": "Priority: Critical · Activate hard halt",
 };
 
-const heroPathways = [
-  {
-    label: "Incident response",
-    detail: "You need to stop harm and route ownership.",
-    href: "/#failure-intake",
-    cta: "Start incident intake",
-  },
-  {
-    label: "Policy drafting",
-    detail: "You need enforceable language and reference standards.",
-    href: "/standards#active",
-    cta: "Read active standards",
-  },
-  {
-    label: "Audit preparation",
-    detail: "You need evidence-ready diagnostics and output baselines.",
-    href: "/diagnostics#diagnostic-tools",
-    cta: "Run diagnostics",
-  },
-];
-
 const heroDecisionChips = [
   {
     label: "Something failed now",
@@ -128,21 +107,6 @@ const failureChoiceIcons: Record<string, string[]> = {
           Start incident intake
         </a>
       </div>
-      <details class="institute-hero__other-starts">
-        <summary>Other ways to start</summary>
-        <ul>
-          {
-            heroPathways.map((pathway) => (
-              <li>
-                <a href={pathway.href}>{pathway.label}</a>: {pathway.cta}
-              </li>
-            ))
-          }
-          <li>
-            <a href="/start-here">Use the guided onboarding pathway</a>
-          </li>
-        </ul>
-      </details>
     </div>
   </section>
 
