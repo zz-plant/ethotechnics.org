@@ -97,7 +97,8 @@ const isCurrentLink = (href: string) => {
     color: var(--text);
     font-weight: 700;
     text-decoration: none;
-    white-space: nowrap;
+    white-space: normal;
+    text-wrap: balance;
     box-shadow: none;
     touch-action: manipulation;
     transition:
@@ -165,11 +166,20 @@ const isCurrentLink = (href: string) => {
     }
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 991px) {
     .nav__utility-link {
       padding: 0.45rem 0.7rem;
-      min-height: 36px;
+      min-height: 44px;
       font-size: 0.9rem;
+    }
+
+     :global(.nav__utility--mobile) .nav__utility-link:not(.nav__utility-link--primary) {
+      display: none;
+    }
+
+    :global(.nav__utility--mobile) .nav__utility-link--primary {
+      width: 100%;
+      justify-content: center;
     }
 
     .nav__icon {

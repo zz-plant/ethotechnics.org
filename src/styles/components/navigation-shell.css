@@ -196,6 +196,17 @@
     letter-spacing: -0.01em;
   }
 
+  @media (max-width: 991px) {
+    .nav__mobile-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      align-items: stretch;
+    }
+
+    .nav__utility--mobile {
+      width: 100%;
+    }
+  }
   @media (max-width: 720px) {
     .nav__inner {
       padding: 0.45rem 0.35rem 0.35rem;
