@@ -37,6 +37,21 @@ const heroDecisionChips = [
   },
 ];
 
+const homepageSignals = [
+  {
+    value: "STD-01 → STD-07",
+    label: "Core standards published",
+  },
+  {
+    value: "3 launch lanes",
+    label: "Policy, operations, and engineering pathways",
+  },
+  {
+    value: "1 intake flow",
+    label: "Failure-first routing for urgent incidents",
+  },
+];
+
 const failureChoiceIcons: Record<string, string[]> = {
   "decision-appealed": [
     "M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3",
@@ -57,60 +72,96 @@ const failureChoiceIcons: Record<string, string[]> = {
   description="Open standards for high-stakes systems that must remain reversible under failure."
 >
   <section class="institute-hero stack-lg">
-    <p class="institute-hero__eyebrow">Ethotechnics Institute · Governance Standards Body</p>
-    <h1>Operational Standards for Stoppable, Reversible AI Systems</h1>
-    <p class="section-lead">
-      Formal governance standards, artifacts, and diagnostics for high-risk automated decision
-      systems.
-    </p>
-    <ul class="institute-hero__status" aria-label="Standards publication status">
-      <li>
-        <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
-          <path d="M3.5 5.5h13v9h-13z" fill="none" />
-          <path d="M6 8h8" />
-          <path d="M6 11h6" />
-        </svg>
-        <span>Document IDs: STD-01 to STD-07</span>
-      </li>
-      <li>
-        <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
-          <circle cx="10" cy="10" r="6.5" fill="none" />
-          <path d="M10 6.8v3.5" />
-          <path d="M10 12.8h.01" />
-        </svg>
-        <span>Publication status: active</span>
-      </li>
-      <li>
-        <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
-          <path d="M10 3.7l5.6 2.1v3.7c0 3.6-2.4 5.9-5.6 6.9-3.2-1-5.6-3.3-5.6-6.9V5.8z" fill="none" />
-          <path d="M8.2 9.9l1.4 1.4 2.5-2.5" />
-        </svg>
-        <span>Ratification: institute-maintained stable references</span>
-      </li>
-    </ul>
-    <div class="institute-hero__starter panel stack-sm" aria-label="Homepage starter">
-      <p class="eyebrow">Step 1 · Pick your immediate intent</p>
-      <p class="institute-hero__decision-helper muted small">
-        Choose what you need right now and jump directly into the right workflow.
-      </p>
-      <ul class="institute-hero__decision-chips" aria-label="Choose your context">
-        {
-          heroDecisionChips.map((chip) => (
-            <li>
-              <a class="institute-hero__decision-chip" href={chip.href}>{chip.label}</a>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="actions" aria-label="Primary standards actions">
-        <a class="button primary institute-hero__primary-cta" href="#failure-intake">
-          Start incident intake
-        </a>
+    <div class="institute-hero__layout">
+      <div class="institute-hero__main stack-lg">
+        <p class="institute-hero__eyebrow">Ethotechnics Institute · Governance Standards Body</p>
+        <h1>Operational Standards for Stoppable, Reversible AI Systems</h1>
+        <p class="section-lead">
+          Formal governance standards, artifacts, and diagnostics for high-risk automated decision
+          systems.
+        </p>
+        <ul class="institute-hero__status" aria-label="Standards publication status">
+          <li>
+            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+              <path d="M3.5 5.5h13v9h-13z" fill="none" />
+              <path d="M6 8h8" />
+              <path d="M6 11h6" />
+            </svg>
+            <span>Document IDs: STD-01 to STD-07</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+              <circle cx="10" cy="10" r="6.5" fill="none" />
+              <path d="M10 6.8v3.5" />
+              <path d="M10 12.8h.01" />
+            </svg>
+            <span>Publication status: active</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+              <path d="M10 3.7l5.6 2.1v3.7c0 3.6-2.4 5.9-5.6 6.9-3.2-1-5.6-3.3-5.6-6.9V5.8z" fill="none" />
+              <path d="M8.2 9.9l1.4 1.4 2.5-2.5" />
+            </svg>
+            <span>Ratification: institute-maintained stable references</span>
+          </li>
+        </ul>
       </div>
+
+      <aside class="institute-hero__starter panel stack-sm" aria-label="Homepage starter">
+        <p class="eyebrow">Step 1 · Pick your immediate intent</p>
+        <p class="institute-hero__decision-helper muted small">
+          Pick one path to jump directly into the right workflow.
+        </p>
+        <ul class="institute-hero__decision-chips" aria-label="Choose your context">
+          {
+            heroDecisionChips.map((chip) => (
+              <li>
+                <a class="institute-hero__decision-chip" href={chip.href}>{chip.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="actions" aria-label="Primary standards actions">
+          <a class="button primary institute-hero__primary-cta" href="#failure-intake">
+            Start incident intake
+          </a>
+        </div>
+      </aside>
     </div>
+
+    <ul class="institute-hero__signal-strip" aria-label="Institute at a glance">
+      {
+        homepageSignals.map((signal) => (
+          <li>
+            <strong>{signal.value}</strong>
+            <span>{signal.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="institute-flow stack-sm" aria-labelledby="home-flow-heading">
+    <p class="eyebrow">Step 1 · Team flow</p>
+    <h2 id="home-flow-heading">Move from incident triage to evidence in three steps</h2>
+    <ol class="institute-flow__steps">
+      <li>
+        <strong>Route urgency first</strong>
+        <span>Assign owners, escalation clocks, and immediate actions.</span>
+      </li>
+      <li>
+        <strong>Attach standards to response</strong>
+        <span>Map obligations to the right clauses and examples.</span>
+      </li>
+      <li>
+        <strong>Export citation-ready evidence</strong>
+        <span>Package diagnostics and artifacts for audits and regulator review.</span>
+      </li>
+    </ol>
   </section>
 
   <section id="failure-intake" class="stack-lg">
+    <p class="eyebrow">Step 2 · Incident triage</p>
     <h2>What is failing right now?</h2>
     <p class="section-lead">Pick the closest symptom. This is for routing to help, not for blame.</p>
     <div class="failure-grid" aria-label="Failure routing options">
@@ -156,6 +207,7 @@ const failureChoiceIcons: Record<string, string[]> = {
   </section>
 
   <section class="stack-lg">
+    <p class="eyebrow">Step 3 · Compliance and evidence</p>
     <h2>Regulatory crosswalks and citation readiness</h2>
     <p class="section-lead">
       Every standard is structured for policy citation, internal audit review, and regulator-facing
