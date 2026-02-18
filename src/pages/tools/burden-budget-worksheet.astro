@@ -104,7 +104,9 @@ const changelog = [
       <div class="panel">
         <p class="eyebrow">Purpose</p>
         <ul class="muted">
-          <li>Record burden in time, money, delay, risk, humiliation, and load.</li>
+          <li>
+            Record burden in time, money, delay, risk, humiliation, and load.
+          </li>
           <li>Set maximum acceptable burden before enforcement activates.</li>
           <li>Define repair pathways with owners and review cadence.</li>
         </ul>
@@ -132,15 +134,17 @@ const changelog = [
     variant="alt"
   >
     <div class="grid grid--two">
-      {downloads.map((download) => (
-        <article class="panel">
-          <h3>{download.label}</h3>
-          <p class="muted">{download.detail}</p>
-          <a class="button ghost" href={download.href}>
-            Download
-          </a>
-        </article>
-      ))}
+      {
+        downloads.map((download) => (
+          <article class="panel">
+            <h3>{download.label}</h3>
+            <p class="muted">{download.detail}</p>
+            <a class="button ghost" href={download.href}>
+              Download
+            </a>
+          </article>
+        ))
+      }
     </div>
   </SectionBlock>
 
@@ -171,10 +175,7 @@ const changelog = [
         </label>
         <label class="intake-form__field intake-form__field--full">
           Assumptions (global)
-          <textarea
-            name="assumptions"
-            rows="3"
-            data-field="assumptions"
+          <textarea name="assumptions" rows="3" data-field="assumptions"
           ></textarea>
         </label>
       </fieldset>
@@ -242,10 +243,7 @@ const changelog = [
       <fieldset class="intake-form__grid">
         <label class="intake-form__field">
           Repair entry points
-          <textarea
-            name="repair_entry"
-            rows="3"
-            data-field="repair_entry"
+          <textarea name="repair_entry" rows="3" data-field="repair_entry"
           ></textarea>
         </label>
         <label class="intake-form__field">
@@ -253,8 +251,7 @@ const changelog = [
           <textarea
             name="repair_documents"
             rows="3"
-            data-field="repair_documents"
-          ></textarea>
+            data-field="repair_documents"></textarea>
         </label>
         <label class="intake-form__field">
           Promised turnaround
@@ -262,10 +259,7 @@ const changelog = [
         </label>
         <label class="intake-form__field">
           Interim protections
-          <textarea
-            name="repair_interim"
-            rows="3"
-            data-field="repair_interim"
+          <textarea name="repair_interim" rows="3" data-field="repair_interim"
           ></textarea>
         </label>
       </fieldset>
@@ -277,7 +271,11 @@ const changelog = [
         </label>
         <label class="intake-form__field">
           Review cadence
-          <input type="text" name="review_cadence" data-field="review_cadence" />
+          <input
+            type="text"
+            name="review_cadence"
+            data-field="review_cadence"
+          />
         </label>
         <label class="intake-form__field">
           Revision number
@@ -299,11 +297,7 @@ const changelog = [
         </label>
         <label class="intake-form__field intake-form__field--full">
           Changelog entry
-          <textarea
-            name="changelog"
-            rows="2"
-            data-field="changelog"
-          ></textarea>
+          <textarea name="changelog" rows="2" data-field="changelog"></textarea>
         </label>
       </fieldset>
 
@@ -344,8 +338,7 @@ const changelog = [
           <textarea
             rows="6"
             data-compare-input
-            placeholder='{"artifact_id":"...","system_name":"..."}'
-          ></textarea>
+            placeholder='{"artifact_id":"...","system_name":"..."}'></textarea>
         </label>
       </div>
       <div class="intake-form__actions">
@@ -369,9 +362,7 @@ const changelog = [
     <div class="panel">
       <p class="eyebrow">Summary</p>
       <ul class="muted">
-        {exampleSummary.map((line) => (
-          <li>{line}</li>
-        ))}
+        {exampleSummary.map((line) => <li>{line}</li>)}
       </ul>
       <p class="muted">
         Example library (hypothetical): benefits denial, identity verification
@@ -388,12 +379,14 @@ const changelog = [
     variant="alt"
   >
     <dl class="standard-definitions">
-      {faqItems.map((item) => (
-        <div>
-          <dt>{item.question}</dt>
-          <dd>{item.answer}</dd>
-        </div>
-      ))}
+      {
+        faqItems.map((item) => (
+          <div>
+            <dt>{item.question}</dt>
+            <dd>{item.answer}</dd>
+          </div>
+        ))
+      }
     </dl>
   </SectionBlock>
 
@@ -405,11 +398,13 @@ const changelog = [
   >
     <div class="panel">
       <ul class="muted">
-        {changelog.map((entry) => (
-          <li>
-            <strong>{entry.version}</strong> — {entry.date}: {entry.summary}
-          </li>
-        ))}
+        {
+          changelog.map((entry) => (
+            <li>
+              <strong>{entry.version}</strong> — {entry.date}: {entry.summary}
+            </li>
+          ))
+        }
       </ul>
     </div>
   </SectionBlock>
@@ -774,7 +769,10 @@ const changelog = [
     },
   ];
 
-  const addRow = (list: Element | null, template: HTMLTemplateElement | null) => {
+  const addRow = (
+    list: Element | null,
+    template: HTMLTemplateElement | null,
+  ) => {
     if (!list || !template) return;
     const clone = template.content.cloneNode(true) as DocumentFragment;
     list.appendChild(clone);
@@ -783,9 +781,8 @@ const changelog = [
   const setupRepeater = () => {
     rowConfigs.forEach(({ listSelector, templateSelector, addSelector }) => {
       const list = document.querySelector(listSelector);
-      const template = document.querySelector<HTMLTemplateElement>(
-        templateSelector,
-      );
+      const template =
+        document.querySelector<HTMLTemplateElement>(templateSelector);
       const addButton = document.querySelector<HTMLButtonElement>(addSelector);
       addButton?.addEventListener("click", () => addRow(list, template));
       addRow(list, template);
@@ -794,7 +791,9 @@ const changelog = [
         if (!(target instanceof HTMLElement)) return;
         const removeButton = target.closest("[data-remove-row]");
         if (!removeButton) return;
-        const row = target.closest("[data-role-row], [data-burden-row], [data-total-row], [data-absorber-row], [data-ceiling-row], [data-trigger-row]");
+        const row = target.closest(
+          "[data-role-row], [data-burden-row], [data-total-row], [data-absorber-row], [data-ceiling-row], [data-trigger-row]",
+        );
         row?.remove();
       });
     });
@@ -833,7 +832,8 @@ const changelog = [
     if (!form) return null;
     const worksheetId =
       form.dataset.worksheetId ??
-      (globalThis.crypto?.randomUUID?.() ?? `worksheet-${Date.now()}`);
+      globalThis.crypto?.randomUUID?.() ??
+      `worksheet-${Date.now()}`;
     form.dataset.worksheetId = worksheetId;
 
     const systemName = fieldValue(form, "system_name");
@@ -980,13 +980,18 @@ const changelog = [
 
   const toMarkdown = (worksheet: Worksheet) => {
     return `---\nartifact_id: "${worksheet.artifact_id}"\nartifact_version: "${worksheet.artifact_version}"\nworksheet_id: "${worksheet.worksheet_id}"\ntimestamp: "${worksheet.timestamp}"\nsystem_name: "${worksheet.system_name}"\n---\n\n# Burden budget worksheet\n\n## 1) System action\n${worksheet.system_action || ""}\n\n## 2) Worst-case error\n${worksheet.worst_case_error || ""}\n\n## 3) Who experiences harm\n${worksheet.harm_roles
-      .map((role) => `- ${role.role}${role.description ? ` — ${role.description}` : ""}`)
+      .map(
+        (role) =>
+          `- ${role.role}${role.description ? ` — ${role.description}` : ""}`,
+      )
       .join("\n")}\n\n## 4) Forms of burden\n${worksheet.burden_estimates
       .map(
         (item) =>
           `- ${item.role} | ${item.type} | ${item.estimate.min ?? ""} / ${item.estimate.likely ?? ""} / ${item.estimate.max ?? ""} ${item.estimate.unit || ""} | ${item.assumptions || ""}`,
       )
-      .join("\n")}\n\n## 5) Estimated burden totals (optional)\n${worksheet.burden_totals
+      .join(
+        "\n",
+      )}\n\n## 5) Estimated burden totals (optional)\n${worksheet.burden_totals
       .map(
         (total) =>
           `- ${total.role} | ${total.time_hours ?? ""} hrs | ${total.money_usd ?? ""} USD | ${total.delay_days ?? ""} days | cognitive ${total.cognitive_load ?? ""} | humiliation ${total.humiliation ?? ""} | risk ${total.risk_exposure ?? ""} (${total.risk_rationale || ""})`,
@@ -996,17 +1001,23 @@ const changelog = [
         (item) =>
           `- ${item.role} | ${item.type} | ${item.absorber} | ${item.notes || ""}`,
       )
-      .join("\n")}\n\n## 7) Maximum acceptable burden\n${worksheet.burden_ceiling
+      .join(
+        "\n",
+      )}\n\n## 7) Maximum acceptable burden\n${worksheet.burden_ceiling
       .map(
         (item) =>
           `- ${item.role} | ${item.type} | ${item.threshold} ${item.unit || ""} | ${item.condition || ""}`,
       )
-      .join("\n")}\n\n## 8) Enforcement trigger\n${worksheet.enforcement_triggers
+      .join(
+        "\n",
+      )}\n\n## 8) Enforcement trigger\n${worksheet.enforcement_triggers
       .map(
         (item) =>
           `- ${item.role} | ${item.threshold} | ${item.action} | ${item.owner} | ${item.timeframe}`,
       )
-      .join("\n")}\n\n## 9) Repair pathway\n- Entry points: ${worksheet.repair_pathway.entry_points || ""}\n- Required documents: ${worksheet.repair_pathway.required_documents || ""}\n- Promised turnaround: ${worksheet.repair_pathway.promised_turnaround || ""}\n- Interim protections: ${worksheet.repair_pathway.interim_protections || ""}\n\n## 10) Owner + review cadence\n- Owner: ${worksheet.owner || ""}\n- Review cadence: ${worksheet.review_cadence || ""}\n\n## Assumptions\n${worksheet.assumptions || ""}\n\n## Revision history\n${worksheet.revision_history
+      .join(
+        "\n",
+      )}\n\n## 9) Repair pathway\n- Entry points: ${worksheet.repair_pathway.entry_points || ""}\n- Required documents: ${worksheet.repair_pathway.required_documents || ""}\n- Promised turnaround: ${worksheet.repair_pathway.promised_turnaround || ""}\n- Interim protections: ${worksheet.repair_pathway.interim_protections || ""}\n\n## 10) Owner + review cadence\n- Owner: ${worksheet.owner || ""}\n- Review cadence: ${worksheet.review_cadence || ""}\n\n## Assumptions\n${worksheet.assumptions || ""}\n\n## Revision history\n${worksheet.revision_history
       .map(
         (item) =>
           `- ${item.version || ""} (${item.revision || ""}) ${item.date || ""}: ${item.summary || ""}`,
@@ -1146,7 +1157,8 @@ const changelog = [
       "",
       "Harmed roles:",
       ...worksheet.harm_roles.map(
-        (role) => `- ${role.role}${role.description ? ` — ${role.description}` : ""}`,
+        (role) =>
+          `- ${role.role}${role.description ? ` — ${role.description}` : ""}`,
       ),
       "",
       "Burden estimates:",
@@ -1157,7 +1169,8 @@ const changelog = [
       "",
       "Burden ceiling:",
       ...worksheet.burden_ceiling.map(
-        (item) => `- ${item.role} | ${item.type} | ${item.threshold} ${item.unit || ""}`,
+        (item) =>
+          `- ${item.role} | ${item.type} | ${item.threshold} ${item.unit || ""}`,
       ),
       "",
       "Enforcement trigger:",
@@ -1175,27 +1188,27 @@ const changelog = [
       `Review cadence: ${worksheet.review_cadence}`,
     ];
 
-    const html = `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<title>Burden budget worksheet</title>
-<style>
-  body { font-family: Arial, sans-serif; margin: 32px; font-size: 12px; }
-  h1 { font-size: 18px; margin-bottom: 12px; }
-  pre { white-space: pre-wrap; }
-</style>
-</head>
-<body>
-<h1>Burden budget worksheet</h1>
-<pre>${lines.join("\n")}</pre>
-</body>
-</html>`;
-
     const printWindow = window.open("", "_blank");
     if (!printWindow) return;
-    printWindow.document.write(html);
-    printWindow.document.close();
+    const printDocument = printWindow.document;
+    printDocument.title = "Burden budget worksheet";
+
+    const style = printDocument.createElement("style");
+    style.textContent = `
+      body { font-family: Arial, sans-serif; margin: 32px; font-size: 12px; }
+      h1 { font-size: 18px; margin-bottom: 12px; }
+      pre { white-space: pre-wrap; }
+    `;
+    printDocument.head.appendChild(style);
+
+    const heading = printDocument.createElement("h1");
+    heading.textContent = "Burden budget worksheet";
+
+    const content = printDocument.createElement("pre");
+    content.textContent = lines.join("\n");
+
+    printDocument.body.appendChild(heading);
+    printDocument.body.appendChild(content);
     printWindow.focus();
     printWindow.print();
   };
@@ -1299,7 +1312,8 @@ const changelog = [
 
   setupRepeater();
 
-  document.querySelectorAll<HTMLButtonElement>("[data-export]")
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-export]")
     .forEach((button) => {
       button.addEventListener("click", () => {
         const format = button.dataset.export || "";

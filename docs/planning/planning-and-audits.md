@@ -31,6 +31,7 @@ It consolidates references that were previously spread across multiple index sec
 - Tech stack evolution:
   - [`tech-stack-capabilities-scan-2026.md`](tech-stack-capabilities-scan-2026.md)
   - [`tech-stack-upgrade-actions-2026.md`](tech-stack-upgrade-actions-2026.md)
+  - [`tech-debt-inventory-2026-02.md`](tech-debt-inventory-2026-02.md)
 - Interop and toolkit planning:
   - [`interop-release-plan.md`](interop-release-plan.md)
   - [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md)
