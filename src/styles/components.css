@@ -6471,6 +6471,10 @@
     gap: 0.7rem;
   }
 
+  .mobile-quick-actions {
+    max-width: 1080px;
+  }
+
   .mobile-shortcuts__item {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -6515,11 +6519,10 @@
     stroke-linejoin: round;
   }
 
-  .mobile-shortcuts__label {
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--text) 65%, var(--border));
+  .mobile-shortcuts__description {
+    font-size: 0.8rem;
+    line-height: 1.35;
+    color: color-mix(in srgb, var(--text) 72%, var(--border));
   }
 
   .mobile-shortcuts__title {
@@ -6585,10 +6588,17 @@
   }
 
   .failure-grid__priority {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
     margin-left: 0;
     margin-top: 0.35rem;
     line-height: 1.35;
-    padding-top: 0.25rem;
+    padding: 0.14rem 0.52rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--border));
+    background: color-mix(in srgb, var(--accent) 9%, var(--surface));
+    color: color-mix(in srgb, var(--text) 82%, var(--accent));
   }
 
   .failure-grid__state-icon {
@@ -6672,6 +6682,10 @@
     .institute-hero__other-starts {
       margin-top: 0.2rem;
     }
+
+    .institute-flow {
+      margin-top: 0.35rem;
+    }
   }
 
   @media (min-width: 680px) and (max-width: 899px) {
@@ -6696,6 +6710,10 @@
 
     .mobile-shortcuts {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .mobile-quick-actions {
+      display: none;
     }
 
     .failure-grid {
