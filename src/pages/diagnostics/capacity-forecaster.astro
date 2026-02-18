@@ -1,18 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import CitationBlock from "../../components/CitationBlock.astro";
-import DiagnosticMethodology from "../../components/DiagnosticMethodology.astro";
-import PageIntro from "../../components/PageIntro.astro";
-import ReferenceCallout from "../../components/ReferenceCallout.astro";
-import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
-import SectionBlock from "../../components/SectionBlock.astro";
+import DiagnosticToolPage from "../../components/DiagnosticToolPage.astro";
 import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 import CapacityForecasterWidget from "../../features/capacity-forecaster/CapacityForecaster";
 
-const tool = diagnosticsContent.tools.find(
-  (entry) => entry.slug === "capacity-forecaster"
-);
+const tool = diagnosticsContent.tools.find((entry) => entry.slug === "capacity-forecaster");
 
 if (!tool) {
   return Astro.response(
@@ -26,12 +19,6 @@ const { publication } = diagnosticsContent;
 const pageTitle = `${tool.title} — Diagnostics`;
 const pageDescription = tool.description;
 const permalink = `/diagnostics/${tool.slug}`;
-const anchorLinks = [
-  { href: "#overview", label: "Overview" },
-  { href: "#methodology", label: "Methodology" },
-  { href: "#sample-output", label: "Sample output" },
-  { href: "#run-tool", label: "Run the tool" },
-];
 ---
 
 <BaseLayout
@@ -39,77 +26,18 @@ const anchorLinks = [
   description={pageDescription}
   mainClass="page page--wide"
 >
-  <PageIntro
-    eyebrow="Diagnostics"
-    title={tool.title}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-  />
-
-  <SectionBlock
-    id="overview"
-    eyebrow="Overview"
-    title="When to use the Technical Capacity Forecaster."
-    description={tool.bestFor}
-  >
-    <ul class="muted">
-      {tool.prepChecklist.map((item) => (
-        <li>{item}</li>
-      ))}
-    </ul>
-    <p class="muted">Estimated time: {tool.estimatedTime}</p>
-    <ReferenceCallout
-      title={diagnosticsStudioOffRampCallout.title}
-      summary={diagnosticsStudioOffRampCallout.summary}
-      href={diagnosticsStudioOffRampCallout.href}
-      linkLabel={diagnosticsStudioOffRampCallout.linkLabel}
-      ariaLabel={diagnosticsStudioOffRampCallout.ariaLabel}
-    />
-    {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
-  </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={tool.title}
-    permalink={permalink}
+  <DiagnosticToolPage
+    tool={tool}
     publication={publication}
-    citationKey={`diagnostic_${tool.slug}`}
-  />
-
-  <SectionBlock
-    id="methodology"
-    eyebrow="Methodology"
-    title="Method, transparency, and replicability."
-    description="Inputs, scoring logic, validation notes, and failure modes used in the model."
-    variant="alt"
-  >
-    <DiagnosticMethodology
-      methodCards={tool.methodCards}
-      methodOverview={tool.methodOverview}
-      instrument={tool.instrument}
-      validation={tool.validation}
-      replicability={tool.replicability}
-    />
-  </SectionBlock>
-
-  <SectionBlock
-    id="sample-output"
-    eyebrow="Sample output"
-    title="Preview the forecast snapshot."
-    description="See the PDF summary format and saturation callouts."
-  >
-    <a class="button ghost" href={tool.exampleHref}>
-      {tool.exampleLabel}
-    </a>
-  </SectionBlock>
-
-  <SectionBlock
-    id="run-tool"
-    eyebrow="Run the tool"
-    title="Start a new capacity forecast."
-    description="Model baseline vs. remediated trajectories and export a PDF."
-    variant="alt"
+    permalink={permalink}
+    overviewTitle="When to use the Technical Capacity Forecaster."
+    methodologyDescription="Inputs, scoring logic, validation notes, and failure modes used in the model."
+    sampleOutputTitle="Preview the forecast snapshot."
+    sampleOutputDescription="See the PDF summary format and saturation callouts."
+    runSectionTitle="Start a new capacity forecast."
+    runSectionDescription="Model baseline vs. remediated trajectories and export a PDF."
+    studioOffRamp={diagnosticsStudioOffRampCallout}
   >
     <CapacityForecasterWidget client:only="react" />
-  </SectionBlock>
+  </DiagnosticToolPage>
 </BaseLayout>

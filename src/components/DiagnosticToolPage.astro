@@ -1,0 +1,128 @@
+---
+import CitationBlock from "./CitationBlock.astro";
+import DiagnosticMethodology from "./DiagnosticMethodology.astro";
+import PageIntro from "./PageIntro.astro";
+import ReferenceCallout from "./ReferenceCallout.astro";
+import ScholarlyMeta from "./ScholarlyMeta.astro";
+import SectionBlock from "./SectionBlock.astro";
+import type { diagnosticsContent } from "../content/diagnostics";
+
+interface Props {
+  tool: (typeof diagnosticsContent.tools)[number];
+  publication: typeof diagnosticsContent.publication;
+  permalink: string;
+  overviewTitle: string;
+  methodologyDescription: string;
+  sampleOutputTitle: string;
+  sampleOutputDescription: string;
+  runSectionTitle: string;
+  runSectionDescription: string;
+  runSectionId?: string;
+  runSectionEyebrow?: string;
+  runSectionVariant?: "default" | "alt";
+  studioOffRamp: {
+    title: string;
+    summary: string;
+    href: string;
+    linkLabel: string;
+    ariaLabel?: string;
+  };
+}
+
+const {
+  tool,
+  publication,
+  permalink,
+  overviewTitle,
+  methodologyDescription,
+  sampleOutputTitle,
+  sampleOutputDescription,
+  runSectionTitle,
+  runSectionDescription,
+  runSectionId = "run-tool",
+  runSectionEyebrow = "Run the tool",
+  runSectionVariant = "alt",
+  studioOffRamp,
+} = Astro.props as Props;
+
+const anchorLinks = [
+  { href: "#overview", label: "Overview" },
+  { href: "#methodology", label: "Methodology" },
+  { href: "#sample-output", label: "Sample output" },
+  { href: `#${runSectionId}`, label: runSectionEyebrow },
+];
+---
+
+<PageIntro
+  eyebrow="Diagnostics"
+  title={tool.title}
+  description={tool.description}
+  permalink={permalink}
+  anchorLinks={anchorLinks}
+/>
+
+<SectionBlock
+  id="overview"
+  eyebrow="Overview"
+  title={overviewTitle}
+  description={tool.bestFor}
+>
+  <ul class="muted">
+    {tool.prepChecklist.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+  <p class="muted">Estimated time: {tool.estimatedTime}</p>
+  <ReferenceCallout
+    title={studioOffRamp.title}
+    summary={studioOffRamp.summary}
+    href={studioOffRamp.href}
+    linkLabel={studioOffRamp.linkLabel}
+    ariaLabel={studioOffRamp.ariaLabel}
+  />
+  {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
+</SectionBlock>
+<ScholarlyMeta publication={publication} permalink={permalink} />
+<CitationBlock
+  title={tool.title}
+  permalink={permalink}
+  publication={publication}
+  citationKey={`diagnostic_${tool.slug}`}
+/>
+
+<SectionBlock
+  id="methodology"
+  eyebrow="Methodology"
+  title="Method, transparency, and replicability."
+  description={methodologyDescription}
+  variant="alt"
+>
+  <DiagnosticMethodology
+    methodCards={tool.methodCards}
+    methodOverview={tool.methodOverview}
+    instrument={tool.instrument}
+    validation={tool.validation}
+    replicability={tool.replicability}
+  />
+</SectionBlock>
+
+<SectionBlock
+  id="sample-output"
+  eyebrow="Sample output"
+  title={sampleOutputTitle}
+  description={sampleOutputDescription}
+>
+  <a class="button ghost" href={tool.exampleHref}>
+    {tool.exampleLabel}
+  </a>
+</SectionBlock>
+
+<SectionBlock
+  id={runSectionId}
+  eyebrow={runSectionEyebrow}
+  title={runSectionTitle}
+  description={runSectionDescription}
+  variant={runSectionVariant}
+>
+  <slot />
+</SectionBlock>
