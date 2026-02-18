@@ -2,7 +2,8 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 const repoRoot = process.cwd();
-const pagesRoot = path.join(repoRoot, "src", "pages");
+const srcRoot = path.join(repoRoot, "src");
+const pagesRoot = path.join(srcRoot, "pages");
 
 const walk = async (dir: string): Promise<string[]> => {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -17,12 +18,23 @@ const walk = async (dir: string): Promise<string[]> => {
   return files.flat();
 };
 
-const astroFiles = (await walk(pagesRoot)).filter((file) =>
+const allAstroFiles = (await walk(srcRoot)).filter((file) =>
   file.endsWith(".astro"),
 );
+const pageAstroFiles = allAstroFiles.filter((file) =>
+  file.startsWith(`${pagesRoot}${path.sep}`),
+);
+const astroFileSet = new Set(allAstroFiles);
 
 const issues: string[] = [];
 const warnings: string[] = [];
+const headingPresenceCache = new Map<string, boolean>();
+const sourceCache = new Map<string, string>();
+
+interface AstroImport {
+  componentName: string;
+  resolvedPath: string;
+}
 
 const isInternalHref = (href: string): boolean => {
   const trimmedHref = href.trim();
@@ -59,9 +71,116 @@ const countInternalLinks = (source: string): number => {
   }, 0);
 };
 
-for (const filePath of astroFiles) {
-  const relPath = path.relative(repoRoot, filePath);
+const resolveAstroImportPath = (
+  sourceFilePath: string,
+  importPath: string,
+): string | null => {
+  if (!importPath.startsWith(".")) {
+    return null;
+  }
+
+  const fileDir = path.dirname(sourceFilePath);
+  const candidateBasePath = path.resolve(fileDir, importPath);
+  const candidates = [
+    candidateBasePath,
+    `${candidateBasePath}.astro`,
+    path.join(candidateBasePath, "index.astro"),
+  ];
+
+  for (const candidatePath of candidates) {
+    if (candidatePath.endsWith(".astro") && astroFileSet.has(candidatePath)) {
+      return candidatePath;
+    }
+  }
+
+  return null;
+};
+
+const getComponentImports = (
+  source: string,
+  sourceFilePath: string,
+): AstroImport[] => {
+  const imports: AstroImport[] = [];
+  const importPattern =
+    /import\s+([A-Z][A-Za-z\d_]*)\s*(?:,\s*\{[^}]*\})?\s*from\s+["']([^"']+)["']/gms;
+
+  for (const match of source.matchAll(importPattern)) {
+    const componentName = match[1];
+    const importPath = match[2];
+    const resolvedPath = resolveAstroImportPath(sourceFilePath, importPath);
+
+    if (!resolvedPath) {
+      continue;
+    }
+
+    imports.push({ componentName, resolvedPath });
+  }
+
+  return imports;
+};
+
+const sourceContainsHeading = (source: string): boolean =>
+  /<h1[\s>]/.test(source) || /<PageIntro[\s>]/.test(source);
+
+const componentTagIsUsed = (source: string, componentName: string): boolean =>
+  new RegExp(`<${componentName}[\\s>]`).test(source);
+
+const readCachedSource = async (filePath: string): Promise<string> => {
+  if (sourceCache.has(filePath)) {
+    return sourceCache.get(filePath) ?? "";
+  }
+
   const source = await readFile(filePath, "utf8");
+  sourceCache.set(filePath, source);
+  return source;
+};
+
+const hasHeadingInAstroFile = async (
+  filePath: string,
+  source: string,
+  visited: Set<string> = new Set(),
+): Promise<boolean> => {
+  if (sourceContainsHeading(source)) {
+    return true;
+  }
+
+  if (visited.has(filePath)) {
+    return false;
+  }
+
+  if (headingPresenceCache.has(filePath)) {
+    return headingPresenceCache.get(filePath) ?? false;
+  }
+
+  const nextVisited = new Set(visited);
+  nextVisited.add(filePath);
+  const imports = getComponentImports(source, filePath);
+
+  for (const componentImport of imports) {
+    if (!componentTagIsUsed(source, componentImport.componentName)) {
+      continue;
+    }
+
+    const importedSource = await readCachedSource(componentImport.resolvedPath);
+    const importedHasHeading = await hasHeadingInAstroFile(
+      componentImport.resolvedPath,
+      importedSource,
+      nextVisited,
+    );
+
+    if (importedHasHeading) {
+      headingPresenceCache.set(filePath, true);
+      return true;
+    }
+  }
+
+  headingPresenceCache.set(filePath, false);
+  return false;
+};
+
+for (const filePath of pageAstroFiles) {
+  const relPath = path.relative(repoRoot, filePath);
+  const source = await readCachedSource(filePath);
 
   const usesBaseLayout = /<BaseLayout[\s\S]*?>/.test(source);
   if (!usesBaseLayout) continue;
@@ -77,9 +196,8 @@ for (const filePath of astroFiles) {
     issues.push(`${relPath}: BaseLayout is missing a description prop.`);
   }
 
-  const hasH1 = /<h1[\s>]/.test(source);
-  const usesPageIntro = /<PageIntro[\s>]/.test(source);
-  if (!hasH1 && !usesPageIntro) {
+  const hasHeading = await hasHeadingInAstroFile(filePath, source);
+  if (!hasHeading) {
     issues.push(
       `${relPath}: page is missing an <h1> or PageIntro heading component.`,
     );
@@ -109,4 +227,4 @@ if (warnings.length > 0) {
   }
 }
 
-console.log(`SEO audit passed for ${astroFiles.length} Astro page files.`);
+console.log(`SEO audit passed for ${pageAstroFiles.length} Astro page files.`);
