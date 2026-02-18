@@ -6205,12 +6205,12 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.97rem;
-    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    font-size: 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
     border-radius: var(--radius-md);
-    padding: 0.58rem 0.75rem;
-    background: color-mix(in srgb, var(--surface) 96%, white 4%);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    padding: 0.52rem 0.68rem;
+    background: color-mix(in srgb, var(--surface) 98%, white 2%);
+    box-shadow: none;
   }
 
   .institute-hero__status svg {
@@ -6284,6 +6284,15 @@
 
   .institute-hero__primary-cta {
     width: 100%;
+    font-weight: 700;
+    border-color: color-mix(in srgb, var(--accent) 75%, var(--border));
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  .institute-hero__primary-cta:hover,
+  .institute-hero__primary-cta:focus-visible {
+    border-color: var(--accent-strong);
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--accent) 20%, transparent);
   }
 
   .institute-hero__other-starts {
@@ -6332,7 +6341,7 @@
 
   .institute-hero__signal-strip {
     margin: 0;
-    padding: 0;
+    padding: 0.2rem 0 0;
     list-style: none;
     display: grid;
     gap: 0.65rem;
@@ -6340,10 +6349,10 @@
   }
 
   .institute-hero__signal-strip li {
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 56%, transparent);
     border-radius: var(--radius-md);
-    padding: 0.75rem 0.85rem;
-    background: color-mix(in srgb, var(--surface) 98%, white 2%);
+    padding: 0.68rem 0.82rem;
+    background: color-mix(in srgb, var(--surface) 99%, white 1%);
     display: grid;
     gap: 0.2rem;
     min-height: 100%;
@@ -6360,12 +6369,23 @@
     line-height: 1.4;
   }
 
+  .institute-signals-band {
+    max-width: 1080px;
+    padding: 0.2rem 0;
+  }
+
   .institute-flow {
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     border-radius: var(--radius-lg);
     padding: clamp(0.9rem, 1.8vw, 1.2rem);
     background: color-mix(in srgb, var(--surface) 98%, white 2%);
     max-width: 1080px;
+  }
+
+  .institute-flow--soft {
+    border-color: color-mix(in srgb, var(--border) 58%, transparent);
+    background: color-mix(in srgb, var(--surface) 99%, white 1%);
+    box-shadow: none;
   }
 
   .institute-flow h2 {
