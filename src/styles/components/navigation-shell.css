@@ -259,12 +259,10 @@
       justify-content: flex-start;
       max-width: 100%;
       flex: 1 1 100%;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding-bottom: 0.1rem;
-      scrollbar-width: thin;
-      scrollbar-color: color-mix(in srgb, var(--accent) 25%, transparent)
-        transparent;
+      flex-wrap: wrap;
+      overflow: visible;
+      padding-bottom: 0;
+      scrollbar-width: auto;
     }
 
     .nav__links--mobile {
@@ -275,19 +273,6 @@
 
     .nav__utility--mobile {
       width: 100%;
-    }
-
-    .nav__utility--mobile::-webkit-scrollbar {
-      height: 4px;
-    }
-
-    .nav__utility--mobile::-webkit-scrollbar-thumb {
-      background: color-mix(in srgb, var(--accent) 35%, transparent);
-      border-radius: 999px;
-    }
-
-    .nav__utility--mobile::-webkit-scrollbar-track {
-      background: transparent;
     }
   }
 
