@@ -21,11 +21,11 @@
     cursor: pointer;
     touch-action: manipulation;
     transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease,
-      box-shadow 0.2s ease,
-      color 0.2s ease,
-      transform 0.2s ease;
+      background-color var(--motion-base) ease,
+      border-color var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease,
+      color var(--motion-fast) ease,
+      transform var(--motion-fast) ease;
   }
 
   .search-trigger:hover {
@@ -319,5 +319,17 @@
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     border-radius: 2px;
     font-family: var(--mono);
+  }
+}
+
+@media (max-width: 640px) {
+  .search-dialog {
+    width: calc(100vw - 1rem);
+    max-height: 92vh;
+  }
+
+  .search-dialog__header,
+  .search-dialog__body {
+    padding-inline: 1rem;
   }
 }
