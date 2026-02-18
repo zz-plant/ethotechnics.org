@@ -145,6 +145,11 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
+.forecaster__range:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
 .forecaster__range::-webkit-slider-thumb {
   appearance: none;
   width: 18px;
@@ -433,5 +438,13 @@
   .forecaster__label-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forecaster__range,
+  .forecaster__chart-line,
+  .forecaster__chart-area {
+    transition: none;
   }
 }

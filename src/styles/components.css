@@ -114,7 +114,11 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 55%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2),
+      transparent 55%
+    );
     opacity: 0.08;
     pointer-events: none;
     z-index: var(--z-base);
@@ -126,7 +130,11 @@
     inset: 12% 4% auto 4%;
     height: 42%;
     border-radius: calc(var(--radius-lg) + 8px);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 68%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12),
+      transparent 68%
+    );
     mask: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 74%);
     box-shadow: 0 18px 56px rgba(64, 52, 40, 0.03);
     opacity: 0.12;
@@ -196,11 +204,11 @@
     font-weight: 600;
     font-family: var(--sans);
     transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease,
-      background-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.2s ease;
+      border-color var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease,
+      background-color var(--motion-fast) ease,
+      color var(--motion-fast) ease,
+      transform var(--motion-fast) ease;
     letter-spacing: 0.02em;
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
     box-shadow: 0 1px 0 color-mix(in srgb, var(--border) 18%, transparent);
@@ -4559,7 +4567,6 @@
     }
   }
 
-
   .diagnostics__mobile-disclosure {
     margin: 0;
   }
@@ -6143,14 +6150,23 @@
   }
 
   .institute-hero {
-    max-width: 1040px;
+    max-width: 1080px;
     border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
     border-radius: var(--radius-xl);
-    padding: clamp(1rem, 2vw, 1.5rem);
+    padding: clamp(1.1rem, 2.2vw, 1.8rem);
     background:
-      radial-gradient(circle at 10% -15%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 42%),
-      radial-gradient(circle at 95% 110%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 36%),
+      radial-gradient(
+        circle at 10% -15%,
+        color-mix(in srgb, var(--accent) 16%, transparent),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 95% 110%,
+        color-mix(in srgb, var(--accent) 10%, transparent),
+        transparent 36%
+      ),
       color-mix(in srgb, var(--surface) 97%, white 3%);
+    box-shadow: 0 10px 28px rgba(64, 52, 40, 0.06);
   }
 
   .institute-hero__layout {
@@ -6174,6 +6190,7 @@
   .section-lead {
     max-width: 68ch;
     color: color-mix(in srgb, var(--text) 86%, var(--border));
+    line-height: 1.65;
   }
 
   .institute-hero__status {
@@ -6193,6 +6210,7 @@
     border-radius: var(--radius-md);
     padding: 0.58rem 0.75rem;
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
   }
 
   .institute-hero__status svg {
@@ -6307,7 +6325,7 @@
   .institute-hero__starter {
     border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
     border-radius: var(--radius-lg);
-    padding: 1rem;
+    padding: clamp(1rem, 1.5vw, 1.2rem);
     background: color-mix(in srgb, var(--surface) 95%, white 5%);
     box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 10%, transparent);
   }
@@ -6324,10 +6342,11 @@
   .institute-hero__signal-strip li {
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     border-radius: var(--radius-md);
-    padding: 0.75rem 0.8rem;
+    padding: 0.75rem 0.85rem;
     background: color-mix(in srgb, var(--surface) 98%, white 2%);
     display: grid;
     gap: 0.2rem;
+    min-height: 100%;
   }
 
   .institute-hero__signal-strip strong {
@@ -6346,7 +6365,7 @@
     border-radius: var(--radius-lg);
     padding: clamp(0.9rem, 1.8vw, 1.2rem);
     background: color-mix(in srgb, var(--surface) 98%, white 2%);
-    max-width: 1040px;
+    max-width: 1080px;
   }
 
   .institute-flow h2 {
@@ -6367,11 +6386,12 @@
     counter-increment: flow-step;
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     border-radius: var(--radius-md);
-    padding: 0.7rem 0.8rem 0.75rem;
+    padding: 0.78rem 0.88rem 0.82rem;
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
     display: grid;
-    gap: 0.25rem;
-    line-height: 1.4;
+    gap: 0.3rem;
+    line-height: 1.45;
+    min-height: 100%;
   }
 
   .institute-flow__steps li::before {
@@ -6421,7 +6441,6 @@
     border-color: color-mix(in srgb, var(--accent) 34%, var(--border));
     box-shadow: var(--shadow-xs);
   }
-
 
   .mobile-shortcuts {
     list-style: none;
@@ -6518,6 +6537,7 @@
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1rem;
+    align-items: stretch;
   }
 
   .failure-grid__button {
@@ -6527,7 +6547,7 @@
     text-align: left;
     padding: 0.95rem 1rem;
     gap: 0.7rem;
-    min-height: 6rem;
+    min-height: 6.4rem;
   }
 
   .failure-grid__label {
@@ -6603,6 +6623,7 @@
 
   .lane-card {
     height: 100%;
+    box-shadow: 0 4px 16px rgba(64, 52, 40, 0.04);
   }
 
   .lane-links {
@@ -6624,12 +6645,18 @@
   }
 
   .institute-screen {
-    max-width: 960px;
+    max-width: 1080px;
   }
 
   @media (max-width: 899px) {
     .institute-hero__other-starts {
       margin-top: 0.2rem;
+    }
+  }
+
+  @media (min-width: 680px) and (max-width: 899px) {
+    .failure-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
@@ -6653,14 +6680,17 @@
 
     .failure-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
     }
 
     .adopt-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
     }
 
     .institute-flow__steps {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
     }
 
     .artifact-grid {
