@@ -167,8 +167,9 @@ const ReadinessPanel = ({
       </div>
       {thresholdStatus.actNow ? (
         <div className="simulator__alert simulator__alert--act" role="alert">
-          <strong>Act now:</strong> Readiness is below the {thresholdStatus.band.label}{" "}
-          threshold. Pause the window and close critical gaps before proceeding.
+          <strong>Act now:</strong> Readiness is below the{" "}
+          {thresholdStatus.band.label} threshold. Pause the window and close
+          critical gaps before proceeding.
         </div>
       ) : null}
       <div className="simulator__grid">
@@ -260,9 +261,7 @@ const ThresholdPanel = ({
         </ul>
       </div>
       <div>
-        <p className="muted simulator__label">
-          Recommended interventions
-        </p>
+        <p className="muted simulator__label">Recommended interventions</p>
         <ul className="simulator__list">
           {status.recommendedInterventions.map((item) => (
             <li key={item}>{item}</li>
@@ -329,19 +328,8 @@ const StageCard = ({
 const CommunicationTable = ({ template }: { template: ScenarioTemplate }) => {
   const handleCopyMessage = (message: string) => {
     if (typeof navigator === "undefined") return;
-    if (navigator.clipboard?.writeText) {
-      void navigator.clipboard.writeText(message);
-      return;
-    }
-    const textarea = document.createElement("textarea");
-    textarea.value = message;
-    textarea.setAttribute("readonly", "true");
-    textarea.style.position = "absolute";
-    textarea.style.left = "-9999px";
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textarea);
+    if (!navigator.clipboard?.writeText) return;
+    void navigator.clipboard.writeText(message);
   };
 
   return (
@@ -450,9 +438,7 @@ const CoverageControls = ({
 const MaintenanceSimulator = () => {
   const initialState = useMemo(() => resolveInitialState(), []);
   const [templateId, setTemplateId] = useState(initialState.templateId);
-  const [riskLevel, setRiskLevel] = useState<RiskLevel>(
-    initialState.riskLevel,
-  );
+  const [riskLevel, setRiskLevel] = useState<RiskLevel>(initialState.riskLevel);
   const [coverage, setCoverage] = useState<CoverageChecklist>(
     initialState.coverage,
   );

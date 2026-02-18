@@ -123,12 +123,14 @@ const mostUsedTools = mostUsedToolSlugs
     <a
       class="button primary"
       href="#quick-triage"
-      data-route-action="diagnostics-choose" data-sticky-link="#quick-triage">Run diagnostic triage</a
+      data-route-action="diagnostics-choose"
+      data-sticky-link="#quick-triage">Run diagnostic triage</a
     >
     <a
       class="button ghost"
       href="#diagnostic-tools"
-      data-route-action="diagnostics-open-menu" data-sticky-link="#diagnostic-tools">Jump to tools</a
+      data-route-action="diagnostics-open-menu"
+      data-sticky-link="#diagnostic-tools">Jump to tools</a
     >
   </nav>
   <SectionActions>
@@ -225,18 +227,27 @@ const mostUsedTools = mostUsedToolSlugs
     description="Use the shared baseline to align teams before diving into tool specifics."
     variant="alt"
   >
-    <details class="chunked-section diagnostics__mobile-disclosure" data-collapse-mobile open>
-      <summary class="chunked-section__summary">Open output baseline details</summary>
+    <details
+      class="chunked-section diagnostics__mobile-disclosure"
+      data-collapse-mobile
+      open
+    >
+      <summary class="chunked-section__summary"
+        >Open output baseline details</summary
+      >
       <div class="chunked-section__body stack-sm">
         <ul class="muted">
           <li>Linkable results page and a shareable PDF summary.</li>
           <li>Mechanism language references to keep mitigations consistent.</li>
-          <li>Optional facilitation handoff when ambiguity or risk stays high.</li>
+          <li>
+            Optional facilitation handoff when ambiguity or risk stays high.
+          </li>
         </ul>
         <p class="muted">
           Need to verify recourse? Use the
           {" "}
-          <a href="/explainers/contestability-checklist">contestability checklist</a
+          <a href="/explainers/contestability-checklist"
+            >contestability checklist</a
           >
           {" "}
           before you publish outputs tied to appeals or reversals.
@@ -252,8 +263,14 @@ const mostUsedTools = mostUsedToolSlugs
     title="Diagnostics must verify AW-01 through AW-04"
     description="Every diagnostic output should include evidence that anti-weaponization clauses are honored."
   >
-    <details class="chunked-section diagnostics__mobile-disclosure" data-collapse-mobile open>
-      <summary class="chunked-section__summary">Open anti-weaponization checklist</summary>
+    <details
+      class="chunked-section diagnostics__mobile-disclosure"
+      data-collapse-mobile
+      open
+    >
+      <summary class="chunked-section__summary"
+        >Open anti-weaponization checklist</summary
+      >
       <div class="chunked-section__body stack-sm">
         <ul class="muted">
           <li>
@@ -261,15 +278,16 @@ const mostUsedTools = mostUsedToolSlugs
             allocation.
           </li>
           <li>
-            AW-02: Appeal paths are tested for non-regression and public replacement
-            windows.
+            AW-02: Appeal paths are tested for non-regression and public
+            replacement windows.
           </li>
           <li>
             AW-03: Downgrades or eligibility changes always emit receipts and
             clocks.
           </li>
           <li>
-            AW-04: High-burden flows include assisted channels or human escalation.
+            AW-04: High-burden flows include assisted channels or human
+            escalation.
           </li>
         </ul>
         <p class="muted">
@@ -345,18 +363,20 @@ const mostUsedTools = mostUsedToolSlugs
       >
         <li>
           <a class="pill-list__button" href="/diagnostics/burden-modeler"
-            >Planning</a>
+            >Planning</a
+          >
         </li>
         <li>
           <a
             class="pill-list__button"
-            href="/diagnostics/evidence-pack-readiness">Audit prep</a>
+            href="/diagnostics/evidence-pack-readiness">Audit prep</a
+          >
         </li>
         <li>
           <a
             class="pill-list__button"
-            href="/diagnostics/escalation-coverage-planner"
-            >Incident response</a>
+            href="/diagnostics/escalation-coverage-planner">Incident response</a
+          >
         </li>
       </ul>
       <ul
@@ -566,7 +586,9 @@ const mostUsedTools = mostUsedToolSlugs
 
   <script is:inline>
     const stickyNav = document.querySelector(".diagnostics__sticky-jump");
-    const mobileDisclosures = Array.from(document.querySelectorAll("[data-collapse-mobile]"));
+    const mobileDisclosures = Array.from(
+      document.querySelectorAll("[data-collapse-mobile]"),
+    );
 
     const syncMobileDisclosures = () => {
       if (mobileDisclosures.length === 0) {
@@ -588,9 +610,13 @@ const mostUsedTools = mostUsedToolSlugs
     window.addEventListener("resize", syncMobileDisclosures, { passive: true });
 
     if (stickyNav) {
-      const stickyLinks = Array.from(stickyNav.querySelectorAll("[data-sticky-link]"));
+      const stickyLinks = Array.from(
+        stickyNav.querySelectorAll("[data-sticky-link]"),
+      );
       const stickyTargets = stickyLinks
-        .map((link) => document.querySelector(link.getAttribute("data-sticky-link") ?? ""))
+        .map((link) =>
+          document.querySelector(link.getAttribute("data-sticky-link") ?? ""),
+        )
         .filter(Boolean);
 
       const setActiveLink = (targetId) => {
@@ -630,5 +656,5 @@ const mostUsedTools = mostUsedToolSlugs
   </script>
 
   <script type="module" src={diagnosticsFilterScript} is:inline></script>
-  <script type="module" src={routeMetricsScript}></script>
+  <script is:inline type="module" src={routeMetricsScript}></script>
 </BaseLayout>
