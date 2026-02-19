@@ -3,14 +3,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro";
 import { validatorsContent } from "../../content/validators";
 
-const validatorMeta =
-  validatorsContent.validators.find((validator) => validator.id === "VAL-01") ??
-  {
-    id: "VAL-01",
-    standardRef: "STD-01",
-    clauseRefs: [],
-    mechanismRefs: [],
-  };
+const validatorMeta = validatorsContent.validators.find(
+  (validator) => validator.id === "VAL-01",
+) ?? {
+  id: "VAL-01",
+  standardRef: "STD-01",
+  clauseRefs: [],
+  mechanismRefs: [],
+};
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
@@ -24,10 +24,12 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="Burden Modeler — Validator"
-  description="Score time tax and constructive denial risk for user journeys."
+  title="Burden Modeler Validator — Score Time Tax and Denial Risk"
+  description="Quantify time tax, interaction friction, and constructive-denial risk in user journeys, then output a remediation report aligned to Ethotechnics standards."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
+  structuredDataType="webpage"
+  publishedTime="2026-01-10"
 >
   <section class="validator">
     <header class="validator__header">
@@ -35,7 +37,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         <p class="validator__id">VAL-01</p>
         <h1>Burden Modeler</h1>
         <p class="muted">
-          Estimate time tax and surface constructive denial risk in a single report card.
+          Estimate time tax and surface constructive denial risk in a single
+          report card.
         </p>
       </div>
       <a class="validator__standard" href="/standards/std-01-temporal-rights">
@@ -45,7 +48,11 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
     <ValidatorMicroDiagram variant="burden" />
 
-    <form class="validator__form" data-validator-form data-validator-meta={validatorMetaJson}>
+    <form
+      class="validator__form"
+      data-validator-form
+      data-validator-meta={validatorMetaJson}
+    >
       <label class="validator__field">
         Estimated time to completion (minutes)
         <input
@@ -92,7 +99,9 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         </output>
       </div>
       <p class="validator__recommendation">
-        Fix this using <a href="/mechanisms/mec-04-hard-clock">MEC-04: The Hard Clock</a>.
+        Fix this using <a href="/mechanisms/mec-04-hard-clock"
+          >MEC-04: The Hard Clock</a
+        >.
       </p>
       <button class="button ghost" type="button" data-validator-download>
         Download JSON
@@ -102,9 +111,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 </BaseLayout>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>(
-    "[data-validator-form]"
-  );
+  const form = document.querySelector<HTMLFormElement>("[data-validator-form]");
   const validatorMeta = form?.dataset.validatorMeta
     ? (JSON.parse(form.dataset.validatorMeta) as {
         id: string;
@@ -118,24 +125,19 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         clauseRefs: [],
         mechanismRefs: [],
       };
-  const report = document.querySelector<HTMLElement>(
-    "[data-validator-report]"
-  );
+  const report = document.querySelector<HTMLElement>("[data-validator-report]");
   const statusPill = document.querySelector<HTMLElement>(
-    "[data-validator-pill]"
+    "[data-validator-pill]",
   );
   const statusOutput = document.querySelector<HTMLOutputElement>(
-    "[data-validator-output]"
+    "[data-validator-output]",
   );
   const downloadButton = document.querySelector<HTMLButtonElement>(
-    "[data-validator-download]"
+    "[data-validator-download]",
   );
   const STORAGE_KEY = "validator-burden-modeler";
 
-  const updateStatus = (
-    level: "red" | "yellow" | "green",
-    message: string
-  ) => {
+  const updateStatus = (level: "red" | "yellow" | "green", message: string) => {
     if (!statusPill || !statusOutput) return;
     statusPill.classList.remove(
       "status-pill--red",
@@ -150,7 +152,11 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
   const buildResult = (
     level: "red" | "yellow" | "green",
     message: string,
-    inputs: { duration: number; steps: number; exit: FormDataEntryValue | null }
+    inputs: {
+      duration: number;
+      steps: number;
+      exit: FormDataEntryValue | null;
+    },
   ) => {
     const clauseMap = {
       green: [],
