@@ -18,15 +18,13 @@ It consolidates references that were previously spread across multiple index sec
   two-route first-session critique constrained to remove/rebuild/modify actions.
 - [`mobile-ux-critique-2026-02.md`](mobile-ux-critique-2026-02.md): mobile-focused UX
   critique with prioritized improvements.
-- Kondo audit series:
-  - [`ux-audit-kondo.md`](ux-audit-kondo.md)
-  - [`ux-audit-kondo-round2.md`](ux-audit-kondo-round2.md)
-  - [`ux-audit-kondo-round3.md`](ux-audit-kondo-round3.md)
-  - [`ux-audit-kondo-round4.md`](ux-audit-kondo-round4.md)
-  - [`ux-audit-kondo-round5.md`](ux-audit-kondo-round5.md)
+- [`ux-audit-kondo-series-2026.md`](ux-audit-kondo-series-2026.md):
+  consolidated findings and action backlog from the prior multi-round Kondo UX audits.
 
 - [`site-description-alignment-audit.md`](site-description-alignment-audit.md):
   publication-readiness review for external site summaries.
+- [`open-source-citizenship-audit-2026-02.md`](open-source-citizenship-audit-2026-02.md):
+  repository community-health review against open-source citizenship norms.
 
 ## Technical strategy tracks
 
