@@ -49,7 +49,8 @@ export type InstituteContent = PageWithPermalink &
   };
 
 export const instituteContent: InstituteContent = {
-  pageTitle: "Institute — AI Governance Programs and Decision Forums | Ethotechnics",
+  pageTitle:
+    "Institute — AI Governance Programs and Decision Forums | Ethotechnics",
   pageDescription:
     "Explore Institute programs for accountable AI: readiness diagnostics, governance decision forums, escalation pathways, and Studio support for high-stakes delivery.",
   published: "2025-09-01T00:00:00Z",
@@ -92,7 +93,7 @@ export const instituteContent: InstituteContent = {
     {
       title: "Readiness diagnostics",
       detail:
-        "Short exercises to score risk across data stewardship, consent, and downstream impact.",
+        "Short exercises to rate risk around data handling, user consent, and real-world impact after launch.",
       outcome:
         "Outputs: a risk map, suggested mitigations, and links back to Library pages so teams can act.",
       status: "Rolling access",
