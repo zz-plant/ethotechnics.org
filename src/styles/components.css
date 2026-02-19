@@ -6488,6 +6488,10 @@
     text-decoration: none;
     color: var(--text);
     min-height: 52px;
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
   }
 
   .mobile-shortcuts__item:hover,
@@ -6557,6 +6561,9 @@
   }
 
   .failure-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1rem;
@@ -6571,6 +6578,22 @@
     padding: 0.95rem 1rem;
     gap: 0.7rem;
     min-height: 6.4rem;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      transform 150ms ease;
+  }
+
+  .failure-grid__button:hover,
+  .failure-grid__button:focus-visible {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+    box-shadow: var(--shadow-xs);
+  }
+
+  .failure-grid__button:hover .failure-grid__icon,
+  .failure-grid__button:focus-visible .failure-grid__icon {
+    transform: translateX(2px);
   }
 
   .failure-grid__label {
@@ -6632,6 +6655,7 @@
     stroke-linejoin: round;
     fill: none;
     flex-shrink: 0;
+    transition: transform 140ms ease;
   }
 
   .lane-card__heading {
