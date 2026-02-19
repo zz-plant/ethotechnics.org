@@ -33,6 +33,8 @@ const heroSecondaryChips = [
   },
 ];
 
+const otherStartsLabel = `Other ways to start · ${heroSecondaryChips.length} path${heroSecondaryChips.length === 1 ? "" : "s"}`;
+
 const homepageSignals = [
   {
     value: "STD-01 → STD-07",
@@ -181,12 +183,14 @@ const failureChoiceIcons: Record<string, string[]> = {
           </a>
         </div>
         <details class="institute-hero__other-starts">
-          <summary>Other ways to start · 2 paths</summary>
+          <summary>{otherStartsLabel}</summary>
           <ul aria-label="Secondary starting paths">
             {
               heroSecondaryChips.map((chip) => (
                 <li>
-                  <a href={chip.href}>{chip.label}</a>
+                  <a class="institute-hero__other-start-link" href={chip.href}>
+                    {chip.label}
+                  </a>
                 </li>
               ))
             }
@@ -271,11 +275,11 @@ const failureChoiceIcons: Record<string, string[]> = {
 
   <section id="failure-intake" class="stack-lg">
     <p class="eyebrow">Step 4 · Incident triage</p>
-    <h2>What is failing right now?</h2>
+    <h2 id="failure-intake-heading">What is failing right now?</h2>
     <p class="section-lead">
       Pick the closest symptom. This is for routing to help, not for blame.
     </p>
-    <div class="failure-grid" aria-label="Failure routing options">
+    <ul class="failure-grid" aria-labelledby="failure-intake-heading">
       {
         failureStates.map((state) => {
           const iconPaths = failureChoiceIcons[state.slug] ?? [
@@ -284,46 +288,48 @@ const failureChoiceIcons: Record<string, string[]> = {
           ];
 
           return (
-            <a
-              class="button failure-grid__button"
-              href={`/failure/${state.slug}`}
-            >
-              <span class="failure-grid__label">
-                <span class="failure-grid__title">
-                  <span class="failure-grid__state-icon" aria-hidden="true">
-                    <svg
-                      viewBox="0 0 20 20"
-                      role="presentation"
-                      focusable="false"
-                    >
-                      {iconPaths.map((pathValue) => (
-                        <path d={pathValue} />
-                      ))}
-                    </svg>
-                  </span>
-                  <span>
-                    {failureChoiceLabels[state.slug] ?? state.shortLabel}
-                  </span>
-                </span>
-                <span class="failure-grid__priority small muted">
-                  {failurePriorityBadges[state.slug] ?? "Review now"}
-                </span>
-              </span>
-              <svg
-                class="failure-grid__icon"
-                viewBox="0 0 20 20"
-                role="presentation"
-                aria-hidden="true"
-                focusable="false"
+            <li>
+              <a
+                class="button failure-grid__button"
+                href={`/failure/${state.slug}`}
               >
-                <path d="M5 10h10" />
-                <path d="M11 6l4 4-4 4" />
-              </svg>
-            </a>
+                <span class="failure-grid__label">
+                  <span class="failure-grid__title">
+                    <span class="failure-grid__state-icon" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 20 20"
+                        role="presentation"
+                        focusable="false"
+                      >
+                        {iconPaths.map((pathValue) => (
+                          <path d={pathValue} />
+                        ))}
+                      </svg>
+                    </span>
+                    <span>
+                      {failureChoiceLabels[state.slug] ?? state.shortLabel}
+                    </span>
+                  </span>
+                  <span class="failure-grid__priority small muted">
+                    {failurePriorityBadges[state.slug] ?? "Review now"}
+                  </span>
+                </span>
+                <svg
+                  class="failure-grid__icon"
+                  viewBox="0 0 20 20"
+                  role="presentation"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M5 10h10" />
+                  <path d="M11 6l4 4-4 4" />
+                </svg>
+              </a>
+            </li>
           );
         })
       }
-    </div>
+    </ul>
     <p class="small muted">
       Each option opens clear next steps, owners, and ready-to-use governance
       artifacts.

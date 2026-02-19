@@ -6305,13 +6305,62 @@
   .institute-hero__other-starts summary {
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    list-style: none;
+  }
+
+  .institute-hero__other-starts summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .institute-hero__other-starts summary::after {
+    content: "+";
+    color: color-mix(in srgb, var(--accent) 55%, var(--text));
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1;
+    transition: transform 150ms ease;
+  }
+
+  .institute-hero__other-starts[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .institute-hero__other-starts summary:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
   }
 
   .institute-hero__other-starts ul {
     margin: 0.6rem 0 0;
-    padding-left: 1rem;
+    padding: 0;
+    list-style: none;
     display: grid;
     gap: 0.45rem;
+  }
+
+  .institute-hero__other-start-link {
+    display: block;
+    width: 100%;
+    min-height: 2.6rem;
+    padding: 0.5rem 0.65rem;
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+    background: color-mix(in srgb, var(--surface) 98%, white 2%);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 520;
+  }
+
+  .institute-hero__other-start-link:hover,
+  .institute-hero__other-start-link:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+    box-shadow: var(--shadow-xs);
+    color: var(--accent-strong);
   }
 
   .actions {
@@ -6372,6 +6421,10 @@
   .institute-signals-band {
     max-width: 1080px;
     padding: 0.2rem 0;
+  }
+
+  #failure-intake {
+    scroll-margin-top: 6rem;
   }
 
   .institute-flow {
@@ -6488,6 +6541,10 @@
     text-decoration: none;
     color: var(--text);
     min-height: 52px;
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
   }
 
   .mobile-shortcuts__item:hover,
@@ -6546,31 +6603,65 @@
 
   @media (prefers-reduced-motion: reduce) {
     .mobile-shortcuts__item,
-    .mobile-shortcuts__title::after {
+    .mobile-shortcuts__title::after,
+    .failure-grid__button,
+    .failure-grid__icon {
       transition: none;
     }
 
     .mobile-shortcuts__item:hover,
-    .mobile-shortcuts__item:focus-visible {
+    .mobile-shortcuts__item:focus-visible,
+    .failure-grid__button:hover,
+    .failure-grid__button:focus-visible {
+      transform: none;
+    }
+
+    .failure-grid__button:hover .failure-grid__icon,
+    .failure-grid__button:focus-visible .failure-grid__icon,
+    .institute-hero__other-starts[open] summary::after {
       transform: none;
     }
   }
 
   .failure-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1rem;
     align-items: stretch;
   }
 
+  .failure-grid > li {
+    display: flex;
+  }
+
   .failure-grid__button {
     width: 100%;
+    height: 100%;
     justify-content: space-between;
     align-items: flex-start;
     text-align: left;
     padding: 0.95rem 1rem;
     gap: 0.7rem;
     min-height: 6.4rem;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      transform 150ms ease;
+  }
+
+  .failure-grid__button:hover,
+  .failure-grid__button:focus-visible {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+    box-shadow: var(--shadow-xs);
+  }
+
+  .failure-grid__button:hover .failure-grid__icon,
+  .failure-grid__button:focus-visible .failure-grid__icon {
+    transform: translateX(2px);
   }
 
   .failure-grid__label {
@@ -6632,6 +6723,7 @@
     stroke-linejoin: round;
     fill: none;
     flex-shrink: 0;
+    transition: transform 140ms ease;
   }
 
   .lane-card__heading {
