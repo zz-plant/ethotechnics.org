@@ -200,12 +200,14 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 
 ## Contributing
 
+- Start with [`CONTRIBUTING.md`](CONTRIBUTING.md) for the canonical contribution workflow.
 - Keep changes focused and easy to review; align with existing naming and formatting.
 - Use Bun (not npm or yarn) and format Markdown/code with `bunx prettier --write`.
 - Run `bun run check` for code or mixed changes; run `bun run check:full` for release
   prep or periodic deep validation. Docs-only updates can skip both.
 - CI mirrors `bun run check` on pull requests via the Site checks workflow.
-- Read [`AGENTS.md`](AGENTS.md) and [`docs/README.md`](docs/README.md) before making larger updates.
+- Read [`AGENTS.md`](AGENTS.md), [`docs/README.md`](docs/README.md), and
+  [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) before making larger updates.
 
 ## License
 
