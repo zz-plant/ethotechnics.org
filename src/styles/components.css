@@ -6305,13 +6305,62 @@
   .institute-hero__other-starts summary {
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    list-style: none;
+  }
+
+  .institute-hero__other-starts summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .institute-hero__other-starts summary::after {
+    content: "+";
+    color: color-mix(in srgb, var(--accent) 55%, var(--text));
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1;
+    transition: transform 150ms ease;
+  }
+
+  .institute-hero__other-starts[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .institute-hero__other-starts summary:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
   }
 
   .institute-hero__other-starts ul {
     margin: 0.6rem 0 0;
-    padding-left: 1rem;
+    padding: 0;
+    list-style: none;
     display: grid;
     gap: 0.45rem;
+  }
+
+  .institute-hero__other-start-link {
+    display: block;
+    width: 100%;
+    min-height: 2.6rem;
+    padding: 0.5rem 0.65rem;
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+    background: color-mix(in srgb, var(--surface) 98%, white 2%);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 520;
+  }
+
+  .institute-hero__other-start-link:hover,
+  .institute-hero__other-start-link:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+    box-shadow: var(--shadow-xs);
+    color: var(--accent-strong);
   }
 
   .actions {
@@ -6568,7 +6617,8 @@
     }
 
     .failure-grid__button:hover .failure-grid__icon,
-    .failure-grid__button:focus-visible .failure-grid__icon {
+    .failure-grid__button:focus-visible .failure-grid__icon,
+    .institute-hero__other-starts[open] summary::after {
       transform: none;
     }
   }
