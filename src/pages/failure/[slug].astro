@@ -82,33 +82,24 @@ const workflowStages: {
     standardsLabel: "Review justice SLO standard",
   },
   {
-    key: "communicate",
-    title: "Communicate",
+    key: "evidence",
+    title: "Evidence",
     description:
-      "Issue user-facing records so repair obligations and timelines are explicit.",
+      "Capture records and evidence packs so repair obligations are auditable and time-bound.",
     artifact: pickArtifact(["harm-receipt-format"]),
     diagnosticsHref: "/diagnostics/evidence-pack-readiness",
     diagnosticsLabel: "Check evidence-pack readiness",
     standardsHref: "/standards/std-01-temporal-rights",
     standardsLabel: "Review temporal-rights standard",
   },
-  {
-    key: "prevent-recurrence",
-    title: "Prevent recurrence",
-    description:
-      "Bind reversals and appeals to enforceable clocks and documented ownership.",
-    artifact: pickArtifact([
-      "reversal-sla-template",
-      "contestability-appeals-playbook",
-    ]),
-    diagnosticsHref: "/diagnostics/capacity-forecaster",
-    diagnosticsLabel: "Forecast capacity risk",
-    standardsHref: "/standards/std-02-contestability-recourse",
-    standardsLabel: "Recheck recourse controls",
-  },
 ];
 
-const firstStage = workflowStages[0];
+const orderedWorkflowStages = workflowStages.filter(
+  (stage, index, stages) =>
+    stages.findIndex(
+      (candidate) => candidate.artifact.slug === stage.artifact.slug,
+    ) === index,
+);
 ---
 
 <BaseLayout title={state.title} description={state.descriptionLine1}>
@@ -117,26 +108,10 @@ const firstStage = workflowStages[0];
     <h1>{state.title}</h1>
     <p>{state.descriptionLine1}</p>
     <p>{state.descriptionLine2}</p>
-
-    <div class="callout callout--emphasis">
-      <p class="eyebrow">Do this first</p>
-      <h2>{firstStage.title}</h2>
-      <p class="muted">{firstStage.description}</p>
-      <p>
-        <a
-          class="button primary"
-          href={`/artifact/${firstStage.artifact.slug}`}
-          data-route-action={`failure-${firstStage.key}-${firstStage.artifact.slug}`}
-        >
-          Open {firstStage.artifact.name}
-        </a>
-      </p>
-    </div>
-
-    <h2>Response workflow</h2>
+    <h2>Response workflow (triage → stabilize → evidence)</h2>
     <ol class="stack-sm">
       {
-        workflowStages.map((stage) => (
+        orderedWorkflowStages.map((stage) => (
           <li class="card stack-sm">
             <p class="eyebrow">{stage.title}</p>
             <h3>{stage.artifact.name}</h3>
@@ -150,7 +125,6 @@ const firstStage = workflowStages[0];
                 Open {stage.artifact.name}
               </a>
             </p>
-            <p class="muted small">Use this when: {stage.description}</p>
             <p class="muted small">
               Next checks:{" "}
               <a href={stage.diagnosticsHref}>{stage.diagnosticsLabel}</a> ·
@@ -161,9 +135,7 @@ const firstStage = workflowStages[0];
       }
     </ol>
 
-    <p class="small muted">
-      Workflow follows triage → stabilize → communicate → prevent recurrence.
-    </p>
+    <p class="small muted">Workflow follows triage → stabilize → evidence.</p>
     <p class="small muted">{state.footerLine}</p>
   </section>
   <script is:inline type="module" src={routeMetricsScript}></script>
