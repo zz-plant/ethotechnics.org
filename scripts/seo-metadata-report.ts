@@ -13,7 +13,7 @@ const walk = async (dir: string): Promise<string[]> => {
         return walk(resolved);
       }
       return entry.isFile() ? [resolved] : [];
-    })
+    }),
   );
   return files.flat();
 };
@@ -34,8 +34,8 @@ const LAYOUT_COMPONENTS: LayoutComponent[] = [
 const findImportedAlias = (content: string, component: string) => {
   const importMatch = content.match(
     new RegExp(
-      `import\\s+(\\w+)\\s+from\\s+["'][^"']*${component}\\.astro["']`
-    )
+      `import\\s+(\\w+)\\s+from\\s+["'][^"']*${component}\\.astro["']`,
+    ),
   );
   return importMatch?.[1] ?? null;
 };
@@ -47,7 +47,7 @@ const findLayoutUsage = (content: string) => {
       continue;
     }
     const tagMatch = content.match(
-      new RegExp(`<${alias}(\\s|>|\\n)[\\s\\S]*?>`)
+      new RegExp(`<${alias}(\\s|>|\\n)[\\s\\S]*?>`),
     );
     if (tagMatch) {
       return { layout, alias, tag: tagMatch[0] };
@@ -63,13 +63,38 @@ const formatMissing = (missingTitle: boolean, missingDescription: boolean) => {
   return missing.join(" + ");
 };
 
+const findLiteralPropValue = (tag: string, propName: string): string | null => {
+  const match = new RegExp(`\\b${propName}=(["'])([^"']*)\\1`).exec(tag);
+  return match?.[2]?.trim() || null;
+};
+
+const isLikelyArticleRoute = (relativePath: string): boolean =>
+  !relativePath.endsWith("/index.astro") &&
+  !relativePath.endsWith("/404.astro") &&
+  !relativePath.includes("/[...") &&
+  !relativePath.includes("/[");
+
 const run = async () => {
   const files = await walk(PAGES_ROOT);
   const astroFiles = files.filter(
-    (file) => file.endsWith(".astro") && !file.includes(`${path.sep}api${path.sep}`)
+    (file) =>
+      file.endsWith(".astro") && !file.includes(`${path.sep}api${path.sep}`),
   );
   const missingEntries: Array<{ file: string; missing: string }> = [];
   const pagesWithoutBaseLayout: string[] = [];
+  const titleToPages = new Map<string, string[]>();
+  const descriptionToPages = new Map<string, string[]>();
+  const shortTitlePages: Array<{
+    file: string;
+    length: number;
+    value: string;
+  }> = [];
+  const shortDescriptionPages: Array<{
+    file: string;
+    length: number;
+    value: string;
+  }> = [];
+  const likelyArticleMissingPublishedTime: string[] = [];
 
   for (const file of astroFiles) {
     const content = await readFile(file, "utf-8");
@@ -90,6 +115,42 @@ const run = async () => {
       layout.requiredProps.includes("description") &&
       !/\bdescription=/.test(tag);
 
+    const relativeFile = path.relative(path.resolve("."), file);
+    const literalTitle = findLiteralPropValue(tag, "title");
+    const literalDescription = findLiteralPropValue(tag, "description");
+
+    if (literalTitle) {
+      titleToPages.set(literalTitle, [
+        ...(titleToPages.get(literalTitle) ?? []),
+        relativeFile,
+      ]);
+      if (literalTitle.length < 35) {
+        shortTitlePages.push({
+          file: relativeFile,
+          length: literalTitle.length,
+          value: literalTitle,
+        });
+      }
+    }
+
+    if (literalDescription) {
+      descriptionToPages.set(literalDescription, [
+        ...(descriptionToPages.get(literalDescription) ?? []),
+        relativeFile,
+      ]);
+      if (literalDescription.length < 70) {
+        shortDescriptionPages.push({
+          file: relativeFile,
+          length: literalDescription.length,
+          value: literalDescription,
+        });
+      }
+    }
+
+    if (isLikelyArticleRoute(relativeFile) && !/\bpublishedTime=/.test(tag)) {
+      likelyArticleMissingPublishedTime.push(relativeFile);
+    }
+
     if (missingTitle || missingDescription) {
       missingEntries.push({
         file,
@@ -99,9 +160,15 @@ const run = async () => {
   }
 
   const sortedMissing = missingEntries.sort((a, b) =>
-    a.file.localeCompare(b.file)
+    a.file.localeCompare(b.file),
   );
   const sortedWithoutLayout = pagesWithoutBaseLayout.sort();
+  const duplicateTitles = [...titleToPages.entries()]
+    .filter(([, pages]) => pages.length > 1)
+    .sort((a, b) => a[0].localeCompare(b[0]));
+  const duplicateDescriptions = [...descriptionToPages.entries()]
+    .filter(([, pages]) => pages.length > 1)
+    .sort((a, b) => a[0].localeCompare(b[0]));
   const generatedAt = new Date().toISOString();
 
   const lines = [
@@ -124,6 +191,50 @@ const run = async () => {
       const relative = path.relative(path.resolve("."), file);
       return `- \`${relative}\``;
     }),
+    "",
+    "## Duplicate literal titles",
+    "",
+    ...(duplicateTitles.length > 0
+      ? duplicateTitles.map(
+          ([title, pages]) =>
+            `- \`${title}\` → ${pages.map((page) => `\`${page}\``).join(", ")}`,
+        )
+      : ["- None"]),
+    "",
+    "## Duplicate literal descriptions",
+    "",
+    ...(duplicateDescriptions.length > 0
+      ? duplicateDescriptions.map(
+          ([description, pages]) =>
+            `- \`${description}\` → ${pages.map((page) => `\`${page}\``).join(", ")}`,
+        )
+      : ["- None"]),
+    "",
+    "## Pages with short literal titles (<35 chars)",
+    "",
+    ...(shortTitlePages.length > 0
+      ? shortTitlePages
+          .sort((a, b) => a.file.localeCompare(b.file))
+          .map(
+            (entry) => `- \`${entry.file}\` (${entry.length}) — ${entry.value}`,
+          )
+      : ["- None"]),
+    "",
+    "## Pages with short literal descriptions (<70 chars)",
+    "",
+    ...(shortDescriptionPages.length > 0
+      ? shortDescriptionPages
+          .sort((a, b) => a.file.localeCompare(b.file))
+          .map(
+            (entry) => `- \`${entry.file}\` (${entry.length}) — ${entry.value}`,
+          )
+      : ["- None"]),
+    "",
+    "## Likely article routes missing publishedTime",
+    "",
+    ...(likelyArticleMissingPublishedTime.length > 0
+      ? likelyArticleMissingPublishedTime.sort().map((file) => `- \`${file}\``)
+      : ["- None"]),
     "",
   ];
 

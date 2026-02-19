@@ -30,6 +30,11 @@ const issues: string[] = [];
 const warnings: string[] = [];
 const headingPresenceCache = new Map<string, boolean>();
 const sourceCache = new Map<string, string>();
+const titleToPages = new Map<string, string[]>();
+const descriptionToPages = new Map<string, string[]>();
+
+const titleLengthRange = { min: 35, max: 65 };
+const descriptionLengthRange = { min: 70, max: 160 };
 
 interface AstroImport {
   componentName: string;
@@ -69,6 +74,95 @@ const countInternalLinks = (source: string): number => {
 
     return isInternalHref(hrefValue) ? count + 1 : count;
   }, 0);
+};
+
+const collectPagesForValue = (
+  registry: Map<string, string[]>,
+  value: string,
+  relPath: string,
+): void => {
+  const normalizedValue = value.trim();
+
+  if (!normalizedValue) {
+    return;
+  }
+
+  const pages = registry.get(normalizedValue) ?? [];
+  pages.push(relPath);
+  registry.set(normalizedValue, pages);
+};
+
+const findLiteralBaseLayoutProp = (
+  source: string,
+  propName: string,
+): string | null => {
+  const baseLayoutTag = /<BaseLayout[\s\S]*?>/m.exec(source)?.[0];
+
+  if (!baseLayoutTag) {
+    return null;
+  }
+
+  const propToken = `${propName}=`;
+  const propIndex = baseLayoutTag.indexOf(propToken);
+
+  if (propIndex === -1) {
+    return null;
+  }
+
+  const valueStart = propIndex + propToken.length;
+  const quote = baseLayoutTag[valueStart];
+
+  if (quote !== '"' && quote !== "'") {
+    return null;
+  }
+
+  const valueEnd = baseLayoutTag.indexOf(quote, valueStart + 1);
+
+  if (valueEnd === -1) {
+    return null;
+  }
+
+  const value = baseLayoutTag.slice(valueStart + 1, valueEnd).trim();
+  return value || null;
+};
+
+const findImageWithoutAlt = (source: string): number => {
+  const imageTagPattern = /<img\b[^>]*>/g;
+  const altAttrPattern = /\balt\s*=\s*(["'])[^"']*\1|\balt\s*=\s*\{[^}]*\}/;
+  let missingCount = 0;
+
+  for (const tagMatch of source.matchAll(imageTagPattern)) {
+    const tag = tagMatch[0];
+
+    if (!altAttrPattern.test(tag)) {
+      missingCount += 1;
+    }
+  }
+
+  return missingCount;
+};
+
+const getSuggestedInternalTargets = (
+  relPath: string,
+  existingInternalLinks: number,
+): string[] => {
+  if (existingInternalLinks >= 3) {
+    return [];
+  }
+
+  if (relPath.includes("/standards/")) {
+    return ["/standards", "/mechanisms", "/evidence-packs"];
+  }
+
+  if (relPath.includes("/explainers/")) {
+    return ["/taxonomy", "/standards", "/examples"];
+  }
+
+  if (relPath.includes("/examples/")) {
+    return ["/explainers", "/validators", "/standards"];
+  }
+
+  return ["/standards", "/mechanisms", "/explainers"];
 };
 
 const resolveAstroImportPath = (
@@ -196,6 +290,47 @@ for (const filePath of pageAstroFiles) {
     issues.push(`${relPath}: BaseLayout is missing a description prop.`);
   }
 
+  const titleLiteral = findLiteralBaseLayoutProp(source, "title");
+  const descriptionLiteral = findLiteralBaseLayoutProp(source, "description");
+
+  if (titleLiteral) {
+    collectPagesForValue(titleToPages, titleLiteral, relPath);
+
+    if (titleLiteral.length < titleLengthRange.min) {
+      warnings.push(
+        `${relPath}: title is ${titleLiteral.length} chars; target ${titleLengthRange.min}-${titleLengthRange.max} characters for stronger SERP snippets.`,
+      );
+    }
+
+    if (titleLiteral.length > titleLengthRange.max) {
+      warnings.push(
+        `${relPath}: title is ${titleLiteral.length} chars; target ${titleLengthRange.min}-${titleLengthRange.max} characters to reduce truncation risk.`,
+      );
+    }
+  }
+
+  if (descriptionLiteral) {
+    collectPagesForValue(descriptionToPages, descriptionLiteral, relPath);
+
+    if (descriptionLiteral.length < descriptionLengthRange.min) {
+      warnings.push(
+        `${relPath}: description is ${descriptionLiteral.length} chars; target ${descriptionLengthRange.min}-${descriptionLengthRange.max} characters for fuller snippets.`,
+      );
+    }
+
+    if (descriptionLiteral.length > descriptionLengthRange.max) {
+      warnings.push(
+        `${relPath}: description is ${descriptionLiteral.length} chars; target ${descriptionLengthRange.min}-${descriptionLengthRange.max} characters to reduce truncation risk.`,
+      );
+    }
+  }
+
+  if (/rel=["']canonical["']/.test(source)) {
+    warnings.push(
+      `${relPath}: contains a manual canonical link; BaseLayout already emits canonical metadata.`,
+    );
+  }
+
   const hasHeading = await hasHeadingInAstroFile(filePath, source);
   if (!hasHeading) {
     issues.push(
@@ -206,8 +341,56 @@ for (const filePath of pageAstroFiles) {
   const lineCount = source.split("\n").length;
   const internalLinks = countInternalLinks(source);
   if (lineCount >= 120 && internalLinks < 3) {
+    const suggestedTargets = getSuggestedInternalTargets(relPath, internalLinks)
+      .map((target) => `\`${target}\``)
+      .join(", ");
     warnings.push(
-      `${relPath}: long page has only ${internalLinks} internal links; consider adding descriptive internal links.`,
+      `${relPath}: long page has only ${internalLinks} internal links; consider adding descriptive links to ${suggestedTargets}.`,
+    );
+  }
+
+  const imagesMissingAlt = findImageWithoutAlt(source);
+  if (imagesMissingAlt > 0) {
+    issues.push(
+      `${relPath}: found ${imagesMissingAlt} <img> tags without alt text.`,
+    );
+  }
+
+  const isLikelyArticleRoute =
+    !relPath.endsWith("/index.astro") && !relPath.endsWith("404.astro");
+  const hasPublishedTime = /<BaseLayout[\s\S]*?\bpublishedTime=/.test(source);
+  const hasStructuredDataType =
+    /<BaseLayout[\s\S]*?\bstructuredDataType=/.test(source);
+
+  if (isLikelyArticleRoute && !hasPublishedTime) {
+    warnings.push(
+      `${relPath}: article-like route is missing publishedTime, which weakens Article JSON-LD completeness.`,
+    );
+  }
+
+  const isTopLevelLandingPage =
+    /^src\/pages\/[^/]+\/index\.astro$/.test(relPath) ||
+    relPath === "src/pages/index.astro";
+
+  if (isTopLevelLandingPage && !hasStructuredDataType) {
+    warnings.push(
+      `${relPath}: landing page relies on automatic structuredDataType resolution; set an explicit value for richer JSON-LD control.`,
+    );
+  }
+}
+
+for (const [title, pages] of titleToPages.entries()) {
+  if (pages.length > 1) {
+    warnings.push(
+      `duplicate title (${JSON.stringify(title)}) used by: ${pages.join(", ")}.`,
+    );
+  }
+}
+
+for (const [description, pages] of descriptionToPages.entries()) {
+  if (pages.length > 1) {
+    warnings.push(
+      `duplicate description (${JSON.stringify(description)}) used by: ${pages.join(", ")}.`,
     );
   }
 }

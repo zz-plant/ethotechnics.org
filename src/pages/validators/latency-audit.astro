@@ -3,14 +3,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ValidatorMicroDiagram from "../../components/ValidatorMicroDiagram.astro";
 import { validatorsContent } from "../../content/validators";
 
-const validatorMeta =
-  validatorsContent.validators.find((validator) => validator.id === "VAL-03") ??
-  {
-    id: "VAL-03",
-    standardRef: "STD-01",
-    clauseRefs: [],
-    mechanismRefs: [],
-  };
+const validatorMeta = validatorsContent.validators.find(
+  (validator) => validator.id === "VAL-03",
+) ?? {
+  id: "VAL-03",
+  standardRef: "STD-01",
+  clauseRefs: [],
+  mechanismRefs: [],
+};
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
@@ -24,10 +24,12 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="Latency Audit — Validator"
-  description="Audit bounded duration compliance against system latency."
+  title="Latency Audit Validator — Verify Bounded Duration Compliance"
+  description="Compare declared timeouts against observed latency and escalation readiness to verify bounded-duration compliance for high-stakes automated decisions."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
+  structuredDataType="webpage"
+  publishedTime="2026-01-10"
 >
   <section class="validator">
     <header class="validator__header">
@@ -35,7 +37,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         <p class="validator__id">VAL-03</p>
         <h1>Latency Audit</h1>
         <p class="muted">
-          Compare declared timeouts against observed latency to test STD-01 Article III.
+          Compare declared timeouts against observed latency to test STD-01
+          Article III.
         </p>
       </div>
       <a class="validator__standard" href="/standards/std-01-temporal-rights">
@@ -45,7 +48,11 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
     <ValidatorMicroDiagram variant="latency" />
 
-    <form class="validator__form" data-validator-form data-validator-meta={validatorMetaJson}>
+    <form
+      class="validator__form"
+      data-validator-form
+      data-validator-meta={validatorMetaJson}
+    >
       <label class="validator__field">
         Declared timeout (seconds)
         <input
@@ -92,7 +99,9 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         </output>
       </div>
       <p class="validator__recommendation">
-        Fix this using <a href="/mechanisms/mec-04-hard-clock">MEC-04: The Hard Clock</a>.
+        Fix this using <a href="/mechanisms/mec-04-hard-clock"
+          >MEC-04: The Hard Clock</a
+        >.
       </p>
       <button class="button ghost" type="button" data-validator-download>
         Download JSON
@@ -102,9 +111,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 </BaseLayout>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>(
-    "[data-validator-form]"
-  );
+  const form = document.querySelector<HTMLFormElement>("[data-validator-form]");
   const validatorMeta = form?.dataset.validatorMeta
     ? (JSON.parse(form.dataset.validatorMeta) as {
         id: string;
@@ -118,24 +125,19 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         clauseRefs: [],
         mechanismRefs: [],
       };
-  const report = document.querySelector<HTMLElement>(
-    "[data-validator-report]"
-  );
+  const report = document.querySelector<HTMLElement>("[data-validator-report]");
   const statusPill = document.querySelector<HTMLElement>(
-    "[data-validator-pill]"
+    "[data-validator-pill]",
   );
   const statusOutput = document.querySelector<HTMLOutputElement>(
-    "[data-validator-output]"
+    "[data-validator-output]",
   );
   const downloadButton = document.querySelector<HTMLButtonElement>(
-    "[data-validator-download]"
+    "[data-validator-download]",
   );
   const STORAGE_KEY = "validator-latency-audit";
 
-  const updateStatus = (
-    level: "red" | "yellow" | "green",
-    message: string
-  ) => {
+  const updateStatus = (level: "red" | "yellow" | "green", message: string) => {
     if (!statusPill || !statusOutput) return;
     statusPill.classList.remove(
       "status-pill--red",
@@ -154,7 +156,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
       timeout: number;
       latency: number;
       escalation: FormDataEntryValue | null;
-    }
+    },
   ) => {
     const clauseMap = {
       green: [],
@@ -243,7 +245,11 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     }
 
     updateStatus(level, message);
-    latestResult = buildResult(level, message, { timeout, latency, escalation });
+    latestResult = buildResult(level, message, {
+      timeout,
+      latency,
+      escalation,
+    });
     report.removeAttribute("hidden");
     report.scrollIntoView({ behavior: "smooth", block: "start" });
   });

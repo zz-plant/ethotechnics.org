@@ -26,7 +26,8 @@ const focusGroups = [
   },
   {
     title: "Latency & bounded duration",
-    description: "Validators that confirm time limits and escalation readiness.",
+    description:
+      "Validators that confirm time limits and escalation readiness.",
     validators: validators.slice(2, 3),
   },
 ];
@@ -60,6 +61,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   title={pageTitle}
   description={pageDescription}
   jsonAlternates={[{ href: "/api/validators.json", title: "Validators JSON" }]}
+  structuredDataType="collection"
 >
   <PageIntro
     eyebrow="Validators"
@@ -70,17 +72,17 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     panelCopy={panelCopy}
   >
     <Fragment slot="actions">
-      {featuredValidators.map((validator, index) => (
-        <a
-          class={`button ${index === 0 ? "primary" : "ghost"}`}
-          href={`/validators/${validator.slug}`}
-        >
-          Run {validator.title}
-        </a>
-      ))}
-      <a class="button ghost" href="#tools">
-        Browse all validators
-      </a>
+      {
+        featuredValidators.map((validator, index) => (
+          <a
+            class={`button ${index === 0 ? "primary" : "ghost"}`}
+            href={`/validators/${validator.slug}`}
+          >
+            Run {validator.title}
+          </a>
+        ))
+      }
+      <a class="button ghost" href="#tools"> Browse all validators </a>
     </Fragment>
   </PageIntro>
   <SummaryCallout
@@ -109,8 +111,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <div class="callout">
     <h3>Cross-link to rights and mechanisms</h3>
     <p class="muted">
-      Jump from validator outputs to the rights they protect and the mechanisms that enforce
-      remediation.
+      Jump from validator outputs to the rights they protect and the mechanisms
+      that enforce remediation.
     </p>
     <div class="library__role-buttons">
       <a

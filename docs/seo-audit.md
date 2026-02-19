@@ -30,3 +30,8 @@
       [`docs/seo-metadata-report.md`](seo-metadata-report.md).
 - [x] Ship a PNG Open Graph endpoint and point metadata to it for broader support.
 - [ ] Update priority routes with breadcrumb data.
+
+## Automation update
+
+- `scripts/seo-metadata-report.ts` now includes duplicate literal title/description detection,
+  short metadata surfacing, and likely article routes missing `publishedTime` for JSON-LD completeness.
