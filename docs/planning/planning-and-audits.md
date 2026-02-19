@@ -25,6 +25,8 @@ It consolidates references that were previously spread across multiple index sec
   publication-readiness review for external site summaries.
 - [`open-source-citizenship-audit-2026-02.md`](open-source-citizenship-audit-2026-02.md):
   repository community-health review against open-source citizenship norms.
+- [`copywriting-plain-language-audit-2026-02.md`](copywriting-plain-language-audit-2026-02.md):
+  plain-language audit of high-friction site copy with rewrite recommendations.
 
 ## Technical strategy tracks
 

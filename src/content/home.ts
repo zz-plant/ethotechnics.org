@@ -123,13 +123,13 @@ export const homeContent = {
   pageTitle:
     "Ethotechnics Institute — Accountable AI Governance, Diagnostics, and Delivery",
   pageDescription:
-    "Practical guidance for teams building high-stakes AI systems: run diagnostics, strengthen appeal and recourse, and align delivery, research, and governance.",
+    "Practical guidance for teams building high-stakes AI systems: run diagnostics, help people appeal decisions, and align delivery, research, and governance.",
   hero: {
     eyebrow: "A workbench for accountable systems",
     heading: "Deliver, research, and govern accountable AI systems.",
     subheadline:
       "Standards, diagnostics, and mechanisms that help teams ship, study, and govern high-stakes AI systems.",
-    lede: "Run diagnostics, align standards, and deploy mechanisms that connect delivery, research, and governance into enforceable action teams can defend.",
+    lede: "Run diagnostics, align standards, and use practical steps that connect delivery, research, and governance so teams can explain decisions clearly.",
     map: 'Start with <a href="/standards">Standards</a>, explore <a href="/mechanisms">Mechanisms</a>, run <a href="/validators">Validators</a>, or connect with the <a href="/institute">Institute</a>.',
     badge: {
       label: "Institute + Studio",
@@ -163,12 +163,12 @@ export const homeContent = {
       },
       {
         label: "Mechanisms catalog",
-        value: "Spec-ready mechanisms and facilitation prompts",
+        value: "Templates you can paste into specs, plus meeting prompts",
         icon: "lucide:library",
       },
       {
         label: "Studio support",
-        value: "Workshops, audits, and embedded co-delivery",
+        value: "Workshops, audits, and hands-on support inside your team",
         icon: "lucide:heart-handshake",
       },
     ],
