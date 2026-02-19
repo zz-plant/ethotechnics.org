@@ -8,7 +8,6 @@ import QuickSignalPanel from "../../components/QuickSignalPanel.astro";
 import ReferenceCallout from "../../components/ReferenceCallout.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
 import { instituteStudioCallout } from "../../content/callouts";
@@ -62,26 +61,16 @@ const { cspNonce } = Astro.locals;
     description={hero.description}
     permalink={permalink}
     anchorLinks={anchorLinks}
-    collapseAnchorLinks={false}
-    collapseAnchorLinksOnMobile={true}
+    collapseAnchorLinks={true}
     anchorLinksSummary="Show full outline for this page"
     panelCopy={hero.panel}
   >
     <Fragment slot="actions">
       <a class="button primary" href="#recommended">
-        Start with the recommendation
+        Start step 1: recommendation
       </a>
     </Fragment>
   </PageIntro>
-  <SummaryCallout
-    title="A guided way through the entry points"
-    description="Start with the recommended first step, then choose a pathway and pull the artifacts that match your role."
-    takeaways={[
-      "Follow the recommended first step if you're new.",
-      "Use pathways to match your role and decision window.",
-      "Collect artifact bundles before you hand off to governance.",
-    ]}
-  />
   {
     recommendedCard && (
       <div class="callout callout--emphasis" id="recommended">
@@ -130,14 +119,6 @@ const { cspNonce } = Astro.locals;
   <SectionActions>
     <StudioBadge />
   </SectionActions>
-  <QuickSignalPanel
-    eyebrow="Fast orientation"
-    title="Navigate the fastest next step."
-    summary={hero.quickSummary}
-    bullets={hero.deliverables}
-    note={hero.quickNote}
-  />
-
   <SectionBlock
     id="framing"
     eyebrow={framing.eyebrow}
@@ -181,10 +162,14 @@ const { cspNonce } = Astro.locals;
               <strong>When to use:</strong> {card.bestFor}
             </p>
             <p class="muted small">
-              <strong>When to skip:</strong> If your team needs only policy language and no
-              workflow changes, start with the standards library first.
+              <strong>When to skip:</strong> If your team needs only policy
+              language and no workflow changes, start with the standards library
+              first.
             </p>
-            <div class="callout__metrics" aria-label={`Timing details for ${card.title}`}>
+            <div
+              class="callout__metrics"
+              aria-label={`Timing details for ${card.title}`}
+            >
               <span class="pill pill--muted">Estimated time: {card.time}</span>
             </div>
             <div slot="footer" class="card__footer">
@@ -201,6 +186,14 @@ const { cspNonce } = Astro.locals;
       }
     </CardGrid>
   </SectionBlock>
+
+  <QuickSignalPanel
+    eyebrow="Fast orientation"
+    title="Navigate the fastest next step."
+    summary={hero.quickSummary}
+    bullets={hero.deliverables}
+    note={hero.quickNote}
+  />
 
   <SectionBlock
     id="quick-start"

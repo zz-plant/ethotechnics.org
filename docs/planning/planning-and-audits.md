@@ -14,6 +14,8 @@ It consolidates references that were previously spread across multiple index sec
 
 - [`user-journey-critique.md`](user-journey-critique.md): representative journey walkthrough and
   recommendations.
+- [`new-user-routes-critique-2026-02.md`](new-user-routes-critique-2026-02.md):
+  two-route first-session critique constrained to remove/rebuild/modify actions.
 - [`mobile-ux-critique-2026-02.md`](mobile-ux-critique-2026-02.md): mobile-focused UX
   critique with prioritized improvements.
 - Kondo audit series:
