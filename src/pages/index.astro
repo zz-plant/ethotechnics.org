@@ -273,11 +273,11 @@ const failureChoiceIcons: Record<string, string[]> = {
 
   <section id="failure-intake" class="stack-lg">
     <p class="eyebrow">Step 4 · Incident triage</p>
-    <h2>What is failing right now?</h2>
+    <h2 id="failure-intake-heading">What is failing right now?</h2>
     <p class="section-lead">
       Pick the closest symptom. This is for routing to help, not for blame.
     </p>
-    <ul class="failure-grid" aria-label="Failure routing options">
+    <ul class="failure-grid" aria-labelledby="failure-intake-heading">
       {
         failureStates.map((state) => {
           const iconPaths = failureChoiceIcons[state.slug] ?? [
