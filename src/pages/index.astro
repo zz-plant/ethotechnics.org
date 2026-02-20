@@ -71,6 +71,21 @@ const mobileQuickActions = [
   },
 ];
 
+const homepageJumpLinks = [
+  {
+    href: "#failure-intake",
+    label: "Incident triage",
+  },
+  {
+    href: "/standards",
+    label: "Standards index",
+  },
+  {
+    href: "/diagnostics#diagnostic-tools",
+    label: "Diagnostics tools",
+  },
+];
+
 const failureChoiceIcons: Record<string, string[]> = {
   "decision-appealed": [
     "M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3",
@@ -207,6 +222,24 @@ const failureChoiceIcons: Record<string, string[]> = {
           <li>
             <strong>{signal.value}</strong>
             <span>{signal.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section
+    class="stack-sm homepage-jump-links"
+    aria-labelledby="homepage-jump-links-heading"
+  >
+    <p id="homepage-jump-links-heading" class="eyebrow">Quick jump</p>
+    <ul class="homepage-jump-links__list" aria-label="Homepage jump links">
+      {
+        homepageJumpLinks.map((link) => (
+          <li>
+            <a class="homepage-jump-links__link" href={link.href}>
+              {link.label}
+            </a>
           </li>
         ))
       }

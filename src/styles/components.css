@@ -6515,6 +6515,41 @@
     box-shadow: var(--shadow-xs);
   }
 
+  .homepage-jump-links {
+    max-width: 1080px;
+  }
+
+  .homepage-jump-links__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .homepage-jump-links__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.2rem;
+    padding: 0.42rem 0.82rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    background: color-mix(in srgb, var(--surface) 95%, white 5%);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.87rem;
+    font-weight: 600;
+  }
+
+  .homepage-jump-links__link:hover,
+  .homepage-jump-links__link:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 34%, var(--border));
+    box-shadow: var(--shadow-xs);
+    color: var(--accent-strong);
+  }
+
   .mobile-shortcuts {
     list-style: none;
     padding: 0;
@@ -6811,9 +6846,18 @@
     .institute-flow {
       margin-top: 0.35rem;
     }
+
+    .homepage-jump-links__list {
+      gap: 0.45rem;
+    }
+
+    .homepage-jump-links__link {
+      flex: 1 1 calc(50% - 0.45rem);
+      min-width: 10rem;
+    }
   }
 
-  @media (min-width: 680px) and (max-width: 899px) {
+  @media (min-width: 560px) and (max-width: 899px) {
     .failure-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
