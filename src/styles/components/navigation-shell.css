@@ -198,9 +198,18 @@
 
   @media (max-width: 991px) {
     .nav__mobile-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      align-items: stretch;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav__search-mobile {
+      flex: 1 1 10rem;
+      min-width: 9rem;
+    }
+
+    .nav__utility-inline {
+      flex: 0 0 auto;
     }
 
     .nav__utility--mobile {
@@ -244,14 +253,13 @@
     }
 
     .nav__mobile-top {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.5rem;
+      align-items: center;
+      gap: 0.45rem;
     }
 
     .nav__search-mobile {
-      flex: 1 1 100%;
-      min-width: 0;
+      flex: 1 1 8.5rem;
+      min-width: 8.5rem;
     }
 
     .nav__utility--mobile {
