@@ -218,7 +218,7 @@
   }
   @media (max-width: 720px) {
     .nav__inner {
-      padding: 0.45rem 0.35rem 0.35rem;
+      padding: 0.5rem 0.35rem 0.4rem;
     }
 
     .nav__bar {
@@ -253,7 +253,7 @@
     }
 
     .nav__mobile-top {
-      align-items: center;
+      align-items: stretch;
       gap: 0.45rem;
     }
 
@@ -280,6 +280,25 @@
     }
 
     .nav__utility--mobile {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .nav__inner {
+      padding-inline: 0.2rem;
+    }
+
+    .nav__mobile-top {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .nav__search-mobile {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+
+    .nav__utility-inline {
       width: 100%;
     }
   }
