@@ -16,7 +16,8 @@ interface Props {
 const { currentPath, mobileLinks } = Astro.props as Props;
 
 const featuredMobileLinks = mobileLinks.slice(0, 3);
-const hasOverflowMobileLinks = mobileLinks.length > featuredMobileLinks.length;
+const overflowMobileLinks = mobileLinks.slice(featuredMobileLinks.length);
+const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
 
 const primaryUtilityLinks = [
   {
@@ -116,11 +117,11 @@ const secondaryUtilityLinks = [
       hasOverflowMobileLinks ? (
         <details
           class="nav__primary-disclosure"
-          aria-label="All primary routes"
+          aria-label="More primary routes"
         >
-          <summary>All routes · {mobileLinks.length}</summary>
+          <summary>More routes · {overflowMobileLinks.length}</summary>
           <div class="nav__links nav__links--mobile">
-            {mobileLinks.map((link) => (
+            {overflowMobileLinks.map((link) => (
               <a
                 class="nav__link"
                 href={link.href}
