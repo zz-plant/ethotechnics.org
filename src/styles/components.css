@@ -6532,7 +6532,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.2rem;
+    min-height: 2.5rem;
     padding: 0.42rem 0.82rem;
     border-radius: 999px;
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
@@ -6892,6 +6892,10 @@
     .failure-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-auto-rows: 1fr;
+    }
+
+    .failure-grid > li:last-child:nth-child(3n + 1) {
+      grid-column: 2;
     }
 
     .adopt-grid {
