@@ -98,6 +98,13 @@
     isolation: isolate;
   }
 
+  .site-header {
+    position: relative;
+    z-index: var(--z-raised);
+    display: grid;
+    gap: 0;
+  }
+
   @supports (height: 100svh) {
     .page-shell {
       min-height: 100svh;
@@ -3459,6 +3466,10 @@
     gap: 0.75rem;
   }
 
+  .footer__cta-actions .button {
+    min-width: 9rem;
+  }
+
   .footer__brand {
     display: inline-flex;
     gap: 0.75rem;
@@ -3544,6 +3555,24 @@
 
     .nav__inner {
       padding: 0.75rem 0;
+    }
+
+    .footer {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.2rem;
+    }
+
+    .footer__cta-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .footer__cta-actions .button {
+      width: 100%;
+    }
+
+    .footer__wordmark {
+      width: clamp(8.5rem, 36vw, 10.5rem);
     }
   }
 
