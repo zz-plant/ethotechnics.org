@@ -2,7 +2,11 @@
 import NavUtilityLinks from "../NavUtilityLinks.astro";
 import Search from "../Search.astro";
 import type { NavLink } from "../../content/navigation";
-import { getAriaCurrent, isHashLink, toViewTransitionName } from "../../utils/navigation";
+import {
+  getAriaCurrent,
+  isHashLink,
+  toViewTransitionName,
+} from "../../utils/navigation";
 
 interface Props {
   currentPath: string;
@@ -10,27 +14,66 @@ interface Props {
 }
 
 const { currentPath, mobileLinks } = Astro.props as Props;
+
+const activeMobileLinkIndex = mobileLinks.findIndex((link) => {
+  const ariaCurrent = getAriaCurrent(link.href, currentPath);
+  return ariaCurrent === "page" || ariaCurrent === "location";
+});
+
+const featuredMobileLinkIndexes = mobileLinks
+  .map((_, index) => index)
+  .slice(0, 3);
+
+if (
+  activeMobileLinkIndex >= 0 &&
+  !featuredMobileLinkIndexes.includes(activeMobileLinkIndex)
+) {
+  if (featuredMobileLinkIndexes.length >= 3) {
+    featuredMobileLinkIndexes[featuredMobileLinkIndexes.length - 1] =
+      activeMobileLinkIndex;
+  } else {
+    featuredMobileLinkIndexes.push(activeMobileLinkIndex);
+  }
+}
+
+const featuredMobileLinkIndexSet = new Set(featuredMobileLinkIndexes);
+
+const featuredMobileLinks = mobileLinks.filter((_, index) =>
+  featuredMobileLinkIndexSet.has(index),
+);
+const overflowMobileLinks = mobileLinks.filter(
+  (_, index) => !featuredMobileLinkIndexSet.has(index),
+);
+const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
+
+const primaryUtilityLinks = [
+  {
+    href: "/start-here",
+    label: "Start here",
+    class: "nav__utility-link nav__utility-link--primary",
+    icon: "lucide:arrow-right",
+  },
+];
 ---
 
-<div class="nav__mobile" aria-label="Primary">
+<div class="nav__mobile" aria-label="Main navigation">
   <div class="nav__mobile-row">
     <div class="nav__mobile-top">
       <div class="nav__search-mobile" aria-label="Search">
         <Search scope="mobile" label="Search" />
       </div>
 
-      <div class="nav__utility nav__utility--mobile" aria-label="Utility links">
-        <NavUtilityLinks currentPath={currentPath} />
+      <div class="nav__utility-inline" aria-label="Quick start">
+        <NavUtilityLinks
+          currentPath={currentPath}
+          links={primaryUtilityLinks}
+        />
       </div>
     </div>
 
-
-    <p class="nav__mobile-hint muted small" aria-live="polite">
-      Primary routes · choose one
-    </p>
-    <div class="nav__links nav__links--mobile">
+    <div class="nav__links nav__links--mobile nav__links--mobile-compact">
       {
-        mobileLinks.map((link) => (
+        featuredMobileLinks.map((link) => (
           <a
             class="nav__link"
             href={link.href}
@@ -39,7 +82,11 @@ const { currentPath, mobileLinks } = Astro.props as Props;
                 ? `${link.label}, jumps to a homepage section`
                 : link.label
             }
-            title={isHashLink(link.href) ? "Jumps to a section on the homepage" : undefined}
+            title={
+              isHashLink(link.href)
+                ? "Jumps to a section on the homepage"
+                : undefined
+            }
             aria-current={getAriaCurrent(link.href, currentPath)}
             style={`view-transition-name: ${toViewTransitionName(
               link.href,
@@ -47,12 +94,45 @@ const { currentPath, mobileLinks } = Astro.props as Props;
             )};`}
           >
             <span class="nav__link-label">{link.label}</span>
-            {link.description ? (
-              <span class="nav__link-detail">{link.description}</span>
-            ) : null}
           </a>
         ))
       }
     </div>
+
+    {
+      hasOverflowMobileLinks ? (
+        <details class="nav__primary-disclosure" aria-label="More pages">
+          <summary>More pages</summary>
+          <div class="nav__links nav__links--mobile">
+            {overflowMobileLinks.map((link) => (
+              <a
+                class="nav__link"
+                href={link.href}
+                aria-label={
+                  isHashLink(link.href)
+                    ? `${link.label}, jumps to a homepage section`
+                    : link.label
+                }
+                title={
+                  isHashLink(link.href)
+                    ? "Jumps to a section on the homepage"
+                    : undefined
+                }
+                aria-current={getAriaCurrent(link.href, currentPath)}
+                style={`view-transition-name: ${toViewTransitionName(
+                  link.href,
+                  "mobile",
+                )};`}
+              >
+                <span class="nav__link-label">{link.label}</span>
+                {link.description ? (
+                  <span class="nav__link-detail">{link.description}</span>
+                ) : null}
+              </a>
+            ))}
+          </div>
+        </details>
+      ) : null
+    }
   </div>
 </div>
