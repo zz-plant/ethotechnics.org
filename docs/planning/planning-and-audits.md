@@ -18,6 +18,8 @@ It consolidates references that were previously spread across multiple index sec
   two-route first-session critique constrained to remove/rebuild/modify actions.
 - [`mobile-ux-critique-2026-02.md`](mobile-ux-critique-2026-02.md): mobile-focused UX
   critique with prioritized improvements.
+- [`mobile-ux-critique-2026-02-20.md`](mobile-ux-critique-2026-02-20.md):
+  refreshed mobile audit focused on first-screen clarity and action speed.
 - [`ux-audit-kondo-series-2026.md`](ux-audit-kondo-series-2026.md):
   consolidated findings and action backlog from the prior multi-round Kondo UX audits.
 

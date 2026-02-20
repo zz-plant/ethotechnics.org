@@ -55,23 +55,19 @@ const mobileQuickActions = [
     title: "Find a standard",
     description: "Open the standards index",
     href: "/standards",
-    iconPaths: [
-      "M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4z",
-      "M7 9h6",
-      "M7 12h4",
-    ],
+    iconPaths: ["M4.5 5.5h11v9h-11z", "M7 9h6"],
   },
   {
     title: "Run a diagnostic",
     description: "Jump to diagnostic tools",
     href: "/diagnostics#diagnostic-tools",
-    iconPaths: ["M4.5 14.5l3.2-3.2 2.1 2.1 4.7-4.7", "M4.5 4.5h11v11h-11z"],
+    iconPaths: ["M5 10.4l3 3 7-7"],
   },
   {
     title: "See examples",
     description: "Review implementation examples",
     href: "/examples",
-    iconPaths: ["M5 6h10", "M5 10h10", "M5 14h6"],
+    iconPaths: ["M5 7h10", "M5 10h10"],
   },
 ];
 
@@ -223,6 +219,9 @@ const failureChoiceIcons: Record<string, string[]> = {
   >
     <p id="mobile-quick-actions-heading" class="eyebrow">
       Step 2 · Quick actions
+    </p>
+    <p class="mobile-quick-actions__hint muted small">
+      Not urgent? Use these shortcuts to jump directly to tools and references.
     </p>
     <ul class="mobile-shortcuts" aria-label="Quick actions">
       {
