@@ -13,8 +13,9 @@ const breadcrumbItems = [
 ---
 
 <BaseLayout
-  title="MEC-04 — The Hard Clock"
-  description="Specification sheet for enforcing bounded duration in accountable systems."
+  title="MEC-04 Hard Clock Mechanism for Bounded System Duration"
+  description="Mechanism specification for enforcing maximum state duration, escalation paths, and fail-safe resolution in accountable systems."
+  publishedTime="2026-02-21"
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
 >
@@ -34,27 +35,48 @@ const breadcrumbItems = [
     <section class="mechanism-sheet__section">
       <h2>Definition</h2>
       <p>
-        The Hard Clock is a bounded-duration control that enforces maximum time limits for every
-        system state, ensuring no process persists indefinitely without escalation or resolution.
+        The Hard Clock is a bounded-duration control that enforces maximum time
+        limits for every system state, ensuring no process persists indefinitely
+        without escalation or resolution.
       </p>
     </section>
 
     <section class="mechanism-sheet__section">
       <h2>The Violation</h2>
       <p>
-        <strong>The Infinite Wait:</strong> Users are trapped in “pending,” “processing,” or
-        “reviewing” states with no deadline, escalation path, or exit option.
+        <strong>The Infinite Wait:</strong> Users are trapped in “pending,” “processing,”
+        or “reviewing” states with no deadline, escalation path, or exit option.
       </p>
     </section>
 
     <section class="mechanism-sheet__section">
       <h2>The Spec</h2>
       <ul class="mechanism-sheet__list">
-        <li>Every system state must declare a maximum duration in minutes or hours.</li>
-        <li>When the maximum duration expires, the system must fail safe or escalate to a human.</li>
-        <li>Users must see the declared duration before committing to the process.</li>
-        <li>Timeouts must be logged and reviewed monthly by a named steward.</li>
+        <li>
+          Every system state must declare a maximum duration in minutes or
+          hours.
+        </li>
+        <li>
+          When the maximum duration expires, the system must fail safe or
+          escalate to a human.
+        </li>
+        <li>
+          Users must see the declared duration before committing to the process.
+        </li>
+        <li>
+          Timeouts must be logged and reviewed monthly by a named steward.
+        </li>
       </ul>
+    </section>
+
+    <section class="mechanism-sheet__section">
+      <h2>Related references</h2>
+      <p>
+        Use this mechanism alongside <a href="/standards">core standards</a>,
+        <a href="/validators/latency-audit">latency audits</a>, and
+        <a href="/examples/fraud-hold-delayed-notice">failure examples</a> to validate
+        time-bound enforcement in production workflows.
+      </p>
     </section>
 
     <section class="mechanism-sheet__section">
@@ -71,7 +93,9 @@ const breadcrumbItems = [
           Copy Policy Text for Terms of Service
         </button>
       </div>
-      <pre class="mechanism-sheet__policy" data-policy-text>
+      <pre
+        class="mechanism-sheet__policy"
+        data-policy-text>
 All automated requests must declare a maximum processing duration and provide a human escalation
 path when the declared duration is exceeded. Requests exceeding the declared duration will fail safe
 and preserve user state for re-entry.

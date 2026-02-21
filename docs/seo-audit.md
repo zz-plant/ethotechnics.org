@@ -1,37 +1,50 @@
-# SEO audit (2025-02-14)
+# SEO audit (2026-02-21)
 
 ## Scope
 
-- Reviewed global metadata in `src/layouts/BaseLayout.astro` and the `/api/og.svg` endpoint.
-- Confirmed sitemap and robots integrations in `astro.config.mjs`.
+- Ran the automated audit with `bun run seo:audit`.
+- Reviewed metadata and structured-data defaults in `src/layouts/BaseLayout.astro`.
+- Reviewed crawler configuration in `astro.config.mjs`.
 
-## Strengths
+## What is likely limiting search engine presence
 
-- Canonical URLs, Open Graph, Twitter card tags, and JSON-LD are defined in the base layout.
-- Organization, website, and webpage structured data are present and connected with stable IDs.
-- Sitemap and robots.txt are generated via Astro integrations.
+1. **Many article-like routes lack `publishedTime` metadata**.
+   - Audit count: **83 warnings**.
+   - Impact: article pages can ship less complete `Article` JSON-LD, which may weaken
+     eligibility for rich results and freshness signals.
 
-## Gaps and risks
+2. **Long pages often have weak internal linking**.
+   - Audit count: **45 warnings** for pages with fewer than three internal links.
+   - Impact: lower crawl depth reinforcement and weaker topic clustering across key hubs.
 
-- Open Graph images are SVG-only. Some social crawlers prefer PNG/JPEG and may ignore SVG.
-- Pages that omit custom title/description fall back to global defaults, which can repeat snippets.
-- Breadcrumb structured data is only emitted when pages pass `breadcrumbItems`.
+3. **Landing pages depend on inferred `structuredDataType`**.
+   - Audit count: **27 warnings**.
+   - Impact: less explicit control over JSON-LD type selection on important entry pages.
 
-## Recommendations
+4. **Several routes have short or out-of-range title/description copy**.
+   - Audit count: **7 title** warnings and **9 description** warnings.
+   - Impact: lower-quality SERP snippets and possible truncation/under-utilization of snippets.
 
-- Add a PNG Open Graph endpoint or a content-negotiated fallback for broader platform support.
-- Audit pages for missing titles/descriptions and add unique copy where needed.
-- Ensure key landing pages pass `breadcrumbItems` so search engines get hierarchy context.
-- Add Twitter handle metadata if the Institute has an official account.
+## High-priority route clusters to fix first
 
-## Next-step checklist
+- `/adopt/*` pages: very short titles/descriptions.
+- `/explainers/*`, `/examples/*`, and dynamic glossary routes: missing `publishedTime` and low
+  internal link density.
+- Top-level hub pages (`/taxonomy`, `/glossary`, `/research`, `/bundles`, etc.): set explicit
+  `structuredDataType` values instead of relying on auto resolution.
 
-- [x] Export a list of pages missing title/description values in
-      [`docs/seo-metadata-report.md`](seo-metadata-report.md).
-- [x] Ship a PNG Open Graph endpoint and point metadata to it for broader support.
-- [ ] Update priority routes with breadcrumb data.
+## Positive signals confirmed
 
-## Automation update
+- Site canonical base URL is set to `https://ethotechnics.org` in Astro config.
+- Robots.txt generation is enabled through `astro-robots-txt`.
+- Base layout includes canonical URLs, social metadata, and JSON-LD scaffolding.
 
-- `scripts/seo-metadata-report.ts` now includes duplicate literal title/description detection,
-  short metadata surfacing, and likely article routes missing `publishedTime` for JSON-LD completeness.
+## Recommended next actions
+
+1. Add `publishedTime` (and where possible `modifiedTime`) to high-value article pages first.
+2. Add contextual internal links to long-form pages, prioritizing standards/mechanisms/explainers
+   cross-links.
+3. Set explicit `structuredDataType` on landing hubs.
+4. Rewrite short title/description metadata for `/adopt/*`, `/tools/governance-gap-score`,
+   `/mechanisms/mec-04-hard-clock`, and `/institute/team`.
+5. Re-run `bun run seo:audit` after each batch and track warning count reduction over time.
