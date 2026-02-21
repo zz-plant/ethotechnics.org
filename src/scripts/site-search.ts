@@ -19,6 +19,9 @@ const initSiteSearch = () => {
   const clearFiltersButton = root?.querySelector<HTMLButtonElement>(
     "[data-site-search-clear]",
   );
+  const clearQueryButton = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-clear-query]",
+  );
   const items = Array.from(
     root?.querySelectorAll<HTMLElement>("[data-site-search-item]") ?? [],
   );
@@ -69,12 +72,25 @@ const initSiteSearch = () => {
 
   const updateUrl = (value: string) => {
     const url = new URL(window.location.href);
-    if (value.trim()) {
-      url.searchParams.set("q", value.trim());
+    const trimmedValue = value.trim();
+    if (trimmedValue) {
+      url.searchParams.set("q", trimmedValue);
     } else {
       url.searchParams.delete("q");
     }
     window.history.replaceState(null, "", url.toString());
+  };
+
+  const updateClearButtons = () => {
+    const hasQuery = input.value.trim().length > 0;
+    if (clearQueryButton) {
+      clearQueryButton.hidden = !hasQuery;
+      clearQueryButton.disabled = !hasQuery;
+    }
+
+    if (clearFiltersButton) {
+      clearFiltersButton.disabled = selectedFilters.size === 0;
+    }
   };
 
   const updateActiveFiltersText = () => {
@@ -94,7 +110,8 @@ const initSiteSearch = () => {
   };
 
   const applyFilter = () => {
-    const query = input.value.trim().toLowerCase();
+    const rawQuery = input.value.trim();
+    const query = rawQuery.toLowerCase();
     const hasQuery = query.length > 0;
     let visibleCount = 0;
     const visibleItems: Array<
@@ -160,7 +177,7 @@ const initSiteSearch = () => {
     updateActiveFiltersText();
 
     if (contextText) {
-      const activeQuery = query.length > 0 ? query : "none";
+      const activeQuery = rawQuery.length > 0 ? rawQuery : "none";
       const filterSummary =
         selectedFilters.size > 0
           ? Array.from(selectedFilters)
@@ -170,7 +187,8 @@ const initSiteSearch = () => {
       contextText.textContent = `Active query: ${activeQuery}. Filters: ${filterSummary}.`;
     }
 
-    updateUrl(query);
+    updateClearButtons();
+    updateUrl(rawQuery);
   };
 
   const scheduleFilter = () => {
@@ -215,14 +233,33 @@ const initSiteSearch = () => {
     scheduleFilter();
   };
 
+  const clearQuery = () => {
+    input.value = "";
+    input.focus();
+    scheduleFilter();
+  };
+
   input.addEventListener("input", scheduleFilter);
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && input.value.trim().length > 0) {
+      event.preventDefault();
+      clearQuery();
+    }
+  });
+
   window.addEventListener("popstate", syncFromUrl);
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => toggleFilter(button));
   });
   clearFiltersButton?.addEventListener("click", clearFilters);
+  clearQueryButton?.addEventListener("click", clearQuery);
 
   syncFromUrl();
+
+  if (input.value.trim()) {
+    input.focus();
+    input.select();
+  }
 };
 
 if (document.readyState === "loading") {

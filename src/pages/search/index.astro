@@ -167,16 +167,27 @@ const buildSearchText = (entry: SearchEntry) =>
             <span class="muted small">
               Search across the entire Ethotechnics catalog.
             </span>
-            <input
-              id="site-search"
-              class="site-search__input"
-              type="search"
-              inputmode="search"
-              placeholder="Search terms, diagnostics, standards, or field notes"
-              autocomplete="off"
-              list="site-search-suggestions"
-              data-site-search-input
-            />
+            <div class="site-search__input-row">
+              <input
+                id="site-search"
+                class="site-search__input"
+                type="search"
+                inputmode="search"
+                placeholder="Search terms, diagnostics, standards, or field notes"
+                autocomplete="off"
+                list="site-search-suggestions"
+                data-site-search-input
+              />
+              <button
+                class="button button--ghost button--compact"
+                type="button"
+                data-site-search-clear-query
+                aria-label="Clear search query"
+                hidden
+              >
+                Clear search
+              </button>
+            </div>
           </label>
           <datalist id="site-search-suggestions">
             {suggestions.map((suggestion) => <option value={suggestion} />)}

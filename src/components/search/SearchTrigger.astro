@@ -12,10 +12,14 @@ const { label = "Search the library…", shortcut = "/" } = Astro.props;
 <button
   class="search-trigger"
   type="button"
-  aria-label="Open search"
+  aria-label="Open library search dialog"
   data-search-trigger
 >
   <Icon name="lucide:search" class="search-icon" />
   <span class="search-label">{label}</span>
-  {shortcut && <kbd class="search-kbd">{shortcut}</kbd>}
+  {shortcut && (
+    <kbd class="search-kbd" aria-hidden="true">
+      {shortcut}
+    </kbd>
+  )}
 </button>
