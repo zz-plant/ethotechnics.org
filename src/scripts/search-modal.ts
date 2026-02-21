@@ -144,6 +144,15 @@ const initSearch = () => {
     searchInstances[0];
   let listenersBound = false;
 
+  const isTypingContext = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) return false;
+    return Boolean(
+      target.closest(
+        "input, textarea, select, [contenteditable=''], [contenteditable='true'], [contenteditable='plaintext-only']",
+      ),
+    );
+  };
+
   const bindGlobalListeners = () => {
     if (listenersBound) return;
     listenersBound = true;
@@ -154,10 +163,7 @@ const initSearch = () => {
         event.key === "/" &&
         activeInstance &&
         !activeInstance.isDialogOpen() &&
-        !(
-          document.activeElement instanceof HTMLInputElement ||
-          document.activeElement instanceof HTMLTextAreaElement
-        )
+        !isTypingContext(document.activeElement)
       ) {
         event.preventDefault();
         activeInstance.openDialog({ pushHistory: true });
@@ -369,6 +375,10 @@ const initSearch = () => {
     setSearchMessage(container, "Start typing to search...");
   };
 
+  const updateResultsBusy = (container: HTMLElement, isBusy: boolean) => {
+    container.setAttribute("aria-busy", isBusy ? "true" : "false");
+  };
+
   const bindSearchInstance = ({
     container,
     trigger,
@@ -454,6 +464,7 @@ const initSearch = () => {
 
       input.value = "";
       clearSearchResults(results);
+      updateResultsBusy(results, false);
       setQueryToStorage("");
       if (focusReturn instanceof HTMLElement) {
         focusReturn.focus();
@@ -494,12 +505,17 @@ const initSearch = () => {
       const trimmed = serializeQuery(query);
       if (!trimmed) {
         clearSearchResults(results);
+        updateResultsBusy(results, false);
         setRecentVisibility();
         return;
       }
 
+      updateResultsBusy(results, true);
+      setSearchMessage(results, "Searching…");
+
       const pagefind = await initPagefind();
       if (!pagefind) {
+        updateResultsBusy(results, false);
         setSearchMessage(results, "Search is unavailable right now.");
         return;
       }
@@ -514,6 +530,7 @@ const initSearch = () => {
       setRecentSearches(trimmed);
       setRecentVisibility();
       renderGroupedResults(results, data, trimmed);
+      updateResultsBusy(results, false);
     };
 
     const scheduleSearch = (query: string) => {
@@ -522,6 +539,8 @@ const initSearch = () => {
       }
       searchTimeout = window.setTimeout(() => {
         searchResults(query).catch((error) => {
+          updateResultsBusy(results, false);
+          setSearchMessage(results, "Search failed. Please try again.");
           console.warn("Search failed.", error);
         });
       }, SEARCH_DEBOUNCE_MS);
@@ -545,6 +564,17 @@ const initSearch = () => {
       if (event.key === "Escape") {
         event.preventDefault();
         closeDialog();
+        return;
+      }
+
+      if (event.key === "Enter") {
+        const firstResult = dialog.querySelector<HTMLAnchorElement>(
+          ".search-result a",
+        );
+        if (firstResult) {
+          event.preventDefault();
+          firstResult.click();
+        }
       }
     });
 
