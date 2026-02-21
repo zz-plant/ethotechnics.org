@@ -7,16 +7,18 @@ import type { NavLink } from "../../content/navigation";
 import {
   getAriaCurrent,
   isHashLink,
+  isSameDocumentHashLink,
   normalizePath,
   toViewTransitionName,
 } from "../../utils/navigation";
 
 interface Props {
   currentPath: string;
+  currentHash?: string;
   desktopLinks: NavLink[];
 }
 
-const { currentPath, desktopLinks } = Astro.props as Props;
+const { currentPath, currentHash = "", desktopLinks } = Astro.props as Props;
 const isHome = normalizePath(currentPath) === "/";
 ---
 
@@ -44,7 +46,8 @@ const isHome = normalizePath(currentPath) === "/";
               : link.label
           }
           title={isHashLink(link.href) ? "Jumps to a section on the homepage" : undefined}
-          aria-current={getAriaCurrent(link.href, currentPath)}
+          data-nav-hash-link={isSameDocumentHashLink(link.href) ? "true" : undefined}
+          aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
           style={`view-transition-name: ${toViewTransitionName(
             link.href,
             "desktop",

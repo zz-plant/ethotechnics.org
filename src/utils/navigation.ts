@@ -8,7 +8,18 @@ const normalizePath = (path: string) => {
   return trimmed || "/";
 };
 
+const normalizeHash = (value?: string) => {
+  if (!value) return "";
+  const [, hash = ""] = value.split("#", 2);
+  return hash ? `#${hash}` : "";
+};
+
 const isHashLink = (href: string) => href.includes("#");
+
+const isSameDocumentHashLink = (href: string) => {
+  if (!isHashLink(href)) return false;
+  return normalizePath(href) === "/";
+};
 
 const isCurrentLink = (href: string, currentPath: string) => {
   if (isHashLink(href)) return false;
@@ -16,10 +27,16 @@ const isCurrentLink = (href: string, currentPath: string) => {
   return normalizePath(href) === normalizePath(currentPath);
 };
 
-const getAriaCurrent = (href: string, currentPath: string) => {
+const getAriaCurrent = (href: string, currentPath: string, currentHash = "") => {
   if (isCurrentLink(href, currentPath)) return "page";
 
-  if (isHashLink(href) && normalizePath(currentPath) === "/") return "location";
+  if (
+    isSameDocumentHashLink(href) &&
+    normalizePath(currentPath) === "/" &&
+    normalizeHash(href) === normalizeHash(currentHash)
+  ) {
+    return "location";
+  }
 
   return undefined;
 };
@@ -35,4 +52,11 @@ const toViewTransitionName = (href: string, scope: "desktop" | "mobile") => {
   return `nav-link-${scope}-${slug || "home"}`;
 };
 
-export { getAriaCurrent, isCurrentLink, isHashLink, normalizePath, toViewTransitionName };
+export {
+  getAriaCurrent,
+  isCurrentLink,
+  isHashLink,
+  isSameDocumentHashLink,
+  normalizePath,
+  toViewTransitionName,
+};

@@ -4,6 +4,7 @@ import {
   getAriaCurrent,
   isCurrentLink,
   isHashLink,
+  isSameDocumentHashLink,
   normalizePath,
   toViewTransitionName,
 } from "./navigation";
@@ -37,12 +38,21 @@ describe("getAriaCurrent", () => {
     expect(getAriaCurrent("/standards", "/standards")).toBe("page");
   });
 
-  it("returns location for homepage hash links when already on home", () => {
-    expect(getAriaCurrent("/#failure-intake", "/")).toBe("location");
+  it("does not return location for homepage hash links when there is no hash", () => {
+    expect(getAriaCurrent("/#failure-intake", "/")).toBeUndefined();
+  });
+
+  it("returns location only for hash links matching the current URL hash", () => {
+    expect(getAriaCurrent("/#failure-intake", "/", "#failure-intake")).toBe(
+      "location",
+    );
+    expect(getAriaCurrent("/#failure-intake", "/", "#standards")).toBeUndefined();
   });
 
   it("does not return a current state for homepage hash links on other routes", () => {
-    expect(getAriaCurrent("/#failure-intake", "/diagnostics")).toBeUndefined();
+    expect(
+      getAriaCurrent("/#failure-intake", "/diagnostics", "#failure-intake"),
+    ).toBeUndefined();
   });
 });
 
@@ -58,5 +68,12 @@ describe("isHashLink", () => {
   it("detects hash navigation links", () => {
     expect(isHashLink("/#failure-intake")).toBe(true);
     expect(isHashLink("/standards")).toBe(false);
+  });
+});
+
+describe("isSameDocumentHashLink", () => {
+  it("detects same-document homepage section links", () => {
+    expect(isSameDocumentHashLink("/#failure-intake")).toBe(true);
+    expect(isSameDocumentHashLink("/standards#overview")).toBe(false);
   });
 });
