@@ -1,59 +1,37 @@
 ---
 import NavUtilityLinks from "../NavUtilityLinks.astro";
 import Search from "../Search.astro";
-import type { NavLink } from "../../content/navigation";
+import {
+  navUtilityMobilePrimaryLinks,
+  type NavLink,
+} from "../../content/navigation";
 import {
   getAriaCurrent,
   isHashLink,
+  isSameDocumentHashLink,
   toViewTransitionName,
 } from "../../utils/navigation";
 
 interface Props {
   currentPath: string;
+  currentHash?: string;
   mobileLinks: NavLink[];
 }
 
-const { currentPath, mobileLinks } = Astro.props as Props;
+const { currentPath, currentHash = "", mobileLinks } = Astro.props as Props;
 
-const activeMobileLinkIndex = mobileLinks.findIndex((link) => {
-  const ariaCurrent = getAriaCurrent(link.href, currentPath);
+const featuredMobileLinks = mobileLinks.filter((link) => link.mobileFeatured);
+const overflowMobileLinks = mobileLinks.filter((link) => !link.mobileFeatured);
+
+const currentPrimaryLink = mobileLinks.find((link) => {
+  const ariaCurrent = getAriaCurrent(link.href, currentPath, currentHash);
   return ariaCurrent === "page" || ariaCurrent === "location";
 });
 
-const featuredMobileLinkIndexes = mobileLinks
-  .map((_, index) => index)
-  .slice(0, 3);
-
-if (
-  activeMobileLinkIndex >= 0 &&
-  !featuredMobileLinkIndexes.includes(activeMobileLinkIndex)
-) {
-  if (featuredMobileLinkIndexes.length >= 3) {
-    featuredMobileLinkIndexes[featuredMobileLinkIndexes.length - 1] =
-      activeMobileLinkIndex;
-  } else {
-    featuredMobileLinkIndexes.push(activeMobileLinkIndex);
-  }
-}
-
-const featuredMobileLinkIndexSet = new Set(featuredMobileLinkIndexes);
-
-const featuredMobileLinks = mobileLinks.filter((_, index) =>
-  featuredMobileLinkIndexSet.has(index),
-);
-const overflowMobileLinks = mobileLinks.filter(
-  (_, index) => !featuredMobileLinkIndexSet.has(index),
+const showCurrentPageChip = Boolean(
+  currentPrimaryLink && !featuredMobileLinks.includes(currentPrimaryLink),
 );
 const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
-
-const primaryUtilityLinks = [
-  {
-    href: "/start-here",
-    label: "Start here",
-    class: "nav__utility-link nav__utility-link--primary",
-    icon: "lucide:arrow-right",
-  },
-];
 ---
 
 <div class="nav__mobile" aria-label="Main navigation">
@@ -66,10 +44,29 @@ const primaryUtilityLinks = [
       <div class="nav__utility-inline" aria-label="Quick start">
         <NavUtilityLinks
           currentPath={currentPath}
-          links={primaryUtilityLinks}
+          links={navUtilityMobilePrimaryLinks}
         />
       </div>
     </div>
+
+    {
+      showCurrentPageChip && currentPrimaryLink ? (
+        <p class="nav__current-page-chip" aria-live="polite">
+          <span class="nav__current-page-label">Current page:</span>{" "}
+          <a
+            class="nav__current-page-link"
+            href={currentPrimaryLink.href}
+            aria-current={getAriaCurrent(
+              currentPrimaryLink.href,
+              currentPath,
+              currentHash,
+            )}
+          >
+            {currentPrimaryLink.label}
+          </a>
+        </p>
+      ) : null
+    }
 
     <div class="nav__links nav__links--mobile nav__links--mobile-compact">
       {
@@ -87,7 +84,8 @@ const primaryUtilityLinks = [
                 ? "Jumps to a section on the homepage"
                 : undefined
             }
-            aria-current={getAriaCurrent(link.href, currentPath)}
+            data-nav-hash-link={isSameDocumentHashLink(link.href) ? "true" : undefined}
+            aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
             style={`view-transition-name: ${toViewTransitionName(
               link.href,
               "mobile",
@@ -118,7 +116,8 @@ const primaryUtilityLinks = [
                     ? "Jumps to a section on the homepage"
                     : undefined
                 }
-                aria-current={getAriaCurrent(link.href, currentPath)}
+                data-nav-hash-link={isSameDocumentHashLink(link.href) ? "true" : undefined}
+                aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
                 style={`view-transition-name: ${toViewTransitionName(
                   link.href,
                   "mobile",

@@ -1,47 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
+import {
+  navUtilityDesktopLinks,
+  type NavUtilityLink,
+} from "../content/navigation";
 
-interface NavUtilityLink {
-  href: string;
-  label: string;
-  class: string;
-  rel?: string;
-  target?: string;
-  icon?: string;
-}
-
-const navUtilityLinks: NavUtilityLink[] = [
-  {
-    href: "/start-here",
-    label: "Start here",
-    class: "nav__utility-link nav__utility-link--primary",
-    icon: "lucide:arrow-right",
-  },
-  {
-    href: "https://github.com/zz-plant/ethotechnics",
-    label: "GitHub",
-    class: "nav__utility-link nav__utility-link--quiet",
-    rel: "noopener noreferrer",
-    target: "_blank",
-    icon: "lucide:github",
-  },
-  {
-    href: "/participate#feedback",
-    label: "Send feedback",
-    class: "nav__utility-link nav__utility-link--quiet",
-    icon: "lucide:message-circle",
-  },
-  {
-    href: "https://ethotechnics.com/studio",
-    label: "Ethotechnics Studio",
-    class: "nav__utility-link",
-    rel: "noopener noreferrer",
-    target: "_blank",
-    icon: "lucide:arrow-up-right",
-  },
-];
-
-const { links = navUtilityLinks, currentPath } = Astro.props as {
+const { links = navUtilityDesktopLinks, currentPath } = Astro.props as {
   links?: NavUtilityLink[];
   currentPath?: string;
 };
