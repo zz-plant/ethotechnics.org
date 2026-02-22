@@ -238,20 +238,17 @@ const frameworkAnchorLinks = frameworkRows.map((row) => ({
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
-      { href: "#before-you-read", label: "Plain-language guide" },
+      { href: "#before-you-read", label: "Start here" },
       { href: "#matrix", label: "Matrix" },
       { href: "#framework-details", label: "Framework details" },
-      ...frameworkAnchorLinks,
     ]}
     panelCopy={{
       eyebrow: "Buyer + auditor use",
       title: "Know what Ethotechnics can and cannot do.",
       description:
-        "Read the matrix first, then jump to detailed sections for buyer checks, auditor checks, and specific artifacts.",
+        "Start with the guide below, scan the matrix, then open the framework sections you need.",
     }}
   />
-
-
 
   <SectionBlock
     id="before-you-read"
@@ -260,29 +257,41 @@ const frameworkAnchorLinks = frameworkRows.map((row) => ({
     description="If you are new to standards work, use this quick guide first."
   >
     <ul>
-      <li><strong>What Ethotechnics covers:</strong> what this site and its artifacts can help you implement now.</li>
-      <li><strong>What it does not cover:</strong> work you still need from legal counsel, auditors, or certification teams.</li>
-      <li><strong>Recommended combination pattern:</strong> the safest way to combine Ethotechnics with other assurance programs.</li>
-      <li><strong>Controls &amp; artifacts:</strong> direct links you can hand to buyers, reviewers, and audit teams.</li>
+      <li>
+        <strong>What Ethotechnics covers:</strong> what this site and its artifacts can help you
+        implement now.
+      </li>
+      <li>
+        <strong>What it does not cover:</strong> work you still need from legal counsel, auditors,
+        or certification teams.
+      </li>
+      <li>
+        <strong>Recommended combination pattern:</strong> the safest way to combine Ethotechnics
+        with other assurance programs.
+      </li>
+      <li>
+        <strong>Controls &amp; artifacts:</strong> direct links you can hand to buyers, reviewers,
+        and audit teams.
+      </li>
     </ul>
   </SectionBlock>
 
   <SummaryCallout
     title="How to use this page"
-    description="Start with plain-language guidance, scan the matrix, then open framework details for concrete checks."
+    description="Pick your framework below and open only the section you need."
     takeaways={[
       "Each row separates what is in scope vs. out of scope.",
-      "Each framework includes plain buyer and auditor checklists.",
-      "Each row links to concrete artifacts you can review immediately.",
+      "Each framework has a one-line plain-language summary.",
+      "Use framework sections for practical buyer and auditor checks.",
     ]}
     jumpLinks={frameworkAnchorLinks}
   />
 
   <SectionBlock
     id="matrix"
-    eyebrow="Practical map"
+    eyebrow="Quick scan"
     title="Framework-by-framework implementation crosswalk"
-    description="Use each row to separate what Ethotechnics can operationalize directly from what should be handled by parallel assurance tracks."
+    description="Use this table for a fast comparison, then open the framework section below for details."
   >
     <div class="table-wrap">
       <table class="mapping-table">
@@ -304,7 +313,7 @@ const frameworkAnchorLinks = frameworkRows.map((row) => ({
                     <strong>{row.framework}</strong>
                   </a>
                 </p>
-                <p class="muted small">{row.scope}</p>
+                <p class="muted small">{row.plainLanguage}</p>
               </th>
               <td>
                 <ul>
@@ -339,20 +348,23 @@ const frameworkAnchorLinks = frameworkRows.map((row) => ({
 
   <SectionBlock
     id="framework-details"
-    eyebrow="Granular guide"
-    title="Framework detail cards for buyers and auditors"
-    description="Use these sections when teams need concrete checks and handoff boundaries by framework."
+    eyebrow="Deep dive"
+    title="Framework details (expand what you need)"
+    description="Open one framework at a time for buyer checks, auditor checks, and artifact links."
     variant="alt"
   >
     {frameworkRows.map((row) => (
-      <article id={row.slug}>
-        <h3>{row.framework}</h3>
-        <p><strong>In plain language:</strong> {row.plainLanguage}</p>
-        <p class="muted small">{row.scope}</p>
-        <p>
-          <strong>Recommended combination pattern:</strong> {row.combinationPattern}
-        </p>
-        <div>
+      <details id={row.slug} class="chunked-section">
+        <summary class="chunked-section__summary">{row.framework}</summary>
+        <div class="chunked-section__body">
+          <p>
+            <strong>In plain language:</strong> {row.plainLanguage}
+          </p>
+          <p class="muted small">{row.scope}</p>
+          <p>
+            <strong>Recommended combination pattern:</strong> {row.combinationPattern}
+          </p>
+
           <p><strong>Buyer checks</strong></p>
           <ul>
             {row.buyerChecks.map((check) => (
@@ -366,16 +378,17 @@ const frameworkAnchorLinks = frameworkRows.map((row) => ({
               <li>{check}</li>
             ))}
           </ul>
+
+          <p><strong>Controls &amp; spec artifacts</strong></p>
+          <ul>
+            {row.artifacts.map((artifact) => (
+              <li>
+                <a href={artifact.href}>{artifact.label}</a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <p><strong>Controls &amp; spec artifacts</strong></p>
-        <ul>
-          {row.artifacts.map((artifact) => (
-            <li>
-              <a href={artifact.href}>{artifact.label}</a>
-            </li>
-          ))}
-        </ul>
-      </article>
+      </details>
     ))}
   </SectionBlock>
 </BaseLayout>
