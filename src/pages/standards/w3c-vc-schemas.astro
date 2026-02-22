@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -53,6 +54,9 @@ const issuanceGuidance = [
 ---
 
 <BaseLayout title={`${pageTitle} — Standards`} description={pageDescription}>
+  <StandardStatusSummary slug="w3c-vc-schemas" />
+
+
   <PageIntro
     eyebrow="STD-05 draft"
     title={pageTitle}

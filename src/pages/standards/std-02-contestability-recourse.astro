@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
@@ -138,6 +139,9 @@ const { cspNonce } = Astro.locals;
   enableGlossaryHighlights={false}
   breadcrumbItems={breadcrumbItems}
 >
+  <StandardStatusSummary slug="std-02-contestability-recourse" />
+
+
   <article class="standard-document">
     <header class="standard-header">
       <div>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
@@ -128,6 +129,9 @@ const { cspNonce } = Astro.locals;
   enableGlossaryHighlights={false}
   breadcrumbItems={breadcrumbItems}
 >
+  <StandardStatusSummary slug="std-03-justice-slos" />
+
+
   <article class="standard-document">
     <header class="standard-header">
       <div>

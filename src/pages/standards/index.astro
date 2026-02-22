@@ -247,6 +247,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     jumpLinks={[
       { href: "#quick-lanes", label: "Most cited and newly updated" },
       { href: "#active", label: "Active standards" },
+    { href: "#status-assignment", label: "How status is assigned" },
       { href: "#comparison", label: "Standards comparison" },
       { href: "#implementation-examples", label: "Implementation examples" },
     ]}
@@ -459,8 +460,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 description={standard.description}
               >
                 <p class="muted small">
-                  Lane: {lane.charAt(0).toUpperCase() + lane.slice(1)} · Status: {standard.status} · v{standard.version} · Effective{" "}
-                  {standard.effectiveDate}
+                  Lane: {lane.charAt(0).toUpperCase() + lane.slice(1)} ·
+                  <span class={`status-badge status-badge--${standard.status.toLowerCase()}`}>{standard.status}</span>
+                  · v{standard.version} · Effective {standard.effectiveDate}
                 </p>
                 {standard.id === "STD-02" && (
                   <p class="muted">
@@ -470,6 +472,17 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     </a>{" "}
                     — Mechanism-first practice for implementing STD-01 and STD-02
                     with enforceable human recourse in real agent systems.
+                  </p>
+                )}
+                {standard.deprecatedBy && standard.deprecatedBy.length > 0 && (
+                  <p class="muted small">
+                    Deprecated by:{" "}
+                    {standard.deprecatedBy.map((replacement, index) => (
+                      <Fragment>
+                        {index > 0 && ", "}
+                        <a href={`/standards/${replacement.slug}`}>{replacement.id}</a>
+                      </Fragment>
+                    ))}
                   </p>
                 )}
                 <a slot="footer" class="muted" href={`/standards/${standard.slug}`}>
@@ -484,6 +497,47 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <p class="muted" data-standards-empty hidden>
       No standards match this lane yet. Choose another lane or clear the filter.
     </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="status-assignment"
+    eyebrow="Status model"
+    title="How status is assigned"
+    description="Statuses are set through a repeatable review workflow so teams know what is draft, stable, or retired."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      <CardItem
+        title="Draft"
+        description="A working standard under active review before stability guarantees are made."
+      >
+        <ul class="muted small">
+          <li>At least 1 internal standards editor review.</li>
+          <li>Core test fixtures run and pass for referenced mechanisms.</li>
+          <li>Open changelog entry documenting known gaps.</li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Stable"
+        description="Approved for production policy references and procurement baselines."
+      >
+        <ul class="muted small">
+          <li>Minimum 2 independent reviewers (one external to the author team).</li>
+          <li>Evidence tests and implementation checks completed with receipts.</li>
+          <li>Stable criteria satisfied and recorded in publication metadata.</li>
+        </ul>
+      </CardItem>
+      <CardItem
+        title="Deprecated"
+        description="Retired for new adoptions; replacement links are provided when available."
+      >
+        <ul class="muted small">
+          <li>Deprecation vote recorded by standards council.</li>
+          <li>Replacement standard identified and linked by <code>deprecated_by</code>.</li>
+          <li>Migration note added in changelog before status changes.</li>
+        </ul>
+      </CardItem>
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock
@@ -1150,5 +1204,35 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     is:inline
   />
 
+
+
+<style>
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.1rem 0.55rem;
+    margin: 0 0.2rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .status-badge--draft {
+    background: color-mix(in srgb, var(--theme-accent) 18%, transparent);
+    color: var(--theme-accent);
+  }
+
+  .status-badge--stable {
+    background: color-mix(in srgb, #2d8a4a 16%, transparent);
+    color: #2d8a4a;
+  }
+
+  .status-badge--deprecated {
+    background: color-mix(in srgb, #b35218 16%, transparent);
+    color: #b35218;
+  }
+</style>
 
 </BaseLayout>
