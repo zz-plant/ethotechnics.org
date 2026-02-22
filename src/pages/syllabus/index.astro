@@ -517,18 +517,34 @@ const { cspNonce } = Astro.locals;
             .filter(Boolean) ?? [];
         const entry = document.createElement("li");
         entry.className = "certificate__item";
-        entry.innerHTML = `
-          <div>
-            <p class="eyebrow">${module.title}</p>
-            <p class="muted small">${module.outcome}</p>
-          </div>
-          <div class="certificate__links">
-            ${resources.libraryLink ? `<a href="${resources.libraryLink.href}">${resources.libraryLink.label}</a>` : ""}
-            ${diagnostics
-              .map((diag) => `<a href="${diag.href}">${diag.title}</a>`)
-              .join("")}
-          </div>
-        `;
+
+        const content = document.createElement("div");
+        const title = document.createElement("p");
+        title.className = "eyebrow";
+        title.textContent = module.title;
+        const outcome = document.createElement("p");
+        outcome.className = "muted small";
+        outcome.textContent = module.outcome;
+        content.append(title, outcome);
+
+        const links = document.createElement("div");
+        links.className = "certificate__links";
+
+        if (resources.libraryLink) {
+          const libraryLink = document.createElement("a");
+          libraryLink.href = resources.libraryLink.href;
+          libraryLink.textContent = resources.libraryLink.label;
+          links.appendChild(libraryLink);
+        }
+
+        diagnostics.forEach((diag) => {
+          const diagnosticLink = document.createElement("a");
+          diagnosticLink.href = diag.href;
+          diagnosticLink.textContent = diag.title;
+          links.appendChild(diagnosticLink);
+        });
+
+        entry.append(content, links);
         certificateList.appendChild(entry);
       });
     };

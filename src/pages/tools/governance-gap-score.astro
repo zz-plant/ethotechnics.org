@@ -408,25 +408,54 @@ import SectionBlock from "../../components/SectionBlock.astro";
       return;
     }
 
-    const content = `
-      <main style="font-family: 'Source Serif 4', serif; padding: 2rem;">
-        <h1>Governance Gap Score</h1>
-        <p><strong>Score:</strong> ${payload.score} / 100</p>
-        <p><strong>Tier:</strong> ${payload.tier}</p>
-        <p><strong>Summary:</strong> ${payload.summary}</p>
-        <h2>Inputs</h2>
-        <ul>
-          <li><strong>Owner:</strong> ${payload.inputs?.owner}</li>
-          <li><strong>Evidence cadence:</strong> ${payload.inputs?.evidence}</li>
-          <li><strong>Escalation:</strong> ${payload.inputs?.escalation}</li>
-          <li><strong>Audit readiness:</strong> ${payload.inputs?.audit}</li>
-        </ul>
-        <p><strong>Generated:</strong> ${payload.generated_at}</p>
-      </main>
-    `;
-
     printWindow.document.title = "Governance Gap Score";
-    printWindow.document.body.innerHTML = content;
+    printWindow.document.body.replaceChildren();
+
+    const main = printWindow.document.createElement("main");
+    main.style.fontFamily = "'Source Serif 4', serif";
+    main.style.padding = "2rem";
+
+    const title = printWindow.document.createElement("h1");
+    title.textContent = "Governance Gap Score";
+    main.appendChild(title);
+
+    const appendMetric = (label: string, value: string) => {
+      const paragraph = printWindow.document.createElement("p");
+      const strong = printWindow.document.createElement("strong");
+      strong.textContent = `${label}:`;
+      paragraph.appendChild(strong);
+      paragraph.appendChild(printWindow.document.createTextNode(` ${value}`));
+      main.appendChild(paragraph);
+    };
+
+    appendMetric("Score", `${payload.score} / 100`);
+    appendMetric("Tier", payload.tier);
+    appendMetric("Summary", payload.summary);
+
+    const inputsHeading = printWindow.document.createElement("h2");
+    inputsHeading.textContent = "Inputs";
+    main.appendChild(inputsHeading);
+
+    const inputList = printWindow.document.createElement("ul");
+    const inputItems: Array<[string, string | undefined]> = [
+      ["Owner", payload.inputs?.owner],
+      ["Evidence cadence", payload.inputs?.evidence],
+      ["Escalation", payload.inputs?.escalation],
+      ["Audit readiness", payload.inputs?.audit],
+    ];
+
+    inputItems.forEach(([label, value]) => {
+      const item = printWindow.document.createElement("li");
+      const strong = printWindow.document.createElement("strong");
+      strong.textContent = `${label}:`;
+      item.appendChild(strong);
+      item.appendChild(printWindow.document.createTextNode(` ${value ?? ""}`));
+      inputList.appendChild(item);
+    });
+    main.appendChild(inputList);
+
+    appendMetric("Generated", payload.generated_at);
+    printWindow.document.body.appendChild(main);
     printWindow.focus();
     printWindow.print();
   };

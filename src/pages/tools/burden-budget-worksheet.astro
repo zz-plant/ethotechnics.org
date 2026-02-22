@@ -1260,7 +1260,10 @@ const changelog = [
       previous = JSON.parse(compareInput.value || "{}") as Partial<Worksheet>;
     } catch {
       compareResults.hidden = false;
-      compareList.innerHTML = "<li>Invalid JSON provided.</li>";
+      compareList.replaceChildren();
+      const invalidItem = document.createElement("li");
+      invalidItem.textContent = "Invalid JSON provided.";
+      compareList.appendChild(invalidItem);
       return;
     }
 
@@ -1305,9 +1308,20 @@ const changelog = [
     }
 
     compareResults.hidden = false;
-    compareList.innerHTML = changes.length
-      ? changes.map((change) => `<li>${change}</li>`).join("")
-      : "<li>No differences detected in compared fields.</li>";
+    compareList.replaceChildren();
+
+    if (changes.length === 0) {
+      const noDiffItem = document.createElement("li");
+      noDiffItem.textContent = "No differences detected in compared fields.";
+      compareList.appendChild(noDiffItem);
+      return;
+    }
+
+    changes.forEach((change) => {
+      const item = document.createElement("li");
+      item.textContent = change;
+      compareList.appendChild(item);
+    });
   };
 
   setupRepeater();
