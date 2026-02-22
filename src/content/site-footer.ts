@@ -96,6 +96,8 @@ export const siteFooter: SiteFooterContent = {
       heading: "Connect",
       links: [
         { label: "Reference API", href: "/api" },
+        { label: "Vulnerability disclosure policy", href: "/security/vulnerability-disclosure" },
+        { label: "security.txt", href: "/.well-known/security.txt" },
         { label: "Send feedback", href: "/participate#feedback" },
         {
           label: "The Crumple Zone",
