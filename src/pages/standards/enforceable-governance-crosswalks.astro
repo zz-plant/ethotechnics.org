@@ -13,6 +13,7 @@ type FrameworkCard = {
   framework: string;
   anchor: string;
   mappedControlId: string;
+  mappedControlIds?: string[];
   standardReference: string;
   status: "Ready now" | "Needs local extension";
   whatEthotechnicsCovers: string;
@@ -69,6 +70,7 @@ const frameworkCards: FrameworkCard[] = [
     framework: "EU AI Act (high-risk context)",
     anchor: "#eu-ai-act",
     mappedControlId: "CTRL-03",
+    mappedControlIds: ["CTRL-01", "CTRL-02", "CTRL-03", "CTRL-04"],
     standardReference: "Articles 9, 12, 14, 72, 73",
     status: "Ready now",
     whatEthotechnicsCovers:
@@ -322,7 +324,11 @@ const keyTakeaways = [
     <div class="framework-details">
       {
         frameworkCards.map((item) => {
-          const mappedControl = findControl(item.mappedControlId);
+          const mappedControls = (item.mappedControlIds ?? [item.mappedControlId]).map((controlId) =>
+            findControl(controlId),
+          );
+          const evidenceArtifacts = [...new Set(mappedControls.flatMap((control) => control.evidenceArtifacts))];
+          const operationalSurfaces = [...new Set(mappedControls.map((control) => control.operationalSurface))];
           return (
             <details id={item.anchor.replace("#", "")}>
               <summary>{item.framework}</summary>
@@ -330,7 +336,15 @@ const keyTakeaways = [
                 <strong>Status:</strong> {item.status}
               </p>
               <p>
-                <strong>Mapped Ethotechnics control:</strong> {mappedControl.controlId} — {mappedControl.obligation}
+                <strong>Mapped Ethotechnics controls:</strong>{" "}
+                {mappedControls.map((control, index) => (
+                  <>
+                    <span>
+                      {control.controlId} — {control.obligation}
+                    </span>
+                    {index < mappedControls.length - 1 && <span>; </span>}
+                  </>
+                ))}
               </p>
               <p>
                 <strong>Framework reference:</strong> {item.standardReference}
@@ -346,11 +360,16 @@ const keyTakeaways = [
                 <strong>Evidence to request first:</strong>
               </p>
               <ul>
-                {mappedControl.evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
+                {evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
               </ul>
               <p>
                 <strong>Operational surface:</strong>{" "}
-                <a href="/mechanisms">{mappedControl.operationalSurface}</a>
+                {operationalSurfaces.map((surface, index) => (
+                  <>
+                    <a href="/mechanisms">{surface}</a>
+                    {index < operationalSurfaces.length - 1 && <span> · </span>}
+                  </>
+                ))}
               </p>
               <p>
                 <strong>Detailed links:</strong>{" "}
