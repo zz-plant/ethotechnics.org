@@ -53,6 +53,12 @@ export const navPrimaryLinks: NavLink[] = [
     mobileFeatured: true,
   },
   {
+    href: "/crosswalks/framework-map",
+    label: "Framework map",
+    description: "Buyer and auditor crosswalk",
+    primary: true,
+  },
+  {
     href: "/artifacts",
     label: "Templates",
     description: "Use reusable artifacts",

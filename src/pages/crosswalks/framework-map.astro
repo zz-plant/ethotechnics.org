@@ -1,0 +1,350 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
+
+type ArtifactLink = {
+  label: string;
+  href: string;
+};
+
+type FrameworkRow = {
+  framework: string;
+  slug: string;
+  scope: string;
+  ethotechnicsCovers: string[];
+  notCovered: string[];
+  combinationPattern: string;
+  buyerChecks: string[];
+  auditorChecks: string[];
+  artifacts: ArtifactLink[];
+};
+
+const pageTitle = "Practical framework crosswalk map";
+const pageDescription =
+  "A practical buyer-and-auditor map showing where Ethotechnics controls fit major assurance frameworks, where gaps remain, and what to combine for production governance.";
+const permalink = "/crosswalks/framework-map";
+
+const frameworkRows: FrameworkRow[] = [
+  {
+    framework: "NIST AI RMF 1.0",
+    slug: "nist-ai-rmf-1-0",
+    scope: "AI risk management lifecycle (Govern, Map, Measure, Manage).",
+    ethotechnicsCovers: [
+      "Operational control mappings and evidence-pack discipline for pre-launch and post-market workflows.",
+      "Actionable diagnostics that convert governance intent into remediation steps.",
+    ],
+    notCovered: [
+      "Organization-wide enterprise risk policy outside AI-enabled decisions.",
+      "Sector-specific legal interpretation and filing obligations.",
+    ],
+    combinationPattern:
+      "Use Ethotechnics for control implementation + evidence capture, and pair with internal ERM/legal teams for enterprise policy sign-off.",
+    buyerChecks: [
+      "Ask for latest crosswalk version and named control owners.",
+      "Verify pre-launch + post-market evidence cadence is active.",
+    ],
+    auditorChecks: [
+      "Sample 1–2 incidents and confirm evidence pack continuity.",
+      "Trace map/measure/manage outputs to accountable stewards.",
+    ],
+    artifacts: [
+      {
+        label: "Enforceable governance crosswalks",
+        href: "/standards/enforceable-governance-crosswalks",
+      },
+      {
+        label: "Evidence pack readiness diagnostic",
+        href: "/diagnostics/evidence-pack-readiness",
+      },
+      { label: "Crosswalk API", href: "/api/crosswalks.json" },
+    ],
+  },
+  {
+    framework: "ISO/IEC 27001",
+    slug: "iso-iec-27001",
+    scope: "Information security management systems (ISMS) and controls.",
+    ethotechnicsCovers: [
+      "Governance controls around decision accountability, incident pathways, and audit-ready evidence artifacts.",
+      "Mechanism-level patterns for controls that intersect safety, explainability, and human oversight.",
+    ],
+    notCovered: [
+      "Full ISMS certification program (SoA ownership, continuous ISMS operations, certification audits).",
+      "Infrastructure hardening baseline and SOC/network operations.",
+    ],
+    combinationPattern:
+      "Treat Ethotechnics as governance-control overlay for high-stakes decisions, and pair with a formal ISO 27001 ISMS for security certification scope.",
+    buyerChecks: [
+      "Confirm this page is scoped to governance overlays, not full ISMS coverage.",
+      "Request mapping from Ethotechnics controls to your Annex A obligations.",
+    ],
+    auditorChecks: [
+      "Validate decision-trace artifacts are linked to ISMS corrective actions.",
+      "Check control exceptions include owners, dates, and closure evidence.",
+    ],
+    artifacts: [
+      { label: "STD-01 Mapping Artifact", href: "/standards/std-01-mapping-artifact" },
+      { label: "STD-01 Evidence Pack", href: "/evidence-packs/std-01" },
+      { label: "Mechanisms library", href: "/mechanisms" },
+    ],
+  },
+  {
+    framework: "SOC 2 (AICPA TSC)",
+    slug: "soc-2-aicpa-tsc",
+    scope: "Trust Services Criteria attestation for service organizations.",
+    ethotechnicsCovers: [
+      "Control narratives and concrete artifacts for governance, change accountability, and incident documentation.",
+      "Repeatable templates buyers can inspect during due diligence and control testing.",
+    ],
+    notCovered: [
+      "Independent CPA attestation and SOC report issuance.",
+      "Financial reporting controls and broad enterprise ITGC ownership.",
+    ],
+    combinationPattern:
+      "Use Ethotechnics artifacts as operating evidence in your SOC 2 control set; keep external auditor scoping and attestation with your SOC partner.",
+    buyerChecks: [
+      "Request sample evidence artifacts for a recent control period.",
+      "Confirm who owns auditor PBC responses and remediation follow-up.",
+    ],
+    auditorChecks: [
+      "Trace narratives to immutable evidence links and version history.",
+      "Inspect incident closures for timeliness and governance sign-off.",
+    ],
+    artifacts: [
+      {
+        label: "Bridge artifacts (citable governance outputs)",
+        href: "/research/bridge-artifacts",
+      },
+      { label: "Incident lessons hub", href: "/incidents" },
+      { label: "Evidence packs index", href: "/evidence-packs" },
+    ],
+  },
+  {
+    framework: "IEC 61508",
+    slug: "iec-61508",
+    scope: "Functional safety lifecycle for E/E/PE safety-related systems.",
+    ethotechnicsCovers: [
+      "Human-impact and stoppability governance patterns that clarify operational safeguards.",
+      "Post-market monitoring and escalation structures relevant to safety governance traceability.",
+    ],
+    notCovered: [
+      "SIL determination, hardware reliability calculations, and safety integrity engineering evidence.",
+      "Domain-specific product certification for industrial safety systems.",
+    ],
+    combinationPattern:
+      "Deploy Ethotechnics for sociotechnical governance and decision-accountability surfaces, then pair with IEC 61508 engineering safety case processes for SIL compliance.",
+    buyerChecks: [
+      "Treat Ethotechnics outputs as governance complement, not SIL proof.",
+      "Require clear handoff from governance findings to engineering safety case owners.",
+    ],
+    auditorChecks: [
+      "Verify post-market findings flow into formal safety case updates.",
+      "Confirm escalation triggers map to documented safety governance actions.",
+    ],
+    artifacts: [
+      {
+        label: "STD-06 Human Impact Safety Case",
+        href: "/standards/std-06-human-impact-safety-case",
+      },
+      { label: "Safety valve explainer", href: "/explainers/safety-valve" },
+      { label: "Post-market monitoring API", href: "/api/post-market-monitoring.json" },
+    ],
+  },
+  {
+    framework: "ISO/IEC 42001",
+    slug: "iso-iec-42001",
+    scope: "AI management system requirements for organizations.",
+    ethotechnicsCovers: [
+      "Mapped controls aligned to accountable AI governance obligations and operational evidence requirements.",
+      "Role clarity through stewards, diagnostics, and publishing workflows that support AI management routines.",
+    ],
+    notCovered: [
+      "End-to-end certification implementation and registrar audit management.",
+      "General enterprise management system controls unrelated to AI governance operations.",
+    ],
+    combinationPattern:
+      "Use Ethotechnics as implementation substrate for AI governance controls while your management-system team handles ISO 42001 audit readiness and certification.",
+    buyerChecks: [
+      "Ask for clause-to-artifact traceability, not only high-level claims.",
+      "Confirm management review cadence and escalation ownership.",
+    ],
+    auditorChecks: [
+      "Check versioned evidence packs across at least one release cycle.",
+      "Verify exception handling and corrective actions are time-bound.",
+    ],
+    artifacts: [
+      {
+        label: "Enforceable governance crosswalks",
+        href: "/standards/enforceable-governance-crosswalks",
+      },
+      { label: "Governance capability explainer", href: "/explainers/governance-capability" },
+      { label: "Standards index", href: "/standards" },
+    ],
+  },
+  {
+    framework: "EU AI Act (high-risk compliance context)",
+    slug: "eu-ai-act-high-risk-context",
+    scope: "Legal obligations for AI providers/deployers in the EU regulatory regime.",
+    ethotechnicsCovers: [
+      "Operational crosswalks tying controls to accountability evidence and post-market workflows.",
+      "Usable language and artifacts for procurement, policy, and audit conversations.",
+    ],
+    notCovered: [
+      "Legal advice, conformity assessment filings, and authorized representative obligations.",
+      "Jurisdiction-specific legal defense and regulatory representation.",
+    ],
+    combinationPattern:
+      "Use Ethotechnics to operationalize control evidence and governance routines, and combine with counsel plus notified-body/compliance specialists for legal conformity.",
+    buyerChecks: [
+      "Confirm legal counsel ownership for conformity assessment and filings.",
+      "Use Ethotechnics artifacts as operational evidence under legal supervision.",
+    ],
+    auditorChecks: [
+      "Trace declared obligations to evidence artifacts and closure dates.",
+      "Verify unresolved gaps are logged with accepted risk decisions.",
+    ],
+    artifacts: [
+      { label: "Governance gap score diagnostic", href: "/tools/governance-gap-score" },
+      { label: "Procurement clause pack bundle", href: "/bundles/procurement-clause-pack" },
+      { label: "Clauses API", href: "/api/clauses.json" },
+    ],
+  },
+];
+
+const frameworkAnchorLinks = frameworkRows.map((row) => ({
+  href: `#${row.slug}`,
+  label: row.framework,
+}));
+---
+
+<BaseLayout title={`${pageTitle} — Crosswalks`} description={pageDescription}>
+  <PageIntro
+    eyebrow="Crosswalks"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#matrix", label: "Matrix" },
+      { href: "#framework-details", label: "Framework details" },
+      ...frameworkAnchorLinks,
+    ]}
+    panelCopy={{
+      eyebrow: "Buyer + auditor use",
+      title: "Know where Ethotechnics fits before procurement or review.",
+      description:
+        "Use the summary matrix for triage, then jump to framework sections for checklists and concrete implementation links.",
+    }}
+  />
+
+  <SummaryCallout
+    title="How to use this map"
+    description="Start from the matrix for a quick decision, then open framework sections for granular buyer and auditor checks."
+    takeaways={[
+      "Rows distinguish implementation coverage from certification/legal scope.",
+      "Each framework includes buyer checks and auditor checks.",
+      "Artifact links point to concrete controls, diagnostics, and APIs.",
+    ]}
+    jumpLinks={frameworkAnchorLinks}
+  />
+
+  <SectionBlock
+    id="matrix"
+    eyebrow="Practical map"
+    title="Framework-by-framework implementation crosswalk"
+    description="Use each row to separate what Ethotechnics can operationalize directly from what should be handled by parallel assurance tracks."
+  >
+    <div class="table-wrap">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Framework</th>
+            <th scope="col">What Ethotechnics covers</th>
+            <th scope="col">What it does not cover</th>
+            <th scope="col">Recommended combination pattern</th>
+            <th scope="col">Controls &amp; artifacts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {frameworkRows.map((row) => (
+            <tr>
+              <th scope="row">
+                <p>
+                  <a href={`#${row.slug}`}>
+                    <strong>{row.framework}</strong>
+                  </a>
+                </p>
+                <p class="muted small">{row.scope}</p>
+              </th>
+              <td>
+                <ul>
+                  {row.ethotechnicsCovers.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {row.notCovered.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </td>
+              <td>{row.combinationPattern}</td>
+              <td>
+                <ul>
+                  {row.artifacts.map((artifact) => (
+                    <li>
+                      <a href={artifact.href}>{artifact.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="framework-details"
+    eyebrow="Granular guide"
+    title="Framework detail cards for buyers and auditors"
+    description="Use these sections when teams need concrete checks and handoff boundaries by framework."
+    variant="alt"
+  >
+    {frameworkRows.map((row) => (
+      <article id={row.slug}>
+        <h3>{row.framework}</h3>
+        <p class="muted small">{row.scope}</p>
+        <p>
+          <strong>Recommended combination pattern:</strong> {row.combinationPattern}
+        </p>
+        <div>
+            <p><strong>Buyer checks</strong></p>
+            <ul>
+              {row.buyerChecks.map((check) => (
+                <li>{check}</li>
+              ))}
+            </ul>
+          
+            <p><strong>Auditor checks</strong></p>
+            <ul>
+              {row.auditorChecks.map((check) => (
+                <li>{check}</li>
+              ))}
+            </ul>
+          </div>
+        <p><strong>Controls &amp; spec artifacts</strong></p>
+        <ul>
+          {row.artifacts.map((artifact) => (
+            <li>
+              <a href={artifact.href}>{artifact.label}</a>
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </SectionBlock>
+</BaseLayout>
