@@ -9,9 +9,21 @@ import {
   postMarketWorkflow,
 } from "../../content/crosswalks";
 
-const pageTitle = "Enforceable governance crosswalks";
+type FrameworkCard = {
+  framework: string;
+  anchor: string;
+  mappedControlId: string;
+  standardReference: string;
+  status: "Ready now" | "Needs local extension";
+  whatEthotechnicsCovers: string;
+  buyerAuditorChecks: string[];
+  firstMove: string;
+  detailedLinks: Array<{ label: string; href: string }>;
+};
+
+const pageTitle = "Framework map for buyers and auditors";
 const pageDescription =
-  "Control crosswalks connecting Ethotechnics governance controls to EU AI Act obligations, NIST AI RMF functions, and ISO/IEC 42001 clauses.";
+  "A specific, current crosswalk from Ethotechnics controls to framework obligations, buyer checks, and evidence requests.";
 const permalink = "/standards/enforceable-governance-crosswalks";
 
 const publication = {
@@ -24,16 +36,16 @@ const publication = {
   ],
   contact: "standards@ethotechnics.org",
   published: "2026-02-15T00:00:00Z",
-  updated: "2026-02-15T00:00:00Z",
-  version: "v0.1.0",
+  updated: "2026-02-22T00:00:00Z",
+  version: "v0.3.0",
   doi: "Pending Zenodo deposit",
   archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
   changelog: [
     {
-      version: "v0.1.0",
-      date: "2026-02-15",
+      version: "v0.3.0",
+      date: "2026-02-22",
       summary:
-        "Published enforceable governance control crosswalks and evidence-pack operating guidance.",
+        "Added framework-specific checks, concrete first moves, and implementation-ready evidence asks for buyer and audit workflows.",
     },
   ],
   license: {
@@ -43,6 +55,137 @@ const publication = {
   attribution:
     "Credit Ethotechnics Institute Governance Council, include title + version, and link to the canonical permalink.",
 };
+
+const findControl = (controlId: string) => {
+  const control = governanceCrosswalks.find((entry) => entry.controlId === controlId);
+  if (!control) {
+    throw new Error(`Missing control mapping for ${controlId}`);
+  }
+  return control;
+};
+
+const frameworkCards: FrameworkCard[] = [
+  {
+    framework: "EU AI Act (high-risk context)",
+    anchor: "#eu-ai-act",
+    mappedControlId: "CTRL-03",
+    standardReference: "Articles 9, 12, 14, 72, 73",
+    status: "Ready now",
+    whatEthotechnicsCovers:
+      "Risk management, traceability, human oversight, and post-market reporting controls with exportable evidence.",
+    buyerAuditorChecks: [
+      "Named owner for incident reporting clocks and regulator submissions.",
+      "Decision-level records retained with version context.",
+      "Documented stop authority and oversight rota for high-risk actions.",
+    ],
+    firstMove: "Run a release-readiness review against incident reporting clocks and escalation ownership.",
+    detailedLinks: [
+      { label: "EU AI Act explainer", href: "/standards/eu-ai-act" },
+      { label: "Incident lessons hub", href: "/incidents" },
+    ],
+  },
+  {
+    framework: "NIST AI RMF 1.0",
+    anchor: "#nist",
+    mappedControlId: "CTRL-02",
+    standardReference: "GOV, MAP, MEASURE, MANAGE",
+    status: "Ready now",
+    whatEthotechnicsCovers:
+      "Operational governance controls mapped to release gates, pre-release validation, and mitigation ownership.",
+    buyerAuditorChecks: [
+      "Current risk register slice tied to system version and owner.",
+      "Validation thresholds defined before launch (not after incidents).",
+      "Mitigation backlog includes due dates and accountable humans.",
+    ],
+    firstMove: "Use the risk radar and burden modeler before every high-stakes launch decision.",
+    detailedLinks: [
+      { label: "NIST AI RMF implementation page", href: "/standards/nist-ai-rmf" },
+      { label: "Risk radar validator", href: "/validators/risk-radar" },
+    ],
+  },
+  {
+    framework: "ISO/IEC 42001",
+    anchor: "#iso42001",
+    mappedControlId: "CTRL-02",
+    standardReference: "Clause 6.1, 8.1, 8.2, 9.1, 10.1",
+    status: "Ready now",
+    whatEthotechnicsCovers:
+      "AIMS-aligned lifecycle controls for planning, operation, monitoring, and continual improvement.",
+    buyerAuditorChecks: [
+      "Policy record references concrete operational controls and review cadence.",
+      "Internal audits sample real evidence artifacts, not only policy PDFs.",
+      "Corrective actions are linked to incident and remediation logs.",
+    ],
+    firstMove: "Cross-check your AIMS internal-audit scope against evidence-pack artifacts and owners.",
+    detailedLinks: [
+      { label: "ISO/IEC 42001 overview", href: "/standards/iso-iec-42001" },
+      { label: "Evidence pack readiness", href: "/diagnostics/evidence-pack-readiness" },
+    ],
+  },
+  {
+    framework: "ISO/IEC 27001",
+    anchor: "#iso27001",
+    mappedControlId: "CTRL-04",
+    standardReference: "Annex A control families + ISMS records",
+    status: "Needs local extension",
+    whatEthotechnicsCovers:
+      "Traceability, retention, and reconstruction controls that support ISMS evidence, but org-specific Annex A controls remain local.",
+    buyerAuditorChecks: [
+      "Access control and key management ownership are documented in your ISMS.",
+      "Retention periods in Ethotechnics records align with ISMS policy.",
+      "Exception handling is approved and logged with expiry dates.",
+    ],
+    firstMove: "Map Ethotechnics decision records into your existing Annex A control matrix.",
+    detailedLinks: [
+      { label: "Governance capability explainer", href: "/explainers/governance-capability" },
+      { label: "Mechanisms catalog", href: "/mechanisms" },
+    ],
+  },
+  {
+    framework: "SOC 2 (AICPA TSC)",
+    anchor: "#soc2",
+    mappedControlId: "CTRL-01",
+    standardReference: "CC-series (security, availability, integrity)",
+    status: "Needs local extension",
+    whatEthotechnicsCovers:
+      "Human oversight, escalation, and change-control evidence that supports common SOC 2 control expectations.",
+    buyerAuditorChecks: [
+      "Control owner matrix includes response-time commitments.",
+      "Change approvals include model-version context and rollback path.",
+      "Audit trail supports challenge-response testing during fieldwork.",
+    ],
+    firstMove: "Bind oversight drill records to your SOC 2 control narratives before the next audit cycle.",
+    detailedLinks: [
+      { label: "Where this binds", href: "/standards/where-this-binds" },
+      { label: "Failure postmortem template", href: "/standards/pm-01-failure-postmortem-template" },
+    ],
+  },
+  {
+    framework: "IEC 61508",
+    anchor: "#iec61508",
+    mappedControlId: "CTRL-01",
+    standardReference: "Safety lifecycle obligations",
+    status: "Needs local extension",
+    whatEthotechnicsCovers:
+      "Stop authority and incident-route controls that support safety operations, while SIL determination and hardware safety remain implementation-specific.",
+    buyerAuditorChecks: [
+      "Safety-case assumptions are explicit and version-controlled.",
+      "Escalation paths define human authority at each hazard tier.",
+      "Post-incident closure includes residual risk statement.",
+    ],
+    firstMove: "Use Ethotechnics controls as governance overlays inside your existing safety lifecycle artifacts.",
+    detailedLinks: [
+      { label: "STD-06 human-impact safety case", href: "/standards/std-06-human-impact-safety-case" },
+      { label: "Incident memo template", href: "/standards/incident-memo" },
+    ],
+  },
+];
+
+const keyTakeaways = [
+  "This crosswalk is reviewed against current Ethotechnics controls and release evidence (updated 2026-02-22).",
+  "Rows separate controls that are immediately usable from controls that require local framework extensions.",
+  "Every framework row includes concrete buyer/auditor checks and a specific first move.",
+];
 ---
 
 <BaseLayout
@@ -51,63 +194,115 @@ const publication = {
   jsonAlternates={[{ href: "/api/crosswalks.json", title: "Crosswalks JSON" }]}
 >
   <PageIntro
-    eyebrow="Standards"
+    eyebrow="Crosswalk"
     title={pageTitle}
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
-      { href: "#controls", label: "Control crosswalks" },
-      { href: "#evidence-pack", label: "Evidence-pack minimum" },
-      { href: "#post-market", label: "Post-market workflow" },
-      { href: "#citations", label: "Citations" },
+      { href: "#guide", label: "Guide" },
+      { href: "#summary", label: "How to use" },
+      { href: "#controls", label: "Crosswalk" },
+      { href: "#framework-cards", label: "Framework cards" },
+      { href: "#post-market", label: "Post-market" },
+      { href: "#citations", label: "Citation" },
     ]}
     panelCopy={{
-      eyebrow: "Reference implementation",
-      title: "From standards language to enforceable operations",
+      eyebrow: "Buyer + auditor use",
+      title: "Know what Ethotechnics can and cannot do.",
       description:
-        "These crosswalks align controls, evidence artifacts, and operational surfaces needed for audit and incident response.",
+        "Start with the quick scan table, then open only the framework detail card you need for evidence collection.",
       link: {
-        label: "View incident lessons",
-        href: "/incidents",
+        label: "Start here",
+        href: "#guide",
       },
     }}
   />
 
   <SectionBlock
+    id="guide"
+    eyebrow="Start here"
+    title="Plain-language guide"
+    description="Use this page when you need procurement-ready or audit-ready answers without reading every standards document first."
+  >
+    <ul>
+      {keyTakeaways.map((item) => <li>{item}</li>)}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="summary"
+    eyebrow="Summary"
+    title="How to use this page"
+    description="Pick a framework, verify the status, run the first move, then request the listed evidence artifacts."
+    variant="alt"
+  >
+    <div class="framework-summary-grid">
+      <div>
+        <p class="eyebrow">Quick process</p>
+        <ol>
+          <li>Check whether the row is <strong>Ready now</strong> or <strong>Needs local extension</strong>.</li>
+          <li>Assign the accountable owner for the first move.</li>
+          <li>Request evidence artifacts before contract sign-off or audit close.</li>
+        </ol>
+      </div>
+      <div>
+        <p class="eyebrow">Jump to framework cards</p>
+        <ul class="framework-link-list">
+          {
+            frameworkCards.map((item) => (
+              <li>
+                <a href={item.anchor}>{item.framework}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
     id="controls"
-    eyebrow="Crosswalks"
-    title="Control mappings across major frameworks"
-    description="Each control keeps one obligation statement, framework references, and mandatory evidence surfaces."
+    eyebrow="Quick scan"
+    title="Framework-by-framework implementation crosswalk"
+    description="This table is specific to current Ethotechnics controls and highlights what still requires local implementation work."
   >
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th scope="col">Control</th>
-            <th scope="col">EU AI Act</th>
-            <th scope="col">NIST AI RMF</th>
-            <th scope="col">ISO/IEC 42001</th>
-            <th scope="col">Required evidence</th>
+            <th scope="col">Framework</th>
+            <th scope="col">Status</th>
+            <th scope="col">Mapped control + reference</th>
+            <th scope="col">What Ethotechnics covers</th>
+            <th scope="col">Recommended first move</th>
+            <th scope="col">Detailed links</th>
           </tr>
         </thead>
         <tbody>
           {
-            governanceCrosswalks.map((control) => (
+            frameworkCards.map((framework) => (
               <tr>
-                <th scope="row">
-                  <p><strong>{control.controlId}</strong></p>
-                  <p class="muted">{control.obligation}</p>
-                  <p>
-                    <a href="/mechanisms">Operational surface: {control.operationalSurface}</a>
-                  </p>
-                </th>
-                <td>{control.euAiAct}</td>
-                <td>{control.nistAiRmf}</td>
-                <td>{control.iso42001}</td>
+                <th scope="row">{framework.framework}</th>
                 <td>
-                  <ul>
-                    {control.evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
-                  </ul>
+                  <span
+                    class:list={{
+                      badge: true,
+                      "badge--ready": framework.status === "Ready now",
+                      "badge--extend": framework.status === "Needs local extension",
+                    }}
+                  >
+                    {framework.status}
+                  </span>
+                </td>
+                <td>
+                  <strong>{framework.mappedControlId}</strong>
+                  <br />
+                  {framework.standardReference}
+                </td>
+                <td>{framework.whatEthotechnicsCovers}</td>
+                <td>{framework.firstMove}</td>
+                <td>
+                  <a href={framework.anchor}>Open details</a>
                 </td>
               </tr>
             ))
@@ -118,25 +313,68 @@ const publication = {
   </SectionBlock>
 
   <SectionBlock
-    id="evidence-pack"
-    eyebrow="Evidence-pack discipline"
-    title="Minimum viable evidence pack for audits"
-    description="Treat this minimum set as required for every high-stakes release and major incident."
+    id="framework-cards"
+    eyebrow="Deep dive"
+    title="Framework details (expand what you need)"
+    description="Each card includes concrete checks and evidence asks you can use in procurement packets or audit walkthroughs."
     variant="alt"
   >
-    <ul>
-      {evidencePackMinimumSet.map((item) => <li>{item}</li>)}
-    </ul>
+    <div class="framework-details">
+      {
+        frameworkCards.map((item) => {
+          const mappedControl = findControl(item.mappedControlId);
+          return (
+            <details id={item.anchor.replace("#", "")}>
+              <summary>{item.framework}</summary>
+              <p>
+                <strong>Status:</strong> {item.status}
+              </p>
+              <p>
+                <strong>Mapped Ethotechnics control:</strong> {mappedControl.controlId} — {mappedControl.obligation}
+              </p>
+              <p>
+                <strong>Framework reference:</strong> {item.standardReference}
+              </p>
+              <p>{item.whatEthotechnicsCovers}</p>
+              <p>
+                <strong>Buyer/auditor checks:</strong>
+              </p>
+              <ul>
+                {item.buyerAuditorChecks.map((check) => <li>{check}</li>)}
+              </ul>
+              <p>
+                <strong>Evidence to request first:</strong>
+              </p>
+              <ul>
+                {mappedControl.evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
+              </ul>
+              <p>
+                <strong>Operational surface:</strong>{" "}
+                <a href="/mechanisms">{mappedControl.operationalSurface}</a>
+              </p>
+              <p>
+                <strong>Detailed links:</strong>{" "}
+                {item.detailedLinks.map((link, index) => (
+                  <>
+                    <a href={link.href}>{link.label}</a>
+                    {index < item.detailedLinks.length - 1 && <span> · </span>}
+                  </>
+                ))}
+              </p>
+            </details>
+          );
+        })
+      }
+    </div>
     <p>
-      Operationalize this with <a href="/diagnostics/evidence-pack-readiness">evidence pack readiness</a>
-      {" "}
-      before launch and as part of post-incident closure.
+      Pair these controls with the <a href="/diagnostics/evidence-pack-readiness">evidence pack readiness</a>
+      diagnostic before launch and after any major incident.
     </p>
   </SectionBlock>
 
   <SectionBlock
     id="post-market"
-    eyebrow="Post-market monitoring"
+    eyebrow="Ops loop"
     title="Incident reporting as a first-class governance flow"
     description="Post-market work should be routable, time-bound, and exportable rather than buried in retrospectives."
   >
@@ -149,10 +387,10 @@ const publication = {
         ))
       }
     </ol>
-    <p>
-      Run this flow with the <a href="/incidents">incident lessons hub</a> and publish evidence-state
-      updates into your governance record.
-    </p>
+    <p><strong>Core evidence pack minimum:</strong></p>
+    <ul>
+      {evidencePackMinimumSet.map((item) => <li>{item}</li>)}
+    </ul>
   </SectionBlock>
 
   <SectionBlock
@@ -165,3 +403,65 @@ const publication = {
     <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
   </SectionBlock>
 </BaseLayout>
+
+<style>
+  .framework-summary-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .framework-link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .framework-link-list a {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.65rem;
+    text-decoration: none;
+  }
+
+  .badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .badge--ready {
+    background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+  }
+
+  .badge--extend {
+    background: color-mix(in srgb, var(--gold) 22%, var(--surface));
+    border-color: color-mix(in srgb, var(--gold) 55%, var(--border));
+  }
+
+  .framework-details {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .framework-details details {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem;
+    background: color-mix(in srgb, var(--surface) 95%, white 5%);
+  }
+
+  .framework-details summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+</style>
