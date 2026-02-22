@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import Std01MicroDiagram from "../../components/Std01MicroDiagram.astro";
 import TemporalRightsDiagram from "../../components/TemporalRightsDiagram.astro";
 
@@ -172,6 +173,9 @@ const { cspNonce } = Astro.locals;
   enableGlossaryHighlights={false}
   breadcrumbItems={breadcrumbItems}
 >
+  <StandardStatusSummary slug="std-01-temporal-rights" />
+
+
   <article class="standard-document">
     <header class="standard-header">
       <div>

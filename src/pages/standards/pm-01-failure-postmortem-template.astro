@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 
@@ -165,6 +166,9 @@ const workedExample = `Worked example (hypothetical, anonymized)
   enableGlossaryHighlights={false}
   breadcrumbItems={breadcrumbItems}
 >
+  <StandardStatusSummary slug="pm-01-failure-postmortem-template" />
+
+
   <article class="standard-document">
     <header class="standard-header">
       <div>

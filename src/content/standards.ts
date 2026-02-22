@@ -5,8 +5,21 @@ export type StandardEntry = {
   slug: string;
   title: string;
   description: string;
-  status: string;
+  status: "Draft" | "Stable" | "Deprecated";
   version: string;
+  changelogHref?: string;
+  changelogEntries?: {
+    version: string;
+    date: string;
+    summary: string;
+    href?: string;
+  }[];
+  stableCriteria: string;
+  deprecatedBy?: {
+    id: string;
+    slug: string;
+    title: string;
+  }[];
   effectiveDate: string;
   published: string;
 };
@@ -70,8 +83,18 @@ export const standardsContent: StandardsContent = {
       title: "The Temporal Bill of Rights",
       description:
         "Defines the seven inalienable rights protecting human time against automated systems.",
-      status: "Draft for Ratification",
+      status: "Draft",
       version: "1.0",
+      changelogHref: "/standards/std-01-temporal-rights#publication-history",
+      changelogEntries: [
+        {
+          version: "1.0",
+          date: "2026-01-01",
+          summary: "Ratification draft released for public review.",
+        },
+      ],
+      stableCriteria:
+        "Requires two independent implementation reports and standards council ratification.",
       effectiveDate: "January 2026",
       published: "2026-01-01",
     },
@@ -81,8 +104,19 @@ export const standardsContent: StandardsContent = {
       title: "The Contestability & Recourse Standard",
       description:
         "Defines contestability, review, and remedy obligations for consequential systems.",
-      status: "Draft for Peer Review",
+      status: "Draft",
       version: "0.9",
+      changelogHref:
+        "/standards/std-02-contestability-recourse#publication-history",
+      changelogEntries: [
+        {
+          version: "0.9",
+          date: "2026-01-01",
+          summary: "Peer review draft aligned to evidence and remedy clocks.",
+        },
+      ],
+      stableCriteria:
+        "Requires successful red-team recourse simulation and two external peer reviewers.",
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-01-01",
     },
@@ -92,8 +126,18 @@ export const standardsContent: StandardsContent = {
       title: "Minimum viable contestability standard",
       description:
         "A one-page baseline for standing, reasons, records, timelines, remedies, and non-retaliation.",
-      status: "Published",
+      status: "Stable",
       version: "1.0",
+      changelogHref: "/standards/minimum-viable-contestability#text",
+      changelogEntries: [
+        {
+          version: "1.0",
+          date: "2025-01-01",
+          summary: "Initial stable publication for baseline contestability controls.",
+        },
+      ],
+      stableCriteria:
+        "Requires one production deployment report, audit template validation, and council approval.",
       effectiveDate: "Immediate",
       published: "2025-01-01",
     },
@@ -103,8 +147,18 @@ export const standardsContent: StandardsContent = {
       title: "Institutional Failure Postmortem Template",
       description:
         "A one-page postmortem template grounded in clocks, reversibility, burden allocation, and repair paths.",
-      status: "Published",
+      status: "Stable",
       version: "1.0",
+      changelogHref: "/standards/pm-01-failure-postmortem-template",
+      changelogEntries: [
+        {
+          version: "1.0",
+          date: "2026-04-15",
+          summary: "Initial stable release of the institutional postmortem template.",
+        },
+      ],
+      stableCriteria:
+        "Requires use in three incident retrospectives with documented governance sign-off.",
       effectiveDate: "Immediate",
       published: "2026-04-15",
     },
@@ -114,8 +168,18 @@ export const standardsContent: StandardsContent = {
       title: "Justice SLOs (Targets, Budgets, and Breach Actions)",
       description:
         "Defines targets, budgets, and breach actions for justice metrics.",
-      status: "Draft for Review",
+      status: "Draft",
       version: "0.6",
+      changelogHref: "/standards/std-03-justice-slos",
+      changelogEntries: [
+        {
+          version: "0.6",
+          date: "2026-01-01",
+          summary: "Review draft introducing justice error-budget breach actions.",
+        },
+      ],
+      stableCriteria:
+        "Requires pilot metrics from two sectors and reviewer consensus on breach thresholds.",
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-01-01",
     },
@@ -125,8 +189,25 @@ export const standardsContent: StandardsContent = {
       title: "FHIR profile set for contestability artifacts",
       description:
         "FHIR profiles for decision records, appeal events, and repair outcomes with governance metadata.",
-      status: "Draft for Alignment",
+      status: "Deprecated",
       version: "0.3",
+      changelogHref: "/standards/fhir-profile-set",
+      changelogEntries: [
+        {
+          version: "0.3",
+          date: "2026-02-15",
+          summary: "Profile draft superseded by consolidated VC + FHIR release plan.",
+        },
+      ],
+      stableCriteria:
+        "N/A while deprecated; replacement standard should be adopted for new implementations.",
+      deprecatedBy: [
+        {
+          id: "STD-05",
+          slug: "w3c-vc-schemas",
+          title: "W3C Verifiable Credential schemas for contestability",
+        },
+      ],
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-02-15",
     },
@@ -136,8 +217,18 @@ export const standardsContent: StandardsContent = {
       title: "W3C Verifiable Credential schemas for contestability",
       description:
         "Verifiable Credential schemas and JSON-LD contexts for decision records, appeals, and remedies.",
-      status: "Draft for Alignment",
+      status: "Draft",
       version: "0.3",
+      changelogHref: "/standards/w3c-vc-schemas",
+      changelogEntries: [
+        {
+          version: "0.3",
+          date: "2026-02-15",
+          summary: "Alignment draft for contestability credentials and context definitions.",
+        },
+      ],
+      stableCriteria:
+        "Requires interoperability testing across two verifier implementations and one public registry.",
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-02-15",
     },
@@ -147,8 +238,18 @@ export const standardsContent: StandardsContent = {
       title: "Human Impact Safety Case",
       description:
         "Standard tests, thresholds, and evidence artifacts that define a do-not-deploy safety case for human impact.",
-      status: "Draft for Review",
+      status: "Draft",
       version: "0.4",
+      changelogHref: "/standards/std-06-human-impact-safety-case",
+      changelogEntries: [
+        {
+          version: "0.4",
+          date: "2026-03-01",
+          summary: "Review draft defining do-not-deploy thresholds and evidence artifacts.",
+        },
+      ],
+      stableCriteria:
+        "Requires passing safety-case drills in two live programs and independent assurance review.",
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-03-01",
     },
@@ -748,3 +849,6 @@ export const standardClauses: Record<string, StandardClause[]> = {
     },
   ],
 };
+
+export const getStandardBySlug = (slug: string): StandardEntry | undefined =>
+  standardsContent.standards.find((standard) => standard.slug === slug);

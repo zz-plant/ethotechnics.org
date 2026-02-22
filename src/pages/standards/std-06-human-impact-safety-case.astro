@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
@@ -111,6 +112,9 @@ const safetyCaseTemplate = `Human Impact Safety Case (STD-06)
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+  <StandardStatusSummary slug="std-06-human-impact-safety-case" />
+
+
   <PageIntro
     eyebrow="Standard"
     title="Human Impact Safety Case (STD-06)"

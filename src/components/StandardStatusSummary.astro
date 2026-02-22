@@ -1,0 +1,91 @@
+---
+import { getStandardBySlug } from "../content/standards";
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const standard = getStandardBySlug(slug);
+
+if (!standard) {
+  throw new Error(`Missing standard metadata for slug: ${slug}`);
+}
+
+const statusClass = standard.status.toLowerCase();
+---
+
+<aside class="standard-status panel stack-sm" aria-label="Standard publication status">
+  <p class="eyebrow">Publication status</p>
+  <p class="standard-status__headline">
+    <span class={`status-badge status-badge--${statusClass}`}>{standard.status}</span>
+    <span class="muted">{standard.id} · v{standard.version}</span>
+  </p>
+  <p class="muted small">Effective: {standard.effectiveDate}</p>
+  <p class="muted small">Stable criteria: {standard.stableCriteria}</p>
+  {standard.changelogEntries && standard.changelogEntries.length > 0 && (
+    <ul class="muted small standard-status__changelog">
+      {standard.changelogEntries.map((entry) => (
+        <li>
+          {entry.href ? <a href={entry.href}>v{entry.version}</a> : `v${entry.version}`} ({entry.date}): {entry.summary}
+        </li>
+      ))}
+    </ul>
+  )}
+  {standard.changelogHref && (
+    <p class="small"><a href={standard.changelogHref}>View changelog</a></p>
+  )}
+  {standard.deprecatedBy && standard.deprecatedBy.length > 0 && (
+    <p class="muted small">
+      Deprecated by:{" "}
+      {standard.deprecatedBy.map((replacement, index) => (
+        <Fragment>
+          {index > 0 && ", "}
+          <a href={`/standards/${replacement.slug}`}>{replacement.id}</a>
+        </Fragment>
+      ))}
+    </p>
+  )}
+</aside>
+
+<style>
+  .standard-status__headline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .status-badge--draft {
+    background: color-mix(in srgb, var(--theme-accent) 18%, transparent);
+    color: var(--theme-accent);
+  }
+
+  .status-badge--stable {
+    background: color-mix(in srgb, #2d8a4a 16%, transparent);
+    color: #2d8a4a;
+  }
+
+  .status-badge--deprecated {
+    background: color-mix(in srgb, #b35218 16%, transparent);
+    color: #b35218;
+  }
+
+  .standard-status__changelog {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.25rem;
+  }
+</style>

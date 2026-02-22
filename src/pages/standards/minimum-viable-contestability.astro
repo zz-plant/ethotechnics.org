@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -36,6 +37,9 @@ const textOnlyContent = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
+  <StandardStatusSummary slug="minimum-viable-contestability" />
+
+
   <PageIntro
     eyebrow="Standard"
     title={pageTitle}
