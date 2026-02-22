@@ -2,6 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+
+const version = "v1.0.0";
+const lastUpdated = "2026-02-22";
 ---
 
 <BaseLayout
@@ -14,6 +17,8 @@ import SectionBlock from "../../components/SectionBlock.astro";
     description="Foundational claims that anchor every standard and mechanism authored by the Institute."
     permalink="/standards/core-axioms"
     anchorLinks={[{ href: "#axioms", label: "Axioms" }]}
+    version={version}
+    lastUpdated={lastUpdated}
     panelCopy={{
       eyebrow: "Status",
       title: "Versioned doctrine",

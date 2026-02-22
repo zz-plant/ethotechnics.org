@@ -25,6 +25,8 @@ export interface Props {
   collapseAnchorLinks?: boolean;
   collapseAnchorLinksOnMobile?: boolean;
   anchorLinksSummary?: string;
+  version?: string;
+  lastUpdated?: string;
 }
 
 const {
@@ -38,6 +40,8 @@ const {
   collapseAnchorLinks = false,
   collapseAnchorLinksOnMobile = false,
   anchorLinksSummary = "Show full outline",
+  version,
+  lastUpdated,
 } = Astro.props;
 const hasCustomAside = Astro.slots.has("aside");
 const hasActions = Astro.slots.has("actions");
@@ -148,6 +152,13 @@ function titleize(segment: string) {
       }
       <div class="page-intro__meta">
         <p class="eyebrow">{eyebrow}</p>
+        {(version || lastUpdated) && (
+          <p class="page-intro__versioning" aria-label="Document metadata">
+            {version && <span>Version {version}</span>}
+            {version && lastUpdated && <span aria-hidden="true"> · </span>}
+            {lastUpdated && <span>Last updated {lastUpdated}</span>}
+          </p>
+        )}
         <p class="page-intro__permalink">
           <span class="page-intro__permalink-icon" aria-hidden="true">↺</span>
           <span class="page-intro__permalink-label">Permanent link</span>
