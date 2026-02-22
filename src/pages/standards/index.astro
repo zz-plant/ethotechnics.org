@@ -112,6 +112,7 @@ const implementationExampleCards = [
   })),
 ];
 const mostCitedStandardIds = ["STD-01", "STD-02", "MVC-01"];
+const activeStandards = standards.filter((standard) => standard.status !== "Deprecated");
 const mostCitedStandards = mostCitedStandardIds
   .map((id) => standards.find((standard) => standard.id === id))
   .filter((standard): standard is (typeof standards)[number] =>
@@ -154,12 +155,12 @@ const standardsLaneById = new Map(
 );
 const standardsFilterOptions = ["all", "core", "implementation", "reference"];
 const standardsLaneCounts = {
-  all: standards.length,
-  core: standards.filter((standard) => standardsLaneById.get(standard.id) === "core").length,
-  implementation: standards.filter(
+  all: activeStandards.length,
+  core: activeStandards.filter((standard) => standardsLaneById.get(standard.id) === "core").length,
+  implementation: activeStandards.filter(
     (standard) => standardsLaneById.get(standard.id) === "implementation",
   ).length,
-  reference: standards.filter((standard) => standardsLaneById.get(standard.id) === "reference").length,
+  reference: activeStandards.filter((standard) => standardsLaneById.get(standard.id) === "reference").length,
 };
 const structuredData = {
   "@context": "https://schema.org",
@@ -411,7 +412,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="active"
     eyebrow="Active standards"
     title="Now active"
-    description="Drafts and ratified standards in the publication queue."
+    description="Draft and stable standards currently recommended for implementation."
   >
     <div class="standards-filter panel stack-sm" data-standards-filter>
       <p class="eyebrow">Filter and sort</p>
@@ -443,7 +444,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </div>
     <CardGrid className="grid--two" data-standards-grid>
       {
-        standards.map((standard) => {
+        activeStandards.map((standard) => {
           const lane = standardsLaneById.get(standard.id) ?? "reference";
 
           return (
