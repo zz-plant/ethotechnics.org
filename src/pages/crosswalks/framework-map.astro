@@ -12,6 +12,7 @@ type ArtifactLink = {
 type FrameworkRow = {
   framework: string;
   slug: string;
+  plainLanguage: string;
   scope: string;
   ethotechnicsCovers: string[];
   notCovered: string[];
@@ -21,15 +22,17 @@ type FrameworkRow = {
   artifacts: ArtifactLink[];
 };
 
-const pageTitle = "Practical framework crosswalk map";
+const pageTitle = "Framework map for buyers and auditors";
 const pageDescription =
-  "A practical buyer-and-auditor map showing where Ethotechnics controls fit major assurance frameworks, where gaps remain, and what to combine for production governance.";
+  "Use this plain-language map to see what Ethotechnics can do, what it cannot do, and what to pair it with for audits and procurement.";
 const permalink = "/crosswalks/framework-map";
 
 const frameworkRows: FrameworkRow[] = [
   {
     framework: "NIST AI RMF 1.0",
     slug: "nist-ai-rmf-1-0",
+    plainLanguage:
+      "Great for day-to-day AI risk operations, but not a full legal or enterprise risk program by itself.",
     scope: "AI risk management lifecycle (Govern, Map, Measure, Manage).",
     ethotechnicsCovers: [
       "Operational control mappings and evidence-pack discipline for pre-launch and post-market workflows.",
@@ -64,6 +67,8 @@ const frameworkRows: FrameworkRow[] = [
   {
     framework: "ISO/IEC 27001",
     slug: "iso-iec-27001",
+    plainLanguage:
+      "Useful for governance evidence, but not a replacement for a full security certification program.",
     scope: "Information security management systems (ISMS) and controls.",
     ethotechnicsCovers: [
       "Governance controls around decision accountability, incident pathways, and audit-ready evidence artifacts.",
@@ -92,6 +97,8 @@ const frameworkRows: FrameworkRow[] = [
   {
     framework: "SOC 2 (AICPA TSC)",
     slug: "soc-2-aicpa-tsc",
+    plainLanguage:
+      "Helps prepare strong control evidence, but does not replace an external SOC 2 audit report.",
     scope: "Trust Services Criteria attestation for service organizations.",
     ethotechnicsCovers: [
       "Control narratives and concrete artifacts for governance, change accountability, and incident documentation.",
@@ -123,6 +130,8 @@ const frameworkRows: FrameworkRow[] = [
   {
     framework: "IEC 61508",
     slug: "iec-61508",
+    plainLanguage:
+      "Supports governance around safety decisions, but does not produce SIL engineering proof.",
     scope: "Functional safety lifecycle for E/E/PE safety-related systems.",
     ethotechnicsCovers: [
       "Human-impact and stoppability governance patterns that clarify operational safeguards.",
@@ -154,6 +163,8 @@ const frameworkRows: FrameworkRow[] = [
   {
     framework: "ISO/IEC 42001",
     slug: "iso-iec-42001",
+    plainLanguage:
+      "Good for implementing AI governance controls, but certification still needs a formal management-system audit path.",
     scope: "AI management system requirements for organizations.",
     ethotechnicsCovers: [
       "Mapped controls aligned to accountable AI governance obligations and operational evidence requirements.",
@@ -185,6 +196,8 @@ const frameworkRows: FrameworkRow[] = [
   {
     framework: "EU AI Act (high-risk compliance context)",
     slug: "eu-ai-act-high-risk-context",
+    plainLanguage:
+      "Helps operationalize evidence, but legal counsel is still required for compliance filings and legal interpretation.",
     scope: "Legal obligations for AI providers/deployers in the EU regulatory regime.",
     ethotechnicsCovers: [
       "Operational crosswalks tying controls to accountability evidence and post-market workflows.",
@@ -220,30 +233,47 @@ const frameworkAnchorLinks = frameworkRows.map((row) => ({
 
 <BaseLayout title={`${pageTitle} — Crosswalks`} description={pageDescription}>
   <PageIntro
-    eyebrow="Crosswalks"
+    eyebrow="Crosswalks (plain-language)"
     title={pageTitle}
     description={pageDescription}
     permalink={permalink}
     anchorLinks={[
+      { href: "#before-you-read", label: "Plain-language guide" },
       { href: "#matrix", label: "Matrix" },
       { href: "#framework-details", label: "Framework details" },
       ...frameworkAnchorLinks,
     ]}
     panelCopy={{
       eyebrow: "Buyer + auditor use",
-      title: "Know where Ethotechnics fits before procurement or review.",
+      title: "Know what Ethotechnics can and cannot do.",
       description:
-        "Use the summary matrix for triage, then jump to framework sections for checklists and concrete implementation links.",
+        "Read the matrix first, then jump to detailed sections for buyer checks, auditor checks, and specific artifacts.",
     }}
   />
 
+
+
+  <SectionBlock
+    id="before-you-read"
+    eyebrow="Start here"
+    title="Plain-language guide"
+    description="If you are new to standards work, use this quick guide first."
+  >
+    <ul>
+      <li><strong>What Ethotechnics covers:</strong> what this site and its artifacts can help you implement now.</li>
+      <li><strong>What it does not cover:</strong> work you still need from legal counsel, auditors, or certification teams.</li>
+      <li><strong>Recommended combination pattern:</strong> the safest way to combine Ethotechnics with other assurance programs.</li>
+      <li><strong>Controls &amp; artifacts:</strong> direct links you can hand to buyers, reviewers, and audit teams.</li>
+    </ul>
+  </SectionBlock>
+
   <SummaryCallout
-    title="How to use this map"
-    description="Start from the matrix for a quick decision, then open framework sections for granular buyer and auditor checks."
+    title="How to use this page"
+    description="Start with plain-language guidance, scan the matrix, then open framework details for concrete checks."
     takeaways={[
-      "Rows distinguish implementation coverage from certification/legal scope.",
-      "Each framework includes buyer checks and auditor checks.",
-      "Artifact links point to concrete controls, diagnostics, and APIs.",
+      "Each row separates what is in scope vs. out of scope.",
+      "Each framework includes plain buyer and auditor checklists.",
+      "Each row links to concrete artifacts you can review immediately.",
     ]}
     jumpLinks={frameworkAnchorLinks}
   />
@@ -317,25 +347,26 @@ const frameworkAnchorLinks = frameworkRows.map((row) => ({
     {frameworkRows.map((row) => (
       <article id={row.slug}>
         <h3>{row.framework}</h3>
+        <p><strong>In plain language:</strong> {row.plainLanguage}</p>
         <p class="muted small">{row.scope}</p>
         <p>
           <strong>Recommended combination pattern:</strong> {row.combinationPattern}
         </p>
         <div>
-            <p><strong>Buyer checks</strong></p>
-            <ul>
-              {row.buyerChecks.map((check) => (
-                <li>{check}</li>
-              ))}
-            </ul>
-          
-            <p><strong>Auditor checks</strong></p>
-            <ul>
-              {row.auditorChecks.map((check) => (
-                <li>{check}</li>
-              ))}
-            </ul>
-          </div>
+          <p><strong>Buyer checks</strong></p>
+          <ul>
+            {row.buyerChecks.map((check) => (
+              <li>{check}</li>
+            ))}
+          </ul>
+
+          <p><strong>Auditor checks</strong></p>
+          <ul>
+            {row.auditorChecks.map((check) => (
+              <li>{check}</li>
+            ))}
+          </ul>
+        </div>
         <p><strong>Controls &amp; spec artifacts</strong></p>
         <ul>
           {row.artifacts.map((artifact) => (
