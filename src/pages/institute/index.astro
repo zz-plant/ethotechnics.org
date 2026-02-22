@@ -157,7 +157,11 @@ const instituteStats = [
   >
     <CardGrid>
       {governance.map((item) => (
-        <CardItem title={item.title} description={item.detail} />
+        <CardItem title={item.title} description={item.detail}>
+          <a slot="footer" href={item.artifactHref}>
+            {item.artifactLabel}
+          </a>
+        </CardItem>
       ))}
     </CardGrid>
   </SectionBlock>

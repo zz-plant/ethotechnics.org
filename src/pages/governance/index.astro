@@ -1,16 +1,102 @@
 ---
-import TaxonomyEntryPage from "../../components/TaxonomyEntryPage.astro";
-import { taxonomyEntriesBySlug, type TaxonomyEntry } from "../../content/taxonomy";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { governanceContent } from "../../content/governance";
 
-const entry = taxonomyEntriesBySlug.get("governance");
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  anchorLinks,
+  panelCopy,
+  lifecycle,
+  rfcs,
+  decisions,
+  quarterlyUpdates,
+} = governanceContent;
 
-if (!entry) {
-  throw new Error("Missing taxonomy entry for governance.");
-}
+const openRfcStatuses = new Set(["proposal", "review", "decision"]);
+const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
 ---
 
-<TaxonomyEntryPage
-  entry={entry as TaxonomyEntry}
-  basePath="/governance"
-  eyebrow="Domain"
-/>
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Governance"
+    title="Governance process"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={panelCopy}
+  />
+
+  <SectionBlock
+    id="lifecycle"
+    eyebrow="Process"
+    title="RFC lifecycle"
+    description="A shared lifecycle keeps policy changes reviewable, attributable, and linked to release artifacts."
+    className="section--banded"
+  >
+    <CardGrid>
+      {lifecycle.map((step, index) => (
+        <CardItem title={`${index + 1}. ${step.stage}`} description={step.detail} />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="open-rfcs"
+    eyebrow="Current work"
+    title="Current/open RFCs"
+    description="Open RFCs show the status, owners, reviewer roles, and active review windows before decisions are logged."
+  >
+    <CardGrid>
+      {openRfcs.map((rfc) => (
+        <CardItem title={`${rfc.id}: ${rfc.title}`} meta={`Status: ${rfc.status}`} description={rfc.summary}>
+          <p class="muted small">Opened: {rfc.openedOn}</p>
+          <p class="muted small">Review window: {rfc.reviewWindow}</p>
+          <p class="muted small">Owner: {rfc.owner}</p>
+          <p class="muted small">Reviewer roles: {rfc.reviewerRoles.join(", ")}</p>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="decision-log"
+    eyebrow="Receipts"
+    title="Decision log"
+    description="Every decision includes date, accountable owner, rationale, and release linkage."
+    className="section--banded"
+  >
+    <CardGrid>
+      {decisions.map((record) => (
+        <CardItem
+          title={`${record.id}: ${record.title}`}
+          meta={`${record.outcome} • ${record.date}`}
+          description={record.rationale}
+        >
+          <p class="muted small">Owner: {record.owner}</p>
+          <a slot="footer" href={record.releaseHref}>
+            Linked release: {record.releaseVersion}
+          </a>
+        </CardItem>
+      ))}
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="quarterly-updates"
+    eyebrow="Quarterly notes"
+    title="Quarterly governance updates"
+    description="Dated updates summarize what shipped in governance operations each quarter."
+  >
+    <CardGrid>
+      {quarterlyUpdates.map((entry) => (
+        <CardItem title={entry.title} meta={entry.date} description={entry.summary} />
+      ))}
+    </CardGrid>
+  </SectionBlock>
+</BaseLayout>

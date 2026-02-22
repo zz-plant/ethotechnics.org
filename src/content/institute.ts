@@ -8,6 +8,8 @@ import type {
 export type GovernanceItem = {
   title: string;
   detail: string;
+  artifactLabel: string;
+  artifactHref: string;
 };
 
 export type Steward = {
@@ -132,16 +134,22 @@ export const instituteContent: InstituteContent = {
       title: "Public charter",
       detail:
         "Clear rules for consent, attribution, and data handling so partners know how their input is used.",
+      artifactLabel: "View RFC lifecycle",
+      artifactHref: "/governance#lifecycle",
     },
     {
       title: "Documented safeguards",
       detail:
         "Escalation paths, appeal windows, and office hours when a diagnostic shows heightened risk.",
+      artifactLabel: "Review current RFCs",
+      artifactHref: "/governance#open-rfcs",
     },
     {
       title: "Decision history",
       detail:
         "Versioned notes and steward assignments so future teams can see why a path was chosen.",
+      artifactLabel: "Open decision log",
+      artifactHref: "/governance#decision-log",
     },
   ],
   stewards: [
