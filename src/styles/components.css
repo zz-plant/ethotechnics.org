@@ -6265,12 +6265,12 @@
   .institute-hero__status li {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    font-size: 0.95rem;
-    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-    border-radius: var(--radius-md);
-    padding: 0.52rem 0.68rem;
-    background: color-mix(in srgb, var(--surface) 98%, white 2%);
+    gap: 0.55rem;
+    font-size: 0.92rem;
+    border: 0;
+    border-radius: 0;
+    padding: 0.1rem 0;
+    background: transparent;
     box-shadow: none;
   }
 
@@ -6357,60 +6357,34 @@
   }
 
   .institute-hero__other-starts {
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
     border-radius: var(--radius-lg);
-    padding: 0.7rem 0.85rem;
-    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    padding: 0.65rem 0.8rem;
+    background: color-mix(in srgb, var(--surface) 97%, white 3%);
   }
 
-  .institute-hero__other-starts summary {
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    list-style: none;
-  }
-
-  .institute-hero__other-starts summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .institute-hero__other-starts summary::after {
-    content: "+";
-    color: color-mix(in srgb, var(--accent) 55%, var(--text));
-    font-weight: 700;
-    font-size: 1.05rem;
-    line-height: 1;
-    transition: transform 150ms ease;
-  }
-
-  .institute-hero__other-starts[open] summary::after {
-    transform: rotate(45deg);
-  }
-
-  .institute-hero__other-starts summary:focus-visible {
-    outline: 2px solid var(--accent-strong);
-    outline-offset: 4px;
-    border-radius: var(--radius-sm);
-  }
-
-  .institute-hero__other-starts ul {
-    margin: 0.6rem 0 0;
+  .institute-hero__other-start-list {
+    margin: 0.45rem 0 0;
     padding: 0;
     list-style: none;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.45rem;
   }
 
+  .institute-hero__other-starts .small {
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+
   .institute-hero__other-start-link {
-    display: block;
-    width: 100%;
-    min-height: 2.6rem;
-    padding: 0.5rem 0.65rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    min-height: 2rem;
+    padding: 0.34rem 0.72rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
     background: color-mix(in srgb, var(--surface) 98%, white 2%);
     color: var(--text);
     text-decoration: none;
@@ -6442,11 +6416,11 @@
   }
 
   .institute-hero__starter {
-    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+    border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
     border-radius: var(--radius-lg);
     padding: clamp(1rem, 1.5vw, 1.2rem);
-    background: color-mix(in srgb, var(--surface) 95%, white 5%);
-    box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 10%, transparent);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 8%, transparent);
   }
 
   .institute-hero__signal-strip {
@@ -6720,8 +6694,7 @@
     }
 
     .failure-grid__button:hover .failure-grid__icon,
-    .failure-grid__button:focus-visible .failure-grid__icon,
-    .institute-hero__other-starts[open] summary::after {
+    .failure-grid__button:focus-visible .failure-grid__icon {
       transform: none;
     }
   }
@@ -6746,9 +6719,10 @@
     justify-content: space-between;
     align-items: flex-start;
     text-align: left;
-    padding: 0.95rem 1rem;
-    gap: 0.7rem;
-    min-height: 6.4rem;
+    padding: 0.9rem 0.98rem;
+    gap: 0.65rem;
+    min-height: 5.7rem;
+    border-radius: var(--radius-md);
     transition:
       border-color 150ms ease,
       box-shadow 150ms ease,
@@ -6786,13 +6760,12 @@
     align-items: center;
     width: fit-content;
     margin-left: 0;
-    margin-top: 0.35rem;
+    margin-top: 0.25rem;
     line-height: 1.35;
-    padding: 0.14rem 0.52rem;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--border));
-    background: color-mix(in srgb, var(--accent) 9%, var(--surface));
-    color: color-mix(in srgb, var(--text) 82%, var(--accent));
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: color-mix(in srgb, var(--text) 72%, var(--border));
   }
 
   .failure-grid__state-icon {
