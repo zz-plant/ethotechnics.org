@@ -11,9 +11,10 @@
   --accent-strong: #542e27;
   --gold: #a8844f;
   --teal: #6d7a70;
-  --radius: 5px;
-  --radius-md: 5px;
-  --radius-lg: 8px;
+  --radius: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
   --shadow-color: rgba(42, 38, 33, 0.065);
   --shadow-color-soft: rgba(42, 38, 33, 0.035);
   --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
@@ -70,7 +71,6 @@ body {
   font-size: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
   -webkit-font-smoothing: antialiased;
   position: relative;
-  overflow-x: hidden;
 }
 
 @supports (height: 100svh) {
@@ -135,7 +135,7 @@ a {
   color: var(--accent);
   text-decoration: none;
   background-image: linear-gradient(var(--accent), var(--accent));
-  background-size: 100% 2px;
+  background-size: 0 2px;
   background-repeat: no-repeat;
   background-position: 0 100%;
   padding-bottom: 2px; /* Breathing room for the underline */
@@ -145,7 +145,7 @@ a {
 a:hover,
 a:focus-visible {
   color: var(--accent-strong);
-  background-size: 100% 3px;
+  background-size: 100% 2px;
 }
 
 a:focus-visible {
