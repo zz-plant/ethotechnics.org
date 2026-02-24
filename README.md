@@ -61,6 +61,12 @@ accessible web performance, content strategy, digital ethics, UX research, respo
 3. Run the default PR check suite: `bun run check`
 4. Run the full release/nightly checks when needed: `bun run check:full`
 
+For a one-shot bootstrap (great for Codex and fresh clones), run:
+
+```bash
+bun run setup:codex
+```
+
 ## Quick start
 
 1. Install dependencies: `bun install`
