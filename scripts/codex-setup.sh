@@ -7,6 +7,7 @@ REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 RUN_CHECK=1
 INSTALL_PLAYWRIGHT=0
 AUTO_YES=0
+PLAYWRIGHT_INSTALL_MODE="prompt"
 
 usage() {
   cat <<'USAGE'
@@ -15,10 +16,12 @@ Usage: ./scripts/codex-setup.sh [options]
 Bootstrap a fresh Codex/local environment for this repository.
 
 Options:
-  --yes                  Non-interactive mode; accept prompts.
-  --skip-check           Skip final `bun run check`.
-  --install-playwright   Install Playwright browsers and dependencies.
-  -h, --help             Show this help text.
+  --yes                      Non-interactive mode; accept prompts.
+  --skip-check               Skip final `bun run check`.
+  --install-playwright       Install Playwright browsers and dependencies.
+  --skip-playwright          Skip Playwright installation without prompting.
+  --playwright-only-deps     Install Playwright OS deps only (no browser download).
+  -h, --help                 Show this help text.
 USAGE
 }
 
@@ -37,7 +40,7 @@ die() {
 
 confirm() {
   local prompt="$1"
-  if [[ "${AUTO_YES}" -eq 1 ]]; then
+  if [[ "${AUTO_YES}" -eq 1 ]] || [[ -n "${CI:-}" ]]; then
     return 0
   fi
 
@@ -56,6 +59,20 @@ require_command() {
   if ! command_exists "${cmd}"; then
     die "Missing required command '${cmd}'. ${hint}"
   fi
+}
+
+ensure_nvm_loaded() {
+  if declare -F nvm >/dev/null 2>&1; then
+    return 0
+  fi
+
+  if [[ -s "${NVM_DIR:-$HOME/.nvm}/nvm.sh" ]]; then
+    # shellcheck disable=SC1090
+    source "${NVM_DIR:-$HOME/.nvm}/nvm.sh"
+    return 0
+  fi
+
+  return 1
 }
 
 check_node_major() {
@@ -77,24 +94,44 @@ check_node_major() {
 }
 
 maybe_use_nvm() {
-  if [[ -f "${REPO_ROOT}/.nvmrc" ]] && command_exists nvm; then
-    log "Activating Node version from .nvmrc via nvm use."
-    # shellcheck disable=SC1090
-    nvm use >/dev/null
+  if [[ ! -f "${REPO_ROOT}/.nvmrc" ]]; then
     return
   fi
 
-  if [[ -f "${REPO_ROOT}/.nvmrc" ]] && [[ -s "${HOME}/.nvm/nvm.sh" ]]; then
-    # shellcheck disable=SC1090
-    source "${HOME}/.nvm/nvm.sh"
-    if command_exists nvm; then
-      log "Loaded nvm from ${HOME}/.nvm and activated .nvmrc version."
-      nvm use >/dev/null
-      return
-    fi
+  if ! ensure_nvm_loaded; then
+    warn "nvm not available in this shell; using current Node runtime."
+    return
   fi
 
-  warn "nvm not available in this shell; using current Node runtime."
+  log "Activating Node version from .nvmrc via nvm use."
+  nvm use >/dev/null
+}
+
+install_playwright_assets() {
+  case "${PLAYWRIGHT_INSTALL_MODE}" in
+    skip)
+      log "Skipping Playwright browser installation."
+      ;;
+    deps-only)
+      log "Installing Playwright OS dependencies only."
+      bunx playwright install-deps
+      ;;
+    full)
+      log "Installing Playwright browsers and OS dependencies."
+      bunx playwright install --with-deps
+      ;;
+    prompt)
+      if confirm "Install Playwright browsers now?"; then
+        log "Installing Playwright browsers and OS dependencies."
+        bunx playwright install --with-deps
+      else
+        log "Skipping Playwright browser installation."
+      fi
+      ;;
+    *)
+      die "Unexpected Playwright install mode: ${PLAYWRIGHT_INSTALL_MODE}"
+      ;;
+  esac
 }
 
 parse_args() {
@@ -110,6 +147,15 @@ parse_args() {
         ;;
       --install-playwright)
         INSTALL_PLAYWRIGHT=1
+        PLAYWRIGHT_INSTALL_MODE="full"
+        shift
+        ;;
+      --skip-playwright)
+        PLAYWRIGHT_INSTALL_MODE="skip"
+        shift
+        ;;
+      --playwright-only-deps)
+        PLAYWRIGHT_INSTALL_MODE="deps-only"
         shift
         ;;
       -h|--help)
@@ -121,6 +167,10 @@ parse_args() {
         ;;
     esac
   done
+
+  if [[ "${INSTALL_PLAYWRIGHT}" -eq 1 ]] && [[ "${PLAYWRIGHT_INSTALL_MODE}" != "full" ]]; then
+    die "Conflicting Playwright options. Use only one of --install-playwright, --skip-playwright, or --playwright-only-deps."
+  fi
 }
 
 main() {
@@ -130,25 +180,18 @@ main() {
 
   log "Bootstrapping environment in ${REPO_ROOT}."
 
+  require_command git "Install Git, then rerun this script."
   maybe_use_nvm
   require_command node "Install Node.js 20.x (recommended: nvm install && nvm use)."
   check_node_major
 
-  require_command bun "Install Bun from https://bun.sh, then rerun this script."
+  require_command bun "Install Bun from https://bun.sh/docs/installation, then rerun this script."
   log "Using Bun $(bun --version)."
 
   log "Installing dependencies with bun install --frozen-lockfile."
   bun install --frozen-lockfile
 
-  if [[ "${INSTALL_PLAYWRIGHT}" -eq 1 ]]; then
-    log "Installing Playwright browsers and OS dependencies."
-    bunx playwright install --with-deps
-  elif confirm "Install Playwright browsers now?"; then
-    log "Installing Playwright browsers and OS dependencies."
-    bunx playwright install --with-deps
-  else
-    log "Skipping Playwright browser installation."
-  fi
+  install_playwright_assets
 
   if [[ "${RUN_CHECK}" -eq 1 ]]; then
     log "Running full default quality gate: bun run check"
