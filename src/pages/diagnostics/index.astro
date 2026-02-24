@@ -89,6 +89,7 @@ const mostUsedToolSlugs = [
 const mostUsedTools = mostUsedToolSlugs
   .map((slug) => tools.find((tool) => tool.slug === slug))
   .filter((tool): tool is (typeof tools)[number] => Boolean(tool));
+const comparisonTools = mostUsedTools.slice(0, 3);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -354,6 +355,39 @@ const mostUsedTools = mostUsedToolSlugs
     title="Pick the tool that matches your situation."
     description="Every diagnostic ships with a linkable result and mechanism references."
   >
+    <div class="diagnostics__comparison" aria-label="Quick comparison">
+      <p class="muted small">Compare before you commit</p>
+      <div class="diagnostics__comparison-grid">
+        {
+          comparisonTools.map((tool) => (
+            <article class="panel diagnostics__comparison-card">
+              <h3>{tool.title}</h3>
+              <dl class="diagnostics__comparison-meta muted small">
+                <div>
+                  <dt>Time</dt>
+                  <dd>{tool.estimatedTime}</dd>
+                </div>
+                <div>
+                  <dt>Effort</dt>
+                  <dd>
+                    {tool.deliveryType === "studio"
+                      ? "Studio-facilitated"
+                      : "Self-serve"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Output</dt>
+                  <dd>{tool.outputs[0]}</dd>
+                </div>
+              </dl>
+              <a class="button ghost" href={tool.ctaHref}>
+                {tool.ctaLabel}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
     <div class="diagnostics__filters" data-diagnostics-filters>
       <p class="muted">Filter by delivery type</p>
       <p class="muted small">Quick intent jumps</p>
