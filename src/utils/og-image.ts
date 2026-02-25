@@ -221,7 +221,7 @@ const buildOgSvg = (
     <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;flex-direction:column;gap:20px;height:100%;font-family:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif;color:#1a1713;">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;">
         <div style="display:flex;align-items:center;gap:14px;">
-          <svg width="34" height="34" viewBox="0 0 64 64" style="color:${style.accent};">
+          <svg width="34" height="34" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="color:${style.accent};">
             <use href="#logo-mark"></use>
           </svg>
           <div style="font-size:20px;letter-spacing:0.18em;text-transform:uppercase;color:#7a6f62;">Ethotechnics Institute</div>
