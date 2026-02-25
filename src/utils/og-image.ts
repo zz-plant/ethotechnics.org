@@ -23,7 +23,9 @@ type TemplateStyle = {
   kicker: string;
   gradientStart: string;
   gradientEnd: string;
+  panelTint: string;
   accent: string;
+  accentSoft: string;
   marker: string;
 };
 
@@ -33,7 +35,9 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
     kicker: "Accountable systems, made legible",
     gradientStart: "#f6f2e9",
     gradientEnd: "#efe8dc",
+    panelTint: "#f7f2e9",
     accent: "#5c5348",
+    accentSoft: "#8a7f73",
     marker: "◆",
   },
   home: {
@@ -41,7 +45,9 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
     kicker: "The reference standard for accountable systems",
     gradientStart: "#efe8dc",
     gradientEnd: "#e7ddcf",
+    panelTint: "#f3ede3",
     accent: "#5f4a2f",
+    accentSoft: "#95806a",
     marker: "◎",
   },
   standards: {
@@ -49,7 +55,9 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
     kicker: "Public technical standards for governance",
     gradientStart: "#eceff6",
     gradientEnd: "#e0e8f8",
+    panelTint: "#edf1f9",
     accent: "#304b73",
+    accentSoft: "#647fa6",
     marker: "◈",
   },
   glossary: {
@@ -57,7 +65,9 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
     kicker: "Operational language for ethical technology",
     gradientStart: "#eef5ed",
     gradientEnd: "#e3efe0",
+    panelTint: "#edf5eb",
     accent: "#2f6346",
+    accentSoft: "#5f8f73",
     marker: "◉",
   },
   taxonomy: {
@@ -65,7 +75,9 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
     kicker: "Design and governance domains in context",
     gradientStart: "#f2edf7",
     gradientEnd: "#e7deef",
+    panelTint: "#f2ebf6",
     accent: "#5f477d",
+    accentSoft: "#8d74a7",
     marker: "⬢",
   },
   mechanisms: {
@@ -73,7 +85,9 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
     kicker: "Implementation patterns and reusable primitives",
     gradientStart: "#edf2f7",
     gradientEnd: "#dfe8f3",
+    panelTint: "#ebf1f8",
     accent: "#2f536f",
+    accentSoft: "#607f97",
     marker: "✦",
   },
   editorial: {
@@ -81,7 +95,9 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
     kicker: "Research, incidents, and field notes",
     gradientStart: "#f7efea",
     gradientEnd: "#efdfd6",
+    panelTint: "#f7ede8",
     accent: "#7a4334",
+    accentSoft: "#aa7568",
     marker: "✶",
   },
 };
@@ -177,21 +193,41 @@ const buildOgSvg = (
       <stop offset="0%" stop-color="${style.gradientStart}" />
       <stop offset="100%" stop-color="${style.gradientEnd}" />
     </linearGradient>
+    <linearGradient id="halo-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${style.accent}" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="${style.accent}" stop-opacity="0" />
+    </linearGradient>
+    <pattern id="dot-grid" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="${style.accent}" fill-opacity="0.18" />
+    </pattern>
+    <symbol id="logo-mark" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" stroke-width="2" />
+      <circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <path d="M32 14L38.5 27.5L52 32L38.5 36.5L32 50L25.5 36.5L12 32L25.5 27.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      <circle cx="32" cy="32" r="4" fill="currentColor" />
+    </symbol>
   </defs>
   <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#bg-gradient)" />
-  <rect x="48" y="48" width="${WIDTH - 96}" height="${HEIGHT - 96}" rx="32" fill="#fdfbf7" stroke="#d9d1c3" />
+  <rect x="48" y="48" width="${WIDTH - 96}" height="${HEIGHT - 96}" rx="32" fill="#fdfbf8" stroke="#d9d1c3" />
+  <rect x="62" y="62" width="${WIDTH - 124}" height="${HEIGHT - 124}" rx="26" fill="${style.panelTint}" fill-opacity="0.48" />
   <rect x="48" y="531" width="${WIDTH - 96}" height="51" rx="0" fill="${style.accent}" />
-  <circle cx="1044" cy="152" r="56" fill="none" stroke="${style.accent}" stroke-width="2" />
-  <circle cx="1044" cy="152" r="28" fill="none" stroke="${style.accent}" stroke-width="1.5" />
-  <path d="M1044 128L1056 152L1044 176L1032 152Z" fill="none" stroke="${style.accent}" stroke-width="1.5" />
-  <foreignObject x="96" y="100" width="${WIDTH - 192}" height="${HEIGHT - 230}">
+  <rect x="702" y="88" width="430" height="430" rx="215" fill="url(#halo-gradient)" />
+  <rect x="754" y="108" width="328" height="328" rx="164" fill="none" stroke="${style.accentSoft}" stroke-opacity="0.26" stroke-width="2" />
+  <rect x="748" y="102" width="340" height="340" rx="170" fill="url(#dot-grid)" fill-opacity="0.65" />
+  <g color="${style.accent}" opacity="0.9" transform="translate(872 184)">
+    <use href="#logo-mark" width="184" height="184" />
+  </g>
+  <g color="${style.accent}" transform="translate(96 100)">
+    <use href="#logo-mark" width="34" height="34" />
+  </g>
+  <foreignObject x="142" y="100" width="654" height="${HEIGHT - 230}">
     <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;flex-direction:column;gap:20px;height:100%;font-family:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif;color:#1a1713;">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;">
-        <div style="font-size:20px;letter-spacing:0.2em;text-transform:uppercase;color:#7a6f62;">Ethotechnics Institute</div>
-        <div style="font-size:20px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:${style.accent};">${safeLabel}</div>
+        <div style="font-size:20px;letter-spacing:0.18em;text-transform:uppercase;color:#7a6f62;">Ethotechnics Institute</div>
+        <div style="padding:8px 14px;border:1px solid ${style.accentSoft};border-radius:999px;font-size:17px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:${style.accent};background:rgba(255,255,255,0.65);">${safeLabel}</div>
       </div>
-      <div style="font-size:60px;font-weight:650;line-height:1.08;max-width:900px;">${safeTitle}</div>
-      <div style="font-size:28px;line-height:1.35;color:#433d35;max-width:900px;">${safeDescription}</div>
+      <div style="font-size:62px;font-weight:700;line-height:1.06;max-width:680px;letter-spacing:-0.012em;">${safeTitle}</div>
+      <div style="font-size:28px;line-height:1.35;color:#433d35;max-width:640px;">${safeDescription}</div>
       <div style="margin-top:auto;font-size:21px;line-height:1.35;color:${style.accent};font-weight:600;">${safeMarker} ${safeKicker}</div>
     </div>
   </foreignObject>
