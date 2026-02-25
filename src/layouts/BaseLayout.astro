@@ -87,9 +87,43 @@ const { identity, navigation, cta } = siteFooter;
 const logoUrl = new URL(identity.brand.logoSrc, siteBase).toString();
 const logoId = `${siteBase}#logo`;
 const primaryImageId = `${canonical}#primaryimage`;
+const resolveOgTemplateFromPath = (path: string) => {
+  if (path === "/") return "home";
+  if (path.startsWith("/standards")) return "standards";
+  if (path.startsWith("/glossary")) return "glossary";
+  if (
+    path.startsWith("/taxonomy") ||
+    path.startsWith("/governance") ||
+    path.startsWith("/delivery") ||
+    path.startsWith("/assurance") ||
+    path.startsWith("/experience")
+  ) {
+    return "taxonomy";
+  }
+  if (
+    path.startsWith("/mechanisms") ||
+    path.startsWith("/library") ||
+    path.startsWith("/validators")
+  ) {
+    return "mechanisms";
+  }
+  if (
+    path.startsWith("/research") ||
+    path.startsWith("/incidents") ||
+    path.startsWith("/field-notes") ||
+    path.startsWith("/explainers")
+  ) {
+    return "editorial";
+  }
+
+  return "default";
+};
+const ogTemplate = resolveOgTemplateFromPath(currentPath);
 const ogImageUrl = new URL("/api/og.png", siteBase);
 ogImageUrl.searchParams.set("title", title);
 ogImageUrl.searchParams.set("description", description);
+ogImageUrl.searchParams.set("template", ogTemplate);
+ogImageUrl.searchParams.set("path", currentPath);
 
 const seoImage = {
   src: ogImageUrl.toString(),

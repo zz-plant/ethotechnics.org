@@ -10,7 +10,9 @@ export async function GET({ request }: APIContext) {
   const title = url.searchParams.get("title")?.trim() || DEFAULT_TITLE;
   const description =
     url.searchParams.get("description")?.trim() || DEFAULT_DESCRIPTION;
-  const pngBuffer = await renderOgPng(title, description);
+  const template = url.searchParams.get("template")?.trim() || undefined;
+  const path = url.searchParams.get("path")?.trim() || undefined;
+  const pngBuffer = await renderOgPng(title, description, { template, path });
 
   const pngData = Uint8Array.from(pngBuffer);
   const pngBlob = new Blob([pngData], { type: "image/png" });
