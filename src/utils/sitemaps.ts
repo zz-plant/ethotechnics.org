@@ -12,6 +12,7 @@ import type {
 } from "../content/glossary";
 import { incidentLessons } from "../content/incidents";
 import type { LibraryContent, Pattern } from "../content/library";
+import { governanceCrosswalks } from "../content/crosswalks";
 import { quickStartGuides } from "../content/quick-start";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
@@ -296,6 +297,20 @@ export const buildSitemapSections = async () => {
     lastmod: lesson.updated ?? lesson.published,
   }));
 
+  const latestStandardPublished = standardsContent.standards.reduce(
+    (latest, standard) =>
+      new Date(standard.published).getTime() > new Date(latest).getTime()
+        ? standard.published
+        : latest,
+    standardsContent.standards[0]?.published ?? fallbackLastmod,
+  );
+
+  const crosswalkControlPaths = governanceCrosswalks.map((control) => ({
+    path: `/standards/crosswalk/${control.controlId.toLowerCase()}`,
+    lastmod: latestStandardPublished,
+    changefreq: inferChangefreq(latestStandardPublished),
+  }));
+
   const taxonomyPaths = taxonomyEntries.map((entry) => ({
     path: `/taxonomy/${entry.slug}`,
     lastmod: taxonomyLastmod,
@@ -427,6 +442,7 @@ export const buildSitemapSections = async () => {
         path: `/standards/${standard.slug}`,
         lastmod: standard.published,
       })),
+      ...crosswalkControlPaths,
       ...incidentPaths,
       ...quickStartPaths,
     ]),
