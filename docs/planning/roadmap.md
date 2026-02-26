@@ -4,11 +4,6 @@ This doc centralizes the lightweight roadmap, spec template, and pickup guidance
 align quickly. Treat it as the in-repo tracker, and mirror key items to GitHub Issues when you
 need assignment, notifications, or automation.
 
-## Related plans
-
-- [`interop-release-plan.md`](interop-release-plan.md) covers planned Python, TypeScript, FHIR, and
-  W3C VC deliverables.
-
 ## Active roadmap
 
 Use this table to keep focus visible without heavy process. Keep each item short (verb +
@@ -18,26 +13,26 @@ each column.
 **Status tags:** `[Spec ready]` means the section below is ready for pickup. `[Needs alignment]`
 flags work that depends on cross-team decisions or external input.
 
-| Now                                                                                                 | Next                                                                                    | Later                                                                                              |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Highest-priority work in progress.                                                                  | Ready-to-start items with scoped specs.                                                 | Ideas to revisit when capacity frees up.                                                           |
-| Keep entries small and actionable.                                                                  | Add owners or dates only when needed.                                                   | Capture rough ideas, not full specs.                                                               |
-| [Enforceable governance reference implementation](#enforceable-governance-reference-implementation) | [Capacity forecaster v2 (scenario compare)](#capacity-forecaster-v2-scenario-compare)   | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
-| `[Spec ready]`                                                                                      | `[Spec ready]`                                                                          |                                                                                                    |
-| [Python evaluation toolkit](#python-evaluation-toolkit)                                             | [Maintenance simulator v2 (risk thresholds)](#maintenance-simulator-v2-risk-thresholds) | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
-| `[Spec ready]`                                                                                      | `[Spec ready]`                                                                          |                                                                                                    |
-|                                                                                                     | [Burden modeler v2 (equity snapshots)](#burden-modeler-v2-equity-snapshots)             | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
-|                                                                                                     | `[Spec ready]`                                                                          |                                                                                                    |
-|                                                                                                     | [TypeScript SDK](#typescript-sdk)                                                       | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
-|                                                                                                     | `[Spec ready]`                                                                          |                                                                                                    |
+| Now                                                                                                 | Next                                                                   | Later                                                                                              |
+| --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Highest-priority work in progress.                                                                  | Ready-to-start items with scoped specs.                                | Ideas to revisit when capacity frees up.                                                           |
+| Keep entries small and actionable.                                                                  | Add owners or dates only when needed.                                  | Capture rough ideas, not full specs.                                                               |
+| [Enforceable governance reference implementation](#enforceable-governance-reference-implementation) | [Python evaluation toolkit](#python-evaluation-toolkit) `[Spec ready]` | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
+|                                                                                                     | [TypeScript SDK](#typescript-sdk) `[Spec ready]`                       | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
+|                                                                                                     |                                                                        | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
+|                                                                                                     |                                                                        | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
+
+## Recently completed (checked off)
+
+- [x] Capacity forecaster v2 (scenario compare).
+- [x] Maintenance simulator v2 (risk thresholds).
+- [x] Burden modeler v2 (equity snapshots).
 
 **Priority snapshot**
 
 - **Governance implementation first:** ship enforceable governance crosswalks, evidence-pack
   discipline, and post-market accountability surfaces as the primary product story.
 - **Foundation specs:** Python evaluation toolkit unblocks SDKs and evaluation workflows.
-- **Modeling + simulation:** capacity forecaster, maintenance simulator, and burden modeler
-  updates land after foundation specs are moving.
 - **Publishing + standards:** content and standards work stays queued until alignment work is
   complete.
 
@@ -92,19 +87,6 @@ under this heading and link to it from the roadmap table.
   ownership for ongoing mapping maintenance.
 - **Issue link:** Issue: TBD / Spec: #enforceable-governance-reference-implementation
 
-## Capacity forecaster v2 (scenario compare)
-
-- **Problem:** The capacity forecaster only supports one scenario at a time, slowing comparative
-  planning.
-- **Scope:** Add a two-scenario compare mode with mirrored sliders, delta summaries, a
-  side-by-side delta table, and a clear reset path to return to single-scenario mode.
-- **UX/Tech notes:** Reuse the existing chart styles; keep keyboard access for all controls; add
-  an export option for each scenario and the comparison snapshot.
-- **Acceptance criteria:** Users can create two scenarios, see delta readouts at a glance, and
-  export each scenario or a combined comparison snapshot.
-- **Dependencies/risks:** Needs chart updates and content copy for comparison framing.
-- **Issue link:** Issue: TBD / Spec: #capacity-forecaster-v2-scenario-compare
-
 ## Python evaluation toolkit
 
 - **Problem:** Evaluators lack a shared toolkit to validate payloads and run basic checks.
@@ -118,33 +100,6 @@ under this heading and link to it from the roadmap table.
   scoring functions, and RMF / ISO clause-mapping evaluators.
 - **Dependencies/risks:** Depends on JSON schema set; risk of duplicated logic with SDKs.
 - **Issue link:** Issue: TBD / Spec: python-evaluation-toolkit.md
-
-## Maintenance simulator v2 (risk thresholds)
-
-- **Problem:** The simulator results lack clear guardrails for when mitigation steps become
-  mandatory.
-- **Scope:** Introduce configurable risk thresholds with labeled bands and explicit guidance on
-  when to act for each tier.
-- **UX/Tech notes:** Keep calculations server-side only; expose thresholds as labeled presets with
-  a short explainer tooltip describing what each tier means.
-- **Acceptance criteria:** Results display threshold bands, highlight the current risk tier, and
-  surface recommended interventions plus an “act now” signal when thresholds are crossed.
-- **Dependencies/risks:** Requires content alignment on threshold definitions and recommendation
-  copy.
-- **Issue link:** Issue: TBD / Spec: #maintenance-simulator-v2-risk-thresholds
-
-## Burden modeler v2 (equity snapshots)
-
-- **Problem:** The burden modeler reports totals but does not highlight equity deltas across
-  segments.
-- **Scope:** Add an equity snapshot panel that compares the top three impacted segments, shows
-  deltas between them, and flags any imbalance beyond a configurable threshold.
-- **UX/Tech notes:** Use existing data structures; present snapshots as a compact comparison table
-  with plain-language labels and an exportable summary.
-- **Acceptance criteria:** Users see a clear equity snapshot, flagged deltas, and a single-click
-  export of the snapshot comparison data.
-- **Dependencies/risks:** Needs clarity on segment definitions and acceptable delta thresholds.
-- **Issue link:** Issue: TBD / Spec: #burden-modeler-v2-equity-snapshots
 
 ## Contestability pattern library
 
@@ -218,6 +173,27 @@ under this heading and link to it from the roadmap table.
 
 Keep completed specs here for quick reference. Trim to the essentials and capture outcomes so
 future updates can build on what already shipped.
+
+### Capacity forecaster v2 (scenario compare)
+
+- **Outcome:** Shipped compare mode with paired scenario controls, delta highlights, side-by-side
+  table output, reset-to-single flow, and JSON exports for both single and compare views.
+- **Notes:** Delivered via `src/features/capacity-forecaster/*` with compare view state,
+  delta summaries, and export actions.
+
+### Maintenance simulator v2 (risk thresholds)
+
+- **Outcome:** Added threshold presets with labeled score bands, current tier indicators,
+  recommendation messaging, and explicit watch/act-now guidance.
+- **Notes:** Delivered via `src/features/maintenance-simulator/*` with preset selection,
+  threshold status logic, and threshold explainer tooltip.
+
+### Burden modeler v2 (equity snapshots)
+
+- **Outcome:** Added a top-segment equity snapshot with delta flags, imbalance threshold marker,
+  and one-click JSON export for snapshot data.
+- **Notes:** Delivered via `src/features/burden-modeler/*` with segment comparison table and
+  exportable snapshot payload.
 
 ### JSON schema set (decision-record, appeal-event, pause-reversal, burden-hours, repair-sla)
 

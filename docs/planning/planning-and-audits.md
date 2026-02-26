@@ -5,7 +5,7 @@ It consolidates references that were previously spread across multiple index sec
 
 ## Core planning docs
 
-- [`roadmap.md`](roadmap.md): current sequencing and delivery priorities.
+- [`roadmap.md`](roadmap.md): canonical sequencing, status, and completion checkoffs.
 - [`mini-prds.md`](mini-prds.md): scoped proposals for near-term initiatives.
 - [`issue-templates.md`](issue-templates.md): reusable issue definitions for project work.
 - [`full-refactor-plan.md`](full-refactor-plan.md): end-to-end refactor strategy and milestones.
@@ -37,7 +37,6 @@ It consolidates references that were previously spread across multiple index sec
   - [`tech-stack-upgrade-actions-2026.md`](tech-stack-upgrade-actions-2026.md)
   - [`tech-debt-inventory-2026-02.md`](tech-debt-inventory-2026-02.md)
 - Interop and toolkit planning:
-  - [`interop-release-plan.md`](interop-release-plan.md)
   - [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md)
 
 ## How to keep this hub useful
