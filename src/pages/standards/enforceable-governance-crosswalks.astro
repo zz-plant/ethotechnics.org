@@ -65,6 +65,9 @@ const findControl = (controlId: string) => {
   return control;
 };
 
+const toCrosswalkDetailHref = (controlId: string) =>
+  `/standards/crosswalk/${controlId.toLowerCase()}`;
+
 const frameworkCards: FrameworkCard[] = [
   {
     framework: "EU AI Act (high-risk context)",
@@ -304,7 +307,11 @@ const keyTakeaways = [
                 <td>{framework.whatEthotechnicsCovers}</td>
                 <td>{framework.firstMove}</td>
                 <td>
-                  <a href={framework.anchor}>Open details</a>
+                  <a href={toCrosswalkDetailHref(framework.mappedControlId)}>
+                    Open control brief
+                  </a>
+                  <br />
+                  <a href={framework.anchor}>Open framework details</a>
                 </td>
               </tr>
             ))

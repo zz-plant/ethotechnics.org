@@ -1,0 +1,123 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import PageIntro from "../../../components/PageIntro.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+import { governanceCrosswalks } from "../../../content/crosswalks";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+type FrameworkMatch = {
+  framework: string;
+  citation: string;
+};
+
+export const prerender = true;
+
+export const getStaticPaths = (() =>
+  governanceCrosswalks.map((control) => ({
+    params: { controlId: control.controlId.toLowerCase() },
+    props: { control },
+  }))) satisfies GetStaticPaths;
+
+const { control } = Astro.props;
+
+if (!control) {
+  throw new Error("Crosswalk control data is required for this route.");
+}
+
+const frameworks: FrameworkMatch[] = [
+  { framework: "EU AI Act", citation: control.euAiAct },
+  { framework: "NIST AI RMF", citation: control.nistAiRmf },
+  { framework: "ISO/IEC 42001", citation: control.iso42001 },
+];
+
+const pageTitle = `${control.controlId} crosswalk brief`;
+const pageDescription = `${control.controlId} maps one enforceable obligation to EU AI Act, NIST AI RMF, and ISO/IEC 42001 references, plus evidence artifacts and operational surface.`;
+const permalink = `/standards/crosswalk/${control.controlId.toLowerCase()}`;
+---
+
+<BaseLayout
+  title={`${pageTitle} — Standards`}
+  description={pageDescription}
+  structuredDataType="tech-article"
+  breadcrumbItems={[
+    { name: "Home", url: new URL("/", Astro.url).toString() },
+    { name: "Standards", url: new URL("/standards", Astro.url).toString() },
+    {
+      name: "Framework map for buyers and auditors",
+      url: new URL("/standards/enforceable-governance-crosswalks", Astro.url).toString(),
+    },
+    { name: control.controlId, url: Astro.url.toString() },
+  ]}
+>
+  <PageIntro
+    eyebrow="Crosswalk control"
+    title={`${control.controlId} implementation brief`}
+    description={control.obligation}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#framework-mapping", label: "Framework mapping" },
+      { href: "#evidence", label: "Evidence artifacts" },
+      { href: "#operational-surface", label: "Operational surface" },
+    ]}
+    panelCopy={{
+      eyebrow: "Use in procurement and audits",
+      title: "One control, cross-framework evidence.",
+      description:
+        "Use this brief as a procurement insert, audit prep checklist, or implementation handoff for control ownership.",
+      link: {
+        label: "Back to full crosswalk",
+        href: "/standards/enforceable-governance-crosswalks",
+      },
+    }}
+  />
+
+  <SectionBlock
+    id="framework-mapping"
+    eyebrow="Framework mapping"
+    title="Where this control binds"
+    description="Citations align one obligation to framework clauses you can reference in contracts or audit plans."
+  >
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Framework</th>
+            <th scope="col">Mapped requirement</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            frameworks.map((item) => (
+              <tr>
+                <th scope="row">{item.framework}</th>
+                <td>{item.citation}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="evidence"
+    eyebrow="Evidence"
+    title="Artifacts to request before sign-off"
+    description="These artifacts make the obligation inspectable rather than policy-only."
+    variant="alt"
+  >
+    <ul>
+      {control.evidenceArtifacts.map((artifact) => <li>{artifact}</li>)}
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="operational-surface"
+    eyebrow="Operational surface"
+    title="Where this control should live in the system"
+    description="Use this surface as the owner-visible control point for day-to-day operations and incident response."
+  >
+    <p>{control.operationalSurface}</p>
+  </SectionBlock>
+</BaseLayout>
