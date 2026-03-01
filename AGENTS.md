@@ -40,6 +40,9 @@ Skill modules are in `.agent/skills/`:
 - `ui-verify` — browser-based UI verification.
 - `design-engineer` — visual system and taste alignment.
 - `docs-maintainer` — docs placement, checks, and PR-ready reporting.
+- `seo-maintainer` — metadata, indexing, and discoverability improvements.
+- `glossary-curator` — glossary quality, taxonomy, and cross-linking.
+- `refactor-hygiene` — safe cleanup and maintainability-oriented refactors.
 
 ## Canonical references
 
