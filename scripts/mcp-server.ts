@@ -12,6 +12,48 @@ const server = new McpServer({
   version: "1.0.0",
 });
 
+const registerTool = (
+  name: string,
+  description: string,
+  inputSchema: Record<string, z.ZodTypeAny>,
+  cb: (...args: any[]) => any,
+) => server.registerTool(name, { description, inputSchema }, cb);
+
+const registerResource = (
+  name: string,
+  uri: string,
+  readCallback: (...args: any[]) => any,
+) => server.registerResource(name, uri, {}, readCallback);
+
+function registerPrompt(
+  name: string,
+  description: string,
+  cb: (...args: any[]) => any,
+): void;
+function registerPrompt(
+  name: string,
+  description: string,
+  argsSchema: Record<string, z.ZodTypeAny>,
+  cb: (...args: any[]) => any,
+): void;
+function registerPrompt(
+  name: string,
+  description: string,
+  argsSchemaOrCb: Record<string, z.ZodTypeAny> | ((...args: any[]) => any),
+  cb?: (...args: any[]) => any,
+) {
+  if (typeof argsSchemaOrCb === "function") {
+    server.registerPrompt(name, { description }, argsSchemaOrCb);
+    return;
+  }
+
+  if (!cb) {
+    throw new Error("Prompt callback is required when args schema is provided");
+  }
+
+  server.registerPrompt(name, { description, argsSchema: argsSchemaOrCb }, cb);
+}
+
 // Helper to get project info
 const getProjectRoot = () => process.cwd();
 const textResponse = (text: string) => ({
@@ -505,7 +547,7 @@ const findRoutePlaybook = (
 };
 
 // Tool: List available scripts
-server.tool(
+registerTool(
   "list_available_scripts",
   "List all scripts defined in package.json",
   {},
@@ -518,7 +560,7 @@ server.tool(
 );
 
 // Tool: Get component list
-server.tool(
+registerTool(
   "get_component_list",
   "List all Astro components in src/components",
   {},
@@ -546,7 +588,7 @@ server.tool(
 );
 
 // Tool: Get project tree
-server.tool(
+registerTool(
   "get_project_tree",
   "Get a simplified directory tree of the project",
   {},
@@ -582,7 +624,7 @@ server.tool(
 );
 
 // Tool: List pages
-server.tool(
+registerTool(
   "list_pages",
   "List available application routes in src/pages",
   {},
@@ -609,7 +651,7 @@ server.tool(
 );
 
 // Tool: Read docs
-server.tool(
+registerTool(
   "read_docs",
   "Read documentation files from the docs directory",
   {
@@ -638,7 +680,7 @@ server.tool(
 );
 
 // Tool: Analyze dist directory
-server.tool(
+registerTool(
   "analyze_dist",
   "Analyze the dist directory after build to check file sizes and structure",
   {},
@@ -684,7 +726,7 @@ server.tool(
 );
 
 // Tool: Read Wrangler Config
-server.tool(
+registerTool(
   "read_wrangler_config",
   "Read the wrangler.toml configuration file",
   {},
@@ -702,7 +744,7 @@ server.tool(
 );
 
 // Tool: Get file tree with depth and path options
-server.tool(
+registerTool(
   "get_file_tree",
   "Get a directory tree starting from a specific path with optional depth limit",
   {
@@ -784,7 +826,7 @@ server.tool(
 );
 
 // Tool: Get repo map (folders only, depth 2)
-server.tool(
+registerTool(
   "get_repo_map",
   "Get a high-level map of the repository (folders only, depth 2)",
   {},
@@ -826,7 +868,7 @@ server.tool(
 );
 
 // Tool: Run project check
-server.tool(
+registerTool(
   "run_check",
   "Run the full project check (bun run check)",
   {},
@@ -856,7 +898,7 @@ server.tool(
 );
 
 // Tool: Validate changed files
-server.tool(
+registerTool(
   "validate_changed_files",
   "Classify changed files and return required/optional checks",
   {
@@ -944,7 +986,7 @@ ${normalizedFiles.map((f) => `- ${f}`).join("\n")}`
 );
 
 // Tool: Summarize checks for PR notes
-server.tool(
+registerTool(
   "summarize_checks",
   "Summarize command results as PR-ready markdown bullets",
   {
@@ -958,7 +1000,7 @@ server.tool(
       )
       .describe("List of check results"),
   },
-  async ({ checks }) => {
+  async ({ checks }: { checks: { command: string; exitCode: number; note?: string }[] }) => {
     try {
       if (checks.length === 0) {
         return textResponse("No checks provided.");
@@ -979,7 +1021,7 @@ server.tool(
 );
 
 // Tool: List workflows
-server.tool(
+registerTool(
   "list_workflows",
   "List available agent skills from .agent/skills/",
   {},
@@ -1003,7 +1045,7 @@ server.tool(
   },
 );
 
-server.tool(
+registerTool(
   "get_agent_interface_contract",
   "Return machine-readable MCP and skill metadata for external agent clients",
   {},
@@ -1020,7 +1062,7 @@ server.tool(
 );
 
 // Tool: Read workflow
-server.tool(
+registerTool(
   "read_workflow",
   "Read a specific agent skill definition",
   {
@@ -1054,7 +1096,7 @@ server.tool(
 );
 
 // Tool: Search docs
-server.tool(
+registerTool(
   "search_docs",
   "Search documentation files for a pattern",
   {
@@ -1100,7 +1142,7 @@ server.tool(
   },
 );
 
-server.tool(
+registerTool(
   "suggest_priority_features",
   "Suggest P0 and P1 feature priorities from roadmap and journey critique docs",
   {},
@@ -1131,7 +1173,7 @@ server.tool(
   },
 );
 
-server.tool(
+registerTool(
   "suggest_route_next_actions",
   "Suggest next actions for a route using user journey playbooks",
   {
@@ -1179,7 +1221,7 @@ server.tool(
   },
 );
 
-server.tool(
+registerTool(
   "audit_priority_sources",
   "Audit priority parsing coverage for roadmap and journey sources",
   {},
@@ -1210,7 +1252,7 @@ server.tool(
   },
 );
 
-server.tool(
+registerTool(
   "list_mcp_capabilities",
   "List MCP tools and resources registered in this server",
   {},
@@ -1242,7 +1284,7 @@ server.tool(
 );
 
 // Tool: Get AGENTS guidance for a path
-server.tool(
+registerTool(
   "get_agents_guidance",
   "Get the applicable AGENTS.md guidance for a file path",
   {
@@ -1302,7 +1344,7 @@ server.tool(
 // ============================================================================
 
 // Resource: Project structure
-server.resource("project://structure", "project://structure", async () => {
+registerResource("project://structure", "project://structure", async () => {
   const structure = `# Project Structure
 
 ## Key Directories
@@ -1338,7 +1380,7 @@ server.resource("project://structure", "project://structure", async () => {
 });
 
 // Resource: Package scripts
-server.resource("project://scripts", "project://scripts", async () => {
+registerResource("project://scripts", "project://scripts", async () => {
   const pkg = (await Bun.file(
     join(getProjectRoot(), "package.json"),
   ).json()) as {
@@ -1359,7 +1401,7 @@ server.resource("project://scripts", "project://scripts", async () => {
 });
 
 // Resource: Aggregated AGENTS guidance
-server.resource(
+registerResource(
   "project://agents-guidance",
   "project://agents-guidance",
   async () => {
@@ -1395,7 +1437,7 @@ server.resource(
 );
 
 // Resource: Agent workflows and skills
-server.resource("project://workflows", "project://workflows", async () => {
+registerResource("project://workflows", "project://workflows", async () => {
   try {
     const workflows = await listSkillSummaries();
     const sections = await Promise.all(
@@ -1433,7 +1475,7 @@ server.resource("project://workflows", "project://workflows", async () => {
   }
 });
 
-server.resource("agent://contract", "agent://contract", async () => {
+registerResource("agent://contract", "agent://contract", async () => {
   try {
     const contract = await getAgentInterfaceContract();
 
@@ -1459,7 +1501,7 @@ server.resource("agent://contract", "agent://contract", async () => {
   }
 });
 
-server.resource(
+registerResource(
   "project://priority-features",
   "project://priority-features",
   async () => {
@@ -1509,7 +1551,7 @@ server.resource(
   },
 );
 
-server.resource(
+registerResource(
   "project://journey-playbooks",
   "project://journey-playbooks",
   async () => {
@@ -1556,7 +1598,7 @@ ${playbook.recommendations.map((item) => `- ${item}`).join("\n")}`,
 );
 
 // Resource: Agent onboarding
-server.resource("agent://onboarding", "agent://onboarding", async () => {
+registerResource("agent://onboarding", "agent://onboarding", async () => {
   const onboarding = `# Agent Onboarding & Quick Start
 
 ## 🎯 Mission
@@ -1592,7 +1634,7 @@ This repo powers ethotechnics.org. We prioritize ethical technology and human-ce
 });
 
 // Resource: Documentation index
-server.resource("project://docs-index", "project://docs-index", async () => {
+registerResource("project://docs-index", "project://docs-index", async () => {
   const docsDir = join(getProjectRoot(), "docs");
   const glob = new Bun.Glob("**/*.md");
   const entries: string[] = [];
@@ -1632,7 +1674,7 @@ server.resource("project://docs-index", "project://docs-index", async () => {
 // ============================================================================
 
 // Prompt: Design engineer mode
-server.prompt(
+registerPrompt(
   "design-engineer",
   "Activate design-engineer mode for taste-focused development",
   async () => ({
@@ -1689,7 +1731,7 @@ Decision Heuristic: fewer primitives, clearer knobs, safer defaults, better comp
 );
 
 // Prompt: Code review
-server.prompt(
+registerPrompt(
   "code-review",
   "Template for reviewing code changes",
   {
@@ -1722,7 +1764,7 @@ Provide specific, actionable feedback with file locations and suggested fixes.`,
 );
 
 // Prompt: New component
-server.prompt(
+registerPrompt(
   "new-component",
   "Scaffold a new Astro component",
   {
