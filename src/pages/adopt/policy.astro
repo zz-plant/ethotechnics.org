@@ -1,5 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const policyChecklist = [
+  "Bind contestability rights to explicit owner roles and response clocks.",
+  "Define restitution pathways for harms that cannot be fully reversed.",
+  "Set incident disclosure expectations for high-impact failures.",
+  "Require sign-off authority for resume decisions after a halt.",
+];
 ---
 
 <BaseLayout
@@ -18,6 +25,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <a href="/mechanisms">mechanisms catalog</a> to translate policy intent into
       enforceable controls.
     </p>
+    <h2>Policy checklist</h2>
+    <ul>
+      {policyChecklist.map((item) => <li>{item}</li>)}
+    </ul>
     <p><a class="button" href="/#failure-intake">Start with a failure</a></p>
   </section>
 </BaseLayout>

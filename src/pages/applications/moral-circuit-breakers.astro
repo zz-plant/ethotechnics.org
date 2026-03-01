@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const operatingModel = [
+  {
+    label: "Trigger conditions",
+    items: [
+      "Decision error rates exceed agreed risk thresholds.",
+      "Users report harmful outcomes with no clear recourse path.",
+      "On-call responders cannot explain system behavior with confidence.",
+    ],
+  },
+  {
+    label: "Role assignment",
+    items: [
+      "Operator can activate a slow mode immediately.",
+      "Incident lead can pause the workflow pending review.",
+      "Executive owner signs restart decisions and publishes rationale.",
+    ],
+  },
+  {
+    label: "Interface controls",
+    items: [
+      "Single-click pause and traffic throttle controls.",
+      "Escalation routing to named human reviewers by risk tier.",
+      "Public decision state visible in the incident and repair log.",
+    ],
+  },
+  {
+    label: "Fail-safe behavior",
+    items: [
+      "High-risk actions default to deny when telemetry confidence degrades.",
+      "Queue routing diverts cases to human adjudication while paused.",
+      "Rollback packet captures evidence and opens a remediation timer.",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Moral Circuit Breakers — Ethotechnics Applications"
+  description="Operational pattern for halt, slow, and escalate controls in high-stakes sociotechnical systems."
+>
+  <section class="stack-lg institute-screen">
+    <p class="eyebrow">Applications</p>
+    <h1>Moral circuit breakers</h1>
+    <p>
+      Build stop, slow, and escalate controls the same way safety-critical systems build
+      emergency stops: explicit authority, instrumented thresholds, and auditable restart rules.
+    </p>
+    <div class="actions">
+      <a class="button primary" href="/diagnostics/escalation-coverage-planner">
+        Run escalation coverage planner
+      </a>
+      <a class="button" href="/standards/std-06-human-impact-safety-case">
+        Open safety-case standard
+      </a>
+      <a class="button ghost" href="/examples">Review examples</a>
+    </div>
+  </section>
+
+  <section class="stack-lg institute-screen" aria-label="Circuit breaker operating model">
+    {operatingModel.map((section) => (
+      <article class="stack-sm">
+        <h2>{section.label}</h2>
+        <ul>
+          {section.items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

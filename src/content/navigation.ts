@@ -53,6 +53,12 @@ export const navPrimaryLinks: NavLink[] = [
     mobileFeatured: true,
   },
   {
+    href: "/applications",
+    label: "Applications",
+    description: "Deployable operating patterns",
+    primary: true,
+  },
+  {
     href: "/bindings",
     label: "Adoption",
     description: "Bind controls to delivery",

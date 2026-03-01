@@ -1,5 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const buildChecklist = [
+  "Set explicit action boundaries for high-risk automations.",
+  "Require approvals before sensitive sends, deploys, or data writes.",
+  "Instrument rollback paths and verify they are runnable under pressure.",
+  "Log all override actions with named owners and timestamps.",
+];
 ---
 
 <BaseLayout
@@ -18,6 +25,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <a href="/examples">field-tested examples</a> so teams can verify behavior before
       launch.
     </p>
+    <h2>Build checklist</h2>
+    <ul>
+      {buildChecklist.map((item) => <li>{item}</li>)}
+    </ul>
     <p><a class="button" href="/#failure-intake">Start with a failure</a></p>
   </section>
 </BaseLayout>
