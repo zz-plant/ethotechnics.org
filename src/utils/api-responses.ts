@@ -19,6 +19,11 @@ import {
   getValidatorsForApi,
   releaseInfo,
 } from "./api";
+import {
+  buildApiEndpointList as buildEndpointListFromPaths,
+  buildApiEndpointMap as buildEndpointMapFromPaths,
+  buildReleaseEndpoints as buildReleaseEndpointsFromPaths,
+} from "./api-endpoints";
 
 const jsonHeaders = {
   "Content-Type": "application/json; charset=utf-8",
@@ -63,21 +68,7 @@ const releases = [
     label: releaseInfo.label,
     date: releaseInfo.date,
     href: releaseInfo.permalink,
-    endpoints: {
-      siteIndex: `${releaseInfo.permalink}/site-index.json`,
-      standards: `${releaseInfo.permalink}/standards.json`,
-      clauses: `${releaseInfo.permalink}/clauses.json`,
-      mechanisms: `${releaseInfo.permalink}/mechanisms.json`,
-      validators: `${releaseInfo.permalink}/validators.json`,
-      glossary: `${releaseInfo.permalink}/glossary.json`,
-      findings: `${releaseInfo.permalink}/findings.json`,
-      diagnosticResults: `${releaseInfo.permalink}/diagnostic-results.json`,
-      antiPatterns: `${releaseInfo.permalink}/anti-patterns.json`,
-      evidencePacks: `${releaseInfo.permalink}/evidence-packs.json`,
-      crosswalks: `${releaseInfo.permalink}/crosswalks.json`,
-      postMarketMonitoring: `${releaseInfo.permalink}/post-market-monitoring.json`,
-      ragCorpus: `${releaseInfo.permalink}/rag-corpus.jsonl`,
-    },
+    endpoints: buildReleaseEndpointsFromPaths(releaseInfo.permalink),
   },
 ];
 
@@ -100,36 +91,7 @@ const createCollectionResponse = <T>(options: {
   return jsonResponse(payload);
 };
 
-const buildEndpointMap = (
-  basePath: string,
-  options?: { includeReleaseEndpoints?: boolean },
-) => {
-  const normalizedBase = basePath.replace(/\/$/, "");
-
-  return {
-    agentIndex: `${normalizedBase}/agent-index.json`,
-    siteIndex: `${normalizedBase}/site-index.json`,
-    standards: `${normalizedBase}/standards.json`,
-    clauses: `${normalizedBase}/clauses.json`,
-    mechanisms: `${normalizedBase}/mechanisms.json`,
-    validators: `${normalizedBase}/validators.json`,
-    glossary: `${normalizedBase}/glossary.json`,
-    antiPatterns: `${normalizedBase}/anti-patterns.json`,
-    evidencePacks: `${normalizedBase}/evidence-packs.json`,
-    crosswalks: `${normalizedBase}/crosswalks.json`,
-    postMarketMonitoring: `${normalizedBase}/post-market-monitoring.json`,
-    findings: `${normalizedBase}/findings.json`,
-    diagnosticResults: `${normalizedBase}/diagnostic-results.json`,
-    ragCorpus: `${normalizedBase}/rag-corpus.jsonl`,
-    research: `${normalizedBase}/research.json`,
-    ...(options?.includeReleaseEndpoints
-      ? {
-          releases: `${normalizedBase}/releases.json`,
-          changelog: `${normalizedBase}/changelog.json`,
-        }
-      : {}),
-  };
-};
+const buildEndpointMap = buildEndpointMapFromPaths;
 
 export const createAntiPatternsResponse = () =>
   createCollectionResponse({
@@ -270,37 +232,7 @@ export const createResearchResponse = () => {
   return jsonResponse(payload);
 };
 
-const buildEndpoints = (
-  basePath: string,
-  options?: { includeReleaseEndpoints?: boolean },
-) => {
-  const core = [
-    "agent-index.json",
-    "site-index.json",
-    "standards.json",
-    "clauses.json",
-    "mechanisms.json",
-    "validators.json",
-    "glossary.json",
-    "anti-patterns.json",
-    "evidence-packs.json",
-    "crosswalks.json",
-    "post-market-monitoring.json",
-    "findings.json",
-    "diagnostic-results.json",
-    "rag-corpus.jsonl",
-    "research.json",
-  ];
-  const release = options?.includeReleaseEndpoints
-    ? ["releases.json", "changelog.json"]
-    : [];
-
-  const normalizedBase = basePath.replace(/\/$/, "");
-
-  return [...core, ...release].map(
-    (endpoint) => `${normalizedBase}/${endpoint}`,
-  );
-};
+const buildEndpoints = buildEndpointListFromPaths;
 
 export const createAgentIndexResponse = (options: {
   basePath: string;
