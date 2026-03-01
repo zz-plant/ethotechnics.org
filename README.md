@@ -86,6 +86,8 @@ bun run setup:codex
 | `bun run preview:cf`     | Preview the Worker build via Wrangler with local bindings.                               |
 | `bun run check`          | Run default PR checks: lint, type checks, Astro checks, JSON validation, and unit tests. |
 | `bun run check:full`     | Run deep checks: default PR checks plus SEO audit and coverage unit tests.               |
+| `bun run clean`          | Remove generated local build/test artifacts while keeping dependencies installed.         |
+| `bun run clean:all`      | Remove all generated artifacts plus local dependencies and Playwright caches.             |
 | `bun run lint`           | Lint Astro and TypeScript sources under `src/`.                                          |
 | `bun run lint:fix`       | Lint and auto-fix Astro and TypeScript sources under `src/`.                             |
 | `bun run format`         | Format Markdown and source files with Prettier.                                          |
@@ -94,6 +96,18 @@ bun run setup:codex
 | `bun run test:e2e`       | Build and run Playwright against the preview server (Chromium, Firefox, WebKit).         |
 | `bun run test:e2e:smoke` | Build and run a Chromium-only Playwright smoke suite.                                    |
 | `bun run deploy`         | Build and deploy the Worker to Cloudflare using Wrangler.                                |
+
+## Safe local cleanup
+
+The following paths are generated and safe to delete locally when you want to reclaim disk space:
+
+- `dist/`, `.astro/`, `.vercel/`, `coverage/`
+- `test-results/`, `playwright-report/`, `blob-report/`, `playwright/.cache/`, `playwright/.auth/`
+- `astro_check_log.txt`
+- `node_modules/` (recreated with `bun install`)
+
+Use `bun run clean` for standard output cleanup and `bun run clean:all` when you also want to
+remove dependencies and Playwright caches.
 
 ## Testing
 

@@ -34,6 +34,8 @@
     "check:full": "bun run check && bun run seo:audit && bun run test:unit:ci",
     "format": "bunx prettier --write .",
     "format:check": "bunx prettier --check .",
+    "clean": "rm -rf dist .astro coverage test-results playwright-report blob-report astro_check_log.txt",
+    "clean:all": "bun run clean && rm -rf node_modules .vercel playwright/.cache playwright/.auth",
     "test:unit": "bun test src",
     "test:unit:ci": "bun test src --coverage --coverage-reporter=lcov",
     "test:e2e": "bun run build && bunx playwright test",
