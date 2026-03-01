@@ -29,6 +29,8 @@ It consolidates references that were previously spread across multiple index sec
   repository community-health review against open-source citizenship norms.
 - [`copywriting-plain-language-audit-2026-02.md`](copywriting-plain-language-audit-2026-02.md):
   plain-language audit of high-friction site copy with rewrite recommendations.
+- [`outside-the-box-applications-ia-2026-03.md`](outside-the-box-applications-ia-2026-03.md):
+  IA recommendations for positioning ethotechnics as deployable moral infrastructure patterns.
 
 ## Technical strategy tracks
 

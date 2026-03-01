@@ -1,5 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const operationsChecklist = [
+  "Define harm intake paths with explicit triage categories.",
+  "Set escalation SLAs by severity and route to named responders.",
+  "Track queue age and auto-escalate stalled cases.",
+  "Publish a repair log with remediation status and owner handoffs.",
+];
 ---
 
 <BaseLayout
@@ -18,6 +25,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <a href="/failure">failure archive</a> so every intervention has a clear trigger
       and owner.
     </p>
+    <h2>Operations checklist</h2>
+    <ul>
+      {operationsChecklist.map((item) => <li>{item}</li>)}
+    </ul>
     <p><a class="button" href="/#failure-intake">Start with a failure</a></p>
   </section>
 </BaseLayout>

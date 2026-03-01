@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+
+const applicationPatterns = [
+  {
+    title: "Moral circuit breakers",
+    description:
+      "Define halt, slow, and escalate controls with explicit authority and automatic thresholds.",
+    trigger: "High-severity anomalies or uncertain model behavior.",
+    owners: "Product owner, incident commander, and accountable executive.",
+    controls: "Manual pause, traffic throttle, and mandatory senior review.",
+    failSafe: "Freeze risky actions and route decisions to bounded human review.",
+    href: "/applications/moral-circuit-breakers",
+  },
+  {
+    title: "Consent control systems",
+    description:
+      "Replace checkbox consent with receipts, progressive permissioning, and clear revocation paths.",
+    trigger: "Collection of sensitive data or elevated data-sharing requests.",
+    owners: "Privacy lead, UX owner, and legal reviewer.",
+    controls: "Consent receipts, progressive prompts, and friction at high-stakes moments.",
+    failSafe: "Disable non-essential processing when valid consent is missing.",
+    href: "/explainers/consent-journey",
+  },
+  {
+    title: "Complaints-to-repair pipelines",
+    description:
+      "Treat harm reports like reliability incidents with SLAs, remediation, and audits.",
+    trigger: "User appeals, harm reports, or high-friction support tickets.",
+    owners: "Support operations lead, trust team, and policy owner.",
+    controls: "Structured intake, triage classification, SLA timers, and repair tracking.",
+    failSafe: "Escalate unresolved cases automatically and preserve full audit trails.",
+    href: "/explainers/repair-log",
+  },
+  {
+    title: "Internal agent guardrails",
+    description:
+      "Constrain high-powered internal copilots with approval gates, logging, and reversibility.",
+    trigger: "Agent actions affecting customers, production systems, or regulated data.",
+    owners: "Platform engineering, security, and delegated approvers.",
+    controls: "Action boundaries, approval workflows, and immutable logs.",
+    failSafe: "Deny unsafe actions by default and require explicit override authority.",
+    href: "/standards/ethotechnics-for-agents",
+  },
+];
+---
+
+<BaseLayout
+  title="Applications — Ethotechnics"
+  description="Deployable ethotechnics patterns for circuit breakers, consent, repair workflows, and operational safeguards."
+>
+  <section class="stack-lg institute-screen">
+    <p class="eyebrow">Applications</p>
+    <h1>Deploy ethics as operating infrastructure</h1>
+    <p>
+      Use these patterns to turn abstract values into mechanisms, ownership, interfaces,
+      and fail-safe defaults teams can deploy in production.
+    </p>
+    <p class="muted">
+      Each pattern links to standards, diagnostics, examples, and evidence-ready artifacts.
+    </p>
+  </section>
+
+  <section class="stack-lg institute-screen" aria-label="Application patterns">
+    <CardGrid className="grid--two">
+      {
+        applicationPatterns.map((pattern) => (
+          <CardItem title={pattern.title} description={pattern.description} descriptionTone="default">
+            <p class="small muted"><strong>Trigger:</strong> {pattern.trigger}</p>
+            <p class="small muted"><strong>Owners:</strong> {pattern.owners}</p>
+            <p class="small muted"><strong>Controls:</strong> {pattern.controls}</p>
+            <p class="small muted"><strong>Fail-safe:</strong> {pattern.failSafe}</p>
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={pattern.href}>Open pattern</a>
+            </div>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </section>
+</BaseLayout>
