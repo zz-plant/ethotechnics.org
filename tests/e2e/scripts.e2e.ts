@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Production scripts", () => {
-  test("keeps the pattern filter and bundle controls working", async ({ page }) => {
+  test("keeps the pattern filter and bundle controls working", async ({
+    page,
+  }) => {
     await page.goto("/library#patterns");
     await page.waitForSelector("[data-pattern-filter]");
 
@@ -31,11 +33,17 @@ test.describe("Production scripts", () => {
       .check();
 
     await expect(bundleStatus).toContainText("1 pattern saved");
-    await expect(page.getByRole("button", { name: "Download markdown" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "Copy bundle link" })).toBeEnabled();
+    await expect(
+      page.getByRole("button", { name: "Download markdown" }),
+    ).toBeEnabled();
+    await expect(
+      page.getByRole("button", { name: "Copy bundle link" }),
+    ).toBeEnabled();
   });
 
-  test("filters glossary entries and restores the full index", async ({ page }) => {
+  test("filters glossary entries and restores the full index", async ({
+    page,
+  }) => {
     await page.goto("/glossary");
 
     const input = page.getByPlaceholder(
@@ -68,16 +76,18 @@ test.describe("Production scripts", () => {
     await expect(burdenIndex).not.toHaveClass(/is-hidden/);
   });
 
-  test("activates field note tabs when navigating by hash", async ({ page }) => {
+  test("activates field note tabs when navigating by hash", async ({
+    page,
+  }) => {
     await page.goto("/field-notes");
 
     const dispatchTab = page.getByRole("tab", { name: "Dispatches" });
     const caseStudiesTab = page.getByRole("tab", { name: "Case studies" });
     const dispatchPanel = page.locator(
-      "[data-field-notes-panel][data-format=\"dispatch\"]",
+      '[data-field-notes-panel][data-format="dispatch"]',
     );
     const caseStudyPanel = page.locator(
-      "[data-field-notes-panel][data-format=\"case-study\"]",
+      '[data-field-notes-panel][data-format="case-study"]',
     );
 
     await expect(dispatchTab).toHaveAttribute("aria-selected", "true");
@@ -92,7 +102,7 @@ test.describe("Production scripts", () => {
     await page.goto("/field-notes#maintenance-drift");
     const signalsTab = page.getByRole("tab", { name: "Signals" });
     const signalPanel = page.locator(
-      "[data-field-notes-panel][data-format=\"signal\"]",
+      '[data-field-notes-panel][data-format="signal"]',
     );
     const maintenanceEntry = page.locator("#maintenance-drift");
 

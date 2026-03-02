@@ -45,7 +45,9 @@ test("serves an XML RSS feed", async ({ request }) => {
 });
 
 test.describe("Navigation", () => {
-  test("opens on mobile and navigates to the first primary link", async ({ page }) => {
+  test("opens on mobile and navigates to the first primary link", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 480, height: 900 });
     await page.goto("/");
 
@@ -66,13 +68,18 @@ test.describe("Navigation", () => {
     await page.waitForURL(PRIMARY_NAV_TARGET.href);
 
     await expect(
-      page.getByRole("heading", { level: 1, name: new RegExp(PRIMARY_NAV_TARGET.label, "i") }),
+      page.getByRole("heading", {
+        level: 1,
+        name: new RegExp(PRIMARY_NAV_TARGET.label, "i"),
+      }),
     ).toBeVisible();
     await expect(page.locator(".nav__content")).not.toHaveClass(/is-open/);
     await expect(html).not.toHaveClass(/nav-locked/);
   });
 
-  test("shows top destinations on desktop without opening the menu", async ({ page }) => {
+  test("shows top destinations on desktop without opening the menu", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
 
@@ -99,7 +106,9 @@ test.describe("Diagnostics page", () => {
 });
 
 test.describe("Mechanisms library", () => {
-  test("offers copyable diagnostic links in pattern cards", async ({ page }) => {
+  test("offers copyable diagnostic links in pattern cards", async ({
+    page,
+  }) => {
     await page.goto("/mechanisms");
 
     await expect(

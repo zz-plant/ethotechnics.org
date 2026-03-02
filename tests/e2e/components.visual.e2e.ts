@@ -7,12 +7,16 @@ test.describe("Component Visual Regression", () => {
     expect(response?.ok()).toBeTruthy();
 
     // Visual checks
-    await expect(page.getByRole("heading", { name: "Component Preview" })).toBeVisible();
-    
+    await expect(
+      page.getByRole("heading", { name: "Component Preview" }),
+    ).toBeVisible();
+
     // Check PageIntro
-    await expect(page.getByRole("heading", { name: "PageIntro" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "PageIntro" }),
+    ).toBeVisible();
     await expect(page.getByText("Component Visual Testing")).toBeVisible();
-    
+
     // Check CardItems
     await expect(page.getByRole("heading", { name: "CardItem" })).toBeVisible();
     await expect(page.getByText("Default Card")).toBeVisible();

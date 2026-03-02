@@ -14,7 +14,10 @@ const assertCertificateLinks = async (root: Locator) => {
 };
 
 test.describe("Syllabus module completion", () => {
-  test("tracks module completion, sharing, and hydration", async ({ browser, page }) => {
+  test("tracks module completion, sharing, and hydration", async ({
+    browser,
+    page,
+  }) => {
     await page.addInitScript(() => {
       // @ts-expect-error navigator is writable in the browser context.
       navigator.clipboard = {
@@ -30,7 +33,9 @@ test.describe("Syllabus module completion", () => {
 
     const module = page.locator(`[data-module="${MODULE_ID}"]`);
     const readingCheckbox = module.locator("[data-reading]");
-    const correctQuizOption = module.locator('[data-quiz-option][data-correct="true"]');
+    const correctQuizOption = module.locator(
+      '[data-quiz-option][data-correct="true"]',
+    );
     const completionButton = module.locator("[data-complete]");
     const status = module.locator("[data-status]");
 
@@ -58,7 +63,9 @@ test.describe("Syllabus module completion", () => {
     await expect(shareInput).toHaveValue(/completed=orientation/);
 
     await shareButton.click();
-    await expect(shareStatus).toHaveText("Copied the shareable link to your clipboard.");
+    await expect(shareStatus).toHaveText(
+      "Copied the shareable link to your clipboard.",
+    );
 
     const shareableLink = await shareInput.inputValue();
     expect(shareableLink).toContain(`completed=${MODULE_ID}`);
@@ -72,14 +79,22 @@ test.describe("Syllabus module completion", () => {
 
     const sharedModule = sharedPage.locator(`[data-module="${MODULE_ID}"]`);
     await expect(sharedModule.locator("[data-reading]")).toBeChecked();
-    await expect(sharedModule.locator("[data-quiz-option]:checked")).toHaveCount(0);
-    await expect(sharedModule.locator("[data-complete]")).toHaveText("Completed");
-    await expect(sharedModule.locator("[data-status]")).toContainText("Module finished");
+    await expect(
+      sharedModule.locator("[data-quiz-option]:checked"),
+    ).toHaveCount(0);
+    await expect(sharedModule.locator("[data-complete]")).toHaveText(
+      "Completed",
+    );
+    await expect(sharedModule.locator("[data-status]")).toContainText(
+      "Module finished",
+    );
 
     const sharedCertificateList = sharedPage.locator("[data-certificate-list]");
     await expect(sharedPage.locator("[data-certificate-empty]")).toBeHidden();
     await assertCertificateLinks(sharedCertificateList);
-    await expect(sharedPage.locator("[data-share-link]")).toHaveValue(/completed=orientation/);
+    await expect(sharedPage.locator("[data-share-link]")).toHaveValue(
+      /completed=orientation/,
+    );
 
     await sharedContext.close();
   });
