@@ -108,6 +108,18 @@ const orderedWorkflowStages = workflowStages.filter(
     <h1>{state.title}</h1>
     <p>{state.descriptionLine1}</p>
     <p>{state.descriptionLine2}</p>
+    <div class="panel stack-sm">
+      <p class="eyebrow">Next required artifact</p>
+      <p class="muted">
+        Start with <strong>{orderedWorkflowStages[0]?.artifact.name}</strong> to
+        lock owner, evidence scope, and reversal path before response drifts.
+      </p>
+      <ol class="small muted">
+        <li>Assign the accountable owner now.</li>
+        <li>Capture evidence and timestamps in the first artifact.</li>
+        <li>Confirm escalation handoff before opening additional tracks.</li>
+      </ol>
+    </div>
     <h2>Response workflow (triage → stabilize → evidence)</h2>
     <ol class="stack-sm">
       {

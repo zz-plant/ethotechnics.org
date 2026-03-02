@@ -117,6 +117,18 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     Recommended path: choose a diagnostic in 30 seconds, then run and share the
     output.
   </p>
+  <div class="panel diagnostics__artifact-bridge stack-sm">
+    <p class="eyebrow">Next required artifact</p>
+    <p class="muted">
+      Run one diagnostic, then attach its primary output to your incident or
+      audit packet before moving on.
+    </p>
+    <ul class="muted small">
+      <li>Burden Modeler → Burden evidence table</li>
+      <li>Maintenance Simulator → Escalation coverage report</li>
+      <li>Evidence-Pack Readiness → Standards evidence checklist</li>
+    </ul>
+  </div>
   <nav
     class="diagnostics__sticky-jump"
     aria-label="Diagnostics quick navigation"
@@ -125,13 +137,13 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       class="button primary"
       href="#quick-triage"
       data-route-action="diagnostics-choose"
-      data-sticky-link="#quick-triage">Run diagnostic triage</a
+      data-sticky-link="#quick-triage">Start triage now</a
     >
     <a
-      class="button ghost"
+      class="diagnostics__sticky-link muted small"
       href="#diagnostic-tools"
       data-route-action="diagnostics-open-menu"
-      data-sticky-link="#diagnostic-tools">Jump to tools</a
+      data-sticky-link="#diagnostic-tools">Need full menu? Jump to all tools</a
     >
   </nav>
   <SectionActions>
