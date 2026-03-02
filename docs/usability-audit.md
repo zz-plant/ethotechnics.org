@@ -165,3 +165,111 @@ Snapshot of three common journeys run on a mobile viewport (`390x844`) in local 
   1. Simplify homepage CTA hierarchy.
   2. Shorten the path from diagnostics intro to tool comparison.
   3. Add consistent follow-on guidance in Field Notes.
+
+## Key persona click-route pass (AI governance lead under delivery pressure)
+
+Persona assumption: a governance lead juggling incident response, policy updates, and audit prep in
+the same week needs fast transitions from "problem" to "artifact" to "proof".
+
+### Route 1: Incident triage to implementation artifact
+
+**Path traversed:** `/` → `#failure-intake` ("Triage an incident") → `/failure/decision-appealed` →
+`/artifact/decision-record-template`.
+
+**What works**
+
+- The route quickly shifts from failure language to a concrete artifact, which supports
+  decision-making under time pressure.
+- Failure-state labels are specific enough to reduce ambiguity versus generic "incident" wording.
+
+**What could be streamlined**
+
+- Add a compact "time-to-action" strip on failure pages (for example: "2 min: assign owner", "5 min:
+  capture decision record") so users can sequence work without extra scanning.
+- Include a persistent "next required evidence" callout near the top of each failure page to shorten
+  handoff from triage to documentation.
+
+**Extraneous or distracting**
+
+- On first load, homepage link density around the intake section can feel high before users commit to
+  one path.
+- Multiple adjacent references to related destinations (standards, glossary, artifacts,
+  diagnostics) can dilute the urgency of the immediate incident route.
+
+### Route 2: Policy drafting from homepage shortcut to canonical standard
+
+**Path traversed:** `/` → `/standards?lane=all&sort=citation#active` ("Writing policy") →
+`/standards/std-01-temporal-rights`.
+
+**What works**
+
+- The homepage shortcut lands directly in the active standards index, matching policy-author intent.
+- Standard detail pages provide clear authority framing once selected.
+
+**What could be streamlined**
+
+- Add a "start here for policy updates" quick filter preset (for example: by implementation phase or
+  enforceability) so policy writers can avoid broad index scanning.
+- Surface a "copy-ready policy clause" jump link above the fold on standard pages to reduce
+  scrolling-to-action.
+
+**Extraneous or distracting**
+
+- Citation-first sorting is credible for researchers but may not map to policy operators looking for
+  execution sequence.
+- Index-level metadata can read as dense when the user primarily wants one deployable clause.
+
+### Route 3: Audit prep from diagnostics hub to runnable tool
+
+**Path traversed:** `/` → `/diagnostics#diagnostic-tools` ("Preparing for audit") →
+`/diagnostics#quick-triage` ("Run diagnostic triage") → `/diagnostics/burden-modeler`.
+
+**What works**
+
+- The route preserves action momentum: audit intent quickly turns into a runnable diagnostic.
+- Tool naming is concrete and operational, helping selection confidence.
+
+**What could be streamlined**
+
+- Add a sticky mini-summary on diagnostics pages that translates tool choice into expected audit
+  artifacts (for example: "run Burden Modeler → export burden evidence table").
+- Reduce two-step anchoring (`#diagnostic-tools` then `#quick-triage`) by exposing one primary "Start
+  triage now" control at page entry.
+
+**Extraneous or distracting**
+
+- Repeated anchor-based wayfinding near the top can feel like re-navigation instead of progress.
+- Introductory explanation blocks can compete with the user's immediate objective to run a tool.
+
+### Persona-level synthesis
+
+- **Most valuable pattern:** direct bridges from intent shortcuts to executable assets.
+- **Highest-friction pattern:** early-page choice density and repeated wayfinding blocks before clear
+  commitment cues.
+- **Top simplifications to prioritize:**
+  1. One dominant CTA per intent at page entry (with secondary options collapsed).
+  2. "Next required artifact" callouts on failure and diagnostics routes.
+  3. Policy-first filters and copy-ready clause jumps on standards routes.
+
+### Prioritized change list
+
+1. **P0 — Clarify first action on homepage intent lanes**
+   - Keep one primary CTA per intent block.
+   - Move secondary links behind a "More ways to start" disclosure.
+   - Remove repeated top-of-page wayfinding links that restate the same destination.
+2. **P0 — Add "next required artifact" callouts on failure pages**
+   - Show one required output directly under the failure heading.
+   - Include a time-to-action micro-checklist (owner, evidence, handoff).
+   - De-emphasize adjacent non-critical navigation during active incidents.
+3. **P1 — Compress diagnostics route to first runnable tool**
+   - Add a single "Start triage now" CTA at page entry.
+   - Keep methodology details collapsed by default on mobile.
+   - Remove duplicate anchor prompts that feel like re-navigation.
+4. **P1 — Improve policy-author flow in standards index**
+   - Add a "Policy update" preset filter (phase + enforceability).
+   - Pin a "Copy-ready clause" jump near the top of standard detail pages.
+   - Reduce emphasis on citation-oriented sorting for operator-first sessions.
+5. **P2 — Standardize post-read progression for Field Notes**
+   - Add a reusable "Continue with" block (glossary, mechanism, diagnostic).
+   - Introduce 2–3 reading paths for common outcomes.
+   - Separate subscription/archive utility links from task-oriented next actions.

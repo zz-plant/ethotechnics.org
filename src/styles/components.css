@@ -4586,6 +4586,15 @@
     margin: 0;
   }
 
+  .diagnostics__artifact-bridge {
+    margin: 0;
+  }
+
+  .diagnostics__artifact-bridge ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
   .diagnostics__sticky-jump {
     position: fixed;
     left: 0.75rem;
@@ -4593,8 +4602,8 @@
     bottom: calc(0.75rem + env(safe-area-inset-bottom));
     z-index: var(--z-overlay-top);
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.55rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.3rem;
     margin: 0;
     padding: 0.6rem;
     border-radius: var(--radius-md);
@@ -4616,10 +4625,22 @@
     color: var(--accent-strong);
   }
 
+  .diagnostics__sticky-link {
+    text-align: center;
+    text-decoration: none;
+    padding: 0.1rem 0.4rem 0;
+  }
+
+  .diagnostics__sticky-link.is-active {
+    color: var(--accent-strong);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
   @media (min-width: 900px) {
     .diagnostics__sticky-jump {
       position: static;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr);
       margin: 1rem 0 1.25rem;
     }
 
@@ -4645,7 +4666,6 @@
       padding-bottom: clamp(5.8rem, 18vw, 7.2rem);
     }
   }
-
 
   .diagnostics__comparison {
     display: grid;
@@ -6404,6 +6424,15 @@
     background: color-mix(in srgb, var(--surface) 97%, white 3%);
   }
 
+  .institute-hero__other-starts summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .institute-hero__other-starts summary::-webkit-details-marker {
+    display: none;
+  }
+
   .institute-hero__other-start-list {
     margin: 0.45rem 0 0;
     padding: 0;
@@ -6964,12 +6993,10 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-
     .failure-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       grid-auto-rows: 1fr;
     }
-
 
     .adopt-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
