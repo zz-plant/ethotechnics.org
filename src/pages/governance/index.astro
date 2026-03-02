@@ -22,7 +22,7 @@ const openRfcStatuses = new Set(["proposal", "review", "decision"]);
 const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
   <PageIntro
     eyebrow="Governance"
     title="Governance process"

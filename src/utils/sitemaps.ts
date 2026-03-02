@@ -1,4 +1,3 @@
-import { getEntry } from "astro:content";
 import { lstat, realpath } from "node:fs/promises";
 import { relative, resolve, sep } from "node:path";
 
@@ -27,6 +26,18 @@ import {
 } from "../utils/glossary-sections";
 
 const fallbackLastmod = new Date().toISOString();
+
+const getContentEntry = async (
+  collection: string,
+  slug: string,
+): Promise<unknown> => {
+  try {
+    const mod = await import("astro:content");
+    return await mod.getEntry(collection as never, slug);
+  } catch {
+    return undefined;
+  }
+};
 
 type PageModule = {
   lastmod?: string;
@@ -169,19 +180,25 @@ const renderUrl = (base: URL, entry: SitemapEntry) => {
   const changefreqTag = changefreq
     ? `\n  <changefreq>${changefreq}</changefreq>`
     : "";
-  const priorityTag = priority ? `
-  <priority>${priority}</priority>` : "";
+  const priorityTag = priority
+    ? `
+  <priority>${priority}</priority>`
+    : "";
   const imageTags =
-    entry.images?.map((image) => {
-      const imageLoc = new URL(image.loc, base).toString();
-      const imageTitle = image.title ? escapeXml(image.title) : undefined;
-      const titleTag = image.title ? `
-    <image:title>${imageTitle}</image:title>` : "";
-      return `
+    entry.images
+      ?.map((image) => {
+        const imageLoc = new URL(image.loc, base).toString();
+        const imageTitle = image.title ? escapeXml(image.title) : undefined;
+        const titleTag = image.title
+          ? `
+    <image:title>${imageTitle}</image:title>`
+          : "";
+        return `
   <image:image>
     <image:loc>${imageLoc}</image:loc>${titleTag}
   </image:image>`;
-    }).join("") ?? "";
+      })
+      .join("") ?? "";
   return `<url>
   <loc>${loc}</loc>
   <lastmod>${lastmod}</lastmod>${changefreqTag}${priorityTag}${imageTags}
@@ -210,7 +227,7 @@ export const buildSitemapSections = async () => {
     .filter((entry): entry is SitemapEntry => entry !== null)
     .filter((entry) => isPublicPath(entry.path));
 
-  const glossaryEntry: unknown = await getEntry("glossary", "glossary");
+  const glossaryEntry: unknown = await getContentEntry("glossary", "glossary");
   const glossaryData: GlossaryContent = hasEntryData<GlossaryContent>(
     glossaryEntry,
   )
@@ -258,7 +275,7 @@ export const buildSitemapSections = async () => {
       ),
   );
 
-  const libraryEntry: unknown = await getEntry("library", "library");
+  const libraryEntry: unknown = await getContentEntry("library", "library");
   const libraryData = hasEntryData<LibraryContent>(libraryEntry)
     ? libraryEntry.data
     : undefined;
@@ -330,7 +347,7 @@ export const buildSitemapSections = async () => {
       })),
   );
 
-  const fieldNotesEntry: unknown = await getEntry(
+  const fieldNotesEntry: unknown = await getContentEntry(
     "fieldNotes",
     "field-notes",
   );
@@ -391,7 +408,6 @@ export const buildSitemapSections = async () => {
   standardsContent.standards.forEach((standard) => {
     addOverride(`/standards/${standard.slug}`, standard.published);
   });
-
 
   const homePath = pagePaths.find((entry) => entry.path === "/");
   if (homePath) {
@@ -456,7 +472,9 @@ export const buildSitemapSections = async () => {
 
 export const renderSitemap = (siteUrl: URL, entries: SitemapEntry[]) => {
   const urls = entries.map((entry) => renderUrl(siteUrl, entry)).join("\n");
-  const hasImageEntries = entries.some((entry) => (entry.images?.length ?? 0) > 0);
+  const hasImageEntries = entries.some(
+    (entry) => (entry.images?.length ?? 0) > 0,
+  );
   const imageNamespace = hasImageEntries
     ? ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'
     : "";
