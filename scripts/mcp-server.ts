@@ -355,12 +355,32 @@ const parseMcpCapabilitiesFromSource = async () => {
   const source = await Bun.file(
     join(getProjectRoot(), "scripts", "mcp-server.ts"),
   ).text();
-  const tools = [
+
+  const toolMatches = [
     ...source.matchAll(/server\.tool\(\s*"([^"]+)"\s*,\s*"([^"]+)"/g),
-  ].map((match) => ({ name: match[1], description: match[2] }));
-  const resources = [
+    ...source.matchAll(/registerTool\(\s*"([^"]+)"\s*,\s*"([^"]+)"/g),
+  ];
+  const tools = Array.from(
+    new Map(
+      toolMatches.map((match) => [
+        match[1],
+        { name: match[1], description: match[2] },
+      ]),
+    ).values(),
+  );
+
+  const resourceMatches = [
     ...source.matchAll(/server\.resource\(\s*"([^"]+)"\s*,\s*"([^"]+)"/g),
-  ].map((match) => ({ name: match[1], uri: match[2] }));
+    ...source.matchAll(/registerResource\(\s*"([^"]+)"\s*,\s*"([^"]+)"/g),
+  ];
+  const resources = Array.from(
+    new Map(
+      resourceMatches.map((match) => [
+        match[1],
+        { name: match[1], uri: match[2] },
+      ]),
+    ).values(),
+  );
 
   return {
     tools,
