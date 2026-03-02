@@ -10,6 +10,7 @@ import type {
   GlossaryEntry,
 } from "../content/glossary";
 import { incidentLessons } from "../content/incidents";
+import { libraryContent } from "../content/library";
 import type { LibraryContent, Pattern } from "../content/library";
 import { governanceCrosswalks } from "../content/crosswalks";
 import { quickStartGuides } from "../content/quick-start";
@@ -276,9 +277,9 @@ export const buildSitemapSections = async () => {
   );
 
   const libraryEntry: unknown = await getContentEntry("library", "library");
-  const libraryData = hasEntryData<LibraryContent>(libraryEntry)
+  const libraryData: LibraryContent = hasEntryData<LibraryContent>(libraryEntry)
     ? libraryEntry.data
-    : undefined;
+    : libraryContent;
   const libraryLastmod = libraryData
     ? normalizeLastmod(libraryData.updated ?? libraryData.published)
     : undefined;
