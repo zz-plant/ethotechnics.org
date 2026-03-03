@@ -10,12 +10,12 @@ const pageDescription =
 const permalink = "/explainers/governance-capability";
 
 const heroCopy =
-  "Most AI governance frameworks improve documentation, oversight, and accountability. Ethotechnics changes what governance is for. If responsibility is defined as operational capability rather than stated intent, different institutional behaviors become visible—and many accepted ones become indefensible.";
+  "Most AI governance frameworks improve documentation, oversight, and accountability. Ethotechnics asks a different question: can the system be stopped, reversed, and repaired under stress? When responsibility is defined as operational capability instead of stated intent, many accepted practices no longer hold up.";
 
 const executiveSummary = [
   {
     href: "#performance-spec",
-    text: "Governance becomes a performance specification: stop, reverse, restore must work under stress.",
+    text: "Governance becomes a performance specification: stop, reverse, and restore must work under stress.",
   },
   {
     href: "#time",
@@ -31,7 +31,7 @@ const executiveSummary = [
   },
   {
     href: "#standing",
-    text: "Affected parties gain standing: contestation must change state without stamina.",
+    text: "Affected parties gain standing: contestation must change system state without requiring endless follow-up.",
   },
   {
     href: "#monitoring-liability",
@@ -46,7 +46,7 @@ const coreImplications = [
     commonModel:
       "Governance is demonstrated through policies, principles, reviews, and artifacts.",
     ethotechnicsModel:
-      "Governance is demonstrated through live capability: halt harmful behavior, reverse decisions, restore affected parties.",
+      "Governance is demonstrated through live capability: halt harmful behavior, reverse decisions, and restore affected parties.",
     implication: "Responsibility becomes measurable capacity, not moral alignment.",
     requirements: [
       "Production stop conditions (“if X, halt Y”) with a defined trigger path.",
@@ -57,7 +57,7 @@ const coreImplications = [
     ],
     signals: [
       "Stop is possible only via exec escalation.",
-      "“Fix forward” is the only option.",
+      "\"Fix forward\" is treated as the only option.",
     ],
   },
   {
@@ -77,7 +77,7 @@ const coreImplications = [
     ],
     signals: [
       "Appeals timelines are undefined.",
-      "“Pending” can persist indefinitely.",
+      "\"Pending\" states can persist indefinitely.",
     ],
   },
   {
@@ -125,7 +125,7 @@ const coreImplications = [
       "Clear evidence expectations and burden limits.",
       "Interim protections during contestation.",
       "Escalation to stop rights when thresholds are crossed.",
-      "A pathway that doesn’t require repeated contact or endurance.",
+      "A pathway that doesn’t require repeated contact or unusual persistence.",
     ],
   },
   {
@@ -133,7 +133,7 @@ const coreImplications = [
     title: "Monitoring without intervention becomes liability",
     commonModel: "Monitoring is treated as governance progress.",
     ethotechnicsModel:
-      "Visibility without brakes increases responsibility: “knowing and continuing.”",
+      "Visibility without brakes increases responsibility: knowing and continuing.",
     implication: "Instrumentation creates duty unless intervention exists.",
     requirements: [
       "Monitoring wired to stop conditions and safe states.",
@@ -234,7 +234,7 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
       eyebrow: "Purpose",
       title: "From intent to capability",
       description:
-        "Operational capability—stop, reverse, restore, contest—is the unit of accountability. This spec focuses on what has to work under stress, not what is promised in documentation.",
+        "Operational capability—stop, reverse, restore, and contest—is the unit of accountability. This spec focuses on what must work under stress, not what documentation promises.",
     }}
   />
 
@@ -420,11 +420,11 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
     description="A concise test for operational responsibility."
     variant="alt"
   >
-    <div class="legitimacy-standard">
+  <div class="legitimacy-standard">
       <p>
         A system is not responsible because it intends to be fair, documents its risks,
-        or convenes oversight committees. A system is responsible only if it cannot
-        continue harming people faster than it can be compelled to stop and repair.
+        or convenes oversight committees. A system is responsible only when it cannot
+        keep harming people faster than it can be made to stop and repair.
       </p>
       <p class="muted">
         This standard would cause many currently “compliant” systems to fail—not because
