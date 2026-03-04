@@ -15,6 +15,7 @@ Reference for contributor-safe commands and formatting expectations.
 - Lint: `bun run lint`.
 - Type check: `bun run typecheck`.
 - Unit tests: `bun run test:unit`.
+- Install git hooks: `bun run hooks:install`.
 - Format write: `bun run format`.
 - Format verify: `bun run format:check`.
 
