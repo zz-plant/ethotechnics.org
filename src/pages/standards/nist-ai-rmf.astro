@@ -7,16 +7,24 @@ const pageTitle = "NIST AI Risk Management Framework (AI RMF 1.0)";
 const pageDescription =
   "Ethotechnics-style critique of the NIST AI Risk Management Framework and its voluntary governance model.";
 const permalink = "/standards/nist-ai-rmf";
+const publishedTime = "2026-02-22T00:00:00Z";
+const modifiedTime = "2026-03-04T00:00:00Z";
 const version = "v1.0.0";
 const lastUpdated = "2026-02-22";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
+  { href: "#operational-templates", label: "Operational templates path" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+<BaseLayout
+  title="NIST AI RMF operational templates | Ethotechnics"
+  description={pageDescription}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+>
   <PageIntro
     eyebrow="Adopted standard"
     title={pageTitle}
@@ -43,6 +51,35 @@ const anchorLinks = [
       The AI RMF is explicitly not a checklist. It emphasizes mapping risks,
       measuring performance, and managing controls across the AI lifecycle.
     </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="operational-templates"
+    eyebrow="Operational templates"
+    title="Use this NIST path to operationalize controls"
+    description="Use one linked route so teams move from interpretation to implementation without losing traceability."
+  >
+    <ol class="muted">
+      <li>
+        <strong>Explainer:</strong>
+        <a href="/standards/nist-ai-rmf">NIST AI RMF overview and critique</a>.
+      </li>
+      <li>
+        <strong>Mechanism template:</strong>
+        <a href="/standards/std-01-mapping-artifact">STD-01 mapping artifact</a>
+        for control-to-evidence mapping.
+      </li>
+      <li>
+        <strong>Downloadable artifact:</strong>
+        <a href="/bundles/diagnostic-export-kit">Diagnostic export kit</a> for
+        shareable readouts and audit packets.
+      </li>
+      <li>
+        <strong>Clinic/signup:</strong>
+        <a href="/participate">Request a governance clinic</a> to validate your
+        operational template set.
+      </li>
+    </ol>
   </SectionBlock>
 
   <SectionBlock
