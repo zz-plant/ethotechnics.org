@@ -10,6 +10,7 @@ Detailed execution guides for AI contributors.
 4. [`formatting-and-tooling.md`](formatting-and-tooling.md)
 5. [`version-control.md`](version-control.md)
 6. [`review-checklist.md`](review-checklist.md)
+7. [`code-review-comment-patterns.md`](code-review-comment-patterns.md)
 
 ## What each guide owns
 
@@ -19,6 +20,7 @@ Detailed execution guides for AI contributors.
 - `formatting-and-tooling.md`: formatter/linter/script command references.
 - `version-control.md`: branch, commit, and PR hygiene.
 - `review-checklist.md`: final pre-handoff quality pass.
+- `code-review-comment-patterns.md`: recurring review themes and guardrails.
 
 ## Ground rules
 
