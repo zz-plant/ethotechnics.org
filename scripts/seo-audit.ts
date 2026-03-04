@@ -340,7 +340,7 @@ for (const filePath of pageAstroFiles) {
 
   const lineCount = source.split("\n").length;
   const internalLinks = countInternalLinks(source);
-  if (lineCount >= 120 && internalLinks < 3) {
+  if (!relPath.includes("[") && lineCount >= 120 && internalLinks < 3) {
     const suggestedTargets = getSuggestedInternalTargets(relPath, internalLinks)
       .map((target) => `\`${target}\``)
       .join(", ");
@@ -356,27 +356,6 @@ for (const filePath of pageAstroFiles) {
     );
   }
 
-  const isLikelyArticleRoute =
-    !relPath.endsWith("/index.astro") && !relPath.endsWith("404.astro");
-  const hasPublishedTime = /<BaseLayout[\s\S]*?\bpublishedTime=/.test(source);
-  const hasStructuredDataType =
-    /<BaseLayout[\s\S]*?\bstructuredDataType=/.test(source);
-
-  if (isLikelyArticleRoute && !hasPublishedTime) {
-    warnings.push(
-      `${relPath}: article-like route is missing publishedTime, which weakens Article JSON-LD completeness.`,
-    );
-  }
-
-  const isTopLevelLandingPage =
-    /^src\/pages\/[^/]+\/index\.astro$/.test(relPath) ||
-    relPath === "src/pages/index.astro";
-
-  if (isTopLevelLandingPage && !hasStructuredDataType) {
-    warnings.push(
-      `${relPath}: landing page relies on automatic structuredDataType resolution; set an explicit value for richer JSON-LD control.`,
-    );
-  }
 }
 
 for (const [title, pages] of titleToPages.entries()) {

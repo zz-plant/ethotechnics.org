@@ -59,7 +59,7 @@ const loadPagefind = async () => {
     PAGEFIND_PATH
   )
     .then((module) => module as PagefindModule)
-    .catch((error) => {
+    .catch((error: unknown) => {
       console.warn("Pagefind not found. Search may not work in dev mode.", error);
       pagefindPromise = null;
       return null;
@@ -145,7 +145,7 @@ const initSearch = () => {
     options?: { intensity?: number },
   ) => {
     if (!haptics) return;
-    haptics.trigger(pattern, options).catch((error) => {
+    haptics.trigger(pattern, options).catch((error: unknown) => {
       console.warn("Haptic feedback failed.", error);
     });
   };

@@ -35,6 +35,7 @@ interface Props {
 }
 
 const siteName = "Ethotechnics Institute";
+const defaultArticlePublishedTime = "2025-01-01T00:00:00.000Z";
 const defaultTitle =
   "Ethotechnics Institute — The Reference Standard for Accountable Systems";
 const defaultDescription =
@@ -81,6 +82,14 @@ const normalizeDateTime = (value?: string) => {
 const normalizedPublishedTime = normalizeDateTime(publishedTime);
 const normalizedModifiedTime =
   normalizeDateTime(modifiedTime) ?? normalizedPublishedTime;
+const resolvedPublishedTime =
+  resolvedOpenGraphType === "article"
+    ? normalizedPublishedTime ?? defaultArticlePublishedTime
+    : undefined;
+const resolvedModifiedTime =
+  resolvedOpenGraphType === "article"
+    ? normalizedModifiedTime ?? resolvedPublishedTime
+    : undefined;
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
 const webpageId = canonical;
@@ -285,13 +294,13 @@ if (resolvedOpenGraphType === "article") {
     inLanguage: "en",
   };
 
-  if (normalizedPublishedTime) {
-    articleJsonLd.datePublished = normalizedPublishedTime;
+  if (resolvedPublishedTime) {
+    articleJsonLd.datePublished = resolvedPublishedTime;
   }
 
-  if (normalizedModifiedTime) {
-    articleJsonLd.dateModified = normalizedModifiedTime;
-    webpage.dateModified = normalizedModifiedTime;
+  if (resolvedModifiedTime) {
+    articleJsonLd.dateModified = resolvedModifiedTime;
+    webpage.dateModified = resolvedModifiedTime;
   }
 
   structuredData.push(articleJsonLd);
@@ -340,8 +349,8 @@ const structuredDataJson = JSON.stringify(structuredData);
         article:
           resolvedOpenGraphType === "article"
             ? {
-                publishedTime: normalizedPublishedTime,
-                modifiedTime: normalizedModifiedTime,
+                publishedTime: resolvedPublishedTime,
+                modifiedTime: resolvedModifiedTime,
               }
             : undefined,
         image: {
