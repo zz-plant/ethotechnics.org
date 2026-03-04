@@ -52,6 +52,13 @@ function getAttributeStringValue(tag: string, attribute: string): string | null 
     return jsxExpressionMatch[2];
   }
 
+  const jsxTemplateLiteralMatch = tag.match(
+    new RegExp(`${attribute}\\s*=\\s*\\{\\s*\`([^\`]*)\`\\s*\\}`, "i"),
+  );
+  if (jsxTemplateLiteralMatch) {
+    return jsxTemplateLiteralMatch[1];
+  }
+
   return null;
 }
 
@@ -64,8 +71,8 @@ function findUnsafeBlankTargets(file: string): Finding[] {
     const tag = match[0];
     const tagStart = match.index ?? 0;
 
-    const hasBlankTarget = /target\s*=\s*(["'])_blank\1/i.test(tag);
-    if (!hasBlankTarget) {
+    const targetValue = getAttributeStringValue(tag, "target");
+    if (targetValue !== "_blank") {
       continue;
     }
 
