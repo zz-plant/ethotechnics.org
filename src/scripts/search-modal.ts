@@ -1,4 +1,39 @@
-import { WebHaptics } from "web-haptics";
+type HapticPattern = "nudge" | "success" | "error";
+
+type HapticOptions = {
+  intensity?: number;
+};
+
+const HAPTIC_VIBRATION_PATTERNS: Record<HapticPattern, number | number[]> = {
+  nudge: 12,
+  success: [12, 20, 16],
+  error: [24, 14, 24],
+};
+
+const createHapticsController = () => {
+  const canVibrate =
+    typeof navigator !== "undefined" && typeof navigator.vibrate === "function";
+
+  if (!canVibrate) {
+    return null;
+  }
+
+  return {
+    trigger: (pattern: HapticPattern, options?: HapticOptions) => {
+      const configuredPattern = HAPTIC_VIBRATION_PATTERNS[pattern];
+      const intensity = Math.min(Math.max(options?.intensity ?? 1, 0), 1);
+      const scaledPattern =
+        typeof configuredPattern === "number"
+          ? Math.round(configuredPattern * intensity)
+          : configuredPattern.map((duration) =>
+              Math.round(duration * intensity),
+            );
+
+      navigator.vibrate(scaledPattern);
+      return Promise.resolve();
+    },
+  };
+};
 
 type PagefindResultData = {
   url: string;
@@ -60,7 +95,10 @@ const loadPagefind = async () => {
   )
     .then((module) => module as PagefindModule)
     .catch((error) => {
-      console.warn("Pagefind not found. Search may not work in dev mode.", error);
+      console.warn(
+        "Pagefind not found. Search may not work in dev mode.",
+        error,
+      );
       pagefindPromise = null;
       return null;
     });
@@ -138,12 +176,9 @@ const initSearch = () => {
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
-  const haptics = prefersReducedMotion ? null : new WebHaptics();
+  const haptics = prefersReducedMotion ? null : createHapticsController();
 
-  const triggerHaptic = (
-    pattern: "nudge" | "success" | "error",
-    options?: { intensity?: number },
-  ) => {
+  const triggerHaptic = (pattern: HapticPattern, options?: HapticOptions) => {
     if (!haptics) return;
     haptics.trigger(pattern, options).catch((error) => {
       console.warn("Haptic feedback failed.", error);
@@ -411,9 +446,7 @@ const initSearch = () => {
     if (!dialog || !trigger) return null;
 
     const input = dialog.querySelector<HTMLInputElement>("[data-search-input]");
-    const results = dialog.querySelector<HTMLElement>(
-      "[data-search-results]",
-    );
+    const results = dialog.querySelector<HTMLElement>("[data-search-results]");
     const recentWrapper = dialog.querySelector<HTMLElement>(
       "[data-search-recent]",
     );
@@ -471,13 +504,10 @@ const initSearch = () => {
 
       dialog.close();
       if (!fromHistory) {
-        updateUrlParams(
-          (params) => {
-            params.delete(SEARCH_MODAL_PARAM);
-            params.delete(SEARCH_QUERY_PARAM);
-          },
-          "push",
-        );
+        updateUrlParams((params) => {
+          params.delete(SEARCH_MODAL_PARAM);
+          params.delete(SEARCH_QUERY_PARAM);
+        }, "push");
       }
 
       input.value = "";
@@ -592,9 +622,8 @@ const initSearch = () => {
       }
 
       if (event.key === "Enter") {
-        const firstResult = dialog.querySelector<HTMLAnchorElement>(
-          ".search-result a",
-        );
+        const firstResult =
+          dialog.querySelector<HTMLAnchorElement>(".search-result a");
         if (firstResult) {
           event.preventDefault();
           triggerHaptic("success", { intensity: 0.35 });
@@ -706,14 +735,6 @@ const initSearch = () => {
       }
     });
   }
-
-  window.addEventListener(
-    "beforeunload",
-    () => {
-      haptics?.destroy();
-    },
-    { once: true },
-  );
 };
 
 if (document.readyState === "loading") {

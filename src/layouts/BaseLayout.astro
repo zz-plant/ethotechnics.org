@@ -2,11 +2,13 @@
 import "@fontsource-variable/plus-jakarta-sans/index.css";
 import "@fontsource-variable/source-serif-4/index.css";
 import { SEO } from "astro-seo";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Navigation from "../components/Navigation.astro";
-import Wordmark from "../components/Wordmark.astro";
 import SvgDefs from "../components/SvgDefs.astro";
+import Wordmark from "../components/Wordmark.astro";
 import { siteFooter } from "../content/site-footer";
 import glossaryHighlightsScript from "../scripts/glossary-highlights.ts?url";
+import { normalizeBreadcrumbItems } from "../lib/breadcrumbs";
 import "../styles/theme.css";
 import "../styles/global.css";
 
@@ -208,27 +210,19 @@ const jsonAlternateLinks =
 
 const pathSegments = currentPath.split("/").filter(Boolean);
 const pagefindType = pathSegments[0] ?? "";
-const inferredBreadcrumbItems = breadcrumbItems?.length
-  ? breadcrumbItems
-  : [
-      { name: "Home", url: new URL("/", siteBase).toString() },
-      ...pathSegments.map((segment, index) => ({
-        name: segment
-          .replace(/-/g, " ")
-          .replace(/\b\w/g, (letter) => letter.toUpperCase()),
-        url: new URL(
-          `/${pathSegments.slice(0, index + 1).join("/")}`,
-          siteBase,
-        ).toString(),
-      })),
-    ];
+const normalizedBreadcrumbItems = normalizeBreadcrumbItems({
+  siteBase,
+  currentPath,
+  title,
+  breadcrumbItems,
+});
 
-if (inferredBreadcrumbItems.length > 1) {
-  const breadcrumbList = inferredBreadcrumbItems.map((item, index) => ({
+if (normalizedBreadcrumbItems.length > 1) {
+  const breadcrumbList = normalizedBreadcrumbItems.map((item, index) => ({
     "@type": "ListItem",
     position: index + 1,
     name: item.name,
-    item: item.url,
+    item: item.absoluteUrl,
   }));
 
   structuredData.push({
@@ -412,6 +406,10 @@ const structuredDataJson = JSON.stringify(structuredData);
               : undefined}
             data-pagefind-body
           >
+            <Breadcrumbs
+              items={normalizedBreadcrumbItems}
+              className="container page-breadcrumbs"
+            />
             <slot />
           </main>
           <footer class="footer container" aria-label="Site footer">

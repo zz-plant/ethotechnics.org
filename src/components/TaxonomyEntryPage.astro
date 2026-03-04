@@ -35,8 +35,7 @@ const entryUrlForSlug = (slug: string) =>
   normalizedBasePath ? `${normalizedBasePath}/${slug}` : `/${slug}`;
 
 const segments = entry.slug.split("/");
-const parentSlug =
-  segments.length > 1 ? segments.slice(0, -1).join("/") : null;
+const parentSlug = segments.length > 1 ? segments.slice(0, -1).join("/") : null;
 const parentEntry = parentSlug ? taxonomyEntriesBySlug.get(parentSlug) : null;
 const basePathRoot =
   normalizedBasePath && normalizedBasePath !== "/taxonomy"
@@ -91,12 +90,13 @@ const anchorLinks = [
   { href: "#navigation", label: "Navigation" },
 ];
 
-const levelLabel = segments.length === 1 ? "Domain" : `Level ${segments.length}`;
+const levelLabel =
+  segments.length === 1 ? "Domain" : `Level ${segments.length}`;
 
 const collectionLabel =
   normalizedBasePath === "/taxonomy"
     ? "Taxonomy"
-    : parentEntry?.title ?? entry.title;
+    : (parentEntry?.title ?? entry.title);
 
 const breadcrumbItems = [
   {
@@ -132,15 +132,6 @@ const structuredData = {
       isPartOf: {
         "@id": `${collectionUrl}#collection`,
       },
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: breadcrumbItems.map((item, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: item.name,
-        item: item.url,
-      })),
     },
   ],
 };
@@ -220,18 +211,20 @@ const structuredDataJson = JSON.stringify(structuredData);
     description="Link to the standards, tools, and references that define expected outcomes."
   >
     <CardGrid className="grid--two">
-      {entry.relatedArtifacts.map((artifact) => (
-        <CardItem
-          eyebrow={artifact.type}
-          title={artifact.label}
-          description="Reference this artifact to align delivery and audits."
-          descriptionTone="default"
-        >
-          <p class="muted">
-            <a href={artifact.href}>Open the {artifact.type}</a>
-          </p>
-        </CardItem>
-      ))}
+      {
+        entry.relatedArtifacts.map((artifact) => (
+          <CardItem
+            eyebrow={artifact.type}
+            title={artifact.label}
+            description="Reference this artifact to align delivery and audits."
+            descriptionTone="default"
+          >
+            <p class="muted">
+              <a href={artifact.href}>Open the {artifact.type}</a>
+            </p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -244,39 +237,47 @@ const structuredDataJson = JSON.stringify(structuredData);
   >
     <CardGrid className="grid--three">
       <CardItem title="Parent level" descriptionTone="default">
-        {parentEntry ? (
-          <p class="muted">
-            <a href={entryUrlForSlug(parentEntry.slug)}>{parentEntry.title}</a>
-          </p>
-        ) : (
-          <p class="muted">This is a top-level domain with no parent.</p>
-        )}
+        {
+          parentEntry ? (
+            <p class="muted">
+              <a href={entryUrlForSlug(parentEntry.slug)}>
+                {parentEntry.title}
+              </a>
+            </p>
+          ) : (
+            <p class="muted">This is a top-level domain with no parent.</p>
+          )
+        }
       </CardItem>
       <CardItem title="Sibling levels" descriptionTone="default">
-        {siblingEntries.length > 0 ? (
-          <ul class="pill-list pill-list--wrap">
-            {siblingEntries.map((sibling) => (
-              <li>
-                <a href={entryUrlForSlug(sibling.slug)}>{sibling.title}</a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p class="muted">No siblings at this level yet.</p>
-        )}
+        {
+          siblingEntries.length > 0 ? (
+            <ul class="pill-list pill-list--wrap">
+              {siblingEntries.map((sibling) => (
+                <li>
+                  <a href={entryUrlForSlug(sibling.slug)}>{sibling.title}</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="muted">No siblings at this level yet.</p>
+          )
+        }
       </CardItem>
       <CardItem title="Child levels" descriptionTone="default">
-        {childEntries.length > 0 ? (
-          <ul class="pill-list pill-list--wrap">
-            {childEntries.map((child) => (
-              <li>
-                <a href={entryUrlForSlug(child.slug)}>{child.title}</a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p class="muted">No child levels defined beneath this entry.</p>
-        )}
+        {
+          childEntries.length > 0 ? (
+            <ul class="pill-list pill-list--wrap">
+              {childEntries.map((child) => (
+                <li>
+                  <a href={entryUrlForSlug(child.slug)}>{child.title}</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="muted">No child levels defined beneath this entry.</p>
+          )
+        }
       </CardItem>
     </CardGrid>
   </SectionBlock>
