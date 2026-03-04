@@ -191,6 +191,9 @@ main() {
   log "Installing dependencies with bun install --frozen-lockfile."
   bun install --frozen-lockfile
 
+  log "Installing repository git hooks."
+  bun run hooks:install
+
   install_playwright_assets
 
   if [[ "${RUN_CHECK}" -eq 1 ]]; then
