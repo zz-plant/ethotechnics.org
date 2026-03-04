@@ -1,3 +1,5 @@
+import { WebHaptics } from "web-haptics";
+
 type PagefindResultData = {
   url: string;
   excerpt: string;
@@ -133,6 +135,21 @@ const applyHighlight = (element: HTMLElement, query: string) => {
 };
 
 const initSearch = () => {
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  const haptics = prefersReducedMotion ? null : new WebHaptics();
+
+  const triggerHaptic = (
+    pattern: "nudge" | "success" | "error",
+    options?: { intensity?: number },
+  ) => {
+    if (!haptics) return;
+    haptics.trigger(pattern, options).catch((error) => {
+      console.warn("Haptic feedback failed.", error);
+    });
+  };
+
   const searchContainers = Array.from(
     document.querySelectorAll<HTMLElement>("[data-search-container]"),
   );
@@ -166,6 +183,7 @@ const initSearch = () => {
         !isTypingContext(document.activeElement)
       ) {
         event.preventDefault();
+        triggerHaptic("nudge", { intensity: 0.25 });
         activeInstance.openDialog({ pushHistory: true });
       }
     });
@@ -469,6 +487,8 @@ const initSearch = () => {
       if (focusReturn instanceof HTMLElement) {
         focusReturn.focus();
       }
+
+      triggerHaptic("nudge", { intensity: 0.2 });
     };
 
     const syncDialogWithUrl = () => {
@@ -486,7 +506,10 @@ const initSearch = () => {
       }
     };
 
-    trigger.addEventListener("click", () => openDialog({ pushHistory: true }));
+    trigger.addEventListener("click", () => {
+      triggerHaptic("nudge", { intensity: 0.3 });
+      openDialog({ pushHistory: true });
+    });
     closeButton?.addEventListener("click", () => closeDialog());
 
     dialog.addEventListener("close", () => {
@@ -541,6 +564,7 @@ const initSearch = () => {
         searchResults(query).catch((error) => {
           updateResultsBusy(results, false);
           setSearchMessage(results, "Search failed. Please try again.");
+          triggerHaptic("error", { intensity: 0.35 });
           console.warn("Search failed.", error);
         });
       }, SEARCH_DEBOUNCE_MS);
@@ -573,8 +597,22 @@ const initSearch = () => {
         );
         if (firstResult) {
           event.preventDefault();
+          triggerHaptic("success", { intensity: 0.35 });
           firstResult.click();
         }
+      }
+    });
+
+    dialog.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      if (target.closest(".search-result a")) {
+        triggerHaptic("success", { intensity: 0.35 });
+      }
+
+      if (target.closest(".search-recent__button")) {
+        triggerHaptic("nudge", { intensity: 0.25 });
       }
     });
 
@@ -668,6 +706,14 @@ const initSearch = () => {
       }
     });
   }
+
+  window.addEventListener(
+    "beforeunload",
+    () => {
+      haptics?.destroy();
+    },
+    { once: true },
+  );
 };
 
 if (document.readyState === "loading") {
