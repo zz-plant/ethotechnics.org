@@ -9,10 +9,13 @@ const pageTitle = "Incident memo template";
 const pageDescription =
   "A governance-ready memo structure for documenting incidents, timelines, impacts, and remediation commitments.";
 const permalink = "/standards/incident-memo";
+const publishedTime = "2026-03-01T00:00:00Z";
+const modifiedTime = "2026-03-04T00:00:00Z";
 const anchorLinks = [
   { href: "#when-to-use", label: "When to use" },
   { href: "#structure", label: "Structure" },
   { href: "#template", label: "Template" },
+  { href: "#workflow-cluster", label: "Workflow path" },
   { href: "#citations", label: "Citations" },
 ];
 
@@ -89,7 +92,12 @@ const incidentTemplate = `Incident memo (Template)
 - Comms or transparency commitments.`;
 ---
 
-<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription}>
+<BaseLayout
+  title="AI incident response workflow template | Ethotechnics"
+  description={pageDescription}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+>
   <PageIntro
     eyebrow="Standards"
     title={pageTitle}
@@ -144,6 +152,38 @@ const incidentTemplate = `Incident memo (Template)
     description="Replace the prompts with incident-specific details and link to receipts or logs where possible."
   >
     <pre class="code-block">{incidentTemplate}</pre>
+  </SectionBlock>
+
+
+  <SectionBlock
+    id="workflow-cluster"
+    eyebrow="Workflow path"
+    title="Run the incident workflow in one progression"
+    description="Follow a fixed sequence so handoffs remain auditable from first report to final evidence packet."
+    variant="alt"
+  >
+    <ol class="muted">
+      <li>
+        <strong>Explainer:</strong>
+        <a href="/standards/incident-memo">Incident memo workflow</a> for shared
+        response framing.
+      </li>
+      <li>
+        <strong>Mechanism template:</strong>
+        <a href="/standards/pm-01-failure-postmortem-template">Failure postmortem template</a>
+        to route triage and stabilization responsibilities.
+      </li>
+      <li>
+        <strong>Downloadable artifact:</strong>
+        <a href="/bundles/diagnostic-export-kit">Download diagnostic export kit</a>
+        for shareable readouts and response evidence.
+      </li>
+      <li>
+        <strong>Clinic/signup:</strong>
+        <a href="/participate">Contact the clinic</a> for live response coaching and
+        evidence review.
+      </li>
+    </ol>
   </SectionBlock>
 
   <SectionBlock

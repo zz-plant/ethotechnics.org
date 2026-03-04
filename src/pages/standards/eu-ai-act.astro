@@ -7,18 +7,26 @@ const pageTitle = "EU AI Act";
 const pageDescription =
   "Ethotechnics-style critique of the EU AI Act’s risk-tiered regulatory regime.";
 const permalink = "/standards/eu-ai-act";
+const publishedTime = "2026-02-15T00:00:00Z";
+const modifiedTime = "2026-03-04T00:00:00Z";
 const lastUpdated = "2026-02-15";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
   { href: "#timeline", label: "Timeline status" },
   { href: "#implications-now", label: "Implications now" },
+  { href: "#implementation-cluster", label: "Implementation controls path" },
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
   { href: "#keep-current", label: "How we keep this current" },
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+<BaseLayout
+  title="EU AI Act implementation controls | Ethotechnics"
+  description={pageDescription}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+>
   <PageIntro
     eyebrow="Regulatory regime"
     title={pageTitle}
@@ -44,6 +52,36 @@ const anchorLinks = [
       oversight, and enforces compliance through EU and national authorities.
     </p>
     <p><strong>Resource status:</strong> reviewed and updated {lastUpdated}.</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="implementation-cluster"
+    eyebrow="Implementation controls"
+    title="Follow the implementation path from explainer to clinic"
+    description="Move through one sequence: explain the requirement, deploy the mechanism template, export the artifact, then escalate to clinic support."
+  >
+    <ol class="muted">
+      <li>
+        <strong>Explainer:</strong> <a href="/standards/eu-ai-act">EU AI Act</a>
+        baseline and implementation timing.
+      </li>
+      <li>
+        <strong>Mechanism template:</strong>
+        <a href="/standards/enforceable-governance-crosswalks"
+          >Control crosswalk workbook</a
+        >
+        to map obligations to accountable controls.
+      </li>
+      <li>
+        <strong>Downloadable artifact:</strong>
+        <a href="/bundles/procurement-clause-pack">Procurement clause pack</a>
+        for policy, legal, and vendor implementation.
+      </li>
+      <li>
+        <strong>Clinic/signup:</strong> <a href="/participate">Book a clinic</a>
+        for implementation review and evidence-pack planning.
+      </li>
+    </ol>
   </SectionBlock>
 
   <SectionBlock
