@@ -158,7 +158,7 @@ const failureChoiceIcons: Record<string, string[]> = {
             class="button primary institute-hero__primary-cta"
             href="#failure-intake"
           >
-            Triage an incident
+            Start triage
           </a>
         </div>
         <details
@@ -220,8 +220,13 @@ const failureChoiceIcons: Record<string, string[]> = {
     <p class="eyebrow">Incident triage</p>
     <h2 id="failure-intake-heading">What needs attention right now?</h2>
     <p class="section-lead">
-      Choose the closest situation to get immediate next steps.
+      Start with triage, stabilize impact, then capture evidence for follow-through.
     </p>
+    <ol class="muted small">
+      <li><strong>Triage:</strong> choose the closest failure state and assign ownership.</li>
+      <li><strong>Stabilize:</strong> execute the immediate containment or rollback path.</li>
+      <li><strong>Evidence:</strong> capture receipts and attach diagnostic outputs.</li>
+    </ol>
     <ul class="failure-grid" aria-labelledby="failure-intake-heading">
       {
         failureStates.map((state) => {

@@ -8,7 +8,8 @@ const pageDescription =
   "Ethotechnics-style critique of the NIST AI Risk Management Framework and its voluntary governance model.";
 const permalink = "/standards/nist-ai-rmf";
 const version = "v1.0.0";
-const lastUpdated = "2026-02-22";
+const publishedTime = "2026-02-22T00:00:00Z";
+const modifiedTime = "2026-02-22T00:00:00Z";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
   { href: "#critique", label: "Ethotechnics critique" },
@@ -16,7 +17,12 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+<BaseLayout
+  title="NIST AI RMF operational templates and control gaps"
+  description="Translate NIST AI RMF guidance into operational templates, implementation controls, and evidence-ready workflows."
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+>
   <PageIntro
     eyebrow="Adopted standard"
     title={pageTitle}
@@ -24,7 +30,6 @@ const anchorLinks = [
     permalink={permalink}
     anchorLinks={anchorLinks}
     version={version}
-    lastUpdated={lastUpdated}
     panelCopy={{
       eyebrow: "Ethotechnics read",
       title: "Process evidence vs. runtime control",
@@ -77,5 +82,21 @@ const anchorLinks = [
       The failure mode is a well-documented process that still leaves people
       exposed while the institution “manages risk” on a slow clock.
     </p>
+  </SectionBlock>
+
+
+  <SectionBlock
+    id="next-steps"
+    eyebrow="Implementation sequence"
+    title="Operationalize NIST AI RMF in four moves"
+    description="Use this cluster path to go from interpretation to a shareable implementation package."
+    variant="alt"
+  >
+    <ol class="muted">
+      <li>Read the explainer: <a href="/explainers/governance-capability">governance capability explainer</a>.</li>
+      <li>Apply a mechanism template: <a href="/standards/enforceable-governance-crosswalks">control crosswalk template</a>.</li>
+      <li>Download an artifact: <a href="/bundles/diagnostic-export-kit">diagnostic export kit</a>.</li>
+      <li>Escalate to clinic support: <a href="/participate">governance clinic intake and contact</a>.</li>
+    </ol>
   </SectionBlock>
 </BaseLayout>

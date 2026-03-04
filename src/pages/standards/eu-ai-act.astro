@@ -7,6 +7,8 @@ const pageTitle = "EU AI Act";
 const pageDescription =
   "Ethotechnics-style critique of the EU AI Act’s risk-tiered regulatory regime.";
 const permalink = "/standards/eu-ai-act";
+const publishedTime = "2026-02-15T00:00:00Z";
+const modifiedTime = "2026-02-15T00:00:00Z";
 const lastUpdated = "2026-02-15";
 const anchorLinks = [
   { href: "#overview", label: "What it is" },
@@ -18,7 +20,12 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
+<BaseLayout
+  title="EU AI Act implementation controls and governance gaps"
+  description="Map EU AI Act obligations to implementation controls, evidence templates, and incident-response operations."
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+>
   <PageIntro
     eyebrow="Regulatory regime"
     title={pageTitle}
@@ -147,5 +154,27 @@ const anchorLinks = [
         Parliament, or Council announcements.
       </li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="next-steps"
+    eyebrow="Implementation sequence"
+    title="Move from explainer to operational artifact"
+    description="Use this progression to turn EU AI Act interpretation into auditable operations."
+  >
+    <ol class="muted">
+      <li>
+        Read the explainer: <a href="/explainers/contestability">Contestability fundamentals</a>.
+      </li>
+      <li>
+        Apply a mechanism template: <a href="/standards/enforceable-governance-crosswalks">enforceable governance crosswalks</a>.
+      </li>
+      <li>
+        Download an artifact: <a href="/evidence-packs/std-02">STD-02 evidence pack</a>.
+      </li>
+      <li>
+        Escalate to clinic support: <a href="/participate">book governance clinic and contact options</a>.
+      </li>
+    </ol>
   </SectionBlock>
 </BaseLayout>

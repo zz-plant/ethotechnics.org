@@ -9,7 +9,6 @@ import ReferenceCallout from "../../components/ReferenceCallout.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import StudioBadge from "../../components/StudioBadge.astro";
 import { instituteStudioCallout } from "../../content/callouts";
 import { quickStartGuides } from "../../content/quick-start";
 
@@ -67,7 +66,7 @@ const { cspNonce } = Astro.locals;
   >
     <Fragment slot="actions">
       <a class="button primary" href="#recommended">
-        Start step 1: recommendation
+        Start sequence
       </a>
     </Fragment>
   </PageIntro>
@@ -89,6 +88,11 @@ const { cspNonce } = Astro.locals;
         {recommendedDetails.map((detail) => (
           <p class={detail.className}>{detail.text}</p>
         ))}
+        <ol class="muted small">
+          <li>Triage the issue and confirm the immediate decision owner.</li>
+          <li>Stabilize with the fastest mechanism or diagnostic path.</li>
+          <li>Capture evidence and share a readout with stakeholders.</li>
+        </ol>
         <SectionActions className="callout__actions">
           {recommendedAction && (
             <a class="button primary" href={recommendedAction.href}>
@@ -116,9 +120,6 @@ const { cspNonce } = Astro.locals;
       </div>
     )
   }
-  <SectionActions>
-    <StudioBadge />
-  </SectionActions>
   <SectionBlock
     id="framing"
     eyebrow={framing.eyebrow}
@@ -220,7 +221,7 @@ const { cspNonce } = Astro.locals;
                 class="button ghost button--compact"
                 href={`/quick-start/${guide.slug}`}
               >
-                Read {guide.title.toLowerCase()} guide
+                Start {guide.title.toLowerCase()} guide
               </a>
             </div>
           </CardItem>

@@ -89,7 +89,12 @@ const incidentTemplate = `Incident memo (Template)
 - Comms or transparency commitments.`;
 ---
 
-<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription}>
+<BaseLayout
+  title="AI incident response workflow memo template"
+  description="Use this AI incident response workflow template to run triage, stabilization, evidence capture, and remediation reporting."
+  publishedTime={publication.published}
+  modifiedTime={publication.updated}
+>
   <PageIntro
     eyebrow="Standards"
     title={pageTitle}
@@ -121,6 +126,22 @@ const incidentTemplate = `Incident memo (Template)
       <li>Publish a redacted version if external transparency is required.</li>
       <li>Link to mechanism evidence and diagnostics outputs for remediation.</li>
     </ul>
+  </SectionBlock>
+
+
+
+  <SectionBlock
+    id="workflow-order"
+    eyebrow="Workflow order"
+    title="Follow triage → stabilize → evidence"
+    description="Use this ordering to keep response decisions fast and audit-ready."
+    variant="alt"
+  >
+    <ol class="muted">
+      <li><strong>Triage:</strong> classify impact severity, assign the incident owner, and set the first response clock.</li>
+      <li><strong>Stabilize:</strong> apply containment or rollback actions before expanding scope analysis.</li>
+      <li><strong>Evidence:</strong> capture receipts, timeline events, and decision logs after stabilization is in place.</li>
+    </ol>
   </SectionBlock>
 
   <SectionBlock
