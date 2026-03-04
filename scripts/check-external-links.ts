@@ -37,6 +37,24 @@ function getLine(content: string, index: number): number {
   return content.slice(0, index).split("\n").length;
 }
 
+function getAttributeStringValue(tag: string, attribute: string): string | null {
+  const quotedMatch = tag.match(
+    new RegExp(`${attribute}\\s*=\\s*(["'])(.*?)\\1`, "i"),
+  );
+  if (quotedMatch) {
+    return quotedMatch[2];
+  }
+
+  const jsxExpressionMatch = tag.match(
+    new RegExp(`${attribute}\\s*=\\s*\\{\\s*(["'])(.*?)\\1\\s*\\}`, "i"),
+  );
+  if (jsxExpressionMatch) {
+    return jsxExpressionMatch[2];
+  }
+
+  return null;
+}
+
 function findUnsafeBlankTargets(file: string): Finding[] {
   const content = readFileSync(file, "utf8");
   const findings: Finding[] = [];
@@ -51,8 +69,8 @@ function findUnsafeBlankTargets(file: string): Finding[] {
       continue;
     }
 
-    const relMatch = tag.match(/rel\s*=\s*(["'])(.*?)\1/i);
-    if (!relMatch) {
+    const relValue = getAttributeStringValue(tag, "rel");
+    if (!relValue) {
       findings.push({
         file,
         line: getLine(content, tagStart),
@@ -63,7 +81,7 @@ function findUnsafeBlankTargets(file: string): Finding[] {
       continue;
     }
 
-    const relTokens = relMatch[2].toLowerCase().split(/\s+/).filter(Boolean);
+    const relTokens = relValue.toLowerCase().split(/\s+/).filter(Boolean);
     const missing = ["noopener", "noreferrer"].filter(
       (token) => !relTokens.includes(token),
     );
