@@ -17,6 +17,7 @@ const pageDescription =
 const permalink = "/standards/implementation-examples";
 const anchorLinks = [
   { href: "#overview", label: "Overview" },
+  { href: "#comparison-map", label: "Comparison map" },
   { href: "#domains", label: "Domains" },
   { href: "#how-to-use", label: "How to use" },
   { href: "#citations", label: "Cite this page" },
@@ -59,6 +60,67 @@ const publication = createImplementationPublication(
     <p class="muted">
       Use these pages when translating a policy requirement into specific controls, runbooks,
       and architectural constraints.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="comparison-map"
+    eyebrow="Comparison map"
+    title="Find the right implementation example quickly"
+    description="Use this as a triage layer before opening a full scenario page."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--compare">
+        <thead>
+          <tr>
+            <th scope="col">If your system risk looks like…</th>
+            <th scope="col">Open this example first</th>
+            <th scope="col">What to validate immediately</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Fast, high-volume user decisions with weak recourse</th>
+            <td>
+              <a href="/standards/implementation-examples/customer-service-chatbots">
+                Customer service chatbots
+              </a>
+            </td>
+            <td>Guaranteed human handoff and a measurable time-to-halt trigger.</td>
+          </tr>
+          <tr>
+            <th scope="row">Denial or eligibility automation that can lock people out</th>
+            <td>
+              <a href="/standards/implementation-examples/loan-approval">
+                Loan approval systems
+              </a>
+            </td>
+            <td>Appeal receipts, deadline clocks, and authority to reverse outcomes.</td>
+          </tr>
+          <tr>
+            <th scope="row">Safety-critical recommendations with clinical impact</th>
+            <td>
+              <a href="/standards/implementation-examples/healthcare-diagnostics">
+                Healthcare diagnostic AI
+              </a>
+            </td>
+            <td>Plural oversight paths and immediate reversibility at runtime.</td>
+          </tr>
+          <tr>
+            <th scope="row">Account protection that can cause service lockouts</th>
+            <td>
+              <a href="/standards/implementation-examples/financial-fraud-detection">
+                Financial fraud detection
+              </a>
+            </td>
+            <td>Time-to-restore SLOs plus visible repair logs for legitimate users.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">
+      Start with the closest risk shape, then reuse the checklist section to convert design
+      intent into enforceable constraints.
     </p>
   </SectionBlock>
 
