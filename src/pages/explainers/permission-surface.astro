@@ -14,6 +14,24 @@ const definition = [
 const example =
   "A workplace AI tool maintains a live inventory of permissions, who approved them, and when each permission expires or is revoked.";
 
+const distinctSignals = [
+  {
+    title: "Surface inventory",
+    detail:
+      "List every permission request location (setup, just-in-time, settings, API scopes) and align each with a plain-language purpose.",
+  },
+  {
+    title: "Common failure pattern",
+    detail:
+      "Bundled permissions hide optional data grabs; decompose scopes so users can grant minimal access without breaking core tasks.",
+  },
+  {
+    title: "Evidence to ship",
+    detail:
+      "Publish scope-level acceptance rates, denial impacts, and rollback history when unnecessary permissions are removed.",
+  },
+];
+
 const ctas = [
   {
     eyebrow: "Standard",
@@ -59,6 +77,7 @@ const faqs = [
   glossary={{ href: "/glossary/permission-surface", label: "Permission Surface" }}
   definition={definition}
   example={example}
+  distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
 />

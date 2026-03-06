@@ -14,6 +14,24 @@ const definition = [
 const example =
   "A content moderation pipeline triggers an ethical interrupt when model confidence drops below a threshold and harm severity is high, routing the case to a human reviewer.";
 
+const distinctSignals = [
+  {
+    title: "Interrupt taxonomy",
+    detail:
+      "Differentiate soft prompts, hard stops, and mandatory escalation interrupts so teams can choose the least-coercive effective intervention.",
+  },
+  {
+    title: "Common failure pattern",
+    detail:
+      "Interrupts become nuisance popups if trigger thresholds are vague; tie each interrupt to a risk signal and expiry condition.",
+  },
+  {
+    title: "Evidence to ship",
+    detail:
+      "Track interrupt trigger precision, override outcomes, and incident reductions attributable to each interrupt class.",
+  },
+];
+
 const ctas = [
   {
     eyebrow: "Standard",
@@ -59,6 +77,7 @@ const faqs = [
   glossary={{ href: "/glossary/ethical-interrupts", label: "Ethical Interrupts" }}
   definition={definition}
   example={example}
+  distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
 />

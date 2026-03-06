@@ -14,6 +14,24 @@ const definition = [
 const example =
   "A benefits portal tracks total minutes spent per appeal, publishes a monthly burden index, and commits to reducing the index quarter over quarter.";
 
+const distinctSignals = [
+  {
+    title: "Operational fingerprint",
+    detail:
+      "Define a per-journey burden scorecard (minutes, retries, documents requested) and publish it monthly so searchers can compare programs over time.",
+  },
+  {
+    title: "Common failure pattern",
+    detail:
+      "Burden indices fail when teams average away outliers; include p90 and p99 burden to expose who experiences the longest administrative drag.",
+  },
+  {
+    title: "Evidence to ship",
+    detail:
+      "Attach raw journey timing logs, abandonment points, and remediation commits that explain quarter-over-quarter burden reductions.",
+  },
+];
+
 const ctas = [
   {
     eyebrow: "Standard",
@@ -59,6 +77,7 @@ const faqs = [
   glossary={{ href: "/glossary/burden-index", label: "Burden Index" }}
   definition={definition}
   example={example}
+  distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
 />

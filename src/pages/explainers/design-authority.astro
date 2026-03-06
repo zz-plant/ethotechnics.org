@@ -14,6 +14,24 @@ const definition = [
 const example =
   "A platform names a Design Authority for its recommender system and requires that role to sign off on any changes to ranking logic or safety thresholds.";
 
+const distinctSignals = [
+  {
+    title: "Authority boundary",
+    detail:
+      "Clarify who can approve high-impact UX patterns, who can block dark patterns, and how exceptions are escalated.",
+  },
+  {
+    title: "Common failure pattern",
+    detail:
+      "When design authority is symbolic, risky experiments bypass review under growth exceptions; require prelaunch sign-off trails.",
+  },
+  {
+    title: "Evidence to ship",
+    detail:
+      "Store design decision records, rejected-pattern logs, and release gates showing authority exercised before deployment.",
+  },
+];
+
 const ctas = [
   {
     eyebrow: "Standard",
@@ -59,6 +77,7 @@ const faqs = [
   glossary={{ href: "/glossary/design-authority", label: "Design Authority" }}
   definition={definition}
   example={example}
+  distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
 />
