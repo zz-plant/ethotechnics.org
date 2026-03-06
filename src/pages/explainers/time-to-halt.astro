@@ -14,6 +14,24 @@ const definition = [
 const example =
   "A payments platform sets a five-second TTH target so any queued transfer stops within five seconds of a user hitting the halt control.";
 
+const distinctSignals = [
+  {
+    title: "Metric definition",
+    detail:
+      "Measure TTH from authenticated halt signal receipt to confirmed downstream action cessation, not merely UI acknowledgement.",
+  },
+  {
+    title: "Common failure pattern",
+    detail:
+      "Teams monitor average TTH while tail latency remains dangerous; enforce p95/p99 thresholds for high-harm action classes.",
+  },
+  {
+    title: "Evidence to ship",
+    detail:
+      "Provide endpoint-level TTH histograms, dependency breakdowns, and incident reviews for every threshold breach.",
+  },
+];
+
 const ctas = [
   {
     eyebrow: "Standard",
@@ -59,6 +77,7 @@ const faqs = [
   glossary={{ href: "/glossary/time-to-halt", label: "Time-to-Halt (TTH)" }}
   definition={definition}
   example={example}
+  distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
 />

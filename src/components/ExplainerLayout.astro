@@ -19,6 +19,11 @@ interface FaqItem {
   answer: string;
 }
 
+interface DistinctSignal {
+  title: string;
+  detail: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -29,6 +34,7 @@ interface Props {
   };
   definition: string[];
   example: string;
+  distinctSignals: DistinctSignal[];
   ctas: CtaLink[];
   faqs: FaqItem[];
 }
@@ -40,6 +46,7 @@ const {
   glossary,
   definition,
   example,
+  distinctSignals,
   ctas,
   faqs,
 } = Astro.props as Props;
@@ -49,6 +56,7 @@ const explainerSeoMetadata = getExplainerSeoMetadata(permalink);
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
   { href: "#example", label: "Example use case" },
+  { href: "#distinct-signals", label: "Distinct implementation signals" },
   { href: "#artifacts", label: "Related artifacts" },
   { href: "#faq", label: "FAQ" },
 ];
@@ -114,6 +122,21 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     variant="alt"
   >
     <p>{example}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="distinct-signals"
+    eyebrow="Implementation"
+    title="Distinct implementation signals"
+    description="Unique operational detail to help this concept stand on its own in policy, procurement, and review workflows."
+  >
+    <CardGrid className="grid--three">
+      {
+        distinctSignals.map((signal) => (
+          <CardItem title={signal.title} description={signal.detail} descriptionTone="default" />
+        ))
+      }
+    </CardGrid>
   </SectionBlock>
 
   <SectionBlock

@@ -14,6 +14,24 @@ const definition = [
 const example =
   "A health data app asks for consent at onboarding, requires renewal every 90 days, and provides a one-click revoke option with a downloadable receipt.";
 
+const distinctSignals = [
+  {
+    title: "Lifecycle map",
+    detail:
+      "Document each consent state (requested, granted, renewed, revoked, expired) with explicit triggers and user-visible receipts.",
+  },
+  {
+    title: "Common failure pattern",
+    detail:
+      "Most programs collect consent once and never revisit context changes; add renewal checkpoints when purpose, model, or data sharing changes.",
+  },
+  {
+    title: "Evidence to ship",
+    detail:
+      "Publish revocation latency, renewal completion rates, and screenshots of consent history so auditors can verify enforceability.",
+  },
+];
+
 const ctas = [
   {
     eyebrow: "Standard",
@@ -59,6 +77,7 @@ const faqs = [
   glossary={{ href: "/glossary/consent-journey", label: "Consent Journey" }}
   definition={definition}
   example={example}
+  distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
 />

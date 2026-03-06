@@ -14,6 +14,24 @@ const definition = [
 const example =
   "A loan application flow includes a persistent “Stop and resume later” control that saves progress, issues a receipt, and confirms the application will not be penalized for pausing.";
 
+const distinctSignals = [
+  {
+    title: "Stop-control criteria",
+    detail:
+      "Require always-visible halt controls, no-penalty pause paths, and resumable state snapshots across every critical journey.",
+  },
+  {
+    title: "Common failure pattern",
+    detail:
+      "Flows claim stoppability but invalidate progress after pause; test resume behavior under network loss and session expiry.",
+  },
+  {
+    title: "Evidence to ship",
+    detail:
+      "Share stop-request volumes, successful resume rates, and audit logs proving no punitive flags were attached after halts.",
+  },
+];
+
 const ctas = [
   {
     eyebrow: "Standard",
@@ -59,6 +77,7 @@ const faqs = [
   glossary={{ href: "/glossary/stoppability", label: "Stoppability" }}
   definition={definition}
   example={example}
+  distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
 />

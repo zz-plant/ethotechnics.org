@@ -14,6 +14,24 @@ const definition = [
 const example =
   "An eligibility denial includes an appeal button that guarantees a human review within 72 hours and provides a receipt for every step.";
 
+const distinctSignals = [
+  {
+    title: "Decision object requirements",
+    detail:
+      "Specify the minimum fields in a contestable decision object: reason code, evidence source, owner, deadline, and reversal authority.",
+  },
+  {
+    title: "Common failure pattern",
+    detail:
+      "Appeal links without binding authority create performative review; name the role that can reverse outcomes and publish its SLA.",
+  },
+  {
+    title: "Evidence to ship",
+    detail:
+      "Report reversal rate by decision type, median time-to-remedy, and percentage of appeals receiving complete receipts.",
+  },
+];
+
 const ctas = [
   {
     eyebrow: "Standard",
@@ -59,6 +77,7 @@ const faqs = [
   glossary={{ href: "/glossary/contestability", label: "Contestability" }}
   definition={definition}
   example={example}
+  distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
 />
