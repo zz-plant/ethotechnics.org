@@ -20,6 +20,8 @@ It consolidates references that were previously spread across multiple index sec
   critique with prioritized improvements.
 - [`mobile-ux-critique-2026-02-20.md`](mobile-ux-critique-2026-02-20.md):
   refreshed mobile audit focused on first-screen clarity and action speed.
+- [`weakest-features-triage-2026-03.md`](weakest-features-triage-2026-03.md):
+  remove-vs-improve decisions and phased execution order for current weakest UX surfaces.
 - [`ux-audit-kondo-series-2026.md`](ux-audit-kondo-series-2026.md):
   consolidated findings and action backlog from the prior multi-round Kondo UX audits.
 
