@@ -6672,6 +6672,42 @@
     max-width: 1080px;
   }
 
+  .mobile-jump-anchors {
+    max-width: 1080px;
+  }
+
+  .mobile-jump-anchors__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .mobile-jump-anchors__list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.35rem 0.68rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
+    background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+    color: color-mix(in srgb, var(--accent) 66%, var(--text));
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 550;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  .mobile-jump-anchors__list a:hover,
+  .mobile-jump-anchors__list a:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  }
+
   .mobile-shortcuts__item {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -6755,6 +6791,7 @@
   @media (prefers-reduced-motion: reduce) {
     .mobile-shortcuts__item,
     .mobile-shortcuts__title::after,
+    .mobile-jump-anchors__list a,
     .failure-grid__button,
     .failure-grid__icon {
       transition: none;

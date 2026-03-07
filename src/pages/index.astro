@@ -13,13 +13,13 @@ const failureChoiceLabels: Record<string, string> = {
 };
 
 const failurePriorityBadges: Record<string, string> = {
-  "decision-appealed": "Owner in 24h",
-  "model-wrong": "Pause authority needed",
-  "queue-stuck": "Escalate in 4h",
-  "user-harmed": "Human response now",
-  "no-owner": "Assign owner",
-  "cant-explain": "Review evidence",
-  "cant-stop": "Activate hard halt",
+  "decision-appealed": "High · Owner in 24h",
+  "model-wrong": "Critical · Pause authority needed",
+  "queue-stuck": "High · Escalate in 4h",
+  "user-harmed": "Critical · Human response now",
+  "no-owner": "High · Assign owner",
+  "cant-explain": "Medium · Review evidence",
+  "cant-stop": "Critical · Activate hard halt",
 };
 
 const heroSecondaryChips = [
@@ -51,6 +51,25 @@ const mobileQuickActions = [
     description: "Review implementation examples",
     href: "/examples",
     iconPaths: ["M5 7h10", "M5 10h10"],
+  },
+];
+
+const jumpAnchors = [
+  {
+    label: "Incident triage",
+    href: "#failure-intake",
+  },
+  {
+    label: "Diagnostics",
+    href: "/diagnostics#diagnostic-tools",
+  },
+  {
+    label: "Standards",
+    href: "/standards#active",
+  },
+  {
+    label: "Evidence",
+    href: "/artifacts",
   },
 ];
 
@@ -165,7 +184,9 @@ const failureChoiceIcons: Record<string, string[]> = {
           class="institute-hero__other-starts"
           aria-label="Secondary starting paths"
         >
-          <summary class="small muted">More ways to start</summary>
+          <summary class="small muted">
+            More ways to start ({heroSecondaryChips.length} pathways)
+          </summary>
           <ul
             class="institute-hero__other-start-list"
             aria-label="Secondary starting paths"
@@ -215,6 +236,22 @@ const failureChoiceIcons: Record<string, string[]> = {
       }
     </ul>
   </section>
+
+  <nav
+    class="stack-xs mobile-jump-anchors"
+    aria-labelledby="mobile-jump-anchors-heading"
+  >
+    <p id="mobile-jump-anchors-heading" class="eyebrow">Jump to key sections</p>
+    <ul class="mobile-jump-anchors__list" aria-label="Homepage jump anchors">
+      {
+        jumpAnchors.map((anchor) => (
+          <li>
+            <a href={anchor.href}>{anchor.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 
   <section id="failure-intake" class="stack-lg">
     <p class="eyebrow">Incident triage</p>
