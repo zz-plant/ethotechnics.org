@@ -75,7 +75,7 @@ export const siteFooter: SiteFooterContent = {
           href: "https://ethotechnics.com",
           external: true,
         },
-        { label: "The Crumple Zone", href: "https://syadvada.com", external: true },
+        { label: "The Crumple Zone", href: "https://thecrumple.zone", external: true },
       ],
     },
     {
@@ -101,7 +101,7 @@ export const siteFooter: SiteFooterContent = {
         { label: "Send feedback", href: "/participate#feedback" },
         {
           label: "The Crumple Zone",
-          href: "https://syadvada.com",
+          href: "https://thecrumple.zone",
           external: true,
         },
         {
