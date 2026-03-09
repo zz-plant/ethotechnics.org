@@ -17,9 +17,7 @@ It consolidates references that were previously spread across multiple index sec
 - [`new-user-routes-critique-2026-02.md`](new-user-routes-critique-2026-02.md):
   two-route first-session critique constrained to remove/rebuild/modify actions.
 - [`mobile-ux-critique-2026-02.md`](mobile-ux-critique-2026-02.md): mobile-focused UX
-  critique with prioritized improvements.
-- [`mobile-ux-critique-2026-02-20.md`](mobile-ux-critique-2026-02-20.md):
-  refreshed mobile audit focused on first-screen clarity and action speed.
+  critique with prioritized improvements and refreshed recommendations.
 - [`weakest-features-triage-2026-03.md`](weakest-features-triage-2026-03.md):
   remove-vs-improve decisions and phased execution order for current weakest UX surfaces.
 - [`ux-audit-kondo-series-2026.md`](ux-audit-kondo-series-2026.md):
