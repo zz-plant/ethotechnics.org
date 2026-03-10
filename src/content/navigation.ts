@@ -32,16 +32,23 @@ export interface NavUtilityLink {
 
 export const navPrimaryLinks: NavLink[] = [
   {
-    href: "/institute",
-    label: "About",
-    description: "Who we are",
+    href: "/start-here",
+    label: "Start",
+    description: "Choose your next step",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/standards",
-    label: "Specs",
-    description: "Read standards",
+    label: "Standards",
+    description: "Read practical standards",
+    primary: true,
+    mobileFeatured: true,
+  },
+  {
+    href: "/diagnostics",
+    label: "Tools",
+    description: "Run diagnostics",
     primary: true,
     mobileFeatured: true,
   },
@@ -50,30 +57,11 @@ export const navPrimaryLinks: NavLink[] = [
     label: "Examples",
     description: "See binding walkthroughs",
     primary: true,
-    mobileFeatured: true,
   },
   {
-    href: "/applications",
-    label: "Applications",
-    description: "Deployable operating patterns",
-    primary: true,
-  },
-  {
-    href: "/bindings",
-    label: "Adoption",
-    description: "Bind controls to delivery",
-    primary: true,
-  },
-  {
-    href: "/participate",
-    label: "Contact",
-    description: "Reach the institute",
-    primary: true,
-  },
-  {
-    href: "/security/vulnerability-disclosure",
-    label: "Security",
-    description: "Report vulnerabilities",
+    href: "/institute",
+    label: "About",
+    description: "Institute mission and team",
     primary: true,
   },
 ];
@@ -96,6 +84,16 @@ const startHereUtilityLink: NavUtilityLink = {
 export const navUtilityDesktopLinks: NavUtilityLink[] = [
   startHereUtilityLink,
   {
+    href: "/applications",
+    label: "Applications",
+    class: "nav__utility-link nav__utility-link--quiet",
+  },
+  {
+    href: "/bindings",
+    label: "Adoption",
+    class: "nav__utility-link nav__utility-link--quiet",
+  },
+  {
     href: "https://github.com/zz-plant/ethotechnics",
     label: "GitHub",
     class: "nav__utility-link nav__utility-link--quiet",
@@ -108,6 +106,18 @@ export const navUtilityDesktopLinks: NavUtilityLink[] = [
     label: "Send feedback",
     class: "nav__utility-link nav__utility-link--quiet",
     icon: "lucide:message-circle",
+  },
+  {
+    href: "/participate",
+    label: "Contact",
+    class: "nav__utility-link nav__utility-link--quiet",
+    icon: "lucide:mail",
+  },
+  {
+    href: "/security/vulnerability-disclosure",
+    label: "Security",
+    class: "nav__utility-link nav__utility-link--quiet",
+    icon: "lucide:shield",
   },
   {
     href: "https://ethotechnics.com/studio",
