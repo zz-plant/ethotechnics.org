@@ -112,7 +112,9 @@ const failureChoiceIcons: Record<string, string[]> = {
         <p class="institute-hero__eyebrow">
           Ethotechnics Institute · Actionable AI standards
         </p>
-        <h1>Make high-stakes AI decisions safer and easier to manage</h1>
+        <h1 class="balanced-headline">
+          Make high-stakes AI decisions safer and easier to manage
+        </h1>
         <p class="section-lead">
           Start with triage when something breaks, or jump to standards and
           diagnostics when planning ahead.
@@ -176,10 +178,14 @@ const failureChoiceIcons: Record<string, string[]> = {
           <a
             class="button primary institute-hero__primary-cta"
             href="#failure-intake"
+            aria-describedby="primary-cta-detail"
           >
             Open incident triage
           </a>
         </div>
+        <p id="primary-cta-detail" class="visually-hidden">
+          Opens incident triage options with response priorities and next steps.
+        </p>
         <details
           class="institute-hero__other-starts"
           aria-label="Secondary starting paths"
