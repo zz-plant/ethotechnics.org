@@ -1,5 +1,3 @@
-import type { APIRoute } from "astro";
+import { createConfiguredApiRoute } from "./route-wrapper";
 
-import { createMechanismsResponse } from "../../utils/api-responses";
-
-export const GET: APIRoute = () => createMechanismsResponse();
+export const GET = createConfiguredApiRoute("mechanisms", "unversioned");

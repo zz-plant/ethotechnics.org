@@ -1,5 +1,6 @@
-import type { APIRoute } from "astro";
+import { createConfiguredApiRoute } from "../../route-wrapper";
 
-import { createPostMarketMonitoringResponse } from "../../../../utils/api-responses";
-
-export const GET: APIRoute = () => createPostMarketMonitoringResponse();
+export const GET = createConfiguredApiRoute(
+  "post-market-monitoring",
+  "versioned",
+);

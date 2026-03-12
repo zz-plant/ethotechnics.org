@@ -1,5 +1,3 @@
-import type { APIRoute } from "astro";
+import { createConfiguredApiRoute } from "../../route-wrapper";
 
-import { createValidatorsResponse } from "../../../../utils/api-responses";
-
-export const GET: APIRoute = () => createValidatorsResponse();
+export const GET = createConfiguredApiRoute("validators", "versioned");

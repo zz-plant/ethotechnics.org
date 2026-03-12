@@ -1,8 +1,3 @@
-import type { APIRoute } from "astro";
+import { createConfiguredApiRoute } from "../../route-wrapper";
 
-import { createAgentIndexResponse } from "../../../../utils/api-responses";
-
-export const GET: APIRoute = () =>
-  createAgentIndexResponse({
-    basePath: "/api/v/2026.01",
-  });
+export const GET = createConfiguredApiRoute("agent-index", "versioned");

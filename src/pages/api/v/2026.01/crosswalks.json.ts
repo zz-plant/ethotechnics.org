@@ -1,5 +1,3 @@
-import type { APIRoute } from "astro";
+import { createConfiguredApiRoute } from "../../route-wrapper";
 
-import { createCrosswalksResponse } from "../../../../utils/api-responses";
-
-export const GET: APIRoute = () => createCrosswalksResponse();
+export const GET = createConfiguredApiRoute("crosswalks", "versioned");

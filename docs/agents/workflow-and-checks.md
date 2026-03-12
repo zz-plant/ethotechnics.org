@@ -50,3 +50,13 @@ For docs-only changes:
 - Ensure docs match current scripts and workflows.
 - Summarize commands run and outcomes.
 - Keep PR scope aligned to the request.
+
+## API route wrapper config
+
+- Add JSON endpoints once in `src/pages/api/endpoint-config.ts`.
+- Set `variants.unversioned` and/or `variants.versioned` for directory-specific exposure.
+- Use variant options for path and release-link behavior (`basePath`,
+  `includeReleaseEndpoints`, `includeSnapshots`).
+- Point `createResponse` to the existing response builder in `src/utils/api-responses.ts`.
+- Keep route files thin by wiring `createConfiguredApiRoute(...)` only.
+- Run `bun test src/pages/api/endpoint-parity.test.ts` to verify file coverage parity.
