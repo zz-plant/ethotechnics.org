@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, relative, resolve } from "node:path";
+import { createHash } from "node:crypto";
 
 const rootDir = process.cwd();
 
@@ -44,13 +45,17 @@ const makeRelativeImport = (fromFile: string, toFile: string) => {
   return importPath.startsWith(".") ? importPath : `./${importPath}`;
 };
 
-const formatDerivedModule = (config: (typeof derivedFiles)[number]) => {
+const formatDerivedModule = (
+  config: (typeof derivedFiles)[number],
+  sourceContentHash: string,
+) => {
   const importPath = makeRelativeImport(config.targetTs, config.sourceJson);
   const selection = config.select === "first" ? "sourceData[0]" : "sourceData";
 
   return [
     "// AUTO-GENERATED FILE. DO NOT EDIT.",
     "// Source of truth lives in the JSON file referenced below.",
+    `// source-sha256: ${sourceContentHash}`,
     `import sourceData from \"${importPath}\";`,
     "",
     `export const ${config.constName} = ${selection};`,
@@ -66,8 +71,11 @@ for (const config of derivedFiles) {
 
   const sourceContent = await readFile(sourcePath, "utf8");
   JSON.parse(sourceContent);
+  const sourceContentHash = createHash("sha256")
+    .update(sourceContent)
+    .digest("hex");
 
-  const expected = formatDerivedModule(config);
+  const expected = formatDerivedModule(config, sourceContentHash);
   let existing = "";
 
   try {
