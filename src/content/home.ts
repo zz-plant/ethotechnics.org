@@ -1,5 +1,5 @@
 import type { PageCopy, PublishedContent } from "./types";
-import homeData from "./home.json";
+import { homeContentData } from "./generated/home.generated";
 
 export type Metric = {
   label: string;
@@ -120,4 +120,4 @@ export type HomeContent = PageCopy & {
   };
 };
 
-export const homeContent: HomeContent = homeData[0] as HomeContent;
+export const homeContent: HomeContent = homeContentData as HomeContent;

@@ -26,5 +26,8 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Validate generated content drift
+        run: bun run content:check
+
       - name: Run full checks
         run: bun run check

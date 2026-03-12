@@ -1,3 +1,4 @@
+import { fieldNotesContentData } from "./generated/field-notes.generated";
 import type { PageWithPermalink, PublishedContent } from "./types";
 
 export type FieldNoteEntry = PublishedContent & {
@@ -27,71 +28,5 @@ export type FieldNotesContent = PageWithPermalink &
     };
   };
 
-export const fieldNotesContent: FieldNotesContent = {
-  pageTitle: "Field Notes — Ethotechnics",
-  pageDescription:
-    "Dispatches, reflections, and signals from ongoing practice in ethical technology.",
-  permalink: "/field-notes",
-  published: "2025-09-01T00:00:00Z",
-  latestUpdate: "2025-10-08T00:00:00Z",
-  highlight: {
-    title: "Refreshing consent after policy shifts",
-    summary:
-      "Design sprint notes on re-requesting consent with clear exits and translated summaries.",
-    whyItMatters:
-      "Teams often update policies without updating consent expectations. This note shows how to keep consent reversible when product rules change.",
-    href: "/field-notes#consent-refresh",
-    ctaLabel: "Read the latest dispatch",
-  },
-  sections: [
-    {
-      title: "Dispatches",
-      description:
-        "Short updates from the field with direct links to glossary terms for reuse.",
-      format: "dispatch",
-    },
-    {
-      title: "Case studies",
-      description:
-        "Long-form walkthroughs of service changes and what shifted for people.",
-      format: "case-study",
-    },
-    {
-      title: "Signals",
-      description: "Indicators and weak signals to monitor as systems evolve.",
-      format: "signal",
-    },
-  ],
-  entries: [
-    {
-      slug: "consent-refresh",
-      title: "Refreshing consent after policy shifts",
-      summary:
-        "Design sprint notes on re-requesting consent with clear exits and translated summaries.",
-      format: "dispatch",
-      relatedTerms: ["consent-journey", "safety-valve"],
-      links: ["/mechanisms#progressive-consent"],
-      published: "2025-10-08T00:00:00Z",
-    },
-    {
-      slug: "appeals-in-production",
-      title: "Appeal paths when the clock is ticking",
-      summary:
-        "How a support team added in-product appeal flows without derailing delivery.",
-      format: "case-study",
-      relatedTerms: ["safety-valve", "burden-index"],
-      links: ["/diagnostics#burden-modeler"],
-      published: "2025-09-12T00:00:00Z",
-    },
-    {
-      slug: "maintenance-drift",
-      title: "Spotting maintenance drift early",
-      summary:
-        "Lessons learned from simulating service degradation and renegotiating stewardship windows.",
-      format: "signal",
-      relatedTerms: ["stewardship-window"],
-      links: ["/diagnostics#maintenance-simulator"],
-      published: "2025-08-28T00:00:00Z",
-    },
-  ],
-};
+export const fieldNotesContent: FieldNotesContent =
+  fieldNotesContentData as FieldNotesContent;

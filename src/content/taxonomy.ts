@@ -1,4 +1,4 @@
-import taxonomyData from "./taxonomy.json";
+import { taxonomyEntriesData } from "./generated/taxonomy.generated";
 
 export type TaxonomyArtifact = {
   label: string;
@@ -17,7 +17,7 @@ export type TaxonomyEntry = {
   relatedArtifacts: TaxonomyArtifact[];
 };
 
-export const taxonomyEntries = taxonomyData as TaxonomyEntry[];
+export const taxonomyEntries = taxonomyEntriesData as TaxonomyEntry[];
 
 export const taxonomyEntriesBySlug = new Map(
   taxonomyEntries.map((entry) => [entry.slug, entry]),
@@ -25,6 +25,5 @@ export const taxonomyEntriesBySlug = new Map(
 
 export const getTaxonomyBranch = (rootSlug: string) =>
   taxonomyEntries.filter(
-    (entry) =>
-      entry.slug === rootSlug || entry.slug.startsWith(`${rootSlug}/`),
+    (entry) => entry.slug === rootSlug || entry.slug.startsWith(`${rootSlug}/`),
   );

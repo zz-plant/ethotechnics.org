@@ -1,5 +1,5 @@
 import type { PageWithPermalink, PublicationMetadata } from "./types";
-import glossaryData from "./glossary.json";
+import { glossaryContentData } from "./generated/glossary.generated";
 
 export type GlossaryTerm = {
   slug: string;
@@ -103,7 +103,7 @@ export type GlossaryContent = PageWithPermalink & {
 };
 
 export const glossaryContent: GlossaryContent =
-  glossaryData[0] as GlossaryContent;
+  glossaryContentData as GlossaryContent;
 
 export const glossaryTerms: GlossaryTerm[] = [
   {
