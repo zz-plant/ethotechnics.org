@@ -1,0 +1,31 @@
+/* Ownership: [data-field-notes-*] animation states for field notes panels. */
+@layer components {
+  /* Field Notes Animations */
+
+  [data-field-notes-panel]:not([hidden]) {
+    display: grid; /* Restore grid layout when visible */
+  }
+
+  [data-field-notes-panel]:not([hidden]) > .card {
+    animation: fadeIn 0.5s ease-out backwards;
+  }
+
+  [data-field-notes-panel]:not([hidden]) > .card:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  [data-field-notes-panel]:not([hidden]) > .card:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  [data-field-notes-panel]:not([hidden]) > .card:nth-child(3) {
+    animation-delay: 0.15s;
+  }
+  [data-field-notes-panel]:not([hidden]) > .card:nth-child(4) {
+    animation-delay: 0.2s;
+  }
+  [data-field-notes-panel]:not([hidden]) > .card:nth-child(5) {
+    animation-delay: 0.25s;
+  }
+  [data-field-notes-panel]:not([hidden]) > .card:nth-child(6) {
+    animation-delay: 0.3s;
+  }
+}
