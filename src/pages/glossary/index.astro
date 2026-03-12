@@ -10,13 +10,13 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import glossaryFilterScript from "../../scripts/glossary-filter.ts?url";
 import { glossaryEntryPermalink } from "../../utils/glossary";
+import { getGlossaryAuthor, getGlossaryEntryDefaults } from "../../utils/glossary-helpers";
 import {
-  buildGlossaryEntrySearchText,
-  getGlossaryAuthor,
-  getGlossaryEntryDefaults,
-  normalizeGlossaryHeading,
-  stripHtml,
-} from "../../utils/glossary-helpers";
+  buildGlossaryIndexEntries,
+  buildGlossaryIndexFacets,
+  buildGlossaryStructuredDataPayload,
+  filterGlossaryIndexEntries,
+} from "../../content/page-data/glossary-routes";
 import {
   explainerLinks,
   summaryLinks,
@@ -74,58 +74,10 @@ const entryLabelIndex = new Map(
 const domainFilters = glossaryDomainFilters;
 const phaseFilters = glossaryPhaseFilters;
 const measurabilityFilters = glossaryMeasurabilityFilters;
-const statusFilters = Array.from(
-  new Set(
-    categories
-      .flatMap((category) => category.entries.map((entry) => entry.status))
-      .filter((status): status is string => Boolean(status)),
-  ),
-).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
-
-const entryIndex = categories
-  .flatMap((category) => {
-    const categoryLabel = normalizeGlossaryHeading(category.heading);
-
-    return category.entries.map((entry) => {
-      const searchText = buildGlossaryEntrySearchText(entry, categoryLabel);
-
-      return {
-        id: entry.id,
-        title: entry.title,
-        status: entry.status,
-        tags: entry.tags ?? [],
-        domains: entry.domains ?? [],
-        phases: entry.phase ?? [],
-        measurability: entry.measurability ?? "",
-        maturity: entry.maturity ?? "",
-        scale: entry.scale ?? "",
-        categoryLabel,
-        categoryId: category.id,
-        searchText,
-      };
-    });
-  })
-  .sort((a, b) =>
-    a.title.localeCompare(b.title, "en", { sensitivity: "base" }),
-  );
-const glossarySuggestions = entryIndex.map((entry) => entry.title);
-const glossaryLetters = Array.from(
-  new Set(
-    entryIndex
-      .map((entry) => entry.title.trim().charAt(0).toUpperCase())
-      .filter(Boolean),
-  ),
-).sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
-
-const territoryCounts = new Map(
-  categories.map((category) => [category.id, category.entries.length]),
-);
+const entryIndex = buildGlossaryIndexEntries(categories);
+const { statusFilters, glossarySuggestions, glossaryLetters, territoryCounts } =
+  buildGlossaryIndexFacets(categories, entryIndex);
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const organizationId = `${siteBase}#organization`;
-const websiteId = `${siteBase}#website`;
-const pageUrl = Astro.site
-  ? new URL(permalink, Astro.site).toString()
-  : permalink;
 const glossaryEntryUrl = (slug: string) =>
   Astro.site
     ? new URL(glossaryEntryPermalink(slug), Astro.site).toString()
@@ -167,117 +119,22 @@ const glossaryPathways = [
 const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
 const normalizedQuery = searchQuery.toLowerCase();
 const hasSearchQuery = normalizedQuery.length > 0;
-const filteredEntries = hasSearchQuery
-  ? entryIndex.filter((entry) => entry.searchText.includes(normalizedQuery))
-  : entryIndex;
+const filteredEntries = filterGlossaryIndexEntries(entryIndex, searchQuery);
 const totalEntries = entryIndex.length;
 const visibleEntries = filteredEntries.length;
 
-const structuredEntries = categories.flatMap((category) =>
-  category.entries.map((entry) => {
-    const plainDescription = stripHtml(entry.bodyHtml);
-
-    return {
-      "@type": "DefinedTerm",
-      name: entry.title,
-      url: glossaryEntryUrl(entry.id),
-      inDefinedTermSet: pageUrl,
-      description: plainDescription,
-    };
-  }),
-);
-
-const homeUrl = Astro.site ? new URL("/", Astro.site).toString() : "/";
-const glossaryPublished = publication.published ?? null;
-const glossaryUpdated = publication.updated ?? publication.published ?? null;
-const glossaryKeywords = Array.from(
-  new Set([
-    "Ethotechnics glossary",
-    "ethical technology",
-    "AI governance",
-    "human-centered design",
-    "algorithmic accountability",
-    "consent frameworks",
-    "safety and stewardship",
-    ...categories.map((category) =>
-      normalizeGlossaryHeading(category.heading),
-    ),
-  ]),
-);
-const glossaryKeywordsContent = glossaryKeywords.join(", ");
-const glossaryAbout = Array.from(
-  new Set(
-    categories.map((category) => normalizeGlossaryHeading(category.heading)),
-  ),
-);
-const glossarySetId = `${pageUrl}#defined-term-set`;
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "CollectionPage",
-      "@id": pageUrl,
-      name: pageTitle,
-      description: pageDescription,
-      keywords: glossaryKeywords,
-      url: pageUrl,
-      inLanguage: "en",
-      datePublished: glossaryPublished,
-      dateModified: glossaryUpdated,
-      isPartOf: {
-        "@id": websiteId,
-      },
-      publisher: {
-        "@id": organizationId,
-      },
-      mainEntity: {
-        "@id": glossarySetId,
-      },
-    },
-    {
-      "@type": "DefinedTermSet",
-      "@id": glossarySetId,
-      name: pageTitle,
-      description: pageDescription,
-      url: pageUrl,
-      inLanguage: "en",
-      datePublished: glossaryPublished,
-      dateModified: glossaryUpdated,
-      keywords: glossaryKeywords,
-      about: glossaryAbout,
-      numberOfItems: totalEntries,
-      isPartOf: {
-        "@id": pageUrl,
-      },
-      publisher: {
-        "@id": organizationId,
-      },
-      hasDefinedTerm: structuredEntries,
-      potentialAction: {
-        "@type": "SearchAction",
-        target: `${pageUrl}?query={search_term_string}`,
-        "query-input": "required name=search_term_string",
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: homeUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Glossary",
-          item: pageUrl,
-        },
-      ],
-    },
-  ],
-};
+const structuredData = buildGlossaryStructuredDataPayload({
+  pageTitle,
+  pageDescription,
+  permalink,
+  categories,
+  publication,
+  siteBase,
+});
+const glossaryKeywordsNode = structuredData["@graph"].find(
+  (item) => item["@type"] === "CollectionPage",
+) as { keywords?: string[] } | undefined;
+const glossaryKeywordsContent = glossaryKeywordsNode?.keywords?.join(", ") ?? "";
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const citationYear = new Date(
   publication.updated ?? publication.published,

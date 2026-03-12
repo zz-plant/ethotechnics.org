@@ -7,6 +7,11 @@ import CardItem from "../../components/CardItem.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import { implementationExamples } from "../../content/implementation-examples";
 import { standardsContent } from "../../content/standards";
+import {
+  buildStandardsCardViewModels,
+  buildStandardsGroupingAndFilters,
+  buildStandardsStructuredDataPayload,
+} from "../../content/page-data/standards-index";
 
 const {
   pageTitle,
@@ -18,181 +23,27 @@ const {
   doctrine,
 } = standardsContent;
 const { cspNonce } = Astro.locals;
-const pageUrl = Astro.site
-  ? new URL(permalink, Astro.site).toString()
-  : permalink;
-const standardsUrl = (slug: string) =>
-  Astro.site
-    ? new URL(`/standards/${slug}`, Astro.site).toString()
-    : `/standards/${slug}`;
-const adoptedStandards = [
-  {
-    eyebrow: "OECD",
-    title: "OECD AI Principles",
-    description:
-      "Principles-based guidance that lacks binding stop authority and time-bounded remediation.",
-    href: "/standards/oecd-ai-principles",
-  },
-  {
-    eyebrow: "NIST",
-    title: "NIST AI RMF 1.0",
-    description:
-      "Risk management maturity without mandatory rollback, halt, or restoration guarantees.",
-    href: "/standards/nist-ai-rmf",
-  },
-  {
-    eyebrow: "ISO",
-    title: "ISO/IEC 42001",
-    description:
-      "Management-system certification that can miss runtime stoppability requirements.",
-    href: "/standards/iso-iec-42001",
-  },
-  {
-    eyebrow: "EU",
-    title: "EU AI Act",
-    description:
-      "Regulatory compliance framework where enforcement is slower than machine-speed harm.",
-    href: "/standards/eu-ai-act",
-  },
-  {
-    eyebrow: "Corporate",
-    title: "Responsible AI programs",
-    description:
-      "Internal principles and review boards that rarely grant stop rights to the affected.",
-    href: "/standards/corporate-responsible-ai",
-  },
-  {
-    eyebrow: "Meta-critique",
-    title: "Governance by control",
-    description:
-      "The core Ethotechnics critique: representation without enforceable control planes.",
-    href: "/standards/meta-critique",
-  },
-];
-const featuredStandardIds = ["STD-01", "STD-02"];
-const featuredStandards = featuredStandardIds
-  .map((id) => standards.find((standard) => standard.id === id))
-  .filter((standard): standard is (typeof standards)[number] =>
-    Boolean(standard),
-  );
-const coreDoctrine = doctrine.find((item) => item.title === "Core axioms");
-const starterCards = [
-  ...featuredStandards.map((standard) => ({
-    eyebrow: standard.id,
-    title: standard.title,
-    description: standard.description,
-    href: `/standards/${standard.slug}`,
-    ctaLabel: `Read ${standard.id}`,
-  })),
-  ...(coreDoctrine
-    ? [
-        {
-          eyebrow: coreDoctrine.eyebrow,
-          title: coreDoctrine.title,
-          description: coreDoctrine.description,
-          href: coreDoctrine.href,
-          ctaLabel: coreDoctrine.ctaLabel,
-        },
-      ]
-    : []),
-];
-const implementationExampleCards = [
-  {
-    title: "Implementation examples overview",
-    description:
-      "Domain-by-domain comparisons showing how Ethotechnics changes system architecture.",
-    href: "/standards/implementation-examples",
-    ctaLabel: "Read guide",
-  },
-  ...implementationExamples.map((example) => ({
-    title: example.title,
-    description: example.cardDescription,
-    href: `/standards/implementation-examples/${example.slug}`,
-    ctaLabel: "Read example",
-  })),
-];
-const mostCitedStandardIds = ["STD-01", "STD-02", "MVC-01"];
-const activeStandards = standards.filter((standard) => standard.status !== "Deprecated");
-const mostCitedStandards = mostCitedStandardIds
-  .map((id) => standards.find((standard) => standard.id === id))
-  .filter((standard): standard is (typeof standards)[number] =>
-    Boolean(standard),
-  );
-const recentlyUpdatedStandards = [...standards]
-  .sort((a, b) => Date.parse(b.published) - Date.parse(a.published))
-  .slice(0, 3);
-const standardsGrouping = [
-  {
-    title: "Core",
-    description:
-      "Foundational rights and contestability requirements to start with.",
-    ids: ["STD-01", "STD-02", "MVC-01"],
-  },
-  {
-    title: "Implementation",
-    description:
-      "Operational controls and templates for day-to-day governance delivery.",
-    ids: ["STD-03", "STD-06", "PM-01"],
-  },
-  {
-    title: "Reference",
-    description:
-      "Interoperability and record-format specifications used across ecosystems.",
-    ids: ["STD-04", "STD-05"],
-  },
-].map((group) => ({
-  ...group,
-  items: group.ids
-    .map((id) => standards.find((standard) => standard.id === id))
-    .filter((standard): standard is (typeof standards)[number] =>
-      Boolean(standard),
-    ),
-}));
-const standardsLaneById = new Map(
-  standardsGrouping.flatMap((group) =>
-    group.ids.map((id) => [id, group.title.toLowerCase()]),
-  ),
-);
-const standardsFilterOptions = ["all", "core", "implementation", "reference"];
-const standardsLaneCounts = {
-  all: activeStandards.length,
-  core: activeStandards.filter((standard) => standardsLaneById.get(standard.id) === "core").length,
-  implementation: activeStandards.filter(
-    (standard) => standardsLaneById.get(standard.id) === "implementation",
-  ).length,
-  reference: activeStandards.filter((standard) => standardsLaneById.get(standard.id) === "reference").length,
-};
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": pageUrl,
-  name: pageTitle,
-  description: pageDescription,
-  url: pageUrl,
-  hasPart: [
-    ...standards.map((standard) => ({
-      "@type": "CreativeWork",
-      name: `${standard.id} — ${standard.title}`,
-      description: standard.description,
-      url: standardsUrl(standard.slug),
-      identifier: standard.id,
-      version: standard.version,
-      datePublished: standard.published,
-    })),
-    ...doctrine.map((item) => ({
-      "@type": "CreativeWork",
-      name: item.title,
-      description: item.description,
-      url: Astro.site ? new URL(item.href, Astro.site).toString() : item.href,
-    })),
-    ...adoptedStandards.map((item) => ({
-      "@type": "CreativeWork",
-      name: item.title,
-      description: item.description,
-      url: Astro.site ? new URL(item.href, Astro.site).toString() : item.href,
-    })),
-  ],
-};
+const { adoptedStandards, starterCards, implementationExampleCards } =
+  buildStandardsCardViewModels({
+    standards,
+    doctrine,
+    implementationExamples,
+  });
+const {
+  activeStandards,
+  mostCitedStandards,
+  mostCitedStandardIds,
+  recentlyUpdatedStandards,
+  standardsGrouping,
+  standardsFilterOptions,
+  standardsLaneById,
+  standardsLaneCounts,
+} = buildStandardsGroupingAndFilters(standards);
+const structuredData = buildStandardsStructuredDataPayload({
+  standardsContent,
+  adoptedStandards,
+  siteUrl: Astro.site,
+});
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 ---
 
