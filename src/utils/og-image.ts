@@ -1,22 +1,15 @@
 import wasmUrl from "@resvg/resvg-wasm/index_bg.wasm?url";
+import {
+  OG_TEMPLATES,
+  resolveOgTemplate,
+  type OgTemplate,
+} from "./seo/og-template";
 
 const DEFAULT_TITLE = "Ethotechnics Institute";
 const DEFAULT_DESCRIPTION =
   "Standards, mechanisms, and validators for accountable system governance.";
 const WIDTH = 1200;
 const HEIGHT = 630;
-
-const OG_TEMPLATES = [
-  "default",
-  "home",
-  "standards",
-  "glossary",
-  "taxonomy",
-  "mechanisms",
-  "editorial",
-] as const;
-
-type OgTemplate = (typeof OG_TEMPLATES)[number];
 
 type TemplateStyle = {
   label: string;
@@ -117,58 +110,6 @@ const trimToLength = (value: string, maxLength: number) => {
   const normalized = value.replace(/\s+/g, " ").trim();
   if (normalized.length <= maxLength) return normalized;
   return `${normalized.slice(0, maxLength - 1).trimEnd()}…`;
-};
-
-const normalizePath = (value?: string) => {
-  if (!value) return "/";
-  const withLeadingSlash = value.startsWith("/") ? value : `/${value}`;
-  return withLeadingSlash.toLowerCase();
-};
-
-const isOgTemplate = (value: string): value is OgTemplate =>
-  OG_TEMPLATES.includes(value as OgTemplate);
-
-const inferTemplateFromPath = (path?: string): OgTemplate => {
-  const normalizedPath = normalizePath(path);
-
-  if (normalizedPath === "/") return "home";
-  if (normalizedPath.startsWith("/standards")) return "standards";
-  if (normalizedPath.startsWith("/glossary")) return "glossary";
-  if (
-    normalizedPath.startsWith("/taxonomy") ||
-    normalizedPath.startsWith("/governance") ||
-    normalizedPath.startsWith("/delivery") ||
-    normalizedPath.startsWith("/assurance") ||
-    normalizedPath.startsWith("/experience")
-  ) {
-    return "taxonomy";
-  }
-  if (
-    normalizedPath.startsWith("/mechanisms") ||
-    normalizedPath.startsWith("/library") ||
-    normalizedPath.startsWith("/validators")
-  ) {
-    return "mechanisms";
-  }
-  if (
-    normalizedPath.startsWith("/research") ||
-    normalizedPath.startsWith("/incidents") ||
-    normalizedPath.startsWith("/field-notes") ||
-    normalizedPath.startsWith("/explainers")
-  ) {
-    return "editorial";
-  }
-
-  return "default";
-};
-
-const resolveOgTemplate = (template?: string, path?: string): OgTemplate => {
-  const normalizedTemplate = template?.trim().toLowerCase();
-  if (normalizedTemplate && isOgTemplate(normalizedTemplate)) {
-    return normalizedTemplate;
-  }
-
-  return inferTemplateFromPath(path);
 };
 
 const buildOgSvg = (

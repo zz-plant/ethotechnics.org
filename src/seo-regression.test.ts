@@ -19,12 +19,13 @@ describe("SEO regression source checks", () => {
     expect(robotsRoute).toContain("X-Robots-Tag");
   });
 
-  it("keeps article date metadata support in BaseLayout", async () => {
+  it("keeps article date metadata support wired through helpers", async () => {
     const layout = await read("src/layouts/BaseLayout.astro");
+    const schemaBuilders = await read("src/utils/seo/schema/builders.ts");
 
     expect(layout).toContain("publishedTime?: string");
-    expect(layout).toContain("datePublished");
-    expect(layout).toContain("dateModified");
     expect(layout).toContain("article:");
+    expect(schemaBuilders).toContain("datePublished");
+    expect(schemaBuilders).toContain("dateModified");
   });
 });

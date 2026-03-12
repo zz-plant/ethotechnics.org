@@ -9,6 +9,19 @@ import Wordmark from "../components/Wordmark.astro";
 import { siteFooter } from "../content/site-footer";
 import glossaryHighlightsScript from "../scripts/glossary-highlights.ts?url";
 import { normalizeBreadcrumbItems } from "../lib/breadcrumbs";
+import {
+  buildJsonAlternateLinks,
+  buildLanguageAlternates,
+  normalizeDateTime,
+  stringifyJsonLd,
+} from "../utils/seo/alternate-jsonld";
+import { resolveOgTemplate } from "../utils/seo/og-template";
+import {
+  resolveOpenGraphType,
+  resolveStructuredDataType,
+  type StructuredDataMode,
+} from "../utils/seo/route-type";
+import { buildSchemaGraph, type StructuredDataType } from "../utils/seo/schema";
 import "../styles/theme.css";
 import "../styles/global.css";
 
@@ -28,12 +41,7 @@ interface Props {
   enableGlossaryHighlights?: boolean;
   breadcrumbItems?: Array<{ name: string; url: string }>;
   jsonAlternates?: Array<{ href: string; title?: string }>;
-  structuredDataType?:
-    | "auto"
-    | "collection"
-    | "webpage"
-    | "defined-term"
-    | "tech-article";
+  structuredDataType?: StructuredDataMode;
 }
 
 const siteName = "Ethotechnics Institute";
@@ -57,32 +65,23 @@ const {
   jsonAlternates,
   structuredDataType = "auto",
 } = Astro.props as Props;
+
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).toString()
   : Astro.url.href;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const currentPath = Astro.url.pathname;
-const nonArticleRoutes = new Set([
-  "/",
-  "/api",
-  "/robots.txt",
-  "/search",
-  "/sitemap.xml",
-]);
-const isGlossaryRoute = currentPath.startsWith("/glossary");
-const resolvedOpenGraphType =
-  openGraphType ??
-  (isGlossaryRoute || nonArticleRoutes.has(currentPath)
-    ? "website"
-    : "article");
-const normalizeDateTime = (value?: string) => {
-  if (!value) return undefined;
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
-};
+
+const resolvedOpenGraphType = resolveOpenGraphType(currentPath, openGraphType);
+const resolvedStructuredDataType = resolveStructuredDataType(
+  currentPath,
+  structuredDataType,
+) as StructuredDataType;
+
 const normalizedPublishedTime = normalizeDateTime(publishedTime);
 const normalizedModifiedTime =
   normalizeDateTime(modifiedTime) ?? normalizedPublishedTime;
+
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
 const webpageId = canonical;
@@ -90,42 +89,14 @@ const { identity, navigation, cta } = siteFooter;
 const logoUrl = new URL(identity.brand.logoSrc, siteBase).toString();
 const logoId = `${siteBase}#logo`;
 const primaryImageId = `${canonical}#primaryimage`;
-const resolveOgTemplateFromPath = (path: string) => {
-  if (path === "/") return "home";
-  if (path.startsWith("/standards")) return "standards";
-  if (path.startsWith("/glossary")) return "glossary";
-  if (
-    path.startsWith("/taxonomy") ||
-    path.startsWith("/governance") ||
-    path.startsWith("/delivery") ||
-    path.startsWith("/assurance") ||
-    path.startsWith("/experience")
-  ) {
-    return "taxonomy";
-  }
-  if (
-    path.startsWith("/mechanisms") ||
-    path.startsWith("/library") ||
-    path.startsWith("/validators")
-  ) {
-    return "mechanisms";
-  }
-  if (
-    path.startsWith("/research") ||
-    path.startsWith("/incidents") ||
-    path.startsWith("/field-notes") ||
-    path.startsWith("/explainers")
-  ) {
-    return "editorial";
-  }
 
-  return "default";
-};
-const ogTemplate = resolveOgTemplateFromPath(currentPath);
 const ogImageUrl = new URL("/api/og.png", siteBase);
 ogImageUrl.searchParams.set("title", title);
 ogImageUrl.searchParams.set("description", description);
-ogImageUrl.searchParams.set("template", ogTemplate);
+ogImageUrl.searchParams.set(
+  "template",
+  resolveOgTemplate(undefined, currentPath),
+);
 ogImageUrl.searchParams.set("path", currentPath);
 
 const seoImage = {
@@ -134,81 +105,7 @@ const seoImage = {
   width: 1200,
   height: 630,
 };
-const organization = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": organizationId,
-  name: siteName,
-  url: siteBase,
-  description: defaultDescription,
-  logo: {
-    "@type": "ImageObject",
-    "@id": logoId,
-    url: logoUrl,
-  },
-  sameAs: [
-    "https://ethotechnics.com",
-    "https://github.com/zz-plant/ethotechnics",
-  ],
-};
-const website = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": websiteId,
-  name: siteName,
-  url: siteBase,
-  inLanguage: "en",
-  publisher: {
-    "@id": organizationId,
-  },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${new URL("/search", siteBase).toString()}?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
-};
-const webpage: Record<string, unknown> = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": webpageId,
-  name: title,
-  description,
-  url: canonical,
-  inLanguage: "en",
-  isPartOf: {
-    "@id": websiteId,
-  },
-  publisher: {
-    "@id": organizationId,
-  },
-  primaryImageOfPage: {
-    "@type": "ImageObject",
-    "@id": primaryImageId,
-    url: seoImage.src,
-    width: seoImage.width,
-    height: seoImage.height,
-    caption: seoImage.alt,
-  },
-  image: {
-    "@id": primaryImageId,
-  },
-};
-const structuredData: Array<Record<string, unknown>> = [
-  organization,
-  website,
-  webpage,
-];
-const { cspNonce } = Astro.locals;
-const jsonAlternateLinks =
-  jsonAlternates?.map((link) => ({
-    rel: "alternate",
-    type: "application/json",
-    href: link.href,
-    title: link.title,
-  })) ?? [];
 
-const pathSegments = currentPath.split("/").filter(Boolean);
-const pagefindType = pathSegments[0] ?? "";
 const normalizedBreadcrumbItems = normalizeBreadcrumbItems({
   siteBase,
   currentPath,
@@ -216,81 +113,34 @@ const normalizedBreadcrumbItems = normalizeBreadcrumbItems({
   breadcrumbItems,
 });
 
-if (normalizedBreadcrumbItems.length > 1) {
-  const breadcrumbList = normalizedBreadcrumbItems.map((item, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    name: item.name,
-    item: item.absoluteUrl,
-  }));
+const structuredData = buildSchemaGraph({
+  siteName,
+  siteBase,
+  siteDescription: defaultDescription,
+  canonical,
+  title,
+  description,
+  seoImage,
+  organizationId,
+  websiteId,
+  webpageId,
+  logoId,
+  logoUrl,
+  primaryImageId,
+  structuredDataType: resolvedStructuredDataType,
+  openGraphType: resolvedOpenGraphType,
+  normalizedPublishedTime,
+  normalizedModifiedTime,
+  breadcrumbs: normalizedBreadcrumbItems,
+});
 
-  structuredData.push({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: breadcrumbList,
-  });
+const { cspNonce } = Astro.locals;
+const jsonAlternateLinks = buildJsonAlternateLinks(jsonAlternates);
+const structuredDataJson = stringifyJsonLd(structuredData);
+const languageAlternates = buildLanguageAlternates(canonical);
 
-  webpage.breadcrumb = {
-    "@id": `${canonical}#breadcrumb`,
-  };
-}
-
-const isIndexPage = currentPath === "/" || currentPath.endsWith("/");
-const isGlossaryTerm =
-  currentPath.startsWith("/glossary/") && pathSegments.length === 2;
-const resolvedStructuredDataType =
-  structuredDataType === "auto"
-    ? isGlossaryTerm
-      ? "defined-term"
-      : isIndexPage
-        ? "collection"
-        : "webpage"
-    : structuredDataType;
-
-if (resolvedStructuredDataType === "collection") {
-  webpage["@type"] = "CollectionPage";
-}
-
-if (resolvedStructuredDataType === "defined-term") {
-  webpage["@type"] = "DefinedTerm";
-  webpage.inDefinedTermSet = new URL("/glossary", siteBase).toString();
-}
-
-if (resolvedOpenGraphType === "article") {
-  const articleJsonLd: Record<string, unknown> = {
-    "@context": "https://schema.org",
-    "@type":
-      resolvedStructuredDataType === "tech-article" ? "TechArticle" : "Article",
-    "@id": `${canonical}#article`,
-    headline: title,
-    description,
-    image: [seoImage.src],
-    author: {
-      "@id": organizationId,
-    },
-    publisher: {
-      "@id": organizationId,
-    },
-    mainEntityOfPage: {
-      "@id": webpageId,
-    },
-    inLanguage: "en",
-  };
-
-  if (normalizedPublishedTime) {
-    articleJsonLd.datePublished = normalizedPublishedTime;
-  }
-
-  if (normalizedModifiedTime) {
-    articleJsonLd.dateModified = normalizedModifiedTime;
-    webpage.dateModified = normalizedModifiedTime;
-  }
-
-  structuredData.push(articleJsonLd);
-}
-
-const structuredDataJson = JSON.stringify(structuredData);
+const pathSegments = currentPath.split("/").filter(Boolean);
+const pagefindType = pathSegments[0] ?? "";
 ---
 
 <!doctype html>
@@ -317,7 +167,7 @@ const structuredDataJson = JSON.stringify(structuredData);
       titleDefault={defaultTitle}
       description={description}
       canonical={canonical}
-      languageAlternates={[{ hrefLang: "en", href: canonical }]}
+      languageAlternates={languageAlternates}
       openGraph={{
         basic: {
           title,
