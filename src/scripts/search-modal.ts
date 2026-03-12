@@ -1,8 +1,7 @@
-type HapticPattern = "nudge" | "success" | "error";
-
-type HapticOptions = {
-  intensity?: number;
-};
+import { bindGlobalSearchListeners, bindSearchInstance } from "./search-modal/controls";
+import { createPagefindAdapter } from "./search-modal/pagefind";
+import { createSearchStorage, createUrlStateSync, searchStateParams } from "./search-modal/query-state";
+import type { HapticOptions, HapticPattern, SearchInstance } from "./search-modal/types";
 
 const HAPTIC_VIBRATION_PATTERNS: Record<HapticPattern, number | number[]> = {
   nudge: 12,
@@ -25,9 +24,7 @@ const createHapticsController = () => {
       const scaledPattern =
         typeof configuredPattern === "number"
           ? Math.round(configuredPattern * intensity)
-          : configuredPattern.map((duration) =>
-              Math.round(duration * intensity),
-            );
+          : configuredPattern.map((duration) => Math.round(duration * intensity));
 
       navigator.vibrate(scaledPattern);
       return Promise.resolve();
@@ -35,154 +32,24 @@ const createHapticsController = () => {
   };
 };
 
-type PagefindResultData = {
-  url: string;
-  excerpt: string;
-  meta: {
-    title: string;
-    type?: string;
-    section?: string;
-    category?: string;
-    contentType?: string;
-  };
-};
-
-type PagefindSearchResult = {
-  data: () => Promise<PagefindResultData>;
-};
-
-type PagefindModule = {
-  options: (options: { excerptLength: number }) => Promise<void>;
-  search: (query: string) => Promise<{ results: PagefindSearchResult[] }>;
-};
-
-const PAGEFIND_PATH = "/pagefind/pagefind.js";
-const SEARCH_RESULTS_LIMIT = 12;
-const SEARCH_DEBOUNCE_MS = 200;
-const RECENT_SEARCH_KEY = "et3-search-recent";
-const SEARCH_QUERY_STORAGE_KEY = "et3-search-query";
-const MAX_RECENT_SEARCHES = 6;
-const GROUP_LABELS = [
-  "Standards",
-  "Validators",
-  "Mechanisms",
-  "Research",
-  "Other",
-];
-const SEARCH_MODAL_PARAM = "modal";
-const SEARCH_QUERY_PARAM = "q";
-const CONTENT_TYPE_MAP: Record<string, string> = {
-  standards: "Standards",
-  standard: "Standards",
-  validators: "Validators",
-  validator: "Validators",
-  mechanisms: "Mechanisms",
-  mechanism: "Mechanisms",
-  research: "Research",
-  paper: "Research",
-  report: "Research",
-};
-
-let pagefindPromise: Promise<PagefindModule | null> | null = null;
-let pagefindConfigured = false;
-
-const loadPagefind = async () => {
-  if (pagefindPromise) return pagefindPromise;
-
-  pagefindPromise = import(
-    /* @vite-ignore */
-    PAGEFIND_PATH
-  )
-    .then((module) => module as PagefindModule)
-    .catch((error) => {
-      console.warn(
-        "Pagefind not found. Search may not work in dev mode.",
-        error,
-      );
-      pagefindPromise = null;
-      return null;
-    });
-
-  return pagefindPromise;
-};
-
-const initPagefind = async () => {
-  const loadedPagefind = await loadPagefind();
-  if (!loadedPagefind) {
-    return null;
-  }
-
-  if (!pagefindConfigured) {
-    await loadedPagefind.options({
-      excerptLength: 20,
-    });
-    pagefindConfigured = true;
-  }
-
-  return loadedPagefind;
-};
-
-type SearchInstance = {
-  container: HTMLElement;
-  trigger: HTMLButtonElement | null;
-  dialog: HTMLDialogElement | null;
-  scope?: string;
-  isActive: () => boolean;
-  isDialogOpen: () => boolean;
-  openDialog: (options?: { pushHistory?: boolean }) => void;
-  closeDialog: (options?: { fromHistory?: boolean }) => void;
-  syncDialogWithUrl: () => void;
-  handleDocumentClick: (event: MouseEvent) => void;
-};
-
-const escapeRegExp = (value: string) =>
-  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-const setSearchMessage = (container: HTMLElement, message: string) => {
-  const text = document.createElement("p");
-  text.className = "search-empty";
-  text.textContent = message;
-  container.replaceChildren(text);
-};
-
-const applyHighlight = (element: HTMLElement, query: string) => {
-  if (!query) return;
-  const text = element.textContent ?? "";
-  if (!text) return;
-  const escapedQuery = escapeRegExp(query);
-  const highlightRegex = new RegExp(escapedQuery, "gi");
-  const fragment = document.createDocumentFragment();
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-
-  while ((match = highlightRegex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      fragment.append(text.slice(lastIndex, match.index));
-    }
-    const mark = document.createElement("mark");
-    mark.textContent = match[0];
-    fragment.append(mark);
-    lastIndex = match.index + match[0].length;
-  }
-
-  if (lastIndex < text.length) {
-    fragment.append(text.slice(lastIndex));
-  }
-
-  element.replaceChildren(fragment);
-};
-
 const initSearch = () => {
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const haptics = prefersReducedMotion ? null : createHapticsController();
-
   const triggerHaptic = (pattern: HapticPattern, options?: HapticOptions) => {
     if (!haptics) return;
     haptics.trigger(pattern, options).catch((error) => {
       console.warn("Haptic feedback failed.", error);
     });
+  };
+
+  const dependencies = {
+    pagefind: createPagefindAdapter(),
+    urlState: createUrlStateSync(window),
+    storage: createSearchStorage({
+      localStorage: window.localStorage,
+      sessionStorage: window.sessionStorage,
+    }),
+    triggerHaptic,
   };
 
   const searchContainers = Array.from(
@@ -191,550 +58,53 @@ const initSearch = () => {
   const searchInstances: SearchInstance[] = [];
   const mediaQuery = window.matchMedia("(min-width: 992px)");
   const getActiveScope = () => (mediaQuery.matches ? "desktop" : "mobile");
-  const getActiveInstance = () =>
-    searchInstances.find((instance) => instance.isActive()) ??
-    searchInstances[0];
-  let listenersBound = false;
-
-  const isTypingContext = (target: EventTarget | null) => {
-    if (!(target instanceof HTMLElement)) return false;
-    return Boolean(
-      target.closest(
-        "input, textarea, select, [contenteditable=''], [contenteditable='true'], [contenteditable='plaintext-only']",
-      ),
-    );
-  };
-
-  const bindGlobalListeners = () => {
-    if (listenersBound) return;
-    listenersBound = true;
-
-    document.addEventListener("keydown", (event) => {
-      const activeInstance = getActiveInstance();
-      if (
-        event.key === "/" &&
-        activeInstance &&
-        !activeInstance.isDialogOpen() &&
-        !isTypingContext(document.activeElement)
-      ) {
-        event.preventDefault();
-        triggerHaptic("nudge", { intensity: 0.25 });
-        activeInstance.openDialog({ pushHistory: true });
-      }
-    });
-
-    document.addEventListener("click", (event) => {
-      searchInstances.forEach((instance) =>
-        instance.handleDocumentClick(event),
-      );
-    });
-
-    window.addEventListener("popstate", () => {
-      searchInstances.forEach((instance) => instance.syncDialogWithUrl());
-    });
-
-    mediaQuery.addEventListener("change", () => {
-      searchInstances.forEach((instance) => {
-        if (instance.isDialogOpen()) {
-          instance.closeDialog({ fromHistory: true });
-        }
-      });
-    });
-  };
-
-  const setRecentSearches = (value: string) => {
-    if (!value.trim()) return;
-
-    const existing = JSON.parse(
-      localStorage.getItem(RECENT_SEARCH_KEY) ?? "[]",
-    ) as string[];
-    const updated = [value, ...existing.filter((item) => item !== value)].slice(
-      0,
-      MAX_RECENT_SEARCHES,
-    );
-    localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(updated));
-  };
-
-  const getRecentSearches = () =>
-    JSON.parse(localStorage.getItem(RECENT_SEARCH_KEY) ?? "[]") as string[];
-
-  const updateRecentSearches = (
-    list: HTMLElement,
-    handler: (value: string) => void,
-  ) => {
-    const recent = getRecentSearches();
-    list.replaceChildren();
-
-    recent.forEach((item) => {
-      const button = document.createElement("button");
-      button.className = "search-recent__button";
-      button.type = "button";
-      button.textContent = item;
-      button.addEventListener("click", () => handler(item));
-      list.appendChild(button);
-    });
-  };
-
-  const createResultHTML = (result: PagefindResultData, query: string) => {
-    const wrapper = document.createElement("article");
-    wrapper.className = "search-result";
-    const title = result.meta.title;
-    const excerpt = result.excerpt.replace(/\s+/g, " ").trim();
-    const url = result.url;
-
-    const metaLabels = [
-      result.meta.type,
-      result.meta.section,
-      result.meta.category,
-      result.meta.contentType,
-    ]
-      .filter(
-        (value): value is string =>
-          typeof value === "string" && value.length > 0,
-      )
-      .map((value) => {
-        return (
-          CONTENT_TYPE_MAP[value] ??
-          CONTENT_TYPE_MAP[value.toLowerCase()] ??
-          value
-        );
-      });
-
-    const link = document.createElement("a");
-    link.href = url;
-
-    const titleElement = document.createElement("div");
-    titleElement.className = "search-result__title";
-    titleElement.textContent = title;
-    link.appendChild(titleElement);
-
-    if (metaLabels.length) {
-      const meta = document.createElement("div");
-      meta.className = "search-result__meta";
-      metaLabels.forEach((label) => {
-        const pill = document.createElement("span");
-        pill.textContent = label;
-        meta.appendChild(pill);
-      });
-      link.appendChild(meta);
-    }
-
-    const excerptElement = document.createElement("p");
-    excerptElement.className = "search-result__excerpt";
-    excerptElement.textContent = excerpt;
-    link.appendChild(excerptElement);
-
-    wrapper.appendChild(link);
-
-    if (query) {
-      applyHighlight(titleElement, query);
-      applyHighlight(excerptElement, query);
-    }
-
-    return wrapper;
-  };
-
-  const groupResults = (results: PagefindResultData[]) =>
-    results.reduce(
-      (groups, result) => {
-        const type =
-          CONTENT_TYPE_MAP[result.meta.type ?? ""] ??
-          CONTENT_TYPE_MAP[result.meta.contentType ?? ""] ??
-          CONTENT_TYPE_MAP[result.meta.section ?? ""] ??
-          "Other";
-        if (!groups[type]) {
-          groups[type] = [];
-        }
-        groups[type].push(result);
-        return groups;
-      },
-      {} as Record<string, PagefindResultData[]>,
-    );
-
-  const sortGroupLabels = (groups: Record<string, PagefindResultData[]>) => {
-    const availableLabels = Object.keys(groups);
-    const labels = GROUP_LABELS.filter((label) =>
-      availableLabels.includes(label),
-    );
-    const otherLabels = availableLabels.filter(
-      (label) => !GROUP_LABELS.includes(label),
-    );
-
-    return [...labels, ...otherLabels];
-  };
-
-  const renderGroupedResults = (
-    container: HTMLElement,
-    results: PagefindResultData[],
-    query: string,
-  ) => {
-    container.replaceChildren();
-
-    if (!results.length) {
-      setSearchMessage(container, "No matches yet. Try another term.");
-      return;
-    }
-
-    const groups = groupResults(results);
-    const labels = sortGroupLabels(groups);
-
-    labels.forEach((label) => {
-      const group = document.createElement("section");
-      group.className = "search-results__group";
-      const title = document.createElement("h3");
-      title.className = "search-results__group-title";
-      title.textContent = label;
-      group.appendChild(title);
-      const list = document.createElement("div");
-      list.className = "search-results__list";
-      groups[label].forEach((result) => {
-        list.appendChild(createResultHTML(result, query));
-      });
-      group.appendChild(list);
-      container.appendChild(group);
-    });
-  };
-
-  const serializeQuery = (query: string) => query.trim().toLowerCase();
-
-  const getSearchParam = (name: string) => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(name);
-  };
-
-  const updateUrlParams = (
-    mutate: (params: URLSearchParams) => void,
-    mode: "push" | "replace" = "replace",
-  ) => {
-    const url = new URL(window.location.href);
-    mutate(url.searchParams);
-
-    if (mode === "push") {
-      window.history.pushState({}, "", url.toString());
-      return;
-    }
-
-    window.history.replaceState({}, "", url.toString());
-  };
-
-  const setQueryToStorage = (query: string) => {
-    sessionStorage.setItem(SEARCH_QUERY_STORAGE_KEY, query);
-  };
-
-  const getQueryFromStorage = () =>
-    sessionStorage.getItem(SEARCH_QUERY_STORAGE_KEY) ?? "";
-
-  const clearSearchResults = (container: HTMLElement) => {
-    setSearchMessage(container, "Start typing to search...");
-  };
-
-  const updateResultsBusy = (container: HTMLElement, isBusy: boolean) => {
-    container.setAttribute("aria-busy", isBusy ? "true" : "false");
-  };
-
-  const bindSearchInstance = ({
-    container,
-    trigger,
-    dialog,
-    scope,
-  }: {
-    container: HTMLElement;
-    trigger: HTMLButtonElement | null;
-    dialog: HTMLDialogElement | null;
-    scope?: string;
-  }) => {
-    if (!dialog || !trigger) return null;
-
-    const input = dialog.querySelector<HTMLInputElement>("[data-search-input]");
-    const results = dialog.querySelector<HTMLElement>("[data-search-results]");
-    const recentWrapper = dialog.querySelector<HTMLElement>(
-      "[data-search-recent]",
-    );
-    const recentList = dialog.querySelector<HTMLElement>(
-      "[data-search-recent-list]",
-    );
-    const closeButton = dialog.querySelector<HTMLButtonElement>(
-      "[data-search-close]",
-    );
-    if (!input || !results) return null;
-
-    let searchTimeout: number | undefined;
-    let focusReturn: Element | null = null;
-
-    const setRecentVisibility = () => {
-      if (!recentWrapper || !recentList) return;
-      const recent = getRecentSearches();
-      recentWrapper.hidden = recent.length === 0;
-      updateRecentSearches(recentList, (value) => {
-        input.value = value;
-        input.dispatchEvent(new Event("input"));
-      });
-    };
-
-    const applyQueryFromUrl = () => {
-      const query = getSearchParam(SEARCH_QUERY_PARAM) ?? "";
-      if (query) {
-        input.value = query;
-        input.dispatchEvent(new Event("input"));
-      }
-    };
-
-    const openDialog = ({ pushHistory = false } = {}) => {
-      focusReturn = document.activeElement;
-      if (!dialog.open) {
-        dialog.showModal();
-      }
-      if (pushHistory) {
-        updateUrlParams(
-          (params) => params.set(SEARCH_MODAL_PARAM, "1"),
-          "push",
-        );
-      }
-
-      requestAnimationFrame(() => {
-        input.focus();
-        input.select();
-      });
-      setRecentVisibility();
-      applyQueryFromUrl();
-    };
-
-    const closeDialog = ({ fromHistory = false } = {}) => {
-      if (!dialog.open) return;
-
-      dialog.close();
-      if (!fromHistory) {
-        updateUrlParams((params) => {
-          params.delete(SEARCH_MODAL_PARAM);
-          params.delete(SEARCH_QUERY_PARAM);
-        }, "push");
-      }
-
-      input.value = "";
-      clearSearchResults(results);
-      updateResultsBusy(results, false);
-      setQueryToStorage("");
-      if (focusReturn instanceof HTMLElement) {
-        focusReturn.focus();
-      }
-
-      triggerHaptic("nudge", { intensity: 0.2 });
-    };
-
-    const syncDialogWithUrl = () => {
-      const modalOpen = getSearchParam(SEARCH_MODAL_PARAM);
-      if (modalOpen) {
-        openDialog();
-      } else if (dialog.open) {
-        closeDialog({ fromHistory: true });
-      }
-    };
-
-    const handleDocumentClick = (event: MouseEvent) => {
-      if (event.target === dialog) {
-        closeDialog();
-      }
-    };
-
-    trigger.addEventListener("click", () => {
-      triggerHaptic("nudge", { intensity: 0.3 });
-      openDialog({ pushHistory: true });
-    });
-    closeButton?.addEventListener("click", () => closeDialog());
-
-    dialog.addEventListener("close", () => {
-      if (!dialog.open) {
-        focusReturn = null;
-      }
-    });
-
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) {
-        closeDialog();
-      }
-    });
-
-    const searchResults = async (query: string) => {
-      const trimmed = serializeQuery(query);
-      if (!trimmed) {
-        clearSearchResults(results);
-        updateResultsBusy(results, false);
-        setRecentVisibility();
-        return;
-      }
-
-      updateResultsBusy(results, true);
-      setSearchMessage(results, "Searching…");
-
-      const pagefind = await initPagefind();
-      if (!pagefind) {
-        updateResultsBusy(results, false);
-        setSearchMessage(results, "Search is unavailable right now.");
-        return;
-      }
-
-      const response = await pagefind.search(trimmed);
-      const data = await Promise.all(
-        response.results
-          .slice(0, SEARCH_RESULTS_LIMIT)
-          .map((result) => result.data()),
-      );
-      setQueryToStorage(trimmed);
-      setRecentSearches(trimmed);
-      setRecentVisibility();
-      renderGroupedResults(results, data, trimmed);
-      updateResultsBusy(results, false);
-    };
-
-    const scheduleSearch = (query: string) => {
-      if (searchTimeout) {
-        window.clearTimeout(searchTimeout);
-      }
-      searchTimeout = window.setTimeout(() => {
-        searchResults(query).catch((error) => {
-          updateResultsBusy(results, false);
-          setSearchMessage(results, "Search failed. Please try again.");
-          triggerHaptic("error", { intensity: 0.35 });
-          console.warn("Search failed.", error);
-        });
-      }, SEARCH_DEBOUNCE_MS);
-    };
-
-    input.addEventListener("input", () => {
-      const value = input.value;
-      scheduleSearch(value);
-
-      updateUrlParams((params) => {
-        if (value.trim()) {
-          params.set(SEARCH_QUERY_PARAM, value.trim());
-          return;
-        }
-
-        params.delete(SEARCH_QUERY_PARAM);
-      });
-    });
-
-    input.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        closeDialog();
-        return;
-      }
-
-      if (event.key === "Enter") {
-        const firstResult =
-          dialog.querySelector<HTMLAnchorElement>(".search-result a");
-        if (firstResult) {
-          event.preventDefault();
-          triggerHaptic("success", { intensity: 0.35 });
-          firstResult.click();
-        }
-      }
-    });
-
-    dialog.addEventListener("click", (event) => {
-      const target = event.target;
-      if (!(target instanceof HTMLElement)) return;
-
-      if (target.closest(".search-result a")) {
-        triggerHaptic("success", { intensity: 0.35 });
-      }
-
-      if (target.closest(".search-recent__button")) {
-        triggerHaptic("nudge", { intensity: 0.25 });
-      }
-    });
-
-    const bindKeyboardNavigation = () => {
-      const focusableSelector = ".search-result a";
-      const focusable = Array.from(
-        dialog.querySelectorAll<HTMLElement>(focusableSelector),
-      );
-      const currentIndex = focusable.findIndex(
-        (element) => element === document.activeElement,
-      );
-
-      return { focusable, currentIndex };
-    };
-
-    input.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowDown") {
-        event.preventDefault();
-        const { focusable } = bindKeyboardNavigation();
-        focusable[0]?.focus();
-      }
-    });
-
-    dialog.addEventListener("keydown", (event) => {
-      if (!["ArrowDown", "ArrowUp"].includes(event.key)) return;
-
-      const { focusable, currentIndex } = bindKeyboardNavigation();
-      if (!focusable.length) return;
-
-      event.preventDefault();
-      if (event.key === "ArrowDown") {
-        const nextIndex = currentIndex + 1;
-        (focusable[nextIndex] ?? focusable[0]).focus();
-      } else {
-        const prevIndex = currentIndex - 1;
-        (focusable[prevIndex] ?? focusable[focusable.length - 1]).focus();
-      }
-    });
-
-    syncDialogWithUrl();
-
-    return {
-      container,
-      trigger,
-      dialog,
-      scope,
-      isActive: () =>
-        scope === undefined || scope === null || scope === getActiveScope(),
-      isDialogOpen: () => Boolean(dialog?.open),
-      openDialog,
-      closeDialog,
-      syncDialogWithUrl,
-      handleDocumentClick,
-    } as SearchInstance;
-  };
 
   searchContainers.forEach((container) => {
-    const instance = bindSearchInstance({
-      container,
-      trigger: container.querySelector("[data-search-trigger]"),
-      dialog: container.querySelector("[data-search-dialog]"),
-      scope: container.dataset.searchScope,
-    });
-    if (instance) {
-      searchInstances.push(instance);
-    }
+    const trigger = container.querySelector<HTMLButtonElement>("[data-search-trigger]");
+    const dialog = container.querySelector<HTMLDialogElement>("[data-search-dialog]");
+    if (!trigger || !dialog) return;
+
+    const scope = container.dataset.searchScope;
+    const instance = bindSearchInstance({ container, trigger, dialog, scope }, dependencies);
+    if (!instance) return;
+
+    const scopedInstance: SearchInstance = {
+      ...instance,
+      isActive: () => scope === undefined || scope === null || scope === getActiveScope(),
+    };
+
+    searchInstances.push(scopedInstance);
   });
 
-  if (searchInstances.length) {
-    bindGlobalListeners();
-  }
+  if (!searchInstances.length) return;
+
+  const getActiveInstance = () =>
+    searchInstances.find((instance) => instance.isActive()) ?? searchInstances[0];
+
+  bindGlobalSearchListeners({
+    searchInstances,
+    getActiveInstance,
+    mediaQuery,
+    triggerHaptic,
+  });
 
   const initialInstance = getActiveInstance();
-  if (initialInstance) {
-    if (getSearchParam(SEARCH_MODAL_PARAM)) {
-      initialInstance.openDialog();
-    }
+  if (initialInstance && dependencies.urlState.getParam(searchStateParams.modal)) {
+    initialInstance.openDialog();
   }
 
-  const storedQuery = getQueryFromStorage();
-  if (storedQuery) {
-    searchInstances.forEach((instance) => {
-      if (instance.isDialogOpen()) {
-        const input = instance.dialog?.querySelector<HTMLInputElement>(
-          "[data-search-input]",
-        );
-        if (input) {
-          input.value = storedQuery;
-          input.dispatchEvent(new Event("input"));
-        }
-      }
-    });
-  }
+  const storedQuery = dependencies.storage.getQuery();
+  if (!storedQuery) return;
+
+  searchInstances.forEach((instance) => {
+    if (!instance.isDialogOpen()) return;
+
+    const input = instance.dialog.querySelector<HTMLInputElement>("[data-search-input]");
+    if (!input) return;
+
+    input.value = storedQuery;
+    input.dispatchEvent(new Event("input"));
+  });
 };
 
 if (document.readyState === "loading") {
