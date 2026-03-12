@@ -15,6 +15,8 @@ Run focused checks as you iterate:
 - `bun run lint`.
 - `bun run typecheck`.
 - `bun run test:unit`.
+- `bun run content:generate` after editing canonical `src/content/*.json` domains.
+- `bun run content:check` to catch stale generated content wrappers.
 - `bun run validate:json` when JSON/content schemas change.
 - `bun run validate:glossary` for glossary updates.
 
@@ -25,8 +27,9 @@ For code or mixed changes, run:
 - `bun run check`.
 - `bun run check:full` for release prep or periodic deep validation.
 
-`bun run check` includes linting, type checks, Astro checks, JSON/glossary validation,
-unit tests, review guardrails (`check:review-guardrails`), and `agent:doctor` preflight checks.
+`bun run check` includes drift validation for generated content wrappers, linting, type checks,
+Astro checks, JSON/glossary validation, unit tests, review guardrails
+(`check:review-guardrails`), and `agent:doctor` preflight checks.
 `agent:doctor` now also enforces research freshness for watchlisted standards pages
 via `scripts/research-watchlist.json`.
 
