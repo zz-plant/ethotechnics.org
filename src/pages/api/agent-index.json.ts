@@ -1,9 +1,3 @@
-import type { APIRoute } from "astro";
+import { createConfiguredApiRoute } from "./route-wrapper";
 
-import { createAgentIndexResponse } from "../../utils/api-responses";
-
-export const GET: APIRoute = () =>
-  createAgentIndexResponse({
-    basePath: "/api",
-    includeReleaseEndpoints: true,
-  });
+export const GET = createConfiguredApiRoute("agent-index", "unversioned");

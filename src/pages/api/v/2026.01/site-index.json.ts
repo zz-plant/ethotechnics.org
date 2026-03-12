@@ -1,9 +1,3 @@
-import type { APIRoute } from "astro";
+import { createConfiguredApiRoute } from "../../route-wrapper";
 
-import { createSiteIndexResponse } from "../../../../utils/api-responses";
-
-export const GET: APIRoute = () =>
-  createSiteIndexResponse({
-    basePath: "/api/v/2026.01",
-    includeSnapshots: true,
-  });
+export const GET = createConfiguredApiRoute("site-index", "versioned");

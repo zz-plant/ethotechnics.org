@@ -1,5 +1,3 @@
-import type { APIRoute } from "astro";
+import { createConfiguredApiRoute } from "./route-wrapper";
 
-import { createAntiPatternsResponse } from "../../utils/api-responses";
-
-export const GET: APIRoute = () => createAntiPatternsResponse();
+export const GET = createConfiguredApiRoute("anti-patterns", "unversioned");
