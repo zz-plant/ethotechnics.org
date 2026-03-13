@@ -1,6 +1,17 @@
-import { SEARCH_DEBOUNCE_MS, SEARCH_RESULTS_LIMIT, type HapticOptions, type HapticPattern, type SearchInstance } from "./types";
+import {
+  SEARCH_DEBOUNCE_MS,
+  SEARCH_RESULTS_LIMIT,
+  type HapticOptions,
+  type HapticPattern,
+  type SearchInstance,
+} from "./types";
 import { createSearchRenderer } from "./render";
-import { searchStateParams, serializeQuery, type SearchStorage, type UrlStateSync } from "./query-state";
+import {
+  searchStateParams,
+  serializeQuery,
+  type SearchStorage,
+  type UrlStateSync,
+} from "./query-state";
 import type { PagefindAdapter } from "./pagefind";
 
 export type SearchDependencies = {
@@ -20,21 +31,41 @@ const isTypingContext = (target: EventTarget | null) => {
 };
 
 const getFocusableResults = (dialog: HTMLDialogElement) => {
-  const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(".search-result a"));
-  const currentIndex = focusable.findIndex((element) => element === document.activeElement);
+  const focusable = Array.from(
+    dialog.querySelectorAll<HTMLElement>(".search-result a"),
+  );
+  const currentIndex = focusable.findIndex(
+    (element) => element === document.activeElement,
+  );
 
   return { focusable, currentIndex };
 };
 
 export const bindSearchInstance = (
-  { container, trigger, dialog, scope }: { container: HTMLElement; trigger: HTMLButtonElement; dialog: HTMLDialogElement; scope?: string },
+  {
+    container,
+    trigger,
+    dialog,
+    scope,
+  }: {
+    container: HTMLElement;
+    trigger: HTMLButtonElement;
+    dialog: HTMLDialogElement;
+    scope?: string;
+  },
   dependencies: SearchDependencies,
 ): SearchInstance | null => {
   const input = dialog.querySelector<HTMLInputElement>("[data-search-input]");
   const results = dialog.querySelector<HTMLElement>("[data-search-results]");
-  const recentWrapper = dialog.querySelector<HTMLElement>("[data-search-recent]");
-  const recentList = dialog.querySelector<HTMLElement>("[data-search-recent-list]");
-  const closeButton = dialog.querySelector<HTMLButtonElement>("[data-search-close]");
+  const recentWrapper = dialog.querySelector<HTMLElement>(
+    "[data-search-recent]",
+  );
+  const recentList = dialog.querySelector<HTMLElement>(
+    "[data-search-recent-list]",
+  );
+  const closeButton = dialog.querySelector<HTMLButtonElement>(
+    "[data-search-close]",
+  );
   if (!input || !results) return null;
 
   const renderer = createSearchRenderer(results);
@@ -147,7 +178,11 @@ export const bindSearchInstance = (
     }
 
     const response = await pagefind.search(trimmed);
-    const data = await Promise.all(response.results.slice(0, SEARCH_RESULTS_LIMIT).map((result) => result.data()));
+    const data = await Promise.all(
+      response.results
+        .slice(0, SEARCH_RESULTS_LIMIT)
+        .map((result) => result.data()),
+    );
     dependencies.storage.setQuery(trimmed);
     dependencies.storage.setRecentSearch(trimmed);
     setRecentVisibility();
@@ -214,7 +249,8 @@ export const bindSearchInstance = (
     }
 
     if (event.key === "Enter") {
-      const firstResult = dialog.querySelector<HTMLAnchorElement>(".search-result a");
+      const firstResult =
+        dialog.querySelector<HTMLAnchorElement>(".search-result a");
       if (firstResult) {
         event.preventDefault();
         dependencies.triggerHaptic("success", { intensity: 0.35 });
@@ -286,6 +322,34 @@ export const bindGlobalSearchListeners = ({
       triggerHaptic("nudge", { intensity: 0.25 });
       activeInstance.openDialog({ pushHistory: true });
     }
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
+    const proxyTrigger = target.closest<HTMLElement>(
+      "[data-search-proxy-trigger]",
+    );
+    if (!proxyTrigger) {
+      return;
+    }
+
+    const targetScope = proxyTrigger.closest<HTMLElement>("[data-search-scope]")
+      ?.dataset.searchScope;
+    const scopedInstance = targetScope
+      ? searchInstances.find((instance) => instance.scope === targetScope)
+      : undefined;
+    const activeInstance = scopedInstance ?? getActiveInstance();
+
+    if (!activeInstance) {
+      return;
+    }
+
+    triggerHaptic("nudge", { intensity: 0.3 });
+    activeInstance.openDialog({ pushHistory: true });
   });
 
   document.addEventListener("click", (event) => {

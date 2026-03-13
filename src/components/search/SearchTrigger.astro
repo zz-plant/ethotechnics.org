@@ -4,22 +4,30 @@ import { Icon } from "astro-icon/components";
 interface Props {
   label?: string;
   shortcut?: string;
+  proxy?: boolean;
 }
 
-const { label = "Search the library…", shortcut = "/" } = Astro.props;
+const {
+  label = "Search the library…",
+  shortcut = "/",
+  proxy = false,
+} = Astro.props as Props;
 ---
 
 <button
   class="search-trigger"
   type="button"
   aria-label="Open library search dialog"
-  data-search-trigger
+  data-search-trigger={proxy ? undefined : "true"}
+  data-search-proxy-trigger={proxy ? "true" : undefined}
 >
   <Icon name="lucide:search" class="search-icon" />
   <span class="search-label">{label}</span>
-  {shortcut && (
-    <kbd class="search-kbd" aria-hidden="true">
-      {shortcut}
-    </kbd>
-  )}
+  {
+    shortcut && (
+      <kbd class="search-kbd" aria-hidden="true">
+        {shortcut}
+      </kbd>
+    )
+  }
 </button>

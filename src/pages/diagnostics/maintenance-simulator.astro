@@ -5,13 +5,15 @@ import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 import MaintenanceSimulatorWidget from "../../features/maintenance-simulator";
 
-const tool = diagnosticsContent.tools.find((entry) => entry.slug === "maintenance-simulator");
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "maintenance-simulator",
+);
 
 if (!tool) {
   return Astro.response(
     new Response("Diagnostic not found", {
       status: 404,
-    })
+    }),
   );
 }
 
@@ -38,6 +40,6 @@ const permalink = `/diagnostics/${tool.slug}`;
     runSectionDescription="Run the tabletop and export the summary for your maintenance packet."
     studioOffRamp={diagnosticsStudioOffRampCallout}
   >
-    <MaintenanceSimulatorWidget client:only="react" />
+    <MaintenanceSimulatorWidget client:visible />
   </DiagnosticToolPage>
 </BaseLayout>

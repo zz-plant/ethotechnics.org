@@ -8,6 +8,7 @@ import SvgDefs from "../components/SvgDefs.astro";
 import Wordmark from "../components/Wordmark.astro";
 import { siteFooter } from "../content/site-footer";
 import glossaryHighlightsScript from "../scripts/glossary-highlights.ts?url";
+import searchModalScript from "../scripts/search-modal.ts?url";
 import { normalizeBreadcrumbItems } from "../lib/breadcrumbs";
 import {
   buildJsonAlternateLinks,
@@ -366,5 +367,6 @@ const pagefindType = pathSegments[0] ?? "";
         <script type="module" src={glossaryHighlightsScript} is:inline />
       )
     }
+    <script type="module" src={searchModalScript} is:inline></script>
   </body>
 </html>
