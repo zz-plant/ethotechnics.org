@@ -38,7 +38,7 @@ const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
   <div class="nav__mobile-row">
     <div class="nav__mobile-top">
       <div class="nav__search-mobile" aria-label="Search">
-        <Search scope="mobile" label="Search" />
+        <Search scope="mobile" label="Search" includeDialog={false} />
       </div>
 
       <div class="nav__utility-inline" aria-label="Quick start">
@@ -84,7 +84,9 @@ const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
                 ? "Jumps to a section on the homepage"
                 : undefined
             }
-            data-nav-hash-link={isSameDocumentHashLink(link.href) ? "true" : undefined}
+            data-nav-hash-link={
+              isSameDocumentHashLink(link.href) ? "true" : undefined
+            }
             aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
             style={`view-transition-name: ${toViewTransitionName(
               link.href,
@@ -116,8 +118,14 @@ const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
                     ? "Jumps to a section on the homepage"
                     : undefined
                 }
-                data-nav-hash-link={isSameDocumentHashLink(link.href) ? "true" : undefined}
-                aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
+                data-nav-hash-link={
+                  isSameDocumentHashLink(link.href) ? "true" : undefined
+                }
+                aria-current={getAriaCurrent(
+                  link.href,
+                  currentPath,
+                  currentHash,
+                )}
                 style={`view-transition-name: ${toViewTransitionName(
                   link.href,
                   "mobile",

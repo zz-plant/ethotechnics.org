@@ -57,6 +57,15 @@ const abbreviatedPermalink = permalinkUrl
   : normalizedPermalink;
 
 const HeadingTag = `h${titleLevel}` as const;
+const renderAnchorLinks = () =>
+  anchorLinks.map((link, index) => (
+    <li>
+      <a href={link.href} class="pill pill--ghost">
+        <span class="page-intro__anchor-index">{index + 1}</span>
+        <span>{link.label}</span>
+      </a>
+    </li>
+  ));
 ---
 
 <section class="section page-intro">
@@ -140,60 +149,20 @@ const HeadingTag = `h${titleLevel}` as const;
             {collapseAnchorLinks ? (
               <details class="page-intro__anchors-disclosure">
                 <summary>{anchorLinksSummary}</summary>
-                <ul>
-                  {anchorLinks.map((link, index) => (
-                    <li>
-                      <a href={link.href} class="pill pill--ghost">
-                        <span class="page-intro__anchor-index">
-                          {index + 1}
-                        </span>
-                        <span>{link.label}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <ul>{renderAnchorLinks()}</ul>
               </details>
             ) : collapseAnchorLinksOnMobile ? (
               <>
                 <ul class="page-intro__anchors-list page-intro__anchors-list--desktop">
-                  {anchorLinks.map((link, index) => (
-                    <li>
-                      <a href={link.href} class="pill pill--ghost">
-                        <span class="page-intro__anchor-index">
-                          {index + 1}
-                        </span>
-                        <span>{link.label}</span>
-                      </a>
-                    </li>
-                  ))}
+                  {renderAnchorLinks()}
                 </ul>
                 <details class="page-intro__anchors-disclosure page-intro__anchors-disclosure--mobile">
                   <summary>{anchorLinksSummary}</summary>
-                  <ul>
-                    {anchorLinks.map((link, index) => (
-                      <li>
-                        <a href={link.href} class="pill pill--ghost">
-                          <span class="page-intro__anchor-index">
-                            {index + 1}
-                          </span>
-                          <span>{link.label}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                  <ul>{renderAnchorLinks()}</ul>
                 </details>
               </>
             ) : (
-              <ul class="page-intro__anchors-list">
-                {anchorLinks.map((link, index) => (
-                  <li>
-                    <a href={link.href} class="pill pill--ghost">
-                      <span class="page-intro__anchor-index">{index + 1}</span>
-                      <span>{link.label}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <ul class="page-intro__anchors-list">{renderAnchorLinks()}</ul>
             )}
           </nav>
         )

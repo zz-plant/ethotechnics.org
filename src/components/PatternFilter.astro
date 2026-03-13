@@ -195,6 +195,20 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
             data-pattern-card
             data-filters={pattern.filters.join(",")}
             data-search={searchContent}
+            data-pattern-payload={encodeURIComponent(
+              JSON.stringify({
+                slug: pattern.slug,
+                title: pattern.title,
+                summary: pattern.summary,
+                filters: pattern.filters,
+                glossaryRefs: pattern.glossaryRefs,
+                cues: pattern.cues,
+                diagnostics: pattern.diagnostics,
+                steps: pattern.steps,
+                artifacts: pattern.artifacts,
+                example: pattern.example,
+              }),
+            )}
           >
             <div class="card__glow" aria-hidden="true" />
             <div class="pattern-card__meta">
@@ -299,33 +313,16 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                 })}
               </p>
               <div class="pattern-card__diagnostics-actions">
-                <button
-                  class="copy-button"
-                  type="button"
-                  data-copy-diagnostics
-                >
+                <button class="copy-button" type="button" data-copy-diagnostics>
                   Copy diagnostic links
                 </button>
-                <span class="muted small" data-diagnostic-status aria-live="polite"></span>
+                <span
+                  class="muted small"
+                  data-diagnostic-status
+                  aria-live="polite"
+                />
               </div>
             </div>
-            <script
-              type="application/json"
-              data-pattern-payload
-              is:inline
-              set:html={JSON.stringify({
-                slug: pattern.slug,
-                title: pattern.title,
-                summary: pattern.summary,
-                filters: pattern.filters,
-                glossaryRefs: pattern.glossaryRefs,
-                cues: pattern.cues,
-                diagnostics: pattern.diagnostics,
-                steps: pattern.steps,
-                artifacts: pattern.artifacts,
-                example: pattern.example,
-              })}
-            />
           </article>
         );
       })

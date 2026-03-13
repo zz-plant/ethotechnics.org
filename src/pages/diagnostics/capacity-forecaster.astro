@@ -5,13 +5,15 @@ import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 import CapacityForecasterWidget from "../../features/capacity-forecaster/CapacityForecaster";
 
-const tool = diagnosticsContent.tools.find((entry) => entry.slug === "capacity-forecaster");
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "capacity-forecaster",
+);
 
 if (!tool) {
   return Astro.response(
     new Response("Diagnostic not found", {
       status: 404,
-    })
+    }),
   );
 }
 
@@ -38,6 +40,6 @@ const permalink = `/diagnostics/${tool.slug}`;
     runSectionDescription="Model baseline vs. remediated trajectories and export a PDF."
     studioOffRamp={diagnosticsStudioOffRampCallout}
   >
-    <CapacityForecasterWidget client:only="react" />
+    <CapacityForecasterWidget client:visible />
   </DiagnosticToolPage>
 </BaseLayout>

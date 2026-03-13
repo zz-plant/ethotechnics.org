@@ -62,23 +62,22 @@ const initializePatternFilter = (root: HTMLElement) => {
   );
   const savedStatus = root.querySelector<HTMLElement>("[data-saved-status]");
   const patternPayloads = new Map<string, PatternBundleEntry>();
+  const cardsBySlug = new Map<string, HTMLElement>();
+  const cardMetadata = cards.map((card) => {
+    const slug = card.id;
+    const normalizedFilters = (card.getAttribute("data-filters") ?? "")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean);
+    const normalizedSearch = (
+      card.getAttribute("data-search") ?? ""
+    ).toLowerCase();
 
-  cards.forEach((card) => {
-    const payloadElement = card.querySelector<HTMLScriptElement>(
-      "[data-pattern-payload]",
-    );
-    const payloadContent = payloadElement?.textContent ?? "";
-
-    if (!payloadContent) {
-      return;
+    if (slug) {
+      cardsBySlug.set(slug, card);
     }
 
-    try {
-      const parsed = JSON.parse(payloadContent) as PatternBundleEntry;
-      patternPayloads.set(parsed.slug, parsed);
-    } catch (error) {
-      console.error("Unable to parse pattern payload", error);
-    }
+    return { card, normalizedFilters, normalizedSearch };
   });
 
   let selectedFilter: string | null = null;
@@ -114,16 +113,13 @@ const initializePatternFilter = (root: HTMLElement) => {
     const count = selection.size;
     const hasSelection = count > 0;
 
-    [
-      downloadButton,
-      printButton,
-      copyBundleButton,
-      emailSubmit,
-    ].forEach((button) => {
-      if (!button) return;
-      button.setAttribute("aria-disabled", hasSelection ? "false" : "true");
-      button.classList.toggle("is-disabled", !hasSelection);
-    });
+    [downloadButton, printButton, copyBundleButton, emailSubmit].forEach(
+      (button) => {
+        if (!button) return;
+        button.setAttribute("aria-disabled", hasSelection ? "false" : "true");
+        button.classList.toggle("is-disabled", !hasSelection);
+      },
+    );
 
     if (bundleStatus) {
       const pluralized = count === 1 ? "mechanism" : "mechanisms";
@@ -173,9 +169,34 @@ const initializePatternFilter = (root: HTMLElement) => {
     printWindow.print();
   };
 
+  const getPatternPayload = (slug: string) => {
+    const cachedPayload = patternPayloads.get(slug);
+    if (cachedPayload) {
+      return cachedPayload;
+    }
+
+    const card = cardsBySlug.get(slug);
+    const encodedPayload = card?.getAttribute("data-pattern-payload") ?? "";
+
+    if (!encodedPayload) {
+      return null;
+    }
+
+    try {
+      const parsed = JSON.parse(
+        decodeURIComponent(encodedPayload),
+      ) as PatternBundleEntry;
+      patternPayloads.set(parsed.slug, parsed);
+      return parsed;
+    } catch (error) {
+      console.error("Unable to parse pattern payload", error);
+      return null;
+    }
+  };
+
   const getSelectedPayloads = () =>
     Array.from(selection)
-      .map((slug) => patternPayloads.get(slug))
+      .map((slug) => getPatternPayload(slug))
       .filter((entry): entry is PatternBundleEntry => Boolean(entry));
 
   const announceSelectionRequired = (
@@ -238,16 +259,11 @@ const initializePatternFilter = (root: HTMLElement) => {
     const normalizedQuery = query.trim().toLowerCase();
     let visibleCount = 0;
 
-    cards.forEach((card) => {
-      const cardFilters = (card.getAttribute("data-filters") ?? "")
-        .split(",")
-        .map((value) => value.trim())
-        .filter(Boolean);
-      const searchable = card.getAttribute("data-search") ?? "";
+    cardMetadata.forEach(({ card, normalizedFilters, normalizedSearch }) => {
       const matchesFilter =
-        !selectedFilter || cardFilters.includes(selectedFilter);
+        !selectedFilter || normalizedFilters.includes(selectedFilter);
       const matchesQuery =
-        !normalizedQuery || searchable.includes(normalizedQuery);
+        !normalizedQuery || normalizedSearch.includes(normalizedQuery);
       const isVisible = matchesFilter && matchesQuery;
 
       card.toggleAttribute("hidden", !isVisible);

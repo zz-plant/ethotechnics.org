@@ -5,13 +5,15 @@ import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 import BurdenModelerWidget from "../../features/burden-modeler/BurdenModeler";
 
-const tool = diagnosticsContent.tools.find((entry) => entry.slug === "burden-modeler");
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "burden-modeler",
+);
 
 if (!tool) {
   return Astro.response(
     new Response("Diagnostic not found", {
       status: 404,
-    })
+    }),
   );
 }
 
@@ -38,6 +40,6 @@ const permalink = `/diagnostics/${tool.slug}`;
     runSectionDescription="Run the model and export your scenario readout."
     studioOffRamp={diagnosticsStudioOffRampCallout}
   >
-    <BurdenModelerWidget client:only="react" />
+    <BurdenModelerWidget client:visible />
   </DiagnosticToolPage>
 </BaseLayout>

@@ -1,6 +1,5 @@
 ---
 import { randomUUID } from "node:crypto";
-import searchModalScript from "../scripts/search-modal.ts?url";
 import SearchDialog from "./search/SearchDialog.astro";
 import SearchTrigger from "./search/SearchTrigger.astro";
 
@@ -8,9 +7,10 @@ interface Props {
   scope?: "desktop" | "mobile";
   label?: string;
   shortcut?: string;
+  includeDialog?: boolean;
 }
 
-const { scope, label, shortcut } = Astro.props as Props;
+const { scope, label, shortcut, includeDialog = true } = Astro.props as Props;
 const resolvedLabel =
   label ?? (scope === "mobile" ? "Search" : "Search the library…");
 const resolvedShortcut = shortcut ?? (scope === "mobile" ? undefined : "/");
@@ -20,13 +20,27 @@ const inputId = `search-input-${instanceId}`;
 const helpTextId = `search-help-text-${instanceId}`;
 ---
 
-<div class="search-container" data-search-container data-search-scope={scope}>
-  <SearchTrigger label={resolvedLabel} shortcut={resolvedShortcut} />
-  <SearchDialog
-    dialogTitleId={dialogTitleId}
-    inputId={inputId}
-    helpTextId={helpTextId}
-  />
-</div>
-
-<script type="module" src={searchModalScript} is:inline></script>
+{
+  includeDialog ? (
+    <div
+      class="search-container"
+      data-search-container
+      data-search-scope={scope}
+    >
+      <SearchTrigger label={resolvedLabel} shortcut={resolvedShortcut} />
+      <SearchDialog
+        dialogTitleId={dialogTitleId}
+        inputId={inputId}
+        helpTextId={helpTextId}
+      />
+    </div>
+  ) : (
+    <div class="search-container" data-search-scope={scope}>
+      <SearchTrigger
+        label={resolvedLabel}
+        shortcut={resolvedShortcut}
+        proxy={true}
+      />
+    </div>
+  )
+}
