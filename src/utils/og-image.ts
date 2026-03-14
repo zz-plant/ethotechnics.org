@@ -1,4 +1,5 @@
 import wasmUrl from "@resvg/resvg-wasm/index_bg.wasm?url";
+import { createHash } from "node:crypto";
 import {
   OG_TEMPLATES,
   resolveOgTemplate,
@@ -97,6 +98,15 @@ const templateStyles: Record<OgTemplate, TemplateStyle> = {
 
 const MAX_TITLE_CHARS = 98;
 const MAX_DESCRIPTION_CHARS = 185;
+const MAX_TEMPLATE_CHARS = 32;
+const MAX_PATH_CHARS = 240;
+
+type OgRequestInput = {
+  title: string;
+  description: string;
+  template?: string;
+  path?: string;
+};
 
 const escapeXml = (value: string) =>
   value
@@ -110,6 +120,43 @@ const trimToLength = (value: string, maxLength: number) => {
   const normalized = value.replace(/\s+/g, " ").trim();
   if (normalized.length <= maxLength) return normalized;
   return `${normalized.slice(0, maxLength - 1).trimEnd()}…`;
+};
+
+const normalizeOptionalParam = (value: string | null | undefined, max: number) => {
+  if (!value) return undefined;
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (!normalized) return undefined;
+  return normalized.slice(0, max);
+};
+
+const normalizeOgRequestInput = (input: Partial<OgRequestInput>) => ({
+  title: trimToLength(input.title ?? DEFAULT_TITLE, MAX_TITLE_CHARS),
+  description: trimToLength(
+    input.description ?? DEFAULT_DESCRIPTION,
+    MAX_DESCRIPTION_CHARS,
+  ),
+  template: normalizeOptionalParam(input.template, MAX_TEMPLATE_CHARS),
+  path: normalizeOptionalParam(input.path, MAX_PATH_CHARS),
+});
+
+const buildOgEtag = (input: Partial<OgRequestInput>) => {
+  const normalized = normalizeOgRequestInput(input);
+  const digest = createHash("sha256")
+    .update(JSON.stringify(normalized))
+    .digest("hex");
+  return `"${digest}"`;
+};
+
+const isIfNoneMatchSatisfied = (ifNoneMatch: string | null, etag: string) => {
+  if (!ifNoneMatch) return false;
+  const normalizeTag = (value: string) => value.trim().replace(/^W\//, "");
+  const normalizedEtag = normalizeTag(etag);
+
+  return ifNoneMatch.split(",").some((token) => {
+    const candidate = token.trim();
+    if (candidate === "*") return true;
+    return normalizeTag(candidate) === normalizedEtag;
+  });
 };
 
 const buildOgSvg = (
@@ -211,7 +258,10 @@ const renderOgPng = async (
 
 export {
   buildOgSvg,
+  buildOgEtag,
   renderOgPng,
+  normalizeOgRequestInput,
+  isIfNoneMatchSatisfied,
   DEFAULT_DESCRIPTION,
   DEFAULT_TITLE,
   HEIGHT,
