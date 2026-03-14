@@ -37,7 +37,7 @@ const applySecurityHeaders = (response: Response, nonce: string) => {
   });
 };
 
-export const onRequest: MiddlewareHandler = async ({ request, locals }, next) => {
+export const onRequest: MiddlewareHandler = async ({ request, locals, isPrerendered }, next) => {
   const nonce = generateNonce();
 
   if (locals) {
@@ -45,7 +45,10 @@ export const onRequest: MiddlewareHandler = async ({ request, locals }, next) =>
   }
 
   const requestUrl = new URL(request.url);
-  const hostname = requestUrl.hostname.trim().toLowerCase();
+  const resolvedHost = isPrerendered
+    ? requestUrl.host
+    : request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? requestUrl.host;
+  const hostname = resolvedHost.split(':')[0]?.trim().toLowerCase() ?? '';
 
   if (!hostname) {
     const response = await next();
