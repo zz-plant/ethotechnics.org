@@ -45,14 +45,7 @@ export const onRequest: MiddlewareHandler = async ({ request, locals }, next) =>
   }
 
   const requestUrl = new URL(request.url);
-  const host = request.headers.get('host') ?? requestUrl.host;
-
-  if (!host) {
-    const response = await next();
-    return response ? applySecurityHeaders(response, nonce) : response;
-  }
-
-  const hostname = host.split(':')[0]?.trim().toLowerCase();
+  const hostname = requestUrl.hostname.trim().toLowerCase();
 
   if (!hostname) {
     const response = await next();
