@@ -54,7 +54,9 @@
     "check:review-guardrails:staged": "bun run scripts/check-review-guardrails.ts --staged",
     "hooks:install": "bun run scripts/install-git-hooks.ts",
     "content:generate": "bun run scripts/generate-content-derived.ts",
-    "content:check": "bun run scripts/generate-content-derived.ts --check"
+    "content:check": "bun run scripts/generate-content-derived.ts --check",
+    "build:pages": "bun run build",
+    "deploy:cloudflare": "echo 'Cloudflare Pages handles deployment after a successful build; skipping explicit deploy step.'"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
