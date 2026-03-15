@@ -20,18 +20,6 @@ interface Props {
 
 const { currentPath, currentHash = "", mobileLinks } = Astro.props as Props;
 
-const featuredMobileLinks = mobileLinks.filter((link) => link.mobileFeatured);
-const overflowMobileLinks = mobileLinks.filter((link) => !link.mobileFeatured);
-
-const currentPrimaryLink = mobileLinks.find((link) => {
-  const ariaCurrent = getAriaCurrent(link.href, currentPath, currentHash);
-  return ariaCurrent === "page" || ariaCurrent === "location";
-});
-
-const showCurrentPageChip = Boolean(
-  currentPrimaryLink && !featuredMobileLinks.includes(currentPrimaryLink),
-);
-const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
 ---
 
 <div class="nav__mobile" aria-label="Main navigation">
@@ -49,28 +37,9 @@ const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
       </div>
     </div>
 
-    {
-      showCurrentPageChip && currentPrimaryLink ? (
-        <p class="nav__current-page-chip" aria-live="polite">
-          <span class="nav__current-page-label">Current page:</span>{" "}
-          <a
-            class="nav__current-page-link"
-            href={currentPrimaryLink.href}
-            aria-current={getAriaCurrent(
-              currentPrimaryLink.href,
-              currentPath,
-              currentHash,
-            )}
-          >
-            {currentPrimaryLink.label}
-          </a>
-        </p>
-      ) : null
-    }
-
     <div class="nav__links nav__links--mobile nav__links--mobile-compact">
       {
-        featuredMobileLinks.map((link) => (
+        mobileLinks.map((link) => (
           <a
             class="nav__link"
             href={link.href}
@@ -98,48 +67,5 @@ const hasOverflowMobileLinks = overflowMobileLinks.length > 0;
         ))
       }
     </div>
-
-    {
-      hasOverflowMobileLinks ? (
-        <details class="nav__primary-disclosure" aria-label="More pages">
-          <summary>More pages</summary>
-          <div class="nav__links nav__links--mobile">
-            {overflowMobileLinks.map((link) => (
-              <a
-                class="nav__link"
-                href={link.href}
-                aria-label={
-                  isHashLink(link.href)
-                    ? `${link.label}, jumps to a homepage section`
-                    : link.label
-                }
-                title={
-                  isHashLink(link.href)
-                    ? "Jumps to a section on the homepage"
-                    : undefined
-                }
-                data-nav-hash-link={
-                  isSameDocumentHashLink(link.href) ? "true" : undefined
-                }
-                aria-current={getAriaCurrent(
-                  link.href,
-                  currentPath,
-                  currentHash,
-                )}
-                style={`view-transition-name: ${toViewTransitionName(
-                  link.href,
-                  "mobile",
-                )};`}
-              >
-                <span class="nav__link-label">{link.label}</span>
-                {link.description ? (
-                  <span class="nav__link-detail">{link.description}</span>
-                ) : null}
-              </a>
-            ))}
-          </div>
-        </details>
-      ) : null
-    }
   </div>
 </div>
