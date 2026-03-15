@@ -1,13 +1,13 @@
 import { describe, expect, it } from "bun:test";
 
-import { buildOgEtag, normalizeOgRequestInput } from "../../utils/og-image";
+import { buildOgEtag, normalizeOgRequestInput } from "../og-image";
 
 const OG_CACHE_CONTROL =
   "public, max-age=0, s-maxage=604800, stale-while-revalidate=86400, stale-if-error=604800";
 
 describe("OG API endpoints", () => {
   it("returns stable cache headers and etag for svg responses", async () => {
-    const { GET } = await import("./og.svg");
+    const { GET } = await import("../../pages/api/og.svg");
     const request = new Request(
       "https://example.com/api/og.svg?title=  Sample%20Title  &description=Sample%20Description",
     );
@@ -20,7 +20,7 @@ describe("OG API endpoints", () => {
   });
 
   it("returns 304 when if-none-match matches for svg responses", async () => {
-    const { GET } = await import("./og.svg");
+    const { GET } = await import("../../pages/api/og.svg");
     const initial = GET({
       request: new Request(
         "https://example.com/api/og.svg?title=Stable&description=Validator",
@@ -46,7 +46,7 @@ describe("OG API endpoints", () => {
   });
 
   it("returns 304 and stable cache headers for png responses", async () => {
-    const { GET } = await import("./og.png");
+    const { GET } = await import("../../pages/api/og.png");
     const normalizedInput = normalizeOgRequestInput({
       title: "Png Title",
       description: "Png Description",

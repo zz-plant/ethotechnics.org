@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 import { describe, expect, test } from "bun:test";
 
-import { assertEndpointParity } from "./endpoint-parity";
+import { assertEndpointParity } from "../../pages/api/endpoint-parity";
 
 const endpointFiles = (directory: string) =>
   readdirSync(directory)
@@ -12,9 +12,9 @@ const endpointFiles = (directory: string) =>
 
 describe("API endpoint parity", () => {
   test("shared config matches unversioned and versioned endpoint files", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "api"));
+    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
     const versioned = endpointFiles(
-      join(import.meta.dir, "..", "api", "v", "2026.01"),
+      join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
     );
 
     expect(() =>
@@ -23,9 +23,9 @@ describe("API endpoint parity", () => {
   });
 
   test("fails when a versioned endpoint file is missing", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "api"));
+    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
     const versioned = endpointFiles(
-      join(import.meta.dir, "..", "api", "v", "2026.01"),
+      join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
     );
 
     const brokenVersioned = versioned.filter(
@@ -38,9 +38,9 @@ describe("API endpoint parity", () => {
   });
 
   test("fails when an unversioned endpoint file is missing", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "api"));
+    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
     const versioned = endpointFiles(
-      join(import.meta.dir, "..", "api", "v", "2026.01"),
+      join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
     );
 
     const brokenUnversioned = unversioned.filter(
