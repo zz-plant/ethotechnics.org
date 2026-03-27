@@ -163,7 +163,7 @@
     border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
     border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--surface) 97%, white 3%);
-    box-shadow: 0 8px 20px rgba(64, 52, 40, 0.05);
+    box-shadow: var(--shadow-panel);
     backdrop-filter: none;
     overflow: hidden;
     overflow: clip;
@@ -207,7 +207,7 @@
     padding: 0.85rem 1.4rem;
     min-height: 44px;
     border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border: 1px solid var(--interactive-border);
     font-weight: 600;
     font-family: var(--sans);
     transition:
@@ -217,7 +217,7 @@
       color var(--motion-fast) ease,
       transform var(--motion-fast) ease;
     letter-spacing: 0.02em;
-    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    background: var(--interactive-bg);
     box-shadow: 0 1px 0 color-mix(in srgb, var(--border) 18%, transparent);
     cursor: pointer;
     text-decoration: none;
@@ -227,8 +227,9 @@
 
   .button:hover {
     transform: none;
-    box-shadow: 0 2px 8px rgba(64, 52, 40, 0.08);
-    border-color: color-mix(in srgb, var(--accent) 24%, var(--border));
+    box-shadow: var(--shadow-sm);
+    border-color: var(--interactive-border-hover);
+    background: var(--interactive-bg-hover);
   }
 
   .button:active {
@@ -284,9 +285,9 @@
   }
 
   .button:focus-visible {
-    outline: 2px solid var(--accent-strong);
-    outline-offset: 2px;
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    box-shadow: var(--focus-ring);
   }
 
   @media (any-pointer: coarse) {
@@ -337,7 +338,7 @@
     background-blend-mode: normal;
     background-size: auto;
     box-shadow:
-      0 20px 50px rgba(64, 52, 40, 0.12),
+      var(--shadow-float-strong),
       inset 0 1px 0 color-mix(in srgb, var(--surface) 70%, transparent);
     isolation: isolate;
     container-type: inline-size;
@@ -632,7 +633,7 @@
       color-mix(in srgb, var(--surface) 94%, white 6%),
       color-mix(in srgb, var(--panel) 90%, white 10%)
     );
-    box-shadow: 0 12px 20px rgba(64, 52, 40, 0.1);
+    box-shadow: var(--shadow-float);
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -751,7 +752,7 @@
       color-mix(in srgb, var(--surface) 90%, white 10%)
     );
     box-shadow:
-      0 12px 24px rgba(64, 52, 40, 0.1),
+      var(--shadow-float),
       inset 0 1px 0 color-mix(in srgb, var(--surface) 65%, transparent);
     color: color-mix(in srgb, var(--muted) 70%, var(--text));
   }
