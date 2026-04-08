@@ -9,7 +9,6 @@ import {
   getAriaCurrent,
   isHashLink,
   isSameDocumentHashLink,
-  toViewTransitionName,
 } from "../../utils/navigation";
 
 interface Props {
@@ -22,14 +21,14 @@ const { currentPath, currentHash = "", mobileLinks } = Astro.props as Props;
 
 ---
 
-<div class="nav__mobile" aria-label="Main navigation">
+<nav class="nav__mobile" aria-label="Main navigation">
   <div class="nav__mobile-row">
     <div class="nav__mobile-top">
-      <div class="nav__search-mobile" aria-label="Search">
+      <div class="nav__search-mobile">
         <Search scope="mobile" label="Search" includeDialog={false} />
       </div>
 
-      <div class="nav__utility-inline" aria-label="Quick start">
+      <div class="nav__utility-inline">
         <NavUtilityLinks
           currentPath={currentPath}
           links={navUtilityMobilePrimaryLinks}
@@ -57,10 +56,6 @@ const { currentPath, currentHash = "", mobileLinks } = Astro.props as Props;
               isSameDocumentHashLink(link.href) ? "true" : undefined
             }
             aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
-            style={`view-transition-name: ${toViewTransitionName(
-              link.href,
-              "mobile",
-            )};`}
           >
             <span class="nav__link-label">{link.label}</span>
           </a>
@@ -68,4 +63,4 @@ const { currentPath, currentHash = "", mobileLinks } = Astro.props as Props;
       }
     </div>
   </div>
-</div>
+</nav>

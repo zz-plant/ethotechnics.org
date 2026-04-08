@@ -456,9 +456,8 @@ const glossaryAuthor = getGlossaryAuthor(publication);
           Filter by letter to scan faster, then open a term for full citations.
         </p>
       </div>
-      <div
+      <nav
         class="glossary-index__letters"
-        role="navigation"
         aria-label="Filter by letter"
       >
         <button
@@ -479,9 +478,9 @@ const glossaryAuthor = getGlossaryAuthor(publication);
             {letter}
           </button>
         ))}
-      </div>
+      </nav>
     </div>
-    <div class="glossary-index" role="navigation" aria-label="Glossary index">
+    <nav class="glossary-index" aria-label="Glossary index">
       {
         entryIndex.map((entry) => {
           const matchesQuery = entry.searchText.includes(normalizedQuery);
@@ -516,7 +515,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
           );
         })
       }
-    </div>
+    </nav>
     <p class="glossary__cta muted">Index links jump to canonical permalinks.</p>
   </SectionBlock>
 
