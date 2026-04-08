@@ -13,14 +13,16 @@ import { artifacts } from "../content/institute-site";
       These are operational defaults, not guidance.<br />
       Each artifact assigns ownership, enforces reversibility, and limits claimant burden.
     </p>
-    <div class="artifact-grid" role="list">
+    <ul class="artifact-grid">
       {artifacts.map((artifact) => (
-        <article class="card stack-sm" role="listitem">
+        <li class="card stack-sm">
           <h2>{artifact.name}</h2>
           <p class="muted small">Operational governance artifact</p>
-          <a class="button" href={`/artifact/${artifact.slug}`}>View artifact details</a>
-        </article>
+          <a class="button" href={`/artifact/${artifact.slug}`}>
+            View {artifact.name} details
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   </section>
 </BaseLayout>
