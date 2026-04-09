@@ -36,31 +36,34 @@ const { currentPath, currentHash = "", mobileLinks } = Astro.props as Props;
       </div>
     </div>
 
-    <div class="nav__links nav__links--mobile nav__links--mobile-compact">
-      {
-        mobileLinks.map((link) => (
-          <a
-            class="nav__link"
-            href={link.href}
-            aria-label={
-              isHashLink(link.href)
-                ? `${link.label}, jumps to a homepage section`
-                : link.label
-            }
-            title={
-              isHashLink(link.href)
-                ? "Jumps to a section on the homepage"
-                : undefined
-            }
-            data-nav-hash-link={
-              isSameDocumentHashLink(link.href) ? "true" : undefined
-            }
-            aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
-          >
-            <span class="nav__link-label">{link.label}</span>
-          </a>
-        ))
-      }
-    </div>
+    <details class="nav__mobile-sections" name="mobile-sections">
+      <summary class="nav__mobile-sections-summary">Browse sections</summary>
+      <div class="nav__links nav__links--mobile nav__links--mobile-compact">
+        {
+          mobileLinks.map((link) => (
+            <a
+              class="nav__link"
+              href={link.href}
+              aria-label={
+                isHashLink(link.href)
+                  ? `${link.label}, jumps to a homepage section`
+                  : link.label
+              }
+              title={
+                isHashLink(link.href)
+                  ? "Jumps to a section on the homepage"
+                  : undefined
+              }
+              data-nav-hash-link={
+                isSameDocumentHashLink(link.href) ? "true" : undefined
+              }
+              aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
+            >
+              <span class="nav__link-label">{link.label}</span>
+            </a>
+          ))
+        }
+      </div>
+    </details>
   </div>
 </nav>

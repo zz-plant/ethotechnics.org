@@ -241,23 +241,19 @@ const failureChoiceIcons: Record<string, string[]> = {
         ))
       }
     </ul>
+    <div class="stack-xs mobile-jump-anchors">
+      <p id="mobile-jump-anchors-heading" class="eyebrow">Jump to key sections</p>
+      <ul class="mobile-jump-anchors__list" aria-label="Homepage jump anchors">
+        {
+          jumpAnchors.map((anchor) => (
+            <li>
+              <a href={anchor.href}>{anchor.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </section>
-
-  <nav
-    class="stack-xs mobile-jump-anchors"
-    aria-labelledby="mobile-jump-anchors-heading"
-  >
-    <p id="mobile-jump-anchors-heading" class="eyebrow">Jump to key sections</p>
-    <ul class="mobile-jump-anchors__list" aria-label="Homepage jump anchors">
-      {
-        jumpAnchors.map((anchor) => (
-          <li>
-            <a href={anchor.href}>{anchor.label}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
 
   <section id="failure-intake" class="stack-lg">
     <p class="eyebrow">Incident triage</p>
