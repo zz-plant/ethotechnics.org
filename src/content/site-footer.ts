@@ -69,6 +69,7 @@ export const siteFooter: SiteFooterContent = {
     {
       heading: "Network",
       links: [
+        { label: "About the framework", href: "/about" },
         { label: "Ethotechnics Institute", href: "/institute" },
         {
           label: "Ethotechnics Studio",
