@@ -59,9 +59,9 @@ export const navPrimaryLinks: NavLink[] = [
     primary: true,
   },
   {
-    href: "/institute",
+    href: "/about",
     label: "About",
-    description: "Institute mission and team",
+    description: "Framework, authorship, and Institute/Studio split",
     primary: true,
   },
 ];

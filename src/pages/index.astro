@@ -24,53 +24,63 @@ const failurePriorityBadges: Record<string, string> = {
 
 const heroSecondaryChips = [
   {
-    label: "Writing policy",
-    href: "/standards#active",
+    label: "Start with the glossary",
+    href: "/glossary",
   },
   {
-    label: "Preparing for audit",
-    href: "/diagnostics#diagnostic-tools",
+    label: "Browse ontology and API",
+    href: "/api",
+  },
+  {
+    label: "Read field diagnostics",
+    href: "/diagnostics",
   },
 ];
 
 const mobileQuickActions = [
   {
-    title: "Find a standard",
-    description: "Open the standards index",
-    href: "/standards",
+    title: "Start with glossary",
+    description: "Learn the framework through core terms",
+    href: "/glossary",
     iconPaths: ["M4.5 5.5h11v9h-11z", "M7 9h6"],
   },
   {
-    title: "Run a diagnostic",
-    description: "Jump to diagnostic tools",
-    href: "/diagnostics#diagnostic-tools",
+    title: "Browse ontology API",
+    description: "Use canonical definitions in your tools",
+    href: "/api",
     iconPaths: ["M5 10.4l3 3 7-7"],
   },
   {
-    title: "See examples",
-    description: "Review implementation examples",
-    href: "/examples",
+    title: "Open diagnostics",
+    description: "Run governance and evidence checks",
+    href: "/diagnostics",
     iconPaths: ["M5 7h10", "M5 10h10"],
   },
 ];
 
 const jumpAnchors = [
   {
+    label: "Glossary",
+    href: "#start-with-glossary",
+  },
+  {
+    label: "Ontology & API",
+    href: "#governance-ontology",
+  },
+  {
     label: "Incident triage",
     href: "#failure-intake",
   },
   {
-    label: "Diagnostics",
-    href: "/diagnostics#diagnostic-tools",
+    label: "Recently published",
+    href: "#recently-published",
   },
-  {
-    label: "Standards",
-    href: "/standards#active",
-  },
-  {
-    label: "Evidence",
-    href: "/artifacts",
-  },
+];
+
+const recentPublications = [
+  "Evidence Pack Readiness diagnostic — v1.2 (March 2026)",
+  "Glossary: 8 new entries on decision latency and repair authority (February 2026)",
+  "Field note: Mapping invisible maintenance work in clinical AI (January 2026)",
 ];
 
 const failureChoiceIcons: Record<string, string[]> = {
@@ -102,101 +112,74 @@ const failureChoiceIcons: Record<string, string[]> = {
 ---
 
 <BaseLayout
-  title="Ethotechnics Institute — Standards for Accountable AI Systems"
-  description="Practical standards, templates, and diagnostics to help teams respond quickly, explain decisions clearly, and stay accountable when systems fail."
+  title="Ethotechnics Institute — Open commons for accountable AI governance"
+  description="The open-access home of Ethotechnics standards, ontology, glossary, and diagnostics for teams building or auditing high-stakes AI systems."
   structuredDataType="collection"
 >
   <section class="institute-hero stack-lg">
     <div class="institute-hero__layout">
       <div class="institute-hero__main stack-lg">
-        <p class="institute-hero__eyebrow">
-          Ethotechnics Institute · Actionable AI standards
-        </p>
+        <p class="institute-hero__eyebrow">Ethotechnics Institute · Open commons</p>
         <h1 class="balanced-headline">
-          Make high-stakes AI decisions safer and easier to manage
+          Public standards, ontology, and diagnostics for accountable high-stakes AI
         </h1>
         <p class="section-lead">
-          Start with triage when something breaks, or jump to standards and
-          diagnostics when planning ahead.
+          The Ethotechnics Institute is the public, open-access arm of the Ethotechnics
+          framework. We publish formal standards, a governance ontology, a practitioner
+          glossary, and field diagnostics for teams building or auditing high-stakes AI
+          systems. Everything here is free to use, cite, and build on.
         </p>
-        <ul
-          class="institute-hero__status"
-          aria-label="Standards publication status"
-        >
+        <p class="small">
+          For client engagements, facilitation, and advisory programs, see
+          <a href="https://ethotechnics.com" rel="noopener noreferrer" target="_blank">
+            Ethotechnics Studio →
+          </a>.
+        </p>
+        <ul class="institute-hero__status" aria-label="Institute publication status">
           <li>
-            <svg
-              viewBox="0 0 20 20"
-              role="presentation"
-              focusable="false"
-              aria-hidden="true"
-            >
+            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
               <path d="M3.5 5.5h13v9h-13z" fill="none"></path>
               <path d="M6 8h8"></path>
               <path d="M6 11h6"></path>
             </svg>
-            <span>7 core standards</span>
+            <span>Open-access standards and diagnostics</span>
           </li>
           <li>
-            <svg
-              viewBox="0 0 20 20"
-              role="presentation"
-              focusable="false"
-              aria-hidden="true"
-            >
+            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
               <circle cx="10" cy="10" r="6.5" fill="none"></circle>
               <path d="M10 6.8v3.5"></path>
               <path d="M10 12.8h.01"></path>
             </svg>
-            <span>Updated regularly</span>
+            <span>Versioned, citable framework resources</span>
           </li>
           <li>
-            <svg
-              viewBox="0 0 20 20"
-              role="presentation"
-              focusable="false"
-              aria-hidden="true"
-            >
+            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
               <path
                 d="M10 3.7l5.6 2.1v3.7c0 3.6-2.4 5.9-5.6 6.9-3.2-1-5.6-3.3-5.6-6.9V5.8z"
                 fill="none"></path>
               <path d="M8.2 9.9l1.4 1.4 2.5-2.5"></path>
             </svg>
-            <span>Built for policy and audit evidence</span>
+            <span>Built for policy, audit, and research uptake</span>
           </li>
         </ul>
       </div>
 
-      <aside
-        class="institute-hero__starter panel stack-sm"
-        aria-label="Homepage starter"
-      >
+      <aside class="institute-hero__starter panel stack-sm" aria-label="Homepage starter">
         <p class="eyebrow">Start here</p>
         <p class="institute-hero__decision-helper muted small">
-          Choose one path now. You can explore the others anytime.
+          New to Ethotechnics? Begin with the glossary, then move into ontology,
+          diagnostics, and standards.
         </p>
         <div class="actions" aria-label="Primary standards actions">
-          <a
-            class="button primary institute-hero__primary-cta"
-            href="#failure-intake"
-            aria-describedby="primary-cta-detail"
-          >
-            Open incident triage
+          <a class="button primary institute-hero__primary-cta" href="/glossary">
+            Start with the glossary
           </a>
         </div>
-        <p id="primary-cta-detail" class="visually-hidden">
-          Opens incident triage options with response priorities and next steps.
-        </p>
-        <details
-          class="institute-hero__other-starts"
-          aria-label="Secondary starting paths"
-        >
+        <details class="institute-hero__other-starts" aria-label="Secondary starting paths">
           <summary class="small muted">
             More ways to start ({heroSecondaryChips.length} pathways)
           </summary>
-          <ul
-            class="institute-hero__other-start-list"
-            aria-label="Secondary starting paths"
-          >
+          <ul class="institute-hero__other-start-list" aria-label="Secondary starting paths">
             {
               heroSecondaryChips.map((chip) => (
                 <li>
@@ -212,13 +195,10 @@ const failureChoiceIcons: Record<string, string[]> = {
     </div>
   </section>
 
-  <section
-    class="stack-sm mobile-quick-actions"
-    aria-labelledby="mobile-quick-actions-heading"
-  >
+  <section class="stack-sm mobile-quick-actions" aria-labelledby="mobile-quick-actions-heading">
     <p id="mobile-quick-actions-heading" class="eyebrow">Quick actions</p>
     <p class="mobile-quick-actions__hint muted small">
-      Not urgent? Use these shortcuts to jump directly to tools and references.
+      Jump directly to citation-ready framework resources.
     </p>
     <ul class="mobile-shortcuts" aria-label="Quick actions">
       {
@@ -233,9 +213,7 @@ const failureChoiceIcons: Record<string, string[]> = {
                 </svg>
               </span>
               <span class="mobile-shortcuts__title">{action.title}</span>
-              <span class="mobile-shortcuts__description">
-                {action.description}
-              </span>
+              <span class="mobile-shortcuts__description">{action.description}</span>
             </a>
           </li>
         ))
@@ -255,6 +233,34 @@ const failureChoiceIcons: Record<string, string[]> = {
     </div>
   </section>
 
+  <section id="start-with-glossary" class="stack-sm card">
+    <p class="eyebrow">New to Ethotechnics?</p>
+    <h2>Start with the glossary</h2>
+    <p>
+      Begin with the <a href="/glossary">Glossary</a> — 40+ defined terms covering
+      burden, bindingness, escalation authority, care infrastructure, and decision
+      accountability. Entries include scope notes and citations across philosophy,
+      STS, and governance literature.
+    </p>
+  </section>
+
+  <section id="governance-ontology" class="stack-sm card">
+    <p class="eyebrow">Reference contribution</p>
+    <h2>Governance Ontology &amp; Reference API</h2>
+    <p>
+      A formal vocabulary of 40+ concepts used in accountability, burden, and
+      care-infrastructure governance — with scope notes, citations from moral
+      philosophy, STS, and organizational theory, and a read-only API for consuming
+      canonical definitions in audits, tools, and research. The ontology is
+      versioned and citable.
+    </p>
+    <p>
+      <a href="/taxonomy">Browse the ontology →</a>
+      <span aria-hidden="true"> · </span>
+      <a href="/api">View API reference →</a>
+    </p>
+  </section>
+
   <section id="failure-intake" class="stack-lg">
     <p class="eyebrow">Incident triage</p>
     <h2 id="failure-intake-heading">What needs attention right now?</h2>
@@ -264,33 +270,21 @@ const failureChoiceIcons: Record<string, string[]> = {
     <ul class="failure-grid" aria-labelledby="failure-intake-heading">
       {
         failureStates.map((state) => {
-          const iconPaths = failureChoiceIcons[state.slug] ?? [
-            "M5 10h10",
-            "M11 6l4 4-4 4",
-          ];
+          const iconPaths = failureChoiceIcons[state.slug] ?? ["M5 10h10", "M11 6l4 4-4 4"];
 
           return (
             <li>
-              <a
-                class="button failure-grid__button"
-                href={`/failure/${state.slug}`}
-              >
+              <a class="button failure-grid__button" href={`/failure/${state.slug}`}>
                 <span class="failure-grid__label">
                   <span class="failure-grid__title">
                     <span class="failure-grid__state-icon" aria-hidden="true">
-                      <svg
-                        viewBox="0 0 20 20"
-                        role="presentation"
-                        focusable="false"
-                      >
+                      <svg viewBox="0 0 20 20" role="presentation" focusable="false">
                         {iconPaths.map((pathValue) => (
                           <path d={pathValue} />
                         ))}
                       </svg>
                     </span>
-                    <span>
-                      {failureChoiceLabels[state.slug] ?? state.shortLabel}
-                    </span>
+                    <span>{failureChoiceLabels[state.slug] ?? state.shortLabel}</span>
                   </span>
                   <span class="failure-grid__priority small muted">
                     {failurePriorityBadges[state.slug] ?? "Review now"}
@@ -326,86 +320,70 @@ const failureChoiceIcons: Record<string, string[]> = {
     </p>
     <div class="adopt-grid">
       <article class="card lane-card stack-sm">
-        <h3 class="lane-card__heading">
-          <svg
-            viewBox="0 0 24 24"
-            role="presentation"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M4 6h16v12H4z" fill="none"></path>
-            <path d="M8 10h8"></path>
-            <path d="M8 14h6"></path>
-          </svg>
-          <span>Regulatory alignment</span>
-        </h3>
+        <h3>Regulatory alignment</h3>
         <ul class="lane-links">
           <li>EU AI Act obligations</li>
           <li>NIST AI RMF control mapping</li>
           <li>ISO and sector supervision references</li>
         </ul>
-        <p class="small muted">Start with:</p>
-        <ul>
-          <li><a href="/standards">Standards index</a></li>
-          <li><a href="/glossary">Terminology and definitions</a></li>
-        </ul>
       </article>
 
       <article class="card lane-card stack-sm">
-        <h3 class="lane-card__heading">
-          <svg
-            viewBox="0 0 24 24"
-            role="presentation"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              d="M12 3.5l8 3v5c0 5.2-3.5 8.4-8 9.9-4.5-1.5-8-4.7-8-9.9v-5z"
-              fill="none"></path>
-            <path d="M9.25 12.25l2 2 3.75-3.75"></path>
-          </svg>
-          <span>Audit interoperability</span>
-        </h3>
+        <h3>Audit interoperability</h3>
         <ul class="lane-links">
           <li>Evidence fields designed for GRC workflows</li>
           <li>Structured ownership and escalation clocks</li>
           <li>Exportable artifacts for regulator review</li>
         </ul>
-        <p class="small muted">Start with:</p>
-        <ul>
-          <li><a href="/artifacts">Artifact templates</a></li>
-          <li><a href="/diagnostics">Diagnostics and scorecards</a></li>
-        </ul>
       </article>
 
       <article class="card lane-card stack-sm">
-        <h3 class="lane-card__heading">
-          <svg
-            viewBox="0 0 24 24"
-            role="presentation"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <rect x="4" y="6" width="16" height="12" rx="2" fill="none"></rect>
-            <path d="M8 12h3"></path>
-            <path d="M13 12h3"></path>
-            <path d="M10.5 9v6"></path>
-          </svg>
-          <span>Adoption pathways</span>
-        </h3>
+        <h3>Adoption pathways</h3>
         <ul class="lane-links">
           <li>Policy teams adopt document IDs and clauses</li>
           <li>Operations teams install stoppability drills</li>
           <li>Engineering teams bind rollback to release gates</li>
         </ul>
-        <p class="small muted">Start with:</p>
-        <ul>
-          <li><a href="/quick-start">Quick-start playbooks</a></li>
-          <li>
-            <a href="/failure/decision-appealed">Failure intake pathways</a>
-          </li>
-        </ul>
       </article>
     </div>
+  </section>
+
+  <section class="stack-sm card">
+    <p class="eyebrow">Citing this work</p>
+    <h2>How to cite Ethotechnics</h2>
+    <p>
+      Ethotechnics Institute materials are published under
+      <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener noreferrer" target="_blank">
+        CC BY 4.0
+      </a>.
+      To cite the framework:
+    </p>
+    <blockquote>
+      Jain, K. (2025). <em>Ethotechnics: A governance and care-infrastructure framework for high-stakes systems.</em>
+      Ethotechnics Institute. https://ethotechnics.org
+    </blockquote>
+    <p class="small muted">
+      Individual glossary entries and patterns include their own citation metadata.
+    </p>
+  </section>
+
+  <section class="stack-sm card">
+    <p class="eyebrow">Ethotechnics Network</p>
+    <h2>Join a working community, not just a mailing list</h2>
+    <p>
+      A small group of researchers, practitioners, and engineers working on burden
+      measurement, care infrastructure, and AI accountability. Members receive advance
+      access to new patterns and diagnostics, invitations to working sessions, and
+      opportunities to co-author standards.
+    </p>
+    <p><a href="/participate">Apply to join →</a></p>
+  </section>
+
+  <section id="recently-published" class="stack-sm card" aria-labelledby="recently-published-heading">
+    <p class="eyebrow">What&apos;s new</p>
+    <h2 id="recently-published-heading">Recently published</h2>
+    <ul>
+      {recentPublications.map((item) => <li>{item}</li>)}
+    </ul>
   </section>
 </BaseLayout>
