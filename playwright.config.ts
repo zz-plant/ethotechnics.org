@@ -34,7 +34,8 @@ export default defineConfig({
   webServer: process.env.CF_PAGES_URL
     ? undefined
     : {
-        command: "bun run preview -- --host 0.0.0.0 --port 4321",
+        command:
+          "test -f dist/_worker.js/index.js || bun run build; bun run preview:cf -- --ip 0.0.0.0 --port 4321",
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,
