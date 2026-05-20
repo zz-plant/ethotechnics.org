@@ -97,7 +97,7 @@ const loadPageModules = async () => {
 
     if (!canReadFileSystem) {
       return Object.fromEntries(
-        pagePaths.map((pagePath) => [pagePath, {} as PageModule]),
+        pagePaths.map((pagePath) => [pagePath, {}]),
       );
     }
 
@@ -221,8 +221,9 @@ export const buildSitemapSections = async () => {
     .map(([path, module]) => {
       const routePath = normalizeRoutePath(path);
       if (!routePath) return null;
-      return module.lastmod
-        ? { path: routePath, lastmod: module.lastmod }
+      const mod = module as { lastmod?: string };
+      return mod.lastmod
+        ? { path: routePath, lastmod: mod.lastmod }
         : { path: routePath };
     })
     .filter((entry): entry is SitemapEntry => entry !== null)

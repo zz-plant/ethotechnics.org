@@ -160,7 +160,7 @@ const resolveInitialState = (): {
       ...legacyScenario?.params,
       ...storedState?.scenarioA?.params,
     },
-  } as ScenarioState;
+  };
   const baseScenarioB = {
     metrics: {
       ...baseScenarioA.metrics,
@@ -170,7 +170,7 @@ const resolveInitialState = (): {
       ...baseScenarioA.params,
       ...storedState?.scenarioB?.params,
     },
-  } as ScenarioState;
+  };
 
   const scenarioA = resolveScenarioState(
     searchParams,

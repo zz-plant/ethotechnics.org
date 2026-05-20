@@ -51,7 +51,7 @@ type PostMarketMonitoringPayload = {
 };
 
 const parseJson = async <T>(response: Response): Promise<T> =>
-  (await response.json()) as T;
+  (await response.json());
 
 describe("createValidatorsResponse", () => {
   it("returns validators payload with shared metadata", async () => {
