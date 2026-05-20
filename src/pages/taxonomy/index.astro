@@ -15,7 +15,6 @@ const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const canonicalUrl = Astro.site
   ? new URL(permalink, siteBase).toString()
   : permalink;
-const { cspNonce } = Astro.locals;
 
 const topLevelEntries = taxonomyEntries.filter(
   (entry) => !entry.slug.includes("/"),
@@ -50,7 +49,6 @@ const structuredDataJson = JSON.stringify(structuredData);
   <Fragment slot="head">
     <script
       type="application/ld+json"
-      nonce={cspNonce}
       set:html={structuredDataJson}
       is:inline
     />

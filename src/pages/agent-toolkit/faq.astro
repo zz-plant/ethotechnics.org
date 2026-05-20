@@ -76,7 +76,6 @@ const governanceFaqs = [
   },
 ];
 
-const { cspNonce } = Astro.locals;
 const allFaqs = [...framingFaqs, ...teachingFaqs, ...governanceFaqs];
 const structuredData = {
   "@context": "https://schema.org",
@@ -97,7 +96,6 @@ const structuredDataJson = JSON.stringify(structuredData);
   <Fragment slot="head">
     <script
       type="application/ld+json"
-      nonce={cspNonce}
       set:html={structuredDataJson}
       is:inline
     />

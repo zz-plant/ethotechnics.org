@@ -21,7 +21,6 @@ export default defineConfig({
     imageService: "cloudflare",
     platformProxy: {
       enabled: true,
-      configPath: "./wrangler.toml",
     },
     routes: {
       extend: {
@@ -30,8 +29,25 @@ export default defineConfig({
     },
   }),
   session: {
-    driver: "memory",
-    // Note: Astro 6 uses object-form session driver config per migration guide
+    driver: {
+      entrypoint: "unstorage/drivers/memory",
+    },
+  },
+  security: {
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "connect-src 'self'",
+        "font-src 'self'",
+        "form-action 'self'",
+        "frame-ancestors 'none'",
+        "img-src 'self' data: https:",
+        "object-src 'none'",
+      ],
+      scriptDirective: { resources: ["'self'"] },
+      styleDirective: { resources: ["'self'"] },
+    },
   },
   markdown: {
     syntaxHighlight: "prism",

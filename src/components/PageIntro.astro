@@ -46,7 +46,6 @@ const {
 const hasCustomAside = Astro.slots.has("aside");
 const hasActions = Astro.slots.has("actions");
 
-const { cspNonce } = Astro.locals;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const normalizedPermalink = permalink?.trim();
 const permalinkUrl = normalizedPermalink
@@ -196,7 +195,7 @@ const HeadingTag = `h${titleLevel}` as const;
   </div>
 </section>
 
-<script nonce={cspNonce} is:inline>
+<script is:inline>
   const copyButtons = Array.from(
     document.querySelectorAll("[data-permalink-copy]"),
   );

@@ -71,8 +71,6 @@ const operationalTestLinks = getGlossaryTestSlugs(
 const plainDescription = stripHtml(entry.bodyHtml);
 const introDescription = `${sectionDefinition.description} Part of the ${entry.title} glossary entry.`;
 const pageTitle = `${entry.title} — ${sectionDefinition.label}`;
-const { cspNonce } = Astro.locals;
-
 const {
   scopeText,
   commonCounterfeits,
@@ -486,7 +484,7 @@ const anchorLinks = [
     </p>
   </SectionBlock>
 
-  <script nonce={cspNonce} is:inline>
+  <script is:inline>
     const copyButtons = Array.from(
       document.querySelectorAll("[data-permalink-copy]"),
     );

@@ -11,9 +11,7 @@ declare module "*.astro" {
 type Runtime = import("@astrojs/cloudflare").Runtime<Env>;
 
 declare namespace App {
-  interface Locals extends Runtime {
-    cspNonce: string;
-  }
+  interface Locals extends Runtime {}
 }
 
 declare module "/pagefind/pagefind.js" {

@@ -25,10 +25,9 @@ describe('middleware', () => {
 
     for (const { url, host, expectedLocation } of redirectCases) {
       const request = new Request(url, { headers: new Headers({ host }) });
-      const locals = { cspNonce: '' } as App.Locals;
       const next = mock(() => Promise.resolve(new Response('next')));
 
-      const response = await onRequest({ request, locals } as APIContext, next);
+      const response = await onRequest({ request, locals: {} as App.Locals } as APIContext, next);
 
       if (!response) {
         throw new Error('Expected redirect response');
@@ -37,15 +36,12 @@ describe('middleware', () => {
       expect(response.status).toBe(301);
       expect(response.headers.get('Location')).toBe(expectedLocation);
       expect(response.headers.get('Strict-Transport-Security')).toContain('max-age');
-      expect(response.headers.get('Content-Security-Policy')).toContain("default-src 'self'");
-      expect(response.headers.get('Content-Security-Policy')).toContain(`script-src 'self' 'nonce-`);
       expect(response.headers.get('Referrer-Policy')).toBe('no-referrer');
       expect(response.headers.get('X-Frame-Options')).toBe('DENY');
       expect(response.headers.get('X-Content-Type-Options')).toBe('nosniff');
       expect(response.headers.get('Permissions-Policy')).toBe(
         'camera=(), geolocation=(), microphone=(), payment=()',
       );
-      expect(locals.cspNonce).toBeTruthy();
       expect(next).not.toHaveBeenCalled();
     }
   });
@@ -55,10 +51,9 @@ describe('middleware', () => {
 
     for (const headers of cases) {
       const request = new Request('https://example.com/path', { headers });
-      const locals = { cspNonce: '' } as App.Locals;
       const next = mock(() => Promise.resolve(new Response('next')));
 
-      const response = await onRequest({ request, locals } as APIContext, next);
+      const response = await onRequest({ request, locals: {} as App.Locals } as APIContext, next);
 
       if (!response) {
         throw new Error('Expected next response');
@@ -67,15 +62,12 @@ describe('middleware', () => {
       expect(response.status).toBe(200);
       expect(await response.text()).toBe('next');
       expect(response.headers.get('Strict-Transport-Security')).toContain('max-age');
-      expect(response.headers.get('Content-Security-Policy')).toContain("default-src 'self'");
-      expect(response.headers.get('Content-Security-Policy')).toContain(`script-src 'self' 'nonce-`);
       expect(response.headers.get('Referrer-Policy')).toBe('no-referrer');
       expect(response.headers.get('X-Frame-Options')).toBe('DENY');
       expect(response.headers.get('X-Content-Type-Options')).toBe('nosniff');
       expect(response.headers.get('Permissions-Policy')).toBe(
         'camera=(), geolocation=(), microphone=(), payment=()',
       );
-      expect(locals.cspNonce).toBeTruthy();
       expect(next).toHaveBeenCalledTimes(1);
     }
   });

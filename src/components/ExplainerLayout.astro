@@ -50,9 +50,7 @@ const {
   ctas,
   faqs,
 }: Props = Astro.props;
-const { cspNonce } = Astro.locals;
 const explainerSeoMetadata = getExplainerSeoMetadata(permalink);
-
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
   { href: "#example", label: "Example use case" },
@@ -186,7 +184,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <script
     type="application/ld+json"
-    nonce={cspNonce}
     set:html={structuredDataJson}
     is:inline
   />

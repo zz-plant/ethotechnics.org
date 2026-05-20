@@ -218,7 +218,6 @@ const anchorLinks = executiveSummary.map(({ href, text }) => ({
   label: text.split(":")[0],
 }));
 
-const { cspNonce } = Astro.locals;
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toString();
 ---
@@ -455,7 +454,7 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
   </SectionBlock>
 </BaseLayout>
 
-<script nonce={cspNonce} is:inline>
+<script is:inline>
   const detailBlocks = Array.from(
     document.querySelectorAll("details[data-implication]")
   );

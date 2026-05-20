@@ -32,7 +32,6 @@ const {
   updateCadence,
 } = researchContent;
 const priorityAgenda = agenda.slice(0, 3);
-const { cspNonce } = Astro.locals;
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
 const summaryLinks = anchorLinks.slice(0, 5);
 const summaryRelatedLinks = [
@@ -632,7 +631,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
   <script
     type="application/ld+json"
-    nonce={cspNonce}
     set:html={structuredDataJson}
     is:inline
   />

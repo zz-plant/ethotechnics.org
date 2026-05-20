@@ -1,9 +1,10 @@
-import { defineConfig } from 'eslint/config';
+import { defineConfig, includeIgnoreFile } from 'eslint/config';
 import js from '@eslint/js';
 import astro from 'eslint-plugin-astro';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import tseslint from 'typescript-eslint';
 
+const gitignorePath = new URL('./.gitignore', import.meta.url);
 const astroRecommended = astro.configs['flat/recommended'].map((config) => ({
   ...config,
   languageOptions: {
@@ -19,7 +20,7 @@ const astroRecommended = astro.configs['flat/recommended'].map((config) => ({
 }));
 
 export default defineConfig(
-  { ignores: ['.astro/', 'dist/', 'node_modules/'] },
+  includeIgnoreFile(gitignorePath),
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {

@@ -49,7 +49,6 @@ const diagnosticLinks = Object.fromEntries(
 );
 
 const artifactPreviews = startHereContent.artifacts.previews;
-const { cspNonce } = Astro.locals;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -372,7 +371,7 @@ const { cspNonce } = Astro.locals;
       artifactPreviews,
     })}
   />
-  <script is:inline nonce={cspNonce}>
+  <script is:inline>
     const dataElement = document.querySelector("#syllabus-data");
     const parsed = dataElement
       ? JSON.parse(dataElement.textContent || "{}")

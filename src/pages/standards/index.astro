@@ -22,7 +22,6 @@ const {
   standards,
   doctrine,
 } = standardsContent;
-const { cspNonce } = Astro.locals;
 const { adoptedStandards, starterCards, implementationExampleCards } =
   buildStandardsCardViewModels({
     standards,
@@ -954,7 +953,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
       VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
-  <script nonce={cspNonce} is:inline>
+  <script is:inline>
     const standardsFilter = document.querySelector("[data-standards-filter]");
 
     if (standardsFilter) {
@@ -1052,7 +1051,6 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
 
   <script
     type="application/ld+json"
-    nonce={cspNonce}
     set:html={structuredDataJson}
     is:inline
   />

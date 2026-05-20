@@ -119,7 +119,6 @@ const structuredData = {
   ],
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
-const { cspNonce } = Astro.locals;
 ---
 
 <BaseLayout
@@ -276,7 +275,6 @@ const { cspNonce } = Astro.locals;
   </article>
   <script
     type="application/ld+json"
-    nonce={cspNonce}
     set:html={structuredDataJson}
     is:inline
   />

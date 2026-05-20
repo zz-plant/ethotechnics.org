@@ -50,9 +50,7 @@ const recommendedAction = recommendedCard?.href
       label: `Start ${recommendedCard.title.toLowerCase()}`,
     }
   : null;
-const { cspNonce } = Astro.locals;
 ---
-
 <BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
   <PageIntro
     eyebrow={hero.eyebrow}
@@ -371,7 +369,7 @@ const { cspNonce } = Astro.locals;
     is:inline
     set:html={JSON.stringify({ artifacts: artifacts.previews })}
   />
-  <script is:inline nonce={cspNonce}>
+  <script is:inline>
     const artifactData = document.querySelector("#artifact-data");
     const parsedArtifacts = artifactData
       ? JSON.parse(artifactData.textContent || "{}")

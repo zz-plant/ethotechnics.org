@@ -135,7 +135,6 @@ const structuredData = buildSchemaGraph({
   breadcrumbs: normalizedBreadcrumbItems,
 });
 
-const { cspNonce } = Astro.locals;
 const jsonAlternateLinks = buildJsonAlternateLinks(jsonAlternates);
 const structuredDataJson = stringifyJsonLd(structuredData);
 const languageAlternates = buildLanguageAlternates(canonical);
@@ -227,7 +226,6 @@ const pagefindType = pathSegments[0] ?? "";
     />
     <script
       type="application/ld+json"
-      nonce={cspNonce}
       set:html={structuredDataJson}
       is:inline
     />

@@ -25,7 +25,6 @@ const {
   rolePathways,
   publication,
 } = libraryEntry.data;
-const { cspNonce } = Astro.locals;
 const diagnosticTitles = Object.fromEntries(
   diagnosticsContent.tools.map((tool) => [tool.slug, tool.title]),
 );
@@ -458,7 +457,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
   <script
     type="application/ld+json"
-    nonce={cspNonce}
     set:html={structuredDataJson}
     is:inline
   />

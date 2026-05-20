@@ -59,8 +59,6 @@ const collectionPath =
 const collectionUrl = Astro.site
   ? new URL(collectionPath, siteBase).toString()
   : collectionPath;
-const { cspNonce } = Astro.locals;
-
 const siblingEntries = taxonomyEntries.filter((candidate) => {
   if (candidate.slug === entry.slug) {
     return false;
@@ -146,7 +144,6 @@ const structuredDataJson = JSON.stringify(structuredData);
   <Fragment slot="head">
     <script
       type="application/ld+json"
-      nonce={cspNonce}
       set:html={structuredDataJson}
       is:inline
     />

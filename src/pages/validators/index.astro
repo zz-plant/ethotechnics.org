@@ -31,7 +31,6 @@ const focusGroups = [
     validators: validators.slice(2, 3),
   },
 ];
-const { cspNonce } = Astro.locals;
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : permalink;
@@ -220,7 +219,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </section>
   <script
     type="application/ld+json"
-    nonce={cspNonce}
     set:html={structuredDataJson}
     is:inline
   />
