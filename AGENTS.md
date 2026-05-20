@@ -10,7 +10,7 @@ human-centered design. Follow these instructions to keep changes consistent and 
 ## Essentials
 
 - Package manager and script runner: **Bun**.
-- Runtime baseline: **Node.js 20.x** (`nvm use`).
+- Runtime baseline: **Node.js 22.x** (`nvm use`).
 - Run `bun run check` before committing code or mixed changes.
 - Discover scoped overrides before editing: `rg --files -g 'AGENTS.md'`.
 

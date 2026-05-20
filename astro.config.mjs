@@ -10,6 +10,7 @@ import robotsTxt from "astro-robots-txt";
 export default defineConfig({
   site: "https://ethotechnics.org",
   prefetch: true,
+  compressHTML: false,
   output: "server",
   server: {
     host: true,
@@ -30,6 +31,7 @@ export default defineConfig({
   }),
   session: {
     driver: "memory",
+    // Note: Astro 6 uses object-form session driver config per migration guide
   },
   markdown: {
     syntaxHighlight: "prism",
@@ -42,10 +44,11 @@ export default defineConfig({
       },
     },
     build: {
-      cssMinify: "lightningcss",
       minify: "esbuild",
       reportCompressedSize: false,
-      target: "es2022",
+      target: ["es2022"],
+      cssMinify: "lightningcss",
+      cssTarget: ["es2020"],
       rollupOptions: {
         output: {
           experimentalMinChunkSize: 1000,
