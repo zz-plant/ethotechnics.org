@@ -1,5 +1,5 @@
 import { defineAction } from 'astro:actions';
-import { z } from 'astro:content';
+import { z } from 'zod';
 
 const intakeSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -13,7 +13,7 @@ export const server = {
   intake: defineAction({
     accept: 'form',
     input: intakeSchema,
-    handler: (input: z.infer<typeof intakeSchema>) => {
+    handler: (input) => {
       // In a real application, you would save this to a database or send an email.
       const { name, topic } = input;
       // For now, we'll just return success.
