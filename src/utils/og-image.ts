@@ -224,12 +224,13 @@ const buildOgSvg = (
 
 let resvgInitPromise: Promise<void> | null = null;
 
-const initResvg = async () => {
+const initResvg = async (baseUrl: string | URL) => {
   if (!resvgInitPromise) {
+    const wasmAbsoluteUrl = new URL(wasmUrl, baseUrl).toString();
     resvgInitPromise = (async () => {
       const [{ initWasm }, response] = await Promise.all([
         import("@resvg/resvg-wasm"),
-        fetch(wasmUrl),
+        fetch(wasmAbsoluteUrl),
       ]);
       await initWasm(await response.arrayBuffer());
     })();
@@ -241,9 +242,9 @@ const initResvg = async () => {
 const renderOgPng = async (
   title: string,
   description: string,
-  options?: { template?: string; path?: string },
+  options?: { template?: string; path?: string; baseUrl?: string | URL },
 ) => {
-  await initResvg();
+  await initResvg(options?.baseUrl ?? "https://ethotechnics.org");
   const { Resvg } = await import("@resvg/resvg-wasm");
   const svg = buildOgSvg(title, description, options);
   const renderer = new Resvg(svg, {

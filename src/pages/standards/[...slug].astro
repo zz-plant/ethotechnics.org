@@ -1,0 +1,32 @@
+---
+import { getEntry, render } from "astro:content";
+import StandardsLayout from "../../components/StandardsLayout.astro";
+
+const { slug } = Astro.params;
+const slugStr = Array.isArray(slug) ? slug.join("/") : String(slug ?? "");
+const entry = await getEntry("standards", slugStr);
+
+if (!entry) {
+  return Astro.rewrite("/404");
+}
+
+const { Content } = await render(entry);
+const data = entry.data;
+---
+
+<StandardsLayout
+  title={data.title}
+  description={data.description}
+  permalink={data.permalink}
+  eyebrow={data.eyebrow}
+  anchorLinks={data.anchorLinks}
+  version={data.version}
+  lastUpdated={data.lastUpdated}
+  panelCopy={data.panelCopy}
+  seoTitle={data.seoTitle}
+  publishedTime={data.publishedTime}
+  modifiedTime={data.modifiedTime}
+  mainClass={data.mainClass}
+>
+  <Content />
+</StandardsLayout>

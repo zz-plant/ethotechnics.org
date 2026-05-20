@@ -35,7 +35,7 @@ export default defineConfig({
     ? undefined
     : {
         command:
-          "test -f dist/_worker.js/index.js || bun run build; bun run preview:cf -- --ip 0.0.0.0 --port 4321",
+          "test -f dist/server/entry.mjs || bun run build; bun run preview:cf -- --ip 0.0.0.0 --port 4321",
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,

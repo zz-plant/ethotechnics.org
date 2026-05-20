@@ -36,6 +36,7 @@ export async function GET({ request }: APIContext) {
     {
       template: normalizedInput.template,
       path: normalizedInput.path,
+      baseUrl: request.url,
     },
   );
 

@@ -47,11 +47,9 @@ const entryRecord = glossaryEntry.data.categories
   .find(({ entry }) => entry.id === slug);
 
 if (!entryRecord) {
-  return Astro.response(
-    new Response("Glossary entry not found", {
-      status: 404,
-    }),
-  );
+  return new Response("Glossary entry not found", {
+    status: 404,
+  });
 }
 
 const { entry, category } = entryRecord;
@@ -59,11 +57,9 @@ const operationalTests = getGlossaryTestSlugs(entry.operationalTests ?? []);
 const testRecord = operationalTests.find((item) => item.slug === test) ?? null;
 
 if (!testRecord) {
-  return Astro.response(
-    new Response("Operational test not found", {
-      status: 404,
-    }),
-  );
+  return new Response("Operational test not found", {
+    status: 404,
+  });
 }
 
 const categoryLabel = normalizeGlossaryHeading(category.heading);

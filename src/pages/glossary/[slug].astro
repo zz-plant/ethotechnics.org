@@ -64,11 +64,9 @@ const entryRecord = categories
   .find(({ entry }) => entry.id === slug);
 
 if (!entryRecord) {
-  return Astro.response(
-    new Response("Glossary entry not found", {
-      status: 404,
-    }),
-  );
+  return new Response("Glossary entry not found", {
+    status: 404,
+  });
 }
 
 const { entry, category } = entryRecord;

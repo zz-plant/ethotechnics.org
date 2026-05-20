@@ -15,11 +15,9 @@ const tool = diagnosticsContent.tools.find(
 );
 
 if (!tool) {
-  return Astro.response(
-    new Response("Diagnostic not found", {
-      status: 404,
-    }),
-  );
+  return new Response("Diagnostic not found", {
+    status: 404,
+  });
 }
 
 const { publication } = diagnosticsContent;

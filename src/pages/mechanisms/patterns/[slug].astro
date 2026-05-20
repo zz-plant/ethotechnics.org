@@ -20,11 +20,9 @@ const libraryContent = libraryEntry.data;
 const publication = libraryContent.publication;
 
 if (!pattern) {
-  return Astro.response(
-    new Response("Mechanism not found", {
-      status: 404,
-    })
-  );
+  return new Response("Mechanism not found", {
+    status: 404,
+  });
 }
 
 const filterLabels = Object.fromEntries(

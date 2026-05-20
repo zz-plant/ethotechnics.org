@@ -1,5 +1,5 @@
 import { defineCollection, z } from "astro:content";
-import { file } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 
 // Reuse common schemas
 const pageCopySchema = z.object({
@@ -605,7 +605,36 @@ const participation = defineCollection({
   }),
 });
 
+const standards = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/standards" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    permalink: z.string(),
+    eyebrow: z.string().optional().default("Standard"),
+    version: z.string().optional(),
+    lastUpdated: z.string().optional(),
+    anchorLinks: z
+      .array(z.object({ href: z.string(), label: z.string() }))
+      .optional()
+      .default([]),
+    panelCopy: z
+      .object({
+        eyebrow: z.string(),
+        title: z.string(),
+        description: z.string(),
+        link: z.object({ label: z.string(), href: z.string() }).optional(),
+      })
+      .optional(),
+    seoTitle: z.string().optional(),
+    publishedTime: z.string().optional(),
+    modifiedTime: z.string().optional(),
+    mainClass: z.string().optional(),
+  }),
+});
+
 export const collections = {
+  standards,
   home,
   taxonomy,
   glossary,
