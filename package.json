@@ -21,6 +21,7 @@
     "start": "bunx astro dev",
     "build": "bun run content:generate && bun run validate:json && bun run validate:glossary && bunx astro build && bun run build:search",
     "build:search": "bun run scripts/build-search.ts",
+    "build:search:full": "echo 'See docs/ci-search-index.md for post-deploy index generation'",
     "preview": "bunx astro preview",
     "preview:cf": "bunx wrangler dev ./dist/server/ --local",
     "deploy": "bun run build && bunx wrangler deploy ./dist/server/",
