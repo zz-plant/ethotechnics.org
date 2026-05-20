@@ -20,7 +20,7 @@ const publication = createImplementationPublication(
 );
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
   <PageIntro
     eyebrow="Implementation example"
     title={pageTitle}
@@ -123,5 +123,8 @@ const publication = createImplementationPublication(
       publication={publication}
       summaryLabel="Cite this implementation example"
     />
+    <p class="muted" style="margin-top:1.5rem">
+      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    </p>
   </div>
 </BaseLayout>

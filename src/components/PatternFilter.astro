@@ -16,7 +16,7 @@ type Props = {
   searchId?: string;
 };
 
-const { filters, entries, diagnosticTitles, searchId } = Astro.props as Props;
+const { filters, entries, diagnosticTitles, searchId }: Props = Astro.props;
 const filterLabels = Object.fromEntries(
   filters.map((filter) => [filter.slug, filter.label]),
 );

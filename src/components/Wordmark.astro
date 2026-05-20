@@ -5,8 +5,8 @@ export interface Props {
   class?: string;
 }
 
-const { title = 'Ethotechnics Institute', ariaHidden = false, class: className } =
-  Astro.props as Props;
+const { title = 'Ethotechnics Institute', ariaHidden = false, class: className }: Props =
+  Astro.props;
 ---
 <svg
   class={className}

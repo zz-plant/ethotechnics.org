@@ -1,7 +1,6 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
@@ -165,24 +164,25 @@ const validators = collectUnique(matrix.flatMap((row) => row.validators));
 const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
 ---
 
-<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription} mainClass="page page--wide">
-  <PageIntro
-    eyebrow="Standards"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Why this exists",
-      title: "One lookup table for triage.",
-      description:
-        "Use this matrix to locate the right validator and mechanism before you open the full standard.",
-      link: {
-        label: "Open the mapping artifact",
-        href: "/standards/std-01-mapping-artifact",
-      },
-    }}
-  />
+<StandardsLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards`}
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  mainClass="page page--wide"
+  panelCopy={{
+    eyebrow: "Why this exists",
+    title: "One lookup table for triage.",
+    description:
+      "Use this matrix to locate the right validator and mechanism before you open the full standard.",
+    link: {
+      label: "Open the mapping artifact",
+      href: "/standards/std-01-mapping-artifact",
+    },
+  }}
+>
 
   <ScholarlyMeta publication={publication} permalink={permalink} />
 
@@ -435,4 +435,4 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   >
     <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

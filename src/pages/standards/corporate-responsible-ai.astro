@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Corporate Responsible AI Programs";
@@ -14,20 +13,21 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
-  <PageIntro
-    eyebrow="Corporate programs"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Ethotechnics read",
-      title: "Ethics theater under pressure",
-      description:
-        "Internal governance rarely grants stop rights to affected parties.",
-    }}
-  />
+<StandardsLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards critique`}
+  eyebrow="Corporate programs"
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  panelCopy={{
+    eyebrow: "Ethotechnics read",
+    title: "Ethics theater under pressure",
+    description:
+      "Internal governance rarely grants stop rights to affected parties.",
+  }}
+>
 
   <SectionBlock
     id="overview"
@@ -74,4 +74,4 @@ const anchorLinks = [
       oversight when incentives conflict with restraint.
     </p>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

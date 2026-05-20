@@ -1,9 +1,8 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { minimumViableContestabilityContent } from "../../content/minimum-viable-contestability";
 
@@ -36,18 +35,15 @@ const textOnlyContent = [
   .trim();
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
-  <StandardStatusSummary slug="minimum-viable-contestability" />
-
-
-  <PageIntro
-    eyebrow="Standard"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={panelCopy}
-  />
+<StandardsLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  panelCopy={panelCopy}
+>
+  <StandardStatusSummary slot="pre-intro" slug="minimum-viable-contestability" />
 
   <SectionBlock
     id="summary"
@@ -143,7 +139,11 @@ const textOnlyContent = [
       <pre class="mvc-text__block" data-text-block>{textOnlyContent}</pre>
     </div>
   </SectionBlock>
-</BaseLayout>
+
+  <p class="muted" style="margin-top:2rem">
+    See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+  </p>
+</StandardsLayout>
 
 <script>
   const printButton = document.querySelector<HTMLButtonElement>(
@@ -207,10 +207,10 @@ const textOnlyContent = [
   }
 
   .mvc-summary__actions {
-    border: 1px solid var(--theme-border);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.5rem;
-    background: var(--theme-surface);
+    background: var(--surface);
     display: grid;
     gap: 0.8rem;
   }
@@ -238,10 +238,10 @@ const textOnlyContent = [
   }
 
   .mvc-text {
-    border: 1px solid var(--theme-border);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.5rem;
-    background: var(--theme-surface);
+    background: var(--surface);
   }
 
   .mvc-text__block {

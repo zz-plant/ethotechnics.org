@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
@@ -33,23 +32,21 @@ const agentSafetyObjectModel = await readFile(
 
 ---
 
-<BaseLayout
-  title={`${pageTitle} \u2014 Standards`}
+<StandardsLayout
+  title={pageTitle}
   description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} \u2014 Standards`}
+  eyebrow="Practice"
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  panelCopy={{
+    eyebrow: "Status",
+    title: "Active",
+    description:
+      "Scope: autonomous and semi-autonomous agents, workflow automation, and decision engines. Related: STD-01 and STD-02.",
+  }}
 >
-  <PageIntro
-    eyebrow="Practice"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Status",
-      title: "Active",
-      description:
-        "Scope: autonomous and semi-autonomous agents, workflow automation, and decision engines. Related: STD-01 and STD-02.",
-    }}
-  />
 
   <SummaryCallout
     eyebrow="Reading guide"
@@ -599,4 +596,4 @@ const agentSafetyObjectModel = await readFile(
       MEC-06, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

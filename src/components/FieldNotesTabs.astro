@@ -12,7 +12,7 @@ export interface Props {
   entries: FieldNoteEntry[];
 }
 
-const { sections, entries } = Astro.props as Props;
+const { sections, entries }: Props = Astro.props;
 const initialFormat = sections[0]?.format ?? "";
 
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);

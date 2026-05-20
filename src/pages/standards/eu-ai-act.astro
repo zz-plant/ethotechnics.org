@@ -1,11 +1,10 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "EU AI Act";
 const pageDescription =
-  "Ethotechnics-style critique of the EU AI Act’s risk-tiered regulatory regime.";
+  "Ethotechnics-style critique of the EU AI Act\u2019s risk-tiered regulatory regime.";
 const permalink = "/standards/eu-ai-act";
 const publishedTime = "2026-02-15T00:00:00Z";
 const modifiedTime = "2026-03-04T00:00:00Z";
@@ -21,25 +20,22 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout
-  title="EU AI Act implementation controls | Ethotechnics"
+<StandardsLayout
+  title={pageTitle}
   description={pageDescription}
+  permalink={permalink}
+  seoTitle="EU AI Act implementation controls | Ethotechnics"
+  eyebrow="Regulatory regime"
+  anchorLinks={anchorLinks}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
+  panelCopy={{
+    eyebrow: "Ethotechnics read",
+    title: "Compliance vs. machine-speed harm",
+    description:
+      "Documentation and enforcement matter, but they are not the primary brake.",
+  }}
 >
-  <PageIntro
-    eyebrow="Regulatory regime"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Ethotechnics read",
-      title: "Compliance vs. machine-speed harm",
-      description:
-        "Documentation and enforcement matter, but they are not the primary brake.",
-    }}
-  />
 
   <SectionBlock
     id="overview"
@@ -186,4 +182,4 @@ const anchorLinks = [
       </li>
     </ul>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

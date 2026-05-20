@@ -1,9 +1,8 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "W3C Verifiable Credential schemas for contestability";
@@ -53,23 +52,22 @@ const issuanceGuidance = [
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription}>
-  <StandardStatusSummary slug="w3c-vc-schemas" />
-
-
-  <PageIntro
-    eyebrow="STD-05 draft"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Interoperability goal",
-      title: "Credentialize contestability artifacts.",
-      description:
-        "These schemas make governance evidence portable across identity and credential ecosystems.",
-    }}
-  />
+<StandardsLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards`}
+  eyebrow="STD-05 draft"
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  panelCopy={{
+    eyebrow: "Interoperability goal",
+    title: "Credentialize contestability artifacts.",
+    description:
+      "These schemas make governance evidence portable across identity and credential ecosystems.",
+  }}
+>
+  <StandardStatusSummary slot="pre-intro" slug="w3c-vc-schemas" />
 
   <SectionBlock
     id="overview"
@@ -124,4 +122,8 @@ const issuanceGuidance = [
       ))}
     </ul>
   </SectionBlock>
-</BaseLayout>
+
+  <p class="muted" style="margin-top:2rem">
+    See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+  </p>
+</StandardsLayout>

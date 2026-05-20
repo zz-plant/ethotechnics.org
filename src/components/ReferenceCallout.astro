@@ -13,7 +13,7 @@ const {
   href,
   linkLabel = "Read more",
   ariaLabel,
-} = Astro.props as Props;
+}: Props = Astro.props;
 
 const headingId = `callout-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 const isExternal = href.startsWith("http");

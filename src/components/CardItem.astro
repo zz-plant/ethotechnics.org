@@ -46,7 +46,7 @@ interface Props {
   ariaLabel?: string;
 }
 
-const props = Astro.props as Props;
+const props: Props = Astro.props;
 const {
   id,
   eyebrow,
@@ -128,74 +128,3 @@ const labelledBy = ariaLabel ? undefined : resolvedTitleId;
   }
   <slot name="footer" />
 </article>
-
-<style>
-  .card {
-    position: relative;
-    background: color-mix(in srgb, var(--surface) 95%, white 5%);
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    box-shadow: 0 12px 24px rgba(64, 52, 40, 0.06);
-    isolation: isolate;
-    overflow: hidden;
-    transition:
-      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-
-  .card:hover,
-  .card:focus-within {
-    transform: translateY(-3px);
-    box-shadow:
-      0 16px 32px rgba(64, 52, 40, 0.1),
-      0 6px 14px rgba(64, 52, 40, 0.04);
-    z-index: var(--z-raised);
-  }
-
-  .card--quiet {
-    background: color-mix(in srgb, var(--surface) 98%, white 2%);
-    border-color: color-mix(in srgb, var(--border) 72%, transparent);
-    box-shadow: none;
-  }
-
-  .card--quiet:hover,
-  .card--quiet:focus-within {
-    transform: none;
-    box-shadow: 0 10px 20px rgba(64, 52, 40, 0.04);
-  }
-
-  .card--quiet::after {
-    opacity: 0;
-  }
-
-  .card--quiet .card__glow {
-    opacity: 0;
-  }
-
-  /* Apply grain texture if available */
-  .card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: var(--grain-texture, none);
-    opacity: 0.03; /* Subtle grain */
-    pointer-events: none;
-    z-index: var(--z-underlay);
-    mix-blend-mode: multiply;
-  }
-
-  .card__glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      circle at top left,
-      rgba(255, 255, 255, 0.6),
-      transparent 60%
-    );
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: var(--z-underlay);
-    mix-blend-mode: screen;
-  }
-</style>

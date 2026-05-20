@@ -1,6 +1,6 @@
 ---
-import "@fontsource-variable/plus-jakarta-sans/index.css";
-import "@fontsource-variable/source-serif-4/index.css";
+import "@fontsource-variable/plus-jakarta-sans/wght.css";
+import "@fontsource-variable/source-serif-4/wght.css";
 import { SEO } from "astro-seo";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Navigation from "../components/Navigation.astro";
@@ -65,7 +65,7 @@ const {
   breadcrumbItems,
   jsonAlternates,
   structuredDataType = "auto",
-} = Astro.props as Props;
+}: Props = Astro.props;
 
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).toString()
@@ -153,14 +153,18 @@ const pagefindType = pathSegments[0] ?? "";
       content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
     />
     <style is:inline>
-      :root {
-        color-scheme: light;
-      }
-
       html,
       body {
         background-color: #f5f0e6;
         color: #2a2621;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html,
+        body {
+          background-color: #1a1714;
+          color: #e8e0d4;
+        }
       }
     </style>
     <SEO
@@ -216,7 +220,8 @@ const pagefindType = pathSegments[0] ?? "";
           },
           { name: "author", content: siteName },
           { name: "publisher", content: siteName },
-          { name: "theme-color", content: "#ffffff" },
+          { name: "theme-color", content: "#f5f0e6", media: "(prefers-color-scheme: light)" },
+          { name: "theme-color", content: "#1a1714", media: "(prefers-color-scheme: dark)" },
         ],
       }}
     />
@@ -364,9 +369,9 @@ const pagefindType = pathSegments[0] ?? "";
     </div>
     {
       enableGlossaryHighlights && (
-        <script type="module" src={glossaryHighlightsScript} is:inline />
+        <script type="module" src={glossaryHighlightsScript} />
       )
     }
-    <script type="module" src={searchModalScript} is:inline></script>
+    <script type="module" src={searchModalScript} defer></script>
   </body>
 </html>

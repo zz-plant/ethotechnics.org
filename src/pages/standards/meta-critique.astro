@@ -1,11 +1,10 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Meta-critique across standards";
 const pageDescription =
-  "Ethotechnics’ core critique of prevailing AI governance standards and regimes.";
+  "Ethotechnics\u2019 core critique of prevailing AI governance standards and regimes.";
 const permalink = "/standards/meta-critique";
 const anchorLinks = [
   { href: "#overview", label: "Core critique" },
@@ -13,20 +12,21 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
-  <PageIntro
-    eyebrow="Meta-critique"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Ethotechnics stance",
-      title: "From representation to control",
-      description:
-        "Modern harm requires enforceable stop rules, clocks, and rollback authority.",
-    }}
-  />
+<StandardsLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards critique`}
+  eyebrow="Meta-critique"
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  panelCopy={{
+    eyebrow: "Ethotechnics stance",
+    title: "From representation to control",
+    description:
+      "Modern harm requires enforceable stop rules, clocks, and rollback authority.",
+  }}
+>
 
   <SectionBlock
     id="overview"
@@ -54,4 +54,4 @@ const anchorLinks = [
       <li>Contestability that changes state, not just narrative.</li>
     </ul>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

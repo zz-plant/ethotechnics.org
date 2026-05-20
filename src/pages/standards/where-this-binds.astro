@@ -1,7 +1,6 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
@@ -47,24 +46,25 @@ const publication = {
 };
 ---
 
-<BaseLayout title={`${pageTitle} — Standards`} description={pageDescription} mainClass="page page--wide">
-  <PageIntro
-    eyebrow="Standards"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Non-authoritative",
-      title: "Translate standards into binding language.",
-      description:
-        "These examples are meant for orientation and should be adapted with counsel for your jurisdiction.",
-      link: {
-        label: "Review STD-01",
-        href: "/standards/std-01-temporal-rights",
-      },
-    }}
-  />
+<StandardsLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards`}
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  mainClass="page page--wide"
+  panelCopy={{
+    eyebrow: "Non-authoritative",
+    title: "Translate standards into binding language.",
+    description:
+      "These examples are meant for orientation and should be adapted with counsel for your jurisdiction.",
+    link: {
+      label: "Review STD-01",
+      href: "/standards/std-01-temporal-rights",
+    },
+  }}
+>
 
   <ScholarlyMeta publication={publication} permalink={permalink} />
 
@@ -130,5 +130,8 @@ the Institute's mechanisms catalog.
     description="Use the canonical permalink so governance documents stay aligned."
   >
     <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+    <p class="muted" style="margin-top:1.5rem">
+      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    </p>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

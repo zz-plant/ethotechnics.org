@@ -9,7 +9,7 @@ interface Props {
   items: StatItem[];
 }
 
-const { items } = Astro.props as Props;
+const { items }: Props = Astro.props;
 ---
 <dl class="stat-cluster" aria-label="Institute metrics">
   {items.map((item) => (

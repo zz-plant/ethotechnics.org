@@ -22,7 +22,7 @@ const {
   summaryLabel = "Cite this page",
   variant = "full",
   moreFormatsHref = "/mechanisms/cite",
-} = Astro.props as Props;
+}: Props = Astro.props;
 const pageUrl = Astro.site
   ? new URL(permalink, Astro.site).toString()
   : permalink;

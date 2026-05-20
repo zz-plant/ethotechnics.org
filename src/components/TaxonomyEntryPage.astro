@@ -22,7 +22,7 @@ const {
   basePath = "",
   eyebrow = "Taxonomy",
   titleSuffix = " — Ethotechnics Institute",
-} = Astro.props as Props;
+}: Props = Astro.props;
 
 const normalizedBasePath =
   basePath && basePath !== "/" ? basePath.replace(/\/$/, "") : "";

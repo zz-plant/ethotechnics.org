@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "NIST AI Risk Management Framework (AI RMF 1.0)";
@@ -19,27 +18,24 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout
-  title="NIST AI RMF operational templates | Ethotechnics"
+<StandardsLayout
+  title={pageTitle}
   description={pageDescription}
+  permalink={permalink}
+  seoTitle="NIST AI RMF operational templates | Ethotechnics"
+  eyebrow="Adopted standard"
+  anchorLinks={anchorLinks}
+  version={version}
+  lastUpdated={lastUpdated}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
+  panelCopy={{
+    eyebrow: "Ethotechnics read",
+    title: "Process evidence vs. runtime control",
+    description:
+      "Good risk management can coexist with slow or missing rollback authority.",
+  }}
 >
-  <PageIntro
-    eyebrow="Adopted standard"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    version={version}
-    lastUpdated={lastUpdated}
-    panelCopy={{
-      eyebrow: "Ethotechnics read",
-      title: "Process evidence vs. runtime control",
-      description:
-        "Good risk management can coexist with slow or missing rollback authority.",
-    }}
-  />
 
   <SectionBlock
     id="overview"
@@ -115,4 +111,4 @@ const anchorLinks = [
       exposed while the institution “manages risk” on a slow clock.
     </p>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

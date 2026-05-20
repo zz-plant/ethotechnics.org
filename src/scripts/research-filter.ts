@@ -1,6 +1,9 @@
+import { buildFacetUrl, initFilterInput, parseFacetParams } from "./filter-utils";
+
 const initResearchFilter = () => {
-  const filterInput =
-    document.querySelector<HTMLInputElement>("#research-filter");
+  const filterInput = initFilterInput("#research-filter");
+  if (!filterInput) return;
+
   const items = Array.from(
     document.querySelectorAll<HTMLElement>("[data-research-item]"),
   );
@@ -29,43 +32,11 @@ const initResearchFilter = () => {
     "[data-research-collapse]",
   );
 
-  if (
-    !(filterInput instanceof HTMLInputElement) ||
-    items.length === 0 ||
-    !emptyState ||
-    !count ||
-    !(clearButton instanceof HTMLButtonElement)
-  ) {
+  if (items.length === 0 || !emptyState || !count || !(clearButton instanceof HTMLButtonElement)) {
     return;
   }
 
   const total = Number(count.dataset.total) || items.length;
-
-  const syncQueryParam = (
-    value: string,
-    facets: Record<string, string | undefined>,
-  ) => {
-    const params = new URLSearchParams(window.location.search);
-
-    if (value) {
-      params.set("query", value);
-    } else {
-      params.delete("query");
-    }
-
-    Object.entries(facets).forEach(([key, facetValue]) => {
-      if (facetValue) {
-        params.set(key, facetValue);
-      } else {
-        params.delete(key);
-      }
-    });
-
-    const search = params.toString();
-    const nextUrl = `${window.location.pathname}${search ? `?${search}` : ""}${window.location.hash}`;
-
-    window.history.replaceState({}, "", nextUrl);
-  };
 
   const getFacetValue = (key: string) =>
     facetControls.find((control) => control.dataset.researchFilter === key)
@@ -75,10 +46,7 @@ const initResearchFilter = () => {
     const control = facetControls.find(
       (item) => item.dataset.researchFilter === key,
     );
-    if (!control?.value) {
-      return "";
-    }
-
+    if (!control?.value) return "";
     return control.selectedOptions[0]?.textContent?.trim() ?? control.value;
   };
 
@@ -108,86 +76,60 @@ const initResearchFilter = () => {
     let visible = 0;
 
     indexedItems.forEach((item) => {
-      const matchesQuery = item.searchText.includes(query);
-      const matchesSection = !activeSection || item.section === activeSection;
-      const matchesTag = !activeTag || item.tags.includes(activeTag);
-      const matchesType = !activeType || item.type === activeType;
       const matches =
-        matchesQuery && matchesSection && matchesTag && matchesType;
+        item.searchText.includes(query) &&
+        (!activeSection || item.section === activeSection) &&
+        (!activeTag || item.tags.includes(activeTag)) &&
+        (!activeType || item.type === activeType);
       item.element.classList.toggle("is-hidden", !matches);
-
-      if (matches) {
-        visible += 1;
-      }
+      if (matches) visible += 1;
     });
 
     emptyState.hidden = visible > 0;
-    const querySuffix = rawQuery ? ` for “${rawQuery}”` : "";
+    const querySuffix = rawQuery ? ` for \u201c${rawQuery}\u201d` : "";
     const facetLabels = [
       getFacetLabel("section"),
       getFacetLabel("tag"),
       getFacetLabel("type"),
     ].filter(Boolean);
     const facetSuffix = facetLabels.length
-      ? ` · ${facetLabels.join(", ")}`
+      ? ` \u00b7 ${facetLabels.join(", ")}`
       : "";
     count.textContent = `Showing ${visible} of ${total} entries${querySuffix}${facetSuffix}`;
     const hasFacets = facetControls.some((control) => !!control.value);
     clearButton.disabled = rawQuery.length === 0 && !hasFacets;
     const shouldExpand = rawQuery.length > 0 || hasFacets;
     chunkedSections.forEach((section) => {
-      if (shouldExpand) {
-        section.open = true;
-      } else {
-        section.open = section.dataset.defaultOpen === "true";
-      }
+      section.open = shouldExpand ? true : section.dataset.defaultOpen === "true";
     });
-    syncQueryParam(rawQuery, {
-      section: activeSection,
-      tag: activeTag,
-      type: activeType,
+
+    const nextUrl = buildFacetUrl({
+      query: rawQuery || undefined,
+      section: activeSection || undefined,
+      tag: activeTag || undefined,
+      type: activeType || undefined,
     });
+    window.history.replaceState({}, "", nextUrl);
   };
 
-  const params = new URLSearchParams(window.location.search);
-  const initialQuery = params.get("query")?.trim();
-  const initialSection = params.get("section")?.trim();
-  const initialTag = params.get("tag")?.trim();
-  const initialType = params.get("type")?.trim();
-
-  if (initialQuery) {
-    filterInput.value = initialQuery;
+  const urlState = parseFacetParams(["query", "section", "tag", "type"]);
+  if (urlState.query) filterInput.value = urlState.query;
+  if (urlState.section) {
+    const control = facetControls.find((c) => c.dataset.researchFilter === "section");
+    if (control) control.value = urlState.section;
   }
-  if (initialSection) {
-    const control = facetControls.find(
-      (item) => item.dataset.researchFilter === "section",
-    );
-    if (control) {
-      control.value = initialSection;
-    }
+  if (urlState.tag) {
+    const control = facetControls.find((c) => c.dataset.researchFilter === "tag");
+    if (control) control.value = urlState.tag;
   }
-  if (initialTag) {
-    const control = facetControls.find(
-      (item) => item.dataset.researchFilter === "tag",
-    );
-    if (control) {
-      control.value = initialTag;
-    }
-  }
-  if (initialType) {
-    const control = facetControls.find(
-      (item) => item.dataset.researchFilter === "type",
-    );
-    if (control) {
-      control.value = initialType;
-    }
+  if (urlState.type) {
+    const control = facetControls.find((c) => c.dataset.researchFilter === "type");
+    if (control) control.value = urlState.type;
   }
 
   let animationFrame: number | null = null;
   const scheduleUpdate = () => {
-    if (animationFrame !== null) {
-      window.cancelAnimationFrame(animationFrame);
-    }
+    if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
     animationFrame = window.requestAnimationFrame(() => {
       animationFrame = null;
       updateFilter();
@@ -213,12 +155,8 @@ const initResearchFilter = () => {
     filterInput.focus();
     updateFilter();
   });
-  expandAllButton?.addEventListener("click", () => {
-    setSectionsOpen(true);
-  });
-  collapseAllButton?.addEventListener("click", () => {
-    setSectionsOpen(false);
-  });
+  expandAllButton?.addEventListener("click", () => setSectionsOpen(true));
+  collapseAllButton?.addEventListener("click", () => setSectionsOpen(false));
   updateFilter();
 };
 

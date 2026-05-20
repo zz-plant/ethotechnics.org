@@ -223,7 +223,7 @@ const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toString();
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
@@ -448,6 +448,9 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
     </ul>
     <p class="muted small footnote">
       Use stable anchors when citing this spec in memos, briefs, or governance playbooks.
+    </p>
+    <p class="muted small footnote">
+      See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a>
     </p>
   </SectionBlock>
 </BaseLayout>

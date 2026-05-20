@@ -33,31 +33,3 @@ const navActionClasses: Record<NavAction["variant"], string> = {
     ))
   }
 </div>
-
-<style>
-  .nav__actions {
-    display: flex;
-    gap: 0.65rem;
-    flex-wrap: wrap;
-  }
-
-  @media (min-width: 992px) {
-    .nav__actions {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.7rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .nav__actions {
-      width: 100%;
-      flex-direction: column;
-    }
-
-    .nav__actions :global(.button) {
-      width: 100%;
-      justify-content: center;
-    }
-  }
-</style>

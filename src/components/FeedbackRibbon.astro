@@ -15,7 +15,7 @@ interface Props {
   actions: FeedbackAction[];
 }
 
-const { eyebrow, title, description, actions } = Astro.props as Props;
+const { eyebrow, title, description, actions }: Props = Astro.props;
 
 const resolveIconName = (label: string) =>
   label.toLowerCase().includes("inbox") ? "lucide:inbox" : "lucide:message-circle";

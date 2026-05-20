@@ -4,7 +4,7 @@ interface Props {
   ariaLabel?: string;
 }
 
-const { className, ariaLabel } = Astro.props as Props;
+const { className, ariaLabel }: Props = Astro.props;
 const classes = ["section__actions", className].filter(Boolean).join(" ");
 ---
 

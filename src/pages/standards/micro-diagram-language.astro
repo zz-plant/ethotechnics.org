@@ -1,7 +1,6 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
@@ -52,24 +51,21 @@ const publication = {
 };
 ---
 
-<BaseLayout
-  title={`${pageTitle} — Standards`}
+<StandardsLayout
+  title={pageTitle}
   description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards`}
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
+  panelCopy={{
+    eyebrow: "Why this exists",
+    title: "Keep diagrams consistent and legible.",
+    description:
+      "Every diagram should be explainable using this spec alone, with grayscale-friendly symbols and unambiguous roles.",
+  }}
 >
-  <PageIntro
-    eyebrow="Standards"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Why this exists",
-      title: "Keep diagrams consistent and legible.",
-      description:
-        "Every diagram should be explainable using this spec alone, with grayscale-friendly symbols and unambiguous roles.",
-    }}
-  />
 
   <ScholarlyMeta publication={publication} permalink={permalink} />
 
@@ -400,5 +396,8 @@ const publication = {
       citationKey="micro_diagram_language"
       summaryLabel="Cite this diagram language"
     />
+    <p class="muted" style="margin-top:1.5rem">
+      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    </p>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

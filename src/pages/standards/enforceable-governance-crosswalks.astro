@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import {
@@ -193,35 +192,33 @@ const keyTakeaways = [
 ];
 ---
 
-<BaseLayout
-  title={`${pageTitle} — Standards`}
+<StandardsLayout
+  title={pageTitle}
   description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards`}
+  eyebrow="Crosswalk"
+  anchorLinks={[
+    { href: "#guide", label: "Guide" },
+    { href: "#summary", label: "How to use" },
+    { href: "#controls", label: "Crosswalk" },
+    { href: "#framework-cards", label: "Framework cards" },
+    { href: "#post-market", label: "Post-market" },
+    { href: "#citations", label: "Citation" },
+  ]}
+  publishedTime="2025-06-01T00:00:00.000Z"
   jsonAlternates={[{ href: "/api/crosswalks.json", title: "Crosswalks JSON" }]}
+  panelCopy={{
+    eyebrow: "Buyer + auditor use",
+    title: "Know what Ethotechnics can and cannot do.",
+    description:
+      "Start with the quick scan table, then open only the framework detail card you need for evidence collection.",
+    link: {
+      label: "Start here",
+      href: "#guide",
+    },
+  }}
 >
-  <PageIntro
-    eyebrow="Crosswalk"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={[
-      { href: "#guide", label: "Guide" },
-      { href: "#summary", label: "How to use" },
-      { href: "#controls", label: "Crosswalk" },
-      { href: "#framework-cards", label: "Framework cards" },
-      { href: "#post-market", label: "Post-market" },
-      { href: "#citations", label: "Citation" },
-    ]}
-    panelCopy={{
-      eyebrow: "Buyer + auditor use",
-      title: "Know what Ethotechnics can and cannot do.",
-      description:
-        "Start with the quick scan table, then open only the framework detail card you need for evidence collection.",
-      link: {
-        label: "Start here",
-        href: "#guide",
-      },
-    }}
-  />
 
   <SectionBlock
     id="guide"
@@ -427,8 +424,11 @@ const keyTakeaways = [
     variant="alt"
   >
     <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
+    <p class="muted" style="margin-top:1.5rem">
+      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    </p>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>
 
 <style>
   .framework-summary-grid {

@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "OECD AI Principles";
@@ -14,20 +13,21 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Standards critique`} description={pageDescription}>
-  <PageIntro
-    eyebrow="Adopted standard"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Ethotechnics read",
-      title: "Failure-mode diagnostics",
-      description:
-        "Principles do not automatically create stop authority, clocks, or rollback guarantees.",
-    }}
-  />
+<StandardsLayout
+  title={pageTitle}
+  description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards critique`}
+  eyebrow="Adopted standard"
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  panelCopy={{
+    eyebrow: "Ethotechnics read",
+    title: "Failure-mode diagnostics",
+    description:
+      "Principles do not automatically create stop authority, clocks, or rollback guarantees.",
+  }}
+>
 
   <SectionBlock
     id="overview"
@@ -75,4 +75,4 @@ const anchorLinks = [
       cannot be interrupted quickly when harm emerges.
     </p>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

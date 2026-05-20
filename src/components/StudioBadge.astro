@@ -11,7 +11,7 @@ const {
   className,
   label = "Self-serve by default \u2022 Studio optional",
   linkLabel = "How Studio fits",
-} = Astro.props as Props;
+}: Props = Astro.props;
 
 const wrapperClass = ["studio-badge", className].filter(Boolean).join(" ");
 ---

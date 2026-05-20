@@ -1,0 +1,540 @@
+@layer components {
+  .panel {
+    background:
+      var(--halftone),
+      linear-gradient(
+        140deg,
+        color-mix(in srgb, var(--panel) 95%, white 5%),
+        color-mix(in srgb, var(--surface) 92%, white 8%)
+      ),
+      color-mix(in srgb, var(--glow-wash) 90%, transparent);
+    background-blend-mode: soft-light, normal, soft-light;
+    background-size:
+      18px 18px,
+      auto,
+      auto;
+    padding: 1.7rem;
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(6px) saturate(108%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panel__list {
+    margin: 0.75rem 0 0;
+    padding-left: 1.1rem;
+    color: color-mix(in srgb, var(--muted) 88%, var(--text));
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .panel--glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 22% 18%,
+      rgba(255, 255, 255, 0.26),
+      transparent 48%
+    );
+    pointer-events: none;
+  }
+
+  .panel--muted {
+    background:
+      var(--halftone),
+      linear-gradient(
+        140deg,
+        color-mix(in srgb, var(--surface) 96%, white 4%),
+        color-mix(in srgb, var(--panel) 92%, white 8%)
+      );
+    border-color: color-mix(in srgb, var(--border) 70%, transparent);
+    box-shadow: 0 8px 16px rgba(64, 52, 40, 0.08);
+  }
+
+  .card {
+    position: relative;
+    background: color-mix(in srgb, var(--surface) 95%, white 5%);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+    display: grid;
+    gap: 0.6rem;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: 0 12px 24px rgba(64, 52, 40, 0.06);
+    --glow-opacity: 0.06;
+    --glow-scale: 1;
+    --glow-rotation: 0deg;
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease,
+      background-color 220ms ease,
+      color 220ms ease,
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--grain-texture, none);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: var(--z-underlay);
+    mix-blend-mode: multiply;
+  }
+
+  .card__glow {
+    position: absolute;
+    inset: -35% -30%;
+    background:
+      radial-gradient(
+        circle at 22% 24%,
+        color-mix(in srgb, var(--accent) 38%, transparent) 0,
+        transparent 48%
+      ),
+      conic-gradient(
+        from 160deg at 70% 55%,
+        color-mix(in srgb, var(--gold) 38%, transparent) 0deg,
+        color-mix(in srgb, var(--accent) 28%, transparent) 110deg,
+        color-mix(in srgb, var(--teal) 18%, transparent) 230deg,
+        color-mix(in srgb, var(--gold) 36%, transparent) 360deg
+      );
+    filter: blur(60px);
+    opacity: var(--glow-opacity);
+    z-index: var(--z-base);
+    transform: rotate(var(--glow-rotation)) scale(var(--glow-scale));
+    transition: opacity 240ms ease;
+    animation: none;
+    pointer-events: none;
+  }
+
+  .card--quiet {
+    background: color-mix(in srgb, var(--surface) 98%, white 2%);
+    border-color: color-mix(in srgb, var(--border) 72%, transparent);
+    box-shadow: none;
+  }
+
+  .card--quiet:hover,
+  .card--quiet:focus-within {
+    transform: none;
+    box-shadow: 0 10px 20px rgba(64, 52, 40, 0.04);
+  }
+
+  .card--quiet::after {
+    opacity: 0;
+  }
+
+  .card--quiet .card__glow {
+    opacity: 0;
+  }
+
+  .card--emphasis {
+    background: color-mix(in srgb, var(--panel) 95%, white 5%);
+    border-color: color-mix(in srgb, var(--border) 82%, transparent);
+    --glow-opacity: 0.08;
+    --glow-rotation: 12deg;
+  }
+
+  .card > :not(.card__glow) {
+    position: relative;
+    z-index: var(--z-raised);
+  }
+
+  .card:hover,
+  .card:focus-within {
+    border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+    box-shadow:
+      0 16px 32px rgba(64, 52, 40, 0.1),
+      0 6px 14px rgba(64, 52, 40, 0.04);
+    transform: translateY(-3px);
+    z-index: var(--z-raised);
+    --glow-opacity: 0.1;
+    --glow-scale: 1.02;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .card__glow {
+      transition: none;
+    }
+
+    .card__glow {
+      animation: none;
+    }
+  }
+
+  .icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--surface) 90%, white 10%);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      background 220ms ease,
+      border-color 220ms ease;
+    transform-style: preserve-3d;
+  }
+
+  .icon [data-icon] {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  .icon::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background:
+      radial-gradient(
+        circle at 30% 30%,
+        color-mix(in srgb, var(--accent) 16%, transparent),
+        transparent 52%
+      ),
+      radial-gradient(
+        circle at 70% 70%,
+        color-mix(in srgb, var(--accent) 12%, transparent),
+        transparent 50%
+      );
+    opacity: 0;
+    transform: scale(0.8);
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease;
+    filter: blur(12px);
+    pointer-events: none;
+    z-index: var(--z-underlay);
+  }
+
+  .icon:is(:hover, :focus-visible, :focus-within) {
+    background: color-mix(in srgb, var(--surface) 92%, white 8%);
+    border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+    box-shadow: 0 6px 16px rgba(47, 41, 35, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .icon:is(:hover, :focus-visible, :focus-within)::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .icon,
+    .icon::before {
+      transition: none;
+    }
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .tile {
+    background: color-mix(in srgb, var(--surface) 96%, transparent);
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+    padding: 1.3rem;
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+    box-shadow: 0 8px 18px rgba(47, 41, 35, 0.08);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transform-style: preserve-3d;
+    transition:
+      box-shadow 240ms ease,
+      border-color 240ms ease,
+      background 240ms ease;
+  }
+
+  .tile::before,
+  .tile::after {
+    content: "";
+    position: absolute;
+    inset: -18%;
+    background:
+      radial-gradient(
+        circle at 20% 20%,
+        color-mix(in srgb, var(--accent) 16%, transparent),
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 60%,
+        color-mix(in srgb, var(--accent) 12%, transparent),
+        transparent 52%
+      );
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 260ms ease;
+    pointer-events: none;
+    z-index: var(--z-underlay);
+  }
+
+  .tile::after {
+    inset: -28%;
+    filter: blur(26px);
+  }
+
+  .tile:is(:hover, :focus-visible, :focus-within) {
+    box-shadow: 0 12px 26px rgba(47, 41, 35, 0.12);
+    border-color: color-mix(in srgb, var(--accent) 24%, var(--border));
+    background: color-mix(in srgb, var(--surface) 98%, transparent);
+  }
+
+  .tile:is(:hover, :focus-visible, :focus-within)::before,
+  .tile:is(:hover, :focus-visible, :focus-within)::after {
+    opacity: 0.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile,
+    .tile::before,
+    .tile::after {
+      transition: none;
+    }
+
+    .tile:is(:hover, :focus-visible, :focus-within) {
+      transform: none;
+    }
+  }
+
+  .tile__body h3 {
+    margin: 0;
+  }
+
+  .tile__body p {
+    margin: 0;
+  }
+
+  .tile__list,
+  .card__list {
+    margin: 0.75rem 0 0;
+    padding-left: 1.1rem;
+    color: var(--muted);
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .card__list--alert li,
+  .card__list--bounded li {
+    padding: 0.45rem 0.75rem;
+    border-radius: 0.85rem;
+    background: color-mix(in srgb, var(--surface) 92%, white 8%);
+    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  }
+
+  .card__list--alert,
+  .card__list--bounded {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .card__list--alert li {
+    border-color: color-mix(in srgb, var(--accent) 24%, var(--border));
+  }
+
+  .card__list--bounded li {
+    border-color: color-mix(in srgb, var(--text) 12%, var(--border));
+  }
+
+  .tile__list a,
+  .card__list a {
+    color: inherit;
+    font-weight: 650;
+    text-decoration-thickness: 0.12em;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.2rem 0.1rem;
+    touch-action: manipulation;
+  }
+
+  .tile__list a:hover,
+  .tile__list a:focus-visible,
+  .card__list a:hover,
+  .card__list a:focus-visible {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  .tile__list a:focus-visible,
+  .card__list a:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .callout {
+    padding: 1.55rem;
+    background: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--surface) 94%, white 6%),
+      color-mix(in srgb, var(--panel) 92%, white 8%)
+    );
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .callout--emphasis {
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+    box-shadow: 0 18px 28px rgba(56, 40, 24, 0.15);
+  }
+
+  .callout__metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+
+  .callout__metric-label {
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .callout__actions {
+    margin-top: 1rem;
+  }
+
+  .callout__actions-secondary {
+    margin-top: 0.6rem;
+  }
+
+  .callout h3 {
+    margin: 0.4rem 0;
+  }
+
+  .highlight {
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--panel) 94%, white 6%),
+      color-mix(in srgb, var(--surface) 90%, white 10%)
+    );
+    border-color: color-mix(in srgb, var(--border) 78%, transparent);
+  }
+
+  .highlight__content {
+    margin-top: 1.5rem;
+  }
+
+  .highlight__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  }
+
+  .highlight__panel {
+    padding: 1.45rem;
+    background: linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--surface) 96%, white 4%),
+      color-mix(in srgb, var(--panel) 90%, white 10%)
+    );
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    gap: 0.85rem;
+    align-content: start;
+  }
+
+  .highlight__panel .pill-list {
+    margin: 0;
+  }
+
+  .comparison {
+    margin: 2rem 0 3rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .comparison__header {
+    display: grid;
+    gap: 0.35rem;
+    max-width: 760px;
+  }
+
+  .comparison__grid {
+    margin-top: 0.5rem;
+  }
+
+  .comparison__card {
+    gap: 0.4rem;
+  }
+
+  .comparison__card h4 {
+    margin: 0;
+  }
+
+  .cta {
+    margin: clamp(3.5rem, 6vw, 4.5rem) 0 clamp(4rem, 7vw, 5.5rem);
+    background: color-mix(in srgb, var(--panel) 92%, white 8%);
+    padding: clamp(1.9rem, 4vw, 2.7rem);
+    border-radius: calc(var(--radius) + 2px);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    align-items: center;
+    box-shadow: 0 20px 40px rgba(64, 52, 40, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .standard-status__headline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .status-badge--draft {
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    color: var(--accent);
+  }
+
+  .status-badge--stable {
+    background: color-mix(in srgb, #2d8a4a 16%, transparent);
+    color: #2d8a4a;
+  }
+
+  .status-badge--deprecated {
+    background: color-mix(in srgb, #b35218 16%, transparent);
+    color: #b35218;
+  }
+
+  .standard-status__changelog {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.25rem;
+  }
+}

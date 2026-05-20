@@ -1,31 +1,28 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PageIntro from "../../components/PageIntro.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const version = "v1.0.0";
 const lastUpdated = "2026-02-22";
 ---
 
-<BaseLayout
-  title="Core Axioms — Ethotechnics Institute"
-  description="The core axioms that ground Ethotechnics standards."
+<StandardsLayout
+  title="Core Axioms"
+  description="The six core axioms that ground every Ethotechnics standard, mechanism, and validator — burden, bindingness, stoppability, contestability, care infrastructure, and temporal rights."
+  permalink="/standards/core-axioms"
+  seoTitle="Core Axioms — Ethotechnics Institute"
+  eyebrow="Doctrine"
+  anchorLinks={[{ href: "#axioms", label: "Axioms" }]}
+  version={version}
+  lastUpdated={lastUpdated}
+  publishedTime="2025-06-01T00:00:00.000Z"
+  panelCopy={{
+    eyebrow: "Status",
+    title: "Versioned doctrine",
+    description:
+      "Axioms are immutable, cross-referenced in standards, and maintained alongside the glossary.",
+  }}
 >
-  <PageIntro
-    eyebrow="Doctrine"
-    title="Core Axioms"
-    description="Foundational claims that anchor every standard and mechanism authored by the Institute."
-    permalink="/standards/core-axioms"
-    anchorLinks={[{ href: "#axioms", label: "Axioms" }]}
-    version={version}
-    lastUpdated={lastUpdated}
-    panelCopy={{
-      eyebrow: "Status",
-      title: "Versioned doctrine",
-      description:
-        "Axioms are immutable, cross-referenced in standards, and maintained alongside the glossary.",
-    }}
-  />
 
   <SectionBlock
     id="axioms"
@@ -56,4 +53,4 @@ const lastUpdated = "2026-02-22";
       </li>
     </ol>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

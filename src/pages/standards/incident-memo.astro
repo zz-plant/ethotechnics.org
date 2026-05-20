@@ -1,7 +1,6 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
@@ -92,29 +91,26 @@ const incidentTemplate = `Incident memo (Template)
 - Comms or transparency commitments.`;
 ---
 
-<BaseLayout
-  title="AI incident response workflow template | Ethotechnics"
+<StandardsLayout
+  title={pageTitle}
   description={pageDescription}
+  permalink={permalink}
+  seoTitle="AI incident response workflow template | Ethotechnics"
+  eyebrow="Standards"
+  anchorLinks={anchorLinks}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
+  panelCopy={{
+    eyebrow: "Governance artifact",
+    title: "Keep incident reporting consistent.",
+    description:
+      "Use this memo to align governance, legal, and operational teams on incident impact, accountability, and remediation.",
+    link: {
+      label: "See incident lessons",
+      href: "/incidents",
+    },
+  }}
 >
-  <PageIntro
-    eyebrow="Standards"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Governance artifact",
-      title: "Keep incident reporting consistent.",
-      description:
-        "Use this memo to align governance, legal, and operational teams on incident impact, accountability, and remediation.",
-      link: {
-        label: "See incident lessons",
-        href: "/incidents",
-      },
-    }}
-  />
 
   <ScholarlyMeta publication={publication} permalink={permalink} />
 
@@ -195,4 +191,4 @@ const incidentTemplate = `Incident memo (Template)
   >
     <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

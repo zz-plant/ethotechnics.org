@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const props = Astro.props as Props;
+const props: Props = Astro.props;
 const { as = 'div', className } = props;
 const GridTag = as;
 const gridClass = ['grid', className].filter(Boolean).join(' ');

@@ -1,7 +1,6 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
@@ -121,28 +120,26 @@ const mappingRows = [
 ];
 ---
 
-<BaseLayout
-  title={`${pageTitle} — STD-01`}
+<StandardsLayout
+  title={pageTitle}
   description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — STD-01`}
+  eyebrow="STD-01 reference"
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
+  panelCopy={{
+    eyebrow: "Cross-reference",
+    title: "Move from harm to binding change.",
+    description:
+      "This artifact links a synthetic harm to STD-01 clauses, a validator entry point, and the mechanism that binds the response.",
+    link: {
+      label: "Read STD-01",
+      href: "/standards/std-01-temporal-rights",
+    },
+  }}
 >
-  <PageIntro
-    eyebrow="STD-01 reference"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Cross-reference",
-      title: "Move from harm to binding change.",
-      description:
-        "This artifact links a synthetic harm to STD-01 clauses, a validator entry point, and the mechanism that binds the response.",
-      link: {
-        label: "Read STD-01",
-        href: "/standards/std-01-temporal-rights",
-      },
-    }}
-  />
 
   <ScholarlyMeta publication={publication} permalink={permalink} />
 
@@ -253,4 +250,4 @@ const mappingRows = [
       summaryLabel="Cite this mapping artifact"
     />
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

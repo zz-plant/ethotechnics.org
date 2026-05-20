@@ -9,8 +9,8 @@ interface Props {
   invokeExample: string;
 }
 
-const { title, version, downloadUrl, pathSnippet, invokeExample } =
-  Astro.props as Props;
+const { title, version, downloadUrl, pathSnippet, invokeExample }: Props =
+  Astro.props;
 const downloadLabel = `Download ${version}`;
 ---
 

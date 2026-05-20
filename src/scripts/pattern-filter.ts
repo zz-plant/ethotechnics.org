@@ -1,3 +1,4 @@
+import { buildFacetUrl, parseFacetParams } from "./filter-utils";
 import { composePatternBundle } from "./pattern-filter/bundle";
 import { createDiagnosticCopyText } from "./pattern-filter/diagnostics";
 import {
@@ -215,32 +216,19 @@ const initializePatternFilter = (root: HTMLElement) => {
   };
 
   const getUrlState = () => {
-    const params = new URLSearchParams(window.location.search);
-    const filter = params.get("filter");
-    const queryParam = params.get("q") ?? "";
-
+    const { filter, q } = parseFacetParams(["filter", "q"]);
     return {
       filter: filter && filters.includes(filter) ? filter : null,
-      query: queryParam,
+      query: q ?? "",
     };
   };
 
   const updateUrlState = () => {
-    const url = new URL(window.location.href);
-
-    if (selectedFilter) {
-      url.searchParams.set("filter", selectedFilter);
-    } else {
-      url.searchParams.delete("filter");
-    }
-
-    if (query.trim()) {
-      url.searchParams.set("q", query.trim());
-    } else {
-      url.searchParams.delete("q");
-    }
-
-    window.history.replaceState(null, "", url.toString());
+    const url = buildFacetUrl({
+      filter: selectedFilter ?? undefined,
+      q: query.trim() || undefined,
+    });
+    window.history.replaceState(null, "", url);
   };
 
   const updateFilterButtons = () => {

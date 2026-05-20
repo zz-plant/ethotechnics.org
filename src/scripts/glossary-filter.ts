@@ -1,6 +1,9 @@
+import { buildFacetUrl, initFilterInput } from "./filter-utils";
+
 const initGlossaryFilter = () => {
-  const filterInput =
-    document.querySelector<HTMLInputElement>("#glossary-filter");
+  const filterInput = initFilterInput("#glossary-filter");
+  if (!filterInput) return;
+
   const items = Array.from(
     document.querySelectorAll<HTMLElement>(".glossary-index__item"),
   );
@@ -43,7 +46,6 @@ const initGlossaryFilter = () => {
   );
 
   if (
-    !(filterInput instanceof HTMLInputElement) ||
     items.length === 0 ||
     !emptyState ||
     !count ||
@@ -69,26 +71,13 @@ const initGlossaryFilter = () => {
     value: string,
     facets: Partial<Record<FacetKey, string | undefined>>,
   ) => {
-    const params = new URLSearchParams(window.location.search);
-
-    if (value) {
-      params.set(QUERY_PARAM_KEY, value);
-    } else {
-      params.delete(QUERY_PARAM_KEY);
-    }
-
-    Object.entries(facets).forEach(([key, facetValue]) => {
-      if (facetValue) {
-        params.set(key, facetValue);
-      } else {
-        params.delete(key);
-      }
+    const nextUrl = buildFacetUrl({
+      [QUERY_PARAM_KEY]: value || undefined,
+      ...facets,
     });
-
-    const search = params.toString();
-    const nextUrl = `${window.location.pathname}${search ? `?${search}` : ""}${window.location.hash}`;
-
     window.history.replaceState({}, "", nextUrl);
+
+    const search = new URL(nextUrl).search;
     entryLinks.forEach((link) => {
       const baseHref = link.dataset.baseHref ?? link.getAttribute("href") ?? "";
       if (!baseHref) {

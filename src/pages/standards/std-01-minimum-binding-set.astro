@@ -1,7 +1,6 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
-import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
@@ -139,28 +138,26 @@ const bindingSets = [
 ];
 ---
 
-<BaseLayout
-  title={`${pageTitle} — Standards`}
+<StandardsLayout
+  title={pageTitle}
   description={pageDescription}
+  permalink={permalink}
+  seoTitle={`${pageTitle} — Standards`}
+  eyebrow="STD-01 reference"
+  anchorLinks={anchorLinks}
+  publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
+  panelCopy={{
+    eyebrow: "How to use",
+    title: "Block symbolic compliance.",
+    description:
+      "Each right requires multiple binding conditions; no single UI tweak should qualify as compliance.",
+    link: {
+      label: "Read STD-01",
+      href: "/standards/std-01-temporal-rights",
+    },
+  }}
 >
-  <PageIntro
-    eyebrow="STD-01 reference"
-    title={pageTitle}
-    description={pageDescription}
-    permalink={permalink}
-    anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "How to use",
-      title: "Block symbolic compliance.",
-      description:
-        "Each right requires multiple binding conditions; no single UI tweak should qualify as compliance.",
-      link: {
-        label: "Read STD-01",
-        href: "/standards/std-01-temporal-rights",
-      },
-    }}
-  />
 
   <ScholarlyMeta publication={publication} permalink={permalink} />
 
@@ -228,5 +225,8 @@ const bindingSets = [
       citationKey="std_01_minimum_binding_set"
       summaryLabel="Cite this minimum binding set"
     />
+    <p class="muted" style="margin-top:1.5rem">
+      See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    </p>
   </SectionBlock>
-</BaseLayout>
+</StandardsLayout>

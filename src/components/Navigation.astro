@@ -9,8 +9,8 @@ interface Props {
   currentHash?: string;
 }
 
-const { currentPath = Astro.url.pathname, currentHash = Astro.url.hash } =
-  Astro.props as Props;
+const { currentPath = Astro.url.pathname, currentHash = Astro.url.hash }: Props =
+  Astro.props;
 ---
 
 <nav class="nav" aria-label="Primary" data-nav>

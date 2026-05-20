@@ -7,8 +7,8 @@ interface Props {
   note?: string;
 }
 
-const { leftTitle, leftItems, rightTitle, rightItems, note } =
-  Astro.props as Props;
+const { leftTitle, leftItems, rightTitle, rightItems, note }: Props =
+  Astro.props;
 ---
 <div class="decision-split" aria-label={`${leftTitle} and ${rightTitle}`}>
   <div class="decision-split__panel decision-split__panel--positive">

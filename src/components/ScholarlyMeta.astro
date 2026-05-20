@@ -11,7 +11,7 @@ const {
   publication,
   label = "Scholarly metadata",
   permalink,
-} = Astro.props as Props;
+}: Props = Astro.props;
 const pageUrl = permalink
   ? Astro.site
     ? new URL(permalink, Astro.site).toString()
