@@ -120,7 +120,7 @@ export const navUtilityDesktopLinks: NavUtilityLink[] = [
     icon: "lucide:shield",
   },
   {
-    href: "https://ethotechnics.com/studio",
+    href: "https://ethotechnics.com/studio/",
     label: "Ethotechnics Studio",
     class: "nav__utility-link",
     rel: "noopener noreferrer",

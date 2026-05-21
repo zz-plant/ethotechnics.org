@@ -43,6 +43,7 @@ interface Props {
   breadcrumbItems?: Array<{ name: string; url: string }>;
   jsonAlternates?: Array<{ href: string; title?: string }>;
   structuredDataType?: StructuredDataMode;
+  canonical?: string;
 }
 
 const siteName = "Ethotechnics Institute";
@@ -65,11 +66,14 @@ const {
   breadcrumbItems,
   jsonAlternates,
   structuredDataType = "auto",
+  canonical: canonicalProp,
 }: Props = Astro.props;
 
-const canonical = Astro.site
-  ? new URL(Astro.url.pathname, Astro.site).toString()
-  : Astro.url.href;
+const canonical =
+  canonicalProp ||
+  (Astro.site
+    ? new URL(Astro.url.pathname, Astro.site).toString()
+    : Astro.url.href);
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const currentPath = Astro.url.pathname;
 

@@ -87,7 +87,7 @@ export const siteFooter: SiteFooterContent = {
         },
         {
           label: "Ethotechnics Studio (.com)",
-          href: "https://ethotechnics.com/studio",
+          href: "https://ethotechnics.com/studio/",
           external: true,
         },
       ],

@@ -354,7 +354,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Stakeholder who owns model and UI decisions.",
       ],
       ctaLabel: "Request LLM Capacity Benchmark",
-      ctaHref: "https://ethotechnics.com/studio",
+      ctaHref: "https://ethotechnics.com/studio/",
       ctaAriaLabel:
         "Request the LLM Capacity Benchmark diagnostic session",
       exampleLabel: "View sample output",

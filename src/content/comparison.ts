@@ -59,7 +59,7 @@ export const instituteStudioComparisonContent: InstituteStudioComparisonContent 
         actions: [
           {
             label: "Visit the Studio",
-            href: "https://ethotechnics.com/studio",
+            href: "https://ethotechnics.com/studio/",
             variant: "primary",
             rel: "noopener noreferrer",
           },

@@ -299,7 +299,7 @@ export function BurdenModeler() {
                 inputs with your support partners, validate relief estimates, and shape an escalation-ready plan.
               </p>
             </div>
-            <a className="button primary" href="https://ethotechnics.com/studio">
+            <a className="button primary" href="https://ethotechnics.com/studio/">
               Book a facilitated burden modeling session
             </a>
           </div>
