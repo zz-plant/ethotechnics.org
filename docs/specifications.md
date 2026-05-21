@@ -73,7 +73,8 @@ High-level reference for the site’s purpose, structure, and delivery flow.
 
 ## Deployment flow
 
-- `bun run build` emits the Worker bundle at `dist/_worker.js` plus static assets in `dist/`
+- `bun run build` emits the Worker bundle at `dist/server/entry.mjs` plus static assets in
+  `dist/client`
   (see [Architecture](architecture.md) for adapter details).
 - Deploy to Cloudflare Workers with `bun run deploy`; `wrangler.toml` carries the Worker settings
   and assets binding.

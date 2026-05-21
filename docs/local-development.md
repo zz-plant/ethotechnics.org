@@ -68,4 +68,7 @@ If tests fail in CI-specific environments, see `docs/cloudflare-playwright.md`.
 - Astro cache issues:
   - Remove `.astro/` and rerun the failing command.
 - Worker preview issues:
-  - Ensure `bun run build` produced `dist/_worker.js` before `bun run preview:cf`.
+  - Ensure `bun run build` produced `dist/server/entry.mjs` and `dist/server/wrangler.json`
+    before `bun run preview:cf`.
+  - If preview serves `[object Object]`, rerun `bun run build` and confirm the output includes
+    `Patched Cloudflare worker streaming mode`.

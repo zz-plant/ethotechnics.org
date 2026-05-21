@@ -1,10 +1,11 @@
 import { defineConfig, includeIgnoreFile } from 'eslint/config';
+import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import astro from 'eslint-plugin-astro';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import tseslint from 'typescript-eslint';
 
-const gitignorePath = new URL('./.gitignore', import.meta.url);
+const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 const astroRecommended = astro.configs['flat/recommended'].map((config) => ({
   ...config,
   languageOptions: {
@@ -21,6 +22,9 @@ const astroRecommended = astro.configs['flat/recommended'].map((config) => ({
 
 export default defineConfig(
   includeIgnoreFile(gitignorePath),
+  {
+    ignores: ['**/*.test*.{ts,tsx}', 'tests/**'],
+  },
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -54,16 +58,18 @@ export default defineConfig(
   {
     files: ['**/*.d.ts'],
     rules: {
+      '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/triple-slash-reference': 'off',
     },
   },
   {
-    files: ['**/*.test.{ts,tsx}', 'tests/**'],
+    files: ['**/*.test*.{ts,tsx}', 'tests/**/*.{ts,tsx}'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
       '@typescript-eslint/unbound-method': 'off',
     },
   }

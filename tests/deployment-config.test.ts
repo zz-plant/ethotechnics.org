@@ -17,14 +17,30 @@ describe("deployment configuration", () => {
     expect(config.output).toBe("server");
   });
 
-  it("uses the expected Cloudflare Worker entrypoint", async () => {
+  it("has the expected Worker name and no legacy entrypoint", async () => {
     const wranglerText = await Bun.file("wrangler.toml").text();
     const wranglerConfig = Bun.TOML.parse(wranglerText) as {
       main?: string;
       name?: string;
     };
 
-    expect(wranglerConfig.main).toBe("./dist/_worker.js");
+    // @astrojs/cloudflare v13 + @cloudflare/vite-plugin handles the
+    // worker entrypoint automatically — the wrangler.toml no longer
+    // needs a `main` field.
+    expect(wranglerConfig.main).toBeUndefined();
     expect(wranglerConfig.name).toBe("et3");
+  });
+
+  it("deploys the generated Astro Cloudflare Worker config", async () => {
+    const packageJson = (await Bun.file("package.json").json()) as {
+      scripts?: Record<string, string>;
+    };
+    const deployWorkflow = await Bun.file(".github/workflows/deploy.yml").text();
+
+    expect(packageJson.scripts?.deploy).toContain("--config dist/server/wrangler.json");
+    expect(packageJson.scripts?.["deploy:preview"]).toContain("--config dist/server/wrangler.json");
+    expect(packageJson.scripts?.["preview:cf"]).toContain("--config dist/server/wrangler.json");
+    expect(packageJson.scripts?.build).toContain("bun run patch:cf-worker");
+    expect(deployWorkflow).toContain("wrangler deploy --config dist/server/wrangler.json");
   });
 });

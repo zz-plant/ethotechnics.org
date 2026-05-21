@@ -56,6 +56,10 @@ How the site is structured and deployed so contributors can navigate the stack q
 
 - `astro.config.mjs` uses `@astrojs/cloudflare` with `output: "server"` and excludes `/_astro/*` and
   `/assets/*` from the server function so static assets bypass the Worker.
-- `bun run build` emits the Worker entry at `dist/_worker.js` plus static assets in `dist/`.
-- `wrangler.toml` sets the Worker main script, compatibility flags, and binds `dist` as the assets
-  bucket; deploy with `bun run deploy` to publish the bundle via Wrangler.
+- `bun run build` emits the Worker entry at `dist/server/entry.mjs`, static assets in
+  `dist/client`, and the generated deploy config at `dist/server/wrangler.json`.
+- `patch:cf-worker` runs after `astro build` to force buffered Astro rendering in the generated
+  Worker. This avoids Cloudflare Workers serializing Astro's Node-compatible async iterable body as
+  `[object Object]` when `nodejs_compat` is enabled.
+- `wrangler.toml` sets base Worker compatibility flags and asset binding settings; deploy with
+  `bun run deploy` to publish the generated bundle via Wrangler.

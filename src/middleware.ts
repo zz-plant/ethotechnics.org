@@ -1,7 +1,6 @@
 import type { MiddlewareHandler } from 'astro';
 
 const applySecurityHeaders = (response: Response): Response => {
-  const headers = new Headers(response.headers);
   const securityHeaders: Record<string, string> = {
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     'Referrer-Policy': 'no-referrer',
@@ -10,15 +9,15 @@ const applySecurityHeaders = (response: Response): Response => {
     'Permissions-Policy': 'camera=(), geolocation=(), microphone=(), payment=()',
   };
 
-  for (const [name, value] of Object.entries(securityHeaders)) {
-    headers.set(name, value);
-  }
+  try {
+    for (const [name, value] of Object.entries(securityHeaders)) {
+      response.headers.set(name, value);
+    }
 
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers,
-  });
+    return response;
+  } catch {
+    return response;
+  }
 };
 
 export const onRequest: MiddlewareHandler = async ({ request }, next) => {

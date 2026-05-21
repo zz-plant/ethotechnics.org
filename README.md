@@ -80,7 +80,7 @@ bun run setup:codex
 | Command                  | Purpose                                                                                  |
 | ------------------------ | ---------------------------------------------------------------------------------------- |
 | `bun dev`                | Run the Astro development server.                                                        |
-| `bun run build`          | Validate content JSON and build the Worker bundle (`dist/_worker.js`).                   |
+| `bun run build`          | Validate content JSON and build the Worker bundle (`dist/server/entry.mjs`).             |
 | `bun run build:search`   | Generate the Pagefind search index in `dist/pagefind`.                                   |
 | `bun run preview`        | Preview the Worker build locally.                                                        |
 | `bun run preview:cf`     | Preview the Worker build via Wrangler with local bindings.                               |
@@ -158,7 +158,8 @@ appends a hardened header set to every response:
 ## Deployment to Cloudflare Workers
 
 The site uses the official Cloudflare adapter for Astro to produce a Worker-compatible server
-build. `wrangler.toml` captures the Worker name, compatibility date, and entrypoint (`dist/_worker.js`).
+build. `wrangler.toml` captures the base Worker name and compatibility settings; the generated
+`dist/server/wrangler.json` captures the built entrypoint (`dist/server/entry.mjs`) and assets.
 Session storage is not enabled by default; if you add it later, define the KV binding in
 `wrangler.toml` before deploying.
 
@@ -168,14 +169,15 @@ Session storage is not enabled by default; if you add it later, define the KV bi
    (`/_astro/*`, `/assets/*`) from the server function so they can be served directly via the assets
    binding.
 3. Build the Worker bundle with `bun run build` when you need to preview or inspect the output.
-   The generated Worker entry is emitted to `dist/_worker.js`.
+   The generated Worker entry is emitted to `dist/server/entry.mjs`, and the build runs
+   `patch:cf-worker` so the generated Astro app renders buffered HTML under `nodejs_compat`.
 4. Deploy with Wrangler using the repo defaults: `bun run deploy`.
    - The deploy script runs Wrangler via `bunx`, so no global installation is required.
    - The deploy script runs `bun run build` first so the upload always reflects the latest bundle.
-   - The deploy command uses `--no-bundle` to skip Wrangler's bundling step since Astro already
-     emits the Worker bundle, reducing deploy time.
-   - The build copies `.assetsignore` from `public/` to `dist/` so Wrangler skips `_worker.js` and
-     `_routes.json` when uploading static assets.
+   - The deploy command uses the generated `dist/server/wrangler.json` so Wrangler uploads the
+     server entry and the matching `dist/client` assets together.
+   - The build copies `.assetsignore` from `public/` to `dist/client` so Wrangler only serves
+     client assets from the asset binding.
 5. Configure DNS for `ethotechnics.org` to point to the Cloudflare Worker route you set in Wrangler.
 
 ## Documentation map
