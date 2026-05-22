@@ -58,7 +58,8 @@
     "content:generate": "bun run scripts/generate-content-derived.ts",
     "content:check": "bun run scripts/generate-content-derived.ts --check",
     "build:pages": "bun run build",
-    "deploy:cloudflare": "echo 'Cloudflare Pages handles deployment after a successful build; skipping explicit deploy step.'"
+    "deploy:cloudflare": "echo 'Cloudflare Pages handles deployment after a successful build; skipping explicit deploy step.'",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.5.3",
