@@ -30,7 +30,7 @@ export interface SceneConfig {
 
 /* ─── SVG scene renderers ─────────────────────────────────────────── */
 
-function svg(w: number, h: number, content: string, accent: string): string {
+function svg(w: number, h: number, accent: string, content: string): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" style="display:block;overflow:hidden;border-radius:6px;background:color-mix(in srgb, ${accent} 8%, transparent);">
     <defs><filter id="g"><feGaussianBlur stdDeviation="1.5"/></filter></defs>
     ${content}
