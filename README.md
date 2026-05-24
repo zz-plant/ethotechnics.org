@@ -7,6 +7,10 @@
 [![Website](https://img.shields.io/badge/website-ethotechnics.org-2f4858?style=flat)](https://ethotechnics.org)
 [![Field Notes RSS](https://img.shields.io/badge/rss-field%20notes-f4a261?style=flat)](https://ethotechnics.org/field-notes/rss.xml)
 
+<p align="center">
+  <img src="docs/assets/ethotechnics.org-demo.gif" alt="ethotechnics.org demo animation" width="720">
+</p>
+
 This repository powers [ethotechnics.org](https://ethotechnics.org), a content-driven site exploring
 ethical technology, human-centered design, and the sociotechnical systems that shape them. The
 project favors lean, fast-loading pages and clear storytelling.
