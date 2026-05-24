@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { failureStates } from "../content/institute-site";
-import { renderCompactScene } from "../data/scenes";
+import { renderCompactScene, type SceneType } from "../data/scenes";
 
-const failureSceneMap: Record<string, { scene: string; accent: string }> = {
+const failureSceneMap: Record<string, { scene: SceneType; accent: string }> = {
   "decision-appealed": { scene: "review", accent: "#f97316" },
   "model-wrong": { scene: "signals", accent: "#f43f5e" },
   "queue-stuck": { scene: "pipeline", accent: "#3b82f6" },
@@ -335,9 +335,9 @@ const failureChoiceIcons: Record<string, string[]> = {
     </p>
     <div class="adopt-grid">
       {[
-        { title: "Regulatory alignment", items: ["EU AI Act obligations", "NIST AI RMF control mapping", "ISO and sector supervision references"], scene: { scene: "cards", accent: "#3b82f6" } },
-        { title: "Audit interoperability", items: ["Evidence fields designed for GRC workflows", "Structured ownership and escalation clocks", "Exportable artifacts for regulator review"], scene: { scene: "review", accent: "#14b8a6" } },
-        { title: "Adoption pathways", items: ["Policy teams adopt document IDs and clauses", "Operations teams install stoppability drills", "Engineering teams bind rollback to release gates"], scene: { scene: "pipeline", accent: "#f97316" } },
+        { title: "Regulatory alignment", items: ["EU AI Act obligations", "NIST AI RMF control mapping", "ISO and sector supervision references"], scene: { scene: "cards" as const, accent: "#3b82f6" } },
+        { title: "Audit interoperability", items: ["Evidence fields designed for GRC workflows", "Structured ownership and escalation clocks", "Exportable artifacts for regulator review"], scene: { scene: "review" as const, accent: "#14b8a6" } },
+        { title: "Adoption pathways", items: ["Policy teams adopt document IDs and clauses", "Operations teams install stoppability drills", "Engineering teams bind rollback to release gates"], scene: { scene: "pipeline" as const, accent: "#f97316" } },
       ].map((lane) => (
         <article class="card lane-card stack-sm">
           {lane.scene && <div style="border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;" set:html={renderCompactScene(lane.scene)} />}

@@ -34,7 +34,8 @@ const getContentEntry = async (
 ): Promise<unknown> => {
   try {
     const mod = await import("astro:content");
-    return await mod.getEntry(collection, slug);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await mod.getEntry(collection as any, slug);
   } catch {
     return undefined;
   }
