@@ -34,7 +34,7 @@ const getContentEntry = async (
 ): Promise<unknown> => {
   try {
     const mod = await import("astro:content");
-    return await mod.getEntry(collection as never, slug);
+    return await mod.getEntry(collection, slug);
   } catch {
     return undefined;
   }
