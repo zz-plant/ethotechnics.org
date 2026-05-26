@@ -45,10 +45,10 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics Institute seal",
     },
     description:
-      "Content licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.",
+      "Content licensed under the Creative Commons Attribution 4.0 International License.",
     license: {
-      label: "View the CC BY-SA 4.0 license",
-      href: "https://creativecommons.org/licenses/by-sa/4.0/",
+      label: "View the CC BY 4.0 license",
+      href: "https://creativecommons.org/licenses/by/4.0/",
       external: true,
     },
     licenseBadge: {
@@ -99,6 +99,11 @@ export const siteFooter: SiteFooterContent = {
         { label: "Vulnerability disclosure policy", href: "/security/vulnerability-disclosure" },
         { label: "security.txt", href: "/.well-known/security.txt" },
         { label: "Send feedback", href: "/participate#feedback" },
+        {
+          label: "Kanav Jain (kanav.net)",
+          href: "https://kanav.net",
+          external: true,
+        },
         {
           label: "The Crumple Zone",
           href: "https://thecrumple.zone",
