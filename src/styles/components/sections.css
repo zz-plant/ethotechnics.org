@@ -536,4 +536,29 @@
       padding: 0.75rem 0;
     }
   }
+
+  .home-core {
+    background: color-mix(in srgb, var(--panel) 50%, var(--surface));
+    border-top: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    padding: clamp(3rem, 5vw, 5rem) 0;
+  }
+
+  .home-core > * {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  .home-core > * + * {
+    margin-top: var(--section-gap);
+  }
+
+  .home-supplement {
+    max-width: var(--content-max);
+    margin: clamp(3rem, 5vw, 5rem) auto;
+    padding-inline: var(--page-gutter);
+    display: grid;
+    gap: var(--section-gap);
+  }
 }

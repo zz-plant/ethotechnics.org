@@ -183,90 +183,18 @@ const failureChoiceIcons: Record<string, string[]> = {
           diagnostics, and standards.
         </p>
         <div class="actions" aria-label="Primary standards actions">
-          <a class="button primary institute-hero__primary-cta" href="/glossary">
+          <a class="button primary" href="/glossary">
             Start with the glossary
           </a>
+          <a class="button ghost" href="/start-here">
+            More entry points →
+          </a>
         </div>
-        <details class="institute-hero__other-starts" aria-label="Secondary starting paths">
-          <summary class="small muted">
-            More ways to start ({heroSecondaryChips.length} pathways)
-          </summary>
-          <ul class="institute-hero__other-start-list" aria-label="Secondary starting paths">
-            {
-              heroSecondaryChips.map((chip) => (
-                <li>
-                  <a class="institute-hero__other-start-link" href={chip.href}>
-                    {chip.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </details>
       </aside>
     </div>
   </section>
 
-  <section class="stack-sm mobile-quick-actions" aria-labelledby="mobile-quick-actions-heading">
-    <p id="mobile-quick-actions-heading" class="eyebrow">Quick actions</p>
-    <p class="mobile-quick-actions__hint muted small">
-      Jump directly to citation-ready framework resources.
-    </p>
-    <ul class="mobile-shortcuts" aria-label="Quick actions">
-      {
-        mobileQuickActions.map((action) => (
-          <li>
-            <a class="mobile-shortcuts__item" href={action.href}>
-              <span class="mobile-shortcuts__icon" aria-hidden="true">
-                <svg viewBox="0 0 20 20" role="presentation" focusable="false">
-                  {action.iconPaths.map((pathValue) => (
-                    <path d={pathValue} fill="none" />
-                  ))}
-                </svg>
-              </span>
-              <span class="mobile-shortcuts__title">{action.title}</span>
-              <span class="mobile-shortcuts__description">{action.description}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <div class="stack-xs mobile-jump-anchors">
-      <p id="mobile-jump-anchors-heading" class="eyebrow">Jump to key sections</p>
-      <ul class="mobile-jump-anchors__list" aria-label="Homepage jump anchors">
-        {
-          jumpAnchors.map((anchor) => (
-            <li>
-              <a href={anchor.href}>{anchor.label}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <section id="start-with-glossary" class="section section--aside stack-sm">
-    <div>
-      <p class="eyebrow">New to Ethotechnics?</p>
-      <h2>Start with the glossary</h2>
-      <p>
-        Begin with the <a href="/glossary">Glossary</a> — 40+ defined terms covering
-        burden, bindingness, escalation authority, care infrastructure, and decision
-        accountability. Entries include scope notes and citations across philosophy,
-        STS, and governance literature.
-      </p>
-    </div>
-    <aside>
-      <p class="eyebrow">Quick access</p>
-      <ul class="muted" style="list-style: none; padding: 0; display: grid; gap: 0.5rem;">
-        <li><a href="/glossary#temporal">→ Temporal rights terms</a></li>
-        <li><a href="/glossary#burden">→ Burden &amp; accountability</a></li>
-        <li><a href="/glossary#contestability">→ Contestability basics</a></li>
-        <li><a href="/taxonomy">→ Full ontology</a></li>
-      </ul>
-    </aside>
-  </section>
-
+  <div class="home-core">
   <section id="governance-ontology" class="stack-sm card">
     <p class="eyebrow">Reference contribution</p>
     <h2>Governance Ontology &amp; Reference API</h2>
@@ -360,6 +288,9 @@ const failureChoiceIcons: Record<string, string[]> = {
       ))}
     </div>
   </section>
+  </div>
+
+  <div class="home-supplement">
 
   <section class="stack-sm card card--flat">
     <p class="eyebrow">Citing this work</p>
@@ -380,19 +311,7 @@ const failureChoiceIcons: Record<string, string[]> = {
     </p>
   </section>
 
-  <section class="stack-sm card card--flat">
-    <p class="eyebrow">Ethotechnics Network</p>
-    <h2>Join a working community, not just a mailing list</h2>
-    <p>
-      A small group of researchers, practitioners, and engineers working on burden
-      measurement, care infrastructure, and AI accountability. Members receive advance
-      access to new patterns and diagnostics, invitations to working sessions, and
-      opportunities to co-author standards.
-    </p>
-    <p><a href="/participate">Apply to join →</a></p>
-  </section>
-
-  <section id="recently-published" class="stack-sm card card--flat" aria-labelledby="recently-published-heading">
+  <div class="home-supplement">  <section id="recently-published" class="stack-sm card card--flat" aria-labelledby="recently-published-heading">
     <p class="eyebrow">What&apos;s new</p>
     <h2 id="recently-published-heading">Recently published</h2>
     <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem;">
@@ -414,4 +333,5 @@ const failureChoiceIcons: Record<string, string[]> = {
       </a>
     </p>
   </section>
+  </div>
 </BaseLayout>
