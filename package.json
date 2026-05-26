@@ -61,7 +61,8 @@
     "deploy:cloudflare": "echo 'Cloudflare Pages handles deployment after a successful build; skipping explicit deploy step.'",
     "prepare": "husky || true",
     "check:production-edge": "bash scripts/check_production_edge.sh",
-    "assets:check": "bun run scripts/check-assets.ts"
+    "assets:check": "bun run scripts/check-assets.ts",
+    "assets:generate": "bun run scripts/generate-scenes.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.5.3",
