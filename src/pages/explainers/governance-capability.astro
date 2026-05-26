@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import PullQuote from "../../components/PullQuote.astro";
 
 const pageTitle = "Governance as operational capability";
 const pageDescription =
@@ -237,6 +238,19 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
     }}
   />
 
+  <div class="with-sidebar">
+    <aside class="toc-sidebar">
+      <p class="toc-sidebar__heading">On this page</p>
+      <nav>
+        <ul>
+          {executiveSummary.map((item) => (
+            <li><a href={item.href}>{item.text.split(":")[0]}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+    <div class="with-sidebar__content">
+
   <SectionBlock
     id="executive-summary"
     eyebrow="Executive summary"
@@ -452,6 +466,14 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
       See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a>
     </p>
   </SectionBlock>
+
+    </div>
+  </div>
+
+  <PullQuote
+    quote="A system is responsible only when it cannot keep harming people faster than it can be made to stop and repair."
+    variant="accent"
+  />
 </BaseLayout>
 
 <script is:inline>
@@ -553,6 +575,67 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
 </script>
 
 <style>
+  .with-sidebar {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .with-sidebar {
+      grid-template-columns: 200px 1fr;
+    }
+  }
+
+  .toc-sidebar {
+    position: sticky;
+    top: 5rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    font-size: 0.85rem;
+  }
+
+  .toc-sidebar__heading {
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 0.75rem;
+  }
+
+  .toc-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .toc-sidebar a {
+    color: var(--muted);
+    text-decoration: none;
+    background-image: none;
+    padding-bottom: 0;
+    display: block;
+    line-height: 1.4;
+  }
+
+  .toc-sidebar a:hover,
+  .toc-sidebar a:focus-visible {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  @media (max-width: 1023px) {
+    .toc-sidebar {
+      display: none;
+    }
+  }
+
   .summary-list {
     margin: 0;
     padding-left: 1.2rem;

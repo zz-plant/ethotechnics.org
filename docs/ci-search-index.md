@@ -4,26 +4,46 @@ The site uses [Pagefind](https://pagefind.app/) for full-text search. Due to Ast
 
 ## Build-time Index
 
-The `build:search` script attempts to generate an index from the prerendered HTML. This produces a limited index that covers page titles and metadata only.
+The `build:search` script (runs automatically as part of `build`) generates the
+search index by crawling the build output with Playwright:
 
-## Full Index (Post-Deploy)
+1. Starts the wrangler dev server against the built output
+2. Discovers all URLs from sitemaps (`core`, `glossary`, `standards`, `taxonomy`)
+3. Crawls every page with a headless browser, capturing full HTML
+4. Runs Pagefind on the crawled HTML
+5. Outputs the index to `dist/client/pagefind/`
 
-For a complete index with full body content, run Pagefind against the deployed site:
+If a cached index already exists at `dist/client/pagefind/pagefind.js`, it is
+reused and crawling is skipped.
 
+First-time setup:
 ```bash
-# Install Playwright browsers first
-bunx playwright install chromium
-
-# Run the crawling script
-bun run scripts/build-search-crawl.ts
+bun run build:search:setup   # Install Chromium for Playwright
 ```
 
-This script starts a headless browser, crawls every page on the deployed site, saves the full HTML, and runs Pagefind on the result. The generated index is then ready for upload alongside the static assets.
+## Manual Crawl
+
+To regenerate the index independently of the build:
+```bash
+bun run build:search:crawl
+```
+
+## Post-Deploy Crawl
+
+For a production-only index (crawling the deployed site instead of a local
+preview), point the crawl script at the live URL:
+
+```bash
+BASE_URL=https://ethotechnics.org bun run scripts/build-search-crawl.ts
+```
 
 ## CI Integration
 
-The deploy workflow in `.github/workflows/deploy.yml` runs `build:search` before deploying. To enable full index generation in CI, set up:
+The deploy workflow in `.github/workflows/deploy.yml` runs `build:search` as
+part of `build`. The crawl runs automatically if `dist/client/pagefind/` is
+missing or stale.
 
-1. A nightly workflow that runs the crawl script against the production URL
-2. Uploads the generated index as a build artifact
-3. The next deploy includes it via the cached `dist/client/pagefind/` directory
+For CI without a display server, install Playwright system dependencies:
+```bash
+bunx playwright install --with-deps chromium
+```

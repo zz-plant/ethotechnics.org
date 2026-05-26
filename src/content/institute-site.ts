@@ -30,7 +30,7 @@ export const artifacts: InstituteArtifact[] = [
     slug: "decision-record-template",
     description: [
       "Assigns a named decision owner, reversal authority, burden ceiling, and contestability path.",
-      "This makes \"the system decided\" impossible to use as a shield.",
+      "Prevents anonymous system outputs from escaping accountability.",
     ],
     enforcesBullets: [
       "Every decision has a named owner.",
@@ -53,7 +53,7 @@ export const artifacts: InstituteArtifact[] = [
       "Reversal is treated as an operating requirement.",
     ],
     enforcesBullets: [
-      "Wrongness must be recoverable within bounded time.",
+      "Error states must be recoverable within bounded time.",
       "Escalation is clock-driven, not discretionary.",
       "\"Pending\" cannot be unbounded.",
     ],
@@ -70,7 +70,7 @@ export const artifacts: InstituteArtifact[] = [
     slug: "escalation-ladder-freeze-authority",
     description: [
       "Defines who can freeze what, under which conditions, and on what timeline.",
-      "Stoppability becomes a real power, not a request.",
+      "Stoppability is operationalized as an enforceable authority.",
     ],
     enforcesBullets: [
       "Freeze authority is explicit and role-bound.",
@@ -90,7 +90,7 @@ export const artifacts: InstituteArtifact[] = [
     slug: "contestability-appeals-playbook",
     description: [
       "Defines what counts as an appeal, what evidence rules apply, and how resolution is time-bounded.",
-      "Contestability becomes a mechanism, not a promise.",
+      "Contestability is defined in operational terms.",
     ],
     enforcesBullets: [
       "Appeals are recognized as system inputs.",
@@ -110,7 +110,7 @@ export const artifacts: InstituteArtifact[] = [
     slug: "harm-receipt-format",
     description: [
       "Specifies what the system owes a user when it is wrong: acknowledgement, explanation, remedy path, and time bounds.",
-      "This prevents silence from functioning as denial.",
+      "Silence is not an acceptable resolution state.",
     ],
     enforcesBullets: [
       "Repair obligations are explicit.",
@@ -134,7 +134,7 @@ export const failureStates: FailureState[] = [
     shortLabel: "Decision appealed",
     descriptionLine1:
       "A decision has been contested and the system cannot clearly explain, reverse, or resolve it within bounded time.",
-    descriptionLine2: "Claimant time is now carrying system risk.",
+    descriptionLine2: "The time burden of unresolved contestation falls on the claimant.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
@@ -148,7 +148,7 @@ export const failureStates: FailureState[] = [
     shortLabel: "Model wrong",
     descriptionLine1:
       "The model output is wrong in a way that matters, and the organization cannot reliably detect, correct, or reverse the downstream effects within bounded time.",
-    descriptionLine2: "Accuracy is not the issue. Recovery is.",
+    descriptionLine2: "The primary failure is detection and recovery, not accuracy.",
     artifactSlugs: [
       "reversal-sla-template",
       "escalation-ladder-freeze-authority",
@@ -162,7 +162,7 @@ export const failureStates: FailureState[] = [
     shortLabel: "Queue stuck",
     descriptionLine1:
       "Work is accumulating without bounded resolution. \"Pending\" has become an unpriced outcome.",
-    descriptionLine2: "The queue is now exporting harm through delay.",
+    descriptionLine2: "Delay in processing becomes a form of ongoing harm.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
       "reversal-sla-template",
@@ -176,7 +176,7 @@ export const failureStates: FailureState[] = [
     shortLabel: "User harmed",
     descriptionLine1:
       "A user experienced material harm and the system cannot clearly acknowledge what happened, what is owed, or how repair will occur.",
-    descriptionLine2: "The cost of failure is being carried externally.",
+    descriptionLine2: "The cost of the failure is externalized to the affected user.",
     artifactSlugs: ["harm-receipt-format", "decision-record-template", "reversal-sla-template"],
     footerLine: failureFooterLine,
   },
@@ -186,7 +186,7 @@ export const failureStates: FailureState[] = [
     shortLabel: "No owner",
     descriptionLine1:
       "A failure has occurred and nobody can be named with authority to reverse, compensate, or close the loop.",
-    descriptionLine2: "Responsibility is diffuse, so harm becomes durable.",
+    descriptionLine2: "Without assigned ownership, harm has no designated resolution path.",
     artifactSlugs: [
       "decision-record-template",
       "escalation-ladder-freeze-authority",
@@ -200,7 +200,7 @@ export const failureStates: FailureState[] = [
     shortLabel: "Can’t explain",
     descriptionLine1:
       "The system cannot provide a bounded explanation that enables contestability, oversight, or repair.",
-    descriptionLine2: "\"We can’t tell you why\" has become a governance state.",
+    descriptionLine2: "Unexplainable decisions create an ungovernable system state.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
@@ -214,7 +214,7 @@ export const failureStates: FailureState[] = [
     shortLabel: "Can’t stop",
     descriptionLine1:
       "A harmful process cannot be frozen, paused, or rolled back quickly, even when operators recognize it is wrong.",
-    descriptionLine2: "The system has no reliable stoppability.",
+    descriptionLine2: "Built-in stoppability mechanisms are absent or untested.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
       "reversal-sla-template",

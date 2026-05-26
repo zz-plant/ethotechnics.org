@@ -1,27 +1,11 @@
-import { existsSync, readdirSync, statSync } from "node:fs";
+import { spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = process.cwd();
 const CLIENT_DIR = join(ROOT, "dist", "client");
 const PAGEFIND_DIR = join(CLIENT_DIR, "pagefind");
-
-// Pagefind index generation from build output.
-// Astro 6 with @astrojs/cloudflare v13 generates head-only prerendered HTML
-// for SSR pages (no body content). Full indexing requires post-deploy crawling.
-// If a cached index exists, use it. Otherwise, skip for CI to handle later.
-
-async function findHtmlFiles(dir: string): Promise<string[]> {
-  const files: string[] = [];
-  function walk(d: string) {
-    for (const entry of readdirSync(d)) {
-      const full = join(d, entry);
-      if (statSync(full).isDirectory()) walk(full);
-      else if (entry.endsWith(".html")) files.push(full);
-    }
-  }
-  walk(dir);
-  return files;
-}
+const CRAWL_SCRIPT = join(ROOT, "scripts", "build-search-crawl.ts");
 
 async function main() {
   console.log("🔍 Pagefind search index...");
@@ -31,20 +15,31 @@ async function main() {
     process.exit(0);
   }
 
-  if (existsSync(PAGEFIND_DIR)) {
+  if (existsSync(join(PAGEFIND_DIR, "pagefind.js"))) {
     console.log("  Using cached index from dist/client/pagefind/");
     process.exit(0);
   }
 
-  const htmlFiles = await findHtmlFiles(CLIENT_DIR);
-  if (htmlFiles.length === 0) {
-    console.log("  No prerendered pages found — skipping.");
+  if (!existsSync(CRAWL_SCRIPT)) {
+    console.log("  Crawl script not found — run `bun run build:search:full` post-deploy.");
     process.exit(0);
   }
 
-  console.log(`  ${htmlFiles.length} prerendered pages found.`);
-  console.log("  Run 'bun run build:search:full' post-deploy for complete index.");
-  process.exit(0);
+  console.log("  Running crawl-based index generation...");
+  await new Promise<void>((resolve, reject) => {
+    const proc = spawn("bun", ["run", CRAWL_SCRIPT], {
+      cwd: ROOT,
+      stdio: "inherit",
+    });
+    proc.on("close", (code) => {
+      if (code === 0) resolve();
+      else reject(new Error(`Crawl script exited with code ${code}`));
+    });
+    proc.on("error", reject);
+  });
 }
 
-main().catch(() => process.exit(0));
+main().catch((err) => {
+  console.error("Search index generation failed:", err);
+  process.exit(1);
+});

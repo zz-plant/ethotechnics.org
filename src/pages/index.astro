@@ -141,10 +141,10 @@ const failureChoiceIcons: Record<string, string[]> = {
           systems. Everything here is free to use, cite, and build on.
         </p>
         <p class="small">
-          For clinical AI safety evaluation and governance advisory by Kanav Jain
-          (founding PM, Doximity Dialer; co-founder &amp; CEO, Andwise), see
+          For commercial application of the framework (clinical AI safety evaluation, VC
+          diligence, and governance advisory), see
           <a href="https://ethotechnics.com" rel="noopener noreferrer" target="_blank">
-            Ethotechnics Studio →
+            Ethotechnics Studio
           </a>.
         </p>
         <ul class="institute-hero__status" aria-label="Institute publication status">
@@ -245,15 +245,26 @@ const failureChoiceIcons: Record<string, string[]> = {
     </div>
   </section>
 
-  <section id="start-with-glossary" class="stack-sm card">
-    <p class="eyebrow">New to Ethotechnics?</p>
-    <h2>Start with the glossary</h2>
-    <p>
-      Begin with the <a href="/glossary">Glossary</a> — 40+ defined terms covering
-      burden, bindingness, escalation authority, care infrastructure, and decision
-      accountability. Entries include scope notes and citations across philosophy,
-      STS, and governance literature.
-    </p>
+  <section id="start-with-glossary" class="section section--aside stack-sm">
+    <div>
+      <p class="eyebrow">New to Ethotechnics?</p>
+      <h2>Start with the glossary</h2>
+      <p>
+        Begin with the <a href="/glossary">Glossary</a> — 40+ defined terms covering
+        burden, bindingness, escalation authority, care infrastructure, and decision
+        accountability. Entries include scope notes and citations across philosophy,
+        STS, and governance literature.
+      </p>
+    </div>
+    <aside>
+      <p class="eyebrow">Quick access</p>
+      <ul class="muted" style="list-style: none; padding: 0; display: grid; gap: 0.5rem;">
+        <li><a href="/glossary#temporal">→ Temporal rights terms</a></li>
+        <li><a href="/glossary#burden">→ Burden &amp; accountability</a></li>
+        <li><a href="/glossary#contestability">→ Contestability basics</a></li>
+        <li><a href="/taxonomy">→ Full ontology</a></li>
+      </ul>
+    </aside>
   </section>
 
   <section id="governance-ontology" class="stack-sm card">
@@ -350,7 +361,7 @@ const failureChoiceIcons: Record<string, string[]> = {
     </div>
   </section>
 
-  <section class="stack-sm card">
+  <section class="stack-sm card card--flat">
     <p class="eyebrow">Citing this work</p>
     <h2>How to cite Ethotechnics</h2>
     <p>
@@ -369,7 +380,7 @@ const failureChoiceIcons: Record<string, string[]> = {
     </p>
   </section>
 
-  <section class="stack-sm card">
+  <section class="stack-sm card card--flat">
     <p class="eyebrow">Ethotechnics Network</p>
     <h2>Join a working community, not just a mailing list</h2>
     <p>
@@ -381,30 +392,26 @@ const failureChoiceIcons: Record<string, string[]> = {
     <p><a href="/participate">Apply to join →</a></p>
   </section>
 
-  <section id="recently-published" class="stack-sm card" aria-labelledby="recently-published-heading">
+  <section id="recently-published" class="stack-sm card card--flat" aria-labelledby="recently-published-heading">
     <p class="eyebrow">What&apos;s new</p>
     <h2 id="recently-published-heading">Recently published</h2>
-    <ul>
-      {recentPublications.map((item) => <li>{item}</li>)}
+    <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem;">
+      {recentPublications.map((item) => <li><span class="pill">{item}</span></li>)}
     </ul>
   </section>
 
   <section class="stack-sm card card--accent">
-    <p class="eyebrow">Work with us</p>
-    <h2>Apply the framework to your system</h2>
+    <p class="eyebrow">Studio</p>
+    <h2>Commercial application</h2>
     <p>
-      Kanav Jain — founding PM, Doximity Dialer (300K clinicians); co-founder &amp; CEO,
-      Andwise — provides clinical AI safety evaluation, VC diligence, and governance
-      advisory through Ethotechnics Studio.
+      For clinical AI safety evaluation, VC diligence, and governance advisory,
+      Ethotechnics Studio offers commissioned engagements applying the framework
+      to high-stakes systems.
     </p>
     <p>
-      <a class="button primary" href="https://ethotechnics.com/clinical-ai-safety/">
-        Clinical AI safety evaluation →
+      <a class="button" href="https://ethotechnics.com/">
+        Ethotechnics Studio →
       </a>
-    </p>
-    <p class="small muted">
-      Also: <a href="https://ethotechnics.com/vc-diligence/">VC diligence</a> ·
-      <a href="https://ethotechnics.com/">All services</a>
     </p>
   </section>
 </BaseLayout>
