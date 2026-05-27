@@ -46,3 +46,10 @@ export type PanelCopy = {
   title: string;
   description: string;
 };
+
+export interface ContentEntry {
+  id: string;
+  title: string;
+  description: string;
+  eyebrowInline?: string;
+}

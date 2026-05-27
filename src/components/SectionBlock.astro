@@ -16,6 +16,7 @@ interface Props {
   title: string;
   description?: string;
   variant?: "default" | "alt";
+  layout?: "stack" | "aside" | "strip" | "quote";
   className?: string;
 }
 
@@ -26,10 +27,14 @@ const {
   title,
   description,
   variant = "default",
+  layout = "stack",
   className,
 } = props;
 const sectionClass = [
   "section",
+  layout === "aside" ? "section--aside" : "",
+  layout === "strip" ? "section--strip" : "",
+  layout === "quote" ? "section--quote" : "",
   variant === "alt" ? "section--alt" : "",
   className,
 ]

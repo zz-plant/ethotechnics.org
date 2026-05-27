@@ -1,65 +1,16 @@
 ---
-export interface Props {
-  quote: string;
-  attribution?: string;
-  variant?: "default" | "accent";
-}
-
+export interface Props { quote: string; attribution?: string; variant?: "default" | "accent"; }
 const { quote, attribution, variant = "default" } = Astro.props;
 ---
 <aside class:list={["pull-quote", `pull-quote--${variant}`]}>
-  <blockquote>
-    <p>{quote}</p>
-    {attribution && <cite>{attribution}</cite>}
-  </blockquote>
+  <blockquote><p>{quote}</p>{attribution && <cite>{attribution}</cite>}</blockquote>
 </aside>
-
 <style>
-  .pull-quote {
-    margin: 2rem 0;
-    padding: 1.5rem 0;
-    border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-    break-inside: avoid;
-  }
-
-  @media (min-width: 900px) {
-    .pull-quote {
-      float: right;
-      width: 300px;
-      margin: 0.5rem -20px 1.5rem 2rem;
-      border: none;
-      border-left: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
-      padding: 0 0 0 1.5rem;
-    }
-  }
-
-  .pull-quote--accent {
-    border-left-color: var(--accent);
-  }
-
-  .pull-quote blockquote {
-    margin: 0;
-  }
-
-  .pull-quote p {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    font-style: italic;
-    line-height: 1.6;
-    color: var(--text);
-    margin: 0;
-  }
-
-  .pull-quote cite {
-    display: block;
-    margin-top: 0.75rem;
-    font-style: normal;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  .pull-quote cite::before {
-    content: "\2014 ";
-  }
+  .pull-quote { margin: 2rem 0; padding: 1.5rem 0; border-top: 1px solid color-mix(in srgb,var(--border) 60%,transparent); border-bottom: 1px solid color-mix(in srgb,var(--border) 60%,transparent); break-inside: avoid; }
+  @media (min-width: 900px) { .pull-quote { float: right; width: 300px; margin: 0.5rem -20px 1.5rem 2rem; border: none; border-left: 3px solid var(--surface-accent-edge,color-mix(in srgb,var(--accent) 50%,transparent)); padding: 0 0 0 1.5rem; } }
+  .pull-quote--accent { border-left-color: var(--accent); }
+  .pull-quote blockquote { margin: 0; }
+  .pull-quote p { font-family: var(--serif); font-size: 1.1rem; font-style: italic; line-height: 1.6; color: var(--text); margin: 0; }
+  .pull-quote cite { display: block; margin-top: 0.75rem; font-style: normal; font-size: var(--text-xs); color: var(--muted); }
+  .pull-quote cite::before { content: "\2014 "; }
 </style>

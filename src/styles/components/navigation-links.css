@@ -8,7 +8,7 @@
     align-items: center;
     padding: 0.5rem 0.85rem;
     min-height: 44px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid transparent;
     background: transparent;
     font-weight: 700;
@@ -85,10 +85,10 @@
   .nav__current-page-chip {
     margin: 0;
     padding: 0.35rem 0.65rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
     background: color-mix(in srgb, var(--surface) 95%, white 5%);
-    font-size: 0.78rem;
+    font-size: var(--text-eyebrow);
     color: color-mix(in srgb, var(--muted) 80%, var(--text));
   }
 
@@ -151,7 +151,7 @@
 
   .nav__mobile-sections-summary::after {
     content: "▾";
-    font-size: 0.72rem;
+    font-size: var(--text-xs);
     opacity: 0.78;
     transition: transform var(--motion-fast) ease;
   }
@@ -220,7 +220,7 @@
   }
 
   .nav__link-detail {
-    font-size: 0.72rem;
+    font-size: var(--text-xs);
     line-height: 1.25;
     color: color-mix(in srgb, var(--muted) 82%, var(--text) 18%);
     white-space: normal;
@@ -409,7 +409,7 @@
     .nav__links--desktop {
       display: inline-flex;
       padding: 0.25rem;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
       background: color-mix(in srgb, var(--panel) 92%, white 8%);
     }
