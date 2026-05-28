@@ -26,9 +26,9 @@
     "build:search:setup": "bunx playwright install chromium",
     "preview": "bunx astro preview",
     "preview:cf": "rm -f .wrangler/deploy/config.json && bunx wrangler dev --local --config dist/server/wrangler.json",
-"deploy": "NODE_OPTIONS='--dns-result-order=ipv4first' bun run build && NODE_OPTIONS='--dns-result-order=ipv4first' bunx wrangler deploy --config dist/server/wrangler.json --no-assets",
-"deploy:preview": "NODE_OPTIONS='--dns-result-order=ipv4first' bun run build && NODE_OPTIONS='--dns-result-order=ipv4first' bunx wrangler deploy --config dist/server/wrangler.json --env preview --no-assets",
-"deploy:assets": "NODE_OPTIONS='--dns-result-order=ipv4first' bunx wrangler deploy --config dist/server/wrangler.json",
+    "deploy": "NODE_OPTIONS='--dns-result-order=ipv4first' bun run build && NODE_OPTIONS='--dns-result-order=ipv4first' bunx wrangler deploy --config dist/server/wrangler.json --no-assets",
+    "deploy:preview": "NODE_OPTIONS='--dns-result-order=ipv4first' bun run build && NODE_OPTIONS='--dns-result-order=ipv4first' bunx wrangler deploy --config dist/server/wrangler.json --env preview --no-assets",
+    "deploy:assets": "NODE_OPTIONS='--dns-result-order=ipv4first' bunx wrangler deploy --config dist/server/wrangler.json",
     "patch:cf-worker": "bun run scripts/patch-cloudflare-worker-streaming.ts",
     "types:cf": "bunx wrangler types",
     "astro:check": "bunx astro check",
@@ -76,7 +76,7 @@
     "@iconify-json/lucide": "^1.2.108",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "@resvg/resvg-wasm": "^2.6.2",
-    "astro": "^6.3.6",
+    "astro": "6.4.2",
     "astro-icon": "1.1.5",
     "astro-robots-txt": "1.0.0",
     "astro-seo": "^1.1.0",
@@ -103,7 +103,7 @@
     "lightningcss": "^1.32.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.4",
-    "wrangler": "4.93.0",
+    "wrangler": "4.95.0",
     "zod": "^4.4.3"
   }
 }
