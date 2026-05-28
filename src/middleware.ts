@@ -21,20 +21,6 @@ const applySecurityHeaders = (response: Response): Response => {
 };
 
 export const onRequest: MiddlewareHandler = async ({ request }, next) => {
-  const hostname = new URL(request.url).host.split(':')[0]?.trim().toLowerCase();
-
-  // Note: ethotechnics.com is hosted on a separate Cloudflare project and won't normally route to this Worker.
-  // This redirect acts as a fallback should DNS or Worker routing ever map .com traffic to the .org Worker.
-  if (hostname && (hostname === 'ethotechnics.com' || hostname.endsWith('.ethotechnics.com'))) {
-    const url = new URL(request.url);
-    return applySecurityHeaders(
-      new Response(null, {
-        status: 301,
-        headers: { Location: `https://ethotechnics.org${url.pathname}${url.search}` },
-      }),
-    );
-  }
-
   const response = await next();
   return response ? applySecurityHeaders(response) : response;
 };
