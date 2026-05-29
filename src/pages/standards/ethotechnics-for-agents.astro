@@ -1,5 +1,6 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
@@ -14,6 +15,7 @@ import {
   summaryRelatedLinks,
   summaryTakeaways,
 } from "../../content/page-data/ethotechnics-for-agents";
+import { derivePublicationMetadata } from "../../utils/publication";
 import { readFile } from "node:fs/promises";
 
 const pageTitle = "Ethotechnics for Agents";
@@ -29,6 +31,11 @@ const agentSafetyObjectModel = await readFile(
   new URL("../../../public/agents/spec.json", import.meta.url),
   "utf-8",
 );
+
+const publication = derivePublicationMetadata({
+  permalink,
+  published: "2025-06-01T00:00:00Z",
+});
 
 ---
 
@@ -596,4 +603,5 @@ const agentSafetyObjectModel = await readFile(
       MEC-06, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </StandardsLayout>

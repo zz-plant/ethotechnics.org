@@ -1,6 +1,8 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "Corporate Responsible AI Programs";
 const pageDescription =
@@ -11,6 +13,10 @@ const anchorLinks = [
   { href: "#critique", label: "Ethotechnics critique" },
   { href: "#failure-mode", label: "Failure mode" },
 ];
+const publication = derivePublicationMetadata({
+  permalink,
+  published: "2025-06-01T00:00:00Z",
+});
 ---
 
 <StandardsLayout
@@ -74,4 +80,5 @@ const anchorLinks = [
       oversight when incentives conflict with restraint.
     </p>
   </SectionBlock>
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </StandardsLayout>

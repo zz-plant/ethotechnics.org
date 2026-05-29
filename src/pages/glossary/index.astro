@@ -8,6 +8,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
+import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import glossaryFilterScript from "../../scripts/glossary-filter.ts?url";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import { getGlossaryAuthor, getGlossaryEntryDefaults } from "../../utils/glossary-helpers";
@@ -834,6 +835,18 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       </SectionBlock>
     ))
   }
+
+  <SectionBlock
+    id="glossary-subscription"
+    eyebrow="Newsletter"
+    title="Stay updated on terms & ontology"
+    description="Receive notifications about new definitions, revisions, and taxonomy updates."
+    variant="alt"
+  >
+    <div style="max-width: 600px; margin: 0 auto;">
+      <NewsletterSignup />
+    </div>
+  </SectionBlock>
 
   <script
     type="application/ld+json"

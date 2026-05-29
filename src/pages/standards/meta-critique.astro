@@ -1,6 +1,8 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "Meta-critique across standards";
 const pageDescription =
@@ -10,6 +12,10 @@ const anchorLinks = [
   { href: "#overview", label: "Core critique" },
   { href: "#contrast", label: "Governance by control" },
 ];
+const publication = derivePublicationMetadata({
+  permalink,
+  published: "2025-06-01T00:00:00Z",
+});
 ---
 
 <StandardsLayout
@@ -54,4 +60,5 @@ const anchorLinks = [
       <li>Contestability that changes state, not just narrative.</li>
     </ul>
   </SectionBlock>
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </StandardsLayout>

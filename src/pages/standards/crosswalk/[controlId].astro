@@ -2,9 +2,11 @@
 import type { GetStaticPaths } from "astro";
 
 import PageIntro from "../../../components/PageIntro.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import { governanceCrosswalks } from "../../../content/crosswalks";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { derivePublicationMetadata } from "../../../utils/publication";
 
 type FrameworkMatch = {
   framework: string;
@@ -34,6 +36,11 @@ const frameworks: FrameworkMatch[] = [
 const pageTitle = `${control.controlId} crosswalk brief`;
 const pageDescription = `${control.controlId} maps one enforceable obligation to EU AI Act, NIST AI RMF, and ISO/IEC 42001 references, plus evidence artifacts and operational surface.`;
 const permalink = `/standards/crosswalk/${control.controlId.toLowerCase()}`;
+
+const publication = derivePublicationMetadata({
+  permalink,
+  published: "2025-06-01T00:00:00Z",
+});
 ---
 
 <BaseLayout
@@ -121,4 +128,5 @@ const permalink = `/standards/crosswalk/${control.controlId.toLowerCase()}`;
   >
     <p>{control.operationalSurface}</p>
   </SectionBlock>
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </BaseLayout>

@@ -3,6 +3,7 @@ import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "STD-01 rights \u2192 validators \u2192 mechanisms matrix";
 const pageDescription =
@@ -20,35 +21,13 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-const publication = {
-  authors: [
-    {
-      name: "Ethotechnics Standards Working Group",
-      affiliation: "Ethotechnics Institute",
-      email: "standards@ethotechnics.org",
-    },
-  ],
-  contact: "standards@ethotechnics.org",
+const publication = derivePublicationMetadata({
+  permalink,
   published: "2026-03-01T00:00:00Z",
-  updated: "2026-03-01T00:00:00Z",
   version: "v1.0.0",
-  doi: "Pending Zenodo deposit",
-  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
-  changelog: [
-    {
-      version: "v1.0.0",
-      date: "2026-03-01",
-      summary:
-        "Published the first crosswalk of STD-01 rights, validator coverage, and mechanisms.",
-    },
-  ],
-  license: {
-    label: "CC BY 4.0",
-    href: "https://creativecommons.org/licenses/by/4.0/",
-  },
-  attribution:
-    "Credit Ethotechnics Institute Standards Working Group, include the page title + version, and link to the canonical permalink.",
-};
+  changelogSummary:
+    "Published the first crosswalk of STD-01 rights, validator coverage, and mechanisms.",
+});
 
 const matrix = [
   {

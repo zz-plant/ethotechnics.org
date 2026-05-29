@@ -5,6 +5,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
+import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import { implementationExamples } from "../../content/implementation-examples";
 import { standardsContent } from "../../content/standards";
 import {
@@ -953,6 +954,19 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
       VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
+
+  <SectionBlock
+    id="standards-subscription"
+    eyebrow="Newsletter"
+    title="Stay updated on standards"
+    description="Receive notifications about new draft standards, revisions, and validator releases."
+    variant="alt"
+  >
+    <div style="max-width: 600px; margin: 0 auto;">
+      <NewsletterSignup />
+    </div>
+  </SectionBlock>
+
   <script is:inline>
     const standardsFilter = document.querySelector("[data-standards-filter]");
 

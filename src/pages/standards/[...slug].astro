@@ -1,6 +1,8 @@
 ---
 import { getEntry, render } from "astro:content";
+import CitationBlock from "../../components/CitationBlock.astro";
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const { slug } = Astro.params;
 const slugStr = Array.isArray(slug) ? slug.join("/") : String(slug ?? "");
@@ -12,6 +14,13 @@ if (!entry) {
 
 const { Content } = await render(entry);
 const data = entry.data;
+
+const publication = derivePublicationMetadata({
+  permalink: data.permalink,
+  published: data.publishedTime ?? "2025-06-01T00:00:00Z",
+  updated: data.modifiedTime ?? data.publishedTime ?? undefined,
+  version: data.version,
+});
 ---
 
 <StandardsLayout
@@ -29,4 +38,5 @@ const data = entry.data;
   mainClass={data.mainClass}
 >
   <Content />
+  <CitationBlock title={data.title} permalink={data.permalink} publication={publication} />
 </StandardsLayout>

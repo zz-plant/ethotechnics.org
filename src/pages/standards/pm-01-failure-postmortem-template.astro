@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "PM-01 — Institutional Failure Postmortem Template";
 const pageDescription =
@@ -18,34 +19,13 @@ const breadcrumbItems = [
   },
 ];
 
-const publication = {
-  authors: [
-    {
-      name: "Ethotechnics Standards Council",
-      affiliation: "Ethotechnics Institute",
-      email: "standards@ethotechnics.org",
-    },
-  ],
-  contact: "standards@ethotechnics.org",
+const publication = derivePublicationMetadata({
+  permalink,
   published: "2026-04-15T00:00:00Z",
-  updated: "2026-04-15T00:00:00Z",
   version: "v1.0",
-  doi: "Pending Zenodo deposit",
-  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
-  changelog: [
-    {
-      version: "v1.0",
-      date: "2026-04-15",
-      summary: "Initial release of the PM-01 failure postmortem template.",
-    },
-  ],
-  license: {
-    label: "CC BY 4.0",
-    href: "https://creativecommons.org/licenses/by/4.0/",
-  },
-  attribution:
-    "Credit Ethotechnics Institute Standards Council, include the page title + version, and link to the canonical permalink.",
-};
+  authorName: "Ethotechnics Standards Council",
+  changelogSummary: "Initial release of the PM-01 failure postmortem template.",
+});
 
 const templateSections = [
   {

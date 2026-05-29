@@ -2,6 +2,7 @@
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 import {
   evidencePackMinimumSet,
   governanceCrosswalks,
@@ -26,35 +27,15 @@ const pageDescription =
   "A specific, current crosswalk from Ethotechnics controls to framework obligations, buyer checks, and evidence requests.";
 const permalink = "/standards/enforceable-governance-crosswalks";
 
-const publication = {
-  authors: [
-    {
-      name: "Ethotechnics Governance Council",
-      affiliation: "Ethotechnics Institute",
-      email: "standards@ethotechnics.org",
-    },
-  ],
-  contact: "standards@ethotechnics.org",
+const publication = derivePublicationMetadata({
+  permalink,
   published: "2026-02-15T00:00:00Z",
   updated: "2026-02-22T00:00:00Z",
   version: "v0.3.0",
-  doi: "Pending Zenodo deposit",
-  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
-  changelog: [
-    {
-      version: "v0.3.0",
-      date: "2026-02-22",
-      summary:
-        "Added framework-specific checks, concrete first moves, and implementation-ready evidence asks for buyer and audit workflows.",
-    },
-  ],
-  license: {
-    label: "CC BY 4.0",
-    href: "https://creativecommons.org/licenses/by/4.0/",
-  },
-  attribution:
-    "Credit Ethotechnics Institute Governance Council, include title + version, and link to the canonical permalink.",
-};
+  authorName: "Ethotechnics Governance Council",
+  changelogSummary:
+    "Added framework-specific checks, concrete first moves, and implementation-ready evidence asks for buyer and audit workflows.",
+});
 
 const findControl = (controlId: string) => {
   const control = governanceCrosswalks.find((entry) => entry.controlId === controlId);

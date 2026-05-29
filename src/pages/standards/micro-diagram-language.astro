@@ -3,6 +3,7 @@ import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "Micro-diagram language specification";
 const pageDescription =
@@ -20,35 +21,14 @@ const anchorLinks = [
   { href: "#citations", label: "Citations" },
 ];
 
-const publication = {
-  authors: [
-    {
-      name: "Ethotechnics Diagram Council",
-      affiliation: "Ethotechnics Institute",
-      email: "standards@ethotechnics.org",
-    },
-  ],
-  contact: "standards@ethotechnics.org",
+const publication = derivePublicationMetadata({
+  permalink,
   published: "2026-02-01T00:00:00Z",
-  updated: "2026-02-01T00:00:00Z",
   version: "v1.0.0",
-  doi: "Pending Zenodo deposit",
-  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
-  changelog: [
-    {
-      version: "v1.0.0",
-      date: "2026-02-01",
-      summary:
-        "Defined canonical shapes, line semantics, and example diagrams.",
-    },
-  ],
-  license: {
-    label: "CC BY 4.0",
-    href: "https://creativecommons.org/licenses/by/4.0/",
-  },
-  attribution:
-    "Credit Ethotechnics Institute Diagram Council, include page title + version, and link to the canonical permalink.",
-};
+  authorName: "Ethotechnics Diagram Council",
+  changelogSummary:
+    "Defined canonical shapes, line semantics, and example diagrams.",
+});
 ---
 
 <StandardsLayout

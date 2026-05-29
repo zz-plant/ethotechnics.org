@@ -1,0 +1,128 @@
+<div class="newsletter-signup">
+  <form id="newsletter-form" class="newsletter-signup__form" novalidate>
+    <h3 class="eyebrow">Standards &amp; Ontology Updates</h3>
+    <p class="muted">Get notified when new standards, terms, or field notes are published.</p>
+    <div class="newsletter-signup__row">
+      <label class="visually-hidden" for="newsletter-email">Email address</label>
+      <input
+        id="newsletter-email"
+        type="email"
+        name="email"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+      />
+      <button type="submit" class="button primary button--compact">
+        Subscribe
+      </button>
+    </div>
+    <p id="newsletter-status" class="newsletter-signup__status" role="status" aria-live="polite"></p>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById("newsletter-form") as HTMLFormElement;
+  const status = document.getElementById("newsletter-status") as HTMLParagraphElement;
+  const button = form.querySelector("button") as HTMLButtonElement;
+  const input = form.querySelector("input") as HTMLInputElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = input.value.trim();
+
+    if (!email) {
+      status.textContent = "Please enter an email address.";
+      return;
+    }
+
+    button.disabled = true;
+    status.textContent = "";
+    status.className = "newsletter-signup__status";
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        status.textContent = "Subscribed. Thank you.";
+        status.classList.add("newsletter-signup__status--success");
+        input.value = "";
+      } else {
+        status.textContent = data.error || "Something went wrong. Try again.";
+        status.classList.add("newsletter-signup__status--error");
+      }
+    } catch {
+      status.textContent = "Network error. Please try again.";
+      status.classList.add("newsletter-signup__status--error");
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .newsletter-signup__form {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .newsletter-signup__row {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  .newsletter-signup__row input {
+    flex: 1 1 180px;
+    min-width: 0;
+    padding: 0.65rem 0.9rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--interactive-border);
+    background: var(--interactive-bg);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: var(--sans);
+  }
+
+  .newsletter-signup__row input::placeholder {
+    color: var(--muted);
+  }
+
+  .newsletter-signup__row input:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    box-shadow: var(--focus-ring);
+  }
+
+  .newsletter-signup__status {
+    font-size: var(--text-sm);
+    min-height: 1.3em;
+    margin: 0;
+  }
+
+  .newsletter-signup__status--success {
+    color: var(--teal);
+  }
+
+  .newsletter-signup__status--error {
+    color: var(--accent);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

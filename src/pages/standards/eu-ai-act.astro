@@ -1,6 +1,8 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "EU AI Act";
 const pageDescription =
@@ -18,6 +20,11 @@ const anchorLinks = [
   { href: "#failure-mode", label: "Failure mode" },
   { href: "#keep-current", label: "How we keep this current" },
 ];
+const publication = derivePublicationMetadata({
+  permalink,
+  published: publishedTime,
+  updated: modifiedTime,
+});
 ---
 
 <StandardsLayout
@@ -182,4 +189,5 @@ const anchorLinks = [
       </li>
     </ul>
   </SectionBlock>
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </StandardsLayout>

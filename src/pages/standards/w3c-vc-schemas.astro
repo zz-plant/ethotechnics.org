@@ -1,9 +1,11 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "W3C Verifiable Credential schemas for contestability";
 const pageDescription =
@@ -50,6 +52,10 @@ const issuanceGuidance = [
   "Require issuer metadata that names the accountable team and escalation owner.",
   "Provide verifier guidance for checking remedy status and SLA compliance.",
 ];
+const publication = derivePublicationMetadata({
+  permalink,
+  published: "2025-06-01T00:00:00Z",
+});
 ---
 
 <StandardsLayout
@@ -126,4 +132,5 @@ const issuanceGuidance = [
   <p class="muted" style="margin-top:2rem">
     See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
   </p>
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </StandardsLayout>

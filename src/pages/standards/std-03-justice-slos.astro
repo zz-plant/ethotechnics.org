@@ -1,7 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
+const pageTitle = "STD-03 — Justice SLOs (Targets, Budgets, and Breach Actions)";
+const permalink = "/standards/std-03-justice-slos";
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
 const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
@@ -119,6 +123,13 @@ const structuredData = {
   ],
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
+
+const publication = derivePublicationMetadata({
+  permalink,
+  published: "2026-01-01T00:00:00Z",
+  version: "v0.6",
+  changelogSummary: "Draft for peer review.",
+});
 ---
 
 <BaseLayout
@@ -278,4 +289,5 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     set:html={structuredDataJson}
     is:inline
   />
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </BaseLayout>

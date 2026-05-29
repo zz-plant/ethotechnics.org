@@ -1,8 +1,11 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { derivePublicationMetadata } from "../../utils/publication";
 
+const pageTitle = "Human Impact Safety Case (STD-06)";
 const pageDescription =
   "Standard tests, thresholds, and evidence artifacts that define a do-not-deploy safety case for human impact.";
 const permalink = "/standards/std-06-human-impact-safety-case";
@@ -107,6 +110,12 @@ const safetyCaseTemplate = `Human Impact Safety Case (STD-06)
 - Binding authority roster + escalation ladder
 - Do-not-deploy boundary status
 - Last audit date + next review window`;
+
+const publication = derivePublicationMetadata({
+  permalink,
+  published: "2025-06-01T00:00:00Z",
+  version: "v0.4",
+});
 ---
 
 <StandardsLayout
@@ -280,4 +289,5 @@ const safetyCaseTemplate = `Human Impact Safety Case (STD-06)
     </div>
     <p class="muted">Search ID: STD-06 v0.4.</p>
   </SectionBlock>
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </StandardsLayout>

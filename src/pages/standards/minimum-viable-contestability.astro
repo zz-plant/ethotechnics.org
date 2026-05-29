@@ -1,10 +1,12 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { minimumViableContestabilityContent } from "../../content/minimum-viable-contestability";
+import { derivePublicationMetadata } from "../../utils/publication";
 
 const {
   pageTitle,
@@ -33,6 +35,11 @@ const textOnlyContent = [
 ]
   .join("\n")
   .trim();
+
+const publication = derivePublicationMetadata({
+  permalink,
+  published: "2025-06-01T00:00:00Z",
+});
 ---
 
 <StandardsLayout
@@ -143,6 +150,7 @@ const textOnlyContent = [
   <p class="muted" style="margin-top:2rem">
     See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
   </p>
+  <CitationBlock title={pageTitle} permalink={permalink} publication={publication} />
 </StandardsLayout>
 
 <script>
