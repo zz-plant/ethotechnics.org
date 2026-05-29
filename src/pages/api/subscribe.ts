@@ -6,7 +6,7 @@ const SUBSCRIBERS: Array<{ email: string; subscribedAt: string }> = [];
 export const POST: APIRoute = async ({ request }) => {
   let email: string;
   try {
-    const body = await request.json();
+    const body = await request.json() as { email?: unknown };
     email = String(body.email ?? "").trim();
   } catch {
     return new Response(JSON.stringify({ error: "Invalid request body" }), {
