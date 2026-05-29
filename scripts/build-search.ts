@@ -5,7 +5,6 @@ import { join } from "node:path";
 const ROOT = process.cwd();
 const CLIENT_DIR = join(ROOT, "dist", "client");
 const PAGEFIND_DIR = join(CLIENT_DIR, "pagefind");
-const CRAWL_SCRIPT = join(ROOT, "scripts", "build-search-crawl.ts");
 
 async function main() {
   console.log("🔍 Pagefind search index...");
@@ -20,20 +19,20 @@ async function main() {
     process.exit(0);
   }
 
-  if (!existsSync(CRAWL_SCRIPT)) {
-    console.log("  Crawl script not found — run `bun run build:search:full` post-deploy.");
-    process.exit(0);
-  }
-
-  console.log("  Running crawl-based index generation...");
+  // Use CLI pagefind directly on static HTML — no browser crawl needed.
+  console.log("  Running pagefind on static HTML...");
   await new Promise<void>((resolve, reject) => {
-    const proc = spawn("bun", ["run", CRAWL_SCRIPT], {
-      cwd: ROOT,
-      stdio: "inherit",
-    });
+    const proc = spawn(
+      "bunx",
+      ["pagefind", "--site", CLIENT_DIR, "--glob", "**/*.html"],
+      {
+        cwd: ROOT,
+        stdio: "inherit",
+      },
+    );
     proc.on("close", (code) => {
       if (code === 0) resolve();
-      else reject(new Error(`Crawl script exited with code ${code}`));
+      else reject(new Error(`Pagefind exited with code ${code}`));
     });
     proc.on("error", reject);
   });

@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string;
+  author?: string;
+  date?: string;
+  url: string;
+}
+
+const { title, author = "Ethotechnics Institute", date = new Date().getFullYear().toString(), url } = Astro.props;
+const apaCitation = `${author} (${date}). <i>${title}</i>. ${url}`;
+const mlaCitation = `${author}. "${title}." <i>Ethotechnics Institute</i>, ${date}, ${url}.`;
+---
+
+<div class="cite-this" style="margin-top: var(--space-md); padding: var(--space-sm); background: var(--surface-raised); border-radius: var(--radius-md); font-size: var(--text-sm);">
+  <p class="eyebrow">Cite this</p>
+  <p><strong>APA:</strong> <span id="cite-apa"><Fragment set:html={apaCitation} /></span></p>
+  <p><strong>MLA:</strong> <span id="cite-mla"><Fragment set:html={mlaCitation} /></span></p>
+  <button type="button" class="button button--compact ghost" id="cite-copy-btn" style="margin-top: var(--space-xs);">Copy to Clipboard</button>
+  <span id="cite-copy-status" style="display: none; margin-left: var(--space-xs); color: var(--accent-bright);">Copied!</span>
+</div>
+
+<script is:inline>
+  document.getElementById('cite-copy-btn')?.addEventListener('click', () => {
+    const apa = document.getElementById('cite-apa')?.textContent ?? '';
+    const mla = document.getElementById('cite-mla')?.textContent ?? '';
+    const text = `APA\n${apa}\n\nMLA\n${mla}`;
+    navigator.clipboard.writeText(text).then(() => {
+      const status = document.getElementById('cite-copy-status');
+      if (status) {
+        status.style.display = 'inline';
+        setTimeout(() => { status.style.display = 'none'; }, 2000);
+      }
+    }).catch(() => {});
+  });
+</script>

@@ -245,6 +245,7 @@ const pagefindType = pathSegments[0] ?? "";
     <slot name="head" />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <SvgDefs />
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="page-shell">
@@ -380,5 +381,138 @@ const pagefindType = pathSegments[0] ?? "";
       )
     }
     <script type="module" src={searchModalScript} defer></script>
+    <button class="back-to-top" data-back-to-top aria-label="Back to top" type="button" hidden>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+    <script is:inline>
+      (() => {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        /* progress bar */
+        const progressBar = document.querySelector('.scroll-progress');
+        if (progressBar && !prefersReduced) {
+          let ticking = false;
+          const update = () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = docHeight > 0 ? (scrollTop / docHeight) * 100 + '%' : '0%';
+            ticking = false;
+          };
+          window.addEventListener('scroll', () => {
+            if (!ticking) {
+              window.requestAnimationFrame(update);
+              ticking = true;
+            }
+          }, { passive: true });
+        }
+
+        /* back to top */
+        const backToTop = document.querySelector('[data-back-to-top]');
+        if (backToTop) {
+          let ticking = false;
+          const update = () => {
+            backToTop.hidden = window.scrollY < window.innerHeight;
+            ticking = false;
+          };
+          window.addEventListener('scroll', () => {
+            if (!ticking) {
+              window.requestAnimationFrame(update);
+              ticking = true;
+            }
+          }, { passive: true });
+          backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+          });
+        }
+
+        /* mobile nav focus trap + inert */
+        const mobileNav = document.querySelector('[data-mobile-nav]');
+        if (mobileNav instanceof HTMLDetailsElement) {
+          const pageRegions = () => {
+            const main = document.getElementById('main-content');
+            const footer = document.querySelector('.footer');
+            return [main, footer].filter(Boolean);
+          };
+
+          let releaseFocusTrap = null;
+
+          const trapFocus = (container) => {
+            const focusable = container.querySelectorAll(
+              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            );
+            if (!focusable.length) return;
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+
+            const onKeyDown = (e) => {
+              if (e.key !== 'Tab') return;
+              if (e.shiftKey) {
+                if (document.activeElement === first) {
+                  e.preventDefault();
+                  last.focus();
+                }
+              } else {
+                if (document.activeElement === last) {
+                  e.preventDefault();
+                  first.focus();
+                }
+              }
+            };
+
+            container.addEventListener('keydown', onKeyDown);
+            return () => container.removeEventListener('keydown', onKeyDown);
+          };
+
+          mobileNav.addEventListener('toggle', () => {
+            const isMobile = window.matchMedia('(max-width: 991px)').matches;
+            if (mobileNav.open && isMobile) {
+              pageRegions().forEach((el) => (el.inert = true));
+              const firstLink = mobileNav.querySelector('a[href]');
+              if (firstLink) firstLink.focus();
+              if (releaseFocusTrap) releaseFocusTrap();
+              releaseFocusTrap = trapFocus(mobileNav);
+            } else {
+              pageRegions().forEach((el) => (el.inert = false));
+              if (releaseFocusTrap) {
+                releaseFocusTrap();
+                releaseFocusTrap = null;
+              }
+            }
+          });
+        }
+
+        /* anchor scroll offset */
+        document.addEventListener('click', (e) => {
+          const link = e.target instanceof Element ? e.target.closest('a[href]') : null;
+          if (!link) return;
+
+          const href = link.getAttribute('href');
+          if (!href || !href.includes('#') || href.startsWith('http') || href === '#') return;
+
+          const parts = href.split('#');
+          const hash = parts[1];
+          if (!hash) return;
+
+          const target = document.getElementById(hash);
+          if (!target) return;
+
+          const linkPath = parts[0];
+          const current = window.location.pathname.replace(/\/$/, '');
+          if (linkPath && linkPath.replace(/\/$/, '') !== current) return;
+
+          e.preventDefault();
+
+          const nav = document.querySelector('.nav');
+          const navHeight = nav?.offsetHeight || 0;
+          const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 24;
+
+          window.scrollTo({ top, behavior: prefersReduced ? 'auto' : 'smooth' });
+          if (history.replaceState) {
+            history.replaceState(null, '', href);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
