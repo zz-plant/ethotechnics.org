@@ -1,3 +1,16 @@
+type FooterLink = { label: string; href: string; external?: boolean };
+
+type SiteFooterContent = {
+  identity: {
+    heading: string;
+    brand: { name: string; href: string; ariaLabel: string; logoSrc: string; logoAlt: string };
+    description: string;
+    license: { label: string; href: string; external: boolean };
+    licenseBadge: { src: string; alt: string };
+  };
+  navigation: Array<{ heading: string; links: FooterLink[] }>;
+};
+
 export const siteFooter: SiteFooterContent = {
   identity: {
     heading: "Ethotechnics Institute",
