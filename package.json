@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "bunx astro dev",
     "start": "bunx astro dev",
-    "build": "bun run content:generate && bun run validate:json && bun run validate:glossary && bunx astro build && bun run patch:cf-worker && bun run build:search",
+    "build": "bun run content:generate && bun run validate:json && bun run validate:glossary && bunx astro build && bun run patch:cf-worker",
     "build:search": "bun run scripts/build-search.ts",
     "build:search:crawl": "bun run scripts/build-search-crawl.ts",
     "build:search:full": "echo 'See docs/ci-search-index.md for post-deploy index generation'",

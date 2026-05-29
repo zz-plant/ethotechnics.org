@@ -28,8 +28,11 @@ jobs:
       - name: Build site
         run: bun run build
 
-      - name: Generate search index (from preview)
-        run: bun run scripts/build-search.ts
+      - name: Install Chromium for search crawl
+        run: bunx playwright install --with-deps chromium
+
+      - name: Generate search index (crawl)
+        run: bun run build:search:crawl
 
       - name: Deploy to Cloudflare Workers
         run: bunx wrangler deploy --config dist/server/wrangler.json
