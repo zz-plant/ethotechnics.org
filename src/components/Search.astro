@@ -13,7 +13,7 @@ interface Props {
 const { scope, label, shortcut, includeDialog = true }: Props = Astro.props;
 const resolvedLabel =
   label ?? (scope === "mobile" ? "Search" : "Search the library…");
-const resolvedShortcut = shortcut ?? (scope === "mobile" ? undefined : "/");
+const resolvedShortcut = shortcut ?? (scope === "mobile" ? undefined : "⌘K");
 const instanceId = randomUUID();
 const dialogTitleId = `search-dialog-title-${instanceId}`;
 const inputId = `search-input-${instanceId}`;
