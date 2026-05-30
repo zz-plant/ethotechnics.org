@@ -109,7 +109,7 @@ async function fetchUrlsFromSitemap(baseUrl: string): Promise<string[]> {
   }
 
   const filtered = Array.from(urls).filter(
-    (url) => !/^\/glossary\/entries\/[^/]+\/[^/]+\/?$/.test(url),
+    (url) => !url.startsWith("/glossary/entries/"),
   );
 
   console.log(
