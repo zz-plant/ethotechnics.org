@@ -109,8 +109,15 @@ async function fetchUrlsFromSitemap(baseUrl: string): Promise<string[]> {
     }
   }
 
-  console.log(`  Found ${urls.size} URLs across ${sitemaps.length} sitemaps.`);
-  return Array.from(urls).sort();
+  const filtered = Array.from(urls).filter(
+    (url) => !/^\/glossary\/entries\/[^/]+\/[^/]+\/?$/.test(url),
+  );
+
+  console.log(
+    `  Found ${urls.size} URLs across ${sitemaps.length} sitemaps.` +
+      ` ${urls.size - filtered.length} glossary section sub-pages excluded from crawl.`,
+  );
+  return filtered.sort();
 }
 
 async function crawlPage(

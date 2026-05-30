@@ -33,61 +33,6 @@ const failurePriorityBadges: Record<string, string> = {
   "cant-stop": "Critical · Activate hard halt",
 };
 
-const heroSecondaryChips = [
-  {
-    label: "Start with the glossary",
-    href: "/glossary",
-  },
-  {
-    label: "Browse ontology and API",
-    href: "/api",
-  },
-  {
-    label: "Read field diagnostics",
-    href: "/diagnostics",
-  },
-];
-
-const mobileQuickActions = [
-  {
-    title: "Start with glossary",
-    description: "Learn the framework through core terms",
-    href: "/glossary",
-    iconPaths: ["M4.5 5.5h11v9h-11z", "M7 9h6"],
-  },
-  {
-    title: "Browse ontology API",
-    description: "Use canonical definitions in your tools",
-    href: "/api",
-    iconPaths: ["M5 10.4l3 3 7-7"],
-  },
-  {
-    title: "Open diagnostics",
-    description: "Run governance and evidence checks",
-    href: "/diagnostics",
-    iconPaths: ["M5 7h10", "M5 10h10"],
-  },
-];
-
-const jumpAnchors = [
-  {
-    label: "Glossary",
-    href: "#start-with-glossary",
-  },
-  {
-    label: "Ontology & API",
-    href: "#governance-ontology",
-  },
-  {
-    label: "Incident triage",
-    href: "#failure-intake",
-  },
-  {
-    label: "Recently published",
-    href: "#recently-published",
-  },
-];
-
 const recentPublications = [
   "Evidence Pack Readiness diagnostic — v1.2 (March 2026)",
   "Glossary: 8 new entries on decision latency and repair authority (February 2026)",
@@ -311,6 +256,7 @@ const failureChoiceIcons: Record<string, string[]> = {
     <p>Get notified when new standards, diagnostics, or glossary entries are published.</p>
     <form id="subscribe-form" action="/api/subscribe" method="POST" style="display: flex; gap: var(--space-xs); flex-wrap: wrap; align-items: flex-end;">
       <div style="flex: 1; min-width: 200px;">
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label for="subscribe-email" style="display: block; font-size: var(--text-sm); color: var(--text-muted); margin-bottom: 4px;">Email</label>
         <input id="subscribe-email" name="email" type="email" required placeholder="you@example.com" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-subtle); border-radius: 6px; background: var(--surface-card); color: var(--text-strong);" />
       </div>

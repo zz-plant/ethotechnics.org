@@ -24,6 +24,10 @@ import {
   type StructuredDataMode,
 } from "../utils/seo/route-type";
 import { buildSchemaGraph, type StructuredDataType } from "../utils/seo/schema";
+
+type FooterNavLink = { label: string; href: string; external?: boolean };
+type FooterNavSection = { heading: string; links: FooterNavLink[] };
+
 import "../styles/theme.css";
 import "../styles/global.css";
 
@@ -91,7 +95,8 @@ const normalizedModifiedTime =
 const organizationId = `${siteBase}#organization`;
 const websiteId = `${siteBase}#website`;
 const webpageId = canonical;
-const { identity, navigation, cta } = siteFooter;
+const { identity, navigation } = siteFooter;
+const footerNav = navigation as FooterNavSection[];
 const logoUrl = new URL(identity.brand.logoSrc, siteBase).toString();
 const logoId = `${siteBase}#logo`;
 const primaryImageId = `${canonical}#primaryimage`;
@@ -214,9 +219,7 @@ const pagefindType = pathSegments[0] ?? "";
       extend={{
         link: [
           { rel: "icon", type: "image/svg+xml", href: "/favicon.svg", media: "(prefers-color-scheme: light)" },
-          { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#5a3b32" },
           { rel: "icon", type: "image/svg+xml", href: "/favicon-dark.svg", media: "(prefers-color-scheme: dark)" },
-          { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#5a3b32" },
           { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
           { rel: "manifest", href: "/site.webmanifest" },
           ...jsonAlternateLinks,
@@ -332,27 +335,7 @@ const pagefindType = pathSegments[0] ?? "";
               <NewsletterSignup />
             </section>
             {
-              cta && (
-                <section class="footer__section footer__cta">
-                  <h2 class="eyebrow footer__heading">{cta.heading}</h2>
-                  <p class="muted">{cta.description}</p>
-                  <div class="footer__cta-actions">
-                    {cta.links.map((link, index) => (
-                      <a
-                        class={`button button--compact ${
-                          index === 0 ? "primary" : "ghost"
-                        }`}
-                        href={link.href}
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </section>
-              )
-            }
-            {
-              navigation.map((section) => (
+              footerNav.map((section) => (
                 <section class="footer__section">
                   <h2 class="eyebrow footer__heading">{section.heading}</h2>
                   <ul class="footer__list">
@@ -380,10 +363,10 @@ const pagefindType = pathSegments[0] ?? "";
     </div>
     {
       enableGlossaryHighlights && (
-        <script type="module" src={glossaryHighlightsScript} />
+        <script type="module" is:inline src={glossaryHighlightsScript} />
       )
     }
-    <script type="module" src={searchModalScript} defer></script>
+    <script type="module" is:inline src={searchModalScript} defer></script>
     <button class="back-to-top" data-back-to-top aria-label="Back to top" type="button" hidden>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
     </button>
