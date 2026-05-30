@@ -140,6 +140,7 @@ const failureChoiceIcons: Record<string, string[]> = {
 
   <div class="home-core">
   <section id="governance-ontology" class="stack-sm card">
+    <div class="card__glow" aria-hidden="true" />
     <p class="eyebrow">Reference contribution</p>
     <h2>Governance Ontology &amp; Reference API</h2>
     <p>
@@ -223,6 +224,7 @@ const failureChoiceIcons: Record<string, string[]> = {
         { title: "Adoption pathways", items: ["Policy teams adopt document IDs and clauses", "Operations teams install stoppability drills", "Engineering teams bind rollback to release gates"], scene: { scene: "pipeline" as const, accent: "#f97316" } },
       ].map((lane) => (
         <article class="card lane-card stack-sm">
+          <div class="card__glow" aria-hidden="true" />
           {lane.scene && <div style="border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;" set:html={renderCompactScene(lane.scene)} />}
           <h3>{lane.title}</h3>
           <ul class="lane-links">

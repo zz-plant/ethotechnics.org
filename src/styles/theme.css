@@ -43,8 +43,12 @@
   --color-border-subtle: color-mix(in srgb, var(--border) 60%, transparent);
   --color-foreground: var(--text);
   --color-foreground-muted: var(--muted);
-  --color-foreground-subtle: color-mix(in srgb, var(--muted) 60%, transparent);
-  --glow-wash: none;
+  --glow-wash: radial-gradient(
+    circle at 50% -20%,
+    color-mix(in srgb, var(--accent) 14%, transparent) 0%,
+    color-mix(in srgb, var(--gold) 6%, transparent) 45%,
+    transparent 75%
+  );
   --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
   --halftone: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 11%, transparent) 1px, transparent 0);
   --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 12%, transparent);
@@ -97,8 +101,12 @@
     --shadow-sm: 0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
     --shadow-panel: 0 8px 20px rgba(0, 0, 0, 0.2);
     --shadow-float: 0 12px 24px rgba(0, 0, 0, 0.25);
-    --shadow-float-strong: 0 20px 50px rgba(0, 0, 0, 0.3);
-    --glow-wash: none;
+    --glow-wash: radial-gradient(
+      circle at 50% -20%,
+      color-mix(in srgb, var(--accent) 20%, transparent) 0%,
+      color-mix(in srgb, var(--gold) 10%, transparent) 45%,
+      transparent 75%
+    );
     --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
     --halftone: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 8%, transparent) 1px, transparent 0);
     --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 16%, transparent);
@@ -156,18 +164,19 @@ body::before {
   inset: 0;
   background:
     radial-gradient(
-      circle at 12% 18%,
-      rgba(255, 255, 255, 0.55),
-      transparent 48%
+      circle at 15% 15%,
+      color-mix(in srgb, var(--accent) 8%, transparent) 0%,
+      transparent 60%
     ),
     radial-gradient(
-      circle at 82% 22%,
-      rgba(255, 255, 255, 0.4),
-      transparent 52%
+      circle at 85% 25%,
+      color-mix(in srgb, var(--gold) 6%, transparent) 0%,
+      transparent 60%
     );
-  opacity: 0.1;
+  opacity: 0.8;
   pointer-events: none;
   z-index: var(--z-underlay);
+  transition: background var(--motion-slow) ease;
 }
 
 ::selection {
