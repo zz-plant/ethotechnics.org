@@ -1,0 +1,386 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+export const prerender = true;
+
+const dimensions = [
+  {
+    id: "transparency",
+    label: "Transparency",
+    description: "Can affected people understand how decisions are made?",
+    questions: [
+      "Is the decision-making process documented and publicly accessible?",
+      "Can a user trace how their data influenced an outcome?",
+      "Are limitations and failure modes openly disclosed?",
+    ],
+  },
+  {
+    id: "accountability",
+    label: "Accountability",
+    description: "Who is responsible when things go wrong?",
+    questions: [
+      "Is there a named person or team accountable for adverse outcomes?",
+      "Can affected people contest a decision and get a human review?",
+      "Are there documented escalation paths that lead to resolution?",
+    ],
+  },
+  {
+    id: "fairness",
+    label: "Fairness",
+    description: "Are benefits and burdens distributed equitably?",
+    questions: [
+      "Does the system produce different outcomes for different groups?",
+      "Was the system tested for disparate impact before deployment?",
+      "Are the people most affected involved in the design process?",
+    ],
+  },
+  {
+    id: "privacy",
+    label: "Privacy",
+    description: "How is personal data collected, used, and protected?",
+    questions: [
+      "Is data collection limited to what is strictly necessary?",
+      "Can users access, correct, and delete their data?",
+      "Is data shared with third parties only with explicit consent?",
+    ],
+  },
+  {
+    id: "sustainability",
+    label: "Sustainability",
+    description: "What are the environmental and social costs?",
+    questions: [
+      "Are the resource costs of running the system measured and disclosed?",
+      "Does the system create dependencies that are hard to exit?",
+      "Is there a plan for responsible decommissioning?",
+    ],
+  },
+  {
+    id: "power",
+    label: "Power Dynamics",
+    description: "Who holds leverage, and who absorbs risk?",
+    questions: [
+      "Can users easily leave the system without losing access to their own data or history?",
+      "Does the system concentrate decision-making authority in a small group?",
+      "Are the people who bear the costs the same people who receive the benefits?",
+    ],
+  },
+];
+
+const SCORE_LABELS = ["No", "Partially", "Yes"];
+---
+
+<BaseLayout
+  title="Ethics Audit Scorecard | Ethotechnics"
+  description="Self-assessment tool for evaluating a product, service, or organization across six ethical dimensions. Honest, substantive, non-gamified."
+  currentPage="audit"
+>
+  <main class="audit-page">
+    <section class="audit-hero">
+      <h1>Ethics Audit Scorecard</h1>
+      <p>
+        A self-assessment across six dimensions. No score changes the facts.
+        Answer honestly. The result is a snapshot, not a verdict.
+      </p>
+    </section>
+
+    <form id="audit-form" class="audit-form">
+      {
+        dimensions.map((dim) => (
+          <fieldset class="audit-dimension">
+            <legend>
+              <h2>{dim.label}</h2>
+              <p class="audit-dim-desc">{dim.description}</p>
+            </legend>
+            {dim.questions.map((q, qi) => (
+              <div class="audit-question">
+                <p class="audit-q-text">{q}</p>
+                <div class="audit-options">
+                  {SCORE_LABELS.map((label, si) => (
+                    <label class="audit-option">
+                      <input
+                        type="radio"
+                        name={`${dim.id}-${qi}`}
+                        value={String(si)}
+                        required
+                      />
+                      <span>{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </fieldset>
+        ))
+      }
+    </form>
+
+    <div id="audit-results" class="audit-results" hidden>
+      <h2>Your Snapshot</h2>
+      <div id="audit-bars"></div>
+      <p class="audit-note">
+        Each bar reflects the average of your answers in that dimension.
+        This is not a scorecard that judges. It is a tool that reveals where
+        you might want to look closer.
+      </p>
+      <div class="audit-actions">
+        <a href="/glossary/" class="button">Browse the glossary</a>
+        <button id="audit-reset" class="button secondary">Start over</button>
+      </div>
+    </div>
+
+    <div class="audit-submit-row">
+      <button id="audit-submit" class="button primary" type="button">
+        Show snapshot
+      </button>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  document.getElementById("audit-submit")?.addEventListener("click", () => {
+    const form = document.getElementById("audit-form") as HTMLFormElement | null;
+    if (!form || !form.reportValidity()) return;
+
+    const results = document.getElementById("audit-results")!;
+    const bars = document.getElementById("audit-bars")!;
+    results.hidden = false;
+
+    const dims = [
+      { id: "transparency", label: "Transparency" },
+      { id: "accountability", label: "Accountability" },
+      { id: "fairness", label: "Fairness" },
+      { id: "privacy", label: "Privacy" },
+      { id: "sustainability", label: "Sustainability" },
+      { id: "power", label: "Power Dynamics" },
+    ];
+
+    bars.replaceChildren();
+
+    for (const dim of dims) {
+      const inputs = form.querySelectorAll<HTMLInputElement>(
+        `input[name^="${dim.id}-"]:checked`
+      );
+      const total = Array.from(inputs).reduce(
+        (sum, el) => sum + Number(el.value),
+        0
+      );
+      const avg = inputs.length > 0 ? total / (inputs.length * 2) : 0;
+      const pct = Math.round(avg * 100);
+
+      const row = document.createElement("div");
+      row.className = "audit-bar-row";
+
+      const lbl = document.createElement("span");
+      lbl.className = "audit-bar-label";
+      lbl.textContent = dim.label;
+      row.appendChild(lbl);
+
+      const track = document.createElement("div");
+      track.className = "audit-bar-track";
+      const fill = document.createElement("div");
+      fill.className = "audit-bar-fill";
+      fill.style.width = pct + "%";
+      track.appendChild(fill);
+      row.appendChild(track);
+
+      const val = document.createElement("span");
+      val.className = "audit-bar-val";
+      val.textContent = pct + "%";
+      row.appendChild(val);
+
+      bars.appendChild(row);
+    }
+
+    document.getElementById("audit-submit")!.hidden = true;
+  });
+
+  document.getElementById("audit-reset")?.addEventListener("click", () => {
+    const form = document.getElementById("audit-form") as HTMLFormElement | null;
+    if (form) form.reset();
+    document.getElementById("audit-results")!.hidden = true;
+    document.getElementById("audit-submit")!.hidden = false;
+  });
+</script>
+
+<style>
+  .audit-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4rem) 1.5rem 3rem;
+  }
+
+  .audit-hero {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line, #e0e0e0);
+  }
+
+  .audit-hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin: 0 0 0.5rem;
+    line-height: 1.1;
+  }
+
+  .audit-hero p {
+    color: var(--ink-soft, #666);
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  .audit-dimension {
+    border: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+
+  .audit-dimension legend {
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .audit-dimension h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.25rem;
+  }
+
+  .audit-dim-desc {
+    color: var(--ink-soft, #666);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .audit-question {
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--line, #e8e8e8);
+  }
+
+  .audit-q-text {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .audit-options {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .audit-option {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--line, #ddd);
+    border-radius: 4px;
+    transition: border-color 0.15s;
+  }
+
+  .audit-option:has(input:checked) {
+    border-color: var(--primary, #2563eb);
+    background: var(--surface-soft, #f0f5ff);
+  }
+
+  .audit-option input {
+    accent-color: var(--primary, #2563eb);
+  }
+
+  .audit-submit-row {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line, #e0e0e0);
+  }
+
+  .audit-results {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--surface-soft, #f8f8f8);
+    border: 1px solid var(--line-strong, #ccc);
+    border-radius: 4px;
+  }
+
+  .audit-results h2 {
+    font-size: 1.3rem;
+    margin: 0 0 1rem;
+  }
+
+  .audit-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .audit-bar-label {
+    min-width: 140px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .audit-bar-track {
+    flex: 1;
+    height: 10px;
+    background: var(--line, #e0e0e0);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .audit-bar-fill {
+    height: 100%;
+    background: var(--primary, #2563eb);
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    min-width: 0;
+  }
+
+  .audit-bar-val {
+    min-width: 3em;
+    font-size: 0.8rem;
+    text-align: right;
+    font-family: monospace;
+    color: var(--muted, #888);
+  }
+
+  .audit-note {
+    font-size: 0.85rem;
+    color: var(--ink-soft, #666);
+    margin: 1.5rem 0 1rem;
+    line-height: 1.5;
+  }
+
+  .audit-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+
+  .button.primary {
+    background: var(--primary, #2563eb);
+    color: #fff;
+  }
+
+  .button.primary:hover {
+    opacity: 0.9;
+  }
+
+  .button.secondary {
+    background: transparent;
+    color: var(--ink, #333);
+    border: 1px solid var(--line-strong, #ccc);
+  }
+
+  .button.secondary:hover {
+    background: var(--surface-soft, #f0f0f0);
+  }
+</style>
