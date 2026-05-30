@@ -1,5 +1,6 @@
 import { defineConfig, includeIgnoreFile } from 'eslint/config';
 import { fileURLToPath } from 'node:url';
+import globals from 'globals';
 import js from '@eslint/js';
 import astro from 'eslint-plugin-astro';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -24,6 +25,12 @@ export default defineConfig(
   includeIgnoreFile(gitignorePath),
   {
     ignores: ['**/*.test*.{ts,tsx}', 'tests/**'],
+  },
+  {
+    files: ['**/*.{mjs,cjs}'],
+    languageOptions: {
+      globals: globals.node,
+    },
   },
   {
     files: ['**/*.{ts,tsx}'],

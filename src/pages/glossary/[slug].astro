@@ -1,6 +1,9 @@
 ---
-import { getEntry } from "astro:content";
+export const prerender = true;
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { glossaryContent } from "../../content/glossary";
+import { libraryContent } from "../../content/library";
 
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -26,13 +29,7 @@ import {
 } from "../../utils/glossary-metadata";
 
 export async function getStaticPaths() {
-  const glossaryEntry = await getEntry("glossary", "glossary");
-
-  if (!glossaryEntry) {
-    return [];
-  }
-
-  return glossaryEntry.data.categories.flatMap((category) =>
+  return glossaryContent.categories.flatMap((category) =>
     category.entries.map((entry) => ({
       params: { slug: entry.id },
     })),
@@ -40,15 +37,13 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const glossaryEntry = (await getEntry("glossary", "glossary"))!;
-const libraryEntry = (await getEntry("library", "library"))!;
 const {
   pageTitle: glossaryTitle,
   pageDescription: glossaryDescription,
   permalink: glossaryPermalink,
   publication,
   categories,
-} = glossaryEntry.data;
+} = glossaryContent;
 const entryLabelIndex = new Map(
   categories.flatMap((category) =>
     category.entries.map((entry) => [entry.id, entry.title] as const),
@@ -306,10 +301,10 @@ const filterBreadcrumbParts = [
 const glossaryFilterUrl = `${glossaryPermalink}${Astro.url.search}`;
 const hasFilterBreadcrumb = filterBreadcrumbParts.length > 0;
 const patternIndex = new Map(
-  libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
+  libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
 const patternFilterLabels = Object.fromEntries(
-  libraryEntry.data.patterns.filters.map((filter) => [
+  libraryContent.patterns.filters.map((filter) => [
     filter.slug,
     filter.label,
   ]),

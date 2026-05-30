@@ -16,6 +16,9 @@ export default defineConfig({
     host: true,
     port: 4321,
   },
+  build: {
+    concurrency: 8,
+  },
   adapter: cloudflare({
     platform: "workers",
     imageService: "cloudflare",

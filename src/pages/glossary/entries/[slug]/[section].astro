@@ -1,6 +1,4 @@
 ---
-import { getEntry } from "astro:content";
-
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import PageIntro from "../../../../components/PageIntro.astro";
 import SectionBlock from "../../../../components/SectionBlock.astro";
@@ -17,17 +15,13 @@ import {
   normalizeGlossaryHeading,
   stripHtml,
 } from "../../../../utils/glossary-helpers";
+import { glossaryContent } from "../../../../content/glossary";
+import { libraryContent } from "../../../../content/library";
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const glossaryEntry = await getEntry("glossary", "glossary");
-
-  if (!glossaryEntry) {
-    return [];
-  }
-
-  return glossaryEntry.data.categories.flatMap((category) =>
+  return glossaryContent.categories.flatMap((category) =>
     category.entries.flatMap((entry) =>
       buildGlossarySectionLinks(entry).map((link) => ({
         params: { slug: entry.id, section: link.href.split("/").pop() },
@@ -37,11 +31,9 @@ export async function getStaticPaths() {
 }
 
 const { slug, section } = Astro.params;
-const glossaryEntry = (await getEntry("glossary", "glossary"))!;
-const libraryEntry = (await getEntry("library", "library"))!;
 const sectionDefinition = section ? getGlossarySectionById(section) : null;
 
-const entryRecord = glossaryEntry.data.categories
+const entryRecord = glossaryContent.categories
   .flatMap((category) =>
     category.entries.map((entry) => ({
       entry,
@@ -79,7 +71,7 @@ const {
 
 const relatedPatterns = entry.relatedPatterns ?? [];
 const relatedPatternIndex = new Map(
-  libraryEntry.data.patterns.entries.map((pattern) => [pattern.slug, pattern]),
+  libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
 );
 const relatedPatternLinks = relatedPatterns
   .map((patternSlug) => {

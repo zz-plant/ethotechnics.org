@@ -1,3 +1,5 @@
+export const prerender = true;
+
 import type { APIContext } from "astro";
 
 import { buildSitemapSections, renderSitemap } from "../../utils/sitemaps";

@@ -1,6 +1,4 @@
 ---
-import { getEntry } from "astro:content";
-
 import BaseLayout from "../../../../../layouts/BaseLayout.astro";
 import PageIntro from "../../../../../components/PageIntro.astro";
 import SectionBlock from "../../../../../components/SectionBlock.astro";
@@ -15,17 +13,12 @@ import {
   normalizeGlossaryHeading,
   stripHtml,
 } from "../../../../../utils/glossary-helpers";
+import { glossaryContent } from "../../../../../content/glossary";
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const glossaryEntry = await getEntry("glossary", "glossary");
-
-  if (!glossaryEntry) {
-    return [];
-  }
-
-  return glossaryEntry.data.categories.flatMap((category) =>
+  return glossaryContent.categories.flatMap((category) =>
     category.entries.flatMap((entry) =>
       getGlossaryTestSlugs(entry.operationalTests ?? []).map((test) => ({
         params: { slug: entry.id, test: test.slug },
@@ -35,9 +28,8 @@ export async function getStaticPaths() {
 }
 
 const { slug, test } = Astro.params;
-const glossaryEntry = (await getEntry("glossary", "glossary"))!;
 
-const entryRecord = glossaryEntry.data.categories
+const entryRecord = glossaryContent.categories
   .flatMap((category) =>
     category.entries.map((entry) => ({
       entry,

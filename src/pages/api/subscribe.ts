@@ -6,8 +6,9 @@ const SUBSCRIBERS: Array<{ email: string; subscribedAt: string }> = [];
 export const POST: APIRoute = async ({ request }) => {
   let email: string;
   try {
-    const body = await request.json() as { email?: unknown };
-    email = String(body.email ?? "").trim();
+    const body: Record<string, unknown> = await request.json();
+    const rawEmail = typeof body.email === "string" ? body.email : "";
+    email = rawEmail.trim();
   } catch {
     return new Response(JSON.stringify({ error: "Invalid request body" }), {
       status: 400,
@@ -24,7 +25,8 @@ export const POST: APIRoute = async ({ request }) => {
 
   const entry = { email: email.toLowerCase(), subscribedAt: new Date().toISOString() };
   SUBSCRIBERS.push(entry);
-  console.log("newsletter:subscribe", JSON.stringify(entry));
+   
+  console.warn("newsletter:subscribe", JSON.stringify(entry));
 
   return new Response(JSON.stringify({ success: true }), {
     status: 200,
