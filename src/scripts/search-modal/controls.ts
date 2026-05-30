@@ -313,11 +313,20 @@ export const bindGlobalSearchListeners = ({
   document.addEventListener("keydown", (event) => {
     const activeInstance = getActiveInstance();
     if (
-      event.key === "/" &&
-      activeInstance &&
-      !activeInstance.isDialogOpen() &&
-      !isTypingContext(document.activeElement)
-    ) {
+      !activeInstance ||
+      activeInstance.isDialogOpen() ||
+      isTypingContext(document.activeElement)
+    )
+      return;
+
+    if (event.key === "/") {
+      event.preventDefault();
+      triggerHaptic("nudge", { intensity: 0.25 });
+      activeInstance.openDialog({ pushHistory: true });
+      return;
+    }
+
+    if ((event.metaKey || event.ctrlKey) && event.key === "k") {
       event.preventDefault();
       triggerHaptic("nudge", { intensity: 0.25 });
       activeInstance.openDialog({ pushHistory: true });
