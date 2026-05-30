@@ -297,5 +297,11 @@ const buildSearchText = (entry: SearchEntry) =>
       </div>
     </SectionBlock>
     <script type="module" src={siteSearchScript} is:inline></script>
+    <noscript>
+      <p class="card card--flat" style="margin-top: 1rem; padding: 1.5rem;">
+        Search filtering requires JavaScript. All {searchEntries.length} results are shown below.
+        Use your browser's find (⌘F / Ctrl+F) to search.
+      </p>
+    </noscript>
   </div>
 </BaseLayout>

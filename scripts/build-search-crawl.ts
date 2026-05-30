@@ -108,15 +108,10 @@ async function fetchUrlsFromSitemap(baseUrl: string): Promise<string[]> {
     }
   }
 
-  const filtered = Array.from(urls).filter(
-    (url) => !url.startsWith("/glossary/entries/"),
-  );
-
   console.log(
-    `  Found ${urls.size} URLs across ${sitemaps.length} sitemaps.` +
-      ` ${urls.size - filtered.length} glossary section sub-pages excluded from crawl.`,
+    `  Found ${urls.size} URLs across ${sitemaps.length} sitemaps.`,
   );
-  return filtered.sort();
+  return Array.from(urls).sort();
 }
 
 async function crawlPage(

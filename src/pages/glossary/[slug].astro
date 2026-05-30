@@ -11,8 +11,6 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import {
   getGlossaryTestSlugs,
-  glossarySectionPermalink,
-  glossarySections,
   glossaryTestPermalink,
 } from "../../utils/glossary-sections";
 import {
@@ -107,10 +105,6 @@ const {
   genealogy,
   references,
 } = getGlossaryEntryDefaults(entry, category);
-const glossarySectionLinks = glossarySections.map((section) => ({
-  label: section.label,
-  href: glossarySectionPermalink(entry.id, section.id),
-}));
 const operationalTestLinks = getGlossaryTestSlugs(operationalTests).map(
   (test) => ({
     label: test.label,
@@ -678,16 +672,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             Supplementary links and diagnostics for deeper review.
           </p>
           <div class="glossary-entry__disclosures">
-            <details class="glossary-entry__disclosure">
-              <summary>Glossary deep links ({glossarySectionLinks.length})</summary>
-              <ul class="muted small glossary-entry__route-list">
-                {glossarySectionLinks.map((link) => (
-                  <li>
-                    <a href={link.href}>{link.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </details>
             {operationalTests.length > 0 && (
               <details
                 id="operational-tests"

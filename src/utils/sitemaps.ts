@@ -21,8 +21,6 @@ import { homeContent } from "../content/home";
 import { glossaryEntryPermalink } from "../utils/glossary";
 import {
   getGlossaryTestSlugs,
-  glossarySectionPermalink,
-  glossarySections,
   glossaryTestPermalink,
 } from "../utils/glossary-sections";
 
@@ -254,18 +252,6 @@ export const buildSitemapSections = async () => {
     changefreq: "monthly",
   }));
 
-  const glossarySectionPaths = glossaryData.categories.flatMap(
-    (category: GlossaryCategory) =>
-      category.entries.flatMap((entry: GlossaryEntry) =>
-        glossarySections.map((section) => ({
-          path: glossarySectionPermalink(entry.id, section.id),
-          lastmod: glossaryLastmod,
-          changefreq: "monthly",
-          priority: "0.4",
-        })),
-      ),
-  );
-
   const glossaryTestPaths = glossaryData.categories.flatMap(
     (category: GlossaryCategory) =>
       category.entries.flatMap((entry: GlossaryEntry) =>
@@ -453,7 +439,6 @@ export const buildSitemapSections = async () => {
     core: applyOverrides(corePaths),
     glossary: applyOverrides([
       ...glossaryPaths,
-      ...glossarySectionPaths,
       ...glossaryTestPaths,
     ]),
     standards: applyOverrides([
