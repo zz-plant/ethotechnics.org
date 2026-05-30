@@ -27,7 +27,11 @@ export default defineConfig({
     },
     routes: {
       extend: {
-        exclude: [{ pattern: "/_astro/*" }, { pattern: "/assets/*" }],
+        exclude: [
+          { pattern: "/_astro/*" },
+          { pattern: "/assets/*" },
+          { pattern: "/pagefind/*" },
+        ],
       },
     },
   }),
@@ -48,7 +52,7 @@ export default defineConfig({
         "img-src 'self' data: https:",
         "object-src 'none'",
       ],
-      scriptDirective: { resources: ["'self'"] },
+      scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'"] },
       styleDirective: { resources: ["'self'"] },
     },
   },
