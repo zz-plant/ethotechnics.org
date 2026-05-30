@@ -24,7 +24,12 @@ describe('middleware', () => {
     ];
 
     for (const { url, host, expectedLocation } of redirectCases) {
-      const request = new Request(url, { headers: new Headers({ host }) });
+      const request = new Request(url);
+      // Bun's Request constructor strips the forbidden Host header,
+      // so patch headers.get to return the test host value.
+      const originalGet = request.headers.get.bind(request.headers);
+      request.headers.get = (key: string) =>
+        key.toLowerCase() === 'host' ? host : originalGet(key);
       const next = mock(() => Promise.resolve(new Response('next')));
 
       const response = await onRequest({ request, locals: {} as App.Locals } as APIContext, next);

@@ -15,8 +15,7 @@ const PAGE_LOAD_TIMEOUT_MS = 15_000;
 
 async function fileExists(p: string): Promise<boolean> {
   try {
-    await Bun.file(p);
-    return true;
+    return await Bun.file(p).exists();
   } catch {
     return false;
   }
@@ -105,7 +104,7 @@ async function fetchUrlsFromSitemap(baseUrl: string): Promise<string[]> {
         urls.add(new URL(match[1]).pathname);
       }
     } catch (err) {
-      console.warn(`  Warning: failed to fetch ${sitemapUrl}: ${err}`);
+      console.warn(`  Warning: failed to fetch ${sitemapUrl}: ${String(err)}`);
     }
   }
 
@@ -147,7 +146,7 @@ async function crawlPage(
     await writeFile(join(outputDir, filePath), html, "utf-8");
     return true;
   } catch (err) {
-    console.warn(`  Failed to crawl ${path}: ${err}`);
+    console.warn(`  Failed to crawl ${path}: ${String(err)}`);
     return false;
   } finally {
     await context.close();
@@ -170,7 +169,7 @@ async function crawlAll(
       batch.map((path) =>
         crawlPage(browser, baseUrl, path, outputDir).then((ok) => {
           completed++;
-          ok ? success++ : failed++;
+          if (ok) success++; else failed++;
           if (completed % 50 === 0 || completed === paths.length) {
             console.log(`  Crawled ${completed}/${paths.length} pages...`);
           }
