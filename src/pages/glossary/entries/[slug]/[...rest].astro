@@ -3,11 +3,7 @@ export const prerender = false;
 
 import { glossaryEntryPermalink } from "../../../../utils/glossary";
 
-export async function GET({ params }: { params: { slug: string } }) {
-  const destination = glossaryEntryPermalink(params.slug);
-  return new Response(null, {
-    status: 302,
-    headers: { Location: destination },
-  });
-}
+const { slug } = Astro.params;
+const destination = slug ? glossaryEntryPermalink(slug) : "/glossary/";
+return Astro.redirect(destination, 302);
 ---
