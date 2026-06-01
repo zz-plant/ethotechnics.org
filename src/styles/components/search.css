@@ -14,7 +14,7 @@
     padding: 0.55rem 0.75rem;
     background: color-mix(in srgb, var(--surface) 97%, white 3%);
     border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
-    border-radius: 6px;
+    border-radius: var(--radius);
     color: var(--text);
     font-size: 0.95rem;
     line-height: 1.2;
@@ -61,7 +61,7 @@
     padding: 0.125rem 0.375rem;
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-    border-radius: 4px;
+    border-radius: var(--radius);
     font-size: var(--text-xs);
     font-family: var(--mono);
   }
@@ -72,7 +72,7 @@
     max-height: 86vh;
     padding: 0;
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    border-radius: 12px;
+    border-radius: var(--radius-xl);
     box-shadow:
       0 12px 26px rgba(42, 38, 33, 0.18),
       0 6px 12px rgba(42, 38, 33, 0.12);
@@ -121,7 +121,7 @@
   .search-dialog__close {
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     background: transparent;
-    border-radius: 6px;
+    border-radius: var(--radius);
     padding: 0.4rem;
     color: var(--text);
     cursor: pointer;
@@ -156,7 +156,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.65rem 0.75rem;
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     background: color-mix(in srgb, var(--surface) 97%, white 3%);
   }
@@ -249,7 +249,7 @@
   .search-result {
     padding: 0.65rem 0.75rem;
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--surface) 98%, white 2%);
     transition:
       border-color 0.2s ease,
@@ -272,7 +272,7 @@
   .search-result a:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 2px;
-    border-radius: 6px;
+    border-radius: var(--radius);
   }
 
   .search-result__title {

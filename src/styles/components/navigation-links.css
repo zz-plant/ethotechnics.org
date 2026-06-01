@@ -177,7 +177,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.2rem 0.4rem;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     border: 1px solid transparent;
     background: transparent;
     box-shadow: none;
@@ -352,7 +352,7 @@
     align-items: start;
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    border-radius: clamp(12px, 2vw, 16px);
+    border-radius: clamp(var(--radius-xl), 2vw, 16px);
     box-shadow: 0 28px 60px rgba(64, 52, 40, 0.16);
     backdrop-filter: none;
     overflow: hidden auto;
@@ -510,7 +510,7 @@
   .nav__menu-close {
     padding: 0.55rem 0.85rem;
     min-height: 44px;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
     font-weight: 750;
@@ -609,7 +609,7 @@
     .nav__menu-toggle-icon {
       min-width: 3.2rem;
       height: 3.2rem;
-      border-radius: 18px;
+      border-radius: var(--radius-xl);
     }
 
     .nav__menu-toggle svg {
