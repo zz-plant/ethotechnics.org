@@ -33,35 +33,35 @@ export interface NavUtilityLink {
 export const navPrimaryLinks: NavLink[] = [
   {
     href: "/start-here",
-    label: "Start",
-    description: "Choose your next step",
+    label: "Start here",
+    description: "Find the right resource fast",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/standards",
     label: "Standards",
-    description: "Read practical standards",
+    description: "Use citable requirements",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/diagnostics",
     label: "Tools",
-    description: "Run diagnostics",
+    description: "Run a practical check",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/examples",
     label: "Examples",
-    description: "See binding walkthroughs",
+    description: "See worked examples",
     primary: true,
   },
   {
     href: "/about",
     label: "About",
-    description: "Framework, authorship, and Institute/Studio split",
+    description: "Who maintains this work",
     primary: true,
   },
 ];
@@ -90,7 +90,7 @@ export const navUtilityDesktopLinks: NavUtilityLink[] = [
   },
   {
     href: "/bindings",
-    label: "Adoption",
+    label: "Adopt",
     class: "nav__utility-link nav__utility-link--quiet",
   },
   {
@@ -103,7 +103,7 @@ export const navUtilityDesktopLinks: NavUtilityLink[] = [
   },
   {
     href: "/participate#feedback",
-    label: "Send feedback",
+    label: "Feedback",
     class: "nav__utility-link nav__utility-link--quiet",
     icon: "lucide:message-circle",
   },
