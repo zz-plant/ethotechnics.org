@@ -77,13 +77,10 @@ const failureChoiceIcons: Record<string, string[]> = {
       <div class="institute-hero__main stack-lg">
         <p class="institute-hero__eyebrow">Ethotechnics Institute · Open commons</p>
         <h1 class="balanced-headline">
-          Public standards, ontology, and diagnostics for accountable high-stakes AI
+          Make high-stakes AI easier to stop, explain, appeal, and repair
         </h1>
         <p class="section-lead">
-          The Ethotechnics Institute is the public, open-access arm of the Ethotechnics
-          framework. We publish formal standards, a governance ontology, a practitioner
-          glossary, and field diagnostics for teams building or auditing high-stakes AI
-          systems. Everything here is free to use, cite, and build on.
+          Use open standards, checklists, examples, and diagnostics to turn AI governance from abstract intent into visible operating controls. Start with a live decision, an incident, or a policy gap; leave with owners, clocks, evidence, and next actions.
         </p>
         <p class="small">
           For commercial application of the framework (clinical AI safety evaluation, VC
@@ -124,14 +121,14 @@ const failureChoiceIcons: Record<string, string[]> = {
       <aside class="institute-hero__starter panel stack-sm" aria-label="Homepage starter">
         <p class="eyebrow">Start here</p>
         <p class="institute-hero__decision-helper muted small">
-          Begin with the glossary for core terms, then explore ontology, diagnostics, and standards.
+          Not sure where to begin? Pick the situation that matches your work and follow a short path.
         </p>
         <div class="actions" aria-label="Primary standards actions">
-          <a class="button" href="/glossary">
-            Start with the glossary
+          <a class="button" href="/start-here">
+            Find my starting point
           </a>
-          <a class="button ghost" href="/start-here">
-            More entry points →
+          <a class="button ghost" href="/glossary">
+            Browse terms →
           </a>
         </div>
       </aside>
@@ -139,29 +136,25 @@ const failureChoiceIcons: Record<string, string[]> = {
   </section>
 
   <div class="home-core">
-  <section id="governance-ontology" class="stack-sm card">
+    <section id="governance-ontology" class="stack-sm card">
     <div class="card__glow" aria-hidden="true" />
-    <p class="eyebrow">Reference contribution</p>
-    <h2>Governance Ontology &amp; Reference API</h2>
+    <p class="eyebrow">Shared language</p>
+    <h2>Plain definitions and reference data</h2>
     <p>
-      A formal vocabulary of 40+ concepts used in accountability, burden, and
-      care-infrastructure governance — with scope notes, citations from moral
-      philosophy, STS, and organizational theory, and a read-only API for consuming
-      canonical definitions in audits, tools, and research. The ontology is
-      versioned and citable.
+      Definitions for concepts like burden, contestability, repair, and stoppability, with stable links and JSON for audits, tools, and research. Use it when a team needs the same words to mean the same things.
     </p>
     <p>
-      <a href="/taxonomy">Browse the ontology →</a>
+      <a href="/taxonomy">Browse definitions →</a>
       <span aria-hidden="true"> · </span>
-      <a href="/api">View API reference →</a>
+      <a href="/api">Use the JSON API →</a>
     </p>
-  </section>
+    </section>
 
-  <section id="failure-intake" class="stack-lg">
+    <section id="failure-intake" class="stack-lg">
     <p class="eyebrow">Incident triage</p>
-    <h2 id="failure-intake-heading">What needs attention right now?</h2>
+    <h2 id="failure-intake-heading">What is going wrong right now?</h2>
     <p class="section-lead">
-      Follow one sequence: triage the failure, stabilize the workflow, then collect evidence for review.
+      Choose the closest failure mode. Each path starts with what to do now, then names who should own follow-up and what evidence to collect.
     </p>
     <ul class="failure-grid" aria-labelledby="failure-intake-heading">
       {
@@ -206,22 +199,21 @@ const failureChoiceIcons: Record<string, string[]> = {
       }
     </ul>
     <p class="small muted">
-      Each option routes to triage actions first, then stabilization owners, then evidence artifacts.
+      Use these when a real person, queue, or decision needs attention—not just documentation.
     </p>
-  </section>
+    </section>
 
-  <section class="stack-lg">
-    <p class="eyebrow">Compliance support</p>
-    <h2>Connect your work to regulatory and audit expectations</h2>
+    <section class="stack-lg">
+    <p class="eyebrow">Audit and compliance</p>
+    <h2>Map practical controls to standards and audits</h2>
     <p class="section-lead">
-      Each standard is organized so teams can cite policy clearly, prepare for
-      internal review, and share complete evidence with regulators.
+      Standards are written so teams can cite requirements, assign owners, and show evidence without translating abstract principles from scratch.
     </p>
     <div class="adopt-grid">
       {[
-        { title: "Regulatory alignment", items: ["EU AI Act obligations", "NIST AI RMF control mapping", "ISO and sector supervision references"], scene: { scene: "cards" as const, accent: "#3b82f6" } },
-        { title: "Audit interoperability", items: ["Evidence fields designed for GRC workflows", "Structured ownership and escalation clocks", "Exportable artifacts for regulator review"], scene: { scene: "review" as const, accent: "#14b8a6" } },
-        { title: "Adoption pathways", items: ["Policy teams adopt document IDs and clauses", "Operations teams install stoppability drills", "Engineering teams bind rollback to release gates"], scene: { scene: "pipeline" as const, accent: "#f97316" } },
+        { title: "Regulatory mapping", items: ["EU AI Act references", "NIST AI RMF mappings", "ISO and sector references"], scene: { scene: "cards" as const, accent: "#3b82f6" } },
+        { title: "Audit handoff", items: ["Evidence fields for GRC workflows", "Owners, deadlines, and escalation clocks", "Artifacts for internal or regulator review"], scene: { scene: "review" as const, accent: "#14b8a6" } },
+        { title: "Adoption paths", items: ["Policy teams can cite clauses", "Operations teams can rehearse stoppability", "Engineering teams can tie rollback to release gates"], scene: { scene: "pipeline" as const, accent: "#f97316" } },
       ].map((lane) => (
         <article class="card lane-card stack-sm">
           <div class="card__glow" aria-hidden="true" />
@@ -233,14 +225,13 @@ const failureChoiceIcons: Record<string, string[]> = {
         </article>
       ))}
     </div>
-  </section>
+    </section>
   </div>
 
   <div class="home-supplement">
-
-  <section class="stack-sm card card--flat">
-    <p class="eyebrow">Citing this work</p>
-    <h2>How to cite Ethotechnics</h2>
+    <section class="stack-sm card card--flat">
+    <p class="eyebrow">Use and cite this work</p>
+    <h2>Free to use with attribution</h2>
     <p>
       Ethotechnics Institute materials are published under
       <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener noreferrer" target="_blank">
@@ -248,14 +239,14 @@ const failureChoiceIcons: Record<string, string[]> = {
       </a>.
     </p>
     <p class="small muted">
-      Individual glossary entries and patterns include their own citation metadata. Use the citation helper below for any page.
+      Individual entries and patterns include citation metadata so you can reference exactly what you used.
     </p>
-  </section>
+    </section>
 
-  <section class="stack-sm card card--flat" style="margin-top: var(--space-md);">
+    <section class="stack-sm card card--flat" style="margin-top: var(--space-md);">
     <p class="eyebrow">Subscribe for updates</p>
-    <h2>Standards notifications</h2>
-    <p>Get notified when new standards, diagnostics, or glossary entries are published.</p>
+    <h2>Get updates</h2>
+    <p>Occasional notes when new standards, diagnostics, or glossary entries are published.</p>
     <form id="subscribe-form" action="/api/subscribe" method="POST" style="display: flex; gap: var(--space-xs); flex-wrap: wrap; align-items: flex-end;">
       <div style="flex: 1; min-width: 200px;">
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -265,37 +256,35 @@ const failureChoiceIcons: Record<string, string[]> = {
       <button type="submit" class="button button--primary" style="white-space: nowrap;">Subscribe</button>
     </form>
     <p id="subscribe-status" style="display: none; color: var(--accent-bright); font-size: var(--text-sm); margin-top: var(--space-xs);">Subscribed. Thank you.</p>
-  </section>
+    </section>
 
-  <script is:inline>
-    document.getElementById('subscribe-form')?.addEventListener('submit', function(e) {
+    <script is:inline>
+    document.getElementById('subscribe-form')?.addEventListener('submit', function (e) {
       e.preventDefault();
       var status = document.getElementById('subscribe-status');
       if (status) status.style.display = 'block';
     });
-  </script>
+    </script>
 
-  <div class="home-supplement">  <section id="recently-published" class="stack-sm card card--flat" aria-labelledby="recently-published-heading">
-    <p class="eyebrow">What&apos;s new</p>
-    <h2 id="recently-published-heading">Recently published</h2>
+    <section id="recently-published" class="stack-sm card card--flat" aria-labelledby="recently-published-heading">
+    <p class="eyebrow">New and updated</p>
+    <h2 id="recently-published-heading">Recent releases</h2>
     <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem;">
       {recentPublications.map((item) => <li><span class="pill">{item}</span></li>)}
     </ul>
-  </section>
+    </section>
 
-  <section class="stack-sm card card--accent">
+    <section class="stack-sm card card--accent">
     <p class="eyebrow">Studio</p>
-    <h2>Commercial application</h2>
+    <h2>Need hands-on help?</h2>
     <p>
-      For clinical AI safety evaluation, VC diligence, and governance advisory,
-      Ethotechnics Studio offers commissioned engagements applying the framework
-      to high-stakes systems.
+      Ethotechnics Studio provides commissioned support for clinical AI safety evaluation, diligence, governance design, and implementation work.
     </p>
     <p>
       <a class="button" href="https://ethotechnics.com/">
         Ethotechnics Studio →
       </a>
     </p>
-  </section>
+    </section>
   </div>
 </BaseLayout>
