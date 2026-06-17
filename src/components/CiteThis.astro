@@ -11,25 +11,46 @@ const apaCitation = `${author} (${date}). <i>${title}</i>. ${url}`;
 const mlaCitation = `${author}. "${title}." <i>Ethotechnics Institute</i>, ${date}, ${url}.`;
 ---
 
-<div class="cite-this" style="margin-top: var(--space-md); padding: var(--space-sm); background: var(--surface-raised); border-radius: var(--radius-md); font-size: var(--text-sm);">
+<div class="cite-this" style="margin-top: var(--space-4); padding: var(--space-3); background: var(--surface-raised); border-radius: var(--radius-md); font-size: var(--text-sm);">
   <p class="eyebrow">Cite this</p>
-  <p><strong>APA:</strong> <span id="cite-apa"><Fragment set:html={apaCitation} /></span></p>
-  <p><strong>MLA:</strong> <span id="cite-mla"><Fragment set:html={mlaCitation} /></span></p>
-  <button type="button" class="button button--compact ghost" id="cite-copy-btn" style="margin-top: var(--space-xs);">Copy to Clipboard</button>
-  <span id="cite-copy-status" style="display: none; margin-left: var(--space-xs); color: var(--accent-bright);">Copied!</span>
+  <p style="margin: 0.5rem 0;"><strong>APA:</strong> <span id="cite-apa"><Fragment set:html={apaCitation} /></span></p>
+  <p style="margin: 0.5rem 0 0.8rem;"><strong>MLA:</strong> <span id="cite-mla"><Fragment set:html={mlaCitation} /></span></p>
+  <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center;">
+    <button type="button" class="button button--compact ghost" id="cite-copy-apa-btn">Copy APA</button>
+    <button type="button" class="button button--compact ghost" id="cite-copy-mla-btn">Copy MLA</button>
+    <span id="cite-copy-status" role="status" aria-live="polite" style="display: none; color: var(--accent); font-weight: 600;"></span>
+  </div>
 </div>
 
 <script is:inline>
-  document.getElementById('cite-copy-btn')?.addEventListener('click', () => {
-    const apa = document.getElementById('cite-apa')?.textContent ?? '';
-    const mla = document.getElementById('cite-mla')?.textContent ?? '';
-    const text = `APA\n${apa}\n\nMLA\n${mla}`;
-    navigator.clipboard.writeText(text).then(() => {
-      const status = document.getElementById('cite-copy-status');
-      if (status) {
-        status.style.display = 'inline';
-        setTimeout(() => { status.style.display = 'none'; }, 2000);
+  (() => {
+    const status = document.getElementById('cite-copy-status');
+
+    const handleCopy = async (targetId, typeName) => {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const text = el.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        if (status) {
+          status.textContent = `${typeName} citation copied!`;
+          status.style.display = 'inline-block';
+          setTimeout(() => {
+            status.style.display = 'none';
+            status.textContent = '';
+          }, 2500);
+        }
+      } catch (err) {
+        // clipboard write error fallback
       }
-    }).catch(() => {});
-  });
+    };
+
+    document.getElementById('cite-copy-apa-btn')?.addEventListener('click', () => {
+      handleCopy('cite-apa', 'APA');
+    });
+
+    document.getElementById('cite-copy-mla-btn')?.addEventListener('click', () => {
+      handleCopy('cite-mla', 'MLA');
+    });
+  })();
 </script>

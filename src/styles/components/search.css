@@ -181,6 +181,31 @@
     color: var(--text);
   }
 
+  .search-dialog__clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    padding: 0.2rem;
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition:
+      color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
+  }
+
+  .search-dialog__clear:hover {
+    color: var(--text);
+    background: color-mix(in srgb, var(--text) 8%, transparent);
+  }
+
+  .search-dialog__clear:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+  }
+
   .search-dialog__hint {
     margin: 0 0 1rem;
     color: var(--muted);

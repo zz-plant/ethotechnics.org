@@ -480,6 +480,13 @@ const anchorLinks = [
     shareInput.select();
     try {
       await navigator.clipboard.writeText(shareInput.value);
+      const originalText = copyButton.textContent;
+      copyButton.textContent = "Copied!";
+      copyButton.setAttribute("aria-live", "polite");
+      setTimeout(() => {
+        copyButton.textContent = originalText;
+        copyButton.removeAttribute("aria-live");
+      }, 2500);
     } catch {
       // fall back to manual copy
     }

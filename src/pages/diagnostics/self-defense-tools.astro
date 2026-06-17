@@ -231,7 +231,7 @@ const printSheet = {
     title="One-page self-defense sheet"
     description="Print or save the questions so you can run the diagnostics offline."
   >
-    <div class="self-defense-print screen-only">
+    <div class="self-defense-print">
       <div class="self-defense-print__panel">
         <p class="eyebrow">Print or save</p>
         <h3>{printSheet.title}</h3>
@@ -242,7 +242,9 @@ const printSheet = {
           </button>
         </div>
       </div>
-      <div class="self-defense-print__preview" aria-label="Printable preview">
+      <div class="self-defense-print__preview" aria-label="Printable sheet">
+        <h2 class="print-only" style="margin-top: 0; margin-bottom: 0.5rem;">{printSheet.title}</h2>
+        <p class="print-only" style="margin-bottom: 1.5rem; color: var(--muted);">{printSheet.intro}</p>
         {printSheet.sections.map((section) => (
           <div class="self-defense-print__section">
             <p class="self-defense-print__title">{section.title}</p>
@@ -253,27 +255,10 @@ const printSheet = {
             </ol>
           </div>
         ))}
+        <p class="muted self-defense-print__note print-only" style="margin-top: 2rem; font-size: 0.85rem;">
+          Source: Ethotechnics self-defense diagnostics · <a href={permalink}>ethotechnics.org{permalink}</a>
+        </p>
       </div>
-    </div>
-    <div
-      class="self-defense-print self-defense-print--print print-only"
-      aria-label="Printable sheet"
-    >
-      <h2>{printSheet.title}</h2>
-      <p>{printSheet.intro}</p>
-      {printSheet.sections.map((section) => (
-        <div class="self-defense-print__section">
-          <p class="self-defense-print__title">{section.title}</p>
-          <ol>
-            {section.items.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ol>
-        </div>
-      ))}
-      <p class="muted self-defense-print__note">
-        Source: Ethotechnics self-defense diagnostics · <a href={permalink}>{permalink}</a>
-      </p>
     </div>
   </SectionBlock>
 </BaseLayout>
@@ -291,10 +276,6 @@ const printSheet = {
 </script>
 
 <style>
-  .screen-only {
-    display: block;
-  }
-
   .print-only {
     display: none;
   }
@@ -376,21 +357,59 @@ const printSheet = {
   }
 
   @media print {
-    .screen-only {
-      display: none;
-    }
-
     .print-only {
-      display: block;
+      display: block !important;
     }
 
-    .self-defense-print--print {
-      border: none;
-      padding: 0;
+    /* Hide non-printable elements */
+    .site-header,
+    .institute-banner,
+    .nav,
+    .page-breadcrumbs,
+    .page-intro,
+    .footer,
+    .back-to-top,
+    #how-to-use,
+    #governable,
+    #appeal-real,
+    #power-map,
+    .self-defense-print__panel {
+      display: none !important;
+    }
+
+    /* Reset shell layout constraints for clean print output */
+    body, html {
+      background: #fff !important;
+      color: #000 !important;
+    }
+
+    .page-shell,
+    .page-shell__canvas,
+    .page-shell__panel,
+    main {
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    .self-defense-print {
+      border: none !important;
+      padding: 0 !important;
+      background: transparent !important;
+      display: block !important;
+    }
+
+    .self-defense-print__preview {
+      display: grid !important;
+      gap: 1.5rem !important;
+      width: 100% !important;
     }
 
     .self-defense-print__section {
-      border: 1px solid var(--border);
+      border: 1px solid #000 !important;
+      page-break-inside: avoid;
       break-inside: avoid;
     }
   }

@@ -174,7 +174,7 @@ export const governanceContent: GovernanceContent = {
       date: "2025-07-12",
       title: "Q2 2025 governance update",
       summary:
-        "Established the baseline RFC lifecycle and started publishing dated decision receipts publicly.",
+        "Established the baseline RFC lifecycle and started publishing dated decision records publicly.",
     },
   ],
 };

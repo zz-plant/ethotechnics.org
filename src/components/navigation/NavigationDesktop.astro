@@ -3,6 +3,7 @@ import Logo from "../Logo.astro";
 import NavUtilityLinks from "../NavUtilityLinks.astro";
 import Wordmark from "../Wordmark.astro";
 import Search from "../Search.astro";
+import { Icon } from "astro-icon/components";
 import type { NavLink } from "../../content/navigation";
 import {
   getAriaCurrent,
@@ -59,5 +60,14 @@ const isHome = normalizePath(currentPath) === "/";
 
   <div class="nav__utility nav__utility--desktop">
     <NavUtilityLinks currentPath={currentPath} />
+    <button
+      class="theme-toggle"
+      data-theme-toggle
+      aria-label="Toggle theme"
+      type="button"
+    >
+      <Icon name="lucide:sun" class="theme-toggle__icon theme-toggle__icon--sun" />
+      <Icon name="lucide:moon" class="theme-toggle__icon theme-toggle__icon--moon" />
+    </button>
   </div>
 </div>

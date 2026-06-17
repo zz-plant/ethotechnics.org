@@ -197,6 +197,73 @@ export const useCapacityForecast = () => {
   const [scenarioA, setScenarioA] = useState<ScenarioState>(initialState.scenarioA);
   const [scenarioB, setScenarioB] = useState<ScenarioState>(initialState.scenarioB);
   const [viewMode, setViewModeState] = useState<ViewMode>(initialState.viewMode);
+
+  // History state for undo/redo
+  const [history, setHistory] = useState<Array<{ scenarioA: ScenarioState; scenarioB: ScenarioState; viewMode: ViewMode }>>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const lastPushTime = useRef(0);
+  const lastPushedState = useRef<string>('');
+  const isNavigatingHistory = useRef(false);
+
+  const commitHistory = (sA: ScenarioState, sB: ScenarioState, mode: ViewMode) => {
+    const now = Date.now();
+    const stateStr = JSON.stringify({ sA, sB, mode });
+    if (stateStr === lastPushedState.current) return;
+
+    setHistory((prev) => {
+      const next = prev.slice(0, historyIndex + 1);
+      if (now - lastPushTime.current < 800 && next.length > 0) {
+        next[next.length - 1] = { scenarioA: sA, scenarioB: sB, viewMode: mode };
+      } else {
+        next.push({ scenarioA: sA, scenarioB: sB, viewMode: mode });
+      }
+      setHistoryIndex(next.length - 1);
+      lastPushTime.current = now;
+      lastPushedState.current = stateStr;
+      return next;
+    });
+  };
+
+  const undo = () => {
+    if (historyIndex > 0) {
+      const prevIndex = historyIndex - 1;
+      const prev = history[prevIndex];
+      setHistoryIndex(prevIndex);
+      isNavigatingHistory.current = true;
+      setScenarioA(prev.scenarioA);
+      setScenarioB(prev.scenarioB);
+      setViewModeState(prev.viewMode);
+    }
+  };
+
+  const redo = () => {
+    if (historyIndex < history.length - 1) {
+      const nextIndex = historyIndex + 1;
+      const next = history[nextIndex];
+      setHistoryIndex(nextIndex);
+      isNavigatingHistory.current = true;
+      setScenarioA(next.scenarioA);
+      setScenarioB(next.scenarioB);
+      setViewModeState(next.viewMode);
+    }
+  };
+
+  useEffect(() => {
+    if (history.length === 0) {
+      setHistory([{ scenarioA, scenarioB, viewMode }]);
+      setHistoryIndex(0);
+      lastPushedState.current = JSON.stringify({ scenarioA, scenarioB, viewMode });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isNavigatingHistory.current) {
+      isNavigatingHistory.current = false;
+      return;
+    }
+    commitHistory(scenarioA, scenarioB, viewMode);
+  }, [scenarioA, scenarioB, viewMode]);
+
   const hasSyncedUrl = useRef(false);
   const hasCustomScenarioB = useRef(initialState.hasCustomScenarioB);
   const forecastA = useMemo(
@@ -353,5 +420,9 @@ export const useCapacityForecast = () => {
     viewMode,
     setViewMode,
     stabilityOptions: STABILITY_ORDER,
+    undo,
+    redo,
+    canUndo: historyIndex > 0,
+    canRedo: historyIndex < history.length - 1,
   };
 };

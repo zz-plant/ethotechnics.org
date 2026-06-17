@@ -40,6 +40,10 @@ export function CapacityForecaster() {
     resetToSingleScenario,
     mirrorScenario,
     stabilityOptions,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
   } = useCapacityForecast();
   const finalPointA = forecastA.data[forecastA.data.length - 1];
   const finalPointB = forecastB.data[forecastB.data.length - 1];
@@ -220,6 +224,10 @@ export function CapacityForecaster() {
           stabilityOptions={stabilityOptions}
           onMetricsChange={updateMetrics}
           onParamsChange={updateParams}
+          undo={undo}
+          redo={redo}
+          canUndo={canUndo}
+          canRedo={canRedo}
         />
 
         <div className="forecaster__chart-card">

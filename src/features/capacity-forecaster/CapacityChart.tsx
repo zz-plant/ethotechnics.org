@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 
 import type { CapacityPoint } from "./types";
 
@@ -186,223 +186,262 @@ export function CapacityChart({
     scenarioB.saturationDate,
     xForIndex,
   );
+  const [showTable, setShowTable] = useState(false);
+
   return (
     <div className="forecaster__chart">
-      <div className="forecaster__chart-header">
-        <p className="eyebrow">Forecast</p>
-        <h3 id={chartTitleId}>Capacity projection (24 months)</h3>
-        <p id={chartDescriptionId} className="muted">
-          Baseline decay versus mitigated decay with refusal runway applied.
-        </p>
+      <div className="forecaster__chart-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+        <div>
+          <p className="eyebrow">Forecast</p>
+          <h3 id={chartTitleId}>Capacity projection (24 months)</h3>
+          <p id={chartDescriptionId} className="muted">
+            Baseline decay versus mitigated decay with refusal runway applied.
+          </p>
+        </div>
+        <button
+          type="button"
+          className="button ghost button--compact"
+          onClick={() => setShowTable(!showTable)}
+          style={{ padding: "4px 8px", fontSize: "0.8rem" }}
+          aria-label={showTable ? "Show visual chart" : "Show data table representation"}
+        >
+          {showTable ? "Show chart 📊" : "Show table 📋"}
+        </button>
       </div>
       <div className="forecaster__chart-body">
-        <svg
-          className="forecaster__chart-svg"
-          viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
-          role="img"
-          aria-labelledby={chartTitleId}
-          aria-describedby={`${chartDescriptionId} ${chartSvgDescriptionId}`}
-        >
-          <desc id={chartSvgDescriptionId}>
-            {isCompare
-              ? "Four area lines compare baseline and remediated capacity for scenario A and scenario B, with vertical markers indicating saturation points."
-              : "Two area lines show baseline capacity declining faster than the remediated line, with a vertical marker indicating the saturation date when the baseline reaches zero."}
-          </desc>
-          <defs>
-            <linearGradient
-              id={baselineGradientId}
-              x1="0"
-              x2="0"
-              y1="0"
-              y2="1"
-            >
-              <stop offset="0%" stopColor="var(--accent)" stopOpacity={0.35} />
-              <stop
-                offset="100%"
-                stopColor="var(--accent)"
-                stopOpacity={0.05}
-              />
-            </linearGradient>
-            <linearGradient
-              id={remediatedGradientId}
-              x1="0"
-              x2="0"
-              y1="0"
-              y2="1"
-            >
-              <stop offset="0%" stopColor="var(--gold)" stopOpacity={0.32} />
-              <stop offset="100%" stopColor="var(--gold)" stopOpacity={0.04} />
-            </linearGradient>
-            <linearGradient
-              id={baselineBGradientId}
-              x1="0"
-              x2="0"
-              y1="0"
-              y2="1"
-            >
-              <stop offset="0%" stopColor="var(--teal)" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="var(--teal)" stopOpacity={0.04} />
-            </linearGradient>
-            <linearGradient
-              id={remediatedBGradientId}
-              x1="0"
-              x2="0"
-              y1="0"
-              y2="1"
-            >
-              <stop offset="0%" stopColor="var(--teal)" stopOpacity={0.2} />
-              <stop offset="100%" stopColor="var(--teal)" stopOpacity={0.03} />
-            </linearGradient>
-          </defs>
-
-          <g className="forecaster__chart-grid">
-            {yTicks.map((tick) => {
-              const y = yForValue(tick);
-              return (
-                <line
-                  key={tick}
-                  x1={MARGINS.left}
-                  x2={CHART_WIDTH - MARGINS.right}
-                  y1={y}
-                  y2={y}
-                />
-              );
-            })}
-          </g>
-
-          <line
-            x1={MARGINS.left}
-            x2={CHART_WIDTH - MARGINS.right}
-            y1={yForValue(0)}
-            y2={yForValue(0)}
-            className="forecaster__axis-line"
-          />
-          <line
-            x1={MARGINS.left}
-            x2={MARGINS.left}
-            y1={MARGINS.top}
-            y2={CHART_HEIGHT - MARGINS.bottom}
-            className="forecaster__axis-line"
-          />
-
-          <g className="forecaster__chart-axis">
-            {xTicks.map((tickIndex) => {
-              const x = xForIndex(tickIndex);
-              const label = scenarioA.data[tickIndex]?.dateLabel ?? "";
-
-              return (
-                <g
-                  key={label}
-                  transform={`translate(${x}, ${CHART_HEIGHT - MARGINS.bottom + 16})`}
-                >
-                  <line y1={-8} y2={0} />
-                  <text textAnchor="middle" dominantBaseline="hanging">
-                    {label}
-                  </text>
-                </g>
-              );
-            })}
-
-            {yTicks.map((tick) => {
-              const y = yForValue(tick);
-              return (
-                <g
-                  key={tick}
-                  transform={`translate(${MARGINS.left - 12}, ${y})`}
-                >
-                  <text textAnchor="end" dominantBaseline="middle">
-                    {formatPercent(tick)}
-                  </text>
-                </g>
-              );
-            })}
-          </g>
-
-          {saturationA.saturationLabel && saturationA.saturationX !== null ? (
-            <g className="forecaster__saturation forecaster__saturation--a">
-              <line
-                x1={saturationA.saturationX}
-                x2={saturationA.saturationX}
-                y1={MARGINS.top}
-                y2={CHART_HEIGHT - MARGINS.bottom}
-              />
-              <text
-                x={saturationA.saturationX + 6}
-                y={MARGINS.top + 12}
-                className="forecaster__saturation-label"
+        {showTable ? (
+          <div style={{ overflowX: "auto", padding: "0.5rem", maxHeight: "350px" }}>
+            <table className="forecaster__delta-grid" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem" }}>
+              <thead>
+                <tr>
+                  <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Month</th>
+                  <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Baseline A</th>
+                  <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Remediated A</th>
+                  {isCompare && <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Baseline B</th>}
+                  {isCompare && <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Remediated B</th>}
+                </tr>
+              </thead>
+              <tbody>
+                {scenarioA.data.map((point, idx) => (
+                  <tr key={idx} style={{ borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
+                    <td style={{ padding: "6px", fontWeight: "bold" }}>{point.dateLabel}</td>
+                    <td style={{ padding: "6px" }}>{formatPercent(point.baseline)}</td>
+                    <td style={{ padding: "6px" }}>{formatPercent(point.remediated)}</td>
+                    {isCompare && <td style={{ padding: "6px" }}>{formatPercent(scenarioB.data[idx]?.baseline ?? 0)}</td>}
+                    {isCompare && <td style={{ padding: "6px" }}>{formatPercent(scenarioB.data[idx]?.remediated ?? 0)}</td>}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <svg
+            className="forecaster__chart-svg"
+            viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
+            role="img"
+            aria-labelledby={chartTitleId}
+            aria-describedby={`${chartDescriptionId} ${chartSvgDescriptionId}`}
+          >
+            <desc id={chartSvgDescriptionId}>
+              {isCompare
+                ? "Four area lines compare baseline and remediated capacity for scenario A and scenario B, with vertical markers indicating saturation points."
+                : "Two area lines show baseline capacity declining faster than the remediated line, with a vertical marker indicating the saturation date when the baseline reaches zero."}
+            </desc>
+            <defs>
+              <linearGradient
+                id={baselineGradientId}
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="1"
               >
-                Saturation A
-              </text>
-            </g>
-          ) : null}
+                <stop offset="0%" stopColor="var(--accent)" stopOpacity={0.35} />
+                <stop
+                  offset="100%"
+                  stopColor="var(--accent)"
+                  stopOpacity={0.05}
+                />
+              </linearGradient>
+              <linearGradient
+                id={remediatedGradientId}
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="1"
+              >
+                <stop offset="0%" stopColor="var(--gold)" stopOpacity={0.32} />
+                <stop offset="100%" stopColor="var(--gold)" stopOpacity={0.04} />
+              </linearGradient>
+              <linearGradient
+                id={baselineBGradientId}
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="1"
+              >
+                <stop offset="0%" stopColor="var(--teal)" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="var(--teal)" stopOpacity={0.04} />
+              </linearGradient>
+              <linearGradient
+                id={remediatedBGradientId}
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="1"
+              >
+                <stop offset="0%" stopColor="var(--teal)" stopOpacity={0.2} />
+                <stop offset="100%" stopColor="var(--teal)" stopOpacity={0.03} />
+              </linearGradient>
+            </defs>
 
-          {isCompare &&
-          saturationB.saturationLabel &&
-          saturationB.saturationX !== null
-            ? (
-                <g className="forecaster__saturation forecaster__saturation--b">
+            <g className="forecaster__chart-grid">
+              {yTicks.map((tick) => {
+                const y = yForValue(tick);
+                return (
                   <line
-                    x1={saturationB.saturationX}
-                    x2={saturationB.saturationX}
-                    y1={MARGINS.top}
-                    y2={CHART_HEIGHT - MARGINS.bottom}
+                    key={tick}
+                    x1={MARGINS.left}
+                    x2={CHART_WIDTH - MARGINS.right}
+                    y1={y}
+                    y2={y}
                   />
-                  <text
-                    x={saturationB.saturationX + 6}
-                    y={MARGINS.top + 26}
-                    className="forecaster__saturation-label"
+                );
+              })}
+            </g>
+
+            <line
+              x1={MARGINS.left}
+              x2={CHART_WIDTH - MARGINS.right}
+              y1={yForValue(0)}
+              y2={yForValue(0)}
+              className="forecaster__axis-line"
+            />
+            <line
+              x1={MARGINS.left}
+              x2={MARGINS.left}
+              y1={MARGINS.top}
+              y2={CHART_HEIGHT - MARGINS.bottom}
+              className="forecaster__axis-line"
+            />
+
+            <g className="forecaster__chart-axis">
+              {xTicks.map((tickIndex) => {
+                const x = xForIndex(tickIndex);
+                const label = scenarioA.data[tickIndex]?.dateLabel ?? "";
+
+                return (
+                  <g
+                    key={label}
+                    transform={`translate(${x}, ${CHART_HEIGHT - MARGINS.bottom + 16})`}
                   >
-                    Saturation B
-                  </text>
-                </g>
-              )
-            : null}
+                    <line y1={-8} y2={0} />
+                    <text textAnchor="middle" dominantBaseline="hanging">
+                      {label}
+                    </text>
+                  </g>
+                );
+              })}
 
-          <path
-            className="forecaster__chart-area forecaster__chart-area--baseline"
-            d={baselineArea}
-            fill={`url(#${baselineGradientId})`}
-          />
-          <path
-            className="forecaster__chart-line forecaster__chart-line--baseline"
-            d={baselineLine}
-          />
+              {yTicks.map((tick) => {
+                const y = yForValue(tick);
+                return (
+                  <g
+                    key={tick}
+                    transform={`translate(${MARGINS.left - 12}, ${y})`}
+                  >
+                    <text textAnchor="end" dominantBaseline="middle">
+                      {formatPercent(tick)}
+                    </text>
+                  </g>
+                );
+              })}
+            </g>
 
-          <path
-            className="forecaster__chart-area forecaster__chart-area--remediated"
-            d={remediatedArea}
-            fill={`url(#${remediatedGradientId})`}
-          />
-          <path
-            className="forecaster__chart-line forecaster__chart-line--remediated"
-            d={remediatedLine}
-          />
+            {saturationA.saturationLabel && saturationA.saturationX !== null ? (
+              <g className="forecaster__saturation forecaster__saturation--a">
+                <line
+                  x1={saturationA.saturationX}
+                  x2={saturationA.saturationX}
+                  y1={MARGINS.top}
+                  y2={CHART_HEIGHT - MARGINS.bottom}
+                />
+                <text
+                  x={saturationA.saturationX + 6}
+                  y={MARGINS.top + 12}
+                  className="forecaster__saturation-label"
+                >
+                  Saturation A
+                </text>
+              </g>
+            ) : null}
 
-          {isCompare ? (
-            <>
-              <path
-                className="forecaster__chart-area forecaster__chart-area--baseline-b"
-                d={baselineAreaB}
-                fill={`url(#${baselineBGradientId})`}
-              />
-              <path
-                className="forecaster__chart-line forecaster__chart-line--baseline-b"
-                d={baselineLineB}
-              />
+            {isCompare &&
+            saturationB.saturationLabel &&
+            saturationB.saturationX !== null
+              ? (
+                  <g className="forecaster__saturation forecaster__saturation--b">
+                    <line
+                      x1={saturationB.saturationX}
+                      x2={saturationB.saturationX}
+                      y1={MARGINS.top}
+                      y2={CHART_HEIGHT - MARGINS.bottom}
+                    />
+                    <text
+                      x={saturationB.saturationX + 6}
+                      y={MARGINS.top + 26}
+                      className="forecaster__saturation-label"
+                    >
+                      Saturation B
+                    </text>
+                  </g>
+                )
+              : null}
 
-              <path
-                className="forecaster__chart-area forecaster__chart-area--remediated-b"
-                d={remediatedAreaB}
-                fill={`url(#${remediatedBGradientId})`}
-              />
-              <path
-                className="forecaster__chart-line forecaster__chart-line--remediated-b"
-                d={remediatedLineB}
-              />
-            </>
-          ) : null}
-        </svg>
+            <path
+              className="forecaster__chart-area forecaster__chart-area--baseline"
+              d={baselineArea}
+              fill={`url(#${baselineGradientId})`}
+            />
+            <path
+              className="forecaster__chart-line forecaster__chart-line--baseline"
+              d={baselineLine}
+            />
 
+            <path
+              className="forecaster__chart-area forecaster__chart-area--remediated"
+              d={remediatedArea}
+              fill={`url(#${remediatedGradientId})`}
+            />
+            <path
+              className="forecaster__chart-line forecaster__chart-line--remediated"
+              d={remediatedLine}
+            />
+
+            {isCompare ? (
+              <>
+                <path
+                  className="forecaster__chart-area forecaster__chart-area--baseline-b"
+                  d={baselineAreaB}
+                  fill={`url(#${baselineBGradientId})`}
+                />
+                <path
+                  className="forecaster__chart-line forecaster__chart-line--baseline-b"
+                  d={baselineLineB}
+                />
+
+                <path
+                  className="forecaster__chart-area forecaster__chart-area--remediated-b"
+                  d={remediatedAreaB}
+                  fill={`url(#${remediatedBGradientId})`}
+                />
+                <path
+                  className="forecaster__chart-line forecaster__chart-line--remediated-b"
+                  d={remediatedLineB}
+                />
+              </>
+            ) : null}
+          </svg>
+        )}
         <div className="forecaster__chart-legend">
           <div className="forecaster__legend-item">
             <span

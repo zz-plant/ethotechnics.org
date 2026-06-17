@@ -567,6 +567,26 @@
     color: #b35218;
   }
 
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) .status-badge--stable {
+      background: color-mix(in srgb, #4ade80 20%, transparent);
+      color: #4ade80;
+    }
+    :root:not(.light) .status-badge--deprecated {
+      background: color-mix(in srgb, #f97316 20%, transparent);
+      color: #f97316;
+    }
+  }
+
+  :root.dark .status-badge--stable {
+    background: color-mix(in srgb, #4ade80 20%, transparent);
+    color: #4ade80;
+  }
+  :root.dark .status-badge--deprecated {
+    background: color-mix(in srgb, #f97316 20%, transparent);
+    color: #f97316;
+  }
+
   .standard-status__changelog {
     margin: 0;
     padding-left: 1.2rem;

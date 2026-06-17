@@ -33,6 +33,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
   data-pattern-filter
   data-filters={filters.map((filter) => filter.slug).join(",")}
   data-filter-labels={JSON.stringify(filterLabels)}
+  data-diagnostic-titles={JSON.stringify(diagnosticTitles)}
 >
   <div class="pattern-filter__controls">
     <ul class="pill-list">
@@ -237,6 +238,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               <a
                 class="button ghost button--compact"
                 href={detailHref}
+                data-details-button
                 aria-label={`View details for ${pattern.title}`}
               >
                 Details
@@ -329,6 +331,23 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
     }
     <p class="muted" data-empty hidden>No mechanisms match your filters yet.</p>
   </div>
+
+  <dialog class="pattern-drawer" data-pattern-drawer>
+    <div class="pattern-drawer__content">
+      <header class="pattern-drawer__header">
+        <div>
+          <p class="eyebrow" style="margin: 0; text-transform: uppercase;">Mechanism spec</p>
+          <h2 data-drawer-title style="margin: 0.2rem 0 0; font-size: 1.5rem; color: var(--accent);">--</h2>
+        </div>
+        <button class="pattern-drawer__close" type="button" aria-label="Close details" data-drawer-close>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </header>
+      <div class="pattern-drawer__body" data-drawer-body>
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </dialog>
 </div>
 
 <script type="module" src={patternFilterScript} is:inline></script>

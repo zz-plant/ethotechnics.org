@@ -29,12 +29,12 @@ export const artifacts: InstituteArtifact[] = [
     name: "Decision record template",
     slug: "decision-record-template",
     description: [
-      "Assigns a named decision owner, reversal authority, burden ceiling, and contestability path.",
+      "Assigns a named decision owner, reversal power, burden limit, and appeal path.",
       "Prevents anonymous system outputs from escaping accountability.",
     ],
     enforcesBullets: [
       "Every decision has a named owner.",
-      "Reversal authority is explicit.",
+      "Who can reverse a decision is explicit.",
       "Contestability is bounded in time and procedure.",
     ],
     howToSteps: [

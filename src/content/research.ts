@@ -257,7 +257,7 @@ export const researchContent: ResearchContent = {
       slug: "governance",
       title: "Governance",
       description:
-        "Decision accountability, data stewardship, and escalation paths people can understand.",
+        "Decision accountability, data handling, and escalation paths people can understand.",
       questions: [
         "What documentation helps non-technical partners see how choices were made?",
         "How can we expose decision logs without creating new harms?",

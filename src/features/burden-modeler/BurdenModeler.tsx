@@ -54,12 +54,25 @@ export function BurdenModeler() {
     return results.categoryScores.reduce((leader, score) => (score.value > leader.value ? score : leader));
   }, [results.categoryScores]);
 
+  const [confirmReset, setConfirmReset] = useState(false);
+
   const updateRating = (driverId: keyof BurdenRatings, value: number) => {
     setRatings((prev) => ({ ...prev, [driverId]: value }));
   };
   const resetModeler = () => {
     setScenario('Baseline');
     setRatings(buildDefaultRatings());
+  };
+  const handleResetClick = () => {
+    if (confirmReset) {
+      resetModeler();
+      setConfirmReset(false);
+    } else {
+      setConfirmReset(true);
+      setTimeout(() => {
+        setConfirmReset(false);
+      }, 3000);
+    }
   };
   const exportSnapshot = () => {
     const snapshot = buildSnapshot(scenario || 'Scenario', ratings, results);
@@ -111,8 +124,13 @@ export function BurdenModeler() {
                 <p className="eyebrow">Rating scale</p>
                 <p className="muted small">0 = resting, 10 = unsustainable.</p>
               </div>
-              <button type="button" className="button ghost button--compact" onClick={resetModeler}>
-                Reset inputs
+              <button
+                type="button"
+                className={`button ghost button--compact ${confirmReset ? "button--warning" : ""}`}
+                onClick={handleResetClick}
+                style={confirmReset ? { borderColor: "var(--accent)", color: "var(--accent)" } : {}}
+              >
+                {confirmReset ? "Confirm Reset?" : "Reset inputs"}
               </button>
             </div>
             <div className="scale-legend">
@@ -152,8 +170,32 @@ export function BurdenModeler() {
                           <p className="slider__label">{driver.label}</p>
                           <p className="muted small">{driver.prompt}</p>
                         </div>
-                        <div className="slider__value" aria-live="polite">
-                          <span>{ratings[driver.id]}</span>
+                        <div className="slider__value" aria-live="polite" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <input
+                            type="number"
+                            min={0}
+                            max={MAX_DRIVER_SCORE}
+                            step={1}
+                            value={ratings[driver.id]}
+                            onChange={(event) => {
+                              let val = Number(event.target.value);
+                              if (isNaN(val)) return;
+                              if (val < 0) val = 0;
+                              if (val > MAX_DRIVER_SCORE) val = MAX_DRIVER_SCORE;
+                              updateRating(driver.id, val);
+                            }}
+                            style={{
+                              width: "48px",
+                              textAlign: "center",
+                              border: "1px solid var(--border)",
+                              borderRadius: "4px",
+                              background: "var(--panel)",
+                              color: "var(--text)",
+                              fontSize: "0.85rem",
+                              padding: "2px",
+                            }}
+                            aria-label={`Numeric input for ${driver.label}`}
+                          />
                           <span className="muted">{descriptorForRating(ratings[driver.id])}</span>
                         </div>
                       </div>

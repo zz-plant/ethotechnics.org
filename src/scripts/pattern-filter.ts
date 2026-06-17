@@ -17,6 +17,9 @@ const initializePatternFilter = (root: HTMLElement) => {
   const filterLabels = JSON.parse(
     root.getAttribute("data-filter-labels") ?? "{}",
   ) as Record<string, string>;
+  const diagnosticTitles = JSON.parse(
+    root.getAttribute("data-diagnostic-titles") ?? "{}",
+  ) as Record<string, string>;
   const filterButtons = Array.from(
     root.querySelectorAll<HTMLButtonElement>("[data-filter]"),
   );
@@ -148,26 +151,162 @@ const initializePatternFilter = (root: HTMLElement) => {
     URL.revokeObjectURL(downloadUrl);
   };
 
-  const openPrintView = (content: string) => {
+  const openPrintView = (entries: PatternBundleEntry[]) => {
     const printWindow = window.open("", "_blank", "noopener");
 
     if (!printWindow) {
       return;
     }
 
-    printWindow.document.title = "Mechanism bundle";
+    printWindow.document.title = "Mechanism Bundle";
 
-    const pre = printWindow.document.createElement("pre");
-    pre.textContent = content;
-    pre.style.whiteSpace = "pre-wrap";
-    pre.style.fontFamily =
-      "ui-monospace, Menlo, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace";
-    pre.style.padding = "1.4rem";
+    let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mechanism Bundle</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      color: #2a2621;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h1 {
+      font-size: 2.25rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #ded4c4;
+      padding-bottom: 0.5rem;
+      color: #6b3e35;
+    }
+    .meta {
+      font-size: 0.875rem;
+      color: #6d6357;
+      margin-bottom: 2.5rem;
+    }
+    .entry {
+      margin-bottom: 3rem;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .entry h2 {
+      font-size: 1.75rem;
+      color: #6b3e35;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px dashed #ded4c4;
+      padding-bottom: 0.35rem;
+    }
+    .entry p.summary {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #2a2621;
+    }
+    h3 {
+      font-size: 1.1rem;
+      color: #a8844f;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    ul, ol {
+      margin: 0.5rem 0 1rem;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.35rem;
+    }
+    .artifact-name {
+      font-weight: 600;
+    }
+    @media print {
+      body {
+        margin: 1.5cm;
+        font-size: 11pt;
+      }
+      .entry {
+        page-break-after: always;
+        break-after: always;
+      }
+      .entry:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Mechanism Bundle</h1>
+  <div class="meta">Generated from ethotechnics.org/mechanisms on ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</div>
+`;
 
-    printWindow.document.body.innerHTML = "";
-    printWindow.document.body.appendChild(pre);
+    entries.forEach((entry) => {
+      html += `<div class="entry">
+    <h2>${entry.title}</h2>
+    <p class="summary">${entry.summary}</p>`;
+
+      if (entry.cues.length) {
+        html += `
+    <h3>Cues</h3>
+    <ul>
+      ${entry.cues.map((cue) => `<li>${cue}</li>`).join("")}
+    </ul>`;
+      }
+
+      if (entry.steps.length) {
+        html += `
+    <h3>Steps</h3>
+    <ol>
+      ${entry.steps.map((step) => `<li>${step}</li>`).join("")}
+    </ol>`;
+      }
+
+      if (entry.artifacts.length) {
+        html += `
+    <h3>Artifacts</h3>
+    <ul>
+      ${entry.artifacts.map((art) => `<li><span class="artifact-name">${art.name}</span> — ${art.purpose}</li>`).join("")}
+    </ul>`;
+      }
+
+      html += `
+    <h3>Example: ${entry.example.title}</h3>
+    <p>${entry.example.description}</p>`;
+
+      if (entry.glossaryRefs && entry.glossaryRefs.length) {
+        html += `
+    <h3>Glossary anchors</h3>
+    <ul>
+      ${entry.glossaryRefs.map((ref) => `<li>${ref}</li>`).join("")}
+    </ul>`;
+      }
+
+      if (entry.diagnostics.length) {
+        html += `
+    <h3>Diagnostics</h3>
+    <ul>
+      ${entry.diagnostics.map((diag) => `<li>${diag}</li>`).join("")}
+    </ul>`;
+      }
+
+      html += `</div>`;
+    });
+
+    html += `</body>
+</html>`;
+
+    printWindow.document.open();
+    printWindow.document.write(html);
+    printWindow.document.close();
     printWindow.focus();
-    printWindow.print();
+    
+    // Brief timeout so styles compile/render before print runs
+    setTimeout(() => {
+      printWindow.print();
+    }, 250);
   };
 
   const getPatternPayload = (slug: string) => {
@@ -499,9 +638,7 @@ const initializePatternFilter = (root: HTMLElement) => {
         return;
       }
       const payloads = getSelectedPayloads();
-      const markdown = composePatternBundle(payloads);
-
-      openPrintView(markdown);
+      openPrintView(payloads);
     });
 
     copyBundleButton?.addEventListener("click", () => {
@@ -551,10 +688,8 @@ const initializePatternFilter = (root: HTMLElement) => {
         return;
       }
 
-      const payloads = getSelectedPayloads();
-      const markdown = composePatternBundle(payloads);
       const link = getBundleLink();
-      const body = `${markdown}\n\nBundle link: ${link}`;
+      const body = `View my selected mechanisms bundle at: ${link}`;
 
       const mailto = new URL("mailto:" + encodeURIComponent(email));
       mailto.searchParams.set("subject", "Mechanism bundle links");
@@ -566,6 +701,111 @@ const initializePatternFilter = (root: HTMLElement) => {
         emailStatus.textContent =
           "Opening your email client with the bundle link.";
       }
+    });
+
+    /* Drawer implementation */
+    const drawer = root.querySelector<HTMLDialogElement>("[data-pattern-drawer]");
+    const drawerTitle = drawer?.querySelector<HTMLElement>("[data-drawer-title]");
+    const drawerBody = drawer?.querySelector<HTMLElement>("[data-drawer-body]");
+    const drawerClose = drawer?.querySelector<HTMLButtonElement>("[data-drawer-close]");
+
+    const openDrawer = (entry: PatternBundleEntry) => {
+      if (!drawer || !drawerTitle || !drawerBody) return;
+
+      drawerTitle.textContent = entry.title;
+
+      let bodyHtml = `
+        <div class="drawer-section">
+          <p class="lede">${entry.summary}</p>
+        </div>
+        
+        <div class="drawer-section">
+          <h4>Steps</h4>
+          <ol class="panel__list">
+            ${entry.steps.map((step) => `<li>${step}</li>`).join("")}
+          </ol>
+        </div>
+      `;
+
+      if (entry.artifacts.length) {
+        bodyHtml += `
+        <div class="drawer-section">
+          <h4>Artifacts</h4>
+          <ul class="panel__list">
+            ${entry.artifacts.map((art) => `<li><strong>${art.name}:</strong> ${art.purpose}</li>`).join("")}
+          </ul>
+        </div>
+        `;
+      }
+
+      bodyHtml += `
+        <div class="drawer-section">
+          <h4>Example: ${entry.example.title}</h4>
+          <p class="muted">${entry.example.description}</p>
+        </div>
+      `;
+
+      if (entry.diagnostics.length) {
+        bodyHtml += `
+        <div class="drawer-section">
+          <h4>Validators &amp; Diagnostics</h4>
+          <ul class="panel__list">
+            ${entry.diagnostics.map((diag) => `<li><a href="/diagnostics#${diag}">${diagnosticTitles[diag] ?? diag}</a></li>`).join("")}
+          </ul>
+        </div>
+        `;
+      }
+
+      bodyHtml += `
+        <div class="drawer-section" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+          <a class="button primary" style="justify-content: center; width: 100%;" href="/mechanisms/patterns/${entry.slug}">View full specification sheet</a>
+        </div>
+      `;
+
+      drawerBody.innerHTML = bodyHtml;
+      drawer.showModal();
+      requestAnimationFrame(() => {
+        drawer.querySelector(".pattern-drawer__content")?.classList.add("is-open");
+      });
+    };
+
+    const closeDrawer = () => {
+      const content = drawer?.querySelector(".pattern-drawer__content");
+      if (content) {
+        content.classList.remove("is-open");
+        setTimeout(() => {
+          drawer.close();
+        }, 240);
+      } else {
+        drawer?.close();
+      }
+    };
+
+    root.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement | null;
+      const detailsBtn = target?.closest("[data-details-button]");
+      if (detailsBtn) {
+        event.preventDefault();
+        const card = detailsBtn.closest("[data-pattern-card]");
+        const slug = card?.id;
+        if (slug) {
+          const payload = getPatternPayload(slug);
+          if (payload) {
+            openDrawer(payload);
+          }
+        }
+      }
+    });
+
+    drawerClose?.addEventListener("click", closeDrawer);
+    drawer?.addEventListener("click", (event) => {
+      if (event.target === drawer) {
+        closeDrawer();
+      }
+    });
+    drawer?.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeDrawer();
     });
 
     saveFiltersButton?.addEventListener("click", saveFilters);

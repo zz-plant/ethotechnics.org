@@ -1,6 +1,7 @@
 ---
 import NavUtilityLinks from "../NavUtilityLinks.astro";
 import Search from "../Search.astro";
+import { Icon } from "astro-icon/components";
 import {
   navUtilityMobilePrimaryLinks,
   type NavLink,
@@ -33,6 +34,15 @@ const { currentPath, currentHash = "", mobileLinks }: Props = Astro.props;
           currentPath={currentPath}
           links={navUtilityMobilePrimaryLinks}
         />
+        <button
+          class="theme-toggle"
+          data-theme-toggle
+          aria-label="Toggle theme"
+          type="button"
+        >
+          <Icon name="lucide:sun" class="theme-toggle__icon theme-toggle__icon--sun" />
+          <Icon name="lucide:moon" class="theme-toggle__icon theme-toggle__icon--moon" />
+        </button>
       </div>
     </div>
 

@@ -66,11 +66,20 @@ export const bindSearchInstance = (
   const closeButton = dialog.querySelector<HTMLButtonElement>(
     "[data-search-close]",
   );
+  const clearButton = dialog.querySelector<HTMLButtonElement>(
+    "[data-search-clear]",
+  );
   if (!input || !results) return null;
 
   const renderer = createSearchRenderer(results);
   let searchTimeout: number | undefined;
   let focusReturn: Element | null = null;
+
+  const updateClearButtonVisibility = () => {
+    if (clearButton) {
+      clearButton.hidden = input.value.length === 0;
+    }
+  };
 
   const updateRecentSearches = (handler: (value: string) => void) => {
     if (!recentList) return;
@@ -94,6 +103,7 @@ export const bindSearchInstance = (
     recentWrapper.hidden = recent.length === 0;
     updateRecentSearches((value) => {
       input.value = value;
+      updateClearButtonVisibility();
       input.dispatchEvent(new Event("input"));
     });
   };
@@ -102,6 +112,7 @@ export const bindSearchInstance = (
     const query = dependencies.urlState.getParam(searchStateParams.query) ?? "";
     if (query) {
       input.value = query;
+      updateClearButtonVisibility();
       input.dispatchEvent(new Event("input"));
     }
   };
@@ -121,6 +132,7 @@ export const bindSearchInstance = (
     });
     setRecentVisibility();
     applyQueryFromUrl();
+    updateClearButtonVisibility();
   };
 
   const closeDialog = ({ fromHistory = false } = {}) => {
@@ -132,6 +144,7 @@ export const bindSearchInstance = (
     }
 
     input.value = "";
+    updateClearButtonVisibility();
     renderer.showEmpty();
     renderer.setBusy(false);
     dependencies.storage.setQuery("");
@@ -211,6 +224,14 @@ export const bindSearchInstance = (
 
   closeButton?.addEventListener("click", () => closeDialog());
 
+  clearButton?.addEventListener("click", () => {
+    input.value = "";
+    updateClearButtonVisibility();
+    input.dispatchEvent(new Event("input"));
+    input.focus();
+    dependencies.triggerHaptic("nudge", { intensity: 0.2 });
+  });
+
   dialog.addEventListener("close", () => {
     if (!dialog.open) {
       focusReturn = null;
@@ -237,6 +258,7 @@ export const bindSearchInstance = (
 
   input.addEventListener("input", () => {
     const value = input.value;
+    updateClearButtonVisibility();
     scheduleSearch(value);
     dependencies.urlState.setQuery(value, "replace");
   });
@@ -276,6 +298,11 @@ export const bindSearchInstance = (
     if (event.key === "ArrowDown") {
       const nextIndex = currentIndex + 1;
       (focusable[nextIndex] ?? focusable[0]).focus();
+      return;
+    }
+
+    if (event.key === "ArrowUp" && currentIndex === 0) {
+      input.focus();
       return;
     }
 

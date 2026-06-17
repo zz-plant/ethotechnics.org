@@ -55,7 +55,7 @@ export const anchorLinks = [
 
 export const summaryTakeaways = [
   "Align agent capabilities with explicit action classes and receipts.",
-  "Move ethics conversations from intent claims to enforceable controls, clocks, and human recourse.",
+  "Move ethics conversations from intent claims to enforceable controls, deadlines, and clear appeal paths.",
   "Use failure-first controls like kill switches, hard clocks, and rollback paths.",
   "Anchor remediation with contestability paths and evidence packs.",
 ];

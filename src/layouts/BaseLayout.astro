@@ -255,6 +255,10 @@ const pagefindType = pathSegments[0] ?? "";
         const stored = localStorage.getItem('theme');
         if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        } else {
+          document.documentElement.classList.add('light');
+          document.documentElement.classList.remove('dark');
         }
       })();
     </script>
@@ -343,6 +347,15 @@ const pagefindType = pathSegments[0] ?? "";
             <section class="footer__section">
               <NewsletterSignup />
             </section>
+            <section class="footer__section" data-glossary-ignore>
+              <h2 class="eyebrow footer__heading">Preferences</h2>
+              <div class="footer__preferences">
+                <label class="preference-control">
+                  <input type="checkbox" id="glossary-toggle" checked />
+                  <span>Glossary highlights</span>
+                </label>
+              </div>
+            </section>
             {
               footerNav.map((section) => (
                 <section class="footer__section">
@@ -404,21 +417,49 @@ const pagefindType = pathSegments[0] ?? "";
         /* back to top */
         const backToTop = document.querySelector('[data-back-to-top]');
         if (backToTop) {
-          let ticking = false;
-          const update = () => {
-            backToTop.hidden = window.scrollY < window.innerHeight;
-            ticking = false;
-          };
-          window.addEventListener('scroll', () => {
-            if (!ticking) {
-              window.requestAnimationFrame(update);
-              ticking = true;
-            }
-          }, { passive: true });
           backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+            const skipLink = document.querySelector('.skip-link');
+            if (skipLink instanceof HTMLElement) {
+              skipLink.focus({ preventScroll: true });
+            }
           });
+
+          // Use IntersectionObserver to toggle visibility instead of scroll listener
+          const sentinel = document.createElement('div');
+          sentinel.style.position = 'absolute';
+          sentinel.style.top = '0';
+          sentinel.style.left = '0';
+          sentinel.style.height = '100vh';
+          sentinel.style.width = '1px';
+          sentinel.style.pointerEvents = 'none';
+          document.body.prepend(sentinel);
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              backToTop.hidden = entry.isIntersecting;
+            });
+          }, { root: null, threshold: 0 });
+
+          observer.observe(sentinel);
         }
+
+        /* theme toggle */
+        const toggles = document.querySelectorAll('[data-theme-toggle]');
+        toggles.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+              document.documentElement.classList.remove('dark');
+              document.documentElement.classList.add('light');
+              localStorage.setItem('theme', 'light');
+            } else {
+              document.documentElement.classList.remove('light');
+              document.documentElement.classList.add('dark');
+              localStorage.setItem('theme', 'dark');
+            }
+          });
+        });
 
         /* mobile nav focus trap + inert */
         const mobileNav = document.querySelector('[data-mobile-nav]');

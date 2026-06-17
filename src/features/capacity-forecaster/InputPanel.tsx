@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 import type { CSSProperties } from "react";
 
 import type {
@@ -40,6 +40,10 @@ type InputPanelProps = {
     updates: Partial<SimulationParams>,
   ) => void;
   stabilityOptions: SystemStability[];
+  undo?: () => void;
+  redo?: () => void;
+  canUndo?: boolean;
+  canRedo?: boolean;
 };
 
 const getTrafficColor = (percent: number) => {
@@ -78,6 +82,15 @@ const SliderField = ({
 }: SliderFieldProps) => {
   const inputId = useId();
   const descriptionId = useId();
+  const numberInputId = useId();
+
+  const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let val = Number(event.target.value);
+    if (isNaN(val)) return;
+    if (val < min) val = min;
+    if (val > max) val = max;
+    onChange(val);
+  };
 
   return (
     <div className="forecaster__control">
@@ -88,7 +101,27 @@ const SliderField = ({
             {description}
           </p>
         </label>
-        <span className="pill pill--ghost">{value}</span>
+        <input
+          id={numberInputId}
+          type="number"
+          className="pill pill--ghost"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={handleNumberChange}
+          style={{
+            width: "64px",
+            textAlign: "center",
+            border: "1px solid var(--border)",
+            borderRadius: "6px",
+            background: "var(--panel)",
+            color: "var(--text)",
+            padding: "2px 4px",
+            fontSize: "0.85rem",
+          }}
+          aria-label={`${label} numeric input`}
+        />
       </div>
       <input
         id={inputId}
@@ -224,17 +257,61 @@ export function InputPanel({
   onMetricsChange,
   onParamsChange,
   stabilityOptions,
+  undo,
+  redo,
+  canUndo,
+  canRedo,
 }: InputPanelProps) {
   const viewModes = [
     { id: "single", label: "Single" },
     { id: "compare", label: "Compare" },
   ] as const;
 
+  const [confirmAction, setConfirmAction] = useState<string | null>(null);
+
+  const handleActionClick = (actionName: string, executeAction: () => void) => {
+    if (confirmAction === actionName) {
+      executeAction();
+      setConfirmAction(null);
+    } else {
+      setConfirmAction(actionName);
+      setTimeout(() => {
+        setConfirmAction((current) => (current === actionName ? null : current));
+      }, 3000);
+    }
+  };
+
   return (
     <div className="card forecaster__card">
       <div className="card__glow" aria-hidden="true" />
       <p className="eyebrow">Input levers</p>
-      <h3>Shape the workload profile</h3>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+        <h3>Shape the workload profile</h3>
+        {undo && redo && (
+          <div style={{ display: "flex", gap: "0.4rem" }}>
+            <button
+              type="button"
+              className="button ghost button--compact"
+              onClick={undo}
+              disabled={!canUndo}
+              style={{ padding: "4px 8px", fontSize: "0.8rem", opacity: canUndo ? 1 : 0.4 }}
+              aria-label="Undo last change"
+            >
+              Undo ↺
+            </button>
+            <button
+              type="button"
+              className="button ghost button--compact"
+              onClick={redo}
+              disabled={!canRedo}
+              style={{ padding: "4px 8px", fontSize: "0.8rem", opacity: canRedo ? 1 : 0.4 }}
+              aria-label="Redo last change"
+            >
+              Redo ↻
+            </button>
+          </div>
+        )}
+      </div>
       <p className="muted">
         Drag the sliders to reflect today&apos;s operational friction. The track
         uses a traffic light gradient so you can see how fast each input
@@ -278,24 +355,27 @@ export function InputPanel({
           <div className="forecaster__compare-buttons">
             <button
               type="button"
-              className="button ghost button--compact"
-              onClick={() => onMirrorScenario("A", "B")}
+              className={`button ghost button--compact ${confirmAction === "mirrorAB" ? "button--warning" : ""}`}
+              onClick={() => handleActionClick("mirrorAB", () => onMirrorScenario("A", "B"))}
+              style={confirmAction === "mirrorAB" ? { borderColor: "var(--accent)", color: "var(--accent)" } : {}}
             >
-              Mirror A → B
+              {confirmAction === "mirrorAB" ? "Confirm Mirror A → B?" : "Mirror A → B"}
             </button>
             <button
               type="button"
-              className="button ghost button--compact"
-              onClick={() => onMirrorScenario("B", "A")}
+              className={`button ghost button--compact ${confirmAction === "mirrorBA" ? "button--warning" : ""}`}
+              onClick={() => handleActionClick("mirrorBA", () => onMirrorScenario("B", "A"))}
+              style={confirmAction === "mirrorBA" ? { borderColor: "var(--accent)", color: "var(--accent)" } : {}}
             >
-              Mirror B → A
+              {confirmAction === "mirrorBA" ? "Confirm Mirror B → A?" : "Mirror B → A"}
             </button>
             <button
               type="button"
-              className="button ghost button--compact"
-              onClick={onResetToSingleScenario}
+              className={`button ghost button--compact ${confirmAction === "resetSingle" ? "button--warning" : ""}`}
+              onClick={() => handleActionClick("resetSingle", onResetToSingleScenario)}
+              style={confirmAction === "resetSingle" ? { borderColor: "var(--accent)", color: "var(--accent)" } : {}}
             >
-              Reset to single scenario
+              {confirmAction === "resetSingle" ? "Confirm Reset?" : "Reset to single scenario"}
             </button>
           </div>
         </div>

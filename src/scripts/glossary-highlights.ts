@@ -69,18 +69,34 @@ const shouldSkipTextNode = (node: Text): boolean => {
   return Boolean(parent.closest(ignoredSelector));
 };
 
-const buildHighlightLink = (
+let highlightIndex = 0;
+
+const buildHighlightMark = (
   matchText: string,
   entry: GlossaryHighlightEntry,
-): HTMLAnchorElement => {
-  const link = document.createElement("a");
-  link.className = "glossary-highlight";
-  link.href = entry.href;
-  link.textContent = matchText;
-  link.setAttribute("data-definition", entry.definition);
-  link.setAttribute("data-glossary-slug", entry.slug);
-  link.setAttribute("aria-label", `${matchText}: ${entry.definition}`);
-  return link;
+): HTMLElement => {
+  highlightIndex++;
+  const mark = document.createElement("mark");
+  mark.className = "glossary-highlight";
+  mark.setAttribute("tabindex", "0");
+  mark.setAttribute("role", "button");
+  mark.setAttribute("data-glossary-slug", entry.slug);
+  
+  const tooltipId = `glossary-tooltip-${entry.slug}-${highlightIndex}`;
+  mark.setAttribute("aria-describedby", tooltipId);
+  mark.setAttribute("aria-label", `Glossary term: ${matchText}`);
+
+  const textNode = document.createTextNode(matchText);
+  mark.appendChild(textNode);
+
+  const tooltip = document.createElement("span");
+  tooltip.id = tooltipId;
+  tooltip.className = "glossary-tooltip";
+  tooltip.setAttribute("role", "tooltip");
+  tooltip.textContent = entry.definition;
+  
+  mark.appendChild(tooltip);
+  return mark;
 };
 
 const replaceGlossaryTerms = (node: Text): void => {
@@ -105,7 +121,7 @@ const replaceGlossaryTerms = (node: Text): void => {
     fragment.append(text.slice(lastIndex, matchIndex));
 
     if (entry) {
-      fragment.append(buildHighlightLink(matchText, entry));
+      fragment.append(buildHighlightMark(matchText, entry));
     } else {
       fragment.append(matchText);
     }
@@ -139,3 +155,31 @@ highlightRoots.forEach((root) => {
 
   textNodes.forEach((node) => replaceGlossaryTerms(node));
 });
+
+const toggleGlossaryHighlights = (enabled: boolean) => {
+  document.body.classList.toggle("disable-glossary-highlights", !enabled);
+  const highlights = document.querySelectorAll(".glossary-highlight");
+  highlights.forEach((el) => {
+    if (enabled) {
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("role", "button");
+    } else {
+      el.removeAttribute("tabindex");
+      el.removeAttribute("role");
+    }
+  });
+};
+
+const toggleCheckbox = document.getElementById("glossary-toggle") as HTMLInputElement | null;
+if (toggleCheckbox) {
+  const stored = localStorage.getItem("glossary-highlights");
+  const initiallyEnabled = stored !== "disabled";
+  toggleCheckbox.checked = initiallyEnabled;
+  toggleGlossaryHighlights(initiallyEnabled);
+
+  toggleCheckbox.addEventListener("change", () => {
+    const enabled = toggleCheckbox.checked;
+    localStorage.setItem("glossary-highlights", enabled ? "enabled" : "disabled");
+    toggleGlossaryHighlights(enabled);
+  });
+}
