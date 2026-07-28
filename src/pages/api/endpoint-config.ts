@@ -8,6 +8,8 @@ import {
   createClausesResponse,
   createCrosswalksResponse,
   createDiagnosticResultsResponse,
+  createEvalTestCasesResponse,
+  createEvalsResponse,
   createEvidencePacksResponse,
   createFindingsResponse,
   createGlossaryResponse,
@@ -31,6 +33,8 @@ export type EndpointId =
   | "clauses"
   | "crosswalks"
   | "diagnostic-results"
+  | "eval-test-cases"
+  | "evals"
   | "evidence-packs"
   | "findings"
   | "glossary"
@@ -119,6 +123,16 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
       versioned: {},
     },
     createResponse: () => createDiagnosticResultsResponse(),
+  },
+  "eval-test-cases": {
+    slug: "eval-test-cases.json",
+    variants: { unversioned: {} },
+    createResponse: () => createEvalTestCasesResponse(),
+  },
+  evals: {
+    slug: "evals.json",
+    variants: { unversioned: {} },
+    createResponse: () => createEvalsResponse(),
   },
   "evidence-packs": {
     slug: "evidence-packs.json",

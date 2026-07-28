@@ -1,3 +1,5 @@
+import { evalTestCases } from "../content/eval-test-cases";
+import { evalsContent } from "../content/evals";
 import { glossaryContent } from "../content/glossary";
 import { libraryContent } from "../content/library";
 import { researchContent } from "../content/research";
@@ -10,6 +12,8 @@ import {
   getAntiPatternsForApi,
   getClausesForApi,
   getCrosswalksForApi,
+  getEvalTestCasesForApi,
+  getEvalsForApi,
   getEvidencePacksForApi,
   getGlossaryEntriesForApi,
   getMechanismsForApi,
@@ -365,6 +369,62 @@ export const createSiteIndexResponse = (options: {
 
   return jsonResponse(payload);
 };
+
+export const createEvalsResponse = () =>
+  createCollectionResponse({
+    key: "suites",
+    items: getEvalsForApi().map((suite) => ({
+      id: suite.id,
+      type: "eval-suite",
+      slug: suite.slug,
+      title: suite.title,
+      description: suite.description,
+      version: suite.version,
+      status: suite.status,
+      category: suite.category,
+      standardRefs: suite.standardRefs,
+      glossaryRefs: suite.glossaryRefs,
+      scoringMethod: {
+        type: suite.scoringMethod.type,
+        passingScore: suite.scoringMethod.passingScore,
+        failureThreshold: suite.scoringMethod.failureThreshold,
+      },
+      estimatedTime: suite.estimatedTime,
+      deliverables: suite.deliverables,
+      href: `/evals/${suite.slug}`,
+      testCount: evalTestCases.filter((tc) => tc.suiteId === suite.id).length,
+      refs: [...suite.standardRefs, ...suite.glossaryRefs],
+      deprecated_by: null,
+      supersedes: [],
+    })),
+    permalink: evalsContent.permalink,
+    release: releaseInfo,
+  });
+
+export const createEvalTestCasesResponse = () =>
+  createCollectionResponse({
+    key: "testCases",
+    items: getEvalTestCasesForApi().map((tc) => ({
+      id: tc.id,
+      type: "eval-test-case",
+      suiteId: tc.suiteId,
+      title: tc.title,
+      description: tc.description,
+      category: tc.category,
+      severity: tc.severity,
+      status: tc.status,
+      scoringRubric: tc.scoringRubric,
+      estimatedRunTime: tc.estimatedRunTime,
+      relatedStandardRefs: tc.relatedStandardRefs,
+      relatedGlossaryTerms: tc.relatedGlossaryTerms,
+      href: `/evals/${evalsContent.suites.find((s) => s.id === tc.suiteId)?.slug ?? ""}`,
+      refs: [...tc.relatedStandardRefs, ...tc.relatedGlossaryTerms],
+      deprecated_by: null,
+      supersedes: [],
+    })),
+    permalink: evalsContent.permalink,
+    release: releaseInfo,
+  });
 
 export const createRagCorpusResponse = (limit?: number) => {
   const payload = getRagCorpusLines({ limit });

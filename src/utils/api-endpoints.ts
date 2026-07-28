@@ -12,6 +12,8 @@ const CORE_ENDPOINT_PATHS = [
   "post-market-monitoring.json",
   "findings.json",
   "diagnostic-results.json",
+  "eval-test-cases.json",
+  "evals.json",
   "rag-corpus.jsonl",
   "research.json",
 ] as const;

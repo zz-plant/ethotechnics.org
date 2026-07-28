@@ -5,36 +5,70 @@ import SectionBlock from "../SectionBlock.astro";
 <SectionBlock
   id="difference"
   eyebrow="How it's different"
-  title="A clear contrast with traditional governance decks."
-  description="Designed to augment compliance teams with artifacts they can actually use."
+  title="Existing standards ask: 'Did you manage risk?' Ethotechnics asks: 'Can this system be stopped when it's harming someone?'"
+  description="Not a replacement for NIST, OECD, or the EU AI Act. The enforcement layer they leave undertreated."
   variant="alt"
 >
+  <p>
+    Most AI governance frameworks improve documentation, oversight, and
+    accountability. Ethotechnics addresses what they leave undertreated:
+    whether a running system can actually be halted, reversed, and repaired
+    under stress — on a clock that matters to the person being harmed.
+  </p>
   <div class="mapping-table__wrapper">
     <table class="mapping-table mapping-table--compare">
       <thead>
         <tr>
-          <th scope="col">This is not</th>
-          <th scope="col">This is</th>
+          <th scope="col">Existing standard says</th>
+          <th scope="col">Ethotechnics requires</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td data-label="This is not">Ethics principles</td>
-          <td data-label="This is">Testable obligations</td>
+          <td>
+            "Maintain human oversight"<br />
+            <span class="small muted">EU AI Act, Art. 14</span>
+          </td>
+          <td>
+            Named human with stop authority, tested halt path, recovery clock
+          </td>
         </tr>
         <tr>
-          <td data-label="This is not">Policy PDFs</td>
-          <td data-label="This is">Versioned artifacts</td>
+          <td>
+            "Manage risks across the AI lifecycle"<br />
+            <span class="small muted">NIST AI RMF</span>
+          </td>
+          <td>
+            Measurable time-in-harm bounds, exercised rollback and restoration
+            paths
+          </td>
         </tr>
         <tr>
-          <td data-label="This is not">Review committees</td>
-          <td data-label="This is">Diagnostic outputs</td>
+          <td>
+            "Conduct conformity assessment"<br />
+            <span class="small muted">ISO/IEC 42001</span>
+          </td>
+          <td>
+            Evidence that the system can be stopped mid-incident, not just
+            documented as compliant
+          </td>
         </tr>
         <tr>
-          <td data-label="This is not">Trust-based governance</td>
-          <td data-label="This is">Evidence-based governance</td>
+          <td>
+            "Implement responsible AI principles"<br />
+            <span class="small muted">OECD AI Principles</span>
+          </td>
+          <td>
+            Binding escalation: owner + timer + action, or the system degrades
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <p class="muted small">
+    Ethotechnics treats governability as an operational capability with
+    measurable performance properties — not a compliance posture. See the
+    <a href="/standards/#comparison">full standards comparison</a> for the
+    detailed analysis.
+  </p>
 </SectionBlock>

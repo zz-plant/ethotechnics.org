@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import HomeDifference from "../components/home/HomeDifference.astro";
 import { failureStates } from "../content/institute-site";
 import { renderCompactScene, type SceneType } from "../data/scenes";
 
@@ -81,6 +82,11 @@ const failureChoiceIcons: Record<string, string[]> = {
         </h1>
         <p class="section-lead">
           Use open standards, checklists, examples, and diagnostics to turn AI governance from abstract intent into visible operating controls. Start with a live decision, an incident, or a policy gap; leave with owners, clocks, evidence, and next actions.
+        </p>
+        <p class="small muted">
+          Existing frameworks answer: "Did you manage risk responsibly?" This one
+          answers: "Can this system be stopped when it's harming someone?"
+          <a href="/standards/#comparison">See how it differs →</a>
         </p>
         <p class="small">
           For commercial application of the framework (clinical AI safety evaluation, VC
@@ -227,6 +233,8 @@ const failureChoiceIcons: Record<string, string[]> = {
     </div>
     </section>
   </div>
+
+  <HomeDifference />
 
   <div class="home-supplement">
     <section class="stack-sm card card--flat">

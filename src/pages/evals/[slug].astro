@@ -1,0 +1,334 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import { evalsContent } from "../../content/evals";
+import { evalTestCases } from "../../content/eval-test-cases";
+import type { EvalSuite, EvalTestCase } from "../../content/evals";
+
+export const getStaticPaths = () =>
+  evalsContent.suites.map((suite) => ({
+    params: { slug: suite.slug },
+    props: { suite },
+  }));
+
+const { suite } = Astro.props as { suite: EvalSuite };
+const testCases = evalTestCases.filter((tc) => tc.suiteId === suite.id);
+
+if (!suite) {
+  return new Response("Eval suite not found", { status: 404 });
+}
+
+const pageTitle = `${suite.title} — Governance Evals — Ethotechnics`;
+const permalink = `/evals/${suite.slug}`;
+
+const scoringMethodLabel = (() => {
+  switch (suite.scoringMethod.type) {
+    case "weighted-average": return "Weighted average";
+    case "min-threshold": return "Min-threshold";
+    case "all-must-pass": return "All must pass";
+  }
+})();
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={suite.description}
+  publishedTime={evalsContent.published}
+  structuredDataType="collection"
+>
+  <PageIntro
+    eyebrow={suite.category}
+    title={suite.title}
+    titleLevel={1}
+    description={suite.description}
+    permalink={permalink}
+    anchorLinks={[
+      { href: "#about", label: "About this suite" },
+      { href: "#test-cases", label: `Test cases (${testCases.length})` },
+      { href: "#run", label: "Run this eval" },
+      { href: "#citation", label: "Citation" },
+    ]}
+    panelCopy={{
+      eyebrow: suite.status === "stable" ? "Stable" : "Draft",
+      title: suite.title,
+      description: suite.longDescription,
+    }}
+  />
+
+  <SectionBlock
+    id="about"
+    eyebrow="About this suite"
+    title={suite.title}
+    description={suite.longDescription}
+  >
+    <div class="grid grid--two">
+      <div class="panel stack-sm">
+        <p class="eyebrow">Details</p>
+        <ul class="card__list">
+          <li>Version: {suite.version}</li>
+          <li>
+            Status:
+            <span class={`status-badge status-badge--${suite.status}`}>
+              {suite.status}
+            </span>
+          </li>
+          <li>Estimated time: {suite.estimatedTime}</li>
+          <li>Test cases: {testCases.length}</li>
+        </ul>
+      </div>
+      <div class="panel stack-sm">
+        <p class="eyebrow">Scoring method</p>
+        <ul class="card__list">
+          <li>Method: {scoringMethodLabel}</li>
+          <li>Passing score: {suite.scoringMethod.passingScore}%</li>
+          <li>Failure threshold: {suite.scoringMethod.failureThreshold}%</li>
+        </ul>
+      </div>
+    </div>
+
+    {
+      suite.standardRefs.length > 0 && (
+        <div class="panel stack-sm">
+          <p class="eyebrow">Related standards</p>
+          <ul class="muted">
+            {suite.standardRefs.map((ref) => (
+              <li>
+                <a href={`/standards/${ref.toLowerCase().replace(/\./g, "-")}`}>{ref}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      suite.glossaryRefs.length > 0 && (
+        <div class="panel stack-sm">
+          <p class="eyebrow">Related glossary terms</p>
+          <ul class="muted">
+            {suite.glossaryRefs.map((ref) => (
+              <li>
+                <a href={`/glossary/${ref}`}>{ref.replace(/-/g, " ")}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    <div class="panel stack-sm">
+      <p class="eyebrow">Deliverables</p>
+      <ul class="card__list">
+        {suite.deliverables.map((d) => (
+          <li>{d}</li>
+        ))}
+      </ul>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="test-cases"
+    eyebrow="Test cases"
+    title={`${testCases.length} test case${testCases.length === 1 ? "" : "s"}`}
+    description="Each test case includes a prompt, pass criteria, fail indicators, scoring rubric, and evidence requirements."
+    variant="alt"
+  >
+    {
+      testCases.map((tc: EvalTestCase) => (
+        <details class="eval-test-case">
+          <summary class="eval-test-case__summary">
+            <span class="eval-test-case__id">{tc.id}</span>
+            <span class="eval-test-case__title">{tc.title}</span>
+            <span class={`status-badge status-badge--severity-${tc.severity}`}>
+              {tc.severity}
+            </span>
+          </summary>
+          <div class="eval-test-case__body">
+            <p class="muted">{tc.description}</p>
+
+            <div class="grid grid--two eval-test-case__sections">
+              <div class="panel stack-sm">
+                <p class="eyebrow">Pass criteria</p>
+                <ul class="card__list">
+                  {tc.passCriteria.map((c) => <li>{c}</li>)}
+                </ul>
+              </div>
+              <div class="panel stack-sm">
+                <p class="eyebrow">Fail indicators</p>
+                <ul class="card__list">
+                  {tc.failIndicators.map((i) => <li>{i}</li>)}
+                </ul>
+              </div>
+            </div>
+
+            <div class="panel stack-sm">
+              <p class="eyebrow">Scoring rubric ({tc.scoringRubric.scale})</p>
+              <table class="eval-test-case__rubric">
+                <thead>
+                  <tr>
+                    <th>Score</th>
+                    <th>Label</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tc.scoringRubric.anchors.map((anchor) => (
+                    <tr>
+                      <td>{anchor.score}</td>
+                      <td><strong>{anchor.label}</strong></td>
+                      <td class="muted">{anchor.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="panel stack-sm">
+              <p class="eyebrow">Evidence required</p>
+              <ul class="card__list">
+                {tc.evidenceRequired.map((e) => <li>{e}</li>)}
+              </ul>
+            </div>
+
+            <p class="muted small">
+              Est. run time: {tc.estimatedRunTime}
+              {tc.notes && <> · Note: {tc.notes}</>}
+            </p>
+          </div>
+        </details>
+      ))
+    }
+  </SectionBlock>
+
+  <SectionBlock
+    id="run"
+    eyebrow="Run this eval"
+    title="Run this suite"
+    description="Open the eval runner pre-loaded with this suite's test cases."
+  >
+    <p>
+      <a class="button primary" href={`/evals/runner?suite=${suite.slug}`}>
+        Run {suite.slug} suite
+      </a>
+    </p>
+  </SectionBlock>
+
+  <SectionBlock id="citation" eyebrow="Citation" title="Cite this suite" variant="alt">
+    <CitationBlock
+      title={`${suite.title} — Governance Eval Suite`}
+      permalink={permalink}
+      publication={evalsContent.publication}
+      variant="compact"
+    />
+  </SectionBlock>
+</BaseLayout>
+
+<style>
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.1rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .status-badge--draft {
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    color: var(--accent);
+  }
+
+  .status-badge--stable {
+    background: color-mix(in srgb, #2d8a4a 16%, transparent);
+    color: #2d8a4a;
+  }
+
+  .status-badge--severity-critical {
+    background: color-mix(in srgb, #c52828 16%, transparent);
+    color: #c52828;
+  }
+
+  .status-badge--severity-high {
+    background: color-mix(in srgb, #b35218 16%, transparent);
+    color: #b35218;
+  }
+
+  .status-badge--severity-medium {
+    background: color-mix(in srgb, #b3a218 16%, transparent);
+    color: #8a7a10;
+  }
+
+  .status-badge--severity-low {
+    background: color-mix(in srgb, #6b7280 16%, transparent);
+    color: #4b5563;
+  }
+
+  .eval-test-case {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  .eval-test-case__summary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .eval-test-case__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .eval-test-case__id {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    min-width: 4.5rem;
+  }
+
+  .eval-test-case__title {
+    flex: 1;
+    font-weight: 600;
+  }
+
+  .eval-test-case__body {
+    padding: 0 1rem 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .eval-test-case__sections {
+    margin-top: 1rem;
+  }
+
+  .eval-test-case__rubric {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  .eval-test-case__rubric th,
+  .eval-test-case__rubric td {
+    padding: 0.35rem 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eval-test-case__rubric th {
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+</style>

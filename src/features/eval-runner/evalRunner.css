@@ -1,0 +1,341 @@
+.eval-runner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.eval-runner__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.eval-runner__title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.eval-runner__title-row h2,
+.eval-runner__header h2 {
+  margin: 0;
+}
+
+.eval-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.eval-selector__card {
+  cursor: pointer;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.eval-selector__card:hover {
+  border-color: var(--accent);
+}
+
+.eval-selector__title {
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+.eval-progress {
+  width: 100%;
+  height: 6px;
+  background: var(--panel);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.eval-progress__fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.2s ease;
+}
+
+.eval-question {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.eval-question__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.eval-question__id {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--text) 60%, transparent);
+}
+
+.eval-question h3 {
+  margin: 0;
+}
+
+.eval-question__anchors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.eval-question__radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.eval-question__radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  flex-wrap: wrap;
+}
+
+.eval-question__radio:hover {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+.eval-question__radio input[type="radio"] {
+  accent-color: var(--accent);
+}
+
+.eval-question__radio-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.eval-question__radio-desc {
+  width: 100%;
+  padding-left: 1.5rem;
+}
+
+.eval-question__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.eval-question__textarea {
+  resize: vertical;
+  min-height: 3rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.eval-question__criteria {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: var(--panel);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.eval-question__criteria ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1rem;
+}
+
+.eval-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.severity--critical {
+  background: rgba(248, 113, 113, 0.15);
+  color: #b91c1c;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.severity--high {
+  background: rgba(251, 146, 60, 0.15);
+  color: #c2410c;
+  border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.severity--medium {
+  background: rgba(250, 204, 21, 0.15);
+  color: #a16207;
+  border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
+.severity--low {
+  background: rgba(156, 163, 175, 0.15);
+  color: #4b5563;
+  border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.eval-results__grade {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.grade-pass {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.grade-conditional {
+  background: rgba(250, 204, 21, 0.1);
+  border-color: rgba(250, 204, 21, 0.4);
+}
+
+.grade-fail {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.4);
+}
+
+.eval-results__score {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.grade-pass .eval-results__score {
+  color: #047857;
+}
+
+.grade-conditional .eval-results__score {
+  color: #b45309;
+}
+
+.grade-fail .eval-results__score {
+  color: #b91c1c;
+}
+
+.eval-results__badge {
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+}
+
+.grade-pass .eval-results__badge {
+  background: rgba(16, 185, 129, 0.15);
+  color: #047857;
+}
+
+.grade-conditional .eval-results__badge {
+  background: rgba(250, 204, 21, 0.15);
+  color: #b45309;
+}
+
+.grade-fail .eval-results__badge {
+  background: rgba(248, 113, 113, 0.15);
+  color: #b91c1c;
+}
+
+.eval-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.eval-results h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.eval-result-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+.eval-result-row__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.eval-result-row__id {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--text) 60%, transparent);
+  min-width: 4rem;
+}
+
+.eval-result-row__title {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.eval-result-row__score {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.eval-result-row__score--pass {
+  color: #047857;
+}
+
+.eval-result-row__score--fail {
+  color: #b91c1c;
+}
+
+.eval-result-row__evidence {
+  padding-left: 0.25rem;
+}
+
+@media (max-width: 900px) {
+  .eval-question__criteria {
+    grid-template-columns: 1fr;
+  }
+
+  .eval-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .eval-actions {
+    flex-wrap: wrap;
+  }
+}
+
+.eval-progress__fill {
+  transition: width 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eval-progress__fill,
+  .eval-selector__card {
+    transition: none;
+  }
+}

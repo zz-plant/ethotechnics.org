@@ -1,3 +1,5 @@
+import { evalTestCases } from "../content/eval-test-cases";
+import { evalsContent } from "../content/evals";
 import { glossaryContent } from "../content/glossary";
 import { libraryContent } from "../content/library";
 import {
@@ -416,3 +418,7 @@ export const getRagCorpusLines = (options?: { limit?: number }) => {
 
   return lines.join("\n");
 };
+
+export const getEvalsForApi = () => evalsContent.suites;
+
+export const getEvalTestCasesForApi = () => evalTestCases;

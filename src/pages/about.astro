@@ -44,6 +44,81 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </section>
 
   <section class="stack-sm card">
+    <p class="eyebrow">What existing standards don't cover</p>
+    <h2>The gap Ethotechnics addresses</h2>
+    <p>
+      NIST AI RMF tells you to manage risk. EU AI Act tells you to document
+      compliance. ISO/IEC 42001 tells you to build a management system. OECD
+      AI Principles tell you to be responsible. None of them tell you whether
+      your system can actually be stopped when it's harming someone.
+    </p>
+    <p>
+      Existing frameworks govern by representation: documents, roles, reviews,
+      and attestations. Ethotechnics governs by control: stop rules, binding
+      clocks, rollback authority, and contestability that changes state.
+    </p>
+    <table class="mapping-table mapping-table--compare">
+      <thead>
+        <tr>
+          <th scope="col">Existing standard says</th>
+          <th scope="col">Ethotechnics requires</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Maintain human oversight" <span class="small muted">(EU AI Act, Art. 14)</span></td>
+          <td>Named human with stop authority, tested halt path, recovery clock</td>
+        </tr>
+        <tr>
+          <td>"Manage risks across the AI lifecycle" <span class="small muted">(NIST AI RMF)</span></td>
+          <td>Measurable time-in-harm bounds, exercised rollback paths</td>
+        </tr>
+        <tr>
+          <td>"Conduct conformity assessment" <span class="small muted">(ISO/IEC 42001)</span></td>
+          <td>Evidence the system can be stopped mid-incident, not just documented as compliant</td>
+        </tr>
+        <tr>
+          <td>"Implement responsible AI principles" <span class="small muted">(OECD)</span></td>
+          <td>Binding escalation: owner + timer + action, or the system degrades</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="small muted">
+      Ethotechnics does not compete with these standards on whether governance
+      is "important." It addresses what they leave undertreated:
+      <a href="/standards/#comparison">see the full comparison →</a>
+    </p>
+  </section>
+
+  <section class="stack-sm card">
+    <p class="eyebrow">The governance landscape</p>
+    <h2>Where Ethotechnics fits</h2>
+    <p>
+      AI governance is a $440M market growing at 28% annually. Enterprises
+      invest in compliance platforms, evaluation tools, and guardrail systems
+      to meet emerging regulatory requirements.
+    </p>
+    <p>
+      Ethotechnics is not a product. It is the open standard that products can
+      measure against. The Institute publishes benchmarks and test cases that
+      governance platforms should be evaluated against — the same way NIST
+      publishes frameworks that compliance tools implement, or OWASP publishes
+      standards that security tools enforce.
+    </p>
+    <p>
+      The Institute provides the open standards. The Studio provides the
+      certified evaluations.
+    </p>
+    <p class="small muted">
+      For commercial application (clinical AI safety evaluation, VC diligence,
+      governance advisory), see
+      <a href="https://ethotechnics.com/studio/" rel="noopener noreferrer" target="_blank">
+        Ethotechnics Studio →
+      </a>
+    </p>
+  </section>
+
+  <section class="stack-sm card">
     <p class="eyebrow">Foundations</p>
     <h2>Start with these core resources</h2>
     <ul>
@@ -51,9 +126,57 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <li><a href="/mechanisms">Mechanisms catalog</a> for decision logs, escalation patterns, and reversibility tools.</li>
       <li><a href="/diagnostics">Diagnostics</a> for interactive self-serve tools.</li>
       <li><a href="/standards">Standards</a> for formal, versioned control definitions.</li>
+      <li><a href="/evals">Eval suites</a> for governance benchmark suites.</li>
       <li><a href="/field-notes">Field notes</a> for applied essays and observations.</li>
       <li><a href="/quick-start">Quick start guides</a> for role-specific entry paths.</li>
     </ul>
+  </section>
+
+  <section class="stack-sm card">
+    <p class="eyebrow">What existing standards don't cover</p>
+    <h2>The gap Ethotechnics addresses</h2>
+    <p>
+      NIST AI RMF tells you to manage risk. EU AI Act tells you to document
+      compliance. ISO/IEC 42001 tells you to build a management system.
+      None of them tell you whether your system can actually be stopped when
+      it's harming someone.
+    </p>
+    <p>
+      Those frameworks improve documentation, oversight, and accountability.
+      They are useful. But in high-stakes systems, the dominant failure mode
+      is now temporal: decisions occur at machine speed while reversal occurs
+      at institutional speed. In that gap, harm compounds.
+    </p>
+    <p>
+      Ethotechnics treats governability as an operational capability — not a
+      compliance posture. It asks whether a running system can be halted,
+      reversed, and repaired under stress, on a clock that matters to the
+      person being harmed.
+    </p>
+    <p>
+      <a href="/standards/#comparison">See the full standards comparison →</a>
+    </p>
+  </section>
+
+  <section class="stack-sm card">
+    <p class="eyebrow">The governance landscape</p>
+    <h2>Where Ethotechnics fits</h2>
+    <p>
+      AI governance is a growing market. Enterprises spend on compliance
+      platforms, evaluation tools, and guardrail systems. These products
+      build governance features into software.
+    </p>
+    <p>
+      Ethotechnics is not a product. It is the open standard that products
+      can measure against. The Institute publishes benchmarks, test cases,
+      and versioned standards. Vendors build tools that implement those
+      standards. Organizations use both to demonstrate governance to
+      auditors, regulators, and affected people.
+    </p>
+    <p>
+      The Institute provides the open standards. The Studio provides the
+      <a href="https://ethotechnics.com/studio/" rel="noopener noreferrer" target="_blank">certified evaluations</a>.
+    </p>
   </section>
 
   <section class="stack-sm card">
