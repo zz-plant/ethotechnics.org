@@ -301,11 +301,6 @@ export const bindSearchInstance = (
       return;
     }
 
-    if (event.key === "ArrowUp" && currentIndex === 0) {
-      input.focus();
-      return;
-    }
-
     const prevIndex = currentIndex - 1;
     (focusable[prevIndex] ?? focusable[focusable.length - 1]).focus();
   });

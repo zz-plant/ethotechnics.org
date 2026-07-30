@@ -35,12 +35,14 @@ describe("deployment configuration", () => {
     const packageJson = (await Bun.file("package.json").json()) as {
       scripts?: Record<string, string>;
     };
-    const deployWorkflow = await Bun.file(".github/workflows/deploy.yml").text();
 
     expect(packageJson.scripts?.deploy).toContain("--config dist/server/wrangler.json");
     expect(packageJson.scripts?.["deploy:preview"]).toContain("--config dist/server/wrangler.json");
     expect(packageJson.scripts?.["preview:cf"]).toContain("--config dist/server/wrangler.json");
     expect(packageJson.scripts?.build).toContain("bun run patch:cf-worker");
-    expect(deployWorkflow).toContain("wrangler deploy --config dist/server/wrangler.json");
+
+    // Deployment is manual via `bun run deploy`; there is no legacy GitHub
+    // Actions workflow in this repo.
+    expect(await Bun.file(".github/workflows/deploy.yml").exists()).toBe(false);
   });
 });
