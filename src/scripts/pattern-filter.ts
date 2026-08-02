@@ -774,7 +774,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       if (content) {
         content.classList.remove("is-open");
         setTimeout(() => {
-          drawer.close();
+          drawer?.close();
         }, 240);
       } else {
         drawer?.close();

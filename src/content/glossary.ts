@@ -1700,20 +1700,3 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["M. Foundational Ethotechnic principles"],
   },
 ];
-
-const glossaryIndex = glossaryTerms.reduce<Record<string, GlossaryTerm>>(
-  (index, term) => {
-    index[term.slug] = term;
-    return index;
-  },
-  {},
-);
-
-const formatSlug = (slug: string) =>
-  slug
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-
-export const getGlossaryLabel = (slug: string) =>
-  glossaryIndex[slug]?.term ?? formatSlug(slug);
