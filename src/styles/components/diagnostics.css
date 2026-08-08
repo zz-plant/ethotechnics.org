@@ -1,0 +1,286 @@
+@layer components {
+  .diagnostic-tool__form {
+    background: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--panel) 95%, white 5%),
+      color-mix(in srgb, var(--surface) 92%, white 8%)
+    );
+    border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
+  }
+  .diagnostics__filters {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .diagnostics__calculator {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .diagnostics__slider-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .diagnostics__slider {
+    padding: 1rem 1.15rem;
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    display: grid;
+    gap: 0.6rem;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .diagnostics__slider-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    font-weight: 600;
+  }
+
+  .diagnostics__slider input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+  }
+
+  .diagnostics__slider-value {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .diagnostics__scorecard {
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+    background: color-mix(in srgb, var(--panel) 92%, white 8%);
+    box-shadow: var(--shadow-xs);
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .diagnostics__score {
+    margin: 0;
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    font-weight: 700;
+  }
+
+  .diagnostics__score-label {
+    margin-top: 0;
+  }
+  .diagnostics__process {
+    list-style: none;
+    padding: 0;
+    margin: 1.6rem 0 0.5rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .diagnostics__process-step {
+    padding: 1.15rem 1.25rem;
+    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .diagnostics__process-step .eyebrow {
+    margin-bottom: 0.35rem;
+  }
+
+  .diagnostics__footnote {
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 780px) {
+    .diagnostics__process {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 880px) {
+    .diagnostics__calculator {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .diagnostics__slider-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    }
+  }
+
+  .diagnostics__tool-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  }
+
+  .diagnostics__card-body {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .diagnostics__best-for {
+    margin-top: 0;
+  }
+
+  .diagnostics__summary {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .diagnostics__summary .pill-list {
+    margin-top: 0.8rem;
+  }
+
+  .diagnostics__label {
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  .diagnostics__card-footer {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.4rem;
+  }
+
+  .diagnostics__pairing {
+    margin: 0;
+  }
+
+  .diagnostics__artifact-bridge {
+    margin: 0;
+  }
+
+  .diagnostics__artifact-bridge ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .diagnostics__sticky-jump {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    z-index: var(--z-overlay-top);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0.6rem;
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    background: color-mix(in srgb, var(--panel) 93%, white 7%);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .diagnostics__sticky-jump .button {
+    min-height: 2.35rem;
+    justify-content: center;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .diagnostics__sticky-jump .button.is-active {
+    border-color: color-mix(in srgb, var(--accent) 44%, var(--border));
+    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+    color: var(--accent-strong);
+  }
+
+  .diagnostics__sticky-link {
+    text-align: center;
+    text-decoration: none;
+    padding: 0.1rem 0.4rem 0;
+  }
+
+  .diagnostics__sticky-link.is-active {
+    color: var(--accent-strong);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  @media (min-width: 900px) {
+    .diagnostics__sticky-jump {
+      position: static;
+      grid-template-columns: minmax(0, 1fr);
+      margin: 1rem 0 1.25rem;
+    }
+
+    body:has(.diagnostics__sticky-jump) .page-shell__panel {
+      padding-bottom: clamp(1.2rem, 2.5vw, 2.5rem);
+    }
+  }
+
+  .diagnostics__mobile-disclosure {
+    margin: 0;
+  }
+
+  @media (max-width: 899px) {
+    #diagnostic-tools {
+      scroll-margin-bottom: 7rem;
+    }
+
+    .diagnostics__sticky-jump + * {
+      margin-top: 0;
+    }
+
+    body:has(.diagnostics__sticky-jump) .page-shell__panel {
+      padding-bottom: clamp(5.8rem, 18vw, 7.2rem);
+    }
+  }
+
+  .diagnostics__comparison {
+    display: grid;
+    gap: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .diagnostics__comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 0.8rem;
+  }
+
+  .diagnostics__comparison-card {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .diagnostics__comparison-card h3 {
+    margin: 0;
+  }
+
+  .diagnostics__comparison-meta {
+    margin: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .diagnostics__comparison-meta div {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .diagnostics__comparison-meta dt {
+    font-weight: 600;
+  }
+
+  .diagnostics__comparison-meta dd {
+    margin: 0;
+  }
+
+  .diagnostics__compare {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+}

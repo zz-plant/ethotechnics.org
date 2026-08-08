@@ -357,7 +357,7 @@
   .card__list--alert li,
   .card__list--bounded li {
     padding: 0.45rem 0.75rem;
-    border-radius: 0.85rem;
+    border-radius: var(--radius-xl);
     background: color-mix(in srgb, var(--surface) 92%, white 8%);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
   }
@@ -558,33 +558,13 @@
   }
 
   .status-badge--stable {
-    background: color-mix(in srgb, #2d8a4a 16%, transparent);
-    color: #2d8a4a;
+    background: color-mix(in srgb, var(--status-success) 16%, transparent);
+    color: var(--status-success);
   }
 
   .status-badge--deprecated {
-    background: color-mix(in srgb, #b35218 16%, transparent);
-    color: #b35218;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not(.light) .status-badge--stable {
-      background: color-mix(in srgb, #4ade80 20%, transparent);
-      color: #4ade80;
-    }
-    :root:not(.light) .status-badge--deprecated {
-      background: color-mix(in srgb, #f97316 20%, transparent);
-      color: #f97316;
-    }
-  }
-
-  :root.dark .status-badge--stable {
-    background: color-mix(in srgb, #4ade80 20%, transparent);
-    color: #4ade80;
-  }
-  :root.dark .status-badge--deprecated {
-    background: color-mix(in srgb, #f97316 20%, transparent);
-    color: #f97316;
+    background: color-mix(in srgb, var(--status-warning) 16%, transparent);
+    color: var(--status-warning);
   }
 
   .standard-status__changelog {
