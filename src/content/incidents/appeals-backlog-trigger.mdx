@@ -1,0 +1,35 @@
+---
+slug: "appeals-backlog-trigger"
+title: "Appeals backlog triggers unnoticed harm loops"
+description: "A surge in appeal volume stalled remediation timelines, leaving affected users in unresolved states for weeks."
+permalink: "/incidents/appeals-backlog-trigger"
+eyebrow: "Incident"
+published: "2026-02-14T00:00:00Z"
+updated: "2026-02-20T00:00:00Z"
+tags: ["financial services", "appeals", "repair SLA"]
+glossaryRefs: ["appeal-event", "repair-sla", "burden-hours"]
+mechanismRefs: []
+standardRefs: []
+incident:
+  headline: "Appeal triage delay compounded user burden."
+  impact: "Prolonged access suspension and inconsistent communications."
+  sector: "Financial services"
+  timeframe: "2026 Q1"
+governanceFailures:
+  - "No automated escalation when repair SLAs crossed risk thresholds."
+  - "Insufficient staffing model for volume spikes."
+  - "Missing user-visible status updates during queue backlog."
+signalsToWatch:
+  - "Appeal queue length vs. staffed capacity."
+  - "Percentage of cases breaching repair SLA targets."
+  - "Average response time per escalation tier."
+remediationChecklist:
+  - "Define escalation triggers tied to SLA breaches."
+  - "Publish queue status and expected resolution windows."
+  - "Instrument backlog health dashboards for on-call review."
+sources:
+  - label: "Incident memo template"
+    href: "/standards/incident-memo"
+  - label: "Repair SLA schema"
+    href: "/standards/repair-sla.schema.json"
+---

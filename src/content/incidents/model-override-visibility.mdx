@@ -1,0 +1,35 @@
+---
+slug: "model-override-visibility"
+title: "Model overrides happened without audit trace"
+description: "Human overrides removed automated denials, but the rationale was never logged for later audit review."
+permalink: "/incidents/model-override-visibility"
+eyebrow: "Incident"
+published: "2026-02-05T00:00:00Z"
+updated: "2026-02-05T00:00:00Z"
+tags: ["public benefits", "model overrides", "auditability"]
+glossaryRefs: ["decision-record", "auditability"]
+mechanismRefs: []
+standardRefs: []
+incident:
+  headline: "Manual decisions skipped decision-log capture."
+  impact: "Inconsistent outcomes and incomplete accountability trails."
+  sector: "Public benefits"
+  timeframe: "2025 Q4"
+governanceFailures:
+  - "Decision record capture did not include human override flows."
+  - "No shared reasoning schema for override justification."
+  - "Audit reviews lacked visibility into resolution outcomes."
+signalsToWatch:
+  - "Rate of manual overrides per decision category."
+  - "Percentage of overrides missing rationale metadata."
+  - "Audit sample completeness for override cases."
+remediationChecklist:
+  - "Extend decision-log middleware to capture overrides."
+  - "Require structured rationale fields before approval."
+  - "Sample override outcomes in monthly audits."
+sources:
+  - label: "Decision record schema"
+    href: "/standards/decision-record.schema.json"
+  - label: "Audit playbook"
+    href: "/library/diagnostics"
+---

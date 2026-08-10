@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+export async function getStaticPaths() {
+  const evidencePacks = await getCollection("evidencePacks");
+  return evidencePacks.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const {
+  title,
+  description,
+  permalink,
+  sections,
+  checklists,
+  standardId,
+  standardTitle,
+} = entry.data;
+
+const pageTitle = `${title} — Ethotechnics Institute`;
+---
+
+<BaseLayout title={pageTitle} description={description} publishedTime="2025-06-01T00:00:00.000Z">
+  <PageIntro
+    eyebrow="Evidence pack"
+    title={title}
+    description={description}
+    permalink={permalink}
+    anchorLinks={[
+      ...sections.map((section, index) => ({
+        href: `#section-${index}`,
+        label: section.title,
+      })),
+      { href: "#referenced-by", label: "Referenced by" },
+    ]}
+    panelCopy={{
+      eyebrow: "Proof-carrying compliance",
+      title: `${standardTitle} (${standardId})`,
+      description: `Evidence packs translate ${standardTitle} clause obligations into artifact inventories, test batteries, and auditor-ready exports.`,
+    }}
+  />
+
+  {sections.map((section, index) => (
+    <SectionBlock
+      id={`section-${index}`}
+      eyebrow={section.required ? "Required" : "Optional"}
+      title={section.title}
+      description={section.required ? "Required for compliance." : "Optional deeper evidence."}
+      variant={index % 2 === 0 ? "default" : "alt"}
+    >
+      <div set:html={section.content} />
+    </SectionBlock>
+  ))}
+
+  {checklists.map((checklist) => (
+    <SectionBlock
+      id="referenced-by"
+      eyebrow="Referenced by"
+      title={checklist.title}
+      description="Cross-links keep evidence packs aligned with standards, bindings, and validators."
+      variant="alt"
+    >
+      <div class="grid grid--three">
+        {checklist.items.map((item) => (
+          <div class="panel">
+            <p class="muted">{item}</p>
+          </div>
+        ))}
+      </div>
+    </SectionBlock>
+  ))}
+</BaseLayout>

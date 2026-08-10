@@ -1,0 +1,57 @@
+---
+slug: "std-02"
+title: "STD-02 Evidence Pack"
+description: "Tiered evidence requirements for contestability, review, and remedy obligations in STD-02."
+permalink: "/evidence-packs/std-02"
+eyebrow: "Evidence Pack"
+standardId: "STD-02"
+standardTitle: "Contestability & Recourse"
+published: "2025-06-01"
+updated: "2025-06-01"
+sections:
+  - title: "Tiered evidence model"
+    content: |
+      **Tier 0 (minimum):** Proof the contestation path exists and is reachable in-product. Evidence: UI links, receipt payloads, and appeal intake records.
+
+      **Tier 1 (operational):** Proof that appeals are reviewed and clocks are honored. Evidence: Reviewer rosters, appeal outcomes, and clock compliance dashboards.
+
+      **Tier 2 (resilient):** Proof that contestation survives scale, incident load, and exceptions. Evidence: Postmortems, exception audits, and throughput stress tests.
+
+      Receipt payloads should conform to the Agent Receipt schema for audit-ready evidence packs.
+    required: true
+  - title: "Clause evidence list"
+    content: "Minimum bundles for each STD-02 clause. Clause evidence is dynamically generated from the standard clauses."
+    required: true
+  - title: "Anti-weaponization evidence"
+    content: |
+      **AW-01:** Burden remediation plan tied to contestability metrics.
+
+      **AW-02:** Appeal path regression tests + public replacement notice.
+
+      **AW-03:** Receipts + clock compliance for automated downgrades.
+
+      **AW-04:** Assisted channel logs with escalation outcomes.
+
+      Pair this with diagnostics checks to validate AW compliance.
+    required: true
+  - title: "How teams fake this"
+    content: |
+      - Appeal links exist but lead to dead ends or generic inboxes.
+      - Review clocks are defined but not visible to impacted people.
+      - Manual review happens, but there is no audit trail of outcomes or reversals.
+      - Exception paths are used to avoid remedies without any expiry or review cadence.
+    required: true
+  - title: "What auditors ask"
+    content: |
+      - Show appeal outcomes for the last quarter and the median review time.
+      - Demonstrate how many remedies were delivered within the remedy clock.
+      - Provide evidence that exception classes are time-bounded and reviewed.
+      - Show how decision logs reference evidence packs for contested decisions.
+    required: true
+checklists:
+  - title: "Referenced by"
+    items:
+      - "Used in examples: Automated eligibility denial, Content moderation takedown, Fraud hold with delayed notice"
+      - "Required by bindings: Release gate checklist, Incident triggers, Runbook snippets"
+      - "Verified by evidence packs: STD-01 Evidence Pack, STD-02 Evidence Pack, Validators (VAL-01–VAL-03)"
+---

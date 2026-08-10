@@ -633,8 +633,233 @@ const standards = defineCollection({
   }),
 });
 
+const explainerSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Explainer"),
+  glossaryRef: z.string().optional(),
+  definition: z.array(z.string()),
+  example: z.string(),
+  distinctSignals: z.array(
+    z.object({
+      title: z.string(),
+      detail: z.string(),
+    }),
+  ),
+  ctas: z.array(
+    z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      description: z.string(),
+      href: z.string(),
+      ctaLabel: z.string(),
+    }),
+  ),
+  faqs: z.array(
+    z.object({
+      question: z.string(),
+      answer: z.string(),
+    }),
+  ),
+  published: z.string().optional(),
+  updated: z.string().optional(),
+  publication: z.object({
+    authors: z.array(
+      z.object({
+        name: z.string(),
+        affiliation: z.string(),
+        email: z.string().optional(),
+        orcid: z.string().optional(),
+      }),
+    ),
+    contact: z.string(),
+    published: z.string(),
+    updated: z.string().optional(),
+    version: z.string(),
+    doi: z.string().optional(),
+    archiveUrl: z.string().optional(),
+    changelog: z.array(
+      z.object({
+        version: z.string(),
+        date: z.string(),
+        summary: z.string(),
+      }),
+    ),
+    license: z.object({
+      label: z.string(),
+      href: z.string(),
+    }),
+    attribution: z.string(),
+  }).optional(),
+});
+
+const incidentSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Incident"),
+  published: z.string(),
+  updated: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  glossaryRefs: z.array(z.string()).optional(),
+  mechanismRefs: z.array(z.string()).optional(),
+  standardRefs: z.array(z.string()).optional(),
+  body: z.string().optional(),
+  incident: z.object({
+    headline: z.string(),
+    impact: z.string(),
+    sector: z.string(),
+    timeframe: z.string(),
+  }),
+  governanceFailures: z.array(z.string()),
+  signalsToWatch: z.array(z.string()),
+  remediationChecklist: z.array(z.string()),
+  sources: z.array(z.object({
+    label: z.string(),
+    href: z.string(),
+  })),
+});
+
+const evidencePackSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Evidence Pack"),
+  standardId: z.string(),
+  standardTitle: z.string(),
+  published: z.string(),
+  updated: z.string().optional(),
+  sections: z.array(
+    z.object({
+      title: z.string(),
+      content: z.string(),
+      required: z.boolean().optional(),
+    }),
+  ),
+  checklists: z.array(
+    z.object({
+      title: z.string(),
+      items: z.array(z.string()),
+    }),
+  ).optional(),
+});
+
+const agentToolkitSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Agent Toolkit"),
+  published: z.string(),
+  updated: z.string().optional(),
+  content: z.string(),
+  relatedStandards: z.array(z.string()).optional(),
+  relatedMechanisms: z.array(z.string()).optional(),
+});
+
+const mechanismSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Mechanism"),
+  published: z.string(),
+  updated: z.string().optional(),
+  content: z.string(),
+  standardRefs: z.array(z.string()).optional(),
+  patternRefs: z.array(z.string()).optional(),
+});
+
+const researchSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Research"),
+  published: z.string(),
+  updated: z.string().optional(),
+  content: z.string(),
+  tags: z.array(z.string()).optional(),
+});
+
+const exampleSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Example"),
+  published: z.string(),
+  updated: z.string().optional(),
+  content: z.string(),
+  standardRefs: z.array(z.string()).optional(),
+  mechanismRefs: z.array(z.string()).optional(),
+});
+
+const bundleSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Bundle"),
+  published: z.string(),
+  updated: z.string().optional(),
+  content: z.string(),
+  includes: z.array(z.string()).optional(),
+});
+
+const explainers = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/explainers" }),
+  schema: explainerSchema,
+});
+
+const incidents = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/incidents" }),
+  schema: incidentSchema,
+});
+
+const evidencePacks = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/evidence-packs" }),
+  schema: evidencePackSchema,
+});
+
+const agentToolkit = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/agent-toolkit" }),
+  schema: agentToolkitSchema,
+});
+
+const mechanisms = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/mechanisms" }),
+  schema: mechanismSchema,
+});
+
+const research = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/research" }),
+  schema: researchSchema,
+});
+
+const examples = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/examples" }),
+  schema: exampleSchema,
+});
+
+const bundles = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/bundles" }),
+  schema: bundleSchema,
+});
+
 export const collections = {
   standards,
+  explainers,
+  incidents,
+  evidencePacks,
+  agentToolkit,
+  mechanisms,
+  research,
+  examples,
+  bundles,
   home,
   taxonomy,
   glossary,

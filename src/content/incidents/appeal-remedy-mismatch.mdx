@@ -1,0 +1,35 @@
+---
+slug: "appeal-remedy-mismatch"
+title: "Appeal accepted without remedy follow-through"
+description: "Appeals were marked resolved, but remediation actions failed to reach the teams responsible for execution."
+permalink: "/incidents/appeal-remedy-mismatch"
+eyebrow: "Incident"
+published: "2026-01-22T00:00:00Z"
+updated: "2026-01-22T00:00:00Z"
+tags: ["healthcare", "appeals", "remedy"]
+glossaryRefs: ["appeal-event", "remedy"]
+mechanismRefs: []
+standardRefs: []
+incident:
+  headline: "Resolution closed before repair tasks were complete."
+  impact: "User outcomes never corrected despite approved appeals."
+  sector: "Healthcare"
+  timeframe: "2025 Q4"
+governanceFailures:
+  - "No confirmation loop between appeal resolution and delivery teams."
+  - "Remedy ownership unclear across internal workflows."
+  - "Status updates not tied to verified repair completion."
+signalsToWatch:
+  - "Gap between appeal approvals and repair completions."
+  - "Number of appeals lacking assigned remediation owners."
+  - "Time from approval to confirmed repair delivery."
+remediationChecklist:
+  - "Assign remedy ownership at appeal decision time."
+  - "Require confirmation before closing appeal records."
+  - "Track repair completions against appeal outcomes."
+sources:
+  - label: "Appeal event schema"
+    href: "/standards/appeal-event.schema.json"
+  - label: "Remedy essentials"
+    href: "/explainers/remedy-essentials"
+---

@@ -1,0 +1,55 @@
+---
+slug: "std-01"
+title: "STD-01 Evidence Pack"
+description: "Tiered evidence requirements for the Temporal Bill of Rights with anti-fraud and audit guidance."
+permalink: "/evidence-packs/std-01"
+eyebrow: "Evidence Pack"
+standardId: "STD-01"
+standardTitle: "The Temporal Bill of Rights"
+published: "2025-06-01"
+updated: "2025-06-01"
+sections:
+  - title: "Tiered evidence model"
+    content: |
+      **Tier 0 (minimum):** System outputs that prove the clause is instrumented. Evidence: Event logs, UI snapshots, and receipt payloads.
+
+      **Tier 1 (operational):** Evidence the control is used and reviewed. Evidence: Decision logs, appeal outcomes, reviewer rosters, and clock compliance reports.
+
+      **Tier 2 (resilient):** Stress-tested proof that controls survive real incidents. Evidence: Incident postmortems, drill results, and remediation follow-through.
+    required: true
+  - title: "Clause evidence list"
+    content: "Each clause lists the minimum evidence bundle required for proof-carrying compliance. Clause evidence is dynamically generated from the standard clauses."
+    required: true
+  - title: "Anti-weaponization evidence"
+    content: |
+      **AW-01:** Burden metrics report + resourcing plan for the next window.
+
+      **AW-02:** Appeal path regression tests + replacement notice evidence.
+
+      **AW-03:** Receipts + clock compliance for downgrades and eligibility changes.
+
+      **AW-04:** Assisted channel SLA + staffing roster for high-burden flows.
+
+      Link the constraints in Anti-weaponization to STD-01 clause evidence bundles.
+    required: true
+  - title: "How teams fake this"
+    content: |
+      - Receipts exist but omit owner, clocks, or appeal path.
+      - UI screenshots are staged once and never updated after release.
+      - Event logs exist but are not tied to decision log entries or remedy outcomes.
+      - Kill switch drills are logged without showing the actual halt time or restoration proof.
+    required: true
+  - title: "What auditors ask"
+    content: |
+      - Show the last five receipts for halted flows and their remedy outcomes.
+      - Provide evidence that exit paths match entry friction across the top three flows.
+      - Demonstrate a recent kill switch drill and its time-to-halt measurement.
+      - Explain how exceptions are reviewed and how long they lasted.
+    required: true
+checklists:
+  - title: "Referenced by"
+    items:
+      - "Used in examples: Automated account lock, Fraud hold with delayed notice, Irreversible payment with compensation"
+      - "Required by bindings: Release gate checklist, Procurement clauses, Runbook snippets"
+      - "Verified by evidence packs: STD-01 Evidence Pack, STD-02 Evidence Pack, Validators (VAL-01–VAL-03)"
+---

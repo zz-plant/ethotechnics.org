@@ -1,0 +1,121 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import SummaryCallout from "../../components/SummaryCallout.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+
+const explainers = await getCollection("explainers");
+
+const pageTitle = "Explainers";
+const pageDescription = "Short, reusable definitions with examples and next-step artifacts.";
+const permalink = "/explainers";
+
+const anchorLinks = [
+  { href: "#all-explainers", label: "All explainers" },
+];
+
+const featuredExplainers = [
+  "stoppability",
+  "contestability",
+  "safety-valve",
+  "time-to-halt",
+  "ethical-interrupts",
+  "repair-log",
+];
+
+const takeaways = [
+  "Each explainer includes a definition, example, and distinct signals for auditors.",
+  "CTAs link to standards, bindings, and evidence packs for implementation.",
+  "Use glossary anchors to keep language stable across briefs and audits.",
+];
+
+const relatedLinks = [
+  { href: "/glossary", label: "Glossary" },
+  { href: "/standards", label: "Standards" },
+  { href: "/evidence-packs", label: "Evidence packs" },
+];
+
+const summaryLinks = [
+  { href: "#all-explainers", label: "Browse all" },
+  { href: "/glossary", label: "Glossary index" },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Explainers"
+    title={pageTitle}
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Using explainers",
+      title: "Quick answers for governance questions",
+      description: "Each explainer maps to a glossary term, standard, and evidence pack so you can move from question to artifact fast.",
+    }}
+  />
+
+  <SummaryCallout
+    title="Explainer wayfinding"
+    description="Start with the featured explainers or browse the full list below."
+    takeaways={takeaways}
+    relatedLinks={relatedLinks}
+    jumpLinks={summaryLinks}
+  />
+
+  <SectionBlock
+    id="featured"
+    eyebrow="Start here"
+    title="Featured explainers"
+    description="These six cover the core governance capabilities most teams need first."
+    variant="alt"
+  >
+    <CardGrid className="grid--three">
+      {
+        explainers
+          .filter((e) => featuredExplainers.includes(e.id))
+          .map((entry) => (
+            <CardItem
+              title={entry.data.title}
+              description={entry.data.description}
+            >
+              <a slot="footer" class="button ghost button--compact" href={entry.data.permalink}>
+                Read explainer
+              </a>
+            </CardItem>
+          ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="all-explainers"
+    eyebrow="All explainers"
+    title="Full explainer index"
+    description={`Alphabetical list with ${explainers.length} explainers ready to link directly.`}
+  >
+    <CardGrid className="grid--two">
+      {
+        explainers
+          .sort((a, b) => a.data.title.localeCompare(b.data.title))
+          .map((entry) => (
+            <CardItem
+              title={entry.data.title}
+              description={entry.data.description}
+            >
+              <a slot="footer" class="muted" href={entry.data.permalink}>
+                Read explainer
+              </a>
+            </CardItem>
+          ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <p class="muted" style="margin-top:2rem">
+    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+  </p>
+</BaseLayout>

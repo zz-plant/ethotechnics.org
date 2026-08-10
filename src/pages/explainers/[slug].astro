@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import ExplainerLayout from "../../components/ExplainerLayout.astro";
+
+export async function getStaticPaths() {
+  const explainers = await getCollection("explainers");
+  return explainers.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { title, description, permalink, glossaryRef, definition, example, distinctSignals, ctas, faqs } = entry.data;
+---
+
+<ExplainerLayout
+  title={title}
+  description={description}
+  permalink={permalink}
+  glossary={{ href: `/glossary/${glossaryRef}`, label: title }}
+  definition={definition}
+  example={example}
+  distinctSignals={distinctSignals}
+  ctas={ctas}
+  faqs={faqs}
+/>

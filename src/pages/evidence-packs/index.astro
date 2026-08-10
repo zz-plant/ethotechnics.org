@@ -1,151 +1,86 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import { evidencePackMinimumSet } from "../../content/crosswalks";
+import SummaryCallout from "../../components/SummaryCallout.astro";
 
-const pageTitle = "Evidence packs — Ethotechnics Institute";
-const pageDescription =
-  "Proof-carrying compliance bundles for STD-01 and STD-02 with tiered evidence and audit guidance.";
+const evidencePacks = await getCollection("evidencePacks");
+
+const pageTitle = "Evidence Packs";
+const pageDescription = "Tiered evidence requirements for each standard with audit guidance and compliance theater detection.";
 const permalink = "/evidence-packs";
 
-const packs = [
-  {
-    slug: "std-01",
-    title: "STD-01 Evidence Pack",
-    summary:
-      "Tiered evidence for the Temporal Bill of Rights, with anti-fraud guidance and audit prompts.",
-  },
-  {
-    slug: "std-02",
-    title: "STD-02 Evidence Pack",
-    summary:
-      "Proof bundles for contestability, review, and remedy obligations.",
-  },
-  {
-    slug: "std-06",
-    title: "STD-06 Evidence Pack",
-    summary:
-      "Portable safety case artifacts and threshold tests for human impact.",
-  },
+const anchorLinks = [
+  { href: "#evidence-packs", label: "All evidence packs" },
+];
+
+const takeaways = [
+  "Each pack uses a Tier 0–2 model so you can scale proof from baseline to resilience.",
+  "Anti-fraud patterns help auditors catch hollow compliance before it ships.",
+  "Cross-links keep evidence packs aligned with standards, bindings, and validators.",
+];
+
+const relatedLinks = [
+  { href: "/standards", label: "Standards" },
+  { href: "/bindings", label: "Bindings" },
+  { href: "/validators", label: "Validators" },
+];
+
+const summaryLinks = [
+  { href: "#evidence-packs", label: "Browse all" },
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Evidence packs"
-    title="Evidence packs"
+    title={pageTitle}
     description={pageDescription}
     permalink={permalink}
-    anchorLinks={[
-      ...packs.map((pack) => ({
-        href: `#${pack.slug}`,
-        label: pack.title,
-      })),
-      { href: "#audit-minimum", label: "Audit minimum" },
-      { href: "#referenced-by", label: "Referenced by" },
-    ]}
+    anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "Proof-carrying compliance",
-      title: "Evidence tiers that survive audits",
-      description:
-        "Tier 0 through Tier 2 evidence lets teams prove compliance without audit theater or vague attestations.",
+      title: "Tiered evidence for enforceable standards",
+      description: "Evidence packs translate clause obligations into artifact inventories, test batteries, and auditor-ready exports.",
     }}
   />
 
+  <SummaryCallout
+    title="Evidence pack wayfinding"
+    description="Start with the pack for the standard you're implementing, then layer in higher-tier proof."
+    takeaways={takeaways}
+    relatedLinks={relatedLinks}
+    jumpLinks={summaryLinks}
+  />
+
   <SectionBlock
-    eyebrow="Evidence packs"
-    title="Select the standard"
-    description="Each pack includes tiered evidence, anti-fraud guidance, and auditor prompts."
+    id="evidence-packs"
+    eyebrow="All evidence packs"
+    title={`Evidence packs for ${evidencePacks.length} standards`}
+    description="Each pack includes tiered evidence, clause-level requirements, anti-fraud patterns, and auditor questions."
   >
     <CardGrid className="grid--two">
-      {packs.map((pack) => (
-        <CardItem id={pack.slug} title={pack.title} description={pack.summary}>
-          <a slot="footer" class="button ghost button--compact" href={`/evidence-packs/${pack.slug}`}>
-            Open evidence pack
-          </a>
-        </CardItem>
-      ))}
+      {
+        evidencePacks
+          .sort((a, b) => a.data.title.localeCompare(b.data.title))
+          .map((entry) => (
+            <CardItem
+              title={entry.data.title}
+              description={entry.data.description}
+            >
+              <a slot="footer" class="button ghost button--compact" href={entry.data.permalink}>
+                Open evidence pack
+              </a>
+            </CardItem>
+          ))
+      }
     </CardGrid>
   </SectionBlock>
 
-
-  <SectionBlock
-    id="audit-minimum"
-    eyebrow="Audit minimum"
-    title="Evidence-pack discipline baseline"
-    description="These artifacts are the minimum viable proof set teams should maintain continuously, not only before audits."
-    variant="alt"
-  >
-    <ul class="muted">
-      {evidencePackMinimumSet.map((item) => <li>{item}</li>)}
-    </ul>
-    <p class="muted">
-      See
-      {" "}
-      <a href="/standards/enforceable-governance-crosswalks">enforceable governance crosswalks</a>
-      {" "}
-      for control-level mapping to EU AI Act, NIST AI RMF, and ISO/IEC 42001.
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="referenced-by"
-    eyebrow="Referenced by"
-    title="Where evidence packs are enforced"
-    description="Cross-links keep evidence packs aligned with examples, bindings, and diagnostics."
-    variant="alt"
-  >
-    <div class="grid grid--three">
-      <div class="panel">
-        <p class="eyebrow">Used in examples</p>
-        <ul class="muted">
-          <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a>
-          </li>
-          <li>
-            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
-          </li>
-          <li>
-            <a href="/examples/irreversible-payment-compensation">
-              Irreversible payment with compensation
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
-        <ul class="muted">
-          <li>
-            <a href="/bindings#release-gates">Release gate checklist</a>
-          </li>
-          <li>
-            <a href="/bindings#procurement">Procurement clauses</a>
-          </li>
-          <li>
-            <a href="/bindings#runbooks">Runbook snippets</a>
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Verified by evidence packs</p>
-        <ul class="muted">
-          <li>
-            <a href="/evidence-packs/std-01">STD-01 Evidence Pack</a>
-          </li>
-          <li>
-            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
-          </li>
-          <li>
-            <a href="/validators">Validators (VAL-01–VAL-03)</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
-    </p>
-  </SectionBlock>
+  <p class="muted" style="margin-top:2rem">
+    See also: <a href="/standards">Standards</a> &middot; <a href="/bindings">Bindings</a> &middot; <a href="/validators">Validators</a>
+  </p>
 </BaseLayout>

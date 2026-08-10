@@ -1,0 +1,302 @@
+---
+title: "STD-02 — Contestability & Recourse"
+description: "The standard defining contestability, review, and remedy obligations for automated decisions."
+permalink: "/standards/std-02-contestability-recourse"
+eyebrow: "Standard"
+seoTitle: "STD-02 — Contestability & Recourse"
+publishedTime: "2025-06-01T00:00:00.000Z"
+mainClass: "page page--wide standard-document"
+anchorLinks:
+  - href: "#articles"
+    label: "Articles I–V"
+  - href: "#related-explainers"
+    label: "Related explainers"
+---
+
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+
+export const rights = [
+  {
+    id: "notice",
+    title: "Notice & Reasons",
+    summary: "Every automated decision must provide specific, actionable reasons.",
+    clauses: [
+      "Decision objects include reason codes, evidence sources, and scope.",
+      "Reasons are written in plain language, not legalese.",
+      "Reasons are available at the moment of decision, not on request.",
+    ],
+  },
+  {
+    id: "appeal",
+    title: "Appeal Path",
+    summary: "A clear, accessible path to challenge and reverse decisions.",
+    clauses: [
+      "Appeal intake is reachable from the decision surface.",
+      "Appeal path includes a named, accountable authority.",
+      "Appeal deadlines are published and binding.",
+    ],
+  },
+  {
+    id: "review",
+    title: "Review Clock",
+    summary: "Time-bound review with enforceable deadlines.",
+    clauses: [
+      "Maximum review duration is declared and enforced.",
+      "Auto-escalation triggers when the clock expires.",
+      "Interim protections apply while review is pending.",
+    ],
+  },
+  {
+    id: "remedy",
+    title: "Remedy & Reversal",
+    summary: "Reversal restores the affected party; compensation is automatic.",
+    clauses: [
+      "Reversal is the default remedy for upheld appeals.",
+      "Compensation or fee shifting triggers on wrongful harm.",
+      "Remedy delivery is tracked and verified.",
+    ],
+  },
+  {
+    id: "evidence",
+    title: "Evidence & Accountability",
+    summary: "Decision logs, receipts, and outcomes are auditable.",
+    clauses: [
+      "Every decision emits a receipt with timestamp and owner.",
+      "Appeal outcomes log reversal rates and passage rates.",
+      "Audit trails link decisions to evidence and reviewers.",
+    ],
+  },
+];
+
+export const explainerLinks = [
+  {
+    title: "Contestability",
+    description: "How people can challenge and reverse automated decisions.",
+    href: "/explainers/contestability",
+  },
+  {
+    title: "Repair Log",
+    description: "Track remediation actions tied to receipts and owners.",
+    href: "/explainers/repair-log",
+  },
+  {
+    title: "Remedy Essentials",
+    description: "Eight mechanisms that keep contestability real.",
+    href: "/explainers/remedy-essentials",
+  },
+];
+
+export const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://ethotechnics.org/standards/std-02-contestability-recourse",
+  headline: "STD-02 — Contestability & Recourse",
+  description: "The standard defining contestability, review, and remedy obligations for automated decisions.",
+  url: "https://ethotechnics.org/standards/std-02-contestability-recourse",
+  datePublished: "2026-01-01",
+  version: "0.9",
+  identifier: "STD-02",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: "https://ethotechnics.org",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: "https://ethotechnics.org/standards",
+  },
+  hasPart: rights.map((right) => ({
+    "@type": "CreativeWork",
+    name: right.title,
+    description: right.summary,
+  })),
+};
+
+<StandardStatusSummary slug="std-02-contestability-recourse" />
+
+<article class="standard-document">
+  <header class="standard-header">
+    <div>
+      <p class="standard-header__id">STANDARD STD-02</p>
+      <h2 class="standard-header__title">Contestability & Recourse</h2>
+    </div>
+    <dl class="standard-header__meta">
+      <div>
+        <dt>Document ID</dt>
+        <dd>STD-02</dd>
+      </div>
+      <div>
+        <dt>Version</dt>
+        <dd>0.9 (Draft for Review)</dd>
+      </div>
+      <div>
+        <dt>Effective Date</dt>
+        <dd>January 2026</dd>
+      </div>
+      <div>
+        <dt>Authority</dt>
+        <dd>The Institute of Ethotechnics</dd>
+      </div>
+    </dl>
+  </header>
+
+  <div class="standard-body">
+    <div class="standard-main">
+      <section id="related-explainers" class="standard-section">
+        <h2>Related explainers</h2>
+        <p>
+          Use these short explainers when translating the obligations for policy or product teams.
+        </p>
+        <div class="grid grid--two">
+          {explainerLinks.map((explainer) => (
+            <article class="panel">
+              <p class="eyebrow">Explainer</p>
+              <p>
+                <strong>
+                  <a href={explainer.href}>{explainer.title}</a>
+                </strong>
+              </p>
+              <p class="muted">{explainer.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article I: The Right to Notice & Reasons</h2>
+        <p class="standard-article-quote">
+          "No decision shall be final without specific, actionable reasons."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§1.1</span>
+            Decision Objects: Every automated decision must produce a decision object containing reason codes, evidence sources, and scope boundaries.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.2</span>
+            Plain Language: Reasons must be written in language a layperson can understand. Legalese and internal codes are insufficient.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.3</span>
+            Immediate Availability: Reasons must be available at the moment of decision. Deferred explanation is not compliance.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article II: The Right to an Appeal Path</h2>
+        <p class="standard-article-quote">
+          "The decision surface must include the appeal entry point."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§2.1</span>
+            Accessible Intake: The appeal path must be reachable directly from the decision notification or interface.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.2</span>
+            Named Authority: The appeal path must identify the accountable authority with reversal power.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.3</span>
+            Binding Deadlines: Appeal deadlines must be published, time-bound, and enforced.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article III: The Right to a Review Clock</h2>
+        <p class="standard-article-quote">
+          "Unbounded review is a governance failure."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§3.1</span>
+            Declared Maximum: Every review process must declare a maximum duration.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.2</span>
+            Auto-Escalation: When the clock expires without resolution, the case must auto-escalate to a higher authority or default to reversal.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.3</span>
+            Interim Protections: While review is pending, the affected party must receive provisional protection (continued access, status quo, safe fallback).
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article IV: The Right to Remedy & Reversal</h2>
+        <p class="standard-article-quote">
+          "Reversal restores; compensation acknowledges."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§4.1</span>
+            Reversal as Default: Upheld appeals result in reversal of the contested decision unless safety criteria explicitly prohibit it.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.2</span>
+            Automatic Compensation: Wrongful harm triggers automatic credits, fee waivers, or restitution without requiring a separate claim.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.3</span>
+            Verified Delivery: Remedy delivery is tracked with timestamps and verified by the affected party.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article V: The Right to Evidence & Accountability</h2>
+        <p class="standard-article-quote">
+          "If it isn't logged, it didn't happen."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§5.1</span>
+            Decision Receipts: Every decision emits a receipt with timestamp, owner, and decision object reference.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.2</span>
+            Outcome Transparency: Appeal passage rates and reversal rates are published and used to improve decisions.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.3</span>
+            Audit Trails: Audit trails link decisions to evidence, reviewers, and outcomes for every contested case.
+          </li>
+        </ol>
+      </section>
+    </div>
+
+    <aside class="standard-sidebar">
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">Related mechanisms</p>
+        <ul>
+          <li>
+            <a href="/mechanisms/patterns/decision-log">MEC-01: Decision Log</a>
+          </li>
+          <li>
+            <a href="/mechanisms/patterns/repair-log">MEC-03: Repair Log</a>
+          </li>
+          <li>
+            <a href="/mechanisms/patterns/kill-switch">MEC-05: Kill Switch</a>
+          </li>
+        </ul>
+      </div>
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">STD-02 references</p>
+        <ul>
+          <li>
+            <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/explainers/contestability-checklist">Contestability Checklist</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData, null, 2)} is:inline />

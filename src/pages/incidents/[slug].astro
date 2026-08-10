@@ -1,32 +1,39 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import { incidentLessons } from "../../content/incidents";
 
-export const prerender = true;
-
-export const getStaticPaths = () =>
-  incidentLessons.map((lesson) => ({
-    params: { slug: lesson.slug },
-    props: { lesson },
+export async function getStaticPaths() {
+  const incidents = await getCollection("incidents");
+  return incidents.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
   }));
+}
 
-type IncidentLesson = (typeof incidentLessons)[number];
+const { entry } = Astro.props;
+const {
+  title,
+  description,
+  permalink,
+  incident,
+  governanceFailures,
+  signalsToWatch,
+  remediationChecklist,
+  sources,
+} = entry.data;
 
-const { lesson } = Astro.props as { lesson: IncidentLesson };
-const pageTitle = `${lesson.title} — Governance lesson — Ethotechnics`;
-const pageDescription = lesson.summary;
-const permalink = `/incidents/${lesson.slug}`;
+const pageTitle = `${title} — Governance lesson — Ethotechnics`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout title={pageTitle} description={description} publishedTime="2025-06-01T00:00:00.000Z">
   <PageIntro
     eyebrow="Governance lesson"
-    title={lesson.title}
-    description={lesson.summary}
+    title={title}
+    description={description}
     permalink={permalink}
     anchorLinks={[
       { href: "#incident", label: "Incident snapshot" },
@@ -37,8 +44,8 @@ const permalink = `/incidents/${lesson.slug}`;
     ]}
     panelCopy={{
       eyebrow: "Why it matters",
-      title: lesson.incident.headline,
-      description: lesson.incident.impact,
+      title: incident.headline,
+      description: incident.impact,
     }}
   />
 
@@ -50,26 +57,10 @@ const permalink = `/incidents/${lesson.slug}`;
     className="section--banded"
   >
     <CardGrid className="grid--two">
-      <CardItem
-        title="Sector"
-        description={lesson.incident.sector}
-        descriptionTone="default"
-      />
-      <CardItem
-        title="Timeframe"
-        description={lesson.incident.timeframe}
-        descriptionTone="default"
-      />
-      <CardItem
-        title="Headline"
-        description={lesson.incident.headline}
-        descriptionTone="default"
-      />
-      <CardItem
-        title="Impact"
-        description={lesson.incident.impact}
-        descriptionTone="default"
-      />
+      <CardItem title="Sector" description={incident.sector} descriptionTone="default" />
+      <CardItem title="Timeframe" description={incident.timeframe} descriptionTone="default" />
+      <CardItem title="Headline" description={incident.headline} descriptionTone="default" />
+      <CardItem title="Impact" description={incident.impact} descriptionTone="default" />
     </CardGrid>
   </SectionBlock>
 
@@ -81,7 +72,7 @@ const permalink = `/incidents/${lesson.slug}`;
     variant="alt"
   >
     <CardGrid>
-      {lesson.governanceFailures.map((failure) => (
+      {governanceFailures.map((failure) => (
         <CardItem description={failure} descriptionTone="default" />
       ))}
     </CardGrid>
@@ -94,7 +85,7 @@ const permalink = `/incidents/${lesson.slug}`;
     description="Instrument these signals to surface risk before impact escalates."
   >
     <CardGrid>
-      {lesson.signalsToWatch.map((signal) => (
+      {signalsToWatch.map((signal) => (
         <CardItem description={signal} descriptionTone="default" />
       ))}
     </CardGrid>
@@ -108,7 +99,7 @@ const permalink = `/incidents/${lesson.slug}`;
     variant="alt"
   >
     <CardGrid>
-      {lesson.remediationChecklist.map((item) => (
+      {remediationChecklist.map((item) => (
         <CardItem description={item} descriptionTone="default" />
       ))}
     </CardGrid>
@@ -121,7 +112,7 @@ const permalink = `/incidents/${lesson.slug}`;
     description="Keep the documentation linked for rapid remediation alignment."
   >
     <CardGrid className="grid--two">
-      {lesson.sources.map((source) => (
+      {sources.map((source) => (
         <CardItem title={source.label} descriptionTone="muted">
           <div slot="footer" class="card__footer">
             <a class="button ghost button--compact" href={source.href}>
