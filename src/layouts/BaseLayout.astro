@@ -453,6 +453,10 @@ const pagefindType = pathSegments[0] ?? "";
         }
 
         /* anchor scroll offset */
+        const prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
         document.addEventListener("click", (e) => {
           const link =
             e.target instanceof Element ? e.target.closest("a[href]") : null;
