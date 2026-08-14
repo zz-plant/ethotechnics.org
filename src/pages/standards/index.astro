@@ -14,6 +14,8 @@ import {
   buildStandardsStructuredDataPayload,
 } from "../../content/page-data/standards-index";
 
+const lastUpdated = "2026-08-14";
+
 const {
   pageTitle,
   pageDescription,
@@ -50,6 +52,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
+  modifiedTime={lastUpdated}
   structuredDataType="collection"
   jsonAlternates={[{ href: "/api/standards.json", title: "Standards JSON" }]}
 >

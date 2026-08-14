@@ -14,6 +14,14 @@ declare namespace App {
   interface Locals extends Runtime {}
 }
 
+interface Env {
+  NEWSLETTER_WEBHOOK_URL?: string;
+  NEWSLETTER_WEBHOOK_TOKEN?: string;
+  NEWSLETTER_RATE_LIMITER?: {
+    limit(options: { key: string }): Promise<{ success: boolean }>;
+  };
+}
+
 declare module "/pagefind/pagefind.js" {
   export function options(options: { excerptLength: number }): Promise<void>;
   export function search(query: string): Promise<{

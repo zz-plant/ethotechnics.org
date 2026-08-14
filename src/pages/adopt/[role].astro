@@ -8,7 +8,8 @@ const data: Record<string,{title:string;pageTitle:string;description:string;lede
   ops:{title:"Adopt Ethotechnics through operations",pageTitle:"Adopt AI incident operations controls | Ethotechnics",description:"Operations guide for appeals, incident response, and queue teams.",lede:"Use this path when appeals, incident response, and queue management teams need bounded escalation and freeze authority.",crossRef:"Ground operations runbooks in the",crossRefHref:"/standards",checklist:["Define harm intake paths with explicit triage categories.","Set escalation SLAs by severity and route to named responders.","Track queue age and auto-escalate stalled cases.","Publish a repair log with remediation status and owner handoffs."]},
   policy:{title:"Adopt Ethotechnics through policy",pageTitle:"Adopt AI governance policy controls | Ethotechnics",description:"Policy guide for legal, compliance, and risk teams.",lede:"Use this path when legal, compliance, and risk teams are setting ownership, reversal clocks, and contestability commitments.",crossRef:"Pair this with the",crossRefHref:"/standards",checklist:["Bind contestability rights to explicit owner roles and response clocks.","Define restitution pathways for harms that cannot be fully reversed.","Set incident disclosure expectations for high-impact failures.","Require sign-off authority for resume decisions after a halt."]}
 };
-const d = data[role]; if (!d) return Astro.redirect("/404");
+const d = data[role];
+if (!d) return new Response("Adoption guide not found", { status: 404 });
 const label = role==="build"?"Build":role==="ops"?"Operations":"Policy";
 ---
 <BaseLayout title={d.pageTitle} description={d.description} publishedTime="2026-02-21">
