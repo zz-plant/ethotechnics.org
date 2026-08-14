@@ -7,7 +7,7 @@ const artifact =
   (Astro.props.artifact as InstituteArtifact | undefined) ??
   artifacts.find((candidate) => candidate.slug === slug);
 
-if (!artifact) return Astro.redirect("/404");
+if (!artifact) return new Response("Artifact not found", { status: 404 });
 ---
 
 <BaseLayout title={artifact.name} description={artifact.description[0]} publishedTime="2025-06-01T00:00:00.000Z">

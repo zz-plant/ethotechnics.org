@@ -37,6 +37,41 @@ const ndjsonHeaders = {
   "Content-Type": "application/x-ndjson; charset=utf-8",
 };
 
+const API_GENERATED_AT = `${releaseInfo.date}T00:00:00.000Z`;
+
+export const applyApiCaching = async (
+  request: Request,
+  response: Response,
+  immutable = false,
+) => {
+  const body = await response.clone().arrayBuffer();
+  const digest = await crypto.subtle.digest("SHA-256", body);
+  const etag = `"${Array.from(new Uint8Array(digest), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("")}"`;
+  const cacheControl = immutable
+    ? "public, max-age=31536000, immutable"
+    : "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400";
+
+  if (
+    request.headers
+      .get("If-None-Match")
+      ?.split(",")
+      .map((value) => value.trim())
+      .includes(etag)
+  ) {
+    return new Response(null, {
+      status: 304,
+      headers: { "Cache-Control": cacheControl, ETag: etag },
+    });
+  }
+
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", cacheControl);
+  headers.set("ETag", etag);
+  return new Response(response.body, { status: response.status, headers });
+};
+
 const jsonResponse = (payload: unknown) =>
   new Response(JSON.stringify(payload, null, 2), {
     headers: jsonHeaders,
@@ -84,7 +119,7 @@ const createCollectionResponse = <T>(options: {
 }) => {
   const payload = {
     meta: {
-      generatedAt: new Date().toISOString(),
+      generatedAt: API_GENERATED_AT,
       count: options.items.length,
       ...(options.permalink ? { permalink: options.permalink } : {}),
       ...(options.release ? { release: options.release } : {}),
@@ -186,7 +221,7 @@ export const createValidatorsResponse = () =>
 export const createBadgesResponse = () => {
   const payload = {
     meta: {
-      generatedAt: new Date().toISOString(),
+      generatedAt: API_GENERATED_AT,
       repo: repoSlug,
     },
     badges: {
@@ -221,7 +256,7 @@ export const createReleasesResponse = () =>
 export const createResearchResponse = () => {
   const payload = {
     meta: {
-      generatedAt: new Date().toISOString(),
+      generatedAt: API_GENERATED_AT,
       permalink: researchContent.permalink,
       updated: researchContent.updated,
     },
@@ -248,7 +283,7 @@ export const createAgentIndexResponse = (options: {
 
   const payload = {
     meta: {
-      generatedAt: new Date().toISOString(),
+      generatedAt: API_GENERATED_AT,
       release: releaseInfo,
       permalink: endpointMap.agentIndex,
     },
@@ -318,7 +353,7 @@ export const createSiteIndexResponse = (options: {
 
   const payload = {
     meta: {
-      generatedAt: new Date().toISOString(),
+      generatedAt: API_GENERATED_AT,
       standardsCount: standards.length,
       validatorsCount: validators.length,
       publicationsCount: publications.length,

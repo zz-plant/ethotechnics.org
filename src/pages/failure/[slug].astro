@@ -13,7 +13,7 @@ const state =
   (Astro.props.state as FailureState | undefined) ??
   failureStates.find((candidate) => candidate.slug === slug);
 
-if (!state) return Astro.redirect("/404");
+if (!state) return new Response("Failure state not found", { status: 404 });
 
 const stateArtifacts: InstituteArtifact[] = (state.artifactSlugs ?? [])
   .map((artifactSlug) =>

@@ -1,14 +1,12 @@
 <div class="newsletter-signup">
-  <form id="newsletter-form" class="newsletter-signup__form" novalidate>
+  <form class="newsletter-signup__form" data-newsletter-form novalidate>
     <h3 class="eyebrow">Standards &amp; Ontology Updates</h3>
     <p class="muted">Get notified when new standards, terms, or field notes are published.</p>
     <div class="newsletter-signup__row">
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- for attr links to newsletter-email */}
-      <label class="visually-hidden" for="newsletter-email">Email address</label>
       <input
-        id="newsletter-email"
         type="email"
         name="email"
+        aria-label="Email address"
         placeholder="your@email.com"
         required
         autocomplete="email"
@@ -17,52 +15,55 @@
         Subscribe
       </button>
     </div>
-    <p id="newsletter-status" class="newsletter-signup__status" role="status" aria-live="polite"></p>
+    <p class="newsletter-signup__status" role="status" aria-live="polite"></p>
   </form>
 </div>
 
 <script>
-  const form = document.getElementById("newsletter-form") as HTMLFormElement;
-  const status = document.getElementById("newsletter-status") as HTMLParagraphElement;
-  const button = form.querySelector("button") as HTMLButtonElement;
-  const input = form.querySelector("input") as HTMLInputElement;
+  document.querySelectorAll<HTMLFormElement>("[data-newsletter-form]").forEach((form) => {
+    if (form.dataset.initialized) return;
+    form.dataset.initialized = "true";
+    const status = form.querySelector("[role='status']") as HTMLParagraphElement;
+    const button = form.querySelector("button") as HTMLButtonElement;
+    const input = form.querySelector("input") as HTMLInputElement;
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = input.value.trim();
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = input.value.trim();
 
-    if (!email) {
-      status.textContent = "Please enter an email address.";
-      return;
-    }
-
-    button.disabled = true;
-    status.textContent = "";
-    status.className = "newsletter-signup__status";
-
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json() as { success?: boolean; error?: string };
-
-      if (res.ok && data.success) {
-        status.textContent = "Subscribed. Thank you.";
-        status.classList.add("newsletter-signup__status--success");
-        input.value = "";
-      } else {
-        status.textContent = data.error || "Something went wrong. Try again.";
-        status.classList.add("newsletter-signup__status--error");
+      if (!email) {
+        status.textContent = "Please enter an email address.";
+        return;
       }
-    } catch {
-      status.textContent = "Network error. Please try again.";
-      status.classList.add("newsletter-signup__status--error");
-    } finally {
-      button.disabled = false;
-    }
+
+      button.disabled = true;
+      status.textContent = "";
+      status.className = "newsletter-signup__status";
+
+      try {
+        const res = await fetch("/api/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await res.json() as { success?: boolean; error?: string };
+
+        if (res.ok && data.success) {
+          status.textContent = "Subscribed. Thank you.";
+          status.classList.add("newsletter-signup__status--success");
+          input.value = "";
+        } else {
+          status.textContent = data.error || "Something went wrong. Try again.";
+          status.classList.add("newsletter-signup__status--error");
+        }
+      } catch {
+        status.textContent = "Network error. Please try again.";
+        status.classList.add("newsletter-signup__status--error");
+      } finally {
+        button.disabled = false;
+      }
+    });
   });
 </script>
 

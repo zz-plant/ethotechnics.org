@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsletterSignup from "../components/NewsletterSignup.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
 import { failureStates } from "../content/institute-site";
 import { renderCompactScene, type SceneType } from "../data/scenes";
@@ -252,27 +253,8 @@ const failureChoiceIcons: Record<string, string[]> = {
     </section>
 
     <section class="stack-sm card card--flat" style="margin-top: var(--space-md);">
-    <p class="eyebrow">Subscribe for updates</p>
-    <h2>Get updates</h2>
-    <p>Occasional notes when new standards, diagnostics, or glossary entries are published.</p>
-    <form id="subscribe-form" action="/api/subscribe" method="POST" style="display: flex; gap: var(--space-xs); flex-wrap: wrap; align-items: flex-end;">
-      <div style="flex: 1; min-width: 200px;">
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label for="subscribe-email" style="display: block; font-size: var(--text-sm); color: var(--text-muted); margin-bottom: 4px;">Email</label>
-        <input id="subscribe-email" name="email" type="email" required placeholder="you@example.com" style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-subtle); border-radius: 6px; background: var(--surface-card); color: var(--text-strong);" />
-      </div>
-      <button type="submit" class="button button--primary" style="white-space: nowrap;">Subscribe</button>
-    </form>
-    <p id="subscribe-status" style="display: none; color: var(--accent-bright); font-size: var(--text-sm); margin-top: var(--space-xs);">Subscribed. Thank you.</p>
+      <NewsletterSignup />
     </section>
-
-    <script is:inline>
-    document.getElementById('subscribe-form')?.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var status = document.getElementById('subscribe-status');
-      if (status) status.style.display = 'block';
-    });
-    </script>
 
     <section id="recently-published" class="stack-sm card card--flat" aria-labelledby="recently-published-heading">
     <p class="eyebrow">New and updated</p>

@@ -5,13 +5,16 @@ import Layout from "../layouts/BaseLayout.astro";
 
 // This page is for Playwright visual testing only.
 // It renders components in various states.
+const isLocalPreview = ["localhost", "127.0.0.1"].includes(Astro.url.hostname);
+if (!isLocalPreview) return new Response("Not found", { status: 404 });
 ---
 
 <Layout
   title="Component Preview"
   description="Reference renderings used for component visual regression checks."
+  robots="noindex, nofollow"
 >
-  <main class="wrapper">
+  <div class="wrapper">
     <h1>Component Preview</h1>
 
     <section id="page-intro">
@@ -55,7 +58,7 @@ import Layout from "../layouts/BaseLayout.astro";
         ]}
       />
     </section>
-  </main>
+  </div>
 </Layout>
 
 <style>

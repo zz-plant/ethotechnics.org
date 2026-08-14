@@ -1,6 +1,3 @@
-import { lstat, realpath } from "node:fs/promises";
-import { relative, resolve, sep } from "node:path";
-
 import { fieldNotesContent } from "../content/fieldNotes";
 import type { FieldNotesContent } from "../content/fieldNotes";
 import { glossaryContent, glossaryTerms } from "../content/glossary";
@@ -24,8 +21,6 @@ import {
   glossaryTestPermalink,
 } from "../utils/glossary-sections";
 
-const fallbackLastmod = new Date().toISOString();
-
 const getContentEntry = async (
   collection: string,
   slug: string,
@@ -37,10 +32,6 @@ const getContentEntry = async (
   } catch {
     return undefined;
   }
-};
-
-type PageModule = {
-  lastmod?: string;
 };
 
 type SitemapImage = {
@@ -59,66 +50,23 @@ type SitemapEntry = {
 const normalizeOverrideKey = (path: string) =>
   path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
 
-const canReadFileSystem =
-  typeof process !== "undefined" && Boolean(process.versions?.node);
-
-const getPagesRoot = async () => {
-  const rootPath = await realpath(process.cwd());
-  const pagesRoot = await realpath(resolve(rootPath, "src", "pages"));
-  return { rootPath, pagesRoot };
-};
-
-const buildPageModules = async (
-  pagePaths: string[],
-  pagesRoot: string,
-): Promise<Record<string, PageModule>> => {
-  const modules: Record<string, PageModule> = {};
-
-  await Promise.all(
-    pagePaths.map(async (pagePath) => {
-      const normalizedPath = pagePath.replace(/^\.\//, "");
-      const fullPath = resolve(pagesRoot, normalizedPath);
-      const stats = await lstat(fullPath);
-      if (stats.isSymbolicLink()) return;
-      modules[pagePath] = { lastmod: stats.mtime.toISOString() };
-    }),
-  );
-
-  return modules;
-};
-
 const loadPageModules = async () => {
   if (typeof import.meta.glob === "function") {
     const modules = import.meta.glob("../pages/**/*.astro", { eager: true });
-    const pagePaths = Object.keys(modules).map((path) =>
-      path.replace(/^\.\.\/pages\//, "./"),
+    return Object.fromEntries(
+      Object.keys(modules).map((path) => [
+        path.replace(/^\.\.\/pages\//, "./"),
+        {},
+      ]),
     );
-
-    if (!canReadFileSystem) {
-      return Object.fromEntries(
-        pagePaths.map((pagePath) => [pagePath, {}]),
-      );
-    }
-
-    const { pagesRoot } = await getPagesRoot();
-    return buildPageModules(pagePaths, pagesRoot);
   }
 
   if (typeof Bun !== "undefined") {
     const glob = new Bun.Glob("src/pages/**/*.astro");
-    const { rootPath, pagesRoot } = await getPagesRoot();
-    const pagePaths: string[] = [];
-
-    for await (const file of glob.scan({ cwd: rootPath })) {
-      const fullPath = resolve(rootPath, file);
-      const stats = await lstat(fullPath);
-      if (stats.isSymbolicLink()) continue;
-      const relativePath = relative(pagesRoot, fullPath);
-      if (relativePath.startsWith("..")) continue;
-      pagePaths.push(`./${relativePath.split(sep).join("/")}`);
-    }
-
-    return buildPageModules(pagePaths, pagesRoot);
+    const pagePaths = await Array.fromAsync(glob.scan({ cwd: process.cwd() }));
+    return Object.fromEntries(
+      pagePaths.map((file) => [file.replace(/^src\/pages\//, "./"), {}]),
+    );
   }
 
   return {};
@@ -142,20 +90,10 @@ const isPublicPath = (path: string) => {
 };
 
 const normalizeLastmod = (value?: string) => {
-  if (!value) return fallbackLastmod;
+  if (!value) return undefined;
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return fallbackLastmod;
+  if (Number.isNaN(date.getTime())) return undefined;
   return date.toISOString();
-};
-
-const inferChangefreq = (lastmod: string) => {
-  const lastmodDate = new Date(lastmod);
-  const diffMs = Date.now() - lastmodDate.getTime();
-  if (Number.isNaN(lastmodDate.getTime()) || diffMs < 0) return "monthly";
-  const days = diffMs / (1000 * 60 * 60 * 24);
-  if (days <= 30) return "weekly";
-  if (days <= 180) return "monthly";
-  return "yearly";
 };
 
 const escapeXml = (value: string) =>
@@ -177,6 +115,7 @@ const renderUrl = (base: URL, entry: SitemapEntry) => {
   const changefreq = entry.changefreq;
   const priority = entry.priority;
   const lastmod = normalizeLastmod(entry.lastmod);
+  const lastmodTag = lastmod ? `\n  <lastmod>${lastmod}</lastmod>` : "";
   const changefreqTag = changefreq
     ? `\n  <changefreq>${changefreq}</changefreq>`
     : "";
@@ -200,18 +139,8 @@ const renderUrl = (base: URL, entry: SitemapEntry) => {
       })
       .join("") ?? "";
   return `<url>
-  <loc>${loc}</loc>
-  <lastmod>${lastmod}</lastmod>${changefreqTag}${priorityTag}${imageTags}
+  <loc>${loc}</loc>${lastmodTag}${changefreqTag}${priorityTag}${imageTags}
 </url>`;
-};
-
-const contentMtime = async (filePath: string) => {
-  try {
-    const fileStats = await lstat(resolve(process.cwd(), filePath));
-    return fileStats.mtime.toISOString();
-  } catch {
-    return undefined;
-  }
 };
 
 export const buildSitemapSections = async () => {
@@ -287,15 +216,9 @@ export const buildSitemapSections = async () => {
       ]
     : [];
 
-  const quickStartLastmod = await contentMtime("src/content/quick-start.ts");
-  const taxonomyLastmod = await contentMtime("src/content/taxonomy.json");
-
   const quickStartPaths = quickStartGuides.map((guide) => ({
     path: `/quick-start/${guide.slug}`,
-    lastmod: quickStartLastmod,
-    changefreq: quickStartLastmod
-      ? inferChangefreq(quickStartLastmod)
-      : "monthly",
+    changefreq: "monthly",
   }));
 
   const incidentPaths = incidentLessons.map((lesson) => ({
@@ -308,19 +231,18 @@ export const buildSitemapSections = async () => {
       new Date(standard.published).getTime() > new Date(latest).getTime()
         ? standard.published
         : latest,
-    standardsContent.standards[0]?.published ?? fallbackLastmod,
+    standardsContent.standards[0]?.published ?? "1970-01-01",
   );
 
   const crosswalkControlPaths = governanceCrosswalks.map((control) => ({
     path: `/standards/crosswalk/${control.controlId.toLowerCase()}`,
     lastmod: latestStandardPublished,
-    changefreq: inferChangefreq(latestStandardPublished),
+    changefreq: "monthly",
   }));
 
   const taxonomyPaths = taxonomyEntries.map((entry) => ({
     path: `/taxonomy/${entry.slug}`,
-    lastmod: taxonomyLastmod,
-    changefreq: taxonomyLastmod ? inferChangefreq(taxonomyLastmod) : "monthly",
+    changefreq: "monthly",
   }));
 
   const domainRoots = ["governance", "delivery", "assurance", "experience"];
@@ -329,10 +251,7 @@ export const buildSitemapSections = async () => {
       .filter((entry) => entry.slug !== rootSlug)
       .map((entry) => ({
         path: `/${rootSlug}/${entry.slug.split("/").slice(1).join("/")}`,
-        lastmod: taxonomyLastmod,
-        changefreq: taxonomyLastmod
-          ? inferChangefreq(taxonomyLastmod)
-          : "monthly",
+        changefreq: "monthly",
       })),
   );
 
@@ -352,8 +271,9 @@ export const buildSitemapSections = async () => {
     if (!lastmod) return;
     const overrideKey = normalizeOverrideKey(path);
     const normalized = normalizeLastmod(lastmod);
+    if (!normalized) return;
     lastmodOverrides.set(overrideKey, normalized);
-    changefreqOverrides.set(overrideKey, inferChangefreq(normalized));
+    changefreqOverrides.set(overrideKey, "monthly");
   };
 
   addOverride("/glossary", glossaryLastmod);
@@ -437,10 +357,7 @@ export const buildSitemapSections = async () => {
 
   return {
     core: applyOverrides(corePaths),
-    glossary: applyOverrides([
-      ...glossaryPaths,
-      ...glossaryTestPaths,
-    ]),
+    glossary: applyOverrides([...glossaryPaths, ...glossaryTestPaths]),
     standards: applyOverrides([
       ...standardsContent.standards.map((standard) => ({
         path: `/standards/${standard.slug}`,
