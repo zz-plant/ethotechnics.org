@@ -283,7 +283,6 @@ export function InputPanel({
 
   return (
     <div className="card forecaster__card">
-      <div className="card__glow" aria-hidden="true" />
       <p className="eyebrow">Input levers</p>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
         <h3>Shape the workload profile</h3>

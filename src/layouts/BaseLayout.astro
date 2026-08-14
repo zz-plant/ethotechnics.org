@@ -216,9 +216,23 @@ const pagefindType = pathSegments[0] ?? "";
       }}
       extend={{
         link: [
-          { rel: "icon", type: "image/svg+xml", href: "/favicon.svg", media: "(prefers-color-scheme: light)" },
-          { rel: "icon", type: "image/svg+xml", href: "/favicon-dark.svg", media: "(prefers-color-scheme: dark)" },
-          { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+          {
+            rel: "icon",
+            type: "image/svg+xml",
+            href: "/favicon.svg",
+            media: "(prefers-color-scheme: light)",
+          },
+          {
+            rel: "icon",
+            type: "image/svg+xml",
+            href: "/favicon-dark.svg",
+            media: "(prefers-color-scheme: dark)",
+          },
+          {
+            rel: "apple-touch-icon",
+            sizes: "180x180",
+            href: "/apple-touch-icon.png",
+          },
           { rel: "manifest", href: "/site.webmanifest" },
           ...jsonAlternateLinks,
         ],
@@ -229,8 +243,16 @@ const pagefindType = pathSegments[0] ?? "";
           },
           { name: "author", content: siteName },
           { name: "publisher", content: siteName },
-          { name: "theme-color", content: "#f5f0e6", media: "(prefers-color-scheme: light)" },
-          { name: "theme-color", content: "#1a1714", media: "(prefers-color-scheme: dark)" },
+          {
+            name: "theme-color",
+            content: "#f5f0e6",
+            media: "(prefers-color-scheme: light)",
+          },
+          {
+            name: "theme-color",
+            content: "#1a1714",
+            media: "(prefers-color-scheme: dark)",
+          },
         ],
       }}
     />
@@ -250,135 +272,102 @@ const pagefindType = pathSegments[0] ?? "";
     <meta name="color-scheme" content="light dark" />
     <script is:inline>
       (() => {
-        const stored = localStorage.getItem('theme');
-        if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark');
-          document.documentElement.classList.remove('light');
+        const stored = localStorage.getItem("theme");
+        if (
+          stored === "dark" ||
+          (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+          document.documentElement.classList.remove("light");
         } else {
-          document.documentElement.classList.add('light');
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add("light");
+          document.documentElement.classList.remove("dark");
         }
       })();
     </script>
   </head>
   <body>
-    <div class="scroll-progress" aria-hidden="true"></div>
     <SvgDefs />
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="page-shell">
-      <header class="site-header" aria-label="Site header">
-        <p class="institute-banner container">
-          Open standards &amp; artifacts for accountable systems.
-        </p>
-      </header>
       <Navigation currentPath={currentPath} />
-      <div class="page-shell__canvas">
-        <div class="page-shell__panel">
-          <main
-            id="main-content"
-            class={mainClass}
-            tabindex="-1"
-            data-glossary-highlights={enableGlossaryHighlights
-              ? "true"
-              : undefined}
-            data-pagefind-body
-          >
-            <Breadcrumbs
-              items={normalizedBreadcrumbItems}
-              className="container page-breadcrumbs"
-            />
-            <slot />
-          </main>
-          <footer class="footer container" aria-label="Site footer">
-            <section class="footer__section">
-              <h2 class="eyebrow footer__heading">{identity.heading}</h2>
-              <div class="footer__identity">
-                <a
-                  class="footer__brand"
-                  href={identity.brand.href}
-                  aria-label={identity.brand.ariaLabel}
-                >
-                  <img
-                    src={identity.brand.logoSrc}
-                    alt={identity.brand.logoAlt}
-                    class="footer__logo"
-                    loading="lazy"
-                    decoding="async"
-                    width="38"
-                    height="38"
-                  />
-                  <Wordmark
-                    class="footer__wordmark"
-                    title={identity.brand.name}
-                  />
-                </a>
-                <p class="muted">{identity.description}</p>
-                <a
-                  class="footer__link"
-                  href={identity.license.href}
-                  rel={identity.license.external
-                    ? "noopener noreferrer"
-                    : undefined}
-                  target={identity.license.external ? "_blank" : undefined}
-                >
-                  {identity.license.label}
-                </a>
-                <a
-                  class="footer__badge"
-                  href={identity.license.href}
-                  rel={identity.license.external
-                    ? "noopener noreferrer"
-                    : undefined}
-                  target={identity.license.external ? "_blank" : undefined}
-                >
-                  <img
-                    src={identity.licenseBadge.src}
-                    alt={identity.licenseBadge.alt}
-                    loading="lazy"
-                    decoding="async"
-                    width="88"
-                    height="31"
-                  />
-                </a>
-              </div>
-            </section>
-            <section class="footer__section">
-              <NewsletterSignup />
-            </section>
-            <section class="footer__section" data-glossary-ignore>
-              <h2 class="eyebrow footer__heading">Preferences</h2>
-              <div class="footer__preferences">
-                <label class="preference-control">
-                  <input type="checkbox" id="glossary-toggle" checked />
-                  <span>Glossary highlights</span>
-                </label>
-              </div>
-            </section>
-            {
-              footerNav.map((section) => (
-                <section class="footer__section">
-                  <h2 class="eyebrow footer__heading">{section.heading}</h2>
-                  <ul class="footer__list">
-                    {section.links.map((link) => (
-                      <li>
-                        <a
-                          class="footer__link"
-                          href={link.href}
-                          rel={
-                            link.external ? "noopener noreferrer" : undefined
-                          }
-                          target={link.external ? "_blank" : undefined}
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ))
-            }
-          </footer>
-        </div>
+      <div class="page-shell__content">
+        <main
+          id="main-content"
+          class={mainClass}
+          tabindex="-1"
+          data-glossary-highlights={enableGlossaryHighlights
+            ? "true"
+            : undefined}
+          data-pagefind-body
+        >
+          <Breadcrumbs
+            items={normalizedBreadcrumbItems}
+            className="container page-breadcrumbs"
+          />
+          <slot />
+        </main>
+        <footer class="footer container" aria-label="Site footer">
+          <section class="footer__section">
+            <h2 class="eyebrow footer__heading">{identity.heading}</h2>
+            <div class="footer__identity">
+              <a
+                class="footer__brand"
+                href={identity.brand.href}
+                aria-label={identity.brand.ariaLabel}
+              >
+                <img
+                  src={identity.brand.logoSrc}
+                  alt={identity.brand.logoAlt}
+                  class="footer__logo"
+                  loading="lazy"
+                  decoding="async"
+                  width="38"
+                  height="38"
+                />
+                <Wordmark
+                  class="footer__wordmark"
+                  title={identity.brand.name}
+                />
+              </a>
+              <p class="muted">{identity.description}</p>
+              <a
+                class="footer__link"
+                href={identity.license.href}
+                rel={identity.license.external
+                  ? "noopener noreferrer"
+                  : undefined}
+                target={identity.license.external ? "_blank" : undefined}
+              >
+                {identity.license.label}
+              </a>
+            </div>
+          </section>
+          <section class="footer__section">
+            <NewsletterSignup />
+          </section>
+          {
+            footerNav.map((section) => (
+              <section class="footer__section">
+                <h2 class="eyebrow footer__heading">{section.heading}</h2>
+                <ul class="footer__list">
+                  {section.links.map((link) => (
+                    <li>
+                      <a
+                        class="footer__link"
+                        href={link.href}
+                        rel={link.external ? "noopener noreferrer" : undefined}
+                        target={link.external ? "_blank" : undefined}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))
+          }
+        </footer>
       </div>
     </div>
     {
@@ -387,84 +376,31 @@ const pagefindType = pathSegments[0] ?? "";
       )
     }
     <script type="module" is:inline src={searchModalScript} defer></script>
-    <button class="back-to-top" data-back-to-top aria-label="Back to top" type="button" hidden>
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
-    </button>
     <script is:inline>
       (() => {
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        /* progress bar */
-        const progressBar = document.querySelector('.scroll-progress');
-        if (progressBar && !prefersReduced) {
-          let ticking = false;
-          const update = () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            progressBar.style.width = docHeight > 0 ? (scrollTop / docHeight) * 100 + '%' : '0%';
-            ticking = false;
-          };
-          window.addEventListener('scroll', () => {
-            if (!ticking) {
-              window.requestAnimationFrame(update);
-              ticking = true;
-            }
-          }, { passive: true });
-        }
-
-        /* back to top */
-        const backToTop = document.querySelector('[data-back-to-top]');
-        if (backToTop) {
-          backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
-            const skipLink = document.querySelector('.skip-link');
-            if (skipLink instanceof HTMLElement) {
-              skipLink.focus({ preventScroll: true });
-            }
-          });
-
-          // Use IntersectionObserver to toggle visibility instead of scroll listener
-          const sentinel = document.createElement('div');
-          sentinel.style.position = 'absolute';
-          sentinel.style.top = '0';
-          sentinel.style.left = '0';
-          sentinel.style.height = '100vh';
-          sentinel.style.width = '1px';
-          sentinel.style.pointerEvents = 'none';
-          document.body.prepend(sentinel);
-
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              backToTop.hidden = entry.isIntersecting;
-            });
-          }, { root: null, threshold: 0 });
-
-          observer.observe(sentinel);
-        }
-
         /* theme toggle */
-        const toggles = document.querySelectorAll('[data-theme-toggle]');
+        const toggles = document.querySelectorAll("[data-theme-toggle]");
         toggles.forEach((btn) => {
-          btn.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.contains('dark');
+          btn.addEventListener("click", () => {
+            const isDark = document.documentElement.classList.contains("dark");
             if (isDark) {
-              document.documentElement.classList.remove('dark');
-              document.documentElement.classList.add('light');
-              localStorage.setItem('theme', 'light');
+              document.documentElement.classList.remove("dark");
+              document.documentElement.classList.add("light");
+              localStorage.setItem("theme", "light");
             } else {
-              document.documentElement.classList.remove('light');
-              document.documentElement.classList.add('dark');
-              localStorage.setItem('theme', 'dark');
+              document.documentElement.classList.remove("light");
+              document.documentElement.classList.add("dark");
+              localStorage.setItem("theme", "dark");
             }
           });
         });
 
         /* mobile nav focus trap + inert */
-        const mobileNav = document.querySelector('[data-mobile-nav]');
+        const mobileNav = document.querySelector("[data-mobile-nav]");
         if (mobileNav instanceof HTMLDetailsElement) {
           const pageRegions = () => {
-            const main = document.getElementById('main-content');
-            const footer = document.querySelector('.footer');
+            const main = document.getElementById("main-content");
+            const footer = document.querySelector(".footer");
             return [main, footer].filter(Boolean);
           };
 
@@ -480,7 +416,7 @@ const pagefindType = pathSegments[0] ?? "";
             const last = focusable[focusable.length - 1];
 
             const onKeyDown = (e) => {
-              if (e.key !== 'Tab') return;
+              if (e.key !== "Tab") return;
               if (e.shiftKey) {
                 if (document.activeElement === first) {
                   e.preventDefault();
@@ -494,15 +430,15 @@ const pagefindType = pathSegments[0] ?? "";
               }
             };
 
-            container.addEventListener('keydown', onKeyDown);
-            return () => container.removeEventListener('keydown', onKeyDown);
+            container.addEventListener("keydown", onKeyDown);
+            return () => container.removeEventListener("keydown", onKeyDown);
           };
 
-          mobileNav.addEventListener('toggle', () => {
-            const isMobile = window.matchMedia('(max-width: 991px)').matches;
+          mobileNav.addEventListener("toggle", () => {
+            const isMobile = window.matchMedia("(max-width: 991px)").matches;
             if (mobileNav.open && isMobile) {
               pageRegions().forEach((el) => (el.inert = true));
-              const firstLink = mobileNav.querySelector('a[href]');
+              const firstLink = mobileNav.querySelector("a[href]");
               if (firstLink) firstLink.focus();
               if (releaseFocusTrap) releaseFocusTrap();
               releaseFocusTrap = trapFocus(mobileNav);
@@ -517,14 +453,21 @@ const pagefindType = pathSegments[0] ?? "";
         }
 
         /* anchor scroll offset */
-        document.addEventListener('click', (e) => {
-          const link = e.target instanceof Element ? e.target.closest('a[href]') : null;
+        document.addEventListener("click", (e) => {
+          const link =
+            e.target instanceof Element ? e.target.closest("a[href]") : null;
           if (!link) return;
 
-          const href = link.getAttribute('href');
-          if (!href || !href.includes('#') || href.startsWith('http') || href === '#') return;
+          const href = link.getAttribute("href");
+          if (
+            !href ||
+            !href.includes("#") ||
+            href.startsWith("http") ||
+            href === "#"
+          )
+            return;
 
-          const parts = href.split('#');
+          const parts = href.split("#");
           const hash = parts[1];
           if (!hash) return;
 
@@ -532,18 +475,25 @@ const pagefindType = pathSegments[0] ?? "";
           if (!target) return;
 
           const linkPath = parts[0];
-          const current = window.location.pathname.replace(/\/$/, '');
-          if (linkPath && linkPath.replace(/\/$/, '') !== current) return;
+          const current = window.location.pathname.replace(/\/$/, "");
+          if (linkPath && linkPath.replace(/\/$/, "") !== current) return;
 
           e.preventDefault();
 
-          const nav = document.querySelector('.nav');
+          const nav = document.querySelector(".nav");
           const navHeight = nav?.offsetHeight || 0;
-          const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 24;
+          const top =
+            target.getBoundingClientRect().top +
+            window.scrollY -
+            navHeight -
+            24;
 
-          window.scrollTo({ top, behavior: prefersReduced ? 'auto' : 'smooth' });
+          window.scrollTo({
+            top,
+            behavior: prefersReduced ? "auto" : "smooth",
+          });
           if (history.replaceState) {
-            history.replaceState(null, '', href);
+            history.replaceState(null, "", href);
           }
         });
       })();
