@@ -3,7 +3,13 @@ type FooterLink = { label: string; href: string; external?: boolean };
 type SiteFooterContent = {
   identity: {
     heading: string;
-    brand: { name: string; href: string; ariaLabel: string; logoSrc: string; logoAlt: string };
+    brand: {
+      name: string;
+      href: string;
+      ariaLabel: string;
+      logoSrc: string;
+      logoAlt: string;
+    };
     description: string;
     license: { label: string; href: string; external: boolean };
     licenseBadge: { src: string; alt: string };
@@ -41,41 +47,18 @@ export const siteFooter: SiteFooterContent = {
         { label: "Glossary", href: "/glossary" },
         { label: "Standards", href: "/standards" },
         { label: "Diagnostics", href: "/diagnostics" },
-        { label: "Field Notes", href: "/field-notes" },
-        { label: "How Studio fits", href: "/institute/how-studio-fits" },
-      ],
-    },
-    {
-      heading: "Network",
-      links: [
-        {
-          label: "Ethotechnics Studio",
-          href: "https://ethotechnics.com",
-          external: true,
-        },
-        {
-          label: "The Crumple Zone",
-          href: "https://thecrumple.zone",
-          external: true,
-        },
-        {
-          label: "Kanav Jain (kanav.net)",
-          href: "https://kanav.net",
-          external: true,
-        },
       ],
     },
     {
       heading: "Connect",
       links: [
-        { label: "Reference API", href: "/api" },
         {
           label: "GitHub",
           href: "https://github.com/zz-plant/ethotechnics",
           external: true,
         },
         { label: "Send feedback", href: "/participate#feedback" },
-        { label: "Security", href: "/security/vulnerability-disclosure" },
+        { label: "Reference API", href: "/api" },
       ],
     },
   ],

@@ -1,4 +1,5 @@
 ---
+import "../styles/components/pattern-browser.css";
 import { randomUUID } from "node:crypto";
 
 import type { Pattern, PatternFilter } from "../content/library";
@@ -211,8 +212,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               }),
             )}
           >
-            <div class="card__glow" aria-hidden="true" />
-            <div class="pattern-card__meta">
+                        <div class="pattern-card__meta">
               <p class="muted">Filters: {appliedFilters}</p>
               <label
                 class="pattern-card__select"

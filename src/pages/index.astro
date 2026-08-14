@@ -1,19 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import NewsletterSignup from "../components/NewsletterSignup.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
 import { failureStates } from "../content/institute-site";
-import { renderCompactScene, type SceneType } from "../data/scenes";
-
-const failureSceneMap: Record<string, { scene: SceneType; accent: string }> = {
-  "decision-appealed": { scene: "review", accent: "#f97316" },
-  "model-wrong": { scene: "signals", accent: "#f43f5e" },
-  "queue-stuck": { scene: "pipeline", accent: "#3b82f6" },
-  "user-harmed": { scene: "signals", accent: "#f43f5e" },
-  "no-owner": { scene: "cards", accent: "#64748b" },
-  "cant-explain": { scene: "notebook", accent: "#64748b" },
-  "cant-stop": { scene: "hex", accent: "#f43f5e" },
-};
 
 const failureChoiceLabels: Record<string, string> = {
   "decision-appealed": "Decision appealed",
@@ -77,28 +65,45 @@ const failureChoiceIcons: Record<string, string[]> = {
   <section class="institute-hero stack-lg">
     <div class="institute-hero__layout">
       <div class="institute-hero__main stack-lg">
-        <p class="institute-hero__eyebrow">Ethotechnics Institute · Open commons</p>
+        <p class="institute-hero__eyebrow">
+          Ethotechnics Institute · Open commons
+        </p>
         <h1 class="balanced-headline">
           Make high-stakes AI easier to stop, explain, appeal, and repair
         </h1>
         <p class="section-lead">
-          Use open standards, checklists, examples, and diagnostics to turn AI governance from abstract intent into visible operating controls. Start with a live decision, an incident, or a policy gap; leave with owners, clocks, evidence, and next actions.
+          Use open standards, checklists, examples, and diagnostics to turn AI
+          governance from abstract intent into visible operating controls. Start
+          with a live decision, an incident, or a policy gap; leave with owners,
+          clocks, evidence, and next actions.
         </p>
         <p class="small muted">
-          Existing frameworks answer: "Did you manage risk responsibly?" This one
-          answers: "Can this system be stopped when it's harming someone?"
+          Existing frameworks answer: "Did you manage risk responsibly?" This
+          one answers: "Can this system be stopped when it's harming someone?"
           <a href="/standards/#comparison">See how it differs →</a>
         </p>
         <p class="small">
-          For commercial application of the framework (clinical AI safety evaluation, VC
-          diligence, and governance advisory), see
-          <a href="https://ethotechnics.com" rel="noopener noreferrer" target="_blank">
+          For commercial application of the framework (clinical AI safety
+          evaluation, VC diligence, and governance advisory), see
+          <a
+            href="https://ethotechnics.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             Ethotechnics Studio
           </a>.
         </p>
-        <ul class="institute-hero__status" aria-label="Institute publication status">
+        <ul
+          class="institute-hero__status"
+          aria-label="Institute publication status"
+        >
           <li>
-            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+            <svg
+              viewBox="0 0 20 20"
+              role="presentation"
+              focusable="false"
+              aria-hidden="true"
+            >
               <path d="M3.5 5.5h13v9h-13z" fill="none"></path>
               <path d="M6 8h8"></path>
               <path d="M6 11h6"></path>
@@ -106,7 +111,12 @@ const failureChoiceIcons: Record<string, string[]> = {
             <span>Open-access standards and diagnostics</span>
           </li>
           <li>
-            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+            <svg
+              viewBox="0 0 20 20"
+              role="presentation"
+              focusable="false"
+              aria-hidden="true"
+            >
               <circle cx="10" cy="10" r="6.5" fill="none"></circle>
               <path d="M10 6.8v3.5"></path>
               <path d="M10 12.8h.01"></path>
@@ -114,7 +124,12 @@ const failureChoiceIcons: Record<string, string[]> = {
             <span>Versioned, citable framework resources</span>
           </li>
           <li>
-            <svg viewBox="0 0 20 20" role="presentation" focusable="false" aria-hidden="true">
+            <svg
+              viewBox="0 0 20 20"
+              role="presentation"
+              focusable="false"
+              aria-hidden="true"
+            >
               <path
                 d="M10 3.7l5.6 2.1v3.7c0 3.6-2.4 5.9-5.6 6.9-3.2-1-5.6-3.3-5.6-6.9V5.8z"
                 fill="none"></path>
@@ -125,18 +140,18 @@ const failureChoiceIcons: Record<string, string[]> = {
         </ul>
       </div>
 
-      <aside class="institute-hero__starter panel stack-sm" aria-label="Homepage starter">
+      <aside
+        class="institute-hero__starter panel stack-sm"
+        aria-label="Homepage starter"
+      >
         <p class="eyebrow">Start here</p>
         <p class="institute-hero__decision-helper muted small">
-          Not sure where to begin? Pick the situation that matches your work and follow a short path.
+          Not sure where to begin? Pick the situation that matches your work and
+          follow a short path.
         </p>
         <div class="actions" aria-label="Primary standards actions">
-          <a class="button" href="/start-here">
-            Find my starting point
-          </a>
-          <a class="button ghost" href="/glossary">
-            Browse terms →
-          </a>
+          <a class="button" href="/start-here"> Find my starting point </a>
+          <a class="button ghost" href="/glossary"> Browse terms → </a>
         </div>
       </aside>
     </div>
@@ -144,94 +159,120 @@ const failureChoiceIcons: Record<string, string[]> = {
 
   <div class="home-core">
     <section id="governance-ontology" class="stack-sm card">
-    <div class="card__glow" aria-hidden="true" />
-    <p class="eyebrow">Shared language</p>
-    <h2>Plain definitions and reference data</h2>
-    <p>
-      Definitions for concepts like burden, contestability, repair, and stoppability, with stable links and JSON for audits, tools, and research. Use it when a team needs the same words to mean the same things.
-    </p>
-    <p>
-      <a href="/taxonomy">Browse definitions →</a>
-      <span aria-hidden="true"> · </span>
-      <a href="/api">Use the JSON API →</a>
-    </p>
+      <p class="eyebrow">Shared language</p>
+      <h2>Plain definitions and reference data</h2>
+      <p>
+        Definitions for concepts like burden, contestability, repair, and
+        stoppability, with stable links and JSON for audits, tools, and
+        research. Use it when a team needs the same words to mean the same
+        things.
+      </p>
+      <p>
+        <a href="/taxonomy">Browse definitions →</a>
+        <span aria-hidden="true"> · </span>
+        <a href="/api">Use the JSON API →</a>
+      </p>
     </section>
 
     <section id="failure-intake" class="stack-lg">
-    <p class="eyebrow">Incident triage</p>
-    <h2 id="failure-intake-heading">What is going wrong right now?</h2>
-    <p class="section-lead">
-      Choose the closest failure mode. Each path starts with what to do now, then names who should own follow-up and what evidence to collect.
-    </p>
-    <ul class="failure-grid" aria-labelledby="failure-intake-heading">
-      {
-        failureStates.map((state) => {
-          const iconPaths = failureChoiceIcons[state.slug] ?? ["M5 10h10", "M11 6l4 4-4 4"];
-          const sceneCfg = failureSceneMap[state.slug];
-          const sceneSvg = sceneCfg ? renderCompactScene(sceneCfg) : "";
-
-          return (
-            <li>
-              {sceneSvg && <div style="border-radius: 4px; overflow: hidden; margin-bottom: 0.4rem;" set:html={sceneSvg} />}
-              <a class="button failure-grid__button" href={`/failure/${state.slug}`}>
-                <span class="failure-grid__label">
-                  <span class="failure-grid__title">
-                    <span class="failure-grid__state-icon" aria-hidden="true">
-                      <svg viewBox="0 0 20 20" role="presentation" focusable="false">
-                        {iconPaths.map((pathValue) => (
-                          <path d={pathValue} />
-                        ))}
-                      </svg>
-                    </span>
-                    <span>{failureChoiceLabels[state.slug] ?? state.shortLabel}</span>
-                  </span>
-                  <span class="failure-grid__priority small muted">
-                    {failurePriorityBadges[state.slug] ?? "Review now"}
-                  </span>
-                </span>
-                <svg
-                  class="failure-grid__icon"
-                  viewBox="0 0 20 20"
-                  role="presentation"
-                  aria-hidden="true"
-                  focusable="false"
+      <p class="eyebrow">Incident triage</p>
+      <h2 id="failure-intake-heading">What is going wrong right now?</h2>
+      <p class="section-lead">
+        Choose the closest failure mode. Each path starts with what to do now,
+        then names who should own follow-up and what evidence to collect.
+      </p>
+      <ul class="failure-grid" aria-labelledby="failure-intake-heading">
+        {
+          failureStates.map((state) => {
+            const iconPaths = failureChoiceIcons[state.slug] ?? [
+              "M5 10h10",
+              "M11 6l4 4-4 4",
+            ];
+            return (
+              <li>
+                <a
+                  class="button failure-grid__button"
+                  href={`/failure/${state.slug}`}
                 >
-                  <path d="M5 10h10" />
-                  <path d="M11 6l4 4-4 4" />
-                </svg>
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
-    <p class="small muted">
-      Use these when a real person, queue, or decision needs attention—not just documentation.
-    </p>
+                  <span class="failure-grid__label">
+                    <span class="failure-grid__title">
+                      <span class="failure-grid__state-icon" aria-hidden="true">
+                        <svg
+                          viewBox="0 0 20 20"
+                          role="presentation"
+                          focusable="false"
+                        >
+                          {iconPaths.map((pathValue) => (
+                            <path d={pathValue} />
+                          ))}
+                        </svg>
+                      </span>
+                      <span>
+                        {failureChoiceLabels[state.slug] ?? state.shortLabel}
+                      </span>
+                    </span>
+                    <span class="failure-grid__priority small muted">
+                      {failurePriorityBadges[state.slug] ?? "Review now"}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <p class="small muted">
+        Use these when a real person, queue, or decision needs attention—not
+        just documentation.
+      </p>
     </section>
 
     <section class="stack-lg">
-    <p class="eyebrow">Audit and compliance</p>
-    <h2>Map practical controls to standards and audits</h2>
-    <p class="section-lead">
-      Standards are written so teams can cite requirements, assign owners, and show evidence without translating abstract principles from scratch.
-    </p>
-    <div class="adopt-grid">
-      {[
-        { title: "Regulatory mapping", items: ["EU AI Act references", "NIST AI RMF mappings", "ISO and sector references"], scene: { scene: "cards" as const, accent: "#3b82f6" } },
-        { title: "Audit handoff", items: ["Evidence fields for GRC workflows", "Owners, deadlines, and escalation clocks", "Artifacts for internal or regulator review"], scene: { scene: "review" as const, accent: "#14b8a6" } },
-        { title: "Adoption paths", items: ["Policy teams can cite clauses", "Operations teams can rehearse stoppability", "Engineering teams can tie rollback to release gates"], scene: { scene: "pipeline" as const, accent: "#f97316" } },
-      ].map((lane) => (
-        <article class="card lane-card stack-sm">
-          <div class="card__glow" aria-hidden="true" />
-          {lane.scene && <div style="border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;" set:html={renderCompactScene(lane.scene)} />}
-          <h3>{lane.title}</h3>
-          <ul class="lane-links">
-            {lane.items.map((item) => <li>{item}</li>)}
-          </ul>
-        </article>
-      ))}
-    </div>
+      <p class="eyebrow">Audit and compliance</p>
+      <h2>Map practical controls to standards and audits</h2>
+      <p class="section-lead">
+        Standards are written so teams can cite requirements, assign owners, and
+        show evidence without translating abstract principles from scratch.
+      </p>
+      <div class="adopt-grid">
+        {
+          [
+            {
+              title: "Regulatory mapping",
+              items: [
+                "EU AI Act references",
+                "NIST AI RMF mappings",
+                "ISO and sector references",
+              ],
+            },
+            {
+              title: "Audit handoff",
+              items: [
+                "Evidence fields for GRC workflows",
+                "Owners, deadlines, and escalation clocks",
+                "Artifacts for internal or regulator review",
+              ],
+            },
+            {
+              title: "Adoption paths",
+              items: [
+                "Policy teams can cite clauses",
+                "Operations teams can rehearse stoppability",
+                "Engineering teams can tie rollback to release gates",
+              ],
+            },
+          ].map((lane) => (
+            <article class="card lane-card stack-sm">
+              <h3>{lane.title}</h3>
+              <ul class="lane-links">
+                {lane.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
     </section>
   </div>
 
@@ -239,42 +280,48 @@ const failureChoiceIcons: Record<string, string[]> = {
 
   <div class="home-supplement">
     <section class="stack-sm card card--flat">
-    <p class="eyebrow">Use and cite this work</p>
-    <h2>Free to use with attribution</h2>
-    <p>
-      Ethotechnics Institute materials are published under
-      <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener noreferrer" target="_blank">
-        CC BY 4.0
-      </a>.
-    </p>
-    <p class="small muted">
-      Individual entries and patterns include citation metadata so you can reference exactly what you used.
-    </p>
+      <p class="eyebrow">Use and cite this work</p>
+      <h2>Free to use with attribution</h2>
+      <p>
+        Ethotechnics Institute materials are published under
+        <a
+          href="https://creativecommons.org/licenses/by/4.0/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          CC BY 4.0
+        </a>.
+      </p>
+      <p class="small muted">
+        Individual entries and patterns include citation metadata so you can
+        reference exactly what you used.
+      </p>
     </section>
 
-    <section class="stack-sm card card--flat" style="margin-top: var(--space-md);">
-      <NewsletterSignup />
-    </section>
-
-    <section id="recently-published" class="stack-sm card card--flat" aria-labelledby="recently-published-heading">
-    <p class="eyebrow">New and updated</p>
-    <h2 id="recently-published-heading">Recent releases</h2>
-    <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem;">
-      {recentPublications.map((item) => <li><span class="pill">{item}</span></li>)}
-    </ul>
+    <section
+      id="recently-published"
+      class="stack-sm card card--flat"
+      aria-labelledby="recently-published-heading"
+    >
+      <p class="eyebrow">New and updated</p>
+      <h2 id="recently-published-heading">Recent releases</h2>
+      <ul class="recent-releases">
+        {recentPublications.map((item) => <li>{item}</li>)}
+      </ul>
     </section>
 
     <section class="stack-sm card card--accent">
-    <p class="eyebrow">Studio</p>
-    <h2>Need hands-on help?</h2>
-    <p>
-      Ethotechnics Studio provides commissioned support for clinical AI safety evaluation, diligence, governance design, and implementation work.
-    </p>
-    <p>
-      <a class="button" href="https://ethotechnics.com/">
-        Ethotechnics Studio →
-      </a>
-    </p>
+      <p class="eyebrow">Studio</p>
+      <h2>Need hands-on help?</h2>
+      <p>
+        Ethotechnics Studio provides commissioned support for clinical AI safety
+        evaluation, diligence, governance design, and implementation work.
+      </p>
+      <p>
+        <a class="button" href="https://ethotechnics.com/">
+          Ethotechnics Studio →
+        </a>
+      </p>
     </section>
   </div>
 </BaseLayout>

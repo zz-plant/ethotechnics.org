@@ -1,23 +1,9 @@
 @layer components {
   .panel {
-    background:
-      var(--halftone),
-      linear-gradient(
-        140deg,
-        color-mix(in srgb, var(--panel) 95%, white 5%),
-        color-mix(in srgb, var(--surface) 92%, white 8%)
-      ),
-      color-mix(in srgb, var(--glow-wash) 90%, transparent);
-    background-blend-mode: soft-light, normal, soft-light;
-    background-size:
-      18px 18px,
-      auto,
-      auto;
+    background: var(--panel);
     padding: 1.7rem;
     border-radius: var(--radius);
     border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
-    box-shadow: var(--shadow-sm);
-    backdrop-filter: blur(6px) saturate(108%);
     position: relative;
     overflow: hidden;
   }
@@ -30,28 +16,13 @@
     gap: 0.5rem;
   }
 
-  .panel--glass::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      circle at 22% 18%,
-      rgba(255, 255, 255, 0.26),
-      transparent 48%
-    );
-    pointer-events: none;
+  .panel--glass {
+    border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
   }
 
   .panel--muted {
-    background:
-      var(--halftone),
-      linear-gradient(
-        140deg,
-        color-mix(in srgb, var(--surface) 96%, white 4%),
-        color-mix(in srgb, var(--panel) 92%, white 8%)
-      );
+    background: var(--surface-flat);
     border-color: color-mix(in srgb, var(--border) 70%, transparent);
-    box-shadow: 0 8px 16px rgba(64, 52, 40, 0.08);
   }
 
   .card {
@@ -63,52 +34,10 @@
     display: grid;
     gap: 0.6rem;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(64, 52, 40, 0.04), 0 2px 5px rgba(64, 52, 40, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    --glow-opacity: 0.06;
-    --glow-scale: 1;
-    --glow-rotation: 0deg;
     transition:
       border-color 220ms ease,
-      box-shadow 220ms ease,
       background-color 220ms ease,
-      color 220ms ease,
-      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: var(--grain-texture, none);
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: var(--z-underlay);
-    mix-blend-mode: multiply;
-  }
-
-  .card__glow {
-    position: absolute;
-    inset: -35% -30%;
-    background:
-      radial-gradient(
-        circle at 22% 24%,
-        color-mix(in srgb, var(--accent) 38%, transparent) 0,
-        transparent 48%
-      ),
-      conic-gradient(
-        from 160deg at 70% 55%,
-        color-mix(in srgb, var(--gold) 38%, transparent) 0deg,
-        color-mix(in srgb, var(--accent) 28%, transparent) 110deg,
-        color-mix(in srgb, var(--teal) 18%, transparent) 230deg,
-        color-mix(in srgb, var(--gold) 36%, transparent) 360deg
-      );
-    filter: blur(60px);
-    opacity: var(--glow-opacity);
-    z-index: var(--z-base);
-    transform: rotate(var(--glow-rotation)) scale(var(--glow-scale));
-    transition: opacity 240ms ease;
-    animation: none;
-    pointer-events: none;
+      color 220ms ease;
   }
 
   .card--quiet {
@@ -127,22 +56,15 @@
     opacity: 0;
   }
 
-  .card--quiet .card__glow {
-    opacity: 0;
-  }
-
   .card--emphasis {
     background: var(--surface-emphasis);
     border-color: var(--surface-accent-edge);
-    --glow-opacity: 0.08;
-    --glow-rotation: 12deg;
   }
 
   .card--flat {
     background: var(--surface);
     border-color: color-mix(in srgb, var(--border) 60%, transparent);
     box-shadow: none;
-    --glow-opacity: 0;
     transform: none !important;
   }
 
@@ -153,15 +75,11 @@
     border-color: var(--interactive-border-hover);
   }
 
-  .card--flat .card__glow {
-    display: none;
-  }
-
   .card--roomy {
     padding: 2.2rem;
   }
 
-  .card > :not(.card__glow) {
+  .card > * {
     position: relative;
     z-index: var(--z-raised);
   }
@@ -169,24 +87,13 @@
   .card:hover,
   .card:focus-within {
     border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
-    box-shadow:
-      0 20px 38px rgba(64, 52, 40, 0.12),
-      0 6px 14px color-mix(in srgb, var(--accent) 6%, transparent),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    transform: translateY(-5px) scale(1.01);
+    background: color-mix(in srgb, var(--surface-raised) 96%, var(--accent) 4%);
     z-index: var(--z-raised);
-    --glow-opacity: 0.14;
-    --glow-scale: 1.04;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .card,
-    .card__glow {
+    .card {
       transition: none;
-    }
-
-    .card__glow {
-      animation: none;
     }
   }
 
@@ -423,7 +330,9 @@
 
   .callout--emphasis {
     border-color: var(--surface-accent-edge);
-    box-shadow: var(--shadow-accent), 0 12px 20px rgba(56, 40, 24, 0.08);
+    box-shadow:
+      var(--shadow-accent),
+      0 12px 20px rgba(56, 40, 24, 0.08);
   }
 
   .callout--solid {
