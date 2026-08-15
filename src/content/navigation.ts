@@ -82,7 +82,6 @@ const startHereUtilityLink: NavUtilityLink = {
 };
 
 export const navUtilityDesktopLinks: NavUtilityLink[] = [
-  startHereUtilityLink,
   {
     href: "/applications",
     label: "Applications",

@@ -96,11 +96,8 @@ const structuredDataJson = JSON.stringify(structuredData);
               </ul>
             )}
             <div slot="footer" class="card__footer">
-              <a class="button ghost button--compact" href={`/${entry.slug}`}>
-                Open domain page
-              </a>
-              <a class="muted" href={`/taxonomy/${entry.slug}`}>
-                View taxonomy entry
+              <a class="button ghost button--compact" href={`/taxonomy/${entry.slug}`}>
+                Explore {entry.title.toLowerCase()}
               </a>
             </div>
           </CardItem>

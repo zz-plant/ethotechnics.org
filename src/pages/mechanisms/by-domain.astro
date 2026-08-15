@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { libraryContent } from "../../content/library";
+
+const pageTitle = "Mechanisms by domain — Ethotechnics";
+const pageDescription =
+  "Programmatic index of mechanism patterns grouped by governance, friction, and policy domains.";
+const permalink = "/mechanisms/by-domain";
+
+const mechanismDomains = [
+  {
+    slug: "governance",
+    title: "Governance",
+    summary: "Controls for oversight, accountability, and transparent stewardship.",
+  },
+  {
+    slug: "friction",
+    title: "Friction",
+    summary: "Controls that make high-risk actions pause, explain, and escalate.",
+  },
+  {
+    slug: "policy",
+    title: "Policy",
+    summary: "Controls that bind standards into operational and legal pathways.",
+  },
+] as const;
+
+const patternsByDomain = mechanismDomains.map((domain) => ({
+  domain,
+  patterns: libraryContent.patterns.entries.filter((pattern) =>
+    pattern.filters.includes(domain.slug),
+  ),
+}));
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} openGraphType="website" publishedTime="2025-06-01T00:00:00.000Z">
+  <PageIntro
+    eyebrow="Programmatic index"
+    title="Mechanisms by domain"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={patternsByDomain.map(({ domain }) => ({
+      href: `#${domain.slug}`,
+      label: domain.title,
+    }))}
+  />
+
+  {
+    patternsByDomain.map(({ domain, patterns }) => (
+      <SectionBlock
+        id={domain.slug}
+        eyebrow="Mechanism domain"
+        title={domain.title}
+        description={domain.summary}
+      >
+        {patterns.length > 0 ? (
+          <ul>
+            {patterns.map((pattern) => (
+              <li>
+                <a href={`/mechanisms/patterns/${pattern.slug}`}>{pattern.title}</a>
+                <span class="muted"> — {pattern.summary}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">No mapped mechanisms published for this domain yet.</p>
+        )}
+      </SectionBlock>
+    ))
+  }
+</BaseLayout>

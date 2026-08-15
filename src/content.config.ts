@@ -747,69 +747,6 @@ const evidencePackSchema = z.object({
   ).optional(),
 });
 
-const agentToolkitSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  description: z.string(),
-  permalink: z.string(),
-  eyebrow: z.string().optional().default("Agent Toolkit"),
-  published: z.string(),
-  updated: z.string().optional(),
-  content: z.string(),
-  relatedStandards: z.array(z.string()).optional(),
-  relatedMechanisms: z.array(z.string()).optional(),
-});
-
-const mechanismSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  description: z.string(),
-  permalink: z.string(),
-  eyebrow: z.string().optional().default("Mechanism"),
-  published: z.string(),
-  updated: z.string().optional(),
-  content: z.string(),
-  standardRefs: z.array(z.string()).optional(),
-  patternRefs: z.array(z.string()).optional(),
-});
-
-const researchSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  description: z.string(),
-  permalink: z.string(),
-  eyebrow: z.string().optional().default("Research"),
-  published: z.string(),
-  updated: z.string().optional(),
-  content: z.string(),
-  tags: z.array(z.string()).optional(),
-});
-
-const exampleSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  description: z.string(),
-  permalink: z.string(),
-  eyebrow: z.string().optional().default("Example"),
-  published: z.string(),
-  updated: z.string().optional(),
-  content: z.string(),
-  standardRefs: z.array(z.string()).optional(),
-  mechanismRefs: z.array(z.string()).optional(),
-});
-
-const bundleSchema = z.object({
-  slug: z.string(),
-  title: z.string(),
-  description: z.string(),
-  permalink: z.string(),
-  eyebrow: z.string().optional().default("Bundle"),
-  published: z.string(),
-  updated: z.string().optional(),
-  content: z.string(),
-  includes: z.array(z.string()).optional(),
-});
-
 const explainers = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "src/content/explainers" }),
   schema: explainerSchema,
@@ -825,41 +762,11 @@ const evidencePacks = defineCollection({
   schema: evidencePackSchema,
 });
 
-const agentToolkit = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "src/content/agent-toolkit" }),
-  schema: agentToolkitSchema,
-});
-
-const mechanisms = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "src/content/mechanisms" }),
-  schema: mechanismSchema,
-});
-
-const research = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "src/content/research" }),
-  schema: researchSchema,
-});
-
-const examples = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "src/content/examples" }),
-  schema: exampleSchema,
-});
-
-const bundles = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "src/content/bundles" }),
-  schema: bundleSchema,
-});
-
 export const collections = {
   standards,
   explainers,
   incidents,
   evidencePacks,
-  agentToolkit,
-  mechanisms,
-  research,
-  examples,
-  bundles,
   home,
   taxonomy,
   glossary,
@@ -868,3 +775,4 @@ export const collections = {
   fieldNotes,
   participation,
 };
+
