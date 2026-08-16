@@ -14,32 +14,30 @@ It consolidates references that were previously spread across multiple index sec
 
 - [`user-journey-critique.md`](user-journey-critique.md): representative journey walkthrough and
   recommendations.
-- [`new-user-routes-critique-2026-02.md`](new-user-routes-critique-2026-02.md):
-  two-route first-session critique constrained to remove/rebuild/modify actions.
-- [`mobile-ux-critique-2026-02.md`](mobile-ux-critique-2026-02.md): mobile-focused UX
-  critique with prioritized improvements and refreshed recommendations.
-- [`weakest-features-triage-2026-03.md`](weakest-features-triage-2026-03.md):
-  remove-vs-improve decisions and phased execution order for current weakest UX surfaces.
-- [`ux-audit-kondo-series-2026.md`](ux-audit-kondo-series-2026.md):
-  consolidated findings and action backlog from the prior multi-round Kondo UX audits.
-
-- [`site-description-alignment-audit.md`](site-description-alignment-audit.md):
-  publication-readiness review for external site summaries.
-- [`open-source-citizenship-audit-2026-02.md`](open-source-citizenship-audit-2026-02.md):
-  repository community-health review against open-source citizenship norms.
-- [`copywriting-plain-language-audit-2026-02.md`](copywriting-plain-language-audit-2026-02.md):
-  plain-language audit of high-friction site copy with rewrite recommendations.
-- [`outside-the-box-applications-ia-2026-03.md`](outside-the-box-applications-ia-2026-03.md):
-  IA recommendations for positioning ethotechnics as deployable moral infrastructure patterns.
 
 ## Technical strategy tracks
 
-- Tech stack evolution:
-  - [`tech-stack-capabilities-scan-2026.md`](tech-stack-capabilities-scan-2026.md)
-  - [`tech-stack-upgrade-actions-2026.md`](tech-stack-upgrade-actions-2026.md)
-  - [`tech-debt-inventory-2026-02.md`](tech-debt-inventory-2026-02.md)
 - Interop and toolkit planning:
   - [`python-evaluation-toolkit.md`](python-evaluation-toolkit.md)
+
+## Archived audits
+
+One-off dated audits are kept in [`archive/`](archive/) for reference. They are not active
+planning documents.
+
+- [`archive/copywriting-plain-language-audit-2026-02.md`](archive/copywriting-plain-language-audit-2026-02.md)
+- [`archive/mobile-ux-critique-2026-02.md`](archive/mobile-ux-critique-2026-02.md)
+- [`archive/new-user-routes-critique-2026-02.md`](archive/new-user-routes-critique-2026-02.md)
+- [`archive/open-source-citizenship-audit-2026-02.md`](archive/open-source-citizenship-audit-2026-02.md)
+- [`archive/outside-the-box-applications-ia-2026-03.md`](archive/outside-the-box-applications-ia-2026-03.md)
+- [`archive/outstanding-issues-audit-2026-03-02.md`](archive/outstanding-issues-audit-2026-03-02.md)
+- [`archive/refactor-trawl-2026-03-01.md`](archive/refactor-trawl-2026-03-01.md)
+- [`archive/site-description-alignment-audit.md`](archive/site-description-alignment-audit.md)
+- [`archive/tech-debt-inventory-2026-02.md`](archive/tech-debt-inventory-2026-02.md)
+- [`archive/tech-stack-capabilities-scan-2026.md`](archive/tech-stack-capabilities-scan-2026.md)
+- [`archive/tech-stack-upgrade-actions-2026.md`](archive/tech-stack-upgrade-actions-2026.md)
+- [`archive/ux-audit-kondo-series-2026.md`](archive/ux-audit-kondo-series-2026.md)
+- [`archive/weakest-features-triage-2026-03.md`](archive/weakest-features-triage-2026-03.md)
 
 ## How to keep this hub useful
 
