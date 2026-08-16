@@ -4,7 +4,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 
 import { join, relative, resolve, sep } from "node:path";
-import { lstat, readdir, realpath, stat } from "node:fs/promises";
+import { lstat, realpath } from "node:fs/promises";
 
 // Initialize server
 const server = new McpServer({
@@ -186,7 +186,7 @@ const parseRoadmapPriorityItemsWithAudit = async (): Promise<{
   items: PriorityItem[];
   audit: PriorityParseAudit;
 }> => {
-  const roadmapPath = join(getProjectRoot(), "docs", "roadmap.md");
+  const roadmapPath = join(getProjectRoot(), "docs", "planning", "roadmap.md");
   const roadmap = await Bun.file(roadmapPath).text();
   const lines = roadmap.split(/\r?\n/);
 
@@ -258,7 +258,7 @@ const parseRoadmapPriorityItemsWithAudit = async (): Promise<{
       priority,
       title,
       rationale: section.problem,
-      source: "docs/roadmap.md",
+      source: "docs/planning/roadmap.md",
       issueLink: section.issueLink,
       specLink: section.specLink,
     });
@@ -279,6 +279,7 @@ const parseJourneyPriorities = async (): Promise<PriorityItem[]> => {
   const critiquePath = join(
     getProjectRoot(),
     "docs",
+    "planning",
     "user-journey-critique.md",
   );
   const critique = await Bun.file(critiquePath).text();
@@ -306,7 +307,7 @@ const parseJourneyPriorities = async (): Promise<PriorityItem[]> => {
         priority: "P0",
         title: priorityMatch[1].trim(),
         rationale: "Near-term UX recommendation from journey critique.",
-        source: "docs/user-journey-critique.md",
+        source: "docs/planning/user-journey-critique.md",
       });
     }
   }
@@ -346,7 +347,7 @@ const getPrioritySourceAudit = async () => {
     roadmap: roadmap.audit,
     journey: {
       parsedItems: journey.length,
-      source: "docs/user-journey-critique.md",
+      source: "docs/planning/user-journey-critique.md",
     },
   };
 };
@@ -467,6 +468,7 @@ const parseJourneyPlaybooks = async (): Promise<JourneyPlaybook[]> => {
   const critiquePath = join(
     getProjectRoot(),
     "docs",
+    "planning",
     "user-journey-critique.md",
   );
   const critique = await Bun.file(critiquePath).text();
@@ -699,52 +701,6 @@ registerTool(
   },
 );
 
-// Tool: Analyze dist directory
-registerTool(
-  "analyze_dist",
-  "Analyze the dist directory after build to check file sizes and structure",
-  {},
-  async () => {
-    try {
-      const distDir = join(getProjectRoot(), "dist");
-      const files: { path: string; size: number }[] = [];
-
-      async function scan(dir: string) {
-        const entries = await readdir(dir, { withFileTypes: true });
-        for (const entry of entries) {
-          const fullPath = join(dir, entry.name);
-          const entryStats = await lstat(fullPath);
-          if (entryStats.isSymbolicLink()) continue;
-          if (entryStats.isDirectory()) {
-            await scan(fullPath);
-            continue;
-          }
-          files.push({
-            path: relative(distDir, fullPath),
-            size: entryStats.size,
-          });
-        }
-      }
-
-      await scan(distDir);
-      files.sort((a, b) => b.size - a.size); // Sort by size descending
-
-      const report = files
-        .map((file) => `${file.path}: ${(file.size / 1024).toFixed(2)} KB`)
-        .join("\n");
-      const totalSize = files.reduce((acc, curr) => acc + curr.size, 0);
-
-      return textResponse(
-        `Total Dist Size: ${(totalSize / 1024).toFixed(2)} KB\n\nTop Large Files:\n${report}`,
-      );
-    } catch (error) {
-      return errorResponse(
-        `Error analyzing dist: ${error instanceof Error ? error.message : String(error)}. Make sure you have run 'bun run build' first.`,
-      );
-    }
-  },
-);
-
 // Tool: Read Wrangler Config
 registerTool(
   "read_wrangler_config",
@@ -758,88 +714,6 @@ registerTool(
     } catch (error) {
       return errorResponse(
         `Error reading wrangler.toml: ${error instanceof Error ? error.message : String(error)}`,
-      );
-    }
-  },
-);
-
-// Tool: Get file tree with depth and path options
-registerTool(
-  "get_file_tree",
-  "Get a directory tree starting from a specific path with optional depth limit",
-  {
-    path: z
-      .string()
-      .optional()
-      .default(".")
-      .describe("The path to start the tree from (relative to project root)"),
-    depth: z
-      .number()
-      .optional()
-      .default(2)
-      .describe("Maximum depth of the tree"),
-  },
-  async ({ path, depth }) => {
-    try {
-      const projectRoot = await realpath(getProjectRoot());
-      const requestedPath = resolve(projectRoot, path || ".");
-      const safePrefix = `${projectRoot}${sep}`;
-      if (
-        requestedPath !== projectRoot &&
-        !requestedPath.startsWith(safePrefix)
-      ) {
-        throw new Error("Invalid path: Access denied");
-      }
-      const requestedStats = await lstat(requestedPath);
-      if (requestedStats.isSymbolicLink()) {
-        throw new Error("Invalid path: Symlinks are not allowed");
-      }
-      const rootPath = await realpath(requestedPath);
-      if (rootPath !== projectRoot && !rootPath.startsWith(safePrefix)) {
-        throw new Error("Invalid path: Access denied");
-      }
-      const rootStats = await stat(rootPath);
-      if (rootStats.isFile()) {
-        return textResponse(`📄 ${relative(projectRoot, rootPath)}`);
-      }
-
-      const files: string[] = [];
-      const excludes = [
-        "node_modules",
-        ".git",
-        "dist",
-        ".wrangler",
-        "coverage",
-      ];
-
-      async function scan(dir: string, currentDepth: number) {
-        if (depth !== undefined && currentDepth > depth) return;
-        const entries = await readdir(dir, { withFileTypes: true });
-        for (const entry of entries) {
-          if (excludes.includes(entry.name)) continue;
-          const fullPath = join(dir, entry.name);
-          const entryStats = await lstat(fullPath);
-          if (entryStats.isSymbolicLink()) continue;
-          const relPath = relative(rootPath, fullPath);
-          files.push(
-            `${"  ".repeat(currentDepth)}${entryStats.isDirectory() ? "📁" : "📄"} ${relPath}`,
-          );
-          if (entryStats.isDirectory()) {
-            await scan(fullPath, currentDepth + 1);
-          }
-        }
-      }
-
-      await scan(rootPath, 0);
-
-      return textResponse(
-        files.length > 0
-          ? files.join("\n")
-          : "No files found or depth exceeded.",
-      );
-    } catch (error) {
-      return errorResponse(
-        `Error getting file tree: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   },
