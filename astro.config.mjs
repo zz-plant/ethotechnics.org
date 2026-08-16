@@ -68,20 +68,9 @@ export default defineConfig({
       },
     },
     build: {
-      minify: "esbuild",
       reportCompressedSize: false,
-      target: ["es2022"],
-      cssMinify: "lightningcss",
-      cssTarget: ["es2020"],
-      rollupOptions: {
-        output: {
-          experimentalMinChunkSize: 1000,
-        },
-      },
-    },
-    esbuild: {
       target: "es2022",
-      legalComments: "none",
+      cssMinify: "lightningcss",
     },
     optimizeDeps: {
       include: ["react", "react-dom"],

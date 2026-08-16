@@ -34,7 +34,7 @@ project favors lean, fast-loading pages and clear storytelling.
 
 ## Highlights
 
-- Built with Astro 5 and TypeScript for fast, accessible content delivery.
+- Built with Astro 7 and TypeScript for fast, accessible content delivery.
 - Cloudflare Workers deployment with a dedicated `wrangler.toml` configuration.
 - Hardened security headers set in `src/middleware.ts`.
 - Playwright end-to-end tests plus Bun unit/component coverage.
