@@ -179,23 +179,14 @@
           "slug": "decision-log",
           "title": "MEC-01 Decision log with dissent",
           "summary": "Capture high-stakes calls, dissenting views, and follow-ups so governance stays legible to teams and impacted people.",
-          "filters": [
-            "governance",
-            "policy"
-          ],
-          "glossaryRefs": [
-            "design-authority",
-            "repair-log",
-            "contestability"
-          ],
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["design-authority", "repair-log", "contestability"],
           "cues": [
             "Record why options were ruled out and who was consulted.",
             "Attach plain-language summaries for external readers.",
             "Set a review date tied to the stewardship window."
           ],
-          "diagnostics": [
-            "burden-modeler"
-          ],
+          "diagnostics": ["burden-modeler"],
           "steps": [
             "Log the decision, rejected options, and who was consulted in one place.",
             "Attach a short summary alongside the canonical record for external readers.",
@@ -242,10 +233,7 @@
           "slug": "progressive-consent",
           "title": "MEC-02 Progressive consent prompts",
           "summary": "Stage requests for data or automation over time, with reminders and exits that honor the consent journey.",
-          "filters": [
-            "friction",
-            "policy"
-          ],
+          "filters": ["friction", "policy"],
           "glossaryRefs": [
             "consent-journey",
             "permission-surface",
@@ -256,9 +244,7 @@
             "Show impacts of opting out before a person commits.",
             "Include a safety valve that defaults to privacy-preserving behavior."
           ],
-          "diagnostics": [
-            "llm-capacity-benchmark"
-          ],
+          "diagnostics": ["llm-capacity-benchmark"],
           "steps": [
             "Break large asks into small prompts that explain why each is needed.",
             "Preview what happens if someone opts out and keep the path visible.",
@@ -305,10 +291,7 @@
           "slug": "maintenance-windowing",
           "title": "MEC-03 Maintenance windowing",
           "summary": "Schedule improvements, monitoring, and resourcing using a visible stewardship window.",
-          "filters": [
-            "governance",
-            "policy"
-          ],
+          "filters": ["governance", "policy"],
           "glossaryRefs": [
             "maintenance-window",
             "maintenance-metabolism",
@@ -319,9 +302,7 @@
             "Map communication cadences to risk levels and audiences.",
             "Align dependencies so a degraded tool has a safe fallback."
           ],
-          "diagnostics": [
-            "maintenance-simulator"
-          ],
+          "diagnostics": ["maintenance-simulator"],
           "steps": [
             "Define maintenance windows with owners, success criteria, and rollbacks.",
             "Publish communication cadences by risk level and audience.",
@@ -368,10 +349,7 @@
           "slug": "kill-switch",
           "title": "MEC-05 Kill switch for runaway automation",
           "summary": "Pre-authorized halt paths with named stewards, thresholds, and restoration drills so harms stop in seconds.",
-          "filters": [
-            "governance",
-            "friction"
-          ],
+          "filters": ["governance", "friction"],
           "glossaryRefs": [
             "stoppability",
             "ethical-interrupts",
@@ -382,10 +360,7 @@
             "Name the people who can fire the switch and protect them from retaliation.",
             "Rehearse rollbacks so halts land in reversible, well-communicated states."
           ],
-          "diagnostics": [
-            "maintenance-simulator",
-            "burden-modeler"
-          ],
+          "diagnostics": ["maintenance-simulator", "burden-modeler"],
           "steps": [
             "Map the automation path and mark where halts must land safely with owners.",
             "Set tripwires for ethical interrupts that align with time-to-halt targets.",
@@ -432,10 +407,7 @@
           "slug": "appeal-paths",
           "title": "MEC-06 Appeal paths inside the UI",
           "summary": "Give people a built-in channel to dispute outputs, get human review, or learn how a decision was made.",
-          "filters": [
-            "friction",
-            "governance"
-          ],
+          "filters": ["friction", "governance"],
           "glossaryRefs": [
             "contestability",
             "appeal-passage-rate",
@@ -446,10 +418,7 @@
             "Pre-fill context to reduce effort during stressful moments.",
             "Track appeal outcomes to improve signal credibility."
           ],
-          "diagnostics": [
-            "burden-modeler",
-            "maintenance-simulator"
-          ],
+          "diagnostics": ["burden-modeler", "maintenance-simulator"],
           "steps": [
             "Place an appeal entry point near the affected decision with response times.",
             "Pre-fill context so people can submit without rebuilding the story.",
@@ -496,23 +465,14 @@
           "slug": "accountability-latency-tracker",
           "title": "MEC-07 Accountability latency tracker",
           "summary": "Measure how quickly teams can intervene, halt, and restore systems when accountability is on the line.",
-          "filters": [
-            "governance",
-            "policy"
-          ],
-          "glossaryRefs": [
-            "audit-trail",
-            "design-authority",
-            "time-to-halt"
-          ],
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["audit-trail", "design-authority", "time-to-halt"],
           "cues": [
             "Instrument veto, halt, and restore events with owner and trigger metadata.",
             "Publish accountability latency targets alongside time-to-halt SLAs.",
             "Tie latency deltas to post-incident repair log entries."
           ],
-          "diagnostics": [
-            "maintenance-simulator"
-          ],
+          "diagnostics": ["maintenance-simulator"],
           "steps": [
             "Define the telemetry contract for veto, halt, and restoration events.",
             "Surface a dashboard that shows median latency and breach incidents.",
@@ -559,10 +519,7 @@
           "slug": "contestation-apis",
           "title": "MEC-08 Contestation APIs",
           "summary": "Expose programmatic interfaces that let affected people challenge decisions and trigger binding state changes.",
-          "filters": [
-            "governance",
-            "policy"
-          ],
+          "filters": ["governance", "policy"],
           "glossaryRefs": [
             "contestability",
             "permission-surface",
@@ -573,10 +530,7 @@
             "Return receipts with contest IDs, status, and escalation paths on submission.",
             "Require binding authority to update system state when contests are upheld."
           ],
-          "diagnostics": [
-            "burden-modeler",
-            "maintenance-simulator"
-          ],
+          "diagnostics": ["burden-modeler", "maintenance-simulator"],
           "steps": [
             "Define an authenticated contestation endpoint with required evidence fields.",
             "Emit status updates via webhooks or receipts tied to the decision record.",
@@ -617,23 +571,14 @@
           "slug": "burden-dashboards",
           "title": "MEC-09 Burden dashboards",
           "summary": "Make user burden visible with dashboards that track time, steps, and escalation effort across cohorts.",
-          "filters": [
-            "governance",
-            "policy"
-          ],
-          "glossaryRefs": [
-            "burden-index",
-            "user-burden-ratio",
-            "time-to-halt"
-          ],
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["burden-index", "user-burden-ratio", "time-to-halt"],
           "cues": [
             "Publish burden metrics alongside outcome and SLA dashboards.",
             "Segment burden by cohort, channel, and escalation tier.",
             "Flag burden spikes as governance incidents with owners."
           ],
-          "diagnostics": [
-            "burden-modeler"
-          ],
+          "diagnostics": ["burden-modeler"],
           "steps": [
             "Define burden signals (time, steps, waiting, handoffs) and thresholds.",
             "Build a dashboard view with cohort breakdowns and trend lines.",
@@ -674,10 +619,7 @@
           "slug": "reversibility-audit-logs",
           "title": "MEC-10 Reversibility audit logs",
           "summary": "Track which actions can be reversed, how long reversal takes, and why irreversibility exists.",
-          "filters": [
-            "governance",
-            "policy"
-          ],
+          "filters": ["governance", "policy"],
           "glossaryRefs": [
             "reversibility",
             "audit-trail",
@@ -688,9 +630,7 @@
             "Log reversal attempts with time-to-restore metrics.",
             "Surface irreversibility as a risk flag in governance reviews."
           ],
-          "diagnostics": [
-            "maintenance-simulator"
-          ],
+          "diagnostics": ["maintenance-simulator"],
           "steps": [
             "Tag actions with reversibility status and documented rationale.",
             "Log every reversal attempt with timestamps and outcome.",
@@ -731,23 +671,14 @@
           "slug": "escalation-slas",
           "title": "MEC-11 Escalation SLAs",
           "summary": "Guarantee response times for human escalation when automated decisions are contested.",
-          "filters": [
-            "governance",
-            "policy"
-          ],
-          "glossaryRefs": [
-            "escalation",
-            "contestability",
-            "time-to-halt"
-          ],
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["escalation", "contestability", "time-to-halt"],
           "cues": [
             "Publish escalation clocks with named owners and coverage windows.",
             "Tie escalation SLAs to staffing plans and on-call rosters.",
             "Trigger safe-mode or reversal when escalation SLAs are breached."
           ],
-          "diagnostics": [
-            "maintenance-simulator"
-          ],
+          "diagnostics": ["maintenance-simulator"],
           "steps": [
             "Define escalation tiers with SLA targets and authority scopes.",
             "Instrument SLA tracking with receipts and breach alerts.",
@@ -788,23 +719,14 @@
           "slug": "stoppability-testing",
           "title": "MEC-12 Stoppability testing",
           "summary": "Verify pre-deployment that systems can be halted by authorized stakeholders under defined conditions.",
-          "filters": [
-            "governance",
-            "policy"
-          ],
-          "glossaryRefs": [
-            "stoppability",
-            "time-to-halt",
-            "design-authority"
-          ],
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["stoppability", "time-to-halt", "design-authority"],
           "cues": [
             "Run stoppability drills before launch and after major changes.",
             "Document who can halt, how, and the expected time-to-halt.",
             "Log stoppability test outcomes and remediation actions."
           ],
-          "diagnostics": [
-            "maintenance-simulator"
-          ],
+          "diagnostics": ["maintenance-simulator"],
           "steps": [
             "Define stoppability test scenarios with triggers and owners.",
             "Execute drills that measure time-to-halt and safe restoration.",

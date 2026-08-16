@@ -1,4 +1,4 @@
-import type { SystemStability } from '../types';
+import type { SystemStability } from "../types";
 
 export interface ModelConfig {
   baseDecay: number;

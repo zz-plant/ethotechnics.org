@@ -90,8 +90,8 @@ bun run setup:codex
 | `bun run preview:cf`     | Preview the Worker build via Wrangler with local bindings.                               |
 | `bun run check`          | Run default PR checks: lint, type checks, Astro checks, JSON validation, and unit tests. |
 | `bun run check:full`     | Run deep checks: default PR checks plus SEO audit and coverage unit tests.               |
-| `bun run clean`          | Remove generated local build/test artifacts while keeping dependencies installed.         |
-| `bun run clean:all`      | Remove all generated artifacts plus local dependencies and Playwright caches.             |
+| `bun run clean`          | Remove generated local build/test artifacts while keeping dependencies installed.        |
+| `bun run clean:all`      | Remove all generated artifacts plus local dependencies and Playwright caches.            |
 | `bun run lint`           | Lint Astro and TypeScript sources under `src/`.                                          |
 | `bun run lint:fix`       | Lint and auto-fix Astro and TypeScript sources under `src/`.                             |
 | `bun run format`         | Format Markdown and source files with Prettier.                                          |

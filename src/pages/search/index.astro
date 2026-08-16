@@ -199,7 +199,10 @@ const buildSearchText = (entry: SearchEntry) =>
               {
                 starterQueries.map((query) => (
                   <li>
-                    <a class="pill-list__button" href={`/search?q=${encodeURIComponent(query)}`}>
+                    <a
+                      class="pill-list__button"
+                      href={`/search?q=${encodeURIComponent(query)}`}
+                    >
                       {query}
                     </a>
                   </li>
@@ -265,7 +268,7 @@ const buildSearchText = (entry: SearchEntry) =>
                 data-category={entry.category}
                 data-tags={entry.tags?.join(" ").toLowerCase() ?? ""}
               >
-                                <p class="eyebrow site-search__item-meta">
+                <p class="eyebrow site-search__item-meta">
                   <span>{entry.category}</span>
                   <span
                     class="site-search__top-badge"
@@ -298,8 +301,8 @@ const buildSearchText = (entry: SearchEntry) =>
     <script type="module" src={siteSearchScript} is:inline></script>
     <noscript>
       <p class="card card--flat" style="margin-top: 1rem; padding: 1.5rem;">
-        Search filtering requires JavaScript. All {searchEntries.length} results are shown below.
-        Use your browser's find (⌘F / Ctrl+F) to search.
+        Search filtering requires JavaScript. All {searchEntries.length} results are
+        shown below. Use your browser's find (⌘F / Ctrl+F) to search.
       </p>
     </noscript>
   </div>

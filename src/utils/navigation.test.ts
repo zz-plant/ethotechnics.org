@@ -11,9 +11,9 @@ import {
 
 describe("normalizePath", () => {
   it("strips query and hash fragments", () => {
-    expect(normalizePath("/tools/burden-budget-worksheet/?mode=print#overview")).toBe(
-      "/tools/burden-budget-worksheet",
-    );
+    expect(
+      normalizePath("/tools/burden-budget-worksheet/?mode=print#overview"),
+    ).toBe("/tools/burden-budget-worksheet");
   });
 
   it("falls back to root for hash-only URLs", () => {
@@ -46,7 +46,9 @@ describe("getAriaCurrent", () => {
     expect(getAriaCurrent("/#failure-intake", "/", "#failure-intake")).toBe(
       "location",
     );
-    expect(getAriaCurrent("/#failure-intake", "/", "#standards")).toBeUndefined();
+    expect(
+      getAriaCurrent("/#failure-intake", "/", "#standards"),
+    ).toBeUndefined();
   });
 
   it("does not return a current state for homepage hash links on other routes", () => {

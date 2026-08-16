@@ -86,18 +86,22 @@ const antiPatterns = [
     title: "Non-binding review promises",
     failure:
       "Says “human review available” without any timeline or authority; violates STD-02.C1/C3.",
-    warning: "False positives occur when timelines exist but are buried in legalese.",
+    warning:
+      "False positives occur when timelines exist but are buried in legalese.",
   },
   {
     title: "Appeals that cannot touch the outcome",
     failure:
       "Provides an intake form but never connects to a decision reversal or remedy pathway.",
-    warning: "Legitimate appeals show reversible state changes and audit receipts.",
+    warning:
+      "Legitimate appeals show reversible state changes and audit receipts.",
   },
   {
     title: "Consent without exit ramps",
-    failure: "Uses soft opt-outs that keep automation running or ignore revocation.",
-    warning: "If the exit pauses automation and records the event, it is compliant.",
+    failure:
+      "Uses soft opt-outs that keep automation running or ignore revocation.",
+    warning:
+      "If the exit pauses automation and records the event, it is compliant.",
   },
 ];
 
@@ -130,7 +134,11 @@ const ontologyTerms = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
@@ -146,9 +154,7 @@ const ontologyTerms = [
     description="Use Ethotechnics for structured audits and mechanism-first remediation."
   >
     <ul class="muted">
-      {supportedTasks.map((task) => (
-        <li>{task}</li>
-      ))}
+      {supportedTasks.map((task) => <li>{task}</li>)}
     </ul>
   </SectionBlock>
 
@@ -160,9 +166,7 @@ const ontologyTerms = [
     variant="alt"
   >
     <ul class="muted">
-      {expectedInputs.map((input) => (
-        <li>{input}</li>
-      ))}
+      {expectedInputs.map((input) => <li>{input}</li>)}
     </ul>
   </SectionBlock>
 
@@ -173,9 +177,7 @@ const ontologyTerms = [
     description="Define the artifact set so results stay portable across tools."
   >
     <ul class="muted">
-      {canonicalOutputs.map((output) => (
-        <li>{output}</li>
-      ))}
+      {canonicalOutputs.map((output) => <li>{output}</li>)}
     </ul>
   </SectionBlock>
 
@@ -187,9 +189,7 @@ const ontologyTerms = [
     variant="alt"
   >
     <ul class="muted">
-      {citationRules.map((rule) => (
-        <li>{rule}</li>
-      ))}
+      {citationRules.map((rule) => <li>{rule}</li>)}
     </ul>
   </SectionBlock>
 
@@ -219,13 +219,15 @@ const ontologyTerms = [
     description="Use these to avoid superficial compliance and improve detection precision."
   >
     <ul class="muted">
-      {antiPatterns.map((pattern) => (
-        <li>
-          <strong>{pattern.title}:</strong> {pattern.failure}
-          <br />
-          <span class="small">False-positive warning: {pattern.warning}</span>
-        </li>
-      ))}
+      {
+        antiPatterns.map((pattern) => (
+          <li>
+            <strong>{pattern.title}:</strong> {pattern.failure}
+            <br />
+            <span class="small">False-positive warning: {pattern.warning}</span>
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -237,9 +239,7 @@ const ontologyTerms = [
     variant="alt"
   >
     <ul class="muted">
-      {promptTests.map((prompt) => (
-        <li>{prompt}</li>
-      ))}
+      {promptTests.map((prompt) => <li>{prompt}</li>)}
     </ul>
     <SectionActions>
       <a class="button ghost" href="/agent-toolkit/prompt-packs">
@@ -255,9 +255,7 @@ const ontologyTerms = [
     description="Use versioned releases so agents can compare results over time."
   >
     <ul class="muted">
-      {versioningSteps.map((step) => (
-        <li>{step}</li>
-      ))}
+      {versioningSteps.map((step) => <li>{step}</li>)}
     </ul>
   </SectionBlock>
 
@@ -269,9 +267,7 @@ const ontologyTerms = [
     variant="alt"
   >
     <ul class="muted">
-      {boundaries.map((boundary) => (
-        <li>{boundary}</li>
-      ))}
+      {boundaries.map((boundary) => <li>{boundary}</li>)}
     </ul>
   </SectionBlock>
 
@@ -282,9 +278,7 @@ const ontologyTerms = [
     description="These primitives keep symbolic reasoning consistent across systems."
   >
     <ul class="muted">
-      {ontologyTerms.map((term) => (
-        <li>{term}</li>
-      ))}
+      {ontologyTerms.map((term) => <li>{term}</li>)}
     </ul>
   </SectionBlock>
 </BaseLayout>

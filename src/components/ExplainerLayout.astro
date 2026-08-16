@@ -131,7 +131,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <CardGrid className="grid--three">
       {
         distinctSignals.map((signal) => (
-          <CardItem title={signal.title} description={signal.detail} descriptionTone="default" />
+          <CardItem
+            title={signal.title}
+            description={signal.detail}
+            descriptionTone="default"
+          />
         ))
       }
     </CardGrid>
@@ -182,9 +186,5 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </CardGrid>
   </SectionBlock>
 
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>

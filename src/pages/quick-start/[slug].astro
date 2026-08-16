@@ -22,7 +22,11 @@ const pageDescription = guide.summary;
 const permalink = `/quick-start/${guide.slug}`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Quick-start guide"
     title={guide.title}
@@ -49,9 +53,11 @@ const permalink = `/quick-start/${guide.slug}`;
     className="section--banded"
   >
     <CardGrid>
-      {guide.focusAreas.map((area) => (
-        <CardItem description={area} descriptionTone="default" />
-      ))}
+      {
+        guide.focusAreas.map((area) => (
+          <CardItem description={area} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -63,19 +69,21 @@ const permalink = `/quick-start/${guide.slug}`;
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {guide.keyLinks.map((link) => (
-        <CardItem
-          title={link.label}
-          description={link.note ?? "Open the reference to align your team."}
-          descriptionTone="default"
-        >
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={link.href}>
-              Open reference
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        guide.keyLinks.map((link) => (
+          <CardItem
+            title={link.label}
+            description={link.note ?? "Open the reference to align your team."}
+            descriptionTone="default"
+          >
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={link.href}>
+                Open reference
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -86,9 +94,11 @@ const permalink = `/quick-start/${guide.slug}`;
     description="Turn the guidance into next steps you can schedule or delegate."
   >
     <CardGrid>
-      {guide.firstMoves.map((move) => (
-        <CardItem description={move} descriptionTone="default" />
-      ))}
+      {
+        guide.firstMoves.map((move) => (
+          <CardItem description={move} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

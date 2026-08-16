@@ -81,7 +81,7 @@ const buildHighlightMark = (
   mark.setAttribute("tabindex", "0");
   mark.setAttribute("role", "button");
   mark.setAttribute("data-glossary-slug", entry.slug);
-  
+
   const tooltipId = `glossary-tooltip-${entry.slug}-${highlightIndex}`;
   mark.setAttribute("aria-describedby", tooltipId);
   mark.setAttribute("aria-label", `Glossary term: ${matchText}`);
@@ -94,7 +94,7 @@ const buildHighlightMark = (
   tooltip.className = "glossary-tooltip";
   tooltip.setAttribute("role", "tooltip");
   tooltip.textContent = entry.definition;
-  
+
   mark.appendChild(tooltip);
   return mark;
 };
@@ -134,19 +134,15 @@ const replaceGlossaryTerms = (node: Text): void => {
 };
 
 highlightRoots.forEach((root) => {
-  const walker = document.createTreeWalker(
-    root,
-    NodeFilter.SHOW_TEXT,
-    {
-      acceptNode(node) {
-        if (shouldSkipTextNode(node as Text)) {
-          return NodeFilter.FILTER_REJECT;
-        }
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (shouldSkipTextNode(node as Text)) {
+        return NodeFilter.FILTER_REJECT;
+      }
 
-        return NodeFilter.FILTER_ACCEPT;
-      },
+      return NodeFilter.FILTER_ACCEPT;
     },
-  );
+  });
 
   const textNodes: Text[] = [];
   while (walker.nextNode()) {
@@ -170,7 +166,9 @@ const toggleGlossaryHighlights = (enabled: boolean) => {
   });
 };
 
-const toggleCheckbox = document.getElementById("glossary-toggle") as HTMLInputElement | null;
+const toggleCheckbox = document.getElementById(
+  "glossary-toggle",
+) as HTMLInputElement | null;
 if (toggleCheckbox) {
   const stored = localStorage.getItem("glossary-highlights");
   const initiallyEnabled = stored !== "disabled";
@@ -179,7 +177,10 @@ if (toggleCheckbox) {
 
   toggleCheckbox.addEventListener("change", () => {
     const enabled = toggleCheckbox.checked;
-    localStorage.setItem("glossary-highlights", enabled ? "enabled" : "disabled");
+    localStorage.setItem(
+      "glossary-highlights",
+      enabled ? "enabled" : "disabled",
+    );
     toggleGlossaryHighlights(enabled);
   });
 }

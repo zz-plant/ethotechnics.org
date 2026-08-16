@@ -6,7 +6,7 @@
  */
 
 // Configure happy-dom for DOM testing if needed
-import { GlobalRegistrator } from '@happy-dom/global-registrator';
+import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { mock } from "bun:test";
 
 // Register happy-dom globals for React component testing

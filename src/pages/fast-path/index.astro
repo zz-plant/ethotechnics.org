@@ -47,25 +47,29 @@ const receiptSchema = `{
 const sprintDeliverables = [
   {
     title: "Receipt schema",
-    description: "Implement the canonical receipt payload and validate it in CI.",
+    description:
+      "Implement the canonical receipt payload and validate it in CI.",
     href: "/standards/agent-receipt-schema.json",
     label: "Receipt schema",
   },
   {
     title: "Worked example",
-    description: "Ship at least one end-to-end scenario with receipts, clocks, and remedies.",
+    description:
+      "Ship at least one end-to-end scenario with receipts, clocks, and remedies.",
     href: "/examples/automated-eligibility-denial",
     label: "See example",
   },
   {
     title: "Release gate binding",
-    description: "Copy the release gate checklist into your deployment template.",
+    description:
+      "Copy the release gate checklist into your deployment template.",
     href: "/bindings#release-gates",
     label: "Open binding",
   },
   {
     title: "Agent Safety Object Model",
-    description: "Publish the machine-readable governance profile for CI validation.",
+    description:
+      "Publish the machine-readable governance profile for CI validation.",
     href: "/agents/spec",
     label: "Open spec",
   },
@@ -101,17 +105,19 @@ const sprintDeliverables = [
     description="Each mechanism delivers immediate risk reduction with minimal setup."
   >
     <CardGrid className="grid--three">
-      {mechanisms.map((mechanism) => (
-        <CardItem title={mechanism.title} description={mechanism.risk}>
-          <ul class="muted">
-            <li>Owner: {mechanism.owner}</li>
-            <li>Effort: {mechanism.effort}</li>
-          </ul>
-          <a slot="footer" class="muted" href={mechanism.href}>
-            Open mechanism
-          </a>
-        </CardItem>
-      ))}
+      {
+        mechanisms.map((mechanism) => (
+          <CardItem title={mechanism.title} description={mechanism.risk}>
+            <ul class="muted">
+              <li>Owner: {mechanism.owner}</li>
+              <li>Effort: {mechanism.effort}</li>
+            </ul>
+            <a slot="footer" class="muted" href={mechanism.href}>
+              Open mechanism
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -125,7 +131,8 @@ const sprintDeliverables = [
     <pre class="code-block">{receiptSchema}</pre>
     <p class="muted">
       Validate against the{" "}
-      <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a>
+      <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a
+      >
       {" "}
       so tooling can parse your receipts automatically.
     </p>
@@ -138,13 +145,18 @@ const sprintDeliverables = [
     description="These three artifacts make fast-path adoption enforceable."
   >
     <CardGrid className="grid--three">
-      {sprintDeliverables.map((deliverable) => (
-        <CardItem title={deliverable.title} description={deliverable.description}>
-          <a slot="footer" class="muted" href={deliverable.href}>
-            {deliverable.label}
-          </a>
-        </CardItem>
-      ))}
+      {
+        sprintDeliverables.map((deliverable) => (
+          <CardItem
+            title={deliverable.title}
+            description={deliverable.description}
+          >
+            <a slot="footer" class="muted" href={deliverable.href}>
+              {deliverable.label}
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -166,14 +178,16 @@ const sprintDeliverables = [
           </tr>
         </thead>
         <tbody>
-          {mechanisms.map((mechanism) => (
-            <tr>
-              <td>{mechanism.title}</td>
-              <td>{mechanism.owner}</td>
-              <td>{mechanism.effort}</td>
-              <td>{mechanism.risk}</td>
-            </tr>
-          ))}
+          {
+            mechanisms.map((mechanism) => (
+              <tr>
+                <td>{mechanism.title}</td>
+                <td>{mechanism.owner}</td>
+                <td>{mechanism.effort}</td>
+                <td>{mechanism.risk}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -229,10 +243,13 @@ const sprintDeliverables = [
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a>
+            <a href="/examples/automated-account-lock">Automated account lock</a
+            >
           </li>
           <li>
-            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+            <a href="/examples/automated-eligibility-denial"
+              >Automated eligibility denial</a
+            >
           </li>
           <li>
             <a href="/examples/irreversible-payment-compensation">
@@ -271,8 +288,8 @@ const sprintDeliverables = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, MEC-01, MEC-05,
-      MEC-06, VAL-01, VAL-02, VAL-03.
+      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, MEC-01,
+      MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
 </BaseLayout>

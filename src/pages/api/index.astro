@@ -23,39 +23,48 @@ const canonicalObjects = [
   },
   {
     name: "Clause",
-    description: "Atomic right requirement with a stable clause ID (e.g., \u00a73.2).",
+    description:
+      "Atomic right requirement with a stable clause ID (e.g., \u00a73.2).",
   },
   {
     name: "Mechanism",
-    description: "Reusable enforcement spec with tags, artifacts, and implementation notes.",
+    description:
+      "Reusable enforcement spec with tags, artifacts, and implementation notes.",
   },
   {
     name: "Validator",
-    description: "Diagnostic definition with inputs, thresholds, and output schema.",
+    description:
+      "Diagnostic definition with inputs, thresholds, and output schema.",
   },
   {
     name: "Finding",
-    description: "Canonical diagnostic artifact linking gaps to clauses and fixes.",
+    description:
+      "Canonical diagnostic artifact linking gaps to clauses and fixes.",
   },
   {
     name: "Diagnostic result",
-    description: "Generated report card, risk statement, and remediation recommendations.",
+    description:
+      "Generated report card, risk statement, and remediation recommendations.",
   },
   {
     name: "Evidence pack",
-    description: "Minimum evidence bundles required to verify clause compliance.",
+    description:
+      "Minimum evidence bundles required to verify clause compliance.",
   },
   {
     name: "Crosswalk control",
-    description: "Control-level mapping across EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
+    description:
+      "Control-level mapping across EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
   },
   {
     name: "Post-market stage",
-    description: "Operational incident reporting stages with expected outcomes and references.",
+    description:
+      "Operational incident reporting stages with expected outcomes and references.",
   },
   {
     name: "Anti-pattern",
-    description: "Negative examples that look compliant but fail the clause intent.",
+    description:
+      "Negative examples that look compliant but fail the clause intent.",
   },
   {
     name: "Diagram",
@@ -98,7 +107,8 @@ const endpoints = [
   },
   {
     path: "/api/clauses.json",
-    description: "Clause-level obligations with evidence requirements and mappings.",
+    description:
+      "Clause-level obligations with evidence requirements and mappings.",
   },
   {
     path: "/api/mechanisms.json",
@@ -106,7 +116,8 @@ const endpoints = [
   },
   {
     path: "/api/validators.json",
-    description: "Validator definitions with inputs, thresholds, and clause mappings.",
+    description:
+      "Validator definitions with inputs, thresholds, and clause mappings.",
   },
   {
     path: "/api/anti-patterns.json",
@@ -118,11 +129,13 @@ const endpoints = [
   },
   {
     path: "/api/crosswalks.json",
-    description: "Control crosswalks with framework mappings and evidence artifacts.",
+    description:
+      "Control crosswalks with framework mappings and evidence artifacts.",
   },
   {
     path: "/api/post-market-monitoring.json",
-    description: "Post-market monitoring and incident reporting workflow stages.",
+    description:
+      "Post-market monitoring and incident reporting workflow stages.",
   },
   {
     path: "/api/findings.json",
@@ -156,7 +169,12 @@ const endpoints = [
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Ethotechnics`} description={pageDescription} mainClass="page page--wide" structuredDataType="collection">
+<BaseLayout
+  title={`${pageTitle} — Ethotechnics`}
+  description={pageDescription}
+  mainClass="page page--wide"
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow="Reference API"
     title={pageTitle}
@@ -178,11 +196,13 @@ const endpoints = [
     description="Use these names in integrations and audit tooling."
   >
     <ul class="muted">
-      {canonicalObjects.map((object) => (
-        <li>
-          <strong>{object.name}:</strong> {object.description}
-        </li>
-      ))}
+      {
+        canonicalObjects.map((object) => (
+          <li>
+            <strong>{object.name}:</strong> {object.description}
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -193,12 +213,14 @@ const endpoints = [
     description="Use these specs to wire decisions, appeals, and clock events into tooling."
   >
     <ul class="muted">
-      {interoperabilitySpecs.map((spec) => (
-        <li>
-          <strong>{spec.name}:</strong>{" "}
-          <a href={spec.href}>{spec.href}</a> — {spec.description}
-        </li>
-      ))}
+      {
+        interoperabilitySpecs.map((spec) => (
+          <li>
+            <strong>{spec.name}:</strong> <a href={spec.href}>{spec.href}</a> —{" "}
+            {spec.description}
+          </li>
+        ))
+      }
     </ul>
     <div>
       <p class="eyebrow">FHIR resources</p>
@@ -260,22 +282,34 @@ const endpoints = [
         Receipt and remedy schemas:
         <ul>
           <li>
-            <a href="/standards/agent-receipt-schema.json">/standards/agent-receipt-schema.json</a>
+            <a href="/standards/agent-receipt-schema.json"
+              >/standards/agent-receipt-schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/decision-record.schema.json">/standards/decision-record.schema.json</a>
+            <a href="/standards/decision-record.schema.json"
+              >/standards/decision-record.schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/appeal-event.schema.json">/standards/appeal-event.schema.json</a>
+            <a href="/standards/appeal-event.schema.json"
+              >/standards/appeal-event.schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/pause-reversal.schema.json">/standards/pause-reversal.schema.json</a>
+            <a href="/standards/pause-reversal.schema.json"
+              >/standards/pause-reversal.schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/burden-hours.schema.json">/standards/burden-hours.schema.json</a>
+            <a href="/standards/burden-hours.schema.json"
+              >/standards/burden-hours.schema.json</a
+            >
           </li>
           <li>
-            <a href="/standards/repair-sla.schema.json">/standards/repair-sla.schema.json</a>
+            <a href="/standards/repair-sla.schema.json"
+              >/standards/repair-sla.schema.json</a
+            >
           </li>
         </ul>
       </li>
@@ -298,14 +332,16 @@ const endpoints = [
           </tr>
         </thead>
         <tbody>
-          {endpoints.map((endpoint) => (
-            <tr>
-              <td>
-                <a href={endpoint.path}>{endpoint.path}</a>
-              </td>
-              <td>{endpoint.description}</td>
-            </tr>
-          ))}
+          {
+            endpoints.map((endpoint) => (
+              <tr>
+                <td>
+                  <a href={endpoint.path}>{endpoint.path}</a>
+                </td>
+                <td>{endpoint.description}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -320,7 +356,9 @@ const endpoints = [
     <ul class="muted">
       <li>Semantic versioning for standards, mechanisms, and validators.</li>
       <li>Immutable permalinks for citations in contracts and audit logs.</li>
-      <li>Changelogs that describe material changes to rights or thresholds.</li>
+      <li>
+        Changelogs that describe material changes to rights or thresholds.
+      </li>
       <li>Snapshot endpoints under /api/v/ to pin analyses in time.</li>
     </ul>
   </SectionBlock>

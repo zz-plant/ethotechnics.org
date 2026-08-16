@@ -148,7 +148,9 @@ const anchorLinks = [
     <div class="panel" data-debt-results hidden>
       <p class="muted">Maintenance debt score</p>
       <p class="metric" data-debt-score>--</p>
-      <span class="status-pill status-pill--yellow" data-debt-tier>Moderate</span>
+      <span class="status-pill status-pill--yellow" data-debt-tier
+        >Moderate</span
+      >
       <p class="muted" data-debt-summary>
         Complete the form above to generate your maintenance debt score.
       </p>
@@ -199,12 +201,10 @@ const anchorLinks = [
     "[data-debt-stoppable]",
   );
   const deltaValue = document.querySelector<HTMLElement>("[data-debt-delta]");
-  const shareInput = document.querySelector<HTMLInputElement>(
-    "[data-debt-share]",
-  );
-  const copyButton = document.querySelector<HTMLButtonElement>(
-    "[data-debt-copy]",
-  );
+  const shareInput =
+    document.querySelector<HTMLInputElement>("[data-debt-share]");
+  const copyButton =
+    document.querySelector<HTMLButtonElement>("[data-debt-copy]");
   const STORAGE_KEY = "maintenance-debt-calculator";
 
   type SpeedValue = "rapid" | "steady" | "deliberate";
@@ -430,7 +430,8 @@ const anchorLinks = [
       const readinessField = form.elements.namedItem("readiness");
       const responseField = form.elements.namedItem("response");
       const exposureField = form.elements.namedItem("exposure");
-      if (speedField instanceof HTMLSelectElement) speedField.value = storedSpeed;
+      if (speedField instanceof HTMLSelectElement)
+        speedField.value = storedSpeed;
       if (readinessField instanceof HTMLSelectElement)
         readinessField.value = storedReadiness;
       if (responseField instanceof HTMLSelectElement)

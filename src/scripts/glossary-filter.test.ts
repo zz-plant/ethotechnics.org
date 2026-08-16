@@ -1,4 +1,12 @@
-import { afterAll, afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
+import {
+  afterAll,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  mock,
+} from "bun:test";
 
 let importId = 0;
 const BASE = "https://ethotechnics.org/glossary";
@@ -39,29 +47,49 @@ async function init(url?: string) {
   return { rs };
 }
 
-function raf() { return new Promise<void>((r) => requestAnimationFrame(() => r())); }
+function raf() {
+  return new Promise<void>((r) => requestAnimationFrame(() => r()));
+}
 
 describe("glossary-filter", () => {
   afterAll(() => {
     history.replaceState = origReplaceState;
     window.location.href = "about:blank";
   });
-  beforeEach(() => { document.body.innerHTML = ""; });
-  afterEach(() => { document.body.innerHTML = ""; });
+  beforeEach(() => {
+    document.body.innerHTML = "";
+  });
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
 
   describe("URL params", () => {
     it("reads query param", async () => {
       await init(`${BASE}?query=ethics`);
-      expect(document.querySelector<HTMLInputElement>("#glossary-filter")?.value).toBe("ethics");
+      expect(
+        document.querySelector<HTMLInputElement>("#glossary-filter")?.value,
+      ).toBe("ethics");
     });
     it("reads facet selections", async () => {
       await init(`${BASE}?domains=design`);
-      expect(document.querySelector<HTMLInputElement>('[data-glossary-filter="domains"][value="design"]')?.checked).toBe(true);
+      expect(
+        document.querySelector<HTMLInputElement>(
+          '[data-glossary-filter="domains"][value="design"]',
+        )?.checked,
+      ).toBe(true);
     });
     it("reads comma-separated values", async () => {
       await init(`${BASE}?domains=design,engineering`);
-      expect(document.querySelector<HTMLInputElement>('[data-glossary-filter="domains"][value="design"]')?.checked).toBe(true);
-      expect(document.querySelector<HTMLInputElement>('[data-glossary-filter="domains"][value="engineering"]')?.checked).toBe(true);
+      expect(
+        document.querySelector<HTMLInputElement>(
+          '[data-glossary-filter="domains"][value="design"]',
+        )?.checked,
+      ).toBe(true);
+      expect(
+        document.querySelector<HTMLInputElement>(
+          '[data-glossary-filter="domains"][value="engineering"]',
+        )?.checked,
+      ).toBe(true);
     });
     it("calls replaceState with query on input", async () => {
       const { rs } = await init();
@@ -70,14 +98,25 @@ describe("glossary-filter", () => {
       inp.dispatchEvent(new Event("input", { bubbles: true }));
       await raf();
       const c = rs.mock.calls as unknown[][];
-      expect(c.some((x) => typeof x[2] === "string" && (x[2] as string).includes("query=test+query"))).toBe(true);
+      expect(
+        c.some(
+          (x) =>
+            typeof x[2] === "string" &&
+            (x[2] as string).includes("query=test+query"),
+        ),
+      ).toBe(true);
     });
     it("removes param when cleared", async () => {
       const { rs } = await init(`${BASE}?query=old`);
       document.querySelector<HTMLButtonElement>("[data-clear-filter]")?.click();
       await raf();
       const c = rs.mock.calls as unknown[][];
-      expect(c.some((x) => typeof x[2] === "string" && !(x[2] as string).includes("query=old"))).toBe(true);
+      expect(
+        c.some(
+          (x) =>
+            typeof x[2] === "string" && !(x[2] as string).includes("query=old"),
+        ),
+      ).toBe(true);
     });
   });
 
@@ -88,7 +127,9 @@ describe("glossary-filter", () => {
       inp.value = "bias";
       inp.dispatchEvent(new Event("input", { bubbles: true }));
       await raf();
-      const hidden = Array.from(document.querySelectorAll<HTMLElement>(".glossary-index__item")).filter((e) => e.classList.contains("is-hidden"));
+      const hidden = Array.from(
+        document.querySelectorAll<HTMLElement>(".glossary-index__item"),
+      ).filter((e) => e.classList.contains("is-hidden"));
       expect(hidden.length).toBe(2);
     });
     it("shows empty state when nothing matches", async () => {
@@ -97,17 +138,25 @@ describe("glossary-filter", () => {
       inp.value = "zzzznonexistent";
       inp.dispatchEvent(new Event("input", { bubbles: true }));
       await raf();
-      expect(document.querySelector<HTMLElement>(".glossary-index__empty")?.hidden).toBe(false);
+      expect(
+        document.querySelector<HTMLElement>(".glossary-index__empty")?.hidden,
+      ).toBe(false);
     });
     it("hides empty state with matches", async () => {
       await init();
-      expect(document.querySelector<HTMLElement>(".glossary-index__empty")?.hidden).toBe(true);
+      expect(
+        document.querySelector<HTMLElement>(".glossary-index__empty")?.hidden,
+      ).toBe(true);
     });
     it("filters by letter", async () => {
       await init();
-      document.querySelector<HTMLButtonElement>('[data-glossary-letter="B"]')?.click();
+      document
+        .querySelector<HTMLButtonElement>('[data-glossary-letter="B"]')
+        ?.click();
       await raf();
-      const vis = Array.from(document.querySelectorAll<HTMLElement>(".glossary-index__item")).filter((e) => !e.classList.contains("is-hidden"));
+      const vis = Array.from(
+        document.querySelectorAll<HTMLElement>(".glossary-index__item"),
+      ).filter((e) => !e.classList.contains("is-hidden"));
       expect(vis.length).toBe(1);
       expect(vis[0]?.textContent).toContain("Bias Audit");
     });
@@ -120,11 +169,17 @@ describe("glossary-filter", () => {
       inp.value = "ethical";
       inp.dispatchEvent(new Event("input", { bubbles: true }));
       await raf();
-      expect(document.querySelector<HTMLElement>(".glossary-filter__count")?.textContent).toContain("Showing 1 of 3 terms");
+      expect(
+        document.querySelector<HTMLElement>(".glossary-filter__count")
+          ?.textContent,
+      ).toContain("Showing 1 of 3 terms");
     });
     it("shows total by default", async () => {
       await init();
-      expect(document.querySelector<HTMLElement>(".glossary-filter__count")?.textContent).toContain("Showing 3 of 3 terms");
+      expect(
+        document.querySelector<HTMLElement>(".glossary-filter__count")
+          ?.textContent,
+      ).toContain("Showing 3 of 3 terms");
     });
     it("includes query suffix", async () => {
       await init();
@@ -132,38 +187,59 @@ describe("glossary-filter", () => {
       inp.value = "bias";
       inp.dispatchEvent(new Event("input", { bubbles: true }));
       await raf();
-      expect(document.querySelector<HTMLElement>(".glossary-filter__count")?.textContent).toContain("bias");
+      expect(
+        document.querySelector<HTMLElement>(".glossary-filter__count")
+          ?.textContent,
+      ).toContain("bias");
     });
     it("updates per-chip counts", async () => {
       await init();
-      const chip = document.querySelector<HTMLInputElement>('[data-glossary-filter="domains"][value="design"]')!;
+      const chip = document.querySelector<HTMLInputElement>(
+        '[data-glossary-filter="domains"][value="design"]',
+      )!;
       chip.checked = true;
       chip.dispatchEvent(new Event("change", { bubbles: true }));
       await raf();
-      expect(chip.closest(".glossary-filter__chip")?.querySelector<HTMLElement>("[data-glossary-count]")?.textContent).toBeDefined();
+      expect(
+        chip
+          .closest(".glossary-filter__chip")
+          ?.querySelector<HTMLElement>("[data-glossary-count]")?.textContent,
+      ).toBeDefined();
     });
   });
 
   describe("active chips", () => {
     it("renders chip for checked facet", async () => {
       await init();
-      const chip = document.querySelector<HTMLInputElement>('[data-glossary-filter="domains"][value="design"]')!;
+      const chip = document.querySelector<HTMLInputElement>(
+        '[data-glossary-filter="domains"][value="design"]',
+      )!;
       chip.checked = true;
       chip.dispatchEvent(new Event("change", { bubbles: true }));
       await raf();
       const ac = document.querySelector<HTMLElement>("[data-glossary-active]");
       expect(ac?.hidden).toBe(false);
-      expect((ac?.querySelectorAll(".glossary-filter__active-chip")?.length ?? 0)).toBeGreaterThanOrEqual(1);
+      expect(
+        ac?.querySelectorAll(".glossary-filter__active-chip")?.length ?? 0,
+      ).toBeGreaterThanOrEqual(1);
     });
     it("hides when no facets", async () => {
       await init();
-      expect(document.querySelector<HTMLElement>("[data-glossary-active]")?.hidden).toBe(true);
+      expect(
+        document.querySelector<HTMLElement>("[data-glossary-active]")?.hidden,
+      ).toBe(true);
     });
     it("renders letter chip", async () => {
       await init();
-      document.querySelector<HTMLButtonElement>('[data-glossary-letter="B"]')?.click();
+      document
+        .querySelector<HTMLButtonElement>('[data-glossary-letter="B"]')
+        ?.click();
       await raf();
-      expect(document.querySelector<HTMLElement>("[data-glossary-active]")?.querySelector<HTMLButtonElement>("[data-glossary-letter-clear]")).toBeTruthy();
+      expect(
+        document
+          .querySelector<HTMLElement>("[data-glossary-active]")
+          ?.querySelector<HTMLButtonElement>("[data-glossary-letter-clear]"),
+      ).toBeTruthy();
     });
   });
 
@@ -171,7 +247,9 @@ describe("glossary-filter", () => {
     it("clears input and facets", async () => {
       await init(`${BASE}?query=test&domains=design`);
       const inp = document.querySelector<HTMLInputElement>("#glossary-filter")!;
-      const chip = document.querySelector<HTMLInputElement>('[data-glossary-filter="domains"][value="design"]')!;
+      const chip = document.querySelector<HTMLInputElement>(
+        '[data-glossary-filter="domains"][value="design"]',
+      )!;
       expect(inp.value).toBe("test");
       expect(chip.checked).toBe(true);
       document.querySelector<HTMLButtonElement>("[data-clear-filter]")?.click();
@@ -181,15 +259,24 @@ describe("glossary-filter", () => {
     });
     it("resets letter to all", async () => {
       await init();
-      document.querySelector<HTMLButtonElement>('[data-glossary-letter="B"]')?.click();
+      document
+        .querySelector<HTMLButtonElement>('[data-glossary-letter="B"]')
+        ?.click();
       await raf();
       document.querySelector<HTMLButtonElement>("[data-clear-filter]")?.click();
       await raf();
-      expect(document.querySelector<HTMLButtonElement>('[data-glossary-letter="all"]')?.classList.contains("is-active")).toBe(true);
+      expect(
+        document
+          .querySelector<HTMLButtonElement>('[data-glossary-letter="all"]')
+          ?.classList.contains("is-active"),
+      ).toBe(true);
     });
     it("disabled when idle", async () => {
       await init();
-      expect(document.querySelector<HTMLButtonElement>("[data-clear-filter]")?.disabled).toBe(true);
+      expect(
+        document.querySelector<HTMLButtonElement>("[data-clear-filter]")
+          ?.disabled,
+      ).toBe(true);
     });
     it("enabled when filtering", async () => {
       await init();
@@ -197,7 +284,10 @@ describe("glossary-filter", () => {
       inp.value = "test";
       inp.dispatchEvent(new Event("input", { bubbles: true }));
       await raf();
-      expect(document.querySelector<HTMLButtonElement>("[data-clear-filter]")?.disabled).toBe(false);
+      expect(
+        document.querySelector<HTMLButtonElement>("[data-clear-filter]")
+          ?.disabled,
+      ).toBe(false);
     });
   });
 
@@ -214,33 +304,50 @@ describe("glossary-filter", () => {
       await init();
       const inp = document.querySelector<HTMLInputElement>("#glossary-filter")!;
       inp.value = "test";
-      inp.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+      inp.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+      );
       await raf();
       expect(inp.value).toBe("");
     });
     it("toggles letters", async () => {
       await init();
-      const a = document.querySelector<HTMLButtonElement>('[data-glossary-letter="A"]')!;
-      const b = document.querySelector<HTMLButtonElement>('[data-glossary-letter="B"]')!;
-      a.click(); await raf();
+      const a = document.querySelector<HTMLButtonElement>(
+        '[data-glossary-letter="A"]',
+      )!;
+      const b = document.querySelector<HTMLButtonElement>(
+        '[data-glossary-letter="B"]',
+      )!;
+      a.click();
+      await raf();
       expect(a.classList.contains("is-active")).toBe(true);
-      b.click(); await raf();
+      b.click();
+      await raf();
       expect(a.classList.contains("is-active")).toBe(false);
       expect(b.classList.contains("is-active")).toBe(true);
     });
     it("aria-pressed on letters", async () => {
       await init();
-      const a = document.querySelector<HTMLButtonElement>('[data-glossary-letter="A"]')!;
-      a.click(); await raf();
+      const a = document.querySelector<HTMLButtonElement>(
+        '[data-glossary-letter="A"]',
+      )!;
+      a.click();
+      await raf();
       expect(a.getAttribute("aria-pressed")).toBe("true");
     });
     it("base href on links", async () => {
       await init();
-      expect(document.querySelector<HTMLAnchorElement>("[data-glossary-entry-link]")?.dataset.baseHref).toBeTruthy();
+      expect(
+        document.querySelector<HTMLAnchorElement>("[data-glossary-entry-link]")
+          ?.dataset.baseHref,
+      ).toBeTruthy();
     });
     it("data-total respected", async () => {
       await init();
-      expect(document.querySelector<HTMLElement>(".glossary-filter__count")?.textContent).toContain("3");
+      expect(
+        document.querySelector<HTMLElement>(".glossary-filter__count")
+          ?.textContent,
+      ).toContain("3");
     });
   });
 });

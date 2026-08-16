@@ -11,9 +11,10 @@ test.describe("Maintenance Simulator page", () => {
   test("has proper title and description", async ({ page }) => {
     await page.goto(SIMULATOR_URL);
     await expect(page).toHaveTitle(/Maintenance Simulator.+Diagnostics/);
-    await expect(
-      page.locator('meta[name="description"]'),
-    ).toHaveAttribute("content", /.+/);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      "content",
+      /.+/,
+    );
   });
 
   test("renders the widget with intro content", async ({ page }) => {
@@ -22,21 +23,17 @@ test.describe("Maintenance Simulator page", () => {
 
     const widget = page.locator(".simulator");
     await expect(widget).toBeVisible();
-    await expect(
-      widget.getByRole("heading", { level: 1 }),
-    ).toContainText("Tabletop the outage");
+    await expect(widget.getByRole("heading", { level: 1 })).toContainText(
+      "Tabletop the outage",
+    );
   });
 
   test("shows scenario, stress, and threshold selectors", async ({ page }) => {
     await page.goto(SIMULATOR_URL);
     await page.waitForLoadState("networkidle");
 
-    await expect(
-      page.getByLabel("Select simulation scenario"),
-    ).toBeVisible();
-    await expect(
-      page.getByLabel("Set simulation stress level"),
-    ).toBeVisible();
+    await expect(page.getByLabel("Select simulation scenario")).toBeVisible();
+    await expect(page.getByLabel("Set simulation stress level")).toBeVisible();
     await expect(
       page.getByLabel("Select readiness threshold preset"),
     ).toBeVisible();
@@ -46,8 +43,12 @@ test.describe("Maintenance Simulator page", () => {
     await page.goto(SIMULATOR_URL);
     await page.waitForLoadState("networkidle");
 
-    await expect(page.getByRole("button", { name: "Export JSON" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Export PDF" })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Export JSON" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Export PDF" }),
+    ).toBeVisible();
   });
 
   test("shows scenario template summary", async ({ page }) => {
@@ -56,15 +57,21 @@ test.describe("Maintenance Simulator page", () => {
 
     const templateSummary = page.locator(".simulator__template");
     await expect(templateSummary).toBeVisible();
-    await expect(templateSummary.getByText("Time to halt expectation")).toBeVisible();
-    await expect(templateSummary.getByText("Stress signals to watch")).toBeVisible();
+    await expect(
+      templateSummary.getByText("Time to halt expectation"),
+    ).toBeVisible();
+    await expect(
+      templateSummary.getByText("Stress signals to watch"),
+    ).toBeVisible();
   });
 
   test("shows coverage toggles", async ({ page }) => {
     await page.goto(SIMULATOR_URL);
     await page.waitForLoadState("networkidle");
 
-    const controlsGroup = page.locator('[aria-label="Coverage items to include"]');
+    const controlsGroup = page.locator(
+      '[aria-label="Coverage items to include"]',
+    );
     await expect(controlsGroup).toBeVisible();
 
     const checkboxes = controlsGroup.locator('input[type="checkbox"]');
@@ -93,22 +100,30 @@ test.describe("Maintenance Simulator page", () => {
     await expect(page.getByText("Recommended interventions")).toBeVisible();
   });
 
-  test("toggling coverage checkbox changes readiness score", async ({ page }) => {
+  test("toggling coverage checkbox changes readiness score", async ({
+    page,
+  }) => {
     await page.goto(SIMULATOR_URL);
     await page.waitForLoadState("networkidle");
 
-    const readabilityBefore = await page.locator("#readiness-title").textContent();
+    const readabilityBefore = await page
+      .locator("#readiness-title")
+      .textContent();
 
     const firstCheckbox = page
       .locator('[aria-label="Simulation controls"] input[type="checkbox"]')
       .first();
     await firstCheckbox.uncheck();
 
-    const readabilityAfter = await page.locator("#readiness-title").textContent();
+    const readabilityAfter = await page
+      .locator("#readiness-title")
+      .textContent();
     expect(readabilityAfter).not.toBe(readabilityBefore);
 
     await firstCheckbox.check();
-    const readabilityRestored = await page.locator("#readiness-title").textContent();
+    const readabilityRestored = await page
+      .locator("#readiness-title")
+      .textContent();
     expect(readabilityRestored).toBe(readabilityBefore);
   });
 
@@ -119,7 +134,9 @@ test.describe("Maintenance Simulator page", () => {
     const initialHeading = page.locator(".simulator__template h2");
     const initialText = await initialHeading.textContent();
 
-    await page.getByLabel("Select simulation scenario").selectOption({ index: 2 });
+    await page
+      .getByLabel("Select simulation scenario")
+      .selectOption({ index: 2 });
 
     const updatedHeading = page.locator(".simulator__template h2");
     expect(await updatedHeading.textContent()).not.toBe(initialText);
@@ -165,7 +182,9 @@ test.describe("Maintenance Simulator page", () => {
     await page.waitForLoadState("networkidle");
 
     await expect(page.getByText("Communications")).toBeVisible();
-    await expect(page.getByText("Keep communications on cadence")).toBeVisible();
+    await expect(
+      page.getByText("Keep communications on cadence"),
+    ).toBeVisible();
 
     const copyButtons = page.locator(".simulator__copy-button");
     const count = await copyButtons.count();

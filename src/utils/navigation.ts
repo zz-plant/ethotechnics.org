@@ -27,7 +27,11 @@ const isCurrentLink = (href: string, currentPath: string) => {
   return normalizePath(href) === normalizePath(currentPath);
 };
 
-const getAriaCurrent = (href: string, currentPath: string, currentHash = "") => {
+const getAriaCurrent = (
+  href: string,
+  currentPath: string,
+  currentHash = "",
+) => {
   if (isCurrentLink(href, currentPath)) return "page";
 
   if (

@@ -27,9 +27,12 @@ const permalink = `/evals/${suite.slug}`;
 
 const scoringMethodLabel = (() => {
   switch (suite.scoringMethod.type) {
-    case "weighted-average": return "Weighted average";
-    case "min-threshold": return "Min-threshold";
-    case "all-must-pass": return "All must pass";
+    case "weighted-average":
+      return "Weighted average";
+    case "min-threshold":
+      return "Min-threshold";
+    case "all-must-pass":
+      return "All must pass";
   }
 })();
 ---
@@ -97,7 +100,9 @@ const scoringMethodLabel = (() => {
           <ul class="muted">
             {suite.standardRefs.map((ref) => (
               <li>
-                <a href={`/standards/${ref.toLowerCase().replace(/\./g, "-")}`}>{ref}</a>
+                <a href={`/standards/${ref.toLowerCase().replace(/\./g, "-")}`}>
+                  {ref}
+                </a>
               </li>
             ))}
           </ul>
@@ -123,9 +128,7 @@ const scoringMethodLabel = (() => {
     <div class="panel stack-sm">
       <p class="eyebrow">Deliverables</p>
       <ul class="card__list">
-        {suite.deliverables.map((d) => (
-          <li>{d}</li>
-        ))}
+        {suite.deliverables.map((d) => <li>{d}</li>)}
       </ul>
     </div>
   </SectionBlock>
@@ -154,13 +157,17 @@ const scoringMethodLabel = (() => {
               <div class="panel stack-sm">
                 <p class="eyebrow">Pass criteria</p>
                 <ul class="card__list">
-                  {tc.passCriteria.map((c) => <li>{c}</li>)}
+                  {tc.passCriteria.map((c) => (
+                    <li>{c}</li>
+                  ))}
                 </ul>
               </div>
               <div class="panel stack-sm">
                 <p class="eyebrow">Fail indicators</p>
                 <ul class="card__list">
-                  {tc.failIndicators.map((i) => <li>{i}</li>)}
+                  {tc.failIndicators.map((i) => (
+                    <li>{i}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -179,7 +186,9 @@ const scoringMethodLabel = (() => {
                   {tc.scoringRubric.anchors.map((anchor) => (
                     <tr>
                       <td>{anchor.score}</td>
-                      <td><strong>{anchor.label}</strong></td>
+                      <td>
+                        <strong>{anchor.label}</strong>
+                      </td>
                       <td class="muted">{anchor.description}</td>
                     </tr>
                   ))}
@@ -190,7 +199,9 @@ const scoringMethodLabel = (() => {
             <div class="panel stack-sm">
               <p class="eyebrow">Evidence required</p>
               <ul class="card__list">
-                {tc.evidenceRequired.map((e) => <li>{e}</li>)}
+                {tc.evidenceRequired.map((e) => (
+                  <li>{e}</li>
+                ))}
               </ul>
             </div>
 
@@ -217,7 +228,12 @@ const scoringMethodLabel = (() => {
     </p>
   </SectionBlock>
 
-  <SectionBlock id="citation" eyebrow="Citation" title="Cite this suite" variant="alt">
+  <SectionBlock
+    id="citation"
+    eyebrow="Citation"
+    title="Cite this suite"
+    variant="alt"
+  >
     <CitationBlock
       title={`${suite.title} — Governance Eval Suite`}
       permalink={permalink}

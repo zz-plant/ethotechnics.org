@@ -359,8 +359,9 @@ for (const filePath of pageAstroFiles) {
   const isLikelyArticleRoute =
     !relPath.endsWith("/index.astro") && !relPath.endsWith("404.astro");
   const hasPublishedTime = /<BaseLayout[\s\S]*?\bpublishedTime=/.test(source);
-  const hasStructuredDataType =
-    /<BaseLayout[\s\S]*?\bstructuredDataType=/.test(source);
+  const hasStructuredDataType = /<BaseLayout[\s\S]*?\bstructuredDataType=/.test(
+    source,
+  );
 
   if (isLikelyArticleRoute && !hasPublishedTime) {
     warnings.push(

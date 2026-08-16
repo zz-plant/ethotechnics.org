@@ -12,7 +12,11 @@ const pageDescription =
 const permalink = "/bundles";
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow="Bundles"
     title="Bundled artifacts"
@@ -39,23 +43,25 @@ const permalink = "/bundles";
     description="Each bundle includes scoped artifacts, use-case guidance, and update cadence notes."
   >
     <CardGrid className="grid--two">
-      {bundleIndex.map((bundle) => (
-        <CardItem
-          id={bundle.slug}
-          title={bundle.title}
-          description={bundle.summary}
-        >
-          <p class="muted">Scope: {bundle.scope}</p>
-          <p class="muted">Update cadence: {bundle.updateCadence}</p>
-          <a
-            slot="footer"
-            class="button ghost button--compact"
-            href={`/bundles/${bundle.slug}`}
+      {
+        bundleIndex.map((bundle) => (
+          <CardItem
+            id={bundle.slug}
+            title={bundle.title}
+            description={bundle.summary}
           >
-            Open bundle
-          </a>
-        </CardItem>
-      ))}
+            <p class="muted">Scope: {bundle.scope}</p>
+            <p class="muted">Update cadence: {bundle.updateCadence}</p>
+            <a
+              slot="footer"
+              class="button ghost button--compact"
+              href={`/bundles/${bundle.slug}`}
+            >
+              Open bundle
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -69,7 +75,10 @@ const permalink = "/bundles";
     <ul class="muted">
       <li>GitHub exports ship versioned Markdown, CSV, and change logs.</li>
       <li>Notion exports will copy tasks, templates, and review dashboards.</li>
-      <li>PDF exports will package shareable summaries for procurement and audit reviews.</li>
+      <li>
+        PDF exports will package shareable summaries for procurement and audit
+        reviews.
+      </li>
     </ul>
   </SectionBlock>
 </BaseLayout>

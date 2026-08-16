@@ -6,7 +6,10 @@ import type {
 import type { PublicationMetadata } from "../content/types";
 
 export const stripHtml = (value: string): string =>
-  value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  value
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
 export const normalizeGlossaryHeading = (heading: string): string =>
   heading.replace(/^[A-Z]\.\s*/, "");

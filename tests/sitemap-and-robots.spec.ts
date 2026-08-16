@@ -80,8 +80,12 @@ describe("sitemap.xml", () => {
 
     const xml = await response.text();
 
-    expect(xml).toContain('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"');
+    expect(xml).toContain(
+      'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"',
+    );
     expect(xml).toContain("<image:image>");
-    expect(xml).toContain("https://example.org/assets/ethotechnics-hero-map.svg");
+    expect(xml).toContain(
+      "https://example.org/assets/ethotechnics-hero-map.svg",
+    );
   });
 });

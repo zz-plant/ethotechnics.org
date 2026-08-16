@@ -15,7 +15,12 @@ const enhancedDescription = `${description} Use this as a post-market monitoring
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
-  jsonAlternates={[{ href: "/api/post-market-monitoring.json", title: "Post-market workflow JSON" }]}
+  jsonAlternates={[
+    {
+      href: "/api/post-market-monitoring.json",
+      title: "Post-market workflow JSON",
+    },
+  ]}
 >
   <PageIntro
     eyebrow={eyebrow}
@@ -37,7 +42,6 @@ const enhancedDescription = `${description} Use this as a post-market monitoring
     }}
   />
 
-
   <SectionBlock
     id="post-market-workflow"
     eyebrow="Post-market monitoring"
@@ -46,16 +50,20 @@ const enhancedDescription = `${description} Use this as a post-market monitoring
     variant="alt"
   >
     <ol class="muted">
-      {postMarketWorkflow.map((step) => (
-        <li>
-          <strong>{step.stage}:</strong> {step.outcome}
-        </li>
-      ))}
+      {
+        postMarketWorkflow.map((step) => (
+          <li>
+            <strong>{step.stage}:</strong> {step.outcome}
+          </li>
+        ))
+      }
     </ol>
     <p class="muted">
       Machine-readable workflow objects are available at
       {" "}
-      <a href="/api/post-market-monitoring.json">/api/post-market-monitoring.json</a>.
+      <a href="/api/post-market-monitoring.json"
+        >/api/post-market-monitoring.json</a
+      >.
     </p>
   </SectionBlock>
 
@@ -66,24 +74,29 @@ const enhancedDescription = `${description} Use this as a post-market monitoring
     className="section--banded"
   >
     <CardGrid className="grid--two">
-      {incidentLessons.map((lesson) => (
-        <CardItem
-          id={lesson.slug}
-          title={lesson.title}
-          description={lesson.summary}
-          descriptionTone="default"
-        >
-          <ul class="muted">
-            <li>{lesson.incident.sector}</li>
-            <li>{lesson.incident.timeframe}</li>
-          </ul>
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={`/incidents/${lesson.slug}`}>
-              Open lesson
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        incidentLessons.map((lesson) => (
+          <CardItem
+            id={lesson.slug}
+            title={lesson.title}
+            description={lesson.summary}
+            descriptionTone="default"
+          >
+            <ul class="muted">
+              <li>{lesson.incident.sector}</li>
+              <li>{lesson.incident.timeframe}</li>
+            </ul>
+            <div slot="footer" class="card__footer">
+              <a
+                class="button ghost button--compact"
+                href={`/incidents/${lesson.slug}`}
+              >
+                Open lesson
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

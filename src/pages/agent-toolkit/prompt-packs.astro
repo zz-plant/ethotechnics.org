@@ -30,8 +30,7 @@ const promptPackInstall = {
   title: "Ethotechnics agent prompt pack",
   version: "v1.0.0",
   downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md",
-  pathSnippet:
-    "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  pathSnippet: "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
   invokeExample: "use: ethotechnics-agent-prompt-pack-v1.0.0",
 };
 
@@ -135,7 +134,11 @@ const diagnosticFailureModes = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
@@ -163,15 +166,17 @@ const diagnosticFailureModes = [
     className="section--banded"
   >
     <CardGrid className="grid--two">
-      {onboardingPrompts.map((pack) => (
-        <CardItem title={pack.title} descriptionTone="default">
-          <ul class="muted">
-            {pack.prompts.map((prompt) => (
-              <li>{prompt}</li>
-            ))}
-          </ul>
-        </CardItem>
-      ))}
+      {
+        onboardingPrompts.map((pack) => (
+          <CardItem title={pack.title} descriptionTone="default">
+            <ul class="muted">
+              {pack.prompts.map((prompt) => (
+                <li>{prompt}</li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -182,15 +187,17 @@ const diagnosticFailureModes = [
     description="Structure decision reviews so the principle stays visible."
   >
     <CardGrid className="grid--two">
-      {decisionPrompts.map((pack) => (
-        <CardItem title={pack.title} descriptionTone="default">
-          <ul class="muted">
-            {pack.prompts.map((prompt) => (
-              <li>{prompt}</li>
-            ))}
-          </ul>
-        </CardItem>
-      ))}
+      {
+        decisionPrompts.map((pack) => (
+          <CardItem title={pack.title} descriptionTone="default">
+            <ul class="muted">
+              {pack.prompts.map((prompt) => (
+                <li>{prompt}</li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -202,23 +209,24 @@ const diagnosticFailureModes = [
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {conflictPrompts.map((pack) => (
-        <CardItem title={pack.title} descriptionTone="default">
-          <ul class="muted">
-            {pack.prompts.map((prompt) => (
-              <li>{prompt}</li>
-            ))}
-          </ul>
-        </CardItem>
-      ))}
+      {
+        conflictPrompts.map((pack) => (
+          <CardItem title={pack.title} descriptionTone="default">
+            <ul class="muted">
+              {pack.prompts.map((prompt) => (
+                <li>{prompt}</li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
     <p class="muted small">
-      Pair these prompts with the glossary to keep terms consistent across teams.
+      Pair these prompts with the glossary to keep terms consistent across
+      teams.
     </p>
     <SectionActions>
-      <a class="button ghost" href="/glossary">
-        Reference the glossary
-      </a>
+      <a class="button ghost" href="/glossary"> Reference the glossary </a>
     </SectionActions>
   </SectionBlock>
 
@@ -229,15 +237,17 @@ const diagnosticFailureModes = [
     description="Use these prompts when you need repeatable audit-quality outputs."
   >
     <CardGrid className="grid--two">
-      {diagnosticPrompts.map((pack) => (
-        <CardItem title={pack.title} descriptionTone="default">
-          <ul class="muted">
-            {pack.prompts.map((prompt) => (
-              <li>{prompt}</li>
-            ))}
-          </ul>
-        </CardItem>
-      ))}
+      {
+        diagnosticPrompts.map((pack) => (
+          <CardItem title={pack.title} descriptionTone="default">
+            <ul class="muted">
+              {pack.prompts.map((prompt) => (
+                <li>{prompt}</li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
     <div class="grid grid--two">
       <div class="panel">
@@ -247,15 +257,11 @@ const diagnosticFailureModes = [
       <div class="panel">
         <p class="eyebrow">Scoring rubric</p>
         <ul class="muted">
-          {diagnosticRubric.map((item) => (
-            <li>{item}</li>
-          ))}
+          {diagnosticRubric.map((item) => <li>{item}</li>)}
         </ul>
         <p class="eyebrow">Common failure modes</p>
         <ul class="muted">
-          {diagnosticFailureModes.map((item) => (
-            <li>{item}</li>
-          ))}
+          {diagnosticFailureModes.map((item) => <li>{item}</li>)}
         </ul>
       </div>
     </div>

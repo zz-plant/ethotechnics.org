@@ -1,4 +1,8 @@
-import type { PageWithPermalink, PublishedContent, PublicationMetadata } from "./types";
+import type {
+  PageWithPermalink,
+  PublishedContent,
+  PublicationMetadata,
+} from "./types";
 
 export type EvalSuiteId =
   | "burden-distribution"
@@ -135,7 +139,10 @@ export const evalsContent: EvalsContent = {
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
     version: "1.0.0",
-    license: { label: "CC BY 4.0", href: "https://creativecommons.org/licenses/by/4.0/" },
+    license: {
+      label: "CC BY 4.0",
+      href: "https://creativecommons.org/licenses/by/4.0/",
+    },
     attribution:
       "Ethotechnics Institute. (2026). Governance Eval Suites v1.0.0. Ethotechnics Institute.",
     changelog: [
@@ -159,7 +166,11 @@ export const evalsContent: EvalsContent = {
       status: "stable",
       category: "burden",
       standardRefs: ["STD-01", "STD-03"],
-      glossaryRefs: ["burden-index", "friction-taxonomy", "burden-distribution-test"],
+      glossaryRefs: [
+        "burden-index",
+        "friction-taxonomy",
+        "burden-distribution-test",
+      ],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -240,7 +251,12 @@ export const evalsContent: EvalsContent = {
       status: "stable",
       category: "temporal",
       standardRefs: ["STD-01"],
-      glossaryRefs: ["temporal-rights", "time-to-halt", "time-to-remedy", "time-debt"],
+      glossaryRefs: [
+        "temporal-rights",
+        "time-to-halt",
+        "time-to-remedy",
+        "time-debt",
+      ],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -294,7 +310,10 @@ export const evalsContent: EvalsContent = {
       status: "stable",
       category: "visibility",
       standardRefs: ["STD-02"],
-      glossaryRefs: ["explainability-for-accountability", "counterfactual-testability"],
+      glossaryRefs: [
+        "explainability-for-accountability",
+        "counterfactual-testability",
+      ],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -321,7 +340,11 @@ export const evalsContent: EvalsContent = {
       status: "stable",
       category: "governance",
       standardRefs: ["STD-01", "STD-02", "STD-03"],
-      glossaryRefs: ["agent-governance-score", "escalation-pattern", "audit-trail"],
+      glossaryRefs: [
+        "agent-governance-score",
+        "escalation-pattern",
+        "audit-trail",
+      ],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -348,7 +371,11 @@ export const evalsContent: EvalsContent = {
       status: "stable",
       category: "burden",
       standardRefs: ["STD-01", "STD-03"],
-      glossaryRefs: ["burden-index", "cross-domain-burden", "burden-distribution-test"],
+      glossaryRefs: [
+        "burden-index",
+        "cross-domain-burden",
+        "burden-distribution-test",
+      ],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",

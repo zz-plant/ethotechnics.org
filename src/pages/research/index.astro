@@ -137,12 +137,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     panelCopy={panelCopy}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#agenda">
-        View research agenda
-      </a>
-      <a class="button ghost" href="#publications">
-        Browse publications
-      </a>
+      <a class="button primary" href="#agenda"> View research agenda </a>
+      <a class="button ghost" href="#publications"> Browse publications </a>
     </Fragment>
   </PageIntro>
   <SummaryCallout
@@ -195,9 +191,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         title="Agenda"
         description="In-flight lines of inquiry tied to glossary anchors."
       >
-        <a slot="footer" class="muted" href="#agenda">
-          View agenda
-        </a>
+        <a slot="footer" class="muted" href="#agenda"> View agenda </a>
       </CardItem>
       <CardItem
         title="Publications"
@@ -630,10 +624,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </details>
   </SectionBlock>
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
   <script type="module" src={researchFilterScript} is:inline></script>
 </BaseLayout>

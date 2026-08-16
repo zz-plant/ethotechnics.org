@@ -12,7 +12,9 @@ const endpointFiles = (directory: string) =>
 
 describe("API endpoint parity", () => {
   test("shared config matches unversioned and versioned endpoint files", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
+    const unversioned = endpointFiles(
+      join(import.meta.dir, "..", "..", "pages", "api"),
+    );
     const versioned = endpointFiles(
       join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
     );
@@ -23,7 +25,9 @@ describe("API endpoint parity", () => {
   });
 
   test("fails when a versioned endpoint file is missing", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
+    const unversioned = endpointFiles(
+      join(import.meta.dir, "..", "..", "pages", "api"),
+    );
     const versioned = endpointFiles(
       join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
     );
@@ -38,7 +42,9 @@ describe("API endpoint parity", () => {
   });
 
   test("fails when an unversioned endpoint file is missing", () => {
-    const unversioned = endpointFiles(join(import.meta.dir, "..", "..", "pages", "api"));
+    const unversioned = endpointFiles(
+      join(import.meta.dir, "..", "..", "pages", "api"),
+    );
     const versioned = endpointFiles(
       join(import.meta.dir, "..", "..", "pages", "api", "v", "2026.01"),
     );

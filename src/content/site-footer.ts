@@ -28,7 +28,7 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics Institute seal",
     },
     description:
-      "Content licensed under the Creative Commons Attribution 4.0 International License.",
+      "Open standards, mechanisms, and diagnostics for high-stakes AI systems. Content licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).",
     license: {
       label: "View the CC BY 4.0 license",
       href: "https://creativecommons.org/licenses/by/4.0/",
@@ -41,25 +41,57 @@ export const siteFooter: SiteFooterContent = {
   },
   navigation: [
     {
-      heading: "Institute",
+      heading: "Standards & Tools",
       links: [
-        { label: "Start here", href: "/start-here" },
-        { label: "Glossary", href: "/glossary" },
         { label: "Standards", href: "/standards" },
-        { label: "Diagnostics", href: "/diagnostics" },
-        { label: "Evals", href: "/evals" },
+        { label: "Diagnostics & Tools", href: "/diagnostics" },
+        { label: "Mechanisms & Patterns", href: "/mechanisms" },
+        { label: "Evals & Benchmarks", href: "/evals" },
+        { label: "Validators", href: "/validators" },
       ],
     },
     {
-      heading: "Connect",
+      heading: "Knowledge Base",
+      links: [
+        { label: "Glossary & Ontology", href: "/glossary" },
+        { label: "Taxonomy", href: "/taxonomy" },
+        { label: "Field Notes", href: "/field-notes" },
+        { label: "Library Index", href: "/library" },
+        { label: "Search", href: "/search" },
+      ],
+    },
+    {
+      heading: "Institute & Governance",
+      links: [
+        { label: "Start Here", href: "/start-here" },
+        { label: "About the Institute", href: "/about" },
+        {
+          label: "Security Policy",
+          href: "/security/vulnerability-disclosure",
+        },
+        { label: "Send Feedback", href: "/participate#feedback" },
+        { label: "Reference API", href: "/api" },
+      ],
+    },
+    {
+      heading: "Ecosystem & Connect",
       links: [
         {
           label: "GitHub",
           href: "https://github.com/zz-plant/ethotechnics",
           external: true,
         },
-        { label: "Send feedback", href: "/participate#feedback" },
-        { label: "Reference API", href: "/api" },
+        {
+          label: "Ethotechnics Studio",
+          href: "https://ethotechnics.com/studio/",
+          external: true,
+        },
+        { label: "RSS Feed", href: "/rss.xml" },
+        {
+          label: "CC BY 4.0 License",
+          href: "https://creativecommons.org/licenses/by/4.0/",
+          external: true,
+        },
       ],
     },
   ],

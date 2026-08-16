@@ -16,24 +16,30 @@ const mpis = [
     tiers: [
       {
         tier: "Tier 0",
-        evidence: "System logs showing halt trigger and halt completion timestamps.",
+        evidence:
+          "System logs showing halt trigger and halt completion timestamps.",
       },
       {
         tier: "Tier 1",
-        evidence: "Drill reports with median and p95 halt times by team and system.",
+        evidence:
+          "Drill reports with median and p95 halt times by team and system.",
       },
       {
         tier: "Tier 2",
-        evidence: "Incident postmortems verifying real-world halt times under load.",
+        evidence:
+          "Incident postmortems verifying real-world halt times under load.",
       },
     ],
-    gaming: "Halt tests run on low-traffic sandboxes instead of production paths.",
-    detection: "Validator compares drill environment IDs against production system inventory.",
+    gaming:
+      "Halt tests run on low-traffic sandboxes instead of production paths.",
+    detection:
+      "Validator compares drill environment IDs against production system inventory.",
   },
   {
     id: "reversibility",
     title: "Reversibility rate",
-    summary: "Percent of automated decisions that can be reversed without collateral harm.",
+    summary:
+      "Percent of automated decisions that can be reversed without collateral harm.",
     tiers: [
       {
         tier: "Tier 0",
@@ -41,15 +47,19 @@ const mpis = [
       },
       {
         tier: "Tier 1",
-        evidence: "Appeal outcomes segmented by decision type and reversal latency.",
+        evidence:
+          "Appeal outcomes segmented by decision type and reversal latency.",
       },
       {
         tier: "Tier 2",
-        evidence: "Quarterly audits that test reversal paths on randomly sampled cases.",
+        evidence:
+          "Quarterly audits that test reversal paths on randomly sampled cases.",
       },
     ],
-    gaming: "Counting only low-stakes cases while excluding high-impact reversals.",
-    detection: "Validator samples by impact tier and checks for missing high-severity cases.",
+    gaming:
+      "Counting only low-stakes cases while excluding high-impact reversals.",
+    detection:
+      "Validator samples by impact tier and checks for missing high-severity cases.",
   },
   {
     id: "appeal-success",
@@ -69,17 +79,21 @@ const mpis = [
         evidence: "External audit sampling of appeal outcomes for consistency.",
       },
     ],
-    gaming: "Redirecting appeals to off-platform channels so they are not counted.",
-    detection: "Validator checks for mismatch between receipts issued and appeals recorded.",
+    gaming:
+      "Redirecting appeals to off-platform channels so they are not counted.",
+    detection:
+      "Validator checks for mismatch between receipts issued and appeals recorded.",
   },
   {
     id: "burden-ratio",
     title: "Burden ratio",
-    summary: "Relative time cost imposed on impacted people versus internal operators.",
+    summary:
+      "Relative time cost imposed on impacted people versus internal operators.",
     tiers: [
       {
         tier: "Tier 0",
-        evidence: "Journey maps with time cost logs for entry, exit, and appeal flows.",
+        evidence:
+          "Journey maps with time cost logs for entry, exit, and appeal flows.",
       },
       {
         tier: "Tier 1",
@@ -90,8 +104,10 @@ const mpis = [
         evidence: "Independent usability studies verifying time cost deltas.",
       },
     ],
-    gaming: "Measuring only successful flows while ignoring drop-offs or abandoned cases.",
-    detection: "Validator requires abandonment rates and cross-checks with support tickets.",
+    gaming:
+      "Measuring only successful flows while ignoring drop-offs or abandoned cases.",
+    detection:
+      "Validator requires abandonment rates and cross-checks with support tickets.",
   },
 ];
 ---
@@ -123,26 +139,28 @@ const mpis = [
     </ul>
   </SectionBlock>
 
-  {mpis.map((mpi, index) => (
-    <SectionBlock
-      id={mpi.id}
-      eyebrow="MPI"
-      title={mpi.title}
-      description={mpi.summary}
-      variant={index % 2 === 1 ? "alt" : undefined}
-    >
-      <h3>Tiered measurement model</h3>
-      <ul class="muted">
-        {mpi.tiers.map((tier) => (
-          <li>
-            <strong>{tier.tier}:</strong> {tier.evidence}
-          </li>
-        ))}
-      </ul>
-      <h3>Known gaming pattern</h3>
-      <p class="muted">{mpi.gaming}</p>
-      <h3>Validator detection logic</h3>
-      <p class="muted">{mpi.detection}</p>
-    </SectionBlock>
-  ))}
+  {
+    mpis.map((mpi, index) => (
+      <SectionBlock
+        id={mpi.id}
+        eyebrow="MPI"
+        title={mpi.title}
+        description={mpi.summary}
+        variant={index % 2 === 1 ? "alt" : undefined}
+      >
+        <h3>Tiered measurement model</h3>
+        <ul class="muted">
+          {mpi.tiers.map((tier) => (
+            <li>
+              <strong>{tier.tier}:</strong> {tier.evidence}
+            </li>
+          ))}
+        </ul>
+        <h3>Known gaming pattern</h3>
+        <p class="muted">{mpi.gaming}</p>
+        <h3>Validator detection logic</h3>
+        <p class="muted">{mpi.detection}</p>
+      </SectionBlock>
+    ))
+  }
 </BaseLayout>

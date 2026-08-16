@@ -1,4 +1,8 @@
-import type { GlossaryLinked, PageWithPermalink, PublishedContent } from "./types";
+import type {
+  GlossaryLinked,
+  PageWithPermalink,
+  PublishedContent,
+} from "./types";
 
 export type IncidentLesson = GlossaryLinked &
   PublishedContent & {
@@ -98,7 +102,10 @@ export const incidentLessons: IncidentLesson[] = [
       "Sample override outcomes in monthly audits.",
     ],
     sources: [
-      { label: "Decision record schema", href: "/standards/decision-record.schema.json" },
+      {
+        label: "Decision record schema",
+        href: "/standards/decision-record.schema.json",
+      },
       { label: "Audit playbook", href: "/library/diagnostics" },
     ],
   },
@@ -131,7 +138,10 @@ export const incidentLessons: IncidentLesson[] = [
       "Track repair completions against appeal outcomes.",
     ],
     sources: [
-      { label: "Appeal event schema", href: "/standards/appeal-event.schema.json" },
+      {
+        label: "Appeal event schema",
+        href: "/standards/appeal-event.schema.json",
+      },
       { label: "Remedy essentials", href: "/explainers/remedy-essentials" },
     ],
   },

@@ -355,8 +355,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       ctaLabel: "Request LLM Capacity Benchmark",
       ctaHref: "https://ethotechnics.com/studio/",
-      ctaAriaLabel:
-        "Request the LLM Capacity Benchmark diagnostic session",
+      ctaAriaLabel: "Request the LLM Capacity Benchmark diagnostic session",
       exampleLabel: "View sample output",
       exampleHref:
         "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark",

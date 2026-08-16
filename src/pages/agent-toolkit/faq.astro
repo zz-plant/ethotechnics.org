@@ -92,7 +92,11 @@ const structuredData = {
 const structuredDataJson = JSON.stringify(structuredData);
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <Fragment slot="head">
     <script
       type="application/ld+json"
@@ -116,13 +120,15 @@ const structuredDataJson = JSON.stringify(structuredData);
     className="section--banded"
   >
     <CardGrid className="grid--three">
-      {framingFaqs.map((faq) => (
-        <CardItem
-          title={faq.question}
-          description={faq.answer}
-          descriptionTone="default"
-        />
-      ))}
+      {
+        framingFaqs.map((faq) => (
+          <CardItem
+            title={faq.question}
+            description={faq.answer}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -133,13 +139,15 @@ const structuredDataJson = JSON.stringify(structuredData);
     description="Anchor every response in outcomes and practical decisions."
   >
     <CardGrid className="grid--three">
-      {teachingFaqs.map((faq) => (
-        <CardItem
-          title={faq.question}
-          description={faq.answer}
-          descriptionTone="default"
-        />
-      ))}
+      {
+        teachingFaqs.map((faq) => (
+          <CardItem
+            title={faq.question}
+            description={faq.answer}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -151,13 +159,15 @@ const structuredDataJson = JSON.stringify(structuredData);
     variant="alt"
   >
     <CardGrid className="grid--three">
-      {governanceFaqs.map((faq) => (
-        <CardItem
-          title={faq.question}
-          description={faq.answer}
-          descriptionTone="default"
-        />
-      ))}
+      {
+        governanceFaqs.map((faq) => (
+          <CardItem
+            title={faq.question}
+            description={faq.answer}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

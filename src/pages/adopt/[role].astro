@@ -1,21 +1,90 @@
 ---
 export const prerender = true;
 import BaseLayout from "../../layouts/BaseLayout.astro";
-export function getStaticPaths() { return [{ params: { role: "build" } },{ params: { role: "ops" } },{ params: { role: "policy" } }]; }
+export function getStaticPaths() {
+  return [
+    { params: { role: "build" } },
+    { params: { role: "ops" } },
+    { params: { role: "policy" } },
+  ];
+}
 const { role } = Astro.params;
-const data: Record<string,{title:string;pageTitle:string;description:string;lede:string;crossRef:string;crossRefHref:string;checklist:string[]}> = {
-  build:{title:"Adopt Ethotechnics through build",pageTitle:"Adopt AI governance controls in product and engineering | Ethotechnics",description:"Implementation guide for product and engineering teams.",lede:"Use this path when product and engineering teams are instrumenting stoppability, reversal testing, and ownership mapped to code paths.",crossRef:"Connect implementation work to",crossRefHref:"/validators",checklist:["Set explicit action boundaries for high-risk automations.","Require approvals before sensitive sends, deploys, or data writes.","Instrument rollback paths and verify they are runnable under pressure.","Log all override actions with named owners and timestamps."]},
-  ops:{title:"Adopt Ethotechnics through operations",pageTitle:"Adopt AI incident operations controls | Ethotechnics",description:"Operations guide for appeals, incident response, and queue teams.",lede:"Use this path when appeals, incident response, and queue management teams need bounded escalation and freeze authority.",crossRef:"Ground operations runbooks in the",crossRefHref:"/standards",checklist:["Define harm intake paths with explicit triage categories.","Set escalation SLAs by severity and route to named responders.","Track queue age and auto-escalate stalled cases.","Publish a repair log with remediation status and owner handoffs."]},
-  policy:{title:"Adopt Ethotechnics through policy",pageTitle:"Adopt AI governance policy controls | Ethotechnics",description:"Policy guide for legal, compliance, and risk teams.",lede:"Use this path when legal, compliance, and risk teams are setting ownership, reversal clocks, and contestability commitments.",crossRef:"Pair this with the",crossRefHref:"/standards",checklist:["Bind contestability rights to explicit owner roles and response clocks.","Define restitution pathways for harms that cannot be fully reversed.","Set incident disclosure expectations for high-impact failures.","Require sign-off authority for resume decisions after a halt."]}
+const data: Record<
+  string,
+  {
+    title: string;
+    pageTitle: string;
+    description: string;
+    lede: string;
+    crossRef: string;
+    crossRefHref: string;
+    checklist: string[];
+  }
+> = {
+  build: {
+    title: "Adopt Ethotechnics through build",
+    pageTitle:
+      "Adopt AI governance controls in product and engineering | Ethotechnics",
+    description: "Implementation guide for product and engineering teams.",
+    lede: "Use this path when product and engineering teams are instrumenting stoppability, reversal testing, and ownership mapped to code paths.",
+    crossRef: "Connect implementation work to",
+    crossRefHref: "/validators",
+    checklist: [
+      "Set explicit action boundaries for high-risk automations.",
+      "Require approvals before sensitive sends, deploys, or data writes.",
+      "Instrument rollback paths and verify they are runnable under pressure.",
+      "Log all override actions with named owners and timestamps.",
+    ],
+  },
+  ops: {
+    title: "Adopt Ethotechnics through operations",
+    pageTitle: "Adopt AI incident operations controls | Ethotechnics",
+    description:
+      "Operations guide for appeals, incident response, and queue teams.",
+    lede: "Use this path when appeals, incident response, and queue management teams need bounded escalation and freeze authority.",
+    crossRef: "Ground operations runbooks in the",
+    crossRefHref: "/standards",
+    checklist: [
+      "Define harm intake paths with explicit triage categories.",
+      "Set escalation SLAs by severity and route to named responders.",
+      "Track queue age and auto-escalate stalled cases.",
+      "Publish a repair log with remediation status and owner handoffs.",
+    ],
+  },
+  policy: {
+    title: "Adopt Ethotechnics through policy",
+    pageTitle: "Adopt AI governance policy controls | Ethotechnics",
+    description: "Policy guide for legal, compliance, and risk teams.",
+    lede: "Use this path when legal, compliance, and risk teams are setting ownership, reversal clocks, and contestability commitments.",
+    crossRef: "Pair this with the",
+    crossRefHref: "/standards",
+    checklist: [
+      "Bind contestability rights to explicit owner roles and response clocks.",
+      "Define restitution pathways for harms that cannot be fully reversed.",
+      "Set incident disclosure expectations for high-impact failures.",
+      "Require sign-off authority for resume decisions after a halt.",
+    ],
+  },
 };
 const d = data[role];
 if (!d) return new Response("Adoption guide not found", { status: 404 });
-const label = role==="build"?"Build":role==="ops"?"Operations":"Policy";
+const label =
+  role === "build" ? "Build" : role === "ops" ? "Operations" : "Policy";
 ---
-<BaseLayout title={d.pageTitle} description={d.description} publishedTime="2026-02-21">
+
+<BaseLayout
+  title={d.pageTitle}
+  description={d.description}
+  publishedTime="2026-02-21"
+>
   <section class="stack-lg institute-screen">
     <h1>{d.title}</h1><p>{d.lede}</p>
-    <p>{d.crossRef} <a href={d.crossRefHref}>validator checks</a> and <a href="/examples">field-tested examples</a>.</p>
+    <p>
+      {d.crossRef}
+      <a href={d.crossRefHref}>validator checks</a> and <a href="/examples"
+        >field-tested examples</a
+      >.
+    </p>
     <h2>{label} checklist</h2>
     <ul>{d.checklist.map((item) => <li>{item}</li>)}</ul>
     <p><a class="button" href="/#failure-intake">Start with a failure</a></p>

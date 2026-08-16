@@ -64,7 +64,11 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
   intakeFieldAutocapitalizeMap[fieldId] ?? "sentences";
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
@@ -74,7 +78,6 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
     panelCopy={hero.panel}
   />
 
-
   <SectionBlock
     id="security-reporting"
     eyebrow="Security"
@@ -83,8 +86,12 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
     variant="alt"
   >
     <p>
-      Start with <a href="/security/vulnerability-disclosure">the vulnerability disclosure policy</a>
-      and the canonical <a href="/.well-known/security.txt">security.txt record</a>.
+      Start with <a href="/security/vulnerability-disclosure"
+        >the vulnerability disclosure policy</a
+      >
+      and the canonical <a href="/.well-known/security.txt"
+        >security.txt record</a
+      >.
     </p>
   </SectionBlock>
 
@@ -185,7 +192,9 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
           {
             intake.form.fields.map((field) => {
               const fieldName = resolveIntakeFieldName(field.id);
-              const fieldAutocomplete = resolveIntakeFieldAutocomplete(field.id);
+              const fieldAutocomplete = resolveIntakeFieldAutocomplete(
+                field.id,
+              );
               const fieldInputMode = resolveIntakeFieldInputMode(field.id);
               const fieldAutocapitalize = resolveIntakeFieldAutocapitalize(
                 field.id,
@@ -247,7 +256,8 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
           role="status"
           aria-live="polite"
           aria-atomic="true"
-        ></div>
+        >
+        </div>
       </form>
 
       <div

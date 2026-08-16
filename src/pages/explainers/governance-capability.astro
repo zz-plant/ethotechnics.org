@@ -50,7 +50,8 @@ const coreImplications = [
       "Governance is demonstrated through policies, principles, reviews, and artifacts.",
     ethotechnicsModel:
       "Governance is demonstrated through live capability: halt harmful behavior, reverse decisions, and restore affected parties.",
-    implication: "Responsibility becomes measurable capacity, not moral alignment.",
+    implication:
+      "Responsibility becomes measurable capacity, not moral alignment.",
     requirements: [
       "Production stop conditions (“if X, halt Y”) with a defined trigger path.",
       "A rollback or safe-mode path that reliably restores a prior safe state.",
@@ -60,14 +61,14 @@ const coreImplications = [
     ],
     signals: [
       "Stop is possible only via exec escalation.",
-      "\"Fix forward\" is treated as the only option.",
+      '"Fix forward" is treated as the only option.',
     ],
   },
   {
     id: "time",
     title: "Time becomes an ethical resource",
     commonModel:
-      "Time is treated as incidental (\"we’re investigating,\" \"pending\").",
+      'Time is treated as incidental ("we’re investigating," "pending").',
     ethotechnicsModel:
       "Time-in-harm is the governing variable. Unbounded review is a harm state.",
     implication: "Indefinite waiting becomes a governance failure.",
@@ -80,7 +81,7 @@ const coreImplications = [
     ],
     signals: [
       "Appeals timelines are undefined.",
-      "\"Pending\" states can persist indefinitely.",
+      '"Pending" states can persist indefinitely.',
     ],
   },
   {
@@ -106,7 +107,8 @@ const coreImplications = [
       "Committees and escalation chains determine whether to interrupt.",
     ethotechnicsModel:
       "Stop authority is legitimate on its own; escalation is a state transition.",
-    implication: "The org must designate stoppers and protect them structurally.",
+    implication:
+      "The org must designate stoppers and protect them structurally.",
     requirements: [
       "Explicit stop roles with scope (“what can be stopped, when, how”).",
       "Non-retaliation protections tied to stop actions.",
@@ -163,7 +165,8 @@ const additionalImplications = [
   {
     id: "slow-harm",
     title: "Slow, diffuse harm becomes structurally unacceptable",
-    implication: "Attrition becomes measurable harm (time-in-harm, burden transfer).",
+    implication:
+      "Attrition becomes measurable harm (time-in-harm, burden transfer).",
     requirements: [
       "Harm distribution metrics, not only aggregate scores.",
       "Thresholds that force safe-mode or reversal when tails expand.",
@@ -222,10 +225,15 @@ const anchorLinks = executiveSummary.map(({ href, text }) => ({
 }));
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toString();
+const buildAnchor = (id: string) =>
+  new URL(`${permalink}#${id}`, siteBase).toString();
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
@@ -245,230 +253,255 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
       <p class="toc-heading">On this page</p>
       <nav>
         <ul>
-          {executiveSummary.map((item) => (
-            <li><a href={item.href}>{item.text.split(":")[0]}</a></li>
-          ))}
+          {
+            executiveSummary.map((item) => (
+              <li>
+                <a href={item.href}>{item.text.split(":")[0]}</a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
     </Fragment>
-    
 
-  <SectionBlock
-    id="executive-summary"
-    eyebrow="Executive summary"
-    title="Six implications that change governance"
-    description="Each item links to the expanded implication below."
-  >
-    <ul class="summary-list">
-      {executiveSummary.map((item) => (
-        <li>
-          <a href={item.href}>{item.text}</a>
-        </li>
-      ))}
-    </ul>
-  </SectionBlock>
+    <SectionBlock
+      id="executive-summary"
+      eyebrow="Executive summary"
+      title="Six implications that change governance"
+      description="Each item links to the expanded implication below."
+    >
+      <ul class="summary-list">
+        {
+          executiveSummary.map((item) => (
+            <li>
+              <a href={item.href}>{item.text}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </SectionBlock>
 
-  <SectionBlock
-    id="core-implications"
-    eyebrow="Core implications"
-    title="What operational governance reveals"
-    description="All six core implications are expanded by default."
-    variant="alt"
-  >
-    <SectionActions className="implication-controls" ariaLabel="Implication controls">
-      <button class="button ghost" type="button" data-expand-all>
-        Expand all
-      </button>
-      <button class="button ghost" type="button" data-collapse-all>
-        Collapse all
-      </button>
-    </SectionActions>
-    <div class="implications" data-implications>
-      {coreImplications.map((item) => (
-        <details
-          class="implication"
-          open
-          data-default-open="true"
-          data-implication
-          data-implication-id={item.id}
-        >
-          <summary class="implication__summary">
-            <div class="implication__summary-main">
-              <h3 id={item.id} class="implication__title">
-                {item.title}
-              </h3>
-              <div class="implication__summary-actions">
-                <a
-                  class="implication__permalink"
-                  href={`#${item.id}`}
-                  aria-label={`Permalink to ${item.title}`}
-                  data-implication-anchor
-                >
-                  #
-                </a>
-                <button
-                  class="copy-button"
-                  type="button"
-                  data-copy-link
-                  data-copy-value={buildAnchor(item.id)}
-                  aria-label={`Copy link to ${item.title}`}
-                >
-                  Copy link
-                </button>
-                <span
-                  class="implication__status"
-                  data-copy-status
-                  role="status"
-                  aria-live="polite"
-                ></span>
+    <SectionBlock
+      id="core-implications"
+      eyebrow="Core implications"
+      title="What operational governance reveals"
+      description="All six core implications are expanded by default."
+      variant="alt"
+    >
+      <SectionActions
+        className="implication-controls"
+        ariaLabel="Implication controls"
+      >
+        <button class="button ghost" type="button" data-expand-all>
+          Expand all
+        </button>
+        <button class="button ghost" type="button" data-collapse-all>
+          Collapse all
+        </button>
+      </SectionActions>
+      <div class="implications" data-implications>
+        {
+          coreImplications.map((item) => (
+            <details
+              class="implication"
+              open
+              data-default-open="true"
+              data-implication
+              data-implication-id={item.id}
+            >
+              <summary class="implication__summary">
+                <div class="implication__summary-main">
+                  <h3 id={item.id} class="implication__title">
+                    {item.title}
+                  </h3>
+                  <div class="implication__summary-actions">
+                    <a
+                      class="implication__permalink"
+                      href={`#${item.id}`}
+                      aria-label={`Permalink to ${item.title}`}
+                      data-implication-anchor
+                    >
+                      #
+                    </a>
+                    <button
+                      class="copy-button"
+                      type="button"
+                      data-copy-link
+                      data-copy-value={buildAnchor(item.id)}
+                      aria-label={`Copy link to ${item.title}`}
+                    >
+                      Copy link
+                    </button>
+                    <span
+                      class="implication__status"
+                      data-copy-status
+                      role="status"
+                      aria-live="polite"
+                    />
+                  </div>
+                </div>
+                <span class="implication__toggle" aria-hidden="true">
+                  <span class="implication__toggle-text--expand">Expand</span>
+                  <span class="implication__toggle-text--collapse">
+                    Collapse
+                  </span>
+                </span>
+              </summary>
+              <div class="implication__body">
+                <p class="implication__label">Common model</p>
+                <p>{item.commonModel}</p>
+                <p class="implication__label">Ethotechnics model</p>
+                <p>{item.ethotechnicsModel}</p>
+                <p class="implication__statement">
+                  <strong>Implication:</strong> {item.implication}
+                </p>
+                <div class="implication__requirements">
+                  <p class="implication__label">What this requires</p>
+                  <ul>
+                    {item.requirements.map((requirement) => (
+                      <li>{requirement}</li>
+                    ))}
+                  </ul>
+                </div>
+                {item.signals && (
+                  <details
+                    class="implication__signals"
+                    data-default-open="false"
+                  >
+                    <summary>Signals you’re failing this</summary>
+                    <ul>
+                      {item.signals.map((signal) => (
+                        <li>{signal}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </div>
-            </div>
-            <span class="implication__toggle" aria-hidden="true">
-              <span class="implication__toggle-text--expand">Expand</span>
-              <span class="implication__toggle-text--collapse">Collapse</span>
-            </span>
-          </summary>
-          <div class="implication__body">
-            <p class="implication__label">Common model</p>
-            <p>{item.commonModel}</p>
-            <p class="implication__label">Ethotechnics model</p>
-            <p>{item.ethotechnicsModel}</p>
-            <p class="implication__statement">
-              <strong>Implication:</strong> {item.implication}
-            </p>
-            <div class="implication__requirements">
-              <p class="implication__label">What this requires</p>
-              <ul>
-                {item.requirements.map((requirement) => (
-                  <li>{requirement}</li>
-                ))}
-              </ul>
-            </div>
-            {item.signals && (
-              <details class="implication__signals" data-default-open="false">
-                <summary>Signals you’re failing this</summary>
-                <ul>
-                  {item.signals.map((signal) => (
-                    <li>{signal}</li>
-                  ))}
-                </ul>
-              </details>
-            )}
-          </div>
-        </details>
-      ))}
-    </div>
-  </SectionBlock>
+            </details>
+          ))
+        }
+      </div>
+    </SectionBlock>
 
-  <SectionBlock
-    id="additional-implications"
-    eyebrow="Additional implications"
-    title="Secondary shifts once capability is required"
-    description="These sections are collapsed by default for quick scanning."
-  >
-    <div class="implications" data-implications>
-      {additionalImplications.map((item) => (
-        <details
-          class="implication"
-          data-default-open="false"
-          data-implication
-          data-implication-id={item.id}
-        >
-          <summary class="implication__summary">
-            <div class="implication__summary-main">
-              <h3 id={item.id} class="implication__title">
-                {item.title}
-              </h3>
-              <div class="implication__summary-actions">
-                <a
-                  class="implication__permalink"
-                  href={`#${item.id}`}
-                  aria-label={`Permalink to ${item.title}`}
-                  data-implication-anchor
-                >
-                  #
-                </a>
-                <button
-                  class="copy-button"
-                  type="button"
-                  data-copy-link
-                  data-copy-value={buildAnchor(item.id)}
-                  aria-label={`Copy link to ${item.title}`}
-                >
-                  Copy link
-                </button>
-                <span
-                  class="implication__status"
-                  data-copy-status
-                  role="status"
-                  aria-live="polite"
-                ></span>
+    <SectionBlock
+      id="additional-implications"
+      eyebrow="Additional implications"
+      title="Secondary shifts once capability is required"
+      description="These sections are collapsed by default for quick scanning."
+    >
+      <div class="implications" data-implications>
+        {
+          additionalImplications.map((item) => (
+            <details
+              class="implication"
+              data-default-open="false"
+              data-implication
+              data-implication-id={item.id}
+            >
+              <summary class="implication__summary">
+                <div class="implication__summary-main">
+                  <h3 id={item.id} class="implication__title">
+                    {item.title}
+                  </h3>
+                  <div class="implication__summary-actions">
+                    <a
+                      class="implication__permalink"
+                      href={`#${item.id}`}
+                      aria-label={`Permalink to ${item.title}`}
+                      data-implication-anchor
+                    >
+                      #
+                    </a>
+                    <button
+                      class="copy-button"
+                      type="button"
+                      data-copy-link
+                      data-copy-value={buildAnchor(item.id)}
+                      aria-label={`Copy link to ${item.title}`}
+                    >
+                      Copy link
+                    </button>
+                    <span
+                      class="implication__status"
+                      data-copy-status
+                      role="status"
+                      aria-live="polite"
+                    />
+                  </div>
+                </div>
+                <span class="implication__toggle" aria-hidden="true">
+                  <span class="implication__toggle-text--expand">Expand</span>
+                  <span class="implication__toggle-text--collapse">
+                    Collapse
+                  </span>
+                </span>
+              </summary>
+              <div class="implication__body">
+                <p class="implication__statement">
+                  <strong>Implication:</strong> {item.implication}
+                </p>
+                <div class="implication__requirements">
+                  <p class="implication__label">What this requires</p>
+                  <ul>
+                    {item.requirements.map((requirement) => (
+                      <li>{requirement}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-            <span class="implication__toggle" aria-hidden="true">
-              <span class="implication__toggle-text--expand">Expand</span>
-              <span class="implication__toggle-text--collapse">Collapse</span>
-            </span>
-          </summary>
-          <div class="implication__body">
-            <p class="implication__statement">
-              <strong>Implication:</strong> {item.implication}
-            </p>
-            <div class="implication__requirements">
-              <p class="implication__label">What this requires</p>
-              <ul>
-                {item.requirements.map((requirement) => (
-                  <li>{requirement}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </details>
-      ))}
-    </div>
-  </SectionBlock>
+            </details>
+          ))
+        }
+      </div>
+    </SectionBlock>
 
-  <SectionBlock
-    id="legitimacy-standard"
-    eyebrow="Legitimacy standard"
-    title="The legitimacy standard"
-    description="A concise test for operational responsibility."
-    variant="alt"
-  >
-  <div class="legitimacy-standard">
-      <p>
-        A system is not responsible because it intends to be fair, documents its risks,
-        or convenes oversight committees. A system is responsible only when it cannot
-        keep harming people faster than it can be made to stop and repair.
+    <SectionBlock
+      id="legitimacy-standard"
+      eyebrow="Legitimacy standard"
+      title="The legitimacy standard"
+      description="A concise test for operational responsibility."
+      variant="alt"
+    >
+      <div class="legitimacy-standard">
+        <p>
+          A system is not responsible because it intends to be fair, documents
+          its risks, or convenes oversight committees. A system is responsible
+          only when it cannot keep harming people faster than it can be made to
+          stop and repair.
+        </p>
+        <p class="muted">
+          This standard would cause many currently “compliant” systems to
+          fail—not because they are malicious, but because they are
+          operationally unstoppable.
+        </p>
+      </div>
+    </SectionBlock>
+
+    <SectionBlock
+      id="related"
+      eyebrow="Related"
+      title="Related"
+      description="Additional modules that connect capability governance to delivery."
+    >
+      <ul class="related-links">
+        {
+          relatedLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="muted small footnote">
+        Use stable anchors when citing this spec in memos, briefs, or governance
+        playbooks.
       </p>
-      <p class="muted">
-        This standard would cause many currently “compliant” systems to fail—not because
-        they are malicious, but because they are operationally unstoppable.
+      <p class="muted small footnote">
+        See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
+          >Standards</a
+        >
       </p>
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="related"
-    eyebrow="Related"
-    title="Related"
-    description="Additional modules that connect capability governance to delivery."
-  >
-    <ul class="related-links">
-      {relatedLinks.map((link) => (
-        <li>
-          <a href={link.href}>{link.label}</a>
-        </li>
-      ))}
-    </ul>
-    <p class="muted small footnote">
-      Use stable anchors when citing this spec in memos, briefs, or governance playbooks.
-    </p>
-    <p class="muted small footnote">
-      See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a>
-    </p>
-  </SectionBlock>
-
+    </SectionBlock>
   </WithSidebar>
   <PullQuote
     quote="A system is responsible only when it cannot keep harming people faster than it can be made to stop and repair."
@@ -478,7 +511,7 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
 
 <script is:inline>
   const detailBlocks = Array.from(
-    document.querySelectorAll("details[data-implication]")
+    document.querySelectorAll("details[data-implication]"),
   );
   const expandAllButton = document.querySelector("[data-expand-all]");
   const collapseAllButton = document.querySelector("[data-collapse-all]");
@@ -517,11 +550,11 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
   };
 
   openFromHash(window.location.hash);
-  window.addEventListener("hashchange", () => openFromHash(window.location.hash));
-
-  const copyButtons = Array.from(
-    document.querySelectorAll("[data-copy-link]")
+  window.addEventListener("hashchange", () =>
+    openFromHash(window.location.hash),
   );
+
+  const copyButtons = Array.from(document.querySelectorAll("[data-copy-link]"));
 
   copyButtons.forEach((button) => {
     const status = button
@@ -555,7 +588,7 @@ const buildAnchor = (id: string) => new URL(`${permalink}#${id}`, siteBase).toSt
   });
 
   const anchorLinks = Array.from(
-    document.querySelectorAll("[data-implication-anchor]")
+    document.querySelectorAll("[data-implication-anchor]"),
   );
 
   anchorLinks.forEach((link) => {

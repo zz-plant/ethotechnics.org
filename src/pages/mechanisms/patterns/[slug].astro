@@ -9,12 +9,15 @@ import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import type { DiagnosticTool } from "../../../content/diagnostics";
 import { diagnosticsContent } from "../../../content/diagnostics";
-import { getGlossaryLabel, glossaryEntryPermalink } from "../../../utils/glossary";
+import {
+  getGlossaryLabel,
+  glossaryEntryPermalink,
+} from "../../../utils/glossary";
 
 const { slug } = Astro.params;
 const libraryEntry = (await getEntry("library", "library"))!;
 const pattern = libraryEntry.data.patterns.entries.find(
-  (entry) => entry.slug === slug
+  (entry) => entry.slug === slug,
 );
 const libraryContent = libraryEntry.data;
 const publication = libraryContent.publication;
@@ -26,11 +29,11 @@ if (!pattern) {
 }
 
 const filterLabels = Object.fromEntries(
-  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label])
+  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label]),
 );
 const validatorLinks = pattern.diagnostics
   .map((diagnosticSlug) =>
-    diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug)
+    diagnosticsContent.tools.find((tool) => tool.slug === diagnosticSlug),
   )
   .filter((tool): tool is DiagnosticTool => Boolean(tool));
 const stepCount = pattern.steps.length;
@@ -47,7 +50,9 @@ const pageDescription = pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const panelDescription = `Tagged for ${pattern.filters
   .map((filter) => filterLabels[filter] ?? filter)
-  .join(", ")} with validator handshakes. Includes ${stepCount} steps, ${assetCount} reusable assets, and ${snippetCount} snippet blocks.`;
+  .join(
+    ", ",
+  )} with validator handshakes. Includes ${stepCount} steps, ${assetCount} reusable assets, and ${snippetCount} snippet blocks.`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   ...(glossaryAnchors.length
@@ -65,7 +70,11 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Specification sheet"
     title={pattern.title}
@@ -102,7 +111,9 @@ const anchorLinks = [
           <li>{snippetCount} reuse-ready snippet blocks.</li>
           {
             glossaryAnchors.length > 0 && (
-              <li>{glossaryAnchors.length} glossary anchors for shared terms.</li>
+              <li>
+                {glossaryAnchors.length} glossary anchors for shared terms.
+              </li>
             )
           }
         </ul>
@@ -159,8 +170,7 @@ const anchorLinks = [
   >
     <div class="pattern-detail__step-summary">
       <p class="muted">
-        {stepCount} steps with checklist-ready owners, plus linked assets for
-        handoffs.
+        {stepCount} steps with checklist-ready owners, plus linked assets for handoffs.
       </p>
     </div>
     <div class="pattern-detail__checklist-progress" hidden>
@@ -176,7 +186,7 @@ const anchorLinks = [
         pattern.steps.map((step, index) => (
           <li>
             <label class="card card--emphasis pattern-detail__step-card is-interactive">
-                            <div class="pattern-detail__step-header">
+              <div class="pattern-detail__step-header">
                 <p class="muted">Step {index + 1}</p>
                 <input
                   type="checkbox"
@@ -242,7 +252,7 @@ const anchorLinks = [
   >
     <div class="pattern-detail__example">
       <div class="card card--emphasis">
-                <p class="muted">How it plays out</p>
+        <p class="muted">How it plays out</p>
         <p class="pattern-detail__example-copy">
           {pattern.example.description}
         </p>
@@ -303,7 +313,7 @@ const anchorLinks = [
               class="card pattern-detail__diagnostic-card"
               id={tool.slug}
             >
-                            <div class="pattern-detail__diagnostic-header">
+              <div class="pattern-detail__diagnostic-header">
                 <div>
                   <p class="muted">Validator</p>
                   <h3>{tool.title}</h3>
@@ -362,12 +372,12 @@ const anchorLinks = [
 
   // Checklist logic
   const checkboxes = document.querySelectorAll(
-    ".pattern-detail__step-checkbox"
+    ".pattern-detail__step-checkbox",
   );
   const countSpan = document.getElementById("checklist-count");
   const progressBar = document.getElementById("checklist-bar");
   const progressContainer = document.querySelector(
-    ".pattern-detail__checklist-progress"
+    ".pattern-detail__checklist-progress",
   );
 
   if (checkboxes.length > 0 && progressContainer) {
@@ -375,7 +385,7 @@ const anchorLinks = [
 
     const updateProgress = () => {
       const checked = Array.from(checkboxes).filter(
-        (cb) => (cb as HTMLInputElement).checked
+        (cb) => (cb as HTMLInputElement).checked,
       ).length;
       if (countSpan) countSpan.textContent = checked.toString();
       if (progressBar)

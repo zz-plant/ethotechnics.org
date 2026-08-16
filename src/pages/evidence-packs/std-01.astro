@@ -10,7 +10,8 @@ const pageDescription =
 const permalink = "/evidence-packs/std-01";
 
 const clauses = standardClauses["STD-01"];
-const clauseAnchor = (id: string) => id.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const clauseAnchor = (id: string) =>
+  id.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
 const tiers = [
   {
@@ -21,17 +22,23 @@ const tiers = [
   {
     tier: "Tier 1 (operational)",
     description: "Evidence the control is used and reviewed.",
-    evidence: "Decision logs, appeal outcomes, reviewer rosters, and clock compliance reports.",
+    evidence:
+      "Decision logs, appeal outcomes, reviewer rosters, and clock compliance reports.",
   },
   {
     tier: "Tier 2 (resilient)",
     description: "Stress-tested proof that controls survive real incidents.",
-    evidence: "Incident postmortems, drill results, and remediation follow-through.",
+    evidence:
+      "Incident postmortems, drill results, and remediation follow-through.",
   },
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Evidence pack"
     title="STD-01 Evidence Pack"
@@ -60,11 +67,14 @@ const tiers = [
     description="Start at Tier 0 for baseline proof, then scale to Tier 2 for resilience."
   >
     <ul class="muted">
-      {tiers.map((tier) => (
-        <li>
-          <strong>{tier.tier}:</strong> {tier.description} <span class="muted">{tier.evidence}</span>
-        </li>
-      ))}
+      {
+        tiers.map((tier) => (
+          <li>
+            <strong>{tier.tier}:</strong> {tier.description}{" "}
+            <span class="muted">{tier.evidence}</span>
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -76,13 +86,18 @@ const tiers = [
     variant="alt"
   >
     <ul class="standard-clauses">
-      {clauses.map((clause) => (
-        <li id={clauseAnchor(clause.id)}>
-          <strong>{clause.id}</strong> ({clause.displayId}) — {clause.obligation} when {clause.condition}.
-          <br />
-          <span class="muted">Evidence: {clause.evidenceRequired.join(", ")}</span>
-        </li>
-      ))}
+      {
+        clauses.map((clause) => (
+          <li id={clauseAnchor(clause.id)}>
+            <strong>{clause.id}</strong> ({clause.displayId}) —{" "}
+            {clause.obligation} when {clause.condition}.
+            <br />
+            <span class="muted">
+              Evidence: {clause.evidenceRequired.join(", ")}
+            </span>
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -94,16 +109,20 @@ const tiers = [
   >
     <ul class="muted">
       <li>
-        <strong>AW-01:</strong> Burden metrics report + resourcing plan for the next window.
+        <strong>AW-01:</strong> Burden metrics report + resourcing plan for the next
+        window.
       </li>
       <li>
-        <strong>AW-02:</strong> Appeal path regression tests + replacement notice evidence.
+        <strong>AW-02:</strong> Appeal path regression tests + replacement notice
+        evidence.
       </li>
       <li>
-        <strong>AW-03:</strong> Receipts + clock compliance for downgrades and eligibility changes.
+        <strong>AW-03:</strong> Receipts + clock compliance for downgrades and eligibility
+        changes.
       </li>
       <li>
-        <strong>AW-04:</strong> Assisted channel SLA + staffing roster for high-burden flows.
+        <strong>AW-04:</strong> Assisted channel SLA + staffing roster for high-burden
+        flows.
       </li>
     </ul>
     <p class="muted">
@@ -124,8 +143,14 @@ const tiers = [
     <ul class="muted">
       <li>Receipts exist but omit owner, clocks, or appeal path.</li>
       <li>UI screenshots are staged once and never updated after release.</li>
-      <li>Event logs exist but are not tied to decision log entries or remedy outcomes.</li>
-      <li>Kill switch drills are logged without showing the actual halt time or restoration proof.</li>
+      <li>
+        Event logs exist but are not tied to decision log entries or remedy
+        outcomes.
+      </li>
+      <li>
+        Kill switch drills are logged without showing the actual halt time or
+        restoration proof.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -137,9 +162,16 @@ const tiers = [
     variant="alt"
   >
     <ul class="muted">
-      <li>Show the last five receipts for halted flows and their remedy outcomes.</li>
-      <li>Provide evidence that exit paths match entry friction across the top three flows.</li>
-      <li>Demonstrate a recent kill switch drill and its time-to-halt measurement.</li>
+      <li>
+        Show the last five receipts for halted flows and their remedy outcomes.
+      </li>
+      <li>
+        Provide evidence that exit paths match entry friction across the top
+        three flows.
+      </li>
+      <li>
+        Demonstrate a recent kill switch drill and its time-to-halt measurement.
+      </li>
       <li>Explain how exceptions are reviewed and how long they lasted.</li>
     </ul>
   </SectionBlock>
@@ -155,10 +187,13 @@ const tiers = [
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a>
+            <a href="/examples/automated-account-lock">Automated account lock</a
+            >
           </li>
           <li>
-            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+            <a href="/examples/fraud-hold-delayed-notice"
+              >Fraud hold with delayed notice</a
+            >
           </li>
           <li>
             <a href="/examples/irreversible-payment-compensation">
@@ -197,7 +232,8 @@ const tiers = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-01.1.1, STD-01.5.1, AW-01, AW-02, AW-03, AW-04, VAL-01.
+      Search IDs: STD-01 v1.0, STD-01.1.1, STD-01.5.1, AW-01, AW-02, AW-03,
+      AW-04, VAL-01.
     </p>
   </SectionBlock>
 </BaseLayout>

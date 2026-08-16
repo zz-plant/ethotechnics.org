@@ -18,7 +18,12 @@ const validatorsByStandard = standardsContent.standards.map((standard) => ({
 }));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} openGraphType="website" publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  openGraphType="website"
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Programmatic index"
     title="Validators by standard"
@@ -48,7 +53,9 @@ const validatorsByStandard = standardsContent.standards.map((standard) => ({
             ))}
           </ul>
         ) : (
-          <p class="muted">No published validators currently mapped to this standard.</p>
+          <p class="muted">
+            No published validators currently mapped to this standard.
+          </p>
         )}
       </SectionBlock>
     ))

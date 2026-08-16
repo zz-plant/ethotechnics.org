@@ -11,9 +11,10 @@ test.describe("Burden Modeler page", () => {
   test("has proper title and description", async ({ page }) => {
     await page.goto(BURDEN_URL);
     await expect(page).toHaveTitle(/Burden Modeler.+Diagnostics/);
-    await expect(
-      page.locator('meta[name="description"]'),
-    ).toHaveAttribute("content", /.+/);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      "content",
+      /.+/,
+    );
   });
 
   test("renders the widget with header content", async ({ page }) => {
@@ -35,11 +36,17 @@ test.describe("Burden Modeler page", () => {
     await expect(scenarioInput).toBeVisible();
     await expect(scenarioInput).toHaveValue("Baseline");
 
-    await expect(page.getByText("0 = resting, 10 = unsustainable")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Reset inputs" })).toBeVisible();
+    await expect(
+      page.getByText("0 = resting, 10 = unsustainable"),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Reset inputs" }),
+    ).toBeVisible();
   });
 
-  test("changes scenario name updates the burden meter title", async ({ page }) => {
+  test("changes scenario name updates the burden meter title", async ({
+    page,
+  }) => {
     await page.goto(BURDEN_URL);
     await page.waitForLoadState("networkidle");
 
@@ -71,8 +78,12 @@ test.describe("Burden Modeler page", () => {
     expect(Number(indexValue)).toBeGreaterThanOrEqual(0);
 
     await expect(page.locator(".burden-meter__badge")).toBeVisible();
-    await expect(page.getByText("Average rating", { exact: false })).toBeVisible();
-    await expect(page.getByText("Top category", { exact: false })).toBeVisible();
+    await expect(
+      page.getByText("Average rating", { exact: false }),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Top category", { exact: false }),
+    ).toBeVisible();
     await expect(page.getByText("Top driver", { exact: false })).toBeVisible();
   });
 

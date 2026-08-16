@@ -1,5 +1,6 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { file, glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 // Reuse common schemas
 const pageCopySchema = z.object({
@@ -197,7 +198,10 @@ const glossaryEntrySchema = z.object({
       ]),
     )
     .optional(),
-  scale: z.enum(["individual", "organizational", "systemic"]).nullable().optional(),
+  scale: z
+    .enum(["individual", "organizational", "systemic"])
+    .nullable()
+    .optional(),
   phase: z
     .array(z.enum(["design", "deployment", "audit", "repair"]))
     .optional(),
@@ -559,7 +563,15 @@ const participation = defineCollection({
           actions: z.array(
             z.object({
               label: z.string(),
-              href: z.string().refine((val) => ["http", "/", "#", "mailto:"].some(prefix => val.startsWith(prefix)), { message: "href must be a valid URL, mailto, or path" }),
+              href: z
+                .string()
+                .refine(
+                  (val) =>
+                    ["http", "/", "#", "mailto:"].some((prefix) =>
+                      val.startsWith(prefix),
+                    ),
+                  { message: "href must be a valid URL, mailto, or path" },
+                ),
               ariaLabel: z.string().optional(),
               detail: z.string().optional(),
             }),
@@ -664,34 +676,36 @@ const explainerSchema = z.object({
   ),
   published: z.string().optional(),
   updated: z.string().optional(),
-  publication: z.object({
-    authors: z.array(
-      z.object({
-        name: z.string(),
-        affiliation: z.string(),
-        email: z.string().optional(),
-        orcid: z.string().optional(),
+  publication: z
+    .object({
+      authors: z.array(
+        z.object({
+          name: z.string(),
+          affiliation: z.string(),
+          email: z.string().optional(),
+          orcid: z.string().optional(),
+        }),
+      ),
+      contact: z.string(),
+      published: z.string(),
+      updated: z.string().optional(),
+      version: z.string(),
+      doi: z.string().optional(),
+      archiveUrl: z.string().optional(),
+      changelog: z.array(
+        z.object({
+          version: z.string(),
+          date: z.string(),
+          summary: z.string(),
+        }),
+      ),
+      license: z.object({
+        label: z.string(),
+        href: z.string(),
       }),
-    ),
-    contact: z.string(),
-    published: z.string(),
-    updated: z.string().optional(),
-    version: z.string(),
-    doi: z.string().optional(),
-    archiveUrl: z.string().optional(),
-    changelog: z.array(
-      z.object({
-        version: z.string(),
-        date: z.string(),
-        summary: z.string(),
-      }),
-    ),
-    license: z.object({
-      label: z.string(),
-      href: z.string(),
-    }),
-    attribution: z.string(),
-  }).optional(),
+      attribution: z.string(),
+    })
+    .optional(),
 });
 
 const incidentSchema = z.object({
@@ -716,10 +730,12 @@ const incidentSchema = z.object({
   governanceFailures: z.array(z.string()),
   signalsToWatch: z.array(z.string()),
   remediationChecklist: z.array(z.string()),
-  sources: z.array(z.object({
-    label: z.string(),
-    href: z.string(),
-  })),
+  sources: z.array(
+    z.object({
+      label: z.string(),
+      href: z.string(),
+    }),
+  ),
 });
 
 const evidencePackSchema = z.object({
@@ -739,12 +755,14 @@ const evidencePackSchema = z.object({
       required: z.boolean().optional(),
     }),
   ),
-  checklists: z.array(
-    z.object({
-      title: z.string(),
-      items: z.array(z.string()),
-    }),
-  ).optional(),
+  checklists: z
+    .array(
+      z.object({
+        title: z.string(),
+        items: z.array(z.string()),
+      }),
+    )
+    .optional(),
 });
 
 const explainers = defineCollection({
@@ -775,4 +793,3 @@ export const collections = {
   fieldNotes,
   participation,
 };
-

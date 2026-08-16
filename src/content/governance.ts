@@ -1,4 +1,9 @@
-import type { AnchorLink, PageWithPermalink, PanelCopy, PublishedContent } from "./types";
+import type {
+  AnchorLink,
+  PageWithPermalink,
+  PanelCopy,
+  PublishedContent,
+} from "./types";
 
 export type RFCLifecycleStage = {
   stage: string;
@@ -68,7 +73,8 @@ export const governanceContent: GovernanceContent = {
   lifecycle: [
     {
       stage: "Proposal",
-      detail: "An owner opens an RFC with scope, affected users, and draft safeguards.",
+      detail:
+        "An owner opens an RFC with scope, affected users, and draft safeguards.",
     },
     {
       stage: "Review window",
@@ -94,7 +100,11 @@ export const governanceContent: GovernanceContent = {
       openedOn: "2026-02-03",
       reviewWindow: "2026-02-03 → 2026-02-24",
       owner: "Institute steward council",
-      reviewerRoles: ["Studio facilitator", "Operations lead", "Documentation steward"],
+      reviewerRoles: [
+        "Studio facilitator",
+        "Operations lead",
+        "Documentation steward",
+      ],
       summary:
         "Defines a minimum compatibility contract for evidence packs so diagnostics and standards pages can share structured receipts.",
     },

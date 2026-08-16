@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { projectCapacity } from './utils/projectionEngine';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { projectCapacity } from "./utils/projectionEngine";
 import type {
   OperationalMetrics,
   SimulationParams,
   SystemStability,
-} from './types';
+} from "./types";
 
 const DEFAULT_METRICS: OperationalMetrics = {
   velocityIndex: 40,
   interruptionRate: 35,
-  stability: 'DEGRADED',
+  stability: "DEGRADED",
 };
 
 const DEFAULT_PARAMS: SimulationParams = {
@@ -21,24 +21,28 @@ type ScenarioState = {
   params: SimulationParams;
 };
 
-type ViewMode = 'single' | 'compare';
+type ViewMode = "single" | "compare";
 
-const STABILITY_ORDER: SystemStability[] = ['RESILIENT', 'DEGRADED', 'UNSTABLE'];
-const STORAGE_KEY = 'capacity-forecaster-state';
+const STABILITY_ORDER: SystemStability[] = [
+  "RESILIENT",
+  "DEGRADED",
+  "UNSTABLE",
+];
+const STORAGE_KEY = "capacity-forecaster-state";
 const QUERY_KEYS = {
   scenarioA: {
-    velocityIndex: 'velocity',
-    interruptionRate: 'interruptions',
-    stability: 'stability',
-    refusalWeeks: 'refusal',
+    velocityIndex: "velocity",
+    interruptionRate: "interruptions",
+    stability: "stability",
+    refusalWeeks: "refusal",
   },
   scenarioB: {
-    velocityIndex: 'velocityB',
-    interruptionRate: 'interruptionsB',
-    stability: 'stabilityB',
-    refusalWeeks: 'refusalB',
+    velocityIndex: "velocityB",
+    interruptionRate: "interruptionsB",
+    stability: "stabilityB",
+    refusalWeeks: "refusalB",
   },
-  viewMode: 'mode',
+  viewMode: "mode",
 } as const;
 
 const clamp = (value: number, min: number, max: number) =>
@@ -67,7 +71,7 @@ const parseStabilityParam = (params: URLSearchParams, key: string) => {
 };
 
 const readStoredState = () => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
   try {
     const storedValue = window.sessionStorage.getItem(STORAGE_KEY);
     if (!storedValue) return null;
@@ -95,10 +99,25 @@ const resolveScenarioState = (
   keys: ScenarioQueryKeys,
   fallback: ScenarioState,
 ): ScenarioState => {
-  const velocityIndex = parseNumericParam(searchParams, keys.velocityIndex, 0, 100);
-  const interruptionRate = parseNumericParam(searchParams, keys.interruptionRate, 0, 100);
+  const velocityIndex = parseNumericParam(
+    searchParams,
+    keys.velocityIndex,
+    0,
+    100,
+  );
+  const interruptionRate = parseNumericParam(
+    searchParams,
+    keys.interruptionRate,
+    0,
+    100,
+  );
   const stability = parseStabilityParam(searchParams, keys.stability);
-  const refusalWeeks = parseNumericParam(searchParams, keys.refusalWeeks, 0, 12);
+  const refusalWeeks = parseNumericParam(
+    searchParams,
+    keys.refusalWeeks,
+    0,
+    12,
+  );
 
   return {
     metrics: {
@@ -117,13 +136,13 @@ const resolveViewMode = (
   storedMode: ViewMode | undefined,
 ): ViewMode => {
   const rawMode = searchParams.get(QUERY_KEYS.viewMode);
-  if (rawMode === 'compare') {
-    return 'compare';
+  if (rawMode === "compare") {
+    return "compare";
   }
-  if (rawMode === 'single') {
-    return 'single';
+  if (rawMode === "single") {
+    return "single";
   }
-  return storedMode ?? 'single';
+  return storedMode ?? "single";
 };
 
 const resolveInitialState = (): {
@@ -132,23 +151,24 @@ const resolveInitialState = (): {
   viewMode: ViewMode;
   hasCustomScenarioB: boolean;
 } => {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return {
       scenarioA: { metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS },
       scenarioB: { metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS },
-      viewMode: 'single',
+      viewMode: "single",
       hasCustomScenarioB: false,
     };
   }
 
   const storedState = readStoredState();
   const searchParams = new URLSearchParams(window.location.search);
-  const legacyScenario = storedState?.metrics || storedState?.params
-    ? {
-        metrics: storedState.metrics ?? {},
-        params: storedState.params ?? {},
-      }
-    : null;
+  const legacyScenario =
+    storedState?.metrics || storedState?.params
+      ? {
+          metrics: storedState.metrics ?? {},
+          params: storedState.params ?? {},
+        }
+      : null;
   const baseScenarioA = {
     metrics: {
       ...DEFAULT_METRICS,
@@ -186,7 +206,9 @@ const resolveInitialState = (): {
   const hasScenarioBParams = Object.values(QUERY_KEYS.scenarioB).some((key) =>
     searchParams.has(key),
   );
-  const hasCustomScenarioB = Boolean(storedState?.scenarioB || hasScenarioBParams);
+  const hasCustomScenarioB = Boolean(
+    storedState?.scenarioB || hasScenarioBParams,
+  );
 
   return { scenarioA, scenarioB, viewMode, hasCustomScenarioB };
 };
@@ -194,18 +216,34 @@ const resolveInitialState = (): {
 export const useCapacityForecast = () => {
   const startDate = useMemo(() => new Date(), []);
   const initialState = useMemo(() => resolveInitialState(), []);
-  const [scenarioA, setScenarioA] = useState<ScenarioState>(initialState.scenarioA);
-  const [scenarioB, setScenarioB] = useState<ScenarioState>(initialState.scenarioB);
-  const [viewMode, setViewModeState] = useState<ViewMode>(initialState.viewMode);
+  const [scenarioA, setScenarioA] = useState<ScenarioState>(
+    initialState.scenarioA,
+  );
+  const [scenarioB, setScenarioB] = useState<ScenarioState>(
+    initialState.scenarioB,
+  );
+  const [viewMode, setViewModeState] = useState<ViewMode>(
+    initialState.viewMode,
+  );
 
   // History state for undo/redo
-  const [history, setHistory] = useState<Array<{ scenarioA: ScenarioState; scenarioB: ScenarioState; viewMode: ViewMode }>>([]);
+  const [history, setHistory] = useState<
+    Array<{
+      scenarioA: ScenarioState;
+      scenarioB: ScenarioState;
+      viewMode: ViewMode;
+    }>
+  >([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const lastPushTime = useRef(0);
-  const lastPushedState = useRef<string>('');
+  const lastPushedState = useRef<string>("");
   const isNavigatingHistory = useRef(false);
 
-  const commitHistory = (sA: ScenarioState, sB: ScenarioState, mode: ViewMode) => {
+  const commitHistory = (
+    sA: ScenarioState,
+    sB: ScenarioState,
+    mode: ViewMode,
+  ) => {
     const now = Date.now();
     const stateStr = JSON.stringify({ sA, sB, mode });
     if (stateStr === lastPushedState.current) return;
@@ -213,7 +251,11 @@ export const useCapacityForecast = () => {
     setHistory((prev) => {
       const next = prev.slice(0, historyIndex + 1);
       if (now - lastPushTime.current < 800 && next.length > 0) {
-        next[next.length - 1] = { scenarioA: sA, scenarioB: sB, viewMode: mode };
+        next[next.length - 1] = {
+          scenarioA: sA,
+          scenarioB: sB,
+          viewMode: mode,
+        };
       } else {
         next.push({ scenarioA: sA, scenarioB: sB, viewMode: mode });
       }
@@ -252,7 +294,11 @@ export const useCapacityForecast = () => {
     if (history.length === 0) {
       setHistory([{ scenarioA, scenarioB, viewMode }]);
       setHistoryIndex(0);
-      lastPushedState.current = JSON.stringify({ scenarioA, scenarioB, viewMode });
+      lastPushedState.current = JSON.stringify({
+        scenarioA,
+        scenarioB,
+        viewMode,
+      });
     }
   }, []);
 
@@ -276,11 +322,11 @@ export const useCapacityForecast = () => {
   );
 
   const updateMetrics = (
-    scenarioId: 'A' | 'B',
+    scenarioId: "A" | "B",
     updates: Partial<OperationalMetrics>,
   ) => {
-    const updater = scenarioId === 'A' ? setScenarioA : setScenarioB;
-    if (scenarioId === 'B') {
+    const updater = scenarioId === "A" ? setScenarioA : setScenarioB;
+    if (scenarioId === "B") {
       hasCustomScenarioB.current = true;
     }
     updater((current) => ({
@@ -290,11 +336,11 @@ export const useCapacityForecast = () => {
   };
 
   const updateParams = (
-    scenarioId: 'A' | 'B',
+    scenarioId: "A" | "B",
     updates: Partial<SimulationParams>,
   ) => {
-    const updater = scenarioId === 'A' ? setScenarioA : setScenarioB;
-    if (scenarioId === 'B') {
+    const updater = scenarioId === "A" ? setScenarioA : setScenarioB;
+    if (scenarioId === "B") {
       hasCustomScenarioB.current = true;
     }
     updater((current) => ({
@@ -309,14 +355,14 @@ export const useCapacityForecast = () => {
       params: { ...scenarioA.params },
     });
     hasCustomScenarioB.current = false;
-    setViewModeState('single');
+    setViewModeState("single");
   };
 
-  const mirrorScenario = (source: 'A' | 'B', target: 'A' | 'B') => {
+  const mirrorScenario = (source: "A" | "B", target: "A" | "B") => {
     if (source === target) return;
-    const sourceScenario = source === 'A' ? scenarioA : scenarioB;
-    const targetSetter = target === 'A' ? setScenarioA : setScenarioB;
-    if (target === 'B') {
+    const sourceScenario = source === "A" ? scenarioA : scenarioB;
+    const targetSetter = target === "A" ? setScenarioA : setScenarioB;
+    if (target === "B") {
       hasCustomScenarioB.current = true;
     }
     targetSetter({
@@ -327,7 +373,11 @@ export const useCapacityForecast = () => {
 
   const setViewMode = (mode: ViewMode) => {
     setViewModeState((current) => {
-      if (mode === 'compare' && current === 'single' && !hasCustomScenarioB.current) {
+      if (
+        mode === "compare" &&
+        current === "single" &&
+        !hasCustomScenarioB.current
+      ) {
         setScenarioB({
           metrics: { ...scenarioA.metrics },
           params: { ...scenarioA.params },
@@ -341,11 +391,11 @@ export const useCapacityForecast = () => {
     setScenarioA({ metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS });
     setScenarioB({ metrics: DEFAULT_METRICS, params: DEFAULT_PARAMS });
     hasCustomScenarioB.current = false;
-    setViewModeState('single');
+    setViewModeState("single");
   };
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set(
@@ -380,21 +430,21 @@ export const useCapacityForecast = () => {
       QUERY_KEYS.scenarioB.refusalWeeks,
       String(scenarioB.params.refusalWeeks),
     );
-    if (viewMode === 'compare') {
-      searchParams.set(QUERY_KEYS.viewMode, 'compare');
+    if (viewMode === "compare") {
+      searchParams.set(QUERY_KEYS.viewMode, "compare");
     } else {
       searchParams.delete(QUERY_KEYS.viewMode);
     }
 
     const nextSearch = searchParams.toString();
-    const nextSearchWithPrefix = nextSearch ? `?${nextSearch}` : '';
+    const nextSearchWithPrefix = nextSearch ? `?${nextSearch}` : "";
     const nextUrl = `${window.location.pathname}${nextSearchWithPrefix}${window.location.hash}`;
 
     if (window.location.search !== nextSearchWithPrefix) {
       if (hasSyncedUrl.current) {
-        window.history.pushState({}, '', nextUrl);
+        window.history.pushState({}, "", nextUrl);
       } else {
-        window.history.replaceState({}, '', nextUrl);
+        window.history.replaceState({}, "", nextUrl);
         hasSyncedUrl.current = true;
       }
     } else if (!hasSyncedUrl.current) {

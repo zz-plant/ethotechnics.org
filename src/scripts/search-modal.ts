@@ -1,7 +1,18 @@
-import { bindGlobalSearchListeners, bindSearchInstance } from "./search-modal/controls";
+import {
+  bindGlobalSearchListeners,
+  bindSearchInstance,
+} from "./search-modal/controls";
 import { createPagefindAdapter } from "./search-modal/pagefind";
-import { createSearchStorage, createUrlStateSync, searchStateParams } from "./search-modal/query-state";
-import type { HapticOptions, HapticPattern, SearchInstance } from "./search-modal/types";
+import {
+  createSearchStorage,
+  createUrlStateSync,
+  searchStateParams,
+} from "./search-modal/query-state";
+import type {
+  HapticOptions,
+  HapticPattern,
+  SearchInstance,
+} from "./search-modal/types";
 
 const HAPTIC_VIBRATION_PATTERNS: Record<HapticPattern, number | number[]> = {
   nudge: 12,
@@ -24,7 +35,9 @@ const createHapticsController = () => {
       const scaledPattern =
         typeof configuredPattern === "number"
           ? Math.round(configuredPattern * intensity)
-          : configuredPattern.map((duration) => Math.round(duration * intensity));
+          : configuredPattern.map((duration) =>
+              Math.round(duration * intensity),
+            );
 
       navigator.vibrate(scaledPattern);
       return Promise.resolve();
@@ -33,7 +46,9 @@ const createHapticsController = () => {
 };
 
 const initSearch = () => {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
   const haptics = prefersReducedMotion ? null : createHapticsController();
   const triggerHaptic = (pattern: HapticPattern, options?: HapticOptions) => {
     if (!haptics) return;
@@ -60,17 +75,25 @@ const initSearch = () => {
   const getActiveScope = () => (mediaQuery.matches ? "desktop" : "mobile");
 
   searchContainers.forEach((container) => {
-    const trigger = container.querySelector<HTMLButtonElement>("[data-search-trigger]");
-    const dialog = container.querySelector<HTMLDialogElement>("[data-search-dialog]");
+    const trigger = container.querySelector<HTMLButtonElement>(
+      "[data-search-trigger]",
+    );
+    const dialog = container.querySelector<HTMLDialogElement>(
+      "[data-search-dialog]",
+    );
     if (!trigger || !dialog) return;
 
     const scope = container.dataset.searchScope;
-    const instance = bindSearchInstance({ container, trigger, dialog, scope }, dependencies);
+    const instance = bindSearchInstance(
+      { container, trigger, dialog, scope },
+      dependencies,
+    );
     if (!instance) return;
 
     const scopedInstance: SearchInstance = {
       ...instance,
-      isActive: () => scope === undefined || scope === null || scope === getActiveScope(),
+      isActive: () =>
+        scope === undefined || scope === null || scope === getActiveScope(),
     };
 
     searchInstances.push(scopedInstance);
@@ -79,7 +102,8 @@ const initSearch = () => {
   if (!searchInstances.length) return;
 
   const getActiveInstance = () =>
-    searchInstances.find((instance) => instance.isActive()) ?? searchInstances[0];
+    searchInstances.find((instance) => instance.isActive()) ??
+    searchInstances[0];
 
   bindGlobalSearchListeners({
     searchInstances,
@@ -89,7 +113,10 @@ const initSearch = () => {
   });
 
   const initialInstance = getActiveInstance();
-  if (initialInstance && dependencies.urlState.getParam(searchStateParams.modal)) {
+  if (
+    initialInstance &&
+    dependencies.urlState.getParam(searchStateParams.modal)
+  ) {
     initialInstance.openDialog();
   }
 
@@ -99,7 +126,9 @@ const initSearch = () => {
   searchInstances.forEach((instance) => {
     if (!instance.isDialogOpen()) return;
 
-    const input = instance.dialog.querySelector<HTMLInputElement>("[data-search-input]");
+    const input = instance.dialog.querySelector<HTMLInputElement>(
+      "[data-search-input]",
+    );
     if (!input) return;
 
     input.value = storedQuery;

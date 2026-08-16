@@ -60,7 +60,11 @@ const requiredSignals = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow="Worked examples"
     title="Worked examples"
@@ -82,9 +86,7 @@ const requiredSignals = [
       <a class="button primary" href={`/examples/${featuredExample.slug}`}>
         View featured example
       </a>
-      <a class="button ghost" href="#scenarios">
-        Browse scenarios
-      </a>
+      <a class="button ghost" href="#scenarios"> Browse scenarios </a>
     </Fragment>
   </PageIntro>
   <SummaryCallout
@@ -124,7 +126,11 @@ const requiredSignals = [
           <li>Visible clocks for review, appeal, and remedy.</li>
           <li>Remediation path that ties into bindings and evidence packs.</li>
         </ul>
-        <a slot="footer" class="button ghost button--compact" href={`/examples/${featuredExample.slug}`}>
+        <a
+          slot="footer"
+          class="button ghost button--compact"
+          href={`/examples/${featuredExample.slug}`}
+        >
           View featured example
         </a>
       </CardItem>
@@ -138,18 +144,24 @@ const requiredSignals = [
     description="Each scenario includes the receipt, owner, clocks, and evidence bundle required for audit-ready compliance."
   >
     <CardGrid className="grid--two">
-      {examples.map((example) => (
-        <CardItem
-          id={example.slug}
-          title={example.title}
-          description={example.summary}
-          tags={example.tags}
-        >
-          <a slot="footer" class="button ghost button--compact" href={`/examples/${example.slug}`}>
-            View worked example
-          </a>
-        </CardItem>
-      ))}
+      {
+        examples.map((example) => (
+          <CardItem
+            id={example.slug}
+            title={example.title}
+            description={example.summary}
+            tags={example.tags}
+          >
+            <a
+              slot="footer"
+              class="button ghost button--compact"
+              href={`/examples/${example.slug}`}
+            >
+              View worked example
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -161,14 +173,12 @@ const requiredSignals = [
     variant="alt"
   >
     <ul class="muted">
-      {requiredSignals.map((item) => (
-        <li>{item}</li>
-      ))}
+      {requiredSignals.map((item) => <li>{item}</li>)}
     </ul>
     <p class="muted small">
       Need a reference bundle? Start with the{" "}
-      <a href="/bundles/diagnostic-export-kit">Diagnostic Export Kit</a> to see
-      how outputs map to receipts, evidence lists, and stakeholder summaries.
+      <a href="/bundles/diagnostic-export-kit">Diagnostic Export Kit</a> to see how
+      outputs map to receipts, evidence lists, and stakeholder summaries.
     </p>
   </SectionBlock>
 
@@ -180,10 +190,12 @@ const requiredSignals = [
   >
     <ul class="muted">
       <li>
-        Start with the receipt payload and map it to your own system state and logging tools.
+        Start with the receipt payload and map it to your own system state and
+        logging tools.
       </li>
       <li>
-        Translate the owner + authority block into your on-call rotation and escalation policies.
+        Translate the owner + authority block into your on-call rotation and
+        escalation policies.
       </li>
       <li>
         Connect the evidence pack list to the

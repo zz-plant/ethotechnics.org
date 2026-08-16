@@ -10,10 +10,13 @@ test.describe("Capacity Forecaster page", () => {
 
   test("has proper title and description", async ({ page }) => {
     await page.goto(FORECASTER_URL);
-    await expect(page).toHaveTitle(/Technical Capacity Forecaster.+Diagnostics/);
-    await expect(
-      page.locator('meta[name="description"]'),
-    ).toHaveAttribute("content", /.+/);
+    await expect(page).toHaveTitle(
+      /Technical Capacity Forecaster.+Diagnostics/,
+    );
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      "content",
+      /.+/,
+    );
   });
 
   test("renders the widget with header content", async ({ page }) => {
@@ -22,9 +25,9 @@ test.describe("Capacity Forecaster page", () => {
 
     const widget = page.locator(".forecaster");
     await expect(widget).toBeVisible();
-    await expect(
-      widget.getByRole("heading", { level: 2 }),
-    ).toContainText("Simulate decay");
+    await expect(widget.getByRole("heading", { level: 2 })).toContainText(
+      "Simulate decay",
+    );
   });
 
   test("renders the SVG capacity chart", async ({ page }) => {
@@ -33,7 +36,9 @@ test.describe("Capacity Forecaster page", () => {
 
     const chart = page.locator(".forecaster__chart-svg");
     await expect(chart).toBeVisible();
-    await expect(chart.locator(".forecaster__chart-line--baseline")).toBeVisible();
+    await expect(
+      chart.locator(".forecaster__chart-line--baseline"),
+    ).toBeVisible();
   });
 
   test("displays input levers with sliders", async ({ page }) => {
@@ -43,9 +48,7 @@ test.describe("Capacity Forecaster page", () => {
     await expect(page.getByText("Input levers")).toBeVisible();
     await expect(page.getByText("Velocity index")).toBeVisible();
     await expect(page.getByText("Interruption rate")).toBeVisible();
-    await expect(
-      page.locator('.forecaster__range').first(),
-    ).toBeVisible();
+    await expect(page.locator(".forecaster__range").first()).toBeVisible();
   });
 
   test("shows scenario metrics below the chart", async ({ page }) => {
@@ -55,7 +58,9 @@ test.describe("Capacity Forecaster page", () => {
     await expect(page.getByText("Scenario A")).toBeVisible();
     await expect(page.getByText("Saturation point")).toBeVisible();
     await expect(page.getByText("Baseline capacity at horizon")).toBeVisible();
-    await expect(page.getByText("Remediated capacity at horizon")).toBeVisible();
+    await expect(
+      page.getByText("Remediated capacity at horizon"),
+    ).toBeVisible();
   });
 
   test("shows chart legend entries", async ({ page }) => {
@@ -82,7 +87,7 @@ test.describe("Capacity Forecaster page", () => {
     await page.goto(FORECASTER_URL);
     await page.waitForLoadState("networkidle");
 
-    const velocitySlider = page.locator('.forecaster__range').first();
+    const velocitySlider = page.locator(".forecaster__range").first();
     const initialValue = page.locator(".pill--ghost").first();
 
     await velocitySlider.fill("70");
@@ -107,7 +112,9 @@ test.describe("Capacity Forecaster page", () => {
     ).toBeVisible();
   });
 
-  test("compare mode shows delta highlights and summary table", async ({ page }) => {
+  test("compare mode shows delta highlights and summary table", async ({
+    page,
+  }) => {
     await page.goto(FORECASTER_URL);
     await page.waitForLoadState("networkidle");
 
@@ -122,7 +129,10 @@ test.describe("Capacity Forecaster page", () => {
     await page.waitForLoadState("networkidle");
 
     await page.getByRole("button", { name: "Compare" }).click();
-    await page.getByRole("button", { name: "Reset to single scenario" }).first().click();
+    await page
+      .getByRole("button", { name: "Reset to single scenario" })
+      .first()
+      .click();
 
     await expect(
       page.getByRole("button", { name: "Export comparison" }),

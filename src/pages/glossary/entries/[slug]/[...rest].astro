@@ -5,8 +5,6 @@ export const prerender = false;
 import { glossaryEntryPermalink } from "../../../../utils/glossary";
 
 const { slug } = Astro.params;
-const destination = slug
-  ? `${glossaryEntryPermalink(slug)}/`
-  : "/glossary/";
+const destination = slug ? `${glossaryEntryPermalink(slug)}/` : "/glossary/";
 return Astro.redirect(destination, 302);
 ---

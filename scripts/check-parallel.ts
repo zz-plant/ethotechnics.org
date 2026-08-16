@@ -2,7 +2,9 @@
 /* eslint-disable no-console */
 import { spawn } from "bun";
 
-async function streamToText(stream: ReadableStream<Uint8Array> | null): Promise<string> {
+async function streamToText(
+  stream: ReadableStream<Uint8Array> | null,
+): Promise<string> {
   if (!stream) return "";
   return new Response(stream).text();
 }

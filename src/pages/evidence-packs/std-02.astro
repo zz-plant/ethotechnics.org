@@ -10,28 +10,36 @@ const pageDescription =
 const permalink = "/evidence-packs/std-02";
 
 const clauses = standardClauses["STD-02"];
-const clauseAnchor = (id: string) => id.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const clauseAnchor = (id: string) =>
+  id.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
 const tiers = [
   {
     tier: "Tier 0 (minimum)",
-    description: "Proof the contestation path exists and is reachable in-product.",
+    description:
+      "Proof the contestation path exists and is reachable in-product.",
     evidence: "UI links, receipt payloads, and appeal intake records.",
   },
   {
     tier: "Tier 1 (operational)",
     description: "Proof that appeals are reviewed and clocks are honored.",
-    evidence: "Reviewer rosters, appeal outcomes, and clock compliance dashboards.",
+    evidence:
+      "Reviewer rosters, appeal outcomes, and clock compliance dashboards.",
   },
   {
     tier: "Tier 2 (resilient)",
-    description: "Proof that contestation survives scale, incident load, and exceptions.",
+    description:
+      "Proof that contestation survives scale, incident load, and exceptions.",
     evidence: "Postmortems, exception audits, and throughput stress tests.",
   },
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Evidence pack"
     title="STD-02 Evidence Pack"
@@ -60,11 +68,14 @@ const tiers = [
     description="Begin with Tier 0 to prove access, then move up to resilience evidence."
   >
     <ul class="muted">
-      {tiers.map((tier) => (
-        <li>
-          <strong>{tier.tier}:</strong> {tier.description} <span class="muted">{tier.evidence}</span>
-        </li>
-      ))}
+      {
+        tiers.map((tier) => (
+          <li>
+            <strong>{tier.tier}:</strong> {tier.description}{" "}
+            <span class="muted">{tier.evidence}</span>
+          </li>
+        ))
+      }
     </ul>
     <p class="muted">
       Receipt payloads should conform to the{" "}
@@ -82,13 +93,18 @@ const tiers = [
     variant="alt"
   >
     <ul class="standard-clauses">
-      {clauses.map((clause) => (
-        <li id={clauseAnchor(clause.id)}>
-          <strong>{clause.id}</strong> ({clause.displayId}) — {clause.obligation} when {clause.condition}.
-          <br />
-          <span class="muted">Evidence: {clause.evidenceRequired.join(", ")}</span>
-        </li>
-      ))}
+      {
+        clauses.map((clause) => (
+          <li id={clauseAnchor(clause.id)}>
+            <strong>{clause.id}</strong> ({clause.displayId}) —{" "}
+            {clause.obligation} when {clause.condition}.
+            <br />
+            <span class="muted">
+              Evidence: {clause.evidenceRequired.join(", ")}
+            </span>
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -103,7 +119,8 @@ const tiers = [
         <strong>AW-01:</strong> Burden remediation plan tied to contestability metrics.
       </li>
       <li>
-        <strong>AW-02:</strong> Appeal path regression tests + public replacement notice.
+        <strong>AW-02:</strong> Appeal path regression tests + public replacement
+        notice.
       </li>
       <li>
         <strong>AW-03:</strong> Receipts + clock compliance for automated downgrades.
@@ -130,8 +147,14 @@ const tiers = [
     <ul class="muted">
       <li>Appeal links exist but lead to dead ends or generic inboxes.</li>
       <li>Review clocks are defined but not visible to impacted people.</li>
-      <li>Manual review happens, but there is no audit trail of outcomes or reversals.</li>
-      <li>Exception paths are used to avoid remedies without any expiry or review cadence.</li>
+      <li>
+        Manual review happens, but there is no audit trail of outcomes or
+        reversals.
+      </li>
+      <li>
+        Exception paths are used to avoid remedies without any expiry or review
+        cadence.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -143,10 +166,18 @@ const tiers = [
     variant="alt"
   >
     <ul class="muted">
-      <li>Show appeal outcomes for the last quarter and the median review time.</li>
-      <li>Demonstrate how many remedies were delivered within the remedy clock.</li>
-      <li>Provide evidence that exception classes are time-bounded and reviewed.</li>
-      <li>Show how decision logs reference evidence packs for contested decisions.</li>
+      <li>
+        Show appeal outcomes for the last quarter and the median review time.
+      </li>
+      <li>
+        Demonstrate how many remedies were delivered within the remedy clock.
+      </li>
+      <li>
+        Provide evidence that exception classes are time-bounded and reviewed.
+      </li>
+      <li>
+        Show how decision logs reference evidence packs for contested decisions.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -161,13 +192,19 @@ const tiers = [
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+            <a href="/examples/automated-eligibility-denial"
+              >Automated eligibility denial</a
+            >
           </li>
           <li>
-            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+            <a href="/examples/content-moderation-takedown"
+              >Content moderation takedown</a
+            >
           </li>
           <li>
-            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+            <a href="/examples/fraud-hold-delayed-notice"
+              >Fraud hold with delayed notice</a
+            >
           </li>
         </ul>
       </div>
@@ -201,7 +238,8 @@ const tiers = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-02 v0.9, STD-02.2.1, STD-02.3.1, AW-01, AW-02, AW-03, AW-04, VAL-02, VAL-03.
+      Search IDs: STD-02 v0.9, STD-02.2.1, STD-02.3.1, AW-01, AW-02, AW-03,
+      AW-04, VAL-02, VAL-03.
     </p>
   </SectionBlock>
 </BaseLayout>

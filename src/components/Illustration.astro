@@ -10,7 +10,7 @@ export interface IllustrationProps {
   webpSrcset?: string;
   caption?: string;
   className?: string;
-  variant?: 'panel' | 'card';
+  variant?: "panel" | "card";
 }
 
 const {
@@ -24,18 +24,23 @@ const {
   webpSrcset,
   caption,
   className,
-  variant = 'panel',
+  variant = "panel",
 } = Astro.props;
 ---
+
 <figure class:list={[`illustration illustration--${variant}`, className]}>
   <div class="illustration__frame">
     <picture>
-      {avifSrcset ? (
-        <source type="image/avif" srcset={avifSrcset} sizes={sizes} />
-      ) : null}
-      {webpSrcset ? (
-        <source type="image/webp" srcset={webpSrcset} sizes={sizes} />
-      ) : null}
+      {
+        avifSrcset ? (
+          <source type="image/avif" srcset={avifSrcset} sizes={sizes} />
+        ) : null
+      }
+      {
+        webpSrcset ? (
+          <source type="image/webp" srcset={webpSrcset} sizes={sizes} />
+        ) : null
+      }
       <img
         src={src}
         srcset={imgSrcset}
@@ -47,7 +52,7 @@ const {
         decoding="async"
       />
     </picture>
-    <span class="illustration__halo" aria-hidden="true" />
+    <span class="illustration__halo" aria-hidden="true"></span>
   </div>
   {caption ? <figcaption class="muted">{caption}</figcaption> : null}
 </figure>

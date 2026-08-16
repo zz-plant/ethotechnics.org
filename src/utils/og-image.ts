@@ -122,7 +122,10 @@ const trimToLength = (value: string, maxLength: number) => {
   return `${normalized.slice(0, maxLength - 1).trimEnd()}…`;
 };
 
-const normalizeOptionalParam = (value: string | null | undefined, max: number) => {
+const normalizeOptionalParam = (
+  value: string | null | undefined,
+  max: number,
+) => {
   if (!value) return undefined;
   const normalized = value.replace(/\s+/g, " ").trim();
   if (!normalized) return undefined;

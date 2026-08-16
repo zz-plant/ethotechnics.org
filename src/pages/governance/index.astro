@@ -22,7 +22,11 @@ const openRfcStatuses = new Set(["proposal", "review", "decision"]);
 const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow="Governance"
     title="Governance process"
@@ -40,9 +44,14 @@ const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
     className="section--banded"
   >
     <CardGrid>
-      {lifecycle.map((step, index) => (
-        <CardItem title={`${index + 1}. ${step.stage}`} description={step.detail} />
-      ))}
+      {
+        lifecycle.map((step, index) => (
+          <CardItem
+            title={`${index + 1}. ${step.stage}`}
+            description={step.detail}
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -53,14 +62,22 @@ const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
     description="Open RFCs show the status, owners, reviewer roles, and active review windows before decisions are logged."
   >
     <CardGrid>
-      {openRfcs.map((rfc) => (
-        <CardItem title={`${rfc.id}: ${rfc.title}`} meta={`Status: ${rfc.status}`} description={rfc.summary}>
-          <p class="muted small">Opened: {rfc.openedOn}</p>
-          <p class="muted small">Review window: {rfc.reviewWindow}</p>
-          <p class="muted small">Owner: {rfc.owner}</p>
-          <p class="muted small">Reviewer roles: {rfc.reviewerRoles.join(", ")}</p>
-        </CardItem>
-      ))}
+      {
+        openRfcs.map((rfc) => (
+          <CardItem
+            title={`${rfc.id}: ${rfc.title}`}
+            meta={`Status: ${rfc.status}`}
+            description={rfc.summary}
+          >
+            <p class="muted small">Opened: {rfc.openedOn}</p>
+            <p class="muted small">Review window: {rfc.reviewWindow}</p>
+            <p class="muted small">Owner: {rfc.owner}</p>
+            <p class="muted small">
+              Reviewer roles: {rfc.reviewerRoles.join(", ")}
+            </p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -72,18 +89,20 @@ const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
     className="section--banded"
   >
     <CardGrid>
-      {decisions.map((record) => (
-        <CardItem
-          title={`${record.id}: ${record.title}`}
-          meta={`${record.outcome} • ${record.date}`}
-          description={record.rationale}
-        >
-          <p class="muted small">Owner: {record.owner}</p>
-          <a slot="footer" href={record.releaseHref}>
-            Linked release: {record.releaseVersion}
-          </a>
-        </CardItem>
-      ))}
+      {
+        decisions.map((record) => (
+          <CardItem
+            title={`${record.id}: ${record.title}`}
+            meta={`${record.outcome} • ${record.date}`}
+            description={record.rationale}
+          >
+            <p class="muted small">Owner: {record.owner}</p>
+            <a slot="footer" href={record.releaseHref}>
+              Linked release: {record.releaseVersion}
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -94,9 +113,15 @@ const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
     description="Dated updates summarize what shipped in governance operations each quarter."
   >
     <CardGrid>
-      {quarterlyUpdates.map((entry) => (
-        <CardItem title={entry.title} meta={entry.date} description={entry.summary} />
-      ))}
+      {
+        quarterlyUpdates.map((entry) => (
+          <CardItem
+            title={entry.title}
+            meta={entry.date}
+            description={entry.summary}
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

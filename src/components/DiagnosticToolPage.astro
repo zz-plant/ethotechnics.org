@@ -69,9 +69,7 @@ const anchorLinks = [
   description={tool.bestFor}
 >
   <ul class="muted">
-    {tool.prepChecklist.map((item) => (
-      <li>{item}</li>
-    ))}
+    {tool.prepChecklist.map((item) => <li>{item}</li>)}
   </ul>
   <p class="muted">Estimated time: {tool.estimatedTime}</p>
   <ReferenceCallout

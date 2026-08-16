@@ -18,10 +18,15 @@ export const getSuiteForSlug = (slug: string): EvalSuite | undefined =>
 
 export const maxScoreForScale = (scale: string): number => {
   switch (scale) {
-    case "binary": return 1;
-    case "0-3": return 3;
-    case "0-5": return 5;
-    case "0-10": return 10;
-    default: return 1;
+    case "binary":
+      return 1;
+    case "0-3":
+      return 3;
+    case "0-5":
+      return 5;
+    case "0-10":
+      return 10;
+    default:
+      return 1;
   }
 };

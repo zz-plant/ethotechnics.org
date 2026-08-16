@@ -61,26 +61,32 @@ const fieldGuide = [
   {
     field: "schema_version",
     example: "1.1.0",
-    purpose: "Version the contract so CI, validators, and auditors parse it consistently.",
+    purpose:
+      "Version the contract so CI, validators, and auditors parse it consistently.",
     failure: "Tooling cannot validate or diff the model when versions drift.",
   },
   {
     field: "agent_id",
     example: "agent-risk-ops-v2",
-    purpose: "A stable identifier that ties receipts, incidents, and evidence packs to one system.",
-    failure: "Evidence is orphaned; audits cannot trace decisions back to the agent.",
+    purpose:
+      "A stable identifier that ties receipts, incidents, and evidence packs to one system.",
+    failure:
+      "Evidence is orphaned; audits cannot trace decisions back to the agent.",
   },
   {
     field: "autonomy_level",
     example: "execute_with_guardrails",
-    purpose: "Defines whether the agent drafts, recommends, or executes actions.",
-    failure: "Release gates cannot infer approval requirements or escalation scope.",
+    purpose:
+      "Defines whether the agent drafts, recommends, or executes actions.",
+    failure:
+      "Release gates cannot infer approval requirements or escalation scope.",
   },
   {
     field: "action_classes",
     example: "READ / WRITE / TRANSFER",
     purpose: "Allowed actions and reversibility with default approvals.",
-    failure: "Receipts are ambiguous and controls cannot bind to irreversible actions.",
+    failure:
+      "Receipts are ambiguous and controls cannot bind to irreversible actions.",
   },
   {
     field: "stop_override_authority",
@@ -92,13 +98,15 @@ const fieldGuide = [
     field: "receipt_schema",
     example: "/standards/agent-receipt-schema.json",
     purpose: "Specifies the receipt contract emitted by tools.",
-    failure: "Receipts become incomparable, breaking audits and evidence packs.",
+    failure:
+      "Receipts become incomparable, breaking audits and evidence packs.",
   },
   {
     field: "clocks",
     example: "ack 2h / review 24h / remedy 72h",
     purpose: "Publishes acknowledgment, review, and remedy timers.",
-    failure: "Contestability becomes unenforceable without time-bound obligations.",
+    failure:
+      "Contestability becomes unenforceable without time-bound obligations.",
   },
   {
     field: "evidence_pack_references",
@@ -116,7 +124,8 @@ const fieldGuide = [
     field: "mapped_mechanisms",
     example: "MEC-01, MEC-05, MEC-06",
     purpose: "Connects the model to enforced mechanisms and runbooks.",
-    failure: "Controls exist only on paper; mechanisms are not operationalized.",
+    failure:
+      "Controls exist only on paper; mechanisms are not operationalized.",
   },
 ];
 
@@ -128,7 +137,11 @@ const failureModes = [
 ];
 ---
 
-<BaseLayout title={`${pageTitle} — Ethotechnics`} description={pageDescription} publishedTime="2026-02-22T00:00:00.000Z">
+<BaseLayout
+  title={`${pageTitle} — Ethotechnics`}
+  description={pageDescription}
+  publishedTime="2026-02-22T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Agent specification"
     title={pageTitle}
@@ -170,8 +183,8 @@ const failureModes = [
   >
     <pre class="code-block">{exampleModel}</pre>
     <p class="muted">
-      Every field is machine-validated. Keep the JSON human-readable so reviewers can inspect it in
-      change requests and audits.
+      Every field is machine-validated. Keep the JSON human-readable so
+      reviewers can inspect it in change requests and audits.
     </p>
   </SectionBlock>
 
@@ -192,14 +205,16 @@ const failureModes = [
           </tr>
         </thead>
         <tbody>
-          {fieldGuide.map((item) => (
-            <tr>
-              <td>{item.field}</td>
-              <td>{item.purpose}</td>
-              <td>{item.example}</td>
-              <td>{item.failure}</td>
-            </tr>
-          ))}
+          {
+            fieldGuide.map((item) => (
+              <tr>
+                <td>{item.field}</td>
+                <td>{item.purpose}</td>
+                <td>{item.example}</td>
+                <td>{item.failure}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -213,9 +228,7 @@ const failureModes = [
     variant="alt"
   >
     <ul class="muted">
-      {failureModes.map((item) => (
-        <li>{item}</li>
-      ))}
+      {failureModes.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 
@@ -237,13 +250,18 @@ const failureModes = [
   >
     <ul class="muted">
       <li>
-        Validate new agent releases with <a href="/bindings#release-gates">release gates</a>.
+        Validate new agent releases with <a href="/bindings#release-gates"
+          >release gates</a
+        >.
       </li>
       <li>
-        Map action classes to <a href="/standards/ethotechnics-for-agents">agent standards</a>.
+        Map action classes to <a href="/standards/ethotechnics-for-agents"
+          >agent standards</a
+        >.
       </li>
       <li>
-        Link receipts and clocks to <a href="/evidence-packs">evidence packs</a> for audits.
+        Link receipts and clocks to <a href="/evidence-packs">evidence packs</a> for
+        audits.
       </li>
     </ul>
   </SectionBlock>
@@ -259,10 +277,13 @@ const failureModes = [
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a>
+            <a href="/examples/automated-account-lock">Automated account lock</a
+            >
           </li>
           <li>
-            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+            <a href="/examples/fraud-hold-delayed-notice"
+              >Fraud hold with delayed notice</a
+            >
           </li>
           <li>
             <a href="/examples/irreversible-payment-compensation">

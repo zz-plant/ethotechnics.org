@@ -12,7 +12,10 @@ describe("buildStandardsGroupingAndFilters", () => {
   it("groups standards by lane and reports counts", () => {
     const result = buildStandardsGroupingAndFilters(standardsContent.standards);
 
-    expect(result.standardsGrouping.find((group) => group.lane === "core")?.items.length).toBeGreaterThan(0);
+    expect(
+      result.standardsGrouping.find((group) => group.lane === "core")?.items
+        .length,
+    ).toBeGreaterThan(0);
     expect(result.standardsLaneCounts.all).toBe(result.activeStandards.length);
     expect(result.standardsLaneCounts.core).toBeGreaterThan(0);
   });
@@ -45,7 +48,10 @@ describe("buildStandardsGroupingAndFilters", () => {
 
     const result = buildStandardsGroupingAndFilters(standards);
 
-    expect(result.recentlyUpdatedStandards.map((item) => item.id)).toEqual(["A", "B"]);
+    expect(result.recentlyUpdatedStandards.map((item) => item.id)).toEqual([
+      "A",
+      "B",
+    ]);
   });
 
   it("handles empty and single-item datasets", () => {
@@ -53,7 +59,9 @@ describe("buildStandardsGroupingAndFilters", () => {
     expect(empty.activeStandards).toHaveLength(0);
     expect(empty.recentlyUpdatedStandards).toHaveLength(0);
 
-    const single = buildStandardsGroupingAndFilters([standardsContent.standards[0]]);
+    const single = buildStandardsGroupingAndFilters([
+      standardsContent.standards[0],
+    ]);
     expect(single.activeStandards).toHaveLength(1);
     expect(single.recentlyUpdatedStandards).toHaveLength(1);
   });
@@ -75,6 +83,8 @@ describe("buildStandardsStructuredDataPayload", () => {
 
     expect(payload["@type"]).toBe("CollectionPage");
     expect(payload.url).toBe("https://ethotechnics.org/standards");
-    expect(payload.hasPart.length).toBeGreaterThan(standardsContent.standards.length);
+    expect(payload.hasPart.length).toBeGreaterThan(
+      standardsContent.standards.length,
+    );
   });
 });

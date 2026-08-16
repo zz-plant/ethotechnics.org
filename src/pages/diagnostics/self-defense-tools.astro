@@ -42,9 +42,18 @@ const tools = [
         description:
           "You have the minimum signals needed to contest the decision and document outcomes.",
         nextSteps: [
-          { label: "Use copy-ready language", href: "/explainers/language-people-can-use" },
-          { label: "Review STD-02 contestability", href: "/standards/std-02-contestability-recourse" },
-          { label: "Log the decision record", href: "/standards/ethotechnics-for-agents" },
+          {
+            label: "Use copy-ready language",
+            href: "/explainers/language-people-can-use",
+          },
+          {
+            label: "Review STD-02 contestability",
+            href: "/standards/std-02-contestability-recourse",
+          },
+          {
+            label: "Log the decision record",
+            href: "/standards/ethotechnics-for-agents",
+          },
         ],
       },
       {
@@ -53,7 +62,10 @@ const tools = [
         description:
           "Missing owners, clocks, or remedies means the system is currently uncontestable.",
         nextSteps: [
-          { label: "Demand a decision record", href: "/standards/std-02-contestability-recourse" },
+          {
+            label: "Demand a decision record",
+            href: "/standards/std-02-contestability-recourse",
+          },
           { label: "Review mechanism options", href: "/mechanisms" },
           { label: "See escalation patterns", href: "/bindings" },
         ],
@@ -81,9 +93,18 @@ const tools = [
         description:
           "The appeal path has independent review, a clock, and a clear remedy.",
         nextSteps: [
-          { label: "Prepare evidence pack inputs", href: "/evidence-packs/std-02" },
-          { label: "Share escalation language", href: "/explainers/language-people-can-use" },
-          { label: "Track response deadlines", href: "/standards/std-02-contestability-recourse" },
+          {
+            label: "Prepare evidence pack inputs",
+            href: "/evidence-packs/std-02",
+          },
+          {
+            label: "Share escalation language",
+            href: "/explainers/language-people-can-use",
+          },
+          {
+            label: "Track response deadlines",
+            href: "/standards/std-02-contestability-recourse",
+          },
         ],
       },
       {
@@ -92,7 +113,10 @@ const tools = [
         description:
           "If there is no reviewer independence or remedy, treat the appeal as symbolic.",
         nextSteps: [
-          { label: "Request a real escalation path", href: "/standards/std-02-contestability-recourse" },
+          {
+            label: "Request a real escalation path",
+            href: "/standards/std-02-contestability-recourse",
+          },
           { label: "Document the gap", href: "/diagnostics" },
           { label: "Reference contestability bindings", href: "/bindings" },
         ],
@@ -131,8 +155,14 @@ const tools = [
         description:
           "If no accountable owner or lever is visible, treat the system as high risk.",
         nextSteps: [
-          { label: "Use governance gap prompts", href: "/tools/governance-gap-score" },
-          { label: "Reference accountability language", href: "/explainers/language-people-can-use" },
+          {
+            label: "Use governance gap prompts",
+            href: "/tools/governance-gap-score",
+          },
+          {
+            label: "Reference accountability language",
+            href: "/explainers/language-people-can-use",
+          },
           { label: "Document for evidence packs", href: "/evidence-packs" },
         ],
       },
@@ -151,7 +181,11 @@ const printSheet = {
 };
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Diagnostics"
     title={pageTitle}
@@ -180,51 +214,55 @@ const printSheet = {
       <li>Pick the tool that matches your situation.</li>
       <li>Answer each question with a clear yes or no.</li>
       <li>Count your yes answers and compare to the outcomes below.</li>
-      <li>Use the next-step links to request evidence, remedies, or escalation.</li>
+      <li>
+        Use the next-step links to request evidence, remedies, or escalation.
+      </li>
     </ol>
   </SectionBlock>
 
-  {tools.map((tool) => (
-    <SectionBlock
-      id={tool.id}
-      eyebrow={tool.eyebrow}
-      title={tool.title}
-      description={tool.description}
-      variant="alt"
-    >
-      <div class="self-defense__tool">
-        <div>
-          <p class="eyebrow">Yes/No prompts</p>
-          <ol class="muted self-defense__questions">
-            {tool.questions.map((question) => (
-              <li>{question}</li>
-            ))}
-          </ol>
+  {
+    tools.map((tool) => (
+      <SectionBlock
+        id={tool.id}
+        eyebrow={tool.eyebrow}
+        title={tool.title}
+        description={tool.description}
+        variant="alt"
+      >
+        <div class="self-defense__tool">
+          <div>
+            <p class="eyebrow">Yes/No prompts</p>
+            <ol class="muted self-defense__questions">
+              {tool.questions.map((question) => (
+                <li>{question}</li>
+              ))}
+            </ol>
+          </div>
+          <div>
+            <p class="eyebrow">Result guidance</p>
+            <CardGrid className="grid--two">
+              {tool.outcomes.map((outcome) => (
+                <CardItem
+                  title={outcome.title}
+                  description={outcome.description}
+                  descriptionTone="default"
+                >
+                  <p class="muted small">{outcome.result}</p>
+                  <ul class="self-defense__next-steps">
+                    {outcome.nextSteps.map((step) => (
+                      <li>
+                        <a href={step.href}>{step.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </CardItem>
+              ))}
+            </CardGrid>
+          </div>
         </div>
-        <div>
-          <p class="eyebrow">Result guidance</p>
-          <CardGrid className="grid--two">
-            {tool.outcomes.map((outcome) => (
-              <CardItem
-                title={outcome.title}
-                description={outcome.description}
-                descriptionTone="default"
-              >
-                <p class="muted small">{outcome.result}</p>
-                <ul class="self-defense__next-steps">
-                  {outcome.nextSteps.map((step) => (
-                    <li>
-                      <a href={step.href}>{step.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </CardItem>
-            ))}
-          </CardGrid>
-        </div>
-      </div>
-    </SectionBlock>
-  ))}
+      </SectionBlock>
+    ))
+  }
 
   <SectionBlock
     id="print"
@@ -244,20 +282,34 @@ const printSheet = {
         </div>
       </div>
       <div class="self-defense-print__preview" aria-label="Printable sheet">
-        <h2 class="print-only" style="margin-top: 0; margin-bottom: 0.5rem;">{printSheet.title}</h2>
-        <p class="print-only" style="margin-bottom: 1.5rem; color: var(--muted);">{printSheet.intro}</p>
-        {printSheet.sections.map((section) => (
-          <div class="self-defense-print__section">
-            <p class="self-defense-print__title">{section.title}</p>
-            <ol>
-              {section.items.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ol>
-          </div>
-        ))}
-        <p class="muted self-defense-print__note print-only" style="margin-top: 2rem; font-size: 0.85rem;">
-          Source: Ethotechnics self-defense diagnostics · <a href={permalink}>ethotechnics.org{permalink}</a>
+        <h2 class="print-only" style="margin-top: 0; margin-bottom: 0.5rem;">
+          {printSheet.title}
+        </h2>
+        <p
+          class="print-only"
+          style="margin-bottom: 1.5rem; color: var(--muted);"
+        >
+          {printSheet.intro}
+        </p>
+        {
+          printSheet.sections.map((section) => (
+            <div class="self-defense-print__section">
+              <p class="self-defense-print__title">{section.title}</p>
+              <ol>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ol>
+            </div>
+          ))
+        }
+        <p
+          class="muted self-defense-print__note print-only"
+          style="margin-top: 2rem; font-size: 0.85rem;"
+        >
+          Source: Ethotechnics self-defense diagnostics · <a href={permalink}
+            >ethotechnics.org{permalink}</a
+          >
         </p>
       </div>
     </div>
@@ -379,7 +431,8 @@ const printSheet = {
     }
 
     /* Reset shell layout constraints for clean print output */
-    body, html {
+    body,
+    html {
       background: #fff !important;
       color: #000 !important;
     }

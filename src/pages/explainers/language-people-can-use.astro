@@ -28,9 +28,9 @@ const phrases = [
       "Use when you are asked to accept an outcome without a clear appeal route.",
   },
   {
-    title: "Please provide the decision record, timestamps, and accountable owner.",
-    description:
-      "Use to request a contestable object you can track and share.",
+    title:
+      "Please provide the decision record, timestamps, and accountable owner.",
+    description: "Use to request a contestable object you can track and share.",
   },
   {
     title: "I need the review clock and the deadline for a final response.",
@@ -39,13 +39,11 @@ const phrases = [
   },
   {
     title: "Who can override this decision and how do I reach them?",
-    description:
-      "Use when escalation authority is implied but unnamed.",
+    description: "Use when escalation authority is implied but unnamed.",
   },
   {
     title: "If this cannot be reversed, state that in writing.",
-    description:
-      "Use to clarify finality and make accountability explicit.",
+    description: "Use to clarify finality and make accountability explicit.",
   },
 ];
 
@@ -107,7 +105,11 @@ const printSheet = {
 };
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
@@ -119,7 +121,10 @@ const printSheet = {
       title: "Make accountability verbal and concrete",
       description:
         "These phrases translate contestability into plain language so people can ask for reasons, clocks, and remedies without legalese.",
-      link: { label: "Read STD-02", href: "/standards/std-02-contestability-recourse" },
+      link: {
+        label: "Read STD-02",
+        href: "/standards/std-02-contestability-recourse",
+      },
     }}
   />
 
@@ -130,13 +135,15 @@ const printSheet = {
     description="Use these in email, chat, or intake forms to demand a contestable record."
   >
     <CardGrid className="grid--two">
-      {phrases.map((phrase) => (
-        <CardItem
-          title={phrase.title}
-          description={phrase.description}
-          descriptionTone="default"
-        />
-      ))}
+      {
+        phrases.map((phrase) => (
+          <CardItem
+            title={phrase.title}
+            description={phrase.description}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -148,19 +155,21 @@ const printSheet = {
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {contextBlocks.map((block) => (
-        <CardItem
-          title={block.title}
-          description={block.description}
-          descriptionTone="default"
-        >
-          <ul class="language-list">
-            {block.phrases.map((phrase) => (
-              <li>{phrase}</li>
-            ))}
-          </ul>
-        </CardItem>
-      ))}
+      {
+        contextBlocks.map((block) => (
+          <CardItem
+            title={block.title}
+            description={block.description}
+            descriptionTone="default"
+          >
+            <ul class="language-list">
+              {block.phrases.map((phrase) => (
+                <li>{phrase}</li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -182,7 +191,28 @@ const printSheet = {
         </div>
       </div>
       <div class="language-print__preview" aria-label="Printable preview">
-        {printSheet.sections.map((section) => (
+        {
+          printSheet.sections.map((section) => (
+            <div class="language-print__section">
+              <p class="language-print__title">{section.title}</p>
+              <ul>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div
+      class="language-print language-print--print print-only"
+      aria-label="Printable sheet"
+    >
+      <h2>{printSheet.title}</h2>
+      <p>{printSheet.intro}</p>
+      {
+        printSheet.sections.map((section) => (
           <div class="language-print__section">
             <p class="language-print__title">{section.title}</p>
             <ul>
@@ -191,30 +221,20 @@ const printSheet = {
               ))}
             </ul>
           </div>
-        ))}
-      </div>
-    </div>
-    <div class="language-print language-print--print print-only" aria-label="Printable sheet">
-      <h2>{printSheet.title}</h2>
-      <p>{printSheet.intro}</p>
-      {printSheet.sections.map((section) => (
-        <div class="language-print__section">
-          <p class="language-print__title">{section.title}</p>
-          <ul>
-            {section.items.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+        ))
+      }
       <p class="muted language-print__note">
-        Source: Ethotechnics contestability guidance · <a href={permalink}>{permalink}</a>
+        Source: Ethotechnics contestability guidance · <a href={permalink}
+          >{permalink}</a
+        >
       </p>
     </div>
   </SectionBlock>
 
   <p class="muted" style="margin-top:2rem">
-    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a>
+    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
+      >Standards</a
+    >
   </p>
 </BaseLayout>
 

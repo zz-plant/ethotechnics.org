@@ -82,7 +82,8 @@ const principleMap = [
 const resources = [
   {
     title: "Agent FAQ",
-    description: "Short answers to the most common ethotechnics teaching questions.",
+    description:
+      "Short answers to the most common ethotechnics teaching questions.",
     href: "/agent-toolkit/faq",
     label: "Open the FAQ",
   },
@@ -95,13 +96,15 @@ const resources = [
   },
   {
     title: "Prompt packs",
-    description: "Reusable prompts for onboarding, conflict resolution, and decision reviews.",
+    description:
+      "Reusable prompts for onboarding, conflict resolution, and decision reviews.",
     href: "/agent-toolkit/prompt-packs",
     label: "Browse prompt packs",
   },
   {
     title: "Teaching flows",
-    description: "Step-by-step flows that move from principle to decision in minutes.",
+    description:
+      "Step-by-step flows that move from principle to decision in minutes.",
     href: "/agent-toolkit/teaching-flows",
     label: "Explore teaching flows",
   },
@@ -117,13 +120,16 @@ const promptPackInstall = {
   title: "Ethotechnics agent prompt pack",
   version: "v1.0.0",
   downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md",
-  pathSnippet:
-    "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  pathSnippet: "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
   invokeExample: "use: ethotechnics-agent-prompt-pack-v1.0.0",
 };
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
@@ -141,14 +147,16 @@ const promptPackInstall = {
     className="section--banded"
   >
     <CardGrid className="grid--three">
-      {orientationCards.map((card) => (
-        <CardItem
-          title={card.title}
-          description={card.description}
-          descriptionTone="default"
-          tags={card.tags}
-        />
-      ))}
+      {
+        orientationCards.map((card) => (
+          <CardItem
+            title={card.title}
+            description={card.description}
+            descriptionTone="default"
+            tags={card.tags}
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -159,22 +167,22 @@ const promptPackInstall = {
     description="Use these anchors to make your teaching consistent across domains and system types."
   >
     <CardGrid className="grid--two">
-      {principleMap.map((principle) => (
-        <CardItem
-          title={principle.title}
-          description={principle.description}
-          descriptionTone="default"
-        />
-      ))}
+      {
+        principleMap.map((principle) => (
+          <CardItem
+            title={principle.title}
+            description={principle.description}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
     <p class="muted small">
-      Need shared vocabulary? The glossary offers stable definitions and cross-links for every
-      principle.
+      Need shared vocabulary? The glossary offers stable definitions and
+      cross-links for every principle.
     </p>
     <SectionActions>
-      <a class="button ghost" href="/glossary">
-        Visit the glossary
-      </a>
+      <a class="button ghost" href="/glossary"> Visit the glossary </a>
     </SectionActions>
   </SectionBlock>
 
@@ -186,19 +194,21 @@ const promptPackInstall = {
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {resources.map((resource) => (
-        <CardItem
-          title={resource.title}
-          description={resource.description}
-          descriptionTone="default"
-        >
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={resource.href}>
-              {resource.label}
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        resources.map((resource) => (
+          <CardItem
+            title={resource.title}
+            description={resource.description}
+            descriptionTone="default"
+          >
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={resource.href}>
+                {resource.label}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 

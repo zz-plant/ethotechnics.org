@@ -55,7 +55,7 @@ export const artifacts: InstituteArtifact[] = [
     enforcesBullets: [
       "Error states must be recoverable within bounded time.",
       "Escalation is clock-driven, not discretionary.",
-      "\"Pending\" cannot be unbounded.",
+      '"Pending" cannot be unbounded.',
     ],
     howToSteps: [
       "Set a reversal clock for each decision class.",
@@ -98,7 +98,7 @@ export const artifacts: InstituteArtifact[] = [
       "Time bounds are binding.",
     ],
     howToSteps: [
-      "Define \"appeal\" in operational terms.",
+      'Define "appeal" in operational terms.',
       "Set evidence rules that do not require perfect legibility.",
       "Bind the appeals queue to the reversal SLA clock.",
     ],
@@ -134,7 +134,8 @@ export const failureStates: FailureState[] = [
     shortLabel: "Decision appealed",
     descriptionLine1:
       "A decision has been contested and the system cannot clearly explain, reverse, or resolve it within bounded time.",
-    descriptionLine2: "The time burden of unresolved contestation falls on the claimant.",
+    descriptionLine2:
+      "The time burden of unresolved contestation falls on the claimant.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
@@ -148,7 +149,8 @@ export const failureStates: FailureState[] = [
     shortLabel: "Model wrong",
     descriptionLine1:
       "The model output is wrong in a way that matters, and the organization cannot reliably detect, correct, or reverse the downstream effects within bounded time.",
-    descriptionLine2: "The primary failure is detection and recovery, not accuracy.",
+    descriptionLine2:
+      "The primary failure is detection and recovery, not accuracy.",
     artifactSlugs: [
       "reversal-sla-template",
       "escalation-ladder-freeze-authority",
@@ -161,7 +163,7 @@ export const failureStates: FailureState[] = [
     slug: "queue-stuck",
     shortLabel: "Queue stuck",
     descriptionLine1:
-      "Work is accumulating without bounded resolution. \"Pending\" has become an unpriced outcome.",
+      'Work is accumulating without bounded resolution. "Pending" has become an unpriced outcome.',
     descriptionLine2: "Delay in processing becomes a form of ongoing harm.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
@@ -176,8 +178,13 @@ export const failureStates: FailureState[] = [
     shortLabel: "User harmed",
     descriptionLine1:
       "A user experienced material harm and the system cannot clearly acknowledge what happened, what is owed, or how repair will occur.",
-    descriptionLine2: "The cost of the failure is externalized to the affected user.",
-    artifactSlugs: ["harm-receipt-format", "decision-record-template", "reversal-sla-template"],
+    descriptionLine2:
+      "The cost of the failure is externalized to the affected user.",
+    artifactSlugs: [
+      "harm-receipt-format",
+      "decision-record-template",
+      "reversal-sla-template",
+    ],
     footerLine: failureFooterLine,
   },
   {
@@ -186,7 +193,8 @@ export const failureStates: FailureState[] = [
     shortLabel: "No owner",
     descriptionLine1:
       "A failure has occurred and nobody can be named with authority to reverse, compensate, or close the loop.",
-    descriptionLine2: "Without assigned ownership, harm has no designated resolution path.",
+    descriptionLine2:
+      "Without assigned ownership, harm has no designated resolution path.",
     artifactSlugs: [
       "decision-record-template",
       "escalation-ladder-freeze-authority",
@@ -200,7 +208,8 @@ export const failureStates: FailureState[] = [
     shortLabel: "Can’t explain",
     descriptionLine1:
       "The system cannot provide a bounded explanation that enables contestability, oversight, or repair.",
-    descriptionLine2: "Unexplainable decisions create an ungovernable system state.",
+    descriptionLine2:
+      "Unexplainable decisions create an ungovernable system state.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
@@ -214,7 +223,8 @@ export const failureStates: FailureState[] = [
     shortLabel: "Can’t stop",
     descriptionLine1:
       "A harmful process cannot be frozen, paused, or rolled back quickly, even when operators recognize it is wrong.",
-    descriptionLine2: "Built-in stoppability mechanisms are absent or untested.",
+    descriptionLine2:
+      "Built-in stoppability mechanisms are absent or untested.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
       "reversal-sla-template",

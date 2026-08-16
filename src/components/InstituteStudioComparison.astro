@@ -1,13 +1,14 @@
 ---
-import type { InstituteStudioComparisonContent } from '../content/comparison';
+import type { InstituteStudioComparisonContent } from "../content/comparison";
 
 type Props = {
   content: InstituteStudioComparisonContent;
 };
 
 const { content } = Astro.props;
-const headingId = 'comparison-heading';
+const headingId = "comparison-heading";
 ---
+
 <section class="comparison panel panel--glass" aria-labelledby={headingId}>
   <div class="comparison__header">
     <p class="eyebrow">{content.eyebrow}</p>
@@ -15,19 +16,25 @@ const headingId = 'comparison-heading';
     <p class="muted">{content.description}</p>
   </div>
   <div class="grid grid--two comparison__grid">
-    {content.cards.map((card) => (
-      <article class="card comparison__card">
-                <p class="eyebrow">{card.eyebrow}</p>
-        <h4>{card.title}</h4>
-        <p>{card.description}</p>
-        <div class="actions">
-          {card.actions.map((action) => (
-            <a class={`button ${action.variant}`} href={action.href} rel={action.rel}>
-              {action.label}
-            </a>
-          ))}
-        </div>
-      </article>
-    ))}
+    {
+      content.cards.map((card) => (
+        <article class="card comparison__card">
+          <p class="eyebrow">{card.eyebrow}</p>
+          <h4>{card.title}</h4>
+          <p>{card.description}</p>
+          <div class="actions">
+            {card.actions.map((action) => (
+              <a
+                class={`button ${action.variant}`}
+                href={action.href}
+                rel={action.rel}
+              >
+                {action.label}
+              </a>
+            ))}
+          </div>
+        </article>
+      ))
+    }
   </div>
 </section>

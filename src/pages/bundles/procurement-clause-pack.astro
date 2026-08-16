@@ -15,7 +15,11 @@ const pageDescription = bundle.summary;
 const permalink = `/bundles/${bundle.slug}`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Bundle"
     title={bundle.title}
@@ -61,12 +65,14 @@ const permalink = `/bundles/${bundle.slug}`;
     variant="alt"
   >
     <div class="grid grid--two">
-      {bundle.includedArtifacts.map((artifact) => (
-        <div class="panel">
-          <p class="eyebrow">{artifact.title}</p>
-          <p class="muted">{artifact.detail}</p>
-        </div>
-      ))}
+      {
+        bundle.includedArtifacts.map((artifact) => (
+          <div class="panel">
+            <p class="eyebrow">{artifact.title}</p>
+            <p class="muted">{artifact.detail}</p>
+          </div>
+        ))
+      }
     </div>
   </SectionBlock>
 
@@ -77,9 +83,7 @@ const permalink = `/bundles/${bundle.slug}`;
     description="Common scenarios that benefit from the clause pack."
   >
     <ul class="muted">
-      {bundle.useCases.map((useCase) => (
-        <li>{useCase}</li>
-      ))}
+      {bundle.useCases.map((useCase) => <li>{useCase}</li>)}
     </ul>
   </SectionBlock>
 
@@ -91,19 +95,21 @@ const permalink = `/bundles/${bundle.slug}`;
     variant="alt"
   >
     <div class="grid grid--three">
-      {bundle.exports.map((option) => (
-        <div class="panel">
-          <p class="eyebrow">{option.format}</p>
-          <p class="muted">{option.description}</p>
-          {option.status === "available" && option.href ? (
-            <a class="button ghost button--compact" href={option.href}>
-              {option.ctaLabel ?? `Open ${option.format} export`}
-            </a>
-          ) : (
-            <p class="muted">Coming soon</p>
-          )}
-        </div>
-      ))}
+      {
+        bundle.exports.map((option) => (
+          <div class="panel">
+            <p class="eyebrow">{option.format}</p>
+            <p class="muted">{option.description}</p>
+            {option.status === "available" && option.href ? (
+              <a class="button ghost button--compact" href={option.href}>
+                {option.ctaLabel ?? `Open ${option.format} export`}
+              </a>
+            ) : (
+              <p class="muted">Coming soon</p>
+            )}
+          </div>
+        ))
+      }
     </div>
   </SectionBlock>
 </BaseLayout>

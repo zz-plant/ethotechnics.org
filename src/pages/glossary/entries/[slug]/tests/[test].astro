@@ -73,7 +73,11 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Glossary operational test"
     title={pageTitle}
@@ -85,9 +89,7 @@ const anchorLinks = [
       <a class="button ghost" href={glossaryEntryPermalink(entry.id)}>
         View full glossary entry
       </a>
-      <a class="button ghost" href="/glossary">
-        Browse glossary
-      </a>
+      <a class="button ghost" href="/glossary"> Browse glossary </a>
     </Fragment>
   </PageIntro>
 
@@ -99,17 +101,21 @@ const anchorLinks = [
     variant="alt"
   >
     <p class="muted">
-      Pair this test with the minimum evidence criteria to capture both qualitative and quantitative signals.
+      Pair this test with the minimum evidence criteria to capture both
+      qualitative and quantitative signals.
     </p>
     <ul>
       <li>
-        <strong>Evidence artifact:</strong> {minimumEvidence.artifact}
+        <strong>Evidence artifact:</strong>
+        {minimumEvidence.artifact}
       </li>
       <li>
-        <strong>Behavior signal:</strong> {minimumEvidence.behavior}
+        <strong>Behavior signal:</strong>
+        {minimumEvidence.behavior}
       </li>
       <li>
-        <strong>Metric signal:</strong> {minimumEvidence.metric}
+        <strong>Metric signal:</strong>
+        {minimumEvidence.metric}
       </li>
     </ul>
   </SectionBlock>
@@ -132,11 +138,15 @@ const anchorLinks = [
     description="Continue with the other operational tests for this glossary entry."
   >
     <ul>
-      {operationalTests.map((item) => (
-        <li>
-          <a href={glossaryTestPermalink(entry.id, item.slug)}>{item.label}</a>
-        </li>
-      ))}
+      {
+        operationalTests.map((item) => (
+          <li>
+            <a href={glossaryTestPermalink(entry.id, item.slug)}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 </BaseLayout>

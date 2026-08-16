@@ -17,7 +17,9 @@ export const loadSelection = () => {
     const parsed = JSON.parse(saved) as string[];
 
     if (Array.isArray(parsed)) {
-      return parsed.filter((value): value is string => typeof value === "string");
+      return parsed.filter(
+        (value): value is string => typeof value === "string",
+      );
     }
   } catch (error) {
     console.error("Unable to parse saved bundle selection", error);

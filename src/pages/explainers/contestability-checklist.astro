@@ -60,7 +60,11 @@ const explainerItems = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
@@ -72,7 +76,10 @@ const explainerItems = [
       title: "A quick check for clear appeal paths",
       description:
         "Use this checklist to confirm decisions can be contested with clocks, accountable authority, and reversal paths. Aligns with the contestability glossary definition and the Contestability Guarantee.",
-      link: { label: "Read STD-02", href: "/standards/std-02-contestability-recourse" },
+      link: {
+        label: "Read STD-02",
+        href: "/standards/std-02-contestability-recourse",
+      },
     }}
   />
 
@@ -84,16 +91,18 @@ const explainerItems = [
   >
     <div class="contestability-layout screen-only">
       <div class="contestability-layout__main">
-        <div class="contestability-checklist" role="group" aria-label="Contestability checklist">
+        <div
+          class="contestability-checklist"
+          role="group"
+          aria-label="Contestability checklist"
+        >
           <p class="contestability-checklist__title">Can I contest this?</p>
           <ul data-checklist-items>
-            {checklistItems.map((item) => (
-              <li>{item}</li>
-            ))}
+            {checklistItems.map((item) => <li>{item}</li>)}
           </ul>
           <p class="muted contestability-checklist__note">
-            Built from the contestability definition in the glossary and the Contestability
-            Guarantee standard.
+            Built from the contestability definition in the glossary and the
+            Contestability Guarantee standard.
             {" "}
             <a href="/glossary/contestability">Glossary term</a>
             {" "}
@@ -104,10 +113,13 @@ const explainerItems = [
         </div>
       </div>
       <aside class="contestability-summary" aria-label="Checklist summary">
-        <p class="eyebrow contestability-summary__eyebrow">2-minute checklist</p>
+        <p class="eyebrow contestability-summary__eyebrow">
+          2-minute checklist
+        </p>
         <p class="contestability-summary__title">Contestability checklist</p>
         <p class="muted contestability-summary__copy">
-          Keep this open while auditing decision flows for real reversals and clocked reviews.
+          Keep this open while auditing decision flows for real reversals and
+          clocked reviews.
         </p>
         <div class="contestability-summary__actions">
           <button class="button ghost" type="button" data-checklist-print>
@@ -126,13 +138,11 @@ const explainerItems = [
     >
       <p class="contestability-checklist__title">Contestability checklist</p>
       <ul>
-        {checklistItems.map((item) => (
-          <li>{item}</li>
-        ))}
+        {checklistItems.map((item) => <li>{item}</li>)}
       </ul>
       <p class="muted contestability-checklist__note">
-        Built from the contestability definition in the glossary and the Contestability
-        Guarantee standard.
+        Built from the contestability definition in the glossary and the
+        Contestability Guarantee standard.
         {" "}
         <a href="/glossary/contestability">Glossary term</a>
         {" "}
@@ -151,30 +161,38 @@ const explainerItems = [
     variant="alt"
   >
     <div class="contestability-expanders">
-      {explainerItems.map((item) => (
-        <details class="contestability-expander">
-          <summary>
-            <span class="contestability-expander__title">{item.title}</span>
-            <span class="contestability-expander__toggle" aria-hidden="true">
-              <span class="contestability-expander__toggle-text--expand">Expand</span>
-              <span class="contestability-expander__toggle-text--collapse">Collapse</span>
-            </span>
-          </summary>
-          <div class="contestability-expander__body">
-            {item.body.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-            <p>
-              <a href={item.link.href}>{item.link.label}</a>
-            </p>
-          </div>
-        </details>
-      ))}
+      {
+        explainerItems.map((item) => (
+          <details class="contestability-expander">
+            <summary>
+              <span class="contestability-expander__title">{item.title}</span>
+              <span class="contestability-expander__toggle" aria-hidden="true">
+                <span class="contestability-expander__toggle-text--expand">
+                  Expand
+                </span>
+                <span class="contestability-expander__toggle-text--collapse">
+                  Collapse
+                </span>
+              </span>
+            </summary>
+            <div class="contestability-expander__body">
+              {item.body.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              <p>
+                <a href={item.link.href}>{item.link.label}</a>
+              </p>
+            </div>
+          </details>
+        ))
+      }
     </div>
   </SectionBlock>
 
   <p class="muted" style="margin-top:2rem">
-    See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    See also: <a href="/standards">Standards</a> &middot; <a href="/mechanisms"
+      >Mechanisms</a
+    >
   </p>
 </BaseLayout>
 
@@ -200,7 +218,11 @@ const explainerItems = [
       const items = Array.from(checklistItemsList.querySelectorAll("li")).map(
         (item) => item.textContent?.trim() ?? "",
       );
-      const checklistText = ["Contestability checklist", "", ...items.map((item) => `- ${item}`)]
+      const checklistText = [
+        "Contestability checklist",
+        "",
+        ...items.map((item) => `- ${item}`),
+      ]
         .filter(Boolean)
         .join("\n");
       try {
@@ -321,7 +343,8 @@ const explainerItems = [
     display: none;
   }
 
-  .contestability-expander[open] .contestability-expander__toggle-text--collapse {
+  .contestability-expander[open]
+    .contestability-expander__toggle-text--collapse {
     display: inline;
   }
 

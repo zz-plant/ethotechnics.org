@@ -51,7 +51,12 @@ const recommendedAction = recommendedCard?.href
     }
   : null;
 ---
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
@@ -63,9 +68,7 @@ const recommendedAction = recommendedCard?.href
     panelCopy={hero.panel}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#recommended">
-        Open step 1: triage
-      </a>
+      <a class="button primary" href="#recommended"> Open step 1: triage </a>
     </Fragment>
   </PageIntro>
   {

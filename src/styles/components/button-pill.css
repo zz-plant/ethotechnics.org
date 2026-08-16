@@ -177,80 +177,92 @@
   }
 
   .status-pill--green {
-    background: color-mix(in srgb, var(--status-success-bright) 22%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--status-success-bright) 22%,
+      transparent
+    );
     color: var(--status-success-deep);
   }
 
   .status-pill--yellow {
-    background: color-mix(in srgb, var(--status-warning-bright) 25%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--status-warning-bright) 25%,
+      transparent
+    );
     color: var(--status-warning-deep);
   }
 
   .status-pill--red {
-    background: color-mix(in srgb, var(--status-danger-bright) 20%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--status-danger-bright) 20%,
+      transparent
+    );
     color: var(--status-danger-deep);
   }
 }
 
-  /* -- .pill-list* clusters (from components.css) -- */
-  .pill-list {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
+/* -- .pill-list* clusters (from components.css) -- */
+.pill-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
 
-  .pill-list--wrap {
-    margin-top: 1.2rem;
-  }
+.pill-list--wrap {
+  margin-top: 1.2rem;
+}
 
-  .pill-list li {
-    padding: 0.45rem 0.8rem;
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-    border-radius: var(--radius-xl);
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    font-size: 0.95rem;
-  }
+.pill-list li {
+  padding: 0.45rem 0.8rem;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  font-size: 0.95rem;
+}
 
-  .pill-list li.pill-list__item {
-    padding: 0;
-  }
+.pill-list li.pill-list__item {
+  padding: 0;
+}
 
-  .pill-list__button {
-    background: none;
-    border: none;
-    color: inherit;
-    font: inherit;
-    padding: 0.45rem 0.8rem;
-    margin: 0;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    text-align: left;
-    min-height: 44px;
-    touch-action: manipulation;
-  }
+.pill-list__button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  padding: 0.45rem 0.8rem;
+  margin: 0;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: left;
+  min-height: 44px;
+  touch-action: manipulation;
+}
 
-  .pill-list__item:hover,
-  .pill-list__item:focus-within {
-    background: color-mix(in srgb, var(--accent) 14%, var(--surface));
-    border-color: color-mix(in srgb, var(--accent) 26%, var(--border));
-  }
+.pill-list__item:hover,
+.pill-list__item:focus-within {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 26%, var(--border));
+}
 
-  .pill-list__button:focus-visible {
-    outline: 2px solid var(--accent-strong);
-    outline-offset: 2px;
-    border-radius: var(--radius-md);
-  }
+.pill-list__button:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
 
-  .pill-list__item--active {
-    background: color-mix(in srgb, var(--accent) 18%, var(--surface));
-    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
-  }
+.pill-list__item--active {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
 
-  .pill-list__item:has(.pill-list__button[aria-pressed="true"]) {
-    background: color-mix(in srgb, var(--accent) 18%, var(--surface));
-    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
-  }
+.pill-list__item:has(.pill-list__button[aria-pressed="true"]) {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}

@@ -42,14 +42,19 @@ const exceptions = [
   {
     id: "irreversibility",
     title: "Irreversibility",
-    delayed: "Final remedy can pause while reversible alternatives are prepared.",
+    delayed:
+      "Final remedy can pause while reversible alternatives are prepared.",
     musts: "Receipt, owner, and review clock remain mandatory.",
     cadence: "Max duration: 7 days. Review cadence: every 48 hours.",
   },
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow="Exceptions"
     title="Bounded exceptions framework"
@@ -73,14 +78,20 @@ const exceptions = [
     description="Every class defines what is delayed, what remains mandatory, and the maximum duration."
   >
     <CardGrid className="grid--two">
-      {exceptions.map((exception) => (
-        <CardItem id={exception.id} title={exception.title} description={exception.delayed}>
-          <ul class="muted">
-            <li>{exception.musts}</li>
-            <li>{exception.cadence}</li>
-          </ul>
-        </CardItem>
-      ))}
+      {
+        exceptions.map((exception) => (
+          <CardItem
+            id={exception.id}
+            title={exception.title}
+            description={exception.delayed}
+          >
+            <ul class="muted">
+              <li>{exception.musts}</li>
+              <li>{exception.cadence}</li>
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 

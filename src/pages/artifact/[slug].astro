@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { artifacts, type InstituteArtifact } from "../../content/institute-site";
+import {
+  artifacts,
+  type InstituteArtifact,
+} from "../../content/institute-site";
 
 const slug = Astro.params.slug;
 const artifact =
@@ -10,28 +13,29 @@ const artifact =
 if (!artifact) return new Response("Artifact not found", { status: 404 });
 ---
 
-<BaseLayout title={artifact.name} description={artifact.description[0]} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={artifact.name}
+  description={artifact.description[0]}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <section class="stack-lg institute-screen">
     <h1>{artifact.name}</h1>
-    {artifact.description.map((line) => (
-      <p>{line}</p>
-    ))}
+    {artifact.description.map((line) => <p>{line}</p>)}
 
     <h2>What this enforces</h2>
     <ul>
-      {artifact.enforcesBullets.map((bullet) => (
-        <li>{bullet}</li>
-      ))}
+      {artifact.enforcesBullets.map((bullet) => <li>{bullet}</li>)}
     </ul>
 
     <h2>How to use</h2>
     <ol>
-      {artifact.howToSteps.map((step) => (
-        <li>{step}</li>
-      ))}
+      {artifact.howToSteps.map((step) => <li>{step}</li>)}
     </ol>
 
-    <p><a class="button primary" href={artifact.downloadUrl}>Download template</a></p>
+    <p>
+      <a class="button primary" href={artifact.downloadUrl}>Download template</a
+      >
+    </p>
     <p class="small muted">{artifact.finalLine}</p>
   </section>
 </BaseLayout>

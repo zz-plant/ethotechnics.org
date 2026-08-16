@@ -212,7 +212,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               }),
             )}
           >
-                        <div class="pattern-card__meta">
+            <div class="pattern-card__meta">
               <p class="muted">Filters: {appliedFilters}</p>
               <label
                 class="pattern-card__select"
@@ -336,11 +336,39 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
     <div class="pattern-drawer__content">
       <header class="pattern-drawer__header">
         <div>
-          <p class="eyebrow" style="margin: 0; text-transform: uppercase;">Mechanism spec</p>
-          <h2 data-drawer-title style="margin: 0.2rem 0 0; font-size: 1.5rem; color: var(--accent);">--</h2>
+          <p class="eyebrow" style="margin: 0; text-transform: uppercase;">
+            Mechanism spec
+          </p>
+          <h2
+            data-drawer-title
+            style="margin: 0.2rem 0 0; font-size: 1.5rem; color: var(--accent);"
+          >
+            --
+          </h2>
         </div>
-        <button class="pattern-drawer__close" type="button" aria-label="Close details" data-drawer-close>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        <button
+          class="pattern-drawer__close"
+          type="button"
+          aria-label="Close details"
+          data-drawer-close
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            ><line x1="18" y1="6" x2="6" y2="18"></line><line
+              x1="6"
+              y1="6"
+              x2="18"
+              y2="18"></line></svg
+          >
         </button>
       </header>
       <div class="pattern-drawer__body" data-drawer-body>

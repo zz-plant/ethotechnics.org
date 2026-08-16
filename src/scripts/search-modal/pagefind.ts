@@ -17,7 +17,10 @@ export const createPagefindAdapter = (): PagefindAdapter => {
     )
       .then((module) => module as PagefindModule)
       .catch((error) => {
-        console.warn("Pagefind not found. Search may not work in dev mode.", error);
+        console.warn(
+          "Pagefind not found. Search may not work in dev mode.",
+          error,
+        );
         pagefindPromise = null;
         return null;
       });

@@ -30,7 +30,8 @@
   --shadow-color-soft: rgba(42, 38, 33, 0.035);
   --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
   --shadow-xs: 0 1px 3px var(--shadow-color-soft);
-  --shadow-sm: 0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
+  --shadow-sm:
+    0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
   --shadow-panel: 0 8px 20px rgba(64, 52, 40, 0.05);
   --shadow-float: 0 12px 24px rgba(64, 52, 40, 0.1);
   --shadow-float-strong: 0 20px 50px rgba(64, 52, 40, 0.12);
@@ -62,12 +63,24 @@
     transparent 75%
   );
   --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
-  --halftone: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 11%, transparent) 1px, transparent 0);
+  --halftone: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--text) 11%, transparent) 1px,
+    transparent 0
+  );
   --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 12%, transparent);
   --shadow-tight: 0 2px 6px var(--shadow-color);
   --surface-flat: var(--surface);
-  --surface-raised: linear-gradient(140deg, color-mix(in srgb, var(--surface) 95%, white 5%), color-mix(in srgb, var(--panel) 92%, white 8%));
-  --surface-emphasis: linear-gradient(145deg, color-mix(in srgb, var(--panel) 95%, white 5%), color-mix(in srgb, var(--surface) 88%, white 12%));
+  --surface-raised: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--surface) 95%, white 5%),
+    color-mix(in srgb, var(--panel) 92%, white 8%)
+  );
+  --surface-emphasis: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--panel) 95%, white 5%),
+    color-mix(in srgb, var(--surface) 88%, white 12%)
+  );
   --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
   --radius-pill: 999px;
   --text-xs: 0.7rem;
@@ -87,9 +100,16 @@
   --interactive-border: color-mix(in srgb, var(--border) 80%, transparent);
   --interactive-bg: color-mix(in srgb, var(--surface) 96%, white 4%);
   --interactive-bg-hover: color-mix(in srgb, var(--surface) 92%, white 8%);
-  --interactive-border-hover: color-mix(in srgb, var(--accent) 24%, var(--border));
-  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --serif: "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman", serif;
+  --interactive-border-hover: color-mix(
+    in srgb,
+    var(--accent) 24%,
+    var(--border)
+  );
+  --sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --serif:
+    "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman",
+    serif;
   --mono: "IBM Plex Mono", "Courier Prime", "Courier New", monospace;
 }
 
@@ -115,13 +135,23 @@
     --status-danger: #f87171;
     --status-danger-bright: #f87171;
     --status-danger-deep: #fca5a5;
-    --status-danger-wash: color-mix(in srgb, var(--status-danger) 16%, transparent);
-    --status-danger-border: color-mix(in srgb, var(--status-danger) 45%, transparent);
+    --status-danger-wash: color-mix(
+      in srgb,
+      var(--status-danger) 16%,
+      transparent
+    );
+    --status-danger-border: color-mix(
+      in srgb,
+      var(--status-danger) 45%,
+      transparent
+    );
     --shadow-color: rgba(0, 0, 0, 0.25);
     --shadow-color-soft: rgba(0, 0, 0, 0.15);
-    --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
+    --shadow:
+      0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
     --shadow-xs: 0 1px 3px var(--shadow-color-soft);
-    --shadow-sm: 0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
+    --shadow-sm:
+      0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
     --shadow-panel: 0 8px 20px rgba(0, 0, 0, 0.2);
     --shadow-float: 0 12px 24px rgba(0, 0, 0, 0.25);
     --glow-wash: radial-gradient(
@@ -131,12 +161,25 @@
       transparent 75%
     );
     --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
-    --halftone: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 8%, transparent) 1px, transparent 0);
-    --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 16%, transparent);
+    --halftone: radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--text) 8%, transparent) 1px,
+      transparent 0
+    );
+    --shadow-accent: 0 4px 16px
+      color-mix(in srgb, var(--accent) 16%, transparent);
     --shadow-tight: 0 2px 6px var(--shadow-color);
     --surface-flat: var(--surface);
-    --surface-raised: linear-gradient(140deg, color-mix(in srgb, var(--surface) 95%, white 5%), color-mix(in srgb, var(--panel) 92%, white 8%));
-    --surface-emphasis: linear-gradient(145deg, color-mix(in srgb, var(--panel) 95%, white 5%), color-mix(in srgb, var(--surface) 88%, white 12%));
+    --surface-raised: linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--surface) 95%, white 5%),
+      color-mix(in srgb, var(--panel) 92%, white 8%)
+    );
+    --surface-emphasis: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--panel) 95%, white 5%),
+      color-mix(in srgb, var(--surface) 88%, white 12%)
+    );
     --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
     --radius-pill: 999px;
     --text-xs: 0.7rem;
@@ -160,22 +203,31 @@
   --accent-strong: #d69a8a;
   --gold: #c8a46f;
   --teal: #8da898;
-    --status-success: #4ade80;
-    --status-success-bright: #65d962;
-    --status-success-deep: #9ddb9c;
-    --status-warning: #f97316;
-    --status-warning-bright: #f59e0b;
-    --status-warning-deep: #ffd6a5;
-    --status-danger: #f87171;
-    --status-danger-bright: #f87171;
-    --status-danger-deep: #fca5a5;
-    --status-danger-wash: color-mix(in srgb, var(--status-danger) 16%, transparent);
-    --status-danger-border: color-mix(in srgb, var(--status-danger) 45%, transparent);
+  --status-success: #4ade80;
+  --status-success-bright: #65d962;
+  --status-success-deep: #9ddb9c;
+  --status-warning: #f97316;
+  --status-warning-bright: #f59e0b;
+  --status-warning-deep: #ffd6a5;
+  --status-danger: #f87171;
+  --status-danger-bright: #f87171;
+  --status-danger-deep: #fca5a5;
+  --status-danger-wash: color-mix(
+    in srgb,
+    var(--status-danger) 16%,
+    transparent
+  );
+  --status-danger-border: color-mix(
+    in srgb,
+    var(--status-danger) 45%,
+    transparent
+  );
   --shadow-color: rgba(0, 0, 0, 0.25);
   --shadow-color-soft: rgba(0, 0, 0, 0.15);
   --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
   --shadow-xs: 0 1px 3px var(--shadow-color-soft);
-  --shadow-sm: 0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
+  --shadow-sm:
+    0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
   --shadow-panel: 0 8px 20px rgba(0, 0, 0, 0.2);
   --shadow-float: 0 12px 24px rgba(0, 0, 0, 0.25);
   --glow-wash: radial-gradient(
@@ -185,12 +237,24 @@
     transparent 75%
   );
   --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
-  --halftone: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 8%, transparent) 1px, transparent 0);
+  --halftone: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in srgb, var(--text) 8%, transparent) 1px,
+    transparent 0
+  );
   --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 16%, transparent);
   --shadow-tight: 0 2px 6px var(--shadow-color);
   --surface-flat: var(--surface);
-  --surface-raised: linear-gradient(140deg, color-mix(in srgb, var(--surface) 95%, white 5%), color-mix(in srgb, var(--panel) 92%, white 8%));
-  --surface-emphasis: linear-gradient(145deg, color-mix(in srgb, var(--panel) 95%, white 5%), color-mix(in srgb, var(--surface) 88%, white 12%));
+  --surface-raised: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--surface) 95%, white 5%),
+    color-mix(in srgb, var(--panel) 92%, white 8%)
+  );
+  --surface-emphasis: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--panel) 95%, white 5%),
+    color-mix(in srgb, var(--surface) 88%, white 12%)
+  );
   --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
   --radius-pill: 999px;
   --text-xs: 0.7rem;
@@ -288,7 +352,9 @@ a {
   background-repeat: no-repeat;
   background-position: 0 100%;
   padding-bottom: 2px; /* Breathing room for the underline */
-  transition: background-size 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
+  transition:
+    background-size 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    color 0.2s ease;
 }
 
 a:hover,

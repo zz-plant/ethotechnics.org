@@ -13,7 +13,8 @@ const permalink = "/diy-packs";
 const kits = [
   {
     title: "Kit A: Receipt-ready launch",
-    summary: "Baseline kit for shipping receipts, clocks, and appeal paths in one sprint.",
+    summary:
+      "Baseline kit for shipping receipts, clocks, and appeal paths in one sprint.",
     includes: [
       { label: "Receipt schema", href: "/standards/agent-receipt-schema.json" },
       { label: "Evidence pack checklist", href: "/evidence-packs" },
@@ -23,10 +24,17 @@ const kits = [
   },
   {
     title: "Kit B: Irreversible actions",
-    summary: "Adds approvals, compensation, and hard-clock enforcement for irreversible actions.",
+    summary:
+      "Adds approvals, compensation, and hard-clock enforcement for irreversible actions.",
     includes: [
-      { label: "Action-class taxonomy", href: "/standards/ethotechnics-for-agents#action-taxonomy" },
-      { label: "Irreversible example", href: "/examples/irreversible-payment-compensation" },
+      {
+        label: "Action-class taxonomy",
+        href: "/standards/ethotechnics-for-agents#action-taxonomy",
+      },
+      {
+        label: "Irreversible example",
+        href: "/examples/irreversible-payment-compensation",
+      },
       { label: "Evidence packs (STD-01 + STD-02)", href: "/evidence-packs" },
       { label: "Release gates + kill switch", href: "/bindings#release-gates" },
     ],
@@ -82,7 +90,8 @@ const templates = [
   },
   {
     title: "Appeal intake form",
-    detail: "Pre-filled appeal form with clock expectations and escalation path.",
+    detail:
+      "Pre-filled appeal form with clock expectations and escalation path.",
     format: "Form prompt",
     availability: "Evidence packs + DIY kits",
     sampleLines: [
@@ -119,7 +128,11 @@ const telemetry = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <PageIntro
     eyebrow="DIY pack"
     title="DIY implementation pack"
@@ -148,17 +161,19 @@ const telemetry = [
     description="Each kit includes a receipt schema, evidence pack checklist, bindings, and runbooks."
   >
     <CardGrid className="grid--two">
-      {kits.map((kit) => (
-        <CardItem title={kit.title} description={kit.summary}>
-          <ul class="muted">
-            {kit.includes.map((item) => (
-              <li>
-                <a href={item.href}>{item.label}</a>
-              </li>
-            ))}
-          </ul>
-        </CardItem>
-      ))}
+      {
+        kits.map((kit) => (
+          <CardItem title={kit.title} description={kit.summary}>
+            <ul class="muted">
+              {kit.includes.map((item) => (
+                <li>
+                  <a href={item.href}>{item.label}</a>
+                </li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -170,43 +185,45 @@ const telemetry = [
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {templates.map((template) => (
-        <CardItem title={template.title} description={template.detail}>
-          <p class="muted">Format: {template.format}</p>
-          <p class="muted">Availability: {template.availability}</p>
-          {template.href && (
-            <p class="muted">
-              <a href={template.href}>Download JSON schema</a>
-            </p>
-          )}
-          {(template.snippet || template.sampleLines) && (
-            <pre class="code-block">
-              {template.snippet || template.sampleLines?.join("\n")}
-            </pre>
-          )}
-          <div slot="footer" class="actions">
-            {template.actions?.map((action) =>
-              action.href ? (
-                <a
-                  class={`button ${action.variant}`}
-                  href={action.href}
-                  aria-label={`${action.label} for ${template.title}`}
-                >
-                  {action.label}
-                </a>
-              ) : (
-                <button
-                  class={`button ${action.variant}`}
-                  type="button"
-                  aria-label={`${action.label} for ${template.title}`}
-                >
-                  {action.label}
-                </button>
-              )
+      {
+        templates.map((template) => (
+          <CardItem title={template.title} description={template.detail}>
+            <p class="muted">Format: {template.format}</p>
+            <p class="muted">Availability: {template.availability}</p>
+            {template.href && (
+              <p class="muted">
+                <a href={template.href}>Download JSON schema</a>
+              </p>
             )}
-          </div>
-        </CardItem>
-      ))}
+            {(template.snippet || template.sampleLines) && (
+              <pre class="code-block">
+                {template.snippet || template.sampleLines?.join("\n")}
+              </pre>
+            )}
+            <div slot="footer" class="actions">
+              {template.actions?.map((action) =>
+                action.href ? (
+                  <a
+                    class={`button ${action.variant}`}
+                    href={action.href}
+                    aria-label={`${action.label} for ${template.title}`}
+                  >
+                    {action.label}
+                  </a>
+                ) : (
+                  <button
+                    class={`button ${action.variant}`}
+                    type="button"
+                    aria-label={`${action.label} for ${template.title}`}
+                  >
+                    {action.label}
+                  </button>
+                ),
+              )}
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -233,9 +250,7 @@ const telemetry = [
     description="Copy these into your backlog to get started quickly."
   >
     <ul class="muted">
-      {tickets.map((ticket) => (
-        <li>{ticket}</li>
-      ))}
+      {tickets.map((ticket) => <li>{ticket}</li>)}
     </ul>
   </SectionBlock>
 
@@ -247,9 +262,7 @@ const telemetry = [
     variant="alt"
   >
     <ul class="muted">
-      {telemetry.map((item) => (
-        <li>{item}</li>
-      ))}
+      {telemetry.map((item) => <li>{item}</li>)}
     </ul>
     <p class="muted">
       Pair this with the
@@ -271,10 +284,13 @@ const telemetry = [
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/automated-account-lock">Automated account lock</a>
+            <a href="/examples/automated-account-lock">Automated account lock</a
+            >
           </li>
           <li>
-            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+            <a href="/examples/automated-eligibility-denial"
+              >Automated eligibility denial</a
+            >
           </li>
           <li>
             <a href="/examples/irreversible-payment-compensation">
@@ -313,7 +329,8 @@ const telemetry = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, VAL-01,
+      VAL-02, VAL-03.
     </p>
   </SectionBlock>
 </BaseLayout>

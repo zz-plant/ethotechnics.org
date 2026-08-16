@@ -217,9 +217,5 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       {method.steps.map((step) => <li>{step}</li>)}
     </ul>
   </section>
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>

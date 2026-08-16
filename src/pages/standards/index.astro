@@ -104,7 +104,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     jumpLinks={[
       { href: "#quick-lanes", label: "Most cited and newly updated" },
       { href: "#active", label: "Active standards" },
-    { href: "#status-assignment", label: "How status is assigned" },
+      { href: "#status-assignment", label: "How status is assigned" },
       { href: "#comparison", label: "Standards comparison" },
       { href: "#implementation-examples", label: "Implementation examples" },
     ]}
@@ -154,11 +154,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <ul class="pill-list pill-list--wrap">
       <li>
         <a class="pill-list__button" href="#grouped-lanes"
-          >Browse grouped lanes</a>
+          >Browse grouped lanes</a
+        >
       </li>
       <li>
-        <a class="pill-list__button" href="#goal-chooser"
-          >Choose by objective</a>
+        <a class="pill-list__button" href="#goal-chooser">Choose by objective</a
+        >
       </li>
       <li>
         <a class="pill-list__button" href="#active">All active standards</a>
@@ -168,7 +169,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </li>
       <li>
         <a class="pill-list__button" href="#implementation-examples"
-          >Implementation examples</a>
+          >Implementation examples</a
+        >
       </li>
     </ul>
   </SectionBlock>
@@ -276,13 +278,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <label>
           Lane
           <select data-standards-filter-lane>
-            {standardsFilterOptions.map((option) => (
-              <option value={option}>
-                {option === "all"
-                  ? `All lanes (${standardsLaneCounts.all})`
-                  : `${option.charAt(0).toUpperCase() + option.slice(1)} (${standardsLaneCounts[option as keyof typeof standardsLaneCounts]})`}
-              </option>
-            ))}
+            {
+              standardsFilterOptions.map((option) => (
+                <option value={option}>
+                  {option === "all"
+                    ? `All lanes (${standardsLaneCounts.all})`
+                    : `${option.charAt(0).toUpperCase() + option.slice(1)} (${standardsLaneCounts[option as keyof typeof standardsLaneCounts]})`}
+                </option>
+              ))
+            }
           </select>
         </label>
         <label>
@@ -309,7 +313,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               data-standard-id={standard.id}
               data-standard-lane={lane}
               data-standard-published={standard.published}
-              data-standard-cited={mostCitedStandardIds.includes(standard.id) ? "1" : "0"}
+              data-standard-cited={
+                mostCitedStandardIds.includes(standard.id) ? "1" : "0"
+              }
             >
               <CardItem
                 eyebrow={standard.id}
@@ -318,7 +324,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               >
                 <p class="muted small">
                   Lane: {lane.charAt(0).toUpperCase() + lane.slice(1)} ·
-                  <span class={`status-badge status-badge--${standard.status.toLowerCase()}`}>{standard.status}</span>
+                  <span
+                    class={`status-badge status-badge--${standard.status.toLowerCase()}`}
+                  >
+                    {standard.status}
+                  </span>
                   · v{standard.version} · Effective {standard.effectiveDate}
                 </p>
                 {standard.id === "STD-02" && (
@@ -327,8 +337,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     <a href="/standards/ethotechnics-for-agents">
                       Ethotechnics for Agents
                     </a>{" "}
-                    — Mechanism-first practice for implementing STD-01 and STD-02
-                    with enforceable human recourse in real agent systems.
+                    — Mechanism-first practice for implementing STD-01 and
+                    STD-02 with enforceable human recourse in real agent
+                    systems.
                   </p>
                 )}
                 {standard.deprecatedBy && standard.deprecatedBy.length > 0 && (
@@ -337,12 +348,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     {standard.deprecatedBy.map((replacement, index) => (
                       <Fragment>
                         {index > 0 && ", "}
-                        <a href={`/standards/${replacement.slug}`}>{replacement.id}</a>
+                        <a href={`/standards/${replacement.slug}`}>
+                          {replacement.id}
+                        </a>
                       </Fragment>
                     ))}
                   </p>
                 )}
-                <a slot="footer" class="muted" href={`/standards/${standard.slug}`}>
+                <a
+                  slot="footer"
+                  class="muted"
+                  href={`/standards/${standard.slug}`}
+                >
                   Read {standard.id}
                 </a>
               </CardItem>
@@ -379,9 +396,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         description="Approved for production policy references and procurement baselines."
       >
         <ul class="muted small">
-          <li>Minimum 2 independent reviewers (one external to the author team).</li>
-          <li>Evidence tests and implementation checks completed with receipts.</li>
-          <li>Stable criteria satisfied and recorded in publication metadata.</li>
+          <li>
+            Minimum 2 independent reviewers (one external to the author team).
+          </li>
+          <li>
+            Evidence tests and implementation checks completed with receipts.
+          </li>
+          <li>
+            Stable criteria satisfied and recorded in publication metadata.
+          </li>
         </ul>
       </CardItem>
       <CardItem
@@ -390,7 +413,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       >
         <ul class="muted small">
           <li>Deprecation vote recorded by standards council.</li>
-          <li>Replacement standard identified and linked by <code>deprecated_by</code>.</li>
+          <li>
+            Replacement standard identified and linked by <code
+              >deprecated_by</code
+            >.
+          </li>
           <li>Migration note added in changelog before status changes.</li>
         </ul>
       </CardItem>
@@ -457,26 +484,25 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </p>
     <ul class="card__list">
       <li>
-        <strong>NIST AI RMF</strong> — A voluntary risk management framework
-        (Govern, Map, Measure, Manage). Strong on risk identification and
-        documentation. Does not require operational stop authority or recovery
-        time targets.
+        <strong>NIST AI RMF</strong> — A voluntary risk management framework (Govern,
+        Map, Measure, Manage). Strong on risk identification and documentation. Does
+        not require operational stop authority or recovery time targets.
       </li>
       <li>
-        <strong>EU AI Act</strong> — A risk-tiered regulatory regime requiring
-        human oversight, conformity assessment, and post-market monitoring.
-        Compliance is document-mediated; oversight obligations do not impose
-        stoppability drills or restoration SLAs.
+        <strong>EU AI Act</strong> — A risk-tiered regulatory regime requiring human
+        oversight, conformity assessment, and post-market monitoring. Compliance is
+        document-mediated; oversight obligations do not impose stoppability drills
+        or restoration SLAs.
       </li>
       <li>
-        <strong>ISO/IEC 42001</strong> — A management system standard for AI.
-        Governance effort is certified, but certification can coexist with
-        slow or missing rollback authority.
+        <strong>ISO/IEC 42001</strong> — A management system standard for AI. Governance
+        effort is certified, but certification can coexist with slow or missing rollback
+        authority.
       </li>
       <li>
-        <strong>OECD AI Principles</strong> — Values-oriented guidelines
-        adopted by governments. Non-binding by design; accountability becomes
-        interpretive after harm.
+        <strong>OECD AI Principles</strong> — Values-oriented guidelines adopted by
+        governments. Non-binding by design; accountability becomes interpretive after
+        harm.
       </li>
     </ul>
     <p>
@@ -1012,12 +1038,20 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     const standardsFilter = document.querySelector("[data-standards-filter]");
 
     if (standardsFilter) {
-      const laneSelect = standardsFilter.querySelector("[data-standards-filter-lane]");
-      const sortSelect = standardsFilter.querySelector("[data-standards-filter-sort]");
-      const status = standardsFilter.querySelector("[data-standards-filter-status]");
+      const laneSelect = standardsFilter.querySelector(
+        "[data-standards-filter-lane]",
+      );
+      const sortSelect = standardsFilter.querySelector(
+        "[data-standards-filter-sort]",
+      );
+      const status = standardsFilter.querySelector(
+        "[data-standards-filter-status]",
+      );
       const grid = document.querySelector("[data-standards-grid]");
       const emptyState = document.querySelector("[data-standards-empty]");
-      const cards = Array.from(document.querySelectorAll("[data-standard-card]"));
+      const cards = Array.from(
+        document.querySelectorAll("[data-standard-card]"),
+      );
       const searchParams = new URLSearchParams(window.location.search);
 
       const initialLane = searchParams.get("lane");
@@ -1031,7 +1065,11 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         laneSelect.value = initialLane;
       }
 
-      if (sortSelect && initialSort && ["citation", "recent", "id"].includes(initialSort)) {
+      if (
+        sortSelect &&
+        initialSort &&
+        ["citation", "recent", "id"].includes(initialSort)
+      ) {
         sortSelect.value = initialSort;
       }
 
@@ -1072,7 +1110,8 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         const lane = laneSelect?.value ?? "all";
         const sortMode = sortSelect?.value ?? "citation";
         const activeCards = cards.filter((card) => {
-          const cardLane = card.getAttribute("data-standard-lane") ?? "reference";
+          const cardLane =
+            card.getAttribute("data-standard-lane") ?? "reference";
           const isVisible = lane === "all" || cardLane === lane;
           card.hidden = !isVisible;
           return isVisible;
@@ -1104,41 +1143,34 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     }
   </script>
 
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 
+  <style>
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.1rem 0.55rem;
+      margin: 0 0.2rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
 
+    .status-badge--draft {
+      background: color-mix(in srgb, var(--accent) 18%, transparent);
+      color: var(--accent);
+    }
 
-<style>
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 999px;
-    padding: 0.1rem 0.55rem;
-    margin: 0 0.2rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
+    .status-badge--stable {
+      background: color-mix(in srgb, #2d8a4a 16%, transparent);
+      color: #2d8a4a;
+    }
 
-  .status-badge--draft {
-    background: color-mix(in srgb, var(--accent) 18%, transparent);
-    color: var(--accent);
-  }
-
-  .status-badge--stable {
-    background: color-mix(in srgb, #2d8a4a 16%, transparent);
-    color: #2d8a4a;
-  }
-
-  .status-badge--deprecated {
-    background: color-mix(in srgb, #b35218 16%, transparent);
-    color: #b35218;
-  }
-</style>
-
+    .status-badge--deprecated {
+      background: color-mix(in srgb, #b35218 16%, transparent);
+      color: #b35218;
+    }
+  </style>
 </BaseLayout>

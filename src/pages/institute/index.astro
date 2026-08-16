@@ -1,20 +1,20 @@
 ---
-import CardGrid from '../../components/CardGrid.astro';
-import CardItem from '../../components/CardItem.astro';
-import InstituteStudioComparison from '../../components/InstituteStudioComparison.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import QuoteHighlight from '../../components/QuoteHighlight.astro';
-import ReferenceCallout from '../../components/ReferenceCallout.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
-import StatCluster from '../../components/StatCluster.astro';
-import StudioBadge from '../../components/StudioBadge.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { instituteStudioCallout } from '../../content/callouts';
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import InstituteStudioComparison from "../../components/InstituteStudioComparison.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import QuoteHighlight from "../../components/QuoteHighlight.astro";
+import ReferenceCallout from "../../components/ReferenceCallout.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import StatCluster from "../../components/StatCluster.astro";
+import StudioBadge from "../../components/StudioBadge.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { instituteStudioCallout } from "../../content/callouts";
 import {
   instituteStudioComparisonContent,
   instituteStudioGuidance,
-} from '../../content/comparison';
-import { instituteContent } from '../../content/institute';
+} from "../../content/comparison";
+import { instituteContent } from "../../content/institute";
 
 const {
   pageTitle,
@@ -31,26 +31,27 @@ const {
 const instituteStats = [
   {
     value: `${highlights.length}`,
-    label: 'Engagement paths',
-    detail: 'Ways visitors can collaborate with the Institute.',
+    label: "Engagement paths",
+    detail: "Ways visitors can collaborate with the Institute.",
   },
   {
     value: `${programs.length}`,
-    label: 'Active programs',
-    detail: 'Tracks running with defined outcomes and status.',
+    label: "Active programs",
+    detail: "Tracks running with defined outcomes and status.",
   },
   {
     value: `${governance.length}`,
-    label: 'Governance commitments',
-    detail: 'Policies that keep releases accountable.',
+    label: "Governance commitments",
+    detail: "Policies that keep releases accountable.",
   },
   {
     value: `${stewards.length}`,
-    label: 'Stewards available',
-    detail: 'People prepared to triage requests.',
+    label: "Stewards available",
+    detail: "People prepared to triage requests.",
   },
 ];
 ---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow="Institute"
@@ -61,12 +62,8 @@ const instituteStats = [
     panelCopy={panelCopy}
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#programs">
-        View programs
-      </a>
-      <a class="button ghost" href="#stewards">
-        Meet the stewards
-      </a>
+      <a class="button primary" href="#programs"> View programs </a>
+      <a class="button ghost" href="#stewards"> Meet the stewards </a>
     </Fragment>
   </PageIntro>
   <SectionBlock
@@ -77,14 +74,20 @@ const instituteStats = [
     className="section--banded"
   >
     <p class="muted small">
-      Note: This Institute is part of ethotechnics.org and is not affiliated with the Institute of
-      Ecotechnics (founded in 1973 for ecology and Biosphere 2 work), which typically uses .edu or
-      .co.uk domains.
+      Note: This Institute is part of ethotechnics.org and is not affiliated
+      with the Institute of Ecotechnics (founded in 1973 for ecology and
+      Biosphere 2 work), which typically uses .edu or .co.uk domains.
     </p>
     <CardGrid className="grid--two">
-      {highlights.map((item) => (
-        <CardItem title={item.title} description={item.detail} tags={item.tags} />
-      ))}
+      {
+        highlights.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.detail}
+            tags={item.tags}
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -118,24 +121,29 @@ const instituteStats = [
     description="Join the track that fits your decision window; everything links back to the Library so you can act quickly."
     variant="alt"
   >
-    <p class="muted small">Programs refresh on a quarterly cadence. Reach out for current availability.</p>
+    <p class="muted small">
+      Programs refresh on a quarterly cadence. Reach out for current
+      availability.
+    </p>
     <CardGrid>
-      {programs.map((program) => (
-        <CardItem
-          title={program.title}
-          description={program.detail}
-          descriptionTone="default"
-        >
-          <p class="muted">{program.outcome}</p>
-          <p class="muted small">Status: {program.status}</p>
-          <p class="muted small">{program.howToJoin}</p>
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={program.ctaHref}>
-              {program.ctaLabel}
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        programs.map((program) => (
+          <CardItem
+            title={program.title}
+            description={program.detail}
+            descriptionTone="default"
+          >
+            <p class="muted">{program.outcome}</p>
+            <p class="muted small">Status: {program.status}</p>
+            <p class="muted small">{program.howToJoin}</p>
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={program.ctaHref}>
+                {program.ctaLabel}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -156,13 +164,15 @@ const instituteStats = [
     className="section--banded"
   >
     <CardGrid>
-      {governance.map((item) => (
-        <CardItem title={item.title} description={item.detail}>
-          <a slot="footer" href={item.artifactHref}>
-            {item.artifactLabel}
-          </a>
-        </CardItem>
-      ))}
+      {
+        governance.map((item) => (
+          <CardItem title={item.title} description={item.detail}>
+            <a slot="footer" href={item.artifactHref}>
+              {item.artifactLabel}
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -174,20 +184,25 @@ const instituteStats = [
     variant="alt"
   >
     <CardGrid>
-      {stewards.map((steward) => (
-        <CardItem
-          title={steward.name}
-          meta={steward.role}
-          description={steward.focus}
-          descriptionTone="default"
-        >
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={steward.contactHref}>
-              {steward.contactLabel}
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        stewards.map((steward) => (
+          <CardItem
+            title={steward.name}
+            meta={steward.role}
+            description={steward.focus}
+            descriptionTone="default"
+          >
+            <div slot="footer" class="card__footer">
+              <a
+                class="button ghost button--compact"
+                href={steward.contactHref}
+              >
+                {steward.contactLabel}
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -198,13 +213,15 @@ const instituteStats = [
     description="Use these channels for Studio escalations, research partnerships, or general questions."
   >
     <CardGrid>
-      {contact.map((channel) => (
-        <CardItem title={channel.label} description={channel.description}>
-          <a slot="footer" href={channel.href}>
-            {channel.linkLabel ?? channel.href}
-          </a>
-        </CardItem>
-      ))}
+      {
+        contact.map((channel) => (
+          <CardItem title={channel.label} description={channel.description}>
+            <a slot="footer" href={channel.href}>
+              {channel.linkLabel ?? channel.href}
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

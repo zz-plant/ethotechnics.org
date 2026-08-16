@@ -1,78 +1,143 @@
 ---
-import NavUtilityLinks from "../NavUtilityLinks.astro";
 import Search from "../Search.astro";
 import { Icon } from "astro-icon/components";
-import {
-  navUtilityMobilePrimaryLinks,
-  type NavLink,
-} from "../../content/navigation";
+import { navSections } from "../../content/navigation";
 import {
   getAriaCurrent,
   isHashLink,
   isSameDocumentHashLink,
+  normalizePath,
 } from "../../utils/navigation";
 
 interface Props {
   currentPath: string;
   currentHash?: string;
-  mobileLinks: NavLink[];
 }
 
-const { currentPath, currentHash = "", mobileLinks }: Props = Astro.props;
-
+const { currentPath, currentHash = "" }: Props = Astro.props;
+const isStartHere = normalizePath(currentPath) === "/start-here";
 ---
 
 <nav class="nav__mobile" aria-label="Main navigation">
   <div class="nav__mobile-row">
     <div class="nav__mobile-top">
       <div class="nav__search-mobile">
-        <Search scope="mobile" label="Search" includeDialog={false} />
+        <Search scope="mobile" label="Search library…" includeDialog={false} />
       </div>
 
       <div class="nav__utility-inline">
-        <NavUtilityLinks
-          currentPath={currentPath}
-          links={navUtilityMobilePrimaryLinks}
-        />
         <button
           class="theme-toggle"
           data-theme-toggle
           aria-label="Toggle theme"
           type="button"
         >
-          <Icon name="lucide:sun" class="theme-toggle__icon theme-toggle__icon--sun" />
-          <Icon name="lucide:moon" class="theme-toggle__icon theme-toggle__icon--moon" />
+          <Icon
+            name="lucide:sun"
+            class="theme-toggle__icon theme-toggle__icon--sun"
+          />
+          <Icon
+            name="lucide:moon"
+            class="theme-toggle__icon theme-toggle__icon--moon"
+          />
         </button>
       </div>
     </div>
 
-    <details class="nav__mobile-sections" name="mobile-sections" data-mobile-nav>
-      <summary class="nav__mobile-sections-summary">Browse sections</summary>
-      <div class="nav__links nav__links--mobile nav__links--mobile-compact">
-        {
-          mobileLinks.map((link) => (
-            <a
-              class="nav__link"
-              href={link.href}
-              aria-label={
-                isHashLink(link.href)
-                  ? `${link.label}, jumps to a homepage section`
-                  : link.label
-              }
-              title={
-                isHashLink(link.href)
-                  ? "Jumps to a section on the homepage"
-                  : undefined
-              }
-              data-nav-hash-link={
-                isSameDocumentHashLink(link.href) ? "true" : undefined
-              }
-              aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
+    <details
+      class="nav__mobile-sections"
+      name="mobile-sections"
+      data-mobile-nav
+    >
+      <summary class="nav__mobile-sections-summary">
+        <span class="nav__mobile-summary-text">Browse sections</span>
+        <Icon name="lucide:chevron-down" class="nav__mobile-summary-icon" />
+      </summary>
+
+      <div class="nav__mobile-drawer">
+        <a
+          href="/start-here"
+          class:list={[
+            "nav__mobile-featured-cta",
+            { "nav__mobile-featured-cta--active": isStartHere },
+          ]}
+          aria-current={isStartHere ? "page" : undefined}
+        >
+          <div class="nav__mobile-featured-content">
+            <span class="nav__mobile-featured-badge">Orientation</span>
+            <span class="nav__mobile-featured-title">Start here</span>
+            <span class="nav__mobile-featured-desc"
+              >Find the right resource by role or incident</span
             >
-              <span class="nav__link-label">{link.label}</span>
+          </div>
+          <Icon name="lucide:arrow-right" class="nav__mobile-featured-arrow" />
+        </a>
+
+        <div class="nav__mobile-section-groups">
+          {
+            navSections.map((section) => (
+              <div class="nav__mobile-group">
+                <p class="eyebrow nav__mobile-group-title">{section.heading}</p>
+                <div class="nav__mobile-group-links">
+                  {section.links.map((link) => (
+                    <a
+                      class="nav__mobile-link-card"
+                      href={link.href}
+                      aria-label={
+                        isHashLink(link.href)
+                          ? `${link.label}, jumps to a homepage section`
+                          : link.label
+                      }
+                      data-nav-hash-link={
+                        isSameDocumentHashLink(link.href) ? "true" : undefined
+                      }
+                      aria-current={getAriaCurrent(
+                        link.href,
+                        currentPath,
+                        currentHash,
+                      )}
+                    >
+                      <span class="nav__mobile-link-title">{link.label}</span>
+                      {link.description && (
+                        <span class="nav__mobile-link-desc">
+                          {link.description}
+                        </span>
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="nav__mobile-connect">
+          <p class="eyebrow nav__mobile-group-title">Ecosystem & Community</p>
+          <div class="nav__mobile-connect-links">
+            <a
+              href="https://github.com/zz-plant/ethotechnics"
+              class="nav__mobile-connect-link"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Icon name="lucide:github" class="nav__icon" />
+              <span>GitHub</span>
             </a>
-          ))
-        }
+            <a
+              href="https://ethotechnics.com/studio/"
+              class="nav__mobile-connect-link"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Icon name="lucide:arrow-up-right" class="nav__icon" />
+              <span>Ethotechnics Studio</span>
+            </a>
+            <a href="/participate#feedback" class="nav__mobile-connect-link">
+              <Icon name="lucide:message-circle" class="nav__icon" />
+              <span>Send feedback</span>
+            </a>
+          </div>
+        </div>
       </div>
     </details>
   </div>

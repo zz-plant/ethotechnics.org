@@ -29,7 +29,11 @@ const {
 const pageTitle = `${title} — Governance lesson — Ethotechnics`;
 ---
 
-<BaseLayout title={pageTitle} description={description} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Governance lesson"
     title={title}
@@ -57,10 +61,26 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
     className="section--banded"
   >
     <CardGrid className="grid--two">
-      <CardItem title="Sector" description={incident.sector} descriptionTone="default" />
-      <CardItem title="Timeframe" description={incident.timeframe} descriptionTone="default" />
-      <CardItem title="Headline" description={incident.headline} descriptionTone="default" />
-      <CardItem title="Impact" description={incident.impact} descriptionTone="default" />
+      <CardItem
+        title="Sector"
+        description={incident.sector}
+        descriptionTone="default"
+      />
+      <CardItem
+        title="Timeframe"
+        description={incident.timeframe}
+        descriptionTone="default"
+      />
+      <CardItem
+        title="Headline"
+        description={incident.headline}
+        descriptionTone="default"
+      />
+      <CardItem
+        title="Impact"
+        description={incident.impact}
+        descriptionTone="default"
+      />
     </CardGrid>
   </SectionBlock>
 
@@ -72,9 +92,11 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
     variant="alt"
   >
     <CardGrid>
-      {governanceFailures.map((failure) => (
-        <CardItem description={failure} descriptionTone="default" />
-      ))}
+      {
+        governanceFailures.map((failure) => (
+          <CardItem description={failure} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -85,9 +107,11 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
     description="Instrument these signals to surface risk before impact escalates."
   >
     <CardGrid>
-      {signalsToWatch.map((signal) => (
-        <CardItem description={signal} descriptionTone="default" />
-      ))}
+      {
+        signalsToWatch.map((signal) => (
+          <CardItem description={signal} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -99,9 +123,11 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
     variant="alt"
   >
     <CardGrid>
-      {remediationChecklist.map((item) => (
-        <CardItem description={item} descriptionTone="default" />
-      ))}
+      {
+        remediationChecklist.map((item) => (
+          <CardItem description={item} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -112,15 +138,17 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
     description="Keep the documentation linked for rapid remediation alignment."
   >
     <CardGrid className="grid--two">
-      {sources.map((source) => (
-        <CardItem title={source.label} descriptionTone="muted">
-          <div slot="footer" class="card__footer">
-            <a class="button ghost button--compact" href={source.href}>
-              Open source
-            </a>
-          </div>
-        </CardItem>
-      ))}
+      {
+        sources.map((source) => (
+          <CardItem title={source.label} descriptionTone="muted">
+            <div slot="footer" class="card__footer">
+              <a class="button ghost button--compact" href={source.href}>
+                Open source
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

@@ -24,7 +24,11 @@ export type StandardsGroupModel = StandardsGroupDefinition & {
   items: StandardEntry[];
 };
 
-export type StandardsFilterOption = "all" | "core" | "implementation" | "reference";
+export type StandardsFilterOption =
+  | "all"
+  | "core"
+  | "implementation"
+  | "reference";
 
 export type StandardsGroupingModel = {
   activeStandards: StandardEntry[];
@@ -85,7 +89,8 @@ const adoptedStandards: StandardsCardModel[] = [
 const groupingDefinitions: StandardsGroupDefinition[] = [
   {
     title: "Core",
-    description: "Foundational rights and contestability requirements to start with.",
+    description:
+      "Foundational rights and contestability requirements to start with.",
     ids: ["STD-01", "STD-02", "MVC-01"],
   },
   {
@@ -113,8 +118,13 @@ export const buildStandardsCardViewModels = (input: {
   implementationExamples: ImplementationExample[];
 }) => {
   const featuredStandardIds = ["STD-01", "STD-02"];
-  const featuredStandards = mapStandardsByIds(input.standards, featuredStandardIds);
-  const coreDoctrine = input.doctrine.find((item) => item.title === "Core axioms");
+  const featuredStandards = mapStandardsByIds(
+    input.standards,
+    featuredStandardIds,
+  );
+  const coreDoctrine = input.doctrine.find(
+    (item) => item.title === "Core axioms",
+  );
 
   const starterCards: StandardsCardModel[] = [
     ...featuredStandards.map((standard) => ({
@@ -164,26 +174,32 @@ export const buildStandardsGroupingAndFilters = (
   standards: StandardEntry[],
 ): StandardsGroupingModel => {
   const mostCitedStandardIds = ["STD-01", "STD-02", "MVC-01"];
-  const activeStandards = standards.filter((standard) => standard.status !== "Deprecated");
+  const activeStandards = standards.filter(
+    (standard) => standard.status !== "Deprecated",
+  );
   const mostCitedStandards = mapStandardsByIds(standards, mostCitedStandardIds);
   const recentlyUpdatedStandards = [...standards]
     .map((standard, index) => ({ standard, index }))
     .sort((left, right) => {
-      const publishedDelta = Date.parse(right.standard.published) - Date.parse(left.standard.published);
+      const publishedDelta =
+        Date.parse(right.standard.published) -
+        Date.parse(left.standard.published);
       return publishedDelta === 0 ? left.index - right.index : publishedDelta;
     })
     .map((item) => item.standard)
     .slice(0, 3);
 
-  const standardsGrouping: StandardsGroupModel[] = groupingDefinitions.map((group) => {
-    const lane = group.title.toLowerCase() as StandardsGroupModel["lane"];
+  const standardsGrouping: StandardsGroupModel[] = groupingDefinitions.map(
+    (group) => {
+      const lane = group.title.toLowerCase() as StandardsGroupModel["lane"];
 
-    return {
-      ...group,
-      lane,
-      items: mapStandardsByIds(standards, group.ids),
-    };
-  });
+      return {
+        ...group,
+        lane,
+        items: mapStandardsByIds(standards, group.ids),
+      };
+    },
+  );
 
   const standardsFilterOptions: StandardsFilterOption[] = [
     "all",
@@ -192,16 +208,22 @@ export const buildStandardsGroupingAndFilters = (
     "reference",
   ];
   const standardsLaneById = new Map(
-    standardsGrouping.flatMap((group) => group.ids.map((id) => [id, group.lane] as const)),
+    standardsGrouping.flatMap((group) =>
+      group.ids.map((id) => [id, group.lane] as const),
+    ),
   );
 
   const standardsLaneCounts: Record<StandardsFilterOption, number> = {
     all: activeStandards.length,
-    core: activeStandards.filter((standard) => standardsLaneById.get(standard.id) === "core").length,
+    core: activeStandards.filter(
+      (standard) => standardsLaneById.get(standard.id) === "core",
+    ).length,
     implementation: activeStandards.filter(
       (standard) => standardsLaneById.get(standard.id) === "implementation",
     ).length,
-    reference: activeStandards.filter((standard) => standardsLaneById.get(standard.id) === "reference").length,
+    reference: activeStandards.filter(
+      (standard) => standardsLaneById.get(standard.id) === "reference",
+    ).length,
   };
 
   return {
@@ -217,7 +239,10 @@ export const buildStandardsGroupingAndFilters = (
 };
 
 export const buildStandardsStructuredDataPayload = (input: {
-  standardsContent: Pick<StandardsContent, "pageTitle" | "pageDescription" | "permalink" | "standards" | "doctrine">;
+  standardsContent: Pick<
+    StandardsContent,
+    "pageTitle" | "pageDescription" | "permalink" | "standards" | "doctrine"
+  >;
   adoptedStandards: StandardsCardModel[];
   siteUrl?: URL;
 }) => {
@@ -250,13 +275,17 @@ export const buildStandardsStructuredDataPayload = (input: {
         "@type": "CreativeWork",
         name: item.title,
         description: item.description,
-        url: input.siteUrl ? new URL(item.href, input.siteUrl).toString() : item.href,
+        url: input.siteUrl
+          ? new URL(item.href, input.siteUrl).toString()
+          : item.href,
       })),
       ...input.adoptedStandards.map((item) => ({
         "@type": "CreativeWork",
         name: item.title,
         description: item.description,
-        url: input.siteUrl ? new URL(item.href, input.siteUrl).toString() : item.href,
+        url: input.siteUrl
+          ? new URL(item.href, input.siteUrl).toString()
+          : item.href,
       })),
     ],
   };

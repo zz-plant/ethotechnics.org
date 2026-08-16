@@ -98,13 +98,15 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
     description="Treat these IDs like doctrine clauses in policy, procurement, and audits."
   >
     <ol class="standard-clauses">
-      {constraints.map((constraint) => (
-        <li id={constraint.id}>
-          <strong>{constraint.id}</strong> — {constraint.title}
-          <br />
-          <span class="muted">{constraint.detail}</span>
-        </li>
-      ))}
+      {
+        constraints.map((constraint) => (
+          <li id={constraint.id}>
+            <strong>{constraint.id}</strong> — {constraint.title}
+            <br />
+            <span class="muted">{constraint.detail}</span>
+          </li>
+        ))
+      }
     </ol>
   </SectionBlock>
 
@@ -116,20 +118,27 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
     variant="alt"
   >
     <ul class="standard-clauses">
-      {evidenceRequirements.map((item) => (
-        <li>
-          <strong>{item.id}</strong> — <span class="muted">{item.evidence}</span>
-        </li>
-      ))}
+      {
+        evidenceRequirements.map((item) => (
+          <li>
+            <strong>{item.id}</strong> —{" "}
+            <span class="muted">{item.evidence}</span>
+          </li>
+        ))
+      }
     </ul>
     <p class="muted">
       Attach these to
       {" "}
-      <a href="/evidence-packs/std-01#anti-weaponization">STD-01 evidence packs</a>
+      <a href="/evidence-packs/std-01#anti-weaponization"
+        >STD-01 evidence packs</a
+      >
       {" "}
       and
       {" "}
-      <a href="/evidence-packs/std-02#anti-weaponization">STD-02 evidence packs</a>.
+      <a href="/evidence-packs/std-02#anti-weaponization"
+        >STD-02 evidence packs</a
+      >.
     </p>
   </SectionBlock>
 
@@ -198,13 +207,19 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
         <p class="eyebrow">Used in examples</p>
         <ul class="muted">
           <li>
-            <a href="/examples/fraud-hold-delayed-notice">Fraud hold with delayed notice</a>
+            <a href="/examples/fraud-hold-delayed-notice"
+              >Fraud hold with delayed notice</a
+            >
           </li>
           <li>
-            <a href="/examples/content-moderation-takedown">Content moderation takedown</a>
+            <a href="/examples/content-moderation-takedown"
+              >Content moderation takedown</a
+            >
           </li>
           <li>
-            <a href="/examples/automated-eligibility-denial">Automated eligibility denial</a>
+            <a href="/examples/automated-eligibility-denial"
+              >Automated eligibility denial</a
+            >
           </li>
         </ul>
       </div>
@@ -212,7 +227,9 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/bindings#anti-weaponization">Anti-weaponization bindings</a>
+            <a href="/bindings#anti-weaponization"
+              >Anti-weaponization bindings</a
+            >
           </li>
           <li>
             <a href="/bindings#release-gates">Release gate checklist</a>
@@ -226,10 +243,14 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
         <p class="eyebrow">Verified by evidence packs</p>
         <ul class="muted">
           <li>
-            <a href="/evidence-packs/std-01#anti-weaponization">STD-01 AW evidence</a>
+            <a href="/evidence-packs/std-01#anti-weaponization"
+              >STD-01 AW evidence</a
+            >
           </li>
           <li>
-            <a href="/evidence-packs/std-02#anti-weaponization">STD-02 AW evidence</a>
+            <a href="/evidence-packs/std-02#anti-weaponization"
+              >STD-02 AW evidence</a
+            >
           </li>
           <li>
             <a href="/diagnostics#anti-weaponization">Diagnostics checks</a>
@@ -238,7 +259,8 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
       </div>
     </div>
     <p class="muted">
-      Search IDs: AW-01, AW-02, AW-03, AW-04, STD-01.1.1, STD-02.2.1, VAL-01, VAL-02, VAL-03.
+      Search IDs: AW-01, AW-02, AW-03, AW-04, STD-01.1.1, STD-02.2.1, VAL-01,
+      VAL-02, VAL-03.
     </p>
   </SectionBlock>
 </BaseLayout>

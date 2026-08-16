@@ -101,7 +101,11 @@ const usageSteps = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
@@ -129,7 +133,10 @@ const usageSteps = [
       "Attach sources so policy language stays traceable to its origin.",
     ]}
     relatedLinks={[
-      { href: "/standards/std-02-contestability-recourse", label: "STD-02 contestability" },
+      {
+        href: "/standards/std-02-contestability-recourse",
+        label: "STD-02 contestability",
+      },
       { href: "/bindings", label: "Binding vectors" },
       { href: "/evidence-packs", label: "Evidence packs" },
     ]}
@@ -143,15 +150,23 @@ const usageSteps = [
     description="When words evolve without evidence, accountability promises get weaker."
   >
     <p>
-      Contestability terms travel through policy, procurement, and public narratives. When a term
-      like “responsible AI” becomes a label rather than a measurable commitment, people lose the
-      ability to demand remedies. This page preserves the original intent behind governance
-      language so it can be cited with precision.
+      Contestability terms travel through policy, procurement, and public
+      narratives. When a term like “responsible AI” becomes a label rather than
+      a measurable commitment, people lose the ability to demand remedies. This
+      page preserves the original intent behind governance language so it can be
+      cited with precision.
     </p>
     <ul class="muted">
-      <li>Terms must map to enforceable actions, not just internal checklists.</li>
-      <li>Stable definitions make audits, procurement, and public accountability easier.</li>
-      <li>Documenting drift keeps teams honest about what is actually delivered.</li>
+      <li>
+        Terms must map to enforceable actions, not just internal checklists.
+      </li>
+      <li>
+        Stable definitions make audits, procurement, and public accountability
+        easier.
+      </li>
+      <li>
+        Documenting drift keeps teams honest about what is actually delivered.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -162,7 +177,10 @@ const usageSteps = [
     description="A snapshot of how accountability vocabulary has shifted across policy and practice."
     variant="alt"
   >
-    <ol class="standards-timeline" aria-label="Contestability language drift timeline">
+    <ol
+      class="standards-timeline"
+      aria-label="Contestability language drift timeline"
+    >
       {
         timelineEntries.map((entry) => (
           <li class="standards-timeline__item">
@@ -207,14 +225,10 @@ const usageSteps = [
     variant="alt"
   >
     <ul class="muted">
-      {usageSteps.map((step) => (
-        <li>{step}</li>
-      ))}
+      {usageSteps.map((step) => <li>{step}</li>)}
     </ul>
     <div class="actions">
-      <a class="button primary" href="/glossary">
-        Open glossary anchors
-      </a>
+      <a class="button primary" href="/glossary"> Open glossary anchors </a>
       <a class="button ghost" href="/standards/std-02-contestability-recourse">
         Read STD-02
       </a>
@@ -222,6 +236,8 @@ const usageSteps = [
   </SectionBlock>
 
   <p class="muted" style="margin-top:2rem">
-    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a> &middot; <a href="/examples">Examples</a>
+    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
+      >Standards</a
+    > &middot; <a href="/examples">Examples</a>
   </p>
 </BaseLayout>

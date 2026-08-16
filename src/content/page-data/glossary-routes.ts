@@ -1,4 +1,7 @@
-import { normalizeGlossaryHeading, stripHtml } from "../../utils/glossary-helpers";
+import {
+  normalizeGlossaryHeading,
+  stripHtml,
+} from "../../utils/glossary-helpers";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 
 export type GlossaryIndexSourceEntry = {
@@ -165,7 +168,8 @@ export const buildGlossaryStructuredDataPayload = (input: {
   );
 
   const glossaryPublished = input.publication.published ?? null;
-  const glossaryUpdated = input.publication.updated ?? input.publication.published ?? null;
+  const glossaryUpdated =
+    input.publication.updated ?? input.publication.published ?? null;
   const glossaryKeywords = Array.from(
     new Set([
       "Ethotechnics glossary",
@@ -175,11 +179,17 @@ export const buildGlossaryStructuredDataPayload = (input: {
       "algorithmic accountability",
       "consent frameworks",
       "safety and stewardship",
-      ...input.categories.map((category) => normalizeGlossaryHeading(category.heading)),
+      ...input.categories.map((category) =>
+        normalizeGlossaryHeading(category.heading),
+      ),
     ]),
   );
   const glossaryAbout = Array.from(
-    new Set(input.categories.map((category) => normalizeGlossaryHeading(category.heading))),
+    new Set(
+      input.categories.map((category) =>
+        normalizeGlossaryHeading(category.heading),
+      ),
+    ),
   );
   const glossarySetId = `${pageUrl}#defined-term-set`;
 

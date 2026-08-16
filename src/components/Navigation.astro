@@ -9,8 +9,10 @@ interface Props {
   currentHash?: string;
 }
 
-const { currentPath = Astro.url.pathname, currentHash = Astro.url.hash }: Props =
-  Astro.props;
+const {
+  currentPath = Astro.url.pathname,
+  currentHash = Astro.url.hash,
+}: Props = Astro.props;
 ---
 
 <nav class="nav" aria-label="Primary" data-nav>
@@ -21,11 +23,7 @@ const { currentPath = Astro.url.pathname, currentHash = Astro.url.hash }: Props 
       desktopLinks={navPrimaryLinks}
     />
 
-    <NavigationMobile
-      currentPath={currentPath}
-      currentHash={currentHash}
-      mobileLinks={navPrimaryLinks}
-    />
+    <NavigationMobile currentPath={currentPath} currentHash={currentHash} />
   </div>
 </nav>
 

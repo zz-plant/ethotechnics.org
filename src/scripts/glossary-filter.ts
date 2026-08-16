@@ -165,8 +165,7 @@ const initGlossaryFilter = () => {
       selections.measurability.length === 0 ||
       selections.measurability.includes(item.measurability);
     const matchesStatus =
-      selections.status.length === 0 ||
-      selections.status.includes(item.status);
+      selections.status.length === 0 || selections.status.includes(item.status);
 
     return (
       matchesQuery &&
@@ -178,10 +177,8 @@ const initGlossaryFilter = () => {
     );
   };
 
-  const countMatches = (
-    query: string,
-    selections: FacetSelections,
-  ) => indexedItems.filter((item) => matchesItem(item, query, selections)).length;
+  const countMatches = (query: string, selections: FacetSelections) =>
+    indexedItems.filter((item) => matchesItem(item, query, selections)).length;
 
   const setSectionsOpen = (isOpen: boolean) => {
     chunkedSections.forEach((section) => {
@@ -302,14 +299,11 @@ const initGlossaryFilter = () => {
   const getUrlState = () => {
     const params = new URLSearchParams(window.location.search);
     const query = params.get(QUERY_PARAM_KEY)?.trim() ?? "";
-    const selections = facetKeys.reduce(
-      (acc, key) => {
-        const values = params.get(key)?.split(",").filter(Boolean) ?? [];
-        acc[key] = values;
-        return acc;
-      },
-      {} as FacetSelections,
-    );
+    const selections = facetKeys.reduce((acc, key) => {
+      const values = params.get(key)?.split(",").filter(Boolean) ?? [];
+      acc[key] = values;
+      return acc;
+    }, {} as FacetSelections);
 
     return {
       query,
@@ -390,9 +384,7 @@ const initGlossaryFilter = () => {
     if (!(target instanceof HTMLElement)) {
       return;
     }
-    const button = target.closest<HTMLButtonElement>(
-      "[data-glossary-remove]",
-    );
+    const button = target.closest<HTMLButtonElement>("[data-glossary-remove]");
     if (!button) {
       return;
     }

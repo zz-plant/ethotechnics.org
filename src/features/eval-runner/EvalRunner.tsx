@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { suiteOptions, getSuiteForSlug, getTestCasesForSuite } from './config';
-import { buildEmptyResults, buildSummary, calculatePass } from './runnerLogic';
-import type { TestCaseResult, RunSummary } from './types';
-import './evalRunner.css';
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { suiteOptions, getSuiteForSlug, getTestCasesForSuite } from "./config";
+import { buildEmptyResults, buildSummary, calculatePass } from "./runnerLogic";
+import type { TestCaseResult, RunSummary } from "./types";
+import "./evalRunner.css";
 
-const STORAGE_KEY = 'eval-runner-state';
+const STORAGE_KEY = "eval-runner-state";
 
 type SavedState = {
   selectedSuiteSlug: string | null;
@@ -27,13 +27,17 @@ function loadState(): SavedState | null {
 function saveState(state: SavedState) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
 }
 
 export function EvalRunner() {
   const [hydrated, setHydrated] = useState(false);
-  const [selectedSuiteSlug, setSelectedSuiteSlug] = useState<string | null>(null);
-  const [systemName, setSystemName] = useState('');
+  const [selectedSuiteSlug, setSelectedSuiteSlug] = useState<string | null>(
+    null,
+  );
+  const [systemName, setSystemName] = useState("");
   const [results, setResults] = useState<TestCaseResult[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -65,7 +69,14 @@ export function EvalRunner() {
       currentIndex,
       isComplete,
     });
-  }, [selectedSuiteSlug, systemName, results, currentIndex, isComplete, hydrated]);
+  }, [
+    selectedSuiteSlug,
+    systemName,
+    results,
+    currentIndex,
+    isComplete,
+    hydrated,
+  ]);
 
   const suite = useMemo(
     () => (selectedSuiteSlug ? getSuiteForSlug(selectedSuiteSlug) : undefined),
@@ -132,14 +143,14 @@ export function EvalRunner() {
 
   const handleSubmitAll = useCallback(() => {
     if (!suite) return;
-    const s = buildSummary(results, suite, systemName || 'Unnamed system');
+    const s = buildSummary(results, suite, systemName || "Unnamed system");
     setSummary(s);
     setIsComplete(true);
   }, [results, suite, systemName]);
 
   const handleReset = useCallback(() => {
     setSelectedSuiteSlug(null);
-    setSystemName('');
+    setSystemName("");
     setResults([]);
     setCurrentIndex(0);
     setIsComplete(false);
@@ -150,10 +161,12 @@ export function EvalRunner() {
 
   const handleExport = useCallback(() => {
     if (!summary) return;
-    const blob = new Blob([JSON.stringify(summary, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(summary, null, 2)], {
+      type: "application/json",
+    });
     const url = URL.createObjectURL(blob);
-    const anchor = document.createElement('a');
-    const slug = selectedSuiteSlug || 'eval';
+    const anchor = document.createElement("a");
+    const slug = selectedSuiteSlug || "eval";
     anchor.href = url;
     anchor.download = `eval-run-${slug}-${new Date().toISOString().slice(0, 10)}.json`;
     anchor.click();
@@ -171,7 +184,8 @@ export function EvalRunner() {
           <p className="eyebrow">Eval Runner</p>
           <h2>Run a governance eval suite</h2>
           <p className="muted">
-            Select a suite, score each test case against your system, and receive a grade.
+            Select a suite, score each test case against your system, and
+            receive a grade.
           </p>
         </div>
         <div className="eval-selector">
@@ -221,13 +235,19 @@ export function EvalRunner() {
               <div key={r.testCaseId} className="eval-result-row">
                 <div className="eval-result-row__header">
                   <span className="eval-result-row__id">{r.testCaseId}</span>
-                  <span className="eval-result-row__title">{tc?.title ?? ''}</span>
-                  <span className={`eval-result-row__score ${r.passed ? 'eval-result-row__score--pass' : 'eval-result-row__score--fail'}`}>
+                  <span className="eval-result-row__title">
+                    {tc?.title ?? ""}
+                  </span>
+                  <span
+                    className={`eval-result-row__score ${r.passed ? "eval-result-row__score--pass" : "eval-result-row__score--fail"}`}
+                  >
                     {r.score}/{r.maxScore}
                   </span>
                 </div>
                 {r.evidence && (
-                  <p className="muted small eval-result-row__evidence">{r.evidence}</p>
+                  <p className="muted small eval-result-row__evidence">
+                    {r.evidence}
+                  </p>
                 )}
               </div>
             );
@@ -238,7 +258,11 @@ export function EvalRunner() {
           <button type="button" className="button ghost" onClick={handleExport}>
             Export results
           </button>
-          <button type="button" className="button ghost button--warning" onClick={handleReset}>
+          <button
+            type="button"
+            className="button ghost button--warning"
+            onClick={handleReset}
+          >
             Start over
           </button>
         </div>
@@ -258,29 +282,47 @@ export function EvalRunner() {
   }
 
   const severityClass = `severity--${currentTestCase.severity}`;
-  const progressPct = totalCases > 0 ? ((currentIndex + 1) / totalCases) * 100 : 0;
+  const progressPct =
+    totalCases > 0 ? ((currentIndex + 1) / totalCases) * 100 : 0;
 
   return (
     <div className="panel panel--glass eval-runner" data-eval-runner>
       <div className="eval-runner__header">
         <div className="eval-runner__title-row">
           <div>
-            <p className="eyebrow">{suite?.title ?? ''}</p>
-            <h2>Test case {currentIndex + 1} of {totalCases}</h2>
+            <p className="eyebrow">{suite?.title ?? ""}</p>
+            <h2>
+              Test case {currentIndex + 1} of {totalCases}
+            </h2>
           </div>
-          <button type="button" className="button ghost button--compact" onClick={handleReset}>
+          <button
+            type="button"
+            className="button ghost button--compact"
+            onClick={handleReset}
+          >
             Reset
           </button>
         </div>
-        <div className="eval-progress" role="progressbar" aria-valuenow={currentIndex + 1} aria-valuemin={1} aria-valuemax={totalCases}>
-          <div className="eval-progress__fill" style={{ width: `${progressPct}%` }} />
+        <div
+          className="eval-progress"
+          role="progressbar"
+          aria-valuenow={currentIndex + 1}
+          aria-valuemin={1}
+          aria-valuemax={totalCases}
+        >
+          <div
+            className="eval-progress__fill"
+            style={{ width: `${progressPct}%` }}
+          />
         </div>
       </div>
 
       <div className="input-card eval-question">
         <div className="eval-question__header">
           <span className="eval-question__id">{currentTestCase.id}</span>
-          <span className={`badge ${severityClass}`}>{currentTestCase.severity}</span>
+          <span className={`badge ${severityClass}`}>
+            {currentTestCase.severity}
+          </span>
         </div>
         <h3>{currentTestCase.title}</h3>
         <p className="muted">{currentTestCase.description}</p>
@@ -295,7 +337,9 @@ export function EvalRunner() {
                   name={`score-${currentTestCase.id}`}
                   value={anchor.score}
                   checked={currentResult.score === anchor.score}
-                  onChange={() => handleScoreChange(currentTestCase.id, anchor.score)}
+                  onChange={() =>
+                    handleScoreChange(currentTestCase.id, anchor.score)
+                  }
                 />
                 <span className="eval-question__radio-label">
                   {anchor.score} — {anchor.label}
@@ -309,7 +353,10 @@ export function EvalRunner() {
         </div>
 
         <div className="eval-question__field">
-          <label className="input-card__label" htmlFor={`evidence-${currentTestCase.id}`}>
+          <label
+            className="input-card__label"
+            htmlFor={`evidence-${currentTestCase.id}`}
+          >
             Evidence
           </label>
           <textarea
@@ -317,13 +364,18 @@ export function EvalRunner() {
             className="input eval-question__textarea"
             rows={3}
             value={currentResult.evidence}
-            onChange={(e) => handleEvidenceChange(currentTestCase.id, e.target.value)}
+            onChange={(e) =>
+              handleEvidenceChange(currentTestCase.id, e.target.value)
+            }
             placeholder="Describe or link to supporting evidence..."
           />
         </div>
 
         <div className="eval-question__field">
-          <label className="input-card__label" htmlFor={`notes-${currentTestCase.id}`}>
+          <label
+            className="input-card__label"
+            htmlFor={`notes-${currentTestCase.id}`}
+          >
             Notes
           </label>
           <textarea
@@ -331,7 +383,9 @@ export function EvalRunner() {
             className="input eval-question__textarea"
             rows={2}
             value={currentResult.notes}
-            onChange={(e) => handleNotesChange(currentTestCase.id, e.target.value)}
+            onChange={(e) =>
+              handleNotesChange(currentTestCase.id, e.target.value)
+            }
             placeholder="Optional notes..."
           />
         </div>
@@ -341,12 +395,14 @@ export function EvalRunner() {
           className="button ghost button--compact"
           onClick={() => setCriteriaOpen((prev) => !prev)}
         >
-          {criteriaOpen ? 'Hide' : 'Show'} pass/fail criteria
+          {criteriaOpen ? "Hide" : "Show"} pass/fail criteria
         </button>
         {criteriaOpen && (
           <div className="eval-question__criteria">
             <div>
-              <p className="muted small" style={{ fontWeight: 600 }}>Pass criteria</p>
+              <p className="muted small" style={{ fontWeight: 600 }}>
+                Pass criteria
+              </p>
               <ul className="muted small">
                 {currentTestCase.passCriteria.map((c, i) => (
                   <li key={i}>{c}</li>
@@ -354,7 +410,9 @@ export function EvalRunner() {
               </ul>
             </div>
             <div>
-              <p className="muted small" style={{ fontWeight: 600 }}>Fail indicators</p>
+              <p className="muted small" style={{ fontWeight: 600 }}>
+                Fail indicators
+              </p>
               <ul className="muted small">
                 {currentTestCase.failIndicators.map((f, i) => (
                   <li key={i}>{f}</li>
@@ -382,7 +440,11 @@ export function EvalRunner() {
             Next
           </button>
         ) : (
-          <button type="button" className="button primary" onClick={handleSubmitAll}>
+          <button
+            type="button"
+            className="button primary"
+            onClick={handleSubmitAll}
+          >
             Submit all
           </button>
         )}

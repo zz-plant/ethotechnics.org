@@ -11,7 +11,17 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { title, description, permalink, glossaryRef, definition, example, distinctSignals, ctas, faqs } = entry.data;
+const {
+  title,
+  description,
+  permalink,
+  glossaryRef,
+  definition,
+  example,
+  distinctSignals,
+  ctas,
+  faqs,
+} = entry.data;
 ---
 
 <ExplainerLayout

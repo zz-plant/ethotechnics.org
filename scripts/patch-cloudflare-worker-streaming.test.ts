@@ -8,7 +8,11 @@ import { patchCloudflareWorkerStreaming } from "./patch-cloudflare-worker-stream
 const tempRoots: string[] = [];
 
 afterEach(async () => {
-  await Promise.all(tempRoots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
+  await Promise.all(
+    tempRoots
+      .splice(0)
+      .map((root) => rm(root, { recursive: true, force: true })),
+  );
 });
 
 async function makeWorker(source: string): Promise<string> {
@@ -23,17 +27,25 @@ async function makeWorker(source: string): Promise<string> {
 
 describe("patchCloudflareWorkerStreaming", () => {
   it("forces the generated Cloudflare worker to render buffered HTML", async () => {
-    const root = await makeWorker("const app = createApp();\nasync function handle() {}");
+    const root = await makeWorker(
+      "const app = createApp();\nasync function handle() {}",
+    );
 
     await patchCloudflareWorkerStreaming(root);
 
-    const worker = await Bun.file(join(root, "dist/server/chunks/worker-entry_test.mjs")).text();
+    const worker = await Bun.file(
+      join(root, "dist/server/chunks/worker-entry_test.mjs"),
+    ).text();
     expect(worker).toContain("const app = createApp({ streaming: false });");
   });
 
   it("is safe to run more than once", async () => {
-    const root = await makeWorker("const app = createApp({ streaming: false });\nasync function handle() {}");
+    const root = await makeWorker(
+      "const app = createApp({ streaming: false });\nasync function handle() {}",
+    );
 
-    await expect(patchCloudflareWorkerStreaming(root)).resolves.toContain("worker-entry_test.mjs");
+    await expect(patchCloudflareWorkerStreaming(root)).resolves.toContain(
+      "worker-entry_test.mjs",
+    );
   });
 });

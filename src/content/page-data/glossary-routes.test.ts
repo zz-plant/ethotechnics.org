@@ -49,7 +49,11 @@ describe("buildGlossaryIndexEntries", () => {
   it("sorts entries stably when titles collide", () => {
     const index = buildGlossaryIndexEntries([...categories]);
 
-    expect(index.map((entry) => entry.id)).toEqual(["alpha", "alpha-2", "beta"]);
+    expect(index.map((entry) => entry.id)).toEqual([
+      "alpha",
+      "alpha-2",
+      "beta",
+    ]);
   });
 
   it("supports empty and single-item datasets", () => {
@@ -79,14 +83,12 @@ describe("filterGlossaryIndexEntries", () => {
   it("applies case-insensitive query semantics", () => {
     const index = buildGlossaryIndexEntries([...categories]);
 
-    expect(filterGlossaryIndexEntries(index, "ALPHA").map((entry) => entry.id)).toEqual([
-      "alpha",
-      "alpha-2",
-    ]);
+    expect(
+      filterGlossaryIndexEntries(index, "ALPHA").map((entry) => entry.id),
+    ).toEqual(["alpha", "alpha-2"]);
     expect(filterGlossaryIndexEntries(index, "")).toHaveLength(index.length);
   });
 });
-
 
 describe("buildGlossaryStructuredDataPayload", () => {
   it("creates defined-term set payload with expected counts", () => {
@@ -104,8 +106,9 @@ describe("buildGlossaryStructuredDataPayload", () => {
 
     expect(setNode).toBeDefined();
     expect(setNode?.numberOfItems).toBe(3);
-    expect((setNode as { hasDefinedTerm: Array<{ name: string }> }).hasDefinedTerm[0]?.name).toBe(
-      "Alpha",
-    );
+    expect(
+      (setNode as { hasDefinedTerm: Array<{ name: string }> }).hasDefinedTerm[0]
+        ?.name,
+    ).toBe("Alpha");
   });
 });

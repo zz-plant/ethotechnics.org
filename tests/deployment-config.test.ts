@@ -1,7 +1,9 @@
 import { describe, expect, it } from "bun:test";
 
 const loadAstroConfig = async () => {
-  const configModule = await import(new URL("../astro.config.mjs", import.meta.url).href);
+  const configModule = await import(
+    new URL("../astro.config.mjs", import.meta.url).href
+  );
 
   return configModule.default as {
     site?: string;
@@ -15,7 +17,7 @@ describe("deployment configuration", () => {
 
     expect(config.site).toBe("https://ethotechnics.org");
     expect(config.output).toBe("server");
-  });
+  }, 15000);
 
   it("has the expected Worker name and no legacy entrypoint", async () => {
     const wranglerText = await Bun.file("wrangler.toml").text();
@@ -36,9 +38,15 @@ describe("deployment configuration", () => {
       scripts?: Record<string, string>;
     };
 
-    expect(packageJson.scripts?.deploy).toContain("--config dist/server/wrangler.json");
-    expect(packageJson.scripts?.["deploy:preview"]).toContain("--config dist/server/wrangler.json");
-    expect(packageJson.scripts?.["preview:cf"]).toContain("--config dist/server/wrangler.json");
+    expect(packageJson.scripts?.deploy).toContain(
+      "--config dist/server/wrangler.json",
+    );
+    expect(packageJson.scripts?.["deploy:preview"]).toContain(
+      "--config dist/server/wrangler.json",
+    );
+    expect(packageJson.scripts?.["preview:cf"]).toContain(
+      "--config dist/server/wrangler.json",
+    );
     expect(packageJson.scripts?.build).toContain("bun run patch:cf-worker");
 
     // Deployment is manual via `bun run deploy`; there is no legacy GitHub

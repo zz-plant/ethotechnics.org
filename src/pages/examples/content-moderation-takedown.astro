@@ -24,7 +24,11 @@ const receiptPayload = `{
 }`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Worked example"
     title="Content moderation takedown"
@@ -64,13 +68,19 @@ const receiptPayload = `{
   >
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="2 hours">
-        <p class="muted">Owner confirms the case is assigned and publishes review ETA.</p>
+        <p class="muted">
+          Owner confirms the case is assigned and publishes review ETA.
+        </p>
       </CardItem>
       <CardItem title="Review clock" description="24 hours">
-        <p class="muted">Human review confirms the removal or restores the content.</p>
+        <p class="muted">
+          Human review confirms the removal or restores the content.
+        </p>
       </CardItem>
       <CardItem title="Remedy clock" description="72 hours">
-        <p class="muted">Restoration, explanation, or alternative remedy is delivered.</p>
+        <p class="muted">
+          Restoration, explanation, or alternative remedy is delivered.
+        </p>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -83,13 +93,17 @@ const receiptPayload = `{
   >
     <ul class="muted">
       <li>
-        Safety escalation can delay restoration, but the review clock must still complete.
+        Safety escalation can delay restoration, but the review clock must still
+        complete.
       </li>
       <li>
-        Legal hold allows temporary suppression, but the appeal path remains open.
+        Legal hold allows temporary suppression, but the appeal path remains
+        open.
       </li>
       <li>
-        Exceptions are logged in the <a href="/exceptions">Exceptions register</a>.
+        Exceptions are logged in the <a href="/exceptions"
+          >Exceptions register</a
+        >.
       </li>
     </ul>
   </SectionBlock>
@@ -104,7 +118,9 @@ const receiptPayload = `{
     <ul class="muted">
       <li>Restore content if the takedown is overturned.</li>
       <li>Provide a clear explanation and evidence bundle when upheld.</li>
-      <li>Offer an expedited appeal review when removal impacts income or access.</li>
+      <li>
+        Offer an expedited appeal review when removal impacts income or access.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -116,13 +132,17 @@ const receiptPayload = `{
   >
     <ul class="muted">
       <li>
-        Attach receipts to <a href="/bindings#release-gates">release gate checklists</a>.
+        Attach receipts to <a href="/bindings#release-gates"
+          >release gate checklists</a
+        >.
       </li>
       <li>
         Map to <a href="/evidence-packs">evidence packs</a> for STD-01 and STD-02.
       </li>
       <li>
-        Add procurement language from <a href="/bindings#procurement">binding vectors</a>.
+        Add procurement language from <a href="/bindings#procurement"
+          >binding vectors</a
+        >.
       </li>
     </ul>
   </SectionBlock>

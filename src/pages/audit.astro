@@ -116,9 +116,9 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
       <h2>Your Snapshot</h2>
       <div id="audit-bars"></div>
       <p class="audit-note">
-        Each bar reflects the average of your answers in that dimension.
-        This is not a scorecard that judges. It is a tool that reveals where
-        you might want to look closer.
+        Each bar reflects the average of your answers in that dimension. This is
+        not a scorecard that judges. It is a tool that reveals where you might
+        want to look closer.
       </p>
       <div class="audit-actions">
         <a href="/glossary/" class="button">Browse the glossary</a>
@@ -136,7 +136,9 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
 
 <script>
   document.getElementById("audit-submit")?.addEventListener("click", () => {
-    const form = document.getElementById("audit-form") as HTMLFormElement | null;
+    const form = document.getElementById(
+      "audit-form",
+    ) as HTMLFormElement | null;
     if (!form || !form.reportValidity()) return;
 
     const results = document.getElementById("audit-results")!;
@@ -156,11 +158,11 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
 
     for (const dim of dims) {
       const inputs = form.querySelectorAll<HTMLInputElement>(
-        `input[name^="${dim.id}-"]:checked`
+        `input[name^="${dim.id}-"]:checked`,
       );
       const total = Array.from(inputs).reduce(
         (sum, el) => sum + Number(el.value),
-        0
+        0,
       );
       const avg = inputs.length > 0 ? total / (inputs.length * 2) : 0;
       const pct = Math.round(avg * 100);
@@ -193,7 +195,9 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
   });
 
   document.getElementById("audit-reset")?.addEventListener("click", () => {
-    const form = document.getElementById("audit-form") as HTMLFormElement | null;
+    const form = document.getElementById(
+      "audit-form",
+    ) as HTMLFormElement | null;
     if (form) form.reset();
     document.getElementById("audit-results")!.hidden = true;
     document.getElementById("audit-submit")!.hidden = false;

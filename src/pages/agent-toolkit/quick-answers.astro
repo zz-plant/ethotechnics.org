@@ -78,7 +78,11 @@ const quickAnswers = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
@@ -87,27 +91,29 @@ const quickAnswers = [
     anchorLinks={anchorLinks}
   />
 
-  {quickAnswers.map((group, index) => (
-    <SectionBlock
-      id={group.category.toLowerCase()}
-      eyebrow="Quick answers"
-      title={group.category}
-      description={`Principle-aligned responses for ${group.category.toLowerCase()} questions.`}
-      className={index === 0 ? "section--banded" : undefined}
-      variant={index === quickAnswers.length - 1 ? "alt" : undefined}
-    >
-      <CardGrid className="grid--two">
-        {group.items.map((item) => (
-          <CardItem
-            title={item.question}
-            description={item.answer}
-            descriptionTone="default"
-            tags={[`Principle: ${item.principle}`]}
-          />
-        ))}
-      </CardGrid>
-    </SectionBlock>
-  ))}
+  {
+    quickAnswers.map((group, index) => (
+      <SectionBlock
+        id={group.category.toLowerCase()}
+        eyebrow="Quick answers"
+        title={group.category}
+        description={`Principle-aligned responses for ${group.category.toLowerCase()} questions.`}
+        className={index === 0 ? "section--banded" : undefined}
+        variant={index === quickAnswers.length - 1 ? "alt" : undefined}
+      >
+        <CardGrid className="grid--two">
+          {group.items.map((item) => (
+            <CardItem
+              title={item.question}
+              description={item.answer}
+              descriptionTone="default"
+              tags={[`Principle: ${item.principle}`]}
+            />
+          ))}
+        </CardGrid>
+      </SectionBlock>
+    ))
+  }
 
   <SectionBlock
     eyebrow="Next steps"
@@ -115,12 +121,8 @@ const quickAnswers = [
     description="Offer a path to explore the full mechanisms catalog or principle definitions."
   >
     <SectionActions>
-      <a class="button ghost" href="/mechanisms">
-        Explore the mechanisms
-      </a>
-      <a class="button ghost" href="/glossary">
-        Review the glossary
-      </a>
+      <a class="button ghost" href="/mechanisms"> Explore the mechanisms </a>
+      <a class="button ghost" href="/glossary"> Review the glossary </a>
     </SectionActions>
   </SectionBlock>
 </BaseLayout>

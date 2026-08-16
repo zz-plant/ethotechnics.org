@@ -82,7 +82,11 @@ const stewardshipFlows = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow={hero.eyebrow}
     title={hero.heading}
@@ -99,16 +103,18 @@ const stewardshipFlows = [
     className="section--banded"
   >
     <CardGrid className="grid--two">
-      {decisionFlows.map((flow) => (
-        <CardItem title={flow.title} descriptionTone="default">
-          <ol class="muted">
-            {flow.steps.map((step) => (
-              <li>{step}</li>
-            ))}
-          </ol>
-          <p class="muted small">Outcome: {flow.outcome}</p>
-        </CardItem>
-      ))}
+      {
+        decisionFlows.map((flow) => (
+          <CardItem title={flow.title} descriptionTone="default">
+            <ol class="muted">
+              {flow.steps.map((step) => (
+                <li>{step}</li>
+              ))}
+            </ol>
+            <p class="muted small">Outcome: {flow.outcome}</p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -119,16 +125,18 @@ const stewardshipFlows = [
     description="Use these flows when ethics failures or regressions surface."
   >
     <CardGrid className="grid--two">
-      {riskFlows.map((flow) => (
-        <CardItem title={flow.title} descriptionTone="default">
-          <ol class="muted">
-            {flow.steps.map((step) => (
-              <li>{step}</li>
-            ))}
-          </ol>
-          <p class="muted small">Outcome: {flow.outcome}</p>
-        </CardItem>
-      ))}
+      {
+        riskFlows.map((flow) => (
+          <CardItem title={flow.title} descriptionTone="default">
+            <ol class="muted">
+              {flow.steps.map((step) => (
+                <li>{step}</li>
+              ))}
+            </ol>
+            <p class="muted small">Outcome: {flow.outcome}</p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -140,16 +148,18 @@ const stewardshipFlows = [
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {stewardshipFlows.map((flow) => (
-        <CardItem title={flow.title} descriptionTone="default">
-          <ol class="muted">
-            {flow.steps.map((step) => (
-              <li>{step}</li>
-            ))}
-          </ol>
-          <p class="muted small">Outcome: {flow.outcome}</p>
-        </CardItem>
-      ))}
+      {
+        stewardshipFlows.map((flow) => (
+          <CardItem title={flow.title} descriptionTone="default">
+            <ol class="muted">
+              {flow.steps.map((step) => (
+                <li>{step}</li>
+              ))}
+            </ol>
+            <p class="muted small">Outcome: {flow.outcome}</p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 </BaseLayout>

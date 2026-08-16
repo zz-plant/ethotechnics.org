@@ -13,17 +13,20 @@ const mechanismDomains = [
   {
     slug: "governance",
     title: "Governance",
-    summary: "Controls for oversight, accountability, and transparent stewardship.",
+    summary:
+      "Controls for oversight, accountability, and transparent stewardship.",
   },
   {
     slug: "friction",
     title: "Friction",
-    summary: "Controls that make high-risk actions pause, explain, and escalate.",
+    summary:
+      "Controls that make high-risk actions pause, explain, and escalate.",
   },
   {
     slug: "policy",
     title: "Policy",
-    summary: "Controls that bind standards into operational and legal pathways.",
+    summary:
+      "Controls that bind standards into operational and legal pathways.",
   },
 ] as const;
 
@@ -35,7 +38,12 @@ const patternsByDomain = mechanismDomains.map((domain) => ({
 }));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} openGraphType="website" publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  openGraphType="website"
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Programmatic index"
     title="Mechanisms by domain"
@@ -59,13 +67,17 @@ const patternsByDomain = mechanismDomains.map((domain) => ({
           <ul>
             {patterns.map((pattern) => (
               <li>
-                <a href={`/mechanisms/patterns/${pattern.slug}`}>{pattern.title}</a>
+                <a href={`/mechanisms/patterns/${pattern.slug}`}>
+                  {pattern.title}
+                </a>
                 <span class="muted"> — {pattern.summary}</span>
               </li>
             ))}
           </ul>
         ) : (
-          <p class="muted">No mapped mechanisms published for this domain yet.</p>
+          <p class="muted">
+            No mapped mechanisms published for this domain yet.
+          </p>
         )}
       </SectionBlock>
     ))

@@ -22,7 +22,8 @@ const tiers = [
   {
     tier: "Tier 2 (resilient)",
     description: "Proof the controls hold during incidents.",
-    evidence: "Incident memos, regulator-ready exports, remedy verification logs.",
+    evidence:
+      "Incident memos, regulator-ready exports, remedy verification logs.",
   },
 ];
 
@@ -41,7 +42,8 @@ const artifacts = [
   },
   {
     title: "Disclosure packet",
-    details: "Receipt, reason, appeal path, and clock visibility for affected people.",
+    details:
+      "Receipt, reason, appeal path, and clock visibility for affected people.",
   },
   {
     title: "Do-not-deploy boundary register",
@@ -65,7 +67,11 @@ const portabilityChecklist = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Evidence pack"
     title="STD-06 Evidence Pack"
@@ -94,11 +100,14 @@ const portabilityChecklist = [
     description="Start with Tier 0 for baseline proof, then scale to Tier 2 for resilience."
   >
     <ul class="muted">
-      {tiers.map((tier) => (
-        <li>
-          <strong>{tier.tier}:</strong> {tier.description} <span class="muted">{tier.evidence}</span>
-        </li>
-      ))}
+      {
+        tiers.map((tier) => (
+          <li>
+            <strong>{tier.tier}:</strong> {tier.description}{" "}
+            <span class="muted">{tier.evidence}</span>
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -110,11 +119,13 @@ const portabilityChecklist = [
     variant="alt"
   >
     <ul class="muted">
-      {artifacts.map((artifact) => (
-        <li>
-          <strong>{artifact.title}:</strong> {artifact.details}
-        </li>
-      ))}
+      {
+        artifacts.map((artifact) => (
+          <li>
+            <strong>{artifact.title}:</strong> {artifact.details}
+          </li>
+        ))
+      }
     </ul>
   </SectionBlock>
 
@@ -125,9 +136,7 @@ const portabilityChecklist = [
     description="Provide proof for every test in STD-06 before deployment."
   >
     <ul class="muted">
-      {testEvidence.map((item) => (
-        <li>{item}</li>
-      ))}
+      {testEvidence.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 
@@ -139,9 +148,7 @@ const portabilityChecklist = [
     variant="alt"
   >
     <ul class="muted">
-      {portabilityChecklist.map((item) => (
-        <li>{item}</li>
-      ))}
+      {portabilityChecklist.map((item) => <li>{item}</li>)}
     </ul>
   </SectionBlock>
 
@@ -153,9 +160,14 @@ const portabilityChecklist = [
   >
     <ul class="muted">
       <li>Show the latest safety case summary and its test battery results.</li>
-      <li>Provide the last three halt drill receipts with time-to-halt measurements.</li>
+      <li>
+        Provide the last three halt drill receipts with time-to-halt
+        measurements.
+      </li>
       <li>Demonstrate remedy clock compliance with verification evidence.</li>
-      <li>Show the public-facing disclosure packet used for affected people.</li>
+      <li>
+        Show the public-facing disclosure packet used for affected people.
+      </li>
     </ul>
   </SectionBlock>
 
@@ -171,7 +183,9 @@ const portabilityChecklist = [
         <p class="eyebrow">Standard</p>
         <ul class="muted">
           <li>
-            <a href="/standards/std-06-human-impact-safety-case">STD-06 Safety Case</a>
+            <a href="/standards/std-06-human-impact-safety-case"
+              >STD-06 Safety Case</a
+            >
           </li>
         </ul>
       </div>

@@ -192,10 +192,7 @@ for (const category of glossary.categories) {
       });
     }
 
-    const resources = [
-      ...(entry.references ?? []),
-      ...(entry.resources ?? []),
-    ];
+    const resources = [...(entry.references ?? []), ...(entry.resources ?? [])];
 
     resources.forEach((resource) => {
       if (!isValidHref(resource.href)) {

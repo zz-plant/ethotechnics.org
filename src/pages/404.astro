@@ -68,11 +68,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   .glitch-text {
     position: relative;
   }
-  
+
   /* Simple optional glitch effect preference */
   @media (prefers-reduced-motion: no-preference) {
     .glitch-text:hover {
-      text-shadow: 2px 0 var(--color-primary-base), -2px 0 var(--color-accent-base);
+      text-shadow:
+        2px 0 var(--color-primary-base),
+        -2px 0 var(--color-accent-base);
     }
   }
 </style>

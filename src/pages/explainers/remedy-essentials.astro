@@ -22,72 +22,73 @@ const essentials = [
     title: "Bounded pending",
     description:
       "Every contested state has a published maximum duration. No account, benefit, or payment sits in limbo indefinitely.",
-    why:
-      "Without bounds, systems drift into silent denial. Time caps force decisions and prevent hidden backlogs from becoming policy.",
-    signals: "Pending states are time-boxed, with auto-escalation or fallback when the clock expires.",
+    why: "Without bounds, systems drift into silent denial. Time caps force decisions and prevent hidden backlogs from becoming policy.",
+    signals:
+      "Pending states are time-boxed, with auto-escalation or fallback when the clock expires.",
   },
   {
     title: "Remedy SLAs",
     description:
       "Publish acknowledgment, review, and remedy clocks so affected people know when action will land.",
-    why:
-      "Explicit SLAs turn promises into enforceable commitments, making delays measurable and fixable.",
-    signals: "Receipts include timestamps, owners, and SLA targets for every stage.",
+    why: "Explicit SLAs turn promises into enforceable commitments, making delays measurable and fixable.",
+    signals:
+      "Receipts include timestamps, owners, and SLA targets for every stage.",
   },
   {
     title: "Default provisional reinstatement",
     description:
       "When evidence is incomplete, restore access or privilege provisionally while review continues.",
-    why:
-      "It minimizes collateral harm by making the default state reversible, especially for essential services.",
-    signals: "Systems can grant safe, limited access pending review with a clear rollback plan.",
+    why: "It minimizes collateral harm by making the default state reversible, especially for essential services.",
+    signals:
+      "Systems can grant safe, limited access pending review with a clear rollback plan.",
   },
   {
     title: "Clear escalation paths",
     description:
       "Escalation ladders name who can override, with a defined path to human authority.",
-    why:
-      "Escalation is the fail-safe that stops automated error from turning into institutional inertia.",
-    signals: "On-call rosters and authority scopes are visible in receipts and internal playbooks.",
+    why: "Escalation is the fail-safe that stops automated error from turning into institutional inertia.",
+    signals:
+      "On-call rosters and authority scopes are visible in receipts and internal playbooks.",
   },
   {
     title: "Compensation or fee shifting",
     description:
       "Wrongful harm triggers automatic credits, fee waivers, or restitution timelines.",
-    why:
-      "Compensation aligns incentives and makes the cost of error explicit to operators.",
+    why: "Compensation aligns incentives and makes the cost of error explicit to operators.",
     signals: "Remedy outcomes log restitution amounts and delivery dates.",
   },
   {
     title: "Time-to-remedy distribution",
     description:
       "Track the full distribution, not just averages, of how long remedies take.",
-    why:
-      "Distributions reveal tail risk, showing who waits the longest and where equity gaps hide.",
+    why: "Distributions reveal tail risk, showing who waits the longest and where equity gaps hide.",
     signals: "Dashboards show median, p90, and p99 remedy times by segment.",
   },
   {
     title: "Constraints on discretionary holds",
     description:
       "Holds need clear criteria, owners, and maximum durations even under fraud or legal review.",
-    why:
-      "Discretion without guardrails is indistinguishable from silent denial.",
-    signals: "Hold policies specify reasons, clocks, and appeal paths; exceptions are audited.",
+    why: "Discretion without guardrails is indistinguishable from silent denial.",
+    signals:
+      "Hold policies specify reasons, clocks, and appeal paths; exceptions are audited.",
   },
   {
     title: "Reversal drills and error budgets",
     description:
       "Practice reversals and quantify how much error the system can tolerate before halting.",
-    why:
-      "Drills prove readiness, while error budgets prevent slow degradation of remedy performance.",
-    signals: "Quarterly drills, post-incident reviews, and error budget burn alerts are documented.",
+    why: "Drills prove readiness, while error budgets prevent slow degradation of remedy performance.",
+    signals:
+      "Quarterly drills, post-incident reviews, and error budget burn alerts are documented.",
   },
 ];
 
 const mapLanes = [
   {
     title: "Guardrails before harm",
-    items: ["Constraints on discretionary holds", "Default provisional reinstatement"],
+    items: [
+      "Constraints on discretionary holds",
+      "Default provisional reinstatement",
+    ],
   },
   {
     title: "Clocks + escalation during review",
@@ -115,7 +116,11 @@ const checklist = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Explainer"
     title={pageTitle}
@@ -127,7 +132,10 @@ const checklist = [
       title: "Remedy is the credibility test",
       description:
         "Contestability only works when remedies are fast, bounded, and backed by clear authority. These eight mechanisms form the minimum viable spine for trustworthy recourse.",
-      link: { label: "Read STD-02", href: "/standards/std-02-contestability-recourse" },
+      link: {
+        label: "Read STD-02",
+        href: "/standards/std-02-contestability-recourse",
+      },
     }}
   />
 
@@ -138,16 +146,18 @@ const checklist = [
     description="Each mechanism anchors a specific phase of the remedy lifecycle. Together they keep review bounded, equitable, and enforceable."
   >
     <div class="remedy-map" role="list">
-      {mapLanes.map((lane) => (
-        <div class="remedy-map__lane" role="listitem">
-          <p class="eyebrow">{lane.title}</p>
-          <ul>
-            {lane.items.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {
+        mapLanes.map((lane) => (
+          <div class="remedy-map__lane" role="listitem">
+            <p class="eyebrow">{lane.title}</p>
+            <ul>
+              {lane.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </div>
   </SectionBlock>
 
@@ -159,42 +169,49 @@ const checklist = [
     variant="alt"
   >
     <CardGrid>
-      {essentials.map((item) => (
-        <CardItem
-          title={item.title}
-          description={item.description}
-          descriptionTone="default"
-        >
-          <div class="remedy-card__icon" aria-hidden="true">
-            <svg class="remedy-icon" viewBox="0 0 48 48" role="presentation">
-              <circle class="remedy-icon__pulse" cx="24" cy="24" r="10">
-                <animate attributeName="r" values="8;16;8" dur="3.2s" repeatCount="indefinite" />
-                <animate
-                  attributeName="opacity"
-                  values="0.45;0.05;0.45"
-                  dur="3.2s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle class="remedy-icon__core" cx="24" cy="24" r="6" />
-              <path
-                class="remedy-icon__arc"
-                d="M14 24a10 10 0 0 1 20 0"
-                pathLength="40"
-              >
-                <animate
-                  attributeName="stroke-dashoffset"
-                  values="0;40"
-                  dur="2.6s"
-                  repeatCount="indefinite"
-                />
-              </path>
-            </svg>
-          </div>
-          <p class="muted">Why it matters: {item.why}</p>
-          <p class="muted">Signal: {item.signals}</p>
-        </CardItem>
-      ))}
+      {
+        essentials.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.description}
+            descriptionTone="default"
+          >
+            <div class="remedy-card__icon" aria-hidden="true">
+              <svg class="remedy-icon" viewBox="0 0 48 48" role="presentation">
+                <circle class="remedy-icon__pulse" cx="24" cy="24" r="10">
+                  <animate
+                    attributeName="r"
+                    values="8;16;8"
+                    dur="3.2s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0.45;0.05;0.45"
+                    dur="3.2s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+                <circle class="remedy-icon__core" cx="24" cy="24" r="6" />
+                <path
+                  class="remedy-icon__arc"
+                  d="M14 24a10 10 0 0 1 20 0"
+                  pathLength="40"
+                >
+                  <animate
+                    attributeName="stroke-dashoffset"
+                    values="0;40"
+                    dur="2.6s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+              </svg>
+            </div>
+            <p class="muted">Why it matters: {item.why}</p>
+            <p class="muted">Signal: {item.signals}</p>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -209,7 +226,10 @@ const checklist = [
       description="Start with visible clocks and escalation ownership, then layer in restitution and distribution tracking."
       takeaways={checklist}
       relatedLinks={[
-        { label: "Remedy clocks", href: "/standards/std-02-contestability-recourse" },
+        {
+          label: "Remedy clocks",
+          href: "/standards/std-02-contestability-recourse",
+        },
         { label: "Bounded exceptions", href: "/exceptions" },
         { label: "Evidence packs", href: "/evidence-packs" },
       ]}
@@ -218,7 +238,9 @@ const checklist = [
   </SectionBlock>
 
   <p class="muted" style="margin-top:2rem">
-    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a>
+    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
+      >Standards</a
+    >
   </p>
 </BaseLayout>
 

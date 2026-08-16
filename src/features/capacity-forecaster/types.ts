@@ -1,4 +1,4 @@
-export type SystemStability = 'RESILIENT' | 'DEGRADED' | 'UNSTABLE';
+export type SystemStability = "RESILIENT" | "DEGRADED" | "UNSTABLE";
 
 export interface OperationalMetrics {
   velocityIndex: number; // 0-100

@@ -34,7 +34,10 @@ const structuredData = {
     "@type": "CreativeWork",
     name: suite.title,
     description: suite.description,
-    url: new URL(`/evals/${suite.slug}`, Astro.site ?? Astro.url.origin).toString(),
+    url: new URL(
+      `/evals/${suite.slug}`,
+      Astro.site ?? Astro.url.origin,
+    ).toString(),
     version: suite.version,
   })),
 };
@@ -76,8 +79,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 <span class={`status-badge status-badge--${suite.status}`}>
                   {suite.status}
                 </span>
-                · {testCount} test case{testCount === 1 ? "" : "s"}
-                · Est. {suite.estimatedTime}
+                · {testCount} test case{testCount === 1 ? "" : "s"}· Est.{" "}
+                {suite.estimatedTime}
               </p>
               <a slot="footer" class="muted" href={`/evals/${suite.slug}`}>
                 Open suite
@@ -102,21 +105,34 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <ul class="card__list">
           <li><strong>Binary:</strong> Pass/fail — condition is met or not.</li>
           <li><strong>0–3:</strong> Absent → Partial → Adequate → Strong.</li>
-          <li><strong>0–5:</strong> Absent → Minimal → Basic → Adequate → Strong → Exemplary.</li>
+          <li>
+            <strong>0–5:</strong> Absent → Minimal → Basic → Adequate → Strong → Exemplary.
+          </li>
         </ul>
       </div>
       <div class="panel">
         <p class="eyebrow">Scoring methods</p>
         <ul class="card__list">
-          <li><strong>Weighted average:</strong> Each test case contributes according to its weight. Overall score must meet the passing threshold.</li>
-          <li><strong>Min-threshold:</strong> All test cases must score at or above the minimum threshold. Single critical failure fails the suite.</li>
-          <li><strong>All-must-pass:</strong> Every test case must pass. Used for high-stakes suites.</li>
+          <li>
+            <strong>Weighted average:</strong> Each test case contributes according
+            to its weight. Overall score must meet the passing threshold.
+          </li>
+          <li>
+            <strong>Min-threshold:</strong> All test cases must score at or above
+            the minimum threshold. Single critical failure fails the suite.
+          </li>
+          <li>
+            <strong>All-must-pass:</strong> Every test case must pass. Used for high-stakes
+            suites.
+          </li>
         </ul>
       </div>
       <div class="panel">
         <p class="eyebrow">Manual scoring</p>
         <p class="muted">
-          In Phase 1, all evals are run manually. A human reviewer runs each test case, captures evidence, and assigns scores using the rubric. Automated runner support is planned for Phase 2.
+          In Phase 1, all evals are run manually. A human reviewer runs each
+          test case, captures evidence, and assigns scores using the rubric.
+          Automated runner support is planned for Phase 2.
         </p>
       </div>
     </div>
@@ -129,24 +145,25 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Use the eval runner to step through test cases, capture evidence, and generate a scored report."
   >
     <p>
-      <a class="button primary" href="/evals/runner">
-        Open eval runner
-      </a>
+      <a class="button primary" href="/evals/runner"> Open eval runner </a>
     </p>
     <ul class="card__list">
-      <li>Select a suite or run all suites for a full governability assessment.</li>
-      <li>Each test case presents a prompt and system context for the reviewer.</li>
+      <li>
+        Select a suite or run all suites for a full governability assessment.
+      </li>
+      <li>
+        Each test case presents a prompt and system context for the reviewer.
+      </li>
       <li>Score each test case using the provided rubric anchors.</li>
       <li>Attach evidence and notes for each test case.</li>
-      <li>Generate a scored report with aggregate score, grade, and recommendations.</li>
+      <li>
+        Generate a scored report with aggregate score, grade, and
+        recommendations.
+      </li>
     </ul>
   </SectionBlock>
 
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
 </BaseLayout>
 
 <style>

@@ -1,4 +1,12 @@
-import { afterAll, afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
+import {
+  afterAll,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  mock,
+} from "bun:test";
 
 let importId = 0;
 const BASE = "https://ethotechnics.org/research";
@@ -33,47 +41,85 @@ async function init(url?: string) {
   return { rs };
 }
 
-function raf() { return new Promise<void>((r) => requestAnimationFrame(() => r())); }
+function raf() {
+  return new Promise<void>((r) => requestAnimationFrame(() => r()));
+}
 
 describe("research-filter", () => {
   afterAll(() => {
     history.replaceState = origReplaceState;
     window.location.href = "about:blank";
   });
-  beforeEach(() => { document.body.innerHTML = ""; });
-  afterEach(() => { document.body.innerHTML = ""; });
+  beforeEach(() => {
+    document.body.innerHTML = "";
+  });
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
 
   describe("URL params", () => {
     it("reads query", async () => {
       await init(`${BASE}?query=machine+learning`);
-      expect(document.querySelector<HTMLInputElement>("#research-filter")?.value).toBe("machine learning");
+      expect(
+        document.querySelector<HTMLInputElement>("#research-filter")?.value,
+      ).toBe("machine learning");
     });
     it("reads section", async () => {
       await init(`${BASE}?section=design`);
-      expect(document.querySelector<HTMLSelectElement>('[data-research-filter="section"]')?.value).toBe("design");
+      expect(
+        document.querySelector<HTMLSelectElement>(
+          '[data-research-filter="section"]',
+        )?.value,
+      ).toBe("design");
     });
     it("reads tag", async () => {
       await init(`${BASE}?tag=accessibility`);
-      expect(document.querySelector<HTMLSelectElement>('[data-research-filter="tag"]')?.value).toBe("accessibility");
+      expect(
+        document.querySelector<HTMLSelectElement>(
+          '[data-research-filter="tag"]',
+        )?.value,
+      ).toBe("accessibility");
     });
     it("reads type", async () => {
       await init(`${BASE}?type=report`);
-      expect(document.querySelector<HTMLSelectElement>('[data-research-filter="type"]')?.value).toBe("report");
+      expect(
+        document.querySelector<HTMLSelectElement>(
+          '[data-research-filter="type"]',
+        )?.value,
+      ).toBe("report");
     });
     it("reads multiple", async () => {
       await init(`${BASE}?query=design&section=design&type=report`);
-      expect(document.querySelector<HTMLInputElement>("#research-filter")?.value).toBe("design");
-      expect(document.querySelector<HTMLSelectElement>('[data-research-filter="section"]')?.value).toBe("design");
-      expect(document.querySelector<HTMLSelectElement>('[data-research-filter="type"]')?.value).toBe("report");
+      expect(
+        document.querySelector<HTMLInputElement>("#research-filter")?.value,
+      ).toBe("design");
+      expect(
+        document.querySelector<HTMLSelectElement>(
+          '[data-research-filter="section"]',
+        )?.value,
+      ).toBe("design");
+      expect(
+        document.querySelector<HTMLSelectElement>(
+          '[data-research-filter="type"]',
+        )?.value,
+      ).toBe("report");
     });
     it("syncs URL on select", async () => {
       const { rs } = await init();
-      const sel = document.querySelector<HTMLSelectElement>('[data-research-filter="section"]')!;
+      const sel = document.querySelector<HTMLSelectElement>(
+        '[data-research-filter="section"]',
+      )!;
       sel.value = "ethics";
       sel.dispatchEvent(new Event("change", { bubbles: true }));
       await raf();
       const c = rs.mock.calls as unknown[][];
-      expect(c.some((x) => typeof x[2] === "string" && (x[2] as string).includes("section=ethics"))).toBe(true);
+      expect(
+        c.some(
+          (x) =>
+            typeof x[2] === "string" &&
+            (x[2] as string).includes("section=ethics"),
+        ),
+      ).toBe(true);
     });
   });
 
@@ -81,51 +127,93 @@ describe("research-filter", () => {
     it("text hides non-matching", async () => {
       await init();
       const inp = document.querySelector<HTMLInputElement>("#research-filter")!;
-      inp.value = "machine learning"; inp.dispatchEvent(new Event("input", { bubbles: true })); await raf();
-      const hidden = Array.from(document.querySelectorAll<HTMLElement>("[data-research-item]")).filter((e) => e.classList.contains("is-hidden"));
+      inp.value = "machine learning";
+      inp.dispatchEvent(new Event("input", { bubbles: true }));
+      await raf();
+      const hidden = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-research-item]"),
+      ).filter((e) => e.classList.contains("is-hidden"));
       expect(hidden.length).toBe(2);
     });
     it("by section", async () => {
       await init();
-      const sel = document.querySelector<HTMLSelectElement>('[data-research-filter="section"]')!;
-      sel.value = "design"; sel.dispatchEvent(new Event("change", { bubbles: true })); await raf();
-      const vis = Array.from(document.querySelectorAll<HTMLElement>("[data-research-item]")).filter((e) => !e.classList.contains("is-hidden"));
+      const sel = document.querySelector<HTMLSelectElement>(
+        '[data-research-filter="section"]',
+      )!;
+      sel.value = "design";
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      await raf();
+      const vis = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-research-item]"),
+      ).filter((e) => !e.classList.contains("is-hidden"));
       expect(vis.length).toBe(1);
       expect(vis[0]?.textContent).toContain("Design Methods");
     });
     it("by tag", async () => {
       await init();
-      const sel = document.querySelector<HTMLSelectElement>('[data-research-filter="tag"]')!;
-      sel.value = "accessibility"; sel.dispatchEvent(new Event("change", { bubbles: true })); await raf();
-      expect(Array.from(document.querySelectorAll<HTMLElement>("[data-research-item]")).filter((e) => !e.classList.contains("is-hidden")).length).toBe(1);
+      const sel = document.querySelector<HTMLSelectElement>(
+        '[data-research-filter="tag"]',
+      )!;
+      sel.value = "accessibility";
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      await raf();
+      expect(
+        Array.from(
+          document.querySelectorAll<HTMLElement>("[data-research-item]"),
+        ).filter((e) => !e.classList.contains("is-hidden")).length,
+      ).toBe(1);
     });
     it("by type", async () => {
       await init();
-      const sel = document.querySelector<HTMLSelectElement>('[data-research-filter="type"]')!;
-      sel.value = "report"; sel.dispatchEvent(new Event("change", { bubbles: true })); await raf();
-      expect(Array.from(document.querySelectorAll<HTMLElement>("[data-research-item]")).filter((e) => !e.classList.contains("is-hidden")).length).toBe(1);
+      const sel = document.querySelector<HTMLSelectElement>(
+        '[data-research-filter="type"]',
+      )!;
+      sel.value = "report";
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      await raf();
+      expect(
+        Array.from(
+          document.querySelectorAll<HTMLElement>("[data-research-item]"),
+        ).filter((e) => !e.classList.contains("is-hidden")).length,
+      ).toBe(1);
     });
     it("combines text and facet", async () => {
       await init();
       const inp = document.querySelector<HTMLInputElement>("#research-filter")!;
-      const sel = document.querySelector<HTMLSelectElement>('[data-research-filter="section"]')!;
-      sel.value = "ethics"; sel.dispatchEvent(new Event("change", { bubbles: true })); await raf();
-      let vis = Array.from(document.querySelectorAll<HTMLElement>("[data-research-item]")).filter((e) => !e.classList.contains("is-hidden"));
+      const sel = document.querySelector<HTMLSelectElement>(
+        '[data-research-filter="section"]',
+      )!;
+      sel.value = "ethics";
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      await raf();
+      let vis = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-research-item]"),
+      ).filter((e) => !e.classList.contains("is-hidden"));
       expect(vis.length).toBe(2);
-      inp.value = "research"; inp.dispatchEvent(new Event("input", { bubbles: true })); await raf();
-      vis = Array.from(document.querySelectorAll<HTMLElement>("[data-research-item]")).filter((e) => !e.classList.contains("is-hidden"));
+      inp.value = "research";
+      inp.dispatchEvent(new Event("input", { bubbles: true }));
+      await raf();
+      vis = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-research-item]"),
+      ).filter((e) => !e.classList.contains("is-hidden"));
       expect(vis.length).toBe(1);
       expect(vis[0]?.textContent).toContain("Accessibility Research");
     });
     it("shows empty state", async () => {
       await init();
       const inp = document.querySelector<HTMLInputElement>("#research-filter")!;
-      inp.value = "zzzznonexistent"; inp.dispatchEvent(new Event("input", { bubbles: true })); await raf();
-      expect(document.querySelector<HTMLElement>(".research-filter__empty")?.hidden).toBe(false);
+      inp.value = "zzzznonexistent";
+      inp.dispatchEvent(new Event("input", { bubbles: true }));
+      await raf();
+      expect(
+        document.querySelector<HTMLElement>(".research-filter__empty")?.hidden,
+      ).toBe(false);
     });
     it("hides empty with matches", async () => {
       await init();
-      expect(document.querySelector<HTMLElement>(".research-filter__empty")?.hidden).toBe(true);
+      expect(
+        document.querySelector<HTMLElement>(".research-filter__empty")?.hidden,
+      ).toBe(true);
     });
   });
 
@@ -133,70 +221,131 @@ describe("research-filter", () => {
     it("shows filtered", async () => {
       await init();
       const inp = document.querySelector<HTMLInputElement>("#research-filter")!;
-      inp.value = "bias"; inp.dispatchEvent(new Event("input", { bubbles: true })); await raf();
-      expect(document.querySelector<HTMLElement>(".research-filter__count")?.textContent).toContain("Showing 1 of 3 entries");
+      inp.value = "bias";
+      inp.dispatchEvent(new Event("input", { bubbles: true }));
+      await raf();
+      expect(
+        document.querySelector<HTMLElement>(".research-filter__count")
+          ?.textContent,
+      ).toContain("Showing 1 of 3 entries");
     });
     it("shows facet label", async () => {
       await init();
-      const sel = document.querySelector<HTMLSelectElement>('[data-research-filter="section"]')!;
-      sel.value = "design"; sel.dispatchEvent(new Event("change", { bubbles: true })); await raf();
-      expect(document.querySelector<HTMLElement>(".research-filter__count")?.textContent).toContain("Design");
+      const sel = document.querySelector<HTMLSelectElement>(
+        '[data-research-filter="section"]',
+      )!;
+      sel.value = "design";
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      await raf();
+      expect(
+        document.querySelector<HTMLElement>(".research-filter__count")
+          ?.textContent,
+      ).toContain("Design");
     });
     it("respects data-total", async () => {
       history.replaceState = origReplaceState;
       window.location.href = BASE;
-      document.body.innerHTML = fixture().replace('data-total="3"', 'data-total="42"');
+      document.body.innerHTML = fixture().replace(
+        'data-total="3"',
+        'data-total="42"',
+      );
       importId += 1;
       await import(`./research-filter.ts?v=dt-${importId}`);
-      expect(document.querySelector<HTMLElement>(".research-filter__count")?.textContent).toContain("of 42");
+      expect(
+        document.querySelector<HTMLElement>(".research-filter__count")
+          ?.textContent,
+      ).toContain("of 42");
     });
   });
 
   describe("clear", () => {
     it("clears input and selects", async () => {
       await init(`${BASE}?query=test&section=ethics&tag=bias`);
-      expect(document.querySelector<HTMLInputElement>("#research-filter")?.value).toBe("test");
-      expect(document.querySelector<HTMLSelectElement>('[data-research-filter="section"]')?.value).toBe("ethics");
-      document.querySelector<HTMLButtonElement>("[data-clear-research-filter]")?.click(); await raf();
-      expect(document.querySelector<HTMLInputElement>("#research-filter")?.value).toBe("");
-      expect(document.querySelector<HTMLSelectElement>('[data-research-filter="section"]')?.value).toBe("");
+      expect(
+        document.querySelector<HTMLInputElement>("#research-filter")?.value,
+      ).toBe("test");
+      expect(
+        document.querySelector<HTMLSelectElement>(
+          '[data-research-filter="section"]',
+        )?.value,
+      ).toBe("ethics");
+      document
+        .querySelector<HTMLButtonElement>("[data-clear-research-filter]")
+        ?.click();
+      await raf();
+      expect(
+        document.querySelector<HTMLInputElement>("#research-filter")?.value,
+      ).toBe("");
+      expect(
+        document.querySelector<HTMLSelectElement>(
+          '[data-research-filter="section"]',
+        )?.value,
+      ).toBe("");
     });
     it("disabled when idle", async () => {
       await init();
-      expect(document.querySelector<HTMLButtonElement>("[data-clear-research-filter]")?.disabled).toBe(true);
+      expect(
+        document.querySelector<HTMLButtonElement>(
+          "[data-clear-research-filter]",
+        )?.disabled,
+      ).toBe(true);
     });
     it("enabled with value", async () => {
       await init();
-      const sel = document.querySelector<HTMLSelectElement>('[data-research-filter="type"]')!;
-      sel.value = "paper"; sel.dispatchEvent(new Event("change", { bubbles: true })); await raf();
-      expect(document.querySelector<HTMLButtonElement>("[data-clear-research-filter]")?.disabled).toBe(false);
+      const sel = document.querySelector<HTMLSelectElement>(
+        '[data-research-filter="type"]',
+      )!;
+      sel.value = "paper";
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      await raf();
+      expect(
+        document.querySelector<HTMLButtonElement>(
+          "[data-clear-research-filter]",
+        )?.disabled,
+      ).toBe(false);
     });
   });
 
   describe("expand/collapse", () => {
     it("expands on filter", async () => {
       await init();
-      document.querySelector<HTMLInputElement>("#research-filter")!.value = "test";
-      document.querySelector<HTMLInputElement>("#research-filter")!.dispatchEvent(new Event("input", { bubbles: true }));
+      document.querySelector<HTMLInputElement>("#research-filter")!.value =
+        "test";
+      document
+        .querySelector<HTMLInputElement>("#research-filter")!
+        .dispatchEvent(new Event("input", { bubbles: true }));
       await raf();
-      document.querySelectorAll<HTMLDetailsElement>(".chunked-section").forEach((s) => expect(s.open).toBe(true));
+      document
+        .querySelectorAll<HTMLDetailsElement>(".chunked-section")
+        .forEach((s) => expect(s.open).toBe(true));
     });
     it("respects defaultOpen", async () => {
       await init();
-      const s = document.querySelectorAll<HTMLDetailsElement>(".chunked-section");
+      const s =
+        document.querySelectorAll<HTMLDetailsElement>(".chunked-section");
       expect(s[0]?.open).toBe(true);
       expect(s[1]?.open).toBe(false);
     });
     it("expand all", async () => {
       await init();
-      document.querySelector<HTMLButtonElement>("[data-research-expand]")?.click();
-      document.querySelectorAll<HTMLDetailsElement>(".chunked-section").forEach((s) => expect(s.open).toBe(true));
+      document
+        .querySelector<HTMLButtonElement>("[data-research-expand]")
+        ?.click();
+      document
+        .querySelectorAll<HTMLDetailsElement>(".chunked-section")
+        .forEach((s) => expect(s.open).toBe(true));
     });
     it("collapse all", async () => {
       await init();
-      document.querySelector<HTMLButtonElement>("[data-research-expand]")?.click();
-      document.querySelector<HTMLButtonElement>("[data-research-collapse]")?.click();
-      document.querySelectorAll<HTMLDetailsElement>(".chunked-section").forEach((s) => expect(s.open).toBe(false));
+      document
+        .querySelector<HTMLButtonElement>("[data-research-expand]")
+        ?.click();
+      document
+        .querySelector<HTMLButtonElement>("[data-research-collapse]")
+        ?.click();
+      document
+        .querySelectorAll<HTMLDetailsElement>(".chunked-section")
+        .forEach((s) => expect(s.open).toBe(false));
     });
   });
 
@@ -220,13 +369,20 @@ describe("research-filter", () => {
     it("esc clears", async () => {
       await init();
       const inp = document.querySelector<HTMLInputElement>("#research-filter")!;
-      inp.value = "test"; inp.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })); await raf();
+      inp.value = "test";
+      inp.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+      );
+      await raf();
       expect(inp.value).toBe("");
     });
     it("esc ignored empty", async () => {
       await init();
       const inp = document.querySelector<HTMLInputElement>("#research-filter")!;
-      inp.value = ""; inp.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+      inp.value = "";
+      inp.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+      );
       expect(inp.value).toBe("");
     });
     it("no data-search attr", async () => {
@@ -237,8 +393,14 @@ describe("research-filter", () => {
       importId += 1;
       await import(`./research-filter.ts?v=e5-${importId}`);
       const inp = document.querySelector<HTMLInputElement>("#research-filter")!;
-      inp.value = "zzz"; inp.dispatchEvent(new Event("input", { bubbles: true })); await raf();
-      expect(document.querySelector<HTMLElement>("[data-research-item]")?.classList.contains("is-hidden")).toBe(true);
+      inp.value = "zzz";
+      inp.dispatchEvent(new Event("input", { bubbles: true }));
+      await raf();
+      expect(
+        document
+          .querySelector<HTMLElement>("[data-research-item]")
+          ?.classList.contains("is-hidden"),
+      ).toBe(true);
     });
   });
 });

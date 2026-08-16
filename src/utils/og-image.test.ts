@@ -84,6 +84,6 @@ describe("OG request normalization and validators", () => {
     expect(isIfNoneMatchSatisfied(etag, etag)).toBeTrue();
     expect(isIfNoneMatchSatisfied(`W/${etag}`, etag)).toBeTrue();
     expect(isIfNoneMatchSatisfied(`"other", ${etag}`, etag)).toBeTrue();
-    expect(isIfNoneMatchSatisfied("\"other\"", etag)).toBeFalse();
+    expect(isIfNoneMatchSatisfied('"other"', etag)).toBeFalse();
   });
 });

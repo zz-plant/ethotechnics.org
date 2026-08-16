@@ -12,18 +12,21 @@ import { artifacts } from "../content/institute-site";
     <h1>Governance artifacts you can adopt as-is</h1>
     <p>
       These are operational defaults, not guidance.<br />
-      Each artifact assigns ownership, enforces reversibility, and limits claimant burden.
+      Each artifact assigns ownership, enforces reversibility, and limits claimant
+      burden.
     </p>
     <ul class="artifact-grid">
-      {artifacts.map((artifact) => (
-        <li class="card stack-sm">
-          <h2>{artifact.name}</h2>
-          <p class="muted small">Operational governance artifact</p>
-          <a class="button" href={`/artifact/${artifact.slug}`}>
-            View {artifact.name} details
-          </a>
-        </li>
-      ))}
+      {
+        artifacts.map((artifact) => (
+          <li class="card stack-sm">
+            <h2>{artifact.name}</h2>
+            <p class="muted small">Operational governance artifact</p>
+            <a class="button" href={`/artifact/${artifact.slug}`}>
+              View {artifact.name} details
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
 </BaseLayout>

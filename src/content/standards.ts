@@ -133,7 +133,8 @@ export const standardsContent: StandardsContent = {
         {
           version: "1.0",
           date: "2025-01-01",
-          summary: "Initial stable publication for baseline contestability controls.",
+          summary:
+            "Initial stable publication for baseline contestability controls.",
         },
       ],
       stableCriteria:
@@ -154,7 +155,8 @@ export const standardsContent: StandardsContent = {
         {
           version: "1.0",
           date: "2026-04-15",
-          summary: "Initial stable release of the institutional postmortem template.",
+          summary:
+            "Initial stable release of the institutional postmortem template.",
         },
       ],
       stableCriteria:
@@ -175,7 +177,8 @@ export const standardsContent: StandardsContent = {
         {
           version: "0.6",
           date: "2026-01-01",
-          summary: "Review draft introducing justice error-budget breach actions.",
+          summary:
+            "Review draft introducing justice error-budget breach actions.",
         },
       ],
       stableCriteria:
@@ -196,7 +199,8 @@ export const standardsContent: StandardsContent = {
         {
           version: "0.3",
           date: "2026-02-15",
-          summary: "Profile draft superseded by consolidated VC + FHIR release plan.",
+          summary:
+            "Profile draft superseded by consolidated VC + FHIR release plan.",
         },
       ],
       stableCriteria:
@@ -224,7 +228,8 @@ export const standardsContent: StandardsContent = {
         {
           version: "0.3",
           date: "2026-02-15",
-          summary: "Alignment draft for contestability credentials and context definitions.",
+          summary:
+            "Alignment draft for contestability credentials and context definitions.",
         },
       ],
       stableCriteria:
@@ -245,7 +250,8 @@ export const standardsContent: StandardsContent = {
         {
           version: "0.4",
           date: "2026-03-01",
-          summary: "Review draft defining do-not-deploy thresholds and evidence artifacts.",
+          summary:
+            "Review draft defining do-not-deploy thresholds and evidence artifacts.",
         },
       ],
       stableCriteria:

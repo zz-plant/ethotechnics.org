@@ -25,7 +25,11 @@ const receiptPayload = `{
 }`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Worked example"
     title="Fraud hold with delayed notice"
@@ -68,10 +72,14 @@ const receiptPayload = `{
         <p class="muted">Owner acknowledges the hold and assigns a reviewer.</p>
       </CardItem>
       <CardItem title="Review clock" description="12 hours">
-        <p class="muted">Human review confirms, narrows, or removes the hold.</p>
+        <p class="muted">
+          Human review confirms, narrows, or removes the hold.
+        </p>
       </CardItem>
       <CardItem title="Remedy clock" description="48 hours">
-        <p class="muted">Release the hold or provide a safe fallback with notice.</p>
+        <p class="muted">
+          Release the hold or provide a safe fallback with notice.
+        </p>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -86,7 +94,8 @@ const receiptPayload = `{
       <li>Delayed notice allowed only for active fraud investigation.</li>
       <li>Maximum delay window is 24 hours before notice is required.</li>
       <li>
-        Exceptions logged in the <a href="/exceptions">Exceptions framework</a> with steward review.
+        Exceptions logged in the <a href="/exceptions">Exceptions framework</a> with
+        steward review.
       </li>
     </ul>
   </SectionBlock>
@@ -119,7 +128,9 @@ const receiptPayload = `{
         Link evidence in <a href="/evidence-packs">STD-01 + STD-02 packs</a>.
       </li>
       <li>
-        Reference <a href="/anti-weaponization">anti-weaponization constraints</a> on delayed notice.
+        Reference <a href="/anti-weaponization"
+          >anti-weaponization constraints</a
+        > on delayed notice.
       </li>
     </ul>
   </SectionBlock>

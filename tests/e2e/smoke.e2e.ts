@@ -51,20 +51,19 @@ test.describe("Navigation", () => {
     await page.setViewportSize({ width: 480, height: 900 });
     await page.goto("/");
 
-    const navContent = page.locator(".nav__content");
-    const html = page.locator("html");
-    await expect(navContent).not.toHaveClass(/is-open/);
-    await expect(html).not.toHaveClass(/nav-locked/);
+    const mobileNav = page.locator("[data-mobile-nav]");
+    await expect(mobileNav).not.toHaveAttribute("open", "");
 
-    await page.getByRole("button", { name: /open navigation/i }).click();
-    await expect(navContent).toHaveClass(/is-open/);
-    await expect(html).toHaveClass(/nav-locked/);
+    await page.locator(".nav__mobile-sections-summary").click();
+    await expect(mobileNav).toHaveAttribute("open", "");
 
     for (const label of PRIMARY_NAV_LINKS) {
-      await expect(page.getByRole("link", { name: label })).toBeVisible();
+      await expect(mobileNav.getByRole("link", { name: label })).toBeVisible();
     }
 
-    await page.getByRole("link", { name: PRIMARY_NAV_TARGET.label }).click();
+    await mobileNav
+      .getByRole("link", { name: PRIMARY_NAV_TARGET.label })
+      .click();
     await page.waitForURL(PRIMARY_NAV_TARGET.href);
 
     await expect(
@@ -73,22 +72,23 @@ test.describe("Navigation", () => {
         name: new RegExp(PRIMARY_NAV_TARGET.label, "i"),
       }),
     ).toBeVisible();
-    await expect(page.locator(".nav__content")).not.toHaveClass(/is-open/);
-    await expect(html).not.toHaveClass(/nav-locked/);
   });
 
-  test("shows top destinations on desktop without opening the menu", async ({
+  test("shows top destinations on desktop without opening a menu", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
 
-    const quickNav = page.locator(".nav__quick");
-    await expect(quickNav).toBeVisible();
+    const desktopNav = page.locator(".nav__links--desktop");
+    await expect(desktopNav).toBeVisible();
 
     for (const label of PRIMARY_NAV_LINKS) {
-      await expect(quickNav.getByRole("link", { name: label })).toBeVisible();
+      await expect(desktopNav.getByRole("link", { name: label })).toBeVisible();
     }
+
+    const startBtn = page.locator(".nav__start-btn");
+    await expect(startBtn).toBeVisible();
   });
 });
 

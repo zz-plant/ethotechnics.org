@@ -73,22 +73,24 @@ const highlightTags = ["Latest highlight", `Updated ${latestUpdateLabel}`];
     <div class="field-notes__entries">
       <p class="eyebrow">Latest entries</p>
       <CardGrid className="field-notes__grid">
-        {entryList.map((entry) => (
-          <CardItem
-            title={entry.title}
-            description={entry.summary}
-            meta={entry.meta}
-            tags={entry.tags}
-            tagsClassName="field-notes__tag-list"
-            className="field-notes__entry-card"
-          >
-            <div class="field-notes__entry-actions">
-              <a class="button ghost button--compact" href={entry.href}>
-                Read entry
-              </a>
-            </div>
-          </CardItem>
-        ))}
+        {
+          entryList.map((entry) => (
+            <CardItem
+              title={entry.title}
+              description={entry.summary}
+              meta={entry.meta}
+              tags={entry.tags}
+              tagsClassName="field-notes__tag-list"
+              className="field-notes__entry-card"
+            >
+              <div class="field-notes__entry-actions">
+                <a class="button ghost button--compact" href={entry.href}>
+                  Read entry
+                </a>
+              </div>
+            </CardItem>
+          ))
+        }
       </CardGrid>
     </div>
   </div>

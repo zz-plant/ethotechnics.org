@@ -276,7 +276,9 @@ export function InputPanel({
     } else {
       setConfirmAction(actionName);
       setTimeout(() => {
-        setConfirmAction((current) => (current === actionName ? null : current));
+        setConfirmAction((current) =>
+          current === actionName ? null : current,
+        );
       }, 3000);
     }
   };
@@ -284,7 +286,15 @@ export function InputPanel({
   return (
     <div className="card forecaster__card">
       <p className="eyebrow">Input levers</p>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "0.5rem",
+        }}
+      >
         <h3>Shape the workload profile</h3>
         {undo && redo && (
           <div style={{ display: "flex", gap: "0.4rem" }}>
@@ -293,7 +303,11 @@ export function InputPanel({
               className="button ghost button--compact"
               onClick={undo}
               disabled={!canUndo}
-              style={{ padding: "4px 8px", fontSize: "0.8rem", opacity: canUndo ? 1 : 0.4 }}
+              style={{
+                padding: "4px 8px",
+                fontSize: "0.8rem",
+                opacity: canUndo ? 1 : 0.4,
+              }}
               aria-label="Undo last change"
             >
               Undo ↺
@@ -303,7 +317,11 @@ export function InputPanel({
               className="button ghost button--compact"
               onClick={redo}
               disabled={!canRedo}
-              style={{ padding: "4px 8px", fontSize: "0.8rem", opacity: canRedo ? 1 : 0.4 }}
+              style={{
+                padding: "4px 8px",
+                fontSize: "0.8rem",
+                opacity: canRedo ? 1 : 0.4,
+              }}
               aria-label="Redo last change"
             >
               Redo ↻
@@ -355,26 +373,50 @@ export function InputPanel({
             <button
               type="button"
               className={`button ghost button--compact ${confirmAction === "mirrorAB" ? "button--warning" : ""}`}
-              onClick={() => handleActionClick("mirrorAB", () => onMirrorScenario("A", "B"))}
-              style={confirmAction === "mirrorAB" ? { borderColor: "var(--accent)", color: "var(--accent)" } : {}}
+              onClick={() =>
+                handleActionClick("mirrorAB", () => onMirrorScenario("A", "B"))
+              }
+              style={
+                confirmAction === "mirrorAB"
+                  ? { borderColor: "var(--accent)", color: "var(--accent)" }
+                  : {}
+              }
             >
-              {confirmAction === "mirrorAB" ? "Confirm Mirror A → B?" : "Mirror A → B"}
+              {confirmAction === "mirrorAB"
+                ? "Confirm Mirror A → B?"
+                : "Mirror A → B"}
             </button>
             <button
               type="button"
               className={`button ghost button--compact ${confirmAction === "mirrorBA" ? "button--warning" : ""}`}
-              onClick={() => handleActionClick("mirrorBA", () => onMirrorScenario("B", "A"))}
-              style={confirmAction === "mirrorBA" ? { borderColor: "var(--accent)", color: "var(--accent)" } : {}}
+              onClick={() =>
+                handleActionClick("mirrorBA", () => onMirrorScenario("B", "A"))
+              }
+              style={
+                confirmAction === "mirrorBA"
+                  ? { borderColor: "var(--accent)", color: "var(--accent)" }
+                  : {}
+              }
             >
-              {confirmAction === "mirrorBA" ? "Confirm Mirror B → A?" : "Mirror B → A"}
+              {confirmAction === "mirrorBA"
+                ? "Confirm Mirror B → A?"
+                : "Mirror B → A"}
             </button>
             <button
               type="button"
               className={`button ghost button--compact ${confirmAction === "resetSingle" ? "button--warning" : ""}`}
-              onClick={() => handleActionClick("resetSingle", onResetToSingleScenario)}
-              style={confirmAction === "resetSingle" ? { borderColor: "var(--accent)", color: "var(--accent)" } : {}}
+              onClick={() =>
+                handleActionClick("resetSingle", onResetToSingleScenario)
+              }
+              style={
+                confirmAction === "resetSingle"
+                  ? { borderColor: "var(--accent)", color: "var(--accent)" }
+                  : {}
+              }
             >
-              {confirmAction === "resetSingle" ? "Confirm Reset?" : "Reset to single scenario"}
+              {confirmAction === "resetSingle"
+                ? "Confirm Reset?"
+                : "Reset to single scenario"}
             </button>
           </div>
         </div>

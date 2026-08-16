@@ -24,7 +24,11 @@ const receiptPayload = `{
 }`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Worked example"
     title="Irreversible payment with compensation"
@@ -64,13 +68,19 @@ const receiptPayload = `{
   >
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="1 hour">
-        <p class="muted">Owner acknowledges the payout and names the reviewer.</p>
+        <p class="muted">
+          Owner acknowledges the payout and names the reviewer.
+        </p>
       </CardItem>
       <CardItem title="Review clock" description="8 hours">
-        <p class="muted">Human review checks for fraud, sanctions, or payout errors.</p>
+        <p class="muted">
+          Human review checks for fraud, sanctions, or payout errors.
+        </p>
       </CardItem>
       <CardItem title="Remedy clock" description="48 hours">
-        <p class="muted">Compensation, reversal substitute, or dispute resolution begins.</p>
+        <p class="muted">
+          Compensation, reversal substitute, or dispute resolution begins.
+        </p>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -85,7 +95,9 @@ const receiptPayload = `{
       <li>Legal holds can pause payout but must keep clocks active.</li>
       <li>Security escalations require steward sign-off and audit trace.</li>
       <li>
-        Exception entries live in the <a href="/exceptions">Exceptions framework</a>.
+        Exception entries live in the <a href="/exceptions"
+          >Exceptions framework</a
+        >.
       </li>
     </ul>
   </SectionBlock>
@@ -112,7 +124,8 @@ const receiptPayload = `{
   >
     <ul class="muted">
       <li>
-        Add payout checks to <a href="/bindings#release-gates">release gates</a>.
+        Add payout checks to <a href="/bindings#release-gates">release gates</a
+        >.
       </li>
       <li>
         Attach <a href="/evidence-packs">evidence packs</a> to payout receipts.

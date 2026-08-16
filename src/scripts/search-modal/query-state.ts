@@ -76,7 +76,8 @@ export const createSearchStorage = (storage: {
   setQuery: (query) => {
     storage.sessionStorage.setItem(SEARCH_QUERY_STORAGE_KEY, query);
   },
-  getQuery: () => storage.sessionStorage.getItem(SEARCH_QUERY_STORAGE_KEY) ?? "",
+  getQuery: () =>
+    storage.sessionStorage.getItem(SEARCH_QUERY_STORAGE_KEY) ?? "",
   setRecentSearch: (value) => {
     if (!value.trim()) return;
 
@@ -90,7 +91,9 @@ export const createSearchStorage = (storage: {
     storage.localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(updated));
   },
   getRecentSearches: () =>
-    JSON.parse(storage.localStorage.getItem(RECENT_SEARCH_KEY) ?? "[]") as string[],
+    JSON.parse(
+      storage.localStorage.getItem(RECENT_SEARCH_KEY) ?? "[]",
+    ) as string[],
 });
 
 export const searchStateParams = {

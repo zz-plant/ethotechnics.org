@@ -24,7 +24,11 @@ const receiptPayload = `{
 }`;
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Worked example"
     title="Automated eligibility denial"
@@ -64,13 +68,19 @@ const receiptPayload = `{
   >
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="4 hours">
-        <p class="muted">Owner confirms responsibility and shares a review ETA.</p>
+        <p class="muted">
+          Owner confirms responsibility and shares a review ETA.
+        </p>
       </CardItem>
       <CardItem title="Review clock" description="48 hours">
-        <p class="muted">Human reviewer validates the denial or flags an exception.</p>
+        <p class="muted">
+          Human reviewer validates the denial or flags an exception.
+        </p>
       </CardItem>
       <CardItem title="Remedy clock" description="120 hours">
-        <p class="muted">Reversal, compensation, or safe fallback is delivered.</p>
+        <p class="muted">
+          Reversal, compensation, or safe fallback is delivered.
+        </p>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -82,10 +92,14 @@ const receiptPayload = `{
     description="Exceptions can delay remedy, but never remove contestation."
   >
     <ul class="muted">
-      <li>Data-quality exceptions require a documented re-verification plan.</li>
+      <li>
+        Data-quality exceptions require a documented re-verification plan.
+      </li>
       <li>Legal exceptions require steward sign-off and review cadence.</li>
       <li>
-        Exceptions are logged in the <a href="/exceptions">Exceptions framework</a>.
+        Exceptions are logged in the <a href="/exceptions"
+          >Exceptions framework</a
+        >.
       </li>
     </ul>
   </SectionBlock>
@@ -118,7 +132,8 @@ const receiptPayload = `{
         Attach <a href="/evidence-packs">evidence packs</a> to denial records.
       </li>
       <li>
-        Add <a href="/anti-weaponization">anti-weaponization constraints</a> for burden checks.
+        Add <a href="/anti-weaponization">anti-weaponization constraints</a> for burden
+        checks.
       </li>
     </ul>
   </SectionBlock>

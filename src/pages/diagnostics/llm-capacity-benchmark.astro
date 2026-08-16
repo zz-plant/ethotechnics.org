@@ -11,7 +11,7 @@ import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
 import { diagnosticsContent } from "../../content/diagnostics";
 
 const tool = diagnosticsContent.tools.find(
-  (entry) => entry.slug === "llm-capacity-benchmark"
+  (entry) => entry.slug === "llm-capacity-benchmark",
 );
 
 if (!tool) {
@@ -32,7 +32,11 @@ const anchorLinks = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Diagnostics"
     title={tool.title}
@@ -48,9 +52,7 @@ const anchorLinks = [
     description={tool.bestFor}
   >
     <ul class="muted">
-      {tool.prepChecklist.map((item) => (
-        <li>{item}</li>
-      ))}
+      {tool.prepChecklist.map((item) => <li>{item}</li>)}
     </ul>
     <p class="muted">Estimated time: {tool.estimatedTime}</p>
     <ReferenceCallout
@@ -104,7 +106,11 @@ const anchorLinks = [
     description="We run the benchmark with you and deliver the linked readout."
     variant="alt"
   >
-    <a class="button primary" href={tool.ctaHref} aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}>
+    <a
+      class="button primary"
+      href={tool.ctaHref}
+      aria-label={tool.ctaAriaLabel ?? tool.ctaLabel}
+    >
       {tool.ctaLabel}
     </a>
   </SectionBlock>

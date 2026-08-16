@@ -1,7 +1,9 @@
 <div class="newsletter-signup">
   <form class="newsletter-signup__form" data-newsletter-form novalidate>
     <h3 class="eyebrow">Standards &amp; Ontology Updates</h3>
-    <p class="muted">Get notified when new standards, terms, or field notes are published.</p>
+    <p class="muted">
+      Get notified when new standards, terms, or field notes are published.
+    </p>
     <div class="newsletter-signup__row">
       <input
         type="email"
@@ -20,51 +22,59 @@
 </div>
 
 <script>
-  document.querySelectorAll<HTMLFormElement>("[data-newsletter-form]").forEach((form) => {
-    if (form.dataset.initialized) return;
-    form.dataset.initialized = "true";
-    const status = form.querySelector("[role='status']") as HTMLParagraphElement;
-    const button = form.querySelector("button") as HTMLButtonElement;
-    const input = form.querySelector("input") as HTMLInputElement;
+  document
+    .querySelectorAll<HTMLFormElement>("[data-newsletter-form]")
+    .forEach((form) => {
+      if (form.dataset.initialized) return;
+      form.dataset.initialized = "true";
+      const status = form.querySelector(
+        "[role='status']",
+      ) as HTMLParagraphElement;
+      const button = form.querySelector("button") as HTMLButtonElement;
+      const input = form.querySelector("input") as HTMLInputElement;
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = input.value.trim();
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = input.value.trim();
 
-      if (!email) {
-        status.textContent = "Please enter an email address.";
-        return;
-      }
-
-      button.disabled = true;
-      status.textContent = "";
-      status.className = "newsletter-signup__status";
-
-      try {
-        const res = await fetch("/api/subscribe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        });
-
-        const data = await res.json() as { success?: boolean; error?: string };
-
-        if (res.ok && data.success) {
-          status.textContent = "Subscribed. Thank you.";
-          status.classList.add("newsletter-signup__status--success");
-          input.value = "";
-        } else {
-          status.textContent = data.error || "Something went wrong. Try again.";
-          status.classList.add("newsletter-signup__status--error");
+        if (!email) {
+          status.textContent = "Please enter an email address.";
+          return;
         }
-      } catch {
-        status.textContent = "Network error. Please try again.";
-        status.classList.add("newsletter-signup__status--error");
-      } finally {
-        button.disabled = false;
-      }
+
+        button.disabled = true;
+        status.textContent = "";
+        status.className = "newsletter-signup__status";
+
+        try {
+          const res = await fetch("/api/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+
+          const data = (await res.json()) as {
+            success?: boolean;
+            error?: string;
+          };
+
+          if (res.ok && data.success) {
+            status.textContent = "Subscribed. Thank you.";
+            status.classList.add("newsletter-signup__status--success");
+            input.value = "";
+          } else {
+            status.textContent =
+              data.error || "Something went wrong. Try again.";
+            status.classList.add("newsletter-signup__status--error");
+          }
+        } catch {
+          status.textContent = "Network error. Please try again.";
+          status.classList.add("newsletter-signup__status--error");
+        } finally {
+          button.disabled = false;
+        }
+      });
     });
-  });
 </script>
 
 <style>

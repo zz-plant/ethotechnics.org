@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import CardGrid from '../../components/CardGrid.astro';
-import CardItem from '../../components/CardItem.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import SectionBlock from '../../components/SectionBlock.astro';
-import { finiteContent } from '../../content/finite';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { finiteContent } from "../../content/finite";
 
 const {
   pageTitle,
@@ -26,18 +26,19 @@ const {
 } = finiteContent;
 
 const anchorLinks = [
-  { href: '#why', label: 'Why Finite exists' },
-  { href: '#when', label: 'When to use' },
-  { href: '#getting-started', label: 'Getting started' },
-  { href: '#reference-task', label: 'Reference task' },
-  { href: '#agent-ready', label: 'Agent-ready materials' },
-  { href: '#measures', label: 'What it measures' },
-  { href: '#workflow', label: 'How it works' },
-  { href: '#fit', label: 'Where Finite fits' },
-  { href: '#practice', label: 'Practice, not just a score' },
-  { href: '#pilot', label: 'Pilot' },
+  { href: "#why", label: "Why Finite exists" },
+  { href: "#when", label: "When to use" },
+  { href: "#getting-started", label: "Getting started" },
+  { href: "#reference-task", label: "Reference task" },
+  { href: "#agent-ready", label: "Agent-ready materials" },
+  { href: "#measures", label: "What it measures" },
+  { href: "#workflow", label: "How it works" },
+  { href: "#fit", label: "Where Finite fits" },
+  { href: "#practice", label: "Practice, not just a score" },
+  { href: "#pilot", label: "Pilot" },
 ];
 ---
+
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
     eyebrow={hero.eyebrow}
@@ -55,9 +56,7 @@ const anchorLinks = [
       <p class="muted">{keyTakeaways.note}</p>
     </div>
     <ul class="muted">
-      {keyTakeaways.bullets.map((bullet) => (
-        <li>{bullet}</li>
-      ))}
+      {keyTakeaways.bullets.map((bullet) => <li>{bullet}</li>)}
     </ul>
   </section>
 
@@ -68,16 +67,20 @@ const anchorLinks = [
       <p class="muted">{pageDescription}</p>
     </div>
     <CardGrid className="grid--two">
-      {hero.bullets.map((bullet) => (
-        <CardItem description={bullet} descriptionTone="default" />
-      ))}
+      {
+        hero.bullets.map((bullet) => (
+          <CardItem description={bullet} descriptionTone="default" />
+        ))
+      }
     </CardGrid>
     <div class="actions">
-      {hero.actions.map((action) => (
-        <a class={`button ${action.variant}`} href={action.href}>
-          <span>{action.label}</span>
-        </a>
-      ))}
+      {
+        hero.actions.map((action) => (
+          <a class={`button ${action.variant}`} href={action.href}>
+            <span>{action.label}</span>
+          </a>
+        ))
+      }
     </div>
   </section>
 
@@ -90,33 +93,34 @@ const anchorLinks = [
     <CardGrid className="grid--two">
       <CardItem title="Start with these steps" descriptionTone="default">
         <ol class="muted">
-          {gettingStarted.steps.map((step) => (
-            <li>{step}</li>
-          ))}
+          {gettingStarted.steps.map((step) => <li>{step}</li>)}
         </ol>
       </CardItem>
       <CardItem title="Who Finite helps" descriptionTone="default">
         <ul class="muted">
-          {gettingStarted.whoFor.map((item) => (
-            <li>{item}</li>
-          ))}
+          {gettingStarted.whoFor.map((item) => <li>{item}</li>)}
         </ul>
       </CardItem>
     </CardGrid>
   </SectionBlock>
 
-  <SectionBlock id="why" eyebrow="Why Finite exists" title={why.title} description={why.description}>
+  <SectionBlock
+    id="why"
+    eyebrow="Why Finite exists"
+    title={why.title}
+    description={why.description}
+  >
     <div class="grid grid--two">
       <article class="card card--emphasis">
-                <p>{hero.summary}</p>
+        <p>{hero.summary}</p>
         <p class="muted">{why.body}</p>
       </article>
       <article class="card">
-                <p class="muted">Hidden maintenance as signal</p>
+        <p class="muted">Hidden maintenance as signal</p>
         <h3>Make stoppability visible before an incident.</h3>
         <p>
-          Finite equips teams to halt systems under stress, reverse actions without heroic work, and see who absorbs cleanup
-          when safeguards slip.
+          Finite equips teams to halt systems under stress, reverse actions
+          without heroic work, and see who absorbs cleanup when safeguards slip.
         </p>
       </article>
     </div>
@@ -130,9 +134,15 @@ const anchorLinks = [
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {useCases.items.map((item) => (
-        <CardItem title={item.title} description={item.detail} descriptionTone="default" />
-      ))}
+      {
+        useCases.items.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.detail}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -145,14 +155,19 @@ const anchorLinks = [
     <CardGrid className="grid--two">
       <CardItem title="Baseline drill" descriptionTone="default">
         <ul class="pill-list">
-          {referenceTask.bullets.map((bullet) => (
-            <li>{bullet}</li>
-          ))}
+          {referenceTask.bullets.map((bullet) => <li>{bullet}</li>)}
         </ul>
       </CardItem>
-      <CardItem title="Access the packet" description={referenceTask.note} descriptionTone="default">
+      <CardItem
+        title="Access the packet"
+        description={referenceTask.note}
+        descriptionTone="default"
+      >
         <div class="actions">
-          <a class="button ghost" href="mailto:studio@ethotechnics.org?subject=Reference%20Task%20v0.1">
+          <a
+            class="button ghost"
+            href="mailto:studio@ethotechnics.org?subject=Reference%20Task%20v0.1"
+          >
             Request the doc
           </a>
         </div>
@@ -168,9 +183,15 @@ const anchorLinks = [
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {agentReady.items.map((item) => (
-        <CardItem title={item.title} description={item.detail} descriptionTone="default" />
-      ))}
+      {
+        agentReady.items.map((item) => (
+          <CardItem
+            title={item.title}
+            description={item.detail}
+            descriptionTone="default"
+          />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -182,16 +203,20 @@ const anchorLinks = [
     variant="alt"
   >
     <CardGrid className="grid--two">
-      {measures.dimensions.map((dimension) => (
-        <CardItem meta={dimension.question} title={dimension.title} description={dimension.detail} />
-      ))}
+      {
+        measures.dimensions.map((dimension) => (
+          <CardItem
+            meta={dimension.question}
+            title={dimension.title}
+            description={dimension.detail}
+          />
+        ))
+      }
     </CardGrid>
     <div class="panel panel--glass">
       <p class="muted">What you receive</p>
       <ul class="pill-list pill-list--wrap">
-        {measures.deliverables.map((item) => (
-          <li>{item}</li>
-        ))}
+        {measures.deliverables.map((item) => <li>{item}</li>)}
       </ul>
     </div>
     <div class="callout">
@@ -210,9 +235,15 @@ const anchorLinks = [
     description={workflow.description}
   >
     <CardGrid className="grid--two">
-      {workflow.steps.map((step, index) => (
-        <CardItem meta={`Step ${index + 1}`} title={step.title} description={step.detail} />
-      ))}
+      {
+        workflow.steps.map((step, index) => (
+          <CardItem
+            meta={`Step ${index + 1}`}
+            title={step.title}
+            description={step.detail}
+          />
+        ))
+      }
     </CardGrid>
     <div class="callout">
       <h3>Repeat the loop</h3>
@@ -220,17 +251,26 @@ const anchorLinks = [
     </div>
   </SectionBlock>
 
-  <SectionBlock id="fit" eyebrow="Where Finite fits" title={fit.title} description={fit.description} variant="alt">
+  <SectionBlock
+    id="fit"
+    eyebrow="Where Finite fits"
+    title={fit.title}
+    description={fit.description}
+    variant="alt"
+  >
     <div class="panel panel--glass">
       <ul class="pill-list pill-list--wrap">
-        {fit.items.map((item) => (
-          <li>{item}</li>
-        ))}
+        {fit.items.map((item) => <li>{item}</li>)}
       </ul>
     </div>
   </SectionBlock>
 
-  <SectionBlock id="practice" eyebrow="Practice, not just a score" title={practice.title} description={practice.description} />
+  <SectionBlock
+    id="practice"
+    eyebrow="Practice, not just a score"
+    title={practice.title}
+    description={practice.description}
+  />
 
   <SectionBlock
     id="pilot"
@@ -241,15 +281,13 @@ const anchorLinks = [
   >
     <div class="grid grid--two">
       <article class="card">
-                <p class="muted">What we ask from partners</p>
+        <p class="muted">What we ask from partners</p>
         <ul class="pill-list">
-          {pilot.bullets.map((bullet) => (
-            <li>{bullet}</li>
-          ))}
+          {pilot.bullets.map((bullet) => <li>{bullet}</li>)}
         </ul>
       </article>
       <article class="card card--emphasis">
-                <p class="eyebrow">{pilot.title}</p>
+        <p class="eyebrow">{pilot.title}</p>
         <h3>{pilot.contact.label}</h3>
         <p>{pilot.contact.description}</p>
         <div class="actions">

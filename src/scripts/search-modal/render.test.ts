@@ -28,9 +28,9 @@ describe("search renderer states", () => {
 
     renderer.renderResults(results, "contest");
 
-    expect(container.querySelector(".search-results__group-title")?.textContent).toBe(
-      "Standards",
-    );
+    expect(
+      container.querySelector(".search-results__group-title")?.textContent,
+    ).toBe("Standards");
     expect(container.querySelectorAll("mark").length).toBeGreaterThan(0);
   });
 

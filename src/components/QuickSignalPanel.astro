@@ -9,6 +9,7 @@ interface Props {
 
 const { eyebrow, title, summary, bullets, note }: Props = Astro.props;
 ---
+
 <section class="quick-signal" aria-label={title}>
   <div class="quick-signal__header">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
@@ -17,9 +18,7 @@ const { eyebrow, title, summary, bullets, note }: Props = Astro.props;
   </div>
   <div class="quick-signal__body">
     <ul class="quick-signal__list">
-      {bullets.map((bullet) => (
-        <li>{bullet}</li>
-      ))}
+      {bullets.map((bullet) => <li>{bullet}</li>)}
     </ul>
     {note && <p class="quick-signal__note muted small">{note}</p>}
   </div>

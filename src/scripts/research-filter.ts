@@ -1,4 +1,8 @@
-import { buildFacetUrl, initFilterInput, parseFacetParams } from "./filter-utils";
+import {
+  buildFacetUrl,
+  initFilterInput,
+  parseFacetParams,
+} from "./filter-utils";
 
 const initResearchFilter = () => {
   const filterInput = initFilterInput("#research-filter");
@@ -32,7 +36,12 @@ const initResearchFilter = () => {
     "[data-research-collapse]",
   );
 
-  if (items.length === 0 || !emptyState || !count || !(clearButton instanceof HTMLButtonElement)) {
+  if (
+    items.length === 0 ||
+    !emptyState ||
+    !count ||
+    !(clearButton instanceof HTMLButtonElement)
+  ) {
     return;
   }
 
@@ -100,7 +109,9 @@ const initResearchFilter = () => {
     clearButton.disabled = rawQuery.length === 0 && !hasFacets;
     const shouldExpand = rawQuery.length > 0 || hasFacets;
     chunkedSections.forEach((section) => {
-      section.open = shouldExpand ? true : section.dataset.defaultOpen === "true";
+      section.open = shouldExpand
+        ? true
+        : section.dataset.defaultOpen === "true";
     });
 
     const nextUrl = buildFacetUrl({
@@ -115,15 +126,21 @@ const initResearchFilter = () => {
   const urlState = parseFacetParams(["query", "section", "tag", "type"]);
   if (urlState.query) filterInput.value = urlState.query;
   if (urlState.section) {
-    const control = facetControls.find((c) => c.dataset.researchFilter === "section");
+    const control = facetControls.find(
+      (c) => c.dataset.researchFilter === "section",
+    );
     if (control) control.value = urlState.section;
   }
   if (urlState.tag) {
-    const control = facetControls.find((c) => c.dataset.researchFilter === "tag");
+    const control = facetControls.find(
+      (c) => c.dataset.researchFilter === "tag",
+    );
     if (control) control.value = urlState.tag;
   }
   if (urlState.type) {
-    const control = facetControls.find((c) => c.dataset.researchFilter === "type");
+    const control = facetControls.find(
+      (c) => c.dataset.researchFilter === "type",
+    );
     if (control) control.value = urlState.type;
   }
 

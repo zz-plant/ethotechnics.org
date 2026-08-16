@@ -10,12 +10,11 @@ import SectionBlock from "../../components/SectionBlock.astro";
 const explainers = await getCollection("explainers");
 
 const pageTitle = "Explainers";
-const pageDescription = "Short, reusable definitions with examples and next-step artifacts.";
+const pageDescription =
+  "Short, reusable definitions with examples and next-step artifacts.";
 const permalink = "/explainers";
 
-const anchorLinks = [
-  { href: "#all-explainers", label: "All explainers" },
-];
+const anchorLinks = [{ href: "#all-explainers", label: "All explainers" }];
 
 const featuredExplainers = [
   "stoppability",
@@ -54,7 +53,8 @@ const summaryLinks = [
     panelCopy={{
       eyebrow: "Using explainers",
       title: "Quick answers for governance questions",
-      description: "Each explainer maps to a glossary term, standard, and evidence pack so you can move from question to artifact fast.",
+      description:
+        "Each explainer maps to a glossary term, standard, and evidence pack so you can move from question to artifact fast.",
     }}
   />
 
@@ -82,7 +82,11 @@ const summaryLinks = [
               title={entry.data.title}
               description={entry.data.description}
             >
-              <a slot="footer" class="button ghost button--compact" href={entry.data.permalink}>
+              <a
+                slot="footer"
+                class="button ghost button--compact"
+                href={entry.data.permalink}
+              >
                 Read explainer
               </a>
             </CardItem>
@@ -116,6 +120,8 @@ const summaryLinks = [
   </SectionBlock>
 
   <p class="muted" style="margin-top:2rem">
-    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards">Standards</a> &middot; <a href="/mechanisms">Mechanisms</a>
+    See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
+      >Standards</a
+    > &middot; <a href="/mechanisms">Mechanisms</a>
   </p>
 </BaseLayout>

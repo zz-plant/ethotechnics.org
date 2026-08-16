@@ -1,6 +1,5 @@
 ---
 import Logo from "../Logo.astro";
-import NavUtilityLinks from "../NavUtilityLinks.astro";
 import Wordmark from "../Wordmark.astro";
 import Search from "../Search.astro";
 import { Icon } from "astro-icon/components";
@@ -20,6 +19,7 @@ interface Props {
 
 const { currentPath, currentHash = "", desktopLinks }: Props = Astro.props;
 const isHome = normalizePath(currentPath) === "/";
+const isStartHere = normalizePath(currentPath) === "/start-here";
 ---
 
 <div class="nav__bar">
@@ -44,8 +44,14 @@ const isHome = normalizePath(currentPath) === "/";
               ? `${link.label}, jumps to a homepage section`
               : link.label
           }
-          title={isHashLink(link.href) ? "Jumps to a section on the homepage" : undefined}
-          data-nav-hash-link={isSameDocumentHashLink(link.href) ? "true" : undefined}
+          title={
+            isHashLink(link.href)
+              ? "Jumps to a section on the homepage"
+              : undefined
+          }
+          data-nav-hash-link={
+            isSameDocumentHashLink(link.href) ? "true" : undefined
+          }
           aria-current={getAriaCurrent(link.href, currentPath, currentHash)}
         >
           {link.label}
@@ -54,20 +60,44 @@ const isHome = normalizePath(currentPath) === "/";
     }
   </nav>
 
-  <div class="nav__search-desktop">
-    <Search scope="desktop" label="Search standards, diagnostics, and guides" />
-  </div>
+  <div class="nav__actions-desktop">
+    <a
+      href="/start-here"
+      class:list={["nav__start-btn", { "nav__start-btn--active": isStartHere }]}
+      aria-current={isStartHere ? "page" : undefined}
+    >
+      <span>Start here</span>
+    </a>
 
-  <div class="nav__utility nav__utility--desktop">
-    <NavUtilityLinks currentPath={currentPath} />
+    <div class="nav__search-desktop">
+      <Search scope="desktop" label="Search" shortcut="⌘K" />
+    </div>
+
+    <a
+      href="https://github.com/zz-plant/ethotechnics"
+      class="nav__icon-btn"
+      aria-label="GitHub repository"
+      rel="noopener noreferrer"
+      target="_blank"
+      title="GitHub repository"
+    >
+      <Icon name="lucide:github" class="nav__icon" />
+    </a>
+
     <button
       class="theme-toggle"
       data-theme-toggle
       aria-label="Toggle theme"
       type="button"
     >
-      <Icon name="lucide:sun" class="theme-toggle__icon theme-toggle__icon--sun" />
-      <Icon name="lucide:moon" class="theme-toggle__icon theme-toggle__icon--moon" />
+      <Icon
+        name="lucide:sun"
+        class="theme-toggle__icon theme-toggle__icon--sun"
+      />
+      <Icon
+        name="lucide:moon"
+        class="theme-toggle__icon theme-toggle__icon--moon"
+      />
     </button>
   </div>
 </div>

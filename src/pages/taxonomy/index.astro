@@ -45,7 +45,11 @@ const structuredData = {
 const structuredDataJson = JSON.stringify(structuredData);
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} structuredDataType="collection">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
   <Fragment slot="head">
     <script
       type="application/ld+json"
@@ -77,32 +81,37 @@ const structuredDataJson = JSON.stringify(structuredData);
     description="Each domain page connects standards, mechanisms, validators, and supporting artifacts."
   >
     <CardGrid className="grid--two">
-      {topLevelEntries.map((entry) => {
-        const childEntries = childEntriesFor(entry.slug);
+      {
+        topLevelEntries.map((entry) => {
+          const childEntries = childEntriesFor(entry.slug);
 
-        return (
-          <CardItem
-            title={entry.title}
-            description={entry.summary}
-            descriptionTone="default"
-          >
-            {childEntries.length > 0 && (
-              <ul class="pill-list pill-list--wrap">
-                {childEntries.map((child) => (
-                  <li>
-                    <a href={`/taxonomy/${child.slug}`}>{child.title}</a>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div slot="footer" class="card__footer">
-              <a class="button ghost button--compact" href={`/taxonomy/${entry.slug}`}>
-                Explore {entry.title.toLowerCase()}
-              </a>
-            </div>
-          </CardItem>
-        );
-      })}
+          return (
+            <CardItem
+              title={entry.title}
+              description={entry.summary}
+              descriptionTone="default"
+            >
+              {childEntries.length > 0 && (
+                <ul class="pill-list pill-list--wrap">
+                  {childEntries.map((child) => (
+                    <li>
+                      <a href={`/taxonomy/${child.slug}`}>{child.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div slot="footer" class="card__footer">
+                <a
+                  class="button ghost button--compact"
+                  href={`/taxonomy/${entry.slug}`}
+                >
+                  Explore {entry.title.toLowerCase()}
+                </a>
+              </div>
+            </CardItem>
+          );
+        })
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -114,9 +123,16 @@ const structuredDataJson = JSON.stringify(structuredData);
     variant="alt"
   >
     <ol class="muted">
-      <li>Link every standard, mechanism, and validator back to its domain page.</li>
-      <li>Use the capability and practice pages for programmatic templates and FAQs.</li>
-      <li>Keep related artifacts on each level updated as new content ships.</li>
+      <li>
+        Link every standard, mechanism, and validator back to its domain page.
+      </li>
+      <li>
+        Use the capability and practice pages for programmatic templates and
+        FAQs.
+      </li>
+      <li>
+        Keep related artifacts on each level updated as new content ships.
+      </li>
     </ol>
   </SectionBlock>
 </BaseLayout>

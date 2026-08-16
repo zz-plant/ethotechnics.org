@@ -102,7 +102,11 @@ const orderedWorkflowStages = workflowStages.filter(
 );
 ---
 
-<BaseLayout title={state.title} description={state.descriptionLine1} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={state.title}
+  description={state.descriptionLine1}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <div data-route-metrics="home-to-failure-pathway" hidden></div>
   <section class="stack-lg institute-screen">
     <h1>{state.title}</h1>
@@ -111,8 +115,8 @@ const orderedWorkflowStages = workflowStages.filter(
     <div class="panel stack-sm">
       <p class="eyebrow">Next required artifact</p>
       <p class="muted">
-        Start with <strong>{orderedWorkflowStages[0]?.artifact.name}</strong> to
-        lock owner, evidence scope, and reversal path before response drifts.
+        Start with <strong>{orderedWorkflowStages[0]?.artifact.name}</strong> to lock
+        owner, evidence scope, and reversal path before response drifts.
       </p>
       <ol class="small muted">
         <li>Assign the accountable owner now.</li>

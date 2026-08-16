@@ -12,7 +12,10 @@ import SummaryCallout from "../../components/SummaryCallout.astro";
 import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import glossaryFilterScript from "../../scripts/glossary-filter.ts?url";
 import { glossaryEntryPermalink } from "../../utils/glossary";
-import { getGlossaryAuthor, getGlossaryEntryDefaults } from "../../utils/glossary-helpers";
+import {
+  getGlossaryAuthor,
+  getGlossaryEntryDefaults,
+} from "../../utils/glossary-helpers";
 import {
   buildGlossaryIndexEntries,
   buildGlossaryIndexFacets,
@@ -134,7 +137,8 @@ const structuredData = buildGlossaryStructuredDataPayload({
 const glossaryKeywordsNode = structuredData["@graph"].find(
   (item) => item["@type"] === "CollectionPage",
 ) as { keywords?: string[] } | undefined;
-const glossaryKeywordsContent = glossaryKeywordsNode?.keywords?.join(", ") ?? "";
+const glossaryKeywordsContent =
+  glossaryKeywordsNode?.keywords?.join(", ") ?? "";
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
 const citationYear = new Date(
   publication.updated ?? publication.published,
@@ -286,18 +290,20 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       >
         <legend>Filter by domain</legend>
         <div class="glossary-filter__chips">
-          {domainFilters.map((domain) => (
-            <label class="glossary-filter__chip">
-              <input
-                type="checkbox"
-                value={domain.id}
-                data-glossary-filter="domains"
-                data-glossary-label={domain.label}
-              />
-              <span class="glossary-filter__chip-label">{domain.label}</span>
-              <span class="glossary-filter__chip-count" data-glossary-count />
-            </label>
-          ))}
+          {
+            domainFilters.map((domain) => (
+              <label class="glossary-filter__chip">
+                <input
+                  type="checkbox"
+                  value={domain.id}
+                  data-glossary-filter="domains"
+                  data-glossary-label={domain.label}
+                />
+                <span class="glossary-filter__chip-label">{domain.label}</span>
+                <span class="glossary-filter__chip-count" data-glossary-count />
+              </label>
+            ))
+          }
         </div>
       </fieldset>
       <fieldset
@@ -308,18 +314,20 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       >
         <legend>Filter by phase</legend>
         <div class="glossary-filter__chips">
-          {phaseFilters.map((phase) => (
-            <label class="glossary-filter__chip">
-              <input
-                type="checkbox"
-                value={phase.id}
-                data-glossary-filter="phases"
-                data-glossary-label={phase.label}
-              />
-              <span class="glossary-filter__chip-label">{phase.label}</span>
-              <span class="glossary-filter__chip-count" data-glossary-count />
-            </label>
-          ))}
+          {
+            phaseFilters.map((phase) => (
+              <label class="glossary-filter__chip">
+                <input
+                  type="checkbox"
+                  value={phase.id}
+                  data-glossary-filter="phases"
+                  data-glossary-label={phase.label}
+                />
+                <span class="glossary-filter__chip-label">{phase.label}</span>
+                <span class="glossary-filter__chip-count" data-glossary-count />
+              </label>
+            ))
+          }
         </div>
       </fieldset>
       <fieldset
@@ -330,45 +338,50 @@ const glossaryAuthor = getGlossaryAuthor(publication);
       >
         <legend>Filter by measurability</legend>
         <div class="glossary-filter__chips">
-          {measurabilityFilters.map((option) => (
-            <label class="glossary-filter__chip">
-              <input
-                type="checkbox"
-                value={option.id}
-                data-glossary-filter="measurability"
-                data-glossary-label={option.label}
-              />
-              <span class="glossary-filter__chip-label">
-                {option.label}
-              </span>
-              <span class="glossary-filter__chip-count" data-glossary-count />
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      {statusFilters.length > 0 && (
-        <fieldset
-          class="glossary-filter__panel glossary-filter__panel--status"
-          role="tabpanel"
-          data-glossary-panel="status"
-        >
-          <legend>Filter by status</legend>
-          <div class="glossary-filter__chips">
-            {statusFilters.map((status) => (
+          {
+            measurabilityFilters.map((option) => (
               <label class="glossary-filter__chip">
                 <input
                   type="checkbox"
-                  value={status}
-                  data-glossary-filter="status"
-                  data-glossary-label={status}
+                  value={option.id}
+                  data-glossary-filter="measurability"
+                  data-glossary-label={option.label}
                 />
-                <span class="glossary-filter__chip-label">{status}</span>
+                <span class="glossary-filter__chip-label">{option.label}</span>
                 <span class="glossary-filter__chip-count" data-glossary-count />
               </label>
-            ))}
-          </div>
-        </fieldset>
-      )}
+            ))
+          }
+        </div>
+      </fieldset>
+      {
+        statusFilters.length > 0 && (
+          <fieldset
+            class="glossary-filter__panel glossary-filter__panel--status"
+            role="tabpanel"
+            data-glossary-panel="status"
+          >
+            <legend>Filter by status</legend>
+            <div class="glossary-filter__chips">
+              {statusFilters.map((status) => (
+                <label class="glossary-filter__chip">
+                  <input
+                    type="checkbox"
+                    value={status}
+                    data-glossary-filter="status"
+                    data-glossary-label={status}
+                  />
+                  <span class="glossary-filter__chip-label">{status}</span>
+                  <span
+                    class="glossary-filter__chip-count"
+                    data-glossary-count
+                  />
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        )
+      }
     </div>
     <div class="glossary-filter__active" data-glossary-active hidden>
       <p class="muted">Active filters:</p>
@@ -456,10 +469,7 @@ const glossaryAuthor = getGlossaryAuthor(publication);
           Filter by letter to scan faster, then open a term for full citations.
         </p>
       </div>
-      <nav
-        class="glossary-index__letters"
-        aria-label="Filter by letter"
-      >
+      <nav class="glossary-index__letters" aria-label="Filter by letter">
         <button
           class="pill pill--ghost is-active"
           type="button"
@@ -468,16 +478,18 @@ const glossaryAuthor = getGlossaryAuthor(publication);
         >
           All
         </button>
-        {glossaryLetters.map((letter) => (
-          <button
-            class="pill pill--ghost"
-            type="button"
-            data-glossary-letter={letter}
-            aria-pressed="false"
-          >
-            {letter}
-          </button>
-        ))}
+        {
+          glossaryLetters.map((letter) => (
+            <button
+              class="pill pill--ghost"
+              type="button"
+              data-glossary-letter={letter}
+              aria-pressed="false"
+            >
+              {letter}
+            </button>
+          ))
+        }
       </nav>
     </div>
     <nav class="glossary-index" aria-label="Glossary index">
@@ -849,10 +861,6 @@ const glossaryAuthor = getGlossaryAuthor(publication);
     </div>
   </SectionBlock>
 
-  <script
-    type="application/ld+json"
-    set:html={structuredDataJson}
-    is:inline
-  />
+  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
   <script type="module" src={glossaryFilterScript} is:inline></script>
 </BaseLayout>

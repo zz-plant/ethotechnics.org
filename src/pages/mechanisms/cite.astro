@@ -16,7 +16,11 @@ const pageDescription =
 const permalink = "/mechanisms/cite";
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Mechanisms"
     title="How to cite the Mechanisms"
@@ -81,11 +85,14 @@ const permalink = "/mechanisms/cite";
       <li>Stable releases are prepared for Zenodo DOI deposits.</li>
       <li>Archive snapshots preserve the state of each release.</li>
     </ul>
-    {publication.archiveUrl && (
-      <p class="muted">
-        Archive snapshots: <a href={publication.archiveUrl}>{publication.archiveUrl}</a>
-      </p>
-    )}
+    {
+      publication.archiveUrl && (
+        <p class="muted">
+          Archive snapshots:{" "}
+          <a href={publication.archiveUrl}>{publication.archiveUrl}</a>
+        </p>
+      )
+    }
   </SectionBlock>
 
   <SectionBlock
@@ -95,7 +102,8 @@ const permalink = "/mechanisms/cite";
     description="Mechanism materials are published under an open license with attribution guidance."
   >
     <p class="muted">
-      License: <a href={publication.license.href}>{publication.license.label}</a>
+      License: <a href={publication.license.href}>{publication.license.label}</a
+      >
     </p>
     <p class="muted">{publication.attribution}</p>
   </SectionBlock>

@@ -302,7 +302,7 @@ const initializePatternFilter = (root: HTMLElement) => {
     printWindow.document.write(html);
     printWindow.document.close();
     printWindow.focus();
-    
+
     // Brief timeout so styles compile/render before print runs
     setTimeout(() => {
       printWindow.print();
@@ -704,10 +704,16 @@ const initializePatternFilter = (root: HTMLElement) => {
     });
 
     /* Drawer implementation */
-    const drawer = root.querySelector<HTMLDialogElement>("[data-pattern-drawer]");
-    const drawerTitle = drawer?.querySelector<HTMLElement>("[data-drawer-title]");
+    const drawer = root.querySelector<HTMLDialogElement>(
+      "[data-pattern-drawer]",
+    );
+    const drawerTitle = drawer?.querySelector<HTMLElement>(
+      "[data-drawer-title]",
+    );
     const drawerBody = drawer?.querySelector<HTMLElement>("[data-drawer-body]");
-    const drawerClose = drawer?.querySelector<HTMLButtonElement>("[data-drawer-close]");
+    const drawerClose = drawer?.querySelector<HTMLButtonElement>(
+      "[data-drawer-close]",
+    );
 
     const openDrawer = (entry: PatternBundleEntry) => {
       if (!drawer || !drawerTitle || !drawerBody) return;
@@ -765,7 +771,9 @@ const initializePatternFilter = (root: HTMLElement) => {
       drawerBody.innerHTML = bodyHtml;
       drawer.showModal();
       requestAnimationFrame(() => {
-        drawer.querySelector(".pattern-drawer__content")?.classList.add("is-open");
+        drawer
+          .querySelector(".pattern-drawer__content")
+          ?.classList.add("is-open");
       });
     };
 

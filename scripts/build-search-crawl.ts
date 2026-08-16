@@ -108,9 +108,7 @@ async function fetchUrlsFromSitemap(baseUrl: string): Promise<string[]> {
     }
   }
 
-  console.log(
-    `  Found ${urls.size} URLs across ${sitemaps.length} sitemaps.`,
-  );
+  console.log(`  Found ${urls.size} URLs across ${sitemaps.length} sitemaps.`);
   return Array.from(urls).sort();
 }
 
@@ -164,7 +162,8 @@ async function crawlAll(
       batch.map((path) =>
         crawlPage(browser, baseUrl, path, outputDir).then((ok) => {
           completed++;
-          if (ok) success++; else failed++;
+          if (ok) success++;
+          else failed++;
           if (completed % 50 === 0 || completed === paths.length) {
             console.log(`  Crawled ${completed}/${paths.length} pages...`);
           }

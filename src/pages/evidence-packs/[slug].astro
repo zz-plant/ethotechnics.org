@@ -26,7 +26,11 @@ const {
 const pageTitle = `${title} — Ethotechnics Institute`;
 ---
 
-<BaseLayout title={pageTitle} description={description} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Evidence pack"
     title={title}
@@ -46,33 +50,41 @@ const pageTitle = `${title} — Ethotechnics Institute`;
     }}
   />
 
-  {sections.map((section, index) => (
-    <SectionBlock
-      id={`section-${index}`}
-      eyebrow={section.required ? "Required" : "Optional"}
-      title={section.title}
-      description={section.required ? "Required for compliance." : "Optional deeper evidence."}
-      variant={index % 2 === 0 ? "default" : "alt"}
-    >
-      <div set:html={section.content} />
-    </SectionBlock>
-  ))}
+  {
+    sections.map((section, index) => (
+      <SectionBlock
+        id={`section-${index}`}
+        eyebrow={section.required ? "Required" : "Optional"}
+        title={section.title}
+        description={
+          section.required
+            ? "Required for compliance."
+            : "Optional deeper evidence."
+        }
+        variant={index % 2 === 0 ? "default" : "alt"}
+      >
+        <div set:html={section.content} />
+      </SectionBlock>
+    ))
+  }
 
-  {(checklists ?? []).map((checklist) => (
-    <SectionBlock
-      id="referenced-by"
-      eyebrow="Referenced by"
-      title={checklist.title}
-      description="Cross-links keep evidence packs aligned with standards, bindings, and validators."
-      variant="alt"
-    >
-      <div class="grid grid--three">
-        {checklist.items.map((item) => (
-          <div class="panel">
-            <p class="muted">{item}</p>
-          </div>
-        ))}
-      </div>
-    </SectionBlock>
-  ))}
+  {
+    (checklists ?? []).map((checklist) => (
+      <SectionBlock
+        id="referenced-by"
+        eyebrow="Referenced by"
+        title={checklist.title}
+        description="Cross-links keep evidence packs aligned with standards, bindings, and validators."
+        variant="alt"
+      >
+        <div class="grid grid--three">
+          {checklist.items.map((item) => (
+            <div class="panel">
+              <p class="muted">{item}</p>
+            </div>
+          ))}
+        </div>
+      </SectionBlock>
+    ))
+  }
 </BaseLayout>

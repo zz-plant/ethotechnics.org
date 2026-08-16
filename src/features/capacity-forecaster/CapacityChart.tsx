@@ -190,7 +190,16 @@ export function CapacityChart({
 
   return (
     <div className="forecaster__chart">
-      <div className="forecaster__chart-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+      <div
+        className="forecaster__chart-header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "0.5rem",
+        }}
+      >
         <div>
           <p className="eyebrow">Forecast</p>
           <h3 id={chartTitleId}>Capacity projection (24 months)</h3>
@@ -203,32 +212,129 @@ export function CapacityChart({
           className="button ghost button--compact"
           onClick={() => setShowTable(!showTable)}
           style={{ padding: "4px 8px", fontSize: "0.8rem" }}
-          aria-label={showTable ? "Show visual chart" : "Show data table representation"}
+          aria-label={
+            showTable ? "Show visual chart" : "Show data table representation"
+          }
         >
           {showTable ? "Show chart 📊" : "Show table 📋"}
         </button>
       </div>
       <div className="forecaster__chart-body">
         {showTable ? (
-          <div style={{ overflowX: "auto", padding: "0.5rem", maxHeight: "350px" }}>
-            <table className="forecaster__delta-grid" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem" }}>
+          <div
+            style={{ overflowX: "auto", padding: "0.5rem", maxHeight: "350px" }}
+          >
+            <table
+              className="forecaster__delta-grid"
+              style={{
+                width: "100%",
+                borderCollapse: "collapse",
+                fontSize: "0.9rem",
+              }}
+            >
               <thead>
                 <tr>
-                  <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Month</th>
-                  <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Baseline A</th>
-                  <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Remediated A</th>
-                  {isCompare && <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Baseline B</th>}
-                  {isCompare && <th scope="col" style={{ padding: "6px", textAlign: "left", borderBottom: "1px solid var(--border)", color: "var(--muted)", position: "sticky", top: 0, background: "var(--surface)" }}>Remediated B</th>}
+                  <th
+                    scope="col"
+                    style={{
+                      padding: "6px",
+                      textAlign: "left",
+                      borderBottom: "1px solid var(--border)",
+                      color: "var(--muted)",
+                      position: "sticky",
+                      top: 0,
+                      background: "var(--surface)",
+                    }}
+                  >
+                    Month
+                  </th>
+                  <th
+                    scope="col"
+                    style={{
+                      padding: "6px",
+                      textAlign: "left",
+                      borderBottom: "1px solid var(--border)",
+                      color: "var(--muted)",
+                      position: "sticky",
+                      top: 0,
+                      background: "var(--surface)",
+                    }}
+                  >
+                    Baseline A
+                  </th>
+                  <th
+                    scope="col"
+                    style={{
+                      padding: "6px",
+                      textAlign: "left",
+                      borderBottom: "1px solid var(--border)",
+                      color: "var(--muted)",
+                      position: "sticky",
+                      top: 0,
+                      background: "var(--surface)",
+                    }}
+                  >
+                    Remediated A
+                  </th>
+                  {isCompare && (
+                    <th
+                      scope="col"
+                      style={{
+                        padding: "6px",
+                        textAlign: "left",
+                        borderBottom: "1px solid var(--border)",
+                        color: "var(--muted)",
+                        position: "sticky",
+                        top: 0,
+                        background: "var(--surface)",
+                      }}
+                    >
+                      Baseline B
+                    </th>
+                  )}
+                  {isCompare && (
+                    <th
+                      scope="col"
+                      style={{
+                        padding: "6px",
+                        textAlign: "left",
+                        borderBottom: "1px solid var(--border)",
+                        color: "var(--muted)",
+                        position: "sticky",
+                        top: 0,
+                        background: "var(--surface)",
+                      }}
+                    >
+                      Remediated B
+                    </th>
+                  )}
                 </tr>
               </thead>
               <tbody>
                 {scenarioA.data.map((point, idx) => (
-                  <tr key={idx} style={{ borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
-                    <td style={{ padding: "6px", fontWeight: "bold" }}>{point.dateLabel}</td>
-                    <td style={{ padding: "6px" }}>{formatPercent(point.baseline)}</td>
-                    <td style={{ padding: "6px" }}>{formatPercent(point.remediated)}</td>
-                    {isCompare && <td style={{ padding: "6px" }}>{formatPercent(scenarioB.data[idx]?.baseline ?? 0)}</td>}
-                    {isCompare && <td style={{ padding: "6px" }}>{formatPercent(scenarioB.data[idx]?.remediated ?? 0)}</td>}
+                  <tr
+                    key={idx}
+                    style={{ borderBottom: "1px solid rgba(0,0,0,0.05)" }}
+                  >
+                    <td style={{ padding: "6px", fontWeight: "bold" }}>
+                      {point.dateLabel}
+                    </td>
+                    <td style={{ padding: "6px" }}>
+                      {formatPercent(point.baseline)}
+                    </td>
+                    <td style={{ padding: "6px" }}>
+                      {formatPercent(point.remediated)}
+                    </td>
+                    {isCompare && (
+                      <td style={{ padding: "6px" }}>
+                        {formatPercent(scenarioB.data[idx]?.baseline ?? 0)}
+                      </td>
+                    )}
+                    {isCompare && (
+                      <td style={{ padding: "6px" }}>
+                        {formatPercent(scenarioB.data[idx]?.remediated ?? 0)}
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -255,7 +361,11 @@ export function CapacityChart({
                 y1="0"
                 y2="1"
               >
-                <stop offset="0%" stopColor="var(--accent)" stopOpacity={0.35} />
+                <stop
+                  offset="0%"
+                  stopColor="var(--accent)"
+                  stopOpacity={0.35}
+                />
                 <stop
                   offset="100%"
                   stopColor="var(--accent)"
@@ -270,7 +380,11 @@ export function CapacityChart({
                 y2="1"
               >
                 <stop offset="0%" stopColor="var(--gold)" stopOpacity={0.32} />
-                <stop offset="100%" stopColor="var(--gold)" stopOpacity={0.04} />
+                <stop
+                  offset="100%"
+                  stopColor="var(--gold)"
+                  stopOpacity={0.04}
+                />
               </linearGradient>
               <linearGradient
                 id={baselineBGradientId}
@@ -280,7 +394,11 @@ export function CapacityChart({
                 y2="1"
               >
                 <stop offset="0%" stopColor="var(--teal)" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="var(--teal)" stopOpacity={0.04} />
+                <stop
+                  offset="100%"
+                  stopColor="var(--teal)"
+                  stopOpacity={0.04}
+                />
               </linearGradient>
               <linearGradient
                 id={remediatedBGradientId}
@@ -290,7 +408,11 @@ export function CapacityChart({
                 y2="1"
               >
                 <stop offset="0%" stopColor="var(--teal)" stopOpacity={0.2} />
-                <stop offset="100%" stopColor="var(--teal)" stopOpacity={0.03} />
+                <stop
+                  offset="100%"
+                  stopColor="var(--teal)"
+                  stopOpacity={0.03}
+                />
               </linearGradient>
             </defs>
 
@@ -377,25 +499,23 @@ export function CapacityChart({
 
             {isCompare &&
             saturationB.saturationLabel &&
-            saturationB.saturationX !== null
-              ? (
-                  <g className="forecaster__saturation forecaster__saturation--b">
-                    <line
-                      x1={saturationB.saturationX}
-                      x2={saturationB.saturationX}
-                      y1={MARGINS.top}
-                      y2={CHART_HEIGHT - MARGINS.bottom}
-                    />
-                    <text
-                      x={saturationB.saturationX + 6}
-                      y={MARGINS.top + 26}
-                      className="forecaster__saturation-label"
-                    >
-                      Saturation B
-                    </text>
-                  </g>
-                )
-              : null}
+            saturationB.saturationX !== null ? (
+              <g className="forecaster__saturation forecaster__saturation--b">
+                <line
+                  x1={saturationB.saturationX}
+                  x2={saturationB.saturationX}
+                  y1={MARGINS.top}
+                  y2={CHART_HEIGHT - MARGINS.bottom}
+                />
+                <text
+                  x={saturationB.saturationX + 6}
+                  y={MARGINS.top + 26}
+                  className="forecaster__saturation-label"
+                >
+                  Saturation B
+                </text>
+              </g>
+            ) : null}
 
             <path
               className="forecaster__chart-area forecaster__chart-area--baseline"

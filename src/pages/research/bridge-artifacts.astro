@@ -19,7 +19,11 @@ const anchorLinks = bridgeArtifacts.map((artifact) => ({
 }));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Research"
     title="Bridge artifacts"
@@ -56,30 +60,33 @@ const anchorLinks = bridgeArtifacts.map((artifact) => ({
     />
   </div>
 
-  {bridgeArtifacts.map((artifact, index) => (
-    <SectionBlock
-      id={artifact.slug}
-      eyebrow={`Artifact ${index + 1}`}
-      title={artifact.title}
-      description={artifact.summary}
-      variant={index % 2 === 0 ? "default" : "alt"}
-    >
-      <p class="muted">Type: {artifact.type}</p>
-      <div class="pill-row">
-        {artifact.tags.map((tag) => (
-          <span class="pill pill--muted">{tag}</span>
-        ))}
-      </div>
-      <p class="muted">
-        See the full artifact details at <a href={artifact.href}>{artifact.href}</a>.
-      </p>
-      <CitationBlock
+  {
+    bridgeArtifacts.map((artifact, index) => (
+      <SectionBlock
+        id={artifact.slug}
+        eyebrow={`Artifact ${index + 1}`}
         title={artifact.title}
-        permalink={`${permalink}#${artifact.slug}`}
-        publication={publication}
-        citationKey={`artifact_${artifact.slug}`}
-        summaryLabel="Cite this artifact"
-      />
-    </SectionBlock>
-  ))}
+        description={artifact.summary}
+        variant={index % 2 === 0 ? "default" : "alt"}
+      >
+        <p class="muted">Type: {artifact.type}</p>
+        <div class="pill-row">
+          {artifact.tags.map((tag) => (
+            <span class="pill pill--muted">{tag}</span>
+          ))}
+        </div>
+        <p class="muted">
+          See the full artifact details at{" "}
+          <a href={artifact.href}>{artifact.href}</a>.
+        </p>
+        <CitationBlock
+          title={artifact.title}
+          permalink={`${permalink}#${artifact.slug}`}
+          publication={publication}
+          citationKey={`artifact_${artifact.slug}`}
+          summaryLabel="Cite this artifact"
+        />
+      </SectionBlock>
+    ))
+  }
 </BaseLayout>

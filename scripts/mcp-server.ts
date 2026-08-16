@@ -894,7 +894,11 @@ registerTool(
       )
       .describe("List of check results"),
   },
-  async ({ checks }: { checks: { command: string; exitCode: number; note?: string }[] }) => {
+  async ({
+    checks,
+  }: {
+    checks: { command: string; exitCode: number; note?: string }[];
+  }) => {
     try {
       if (checks.length === 0) {
         return textResponse("No checks provided.");

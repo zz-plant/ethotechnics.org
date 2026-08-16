@@ -4,7 +4,8 @@ import {
   type PagefindResultData,
 } from "./types";
 
-const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 export type SearchRenderer = {
   showEmpty: (message?: string) => void;
@@ -52,8 +53,15 @@ const createResultHTML = (result: PagefindResultData, query: string) => {
     result.meta.category,
     result.meta.contentType,
   ]
-    .filter((value): value is string => typeof value === "string" && value.length > 0)
-    .map((value) => CONTENT_TYPE_MAP[value] ?? CONTENT_TYPE_MAP[value.toLowerCase()] ?? value);
+    .filter(
+      (value): value is string => typeof value === "string" && value.length > 0,
+    )
+    .map(
+      (value) =>
+        CONTENT_TYPE_MAP[value] ??
+        CONTENT_TYPE_MAP[value.toLowerCase()] ??
+        value,
+    );
 
   const link = document.createElement("a");
   link.href = result.url;
@@ -108,13 +116,19 @@ const groupResults = (results: PagefindResultData[]) =>
 
 const sortGroupLabels = (groups: Record<string, PagefindResultData[]>) => {
   const availableLabels = Object.keys(groups);
-  const labels = GROUP_LABELS.filter((label) => availableLabels.includes(label));
-  const otherLabels = availableLabels.filter((label) => !GROUP_LABELS.includes(label));
+  const labels = GROUP_LABELS.filter((label) =>
+    availableLabels.includes(label),
+  );
+  const otherLabels = availableLabels.filter(
+    (label) => !GROUP_LABELS.includes(label),
+  );
 
   return [...labels, ...otherLabels];
 };
 
-export const createSearchRenderer = (container: HTMLElement): SearchRenderer => {
+export const createSearchRenderer = (
+  container: HTMLElement,
+): SearchRenderer => {
   const showEmpty = (message = "Start typing to search...") => {
     const text = document.createElement("p");
     text.className = "search-empty";

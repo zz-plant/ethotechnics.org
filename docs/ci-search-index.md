@@ -17,6 +17,7 @@ If a cached index already exists at `dist/client/pagefind/pagefind.js`, it is
 reused and crawling is skipped.
 
 First-time setup:
+
 ```bash
 bun run build:search:setup   # Install Chromium for Playwright
 ```
@@ -24,6 +25,7 @@ bun run build:search:setup   # Install Chromium for Playwright
 ## Manual Crawl
 
 To regenerate the index independently of the build:
+
 ```bash
 bun run build:search:crawl
 ```
@@ -44,6 +46,7 @@ part of `build`. The crawl runs automatically if `dist/client/pagefind/` is
 missing or stale.
 
 For CI without a display server, install Playwright system dependencies:
+
 ```bash
 bunx playwright install --with-deps chromium
 ```

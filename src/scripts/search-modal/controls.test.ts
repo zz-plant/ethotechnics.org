@@ -16,7 +16,9 @@ const setupMarkup = () => {
     </div>
   `;
 
-  const dialog = document.querySelector("[data-search-dialog]") as HTMLDialogElement;
+  const dialog = document.querySelector(
+    "[data-search-dialog]",
+  ) as HTMLDialogElement;
   dialog.showModal = function showModal() {
     this.setAttribute("open", "");
   };
@@ -24,10 +26,18 @@ const setupMarkup = () => {
     this.removeAttribute("open");
   };
 
-  const trigger = document.querySelector("[data-search-trigger]") as HTMLButtonElement;
-  const container = document.querySelector("[data-search-container]") as HTMLElement;
-  const input = document.querySelector("[data-search-input]") as HTMLInputElement;
-  const results = document.querySelector("[data-search-results]") as HTMLElement;
+  const trigger = document.querySelector(
+    "[data-search-trigger]",
+  ) as HTMLButtonElement;
+  const container = document.querySelector(
+    "[data-search-container]",
+  ) as HTMLElement;
+  const input = document.querySelector(
+    "[data-search-input]",
+  ) as HTMLInputElement;
+  const results = document.querySelector(
+    "[data-search-results]",
+  ) as HTMLElement;
 
   return { container, dialog, trigger, input, results };
 };
@@ -64,7 +74,10 @@ describe("search modal controls", () => {
     const { container, dialog, trigger, results, input } = setupMarkup();
     const dependencies = createDependencies();
 
-    const instance = bindSearchInstance({ container, dialog, trigger }, dependencies);
+    const instance = bindSearchInstance(
+      { container, dialog, trigger },
+      dependencies,
+    );
     expect(instance).not.toBeNull();
 
     trigger.click();
@@ -84,7 +97,10 @@ describe("search modal controls", () => {
   it("handles keyboard navigation wrapping from first to last result", () => {
     const { container, dialog, trigger, input, results } = setupMarkup();
     const dependencies = createDependencies();
-    const instance = bindSearchInstance({ container, dialog, trigger }, dependencies);
+    const instance = bindSearchInstance(
+      { container, dialog, trigger },
+      dependencies,
+    );
     instance?.openDialog();
 
     results.innerHTML = `
@@ -97,10 +113,14 @@ describe("search modal controls", () => {
     input.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
     expect(document.activeElement).toBe(links[0]);
 
-    dialog.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp", bubbles: true }));
+    dialog.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "ArrowUp", bubbles: true }),
+    );
     expect(document.activeElement).toBe(links[1]);
 
-    dialog.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }));
+    dialog.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }),
+    );
     expect(document.activeElement).toBe(links[0]);
   });
 });

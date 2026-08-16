@@ -2,7 +2,9 @@ import type { EvalTestCase, EvalSuite } from "../../content/evals";
 import type { TestCaseResult, RunSummary } from "./types";
 import { maxScoreForScale } from "./config";
 
-export const buildEmptyResults = (testCases: EvalTestCase[]): TestCaseResult[] =>
+export const buildEmptyResults = (
+  testCases: EvalTestCase[],
+): TestCaseResult[] =>
   testCases.map((tc) => ({
     testCaseId: tc.id,
     score: 0,
@@ -35,7 +37,8 @@ export const buildSummary = (
 ): RunSummary => {
   const maxTotal = results.reduce((sum, r) => sum + r.maxScore, 0);
   const scoreTotal = results.reduce((sum, r) => sum + r.score, 0);
-  const aggregateScore = maxTotal > 0 ? Math.round((scoreTotal / maxTotal) * 100) : 0;
+  const aggregateScore =
+    maxTotal > 0 ? Math.round((scoreTotal / maxTotal) * 100) : 0;
   const grade = getGradeFromScore(aggregateScore, suite);
 
   return {

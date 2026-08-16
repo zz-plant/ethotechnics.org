@@ -103,7 +103,11 @@ const artifacts = [
 ];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} publishedTime="2025-06-01T00:00:00.000Z">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2025-06-01T00:00:00.000Z"
+>
   <PageIntro
     eyebrow="Worked example"
     title="Automated account lock & eligibility flip"
@@ -134,11 +138,13 @@ const artifacts = [
     description="A fraud model freezes access after detecting anomalous behavior. The system must still issue a receipt, assign authority, and deliver a remedy within bounded clocks."
   >
     <ol class="muted">
-      {timeline.map((step) => (
-        <li>
-          <strong>{step.title}:</strong> {step.detail}
-        </li>
-      ))}
+      {
+        timeline.map((step) => (
+          <li>
+            <strong>{step.title}:</strong> {step.detail}
+          </li>
+        ))
+      }
     </ol>
   </SectionBlock>
 
@@ -151,9 +157,11 @@ const artifacts = [
   >
     <pre class="code-block">{receiptPayload}</pre>
     <p class="muted">
-      Receipt includes clause references (STD-01.1.1, STD-02.2.1), the appeal path, and the evidence
-      pack anchor used during review. Align payloads to the{" "}
-      <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a>.
+      Receipt includes clause references (STD-01.1.1, STD-02.2.1), the appeal
+      path, and the evidence pack anchor used during review. Align payloads to
+      the{" "}
+      <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a
+      >.
     </p>
   </SectionBlock>
 
@@ -168,12 +176,12 @@ const artifacts = [
         <strong>Owner:</strong> Risk Operations (primary steward responsible for acknowledgement).
       </li>
       <li>
-        <strong>Authority:</strong> Fraud Steward (on-call) empowered to reverse the lock without
-        manager approval.
+        <strong>Authority:</strong> Fraud Steward (on-call) empowered to reverse the
+        lock without manager approval.
       </li>
       <li>
-        <strong>Escalation:</strong> Security & Legal Review Board if the case hits irreversibility
-        or legal hold criteria.
+        <strong>Escalation:</strong> Security & Legal Review Board if the case hits
+        irreversibility or legal hold criteria.
       </li>
     </ul>
   </SectionBlock>
@@ -187,13 +195,19 @@ const artifacts = [
   >
     <CardGrid className="grid--three">
       <CardItem title="Ack clock" description="2 hours">
-        <p class="muted">Owner confirms the case is assigned and shares review ETA.</p>
+        <p class="muted">
+          Owner confirms the case is assigned and shares review ETA.
+        </p>
       </CardItem>
       <CardItem title="Review clock" description="24 hours">
-        <p class="muted">Human reviewer validates the lock, exception, or reversal.</p>
+        <p class="muted">
+          Human reviewer validates the lock, exception, or reversal.
+        </p>
       </CardItem>
       <CardItem title="Remedy clock" description="72 hours">
-        <p class="muted">Unlock, compensate, or provide a safe fallback path.</p>
+        <p class="muted">
+          Unlock, compensate, or provide a safe fallback path.
+        </p>
       </CardItem>
     </CardGrid>
   </SectionBlock>
@@ -206,12 +220,12 @@ const artifacts = [
   >
     <ul class="muted">
       <li>
-        <strong>Security exception:</strong> Lock can remain in place, but acknowledgment and review
-        clocks still run with a maximum 72-hour extension.
+        <strong>Security exception:</strong> Lock can remain in place, but acknowledgment
+        and review clocks still run with a maximum 72-hour extension.
       </li>
       <li>
-        <strong>Legal hold:</strong> Remedy may be delayed, but a partial access fallback (read-only
-        statements, withdrawal visibility) is required.
+        <strong>Legal hold:</strong> Remedy may be delayed, but a partial access fallback
+        (read-only statements, withdrawal visibility) is required.
       </li>
       <li>
         <strong>Escalation:</strong> Exceptions are logged in the
@@ -232,15 +246,16 @@ const artifacts = [
   >
     <ul class="muted">
       <li>
-        <strong>Primary remedy:</strong> Unlock the account and restore eligibility within the
-        remedy clock when no fraud is confirmed.
+        <strong>Primary remedy:</strong> Unlock the account and restore eligibility
+        within the remedy clock when no fraud is confirmed.
       </li>
       <li>
-        <strong>Alternative remedy:</strong> Provide a safe fallback (manual review queue, limited
-        access) if the lock must stand.
+        <strong>Alternative remedy:</strong> Provide a safe fallback (manual review
+        queue, limited access) if the lock must stand.
       </li>
       <li>
-        <strong>Compensation:</strong> Issue credits for service downtime tied to the decision log.
+        <strong>Compensation:</strong> Issue credits for service downtime tied to
+        the decision log.
       </li>
     </ul>
   </SectionBlock>
@@ -252,13 +267,15 @@ const artifacts = [
     description="These artifacts prove the system is proof-carrying, not just policy-driven."
   >
     <CardGrid className="grid--two">
-      {artifacts.map((artifact) => (
-        <CardItem title={artifact.title} description={artifact.description}>
-          <a slot="footer" class="muted" href={artifact.href}>
-            Open artifact
-          </a>
-        </CardItem>
-      ))}
+      {
+        artifacts.map((artifact) => (
+          <CardItem title={artifact.title} description={artifact.description}>
+            <a slot="footer" class="muted" href={artifact.href}>
+              Open artifact
+            </a>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 

@@ -5,9 +5,27 @@ import CapacityChart from "./CapacityChart";
 import type { CapacityPoint } from "./types";
 
 const sampleData: CapacityPoint[] = [
-  { monthIndex: 0, dateLabel: "Jan", baseline: 0.9, remediated: 0.95, isSaturated: false },
-  { monthIndex: 1, dateLabel: "Feb", baseline: 0.82, remediated: 0.9, isSaturated: false },
-  { monthIndex: 2, dateLabel: "Mar", baseline: 0.78, remediated: 0.86, isSaturated: true },
+  {
+    monthIndex: 0,
+    dateLabel: "Jan",
+    baseline: 0.9,
+    remediated: 0.95,
+    isSaturated: false,
+  },
+  {
+    monthIndex: 1,
+    dateLabel: "Feb",
+    baseline: 0.82,
+    remediated: 0.9,
+    isSaturated: false,
+  },
+  {
+    monthIndex: 2,
+    dateLabel: "Mar",
+    baseline: 0.78,
+    remediated: 0.86,
+    isSaturated: true,
+  },
 ];
 
 const extractGradientId = (element: Element | null) => {
@@ -49,13 +67,17 @@ describe("CapacityChart gradients", () => {
     expect(charts).toHaveLength(2);
 
     const gradientIds = charts.flatMap((chart) =>
-      Array.from(chart.querySelectorAll("linearGradient")).map((gradient) => gradient.id),
+      Array.from(chart.querySelectorAll("linearGradient")).map(
+        (gradient) => gradient.id,
+      ),
     );
 
     expect(new Set(gradientIds).size).toBe(gradientIds.length);
 
     charts.forEach((chart) => {
-      const chartGradients = Array.from(chart.querySelectorAll("linearGradient"));
+      const chartGradients = Array.from(
+        chart.querySelectorAll("linearGradient"),
+      );
       expect(chartGradients).toHaveLength(4);
 
       const chartGradientIds = chartGradients.map((gradient) => gradient.id);
@@ -72,8 +94,15 @@ describe("CapacityChart gradients", () => {
         chart.querySelector(".forecaster__chart-area--remediated-b"),
       );
 
-      if (!baselineFillId || !remediatedFillId || !baselineBFillId || !remediatedBFillId) {
-        throw new Error("Expected chart fill IDs to reference gradient definitions.");
+      if (
+        !baselineFillId ||
+        !remediatedFillId ||
+        !baselineBFillId ||
+        !remediatedBFillId
+      ) {
+        throw new Error(
+          "Expected chart fill IDs to reference gradient definitions.",
+        );
       }
       expect(chartGradientIds).toContain(baselineFillId);
       expect(chartGradientIds).toContain(remediatedFillId);

@@ -1,3 +1,3 @@
-import MaintenanceSimulator from './MaintenanceSimulator';
+import MaintenanceSimulator from "./MaintenanceSimulator";
 
 export default MaintenanceSimulator;

@@ -10,12 +10,11 @@ import SummaryCallout from "../../components/SummaryCallout.astro";
 const evidencePacks = await getCollection("evidencePacks");
 
 const pageTitle = "Evidence Packs";
-const pageDescription = "Tiered evidence requirements for each standard with audit guidance and compliance theater detection.";
+const pageDescription =
+  "Tiered evidence requirements for each standard with audit guidance and compliance theater detection.";
 const permalink = "/evidence-packs";
 
-const anchorLinks = [
-  { href: "#evidence-packs", label: "All evidence packs" },
-];
+const anchorLinks = [{ href: "#evidence-packs", label: "All evidence packs" }];
 
 const takeaways = [
   "Each pack uses a Tier 0–2 model so you can scale proof from baseline to resilience.",
@@ -29,9 +28,7 @@ const relatedLinks = [
   { href: "/validators", label: "Validators" },
 ];
 
-const summaryLinks = [
-  { href: "#evidence-packs", label: "Browse all" },
-];
+const summaryLinks = [{ href: "#evidence-packs", label: "Browse all" }];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -44,7 +41,8 @@ const summaryLinks = [
     panelCopy={{
       eyebrow: "Proof-carrying compliance",
       title: "Tiered evidence for enforceable standards",
-      description: "Evidence packs translate clause obligations into artifact inventories, test batteries, and auditor-ready exports.",
+      description:
+        "Evidence packs translate clause obligations into artifact inventories, test batteries, and auditor-ready exports.",
     }}
   />
 
@@ -71,7 +69,11 @@ const summaryLinks = [
               title={entry.data.title}
               description={entry.data.description}
             >
-              <a slot="footer" class="button ghost button--compact" href={entry.data.permalink}>
+              <a
+                slot="footer"
+                class="button ghost button--compact"
+                href={entry.data.permalink}
+              >
                 Open evidence pack
               </a>
             </CardItem>
@@ -81,6 +83,8 @@ const summaryLinks = [
   </SectionBlock>
 
   <p class="muted" style="margin-top:2rem">
-    See also: <a href="/standards">Standards</a> &middot; <a href="/bindings">Bindings</a> &middot; <a href="/validators">Validators</a>
+    See also: <a href="/standards">Standards</a> &middot; <a href="/bindings"
+      >Bindings</a
+    > &middot; <a href="/validators">Validators</a>
   </p>
 </BaseLayout>

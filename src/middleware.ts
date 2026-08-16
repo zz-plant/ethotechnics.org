@@ -1,14 +1,15 @@
-import type { MiddlewareHandler } from 'astro';
+import type { MiddlewareHandler } from "astro";
 
 const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
 
 const applySecurityHeaders = (response: Response): Response => {
   const securityHeaders: Record<string, string> = {
-    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-    'Referrer-Policy': 'no-referrer',
-    'X-Frame-Options': 'DENY',
-    'X-Content-Type-Options': 'nosniff',
-    'Permissions-Policy': 'camera=(), geolocation=(), microphone=(), payment=()',
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "Referrer-Policy": "no-referrer",
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options": "nosniff",
+    "Permissions-Policy":
+      "camera=(), geolocation=(), microphone=(), payment=()",
   };
 
   try {
@@ -23,12 +24,12 @@ const applySecurityHeaders = (response: Response): Response => {
 };
 
 export const onRequest: MiddlewareHandler = async (context, next) => {
-  const host = context.request.headers.get('host') ?? '';
+  const host = context.request.headers.get("host") ?? "";
 
   if (host && COM_HOST_RE.test(host)) {
     const url = new URL(context.request.url);
-    url.hostname = 'ethotechnics.org';
-    url.host = 'ethotechnics.org';
+    url.hostname = "ethotechnics.org";
+    url.host = "ethotechnics.org";
 
     const redirect = new Response(null, {
       status: 301,

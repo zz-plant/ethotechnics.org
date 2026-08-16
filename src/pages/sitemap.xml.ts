@@ -11,13 +11,16 @@ export async function GET({ site }: APIContext) {
   const sections = await buildSitemapSections();
   const sitemapEntries = sitemapPaths.map((section) => {
     const sectionEntries = sections[section];
-    const latestLastmod = sectionEntries.reduce<string | undefined>((latest, entry) => {
-      if (!entry.lastmod) return latest;
-      if (!latest) return entry.lastmod;
-      return new Date(entry.lastmod).getTime() > new Date(latest).getTime()
-        ? entry.lastmod
-        : latest;
-    }, undefined);
+    const latestLastmod = sectionEntries.reduce<string | undefined>(
+      (latest, entry) => {
+        if (!entry.lastmod) return latest;
+        if (!latest) return entry.lastmod;
+        return new Date(entry.lastmod).getTime() > new Date(latest).getTime()
+          ? entry.lastmod
+          : latest;
+      },
+      undefined,
+    );
 
     return {
       path: `/sitemaps/${section}.xml`,
