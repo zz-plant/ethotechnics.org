@@ -53,6 +53,12 @@ export const navPrimaryLinks: NavLink[] = [
     mobileFeatured: true,
   },
   {
+    href: "/evals",
+    label: "Evals",
+    description: "Benchmark governability",
+    primary: true,
+  },
+  {
     href: "/examples",
     label: "Examples",
     description: "See worked examples",

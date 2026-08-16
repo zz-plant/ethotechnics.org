@@ -47,6 +47,7 @@ export const siteFooter: SiteFooterContent = {
         { label: "Glossary", href: "/glossary" },
         { label: "Standards", href: "/standards" },
         { label: "Diagnostics", href: "/diagnostics" },
+        { label: "Evals", href: "/evals" },
       ],
     },
     {
