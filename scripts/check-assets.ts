@@ -33,7 +33,7 @@ const COLOR_TYPE_LABELS: Record<number, string> = {
 type PngInfo = { width: number; height: number; colorType: number; bitDepth: number; byteLength: number };
 
 function readPngInfo(filePath: string): PngInfo {
-  const buf = readFileSync(filePath);
+  const buf = Buffer.from(readFileSync(filePath));
   if (buf.length < 33) throw new Error('file too small for valid PNG');
   if (!buf.subarray(0, 8).equals(PNG_SIGNATURE)) throw new Error('not a valid PNG');
   return {
