@@ -99,6 +99,7 @@ bun run setup:codex
 | `bun test`               | Run unit and component tests with Bun.                                                   |
 | `bun run test:e2e`       | Build and run Playwright against the preview server (Chromium, Firefox, WebKit).         |
 | `bun run test:e2e:smoke` | Build and run a Chromium-only Playwright smoke suite.                                    |
+| `bun run test:e2e:ci`    | Build and run Playwright on Chromium only for CI.                                        |
 | `bun run deploy`         | Build and deploy the Worker to Cloudflare using Wrangler.                                |
 
 ## Safe local cleanup
@@ -121,7 +122,8 @@ remove dependencies and Playwright caches.
   binaries and system packages.
 - `bun run test:e2e` builds the Worker bundle and runs Playwright against `bun run preview`
   across Chromium, Firefox, and WebKit.
-- `bun run test:e2e:smoke` runs the same flow on Chromium only for faster PR validation.
+- `bun run test:e2e:smoke` and `bun run test:e2e:ci` run the same flow on Chromium only for
+  faster PR and CI validation; run the full three-browser matrix locally before release.
 - Use `bun run preview:cf` when you need to validate Worker runtime behavior (Durable Objects,
   bindings, or Workers KV) locally.
 - Override the preview target with `PLAYWRIGHT_BASE_URL` (defaults to `http://127.0.0.1:4321`).
