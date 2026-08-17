@@ -311,25 +311,26 @@
   }
 
   .callout {
-    padding: 1.55rem;
+    padding: 1.6rem;
     background: linear-gradient(
       145deg,
       color-mix(in srgb, var(--surface) 94%, white 6%),
       color-mix(in srgb, var(--panel) 92%, white 8%)
     );
-    border-radius: var(--radius);
-    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
     box-shadow: var(--shadow-sm);
   }
 
   .panel--solid {
     background: var(--panel);
-    border-color: color-mix(in srgb, var(--border) 60%, transparent);
+    border-color: var(--border);
     box-shadow: none;
   }
 
   .callout--emphasis {
-    border-color: var(--surface-accent-edge);
+    border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+    border-left: 3px solid var(--accent);
     box-shadow:
       var(--shadow-accent),
       0 12px 20px rgba(56, 40, 24, 0.08);
@@ -337,7 +338,7 @@
 
   .callout--solid {
     background: var(--surface);
-    border-color: color-mix(in srgb, var(--border) 55%, transparent);
+    border-color: var(--border);
     box-shadow: none;
     border-left: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
   }
