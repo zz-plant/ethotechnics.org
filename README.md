@@ -11,9 +11,11 @@
   <img src="docs/assets/ethotechnics.org-demo.gif" alt="ethotechnics.org demo animation" width="720">
 </p>
 
-This repository powers [ethotechnics.org](https://ethotechnics.org), a content-driven site exploring
-ethical technology, human-centered design, and the sociotechnical systems that shape them. The
-project favors lean, fast-loading pages and clear storytelling.
+This repository powers [ethotechnics.org](https://ethotechnics.org), the home of Ethotechnics — an
+open framework for the operational accountability of high-stakes AI and socio-technical systems. It
+publishes proposed standards, mechanisms, diagnostics, and a glossary that treat evidence,
+authorization, challenge, reconsideration, correction, and escalation as explicit system states.
+The project favors lean, fast-loading pages and clear storytelling.
 
 **Live site:** <https://ethotechnics.org>
 
@@ -50,8 +52,9 @@ project favors lean, fast-loading pages and clear storytelling.
 
 ## Keywords
 
-Ethical technology, human-centered design, sociotechnical systems, Astro, Cloudflare Workers,
-accessible web performance, content strategy, digital ethics, UX research, responsible innovation.
+AI accountability, AI governance, proposed standards, contestability, recourse, correction
+propagation, sociotechnical systems, Astro, Cloudflare Workers, accessible web performance,
+digital ethics, responsible innovation.
 
 ## Requirements
 

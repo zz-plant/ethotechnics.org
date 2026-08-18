@@ -61,7 +61,7 @@ export type StandardClause = {
 export const standardsContent: StandardsContent = {
   pageTitle: "Standards — Ethotechnics Institute",
   pageDescription:
-    "This page is for governance, policy, and assurance teams stewarding enforceable standards. Canonical standards and doctrine stewarded by the Institute of Ethotechnics.",
+    "This page is for governance, policy, and assurance teams. Proposed standards and supporting doctrine, published openly for adoption — status marks editorial maturity; adoption by institutions is what confers authority.",
   permalink: "/standards",
   anchorLinks: [
     { href: "#active", label: "Active standards" },
