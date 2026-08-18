@@ -28,7 +28,7 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics Institute seal",
     },
     description:
-      "Open standards, mechanisms, and diagnostics for high-stakes AI systems. Content licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).",
+      "An open framework for accountable AI systems — proposed standards, mechanisms, and diagnostics. Content licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).",
     license: {
       label: "View the CC BY 4.0 license",
       href: "https://creativecommons.org/licenses/by/4.0/",
