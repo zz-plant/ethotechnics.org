@@ -488,6 +488,10 @@ const pagefindType = pathSegments[0] ?? "";
             navHeight -
             24;
 
+          const prefersReduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+          ).matches;
+
           window.scrollTo({
             top,
             behavior: prefersReduced ? "auto" : "smooth",

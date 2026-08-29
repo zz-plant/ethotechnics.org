@@ -25,13 +25,13 @@
   }
 
   .diagnostics__slider {
-    padding: 1rem 1.15rem;
-    border-radius: var(--radius);
+    padding: 1.15rem 1.25rem;
+    border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
     display: grid;
-    gap: 0.6rem;
-    box-shadow: var(--shadow-xs);
+    gap: 0.65rem;
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
   }
 
   .diagnostics__slider-heading {
@@ -45,6 +45,8 @@
   .diagnostics__slider input[type="range"] {
     width: 100%;
     accent-color: var(--accent);
+    cursor: pointer;
+    min-height: 28px;
   }
 
   .diagnostics__slider-value {
@@ -53,11 +55,11 @@
   }
 
   .diagnostics__scorecard {
-    padding: 1.5rem;
-    border-radius: var(--radius);
+    padding: 1.6rem;
+    border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
     background: color-mix(in srgb, var(--panel) 92%, white 8%);
-    box-shadow: var(--shadow-xs);
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
     display: grid;
     gap: 0.6rem;
   }
@@ -80,11 +82,11 @@
   }
 
   .diagnostics__process-step {
-    padding: 1.15rem 1.25rem;
+    padding: 1.2rem 1.35rem;
     background: color-mix(in srgb, var(--surface) 96%, white 4%);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-xs);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
   }
 
   .diagnostics__process-step .eyebrow {

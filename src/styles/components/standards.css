@@ -10,10 +10,14 @@
   .standards-timeline__item {
     display: grid;
     gap: 1rem;
-    padding: 1rem;
-    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    border-radius: var(--radius-xl);
-    background: var(--surface);
+    padding: 1.25rem;
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    border-radius: var(--radius-lg);
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    transition:
+      border-color var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease;
   }
 
   .standards-timeline__badge {
@@ -126,10 +130,11 @@
   }
 
   .temporal-diagram__card {
-    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    border-radius: var(--radius-xl);
-    padding: 1rem 1.2rem;
-    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    border-radius: var(--radius-lg);
+    padding: 1.15rem 1.3rem;
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
   }
 
   .temporal-diagram__summary {

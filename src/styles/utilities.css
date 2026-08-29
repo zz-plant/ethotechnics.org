@@ -1,17 +1,39 @@
 @layer utilities {
   .text-hero {
     font-size: var(--text-hero);
-    line-height: 1.05;
+    line-height: 1.08;
     text-wrap: balance;
+    letter-spacing: -0.015em;
   }
 
   .text-lede {
     font-size: var(--text-lede);
-    text-wrap: balance;
+    line-height: 1.55;
+    text-wrap: pretty;
   }
 
   .text-body {
     font-size: var(--text-body);
+    line-height: 1.68;
+  }
+
+  .small {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  .balanced-headline {
+    text-wrap: balance;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .section-lead {
+    font-size: var(--text-lede);
+    line-height: 1.62;
+    max-width: 68ch;
+    color: color-mix(in srgb, var(--text) 92%, var(--border));
+    text-wrap: pretty;
   }
 
   .u-ink-text {
@@ -20,19 +42,20 @@
 
   .eyebrow {
     text-transform: uppercase;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.16em;
     font-size: var(--text-eyebrow);
+    font-family: var(--sans);
+    font-weight: 700;
     color: var(--accent);
     margin: 0;
   }
 
   .muted {
     color: var(--muted);
-    margin: 0.2rem 0 0;
   }
 
   .is-hidden {
-    display: none;
+    display: none !important;
   }
 
   .sr-only {
@@ -47,7 +70,45 @@
     border: 0;
   }
 
+  /* Spacing and Flex Stacks */
   .flow > * + * {
     margin-top: var(--flow-space, 1rem);
+  }
+
+  .stack-xs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .stack-sm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .stack-md {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .stack-lg {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .stack-xl {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
   }
 }

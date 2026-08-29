@@ -14,7 +14,11 @@
     gap: var(--space-3);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-xs);
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    transition:
+      border-color var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease;
   }
 
   .syllabus-module__heading h2 {

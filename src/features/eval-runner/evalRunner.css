@@ -32,12 +32,15 @@
 .eval-selector__card {
   cursor: pointer;
   text-align: left;
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1rem;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.15s ease;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+  transition:
+    border-color var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease,
+    transform var(--motion-fast) ease;
   font-family: inherit;
   font-size: inherit;
   color: inherit;
@@ -45,6 +48,8 @@
 
 .eval-selector__card:hover {
   border-color: var(--accent);
+  box-shadow: var(--shadow-md), var(--card-inner-highlight);
+  transform: translateY(-1px);
 }
 
 .eval-selector__title {
