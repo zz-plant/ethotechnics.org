@@ -1,0 +1,189 @@
+---
+import { resolveSemanticContext } from "../utils/semantic-graph";
+
+interface Props {
+  entityId: string;
+  className?: string;
+}
+
+const { entityId, className = "" } = Astro.props;
+const context = resolveSemanticContext(entityId);
+
+if (!context) {
+  return null;
+}
+
+const hasConnections =
+  context.diagnostics.length > 0 ||
+  context.failureModes.length > 0 ||
+  context.standards.length > 0 ||
+  context.regulatoryCrosswalks.length > 0;
+
+if (!hasConnections) {
+  return null;
+}
+---
+
+<aside class={`semantic-connections ${className}`} aria-label="Semantic Connections">
+  <div class="semantic-connections__header">
+    <span class="semantic-connections__badge">RELATIONAL GOVERNANCE MATRIX</span>
+    <h3 class="semantic-connections__title">Connected Specifications & Tools</h3>
+  </div>
+
+  <div class="semantic-connections__grid">
+    {
+      context.diagnostics.length > 0 && (
+        <div class="semantic-connections__column">
+          <span class="semantic-connections__label">Interactive Verification</span>
+          <div class="semantic-connections__list">
+            {context.diagnostics.slice(0, 3).map((diag) => (
+              <a href={diag.href} class="semantic-connections__card semantic-connections__card--tool">
+                <strong class="semantic-connections__card-title">{diag.title}</strong>
+                <p class="semantic-connections__card-desc">{diag.description}</p>
+                <span class="semantic-connections__card-action">Launch tool &rarr;</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    {
+      context.failureModes.length > 0 && (
+        <div class="semantic-connections__column">
+          <span class="semantic-connections__label">Prevented Failure Modes</span>
+          <div class="semantic-connections__list">
+            {context.failureModes.slice(0, 3).map((fm) => (
+              <a href={fm.href} class="semantic-connections__card semantic-connections__card--risk">
+                <strong class="semantic-connections__card-title">{fm.title}</strong>
+                <p class="semantic-connections__card-desc">{fm.description}</p>
+                <span class="semantic-connections__card-action">Inspect failure mode &rarr;</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    {
+      context.standards.length > 0 && (
+        <div class="semantic-connections__column">
+          <span class="semantic-connections__label">Normative Standards</span>
+          <div class="semantic-connections__list">
+            {context.standards.slice(0, 3).map((std) => (
+              <a href={std.href} class="semantic-connections__card semantic-connections__card--spec">
+                <strong class="semantic-connections__card-title">{std.title}</strong>
+                <p class="semantic-connections__card-desc">{std.description}</p>
+                <span class="semantic-connections__card-action">View specification &rarr;</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </div>
+</aside>
+
+<style>
+  .semantic-connections {
+    margin: 3.5rem 0 2rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--surface-emphasis);
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .semantic-connections__header {
+    display: grid;
+    gap: 0.35rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    padding-bottom: 0.75rem;
+  }
+
+  .semantic-connections__badge {
+    font-size: 0.65rem;
+    font-family: var(--mono);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  .semantic-connections__title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-family: var(--sans);
+    font-weight: 750;
+    color: var(--text);
+  }
+
+  .semantic-connections__grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  }
+
+  .semantic-connections__column {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+  }
+
+  .semantic-connections__label {
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  .semantic-connections__list {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .semantic-connections__card {
+    display: grid;
+    gap: 0.3rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-decoration: none;
+    transition: all var(--motion-fast) ease;
+  }
+
+  .semantic-connections__card:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .semantic-connections__card-title {
+    font-size: 0.85rem;
+    font-family: var(--sans);
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .semantic-connections__card-desc {
+    margin: 0;
+    font-size: 0.76rem;
+    color: var(--muted);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .semantic-connections__card-action {
+    font-size: 0.72rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-top: 0.15rem;
+  }
+</style>

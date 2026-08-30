@@ -65,6 +65,36 @@
     line-height: 1.35;
   }
 
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: 600;
+    color: var(--text);
+    background: var(--surface-raised);
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -76,3 +106,90 @@
     }
   }
 }
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  .skip-link,
+  .nav,
+  .site-header,
+  .footer,
+  .back-to-top,
+  .reading-progress,
+  .theme-toggle,
+  .copy-button,
+  .code-copy-btn,
+  [data-theme-toggle],
+  form,
+  .search-dialog {
+    display: none !important;
+  }
+
+  .page,
+  .page-shell,
+  .page-shell__content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  a {
+    text-decoration: underline;
+    color: #000 !important;
+  }
+
+  a[href^="http"]:not([href*="ethotechnics.org"]):after {
+    content: " (" attr(href) ")";
+    font-size: 85%;
+    word-break: break-all;
+  }
+
+  a[href^="#"]:after,
+  a[href^="javascript:"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+

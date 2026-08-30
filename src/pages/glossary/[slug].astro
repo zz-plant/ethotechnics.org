@@ -9,6 +9,7 @@ import { libraryContent } from "../../content/library";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SemanticConnections from "../../components/SemanticConnections.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import {
   getGlossaryTestSlugs,
@@ -784,6 +785,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </aside>
     </div>
   </article>
+
+  <SemanticConnections entityId={entry.id} />
 
   <CitationBlock
     title={entry.title}

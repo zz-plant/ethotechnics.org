@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { currentPath, currentHash = "" }: Props = Astro.props;
-const isStartHere = normalizePath(currentPath) === "/start-here";
+const isStart = normalizePath(currentPath) === "/start";
 ---
 
 <nav class="nav__mobile" aria-label="Main navigation">
@@ -56,12 +56,12 @@ const isStartHere = normalizePath(currentPath) === "/start-here";
 
       <div class="nav__mobile-drawer">
         <a
-          href="/start-here"
+          href="/start"
           class:list={[
             "nav__mobile-featured-cta",
-            { "nav__mobile-featured-cta--active": isStartHere },
+            { "nav__mobile-featured-cta--active": isStart },
           ]}
-          aria-current={isStartHere ? "page" : undefined}
+          aria-current={isStart ? "page" : undefined}
         >
           <div class="nav__mobile-featured-content">
             <span class="nav__mobile-featured-badge">Orientation</span>

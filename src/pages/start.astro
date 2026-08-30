@@ -1,0 +1,220 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { roleCuratedPaths, type UserRole } from "../utils/semantic-graph";
+
+const pageTitle = "Start Here — Ethotechnics Triage & Role Paths";
+const pageDescription =
+  "Find the exact standards, interactive diagnostics, and guardrail code tailored to your role.";
+
+const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-01-09T00:00:00.000Z"
+  mainClass="page page--wide"
+>
+  <header class="section-header container">
+    <span class="pill pill--ghost">Adaptive Triage</span>
+    <h1 class="page-title">Find your path through Ethotechnics</h1>
+    <p class="page-lede">
+      Whether you are shipping AI agents into production, mapping regulatory
+      compliance, or auditing high-stakes decisions, select your perspective below
+      to get immediate, actionable technical artifacts.
+    </p>
+  </header>
+
+  <main class="container">
+    <div class="role-grid">
+      {
+        roles.map((roleKey) => {
+          const path = roleCuratedPaths[roleKey];
+          return (
+            <article class="role-card" id={roleKey}>
+              <div class="role-card__header">
+                <span class="role-card__badge">{roleKey.toUpperCase()}</span>
+                <h2 class="role-card__title">{path.title}</h2>
+                <p class="role-card__tagline">{path.tagline}</p>
+              </div>
+
+              <div class="role-card__steps">
+                <span class="role-card__steps-heading">Recommended Sequence</span>
+                <ol class="role-card__step-list">
+                  {path.prioritySteps.map((step) => (
+                    <li class="role-card__step-item">
+                      <div class="role-card__step-content">
+                        <strong class="role-card__step-title">{step.title}</strong>
+                        <p class="role-card__step-desc">{step.description}</p>
+                        <a href={step.ctaHref} class="role-card__step-link">
+                          {step.ctaLabel} &rarr;
+                        </a>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+
+    <!-- Quick Navigation Matrix -->
+    <section class="matrix-banner">
+      <div class="matrix-banner__content">
+        <h2>Looking for a specific domain?</h2>
+        <p>Explore our 4 core technical repositories directly:</p>
+      </div>
+      <div class="matrix-banner__links">
+        <a href="/standards" class="button">1. Standards (Specs & Clauses)</a>
+        <a href="/mechanisms" class="button">2. Mechanisms (Architecture Blueprints)</a>
+        <a href="/diagnostics" class="button">3. Diagnostics (Interactive Workbench)</a>
+        <a href="/glossary" class="button">4. Knowledge (Taxonomy & Metrics)</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .role-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    margin-top: 2rem;
+  }
+
+  .role-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: transform var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
+  }
+
+  .role-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .role-card__header {
+    display: grid;
+    gap: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    padding-bottom: 1rem;
+  }
+
+  .role-card__badge {
+    font-size: 0.68rem;
+    font-family: var(--mono);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-pill);
+    width: fit-content;
+  }
+
+  .role-card__title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-family: var(--sans);
+    font-weight: 750;
+    color: var(--text);
+  }
+
+  .role-card__tagline {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .role-card__steps {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .role-card__steps-heading {
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  .role-card__step-list {
+    list-style: decimal;
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .role-card__step-item {
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  .role-card__step-title {
+    display: block;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .role-card__step-desc {
+    margin: 0 0 0.35rem 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .role-card__step-link {
+    font-size: 0.8rem;
+    font-weight: 650;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .role-card__step-link:hover {
+    text-decoration: underline;
+    color: var(--accent-strong);
+  }
+
+  .matrix-banner {
+    margin: 3.5rem 0 2rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-radius: var(--radius-lg);
+    background: var(--surface-emphasis);
+    border: 1px solid var(--border);
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .matrix-banner__content h2 {
+    margin: 0 0 0.35rem;
+    font-size: 1.25rem;
+  }
+
+  .matrix-banner__content p {
+    margin: 0;
+    color: var(--muted);
+    font-size: var(--text-sm);
+  }
+
+  .matrix-banner__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

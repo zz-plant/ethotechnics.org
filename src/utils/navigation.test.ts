@@ -23,7 +23,7 @@ describe("normalizePath", () => {
 
 describe("isCurrentLink", () => {
   it("treats canonical paths as current even when URL has query params", () => {
-    expect(isCurrentLink("/start-here/", "/start-here?ref=navigation")).toBe(
+    expect(isCurrentLink("/start/", "/start?ref=navigation")).toBe(
       true,
     );
   });

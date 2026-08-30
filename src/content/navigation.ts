@@ -34,35 +34,37 @@ export const navPrimaryLinks: NavLink[] = [
   {
     href: "/standards",
     label: "Standards",
-    description: "Citable normative specifications and requirements",
-    primary: true,
-    mobileFeatured: true,
-  },
-  {
-    href: "/diagnostics",
-    label: "Tools",
-    description: "Interactive diagnostics, capacity forecasters & checklists",
+    description: "Citable normative specifications, clauses, and crosswalks",
     primary: true,
     mobileFeatured: true,
   },
   {
     href: "/mechanisms",
     label: "Mechanisms",
-    description: "Operational patterns, kill switches, and controls",
+    description: "Operational blueprints, circuit breakers, and controls",
     primary: true,
     mobileFeatured: true,
   },
   {
-    href: "/evals",
-    label: "Evals",
-    description: "Governability benchmarks & rubrics",
+    href: "/diagnostics",
+    label: "Diagnostics",
+    description: "Interactive system auditor, burden modeler, and evaluators",
     primary: true,
+    mobileFeatured: true,
   },
   {
-    href: "/library",
-    label: "Library",
-    description: "Glossary, ontology, and curated literature",
+    href: "/glossary",
+    label: "Knowledge",
+    description: "Taxonomy, failure modes, metrics, and case studies",
     primary: true,
+    mobileFeatured: true,
+  },
+  {
+    href: "/start",
+    label: "Start Here",
+    description: "Adaptive triage for engineers, policy leads, and auditors",
+    primary: true,
+    mobileFeatured: true,
   },
   {
     href: "/about",
@@ -74,88 +76,104 @@ export const navPrimaryLinks: NavLink[] = [
 
 export const navSections: NavSection[] = [
   {
-    heading: "Standards & Tools",
+    heading: "Standards & Specifications",
     description:
-      "Normative specifications, diagnostics, and operational controls.",
+      "Normative requirements, contract clauses, and regulatory crosswalks.",
     links: [
       {
         href: "/standards",
-        label: "Standards",
+        label: "Standards Spec",
         description: "Normative specifications and safety requirements",
       },
       {
-        href: "/diagnostics",
-        label: "Diagnostics & Tools",
-        description: "Readiness checks, burden modeling, and validators",
+        href: "/standards#regulatory-crosswalks",
+        label: "Regulatory Crosswalks",
+        description: "EU AI Act, NIST AI RMF, and ISO 42001 alignment",
       },
       {
+        href: "/evidence-packs",
+        label: "Evidence Packs",
+        description: "Machine-verifiable proof and compliance artifacts",
+      },
+    ],
+  },
+  {
+    heading: "Architecture & Mechanisms",
+    description: "Concrete engineering patterns, circuit breakers, and test suites.",
+    links: [
+      {
         href: "/mechanisms",
-        label: "Mechanisms & Patterns",
+        label: "Mechanisms Catalog",
         description: "Kill switches, appeals queues, and safe state controls",
       },
       {
         href: "/evals",
         label: "Evals & Benchmarks",
-        description: "Evaluation test cases and governability benchmarks",
+        description: "Governability evaluation suites and test cases",
+      },
+      {
+        href: "/validators",
+        label: "Technical Validators",
+        description: "Runtime assertions and middleware specifications",
       },
     ],
   },
   {
-    heading: "Knowledge & Reference",
-    description: "Ontology, taxonomy, field notes, and research publications.",
+    heading: "Diagnostics & Workbench",
+    description: "Interactive tools to audit, forecast, and stress-test systems.",
     links: [
       {
-        href: "/library",
-        label: "Library Index",
-        description: "Curated reference index and crosswalks",
+        href: "/diagnostics/system-auditor",
+        label: "System Auditor & Guardrails",
+        description: "AI prompt and architecture governance analyzer",
       },
+      {
+        href: "/diagnostics/burden-modeler",
+        label: "Burden Modeler",
+        description: "Quantify cognitive friction and task loads",
+      },
+      {
+        href: "/diagnostics/capacity-forecaster",
+        label: "Capacity Forecaster",
+        description: "Model human-in-the-loop saturation limits",
+      },
+      {
+        href: "/diagnostics",
+        label: "All Diagnostics",
+        description: "Browse the complete interactive diagnostics gallery",
+      },
+    ],
+  },
+  {
+    heading: "Knowledge & Evidence",
+    description: "80+ failure modes, mathematical formulas, and empirical research.",
+    links: [
       {
         href: "/glossary",
         label: "Glossary & Ontology",
         description: "Definitive terms for accountable systems",
       },
       {
+        href: "/taxonomy",
+        label: "Failure Taxonomy",
+        description: "Structural failure modes and counterfeit behaviors",
+      },
+      {
+        href: "/incidents",
+        label: "Incident Precedents",
+        description: "Real-world failure dossiers and post-mortems",
+      },
+      {
         href: "/field-notes",
-        label: "Field Notes",
-        description: "Operational observations and implementation memos",
-      },
-      {
-        href: "/research",
-        label: "Research",
+        label: "Field Notes & Research",
         description: "Working papers and empirical governance studies",
-      },
-    ],
-  },
-  {
-    heading: "Institute & Community",
-    description: "Orientation, governance, participation, and ecosystem.",
-    links: [
-      {
-        href: "/start-here",
-        label: "Start Here",
-        description: "Quick-start triage for operators, authors, and auditors",
-      },
-      {
-        href: "/about",
-        label: "About the Institute",
-        description: "Mission, governance principles, and contributors",
-      },
-      {
-        href: "/participate",
-        label: "Participate & Feedback",
-        description: "Contribute proposals, report issues, and join reviews",
-      },
-      {
-        href: "/security/vulnerability-disclosure",
-        label: "Security Policy",
-        description: "Responsible disclosure and security guidelines",
       },
     ],
   },
 ];
 
 export const startHereCta: NavLink = {
-  href: "/start-here",
+  href: "/start",
   label: "Start here",
   description: "Find the right resource fast",
   primary: true,

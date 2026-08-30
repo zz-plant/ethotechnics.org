@@ -53,6 +53,13 @@ const relatedLinkLabel = (href: string) => {
   const pathLabel = toTitleLabel(rest.at(-1) ?? host);
   return `${pathLabel} (${host})`;
 };
+
+const estimateReadingTime = (text: string) => {
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(words / 120));
+  return `${minutes} min read`;
+};
+
 const fieldNoteSections = sections.map((section, index) => ({
   section,
   entries: entries.filter((entry) => entry.format === section.format),
@@ -136,6 +143,11 @@ const fieldNoteSections = sections.map((section, index) => ({
                   data-field-notes-entry
                   data-format={entry.format}
                 >
+                  <div class="field-notes__meta-header">
+                    <span class="pill pill--subtle field-notes__read-time">
+                      ⏱ {estimateReadingTime(`${entry.title} ${entry.summary}`)}
+                    </span>
+                  </div>
                   <h3>{entry.title}</h3>
                   <p class="muted">{entry.summary}</p>
                   <p class="muted">

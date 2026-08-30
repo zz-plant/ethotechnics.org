@@ -36,16 +36,16 @@ describe.skip("Navigation component", () => {
 
     expect(desktopLinks).toEqual([
       "Standards",
-      "Tools",
       "Mechanisms",
-      "Evals",
-      "Library",
+      "Diagnostics",
+      "Knowledge",
+      "Start Here",
       "About",
     ]);
 
     const startBtn = nav?.querySelector<HTMLAnchorElement>(".nav__start-btn");
     expect(startBtn).toBeTruthy();
-    expect(startBtn?.getAttribute("href")).toBe("/start-here");
+    expect(startBtn?.getAttribute("href")).toBe("/start");
     expect(startBtn?.textContent?.trim()).toBe("Start here");
 
     const githubBtn = nav?.querySelector<HTMLAnchorElement>(".nav__icon-btn");

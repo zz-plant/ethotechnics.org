@@ -19,7 +19,7 @@ interface Props {
 
 const { currentPath, currentHash = "", desktopLinks }: Props = Astro.props;
 const isHome = normalizePath(currentPath) === "/";
-const isStartHere = normalizePath(currentPath) === "/start-here";
+const isStart = normalizePath(currentPath) === "/start";
 ---
 
 <div class="nav__bar">
@@ -62,9 +62,9 @@ const isStartHere = normalizePath(currentPath) === "/start-here";
 
   <div class="nav__actions-desktop">
     <a
-      href="/start-here"
-      class:list={["nav__start-btn", { "nav__start-btn--active": isStartHere }]}
-      aria-current={isStartHere ? "page" : undefined}
+      href="/start"
+      class:list={["nav__start-btn", { "nav__start-btn--active": isStart }]}
+      aria-current={isStart ? "page" : undefined}
     >
       <span>Start here</span>
     </a>

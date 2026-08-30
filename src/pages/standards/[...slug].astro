@@ -2,6 +2,7 @@
 import "../../styles/components/standards.css";
 import { getEntry, render } from "astro:content";
 import CitationBlock from "../../components/CitationBlock.astro";
+import SemanticConnections from "../../components/SemanticConnections.astro";
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import { derivePublicationMetadata } from "../../utils/publication";
 
@@ -39,6 +40,7 @@ const publication = derivePublicationMetadata({
   mainClass={data.mainClass}
 >
   <Content />
+  <SemanticConnections entityId={slugStr} />
   <CitationBlock
     title={data.title}
     permalink={data.permalink}
