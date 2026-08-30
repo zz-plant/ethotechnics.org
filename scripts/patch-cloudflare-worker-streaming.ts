@@ -47,6 +47,19 @@ export async function patchCloudflareWorkerStreaming(
     );
   }
 
+  const wranglerJsonPath = `${cleanRoot}/dist/server/wrangler.json`;
+  if (await Bun.file(wranglerJsonPath).exists()) {
+    try {
+      const wranglerJson = JSON.parse(await Bun.file(wranglerJsonPath).text());
+      if ("legacy_env" in wranglerJson) {
+        delete wranglerJson.legacy_env;
+        await Bun.write(wranglerJsonPath, JSON.stringify(wranglerJson));
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   await Bun.write(targetPath, patched);
   return targetPath;
 }
