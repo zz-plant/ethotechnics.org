@@ -78,12 +78,12 @@ export const siteFooter: SiteFooterContent = {
       links: [
         {
           label: "GitHub",
-          href: "https://github.com/zz-plant/ethotechnics",
+          href: "https://github.com/zz-plant/ethotechnics.org",
           external: true,
         },
         {
           label: "Ethotechnics Studio",
-          href: "https://ethotechnics.com/studio/",
+          href: "https://ethotechnics.com",
           external: true,
         },
         { label: "RSS Feed", href: "/rss.xml" },

@@ -164,7 +164,7 @@ export const startHereCta: NavLink = {
 
 export const navUtilityDesktopLinks: NavUtilityLink[] = [
   {
-    href: "https://github.com/zz-plant/ethotechnics",
+    href: "https://github.com/zz-plant/ethotechnics.org",
     label: "GitHub",
     class: "nav__utility-link nav__utility-link--icon",
     rel: "noopener noreferrer",

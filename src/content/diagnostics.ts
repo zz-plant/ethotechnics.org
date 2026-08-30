@@ -254,7 +254,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       ctaAriaLabel: "Start the Burden Modeler diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref:
-        "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#burden-modeler",
+        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#burden-modeler",
       deliveryType: "self-serve",
     },
     {
@@ -354,11 +354,11 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Stakeholder who owns model and UI decisions.",
       ],
       ctaLabel: "Request LLM Capacity Benchmark",
-      ctaHref: "https://ethotechnics.com/studio/",
+      ctaHref: "https://ethotechnics.com",
       ctaAriaLabel: "Request the LLM Capacity Benchmark diagnostic session",
       exampleLabel: "View sample output",
       exampleHref:
-        "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark",
+        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#llm-capacity-benchmark",
       deliveryType: "studio",
     },
     {
@@ -462,7 +462,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       ctaAriaLabel: "Start the Maintenance Simulator diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref:
-        "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#maintenance-simulator",
+        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#maintenance-simulator",
       deliveryType: "self-serve",
     },
     {
@@ -672,7 +672,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       ctaAriaLabel: "Start the Technical Capacity Forecaster diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref:
-        "https://github.com/zz-plant/ethotechnics/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
+        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
       deliveryType: "self-serve",
     },
     {

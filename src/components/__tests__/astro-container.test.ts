@@ -51,7 +51,7 @@ describe.skip("Navigation component", () => {
     const githubBtn = nav?.querySelector<HTMLAnchorElement>(".nav__icon-btn");
     expect(githubBtn).toBeTruthy();
     expect(githubBtn?.getAttribute("href")).toBe(
-      "https://github.com/zz-plant/ethotechnics",
+      "https://github.com/zz-plant/ethotechnics.org",
     );
 
     const themeToggle = nav?.querySelector<HTMLButtonElement>(".theme-toggle");

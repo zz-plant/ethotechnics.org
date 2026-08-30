@@ -108,9 +108,9 @@ describe("createBadgesResponse", () => {
   it("includes repository metadata and workflow badge links", async () => {
     const payload = await parseJson<BadgesPayload>(createBadgesResponse());
 
-    expect(payload.meta.repo).toBe("zz-plant/ethotechnics");
+    expect(payload.meta.repo).toBe("zz-plant/ethotechnics.org");
     expect(payload.badges.siteChecks.href).toContain(
-      "github.com/zz-plant/ethotechnics/actions/workflows/site-checks.yml",
+      "github.com/zz-plant/ethotechnics.org/actions/workflows/site-checks.yml",
     );
   });
 });

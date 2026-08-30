@@ -60,7 +60,7 @@ const buildSchemaGraph = (input: SchemaGraphInput): SchemaNode[] => {
       logoUrl: input.logoUrl,
       sameAs: [
         "https://ethotechnics.com",
-        "https://github.com/zz-plant/ethotechnics",
+        "https://github.com/zz-plant/ethotechnics.org",
       ],
     }),
   );

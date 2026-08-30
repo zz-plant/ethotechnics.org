@@ -443,7 +443,9 @@ export function BurdenModeler() {
             </div>
             <a
               className="button primary"
-              href="https://ethotechnics.com/studio/"
+              href="https://ethotechnics.com"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Book a facilitated burden modeling session
             </a>

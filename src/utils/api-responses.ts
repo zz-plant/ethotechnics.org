@@ -82,7 +82,7 @@ const ndjsonResponse = (payload: string) =>
     headers: ndjsonHeaders,
   });
 
-const repoSlug = "zz-plant/ethotechnics";
+const repoSlug = "zz-plant/ethotechnics.org";
 
 const changelogEntries = [
   ...libraryContent.publication.changelog.map((entry) => ({
@@ -359,10 +359,10 @@ export const createSiteIndexResponse = (options: {
       publicationsCount: publications.length,
       release: releaseInfo,
       repo: {
-        href: "https://github.com/zz-plant/ethotechnics",
-        issues: "https://github.com/zz-plant/ethotechnics/issues",
-        discussions: "https://github.com/zz-plant/ethotechnics/discussions",
-        releases: "https://github.com/zz-plant/ethotechnics/releases",
+        href: "https://github.com/zz-plant/ethotechnics.org",
+        issues: "https://github.com/zz-plant/ethotechnics.org/issues",
+        discussions: "https://github.com/zz-plant/ethotechnics.org/discussions",
+        releases: "https://github.com/zz-plant/ethotechnics.org/releases",
       },
     },
     standards,

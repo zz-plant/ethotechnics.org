@@ -1,10 +1,8 @@
 ---
-import "../../../../styles/components/glossary.css";
 export const prerender = false;
 
-import { glossaryEntryPermalink } from "../../../../utils/glossary";
-
-const { slug } = Astro.params;
-const destination = slug ? `${glossaryEntryPermalink(slug)}/` : "/glossary/";
-return Astro.redirect(destination, 302);
+return Astro.redirect(
+  Astro.params.slug ? `/glossary/${Astro.params.slug}/` : "/glossary/",
+  302,
+);
 ---
