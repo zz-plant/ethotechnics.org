@@ -5,6 +5,7 @@ import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import FieldNotesTabs from "../../components/FieldNotesTabs.astro";
+import NewsletterSignup from "../../components/NewsletterSignup.astro";
 
 const fieldNotesEntry = (await getEntry("fieldNotes", "field-notes"))!;
 const {
@@ -92,4 +93,7 @@ const anchorLinks = sections.map((section) => ({
     </div>
   </section>
   <FieldNotesTabs sections={sections} entries={entries} />
+  <section class="section section--alt stack-md" aria-label="Subscribe to Field Notes">
+    <NewsletterSignup />
+  </section>
 </BaseLayout>

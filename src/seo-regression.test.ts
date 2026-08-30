@@ -9,6 +9,8 @@ describe("SEO regression source checks", () => {
     expect(layout).toContain("canonical={canonical}");
     expect(layout).toContain('name: "robots"');
     expect(layout).toContain('type="application/ld+json"');
+    expect(layout).toContain('type: "application/rss+xml"');
+    expect(layout).toContain('href: "/rss.xml"');
   });
 
   it("blocks secondary hosts from indexing in robots.txt", async () => {

@@ -8,6 +8,7 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
+import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import {
   getGlossaryDefinition,
   getGlossaryLabel,
@@ -624,6 +625,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </details>
   </SectionBlock>
+  <section class="section section--alt stack-md" aria-label="Subscribe to Research Updates">
+    <NewsletterSignup />
+  </section>
   <script type="application/ld+json" set:html={structuredDataJson} is:inline />
   <script type="module" src={researchFilterScript} is:inline></script>
 </BaseLayout>

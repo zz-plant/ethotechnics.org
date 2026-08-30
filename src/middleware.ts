@@ -5,7 +5,7 @@ const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
 const applySecurityHeaders = (response: Response): Response => {
   const securityHeaders: Record<string, string> = {
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
-    "Referrer-Policy": "no-referrer",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
     "X-Frame-Options": "DENY",
     "X-Content-Type-Options": "nosniff",
     "Permissions-Policy":

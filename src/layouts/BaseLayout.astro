@@ -234,6 +234,12 @@ const pagefindType = pathSegments[0] ?? "";
             href: "/apple-touch-icon.png",
           },
           { rel: "manifest", href: "/site.webmanifest" },
+          {
+            rel: "alternate",
+            type: "application/rss+xml",
+            title: "Ethotechnics Field Notes",
+            href: "/rss.xml",
+          },
           ...jsonAlternateLinks,
         ],
         meta: [
