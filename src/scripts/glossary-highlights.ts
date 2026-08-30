@@ -1,4 +1,4 @@
-import { glossaryTerms } from "../content/glossary";
+import { glossaryContent, glossaryTerms } from "../content/glossary";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
 type GlossaryHighlightEntry = {
@@ -6,24 +6,47 @@ type GlossaryHighlightEntry = {
   slug: string;
   definition: string;
   href: string;
+  domain?: string;
+  metric?: string;
+  threshold?: string;
+  scale?: string;
 };
 
 const normalizeDefinition = (definition: string): string => {
   const cleaned = definition.replace(/\s+/g, " ").trim();
-  if (cleaned.length <= 200) {
+  if (cleaned.length <= 220) {
     return cleaned;
   }
 
-  return `${cleaned.slice(0, 197)}…`;
+  return `${cleaned.slice(0, 217)}…`;
 };
 
+// Index category entries for rich evidence metrics
+const fullEntriesMap = new Map(
+  glossaryContent.categories.flatMap((cat) =>
+    cat.entries.map((entry) => [entry.id, entry]),
+  ),
+);
+
 const glossaryEntries: GlossaryHighlightEntry[] = glossaryTerms.map(
-  ({ term, slug, definition }) => ({
-    term,
-    slug,
-    definition: normalizeDefinition(definition),
-    href: glossaryEntryPermalink(slug),
-  }),
+  ({ term, slug, definition }) => {
+    const fullEntry = fullEntriesMap.get(slug);
+    const domain = fullEntry?.domains?.[0];
+    const metric = fullEntry?.minimumEvidence?.metric;
+    const threshold = fullEntry?.minimumEvidence?.threshold;
+    const scale = fullEntry?.scale ?? undefined;
+
+    return {
+      term,
+      slug,
+      definition: normalizeDefinition(definition),
+      href: glossaryEntryPermalink(slug),
+      domain,
+      metric: metric && metric.length < 40 ? metric : undefined,
+      threshold: threshold && threshold.length < 45 ? threshold : undefined,
+      scale,
+    };
+  },
 );
 
 const termLookup = new Map(
@@ -58,6 +81,7 @@ const ignoredSelector = [
   "textarea",
   "[data-glossary-ignore]",
   ".glossary-highlight",
+  ".glossary-peek-card",
 ].join(", ");
 
 const shouldSkipTextNode = (node: Text): boolean => {
@@ -82,20 +106,83 @@ const buildHighlightMark = (
   mark.setAttribute("role", "button");
   mark.setAttribute("data-glossary-slug", entry.slug);
 
-  const tooltipId = `glossary-tooltip-${entry.slug}-${highlightIndex}`;
+  const tooltipId = `glossary-peek-${entry.slug}-${highlightIndex}`;
   mark.setAttribute("aria-describedby", tooltipId);
   mark.setAttribute("aria-label", `Glossary term: ${matchText}`);
 
   const textNode = document.createTextNode(matchText);
   mark.appendChild(textNode);
 
-  const tooltip = document.createElement("span");
-  tooltip.id = tooltipId;
-  tooltip.className = "glossary-tooltip";
-  tooltip.setAttribute("role", "tooltip");
-  tooltip.textContent = entry.definition;
+  const card = document.createElement("span");
+  card.id = tooltipId;
+  card.className = "glossary-peek-card";
+  card.setAttribute("role", "tooltip");
 
-  mark.appendChild(tooltip);
+  const header = document.createElement("span");
+  header.className = "glossary-peek-card__header";
+
+  const title = document.createElement("span");
+  title.className = "glossary-peek-card__title";
+  title.textContent = entry.term;
+  header.appendChild(title);
+
+  if (entry.domain) {
+    const badge = document.createElement("span");
+    badge.className = "glossary-peek-card__badge";
+    badge.textContent = entry.domain.toUpperCase();
+    header.appendChild(badge);
+  }
+  card.appendChild(header);
+
+  const def = document.createElement("span");
+  def.className = "glossary-peek-card__def";
+  def.textContent = entry.definition;
+  card.appendChild(def);
+
+  if (entry.metric || entry.threshold) {
+    const metricGrid = document.createElement("span");
+    metricGrid.className = "glossary-peek-card__metrics";
+
+    if (entry.metric) {
+      const chip = document.createElement("span");
+      chip.className = "glossary-peek-card__metric-item";
+      const lbl = document.createElement("span");
+      lbl.className = "glossary-peek-card__metric-lbl";
+      lbl.textContent = "METRIC";
+      const val = document.createElement("span");
+      val.className = "glossary-peek-card__metric-val";
+      val.textContent = entry.metric;
+      chip.appendChild(lbl);
+      chip.appendChild(val);
+      metricGrid.appendChild(chip);
+    }
+
+    if (entry.threshold) {
+      const chip = document.createElement("span");
+      chip.className = "glossary-peek-card__metric-item";
+      const lbl = document.createElement("span");
+      lbl.className = "glossary-peek-card__metric-lbl";
+      lbl.textContent = "TARGET";
+      const val = document.createElement("span");
+      val.className = "glossary-peek-card__metric-val";
+      val.textContent = entry.threshold;
+      chip.appendChild(lbl);
+      chip.appendChild(val);
+      metricGrid.appendChild(chip);
+    }
+    card.appendChild(metricGrid);
+  }
+
+  const footer = document.createElement("span");
+  footer.className = "glossary-peek-card__footer";
+  const link = document.createElement("a");
+  link.href = entry.href;
+  link.className = "glossary-peek-card__link";
+  link.textContent = "Inspect full standard →";
+  footer.appendChild(link);
+  card.appendChild(footer);
+
+  mark.appendChild(card);
   return mark;
 };
 

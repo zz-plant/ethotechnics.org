@@ -1,0 +1,45 @@
+---
+import "../../styles/components/diagnostics.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DiagnosticToolPage from "../../components/DiagnosticToolPage.astro";
+import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsContent } from "../../content/diagnostics";
+import SystemAuditorWidget from "../../features/system-auditor/SystemAuditor";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "system-auditor",
+);
+
+if (!tool) {
+  return new Response("Diagnostic not found", {
+    status: 404,
+  });
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-01-09T00:00:00.000Z"
+  mainClass="page page--wide"
+>
+  <DiagnosticToolPage
+    tool={tool}
+    publication={publication}
+    permalink={permalink}
+    overviewTitle="When to use the System Audit & Guardrail Synthesizer."
+    methodologyDescription="Automated evaluation against 80+ Ethotechnics failure modes, quantitative SLA bounds, and executable guardrail generation."
+    sampleOutputTitle="Preview the audit readout."
+    sampleOutputDescription="Governance Health Score, detected breach vectors, calibrated SLA limits, and copyable code."
+    runSectionTitle="Audit an AI system prompt or architecture spec."
+    runSectionDescription="Select an industry preset or paste your own system prompt to generate guardrails and contract terms."
+    studioOffRamp={diagnosticsStudioOffRampCallout}
+  >
+    <SystemAuditorWidget client:visible />
+  </DiagnosticToolPage>
+</BaseLayout>

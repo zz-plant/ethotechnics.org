@@ -153,6 +153,107 @@ export const diagnosticsContent: DiagnosticsContent = {
   },
   tools: [
     {
+      slug: "system-auditor",
+      title: "System Audit & Guardrail Synthesizer",
+      description:
+        "Evaluates AI system prompts, architectures, and automated decision logic against 80+ governance failure modes and synthesizes executable guardrail code and legal SLA clauses.",
+      methodCards: {
+        measures: [
+          "Vulnerability to Unearned Closure, Administrative Shame, and Dead-User Zones.",
+          "Quantitative Time-to-Halt (TTH) and Reversal SLA ceilings.",
+          "Compliance with STD-01 Temporal Rights & Recourse standards.",
+        ],
+        doesNotMeasure: [
+          "Raw model inference token throughput or latency.",
+          "Underlying training dataset copyright clearances.",
+          "Adversarial jailbreaks unrelated to governance architecture.",
+        ],
+        assumptions: [
+          "System prompts or architecture specs reflect actual deployed logic.",
+          "Domain hazard tier accurately captures end-user stakes.",
+          "Decisions produce observable downstream state transitions.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "System prompt, policy rules, or workflow specification.",
+          "Autonomy tier (Advisory, Semi-Autonomous, Autonomous).",
+          "Domain hazard tier (Low, Medium, High, Critical).",
+        ],
+        procedure: [
+          "Parse text against Ethotechnics structural failure classifiers.",
+          "Compute calibrated quantitative SLA bounds.",
+          "Synthesize TypeScript, Python, and JSON Schema middleware.",
+        ],
+        outputs: [
+          "Governance Health Score (0-100) and risk level.",
+          "Detected failure mode cards with specific remedies.",
+          "Copyable production guardrail code and contract clauses.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "Paste system prompt or load an industry preset.",
+          "Select autonomy tier and domain hazard stakes.",
+          "Review identified breach vectors and SLA limits.",
+        ],
+        rubric: [
+          "Critical Risk: missing contestability or irreversible denial.",
+          "Elevated Risk: unilateral closure or burden shifting.",
+          "Low Risk: verified claimant confirmation and active rollback lanes.",
+        ],
+        scoringLogic: [
+          "Base 100 with weighted risk penalties per failure vector.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Tested against customer support, clinical benefits triage, credit underwriting, and content moderation pipelines.",
+        reliability:
+          "Deterministic rule classification across 80+ Ethotechnics failure taxonomy classes.",
+        failureModes: [
+          "Unearned Closure",
+          "Dead-User Zones",
+          "Administrative Shame",
+          "Heroism-Dependent Systems",
+        ],
+      },
+      replicability: {
+        runSteps: [
+          "Open the System Auditor workbench.",
+          "Select or enter your system prompt.",
+          "Export the verified Decision Object JSON receipt.",
+        ],
+        exampleOutputs: [
+          "Audit Report JSON receipt.",
+          "TypeScript Express/Fastify guardrail middleware.",
+          "Contract-ready legal SLA clauses.",
+        ],
+      },
+      bestFor:
+        "AI engineers, compliance leads, and product architects designing high-stakes decision systems.",
+      readiness: [
+        "System prompt or workflow spec available.",
+        "Target autonomy level defined.",
+        "Primary hazard domain identified.",
+      ],
+      outputs: [
+        "Interactive governance health score.",
+        "Quantitative SLA matrix.",
+        "Production-ready guardrail code.",
+      ],
+      estimatedTime: "5 minutes",
+      prepChecklist: [
+        "Locate system prompt or decision policy documentation.",
+        "Identify escalation and dispute handling workflows.",
+      ],
+      ctaLabel: "Launch System Auditor",
+      ctaHref: "/diagnostics/system-auditor",
+      exampleLabel: "View methodology",
+      exampleHref: "/standards/std-01-temporal-rights",
+      deliveryType: "self-serve",
+    },
+    {
       slug: "burden-modeler",
       title: "Burden Modeler",
       description:

@@ -2,28 +2,28 @@
   color-scheme: light dark;
 
   /* --- Color Palette (Light Theme) --- */
-  --bg: #f8f6f0;
-  --surface: #fcfaf6;
-  --panel: #f4eee3;
-  --card: #efe7d8;
-  --border: #ded3c0;
-  --text: #24201b;
-  --muted: #695e52;
-  --accent: #723b32;
-  --accent-strong: #522720;
-  --gold: #9f793b;
-  --teal: #5d6f64;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --panel: #f1f5f9;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #1d4ed8;
+  --accent-strong: #1e40af;
+  --gold: #d97706;
+  --teal: #0d9488;
 
   /* Status Colors */
-  --status-success: #267e42;
-  --status-success-bright: #3ea85f;
-  --status-success-deep: #1e6634;
-  --status-warning: #ad4c12;
-  --status-warning-bright: #e57d18;
-  --status-warning-deep: #853708;
-  --status-danger: #b31b1b;
-  --status-danger-bright: #e53935;
-  --status-danger-deep: #8e1515;
+  --status-success: #15803d;
+  --status-success-bright: #16a34a;
+  --status-success-deep: #166534;
+  --status-warning: #b45309;
+  --status-warning-bright: #d97706;
+  --status-warning-deep: #92400e;
+  --status-danger: #dc2626;
+  --status-danger-bright: #ef4444;
+  --status-danger-deep: #b91c1c;
   --status-danger-wash: #fef2f2;
   --status-danger-border: #fecaca;
 
@@ -36,18 +36,18 @@
   --radius-pill: 999px;
 
   /* Elevation & Shadows */
-  --shadow-color: rgba(36, 32, 27, 0.07);
-  --shadow-color-soft: rgba(36, 32, 27, 0.035);
+  --shadow-color: rgba(15, 23, 42, 0.08);
+  --shadow-color-soft: rgba(15, 23, 42, 0.04);
   --shadow-xs: 0 1px 2px var(--shadow-color-soft);
   --shadow-sm: 0 2px 6px var(--shadow-color-soft), 0 1px 3px var(--shadow-color);
   --shadow: 0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
   --shadow-md: 0 10px 24px var(--shadow-color), 0 2px 6px var(--shadow-color-soft);
   --shadow-lg: 0 16px 36px var(--shadow-color), 0 4px 10px var(--shadow-color-soft);
-  --shadow-panel: 0 8px 24px rgba(50, 42, 32, 0.05);
-  --shadow-float: 0 12px 28px rgba(50, 42, 32, 0.08), 0 2px 6px rgba(50, 42, 32, 0.04);
-  --shadow-float-strong: 0 20px 50px rgba(50, 42, 32, 0.12), 0 4px 12px rgba(50, 42, 32, 0.06);
+  --shadow-panel: 0 8px 24px rgba(15, 23, 42, 0.05);
+  --shadow-float: 0 12px 28px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-float-strong: 0 20px 50px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(15, 23, 42, 0.06);
   --shadow-tight: 0 2px 6px var(--shadow-color);
-  --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 14%, transparent);
+  --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 18%, transparent);
 
   /* Z-Index Hierarchy */
   --z-underlay: -1;
@@ -84,31 +84,31 @@
   --glass-bg: color-mix(in srgb, var(--surface) 86%, transparent);
   --glass-border: color-mix(in srgb, var(--border) 65%, transparent);
   --glass-blur: blur(16px);
-  --card-inner-highlight: inset 0 1px 0 color-mix(in srgb, white 45%, transparent);
+  --card-inner-highlight: inset 0 1px 0 color-mix(in srgb, white 80%, transparent);
 
   --glow-wash: radial-gradient(
     circle at 50% -20%,
-    color-mix(in srgb, var(--accent) 14%, transparent) 0%,
-    color-mix(in srgb, var(--gold) 6%, transparent) 45%,
+    color-mix(in srgb, var(--accent) 12%, transparent) 0%,
+    color-mix(in srgb, var(--teal) 8%, transparent) 45%,
     transparent 75%
   );
-  --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+  --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E");
   --halftone: radial-gradient(
     circle at 1px 1px,
-    color-mix(in srgb, var(--text) 11%, transparent) 1px,
+    color-mix(in srgb, var(--text) 8%, transparent) 1px,
     transparent 0
   );
 
   --surface-flat: var(--surface);
   --surface-raised: linear-gradient(
     140deg,
-    color-mix(in srgb, var(--surface) 96%, white 4%),
-    color-mix(in srgb, var(--panel) 92%, white 8%)
+    #ffffff,
+    color-mix(in srgb, var(--panel) 60%, white 40%)
   );
   --surface-emphasis: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--panel) 95%, white 5%),
-    color-mix(in srgb, var(--surface) 88%, white 12%)
+    color-mix(in srgb, var(--panel) 85%, white 15%),
+    color-mix(in srgb, var(--surface) 95%, var(--accent) 5%)
   );
   --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
 
@@ -129,15 +129,15 @@
   --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Interactive States & Focus Rings */
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--gold) 45%, transparent);
-  --focus-outline: 2px solid var(--accent-strong);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  --focus-outline: 2px solid var(--accent);
   --focus-outline-offset: 2px;
-  --interactive-border: color-mix(in srgb, var(--border) 80%, transparent);
-  --interactive-bg: color-mix(in srgb, var(--surface) 96%, white 4%);
-  --interactive-bg-hover: color-mix(in srgb, var(--surface) 90%, white 10%);
+  --interactive-border: color-mix(in srgb, var(--border) 85%, transparent);
+  --interactive-bg: color-mix(in srgb, var(--surface) 96%, var(--panel) 4%);
+  --interactive-bg-hover: color-mix(in srgb, var(--surface) 88%, var(--panel) 12%);
   --interactive-border-hover: color-mix(
     in srgb,
-    var(--accent) 28%,
+    var(--accent) 40%,
     var(--border)
   );
 
@@ -153,24 +153,24 @@
 /* --- Dark Theme Variables --- */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #181512;
-    --surface: #221e1a;
-    --panel: #2a2520;
-    --card: #302a24;
-    --border: #3e362e;
-    --text: #ede5da;
-    --muted: #a49c8f;
-    --accent: #cf8a7b;
-    --accent-strong: #e2a092;
-    --gold: #cca670;
-    --teal: #8faea0;
+    --bg: #0b0f19;
+    --surface: #111827;
+    --panel: #172033;
+    --card: #141c2e;
+    --border: #24324a;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --accent: #60a5fa;
+    --accent-strong: #93c5fd;
+    --gold: #fbbf24;
+    --teal: #2dd4bf;
 
-    --status-success: #3ea85f;
-    --status-success-bright: #5cd37e;
-    --status-success-deep: #9ddb9c;
-    --status-warning: #f27c28;
-    --status-warning-bright: #f59e0b;
-    --status-warning-deep: #ffd6a5;
+    --status-success: #22c55e;
+    --status-success-bright: #4ade80;
+    --status-success-deep: #86efac;
+    --status-warning: #f59e0b;
+    --status-warning-bright: #fbbf24;
+    --status-warning-deep: #fde68a;
     --status-danger: #f87171;
     --status-danger-bright: #f87171;
     --status-danger-deep: #fca5a5;
@@ -185,8 +185,8 @@
       transparent
     );
 
-    --shadow-color: rgba(0, 0, 0, 0.35);
-    --shadow-color-soft: rgba(0, 0, 0, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.45);
+    --shadow-color-soft: rgba(0, 0, 0, 0.25);
     --shadow:
       0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
     --shadow-xs: 0 1px 3px var(--shadow-color-soft);
@@ -194,63 +194,63 @@
       0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
     --shadow-md: 0 10px 24px var(--shadow-color), 0 2px 6px var(--shadow-color-soft);
     --shadow-lg: 0 16px 36px var(--shadow-color), 0 4px 10px var(--shadow-color-soft);
-    --shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.3);
-    --shadow-float: 0 12px 28px rgba(0, 0, 0, 0.35);
-    --shadow-float-strong: 0 20px 50px rgba(0, 0, 0, 0.4);
+    --shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --shadow-float: 0 12px 28px rgba(0, 0, 0, 0.4);
+    --shadow-float-strong: 0 20px 50px rgba(0, 0, 0, 0.45);
 
     --glass-bg: color-mix(in srgb, var(--surface) 86%, transparent);
     --glass-border: color-mix(in srgb, var(--border) 70%, transparent);
-    --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
     --glow-wash: radial-gradient(
       circle at 50% -20%,
-      color-mix(in srgb, var(--accent) 20%, transparent) 0%,
-      color-mix(in srgb, var(--gold) 10%, transparent) 45%,
+      color-mix(in srgb, var(--accent) 18%, transparent) 0%,
+      color-mix(in srgb, var(--teal) 10%, transparent) 45%,
       transparent 75%
     );
-    --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
+    --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.25'/%3E%3C/svg%3E");
     --halftone: radial-gradient(
       circle at 1px 1px,
       color-mix(in srgb, var(--text) 8%, transparent) 1px,
       transparent 0
     );
     --shadow-accent: 0 4px 16px
-      color-mix(in srgb, var(--accent) 18%, transparent);
+      color-mix(in srgb, var(--accent) 22%, transparent);
     --shadow-tight: 0 2px 6px var(--shadow-color);
     --surface-flat: var(--surface);
     --surface-raised: linear-gradient(
       140deg,
-      color-mix(in srgb, var(--surface) 95%, white 5%),
-      color-mix(in srgb, var(--panel) 92%, white 8%)
+      #131b2e,
+      #172033
     );
     --surface-emphasis: linear-gradient(
       145deg,
-      color-mix(in srgb, var(--panel) 95%, white 5%),
-      color-mix(in srgb, var(--surface) 88%, white 12%)
+      #182238,
+      #1e2b45
     );
     --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
   }
 }
 
 :root.dark {
-  --bg: #181512;
-  --surface: #221e1a;
-  --panel: #2a2520;
-  --card: #302a24;
-  --border: #3e362e;
-  --text: #ede5da;
-  --muted: #a49c8f;
-  --accent: #cf8a7b;
-  --accent-strong: #e2a092;
-  --gold: #cca670;
-  --teal: #8faea0;
+  --bg: #0b0f19;
+  --surface: #111827;
+  --panel: #172033;
+  --card: #141c2e;
+  --border: #24324a;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --accent: #60a5fa;
+  --accent-strong: #93c5fd;
+  --gold: #fbbf24;
+  --teal: #2dd4bf;
 
-  --status-success: #3ea85f;
-  --status-success-bright: #5cd37e;
-  --status-success-deep: #9ddb9c;
-  --status-warning: #f27c28;
-  --status-warning-bright: #f59e0b;
-  --status-warning-deep: #ffd6a5;
+  --status-success: #22c55e;
+  --status-success-bright: #4ade80;
+  --status-success-deep: #86efac;
+  --status-warning: #f59e0b;
+  --status-warning-bright: #fbbf24;
+  --status-warning-deep: #fde68a;
   --status-danger: #f87171;
   --status-danger-bright: #f87171;
   --status-danger-deep: #fca5a5;
@@ -265,46 +265,46 @@
     transparent
   );
 
-  --shadow-color: rgba(0, 0, 0, 0.35);
-  --shadow-color-soft: rgba(0, 0, 0, 0.2);
+  --shadow-color: rgba(0, 0, 0, 0.45);
+  --shadow-color-soft: rgba(0, 0, 0, 0.25);
   --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
   --shadow-xs: 0 1px 3px var(--shadow-color-soft);
   --shadow-sm:
     0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
   --shadow-md: 0 10px 24px var(--shadow-color), 0 2px 6px var(--shadow-color-soft);
   --shadow-lg: 0 16px 36px var(--shadow-color), 0 4px 10px var(--shadow-color-soft);
-  --shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.3);
-  --shadow-float: 0 12px 28px rgba(0, 0, 0, 0.35);
-  --shadow-float-strong: 0 20px 50px rgba(0, 0, 0, 0.4);
+  --shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-float: 0 12px 28px rgba(0, 0, 0, 0.4);
+  --shadow-float-strong: 0 20px 50px rgba(0, 0, 0, 0.45);
 
   --glass-bg: color-mix(in srgb, var(--surface) 86%, transparent);
   --glass-border: color-mix(in srgb, var(--border) 70%, transparent);
-  --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   --glow-wash: radial-gradient(
     circle at 50% -20%,
-    color-mix(in srgb, var(--accent) 20%, transparent) 0%,
-    color-mix(in srgb, var(--gold) 10%, transparent) 45%,
+    color-mix(in srgb, var(--accent) 18%, transparent) 0%,
+    color-mix(in srgb, var(--teal) 10%, transparent) 45%,
     transparent 75%
   );
-  --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
+  --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.25'/%3E%3C/svg%3E");
   --halftone: radial-gradient(
     circle at 1px 1px,
     color-mix(in srgb, var(--text) 8%, transparent) 1px,
     transparent 0
   );
-  --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 18%, transparent);
+  --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 22%, transparent);
   --shadow-tight: 0 2px 6px var(--shadow-color);
   --surface-flat: var(--surface);
   --surface-raised: linear-gradient(
     140deg,
-    color-mix(in srgb, var(--surface) 95%, white 5%),
-    color-mix(in srgb, var(--panel) 92%, white 8%)
+    #131b2e,
+    #172033
   );
   --surface-emphasis: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--panel) 95%, white 5%),
-    color-mix(in srgb, var(--surface) 88%, white 12%)
+    #182238,
+    #1e2b45
   );
   --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
 }
@@ -348,12 +348,12 @@ body::before {
   background:
     radial-gradient(
       circle at 15% 15%,
-      color-mix(in srgb, var(--accent) 8%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 7%, transparent) 0%,
       transparent 60%
     ),
     radial-gradient(
       circle at 85% 25%,
-      color-mix(in srgb, var(--gold) 6%, transparent) 0%,
+      color-mix(in srgb, var(--teal) 6%, transparent) 0%,
       transparent 60%
     );
   opacity: 0.8;
