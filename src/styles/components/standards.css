@@ -46,9 +46,9 @@
 
   .standard-document h1,
   .standard-document h2 {
-    font-family: var(--mono);
+    font-family: var(--serif);
     text-transform: none;
-    letter-spacing: 0.04em;
+    letter-spacing: -0.01em;
   }
 
   .standard-header {
@@ -62,9 +62,12 @@
   }
 
   .standard-header__id {
-    font-family: var(--mono);
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: var(--text-sm);
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
+    color: var(--accent);
     margin: 0 0 0.5rem;
   }
 
@@ -89,10 +92,12 @@
   }
 
   .standard-header__meta dt {
-    font-family: var(--mono);
-    font-size: 0.8rem;
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.06em;
+    color: var(--muted);
   }
 
   .standard-header__meta dd {
@@ -227,7 +232,8 @@
   }
 
   .standard-clause-id {
-    font-family: var(--mono);
+    font-family: var(--sans);
+    font-weight: 700;
     margin-right: 0.5rem;
     color: var(--accent);
   }
@@ -244,9 +250,12 @@
   }
 
   .standard-definitions dt {
-    font-family: var(--mono);
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
+    color: var(--muted);
     margin-bottom: 0.4rem;
   }
 
@@ -273,9 +282,10 @@
   }
 
   .mapping-table th {
-    font-family: var(--mono);
+    font-family: var(--sans);
     font-size: var(--text-xs);
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     background: var(--panel);
   }
@@ -362,9 +372,10 @@
     .mapping-table--compare tbody tr td::before {
       content: attr(data-label);
       display: block;
-      font-family: var(--mono);
+      font-family: var(--sans);
+      font-weight: 700;
       font-size: var(--text-xs);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 0.35rem;
@@ -435,10 +446,11 @@
   }
 
   .diagram-spec__label {
-    font-family: var(--mono);
+    font-family: var(--sans);
+    font-weight: 600;
     font-size: var(--text-xs);
     fill: var(--muted);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
@@ -494,10 +506,12 @@
   }
 
   .standard-sidebar__eyebrow {
-    font-family: var(--mono);
+    font-family: var(--sans);
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
     font-size: var(--text-xs);
+    color: var(--muted);
     margin: 0 0 0.75rem;
   }
 
@@ -536,9 +550,12 @@
   }
 
   .mechanism-sheet__id {
-    font-family: var(--mono);
+    font-family: var(--sans);
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
+    font-size: var(--text-sm);
+    color: var(--accent);
     margin: 0 0 0.5rem;
   }
 
@@ -592,17 +609,22 @@
   }
 
   .validator__id {
-    font-family: var(--mono);
-    letter-spacing: 0.2em;
+    font-family: var(--sans);
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    font-size: var(--text-sm);
+    color: var(--accent);
     margin: 0 0 0.5rem;
   }
 
   .validator__standard {
-    font-family: var(--mono);
+    font-family: var(--sans);
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    font-size: var(--text-xs);
+    color: var(--muted);
     align-self: flex-start;
   }
 

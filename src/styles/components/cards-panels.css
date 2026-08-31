@@ -210,42 +210,14 @@
 
   .tile::before,
   .tile::after {
-    content: "";
-    position: absolute;
-    inset: -18%;
-    background:
-      radial-gradient(
-        circle at 20% 20%,
-        color-mix(in srgb, var(--accent) 16%, transparent),
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 60%,
-        color-mix(in srgb, var(--accent) 12%, transparent),
-        transparent 52%
-      );
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity var(--motion-base) ease;
-    pointer-events: none;
-    z-index: var(--z-underlay);
-  }
-
-  .tile::after {
-    inset: -28%;
-    filter: blur(26px);
+    display: none;
   }
 
   .tile:is(:hover, :focus-visible, :focus-within) {
-    box-shadow: var(--shadow-float), var(--card-inner-highlight);
-    border-color: color-mix(in srgb, var(--accent) 24%, var(--border));
+    box-shadow: var(--shadow-md), var(--card-inner-highlight);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
     background: color-mix(in srgb, var(--surface) 98%, transparent);
     transform: translateY(-2px);
-  }
-
-  .tile:is(:hover, :focus-visible, :focus-within)::before,
-  .tile:is(:hover, :focus-visible, :focus-within)::after {
-    opacity: 0.4;
   }
 
   @media (prefers-reduced-motion: reduce) {

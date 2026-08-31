@@ -1,53 +1,53 @@
 :root {
   color-scheme: light dark;
 
-  /* --- Color Palette (Light Theme) --- */
-  --bg: #f8fafc;
+  /* --- Color Palette (Light Theme: Warm Paper & Editorial Sapphire) --- */
+  --bg: #faf8f5;
   --surface: #ffffff;
-  --panel: #f1f5f9;
+  --panel: #f3efe8;
   --card: #ffffff;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --muted: #475569;
-  --accent: #1d4ed8;
-  --accent-strong: #1e40af;
-  --gold: #d97706;
-  --teal: #0d9488;
+  --border: #e6e2da;
+  --text: #1c1917;
+  --muted: #57534e;
+  --accent: #1e3a5f;
+  --accent-strong: #142842;
+  --gold: #b45309;
+  --teal: #2e5266;
 
   /* Status Colors */
   --status-success: #15803d;
   --status-success-bright: #16a34a;
-  --status-success-deep: #166534;
+  --status-success-deep: #14532d;
   --status-warning: #b45309;
   --status-warning-bright: #d97706;
-  --status-warning-deep: #92400e;
-  --status-danger: #dc2626;
-  --status-danger-bright: #ef4444;
-  --status-danger-deep: #b91c1c;
+  --status-warning-deep: #78350f;
+  --status-danger: #b91c1c;
+  --status-danger-bright: #dc2626;
+  --status-danger-deep: #7f1d1d;
   --status-danger-wash: #fef2f2;
   --status-danger-border: #fecaca;
 
   /* Geometry & Radius */
   --radius-xs: 3px;
-  --radius: 5px;
-  --radius-md: 7px;
-  --radius-lg: 10px;
-  --radius-xl: 14px;
+  --radius: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-pill: 999px;
 
-  /* Elevation & Shadows */
-  --shadow-color: rgba(15, 23, 42, 0.08);
-  --shadow-color-soft: rgba(15, 23, 42, 0.04);
+  /* Elevation & Shadows (Natural Warm Elevation) */
+  --shadow-color: rgba(28, 25, 23, 0.07);
+  --shadow-color-soft: rgba(28, 25, 23, 0.035);
   --shadow-xs: 0 1px 2px var(--shadow-color-soft);
-  --shadow-sm: 0 2px 6px var(--shadow-color-soft), 0 1px 3px var(--shadow-color);
-  --shadow: 0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-  --shadow-md: 0 10px 24px var(--shadow-color), 0 2px 6px var(--shadow-color-soft);
-  --shadow-lg: 0 16px 36px var(--shadow-color), 0 4px 10px var(--shadow-color-soft);
-  --shadow-panel: 0 8px 24px rgba(15, 23, 42, 0.05);
-  --shadow-float: 0 12px 28px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
-  --shadow-float-strong: 0 20px 50px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(15, 23, 42, 0.06);
-  --shadow-tight: 0 2px 6px var(--shadow-color);
-  --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 18%, transparent);
+  --shadow-sm: 0 2px 5px var(--shadow-color-soft), 0 1px 2px var(--shadow-color);
+  --shadow: 0 5px 14px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
+  --shadow-md: 0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
+  --shadow-lg: 0 14px 30px var(--shadow-color), 0 4px 8px var(--shadow-color-soft);
+  --shadow-panel: 0 6px 18px rgba(28, 25, 23, 0.04);
+  --shadow-float: 0 10px 24px rgba(28, 25, 23, 0.07), 0 2px 5px rgba(28, 25, 23, 0.03);
+  --shadow-float-strong: 0 16px 40px rgba(28, 25, 23, 0.09), 0 4px 10px rgba(28, 25, 23, 0.04);
+  --shadow-tight: 0 2px 5px var(--shadow-color);
+  --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 14%, transparent);
 
   /* Z-Index Hierarchy */
   --z-underlay: -1;
@@ -81,36 +81,31 @@
   --color-foreground-muted: var(--muted);
 
   /* Glassmorphism & Ambient Accents */
-  --glass-bg: color-mix(in srgb, var(--surface) 86%, transparent);
-  --glass-border: color-mix(in srgb, var(--border) 65%, transparent);
-  --glass-blur: blur(16px);
-  --card-inner-highlight: inset 0 1px 0 color-mix(in srgb, white 80%, transparent);
+  --glass-bg: color-mix(in srgb, var(--surface) 92%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 75%, transparent);
+  --glass-blur: blur(12px);
+  --card-inner-highlight: inset 0 1px 0 color-mix(in srgb, white 90%, transparent);
 
-  --glow-wash: radial-gradient(
-    circle at 50% -20%,
-    color-mix(in srgb, var(--accent) 12%, transparent) 0%,
-    color-mix(in srgb, var(--teal) 8%, transparent) 45%,
-    transparent 75%
+  --glow-wash: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--panel) 60%, transparent) 0%,
+    transparent 100%
   );
-  --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E");
-  --halftone: radial-gradient(
-    circle at 1px 1px,
-    color-mix(in srgb, var(--text) 8%, transparent) 1px,
-    transparent 0
-  );
+  --grain-texture: none;
+  --halftone: none;
 
   --surface-flat: var(--surface);
   --surface-raised: linear-gradient(
     140deg,
     #ffffff,
-    color-mix(in srgb, var(--panel) 60%, white 40%)
+    color-mix(in srgb, var(--panel) 50%, white 50%)
   );
   --surface-emphasis: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--panel) 85%, white 15%),
-    color-mix(in srgb, var(--surface) 95%, var(--accent) 5%)
+    color-mix(in srgb, var(--panel) 80%, white 20%),
+    color-mix(in srgb, var(--surface) 96%, var(--accent) 4%)
   );
-  --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
+  --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
 
   /* Fluid Typography Scale */
   --text-xs: 0.72rem;
@@ -129,7 +124,7 @@
   --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Interactive States & Focus Rings */
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
   --focus-outline: 2px solid var(--accent);
   --focus-outline-offset: 2px;
   --interactive-border: color-mix(in srgb, var(--border) 85%, transparent);
@@ -137,7 +132,7 @@
   --interactive-bg-hover: color-mix(in srgb, var(--surface) 88%, var(--panel) 12%);
   --interactive-border-hover: color-mix(
     in srgb,
-    var(--accent) 40%,
+    var(--accent) 35%,
     var(--border)
   );
 
@@ -150,20 +145,20 @@
   --mono: "IBM Plex Mono", "Courier Prime", "Courier New", monospace;
 }
 
-/* --- Dark Theme Variables --- */
+/* --- Dark Theme Variables (Warm Obsidian & Slate Tone) --- */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #0b0f19;
-    --surface: #111827;
-    --panel: #172033;
-    --card: #141c2e;
-    --border: #24324a;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --accent: #60a5fa;
-    --accent-strong: #93c5fd;
-    --gold: #fbbf24;
-    --teal: #2dd4bf;
+    --bg: #18181b;
+    --surface: #1f1d1b;
+    --panel: #262320;
+    --card: #211e1c;
+    --border: #383430;
+    --text: #f4f1ea;
+    --muted: #a8a29e;
+    --accent: #7ea2c6;
+    --accent-strong: #a4c2e0;
+    --gold: #d4a373;
+    --teal: #8da9c4;
 
     --status-success: #22c55e;
     --status-success-bright: #4ade80;
@@ -185,65 +180,60 @@
       transparent
     );
 
-    --shadow-color: rgba(0, 0, 0, 0.45);
-    --shadow-color-soft: rgba(0, 0, 0, 0.25);
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --shadow-color-soft: rgba(0, 0, 0, 0.2);
     --shadow:
-      0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
+      0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
     --shadow-xs: 0 1px 3px var(--shadow-color-soft);
     --shadow-sm:
-      0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
-    --shadow-md: 0 10px 24px var(--shadow-color), 0 2px 6px var(--shadow-color-soft);
-    --shadow-lg: 0 16px 36px var(--shadow-color), 0 4px 10px var(--shadow-color-soft);
-    --shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.35);
-    --shadow-float: 0 12px 28px rgba(0, 0, 0, 0.4);
-    --shadow-float-strong: 0 20px 50px rgba(0, 0, 0, 0.45);
+      0 3px 8px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
+    --shadow-md: 0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
+    --shadow-lg: 0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
+    --shadow-panel: 0 6px 20px rgba(0, 0, 0, 0.3);
+    --shadow-float: 0 10px 24px rgba(0, 0, 0, 0.35);
+    --shadow-float-strong: 0 16px 42px rgba(0, 0, 0, 0.4);
 
-    --glass-bg: color-mix(in srgb, var(--surface) 86%, transparent);
-    --glass-border: color-mix(in srgb, var(--border) 70%, transparent);
-    --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    --glass-bg: color-mix(in srgb, var(--surface) 90%, transparent);
+    --glass-border: color-mix(in srgb, var(--border) 75%, transparent);
+    --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
-    --glow-wash: radial-gradient(
-      circle at 50% -20%,
-      color-mix(in srgb, var(--accent) 18%, transparent) 0%,
-      color-mix(in srgb, var(--teal) 10%, transparent) 45%,
-      transparent 75%
+    --glow-wash: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 60%, transparent) 0%,
+      transparent 100%
     );
-    --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.25'/%3E%3C/svg%3E");
-    --halftone: radial-gradient(
-      circle at 1px 1px,
-      color-mix(in srgb, var(--text) 8%, transparent) 1px,
-      transparent 0
-    );
-    --shadow-accent: 0 4px 16px
-      color-mix(in srgb, var(--accent) 22%, transparent);
-    --shadow-tight: 0 2px 6px var(--shadow-color);
+    --grain-texture: none;
+    --halftone: none;
+    --shadow-accent: 0 4px 14px
+      color-mix(in srgb, var(--accent) 18%, transparent);
+    --shadow-tight: 0 2px 5px var(--shadow-color);
     --surface-flat: var(--surface);
     --surface-raised: linear-gradient(
       140deg,
-      #131b2e,
-      #172033
+      #211e1c,
+      #262320
     );
     --surface-emphasis: linear-gradient(
       145deg,
-      #182238,
-      #1e2b45
+      #282522,
+      #2d2925
     );
-    --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
+    --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
   }
 }
 
 :root.dark {
-  --bg: #0b0f19;
-  --surface: #111827;
-  --panel: #172033;
-  --card: #141c2e;
-  --border: #24324a;
-  --text: #f8fafc;
-  --muted: #94a3b8;
-  --accent: #60a5fa;
-  --accent-strong: #93c5fd;
-  --gold: #fbbf24;
-  --teal: #2dd4bf;
+  --bg: #18181b;
+  --surface: #1f1d1b;
+  --panel: #262320;
+  --card: #211e1c;
+  --border: #383430;
+  --text: #f4f1ea;
+  --muted: #a8a29e;
+  --accent: #7ea2c6;
+  --accent-strong: #a4c2e0;
+  --gold: #d4a373;
+  --teal: #8da9c4;
 
   --status-success: #22c55e;
   --status-success-bright: #4ade80;
@@ -265,48 +255,43 @@
     transparent
   );
 
-  --shadow-color: rgba(0, 0, 0, 0.45);
-  --shadow-color-soft: rgba(0, 0, 0, 0.25);
-  --shadow: 0 8px 18px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-color-soft: rgba(0, 0, 0, 0.2);
+  --shadow: 0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
   --shadow-xs: 0 1px 3px var(--shadow-color-soft);
   --shadow-sm:
-    0 4px 10px var(--shadow-color), 0 1px 4px var(--shadow-color-soft);
-  --shadow-md: 0 10px 24px var(--shadow-color), 0 2px 6px var(--shadow-color-soft);
-  --shadow-lg: 0 16px 36px var(--shadow-color), 0 4px 10px var(--shadow-color-soft);
-  --shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.35);
-  --shadow-float: 0 12px 28px rgba(0, 0, 0, 0.4);
-  --shadow-float-strong: 0 20px 50px rgba(0, 0, 0, 0.45);
+    0 3px 8px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
+  --shadow-md: 0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
+  --shadow-lg: 0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
+  --shadow-panel: 0 6px 20px rgba(0, 0, 0, 0.3);
+  --shadow-float: 0 10px 24px rgba(0, 0, 0, 0.35);
+  --shadow-float-strong: 0 16px 42px rgba(0, 0, 0, 0.4);
 
-  --glass-bg: color-mix(in srgb, var(--surface) 86%, transparent);
-  --glass-border: color-mix(in srgb, var(--border) 70%, transparent);
-  --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --glass-bg: color-mix(in srgb, var(--surface) 90%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 75%, transparent);
+  --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
-  --glow-wash: radial-gradient(
-    circle at 50% -20%,
-    color-mix(in srgb, var(--accent) 18%, transparent) 0%,
-    color-mix(in srgb, var(--teal) 10%, transparent) 45%,
-    transparent 75%
+  --glow-wash: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--panel) 60%, transparent) 0%,
+    transparent 100%
   );
-  --grain-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.25'/%3E%3C/svg%3E");
-  --halftone: radial-gradient(
-    circle at 1px 1px,
-    color-mix(in srgb, var(--text) 8%, transparent) 1px,
-    transparent 0
-  );
-  --shadow-accent: 0 4px 16px color-mix(in srgb, var(--accent) 22%, transparent);
-  --shadow-tight: 0 2px 6px var(--shadow-color);
+  --grain-texture: none;
+  --halftone: none;
+  --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 18%, transparent);
+  --shadow-tight: 0 2px 5px var(--shadow-color);
   --surface-flat: var(--surface);
   --surface-raised: linear-gradient(
     140deg,
-    #131b2e,
-    #172033
+    #211e1c,
+    #262320
   );
   --surface-emphasis: linear-gradient(
     145deg,
-    #182238,
-    #1e2b45
+    #282522,
+    #2d2925
   );
-  --surface-accent-edge: color-mix(in srgb, var(--accent) 35%, var(--border));
+  --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
 }
 
 * {
@@ -348,22 +333,22 @@ body::before {
   background:
     radial-gradient(
       circle at 15% 15%,
-      color-mix(in srgb, var(--accent) 7%, transparent) 0%,
-      transparent 60%
+      color-mix(in srgb, var(--gold) 4%, transparent) 0%,
+      transparent 55%
     ),
     radial-gradient(
       circle at 85% 25%,
-      color-mix(in srgb, var(--teal) 6%, transparent) 0%,
-      transparent 60%
+      color-mix(in srgb, var(--accent) 4%, transparent) 0%,
+      transparent 55%
     );
-  opacity: 0.8;
+  opacity: 0.7;
   pointer-events: none;
   z-index: var(--z-underlay);
   transition: background var(--motion-slow) ease;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 24%, transparent);
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
   color: var(--text);
 }
 

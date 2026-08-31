@@ -6,20 +6,14 @@
     display: grid;
     gap: var(--space-3);
     padding: clamp(1.5rem, 2.5vw, 2.5rem);
-    border-radius: calc(var(--radius-lg) + 4px);
-    border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
-    background:
-      linear-gradient(
-        140deg,
-        color-mix(in srgb, var(--surface) 96%, white 4%),
-        color-mix(in srgb, var(--panel) 90%, white 10%)
-      ),
-      radial-gradient(
-        circle at top left,
-        rgba(255, 255, 255, 0.6),
-        transparent 50%
-      );
-    box-shadow: 0 22px 45px rgba(15, 23, 42, 0.08);
+    border-radius: var(--radius-xl);
+    border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--border));
+    background: linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--surface) 96%, white 4%),
+      color-mix(in srgb, var(--panel) 90%, white 10%)
+    );
+    box-shadow: var(--shadow-sm);
   }
 
   .quick-signal__header h2 {
@@ -263,32 +257,15 @@
 
   .institute-hero {
     max-width: 1080px;
-    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+    border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
     border-radius: var(--radius-xl);
     padding: clamp(1.15rem, 2.2vw, 1.95rem);
-    background:
-      radial-gradient(
-        circle at 12% -14%,
-        color-mix(in srgb, var(--accent) 18%, transparent),
-        transparent 44%
-      ),
-      radial-gradient(
-        circle at 98% 108%,
-        color-mix(in srgb, var(--accent) 10%, transparent),
-        transparent 38%
-      ),
-      linear-gradient(
-        160deg,
-        color-mix(in srgb, var(--surface) 84%, transparent),
-        color-mix(in srgb, var(--surface) 78%, transparent)
-      );
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow:
-      0 20px 48px rgba(15, 23, 42, 0.08),
-      0 4px 12px rgba(15, 23, 42, 0.03),
-      inset 0 1px 0 color-mix(in srgb, white 45%, transparent),
-      inset 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+    background: linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--surface) 96%, white 4%),
+      color-mix(in srgb, var(--panel) 90%, white 10%)
+    );
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
   }
 
   .institute-hero__layout {
