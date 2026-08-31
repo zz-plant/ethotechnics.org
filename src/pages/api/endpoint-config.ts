@@ -23,7 +23,7 @@ import {
   createValidatorsResponse,
 } from "../../utils/api-responses";
 
-export type ApiVariant = "unversioned" | "versioned";
+export type ApiVariant = "unversioned";
 
 export type EndpointId =
   | "agent-index"
@@ -70,7 +70,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "agent-index.json",
     variants: {
       unversioned: { basePath: "/api", includeReleaseEndpoints: true },
-      versioned: { basePath: "/api/v/2026.01" },
     },
     createResponse: (_context, options) =>
       createAgentIndexResponse({
@@ -82,7 +81,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "anti-patterns.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createAntiPatternsResponse(),
   },
@@ -104,7 +102,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "clauses.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createClausesResponse(),
   },
@@ -112,7 +109,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "crosswalks.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createCrosswalksResponse(),
   },
@@ -120,7 +116,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "diagnostic-results.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createDiagnosticResultsResponse(),
   },
@@ -138,7 +133,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "evidence-packs.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createEvidencePacksResponse(),
   },
@@ -146,7 +140,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "findings.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createFindingsResponse(),
   },
@@ -154,7 +147,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "glossary.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createGlossaryResponse(),
   },
@@ -162,7 +154,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "mechanisms.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createMechanismsResponse(),
   },
@@ -170,7 +161,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "post-market-monitoring.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createPostMarketMonitoringResponse(),
   },
@@ -178,7 +168,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "rag-corpus.jsonl",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: (context) =>
       createRagCorpusResponse(parseLimit(context.request)),
@@ -201,7 +190,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "site-index.json",
     variants: {
       unversioned: { basePath: "/api", includeReleaseEndpoints: true },
-      versioned: { basePath: "/api/v/2026.01", includeSnapshots: true },
     },
     createResponse: (_context, options) =>
       createSiteIndexResponse({
@@ -214,7 +202,6 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "standards.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createStandardsResponse(),
   },
@@ -222,18 +209,17 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     slug: "validators.json",
     variants: {
       unversioned: {},
-      versioned: {},
     },
     createResponse: () => createValidatorsResponse(),
   },
 };
 
-export const getEndpointsForVariant = (variant: ApiVariant) =>
+export const getEndpointsForVariant = (variant: ApiVariant = "unversioned") =>
   Object.values(endpointConfig)
     .filter((config) => config.variants[variant] !== undefined)
     .map((config) => config.slug);
 
-export const getEndpointRouteConfig = (id: EndpointId, variant: ApiVariant) => {
+export const getEndpointRouteConfig = (id: EndpointId, variant: ApiVariant = "unversioned") => {
   const config = endpointConfig[id];
   const options = config.variants[variant];
 

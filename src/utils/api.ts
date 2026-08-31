@@ -16,7 +16,7 @@ export const releaseInfo = {
   id: "2026.01",
   label: "2026.01",
   date: "2026-01-09",
-  permalink: "/api/v/2026.01",
+  permalink: "/api",
 };
 
 const standardSlugMap = new Map(

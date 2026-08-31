@@ -6,11 +6,11 @@ import { applyApiCaching } from "../../utils/api-responses";
 
 export const createConfiguredApiRoute = (
   endpointId: EndpointId,
-  variant: ApiVariant,
+  variant: ApiVariant = "unversioned",
 ): APIRoute => {
   const config = getEndpointRouteConfig(endpointId, variant);
   return async (context) => {
     const response = config.createResponse(context, config.options);
-    return applyApiCaching(context.request, response, variant === "versioned");
+    return applyApiCaching(context.request, response);
   };
 };

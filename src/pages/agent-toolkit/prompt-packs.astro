@@ -24,6 +24,7 @@ const anchorLinks = [
   { href: "#decisions", label: "Decision reviews" },
   { href: "#conflict", label: "Conflict resolution" },
   { href: "#diagnostics", label: "Diagnostics prompts" },
+  { href: "#clause-kits", label: "Clause & schema packs" },
 ];
 
 const promptPackInstall = {
@@ -265,5 +266,49 @@ const diagnosticFailureModes = [
         </ul>
       </div>
     </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="clause-kits"
+    eyebrow="Clause & schema packs"
+    title="Turn governance prompts into binding machine artifacts"
+    description="Downloadable JSON schemas, procurement clauses, and evidence checklists for integration."
+    variant="alt"
+  >
+    <CardGrid className="grid--two">
+      <CardItem
+        title="Agent Receipt Schema (JSON Schema)"
+        description="Machine-readable specification for structured decision receipts emitted at runtime."
+      >
+        <ul class="muted">
+          <li>Defines decision IDs, autonomy levels, and action classes.</li>
+          <li>Enforces acknowledgment, review, and remedy clocks.</li>
+        </ul>
+        <a
+          slot="footer"
+          class="button ghost button--compact"
+          href="/standards/agent-receipt-schema.json"
+          download
+        >
+          Download JSON Schema
+        </a>
+      </CardItem>
+      <CardItem
+        title="Procurement Clause Pack"
+        description="Contract-ready legal requirements binding vendor systems to human oversight and contestability."
+      >
+        <ul class="muted">
+          <li>Binding language for STD-01 / STD-02 enforcement.</li>
+          <li>Service-credit remedies for unearned closure.</li>
+        </ul>
+        <a
+          slot="footer"
+          class="button ghost button--compact"
+          href="/agent-toolkit/agent-contract#clause-schema"
+        >
+          View clause contract
+        </a>
+      </CardItem>
+    </CardGrid>
   </SectionBlock>
 </BaseLayout>

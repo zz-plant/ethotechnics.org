@@ -90,4 +90,59 @@ describe("middleware", () => {
       expect(next).toHaveBeenCalledTimes(1);
     }
   });
+
+  it("redirects legacy and consolidated paths with 301", async () => {
+    const pathCases = [
+      {
+        url: "https://ethotechnics.org/diy-packs",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit/prompt-packs",
+      },
+      {
+        url: "https://ethotechnics.org/bundles/procurement-clause-pack",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit/prompt-packs",
+      },
+      {
+        url: "https://ethotechnics.org/bindings",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit/prompt-packs",
+      },
+      {
+        url: "https://ethotechnics.org/delivery/intake",
+        expectedLocation: "https://ethotechnics.org/taxonomy/delivery/intake",
+      },
+      {
+        url: "https://ethotechnics.org/assurance/monitoring",
+        expectedLocation: "https://ethotechnics.org/taxonomy/assurance/monitoring",
+      },
+      {
+        url: "https://ethotechnics.org/governance/policy",
+        expectedLocation: "https://ethotechnics.org/taxonomy/governance/policy",
+      },
+      {
+        url: "https://ethotechnics.org/diagnostics/llm-capacity-benchmark",
+        expectedLocation: "https://ethotechnics.org/diagnostics",
+      },
+      {
+        url: "https://ethotechnics.org/api/v/2026.01/glossary.json",
+        expectedLocation: "https://ethotechnics.org/api/glossary.json",
+      },
+    ];
+
+    for (const { url, expectedLocation } of pathCases) {
+      const request = new Request(url);
+      const next = mock(() => Promise.resolve(new Response("next")));
+
+      const response = await onRequest(
+        { request, locals: {} as App.Locals } as APIContext,
+        next,
+      );
+
+      if (!response) {
+        throw new Error("Expected redirect response");
+      }
+
+      expect(response.status).toBe(301);
+      expect(response.headers.get("Location")).toBe(expectedLocation);
+      expect(next).not.toHaveBeenCalled();
+    }
+  });
 });

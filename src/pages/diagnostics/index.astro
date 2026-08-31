@@ -79,11 +79,10 @@ const selfDefenseTools = [
   },
 ];
 const mostUsedToolSlugs = [
+  "system-auditor",
   "burden-modeler",
-  "maintenance-simulator",
   "capacity-forecaster",
-  "evidence-pack-readiness",
-  "escalation-coverage-planner",
+  "maintenance-simulator",
   "maintenance-debt-calculator",
 ];
 const mostUsedTools = mostUsedToolSlugs
@@ -412,19 +411,19 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       >
         <li>
           <a class="pill-list__button" href="/diagnostics/burden-modeler"
-            >Planning</a
+            >Burden modeling</a
           >
         </li>
         <li>
           <a
             class="pill-list__button"
-            href="/diagnostics/evidence-pack-readiness">Audit prep</a
+            href="/diagnostics/system-auditor">System audit</a
           >
         </li>
         <li>
           <a
             class="pill-list__button"
-            href="/diagnostics/escalation-coverage-planner">Incident response</a
+            href="/diagnostics/maintenance-simulator">Outage simulation</a
           >
         </li>
       </ul>
@@ -617,15 +616,11 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       </div>
     </div>
     <p class="muted">
-      Bundles:
+      Toolkit:
       {" "}
-      <a href="/bundles/diagnostic-export-kit">Diagnostic Export Kit</a>
+      <a href="/agent-toolkit/prompt-packs">Agent Prompt & Clause Packs</a>
       {" "}
-      for stakeholder summaries and
-      {" "}
-      <a href="/bundles/procurement-clause-pack">Procurement Clause Pack</a>
-      {" "}
-      for vendor follow-through.
+      for stakeholder summaries, audit prompts, and procurement follow-through.
     </p>
     <p class="muted">
       Search IDs: AW-01, AW-02, AW-03, AW-04, VAL-01, VAL-02, VAL-03,
