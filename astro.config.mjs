@@ -54,7 +54,15 @@ export default defineConfig({
         "worker-src 'self' blob:",
       ],
       scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'"] },
-      styleDirective: { resources: ["'self'"] },
+      styleDirective: {
+        resources: [
+          "'self'",
+          // `style-src-attr` only governs `style=""` attributes, which cannot
+          // execute code. Author-written inline styles across the pages need
+          // it; `<style>` blocks and stylesheets stay on 'self' + hashes.
+          { resource: "'unsafe-inline'", kind: "attribute" },
+        ],
+      },
     },
   },
   markdown: {

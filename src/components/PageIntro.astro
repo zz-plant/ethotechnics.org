@@ -202,37 +202,5 @@ const HeadingTag = `h${titleLevel}` as const;
 </section>
 
 <script>
-  const copyButtons = Array.from(
-    document.querySelectorAll("[data-permalink-copy]"),
-  );
-
-  copyButtons.forEach((button) => {
-    const status = button
-      .closest(".page-intro__permalink")
-      ?.querySelector("[data-permalink-status]");
-    const value = button.getAttribute("data-copy-value");
-
-    if (!status || !value) {
-      return;
-    }
-
-    let resetTimer;
-
-    button.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(value);
-        status.textContent = "Copied";
-        status.classList.add("is-visible");
-      } catch (error) {
-        status.textContent = "Copy failed";
-        status.classList.add("is-visible");
-      }
-
-      clearTimeout(resetTimer);
-      resetTimer = window.setTimeout(() => {
-        status.textContent = "";
-        status.classList.remove("is-visible");
-      }, 2000);
-    });
-  });
+  import "../scripts/permalink-copy.ts";
 </script>

@@ -100,11 +100,10 @@
 
   .page-shell__content {
     position: relative;
-    padding: 0 0 2.6rem;
     z-index: var(--z-raised);
     width: min(var(--content-max-wide), calc(100% - (var(--page-gutter) * 2)));
     margin: 0 auto;
-    padding: 0 var(--page-gutter);
+    padding: 0 var(--page-gutter) 2.6rem;
   }
 
   .site-header {
@@ -443,8 +442,11 @@
   .code-copy-btn--copied {
     color: var(--status-success) !important;
     border-color: var(--status-success) !important;
-    background: color-mix(in srgb, var(--surface) 95%, var(--status-success) 5%) !important;
+    background: color-mix(
+      in srgb,
+      var(--surface) 95%,
+      var(--status-success) 5%
+    ) !important;
     opacity: 1 !important;
   }
 }
-

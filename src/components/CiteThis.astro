@@ -51,38 +51,5 @@ const mlaCitation = `${author}. "${title}." <i>Ethotechnics Institute</i>, ${dat
 </div>
 
 <script>
-  (() => {
-    const status = document.getElementById("cite-copy-status");
-
-    const handleCopy = async (targetId, typeName) => {
-      const el = document.getElementById(targetId);
-      if (!el) return;
-      const text = el.textContent ?? "";
-      try {
-        await navigator.clipboard.writeText(text);
-        if (status) {
-          status.textContent = `${typeName} citation copied!`;
-          status.style.display = "inline-block";
-          setTimeout(() => {
-            status.style.display = "none";
-            status.textContent = "";
-          }, 2500);
-        }
-      } catch (err) {
-        // clipboard write error fallback
-      }
-    };
-
-    document
-      .getElementById("cite-copy-apa-btn")
-      ?.addEventListener("click", () => {
-        handleCopy("cite-apa", "APA");
-      });
-
-    document
-      .getElementById("cite-copy-mla-btn")
-      ?.addEventListener("click", () => {
-        handleCopy("cite-mla", "MLA");
-      });
-  })();
+  import "../scripts/cite-this.ts";
 </script>

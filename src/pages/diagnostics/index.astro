@@ -413,15 +413,13 @@ const comparisonTools = mostUsedTools.slice(0, 3);
           >
         </li>
         <li>
-          <a
-            class="pill-list__button"
-            href="/diagnostics/system-auditor">System audit</a
+          <a class="pill-list__button" href="/diagnostics/system-auditor"
+            >System audit</a
           >
         </li>
         <li>
-          <a
-            class="pill-list__button"
-            href="/diagnostics/maintenance-simulator">Outage simulation</a
+          <a class="pill-list__button" href="/diagnostics/maintenance-simulator"
+            >Outage simulation</a
           >
         </li>
       </ul>
@@ -626,16 +624,26 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     </p>
   </SectionBlock>
 
-  <section class="cta stack-md" aria-label="Commercial advisory and custom audits">
+  <section
+    class="cta stack-md"
+    aria-label="Commercial advisory and custom audits"
+  >
     <div class="stack-sm">
       <p class="eyebrow">Ethotechnics Studio</p>
       <h2>Need custom risk modeling or commissioned diligence?</h2>
       <p class="muted">
-        Ethotechnics Studio provides tailored clinical AI safety evaluation, VC portfolio diligence, custom governance tooling, and independent audit verification.
+        Ethotechnics Studio provides tailored clinical AI safety evaluation, VC
+        portfolio diligence, custom governance tooling, and independent audit
+        verification.
       </p>
     </div>
     <div class="actions">
-      <a class="button primary" href="https://ethotechnics.com" target="_blank" rel="noopener noreferrer">
+      <a
+        class="button primary"
+        href="https://ethotechnics.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Engage Ethotechnics Studio →
       </a>
       <a class="button ghost" href="/participate">
@@ -645,74 +653,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   </section>
 
   <script>
-    const stickyNav = document.querySelector(".diagnostics__sticky-jump");
-    const mobileDisclosures = Array.from(
-      document.querySelectorAll("[data-collapse-mobile]"),
-    );
-
-    const syncMobileDisclosures = () => {
-      if (mobileDisclosures.length === 0) {
-        return;
-      }
-
-      const isMobile = window.matchMedia("(max-width: 899px)").matches;
-
-      mobileDisclosures.forEach((disclosure) => {
-        if (!(disclosure instanceof HTMLDetailsElement)) {
-          return;
-        }
-
-        disclosure.open = !isMobile;
-      });
-    };
-
-    syncMobileDisclosures();
-    window.addEventListener("resize", syncMobileDisclosures, { passive: true });
-
-    if (stickyNav) {
-      const stickyLinks = Array.from(
-        stickyNav.querySelectorAll("[data-sticky-link]"),
-      );
-      const stickyTargets = stickyLinks
-        .map((link) =>
-          document.querySelector(link.getAttribute("data-sticky-link") ?? ""),
-        )
-        .filter(Boolean);
-
-      const setActiveLink = (targetId) => {
-        stickyLinks.forEach((link) => {
-          const href = link.getAttribute("data-sticky-link");
-          const isActive = href === targetId;
-          link.classList.toggle("is-active", isActive);
-
-          if (isActive) {
-            link.setAttribute("aria-current", "location");
-          } else {
-            link.removeAttribute("aria-current");
-          }
-        });
-      };
-
-      if (stickyTargets.length > 0 && "IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            const visibleEntries = entries
-              .filter((entry) => entry.isIntersecting)
-              .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-            if (visibleEntries[0]?.target?.id) {
-              setActiveLink(`#${visibleEntries[0].target.id}`);
-            }
-          },
-          {
-            rootMargin: "-30% 0px -55% 0px",
-            threshold: [0.1, 0.35, 0.6],
-          },
-        );
-
-        stickyTargets.forEach((target) => observer.observe(target));
-      }
-    }
+    import "../../scripts/diagnostics-sticky-nav.ts";
   </script>
 
   <script>
