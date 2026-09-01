@@ -1,4 +1,5 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
 import { getEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -455,5 +456,5 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

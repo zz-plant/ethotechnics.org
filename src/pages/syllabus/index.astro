@@ -1,4 +1,5 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/syllabus.css";
 import { getEntry } from "astro:content";
 import CardGrid from "../../components/CardGrid.astro";
@@ -360,11 +361,10 @@ const artifactPreviews = startHereContent.artifacts.previews;
     </div>
   </SectionBlock>
 
-  <script
+  <InlineScript
     type="application/json"
     id="syllabus-data"
-    is:inline
-    set:html={JSON.stringify({
+    code={JSON.stringify({
       modules,
       knowledgeChecks,
       moduleResources,
@@ -372,7 +372,7 @@ const artifactPreviews = startHereContent.artifacts.previews;
       artifactPreviews,
     })}
   />
-  <script is:inline>
+  <script>
     const dataElement = document.querySelector("#syllabus-data");
     const parsed = dataElement
       ? JSON.parse(dataElement.textContent || "{}")

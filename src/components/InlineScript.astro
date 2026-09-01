@@ -1,0 +1,23 @@
+---
+import { cspHash } from "../utils/csp";
+
+/**
+ * An inline `<script>` that registers its own CSP hash.
+ *
+ * Use it for script content that has to stay inline: data blocks
+ * (`application/ld+json`, `application/json`) and code that must run before the
+ * first paint. Everything else should be a plain `<script>` so Astro bundles it
+ * and `script-src 'self'` covers it.
+ */
+interface Props {
+  code: string;
+  type?: string;
+  id?: string;
+}
+
+const { code, type, id }: Props = Astro.props;
+
+Astro.csp?.insertScriptHash(cspHash(code));
+---
+
+<script is:inline type={type} id={id} set:html={code} />

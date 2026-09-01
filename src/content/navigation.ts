@@ -60,13 +60,6 @@ export const navPrimaryLinks: NavLink[] = [
     mobileFeatured: true,
   },
   {
-    href: "/start",
-    label: "Start Here",
-    description: "Adaptive triage for engineers, policy leads, and auditors",
-    primary: true,
-    mobileFeatured: true,
-  },
-  {
     href: "/about",
     label: "About",
     description: "Mission, governance, and who maintains this work",

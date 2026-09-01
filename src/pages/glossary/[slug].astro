@@ -1,4 +1,5 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/glossary.css";
 export const prerender = true;
 
@@ -798,5 +799,5 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   />
   <ScholarlyMeta publication={publication} permalink={pagePermalink} />
 
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

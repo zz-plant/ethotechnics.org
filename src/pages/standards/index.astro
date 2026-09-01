@@ -1,4 +1,5 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/standards.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -1027,12 +1028,12 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     description="Receive notifications about new draft standards, revisions, and validator releases."
     variant="alt"
   >
-    <div style="max-width: 600px; margin: 0 auto;">
+    <div class="measure-narrow">
       <NewsletterSignup />
     </div>
   </SectionBlock>
 
-  <script is:inline>
+  <script>
     const standardsFilter = document.querySelector("[data-standards-filter]");
 
     if (standardsFilter) {
@@ -1141,7 +1142,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     }
   </script>
 
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
 
   <style>
     .status-badge {

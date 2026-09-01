@@ -10,8 +10,6 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
-import diagnosticsFilterScript from "../../scripts/diagnostics-filter.ts?url";
-import routeMetricsScript from "../../scripts/route-metrics.ts?url";
 
 const {
   pageTitle,
@@ -646,7 +644,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     </div>
   </section>
 
-  <script is:inline>
+  <script>
     const stickyNav = document.querySelector(".diagnostics__sticky-jump");
     const mobileDisclosures = Array.from(
       document.querySelectorAll("[data-collapse-mobile]"),
@@ -717,6 +715,8 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     }
   </script>
 
-  <script type="module" src={diagnosticsFilterScript} is:inline></script>
-  <script is:inline type="module" src={routeMetricsScript}></script>
+  <script>
+    import "../../scripts/diagnostics-filter.ts";
+    import "../../scripts/route-metrics.ts";
+  </script>
 </BaseLayout>

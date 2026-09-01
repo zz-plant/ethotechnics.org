@@ -1,22 +1,26 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+
 /**
  * Grid wrapper for card collections.
  *
  * Props:
  * - as: Optional tag name (defaults to `div`).
  * - className: Additional class names appended to the grid container.
+ *
+ * Any other attributes (data-* hooks, aria-*, id, …) are forwarded to the
+ * rendered element so callers can attach scripts to the grid.
  */
-interface Props {
+type Props = HTMLAttributes<"div"> & {
   as?: "div" | "section" | "ul";
   className?: string;
-}
+};
 
-const props: Props = Astro.props;
-const { as = "div", className } = props;
+const { as = "div", className, ...rest }: Props = Astro.props;
 const GridTag = as;
 const gridClass = ["grid", className].filter(Boolean).join(" ");
 ---
 
-<GridTag class={gridClass}>
+<GridTag {...rest} class={gridClass}>
   <slot />
 </GridTag>

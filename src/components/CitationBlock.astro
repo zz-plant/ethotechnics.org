@@ -1,6 +1,5 @@
 ---
 import type { PublicationMetadata } from "../content/types";
-import citationCopyScript from "../scripts/citation-copy.ts?url";
 
 type Props = {
   title: string;
@@ -222,4 +221,6 @@ const ris = risLines.join("\n");
   }
 </div>
 
-<script type="module" src={citationCopyScript} is:inline></script>
+<script>
+  import "../scripts/citation-copy.ts";
+</script>

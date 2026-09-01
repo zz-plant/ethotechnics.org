@@ -3,7 +3,6 @@ import "../../styles/components/intake-form.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import burdenBudgetWorksheetScript from "../../scripts/burden-budget-worksheet.ts?url";
 
 const pageTitle = "Burden budget worksheet";
 const pageDescription =
@@ -635,4 +634,6 @@ const changelog = [
   </template>
 </BaseLayout>
 
-<script type="module" src={burdenBudgetWorksheetScript} is:inline></script>
+<script>
+  import "../../scripts/burden-budget-worksheet.ts";
+</script>

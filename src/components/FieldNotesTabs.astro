@@ -5,7 +5,6 @@ import {
   glossaryEntryPermalink,
 } from "../utils/glossary";
 import type { FieldNoteEntry, FieldNotesContent } from "../content/fieldNotes";
-import fieldNotesTabsScript from "../scripts/field-notes-tabs.ts?url";
 
 export interface Props {
   sections: FieldNotesContent["sections"];
@@ -206,4 +205,6 @@ const fieldNoteSections = sections.map((section, index) => ({
   ) : null
 }
 
-<script type="module" src={fieldNotesTabsScript} is:inline></script>
+<script>
+  import "../scripts/field-notes-tabs.ts";
+</script>

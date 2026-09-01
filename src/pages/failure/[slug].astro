@@ -6,7 +6,6 @@ import {
   type FailureState,
   type InstituteArtifact,
 } from "../../content/institute-site";
-import routeMetricsScript from "../../scripts/route-metrics.ts?url";
 
 const slug = Astro.params.slug;
 const state =
@@ -154,5 +153,7 @@ const orderedWorkflowStages = workflowStages.filter(
     <p class="small muted">Workflow follows triage → stabilize → evidence.</p>
     <p class="small muted">{state.footerLine}</p>
   </section>
-  <script is:inline type="module" src={routeMetricsScript}></script>
+  <script>
+    import "../../scripts/route-metrics.ts";
+  </script>
 </BaseLayout>

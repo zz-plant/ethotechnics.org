@@ -441,6 +441,24 @@
     align-items: center;
   }
 
+  /* The rail is too narrow for the two calls to action side by side, so they
+     stack as a deliberate primary/secondary pair. */
+  .institute-hero__starter .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .institute-hero__starter .actions .button {
+    width: 100%;
+  }
+
+  .institute-hero__starter .institute-hero__status {
+    margin-top: 0.35rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
   .institute-hero__starter {
     border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
     border-radius: var(--radius-lg);
@@ -848,7 +866,7 @@
     }
 
     .institute-hero__layout {
-      grid-template-columns: minmax(0, 1.12fr) minmax(19rem, 0.88fr);
+      grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
       align-items: start;
       gap: 1.5rem;
     }

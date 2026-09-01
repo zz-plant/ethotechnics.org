@@ -1,4 +1,5 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/research.css";
 import PageIntro from "../../components/PageIntro.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -15,7 +16,6 @@ import {
   glossaryEntryPermalink,
 } from "../../utils/glossary";
 import { researchContent } from "../../content/research";
-import researchFilterScript from "../../scripts/research-filter.ts?url";
 
 const {
   pageTitle,
@@ -628,6 +628,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <section class="section section--alt stack-md" aria-label="Subscribe to Research Updates">
     <NewsletterSignup />
   </section>
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
-  <script type="module" src={researchFilterScript} is:inline></script>
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
+  <script>
+    import "../../scripts/research-filter.ts";
+  </script>
 </BaseLayout>

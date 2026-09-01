@@ -5,7 +5,6 @@ import CardItem from "../../components/CardItem.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { quickStartGuides, quickStartIntro } from "../../content/quick-start";
-import routeMetricsScript from "../../scripts/route-metrics.ts?url";
 
 const { pageTitle, pageDescription, permalink, eyebrow, title, description } =
   quickStartIntro;
@@ -64,5 +63,7 @@ const { pageTitle, pageDescription, permalink, eyebrow, title, description } =
       }
     </CardGrid>
   </SectionBlock>
-  <script is:inline type="module" src={routeMetricsScript}></script>
+  <script>
+    import "../../scripts/route-metrics.ts";
+  </script>
 </BaseLayout>

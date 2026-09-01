@@ -71,7 +71,7 @@ const initSearch = () => {
     document.querySelectorAll<HTMLElement>("[data-search-container]"),
   );
   const searchInstances: SearchInstance[] = [];
-  const mediaQuery = window.matchMedia("(min-width: 992px)");
+  const mediaQuery = window.matchMedia("(min-width: 1100px)");
   const getActiveScope = () => (mediaQuery.matches ? "desktop" : "mobile");
 
   searchContainers.forEach((container) => {

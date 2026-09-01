@@ -14,7 +14,7 @@
       box-shadow var(--motion-base) ease;
   }
 
-  @media (max-width: 991px) {
+  @media (max-width: 1099px) {
     .nav {
       background: color-mix(in srgb, var(--surface) 96%, white 4%);
       box-shadow: var(--shadow-xs);
@@ -42,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.25rem;
+    gap: 1rem;
     min-width: 0;
     width: 100%;
   }
@@ -79,7 +79,7 @@
   }
 
   .nav__wordmark {
-    width: clamp(8.5rem, 12vw, 10.5rem);
+    width: clamp(7.25rem, 8.6vw, 9.25rem);
     height: auto;
     display: block;
   }
@@ -87,6 +87,7 @@
   /* --- Desktop Links Container --- */
   .nav__links--desktop {
     display: none;
+    flex: 0 1 auto;
     align-items: center;
     gap: 0.35rem;
     padding: 0.25rem 0.35rem;
@@ -96,7 +97,7 @@
     box-shadow: var(--shadow-xs);
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 1100px) {
     .nav__links--desktop {
       display: flex;
     }
@@ -110,7 +111,7 @@
     margin-left: auto;
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 1100px) {
     .nav__actions-desktop {
       display: flex;
     }
@@ -119,7 +120,8 @@
   .nav__start-btn {
     display: inline-flex;
     align-items: center;
-    padding: 0.45rem 1rem;
+    padding: 0.45rem 0.85rem;
+    white-space: nowrap;
     min-height: 38px;
     border-radius: var(--radius-pill);
     font-size: var(--text-sm);
@@ -160,7 +162,33 @@
   }
 
   .nav__search-desktop {
-    min-width: 150px;
+    min-width: 0;
+  }
+
+  @media (min-width: 1280px) {
+    .nav__search-desktop {
+      min-width: 150px;
+    }
+  }
+
+  /* Between the desktop breakpoint and 1280px the bar cannot hold a full
+     search pill, so it collapses to an icon button. */
+  @media (max-width: 1279px) {
+    .nav__search-desktop .search-container {
+      width: 38px;
+    }
+
+    .nav__search-desktop .search-trigger {
+      width: 38px;
+      gap: 0;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .nav__search-desktop .search-label,
+    .nav__search-desktop .search-kbd {
+      display: none;
+    }
   }
 
   .nav__icon-btn {
@@ -204,7 +232,7 @@
     width: 100%;
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 1100px) {
     .nav__mobile {
       display: none;
     }

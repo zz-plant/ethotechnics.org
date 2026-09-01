@@ -39,7 +39,6 @@ describe.skip("Navigation component", () => {
       "Mechanisms",
       "Diagnostics",
       "Knowledge",
-      "Start Here",
       "About",
     ]);
 

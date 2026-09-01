@@ -1,0 +1,17 @@
+---
+import { cspHash } from "../utils/csp";
+
+/**
+ * An inline `<style>` that registers its own CSP hash. Use it for critical CSS
+ * that must land in the document before the stylesheet loads.
+ */
+interface Props {
+  css: string;
+}
+
+const { css }: Props = Astro.props;
+
+Astro.csp?.insertStyleHash(cspHash(css));
+---
+
+<style is:inline set:html={css}></style>

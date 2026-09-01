@@ -1,13 +1,13 @@
 ---
 import { SEO } from "astro-seo";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import InlineScript from "../components/InlineScript.astro";
+import InlineStyle from "../components/InlineStyle.astro";
 import Navigation from "../components/Navigation.astro";
 import SvgDefs from "../components/SvgDefs.astro";
 import NewsletterSignup from "../components/NewsletterSignup.astro";
 import Wordmark from "../components/Wordmark.astro";
 import { siteFooter } from "../content/site-footer";
-import glossaryHighlightsScript from "../scripts/glossary-highlights.ts?url";
-import searchModalScript from "../scripts/search-modal.ts?url";
 import { normalizeBreadcrumbItems } from "../lib/breadcrumbs";
 import {
   buildJsonAlternateLinks,
@@ -145,6 +145,43 @@ const structuredData = buildSchemaGraph({
 
 const jsonAlternateLinks = buildJsonAlternateLinks(jsonAlternates);
 const structuredDataJson = stringifyJsonLd(structuredData);
+
+// Rendered inline so the page paints with the right background before the
+// stylesheet arrives; InlineStyle/InlineScript register the CSP hashes.
+const criticalCss = `html,
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+:root.dark,
+:root.dark body {
+  background-color: #0b0f19;
+  color: #f8fafc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light),
+  :root:not(.light) body {
+    background-color: #0b0f19;
+    color: #f8fafc;
+  }
+}`;
+
+// Must run before the first paint, so it cannot be a bundled (deferred) script.
+const themeBootScript = `(() => {
+  const stored = localStorage.getItem("theme");
+  if (
+    stored === "dark" ||
+    (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+    document.documentElement.classList.remove("light");
+  } else {
+    document.documentElement.classList.add("light");
+    document.documentElement.classList.remove("dark");
+  }
+})();`;
 const languageAlternates = buildLanguageAlternates(canonical);
 
 const pathSegments = currentPath.split("/").filter(Boolean);
@@ -159,27 +196,7 @@ const pagefindType = pathSegments[0] ?? "";
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
     />
-    <style is:inline>
-      html,
-      body {
-        background-color: #f8fafc;
-        color: #0f172a;
-      }
-
-      :root.dark,
-      :root.dark body {
-        background-color: #0b0f19;
-        color: #f8fafc;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root:not(.light),
-        :root:not(.light) body {
-          background-color: #0b0f19;
-          color: #f8fafc;
-        }
-      }
-    </style>
+    <InlineStyle css={criticalCss} />
     <SEO
       title={title}
       titleDefault={defaultTitle}
@@ -268,11 +285,7 @@ const pagefindType = pathSegments[0] ?? "";
         ],
       }}
     />
-    <script
-      type="application/ld+json"
-      set:html={structuredDataJson}
-      is:inline
-    />
+    <InlineScript type="application/ld+json" code={structuredDataJson} />
     <meta data-pagefind-meta="title" content={title} />
     <meta data-pagefind-meta="description" content={description} />
     {
@@ -282,21 +295,7 @@ const pagefindType = pathSegments[0] ?? "";
     }
     <slot name="head" />
     <meta name="color-scheme" content="light dark" />
-    <script is:inline>
-      (() => {
-        const stored = localStorage.getItem("theme");
-        if (
-          stored === "dark" ||
-          (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-          document.documentElement.classList.add("dark");
-          document.documentElement.classList.remove("light");
-        } else {
-          document.documentElement.classList.add("light");
-          document.documentElement.classList.remove("dark");
-        }
-      })();
-    </script>
+    <InlineScript code={themeBootScript} />
   </head>
   <body>
     <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
@@ -398,13 +397,15 @@ const pagefindType = pathSegments[0] ?? "";
         <path d="M18 15l-6-6-6 6"></path>
       </svg>
     </button>
-    {
-      enableGlossaryHighlights && (
-        <script type="module" is:inline src={glossaryHighlightsScript} />
-      )
-    }
-    <script type="module" is:inline src={searchModalScript} defer></script>
-    <script is:inline>
+    {/* Both are bundled, so they load on every page; the highlighter is
+        driven by the data-glossary-highlights attribute on <main>. */}
+    <script>
+      import "../scripts/glossary-highlights.ts";
+    </script>
+    <script>
+      import "../scripts/search-modal.ts";
+    </script>
+    <script>
       (() => {
         /* theme toggle & dynamic meta theme-color */
         const syncThemeColor = (isDark) => {
@@ -478,7 +479,7 @@ const pagefindType = pathSegments[0] ?? "";
           };
 
           mobileNav.addEventListener("toggle", () => {
-            const isMobile = window.matchMedia("(max-width: 991px)").matches;
+            const isMobile = window.matchMedia("(max-width: 1099px)").matches;
             if (mobileNav.open && isMobile) {
               document.body.style.overflow = "hidden";
               pageRegions().forEach((el) => (el.inert = true));

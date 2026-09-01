@@ -1,4 +1,5 @@
 ---
+import InlineScript from "../../components/InlineScript.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import CardGrid from "../../components/CardGrid.astro";
@@ -217,5 +218,5 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       {method.steps.map((step) => <li>{step}</li>)}
     </ul>
   </section>
-  <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

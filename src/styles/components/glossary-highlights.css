@@ -1,0 +1,170 @@
+/* Glossary term highlighting and hover cards.
+   `glossary-highlights.ts` runs from BaseLayout on every page, so these rules
+   have to load site-wide, not only on the /glossary routes. */
+@layer components {
+  .glossary-highlight {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.15rem;
+    padding: 0.05rem 0.3rem;
+    border-radius: var(--radius-xs);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-bottom: 1.5px dotted
+      color-mix(in srgb, var(--accent) 60%, transparent);
+    color: inherit;
+    cursor: pointer;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transition:
+      background-color var(--motion-fast) ease,
+      border-color var(--motion-fast) ease;
+  }
+
+  .glossary-highlight:hover,
+  .glossary-highlight:focus-visible {
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    border-bottom-style: solid;
+  }
+
+  body.disable-glossary-highlights .glossary-highlight {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: none !important;
+    cursor: text !important;
+  }
+
+  body.disable-glossary-highlights .glossary-highlight .glossary-peek-card {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .glossary-peek-card {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translate(-50%, -0.5rem);
+    width: max-content;
+    min-width: 16rem;
+    max-width: min(24rem, 88vw);
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+    background: var(--surface);
+    color: var(--text);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    box-shadow:
+      0 16px 36px rgba(15, 23, 42, 0.14),
+      0 4px 12px rgba(15, 23, 42, 0.08),
+      var(--card-inner-highlight);
+    opacity: 0;
+    pointer-events: none;
+    display: grid;
+    gap: 0.55rem;
+    text-align: left;
+    white-space: normal;
+    z-index: var(--z-overlay);
+    transition:
+      opacity var(--motion-fast) ease,
+      transform var(--motion-fast) var(--ease-out-editorial);
+  }
+
+  .glossary-peek-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
+  .glossary-peek-card__title {
+    font-weight: 700;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+
+  .glossary-peek-card__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: var(--sans);
+  }
+
+  .glossary-peek-card__def {
+    font-size: 0.84rem;
+    color: color-mix(in srgb, var(--text) 88%, var(--muted));
+    line-height: 1.4;
+  }
+
+  .glossary-peek-card__metrics {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--panel) 85%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  .glossary-peek-card__metric-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .glossary-peek-card__metric-lbl {
+    font-weight: 700;
+    font-family: var(--sans);
+    color: var(--muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+
+  .glossary-peek-card__metric-val {
+    font-weight: 600;
+    color: var(--text);
+    text-align: right;
+  }
+
+  .glossary-peek-card__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.2rem;
+  }
+
+  .glossary-peek-card__link {
+    font-size: 0.78rem;
+    font-weight: 650;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color var(--motion-fast) ease;
+  }
+
+  .glossary-peek-card__link:hover {
+    color: var(--accent-strong);
+    text-decoration: underline;
+  }
+
+  .glossary-highlight:hover .glossary-peek-card,
+  .glossary-highlight:focus-within .glossary-peek-card {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -0.75rem);
+  }
+}

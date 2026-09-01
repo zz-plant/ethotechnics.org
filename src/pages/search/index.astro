@@ -6,7 +6,6 @@ import { diagnosticsContent } from "../../content/diagnostics";
 import { fieldNotesContent } from "../../content/fieldNotes";
 import { glossaryTerms } from "../../content/glossary";
 import { navSections } from "../../content/navigation";
-import siteSearchScript from "../../scripts/site-search.ts?url";
 
 const pageTitle = "Site search — Ethotechnics";
 const pageDescription =
@@ -298,7 +297,9 @@ const buildSearchText = (entry: SearchEntry) =>
         </div>
       </div>
     </SectionBlock>
-    <script type="module" src={siteSearchScript} is:inline></script>
+    <script>
+      import "../../scripts/site-search.ts";
+    </script>
     <noscript>
       <p class="card card--flat" style="margin-top: 1rem; padding: 1.5rem;">
         Search filtering requires JavaScript. All {searchEntries.length} results are
