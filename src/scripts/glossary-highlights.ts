@@ -68,18 +68,29 @@ const highlightRoots = document.querySelectorAll<HTMLElement>(
   "[data-glossary-highlights]",
 );
 
+// Terms are marked up inside running prose. Labels are not prose: a definition
+// tooltip on a breadcrumb, a column header, or a page kicker adds a hover
+// target where the reader is orienting, not reading. All three shipped --
+// /evals/ underlined "Ethotechnics" in its own breadcrumb trail, the home page
+// comparison table underlined it in a `th` next to a plain sibling header, and
+// the home hero underlined the first word of its eyebrow.
 const ignoredSelector = [
   "a",
   "button",
   "code",
   "input",
+  "nav",
   "option",
   "pre",
   "script",
   "select",
   "style",
   "textarea",
+  "th",
   "[data-glossary-ignore]",
+  // Kickers are labels too, and they are not all `.eyebrow` -- the home hero
+  // uses `.institute-hero__eyebrow`.
+  '[class*="eyebrow"]',
   ".glossary-highlight",
   ".glossary-peek-card",
 ].join(", ");

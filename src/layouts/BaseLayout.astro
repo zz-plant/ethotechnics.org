@@ -148,23 +148,30 @@ const structuredDataJson = stringifyJsonLd(structuredData);
 
 // Rendered inline so the page paints with the right background before the
 // stylesheet arrives; InlineStyle/InlineScript register the CSP hashes.
+// These literals must stay in lockstep with --bg/--text in `styles/theme.css`.
+// They had drifted to a cool slate palette (#f8fafc / #0b0f19) that the theme
+// left behind: because these selectors carry more specificity than theme.css's
+// bare `body`, the stale values won outright rather than merely flashing. Dark
+// mode painted a cold navy ground under warm #1f1d1b cards -- two different
+// colour temperatures stacked -- and light mode kept a cool `html` behind the
+// warm paper `body`, which showed on overscroll.
 const criticalCss = `html,
 body {
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #faf8f5;
+  color: #1c1917;
 }
 
 :root.dark,
 :root.dark body {
-  background-color: #0b0f19;
-  color: #f8fafc;
+  background-color: #18181b;
+  color: #f4f1ea;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light),
   :root:not(.light) body {
-    background-color: #0b0f19;
-    color: #f8fafc;
+    background-color: #18181b;
+    color: #f4f1ea;
   }
 }`;
 
@@ -274,12 +281,12 @@ const pagefindType = pathSegments[0] ?? "";
           { name: "publisher", content: siteName },
           {
             name: "theme-color",
-            content: "#f8fafc",
+            content: "#faf8f5",
             media: "(prefers-color-scheme: light)",
           },
           {
             name: "theme-color",
-            content: "#0b0f19",
+            content: "#18181b",
             media: "(prefers-color-scheme: dark)",
           },
         ],

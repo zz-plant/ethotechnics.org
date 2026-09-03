@@ -56,6 +56,19 @@ const abbreviatedPermalink = permalinkUrl
   : normalizedPermalink;
 
 const HeadingTag = `h${titleLevel}` as const;
+
+// Several pages feed the same object to both the page header and the aside --
+// /evals/ passed `panelCopy.title`/`panelCopy.description` as its own title and
+// description and then passed `panelCopy` again -- so the panel restated the
+// h1 and the lede verbatim, side by side at nearly the same size. An aside
+// that repeats the thing it sits next to is worth less than the space it
+// costs, so drop it when that is all it says.
+const norm = (value?: string) => value?.trim().toLowerCase() ?? "";
+const panelEchoesLead =
+  !!panelCopy &&
+  norm(panelCopy.title) === norm(title) &&
+  norm(panelCopy.description) === norm(description);
+const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
 ---
 
 <section class="section page-intro">
@@ -72,30 +85,35 @@ const HeadingTag = `h${titleLevel}` as const;
             </p>
           )
         }
-        <p class="page-intro__permalink">
-          <span class="page-intro__permalink-icon" aria-hidden="true">↺</span>
-          <span class="page-intro__permalink-label">Permanent link</span>
-          <a class="page-intro__permalink-path" href={permalink}>
-            {abbreviatedPermalink}
-          </a>
-          <button
-            class="copy-button page-intro__permalink-copy"
-            type="button"
-            data-permalink-copy
-            data-copy-value={permalinkUrl?.toString() ?? normalizedPermalink}
-            aria-label="Copy permanent link to this page"
-          >
-            Copy link
-          </button>
-          <span
-            class="page-intro__permalink-status"
-            data-permalink-status
-            role="status"
-            aria-live="polite"></span>
-        </p>
       </div>
       <HeadingTag>{title}</HeadingTag>
       <p class="muted page-intro__lede">{description}</p>
+      {
+        /* Below the lede, not above the title. As a filled, bordered chip in
+          the meta row it was the widest and loudest element on every interior
+          page -- a copy-link utility outranking the page's own name. */
+      }
+      <p class="page-intro__permalink">
+        <span class="page-intro__permalink-icon" aria-hidden="true">↺</span>
+        <span class="page-intro__permalink-label">Permanent link</span>
+        <a class="page-intro__permalink-path" href={permalink}>
+          {abbreviatedPermalink}
+        </a>
+        <button
+          class="copy-button page-intro__permalink-copy"
+          type="button"
+          data-permalink-copy
+          data-copy-value={permalinkUrl?.toString() ?? normalizedPermalink}
+          aria-label="Copy permanent link to this page"
+        >
+          Copy link
+        </button>
+        <span
+          class="page-intro__permalink-status"
+          data-permalink-status
+          role="status"
+          aria-live="polite"></span>
+      </p>
       {
         hasActions && (
           <div class="page-intro__actions section__actions">
@@ -107,14 +125,18 @@ const HeadingTag = `h${titleLevel}` as const;
 
     <div class="page-intro__aside">
       {
-        panelCopy && (
+        resolvedPanelCopy && (
           <div class="panel panel--glass page-intro__panel">
-            {panelCopy.eyebrow && <p class="muted">{panelCopy.eyebrow}</p>}
-            <h2>{panelCopy.title}</h2>
-            <p>{panelCopy.description}</p>
-            {panelCopy.link && (
+            {resolvedPanelCopy.eyebrow && (
+              <p class="eyebrow">{resolvedPanelCopy.eyebrow}</p>
+            )}
+            <h2 class="page-intro__panel-title">{resolvedPanelCopy.title}</h2>
+            <p>{resolvedPanelCopy.description}</p>
+            {resolvedPanelCopy.link && (
               <p>
-                <a href={panelCopy.link.href}>{panelCopy.link.label}</a>
+                <a href={resolvedPanelCopy.link.href}>
+                  {resolvedPanelCopy.link.label}
+                </a>
               </p>
             )}
           </div>
@@ -132,10 +154,7 @@ const HeadingTag = `h${titleLevel}` as const;
       {
         anchorLinks.length > 0 && (
           <nav aria-label="On-page links" class="page-intro__anchors">
-            <div>
-              <p class="muted">Jump to</p>
-              <p class="page-intro__anchors-title">Key sections</p>
-            </div>
+            <p class="eyebrow page-intro__anchors-title">Jump to</p>
             {collapseAnchorLinks ? (
               <details class="page-intro__anchors-disclosure">
                 <summary>{anchorLinksSummary}</summary>
