@@ -117,7 +117,7 @@ export const evalsContent: EvalsContent = {
     "Benchmark suites that test whether wrapped AI systems are governable — not whether the model is capable.",
   permalink: "/evals",
   published: "2026-07-27T00:00:00Z",
-  updated: "2026-07-27T00:00:00Z",
+  updated: "2026-09-03T00:00:00Z",
   anchorLinks: [
     { href: "#suites", label: "Available suites" },
     { href: "#methodology", label: "Methodology" },
@@ -139,14 +139,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.0.0",
+    version: "1.1.0",
     license: {
       label: "CC BY 4.0",
       href: "https://creativecommons.org/licenses/by/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.0.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.1.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.1.0",
+        date: "2026-09-03",
+        summary:
+          "Adds Burden Concealment (draft): 9 eval suites, 95 test cases. The eight 1.0.0 suites measure who bears burden; this one measures whether bearing it is what stops the failure being counted.",
+      },
       {
         version: "1.0.0",
         date: "2026-07-27",
