@@ -2,36 +2,47 @@
    `glossary-highlights.ts` runs from BaseLayout on every page, so these rules
    have to load site-wide, not only on the /glossary routes. */
 @layer components {
+  /* A term marker sits inside running prose, so it has to behave like a word.
+     This was `display: inline-flex` with a filled background and 0.3rem of
+     side padding, which cost it on three counts: the flex box detached
+     trailing punctuation, so "burden, contestability, repair" rendered with a
+     visible gap before its comma; the fill read as a highlighter or redaction
+     block rather than a link, and /standards/ carries 49 of them; and an
+     inline-flex box cannot be broken across lines the way a word can.
+     `display: inline` restores normal text flow, and a dotted underline --
+     the long-standing convention for "there is a definition here", cf. abbr
+     -- carries the affordance without staining the paragraph. The fill is now
+     a hover/focus state, where it reads as feedback instead of decoration. */
   .glossary-highlight {
     position: relative;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.15rem;
-    padding: 0.05rem 0.3rem;
+    display: inline;
     border-radius: var(--radius-xs);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-    border-bottom: 1.5px dotted
-      color-mix(in srgb, var(--accent) 60%, transparent);
+    background: transparent;
+    text-decoration: underline dotted
+      color-mix(in srgb, var(--accent) 55%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.22em;
     color: inherit;
-    cursor: pointer;
+    cursor: help;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
     transition:
       background-color var(--motion-fast) ease,
-      border-color var(--motion-fast) ease;
+      text-decoration-color var(--motion-fast) ease;
   }
 
   .glossary-highlight:hover,
   .glossary-highlight:focus-visible {
-    background: color-mix(in srgb, var(--accent) 20%, transparent);
-    border-bottom-style: solid;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    text-decoration-color: var(--accent);
+    text-decoration-style: solid;
   }
 
   body.disable-glossary-highlights .glossary-highlight {
     background: transparent !important;
     padding: 0 !important;
     border-radius: 0 !important;
-    border-bottom: none !important;
+    text-decoration: none !important;
     cursor: text !important;
   }
 

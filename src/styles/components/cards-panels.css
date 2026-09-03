@@ -17,10 +17,12 @@
     gap: 0.5rem;
   }
 
+  /* The blur had nothing to sample but `body::before`'s two fixed radial
+     washes, so instead of frosting it smeared them into a diagonal band across
+     each panel -- a smudge that read as a rendering artifact rather than
+     elevation. An opaque surface is what the panel wanted. */
   .panel--glass {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    background: var(--surface);
     border-color: color-mix(in srgb, var(--accent) 22%, var(--border));
   }
 

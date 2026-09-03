@@ -23,6 +23,17 @@ const failurePriorityBadges: Record<string, string> = {
   "cant-stop": "Critical · Activate hard halt",
 };
 
+// The badges already lead with a severity word; this is what lets the grid
+// show it. Seven triage cards whose whole job is "how bad is this" rendered
+// Critical, High and Medium in identical neutral grey, so severity was
+// legible only by reading each card.
+const failureSeverity = (badge?: string): string | undefined => {
+  const level = badge?.split("·")[0]?.trim().toLowerCase();
+  return level === "critical" || level === "high" || level === "medium"
+    ? level
+    : undefined;
+};
+
 const recentPublications = [
   "Evidence Pack Readiness diagnostic — v1.2 (March 2026)",
   "Glossary: 8 new entries on decision latency and repair authority (February 2026)",
@@ -88,10 +99,8 @@ const failureChoiceIcons: Record<string, string[]> = {
           <a
             href="https://ethotechnics.com"
             rel="noopener noreferrer"
-            target="_blank"
-          >
-            Ethotechnics Studio
-          </a>.
+            target="_blank">Ethotechnics Studio</a
+          >.
         </p>
       </div>
 
@@ -211,7 +220,12 @@ const failureChoiceIcons: Record<string, string[]> = {
                         {failureChoiceLabels[state.slug] ?? state.shortLabel}
                       </span>
                     </span>
-                    <span class="failure-grid__priority small muted">
+                    <span
+                      class="failure-grid__priority small"
+                      data-severity={failureSeverity(
+                        failurePriorityBadges[state.slug],
+                      )}
+                    >
                       {failurePriorityBadges[state.slug] ?? "Review now"}
                     </span>
                   </span>
