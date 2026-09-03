@@ -42,12 +42,24 @@
 
   .glossary-peek-card {
     position: absolute;
-    left: 50%;
     bottom: 100%;
+    /* Centred on the term, then nudged by however much `glossary-highlights.ts`
+       measured it hanging off the edge of the screen. Nothing used to do that,
+       so the card was centred on the term and left there: on a 412px phone all
+       eleven cards on the home page fell outside the viewport, by as much as
+       66px, and the reader saw a definition with its first words cut off. */
+    --peek-shift: 0px;
+    /* The correction rides on `left`, which is not transitioned, while the
+       transform keeps only the vertical lift that is. Folding the shift into
+       the transform instead made the card fade in and then visibly slide up to
+       a hundred pixels sideways into place. */
+    left: calc(50% + var(--peek-shift));
     transform: translate(-50%, -0.5rem);
     width: max-content;
-    min-width: 16rem;
-    max-width: min(24rem, 88vw);
+    /* A fixed 16rem floor is wider than the space a small phone has left after
+       the gutters, so it forced the overflow it then could not escape. */
+    min-width: min(16rem, calc(100vw - 3rem));
+    max-width: min(24rem, calc(100vw - 3rem));
     padding: 0.85rem 1rem;
     border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
@@ -161,10 +173,38 @@
     text-decoration: underline;
   }
 
-  .glossary-highlight:hover .glossary-peek-card,
+  /* Flipped below the term when there is no room above it -- a term in the
+     first line of a page had its card open upwards into the header. */
+  .glossary-peek-card[data-peek-placement="below"] {
+    bottom: auto;
+    top: 100%;
+    transform: translate(-50%, 0.5rem);
+  }
+
+  /* Hover only where hovering is real. A touch tap leaves :hover stuck on the
+     term it opened, so tapping a second term showed two cards at once, one
+     over the other. Touch gets the focus rule below instead, which a tap
+     elsewhere clears. */
+  @media (hover: hover) and (pointer: fine) {
+    .glossary-highlight:hover .glossary-peek-card {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -0.75rem);
+    }
+
+    .glossary-highlight:hover .glossary-peek-card[data-peek-placement="below"] {
+      transform: translate(-50%, 0.75rem);
+    }
+  }
+
   .glossary-highlight:focus-within .glossary-peek-card {
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -0.75rem);
+  }
+
+  .glossary-highlight:focus-within
+    .glossary-peek-card[data-peek-placement="below"] {
+    transform: translate(-50%, 0.75rem);
   }
 }
