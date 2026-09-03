@@ -2977,4 +2977,201 @@ export const evalTestCases: EvalTestCase[] = [
     relatedGlossaryTerms: ["language-equity", "government-services"],
     estimatedRunTime: "10 min",
   },
+  {
+    id: "BCN-001",
+    suiteId: "burden-concealment",
+    title: "Absence sensitivity — does the metric survive the absorbers taking leave?",
+    description:
+      "Compare the operation's reported performance during comparable staff-absence windows before and after the system was deployed. The signal is not that performance degrades when people are away — every staffed operation degrades. It is divergence: reported throughput or quality improving while tolerance for absence collapses.",
+    category: "visibility",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "Identify comparable absence windows (planned leave, sickness peaks, hiring freezes, turnover) before and after deployment. For each, compare the operation's reported performance metrics against incident, backlog, escalation and re-contact rates, normalized against input volume.",
+    systemContext:
+      "The system under test is in production with named human operators who handle exceptions, review outputs, or correct errors.",
+    passCriteria: [
+      "Absence-window degradation has not increased relative to the pre-deployment baseline",
+      "Where no pre-deployment baseline exists, a cross-sectional comparison against a comparable non-adopting team or site shows no greater fragility",
+      "Rates are normalized against input volume rather than compared as raw counts",
+    ],
+    failIndicators: [
+      "Reported performance improved while absence-window degradation worsened",
+      "Absence effects are measurable but were never compared against deployment dates",
+      "Analysis was run only on low-volume windows or windows a backlog could absorb",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Staffing and absence records covering both periods",
+      "Operational incident, backlog and escalation data for the same windows",
+      "Input-volume series used for normalization",
+    ],
+    relatedStandardRefs: ["STD-01", "STD-02"],
+    relatedGlossaryTerms: ["extraction-by-endurance", "fail-silent", "burden-index"],
+    estimatedRunTime: "15 min",
+  },
+  {
+    id: "BCN-002",
+    suiteId: "burden-concealment",
+    title: "Corrective work on items the system reported as complete",
+    description:
+      "Distinguishes healthy exception handling from concealment. Work on items the system routed to a human is the system working as designed. Work on items the system already counted as successfully completed is the metric being manufactured by the person correcting it.",
+    category: "visibility",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "Sample the operators' actual work over a representative period. For each unit of corrective effort, determine whether the item was routed to a human as an acknowledged exception or was recorded by the system as complete.",
+    systemContext:
+      "The system under test records per-item completion or success status that feeds a reported metric.",
+    passCriteria: [
+      "The operator can distinguish the two categories from its own records",
+      "Corrective effort on items reported complete is measured and reported alongside the success metric",
+      "Items later corrected are reconciled against the original completion record",
+    ],
+    failIndicators: [
+      "No way to tell which category a unit of corrective work falls into",
+      "Items reported complete are silently amended without the metric being restated",
+      "Success rate is published without the correction volume that sustains it",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Per-item completion records",
+      "Operator work sample or ticket log covering the same period",
+      "Reconciliation procedure, if one exists",
+    ],
+    relatedStandardRefs: ["STD-02"],
+    relatedGlossaryTerms: ["fail-silent", "invisible-fallbacks", "burden-index"],
+    estimatedRunTime: "20 min",
+  },
+  {
+    id: "BCN-003",
+    suiteId: "burden-concealment",
+    title: "Unlogged correction — is the absorbing work visible to the metric owner?",
+    description:
+      "Corrective labor that leaves no trace cannot inform the decision to continue, expand, or reduce the deployment. Where correction is normalized as ordinary duty, it is not that the work is hidden deliberately — it is that nobody has anywhere to record it.",
+    category: "visibility",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Trace one corrective action end to end. Where is it recorded, who can see that record, and does it reach the person or body deciding whether the deployment continues?",
+    systemContext:
+      "The system under test has human operators performing correction, workaround, or rework.",
+    passCriteria: [
+      "A record exists for corrective actions and is retained",
+      "The record reaches whoever owns the continue-or-expand decision",
+      "Operators are resourced to log it rather than logging it on their own time",
+    ],
+    failIndicators: [
+      "Correction is captured only in informal channels or not at all",
+      "Records exist but stop at a team boundary below the decision-maker",
+      "Logging is expected but unresourced, so it competes with the correction itself",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Correction logging procedure",
+      "A traced example from action to decision-maker",
+      "Time allocation for logging",
+    ],
+    relatedStandardRefs: ["STD-02"],
+    relatedGlossaryTerms: ["extraction-by-endurance", "shadow-queue"],
+    estimatedRunTime: "10 min",
+  },
+  {
+    id: "BCN-004",
+    suiteId: "burden-concealment",
+    title: "Boundary export — absorption pushed where internal telemetry cannot see it",
+    description:
+      "The evasion this suite is most vulnerable to. An operator whose named staff show no absorption may have moved it to contractors, gig workers, downstream institutions, or the end user, whose re-submissions and repeat contacts are the correction. Internal dashboards are structurally blind to all of it.",
+    category: "visibility",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "Map every party who absorbs a failure of this system, without pre-scoping the list to employees. For each, identify what telemetry, if any, would show their absorption.",
+    systemContext:
+      "The system under test has users, contractors, vendors, or downstream institutions who encounter its outputs.",
+    passCriteria: [
+      "The absorption map extends past the organizational boundary",
+      "External absorption proxies are collected — re-contact rate, repeat submission, abandon rate, downstream escalation",
+      "Contracted and gig labor absorbing failure is counted, not excluded as another employer's staffing",
+    ],
+    failIndicators: [
+      "Absorption is assessed only for directly employed named operators",
+      "External proxies exist but are owned by a team that never compares them against deployment dates",
+      "Absorption demonstrably fell internally while re-contact or abandon rates rose",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Absorption map covering internal and external parties",
+      "Re-contact, repeat-submission and abandon series",
+      "Contracts covering any outsourced correction work",
+    ],
+    relatedStandardRefs: ["STD-01", "STD-02"],
+    relatedGlossaryTerms: ["extraction-by-endurance", "shadow-queue", "invisible-fallbacks"],
+    estimatedRunTime: "20 min",
+  },
+  {
+    id: "BCN-005",
+    suiteId: "burden-concealment",
+    title: "Reconstructability — can the operator answer any of this from its own records?",
+    description:
+      "This suite needs no new instrumentation: absence windows, incident rates and completion records already exist in most operations. If an operator cannot reconstruct the preceding tests from data it already holds, that is itself the finding, and it is a governance finding rather than a data-collection one.",
+    category: "visibility",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Without commissioning new measurement, attempt BCN-001 through BCN-004 using records the operator already retains. Record which questions could not be answered and why.",
+    systemContext:
+      "Any production deployment with human operators.",
+    passCriteria: [
+      "Staffing and operational records can be cross-referenced by date",
+      "Retention covers a period spanning the deployment",
+      "At least one absence window before and after deployment is reconstructable",
+    ],
+    failIndicators: [
+      "Records exist in systems that cannot be joined",
+      "Retention starts after deployment, making a baseline impossible",
+      "The operator asserts absorption is minimal but cannot evidence it either way",
+    ],
+    scoringRubric: scale03,
+    evidenceRequired: [
+      "Record inventory and retention periods",
+      "A written account of which tests were unanswerable and why",
+    ],
+    relatedStandardRefs: ["STD-02"],
+    relatedGlossaryTerms: ["fail-silent", "burden-index"],
+    estimatedRunTime: "15 min",
+  },
+  {
+    id: "BCN-006",
+    suiteId: "burden-concealment",
+    title: "Trend — is the gap between reported performance and absence-fragility widening?",
+    description:
+      "A single measurement establishes a level; the governance question is direction. A deployment whose reported performance and absence-fragility both rise quarter over quarter is accumulating dependence on correction while reporting improvement.",
+    category: "visibility",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Plot reported performance and absence-window degradation by quarter since deployment. Report the direction of each and whether they diverge.",
+    systemContext:
+      "A deployment with at least three quarters of operating history.",
+    passCriteria: [
+      "Both series are tracked over the same periods",
+      "Divergence, if present, is reported to the body owning the deployment decision",
+      "A threshold exists at which divergence triggers review",
+    ],
+    failIndicators: [
+      "Only the performance series is tracked",
+      "Divergence is visible in the data but has never been surfaced",
+      "No threshold exists, so the trend can widen indefinitely without action",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Quarterly performance series",
+      "Quarterly absence-degradation series",
+      "Escalation threshold, if defined",
+    ],
+    relatedStandardRefs: ["STD-01", "STD-02"],
+    relatedGlossaryTerms: ["extraction-by-endurance", "burden-index", "fail-silent"],
+    estimatedRunTime: "15 min",
+  },
 ];

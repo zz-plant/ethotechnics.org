@@ -12,7 +12,8 @@ export type EvalSuiteId =
   | "reversibility"
   | "explainability"
   | "agent-governance"
-  | "cross-domain-burden";
+  | "cross-domain-burden"
+  | "burden-concealment";
 
 export type EvalCategory =
   | "governance"
@@ -388,6 +389,40 @@ export const evalsContent: EvalsContent = {
         "Per-domain burden ratings",
         "Comparative analysis across domains",
         "Domain-specific mitigation recommendations",
+      ],
+    },
+    {
+      id: "burden-concealment",
+      slug: "burden-concealment",
+      title: "Burden Concealment Evals",
+      description:
+        "Whether human absorption of failure is hiding the system's real failure rate from the people governing it.",
+      longDescription:
+        "Burden Distribution asks who bears the cost when a system fails. This suite asks a different question: whether bearing it is what stops the failure being counted. Where operators absorb errors competently, the dashboard improves and the evidence disappears — extraction by endurance producing a fail-silent state, with the absorbing humans as the mechanism. That makes a clean metric uninformative rather than reassuring: it cannot be read as evidence of health until absorption has been measured separately. Tests cover absence sensitivity, work performed on items already reported complete, unlogged correction, absorption exported past the organizational boundary, and whether the operator can reconstruct any of this from its own records.",
+      version: "1.0.0",
+      status: "draft",
+      category: "visibility",
+      standardRefs: ["STD-01", "STD-02"],
+      glossaryRefs: [
+        "extraction-by-endurance",
+        "fail-silent",
+        "invisible-fallbacks",
+        "shadow-queue",
+        "burden-index",
+      ],
+      testCases: [],
+      scoringMethod: {
+        type: "min-threshold",
+        passingScore: 70,
+        failureThreshold: 30,
+      },
+      estimatedTime: "45 min",
+      deliverables: [
+        "Concealment score (0–100)",
+        "Absence-sensitivity delta against pre-deployment baseline",
+        "Share of corrective effort spent on items reported complete",
+        "Boundary-export findings",
+        "Reconstructability finding: whether the operator can answer this from its own records",
       ],
     },
   ],
