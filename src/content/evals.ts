@@ -12,7 +12,8 @@ export type EvalSuiteId =
   | "reversibility"
   | "explainability"
   | "agent-governance"
-  | "cross-domain-burden";
+  | "cross-domain-burden"
+  | "burden-concealment";
 
 export type EvalCategory =
   | "governance"
@@ -63,6 +64,18 @@ export type EvalScoringMethod = {
   failureThreshold: number;
 };
 
+/**
+ * The two time fields measure different things, and the difference is large
+ * enough to mislead if it is not stated.
+ *
+ * `estimatedTime` on a suite is a focused run by an auditor who already knows
+ * the protocol and works the cases as a batch, with evidence already to hand.
+ * `estimatedRunTime` on a case is that case in isolation, including retrieving
+ * the evidence it names. Summing the cases therefore overstates a suite run,
+ * and across the eight 1.0.0 suites the case totals run 3.4-4.0x the suite
+ * figure. Budget from the suite figure for a prepared engagement and from the
+ * case totals for a cold one.
+ */
 export type EvalSuite = {
   id: EvalSuiteId;
   slug: string;
@@ -116,7 +129,7 @@ export const evalsContent: EvalsContent = {
     "Benchmark suites that test whether wrapped AI systems are governable — not whether the model is capable.",
   permalink: "/evals",
   published: "2026-07-27T00:00:00Z",
-  updated: "2026-07-27T00:00:00Z",
+  updated: "2026-09-03T00:00:00Z",
   anchorLinks: [
     { href: "#suites", label: "Available suites" },
     { href: "#methodology", label: "Methodology" },
@@ -138,14 +151,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.0.0",
+    version: "1.1.0",
     license: {
       label: "CC BY 4.0",
       href: "https://creativecommons.org/licenses/by/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.0.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.1.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.1.0",
+        date: "2026-09-03",
+        summary:
+          "Adds Burden Concealment (draft): 9 eval suites, 95 test cases. The eight 1.0.0 suites measure who bears burden; this one measures whether bearing it is what stops the failure being counted.",
+      },
       {
         version: "1.0.0",
         date: "2026-07-27",
@@ -388,6 +407,40 @@ export const evalsContent: EvalsContent = {
         "Per-domain burden ratings",
         "Comparative analysis across domains",
         "Domain-specific mitigation recommendations",
+      ],
+    },
+    {
+      id: "burden-concealment",
+      slug: "burden-concealment",
+      title: "Burden Concealment Evals",
+      description:
+        "Whether human absorption of failure is hiding the system's real failure rate from the people governing it.",
+      longDescription:
+        "Burden Distribution asks who bears the cost when a system fails. This suite asks a different question: whether bearing it is what stops the failure being counted. Where operators absorb errors competently, the dashboard improves and the evidence disappears — extraction by endurance producing a fail-silent state, with the absorbing humans as the mechanism. That makes a clean metric uninformative rather than reassuring: it cannot be read as evidence of health until absorption has been measured separately. Tests cover absence sensitivity, work performed on items already reported complete, unlogged correction, absorption exported past the organizational boundary, and whether the operator can reconstruct any of this from its own records.",
+      version: "1.0.0",
+      status: "draft",
+      category: "visibility",
+      standardRefs: ["STD-01", "STD-02"],
+      glossaryRefs: [
+        "extraction-by-endurance",
+        "fail-silent",
+        "invisible-fallbacks",
+        "shadow-queue",
+        "burden-index",
+      ],
+      testCases: [],
+      scoringMethod: {
+        type: "min-threshold",
+        passingScore: 70,
+        failureThreshold: 30,
+      },
+      estimatedTime: "30 min",
+      deliverables: [
+        "Concealment score (0–100)",
+        "Absence-sensitivity delta against pre-deployment baseline",
+        "Share of corrective effort spent on items reported complete",
+        "Boundary-export findings",
+        "Reconstructability finding: whether the operator can answer this from its own records",
       ],
     },
   ],
