@@ -139,9 +139,18 @@
 
   .section__heading {
     margin: 0;
-    font-size: clamp(2rem, 2.4vw + 1rem, 2.65rem);
+    /* The floor used to be 2rem, which no viewport could get below, so the
+       vw term only ever scaled the heading up. A section title carrying a
+       full sentence -- "Existing standards ask: 'Did you manage risk?'
+       Ethotechnics asks: ..." is twenty-one words -- then set 32px type in a
+       260px column on a phone and ran 362px tall, most of the screen for one
+       heading. 1.5rem lets it come down where there is no room. */
+    font-size: clamp(1.5rem, 2.4vw + 1rem, 2.65rem);
     letter-spacing: -0.02em;
     line-height: 1.22;
+    /* Long words in a narrow column would otherwise push a horizontal
+       scrollbar rather than break. */
+    overflow-wrap: break-word;
   }
 
   .section__anchor {

@@ -511,7 +511,14 @@ svg {
   }
 }
 
-@media (max-width: 400px), (max-height: 400px) {
+/* 400px was below every phone this site is read on. A Pixel and most Galaxy
+   handsets report 412px, an iPhone Pro Max 430px, so the whole narrow-screen
+   block below — a smaller gutter, tighter section padding, a compressed space
+   scale — never applied to any of them and they got the tablet spacing on a
+   phone: 147px of a 412px viewport went to horizontal chrome, leaving a
+   260px column for text. 30rem clears the widest phone in portrait and stays
+   well below any tablet. The height arm is unchanged; it is for landscape. */
+@media (max-width: 30rem), (max-height: 400px) {
   :root {
     --page-gutter: 0.75rem;
     --section-padding: clamp(1.1rem, 5vw, 1.8rem);

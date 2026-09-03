@@ -239,6 +239,61 @@ highlightRoots.forEach((root) => {
   textNodes.forEach((node) => replaceGlossaryTerms(node));
 });
 
+// The card is centred on its term with `left: 50%` and a -50% translate, which
+// says nothing about whether the result is on screen. It usually was not: on a
+// 412px viewport every card on the home page fell outside it, because a card is
+// up to 24rem wide and a term can sit anywhere across the column. Measured on
+// open and the difference handed back to CSS as `--peek-shift`, so the card
+// stays anchored to its term until doing so would push it off the edge.
+// Wide enough that the card still clears the edge under a shadow, a rounded
+// corner and a rendered box that measures slightly wider than its layout box.
+const VIEWPORT_MARGIN = 16;
+
+const positionPeekCard = (mark: HTMLElement): void => {
+  const card = mark.querySelector<HTMLElement>(".glossary-peek-card");
+  if (!card) {
+    return;
+  }
+
+  // Measure unshifted, or the previous correction is read as the new position
+  // and the card walks sideways each time it is opened.
+  card.style.setProperty("--peek-shift", "0px");
+  card.removeAttribute("data-peek-placement");
+
+  const rect = card.getBoundingClientRect();
+  const viewportWidth = document.documentElement.clientWidth;
+
+  let shift = 0;
+  if (rect.left < VIEWPORT_MARGIN) {
+    shift = VIEWPORT_MARGIN - rect.left;
+  } else if (rect.right > viewportWidth - VIEWPORT_MARGIN) {
+    shift = viewportWidth - VIEWPORT_MARGIN - rect.right;
+  }
+
+  if (shift !== 0) {
+    card.style.setProperty("--peek-shift", `${Math.round(shift)}px`);
+  }
+
+  // A term on the first line of a page opened its card upwards into the
+  // header. Flip below when the space above cannot hold it.
+  const markRect = mark.getBoundingClientRect();
+  if (markRect.top - rect.height < VIEWPORT_MARGIN) {
+    card.setAttribute("data-peek-placement", "below");
+  }
+};
+
+const watchPeekCard = (mark: HTMLElement): void => {
+  // Positioned on open rather than up front: the measurement depends on where
+  // the term has been scrolled to, and on a resize or a font swap the answer
+  // changes.
+  mark.addEventListener("pointerenter", () => positionPeekCard(mark));
+  mark.addEventListener("focusin", () => positionPeekCard(mark));
+};
+
+document
+  .querySelectorAll<HTMLElement>(".glossary-highlight")
+  .forEach(watchPeekCard);
+
 const toggleGlossaryHighlights = (enabled: boolean) => {
   document.body.classList.toggle("disable-glossary-highlights", !enabled);
   const highlights = document.querySelectorAll(".glossary-highlight");
