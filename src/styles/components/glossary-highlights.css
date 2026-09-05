@@ -84,14 +84,23 @@
       var(--card-inner-highlight);
     opacity: 0;
     pointer-events: none;
-    display: grid;
+    /* A closed card is out of layout, not merely transparent. Transparent, it
+       still had a box, centred on its term and up to 24rem wide, and the boxes
+       of the cards near the right edge widened the page: with every card
+       closed, /standards scrolled sideways by 44px on a 360px phone.
+       `visibility: hidden` does not help, a hidden box still counts. The fade
+       survives because `display` transitions discretely at the end of the
+       transition, and the `@starting-style` block below gives the fade-in
+       somewhere to start from. */
+    display: none;
     gap: 0.55rem;
     text-align: left;
     white-space: normal;
     z-index: var(--z-overlay);
     transition:
       opacity var(--motion-fast) ease,
-      transform var(--motion-fast) var(--ease-out-editorial);
+      transform var(--motion-fast) var(--ease-out-editorial),
+      display var(--motion-fast) allow-discrete;
   }
 
   .glossary-peek-card__header {
@@ -198,6 +207,7 @@
      elsewhere clears. */
   @media (hover: hover) and (pointer: fine) {
     .glossary-highlight:hover .glossary-peek-card {
+      display: grid;
       opacity: 1;
       pointer-events: auto;
       transform: translate(-50%, -0.75rem);
@@ -209,6 +219,7 @@
   }
 
   .glossary-highlight:focus-within .glossary-peek-card {
+    display: grid;
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -0.75rem);
@@ -217,5 +228,20 @@
   .glossary-highlight:focus-within
     .glossary-peek-card[data-peek-placement="below"] {
     transform: translate(-50%, 0.75rem);
+  }
+
+  /* Where the fade-in starts when a card goes from display: none to grid. */
+  @starting-style {
+    .glossary-highlight:hover .glossary-peek-card,
+    .glossary-highlight:focus-within .glossary-peek-card {
+      opacity: 0;
+      transform: translate(-50%, -0.5rem);
+    }
+
+    .glossary-highlight:hover .glossary-peek-card[data-peek-placement="below"],
+    .glossary-highlight:focus-within
+      .glossary-peek-card[data-peek-placement="below"] {
+      transform: translate(-50%, 0.5rem);
+    }
   }
 }
