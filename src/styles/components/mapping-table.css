@@ -1,0 +1,123 @@
+/* The comparison and mapping tables. Global because the class is used on seven
+   pages -- the home page, /about, /api, /fast-path, /agents/spec, /security
+   and /standards -- and until it moved here every rule for it, the phone
+   stacking included, lived in standards.css, which only the two /standards
+   pages import. Everywhere else `.mapping-table` was a bare <table>, and on a
+   phone the home page's comparison rendered as two cramped columns with
+   "Existing standard says" wrapping onto three lines in a 110px cell. */
+@layer components {
+  .mapping-table__wrapper {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .mapping-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  /* The wide mapping tables (API, spec, disclosure) keep a scroll floor inside
+     their wrapper. A comparison has two or three columns and never needed
+     one; on /standards, which has no wrapper, it put the page itself into
+     horizontal scroll between 720px and 760px. */
+  .mapping-table:not(.mapping-table--compare) {
+    min-width: 760px;
+  }
+
+  .mapping-table th,
+  .mapping-table td {
+    border: 1px solid var(--border);
+    padding: var(--space-2);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .mapping-table th {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--panel);
+  }
+
+  .mapping-table tbody tr:nth-child(even) td {
+    background: color-mix(in srgb, var(--surface) 94%, white 6%);
+  }
+
+  /* In a comparison the last column is what ethotechnics requires, whether the
+     row starts with a <td> (home, /about) or a row-header <th> (/standards);
+     the nth-child(2) rules this replaces pointed at the wrong column whenever
+     a row had a header. */
+  .mapping-table--compare thead th:last-child {
+    background: color-mix(in srgb, var(--accent) 16%, var(--panel));
+    color: var(--accent-strong);
+  }
+
+  .mapping-table--compare tbody td:first-of-type {
+    color: color-mix(in srgb, var(--muted) 90%, var(--text));
+  }
+
+  .mapping-table--compare tbody td:last-child {
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    font-weight: 600;
+  }
+
+  /* Below 720px a comparison stacks each row into a card, each cell captioned
+     by the column header it repeats: a comparison you can only read by
+     scrolling sideways on a 360px screen is never side by side anyway. */
+  @media (max-width: 719.98px) {
+    .mapping-table--compare,
+    .mapping-table--compare tbody,
+    .mapping-table--compare tr,
+    .mapping-table--compare th,
+    .mapping-table--compare td {
+      display: block;
+    }
+
+    /* The header row is what each cell's caption repeats, so it leaves the
+       visual flow but stays for assistive technology. */
+    .mapping-table--compare thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .mapping-table--compare tbody tr {
+      margin-bottom: var(--space-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .mapping-table--compare tbody th,
+    .mapping-table--compare tbody td {
+      border: 0;
+    }
+
+    .mapping-table--compare tbody th + td,
+    .mapping-table--compare tbody td + td {
+      border-top: 1px solid var(--border);
+    }
+
+    .mapping-table--compare tbody td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 0.35rem;
+      font-family: var(--sans);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .mapping-table--compare tbody td[data-label]:last-child::before {
+      color: var(--accent-strong);
+    }
+  }
+}

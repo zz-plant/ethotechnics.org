@@ -263,51 +263,6 @@
     margin: 0;
   }
 
-  .mapping-table__wrapper {
-    overflow-x: auto;
-  }
-
-  .mapping-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 760px;
-  }
-
-  .mapping-table th,
-  .mapping-table td {
-    border: 1px solid var(--border);
-    padding: var(--space-2);
-    text-align: left;
-    vertical-align: top;
-  }
-
-  .mapping-table th {
-    font-family: var(--sans);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    background: var(--panel);
-  }
-
-  .mapping-table tbody tr:nth-child(even) td {
-    background: color-mix(in srgb, var(--surface) 94%, white 6%);
-  }
-
-  .mapping-table--compare thead th:nth-child(2) {
-    background: color-mix(in srgb, var(--accent) 16%, var(--panel));
-    color: var(--accent-strong);
-  }
-
-  .mapping-table--compare tbody td:nth-child(1) {
-    color: color-mix(in srgb, var(--muted) 90%, var(--text));
-  }
-
-  .mapping-table--compare tbody td:nth-child(2) {
-    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
-    font-weight: 600;
-  }
-
   .rights-matrix__filters {
     margin-bottom: var(--space-4);
   }
@@ -337,48 +292,6 @@
 
     .rights-matrix__row.is-highlighted td {
       background: transparent;
-    }
-  }
-
-  @media (max-width: 720px) {
-    .mapping-table--compare {
-      min-width: 100%;
-    }
-
-    .mapping-table--compare thead {
-      display: none;
-    }
-
-    .mapping-table--compare tbody,
-    .mapping-table--compare tr,
-    .mapping-table--compare td {
-      display: block;
-      width: 100%;
-    }
-
-    .mapping-table--compare tbody tr {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      margin-bottom: var(--space-2);
-      background: var(--surface);
-      overflow: hidden;
-    }
-
-    .mapping-table--compare tbody tr td {
-      border: none;
-      padding: var(--space-2);
-    }
-
-    .mapping-table--compare tbody tr td::before {
-      content: attr(data-label);
-      display: block;
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: var(--text-xs);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.35rem;
     }
   }
 
