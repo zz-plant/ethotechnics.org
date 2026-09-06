@@ -271,6 +271,15 @@ export const standardsContent: StandardsContent = {
       ctaLabel: "View axioms",
     },
     {
+      id: "laws",
+      title: "Laws for Engineering Delegated Intelligence",
+      description:
+        "Twelve laws, the Ethotechnical invariant, and the six state variables the object model tracks.",
+      href: "/standards/laws",
+      eyebrow: "Doctrine",
+      ctaLabel: "Read the laws",
+    },
+    {
       id: "ethotechnics-for-agents",
       title: "Ethotechnics for Agents",
       description:
