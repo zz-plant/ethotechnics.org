@@ -6,6 +6,8 @@ It consolidates references that were previously spread across multiple index sec
 ## Core planning docs
 
 - [`roadmap.md`](roadmap.md): canonical sequencing, status, and completion checkoffs.
+- [`reconstruction-plan-2026-09.md`](reconstruction-plan-2026-09.md): the doctrine and object-model
+  rebuild around justified delegation; workstreams, sequencing, and open decisions.
 - [`mini-prds.md`](mini-prds.md): scoped proposals for near-term initiatives.
 - [`issue-templates.md`](issue-templates.md): reusable issue definitions for project work.
 - [`full-refactor-plan.md`](full-refactor-plan.md): end-to-end refactor strategy and milestones.
