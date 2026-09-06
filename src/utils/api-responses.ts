@@ -426,6 +426,10 @@ export const createAgentIndexResponse = (options: {
       agentObjectModelSchema: DELEGATION_SCHEMA_PATHS.agentSafetyObjectModel,
       controlPlaneOpenApi: "/standards/ethotechnics-control-plane.openapi.yaml",
       eventsAsyncApi: "/standards/ethotechnics-events.asyncapi.yaml",
+      revisableDelegationRecord:
+        "/standards/std-07-revisable-delegation-record",
+      revisableDelegationRecordSchema:
+        "/api/schema/revisable-delegation-record.schema.json",
     },
     recommended: {
       quickStart: [

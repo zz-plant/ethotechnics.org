@@ -58,10 +58,15 @@ export const methodContent: MethodContent = {
         "evidence_refs on the decision record",
         "STD-06 Human Impact Safety Case",
         "Burden Concealment evals",
+        "STD-07 belief records, with what they rest on and what would invalidate them",
       ],
       links: [
         { label: "Evidence packs", href: "/evidence-packs" },
         { label: "Eval suites", href: "/evals" },
+        {
+          label: "STD-07 Revisable Delegation Record",
+          href: "/standards/std-07-revisable-delegation-record",
+        },
       ],
     },
     {
@@ -73,8 +78,13 @@ export const methodContent: MethodContent = {
         "stop_override_authority, autonomy_level, and action_classes on the agent safety object model",
         "MEC-03 rollback authority",
         "Glossary: design-authority, decision-reversal-authority, permission-surface, human-override-lanes",
+        "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
       ],
       links: [
+        {
+          label: "STD-07 Revisable Delegation Record",
+          href: "/standards/std-07-revisable-delegation-record",
+        },
         {
           label: "Permission surface explainer",
           href: "/explainers/permission-surface",
@@ -90,11 +100,16 @@ export const methodContent: MethodContent = {
         "Decision record schema and /api/decisions",
         "Agent receipt schema",
         "MEC-01 decision log with dissent",
+        "STD-07 action records, pinned to their authorization",
       ],
       links: [
         {
           label: "MEC-01 Decision log",
           href: "/mechanisms/patterns/decision-log",
+        },
+        {
+          label: "STD-07 Revisable Delegation Record",
+          href: "/standards/std-07-revisable-delegation-record",
         },
       ],
     },
@@ -141,6 +156,10 @@ export const methodContent: MethodContent = {
           label: "Contestation APIs",
           href: "/mechanisms/patterns/contestation-apis",
         },
+        {
+          label: "STD-07 Revisable Delegation Record",
+          href: "/standards/std-07-revisable-delegation-record",
+        },
       ],
     },
     {
@@ -152,11 +171,16 @@ export const methodContent: MethodContent = {
         "Pause and reversal schema",
         "decision.deadline.reminder and appeal.deadline.breached events",
         "MEC-11 escalation SLAs",
+        "STD-07 discrepancy handling: silence past the clock is a governance failure, not a pending state",
       ],
       links: [
         {
           label: "Escalation SLAs",
           href: "/mechanisms/patterns/escalation-slas",
+        },
+        {
+          label: "STD-07 Revisable Delegation Record",
+          href: "/standards/std-07-revisable-delegation-record",
         },
       ],
     },

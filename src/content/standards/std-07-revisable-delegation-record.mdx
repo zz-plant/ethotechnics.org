@@ -1,0 +1,534 @@
+---
+title: "STD-07 — Revisable Delegation Record"
+description: "A record format for institutions that delegate consequential work to machines: what was believed, what could be done, what was authorized, what was done, what diverged, and what was revised."
+permalink: "/standards/std-07-revisable-delegation-record"
+eyebrow: "Standard"
+seoTitle: "STD-07 — Revisable Delegation Record"
+version: "0.1"
+publishedTime: "2026-09-06T00:00:00.000Z"
+mainClass: "page page--wide standard-document"
+anchorLinks:
+  - href: "#scope"
+    label: "Scope"
+  - href: "#premises"
+    label: "Premises"
+  - href: "#loop"
+    label: "The loop"
+  - href: "#articles"
+    label: "Articles I–V"
+  - href: "#conformance"
+    label: "Conformance levels"
+  - href: "#schema"
+    label: "Schema"
+  - href: "#adoption"
+    label: "Adoption notes"
+---
+
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+
+export const loopSteps = [
+  {
+    kind: "belief",
+    question: "What do we currently hold to be the case, and how sure are we?",
+  },
+  {
+    kind: "capability",
+    question: "What can this assembled human-machine system actually cause?",
+  },
+  {
+    kind: "authorization",
+    question:
+      "Which of those capabilities has been delegated, to whom, under what ceiling, and what would revoke it?",
+  },
+  {
+    kind: "action",
+    question: "What was done, under which authorization?",
+  },
+  {
+    kind: "discrepancy",
+    question:
+      "Where has the world diverged from an assumption a record rests on?",
+  },
+  {
+    kind: "revision",
+    question:
+      "Which record was replaced because an assumption failed, and why?",
+  },
+  {
+    kind: "objection",
+    question: "Who challenged a record, on what standing, asking for what?",
+  },
+  {
+    kind: "outcome",
+    question: "What did an action produce, and what was learned?",
+  },
+];
+
+export const conformanceLevels = [
+  {
+    level: "Level 0 — Emitting",
+    requirement:
+      "Every record validates against the schema and distinguishes as_of from recorded_at.",
+  },
+  {
+    level: "Level 1 — Append-only",
+    requirement:
+      "No record is edited. Change arrives as a new record naming what it supersedes. Every record carries an integrity hash; records in one stream chain through prior_hash.",
+  },
+  {
+    level: "Level 2 — Dependent",
+    requirement:
+      "Belief, authorization, and action records populate depends_on and invalidated_by. A discrepancy that matches an invalidation condition produces a revision or an objection within the declared clock.",
+  },
+  {
+    level: "Level 3 — Contestable",
+    requirement:
+      "Records declare who has standing to object and where. Objection records are accepted from outside the emitting system and answered within the reversal clock.",
+  },
+];
+
+export const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id":
+    "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
+  headline: "STD-07 — Revisable Delegation Record",
+  description:
+    "A record format for institutions that delegate consequential work to machines.",
+  url: "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
+  datePublished: "2026-09-06",
+  version: "0.1",
+  identifier: "STD-07",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: "https://ethotechnics.org",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: "https://ethotechnics.org/standards",
+  },
+};
+
+<StandardStatusSummary slug="std-07-revisable-delegation-record" />
+
+<article class="standard-document">
+  <header class="standard-header">
+    <div>
+      <p class="standard-header__id">STANDARD STD-07</p>
+      <h2 class="standard-header__title">Revisable Delegation Record</h2>
+    </div>
+    <dl class="standard-header__meta">
+      <div>
+        <dt>Document ID</dt>
+        <dd>STD-07</dd>
+      </div>
+      <div>
+        <dt>Version</dt>
+        <dd>0.1 (Working draft)</dd>
+      </div>
+      <div>
+        <dt>Effective Date</dt>
+        <dd>TBD (proposed 2026)</dd>
+      </div>
+      <div>
+        <dt>Authority</dt>
+        <dd>The Institute of Ethotechnics</dd>
+      </div>
+    </dl>
+  </header>
+
+  <div class="standard-body">
+    <div class="standard-main">
+      <section id="scope" class="standard-section">
+        <h2>Scope</h2>
+        <p>
+          An institution that delegates consequential work to machines usually
+          has sensing, memory, analytics, policy, and execution. What it lacks
+          is one record connecting them, so it can know something has changed
+          and keep doing exactly what it was doing. This standard defines that
+          record: one append-only shape for what the institution believed, what
+          it could do, what it had authorized, what it did, where reality
+          diverged, who objected, and what it revised.
+        </p>
+        <p>
+          Ethotechnics is the engineering of delegated power such that
+          exercising it does not destroy the material conditions of its own
+          revision. The question this standard serves is how an institution
+          can become more capable without becoming less revisable. The
+          problem is recursive: an institution delegates because a machine
+          system is useful, reorganizes around it as it succeeds, and so
+          alters the conditions under which the delegation was made. The
+          record exists so the institution can still change its mind inside
+          that process.
+        </p>
+        <p>
+          STD-07 does not say which beliefs are right, which capabilities to
+          build, or which delegations to grant. It says how each of those must
+          be written down so a later reader, human or machine, can answer four
+          questions about any moment: what was believed at the time, what was
+          authorized, what happened, and what was learned. It is a record
+          format, in the sense of STD-04 and STD-05, and it is meant to be
+          emitted by systems that already keep their own logs. Adopting it
+          means mapping an existing log onto this shape, not replacing it.
+        </p>
+        <p>
+          STD-07 sits beside this site's existing
+          <a href="/standards/decision-record.schema.json">Decision Record</a>
+          schema rather than replacing it. A Decision Record is the full
+          receipt for one automated decision affecting a person: owner, clocks,
+          reason codes, evidence links. It maps onto an STD-07
+          <code>action</code> record whose <code>depends_on</code> and
+          <code>authority</code> say what justified it. STD-07 adds the other
+          seven kinds, so the decision can be read against the beliefs,
+          capabilities, and authorizations that were in force when it was made.
+        </p>
+        <p>
+          The standard applies to any system whose outputs change what an
+          institution does: a forecast registry, a capability graph, an
+          operating brief, a change monitor, an approval gate. It is
+          domain-neutral by construction.
+        </p>
+      </section>
+
+      <section id="premises" class="standard-section">
+        <h2>Premises</h2>
+        <p>
+          Six commitments the record shape is built to hold, each with the
+          field that carries it.
+        </p>
+        <ul>
+          <li>
+            A system can become more capable without becoming more
+            authorized. <code>capability</code> and
+            <code>authorization</code> are separate kinds; one never implies
+            the other.
+          </li>
+          <li>
+            Authority expires when its evidentiary basis weakens.
+            <code>authorization.depends_on</code> names that basis, and
+            <code>invalidated_by</code> names what would end it.
+          </li>
+          <li>
+            Evidence triggers reconsideration rather than merely producing
+            telemetry. A <code>discrepancy</code> that matches an invalidation
+            condition owes a <code>revision</code> within a clock.
+          </li>
+          <li>
+            People who absorb a system's failures have a route through which
+            their observations acquire institutional force.
+            <code>contest.standing</code> and <code>objection</code> records.
+          </li>
+          <li>
+            Successful automation increases scrutiny of dependence rather
+            than relaxing it. <code>depends_on</code> is populated on the
+            records that rest on others, so dependence is visible before it
+            is irreversible.
+          </li>
+          <li>
+            No system may consume the expertise, alternatives, or evidence
+            needed to question and replace it. Records are append-only and
+            hashed, so the account of what was believed and authorized
+            survives the system that produced it.
+          </li>
+        </ul>
+      </section>
+
+      <section id="loop" class="standard-section">
+        <h2>The loop</h2>
+        <p>
+          A record's <code>kind</code> names which step of the institution's
+          cognitive loop it belongs to. Each kind answers one question.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Kind</th>
+              <th scope="col">Question the record answers</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loopSteps.map((step) => (
+              <tr>
+                <td><code>{step.kind}</code></td>
+                <td>{step.question}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p>
+          The loop runs perceive → believe → know what can be done → decide
+          what authority is justified → act → detect mismatch → revise. No
+          single system owns the whole loop. One system emits beliefs, another
+          capabilities and authorizations, another actions, another
+          discrepancies. The record shape is what lets them refer to one
+          another: an action names its authorization, an authorization names
+          the beliefs it rests on, a revision names the discrepancy that forced
+          it.
+        </p>
+      </section>
+
+      <section id="articles" class="standard-section">
+        <h2>Article I: Time and immutability</h2>
+        <p class="standard-article-quote">
+          "A record that can be edited is not a record of what was believed at
+          the time."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§1.1</span>
+            Two clocks: Every record carries <code>time.as_of</code>, the moment
+            in the world it describes, and <code>time.recorded_at</code>, when
+            it was written. They are never collapsed, so a contemporaneous
+            record can be told from a reconstruction. A belief that will later
+            be scored also carries <code>time.available_at</code>, when its
+            evidence became available to the actor.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.2</span>
+            Append-only: No record is edited or deleted. A change is a new
+            record whose <code>supersedes</code> names the old one. The old
+            record remains readable. A correction is visible forever, which is
+            the point.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.3</span>
+            Declared expiry: A record whose validity has a horizon declares it
+            in <code>time.valid_until</code>. A record past its expiry is stale,
+            not wrong; it needs a renewal or a revision, and a consumer treats
+            it as neither current nor superseded.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article II: Authority</h2>
+        <p class="standard-article-quote">
+          "Describing authority is not mediating it. The record must show which
+          authorization each action ran under."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§2.1</span>
+            Action under authorization: Every <code>action</code> record names
+            the <code>authorization</code> record it ran under in
+            <code>authority.authorization_record</code>. An action with no
+            authorization is a finding, not a record.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.2</span>
+            Bounded delegation: Every <code>authorization</code> record names
+            its scope, holder, grantor, mode (unattended, confirm, or
+            forbidden), ceiling where one exists, expiry where one exists, and
+            the conditions under which it is revoked. A delegation with no
+            revocation conditions is a transfer, not a delegation.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.3</span>
+            Delegation chain: Where the actor acts for a principal,
+            <code>actor.on_behalf_of</code> names that principal. The chain of
+            <code>on_behalf_of</code> links, read back to a human or an
+            institution, is the answer to "who authorized this".
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.4</span>
+            Clause citation: A record produced to satisfy a published
+            obligation cites it in <code>authority.clauses</code>, pinned by
+            version in the emitting system's manifest.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article III: Dependence and invalidation</h2>
+        <p class="standard-article-quote">
+          "A record that does not say what would change its mind cannot be
+          revised, only replaced."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§3.1</span>
+            Dependence: <code>belief</code>, <code>authorization</code>, and
+            <code>action</code> records list in <code>depends_on</code> the
+            records they rest on. An authorization depends on the beliefs and
+            capabilities that justified it; an action depends on its
+            authorization.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.2</span>
+            Invalidation conditions: Those same records list in
+            <code>invalidated_by</code> the checkable conditions which, if they
+            became true, would mean the record no longer holds. Each condition
+            may name where it is checked and a clock.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.3</span>
+            Discrepancy handling: When a <code>discrepancy</code> record matches
+            an invalidation condition on a live record, the emitting system
+            produces a <code>revision</code> or an <code>objection</code>
+            within the condition's clock. Silence past the clock is a
+            governance failure, not a pending state.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.4</span>
+            Capability gating: A <code>capability</code> record distinguishes
+            <em>configured</em> from <em>verified</em>. An authorization that
+            depends on a capability is valid only while that capability's
+            latest record is verified.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article IV: Standing and contest</h2>
+        <p class="standard-article-quote">
+          "Who gets to object is part of the record, not a policy about it."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§4.1</span>
+            Standing declared: A record that affects people outside the
+            emitting system declares in <code>contest.standing</code> who may
+            object, in plain language, and in <code>contest.channel</code>
+            where an objection is accepted.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.2</span>
+            Objection answered: An <code>objection</code> record accepted on
+            the declared channel produces a <code>revision</code> or a reasoned
+            refusal, itself a record, within <code>contest.reversal_clock</code>.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.3</span>
+            Visibility named: Every record carries <code>visibility</code>. A
+            public record is citable; an internal record is auditable inside
+            the institution; a private record is tenant data and leaves the
+            institution only with consent.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article V: Integrity</h2>
+        <p class="standard-article-quote">
+          "Git history is tamper-evident for the people who read git."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§5.1</span>
+            Canonical hash: Every record carries
+            <code>integrity.hash</code>, the SHA-256 of its canonical
+            serialization: the record without its integrity block, keys sorted
+            recursively, no insignificant whitespace, UTF-8. Two emitters
+            serializing the same record produce the same hash.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.2</span>
+            Chained stream: Records in one system's stream carry
+            <code>integrity.prior_hash</code>, the hash of the record before
+            them, so a missing or reordered record is detectable.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.3</span>
+            Stable identifiers: <code>record_id</code> is never reused, even
+            after supersession. The recommended form is
+            <code>&lt;system&gt;:&lt;kind&gt;:&lt;local-id&gt;</code>.
+          </li>
+        </ol>
+      </section>
+
+      <section id="conformance" class="standard-section">
+        <h2>Conformance levels</h2>
+        <p>
+          A system declares the highest level every record it emits satisfies.
+          A consumer treats the level as a floor. Declaring Level 0 honestly is
+          conformance; declaring Level 2 for a log that never populates
+          <code>invalidated_by</code> is not.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Level</th>
+              <th scope="col">Requirement</th>
+            </tr>
+          </thead>
+          <tbody>
+            {conformanceLevels.map((entry) => (
+              <tr>
+                <td>{entry.level}</td>
+                <td>{entry.requirement}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="schema" class="standard-section">
+        <h2>Schema</h2>
+        <p>
+          The citable artifact is the JSON Schema at
+          <a href="/api/schema/revisable-delegation-record.schema.json">
+            /api/schema/revisable-delegation-record.schema.json
+          </a>
+          (draft 2020-12). It carries the per-kind content shapes and two
+          worked examples. Consumers pin <code>schema_version</code> to a minor
+          version and must not silently drop records carrying an unknown
+          <code>kind</code>.
+        </p>
+        <p>
+          A TypeScript validator, canonical serializer, and hash helper that
+          mirror the schema live in this site's source at
+          <code>src/utils/revisable-delegation-record.ts</code>; a test
+          validates the schema's own examples through it, so the two cannot
+          drift without a red build.
+        </p>
+        <pre><code>{`{
+
+"schema_version": "0.1.0",
+"record_id": "<system>:<kind>:<local-id>",
+"kind": "belief | capability | authorization | action | discrepancy | revision | objection | outcome",
+"system": { "id": "…", "version": "…", "origin": "https://…" },
+"actor": { "id": "…", "kind": "human | model | service | institution", "on_behalf_of": "…" },
+"subject": "what the record is about",
+"summary": "one plain-language sentence",
+"time": { "as_of": "…", "recorded_at": "…", "available_at": "…", "valid_until": "…" },
+"content": {/* kind-specific */},
+"depends_on": ["record_id", …],
+"invalidated_by": [{ "condition": "…", "check": "https://…", "clock": "P7D" }],
+"authority": { "authorization_record": "record_id", "clauses": ["STD-07.2.1"] },
+"supersedes": "record_id",
+"visibility": "public | internal | private",
+"contest": { "standing": "…", "channel": "https://…", "reversal_clock": "P7D" },
+"integrity": { "algorithm": "sha256", "hash": "…", "prior_hash": "…" }
+}`}</code></pre>
+</section>
+
+      <section id="adoption" class="standard-section">
+        <h2>Adoption notes</h2>
+        <p>
+          STD-07 was drafted against five systems that each hold a fragment of
+          the loop and did not share a record shape: a forecast registry with a
+          ledger hash and three clocks, a capability graph with signed
+          approvals and an authority table, a weekly operating brief with an
+          append-only decision memory and assumption snapshots, a change
+          monitor with Merkle-verified event bundles, and this framework's own
+          clause vocabulary. None of them conformed when this draft was
+          written. Each is expected to declare a conformance level in its
+          machine-readable manifest and raise it as the mapping lands, starting
+          from Level 0.
+        </p>
+        <p>
+          Two rules for adopters. First, map the existing log; do not build a
+          second one. A system that already writes an assumption snapshot has
+          <code>invalidated_by</code>; it needs to say so in this shape.
+          Second, declare what is not there. A capability graph whose
+          authority table enforces nothing emits <code>authorization</code>
+          records with <code>mode</code> set honestly and no
+          <code>action</code> records claiming to have run under them.
+        </p>
+      </section>
+    </div>
+
+  </div>
+</article>

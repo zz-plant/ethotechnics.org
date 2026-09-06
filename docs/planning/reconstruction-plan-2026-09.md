@@ -132,6 +132,15 @@ Cross-cutting assets:
 - A 211-term glossary in 13 categories (`src/content/glossary.json`) and a four-branch taxonomy:
   governance, delivery, assurance, experience (`src/content/taxonomy.json`).
 - Machine surfaces: `/api/*.json`, RAG corpus, `llms.txt`, `agents/spec.json`, prompt pack v1.0.0.
+- **STD-07 Revisable Delegation Record**, merged on 2026-09-06 from a parallel line of work. It is a
+  record format over seven record kinds: belief, capability, authorization, action, discrepancy,
+  revision, and objection. It arrived at the same chain from the record side and it binds more of
+  the laws than anything else in the repo: §2.1 and §2.2 make every action name its authorization
+  and every delegation name its revocation conditions, §3.4 holds an authorization valid only while
+  the capability it rests on is verified, §3.1 and §3.2 require a record to say what it rests on and
+  what would invalidate it, §3.3 gives discrepancy handling a clock, and §4.1 and §4.2 declare
+  standing and oblige an answer. Read its Article III carefully: its "dependence" is dependence
+  between records, not the institution's dependence on the system, so Law V is still uncovered.
 
 Which laws the current site already binds, and which it does not:
 
@@ -190,20 +199,20 @@ Rules that follow:
 
 ## 5. Where each law lands
 
-| Law  | Doctrine and standard                                | Object                                             | Mechanism                                  | Eval / harness                                                           |
-| ---- | ---------------------------------------------------- | -------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
-| I    | STD-07 part A                                        | `capability-catalog`, `authority-grant`            | MEC-17 capability catalog, MEC-13 register | Harness: discovery succeeds, execution refused                           |
-| II   | STD-07 part A (lease fields, expiry, renewal burden) | `authority-grant.until`, `renewal_basis`           | MEC-13 authority grant register            | Delegation Validity eval: grant in `allowed` at decision time            |
-| III  | STD-07 part B (policy as state)                      | `policy-record`, `grant.policy_refs`               | MEC-14 policy review triggers              | Harness: expired policy moves grants to `review_required`                |
-| IV   | STD-07 part D (correction symmetry)                  | `correction_capacity` on the safety case           | MEC-16 intervention spec                   | Correction Symmetry eval: capacity vs authority                          |
-| V    | STD-06 amendment (dependency section)                | `dependency-record`                                | MEC-18 dependency ledger                   | Dependence eval: depth × substitution cost × correction latency          |
-| VI   | STD-06 amendment (reversibility ladder)              | `dependency-record.reversibility` (3 levels)       | MEC-15 withdrawal rehearsal                | Practical Reversibility eval                                             |
-| VII  | STD-02 amendment (standing mechanism fields)         | `challenge`, `standing-register`                   | MEC-08 contestation APIs (amended)         | Standing eval: can exposure enter the system as an event?                |
-| VIII | STD-07 part C (observation → transition rules)       | `reconsideration`, transition rules on grants      | MEC-07 latency tracker (amended)           | Harness: trigger produces a reconsideration record                       |
-| IX   | STD-07 part C (intervention spec replaces HITL)      | `intervention-spec`                                | MEC-16 intervention specification          | Meaningful Control eval (Law IX question set)                            |
-| X    | Evals index restructured by stack                    | `layer` field on suites and cases                  |                                            | Every case tagged model / agent / delegation / institution / consequence |
-| XI   | STD-07 part A (expansion is a new authorization)     | `grant.state_history` with `expansion` transitions | MEC-19 expansion review                    | Expansion eval: was scope growth a decision or a drift?                  |
-| XII  | STD-06 amendment (preserved capacities)              | `dependency-record.preserved_capacities`           | MEC-15, MEC-18                             | Contestability Preservation eval                                         |
+| Law  | Doctrine and standard                           | Object                                             | Mechanism                                  | Eval / harness                                                           |
+| ---- | ----------------------------------------------- | -------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
+| I    | STD-07 §2.1, §2.2, §3.4                         | `capability-catalog`, `authority-grant`            | MEC-17 capability catalog, MEC-13 register | Harness: discovery succeeds, execution refused                           |
+| II   | STD-07 §2.2, §1.3                               | `authority-grant.until`, `renewal_basis`           | MEC-13 authority grant register            | Delegation Validity eval: grant in `allowed` at decision time            |
+| III  | STD-07 §3.1, §3.2; STD-08 part B                | `policy-record`, `grant.policy_refs`               | MEC-14 policy review triggers              | Harness: expired policy moves grants to `review_required`                |
+| IV   | STD-07 §4.2; STD-08 part D                      | `correction_capacity` on the safety case           | MEC-16 intervention spec                   | Correction Symmetry eval: capacity vs authority                          |
+| V    | STD-06 amendment (dependency section)           | `dependency-record`                                | MEC-18 dependency ledger                   | Dependence eval: depth × substitution cost × correction latency          |
+| VI   | STD-06 amendment (reversibility ladder)         | `dependency-record.reversibility` (3 levels)       | MEC-15 withdrawal rehearsal                | Practical Reversibility eval                                             |
+| VII  | STD-02 amendment (standing mechanism fields)    | `challenge`, `standing-register`                   | MEC-08 contestation APIs (amended)         | Standing eval: can exposure enter the system as an event?                |
+| VIII | STD-07 §3.3                                     | `reconsideration`, transition rules on grants      | MEC-07 latency tracker (amended)           | Harness: trigger produces a reconsideration record                       |
+| IX   | STD-08 part C (intervention spec replaces HITL) | `intervention-spec`                                | MEC-16 intervention specification          | Meaningful Control eval (Law IX question set)                            |
+| X    | Evals index restructured by stack               | `layer` field on suites and cases                  |                                            | Every case tagged model / agent / delegation / institution / consequence |
+| XI   | STD-07 §2.2 ceilings; STD-08 part A             | `grant.state_history` with `expansion` transitions | MEC-19 expansion review                    | Expansion eval: was scope growth a decision or a drift?                  |
+| XII  | STD-06 amendment (preserved capacities)         | `dependency-record.preserved_capacities`           | MEC-15, MEC-18                             | Contestability Preservation eval                                         |
 
 ## 6. Workstreams
 
@@ -309,7 +318,10 @@ each other consistently.
 
 ### WS3. Standards
 
-- **STD-07 Delegation** (new, `src/content/standards/std-07-delegation.mdx`), four parts. Part A,
+- **STD-08 Delegation** (new, `src/content/standards/std-08-delegation.mdx`), four parts. STD-07 is
+  taken: the Revisable Delegation Record, merged from another line of work on 2026-09-06, already
+  binds Laws I, II, VII, and VIII through its Articles II, III, and IV. STD-08 adds only what the
+  record format leaves open, so it must not restate it. Part A,
   authority as lease (Laws I, II, XI): every consequential action class traces to a grant with the
   lease fields; discovery confers no authority; scope expansion is a new authorization with its
   own evidence; renewal burden scales with duration and consequence. Part B, policy as state
@@ -317,7 +329,7 @@ each other consistently.
   `review_required` moves its dependent grants there. Part C, observation and intervention (Laws
   VIII, IX): named observations map to transition rules; every "a human reviews" clause resolves
   to an intervention spec. Part D, correction symmetry (Law IV): a grant's correction capacity is
-  stated and reviewed alongside its scope. Clause IDs `STD-07.n.m` in `src/content/standards.ts`.
+  stated and reviewed alongside its scope. Clause IDs `STD-08.n.m` in `src/content/standards.ts`.
 - **STD-02 amendment** (v1.1.0, Law VII): contestability requires the seven standing-mechanism
   fields; MVC-01 gains "Responder and standard" and "Effect" clauses between Timelines and
   Remedies; prospective auditability clause: records retain what is needed to decide whether the
@@ -327,14 +339,14 @@ each other consistently.
   last rehearsal) and a do-not-expand condition when institutional reversibility is not
   evidenced.
 - **STD-01**: cross-references only.
-- Evidence pack for STD-07: grant register export, policy register export, intervention roster,
+- Evidence pack for STD-08: grant register export, policy register export, intervention roster,
   expansion decisions log. STD-06 pack gains the dependency ledger and rehearsal report.
 - Crosswalks: CTRL-05 authority grants are evidenced, scoped, stateful; CTRL-06 policies carry
   review triggers; CTRL-07 dependency and reversibility are measured and preserved. Mapped to EU
   AI Act Art. 9, 14, 72; NIST AI RMF Govern 1, Manage 2 and 4; ISO/IEC 42001 6.1, 8, 9.
 
 Acceptance: `standards-index` tests updated; `/api/standards.json` and `/api/clauses.json`
-include STD-07; evidence-pack index lists it; `validate:glossary` passes.
+include STD-08; evidence-pack index lists it; `validate:glossary` passes.
 
 ### WS4. Mechanisms
 
@@ -447,7 +459,7 @@ route smoke.
 | Phase | Workstreams                                                                             | Why this order                                                                                                                         | Rough size |
 | ----- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | A     | WS0, WS1                                                                                | Definition, laws, and layering before any object is written against them. Cheapest to revise, most visible.                            | 3 PRs      |
-| B     | WS2 (dependency, standing, correction first; then authority, evidence, capability), WS3 | Second-generation objects lead because that is the uncovered layer; capability and grant objects follow because STD-07 needs them too. | 4 to 5 PRs |
+| B     | WS2 (dependency, standing, correction first; then authority, evidence, capability), WS3 | Second-generation objects lead because that is the uncovered layer; capability and grant objects follow because STD-08 needs them too. | 4 to 5 PRs |
 | C     | WS4, WS6                                                                                | Mechanisms and glossary in parallel once clause IDs exist; naming reconciliation lands first as its own PR.                            | 3 to 4 PRs |
 | D     | WS5                                                                                     | Suites and harness cite clauses and mechanisms; harness fixtures are the WS2 examples.                                                 | 2 PRs      |
 | E     | WS7, WS8, WS9                                                                           | Instruments and IA surface everything above.                                                                                           | 3 to 4 PRs |
@@ -458,7 +470,7 @@ Each PR runs `bun run check`; page PRs also run `bun run test:e2e`.
 
 1. **Axiom immutability.** Recommendation: keep the five axioms at v1.0.0; add `/standards/laws`
    as sibling doctrine and a mapping section on the axioms page. Do not add axioms.
-2. **One standard or two.** Recommendation: one STD-07 Delegation with parts A to D, and
+2. **One standard or two.** Recommendation: one STD-08 Delegation with parts A to D, and
    dependency in an STD-06 amendment rather than a new standard. Dependency belongs in the safety
    case because it is a property of the deployment, not of a grant.
 3. **HITL vocabulary.** Recommendation: retire "human in the loop" as a control name in favor of

@@ -103,7 +103,7 @@ const groupingDefinitions: StandardsGroupDefinition[] = [
     title: "Reference",
     description:
       "Interoperability and record-format specifications used across ecosystems.",
-    ids: ["STD-04", "STD-05"],
+    ids: ["STD-04", "STD-05", "STD-07"],
   },
 ];
 

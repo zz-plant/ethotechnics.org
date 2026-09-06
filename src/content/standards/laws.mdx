@@ -78,7 +78,7 @@ Most failures of delegation begin where the two are confused: a tool becomes rea
 
 > No increase in capability automatically increases authorized agency. Authority expands only through an explicit state transition.
 
-Binds through: STD-07 part A; the capability catalog and authority grant objects; MEC-17 capability catalog and MEC-13 authority grant register; harness check that discovery succeeds and execution is refused.
+Binds through: STD-07 §2.1 action under authorization, §2.2 bounded delegation, and §3.4 capability gating, under which an authorization holds only while the capability it depends on is verified rather than merely configured; the capability catalog and authority grant objects; MEC-17 capability catalog and MEC-13 authority grant register; harness check that discovery succeeds and execution is refused.
 
 <h3 id="law-ii">
   Law II. Authority decays unless its justification is renewed
@@ -90,7 +90,7 @@ Silence is not renewal. A system that has not visibly failed has not thereby ear
 
 > The burden of proof rises with the duration and consequence of delegated authority. Absence of observed failure is not renewal.
 
-Binds through: STD-07 part A, lease fields, expiry, and renewal burden; the `until` and `renewal_basis` fields on the authority grant; MEC-13 authority grant register; Delegation Validity eval, grant in `allowed` state at decision time.
+Binds through: STD-07 §2.2, which requires expiry and revocation conditions and holds that a delegation with no revocation conditions is a transfer rather than a delegation, and §1.3 validity horizon; the `until` and `renewal_basis` fields on the authority grant; MEC-13 authority grant register; Delegation Validity eval, grant in `allowed` state at decision time.
 
 <h3 id="law-iii">Law III. Evidence and authority must remain coupled</h3>
 
@@ -100,7 +100,7 @@ When the evidence changes materially, the authority that rested on it must at le
 
 > When the evidentiary state changes materially, the authority state becomes eligible for reconsideration. Policy is state, not input.
 
-Binds through: STD-07 part B, policy as state; the policy record and `policy_refs` on the grant; MEC-14 policy review triggers; harness check that an expired policy moves grants to `review_required`.
+Binds through: STD-07 §3.1 dependence and §3.2 invalidation conditions, which require a record to say what would change its mind; the policy record and `policy_refs` on the grant; MEC-14 policy review triggers; harness check that an expired policy moves grants to `review_required`.
 
 <h3 id="law-iv">
   Law IV. Every consequential delegation creates a correction obligation
@@ -112,7 +112,7 @@ Correction capacity is stated alongside scope and reviewed alongside it. A grant
 
 > No accumulation of delegated authority without a corresponding accumulation of corrective capacity.
 
-Binds through: STD-07 part D, correction symmetry; `correction_capacity` on the safety case; MEC-16 intervention specification; Correction Symmetry eval, capacity against authority.
+Binds through: STD-07 §4.2, under which an objection produces a revision or a reasoned refusal within the reversal clock; `correction_capacity` on the safety case; MEC-16 intervention specification; Correction Symmetry eval, capacity against authority. The proportionality this law asserts, that correction capacity grows with delegated authority, is not yet bound by a clause.
 
 <h3 id="law-v">
   Law V. Dependence converts technical risk into structural risk
@@ -124,7 +124,7 @@ Dependence is therefore tracked as a state of the deployment, with dependents, s
 
 > As dependence increases, reversibility decreases unless deliberately replenished. Dependence is a state variable, not an external concern.
 
-Binds through: STD-06 amendment, dependency section; the dependency record; MEC-18 dependency ledger; Dependence eval, depth × substitution cost × correction latency.
+Binds through: a planned STD-06 amendment. STD-07 Article III governs dependence between records, which is a different relation: it asks what a record rests on, not what the institution has come to rely on. Institutional dependence is carried by the dependency record; MEC-18 dependency ledger; Dependence eval, depth × substitution cost × correction latency.
 
 <h3 id="law-vi">
   Law VI. Nominal reversibility is not operational reversibility
@@ -148,7 +148,7 @@ Standing is procedural force, not veto. A challenge must be received, answered, 
 
 > Exposure to system failure generates standing to initiate correction. Standing is procedural force, not veto.
 
-Binds through: STD-02 amendment, standing mechanism fields; the challenge and standing register objects; MEC-08 contestation APIs, amended; Standing eval, whether exposure can enter the system as an event.
+Binds through: STD-07 §4.1 standing declared and §4.2 objection answered, with a planned STD-02 amendment adding the standard of review and the state transitions a successful objection can produce; the challenge and standing register objects; MEC-08 contestation APIs, amended; Standing eval, whether exposure can enter the system as an event.
 
 <h3 id="law-viii">
   Law VIII. Observability without state transition is theater
@@ -160,7 +160,7 @@ The test is simple. Name the observation. Name the state it can change. If nothi
 
 > The test of an observation is whether it can change the governing state of the system.
 
-Binds through: STD-07 part C, observation to transition rules; the reconsideration object and transition rules on grants; MEC-07 accountability latency tracker, amended; harness check that a trigger produces a reconsideration record.
+Binds through: STD-07 §3.3 discrepancy handling, under which silence past the clock is a governance failure rather than a pending state; the reconsideration object and transition rules on grants; MEC-07 accountability latency tracker, amended; harness check that a trigger produces a reconsideration record.
 
 <h3 id="law-ix">
   Law IX. Human oversight is a control only if the human can alter system state
@@ -172,7 +172,7 @@ Every oversight clause resolves to an intervention specification that answers th
 
 > A human is part of the control system only to the extent they can causally alter its trajectory.
 
-Binds through: STD-07 part C, intervention specification replaces human in the loop; the intervention spec object; MEC-16 intervention specification; Meaningful Control eval, the Law IX question set.
+Binds through: a planned STD-08 clause set. STD-07 §2.2 records whether a delegation runs unattended or on confirm, but a confirm mode says nothing about whether the confirming human can alter the trajectory; the intervention spec object carries that; MEC-16 intervention specification; Meaningful Control eval, the Law IX question set.
 
 <h3 id="law-x">
   Law X. The relevant eval sits at the highest layer where harm can emerge
@@ -196,7 +196,7 @@ The failure mode is the automation ratchet: scope grows by accretion, each step 
 
 > Expansion is not the default reward for success. It is a new authorization decision.
 
-Binds through: STD-07 part A, expansion is a new authorization; `state_history` on the grant with `expansion` transitions; MEC-19 expansion review; Expansion eval, whether scope growth was a decision or a drift.
+Binds through: STD-07 §2.2 ceilings, which bound what a delegation may do without bounding when it may be widened; a planned STD-08 clause makes expansion its own authorization decision; `state_history` on the grant with `expansion` transitions; MEC-19 expansion review; Expansion eval, whether scope growth was a decision or a drift.
 
 <h3 id="law-xii">
   Law XII. No system may erase the conditions of its own contestability
