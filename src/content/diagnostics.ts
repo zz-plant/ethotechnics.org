@@ -274,6 +274,118 @@ export const diagnosticsContent: DiagnosticsContent = {
       deliveryType: "self-serve",
     },
     {
+      slug: "record-conformance",
+      title: "Record Conformance Checker",
+      description:
+        "Reads a stream of STD-07 delegation records and returns the conformance level it actually earns, against the level its emitter declares.",
+      methodCards: {
+        measures: [
+          "Whether every record validates against the published STD-07 schema.",
+          "Whether the hashes recompute and the prior_hash chain links, so a removed or edited record shows.",
+          "Whether beliefs, authorizations and actions state what would end them, and whether a discrepancy was ever answered inside its clock.",
+        ],
+        doesNotMeasure: [
+          "It cannot tell whether a belief was correct or an authorization wise. A stream does not contain that, and scoring it would make this the nominal safeguard it exists to catch.",
+          "It reads what the records say about each other, not what the system did. A conforming log can describe a badly run institution.",
+          "A dangling reference is usually a partial export, not a defect.",
+        ],
+        assumptions: [
+          "The stream is the emitter's own output, exported whole rather than filtered.",
+          "Clocks are judged against the export time, not against when the page is opened.",
+          "The declared level is what the emitter publishes in its own manifest.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "A record stream as newline-delimited JSON, a JSON array, or an object with a records array.",
+          "The conformance level the emitter declares, if it declares one.",
+          "The moment to judge clocks against, defaulting to now.",
+        ],
+        procedure: [
+          "Paste or load the stream. Nothing is uploaded; the audit runs in the page.",
+          "Set the declared level so an overclaim can be contradicted.",
+          "Read the findings blocking first, then the note-level observations.",
+          "Copy the readout and keep it with whatever the emitter published.",
+        ],
+        outputs: [
+          "The level the stream earns, and what holds it below the next one.",
+          "Findings graded blocking, finding, or note, each citing the clause it comes from.",
+          "The record ids each finding applies to.",
+          "A contradiction when the declared level is higher than the earned level.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "Does every record validate against the schema the standard publishes?",
+          "Do the hashes recompute, and does each record chain to the one before it?",
+          "Does every belief, authorization and action say what would end it?",
+          "Was every discrepancy answered by a revision or an objection, inside the clock the record declared?",
+          "Does every record say who has standing to object, and has an objection ever actually been accepted?",
+          "Is the level the emitter declares the level this stream supports?",
+        ],
+        rubric: [
+          "Level 0: every record validates, with as_of kept apart from recorded_at.",
+          "Level 1: Level 0, and nothing edited — every record hashed, and chained through prior_hash.",
+          "Level 2: Level 1, and beliefs, authorizations and actions carry invalidated_by, with every discrepancy answered inside its clock.",
+          "Level 3: Level 2, and standing declared on every record, with at least one objection accepted and answered.",
+        ],
+        scoringLogic: [
+          "Blocking: an invalid record, a hash that does not recompute, a broken chain, a discrepancy never answered, or a declared level above the earned one.",
+          "Finding: an ungrounded grant, an answer that arrived after the clock, or records hashed but not chained.",
+          "Note: a reference resolving outside the stream, a root record resting on nothing, or a condition with no clock to be judged against.",
+          "The earned level is the highest whose requirements carry no blocking finding.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Built against the two systems that emit the shape today, using the exported output of one of them as the worked example rather than a fixture written to pass.",
+        reliability:
+          "Deterministic. The same stream and the same as-of time give the same readout, because every check is mechanical and none of them asks for a judgement.",
+        failureModes: [
+          "Auditing a filtered export and reading the resulting chain break as tampering.",
+          "Judging clocks against now rather than the export time, which fails a record for the reviewer's lateness.",
+          "Reading a clean readout as evidence the institution is well run. It is evidence the log is well formed.",
+          "Treating a note as a defect. Most notes are properties of the export, not of the system.",
+        ],
+      },
+      replicability: {
+        runSteps: [
+          "Export the stream from the emitting system, whole rather than filtered.",
+          "Load it here and set the level that system declares.",
+          "Set the as-of time to the export time if any clock is close.",
+          "Copy the readout and file it beside the emitter's own conformance claim.",
+        ],
+        exampleOutputs: [
+          "Level 2 earned, Level 2 declared, and no blocking findings.",
+          "Level 3 blocked because no objection appears in the stream, so acceptance from outside cannot be observed.",
+          "A contradiction naming the earned level when the declaration is higher.",
+        ],
+      },
+      bestFor:
+        "Anyone holding a conformance claim they cannot currently check, including the team that published it.",
+      readiness: [
+        "Run it on your own stream before publishing a level, and on someone else's before relying on one.",
+        "Re-run after any change to how records are serialized; a format can drift while every field stays right.",
+      ],
+      outputs: [
+        "The earned conformance level and what blocks the next one.",
+        "Findings by severity, each citing its clause and the records it applies to.",
+        "A copyable readout to keep beside the emitter's declaration.",
+      ],
+      estimatedTime: "5 minutes",
+      prepChecklist: [
+        "A record stream exported from the system that emits it.",
+        "The conformance level that system publishes, if any.",
+        "The time the export was taken.",
+      ],
+      ctaLabel: "Open the Record Conformance Checker",
+      ctaHref: "/diagnostics/record-conformance",
+      ctaAriaLabel: "Open the Record Conformance Checker diagnostic tool",
+      exampleLabel: "Read STD-07",
+      exampleHref: "/standards/std-07-revisable-delegation-record",
+      deliveryType: "self-serve",
+    },
+    {
       slug: "system-auditor",
       title: "System Audit & Guardrail Synthesizer",
       description:
