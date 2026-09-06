@@ -129,6 +129,15 @@ const initializeFieldNotes = (container: HTMLElement) => {
       return;
     }
 
+    // A tab param or a hash is an explicit request for a panel, so honour it
+    // now rather than waiting for the container to scroll into view. Deep
+    // links cannot wait: the target entry lives inside a hidden panel, so the
+    // browser has nothing to scroll to and the observer may never fire.
+    if (getTabParam() || getHash()) {
+      syncFromUrl();
+      return;
+    }
+
     observer = new IntersectionObserver((entriesList) => {
       entriesList.forEach((entry) => {
         if (entry.isIntersecting) {

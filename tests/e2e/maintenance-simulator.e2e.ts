@@ -1,6 +1,17 @@
 import { expect, test } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 const SIMULATOR_URL = "/diagnostics/maintenance-simulator";
+
+// The widget is a `client:visible` island below the fold, so it only hydrates
+// once scrolled into view. Hydration syncs the simulation state into the query
+// string, which is the signal that the React handlers are wired up.
+const openHydratedSimulator = async (page: Page) => {
+  await page.goto(SIMULATOR_URL);
+  await page.waitForLoadState("networkidle");
+  await page.locator(".simulator").scrollIntoViewIfNeeded();
+  await page.waitForURL(/[?&]scenario=/);
+};
 
 test.describe("Maintenance Simulator page", () => {
   test("responds with status 200", async ({ request }) => {
@@ -97,39 +108,32 @@ test.describe("Maintenance Simulator page", () => {
 
     await expect(page.getByText("Readiness thresholds")).toBeVisible();
     await expect(page.getByText("Threshold bands")).toBeVisible();
-    await expect(page.getByText("Recommended interventions")).toBeVisible();
+    await expect(
+      page.getByText("Recommended interventions", { exact: true }),
+    ).toBeVisible();
   });
 
   test("toggling coverage checkbox changes readiness score", async ({
     page,
   }) => {
-    await page.goto(SIMULATOR_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedSimulator(page);
 
-    const readabilityBefore = await page
-      .locator("#readiness-title")
-      .textContent();
+    const readinessTitle = page.locator("#readiness-title");
+    const readinessBefore = (await readinessTitle.textContent()) ?? "";
 
     const firstCheckbox = page
       .locator('[aria-label="Simulation controls"] input[type="checkbox"]')
       .first();
     await firstCheckbox.uncheck();
 
-    const readabilityAfter = await page
-      .locator("#readiness-title")
-      .textContent();
-    expect(readabilityAfter).not.toBe(readabilityBefore);
+    await expect(readinessTitle).not.toHaveText(readinessBefore);
 
     await firstCheckbox.check();
-    const readabilityRestored = await page
-      .locator("#readiness-title")
-      .textContent();
-    expect(readabilityRestored).toBe(readabilityBefore);
+    await expect(readinessTitle).toHaveText(readinessBefore);
   });
 
   test("changing scenario updates template summary", async ({ page }) => {
-    await page.goto(SIMULATOR_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedSimulator(page);
 
     const initialHeading = page.locator(".simulator__template h2");
     const initialText = await initialHeading.textContent();
@@ -143,8 +147,7 @@ test.describe("Maintenance Simulator page", () => {
   });
 
   test("changing stress level updates the description", async ({ page }) => {
-    await page.goto(SIMULATOR_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedSimulator(page);
 
     const initialDesc = await page
       .locator(".simulator__risk-description")
@@ -158,14 +161,14 @@ test.describe("Maintenance Simulator page", () => {
       .locator(".simulator__risk-description")
       .textContent();
     expect(updatedDesc).not.toBe(initialDesc);
-    expect(updatedDesc).toContain("high-stress");
+    expect(updatedDesc).toMatch(/high-stress/i);
   });
 
   test("shows stage cards for the runbook", async ({ page }) => {
     await page.goto(SIMULATOR_URL);
     await page.waitForLoadState("networkidle");
 
-    await expect(page.getByText("Runbook")).toBeVisible();
+    await expect(page.getByText("Runbook", { exact: true })).toBeVisible();
     await expect(page.getByText("Play through the stages")).toBeVisible();
 
     const stageCards = page.locator(".simulator__card--stage");
@@ -173,15 +176,21 @@ test.describe("Maintenance Simulator page", () => {
     expect(count).toBeGreaterThanOrEqual(2);
 
     const firstStage = stageCards.first();
-    await expect(firstStage.getByText("Actions")).toBeVisible();
-    await expect(firstStage.getByText("Blockers")).toBeVisible();
+    await expect(
+      firstStage.getByText("Actions", { exact: true }),
+    ).toBeVisible();
+    await expect(
+      firstStage.getByText("Blockers", { exact: true }),
+    ).toBeVisible();
   });
 
   test("shows communication table with copy buttons", async ({ page }) => {
     await page.goto(SIMULATOR_URL);
     await page.waitForLoadState("networkidle");
 
-    await expect(page.getByText("Communications")).toBeVisible();
+    await expect(
+      page.getByText("Communications", { exact: true }),
+    ).toBeVisible();
     await expect(
       page.getByText("Keep communications on cadence"),
     ).toBeVisible();
@@ -196,8 +205,7 @@ test.describe("Maintenance Simulator page", () => {
   });
 
   test("exports JSON triggers a download", async ({ page }) => {
-    await page.goto(SIMULATOR_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedSimulator(page);
 
     const [download] = await Promise.all([
       page.waitForEvent("download"),

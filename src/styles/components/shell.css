@@ -418,7 +418,11 @@
       color var(--motion-fast) ease,
       background-color var(--motion-fast) ease,
       border-color var(--motion-fast) ease;
-    opacity: 0.6;
+    /* The resting state fades the button, and opacity composites the text
+       toward the background. At 0.6 that put --muted at 2.9:1 on light
+       surfaces, below WCAG AA. 0.85 keeps the fade and clears 4.5:1 in both
+       themes; do not lower it without rechecking contrast. */
+    opacity: 0.85;
     z-index: 2;
   }
 

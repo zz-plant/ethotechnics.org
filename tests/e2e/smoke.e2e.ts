@@ -2,8 +2,12 @@ import { expect, test } from "@playwright/test";
 import { navPrimaryLinks } from "../../src/content/navigation";
 import { diagnosticsContent } from "../../src/content/diagnostics";
 
+// Mirrors the hand-authored hero in src/pages/index.astro. A smoke test should
+// pin the headline: if the front door loses its copy, that is a regression.
 const HERO_HEADING =
-  "Technology should serve people — not the other way around.";
+  "Make high-stakes AI easier to stop, explain, appeal, and repair";
+// The desktop bar renders the primary links verbatim; the mobile menu does
+// not (see the mobile test below).
 const PRIMARY_NAV_LINKS = navPrimaryLinks.map((link) => link.label);
 const PRIMARY_NAV_TARGET = navPrimaryLinks[0];
 const BURDEN_TOOL = diagnosticsContent.tools.find(
@@ -27,9 +31,11 @@ test.describe("Homepage smoke", () => {
     await expect(
       page.getByRole("heading", { level: 1, name: HERO_HEADING }),
     ).toBeVisible();
-    await expect(page.getByRole("link", { name: "Get updates" })).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "Explore focus areas" }),
+      page.getByRole("link", { name: "Find my starting point" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "How the method works →" }),
     ).toBeVisible();
   });
 });
@@ -57,12 +63,19 @@ test.describe("Navigation", () => {
     await page.locator(".nav__mobile-sections-summary").click();
     await expect(mobileNav).toHaveAttribute("open", "");
 
-    for (const label of PRIMARY_NAV_LINKS) {
-      await expect(mobileNav.getByRole("link", { name: label })).toBeVisible();
+    // The mobile menu renders navSections, whose link labels are more specific
+    // than the primary bar's ("Knowledge" appears as "Glossary & Ontology").
+    // Assert every primary DESTINATION is reachable, which is the property
+    // that matters, rather than that its label is repeated verbatim.
+    for (const link of navPrimaryLinks) {
+      await expect(
+        mobileNav.locator(`a[href^="${link.href}"]`).first(),
+      ).toBeVisible();
     }
 
     await mobileNav
-      .getByRole("link", { name: PRIMARY_NAV_TARGET.label })
+      .locator(`a[href^="${PRIMARY_NAV_TARGET.href}"]`)
+      .first()
       .click();
     await page.waitForURL(PRIMARY_NAV_TARGET.href);
 
@@ -96,12 +109,22 @@ test.describe("Diagnostics page", () => {
   test("surfaces primary CTAs and example outputs", async ({ page }) => {
     await page.goto("/diagnostics");
 
+    // The page links each tool from several places (the most-used rail, the
+    // comparison table, the tool card), so these names are not unique.
     await expect(
-      page.getByRole("link", { name: BURDEN_TOOL.ctaLabel }),
+      page.getByRole("link", { name: BURDEN_TOOL.ctaLabel }).first(),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: BURDEN_TOOL.exampleLabel }),
+      page.getByRole("link", { name: BURDEN_TOOL.exampleLabel }).first(),
     ).toBeVisible();
+    // Every one of them must point at the tool.
+    const ctaLinks = page.getByRole("link", { name: BURDEN_TOOL.ctaLabel });
+    for (let i = 0; i < (await ctaLinks.count()); i++) {
+      await expect(ctaLinks.nth(i)).toHaveAttribute(
+        "href",
+        `/diagnostics/${BURDEN_TOOL.slug}`,
+      );
+    }
   });
 });
 

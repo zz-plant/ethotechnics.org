@@ -46,14 +46,14 @@ export const CONFORMANCE_LEVELS = {
 
 export type ConformanceLevel = keyof typeof CONFORMANCE_LEVELS;
 
-const dateTime = z.string().datetime({ offset: true });
+const dateTime = z.iso.datetime({ offset: true });
 const sha256Hex = z.string().regex(/^[0-9a-f]{64}$/);
 const nonEmpty = z.string().min(1);
 
 const invalidationSchema = z
   .object({
     condition: nonEmpty,
-    check: z.string().url().optional(),
+    check: z.url().optional(),
     clock: z.string().optional(),
   })
   .strict();
@@ -66,71 +66,62 @@ const authoritySchema = z
   .strict();
 
 const contentByKind = {
-  belief: z
-    .object({
-      proposition: nonEmpty,
-      probability: z.number().min(0).max(1).optional(),
-      confidence: z.number().min(0).max(1).optional(),
-      reference_class: z.string().optional(),
-      evidence: z.array(z.string()).optional(),
-    })
-    .passthrough(),
-  capability: z
-    .object({
-      capability_id: nonEmpty,
-      state: z.enum(["absent", "configured", "verified", "broken"]),
-      requires: z.array(z.string()).optional(),
-    })
-    .passthrough(),
-  authorization: z
-    .object({
-      scope: nonEmpty,
-      holder: nonEmpty,
-      granted_by: nonEmpty,
-      mode: z.enum(["unattended", "confirm", "forbidden"]),
-      ceiling: z.string().optional(),
-      expires_at: dateTime.optional(),
-      revocation_conditions: z.array(z.string()),
-    })
-    .passthrough(),
-  action: z
-    .object({
-      description: nonEmpty,
-      reversible: z.boolean(),
-      reversal_path: z.string().optional(),
-      parameters: z.record(z.string(), z.unknown()).optional(),
-    })
-    .passthrough(),
-  discrepancy: z
-    .object({
-      expected: nonEmpty,
-      observed: nonEmpty,
-      source: nonEmpty,
-      severity: z.enum(["low", "medium", "high"]).optional(),
-    })
-    .passthrough(),
-  revision: z
-    .object({
-      reason: nonEmpty,
-      triggered_by: z.array(z.string()).optional(),
-    })
-    .passthrough(),
-  objection: z
-    .object({
-      challenges: nonEmpty,
-      standing_basis: nonEmpty,
-      requested: nonEmpty,
-    })
-    .passthrough(),
-  outcome: z
-    .object({
-      action_record: nonEmpty,
-      result: nonEmpty,
-      matched_expectation: z.boolean().nullable().optional(),
-      learned: z.string().optional(),
-    })
-    .passthrough(),
-} satisfies Record<RecordKind, z.ZodTypeAny>;
+  belief: z.looseObject({
+    proposition: nonEmpty,
+    probability: z.number().min(0).max(1).optional(),
+    confidence: z.number().min(0).max(1).optional(),
+    reference_class: z.string().optional(),
+    evidence: z.array(z.string()).optional(),
+  }),
+  capability: z.looseObject({
+    capability_id: nonEmpty,
+    state: z.enum(["absent", "configured", "verified", "broken"]),
+    requires: z.array(z.string()).optional(),
+  }),
+  authorization: z.looseObject({
+    scope: nonEmpty,
+    holder: nonEmpty,
+    granted_by: nonEmpty,
+    mode: z.enum(["unattended", "confirm", "forbidden"]),
+    ceiling: z.string().optional(),
+    expires_at: dateTime.optional(),
+    revocation_conditions: z.array(z.string()),
+  }),
+  action: z.looseObject({
+    description: nonEmpty,
+    reversible: z.boolean(),
+    reversal_path: z.string().optional(),
+    parameters: z.record(z.string(), z.unknown()).optional(),
+  }),
+  discrepancy: z.looseObject({
+    expected: nonEmpty,
+    observed: nonEmpty,
+    source: nonEmpty,
+    severity: z.enum(["low", "medium", "high"]).optional(),
+  }),
+  revision: z.looseObject({
+    reason: nonEmpty,
+    triggered_by: z.array(z.string()).optional(),
+  }),
+  objection: z.looseObject({
+    challenges: nonEmpty,
+    standing_basis: nonEmpty,
+    requested: nonEmpty,
+  }),
+  outcome: z.looseObject({
+    action_record: nonEmpty,
+    result: nonEmpty,
+    matched_expectation: z.boolean().nullable().optional(),
+    learned: z.string().optional(),
+  }),
+} satisfies Record<RecordKind, z.ZodType>;
+
+/**
+ * The per-kind content shapes, exported so a consumer (and the test suite) can
+ * check a content block on its own. They are loose: STD-07 lets an emitter
+ * carry vendor keys alongside the declared ones.
+ */
+export const revisableDelegationRecordContentSchemas = contentByKind;
 
 const baseRecordSchema = z
   .object({
@@ -141,7 +132,7 @@ const baseRecordSchema = z
       .object({
         id: nonEmpty,
         version: z.string().optional(),
-        origin: z.string().url().optional(),
+        origin: z.url().optional(),
       })
       .strict(),
     actor: z
@@ -170,7 +161,7 @@ const baseRecordSchema = z
     contest: z
       .object({
         standing: nonEmpty,
-        channel: z.string().url().optional(),
+        channel: z.url().optional(),
         reversal_clock: z.string().optional(),
       })
       .strict()
