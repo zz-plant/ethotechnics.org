@@ -25,6 +25,10 @@ anchorLinks:
 ---
 
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+import RevisableDelegationRecursion from "../../components/RevisableDelegationRecursion.astro";
+import RevisableDelegationLoop from "../../components/RevisableDelegationLoop.astro";
+import RevisableDelegationTrace from "../../components/RevisableDelegationTrace.astro";
+import RevisableDelegationConformance from "../../components/RevisableDelegationConformance.astro";
 
 export const loopSteps = [
   {
@@ -163,6 +167,9 @@ export const structuredData = {
           record exists so the institution can still change its mind inside
           that process.
         </p>
+
+        <RevisableDelegationRecursion />
+
         <p>
           STD-07 does not say which beliefs are right, which capabilities to
           build, or which delegations to grant. It says how each of those must
@@ -241,6 +248,9 @@ export const structuredData = {
           A record's <code>kind</code> names which step of the institution's
           cognitive loop it belongs to. Each kind answers one question.
         </p>
+
+        <RevisableDelegationLoop />
+
         <table class="table">
           <thead>
             <tr>
@@ -446,6 +456,9 @@ export const structuredData = {
           conformance; declaring Level 2 for a log that never populates
           <code>invalidated_by</code> is not.
         </p>
+
+        <RevisableDelegationConformance />
+
         <table class="table">
           <thead>
             <tr>
@@ -483,6 +496,14 @@ export const structuredData = {
           validates the schema's own examples through it, so the two cannot
           drift without a red build.
         </p>
+        <p>
+          The fields below are easier to read against a worked case. This trace
+          shows one decision written down: what it rested on, what would end it,
+          and what replaced it when that condition came true.
+        </p>
+
+        <RevisableDelegationTrace />
+
         <pre><code>{`{
 
 "schema_version": "0.1.0",
@@ -502,6 +523,7 @@ export const structuredData = {
 "contest": { "standing": "…", "channel": "https://…", "reversal_clock": "P7D" },
 "integrity": { "algorithm": "sha256", "hash": "…", "prior_hash": "…" }
 }`}</code></pre>
+
 </section>
 
       <section id="adoption" class="standard-section">
