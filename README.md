@@ -19,8 +19,26 @@ lean, fast-loading pages and clear storytelling.
 
 **Live site:** <https://ethotechnics.org>
 
+## What this publishes
+
+- **Standards.** Citable, versioned specifications with numbered clauses, from temporal rights and
+  contestability through the delegation record and STD-08 Delegation.
+- **Laws.** Twelve laws of delegated intelligence, each with the invariant the standards bind, at
+  `/standards/laws`. The method that walks the chain and the six state variables is at `/method`.
+- **Mechanisms.** Operational blueprints for the controls the clauses call for: decision logs, kill
+  switches, appeal paths, authority grant registers, dependency ledgers.
+- **Evals.** Governability evaluation suites and test cases that ask whether a deployed system is
+  correctable, not whether a model is capable.
+- **Diagnostics.** Interactive tools that score a real deployment: delegation audit, burden modeler,
+  capacity forecaster, system auditor.
+- **Glossary and taxonomy.** Canonical definitions and a branch structure for authority, dependence,
+  governance, delivery, assurance, and experience.
+- **A machine-readable API.** JSON and JSONL surfaces at `/api`, JSON Schemas under
+  `/standards`, plus `llms.txt`, `llms-full.txt`, and an agent spec.
+
 ## Table of contents
 
+- [What this publishes](#what-this-publishes)
 - [Highlights](#highlights)
 - [Requirements](#requirements)
 - [Contributor quick start](#contributor-quick-start)

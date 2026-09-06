@@ -20,8 +20,8 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
     <h1 class="page-title">Find your path through Ethotechnics</h1>
     <p class="page-lede">
       Whether you are shipping AI agents into production, mapping regulatory
-      compliance, or auditing high-stakes decisions, select your perspective below
-      to get immediate, actionable technical artifacts.
+      compliance, or auditing high-stakes decisions, select your perspective
+      below to get immediate, actionable technical artifacts.
     </p>
   </header>
 
@@ -39,12 +39,16 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
               </div>
 
               <div class="role-card__steps">
-                <span class="role-card__steps-heading">Recommended Sequence</span>
+                <span class="role-card__steps-heading">
+                  Recommended Sequence
+                </span>
                 <ol class="role-card__step-list">
                   {path.prioritySteps.map((step) => (
                     <li class="role-card__step-item">
                       <div class="role-card__step-content">
-                        <strong class="role-card__step-title">{step.title}</strong>
+                        <strong class="role-card__step-title">
+                          {step.title}
+                        </strong>
                         <p class="role-card__step-desc">{step.description}</p>
                         <a href={step.ctaHref} class="role-card__step-link">
                           {step.ctaLabel} &rarr;
@@ -60,6 +64,24 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
       }
     </div>
 
+    <!-- Delegation entry point -->
+    <section class="matrix-banner">
+      <div class="matrix-banner__content">
+        <h2>Not sure what the system has been allowed to do?</h2>
+        <p>
+          Take one workflow and check what has been delegated, on what evidence,
+          and whether the delegation is still justified. The audit asks plain
+          questions and reports what has no authorizer behind it.
+        </p>
+      </div>
+      <div class="matrix-banner__links">
+        <a href="/diagnostics/delegation-audit" class="button"
+          >Run a delegation audit</a
+        >
+        <a href="/method" class="button">Read the method</a>
+      </div>
+    </section>
+
     <!-- Quick Navigation Matrix -->
     <section class="matrix-banner">
       <div class="matrix-banner__content">
@@ -68,8 +90,12 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
       </div>
       <div class="matrix-banner__links">
         <a href="/standards" class="button">1. Standards (Specs & Clauses)</a>
-        <a href="/mechanisms" class="button">2. Mechanisms (Architecture Blueprints)</a>
-        <a href="/diagnostics" class="button">3. Diagnostics (Interactive Workbench)</a>
+        <a href="/mechanisms" class="button"
+          >2. Mechanisms (Architecture Blueprints)</a
+        >
+        <a href="/diagnostics" class="button"
+          >3. Diagnostics (Interactive Workbench)</a
+        >
         <a href="/glossary" class="button">4. Knowledge (Taxonomy & Metrics)</a>
       </div>
     </section>
@@ -93,7 +119,9 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    transition: transform var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
+    transition:
+      transform var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease;
   }
 
   .role-card:hover {

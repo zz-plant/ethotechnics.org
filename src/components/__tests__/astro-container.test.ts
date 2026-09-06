@@ -35,11 +35,11 @@ describe.skip("Navigation component", () => {
     ).map((link) => link.textContent?.trim());
 
     expect(desktopLinks).toEqual([
+      "Method",
       "Standards",
       "Mechanisms",
       "Diagnostics",
       "Knowledge",
-      "About",
     ]);
 
     const startBtn = nav?.querySelector<HTMLAnchorElement>(".nav__start-btn");

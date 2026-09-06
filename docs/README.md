@@ -23,10 +23,13 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 ### Architecture and implementation references
 
 - [`architecture.md`](architecture.md), [`specifications.md`](specifications.md), and
-  [`page-specifications.md`](page-specifications.md): routing and implementation expectations.
+  [`page-specifications.md`](page-specifications.md): routing, content layers, and implementation
+  expectations.
 - [`content-data.md`](content-data.md), [`bundles.md`](bundles.md),
   [`content-components.md`](content-components.md): data and content systems.
 - [`agent-metadata.md`](agent-metadata.md): public JSON-LD and machine-readable APIs.
+- [`ci-search-index.md`](ci-search-index.md): Pagefind index generation and the RAG corpus layer
+  field.
 
 ### QA, diagnostics, and performance
 
@@ -40,6 +43,8 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 
 - [`planning/planning-and-audits.md`](planning/planning-and-audits.md): consolidated hub for roadmap, PRDs, UX
   audits, and long-range strategy tracks.
+- [`planning/reconstruction-plan-2026-09.md`](planning/reconstruction-plan-2026-09.md): the
+  delegated-intelligence rebuild, its layering decision, and the workstreams.
 
 ## Documentation standards
 

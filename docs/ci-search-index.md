@@ -50,3 +50,21 @@ For CI without a display server, install Playwright system dependencies:
 ```bash
 bunx playwright install --with-deps chromium
 ```
+
+## Content layers and the search index
+
+The RAG corpus at `/api/rag-corpus.jsonl` tags every document with a `layer`
+field so retrieval can keep the doctrine apart from the requirements:
+
+- `theory` for `/research/theory/*`.
+- `instrument` for `/diagnostics/*`, `/validators/*`, `/tools/*`, and
+  `/agent-toolkit/*`.
+- `method` for everything else.
+
+The layer is derived in `resolveCorpusLayer` in `src/utils/api-responses.ts`.
+
+The Pagefind index does not carry the layer. Pagefind reads rendered HTML, so
+tagging it would mean emitting `data-pagefind-meta` attributes from the page
+layouts rather than changing `scripts/build-search.ts` or
+`scripts/build-search-crawl.ts`, which only run Pagefind over the crawled
+output. Use the RAG corpus when a consumer needs the layer.

@@ -45,6 +45,7 @@ export const siteFooter: SiteFooterContent = {
       links: [
         { label: "Method", href: "/method" },
         { label: "Standards", href: "/standards" },
+        { label: "Laws", href: "/standards/laws" },
         { label: "Diagnostics & Tools", href: "/diagnostics" },
         { label: "Mechanisms & Patterns", href: "/mechanisms" },
         { label: "Evals & Benchmarks", href: "/evals" },
@@ -56,6 +57,7 @@ export const siteFooter: SiteFooterContent = {
       links: [
         { label: "Glossary & Ontology", href: "/glossary" },
         { label: "Taxonomy", href: "/taxonomy" },
+        { label: "Theory", href: "/research/theory" },
         { label: "Field Notes", href: "/field-notes" },
         { label: "Library Index", href: "/library" },
         { label: "Search", href: "/search" },
