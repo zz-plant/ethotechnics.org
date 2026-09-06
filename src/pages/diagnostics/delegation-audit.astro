@@ -1,0 +1,45 @@
+---
+import "../../styles/components/diagnostics.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DiagnosticToolPage from "../../components/DiagnosticToolPage.astro";
+import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsContent } from "../../content/diagnostics";
+import DelegationAuditWidget from "../../features/delegation-audit/DelegationAudit";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "delegation-audit",
+);
+
+if (!tool) {
+  return new Response("Diagnostic not found", {
+    status: 404,
+  });
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-09-06T00:00:00.000Z"
+  mainClass="page page--wide"
+>
+  <DiagnosticToolPage
+    tool={tool}
+    publication={publication}
+    permalink={permalink}
+    overviewTitle="When to use the Delegation Audit."
+    methodologyDescription="What the tool records, what it will not tell you, and how the exposure score and the reversibility verdict are computed."
+    sampleOutputTitle="Preview the delegation readout."
+    sampleOutputDescription="Exposure score with its three factors, a rating per state variable, ungrounded grants, and the reversibility verdict."
+    runSectionTitle="Audit one workflow."
+    runSectionDescription="Name a workflow, answer the six sections in plain language, and copy or export the readout."
+    studioOffRamp={diagnosticsStudioOffRampCallout}
+  >
+    <DelegationAuditWidget client:load />
+  </DiagnosticToolPage>
+</BaseLayout>

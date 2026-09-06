@@ -1,10 +1,134 @@
 import React, { useMemo, useState } from "react";
-import { auditSystemSpec } from "./analyzer";
+import { auditSystemSpec, defaultGovernanceAnswers } from "./analyzer";
 import { industryPresets } from "./presets";
-import type { AutonomyTier, DomainHazard } from "./types";
+import type { AutonomyTier, DomainHazard, GovernanceAnswers } from "./types";
 import "./systemAuditor.css";
 
 type CodeTab = "ts" | "py" | "json" | "legal";
+
+type GovernanceQuestion = {
+  key: keyof GovernanceAnswers;
+  label: string;
+  hint: string;
+  options: { value: string; label: string }[];
+};
+
+const POLICY_QUESTIONS: GovernanceQuestion[] = [
+  {
+    key: "policyReviewTrigger",
+    label: "Does the policy this system applies have a review trigger?",
+    hint: "A condition that reopens the policy when the world changes.",
+    options: [
+      { value: "yes", label: "Yes, written down" },
+      { value: "no", label: "No" },
+      { value: "unknown", label: "Nobody knows" },
+    ],
+  },
+  {
+    key: "policyExpiry",
+    label: "Does that policy have an expiry?",
+    hint: "A date after which it stops justifying anything.",
+    options: [
+      { value: "yes", label: "Yes, a date" },
+      { value: "no", label: "No" },
+      { value: "unknown", label: "Nobody knows" },
+    ],
+  },
+  {
+    key: "policyLastReviewed",
+    label: "When was it last reviewed?",
+    hint: "Reviewed means somebody looked and recorded what they found.",
+    options: [
+      { value: "recent", label: "Within the last 3 months" },
+      { value: "this-year", label: "Within the last 12 months" },
+      { value: "stale", label: "More than 12 months ago" },
+      { value: "never", label: "Never, or nobody knows" },
+    ],
+  },
+];
+
+const REVERSIBILITY_OPTIONS = [
+  { value: "evidenced", label: "Evidenced by a test or a rehearsal" },
+  { value: "claimed", label: "Claimed but never exercised" },
+  { value: "none", label: "Not feasible" },
+];
+
+const REVERSIBILITY_QUESTIONS: GovernanceQuestion[] = [
+  {
+    key: "technicalReversibility",
+    label: "Technical: can the change be undone in the system?",
+    hint: "The switch throws, the rollback completes, the state restores.",
+    options: REVERSIBILITY_OPTIONS,
+  },
+  {
+    key: "operationalReversibility",
+    label: "Operational: can the people on shift absorb it being undone?",
+    hint: "Staff know the fallback and the queues can hold the load.",
+    options: REVERSIBILITY_OPTIONS,
+  },
+  {
+    key: "institutionalReversibility",
+    label: "Institutional: can the organization survive having undone it?",
+    hint: "Commitments, contracts, and budgets remain serviceable afterwards.",
+    options: REVERSIBILITY_OPTIONS,
+  },
+];
+
+const INTERVENTION_QUESTIONS: GovernanceQuestion[] = [
+  {
+    key: "reviewerInformation",
+    label: "What information does the reviewer have?",
+    hint: "What reaches them before the action commits.",
+    options: [
+      { value: "sufficient", label: "Everything the decision rested on" },
+      { value: "partial", label: "A summary or a score" },
+      { value: "none", label: "Almost nothing" },
+    ],
+  },
+  {
+    key: "actionsPreventable",
+    label: "What can they prevent?",
+    hint: "Compare it against what the system actually does.",
+    options: [
+      { value: "all", label: "Every action the system takes here" },
+      { value: "some", label: "Some of them" },
+      { value: "none", label: "None, they are told afterwards" },
+    ],
+  },
+  {
+    key: "statesAlterable",
+    label: "What state can they alter?",
+    hint: "A control changes the system, not only one outcome.",
+    options: [
+      { value: "system", label: "A rule, a threshold, or a permission" },
+      { value: "single-case", label: "Only the case in front of them" },
+      { value: "none", label: "Nothing" },
+    ],
+  },
+  {
+    key: "onDisagreement",
+    label: "What happens if they disagree?",
+    hint: "Disagreement should be an outcome with a route, not an unlogged override.",
+    options: [
+      {
+        value: "recorded-route",
+        label: "A recorded route with a named decider",
+      },
+      { value: "informal", label: "It escalates informally" },
+      { value: "nothing", label: "Nothing defined" },
+    ],
+  },
+  {
+    key: "costToExercise",
+    label: "What does it cost them to intervene?",
+    hint: "Time, friction, and standing with their manager.",
+    options: [
+      { value: "low", label: "Little, it is part of the job" },
+      { value: "noticeable", label: "Noticeable time or friction" },
+      { value: "career-cost", label: "It counts against them" },
+    ],
+  },
+];
 
 export default function SystemAuditor() {
   const [selectedPresetId, setSelectedPresetId] = useState<string>(
@@ -22,12 +146,53 @@ export default function SystemAuditor() {
   const [hazardLevel, setHazardLevel] = useState<DomainHazard>(
     industryPresets[0].hazardLevel,
   );
+  const [governance, setGovernance] = useState<GovernanceAnswers>(
+    defaultGovernanceAnswers,
+  );
   const [activeTab, setActiveTab] = useState<CodeTab>("ts");
   const [copied, setCopied] = useState<boolean>(false);
 
   const report = useMemo(() => {
-    return auditSystemSpec(promptText, autonomyTier, hazardLevel, systemName);
-  }, [promptText, autonomyTier, hazardLevel, systemName]);
+    return auditSystemSpec(
+      promptText,
+      autonomyTier,
+      hazardLevel,
+      systemName,
+      governance,
+    );
+  }, [promptText, autonomyTier, hazardLevel, systemName, governance]);
+
+  const updateGovernance = (key: keyof GovernanceAnswers, value: string) => {
+    setGovernance((previous) => ({
+      ...previous,
+      [key]: value,
+    }));
+  };
+
+  const renderGovernanceQuestions = (questions: GovernanceQuestion[]) =>
+    questions.map((question) => (
+      <div className="system-auditor__field" key={question.key}>
+        <label
+          className="system-auditor__label"
+          htmlFor={`governance-${question.key}`}
+        >
+          {question.label}
+        </label>
+        <select
+          id={`governance-${question.key}`}
+          className="system-auditor__select"
+          value={governance[question.key]}
+          onChange={(e) => updateGovernance(question.key, e.target.value)}
+        >
+          {question.options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <span className="system-auditor__sla-desc">{question.hint}</span>
+      </div>
+    ));
 
   const handleSelectPreset = (presetId: string) => {
     setSelectedPresetId(presetId);
@@ -106,7 +271,8 @@ export default function SystemAuditor() {
                       : ""
                   }`}
                 >
-                  {preset.title.split(" ")[0]} ({preset.domain.split("/")[0].trim()})
+                  {preset.title.split(" ")[0]} (
+                  {preset.domain.split("/")[0].trim()})
                 </button>
               ))}
               <button
@@ -124,7 +290,10 @@ export default function SystemAuditor() {
           </div>
 
           <div className="system-auditor__field">
-            <label htmlFor="system-name-input" className="system-auditor__label">
+            <label
+              htmlFor="system-name-input"
+              className="system-auditor__label"
+            >
               System Name / Identifier
             </label>
             <input
@@ -139,14 +308,19 @@ export default function SystemAuditor() {
 
           <div className="system-auditor__controls-row">
             <div className="system-auditor__field">
-              <label htmlFor="autonomy-tier-select" className="system-auditor__label">
+              <label
+                htmlFor="autonomy-tier-select"
+                className="system-auditor__label"
+              >
                 Autonomy Tier
               </label>
               <select
                 id="autonomy-tier-select"
                 className="system-auditor__select"
                 value={autonomyTier}
-                onChange={(e) => setAutonomyTier(e.target.value as AutonomyTier)}
+                onChange={(e) =>
+                  setAutonomyTier(e.target.value as AutonomyTier)
+                }
               >
                 <option value="advisory">Advisory (Human Decides)</option>
                 <option value="semi-autonomous">Semi-Autonomous (HITL)</option>
@@ -155,7 +329,10 @@ export default function SystemAuditor() {
             </div>
 
             <div className="system-auditor__field">
-              <label htmlFor="hazard-level-select" className="system-auditor__label">
+              <label
+                htmlFor="hazard-level-select"
+                className="system-auditor__label"
+              >
                 Domain Hazard Level
               </label>
               <select
@@ -167,13 +344,18 @@ export default function SystemAuditor() {
                 <option value="low">Low (Content/General)</option>
                 <option value="medium">Medium (Commerce/Support)</option>
                 <option value="high">High (Credit/Access/Legal)</option>
-                <option value="critical">Critical (Health/Safety/Benefits)</option>
+                <option value="critical">
+                  Critical (Health/Safety/Benefits)
+                </option>
               </select>
             </div>
           </div>
 
           <div className="system-auditor__field">
-            <label htmlFor="system-prompt-textarea" className="system-auditor__label">
+            <label
+              htmlFor="system-prompt-textarea"
+              className="system-auditor__label"
+            >
               System Prompt, Architecture Rules, or Decision Policy
             </label>
             <textarea
@@ -182,11 +364,27 @@ export default function SystemAuditor() {
               value={promptText}
               onChange={(e) => {
                 setPromptText(e.target.value);
-                if (selectedPresetId !== "custom") setSelectedPresetId("custom");
+                if (selectedPresetId !== "custom")
+                  setSelectedPresetId("custom");
               }}
               placeholder="Paste system prompt, agent tool definitions, or automated decision logic..."
             />
           </div>
+
+          <div className="system-auditor__section-title">
+            <span>2. Policy validity</span>
+          </div>
+          {renderGovernanceQuestions(POLICY_QUESTIONS)}
+
+          <div className="system-auditor__section-title">
+            <span>3. Reversibility at three levels</span>
+          </div>
+          {renderGovernanceQuestions(REVERSIBILITY_QUESTIONS)}
+
+          <div className="system-auditor__section-title">
+            <span>4. The human named as oversight</span>
+          </div>
+          {renderGovernanceQuestions(INTERVENTION_QUESTIONS)}
         </div>
 
         {/* Right Column: Real-Time Audit Findings & Synthesis */}
@@ -220,7 +418,9 @@ export default function SystemAuditor() {
             </span>
             <div className="system-auditor__slas-grid">
               <div className="system-auditor__sla-card">
-                <span className="system-auditor__sla-label">Time-to-Halt (TTH)</span>
+                <span className="system-auditor__sla-label">
+                  Time-to-Halt (TTH)
+                </span>
                 <span className="system-auditor__sla-val">
                   &le; {report.slas.timeToHaltSec}s
                 </span>
@@ -238,7 +438,9 @@ export default function SystemAuditor() {
                 </span>
               </div>
               <div className="system-auditor__sla-card">
-                <span className="system-auditor__sla-label">User Burden Cap</span>
+                <span className="system-auditor__sla-label">
+                  User Burden Cap
+                </span>
                 <span className="system-auditor__sla-val">
                   &le; {report.slas.maxUserBurdenSteps} steps
                 </span>
@@ -247,7 +449,9 @@ export default function SystemAuditor() {
                 </span>
               </div>
               <div className="system-auditor__sla-card">
-                <span className="system-auditor__sla-label">Human Saturation Ceiling</span>
+                <span className="system-auditor__sla-label">
+                  Human Saturation Ceiling
+                </span>
                 <span className="system-auditor__sla-val">
                   &le; {report.slas.humanSubstitutionCeilingPct}%
                 </span>
@@ -270,8 +474,8 @@ export default function SystemAuditor() {
                     No critical pattern violations detected
                   </div>
                   <p className="system-auditor__risk-body">
-                    System specification incorporates contestability boundaries and
-                    fallback paths.
+                    System specification incorporates contestability boundaries
+                    and fallback paths.
                   </p>
                 </div>
               ) : (
@@ -297,6 +501,60 @@ export default function SystemAuditor() {
                     <p className="system-auditor__risk-body">{risk.trigger}</p>
                     <div className="system-auditor__risk-remedy">
                       <strong>Remedy:</strong> {risk.remedy}
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* Delegation findings from the policy, reversibility, and intervention answers */}
+          <div className="system-auditor__field">
+            <span className="system-auditor__label">
+              Delegation Findings (Policy, Reversibility, Intervention)
+            </span>
+            <span className="system-auditor__sla-desc">
+              These come from your answers, not from the text. They are reported
+              separately and do not move the governance health score.
+            </span>
+            <div className="system-auditor__risks">
+              {report.delegationFindings.length === 0 ? (
+                <div className="system-auditor__risk-card">
+                  <div className="system-auditor__risk-title">
+                    Policy, reversibility, and intervention all hold
+                  </div>
+                  <p className="system-auditor__risk-body">
+                    The policy has a trigger and an expiry, all three levels of
+                    reversibility are evidenced, and the reviewer can alter
+                    system state.
+                  </p>
+                </div>
+              ) : (
+                report.delegationFindings.map((item) => (
+                  <div
+                    key={item.id}
+                    className={`system-auditor__risk-card ${
+                      item.severity === "critical"
+                        ? "system-auditor__risk-card--critical"
+                        : item.severity === "high"
+                          ? "system-auditor__risk-card--high"
+                          : ""
+                    }`}
+                  >
+                    <div className="system-auditor__risk-header">
+                      <span className="system-auditor__risk-title">
+                        {item.name}
+                      </span>
+                      <span className="system-auditor__risk-badge">
+                        {item.severity} risk
+                      </span>
+                    </div>
+                    <p className="system-auditor__risk-body">{item.trigger}</p>
+                    <div className="system-auditor__risk-remedy">
+                      <strong>Remedy:</strong> {item.remedy}
+                    </div>
+                    <div className="system-auditor__risk-remedy">
+                      <strong>Reference:</strong> {item.standardRef}
                     </div>
                   </div>
                 ))

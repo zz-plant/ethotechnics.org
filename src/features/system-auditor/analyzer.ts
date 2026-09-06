@@ -3,6 +3,7 @@ import type {
   AutonomyTier,
   DomainHazard,
   FailureRisk,
+  GovernanceAnswers,
   QuantitativeSla,
   SynthesizedGuardrails,
 } from "./types";
@@ -326,11 +327,222 @@ def evaluate_decision_guardrail(
   };
 };
 
+export const defaultGovernanceAnswers: GovernanceAnswers = {
+  policyReviewTrigger: "unknown",
+  policyExpiry: "unknown",
+  policyLastReviewed: "never",
+  technicalReversibility: "claimed",
+  operationalReversibility: "none",
+  institutionalReversibility: "none",
+  reviewerInformation: "partial",
+  actionsPreventable: "some",
+  statesAlterable: "single-case",
+  onDisagreement: "informal",
+  costToExercise: "noticeable",
+};
+
+const finding = (
+  id: string,
+  name: string,
+  slug: string,
+  severity: FailureRisk["severity"],
+  trigger: string,
+  remedy: string,
+  standardRef: string,
+): FailureRisk => ({
+  id,
+  name,
+  slug,
+  severity,
+  confidence: 1,
+  trigger,
+  remedy,
+  standardRef,
+});
+
+/**
+ * Scores the delegation questions that no amount of prompt text can answer:
+ * whether the policy is still valid, whether the system can actually be
+ * reversed at three levels, and whether the human named as oversight can
+ * change anything. These are reported separately and do not move the
+ * governance health score, which stays a property of the specification text.
+ */
+export const assessDelegationPosture = (
+  answers: GovernanceAnswers,
+): FailureRisk[] => {
+  const findings: FailureRisk[] = [];
+
+  if (answers.policyReviewTrigger !== "yes") {
+    findings.push(
+      finding(
+        "policy-no-review-trigger",
+        "Policy has no review trigger",
+        "policy-record",
+        "high",
+        "The policy this system applies names no condition that would reopen it, so a material change in the world leaves the authority untouched.",
+        "Give the policy a record with stated assumptions and review triggers, and move dependent grants to review_required when one fires.",
+        "STD-08 §2.1: Policy is a record",
+      ),
+    );
+  }
+
+  if (answers.policyExpiry !== "yes") {
+    findings.push(
+      finding(
+        "policy-no-expiry",
+        "Policy has no expiry",
+        "policy-record",
+        "high",
+        "A policy with no expiry stays in force until somebody remembers it, which is renewal by inattention.",
+        "Set an expiry on the policy. Past it, the grants resting on it lose their basis and move to review_required.",
+        "STD-08 §2.5: Expiry ends justification",
+      ),
+    );
+  }
+
+  if (
+    answers.policyLastReviewed === "stale" ||
+    answers.policyLastReviewed === "never"
+  ) {
+    findings.push(
+      finding(
+        "policy-review-stale",
+        "Policy has not been reviewed in the last 12 months",
+        "policy-record",
+        "medium",
+        "The last review is old enough that the absence of observed failure is doing the work of evidence.",
+        "Record what was examined, what would have been visible had the policy been failing, and who looked.",
+        "STD-08 §1.2: Silence is not renewal",
+      ),
+    );
+  }
+
+  const levels: {
+    key: keyof GovernanceAnswers;
+    label: string;
+    detail: string;
+    remedy: string;
+  }[] = [
+    {
+      key: "technicalReversibility",
+      label: "Technical reversibility",
+      detail: "the mechanism itself",
+      remedy:
+        "Test the stop and the rollback on the version now running, and record the outcome.",
+    },
+    {
+      key: "operationalReversibility",
+      label: "Operational reversibility",
+      detail: "the people and processes absorbing the correction",
+      remedy:
+        "Rehearse the fallback with the staff who would run it, inside the correction window.",
+    },
+    {
+      key: "institutionalReversibility",
+      label: "Institutional reversibility",
+      detail: "the organization surviving the correction",
+      remedy:
+        "Evidence that commitments, contracts, and budgets remain serviceable after withdrawal. Do not expand scope until they do.",
+    },
+  ];
+
+  for (const level of levels) {
+    const value = answers[
+      level.key
+    ] as GovernanceAnswers["technicalReversibility"];
+    if (value === "evidenced") continue;
+    findings.push(
+      finding(
+        `reversibility-${level.key}`,
+        `${level.label} is ${value === "claimed" ? "claimed but unevidenced" : "not feasible"}`,
+        "reversibility-ladder",
+        value === "claimed" ? "medium" : "critical",
+        `Reversal at the level of ${level.detail} has not been evidenced. An unevidenced level is recorded as not evidenced, never as feasible.`,
+        level.remedy,
+        "STD-06 §5.3: Reversibility at three levels",
+      ),
+    );
+  }
+
+  if (answers.reviewerInformation !== "sufficient") {
+    findings.push(
+      finding(
+        "intervention-information",
+        "The reviewer does not have the information to intervene",
+        "intervention-specification",
+        answers.reviewerInformation === "none" ? "critical" : "high",
+        "The human named as oversight sees less than the decision required, so the review cannot be a control.",
+        "State in the intervention specification what information reaches the owner before the action commits.",
+        "STD-08 §3.1: Every oversight claim resolves to a specification",
+      ),
+    );
+  }
+
+  if (answers.actionsPreventable !== "all") {
+    findings.push(
+      finding(
+        "intervention-prevention",
+        "The reviewer cannot prevent every action they are named on",
+        "intervention-specification",
+        answers.actionsPreventable === "none" ? "critical" : "high",
+        "The actions the owner can prevent do not match the actions the delegation takes.",
+        "Either widen what the intervention can stop, or record the arrangement as advisory review under that name.",
+        "STD-08 §3.3: Approval without state change is not a control",
+      ),
+    );
+  }
+
+  if (answers.statesAlterable !== "system") {
+    findings.push(
+      finding(
+        "intervention-state",
+        "Intervention cannot alter the system's state",
+        "intervention-specification",
+        answers.statesAlterable === "none" ? "critical" : "high",
+        "The reviewer can change an outcome but not a rule, a threshold, or a permission, so the system carries on unchanged.",
+        "Name the states the owner may alter. If the list is empty, this is not a control and may not be cited as one.",
+        "STD-08 §3.3: Approval without state change is not a control",
+      ),
+    );
+  }
+
+  if (answers.onDisagreement !== "recorded-route") {
+    findings.push(
+      finding(
+        "intervention-disagreement",
+        "Disagreement has no recorded route",
+        "intervention-specification",
+        "high",
+        "When the reviewer disagrees, nothing defined happens, so the disagreement leaves no trace and produces no reconsideration.",
+        "Record what happens on disagreement, including who decides next and within what clock.",
+        "STD-08 §3.1: Every oversight claim resolves to a specification",
+      ),
+    );
+  }
+
+  if (answers.costToExercise !== "low") {
+    findings.push(
+      finding(
+        "intervention-cost",
+        "Intervening is costly for the person expected to do it",
+        "intervention-specification",
+        answers.costToExercise === "career-cost" ? "critical" : "medium",
+        "A control that costs the operator to use will be used less often than the risk requires, and the approval rate will look reassuring.",
+        "Record the cost to exercise and the incentives around it, and attest non-retaliation.",
+        "STD-08 §3.5: Near-unanimous approval is a finding",
+      ),
+    );
+  }
+
+  return findings;
+};
+
 export const auditSystemSpec = (
   text: string,
   autonomy: AutonomyTier = "semi-autonomous",
   hazard: DomainHazard = "medium",
   systemName = "AI Decision Pipeline",
+  governance?: GovernanceAnswers,
 ): AuditReport => {
   const detectedRisks: FailureRisk[] = [];
 
@@ -375,6 +587,7 @@ export const auditSystemSpec = (
     score,
     riskLevel,
     risksDetected: detectedRisks,
+    delegationFindings: governance ? assessDelegationPosture(governance) : [],
     slas,
     guardrails,
     systemName,
