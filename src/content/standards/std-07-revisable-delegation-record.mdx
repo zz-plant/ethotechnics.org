@@ -541,13 +541,44 @@ export const structuredData = {
           from Level 0.
         </p>
         <p>
-          Two rules for adopters. First, map the existing log; do not build a
+          Two of them now emit the shape. The weekly operating brief exports
+          its decision memory as <code>belief</code> records at Level 1,
+          mapping the assumption snapshot it already kept onto
+          <code>invalidated_by</code>. The capability graph emits
+          <code>capability</code>, <code>authorization</code>,
+          <code>discrepancy</code> and <code>revision</code> at Level 2, and
+          its gate now narrows an unattended grant whose prerequisite has
+          started failing — enforced at the decision, independently of whether
+          the record was ever written, which is the relationship between
+          Article III and a running system that this standard is trying to
+          describe.
+        </p>
+        <p>
+          Nothing reads either stream yet. A record format with emitters and no
+          readers is a documentation format, and the levels above stay
+          self-declared until something can check them.
+        </p>
+        <p>
+          Three rules for adopters. First, map the existing log; do not build a
           second one. A system that already writes an assumption snapshot has
           <code>invalidated_by</code>; it needs to say so in this shape.
-          Second, declare what is not there. A capability graph whose
-          authority table enforces nothing emits <code>authorization</code>
-          records with <code>mode</code> set honestly and no
-          <code>action</code> records claiming to have run under them.
+        </p>
+        <p>
+          Second, declare what is not there. A system whose environment adapter
+          is a fixture emits no <code>action</code> records, because an action
+          record from it would attest to something that did not happen in the
+          world; it says so beside the level it claims rather than leaving a
+          reader to assume otherwise.
+        </p>
+        <p>
+          Third, validate against a consumer rather than against yourself. The
+          first system to emit Level 2 records had every field of every record
+          matching this schema and was rejected by the validator on all four,
+          because its store wrote <code>2026-09-06 20:35:26</code> where
+          <code>time.as_of</code> requires an ISO 8601 instant. A serializer
+          that is correct about structure and wrong about a format is the
+          defect this shape exists to surface, and it is not findable from
+          inside the system that produced it.
         </p>
       </section>
     </div>
