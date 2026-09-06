@@ -1,51 +1,111 @@
-# Reconstruction plan: Ethotechnics as justified-delegation engineering (2026-09)
+# Reconstruction plan: Ethotechnics as the engineering of delegated intelligence (2026-09)
 
 Status: proposed. This plan reorganizes the site's doctrine, object model, standards, mechanisms,
-evals, and information architecture around a sharpened definition of Ethotechnics. It is a plan,
-not a spec for a single PR: each workstream below is sized to land as one or a few reviewable PRs,
-and the sequencing section says which order they should go in and why.
+evals, and information architecture around a sharpened statement of what Ethotechnics is. It is a
+plan, not a spec for a single PR: each workstream below is sized to land as one or a few reviewable
+PRs, and the sequencing section says which order they should go in and why.
 
 It supersedes nothing in [`full-refactor-plan.md`](full-refactor-plan.md), which is about code
 hygiene. This plan is about what the site claims and how its objects fit together.
 
 ## 1. The thesis this rebuild encodes
 
-**Definition.** Ethotechnics is the discipline of engineering consequential computational decisions
-so that their basis, authority, and continued validity remain inspectable and revisable.
+**Claim.** The primary object being engineered is no longer the model. It is the delegation of
+consequential agency. The question is not whether the model is capable, aligned, or safe. It is
+whether the delegation itself remains valid as the system acts, learns, scales, and becomes
+depended upon.
 
-**Unit of governance.** The consequential decision. Models, agents, humans, APIs, rules engines,
-policies, and databases are components of the machinery that produces it. Nothing in the method
-depends on which component made the decision, so the governance primitives must be
+**Definition.** Ethotechnics is the engineering discipline concerned with keeping authority,
+evidence, capability, consequence, and correction coupled tightly enough that increasing machine
+agency does not silently become unreviewable institutional power.
+
+**Unit of governance.** The consequential decision, and the delegation that produced it. Models,
+agents, humans, APIs, rules engines, policies, and databases are components of the machinery.
+Nothing in the method depends on which component made the decision, so its primitives are
 substrate-independent: a decision stays governable whether it came from an LLM, a rules engine, a
-human reviewer, or a mix.
+human reviewer, or a mix, and whether the model is open-weight or served behind an API.
 
-**Chain.** Every consequential decision is treated as one link in a governed chain:
+**Chain.** Every consequential decision is one link in a governed chain:
 
 ```text
 Evidence → Authority → Decision → Consequence → Challenge → Reconsideration → Correction
 ```
 
-**Four properties** cut across the chain and are what the standards, mechanisms, and evals measure:
+**The twelve laws.** The doctrine is stated as laws, each with an invariant the standards bind.
 
-| Property     | One-line test                                                                               |
-| ------------ | ------------------------------------------------------------------------------------------- |
-| Traceability | Can anyone reconstruct which evidence and which authority produced this decision?           |
-| Standing     | Is there a named party who may challenge it, a channel, and an authority obliged to answer? |
-| Statefulness | Do permissions, policies, and grants change when the evidence or environment changes?       |
-| Revocability | Can the delegation be narrowed or withdrawn while withdrawal is still operationally real?   |
+| Law  | Statement                                                             | Invariant                                                                                                                                  |
+| ---- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| I    | Capability does not imply authority                                   | No increase in capability automatically increases authorized agency. Authority expands only through an explicit state transition.          |
+| II   | Authority decays unless its justification is renewed                  | The burden of proof rises with the duration and consequence of delegated authority. Absence of observed failure is not renewal.            |
+| III  | Evidence and authority must remain coupled                            | When the evidentiary state changes materially, the authority state becomes eligible for reconsideration. Policy is state, not input.       |
+| IV   | Every consequential delegation creates a correction obligation        | No accumulation of delegated authority without a corresponding accumulation of corrective capacity.                                        |
+| V    | Dependence converts technical risk into structural risk               | As dependence increases, reversibility decreases unless deliberately replenished. Dependence is a state variable, not an external concern. |
+| VI   | Nominal reversibility is not operational reversibility                | A correction mechanism that cannot be exercised without unacceptable institutional damage is not a correction mechanism.                   |
+| VII  | Error-bearing parties require standing proportional to exposure       | Exposure to system failure generates standing to initiate correction. Standing is procedural force, not veto.                              |
+| VIII | Observability without state transition is theater                     | The test of an observation is whether it can change the governing state of the system.                                                     |
+| IX   | Human oversight is a control only if the human can alter system state | A human is part of the control system only to the extent they can causally alter its trajectory.                                           |
+| X    | The relevant eval sits at the highest layer where harm can emerge     | Evaluate at the highest layer capable of producing the failure you care about: model → agent → delegation → institution → consequence.     |
+| XI   | Successful automation increases its own governance burden             | Expansion is not the default reward for success. It is a new authorization decision.                                                       |
+| XII  | No system may erase the conditions of its own contestability          | A consequential system may not consume the institutional capacity required to question, replace, or withdraw it.                           |
 
-**Goal.** Not maximum safe autonomy. Maximum _justified_ delegation, with legibility,
-contestability, reversibility, and the ability to revise the terms of the delegation preserved.
+**The Ethotechnical invariant**, which compresses the laws: no system may accumulate consequential
+agency faster than the institution accumulates the capacity to inspect, challenge, revise, and
+survive its decisions.
 
-**The theory underneath**, kept in its own layer (see section 3): capability without revisability
-produces accumulated dependence; dependence without standing produces domination; and systems
-without correction paths eventually make humans absorb the difference between what the system
-assumes and what reality is.
+**Six state variables.** A mature implementation makes these explicit, and the site's object model
+is organized around them. A system becomes unsafe when they drift apart.
 
-## 2. What the repo already has, mapped to the chain
+| State      | Question                                                                         | Drift it detects                                    |
+| ---------- | -------------------------------------------------------------------------------- | --------------------------------------------------- |
+| Capability | What can the assembled system actually do?                                       | Capability outruns authority (Law I)                |
+| Authority  | Which actions is it currently permitted to perform, for whom, until when?        | Authority outlives evidence (Laws II, III)          |
+| Evidence   | What propositions justify that authority?                                        | Policy detaches from reality (Law III)              |
+| Dependency | How difficult would withdrawal or substitution now be?                           | Dependence outruns correction (Laws V, XI)          |
+| Standing   | Who can challenge which decisions or delegations, with what procedural force?    | Exposure grows without standing (Law VII)           |
+| Correction | Which interventions remain technically, operationally, institutionally feasible? | Observability grows without control (VIII, IX, XII) |
+
+**The optimization problem.** Not "how autonomous can the system safely become?" but "how much
+authority can be delegated without degrading the institution's ability to revise that delegation
+later?"
+
+## 2. Where to center, and why
+
+A public-doctrine scan of ten frontier labs against the twelve laws (your 2026-09 scoring; to be
+published as a dated research note, see WS1) shows the first-generation laws are already being
+absorbed by the labs and the second-generation laws are not.
+
+| Laws the labs have largely converged on        | Laws with almost no public doctrine anywhere       |
+| ---------------------------------------------- | -------------------------------------------------- |
+| I capability ≠ authority                       | V dependence is risk                               |
+| X eval at the layer where harm emerges         | VII error-bearing parties acquire standing         |
+| VIII observation must trigger state change     | XII preserve the conditions of contestability      |
+| IX human oversight must be causally meaningful | VI operational, not nominal, reversibility         |
+| IV delegation creates correction obligations   | XI success raises the governance burden            |
+|                                                | II and III authority renewal and evidence coupling |
+
+The consequence for this plan: if the rebuild centers on permissions, containment, approval, and
+evals, the site describes a layer the labs are already shipping. If it centers on the dynamics of
+delegated authority after deployment (authority decay, dependence accumulation, corrective
+standing, practical reversibility, preservation of contestability), it describes a layer nobody
+has built. The sequencing in section 7 therefore puts the second-generation objects (dependency
+record, standing register, reversibility ladder) ahead of the first-generation ones (capability
+catalog, grant states) wherever the two do not depend on each other.
+
+The same scan settles a positioning question about open weights. Ethotechnics does not favor open
+or closed models. It favors architectures where consequential authority can be inspected,
+constrained, contested, and reversed. Open weights move the governance burden from the provider to
+the deploying institution and can improve inspectability, substitutability, version stability, and
+institutional reversibility while removing central constraint. So the method classifies a
+deployment by nine properties rather than by weight access alone: weight access, runtime control,
+update authority, version stability, revocation, substitutability, observability, standing,
+dependency. That classification becomes a first-class object (the substrate profile, WS2) and the
+site states the contrarian claim plainly: open weights do not weaken the case for governance; they
+reveal that model-provider governance was never a sufficient abstraction.
+
+## 3. What the repo already has, mapped to the chain and the laws
 
 The rebuild is a reframing and consolidation. Most of the machinery exists; it is organized around
-burden, time, and contestability rather than around the decision and its authority.
+burden, time, and contestability rather than around delegation and its states.
 
 | Chain stage     | Existing assets                                                                                                                                                                                                                     | Location                                                                                                                                                 |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -60,394 +120,376 @@ burden, time, and contestability rather than around the decision and its authori
 Cross-cutting assets:
 
 - Five core axioms (finitude, consent, stewardship, reversibility, legibility) plus a derivation
-  section that already argues that corrective dependence earns corrective standing
-  (`src/content/standards/core-axioms.mdx`).
+  section that already argues Law VII in its narrow form: corrective dependence earns corrective
+  standing (`src/content/standards/core-axioms.mdx`).
 - Nine eval suites, already framed as tests of whether the deployed system is governable rather
-  than whether the model is capable
-  (`src/content/evals.ts`, `src/content/eval-test-cases.ts`).
+  than whether the model is capable (`src/content/evals.ts`, `src/content/eval-test-cases.ts`).
 - Twelve mechanisms MEC-01 to MEC-12 (`src/content/library.json`, with MEC-04 as a standalone
-  page), plus MVC-01 minimum viable contestability and PM-01 the postmortem template as
-  non-STD standards.
+  page), plus MVC-01 minimum viable contestability and PM-01 the postmortem template as non-STD
+  standards.
 - Four crosswalk controls CTRL-01 to CTRL-04 (`src/content/crosswalks.ts`); CTRL-01 "human
   oversight with real stop authority" is the closest existing thing to an authority control.
 - A 211-term glossary in 13 categories (`src/content/glossary.json`) and a four-branch taxonomy:
   governance, delivery, assurance, experience (`src/content/taxonomy.json`).
-- Regulatory crosswalks to EU AI Act, NIST AI RMF, ISO/IEC 42001 (`src/content/crosswalks.ts`).
 - Machine surfaces: `/api/*.json`, RAG corpus, `llms.txt`, `agents/spec.json`, prompt pack v1.0.0.
 
-What the existing framing lacks, stated plainly:
+Which laws the current site already binds, and which it does not:
 
-1. **No authority object.** The decision record has an `owner` but no reference to the grant of
-   authority under which the action class was permitted, its evidentiary basis, its conditions,
-   or its expiry.
-2. **No policy object.** Policies are referenced in prose and crosswalks but are not records with
-   provenance, assumptions, review triggers, and expiration conditions.
-3. **Permissions are static.** `action_classes` are booleans (`approval_required`), not states that
-   move between allowed, review-required, suspended, and revoked as evidence changes.
-4. **Capability and authorization are conflated.** Nothing separates "what the system can
-   discover it could do" from "what it is currently permitted to do."
-5. **Human-in-the-loop is used as a safeguard label.** `approval_required: true` is the whole
-   specification of the human's role.
-6. **Contestability stops at the channel.** Minimum viable contestability names standing and
-   remedies but does not require a named authority obliged to consider the challenge, or a
-   defined system state change that a successful challenge produces.
-7. **Correctability is read as revocability.** Kill switch and time-to-halt measure whether the
-   owner can stop the system, not whether stopping it is still operationally survivable once
-   workflows, staffing, and customers depend on it.
-8. **Auditability is forensic.** Logs answer "what happened"; no record is designed to answer
-   "does this decision still deserve to stand?"
-9. **Evals test governability, not the decision.** The suites already sit above the model (they
-   score the deployed operator system, not model capability), which is the right altitude. What
-   is missing is the decision-level question set: was the authority valid, was the policy still
-   within its review window, did changed facts trigger reconsideration, could a party with
-   standing change the outcome.
-10. **Mechanism naming and membership have drifted.** `library.json` and the Ethotechnics-for-
-    Agents page disagree on MEC-06, MEC-07, and MEC-09, and MEC-04 (the Hard Clock) exists only as
-    a hand-written page, not as a catalog entry.
-11. **Four definitions are in circulation.** Home, the glossary entry, `llms.txt`, and the README
-    each define Ethotechnics differently.
-12. **The object model is an example, not a schema.** `agent-safety-object-model.json` is an
-    instance document; nothing validates it.
+| Law  | Current coverage                                                          | Verdict                      |
+| ---- | ------------------------------------------------------------------------- | ---------------------------- |
+| I    | `action_classes[].approval_required`; permission-surface explainer        | Partial                      |
+| II   | STD-01 clocks bound duration of waiting, not of authority                 | Absent                       |
+| III  | Crosswalks reference policy; no policy object, no review triggers         | Absent                       |
+| IV   | Repair SLA, reversibility audit logs, kill switch                         | Partial                      |
+| V    | Glossary `moral-lock-in`, `heroism-dependent-systems`; axioms derivation  | Prose only                   |
+| VI   | Time-to-halt, stoppability testing                                        | Technical reversibility only |
+| VII  | MVC-01 Standing clause; axioms derivation                                 | Partial                      |
+| VIII | Accountability latency tracker; contestation APIs "trigger state changes" | Partial                      |
+| IX   | STD-01 Article VI Human Override; `human-override-lanes`                  | Partial                      |
+| X    | Eval suites score the operator system                                     | Partial                      |
+| XI   | None                                                                      | Absent                       |
+| XII  | Glossary `right-of-exit`, `exit-coercion`; STD-01 Article II              | Prose only                   |
 
-## 3. The layering decision
+Other defects the map turned up:
 
-The single most important structural choice is to split the site into three layers and keep
-politically contestable theory out of the method's requirements.
+1. **Four definitions are in circulation.** Home, the glossary entry, `llms.txt`, and the README
+   each define Ethotechnics differently.
+2. **The object model is an example, not a schema.** `agent-safety-object-model.json` is an
+   instance document; nothing validates it.
+3. **Mechanism naming and membership have drifted.** `library.json` and the Ethotechnics-for-
+   Agents page disagree on MEC-06, MEC-07, and MEC-09, and MEC-04 exists only as a hand-written
+   page.
+4. **Contestability stops at the channel.** MVC-01 names standing and remedies but not an obliged
+   responder, a response standard, or the state transitions a successful challenge can produce.
+5. **Auditability is forensic.** Records answer "what happened"; none is designed to answer "does
+   this delegation still deserve to stand?"
 
-| Layer           | What it contains                                                                                                                                                                                                                                                                     | Where it lives                                                                                                                                 |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Theory**      | Why the four properties matter: accumulated dependence, dependence without standing as domination, absorption as concealment, preserving inefficiency as resilience, optimization stopping before institutional totalization, affected humans acquiring power, constitutional design | A new `/research/theory` cluster plus the existing derivation section of `/standards/core-axioms`; field notes and the governability explainer |
-| **Method**      | Ethotechnics proper: the definition, the chain, the four properties, standards, mechanisms, object model, evals, glossary                                                                                                                                                            | `/method` (new), `/standards`, `/mechanisms`, `/evals`, `/glossary`, `public/standards/*`                                                      |
-| **Instruments** | Diagnostics, validators, worksheets, prompt packs, harness, APIs                                                                                                                                                                                                                     | `/diagnostics`, `/validators`, `/tools`, `/agent-toolkit`, `src/harness/`, `/api/*`                                                            |
+## 4. The layering decision
 
-Rules that follow from the split:
+The site splits into three layers. The laws are the Method. The deeper political theory that
+motivates them stays in its own layer so that a reader can adopt a standard without accepting the
+theory.
 
-- A page in the Method layer may cite the Theory layer as motivation but never as a requirement.
-  Someone must be able to adopt a standard without accepting the theory.
-- The Theory layer is versioned like doctrine and written as argument, not as clauses.
-- "Control planes should govern humans, agents, and conventional software together" is downgraded
-  to the Method claim that primitives are substrate-independent. The site does not position itself
-  as a universal enterprise architecture.
+| Layer           | What it contains                                                                                                                                                                       | Where it lives                                                                                                   |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Theory**      | Why the laws hold: dependence without standing as domination; absorption as concealment; friction as accidental governance; the analogy to safety factors, redundancy, least privilege | `/research/theory` (new) plus the derivation section of `/standards/core-axioms`; field notes                    |
+| **Method**      | The twelve laws, the invariant, the six state variables, standards, mechanisms, object model, evals, glossary                                                                          | `/method` (new), `/standards/laws` (new), `/standards`, `/mechanisms`, `/evals`, `/glossary`, `public/standards` |
+| **Instruments** | Diagnostics, validators, worksheets, prompt packs, harness, APIs                                                                                                                       | `/diagnostics`, `/validators`, `/tools`, `/agent-toolkit`, `src/harness/`, `/api/*`                              |
 
-## 4. Where each accepted view lands
+Rules that follow:
 
-| View                                                                              | Method home                                                                            | Object / standard / mechanism / eval                                                                                       |
-| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| The consequential decision is the unit of governance                              | `/method`, home hero, `llms.txt`                                                       | Decision record becomes the hub object every other object references                                                       |
-| Justified delegation, not maximum safe autonomy                                   | `/method`, About                                                                       | STD-07 Delegation and Policy Validity; `authorityGrant` object                                                             |
-| Following policy is not alignment                                                 | `/method#policy`, STD-07 preamble                                                      | Policy record with `evidence_basis`; Decision-System eval question "was the policy still valid?"                           |
-| Policy is a mutable hypothesis, continuously evaluated                            | STD-07 part B                                                                          | `policy-record.schema.json` with provenance, assumptions, review triggers, expiry; MEC-14 policy review triggers           |
-| Boundaries are stateful and evidence-dependent                                    | STD-07 part A                                                                          | Grant states `allowed → review_required → suspended → revoked`; `grant.state.changed` event; harness state-transition test |
-| Permissions encode authority, not capability                                      | STD-07 part A, `permission-surface` explainer rewrite                                  | `authorityGrant` with `for_whom`, `under_evidence`, `scope`, `conditions`, `until`                                         |
-| Authorization and capability discovery are separate                               | STD-07 part A                                                                          | `capability-catalog.schema.json` distinct from grants; harness test: discovery succeeds, execution refused                 |
-| Human-in-the-loop is a weak primitive                                             | STD-07 part C; replaces HITL language site-wide                                        | `intervention-spec.schema.json`: named owner, escalation authority, reconsideration triggers, intervention mechanism       |
-| Revocability is not enough                                                        | STD-06 amendment; `/method#correction`                                                 | `withdrawal_cost` on the safety case; MEC-15 withdrawal rehearsal; Practical Reversibility eval                            |
-| Observability without contestability is insufficient                              | STD-02 amendment                                                                       | Every audit record must name the party with standing who can act on it                                                     |
-| Auditability is prospective                                                       | STD-02 amendment; decision record redesign                                             | `validity_conditions` and `reconsider_when` on the decision record; `decision.reconsideration.triggered` event             |
-| The most important eval sits above the model                                      | `/evals` index restructure                                                             | New Decision-System eval suite (section 6.5)                                                                               |
-| Contestability requires standing, channel, authority, and a possible state change | STD-02 amendment; minimum viable contestability gains "Authority" and "Effect" clauses | `challenge` object extends appeal event with `considering_authority` and `possible_state_changes`                          |
+- A Method page may cite Theory as motivation, never as a requirement.
+- Laws V, VI, XI, and XII are Method, not Theory: dependence, the reversibility ladder,
+  success-triggered reassessment, and preservation of contestability all become objects, clauses,
+  and evals. What stays in Theory is the argument about domination, capture, and constitutional
+  design.
+- Law VII is Method in its narrow form (exposure generates procedural standing with defined
+  force). The broader claim that affected humans should acquire power over institutions is Theory.
+- "Control planes should govern humans, agents, and software together" is downgraded to the
+  Method claim that primitives are substrate-independent.
 
-## 5. Workstreams
+## 5. Where each law lands
 
-Each workstream lists deliverables, files, acceptance criteria, and the checks that must pass. All
-content changes follow `docs/content-data.md`: edit canonical JSON, regenerate, commit both.
+| Law  | Doctrine and standard                                | Object                                             | Mechanism                                  | Eval / harness                                                           |
+| ---- | ---------------------------------------------------- | -------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
+| I    | STD-07 part A                                        | `capability-catalog`, `authority-grant`            | MEC-17 capability catalog, MEC-13 register | Harness: discovery succeeds, execution refused                           |
+| II   | STD-07 part A (lease fields, expiry, renewal burden) | `authority-grant.until`, `renewal_basis`           | MEC-13 authority grant register            | Delegation Validity eval: grant in `allowed` at decision time            |
+| III  | STD-07 part B (policy as state)                      | `policy-record`, `grant.policy_refs`               | MEC-14 policy review triggers              | Harness: expired policy moves grants to `review_required`                |
+| IV   | STD-07 part D (correction symmetry)                  | `correction_capacity` on the safety case           | MEC-16 intervention spec                   | Correction Symmetry eval: capacity vs authority                          |
+| V    | STD-06 amendment (dependency section)                | `dependency-record`                                | MEC-18 dependency ledger                   | Dependence eval: depth × substitution cost × correction latency          |
+| VI   | STD-06 amendment (reversibility ladder)              | `dependency-record.reversibility` (3 levels)       | MEC-15 withdrawal rehearsal                | Practical Reversibility eval                                             |
+| VII  | STD-02 amendment (standing mechanism fields)         | `challenge`, `standing-register`                   | MEC-08 contestation APIs (amended)         | Standing eval: can exposure enter the system as an event?                |
+| VIII | STD-07 part C (observation → transition rules)       | `reconsideration`, transition rules on grants      | MEC-07 latency tracker (amended)           | Harness: trigger produces a reconsideration record                       |
+| IX   | STD-07 part C (intervention spec replaces HITL)      | `intervention-spec`                                | MEC-16 intervention specification          | Meaningful Control eval (Law IX question set)                            |
+| X    | Evals index restructured by stack                    | `layer` field on suites and cases                  |                                            | Every case tagged model / agent / delegation / institution / consequence |
+| XI   | STD-07 part A (expansion is a new authorization)     | `grant.state_history` with `expansion` transitions | MEC-19 expansion review                    | Expansion eval: was scope growth a decision or a drift?                  |
+| XII  | STD-06 amendment (preserved capacities)              | `dependency-record.preserved_capacities`           | MEC-15, MEC-18                             | Contestability Preservation eval                                         |
+
+## 6. Workstreams
+
+Each workstream lists deliverables, files, acceptance criteria, and checks. All content changes
+follow `docs/content-data.md`: edit canonical JSON, regenerate, commit both.
 
 ### WS0. Framing and definition
 
-Rewrite the site's self-description around the definition, the chain, and the four properties.
-
-- One definition, used verbatim in all four places that currently differ: `src/content/home.json`
-  (`about.body`), the `ethotechnics` glossary entry, `public/llms.txt`, and `README.md`.
-- `src/content/home.json`: hero heading and subheadline state the definition. The "workbench for
-  accountable systems" eyebrow gives way to the delegation framing. Metrics and actions unchanged.
-- `src/pages/how-it-works.astro`: the chain replaces the three lenses as the top-level structure.
-  The three lenses (burden accounting, infrastructure dignity, care-time economics) are kept and
-  repositioned as instruments applied at the Consequence stage. The application sequence stays.
-- `src/content/start-here.json`: routes keyed to "what are you trying to fix, prove, or explain"
-  gain a fourth question: "what has been delegated, and is it still justified?"
-- `public/llms.txt`, `public/llms-full.txt`, `README.md` intro, `src/pages/about.astro`: one
-  paragraph each, same definition verbatim.
-- New `/method` page (`src/pages/method.astro`, content in `src/content/method.json`): the chain
-  as a seven-step walk, each step linking to its standard, mechanism, object, eval, and glossary
-  entry. This page is the canonical statement of the method and the target of the nav's
-  "How it works" link.
+- One definition (section 1) used verbatim in the four places that currently differ:
+  `src/content/home.json` (`about.body`), the `ethotechnics` glossary entry, `public/llms.txt`,
+  `README.md`.
+- `src/content/home.json`: hero states the claim ("the object being engineered is the delegation")
+  and the invariant. Metrics and actions unchanged.
+- New `/method` page (`src/pages/method.astro`, content `src/content/method.json`): the chain as a
+  seven-step walk, the six state variables, and for each a link to its law, standard clause,
+  object, mechanism, eval, and glossary entry. Canonical statement of the method.
+- `src/pages/how-it-works.astro`: the chain replaces the three lenses as top-level structure; the
+  lenses stay as instruments at the Consequence stage. Application sequence stays.
+- `src/content/start-here.json`: a fourth route, "what has been delegated, and is it still
+  justified?"
+- `public/llms-full.txt`, `src/pages/about.astro`: one paragraph each, same definition.
 
 Acceptance: a reader landing on `/`, `/method`, `/how-it-works`, or `llms.txt` sees the same
-definition. `bun run check` passes. `docs/page-specifications.md` updated for Home, Start here,
-and Method.
+definition and invariant. `bun run check` passes. `docs/page-specifications.md` updated.
 
-### WS1. Doctrine and theory layer
+### WS1. Doctrine layer
 
-- `src/content/standards/core-axioms.mdx`: axioms stay at v1.0.0 and untouched. The derivation
-  section is promoted to its own theory page and the axioms page links to it.
-- New `src/content/theory/` collection (MDX) rendered at `/research/theory/[slug]`, with five
-  essays: accumulated dependence; dependence without standing; absorption as concealment;
-  preserving inefficiency; stopping before totalization. The `democratic-vs-coercive-governability`
-  explainer moves here.
-- New `/standards/delegation-principles` doctrine page, versioned v1.0.0, stating the six
-  method-level principles: following policy is not alignment; policy is a hypothesis; authority is
-  not capability; discovery is not authorization; revocability is not correctability;
-  observability is not contestability. Each principle links to the standard clause that binds it.
+- New `/standards/laws` (`src/content/standards/laws.mdx`, "Laws for Engineering Delegated
+  Intelligence", v1.0.0): the twelve laws with their invariants, the compressed invariant, and the
+  six state variables. Each law links to the clause that binds it. This replaces the "delegation
+  principles" page proposed in the first draft of this plan.
+- `core-axioms.mdx`: axioms stay at v1.0.0. The page gains a short section relating the five
+  axioms to the laws (finitude → V and XI; consent → I and VII; stewardship → IV; reversibility →
+  VI; legibility → VIII). The derivation section is promoted to a theory essay and linked.
+- New `src/content/theory/` collection at `/research/theory/[slug]`: dependence without standing;
+  absorption as concealment; friction as accidental governance; the engineering-tradition analogy;
+  automation and capture. The `democratic-vs-coercive-governability` explainer moves here.
+- New `/research/frontier-doctrine-scan` (dated 2026-09): the ten-lab scoring published as a
+  research note with the scale, the disclaimer that it scores public doctrine and not safety
+  performance, and the convergence table. Sources cited per cell. Refreshed on a stated cadence
+  or marked stale.
+- New explainer `open-weights-and-the-delegation-boundary.mdx`: the nine-property classification
+  and the claim that governance attaches to the assembled system, not the weights.
 
-Acceptance: no Method page cites a theory essay as a requirement. `astro:check` and heading
-hierarchy checks pass. `src/content.config.ts` gains the `theory` collection schema.
+Acceptance: no Method page cites a theory essay as a requirement; `check-review-guardrails` gains
+that rule for `src/content/standards/`. `src/content.config.ts` gains the `theory` collection.
 
 ### WS2. Object model v2
 
-Extend `public/standards/` so the chain is machine-readable end to end. All schemas are JSON Schema
-draft 2020-12, versioned, and mirrored in `public/api/schema/`.
+Extend `public/standards/` so the six state variables are machine-readable. All schemas are JSON
+Schema 2020-12, versioned, mirrored in `public/api/schema/`, each with a validating example under
+`public/standards/examples/`.
 
-New schemas:
+One schema per state variable:
 
-- `policy-record.schema.json`: `policy_id`, `version`, `provenance` (who, when, on what evidence),
-  `assumptions[]`, `review_triggers[]` (evidence thresholds, elapsed time, incident classes),
-  `expires_at`, `status` (`active`, `review_required`, `suspended`, `retired`), `supersedes`.
-- `authority-grant.schema.json`: `grant_id`, `grantor`, `grantee` (agent, role, or system),
-  `action_classes[]`, `scope`, `for_whom` (affected population), `evidence_basis[]`,
-  `conditions[]`, `valid_from`, `until` (time or condition), `state`, `state_history[]`,
+- **Capability**: `capability-catalog.schema.json`. What a grantee can discover it could do.
+  Contains no permission fields by design.
+- **Authority**: `authority-grant.schema.json`, modeled as a lease. Required: `grant_id`,
+  `provenance`, `scope`, `issuing_authority`, `grantee`, `action_classes[]`, `for_whom`,
+  `evidence_basis[]`, `assumptions[]`, `review_conditions[]`, `revocation_conditions[]`, `state`
+  (`allowed`, `review_required`, `suspended`, `revoked`), `state_history[]` with transition
+  reasons including `expansion` and `renewal`. Optional `until`, `renewal_basis`,
   `policy_refs[]`, `intervention_ref`.
-- `capability-catalog.schema.json`: what a grantee can discover it could do. Contains no
-  permission fields by design; the schema description says why.
-- `intervention-spec.schema.json`: replaces "human in the loop." `owner`, `escalation_authority`,
-  `reconsideration_triggers[]`, `mechanism` (halt, hold, override, narrow, revoke),
-  `reach_time_target`, `non_retaliation`.
-- `challenge.schema.json`: extends the appeal event with `standing_basis`, `channel`,
-  `considering_authority`, `possible_state_changes[]`, `decision_ref`, `grant_ref`.
-- `reconsideration.schema.json`: `trigger` (challenge, review trigger, changed evidence, elapsed
-  time), `subject` (decision, grant, or policy), `outcome` (stand, narrow, suspend, reverse,
-  correct), `evidence_delta`.
+- **Evidence**: `policy-record.schema.json`. `policy_id`, `version`, `provenance`, `assumptions[]`,
+  `review_triggers[]`, `expires_at`, `status`, `supersedes`.
+- **Dependency**: `dependency-record.schema.json`. `system_ref`, `dependents[]` (workflows, roles,
+  customers, downstream software), `substitution_cost`, `expertise_retained`, `alternatives[]`,
+  `last_withdrawal_rehearsal`, `correction_latency`, `reversibility` with three levels
+  (`technical`, `operational`, `institutional`, each feasible or not with evidence),
+  `preserved_capacities[]` (Law XII). Exposure score defined as dependency depth × substitution
+  cost × correction latency.
+- **Standing**: `standing-register.schema.json` and `challenge.schema.json`. The register lists,
+  per decision class: `who_may_challenge`, `what_may_be_challenged`, `admissible_evidence`,
+  `responder`, `response_deadline`, `standard_of_review`, `possible_state_transitions[]`. A
+  challenge instance references a register entry, a decision or grant, and its outcome.
+- **Correction**: `intervention-spec.schema.json` (replaces "human in the loop"): `owner`,
+  `information_available`, `actions_preventable`, `states_alterable`, `on_disagreement`,
+  `incentives`, `cost_to_exercise`, `reach_time_target`, `non_retaliation`.
+  `reconsideration.schema.json`: `trigger`, `subject`, `outcome` (`stand`, `narrow`, `suspend`,
+  `reverse`, `correct`, `expand`), `evidence_delta`.
 
-Amended schemas:
+Cross-cutting:
 
+- `substrate-profile.schema.json`: the nine open/closed properties from section 2, attached to a
+  system record.
 - `decision-record.schema.json` gains `grant_ref`, `policy_refs[]`, `evidence_basis[]`,
-  `validity_conditions[]`, `reconsider_when[]`, `affected_parties_with_standing[]`. `owner` stays.
-- `agent-safety-object-model.json` becomes an example under `public/standards/examples/` and a
-  real `agent-safety-object-model.schema.json` is added at 2.0.0: `action_classes[].approval_required`
-  is replaced by `grant_ref`; a `capability_catalog_ref` is added; `stop_override_authority`
-  becomes an `intervention_ref`. The 1.1.0 instance stays served at its current path.
+  `validity_conditions[]`, `reconsider_when[]`, `parties_with_standing[]`.
+- `agent-safety-object-model.json` becomes an example; a real
+  `agent-safety-object-model.schema.json` is added at 2.0.0 with `grant_ref`,
+  `capability_catalog_ref`, `dependency_ref`, `intervention_ref`, `substrate_profile_ref`. The
+  1.1.0 instance stays served at its current path.
+- OpenAPI gains `/api/capabilities`, `/api/grants`, `/api/grants/{id}/state`, `/api/policies`,
+  `/api/dependencies`, `/api/standing`, `/api/challenges`, `/api/reconsiderations`.
+- AsyncAPI gains `grant.state.changed`, `grant.expansion.requested`, `policy.review.triggered`,
+  `policy.expired`, `dependency.threshold.crossed`, `challenge.opened`,
+  `reconsideration.triggered`, `reconsideration.completed`.
+- `src/pages/api/*.json.ts` gains example endpoints for each, registered in `endpoint-config.ts`
+  with parity tests.
 
-Control plane and events:
-
-- OpenAPI gains `/api/policies`, `/api/grants`, `/api/grants/{grant_id}/state`,
-  `/api/capabilities`, `/api/challenges`, `/api/reconsiderations`.
-- AsyncAPI gains `grant.state.changed`, `policy.review.triggered`, `policy.expired`,
-  `challenge.opened`, `decision.reconsideration.triggered`, `reconsideration.completed`.
-- `src/pages/api/*.json.ts` gains `grants.json`, `policies.json`, `interventions.json` examples,
-  registered in `endpoint-config.ts` with parity tests in `src/utils/api-tests/`.
-
-Acceptance: every schema has a validating example under `public/standards/examples/`; a Bun test
-validates all examples; `endpoint-parity` test passes; `site-index.json` lists the new endpoints.
+Acceptance: a Bun test validates every example against its schema; `endpoint-parity` passes;
+`site-index.json` lists the new endpoints; a state-drift test asserts the six examples reference
+each other consistently.
 
 ### WS3. Standards
 
-- **STD-07 Delegation and Policy Validity** (new, `src/content/standards/std-07-delegation.mdx`).
-  Part A, authority grants: every consequential action class must trace to a grant with evidence
-  basis, scope, affected population, conditions, expiry, and state. Capability discovery must not
-  confer authority. Part B, policy validity: every policy a grant relies on is a record with
-  provenance, assumptions, and review triggers; a grant whose policy is in `review_required` moves
-  to `review_required` itself. Part C, intervention: any clause elsewhere that says "a human
-  reviews" must resolve to an intervention spec. Clause IDs follow the STD-01 pattern
-  (`STD-07.1.1` and so on) in `src/content/standards.ts`.
-- **STD-02 amendment** (v1.1.0): contestability is defined as standing + channel + obliged
-  authority + possible state change. Minimum viable contestability gains "Authority (who must
-  consider it)" and "Effect (what can change)" between Timelines and Remedies. Adds the
-  prospective auditability clause: records must retain what is needed to decide whether the
-  decision still deserves to stand.
-- **STD-06 amendment** (v1.1.0): the safety case gains a withdrawal section: what depends on the
-  system, what the exit path is, when it was last exercised, and the cost of exercising it.
-- **STD-01**: unchanged except cross-references to STD-07 clocks for grant expiry.
-- Evidence pack for STD-07 (`src/content/evidence-packs/std-07.mdx`): grant register export,
-  policy register export, intervention roster, last withdrawal rehearsal report.
-- Crosswalks (`src/content/crosswalks.ts`): add CTRL-05 "authority grants are evidenced, scoped,
-  and stateful" and CTRL-06 "policies carry review triggers and expiry", mapped to EU AI Act
-  Art. 14 (human oversight) and Art. 9 (risk management review), NIST AI RMF Govern 1 and Manage
-  2, and ISO/IEC 42001 clauses 6.1 and 9. CTRL-01 gains a pointer to the intervention spec.
+- **STD-07 Delegation** (new, `src/content/standards/std-07-delegation.mdx`), four parts. Part A,
+  authority as lease (Laws I, II, XI): every consequential action class traces to a grant with the
+  lease fields; discovery confers no authority; scope expansion is a new authorization with its
+  own evidence; renewal burden scales with duration and consequence. Part B, policy as state
+  (Law III): every policy a grant relies on is a record with review triggers; a policy in
+  `review_required` moves its dependent grants there. Part C, observation and intervention (Laws
+  VIII, IX): named observations map to transition rules; every "a human reviews" clause resolves
+  to an intervention spec. Part D, correction symmetry (Law IV): a grant's correction capacity is
+  stated and reviewed alongside its scope. Clause IDs `STD-07.n.m` in `src/content/standards.ts`.
+- **STD-02 amendment** (v1.1.0, Law VII): contestability requires the seven standing-mechanism
+  fields; MVC-01 gains "Responder and standard" and "Effect" clauses between Timelines and
+  Remedies; prospective auditability clause: records retain what is needed to decide whether the
+  delegation still deserves to stand.
+- **STD-06 amendment** (v1.1.0, Laws V, VI, XII): the safety case gains a dependency section
+  (dependency record, exposure score, reversibility at all three levels, preserved capacities,
+  last rehearsal) and a do-not-expand condition when institutional reversibility is not
+  evidenced.
+- **STD-01**: cross-references only.
+- Evidence pack for STD-07: grant register export, policy register export, intervention roster,
+  expansion decisions log. STD-06 pack gains the dependency ledger and rehearsal report.
+- Crosswalks: CTRL-05 authority grants are evidenced, scoped, stateful; CTRL-06 policies carry
+  review triggers; CTRL-07 dependency and reversibility are measured and preserved. Mapped to EU
+  AI Act Art. 9, 14, 72; NIST AI RMF Govern 1, Manage 2 and 4; ISO/IEC 42001 6.1, 8, 9.
 
-Acceptance: `standards-index` tests updated; `/api/standards.json` and `/api/clauses.json` include
-STD-07; evidence-pack index lists it; `validate:glossary` passes with new cross-links.
+Acceptance: `standards-index` tests updated; `/api/standards.json` and `/api/clauses.json`
+include STD-07; evidence-pack index lists it; `validate:glossary` passes.
 
 ### WS4. Mechanisms
 
-Reconcile naming first, then add. `src/content/library.json` is canonical; the Ethotechnics-for-
-Agents page data and the object model must use its titles.
+Reconcile first, then add. `library.json` is canonical.
 
-- Reconcile: MEC-06 is "Appeal paths inside the UI", MEC-07 is "Accountability latency tracker",
-  MEC-09 is "Burden dashboards". Fix `src/content/page-data/ethotechnics-for-agents.ts`, the
-  prompt pack, and any prose. Add MEC-04 Hard Clock to `library.json` as a catalog entry so the
-  hand-written page and the API agree. Add a unit test that every `MEC-nn` title string in
+- Reconcile MEC-06/07/09 titles across `page-data/ethotechnics-for-agents.ts`, the prompt pack,
+  and prose; add MEC-04 Hard Clock to `library.json`; add a unit test that every `MEC-nn` title in
   `src/content` matches the library.
-- New mechanisms, appended so existing IDs do not move:
-  - **MEC-13 Authority grant register**: a stateful register of grants with evidence basis and
-    expiry, exposed to the decision log. Anti-pattern: "permissions as config."
-  - **MEC-14 Policy review triggers**: review triggers and expiry on every policy record;
-    breached triggers move dependent grants to `review_required`. Anti-pattern: "policy as ground
-    truth."
-  - **MEC-15 Withdrawal rehearsal**: a scheduled exercise of running the workflow without the
-    system, measuring cost, expertise available, and time to restore. Anti-pattern: "the switch
-    exists."
-  - **MEC-16 Intervention specification**: replaces every HITL checkbox with owner, authority,
-    trigger, mechanism, and reach time. Anti-pattern: "rubber-stamp review."
-  - **MEC-17 Capability catalog**: discovery surface separate from grants, so a system can reason
-    about possible actions without being empowered. Anti-pattern: "discover equals permit."
-- Each mechanism has a pattern page under `/mechanisms/patterns/[slug]`, a domain mapping in
-  `/mechanisms/by-domain`, and glossary links.
+- New mechanisms, appended:
+  - **MEC-13 Authority grant register** (Laws I, II). Anti-pattern: permissions as config.
+  - **MEC-14 Policy review triggers** (Law III). Anti-pattern: policy as ground truth.
+  - **MEC-15 Withdrawal rehearsal** (Laws VI, XII). Anti-pattern: the switch exists.
+  - **MEC-16 Intervention specification** (Laws IV, IX). Anti-pattern: rubber-stamp review.
+  - **MEC-17 Capability catalog** (Law I). Anti-pattern: discover equals permit.
+  - **MEC-18 Dependency ledger** (Laws V, XII). Anti-pattern: reliability as safety.
+  - **MEC-19 Expansion review** (Law XI). Anti-pattern: the automation ratchet.
+- Amend MEC-07 (latency tracker feeds transition rules) and MEC-08 (contestation API carries the
+  standing-register fields).
 
-Acceptance: `validate:glossary` passes; `/api/mechanisms.json` lists 17 mechanisms; the naming
-test passes; MEC-04 hard clock and MEC-12 stoppability testing pages link to MEC-15 as the
-next step after a stop test.
+Acceptance: `/api/mechanisms.json` lists 19 mechanisms; naming test passes; each new pattern page
+links its law, clause, and glossary terms.
 
 ### WS5. Evals and harness
 
-- New suite **Decision Validity Evals** (`src/content/evals.ts`, id `decision-validity`). The
-  existing suites already score the operator system rather than the model; this suite scores
-  individual consequential decisions against the chain. Questions per decision: Was the right evidence
-  used? Was the grant valid and in `allowed` state at decision time? Was the policy the grant
-  relied on within its review window? Were exceptions handled by the named intervention owner?
-  Did changed facts trigger reconsideration? Could an affected party with standing obtain
-  correction, and did the system state actually change?
-- New suite **Practical Reversibility Evals** (id `practical-reversibility`): withdrawal cost,
-  expertise retention, alternative workflow availability, exit rehearsal recency, dependence
-  growth over time.
-- **Policy Validity** cases added to the existing Agent Governance suite rather than a new suite.
-- Test cases in `src/content/eval-test-cases.ts` with tier assignments; measurement tiers page
-  updated.
-- Tier 1 harness (`src/harness/`): the adapter gains optional `getGrant`, `setGrantState`,
-  `discoverCapabilities`, `attemptAction`, `getPolicy`, `triggerReconsideration`. New machine-
-  answerable checks: grant state transition is honored within a target; discovery returns an
-  action that execution then refuses; an expired policy moves its grants to `review_required`; a
-  reconsideration trigger produces a reconsideration record. Unsupported stays a finding, not a
-  gap.
-- Eval runner island (`src/features/eval-runner`) lists the new suites.
+- **Evaluation stack.** Every suite and case gains a `layer` field: `model`, `agent`,
+  `delegation`, `institution`, `consequence`. The evals index groups by layer and states Law X as
+  its organizing rule. Existing suites are tagged (most are `institution` or `consequence`).
+- New suites:
+  - **Delegation Validity** (`delegation`): was the grant in `allowed` state at decision time; was
+    its evidence basis current; was the policy inside its review window; was scope growth an
+    authorization or a drift; did changed facts trigger reconsideration.
+  - **Dependence and Reversibility** (`institution`): exposure score; reversibility at all three
+    levels; expertise retention; alternatives; rehearsal recency; preserved capacities (Laws V,
+    VI, XII).
+  - **Standing** (`institution`): can an error-bearing party's observation enter the system as an
+    event with procedural force; responder, deadline, standard, and possible transitions defined;
+    outcome changed state.
+  - **Meaningful Control** (`delegation`): the Law IX question set against each intervention spec.
+- Tier 1 harness (`src/harness/`): adapter gains optional `discoverCapabilities`, `attemptAction`,
+  `getGrant`, `setGrantState`, `getPolicy`, `triggerReconsideration`. Machine-answerable checks:
+  discovery succeeds and execution is refused for an ungranted action; grant transition honored
+  within target; expired policy moves grants to `review_required`; a trigger produces a
+  reconsideration record. Unsupported stays a finding.
+- Eval runner island lists the new suites and filters by layer.
 
-Acceptance: `src/harness/checks.test.ts` covers the four new checks; `/api/evals.json` and
-`/api/eval-test-cases.json` include the new suites; the evals index groups suites by chain stage.
+Acceptance: `checks.test.ts` covers the four new checks; `/api/evals.json` and
+`/api/eval-test-cases.json` include `layer`; measurement tiers page updated.
 
 ### WS6. Glossary and taxonomy
 
-- New glossary entries (category `governance` unless noted): justified delegation; authority
-  grant; delegation record; grant state; capability discovery; capability catalog; policy record;
-  policy validity; policy as hypothesis; review trigger; intervention specification; corrective
-  standing; considering authority; practical reversibility; withdrawal cost; withdrawal
-  rehearsal; prospective auditability; decision system (`core-concepts`); consequential decision
-  (`core-concepts`); normalized dependence (`failure-modes`); rubber-stamp review
-  (`failure-modes`).
-- Rewrites: `ethotechnics` (the single definition); `permission-surface` (authority, not access
-  points); `human-override-lanes` (links to intervention spec); `bounded-autonomy`,
-  `earned-autonomy`, and `proxy-privilege` (link to authority grant and grant state);
-  `right-of-exit` and `exit-coercion` (link to withdrawal cost); `moral-lock-in` (link to
-  normalized dependence); `contestability` (four-part definition).
-- Taxonomy: add a fifth branch `authority` with children `authority/delegation`,
-  `authority/policy-validity`, `authority/standing`, `authority/intervention`. The existing
-  `governance/policy` node links to `authority/policy-validity` rather than duplicating it. Retag
-  affected glossary entries and mechanisms. Rename the nav label from "Failure Taxonomy" to
+- New entries: delegated agency; justified delegation; authority grant; authority lease; grant
+  state; authority drift; capability discovery; capability catalog; policy record; policy as
+  state; review trigger; correction obligation; correction capacity; dependency state; exposure
+  score; substitution cost; technical, operational, and institutional reversibility; withdrawal
+  rehearsal; preserved capacity; error-bearing party; corrective standing; standing mechanism;
+  procedural force; intervention specification; meaningful control; automation ratchet;
+  expansion decision; capture; substrate profile; prospective auditability; evaluation layer.
+- Rewrites: `ethotechnics`; `permission-surface`; `human-override-lanes`; `bounded-autonomy`,
+  `earned-autonomy`, `proxy-privilege`; `right-of-exit`, `exit-coercion`; `moral-lock-in`;
+  `heroism-dependent-systems`; `contestability`.
+- Taxonomy: add branches `authority` (delegation, policy-validity, expansion) and `dependence`
+  (reversibility, standing, preserved-capacity). Rename the nav label "Failure Taxonomy" to
   "Capability Taxonomy", which is what the data is.
-- Explainers: new `justified-delegation.mdx`, `intervention-specification.mdx`,
-  `practical-reversibility.mdx`; rewrite `permission-surface.mdx`.
+- Explainers: `justified-delegation`, `authority-as-lease`, `intervention-specification`,
+  `three-kinds-of-reversibility`, `error-bearing-parties`, and the open-weights explainer from
+  WS1.
 
-Acceptance: `validate:glossary` passes; `glossary-routes` tests pass; the semantic graph test
-shows every new term has at least two inbound links; `/api/glossary.json` regenerates.
+Acceptance: each new term is cited by a clause, mechanism, or eval case before it is added;
+`validate:glossary` and `glossary-routes` tests pass; semantic graph test shows two inbound links
+per new term.
 
 ### WS7. Diagnostics and instruments
 
-- New diagnostic **Delegation audit** (`src/features/delegation-audit`, page
-  `/diagnostics/delegation-audit`): for one workflow, the user lists action classes, who granted
-  them, on what evidence, when they expire, who can intervene, and who has standing. Output: a
-  grant register draft, a list of ungrounded grants, and a readout PDF-style summary matching the
-  existing diagnostics output format in `docs/diagnostics-outputs.md`.
-- Governance gap score (`/tools/governance-gap-score`): two new dimensions, Authority (grants
-  traced and stateful) and Standing (challenge reaches an obliged authority and can change
-  state).
-- System auditor (`/diagnostics/system-auditor`): policy validity and withdrawal cost questions.
-- Prompt pack v1.1.0 (`public/agent-toolkit/`): agent contract section on capability discovery
-  versus authorization, and on refusing actions whose grant is not in `allowed` state.
-- `agents/spec.json`: reference the object model 2.0 and the grants endpoint.
+- **Delegation audit** (`src/features/delegation-audit`, `/diagnostics/delegation-audit`): for one
+  workflow, capture the six state variables and the substrate profile; output a grant register
+  draft, a dependency record draft, the exposure score, ungrounded grants, and a readout in the
+  existing diagnostics output format.
+- Governance gap score: dimensions for Authority, Dependence, and Standing.
+- System auditor: policy validity, three-level reversibility, and Law IX questions.
+- Prompt pack v1.1.0: agent contract on capability discovery versus authorization and on refusing
+  actions whose grant is not `allowed`.
+- `agents/spec.json`: reference object model 2.0 and the grants and dependencies endpoints.
 
-Acceptance: each new island has a Bun component test and a Playwright smoke; diagnostics landing
-and `docs/diagnostics-outputs.md` list the new tool; `docs/page-specifications.md` gains the route.
+Acceptance: Bun component test and Playwright smoke per island; diagnostics landing and
+`docs/diagnostics-outputs.md` list the new tool; `docs/page-specifications.md` gains the route.
 
-### WS8. Information architecture and navigation
+### WS8. Information architecture
 
-- Top nav stays five items but the groupings change:
-  - Standards: Standards spec, Delegation principles (doctrine), Crosswalks, Evidence packs.
-  - Mechanisms: Catalog, Evals, Validators, Harness.
-  - Diagnostics: unchanged plus Delegation audit.
-  - Knowledge: Glossary, Taxonomy, Incidents, Field notes, Theory.
-  - About: unchanged.
-- "Start here" resolves to one route. The CTA currently points at `/start` and the mobile
-  utility link at `/start-here`; pick `/start-here` and redirect the other. `/method` is linked
-  from the hero, the footer, and the how-it-works page.
-- `src/content/site-footer.ts`: add Method and Theory.
-- Redirects in `src/middleware.ts` for any moved explainer permalinks.
-- Sitemaps and `site-index.json` regenerated; `breadcrumbs.ts` handles `/research/theory/*`.
+- Top nav stays five items. Standards: Spec, Laws, Crosswalks, Evidence packs. Mechanisms:
+  Catalog, Evals by layer, Validators, Harness. Diagnostics: plus Delegation audit. Knowledge:
+  Glossary, Taxonomy, Incidents, Field notes, Theory, Frontier scan. About: unchanged.
+- "Start here" resolves to one route (`/start-here`; redirect `/start`). `/method` linked from
+  hero, footer, how-it-works.
+- Footer gains Method, Laws, Theory. Redirects for moved explainers in `src/middleware.ts`.
+  Sitemaps and `site-index.json` regenerated; breadcrumbs handle `/research/theory/*`.
 
-Acceptance: `navigation.test.ts` and `sitemaps` tests updated; `check-heading-hierarchy` and
-external link checks pass; no 404 in the Playwright route smoke.
+Acceptance: navigation and sitemap tests updated; heading and link checks pass; no 404 in the
+route smoke.
 
 ### WS9. Machine surfaces and docs
 
-- `public/llms.txt` and `llms-full.txt`: definition, chain, and the new endpoints.
-- RAG corpus builder includes theory essays with a `layer: theory` field so retrieval can keep
-  method and theory apart.
-- `docs/architecture.md`: content layers section (theory, method, instruments).
-- `docs/content-data.md`: new collections and the object-model example validation step.
-- `docs/planning/roadmap.md`: this plan's workstreams replace the "Enforceable governance
-  reference implementation" entry, which is absorbed into WS2 and WS3.
-- `docs/glossary.md`, `docs/page-specifications.md`, `docs/diagnostics-outputs.md`: updated per
-  workstream.
+- `llms.txt` and `llms-full.txt`: definition, invariant, laws, endpoints.
+- RAG corpus gains a `layer` field (theory, method, instrument) per document.
+- `docs/architecture.md`: content layers; `docs/content-data.md`: new collections and the
+  example-validation step; `docs/planning/roadmap.md`: workstreams replace the enforceable
+  governance item, absorbed into WS2 and WS3; other docs per workstream.
 
-## 6. Sequencing
+## 7. Sequencing
 
-Ordered so that each phase is useful on its own and no phase forces a rewrite of the previous one.
+| Phase | Workstreams                                                                             | Why this order                                                                                                                         | Rough size |
+| ----- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| A     | WS0, WS1                                                                                | Definition, laws, and layering before any object is written against them. Cheapest to revise, most visible.                            | 3 PRs      |
+| B     | WS2 (dependency, standing, correction first; then authority, evidence, capability), WS3 | Second-generation objects lead because that is the uncovered layer; capability and grant objects follow because STD-07 needs them too. | 4 to 5 PRs |
+| C     | WS4, WS6                                                                                | Mechanisms and glossary in parallel once clause IDs exist; naming reconciliation lands first as its own PR.                            | 3 to 4 PRs |
+| D     | WS5                                                                                     | Suites and harness cite clauses and mechanisms; harness fixtures are the WS2 examples.                                                 | 2 PRs      |
+| E     | WS7, WS8, WS9                                                                           | Instruments and IA surface everything above.                                                                                           | 3 to 4 PRs |
 
-| Phase | Workstreams   | Why this order                                                                                                                          | Rough size |
-| ----- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| A     | WS0, WS1      | Establish the definition and the layering before any object or standard is written against it. Cheapest to revise, most visible.        | 2 to 3 PRs |
-| B     | WS2, WS3      | Object model and STD-07 define the vocabulary that mechanisms, evals, and glossary must use. Ship schemas before prose that cites them. | 3 to 4 PRs |
-| C     | WS4, WS6      | Mechanisms and glossary can proceed in parallel once STD-07 clause IDs exist. Naming reconciliation lands first as its own PR.          | 3 to 4 PRs |
-| D     | WS5           | Evals and harness cite mechanisms and clauses; the harness checks need the object model examples as fixtures.                           | 2 PRs      |
-| E     | WS7, WS8, WS9 | Instruments and IA last, because they surface everything above and their acceptance depends on the routes and endpoints existing.       | 3 to 4 PRs |
+Each PR runs `bun run check`; page PRs also run `bun run test:e2e`.
 
-Each PR runs `bun run check`; PRs that touch pages also run `bun run test:e2e`. Content PRs commit
-regenerated `src/content/generated/*` alongside canonical JSON.
+## 8. Decisions to make before Phase B
 
-## 7. Decisions to make before Phase B
+1. **Axiom immutability.** Recommendation: keep the five axioms at v1.0.0; add `/standards/laws`
+   as sibling doctrine and a mapping section on the axioms page. Do not add axioms.
+2. **One standard or two.** Recommendation: one STD-07 Delegation with parts A to D, and
+   dependency in an STD-06 amendment rather than a new standard. Dependency belongs in the safety
+   case because it is a property of the deployment, not of a grant.
+3. **HITL vocabulary.** Recommendation: retire "human in the loop" as a control name in favor of
+   "intervention specification," with a glossary entry explaining the substitution.
+4. **Object model major version.** Recommendation: 2.0.0 with 1.1.0 kept at its path.
+5. **Corrective standing scope.** Recommendation: Method requires standing for parties who bear
+   consequences and parties whose corrective labor the system depends on, with procedural force
+   and no veto. Broader claims stay in Theory.
+6. **Publishing the frontier scan.** Recommendation: publish as a dated research note with the
+   public-doctrine disclaimer and per-cell sources, not as part of the Method. It is the strongest
+   argument for where the site centers, and it will age.
 
-These are the calls that change the shape of the work. Recommendations are stated; the owner
-decides.
+## 9. Risks
 
-1. **Axiom immutability.** Recommendation: keep the five axioms at v1.0.0 and add "Delegation
-   principles" as a sibling doctrine page rather than adding axioms. Adding axioms breaks the
-   "immutable" promise on the axioms page and every standard that cites the count.
-2. **One standard or two.** Recommendation: one STD-07 with parts A, B, C. Splitting policy
-   validity into STD-08 doubles evidence packs and crosswalks for a concept that only binds
-   through grants.
-3. **HITL vocabulary.** Recommendation: the site stops using "human in the loop" as a control
-   name and uses "intervention specification." Existing prose is rewritten in WS4 and WS6, with a
-   glossary entry that explains the substitution so search still lands.
-4. **Object model major version.** Recommendation: bump `agent-safety-object-model.json` to 2.0.0
-   and keep 1.1.0 served at a versioned path, since external consumers may reference it.
-5. **Corrective standing scope.** Recommendation: the Method requires standing for parties who
-   bear the consequences of a decision and for parties whose corrective labor the system depends
-   on (the axioms derivation already argues the second). Broader claims about affected humans
-   acquiring power over institutions stay in Theory.
+- **The labs eat the first half.** Mitigation: sequencing puts second-generation objects first;
+  the home page leads with Laws V, VII, XI, XII rather than Law I.
+- **Scope inflation into enterprise architecture.** Mitigation: substrate-independence rule and a
+  review-checklist line: "does this page require running the control plane to use the method?"
+- **Theory leaking into requirements.** Mitigation: the guardrail rule in WS1.
+- **Mechanism ID churn.** Mitigation: append-only IDs and the naming test.
+- **Glossary volume.** Mitigation: a term must be cited by a clause, mechanism, or eval case
+  before it is added.
+- **Frontier scan aging or reading as a ranking of safety.** Mitigation: dated, disclaimed,
+  sourced, and outside the Method.
+- **Breaking machine consumers.** Mitigation: versioned schema paths and parity tests.
 
-## 8. Risks
+## 10. Non-goals
 
-- **Scope inflation into enterprise architecture.** Mitigation: the substrate-independence rule
-  in section 3 and a review-checklist line: "does this page require a reader to run the control
-  plane to use the method?"
-- **Theory leaking into requirements.** Mitigation: `check-review-guardrails` gains a rule that
-  MDX in `src/content/standards/` may not link into `src/content/theory/` except from a `Why`
-  section.
-- **Mechanism ID churn.** Mitigation: append-only IDs, naming test in WS4.
-- **Glossary volume.** 211 terms already; about 20 more risks dilution. Mitigation: each new term must be
-  cited by a standard clause, a mechanism, or an eval case before it is added.
-- **Breaking machine consumers.** Mitigation: versioned schema paths and endpoint parity tests.
-
-## 9. Non-goals
-
-- Visual redesign. The type scale and palette work from 2026-08 stands.
+- Visual redesign. The 2026-08 type scale and palette stand.
 - Replacing the three lenses. They are repositioned, not removed.
-- Building a runnable control plane. The OpenAPI and AsyncAPI documents stay reference
-  specifications; the harness stays adapter-based.
-- Renumbering or retiring any existing standard, mechanism, or eval suite.
+- Building a runnable control plane. OpenAPI and AsyncAPI stay reference specifications; the
+  harness stays adapter-based.
+- Renumbering or retiring any existing standard, mechanism, eval suite, or axiom.
+- Taking a position for or against open weights. The method classifies deployments, not models.
