@@ -1,0 +1,436 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/api/schema/revisable-delegation-record.schema.json",
+  "title": "Revisable Delegation Record",
+  "description": "One append-only record in an institution's account of what it believed, what it could do, what it had authorized, what it did, what diverged, and what it revised. Defined by STD-07 (https://ethotechnics.org/standards/std-07-revisable-delegation-record). Records are never edited; a later record supersedes an earlier one.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_id",
+    "kind",
+    "system",
+    "actor",
+    "subject",
+    "summary",
+    "time",
+    "content",
+    "visibility",
+    "integrity"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1.0",
+      "description": "Version of this record shape. Consumers pin a minor version and must not silently drop records carrying an unknown kind."
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable identifier, unique within the emitting system. Recommended form: <system>:<kind>:<local-id>. Never reused, even after supersession."
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "belief",
+        "capability",
+        "authorization",
+        "action",
+        "discrepancy",
+        "revision",
+        "objection",
+        "outcome"
+      ],
+      "description": "Which step of the loop this record belongs to. belief: what the institution holds to be the case. capability: what an assembled human-machine system can do. authorization: which capability has been delegated, to whom, under what ceiling. action: something done under an authorization. discrepancy: observed divergence from an assumption. revision: a record replaced because an assumption failed. objection: a challenge raised by someone with standing. outcome: what an action produced."
+    },
+    "system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Emitting system, e.g. whether, ambit, nextconsensus, refract."
+        },
+        "version": { "type": "string" },
+        "origin": {
+          "type": "string",
+          "format": "uri",
+          "description": "Where the record can be fetched or verified."
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": {
+          "type": "string",
+          "enum": ["human", "model", "service", "institution"]
+        },
+        "on_behalf_of": {
+          "type": "string",
+          "description": "The principal this actor acts for, when the actor is a delegate. The delegation chain is the sequence of on_behalf_of links."
+        }
+      }
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What the record is about: a proposition, a capability, an action surface, a page, a lever. Free text or URI."
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One plain-language sentence a person can read without the content block."
+    },
+    "time": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["as_of", "recorded_at"],
+      "properties": {
+        "as_of": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The moment in the world the record describes. For a belief, the time the belief was held about; for an action, when it was taken."
+        },
+        "recorded_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the record was written. Always distinguished from as_of so a later reader can tell a contemporaneous record from a reconstruction."
+        },
+        "available_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the evidence behind the record became available to the actor. Required for a belief that will later be scored."
+        },
+        "valid_until": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Declared expiry. A record past valid_until is stale, not wrong; it needs a revision or a renewal."
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "description": "Kind-specific body. The per-kind shapes are enforced by the conditional blocks below."
+    },
+    "depends_on": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "record_ids this record rests on. An authorization depends on the beliefs and capabilities that justified it; an action depends on its authorization."
+    },
+    "invalidated_by": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["condition"],
+        "properties": {
+          "condition": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A checkable statement which, if it becomes true, means this record no longer holds."
+          },
+          "check": {
+            "type": "string",
+            "format": "uri",
+            "description": "Where the condition can be evaluated."
+          },
+          "clock": {
+            "type": "string",
+            "description": "ISO 8601 duration within which a matching discrepancy must produce a revision or an objection."
+          }
+        }
+      },
+      "description": "The evidence that would invalidate this record. Empty means the emitter has not said what would change its mind."
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authorization_record": {
+          "type": "string",
+          "description": "record_id of the authorization this record was produced under."
+        },
+        "clauses": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Clause citations, e.g. STD-07.2.1, STD-02.1.1, pinned by version in the emitting system's manifest."
+        }
+      }
+    },
+    "supersedes": {
+      "type": "string",
+      "description": "record_id this record replaces. The earlier record stays in the log unchanged."
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public", "internal", "private"],
+      "description": "Who may read the record. A public record is citable; an internal record is auditable inside the institution; a private record is tenant data."
+    },
+    "contest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["standing"],
+      "properties": {
+        "standing": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Who may object to this record, in plain language: a role, a population, or 'anyone'."
+        },
+        "channel": {
+          "type": "string",
+          "format": "uri",
+          "description": "Where an objection record is accepted."
+        },
+        "reversal_clock": {
+          "type": "string",
+          "description": "ISO 8601 duration within which an accepted objection must produce a revision or a reasoned refusal."
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "hash"],
+      "properties": {
+        "algorithm": { "type": "string", "const": "sha256" },
+        "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 over the canonical serialization: the record without its integrity block, keys sorted recursively, no insignificant whitespace, UTF-8."
+        },
+        "prior_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Hash of the previous record in the same system's stream. Chains the log."
+        },
+        "signature": {
+          "type": "string",
+          "description": "Optional detached signature over hash, format declared by the emitting system."
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "belief" } } },
+      "then": {
+        "properties": {
+          "content": {
+            "type": "object",
+            "required": ["proposition"],
+            "properties": {
+              "proposition": { "type": "string", "minLength": 1 },
+              "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+              "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+              "reference_class": { "type": "string" },
+              "evidence": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "capability" } } },
+      "then": {
+        "properties": {
+          "content": {
+            "type": "object",
+            "required": ["capability_id", "state"],
+            "properties": {
+              "capability_id": { "type": "string", "minLength": 1 },
+              "state": {
+                "type": "string",
+                "enum": ["absent", "configured", "verified", "broken"],
+                "description": "configured means present; verified means a check passed. Availability decisions gate on verified."
+              },
+              "requires": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "authorization" } } },
+      "then": {
+        "properties": {
+          "content": {
+            "type": "object",
+            "required": ["scope", "holder", "granted_by", "mode", "revocation_conditions"],
+            "properties": {
+              "scope": { "type": "string", "minLength": 1 },
+              "holder": { "type": "string", "minLength": 1 },
+              "granted_by": { "type": "string", "minLength": 1 },
+              "mode": {
+                "type": "string",
+                "enum": ["unattended", "confirm", "forbidden"]
+              },
+              "ceiling": {
+                "type": "string",
+                "description": "The bound on the delegation: a spend, a count, a blast radius, a duration."
+              },
+              "expires_at": { "type": "string", "format": "date-time" },
+              "revocation_conditions": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "action" } } },
+      "then": {
+        "required": ["authority"],
+        "properties": {
+          "authority": { "required": ["authorization_record"] },
+          "content": {
+            "type": "object",
+            "required": ["description", "reversible"],
+            "properties": {
+              "description": { "type": "string", "minLength": 1 },
+              "reversible": { "type": "boolean" },
+              "reversal_path": { "type": "string" },
+              "parameters": { "type": "object" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "discrepancy" } } },
+      "then": {
+        "properties": {
+          "content": {
+            "type": "object",
+            "required": ["expected", "observed", "source"],
+            "properties": {
+              "expected": { "type": "string", "minLength": 1 },
+              "observed": { "type": "string", "minLength": 1 },
+              "source": { "type": "string", "minLength": 1 },
+              "severity": { "type": "string", "enum": ["low", "medium", "high"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "revision" } } },
+      "then": {
+        "required": ["supersedes"],
+        "properties": {
+          "content": {
+            "type": "object",
+            "required": ["reason"],
+            "properties": {
+              "reason": { "type": "string", "minLength": 1 },
+              "triggered_by": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "record_ids of the discrepancies or objections that forced the revision."
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "objection" } } },
+      "then": {
+        "properties": {
+          "content": {
+            "type": "object",
+            "required": ["challenges", "standing_basis", "requested"],
+            "properties": {
+              "challenges": {
+                "type": "string",
+                "description": "record_id being objected to."
+              },
+              "standing_basis": { "type": "string", "minLength": 1 },
+              "requested": {
+                "type": "string",
+                "minLength": 1,
+                "description": "What the objector wants: reversal, reconsideration, restriction, withdrawal."
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "outcome" } } },
+      "then": {
+        "properties": {
+          "content": {
+            "type": "object",
+            "required": ["action_record", "result"],
+            "properties": {
+              "action_record": { "type": "string" },
+              "result": { "type": "string", "minLength": 1 },
+              "matched_expectation": { "type": ["boolean", "null"] },
+              "learned": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "schema_version": "0.1.0",
+      "record_id": "whether:action:2026-w36:hiring",
+      "kind": "action",
+      "system": { "id": "whether", "version": "0.1.0", "origin": "https://whether.work/brief/2026-w36" },
+      "actor": { "id": "whether-weekly-brief", "kind": "service", "on_behalf_of": "operator" },
+      "subject": "hiring pace",
+      "summary": "Held hiring at replacement-only under a Guarded Expansion posture.",
+      "time": { "as_of": "2026-09-01T00:00:00Z", "recorded_at": "2026-09-01T13:05:00Z", "valid_until": "2026-09-08T00:00:00Z" },
+      "content": {
+        "description": "Pause net-new requisitions; backfill only.",
+        "reversible": true,
+        "reversal_path": "Resume trigger: tightness below 60 for two consecutive weeks."
+      },
+      "depends_on": ["whether:belief:2026-w36:regime"],
+      "invalidated_by": [
+        { "condition": "tightness score falls below 60 for two consecutive weeks", "check": "https://whether.work/api/weekly", "clock": "P7D" }
+      ],
+      "authority": { "authorization_record": "operator:authorization:weekly-pacing", "clauses": ["STD-07.2.1"] },
+      "visibility": "public",
+      "contest": { "standing": "any operator reading the brief", "channel": "https://github.com/zz-plant/whether/issues", "reversal_clock": "P7D" },
+      "integrity": { "algorithm": "sha256", "hash": "0000000000000000000000000000000000000000000000000000000000000000" }
+    },
+    {
+      "schema_version": "0.1.0",
+      "record_id": "nextconsensus:belief:FF-001",
+      "kind": "belief",
+      "system": { "id": "nextconsensus", "origin": "https://nextconsensus.com/forecast/ff-001/" },
+      "actor": { "id": "founder", "kind": "human" },
+      "subject": "NCCN NSCLC guideline: sunvozertinib first-line listing",
+      "summary": "Registered a probability that the guideline lists the drug first-line before the resolution window closes.",
+      "time": { "as_of": "2026-08-17T00:00:00Z", "recorded_at": "2026-08-17T00:00:00Z", "available_at": "2026-08-16T00:00:00Z" },
+      "content": {
+        "proposition": "Frozen proposition text as registered.",
+        "probability": 0.35,
+        "reference_class": "guideline first-line listing within 12 months of pivotal data",
+        "evidence": ["SRC-001", "SRC-002"]
+      },
+      "invalidated_by": [{ "condition": "resolution rule met or window closes", "clock": "P365D" }],
+      "visibility": "public",
+      "integrity": { "algorithm": "sha256", "hash": "0000000000000000000000000000000000000000000000000000000000000000" }
+    }
+  ]
+}

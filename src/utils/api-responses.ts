@@ -295,6 +295,10 @@ export const createAgentIndexResponse = (options: {
       apiReference: "/api",
       agentObjectModel: "/agents/spec",
       agentObjectSchema: "/agents/spec.json",
+      revisableDelegationRecord:
+        "/standards/std-07-revisable-delegation-record",
+      revisableDelegationRecordSchema:
+        "/api/schema/revisable-delegation-record.schema.json",
     },
     recommended: {
       quickStart: [
