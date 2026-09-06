@@ -490,6 +490,14 @@ export const structuredData = {
           <code>kind</code>.
         </p>
         <p>
+          <a href="/diagnostics/record-conformance">
+            The Record Conformance Checker
+          </a>{" "}
+          reads a stream and returns the level it earns, against the level its
+          emitter declares. It runs in the browser and uploads nothing, because
+          these records are internal or private by design.
+        </p>
+        <p>
           A TypeScript validator, canonical serializer, and hash helper that
           mirror the schema live in this site's source at
           <code>src/utils/revisable-delegation-record.ts</code>; a test
@@ -541,13 +549,50 @@ export const structuredData = {
           from Level 0.
         </p>
         <p>
-          Two rules for adopters. First, map the existing log; do not build a
+          Two of them now emit the shape. The weekly operating brief exports
+          its decision memory as <code>belief</code> records at Level 1,
+          mapping the assumption snapshot it already kept onto
+          <code>invalidated_by</code>. The capability graph emits
+          <code>capability</code>, <code>authorization</code>,
+          <code>discrepancy</code> and <code>revision</code> at Level 2, and
+          its gate now narrows an unattended grant whose prerequisite has
+          started failing — enforced at the decision, independently of whether
+          the record was ever written, which is the relationship between
+          Article III and a running system that this standard is trying to
+          describe.
+        </p>
+        <p>
+          Until this draft nothing read either stream, and a record format with
+          emitters and no readers is a documentation format. The{" "}
+          <a href="/diagnostics/record-conformance">
+            Record Conformance Checker
+          </a>{" "}
+          is the reader: it grades a stream against the level its emitter
+          declares, so a claim can be contradicted by something other than good
+          faith. No emitting system consumes another's records yet, which is a
+          different and still-open gap.
+        </p>
+        <p>
+          Three rules for adopters. First, map the existing log; do not build a
           second one. A system that already writes an assumption snapshot has
           <code>invalidated_by</code>; it needs to say so in this shape.
-          Second, declare what is not there. A capability graph whose
-          authority table enforces nothing emits <code>authorization</code>
-          records with <code>mode</code> set honestly and no
-          <code>action</code> records claiming to have run under them.
+        </p>
+        <p>
+          Second, declare what is not there. A system whose environment adapter
+          is a fixture emits no <code>action</code> records, because an action
+          record from it would attest to something that did not happen in the
+          world; it says so beside the level it claims rather than leaving a
+          reader to assume otherwise.
+        </p>
+        <p>
+          Third, validate against a consumer rather than against yourself. The
+          first system to emit Level 2 records had every field of every record
+          matching this schema and was rejected by the validator on all four,
+          because its store wrote <code>2026-09-06 20:35:26</code> where
+          <code>time.as_of</code> requires an ISO 8601 instant. A serializer
+          that is correct about structure and wrong about a format is the
+          defect this shape exists to surface, and it is not findable from
+          inside the system that produced it.
         </p>
       </section>
     </div>
