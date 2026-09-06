@@ -1,0 +1,81 @@
+---
+slug: "std-08"
+title: "STD-08 Evidence Pack"
+description: "Tiered evidence, artifact inventory, and freshness rules for the terms of a delegation: authority as a lease, policy validity, intervention, and correction symmetry."
+permalink: "/evidence-packs/std-08"
+eyebrow: "Evidence Pack"
+standardId: "STD-08"
+standardTitle: "Delegation"
+published: "2026-09-06"
+updated: "2026-09-06"
+sections:
+  - title: "Tiered evidence model"
+    content: |
+      **Tier 0 (minimum):** Proof the objects exist and are populated. Evidence: grant register export with state and state_history, policy register export with review_triggers and expires_at, one intervention specification per confirm-mode delegation.
+
+      **Tier 1 (operational):** Proof the states move. Evidence: renewal records naming what was examined, expansion transitions with their own evidence, fired policy triggers with the status changes they produced, measured approval rates and approval times.
+
+      **Tier 2 (resilient):** Proof the terms hold under pressure. Evidence: an expansion refused or narrowed for want of correction capacity, a reconsideration opened by near-unanimous approval, a grant moved to review_required by a policy expiry with no incident to prompt it.
+
+      Grant, policy, and intervention records are expected to be emitted as STD-07 records at Level 2 or better, so the pack is an export rather than a second bookkeeping system.
+    required: true
+  - title: "Artifact inventory"
+    content: |
+      **Grant register export:** Every live grant with grant_id, scope, state, until, renewal_basis, policy_refs, intervention_ref, and the full state_history including renewal and expansion transitions.
+
+      **Policy register export:** Every policy a live grant cites, with policy_id, version, provenance, assumptions, review_triggers, expires_at, and status, plus the grants that depend on each.
+
+      **Intervention roster:** One row per intervention specification: spec_id, owner, mechanism, actions_preventable, states_alterable, on_disagreement, cost_to_exercise, reach_time_target, and the delegations that cite it.
+
+      **Expansion decisions log:** Every widening in the period, with the evidence produced for it, the correction-capacity evidence produced alongside it, the deciding authority, and the outcome including refusals and narrowings.
+
+      **Capability catalog snapshot:** What the assembled system could do at the date of the snapshot, so that grant scope can be read against capability rather than against intent.
+    required: true
+  - title: "Freshness rules"
+    content: |
+      - Grant register export: no older than the shortest renewal interval in it, and never older than 90 days.
+      - Policy register export: refreshed on any status change, and in full at each safety-case refresh.
+      - Intervention roster: refreshed whenever a specification changes and at each measurement period boundary.
+      - Approval-rate and approval-time measurements: per review period, with the period length stated.
+      - Expansion decisions log: appended at each decision; an empty period is recorded as empty, not omitted.
+      - Capability catalog snapshot: no older than the last material change to tools, models, integrations, or data access.
+      - Any artifact past its freshness rule is presented as stale. A stale artifact is not evidence of the current state.
+    required: true
+  - title: "Clause evidence checklist"
+    content: |
+      **Part A, authority as lease.** Renewal records naming what was examined and who looked (§1.1, §1.2). State_history entries with reason `expansion` and their evidence references (§1.3, §1.4).
+
+      **Part B, policy validity.** Policy records with all five required fields (§2.1). Grants with version-pinned policy_refs (§2.2). Trigger-fire log with the resulting status change and the elapsed time against the trigger clock (§2.3). Dependent-grant transitions and the reconsiderations opened (§2.4). Expiry report showing no live grant resting on an expired policy (§2.5).
+
+      **Part C, intervention.** One specification per oversight claim, with all eight fields (§3.1). Confirm-mode grants matched to intervention_ref, and the list of confirm-mode grants with none (§3.2). Specifications with empty states_alterable, and how each is labeled (§3.3). Approval rate, median and tail time per approval, share reaching the owner inside reach_time_target (§3.4). Reconsiderations opened on near-unanimous approval (§3.5).
+
+      **Part D, correction symmetry.** Correction-capacity statements across the seven components with their evidence (§4.1). Expansion decisions paired with capacity evidence, including refusals (§4.2). Renewal-time capacity re-examinations against actual volume (§4.3). Institutional reversibility and correction_latency drawn from the dependency record (§4.4).
+    required: true
+  - title: "How teams fake this"
+    content: |
+      - The grant register is generated from the permission system, so it reports configuration rather than authorization decisions and every grant looks current.
+      - Renewal is a calendar event with a checkbox, and renewal_basis is copied forward unchanged from the original grant.
+      - Expansion is recorded as a renewal, so state_history shows a stable grant that has quietly quadrupled in scope.
+      - Policy records exist, but review_triggers name conditions nobody measures, so no trigger has ever fired.
+      - Intervention specifications are written for the pilot roster and never updated when volume rises by an order of magnitude.
+      - Approval rate is reported as a reliability metric, with 99 percent approval offered as evidence the system is safe.
+      - Correction capacity is a list of tools the institution owns rather than a route anyone has traveled end to end.
+    required: true
+  - title: "What auditors ask"
+    content: |
+      - Show the last three renewals and, for each, what was examined and what would have been visible had the grant been failing.
+      - Show every expansion in the period and the correction-capacity evidence produced at the same decision.
+      - Pick a live grant: name its policies, their versions, and their expiry dates, then show the grant's state.
+      - Show a fired policy trigger and the time between the fire and the status change on every dependent grant.
+      - Pick a control described as human review: show its specification and the states its owner can alter.
+      - Show approval rates and time-per-approval for the last two periods, and what happened where approval was near-unanimous.
+      - Show one expansion that was refused or narrowed, and why.
+    required: true
+checklists:
+  - title: "Referenced by"
+    items:
+      - "Standard: STD-08 Delegation"
+      - "Record format: STD-07 Revisable Delegation Record"
+      - "Crosswalk controls: CTRL-01, CTRL-05, CTRL-06, CTRL-07"
+      - "Companion pack: STD-06 Evidence Pack (dependency ledger and withdrawal rehearsal)"
+---

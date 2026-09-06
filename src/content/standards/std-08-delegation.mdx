@@ -1,0 +1,611 @@
+---
+title: "STD-08 — Delegation"
+description: "The terms a delegation must satisfy while it stands: authority held as a lease, policy kept valid, human oversight resolved to an intervention specification, and correction capacity kept proportional to authority."
+permalink: "/standards/std-08-delegation"
+eyebrow: "Standard"
+seoTitle: "STD-08 — Delegation"
+version: "0.1"
+publishedTime: "2026-09-06T00:00:00.000Z"
+mainClass: "page page--wide standard-document"
+anchorLinks:
+  - href: "#relationship-to-std-07"
+    label: "Relationship to STD-07"
+  - href: "#scope"
+    label: "Scope"
+  - href: "#objects"
+    label: "Objects this standard uses"
+  - href: "#part-a"
+    label: "Part A: Authority as lease"
+  - href: "#part-b"
+    label: "Part B: Policy validity"
+  - href: "#part-c"
+    label: "Part C: Intervention"
+  - href: "#part-d"
+    label: "Part D: Correction symmetry"
+  - href: "#anti-patterns"
+    label: "Anti-patterns"
+---
+
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+
+export const reliedOnClauses = [
+  {
+    clause: "STD-07 §2.1",
+    holds: "Every action names the authorization record it ran under.",
+    used: "Part A assumes an action can be traced to a grant, and adds nothing about tracing.",
+  },
+  {
+    clause: "STD-07 §2.2",
+    holds:
+      "Every authorization records scope, holder, grantor, mode, ceiling, expiry, and revocation conditions.",
+    used: "Part A adds what renewal and expansion must show. Part C resolves the confirm mode into a specification.",
+  },
+  {
+    clause: "STD-07 §3.1",
+    holds: "A record lists what it rests on in depends_on.",
+    used: "Part B treats the policies a grant rests on as records in their own right.",
+  },
+  {
+    clause: "STD-07 §3.2",
+    holds:
+      "A record lists the checkable conditions that would invalidate it, with a clock.",
+    used: "Part B binds a fired policy trigger to a status change on the policy and on the grants that depend on it.",
+  },
+  {
+    clause: "STD-07 §3.3",
+    holds:
+      "A discrepancy that matches an invalidation condition owes a revision or an objection within the clock.",
+    used: "Parts B and C rely on this for the handling of a fired trigger and a rejected approval.",
+  },
+  {
+    clause: "STD-07 §3.4",
+    holds:
+      "An authorization is valid only while the capability it depends on is verified, not merely configured.",
+    used: "Part A relies on this for capability gating and does not restate it.",
+  },
+  {
+    clause: "STD-07 §4.1",
+    holds: "A record that affects outsiders declares standing and a channel.",
+    used: "Part C relies on the declared channel for objections to an intervention specification.",
+  },
+  {
+    clause: "STD-07 §4.2",
+    holds:
+      "An accepted objection produces a revision or a reasoned refusal within the reversal clock.",
+    used: "Part D counts an answerable objection route as one component of correction capacity, and does not restate the duty to answer.",
+  },
+  {
+    clause: "STD-07 §4.3",
+    holds: "Every record carries a visibility marking.",
+    used: "All parts inherit it for grant, policy, and intervention records.",
+  },
+];
+
+export const objects = [
+  {
+    object: "authority-grant",
+    fields:
+      "state, state_history, until, renewal_basis, evidence_basis, policy_refs, intervention_ref, dependency_ref",
+    part: "A, B, C, D",
+  },
+  {
+    object: "policy-record",
+    fields:
+      "provenance, assumptions, review_triggers, expires_at, status, supersedes",
+    part: "B",
+  },
+  {
+    object: "intervention-spec",
+    fields:
+      "owner, information_available, actions_preventable, states_alterable, on_disagreement, incentives, cost_to_exercise, reach_time_target, non_retaliation, mechanism",
+    part: "C",
+  },
+  {
+    object: "reconsideration",
+    fields: "trigger, subject, outcome, evidence_delta",
+    part: "A, B, C",
+  },
+  {
+    object: "dependency-record",
+    fields: "correction_latency, reversibility, preserved_capacities",
+    part: "D, with STD-06",
+  },
+];
+
+export const antiPatterns = [
+  {
+    title: "Renewal by silence",
+    failure:
+      "A grant is renewed because no incident was recorded against it in the review period.",
+    counterfactual:
+      "Renewal produces evidence that the grant's assumptions still hold, sized to how long and how consequentially it has run.",
+    warning:
+      "A short, low-consequence grant may legitimately renew on a light basis, provided the basis is stated.",
+  },
+  {
+    title: "Expansion by accretion",
+    failure:
+      "Scope grows one action class at a time, each step too small to trigger a review, until the grant bears no relation to what was justified.",
+    counterfactual:
+      "Each widening is a transition in state_history with its own evidence and its own correction-capacity check.",
+    warning:
+      "Re-issuing an identical grant after expiry is a renewal, not an expansion.",
+  },
+  {
+    title: "The approval that changes nothing",
+    failure:
+      "A reviewer sees each action and clicks approve. Rejection routes to a queue nobody drains, and the action proceeds either way.",
+    counterfactual:
+      "The specification names the states the reviewer can alter and what happens when they disagree.",
+    warning:
+      "An advisory review is legitimate; recording it as a control is not.",
+  },
+  {
+    title: "Policy as ground truth",
+    failure:
+      "A threshold set during a pilot two years ago is still the reason a grant is considered justified.",
+    counterfactual:
+      "The policy carries an expiry and review triggers, and a grant that rests on an expired policy is in review_required.",
+    warning:
+      "A policy may be renewed on unchanged evidence if the renewal is recorded.",
+  },
+];
+
+export const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://ethotechnics.org/standards/std-08-delegation",
+  headline: "STD-08 — Delegation",
+  description:
+    "The terms a delegation must satisfy while it stands: authority as a lease, policy validity, intervention, and correction symmetry.",
+  url: "https://ethotechnics.org/standards/std-08-delegation",
+  datePublished: "2026-09-06",
+  version: "0.1",
+  identifier: "STD-08",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: "https://ethotechnics.org",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: "https://ethotechnics.org/standards",
+  },
+};
+
+<StandardStatusSummary slug="std-08-delegation" />
+
+<article class="standard-document">
+  <header class="standard-header">
+    <div>
+      <p class="standard-header__id">STANDARD STD-08</p>
+      <h2 class="standard-header__title">Delegation</h2>
+    </div>
+    <dl class="standard-header__meta">
+      <div>
+        <dt>Document ID</dt>
+        <dd>STD-08</dd>
+      </div>
+      <div>
+        <dt>Version</dt>
+        <dd>0.1 (Working draft)</dd>
+      </div>
+      <div>
+        <dt>Effective Date</dt>
+        <dd>TBD (proposed 2026)</dd>
+      </div>
+      <div>
+        <dt>Authority</dt>
+        <dd>The Institute of Ethotechnics</dd>
+      </div>
+    </dl>
+  </header>
+
+  <div class="standard-body">
+    <div class="standard-main">
+      <section id="relationship-to-std-07" class="standard-section">
+        <h2>Relationship to STD-07</h2>
+        <p>
+          <a href="/standards/std-07-revisable-delegation-record">
+            STD-07, the Revisable Delegation Record
+          </a>{" "}
+          defines the record format. It says how an authorization, an action, a
+          discrepancy, and an objection must be written down so that a later
+          reader can reconstruct what was believed and what was permitted. This
+          standard governs the terms of the delegation those records describe:
+          what a grant must show to keep standing, what makes the policy it
+          rests on still valid, what a human reviewer must be able to do before
+          the review counts as a control, and how much correction capacity the
+          delegation owes.
+        </p>
+        <p>
+          STD-08 does not restate STD-07. Where the record format already binds
+          an obligation, this standard cites it. The clauses below add only the
+          terms STD-07 leaves open, and an implementation of STD-08 presupposes
+          STD-07 Level 2 conformance or better.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">STD-07 clause</th>
+              <th scope="col">What it already binds</th>
+              <th scope="col">How STD-08 uses it</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reliedOnClauses.map((entry) => (
+              <tr>
+                <td>
+                  <code>{entry.clause}</code>
+                </td>
+                <td>{entry.holds}</td>
+                <td>{entry.used}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="scope" class="standard-section">
+        <h2>Scope</h2>
+        <p>
+          This standard applies to any delegation of consequential agency: a
+          grant under which a model, an agent, a rules engine, a service, or a
+          person acting on the institution's behalf may take actions that change
+          someone's status, access, resources, or risk. It is
+          substrate-neutral. Nothing in it depends on which component makes the
+          decision, and nothing in it requires a particular control plane.
+        </p>
+        <p>
+          The question STD-08 serves is not whether the delegate is capable. It
+          is whether the delegation still deserves to stand. Four things can
+          decay while the system keeps working: the justification behind the
+          grant, the policy the justification rests on, the human intervention
+          that was counted as a control, and the institution's capacity to
+          correct what the delegate does. Each is one part below.
+        </p>
+        <p>
+          The standard binds Laws II, III, IV, IX, and XI of the{" "}
+          <a href="/standards/laws">
+            Laws for Engineering Delegated Intelligence
+          </a>
+          . Laws V, VI, and XII are bound by{" "}
+          <a href="/standards/std-06-human-impact-safety-case">STD-06</a>{" "}
+          because dependence is a property of the deployment rather than of a
+          single grant. Law VII is bound by{" "}
+          <a href="/standards/std-02-contestability-recourse">STD-02</a>.
+        </p>
+      </section>
+
+      <section id="objects" class="standard-section">
+        <h2>Objects this standard uses</h2>
+        <p>
+          Each clause names fields on published schemas rather than on a product
+          the institution must buy. An institution that keeps the same
+          information in a spreadsheet conforms if it can export the named
+          fields.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Object</th>
+              <th scope="col">Fields used</th>
+              <th scope="col">Part</th>
+            </tr>
+          </thead>
+          <tbody>
+            {objects.map((entry) => (
+              <tr>
+                <td>
+                  <code>{entry.object}</code>
+                </td>
+                <td>
+                  <code>{entry.fields}</code>
+                </td>
+                <td>{entry.part}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="part-a" class="standard-section">
+        <h2>Part A: Authority as lease (Laws II, XI)</h2>
+        <p class="standard-article-quote">
+          "A grant is a lease, not a title. Nothing about it renews itself."
+        </p>
+        <p>
+          STD-07 §2.2 already requires a delegation to record its scope, holder,
+          grantor, mode, ceiling, expiry, and revocation conditions, and holds
+          that a delegation with no revocation conditions is a transfer rather
+          than a delegation. What it does not say is what has to be true for the
+          lease to be extended, or what happens when the scope grows. This part
+          says both.
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§1.1</span>
+            Renewal burden scales: The evidence a renewal must produce MUST rise
+            with the duration the grant has already run and the consequence of
+            the actions it authorizes. The grant states, in
+            <code>renewal_basis</code>, what that evidence is before the review
+            period begins, so the bar cannot be set after the result is known.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.2</span>
+            Silence is not renewal: A renewal MUST NOT rest solely on the
+            absence of observed failure. The renewal record names what was
+            examined, what would have been visible if the grant had been
+            failing, and who looked. A grant renewed on an unexamined quiet
+            period is recorded as unrenewed and moves to
+            <code>review_required</code>.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.3</span>
+            Expansion is a new authorization: Widening a grant's scope,
+            population, action classes, or ceiling MUST be taken as its own
+            authorization decision, with its own <code>evidence_basis</code> and
+            its own correction-capacity check under §4.2. It is not a
+            continuation of the existing authorization and it does not inherit
+            the earlier decision's evidence.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.4</span>
+            Expansion is recorded as a transition: Every widening MUST appear in
+            <code>state_history</code> as a transition whose reason is
+            <code>expansion</code>, with the date, the deciding authority, and a
+            reference to the evidence produced under §1.3. Scope that grew
+            without such an entry is treated as ungranted scope.
+          </li>
+        </ol>
+      </section>
+
+      <section id="part-b" class="standard-section">
+        <h2>Part B: Policy validity (Law III)</h2>
+        <p class="standard-article-quote">
+          "Policy is a state of the system, not an input it consumed once."
+        </p>
+        <p>
+          STD-07 §3.1 and §3.2 already require a record to say what it rests on
+          and what would invalidate it. A grant that names its policies in
+          <code>depends_on</code> satisfies that. This part addresses what those
+          policies must themselves be, and what a fired trigger does to the
+          grants downstream of it.
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§2.1</span>
+            Policy is a record: A policy a grant relies on MUST itself be a
+            record carrying <code>provenance</code>, <code>assumptions</code>,
+            <code>review_triggers</code>, <code>expires_at</code>, and
+            <code>status</code>. A threshold, model card claim, or eligibility
+            rule held only in configuration or in a deck is not a policy record
+            and cannot be cited as the basis of a grant.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.2</span>
+            Grants name their policies: A grant MUST list in
+            <code>policy_refs</code> every policy record its
+            <code>evidence_basis</code> depends on, pinned to a
+            <code>version</code>. An unpinned reference is a reference to
+            whatever the policy has since become.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.3</span>
+            A fired trigger changes status: When a condition in
+            <code>review_triggers</code> is met, the policy MUST move to
+            <code>review_required</code> within the trigger's declared clock.
+            Recording the observation without the status change does not
+            satisfy this clause.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.4</span>
+            Dependent grants follow: Every grant whose
+            <code>policy_refs</code> include a policy in
+            <code>review_required</code> or <code>suspended</code> MUST move to
+            <code>review_required</code> within the same clock, and a
+            reconsideration is opened against each. The grant may be confirmed
+            and returned to <code>allowed</code>; it may not stay in
+            <code>allowed</code> without that decision being taken.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.5</span>
+            Expiry ends justification: A policy past its
+            <code>expires_at</code> MUST NOT justify a live grant. Either the
+            policy is renewed as a new version with fresh provenance, or the
+            grants resting on it lose their basis and move to
+            <code>review_required</code>. Expiry is not a warning state.
+          </li>
+        </ol>
+      </section>
+
+      <section id="part-c" class="standard-section">
+        <h2>Part C: Intervention (Law IX)</h2>
+        <p class="standard-article-quote">
+          "A human who can only approve is not in the loop. They are beside it."
+        </p>
+        <p>
+          STD-07 §2.2 records whether a delegation runs unattended, on confirm,
+          or forbidden. That is the mode. It says nothing about whether the
+          confirming human can see the problem, prevent the action, alter the
+          state, or survive disagreeing. This part is the gap the record format
+          leaves, and it is where the phrase "a human reviews" stops being an
+          answer.
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§3.1</span>
+            Every oversight claim resolves to a specification: Any requirement,
+            control description, or assurance claim asserting that a human
+            reviews, approves, supervises, or monitors a delegated action MUST
+            resolve to an intervention specification naming
+            <code>owner</code>, <code>information_available</code>,
+            <code>actions_preventable</code>, <code>states_alterable</code>,
+            <code>on_disagreement</code>, <code>incentives</code>,
+            <code>cost_to_exercise</code>, and <code>reach_time_target</code>.
+            An unresolved oversight claim is a finding.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.2</span>
+            Confirm mode is specified: Every delegation recorded under STD-07
+            §2.2 with mode <code>confirm</code> MUST carry
+            <code>intervention_ref</code> pointing at that specification. A
+            confirm mode with no specification behind it is recorded as
+            unattended, because that is how it behaves.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.3</span>
+            Approval without state change is not a control: If
+            <code>states_alterable</code> is empty, or the actions the owner can
+            prevent are not the actions the delegation takes, the arrangement
+            MUST NOT be recorded as a control, cited in a safety case, or
+            counted toward a correction-capacity claim under §4.1. It may be
+            recorded as advisory review, under that name.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.4</span>
+            Intervention is measured: The institution MUST measure, per
+            specification and per review period, the approval rate, the median
+            and tail time spent per approval, and the share of approvals
+            reaching the owner inside <code>reach_time_target</code>. An
+            unmeasured specification is a claim, not a control.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.5</span>
+            Near-unanimous approval is a finding: Sustained approval rates at or
+            near unanimity, or a median approval time too short for the
+            information named in <code>information_available</code> to have been
+            read, MUST open a reconsideration of the specification. The finding
+            is not that the reviewer is at fault. It is that the control has not
+            been shown to be one.
+          </li>
+        </ol>
+      </section>
+
+      <section id="part-d" class="standard-section">
+        <h2>Part D: Correction symmetry (Law IV)</h2>
+        <p class="standard-article-quote">
+          "Delegating the authority to act is delegating the capacity to be
+          wrong at scale."
+        </p>
+        <p>
+          STD-07 §4.2 obliges an answer to an accepted objection within its
+          clock. That is one component of correction and this standard relies on
+          it. What is left open is the proportionality: how much correction
+          capacity a delegation of a given size owes, and what happens to that
+          ratio when the delegation grows.
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§4.1</span>
+            Correction capacity is stated: A grant MUST state its correction
+            capacity across seven components: detection, that a wrong action can
+            be noticed; challenge, that it can be raised; standing, that someone
+            with exposure may raise it; review, that it will be examined by a
+            named party within a clock; authority to modify, that the examiner
+            can change the grant or the decision; reversible state transitions,
+            that the affected state can be returned; and practical ability to
+            operate after correction, that the institution can absorb the
+            reversal. Each component names its evidence.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.2</span>
+            Expansion requires matching capacity: Authority MUST NOT be expanded
+            under §1.3 without a matching expansion of correction capacity,
+            evidenced at the same decision. Where capacity cannot be shown to
+            have grown with scope, the expansion is refused or the scope is
+            narrowed to what the existing capacity covers.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.3</span>
+            Capacity is reviewed with scope: Correction capacity MUST be
+            re-examined at every renewal under §1.1, against the volume and
+            consequence of what the grant actually did in the period rather than
+            what it was expected to do. Capacity that has degraded moves the
+            grant to <code>review_required</code>.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.4</span>
+            Practical ability is evidenced, not asserted: The seventh component
+            of §4.1 SHOULD be evidenced from the deployment's dependency record
+            under
+            <a href="/standards/std-06-human-impact-safety-case">STD-06</a>,
+            using <code>correction_latency</code> and the institutional level of
+            <code>reversibility</code>. A correction the institution cannot
+            afford to make is not counted as capacity.
+          </li>
+        </ol>
+      </section>
+
+      <section id="anti-patterns" class="standard-section">
+        <h2>Anti-patterns and counterfactuals</h2>
+        <p>
+          Use these to detect delegations that satisfy the record format while
+          failing the terms.
+        </p>
+        <ul class="standard-clauses">
+          {antiPatterns.map((pattern) => (
+            <li>
+              <strong>{pattern.title}:</strong> {pattern.failure}
+              <br />
+              <span class="muted">
+                Counterfactual: {pattern.counterfactual}
+              </span>
+              <br />
+              <span class="muted">
+                False-positive warning: {pattern.warning}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+
+    <aside class="standard-sidebar">
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">Related standards</p>
+        <ul>
+          <li>
+            <a href="/standards/std-07-revisable-delegation-record">
+              STD-07: Revisable Delegation Record
+            </a>
+          </li>
+          <li>
+            <a href="/standards/std-06-human-impact-safety-case">
+              STD-06: Human Impact Safety Case
+            </a>
+          </li>
+          <li>
+            <a href="/standards/std-02-contestability-recourse">
+              STD-02: Contestability &amp; Recourse
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">STD-08 references</p>
+        <ul>
+          <li>
+            <a href="/evidence-packs/std-08">STD-08 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/standards/laws">Laws for Engineering Delegated Intelligence</a>
+          </li>
+          <li>
+            <a href="/standards/enforceable-governance-crosswalks">
+              Governance crosswalks
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</article>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(structuredData, null, 2)}
+  is:inline
+/>

@@ -7,7 +7,7 @@ eyebrow: "Evidence Pack"
 standardId: "STD-06"
 standardTitle: "Human Impact Safety Case"
 published: "2025-06-01"
-updated: "2025-06-01"
+updated: "2026-09-06"
 sections:
   - title: "Tiered evidence model"
     content: |
@@ -28,6 +28,10 @@ sections:
       **Disclosure packet:** Receipt, reason, appeal path, and clock visibility for affected people.
 
       **Do-not-deploy boundary register:** Active boundary breaches and the last remediation review date.
+
+      **Dependency ledger:** Dependents with criticality, substitution cost and its basis, retained expertise with the date it was last exercised, alternatives with their status, correction latency, and the exposure score with each of its inputs.
+
+      **Withdrawal rehearsal report:** Date, scope, participants, outcome, and what the rehearsal showed at the technical, operational, and institutional levels of reversibility.
     required: true
   - title: "Test battery evidence"
     content: |
@@ -36,6 +40,7 @@ sections:
       - Contestability access audit (1-step test, no-paywall).
       - Burden ceiling measurements with UX flow maps.
       - Disclosure latency report with receipt delivery timestamps.
+      - Withdrawal rehearsal with measured correction latency and a report per reversibility level.
     required: true
   - title: "Portability checklist"
     content: |
@@ -50,6 +55,20 @@ sections:
       - Provide the last three halt drill receipts with time-to-halt measurements.
       - Demonstrate remedy clock compliance with verification evidence.
       - Show the public-facing disclosure packet used for affected people.
+      - Show the dependency ledger and how the exposure score moved since the last refresh.
+      - Show the last withdrawal rehearsal report and what it found at the institutional level.
+    required: true
+  - title: "Dependency and reversibility checklist"
+    content: |
+      Evidence for STD-06 Article V. Each line maps to a clause.
+
+      - Dependency record populated with dependents, substitution cost, retained expertise, alternatives, last rehearsal, and correction latency (§5.1).
+      - Exposure score published with dependency depth, substitution cost, and correction latency shown separately (§5.2).
+      - Reversibility evidenced at all three levels, with unevidenced levels marked not evidenced rather than feasible (§5.3).
+      - Preserved capacities listed with a reason and a named owner, and any erosion recorded as a governance event (§5.4).
+      - No expansion of scope, population, or authority while institutional reversibility is unevidenced (§5.5).
+      - Withdrawal rehearsed on the published cadence, at least annually where exposure is non-trivial, and before any expansion (§5.6).
+      - Dependency record refreshed before any renewal or expansion decision that cites it (§5.7).
     required: true
 checklists:
   - title: "Referenced by"
@@ -57,4 +76,5 @@ checklists:
       - "Standard: STD-06 Safety Case"
       - "Required by bindings: Safety case bindings"
       - "Verified by: Validators (VAL-01–VAL-03)"
+      - "Correction symmetry: STD-08 Part D and the STD-08 Evidence Pack"
 ---

@@ -20,6 +20,17 @@ describe("buildStandardsGroupingAndFilters", () => {
     expect(result.standardsLaneCounts.core).toBeGreaterThan(0);
   });
 
+  it("places STD-08 in the core lane", () => {
+    const result = buildStandardsGroupingAndFilters(standardsContent.standards);
+
+    expect(result.standardsLaneById.get("STD-08")).toBe("core");
+    expect(
+      result.standardsGrouping
+        .find((group) => group.lane === "core")
+        ?.items.map((item) => item.id),
+    ).toContain("STD-08");
+  });
+
   it("preserves sort stability for identical published dates", () => {
     const standards: StandardEntry[] = [
       {

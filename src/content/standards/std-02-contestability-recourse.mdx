@@ -7,10 +7,16 @@ seoTitle: "STD-02 — Contestability & Recourse"
 publishedTime: "2025-06-01T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
-  - href: "#articles"
-    label: "Articles I–V"
   - href: "#related-explainers"
     label: "Related explainers"
+  - href: "#articles"
+    label: "Articles I–V"
+  - href: "#standing-mechanism"
+    label: "Standing mechanism"
+  - href: "#prospective-auditability"
+    label: "Prospective auditability"
+  - href: "#publication-history"
+    label: "Publication history"
 ---
 
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
@@ -96,7 +102,8 @@ export const structuredData = {
     "The standard defining contestability, review, and remedy obligations for automated decisions.",
   url: "https://ethotechnics.org/standards/std-02-contestability-recourse",
   datePublished: "2026-01-01",
-  version: "0.9",
+  dateModified: "2026-09-06",
+  version: "1.0",
   identifier: "STD-02",
   publisher: {
     "@type": "Organization",
@@ -130,7 +137,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.9 (Draft for Review)</dd>
+        <dd>1.0 (Draft for Review)</dd>
       </div>
       <div>
         <dt>Effective Date</dt>
@@ -165,8 +172,8 @@ export const structuredData = {
         </div>
       </section>
 
-      <section class="standard-section">
-        <h2>Article I: The Right to Notice & Reasons</h2>
+      <section id="articles" class="standard-section">
+        <h2>Article I: The Right to Notice &amp; Reasons</h2>
         <p class="standard-article-quote">
           "No decision shall be final without specific, actionable reasons."
         </p>
@@ -268,6 +275,140 @@ export const structuredData = {
             Audit Trails: Audit trails link decisions to evidence, reviewers, and outcomes for every contested case.
           </li>
         </ol>
+      </section>
+
+      <section id="standing-mechanism" class="standard-section">
+        <h2>Article VIII: The Standing Mechanism</h2>
+        <p class="standard-article-quote">
+          "A channel that accepts a complaint is not standing. Standing is who
+          may challenge what, answered by whom, by when, against what standard,
+          with what possible outcomes."
+        </p>
+        <p>
+          Contestability requires seven things to be named together: who may
+          challenge, what may be challenged, what evidence is admissible, who
+          is obliged to respond, by what deadline, against what standard of
+          review, and which state transitions a successful challenge can
+          produce. Named separately, or named in a policy nobody can cite, they
+          do not compose into a route.
+        </p>
+        <p>
+          <a href="/standards/std-07-revisable-delegation-record">STD-07</a>
+          §4.1 already requires a record that affects outsiders to declare who
+          may object and where, and §4.2 already obliges an accepted objection
+          to be answered with a revision or a reasoned refusal within the
+          reversal clock. This article does not restate either. It adds the two
+          fields those clauses leave open: the standard the responder decides
+          against, and the set of state transitions a successful challenge can
+          produce.
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§8.1</span>
+            The Register: For each class of consequential decision, the operator
+            must publish a standing register entry naming
+            <code>who_may_challenge</code>, <code>what_may_be_challenged</code>,
+            <code>admissible_evidence</code>, <code>responder</code>,
+            <code>response_deadline</code>, <code>standard_of_review</code>, and
+            <code>possible_state_transitions</code>. An entry missing any of the
+            seven is incomplete, and the decision class it covers is
+            uncontestable in practice.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.2</span>
+            The Standard of Review: The register must state what the responder
+            decides against: whether the decision followed policy, whether the
+            policy was correct, whether the evidence supported the decision, or
+            whether the outcome was reasonable. A responder who is not told what
+            to decide against will decide whether the process ran, which is the
+            one question the challenger did not ask.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.3</span>
+            Possible Transitions: The register must enumerate the state changes a
+            successful challenge can produce, drawn from the same set as a
+            reconsideration outcome: the decision stands, is narrowed,
+            suspended, reversed, corrected, or the grant behind it is expanded
+            or withdrawn. A challenge route with no enumerated transition is
+            correspondence, not recourse.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.4</span>
+            Error-Bearing Parties: Standing extends to the parties who absorb the
+            system's errors. That includes the people the decision falls on and
+            the operators who handle its exceptions, work its queues, and
+            perform the manual repair the automation assumes. Their standing is
+            proportional to exposure: the more of the system's error a party
+            absorbs, the stronger the procedural force their challenge carries.
+          </li>
+          <li>
+            <span class="standard-clause-id">§8.5</span>
+            Force, Not Veto: Standing is procedural force. A party with standing
+            can compel receipt, an answer within the deadline, and a decision
+            against the published standard. They cannot compel the outcome. A
+            challenge that must be answered but need not prevail is standing; a
+            challenge that halts the system on assertion is a veto, and this
+            standard does not require one.
+          </li>
+        </ol>
+      </section>
+
+      <section id="prospective-auditability" class="standard-section">
+        <h2>Article IX: Prospective Auditability</h2>
+        <p class="standard-article-quote">
+          "Forensic records answer what happened. A governing record answers
+          whether this should still be running."
+        </p>
+        <p>
+          Most audit trails are built for reconstruction after harm. They can
+          establish what the system did and rarely establish whether the
+          delegation behind it still deserves to stand. The difference is what
+          is retained: an audit trail retains outputs, and a governing record
+          retains the justification, the assumptions, and the correction route
+          that were in force at the time.
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§9.1</span>
+            Retention for Decision, Not Only Reconstruction: Records must retain
+            what is needed to decide whether the delegation still deserves to
+            stand: the authority it ran under, the policies that authority
+            rested on with their versions, the assumptions those policies
+            declared, the correction capacity claimed at the time, and the
+            challenges received and how they were answered.
+          </li>
+          <li>
+            <span class="standard-clause-id">§9.2</span>
+            Answerable Without the Vendor: The retained set must be sufficient
+            for the operating institution to answer the standing question
+            without the cooperation of the supplier of any component. A
+            justification that can only be assembled by the party whose product
+            is under review is not evidence available to the review.
+          </li>
+          <li>
+            <span class="standard-clause-id">§9.3</span>
+            Reviewed on a Cadence: The standing question is asked on a published
+            cadence, not only after an incident. The review produces a dated
+            record whether or not anything changed, so that a period in which
+            nobody asked is visible as such.
+          </li>
+        </ol>
+      </section>
+
+      <section id="publication-history" class="standard-section">
+        <h2>Publication history</h2>
+        <ul>
+          <li>
+            <strong>v1.0 (2026-09-06):</strong> Adds Article VIII, the standing
+            mechanism with its seven fields, the standard of review, the
+            possible state transitions, standing for error-bearing parties, and
+            the force-not-veto rule; adds Article IX, prospective auditability.
+          </li>
+          <li>
+            <strong>v0.9 (2026-01-01):</strong> Peer review draft aligned to
+            evidence and remedy clocks.
+          </li>
+        </ul>
       </section>
     </div>
 
