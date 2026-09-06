@@ -92,7 +92,8 @@ export const navSections: NavSection[] = [
   },
   {
     heading: "Architecture & Mechanisms",
-    description: "Concrete engineering patterns, circuit breakers, and test suites.",
+    description:
+      "Concrete engineering patterns, circuit breakers, and test suites.",
     links: [
       {
         href: "/mechanisms",
@@ -113,7 +114,8 @@ export const navSections: NavSection[] = [
   },
   {
     heading: "Diagnostics & Workbench",
-    description: "Interactive tools to audit, forecast, and stress-test systems.",
+    description:
+      "Interactive tools to audit, forecast, and stress-test systems.",
     links: [
       {
         href: "/diagnostics/system-auditor",
@@ -139,7 +141,8 @@ export const navSections: NavSection[] = [
   },
   {
     heading: "Knowledge & Evidence",
-    description: "80+ failure modes, mathematical formulas, and empirical research.",
+    description:
+      "80+ failure modes, mathematical formulas, and empirical research.",
     links: [
       {
         href: "/glossary",
@@ -148,8 +151,9 @@ export const navSections: NavSection[] = [
       },
       {
         href: "/taxonomy",
-        label: "Failure Taxonomy",
-        description: "Structural failure modes and counterfeit behaviors",
+        label: "Capability Taxonomy",
+        description:
+          "Domains, capabilities, and practices with owners and readiness",
       },
       {
         href: "/incidents",
