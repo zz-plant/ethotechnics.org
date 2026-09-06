@@ -17,6 +17,9 @@ export const getStaticPaths = () =>
 
 const { suite } = Astro.props as { suite: EvalSuite };
 const testCases = evalTestCases.filter((tc) => tc.suiteId === suite.id);
+const stackLayer = evalsContent.evaluationStack.layers.find(
+  (layer) => layer.id === suite.layer,
+);
 
 if (!suite) {
   return new Response("Eval suite not found", { status: 404 });
@@ -81,6 +84,9 @@ const scoringMethodLabel = (() => {
           </li>
           <li>Estimated time: {suite.estimatedTime}</li>
           <li>Test cases: {testCases.length}</li>
+          <li>
+            Layer: <a href="/evals#stack">{stackLayer?.title ?? suite.layer}</a>
+          </li>
         </ul>
       </div>
       <div class="panel stack-sm">
@@ -125,6 +131,19 @@ const scoringMethodLabel = (() => {
       )
     }
 
+    {
+      stackLayer && (
+        <div class="panel stack-sm">
+          <p class="eyebrow">Evaluation layer: {stackLayer.title}</p>
+          <p class="muted">{stackLayer.question}</p>
+          <p class="muted small">
+            Evaluate at the highest layer capable of producing the failure you
+            care about. Cases in this suite are tagged with the layer they test.
+          </p>
+        </div>
+      )
+    }
+
     <div class="panel stack-sm">
       <p class="eyebrow">Deliverables</p>
       <ul class="card__list">
@@ -146,6 +165,7 @@ const scoringMethodLabel = (() => {
           <summary class="eval-test-case__summary">
             <span class="eval-test-case__id">{tc.id}</span>
             <span class="eval-test-case__title">{tc.title}</span>
+            <span class="status-badge status-badge--layer">{tc.layer}</span>
             <span class={`status-badge status-badge--severity-${tc.severity}`}>
               {tc.severity}
             </span>
@@ -264,6 +284,11 @@ const scoringMethodLabel = (() => {
   .status-badge--stable {
     background: color-mix(in srgb, #2d8a4a 16%, transparent);
     color: #2d8a4a;
+  }
+
+  .status-badge--layer {
+    background: color-mix(in srgb, var(--muted) 14%, transparent);
+    color: var(--muted);
   }
 
   .status-badge--severity-critical {

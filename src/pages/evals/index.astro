@@ -15,7 +15,13 @@ const {
   anchorLinks,
   panelCopy,
   suites,
+  evaluationStack,
 } = evalsContent;
+
+const suitesByLayer = evaluationStack.layers.map((layer) => ({
+  layer,
+  suites: suites.filter((suite) => suite.layer === layer.id),
+}));
 
 const suiteTestCaseCounts = new Map(
   suites.map((suite) => [
@@ -60,37 +66,85 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   />
 
   <SectionBlock
+    id="stack"
+    eyebrow="Evaluation stack"
+    title={evaluationStack.title}
+    description={evaluationStack.description}
+  >
+    <ol class="eval-stack">
+      {
+        evaluationStack.layers.map((layer) => (
+          <li class="eval-stack__layer">
+            <p class="eyebrow">{layer.title}</p>
+            <p>
+              <strong>{layer.question}</strong>
+            </p>
+            <p class="muted small">{layer.example}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
     id="suites"
     eyebrow="Available suites"
-    title="Governance eval suites"
-    description="Each suite tests a specific governability dimension. Run them individually or combine for a full assessment."
+    title="Governance eval suites, by layer"
+    description="Each suite tests a specific governability dimension at a named layer of the stack. Evaluate at the highest layer capable of producing the failure you care about; a clean result at a lower layer is not evidence about a higher one."
+    variant="alt"
   >
-    <CardGrid className="grid--two">
-      {
-        suites.map((suite) => {
-          const testCount = suiteTestCaseCounts.get(suite.id) ?? 0;
+    {
+      suitesByLayer.map(({ layer, suites: layerSuites }) => (
+        <div class="eval-layer-group">
+          <h3 class="eval-layer-group__title">
+            {layer.title} layer
+            <span class="muted small eval-layer-group__count">
+              {layerSuites.length === 0
+                ? "no suites"
+                : `${layerSuites.length} suite${layerSuites.length === 1 ? "" : "s"}`}
+            </span>
+          </h3>
+          <p class="muted small">{layer.question}</p>
+          {layerSuites.length === 0 ? (
+            <p class="muted small">
+              None of the suites here sits at this layer; the site assumes it
+              has been evaluated elsewhere.
+            </p>
+          ) : (
+            <CardGrid className="grid--two">
+              {layerSuites.map((suite) => {
+                const testCount = suiteTestCaseCounts.get(suite.id) ?? 0;
 
-          return (
-            <CardItem
-              eyebrow={suite.category}
-              title={suite.title}
-              description={suite.description}
-            >
-              <p class="muted small">
-                <span class={`status-badge status-badge--${suite.status}`}>
-                  {suite.status}
-                </span>
-                · {testCount} test case{testCount === 1 ? "" : "s"}· Est.{" "}
-                {suite.estimatedTime}
-              </p>
-              <a slot="footer" class="muted" href={`/evals/${suite.slug}`}>
-                Open suite
-              </a>
-            </CardItem>
-          );
-        })
-      }
-    </CardGrid>
+                return (
+                  <CardItem
+                    eyebrow={suite.category}
+                    title={suite.title}
+                    description={suite.description}
+                  >
+                    <p class="muted small">
+                      <span
+                        class={`status-badge status-badge--${suite.status}`}
+                      >
+                        {suite.status}
+                      </span>
+                      · {testCount} test case{testCount === 1 ? "" : "s"} · Est.{" "}
+                      {suite.estimatedTime}
+                    </p>
+                    <a
+                      slot="footer"
+                      class="muted"
+                      href={`/evals/${suite.slug}`}
+                    >
+                      Open suite
+                    </a>
+                  </CardItem>
+                );
+              })}
+            </CardGrid>
+          )}
+        </div>
+      ))
+    }
   </SectionBlock>
 
   <SectionBlock
@@ -98,7 +152,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Methodology"
     title="How evals are scored"
     description="Phase 1 scoring is manual and evidence-based. Each test case is evaluated by a human reviewer using a defined rubric."
-    variant="alt"
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -168,6 +221,42 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 </BaseLayout>
 
 <style>
+  .eval-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    counter-reset: layer;
+  }
+
+  .eval-stack__layer {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    counter-increment: layer;
+  }
+
+  .eval-stack__layer .eyebrow::before {
+    content: counter(layer) ". ";
+  }
+
+  .eval-layer-group {
+    margin-bottom: 2rem;
+  }
+
+  .eval-layer-group__title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .eval-layer-group__count {
+    font-weight: 400;
+  }
+
   .status-badge {
     display: inline-flex;
     align-items: center;

@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { suiteOptions, getSuiteForSlug, getTestCasesForSuite } from "./config";
+import {
+  suiteOptions,
+  layerOptions,
+  getSuiteForSlug,
+  getTestCasesForSuite,
+} from "./config";
+import type { EvalLayer } from "../../content/evals";
 import { buildEmptyResults, buildSummary, calculatePass } from "./runnerLogic";
 import type { TestCaseResult, RunSummary } from "./types";
 import "./evalRunner.css";
@@ -43,6 +49,7 @@ export function EvalRunner() {
   const [isComplete, setIsComplete] = useState(false);
   const [summary, setSummary] = useState<RunSummary | null>(null);
   const [criteriaOpen, setCriteriaOpen] = useState(false);
+  const [layerFilter, setLayerFilter] = useState<EvalLayer | "all">("all");
 
   useEffect(() => {
     const saved = loadState();
@@ -178,6 +185,11 @@ export function EvalRunner() {
   }
 
   if (!selectedSuiteSlug) {
+    const visibleSuites =
+      layerFilter === "all"
+        ? suiteOptions
+        : suiteOptions.filter((opt) => opt.layer === layerFilter);
+
     return (
       <div className="panel panel--glass eval-runner" data-eval-runner>
         <div className="eval-runner__header">
@@ -185,11 +197,38 @@ export function EvalRunner() {
           <h2>Run a governance eval suite</h2>
           <p className="muted">
             Select a suite, score each test case against your system, and
-            receive a grade.
+            receive a grade. Suites are tagged by the layer of the evaluation
+            stack they test; filter to the highest layer at which the failure
+            you care about can appear.
           </p>
         </div>
+        <div
+          className="eval-layer-filter"
+          role="group"
+          aria-label="Filter suites by evaluation layer"
+        >
+          <button
+            type="button"
+            className={`button ghost button--compact${layerFilter === "all" ? " eval-layer-filter__active" : ""}`}
+            aria-pressed={layerFilter === "all"}
+            onClick={() => setLayerFilter("all")}
+          >
+            All layers
+          </button>
+          {layerOptions.map((layer) => (
+            <button
+              key={layer.id}
+              type="button"
+              className={`button ghost button--compact${layerFilter === layer.id ? " eval-layer-filter__active" : ""}`}
+              aria-pressed={layerFilter === layer.id}
+              onClick={() => setLayerFilter(layer.id)}
+            >
+              {layer.title}
+            </button>
+          ))}
+        </div>
         <div className="eval-selector">
-          {suiteOptions.map((opt) => (
+          {visibleSuites.map((opt) => (
             <button
               key={opt.id}
               type="button"
@@ -198,10 +237,14 @@ export function EvalRunner() {
             >
               <p className="eval-selector__title">{opt.title}</p>
               <p className="muted small">
-                {opt.testCount} test cases &middot; {opt.estimatedTime}
+                {opt.layer} layer &middot; {opt.testCount} test cases &middot;{" "}
+                {opt.estimatedTime}
               </p>
             </button>
           ))}
+          {visibleSuites.length === 0 && (
+            <p className="muted small">No suites at this layer yet.</p>
+          )}
         </div>
       </div>
     );
