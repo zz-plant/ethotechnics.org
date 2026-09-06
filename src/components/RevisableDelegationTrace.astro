@@ -1,0 +1,189 @@
+<figure class="standard-diagram">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 960 364"
+    role="img"
+    aria-labelledby="rdr-trace-title rdr-trace-desc"
+  >
+    <title id="rdr-trace-title">
+      A worked trace through five linked records
+    </title>
+    <desc id="rdr-trace-desc">
+      An action record depends on an authorization record, which depends on a
+      belief record. The belief carries an invalidation condition. A discrepancy
+      record matches that condition, and a revision record supersedes the
+      belief. Three line weights distinguish the three reference types: solid
+      for depends_on, dashed for invalidated_by, and heavy for supersedes.
+    </desc>
+
+    <style>
+      .ink {
+        fill: var(--text, #1f2937);
+      }
+      .muted {
+        fill: var(--muted, #6b7280);
+      }
+      .line {
+        stroke: var(--border, #374151);
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .line-strong {
+        stroke: var(--border, #374151);
+        stroke-width: 3.5;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .dash {
+        stroke-dasharray: 6 6;
+      }
+      .band-a {
+        fill: var(--surface, #f8fafc);
+      }
+      .chip {
+        fill: var(--surface, #ffffff);
+        stroke: var(--border, #374151);
+        stroke-width: 2;
+      }
+      .chip-dashed {
+        fill: var(--surface, #ffffff);
+        stroke: var(--border, #374151);
+        stroke-width: 2;
+        stroke-dasharray: 6 6;
+      }
+      .fill-border {
+        fill: var(--border, #374151);
+      }
+      .chip-state {
+        rx: 10;
+        ry: 10;
+      }
+      .small {
+        font:
+          500 11px ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto;
+      }
+      .label {
+        font:
+          600 12.5px ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto;
+      }
+      .title {
+        font:
+          650 14px ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto;
+      }
+    </style>
+
+    <rect x="24" y="80" width="770" height="176" class="band-a" rx="14"></rect>
+    <text x="40" y="40" class="title ink">One decision, written down</text>
+    <text x="40" y="62" class="small muted"
+      >Read the arrows as references, not as time: each record names what it
+      rests on.</text
+    >
+
+    <rect x="40" y="96" width="190" height="52" class="chip chip-state"></rect>
+    <text x="135" y="117" text-anchor="middle" class="label ink">belief</text>
+    <text x="135" y="136" text-anchor="middle" class="small muted"
+      >the regime read at the time</text
+    >
+
+    <text x="270" y="110" text-anchor="middle" class="small muted"
+      >depends_on</text
+    >
+    <line x1="305" y1="122" x2="249" y2="122" class="line"></line>
+    <path d="M235 122 L249 115 L249 129 Z" class="fill-border"></path>
+
+    <rect x="310" y="96" width="190" height="52" class="chip chip-state"></rect>
+    <text x="405" y="117" text-anchor="middle" class="label ink"
+      >authorization</text
+    >
+    <text x="405" y="136" text-anchor="middle" class="small muted"
+      >hold hiring, confirm mode</text
+    >
+
+    <text x="540" y="110" text-anchor="middle" class="small muted"
+      >depends_on</text
+    >
+    <line x1="575" y1="122" x2="519" y2="122" class="line"></line>
+    <path d="M505 122 L519 115 L519 129 Z" class="fill-border"></path>
+
+    <rect x="580" y="96" width="190" height="52" class="chip chip-state"></rect>
+    <text x="675" y="117" text-anchor="middle" class="label ink">action</text>
+    <text x="675" y="136" text-anchor="middle" class="small muted"
+      >requisitions paused</text
+    >
+
+    <path d="M675 200 L675 172 L135 172 L135 150" class="line-strong"></path>
+    <path d="M135 148 L128 162 L142 162 Z" class="fill-border"></path>
+    <text x="405" y="166" text-anchor="middle" class="small muted"
+      >supersedes</text
+    >
+
+    <rect x="40" y="200" width="190" height="46" class="chip-dashed chip-state"
+    ></rect>
+    <text x="135" y="219" text-anchor="middle" class="small ink"
+      >invalidated_by</text
+    >
+    <text x="135" y="235" text-anchor="middle" class="small muted"
+      >tightness falls below 60</text
+    >
+
+    <line x1="305" y1="223" x2="249" y2="223" class="line dash"></line>
+    <path d="M235 223 L249 216 L249 230 Z" class="fill-border"></path>
+    <text x="270" y="212" text-anchor="middle" class="small muted">matches</text
+    >
+
+    <rect x="310" y="200" width="190" height="46" class="chip chip-state"
+    ></rect>
+    <text x="405" y="219" text-anchor="middle" class="label ink"
+      >discrepancy</text
+    >
+    <text x="405" y="235" text-anchor="middle" class="small muted"
+      >observed 58, clock P7D</text
+    >
+
+    <line x1="575" y1="223" x2="519" y2="223" class="line"></line>
+    <path d="M505 223 L519 216 L519 230 Z" class="fill-border"></path>
+    <text x="540" y="212" text-anchor="middle" class="small muted"
+      >triggered_by</text
+    >
+
+    <rect x="580" y="200" width="190" height="46" class="chip chip-state"
+    ></rect>
+    <text x="675" y="219" text-anchor="middle" class="label ink">revision</text>
+    <text x="675" y="235" text-anchor="middle" class="small muted"
+      >a new belief, the old one kept</text
+    >
+
+    <line x1="40" y1="300" x2="80" y2="300" class="line"></line>
+    <text x="92" y="304" class="small muted"
+      >depends_on — what this record rests on. Follow it back to find the
+      justification.</text
+    >
+
+    <line x1="40" y1="326" x2="80" y2="326" class="line dash"></line>
+    <text x="92" y="330" class="small muted"
+      >invalidated_by — the checkable condition that would end it. Empty means
+      nothing would change its mind.</text
+    >
+
+    <line x1="40" y1="352" x2="80" y2="352" class="line-strong"></line>
+    <text x="92" y="356" class="small muted"
+      >supersedes — the record this replaces. The replaced record stays
+      readable; nothing is edited away.</text
+    >
+  </svg>
+</figure>

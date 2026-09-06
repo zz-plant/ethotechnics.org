@@ -1,0 +1,134 @@
+<figure class="standard-diagram">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 960 320"
+    role="img"
+    aria-labelledby="rdr-conformance-title rdr-conformance-desc"
+  >
+    <title id="rdr-conformance-title">
+      The four conformance levels as a ladder
+    </title>
+    <desc id="rdr-conformance-desc">
+      Four ascending steps. Level 0 emitting, level 1 append-only, level 2
+      dependent, and level 3 contestable. Each step names what it adds to the
+      one below it.
+    </desc>
+
+    <style>
+      .ink {
+        fill: var(--text, #1f2937);
+      }
+      .muted {
+        fill: var(--muted, #6b7280);
+      }
+      .line {
+        stroke: var(--border, #374151);
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .dash {
+        stroke-dasharray: 6 6;
+      }
+      .chip {
+        fill: var(--surface, #ffffff);
+        stroke: var(--border, #374151);
+        stroke-width: 2;
+      }
+      .chip-state {
+        rx: 10;
+        ry: 10;
+      }
+      .small {
+        font:
+          500 11px ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto;
+      }
+      .label {
+        font:
+          600 12.5px ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto;
+      }
+      .title {
+        font:
+          650 14px ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto;
+      }
+    </style>
+
+    <text x="30" y="34" class="title ink"
+      >Each rung adds one thing to the one below</text
+    >
+
+    <rect x="30" y="196" width="210" height="76" class="chip chip-state"></rect>
+    <text x="135" y="220" text-anchor="middle" class="label ink"
+      >Level 0 · Emitting</text
+    >
+    <text x="135" y="240" text-anchor="middle" class="small muted"
+      >valid records, with as_of</text
+    >
+    <text x="135" y="256" text-anchor="middle" class="small muted"
+      >kept apart from recorded_at</text
+    >
+
+    <line x1="240" y1="210" x2="268" y2="186" class="line dash"></line>
+
+    <rect x="268" y="148" width="210" height="76" class="chip chip-state"
+    ></rect>
+    <text x="373" y="172" text-anchor="middle" class="label ink"
+      >Level 1 · Append-only</text
+    >
+    <text x="373" y="192" text-anchor="middle" class="small muted"
+      >nothing edited; every record</text
+    >
+    <text x="373" y="208" text-anchor="middle" class="small muted"
+      >hashed and chained</text
+    >
+
+    <line x1="478" y1="162" x2="506" y2="138" class="line dash"></line>
+
+    <rect x="506" y="100" width="210" height="76" class="chip chip-state"
+    ></rect>
+    <text x="611" y="124" text-anchor="middle" class="label ink"
+      >Level 2 · Dependent</text
+    >
+    <text x="611" y="144" text-anchor="middle" class="small muted"
+      >depends_on and invalidated_by</text
+    >
+    <text x="611" y="160" text-anchor="middle" class="small muted"
+      >populated; discrepancies answered</text
+    >
+
+    <line x1="716" y1="114" x2="744" y2="90" class="line dash"></line>
+
+    <rect x="744" y="52" width="210" height="76" class="chip chip-state"></rect>
+    <text x="849" y="76" text-anchor="middle" class="label ink"
+      >Level 3 · Contestable</text
+    >
+    <text x="849" y="96" text-anchor="middle" class="small muted"
+      >standing declared; objections</text
+    >
+    <text x="849" y="112" text-anchor="middle" class="small muted"
+      >answered within a clock</text
+    >
+
+    <text x="30" y="296" class="small muted">
+      A system declares the highest level every record it emits satisfies, and a
+      consumer reads that as a floor rather than a promise about any one record.
+    </text>
+    <text x="30" y="312" class="small muted">
+      Declaring Level 0 honestly is conformance. Declaring Level 2 over a log
+      that never populates invalidated_by is not.
+    </text>
+  </svg>
+</figure>
