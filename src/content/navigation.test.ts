@@ -32,13 +32,27 @@ describe("navSections", () => {
     }
   });
 
-  it("routes to the laws and the evidence packs from the standards section", () => {
+  it("routes to the method, the laws, and the evidence packs from the standards section", () => {
     expect(sectionLinks("Standards & Specifications")).toEqual([
+      "/method",
       "/standards",
       "/standards/laws",
       "/standards#regulatory-crosswalks",
       "/evidence-packs",
     ]);
+  });
+
+  // The mobile menu renders navSections, not navPrimaryLinks, so a primary
+  // destination that appears in no section is unreachable on a phone.
+  it("reaches every primary destination from a section", () => {
+    const allSectionLinks = navSections.flatMap((section) =>
+      section.links.map((link) => link.href),
+    );
+    for (const link of navPrimaryLinks) {
+      expect(allSectionLinks.some((href) => href.startsWith(link.href))).toBe(
+        true,
+      );
+    }
   });
 
   it("lists the delegation audit under diagnostics", () => {

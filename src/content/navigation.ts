@@ -76,6 +76,12 @@ export const navSections: NavSection[] = [
       "Normative requirements, contract clauses, and regulatory crosswalks.",
     links: [
       {
+        href: "/method",
+        label: "Method",
+        description:
+          "The seven-stage chain, the six state variables, and the twelve laws",
+      },
+      {
         href: "/standards",
         label: "Standards Spec",
         description: "Normative specifications and safety requirements",
