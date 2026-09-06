@@ -1,0 +1,96 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CardGrid from "../../../components/CardGrid.astro";
+import CardItem from "../../../components/CardItem.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import SectionBlock from "../../../components/SectionBlock.astro";
+
+const lastmod = "2026-09-06T00:00:00.000Z";
+const essays = (await getCollection("theory")).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title, "en", { sensitivity: "base" }),
+);
+
+const pageTitle = "Theory — Ethotechnics Institute";
+const pageDescription =
+  "Essays on why the laws hold. Theory motivates the method and is never cited as a requirement.";
+const permalink = "/research/theory";
+const anchorLinks = [
+  { href: "#essays", label: "Essays" },
+  { href: "#layering", label: "Theory and method" },
+];
+const formatLawRefs = (refs: string[]) =>
+  refs.length > 0 ? `Laws ${refs.join(", ")}` : "No law references";
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime={lastmod}
+  modifiedTime={lastmod}
+>
+  <PageIntro
+    eyebrow="Research"
+    title="Theory"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Layer",
+      title: "Motivation, not requirement",
+      description:
+        "A reader can adopt a standard without accepting the theory. Each essay names the laws it argues for; the laws name the clauses that bind them.",
+      link: { label: "Read the laws", href: "/standards/laws" },
+    }}
+  />
+
+  <SectionBlock
+    id="essays"
+    eyebrow="Essays"
+    title="Why the laws hold"
+    description="Argumentative prose. None of it carries requirements language, and no standard cites it as a clause."
+  >
+    <CardGrid className="grid--two">
+      {
+        essays.map((essay) => (
+          <CardItem
+            meta={formatLawRefs(essay.data.lawRefs)}
+            title={essay.data.title}
+            description={essay.data.summary}
+            descriptionTone="default"
+          >
+            <div slot="footer" class="card__footer">
+              <a
+                class="button ghost button--compact"
+                href={essay.data.permalink}
+              >
+                Read the essay
+              </a>
+            </div>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="layering"
+    eyebrow="Layering"
+    title="Theory and method"
+    description="How the site separates the argument from the requirement."
+    variant="alt"
+  >
+    <p>
+      The site has three layers. Theory says why the laws hold. Method states
+      the laws, their invariants, and the standards, objects, mechanisms, and
+      evals that bind them. Instruments are the diagnostics, validators, and
+      APIs that apply the method to a deployment.
+    </p>
+    <p>
+      A Method page may cite an essay here as motivation. It may not cite one as
+      a requirement. The <a href="/standards/laws">laws</a> and the{" "}
+      <a href="/standards/core-axioms">core axioms</a> are the doctrine a standard
+      binds; the essays are the reasons a reader might accept it.
+    </p>
+  </SectionBlock>
+</BaseLayout>

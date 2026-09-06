@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/capability-catalog.schema.json",
+  "title": "Capability Catalog",
+  "description": "The Capability state variable: what the assembled system can actually do, as discovered by or for a grantee. This object confers no authority and contains no permission fields by design (Law I: capability does not imply authority). Anything the grantee is permitted to do is stated only in an authority grant (authority-grant.schema.json) that references this catalog; a capability listed here without a matching grant is discoverable but not executable.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "catalog_id",
+    "grantee",
+    "discovered_at",
+    "capabilities"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the catalog conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "catalog_id": {
+      "title": "Catalog identifier",
+      "description": "Stable identifier for this catalog so grants and safety object models can reference it.",
+      "type": "string"
+    },
+    "grantee": {
+      "title": "Grantee",
+      "description": "The agent, role, system, or human whose reachable capabilities this catalog describes.",
+      "type": "object",
+      "required": ["id", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Grantee identifier",
+          "description": "Stable identifier of the grantee, matching the grantee id used in authority grants.",
+          "type": "string"
+        },
+        "type": {
+          "title": "Grantee type",
+          "description": "What kind of component the grantee is.",
+          "type": "string",
+          "enum": ["agent", "role", "system", "human"]
+        }
+      }
+    },
+    "discovered_at": {
+      "title": "Discovered at",
+      "description": "When this catalog was last discovered or refreshed. Capability drifts; the timestamp lets reviewers compare it to the authority state.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "capabilities": {
+      "title": "Capabilities",
+      "description": "Each action the grantee could take if it were authorized. Listing an action here says nothing about whether it is allowed.",
+      "type": "array",
+      "items": {
+        "title": "Capability",
+        "description": "One discoverable capability of the grantee.",
+        "type": "object",
+        "required": [
+          "capability_id",
+          "action_class",
+          "description",
+          "tools",
+          "reversible",
+          "discovered_via"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "capability_id": {
+            "title": "Capability identifier",
+            "description": "Stable identifier for the capability.",
+            "type": "string"
+          },
+          "action_class": {
+            "title": "Action class",
+            "description": "The class of consequential action this capability falls under, such as READ, WRITE, or TRANSFER. Grants authorize action classes, not individual capabilities.",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "description": "Plain-language statement of what the capability does.",
+            "type": "string"
+          },
+          "tools": {
+            "title": "Tools",
+            "description": "Tool, API, or integration names through which the capability is reachable.",
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "reversible": {
+            "title": "Reversible",
+            "description": "Whether exercising this capability can be undone without unacceptable damage.",
+            "type": "boolean"
+          },
+          "discovered_via": {
+            "title": "Discovered via",
+            "description": "How the capability was discovered, for example tool introspection, integration inventory, or red-team probe.",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

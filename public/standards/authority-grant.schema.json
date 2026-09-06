@@ -1,0 +1,320 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/authority-grant.schema.json",
+  "title": "Authority Grant",
+  "description": "The Authority state variable, modeled as a lease on consequential action: which actions a grantee is currently permitted to perform, for whom, on what evidence, and until when. A grant is an explicit state transition, never a side effect of capability (Law I). It decays unless its justification is renewed (Law II) and becomes eligible for reconsideration when its evidence basis changes (Law III). Expansion of scope is a new authorization decision recorded in state_history (Law XI).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "grant_id",
+    "provenance",
+    "scope",
+    "issuing_authority",
+    "grantee",
+    "action_classes",
+    "for_whom",
+    "evidence_basis",
+    "assumptions",
+    "review_conditions",
+    "revocation_conditions",
+    "state",
+    "state_history"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the grant conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "grant_id": {
+      "title": "Grant identifier",
+      "description": "Stable identifier for the grant, referenced by decision records, challenges, and reconsiderations.",
+      "type": "string"
+    },
+    "provenance": {
+      "title": "Provenance",
+      "description": "Who issued the grant, when, and the summary of the basis on which it was issued.",
+      "type": "object",
+      "required": ["issued_by", "issued_at", "basis_summary"],
+      "additionalProperties": false,
+      "properties": {
+        "issued_by": {
+          "title": "Issued by",
+          "description": "Identifier of the person or body that issued the grant.",
+          "type": "string"
+        },
+        "issued_at": {
+          "title": "Issued at",
+          "description": "When the grant was issued.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "basis_summary": {
+          "title": "Basis summary",
+          "description": "Plain-language summary of why this delegation was justified at issue time.",
+          "type": "string"
+        }
+      }
+    },
+    "scope": {
+      "title": "Scope",
+      "description": "The boundary of the lease: which action classes, on which systems, over which populations, within which limits.",
+      "type": "object",
+      "required": ["action_classes", "systems", "populations", "limits"],
+      "additionalProperties": false,
+      "properties": {
+        "action_classes": {
+          "title": "Scoped action classes",
+          "description": "Action classes the grant covers, matching the catalog's action_class values.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "systems": {
+          "title": "Systems",
+          "description": "Systems or resources the grantee may act on under this grant.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "populations": {
+          "title": "Populations",
+          "description": "Populations of subjects the grantee may act upon.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "limits": {
+          "title": "Limits",
+          "description": "Quantitative or qualitative limits on the lease, such as rate, value, or duration caps, keyed by limit name.",
+          "type": "object",
+          "additionalProperties": { "type": ["string", "number", "boolean"] }
+        }
+      }
+    },
+    "issuing_authority": {
+      "title": "Issuing authority",
+      "description": "The accountable owner of the grant who can be reached to renew, narrow, or revoke it.",
+      "$ref": "#/$defs/contact"
+    },
+    "grantee": {
+      "title": "Grantee",
+      "description": "The component that holds the lease.",
+      "type": "object",
+      "required": ["id", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Grantee identifier",
+          "description": "Stable identifier of the grantee.",
+          "type": "string"
+        },
+        "type": {
+          "title": "Grantee type",
+          "description": "What kind of component the grantee is.",
+          "type": "string",
+          "enum": ["agent", "role", "system", "human"]
+        }
+      }
+    },
+    "action_classes": {
+      "title": "Action classes",
+      "description": "The consequential action classes this grant currently authorizes. Must be a subset of scope.action_classes.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "for_whom": {
+      "title": "For whom",
+      "description": "Who the delegation serves: the principal on whose behalf the grantee acts.",
+      "type": "string"
+    },
+    "evidence_basis": {
+      "title": "Evidence basis",
+      "description": "The propositions that justify this authority, as references to policy records or evidence items. When these change materially the grant becomes eligible for reconsideration (Law III).",
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    },
+    "assumptions": {
+      "title": "Assumptions",
+      "description": "Conditions assumed true at issue time. A falsified assumption is grounds for review.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "review_conditions": {
+      "title": "Review conditions",
+      "description": "Conditions under which the grant moves to review_required.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "revocation_conditions": {
+      "title": "Revocation conditions",
+      "description": "Conditions under which the grant moves to suspended or revoked.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "state": {
+      "title": "State",
+      "description": "Current lease state. Only allowed grants authorize action; review_required means the burden of proof has shifted back to the issuer.",
+      "type": "string",
+      "enum": ["allowed", "review_required", "suspended", "revoked"]
+    },
+    "state_history": {
+      "title": "State history",
+      "description": "Every transition the grant has undergone, including issue, renewal, and expansion. Expansion is recorded as its own transition because success is not the default reward (Law XI).",
+      "type": "array",
+      "items": {
+        "title": "State transition",
+        "description": "One transition between grant states.",
+        "type": "object",
+        "required": ["from", "to", "at", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "title": "From state",
+            "description": "State before the transition. Use none for the issuing transition.",
+            "type": "string",
+            "enum": [
+              "none",
+              "allowed",
+              "review_required",
+              "suspended",
+              "revoked"
+            ]
+          },
+          "to": {
+            "title": "To state",
+            "description": "State after the transition.",
+            "type": "string",
+            "enum": ["allowed", "review_required", "suspended", "revoked"]
+          },
+          "at": {
+            "title": "At",
+            "description": "When the transition took effect.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "title": "Reason",
+            "description": "Why the transition happened.",
+            "type": "string",
+            "enum": [
+              "issued",
+              "renewal",
+              "expansion",
+              "evidence_changed",
+              "policy_review",
+              "challenge",
+              "incident",
+              "expiry",
+              "manual"
+            ]
+          },
+          "evidence_ref": {
+            "title": "Evidence reference",
+            "description": "Identifier of the reconsideration, challenge, incident, or evidence item that caused the transition.",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "description": "Plain-language note on the transition, for example what was narrowed.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "until": {
+      "title": "Until",
+      "description": "When the lease lapses: either a date-time or a plain-language condition. Absence of observed failure is not renewal.",
+      "oneOf": [
+        {
+          "title": "Expiry timestamp",
+          "description": "The grant lapses at this time unless renewed.",
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "title": "Expiry condition",
+          "description": "The grant lapses when this condition holds.",
+          "type": "string",
+          "pattern": "^(?!\\d{4}-\\d{2}-\\d{2}T)"
+        }
+      ]
+    },
+    "renewal_basis": {
+      "title": "Renewal basis",
+      "description": "What evidence must be produced to renew the lease. The burden rises with duration and consequence (Law II).",
+      "type": "string"
+    },
+    "policy_refs": {
+      "title": "Policy references",
+      "description": "Identifiers of policy records this grant depends on.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "intervention_ref": {
+      "title": "Intervention reference",
+      "description": "Identifier of the intervention spec that says who can halt, narrow, or revoke this grant.",
+      "type": "string"
+    },
+    "capability_catalog_ref": {
+      "title": "Capability catalog reference",
+      "description": "Identifier of the capability catalog this grant selects from.",
+      "type": "string"
+    },
+    "dependency_ref": {
+      "title": "Dependency reference",
+      "description": "Identifier of the dependency record for the system holding this grant.",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "contact": {
+      "title": "Contact",
+      "description": "A reachable, accountable person or role.",
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "description": "Name of the person or body.",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "description": "Role held.",
+          "type": "string"
+        },
+        "contact": {
+          "title": "Contact",
+          "description": "How to reach them.",
+          "type": "string"
+        }
+      }
+    },
+    "evidenceRef": {
+      "title": "Evidence reference",
+      "description": "A pointer to a policy record or evidence item with its summary and freshness.",
+      "type": "object",
+      "required": ["ref", "summary", "as_of"],
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "title": "Reference",
+          "description": "Identifier or URL of the policy record or evidence item.",
+          "type": "string"
+        },
+        "summary": {
+          "title": "Summary",
+          "description": "Plain-language summary of what the evidence establishes.",
+          "type": "string"
+        },
+        "as_of": {
+          "title": "As of",
+          "description": "When the evidence was last confirmed.",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

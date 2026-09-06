@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "challenge_id": "CHL-2026-0088",
+  "register_ref": "REG-ACCOUNT-HOLDS-1",
+  "decision_class": "account_hold",
+  "subject": { "kind": "grant", "ref": "GRANT-2026-0142" },
+  "challenger": {
+    "standing_basis": "affected_party",
+    "id": "acct-7731-representative"
+  },
+  "opened_at": "2026-06-10T14:20:00Z",
+  "evidence": [
+    {
+      "type": "vulnerability_flag",
+      "href": "https://cases.example.org/acct-7731/vulnerability-flag",
+      "description": "Account was flagged vulnerable on 2026-06-08, two days before the hold."
+    },
+    {
+      "type": "transaction_context",
+      "href": "https://cases.example.org/acct-7731/transactions",
+      "description": "The flagged transfers were scheduled care payments."
+    }
+  ],
+  "responder": {
+    "name": "Risk Steward on call",
+    "role": "Risk Steward",
+    "contact": "risk-steward@example.org"
+  },
+  "deadline": "2026-06-12T14:20:00Z",
+  "status": "decided",
+  "reconsideration_ref": "REC-2026-0019",
+  "outcome": {
+    "transition": "narrow",
+    "reason": "The grant's population scope did not exclude vulnerable accounts; the hold was released and the grant narrowed.",
+    "decided_at": "2026-06-18T16:30:00Z"
+  }
+}

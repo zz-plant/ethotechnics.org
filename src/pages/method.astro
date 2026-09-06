@@ -1,0 +1,188 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SectionBlock from "../components/SectionBlock.astro";
+import { methodContent } from "../content/method";
+
+const {
+  pageTitle,
+  pageDescription,
+  permalink,
+  definition,
+  claim,
+  unitOfGovernance,
+  invariant,
+  chain,
+  stateVariables,
+  laws,
+  optimizationProblem,
+} = methodContent;
+
+const anchorLinks = [
+  { href: "#definition", label: "Definition" },
+  { href: "#chain", label: "The chain" },
+  { href: "#state-variables", label: "State variables" },
+  { href: "#laws", label: "The twelve laws" },
+  { href: "#optimization", label: "The optimization problem" },
+];
+
+const chainSummary = chain.map((stage) => stage.title).join(" → ");
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="webpage"
+  publishedTime="2026-09-06T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="Method"
+    title="The Ethotechnics method"
+    description={pageDescription}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      title: "How to read this page",
+      description:
+        "Read the chain first. Then check which of the six state variables your system makes explicit. The laws say what must hold; the standards say how to show it.",
+      link: { href: "/how-it-works", label: "See how the lenses apply" },
+    }}
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="/standards">Open the standards</a>
+      <a class="button ghost" href="/diagnostics">Run a diagnostic</a>
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="definition"
+    eyebrow="Definition"
+    title="What Ethotechnics is"
+    description={definition}
+  >
+    <div class="grid grid--two">
+      <div class="card stack-sm">
+        <p class="eyebrow">The claim</p>
+        <p>{claim}</p>
+      </div>
+      <div class="card stack-sm">
+        <p class="eyebrow">The unit of governance</p>
+        <p>{unitOfGovernance}</p>
+      </div>
+    </div>
+    <div class="panel stack-sm">
+      <p class="eyebrow">The invariant</p>
+      <p><strong>{invariant}</strong></p>
+      <p class="muted small">
+        The invariant compresses the twelve laws. Every standard clause,
+        mechanism, and eval on this site binds some part of it.
+      </p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="chain"
+    eyebrow="The chain"
+    title="Seven stages every consequential decision passes through"
+    description={`Every consequential decision is one link in a governed chain: ${chainSummary}. Each stage has a question the institution must be able to answer and the assets that answer it today.`}
+    variant="alt"
+  >
+    <ol class="step-list stack-md">
+      {
+        chain.map((stage) => (
+          <li id={stage.id} class="card stack-sm">
+            <h3>{stage.title}</h3>
+            <p>{stage.question}</p>
+            <p class="eyebrow">Existing assets</p>
+            <ul class="card__list">
+              {stage.currentAssets.map((asset) => (
+                <li>{asset}</li>
+              ))}
+            </ul>
+            <p class="small">
+              {stage.links.map((link, linkIndex) => (
+                <>
+                  {linkIndex > 0 && <span aria-hidden="true"> · </span>}
+                  <a href={link.href}>{link.label}</a>
+                </>
+              ))}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="state-variables"
+    eyebrow="State variables"
+    title="Six states that must stay coupled"
+    description="A mature implementation makes these explicit. A system becomes unsafe when they drift apart. Each row names the drift the state detects and the law that governs it."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">State</th>
+            <th scope="col">Question</th>
+            <th scope="col">Drift it detects</th>
+            <th scope="col">Law</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            stateVariables.map((variable) => (
+              <tr>
+                <th scope="row">{variable.state}</th>
+                <td>{variable.question}</td>
+                <td>{variable.drift}</td>
+                <td>{variable.lawRefs}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="laws"
+    eyebrow="Doctrine"
+    title="The twelve laws"
+    description="The doctrine is stated as laws, each with an invariant the standards bind. Each link opens the law and the clause that binds it."
+    variant="alt"
+  >
+    <div class="card">
+      <ul class="card__list">
+        {
+          laws.map((law) => (
+            <li>
+              <a href={law.href}>
+                Law {law.numeral}: {law.statement}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <p class="small muted">
+      Full statements and invariants: <a href="/standards/laws"
+        >Laws for Engineering Delegated Intelligence</a
+      >. The five axioms that motivate them: <a href="/standards/core-axioms"
+        >Core axioms</a
+      >.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="optimization"
+    eyebrow="The optimization problem"
+    title="What the method optimizes"
+    description={optimizationProblem}
+  >
+    <div class="section__actions">
+      <a class="button primary" href="/how-it-works">Apply the lenses</a>
+      <a class="button ghost" href="/start-here">Pick a path</a>
+    </div>
+  </SectionBlock>
+</BaseLayout>

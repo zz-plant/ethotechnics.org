@@ -69,9 +69,9 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
     publishedTime: "2025-12-01T00:00:00.000Z",
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
-  "democratic-vs-coercive-governability": {
-    publishedTime: "2026-01-10T00:00:00.000Z",
-    modifiedTime: "2026-02-09T00:00:00.000Z",
+  "open-weights-and-the-delegation-boundary": {
+    publishedTime: "2026-09-06T00:00:00.000Z",
+    modifiedTime: "2026-09-06T00:00:00.000Z",
   },
 };
 

@@ -2,10 +2,12 @@
  * Adapter contract for the Tier 1 governance harness.
  *
  * The eval suites in src/content are audit protocols: a person reads records,
- * interviews staff, and scores against a rubric. Six of the 95 cases are not
+ * interviews staff, and scores against a rubric. Ten of the 132 cases are not
  * like that. They are stopwatch-and-assertion questions about a running system
- * — how long a stop takes, whether an override lands, whether every action
- * reached the audit log — and a machine can answer them.
+ * (how long a stop takes, whether an override lands, whether every action
+ * reached the audit log, whether a discoverable action is refused without a
+ * grant, whether an expired policy moves its grants to review) and a machine
+ * can answer them.
  *
  * None of them needs a model. They need an implementation of this interface
  * against the system under test.
@@ -50,6 +52,57 @@ export type Notification = {
   reason?: string;
 };
 
+/** A capability the system can reach, whether or not it is permitted to use it. */
+export type DiscoveredCapability = {
+  capabilityId: string;
+  /** The class of action the capability performs, as the grant register names it. */
+  actionClass: string;
+};
+
+export type AttemptOutcome = {
+  /** Whether the action was actually carried out. */
+  executed: boolean;
+  /** What the system said when it refused, if it did. */
+  refusedReason?: string;
+};
+
+export type GrantState =
+  "allowed" | "review_required" | "suspended" | "revoked";
+
+export type GrantRecord = {
+  state: GrantState;
+  /** Policy records the grant depends on. */
+  policyRefs?: string[];
+};
+
+export type GrantTransitionReceipt = {
+  /** Whether the system accepted the transition request. */
+  acknowledged: boolean;
+  /** Epoch ms at which the system reported the new state in force. */
+  appliedAt?: number;
+};
+
+export type PolicyStatus =
+  "active" | "review_required" | "suspended" | "retired";
+
+export type PolicyRecord = {
+  status: PolicyStatus;
+  /** ISO date after which the policy is outside its review window. */
+  expiresAt?: string;
+};
+
+export type ReconsiderationSubject = {
+  kind: "grant" | "policy" | "decision";
+  ref: string;
+};
+
+export type ReconsiderationReceipt = {
+  /** Identifier of the reconsideration record, when one was opened. */
+  reconsiderationId?: string;
+  /** Whether a record was actually written. */
+  recorded: boolean;
+};
+
 export type GovernanceAdapter = {
   /** Human-readable name of the system under test, used in the report. */
   systemName: string;
@@ -83,6 +136,40 @@ export type GovernanceAdapter = {
 
   /** Reverse a completed job and return the notifications actually emitted. */
   reverseAndCollectNotifications?: (job: JobHandle) => Promise<Notification[]>;
+
+  /** Everything the system can reach through its tools, granted or not. */
+  discoverCapabilities?: () => Promise<DiscoveredCapability[]>;
+
+  /** Try to use a capability, as the system would. The harness reads whether it ran. */
+  attemptAction?: (capabilityId: string) => Promise<AttemptOutcome>;
+
+  /** Read a grant from the authority grant register. */
+  getGrant?: (grantId: string) => Promise<GrantRecord>;
+
+  /** Move a grant to a new state, as the issuing authority would. */
+  setGrantState?: (
+    grantId: string,
+    state: GrantState,
+    reason: string,
+  ) => Promise<GrantTransitionReceipt>;
+
+  /** Read a policy record the grants depend on. */
+  getPolicy?: (policyId: string) => Promise<PolicyRecord>;
+
+  /** Push a policy past its review window, so the harness can watch what happens to its grants. */
+  expirePolicy?: (policyId: string) => Promise<void>;
+
+  /** Raise a reconsideration trigger against a grant, policy or decision. */
+  triggerReconsideration?: (
+    subject: ReconsiderationSubject,
+    trigger: string,
+  ) => Promise<ReconsiderationReceipt>;
+
+  /** The grant DEL-001 and DEL-005 act on. Defaults to the first grant referenced by a discovered capability. */
+  grantUnderTest?: string;
+
+  /** Maps a capability to the grant that would permit it, for DEL-001 and DEL-002. */
+  grantForCapability?: (capabilityId: string) => Promise<string | undefined>;
 };
 
 export type CheckStatus = "pass" | "fail" | "unsupported";
@@ -108,4 +195,6 @@ export type HarnessOptions = {
   estimateTolerance?: number;
   /** How many interactions TEM-005 runs to look for compounding. */
   sequentialInteractions?: number;
+  /** DEL-001: how long a grant state transition may take before the next attempt is refused. */
+  grantTransitionBudgetMs?: number;
 };

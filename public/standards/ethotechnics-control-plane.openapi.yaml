@@ -1,12 +1,14 @@
 openapi: 3.0.3
 info:
   title: Ethotechnics Control Plane API
-  version: 0.2.0
+  version: 0.3.0
   description: >-
     Draft OpenAPI specification for decision records, appeal lifecycle actions, pause or
-    reversal updates, repair SLA tracking, and burden-hours telemetry. Payloads align with the
-    JSON schemas published under /standards and the agent receipt schema at
-    /standards/agent-receipt-schema.json.
+    reversal updates, repair SLA tracking, and burden-hours telemetry, plus the delegation
+    state objects added in 0.3.0: capability catalogs, authority grants and their state
+    transitions, policy records, dependency records, standing registers, challenges, and
+    reconsiderations. Payloads align with the JSON schemas published under /standards and the
+    agent receipt schema at /standards/agent-receipt-schema.json.
 servers:
   - url: https://ethotechnics.org
 security:
@@ -20,6 +22,20 @@ tags:
     description: Repair SLA tracking for remedial actions.
   - name: Burden hours
     description: Burden-hours telemetry reporting and retrieval.
+  - name: Capabilities
+    description: Capability catalogs (what a grantee can do; confers no authority).
+  - name: Grants
+    description: Authority grants modeled as leases, with explicit state transitions.
+  - name: Policies
+    description: Policy records that carry the evidence behind grants.
+  - name: Dependencies
+    description: Dependency records measuring how hard withdrawal has become.
+  - name: Standing
+    description: Standing registers naming who may challenge which decision classes.
+  - name: Challenges
+    description: Challenge intake and retrieval.
+  - name: Reconsiderations
+    description: Reconsideration records produced when an observation changes state.
 paths:
   /api/decisions:
     get:
@@ -605,6 +621,642 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /api/capabilities:
+    get:
+      tags: [Capabilities]
+      summary: List capability catalogs
+      description: Return capability catalogs. A catalog says what a grantee could do and contains no permission fields; authority lives only in grants.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: grantee_id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paginated capability catalogs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CapabilityCatalogPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags: [Capabilities]
+      summary: Publish a capability catalog
+      description: Record a discovered capability catalog for a grantee. Publishing a catalog does not change any grant (Law I).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CapabilityCatalog"
+      responses:
+        "201":
+          description: CapabilityCatalog created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CapabilityCatalog"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/grants:
+    get:
+      tags: [Grants]
+      summary: List authority grants
+      description: Return authority grants with their current lease state and state history.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: state
+          schema:
+            type: string
+            enum: [allowed, review_required, suspended, revoked]
+        - in: query
+          name: grantee_id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paginated authority grants
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorityGrantPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags: [Grants]
+      summary: Issue an authority grant
+      description: Issue a new lease on consequential action. The first state_history entry must have reason issued.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthorityGrant"
+      responses:
+        "201":
+          description: AuthorityGrant issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorityGrant"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/grants/{grant_id}:
+    get:
+      tags: [Grants]
+      summary: Retrieve an authority grant
+      description: Resolve a grant with its scope, evidence basis, and full state history.
+      parameters:
+        - in: path
+          name: grant_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: AuthorityGrant payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorityGrant"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Grant not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/grants/{grant_id}/state:
+    post:
+      tags: [Grants]
+      summary: Record a grant state transition
+      description: >-
+        Move a grant between allowed, review_required, suspended, and revoked. Every transition
+        carries a reason; renewal and expansion are explicit reasons because success is not the
+        default reward (Law XI) and absence of observed failure is not renewal (Law II).
+      parameters:
+        - in: path
+          name: grant_id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GrantStateTransition"
+            examples:
+              narrow_after_challenge:
+                value:
+                  to: allowed
+                  reason: challenge
+                  evidence_ref: REC-2026-0019
+                  note: "Narrowed: populations now exclude accounts flagged vulnerable."
+                  effective_at: "2026-06-18T16:30:00Z"
+              expansion:
+                value:
+                  to: allowed
+                  reason: expansion
+                  evidence_ref: REC-2026-0027
+                  note: "Scope expanded to include business accounts after expansion review."
+                  effective_at: "2026-09-01T09:00:00Z"
+      responses:
+        "200":
+          description: Grant with the new transition appended to state_history
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorityGrant"
+        "409":
+          description: Transition is not permitted from the grant's current state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Grant not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/policies:
+    get:
+      tags: [Policies]
+      summary: List policy records
+      description: Return policy records with their status, assumptions, and review triggers.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [active, review_required, suspended, retired]
+      responses:
+        "200":
+          description: Paginated policy records
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyRecordPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags: [Policies]
+      summary: Adopt a policy record
+      description: Record a new policy version. Grants that reference a superseded policy become eligible for reconsideration (Law III).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyRecord"
+      responses:
+        "201":
+          description: PolicyRecord adopted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyRecord"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/policies/{policy_id}:
+    get:
+      tags: [Policies]
+      summary: Retrieve a policy record
+      description: Resolve a policy record by identifier.
+      parameters:
+        - in: path
+          name: policy_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: PolicyRecord payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyRecord"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Policy not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/dependencies:
+    get:
+      tags: [Dependencies]
+      summary: List dependency records
+      description: Return dependency records with exposure scores and reversibility levels.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: system_ref
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paginated dependency records
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DependencyRecordPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags: [Dependencies]
+      summary: Record a dependency assessment
+      description: Record a new assessment of how hard withdrawal or substitution has become (Law V).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DependencyRecord"
+      responses:
+        "201":
+          description: DependencyRecord recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DependencyRecord"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/standing:
+    get:
+      tags: [Standing]
+      summary: List standing registers
+      description: "Return standing registers: per decision class, who may challenge what, with what procedural force (Law VII)."
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: system_ref
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paginated standing registers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StandingRegisterPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/challenges:
+    get:
+      tags: [Challenges]
+      summary: List challenges
+      description: Return challenges brought under a standing register.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [open, under_review, decided, withdrawn]
+      responses:
+        "200":
+          description: Paginated challenges
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChallengePage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags: [Challenges]
+      summary: Open a challenge
+      description: Open a challenge against a decision, grant, or policy. The challenger must be listed in the register entry for the decision class.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Challenge"
+      responses:
+        "202":
+          description: Challenge accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Challenge"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/challenges/{challenge_id}:
+    get:
+      tags: [Challenges]
+      summary: Retrieve a challenge
+      description: Resolve a challenge with its evidence, responder, deadline, and outcome.
+      parameters:
+        - in: path
+          name: challenge_id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Challenge payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Challenge"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Challenge not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /api/reconsiderations:
+    get:
+      tags: [Reconsiderations]
+      summary: List reconsiderations
+      description: Return reconsideration records and their outcomes.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - in: query
+          name: cursor
+          schema:
+            type: string
+        - in: query
+          name: outcome
+          schema:
+            type: string
+            enum: [pending, stand, narrow, suspend, reverse, correct, expand]
+      responses:
+        "200":
+          description: Paginated reconsiderations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReconsiderationPage"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags: [Reconsiderations]
+      summary: Open a reconsideration
+      description: Record that a trigger reopened a decision, grant, or policy. Observability without state transition is theater (Law VIII).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reconsideration"
+      responses:
+        "201":
+          description: Reconsideration opened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reconsideration"
+        "401":
+          description: Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Authenticated but not authorized for this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   securitySchemes:
     bearerAuth:
@@ -902,6 +1554,116 @@ components:
             $ref: "#/components/schemas/BurdenHoursRecord"
         page:
           $ref: "#/components/schemas/PageInfo"
+    CapabilityCatalog:
+      $ref: https://ethotechnics.org/standards/capability-catalog.schema.json
+    CapabilityCatalogPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/CapabilityCatalog"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    AuthorityGrant:
+      $ref: https://ethotechnics.org/standards/authority-grant.schema.json
+    AuthorityGrantPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/AuthorityGrant"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    PolicyRecord:
+      $ref: https://ethotechnics.org/standards/policy-record.schema.json
+    PolicyRecordPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyRecord"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    DependencyRecord:
+      $ref: https://ethotechnics.org/standards/dependency-record.schema.json
+    DependencyRecordPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/DependencyRecord"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    StandingRegister:
+      $ref: https://ethotechnics.org/standards/standing-register.schema.json
+    StandingRegisterPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/StandingRegister"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    Challenge:
+      $ref: https://ethotechnics.org/standards/challenge.schema.json
+    ChallengePage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Challenge"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    Reconsideration:
+      $ref: https://ethotechnics.org/standards/reconsideration.schema.json
+    ReconsiderationPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Reconsideration"
+        page:
+          $ref: "#/components/schemas/PageInfo"
+    GrantStateTransition:
+      type: object
+      required: [to, reason, effective_at]
+      properties:
+        to:
+          type: string
+          enum: [allowed, review_required, suspended, revoked]
+        reason:
+          type: string
+          enum:
+            - issued
+            - renewal
+            - expansion
+            - evidence_changed
+            - policy_review
+            - challenge
+            - incident
+            - expiry
+            - manual
+        evidence_ref:
+          type: string
+        note:
+          type: string
+        effective_at:
+          type: string
+          format: date-time
     PageInfo:
       type: object
       required: [limit]

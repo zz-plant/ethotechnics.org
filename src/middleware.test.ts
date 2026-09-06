@@ -111,7 +111,8 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/assurance/monitoring",
-        expectedLocation: "https://ethotechnics.org/taxonomy/assurance/monitoring",
+        expectedLocation:
+          "https://ethotechnics.org/taxonomy/assurance/monitoring",
       },
       {
         url: "https://ethotechnics.org/governance/policy",
@@ -124,6 +125,11 @@ describe("middleware", () => {
       {
         url: "https://ethotechnics.org/api/v/2026.01/glossary.json",
         expectedLocation: "https://ethotechnics.org/api/glossary.json",
+      },
+      {
+        url: "https://ethotechnics.org/explainers/democratic-vs-coercive-governability",
+        expectedLocation:
+          "https://ethotechnics.org/research/theory/democratic-vs-coercive-governability",
       },
     ];
 

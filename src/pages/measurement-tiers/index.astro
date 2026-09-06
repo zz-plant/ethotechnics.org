@@ -2,6 +2,20 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import { tier1Checks } from "../../harness/checks";
+import { evalsContent } from "../../content/evals";
+import { evalTestCases } from "../../content/eval-test-cases";
+
+const machineAnswerable = tier1Checks.map((check) => {
+  const suite = evalsContent.suites.find((s) => s.id === check.suiteId);
+  const testCase = evalTestCases.find((tc) => tc.id === check.id);
+  return {
+    ...check,
+    suiteTitle: suite?.title ?? check.suiteId,
+    href: suite ? `/evals/${suite.slug}` : "/evals",
+    layer: testCase?.layer ?? suite?.layer ?? "",
+  };
+});
 
 const pageTitle = "Measurement tiers — Ethotechnics Institute";
 const pageDescription =
@@ -118,7 +132,10 @@ const mpis = [
     title="Measurement tiers + anti-gaming guidance"
     description={pageDescription}
     permalink={permalink}
-    anchorLinks={mpis.map((mpi) => ({ href: `#${mpi.id}`, label: mpi.title }))}
+    anchorLinks={[
+      ...mpis.map((mpi) => ({ href: `#${mpi.id}`, label: mpi.title })),
+      { href: "#harness", label: "Tier 1 harness" },
+    ]}
     panelCopy={{
       eyebrow: "Why tiers",
       title: "Metrics without anti-gaming become weapons",
@@ -163,4 +180,23 @@ const mpis = [
       </SectionBlock>
     ))
   }
+
+  <SectionBlock
+    id="harness"
+    eyebrow="Tier 1 harness"
+    title="Machine-answerable eval cases"
+    description={`Of the ${evalTestCases.length} eval cases, ${machineAnswerable.length} are stopwatch-and-assertion questions about a running system that the Tier 1 harness in src/harness answers without a reviewer. An adapter that cannot answer one reports it as unsupported, which is a finding about the system and never a pass.`}
+  >
+    <ul class="muted">
+      {
+        machineAnswerable.map((check) => (
+          <li>
+            <strong>{check.id}</strong> {check.title} ·{" "}
+            <a href={check.href}>{check.suiteTitle}</a>
+            {check.layer && <> · {check.layer} layer</>}
+          </li>
+        ))
+      }
+    </ul>
+  </SectionBlock>
 </BaseLayout>

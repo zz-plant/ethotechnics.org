@@ -73,7 +73,73 @@ const canonicalObjects = [
   {
     name: "Agent safety object model",
     description:
-      "Machine-readable profile for autonomy level, action classes, override authority, and receipts.",
+      "Machine-readable profile for autonomy level, action classes, and receipts; 2.0.0 points each action class at its authority grant.",
+  },
+  {
+    name: "Capability catalog",
+    description:
+      "What a grantee can discover it could do. Confers no authority and contains no permission fields.",
+  },
+  {
+    name: "Authority grant",
+    description:
+      "A lease on consequential action: scope, evidence basis, state (allowed, review_required, suspended, revoked), and state history.",
+  },
+  {
+    name: "Policy record",
+    description:
+      "Versioned evidence behind a grant, with assumptions, review triggers, expiry, and status.",
+  },
+  {
+    name: "Dependency record",
+    description:
+      "How hard withdrawal or substitution has become: dependents, reversibility at three levels, preserved capacities, and exposure score.",
+  },
+  {
+    name: "Standing register and challenge",
+    description:
+      "Who may challenge which decision classes, with what evidence and procedural force; a challenge is one exercise of that standing.",
+  },
+  {
+    name: "Intervention spec and reconsideration",
+    description:
+      "What a human can see, prevent, and alter (replacing 'human in the loop'), and the record of an observation changing state.",
+  },
+  {
+    name: "Substrate profile",
+    description:
+      "Nine-property classification of a deployment that replaces open-versus-closed.",
+  },
+];
+
+const delegationSchemas = [
+  {
+    href: "/standards/capability-catalog.schema.json",
+    label: "Capability catalog",
+  },
+  { href: "/standards/authority-grant.schema.json", label: "Authority grant" },
+  { href: "/standards/policy-record.schema.json", label: "Policy record" },
+  {
+    href: "/standards/dependency-record.schema.json",
+    label: "Dependency record",
+  },
+  {
+    href: "/standards/standing-register.schema.json",
+    label: "Standing register",
+  },
+  { href: "/standards/challenge.schema.json", label: "Challenge" },
+  {
+    href: "/standards/intervention-spec.schema.json",
+    label: "Intervention spec",
+  },
+  { href: "/standards/reconsideration.schema.json", label: "Reconsideration" },
+  {
+    href: "/standards/substrate-profile.schema.json",
+    label: "Substrate profile",
+  },
+  {
+    href: "/standards/agent-safety-object-model.schema.json",
+    label: "Agent safety object model 2.0.0",
   },
 ];
 
@@ -82,13 +148,13 @@ const interoperabilitySpecs = [
     name: "Control plane OpenAPI",
     href: "/standards/ethotechnics-control-plane.openapi.yaml",
     description:
-      "Decision retrieval and appeal intake endpoints aligned to the agent receipt schema.",
+      "Decision retrieval, appeal intake, and (0.3.0) capability, grant, policy, dependency, standing, challenge, and reconsideration endpoints.",
   },
   {
     name: "Events AsyncAPI",
     href: "/standards/ethotechnics-events.asyncapi.yaml",
     description:
-      "Deadline and repair log events for clocked governance and remediation workflows.",
+      "Deadline and repair log events, plus (0.3.0) grant, policy, dependency, challenge, and reconsideration state events.",
   },
 ];
 
@@ -161,6 +227,40 @@ const endpoints = [
   {
     path: "/api/releases.json",
     description: "Versioned release index for stable citations.",
+  },
+  {
+    path: "/api/capabilities.json",
+    description:
+      "Example capability catalog: what the worked-example agent can reach, with no permission fields.",
+  },
+  {
+    path: "/api/grants.json",
+    description:
+      "Example authority grant with scope, evidence basis, and state history including a narrowing.",
+  },
+  {
+    path: "/api/policies.json",
+    description: "Example policy record with review triggers and expiry.",
+  },
+  {
+    path: "/api/dependencies.json",
+    description:
+      "Example dependency record with three-level reversibility and exposure score.",
+  },
+  {
+    path: "/api/standing.json",
+    description:
+      "Example standing register with its challenge and the reconsideration it triggered.",
+  },
+  {
+    path: "/api/interventions.json",
+    description:
+      "Example intervention spec: what the steward can see, prevent, and alter.",
+  },
+  {
+    path: "/api/substrate-profiles.json",
+    description:
+      "Example substrate profile with the 2.0.0 agent safety object model attached.",
   },
 ];
 ---
@@ -249,9 +349,23 @@ const endpoints = [
       </li>
       <li>Appeal submission: <code>POST /api/appeals</code></li>
       <li>
+        Grant lease and transitions: <code>GET /api/grants/{`{grant_id}`}</code
+        >,{" "}
+        <code>POST /api/grants/{`{grant_id}`}/state</code>
+      </li>
+      <li>
+        Standing and reconsideration: <code>GET /api/standing</code>,{" "}
+        <code>POST /api/challenges</code>,{" "}
+        <code>POST /api/reconsiderations</code>
+      </li>
+      <li>
         Events: <code>decision.deadline.reminder</code>,{" "}
         <code>appeal.deadline.breached</code>,{" "}
-        <code>repair.log.updated</code>
+        <code>repair.log.updated</code>, <code>grant.state.changed</code>,{" "}
+        <code>policy.review.triggered</code>,{" "}
+        <code>dependency.threshold.crossed</code>,{" "}
+        <code>challenge.opened</code>,{" "}
+        <code>reconsideration.completed</code>
       </li>
     </ul>
   </SectionBlock>
@@ -316,6 +430,30 @@ const endpoints = [
         </ul>
       </li>
     </ul>
+    <div>
+      <p class="eyebrow">Delegation state</p>
+      <h3>Object model v2 schemas</h3>
+      <p class="muted">
+        One JSON Schema per state variable (capability, authority, evidence,
+        dependency, standing, correction), each with a validating example under
+        <code>/standards/examples/</code> that together describe one delegation scenario.
+        The 1.1.0 instance at
+        <a href="/standards/agent-safety-object-model.json"
+          >/standards/agent-safety-object-model.json</a
+        >
+        stays served unchanged.
+      </p>
+      <ul class="muted">
+        {
+          delegationSchemas.map((schema) => (
+            <li>
+              <strong>{schema.label}:</strong>{" "}
+              <a href={schema.href}>{schema.href}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </SectionBlock>
 
   <SectionBlock

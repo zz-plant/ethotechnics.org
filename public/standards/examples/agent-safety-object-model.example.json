@@ -1,0 +1,43 @@
+{
+  "schema_version": "2.0.0",
+  "agent_id": "agent-risk-ops-v2",
+  "autonomy_level": {
+    "level": "execute_with_guardrails",
+    "description": "Agent can execute reversible actions within the scope of an allowed grant."
+  },
+  "action_classes": [
+    { "class": "READ", "reversible": true, "grant_ref": "GRANT-2026-0142" },
+    { "class": "WRITE", "reversible": true, "grant_ref": "GRANT-2026-0142" },
+    { "class": "TRANSFER", "reversible": false, "grant_ref": null }
+  ],
+  "capability_catalog_ref": "CAT-RISK-OPS-V2-2026-07",
+  "dependency_ref": "DEP-RISK-OPS-V2-2026-06",
+  "intervention_ref": "INT-RISK-STEWARD-1",
+  "substrate_profile_ref": "SUB-RISK-OPS-V2",
+  "receipt_schema": {
+    "href": "/standards/agent-receipt-schema.json",
+    "version": "1.0.0"
+  },
+  "clocks": {
+    "ack": { "hours": 2 },
+    "review": { "hours": 24 },
+    "remedy": { "hours": 72 }
+  },
+  "evidence_pack_references": [
+    { "standard": "STD-01", "href": "/evidence-packs/std-01" },
+    { "standard": "STD-02", "href": "/evidence-packs/std-02" }
+  ],
+  "required_signals": [
+    "unsafe_action_rate",
+    "human_override_rate",
+    "time_to_detection",
+    "time_to_remedy",
+    "false_positive_hold_rate_30d",
+    "grant_state_transitions"
+  ],
+  "mapped_mechanisms": [
+    { "id": "MEC-01", "href": "/mechanisms/patterns/decision-log" },
+    { "id": "MEC-05", "href": "/mechanisms/patterns/kill-switch" },
+    { "id": "MEC-06", "href": "/mechanisms/patterns/appeal-paths" }
+  ]
+}

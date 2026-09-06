@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/intervention-spec.schema.json",
+  "title": "Intervention Specification",
+  "description": "The Correction state variable, replacing the phrase \"human in the loop\". A human is part of the control system only to the extent they can causally alter its trajectory (Law IX). The spec states what the intervening owner can see, which actions they can prevent, which states they can alter, what happens when they disagree with the system, what incentives and costs bear on exercising the intervention, how fast they can reach it, and whether they are protected from retaliation. Every consequential delegation creates a correction obligation (Law IV); this is where that obligation is made concrete.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "spec_id",
+    "owner",
+    "information_available",
+    "actions_preventable",
+    "states_alterable",
+    "on_disagreement",
+    "incentives",
+    "cost_to_exercise",
+    "reach_time_target",
+    "non_retaliation",
+    "mechanism"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the spec conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "spec_id": {
+      "title": "Spec identifier",
+      "description": "Stable identifier for the intervention spec, referenced by grants and safety object models.",
+      "type": "string"
+    },
+    "system_ref": {
+      "title": "System reference",
+      "description": "Identifier of the system the intervention applies to.",
+      "type": "string"
+    },
+    "owner": {
+      "title": "Owner",
+      "description": "The person or role who holds the intervention and can be reached to exercise it.",
+      "type": "object",
+      "required": ["name", "role", "contact"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "description": "Name of the owner.",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "description": "Role of the owner.",
+          "type": "string"
+        },
+        "contact": {
+          "title": "Contact",
+          "description": "How to reach the owner.",
+          "type": "string"
+        }
+      }
+    },
+    "information_available": {
+      "title": "Information available",
+      "description": "What the owner can actually see before and while intervening. Oversight without information is not control.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "actions_preventable": {
+      "title": "Actions preventable",
+      "description": "Action classes the owner can stop before they take effect.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "states_alterable": {
+      "title": "States alterable",
+      "description": "Governing states the owner can change, such as a grant's state or a decision's status.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "on_disagreement": {
+      "title": "On disagreement",
+      "description": "What happens after the owner disagrees with the system: who prevails, what pauses, and how the disagreement is recorded.",
+      "type": "string"
+    },
+    "incentives": {
+      "title": "Incentives",
+      "description": "The incentives bearing on the owner that make intervention more or less likely, stated honestly.",
+      "type": "string"
+    },
+    "cost_to_exercise": {
+      "title": "Cost to exercise",
+      "description": "What it costs the owner or the institution to exercise the intervention, in time, money, or standing.",
+      "type": "string"
+    },
+    "reach_time_target": {
+      "title": "Reach time target",
+      "description": "Target time for the owner to reach and exercise the intervention, as an ISO 8601 duration such as PT2H.",
+      "type": "string",
+      "pattern": "^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d)(\\d+H)?(\\d+M)?(\\d+S)?)?$"
+    },
+    "non_retaliation": {
+      "title": "Non-retaliation",
+      "description": "Protection for the owner against retaliation for intervening. A control that punishes its operator will not be used.",
+      "type": "object",
+      "required": ["policy_ref", "attested"],
+      "additionalProperties": false,
+      "properties": {
+        "policy_ref": {
+          "title": "Policy reference",
+          "description": "Identifier or URL of the non-retaliation policy.",
+          "type": "string"
+        },
+        "attested": {
+          "title": "Attested",
+          "description": "Whether the protection has been attested by an accountable party.",
+          "type": "boolean"
+        }
+      }
+    },
+    "mechanism": {
+      "title": "Mechanism",
+      "description": "The kind of intervention the owner can exercise.",
+      "type": "string",
+      "enum": ["halt", "hold", "override", "narrow", "revoke", "escalate"]
+    }
+  }
+}

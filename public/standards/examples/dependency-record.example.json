@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "dependency_id": "DEP-RISK-OPS-V2-2026-06",
+  "system_ref": "agent-risk-ops-v2",
+  "assessed_at": "2026-06-15T00:00:00Z",
+  "dependents": [
+    {
+      "kind": "workflow",
+      "name": "Account-takeover triage queue",
+      "criticality": "critical"
+    },
+    { "kind": "role", "name": "Fraud analyst (tier 1)", "criticality": "high" },
+    {
+      "kind": "customer",
+      "name": "Retail account holders",
+      "criticality": "high"
+    },
+    {
+      "kind": "downstream_software",
+      "name": "Case management system hold sync",
+      "criticality": "medium"
+    }
+  ],
+  "substitution_cost": {
+    "estimate": 26,
+    "unit": "person-weeks",
+    "basis": "Estimate to re-staff manual triage at current volume plus rules-engine fallback tuning."
+  },
+  "expertise_retained": {
+    "roles": ["Fraud analyst (tier 2)", "Risk Steward"],
+    "last_exercised": "2026-05-20T00:00:00Z"
+  },
+  "alternatives": [
+    {
+      "name": "Manual triage by tier-2 analysts",
+      "status": "degraded",
+      "last_exercised": "2026-05-20T00:00:00Z"
+    },
+    {
+      "name": "Legacy velocity rules engine",
+      "status": "available",
+      "last_exercised": "2026-05-20T00:00:00Z"
+    }
+  ],
+  "last_withdrawal_rehearsal": {
+    "at": "2026-05-20T00:00:00Z",
+    "outcome": "partial",
+    "notes": "Rules engine took over within 40 minutes; manual triage backlog reached 6 hours before clearing. Analyst headcount is the constraint."
+  },
+  "correction_latency": {
+    "estimate_hours": 31,
+    "basis": "Median time from challenge to hold release, measured by the latency tracker over Q2."
+  },
+  "reversibility": {
+    "technical": {
+      "feasible": true,
+      "evidence": "holds.release reverses any hold; verified in rehearsal 2026-05-20."
+    },
+    "operational": {
+      "feasible": true,
+      "evidence": "Risk Steward released 100% of rehearsal holds within the 2-hour reach target."
+    },
+    "institutional": {
+      "feasible": false,
+      "evidence": "Withdrawal beyond 48 hours breaches the fraud-loss SLA with the card network; not survivable without the rules-engine fallback being fully staffed."
+    }
+  },
+  "preserved_capacities": [
+    {
+      "capacity": "Tier-2 manual triage staffing at 30% of peak volume",
+      "reason": "Keeps withdrawal survivable and preserves the ability to question the system's decisions.",
+      "owner": "Fraud Operations lead"
+    },
+    {
+      "capacity": "Legacy rules engine kept deployable",
+      "reason": "Substitution path that does not depend on the agent vendor.",
+      "owner": "Platform engineering"
+    }
+  ],
+  "exposure_score": {
+    "dependency_depth": 3,
+    "substitution_cost": 26,
+    "correction_latency": 31,
+    "score": 2418
+  }
+}

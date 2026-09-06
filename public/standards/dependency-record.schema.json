@@ -1,0 +1,320 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/dependency-record.schema.json",
+  "title": "Dependency Record",
+  "description": "The Dependency state variable: how difficult withdrawal or substitution of a system has become. Dependence converts technical risk into structural risk (Law V); as dependence increases, reversibility decreases unless deliberately replenished. The record separates nominal from operational reversibility (Law VI) and names the capacities the institution must preserve so it can still question, replace, or withdraw the system (Law XII).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "dependency_id",
+    "system_ref",
+    "assessed_at",
+    "dependents",
+    "substitution_cost",
+    "expertise_retained",
+    "alternatives",
+    "last_withdrawal_rehearsal",
+    "correction_latency",
+    "reversibility",
+    "preserved_capacities",
+    "exposure_score"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the record conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "dependency_id": {
+      "title": "Dependency record identifier",
+      "description": "Stable identifier for this record, referenced by grants and safety object models.",
+      "type": "string"
+    },
+    "system_ref": {
+      "title": "System reference",
+      "description": "Identifier of the system whose dependence is being assessed.",
+      "type": "string"
+    },
+    "assessed_at": {
+      "title": "Assessed at",
+      "description": "When the assessment was made. Dependence is a state variable and must be re-measured.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "dependents": {
+      "title": "Dependents",
+      "description": "Workflows, roles, customers, downstream software, vendors, or infrastructure that now rely on the system.",
+      "type": "array",
+      "items": {
+        "title": "Dependent",
+        "description": "One party or process that depends on the system.",
+        "type": "object",
+        "required": ["kind", "name", "criticality"],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "title": "Kind",
+            "description": "What kind of dependent this is.",
+            "type": "string",
+            "enum": [
+              "workflow",
+              "role",
+              "customer",
+              "downstream_software",
+              "vendor",
+              "infrastructure"
+            ]
+          },
+          "name": {
+            "title": "Name",
+            "description": "Name of the dependent.",
+            "type": "string"
+          },
+          "criticality": {
+            "title": "Criticality",
+            "description": "How badly the dependent is affected if the system is withdrawn.",
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          }
+        }
+      }
+    },
+    "substitution_cost": {
+      "title": "Substitution cost",
+      "description": "What it would cost to replace the system with an alternative.",
+      "type": "object",
+      "required": ["estimate", "unit", "basis"],
+      "additionalProperties": false,
+      "properties": {
+        "estimate": {
+          "title": "Estimate",
+          "description": "Numeric estimate of the substitution cost.",
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "title": "Unit",
+          "description": "Unit of the estimate, for example person-weeks or currency.",
+          "type": "string"
+        },
+        "basis": {
+          "title": "Basis",
+          "description": "How the estimate was produced.",
+          "type": "string"
+        }
+      }
+    },
+    "expertise_retained": {
+      "title": "Expertise retained",
+      "description": "Whether the institution still holds the skills needed to do the work without the system.",
+      "type": "object",
+      "required": ["roles", "last_exercised"],
+      "additionalProperties": false,
+      "properties": {
+        "roles": {
+          "title": "Roles",
+          "description": "Roles that retain the expertise.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "last_exercised": {
+          "title": "Last exercised",
+          "description": "When the retained expertise was last used in practice.",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "alternatives": {
+      "title": "Alternatives",
+      "description": "Known substitutes and whether they are still usable.",
+      "type": "array",
+      "items": {
+        "title": "Alternative",
+        "description": "One substitute for the system.",
+        "type": "object",
+        "required": ["name", "status", "last_exercised"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Name",
+            "description": "Name of the alternative.",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Whether the alternative is available, degraded, or removed.",
+            "type": "string",
+            "enum": ["available", "degraded", "removed"]
+          },
+          "last_exercised": {
+            "title": "Last exercised",
+            "description": "When the alternative was last actually used.",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "last_withdrawal_rehearsal": {
+      "title": "Last withdrawal rehearsal",
+      "description": "The most recent practice run of withdrawing the system. A correction that has never been rehearsed is nominal, not operational (Law VI).",
+      "type": "object",
+      "required": ["at", "outcome", "notes"],
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "title": "At",
+          "description": "When the rehearsal happened.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "outcome": {
+          "title": "Outcome",
+          "description": "Whether the rehearsal succeeded, partially succeeded, or failed.",
+          "type": "string",
+          "enum": ["succeeded", "partial", "failed", "not_rehearsed"]
+        },
+        "notes": {
+          "title": "Notes",
+          "description": "What was learned.",
+          "type": "string"
+        }
+      }
+    },
+    "correction_latency": {
+      "title": "Correction latency",
+      "description": "How long it takes to detect and reverse a harmful decision produced by the system.",
+      "type": "object",
+      "required": ["estimate_hours", "basis"],
+      "additionalProperties": false,
+      "properties": {
+        "estimate_hours": {
+          "title": "Estimate (hours)",
+          "description": "Estimated end-to-end correction latency in hours.",
+          "type": "number",
+          "minimum": 0
+        },
+        "basis": {
+          "title": "Basis",
+          "description": "How the estimate was produced, for example measured from the latency tracker.",
+          "type": "string"
+        }
+      }
+    },
+    "reversibility": {
+      "title": "Reversibility",
+      "description": "Three levels of reversibility, each with evidence. Technical means the change can be undone; operational means it can be undone by the people on shift within the correction window; institutional means it can be undone without unacceptable damage to the institution.",
+      "type": "object",
+      "required": ["technical", "operational", "institutional"],
+      "additionalProperties": false,
+      "properties": {
+        "technical": {
+          "title": "Technical reversibility",
+          "description": "Can the effects be undone in the system itself?",
+          "$ref": "#/$defs/feasibility"
+        },
+        "operational": {
+          "title": "Operational reversibility",
+          "description": "Can the people and processes actually exercise the reversal in time?",
+          "$ref": "#/$defs/feasibility"
+        },
+        "institutional": {
+          "title": "Institutional reversibility",
+          "description": "Can the institution survive exercising the reversal?",
+          "$ref": "#/$defs/feasibility"
+        }
+      }
+    },
+    "preserved_capacities": {
+      "title": "Preserved capacities",
+      "description": "Capacities the institution deliberately keeps so it can still question, replace, or withdraw the system (Law XII).",
+      "type": "array",
+      "items": {
+        "title": "Preserved capacity",
+        "description": "One capacity kept in reserve and who owns keeping it.",
+        "type": "object",
+        "required": ["capacity", "reason", "owner"],
+        "additionalProperties": false,
+        "properties": {
+          "capacity": {
+            "title": "Capacity",
+            "description": "The capacity being preserved.",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "description": "Why it must be preserved.",
+            "type": "string"
+          },
+          "owner": {
+            "title": "Owner",
+            "description": "Role accountable for keeping the capacity alive.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "exposure_score": {
+      "title": "Exposure score",
+      "description": "Structural exposure created by dependence. score = dependency_depth × substitution_cost × correction_latency, where dependency_depth is a unitless count of critical dependents, substitution_cost is in the unit stated in the substitution_cost object, and correction_latency is in hours. The product is a unitless index used to compare systems and trigger reconsideration when a dependency threshold is crossed.",
+      "type": "object",
+      "required": [
+        "dependency_depth",
+        "substitution_cost",
+        "correction_latency",
+        "score"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "dependency_depth": {
+          "title": "Dependency depth",
+          "description": "Unitless count of critical dependents.",
+          "type": "number",
+          "minimum": 0
+        },
+        "substitution_cost": {
+          "title": "Substitution cost factor",
+          "description": "Substitution cost estimate, in the unit stated in the substitution_cost object.",
+          "type": "number",
+          "minimum": 0
+        },
+        "correction_latency": {
+          "title": "Correction latency factor",
+          "description": "Correction latency in hours.",
+          "type": "number",
+          "minimum": 0
+        },
+        "score": {
+          "title": "Score",
+          "description": "The product dependency_depth × substitution_cost × correction_latency.",
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "$defs": {
+    "feasibility": {
+      "title": "Feasibility",
+      "description": "Whether a level of reversibility is feasible, with the evidence for the claim.",
+      "type": "object",
+      "required": ["feasible", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "feasible": {
+          "title": "Feasible",
+          "description": "Whether reversal at this level is feasible.",
+          "type": "boolean"
+        },
+        "evidence": {
+          "title": "Evidence",
+          "description": "Evidence for the feasibility claim, for example a rehearsal outcome.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

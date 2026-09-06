@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/policy-record.schema.json",
+  "title": "Policy Record",
+  "description": "The Evidence state variable: a versioned statement of the propositions that justify an authority grant. Policy is state, not input (Law III). A policy record carries its own assumptions, review triggers, and expiry so that when the evidentiary state changes materially, every grant that depends on it becomes eligible for reconsideration.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "policy_id",
+    "version",
+    "provenance",
+    "assumptions",
+    "review_triggers",
+    "expires_at",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the record conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "policy_id": {
+      "title": "Policy identifier",
+      "description": "Stable identifier for the policy, referenced by grants and decision records.",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "description": "Version of the policy content. A new version is a new evidentiary state.",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "description": "Short human-readable name of the policy.",
+      "type": "string"
+    },
+    "provenance": {
+      "title": "Provenance",
+      "description": "Who adopted the policy, when, and on what evidence.",
+      "type": "object",
+      "required": ["author", "adopted_at", "evidence_refs"],
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "title": "Author",
+          "description": "Person or body accountable for the policy content.",
+          "type": "string"
+        },
+        "adopted_at": {
+          "title": "Adopted at",
+          "description": "When this version was adopted.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidence_refs": {
+          "title": "Evidence references",
+          "description": "Identifiers or URLs of the evidence items the policy rests on.",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "assumptions": {
+      "title": "Assumptions",
+      "description": "Propositions assumed true for the policy to remain valid.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "review_triggers": {
+      "title": "Review triggers",
+      "description": "Observations that must change the policy's status. An observation that cannot change state is theater (Law VIII).",
+      "type": "array",
+      "items": {
+        "title": "Review trigger",
+        "description": "One condition that moves the policy into review, suspension, or retirement.",
+        "type": "object",
+        "required": ["trigger_id", "kind", "condition", "action"],
+        "additionalProperties": false,
+        "properties": {
+          "trigger_id": {
+            "title": "Trigger identifier",
+            "description": "Stable identifier for the trigger.",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "description": "What class of observation fires the trigger.",
+            "type": "string",
+            "enum": [
+              "evidence_threshold",
+              "elapsed_time",
+              "incident_class",
+              "dependency_threshold",
+              "challenge_volume"
+            ]
+          },
+          "condition": {
+            "title": "Condition",
+            "description": "Plain-language or expression form of the threshold that fires the trigger.",
+            "type": "string"
+          },
+          "action": {
+            "title": "Action",
+            "description": "The status transition the trigger forces.",
+            "type": "string",
+            "enum": ["review_required", "suspend", "retire"]
+          }
+        }
+      }
+    },
+    "expires_at": {
+      "title": "Expires at",
+      "description": "When the policy lapses unless re-adopted. Grants resting on an expired policy move to review_required.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "title": "Status",
+      "description": "Current evidentiary status of the policy.",
+      "type": "string",
+      "enum": ["active", "review_required", "suspended", "retired"]
+    },
+    "supersedes": {
+      "title": "Supersedes",
+      "description": "Identifier and version of the policy record this one replaces, if any.",
+      "type": "string"
+    }
+  }
+}

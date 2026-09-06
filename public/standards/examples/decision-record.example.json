@@ -1,0 +1,85 @@
+{
+  "schema_version": "2.0.0",
+  "record_id": "DR-2026-0142-0931",
+  "receipt_id": "RCPT-2026-0142-0931",
+  "issued_at": "2026-07-02T11:42:00Z",
+  "owner": {
+    "name": "Risk Steward on call",
+    "role": "Risk Steward",
+    "contact": "risk-steward@example.org",
+    "on_call": true
+  },
+  "subject": { "id": "acct-8120", "type": "retail_account", "region": "EU" },
+  "action": {
+    "class": "WRITE",
+    "description": "Place a 5-day temporary hold on outbound transfers pending identity verification.",
+    "reversible": true,
+    "tools": ["holds.create"]
+  },
+  "decision": {
+    "decision_type": "account_hold",
+    "reason_codes": ["velocity_anomaly", "new_payee_cluster"],
+    "inputs": [
+      "transactions.list:acct-8120:2026-07-02",
+      "vulnerability_flag:acct-8120:none"
+    ],
+    "confidence": 0.87
+  },
+  "clocks": {
+    "ack": { "hours": 2 },
+    "review": { "hours": 24 },
+    "remedy": { "hours": 72 },
+    "appeal": { "hours": 48 }
+  },
+  "status": "issued",
+  "evidence_refs": [
+    {
+      "type": "policy",
+      "href": "https://ethotechnics.org/standards/examples/policy-record.example.json",
+      "description": "POL-FRAUD-HOLD-3.2"
+    },
+    {
+      "type": "grant",
+      "href": "https://ethotechnics.org/standards/examples/authority-grant.example.json",
+      "description": "GRANT-2026-0142"
+    }
+  ],
+  "appeal": {
+    "href": "https://appeals.example.org/DR-2026-0142-0931",
+    "status": "open"
+  },
+  "grant_ref": "GRANT-2026-0142",
+  "policy_refs": ["POL-FRAUD-HOLD-3.2"],
+  "evidence_basis": [
+    {
+      "ref": "POL-FRAUD-HOLD-3.2",
+      "summary": "Velocity anomaly rule 4.1 with new-payee cluster.",
+      "as_of": "2026-06-18T00:00:00Z"
+    },
+    {
+      "ref": "vulnerability_flag:acct-8120",
+      "summary": "No vulnerability flag on the account at decision time.",
+      "as_of": "2026-07-02T11:40:00Z"
+    }
+  ],
+  "validity_conditions": [
+    "GRANT-2026-0142 remains in state allowed.",
+    "acct-8120 is not flagged vulnerable.",
+    "Hold does not exceed 7 days."
+  ],
+  "reconsider_when": [
+    { "condition": "acct-8120 is flagged vulnerable", "action": "reverse" },
+    { "condition": "identity verification completes", "action": "correct" },
+    {
+      "condition": "GRANT-2026-0142 leaves state allowed",
+      "action": "review_required"
+    }
+  ],
+  "parties_with_standing": [
+    "affected_party",
+    "corrective_labor",
+    "representative",
+    "oversight"
+  ],
+  "standing_register_ref": "REG-ACCOUNT-HOLDS-1"
+}

@@ -1,0 +1,61 @@
+---
+title: "Friction as accidental governance"
+description: "Handoffs, queues, manual review, and hesitation were never designed as governance. They governed anyway. Agentic systems remove them, and the properties they provided have to be rebuilt on purpose."
+permalink: "/research/theory/friction-as-accidental-governance"
+eyebrow: "Theory"
+published: "2026-09-06"
+lawRefs: ["II", "VIII", "IX", "XI"]
+summary: "Institutions noticed error through friction they never chose. When agents remove the friction, the noticing goes with it unless it is rebuilt deliberately."
+---
+
+Most institutions have never had a theory of how they catch their own mistakes. They have not needed one, because the catching happened as a by-product of how work moved. This essay is about that by-product, why it is disappearing, and what its disappearance obliges anyone building agentic systems to do.
+
+## The accidental control system
+
+Consider how a consequential decision moved through an institution before automation. Someone gathered the facts and wrote them up. The write-up sat in a queue. Someone else picked it up, read it, and either signed off or sent it back. If it involved money or risk above a threshold, it went to a third person. Each step took time, and at each step the decision was exposed to a fresh pair of eyes.
+
+None of this was designed as governance. The queue existed because people were busy. The handoff existed because roles were specialized. The threshold existed because senior time was expensive. The delay existed because none of these people were waiting for this particular decision. And yet the arrangement had properties any control engineer would recognize. Every decision was seen by more than one person. Every decision was delayed long enough for new information to arrive. Every decision passed through someone whose job was different enough from the originator's that they might notice a different class of error. And every decision, at every step, could simply be stopped by someone declining to pass it on.
+
+Hesitation was part of this. A person who is about to sign something consequential pauses. The pause is not procedural; it is a reaction to stakes. It creates a moment in which the person asks whether they are sure, and sometimes they are not, and the decision goes back. Institutions have relied on that moment without ever naming it.
+
+## What the friction provided
+
+Stated as properties, the accidental control system provided at least five things. Review: a second party examined the decision before it took effect. Latency: time elapsed between decision and consequence, during which the world could change and the decision could be revisited. Diversity: the reviewing party had a different vantage from the deciding party. Stoppability: any party in the chain could halt it by inaction. And renewal: because each step required a person to actively continue, authority to proceed was re-granted at every handoff rather than granted once.
+
+The last of these is the least noticed and the most important. In a chain of handoffs, no one holds standing authority to complete the process. Each person holds authority to do their step, and the process completes only if every step is actively taken. Authority to act was, in effect, leased in small increments and renewed continuously. If any person in the chain lost confidence, the lease lapsed.
+
+Institutions did not think of this as authority renewal. They thought of it as bureaucracy, and they were not wrong to find it slow. But the slowness and the safety were the same property.
+
+## What agentic systems remove
+
+An agentic system is, almost by definition, a machine for removing handoffs. It gathers the facts, drafts the decision, checks it against the rules, and executes it, in one pass, without a queue. That is the value. It is also the removal of every property listed above.
+
+Review disappears because there is no second party; the agent is the whole chain. Latency disappears because there is no queue. Diversity disappears because the same system performs every step. Stoppability by inaction disappears because nothing in the chain requires a person to act; the default is completion. And renewal disappears most completely of all, because the agent holds standing authority to complete the process. It does not need anyone to pass the decision along. It was granted the authority once, at deployment, and it exercises that authority on every decision thereafter.
+
+The institution that deploys such a system has not chosen to remove its governance. It has chosen to remove its friction, and discovered, usually after the fact, that its governance was made of friction.
+
+## The instinct to put a human back
+
+The common response is to reinsert a person. A human reviews the agent's output. A human approves before execution. This looks like restoring the old control, and it is not, for a reason that the accidental system makes clear.
+
+In the old chain, the reviewing human was doing their own job. They had context of their own, a different set of errors they were primed to notice, and a real incentive to send bad work back because it would otherwise become their problem. The reinserted human reviews the output of a system that has already done all the work. They have no independent vantage, because the agent gathered the facts. They have no time, because the agent produces decisions faster than any person can read them. And they have the wrong incentive, because approving is fast and cheap and rejecting means explaining why.
+
+So the reinserted human provides the appearance of review without the function. They are in the loop only in the sense that the loop passes through them. Whether they can actually alter the system's trajectory, with what information, in what time, and at what cost to themselves, is a question the old chain never had to ask, because the answer was obviously yes. It has to be asked now, of every oversight arrangement, and the answer is often no.
+
+## Rebuilding the properties on purpose
+
+If the accidental control system is gone, the properties it provided have to be rebuilt as designed features. That is a different kind of work. The institution has to state what it wants each property to do and then build something that does it.
+
+Renewal becomes a lease. The agent's authority to act is granted for a scope and a period and lapses unless actively renewed on the basis of stated evidence. Absence of observed failure is not renewal, because absence of observed failure was never the reason the old chain kept going; the reason was that a person actively chose to continue.
+
+Review becomes an intervention specification. Instead of "a human reviews," the design says who, with what information, able to prevent what, able to alter what, with what response when they disagree, at what cost to themselves. If those questions cannot be answered, there is no review.
+
+Latency becomes a deliberate delay for consequential classes of action, with the delay sized to let new information arrive, and a rule that says what the arrival of new information does to the pending action.
+
+Stoppability becomes an explicit control with a measured time to halt, exercised in rehearsal, rather than an emergent property of people not doing their jobs.
+
+And the growth of the system's authority, which in the old chain happened only when someone decided to route more decisions to fewer people, becomes an expansion decision with its own evidence, rather than an accretion that nobody chose.
+
+## What the laws take from this
+
+The method does not require a reader to mourn bureaucracy. It takes from the argument that the properties friction supplied are real, that agentic systems remove them, and that the removal has to be paid for with design. Authority decays unless renewed, because renewal was what the handoffs did. Human oversight is a control only if the human can alter system state, because the reinserted human usually cannot. Observability without state transition is theater, because the old chain's observations were also stops and the new system's observations are often only logs. And successful automation increases its own governance burden, because every removed handoff was a place where the institution might have noticed something, and the institution has to decide where it will notice things now.

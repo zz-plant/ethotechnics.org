@@ -1,0 +1,291 @@
+---
+import "../../styles/components/research.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import {
+  frontierDoctrineScan,
+  LAW_NUMERALS,
+} from "../../content/frontier-doctrine-scan";
+import { derivePublicationMetadata } from "../../utils/publication";
+
+const scan = frontierDoctrineScan;
+const pageTitle = `${scan.title} (${scan.scanDate}) — Ethotechnics Institute`;
+const pageDescription =
+  "A dated research note scoring ten frontier labs against the twelve laws on public doctrine and product architecture, not safety performance.";
+const anchorLinks = [
+  { href: "#disclaimer", label: "What this scores" },
+  { href: "#scale", label: "Scale" },
+  { href: "#overall", label: "Overall fit" },
+  { href: "#by-law", label: "Law by law" },
+  { href: "#law-averages", label: "Law averages" },
+  { href: "#what-this-means", label: "What this means" },
+  { href: "#sources", label: "Sources" },
+];
+const publishedTime = `${scan.published}T00:00:00.000Z`;
+const publication = derivePublicationMetadata({
+  permalink: scan.permalink,
+  published: publishedTime,
+  version: "1.0.0",
+  authorName: "Ethotechnics Institute",
+  changelogSummary: "Initial scan published.",
+});
+const lawByNumeral = new Map(scan.laws.map((law) => [law.numeral, law]));
+const formatAverage = (value: number) => value.toFixed(1);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime={publishedTime}
+  modifiedTime={publishedTime}
+  mainClass="page page--wide"
+>
+  <PageIntro
+    eyebrow="Research note"
+    title={`${scan.title}, ${scan.scanDate}`}
+    description={pageDescription}
+    permalink={scan.permalink}
+    anchorLinks={anchorLinks}
+    version="1.0.0"
+    lastUpdated={scan.published}
+    panelCopy={{
+      eyebrow: "Status",
+      title: `Dated ${scan.scanDate}`,
+      description: scan.refreshCadence,
+      link: { label: "Read the laws", href: "/standards/laws" },
+    }}
+  />
+
+  <SectionBlock
+    id="disclaimer"
+    eyebrow="Read this first"
+    title="What this scan scores, and what it does not"
+    description={scan.scope}
+  >
+    <aside class="callout callout--emphasis" aria-label="Scope disclaimer">
+      <p class="eyebrow">Disclaimer</p>
+      <ul>
+        {scan.disclaimer.map((line) => <li>{line}</li>)}
+      </ul>
+    </aside>
+    <p class="muted">
+      The scan is published outside the Method. It is an argument about where
+      the Method should center, not part of what the Method requires.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="scale"
+    eyebrow="Scale"
+    title="Scoring scale"
+    description="Each lab is scored on each law from 0 to 4. Overall fit is a weighted reading of the twelve scores, reported on a 0 to 10 scale."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--compare">
+        <thead>
+          <tr>
+            <th scope="col">Score</th>
+            <th scope="col">Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            scan.scale.map((level) => (
+              <tr>
+                <td data-label="Score">{level.score}</td>
+                <td data-label="Meaning">{level.meaning}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="overall"
+    eyebrow="Overall"
+    title="Overall fit by lab"
+    description="Fit to the twelve laws as a whole, on public doctrine and product architecture. Higher is closer to the laws. It is not a safety ranking."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Lab</th>
+            <th scope="col">Overall fit (0 to 10)</th>
+            <th scope="col">Characterization</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            scan.labs.map((lab) => (
+              <tr>
+                <th scope="row">{lab.name}</th>
+                <td>{formatAverage(lab.overall)}</td>
+                <td>{lab.characterization}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="by-law"
+    eyebrow="Law by law"
+    title="Scores by lab and law"
+    description="Columns are Laws I to XII in order. The table scrolls sideways on narrow screens."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Lab</th>
+            {
+              LAW_NUMERALS.map((numeral) => (
+                <th scope="col" title={lawByNumeral.get(numeral)?.statement}>
+                  {numeral}
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            scan.labs.map((lab) => (
+              <tr>
+                <th scope="row">{lab.name}</th>
+                {lab.scores.map((score) => (
+                  <td>{score}</td>
+                ))}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <details>
+      <summary>Law statements</summary>
+      <ol>
+        {
+          scan.laws.map((law) => (
+            <li>
+              <strong>{law.numeral}.</strong> {law.statement}
+            </li>
+          ))
+        }
+      </ol>
+    </details>
+  </SectionBlock>
+
+  <SectionBlock
+    id="law-averages"
+    eyebrow="Averages"
+    title="Average score by law"
+    description="Mean across the ten labs, sorted from most to least covered. The split between first-generation and second-generation laws is the finding."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Law</th>
+            <th scope="col">Statement</th>
+            <th scope="col">Average (0 to 4)</th>
+            <th scope="col">Generation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            scan.lawAverages.map((entry) => (
+              <tr>
+                <th scope="row">{entry.numeral}</th>
+                <td>{lawByNumeral.get(entry.numeral)?.statement}</td>
+                <td>{formatAverage(entry.average)}</td>
+                <td>{entry.generation === "first" ? "First" : "Second"}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="what-this-means"
+    eyebrow="Consequence"
+    title="What this means for Ethotechnics"
+    description="Where the method should center, given what the labs have already absorbed."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--compare">
+        <thead>
+          <tr>
+            <th scope="col">Laws the labs have largely converged on</th>
+            <th scope="col">Laws with almost no public doctrine anywhere</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Converged">
+              <ul>
+                {
+                  scan.convergence.converged.map((numeral) => (
+                    <li>
+                      {numeral}. {lawByNumeral.get(numeral)?.statement}
+                    </li>
+                  ))
+                }
+              </ul>
+            </td>
+            <td data-label="Uncovered">
+              <ul>
+                {
+                  scan.convergence.uncovered.map((numeral) => (
+                    <li>
+                      {numeral}. {lawByNumeral.get(numeral)?.statement}
+                    </li>
+                  ))
+                }
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {scan.convergence.conclusion.map((paragraph) => <p>{paragraph}</p>)}
+    <p>
+      The object model, standards, and mechanisms therefore put the
+      second-generation objects (dependency record, standing register,
+      reversibility ladder) ahead of the first-generation ones (capability
+      catalog, grant states) wherever the two do not depend on each other. The
+      laws themselves are stated on the{" "}
+      <a href="/standards/laws">laws page</a>.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="sources"
+    eyebrow="Sources"
+    title="Sources and refresh"
+    description="How the scan is sourced and when it should be treated as stale."
+  >
+    <p>{scan.sourcesNote}</p>
+    <p>
+      {scan.refreshCadence} If no refresh has been published by{" "}
+      {scan.staleAfter}, treat this scan as stale.
+    </p>
+  </SectionBlock>
+
+  <CitationBlock
+    title={`${scan.title} (${scan.scanDate})`}
+    permalink={scan.permalink}
+    publication={publication}
+  />
+</BaseLayout>

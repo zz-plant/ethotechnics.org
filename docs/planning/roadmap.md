@@ -17,7 +17,8 @@ flags work that depends on cross-team decisions or external input.
 | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | Highest-priority work in progress.                                                                  | Ready-to-start items with scoped specs.                                | Ideas to revisit when capacity frees up.                                                           |
 | Keep entries small and actionable.                                                                  | Add owners or dates only when needed.                                  | Capture rough ideas, not full specs.                                                               |
-| [Enforceable governance reference implementation](#enforceable-governance-reference-implementation) | [Python evaluation toolkit](#python-evaluation-toolkit) `[Spec ready]` | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
+| [Reconstruction plan: delegated intelligence](reconstruction-plan-2026-09.md) `[Spec ready]`        | [Python evaluation toolkit](#python-evaluation-toolkit) `[Spec ready]` | [Contestability pattern library](#contestability-pattern-library) `[Needs alignment]`              |
+| [Enforceable governance reference implementation](#enforceable-governance-reference-implementation) |                                                                        |                                                                                                    |
 |                                                                                                     | [TypeScript SDK](#typescript-sdk) `[Spec ready]`                       | [Governance lessons from incidents](#governance-lessons-from-incidents) `[Needs alignment]`        |
 |                                                                                                     |                                                                        | [Democratic vs. coercive governability](#democratic-vs-coercive-governability) `[Needs alignment]` |
 |                                                                                                     |                                                                        | [FHIR profile set and W3C VC schemas](#fhir-profile-set-and-w3c-vc-schemas) `[Needs alignment]`    |
@@ -30,6 +31,9 @@ flags work that depends on cross-team decisions or external input.
 
 **Priority snapshot**
 
+- **Definition and object model first:** the reconstruction plan reframes the site around the
+  consequential decision and adds authority, policy, and intervention objects; the enforceable
+  governance work below is absorbed into its WS2 and WS3.
 - **Governance implementation first:** ship enforceable governance crosswalks, evidence-pack
   discipline, and post-market accountability surfaces as the primary product story.
 - **Foundation specs:** Python evaluation toolkit unblocks SDKs and evaluation workflows.

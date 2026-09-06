@@ -1,4 +1,4 @@
-import type { EvalSuite, EvalTestCase } from "../../content/evals";
+import type { EvalLayer, EvalSuite, EvalTestCase } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
 import { evalsContent } from "../../content/evals";
 
@@ -6,9 +6,16 @@ export const suiteOptions = evalsContent.suites.map((suite) => ({
   id: suite.id,
   slug: suite.slug,
   title: suite.title,
+  layer: suite.layer,
   testCount: evalTestCases.filter((tc) => tc.suiteId === suite.id).length,
   estimatedTime: suite.estimatedTime,
 }));
+
+/** Layers in stack order, restricted to those a suite actually occupies. */
+export const layerOptions: { id: EvalLayer; title: string }[] =
+  evalsContent.evaluationStack.layers
+    .filter((layer) => evalsContent.suites.some((s) => s.layer === layer.id))
+    .map((layer) => ({ id: layer.id, title: layer.title }));
 
 export const getTestCasesForSuite = (suiteSlug: string): EvalTestCase[] =>
   evalTestCases.filter((tc) => tc.suiteId === suiteSlug);

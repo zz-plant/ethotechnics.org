@@ -5,6 +5,16 @@ import { libraryContent } from "../content/library";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
 import { validatorsContent } from "../content/validators";
+import agentSafetyObjectModelExample from "../../public/standards/examples/agent-safety-object-model.example.json";
+import authorityGrantExample from "../../public/standards/examples/authority-grant.example.json";
+import capabilityCatalogExample from "../../public/standards/examples/capability-catalog.example.json";
+import challengeExample from "../../public/standards/examples/challenge.example.json";
+import dependencyRecordExample from "../../public/standards/examples/dependency-record.example.json";
+import interventionSpecExample from "../../public/standards/examples/intervention-spec.example.json";
+import policyRecordExample from "../../public/standards/examples/policy-record.example.json";
+import reconsiderationExample from "../../public/standards/examples/reconsideration.example.json";
+import standingRegisterExample from "../../public/standards/examples/standing-register.example.json";
+import substrateProfileExample from "../../public/standards/examples/substrate-profile.example.json";
 
 import {
   diagnosticResultsCatalog,
@@ -131,6 +141,123 @@ const createCollectionResponse = <T>(options: {
 };
 
 const buildEndpointMap = buildEndpointMapFromPaths;
+
+const LAWS_PERMALINK = "/standards/laws";
+const METHOD_PERMALINK = "/method";
+
+/**
+ * Delegation state endpoints (object model v2). These serve the worked
+ * example under public/standards/examples so tools can see one coherent
+ * scenario across the six state variables.
+ */
+export const DELEGATION_ENDPOINT_PATHS = [
+  "capabilities.json",
+  "grants.json",
+  "policies.json",
+  "dependencies.json",
+  "standing.json",
+  "interventions.json",
+  "substrate-profiles.json",
+] as const;
+
+export const DELEGATION_SCHEMA_PATHS = {
+  capabilityCatalog: "/standards/capability-catalog.schema.json",
+  authorityGrant: "/standards/authority-grant.schema.json",
+  policyRecord: "/standards/policy-record.schema.json",
+  dependencyRecord: "/standards/dependency-record.schema.json",
+  standingRegister: "/standards/standing-register.schema.json",
+  challenge: "/standards/challenge.schema.json",
+  interventionSpec: "/standards/intervention-spec.schema.json",
+  reconsideration: "/standards/reconsideration.schema.json",
+  substrateProfile: "/standards/substrate-profile.schema.json",
+  agentSafetyObjectModel: "/standards/agent-safety-object-model.schema.json",
+  decisionRecord: "/standards/decision-record.schema.json",
+} as const;
+
+const toEndpointKey = (endpointPath: string) =>
+  endpointPath
+    .replace(/\.jsonl?$/, "")
+    .replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
+
+const buildDelegationEndpointMap = (basePath: string) => {
+  const normalizedBase = basePath.replace(/\/$/, "");
+  return Object.fromEntries(
+    DELEGATION_ENDPOINT_PATHS.map((endpointPath) => [
+      toEndpointKey(endpointPath),
+      `${normalizedBase}/${endpointPath}`,
+    ]),
+  ) as Record<string, string>;
+};
+
+const buildDelegationEndpointList = (basePath: string) =>
+  Object.values(buildDelegationEndpointMap(basePath));
+
+export const createCapabilitiesResponse = () =>
+  createCollectionResponse({
+    key: "catalogs",
+    items: [capabilityCatalogExample],
+    permalink: LAWS_PERMALINK,
+    release: releaseInfo,
+  });
+
+export const createGrantsResponse = () =>
+  createCollectionResponse({
+    key: "grants",
+    items: [authorityGrantExample],
+    permalink: LAWS_PERMALINK,
+    release: releaseInfo,
+  });
+
+export const createPoliciesResponse = () =>
+  createCollectionResponse({
+    key: "policies",
+    items: [policyRecordExample],
+    permalink: LAWS_PERMALINK,
+    release: releaseInfo,
+  });
+
+export const createDependenciesResponse = () =>
+  createCollectionResponse({
+    key: "dependencies",
+    items: [dependencyRecordExample],
+    permalink: LAWS_PERMALINK,
+    release: releaseInfo,
+  });
+
+export const createStandingResponse = () =>
+  createCollectionResponse({
+    key: "registers",
+    items: [
+      {
+        ...standingRegisterExample,
+        challenges: [challengeExample],
+        reconsiderations: [reconsiderationExample],
+      },
+    ],
+    permalink: LAWS_PERMALINK,
+    release: releaseInfo,
+  });
+
+export const createInterventionsResponse = () =>
+  createCollectionResponse({
+    key: "interventions",
+    items: [interventionSpecExample],
+    permalink: LAWS_PERMALINK,
+    release: releaseInfo,
+  });
+
+export const createSubstrateProfilesResponse = () =>
+  createCollectionResponse({
+    key: "profiles",
+    items: [
+      {
+        ...substrateProfileExample,
+        agent_safety_object_model: agentSafetyObjectModelExample,
+      },
+    ],
+    permalink: METHOD_PERMALINK,
+    release: releaseInfo,
+  });
 
 export const createAntiPatternsResponse = () =>
   createCollectionResponse({
@@ -280,6 +407,7 @@ export const createAgentIndexResponse = (options: {
   const endpointMap = buildEndpointMap(options.basePath, {
     includeReleaseEndpoints: options.includeReleaseEndpoints,
   });
+  const delegationEndpointMap = buildDelegationEndpointMap(options.basePath);
 
   const payload = {
     meta: {
@@ -295,6 +423,9 @@ export const createAgentIndexResponse = (options: {
       apiReference: "/api",
       agentObjectModel: "/agents/spec",
       agentObjectSchema: "/agents/spec.json",
+      agentObjectModelSchema: DELEGATION_SCHEMA_PATHS.agentSafetyObjectModel,
+      controlPlaneOpenApi: "/standards/ethotechnics-control-plane.openapi.yaml",
+      eventsAsyncApi: "/standards/ethotechnics-events.asyncapi.yaml",
       revisableDelegationRecord:
         "/standards/std-07-revisable-delegation-record",
       revisableDelegationRecordSchema:
@@ -313,8 +444,9 @@ export const createAgentIndexResponse = (options: {
         endpointMap.postMarketMonitoring,
       ],
       ragCorpusPreview: `${endpointMap.ragCorpus}?limit=200`,
+      delegationState: Object.values(delegationEndpointMap),
     },
-    endpoints: endpointMap,
+    endpoints: { ...endpointMap, ...delegationEndpointMap },
   };
 
   return jsonResponse(payload);
@@ -392,10 +524,14 @@ export const createSiteIndexResponse = (options: {
       postMarketMonitoring: "/api/schema/post-market-monitoring.schema.json",
       findings: "/api/schema/findings.schema.json",
       diagnosticResults: "/api/schema/diagnostic-results.schema.json",
+      ...DELEGATION_SCHEMA_PATHS,
     },
-    endpoints: buildEndpoints(options.basePath, {
-      includeReleaseEndpoints: options.includeReleaseEndpoints,
-    }),
+    endpoints: [
+      ...buildEndpoints(options.basePath, {
+        includeReleaseEndpoints: options.includeReleaseEndpoints,
+      }),
+      ...buildDelegationEndpointList(options.basePath),
+    ],
     ...(options.includeSnapshots
       ? {
           snapshots: {
@@ -421,6 +557,7 @@ export const createEvalsResponse = () =>
       version: suite.version,
       status: suite.status,
       category: suite.category,
+      layer: suite.layer,
       standardRefs: suite.standardRefs,
       glossaryRefs: suite.glossaryRefs,
       scoringMethod: {
@@ -450,6 +587,7 @@ export const createEvalTestCasesResponse = () =>
       title: tc.title,
       description: tc.description,
       category: tc.category,
+      layer: tc.layer,
       severity: tc.severity,
       status: tc.status,
       scoringRubric: tc.scoringRubric,

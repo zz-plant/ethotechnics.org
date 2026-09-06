@@ -43,6 +43,7 @@ export const siteFooter: SiteFooterContent = {
     {
       heading: "Standards & Tools",
       links: [
+        { label: "Method", href: "/method" },
         { label: "Standards", href: "/standards" },
         { label: "Diagnostics & Tools", href: "/diagnostics" },
         { label: "Mechanisms & Patterns", href: "/mechanisms" },
