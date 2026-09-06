@@ -17,7 +17,7 @@ describe("home content", () => {
     const homeEntry = await loadHomeEntry();
 
     expect(homeEntry?.hero?.heading).toBe(
-      "Deliver, research, and govern accountable systems.",
+      "The object being engineered is the delegation, not the model.",
     );
   });
 });

@@ -10,11 +10,12 @@
   <img src="docs/assets/ethotechnics.org-demo.gif" alt="ethotechnics.org demo animation" width="720">
 </p>
 
-This repository powers [ethotechnics.org](https://ethotechnics.org), the home of Ethotechnics — an
-open framework for the operational accountability of high-stakes AI and socio-technical systems. It
-publishes proposed standards, mechanisms, diagnostics, and a glossary that treat evidence,
-authorization, challenge, reconsideration, correction, and escalation as explicit system states.
-The project favors lean, fast-loading pages and clear storytelling.
+This repository powers [ethotechnics.org](https://ethotechnics.org), the home of Ethotechnics.
+Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability,
+consequence, and correction coupled tightly enough that increasing machine agency does not silently
+become unreviewable institutional power. The site publishes proposed standards, mechanisms,
+diagnostics, and a glossary that make those states explicit and reviewable. The project favors
+lean, fast-loading pages and clear storytelling.
 
 **Live site:** <https://ethotechnics.org>
 

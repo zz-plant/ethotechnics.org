@@ -1,33 +1,77 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { methodContent } from "../content/method";
+
+const { chain, invariant } = methodContent;
+
+const stageSummaries: Record<string, string> = {
+  evidence:
+    "State the propositions that justify letting the system act, and keep them current.",
+  authority:
+    "Record which actions the system may take, for whom, and until when.",
+  decision: "Log what was decided, on what record, and with what dissent.",
+  consequence:
+    "Account for who carries the burden of the decision and for how long.",
+  challenge:
+    "Give exposed parties a channel to contest the decision with procedural force.",
+  reconsideration:
+    "Reopen the delegation when it is challenged or when the facts change.",
+  correction:
+    "Keep stop, reversal, and repair feasible at a cost the institution can bear.",
+};
 ---
 
 <BaseLayout
-  title="How Ethotechnics Works — Governance for Reversible AI"
-  description="See how Ethotechnics turns governance principles into operational defaults that cap burden, assign accountable owners, and keep high-stakes decisions reversible."
+  title="How Ethotechnics Works: The Chain, the Lenses, and the Sequence"
+  description="How Ethotechnics turns the delegation chain into operational defaults: seven stages every consequential decision passes through, three lenses applied at the Consequence stage, and a four-step application sequence."
   structuredDataType="webpage"
   publishedTime="2025-06-01T00:00:00.000Z"
 >
   <section class="stack-lg institute-screen">
     <h1>How Ethotechnics works</h1>
     <p>
-      Ethotechnics governs system failure, not intent.<br /><br />
-      It provides operational artifacts that make decisions reversible, assign ownership
-      under pressure, and cap the burden placed on affected users.
+      Ethotechnics governs the delegation of consequential agency, not the
+      model. Every consequential decision is one link in a governed chain, and
+      the method keeps the states of that chain coupled.
     </p>
+    <p><strong>{invariant}</strong></p>
     <div class="actions">
-      <a class="button primary" href="/#failure-intake">Start with a failure</a>
+      <a class="button primary" href="/method">Read the method</a>
+      <a class="button" href="/#failure-intake">Start with a failure</a>
       <a class="button" href="/applications">Explore applications</a>
       <a class="button" href="/artifacts">Browse artifacts</a>
       <a class="button ghost" href="/standards">Review standards</a>
     </div>
   </section>
 
-  <section class="stack-lg institute-screen">
+  <section id="chain" class="stack-lg institute-screen">
+    <h2>The chain</h2>
+    <p>
+      Seven stages, in order. Each has a question the institution must be able
+      to answer. The <a href="/method#chain">method page</a> lists the assets that
+      answer each one.
+    </p>
+    <ol class="step-list stack-sm">
+      {
+        chain.map((stage) => (
+          <li>
+            <strong>
+              <a href={`/method#${stage.id}`}>{stage.title}.</a>
+            </strong>{" "}
+            {stageSummaries[stage.id]}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section id="lenses" class="stack-lg institute-screen">
     <h2>The three lenses</h2>
     <p>
-      Apply one lens at a time to a single workflow. Each has a question and an
-      example.
+      The lenses are instruments applied at the Consequence stage: they make the
+      burden a decision places on people visible before the chain moves on to
+      Challenge. Apply one lens at a time to a single workflow. Each has a
+      question and an example.
     </p>
 
     <div class="stack-md card">
@@ -71,7 +115,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </div>
   </section>
 
-  <section class="stack-lg institute-screen">
+  <section id="sequence" class="stack-lg institute-screen">
     <h2>Application sequence</h2>
     <ol>
       <li>

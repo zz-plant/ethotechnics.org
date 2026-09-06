@@ -7,8 +7,13 @@ Detailed, testable expectations for each route. Use these specs when adding cont
 - **Data sources:** Pull `homeContent` from `src/content/home.ts`; do not inline copy. Metrics must include `aria-label` text for sparklines via `trendLabel`.
 - **Layout:**
   - Hero uses the two-column layout with the beam canvas, headline stack, action buttons, and a figure with AVIF image defaults and figcaption when provided.
-  - Hero headline/subheadline state the mission and name the focus areas (delivery, research,
-    governance) early.
+  - Hero eyebrow reads "Engineering delegated intelligence"; the headline states the claim ("The
+    object being engineered is the delegation, not the model."); the subheadline names the states
+    the method keeps coupled (authority, evidence, dependence, standing, correction); the lede is
+    the Ethotechnical invariant verbatim.
+  - `about.body` opens with the one canonical definition of Ethotechnics (the same sentence used by
+    the `ethotechnics` glossary entry, `/method`, `/about`, `public/llms.txt`, and the README)
+    followed by one sentence on what the site publishes.
   - Retain the "How this works" info strip with two badges (Institute charter, CC BY 4.0 license) and maintain `aria-label` values on the badge list.
   - `about` renders as a `section` with a three-card bento grid; `features` uses a `grid--two` layout with the illustration in the first column and a nested two-column card grid in the second.
   - `highlight` includes the callout block with a list of three actions and a pill rail; `cta` ends the page with two actions rendered as `<a class="button">` links.
@@ -25,6 +30,10 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - Hero uses `PageIntro` with anchor links and a panel description; keep the hero actions row in the
     routes section so buttons map to diagnostics and PDF samples.
   - Routes section shows the action buttons from the hero above a two-column card grid for navigation.
+    The cards include "Audit a delegation" (href `/method`, tags Authority and Dependence, 20 min)
+    between "Run a diagnostic" and "Learn the mechanisms".
+  - Decision guide lists five prompts; the fourth asks "What has been delegated, and is it still
+    justified?" and links to `/method` with the label "See the method".
   - Artifacts section renders preview cards with notes and primary buttons linking to the sample PDFs.
   - Framing section uses two lists (This page is / is not) in a `grid--two` layout.
   - Studio section keeps the bullet list and ghost CTA inside a banded `SectionBlock`.
@@ -34,6 +43,50 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - All CTA buttons supply `aria-label` fallbacks from `startHereContent` (including hero and card
     actions).
   - List content for routes, framing, and bullets stays as semantic `<ul>` groups.
+
+## Method (`/method`)
+
+- **Data sources:** Pull everything from `methodContent` in `src/content/method.ts`: the
+  definition, claim, unit of governance, invariant, the seven-stage `chain`, the six
+  `stateVariables`, the twelve `laws`, and `optimizationProblem`. Do not inline the definition or
+  the invariant; they must match the copies on Home, the glossary, `/about`, and `llms.txt`.
+- **Layout:**
+  - `PageIntro` with eyebrow "Method", anchor links for Definition, The chain, State variables,
+    The twelve laws, and The optimization problem, a panel explaining reading order, and two
+    actions (primary to `/standards`, ghost to `/diagnostics`).
+  - Definition section: the definition as the section description, a `grid--two` of two cards
+    (claim, unit of governance), and a `panel` carrying the invariant in bold.
+  - Chain section (`section--alt`): an ordered `step-list` of seven `card` items, one per stage,
+    each with an `id` equal to the stage id (`evidence` ... `correction`), an `<h3>` title, the
+    stage question, a `card__list` of existing assets, and inline links to the routes that hold
+    them.
+  - State variables section: a `mapping-table` with State, Question, Drift it detects, and Law
+    columns; the State cell is a row header.
+  - Laws section (`section--alt`): a `card__list` of twelve links, each labelled "Law N: statement"
+    and pointing at `/standards/laws#law-<roman lowercase>`; a footnote links the laws page and
+    `/standards/core-axioms`.
+  - Optimization section: the optimization problem as the description with actions to
+    `/how-it-works` and `/start-here`.
+- **Accessibility:**
+  - Single `<h1>` from `PageIntro`; each `SectionBlock` renders an `<h2>`; chain stages are `<h3>`.
+  - Stage ids double as anchor targets for `/how-it-works` and the glossary; keep them stable.
+  - The table stays inside `mapping-table__wrapper` so it scrolls horizontally on narrow screens.
+
+## How it works (`/how-it-works`)
+
+- **Data sources:** The chain and the invariant come from `methodContent`; the one-sentence stage
+  summaries, the three lenses, and the application sequence are authored in the page.
+- **Layout:**
+  - Intro states that the object governed is the delegation, quotes the invariant, and offers
+    actions to `/method`, the home failure intake, `/applications`, `/artifacts`, and `/standards`.
+  - "The chain" (`#chain`): an ordered `step-list` of the seven stages, each linking to its anchor
+    on `/method`.
+  - "The three lenses" (`#lenses`): one sentence stating the lenses are instruments applied at the
+    Consequence stage, then the three lens cards unchanged (question plus blockquote example).
+  - "Application sequence" (`#sequence`): the four-step ordered list and the closing paragraph,
+    unchanged.
+- **Accessibility:** Single `<h1>`; the three top-level sections use `<h2>`; lens titles are
+  `<h3>`.
 
 ## Research (`/research`)
 
