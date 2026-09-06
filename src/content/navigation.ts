@@ -32,6 +32,14 @@ export interface NavUtilityLink {
 
 export const navPrimaryLinks: NavLink[] = [
   {
+    href: "/method",
+    label: "Method",
+    description:
+      "The seven-stage chain, the six state variables, and the twelve laws",
+    primary: true,
+    mobileFeatured: true,
+  },
+  {
     href: "/standards",
     label: "Standards",
     description: "Citable normative specifications, clauses, and crosswalks",
@@ -59,12 +67,6 @@ export const navPrimaryLinks: NavLink[] = [
     primary: true,
     mobileFeatured: true,
   },
-  {
-    href: "/about",
-    label: "About",
-    description: "Mission, governance, and who maintains this work",
-    primary: true,
-  },
 ];
 
 export const navSections: NavSection[] = [
@@ -77,6 +79,12 @@ export const navSections: NavSection[] = [
         href: "/standards",
         label: "Standards Spec",
         description: "Normative specifications and safety requirements",
+      },
+      {
+        href: "/standards/laws",
+        label: "Laws",
+        description:
+          "Twelve laws of delegated intelligence and their invariants",
       },
       {
         href: "/standards#regulatory-crosswalks",
@@ -92,7 +100,8 @@ export const navSections: NavSection[] = [
   },
   {
     heading: "Architecture & Mechanisms",
-    description: "Concrete engineering patterns, circuit breakers, and test suites.",
+    description:
+      "Concrete engineering patterns, circuit breakers, and test suites.",
     links: [
       {
         href: "/mechanisms",
@@ -113,7 +122,8 @@ export const navSections: NavSection[] = [
   },
   {
     heading: "Diagnostics & Workbench",
-    description: "Interactive tools to audit, forecast, and stress-test systems.",
+    description:
+      "Interactive tools to audit, forecast, and stress-test systems.",
     links: [
       {
         href: "/diagnostics/system-auditor",
@@ -131,6 +141,11 @@ export const navSections: NavSection[] = [
         description: "Model human-in-the-loop saturation limits",
       },
       {
+        href: "/diagnostics/delegation-audit",
+        label: "Delegation Audit",
+        description: "Check whether a delegation is still justified",
+      },
+      {
         href: "/diagnostics",
         label: "All Diagnostics",
         description: "Browse the complete interactive diagnostics gallery",
@@ -139,7 +154,8 @@ export const navSections: NavSection[] = [
   },
   {
     heading: "Knowledge & Evidence",
-    description: "80+ failure modes, mathematical formulas, and empirical research.",
+    description:
+      "80+ failure modes, mathematical formulas, and empirical research.",
     links: [
       {
         href: "/glossary",
@@ -148,8 +164,9 @@ export const navSections: NavSection[] = [
       },
       {
         href: "/taxonomy",
-        label: "Failure Taxonomy",
-        description: "Structural failure modes and counterfeit behaviors",
+        label: "Capability Taxonomy",
+        description:
+          "Domains, capabilities, and practices with owners and readiness",
       },
       {
         href: "/incidents",
@@ -160,6 +177,11 @@ export const navSections: NavSection[] = [
         href: "/field-notes",
         label: "Field Notes & Research",
         description: "Working papers and empirical governance studies",
+      },
+      {
+        href: "/research/theory",
+        label: "Theory",
+        description: "Why the laws hold, kept apart from the requirements",
       },
     ],
   },
@@ -186,7 +208,7 @@ export const navUtilityDesktopLinks: NavUtilityLink[] = [
 
 export const navUtilityMobilePrimaryLinks: NavUtilityLink[] = [
   {
-    href: "/start-here",
+    href: "/start",
     label: "Start here",
     class: "nav__utility-link nav__utility-link--primary",
     icon: "lucide:arrow-right",

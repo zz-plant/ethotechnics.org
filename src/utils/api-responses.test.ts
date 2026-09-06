@@ -2,6 +2,8 @@ import { describe, expect, it } from "bun:test";
 
 import {
   applyApiCaching,
+  createRagCorpusResponse,
+  resolveCorpusLayer,
   createBadgesResponse,
   createChangelogResponse,
   createCrosswalksResponse,
@@ -174,5 +176,52 @@ describe("applyApiCaching", () => {
     );
 
     expect(response.headers.get("Cache-Control")).toContain("immutable");
+  });
+});
+
+describe("resolveCorpusLayer", () => {
+  it("marks theory essays as theory", () => {
+    expect(resolveCorpusLayer("/research/theory")).toBe("theory");
+    expect(resolveCorpusLayer("/research/theory/automation-and-capture")).toBe(
+      "theory",
+    );
+  });
+
+  it("marks diagnostics, validators, tools, and the toolkit as instruments", () => {
+    expect(resolveCorpusLayer("/diagnostics/delegation-audit")).toBe(
+      "instrument",
+    );
+    expect(resolveCorpusLayer("/validators")).toBe("instrument");
+    expect(resolveCorpusLayer("/tools/burden-budget-worksheet")).toBe(
+      "instrument",
+    );
+    expect(resolveCorpusLayer("/agent-toolkit/prompt-packs")).toBe(
+      "instrument",
+    );
+  });
+
+  it("marks everything else, including documents with no href, as method", () => {
+    expect(resolveCorpusLayer("/standards/laws")).toBe("method");
+    expect(resolveCorpusLayer("/glossary#authority")).toBe("method");
+    expect(resolveCorpusLayer(undefined)).toBe("method");
+  });
+
+  it("does not treat a lookalike prefix as an instrument", () => {
+    expect(resolveCorpusLayer("/toolsmith")).toBe("method");
+  });
+});
+
+describe("createRagCorpusResponse", () => {
+  it("gives every document a layer", async () => {
+    const body = await createRagCorpusResponse(50).text();
+    const docs = body
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => JSON.parse(line) as { layer?: string });
+
+    expect(docs.length).toBeGreaterThan(0);
+    for (const doc of docs) {
+      expect(["theory", "method", "instrument"]).toContain(doc.layer);
+    }
   });
 });

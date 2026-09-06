@@ -30,12 +30,55 @@ const mechanismDomains = [
   },
 ] as const;
 
-const patternsByDomain = mechanismDomains.map((domain) => ({
-  domain,
-  patterns: libraryContent.patterns.entries.filter((pattern) =>
-    pattern.filters.includes(domain.slug),
-  ),
-}));
+// Authority and dependence group mechanisms by the state variable they govern.
+// They cut across the three pattern filters, so their membership is listed here
+// rather than derived from `pattern.filters`.
+const crossCuttingDomains = [
+  {
+    slug: "authority",
+    title: "Authority",
+    summary:
+      "Controls that keep delegated authority scoped, evidenced, and renewable.",
+    patternSlugs: [
+      "authority-grant-register",
+      "policy-review-triggers",
+      "intervention-specification",
+      "capability-catalog",
+      "expansion-review",
+    ],
+  },
+  {
+    slug: "dependence",
+    title: "Dependence",
+    summary:
+      "Controls that keep withdrawal, substitution, and contestation possible as reliance grows.",
+    patternSlugs: [
+      "withdrawal-rehearsal",
+      "dependency-ledger",
+      "reversibility-audit-logs",
+      "stoppability-testing",
+    ],
+  },
+] as const;
+
+const patternsByDomain = [
+  ...mechanismDomains.map((domain) => ({
+    domain,
+    patterns: libraryContent.patterns.entries.filter((pattern) =>
+      pattern.filters.includes(domain.slug),
+    ),
+  })),
+  ...crossCuttingDomains.map(({ patternSlugs, ...domain }) => ({
+    domain,
+    patterns: patternSlugs
+      .map((patternSlug) =>
+        libraryContent.patterns.entries.find(
+          (pattern) => pattern.slug === patternSlug,
+        ),
+      )
+      .filter((pattern) => pattern !== undefined),
+  })),
+];
 ---
 
 <BaseLayout

@@ -115,17 +115,38 @@ Detailed, testable expectations for each route. Use these specs when adding cont
 - **Data sources:** Static copy in the page; results are derived from form inputs and query params.
 - **Layout:**
   - `PageIntro` includes anchors for Assessment and Results plus a panel CTA to Diagnostics.
-  - Assessment section presents a 4-step intake form with Next/Back navigation and a single submit
-    action on the final step.
-  - Results section uses `GovernanceGapResults` to show score summary, disclaimer, and next-step CTAs
-    to Diagnostics and Evidence Packs.
+  - Assessment section presents a 7-step intake form with Next/Back navigation and a single submit
+    action on the final step. Steps 5 to 7 cover Authority (who authorized each automated action and
+    when it ends), Dependence (whether the work has been run without the system in the last 12
+    months), and Standing (whether the people who bear the errors reach a named responder on a
+    deadline).
+  - Results section uses `GovernanceGapResults` to show score summary, disclaimer, a card explaining
+    the Authority, Dependence, and Standing dimensions in one sentence each, and next-step CTAs to
+    Diagnostics and Evidence Packs.
 - **Behavior:**
-  - Update query params (`owner`, `evidence`, `escalation`, `audit`, `score`, `tier`) after completion
-    so results are shareable and render on load.
+  - Update query params (`owner`, `evidence`, `escalation`, `audit`, `authority`, `dependence`,
+    `standing`, `score`, `tier`) after completion so results are shareable and render on load.
+  - Each dimension scores 0 to 100 and the overall score is the rounded mean of the seven dimensions.
   - Provide JSON export for the computed score and inputs.
 - **Accessibility:**
   - Each step uses a labeled form control with required validation on step advance.
   - Results content remains navigable with visible focus states on share/export actions.
+
+## Diagnostics — Delegation Audit (`/diagnostics/delegation-audit`)
+
+- **Data sources:** Reads the `delegation-audit` entry from `diagnosticsContent.tools` in `src/content/diagnostics.ts` and mounts the React island at `src/features/delegation-audit/DelegationAudit` with `client:load`. Scoring lives in `src/features/delegation-audit/auditLogic.ts`; question copy and clause, mechanism, and eval references live in `config.ts`.
+- **Layout:**
+  - Wrapped in `DiagnosticToolPage`, so the page keeps the shared Overview, Methodology, Sample output, and Run the tool sections with `PageIntro` anchors.
+  - The island renders two columns: the six state-variable question groups on the left (workflow name, capability, evidence, dependency, standing, correction) and the readout on the right.
+  - The readout shows the exposure score with its three factors and units, a rating card per state variable, the ungrounded grant list, the three-level reversibility ladder with the weakest rung marked, and findings that each link to a clause, a mechanism, and an eval suite.
+- **Behavior:**
+  - Action classes and dependents are add and remove lists; every result recomputes as answers change, with no submit step.
+  - "Copy readout" writes the plain-text readout to the clipboard; "Export JSON" downloads a snapshot named after the workflow and the date.
+  - Exposure score = dependency depth (count of high and critical dependents) x substitution cost (staff-weeks) x correction latency (hours). Units are stated on screen and in the methodology.
+- **Accessibility:**
+  - Every input and select has a visible `<label>` bound by `htmlFor`; the exposure score is a `role="status"` region with `aria-live="polite"`.
+  - Headings run `h1` (PageIntro), `h2` (SectionBlock), `h3` for each question group and readout block, `h4` for individual action class, dependent, and finding cards.
+  - The methodology "Does not measure" card states that the tool records what the team believes, is not an audit, and treats an ungrounded grant as a finding to investigate.
 
 ## Diagnostics — Technical Capacity Forecaster (`/diagnostics/capacity-forecaster`)
 

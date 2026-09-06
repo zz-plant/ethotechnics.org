@@ -105,10 +105,16 @@ export const standardsContent: StandardsContent = {
       description:
         "Defines contestability, review, and remedy obligations for consequential systems.",
       status: "Draft",
-      version: "0.9",
+      version: "1.0",
       changelogHref:
         "/standards/std-02-contestability-recourse#publication-history",
       changelogEntries: [
+        {
+          version: "1.0",
+          date: "2026-09-06",
+          summary:
+            "Adds the standing mechanism (seven fields, standard of review, possible state transitions, error-bearing parties, procedural force) and prospective auditability.",
+        },
         {
           version: "0.9",
           date: "2026-01-01",
@@ -244,9 +250,16 @@ export const standardsContent: StandardsContent = {
       description:
         "Standard tests, thresholds, and evidence artifacts that define a do-not-deploy safety case for human impact.",
       status: "Draft",
-      version: "0.4",
-      changelogHref: "/standards/std-06-human-impact-safety-case",
+      version: "0.5",
+      changelogHref:
+        "/standards/std-06-human-impact-safety-case#publication-history",
       changelogEntries: [
+        {
+          version: "0.5",
+          date: "2026-09-06",
+          summary:
+            "First published page, plus Article V: dependency record, exposure score, reversibility at three levels, preserved capacities, do-not-expand condition, and rehearsal cadence.",
+        },
         {
           version: "0.4",
           date: "2026-03-01",
@@ -279,6 +292,28 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires two independent systems emitting Level 1 records that a third party has verified by hash, and one accepted objection answered within its clock.",
+      effectiveDate: "TBD (proposed 2026)",
+      published: "2026-09-06",
+    },
+    {
+      id: "STD-08",
+      slug: "std-08-delegation",
+      title: "Delegation",
+      description:
+        "The terms a delegation must satisfy while it stands: authority held as a lease, policy kept valid, oversight resolved to an intervention specification, and correction capacity kept proportional to authority.",
+      status: "Draft",
+      version: "0.1",
+      changelogHref: "/standards/std-08-delegation#relationship-to-std-07",
+      changelogEntries: [
+        {
+          version: "0.1",
+          date: "2026-09-06",
+          summary:
+            "Working draft: renewal and expansion of authority, policy validity, intervention specifications, and correction symmetry. Adds only what STD-07 leaves open.",
+        },
+      ],
+      stableCriteria:
+        "Requires two institutions operating grant and policy registers with recorded expansion decisions, and one intervention specification whose measured approval behavior produced a reconsideration.",
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-09-06",
     },
@@ -885,6 +920,329 @@ export const standardClauses: Record<string, StandardClause[]> = {
       relatedMechanisms: ["MEC-01"],
       relatedValidators: [],
     },
+    {
+      id: "STD-02.8.1",
+      standardId: "STD-02",
+      displayId: "§8.1",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a class of consequential decision is contestable",
+      obligation:
+        "publish a standing register entry naming who may challenge, what may be challenged, admissible evidence, the obliged responder, the response deadline, the standard of review, and the possible state transitions",
+      evidenceRequired: [
+        "standing_register.who_may_challenge",
+        "standing_register.responder",
+        "standing_register.response_deadline",
+        "standing_register.standard_of_review",
+        "standing_register.possible_state_transitions",
+      ],
+      timeBound: "published before the decision class runs",
+      failureModes: [
+        "channel published without an obliged responder",
+        "seven fields spread across documents that never compose into a route",
+      ],
+      relatedMechanisms: ["MEC-08", "MEC-06"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.8.2",
+      standardId: "STD-02",
+      displayId: "§8.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a responder is obliged to answer a challenge",
+      obligation:
+        "state the standard the answer is decided against: policy conformance, policy correctness, evidentiary support, or reasonableness of outcome",
+      evidenceRequired: [
+        "standing_register.standard_of_review",
+        "appeal_outcome_log",
+      ],
+      timeBound: "published with the register entry",
+      failureModes: [
+        "responder decides whether the process ran rather than whether the outcome was right",
+        "standard varies case to case and is never written down",
+      ],
+      relatedMechanisms: ["MEC-08", "MEC-06"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.8.3",
+      standardId: "STD-02",
+      displayId: "§8.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a challenge can succeed",
+      obligation:
+        "enumerate the state transitions success can produce: stand, narrow, suspend, reverse, correct, or expand or withdraw the grant behind the decision",
+      evidenceRequired: [
+        "standing_register.possible_state_transitions",
+        "reconsideration.outcome",
+      ],
+      timeBound: "published with the register entry",
+      failureModes: [
+        "challenge route produces correspondence and no state change",
+        "reversal available in theory but not reachable by the responder",
+      ],
+      relatedMechanisms: ["MEC-08", "MEC-06"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.8.4",
+      standardId: "STD-02",
+      displayId: "§8.4",
+      type: "right",
+      requirementLevel: "MUST",
+      condition: "a party absorbs the system's errors",
+      obligation:
+        "grant standing proportional to exposure, including operators who handle exceptions, work the queues, and perform the manual repair the automation assumes",
+      evidenceRequired: [
+        "standing_register.who_may_challenge",
+        "exception_handling_roster",
+        "case_log",
+      ],
+      timeBound: "on request",
+      failureModes: [
+        "standing limited to the named subject of the decision",
+        "internal exception handlers routed to a suggestions box",
+      ],
+      relatedMechanisms: ["MEC-08", "MEC-06"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.8.5",
+      standardId: "STD-02",
+      displayId: "§8.5",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a party with standing files a challenge",
+      obligation:
+        "guarantee receipt, an answer within the deadline, and a decision against the published standard, without granting the power to compel the outcome",
+      evidenceRequired: [
+        "standing_register.response_deadline",
+        "appeal_outcome_log",
+        "policy",
+      ],
+      timeBound: "within the published response deadline",
+      failureModes: [
+        "standing described as a veto and therefore never granted",
+        "receipt issued with no answer owed",
+      ],
+      relatedMechanisms: ["MEC-08", "MEC-06"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.9.1",
+      standardId: "STD-02",
+      displayId: "§9.1",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "records are retained for a consequential delegation",
+      obligation:
+        "retain what is needed to decide whether the delegation still deserves to stand: the authority it ran under, the policy versions that authority rested on, the assumptions declared, the correction capacity claimed, and the challenges received and answered",
+      evidenceRequired: [
+        "authority_grant.evidence_basis",
+        "policy_record.version",
+        "policy_record.assumptions",
+        "audit_trail",
+      ],
+      timeBound: "retention term",
+      failureModes: [
+        "audit trail retains outputs and discards justifications",
+        "policy versions overwritten, so the basis cannot be reconstructed",
+      ],
+      relatedMechanisms: ["MEC-01", "MEC-14"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.9.2",
+      standardId: "STD-02",
+      displayId: "§9.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a component is supplied by a third party",
+      obligation:
+        "keep the retained set sufficient for the operating institution to answer the standing question without that supplier's cooperation",
+      evidenceRequired: ["vendor_contract", "access_policy", "audit_trail"],
+      timeBound: "ongoing",
+      failureModes: [
+        "justification assembled only by the party whose product is under review",
+        "evidence access ends with the contract",
+      ],
+      relatedMechanisms: ["MEC-01"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.9.3",
+      standardId: "STD-02",
+      displayId: "§9.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a delegation is live",
+      obligation:
+        "ask whether it still deserves to stand on a published cadence and record the answer, dated, whether or not anything changed",
+      evidenceRequired: ["review_cadence_policy", "governance_record"],
+      timeBound: "each published cadence",
+      failureModes: [
+        "standing question asked only after an incident",
+        "review held but no record produced when nothing changed",
+      ],
+      relatedMechanisms: ["MEC-01", "MEC-19"],
+      relatedValidators: [],
+    },
+  ],
+  "STD-06": [
+    {
+      id: "STD-06.5.1",
+      standardId: "STD-06",
+      displayId: "§5.1",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a deployment is consequential enough to require a safety case",
+      obligation:
+        "carry a dependency record naming dependents, substitution cost, retained expertise, alternatives, last withdrawal rehearsal, and correction latency",
+      evidenceRequired: [
+        "dependency_record.dependents",
+        "dependency_record.substitution_cost",
+        "dependency_record.expertise_retained",
+        "dependency_record.alternatives",
+        "dependency_record.correction_latency",
+      ],
+      timeBound: "before launch and at each case refresh",
+      failureModes: [
+        "dependence estimated by whoever was asked, with no record",
+        "downstream software dependents omitted because they are not people",
+      ],
+      relatedMechanisms: ["MEC-18", "MEC-15"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-06.5.2",
+      standardId: "STD-06",
+      displayId: "§5.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a dependency record exists",
+      obligation:
+        "compute and publish the exposure score as dependency depth times substitution cost times correction latency, recording each input",
+      evidenceRequired: [
+        "dependency_record.exposure_score",
+        "dependency_record.correction_latency",
+      ],
+      timeBound: "at each case refresh",
+      failureModes: [
+        "score published without its inputs, so it cannot be challenged",
+        "rising score reported alongside an unchanged safety case",
+      ],
+      relatedMechanisms: ["MEC-18"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-06.5.3",
+      standardId: "STD-06",
+      displayId: "§5.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "reversibility is claimed for a deployment",
+      obligation:
+        "evidence it separately at the technical, operational, and institutional levels; an unevidenced level is recorded as not evidenced rather than as feasible",
+      evidenceRequired: [
+        "dependency_record.reversibility",
+        "dependency_record.last_withdrawal_rehearsal",
+      ],
+      timeBound: "before launch and at each case refresh",
+      failureModes: [
+        "a working stop control presented as institutional reversibility",
+        "operational level assessed by the team that would not have to absorb it",
+      ],
+      relatedMechanisms: ["MEC-15", "MEC-10"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-06.5.4",
+      standardId: "STD-06",
+      displayId: "§5.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "the institution relies on capacities to question or replace the system",
+      obligation:
+        "list them as preserved capacities with the reason each is preserved and a named owner, and record erosion as a governance event",
+      evidenceRequired: [
+        "dependency_record.preserved_capacities",
+        "governance_record",
+      ],
+      timeBound: "ongoing",
+      failureModes: [
+        "retained expertise cut as duplication",
+        "capacity owned by nobody and therefore lost quietly",
+      ],
+      relatedMechanisms: ["MEC-18", "MEC-15"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-06.5.5",
+      standardId: "STD-06",
+      displayId: "§5.5",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "institutional reversibility is not evidenced",
+      obligation:
+        "do not expand the deployment's scope, population, or authority until it is; technical and operational reversibility do not substitute",
+      evidenceRequired: [
+        "dependency_record.reversibility",
+        "authority_grant.state_history",
+      ],
+      timeBound: "at the expansion decision",
+      failureModes: [
+        "expansion approved on the strength of a technical rollback plan",
+        "institutional level marked feasible with no evidence field populated",
+      ],
+      relatedMechanisms: ["MEC-15", "MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-06.5.6",
+      standardId: "STD-06",
+      displayId: "§5.6",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a withdrawal path is claimed",
+      obligation:
+        "rehearse it on a published cadence, at least annually where the exposure score is non-trivial and before any expansion decision, and report what the rehearsal showed at each level",
+      evidenceRequired: [
+        "dependency_record.last_withdrawal_rehearsal",
+        "withdrawal_rehearsal_report",
+      ],
+      timeBound: "at least annually, and before expansion",
+      failureModes: [
+        "rehearsal scoped to a component nobody depends on",
+        "last rehearsal predates the dependence it was meant to test",
+      ],
+      relatedMechanisms: ["MEC-15", "MEC-12"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-06.5.7",
+      standardId: "STD-06",
+      displayId: "§5.7",
+      type: "obligation",
+      requirementLevel: "SHOULD",
+      condition: "a renewal or expansion decision cites the dependency record",
+      obligation:
+        "refresh the record first; a record older than the decision it supports is not evidence for that decision",
+      evidenceRequired: [
+        "dependency_record.assessed_at",
+        "authority_grant.state_history",
+      ],
+      timeBound: "before the decision",
+      failureModes: [
+        "last year's ledger cited for this year's expansion",
+        "record refreshed only after the decision is taken",
+      ],
+      relatedMechanisms: ["MEC-18", "MEC-19"],
+      relatedValidators: [],
+    },
   ],
   "STD-07": [
     {
@@ -907,7 +1265,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "MUST",
       condition: "a record needs to change",
-      obligation: "append a new record that names the one it supersedes; never edit or delete",
+      obligation:
+        "append a new record that names the one it supersedes; never edit or delete",
       evidenceRequired: ["append_only_log", "supersedes_chain"],
       timeBound: "at write",
       relatedMechanisms: ["MEC-01"],
@@ -920,7 +1279,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "SHOULD",
       condition: "a record's validity has a horizon",
-      obligation: "declare valid_until and treat expiry as stale, not superseded",
+      obligation:
+        "declare valid_until and treat expiry as stale, not superseded",
       evidenceRequired: ["record_sample"],
       timeBound: "at write",
       relatedMechanisms: ["MEC-04"],
@@ -946,7 +1306,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "MUST",
       condition: "a capability is delegated",
-      obligation: "record scope, holder, grantor, mode, ceiling, expiry, and revocation conditions",
+      obligation:
+        "record scope, holder, grantor, mode, ceiling, expiry, and revocation conditions",
       evidenceRequired: ["authorization_record"],
       timeBound: "at grant",
       relatedMechanisms: ["MEC-01"],
@@ -959,7 +1320,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "MUST",
       condition: "an actor acts for a principal",
-      obligation: "name the principal in on_behalf_of so the chain reads back to a person or institution",
+      obligation:
+        "name the principal in on_behalf_of so the chain reads back to a person or institution",
       evidenceRequired: ["record_sample"],
       timeBound: "at write",
       relatedMechanisms: ["MEC-01"],
@@ -998,7 +1360,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "SHOULD",
       condition: "a belief, authorization, or action could be invalidated",
-      obligation: "list the checkable conditions, where they are checked, and a clock",
+      obligation:
+        "list the checkable conditions, where they are checked, and a clock",
       evidenceRequired: ["invalidation_conditions"],
       timeBound: "at write",
       relatedMechanisms: ["MEC-04"],
@@ -1010,8 +1373,10 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§3.3",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "a discrepancy matches an invalidation condition on a live record",
-      obligation: "produce a revision or an objection within the condition's clock",
+      condition:
+        "a discrepancy matches an invalidation condition on a live record",
+      obligation:
+        "produce a revision or an objection within the condition's clock",
       evidenceRequired: ["discrepancy_log", "revision_record"],
       timeBound: "within declared clock",
       relatedMechanisms: ["MEC-04"],
@@ -1024,7 +1389,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "MUST",
       condition: "an authorization depends on a capability",
-      obligation: "hold it valid only while the capability's latest record is verified, not merely configured",
+      obligation:
+        "hold it valid only while the capability's latest record is verified, not merely configured",
       evidenceRequired: ["capability_record", "verification_log"],
       timeBound: "continuous",
       relatedMechanisms: ["MEC-01"],
@@ -1037,7 +1403,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "SHOULD",
       condition: "a record affects people outside the emitting system",
-      obligation: "declare who has standing to object and where objections are accepted",
+      obligation:
+        "declare who has standing to object and where objections are accepted",
       evidenceRequired: ["contest_declaration"],
       timeBound: "at write",
       relatedMechanisms: ["MEC-01"],
@@ -1050,7 +1417,8 @@ export const standardClauses: Record<string, StandardClause[]> = {
       type: "obligation",
       requirementLevel: "MUST",
       condition: "an objection is accepted on the declared channel",
-      obligation: "answer with a revision or a reasoned refusal record within the reversal clock",
+      obligation:
+        "answer with a revision or a reasoned refusal record within the reversal clock",
       evidenceRequired: ["objection_record", "response_record"],
       timeBound: "within reversal clock",
       relatedMechanisms: ["MEC-04"],
@@ -1106,6 +1474,410 @@ export const standardClauses: Record<string, StandardClause[]> = {
       evidenceRequired: ["identifier_policy"],
       timeBound: "ongoing",
       relatedMechanisms: ["MEC-01"],
+      relatedValidators: [],
+    },
+  ],
+  "STD-08": [
+    {
+      id: "STD-08.1.1",
+      standardId: "STD-08",
+      displayId: "§1.1",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a grant is up for renewal",
+      obligation:
+        "produce renewal evidence sized to the duration the grant has run and the consequence of the actions it authorizes, stated in renewal_basis before the review period begins",
+      evidenceRequired: [
+        "authority_grant.renewal_basis",
+        "authority_grant.state_history",
+        "reconsideration.evidence_delta",
+      ],
+      timeBound: "before expiry",
+      failureModes: [
+        "renewal bar set after the result is known",
+        "long-running high-consequence grant renewed on the evidence a pilot produced",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.1.2",
+      standardId: "STD-08",
+      displayId: "§1.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "no failure was observed during the review period",
+      obligation:
+        "refuse renewal on that basis alone; name what was examined, what would have been visible had the grant been failing, and who looked, or move the grant to review_required",
+      evidenceRequired: [
+        "authority_grant.renewal_basis",
+        "authority_grant.state",
+        "reconsideration.evidence_delta",
+      ],
+      timeBound: "at renewal",
+      failureModes: [
+        "quiet period read as evidence of correctness",
+        "no one positioned to see the failure mode that matters",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.1.3",
+      standardId: "STD-08",
+      displayId: "§1.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a grant's scope, population, action classes, or ceiling is widened",
+      obligation:
+        "take the widening as its own authorization decision with its own evidence_basis and its own correction-capacity check under STD-08.4.2",
+      evidenceRequired: [
+        "authority_grant.evidence_basis",
+        "authority_grant.scope",
+        "reconsideration.outcome",
+      ],
+      timeBound: "before the wider scope is exercised",
+      failureModes: [
+        "expansion inherits the original decision's evidence",
+        "scope grows by accretion, each step too small to trigger review",
+      ],
+      relatedMechanisms: ["MEC-19", "MEC-13"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.1.4",
+      standardId: "STD-08",
+      displayId: "§1.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "an expansion decision is taken",
+      obligation:
+        "record it in state_history as a transition whose reason is expansion, with date, deciding authority, and evidence reference; scope that grew without such an entry is ungranted",
+      evidenceRequired: [
+        "authority_grant.state_history",
+        "authority_grant.renewal_basis",
+      ],
+      timeBound: "at decision",
+      failureModes: [
+        "permissions widened in configuration with no transition recorded",
+        "expansion logged as a renewal",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.2.1",
+      standardId: "STD-08",
+      displayId: "§2.1",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a grant relies on a policy",
+      obligation:
+        "hold that policy as a record with provenance, assumptions, review_triggers, expires_at, and status; a threshold held only in configuration cannot be cited as a grant's basis",
+      evidenceRequired: [
+        "policy_record.provenance",
+        "policy_record.assumptions",
+        "policy_record.review_triggers",
+        "policy_record.expires_at",
+      ],
+      timeBound: "at grant issue",
+      failureModes: [
+        "policy exists only as a deployed threshold",
+        "assumptions never written down, so nothing can falsify them",
+      ],
+      relatedMechanisms: ["MEC-14", "MEC-13"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.2.2",
+      standardId: "STD-08",
+      displayId: "§2.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a grant's evidence basis depends on policy records",
+      obligation: "list every one of them in policy_refs, pinned to a version",
+      evidenceRequired: [
+        "authority_grant.policy_refs",
+        "policy_record.version",
+      ],
+      timeBound: "at grant issue",
+      failureModes: [
+        "unpinned reference silently follows the policy wherever it goes",
+        "policy dependency known only to the team that wrote the grant",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-14"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.2.3",
+      standardId: "STD-08",
+      displayId: "§2.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a condition in a policy's review_triggers is met",
+      obligation:
+        "move the policy to review_required within the trigger's declared clock",
+      evidenceRequired: [
+        "policy_record.review_triggers",
+        "policy_record.status",
+      ],
+      timeBound: "within the trigger's declared clock",
+      failureModes: [
+        "trigger fires into a dashboard and changes no state",
+        "clock has no owner, so the status change waits for a meeting",
+      ],
+      relatedMechanisms: ["MEC-14"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.2.4",
+      standardId: "STD-08",
+      displayId: "§2.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a policy a grant depends on is in review_required or suspended",
+      obligation:
+        "move the dependent grant to review_required within the same clock and open a reconsideration against it; the grant may be confirmed back to allowed, but not left there undecided",
+      evidenceRequired: [
+        "authority_grant.state",
+        "authority_grant.state_history",
+        "reconsideration.subject",
+      ],
+      timeBound: "within the trigger's declared clock",
+      failureModes: [
+        "policy under review while the grants resting on it keep acting",
+        "dependency graph not maintained, so no grant is found to follow",
+      ],
+      relatedMechanisms: ["MEC-14", "MEC-13"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.2.5",
+      standardId: "STD-08",
+      displayId: "§2.5",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a policy is past its expires_at",
+      obligation:
+        "stop treating it as justification for a live grant; either renew it as a new version with fresh provenance or move the dependent grants to review_required",
+      evidenceRequired: [
+        "policy_record.expires_at",
+        "policy_record.status",
+        "authority_grant.state",
+      ],
+      timeBound: "at expiry",
+      failureModes: [
+        "expiry rendered as a warning banner rather than a status change",
+        "policy renewed by editing the date",
+      ],
+      relatedMechanisms: ["MEC-14", "MEC-04"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.3.1",
+      standardId: "STD-08",
+      displayId: "§3.1",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a requirement, control description, or assurance claim says a human reviews, approves, supervises, or monitors a delegated action",
+      obligation:
+        "resolve it to an intervention specification naming owner, information_available, actions_preventable, states_alterable, on_disagreement, incentives, cost_to_exercise, and reach_time_target",
+      evidenceRequired: [
+        "intervention_spec.owner",
+        "intervention_spec.information_available",
+        "intervention_spec.actions_preventable",
+        "intervention_spec.states_alterable",
+        "intervention_spec.on_disagreement",
+        "intervention_spec.reach_time_target",
+      ],
+      timeBound: "before the claim is relied on",
+      failureModes: [
+        "human in the loop named as a control with nothing behind it",
+        "owner named as a team rather than a reachable person",
+      ],
+      relatedMechanisms: ["MEC-16"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.3.2",
+      standardId: "STD-08",
+      displayId: "§3.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a delegation is recorded under STD-07 §2.2 with mode confirm",
+      obligation:
+        "carry intervention_ref pointing at the specification; a confirm mode with no specification behind it is recorded as unattended",
+      evidenceRequired: [
+        "authority_grant.intervention_ref",
+        "intervention_spec.spec_id",
+      ],
+      timeBound: "at grant issue",
+      failureModes: [
+        "confirm mode used to describe a notification",
+        "specification exists for the pilot but not for the scaled deployment",
+      ],
+      relatedMechanisms: ["MEC-16", "MEC-13"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.3.3",
+      standardId: "STD-08",
+      displayId: "§3.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "states_alterable is empty, or the preventable actions are not the actions the delegation takes",
+      obligation:
+        "refuse to record the arrangement as a control, cite it in a safety case, or count it toward a correction-capacity claim; record it as advisory review under that name",
+      evidenceRequired: [
+        "intervention_spec.states_alterable",
+        "intervention_spec.actions_preventable",
+        "intervention_spec.mechanism",
+      ],
+      timeBound: "continuous",
+      failureModes: [
+        "reviewer can reject into a queue nobody drains while the action proceeds",
+        "advisory review counted twice, as oversight and as correction capacity",
+      ],
+      relatedMechanisms: ["MEC-16", "MEC-05"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.3.4",
+      standardId: "STD-08",
+      displayId: "§3.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "an intervention specification is in force",
+      obligation:
+        "measure per review period the approval rate, the median and tail time spent per approval, and the share of approvals reaching the owner inside reach_time_target",
+      evidenceRequired: [
+        "intervention_spec.reach_time_target",
+        "intervention_spec.cost_to_exercise",
+        "intervention_roster_metrics",
+      ],
+      timeBound: "each review period",
+      failureModes: [
+        "specification written once and never measured",
+        "approval time measured as queue time rather than time spent",
+      ],
+      relatedMechanisms: ["MEC-16", "MEC-01"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.3.5",
+      standardId: "STD-08",
+      displayId: "§3.5",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "approval rates sit at or near unanimity, or median approval time is too short for the information named to have been read",
+      obligation:
+        "open a reconsideration of the intervention specification; the finding is about the control, not the reviewer",
+      evidenceRequired: [
+        "intervention_spec.information_available",
+        "intervention_spec.incentives",
+        "reconsideration.subject",
+      ],
+      timeBound: "at the review period boundary",
+      failureModes: [
+        "high approval rate reported as evidence the system is safe",
+        "reviewer disciplined instead of the specification being repaired",
+      ],
+      relatedMechanisms: ["MEC-16", "MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.4.1",
+      standardId: "STD-08",
+      displayId: "§4.1",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a consequential grant is issued",
+      obligation:
+        "state its correction capacity across detection, challenge, standing, review, authority to modify, reversible state transitions, and practical ability to operate after correction, each with named evidence",
+      evidenceRequired: [
+        "authority_grant.evidence_basis",
+        "intervention_spec.states_alterable",
+        "standing_register.possible_state_transitions",
+        "dependency_record.correction_latency",
+      ],
+      timeBound: "at grant issue",
+      failureModes: [
+        "capacity asserted as a list of tools rather than a demonstrated route",
+        "reversal possible in the system but not in the downstream records it wrote",
+      ],
+      relatedMechanisms: ["MEC-16", "MEC-13"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.4.2",
+      standardId: "STD-08",
+      displayId: "§4.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "an expansion decision is taken under STD-08.1.3",
+      obligation:
+        "evidence a matching expansion of correction capacity at the same decision, or refuse the expansion and narrow the scope to what the existing capacity covers",
+      evidenceRequired: [
+        "authority_grant.state_history",
+        "dependency_record.correction_latency",
+        "intervention_spec.states_alterable",
+      ],
+      timeBound: "at the expansion decision",
+      failureModes: [
+        "throughput multiplied while the review roster stays the same size",
+        "capacity growth promised for a later quarter",
+      ],
+      relatedMechanisms: ["MEC-19", "MEC-16"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.4.3",
+      standardId: "STD-08",
+      displayId: "§4.3",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a grant is renewed under STD-08.1.1",
+      obligation:
+        "re-examine correction capacity against the volume and consequence of what the grant actually did in the period; degraded capacity moves the grant to review_required",
+      evidenceRequired: [
+        "authority_grant.state",
+        "dependency_record.correction_latency",
+        "intervention_spec.cost_to_exercise",
+      ],
+      timeBound: "at renewal",
+      failureModes: [
+        "capacity checked against forecast volume rather than actual volume",
+        "attrition in the correcting roster invisible to the renewal",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-16"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.4.4",
+      standardId: "STD-08",
+      displayId: "§4.4",
+      type: "obligation",
+      requirementLevel: "SHOULD",
+      condition:
+        "the practical ability to operate after correction is claimed as capacity",
+      obligation:
+        "evidence it from the deployment's dependency record under STD-06, using correction_latency and the institutional level of reversibility; a correction the institution cannot afford is not capacity",
+      evidenceRequired: [
+        "dependency_record.reversibility",
+        "dependency_record.correction_latency",
+        "dependency_record.last_withdrawal_rehearsal",
+      ],
+      timeBound: "at grant issue and each renewal",
+      failureModes: [
+        "technical reversibility presented as institutional reversibility",
+        "rehearsal never run, so the claim is untested",
+      ],
+      relatedMechanisms: ["MEC-16", "MEC-15"],
       relatedValidators: [],
     },
   ],

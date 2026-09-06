@@ -603,7 +603,56 @@ export const createEvalTestCasesResponse = () =>
     release: releaseInfo,
   });
 
+const INSTRUMENT_PREFIXES = [
+  "/diagnostics/",
+  "/diagnostics",
+  "/validators/",
+  "/validators",
+  "/tools/",
+  "/tools",
+  "/agent-toolkit/",
+  "/agent-toolkit",
+];
+
+/**
+ * Retrieval layer for a corpus document, per the three content layers:
+ * theory motivates, method requires, instruments apply.
+ */
+export const resolveCorpusLayer = (
+  href?: string,
+): "theory" | "instrument" | "method" => {
+  if (!href) return "method";
+
+  const path = href.split(/[?#]/, 1)[0] ?? href;
+
+  if (path === "/research/theory" || path.startsWith("/research/theory/")) {
+    return "theory";
+  }
+
+  if (
+    INSTRUMENT_PREFIXES.some(
+      (prefix) => path === prefix || path.startsWith(`${prefix}/`),
+    )
+  ) {
+    return "instrument";
+  }
+
+  return "method";
+};
+
+const withCorpusLayer = (payload: string) =>
+  payload
+    .split("\n")
+    .filter((line) => line.length > 0)
+    .map((line) => {
+      const doc = JSON.parse(line) as Record<string, unknown> & {
+        href?: string;
+      };
+      return JSON.stringify({ ...doc, layer: resolveCorpusLayer(doc.href) });
+    })
+    .join("\n");
+
 export const createRagCorpusResponse = (limit?: number) => {
-  const payload = getRagCorpusLines({ limit });
+  const payload = withCorpusLayer(getRagCorpusLines({ limit }));
   return ndjsonResponse(payload);
 };

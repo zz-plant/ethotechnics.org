@@ -1,0 +1,466 @@
+---
+title: "STD-06 — Human Impact Safety Case"
+description: "The tests, thresholds, evidence artifacts, and do-not-deploy boundaries that make up a safety case for human impact, with the dependency and reversibility section that keeps the case honest after launch."
+permalink: "/standards/std-06-human-impact-safety-case"
+eyebrow: "Standard"
+seoTitle: "STD-06 — Human Impact Safety Case"
+version: "0.5"
+publishedTime: "2026-03-01T00:00:00.000Z"
+modifiedTime: "2026-09-06T00:00:00.000Z"
+mainClass: "page page--wide standard-document"
+anchorLinks:
+  - href: "#scope"
+    label: "Scope"
+  - href: "#tiers"
+    label: "Tiered evidence model"
+  - href: "#articles"
+    label: "Articles I–V"
+  - href: "#dependency"
+    label: "Dependency and reversibility"
+  - href: "#publication-history"
+    label: "Publication history"
+---
+
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+
+export const tiers = [
+  {
+    tier: "Tier 0 (minimum)",
+    proves: "The test battery and the safety case are recorded.",
+    evidence: "Safety case summary, threshold dashboard, receipt payloads.",
+  },
+  {
+    tier: "Tier 1 (operational)",
+    proves: "The controls are used with real people.",
+    evidence: "Halt drill receipts, remedy ledger entries, disclosure packets.",
+  },
+  {
+    tier: "Tier 2 (resilient)",
+    proves: "The controls hold during incidents.",
+    evidence:
+      "Incident memos, regulator-ready exports, remedy verification logs.",
+  },
+];
+
+export const artifacts = [
+  {
+    artifact: "Safety case summary",
+    contents: "Scope, impact class, and test battery results with timestamps.",
+  },
+  {
+    artifact: "Kill authority roster",
+    contents: "Named halt owners, delegation basis, and coverage schedule.",
+  },
+  {
+    artifact: "Remedy obligations ledger",
+    contents: "Owner, clock status, and resolution proof for each harm class.",
+  },
+  {
+    artifact: "Disclosure packet",
+    contents:
+      "Receipt, reason, appeal path, and clock visibility for affected people.",
+  },
+  {
+    artifact: "Do-not-deploy boundary register",
+    contents: "Active boundary breaches and the last remediation review date.",
+  },
+  {
+    artifact: "Dependency ledger",
+    contents:
+      "Dependents, substitution cost, retained expertise, alternatives, correction latency, and the exposure score.",
+  },
+  {
+    artifact: "Withdrawal rehearsal report",
+    contents:
+      "Date, scope, outcome, and what the rehearsal showed about each level of reversibility.",
+  },
+];
+
+export const battery = [
+  "Time-to-halt logs and halt receipts with stopwatch measurement.",
+  "Time-to-remedy tracking with evidence of verification and follow-up.",
+  "Contestability access audit, including the one-step test and the no-paywall test.",
+  "Burden ceiling measurements with flow maps for the affected journey.",
+  "Disclosure latency report with receipt delivery timestamps.",
+];
+
+export const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://ethotechnics.org/standards/std-06-human-impact-safety-case",
+  headline: "STD-06 — Human Impact Safety Case",
+  description:
+    "Tests, thresholds, evidence artifacts, and do-not-deploy boundaries for a human impact safety case.",
+  url: "https://ethotechnics.org/standards/std-06-human-impact-safety-case",
+  datePublished: "2026-03-01",
+  dateModified: "2026-09-06",
+  version: "0.5",
+  identifier: "STD-06",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: "https://ethotechnics.org",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: "https://ethotechnics.org/standards",
+  },
+};
+
+<StandardStatusSummary slug="std-06-human-impact-safety-case" />
+
+<article class="standard-document">
+  <header class="standard-header">
+    <div>
+      <p class="standard-header__id">STANDARD STD-06</p>
+      <h2 class="standard-header__title">Human Impact Safety Case</h2>
+    </div>
+    <dl class="standard-header__meta">
+      <div>
+        <dt>Document ID</dt>
+        <dd>STD-06</dd>
+      </div>
+      <div>
+        <dt>Version</dt>
+        <dd>0.5 (Review draft)</dd>
+      </div>
+      <div>
+        <dt>Effective Date</dt>
+        <dd>TBD (proposed 2026)</dd>
+      </div>
+      <div>
+        <dt>Authority</dt>
+        <dd>The Institute of Ethotechnics</dd>
+      </div>
+    </dl>
+  </header>
+
+  <div class="standard-body">
+    <div class="standard-main">
+      <section id="scope" class="standard-section">
+        <h2>Scope</h2>
+        <p>
+          A safety case is an argument, supported by evidence, that a deployment
+          is acceptable to run. This standard defines the human impact safety
+          case: the tests a consequential deployment runs, the thresholds those
+          tests must clear, the artifacts that carry the evidence, the
+          boundaries past which the deployment does not go live, and the
+          dependency the institution accumulates once it does.
+        </p>
+        <p>
+          The case is a live document. It is assembled before launch, refreshed
+          on a cadence, and re-examined whenever scope grows. A case that was
+          true at launch and has not been touched since is not a safety case;
+          it is a launch memo.
+        </p>
+        <p>
+          The evidence artifacts and freshness rules are carried by the{" "}
+          <a href="/evidence-packs/std-06">STD-06 evidence pack</a>. This page
+          states the obligations; the pack states what to hand an auditor.
+        </p>
+      </section>
+
+      <section id="tiers" class="standard-section">
+        <h2>Tiered evidence model</h2>
+        <p>
+          Evidence scales with how much the deployment is relied on. Tier 0 is
+          the floor for any consequential deployment. Tier 2 is expected of
+          deployments whose failure would be felt outside the operating team.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Tier</th>
+              <th scope="col">What it proves</th>
+              <th scope="col">Evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tiers.map((entry) => (
+              <tr>
+                <td>{entry.tier}</td>
+                <td>{entry.proves}</td>
+                <td>{entry.evidence}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="articles" class="standard-section">
+        <h2>Article I: Scope and impact classification</h2>
+        <p class="standard-article-quote">
+          "A safety case that does not say who can be harmed cannot say whether
+          it is safe."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§1.1</span>
+            Impact class: The case states the impact class of the deployment: who
+            is affected, in what capacity, and what the worst plausible outcome
+            for one of them is.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.2</span>
+            Boundary of the case: The case states what is inside it and what is
+            not. Components excluded from the case are named, with the reason,
+            so an exclusion is visible rather than assumed.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.3</span>
+            Named owner: The case has one accountable owner who can halt the
+            deployment, not a committee that can recommend halting it.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article II: Test battery and thresholds</h2>
+        <p class="standard-article-quote">
+          "A threshold with no measurement behind it is a preference."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§2.1</span>
+            The battery: The case runs and records the standard battery, and
+            states any test it omitted and why.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.2</span>
+            Declared thresholds: Each test carries a threshold declared before the
+            test is run, with the action that follows a breach.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.3</span>
+            Measured, not attested: Time-to-halt and time-to-remedy are measured
+            against a clock, not attested by the team that owns the control.
+          </li>
+        </ol>
+        <ul>
+          {battery.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article III: Evidence artifacts</h2>
+        <p class="standard-article-quote">
+          "The case is only as portable as the artifacts that carry it."
+        </p>
+        <p>
+          Each artifact is exportable with stable identifiers, timestamped, and
+          linked to the receipts it references. The inventory below is the
+          minimum set.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Artifact</th>
+              <th scope="col">What it carries</th>
+            </tr>
+          </thead>
+          <tbody>
+            {artifacts.map((entry) => (
+              <tr>
+                <td>{entry.artifact}</td>
+                <td>{entry.contents}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§3.1</span>
+            Portability: Artifacts export as PDF and as JSON or CSV with stable
+            IDs, and carry a plain-language summary for affected people.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.2</span>
+            Freshness: Each artifact carries the date it was last refreshed, and a
+            stale artifact is reported as stale rather than presented as
+            current.
+          </li>
+        </ol>
+      </section>
+
+      <section class="standard-section">
+        <h2>Article IV: Do-not-deploy boundaries</h2>
+        <p class="standard-article-quote">
+          "Some findings are not risks to be accepted. They are boundaries."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§4.1</span>
+            The register: Boundaries are enumerated in a register, each with the
+            condition that constitutes a breach and the last remediation review
+            date.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.2</span>
+            Breach halts launch: An active boundary breach stops the deployment or
+            the expansion. It is not converted into a monitored risk by a
+            sign-off.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.3</span>
+            Exceptions expire: Any exception to a boundary is time-bounded, owned,
+            and reviewed on expiry rather than rolled forward.
+          </li>
+        </ol>
+      </section>
+
+      <section id="dependency" class="standard-section">
+        <h2>Article V: Dependency and reversibility (Laws V, VI, XII)</h2>
+        <p class="standard-article-quote">
+          "A reliable system that cannot be replaced is a structural risk that
+          reliability has hidden."
+        </p>
+        <p>
+          This article concerns institutional dependence: what the organization,
+          its workflows, its roles, its customers, and its downstream software
+          have come to rely on, and what it would now cost to withdraw or
+          substitute the system. It is a different relation from the
+          record-level dependence in{" "}
+          <a href="/standards/std-07-revisable-delegation-record">STD-07</a>{" "}
+          Article III. That article asks what a record rests on and what
+          would invalidate it. This one asks what the institution has come to
+          rest on and what it could still afford to change. A deployment can be
+          fully conformant with STD-07 Article III and still be institutionally
+          irreversible.
+        </p>
+        <p>
+          Dependence belongs in the safety case rather than on a grant because
+          it is a property of the deployment as a whole. The grant-level
+          proportionality between authority and correction capacity is
+          <a href="/standards/std-08-delegation">STD-08</a> Part D, and it draws
+          on the record this article requires.
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§5.1</span>
+            The dependency record: The safety case carries a dependency record
+            naming <code>dependents</code> (workflows, roles, customers,
+            downstream software, each with a criticality),
+            <code>substitution_cost</code> with its basis,
+            <code>expertise_retained</code> with when it was last exercised,
+            <code>alternatives</code> with their status,
+            <code>last_withdrawal_rehearsal</code>, and
+            <code>correction_latency</code>. A dependency claim with no record
+            behind it is an estimate held by whoever was asked.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.2</span>
+            The exposure score: The case computes and publishes an exposure score
+            as dependency depth × substitution cost × correction latency,
+            recorded in <code>exposure_score</code> with each input. The score
+            is a comparator over time and across deployments, not a threshold to
+            pass. A rising score with an unchanged safety case is itself a
+            finding.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.3</span>
+            Reversibility at three levels: <code>reversibility</code> is evidenced
+            at all three levels, each separately: technical, that the change can
+            be undone; operational, that the people on shift can absorb it being
+            undone inside the correction window; and institutional, that the
+            organization can survive having undone it. Evidence at one level is
+            not evidence at another, and an unevidenced level is recorded as not
+            evidenced rather than as feasible.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.4</span>
+            Preserved capacities: The case lists in
+            <code>preserved_capacities</code> the capacities the institution
+            keeps so it can still question, replace, or withdraw the system,
+            each with the reason it is preserved and a named owner responsible
+            for keeping it. Erosion of a preserved capacity is recorded as a
+            governance event, not reported as an efficiency gain.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.5</span>
+            Do not expand without institutional reversibility: Where the
+            institutional level of <code>reversibility</code> is not evidenced,
+            the deployment's scope, population, or authority is not expanded
+            until it is. Technical and operational reversibility do not
+            substitute. This condition binds the expansion decision in STD-08
+            §1.3.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.6</span>
+            Rehearsal cadence: Withdrawal is rehearsed on a published cadence, at
+            least annually for any deployment with a non-trivial exposure score
+            and before any expansion decision. The rehearsal produces a report
+            with its date, scope, outcome, and what it showed at each level of
+            reversibility. An untested withdrawal path is a claim, and
+            <code>last_withdrawal_rehearsal</code> records how old the claim is.
+          </li>
+          <li>
+            <span class="standard-clause-id">§5.7</span>
+            Refresh with the case: The dependency record is refreshed whenever the
+            safety case is refreshed, and in any event before a renewal or
+            expansion decision that cites it. A record older than the decision
+            it supports is not evidence for that decision.
+          </li>
+        </ol>
+      </section>
+
+      <section id="publication-history" class="standard-section">
+        <h2>Publication history</h2>
+        <ul>
+          <li>
+            <strong>v0.5 (2026-09-06):</strong> First published page for the
+            standard. Adds Article V, dependency and reversibility: the
+            dependency record, the exposure score, reversibility at three
+            levels, preserved capacities, the do-not-expand condition, and the
+            withdrawal rehearsal cadence.
+          </li>
+          <li>
+            <strong>v0.4 (2026-03-01):</strong> Review draft defining
+            do-not-deploy thresholds and evidence artifacts.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="standard-sidebar">
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">Related standards</p>
+        <ul>
+          <li>
+            <a href="/standards/std-08-delegation">STD-08: Delegation</a>
+          </li>
+          <li>
+            <a href="/standards/std-07-revisable-delegation-record">
+              STD-07: Revisable Delegation Record
+            </a>
+          </li>
+          <li>
+            <a href="/standards/std-02-contestability-recourse">
+              STD-02: Contestability &amp; Recourse
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">STD-06 references</p>
+        <ul>
+          <li>
+            <a href="/evidence-packs/std-06">STD-06 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/standards/laws">Laws for Engineering Delegated Intelligence</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</article>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(structuredData, null, 2)}
+  is:inline
+/>

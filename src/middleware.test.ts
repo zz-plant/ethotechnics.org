@@ -127,6 +127,14 @@ describe("middleware", () => {
         expectedLocation: "https://ethotechnics.org/api/glossary.json",
       },
       {
+        url: "https://ethotechnics.org/start-here",
+        expectedLocation: "https://ethotechnics.org/start",
+      },
+      {
+        url: "https://ethotechnics.org/start-here/",
+        expectedLocation: "https://ethotechnics.org/start",
+      },
+      {
         url: "https://ethotechnics.org/explainers/democratic-vs-coercive-governability",
         expectedLocation:
           "https://ethotechnics.org/research/theory/democratic-vs-coercive-governability",

@@ -19,7 +19,7 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
   },
   "permission-surface": {
     publishedTime: "2025-02-10T00:00:00.000Z",
-    modifiedTime: "2026-02-09T00:00:00.000Z",
+    modifiedTime: "2026-09-06T00:00:00.000Z",
   },
   "repair-log": {
     publishedTime: "2025-03-05T00:00:00.000Z",
@@ -70,6 +70,26 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
     modifiedTime: "2026-02-09T00:00:00.000Z",
   },
   "open-weights-and-the-delegation-boundary": {
+    publishedTime: "2026-09-06T00:00:00.000Z",
+    modifiedTime: "2026-09-06T00:00:00.000Z",
+  },
+  "justified-delegation": {
+    publishedTime: "2026-09-06T00:00:00.000Z",
+    modifiedTime: "2026-09-06T00:00:00.000Z",
+  },
+  "authority-as-lease": {
+    publishedTime: "2026-09-06T00:00:00.000Z",
+    modifiedTime: "2026-09-06T00:00:00.000Z",
+  },
+  "intervention-specification": {
+    publishedTime: "2026-09-06T00:00:00.000Z",
+    modifiedTime: "2026-09-06T00:00:00.000Z",
+  },
+  "three-kinds-of-reversibility": {
+    publishedTime: "2026-09-06T00:00:00.000Z",
+    modifiedTime: "2026-09-06T00:00:00.000Z",
+  },
+  "error-bearing-parties": {
     publishedTime: "2026-09-06T00:00:00.000Z",
     modifiedTime: "2026-09-06T00:00:00.000Z",
   },

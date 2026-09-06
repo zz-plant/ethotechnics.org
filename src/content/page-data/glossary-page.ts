@@ -76,8 +76,41 @@ export const explainerLinks = [
   },
   {
     title: "Permission Surface",
-    description: "Map every permission and access point over time.",
+    description:
+      "See the set of authority grants in force, with evidence and expiry.",
     href: "/explainers/permission-surface",
     glossarySlug: "permission-surface",
+  },
+  {
+    title: "Justified Delegation",
+    description:
+      "Check whether a delegation is still justified today, not at launch.",
+    href: "/explainers/justified-delegation",
+    glossarySlug: "justified-delegation",
+  },
+  {
+    title: "Authority as a Lease",
+    description: "Hold authority for a term against a renewable justification.",
+    href: "/explainers/authority-as-lease",
+    glossarySlug: "authority-lease",
+  },
+  {
+    title: "Intervention Specification",
+    description: "Replace human in the loop with six answerable questions.",
+    href: "/explainers/intervention-specification",
+    glossarySlug: "intervention-specification",
+  },
+  {
+    title: "Three Kinds of Reversibility",
+    description:
+      "Separate technical, operational, and institutional reversibility.",
+    href: "/explainers/three-kinds-of-reversibility",
+    glossarySlug: "institutional-reversibility",
+  },
+  {
+    title: "Error-Bearing Parties",
+    description: "Name who absorbs a system's errors before granting standing.",
+    href: "/explainers/error-bearing-parties",
+    glossarySlug: "error-bearing-party",
   },
 ];

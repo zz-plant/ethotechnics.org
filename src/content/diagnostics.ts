@@ -75,7 +75,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     "Pick a diagnostic, arrive with a question, and leave with a decision-ready summary.",
   permalink: "/diagnostics",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-01-09T00:00:00Z",
+  updated: "2026-09-06T00:00:00Z",
   publication: {
     authors: [
       {
@@ -86,12 +86,18 @@ export const diagnosticsContent: DiagnosticsContent = {
     ],
     contact: "diagnostics@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-01-09T00:00:00Z",
-    version: "v1.1.0",
+    updated: "2026-09-06T00:00:00Z",
+    version: "v1.2.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/save/https://ethotechnics.org/diagnostics",
     changelog: [
+      {
+        version: "v1.2.0",
+        date: "2026-09-06",
+        summary:
+          "Added the Delegation Audit, which walks one workflow through the six state variables.",
+      },
       {
         version: "v1.1.0",
         date: "2026-01-09",
@@ -152,6 +158,121 @@ export const diagnosticsContent: DiagnosticsContent = {
     note: "Diagnostics are written for visitors: no prior relationship needed, and every tool is CC BY through the Institute.",
   },
   tools: [
+    {
+      slug: "delegation-audit",
+      title: "Delegation Audit",
+      description:
+        "Walks one workflow through the six state variables and returns an exposure score, the grants nobody can ground, and a reversibility verdict at three levels.",
+      methodCards: {
+        measures: [
+          "Whether each action class has an identifiable authorizer, evidence basis, and end condition.",
+          "Exposure from dependency depth, substitution cost, and correction latency.",
+          "Reversibility at the technical, operational, and institutional levels.",
+        ],
+        doesNotMeasure: [
+          "It records what the team in the room believes. It does not verify any of it.",
+          "It is not an audit. Nothing here is evidence, and no finding is a compliance verdict.",
+          "An ungrounded grant is a finding to investigate, not a proven violation.",
+        ],
+        assumptions: [
+          "The scope is one named workflow, not a whole system or product.",
+          "Substitution cost and correction latency are stated in staff-weeks and hours.",
+          "The people answering can name who authorized each action class, or admit that nobody can.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "The name of one workflow the system takes part in.",
+          "Each action class with its authorizer, evidence basis, affected people, and end condition.",
+          "Dependents with criticality, substitution cost in staff-weeks, and correction latency in hours.",
+          "Standing and correction answers: who bears errors, who answers, what can be stopped.",
+        ],
+        procedure: [
+          "Walk the six state variables in order and answer in plain language.",
+          "Read the exposure score with its three factors shown separately.",
+          "Review the ungrounded grants and the reversibility ladder, weakest level first.",
+          "Copy the readout or export the JSON snapshot for the record.",
+        ],
+        outputs: [
+          "Exposure score in workflow staff-week hours with its three inputs.",
+          "A rating per state variable with the reasons behind it.",
+          "A list of ungrounded grants and a reversibility verdict at three levels.",
+          "Findings linked to the STD-08 and STD-06 clause, the mechanism, and the eval suite.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "What can this system do in this workflow, and is that list separate from what it may do?",
+          "For each action class: who authorized it, on what evidence, for whom, and until when?",
+          "Does the policy it applies have a review trigger and an expiry, and when was it last reviewed?",
+          "What depends on this system, how long would the workflow take without it, and when was the alternative last run?",
+          "Who bears the errors, can they raise one, who must answer, and by when?",
+          "Can you stop it, can the institution keep functioning if you do, and does anyone still hold the expertise?",
+        ],
+        rubric: [
+          "Grounded: 70 or above out of 100 on that state variable.",
+          "Partial: 40 to 69.",
+          "Weak: below 40.",
+          "Reversibility at each level is evidenced, not evidenced, or not feasible. An unevidenced level is never recorded as feasible.",
+        ],
+        scoringLogic: [
+          "Exposure score = dependency depth (count of high and critical dependents) x substitution cost (staff-weeks) x correction latency (hours).",
+          "Authority = share of action classes with an authorizer (60) plus a weighted end-condition share (40).",
+          "Evidence = share with an evidence basis (50) plus recency weight (30) plus policy trigger (10) plus policy expiry (10).",
+          "The weakest reversibility level sets the verdict, and the institutional level breaks ties.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Built against the STD-08 clauses and the STD-06 Article V dependency record so every finding maps to a clause that already exists.",
+        reliability:
+          "Answers are self-reported, so two teams describing the same workflow can score differently. Re-run it with the people who hold the answers rather than the people who own the system.",
+        failureModes: [
+          "Scoping the audit to a whole product instead of one workflow.",
+          "Estimating substitution cost without having run the alternative.",
+          "Recording an untested stop as working reversibility.",
+          "Treating an ungrounded grant as a violation instead of an open question.",
+        ],
+      },
+      replicability: {
+        runSteps: [
+          "Name one workflow and gather the people who know how it runs.",
+          "Answer the six sections in order without skipping the blanks.",
+          "Export the JSON snapshot and keep it with the safety case.",
+          "Re-run after the next expansion decision and compare exposure scores.",
+        ],
+        exampleOutputs: [
+          "Exposure score with dependency depth, substitution cost, and correction latency stated.",
+          "Ungrounded grant list with the reason each grant is ungrounded.",
+          "Reversibility verdict naming the weakest of the three levels.",
+        ],
+      },
+      bestFor:
+        "Teams who need to know whether a delegation still holds, not whether the model is accurate.",
+      readiness: [
+        "Run before an expansion decision, at renewal, or after an incident that a human was supposed to catch.",
+        "Bring the person who authorized the system and the person who cleans up after it.",
+      ],
+      outputs: [
+        "Exposure score with its three factors and the units on screen.",
+        "Per-variable rating across capability, authority, evidence, dependency, standing, and correction.",
+        "Ungrounded grants and a three-level reversibility verdict with the weakest level called out.",
+      ],
+      estimatedTime: "20-30 minutes",
+      prepChecklist: [
+        "One named workflow, not a system or a product.",
+        "The list of actions the system takes in it.",
+        "Who authorized each one, if anyone can be named.",
+        "A rough count of staff-weeks to run the workflow without it.",
+      ],
+      ctaLabel: "Start the Delegation Audit",
+      ctaHref: "/diagnostics/delegation-audit",
+      ctaAriaLabel: "Start the Delegation Audit diagnostic tool",
+      exampleLabel: "View sample output",
+      exampleHref:
+        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#delegation-audit",
+      deliveryType: "self-serve",
+    },
     {
       slug: "system-auditor",
       title: "System Audit & Guardrail Synthesizer",

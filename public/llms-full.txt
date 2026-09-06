@@ -1,87 +1,193 @@
 # Ethotechnics Institute — Complete LLM Reference Index
 
-Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. The invariant: No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions. This document provides a complete plain-text index for AI agents, crawlers, and researchers. The method is stated at https://ethotechnics.org/method.
+Ethotechnics publishes open standards, mechanisms, diagnostics, and a glossary for organizations that let software make consequential decisions: who gets a loan, a shift, a benefit, or a refund. It is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. The invariant: No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions. This document provides a complete plain-text index for AI agents, crawlers, and researchers. The method is stated at https://ethotechnics.org/method.
 
 Canonical URL: https://ethotechnics.org
 License: Creative Commons Attribution 4.0 International (CC BY 4.0)
 
 ---
 
-## 1. Executive Principles
+## 1. The Twelve Laws
 
-1. **Stoppability Over Abstract Assurances**:
-   Every high-impact AI system must have explicit technical pause buttons, graceful degradation fallbacks, and named rollback authorities before deployment.
+The doctrine is stated as laws. Each carries an invariant that the standards bind.
+Full text with clause references: https://ethotechnics.org/standards/laws
 
-2. **Bounded Escalation Clocks**:
-   When an automated decision is contested or causes harm, escalation paths must specify deterministic deadlines (e.g., 4h for critical harm, 24h for appeals) with named human owners.
+I. Capability does not imply authority.
+   No increase in capability automatically increases authorized agency. Authority expands only through an explicit state transition.
+II. Authority decays unless its justification is renewed.
+   The burden of proof rises with the duration and consequence of delegated authority. Absence of observed failure is not renewal.
+III. Evidence and authority must remain coupled.
+   When the evidentiary state changes materially, the authority state becomes eligible for reconsideration. Policy is state, not input.
+IV. Every consequential delegation creates a correction obligation.
+   No accumulation of delegated authority without a corresponding accumulation of corrective capacity.
+V. Dependence converts technical risk into structural risk.
+   As dependence increases, reversibility decreases unless deliberately replenished. Dependence is a state variable, not an external concern.
+VI. Nominal reversibility is not operational reversibility.
+   A correction mechanism that cannot be exercised without unacceptable institutional damage is not a correction mechanism.
+VII. Error-bearing parties require standing proportional to exposure.
+   Exposure to system failure generates standing to initiate correction. Standing is procedural force, not veto.
+VIII. Observability without state transition is theater.
+   The test of an observation is whether it can change the governing state of the system.
+IX. Human oversight is a control only if the human can alter system state.
+   A human is part of the control system only to the extent they can causally alter its trajectory.
+X. The relevant eval sits at the highest layer where harm can emerge.
+   Evaluate at the highest layer capable of producing the failure you care about: model, agent, delegation, institution, consequence.
+XI. Successful automation increases its own governance burden.
+   Expansion is not the default reward for success. It is a new authorization decision.
+XII. No system may erase the conditions of its own contestability.
+   A consequential system may not consume the institutional capacity required to question, replace, or withdraw it.
 
-3. **Verifiable Evidence Packs**:
-   Compliance is verified through living operational artifacts (test logs, incident records, model limitations, human review ratios) rather than static annual documentation.
-
-4. **Contestability by Design**:
-   Users impacted by algorithmic decisions must have a legible mechanism to contest the outcome, receive human explanation, and obtain repair if an error occurred.
+**The Ethotechnical invariant**, which compresses the laws: no system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions.
 
 ---
 
-## 2. Framework Navigation & Primary Resources
+## 2. The Chain and the Six State Variables
+
+Every consequential decision is one link in a governed chain. The method walks the chain stage by stage at https://ethotechnics.org/method.
+
+1. **Evidence**: what propositions justify the authority. Evidence packs, decision-record `evidence_refs`, STD-06.
+2. **Authority**: which actions are permitted, for whom, until when. Authority grants, STD-08 part A.
+3. **Decision**: the consequential act and its record. Decision record schema, agent receipts, STD-07.
+4. **Consequence**: what the decision did to people and to institutional load. Burden hours, STD-01.
+5. **Challenge**: who can object and with what procedural force. Standing register, challenges, STD-02.
+6. **Reconsideration**: what re-opens the authority state. Reconsideration records, STD-07 section 3.3.
+7. **Correction**: which interventions remain feasible. Repair SLAs, intervention specifications, STD-08 parts C and D.
+
+Six state variables make the chain inspectable. A system becomes unsafe when they drift apart.
+
+- **Capability**: what the assembled system can actually do. Drift: capability outruns authority (Law I).
+- **Authority**: which actions are currently permitted, for whom, until when. Drift: authority outlives evidence (Laws II, III).
+- **Evidence**: what justifies that authority. Drift: policy detaches from reality (Law III).
+- **Dependency**: how hard withdrawal or substitution has become. Drift: dependence outruns correction (Laws V, XI).
+- **Standing**: who can challenge which decisions, with what force. Drift: exposure grows without standing (Law VII).
+- **Correction**: which interventions remain technically, operationally, and institutionally feasible. Drift: observability grows without control (Laws VIII, IX, XII).
+
+### Content layers
+
+The site separates three layers so a reader can adopt a standard without accepting the theory.
+
+- **Theory** (https://ethotechnics.org/research/theory): why the laws hold. Cited as motivation, never as a requirement.
+- **Method** (https://ethotechnics.org/method, /standards, /standards/laws, /mechanisms, /evals, /glossary): the laws, standards, objects, mechanisms, evals.
+- **Instruments** (/diagnostics, /validators, /tools, /agent-toolkit, /api): diagnostics, validators, worksheets, prompt packs, APIs.
+
+---
+
+## 3. Framework Navigation & Primary Resources
+
+### Doctrine
+- **Method**: https://ethotechnics.org/method
+- **Laws for Engineering Delegated Intelligence**: https://ethotechnics.org/standards/laws
+- **Core Axioms**: https://ethotechnics.org/standards/core-axioms
+- **Theory essays**: https://ethotechnics.org/research/theory
+  - Dependence without standing, absorption as concealment, friction as accidental governance, the engineering-tradition analogy, automation and capture, democratic vs. coercive governability.
+- **Frontier Doctrine Scan (2026-09)**: https://ethotechnics.org/research/frontier-doctrine-scan
+  - Ten frontier labs scored against the twelve laws. Scores public doctrine, not safety performance.
 
 ### Standards & Compliance
 - **Standards Catalogue**: https://ethotechnics.org/standards
-  - STD-01: Stoppability, Rollback, and Graceful Degradation
-  - STD-02: Human Oversight, Appeal Clocks, and Repair Authority
-  - STD-03: Evidence Pack Readiness and Audit Trail Integrity
-- **Regulatory Crosswalks**: https://ethotechnics.org/standards#crosswalks
+  - STD-01: Temporal Bill of Rights (clocks, deadlines, exit)
+  - STD-02: Contestability and Recourse
+  - STD-03: Justice SLOs
+  - STD-06: Human Impact Safety Case (dependency, reversibility ladder, preserved capacities)
+  - STD-07: Revisable Delegation Record
+  - STD-08: Delegation (authority as a lease, policy validity, intervention specification, correction symmetry)
+- **Evidence Packs**: https://ethotechnics.org/evidence-packs
+  - STD-01, STD-02, STD-06, and STD-08 (https://ethotechnics.org/evidence-packs/std-08)
+- **Regulatory Crosswalks**: https://ethotechnics.org/standards#regulatory-crosswalks
   - Mapped against NIST AI RMF 1.0 (Govern, Map, Measure, Manage)
   - Mapped against EU AI Act (Articles 9, 14, 15, 61, 72)
   - Mapped against ISO/IEC 42001 (Artificial Intelligence Management System)
 
+### Explainers
+- **Justified delegation**: https://ethotechnics.org/explainers/justified-delegation
+- **Authority as a lease**: https://ethotechnics.org/explainers/authority-as-lease
+- **Intervention specification**: https://ethotechnics.org/explainers/intervention-specification
+- **Three kinds of reversibility**: https://ethotechnics.org/explainers/three-kinds-of-reversibility
+- **Error-bearing parties**: https://ethotechnics.org/explainers/error-bearing-parties
+- **Open weights and the delegation boundary**: https://ethotechnics.org/explainers/open-weights-and-the-delegation-boundary
+
+### Evaluation Suites
+- **Evals index**: https://ethotechnics.org/evals
+  - Delegation validity: https://ethotechnics.org/evals/delegation-validity
+  - Dependence and reversibility: https://ethotechnics.org/evals/dependence-reversibility
+  - Standing: https://ethotechnics.org/evals/standing
+  - Meaningful control: https://ethotechnics.org/evals/meaningful-control
+  - Plus burden distribution, contestability, stoppability, temporal rights, reversibility, explainability, agent governance, cross-domain burden, and burden concealment.
+
 ### Interactive Diagnostics & Tools
 - **Diagnostics Index**: https://ethotechnics.org/diagnostics
+- **Delegation Audit**: https://ethotechnics.org/diagnostics/delegation-audit
+  - Walks a delegation against the six state variables and reports where they have drifted apart.
 - **Burden Modeler**: https://ethotechnics.org/diagnostics/burden-modeler
-  - Quantifies human operator workload, cognitive overhead, and burnout thresholds in human-in-the-loop systems.
+  - Quantifies human operator workload, cognitive overhead, and burnout thresholds.
 - **Maintenance Simulator**: https://ethotechnics.org/diagnostics/maintenance-simulator
   - Simulates operational coverage, out-of-hours escalations, and incident triage branches.
 - **Capacity Forecaster**: https://ethotechnics.org/diagnostics/capacity-forecaster
   - Projects long-term system stability, metric decay, and remediation timing.
 - **Finite Loop**: https://ethotechnics.org/finite
-  - Training loop for engineering and governance teams to rehearse stoppability and rollback protocols.
+  - Training loop for rehearsing stoppability and rollback protocols.
+
+### Taxonomy
+- **Taxonomy index**: https://ethotechnics.org/taxonomy
+  - Authority branch: /taxonomy/authority, with delegation, policy-validity, and expansion.
+  - Dependence branch: /taxonomy/dependence, with reversibility, standing, and preserved-capacity.
+  - Plus governance, delivery, assurance, and experience.
 
 ### AI Agent Toolkit
 - **Agent Toolkit Home**: https://ethotechnics.org/agent-toolkit
 - **Agent Contract**: https://ethotechnics.org/agent-toolkit/agent-contract
   - Formal protocol defining how autonomous agents apply standards, cite mechanisms, and declare limitations.
 - **Prompt Packs**: https://ethotechnics.org/agent-toolkit/prompt-packs
-  - Reusable governance prompts for onboarding, decision reviews, and conflict escalation.
 - **Teaching Flows**: https://ethotechnics.org/agent-toolkit/teaching-flows
-  - Structured pedagogical patterns to guide human principals from ethical principles to concrete technical decisions.
+- **Agent Spec**: https://ethotechnics.org/agents/spec.json
 
 ### Shared Taxonomy & Glossary
 - **Glossary**: https://ethotechnics.org/glossary
-  - Defines core vocabulary: Burden, Contestability, Degradation, Escalation Clock, Evidence Pack, Governance Forum, Human Review Ratio, Incident Triage, Legibility, Maintenance Debt, Pause Authority, Post-Market Monitoring, Reciprocity, Release Gate, Repair Authority, Rollback Protocol, Stoppability, Validator.
+  - Defines core vocabulary: Authority Grant, Burden, Capability Catalog, Contestability, Dependency Record, Escalation Clock, Evidence Pack, Intervention Specification, Legibility, Policy Record, Preserved Capacity, Repair Authority, Reversibility Ladder, Standing, Stoppability, Substrate Profile, Validator.
 
 ### Research & Thought Leadership
 - **Research Agenda**: https://ethotechnics.org/research
-  - Active inquiries into clinical AI safety, algorithmic accountability, and sociotechnical maintenance.
 - **Field Notes**: https://ethotechnics.org/field-notes
-  - Long-form essays and case studies from real-world deployments and policy drafting.
+- **Start here**: https://ethotechnics.org/start
 
 ---
 
-## 3. Machine-Readable Data Endpoints
+## 4. Machine-Readable Data Endpoints
 
-Ethotechnics publishes first-class JSON and JSONL APIs for integration into automated tools, agents, and research workflows:
+Ethotechnics publishes first-class JSON and JSONL APIs for integration into automated tools, agents, and research workflows. Index: https://ethotechnics.org/api
 
+Catalogue:
 - Standards: `GET https://ethotechnics.org/api/standards.json`
-- Glossary Terms: `GET https://ethotechnics.org/api/glossary.json`
-- RAG Corpus: `GET https://ethotechnics.org/api/rag-corpus.jsonl`
+- Clauses: `GET https://ethotechnics.org/api/clauses.json`
+- Mechanisms: `GET https://ethotechnics.org/api/mechanisms.json`
+- Validators: `GET https://ethotechnics.org/api/validators.json`
+- Evidence packs: `GET https://ethotechnics.org/api/evidence-packs.json`
+- Glossary terms: `GET https://ethotechnics.org/api/glossary.json`
 - Crosswalks: `GET https://ethotechnics.org/api/crosswalks.json`
-- Releases & Changelog: `GET https://ethotechnics.org/api/releases.json`
-- Evals & Benchmarks: `GET https://ethotechnics.org/api/evals.json`
-- Diagnostic Results Schema: `GET https://ethotechnics.org/api/diagnostic-results.json`
+- Evals and benchmarks: `GET https://ethotechnics.org/api/evals.json`
+- Eval test cases: `GET https://ethotechnics.org/api/eval-test-cases.json`
+- Releases and changelog: `GET https://ethotechnics.org/api/releases.json`
+- Site index: `GET https://ethotechnics.org/api/site-index.json`
+
+Delegation state (object model v2, one worked example across the six state variables):
+- Capability catalogs: `GET https://ethotechnics.org/api/capabilities.json`
+- Authority grants: `GET https://ethotechnics.org/api/grants.json`
+- Policy records: `GET https://ethotechnics.org/api/policies.json`
+- Dependency records: `GET https://ethotechnics.org/api/dependencies.json`
+- Standing register: `GET https://ethotechnics.org/api/standing.json`
+- Intervention specifications: `GET https://ethotechnics.org/api/interventions.json`
+- Substrate profiles: `GET https://ethotechnics.org/api/substrate-profiles.json`
+
+Retrieval:
+- RAG corpus: `GET https://ethotechnics.org/api/rag-corpus.jsonl`
+  - Newline-delimited JSON. Each document carries `id`, `type`, `version`, `text`, `object_refs`, an optional `href`, and a `layer` of `theory`, `method`, or `instrument`. Filter on `layer` to keep the doctrine apart from the requirements.
+  - Add `?limit=N` for a preview.
+
+Schemas under https://ethotechnics.org/standards/ include authority-grant, capability-catalog, policy-record, dependency-record, standing-register, challenge, intervention-spec, reconsideration, substrate-profile, decision-record, and agent-safety-object-model.
 
 ---
 
-## 4. Commercial Advisory & Studio Services
+## 5. Commercial Advisory & Studio Services
 
 Ethotechnics Studio (https://ethotechnics.com) provides commissioned commercial services for enterprise organizations, healthcare systems, and venture funds:
 - Clinical AI Safety & Verification Audits
@@ -91,7 +197,7 @@ Ethotechnics Studio (https://ethotechnics.com) provides commissioned commercial 
 
 ---
 
-## 5. Contact, Feeds, & Attribution
+## 6. Contact, Feeds, & Attribution
 
 - **Website**: https://ethotechnics.org
 - **Commercial Studio**: https://ethotechnics.com

@@ -17,7 +17,7 @@ describe("home content", () => {
     const homeEntry = await loadHomeEntry();
 
     expect(homeEntry?.hero?.heading).toBe(
-      "The object being engineered is the delegation, not the model.",
+      "Make high-stakes AI easier to stop, explain, appeal, and repair",
     );
   });
 });

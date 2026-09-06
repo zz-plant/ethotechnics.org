@@ -154,7 +154,7 @@
             "title": "Ethotechnics",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power.</p><p>Its unit of governance is the consequential decision and the delegation that produced it. The <a href=\"/method\">method</a> states the chain, the six state variables, and the twelve laws that the standards bind.</p>",
+            "bodyHtml": "<p>Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power.</p><p>Its unit of governance is the consequential decision and the <a href=\"#delegated-agency\">delegated agency</a> that produced it, and its working question is whether that delegation is still a <a href=\"#justified-delegation\">justified delegation</a> today. The <a href=\"/method\">method</a> states the chain, the six state variables, and the twelve laws that the standards bind.</p>",
             "examples": [
               "A hospital release board requires consent checks, stop controls, and named repair owners before deploying triage updates."
             ],
@@ -532,6 +532,175 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "core-concepts"
+          },
+          {
+            "id": "delegated-agency",
+            "title": "Delegated Agency",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The capacity to act with consequence on an institution's behalf, held by a machine, a human, or an assembly of both. Delegated agency is created by an <a href=\"#authority-grant\">authority grant</a> and exercised through a <a href=\"#decision-system\">decision system</a>; it is not a property of the model that happens to be running.</p><p>It matters because agency is the quantity that accumulates. An institution that tracks capability but not delegated agency cannot say how much of its consequential action it has handed over, or whether it still holds the <a href=\"#correction-capacity\">correction capacity</a> to take any of it back.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "operationalTests": [
+              "The institution can list, for one workflow, every action class a machine may take on its behalf.",
+              "Each listed action class traces to a named grant holder rather than to a team or a system name.",
+              "Growth in delegated action classes over a quarter is reported alongside growth in correction capacity."
+            ],
+            "genealogy": "Names the object the twelve laws govern: not the model, but the agency an institution has handed to it.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A register of action classes a machine may perform on the institution's behalf, with holders.",
+              "behavior": "A new action class appearing only after an authorization decision, visible in the register history.",
+              "metric": "Count of authorized action classes per workflow, tracked against correction capacity over time."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "deployment"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "core-concepts",
+            "tags": ["delegation", "authority", "agency"],
+            "adjacentTerms": [
+              "authority-grant",
+              "decision-system",
+              "correction-capacity",
+              "revisable-delegation"
+            ]
+          },
+          {
+            "id": "consequential-decision",
+            "title": "Consequential Decision",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A decision that changes someone's access, money, obligations, safety, or standing, and that the institution would have to answer for. The consequential decision is the unit of governance in Ethotechnics: each one is a link in the chain from evidence to <a href=\"#authority-grant\">authority</a> to consequence to <a href=\"#corrective-standing\">correction</a>.</p><p>Naming the unit matters because it fixes where the governance load sits. Systems governed at the level of the model leave the decisions themselves unaccounted for, which is where <a href=\"#unowned-harm\">unowned harm</a> collects and where <a href=\"#prospective-auditability\">prospective auditability</a> has to be designed in.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "operationalTests": [
+              "The system declares which of its outputs are consequential decisions and which are not.",
+              "Each consequential decision emits a record naming the evidence, the grant, and the responsible holder.",
+              "A person affected by one can obtain that record without filing a formal request."
+            ],
+            "genealogy": "Ethotechnics takes the consequential decision, rather than the model or the product, as the unit that standards, mechanisms, and evals attach to.",
+            "references": [
+              {
+                "label": "The method",
+                "href": "/method",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A decision record schema listing evidence refs, grant id, holder, and consequence class.",
+              "behavior": "A decision reconstructed months later from its record alone, without asking the team.",
+              "metric": "Share of consequential decisions that emit a complete record, sampled monthly."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "core-concepts",
+            "tags": ["decision", "governance", "records"],
+            "adjacentTerms": [
+              "decision-artifact",
+              "decision-object",
+              "authority-grant",
+              "prospective-auditability"
+            ]
+          },
+          {
+            "id": "decision-system",
+            "title": "Decision System",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The assembled machinery that produces a <a href=\"#consequential-decision\">consequential decision</a>: models, rules engines, queues, humans, policies, and the data they read. Ethotechnics governs the decision system rather than any one component, because the same substrate-independent questions apply whichever part made the call, and the deployment is classified by its <a href=\"#substrate-profile\">substrate profile</a> rather than by which component is fashionable.</p><p>It matters because component-level assurance does not compose. A verified model inside an unaudited decision system still produces decisions no one can reconstruct, which is why assurance is tagged with the <a href=\"#evaluation-layer\">evaluation layer</a> it actually holds at, and why reconstructing a past decision depends on <a href=\"#prospective-auditability\">prospective auditability</a> designed into the system.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "operationalTests": [
+              "A diagram names every component that can alter a decision, including humans and lookup tables.",
+              "Assurance claims state which component they cover and which they do not.",
+              "Changing any component triggers review of the decision system, not only of that component."
+            ],
+            "genealogy": "Generalizes the agent safety object model so that a rules engine, a human reviewer, and a model are governed by the same primitives.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A component inventory for one decision path, with the alteration each component can make.",
+              "behavior": "An assurance claim rejected for covering a component rather than the decision system.",
+              "metric": "Share of decision paths with a current component inventory."
+            },
+            "domains": ["structural"],
+            "scale": "organizational",
+            "phase": ["design", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "core-concepts",
+            "tags": ["architecture", "substrate-independence"],
+            "adjacentTerms": [
+              "consequential-decision",
+              "substrate-profile",
+              "evaluation-layer",
+              "ethical-load-path"
+            ]
+          },
+          {
+            "id": "justified-delegation",
+            "title": "Justified Delegation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A delegation whose authority, evidence, and correction capacity are all currently in force: the grant sits in an allowed <a href=\"#grant-state\">grant state</a>, the <a href=\"#policy-record\">policy record</a> it rests on has not expired, and the institution can still meet its <a href=\"#correction-obligation\">correction obligation</a>. Justification is a present-tense property, not a fact about the launch review.</p><p>It matters because most delegations fail by outliving their justification rather than by being wrong at the start. Asking whether a delegation is justified today is the operational form of treating authority as an <a href=\"#authority-lease\">authority lease</a>.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "operationalTests": [
+              "For any decision, the institution can show the grant was in an allowed state at the time it was made.",
+              "Every grant names the policy records it depends on, and each has an unexpired validity date.",
+              "A grant whose evidence basis has lapsed cannot authorize action until it is renewed."
+            ],
+            "genealogy": "Compresses Laws II and III into a single testable question about the present state of a delegation rather than the quality of its original approval.",
+            "references": [
+              {
+                "label": "STD-07 Revisable Delegation Record",
+                "href": "/standards/std-07-revisable-delegation-record",
+                "type": "Standard"
+              },
+              {
+                "label": "Delegation validity eval",
+                "href": "/evals/delegation-validity",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A grant record with state, evidence basis, expiry, and renewal basis fields populated.",
+              "behavior": "An action refused because the grant authorizing it had lapsed into review_required.",
+              "metric": "Share of consequential decisions taken under a grant that was in an allowed state.",
+              "threshold": "Target 100 percent; any exception is an incident."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "core-concepts",
+            "examples": [
+              "A claims triage delegation is suspended automatically when the population-drift policy record passes its review date, and resumes only after a fresh drift study is filed."
+            ],
+            "tags": ["delegation", "authority", "validity"],
+            "adjacentTerms": [
+              "revisable-delegation",
+              "authority-grant",
+              "grant-state",
+              "policy-record"
+            ]
           }
         ]
       },
@@ -1048,6 +1217,208 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "failure-modes"
+          },
+          {
+            "id": "authority-drift",
+            "title": "Authority Drift",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The gap that opens when what a system actually does moves away from what its <a href=\"#authority-grant\">authority grant</a> permits or what its evidence supports. Drift arrives through added integrations, widened inputs, quietly raised thresholds, and habits that outlive the exception that created them, and it accumulates through the <a href=\"#automation-ratchet\">automation ratchet</a>.</p><p>It matters because every individual step looks too small to review. Drift is detected by comparing observed action classes from <a href=\"#capability-discovery\">capability discovery</a> against grant scope, and it is what <a href=\"#justified-delegation\">justified delegation</a> and the <a href=\"#authority-lease\">authority lease</a> exist to catch.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "Observed action classes are reconciled against grant scope on a stated cadence.",
+              "Exceptions granted during incidents carry an expiry and are reconciled after the incident closes.",
+              "A widening that no one authorized appears in the reconciliation report rather than in a postmortem."
+            ],
+            "genealogy": "Names the drift Laws I, II, and XI describe, in the form an auditor can measure: observed behavior minus authorized scope.",
+            "references": [
+              {
+                "label": "Expansion eval",
+                "href": "/evals/delegation-validity",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A reconciliation report listing observed action classes not covered by any live grant.",
+              "behavior": "An unauthorized integration disabled after appearing in reconciliation.",
+              "metric": "Count of ungrounded action classes per reconciliation cycle, trended.",
+              "threshold": "Target zero; any non-zero count opens a review."
+            },
+            "domains": ["patterns", "diagnostic", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["failure-mode", "authority", "drift"],
+            "adjacentTerms": [
+              "drift",
+              "scope-discipline",
+              "authority-grant",
+              "automation-ratchet"
+            ]
+          },
+          {
+            "id": "automation-ratchet",
+            "title": "Automation Ratchet",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Scope growth by accretion, where each extension of an automated system is too small to trigger review and no single step is the one that widened the delegation. The ratchet turns one way only: successful operation is read as licence to extend.</p><p>It matters because the end state bears no relation to what was originally justified and no single decision can be pointed at. The countermeasure is to make each widening an <a href=\"#expansion-decision\">expansion decision</a>, which is also what keeps <a href=\"#authority-drift\">authority drift</a> from being invisible.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "Scope changes are logged against the grant, however small, with a cumulative view available.",
+              "A cumulative threshold exists that forces a full re-authorization regardless of step size.",
+              "Reviewers are shown the original justification alongside current scope, not only the delta."
+            ],
+            "genealogy": "Names the failure Law XI describes, where success is treated as authorization rather than as a reason for a new authorization decision.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-xi",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A cumulative scope history per grant, showing every widening since first authorization.",
+              "behavior": "A small extension refused because it crossed a cumulative re-authorization threshold.",
+              "metric": "Scope delta since original authorization, per grant."
+            },
+            "domains": ["patterns", "diagnostic"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["failure-mode", "expansion", "scope"],
+            "adjacentTerms": [
+              "expansion-decision",
+              "authority-drift",
+              "scope-discipline",
+              "capability-overhang"
+            ]
+          },
+          {
+            "id": "institutional-capture",
+            "title": "Institutional Capture",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The state in which a system has absorbed enough of an institution's capability, staff, and decision paths that the institution can no longer meaningfully evaluate, constrain, or replace it. Capture is not vendor lock-in alone; it includes losing the internal expertise needed to judge the system's output.</p><p>It matters because a captured institution still runs its governance rituals and can no longer act on them. Capture is the terminal form of <a href=\"#normalized-dependence\">normalized dependence</a>, and it is the reason <a href=\"#preserved-capacity\">preserved capacity</a> is protected long before it is needed.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "The institution can name who would evaluate the system's output if the vendor disappeared.",
+              "Independent records exist that do not pass through the system being governed.",
+              "Governance decisions about the system are made by people who do not depend on it for their work."
+            ],
+            "genealogy": "Names the end state Law XII forbids and the theory essay on automation and capture describes.",
+            "references": [
+              {
+                "label": "Automation and capture",
+                "href": "/research/theory/automation-and-capture",
+                "type": "Theory"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A capture assessment naming retained evaluative expertise and independent records.",
+              "behavior": "A governance body overruling the system's recommendation using independent evidence.",
+              "metric": "Count of retained internal experts able to evaluate output, trended."
+            },
+            "domains": ["patterns", "structural"],
+            "scale": "systemic",
+            "phase": ["audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["failure-mode", "capture", "dependence"],
+            "adjacentTerms": [
+              "normalized-dependence",
+              "preserved-capacity",
+              "moral-lock-in",
+              "legitimacy-laundering"
+            ]
+          },
+          {
+            "id": "rubber-stamp-review",
+            "title": "Rubber-Stamp Review",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Review that produces approvals at a rate and speed incompatible with actual scrutiny, usually because the reviewer lacks time, information, authority, or permission to disagree. The artifact of review exists; the control does not.</p><p>It matters because rubber-stamp review reads as compliance in every audit that counts approvals rather than reversals. It is the failure <a href=\"#meaningful-control\">meaningful control</a> tests for and the one an <a href=\"#intervention-specification\">intervention specification</a> is written to prevent.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "Median review time is reported alongside approval rate for every review queue.",
+              "A reviewer can point to a recent case they altered or refused.",
+              "Review capacity is compared against decision volume rather than assumed adequate."
+            ],
+            "genealogy": "Names the practical failure of Law IX oversight: the human is present, on the record, and unable to change anything.",
+            "references": [
+              {
+                "label": "Meaningful control eval",
+                "href": "/evals/meaningful-control",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Review queue statistics showing volume, median review time, and outcome distribution.",
+              "behavior": "A review queue throttled because time per case fell below the scrutiny floor.",
+              "metric": "Approval rate and median seconds per review, reported together.",
+              "threshold": "Investigate any queue with approval rate above 98 percent and median review under 30 seconds."
+            },
+            "domains": ["patterns", "visibility"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["failure-mode", "oversight", "review"],
+            "adjacentTerms": [
+              "meaningful-control",
+              "intervention-specification",
+              "ethics-theater",
+              "cognitive-saturation"
+            ]
+          },
+          {
+            "id": "normalized-dependence",
+            "title": "Normalized Dependence",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The condition in which reliance on a system has become invisible because it is ordinary: no one records it, no fallback is maintained, and withdrawal is no longer a question anyone asks. This is institutional dependence, meaning what the institution has come to rely on, and it should not be confused with the record-level dependence in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a> Article III, which governs what a given record rests on.</p><p>It matters because normalized dependence is what makes <a href=\"#dependency-state\">dependency state</a> hard to measure and <a href=\"#institutional-capture\">institutional capture</a> hard to notice until a correction is needed and turns out to be unavailable.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "Someone can state, without research, what happens to each dependent workflow if the system stops.",
+              "Fallbacks named in the dependency record have been exercised within a stated interval.",
+              "New dependents are recorded when they appear rather than discovered during an incident."
+            ],
+            "genealogy": "Names the everyday form of the Law V failure, where dependence is real, unrecorded, and therefore ungoverned.",
+            "references": [
+              {
+                "label": "Dependence without standing",
+                "href": "/research/theory/dependence-without-standing",
+                "type": "Theory"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A dependency record listing every dependent workflow and its maintained fallback.",
+              "behavior": "A new dependent workflow appearing in the record at onboarding, not at incident time.",
+              "metric": "Share of dependent workflows with an exercised fallback."
+            },
+            "domains": ["patterns", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["failure-mode", "dependence", "reversibility"],
+            "adjacentTerms": [
+              "dependency-state",
+              "institutional-capture",
+              "heroism-dependent-systems",
+              "invisible-fallbacks"
+            ]
           }
         ]
       },
@@ -1177,7 +1548,7 @@
             "title": "Contestability",
             "status": null,
             "classes": ["glossary-entry--diagram"],
-            "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them—and win. Contestability requires a visible <a href=\"#permission-surface\">permission surface</a> and a healthy <a href=\"#appeal-passage-rate\">appeal passage rate</a>.</p>\n                        <figure class=\"micro-diagram\" aria-hidden=\"true\">\n                          <svg viewBox=\"0 0 120 80\" role=\"presentation\">\n                            <use href=\"#diagram-contestability\"></use>\n                          </svg>\n                        </figure>",
+            "bodyHtml": "<p>People affected by system decisions can challenge, change, or overturn them, and win. Contestability requires a visible <a href=\"#permission-surface\">permission surface</a> and a healthy <a href=\"#appeal-passage-rate\">appeal passage rate</a>.</p><p>It has four parts and needs all four: standing, meaning a named party may raise the challenge; a channel that receives it; an obliged responder who must answer on a clock against a stated standard; and a state change the challenge is capable of producing. Three of the four is a complaints process. The apparatus that supplies them is a <a href=\"#standing-mechanism\">standing mechanism</a>, and the fourth part is what gives a challenge <a href=\"#procedural-force\">procedural force</a> rather than a reply.</p><figure class=\"micro-diagram\" aria-hidden=\"true\"><svg viewBox=\"0 0 120 80\" role=\"presentation\"><use href=\"#diagram-contestability\"></use></svg></figure>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Appeals route to empowered reviewers with authority to overturn outcomes.",
@@ -1405,6 +1776,286 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "capabilities"
+          },
+          {
+            "id": "capability-discovery",
+            "title": "Capability Discovery",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The practice of finding out what an assembled <a href=\"#decision-system\">decision system</a> can actually do, including reachable tools, side effects, and action classes nobody intended to expose. Discovery is testing and cataloguing, and its output is a <a href=\"#capability-catalog\">capability catalog</a> rather than a permission.</p><p>It matters because capability that has not been discovered can be neither authorized nor refused. Keeping discovery separate from authorization is how a new capability stays outside the <a href=\"#authority-grant\">authority grant</a> until someone decides it belongs there.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "Discovery runs against the assembled system, including tools reachable through chained calls.",
+              "Discovery output is written to the catalog and never directly to a grant.",
+              "The harness confirms that a newly discovered capability is refused at execution until granted."
+            ],
+            "genealogy": "Operationalizes Law I by making discovery a first-class activity whose result is knowledge, not permission.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-i",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A discovery run report listing reachable action classes and how each was verified.",
+              "behavior": "A discovered but ungranted capability refused at execution and logged.",
+              "metric": "Interval since the last discovery run per decision system."
+            },
+            "domains": ["visibility"],
+            "scale": "organizational",
+            "phase": ["design", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["capability", "discovery", "testing"],
+            "adjacentTerms": [
+              "capability-overhang",
+              "capability-catalog",
+              "authority-grant",
+              "ethotechnic-audit"
+            ]
+          },
+          {
+            "id": "correction-capacity",
+            "title": "Correction Capacity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The measured ability to actually intervene: which interventions exist, who may invoke them, how long they take, and how much load the institution can absorb while they run. Capacity is counted in people, clocks, and rehearsals rather than asserted in a policy.</p><p>It matters because a <a href=\"#correction-obligation\">correction obligation</a> with no matching capacity is a promise the institution cannot keep. Capacity is the quantity that must grow alongside <a href=\"#delegated-agency\">delegated agency</a>, and it is the property an <a href=\"#evaluation-layer\">evaluation layer</a> above the model is needed to test.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "Every stated intervention has a named invoker, a measured time to effect, and a last-exercised date.",
+              "Capacity is compared against authority at each expansion review, not only at launch.",
+              "Interventions never exercised within a stated interval are treated as unproven."
+            ],
+            "genealogy": "Turns Law IV from a duty into a measurement: correction capacity is what the institution can demonstrate, not what it intends.",
+            "references": [
+              {
+                "label": "Meaningful control eval",
+                "href": "/evals/meaningful-control",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An intervention inventory with invokers, time to effect, and last-exercised dates.",
+              "behavior": "An intervention exercised in a drill within its stated time to effect.",
+              "metric": "Ratio of authorized action volume to demonstrated correction throughput."
+            },
+            "domains": ["agency", "measurable"],
+            "scale": "organizational",
+            "phase": ["deployment", "repair"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["correction", "capacity", "intervention"],
+            "adjacentTerms": [
+              "correction-obligation",
+              "delegated-agency",
+              "time-to-restore",
+              "graceful-rollback-lanes"
+            ]
+          },
+          {
+            "id": "technical-reversibility",
+            "title": "Technical Reversibility",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The first level of the reversibility ladder: the mechanism exists and works. The switch throws, the rollback completes, the state restores, and a test proves it on the version of the system currently running.</p><p>It matters as a floor rather than a finding. Technical reversibility is the cheapest of the three levels to claim and the least informative, because a working switch says nothing about whether <a href=\"#operational-reversibility\">operational reversibility</a> or <a href=\"#institutional-reversibility\">institutional reversibility</a> would survive it being thrown.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "The rollback path is exercised against the current build, not a past one.",
+              "Restore completeness is measured, including derived state and downstream caches.",
+              "A failed rollback test blocks release rather than producing a follow-up ticket."
+            ],
+            "genealogy": "The first rung of the Law VI ladder, kept separate so a passing technical test cannot be reported as reversibility.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-vi",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A rollback test report against the current build, with restore completeness measured.",
+              "behavior": "A rollback executed in a drill that restored state without manual repair.",
+              "metric": "Rollback success rate and time to restore, per release."
+            },
+            "domains": ["agency"],
+            "scale": "organizational",
+            "phase": ["design", "deployment"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["reversibility", "rollback"],
+            "adjacentTerms": [
+              "reversibility",
+              "restoration-completeness",
+              "operational-reversibility",
+              "graceful-rollback-lanes"
+            ]
+          },
+          {
+            "id": "operational-reversibility",
+            "title": "Operational Reversibility",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The second level of the reversibility ladder: the people and processes can absorb the correction being made. Staff know the fallback, queues can hold the load, and the manual path has been exercised recently enough to work.</p><p>It matters because most corrections fail here rather than at the switch. Operational reversibility is what a <a href=\"#withdrawal-rehearsal\">withdrawal rehearsal</a> measures, and its absence turns <a href=\"#technical-reversibility\">technical reversibility</a> into a claim nobody will test during an incident.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "The fallback path has been run with real volume within a stated interval.",
+              "Staffing for the fallback is costed and available, not notional.",
+              "Backlog accumulated during a rehearsal is measured and shown to be recoverable."
+            ],
+            "genealogy": "The second rung of the Law VI ladder, where the question moves from the mechanism to the people who must live through its use.",
+            "references": [
+              {
+                "label": "Dependence and reversibility eval",
+                "href": "/evals/dependence-reversibility",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A rehearsal report showing the fallback carrying real work for a stated period.",
+              "behavior": "Frontline staff executing the manual path without escalation during a drill.",
+              "metric": "Backlog accumulated per hour of fallback operation, and time to clear it."
+            },
+            "domains": ["agency", "burden"],
+            "scale": "organizational",
+            "phase": ["deployment", "repair"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["reversibility", "operations", "rehearsal"],
+            "adjacentTerms": [
+              "technical-reversibility",
+              "withdrawal-rehearsal",
+              "maintenance-metabolism",
+              "graceful-degradation"
+            ]
+          },
+          {
+            "id": "institutional-reversibility",
+            "title": "Institutional Reversibility",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The third level of the reversibility ladder: the organization can survive having made the correction. Commitments, contracts, reputations, and budgets all remain serviceable after withdrawal, which is the level beyond <a href=\"#technical-reversibility\">technical</a> and <a href=\"#operational-reversibility\">operational</a> reversibility.</p><p>It matters because a correction that would cause unacceptable damage will not be exercised, and an unexercisable correction is not a control. Institutional reversibility is the level that <a href=\"#dependency-state\">dependency state</a> erodes and that <a href=\"#preserved-capacity\">preserved capacity</a> is maintained to defend.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "The institutional consequences of withdrawal are written down, owned, and priced.",
+              "At least one senior owner can state what withdrawal would cost without preparing a paper.",
+              "Contracts and public commitments are reviewed for terms that make withdrawal unaffordable."
+            ],
+            "genealogy": "The third rung of the Law VI ladder and the level Law XII protects, since a system may draw on institutional capacity but may not consume it.",
+            "references": [
+              {
+                "label": "Dependence without standing",
+                "href": "/research/theory/dependence-without-standing",
+                "type": "Theory"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A withdrawal impact assessment covering contracts, commitments, and budget.",
+              "behavior": "A withdrawal decision taken and survived, or a rehearsal that priced it credibly.",
+              "metric": "Estimated institutional cost of withdrawal, trended against exposure score."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["audit", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["reversibility", "institution", "dependence"],
+            "adjacentTerms": [
+              "dependency-state",
+              "preserved-capacity",
+              "substitution-cost",
+              "moral-lock-in"
+            ]
+          },
+          {
+            "id": "intervention-specification",
+            "title": "Intervention Specification",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The replacement for human in the loop as a control name. An intervention specification states who may intervene, on what signal, with what information, with authority over which state, on what timescale, and what happens when they disagree.</p><p>It matters because a role is not a control. Naming a human is compatible with that human being unable to alter anything, which is why oversight clauses resolve to an intervention specification and to <a href=\"#meaningful-control\">meaningful control</a> rather than to <a href=\"#human-override-lanes\">human override lanes</a> alone, and why its absence shows up as <a href=\"#rubber-stamp-review\">rubber-stamp review</a>.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "Each oversight clause resolves to a specification answering all six questions.",
+              "The specification names a state the human can alter, not only a decision they can approve.",
+              "A disagreement path exists and has been exercised at least once."
+            ],
+            "genealogy": "Retires human in the loop as a control name, per the vocabulary decision in the 2026-09 reconstruction plan, and gives Law IX a testable object.",
+            "references": [
+              {
+                "label": "Meaningful control eval",
+                "href": "/evals/meaningful-control",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An intervention specification per oversight point, with signal, information, authority, and clock.",
+              "behavior": "A human intervention that altered system state, traced end to end.",
+              "metric": "Share of oversight points with a complete specification, and interventions exercised per quarter."
+            },
+            "domains": ["agency"],
+            "scale": "organizational",
+            "phase": ["design", "deployment"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["oversight", "intervention", "control"],
+            "adjacentTerms": [
+              "meaningful-control",
+              "human-override-lanes",
+              "ethical-interrupts",
+              "correction-capacity"
+            ]
+          },
+          {
+            "id": "prospective-auditability",
+            "title": "Prospective Auditability",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Designing a system so that the questions an audit will ask can be answered later, by recording evidence, authority, and reasoning at the time of each decision rather than reconstructing them afterwards. It is decided at build time and cannot be retrofitted onto decisions already made.</p><p>It matters because retrospective audits mostly discover that the record does not exist. Prospective auditability is what makes a <a href=\"#consequential-decision\">consequential decision</a> reviewable at all, and it is why a <a href=\"#policy-record\">policy record</a> is written before it is needed rather than assembled during an inquiry.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "The audit question set is written before launch and each question maps to a recorded field.",
+              "A sample decision from last quarter can be fully reconstructed from records alone.",
+              "Missing fields block release rather than becoming audit findings a year later."
+            ],
+            "genealogy": "Inverts the audit relationship: instead of auditing what was kept, the system keeps what will be audited.",
+            "references": [
+              {
+                "label": "Evidence packs",
+                "href": "/evidence-packs",
+                "type": "Reference"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An audit question set mapped to recorded fields, dated before launch.",
+              "behavior": "A past decision reconstructed from records without contacting the owning team.",
+              "metric": "Share of audit questions answerable from records alone, sampled quarterly."
+            },
+            "domains": ["visibility"],
+            "scale": "organizational",
+            "phase": ["design", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["audit", "records", "design"],
+            "adjacentTerms": [
+              "consequential-decision",
+              "policy-record",
+              "ethotechnic-audit",
+              "harm-visibility"
+            ]
           }
         ]
       },
@@ -1818,6 +2469,171 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "system-states"
+          },
+          {
+            "id": "grant-state",
+            "title": "Grant State",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The current status of an <a href=\"#authority-grant\">authority grant</a>, drawn from a closed set such as allowed, confirm_required, review_required, suspended, and withdrawn. Every action is checked against the state in force at the time it is taken, and every transition is recorded with its cause.</p><p>It matters because states are what triggers can move. Without an explicit grant state there is nothing for a <a href=\"#review-trigger\">review trigger</a> to change, and monitoring stays decorative rather than governing.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "The set of legal states and the legal transitions between them are declared, not implied.",
+              "Every transition record names the trigger, the actor, and the timestamp.",
+              "Replaying the state history reproduces the authorization status at any past moment."
+            ],
+            "genealogy": "Gives Law VIII an object: an observation is governing only if it can move a grant from one declared state to another.",
+            "references": [
+              {
+                "label": "STD-07 Revisable Delegation Record",
+                "href": "/standards/std-07-revisable-delegation-record",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A state machine definition for grants, with legal transitions and their triggers.",
+              "behavior": "A grant moving to review_required automatically when a dependency lapses.",
+              "metric": "Share of state transitions with a recorded cause, and median dwell time in review_required."
+            },
+            "domains": ["structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "system-states",
+            "tags": ["authority", "state", "transitions"],
+            "adjacentTerms": [
+              "authority-grant",
+              "review-trigger",
+              "continuity-of-state",
+              "safe-pause"
+            ]
+          },
+          {
+            "id": "capability-catalog",
+            "title": "Capability Catalog",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The record of what a decision system can do, maintained separately from what it is permitted to do. Each entry names an action class, how it was verified, and when the verification was last refreshed, and entries arrive through <a href=\"#capability-discovery\">capability discovery</a>.</p><p>It matters because the catalog is what an <a href=\"#authority-grant\">authority grant</a> is written against. Comparing catalog to grants is the direct test of whether capability has outrun authority, and a catalog nobody refreshes silently stops being that test.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "Every catalog entry carries a verification method and a verification date.",
+              "The catalog is diffed against the grant register on a stated cadence.",
+              "Capabilities present in the catalog but absent from any grant are listed, not hidden."
+            ],
+            "genealogy": "The counterpart object to the grant register: one records what is possible, the other what is permitted, and the gap between them is the governable quantity.",
+            "references": [
+              {
+                "label": "Authority taxonomy branch",
+                "href": "/taxonomy/authority",
+                "type": "Taxonomy"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A capability catalog with action class, verification method, and last-verified date.",
+              "behavior": "A stale catalog entry blocking a grant renewal until re-verified.",
+              "metric": "Share of catalog entries verified within their declared refresh interval."
+            },
+            "domains": ["visibility", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "system-states",
+            "tags": ["capability", "catalog", "inventory"],
+            "adjacentTerms": [
+              "capability-discovery",
+              "authority-grant",
+              "capability-overhang",
+              "permission-surface"
+            ]
+          },
+          {
+            "id": "dependency-state",
+            "title": "Dependency State",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The current degree to which an institution relies on a system: who depends on it, what would break without it, what expertise has been retained, and how long substitution would take. This is institutional dependence, meaning what the institution has come to rely on, and it is distinct from the record-level dependence in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a> Article III, which asks what a particular record rests on.</p><p>It matters because dependence quietly removes corrections from the menu. Tracked as a state, it can be scored through <a href=\"#exposure-score\">exposure score</a>, read against the deployment's <a href=\"#substrate-profile\">substrate profile</a>, and countered by replenishing <a href=\"#institutional-reversibility\">institutional reversibility</a>.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "A dependency record lists dependents, retained expertise, alternatives, and substitution time.",
+              "The record is refreshed on a cadence rather than at incident time.",
+              "A rise in dependence without a matching correction investment appears in a governance review."
+            ],
+            "genealogy": "Gives Law V an object and distinguishes institutional dependence from the record dependence already governed by STD-07 Article III.",
+            "references": [
+              {
+                "label": "STD-07 Article III",
+                "href": "/standards/std-07-revisable-delegation-record",
+                "type": "Standard"
+              },
+              {
+                "label": "Dependence and reversibility eval",
+                "href": "/evals/dependence-reversibility",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A dependency record for the deployment, with dependents, alternatives, and retained expertise.",
+              "behavior": "A dependency review that changed a roadmap decision, recorded with its reasoning.",
+              "metric": "Number of dependent workflows and days to substitution, tracked quarterly."
+            },
+            "domains": ["structural", "measurable"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "system-states",
+            "tags": ["dependence", "structural-risk", "reversibility"],
+            "adjacentTerms": [
+              "exposure-score",
+              "institutional-reversibility",
+              "normalized-dependence",
+              "substitution-cost"
+            ]
+          },
+          {
+            "id": "substrate-profile",
+            "title": "Substrate Profile",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A nine-property classification of a deployment that replaces the open-versus-closed question: weight access, runtime control, update authority, version stability, revocation, substitutability, observability, standing, and dependency. Two deployments of the same model can carry entirely different profiles.</p><p>It matters because the governance burden follows the profile rather than the licence. The profile says which properties the institution holds itself and which it has left with a provider, which is what determines its real <a href=\"#institutional-reversibility\">institutional reversibility</a> and its <a href=\"#dependency-state\">dependency state</a>.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "All nine properties are recorded per deployment, not per model.",
+              "A property held by a provider is named as such, with the contractual basis for relying on it.",
+              "The profile is re-scored when the provider, contract, or hosting arrangement changes."
+            ],
+            "genealogy": "Replaces the open-weights debate with a classification of deployments, per the positioning in the 2026-09 reconstruction plan.",
+            "references": [
+              {
+                "label": "Open weights and the delegation boundary",
+                "href": "/explainers/open-weights-and-the-delegation-boundary",
+                "type": "Explainer"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A substrate profile record scoring all nine properties for the deployment.",
+              "behavior": "A procurement decision changed after the profile revealed no revocation control.",
+              "metric": "Count of the nine properties held by the institution rather than the provider."
+            },
+            "domains": ["structural", "visibility"],
+            "scale": "organizational",
+            "phase": ["design", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "system-states",
+            "tags": ["substrate", "deployment", "classification"],
+            "adjacentTerms": [
+              "dependency-state",
+              "institutional-reversibility",
+              "decision-system",
+              "traceable-ownership"
+            ]
           }
         ]
       },
@@ -2097,6 +2913,51 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "human-limits"
+          },
+          {
+            "id": "error-bearing-party",
+            "title": "Error-Bearing Party",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Anyone who absorbs the consequences of a system's errors: the people its decisions fall on, and the staff whose corrective labor the system depends on in order to stay usable. They are usually the first to see failures and the last able to act on them.</p><p>It matters because exposure without a route into the system is wasted signal. Identifying error-bearing parties is the precondition for <a href=\"#corrective-standing\">corrective standing</a>, and failing to identify them is how <a href=\"#heroism-dependent-systems\">heroism-dependent systems</a> keep looking reliable.</p>",
+            "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
+            "operationalTests": [
+              "The standing register names error-bearing parties by role, including internal operators.",
+              "Exception-handling labor is counted and attributed rather than absorbed silently.",
+              "Parties named in the register can be reached by the system's own channels, not only by escalation."
+            ],
+            "genealogy": "Names the class Law VII grants standing to, and deliberately includes the operators whose corrective labor the system consumes.",
+            "references": [
+              {
+                "label": "Standing eval",
+                "href": "/evals/standing",
+                "type": "Eval"
+              },
+              {
+                "label": "Dependence without standing",
+                "href": "/research/theory/dependence-without-standing",
+                "type": "Theory"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A standing register listing error-bearing parties per decision class.",
+              "behavior": "An operator raising a challenge through the same mechanism available to affected people.",
+              "metric": "Share of decision classes with at least one named error-bearing party."
+            },
+            "domains": ["burden", "agency"],
+            "scale": "organizational",
+            "phase": ["design", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "human-limits",
+            "tags": ["standing", "exposure", "labor"],
+            "adjacentTerms": [
+              "corrective-standing",
+              "heroism-dependent-systems",
+              "asymmetric-sustaining",
+              "unowned-harm"
+            ]
           }
         ]
       },
@@ -3247,6 +4108,133 @@
               "time-to-restore",
               "pathways-to-restitution"
             ]
+          },
+          {
+            "id": "exposure-score",
+            "title": "Exposure Score",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A composite indicator of how much structural risk a dependence carries, defined as dependency depth multiplied by <a href=\"#substitution-cost\">substitution cost</a> multiplied by correction latency. Depth is counted in dependent workflows, substitution cost in staff-weeks to stand up an alternative, and correction latency in hours from a decision to intervene to the intervention taking effect, so the product is expressed in workflow staff-week hours and read as a trend.</p><p>It matters because the three factors are usually owned by different teams and never multiplied. A system can look acceptable on each factor alone and still leave the institution unable to act, which is exactly what <a href=\"#dependency-state\">dependency state</a> tracking exists to surface.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "All three factors are measured from records rather than estimated in a workshop.",
+              "The score is recomputed on a fixed cadence and its trend is reported, not only its level.",
+              "A rise driven by any single factor triggers the same review as a rise driven by all three."
+            ],
+            "genealogy": "Makes the Law V claim quantitative so that dependence can be compared across deployments and over time.",
+            "references": [
+              {
+                "label": "Dependence and reversibility eval",
+                "href": "/evals/dependence-reversibility",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A scored dependency record showing depth, substitution cost, and correction latency inputs.",
+              "behavior": "A quarterly recomputation whose rise opened a reversibility investment decision.",
+              "metric": "Exposure score per deployment, trended quarter over quarter.",
+              "definition": "Structural risk carried by an institution's reliance on one deployment.",
+              "unit": "workflow staff-week hours",
+              "dataSource": "Dependency record, substitution study, and intervention drill timings.",
+              "calculation": "dependency depth (dependent workflows) x substitution cost (staff-weeks) x correction latency (hours).",
+              "threshold": "No absolute target; a rise of more than 25 percent quarter over quarter opens a review."
+            },
+            "domains": ["measurable", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "measures",
+            "tags": ["measure", "dependence", "risk"],
+            "adjacentTerms": [
+              "dependency-state",
+              "substitution-cost",
+              "irreversibility-index",
+              "human-substitution-index"
+            ]
+          },
+          {
+            "id": "substitution-cost",
+            "title": "Substitution Cost",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>What it would take to replace a system with an alternative that meets the same obligation: staff-weeks of work, retained expertise, contractual exit terms, and elapsed time before the alternative carries production load. Measured, it is a number; assumed, it is usually wrong by an order of magnitude.</p><p>It matters because substitution cost is the hinge between a working switch and <a href=\"#institutional-reversibility\">institutional reversibility</a>, and it is the factor that dominates <a href=\"#exposure-score\">exposure score</a> in mature deployments. A high and unmeasured cost is how a <a href=\"#right-of-exit\">right of exit</a> becomes nominal.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "The estimate is derived from a costed alternative, not from a vendor comparison sheet.",
+              "Contractual exit terms and data egress costs are included in the figure.",
+              "The estimate is validated at least once against a partial substitution actually performed."
+            ],
+            "genealogy": "Isolates the factor that converts reliability into lock-in, so Law V and Law VI can be assessed separately.",
+            "references": [
+              {
+                "label": "Dependence and reversibility eval",
+                "href": "/evals/dependence-reversibility",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A costed substitution study for the deployment, dated and owned.",
+              "behavior": "A partial substitution performed in a rehearsal, with actuals compared to estimate.",
+              "metric": "Staff-weeks and elapsed days to bring an alternative to production load.",
+              "unit": "staff-weeks and elapsed days",
+              "dataSource": "Substitution study, contract terms, and rehearsal actuals."
+            },
+            "domains": ["measurable", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "measures",
+            "tags": ["measure", "dependence", "exit"],
+            "adjacentTerms": [
+              "right-of-exit",
+              "institutional-reversibility",
+              "exposure-score",
+              "continuity-privilege"
+            ]
+          },
+          {
+            "id": "evaluation-layer",
+            "title": "Evaluation Layer",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The level of the stack at which an evaluation actually holds: model, agent, delegation, institution, or consequence. Every suite and case carries its layer so a clean result at one level is never read as a result at another.</p><p>It matters because layer confusion is the most common way assurance overstates itself. A model eval says nothing about whether the <a href=\"#authority-grant\">authority grant</a> is still valid or whether the institution retains the <a href=\"#correction-capacity\">correction capacity</a> to act on what the eval found.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "Every eval case declares its layer, and the declaration is enforced by the suite schema.",
+              "Reports state the layer alongside the result rather than in an appendix.",
+              "A claim about institution-level behavior cites at least one institution-layer case."
+            ],
+            "genealogy": "Implements Law X by making the layer a required field rather than an implicit property of the test harness.",
+            "references": [
+              {
+                "label": "Evals index",
+                "href": "/evals",
+                "type": "Reference"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An eval suite schema with a required layer field on every case.",
+              "behavior": "A claim rejected in review for citing a model-layer result as a delegation-layer finding.",
+              "metric": "Distribution of cases across the five layers per suite."
+            },
+            "domains": ["measurable", "visibility"],
+            "scale": "organizational",
+            "phase": ["audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "measures",
+            "tags": ["evaluation", "layers", "assurance"],
+            "adjacentTerms": [
+              "authority-grant",
+              "correction-capacity",
+              "moral-performance-indicators",
+              "ethical-load-testing"
+            ]
           }
         ]
       },
@@ -3313,7 +4301,7 @@
             "title": "Permission Surface",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The real set of actions people can take without discretionary institutional approval. A wider permission surface increases autonomy and makes <a href=\"#contestability\">contestability</a> practical, not merely formal.</p><p>Ethotechnic governance tracks this surface by role and pathway to detect when policy silently narrows user agency.</p>",
+            "bodyHtml": "<p>The set of authority grants in force for a system at a given moment, each carrying an evidence basis, a scope, a state, and an expiry. The surface is described by authority rather than by access points: an unused grant is still part of it, and a reachable capability with no grant behind it is not part of it at all.</p><p>Every element of the surface is an <a href=\"#authority-grant\">authority grant</a> that can be narrowed, suspended, or allowed to lapse, which is what makes the surface governable rather than merely documented. Comparing the surface against the <a href=\"#capability-catalog\">capability catalog</a> is the direct test of whether capability has outrun permission, and a wide surface makes <a href=\"#contestability\">contestability</a> practical only when each grant in it can actually be challenged.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect permission surface.",
@@ -3359,7 +4347,7 @@
             "title": "Bounded Autonomy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Autonomy granted only within explicit limits; approaching or crossing those limits must trigger escalation to <a href=\"#design-authority\">design authority</a> or a documented <a href=\"#oversight-horizon\">oversight horizon</a>.</p>",
+            "bodyHtml": "<p>Autonomy granted only within explicit limits; approaching or crossing those limits must trigger escalation to <a href=\"#design-authority\">design authority</a> or a documented <a href=\"#oversight-horizon\">oversight horizon</a>.</p><p>The limits live in an <a href=\"#authority-grant\">authority grant</a> and are enforced through its <a href=\"#grant-state\">grant state</a>. Widening them is an <a href=\"#expansion-decision\">expansion decision</a>, not a configuration change.</p>",
             "examples": [
               "A claims assistant can approve payouts up to $500, but anything higher is routed to a supervisor."
             ],
@@ -3402,7 +4390,7 @@
             "title": "Earned Autonomy",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Autonomy that expands only after demonstrated reliability, monitoring, and accountability. Permission surfaces widen as <a href=\"#traceable-ownership\">traceable ownership</a> and <a href=\"#repair-log\">repair logs</a> prove the system can handle more scope.</p>",
+            "bodyHtml": "<p>Autonomy that expands only after demonstrated reliability, monitoring, and accountability. Permission surfaces widen as <a href=\"#traceable-ownership\">traceable ownership</a> and <a href=\"#repair-log\">repair logs</a> prove the system can handle more scope.</p><p>The demonstration is evidence for widening a specific <a href=\"#authority-grant\">authority grant</a>, recorded as a transition in its <a href=\"#grant-state\">grant state</a>. Reliability is the argument for an <a href=\"#expansion-decision\">expansion decision</a>, never a substitute for one.</p>",
             "examples": [
               "After six months of clean audits, the escalation bot gains approval rights for low-risk cases."
             ],
@@ -3488,7 +4476,7 @@
             "title": "Right of Exit",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The ability to leave a system without ruinous cost, retaliation, or silent lock-in. Right of exit is foundational to ethical participation because consent is not meaningful when departure is punitive.</p><p>Operationally, exit requires data portability, clear closure paths, and protections against downstream penalties.</p>",
+            "bodyHtml": "<p>The ability to leave a system without ruinous cost, retaliation, or silent lock-in. Right of exit is foundational to ethical participation because consent is not meaningful when departure is punitive.</p><p>Operationally, exit requires data portability, clear closure paths, and protections against downstream penalties.</p><p>Exit is real only when it is priced. A measured <a href=\"#substitution-cost\">substitution cost</a> and demonstrated <a href=\"#institutional-reversibility\">institutional reversibility</a> are what separate a right of exit from a clause nobody can afford to invoke.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect right of exit.",
@@ -3727,7 +4715,7 @@
             "title": "Proxy Privilege",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Unequal enforceability produced by unequal ability to delegate persistence (agents, intermediaries, automation).</p><p>Proxy privilege lets some parties bypass the <a href=\"#futility-threshold\">futility threshold</a> that others face alone.</p>",
+            "bodyHtml": "<p>Unequal enforceability produced by unequal ability to delegate persistence (agents, intermediaries, automation).</p><p>Proxy privilege lets some parties bypass the <a href=\"#futility-threshold\">futility threshold</a> that others face alone.</p><p>The asymmetry becomes legible when each proxy holds a named <a href=\"#authority-grant\">authority grant</a> with a visible <a href=\"#grant-state\">grant state</a>, so extending a proxy’s reach is an <a href=\"#expansion-decision\">expansion decision</a> rather than an unremarked advantage.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect proxy privilege.",
@@ -4218,7 +5206,7 @@
             "title": "Exit Coercion",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>“Consent” and silence extracted under duress during departures, often via NDAs, retaliation risk, or narrative erasure.</p><p>Exit coercion violates the <a href=\"#right-of-exit\">right of exit</a> and collapses <a href=\"#refusal-budget\">refusal budgets</a>.</p>",
+            "bodyHtml": "<p>“Consent” and silence extracted under duress during departures, often via NDAs, retaliation risk, or narrative erasure.</p><p>Exit coercion violates the <a href=\"#right-of-exit\">right of exit</a> and collapses <a href=\"#refusal-budget\">refusal budgets</a>.</p><p>Coercion is easiest where leaving is expensive, so the countermeasures are the ones that make leaving affordable: a measured <a href=\"#substitution-cost\">substitution cost</a> and maintained <a href=\"#institutional-reversibility\">institutional reversibility</a>.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect exit coercion.",
@@ -4556,6 +5544,376 @@
               "earned-autonomy"
             ],
             "relatedPatterns": ["decision-log", "reversibility-audit-logs"]
+          },
+          {
+            "id": "authority-grant",
+            "title": "Authority Grant",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The record that permits a named holder to take a bounded class of actions, for whom, under what conditions, and until when. A grant carries its scope, its evidence basis, its <a href=\"#grant-state\">grant state</a>, its expiry, and the <a href=\"#policy-record\">policy records</a> it depends on.</p><p>It matters because authority that is not written as a record cannot be reviewed, narrowed, or withdrawn. The grant is what makes <a href=\"#authority-drift\">authority drift</a> detectable rather than merely regrettable after the fact.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every action class a system may perform maps to exactly one grant with a named holder.",
+              "Each grant states an expiry and the conditions under which it is revoked.",
+              "A grant with no revocation conditions is flagged as a transfer rather than a delegation."
+            ],
+            "genealogy": "Ethotechnics separates the grant from the capability so that Law I, capability does not imply authority, has an object to bind to.",
+            "references": [
+              {
+                "label": "STD-07 Revisable Delegation Record",
+                "href": "/standards/std-07-revisable-delegation-record",
+                "type": "Standard"
+              },
+              {
+                "label": "Authority taxonomy branch",
+                "href": "/taxonomy/authority",
+                "type": "Taxonomy"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An authority grant register with holder, scope, state, evidence basis, and expiry.",
+              "behavior": "An attempted action outside grant scope refused and logged with the grant id.",
+              "metric": "Count of live grants and share carrying a non-null expiry."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["authority", "delegation", "records"],
+            "adjacentTerms": [
+              "revisable-delegation",
+              "grant-state",
+              "policy-record",
+              "design-authority"
+            ]
+          },
+          {
+            "id": "authority-lease",
+            "title": "Authority Lease",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The stance that a grant of authority is held for a term against a renewable justification rather than owned outright. A lease expires by default, and continuing an <a href=\"#authority-grant\">authority grant</a> requires fresh evidence rather than the absence of complaints.</p><p>It matters because silence is the most common renewal mechanism in practice. Treating authority as a lease forces <a href=\"#justified-delegation\">justified delegation</a> to be re-established on a clock, and it puts the burden of proof on the delegation rather than on the people questioning it.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every grant has a renewal date, and passing it changes the grant state without human action.",
+              "Renewal packets cite new evidence, not the original approval.",
+              "The renewal burden rises with the consequence class and the elapsed duration of the grant."
+            ],
+            "genealogy": "States Law II as a property relationship: authority is leasehold, and absence of observed failure is not payment of the rent.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-ii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A renewal record naming the evidence that justifies continuing the grant for a further term.",
+              "behavior": "A grant lapsing on its renewal date because no renewal packet was filed.",
+              "metric": "Median age of live grants against their declared renewal interval."
+            },
+            "domains": ["agency", "temporal"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["authority", "renewal", "temporal"],
+            "adjacentTerms": [
+              "authority-grant",
+              "justified-delegation",
+              "bounded-duration",
+              "stewardship-window"
+            ]
+          },
+          {
+            "id": "policy-record",
+            "title": "Policy Record",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A versioned statement of the propositions a delegation rests on: what the model does, who the population is, what the downstream process catches, and when each claim expires. Grants cite policy records rather than restating their assumptions, which is what <a href=\"#policy-as-state\">policy as state</a> requires.</p><p>It matters because assumptions decay silently when they are held as launch documents. Held as a record with a version and an expiry, a policy can raise a <a href=\"#review-trigger\">review trigger</a> and move a <a href=\"#grant-state\">grant state</a> when the world changes.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Each policy record states its assumptions, its evidence, its version, and its review date.",
+              "Grants reference policy records by id and version rather than paraphrasing them.",
+              "Passing a review date changes the record status and propagates to every grant that cites it."
+            ],
+            "genealogy": "Gives Law III an object: the propositions that justify a grant are stored where a change in the world can reach them.",
+            "references": [
+              {
+                "label": "STD-07 Revisable Delegation Record",
+                "href": "/standards/std-07-revisable-delegation-record",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A policy record with assumptions, evidence refs, version, and review date.",
+              "behavior": "A lapsed policy record moving its dependent grants to review_required.",
+              "metric": "Share of live grants whose cited policy records are all within their review dates."
+            },
+            "domains": ["visibility", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["policy", "evidence", "records"],
+            "adjacentTerms": [
+              "authority-grant",
+              "policy-as-state",
+              "review-trigger",
+              "evidence-recycling"
+            ]
+          },
+          {
+            "id": "review-trigger",
+            "title": "Review Trigger",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A declared rule connecting an observation to a state change: when this discrepancy, expiry, or threshold occurs, this grant moves to this state, answered by this owner, within this clock. Triggers are the wiring between monitoring and authority, and they are what give a <a href=\"#policy-record\">policy record</a> force over a <a href=\"#grant-state\">grant state</a>.</p><p>It matters because observation without a possible transition is theater. A trigger is the smallest object that makes a dashboard part of the control system rather than a record of what already happened, and it is how <a href=\"#policy-as-state\">policy as state</a> acquires force over a running system.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every monitored signal names the state it can change, or is marked explicitly as informational.",
+              "Each trigger names an owner and a response clock.",
+              "Silence past the clock is treated as a governance failure, not as a pending state."
+            ],
+            "genealogy": "Implements Law VIII: the test of an observation is whether it can change the governing state of the system.",
+            "references": [
+              {
+                "label": "STD-07 Revisable Delegation Record",
+                "href": "/standards/std-07-revisable-delegation-record",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A trigger table mapping signals to state transitions, owners, and clocks.",
+              "behavior": "A monitored discrepancy producing a reconsideration record within its clock.",
+              "metric": "Share of monitored signals with a declared state transition, and clock breach rate."
+            },
+            "domains": ["diagnostic", "temporal"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["monitoring", "triggers", "authority"],
+            "adjacentTerms": [
+              "grant-state",
+              "policy-record",
+              "ethical-circuit-breakers",
+              "escalation-reliability"
+            ]
+          },
+          {
+            "id": "correction-obligation",
+            "title": "Correction Obligation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The duty an institution takes on when it delegates consequential action: to notice, stop, reverse, and repair what the delegate does. The obligation is created by the delegation itself, not by the first incident.</p><p>It matters because delegating action also delegates the ability to be wrong at scale. Stating the obligation alongside the <a href=\"#authority-grant\">authority grant</a> is what makes a shortfall in <a href=\"#correction-capacity\">correction capacity</a> visible before it is needed rather than during an incident.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Each grant states the corrections its holder owes: which harms, notified how, reversed by whom.",
+              "Correction obligations are reviewed whenever the grant's scope or population changes.",
+              "An obligation with no funded capacity behind it is recorded as an open governance risk."
+            ],
+            "genealogy": "States Law IV as an object attached to the grant, so correction is authorized at the same moment as action.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-iv",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A correction obligation clause on each grant, naming harms, owners, and clocks.",
+              "behavior": "A scope increase blocked until the matching correction obligation was resourced.",
+              "metric": "Count of stated obligations without a funded capacity owner."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["correction", "obligation", "authority"],
+            "adjacentTerms": [
+              "correction-capacity",
+              "authority-grant",
+              "obligation-continuity",
+              "restitution-ladder"
+            ]
+          },
+          {
+            "id": "preserved-capacity",
+            "title": "Preserved Capacity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An institutional capability deliberately maintained so the institution can still question, replace, or withdraw a system: retained expertise, a working manual path, independent records, a viable alternative supplier. Preserved capacities are named, owned, and funded even while idle, and they are kept honest by <a href=\"#withdrawal-rehearsal\">withdrawal rehearsal</a>.</p><p>It matters because these are the first capacities efficiency removes. Their erosion is a governance event rather than a saving, since it is the mechanism by which a system consumes the conditions of its own <a href=\"#contestability\">contestability</a>, destroys <a href=\"#institutional-reversibility\">institutional reversibility</a>, and ends in <a href=\"#institutional-capture\">institutional capture</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Preserved capacities are listed with an owner and a budget line, separate from the system's own budget.",
+              "Any proposal that reduces one is reviewed as a governance change, not as an efficiency measure.",
+              "Each capacity is exercised on a cadence so that its continued existence is demonstrated."
+            ],
+            "genealogy": "Gives Law XII its object: the capacities an institution needs in order to question, replace, or withdraw a consequential system.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-xii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A preserved capacity register with owners, budget lines, and exercise dates.",
+              "behavior": "A cost reduction rejected or amended because it would erode a preserved capacity.",
+              "metric": "Share of registered capacities exercised within their declared interval."
+            },
+            "domains": ["structural"],
+            "scale": "systemic",
+            "phase": ["design", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["preservation", "contestability", "capacity"],
+            "adjacentTerms": [
+              "institutional-reversibility",
+              "withdrawal-rehearsal",
+              "meta-contestability",
+              "care-redundancy"
+            ]
+          },
+          {
+            "id": "corrective-standing",
+            "title": "Corrective Standing",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The recognized capacity of an <a href=\"#error-bearing-party\">error-bearing party</a> to initiate correction: to raise a challenge that must be received, answered by a named responder, judged against a stated standard, and able to change the system's state. Standing is proportional to exposure and carries <a href=\"#procedural-force\">procedural force</a> rather than veto.</p><p>It matters because contestability without standing is a suggestion box. Standing is what converts the experience of harm into an event the governing system has to process, and it is operationalized by a <a href=\"#standing-mechanism\">standing mechanism</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Standing is declared per decision class rather than granted informally on request.",
+              "A challenge from someone with standing produces a dated response from a named party.",
+              "At least one successful challenge in the period changed a policy or grant, not only an outcome."
+            ],
+            "genealogy": "States Law VII in its Method-scoped form: exposure generates standing, and standing is procedural force, not control over the institution.",
+            "references": [
+              {
+                "label": "Standing eval",
+                "href": "/evals/standing",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A standing declaration per decision class, naming who may challenge what.",
+              "behavior": "A challenge raised by an affected party that changed a grant or policy state.",
+              "metric": "Share of challenges answered within clock, and share producing a state change."
+            },
+            "domains": ["agency"],
+            "scale": "organizational",
+            "phase": ["deployment", "repair"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["standing", "contestability", "recourse"],
+            "adjacentTerms": [
+              "contestability",
+              "error-bearing-party",
+              "standing-mechanism",
+              "appeal-integrity"
+            ]
+          },
+          {
+            "id": "standing-mechanism",
+            "title": "Standing Mechanism",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The concrete apparatus that makes standing real: a register of who may challenge which decision classes, including <a href=\"#error-bearing-party\">error-bearing parties</a>, plus the admissible evidence, the responder, the deadline, the standard of review, and the set of state transitions a successful challenge can produce.</p><p>It matters because <a href=\"#corrective-standing\">corrective standing</a> declared without a mechanism can be neither exercised nor audited. The mechanism is the part of <a href=\"#contestability\">contestability</a> an auditor can inspect: named responders, real clocks, and recorded outcomes.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The register, responder, deadline, and standard of review are published, not held internally.",
+              "The set of possible outcomes includes at least one that changes system state.",
+              "Non-retaliation is attested and monitored for the parties who use the mechanism."
+            ],
+            "genealogy": "The mechanism side of Law VII, and the amendment surface for STD-02 where standard of review and state transitions are added.",
+            "references": [
+              {
+                "label": "STD-02 Contestability and recourse",
+                "href": "/standards/std-02-contestability-recourse",
+                "type": "Standard"
+              },
+              {
+                "label": "Standing taxonomy branch",
+                "href": "/taxonomy/dependence/standing",
+                "type": "Taxonomy"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A published standing mechanism specification with register, responder, clock, and outcomes.",
+              "behavior": "A challenge routed through the mechanism and answered by the named responder on time.",
+              "metric": "Challenge volume, response-clock breach rate, and outcome distribution."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "deployment"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["standing", "mechanism", "contestability"],
+            "adjacentTerms": [
+              "corrective-standing",
+              "contestability",
+              "appeal-integrity",
+              "non-retaliation-guarantee"
+            ]
+          },
+          {
+            "id": "procedural-force",
+            "title": "Procedural Force",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The property of a challenge that obliges a response and can change a state, as distinct from a veto that stops action outright. A challenge with procedural force must be received, answered on a clock, and capable of producing a transition; it need not prevail.</p><p>It matters because the usual objection to standing is fear of veto. Procedural force is the narrower claim that keeps <a href=\"#corrective-standing\">corrective standing</a> workable, and it is the difference between <a href=\"#contestability\">contestability</a> and consultation.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every challenge channel names what must happen on receipt and by when.",
+              "The possible outcomes are enumerated, and at least one is a state change rather than an explanation.",
+              "A challenge that is answered but produces no possible transition is recorded as consultation."
+            ],
+            "genealogy": "Draws the line Law VII draws: standing is procedural force, not veto, so the claim survives contact with operational reality.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-vii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A challenge specification listing obligations on receipt and enumerated outcomes.",
+              "behavior": "A challenge that did not prevail but still produced a recorded reconsideration.",
+              "metric": "Share of challenges producing a recorded state transition of any kind."
+            },
+            "domains": ["agency"],
+            "scale": "organizational",
+            "phase": ["deployment", "repair"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["standing", "procedure", "recourse"],
+            "adjacentTerms": [
+              "corrective-standing",
+              "contestability",
+              "meta-contestability",
+              "escalation-reliability"
+            ]
           }
         ]
       },
@@ -5495,6 +6853,47 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "expansion-decision",
+            "title": "Expansion Decision",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A separate authorization decision taken when an existing delegation is widened in scope, population, autonomy, or consequence. It carries its own evidence, its own correction capacity check, and its own dependence review, and it is recorded as a transition on the grant.</p><p>It matters because expansion is normally treated as the reward for success rather than as a new delegation. Requiring the decision is the direct block on the <a href=\"#automation-ratchet\">automation ratchet</a>, and it keeps an <a href=\"#authority-grant\">authority grant</a> readable against what the system now does.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Widening a delegation cannot be shipped without an expansion record naming its evidence.",
+              "The record includes a correction capacity check and a dependence review, not only a risk note.",
+              "Expansion transitions are visible in the grant's state history."
+            ],
+            "genealogy": "Turns Law XI into a decision state, so that growth in delegated authority has the same ceremony as its creation.",
+            "references": [
+              {
+                "label": "Expansion taxonomy branch",
+                "href": "/taxonomy/authority/expansion",
+                "type": "Taxonomy"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An expansion record with evidence, correction capacity check, and dependence review.",
+              "behavior": "An expansion deferred because correction capacity had not grown with the proposed scope.",
+              "metric": "Share of scope increases accompanied by an expansion record.",
+              "threshold": "Target 100 percent; gaps are reconciled as authority drift."
+            },
+            "domains": ["agency", "temporal"],
+            "scale": "organizational",
+            "phase": ["design", "deployment"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "decision-states",
+            "tags": ["expansion", "authorization", "decision"],
+            "adjacentTerms": [
+              "automation-ratchet",
+              "authority-grant",
+              "decision-edge",
+              "earned-autonomy"
+            ]
           }
         ]
       },
@@ -5509,7 +6908,7 @@
             "title": "Heroism-Dependent Systems",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor <a href=\"#stoppability\">stoppability</a> and high <a href=\"#failure-load\">failure load</a>.</p>",
+            "bodyHtml": "<p>Systems that rely on extraordinary effort, unpaid care, or silent sacrifice to function. They mask poor <a href=\"#stoppability\">stoppability</a> and high <a href=\"#failure-load\">failure load</a>.</p><p>The heroism is a fallback nobody wrote down, which is <a href=\"#normalized-dependence\">normalized dependence</a> in its human form. Counting that effort into <a href=\"#dependency-state\">dependency state</a> makes it a budget item rather than a virtue.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect heroism-dependent systems.",
@@ -5659,7 +7058,7 @@
             "title": "Moral Lock-In",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>When harmful defaults become entrenched through dependencies, network effects, or contracts that block reform. Moral lock-in is prevented by <a href=\"#moral-feature-gating\">moral feature gating</a>, <a href=\"#contestability\">contestability</a>, and vigilant <a href=\"#moral-drift-control\">moral drift control</a>.</p>",
+            "bodyHtml": "<p>When harmful defaults become entrenched through dependencies, network effects, or contracts that block reform. Moral lock-in is prevented by <a href=\"#moral-feature-gating\">moral feature gating</a>, <a href=\"#contestability\">contestability</a>, and vigilant <a href=\"#moral-drift-control\">moral drift control</a>.</p><p>Lock-in usually begins as <a href=\"#normalized-dependence\">normalized dependence</a>: reliance nobody records until reform requires reversing it. Tracking <a href=\"#dependency-state\">dependency state</a> turns lock-in from a late discovery into a measurement taken early.</p>",
             "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect moral lock-in.",
@@ -5679,6 +7078,46 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "patterns"
+          },
+          {
+            "id": "withdrawal-rehearsal",
+            "title": "Withdrawal Rehearsal",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A scheduled exercise in which a system is actually stood down, in whole or in a bounded slice, and the fallback carries real work for a stated period. The rehearsal produces timings, failures, and a list of what did not work.</p><p>It matters because untested withdrawal is a claim rather than a capacity. Rehearsal is the evidence that separates <a href=\"#operational-reversibility\">operational reversibility</a> from a diagram, and it is how <a href=\"#preserved-capacity\">preserved capacity</a> is kept alive rather than merely listed.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "Rehearsals are scheduled on a cadence and are not cancelled for load.",
+              "The rehearsal uses production volume for a bounded slice, not a synthetic replay.",
+              "Findings become funded work items with owners, not observations in a report."
+            ],
+            "genealogy": "The practice that produces evidence for Laws VI and XII, adapted from disaster recovery exercises to the withdrawal of a depended-upon system.",
+            "references": [
+              {
+                "label": "Dependence and reversibility eval",
+                "href": "/evals/dependence-reversibility",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A rehearsal plan and report with scope, duration, timings, and findings.",
+              "behavior": "A rehearsal completed at production volume with the fallback carrying the work.",
+              "metric": "Interval since last rehearsal, and share of findings closed before the next one."
+            },
+            "domains": ["agency", "diagnostic"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "patterns",
+            "tags": ["rehearsal", "reversibility", "practice"],
+            "adjacentTerms": [
+              "operational-reversibility",
+              "preserved-capacity",
+              "crisis-rehearsal-loops",
+              "moral-dry-runs"
+            ]
           }
         ]
       },
@@ -6473,7 +7912,7 @@
             "title": "Human Override Lanes",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Guaranteed routes for human judgment to supersede automation when stakes are high or context is missing. Override lanes accompany <a href=\"#ethical-interrupts\">ethical interrupts</a> and require clear <a href=\"#ethical-load-path\">ethical load paths</a>.</p>",
+            "bodyHtml": "<p>Guaranteed routes for human judgment to supersede automation when stakes are high or context is missing. Override lanes accompany <a href=\"#ethical-interrupts\">ethical interrupts</a> and require clear <a href=\"#ethical-load-path\">ethical load paths</a>.</p><p>A lane is a control only when it resolves to an <a href=\"#intervention-specification\">intervention specification</a>: who intervenes, on what signal, over which state, and by when. Without that, the lane names a person rather than establishing <a href=\"#meaningful-control\">meaningful control</a>.</p>",
             "scope": "L. Future concepts / research areas. These placeholders signal Ethotechnics as an evolving field.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect human override lanes.",
@@ -6951,6 +8390,86 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "principles"
+          },
+          {
+            "id": "policy-as-state",
+            "title": "Policy as State",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The rule that policy is a state of the running system rather than an input consumed at deployment. A <a href=\"#policy-record\">policy record</a> has a version, assumptions, an expiry, and a current status that other objects can read and react to.</p><p>It matters because policy held as a document cannot take part in control. Only policy held as state lets an assumption going stale change an <a href=\"#authority-grant\">authority grant</a> without anyone remembering to look.</p>",
+            "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
+            "operationalTests": [
+              "Policy status is queryable at runtime by the component that enforces authorization.",
+              "A policy change produces a state transition somewhere, or the change is recorded as non-binding.",
+              "No enforcement path depends on a human reading a policy document at the right moment."
+            ],
+            "genealogy": "States the second half of Law III as a design principle: policy is state, not input.",
+            "references": [
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-iii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A runtime policy status endpoint or table that authorization checks read.",
+              "behavior": "An authorization refused because the policy backing it was in a lapsed status.",
+              "metric": "Share of enforceable policies with a machine-readable current status."
+            },
+            "domains": ["structural"],
+            "scale": "systemic",
+            "phase": ["design", "deployment"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "principles",
+            "tags": ["policy", "principle", "state"],
+            "adjacentTerms": [
+              "policy-record",
+              "authority-grant",
+              "reversibility-mandate",
+              "contestability-guarantee"
+            ]
+          },
+          {
+            "id": "meaningful-control",
+            "title": "Meaningful Control",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The condition under which a human is part of a control system: they can see the problem, hold authority to prevent or alter the action, have time to act, have a defined path when they disagree, and face incentives that permit disagreement. Anything less is presence, not control.</p><p>It matters because oversight is the most widely claimed and least evidenced control in deployed systems. Meaningful control is tested through an <a href=\"#intervention-specification\">intervention specification</a>, and its absence is what turns review into <a href=\"#rubber-stamp-review\">rubber-stamp review</a>.</p>",
+            "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
+            "operationalTests": [
+              "Reviewers can name the state they can change and the time budget they have to change it.",
+              "Disagreement has a defined route that does not depend on personal risk appetite.",
+              "Approval rates and reversal rates are both reported, not approval rates alone."
+            ],
+            "genealogy": "States Law IX as a principle a deployment either satisfies or does not, replacing the claim that a human is involved.",
+            "references": [
+              {
+                "label": "Meaningful control eval",
+                "href": "/evals/meaningful-control",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An oversight assessment answering the Law IX question set for each review point.",
+              "behavior": "A reviewer halting or altering an action, with the trajectory change visible in logs.",
+              "metric": "Reviewer-initiated state changes per thousand reviews, alongside median review time."
+            },
+            "domains": ["agency"],
+            "scale": "systemic",
+            "phase": ["design", "deployment"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "principles",
+            "tags": ["oversight", "principle", "control"],
+            "adjacentTerms": [
+              "intervention-specification",
+              "rubber-stamp-review",
+              "human-refusal-tolerance",
+              "governability"
+            ]
           }
         ]
       }

@@ -40,6 +40,41 @@ describe("normalizeBreadcrumbItems", () => {
     ]);
   });
 
+  it("derives a Taxonomy > branch > node trail for /taxonomy/authority/*", () => {
+    const items = normalizeBreadcrumbItems({
+      siteBase,
+      currentPath: "/taxonomy/authority/policy-validity",
+      title: "Policy Validity — Ethotechnics Institute",
+    });
+
+    expect(items.map((item) => item.name)).toEqual([
+      "Home",
+      "Taxonomy",
+      "Authority",
+      "Policy Validity",
+    ]);
+    expect(items.map((item) => item.href)).toEqual([
+      "/",
+      "/taxonomy",
+      "/taxonomy/authority",
+      "/taxonomy/authority/policy-validity",
+    ]);
+  });
+
+  it("titleizes an untitled /taxonomy/dependence/* node", () => {
+    const items = normalizeBreadcrumbItems({
+      siteBase,
+      currentPath: "/taxonomy/dependence/preserved-capacity",
+    });
+
+    expect(items.map((item) => item.name)).toEqual([
+      "Home",
+      "Taxonomy",
+      "Dependence",
+      "Preserved Capacity",
+    ]);
+  });
+
   it("prefers explicit breadcrumb items and dedupes repeats", () => {
     const items = normalizeBreadcrumbItems({
       siteBase,

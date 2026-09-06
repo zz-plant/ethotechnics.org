@@ -61,14 +61,20 @@ const normalizeOverrideKey = (path: string) =>
   path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
 
 const loadPageModules = async () => {
-  if (typeof import.meta.glob === "function") {
+  // Vite rewrites this call at build time. Outside a Vite context it throws,
+  // so fall through to the filesystem scan rather than guarding on typeof:
+  // the guard is false at runtime in the built Worker and silently emptied
+  // the core sitemap.
+  try {
     const modules = import.meta.glob("../pages/**/*.astro", { eager: true });
-    return Object.fromEntries(
-      Object.keys(modules).map((path) => [
-        path.replace(/^\.\.\/pages\//, "./"),
-        {},
-      ]),
-    );
+    const paths = Object.keys(modules ?? {});
+    if (paths.length > 0) {
+      return Object.fromEntries(
+        paths.map((path) => [path.replace(/^\.\.\/pages\//, "./"), {}]),
+      );
+    }
+  } catch {
+    // Not running under Vite.
   }
 
   if (typeof Bun !== "undefined") {
@@ -119,6 +125,70 @@ const hasEntryData = <TData>(
 ): value is {
   data: TData;
 } => typeof value === "object" && value !== null && "data" in value;
+
+type MdxDocMeta = {
+  permalink: string;
+  published?: string;
+  updated?: string;
+};
+
+const readFrontmatterField = (source: string, field: string) => {
+  const match = new RegExp(`^${field}:\\s*"?([^"\\n]+)"?\\s*$`, "m").exec(
+    source,
+  );
+  return match?.[1]?.trim();
+};
+
+/**
+ * Frontmatter fallback for MDX collections when `astro:content` is not
+ * available, so sitemap coverage stays testable outside an Astro build.
+ */
+const readMdxCollection = async (dir: string): Promise<MdxDocMeta[]> => {
+  if (typeof Bun === "undefined") return [];
+
+  try {
+    const glob = new Bun.Glob(`src/content/${dir}/*.mdx`);
+    const files = await Array.fromAsync(glob.scan({ cwd: process.cwd() }));
+    const docs = await Promise.all(
+      files.map(async (file): Promise<MdxDocMeta | null> => {
+        const source = await Bun.file(file).text();
+        const permalink = readFrontmatterField(source, "permalink");
+        if (!permalink) return null;
+        return {
+          permalink,
+          published: readFrontmatterField(source, "published"),
+          updated: readFrontmatterField(source, "updated"),
+        };
+      }),
+    );
+
+    return docs.filter((doc): doc is MdxDocMeta => doc !== null);
+  } catch {
+    return [];
+  }
+};
+
+/** Sitemap paths for an MDX collection, from Astro or the frontmatter fallback. */
+const mdxCollectionPaths = async (
+  collection: string,
+  dir: string,
+): Promise<SitemapEntry[]> => {
+  const entries: unknown = await getContentEntries(collection);
+  const docs = Array.isArray(entries)
+    ? entries
+        .filter((entry): entry is { data: MdxDocMeta } =>
+          hasEntryData<MdxDocMeta>(entry),
+        )
+        .map((entry) => entry.data)
+        .filter((data) => Boolean(data.permalink))
+    : await readMdxCollection(dir);
+
+  return docs.map((doc) => ({
+    path: doc.permalink,
+    lastmod: doc.updated ?? doc.published,
+    changefreq: "monthly",
+  }));
+};
 
 const renderUrl = (base: URL, entry: SitemapEntry) => {
   const loc = new URL(entry.path, base).toString();
@@ -231,27 +301,15 @@ export const buildSitemapSections = async () => {
     changefreq: "monthly",
   }));
 
-  const theoryEntries: unknown = await getContentEntries("theory");
-  const theoryPaths = Array.isArray(theoryEntries)
-    ? theoryEntries
-        .filter(
-          (
-            entry,
-          ): entry is {
-            data: { permalink: string; published: string; updated?: string };
-          } =>
-            hasEntryData<{
-              permalink: string;
-              published: string;
-              updated?: string;
-            }>(entry),
-        )
-        .map((entry) => ({
-          path: entry.data.permalink,
-          lastmod: entry.data.updated ?? entry.data.published,
-          changefreq: "monthly",
-        }))
-    : [];
+  const theoryPaths = await mdxCollectionPaths("theory", "theory");
+  const standardsCollectionPaths = await mdxCollectionPaths(
+    "standards",
+    "standards",
+  );
+  const evidencePackPaths = await mdxCollectionPaths(
+    "evidencePacks",
+    "evidence-packs",
+  );
 
   const incidentPaths = incidentLessons.map((lesson) => ({
     path: `/incidents/${lesson.slug}`,
@@ -395,6 +453,8 @@ export const buildSitemapSections = async () => {
         path: `/standards/${standard.slug}`,
         lastmod: standard.published,
       })),
+      ...standardsCollectionPaths,
+      ...evidencePackPaths,
       ...crosswalkControlPaths,
       ...incidentPaths,
       ...quickStartPaths,

@@ -3,6 +3,7 @@ import type { MiddlewareHandler } from "astro";
 const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
 
 const REDIRECT_MAP: Record<string, string> = {
+  "/start-here": "/start",
   "/diy-packs": "/agent-toolkit/prompt-packs",
   "/bundles": "/agent-toolkit/prompt-packs",
   "/bundles/diagnostic-export-kit": "/agent-toolkit/prompt-packs",

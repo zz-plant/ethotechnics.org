@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
+import { glossaryContent } from "../glossary";
 import {
   buildGlossaryIndexEntries,
   buildGlossaryStructuredDataPayload,
@@ -110,5 +111,47 @@ describe("buildGlossaryStructuredDataPayload", () => {
       (setNode as { hasDefinedTerm: Array<{ name: string }> }).hasDefinedTerm[0]
         ?.name,
     ).toBe("Alpha");
+  });
+});
+
+describe("published glossary content", () => {
+  const index = buildGlossaryIndexEntries(glossaryContent.categories);
+  const ids = new Set(index.map((entry) => entry.id));
+
+  it("indexes the delegation-era terms", () => {
+    for (const id of [
+      "delegated-agency",
+      "consequential-decision",
+      "justified-delegation",
+      "authority-grant",
+      "authority-lease",
+      "grant-state",
+      "dependency-state",
+      "exposure-score",
+      "substitution-cost",
+      "technical-reversibility",
+      "operational-reversibility",
+      "institutional-reversibility",
+      "corrective-standing",
+      "standing-mechanism",
+      "procedural-force",
+      "intervention-specification",
+      "meaningful-control",
+      "expansion-decision",
+      "substrate-profile",
+      "evaluation-layer",
+    ]) {
+      expect(ids.has(id)).toBe(true);
+    }
+  });
+
+  it("keeps every indexed id unique", () => {
+    expect(ids.size).toBe(index.length);
+  });
+
+  it("finds authority terms through the index filter", () => {
+    expect(
+      filterGlossaryIndexEntries(index, "authority").map((entry) => entry.id),
+    ).toContain("authority-grant");
   });
 });

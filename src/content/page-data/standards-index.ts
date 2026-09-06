@@ -25,10 +25,7 @@ export type StandardsGroupModel = StandardsGroupDefinition & {
 };
 
 export type StandardsFilterOption =
-  | "all"
-  | "core"
-  | "implementation"
-  | "reference";
+  "all" | "core" | "implementation" | "reference";
 
 export type StandardsGroupingModel = {
   activeStandards: StandardEntry[];
@@ -90,8 +87,8 @@ const groupingDefinitions: StandardsGroupDefinition[] = [
   {
     title: "Core",
     description:
-      "Foundational rights and contestability requirements to start with.",
-    ids: ["STD-01", "STD-02", "MVC-01"],
+      "Foundational rights, contestability requirements, and the terms a delegation must satisfy.",
+    ids: ["STD-01", "STD-02", "STD-08", "MVC-01"],
   },
   {
     title: "Implementation",

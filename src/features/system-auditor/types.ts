@@ -28,10 +28,31 @@ export type SynthesizedGuardrails = {
   legalSlaClause: string;
 };
 
+export type PolicyValidityAnswer = "yes" | "no" | "unknown";
+
+export type ReviewRecency = "recent" | "this-year" | "stale" | "never";
+
+export type ReversibilityEvidence = "evidenced" | "claimed" | "none";
+
+export type GovernanceAnswers = {
+  policyReviewTrigger: PolicyValidityAnswer;
+  policyExpiry: PolicyValidityAnswer;
+  policyLastReviewed: ReviewRecency;
+  technicalReversibility: ReversibilityEvidence;
+  operationalReversibility: ReversibilityEvidence;
+  institutionalReversibility: ReversibilityEvidence;
+  reviewerInformation: "sufficient" | "partial" | "none";
+  actionsPreventable: "all" | "some" | "none";
+  statesAlterable: "system" | "single-case" | "none";
+  onDisagreement: "recorded-route" | "informal" | "nothing";
+  costToExercise: "low" | "noticeable" | "career-cost";
+};
+
 export type AuditReport = {
   score: number; // 0 to 100 governance health score
   riskLevel: "Low Risk" | "Moderate Risk" | "Elevated Risk" | "Critical Risk";
   risksDetected: FailureRisk[];
+  delegationFindings: FailureRisk[];
   slas: QuantitativeSla;
   guardrails: SynthesizedGuardrails;
   systemName: string;

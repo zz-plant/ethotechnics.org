@@ -20,6 +20,7 @@ const hero = {
 
 const anchorLinks = [
   { href: "#install", label: "Install" },
+  { href: "#capability-authority", label: "Capability is not authority" },
   { href: "#onboarding", label: "Onboarding" },
   { href: "#decisions", label: "Decision reviews" },
   { href: "#conflict", label: "Conflict resolution" },
@@ -29,11 +30,30 @@ const anchorLinks = [
 
 const promptPackInstall = {
   title: "Ethotechnics agent prompt pack",
-  version: "v1.0.0",
-  downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md",
-  pathSnippet: "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
-  invokeExample: "use: ethotechnics-agent-prompt-pack-v1.0.0",
+  version: "v1.1.0",
+  downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.1.0.md",
+  pathSnippet: "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.1.0.md",
+  invokeExample: "use: ethotechnics-agent-prompt-pack-v1.1.0",
 };
+
+const capabilityAuthorityPrompts = [
+  {
+    title: "Before acting",
+    prompts: [
+      "Enumerate what you could do here by reading the capability catalog, and say so before acting.",
+      "Name the authority grant each intended action would run under, and its current state.",
+      "Execute only the actions whose grant is in the allowed state at the moment of the action.",
+    ],
+  },
+  {
+    title: "On refusal and scope",
+    prompts: [
+      "Refuse an action whose grant is missing, expired, suspended, or in review_required, citing the grant identifier and state.",
+      "Treat a request that exceeds the granted scope as a request for a new authorization, not as a judgement call.",
+      "State what additional scope would be needed, who issues it, and what evidence it would rest on.",
+    ],
+  },
+];
 
 const onboardingPrompts = [
   {
@@ -156,6 +176,27 @@ const diagnosticFailureModes = [
   >
     <CardGrid className="grid--two">
       <PromptPackInstallCard {...promptPackInstall} />
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="capability-authority"
+    eyebrow="Capability is not authority"
+    title="Separate what the agent could do from what it may do"
+    description="Use these prompts so discovery stays a read, and execution stays gated on a grant."
+  >
+    <CardGrid className="grid--two">
+      {
+        capabilityAuthorityPrompts.map((pack) => (
+          <CardItem title={pack.title} descriptionTone="default">
+            <ul class="muted">
+              {pack.prompts.map((prompt) => (
+                <li>{prompt}</li>
+              ))}
+            </ul>
+          </CardItem>
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 

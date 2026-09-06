@@ -57,7 +57,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
     summary: {
       title: "Minimum viable contestability standard",
       description:
-        "Six baseline commitments that make contestability real and safe to use.",
+        "Eight baseline commitments that make contestability real and safe to use.",
       items: [
         {
           title: "Standing",
@@ -78,6 +78,16 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           title: "Timelines",
           description:
             "Published review clocks force a final response and escalation path.",
+        },
+        {
+          title: "Responder and standard",
+          description:
+            "A named party must answer, and the register says what they decide against.",
+        },
+        {
+          title: "Effect",
+          description:
+            "The state changes a successful challenge can produce are enumerated in advance.",
         },
         {
           title: "Remedies",
@@ -153,6 +163,39 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
           "Published SLA or review clock.",
           "Status tracker or timeline receipt.",
           "Escalation rule documentation.",
+        ],
+      },
+      {
+        id: "responder",
+        title: "Responder and standard (who must answer, and against what)",
+        summary:
+          "A named party is obliged to answer, and the standard they decide against is published in advance.",
+        requirements: [
+          "Name the responder for each decision class, by role and contact, not by inbox.",
+          "Publish the standard of review: policy conformance, policy correctness, evidentiary support, or reasonableness of outcome.",
+          "State what evidence the responder must accept from the contestant.",
+          "Record the answer against the published standard, including reasoned refusals.",
+        ],
+        evidence: [
+          "Standing register entry with responder and standard of review.",
+          "Answered cases showing the standard applied.",
+          "Admissible evidence list published with the contest path.",
+        ],
+      },
+      {
+        id: "effect",
+        title: "Effect (what can change)",
+        summary:
+          "The state transitions a successful challenge can produce are enumerated before anyone files.",
+        requirements: [
+          "List the possible outcomes: the decision stands, is narrowed, suspended, reversed, or corrected.",
+          "Say which outcomes reach the delegation behind the decision, not only the decision itself.",
+          "Show at least one closed case for each transition the list claims is available.",
+        ],
+        evidence: [
+          "Enumerated state transitions in the standing register entry.",
+          "Outcome log mapping closed challenges to transitions.",
+          "Reconsideration records for challenges that changed a grant.",
         ],
       },
       {

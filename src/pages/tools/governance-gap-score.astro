@@ -8,7 +8,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 <BaseLayout
   title="AI governance gap scorecard | Ethotechnics"
-  description="Run a four-step governance gap diagnostic and export a shareable scorecard for triage, stabilization, and evidence planning."
+  description="Run a seven-step governance gap diagnostic across ownership, evidence, escalation, audit readiness, authority, dependence, and standing, then export a shareable scorecard."
   publishedTime="2026-02-21"
   mainClass="page page--wide"
 >
@@ -36,11 +36,11 @@ import SectionBlock from "../../components/SectionBlock.astro";
   <SectionBlock
     id="assessment"
     eyebrow="Assessment"
-    title="Answer four questions"
-    description="Move through each step to calculate a governance gap score out of 100."
+    title="Answer seven questions"
+    description="Move through each step to calculate a governance gap score out of 100 across seven dimensions."
   >
     <form class="intake-form" data-gap-form>
-      <p class="muted" data-gap-progress>Step 1 of 4</p>
+      <p class="muted" data-gap-progress>Step 1 of 7</p>
 
       <fieldset class="intake-form__grid" data-step="1">
         <label class="intake-form__field">
@@ -82,6 +82,48 @@ import SectionBlock from "../../components/SectionBlock.astro";
             <option value="fast">Artifacts ready within 5 days</option>
             <option value="slow">Artifacts ready within 2–4 weeks</option>
             <option value="not-ready">Not ready</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="intake-form__grid" data-step="5">
+        <label class="intake-form__field">
+          Authority record for automated actions
+          <select id="authority" name="authority" required>
+            <option value="granted"
+              >Every automated action names who authorized it and when that ends</option
+            >
+            <option value="partial"
+              >Some actions have a written authority, the rest are custom</option
+            >
+            <option value="none">No record of who authorized what</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="intake-form__grid" data-step="6">
+        <label class="intake-form__field">
+          Running the work without the system
+          <select id="dependence" name="dependence" required>
+            <option value="rehearsed">Rehearsed in the last 12 months</option>
+            <option value="planned">A plan exists but has never been run</option
+            >
+            <option value="none">No alternative and no estimate</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset class="intake-form__grid" data-step="7">
+        <label class="intake-form__field">
+          Standing for the people who bear the errors
+          <select id="standing" name="standing" required>
+            <option value="register"
+              >Named challengers, a named responder, and a deadline</option
+            >
+            <option value="channel"
+              >An appeal channel with no named responder or deadline</option
+            >
+            <option value="none">No route for affected people</option>
           </select>
         </label>
       </fieldset>
@@ -135,26 +177,51 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
   const scoreMatrix = {
     owner: {
-      dedicated: 25,
-      shared: 15,
-      none: 5,
+      dedicated: 100,
+      shared: 60,
+      none: 20,
     },
     evidence: {
-      release: 25,
-      quarterly: 15,
-      "ad-hoc": 5,
+      release: 100,
+      quarterly: 60,
+      "ad-hoc": 20,
     },
     escalation: {
-      tested: 25,
-      documented: 15,
+      tested: 100,
+      documented: 60,
       none: 0,
     },
     audit: {
-      fast: 25,
-      slow: 15,
+      fast: 100,
+      slow: 60,
       "not-ready": 0,
     },
+    authority: {
+      granted: 100,
+      partial: 50,
+      none: 0,
+    },
+    dependence: {
+      rehearsed: 100,
+      planned: 50,
+      none: 0,
+    },
+    standing: {
+      register: 100,
+      channel: 50,
+      none: 0,
+    },
   };
+
+  const dimensionKeys = [
+    "owner",
+    "evidence",
+    "escalation",
+    "audit",
+    "authority",
+    "dependence",
+    "standing",
+  ] as const;
 
   const tierMap = [
     {
@@ -193,6 +260,9 @@ import SectionBlock from "../../components/SectionBlock.astro";
     evidence: string;
     escalation: string;
     audit: string;
+    authority: string;
+    dependence: string;
+    standing: string;
   };
   type GapResult = {
     result_id: string;
@@ -247,21 +317,21 @@ import SectionBlock from "../../components/SectionBlock.astro";
   const getTier = (score: number) =>
     tierMap.find((tier) => score >= tier.min) || tierMap[tierMap.length - 1];
 
-  const calculateScore = (values: GapInputs) => {
-    const ownerScore =
-      scoreMatrix.owner[values.owner as keyof typeof scoreMatrix.owner] ?? 0;
-    const evidenceScore =
-      scoreMatrix.evidence[
-        values.evidence as keyof typeof scoreMatrix.evidence
-      ] ?? 0;
-    const escalationScore =
-      scoreMatrix.escalation[
-        values.escalation as keyof typeof scoreMatrix.escalation
-      ] ?? 0;
-    const auditScore =
-      scoreMatrix.audit[values.audit as keyof typeof scoreMatrix.audit] ?? 0;
+  const dimensionScore = (
+    key: (typeof dimensionKeys)[number],
+    value: string,
+  ) => {
+    const options = scoreMatrix[key] as Record<string, number>;
+    return options[value] ?? 0;
+  };
 
-    return ownerScore + evidenceScore + escalationScore + auditScore;
+  const calculateScore = (values: GapInputs) => {
+    const total = dimensionKeys.reduce(
+      (sum, key) => sum + dimensionScore(key, values[key]),
+      0,
+    );
+
+    return Math.round(total / dimensionKeys.length);
   };
 
   const updateStepState = () => {
@@ -317,10 +387,9 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
   const setShareUrl = (values: GapInputs, score: number, tier: string) => {
     const url = new URL(window.location.href);
-    url.searchParams.set("owner", values.owner);
-    url.searchParams.set("evidence", values.evidence);
-    url.searchParams.set("escalation", values.escalation);
-    url.searchParams.set("audit", values.audit);
+    for (const key of dimensionKeys) {
+      url.searchParams.set(key, values[key]);
+    }
     url.searchParams.set("score", score.toString());
     url.searchParams.set("tier", tier.toLowerCase());
 
@@ -359,6 +428,9 @@ import SectionBlock from "../../components/SectionBlock.astro";
         "Assign a named governance owner for every automated system.",
         "Refresh evidence packs before each release cycle.",
         "Test exception escalation paths quarterly.",
+        "Record who authorized each automated action and when that authority ends.",
+        "Rehearse running the work without the system at least once a year.",
+        "Name who may challenge a decision, who answers, and by when.",
       ],
     };
 
@@ -389,6 +461,9 @@ import SectionBlock from "../../components/SectionBlock.astro";
       ["evidence", payload.inputs?.evidence],
       ["escalation", payload.inputs?.escalation],
       ["audit", payload.inputs?.audit],
+      ["authority", payload.inputs?.authority],
+      ["dependence", payload.inputs?.dependence],
+      ["standing", payload.inputs?.standing],
     ];
 
     return rows
@@ -443,6 +518,9 @@ import SectionBlock from "../../components/SectionBlock.astro";
       ["Evidence cadence", payload.inputs?.evidence],
       ["Escalation", payload.inputs?.escalation],
       ["Audit readiness", payload.inputs?.audit],
+      ["Authority record", payload.inputs?.authority],
+      ["Dependence", payload.inputs?.dependence],
+      ["Standing", payload.inputs?.standing],
     ];
 
     inputItems.forEach(([label, value]) => {
@@ -461,40 +539,26 @@ import SectionBlock from "../../components/SectionBlock.astro";
     printWindow.print();
   };
 
-  const applyParams = () => {
-    const params = new URLSearchParams(window.location.search);
-    const owner = params.get("owner") ?? "";
-    const evidence = params.get("evidence") ?? "";
-    const escalation = params.get("escalation") ?? "";
-    const audit = params.get("audit") ?? "";
-    const scoreParam = params.get("score");
+  const setFieldValue = (name: string, value: string) => {
+    if (!form || !value) return;
+    const field = form.elements.namedItem(name) as HTMLSelectElement | null;
+    if (field) field.value = value;
+  };
 
+  const applyParams = () => {
     if (!form) return;
 
-    const values: GapInputs = { owner, evidence, escalation, audit };
-    const hasInputs = Object.values(values).every((value) => value);
+    const params = new URLSearchParams(window.location.search);
+    const scoreParam = params.get("score");
+    const values = Object.fromEntries(
+      dimensionKeys.map((key) => [key, params.get(key) ?? ""]),
+    ) as GapInputs;
+    const hasInputs = dimensionKeys.every((key) => values[key]);
 
     if (hasInputs) {
-      const ownerField = form.elements.namedItem(
-        "owner",
-      ) as HTMLSelectElement | null;
-      const evidenceField = form.elements.namedItem(
-        "evidence",
-      ) as HTMLSelectElement | null;
-      const escalationField = form.elements.namedItem(
-        "escalation",
-      ) as HTMLSelectElement | null;
-      const auditField = form.elements.namedItem(
-        "audit",
-      ) as HTMLSelectElement | null;
-
-      if (ownerField) ownerField.value = owner;
-      if (evidenceField) evidenceField.value = evidence;
-      if (escalationField) escalationField.value = escalation;
-      if (auditField) auditField.value = audit;
-    }
-
-    if (hasInputs) {
+      for (const key of dimensionKeys) {
+        setFieldValue(key, values[key]);
+      }
       renderResults(values, calculateScore(values));
     } else if (scoreParam) {
       const score = Number(scoreParam);
@@ -506,25 +570,9 @@ import SectionBlock from "../../components/SectionBlock.astro";
     if (!hasInputs) {
       const stored = restoreDraft();
       if (stored) {
-        const ownerField = form.elements.namedItem(
-          "owner",
-        ) as HTMLSelectElement | null;
-        const evidenceField = form.elements.namedItem(
-          "evidence",
-        ) as HTMLSelectElement | null;
-        const escalationField = form.elements.namedItem(
-          "escalation",
-        ) as HTMLSelectElement | null;
-        const auditField = form.elements.namedItem(
-          "audit",
-        ) as HTMLSelectElement | null;
-
-        if (stored.owner && ownerField) ownerField.value = stored.owner;
-        if (stored.evidence && evidenceField)
-          evidenceField.value = stored.evidence;
-        if (stored.escalation && escalationField)
-          escalationField.value = stored.escalation;
-        if (stored.audit && auditField) auditField.value = stored.audit;
+        for (const key of dimensionKeys) {
+          setFieldValue(key, stored[key] ?? "");
+        }
       }
     }
 
@@ -577,12 +625,9 @@ import SectionBlock from "../../components/SectionBlock.astro";
     if (!validateStep()) return;
 
     const data = new FormData(form);
-    const values: GapInputs = {
-      owner: (data.get("owner") as string) ?? "",
-      evidence: (data.get("evidence") as string) ?? "",
-      escalation: (data.get("escalation") as string) ?? "",
-      audit: (data.get("audit") as string) ?? "",
-    };
+    const values = Object.fromEntries(
+      dimensionKeys.map((key) => [key, (data.get(key) as string) ?? ""]),
+    ) as GapInputs;
 
     const score = calculateScore(values);
     renderResults(values, score);

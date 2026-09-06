@@ -1,0 +1,267 @@
+.delegation-audit {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: 1.5rem;
+}
+
+.delegation-audit__grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .delegation-audit__grid {
+    grid-template-columns: 1.05fr 1fr;
+    align-items: start;
+  }
+}
+
+.delegation-audit__panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.delegation-audit__step {
+  display: grid;
+  gap: 0.75rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.delegation-audit__step:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.delegation-audit__step-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-family: var(--sans);
+  font-weight: 700;
+}
+
+.delegation-audit__step-question {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.delegation-audit__field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.delegation-audit__label {
+  font-family: var(--sans);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.delegation-audit__input,
+.delegation-audit__select,
+.delegation-audit__textarea {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: var(--text-sm);
+  font-family: inherit;
+}
+
+.delegation-audit__textarea {
+  min-height: 4.5rem;
+  resize: vertical;
+}
+
+.delegation-audit__row {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.delegation-audit__card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.65rem;
+  background: color-mix(in srgb, var(--surface) 92%, var(--panel));
+}
+
+.delegation-audit__card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.delegation-audit__card-title {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.delegation-audit__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.delegation-audit__score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.delegation-audit__score-value {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  font-family: var(--sans);
+  line-height: 1;
+}
+
+.delegation-audit__score-unit {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.delegation-audit__factors {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.delegation-audit__factor {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.7rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.delegation-audit__factor-value {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.delegation-audit__factor-label,
+.delegation-audit__note {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  margin: 0;
+}
+
+.delegation-audit__variables {
+  display: grid;
+  gap: 0.6rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.delegation-audit__variable {
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: var(--radius-md);
+  padding: 0.7rem 0.8rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.delegation-audit__variable--grounded {
+  border-left-color: var(--status-success);
+}
+
+.delegation-audit__variable--partial {
+  border-left-color: var(--status-warning);
+}
+
+.delegation-audit__variable--weak {
+  border-left-color: var(--status-danger);
+}
+
+.delegation-audit__variable-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.delegation-audit__variable-name {
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.delegation-audit__pill {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.1rem 0.6rem;
+  font-size: var(--text-xs);
+  font-family: var(--sans);
+  font-weight: 700;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.delegation-audit__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  display: grid;
+  gap: 0.25rem;
+}
+
+.delegation-audit__refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: var(--text-xs);
+}
+
+.delegation-audit__refs a {
+  color: var(--text);
+}
+
+.delegation-audit__ladder {
+  display: grid;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.delegation-audit__rung {
+  display: grid;
+  gap: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.7rem;
+}
+
+.delegation-audit__rung--weakest {
+  border-color: var(--accent);
+}
+
+.delegation-audit__status {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
