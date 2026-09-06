@@ -33,13 +33,25 @@
     "version": "1.0.0"
   },
   "clocks": {
-    "ack": { "hours": 2 },
-    "review": { "hours": 24 },
-    "remedy": { "hours": 72 }
+    "ack": {
+      "hours": 2
+    },
+    "review": {
+      "hours": 24
+    },
+    "remedy": {
+      "hours": 72
+    }
   },
   "evidence_pack_references": [
-    { "standard": "STD-01", "href": "/evidence-packs/std-01" },
-    { "standard": "STD-02", "href": "/evidence-packs/std-02" }
+    {
+      "standard": "STD-01",
+      "href": "/evidence-packs/std-01"
+    },
+    {
+      "standard": "STD-02",
+      "href": "/evidence-packs/std-02"
+    }
   ],
   "required_signals": [
     "unsafe_action_rate",
@@ -48,8 +60,43 @@
     "time_to_remedy"
   ],
   "mapped_mechanisms": [
-    { "id": "MEC-01", "href": "/mechanisms/patterns/decision-log" },
-    { "id": "MEC-05", "href": "/mechanisms/patterns/kill-switch" },
-    { "id": "MEC-06", "href": "/mechanisms/patterns/appeal-paths" }
-  ]
+    {
+      "id": "MEC-01",
+      "href": "/mechanisms/patterns/decision-log"
+    },
+    {
+      "id": "MEC-05",
+      "href": "/mechanisms/patterns/kill-switch"
+    },
+    {
+      "id": "MEC-06",
+      "href": "/mechanisms/patterns/appeal-paths"
+    }
+  ],
+  "object_model_schema": {
+    "href": "/standards/agent-safety-object-model.schema.json",
+    "version": "2.0.0",
+    "example": "/standards/examples/agent-safety-object-model.example.json",
+    "note": "This instance is the 1.1.0 shape. Version 2.0.0 replaces approval_required with a grant_ref per action class and stop_override_authority with intervention_ref."
+  },
+  "delegation_state": {
+    "grant_ref": "GRANT-2026-0142",
+    "capability_catalog_ref": "CAT-RISK-OPS-V2-2026-07",
+    "dependency_ref": "DEP-RISK-OPS-V2-2026-06",
+    "intervention_ref": "INT-RISK-STEWARD-1",
+    "substrate_profile_ref": "SUB-RISK-OPS-V2",
+    "endpoints": {
+      "grants": "/api/grants.json",
+      "dependencies": "/api/dependencies.json",
+      "capabilities": "/api/capabilities.json",
+      "policies": "/api/policies.json",
+      "standing": "/api/standing.json",
+      "interventions": "/api/interventions.json",
+      "substrateProfiles": "/api/substrate-profiles.json"
+    },
+    "schemas": {
+      "authorityGrant": "/standards/authority-grant.schema.json",
+      "dependencyRecord": "/standards/dependency-record.schema.json"
+    }
+  }
 }

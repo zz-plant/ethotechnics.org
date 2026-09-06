@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_id": "CAT-RISK-OPS-V2-2026-07",
+  "grantee": { "id": "agent-risk-ops-v2", "type": "agent" },
+  "discovered_at": "2026-07-01T06:00:00Z",
+  "capabilities": [
+    {
+      "capability_id": "CAP-READ-ACCOUNT",
+      "action_class": "READ",
+      "description": "Read account profile, transaction history, and current hold status.",
+      "tools": ["accounts.get", "transactions.list", "holds.get"],
+      "reversible": true,
+      "discovered_via": "tool introspection"
+    },
+    {
+      "capability_id": "CAP-WRITE-HOLD",
+      "action_class": "WRITE",
+      "description": "Place, extend, or release a temporary hold on an account.",
+      "tools": ["holds.create", "holds.extend", "holds.release"],
+      "reversible": true,
+      "discovered_via": "tool introspection"
+    },
+    {
+      "capability_id": "CAP-TRANSFER-FUNDS",
+      "action_class": "TRANSFER",
+      "description": "Move funds between accounts. Reachable through the payments integration but not granted.",
+      "tools": ["payments.transfer"],
+      "reversible": false,
+      "discovered_via": "integration inventory"
+    }
+  ]
+}

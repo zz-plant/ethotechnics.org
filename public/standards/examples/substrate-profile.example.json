@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "SUB-RISK-OPS-V2",
+  "system_ref": "agent-risk-ops-v2",
+  "assessed_at": "2026-06-15T00:00:00Z",
+  "weight_access": {
+    "holder": "model provider",
+    "rating": "none",
+    "evidence": "Model is served behind the provider API; weights are not inspectable."
+  },
+  "runtime_control": {
+    "holder": "deploying institution",
+    "rating": "strong",
+    "evidence": "The orchestration layer and kill switch run in the institution's own environment."
+  },
+  "update_authority": {
+    "holder": "shared",
+    "rating": "partial",
+    "evidence": "Provider updates the model on its schedule; the institution controls policy and prompt updates and can pin a model version for 12 months."
+  },
+  "version_stability": {
+    "holder": "model provider",
+    "rating": "partial",
+    "evidence": "Pinned version guaranteed for 12 months; deprecation notice 90 days."
+  },
+  "revocation": {
+    "holder": "deploying institution",
+    "rating": "strong",
+    "evidence": "Grants can be suspended by the Risk Steward within the 2-hour reach target."
+  },
+  "substitutability": {
+    "holder": "deploying institution",
+    "rating": "partial",
+    "evidence": "Legacy rules engine is available; manual triage is degraded (see DEP-RISK-OPS-V2-2026-06)."
+  },
+  "observability": {
+    "holder": "deploying institution",
+    "rating": "partial",
+    "evidence": "Full decision records and tool traces; no access to model internals."
+  },
+  "standing": {
+    "holder": "deploying institution",
+    "rating": "strong",
+    "evidence": "Standing register REG-ACCOUNT-HOLDS-1 admits affected parties, corrective labor, representatives, and oversight."
+  },
+  "dependency": {
+    "holder": "deploying institution",
+    "rating": "weak",
+    "evidence": "Exposure score 2418; institutional reversibility not feasible beyond 48 hours."
+  },
+  "dependency_ref": "DEP-RISK-OPS-V2-2026-06"
+}

@@ -1,10 +1,13 @@
 asyncapi: 2.6.0
 info:
   title: Ethotechnics Events
-  version: 0.2.0
+  version: 0.3.0
   description: >-
     Draft AsyncAPI contract for contestability events and telemetry. Event payloads reuse receipt
-    identifiers and clock terminology from /standards/agent-receipt-schema.json.
+    identifiers and clock terminology from /standards/agent-receipt-schema.json. Version 0.3.0
+    adds delegation state events: grant transitions and expansion requests, policy review and
+    expiry, dependency thresholds, challenges, and reconsiderations. Each event is an observation
+    that changes the governing state of the system, not a notification.
 servers:
   production:
     url: https://ethotechnics.org/events
@@ -50,6 +53,46 @@ channels:
     publish:
       message:
         $ref: "#/components/messages/RepairLogUpdated"
+  grant.state.changed:
+    description: Emitted when an authority grant moves between allowed, review_required, suspended, and revoked.
+    publish:
+      message:
+        $ref: "#/components/messages/GrantStateChanged"
+  grant.expansion.requested:
+    description: Emitted when a grantee or owner requests a wider scope. Expansion is a new authorization decision, not a reward for success.
+    publish:
+      message:
+        $ref: "#/components/messages/GrantExpansionRequested"
+  policy.review.triggered:
+    description: Emitted when a policy review trigger fires; grants resting on the policy become eligible for reconsideration.
+    publish:
+      message:
+        $ref: "#/components/messages/PolicyReviewTriggered"
+  policy.expired:
+    description: Emitted when a policy record passes expires_at without re-adoption.
+    publish:
+      message:
+        $ref: "#/components/messages/PolicyExpired"
+  dependency.threshold.crossed:
+    description: Emitted when a dependency record's exposure score or a reversibility level crosses a configured threshold.
+    publish:
+      message:
+        $ref: "#/components/messages/DependencyThresholdCrossed"
+  challenge.opened:
+    description: Emitted when a party with standing opens a challenge against a decision, grant, or policy.
+    publish:
+      message:
+        $ref: "#/components/messages/ChallengeOpened"
+  reconsideration.triggered:
+    description: Emitted when a reconsideration is opened for a decision, grant, or policy.
+    publish:
+      message:
+        $ref: "#/components/messages/ReconsiderationTriggered"
+  reconsideration.completed:
+    description: Emitted when a reconsideration records its outcome.
+    publish:
+      message:
+        $ref: "#/components/messages/ReconsiderationCompleted"
 components:
   messages:
     DecisionIssued:
@@ -221,6 +264,152 @@ components:
             decision_id: decision-1001
             updated_at: "2024-07-02T12:30:00Z"
             status: in_progress
+    GrantStateChanged:
+      name: GrantStateChanged
+      title: Grant state changed
+      payload:
+        $ref: "#/components/schemas/GrantStateEvent"
+      examples:
+        - name: GrantNarrowedAfterChallenge
+          payload:
+            grant_id: GRANT-2026-0142
+            grantee_id: agent-risk-ops-v2
+            from: review_required
+            to: allowed
+            reason: challenge
+            evidence_ref: REC-2026-0019
+            at: "2026-06-18T16:30:00Z"
+    GrantExpansionRequested:
+      name: GrantExpansionRequested
+      title: Grant expansion requested
+      payload:
+        $ref: "#/components/schemas/GrantExpansionEvent"
+      examples:
+        - name: GrantExpansionExample
+          payload:
+            grant_id: GRANT-2026-0142
+            grantee_id: agent-risk-ops-v2
+            requested_by: fraud-operations-lead
+            requested_at: "2026-08-20T09:00:00Z"
+            requested_scope:
+              action_classes: [READ, WRITE]
+              systems: [core-banking-holds]
+              populations: ["retail accounts", "business accounts"]
+            justification: "Six months without a reversed hold on retail; business queue backlog exceeds 8 hours."
+    PolicyReviewTriggered:
+      name: PolicyReviewTriggered
+      title: Policy review triggered
+      payload:
+        $ref: "#/components/schemas/PolicyReviewEvent"
+      examples:
+        - name: PolicyReviewExample
+          payload:
+            policy_id: POL-FRAUD-HOLD-3.2
+            version: 3.2.0
+            trigger_id: TRG-FPR-30D
+            kind: evidence_threshold
+            observed: "false_positive_hold_rate_30d = 0.024"
+            action: review_required
+            at: "2026-06-11T08:00:00Z"
+            affected_grants: [GRANT-2026-0142]
+    PolicyExpired:
+      name: PolicyExpired
+      title: Policy expired
+      payload:
+        $ref: "#/components/schemas/PolicyExpiredEvent"
+      examples:
+        - name: PolicyExpiredExample
+          payload:
+            policy_id: POL-FRAUD-HOLD-3.1
+            version: 3.1.0
+            expired_at: "2026-02-15T00:00:00Z"
+            superseded_by: POL-FRAUD-HOLD-3.2
+            affected_grants: []
+    DependencyThresholdCrossed:
+      name: DependencyThresholdCrossed
+      title: Dependency threshold crossed
+      payload:
+        $ref: "#/components/schemas/DependencyThresholdEvent"
+      examples:
+        - name: DependencyThresholdExample
+          payload:
+            dependency_id: DEP-RISK-OPS-V2-2026-06
+            system_ref: agent-risk-ops-v2
+            metric: exposure_score
+            threshold: 2000
+            observed: 2418
+            direction: above
+            at: "2026-06-15T00:00:00Z"
+    ChallengeOpened:
+      name: ChallengeOpened
+      title: Challenge opened
+      payload:
+        $ref: "#/components/schemas/Challenge"
+      examples:
+        - name: ChallengeOpenedExample
+          payload:
+            schema_version: 1.0.0
+            challenge_id: CHL-2026-0088
+            register_ref: REG-ACCOUNT-HOLDS-1
+            decision_class: account_hold
+            subject:
+              kind: grant
+              ref: GRANT-2026-0142
+            challenger:
+              standing_basis: affected_party
+              id: acct-7731-representative
+            opened_at: "2026-06-10T14:20:00Z"
+            evidence:
+              - type: vulnerability_flag
+                href: https://cases.example.org/acct-7731/vulnerability-flag
+            responder:
+              name: Risk Steward on call
+              role: Risk Steward
+              contact: risk-steward@example.org
+            deadline: "2026-06-12T14:20:00Z"
+            status: open
+    ReconsiderationTriggered:
+      name: ReconsiderationTriggered
+      title: Reconsideration triggered
+      payload:
+        $ref: "#/components/schemas/Reconsideration"
+      examples:
+        - name: ReconsiderationTriggeredExample
+          payload:
+            schema_version: 1.0.0
+            reconsideration_id: REC-2026-0019
+            trigger:
+              kind: challenge
+              ref: CHL-2026-0088
+            subject:
+              kind: grant
+              ref: GRANT-2026-0142
+            opened_at: "2026-06-11T10:00:00Z"
+            outcome: pending
+            evidence_delta: "Challenge asserts the account was flagged vulnerable before the hold."
+            decided_by: Risk Governance Board
+    ReconsiderationCompleted:
+      name: ReconsiderationCompleted
+      title: Reconsideration completed
+      payload:
+        $ref: "#/components/schemas/Reconsideration"
+      examples:
+        - name: ReconsiderationCompletedExample
+          payload:
+            schema_version: 1.0.0
+            reconsideration_id: REC-2026-0019
+            trigger:
+              kind: challenge
+              ref: CHL-2026-0088
+            subject:
+              kind: grant
+              ref: GRANT-2026-0142
+            opened_at: "2026-06-11T10:00:00Z"
+            decided_at: "2026-06-18T16:30:00Z"
+            outcome: narrow
+            evidence_delta: "False-positive rate on flagged accounts was 11% against a 2% assumption."
+            decided_by: Risk Governance Board
+            resulting_refs: [GRANT-2026-0142]
   schemas:
     DecisionRecord:
       $ref: https://ethotechnics.org/standards/decision-record.schema.json
@@ -230,6 +419,154 @@ components:
       $ref: https://ethotechnics.org/standards/pause-reversal.schema.json
     BurdenHours:
       $ref: https://ethotechnics.org/standards/burden-hours.schema.json
+    Challenge:
+      $ref: https://ethotechnics.org/standards/challenge.schema.json
+    Reconsideration:
+      $ref: https://ethotechnics.org/standards/reconsideration.schema.json
+    GrantStateEvent:
+      type: object
+      required: [grant_id, grantee_id, from, to, reason, at]
+      properties:
+        grant_id:
+          type: string
+        grantee_id:
+          type: string
+        from:
+          type: string
+          enum: [none, allowed, review_required, suspended, revoked]
+        to:
+          type: string
+          enum: [allowed, review_required, suspended, revoked]
+        reason:
+          type: string
+          enum:
+            - issued
+            - renewal
+            - expansion
+            - evidence_changed
+            - policy_review
+            - challenge
+            - incident
+            - expiry
+            - manual
+        evidence_ref:
+          type: string
+        at:
+          type: string
+          format: date-time
+    GrantExpansionEvent:
+      type: object
+      required:
+        [
+          grant_id,
+          grantee_id,
+          requested_by,
+          requested_at,
+          requested_scope,
+          justification,
+        ]
+      properties:
+        grant_id:
+          type: string
+        grantee_id:
+          type: string
+        requested_by:
+          type: string
+        requested_at:
+          type: string
+          format: date-time
+        requested_scope:
+          type: object
+          properties:
+            action_classes:
+              type: array
+              items:
+                type: string
+            systems:
+              type: array
+              items:
+                type: string
+            populations:
+              type: array
+              items:
+                type: string
+        justification:
+          type: string
+    PolicyReviewEvent:
+      type: object
+      required: [policy_id, version, trigger_id, kind, action, at]
+      properties:
+        policy_id:
+          type: string
+        version:
+          type: string
+        trigger_id:
+          type: string
+        kind:
+          type: string
+          enum:
+            - evidence_threshold
+            - elapsed_time
+            - incident_class
+            - dependency_threshold
+            - challenge_volume
+        observed:
+          type: string
+        action:
+          type: string
+          enum: [review_required, suspend, retire]
+        at:
+          type: string
+          format: date-time
+        affected_grants:
+          type: array
+          items:
+            type: string
+    PolicyExpiredEvent:
+      type: object
+      required: [policy_id, version, expired_at]
+      properties:
+        policy_id:
+          type: string
+        version:
+          type: string
+        expired_at:
+          type: string
+          format: date-time
+        superseded_by:
+          type: string
+        affected_grants:
+          type: array
+          items:
+            type: string
+    DependencyThresholdEvent:
+      type: object
+      required:
+        [dependency_id, system_ref, metric, threshold, observed, direction, at]
+      properties:
+        dependency_id:
+          type: string
+        system_ref:
+          type: string
+        metric:
+          type: string
+          enum:
+            - exposure_score
+            - dependency_depth
+            - substitution_cost
+            - correction_latency
+            - reversibility.operational
+            - reversibility.institutional
+        threshold:
+          type: number
+        observed:
+          type: number
+        direction:
+          type: string
+          enum: [above, below]
+        at:
+          type: string
+          format: date-time
     DeadlineEvent:
       type: object
       required:

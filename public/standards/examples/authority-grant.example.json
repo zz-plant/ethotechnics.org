@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "grant_id": "GRANT-2026-0142",
+  "provenance": {
+    "issued_by": "risk-governance-board",
+    "issued_at": "2026-03-01T09:00:00Z",
+    "basis_summary": "Fraud-hold policy 3.2 adopted with a measured 1.4% false-positive rate on the Q4 backtest; reversal path rehearsed in February."
+  },
+  "scope": {
+    "action_classes": ["READ", "WRITE"],
+    "systems": ["core-banking-holds"],
+    "populations": ["retail accounts, excluding accounts flagged vulnerable"],
+    "limits": {
+      "max_hold_days": 7,
+      "max_holds_per_hour": 120,
+      "max_hold_value_usd": 25000
+    }
+  },
+  "issuing_authority": {
+    "name": "Risk Governance Board",
+    "role": "Delegating authority",
+    "contact": "risk-governance@example.org"
+  },
+  "grantee": { "id": "agent-risk-ops-v2", "type": "agent" },
+  "action_classes": ["READ", "WRITE"],
+  "for_whom": "Retail banking customers, on behalf of the Fraud Operations desk",
+  "evidence_basis": [
+    {
+      "ref": "POL-FRAUD-HOLD-3.2",
+      "summary": "Hold rules and thresholds for suspected account takeover.",
+      "as_of": "2026-06-18T00:00:00Z"
+    },
+    {
+      "ref": "EVID-BACKTEST-2026Q1",
+      "summary": "Q1 backtest: 1.4% false-positive rate, median release 31 hours.",
+      "as_of": "2026-04-05T00:00:00Z"
+    }
+  ],
+  "assumptions": [
+    "False-positive hold rate stays below 2% on the rolling 30-day window.",
+    "The Risk Steward can release any hold within two hours of a challenge.",
+    "Vulnerable-account flags are current within 24 hours."
+  ],
+  "review_conditions": [
+    "False-positive hold rate exceeds 2% on the rolling 30-day window.",
+    "Any challenge decided against the system.",
+    "Policy POL-FRAUD-HOLD-3.2 enters review_required or expires."
+  ],
+  "revocation_conditions": [
+    "Holds placed on accounts flagged vulnerable.",
+    "Intervention reach time exceeds four hours in any incident.",
+    "Withdrawal rehearsal fails."
+  ],
+  "state": "allowed",
+  "state_history": [
+    {
+      "from": "none",
+      "to": "allowed",
+      "at": "2026-03-01T09:00:00Z",
+      "reason": "issued",
+      "evidence_ref": "POL-FRAUD-HOLD-3.2"
+    },
+    {
+      "from": "allowed",
+      "to": "review_required",
+      "at": "2026-06-11T10:00:00Z",
+      "reason": "challenge",
+      "evidence_ref": "CHL-2026-0088",
+      "note": "Challenge opened by an affected party over a hold on a recently flagged vulnerable account."
+    },
+    {
+      "from": "review_required",
+      "to": "allowed",
+      "at": "2026-06-18T16:30:00Z",
+      "reason": "challenge",
+      "evidence_ref": "REC-2026-0019",
+      "note": "Narrowed: populations now exclude accounts flagged vulnerable; max_hold_days reduced from 14 to 7."
+    }
+  ],
+  "until": "2026-12-01T00:00:00Z",
+  "renewal_basis": "A fresh backtest on the preceding quarter, the current dependency record, and a withdrawal rehearsal within the last 90 days.",
+  "policy_refs": ["POL-FRAUD-HOLD-3.2"],
+  "intervention_ref": "INT-RISK-STEWARD-1",
+  "capability_catalog_ref": "CAT-RISK-OPS-V2-2026-07",
+  "dependency_ref": "DEP-RISK-OPS-V2-2026-06"
+}

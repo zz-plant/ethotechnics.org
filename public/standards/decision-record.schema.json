@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ethotechnics.org/standards/decision-record.schema.json",
   "title": "Decision Record",
-  "description": "A log entry that captures an automated decision, its owner, clocks, and evidence links.",
+  "description": "A log entry that captures an automated decision, its owner, clocks, and evidence links. Version 2.x adds the delegation fields that answer whether the decision still deserves to stand: the grant it was made under (grant_ref), the policies and evidence that justified it (policy_refs, evidence_basis), the conditions under which it remains valid (validity_conditions), the observations that must reopen it (reconsider_when), and the parties with standing to challenge it (parties_with_standing).",
   "type": "object",
   "required": [
     "schema_version",
@@ -17,48 +17,143 @@
     "evidence_refs"
   ],
   "properties": {
-    "schema_version": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
-    "record_id": { "type": "string" },
-    "receipt_id": { "type": "string" },
-    "issued_at": { "type": "string", "format": "date-time" },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[12]\\.\\d+\\.\\d+$",
+      "title": "Schema version",
+      "description": "Version of this schema the record conforms to; 1.x records omit the delegation fields, 2.x records may carry them."
+    },
+    "record_id": {
+      "type": "string",
+      "title": "Record identifier",
+      "description": "Stable identifier for the decision record."
+    },
+    "receipt_id": {
+      "type": "string",
+      "title": "Receipt identifier",
+      "description": "Identifier of the receipt issued to the subject for this decision."
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Issued at",
+      "description": "When the decision was issued."
+    },
     "owner": {
       "type": "object",
       "required": ["name", "role", "contact"],
       "properties": {
-        "name": { "type": "string" },
-        "role": { "type": "string" },
-        "contact": { "type": "string" },
-        "on_call": { "type": "boolean" }
-      }
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Name of the owner."
+        },
+        "role": {
+          "type": "string",
+          "title": "Role",
+          "description": "Role of the owner."
+        },
+        "contact": {
+          "type": "string",
+          "title": "Contact",
+          "description": "How to reach the owner."
+        },
+        "on_call": {
+          "type": "boolean",
+          "title": "On call",
+          "description": "Whether the owner is currently on call."
+        }
+      },
+      "title": "Owner",
+      "description": "The accountable person or role for the decision."
     },
     "subject": {
       "type": "object",
       "required": ["id", "type"],
       "properties": {
-        "id": { "type": "string" },
-        "type": { "type": "string" },
-        "region": { "type": "string" }
-      }
+        "id": {
+          "type": "string",
+          "title": "Subject identifier",
+          "description": "Identifier of the subject."
+        },
+        "type": {
+          "type": "string",
+          "title": "Subject type",
+          "description": "What kind of subject this is."
+        },
+        "region": {
+          "type": "string",
+          "title": "Region",
+          "description": "Jurisdiction or region the subject belongs to."
+        }
+      },
+      "title": "Subject",
+      "description": "The person, account, or entity the decision is about."
     },
     "action": {
       "type": "object",
       "required": ["class", "description", "reversible"],
       "properties": {
-        "class": { "type": "string" },
-        "description": { "type": "string" },
-        "reversible": { "type": "boolean" },
-        "tools": { "type": "array", "items": { "type": "string" } }
-      }
+        "class": {
+          "type": "string",
+          "title": "Class",
+          "description": "Action class, such as READ, WRITE, or TRANSFER."
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "Plain-language statement of the action."
+        },
+        "reversible": {
+          "type": "boolean",
+          "title": "Reversible",
+          "description": "Whether the action can be undone."
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Tools",
+          "description": "Tools used to carry out the action."
+        }
+      },
+      "title": "Action",
+      "description": "The consequential action the decision takes."
     },
     "decision": {
       "type": "object",
       "required": ["decision_type", "reason_codes", "inputs"],
       "properties": {
-        "decision_type": { "type": "string" },
-        "reason_codes": { "type": "array", "items": { "type": "string" } },
-        "inputs": { "type": "array", "items": { "type": "string" } },
-        "confidence": { "type": "number" }
-      }
+        "decision_type": {
+          "type": "string",
+          "title": "Decision type",
+          "description": "The type or class of decision made."
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Reason codes",
+          "description": "Machine-readable reasons for the decision."
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Inputs",
+          "description": "Identifiers of the inputs the decision consumed."
+        },
+        "confidence": {
+          "type": "number",
+          "title": "Confidence",
+          "description": "Model or system confidence in the decision, from 0 to 1."
+        }
+      },
+      "title": "Decision",
+      "description": "What was decided and why."
     },
     "clocks": {
       "type": "object",
@@ -66,25 +161,61 @@
       "properties": {
         "ack": {
           "type": "object",
-          "properties": { "hours": { "type": "number" } }
+          "properties": {
+            "hours": {
+              "type": "number",
+              "title": "Hours",
+              "description": "Duration in hours."
+            }
+          },
+          "title": "Acknowledgement clock",
+          "description": "Hours to acknowledge a contested decision."
         },
         "review": {
           "type": "object",
-          "properties": { "hours": { "type": "number" } }
+          "properties": {
+            "hours": {
+              "type": "number",
+              "title": "Hours",
+              "description": "Duration in hours."
+            }
+          },
+          "title": "Review clock",
+          "description": "Hours to complete a review."
         },
         "remedy": {
           "type": "object",
-          "properties": { "hours": { "type": "number" } }
+          "properties": {
+            "hours": {
+              "type": "number",
+              "title": "Hours",
+              "description": "Duration in hours."
+            }
+          },
+          "title": "Remedy clock",
+          "description": "Hours to deliver a remedy."
         },
         "appeal": {
           "type": "object",
-          "properties": { "hours": { "type": "number" } }
+          "properties": {
+            "hours": {
+              "type": "number",
+              "title": "Hours",
+              "description": "Duration in hours."
+            }
+          },
+          "title": "Appeal clock",
+          "description": "Hours to answer an appeal."
         }
-      }
+      },
+      "title": "Clocks",
+      "description": "Acknowledgement, review, remedy, and appeal clocks in hours."
     },
     "status": {
       "type": "string",
-      "enum": ["issued", "paused", "reversed", "upheld", "remedied"]
+      "enum": ["issued", "paused", "reversed", "upheld", "remedied"],
+      "title": "Status",
+      "description": "Lifecycle status of the decision."
     },
     "evidence_refs": {
       "type": "array",
@@ -92,18 +223,145 @@
         "type": "object",
         "required": ["type", "href"],
         "properties": {
-          "type": { "type": "string" },
-          "href": { "type": "string" },
-          "description": { "type": "string" }
-        }
-      }
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "description": "Kind of evidence."
+          },
+          "href": {
+            "type": "string",
+            "title": "Link",
+            "description": "Where the evidence can be retrieved."
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Plain-language summary of the evidence."
+          }
+        },
+        "title": "Evidence reference",
+        "description": "One entry in evidence_refs."
+      },
+      "title": "Evidence references",
+      "description": "Links to the evidence behind the decision."
     },
     "appeal": {
       "type": "object",
       "properties": {
-        "href": { "type": "string" },
-        "status": { "type": "string" }
+        "href": {
+          "type": "string",
+          "title": "Link",
+          "description": "Where to lodge or track the appeal."
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "description": "Current appeal status."
+        }
+      },
+      "title": "Appeal",
+      "description": "Where and how the decision can be appealed."
+    },
+    "grant_ref": {
+      "title": "Grant reference",
+      "description": "Identifier of the authority grant under which the decision was made. A decision made outside an allowed grant is not a delegated decision; it is drift.",
+      "type": "string"
+    },
+    "policy_refs": {
+      "title": "Policy references",
+      "description": "Identifiers of the policy records whose propositions the decision relied on.",
+      "type": "array",
+      "items": {
+        "type": "string"
       }
+    },
+    "evidence_basis": {
+      "title": "Evidence basis",
+      "description": "The propositions that justified the decision at the time, with their freshness, so a reviewer can tell whether the evidentiary state has since changed.",
+      "type": "array",
+      "items": {
+        "title": "Evidence reference",
+        "description": "A pointer to a policy record or evidence item with its summary and freshness.",
+        "type": "object",
+        "required": ["ref", "summary", "as_of"],
+        "properties": {
+          "ref": {
+            "title": "Reference",
+            "description": "Identifier or URL of the policy record or evidence item.",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "description": "Plain-language summary of what the evidence establishes.",
+            "type": "string"
+          },
+          "as_of": {
+            "title": "As of",
+            "description": "When the evidence was last confirmed.",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "validity_conditions": {
+      "title": "Validity conditions",
+      "description": "Conditions that must keep holding for the decision to deserve to stand.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reconsider_when": {
+      "title": "Reconsider when",
+      "description": "Observations that must reopen the decision, each paired with the action they force. An observation that cannot change state is theater.",
+      "type": "array",
+      "items": {
+        "title": "Reconsideration rule",
+        "description": "One condition and the action it forces.",
+        "type": "object",
+        "required": ["condition", "action"],
+        "properties": {
+          "condition": {
+            "title": "Condition",
+            "description": "The observation that triggers reconsideration.",
+            "type": "string"
+          },
+          "action": {
+            "title": "Action",
+            "description": "What happens when the condition holds, matching reconsideration outcomes or a review state.",
+            "type": "string",
+            "enum": [
+              "review_required",
+              "stand",
+              "narrow",
+              "suspend",
+              "reverse",
+              "correct",
+              "expand"
+            ]
+          }
+        }
+      }
+    },
+    "parties_with_standing": {
+      "title": "Parties with standing",
+      "description": "Who may challenge this decision, drawn from the standing register for its decision class.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "affected_party",
+          "corrective_labor",
+          "representative",
+          "oversight"
+        ]
+      }
+    },
+    "standing_register_ref": {
+      "title": "Standing register reference",
+      "description": "Identifier of the standing register that governs challenges to this decision.",
+      "type": "string"
     }
   }
 }

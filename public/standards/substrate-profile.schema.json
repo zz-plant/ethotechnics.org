@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/substrate-profile.schema.json",
+  "title": "Substrate Profile",
+  "description": "The Ethotechnical classification of a deployment that replaces open-versus-closed. Ethotechnics does not favor open or closed models; it favors architectures where consequential authority can be inspected, constrained, contested, and reversed. A deployment is classified by nine properties rather than by weight access alone: weight access, runtime control, update authority, version stability, revocation, substitutability, observability, standing, and dependency. For each property the profile states who holds it, how strong the institution's position is, and the evidence.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "profile_id",
+    "system_ref",
+    "weight_access",
+    "runtime_control",
+    "update_authority",
+    "version_stability",
+    "revocation",
+    "substitutability",
+    "observability",
+    "standing",
+    "dependency"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the profile conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "profile_id": {
+      "title": "Profile identifier",
+      "description": "Stable identifier for the profile, referenced by the safety object model.",
+      "type": "string"
+    },
+    "system_ref": {
+      "title": "System reference",
+      "description": "Identifier of the deployed system being classified.",
+      "type": "string"
+    },
+    "assessed_at": {
+      "title": "Assessed at",
+      "description": "When the profile was last assessed.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "weight_access": {
+      "title": "Weight access",
+      "description": "Who can inspect or obtain the model weights.",
+      "$ref": "#/$defs/property"
+    },
+    "runtime_control": {
+      "title": "Runtime control",
+      "description": "Who controls the runtime the model executes in, including the ability to stop it.",
+      "$ref": "#/$defs/property"
+    },
+    "update_authority": {
+      "title": "Update authority",
+      "description": "Who decides when the model or its policies change.",
+      "$ref": "#/$defs/property"
+    },
+    "version_stability": {
+      "title": "Version stability",
+      "description": "Whether the deploying institution can pin a version and rely on it not changing underneath its evidence.",
+      "$ref": "#/$defs/property"
+    },
+    "revocation": {
+      "title": "Revocation",
+      "description": "Who can withdraw the model from service and how quickly.",
+      "$ref": "#/$defs/property"
+    },
+    "substitutability": {
+      "title": "Substitutability",
+      "description": "Whether the model can be replaced by an alternative without unacceptable cost.",
+      "$ref": "#/$defs/property"
+    },
+    "observability": {
+      "title": "Observability",
+      "description": "What the deploying institution can see of the model's behaviour and internals.",
+      "$ref": "#/$defs/property"
+    },
+    "standing": {
+      "title": "Standing",
+      "description": "Whether error-bearing parties have a way to challenge the deployment's decisions.",
+      "$ref": "#/$defs/property"
+    },
+    "dependency": {
+      "title": "Dependency",
+      "description": "How dependent the institution has become on this substrate; see the dependency record for detail.",
+      "$ref": "#/$defs/property"
+    },
+    "dependency_ref": {
+      "title": "Dependency reference",
+      "description": "Identifier of the dependency record backing the dependency property.",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "property": {
+      "title": "Substrate property",
+      "description": "One of the nine classification properties: who holds it, how strong the deploying institution's position is, and the evidence.",
+      "type": "object",
+      "required": ["holder", "rating", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "holder": {
+          "title": "Holder",
+          "description": "Who controls this property, for example the provider, the deploying institution, or shared.",
+          "type": "string"
+        },
+        "rating": {
+          "title": "Rating",
+          "description": "How strong the deploying institution's position is on this property.",
+          "type": "string",
+          "enum": ["strong", "partial", "weak", "none"]
+        },
+        "evidence": {
+          "title": "Evidence",
+          "description": "Evidence for the rating.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

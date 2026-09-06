@@ -4,22 +4,29 @@ import {
   createAgentIndexResponse,
   createAntiPatternsResponse,
   createBadgesResponse,
+  createCapabilitiesResponse,
   createChangelogResponse,
   createClausesResponse,
   createCrosswalksResponse,
+  createDependenciesResponse,
   createDiagnosticResultsResponse,
   createEvalTestCasesResponse,
   createEvalsResponse,
   createEvidencePacksResponse,
   createFindingsResponse,
   createGlossaryResponse,
+  createGrantsResponse,
+  createInterventionsResponse,
   createMechanismsResponse,
+  createPoliciesResponse,
   createPostMarketMonitoringResponse,
   createRagCorpusResponse,
   createReleasesResponse,
   createResearchResponse,
   createSiteIndexResponse,
   createStandardsResponse,
+  createStandingResponse,
+  createSubstrateProfilesResponse,
   createValidatorsResponse,
 } from "../../utils/api-responses";
 
@@ -29,22 +36,29 @@ export type EndpointId =
   | "agent-index"
   | "anti-patterns"
   | "badges"
+  | "capabilities"
   | "changelog"
   | "clauses"
   | "crosswalks"
+  | "dependencies"
   | "diagnostic-results"
   | "eval-test-cases"
   | "evals"
   | "evidence-packs"
   | "findings"
   | "glossary"
+  | "grants"
+  | "interventions"
   | "mechanisms"
+  | "policies"
   | "post-market-monitoring"
   | "rag-corpus"
   | "releases"
   | "research"
   | "site-index"
   | "standards"
+  | "standing"
+  | "substrate-profiles"
   | "validators";
 
 type RouteOptions = {
@@ -91,6 +105,13 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     },
     createResponse: () => createBadgesResponse(),
   },
+  capabilities: {
+    slug: "capabilities.json",
+    variants: {
+      unversioned: {},
+    },
+    createResponse: () => createCapabilitiesResponse(),
+  },
   changelog: {
     slug: "changelog.json",
     variants: {
@@ -111,6 +132,13 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
       unversioned: {},
     },
     createResponse: () => createCrosswalksResponse(),
+  },
+  dependencies: {
+    slug: "dependencies.json",
+    variants: {
+      unversioned: {},
+    },
+    createResponse: () => createDependenciesResponse(),
   },
   "diagnostic-results": {
     slug: "diagnostic-results.json",
@@ -150,12 +178,33 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     },
     createResponse: () => createGlossaryResponse(),
   },
+  grants: {
+    slug: "grants.json",
+    variants: {
+      unversioned: {},
+    },
+    createResponse: () => createGrantsResponse(),
+  },
+  interventions: {
+    slug: "interventions.json",
+    variants: {
+      unversioned: {},
+    },
+    createResponse: () => createInterventionsResponse(),
+  },
   mechanisms: {
     slug: "mechanisms.json",
     variants: {
       unversioned: {},
     },
     createResponse: () => createMechanismsResponse(),
+  },
+  policies: {
+    slug: "policies.json",
+    variants: {
+      unversioned: {},
+    },
+    createResponse: () => createPoliciesResponse(),
   },
   "post-market-monitoring": {
     slug: "post-market-monitoring.json",
@@ -205,6 +254,20 @@ export const endpointConfig: Record<EndpointId, EndpointConfig> = {
     },
     createResponse: () => createStandardsResponse(),
   },
+  standing: {
+    slug: "standing.json",
+    variants: {
+      unversioned: {},
+    },
+    createResponse: () => createStandingResponse(),
+  },
+  "substrate-profiles": {
+    slug: "substrate-profiles.json",
+    variants: {
+      unversioned: {},
+    },
+    createResponse: () => createSubstrateProfilesResponse(),
+  },
   validators: {
     slug: "validators.json",
     variants: {
@@ -219,7 +282,10 @@ export const getEndpointsForVariant = (variant: ApiVariant = "unversioned") =>
     .filter((config) => config.variants[variant] !== undefined)
     .map((config) => config.slug);
 
-export const getEndpointRouteConfig = (id: EndpointId, variant: ApiVariant = "unversioned") => {
+export const getEndpointRouteConfig = (
+  id: EndpointId,
+  variant: ApiVariant = "unversioned",
+) => {
   const config = endpointConfig[id];
   const options = config.variants[variant];
 
