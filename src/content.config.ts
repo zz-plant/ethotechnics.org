@@ -765,9 +765,25 @@ const evidencePackSchema = z.object({
     .optional(),
 });
 
+const theorySchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  permalink: z.string(),
+  eyebrow: z.string().optional().default("Theory"),
+  published: z.string(),
+  updated: z.string().optional(),
+  lawRefs: z.array(z.string()),
+  summary: z.string(),
+});
+
 const explainers = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "src/content/explainers" }),
   schema: explainerSchema,
+});
+
+const theory = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "src/content/theory" }),
+  schema: theorySchema,
 });
 
 const incidents = defineCollection({
@@ -783,6 +799,7 @@ const evidencePacks = defineCollection({
 export const collections = {
   standards,
   explainers,
+  theory,
   incidents,
   evidencePacks,
   home,

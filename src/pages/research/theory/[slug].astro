@@ -1,0 +1,112 @@
+---
+import { getCollection, render } from "astro:content";
+import "../../../styles/components/standards.css";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CitationBlock from "../../../components/CitationBlock.astro";
+import PageIntro from "../../../components/PageIntro.astro";
+import { derivePublicationMetadata } from "../../../utils/publication";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const essays = await getCollection("theory");
+  return essays.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const data = entry.data;
+
+const anchorLinks = headings
+  .filter((heading) => heading.depth === 2)
+  .map((heading) => ({ href: `#${heading.slug}`, label: heading.text }));
+
+const lawLinks = data.lawRefs.map((ref) => ({
+  label: `Law ${ref}`,
+  href: `/standards/laws#laws`,
+}));
+
+const toDateTime = (value: string) =>
+  value.includes("T") ? value : `${value}T00:00:00.000Z`;
+const publishedTime = toDateTime(data.published);
+const modifiedTime = toDateTime(data.updated ?? data.published);
+
+const publication = derivePublicationMetadata({
+  permalink: data.permalink,
+  published: publishedTime,
+  updated: modifiedTime,
+  version: "1.0.0",
+  authorName: "Ethotechnics Institute",
+});
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Research", url: "/research" },
+  { name: "Theory", url: "/research/theory" },
+  { name: data.title, url: data.permalink },
+];
+---
+
+<BaseLayout
+  title={`${data.title} — Ethotechnics Institute`}
+  description={data.description}
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  mainClass="page container standard-document"
+  breadcrumbItems={breadcrumbItems}
+>
+  <PageIntro
+    eyebrow={data.eyebrow}
+    title={data.title}
+    description={data.description}
+    permalink={data.permalink}
+    anchorLinks={anchorLinks}
+    lastUpdated={data.updated ?? data.published}
+    panelCopy={{
+      eyebrow: "Argues for",
+      title: data.lawRefs.map((ref) => `Law ${ref}`).join(", "),
+      description: data.summary,
+      link: { label: "Read the laws", href: "/standards/laws" },
+    }}
+  />
+
+  <aside class="callout callout--solid" aria-label="Layer note">
+    <p class="eyebrow">Theory</p>
+    <p>
+      This is theory, not a requirement. It gives reasons the laws hold. What a
+      standard binds is stated on the{" "}
+      <a href="/standards/laws">laws page</a>, and no clause cites this essay.
+      {
+        lawLinks.length > 0 && (
+          <span>
+            {" "}
+            Argues for{" "}
+            {lawLinks.map((law, index) => (
+              <>
+                <a href={law.href}>{law.label}</a>
+                {index < lawLinks.length - 1 ? ", " : "."}
+              </>
+            ))}
+          </span>
+        )
+      }
+    </p>
+  </aside>
+
+  <article class="theory-essay stack-md">
+    <Content />
+  </article>
+
+  <p class="muted">
+    <a href="/research/theory">All theory essays</a>
+  </p>
+
+  <CitationBlock
+    title={data.title}
+    permalink={data.permalink}
+    publication={publication}
+  />
+</BaseLayout>

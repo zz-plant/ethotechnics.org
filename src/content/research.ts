@@ -225,6 +225,24 @@ export const researchContent: ResearchContent = {
       tags: ["systematic review", "mechanisms", "policy"],
       href: "/research/bridge-artifacts#pattern-language-review",
     },
+    {
+      slug: "frontier-doctrine-scan",
+      title: "Frontier doctrine scan (2026-09)",
+      type: "Dated research note",
+      summary:
+        "Ten frontier labs scored 0 to 4 against the twelve laws on public doctrine and product architecture, not safety performance.",
+      tags: ["doctrine", "laws", "frontier"],
+      href: "/research/frontier-doctrine-scan",
+    },
+    {
+      slug: "theory-essays",
+      title: "Theory essays",
+      type: "Essay series",
+      summary:
+        "Why the laws hold: dependence without standing, absorption as concealment, friction as accidental governance, the engineering tradition, automation and capture.",
+      tags: ["theory", "laws", "doctrine"],
+      href: "/research/theory",
+    },
   ],
   agenda: [
     {

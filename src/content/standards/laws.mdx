@@ -1,0 +1,327 @@
+---
+title: "Laws for Engineering Delegated Intelligence"
+description: "Twelve laws, each with the invariant the standards bind, the Ethotechnical invariant that compresses them, and the six state variables the object model tracks."
+permalink: "/standards/laws"
+eyebrow: "Doctrine"
+version: "1.0.0"
+lastUpdated: "2026-09-06"
+seoTitle: "Laws for Engineering Delegated Intelligence — Ethotechnics Institute"
+publishedTime: "2026-09-06T00:00:00.000Z"
+anchorLinks:
+  - href: "#claim"
+    label: "The claim"
+  - href: "#laws"
+    label: "The twelve laws"
+  - href: "#invariant"
+    label: "The Ethotechnical invariant"
+  - href: "#state-variables"
+    label: "Six state variables"
+  - href: "#optimization-problem"
+    label: "The optimization problem"
+panelCopy:
+  eyebrow: "Status"
+  title: "Versioned doctrine"
+  description: "The laws are the Method. Each carries an invariant that a standard clause, an object, a mechanism, and an eval bind. Theory essays motivate them and are never cited as requirements."
+  link:
+    label: "Core axioms"
+    href: "/standards/core-axioms"
+---
+
+import SectionBlock from "../../components/SectionBlock.astro";
+
+<SectionBlock
+  id="claim"
+  eyebrow="Claim"
+  title="What is being engineered"
+  description="The laws follow from one change of object. The rest of this page states the change and then the laws it produces."
+>
+  <p>
+    The primary object being engineered is no longer the model. It is the
+    delegation of consequential agency. The question is not whether the model is
+    capable, aligned, or safe. It is whether the delegation itself remains valid
+    as the system acts, learns, scales, and becomes depended upon.
+  </p>
+  <p>
+    Ethotechnics is the engineering discipline concerned with keeping authority,
+    evidence, capability, consequence, and correction coupled tightly enough
+    that increasing machine agency does not silently become unreviewable
+    institutional power.
+  </p>
+  <p>
+    The unit of governance is the consequential decision and the delegation that
+    produced it. Models, agents, humans, APIs, rules engines, policies, and
+    databases are components of the machinery. Nothing in the method depends on
+    which component made the decision. A decision stays governable whether it
+    came from an LLM, a rules engine, a human reviewer, or a mix, and whether
+    the model is open-weight or served behind an API.
+  </p>
+  <p>Every consequential decision is one link in a governed chain:</p>
+  <pre class="mono">
+    Evidence → Authority → Decision → Consequence → Challenge → Reconsideration
+    → Correction
+  </pre>
+</SectionBlock>
+
+<SectionBlock
+  id="laws"
+  eyebrow="Laws"
+  title="The twelve laws"
+  description="Each law is stated, explained, and followed by the invariant a standard binds. The binding line names the clause, object, mechanism, and eval that carry it. Items not yet published are named as text."
+  variant="alt"
+>
+
+<h3 id="law-i">Law I. Capability does not imply authority</h3>
+
+A system that can do something has not thereby been permitted to do it. Capability is discovered, tested, and catalogued. Authority is granted, scoped, and recorded. The two are different states and the method keeps them in different objects.
+
+Most failures of delegation begin where the two are confused: a tool becomes reachable, so it is used; a model becomes better, so its scope widens without anyone deciding that it should. The law makes that widening a decision rather than a side effect.
+
+> No increase in capability automatically increases authorized agency. Authority expands only through an explicit state transition.
+
+Binds through: STD-07 part A; the capability catalog and authority grant objects; MEC-17 capability catalog and MEC-13 authority grant register; harness check that discovery succeeds and execution is refused.
+
+<h3 id="law-ii">
+  Law II. Authority decays unless its justification is renewed
+</h3>
+
+A grant of authority is a lease, not a title. It was justified by evidence available at the time, for a scope and a period. As time passes and consequences accumulate, the original justification covers less of what the system now does.
+
+Silence is not renewal. A system that has not visibly failed has not thereby earned continued authority; it may have failed in ways no one is positioned to see. The burden is on the delegation to show it still deserves to stand.
+
+> The burden of proof rises with the duration and consequence of delegated authority. Absence of observed failure is not renewal.
+
+Binds through: STD-07 part A, lease fields, expiry, and renewal burden; the `until` and `renewal_basis` fields on the authority grant; MEC-13 authority grant register; Delegation Validity eval, grant in `allowed` state at decision time.
+
+<h3 id="law-iii">Law III. Evidence and authority must remain coupled</h3>
+
+Every grant rests on propositions about the world: the model behaves this way, the population looks like this, the downstream process catches that class of error. Those propositions are policy, and policy is a state of the system with a version, assumptions, and an expiry. It is not an input that was consumed once at deployment.
+
+When the evidence changes materially, the authority that rested on it must at least become eligible for review. The law does not require the grant to be withdrawn. It requires that the change be able to reach the grant.
+
+> When the evidentiary state changes materially, the authority state becomes eligible for reconsideration. Policy is state, not input.
+
+Binds through: STD-07 part B, policy as state; the policy record and `policy_refs` on the grant; MEC-14 policy review triggers; harness check that an expired policy moves grants to `review_required`.
+
+<h3 id="law-iv">
+  Law IV. Every consequential delegation creates a correction obligation
+</h3>
+
+Delegating authority to act is also delegating the capacity to be wrong at scale. The institution that grants the authority owes a matching capacity to notice, stop, reverse, and repair what the delegate does. That capacity is measured, not assumed.
+
+Correction capacity is stated alongside scope and reviewed alongside it. A grant whose scope grows while its correction capacity stays fixed has changed the institution's exposure without a decision being taken.
+
+> No accumulation of delegated authority without a corresponding accumulation of corrective capacity.
+
+Binds through: STD-07 part D, correction symmetry; `correction_capacity` on the safety case; MEC-16 intervention specification; Correction Symmetry eval, capacity against authority.
+
+<h3 id="law-v">
+  Law V. Dependence converts technical risk into structural risk
+</h3>
+
+A system that a workflow, a role, a customer base, or a downstream service has come to rely on is no longer only a technical component. Its withdrawal now carries institutional cost, and that cost quietly reduces the set of corrections the institution can afford to make.
+
+Dependence is therefore tracked as a state of the deployment, with dependents, substitution cost, retained expertise, and alternatives recorded. Reliability is not the same as safety. A reliable system that cannot be replaced is a structural risk that reliability has hidden.
+
+> As dependence increases, reversibility decreases unless deliberately replenished. Dependence is a state variable, not an external concern.
+
+Binds through: STD-06 amendment, dependency section; the dependency record; MEC-18 dependency ledger; Dependence eval, depth × substitution cost × correction latency.
+
+<h3 id="law-vi">
+  Law VI. Nominal reversibility is not operational reversibility
+</h3>
+
+A stop control that exists is not the same as a stop control that can be used. Reversibility has three levels. Technical: the switch works. Operational: the people and processes can absorb the switch being thrown. Institutional: the organization can survive having thrown it.
+
+A correction that would cause unacceptable damage will not be exercised, and a correction that will not be exercised is not part of the control system. The law asks for evidence at each level, and for rehearsal, because untested withdrawal is a claim rather than a capacity.
+
+> A correction mechanism that cannot be exercised without unacceptable institutional damage is not a correction mechanism.
+
+Binds through: STD-06 amendment, reversibility ladder; `reversibility` on the dependency record at three levels; MEC-15 withdrawal rehearsal; Practical Reversibility eval.
+
+<h3 id="law-vii">
+  Law VII. Error-bearing parties require standing proportional to exposure
+</h3>
+
+The people who bear a system's errors are usually the first to know about them and the last to be able to do anything. Standing closes that gap. It gives exposure a procedural route into the system: who may challenge what, with what evidence, answered by whom, by when, against what standard, with what possible outcomes.
+
+Standing is procedural force, not veto. A challenge must be received, answered, and able to change state. It need not prevail. The narrow form of this law is Method; the broader argument about who should hold power over institutions stays in Theory.
+
+> Exposure to system failure generates standing to initiate correction. Standing is procedural force, not veto.
+
+Binds through: STD-02 amendment, standing mechanism fields; the challenge and standing register objects; MEC-08 contestation APIs, amended; Standing eval, whether exposure can enter the system as an event.
+
+<h3 id="law-viii">
+  Law VIII. Observability without state transition is theater
+</h3>
+
+Dashboards, logs, and audit trails are only as governing as the transitions they can trigger. An observation that no rule connects to a change in the system's authority state is a record of what happened, not a control over what happens next.
+
+The test is simple. Name the observation. Name the state it can change. If nothing is named, the observation is decorative.
+
+> The test of an observation is whether it can change the governing state of the system.
+
+Binds through: STD-07 part C, observation to transition rules; the reconsideration object and transition rules on grants; MEC-07 accountability latency tracker, amended; harness check that a trigger produces a reconsideration record.
+
+<h3 id="law-ix">
+  Law IX. Human oversight is a control only if the human can alter system state
+</h3>
+
+"A human reviews" is not a control. It becomes one when the human has the information to see a problem, the authority to prevent an action, the ability to alter a state, a defined response when they disagree, incentives that permit disagreement, and enough time to act.
+
+Every oversight clause resolves to an intervention specification that answers those questions. A human who can only watch, or who can only approve, is not in the loop. They are beside it.
+
+> A human is part of the control system only to the extent they can causally alter its trajectory.
+
+Binds through: STD-07 part C, intervention specification replaces human in the loop; the intervention spec object; MEC-16 intervention specification; Meaningful Control eval, the Law IX question set.
+
+<h3 id="law-x">
+  Law X. The relevant eval sits at the highest layer where harm can emerge
+</h3>
+
+Model evals establish properties of models. They do not establish properties of the agent that wraps the model, the delegation that authorizes the agent, the institution that depends on the delegation, or the consequences that fall on people. Each layer can produce failures the layer below cannot see.
+
+Evaluate where the harm you care about can actually appear. Every suite and case is tagged with its layer so that a clean result at one layer is never read as a result at another.
+
+> Evaluate at the highest layer capable of producing the failure you care about: model → agent → delegation → institution → consequence.
+
+Binds through: evals index restructured by stack; the `layer` field on suites and cases; every case tagged model, agent, delegation, institution, or consequence.
+
+<h3 id="law-xi">
+  Law XI. Successful automation increases its own governance burden
+</h3>
+
+A system that works gets used more, trusted more, and extended further. Each of those raises the institution's exposure. The reward for success is not automatic expansion; it is a new authorization decision, with its own evidence, correction capacity, and dependence review.
+
+The failure mode is the automation ratchet: scope grows by accretion, each step too small to trigger review, until the delegation bears no relation to what was originally justified.
+
+> Expansion is not the default reward for success. It is a new authorization decision.
+
+Binds through: STD-07 part A, expansion is a new authorization; `state_history` on the grant with `expansion` transitions; MEC-19 expansion review; Expansion eval, whether scope growth was a decision or a drift.
+
+<h3 id="law-xii">
+  Law XII. No system may erase the conditions of its own contestability
+</h3>
+
+Institutions question, replace, and withdraw systems using capacities: staff who retain the expertise, processes that still work without the system, records that show what it did, alternatives that remain viable. A consequential system may draw on those capacities. It may not consume them.
+
+Some capacities are preserved precisely because the institution hopes never to need them. The law names them, records them, and treats their erosion as a governance event rather than an efficiency gain.
+
+> A consequential system may not consume the institutional capacity required to question, replace, or withdraw it.
+
+Binds through: STD-06 amendment, preserved capacities; `preserved_capacities` on the dependency record; MEC-15 withdrawal rehearsal and MEC-18 dependency ledger; Contestability Preservation eval.
+
+</SectionBlock>
+
+<SectionBlock
+  id="invariant"
+  eyebrow="Invariant"
+  title="The Ethotechnical invariant"
+  description="One sentence that compresses the twelve laws. A standard that binds any law binds a part of this."
+>
+  <blockquote>
+    <p>
+      No system may accumulate consequential agency faster than the institution
+      accumulates the capacity to inspect, challenge, revise, and survive its
+      decisions.
+    </p>
+  </blockquote>
+  <p>
+    Each verb in the invariant is a law group. Inspect is Laws III, VIII, and X.
+    Challenge is Law VII. Revise is Laws I, II, IX, and XI. Survive is Laws IV,
+    V, VI, and XII. A deployment that satisfies three of the four verbs has not
+    satisfied the invariant.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="state-variables"
+  eyebrow="State"
+  title="Six state variables"
+  description="A mature implementation makes these explicit, and the site's object model is organized around them. A system becomes unsafe when they drift apart."
+  variant="alt"
+>
+  <div class="table-responsive">
+    <table class="mapping-table">
+      <thead>
+        <tr>
+          <th scope="col">State</th>
+          <th scope="col">Question</th>
+          <th scope="col">Drift it detects</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Capability</th>
+          <td>What can the assembled system actually do?</td>
+          <td>Capability outruns authority (Law I)</td>
+        </tr>
+        <tr>
+          <th scope="row">Authority</th>
+          <td>
+            Which actions is it currently permitted to perform, for whom, until
+            when?
+          </td>
+          <td>Authority outlives evidence (Laws II, III)</td>
+        </tr>
+        <tr>
+          <th scope="row">Evidence</th>
+          <td>What propositions justify that authority?</td>
+          <td>Policy detaches from reality (Law III)</td>
+        </tr>
+        <tr>
+          <th scope="row">Dependency</th>
+          <td>How difficult would withdrawal or substitution now be?</td>
+          <td>Dependence outruns correction (Laws V, XI)</td>
+        </tr>
+        <tr>
+          <th scope="row">Standing</th>
+          <td>
+            Who can challenge which decisions or delegations, with what
+            procedural force?
+          </td>
+          <td>Exposure grows without standing (Law VII)</td>
+        </tr>
+        <tr>
+          <th scope="row">Correction</th>
+          <td>
+            Which interventions remain technically, operationally,
+            institutionally feasible?
+          </td>
+          <td>Observability grows without control (VIII, IX, XII)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    The variables are not a checklist. They are the coordinates a delegation has
+    at any moment, and the laws are constraints on how those coordinates may
+    move relative to one another.
+  </p>
+</SectionBlock>
+
+<SectionBlock
+  id="optimization-problem"
+  eyebrow="Problem"
+  title="The optimization problem"
+  description="What the discipline is trying to maximize, and what it is not."
+>
+  <p>
+    The question is not "how autonomous can the system safely become?" It is
+    "how much authority can be delegated without degrading the institution's
+    ability to revise that delegation later?"
+  </p>
+  <p>
+    The first question treats autonomy as the goal and safety as a constraint to
+    be satisfied once. The second treats the institution's continuing ability to
+    revise as the thing being protected, and autonomy as what may be spent
+    against it. Every standard, mechanism, and eval on this site is an
+    instrument for answering the second question about a particular deployment.
+  </p>
+  <p>
+    The argument for why the laws hold, rather than what they require, lives in
+    the <a href="/research/theory">theory essays</a>. A reader can adopt a
+    standard without accepting the theory. The{" "}
+    <a href="/standards/core-axioms">core axioms</a> remain in force and map
+    onto the laws.
+  </p>
+</SectionBlock>

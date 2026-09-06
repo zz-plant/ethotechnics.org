@@ -11,6 +11,8 @@ const REDIRECT_MAP: Record<string, string> = {
   "/diagnostics/llm-capacity-benchmark": "/diagnostics",
   "/diagnostics/escalation-coverage-planner": "/diagnostics",
   "/diagnostics/evidence-pack-readiness": "/diagnostics",
+  "/explainers/democratic-vs-coercive-governability":
+    "/research/theory/democratic-vs-coercive-governability",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {
@@ -25,17 +27,29 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
 
   // Taxonomy mirrors
   if (url.pathname === "/delivery" || url.pathname.startsWith("/delivery/")) {
-    const target = new URL(url.pathname.replace(/^\/delivery/, "/taxonomy/delivery"), url.origin);
+    const target = new URL(
+      url.pathname.replace(/^\/delivery/, "/taxonomy/delivery"),
+      url.origin,
+    );
     target.search = url.search;
     return target.toString();
   }
   if (url.pathname === "/assurance" || url.pathname.startsWith("/assurance/")) {
-    const target = new URL(url.pathname.replace(/^\/assurance/, "/taxonomy/assurance"), url.origin);
+    const target = new URL(
+      url.pathname.replace(/^\/assurance/, "/taxonomy/assurance"),
+      url.origin,
+    );
     target.search = url.search;
     return target.toString();
   }
-  if (url.pathname.startsWith("/governance/") && url.pathname !== "/governance") {
-    const target = new URL(url.pathname.replace(/^\/governance/, "/taxonomy/governance"), url.origin);
+  if (
+    url.pathname.startsWith("/governance/") &&
+    url.pathname !== "/governance"
+  ) {
+    const target = new URL(
+      url.pathname.replace(/^\/governance/, "/taxonomy/governance"),
+      url.origin,
+    );
     target.search = url.search;
     return target.toString();
   }
@@ -43,7 +57,8 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   // Legacy versioned API snapshots
   if (url.pathname.startsWith("/api/v/")) {
     const stripped = url.pathname.replace(/^\/api\/v\/[^/]+/, "/api");
-    const targetPath = stripped === "/api" || stripped === "/api/" ? "/api" : stripped;
+    const targetPath =
+      stripped === "/api" || stripped === "/api/" ? "/api" : stripped;
     const target = new URL(targetPath, url.origin);
     target.search = url.search;
     return target.toString();

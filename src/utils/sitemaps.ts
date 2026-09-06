@@ -34,6 +34,16 @@ const getContentEntry = async (
   }
 };
 
+const getContentEntries = async (collection: string): Promise<unknown> => {
+  try {
+    const mod = await import("astro:content");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await mod.getCollection(collection as any);
+  } catch {
+    return undefined;
+  }
+};
+
 type SitemapImage = {
   loc: string;
   title?: string;
@@ -221,6 +231,28 @@ export const buildSitemapSections = async () => {
     changefreq: "monthly",
   }));
 
+  const theoryEntries: unknown = await getContentEntries("theory");
+  const theoryPaths = Array.isArray(theoryEntries)
+    ? theoryEntries
+        .filter(
+          (
+            entry,
+          ): entry is {
+            data: { permalink: string; published: string; updated?: string };
+          } =>
+            hasEntryData<{
+              permalink: string;
+              published: string;
+              updated?: string;
+            }>(entry),
+        )
+        .map((entry) => ({
+          path: entry.data.permalink,
+          lastmod: entry.data.updated ?? entry.data.published,
+          changefreq: "monthly",
+        }))
+    : [];
+
   const incidentPaths = incidentLessons.map((lesson) => ({
     path: `/incidents/${lesson.slug}`,
     lastmod: lesson.updated ?? lesson.published,
@@ -366,6 +398,7 @@ export const buildSitemapSections = async () => {
       ...crosswalkControlPaths,
       ...incidentPaths,
       ...quickStartPaths,
+      ...theoryPaths,
     ]),
     taxonomy: applyOverrides([
       ...taxonomyPaths,

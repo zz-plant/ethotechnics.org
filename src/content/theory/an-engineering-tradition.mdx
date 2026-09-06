@@ -1,0 +1,57 @@
+---
+title: "An engineering tradition"
+description: "Structural engineering, aviation, computer security, and site reliability each built a discipline around their characteristic failure. Delegated agency needs the same, and the laws are an attempt to supply it."
+permalink: "/research/theory/an-engineering-tradition"
+eyebrow: "Theory"
+published: "2026-09-06"
+lawRefs: ["I", "IV", "VI", "X", "XI"]
+summary: "Safety factors, redundancy, least privilege, fault tolerance, and error budgets are the settled answers of older disciplines. The analogous answers for delegated agency do not yet exist."
+---
+
+Every engineering discipline that handles consequential systems eventually stops arguing about whether its systems are good and starts specifying how they may fail. The specification becomes a tradition: a set of practices that practitioners inherit, that regulators reference, and that nobody has to justify from first principles on each project. This essay looks at several such traditions, asks what they have in common, and argues that the engineering of delegated intelligence has not yet built its own.
+
+## Safety factors
+
+A structural engineer does not design a beam to carry the expected load. They design it to carry some multiple of the expected load, and the multiple is a number the profession has agreed on for that class of structure. The number is not derived from the beam. It is derived from the discipline's accumulated knowledge of everything the calculation might have missed: material variation, load estimation error, construction defects, corrosion, and uses the designer did not anticipate.
+
+The safety factor is an admission that the model of the structure is incomplete, and a decision to pay for the incompleteness up front. It is also a form of humility encoded as a rule, so that individual engineers do not have to be humble on each occasion. The rule does the work.
+
+The tradition has a second feature that matters here. The factor is larger where the consequences of failure are larger and where the loading is less certain. A pedestrian footbridge and a hospital do not get the same margin. The margin scales with the stakes and with the uncertainty, and the scaling is written down.
+
+## Aviation
+
+Aviation's tradition has two parts. The first is redundancy: no single component may be capable of causing loss of the aircraft. Critical systems are duplicated or triplicated, on the principle that independent failures are much less likely to coincide than a single failure is to occur. The design question is never whether a component will fail but what happens when it does.
+
+The second part is procedural, and it came later, from the recognition that the crew is also a system. Crew resource management arose from accidents in which the aircraft was fine and the people were not: a captain who would not hear a first officer's warning, a crew so absorbed in a minor fault that nobody flew the plane. The response was not to add more instruments. It was to redesign authority within the cockpit so that a subordinate's observation could actually change what the aircraft did. A first officer who sees a problem is expected to state it, escalate it, and if necessary take control, and the captain is trained to accept that.
+
+That is a tradition about standing. It recognizes that an observation with no route into the control of the system is not a safety feature, and it builds the route deliberately, against the grain of hierarchy.
+
+## Least privilege
+
+Computer security's central inheritance is that a process should hold only the authority it needs for the task at hand, granted for the duration of the task and no longer. The principle is old and its justification is simple: the damage a compromised or malfunctioning component can do is bounded by what it was permitted to do, so permit as little as possible.
+
+Two consequences follow that the security tradition has fully absorbed. First, capability and permission are separate. A process may be able to reach a resource and still not be permitted to use it; reachability is a fact about the network, permission is a fact about policy, and conflating them is the root of most breaches. Second, permission is not permanent. Credentials expire, sessions time out, and elevated access is granted for a window and then withdrawn. Nobody in the security tradition would regard a permanent, unscoped grant of authority as acceptable design, however trustworthy the process.
+
+## Fault tolerance and error budgets
+
+Distributed systems engineering added the idea that failure is not an exception but a continuous condition of operation. Components fail constantly; the system is designed so that their failure does not become the system's failure. Retries, timeouts, circuit breakers, and graceful degradation are the vocabulary, and each of them is a designed response to a class of failure the engineer expects to see.
+
+Site reliability engineering then made a further move that is directly relevant here. It stated an explicit budget for failure. A service that is allowed to be unavailable for a defined fraction of the time has, in that fraction, a resource to spend. When the budget is spent, feature work stops and reliability work begins. The rule couples the pace of change to the observed rate of failure, and it does so mechanically, so that the coupling does not depend on anyone's judgment in the moment.
+
+The error budget is the closest existing analogue to what this site calls the Ethotechnical invariant. It says that a system may not accumulate change faster than it demonstrates the capacity to absorb the consequences of change. It makes success, in the form of an unspent budget, the permission for further change, and it makes failure, in the form of a spent budget, an automatic constraint.
+
+## What the traditions share
+
+Set side by side, the traditions have a common shape. Each identifies the characteristic way its systems fail. Each decides, as a profession, how much margin against that failure is owed, and scales the margin to the stakes. Each separates what a component can do from what it is permitted to do. Each treats authority as bounded in time and scope. Each builds a route by which an observation of failure changes the behavior of the system. And each does this through rules that individual practitioners inherit rather than derive.
+
+None of these traditions is about whether the component is good. A beam is not evaluated for its virtue; it is evaluated for its load rating, and then the safety factor is applied regardless. A process is not granted root because it is well written. A first officer does not defer because the captain is experienced. The traditions are about the relation between the component and the system, and about keeping that relation safe whatever the component turns out to be.
+
+## The missing tradition
+
+Delegated agency has a characteristic failure, and it is not the model being wrong. It is the delegation ceasing to be justified while continuing to operate: authority granted on old evidence, scope expanded by accretion, dependence deepened until withdrawal is unthinkable, oversight reduced to approval, and the capacities that would let the institution reconsider quietly consumed by the thing they would reconsider.
+
+Against that failure there is, so far, no tradition. There are model evaluations, which are the load rating without the safety factor. There are permissions, which are least privilege applied to tool calls and rarely to the delegation as a whole. There are human-in-the-loop requirements, which are crew resource management without the redesign of authority that made it work. There is no agreed margin, no agreed scaling of the margin with stakes, no agreed lease structure for authority, no agreed budget that couples expansion to demonstrated corrective capacity.
+
+The twelve laws are an attempt to state what such a tradition would hold. Capability does not imply authority is least privilege applied to delegation. Every delegation creates a correction obligation is the safety factor. Nominal reversibility is not operational reversibility is the aviation insistence that a control is only a control if it can actually be exercised. The relevant eval sits at the highest layer where harm can emerge is the recognition that the aircraft includes the crew. Successful automation increases its own governance burden is the error budget, run in the direction that matters for authority rather than availability.
+
+None of this is novel as engineering. It is novel only as applied to the delegation of consequential agency, which is the one place the older traditions do not reach, and the one place where the systems now being built will fail.
