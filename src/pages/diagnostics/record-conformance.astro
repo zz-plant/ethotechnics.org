@@ -1,0 +1,45 @@
+---
+import "../../styles/components/diagnostics.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DiagnosticToolPage from "../../components/DiagnosticToolPage.astro";
+import { diagnosticsStudioOffRampCallout } from "../../content/callouts";
+import { diagnosticsContent } from "../../content/diagnostics";
+import RecordConformanceWidget from "../../features/record-conformance/RecordConformance";
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === "record-conformance",
+);
+
+if (!tool) {
+  return new Response("Diagnostic not found", {
+    status: 404,
+  });
+}
+
+const { publication } = diagnosticsContent;
+const pageTitle = `${tool.title} — Diagnostics`;
+const pageDescription = tool.description;
+const permalink = `/diagnostics/${tool.slug}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-09-06T00:00:00.000Z"
+  mainClass="page page--wide"
+>
+  <DiagnosticToolPage
+    tool={tool}
+    publication={publication}
+    permalink={permalink}
+    overviewTitle="When to use the Record Conformance Checker."
+    methodologyDescription="What the checker verifies from a stream, what it cannot tell you, and how the earned level is computed."
+    sampleOutputTitle="Preview the conformance readout."
+    sampleOutputDescription="The earned level, what holds it below the next one, and findings graded blocking, finding, or note with the clause each comes from."
+    runSectionTitle="Audit a record stream."
+    runSectionDescription="Paste or load a stream, set the level its emitter declares, and read what it actually earns. Nothing is uploaded."
+    studioOffRamp={diagnosticsStudioOffRampCallout}
+  >
+    <RecordConformanceWidget client:load />
+  </DiagnosticToolPage>
+</BaseLayout>

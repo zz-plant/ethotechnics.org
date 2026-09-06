@@ -490,6 +490,14 @@ export const structuredData = {
           <code>kind</code>.
         </p>
         <p>
+          <a href="/diagnostics/record-conformance">
+            The Record Conformance Checker
+          </a>{" "}
+          reads a stream and returns the level it earns, against the level its
+          emitter declares. It runs in the browser and uploads nothing, because
+          these records are internal or private by design.
+        </p>
+        <p>
           A TypeScript validator, canonical serializer, and hash helper that
           mirror the schema live in this site's source at
           <code>src/utils/revisable-delegation-record.ts</code>; a test
@@ -554,9 +562,15 @@ export const structuredData = {
           describe.
         </p>
         <p>
-          Nothing reads either stream yet. A record format with emitters and no
-          readers is a documentation format, and the levels above stay
-          self-declared until something can check them.
+          Until this draft nothing read either stream, and a record format with
+          emitters and no readers is a documentation format. The{" "}
+          <a href="/diagnostics/record-conformance">
+            Record Conformance Checker
+          </a>{" "}
+          is the reader: it grades a stream against the level its emitter
+          declares, so a claim can be contradicted by something other than good
+          faith. No emitting system consumes another's records yet, which is a
+          different and still-open gap.
         </p>
         <p>
           Three rules for adopters. First, map the existing log; do not build a
