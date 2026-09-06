@@ -87,6 +87,11 @@
               "title": "Glossary: Stoppability",
               "description": "Shared language for halts, safety valves, and time-to-halt targets.",
               "href": "/glossary/stoppability"
+            },
+            {
+              "title": "MEC-17 Capability catalog",
+              "description": "Separate what the system can do from what it is permitted to do.",
+              "href": "/mechanisms/patterns/capability-catalog"
             }
           ]
         },
@@ -131,6 +136,11 @@
               "title": "Glossary: Repair log",
               "description": "Trace fixes, follow-ups, and published commitments over time.",
               "href": "/glossary/repair-log"
+            },
+            {
+              "title": "MEC-13 Authority grant register",
+              "description": "Grants with issuer, scope, evidence basis, expiry, and state history.",
+              "href": "/mechanisms/patterns/authority-grant-register"
             }
           ]
         }
@@ -346,6 +356,60 @@
           ]
         },
         {
+          "slug": "hard-clock",
+          "title": "MEC-04 The Hard Clock",
+          "summary": "Give every system state a declared maximum duration so nothing sits in pending forever without escalation, expiry, or an exit.",
+          "filters": ["governance", "friction"],
+          "glossaryRefs": ["time-to-halt", "escalation", "contestability"],
+          "cues": [
+            "Declare the maximum duration of each state before people commit to the process.",
+            "Decide in advance whether expiry fails safe or escalates to a named human.",
+            "Review timeout logs monthly with the steward who owns the clock."
+          ],
+          "diagnostics": ["maintenance-simulator"],
+          "steps": [
+            "Inventory every state a request can occupy and set a maximum duration for each.",
+            "Wire expiry to a fail-safe resolution or a human escalation with a named owner.",
+            "Show the declared duration in the interface and log every breach for monthly review."
+          ],
+          "policyRequirement": "Policy requirement (MEC-04 The Hard Clock)\n- Every automated process declares a maximum duration and a human escalation path when it is exceeded.\n- Expired processes fail safe and preserve user state for re-entry.\nReference: https://ethotechnics.org/mechanisms/patterns/hard-clock",
+          "productRequirement": "Product requirement (MEC-04)\n- The declared maximum duration is visible before a person commits to the process.\n- Timeout events emit a receipt with the state, elapsed time, and escalation owner.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-04)\n[ ] Each system state has a documented maximum duration.\n[ ] Timeout logs record expiry, resolution, and escalation owner.\n[ ] Monthly reviews are completed by the named steward.",
+          "postmortemTrigger": "Postmortem trigger (MEC-04)\nTrigger review when a state exceeds its declared duration without failing safe or escalating.",
+          "artifacts": [
+            {
+              "name": "Specification sheet",
+              "purpose": "The full MEC-04 sheet with the definition, the violation, and the spec at /mechanisms/mec-04-hard-clock."
+            },
+            {
+              "name": "Facilitation script (PDF)",
+              "purpose": "Workshop script for setting durations with delivery and support teams, at /assets/mec-04-hard-clock-facilitation-script.pdf."
+            },
+            {
+              "name": "Timeout log",
+              "purpose": "Record of expiries, resolutions, and escalations for the monthly steward review."
+            }
+          ],
+          "example": {
+            "title": "Bounding a manual review queue",
+            "description": "A payments team caps identity review at 72 hours, shows the cap at submission, and routes anything still pending at expiry to a named reviewer who must release or refuse the hold."
+          },
+          "antiPatterns": [
+            {
+              "title": "Pending with no ceiling",
+              "failure": "A state has a target but no maximum, so slow cases accumulate with no escalation.",
+              "counterfactual": "Every state declares a maximum duration and a resolution at expiry.",
+              "warning": "Targets and maximums can differ; publish both rather than replacing one with the other."
+            },
+            {
+              "title": "Clock without a resolution",
+              "failure": "The timer expires and emits an alert, but the request stays in the same state.",
+              "counterfactual": "Expiry moves the request to a fail-safe outcome or a named human.",
+              "warning": "Escalation counts as a resolution only when the escalation owner can change the state."
+            }
+          ]
+        },
+        {
           "slug": "kill-switch",
           "title": "MEC-05 Kill switch for runaway automation",
           "summary": "Pre-authorized halt paths with named stewards, thresholds, and restoration drills so harms stop in seconds.",
@@ -470,17 +534,19 @@
           "cues": [
             "Instrument veto, halt, and restore events with owner and trigger metadata.",
             "Publish accountability latency targets alongside time-to-halt SLAs.",
-            "Tie latency deltas to post-incident repair log entries."
+            "Tie latency deltas to post-incident repair log entries.",
+            "Feed latency observations into the transition rules on authority grants, so a breach can move a grant to review_required."
           ],
           "diagnostics": ["maintenance-simulator"],
           "steps": [
             "Define the telemetry contract for veto, halt, and restoration events.",
             "Surface a dashboard that shows median latency and breach incidents.",
-            "Review latency drift during governance reviews and update runbooks."
+            "Review latency drift during governance reviews and update runbooks.",
+            "Wire breach events to the grant transition rules in the authority grant register so an observation can change the governing state."
           ],
           "policyRequirement": "Policy requirement (MEC-07 Accountability latency tracker)\n- Track veto, halt, and restore latencies with owner, trigger, and system context.\n- Publish accountability latency targets in incident response runbooks.\nReference: https://ethotechnics.org/mechanisms/patterns/accountability-latency-tracker",
           "productRequirement": "Product requirement (MEC-07)\n- Monitoring dashboards show accountability latency alongside time-to-halt metrics.\n- Veto events emit receipts linked to the repair log and designated escalation owners.",
-          "auditEvidenceChecklist": "Audit evidence checklist (MEC-07)\n[ ] Telemetry captures veto, halt, and restore events with timestamps.\n[ ] Dashboards report median and worst-case accountability latency.\n[ ] Incident reviews include latency deltas and corrective actions.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-07)\n[ ] Telemetry captures veto, halt, and restore events with timestamps.\n[ ] Dashboards report median and worst-case accountability latency.\n[ ] Incident reviews include latency deltas and corrective actions.\n[ ] Latency breaches are wired to grant transitions and produce a reconsideration record.",
           "postmortemTrigger": "Postmortem trigger (MEC-07)\nTrigger review when accountability latency breaches published targets or telemetry is missing.",
           "artifacts": [
             {
@@ -528,13 +594,15 @@
           "cues": [
             "Publish a stable API contract that documents inputs, owners, and response timelines.",
             "Return receipts with contest IDs, status, and escalation paths on submission.",
-            "Require binding authority to update system state when contests are upheld."
+            "Require binding authority to update system state when contests are upheld.",
+            "Carry the standing-register fields in the contract: who may challenge, what they may challenge, admissible evidence, the obliged responder, the deadline, the standard of review, and the transitions a successful challenge can produce."
           ],
           "diagnostics": ["burden-modeler", "maintenance-simulator"],
           "steps": [
             "Define an authenticated contestation endpoint with required evidence fields.",
             "Emit status updates via webhooks or receipts tied to the decision record.",
-            "Link contest outcomes to state-change logs and remedy tracking."
+            "Link contest outcomes to state-change logs and remedy tracking.",
+            "Publish the standing register alongside the API so a challenger can see the responder, deadline, standard of review, and possible state transitions before filing."
           ],
           "policyRequirement": "Policy requirement (MEC-08 Contestation APIs)\n- Publish a contestation API with binding authority and response timelines.\n- Ensure contest outcomes can trigger state changes without manual re-entry.\nReference: https://ethotechnics.org/mechanisms/patterns/contestation-apis",
           "productRequirement": "Product requirement (MEC-08)\n- Each contest submission returns a receipt with owner, SLA clock, and escalation path.\n- Contest outcomes update the decision state and notify the impacted party.",
@@ -552,6 +620,10 @@
             {
               "name": "State-change log",
               "purpose": "Links contest outcomes to decision reversals and remedy actions."
+            },
+            {
+              "name": "Standing register",
+              "purpose": "Who may challenge what, with admissible evidence, obliged responder, deadline, standard of review, and possible transitions."
             }
           ],
           "example": {
@@ -564,6 +636,12 @@
               "failure": "Contests are accepted but never mutate the underlying decision state.",
               "counterfactual": "Contestation outcomes are wired directly to state-change workflows.",
               "warning": "Manual overrides are acceptable only when logs prove timely updates."
+            },
+            {
+              "title": "Channel without standing",
+              "failure": "The API accepts submissions but never says who is entitled to a response, by when, or against what standard it will be judged.",
+              "counterfactual": "The contract names the responder, the deadline, the standard of review, and the transitions a successful challenge can produce.",
+              "warning": "A broad standing rule is fine; leaving standing unstated is not."
             }
           ]
         },
@@ -760,6 +838,412 @@
               "failure": "Teams rely on documentation without running drills.",
               "counterfactual": "Stoppability drills run on a calendar and log outcomes.",
               "warning": "Simulated drills are acceptable if production tests are risky."
+            }
+          ]
+        },
+        {
+          "slug": "authority-grant-register",
+          "title": "MEC-13 Authority grant register",
+          "summary": "Hold every delegated authority as a stateful record with provenance, scope, evidence basis, expiry, revocation conditions, and state history.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": [
+            "design-authority",
+            "permission-surface",
+            "decision-reversal-authority"
+          ],
+          "cues": [
+            "Give each grant a state, not a boolean: proposed, allowed, review_required, suspended, revoked.",
+            "Record what the grant rests on, who issued it, and what would end it.",
+            "Expose the register to the decision log so an action can name the grant it ran under."
+          ],
+          "diagnostics": ["system-auditor"],
+          "steps": [
+            "Enumerate the authorities the system currently exercises and write one record per grant.",
+            "Add provenance, scope, evidence basis, expiry, and revocation conditions to each record.",
+            "Append every state change to the grant's history and link the register to the decision log."
+          ],
+          "policyRequirement": "Policy requirement (MEC-13 Authority grant register)\n- Maintain a register of delegated authorities with issuer, scope, evidence basis, expiry, and revocation conditions.\n- Record every grant state change with its reason and reviewer, and expose the register to the decision log.\nReference: https://ethotechnics.org/mechanisms/patterns/authority-grant-register",
+          "productRequirement": "Product requirement (MEC-13)\n- Each consequential action names the grant identifier and grant state it ran under.\n- Grants past expiry move to review_required and are refused until a reviewer renews them.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-13)\n[ ] Every exercised authority has a register entry with issuer and scope.\n[ ] Grants carry an expiry and stated revocation conditions.\n[ ] State history shows who changed each grant and on what basis.",
+          "postmortemTrigger": "Postmortem trigger (MEC-13)\nTrigger review when an action runs under a grant that is missing, expired, or not in the allowed state.",
+          "artifacts": [
+            {
+              "name": "Grant record template",
+              "purpose": "Fields for issuer, holder, scope, evidence basis, expiry, revocation conditions, and state."
+            },
+            {
+              "name": "State transition table",
+              "purpose": "The permitted moves between grant states and who may make each one."
+            },
+            {
+              "name": "Renewal calendar",
+              "purpose": "Upcoming expiries with the reviewer responsible for each renewal decision."
+            }
+          ],
+          "example": {
+            "title": "Registering an agent's refund authority",
+            "description": "A support platform records the agent's refund authority as a grant with a value ceiling, an evidence basis in the last accuracy review, a 90-day expiry, and revocation on any confirmed mis-refund; the refund endpoint reads the grant state before acting."
+          },
+          "antiPatterns": [
+            {
+              "title": "Permissions as config",
+              "failure": "Authority lives in a role file or feature flag with no issuer, basis, or expiry, so widening it is a deploy rather than a decision.",
+              "counterfactual": "Authority lives in a register where each grant names its issuer, basis, expiry, and revocation conditions.",
+              "warning": "Config can still enforce the grant; the register is the record of why the config says what it says."
+            },
+            {
+              "title": "Register without state",
+              "failure": "Grants are documented once and never move, so an expired or contested grant reads the same as a current one.",
+              "counterfactual": "Each grant carries a current state and an appended history of transitions.",
+              "warning": "A stable grant is fine; what matters is that the register can show it was reviewed and left in place."
+            }
+          ]
+        },
+        {
+          "slug": "policy-review-triggers",
+          "title": "MEC-14 Policy review triggers",
+          "summary": "Treat policy as state by giving every policy record an expiry and named triggers that move dependent grants to review when the world changes.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": [
+            "design-authority",
+            "reversibility",
+            "permission-surface"
+          ],
+          "cues": [
+            "Write down the propositions a policy assumes, not only the rule it states.",
+            "Name the observation that should reopen the policy, and the threshold that counts.",
+            "Link each policy to the grants that rest on it so a fired trigger can reach them."
+          ],
+          "diagnostics": ["system-auditor", "maintenance-simulator"],
+          "steps": [
+            "Give each policy a version, an assumption list, an expiry, and named review triggers.",
+            "Link grants to the policies they depend on so the dependency is queryable.",
+            "On a fired trigger or a passed expiry, move dependent grants to review_required and notify the reviewer."
+          ],
+          "policyRequirement": "Policy requirement (MEC-14 Policy review triggers)\n- Every policy record carries a version, stated assumptions, an expiry, and named review triggers.\n- A fired trigger or a passed expiry moves dependent authority grants to review_required.\nReference: https://ethotechnics.org/mechanisms/patterns/policy-review-triggers",
+          "productRequirement": "Product requirement (MEC-14)\n- Policy records expose the grants that depend on them and the triggers that reopen them.\n- Trigger events emit a reconsideration record with the observation that fired them.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-14)\n[ ] Each policy states its assumptions, expiry, and review triggers.\n[ ] Grant-to-policy links are recorded and current.\n[ ] Fired triggers show the resulting grant state changes and reviewer decisions.",
+          "postmortemTrigger": "Postmortem trigger (MEC-14)\nTrigger review when a material change in the evidence left the policy and its dependent grants untouched.",
+          "artifacts": [
+            {
+              "name": "Policy record template",
+              "purpose": "Version, assumptions, evidence, expiry, triggers, and dependent grants in one record."
+            },
+            {
+              "name": "Trigger catalog",
+              "purpose": "The observations and thresholds that reopen a policy, with the owner of each."
+            },
+            {
+              "name": "Reconsideration log",
+              "purpose": "What fired, which grants moved, who reviewed, and what was decided."
+            }
+          ],
+          "example": {
+            "title": "Reopening an eligibility rule after a population shift",
+            "description": "A benefits team gives its eligibility policy a 12-month expiry and a trigger on a five-point shift in applicant mix; when the shift lands, the two grants that cite the policy move to review_required and the reviewer renews one and narrows the other."
+          },
+          "antiPatterns": [
+            {
+              "title": "Policy as ground truth",
+              "failure": "The policy is treated as a fixed input consumed at deployment, so changed facts never reach the authority that rests on it.",
+              "counterfactual": "Policy is a versioned state with assumptions, expiry, and triggers that can move grants.",
+              "warning": "A policy can be long-lived; what it may not be is unreviewable."
+            },
+            {
+              "title": "Triggers with no destination",
+              "failure": "Alerts fire on the metric but nothing in the authority state changes.",
+              "counterfactual": "A fired trigger moves the dependent grants and produces a reconsideration record.",
+              "warning": "A reviewer may leave the grant in place; the record of that decision is the point."
+            }
+          ]
+        },
+        {
+          "slug": "withdrawal-rehearsal",
+          "title": "MEC-15 Withdrawal rehearsal",
+          "summary": "Run the workflow without the system on a schedule and measure what withdrawal would actually cost at the technical, operational, and institutional levels.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": [
+            "right-of-exit",
+            "reversibility",
+            "heroism-dependent-systems"
+          ],
+          "cues": [
+            "Rehearse the workflow without the system rather than testing that the switch flips.",
+            "Measure cost, the expertise still available, and time to restore at each reversibility level.",
+            "Record which capacities have to be preserved to keep the rehearsal possible next year."
+          ],
+          "diagnostics": ["maintenance-simulator", "capacity-forecaster"],
+          "steps": [
+            "Pick a bounded slice of the workflow and run it without the system for a defined window.",
+            "Record the cost, the people who still hold the expertise, and the time to restore service at the technical, operational, and institutional levels.",
+            "Publish the gaps as preserved capacities with owners and a date for the next rehearsal."
+          ],
+          "policyRequirement": "Policy requirement (MEC-15 Withdrawal rehearsal)\n- Rehearse operating the workflow without the system on a published schedule.\n- Record cost, expertise available, and time to restore at the technical, operational, and institutional levels.\nReference: https://ethotechnics.org/mechanisms/patterns/withdrawal-rehearsal",
+          "productRequirement": "Product requirement (MEC-15)\n- The system supports a rehearsal mode that suspends automated handling for a defined scope and window.\n- Rehearsal outcomes are recorded against the dependency record for the workflow.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-15)\n[ ] Rehearsals ran on schedule with a defined scope and window.\n[ ] Results state cost, expertise available, and time to restore at all three levels.\n[ ] Preserved capacities have named owners and review dates.",
+          "postmortemTrigger": "Postmortem trigger (MEC-15)\nTrigger review when a rehearsal is skipped, or when it shows the workflow can no longer be run without the system.",
+          "artifacts": [
+            {
+              "name": "Rehearsal plan",
+              "purpose": "Scope, window, participants, and the measures to be taken during the exercise."
+            },
+            {
+              "name": "Three-level reversibility readout",
+              "purpose": "Cost and time to restore recorded separately for technical, operational, and institutional withdrawal."
+            },
+            {
+              "name": "Preserved capacity list",
+              "purpose": "The staffing, tooling, and knowledge that must be maintained for withdrawal to stay possible, with owners."
+            }
+          ],
+          "example": {
+            "title": "A week of manual triage",
+            "description": "A claims team runs one region manually for a week each quarter, finds that throughput halves and that only two reviewers still hold the rules, and funds a training rotation as a preserved capacity."
+          },
+          "antiPatterns": [
+            {
+              "title": "The switch exists",
+              "failure": "A documented kill switch is treated as proof of reversibility, though nobody has run the workflow without the system in years.",
+              "counterfactual": "Withdrawal is rehearsed on a schedule and the cost of doing it is measured.",
+              "warning": "A rehearsal can be scoped to a slice of traffic; what it may not be is hypothetical."
+            },
+            {
+              "title": "Rehearsal without a record",
+              "failure": "The drill happens but produces no measurement, so nothing can be compared to last year.",
+              "counterfactual": "Each rehearsal records cost, expertise, and restore time against the dependency record.",
+              "warning": "Qualitative findings are useful, but at least one comparable measure has to survive the exercise."
+            }
+          ]
+        },
+        {
+          "slug": "intervention-specification",
+          "title": "MEC-16 Intervention specification",
+          "summary": "Replace the human-in-the-loop checkbox with a specification of who intervenes, what they can see, what they can prevent or alter, and what happens when they disagree.",
+          "filters": ["governance", "friction"],
+          "glossaryRefs": [
+            "human-override-lanes",
+            "decision-reversal-authority",
+            "time-to-halt"
+          ],
+          "cues": [
+            "State what the intervener can see at the moment of the decision, not afterwards.",
+            "Separate what they can prevent from what they can alter after the fact.",
+            "Write down what happens when the human disagrees with the system."
+          ],
+          "diagnostics": ["maintenance-simulator", "burden-modeler"],
+          "steps": [
+            "Name the intervention owner and the decisions they cover.",
+            "Record the information available, the actions preventable, the states alterable, and the on-disagreement path.",
+            "Record the incentives acting on the intervener, the cost of intervening, and the time it takes them to reach the decision."
+          ],
+          "policyRequirement": "Policy requirement (MEC-16 Intervention specification)\n- Any control described as human oversight is documented as an intervention specification with owner, information available, actions preventable, states alterable, and on-disagreement path.\n- The specification records the incentives, the cost of intervening, and the time to reach the decision.\nReference: https://ethotechnics.org/mechanisms/patterns/intervention-specification",
+          "productRequirement": "Product requirement (MEC-16)\n- The interface presents the intervener with the information the specification names, before the action commits.\n- Disagreement is a recorded outcome with a route, not an unlogged override.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-16)\n[ ] Every claimed oversight control has a current intervention specification.\n[ ] Reach time and cost of intervening are measured, not asserted.\n[ ] Disagreement outcomes are logged with what changed as a result.",
+          "postmortemTrigger": "Postmortem trigger (MEC-16)\nTrigger review when a decision described as human-reviewed proceeded without the reviewer being able to alter it.",
+          "artifacts": [
+            {
+              "name": "Intervention specification template",
+              "purpose": "Owner, information, preventable actions, alterable states, disagreement path, incentives, cost, and reach time."
+            },
+            {
+              "name": "Reach-time measurement",
+              "purpose": "Observed time between the trigger and the intervener being in a position to act."
+            },
+            {
+              "name": "Disagreement log",
+              "purpose": "Cases where the intervener disagreed, what route it took, and what changed."
+            }
+          ],
+          "example": {
+            "title": "Specifying review on an automated suspension",
+            "description": "A trust and safety team documents that the on-call reviewer sees the evidence and the account history, can prevent suspension for 30 minutes, can reverse it for 14 days, and that disagreement routes to a policy owner within one business day."
+          },
+          "antiPatterns": [
+            {
+              "title": "Rubber-stamp review",
+              "failure": "A human approves in bulk without the information or the time to alter the outcome, and the approval is counted as oversight.",
+              "counterfactual": "The specification states what the reviewer sees, what they can change, and how long they have.",
+              "warning": "High approval rates are not proof of rubber-stamping; the test is whether refusal was possible and reachable."
+            },
+            {
+              "title": "Oversight named but not scoped",
+              "failure": "Policy says a human is in the loop without saying which decisions, which states, or which disagreement path.",
+              "counterfactual": "Each oversight claim resolves to a specification covering named decisions.",
+              "warning": "One specification can cover a class of decisions if the class is stated."
+            }
+          ]
+        },
+        {
+          "slug": "capability-catalog",
+          "title": "MEC-17 Capability catalog",
+          "summary": "Keep a discovery surface separate from the grant register so a system can reason about what it could do without being empowered to do it.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": [
+            "permission-surface",
+            "bounded-autonomy",
+            "proxy-privilege"
+          ],
+          "cues": [
+            "Let discovery answer what is possible; let the grant register answer what is permitted.",
+            "Record how each capability was tested, and when.",
+            "Refuse an ungranted action by naming the capability and the missing grant."
+          ],
+          "diagnostics": ["system-auditor"],
+          "steps": [
+            "Catalog the actions the assembled system can perform, including those reachable through tools and sub-agents.",
+            "Record for each capability how it was verified and when that verification expires.",
+            "Serve the catalog on a read path that carries no authority, and refuse execution unless a grant is in the allowed state."
+          ],
+          "policyRequirement": "Policy requirement (MEC-17 Capability catalog)\n- Maintain a catalog of what the assembled system can do, separate from the register of what it is permitted to do.\n- Discovery of a capability confers no authority; execution requires a grant in the allowed state.\nReference: https://ethotechnics.org/mechanisms/patterns/capability-catalog",
+          "productRequirement": "Product requirement (MEC-17)\n- Capability discovery succeeds for actions the system cannot lawfully perform.\n- A refusal names the capability, the required grant, and the grant's current state.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-17)\n[ ] The catalog lists capabilities reachable through tools and sub-agents.\n[ ] Each capability records its verification method and date.\n[ ] Attempts to execute ungranted capabilities are refused and logged.",
+          "postmortemTrigger": "Postmortem trigger (MEC-17)\nTrigger review when a newly reachable capability was exercised without a grant being issued for it.",
+          "artifacts": [
+            {
+              "name": "Capability record template",
+              "purpose": "Action, surface, preconditions, verification method, and verification date."
+            },
+            {
+              "name": "Discovery endpoint contract",
+              "purpose": "Read-only interface that returns capabilities and their grant status without granting anything."
+            },
+            {
+              "name": "Refusal message pattern",
+              "purpose": "Standard wording that cites the capability, the required grant, and its state."
+            }
+          ],
+          "example": {
+            "title": "An agent that can see the payout tool it may not use",
+            "description": "An operations agent discovers the payout tool in the catalog, reads that the matching grant is in review_required, refuses the action citing the grant identifier and state, and files a request for authorization instead."
+          },
+          "antiPatterns": [
+            {
+              "title": "Discover equals permit",
+              "failure": "Anything the system can reach is treated as something it may do, so capability growth silently widens authority.",
+              "counterfactual": "Discovery and authorization are separate surfaces, and execution checks the grant.",
+              "warning": "Hiding a capability is not a substitute for refusing it; a hidden capability that executes is still ungoverned."
+            },
+            {
+              "title": "Catalog without verification",
+              "failure": "Capabilities are listed from documentation, so the catalog describes intent rather than what the system can actually do.",
+              "counterfactual": "Each entry records how the capability was tested and when.",
+              "warning": "Verification can be sampled; the record should say which entries are asserted rather than tested."
+            }
+          ]
+        },
+        {
+          "slug": "dependency-ledger",
+          "title": "MEC-18 Dependency ledger",
+          "summary": "Track who now depends on the system, what substitution would cost, which expertise remains, and which capacities are being preserved to keep withdrawal possible.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": [
+            "moral-lock-in",
+            "exit-coercion",
+            "heroism-dependent-systems"
+          ],
+          "cues": [
+            "Treat dependence as a state variable that moves, not as a background condition.",
+            "Record alternatives while they still exist, not once they are gone.",
+            "Give every preserved capacity an owner and a budget line."
+          ],
+          "diagnostics": ["capacity-forecaster", "maintenance-debt-calculator"],
+          "steps": [
+            "List the dependents on the workflow, inside and outside the organization.",
+            "Record substitution cost, the expertise retained, and the alternatives that still exist, and derive an exposure score.",
+            "Name the preserved capacities with owners and review the ledger on the same cadence as the safety case."
+          ],
+          "policyRequirement": "Policy requirement (MEC-18 Dependency ledger)\n- Maintain a dependency ledger with dependents, substitution cost, expertise retained, alternatives, and an exposure score.\n- Name the capacities preserved to keep withdrawal possible, each with an owner.\nReference: https://ethotechnics.org/mechanisms/patterns/dependency-ledger",
+          "productRequirement": "Product requirement (MEC-18)\n- Exposure score and its inputs are reported alongside reliability metrics.\n- Changes in dependents or alternatives update the ledger within the review cycle.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-18)\n[ ] Dependents are listed with the consequence of an outage for each.\n[ ] Substitution cost, expertise retained, and alternatives are recorded and dated.\n[ ] Preserved capacities have owners and evidence they are still funded.",
+          "postmortemTrigger": "Postmortem trigger (MEC-18)\nTrigger review when exposure rises materially without a corresponding change in preserved capacity.",
+          "artifacts": [
+            {
+              "name": "Dependency record template",
+              "purpose": "Dependents, substitution cost, expertise retained, alternatives, and exposure score."
+            },
+            {
+              "name": "Exposure score worksheet",
+              "purpose": "How depth of dependence, substitution cost, and correction latency combine into the score."
+            },
+            {
+              "name": "Preserved capacity register",
+              "purpose": "Capacities kept alive for withdrawal, with owners, budget, and review dates."
+            }
+          ],
+          "example": {
+            "title": "Ledger for a scheduling system three years in",
+            "description": "A hospital records that two departments have retired their manual rota, that the last two schedulers who could rebuild it retire next year, and funds a documented fallback rota as a preserved capacity."
+          },
+          "antiPatterns": [
+            {
+              "title": "Reliability as safety",
+              "failure": "High uptime is read as low risk, while the institution's ability to work without the system quietly disappears.",
+              "counterfactual": "Dependence is tracked separately from reliability, with its own score and owners.",
+              "warning": "A reliable system can be a safe one; the ledger asks a different question, which is what happens when it is gone."
+            },
+            {
+              "title": "Ledger without alternatives",
+              "failure": "Dependents are recorded but substitutes are never checked, so the entry cannot show when the last alternative disappeared.",
+              "counterfactual": "Alternatives are re-checked on the review cadence and dated.",
+              "warning": "Having no alternative is a legitimate finding as long as it is recorded as one."
+            }
+          ]
+        },
+        {
+          "slug": "expansion-review",
+          "title": "MEC-19 Expansion review",
+          "summary": "Make scope growth its own authorization decision, with fresh evidence and a check that correction capacity grew with it.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": [
+            "earned-autonomy",
+            "bounded-autonomy",
+            "design-authority"
+          ],
+          "cues": [
+            "Treat a successful pilot as a request to expand, not as an approval to expand.",
+            "Ask what correction capacity the wider scope needs before the scope moves.",
+            "Record expansion as a transition on the grant, with its own evidence."
+          ],
+          "diagnostics": ["system-auditor", "capacity-forecaster"],
+          "steps": [
+            "Define what counts as expansion for this system: new population, new action class, higher ceiling, or lower attendance.",
+            "Require an expansion record with the evidence for the wider scope and the correction capacity it will need.",
+            "Record the decision as an expansion transition on the grant, or refuse it and say what evidence is missing."
+          ],
+          "policyRequirement": "Policy requirement (MEC-19 Expansion review)\n- Any growth in population, action class, ceiling, or autonomy is authorized as a new decision with its own evidence.\n- The decision records whether correction capacity grows with the expanded scope.\nReference: https://ethotechnics.org/mechanisms/patterns/expansion-review",
+          "productRequirement": "Product requirement (MEC-19)\n- Scope changes are applied through a grant transition, not through configuration drift.\n- The grant history distinguishes expansion transitions from renewals.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-19)\n[ ] Expansion criteria are defined for the system.\n[ ] Each expansion has a record with evidence and a correction-capacity check.\n[ ] Grant histories show expansion transitions with reviewers.",
+          "postmortemTrigger": "Postmortem trigger (MEC-19)\nTrigger review when scope grew without an expansion record, or when it grew while correction capacity stayed fixed.",
+          "artifacts": [
+            {
+              "name": "Expansion record template",
+              "purpose": "Proposed scope change, evidence for it, and the correction capacity it requires."
+            },
+            {
+              "name": "Correction capacity check",
+              "purpose": "Comparison of the reviewers, reversal paths, and repair budget before and after the change."
+            },
+            {
+              "name": "Expansion criteria list",
+              "purpose": "What counts as expansion for this system, agreed before the first request."
+            }
+          ],
+          "example": {
+            "title": "From one region to all regions",
+            "description": "A pilot that ran well in one region is treated as a request rather than a result: the team files an expansion record, finds the appeals queue would need two more reviewers, funds them, and only then transitions the grant."
+          },
+          "antiPatterns": [
+            {
+              "title": "The automation ratchet",
+              "failure": "Success is taken as its own authorization, so scope only ever widens and never contracts.",
+              "counterfactual": "Expansion is a decision with evidence, and contraction is an available outcome.",
+              "warning": "Fast expansion is fine when each step is a recorded decision with capacity behind it."
+            },
+            {
+              "title": "Expansion by configuration",
+              "failure": "Scope grows through a threshold change or a new tool binding that no one reviews as an authority change.",
+              "counterfactual": "Scope changes move through a grant transition with a reviewer.",
+              "warning": "Routine parameter tuning inside an agreed ceiling is not expansion; crossing the ceiling is."
             }
           ]
         }

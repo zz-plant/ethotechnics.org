@@ -284,12 +284,12 @@ export const practiceSections: PracticeSection[] = [
         href: "/mechanisms/patterns/decision-log",
       },
       {
-        title: "MEC-06 Contestability & appeals",
-        href: "/mechanisms/patterns/contestability",
+        title: "MEC-06 Appeal paths inside the UI",
+        href: "/mechanisms/patterns/appeal-paths",
       },
       {
-        title: "MEC-07 Evidence packs",
-        href: "/mechanisms/patterns/evidence-pack",
+        title: "Evidence packs",
+        href: "/evidence-packs",
       },
     ],
     gaps: [
@@ -313,8 +313,8 @@ export const practiceSections: PracticeSection[] = [
     ],
     mechanisms: [
       {
-        title: "MEC-06 Contestability & appeals",
-        href: "/mechanisms/patterns/contestability",
+        title: "MEC-06 Appeal paths inside the UI",
+        href: "/mechanisms/patterns/appeal-paths",
       },
       {
         title: "MEC-04 The Hard Clock",
@@ -372,8 +372,8 @@ export const practiceSections: PracticeSection[] = [
         href: "/mechanisms/patterns/kill-switch",
       },
       {
-        title: "MEC-09 Ethical interrupts",
-        href: "/mechanisms/patterns/ethical-interrupts",
+        title: "Ethical interrupts",
+        href: "/explainers/ethical-interrupts",
       },
     ],
     gaps: [
