@@ -9,6 +9,21 @@ const REDIRECT_MAP: Record<string, string> = {
   // sequence that lived on /how-it-works are sections of /method now.
   "/how-it-works": "/method",
   "/quick-start": "/start",
+  // Three vocabularies answered "who are you": /start said engineer, /quick-start
+  // said engineers, /adopt said build — and nothing linked to /adopt at all.
+  // src/content/roles.ts is the union, deduplicated by who the reader actually
+  // is. Every path that used to address an audience lands on that audience's
+  // one page; roles.ts lists them as formerPaths and a test holds this map to
+  // it.
+  "/quick-start/engineers": "/roles/engineering",
+  "/quick-start/policy-makers": "/roles/policy",
+  "/quick-start/designers": "/roles/design",
+  "/quick-start/researchers": "/roles/research",
+  "/adopt": "/start",
+  "/adopt/build": "/roles/engineering",
+  "/adopt/ops": "/roles/operations",
+  "/adopt/policy": "/roles/policy",
+  "/roles": "/start",
   // "Applications" was a third noun for operating patterns, which
   // /mechanisms/patterns already carries — kill switches, appeal paths,
   // progressive consent. Its index pointed mostly at explainers; its one page
