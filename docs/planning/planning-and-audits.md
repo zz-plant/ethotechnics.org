@@ -6,6 +6,9 @@ It consolidates references that were previously spread across multiple index sec
 ## Core planning docs
 
 - [`roadmap.md`](roadmap.md): canonical sequencing, status, and completion checkoffs.
+- [`ia-refactor-proposal-2026-09.md`](ia-refactor-proposal-2026-09.md): proposed route and
+  navigation reorganization; measured route inventory, the seven-front-doors finding, and the
+  decisions it defers.
 - [`reconstruction-plan-2026-09.md`](reconstruction-plan-2026-09.md): the doctrine and object-model
   rebuild around justified delegation; workstreams, sequencing, and open decisions.
 - [`mini-prds.md`](mini-prds.md): scoped proposals for near-term initiatives.
