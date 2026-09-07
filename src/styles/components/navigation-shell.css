@@ -39,6 +39,8 @@
 
   /* --- Desktop Navigation Bar --- */
   .nav__bar {
+    /* The positioning context for the desktop browse panel, which spans it. */
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -507,5 +509,154 @@
   .nav__mobile-connect-link .nav__icon {
     width: 0.95rem;
     height: 0.95rem;
+  }
+}
+
+@layer components {
+  /* --- Desktop browse panel --- */
+  /*
+   * The counterpart to the mobile drawer. It is a <details> so the open state
+   * needs no script and the keyboard works by default; the script only adds
+   * what a native element cannot do — close on Escape and on a click outside.
+   */
+  .nav__browse {
+    display: none;
+  }
+
+  @media (min-width: 1100px) {
+    .nav__browse {
+      display: block;
+    }
+  }
+
+  .nav__browse-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    list-style: none;
+    white-space: nowrap;
+    transition:
+      color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
+  }
+
+  .nav__browse-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav__browse-summary:hover,
+  .nav__browse[open] > .nav__browse-summary {
+    color: var(--text);
+    background: color-mix(in srgb, var(--text) 6%, transparent);
+  }
+
+  .nav__browse-summary:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .nav__browse-chevron {
+    width: 1rem;
+    height: 1rem;
+    transition: transform var(--motion-fast) ease;
+  }
+
+  .nav__browse[open] .nav__browse-chevron {
+    transform: rotate(180deg);
+  }
+
+  /*
+   * Anchored to the bar, not to the summary. Four columns of described links
+   * need most of the container, and hanging that off a button two thirds of
+   * the way across pushed the first column off the left edge of the screen.
+   */
+  .nav__browse-panel {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 0;
+    right: 0;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-overlay);
+  }
+
+  .nav__browse-grid {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.75rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .nav__browse-group-title {
+    margin: 0 0 0.2rem;
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+  }
+
+  .nav__browse-group-desc {
+    margin: 0 0 0.7rem;
+    font-size: var(--text-xs);
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .nav__browse-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .nav__browse-link {
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.4rem 0.5rem;
+    margin-inline: -0.5rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--motion-fast) ease;
+  }
+
+  .nav__browse-link:hover,
+  .nav__browse-link:focus-visible {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  .nav__browse-link[aria-current] {
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  .nav__browse-link-title {
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .nav__browse-link-desc {
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav__browse-chevron {
+      transition: none;
+    }
   }
 }

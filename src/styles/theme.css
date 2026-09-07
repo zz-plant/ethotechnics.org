@@ -426,22 +426,37 @@ nav a:focus-visible {
   background-size: 0;
 }
 
-/* Footer links */
+/*
+ * Footer links.
+ *
+ * Underlining every one of them at rest turned four tidy columns into a wall
+ * of ruled text and made the whole footer compete with the page above it. The
+ * underline moves to hover and focus, where it means something; the license
+ * link keeps one at rest because it sits in prose rather than in a list.
+ */
 footer a,
 .footer a {
   background-image: none;
   padding-bottom: 0;
   transition: color var(--motion-fast) ease;
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--muted) 40%, transparent);
-  text-underline-offset: 0.25em;
+  text-decoration: none;
 }
 
 footer a:hover,
-.footer a:hover {
-  text-decoration-color: var(--muted);
+.footer a:hover,
+footer a:focus-visible,
+.footer a:focus-visible {
   color: var(--accent-strong);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.25em;
   background-size: 0;
+}
+
+.footer__license {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--muted) 45%, transparent);
+  text-underline-offset: 0.25em;
 }
 
 /* Card/panel links */
