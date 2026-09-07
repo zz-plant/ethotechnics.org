@@ -2,7 +2,7 @@
  * Adapter contract for the Tier 1 governance harness.
  *
  * The eval suites in src/content are audit protocols: a person reads records,
- * interviews staff, and scores against a rubric. Ten of the 132 cases are not
+ * interviews staff, and scores against a rubric. Ten of the 139 cases are not
  * like that. They are stopwatch-and-assertion questions about a running system
  * (how long a stop takes, whether an override lands, whether every action
  * reached the audit log, whether a discoverable action is refused without a

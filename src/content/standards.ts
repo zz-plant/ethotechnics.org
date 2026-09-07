@@ -105,10 +105,16 @@ export const standardsContent: StandardsContent = {
       description:
         "Defines contestability, review, and remedy obligations for consequential systems.",
       status: "Draft",
-      version: "1.0",
+      version: "1.1",
       changelogHref:
         "/standards/std-02-contestability-recourse#publication-history",
       changelogEntries: [
+        {
+          version: "1.1",
+          date: "2026-09-07",
+          summary:
+            "Adds the depth of consent: standing for parties who became affected after adoption, and the disclosure owed when dependence has materially deepened since consent was given.",
+        },
         {
           version: "1.0",
           date: "2026-09-06",
@@ -302,9 +308,15 @@ export const standardsContent: StandardsContent = {
       description:
         "The terms a delegation must satisfy while it stands: authority held as a lease, policy kept valid, oversight resolved to an intervention specification, and correction capacity kept proportional to authority.",
       status: "Draft",
-      version: "0.1",
+      version: "0.2",
       changelogHref: "/standards/std-08-delegation#relationship-to-std-07",
       changelogEntries: [
+        {
+          version: "0.2",
+          date: "2026-09-07",
+          summary:
+            "Adds correction capacity as a recorded field re-checked whenever scope changes, and the separation of execution from evaluation.",
+        },
         {
           version: "0.1",
           date: "2026-09-06",
@@ -1087,6 +1099,54 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "review held but no record produced when nothing changed",
       ],
       relatedMechanisms: ["MEC-01", "MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.10.1",
+      standardId: "STD-02",
+      displayId: "§10.1",
+      type: "right",
+      requirementLevel: "MUST",
+      condition:
+        "a party became affected after adoption, without consenting or without any new decision by them",
+      obligation:
+        "extend standing to that party; the enumeration of affected parties made at adoption records who was affected then and does not define who may challenge now",
+      evidenceRequired: [
+        "standing_register.who_may_challenge",
+        "dependency_record.dependents",
+        "case_log",
+      ],
+      timeBound: "on request",
+      failureModes: [
+        "affected set frozen at the adoption decision and never reopened",
+        "parties who never consented routed to the consenting party's channel",
+      ],
+      relatedMechanisms: ["MEC-08", "MEC-18"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.10.2",
+      standardId: "STD-02",
+      displayId: "§10.2",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "any level of reversibility has moved from evidenced to not evidenced, or exposure_score or substitution_cost has risen by a quarter or more, against the values recorded when consent was given",
+      obligation:
+        "disclose the change to the consenting party, naming which measure moved, by how much, and the standing route; stop treating the original consent as covering the new degree of dependence",
+      evidenceRequired: [
+        "dependency_record.exposure_score",
+        "dependency_record.substitution_cost",
+        "dependency_record.reversibility",
+        "consent_record",
+      ],
+      timeBound:
+        "within 30 days of the dependency record entry showing the move",
+      failureModes: [
+        "deepening dependence treated as covered by the adoption agreement",
+        "exposure score rising in the safety case with nothing said to the party living under it",
+      ],
+      relatedMechanisms: ["MEC-08", "MEC-18"],
       relatedValidators: [],
     },
   ],
@@ -1880,6 +1940,58 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "rehearsal never run, so the claim is untested",
       ],
       relatedMechanisms: ["MEC-16", "MEC-15"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.4.5",
+      standardId: "STD-08",
+      displayId: "§4.5",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a grant is issued or its scope changes",
+      obligation:
+        "record the seven components of §4.1 on the grant, each with its own evidence, and re-check capacity whenever scope changes; a grant whose scope has grown while its stated capacity is unchanged does not take effect until the capacity has been re-assessed",
+      evidenceRequired: [
+        "authority_grant.correction_capacity",
+        "authority_grant.correction_capacity.assessed_at",
+        "authority_grant.correction_capacity.detection",
+        "authority_grant.correction_capacity.challenge",
+        "authority_grant.correction_capacity.standing",
+        "authority_grant.correction_capacity.review",
+        "authority_grant.correction_capacity.authority_to_modify",
+        "authority_grant.correction_capacity.reversible_transitions",
+        "authority_grant.correction_capacity.operable_after_correction",
+        "authority_grant.state_history",
+      ],
+      timeBound: "at grant issue and at every scope change",
+      failureModes: [
+        "capacity stated once at issue and carried unchanged through every widening",
+        "components listed without dates, so a capacity never exercised reads as held",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.4.6",
+      standardId: "STD-08",
+      displayId: "§4.6",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "one provider is necessary both to execute a consequential process and to evaluate it",
+      obligation:
+        "refuse to count detection as satisfied by instrumentation the executing provider alone supplies or controls, and record on the grant who evaluates and whether the evaluator is independent of the executor",
+      evidenceRequired: [
+        "authority_grant.correction_capacity.detection.independent_of_executor",
+        "authority_grant.correction_capacity.detection.evaluator",
+        "dependency_record.independent_evaluation",
+      ],
+      timeBound: "at grant issue and each renewal",
+      failureModes: [
+        "vendor telemetry counted as the detection component of its own performance",
+        "independent evaluator named but reliant on the executor for the data it evaluates",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-18"],
       relatedValidators: [],
     },
   ],

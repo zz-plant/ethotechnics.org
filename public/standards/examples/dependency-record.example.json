@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "dependency_id": "DEP-RISK-OPS-V2-2026-06",
   "system_ref": "agent-risk-ops-v2",
   "assessed_at": "2026-06-15T00:00:00Z",
@@ -9,7 +9,11 @@
       "name": "Account-takeover triage queue",
       "criticality": "critical"
     },
-    { "kind": "role", "name": "Fraud analyst (tier 1)", "criticality": "high" },
+    {
+      "kind": "role",
+      "name": "Fraud analyst (tier 1)",
+      "criticality": "high"
+    },
     {
       "kind": "customer",
       "name": "Retail account holders",
@@ -69,14 +73,34 @@
     {
       "capacity": "Tier-2 manual triage staffing at 30% of peak volume",
       "reason": "Keeps withdrawal survivable and preserves the ability to question the system's decisions.",
-      "owner": "Fraud Operations lead"
+      "owner": "Fraud Operations lead",
+      "last_exercised": "2026-05-20T00:00:00Z",
+      "status": "degrading",
+      "change_since_last_assessment": "consumed"
     },
     {
       "capacity": "Legacy rules engine kept deployable",
       "reason": "Substitution path that does not depend on the agent vendor.",
-      "owner": "Platform engineering"
+      "owner": "Platform engineering",
+      "last_exercised": "2026-05-20T00:00:00Z",
+      "status": "retained",
+      "change_since_last_assessment": "unchanged"
+    },
+    {
+      "capacity": "Ability to re-specify the hold rules for a replacement vendor without the incumbent's model documentation",
+      "reason": "Substitution requires being able to state the requirement independently of the incumbent; without it the only available substitute is the incumbent's next version.",
+      "owner": "Model Risk Review (second line)",
+      "last_exercised": "2025-09-30T00:00:00Z",
+      "status": "lost",
+      "change_since_last_assessment": "consumed"
     }
   ],
+  "independent_evaluation": {
+    "executor": "Fraud Operations desk, which runs agent-risk-ops-v2 and owns the hold queue",
+    "evaluator": "Model Risk Review (second line)",
+    "independent": true,
+    "evidence": "Q2 false-positive rate and release latency were recomputed by Model Risk Review from the raw hold log rather than accepted from the Fraud Operations dashboard; recomputation signed off 2026-06-12. Independence covers evaluation only: the capacity to re-specify the rules for a replacement vendor is recorded as lost, so the evaluator can say the system is wrong without being able to say what should replace it."
+  },
   "exposure_score": {
     "dependency_depth": 3,
     "substitution_cost": 26,

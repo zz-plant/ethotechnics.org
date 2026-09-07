@@ -4,7 +4,7 @@ description: "The terms a delegation must satisfy while it stands: authority hel
 permalink: "/standards/std-08-delegation"
 eyebrow: "Standard"
 seoTitle: "STD-08 — Delegation"
-version: "0.1"
+version: "0.2"
 publishedTime: "2026-09-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -85,7 +85,7 @@ export const objects = [
   {
     object: "authority-grant",
     fields:
-      "state, state_history, mode, until, renewal_basis, evidence_basis, policy_refs, capability_catalog_ref, intervention_ref, dependency_ref",
+      "state, state_history, mode, until, renewal_basis, evidence_basis, policy_refs, capability_catalog_ref, intervention_ref, dependency_ref, correction_capacity",
     part: "A, B, C, D",
   },
   {
@@ -107,7 +107,8 @@ export const objects = [
   },
   {
     object: "dependency-record",
-    fields: "correction_latency, reversibility, preserved_capacities",
+    fields:
+      "correction_latency, reversibility, preserved_capacities, independent_evaluation",
     part: "D, with STD-06",
   },
 ];
@@ -160,7 +161,8 @@ export const structuredData = {
     "The terms a delegation must satisfy while it stands: authority as a lease, policy validity, intervention, and correction symmetry.",
   url: "https://ethotechnics.org/standards/std-08-delegation",
   datePublished: "2026-09-06",
-  version: "0.1",
+  dateModified: "2026-09-07",
+  version: "0.2",
   identifier: "STD-08",
   publisher: {
     "@type": "Organization",
@@ -189,7 +191,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.1 (Working draft)</dd>
+        <dd>0.2 (Working draft)</dd>
       </div>
       <div>
         <dt>Effective Date</dt>
@@ -497,6 +499,16 @@ export const structuredData = {
           capacity a delegation of a given size owes, and what happens to that
           ratio when the delegation grows.
         </p>
+        <p>
+          Capacity also depreciates while nothing about the grant changes, which
+          is why each component carries a date as well as a description: the
+          dependency record governed by{" "}
+          <a href="/standards/std-06-human-impact-safety-case">STD-06</a>{" "}
+          Article V records per capacity a <code>last_exercised</code> and a
+          <code>status</code> of <code>retained</code>,
+          <code>degrading</code>, or <code>lost</code>, because a capacity listed
+          but never exercised is a claim rather than a capability.
+        </p>
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§4.1</span>
@@ -535,6 +547,35 @@ export const structuredData = {
             using <code>correction_latency</code> and the institutional level of
             <code>reversibility</code>. A correction the institution cannot
             afford to make is not counted as capacity.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.5</span>
+            Correction capacity is stated and re-checked with scope: The seven
+            components of §4.1 MUST be recorded on the grant, in
+            <code>correction_capacity</code>, each with its own evidence, under
+            an <code>assessed_at</code> date: detection, challenge, standing,
+            review, authority to modify, reversible state transitions, and the
+            practical ability to operate after correction. Capacity MUST be
+            re-checked whenever scope changes,
+            and not only at the renewal in §4.3. A grant whose scope has grown
+            while its stated capacity is unchanged MUST NOT take effect until the
+            capacity has been re-assessed and the assessment recorded against the
+            widening transition.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.6</span>
+            Execution and evaluation may not rest on the same provider: A single
+            provider MUST NOT be necessary both to execute a consequential
+            process and to evaluate it. The <code>detection</code> component of
+            §4.1 is not satisfied by instrumentation that the executing provider
+            alone supplies or controls, and the grant records in
+            <code>correction_capacity.detection</code> the
+            <code>evaluator</code> and whether it is
+            <code>independent_of_executor</code>. This is a correction clause
+            rather than a procurement preference: a system that grades its own
+            homework has no detection component, however much telemetry it
+            emits, and the six components that follow detection never fire
+            because nothing reaches them.
           </li>
         </ol>
       </section>

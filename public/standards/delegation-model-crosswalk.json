@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "id": "https://ethotechnics.org/standards/delegation-model-crosswalk.json",
   "title": "Delegation Model Crosswalk (STD-07 records to STD-08 objects)",
-  "description": "A field-by-field mapping between the two object models the delegation standards publish. STD-07 (https://ethotechnics.org/api/schema/revisable-delegation-record.schema.json) models a delegation as an append-only stream of records, each with a kind and a kind-specific content block. STD-08 models the same delegation as a set of long-lived state objects: an authority grant, a capability catalog, a policy record, an intervention specification. Neither model is derivable from the other by name alone, and STD-08 clauses cite STD-07 clauses, so this document states which field corresponds to which, where the semantics differ, and where one model has no counterpart at all. It is descriptive: it declares an existing correspondence, it does not require either side to change. Relations are read left to right, from the STD-07 field to the STD-08 field.",
-  "version": "1.0.0",
+  "description": "A field-by-field mapping between the two object models the delegation standards publish. STD-07 (https://ethotechnics.org/api/schema/revisable-delegation-record.schema.json) models a delegation as an append-only stream of records, each with a kind and a kind-specific content block. STD-08 models the same delegation as a set of long-lived state objects: an authority grant, a capability catalog, a policy record, an intervention specification, and, where Part D §4.4 draws on the deployment, a dependency record. Neither model is derivable from the other by name alone, and STD-08 clauses cite STD-07 clauses, so this document states which field corresponds to which, where the semantics differ, and where one model has no counterpart at all. It is descriptive: it declares an existing correspondence, it does not require either side to change. Relations are read left to right, from the STD-07 field to the STD-08 field.",
+  "version": "1.2.0",
   "std_07": {
     "standard": "STD-07",
     "document": "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
@@ -16,7 +16,8 @@
       "authority-grant.schema.json",
       "capability-catalog.schema.json",
       "policy-record.schema.json",
-      "intervention-spec.schema.json"
+      "intervention-spec.schema.json",
+      "dependency-record.schema.json"
     ]
   },
   "relations": {
@@ -252,13 +253,96 @@
       },
       "relation": "no_counterpart",
       "note": "Policy records have no STD-07 record kind. The STD-07 kind enum is belief, capability, authorization, action, discrepancy, revision, objection, outcome; a policy is none of them. The nearest available shape is a belief record whose content.proposition states the policy and whose invalidated_by carries the review triggers, but that mapping is not an equivalence: a belief has no version, no status enum, and no expires_at, and STD-08 §2.1 requires all three. An institution emitting STD-07 records cannot represent Part B faithfully without extending the kind enum, which is a change to STD-07 and is not made here."
+    },
+    {
+      "id": "grant.correction_capacity",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["correction_capacity", "correction_capacity.assessed_at"]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart. STD-07 records what a delegation is and what invalidates it; it carries nothing about whether the institution could still correct after the fact. Every STD-07 field is about the delegation's validity — its scope, its holder, its ceiling, its expiry, the conditions that would end it — and none of them asks what happens once a permitted action has already gone wrong. correction_capacity is a standing, timestamped statement of the institution's own capacity, assessed against the scope in force, and there is no record field it can be read out of. Do not map it onto invalidated_by or revocation_conditions: those end the delegation, they do not repair what it did."
+    },
+    {
+      "id": "grant.correction_capacity.detection",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": [
+          "correction_capacity.detection",
+          "correction_capacity.detection.evaluator",
+          "correction_capacity.detection.independent_of_executor"
+        ]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart. STD-07 has a discrepancy record kind, but a discrepancy is a report that something diverged after someone noticed; it is not a statement that divergence can be noticed at all, and it names no evaluator. The record envelope's actor identifies who emitted a record, not who evaluates whether actions were wrong, so the independence question STD-08 §4.1 makes load-bearing — whether the party evaluating the process is the party executing it — cannot be asked of an STD-07 stream at all. Do not read actor.kind as an evaluator."
+    },
+    {
+      "id": "record.contest.correction_components",
+      "std_07": {
+        "record_kind": "any",
+        "field": "contest"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": [
+          "correction_capacity.challenge",
+          "correction_capacity.standing",
+          "correction_capacity.review"
+        ]
+      },
+      "relation": "partial",
+      "note": "This is the one genuine overlap, and it is partial in a specific way. STD-07 contest carries standing (who may object), channel (where an objection is accepted), and reversal_clock (the ISO 8601 duration inside which an accepted objection owes a revision or a reasoned refusal). Those correspond one-for-one to the assertion side of three of the seven components: standing to correction_capacity.standing, channel to correction_capacity.challenge, reversal_clock to the clock in correction_capacity.review. What does not carry across is the demonstration: each STD-08 component is a present/evidence pair, so it records whether the route was exercised and what shows it, while contest declares that the route exists. A record can satisfy contest in full while all three components are present false. contest also names no examiner, only a clock, so the named party half of correction_capacity.review has no source in it. Moving right to left keeps the declaration and loses the evidence; moving left to right yields components whose evidence must be supplied from outside the record."
+    },
+    {
+      "id": "grant.correction_capacity.remedy_components",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": [
+          "correction_capacity.authority_to_modify",
+          "correction_capacity.reversible_transitions",
+          "correction_capacity.operable_after_correction"
+        ]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart for any of the three. STD-07 §4.2 obliges an answer to an accepted objection, and a revision record is how the answer is written down, but nothing in the record model states in advance that the examiner holds the authority to change the grant, that the affected state can be returned, or that the institution can absorb the reversal and keep operating. The first is a fact about the examiner's powers, the second about the system's state machine, the third about the institution's finances and staffing; STD-07 records outcomes, not standing capacities, so a stream of revision records shows that corrections have happened without establishing that the next one could. operable_after_correction in particular is evidenced from the dependency record under §4.4, which is outside the record model entirely."
+    },
+    {
+      "id": "dependency.preserved_capacities.depreciation",
+      "std_07": null,
+      "std_08": {
+        "schema": "dependency-record.schema.json",
+        "fields": [
+          "preserved_capacities[].last_exercised",
+          "preserved_capacities[].status",
+          "preserved_capacities[].change_since_last_assessment"
+        ]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart. These three fields say that a preserved capacity has moved — retained, degrading, or lost as observed, and replenished, unchanged, or consumed since the previous assessment — because correction capital depreciates between assessments unless it is deliberately replenished. STD-07 records events, and depreciation is not an event: nothing is emitted on the day a rehearsal stops happening. The nearest available shape, a belief record whose proposition asserts the capacity and whose invalidated_by names its lapse, still needs someone to notice the lapse and emit a discrepancy, which is exactly the noticing these fields exist to make unnecessary. Read the trio as a per-capacity delta, not as a score: statuses do not average, and one lost capacity is not offset by two retained ones."
+    },
+    {
+      "id": "dependency.independent_evaluation",
+      "std_07": null,
+      "std_08": {
+        "schema": "dependency-record.schema.json",
+        "fields": [
+          "independent_evaluation",
+          "independent_evaluation.independent",
+          "independent_evaluation.evidence"
+        ]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart, and the same gap as grant.correction_capacity.detection one level up: this is the deployment-level counterpart to correction_capacity.detection.independent_of_executor, asking of the whole deployment who evaluates whether it is going wrong and whether that party is independent of the party that runs it. STD-07 identifies the emitting system and actor of each record but has no field for an evaluating party and therefore no way to state, or to deny, independence from the executor."
     }
   ],
   "known_gaps": [
     {
       "id": "identifier-convention-mismatch",
       "summary": "STD-07 record_ids and STD-08 object ids do not share a convention, so an STD-08 object cannot be referenced from a STD-07 depends_on without an ad-hoc mapping.",
-      "detail": "STD-07 §5.3 recommends record_id of the form <system>:<kind>:<local-id>, for example whether:authorization:2026-w36, and the kind segment is what tells a reader which record shape to expect. STD-08 objects use flat identifiers with no system and no kind segment: GRANT-2026-0142, CAT-RISK-OPS-V2-2026-07, POL-FRAUD-HOLD-3.2, INT-RISK-STEWARD-1. A STD-07 depends_on entry is defined as a list of record_ids, so putting a flat grant or policy id in it produces a reference that resolves only if the reading system already knows which model the id belongs to. This document records the mismatch rather than resolving it: silently rewriting Line A ids into the STD-07 form would break every existing cross-reference between the published examples, and adding a translation table here would be a convention no clause requires. Closing it needs a decision in one of the two standards — either STD-07 relaxes depends_on to accept typed external references, or STD-08 object ids adopt the <system>:<kind>:<local-id> form.",
+      "detail": "STD-07 §5.3 recommends record_id of the form <system>:<kind>:<local-id>, for example whether:authorization:2026-w36, and the kind segment is what tells a reader which record shape to expect. STD-08 objects use flat identifiers with no system and no kind segment: GRANT-2026-0142, CAT-RISK-OPS-V2-2026-07, POL-FRAUD-HOLD-3.2, INT-RISK-STEWARD-1. A STD-07 depends_on entry is defined as a list of record_ids, so putting a flat grant or policy id in it produces a reference that resolves only if the reading system already knows which model the id belongs to. This document records the mismatch rather than resolving it: silently rewriting Line A ids into the STD-07 form would break every existing cross-reference between the published examples, and adding a translation table here would be a convention no clause requires. Closing it needs a decision in one of the two standards — either STD-07 relaxes depends_on to accept typed external references, or STD-08 object ids adopt the <system>:<kind>:<local-id> form. As of 2026-09-07 the STD-07 side is actively revising this space: the record's system block gained an optional instance segment so a consumer can tell which deployment of a system emitted a record, after two environments running the same model emitted identical record ids for the same subject. That is a different problem from this one, and it does not close it, but it locates the fix: the convention is live on the record side, so a shared form should be settled there rather than by reshaping STD-08 object ids to match a moving target.",
       "affects": ["record.depends_on", "capability.capability_id"]
     },
     {
@@ -271,6 +355,18 @@
       "id": "no-action-or-outcome-object",
       "summary": "STD-07 action, outcome, and discrepancy records have no standing STD-08 object.",
       "detail": "STD-08 models what a delegation must show while it stands, not what it did. The decision record is the closest Line A object to an STD-07 action record, but it is a decision about one subject rather than a record of an act and its result, and there is no Line A object at all for outcome or discrepancy. Those record kinds are therefore left unmapped here rather than being attached to the nearest-looking object."
+    },
+    {
+      "id": "correction-capacity-has-no-record-side",
+      "summary": "STD-07 records what a delegation is and what invalidates it, and carries nothing about whether the institution could still correct after the fact, so six of the seven components of correction capacity have no record field to read out of.",
+      "detail": "The asymmetry is structural rather than an omission of detail. STD-07 fields answer whether a delegation holds: scope, holder, grantor, mode, ceiling, expiry, revocation conditions, the conditions that would invalidate the record, and the objection route in contest. Correction capacity answers a different question — supposing an action taken under the delegation was wrong, could the institution notice, hear the objection, examine it, change the grant, return the affected state, and still operate. Only contest touches that question, and only its assertion side (see record.contest.correction_components). Closing the gap is not a matter of adding fields to a record: capacity is a standing property of the institution at a point in time, assessed against the scope in force, which is why STD-08 puts it on the grant with an assessed_at and STD-06 puts the deployment half on the dependency record. An institution emitting STD-07 records alone cannot show Law IV's proportionality, because the ratio of scope to capacity has no record-side denominator.",
+      "affects": [
+        "grant.correction_capacity",
+        "grant.correction_capacity.detection",
+        "grant.correction_capacity.remedy_components",
+        "dependency.preserved_capacities.depreciation",
+        "dependency.independent_evaluation"
+      ]
     }
   ]
 }

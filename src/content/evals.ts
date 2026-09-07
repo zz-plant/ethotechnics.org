@@ -570,18 +570,20 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether the institution could still withdraw or replace the system, and whether it has kept the capacity to decide to.",
       longDescription:
-        "Reversibility Evals test whether a single decision can be undone. This suite tests whether the deployment itself can be. As an institution comes to depend on a system, withdrawal becomes more expensive, the people who could run the alternative leave, and the alternative is quietly retired; nominal reversibility survives on paper after operational reversibility is gone. Tests cover whether a dependency record exists and is current, whether exposure has been scored from dependency depth, substitution cost, and correction latency, whether reversibility has been evidenced at the technical, operational, and institutional levels, whether withdrawal has been rehearsed recently, whether alternatives and expertise have been retained deliberately, whether the capacities needed to question or replace the system are listed with owners, and whether success has been allowed to widen scope on its own.",
+        "Reversibility Evals test whether a single decision can be undone. This suite tests whether the deployment itself can be. As an institution comes to depend on a system, withdrawal becomes more expensive, the people who could run the alternative leave, and the alternative is quietly retired; nominal reversibility survives on paper after operational reversibility is gone. Tests cover whether a dependency record exists and is current, whether exposure has been scored from dependency depth, substitution cost, and correction latency, whether reversibility has been evidenced at the technical, operational, and institutional levels, whether withdrawal has been rehearsed recently, whether alternatives and expertise have been retained deliberately, whether the capacities needed to question or replace the system are listed with owners, whether those capacities are exercised rather than merely listed and whether their depreciation between assessments is recorded, and whether success has been allowed to widen scope on its own. It also tests whether one provider is necessary to both execute a consequential process and evaluate it, since a system that grades its own homework has no detection component however much telemetry it emits.",
       version: "1.0.0",
       status: "draft",
       category: "structural",
       layer: "institution",
-      standardRefs: ["STD-06"],
+      standardRefs: ["STD-06", "STD-08"],
       glossaryRefs: [
         "moral-lock-in",
         "heroism-dependent-systems",
         "right-of-exit",
         "exit-coercion",
         "reversibility",
+        "capacity-depreciation",
+        "evaluation-independence",
       ],
       testCases: [],
       scoringMethod: {
@@ -589,13 +591,16 @@ export const evalsContent: EvalsContent = {
         passingScore: 65,
         failureThreshold: 25,
       },
-      estimatedTime: "40 min",
+      estimatedTime: "55 min",
       deliverables: [
         "Dependence and reversibility score (0-100)",
         "Exposure score with its three factors stated",
         "Reversibility finding at each of the three levels",
         "Rehearsal recency and outcome",
         "Preserved-capacities register with owners and gaps",
+        "Capacity depreciation table: last exercised, status, and change since last assessment per capacity",
+        "Unexercised capacities listed as claims rather than capabilities",
+        "Evaluation independence finding: executor and evaluator named per consequential process",
       ],
     },
     {
@@ -605,7 +610,7 @@ export const evalsContent: EvalsContent = {
       description:
         "Whether the people exposed to a system's failures can enter a challenge that the system is obliged to answer.",
       longDescription:
-        "Contestability Evals test whether an individual decision can be appealed. This suite tests whether exposure to the system generates standing: whether the people who absorb its errors, including the operators who handle its exceptions, can raise an observation that enters the system as an event with procedural force. Standing is not veto. It is the guarantee that a challenge reaches a named responder, on a deadline, judged by a stated standard, with a defined set of state transitions it can produce. Tests cover whether a standing register names who may challenge each decision class, whether error-bearing parties are included, whether the challengeable matter and admissible evidence are defined, whether a responder, deadline, and standard of review exist, whether a successful challenge changed system state and not only the individual outcome, whether a representative may raise a challenge, whether non-retaliation is attested, and whether challenge volume feeds policy review.",
+        "Contestability Evals test whether an individual decision can be appealed. This suite tests whether exposure to the system generates standing: whether the people who absorb its errors, including the operators who handle its exceptions, can raise an observation that enters the system as an event with procedural force. Standing is not veto. It is the guarantee that a challenge reaches a named responder, on a deadline, judged by a stated standard, with a defined set of state transitions it can produce. Tests cover whether a standing register names who may challenge each decision class, whether error-bearing parties are included, whether the challengeable matter and admissible evidence are defined, whether a responder, deadline, and standard of review exist, whether a successful challenge changed system state and not only the individual outcome, whether a representative may raise a challenge, whether non-retaliation is attested, and whether challenge volume feeds policy review. It also tests the depth of consent: whether parties who became affected after adoption hold standing, whether adverse movement in the dependency since consent was disclosed, and whether the operator treats the original choice as covering a dependency that has deepened since.",
       version: "1.0.0",
       status: "draft",
       category: "agency",
@@ -615,6 +620,9 @@ export const evalsContent: EvalsContent = {
         "contestability",
         "meta-contestability",
         "contestability-guarantee",
+        "consent-depth",
+        "corrective-standing",
+        "error-bearing-party",
       ],
       testCases: [],
       scoringMethod: {
@@ -622,13 +630,15 @@ export const evalsContent: EvalsContent = {
         passingScore: 65,
         failureThreshold: 25,
       },
-      estimatedTime: "30 min",
+      estimatedTime: "40 min",
       deliverables: [
         "Standing score (0-100)",
         "Standing register coverage by decision class",
         "Responder, deadline, and standard-of-review findings",
         "Evidence that a challenge has changed system state",
         "Retaliation and representation findings",
+        "Post-adoption affected parties and whether the affected-party set was re-opened",
+        "Consent depth finding: adverse movement since consent and what was disclosed",
       ],
     },
     {

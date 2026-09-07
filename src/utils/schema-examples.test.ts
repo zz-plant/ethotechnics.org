@@ -387,6 +387,285 @@ describe("STD-08 clauses are satisfiable against the published schemas", () => {
   });
 });
 
+describe("STD-08 Part D: correction capacity is implementable", () => {
+  const grantSchema = readJson<JsonSchema>(
+    join(standardsDir, "authority-grant.schema.json"),
+  );
+  const dependencySchema = readJson<JsonSchema>(
+    join(standardsDir, "dependency-record.schema.json"),
+  );
+  const grant = loadExample("authority-grant");
+  const dependency = loadExample("dependency-record");
+
+  const components = [
+    "detection",
+    "challenge",
+    "standing",
+    "review",
+    "authority_to_modify",
+    "reversible_transitions",
+    "operable_after_correction",
+  ];
+
+  test("STD-08 §4.1: the grant requires correction_capacity", () => {
+    expect(grantSchema.required).toContain("correction_capacity");
+    const { correction_capacity: _omitted, ...withoutCapacity } = grant;
+    const errors = validate(grantSchema, withoutCapacity);
+    expect(
+      errors.some((error) => error.message.includes("correction_capacity")),
+    ).toBe(true);
+  });
+
+  test("STD-08 §4.1: all seven components plus assessed_at are required", () => {
+    const capacity = grantSchema.properties?.correction_capacity as JsonSchema;
+    expect(capacity.required).toEqual(["assessed_at", ...components]);
+    expect(capacity.additionalProperties).toBe(false);
+    for (const component of components) {
+      const { [component]: _dropped, ...partial } =
+        grant.correction_capacity as Record<string, unknown>;
+      const errors = validate(grantSchema, {
+        ...grant,
+        correction_capacity: partial,
+      });
+      expect(
+        errors.some((error) => error.message.includes(component)),
+        `dropping ${component} must fail validation`,
+      ).toBe(true);
+    }
+    const { assessed_at: _at, ...undated } =
+      grant.correction_capacity as Record<string, unknown>;
+    expect(
+      validate(grantSchema, { ...grant, correction_capacity: undated }).length,
+    ).toBeGreaterThan(0);
+  });
+
+  test("every component records present and evidence", () => {
+    const capacity = grantSchema.properties?.correction_capacity as JsonSchema;
+    for (const component of components) {
+      const entry = grant.correction_capacity[component];
+      expect(typeof entry.present, `${component}.present`).toBe("boolean");
+      expect(entry.evidence.length, `${component}.evidence`).toBeGreaterThan(
+        20,
+      );
+      const shape = capacity.properties?.[component] as JsonSchema;
+      expect(typeof shape.title).toBe("string");
+      expect(typeof shape.description).toBe("string");
+      const errors = validate(grantSchema, {
+        ...grant,
+        correction_capacity: {
+          ...grant.correction_capacity,
+          [component]: { present: true },
+        },
+      });
+      expect(
+        errors.some((error) => error.message.includes("evidence")),
+        `${component} must require evidence`,
+      ).toBe(true);
+    }
+  });
+
+  test("detection requires an evaluator and its independence from the executor", () => {
+    const detection = (
+      grantSchema.properties?.correction_capacity as JsonSchema
+    ).properties?.detection as JsonSchema;
+    expect(detection.required).toEqual([
+      "present",
+      "evidence",
+      "evaluator",
+      "independent_of_executor",
+    ]);
+    expect(detection.properties?.independent_of_executor?.type).toBe("boolean");
+    expect(detection.description).toContain("evaluates");
+    for (const field of ["evaluator", "independent_of_executor"]) {
+      const { [field]: _dropped, ...partial } = grant.correction_capacity
+        .detection as Record<string, unknown>;
+      const errors = validate(grantSchema, {
+        ...grant,
+        correction_capacity: {
+          ...grant.correction_capacity,
+          detection: partial,
+        },
+      });
+      expect(
+        errors.some((error) => error.message.includes(field)),
+        `detection must require ${field}`,
+      ).toBe(true);
+    }
+    expect(
+      validate(grantSchema, {
+        ...grant,
+        correction_capacity: {
+          ...grant.correction_capacity,
+          detection: {
+            ...grant.correction_capacity.detection,
+            independent_of_executor: "yes",
+          },
+        },
+      }).length,
+    ).toBeGreaterThan(0);
+  });
+
+  test("Law IV's proportionality is stated on the object itself", () => {
+    const description =
+      (grantSchema.properties?.correction_capacity as JsonSchema).description ??
+      "";
+    expect(description).toContain("scope");
+    expect(description).toContain("review");
+    expect(description.length).toBeGreaterThan(200);
+  });
+
+  test("the grant's capacity assessment is no older than its last transition", () => {
+    const assessedAt = new Date(
+      grant.correction_capacity.assessed_at,
+    ).getTime();
+    const lastTransition = new Date(grant.state_history.at(-1).at).getTime();
+    expect(assessedAt).toBeGreaterThanOrEqual(lastTransition);
+  });
+
+  test("§4.4: the seventh component is evidenced from the dependency record", () => {
+    const seventh = grant.correction_capacity.operable_after_correction;
+    expect(seventh.evidence).toContain(dependency.dependency_id);
+    // Deliberately unflattering: the institution cannot absorb a late reversal.
+    expect(seventh.present).toBe(false);
+    expect(dependency.reversibility.institutional.feasible).toBe(false);
+  });
+
+  test("preserved capacities record depreciation, not a score", () => {
+    const items = dependencySchema.properties?.preserved_capacities
+      ?.items as JsonSchema;
+    expect(items.required).toEqual([
+      "capacity",
+      "reason",
+      "owner",
+      "last_exercised",
+      "status",
+      "change_since_last_assessment",
+    ]);
+    expect(items.properties?.status?.enum).toEqual([
+      "retained",
+      "degrading",
+      "lost",
+    ]);
+    expect(items.properties?.change_since_last_assessment?.enum).toEqual([
+      "replenished",
+      "unchanged",
+      "consumed",
+    ]);
+    expect(items.properties?.status?.description).toContain("not a");
+    expect(
+      items.properties?.change_since_last_assessment?.description,
+    ).toContain("delta");
+    expect(items.properties?.last_exercised?.description).toContain("claim");
+
+    const [first, ...rest] = dependency.preserved_capacities;
+    for (const bad of [
+      { ...first, status: "healthy" },
+      { ...first, change_since_last_assessment: "improved" },
+    ]) {
+      expect(
+        validate(dependencySchema, {
+          ...dependency,
+          preserved_capacities: [bad, ...rest],
+        }).length,
+        JSON.stringify(bad.status),
+      ).toBeGreaterThan(0);
+    }
+    for (const field of [
+      "last_exercised",
+      "status",
+      "change_since_last_assessment",
+    ]) {
+      const { [field]: _dropped, ...partial } = first as Record<
+        string,
+        unknown
+      >;
+      const errors = validate(dependencySchema, {
+        ...dependency,
+        preserved_capacities: [partial, ...rest],
+      });
+      expect(
+        errors.some((error) => error.message.includes(field)),
+        `preserved capacity must require ${field}`,
+      ).toBe(true);
+    }
+    expect(
+      validate(dependencySchema, {
+        ...dependency,
+        preserved_capacities: [
+          { ...first, last_exercised: "a while ago" },
+          ...rest,
+        ],
+      }).length,
+    ).toBeGreaterThan(0);
+  });
+
+  test("the dependency example is honest about a capacity it has consumed", () => {
+    const capacities = dependency.preserved_capacities as {
+      status: string;
+      change_since_last_assessment: string;
+      last_exercised: string;
+    }[];
+    const assessedAt = new Date(dependency.assessed_at).getTime();
+    const stale = capacities.filter(
+      (entry) =>
+        assessedAt - new Date(entry.last_exercised).getTime() >
+        180 * 24 * 60 * 60 * 1000,
+    );
+    expect(stale.length).toBeGreaterThan(0);
+    for (const entry of stale) {
+      expect(["degrading", "lost"]).toContain(entry.status);
+    }
+    expect(
+      capacities.some(
+        (entry) => entry.change_since_last_assessment === "consumed",
+      ),
+    ).toBe(true);
+    for (const entry of capacities) {
+      expect(new Date(entry.last_exercised).getTime()).toBeLessThanOrEqual(
+        assessedAt,
+      );
+    }
+  });
+
+  test("independent_evaluation is the deployment-level counterpart", () => {
+    const independent = dependencySchema.properties
+      ?.independent_evaluation as JsonSchema;
+    expect(independent.required).toEqual([
+      "executor",
+      "evaluator",
+      "independent",
+      "evidence",
+    ]);
+    expect(independent.description).toContain(
+      "correction_capacity.detection.independent_of_executor",
+    );
+    expect(dependency.independent_evaluation.evaluator).toBe(
+      grant.correction_capacity.detection.evaluator,
+    );
+    for (const field of ["executor", "evaluator", "independent", "evidence"]) {
+      const { [field]: _dropped, ...partial } =
+        dependency.independent_evaluation as Record<string, unknown>;
+      const errors = validate(dependencySchema, {
+        ...dependency,
+        independent_evaluation: partial,
+      });
+      expect(
+        errors.some((error) => error.message.includes(field)),
+        `independent_evaluation must require ${field}`,
+      ).toBe(true);
+    }
+    expect(
+      validate(dependencySchema, {
+        ...dependency,
+        independent_evaluation: {
+          ...dependency.independent_evaluation,
+          independent: "mostly",
+        },
+      }).length,
+    ).toBeGreaterThan(0);
+  });
+});
+
 describe("json-schema-lite if/then", () => {
   const schema: JsonSchema = {
     type: "object",
@@ -597,6 +876,79 @@ describe("delegation model crosswalk", () => {
       ).toBe(null);
       expect(byId.get(id)?.relation).toBe("no_counterpart");
     }
+  });
+
+  test("Part D fields are recorded as having no STD-07 counterpart", () => {
+    const byId = new Map(crosswalk.mappings.map((entry) => [entry.id, entry]));
+    for (const id of [
+      "grant.correction_capacity",
+      "grant.correction_capacity.detection",
+      "grant.correction_capacity.remedy_components",
+      "dependency.preserved_capacities.depreciation",
+      "dependency.independent_evaluation",
+    ]) {
+      const mapping = byId.get(id);
+      expect(mapping, `missing mapping ${id}`).toBeDefined();
+      expect(mapping!.std_07, `${id} must have no STD-07 counterpart`).toBe(
+        null,
+      );
+      expect(mapping!.relation).toBe("no_counterpart");
+      expect(mapping!.note.length, `${id} reason`).toBeGreaterThan(200);
+      const schema = readJson<JsonSchema>(
+        join(standardsDir, mapping!.std_08!.schema),
+      );
+      for (const field of mapping!.std_08!.fields) {
+        expect(
+          resolveField(schema, field),
+          `${id}: ${mapping!.std_08!.schema}#${field}`,
+        ).not.toBeNull();
+      }
+    }
+    expect(byId.get("grant.correction_capacity")?.note).toContain(
+      "what invalidates it",
+    );
+    expect(
+      byId.get("grant.correction_capacity.detection")?.std_08?.fields,
+    ).toContain("correction_capacity.detection.independent_of_executor");
+    expect(
+      byId.get("dependency.preserved_capacities.depreciation")?.std_08?.fields,
+    ).toEqual(
+      expect.arrayContaining([
+        "preserved_capacities[].status",
+        "preserved_capacities[].change_since_last_assessment",
+      ]),
+    );
+  });
+
+  test("the one genuine partial overlap with contest is stated precisely", () => {
+    const mapping = crosswalk.mappings.find(
+      (entry) => entry.id === "record.contest.correction_components",
+    );
+    expect(mapping).toBeDefined();
+    expect(mapping!.relation).toBe("partial");
+    expect(mapping!.std_07?.field).toBe("contest");
+    expect(mapping!.std_08?.fields).toEqual([
+      "correction_capacity.challenge",
+      "correction_capacity.standing",
+      "correction_capacity.review",
+    ]);
+    for (const term of ["standing", "channel", "reversal_clock", "evidence"]) {
+      expect(mapping!.note, `note must name ${term}`).toContain(term);
+    }
+    const contest = recordSchema.properties?.contest as JsonSchema;
+    for (const field of ["standing", "channel", "reversal_clock"]) {
+      expect(contest.properties?.[field], `contest.${field}`).toBeDefined();
+    }
+  });
+
+  test("the correction-capacity gap is recorded as a known gap", () => {
+    const gap = crosswalk.known_gaps.find(
+      (entry) => entry.id === "correction-capacity-has-no-record-side",
+    );
+    expect(gap).toBeDefined();
+    expect(gap!.summary).toContain("correct after the fact");
+    expect(gap!.detail).toContain("contest");
+    expect(gap!.detail.length).toBeGreaterThan(200);
   });
 
   test("the identifier convention mismatch is recorded as a known gap", () => {

@@ -117,7 +117,9 @@
           "title": "Roles",
           "description": "Roles that retain the expertise.",
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "last_exercised": {
           "title": "Last exercised",
@@ -234,9 +236,16 @@
       "type": "array",
       "items": {
         "title": "Preserved capacity",
-        "description": "One capacity kept in reserve and who owns keeping it.",
+        "description": "One capacity kept in reserve, who owns keeping it, and how it has moved since the last assessment. A capacity that is listed but never exercised is a claim rather than a capability.",
         "type": "object",
-        "required": ["capacity", "reason", "owner"],
+        "required": [
+          "capacity",
+          "reason",
+          "owner",
+          "last_exercised",
+          "status",
+          "change_since_last_assessment"
+        ],
         "additionalProperties": false,
         "properties": {
           "capacity": {
@@ -253,7 +262,54 @@
             "title": "Owner",
             "description": "Role accountable for keeping the capacity alive.",
             "type": "string"
+          },
+          "last_exercised": {
+            "title": "Last exercised",
+            "description": "When this specific capacity was last actually exercised, not when it was last budgeted for or documented. A capacity listed but never exercised is a claim rather than a capability, and the gap between this timestamp and assessed_at is what makes the claim checkable.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "title": "Status",
+            "description": "The condition of this one capacity as observed at assessed_at: retained, it can be exercised now; degrading, it can still be exercised but less than it could be; lost, it is named in the record but could not be exercised today. This is a per-capacity observation, not a contribution to a scalar score: capacities do not average, and one lost capacity is not offset by two retained ones.",
+            "type": "string",
+            "enum": ["retained", "degrading", "lost"]
+          },
+          "change_since_last_assessment": {
+            "title": "Change since last assessment",
+            "description": "The observable delta for this capacity between the previous assessment and this one: replenished, it was deliberately rebuilt; unchanged, it stands where it stood; consumed, it was drawn down, whether by decision or by attrition. Correction capital depreciates between assessments unless it is deliberately replenished (Law V), and this field is where that movement is visible per capacity rather than inferred from a total.",
+            "type": "string",
+            "enum": ["replenished", "unchanged", "consumed"]
           }
+        }
+      }
+    },
+    "independent_evaluation": {
+      "title": "Independent evaluation",
+      "description": "Who evaluates whether this deployment is going wrong, and whether that party is independent of the party that runs it. This is the deployment-level counterpart to the grant's correction_capacity.detection.independent_of_executor in authority-grant.schema.json: the same question asked of the deployment rather than of one lease, on the same reasoning, that a party evaluating its own execution cannot supply the detection component however well the deployment is instrumented.",
+      "type": "object",
+      "required": ["executor", "evaluator", "independent", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "executor": {
+          "title": "Executor",
+          "description": "The party that runs the system and executes the consequential process.",
+          "type": "string"
+        },
+        "evaluator": {
+          "title": "Evaluator",
+          "description": "The party that evaluates whether the process is going wrong.",
+          "type": "string"
+        },
+        "independent": {
+          "title": "Independent",
+          "description": "Whether the evaluator is independent of the executor. False is a recordable state rather than a validation error: it says the deployment's evaluation is self-assessment, which is a fact about the institution's exposure and belongs in the record.",
+          "type": "boolean"
+        },
+        "evidence": {
+          "title": "Evidence",
+          "description": "What shows the independence claim, for example that the figures were recomputed from the raw log by the evaluating party rather than accepted from the executor's reporting.",
+          "type": "string"
         }
       }
     },

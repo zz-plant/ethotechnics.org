@@ -15,6 +15,8 @@ anchorLinks:
     label: "Standing mechanism"
   - href: "#prospective-auditability"
     label: "Prospective auditability"
+  - href: "#depth-of-consent"
+    label: "Depth of consent"
   - href: "#publication-history"
     label: "Publication history"
 ---
@@ -102,8 +104,8 @@ export const structuredData = {
     "The standard defining contestability, review, and remedy obligations for automated decisions.",
   url: "https://ethotechnics.org/standards/std-02-contestability-recourse",
   datePublished: "2026-01-01",
-  dateModified: "2026-09-06",
-  version: "1.0",
+  dateModified: "2026-09-07",
+  version: "1.1",
   identifier: "STD-02",
   publisher: {
     "@type": "Organization",
@@ -137,7 +139,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>1.0 (Draft for Review)</dd>
+        <dd>1.1 (Draft for Review)</dd>
       </div>
       <div>
         <dt>Effective Date</dt>
@@ -395,9 +397,69 @@ export const structuredData = {
         </ol>
       </section>
 
+      <section id="depth-of-consent" class="standard-section">
+        <h2>Article X: The Depth of Consent</h2>
+        <p class="standard-article-quote">
+          "Consent to enter a dependency is not consent to every degree of
+          dependency its operation produces."
+        </p>
+        <p>
+          A party who adopts a system consents to the relationship as it stands
+          at adoption. They cannot consent to the constraint set the system's own
+          success later manufactures: data accumulates inside it, collaborators
+          organise around it, the alternatives that were live at adoption stop
+          being maintained, and the competence needed to work without it
+          atrophies. Each of those changes the terms without anyone deciding to
+          change them. By the time they have all happened, "you chose this" no
+          longer describes the present relationship, and it is the present
+          relationship the party is living under.
+        </p>
+        <p>
+          Article VIII establishes who may challenge and with what force. This
+          article addresses when that set changes and when a recorded consent
+          stops covering what the system now does. The measurements it relies on
+          are the dependency record's, held under{" "}
+          <a href="/standards/std-06-human-impact-safety-case">STD-06</a> Article
+          V.
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§10.1</span>
+            The Affected Set Does Not Close at Adoption: Standing MUST extend to
+            parties who became affected after adoption, including those who never
+            consented and those whose exposure changed materially without any new
+            decision by them. Enumerating the affected parties at adoption
+            records who was affected then; it does not define who may challenge
+            now. A standing register entry that admits only the parties named at
+            adoption is incomplete under §8.1.
+          </li>
+          <li>
+            <span class="standard-clause-id">§10.2</span>
+            Deepened Dependence Reopens Consent: Where dependence has materially
+            deepened since consent was given, the operator MUST disclose the
+            change to the consenting party and MUST NOT treat the original
+            consent as covering the new degree. Deepening is material when, as
+            against the values recorded when consent was given, any level of
+            <code>reversibility</code> has moved from evidenced to not evidenced,
+            or <code>exposure_score</code> or <code>substitution_cost</code> has
+            risen by a quarter or more. Disclosure is owed within 30 days of the
+            dependency record entry that shows the move, states which measure
+            moved and by how much, and names the standing route under §8.1. Until
+            it is made, the operator MUST NOT cite the original consent as the
+            basis for the current degree of dependence.
+          </li>
+        </ol>
+      </section>
+
       <section id="publication-history" class="standard-section">
         <h2>Publication history</h2>
         <ul>
+          <li>
+            <strong>v1.1 (2026-09-07):</strong> Adds Article X, the depth of
+            consent: standing for parties who became affected after adoption, and
+            the disclosure owed when dependence has materially deepened since
+            consent was given.
+          </li>
           <li>
             <strong>v1.0 (2026-09-06):</strong> Adds Article VIII, the standing
             mechanism with its seven fields, the standard of review, the

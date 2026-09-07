@@ -3937,6 +3937,158 @@ export const evalTestCases: EvalTestCase[] = [
     relatedGlossaryTerms: ["moral-lock-in", "exit-coercion"],
     estimatedRunTime: "15 min",
   },
+  {
+    id: "DEP-011",
+    suiteId: "dependence-reversibility",
+    title: "Every preserved capacity carries a last-exercised date",
+    description:
+      "A capacity that is listed but has never been exercised is a claim, not a capability. The register should say when each one last carried real work, and should mark the ones that never have.",
+    category: "structural",
+    layer: "institution",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "Take the preserved-capacities register and, for each capacity, record the last_exercised date and what the exercise consisted of. List every capacity with no date, and confirm the register itself identifies those as claims rather than capabilities.",
+    systemContext:
+      "The dependency record carries a preserved-capacities list whose entries are expected to hold a last_exercised date.",
+    passCriteria: [
+      "Every capacity carries a last_exercised date or is explicitly marked as never exercised",
+      "The record distinguishes capacities that have carried real work from those asserted on paper",
+      "Each date is traceable to a drill log, incident record, or production run rather than to an attestation",
+    ],
+    failIndicators: [
+      "Capacities are listed with no exercise history",
+      "A never-exercised capacity is counted toward reversibility as though it were demonstrated",
+      "Exercise dates are self-attested with no underlying log",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Preserved-capacities register with last_exercised dates",
+      "Drill logs or production records behind each date",
+      "The register's own marking of unexercised capacities",
+    ],
+    relatedStandardRefs: ["STD-06", "STD-08"],
+    relatedGlossaryTerms: [
+      "capacity-depreciation",
+      "preserved-capacity",
+      "withdrawal-rehearsal",
+    ],
+    estimatedRunTime: "15 min",
+  },
+  {
+    id: "DEP-012",
+    suiteId: "dependence-reversibility",
+    title: "Capacity change since the last assessment is recorded per capacity",
+    description:
+      "Depreciation happens between assessments and shows up at rewrites. Recording change per capacity as replenished, unchanged, or consumed makes the direction of travel visible while it can still be corrected.",
+    category: "structural",
+    layer: "institution",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Compare the current dependency record against the previous version. For each capacity, confirm a change_since_last_assessment value of replenished, unchanged, or consumed is recorded, and that a consumed value names what consumed it.",
+    systemContext:
+      "The dependency record has been assessed at least twice, so a prior version exists to compare against.",
+    passCriteria: [
+      "Each capacity carries a change_since_last_assessment value of replenished, unchanged, or consumed",
+      "A consumed value names the change that consumed the capacity",
+      "The values are recorded per capacity rather than summarized as one figure for the deployment",
+    ],
+    failIndicators: [
+      "Change is reported only as an overall reversibility rating",
+      "A capacity that has visibly degraded is recorded as unchanged",
+      "Depreciation is only detectable by diffing record versions by hand",
+    ],
+    scoringRubric: scale03,
+    evidenceRequired: [
+      "Current and prior versions of the dependency record",
+      "change_since_last_assessment values per capacity",
+      "Change records naming what consumed any consumed capacity",
+    ],
+    relatedStandardRefs: ["STD-06", "STD-08"],
+    relatedGlossaryTerms: [
+      "capacity-depreciation",
+      "preserved-capacity",
+      "dependency-state",
+    ],
+    estimatedRunTime: "15 min",
+  },
+  {
+    id: "DEP-013",
+    suiteId: "dependence-reversibility",
+    title: "A lost capacity was replenished or the authority was narrowed",
+    description:
+      "When a capacity reaches lost, the institution has two honest options: rebuild it, or reduce the authority it was supporting. Doing neither is the finding.",
+    category: "structural",
+    layer: "institution",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "List every capacity whose status has reached lost or degrading in the current or prior assessment. For each, find either the replenishment work that restored it or the grant change that narrowed the authority it was supporting, and record its date.",
+    systemContext:
+      "At least one preserved capacity has been assessed as degrading or lost since deployment.",
+    passCriteria: [
+      "Each lost capacity has a dated replenishment record or a dated narrowing of the authority it supported",
+      "The choice between the two is recorded with its reasoning and its owner",
+      "Authority narrowing is reflected in the grant record, not only in a meeting note",
+    ],
+    failIndicators: [
+      "A capacity has been lost and authority continues unchanged",
+      "Replenishment is planned but unscheduled and unfunded",
+      "The lost status was removed from the record without either remedy",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Capacity status history from the dependency record",
+      "Replenishment records or grant amendments for each lost capacity",
+      "Decision record stating which remedy was chosen and why",
+    ],
+    relatedStandardRefs: ["STD-06", "STD-08"],
+    relatedGlossaryTerms: [
+      "capacity-depreciation",
+      "correction-capacity",
+      "authority-grant",
+    ],
+    estimatedRunTime: "15 min",
+  },
+  {
+    id: "DEP-014",
+    suiteId: "dependence-reversibility",
+    title: "Execution and evaluation do not depend on one provider",
+    description:
+      "A system that grades its own homework has no detection component however much telemetry it emits. This case checks that no single provider is necessary to both run a consequential process and evaluate it.",
+    category: "structural",
+    layer: "institution",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "For each consequential process, name the executing provider and the evaluating party. Confirm the evaluator is recorded in the grant's detection component and the dependency record, and check whether the evaluation could be produced if the executing provider withheld or disputed its telemetry.",
+    systemContext:
+      "One or more consequential processes are executed by an external provider that also supplies the monitoring data used to assess them.",
+    passCriteria: [
+      "The evaluator is named separately from the executor for every consequential process",
+      "Detection does not rest solely on instrumentation the executing provider supplies or controls",
+      "The evaluator can report a finding the executing provider disputes, and has a route to do so",
+    ],
+    failIndicators: [
+      "Detection depends entirely on the executing provider's telemetry",
+      "The evaluating party is a function of the executing provider or reports through it",
+      "No evaluator is named at all and instrumentation volume is offered as the answer",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Grant record detection component naming the evaluator",
+      "Dependency record entry for independent evaluation",
+      "Evaluation output produced without the executing provider's telemetry, or the rehearsal that attempted it",
+    ],
+    relatedStandardRefs: ["STD-08", "STD-06"],
+    relatedGlossaryTerms: [
+      "evaluation-independence",
+      "correction-capacity",
+      "substitution-cost",
+    ],
+    estimatedRunTime: "10 min",
+  },
   // ── Standing ─────────────────────────────────────────────────────
   {
     id: "STA-001",
@@ -4237,6 +4389,116 @@ export const evalTestCases: EvalTestCase[] = [
     ],
     relatedStandardRefs: ["STD-02"],
     relatedGlossaryTerms: ["meta-contestability", "contestability-guarantee"],
+    estimatedRunTime: "10 min",
+  },
+  {
+    id: "STA-010",
+    suiteId: "standing",
+    title: "Parties who became affected after adoption hold standing",
+    description:
+      "The set of affected parties enumerated at adoption is not the set the system now affects. Standing that is issued once, at adoption, excludes everyone the dependency reached afterwards.",
+    category: "agency",
+    layer: "institution",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "Compare the affected-party set recorded at adoption against the parties the system now touches, including downstream teams, successor cohorts, and operators hired since. For each party added since adoption, check whether they hold standing in the register.",
+    systemContext:
+      "The system has been in production long enough that its population of affected parties has changed since adoption.",
+    passCriteria: [
+      "The affected-party set is re-opened at each review rather than fixed at adoption",
+      "Parties who became affected after adoption appear in the standing register",
+      "The register records when each party was added and on what exposure",
+    ],
+    failIndicators: [
+      "The affected-party list is the adoption-time list, unchanged",
+      "Newly exposed parties are told they are outside the scope of the original consultation",
+      "Standing is granted only to signatories of the original agreement",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Affected-party set recorded at adoption",
+      "Current standing register with dates of addition",
+      "Review records showing the set being re-opened",
+    ],
+    relatedStandardRefs: ["STD-02"],
+    relatedGlossaryTerms: [
+      "consent-depth",
+      "corrective-standing",
+      "error-bearing-party",
+    ],
+    estimatedRunTime: "15 min",
+  },
+  {
+    id: "STA-011",
+    suiteId: "standing",
+    title: "Adverse movement since consent was disclosed",
+    description:
+      "Consent was given against a stated degree of dependence. Where exposure score, substitution cost, or reversibility level has moved adversely since, the consenting party should have been told.",
+    category: "agency",
+    layer: "institution",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Record exposure score, substitution cost, and reversibility level as they stood at consent and as they stand now. For each factor that has moved adversely, find the disclosure sent to the consenting party and its date.",
+    systemContext:
+      "Consent to the dependency was obtained at adoption and the deployment has been scored at least twice since.",
+    passCriteria: [
+      "The three factors are recorded at consent and at present, from measurements rather than recollection",
+      "Each adverse movement has a dated disclosure to the consenting party",
+      "The disclosure states the movement itself, not only the current level",
+    ],
+    failIndicators: [
+      "No baseline exists for the factors at the time of consent",
+      "Adverse movement is visible in the record with no disclosure attached",
+      "Disclosure happens only at renewal, after the deepening has been priced in",
+    ],
+    scoringRubric: scale03,
+    evidenceRequired: [
+      "Consent record with the dependency figures stated at the time",
+      "Current exposure score, substitution cost, and reversibility assessment",
+      "Disclosures sent to consenting parties, with dates",
+    ],
+    relatedStandardRefs: ["STD-02"],
+    relatedGlossaryTerms: [
+      "consent-depth",
+      "exposure-score",
+      "substitution-cost",
+    ],
+    estimatedRunTime: "10 min",
+  },
+  {
+    id: "STA-012",
+    suiteId: "standing",
+    title: "Original consent is not treated as covering a deepened dependency",
+    description:
+      "Consent to enter a dependency is not consent to every degree of dependency its operation produces. This case finds the last material deepening and asks what the adopter was told and what they could still refuse.",
+    category: "agency",
+    layer: "institution",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "Identify the last material deepening of the dependency: a scope increase, a data accumulation, a retired alternative, or a lapsed internal competence. Record what was disclosed at the time, whether standing or a refusal route was offered, and whether the operator has cited the original consent when challenged since.",
+    systemContext:
+      "The dependency has deepened materially at least once since consent was obtained.",
+    passCriteria: [
+      "The last material deepening is identifiable from records and is dated",
+      "It carried a disclosure and a route to object that could change the outcome",
+      "No challenge in the period was answered solely by reference to the original consent",
+    ],
+    failIndicators: [
+      "Deepening is only reconstructable from vendor invoices or org changes",
+      "Challenges are closed with the reasoning that the party chose the system",
+      "The refusal route offered would have cost the party the service itself",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Dependency trend or record history showing the deepening",
+      "Disclosure and objection route offered at the time",
+      "Challenge responses from the period, checked for consent-based closure",
+    ],
+    relatedStandardRefs: ["STD-02"],
+    relatedGlossaryTerms: ["consent-depth", "exit-coercion", "right-of-exit"],
     estimatedRunTime: "10 min",
   },
   // ── Meaningful Control ───────────────────────────────────────────
