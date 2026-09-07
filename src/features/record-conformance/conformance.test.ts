@@ -393,9 +393,12 @@ describe("auditing against the emitter's own manifest", () => {
       manifest: EXAMPLE_MANIFEST,
       asOf: LATER,
     });
-    expect(report.parsed).toBe(4);
+    expect(report.parsed).toBe(6);
     expect(report.declaredLevel).toBe(2);
-    expect(report.earnedLevel).toBe(2);
+    // The manifest declares 2, which is what a graph nobody has objected in
+    // earns. This export contains an objection and its answer, so it earns 3.
+    // Declaring less than a stream earns is honest; only the reverse is not.
+    expect(report.earnedLevel).toBe(3);
     expect(
       report.findings.filter((f) => f.severity === "blocking"),
     ).toHaveLength(0);
