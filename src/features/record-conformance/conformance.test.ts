@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
 import { auditRecords, durationMs, extractCandidates } from "./conformance";
+import { EXAMPLE_MANIFEST, EXAMPLE_STREAM } from "./example";
 import {
   hashRevisableDelegationRecord,
   type RevisableDelegationRecord,
@@ -346,5 +347,60 @@ describe("the declared level", () => {
       asOf: LATER,
     });
     expect(undeclared.declaredLevel).toBeNull();
+  });
+});
+
+describe("auditing against the emitter's own manifest", () => {
+  it("takes the level from the manifest instead of the argument", async () => {
+    const report = await auditRecords(
+      ndjson(await stream({ dropInvalidatedBy: true })),
+      {
+        declaredLevel: 0,
+        manifest: JSON.stringify({
+          revisableDelegation: {
+            standard:
+              "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
+            conformanceLevel: 2,
+            kinds: ["belief", "authorization", "discrepancy", "revision"],
+          },
+        }),
+        asOf: LATER,
+      },
+    );
+    // The argument said 0, which nothing could overclaim. The manifest said 2.
+    expect(report.declaredLevel).toBe(2);
+    expect(report.declaration?.at).toBe("revisableDelegation");
+    expect(report.findings.some((f) => f.id === "overclaimed")).toBe(true);
+  });
+
+  it("reports a manifest it cannot read without abandoning the audit", async () => {
+    const report = await auditRecords(ndjson(await stream()), {
+      manifest: "<!doctype html>",
+      asOf: LATER,
+    });
+    expect(report.manifestError).toContain("not valid JSON");
+    expect(report.findings.some((f) => f.id === "manifest-unreadable")).toBe(
+      true,
+    );
+    // The stream is still graded on its own terms.
+    expect(report.earnedLevel).toBe(2);
+  });
+
+  it("agrees with Ambit's shipped manifest about Ambit's shipped stream", async () => {
+    // Both artifacts are real and were produced independently of this checker.
+    // If either drifts, this is the test that says so.
+    const report = await auditRecords(EXAMPLE_STREAM, {
+      manifest: EXAMPLE_MANIFEST,
+      asOf: LATER,
+    });
+    expect(report.parsed).toBe(4);
+    expect(report.declaredLevel).toBe(2);
+    expect(report.earnedLevel).toBe(2);
+    expect(
+      report.findings.filter((f) => f.severity === "blocking"),
+    ).toHaveLength(0);
+    expect(report.findings.some((f) => f.id.startsWith("manifest-kind"))).toBe(
+      false,
+    );
   });
 });
