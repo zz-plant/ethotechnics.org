@@ -9,6 +9,12 @@ const REDIRECT_MAP: Record<string, string> = {
   // sequence that lived on /how-it-works are sections of /method now.
   "/how-it-works": "/method",
   "/quick-start": "/start",
+  // "Applications" was a third noun for operating patterns, which
+  // /mechanisms/patterns already carries — kill switches, appeal paths,
+  // progressive consent. Its index pointed mostly at explainers; its one page
+  // of its own moved rather than being dropped.
+  "/applications": "/mechanisms",
+  "/applications/moral-circuit-breakers": "/mechanisms/moral-circuit-breakers",
   "/diy-packs": "/agent-toolkit/prompt-packs",
   "/bundles": "/agent-toolkit/prompt-packs",
   "/bundles/diagnostic-export-kit": "/agent-toolkit/prompt-packs",
