@@ -35,14 +35,10 @@ export type GlossaryScale = "individual" | "organizational" | "systemic";
 export type GlossaryPhase = "design" | "deployment" | "audit" | "repair";
 
 export type GlossaryMeasurability =
-  | "qualitative"
-  | "semi_quantitative"
-  | "fully_measurable";
+  "qualitative" | "semi_quantitative" | "fully_measurable";
 
 export type GlossaryMaturity =
-  | "core_concept"
-  | "active_research"
-  | "speculative";
+  "core_concept" | "active_research" | "speculative";
 
 export type GlossaryMinimumEvidence = {
   artifact: string;

@@ -8,10 +8,7 @@ import {
 import type { SchemaNode, WebPageType } from "./types";
 
 type StructuredDataType =
-  | "collection"
-  | "webpage"
-  | "defined-term"
-  | "tech-article";
+  "collection" | "webpage" | "defined-term" | "tech-article";
 
 type SeoImage = {
   src: string;

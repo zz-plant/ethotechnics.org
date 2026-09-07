@@ -77,7 +77,9 @@ describe("navSections", () => {
   // one that takes a workflow is deliberate: it is the only input every reader
   // already has.
   it("orders instruments by input, workflow first", () => {
-    expect(sectionLinks("Instruments")[0]).toBe("/diagnostics/delegation-audit");
+    expect(sectionLinks("Instruments")[0]).toBe(
+      "/diagnostics/delegation-audit",
+    );
     expect(sectionLinks("Instruments").at(-1)).toBe("/diagnostics");
   });
 

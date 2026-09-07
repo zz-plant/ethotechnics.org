@@ -12,8 +12,10 @@ import {
 describe("normalizePath", () => {
   it("strips query and hash fragments", () => {
     expect(
-      normalizePath("/tools/burden-budget-worksheet/?mode=print#overview"),
-    ).toBe("/tools/burden-budget-worksheet");
+      normalizePath(
+        "/diagnostics/burden-budget-worksheet/?mode=print#overview",
+      ),
+    ).toBe("/diagnostics/burden-budget-worksheet");
   });
 
   it("falls back to root for hash-only URLs", () => {
@@ -23,9 +25,7 @@ describe("normalizePath", () => {
 
 describe("isCurrentLink", () => {
   it("treats canonical paths as current even when URL has query params", () => {
-    expect(isCurrentLink("/start/", "/start?ref=navigation")).toBe(
-      true,
-    );
+    expect(isCurrentLink("/start/", "/start?ref=navigation")).toBe(true);
   });
 
   it("does not treat same-page hash links as separate pages", () => {

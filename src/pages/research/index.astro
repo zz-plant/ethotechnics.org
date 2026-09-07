@@ -625,7 +625,30 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </div>
     </details>
   </SectionBlock>
-  <section class="section section--alt stack-md" aria-label="Subscribe to Research Updates">
+  <SectionBlock
+    id="programmes"
+    eyebrow="Programmes"
+    title="Standing research programmes"
+    description="Longer-running work with its own agenda, separate from the publications above."
+  >
+    <ul class="card__list">
+      <li>
+        <a href="/research/agenda">The research agenda</a> — the open questions this
+        work is organised around, and what would count as answering them.
+      </li>
+      <li>
+        <a href="/research/temporal-governance-studies"
+          >CH-01 — Temporal Governance Studies</a
+        > — a programme on making high-velocity governance binding, reversible, and
+        legitimate.
+      </li>
+    </ul>
+  </SectionBlock>
+
+  <section
+    class="section section--alt stack-md"
+    aria-label="Subscribe to Research Updates"
+  >
     <NewsletterSignup />
   </section>
   <InlineScript type="application/ld+json" code={structuredDataJson} />

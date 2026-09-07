@@ -24,6 +24,21 @@ const REDIRECT_MAP: Record<string, string> = {
   "/adopt/ops": "/roles/operations",
   "/adopt/policy": "/roles/policy",
   "/roles": "/start",
+  // /governance used to be two subjects behind one prefix: the institute's
+  // process page at the root, and the taxonomy domain under every path below
+  // it. Both now have a canonical home and /governance* is redirect-only.
+  "/governance": "/institute/governance",
+  // The six taxonomy domains route one way: under /taxonomy. Experience was
+  // the last one still rendering at the top level.
+  "/experience": "/taxonomy/experience",
+  // One noun for the artifact family. The index was plural and the detail
+  // pages singular, which is the only family on the site split that way.
+  "/artifact": "/artifacts",
+  // Two calculators that were their own top-level noun. They take numbers and
+  // report a score, which is what the other instruments do.
+  "/tools": "/diagnostics",
+  "/tools/burden-budget-worksheet": "/diagnostics/burden-budget-worksheet",
+  "/tools/governance-gap-score": "/diagnostics/governance-gap-score",
   // "Applications" was a third noun for operating patterns, which
   // /mechanisms/patterns already carries — kill switches, appeal paths,
   // progressive consent. Its index pointed mostly at explainers; its one page
@@ -75,6 +90,23 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   ) {
     const target = new URL(
       url.pathname.replace(/^\/governance/, "/taxonomy/governance"),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+  if (url.pathname.startsWith("/experience/")) {
+    const target = new URL(
+      url.pathname.replace(/^\/experience/, "/taxonomy/experience"),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+  // The artifact detail pages were the singular half of a split family.
+  if (url.pathname.startsWith("/artifact/")) {
+    const target = new URL(
+      url.pathname.replace(/^\/artifact/, "/artifacts"),
       url.origin,
     );
     target.search = url.search;

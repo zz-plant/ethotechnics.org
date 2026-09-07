@@ -42,14 +42,20 @@ const asString = (value: unknown): string | null =>
   typeof value === "string" && value.trim() ? value.trim() : null;
 
 const asStringArray = (value: unknown): string[] =>
-  Array.isArray(value) ? value.filter((entry): entry is string => typeof entry === "string") : [];
+  Array.isArray(value)
+    ? value.filter((entry): entry is string => typeof entry === "string")
+    : [];
 
 /**
  * A declaration is any object carrying a `conformanceLevel` alongside a
  * `standard` naming STD-07. Requiring both is what keeps an unrelated
  * `conformanceLevel` in some other vocabulary from being read as one of these.
  */
-function collect(value: unknown, path: string, found: DelegationDeclaration[]): void {
+function collect(
+  value: unknown,
+  path: string,
+  found: DelegationDeclaration[],
+): void {
   if (Array.isArray(value)) {
     value.forEach((entry, index) => collect(entry, `${path}[${index}]`, found));
     return;
@@ -57,11 +63,15 @@ function collect(value: unknown, path: string, found: DelegationDeclaration[]): 
   if (!isObject(value)) return;
 
   const standard = asString(value.standard);
-  if ("conformanceLevel" in value && standard?.includes("revisable-delegation")) {
+  if (
+    "conformanceLevel" in value &&
+    standard?.includes("revisable-delegation")
+  ) {
     const level = value.conformanceLevel;
     found.push({
       at: path || "(root)",
-      conformanceLevel: typeof level === "number" && Number.isInteger(level) ? level : null,
+      conformanceLevel:
+        typeof level === "number" && Number.isInteger(level) ? level : null,
       kinds: asStringArray(value.kinds),
       systemId: asString(value.systemId) ?? asString(value.system),
       records: asString(value.records),
@@ -104,7 +114,9 @@ export function readManifest(text: string): ManifestReadResult {
       ok: false,
       reason: `this manifest declares ${found.length} conformance levels (${found
         .map((entry) => entry.at)
-        .join(", ")}); a system that says two things about itself has not said one`,
+        .join(
+          ", ",
+        )}); a system that says two things about itself has not said one`,
     };
   }
   return { ok: true, declaration: found[0] };
@@ -139,7 +151,9 @@ export function compareDeclaration(
     });
   }
 
-  const missing = declared.filter((kind) => KNOWN_KINDS.has(kind) && !present.has(kind));
+  const missing = declared.filter(
+    (kind) => KNOWN_KINDS.has(kind) && !present.has(kind),
+  );
   if (missing.length) {
     findings.push({
       id: "manifest-kind-absent",

@@ -23,7 +23,6 @@ const inferOgTemplateFromPath = (path?: string): OgTemplate => {
   if (normalizedPath.startsWith("/glossary")) return "glossary";
   if (
     normalizedPath.startsWith("/taxonomy") ||
-    normalizedPath.startsWith("/governance") ||
     normalizedPath.startsWith("/delivery") ||
     normalizedPath.startsWith("/assurance") ||
     normalizedPath.startsWith("/experience")

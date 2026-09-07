@@ -39,13 +39,18 @@
   --shadow-color: rgba(28, 25, 23, 0.07);
   --shadow-color-soft: rgba(28, 25, 23, 0.035);
   --shadow-xs: 0 1px 2px var(--shadow-color-soft);
-  --shadow-sm: 0 2px 5px var(--shadow-color-soft), 0 1px 2px var(--shadow-color);
+  --shadow-sm:
+    0 2px 5px var(--shadow-color-soft), 0 1px 2px var(--shadow-color);
   --shadow: 0 5px 14px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-  --shadow-md: 0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
-  --shadow-lg: 0 14px 30px var(--shadow-color), 0 4px 8px var(--shadow-color-soft);
+  --shadow-md:
+    0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
+  --shadow-lg:
+    0 14px 30px var(--shadow-color), 0 4px 8px var(--shadow-color-soft);
   --shadow-panel: 0 6px 18px rgba(28, 25, 23, 0.04);
-  --shadow-float: 0 10px 24px rgba(28, 25, 23, 0.07), 0 2px 5px rgba(28, 25, 23, 0.03);
-  --shadow-float-strong: 0 16px 40px rgba(28, 25, 23, 0.09), 0 4px 10px rgba(28, 25, 23, 0.04);
+  --shadow-float:
+    0 10px 24px rgba(28, 25, 23, 0.07), 0 2px 5px rgba(28, 25, 23, 0.03);
+  --shadow-float-strong:
+    0 16px 40px rgba(28, 25, 23, 0.09), 0 4px 10px rgba(28, 25, 23, 0.04);
   --shadow-tight: 0 2px 5px var(--shadow-color);
   --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 14%, transparent);
 
@@ -84,7 +89,8 @@
   --glass-bg: color-mix(in srgb, var(--surface) 92%, transparent);
   --glass-border: color-mix(in srgb, var(--border) 75%, transparent);
   --glass-blur: blur(12px);
-  --card-inner-highlight: inset 0 1px 0 color-mix(in srgb, white 90%, transparent);
+  --card-inner-highlight: inset 0 1px 0
+    color-mix(in srgb, white 90%, transparent);
 
   --glow-wash: linear-gradient(
     180deg,
@@ -140,7 +146,11 @@
   --focus-outline-offset: 2px;
   --interactive-border: color-mix(in srgb, var(--border) 85%, transparent);
   --interactive-bg: color-mix(in srgb, var(--surface) 96%, var(--panel) 4%);
-  --interactive-bg-hover: color-mix(in srgb, var(--surface) 88%, var(--panel) 12%);
+  --interactive-bg-hover: color-mix(
+    in srgb,
+    var(--surface) 88%,
+    var(--panel) 12%
+  );
   --interactive-border-hover: color-mix(
     in srgb,
     var(--accent) 35%,
@@ -149,7 +159,8 @@
 
   /* Font Stacks */
   --sans:
-    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   --serif:
     "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman",
     serif;
@@ -198,8 +209,10 @@
     --shadow-xs: 0 1px 3px var(--shadow-color-soft);
     --shadow-sm:
       0 3px 8px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-    --shadow-md: 0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
-    --shadow-lg: 0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
+    --shadow-md:
+      0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
+    --shadow-lg:
+      0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
     --shadow-panel: 0 6px 20px rgba(0, 0, 0, 0.3);
     --shadow-float: 0 10px 24px rgba(0, 0, 0, 0.35);
     --shadow-float-strong: 0 16px 42px rgba(0, 0, 0, 0.4);
@@ -219,16 +232,8 @@
       color-mix(in srgb, var(--accent) 18%, transparent);
     --shadow-tight: 0 2px 5px var(--shadow-color);
     --surface-flat: var(--surface);
-    --surface-raised: linear-gradient(
-      140deg,
-      #211e1c,
-      #262320
-    );
-    --surface-emphasis: linear-gradient(
-      145deg,
-      #282522,
-      #2d2925
-    );
+    --surface-raised: linear-gradient(140deg, #211e1c, #262320);
+    --surface-emphasis: linear-gradient(145deg, #282522, #2d2925);
     --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
   }
 }
@@ -272,8 +277,10 @@
   --shadow-xs: 0 1px 3px var(--shadow-color-soft);
   --shadow-sm:
     0 3px 8px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-  --shadow-md: 0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
-  --shadow-lg: 0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
+  --shadow-md:
+    0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
+  --shadow-lg:
+    0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
   --shadow-panel: 0 6px 20px rgba(0, 0, 0, 0.3);
   --shadow-float: 0 10px 24px rgba(0, 0, 0, 0.35);
   --shadow-float-strong: 0 16px 42px rgba(0, 0, 0, 0.4);
@@ -292,16 +299,8 @@
   --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 18%, transparent);
   --shadow-tight: 0 2px 5px var(--shadow-color);
   --surface-flat: var(--surface);
-  --surface-raised: linear-gradient(
-    140deg,
-    #211e1c,
-    #262320
-  );
-  --surface-emphasis: linear-gradient(
-    145deg,
-    #282522,
-    #2d2925
-  );
+  --surface-raised: linear-gradient(140deg, #211e1c, #262320);
+  --surface-emphasis: linear-gradient(145deg, #282522, #2d2925);
   --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
 }
 

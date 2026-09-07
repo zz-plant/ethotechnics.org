@@ -24,23 +24,40 @@ if (!hasConnections) {
 }
 ---
 
-<aside class={`semantic-connections ${className}`} aria-label="Semantic Connections">
+<aside
+  class={`semantic-connections ${className}`}
+  aria-label="Semantic Connections"
+>
   <div class="semantic-connections__header">
-    <span class="semantic-connections__badge">RELATIONAL GOVERNANCE MATRIX</span>
-    <h3 class="semantic-connections__title">Connected Specifications & Tools</h3>
+    <span class="semantic-connections__badge">RELATIONAL GOVERNANCE MATRIX</span
+    >
+    <h3 class="semantic-connections__title">
+      Connected Specifications & Tools
+    </h3>
   </div>
 
   <div class="semantic-connections__grid">
     {
       context.diagnostics.length > 0 && (
         <div class="semantic-connections__column">
-          <span class="semantic-connections__label">Interactive Verification</span>
+          <span class="semantic-connections__label">
+            Interactive Verification
+          </span>
           <div class="semantic-connections__list">
             {context.diagnostics.slice(0, 3).map((diag) => (
-              <a href={diag.href} class="semantic-connections__card semantic-connections__card--tool">
-                <strong class="semantic-connections__card-title">{diag.title}</strong>
-                <p class="semantic-connections__card-desc">{diag.description}</p>
-                <span class="semantic-connections__card-action">Launch tool &rarr;</span>
+              <a
+                href={diag.href}
+                class="semantic-connections__card semantic-connections__card--tool"
+              >
+                <strong class="semantic-connections__card-title">
+                  {diag.title}
+                </strong>
+                <p class="semantic-connections__card-desc">
+                  {diag.description}
+                </p>
+                <span class="semantic-connections__card-action">
+                  Launch tool &rarr;
+                </span>
               </a>
             ))}
           </div>
@@ -51,13 +68,22 @@ if (!hasConnections) {
     {
       context.failureModes.length > 0 && (
         <div class="semantic-connections__column">
-          <span class="semantic-connections__label">Prevented Failure Modes</span>
+          <span class="semantic-connections__label">
+            Prevented Failure Modes
+          </span>
           <div class="semantic-connections__list">
             {context.failureModes.slice(0, 3).map((fm) => (
-              <a href={fm.href} class="semantic-connections__card semantic-connections__card--risk">
-                <strong class="semantic-connections__card-title">{fm.title}</strong>
+              <a
+                href={fm.href}
+                class="semantic-connections__card semantic-connections__card--risk"
+              >
+                <strong class="semantic-connections__card-title">
+                  {fm.title}
+                </strong>
                 <p class="semantic-connections__card-desc">{fm.description}</p>
-                <span class="semantic-connections__card-action">Inspect failure mode &rarr;</span>
+                <span class="semantic-connections__card-action">
+                  Inspect failure mode &rarr;
+                </span>
               </a>
             ))}
           </div>
@@ -71,10 +97,17 @@ if (!hasConnections) {
           <span class="semantic-connections__label">Normative Standards</span>
           <div class="semantic-connections__list">
             {context.standards.slice(0, 3).map((std) => (
-              <a href={std.href} class="semantic-connections__card semantic-connections__card--spec">
-                <strong class="semantic-connections__card-title">{std.title}</strong>
+              <a
+                href={std.href}
+                class="semantic-connections__card semantic-connections__card--spec"
+              >
+                <strong class="semantic-connections__card-title">
+                  {std.title}
+                </strong>
                 <p class="semantic-connections__card-desc">{std.description}</p>
-                <span class="semantic-connections__card-action">View specification &rarr;</span>
+                <span class="semantic-connections__card-action">
+                  View specification &rarr;
+                </span>
               </a>
             ))}
           </div>

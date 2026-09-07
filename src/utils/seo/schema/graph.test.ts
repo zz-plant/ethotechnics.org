@@ -25,10 +25,7 @@ const baseInput = {
 const buildForRoute = (route: {
   canonical: string;
   structuredDataType:
-    | "collection"
-    | "webpage"
-    | "defined-term"
-    | "tech-article";
+    "collection" | "webpage" | "defined-term" | "tech-article";
   openGraphType: "article" | "website";
   breadcrumbs: Array<{ name: string; absoluteUrl: string }>;
 }) =>
