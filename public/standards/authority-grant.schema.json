@@ -19,7 +19,8 @@
     "review_conditions",
     "revocation_conditions",
     "state",
-    "state_history"
+    "state_history",
+    "correction_capacity"
   ],
   "additionalProperties": false,
   "properties": {
@@ -70,25 +71,33 @@
           "title": "Scoped action classes",
           "description": "Action classes the grant covers, matching the catalog's action_class values.",
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "systems": {
           "title": "Systems",
           "description": "Systems or resources the grantee may act on under this grant.",
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "populations": {
           "title": "Populations",
           "description": "Populations of subjects the grantee may act upon.",
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "limits": {
           "title": "Limits",
           "description": "Quantitative or qualitative limits on the lease, such as rate, value, or duration caps, keyed by limit name.",
           "type": "object",
-          "additionalProperties": { "type": ["string", "number", "boolean"] }
+          "additionalProperties": {
+            "type": ["string", "number", "boolean"]
+          }
         }
       }
     },
@@ -121,7 +130,9 @@
       "title": "Action classes",
       "description": "The consequential action classes this grant currently authorizes. Must be a subset of scope.action_classes.",
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "for_whom": {
       "title": "For whom",
@@ -132,25 +143,121 @@
       "title": "Evidence basis",
       "description": "The propositions that justify this authority, as references to policy records or evidence items. When these change materially the grant becomes eligible for reconsideration (Law III).",
       "type": "array",
-      "items": { "$ref": "#/$defs/evidenceRef" }
+      "items": {
+        "$ref": "#/$defs/evidenceRef"
+      }
     },
     "assumptions": {
       "title": "Assumptions",
       "description": "Conditions assumed true at issue time. A falsified assumption is grounds for review.",
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "review_conditions": {
       "title": "Review conditions",
       "description": "Conditions under which the grant moves to review_required.",
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "revocation_conditions": {
       "title": "Revocation conditions",
       "description": "Conditions under which the grant moves to suspended or revoked.",
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
+    },
+    "correction_capacity": {
+      "title": "Correction capacity",
+      "description": "STD-08 §4.1: the seven components of correction this grant can show, each with its evidence. Law IV asserts a proportionality, not a checklist: capacity is stated alongside scope and reviewed whenever scope changes, so a grant whose scope grows while capacity stays fixed has moved the institution's exposure without a decision. Under §4.2 an expansion with no matching expansion of capacity is refused or the scope is narrowed to what the existing capacity covers; under §4.3 capacity that has degraded since the last assessment moves the grant to review_required. Each component is recorded as a present/evidence pair rather than a claim: present says whether the institution has the component now, evidence names what shows it.",
+      "type": "object",
+      "required": [
+        "assessed_at",
+        "detection",
+        "challenge",
+        "standing",
+        "review",
+        "authority_to_modify",
+        "reversible_transitions",
+        "operable_after_correction"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "assessed_at": {
+          "title": "Assessed at",
+          "description": "When correction capacity was last assessed. Capacity is a state variable like the grant itself: an assessment older than the scope it is supposed to cover is not a statement about the grant as it now stands (§4.3).",
+          "type": "string",
+          "format": "date-time"
+        },
+        "detection": {
+          "title": "Detection",
+          "description": "STD-08 §4.1, first component: that a wrong action can be noticed. The component also names who evaluates and whether that party is independent of the party that executes, because if the party that executes a consequential process is also the only party that evaluates it, the detection component is compromised however well it is instrumented.",
+          "type": "object",
+          "required": [
+            "present",
+            "evidence",
+            "evaluator",
+            "independent_of_executor"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "present": {
+              "title": "Present",
+              "description": "Whether a wrong action under this grant can in fact be noticed today.",
+              "type": "boolean"
+            },
+            "evidence": {
+              "title": "Evidence",
+              "description": "What shows detection works, for example a monitor with a measured detection rate or an incident that was caught by it rather than reported from outside.",
+              "type": "string"
+            },
+            "evaluator": {
+              "title": "Evaluator",
+              "description": "The named party that evaluates whether actions under this grant were wrong.",
+              "type": "string"
+            },
+            "independent_of_executor": {
+              "title": "Independent of executor",
+              "description": "Whether the evaluator is independent of the party that executes the process. False is a recordable state, not a validation error: it says the detection component rests on self-assessment, which is the condition STD-08 §4.1 requires to be visible rather than assumed away.",
+              "type": "boolean"
+            }
+          }
+        },
+        "challenge": {
+          "title": "Challenge",
+          "description": "STD-08 §4.1, second component: that a wrong action can be raised. A route that exists but has never carried a challenge is evidence of a route, not of a challenge.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "standing": {
+          "title": "Standing",
+          "description": "STD-08 §4.1, third component: that someone with exposure may raise it. Standing held only by parties inside the operating team is not standing for the exposed.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "review": {
+          "title": "Review",
+          "description": "STD-08 §4.1, fourth component: that a raised challenge will be examined by a named party within a clock. Both the party and the clock must be nameable for the component to be present.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "authority_to_modify": {
+          "title": "Authority to modify",
+          "description": "STD-08 §4.1, fifth component: that the examiner can change the grant or the decision. An examiner who can only recommend is advisory, and recording advice as capacity is the anti-pattern STD-08 Part C names.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "reversible_transitions": {
+          "title": "Reversible state transitions",
+          "description": "STD-08 §4.1, sixth component: that the affected state can be returned. The evidence is a reversal that was actually performed, not a code path that exists.",
+          "$ref": "#/$defs/correctionComponent"
+        },
+        "operable_after_correction": {
+          "title": "Practical ability to operate after correction",
+          "description": "STD-08 §4.1, seventh component: that the institution can absorb the reversal and keep operating. Per §4.4 this SHOULD be evidenced from the deployment's dependency record under STD-06, using correction_latency and the institutional level of reversibility. A correction the institution cannot afford to make is not counted as capacity.",
+          "$ref": "#/$defs/correctionComponent"
+        }
+      }
     },
     "mode": {
       "title": "Mode",
@@ -338,6 +445,25 @@
           "description": "When the evidence was last confirmed.",
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "correctionComponent": {
+      "title": "Correction component",
+      "description": "One of the seven components of correction capacity in STD-08 §4.1, recorded as whether it is present and what shows it. A component asserted with no evidence is a claim about the institution, not a property of the delegation.",
+      "type": "object",
+      "required": ["present", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "present": {
+          "title": "Present",
+          "description": "Whether the institution has this component for this grant now.",
+          "type": "boolean"
+        },
+        "evidence": {
+          "title": "Evidence",
+          "description": "What shows the component holds, for example a rehearsal, a decided challenge, a measured clock, or a named authority that exercised it.",
+          "type": "string"
         }
       }
     }

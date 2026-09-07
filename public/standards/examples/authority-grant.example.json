@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "grant_id": "GRANT-2026-0142",
   "provenance": {
     "issued_by": "risk-governance-board",
@@ -21,7 +21,10 @@
     "role": "Delegating authority",
     "contact": "risk-governance@example.org"
   },
-  "grantee": { "id": "agent-risk-ops-v2", "type": "agent" },
+  "grantee": {
+    "id": "agent-risk-ops-v2",
+    "type": "agent"
+  },
   "action_classes": ["READ", "WRITE"],
   "for_whom": "Retail banking customers, on behalf of the Fraud Operations desk",
   "evidence_basis": [
@@ -51,6 +54,39 @@
     "Intervention reach time exceeds four hours in any incident.",
     "Withdrawal rehearsal fails."
   ],
+  "correction_capacity": {
+    "assessed_at": "2026-06-18T16:30:00Z",
+    "detection": {
+      "present": true,
+      "evidence": "Model Risk Review recomputes the false-positive rate and release latency each month from the raw hold log rather than from the Fraud Operations dashboard; the 2026-06 recomputation put the rate on accounts flagged vulnerable at 11% against a 2% assumption. The qualifier is on the record: CHL-2026-0088 was reported from outside by the account's representative, not caught by the monitor, so detection is present but was not first.",
+      "evaluator": "Model Risk Review (second line)",
+      "independent_of_executor": true
+    },
+    "challenge": {
+      "present": true,
+      "evidence": "CHL-2026-0088 was raised on 2026-06-10 by an affected account's representative through the channel REG-ACCOUNT-HOLDS-1 declares for the account_hold class, and was decided rather than left open."
+    },
+    "standing": {
+      "present": true,
+      "evidence": "REG-ACCOUNT-HOLDS-1 admits affected_party, corrective_labor, representative, and oversight for the account_hold class, and both decision and grant may be challenged. CHL-2026-0088 was raised on the affected_party basis, from outside the operating team."
+    },
+    "review": {
+      "present": true,
+      "evidence": "The Risk Steward on call answered inside the register's PT48H deadline (opened 2026-06-10T14:20Z, deadline 2026-06-12T14:20Z) and referred the grant to the Risk Governance Board, which decided REC-2026-0019 on 2026-06-18. Both the examiner and the clock are named in REG-ACCOUNT-HOLDS-1."
+    },
+    "authority_to_modify": {
+      "present": true,
+      "evidence": "REC-2026-0019 narrowed the grant itself: populations now exclude accounts flagged vulnerable and max_hold_days fell from 14 to 7. The examiner changed the grant rather than recommending a change."
+    },
+    "reversible_transitions": {
+      "present": true,
+      "evidence": "holds.release reversed every hold in the 2026-05-20 rehearsal and released the CHL-2026-0088 hold within two hours; measured median release is 31 hours (DEP-RISK-OPS-V2-2026-06)."
+    },
+    "operable_after_correction": {
+      "present": false,
+      "evidence": "Not shown beyond 48 hours. DEP-RISK-OPS-V2-2026-06 records institutional reversibility as not feasible: withdrawal past 48 hours breaches the card-network fraud-loss SLA and the rules-engine fallback is not staffed to absorb it, with correction latency measured at 31 hours against that 48-hour margin. Capacity is counted only for reversal inside 48 hours, which is why max_hold_days is 7, and under §4.2 the grant may not be expanded until the fallback is staffed."
+    }
+  },
   "mode": "unattended",
   "state": "allowed",
   "state_history": [

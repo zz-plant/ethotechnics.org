@@ -1385,7 +1385,7 @@
             "title": "Normalized Dependence",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The condition in which reliance on a system has become invisible because it is ordinary: no one records it, no fallback is maintained, and withdrawal is no longer a question anyone asks. This is institutional dependence, meaning what the institution has come to rely on, and it should not be confused with the record-level dependence in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a> Article III, which governs what a given record rests on.</p><p>It matters because normalized dependence is what makes <a href=\"#dependency-state\">dependency state</a> hard to measure and <a href=\"#institutional-capture\">institutional capture</a> hard to notice until a correction is needed and turns out to be unavailable.</p>",
+            "bodyHtml": "<p>The condition in which reliance on a system has become invisible because it is ordinary: no one records it, no fallback is maintained, and withdrawal is no longer a question anyone asks. This is institutional dependence, meaning what the institution has come to rely on, and it should not be confused with the record-level dependence in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a> Article III, which governs what a given record rests on.</p><p>It matters because normalized dependence is what makes <a href=\"#dependency-state\">dependency state</a> hard to measure and <a href=\"#institutional-capture\">institutional capture</a> hard to notice until a correction is needed and turns out to be unavailable. Its slow form is <a href=\"#capacity-depreciation\">capacity depreciation</a>: nothing is decided, and the fallback simply stops being real.</p>",
             "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
             "operationalTests": [
               "Someone can state, without research, what happens to each dependent workflow if the system stops.",
@@ -1418,6 +1418,51 @@
               "institutional-capture",
               "heroism-dependent-systems",
               "invisible-fallbacks"
+            ]
+          },
+          {
+            "id": "capacity-depreciation",
+            "title": "Capacity Depreciation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The decay of correction capacity in the absence of replenishment. The people who knew the manual process leave, the alternative supplier lapses, the rollback script stops being run. Nothing fails and nothing is decided; the institution simply becomes less able to correct than it was, and the loss is recorded nowhere because no event produced it.</p><p>Depreciation is measured per capacity rather than as a single score. Each capacity in the dependency record carries a last_exercised date, a status of retained, degrading, or lost, and a change_since_last_assessment of replenished, unchanged, or consumed. A capacity that is listed but has never been exercised is a claim, not a capability.</p><p>It matters because <a href=\"#preserved-capacity\">preserved capacity</a> and <a href=\"#institutional-reversibility\">institutional reversibility</a> are stocks rather than properties: ordinary operation spends them, and only deliberate expenditure puts them back. Depreciation is how <a href=\"#correction-capacity\">correction capacity</a> falls behind delegated authority with no decision to reduce it, and it is the mechanism underneath <a href=\"#normalized-dependence\">normalized dependence</a>.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "Every listed capacity carries a last_exercised date, and capacities never exercised are recorded as claims rather than capabilities.",
+              "Each assessment records change since the previous one per capacity as replenished, unchanged, or consumed.",
+              "A capacity whose status reaches lost is either replenished or the authority it was supporting is narrowed, and the choice is recorded."
+            ],
+            "genealogy": "Names the Law XII failure that has no event: capacity is consumed by ordinary operation, so preservation has to be a recurring expenditure rather than a decision taken once.",
+            "references": [
+              {
+                "label": "Dependence and reversibility eval",
+                "href": "/evals/dependence-reversibility",
+                "type": "Eval"
+              },
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-xii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A dependency record whose capacity entries each carry last_exercised, status, and change_since_last_assessment.",
+              "behavior": "A capacity found degrading between assessments and replenished before its status reached lost.",
+              "metric": "Share of listed capacities exercised within their declared interval, and count consumed since the last assessment."
+            },
+            "domains": ["temporal", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["failure-mode", "capacity", "depreciation"],
+            "adjacentTerms": [
+              "preserved-capacity",
+              "institutional-reversibility",
+              "correction-capacity",
+              "normalized-dependence"
             ]
           }
         ]
@@ -1822,7 +1867,7 @@
             "title": "Correction Capacity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The measured ability to actually intervene: which interventions exist, who may invoke them, how long they take, and how much load the institution can absorb while they run. Capacity is counted in people, clocks, and rehearsals rather than asserted in a policy.</p><p>It matters because a <a href=\"#correction-obligation\">correction obligation</a> with no matching capacity is a promise the institution cannot keep. Capacity is the quantity that must grow alongside <a href=\"#delegated-agency\">delegated agency</a>, and it is the property an <a href=\"#evaluation-layer\">evaluation layer</a> above the model is needed to test.</p>",
+            "bodyHtml": "<p>The measured ability to actually intervene: which interventions exist, who may invoke them, how long they take, and how much load the institution can absorb while they run. Capacity is counted in people, clocks, and rehearsals rather than asserted in a policy.</p><p>It matters because a <a href=\"#correction-obligation\">correction obligation</a> with no matching capacity is a promise the institution cannot keep. Capacity is also perishable, losing ground to <a href=\"#capacity-depreciation\">capacity depreciation</a> unless it is replenished, and its detection component counts for nothing without <a href=\"#evaluation-independence\">evaluation independence</a>. Capacity is the quantity that must grow alongside <a href=\"#delegated-agency\">delegated agency</a>, and it is the property an <a href=\"#evaluation-layer\">evaluation layer</a> above the model is needed to test.</p>",
             "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
             "operationalTests": [
               "Every stated intervention has a named invoker, a measured time to effect, and a last-exercised date.",
@@ -2055,6 +2100,51 @@
               "policy-record",
               "ethotechnic-audit",
               "harm-visibility"
+            ]
+          },
+          {
+            "id": "evaluation-independence",
+            "title": "Evaluation Independence",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The property that no single provider is necessary to both execute a consequential process and evaluate it. Execution and evaluation may be bought in the same market, but the institution must still be able to run the evaluation when the executing provider withdraws, degrades, or disputes the result.</p><p>A system that grades its own homework has no detection component however much telemetry it emits, so detection is not satisfied by instrumentation the executing provider alone supplies or controls, and the evaluator has to be named. The property is carried by authority_grant.correction_capacity.detection.independent_of_executor and dependency_record.independent_evaluation, and bound by <a href=\"/standards/std-08-delegation\">STD-08</a> §4.6.</p><p>It matters because detection is the first component of <a href=\"#correction-capacity\">correction capacity</a>, and a dependence that captures detection removes correction while leaving the diagram intact. Independence is the part of <a href=\"#dependency-state\">dependency state</a> that <a href=\"#substitution-cost\">substitution cost</a> alone will not show, since an institution can afford to replace a provider and still be unable to check one.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "For each consequential process, the executing provider and the evaluating party are named separately, and the evaluator can report while the executor disputes the finding.",
+              "Detection signals are reproducible from a source the executing provider does not supply or control.",
+              "The evaluation has been run in a rehearsal with the executing provider's own telemetry withheld."
+            ],
+            "genealogy": "Extends the Law X evaluation stack to the provider: a layer above the model is only a layer if someone other than the executor can run it.",
+            "references": [
+              {
+                "label": "STD-08 delegation",
+                "href": "/standards/std-08-delegation",
+                "type": "Standard"
+              },
+              {
+                "label": "Dependence and reversibility eval",
+                "href": "/evals/dependence-reversibility",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A grant record whose detection component names an evaluator independent of the executor, matched by the dependency record's independent_evaluation entry.",
+              "behavior": "An evaluation completed and reported while the executing provider's telemetry was unavailable or contested.",
+              "metric": "Share of consequential processes whose execution and evaluation do not depend on one provider."
+            },
+            "domains": ["visibility", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["evaluation", "independence", "dependence"],
+            "adjacentTerms": [
+              "correction-capacity",
+              "evaluation-layer",
+              "dependency-state",
+              "substitution-cost"
             ]
           }
         ]
@@ -2555,7 +2645,7 @@
             "title": "Dependency State",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The current degree to which an institution relies on a system: who depends on it, what would break without it, what expertise has been retained, and how long substitution would take. This is institutional dependence, meaning what the institution has come to rely on, and it is distinct from the record-level dependence in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a> Article III, which asks what a particular record rests on.</p><p>It matters because dependence quietly removes corrections from the menu. Tracked as a state, it can be scored through <a href=\"#exposure-score\">exposure score</a>, read against the deployment's <a href=\"#substrate-profile\">substrate profile</a>, and countered by replenishing <a href=\"#institutional-reversibility\">institutional reversibility</a>.</p>",
+            "bodyHtml": "<p>The current degree to which an institution relies on a system: who depends on it, what would break without it, what expertise has been retained, and how long substitution would take. This is institutional dependence, meaning what the institution has come to rely on, and it is distinct from the record-level dependence in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a> Article III, which asks what a particular record rests on.</p><p>It matters because dependence quietly removes corrections from the menu. Tracked as a state, it can be scored through <a href=\"#exposure-score\">exposure score</a>, read against the deployment's <a href=\"#substrate-profile\">substrate profile</a>, and countered by replenishing <a href=\"#institutional-reversibility\">institutional reversibility</a>. A dependence that also supplies the deployment's own evaluation is worse than its score suggests, which is why the record carries <a href=\"#evaluation-independence\">evaluation independence</a>.</p>",
             "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "A dependency record lists dependents, retained expertise, alternatives, and substitution time.",
@@ -4201,7 +4291,7 @@
             "title": "Evaluation Layer",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The level of the stack at which an evaluation actually holds: model, agent, delegation, institution, or consequence. Every suite and case carries its layer so a clean result at one level is never read as a result at another.</p><p>It matters because layer confusion is the most common way assurance overstates itself. A model eval says nothing about whether the <a href=\"#authority-grant\">authority grant</a> is still valid or whether the institution retains the <a href=\"#correction-capacity\">correction capacity</a> to act on what the eval found.</p>",
+            "bodyHtml": "<p>The level of the stack at which an evaluation actually holds: model, agent, delegation, institution, or consequence. Every suite and case carries its layer so a clean result at one level is never read as a result at another.</p><p>It matters because layer confusion is the most common way assurance overstates itself. A model eval says nothing about whether the <a href=\"#authority-grant\">authority grant</a> is still valid or whether the institution retains the <a href=\"#correction-capacity\">correction capacity</a> to act on what the eval found. A layer also has to be staffed by someone other than the executor, which is what <a href=\"#evaluation-independence\">evaluation independence</a> names.</p>",
             "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
             "operationalTests": [
               "Every eval case declares its layer, and the declaration is enforced by the suite schema.",
@@ -4476,7 +4566,7 @@
             "title": "Right of Exit",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The ability to leave a system without ruinous cost, retaliation, or silent lock-in. Right of exit is foundational to ethical participation because consent is not meaningful when departure is punitive.</p><p>Operationally, exit requires data portability, clear closure paths, and protections against downstream penalties.</p><p>Exit is real only when it is priced. A measured <a href=\"#substitution-cost\">substitution cost</a> and demonstrated <a href=\"#institutional-reversibility\">institutional reversibility</a> are what separate a right of exit from a clause nobody can afford to invoke.</p>",
+            "bodyHtml": "<p>The ability to leave a system without ruinous cost, retaliation, or silent lock-in. Right of exit is foundational to ethical participation because consent is not meaningful when departure is punitive.</p><p>Operationally, exit requires data portability, clear closure paths, and protections against downstream penalties.</p><p>Exit is real only when it is priced. A measured <a href=\"#substitution-cost\">substitution cost</a> and demonstrated <a href=\"#institutional-reversibility\">institutional reversibility</a> are what separate a right of exit from a clause nobody can afford to invoke. <a href=\"#consent-depth\">Consent depth</a> is the reason the pricing has to be redone: the choice made at adoption was not a choice about the dependency that grew afterwards.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect right of exit.",
@@ -5206,7 +5296,7 @@
             "title": "Exit Coercion",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>“Consent” and silence extracted under duress during departures, often via NDAs, retaliation risk, or narrative erasure.</p><p>Exit coercion violates the <a href=\"#right-of-exit\">right of exit</a> and collapses <a href=\"#refusal-budget\">refusal budgets</a>.</p><p>Coercion is easiest where leaving is expensive, so the countermeasures are the ones that make leaving affordable: a measured <a href=\"#substitution-cost\">substitution cost</a> and maintained <a href=\"#institutional-reversibility\">institutional reversibility</a>.</p>",
+            "bodyHtml": "<p>“Consent” and silence extracted under duress during departures, often via NDAs, retaliation risk, or narrative erasure.</p><p>Exit coercion violates the <a href=\"#right-of-exit\">right of exit</a> and collapses <a href=\"#refusal-budget\">refusal budgets</a>.</p><p>Coercion is easiest where leaving is expensive, so the countermeasures are the ones that make leaving affordable: a measured <a href=\"#substitution-cost\">substitution cost</a> and maintained <a href=\"#institutional-reversibility\">institutional reversibility</a>. Where neither is maintained, <a href=\"#consent-depth\">consent depth</a> does the coercing on its own and no one has to apply pressure.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect exit coercion.",
@@ -5765,7 +5855,7 @@
             "title": "Preserved Capacity",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>An institutional capability deliberately maintained so the institution can still question, replace, or withdraw a system: retained expertise, a working manual path, independent records, a viable alternative supplier. Preserved capacities are named, owned, and funded even while idle, and they are kept honest by <a href=\"#withdrawal-rehearsal\">withdrawal rehearsal</a>.</p><p>It matters because these are the first capacities efficiency removes. Their erosion is a governance event rather than a saving, since it is the mechanism by which a system consumes the conditions of its own <a href=\"#contestability\">contestability</a>, destroys <a href=\"#institutional-reversibility\">institutional reversibility</a>, and ends in <a href=\"#institutional-capture\">institutional capture</a>.</p>",
+            "bodyHtml": "<p>An institutional capability deliberately maintained so the institution can still question, replace, or withdraw a system: retained expertise, a working manual path, independent records, a viable alternative supplier. Preserved capacities are named, owned, and funded even while idle, and they are kept honest by <a href=\"#withdrawal-rehearsal\">withdrawal rehearsal</a>.</p><p>It matters because these are the first capacities efficiency removes. Their erosion is a governance event rather than a saving, since it is the mechanism by which a system consumes the conditions of its own <a href=\"#contestability\">contestability</a>, destroys <a href=\"#institutional-reversibility\">institutional reversibility</a>, and ends in <a href=\"#institutional-capture\">institutional capture</a>. Registered capacities also decay quietly through <a href=\"#capacity-depreciation\">capacity depreciation</a>, which is why exercise dates rather than register entries are the evidence.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Preserved capacities are listed with an owner and a budget line, separate from the system's own budget.",
@@ -5923,6 +6013,51 @@
               "contestability",
               "meta-contestability",
               "escalation-reliability"
+            ]
+          },
+          {
+            "id": "consent-depth",
+            "title": "Consent Depth",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The distinction between consenting to enter a dependency and consenting to every degree of dependency its operation produces. Adoption is one choice, made once, under one set of alternatives; depth is what accumulates afterwards without any further choice being offered.</p><p>The choice at adoption helps manufacture the constrained choice set later. Data accumulates, collaborators organise around the system, alternatives disappear, and the adopter's own competence atrophies, so “you chose this” stops describing the present relationship. Enumerating affected parties at adoption does not close the set either, because people become exposed later without ever having been asked. Bound by <a href=\"/standards/std-02-contestability-recourse\">STD-02</a> §10.1 and §10.2.</p><p>It matters because standing is usually rationed by original consent. Depth is why <a href=\"#corrective-standing\">corrective standing</a> has to reach anyone who became an <a href=\"#error-bearing-party\">error-bearing party</a> after adoption, and why a deepened dependency is where <a href=\"#exit-coercion\">exit coercion</a> operates with nobody applying pressure, leaving a <a href=\"#right-of-exit\">right of exit</a> that is formally intact and practically spent.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The affected-party set is re-opened at each review rather than fixed at adoption.",
+              "Adverse movement in exposure score, substitution cost, or reversibility level since consent is disclosed to the consenting party.",
+              "The operator can name the last material deepening of the dependency and show what was disclosed at the time."
+            ],
+            "genealogy": "Separates the Law VII question of who holds standing from the moment of adoption, so consent cannot be used to price a relationship it no longer describes.",
+            "references": [
+              {
+                "label": "STD-02 contestability and recourse",
+                "href": "/standards/std-02-contestability-recourse",
+                "type": "Standard"
+              },
+              {
+                "label": "Standing eval",
+                "href": "/evals/standing",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A consent record paired with a dated dependency trend showing exposure score, substitution cost, and reversibility level at consent and now.",
+              "behavior": "A disclosure sent to consenting parties when the dependency deepened materially, ahead of the next renewal.",
+              "metric": "Share of material deepenings disclosed within a stated interval, and share of parties who became affected after adoption who hold standing."
+            },
+            "domains": ["temporal", "agency"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "active_research",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["consent", "standing", "dependence"],
+            "adjacentTerms": [
+              "corrective-standing",
+              "error-bearing-party",
+              "exit-coercion",
+              "right-of-exit"
             ]
           }
         ]
@@ -6175,7 +6310,7 @@
             "title": "Consent Journey",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The sequenced touchpoints where a person learns what a system will do, grants or denies permission, and can revise that choice over time.</p><p>Strong consent journeys use <a href=\"#anticipatory-consent\">anticipatory consent</a>, visible <a href=\"#permission-surface\">permission surfaces</a>, and healthy <a href=\"#refusal-budget\">refusal budgets</a> so pausing or exiting does not jeopardize access or care.</p>",
+            "bodyHtml": "<p>The sequenced touchpoints where a person learns what a system will do, grants or denies permission, and can revise that choice over time.</p><p>Strong consent journeys use <a href=\"#anticipatory-consent\">anticipatory consent</a>, visible <a href=\"#permission-surface\">permission surfaces</a>, and healthy <a href=\"#refusal-budget\">refusal budgets</a> so pausing or exiting does not jeopardize access or care.</p><p>A journey that ends at adoption misses <a href=\"#consent-depth\">consent depth</a>: the dependency keeps deepening after the permission was granted, and the choice has to be reopened rather than remembered.</p>",
             "scope": "I. Friction & flow. Designing intentional friction that protects people while keeping harm contained.",
             "operationalTests": [
               "Evidence appears in documentation, interface cues, or governance artifacts that reflect consent journey.",
