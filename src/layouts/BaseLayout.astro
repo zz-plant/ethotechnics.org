@@ -330,6 +330,15 @@ const pagefindType = pathSegments[0] ?? "";
         <footer class="footer container" aria-label="Site footer">
           <div class="footer__top">
             <section class="footer__identity-block">
+              {
+                /*
+                The wordmark carries this visually, but a <section> with no
+                heading is a landmark a screen-reader user cannot name while
+                navigating the footer by headings — the four link columns have
+                one and this would be the only block without.
+              */
+              }
+              <h2 class="sr-only">{identity.heading}</h2>
               <a
                 class="footer__brand"
                 href={identity.brand.href}

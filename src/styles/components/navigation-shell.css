@@ -167,15 +167,16 @@
     min-width: 0;
   }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 1600px) {
     .nav__search-desktop {
       min-width: 150px;
     }
   }
 
-  /* Between the desktop breakpoint and 1280px the bar cannot hold a full
-     search pill, so it collapses to an icon button. */
-  @media (max-width: 1279px) {
+  /* The container is capped at 1180px below a 1600px viewport, which cannot
+     hold the browse control, five links and a full search pill at once, so the
+     search collapses to an icon button. It opens the same dialog either way. */
+  @media (max-width: 1599px) {
     .nav__search-desktop .search-container {
       width: 38px;
     }
@@ -523,9 +524,18 @@
     display: none;
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1280px) {
     .nav__browse {
       display: block;
+    }
+  }
+
+  /* At the desktop breakpoint the bar is at its limit even without the browse
+     control — it was already a few pixels over before this panel existed. A
+     tighter gap closes it. */
+  @media (min-width: 1100px) and (max-width: 1279px) {
+    .nav__bar {
+      gap: 0.6rem;
     }
   }
 
@@ -588,6 +598,15 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
     z-index: var(--z-overlay);
+    /*
+     * The panel hangs off a sticky bar, so the document cannot scroll to reveal
+     * it: on a short viewport the lower links would sit past the bottom edge
+     * with no way to reach them, and keyboard focus would move to links nobody
+     * could see. It scrolls within itself instead.
+     */
+    max-height: calc(100dvh - 6rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .nav__browse-grid {
