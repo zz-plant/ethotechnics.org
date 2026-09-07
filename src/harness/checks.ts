@@ -17,7 +17,7 @@ const DEFAULTS: Required<HarnessOptions> = {
 };
 
 /** The eval cases the harness can answer, for pages that list Tier 1 coverage. */
-export const tier1Checks: { id: string; title: string; suiteId: string }[] = [
+export const tier1Checks = [
   { id: "STP-005", title: "Stop latency", suiteId: "stoppability" },
   { id: "AGT-007", title: "Human override", suiteId: "agent-governance" },
   {
@@ -52,7 +52,16 @@ export const tier1Checks: { id: string; title: string; suiteId: string }[] = [
     title: "Trigger produces a reconsideration record",
     suiteId: "delegation-validity",
   },
-];
+] as const satisfies readonly { id: string; title: string; suiteId: string }[];
+
+/**
+ * The check ids, named as a type so the catalogue can be held to them.
+ *
+ * src/content/checkable-properties.ts claims every one of these is a probe of a
+ * named governance property; a test asserts that mapping is total. Widening the
+ * harness without widening the catalogue should not compile.
+ */
+export type Tier1CheckId = (typeof tier1Checks)[number]["id"];
 
 function unsupported(
   id: string,

@@ -69,120 +69,145 @@ export const navPrimaryLinks: NavLink[] = [
   },
 ];
 
+/**
+ * The mega menu, named for the three layers the content model already has.
+ *
+ * Theory says why the laws hold, method says what must be true, instruments
+ * check whether it is. The old headings ("Standards & Specifications",
+ * "Diagnostics & Workbench") described file types rather than layers, which is
+ * why every new page had to argue for a slot instead of falling into one.
+ *
+ * The five-link ceiling stays. It is not a display constraint — it is the only
+ * thing forcing a decision about what a section is for.
+ */
 export const navSections: NavSection[] = [
   {
-    heading: "Standards & Specifications",
+    heading: "Method",
     description:
-      "Normative requirements, contract clauses, and regulatory crosswalks.",
+      "What must be true of a delegation: the chain, the laws, and the specifications that bind them.",
     links: [
       {
         href: "/method",
-        label: "Method",
+        label: "The method",
         description:
           "The seven-stage chain, the six state variables, and the twelve laws",
       },
       {
-        href: "/standards",
-        label: "Standards Spec",
-        description: "Normative specifications and safety requirements",
+        href: "/standards/laws",
+        label: "The twelve laws",
+        description: "Each law with the invariant a clause has to bind",
       },
       {
-        href: "/standards/laws",
-        label: "Laws",
-        description:
-          "Twelve laws of delegated intelligence and their invariants",
+        href: "/standards",
+        label: "Standards",
+        description: "Citable clauses, stated so a system can fail them",
       },
       {
         href: "/standards#regulatory-crosswalks",
-        label: "Regulatory Crosswalks",
+        label: "Regulatory crosswalks",
         description: "EU AI Act, NIST AI RMF, and ISO 42001 alignment",
       },
       {
         href: "/evidence-packs",
-        label: "Evidence Packs",
-        description: "Machine-verifiable proof and compliance artifacts",
+        label: "Evidence packs",
+        description: "What a clause needs you to be able to show",
       },
     ],
   },
   {
-    heading: "Architecture & Mechanisms",
+    heading: "Mechanisms and evals",
     description:
-      "Concrete engineering patterns, circuit breakers, and test suites.",
+      "How the requirements are built, and how a built system is scored against them.",
     links: [
       {
         href: "/mechanisms",
-        label: "Mechanisms Catalog",
+        label: "Mechanisms catalog",
         description: "Kill switches, appeals queues, and safe state controls",
       },
       {
         href: "/evals",
-        label: "Evals & Benchmarks",
-        description: "Governability evaluation suites and test cases",
+        label: "Eval suites",
+        description: "Governability suites and the cases inside them",
+      },
+      {
+        href: "/evals/coverage",
+        label: "What we can check",
+        description:
+          "Every check mapped to the claim it establishes, and the claims nothing checks",
       },
       {
         href: "/validators",
-        label: "Technical Validators",
+        label: "Validators",
         description: "Runtime assertions and middleware specifications",
+      },
+      {
+        href: "/measurement-tiers",
+        label: "Measurement tiers",
+        description: "Tiered evidence, gaming patterns, and detection logic",
       },
     ],
   },
   {
-    heading: "Diagnostics & Workbench",
+    // Ordered by what you have to bring, not by tool name. "Which one do I
+    // want" is answerable from the input; it is not answerable from a list of
+    // product names.
+    heading: "Instruments",
     description:
-      "Interactive tools to audit, forecast, and stress-test systems.",
+      "Ordered by what you bring to them: a workflow, a record stream, or a set of numbers.",
     links: [
       {
+        href: "/diagnostics/delegation-audit",
+        label: "Delegation audit",
+        description: "Bring a workflow: is the delegation still justified?",
+      },
+      {
         href: "/diagnostics/system-auditor",
-        label: "System Auditor & Guardrails",
-        description: "AI prompt and architecture governance analyzer",
+        label: "System auditor",
+        description: "Bring a prompt or architecture: where are the guardrails?",
       },
       {
         href: "/diagnostics/burden-modeler",
-        label: "Burden Modeler",
-        description: "Quantify cognitive friction and task loads",
-      },
-      {
-        href: "/diagnostics/delegation-audit",
-        label: "Delegation Audit",
-        description: "Ask a team whether a delegation is still justified",
+        label: "Burden modeler",
+        description: "Bring a workflow: who absorbs the friction, and how much?",
       },
       {
         href: "/diagnostics/record-conformance",
-        label: "Record Conformance Checker",
+        label: "Record conformance",
         description:
-          "Grade an STD-07 record stream against the level it claims",
+          "Bring a record stream: does it earn the level it declares?",
       },
       {
         href: "/diagnostics",
-        label: "All Diagnostics",
-        description: "Browse the complete interactive diagnostics gallery",
+        label: "All instruments",
+        description:
+          "Including the forecasters and simulators, which take numbers",
       },
     ],
   },
   {
-    heading: "Knowledge & Evidence",
+    heading: "Knowledge",
     description:
-      "80+ failure modes, mathematical formulas, and empirical research.",
+      "Terms, failure modes, real incidents, and the theory that motivates the laws without being cited by them.",
     links: [
       {
         href: "/glossary",
-        label: "Glossary & Ontology",
+        label: "Glossary",
         description: "Definitive terms for accountable systems",
       },
       {
         href: "/taxonomy",
-        label: "Capability Taxonomy",
+        label: "Capability taxonomy",
         description:
           "Domains, capabilities, and practices with owners and readiness",
       },
       {
         href: "/incidents",
-        label: "Incident Precedents",
+        label: "Incident precedents",
         description: "Real-world failure dossiers and post-mortems",
       },
       {
         href: "/field-notes",
-        label: "Field Notes & Research",
+        label: "Field notes",
         description: "Working papers and empirical governance studies",
       },
       {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { roleCuratedPaths, type UserRole } from "../utils/semantic-graph";
+import { quickStartGuides } from "../content/quick-start";
 
 const pageTitle = "Start Here — Ethotechnics Triage & Role Paths";
 const pageDescription =
@@ -79,6 +80,31 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
           >Run a delegation audit</a
         >
         <a href="/method" class="button">Read the method</a>
+      </div>
+    </section>
+
+    <!-- Role guides, formerly the /quick-start index. Two pages asking the
+         reader the same question about themselves was one too many. -->
+    <section class="matrix-banner">
+      <div class="matrix-banner__content">
+        <h2>Want the longer version for your role?</h2>
+        <p>
+          Each guide names an outcome you can reach in one session, and the
+          standards, mechanisms and validators that get you there.
+        </p>
+      </div>
+      <div class="matrix-banner__links">
+        {
+          quickStartGuides.map((guide) => (
+            <a
+              href={`/quick-start/${guide.slug}`}
+              class="button"
+              data-route-action={`quick-start-${guide.slug}`}
+            >
+              {guide.title}
+            </a>
+          ))
+        }
       </div>
     </section>
 

@@ -16,7 +16,7 @@ const breadcrumbItems = [
   { name: "Home", url: new URL("/", siteBase).toString() },
   { name: "Validators", url: new URL("/validators", siteBase).toString() },
   {
-    name: "Burden Modeler",
+    name: "VAL-01 Burden Modeler",
     url: new URL("/validators/burden-modeler", siteBase).toString(),
   },
 ];
@@ -24,7 +24,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 ---
 
 <BaseLayout
-  title="Burden Modeler Validator — Score Time Tax and Denial Risk"
+  title="VAL-01 Burden Modeler — the validator specification"
   description="Quantify time tax, interaction friction, and constructive-denial risk in user journeys, then output a remediation report aligned to Ethotechnics standards."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
@@ -35,12 +35,13 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
     <header class="validator__header">
       <div>
         <p class="validator__id">VAL-01</p>
-        <h1>Burden Modeler (Compliance Check)</h1>
+        <h1>VAL-01 Burden Modeler — specification</h1>
         <p class="muted">
-          Fast compliance scorecard for STD-01 time-tax rules. Looking for deep
-          simulation?
+          This page specifies the validator: the assertion, its inputs, and
+          what a conforming implementation must return. It is not the tool. If
+          you came here to model a workflow,
           <a href="/diagnostics/burden-modeler"
-            >Open the interactive Burden Modeler Diagnostic &rarr;</a
+            >open the Burden Modeler diagnostic &rarr;</a
           >
         </p>
       </div>

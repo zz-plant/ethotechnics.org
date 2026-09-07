@@ -184,10 +184,10 @@ export const finiteContent = {
     ],
   },
   gettingStarted: {
-    eyebrow: "Start Finite",
-    title: "Three steps to begin a stoppability drill.",
+    eyebrow: "Running a drill",
+    title: "What a stoppability drill needs before it starts.",
     description:
-      "Use these steps to decide whether Finite fits your system and timeline.",
+      "Finite is a training environment, not a place to begin reading. If you are orienting rather than drilling, /start is the page you want. These are the inputs a drill needs.",
     steps: [
       "Name the system or workflow you want to test, plus one recent incident or near-miss.",
       "Identify who can halt or roll back the system today—and where that ownership is unclear.",

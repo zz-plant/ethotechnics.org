@@ -15,6 +15,8 @@ const {
   chain,
   stateVariables,
   laws,
+  lenses,
+  applicationSequence,
   optimizationProblem,
 } = methodContent;
 
@@ -23,6 +25,8 @@ const anchorLinks = [
   { href: "#chain", label: "The chain" },
   { href: "#state-variables", label: "State variables" },
   { href: "#laws", label: "The twelve laws" },
+  { href: "#lenses", label: "The three lenses" },
+  { href: "#sequence", label: "Applying it" },
   { href: "#optimization", label: "The optimization problem" },
 ];
 
@@ -45,7 +49,7 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
       title: "How to read this page",
       description:
         "Read the chain first. Then check which of the six state variables your system makes explicit. The laws say what must hold; the standards say how to show it.",
-      link: { href: "/how-it-works", label: "See how the lenses apply" },
+      link: { href: "#lenses", label: "See how the lenses apply" },
     }}
   >
     <Fragment slot="actions">
@@ -175,14 +179,51 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
   </SectionBlock>
 
   <SectionBlock
+    id="lenses"
+    eyebrow="The three lenses"
+    title="Instruments applied at the Consequence stage"
+    description="The chain says a consequential decision must account for who carries its burden. The lenses are how that accounting is done: each takes one workflow and asks one question about it. Apply one at a time."
+  >
+    <div class="grid grid--three">
+      {
+        lenses.map((lens) => (
+          <div class="card stack-sm" id={lens.id}>
+            <h3>{lens.title}</h3>
+            <p>{lens.question}</p>
+            <blockquote>{lens.example}</blockquote>
+          </div>
+        ))
+      }
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="sequence"
+    eyebrow="Applying it"
+    title="Four steps, one workflow at a time"
+    description="The method is not adopted at the scale of an organisation. It is adopted one workflow at a time, and a different workflow each week produces a cross-section of where burden actually lands."
+    variant="alt"
+  >
+    <ol class="step-list stack-sm">
+      {
+        applicationSequence.map((step) => (
+          <li>
+            <strong>{step.title}.</strong> {step.detail}
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
     id="optimization"
     eyebrow="The optimization problem"
     title="What the method optimizes"
     description={optimizationProblem}
   >
     <div class="section__actions">
-      <a class="button primary" href="/how-it-works">Apply the lenses</a>
-      <a class="button ghost" href="/start-here">Pick a path</a>
+      <a class="button primary" href="#lenses">Apply the lenses</a>
+      <a class="button ghost" href="/start">Pick a path</a>
     </div>
   </SectionBlock>
 </BaseLayout>
