@@ -46,9 +46,7 @@
     "system": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id"
-      ],
+      "required": ["id"],
       "properties": {
         "id": {
           "type": "string",
@@ -72,10 +70,7 @@
     "actor": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "kind"
-      ],
+      "required": ["id", "kind"],
       "properties": {
         "id": {
           "type": "string",
@@ -83,12 +78,7 @@
         },
         "kind": {
           "type": "string",
-          "enum": [
-            "human",
-            "model",
-            "service",
-            "institution"
-          ]
+          "enum": ["human", "model", "service", "institution"]
         },
         "on_behalf_of": {
           "type": "string",
@@ -109,10 +99,7 @@
     "time": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "as_of",
-        "recorded_at"
-      ],
+      "required": ["as_of", "recorded_at"],
       "properties": {
         "as_of": {
           "type": "string",
@@ -154,9 +141,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "condition"
-        ],
+        "required": ["condition"],
         "properties": {
           "condition": {
             "type": "string",
@@ -199,19 +184,13 @@
     },
     "visibility": {
       "type": "string",
-      "enum": [
-        "public",
-        "internal",
-        "private"
-      ],
+      "enum": ["public", "internal", "private"],
       "description": "Who may read the record. A public record is citable; an internal record is auditable inside the institution; a private record is tenant data."
     },
     "contest": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "standing"
-      ],
+      "required": ["standing"],
       "properties": {
         "standing": {
           "type": "string",
@@ -232,10 +211,7 @@
     "integrity": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "algorithm",
-        "hash"
-      ],
+      "required": ["algorithm", "hash"],
       "properties": {
         "algorithm": {
           "type": "string",
@@ -271,9 +247,7 @@
         "properties": {
           "content": {
             "type": "object",
-            "required": [
-              "proposition"
-            ],
+            "required": ["proposition"],
             "properties": {
               "proposition": {
                 "type": "string",
@@ -315,10 +289,7 @@
         "properties": {
           "content": {
             "type": "object",
-            "required": [
-              "capability_id",
-              "state"
-            ],
+            "required": ["capability_id", "state"],
             "properties": {
               "capability_id": {
                 "type": "string",
@@ -326,12 +297,7 @@
               },
               "state": {
                 "type": "string",
-                "enum": [
-                  "absent",
-                  "configured",
-                  "verified",
-                  "broken"
-                ],
+                "enum": ["absent", "configured", "verified", "broken"],
                 "description": "configured means present; verified means a check passed. Availability decisions gate on verified."
               },
               "requires": {
@@ -379,11 +345,7 @@
               },
               "mode": {
                 "type": "string",
-                "enum": [
-                  "unattended",
-                  "confirm",
-                  "forbidden"
-                ]
+                "enum": ["unattended", "confirm", "forbidden"]
               },
               "ceiling": {
                 "type": "string",
@@ -413,21 +375,14 @@
         }
       },
       "then": {
-        "required": [
-          "authority"
-        ],
+        "required": ["authority"],
         "properties": {
           "authority": {
-            "required": [
-              "authorization_record"
-            ]
+            "required": ["authorization_record"]
           },
           "content": {
             "type": "object",
-            "required": [
-              "description",
-              "reversible"
-            ],
+            "required": ["description", "reversible"],
             "properties": {
               "description": {
                 "type": "string",
@@ -459,11 +414,7 @@
         "properties": {
           "content": {
             "type": "object",
-            "required": [
-              "expected",
-              "observed",
-              "source"
-            ],
+            "required": ["expected", "observed", "source"],
             "properties": {
               "expected": {
                 "type": "string",
@@ -479,11 +430,7 @@
               },
               "severity": {
                 "type": "string",
-                "enum": [
-                  "low",
-                  "medium",
-                  "high"
-                ]
+                "enum": ["low", "medium", "high"]
               }
             }
           }
@@ -499,15 +446,11 @@
         }
       },
       "then": {
-        "required": [
-          "supersedes"
-        ],
+        "required": ["supersedes"],
         "properties": {
           "content": {
             "type": "object",
-            "required": [
-              "reason"
-            ],
+            "required": ["reason"],
             "properties": {
               "reason": {
                 "type": "string",
@@ -537,11 +480,7 @@
         "properties": {
           "content": {
             "type": "object",
-            "required": [
-              "challenges",
-              "standing_basis",
-              "requested"
-            ],
+            "required": ["challenges", "standing_basis", "requested"],
             "properties": {
               "challenges": {
                 "type": "string",
@@ -573,10 +512,7 @@
         "properties": {
           "content": {
             "type": "object",
-            "required": [
-              "action_record",
-              "result"
-            ],
+            "required": ["action_record", "result"],
             "properties": {
               "action_record": {
                 "type": "string"
@@ -586,10 +522,7 @@
                 "minLength": 1
               },
               "matched_expectation": {
-                "type": [
-                  "boolean",
-                  "null"
-                ]
+                "type": ["boolean", "null"]
               },
               "learned": {
                 "type": "string"
@@ -627,9 +560,7 @@
         "reversible": true,
         "reversal_path": "Resume trigger: tightness below 60 for two consecutive weeks."
       },
-      "depends_on": [
-        "whether:belief:2026-w36:regime"
-      ],
+      "depends_on": ["whether:belief:2026-w36:regime"],
       "invalidated_by": [
         {
           "condition": "tightness score falls below 60 for two consecutive weeks",
@@ -639,9 +570,7 @@
       ],
       "authority": {
         "authorization_record": "operator:authorization:weekly-pacing",
-        "clauses": [
-          "STD-07.2.1"
-        ]
+        "clauses": ["STD-07.2.1"]
       },
       "visibility": "public",
       "contest": {
@@ -677,10 +606,7 @@
         "proposition": "Frozen proposition text as registered.",
         "probability": 0.35,
         "reference_class": "guideline first-line listing within 12 months of pivotal data",
-        "evidence": [
-          "SRC-001",
-          "SRC-002"
-        ]
+        "evidence": ["SRC-001", "SRC-002"]
       },
       "invalidated_by": [
         {

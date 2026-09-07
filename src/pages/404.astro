@@ -5,25 +5,29 @@ import { Icon } from "astro-icon/components";
 const quickLinks = [
   {
     title: "Standards Index",
-    description: "Normative standards, contestability frameworks, and audit rules.",
+    description:
+      "Normative standards, contestability frameworks, and audit rules.",
     href: "/standards",
     icon: "lucide:book-open",
   },
   {
     title: "Diagnostics & Tools",
-    description: "Interactive calculators, capacity forecasters, and evaluation runners.",
+    description:
+      "Interactive calculators, capacity forecasters, and evaluation runners.",
     href: "/diagnostics",
     icon: "lucide:activity",
   },
   {
     title: "Glossary of Terms",
-    description: "Canonical definitions for ethical technology and accountable systems.",
+    description:
+      "Canonical definitions for ethical technology and accountable systems.",
     href: "/glossary",
     icon: "lucide:list-tree",
   },
   {
     title: "Field Notes",
-    description: "Dispatches, incident analyses, and case studies from the field.",
+    description:
+      "Dispatches, incident analyses, and case studies from the field.",
     href: "/field-notes",
     icon: "lucide:file-text",
   },
@@ -40,7 +44,8 @@ const quickLinks = [
       <p class="eyebrow page-404__eyebrow">404 — Signal Lost</p>
       <h1 class="page-404__title">Coordinates Not Found</h1>
       <p class="page-404__description">
-        The path you requested does not correspond to a known sector or artifact of the Ethotechnics Institute.
+        The path you requested does not correspond to a known sector or artifact
+        of the Ethotechnics Institute.
       </p>
       <div class="page-404__actions">
         <a href="/" class="button primary">
@@ -57,15 +62,17 @@ const quickLinks = [
     <section class="page-404__recovery" aria-labelledby="recovery-heading">
       <h2 id="recovery-heading" class="eyebrow">Explore Key Sectors</h2>
       <div class="page-404__grid">
-        {quickLinks.map((item) => (
-          <a href={item.href} class="card page-404__card">
-            <div class="page-404__card-header">
-              <Icon name={item.icon} class="page-404__card-icon" />
-              <h3>{item.title}</h3>
-            </div>
-            <p class="muted">{item.description}</p>
-          </a>
-        ))}
+        {
+          quickLinks.map((item) => (
+            <a href={item.href} class="card page-404__card">
+              <div class="page-404__card-header">
+                <Icon name={item.icon} class="page-404__card-icon" />
+                <h3>{item.title}</h3>
+              </div>
+              <p class="muted">{item.description}</p>
+            </a>
+          ))
+        }
       </div>
     </section>
   </div>
@@ -171,4 +178,3 @@ const quickLinks = [
     margin: 0;
   }
 </style>
-

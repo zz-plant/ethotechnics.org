@@ -52,17 +52,21 @@ describe("finding the declaration", () => {
       }),
     );
     expect(result.ok).toBe(false);
-    expect(result.ok === false && result.reason).toContain("no revisable-delegation");
+    expect(result.ok === false && result.reason).toContain(
+      "no revisable-delegation",
+    );
   });
 
   it("refuses a manifest that declares two levels", () => {
     const doubled = JSON.stringify({
       a: {
-        standard: "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
+        standard:
+          "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
         conformanceLevel: 1,
       },
       b: {
-        standard: "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
+        standard:
+          "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
         conformanceLevel: 3,
       },
     });
@@ -92,7 +96,9 @@ describe("what the manifest claims against what the stream shows", () => {
       parsed: 3,
       kinds: { belief: 3 },
     });
-    const finding = findings.find((entry) => entry.id === "manifest-kind-absent");
+    const finding = findings.find(
+      (entry) => entry.id === "manifest-kind-absent",
+    );
     expect(finding?.detail).toContain("objection");
   });
 
@@ -112,12 +118,14 @@ describe("what the manifest claims against what the stream shows", () => {
       { ...declaration, kinds: ["belief", "vibe"] },
       { parsed: 1, kinds: { belief: 1 } },
     );
-    expect(
-      findings.some((entry) => entry.id === "manifest-unknown-kind"),
-    ).toBe(true);
+    expect(findings.some((entry) => entry.id === "manifest-unknown-kind")).toBe(
+      true,
+    );
   });
 
   it("says nothing about an empty stream", () => {
-    expect(compareDeclaration(declaration, { parsed: 0, kinds: {} })).toEqual([]);
+    expect(compareDeclaration(declaration, { parsed: 0, kinds: {} })).toEqual(
+      [],
+    );
   });
 });

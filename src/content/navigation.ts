@@ -163,12 +163,14 @@ export const navSections: NavSection[] = [
       {
         href: "/diagnostics/system-auditor",
         label: "System auditor",
-        description: "Bring a prompt or architecture: where are the guardrails?",
+        description:
+          "Bring a prompt or architecture: where are the guardrails?",
       },
       {
         href: "/diagnostics/burden-modeler",
         label: "Burden modeler",
-        description: "Bring a workflow: who absorbs the friction, and how much?",
+        description:
+          "Bring a workflow: who absorbs the friction, and how much?",
       },
       {
         href: "/diagnostics/record-conformance",

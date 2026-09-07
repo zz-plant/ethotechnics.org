@@ -138,7 +138,8 @@ function RecordConformance() {
             className="record-conformance__label"
             htmlFor="record-conformance-manifest"
           >
-            The emitter's manifest <span className="record-conformance__hint">(optional)</span>
+            The emitter's manifest{" "}
+            <span className="record-conformance__hint">(optional)</span>
             <span className="record-conformance__hint">
               Paste <code>/.well-known/*.json</code>, <code>server.json</code>,
               or whatever the system publishes about itself. The declaration is
@@ -273,8 +274,8 @@ function RecordConformance() {
 
               {report.declaration && (
                 <p className="record-conformance__hint">
-                  Read from the manifest at{" "}
-                  <code>{report.declaration.at}</code>:{" "}
+                  Read from the manifest at <code>{report.declaration.at}</code>
+                  :{" "}
                   {report.declaration.conformanceLevel === null
                     ? "no usable level"
                     : `Level ${report.declaration.conformanceLevel}`}

@@ -6,9 +6,7 @@ const formatList = (items: string[]) =>
 const getMissing = (expected: string[], actual: string[]) =>
   expected.filter((entry) => !actual.includes(entry));
 
-export const assertEndpointParity = (options: {
-  unversioned: string[];
-}) => {
+export const assertEndpointParity = (options: { unversioned: string[] }) => {
   const expectedUnversioned = getEndpointsForVariant("unversioned");
 
   const missingUnversioned = getMissing(
@@ -20,5 +18,7 @@ export const assertEndpointParity = (options: {
     return;
   }
 
-  throw new Error(`Missing unversioned endpoints:\n${formatList(missingUnversioned)}`);
+  throw new Error(
+    `Missing unversioned endpoints:\n${formatList(missingUnversioned)}`,
+  );
 };
