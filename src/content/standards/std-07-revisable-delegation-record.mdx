@@ -529,7 +529,7 @@ export const structuredData = {
 "schema_version": "0.1.0",
 "record_id": "<system>:<kind>:<local-id>",
 "kind": "belief | capability | authorization | action | discrepancy | revision | objection | outcome",
-"system": { "id": "…", "version": "…", "origin": "https://…" },
+"system": { "id": "…", "instance": "…", "version": "…", "origin": "https://…" },
 "actor": { "id": "…", "kind": "human | model | service | institution", "on_behalf_of": "…" },
 "subject": "what the record is about",
 "summary": "one plain-language sentence",
@@ -548,6 +548,18 @@ export const structuredData = {
 
       <section id="adoption" class="standard-section">
         <h2>Adoption notes</h2>
+        <p>
+          <strong>0.1.1 adds <code>system.instance</code></strong>, optional and
+          backward compatible: a record that omits it still validates. It exists
+          because an adopter hit the gap rather than because the shape looked
+          incomplete. Two deployments of one system share a subject vocabulary —
+          that is what makes either one legible to the other — and therefore
+          emit identical <code>record_id</code>s for the same subject. A
+          consumer reading a peer's stream could not tell those records from its
+          own output read back, and <code>system.id</code> cannot answer it,
+          because both deployments are honestly the same system. A consumer that
+          guesses turns one machine's report into another's corroboration.
+        </p>
         <p>
           STD-07 was drafted against five systems that each hold a fragment of
           the loop and did not share a record shape: a forecast registry with a

@@ -46,14 +46,22 @@
     "system": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id"],
+      "required": [
+        "id"
+      ],
       "properties": {
         "id": {
           "type": "string",
           "minLength": 1,
           "description": "Emitting system, e.g. whether, ambit, nextconsensus, refract."
         },
-        "version": { "type": "string" },
+        "instance": {
+          "type": "string",
+          "description": "Which deployment of the emitting system, when it runs in more than one place. Two deployments of the same system share a subject vocabulary and so emit identical record ids for the same subject; without this a consumer cannot tell a peer's record from its own output read back."
+        },
+        "version": {
+          "type": "string"
+        },
         "origin": {
           "type": "string",
           "format": "uri",
@@ -64,12 +72,23 @@
     "actor": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "kind"],
+      "required": [
+        "id",
+        "kind"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
         "kind": {
           "type": "string",
-          "enum": ["human", "model", "service", "institution"]
+          "enum": [
+            "human",
+            "model",
+            "service",
+            "institution"
+          ]
         },
         "on_behalf_of": {
           "type": "string",
@@ -90,7 +109,10 @@
     "time": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["as_of", "recorded_at"],
+      "required": [
+        "as_of",
+        "recorded_at"
+      ],
       "properties": {
         "as_of": {
           "type": "string",
@@ -120,7 +142,9 @@
     },
     "depends_on": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "default": [],
       "description": "record_ids this record rests on. An authorization depends on the beliefs and capabilities that justified it; an action depends on its authorization."
     },
@@ -130,7 +154,9 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["condition"],
+        "required": [
+          "condition"
+        ],
         "properties": {
           "condition": {
             "type": "string",
@@ -160,7 +186,9 @@
         },
         "clauses": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Clause citations, e.g. STD-07.2.1, STD-02.1.1, pinned by version in the emitting system's manifest."
         }
       }
@@ -171,13 +199,19 @@
     },
     "visibility": {
       "type": "string",
-      "enum": ["public", "internal", "private"],
+      "enum": [
+        "public",
+        "internal",
+        "private"
+      ],
       "description": "Who may read the record. A public record is citable; an internal record is auditable inside the institution; a private record is tenant data."
     },
     "contest": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["standing"],
+      "required": [
+        "standing"
+      ],
       "properties": {
         "standing": {
           "type": "string",
@@ -198,9 +232,15 @@
     "integrity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["algorithm", "hash"],
+      "required": [
+        "algorithm",
+        "hash"
+      ],
       "properties": {
-        "algorithm": { "type": "string", "const": "sha256" },
+        "algorithm": {
+          "type": "string",
+          "const": "sha256"
+        },
         "hash": {
           "type": "string",
           "pattern": "^[0-9a-f]{64}$",
@@ -220,20 +260,43 @@
   },
   "allOf": [
     {
-      "if": { "properties": { "kind": { "const": "belief" } } },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "belief"
+          }
+        }
+      },
       "then": {
         "properties": {
           "content": {
             "type": "object",
-            "required": ["proposition"],
+            "required": [
+              "proposition"
+            ],
             "properties": {
-              "proposition": { "type": "string", "minLength": 1 },
-              "probability": { "type": "number", "minimum": 0, "maximum": 1 },
-              "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
-              "reference_class": { "type": "string" },
+              "proposition": {
+                "type": "string",
+                "minLength": 1
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "reference_class": {
+                "type": "string"
+              },
               "evidence": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -241,22 +304,41 @@
       }
     },
     {
-      "if": { "properties": { "kind": { "const": "capability" } } },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "capability"
+          }
+        }
+      },
       "then": {
         "properties": {
           "content": {
             "type": "object",
-            "required": ["capability_id", "state"],
+            "required": [
+              "capability_id",
+              "state"
+            ],
             "properties": {
-              "capability_id": { "type": "string", "minLength": 1 },
+              "capability_id": {
+                "type": "string",
+                "minLength": 1
+              },
               "state": {
                 "type": "string",
-                "enum": ["absent", "configured", "verified", "broken"],
+                "enum": [
+                  "absent",
+                  "configured",
+                  "verified",
+                  "broken"
+                ],
                 "description": "configured means present; verified means a check passed. Availability decisions gate on verified."
               },
               "requires": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -264,28 +346,58 @@
       }
     },
     {
-      "if": { "properties": { "kind": { "const": "authorization" } } },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "authorization"
+          }
+        }
+      },
       "then": {
         "properties": {
           "content": {
             "type": "object",
-            "required": ["scope", "holder", "granted_by", "mode", "revocation_conditions"],
+            "required": [
+              "scope",
+              "holder",
+              "granted_by",
+              "mode",
+              "revocation_conditions"
+            ],
             "properties": {
-              "scope": { "type": "string", "minLength": 1 },
-              "holder": { "type": "string", "minLength": 1 },
-              "granted_by": { "type": "string", "minLength": 1 },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "holder": {
+                "type": "string",
+                "minLength": 1
+              },
+              "granted_by": {
+                "type": "string",
+                "minLength": 1
+              },
               "mode": {
                 "type": "string",
-                "enum": ["unattended", "confirm", "forbidden"]
+                "enum": [
+                  "unattended",
+                  "confirm",
+                  "forbidden"
+                ]
               },
               "ceiling": {
                 "type": "string",
                 "description": "The bound on the delegation: a spend, a count, a blast radius, a duration."
               },
-              "expires_at": { "type": "string", "format": "date-time" },
+              "expires_at": {
+                "type": "string",
+                "format": "date-time"
+              },
               "revocation_conditions": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -293,54 +405,119 @@
       }
     },
     {
-      "if": { "properties": { "kind": { "const": "action" } } },
-      "then": {
-        "required": ["authority"],
+      "if": {
         "properties": {
-          "authority": { "required": ["authorization_record"] },
+          "kind": {
+            "const": "action"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "authority"
+        ],
+        "properties": {
+          "authority": {
+            "required": [
+              "authorization_record"
+            ]
+          },
           "content": {
             "type": "object",
-            "required": ["description", "reversible"],
+            "required": [
+              "description",
+              "reversible"
+            ],
             "properties": {
-              "description": { "type": "string", "minLength": 1 },
-              "reversible": { "type": "boolean" },
-              "reversal_path": { "type": "string" },
-              "parameters": { "type": "object" }
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reversible": {
+                "type": "boolean"
+              },
+              "reversal_path": {
+                "type": "string"
+              },
+              "parameters": {
+                "type": "object"
+              }
             }
           }
         }
       }
     },
     {
-      "if": { "properties": { "kind": { "const": "discrepancy" } } },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "discrepancy"
+          }
+        }
+      },
       "then": {
         "properties": {
           "content": {
             "type": "object",
-            "required": ["expected", "observed", "source"],
+            "required": [
+              "expected",
+              "observed",
+              "source"
+            ],
             "properties": {
-              "expected": { "type": "string", "minLength": 1 },
-              "observed": { "type": "string", "minLength": 1 },
-              "source": { "type": "string", "minLength": 1 },
-              "severity": { "type": "string", "enum": ["low", "medium", "high"] }
+              "expected": {
+                "type": "string",
+                "minLength": 1
+              },
+              "observed": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              }
             }
           }
         }
       }
     },
     {
-      "if": { "properties": { "kind": { "const": "revision" } } },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "revision"
+          }
+        }
+      },
       "then": {
-        "required": ["supersedes"],
+        "required": [
+          "supersedes"
+        ],
         "properties": {
           "content": {
             "type": "object",
-            "required": ["reason"],
+            "required": [
+              "reason"
+            ],
             "properties": {
-              "reason": { "type": "string", "minLength": 1 },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
               "triggered_by": {
                 "type": "array",
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "record_ids of the discrepancies or objections that forced the revision."
               }
             }
@@ -349,18 +526,31 @@
       }
     },
     {
-      "if": { "properties": { "kind": { "const": "objection" } } },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "objection"
+          }
+        }
+      },
       "then": {
         "properties": {
           "content": {
             "type": "object",
-            "required": ["challenges", "standing_basis", "requested"],
+            "required": [
+              "challenges",
+              "standing_basis",
+              "requested"
+            ],
             "properties": {
               "challenges": {
                 "type": "string",
                 "description": "record_id being objected to."
               },
-              "standing_basis": { "type": "string", "minLength": 1 },
+              "standing_basis": {
+                "type": "string",
+                "minLength": 1
+              },
               "requested": {
                 "type": "string",
                 "minLength": 1,
@@ -372,17 +562,38 @@
       }
     },
     {
-      "if": { "properties": { "kind": { "const": "outcome" } } },
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "outcome"
+          }
+        }
+      },
       "then": {
         "properties": {
           "content": {
             "type": "object",
-            "required": ["action_record", "result"],
+            "required": [
+              "action_record",
+              "result"
+            ],
             "properties": {
-              "action_record": { "type": "string" },
-              "result": { "type": "string", "minLength": 1 },
-              "matched_expectation": { "type": ["boolean", "null"] },
-              "learned": { "type": "string" }
+              "action_record": {
+                "type": "string"
+              },
+              "result": {
+                "type": "string",
+                "minLength": 1
+              },
+              "matched_expectation": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "learned": {
+                "type": "string"
+              }
             }
           }
         }
@@ -394,43 +605,94 @@
       "schema_version": "0.1.0",
       "record_id": "whether:action:2026-w36:hiring",
       "kind": "action",
-      "system": { "id": "whether", "version": "0.1.0", "origin": "https://whether.work/brief/2026-w36" },
-      "actor": { "id": "whether-weekly-brief", "kind": "service", "on_behalf_of": "operator" },
+      "system": {
+        "id": "whether",
+        "version": "0.1.0",
+        "origin": "https://whether.work/brief/2026-w36"
+      },
+      "actor": {
+        "id": "whether-weekly-brief",
+        "kind": "service",
+        "on_behalf_of": "operator"
+      },
       "subject": "hiring pace",
       "summary": "Held hiring at replacement-only under a Guarded Expansion posture.",
-      "time": { "as_of": "2026-09-01T00:00:00Z", "recorded_at": "2026-09-01T13:05:00Z", "valid_until": "2026-09-08T00:00:00Z" },
+      "time": {
+        "as_of": "2026-09-01T00:00:00Z",
+        "recorded_at": "2026-09-01T13:05:00Z",
+        "valid_until": "2026-09-08T00:00:00Z"
+      },
       "content": {
         "description": "Pause net-new requisitions; backfill only.",
         "reversible": true,
         "reversal_path": "Resume trigger: tightness below 60 for two consecutive weeks."
       },
-      "depends_on": ["whether:belief:2026-w36:regime"],
-      "invalidated_by": [
-        { "condition": "tightness score falls below 60 for two consecutive weeks", "check": "https://whether.work/api/weekly", "clock": "P7D" }
+      "depends_on": [
+        "whether:belief:2026-w36:regime"
       ],
-      "authority": { "authorization_record": "operator:authorization:weekly-pacing", "clauses": ["STD-07.2.1"] },
+      "invalidated_by": [
+        {
+          "condition": "tightness score falls below 60 for two consecutive weeks",
+          "check": "https://whether.work/api/weekly",
+          "clock": "P7D"
+        }
+      ],
+      "authority": {
+        "authorization_record": "operator:authorization:weekly-pacing",
+        "clauses": [
+          "STD-07.2.1"
+        ]
+      },
       "visibility": "public",
-      "contest": { "standing": "any operator reading the brief", "channel": "https://github.com/zz-plant/whether/issues", "reversal_clock": "P7D" },
-      "integrity": { "algorithm": "sha256", "hash": "0000000000000000000000000000000000000000000000000000000000000000" }
+      "contest": {
+        "standing": "any operator reading the brief",
+        "channel": "https://github.com/zz-plant/whether/issues",
+        "reversal_clock": "P7D"
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "hash": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
     },
     {
       "schema_version": "0.1.0",
       "record_id": "nextconsensus:belief:FF-001",
       "kind": "belief",
-      "system": { "id": "nextconsensus", "origin": "https://nextconsensus.com/forecast/ff-001/" },
-      "actor": { "id": "founder", "kind": "human" },
+      "system": {
+        "id": "nextconsensus",
+        "origin": "https://nextconsensus.com/forecast/ff-001/"
+      },
+      "actor": {
+        "id": "founder",
+        "kind": "human"
+      },
       "subject": "NCCN NSCLC guideline: sunvozertinib first-line listing",
       "summary": "Registered a probability that the guideline lists the drug first-line before the resolution window closes.",
-      "time": { "as_of": "2026-08-17T00:00:00Z", "recorded_at": "2026-08-17T00:00:00Z", "available_at": "2026-08-16T00:00:00Z" },
+      "time": {
+        "as_of": "2026-08-17T00:00:00Z",
+        "recorded_at": "2026-08-17T00:00:00Z",
+        "available_at": "2026-08-16T00:00:00Z"
+      },
       "content": {
         "proposition": "Frozen proposition text as registered.",
         "probability": 0.35,
         "reference_class": "guideline first-line listing within 12 months of pivotal data",
-        "evidence": ["SRC-001", "SRC-002"]
+        "evidence": [
+          "SRC-001",
+          "SRC-002"
+        ]
       },
-      "invalidated_by": [{ "condition": "resolution rule met or window closes", "clock": "P365D" }],
+      "invalidated_by": [
+        {
+          "condition": "resolution rule met or window closes",
+          "clock": "P365D"
+        }
+      ],
       "visibility": "public",
-      "integrity": { "algorithm": "sha256", "hash": "0000000000000000000000000000000000000000000000000000000000000000" }
+      "integrity": {
+        "algorithm": "sha256",
+        "hash": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
     }
   ]
 }
