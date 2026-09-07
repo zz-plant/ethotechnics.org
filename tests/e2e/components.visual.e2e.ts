@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test.describe("Component Visual Regression", () => {
   test("renders component preview page correctly", async ({ page }) => {
     // Visit the component preview page
-    const response = await page.goto("/_components_preview");
+    const response = await page.goto("/components-preview");
     expect(response?.ok()).toBeTruthy();
 
     // Visual checks

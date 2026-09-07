@@ -85,6 +85,14 @@ const ignoredSelector = [
   "script",
   "select",
   "style",
+  // A `summary` is a button. A focusable mark inside one nests a control in a
+  // control, which axe reports as nested-interactive on /standards/std-01.
+  "summary",
+  // An `svg[role="img"]` is one atomic image, and its `title`/`desc` are its
+  // accessible name and description rather than prose. Marking terms there
+  // both nests controls inside the image and corrupts the name a screen
+  // reader announces.
+  "svg",
   "textarea",
   "th",
   "[data-glossary-ignore]",

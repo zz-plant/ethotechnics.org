@@ -99,6 +99,9 @@ const normalizeRoutePath = (filePath: string) => {
 
 const isPublicPath = (path: string) => {
   if (path === "/404" || path.startsWith("/api")) return false;
+  // A Playwright visual-testing harness. It answers 404 anywhere but
+  // localhost, so it must never be advertised.
+  if (path === "/components-preview") return false;
   return !path
     .split("/")
     .filter(Boolean)

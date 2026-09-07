@@ -1,4 +1,15 @@
 @layer base {
+  /* The UA rule for [hidden] is display:none, but it loses to any component
+     rule that sets display, and several do (.card and .grid are both
+     display:grid). The result was that scripts setting `hidden` had no visual
+     effect at all: filtered-out mechanisms stayed on the page and every
+     field-notes tabpanel rendered at once. Keep this ahead of the component
+     layers, and !important so a later display declaration cannot revive a
+     hidden element. */
+  [hidden] {
+    display: none !important;
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -198,4 +209,3 @@
     page-break-after: avoid;
   }
 }
-

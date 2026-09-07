@@ -1,6 +1,17 @@
 import { expect, test } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 const FORECASTER_URL = "/diagnostics/capacity-forecaster";
+
+// The widget is a `client:visible` island near the bottom of the page, so it
+// only hydrates once scrolled into view. Hydration syncs the scenario state
+// into the query string, which is the signal that handlers are wired up.
+const openHydratedForecaster = async (page: Page) => {
+  await page.goto(FORECASTER_URL);
+  await page.waitForLoadState("networkidle");
+  await page.locator(".forecaster").scrollIntoViewIfNeeded();
+  await page.waitForURL(/[?&]velocity=/);
+};
 
 test.describe("Capacity Forecaster page", () => {
   test("responds with status 200", async ({ request }) => {
@@ -55,11 +66,12 @@ test.describe("Capacity Forecaster page", () => {
     await page.goto(FORECASTER_URL);
     await page.waitForLoadState("networkidle");
 
-    await expect(page.getByText("Scenario A")).toBeVisible();
-    await expect(page.getByText("Saturation point")).toBeVisible();
-    await expect(page.getByText("Baseline capacity at horizon")).toBeVisible();
+    const meta = page.locator(".forecaster__meta");
+    await expect(meta.getByText("Scenario A")).toBeVisible();
+    await expect(meta.getByText("Saturation point")).toBeVisible();
+    await expect(meta.getByText("Baseline capacity at horizon")).toBeVisible();
     await expect(
-      page.getByText("Remediated capacity at horizon"),
+      meta.getByText("Remediated capacity at horizon"),
     ).toBeVisible();
   });
 
@@ -78,34 +90,47 @@ test.describe("Capacity Forecaster page", () => {
     await page.waitForLoadState("networkidle");
 
     await expect(page.getByText("Stability profile")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Stable" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Brittle" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Unstable" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "RESILIENT" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "DEGRADED" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "UNSTABLE" })).toBeVisible();
   });
 
   test("slider changes update chart and metrics", async ({ page }) => {
-    await page.goto(FORECASTER_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedForecaster(page);
 
     const velocitySlider = page.locator(".forecaster__range").first();
-    const initialValue = page.locator(".pill--ghost").first();
+    const velocityReadout = page.getByLabel("Velocity index numeric input");
+    const baselineAtHorizon = page
+      .locator(".forecaster__meta-item")
+      .filter({ hasText: "Baseline capacity at horizon" })
+      .locator(".forecaster__meta-value");
+
+    const baselineBefore = await baselineAtHorizon.textContent();
+    await expect(velocityReadout).not.toHaveValue("70");
 
     await velocitySlider.fill("70");
-    await page.waitForTimeout(200);
 
-    expect(Number(await initialValue.textContent())).toBe(70);
+    await expect(velocityReadout).toHaveValue("70");
+    await expect(baselineAtHorizon).not.toHaveText(baselineBefore ?? "");
   });
 
   test("switches to compare mode and shows scenario B", async ({ page }) => {
-    await page.goto(FORECASTER_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedForecaster(page);
 
-    await page.getByRole("button", { name: "Compare" }).click();
+    await page.getByRole("button", { name: "Compare", exact: true }).click();
 
-    await expect(page.getByText("Export comparison")).toBeVisible();
-    await expect(page.getByText("Scenario B")).toBeVisible();
-    await expect(page.getByText("Mirror A → B")).toBeVisible();
-    await expect(page.getByText("Mirror B → A")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Export comparison" }),
+    ).toBeEnabled();
+    await expect(
+      page.locator(".forecaster__meta").getByText("Scenario B"),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Mirror A → B" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Mirror B → A" }),
+    ).toBeVisible();
 
     await expect(
       page.locator(".forecaster__chart-line--baseline-b"),
@@ -115,20 +140,18 @@ test.describe("Capacity Forecaster page", () => {
   test("compare mode shows delta highlights and summary table", async ({
     page,
   }) => {
-    await page.goto(FORECASTER_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedForecaster(page);
 
-    await page.getByRole("button", { name: "Compare" }).click();
+    await page.getByRole("button", { name: "Compare", exact: true }).click();
 
     await expect(page.getByText("Delta highlights")).toBeVisible();
     await expect(page.getByText("Scenario A vs B summary")).toBeVisible();
   });
 
   test("resets from compare back to single scenario", async ({ page }) => {
-    await page.goto(FORECASTER_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedForecaster(page);
 
-    await page.getByRole("button", { name: "Compare" }).click();
+    await page.getByRole("button", { name: "Compare", exact: true }).click();
     await page
       .getByRole("button", { name: "Reset to single scenario" })
       .first()
@@ -140,12 +163,15 @@ test.describe("Capacity Forecaster page", () => {
   });
 
   test("stability selection changes active state", async ({ page }) => {
-    await page.goto(FORECASTER_URL);
-    await page.waitForLoadState("networkidle");
+    await openHydratedForecaster(page);
 
-    const brittleBtn = page.getByRole("button", { name: "Brittle" });
-    await brittleBtn.click();
+    const resilientBtn = page.getByRole("button", { name: "RESILIENT" });
+    const degradedBtn = page.getByRole("button", { name: "DEGRADED" });
+    await expect(resilientBtn).toHaveAttribute("aria-pressed", "false");
 
-    await expect(brittleBtn).toHaveAttribute("aria-pressed", "true");
+    await resilientBtn.click();
+
+    await expect(resilientBtn).toHaveAttribute("aria-pressed", "true");
+    await expect(degradedBtn).toHaveAttribute("aria-pressed", "false");
   });
 });

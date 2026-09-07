@@ -14,11 +14,13 @@ test.describe("404 Error Page", () => {
 
     // Check for specific 404 content elements
     await expect(page.locator(".page-404")).toBeVisible();
-    await expect(page.getByText("404", { exact: true })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Coordinates Not Found" }),
+    ).toBeVisible();
     await expect(page.getByText("Signal Lost")).toBeVisible();
 
-    // Check "Return to Base" link works
-    await page.getByRole("link", { name: "Return to Base" }).click();
+    // Check the return link works
+    await page.getByRole("link", { name: "Return Home" }).click();
     await expect(page).toHaveURL(/\/$/); // Should be at root
   });
 });

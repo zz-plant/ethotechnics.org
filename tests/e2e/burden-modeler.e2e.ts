@@ -1,6 +1,17 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 const BURDEN_URL = "/diagnostics/burden-modeler";
+
+// The widget is a `client:visible` island, so it only hydrates once it is
+// scrolled into view. Interacting before that lands on the SSR markup and the
+// input is thrown away when hydration replaces it.
+const hydrateWidget = async (page: Page) => {
+  const island = page.locator("astro-island", {
+    has: page.locator("[data-burden-modeler]"),
+  });
+  await island.scrollIntoViewIfNeeded();
+  await expect(island).not.toHaveAttribute("ssr", /.*/);
+};
 
 test.describe("Burden Modeler page", () => {
   test("responds with status 200", async ({ request }) => {
@@ -49,11 +60,14 @@ test.describe("Burden Modeler page", () => {
   }) => {
     await page.goto(BURDEN_URL);
     await page.waitForLoadState("networkidle");
+    await hydrateWidget(page);
 
     await page.locator("#scenario-name").fill("Q3 Release");
-    await expect(
-      page.locator("[data-burden-modeler] .eyebrow").first(),
-    ).toHaveText("Q3 Release");
+
+    const burdenCard = page
+      .locator("[data-burden-modeler] .result-card")
+      .filter({ has: page.getByRole("heading", { name: "Burden index" }) });
+    await expect(burdenCard.locator(".eyebrow")).toHaveText("Q3 Release");
   });
 
   test("slider interaction updates the rating descriptor", async ({ page }) => {
@@ -127,11 +141,14 @@ test.describe("Burden Modeler page", () => {
   test("exports snapshot triggers a download", async ({ page }) => {
     await page.goto(BURDEN_URL);
     await page.waitForLoadState("networkidle");
+    await hydrateWidget(page);
 
     const [download] = await Promise.all([
       page.waitForEvent("download"),
       page.getByRole("button", { name: "Export snapshot" }).click(),
     ]);
-    expect(download.suggestedFilename()).toContain("burden-snapshot");
+    expect(download.suggestedFilename()).toMatch(
+      /^burden-snapshot-baseline-\d{4}-\d{2}-\d{2}\.json$/,
+    );
   });
 });
