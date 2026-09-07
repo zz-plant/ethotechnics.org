@@ -35,8 +35,38 @@ import {
 
 export type Severity = "blocking" | "finding" | "note";
 
+/**
+ * Every finding this checker can raise, named once.
+ *
+ * The list is not decoration. The catalogue in src/content/checkable-properties.ts
+ * claims that each of these is one probe of a named governance property, and a
+ * test asserts the mapping is total. Typing the id against this union is what
+ * makes adding a finding without cataloguing it a compile error rather than a
+ * silent divergence between the two tools that check the same claim.
+ */
+export const CONFORMANCE_FINDING_IDS = [
+  "invalid-records",
+  "missing-hash",
+  "hash-mismatch",
+  "chain-break",
+  "unchained",
+  "dangling-reference",
+  "ungrounded",
+  "no-dependence",
+  "unanswered-discrepancy",
+  "late-answer",
+  "no-clock",
+  "manifest-unreadable",
+  "manifest-unknown-kind",
+  "manifest-kind-absent",
+  "manifest-kind-undeclared",
+  "overclaimed",
+] as const;
+
+export type ConformanceFindingId = (typeof CONFORMANCE_FINDING_IDS)[number];
+
 export type ConformanceFinding = {
-  id: string;
+  id: ConformanceFindingId;
   severity: Severity;
   title: string;
   detail: string;
