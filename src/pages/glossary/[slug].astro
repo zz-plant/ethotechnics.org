@@ -1,7 +1,6 @@
 ---
 import InlineScript from "../../components/InlineScript.astro";
 import "../../styles/components/glossary.css";
-export const prerender = true;
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { glossaryContent } from "../../content/glossary";
@@ -28,14 +27,6 @@ import {
   glossaryPhaseLabels,
   glossaryScaleLabels,
 } from "../../utils/glossary-metadata";
-
-export async function getStaticPaths() {
-  return glossaryContent.categories.flatMap((category) =>
-    category.entries.map((entry) => ({
-      params: { slug: entry.id },
-    })),
-  );
-}
 
 const { slug } = Astro.params;
 const {

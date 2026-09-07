@@ -1,17 +1,11 @@
 ---
-export const prerender = true;
 import { getCollection } from "astro:content";
 import ExplainerLayout from "../../components/ExplainerLayout.astro";
 
-export async function getStaticPaths() {
-  const explainers = await getCollection("explainers");
-  return explainers.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
-}
-
-const { entry } = Astro.props;
+const entry = (await getCollection("explainers")).find(
+  (candidate) => candidate.id === Astro.params.slug,
+);
+if (!entry) return new Response("Not found", { status: 404 });
 const {
   title,
   description,

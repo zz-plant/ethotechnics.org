@@ -6,17 +6,10 @@ import CitationBlock from "../../../components/CitationBlock.astro";
 import PageIntro from "../../../components/PageIntro.astro";
 import { derivePublicationMetadata } from "../../../utils/publication";
 
-export const prerender = true;
-
-export async function getStaticPaths() {
-  const essays = await getCollection("theory");
-  return essays.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
-}
-
-const { entry } = Astro.props;
+const entry = (await getCollection("theory")).find(
+  (candidate) => candidate.id === Astro.params.slug,
+);
+if (!entry) return new Response("Not found", { status: 404 });
 const { Content, headings } = await render(entry);
 const data = entry.data;
 

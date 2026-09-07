@@ -1,6 +1,4 @@
 ---
-export const prerender = true;
-
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -8,15 +6,12 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
 import { getStandardById } from "../../content/standards";
-import type { EvalSuite, EvalTestCase } from "../../content/evals";
+import type { EvalTestCase } from "../../content/evals";
 
-export const getStaticPaths = () =>
-  evalsContent.suites.map((suite) => ({
-    params: { slug: suite.slug },
-    props: { suite },
-  }));
-
-const { suite } = Astro.props as { suite: EvalSuite };
+const suite = evalsContent.suites.find(
+  (entry) => entry.slug === Astro.params.slug,
+);
+if (!suite) return new Response("Eval suite not found", { status: 404 });
 const testCases = evalTestCases.filter((tc) => tc.suiteId === suite.id);
 const stackLayer = evalsContent.evaluationStack.layers.find(
   (layer) => layer.id === suite.layer,

@@ -15,18 +15,6 @@ import {
 } from "../../../../../utils/glossary-helpers";
 import { glossaryContent } from "../../../../../content/glossary";
 
-export const prerender = true;
-
-export async function getStaticPaths() {
-  return glossaryContent.categories.flatMap((category) =>
-    category.entries.flatMap((entry) =>
-      getGlossaryTestSlugs(entry.operationalTests ?? []).map((test) => ({
-        params: { slug: entry.id, test: test.slug },
-      })),
-    ),
-  );
-}
-
 const { slug, test } = Astro.params;
 
 const entryRecord = glossaryContent.categories
