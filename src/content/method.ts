@@ -21,6 +21,20 @@ export type Law = {
   href: string;
 };
 
+/**
+ * A lens is applied at the Consequence stage, to make the burden a decision
+ * places on people visible before the chain reaches Challenge. Each carries a
+ * worked example, because the lenses are unusable as abstractions.
+ */
+export type Lens = {
+  id: string;
+  title: string;
+  question: string;
+  example: string;
+};
+
+export type SequenceStep = { title: string; detail: string };
+
 export type MethodContent = {
   pageTitle: string;
   pageDescription: string;
@@ -32,6 +46,8 @@ export type MethodContent = {
   chain: ChainStage[];
   stateVariables: StateVariable[];
   laws: Law[];
+  lenses: Lens[];
+  applicationSequence: SequenceStep[];
   optimizationProblem: string;
 };
 
@@ -134,7 +150,7 @@ export const methodContent: MethodContent = {
       currentAssets: [
         "Burden hours schema",
         "Burden modeler, capacity forecaster, maintenance simulator",
-        "The three lenses on the how-it-works page",
+        "The three lenses, in the method",
         "STD-01 Temporal Bill of Rights clocks",
       ],
       links: [
@@ -143,7 +159,7 @@ export const methodContent: MethodContent = {
           href: "/standards/std-01-temporal-rights",
         },
         { label: "Diagnostics", href: "/diagnostics" },
-        { label: "The three lenses", href: "/how-it-works#lenses" },
+        { label: "The three lenses", href: "/method#lenses" },
       ],
     },
     {
@@ -341,6 +357,54 @@ export const methodContent: MethodContent = {
       numeral: "XII",
       statement: "No system may erase the conditions of its own contestability",
       href: "/standards/laws#law-xii",
+    },
+  ],
+  lenses: [
+    {
+      id: "burden-accounting",
+      title: "Burden accounting",
+      question:
+        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and who performs it?",
+      example:
+        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse, and it appears in no budget.",
+    },
+    {
+      id: "infrastructure-dignity",
+      title: "Infrastructure dignity",
+      question:
+        "Does the system preserve operator agency and user recourse under pressure, or only when nothing is going wrong?",
+      example:
+        "A clinical chatbot gives a wrong dosing recommendation. The nurse cannot override it without calling a supervisor who is in a meeting. The lens asks where the override is, and whether the operator can reach it in thirty seconds.",
+    },
+    {
+      id: "care-time-economics",
+      title: "Care-time economics",
+      question:
+        "What is being traded between shipping velocity and long-term maintenance extraction, and was the trade visible to anyone before it was made?",
+      example:
+        "Engineering ships a model update that cuts false positives by 3% and adds 45 minutes of daily review work for the care management team. The lens asks whether that second number existed before the deploy.",
+    },
+  ],
+  applicationSequence: [
+    {
+      title: "Select a workflow",
+      detail:
+        "Choose a process where system decisions affect people: triage, prior authorization, customer escalation.",
+    },
+    {
+      title: "Map burden by role",
+      detail:
+        "Follow one decision from initiation to resolution. Document every point where a person compensates for or overrides the system.",
+    },
+    {
+      title: "Apply one lens",
+      detail:
+        "Choose the lens that fits the pressure point in the workflow. One lens at a time; three at once produces a report nobody acts on.",
+    },
+    {
+      title: "Share the analysis",
+      detail:
+        "Present it to someone who can change the workflow. The pattern is sized to communicate in a single conversation.",
     },
   ],
   optimizationProblem:

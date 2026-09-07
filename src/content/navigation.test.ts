@@ -32,11 +32,23 @@ describe("navSections", () => {
     }
   });
 
-  it("routes to the method, the laws, and the evidence packs from the standards section", () => {
-    expect(sectionLinks("Standards & Specifications")).toEqual([
+  // The four sections are the content layers, not file types. A section whose
+  // heading names a format is a section every new page has to argue its way
+  // into, which is how the menu filled up in the first place.
+  it("names the sections for the layers", () => {
+    expect(navSections.map((section) => section.heading)).toEqual([
+      "Method",
+      "Mechanisms and evals",
+      "Instruments",
+      "Knowledge",
+    ]);
+  });
+
+  it("routes to the method, the laws, and the evidence packs from the method section", () => {
+    expect(sectionLinks("Method")).toEqual([
       "/method",
-      "/standards",
       "/standards/laws",
+      "/standards",
       "/standards#regulatory-crosswalks",
       "/evidence-packs",
     ]);
@@ -55,14 +67,22 @@ describe("navSections", () => {
     }
   });
 
-  it("lists both delegation tools under diagnostics", () => {
-    const links = sectionLinks("Diagnostics & Workbench");
+  it("lists both delegation tools under instruments", () => {
+    const links = sectionLinks("Instruments");
     expect(links).toContain("/diagnostics/delegation-audit");
     expect(links).toContain("/diagnostics/record-conformance");
   });
 
+  // The instruments differ by what the reader has to bring. Leading with the
+  // one that takes a workflow is deliberate: it is the only input every reader
+  // already has.
+  it("orders instruments by input, workflow first", () => {
+    expect(sectionLinks("Instruments")[0]).toBe("/diagnostics/delegation-audit");
+    expect(sectionLinks("Instruments").at(-1)).toBe("/diagnostics");
+  });
+
   it("lists theory under knowledge", () => {
-    expect(sectionLinks("Knowledge & Evidence")).toContain("/research/theory");
+    expect(sectionLinks("Knowledge")).toContain("/research/theory");
   });
 
   it("uses unique hrefs across the mega menu", () => {

@@ -13,17 +13,6 @@ export type QuickStartGuide = {
   firstMoves: string[];
 };
 
-export const quickStartIntro = {
-  pageTitle: "Quick-start guides — Ethotechnics",
-  pageDescription:
-    "Role-specific starting points for policy, design, engineering, and research teams.",
-  permalink: "/quick-start",
-  eyebrow: "Quick-start",
-  title: "Role-specific quick-start guides",
-  description:
-    "Pick the role that matches your responsibilities to jump to the most relevant standards, mechanisms, and research.",
-};
-
 export const quickStartGuides: QuickStartGuide[] = [
   {
     slug: "policy-makers",

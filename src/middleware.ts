@@ -4,6 +4,11 @@ const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
 
 const REDIRECT_MAP: Record<string, string> = {
   "/start-here": "/start",
+  // Seven pages competed to be where a reader begins. Two remain: /method says
+  // what this is, /start asks what you should do. The lenses and the four-step
+  // sequence that lived on /how-it-works are sections of /method now.
+  "/how-it-works": "/method",
+  "/quick-start": "/start",
   "/diy-packs": "/agent-toolkit/prompt-packs",
   "/bundles": "/agent-toolkit/prompt-packs",
   "/bundles/diagnostic-export-kit": "/agent-toolkit/prompt-packs",

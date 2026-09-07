@@ -64,7 +64,7 @@ test.describe("Navigation", () => {
     await expect(mobileNav).toHaveAttribute("open", "");
 
     // The mobile menu renders navSections, whose link labels are more specific
-    // than the primary bar's ("Knowledge" appears as "Glossary & Ontology").
+    // than the primary bar’s ("Knowledge" appears as "Glossary").
     // Assert every primary DESTINATION is reachable, which is the property
     // that matters, rather than that its label is repeated verbatim.
     for (const link of navPrimaryLinks) {
