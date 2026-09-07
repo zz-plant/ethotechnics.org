@@ -15,8 +15,13 @@ const PAGES = [
   { path: "/audit", family: "audit" },
   { path: "/glossary/stoppability", family: "glossary entry" },
   { path: "/evals/stoppability", family: "eval suite" },
-  { path: "/evidence-packs/std-01", family: "evidence pack" },
-  { path: "/explainers/contestability-checklist", family: "explainer" },
+  // Deliberately unshadowed slugs. Static pages exist at
+  // src/pages/evidence-packs/std-01.astro and
+  // src/pages/explainers/contestability-checklist.astro, and Astro gives those
+  // precedence over their dynamic siblings — so testing them would let the
+  // changed [slug].astro renderers stay broken while the suite passed.
+  { path: "/evidence-packs/std-08", family: "evidence pack" },
+  { path: "/explainers/stoppability", family: "explainer" },
   { path: "/incidents/appeals-backlog-trigger", family: "incident" },
   {
     path: "/research/theory/absorption-as-concealment",
