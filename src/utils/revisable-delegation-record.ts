@@ -131,6 +131,17 @@ const baseRecordSchema = z
     system: z
       .object({
         id: nonEmpty,
+        /**
+         * Which deployment of that system, when it runs in more than one place.
+         *
+         * Added after Ambit found the gap by hitting it: two of its
+         * environments run the same capability model and so emit identical
+         * record ids for the same subject, and a graph reading a peer's stream
+         * could not tell those records from its own output read back. `id`
+         * alone cannot answer that, and a consumer that guesses turns one
+         * machine's report into another's corroboration.
+         */
+        instance: z.string().optional(),
         version: z.string().optional(),
         origin: z.url().optional(),
       })
