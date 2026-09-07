@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { artifacts } from "../content/institute-site";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { artifacts } from "../../content/institute-site";
 ---
 
 <BaseLayout
@@ -21,7 +21,7 @@ import { artifacts } from "../content/institute-site";
           <li class="card stack-sm">
             <h2>{artifact.name}</h2>
             <p class="muted small">Operational governance artifact</p>
-            <a class="button" href={`/artifact/${artifact.slug}`}>
+            <a class="button" href={`/artifacts/${artifact.slug}`}>
               View {artifact.name} details
             </a>
           </li>

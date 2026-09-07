@@ -12,8 +12,8 @@ import {
 describe("normalizePath", () => {
   it("strips query and hash fragments", () => {
     expect(
-      normalizePath("/tools/burden-budget-worksheet/?mode=print#overview"),
-    ).toBe("/tools/burden-budget-worksheet");
+      normalizePath("/diagnostics/burden-budget-worksheet/?mode=print#overview"),
+    ).toBe("/diagnostics/burden-budget-worksheet");
   });
 
   it("falls back to root for hash-only URLs", () => {

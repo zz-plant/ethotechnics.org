@@ -55,7 +55,7 @@ export const governanceContent: GovernanceContent = {
   pageTitle: "Governance process — Ethotechnics",
   pageDescription:
     "Public governance receipts for RFCs, decision records, releases, and quarterly accountability updates.",
-  permalink: "/governance",
+  permalink: "/institute/governance",
   published: "2026-02-01T00:00:00Z",
   updated: "2026-02-15T00:00:00Z",
   anchorLinks: [
@@ -164,7 +164,7 @@ export const governanceContent: GovernanceContent = {
       date: "2025-12-19",
       owner: "Documentation steward",
       releaseVersion: "governance-v1.2.0",
-      releaseHref: "/governance",
+      releaseHref: "/institute/governance",
     },
   ],
   quarterlyUpdates: [

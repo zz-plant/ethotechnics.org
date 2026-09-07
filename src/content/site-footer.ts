@@ -59,7 +59,7 @@ export const siteFooter: SiteFooterContent = {
         { label: "Taxonomy", href: "/taxonomy" },
         { label: "Theory", href: "/research/theory" },
         { label: "Field Notes", href: "/field-notes" },
-        { label: "Library Index", href: "/library" },
+        { label: "Syllabus", href: "/syllabus" },
         { label: "Search", href: "/search" },
       ],
     },
@@ -68,6 +68,8 @@ export const siteFooter: SiteFooterContent = {
       links: [
         { label: "Start Here", href: "/start" },
         { label: "About the Institute", href: "/about" },
+        { label: "Governance Process", href: "/institute/governance" },
+        { label: "Team", href: "/institute/team" },
         {
           label: "Security Policy",
           href: "/security/vulnerability-disclosure",

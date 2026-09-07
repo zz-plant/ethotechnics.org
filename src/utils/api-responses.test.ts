@@ -192,7 +192,7 @@ describe("resolveCorpusLayer", () => {
       "instrument",
     );
     expect(resolveCorpusLayer("/validators")).toBe("instrument");
-    expect(resolveCorpusLayer("/tools/burden-budget-worksheet")).toBe(
+    expect(resolveCorpusLayer("/diagnostics/burden-budget-worksheet")).toBe(
       "instrument",
     );
     expect(resolveCorpusLayer("/agent-toolkit/prompt-packs")).toBe(

@@ -218,5 +218,17 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       {method.steps.map((step) => <li>{step}</li>)}
     </ul>
   </section>
+  <section id="by-standard" class="section">
+    <div class="section__header">
+      <p class="eyebrow">Another way in</p>
+      <h2>Validators by standard</h2>
+      <p class="muted">
+        If you are working from a clause rather than from a tool, <a
+          href="/validators/by-standard"
+          >the same validators indexed by the standard they check</a
+        > is the view you want.
+      </p>
+    </div>
+  </section>
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

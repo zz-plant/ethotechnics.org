@@ -135,21 +135,21 @@ export const instituteContent: InstituteContent = {
       detail:
         "Clear rules for consent, attribution, and data handling so partners know how their input is used.",
       artifactLabel: "View RFC lifecycle",
-      artifactHref: "/governance#lifecycle",
+      artifactHref: "/institute/governance#lifecycle",
     },
     {
       title: "Documented safeguards",
       detail:
         "Escalation paths, appeal windows, and office hours when a diagnostic shows heightened risk.",
       artifactLabel: "Review current RFCs",
-      artifactHref: "/governance#open-rfcs",
+      artifactHref: "/institute/governance#open-rfcs",
     },
     {
       title: "Decision history",
       detail:
         "Versioned notes and steward assignments so future teams can see why a path was chosen.",
       artifactLabel: "Open decision log",
-      artifactHref: "/governance#decision-log",
+      artifactHref: "/institute/governance#decision-log",
     },
   ],
   stewards: [
