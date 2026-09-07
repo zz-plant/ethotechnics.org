@@ -5,7 +5,7 @@ import {
   type ConformanceReport,
   type Severity,
 } from "./conformance";
-import { EXAMPLE_LABEL, EXAMPLE_STREAM } from "./example";
+import { EXAMPLE_LABEL, EXAMPLE_MANIFEST, EXAMPLE_STREAM } from "./example";
 import "./recordConformance.css";
 
 /**
@@ -34,6 +34,7 @@ const LEVEL_OPTIONS = [
 
 function RecordConformance() {
   const [text, setText] = useState("");
+  const [manifest, setManifest] = useState("");
   const [declared, setDeclared] = useState("");
   const [asOf, setAsOf] = useState("");
   const [report, setReport] = useState<ConformanceReport | null>(null);
@@ -42,13 +43,19 @@ function RecordConformance() {
   const fileInput = useRef<HTMLInputElement>(null);
 
   const run = useCallback(
-    async (source: string, declaredLevel: string, asOfValue: string) => {
+    async (
+      source: string,
+      declaredLevel: string,
+      asOfValue: string,
+      manifestText: string,
+    ) => {
       setRunning(true);
       try {
         setReport(
           await auditRecords(source, {
             declaredLevel: declaredLevel === "" ? null : Number(declaredLevel),
             asOf: asOfValue || undefined,
+            manifest: manifestText || undefined,
           }),
         );
       } finally {
@@ -63,16 +70,17 @@ function RecordConformance() {
       if (!file) return;
       const contents = await file.text();
       setText(contents);
-      await run(contents, declared, asOf);
+      await run(contents, declared, asOf, manifest);
     },
-    [declared, asOf, run],
+    [declared, asOf, manifest, run],
   );
 
   const loadExample = useCallback(async () => {
     setText(EXAMPLE_STREAM);
-    setDeclared("2");
+    setManifest(EXAMPLE_MANIFEST);
+    setDeclared("");
     setAsOf("");
-    await run(EXAMPLE_STREAM, "2", "");
+    await run(EXAMPLE_STREAM, "", "", EXAMPLE_MANIFEST);
   }, [run]);
 
   const copyReadout = useCallback(async () => {
@@ -82,7 +90,7 @@ function RecordConformance() {
       `Earned: ${report.earnedLabel}`,
       report.declaredLevel === null
         ? "Declared: not declared"
-        : `Declared: Level ${report.declaredLevel}`,
+        : `Declared: Level ${report.declaredLevel}${report.declaration ? ` (from the manifest at ${report.declaration.at})` : ""}`,
       `Records: ${report.parsed} parsed, ${report.rejected.length} rejected`,
       "",
       ...report.findings.map(
@@ -126,6 +134,28 @@ function RecordConformance() {
             onChange={(event) => setText(event.target.value)}
           />
 
+          <label
+            className="record-conformance__label"
+            htmlFor="record-conformance-manifest"
+          >
+            The emitter's manifest <span className="record-conformance__hint">(optional)</span>
+            <span className="record-conformance__hint">
+              Paste <code>/.well-known/*.json</code>, <code>server.json</code>,
+              or whatever the system publishes about itself. The declaration is
+              found by shape, so it does not matter how deep it is nested. When
+              one is present it supplies the level, and the kinds it claims are
+              checked against the kinds actually in the stream.
+            </span>
+          </label>
+          <textarea
+            id="record-conformance-manifest"
+            className="record-conformance__textarea record-conformance__textarea--short"
+            value={manifest}
+            spellCheck={false}
+            placeholder='{"revisableDelegation":{"standard":"…revisable-delegation-record","conformanceLevel":2,"kinds":["belief"]}}'
+            onChange={(event) => setManifest(event.target.value)}
+          />
+
           <div className="record-conformance__row">
             <label
               className="record-conformance__field"
@@ -135,6 +165,7 @@ function RecordConformance() {
               <select
                 id="record-conformance-declared"
                 value={declared}
+                disabled={manifest.trim().length > 0}
                 onChange={(event) => setDeclared(event.target.value)}
               >
                 {LEVEL_OPTIONS.map((option) => (
@@ -159,6 +190,9 @@ function RecordConformance() {
             </label>
           </div>
           <p className="record-conformance__hint">
+            {manifest.trim()
+              ? "The manifest is supplying the declared level, so the selector is off. Clear the manifest to set one by hand."
+              : "Set the level by hand only when the system publishes no manifest. A declaration read from the artifact the emitter actually serves is the one worth contradicting."}{" "}
             Leave the time blank to use now. Set it to when the stream was
             exported so a clock is judged against the emitter's lateness rather
             than the reviewer's.
@@ -168,7 +202,7 @@ function RecordConformance() {
             <button
               type="button"
               className="record-conformance__button record-conformance__button--primary"
-              onClick={() => void run(text, declared, asOf)}
+              onClick={() => void run(text, declared, asOf, manifest)}
               disabled={running || text.trim().length === 0}
             >
               {running ? "Auditing…" : "Audit the stream"}
@@ -236,6 +270,19 @@ function RecordConformance() {
                   ))}
                 </div>
               </div>
+
+              {report.declaration && (
+                <p className="record-conformance__hint">
+                  Read from the manifest at{" "}
+                  <code>{report.declaration.at}</code>:{" "}
+                  {report.declaration.conformanceLevel === null
+                    ? "no usable level"
+                    : `Level ${report.declaration.conformanceLevel}`}
+                  {report.declaration.kinds.length > 0 &&
+                    `, emitting ${report.declaration.kinds.join(", ")}`}
+                  .
+                </p>
+              )}
 
               {report.blockedFrom.length > 0 && (
                 <div>

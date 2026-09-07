@@ -503,7 +503,10 @@ export const structuredData = {
             The Record Conformance Checker
           </a>{" "}
           reads a stream and returns the level it earns, against the level its
-          emitter declares. It runs in the browser and uploads nothing, because
+          emitter declares. Give it the emitter's manifest as well and the
+          declaration is read from the published artifact rather than typed in,
+          and the kinds that manifest claims are checked against the kinds the
+          stream contains. It runs in the browser and uploads nothing, because
           these records are internal or private by design.
         </p>
         <p>

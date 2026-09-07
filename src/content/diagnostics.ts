@@ -283,6 +283,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Whether every record validates against the published STD-07 schema.",
           "Whether the hashes recompute and the prior_hash chain links, so a removed or edited record shows.",
           "Whether beliefs, authorizations and actions state what would end them, and whether a discrepancy was ever answered inside its clock.",
+          "Whether the emitter's own manifest agrees with its stream: the level it declares, and the record kinds it claims to emit.",
         ],
         doesNotMeasure: [
           "It cannot tell whether a belief was correct or an authorization wise. A stream does not contain that, and scoring it would make this the nominal safeguard it exists to catch.",
@@ -292,12 +293,13 @@ export const diagnosticsContent: DiagnosticsContent = {
         assumptions: [
           "The stream is the emitter's own output, exported whole rather than filtered.",
           "Clocks are judged against the export time, not against when the page is opened.",
-          "The declared level is what the emitter publishes in its own manifest.",
+          "The declared level is what the emitter publishes in its own manifest, read from the manifest itself when one is supplied.",
         ],
       },
       methodOverview: {
         inputs: [
           "A record stream as newline-delimited JSON, a JSON array, or an object with a records array.",
+          "Optionally the emitter's manifest, whatever its shape: the declaration is found by its fields rather than by a fixed path.",
           "The conformance level the emitter declares, if it declares one.",
           "The moment to judge clocks against, defaulting to now.",
         ],

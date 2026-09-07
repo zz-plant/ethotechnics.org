@@ -6,6 +6,12 @@ import {
   type RevisableDelegationRecord,
 } from "../../utils/revisable-delegation-record";
 
+import {
+  compareDeclaration,
+  readManifest,
+  type DelegationDeclaration,
+} from "./manifest";
+
 /**
  * Grading a stream of STD-07 records against the level its emitter claims.
  *
@@ -48,6 +54,10 @@ export type ConformanceReport = {
   earnedLevel: EarnedLevel | null;
   earnedLabel: string;
   declaredLevel: number | null;
+  /** Present when a manifest was supplied and carried exactly one declaration. */
+  declaration: DelegationDeclaration | null;
+  /** Why a supplied manifest could not be read, if it could not. */
+  manifestError: string | null;
   blockedFrom: Array<{ level: EarnedLevel; because: string }>;
   verdict: string;
   asOf: string;
@@ -192,17 +202,35 @@ const clockFor = (
  */
 export async function auditRecords(
   text: string,
-  options: { declaredLevel?: number | null; asOf?: string } = {},
+  options: {
+    declaredLevel?: number | null;
+    asOf?: string;
+    /**
+     * The emitter's own manifest. When it carries a declaration, it supplies the
+     * level instead of `declaredLevel`, because the point is to check the
+     * artifact the emitter publishes rather than a number a reviewer typed.
+     */
+    manifest?: string;
+  } = {},
 ): Promise<ConformanceReport> {
   const asOf =
     options.asOf && !Number.isNaN(Date.parse(options.asOf))
       ? options.asOf
       : new Date().toISOString();
   const asOfMs = Date.parse(asOf);
+  const manifestRead = options.manifest?.trim()
+    ? readManifest(options.manifest)
+    : null;
+  const declaration = manifestRead?.ok ? manifestRead.declaration : null;
+  const manifestError =
+    manifestRead && !manifestRead.ok ? manifestRead.reason : null;
+
+  const claimed = declaration
+    ? declaration.conformanceLevel
+    : options.declaredLevel;
   const declaredLevel =
-    typeof options.declaredLevel === "number" &&
-    LEVEL_ORDER.includes(options.declaredLevel as EarnedLevel)
-      ? options.declaredLevel
+    typeof claimed === "number" && LEVEL_ORDER.includes(claimed as EarnedLevel)
+      ? claimed
       : null;
 
   const candidates = extractCandidates(text);
@@ -496,6 +524,23 @@ export async function auditRecords(
     }
   }
 
+  if (manifestError) {
+    findings.push({
+      id: "manifest-unreadable",
+      severity: "finding",
+      title: "The manifest could not be read",
+      detail: `${manifestError}. The stream was audited on its own; nothing was checked against a declaration.`,
+      clause: "STD-07 §6",
+      records: [],
+    });
+  }
+
+  if (declaration) {
+    findings.push(
+      ...compareDeclaration(declaration, { parsed: records.length, kinds }),
+    );
+  }
+
   if (
     declaredLevel !== null &&
     earnedLevel !== null &&
@@ -538,6 +583,8 @@ export async function auditRecords(
     earnedLevel,
     earnedLabel,
     declaredLevel,
+    declaration,
+    manifestError,
     blockedFrom,
     verdict,
     asOf,
