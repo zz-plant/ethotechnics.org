@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "https://ethotechnics.org/standards/delegation-model-crosswalk.json",
+  "title": "Delegation Model Crosswalk (STD-07 records to STD-08 objects)",
+  "description": "A field-by-field mapping between the two object models the delegation standards publish. STD-07 (https://ethotechnics.org/api/schema/revisable-delegation-record.schema.json) models a delegation as an append-only stream of records, each with a kind and a kind-specific content block. STD-08 models the same delegation as a set of long-lived state objects: an authority grant, a capability catalog, a policy record, an intervention specification. Neither model is derivable from the other by name alone, and STD-08 clauses cite STD-07 clauses, so this document states which field corresponds to which, where the semantics differ, and where one model has no counterpart at all. It is descriptive: it declares an existing correspondence, it does not require either side to change. Relations are read left to right, from the STD-07 field to the STD-08 field.",
+  "version": "1.0.0",
+  "std_07": {
+    "standard": "STD-07",
+    "document": "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
+    "schema": "https://ethotechnics.org/api/schema/revisable-delegation-record.schema.json"
+  },
+  "std_08": {
+    "standard": "STD-08",
+    "document": "https://ethotechnics.org/standards/std-08-delegation",
+    "schemas": [
+      "authority-grant.schema.json",
+      "capability-catalog.schema.json",
+      "policy-record.schema.json",
+      "intervention-spec.schema.json"
+    ]
+  },
+  "relations": {
+    "equivalent": "The two fields carry the same information in the same shape. A value can be moved across without loss.",
+    "structured_refinement": "The STD-08 field carries the same information in a structured form where STD-07 uses free text. Moving right to left is lossless; moving left to right requires a person or a parser to impose the structure.",
+    "partial": "The STD-08 field carries part of what the STD-07 field carries, or carries it only for some values. Round-tripping loses information.",
+    "split": "One STD-07 field corresponds to more than one STD-08 field, and which one depends on the value.",
+    "no_counterpart": "The field exists in one model and has nothing corresponding in the other. Recorded so that an implementer does not invent an equivalence."
+  },
+  "mappings": [
+    {
+      "id": "authorization.scope",
+      "std_07": {
+        "record_kind": "authorization",
+        "field": "content.scope"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["scope", "action_classes"]
+      },
+      "relation": "structured_refinement",
+      "note": "STD-07 scope is a single free-text string with minLength 1. STD-08 splits the same boundary into a structured scope object (action_classes, systems, populations, limits) plus a separate action_classes list holding the subset currently authorized. A STD-08 grant therefore distinguishes the boundary of the lease from what is live inside it; STD-07 does not, so a scope string cannot be mechanically decomposed into the two."
+    },
+    {
+      "id": "authorization.holder",
+      "std_07": {
+        "record_kind": "authorization",
+        "field": "content.holder"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["grantee"]
+      },
+      "relation": "structured_refinement",
+      "note": "STD-07 holder is a bare string. STD-08 grantee is an object with id and a type drawn from agent, role, system, human. The id corresponds to the holder string; the type has no STD-07 source on the authorization record and must be supplied, though the actor.kind of the record that emitted the authorization is often the same distinction."
+    },
+    {
+      "id": "authorization.granted_by",
+      "std_07": {
+        "record_kind": "authorization",
+        "field": "content.granted_by"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["issuing_authority", "provenance"]
+      },
+      "relation": "structured_refinement",
+      "note": "STD-07 granted_by is a bare string naming the grantor. STD-08 issuing_authority is a contact object (name, role, contact) because Part A requires the issuer to be reachable to renew, narrow, or revoke. The grant's provenance block (issued_by, issued_at, basis_summary) carries the issue event itself, which on the STD-07 side lives on the record envelope (time.recorded_at, summary) rather than in content."
+    },
+    {
+      "id": "authorization.mode",
+      "std_07": {
+        "record_kind": "authorization",
+        "field": "content.mode"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["mode"]
+      },
+      "relation": "equivalent",
+      "note": "Same field, same enum: unattended, confirm, forbidden. Added to the grant so that STD-08 §3.2 (confirm mode must carry intervention_ref) can be checked against a single object. Do not confuse it with grant state: mode is how much autonomy the delegation carries, state is whether it is currently in force."
+    },
+    {
+      "id": "authorization.ceiling",
+      "std_07": {
+        "record_kind": "authorization",
+        "field": "content.ceiling"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["scope"]
+      },
+      "relation": "structured_refinement",
+      "note": "STD-07 ceiling is one free-text bound (a spend, a count, a blast radius, a duration). STD-08 carries the same bounds as scope.limits, a keyed map of named limits with string, number, or boolean values. One STD-07 ceiling string commonly becomes several named limits."
+    },
+    {
+      "id": "authorization.expires_at",
+      "std_07": {
+        "record_kind": "authorization",
+        "field": "content.expires_at"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["until"]
+      },
+      "relation": "partial",
+      "note": "STD-07 expires_at is always a date-time. STD-08 until accepts either a date-time or a plain-language lapse condition. Every STD-07 expires_at maps to an until; an until holding a condition has no STD-07 counterpart in content and would have to be written as an invalidated_by condition instead. The record envelope's time.valid_until is a different thing: it marks the record stale, not the lease lapsed."
+    },
+    {
+      "id": "authorization.revocation_conditions",
+      "std_07": {
+        "record_kind": "authorization",
+        "field": "content.revocation_conditions"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["revocation_conditions"]
+      },
+      "relation": "equivalent",
+      "note": "Both are arrays of free-text conditions and both are required, on the same reasoning: a delegation with no revocation conditions is a transfer, not a delegation (STD-07 §2.2)."
+    },
+    {
+      "id": "record.depends_on",
+      "std_07": {
+        "record_kind": "any",
+        "field": "depends_on"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["evidence_basis", "policy_refs", "capability_catalog_ref"]
+      },
+      "relation": "split",
+      "note": "STD-07 depends_on is one flat list of record_ids, undifferentiated by what kind of thing is depended on. STD-08 splits it by kind: dependence on a policy becomes a pinned entry in policy_refs and usually also an evidence_basis entry; dependence on a belief or an evidence item becomes an evidence_basis entry (ref, summary, as_of); dependence on a capability becomes capability_catalog_ref plus the catalog entry's own state. Which STD-08 field a depends_on entry belongs in cannot be decided from the id alone — see the identifier-convention gap below."
+    },
+    {
+      "id": "record.invalidated_by",
+      "std_07": {
+        "record_kind": "any",
+        "field": "invalidated_by"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["assumptions", "revocation_conditions"]
+      },
+      "relation": "partial",
+      "note": "STD-07 invalidated_by holds checkable conditions, each optionally with a check URI and an ISO 8601 clock. STD-08 assumptions are the propositions taken to be true at issue time, stated positively; their negations are the invalidation conditions. The mapping is a negation, not a copy, and it is lossy in both directions: STD-08 assumptions carry no check URI and no clock, so the clock STD-07 §3.3 relies on is not representable on the grant. Conditions that would end the lease rather than merely reopen it belong in revocation_conditions."
+    },
+    {
+      "id": "capability.state",
+      "std_07": {
+        "record_kind": "capability",
+        "field": "content.state"
+      },
+      "std_08": {
+        "schema": "capability-catalog.schema.json",
+        "fields": ["capabilities[].state"]
+      },
+      "relation": "equivalent",
+      "note": "Same field, same enum: absent, configured, verified, broken. STD-07 §3.4 makes the configured/verified line load-bearing and STD-08 Part A relies on it without restating it, so the catalog entry now carries the state the gate is evaluated against."
+    },
+    {
+      "id": "capability.capability_id",
+      "std_07": {
+        "record_kind": "capability",
+        "field": "content.capability_id"
+      },
+      "std_08": {
+        "schema": "capability-catalog.schema.json",
+        "fields": ["capabilities[].capability_id"]
+      },
+      "relation": "equivalent",
+      "note": "Both are stable identifiers for one capability. The STD-07 record identifies the capability inside the emitting system's stream; the catalog entry identifies it inside a catalog that a grant references by catalog_id."
+    },
+    {
+      "id": "capability.requires",
+      "std_07": {
+        "record_kind": "capability",
+        "field": "content.requires"
+      },
+      "std_08": {
+        "schema": "capability-catalog.schema.json",
+        "fields": ["capabilities[].tools"]
+      },
+      "relation": "partial",
+      "note": "STD-07 requires lists prerequisite capability ids. STD-08 tools lists the tool, API, or integration names the capability is reachable through. They overlap where the prerequisite is a tool and diverge where it is another capability; a prerequisite capability has no catalog field and is representable only as a separate catalog entry."
+    },
+    {
+      "id": "record.contest",
+      "std_07": {
+        "record_kind": "any",
+        "field": "contest"
+      },
+      "std_08": {
+        "schema": "intervention-spec.schema.json",
+        "fields": ["owner", "on_disagreement", "reach_time_target"]
+      },
+      "relation": "partial",
+      "note": "STD-07 contest declares who may object, where, and within what reversal clock. The intervention specification answers a different question — what the named human can actually see, prevent, and alter — and only its owner, on_disagreement, and reach_time_target overlap with contest. STD-08 §3.1 exists precisely because contest does not establish that an oversight claim is a control."
+    },
+    {
+      "id": "grant.state",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["state"]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart. An STD-07 authorization has no lifecycle field: it is a record, and it stops holding when a later record supersedes it or an invalidated_by condition fires. STD-08 grant state (allowed, review_required, suspended, revoked) is a standing property of a live object, and review_required in particular — the burden of proof shifted back to the issuer, with the grant neither in force nor withdrawn — has nothing to correspond to on the record side. Do not map it onto mode."
+    },
+    {
+      "id": "grant.state_history",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["state_history"]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart as a field. STD-07 reconstructs history from the record stream itself: supersedes links, revision records, and the ordering of the integrity chain. The information is comparable but it lives in the log rather than on the object, and a state_history transition reason (issued, renewal, expansion, evidence_changed, policy_review, challenge, incident, expiry, manual) has no STD-07 vocabulary to map to. Expansion in particular, which STD-08 §1.3 and §1.4 make a distinct authorization decision, would appear in STD-07 only as a new authorization record superseding an earlier one."
+    },
+    {
+      "id": "grant.review_conditions",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["review_conditions"]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart. STD-07 has one severity of failure: a condition either invalidates the record or it does not. STD-08 distinguishes conditions that move a grant to review_required from conditions that suspend or revoke it. Mapping review_conditions onto invalidated_by would overstate them, since an STD-07 invalidation condition ends the record's hold rather than reopening its justification."
+    },
+    {
+      "id": "grant.renewal_basis",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["renewal_basis"]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart. STD-07 records expiry but says nothing about what a renewal must show; that is exactly the gap STD-08 Part A fills. A renewal under STD-07 alone is indistinguishable from re-issuing the same authorization record."
+    },
+    {
+      "id": "policy_record",
+      "std_07": null,
+      "std_08": {
+        "schema": "policy-record.schema.json",
+        "fields": [
+          "policy_id",
+          "version",
+          "assumptions",
+          "review_triggers",
+          "expires_at",
+          "status"
+        ]
+      },
+      "relation": "no_counterpart",
+      "note": "Policy records have no STD-07 record kind. The STD-07 kind enum is belief, capability, authorization, action, discrepancy, revision, objection, outcome; a policy is none of them. The nearest available shape is a belief record whose content.proposition states the policy and whose invalidated_by carries the review triggers, but that mapping is not an equivalence: a belief has no version, no status enum, and no expires_at, and STD-08 §2.1 requires all three. An institution emitting STD-07 records cannot represent Part B faithfully without extending the kind enum, which is a change to STD-07 and is not made here."
+    }
+  ],
+  "known_gaps": [
+    {
+      "id": "identifier-convention-mismatch",
+      "summary": "STD-07 record_ids and STD-08 object ids do not share a convention, so an STD-08 object cannot be referenced from a STD-07 depends_on without an ad-hoc mapping.",
+      "detail": "STD-07 §5.3 recommends record_id of the form <system>:<kind>:<local-id>, for example whether:authorization:2026-w36, and the kind segment is what tells a reader which record shape to expect. STD-08 objects use flat identifiers with no system and no kind segment: GRANT-2026-0142, CAT-RISK-OPS-V2-2026-07, POL-FRAUD-HOLD-3.2, INT-RISK-STEWARD-1. A STD-07 depends_on entry is defined as a list of record_ids, so putting a flat grant or policy id in it produces a reference that resolves only if the reading system already knows which model the id belongs to. This document records the mismatch rather than resolving it: silently rewriting Line A ids into the STD-07 form would break every existing cross-reference between the published examples, and adding a translation table here would be a convention no clause requires. Closing it needs a decision in one of the two standards — either STD-07 relaxes depends_on to accept typed external references, or STD-08 object ids adopt the <system>:<kind>:<local-id> form.",
+      "affects": ["record.depends_on", "capability.capability_id"]
+    },
+    {
+      "id": "clock-not-representable-on-grant",
+      "summary": "The ISO 8601 clock STD-07 attaches to an invalidation condition has no field on the authority grant.",
+      "detail": "STD-07 invalidated_by[].clock bounds how long a matching discrepancy may go unanswered, and STD-07 §3.3 makes silence past the clock a governance failure. The grant's assumptions, review_conditions, and revocation_conditions are plain strings with no clock and no check URI. STD-08 §2.3 and §2.4 do speak of a trigger's declared clock, but the only place a clock is actually typed is the policy record's review_triggers, so a grant-level condition that is not inherited from a policy carries no deadline anywhere in the Line A model.",
+      "affects": ["record.invalidated_by", "grant.review_conditions"]
+    },
+    {
+      "id": "no-action-or-outcome-object",
+      "summary": "STD-07 action, outcome, and discrepancy records have no standing STD-08 object.",
+      "detail": "STD-08 models what a delegation must show while it stands, not what it did. The decision record is the closest Line A object to an STD-07 action record, but it is a decision about one subject rather than a record of an act and its result, and there is no Line A object at all for outcome or discrepancy. Those record kinds are therefore left unmapped here rather than being attached to the nearest-looking object."
+    }
+  ]
+}

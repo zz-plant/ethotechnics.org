@@ -41,6 +41,7 @@ const delegationEraTerms = [
   "preserved-capacity",
   "procedural-force",
   "prospective-auditability",
+  "revisable-delegation",
   "review-trigger",
   "rubber-stamp-review",
   "standing-mechanism",

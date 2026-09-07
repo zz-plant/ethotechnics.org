@@ -538,7 +538,7 @@
             "title": "Delegated Agency",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The capacity to act with consequence on an institution's behalf, held by a machine, a human, or an assembly of both. Delegated agency is created by an <a href=\"#authority-grant\">authority grant</a> and exercised through a <a href=\"#decision-system\">decision system</a>; it is not a property of the model that happens to be running.</p><p>It matters because agency is the quantity that accumulates. An institution that tracks capability but not delegated agency cannot say how much of its consequential action it has handed over, or whether it still holds the <a href=\"#correction-capacity\">correction capacity</a> to take any of it back.</p>",
+            "bodyHtml": "<p>The capacity to act with consequence on an institution's behalf, held by a machine, a human, or an assembly of both. Delegated agency is created by an <a href=\"#authority-grant\">authority grant</a> and exercised through a <a href=\"#decision-system\">decision system</a>; it is not a property of the model that happens to be running.</p><p>It matters because agency is the quantity that accumulates. An institution that tracks capability but not delegated agency cannot say how much of its consequential action it has handed over, or whether it still holds the <a href=\"#correction-capacity\">correction capacity</a> to take any of it back. Agency handed over under a <a href=\"#revisable-delegation\">revisable delegation</a> can be taken back one grant at a time; agency handed over without one comes back only by rebuilding what replaced it.</p>",
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
               "The institution can list, for one workflow, every action class a machine may take on its behalf.",
@@ -658,7 +658,7 @@
             "title": "Justified Delegation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A delegation whose authority, evidence, and correction capacity are all currently in force: the grant sits in an allowed <a href=\"#grant-state\">grant state</a>, the <a href=\"#policy-record\">policy record</a> it rests on has not expired, and the institution can still meet its <a href=\"#correction-obligation\">correction obligation</a>. Justification is a present-tense property, not a fact about the launch review.</p><p>It matters because most delegations fail by outliving their justification rather than by being wrong at the start. Asking whether a delegation is justified today is the operational form of treating authority as an <a href=\"#authority-lease\">authority lease</a>.</p>",
+            "bodyHtml": "<p>A delegation whose authority, evidence, and correction capacity are all currently in force: the grant sits in an allowed <a href=\"#grant-state\">grant state</a>, the <a href=\"#policy-record\">policy record</a> it rests on has not expired, and the institution can still meet its <a href=\"#correction-obligation\">correction obligation</a>. Justification is a present-tense property, not a fact about the launch review.</p><p>It is the point-in-time test. <a href=\"#revisable-delegation\">Revisable delegation</a> is the standing property it tests for: the grant stays tied to the evidence that justified it, so it can be narrowed or withdrawn when that evidence changes. Ask whether a delegation is justified to grade it today; ask whether it is revisable to know whether the answer can be acted on at all.</p><p>It matters because most delegations fail by outliving their justification rather than by being wrong at the start. Asking whether a delegation is justified today is the operational form of treating authority as an <a href=\"#authority-lease\">authority lease</a>.</p>",
             "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
             "operationalTests": [
               "For any decision, the institution can show the grant was in an allowed state at the time it was made.",
@@ -2515,7 +2515,7 @@
             "title": "Capability Catalog",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The record of what a decision system can do, maintained separately from what it is permitted to do. Each entry names an action class, how it was verified, and when the verification was last refreshed, and entries arrive through <a href=\"#capability-discovery\">capability discovery</a>.</p><p>It matters because the catalog is what an <a href=\"#authority-grant\">authority grant</a> is written against. Comparing catalog to grants is the direct test of whether capability has outrun authority, and a catalog nobody refreshes silently stops being that test.</p>",
+            "bodyHtml": "<p>The record of what a decision system can do, maintained separately from what it is permitted to do. Each entry names an action class, how it was verified, and when the verification was last refreshed, and entries arrive through <a href=\"#capability-discovery\">capability discovery</a>.</p><p>It matters because the catalog is what an <a href=\"#authority-grant\">authority grant</a> is written against. Comparing catalog to grants is the direct test of whether capability has outrun authority, and a catalog nobody refreshes silently stops being that test. A stale entry also removes the ground a <a href=\"#revisable-delegation\">revisable delegation</a> stands on, because the grant then rests on a capability nobody has re-verified.</p>",
             "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
             "operationalTests": [
               "Every catalog entry carries a verification method and a verification date.",
@@ -5500,7 +5500,7 @@
             "title": "Revisable Delegation",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Delegation of consequential work to a machine that stays tied to the evidence and beliefs that justified it, so the grant can be narrowed, suspended, or withdrawn when those change. A revisable delegation names its holder, its ceiling, what it depends on, and what would revoke it; an unrevisable one is a transfer with a delegation's name.</p><p>The question it serves is how an institution can become more capable without becoming less revisable. The record shape is defined in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a>. The test is whether the institution can answer, for any past action, what it believed at the time, what it had authorized, and what has since changed.</p>",
+            "bodyHtml": "<p>Delegation of consequential work to a machine that stays tied to the evidence and beliefs that justified it, so the grant can be narrowed, suspended, or withdrawn when those change. A revisable delegation names its holder, its ceiling, what it depends on, and what would revoke it; an unrevisable one is a transfer with a delegation's name. The objects it is written in are the <a href=\"#authority-grant\">authority grant</a>, the <a href=\"#policy-record\">policy record</a> it depends on, and the <a href=\"#delegated-agency\">delegated agency</a> the grant creates.</p><p>Revisability is the standing property. <a href=\"#justified-delegation\">Justified delegation</a> is the same coupling read in the present tense: whether authority, evidence, and correction capacity are all in force right now. The two are one question at two timescales. A delegation that is justified today but not revisable cannot act on tomorrow's answer.</p><p>The question it serves is how an institution can become more capable without becoming less revisable. The record shape is defined in <a href=\"/standards/std-07-revisable-delegation-record\">STD-07</a>, and the terms the delegation must keep meeting while it stands are in <a href=\"/standards/std-08-delegation\">STD-08</a>. The test is whether the institution can answer, for any past action, what it believed at the time, what it had authorized, and what has since changed.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Every authorization record lists its revocation conditions and the beliefs it depends on.",
@@ -5512,6 +5512,11 @@
               {
                 "label": "STD-07 Revisable Delegation Record",
                 "href": "/standards/std-07-revisable-delegation-record",
+                "type": "Standard"
+              },
+              {
+                "label": "STD-08 Delegation",
+                "href": "/standards/std-08-delegation",
                 "type": "Standard"
               },
               {
@@ -5537,6 +5542,10 @@
             ],
             "tags": ["governance", "authority", "delegation", "revisability"],
             "adjacentTerms": [
+              "justified-delegation",
+              "authority-grant",
+              "policy-record",
+              "delegated-agency",
               "bounded-autonomy",
               "decision-reversal-authority",
               "meta-contestability",
@@ -5550,7 +5559,7 @@
             "title": "Authority Grant",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The record that permits a named holder to take a bounded class of actions, for whom, under what conditions, and until when. A grant carries its scope, its evidence basis, its <a href=\"#grant-state\">grant state</a>, its expiry, and the <a href=\"#policy-record\">policy records</a> it depends on.</p><p>It matters because authority that is not written as a record cannot be reviewed, narrowed, or withdrawn. The grant is what makes <a href=\"#authority-drift\">authority drift</a> detectable rather than merely regrettable after the fact.</p>",
+            "bodyHtml": "<p>The record that permits a named holder to take a bounded class of actions, for whom, under what conditions, and until when. A grant carries its scope, its evidence basis, its <a href=\"#grant-state\">grant state</a>, its expiry, and the <a href=\"#policy-record\">policy records</a> it depends on.</p><p>It matters because authority that is not written as a record cannot be reviewed, narrowed, or withdrawn. A grant that carries its dependencies and its revocation conditions is what makes the delegation a <a href=\"#revisable-delegation\">revisable delegation</a> rather than a transfer. The grant is what makes <a href=\"#authority-drift\">authority drift</a> detectable rather than merely regrettable after the fact.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Every action class a system may perform maps to exactly one grant with a named holder.",
@@ -5635,7 +5644,7 @@
             "title": "Policy Record",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>A versioned statement of the propositions a delegation rests on: what the model does, who the population is, what the downstream process catches, and when each claim expires. Grants cite policy records rather than restating their assumptions, which is what <a href=\"#policy-as-state\">policy as state</a> requires.</p><p>It matters because assumptions decay silently when they are held as launch documents. Held as a record with a version and an expiry, a policy can raise a <a href=\"#review-trigger\">review trigger</a> and move a <a href=\"#grant-state\">grant state</a> when the world changes.</p>",
+            "bodyHtml": "<p>A versioned statement of the propositions a delegation rests on: what the model does, who the population is, what the downstream process catches, and when each claim expires. Grants cite policy records rather than restating their assumptions, which is what <a href=\"#policy-as-state\">policy as state</a> requires.</p><p>It matters because assumptions decay silently when they are held as launch documents. Held as a record with a version and an expiry, a policy can raise a <a href=\"#review-trigger\">review trigger</a> and move a <a href=\"#grant-state\">grant state</a> when the world changes. That propagation is the mechanism behind a <a href=\"#revisable-delegation\">revisable delegation</a>: the delegation narrows because a proposition it rested on lapsed.</p>",
             "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
             "operationalTests": [
               "Each policy record states its assumptions, its evidence, its version, and its review date.",
@@ -5667,6 +5676,7 @@
               "authority-grant",
               "policy-as-state",
               "review-trigger",
+              "revisable-delegation",
               "evidence-recycling"
             ]
           },

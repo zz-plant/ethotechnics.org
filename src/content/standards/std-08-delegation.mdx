@@ -85,7 +85,7 @@ export const objects = [
   {
     object: "authority-grant",
     fields:
-      "state, state_history, until, renewal_basis, evidence_basis, policy_refs, intervention_ref, dependency_ref",
+      "state, state_history, mode, until, renewal_basis, evidence_basis, policy_refs, capability_catalog_ref, intervention_ref, dependency_ref",
     part: "A, B, C, D",
   },
   {
@@ -448,8 +448,9 @@ export const structuredData = {
           </li>
           <li>
             <span class="standard-clause-id">§3.2</span>
-            Confirm mode is specified: Every delegation recorded under STD-07
-            §2.2 with mode <code>confirm</code> MUST carry
+            Confirm mode is specified: Every grant whose <code>mode</code> is
+            <code>confirm</code>, the mode STD-07 §2.2 requires the
+            authorization to record, MUST carry
             <code>intervention_ref</code> pointing at that specification. A
             confirm mode with no specification behind it is recorded as
             unattended, because that is how it behaves.

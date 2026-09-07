@@ -1707,10 +1707,12 @@ export const standardClauses: Record<string, StandardClause[]> = {
       displayId: "§3.2",
       type: "obligation",
       requirementLevel: "MUST",
-      condition: "a delegation is recorded under STD-07 §2.2 with mode confirm",
+      condition:
+        "a grant carries mode confirm, the mode STD-07 §2.2 requires the authorization to record",
       obligation:
         "carry intervention_ref pointing at the specification; a confirm mode with no specification behind it is recorded as unattended",
       evidenceRequired: [
+        "authority_grant.mode",
         "authority_grant.intervention_ref",
         "intervention_spec.spec_id",
       ],
@@ -1882,6 +1884,15 @@ export const standardClauses: Record<string, StandardClause[]> = {
     },
   ],
 };
+
+/**
+ * Resolve a standard id such as "STD-08" to its entry, so callers can link by
+ * slug. Lower-casing an id does not produce a slug: STD-08 lives at
+ * /standards/std-08-delegation, and pages that guessed the slug from the id
+ * emitted 404s for every standard they cited.
+ */
+export const getStandardById = (id: string): StandardEntry | undefined =>
+  standardsContent.standards.find((standard) => standard.id === id);
 
 export const getStandardBySlug = (slug: string): StandardEntry | undefined =>
   standardsContent.standards.find((standard) => standard.slug === slug);

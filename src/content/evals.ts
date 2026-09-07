@@ -542,7 +542,7 @@ export const evalsContent: EvalsContent = {
       status: "draft",
       category: "governance",
       layer: "delegation",
-      standardRefs: ["STD-07"],
+      standardRefs: ["STD-07", "STD-08"],
       glossaryRefs: [
         "design-authority",
         "permission-surface",
@@ -643,7 +643,7 @@ export const evalsContent: EvalsContent = {
       status: "draft",
       category: "agency",
       layer: "delegation",
-      standardRefs: ["STD-01", "STD-07"],
+      standardRefs: ["STD-01", "STD-07", "STD-08"],
       glossaryRefs: ["human-override-lanes", "time-to-halt", "stoppability"],
       testCases: [],
       scoringMethod: {
