@@ -142,14 +142,15 @@ export const navSections: NavSection[] = [
         description: "Quantify cognitive friction and task loads",
       },
       {
-        href: "/diagnostics/capacity-forecaster",
-        label: "Capacity Forecaster",
-        description: "Model human-in-the-loop saturation limits",
-      },
-      {
         href: "/diagnostics/delegation-audit",
         label: "Delegation Audit",
-        description: "Check whether a delegation is still justified",
+        description: "Ask a team whether a delegation is still justified",
+      },
+      {
+        href: "/diagnostics/record-conformance",
+        label: "Record Conformance Checker",
+        description:
+          "Grade an STD-07 record stream against the level it claims",
       },
       {
         href: "/diagnostics",

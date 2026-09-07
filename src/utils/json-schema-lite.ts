@@ -4,8 +4,8 @@
  * example instances can be validated in unit tests without adding a
  * dependency. Supported keywords: type, required, properties,
  * additionalProperties (boolean or schema), enum, const, items, oneOf, anyOf,
- * allOf, pattern, format (date-time, date), minimum, maximum, minItems,
- * maxItems, and local $ref ("#/..." JSON pointers).
+ * allOf, if/then/else, pattern, format (date-time, date), minimum, maximum,
+ * minItems, maxItems, and local $ref ("#/..." JSON pointers).
  */
 
 export type JsonSchema = {
@@ -20,6 +20,9 @@ export type JsonSchema = {
   oneOf?: JsonSchema[];
   anyOf?: JsonSchema[];
   allOf?: JsonSchema[];
+  if?: JsonSchema;
+  then?: JsonSchema;
+  else?: JsonSchema;
   pattern?: string;
   format?: string;
   minimum?: number;
@@ -210,6 +213,12 @@ const validateNode = (
       (branch) => validate(branch, value, root).length === 0,
     );
     if (!matched) fail("value does not match any anyOf branch");
+  }
+
+  if (schema.if !== undefined) {
+    const branch =
+      validate(schema.if, value, root).length === 0 ? schema.then : schema.else;
+    if (branch !== undefined) validateNode(branch, value, path, root, errors);
   }
 
   if (schema.oneOf) {

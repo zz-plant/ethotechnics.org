@@ -12,6 +12,7 @@
     "issuing_authority",
     "grantee",
     "action_classes",
+    "mode",
     "for_whom",
     "evidence_basis",
     "assumptions",
@@ -151,9 +152,15 @@
       "type": "array",
       "items": { "type": "string" }
     },
+    "mode": {
+      "title": "Mode",
+      "description": "How much autonomy the delegation carries: the same field STD-07 §2.2 records on an authorization record, with the same values. unattended: the grantee acts without a human in the path. confirm: a named human must confirm each action before it takes effect. forbidden: the delegation is recorded but no action may be taken under it. Mode is not state: mode says how much autonomy the delegation carries when it is in force, state says whether it is in force at all. The two vary independently — a grant may be mode unattended and state suspended. A grant with mode confirm MUST carry intervention_ref (STD-08 §3.2).",
+      "type": "string",
+      "enum": ["unattended", "confirm", "forbidden"]
+    },
     "state": {
       "title": "State",
-      "description": "Current lease state. Only allowed grants authorize action; review_required means the burden of proof has shifted back to the issuer.",
+      "description": "Current lease state: whether the grant is in force right now. Only allowed grants authorize action; review_required means the burden of proof has shifted back to the issuer. State is not mode: state says whether the delegation is in force, mode says how much autonomy it carries while it is. A grant in state allowed with mode confirm is in force but requires human confirmation per action; a grant in state suspended with mode unattended authorizes nothing at all.",
       "type": "string",
       "enum": ["allowed", "review_required", "suspended", "revoked"]
     },
@@ -246,9 +253,27 @@
     },
     "policy_refs": {
       "title": "Policy references",
-      "description": "Identifiers of policy records this grant depends on.",
+      "description": "The policy records this grant depends on, each pinned to a version (STD-08 §2.2). An unpinned reference is a reference to whatever the policy has since become.",
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "title": "Pinned policy reference",
+        "description": "One policy record and the version of it this grant rests on.",
+        "type": "object",
+        "required": ["policy_id", "version"],
+        "additionalProperties": false,
+        "properties": {
+          "policy_id": {
+            "title": "Policy identifier",
+            "description": "Stable identifier of the policy record, matching policy_id in policy-record.schema.json.",
+            "type": "string"
+          },
+          "version": {
+            "title": "Policy version",
+            "description": "The version of that policy record this grant was justified against, matching version in policy-record.schema.json. A later version is a new evidentiary state and does not inherit this grant's justification.",
+            "type": "string"
+          }
+        }
+      }
     },
     "intervention_ref": {
       "title": "Intervention reference",
@@ -316,5 +341,22 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "title": "Confirm mode requires an intervention specification",
+      "description": "STD-08 §3.2: every delegation recorded under STD-07 §2.2 with mode confirm must carry intervention_ref pointing at that specification. A confirm mode with no specification behind it is recorded as unattended, because that is how it behaves.",
+      "if": {
+        "required": ["mode"],
+        "properties": {
+          "mode": {
+            "const": "confirm"
+          }
+        }
+      },
+      "then": {
+        "required": ["intervention_ref"]
+      }
+    }
+  ]
 }

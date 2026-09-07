@@ -59,6 +59,8 @@ export const methodContent: MethodContent = {
         "STD-06 Human Impact Safety Case",
         "Burden Concealment evals",
         "STD-07 belief records, with what they rest on and what would invalidate them",
+        "STD-08 Part B: the policies a grant rests on are records with provenance, review triggers, and an expiry, and an expired policy stops justifying the grant",
+        "Record Conformance Checker: grades whether an exported record stream states what would invalidate its beliefs",
       ],
       links: [
         { label: "Evidence packs", href: "/evidence-packs" },
@@ -66,6 +68,11 @@ export const methodContent: MethodContent = {
         {
           label: "STD-07 Revisable Delegation Record",
           href: "/standards/std-07-revisable-delegation-record",
+        },
+        { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
+        {
+          label: "Record Conformance Checker",
+          href: "/diagnostics/record-conformance",
         },
       ],
     },
@@ -79,11 +86,18 @@ export const methodContent: MethodContent = {
         "MEC-03 rollback authority",
         "Glossary: design-authority, decision-reversal-authority, permission-surface, human-override-lanes",
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
+        "STD-08 Part A: a grant is a lease, renewal states its evidence in advance, and widening scope is a new authorization",
+        "Delegation Audit: names the action classes nobody can ground in a grant",
       ],
       links: [
         {
           label: "STD-07 Revisable Delegation Record",
           href: "/standards/std-07-revisable-delegation-record",
+        },
+        { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
+        {
+          label: "Delegation Audit",
+          href: "/diagnostics/delegation-audit",
         },
         {
           label: "Permission surface explainer",
@@ -172,6 +186,8 @@ export const methodContent: MethodContent = {
         "decision.deadline.reminder and appeal.deadline.breached events",
         "MEC-11 escalation SLAs",
         "STD-07 discrepancy handling: silence past the clock is a governance failure, not a pending state",
+        "STD-08 §2.3 and §2.4: a fired review trigger moves the policy and every grant that cites it into review_required",
+        "Record Conformance Checker: reports discrepancies that were never answered inside their clock",
       ],
       links: [
         {
@@ -181,6 +197,11 @@ export const methodContent: MethodContent = {
         {
           label: "STD-07 Revisable Delegation Record",
           href: "/standards/std-07-revisable-delegation-record",
+        },
+        { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
+        {
+          label: "Record Conformance Checker",
+          href: "/diagnostics/record-conformance",
         },
       ],
     },
@@ -194,8 +215,15 @@ export const methodContent: MethodContent = {
         "MEC-10 reversibility audit logs",
         "MEC-12 stoppability testing",
         "Tier 1 harness: stop, override, audit completeness",
+        "STD-08 Part D: correction capacity is stated across seven components and must grow when authority does",
+        "Delegation Audit: a reversibility verdict at the technical, operational, and institutional levels",
       ],
       links: [
+        { label: "STD-08 Delegation", href: "/standards/std-08-delegation" },
+        {
+          label: "Delegation Audit",
+          href: "/diagnostics/delegation-audit",
+        },
         { label: "Kill switch", href: "/mechanisms/patterns/kill-switch" },
         {
           label: "Reversibility audit logs",

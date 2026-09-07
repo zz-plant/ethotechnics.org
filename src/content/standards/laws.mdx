@@ -90,7 +90,7 @@ Silence is not renewal. A system that has not visibly failed has not thereby ear
 
 > The burden of proof rises with the duration and consequence of delegated authority. Absence of observed failure is not renewal.
 
-Binds through: STD-07 §2.2, which requires expiry and revocation conditions and holds that a delegation with no revocation conditions is a transfer rather than a delegation, and §1.3 validity horizon; the `until` and `renewal_basis` fields on the authority grant; MEC-13 authority grant register; Delegation Validity eval, grant in `allowed` state at decision time.
+Binds through: STD-07 §2.2, which requires expiry and revocation conditions and holds that a delegation with no revocation conditions is a transfer rather than a delegation, and §1.3 validity horizon; STD-08 Part A carries the renewal burden itself, which rises with the duration and consequence of the grant and may not rest on the absence of observed failure; the `until` and `renewal_basis` fields on the authority grant; MEC-13 authority grant register; Delegation Validity eval, grant in `allowed` state at decision time.
 
 <h3 id="law-iii">Law III. Evidence and authority must remain coupled</h3>
 
@@ -100,7 +100,7 @@ When the evidence changes materially, the authority that rested on it must at le
 
 > When the evidentiary state changes materially, the authority state becomes eligible for reconsideration. Policy is state, not input.
 
-Binds through: STD-07 §3.1 dependence and §3.2 invalidation conditions, which require a record to say what would change its mind; the policy record and `policy_refs` on the grant; MEC-14 policy review triggers; harness check that an expired policy moves grants to `review_required`.
+Binds through: STD-07 §3.1 dependence and §3.2 invalidation conditions, which require a record to say what would change its mind; STD-08 Part B makes the policy a grant rests on a record in its own right, with provenance, assumptions, review triggers, and an expiry, and moves the grants downstream of a fired trigger to `review_required`; the policy record and `policy_refs` on the grant; MEC-14 policy review triggers; harness check that an expired policy moves grants to `review_required`.
 
 <h3 id="law-iv">
   Law IV. Every consequential delegation creates a correction obligation

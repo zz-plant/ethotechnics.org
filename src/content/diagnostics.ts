@@ -162,7 +162,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "delegation-audit",
       title: "Delegation Audit",
       description:
-        "Walks one workflow through the six state variables and returns an exposure score, the grants nobody can ground, and a reversibility verdict at three levels.",
+        "Belief level: walks a team through one workflow against the six state variables and returns an exposure score, the grants nobody can ground, and a reversibility verdict at three levels. Start here when you have no records to hand; use the Record Conformance Checker once you do.",
       methodCards: {
         measures: [
           "Whether each action class has an identifiable authorizer, evidence basis, and end condition.",
@@ -277,7 +277,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "record-conformance",
       title: "Record Conformance Checker",
       description:
-        "Reads a stream of STD-07 delegation records and returns the conformance level it actually earns, against the level its emitter declares.",
+        "Evidence level: parses a stream of STD-07 delegation records, validates it against the schema, recomputes the hashes, and returns the conformance level it actually earns against the level its emitter declares. Reach for it when a system already emits records; the Delegation Audit covers the case where it does not.",
       methodCards: {
         measures: [
           "Whether every record validates against the published STD-07 schema.",

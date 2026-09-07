@@ -62,6 +62,7 @@
           "capability_id",
           "action_class",
           "description",
+          "state",
           "tools",
           "reversible",
           "discovered_via"
@@ -82,6 +83,12 @@
             "title": "Description",
             "description": "Plain-language statement of what the capability does.",
             "type": "string"
+          },
+          "state": {
+            "title": "State",
+            "description": "Latest known state of the capability, using exactly the states a STD-07 capability record carries (STD-07 §3.4). absent: not reachable. configured: present but no check has passed. verified: a check has passed. broken: a check has failed. The distinction is load-bearing: an authority grant that depends on this capability is valid only while the capability's latest record is verified. configured is not enough, and a capability that falls to broken invalidates the grants resting on it until it is verified again.",
+            "type": "string",
+            "enum": ["absent", "configured", "verified", "broken"]
           },
           "tools": {
             "title": "Tools",

@@ -55,10 +55,10 @@ describe("navSections", () => {
     }
   });
 
-  it("lists the delegation audit under diagnostics", () => {
-    expect(sectionLinks("Diagnostics & Workbench")).toContain(
-      "/diagnostics/delegation-audit",
-    );
+  it("lists both delegation tools under diagnostics", () => {
+    const links = sectionLinks("Diagnostics & Workbench");
+    expect(links).toContain("/diagnostics/delegation-audit");
+    expect(links).toContain("/diagnostics/record-conformance");
   });
 
   it("lists theory under knowledge", () => {

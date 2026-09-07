@@ -7,6 +7,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
+import { getStandardById } from "../../content/standards";
 import type { EvalSuite, EvalTestCase } from "../../content/evals";
 
 export const getStaticPaths = () =>
@@ -38,6 +39,11 @@ const scoringMethodLabel = (() => {
       return "All must pass";
   }
 })();
+// A standard id is not its slug, so resolve it rather than guessing.
+const standardHref = (ref: string) => {
+  const standard = getStandardById(ref);
+  return standard ? `/standards/${standard.slug}` : "/standards";
+};
 ---
 
 <BaseLayout
@@ -106,9 +112,7 @@ const scoringMethodLabel = (() => {
           <ul class="muted">
             {suite.standardRefs.map((ref) => (
               <li>
-                <a href={`/standards/${ref.toLowerCase().replace(/\./g, "-")}`}>
-                  {ref}
-                </a>
+                <a href={standardHref(ref)}>{ref}</a>
               </li>
             ))}
           </ul>
