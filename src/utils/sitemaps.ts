@@ -10,7 +10,7 @@ import { incidentLessons } from "../content/incidents";
 import { libraryContent } from "../content/library";
 import type { LibraryContent, Pattern } from "../content/library";
 import { governanceCrosswalks } from "../content/crosswalks";
-import { quickStartGuides } from "../content/quick-start";
+import { roles } from "../content/roles";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
 import { getTaxonomyBranch, taxonomyEntries } from "../content/taxonomy";
@@ -299,8 +299,8 @@ export const buildSitemapSections = async () => {
       ]
     : [];
 
-  const quickStartPaths = quickStartGuides.map((guide) => ({
-    path: `/quick-start/${guide.slug}`,
+  const rolePaths = roles.map((role) => ({
+    path: `/roles/${role.id}`,
     changefreq: "monthly",
   }));
 
@@ -460,7 +460,7 @@ export const buildSitemapSections = async () => {
       ...evidencePackPaths,
       ...crosswalkControlPaths,
       ...incidentPaths,
-      ...quickStartPaths,
+      ...rolePaths,
       ...theoryPaths,
     ]),
     taxonomy: applyOverrides([

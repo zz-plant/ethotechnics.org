@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { glossaryContent } from "../content/glossary";
-import { resolveSemanticContext, roleCuratedPaths } from "./semantic-graph";
+import { resolveSemanticContext } from "./semantic-graph";
 
 const allGlossaryEntries = glossaryContent.categories.flatMap(
   (category) => category.entries,
@@ -107,16 +107,6 @@ describe("Semantic Graph Engine", () => {
       const context = resolveSemanticContext(id);
       expect(context).not.toBeNull();
       expect(context?.node.href).toBe(`/glossary/${id}`);
-    }
-  });
-
-  it("provides distinct curated paths for all 4 roles", () => {
-    const roles = ["engineer", "policy", "auditor", "executive"] as const;
-    for (const role of roles) {
-      const path = roleCuratedPaths[role];
-      expect(path.role).toBe(role);
-      expect(path.prioritySteps.length).toBe(3);
-      expect(path.featuredDiagnostics.length).toBeGreaterThan(0);
     }
   });
 });

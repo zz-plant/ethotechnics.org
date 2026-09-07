@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import { getRole, roles, rolePermalink } from "../../content/roles";
+
+/**
+ * Resolved per request rather than prerendered, matching
+ * /mechanisms/patterns/[slug]. Under `output: "server"` the prerendered
+ * dynamic routes on this site currently build to a placeholder rather than
+ * their HTML (see docs/planning/prerender-finding-2026-09.md); this route
+ * takes the shape that is known to serve correctly.
+ */
+const role = getRole(Astro.params.role ?? "");
+if (!role) return new Response("Role not found", { status: 404 });
+
+const permalink = rolePermalink(role.id);
+const pageTitle = `${role.label} — Ethotechnics`;
+const pageDescription = role.tagline;
+
+const anchorLinks = [
+  role.orientation?.length
+    ? { href: "#first-moves", label: "Where to start" }
+    : null,
+  role.guide ? { href: "#focus", label: "What to attend to" } : null,
+  role.guide ? { href: "#reads", label: "What to open" } : null,
+  role.adoptionChecklist?.length
+    ? { href: "#adopt", label: "Adoption checklist" }
+    : null,
+].filter((link): link is { href: string; label: string } => link !== null);
+
+const others = roles.filter((entry) => entry.id !== role.id);
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-09-07T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="For your role"
+    title={role.label}
+    description={role.tagline}
+    permalink={permalink}
+    anchorLinks={anchorLinks}
+    panelCopy={{
+      eyebrow: "Who this is for",
+      title: role.who,
+      description:
+        "If that is not you, the other roles are listed at the bottom of this page. Nothing here is a prerequisite for anything there.",
+    }}
+  />
+
+  {
+    role.orientation?.length && (
+      <SectionBlock
+        id="first-moves"
+        eyebrow="Where to start"
+        title="Three moves, in order"
+        description="Each ends somewhere you can act rather than somewhere you can read."
+      >
+        <ol class="step-list stack-md">
+          {role.orientation.map((step) => (
+            <li class="card stack-sm">
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+              <p>
+                <a class="button ghost button--compact" href={step.ctaHref}>
+                  {step.ctaLabel}
+                </a>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </SectionBlock>
+    )
+  }
+
+  {
+    role.guide && (
+      <SectionBlock
+        id="focus"
+        eyebrow="What to attend to"
+        title="The parts of the method that bear on your work"
+        description="Not everything here is yours. These are the parts that are."
+        variant="alt"
+      >
+        <ul class="card__list">
+          {role.guide.focusAreas.map((area) => (
+            <li>{area}</li>
+          ))}
+        </ul>
+      </SectionBlock>
+    )
+  }
+
+  {
+    role.guide && (
+      <SectionBlock
+        id="reads"
+        eyebrow="What to open"
+        title="Where the material actually is"
+      >
+        <ul class="card__list">
+          {role.guide.keyLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+              {link.note && <span class="muted"> — {link.note}</span>}
+            </li>
+          ))}
+        </ul>
+        <h3>First moves</h3>
+        <ol class="stack-sm">
+          {role.guide.firstMoves.map((move) => (
+            <li>{move}</li>
+          ))}
+        </ol>
+      </SectionBlock>
+    )
+  }
+
+  {
+    role.adoptionChecklist?.length && (
+      <SectionBlock
+        id="adopt"
+        eyebrow="Adoption checklist"
+        title="What to have in place"
+        description="For a team that has decided to adopt. Each line is a thing that either exists or does not; none of them is a posture."
+        variant="alt"
+      >
+        <ul class="card__list">
+          {role.adoptionChecklist.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </SectionBlock>
+    )
+  }
+
+  <SectionBlock
+    eyebrow="Other roles"
+    title="If that was not you"
+    description="Seven audiences, one page each. Picking the wrong one costs a click, not a detour."
+  >
+    <ul class="card__list">
+      {
+        others.map((entry) => (
+          <li>
+            <a href={rolePermalink(entry.id)}>{entry.label}</a>
+            <span class="muted"> — {entry.who}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="small muted">
+      Or go back to <a href="/start">Start</a>, which asks the same question
+      with all seven answers on one screen.
+    </p>
+  </SectionBlock>
+</BaseLayout>

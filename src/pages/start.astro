@@ -1,13 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { roleCuratedPaths, type UserRole } from "../utils/semantic-graph";
-import { quickStartGuides } from "../content/quick-start";
+import { roles, rolePermalink } from "../content/roles";
 
-const pageTitle = "Start Here — Ethotechnics Triage & Role Paths";
+const pageTitle = "Start — Ethotechnics role paths";
 const pageDescription =
-  "Find the exact standards, interactive diagnostics, and guardrail code tailored to your role.";
-
-const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
+  "Seven audiences, one page each. Pick the one that describes your work and get the standards, diagnostics, and checklists that bear on it.";
 ---
 
 <BaseLayout
@@ -17,34 +14,34 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
   mainClass="page page--wide"
 >
   <header class="section-header container">
-    <span class="pill pill--ghost">Adaptive Triage</span>
+    <span class="pill pill--ghost">Start</span>
     <h1 class="page-title">Find your path through Ethotechnics</h1>
     <p class="page-lede">
-      Whether you are shipping AI agents into production, mapping regulatory
-      compliance, or auditing high-stakes decisions, select your perspective
-      below to get immediate, actionable technical artifacts.
+      This is the only page that asks you about yourself. Pick the role that
+      describes your work; each one has a single page carrying whatever has been
+      written for it. If you would rather read what the framework claims before
+      deciding where you fit, <a href="/method">the method</a> never asks you anything.
     </p>
   </header>
 
   <main class="container">
     <div class="role-grid">
       {
-        roles.map((roleKey) => {
-          const path = roleCuratedPaths[roleKey];
-          return (
-            <article class="role-card" id={roleKey}>
-              <div class="role-card__header">
-                <span class="role-card__badge">{roleKey.toUpperCase()}</span>
-                <h2 class="role-card__title">{path.title}</h2>
-                <p class="role-card__tagline">{path.tagline}</p>
-              </div>
+        roles.map((role) => (
+          <article class="role-card" id={role.id}>
+            <div class="role-card__header">
+              <span class="role-card__badge">{role.label.toUpperCase()}</span>
+              <h2 class="role-card__title">
+                <a href={rolePermalink(role.id)}>{role.who}</a>
+              </h2>
+              <p class="role-card__tagline">{role.tagline}</p>
+            </div>
 
+            {role.orientation?.length ? (
               <div class="role-card__steps">
-                <span class="role-card__steps-heading">
-                  Recommended Sequence
-                </span>
+                <span class="role-card__steps-heading">Where to start</span>
                 <ol class="role-card__step-list">
-                  {path.prioritySteps.map((step) => (
+                  {role.orientation.map((step) => (
                     <li class="role-card__step-item">
                       <div class="role-card__step-content">
                         <strong class="role-card__step-title">
@@ -59,9 +56,15 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
                   ))}
                 </ol>
               </div>
-            </article>
-          );
-        })
+            ) : null}
+
+            <p class="role-card__more">
+              <a href={rolePermalink(role.id)}>
+                Everything for {role.label.toLowerCase()} &rarr;
+              </a>
+            </p>
+          </article>
+        ))
       }
     </div>
 
@@ -80,31 +83,6 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
           >Run a delegation audit</a
         >
         <a href="/method" class="button">Read the method</a>
-      </div>
-    </section>
-
-    <!-- Role guides, formerly the /quick-start index. Two pages asking the
-         reader the same question about themselves was one too many. -->
-    <section class="matrix-banner">
-      <div class="matrix-banner__content">
-        <h2>Want the longer version for your role?</h2>
-        <p>
-          Each guide names an outcome you can reach in one session, and the
-          standards, mechanisms and validators that get you there.
-        </p>
-      </div>
-      <div class="matrix-banner__links">
-        {
-          quickStartGuides.map((guide) => (
-            <a
-              href={`/quick-start/${guide.slug}`}
-              class="button"
-              data-route-action={`quick-start-${guide.slug}`}
-            >
-              {guide.title}
-            </a>
-          ))
-        }
       </div>
     </section>
 
@@ -183,11 +161,30 @@ const roles: UserRole[] = ["engineer", "policy", "auditor", "executive"];
     color: var(--text);
   }
 
+  .role-card__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .role-card__title a:hover,
+  .role-card__title a:focus-visible {
+    text-decoration: underline;
+  }
+
   .role-card__tagline {
     margin: 0;
     font-size: var(--text-sm);
     color: var(--muted);
     line-height: 1.45;
+  }
+
+  /* Every card ends with the same link, so a role with no orientation steps
+     still has an obvious way in rather than looking like a dead card. */
+  .role-card__more {
+    margin: auto 0 0;
+    padding-top: 0.75rem;
+    font-size: var(--text-sm);
+    font-weight: 650;
   }
 
   .role-card__steps {
