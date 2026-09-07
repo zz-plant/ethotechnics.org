@@ -114,25 +114,34 @@
   }
 
   /* --- Site Footer --- */
+  /*
+   * Two bands, not one grid. Every section used to share a single auto-fit
+   * track, so the identity block and the newsletter competed with the link
+   * columns for width: four sections landed on the first row and two were
+   * stranded on a second beside a large empty area. The identity now holds a
+   * rail of its own, the link columns share the remaining width, and the
+   * newsletter gets a full band under a rule.
+   */
   .footer {
     border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    padding: clamp(2rem, 4vw, 3rem) 0;
+    padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2rem, 4vw, 3rem);
     display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: clamp(2rem, 4vw, 3rem);
     background: transparent;
     margin-top: clamp(2rem, 5vw, 4rem);
   }
 
-  .footer__section {
+  .footer__top {
     display: grid;
-    gap: 0.85rem;
-    align-content: start;
+    gap: clamp(2rem, 5vw, 4rem);
+    grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
+    align-items: start;
   }
 
-  .footer__identity {
+  .footer__identity-block {
     display: grid;
-    gap: 0.65rem;
+    gap: 0.9rem;
+    align-content: start;
   }
 
   .footer__brand {
@@ -150,15 +159,55 @@
   }
 
   .footer__wordmark {
-    width: clamp(9.5rem, 18vw, 12rem);
+    width: clamp(9.5rem, 18vw, 11rem);
     height: auto;
     display: block;
   }
 
   .footer__logo {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.2rem;
+    height: 2.2rem;
     display: block;
+  }
+
+  .footer__description {
+    margin: 0;
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    max-width: 34ch;
+  }
+
+  .footer__license {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    justify-self: start;
+  }
+
+  /*
+   * The link columns size themselves, so a section gained or lost does not
+   * strand a row. Four fit at desktop widths and they reflow to two, then one.
+   */
+  .footer__nav {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  }
+
+  .footer__column {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+  }
+
+  .footer__heading {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
   .footer__list {
@@ -166,30 +215,79 @@
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.35rem;
+    gap: 0.1rem;
   }
 
+  /*
+   * A 44px touch target is right for a finger and wrong for a mouse: it spread
+   * seven links over 350px of footer. Coarse pointers keep the target; fine
+   * pointers get a readable rhythm.
+   */
   .footer__link {
-    color: inherit;
-    text-decoration: none;
+    color: var(--text);
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    padding: 0.2rem 0;
+    padding: 0.3rem 0;
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    text-decoration: none;
     touch-action: manipulation;
-    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
-    text-underline-offset: 0.2em;
-    text-decoration-thickness: 1.5px;
-    transition:
-      color var(--motion-fast) ease,
-      text-decoration-color var(--motion-fast) ease;
+    transition: color var(--motion-fast) ease;
+  }
+
+  @media (pointer: coarse) {
+    .footer__link {
+      min-height: 44px;
+      padding: 0.45rem 0;
+    }
   }
 
   .footer__link:hover,
   .footer__link:focus-visible {
-    text-decoration: underline;
-    text-decoration-color: var(--accent-strong);
     color: var(--accent-strong);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 0.25em;
+  }
+
+  .footer__subscribe {
+    border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .footer__subscribe .newsletter-signup__form {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    align-items: end;
+  }
+
+  .footer__subscribe .newsletter-signup__form > h3,
+  .footer__subscribe .newsletter-signup__form > p {
+    grid-column: 1;
+    margin: 0;
+    max-width: 46ch;
+  }
+
+  .footer__subscribe .newsletter-signup__row {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
+
+  .footer__subscribe .newsletter-signup__status {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 720px) {
+    .footer__subscribe .newsletter-signup__form {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .footer__subscribe .newsletter-signup__row {
+      grid-column: 1;
+      grid-row: auto;
+    }
   }
 
   .theme-toggle {
@@ -288,12 +386,13 @@
     outline-offset: 2px !important;
   }
 
-  @media (max-width: 640px) {
-    .footer {
+  @media (max-width: 900px) {
+    .footer__top {
       grid-template-columns: minmax(0, 1fr);
-      gap: 1.5rem;
     }
+  }
 
+  @media (max-width: 640px) {
     .footer__wordmark {
       width: clamp(8.5rem, 36vw, 10.5rem);
     }
