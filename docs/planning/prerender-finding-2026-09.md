@@ -1,11 +1,12 @@
-# Prerendered dynamic routes build to a placeholder (2026-09)
+# Prerendered pages built to a placeholder (2026-09)
 
-Status: **found, not fixed.** Recorded here because it was discovered while doing
-something else, it is larger than that task, and it should not be lost.
+Status: **fixed**, with a guard. The root cause sits upstream and is not fixed
+here; the site no longer takes the broken path, and the build now fails rather
+than shipping this class of output again.
 
-## What was observed
+## What was wrong
 
-Every prerendered page this repo builds is 15 bytes containing the literal string
+Every prerendered page this repo built was a 15-byte file containing the string
 `[object Object]`.
 
 ```
@@ -15,74 +16,112 @@ $ find dist/client -name index.html -size -100c | wc -l
 877
 ```
 
-All 877. Not a subset. `dist/client/glossary/stoppability/index.html`,
-`dist/client/research/theory/absorption-as-concealment/index.html`, and every
-other prerendered page are identical 15-byte files.
-
-Thirteen route files opt into prerendering and produce those 877 pages:
-
-```
-src/pages/api/validators.json.ts        src/pages/glossary/entries/[slug]/tests/[test].astro
-src/pages/audit.astro                   src/pages/incidents/[slug].astro
-src/pages/evals/[slug].astro            src/pages/research/theory/[slug].astro
-src/pages/evidence-packs/[slug].astro   src/pages/sitemaps/[section].xml.ts
-src/pages/experience/[...slug].astro    src/pages/taxonomy/[...slug].astro
-src/pages/explainers/[slug].astro
-src/pages/glossary/[slug].astro
-```
-
-Server-rendered routes are unaffected: `/examples/automated-account-lock` returns
-58 KB of real HTML, `/mechanisms/patterns/kill-switch` returns 200 with content.
-The split is exactly `prerender = true` versus not.
+All 877 — the entire glossary, every theory essay, every incident dossier and
+evidence pack. Not a subset.
 
 ## Why nobody noticed
 
-Two reasons, and the second is the one worth fixing regardless of the first.
+1. The routes returned HTTP 200. Earlier work in this area added
+   `prerender = true` to stop these routes from 500ing under `output: "server"`,
+   checked the status codes, and declared them fixed. A 200 cannot distinguish a
+   rendered page from an empty one.
+2. **The e2e suite visited no prerendered page.** Its routes were `/`, `/404`,
+   `/components-preview`, `/diagnostics`, `/field-notes`, `/glossary`,
+   `/library`, `/mechanisms`, `/syllabus` — all server-rendered. 877 pages had
+   no coverage, so nothing contradicted the status codes.
 
-1. `bun run preview:cf` serves `dist/client` in front of the worker, so the
-   placeholder is what a local request gets — but only if you read the body. The
-   status code is 200. Earlier work in this area checked status codes, which is
-   how the routes were declared fixed when `prerender = true` was added to stop
-   them 500ing.
-2. **The e2e suite visits no prerendered page at all.** Its routes are `/`,
-   `/404`, `/components-preview`, `/diagnostics`, `/field-notes`, `/glossary`,
-   `/library`, `/mechanisms`, `/syllabus` — every one of them server-rendered.
-   877 pages have no coverage, so nothing contradicted the status codes.
+## What was ruled out
 
-## What is not known
+Each of these was tested by rebuilding from a clean `dist` and counting the
+undersized files. None changed the result:
 
-Whether production is affected. The `deploy` script passes `--no-assets`, which
-would mean the worker serves every request and the placeholders never ship. But
-`wrangler.toml` declares `[assets] directory = "./dist/client"`, and the
-Cloudflare Git integration that posts the "Workers Builds: et3" check runs its
-own build and deploy rather than that npm script. Which of the two describes the
-live deployment could not be determined from inside this environment — the
-network policy blocks requests to ethotechnics.org and to the workers.dev preview
-URLs, so the live pages could not be fetched.
+| Suspect                                                                                                 | Result                     |
+| ------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `security.csp` in `astro.config.mjs`                                                                    | still broken               |
+| `src/middleware.ts` (wraps every response)                                                              | still broken               |
+| The project's `vite.optimizeDeps` / `vite.ssr` / `vite.oxc` overrides                                   | still broken               |
+| Vite's `optimizeDeps` cache (`node_modules/.vite`)                                                      | still broken               |
+| The adapter's `rolldownAstroFrontmatterScanPlugin`, which stubs `.astro` modules to `export default {}` | still broken when neutered |
+| Building with `node` rather than `bun`                                                                  | still broken               |
+| `astro@7.2.10` + `@astrojs/cloudflare@14.2.6`                                                           | still broken               |
 
-That is the first thing to check, and it decides the severity:
+It also reproduced on a page with no imports, no layout and no frontmatter
+beyond the flag:
 
-- If assets ship, 877 pages — the entire glossary, all theory essays, every
-  incident and evidence pack — serve `[object Object]` to readers and crawlers.
-- If they do not, this is a build-hygiene problem and a preview-fidelity problem,
-  and nothing more.
+```astro
+---
+export const prerender = true;
+---
 
-## What was done about it here
+<html><body><h1>PROBE-PLAIN</h1></body></html>
+```
 
-Nothing, beyond not adding to it. The `/roles/[role]` route added alongside this
-finding resolves its role from `Astro.params` at request time rather than
-prerendering, matching `/mechanisms/patterns/[slug]`, which is the shape known to
-serve correctly. It renders in the worker: seven pages, 48–53 KB each, 404 on an
-unknown role.
+So it was not project content.
 
-## Suggested order of work
+## Where it actually breaks
 
-1. Fetch a prerendered page from the live site. That single request decides
-   whether this is an outage or a cleanup.
-2. Add one e2e case that asserts a prerendered detail page contains its own
-   heading, not merely that it returns 200. Whatever the answer to (1), the
-   suite should be able to tell the difference.
-3. Then find the root cause. Suspects, in order: the `security.csp` block
-   interacting with static generation under `output: "server"`, the Cloudflare
-   adapter's static file emitter, and the middleware, which wraps every response
-   including those produced during the build.
+Instrumenting the adapter's in-worker prerender handler showed the render itself
+returning the placeholder, before anything wrote a file:
+
+```
+INWORKER url: https://ethotechnics.org/probe-test/plain/ status: 200 len: 15 text: "[object Object]"
+INWORKER routeData.component: src/pages/probe-test/plain.astro type: page
+```
+
+`app.render()` inside the prerender worker returns a 200 whose body is
+`[object Object]`. Astro's own write path is fine: instrumenting
+`generate.js` showed it receiving a correct `Buffer` for endpoints and the
+placeholder for pages.
+
+The split is exact and is the most useful fact here:
+
+- **Prerendered endpoints** (`.ts` routes — `api/validators.json`,
+  `sitemaps/[section].xml`) render correctly.
+- **Prerendered pages** (`.astro` routes) render as `[object Object]`.
+- The **same pages render correctly through the SSR worker** — `/glossary/stoppability`
+  returns 48 KB of real HTML when served by the worker rather than as an asset.
+
+That is an upstream defect in the prerender path for `.astro` pages, not
+something this repo can fix from the outside.
+
+## The fix applied here
+
+Prerendering is an optimisation on a site whose output is `server` and whose
+every route already renders correctly at request time. So the ten `.astro`
+routes that opted into it no longer do; each resolves its entry from
+`Astro.params` and returns a 404 when the slug is unknown, which is the shape
+`/mechanisms/patterns/[slug]` and `/roles/[role]` already used.
+
+The two prerendered **endpoints** keep `prerender = true`. They were never
+affected, and their output is genuinely static.
+
+Verified against the built worker: all nine route families return real content
+(50–102 KB), and unknown slugs 404 rather than rendering an empty page.
+
+## What stops it recurring
+
+- **`scripts/check-build-output.ts`**, wired into `bun run build`. It fails the
+  build on any generated HTML or XML that is below a size floor, is entirely a
+  stringified sentinel, or lacks the markup its type requires. Cheap enough to
+  run every time, which matters more than being clever: this defect was
+  detectable by `wc -c` for months.
+- **`tests/e2e/rendered-detail-pages.e2e.ts`**, one page from each family that
+  used to be prerendered, asserting page _content_ — a single `<h1>` with real
+  text, a body over 500 characters, no `[object Object]` anywhere — rather than
+  a status code, plus that unknown slugs 404.
+
+## Left open
+
+- **The upstream bug is unreported.** It reproduces on a trivial page with
+  `astro@7.3.1` + `@astrojs/cloudflare@14.3.0` and on `7.2.10` + `14.2.6`, and
+  the repro above is small enough to file as-is.
+- **Per-request rendering cost.** Roughly 870 pages that were meant to be static
+  now render on each request. On Workers this is cheap, and it is what was
+  effectively happening already whenever the worker served these routes — but
+  if these pages are ever hot, caching them at the edge is the mitigation, and
+  nothing in this repo currently sets `Cache-Control` on HTML responses.
+- **Whether the placeholders ever reached production.** Still unknown, and now
+  moot: the `deploy` script passes `--no-assets` (in which case they never
+  shipped and the worker served every request), while `wrangler.toml` declares
+  the assets directory and the Cloudflare Git integration runs its own build.
+  Either way the site now serves real HTML on both paths.

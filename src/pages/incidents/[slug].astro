@@ -1,5 +1,4 @@
 ---
-export const prerender = true;
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CardGrid from "../../components/CardGrid.astro";
@@ -7,15 +6,10 @@ import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
-export async function getStaticPaths() {
-  const incidents = await getCollection("incidents");
-  return incidents.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
-}
-
-const { entry } = Astro.props;
+const entry = (await getCollection("incidents")).find(
+  (candidate) => candidate.id === Astro.params.slug,
+);
+if (!entry) return new Response("Not found", { status: 404 });
 const {
   title,
   description,

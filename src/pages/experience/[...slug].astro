@@ -1,21 +1,15 @@
 ---
 import TaxonomyEntryPage from "../../components/TaxonomyEntryPage.astro";
-import { getTaxonomyBranch, type TaxonomyEntry } from "../../content/taxonomy";
+import { getTaxonomyBranch } from "../../content/taxonomy";
 
-export const prerender = true;
-
-export function getStaticPaths() {
-  const rootSlug = "experience";
-  const branchEntries = getTaxonomyBranch(rootSlug).filter(
-    (entry) => entry.slug !== rootSlug,
-  );
-  return branchEntries.map((entry) => ({
-    params: { slug: entry.slug.split("/").slice(1).join("/") },
-    props: { entry },
-  }));
-}
-
-const { entry } = Astro.props as { entry: TaxonomyEntry };
+// The route is mounted at /experience, so the taxonomy slug it addresses is
+// the branch root plus whatever the URL carried after it.
+const entry = getTaxonomyBranch("experience").find(
+  (candidate) =>
+    candidate.slug !== "experience" &&
+    candidate.slug.split("/").slice(1).join("/") === Astro.params.slug,
+);
+if (!entry) return new Response("Experience entry not found", { status: 404 });
 ---
 
 <TaxonomyEntryPage entry={entry} basePath="/experience" eyebrow="Domain" />
