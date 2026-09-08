@@ -4,6 +4,10 @@ import { getEntry, render } from "astro:content";
 import CitationBlock from "../../components/CitationBlock.astro";
 import SemanticConnections from "../../components/SemanticConnections.astro";
 import StandardsLayout from "../../components/StandardsLayout.astro";
+import LawsGrid from "../../components/LawsGrid.astro";
+import ClauseRegister from "../../components/ClauseRegister.astro";
+import GrantStateDiagram from "../../components/GrantStateDiagram.astro";
+import { standardsContent } from "../../content/standards";
 import { derivePublicationMetadata } from "../../utils/publication";
 
 const { slug } = Astro.params;
@@ -16,6 +20,33 @@ if (!entry) {
 
 const { Content } = await render(entry);
 const data = entry.data;
+
+/**
+ * Structured views that sit above the normative prose. Each is derived from
+ * the same source the prose is — the MDX body, the clause registry, the
+ * object schema — so none of them can say something the text does not.
+ */
+const isLaws = slugStr === "laws";
+// Frontmatter carries no id; the registry keyed by slug is the one place a
+// standard's identifier is declared.
+const standardId = standardsContent.standards.find(
+  (standard) => standard.slug === slugStr,
+)?.id;
+const clausePartLabels: Record<string, Record<string, string>> = {
+  "STD-07": {
+    "1": "Article I: Time and immutability",
+    "2": "Article II: Authority",
+    "3": "Article III: Dependence and invalidation",
+    "4": "Article IV: Standing and contest",
+    "5": "Article V: Integrity",
+  },
+  "STD-08": {
+    "1": "Part A: Authority as lease",
+    "2": "Part B: Policy validity",
+    "3": "Part C: Intervention",
+    "4": "Part D: Correction symmetry",
+  },
+};
 
 const publication = derivePublicationMetadata({
   permalink: data.permalink,
@@ -39,6 +70,16 @@ const publication = derivePublicationMetadata({
   modifiedTime={data.modifiedTime}
   mainClass={data.mainClass}
 >
+  {isLaws && entry.body && <LawsGrid body={entry.body} />}
+  {standardId === "STD-08" && <GrantStateDiagram />}
+  {
+    standardId && (
+      <ClauseRegister
+        standardId={standardId}
+        parts={clausePartLabels[standardId] ?? {}}
+      />
+    )
+  }
   <Content />
   <SemanticConnections entityId={slugStr} />
   <CitationBlock
