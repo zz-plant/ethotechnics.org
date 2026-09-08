@@ -40,6 +40,7 @@ const initializeSectionNav = () => {
   // The current section is the last target whose top has passed the bar.
   const setCurrent = () => {
     bar.hidden = !introPassed();
+    document.documentElement.classList.toggle("has-section-nav", !bar.hidden);
     const line = (publishNavOffset() || 0) + bar.offsetHeight + 8;
     let current: HTMLElement | null = null;
     for (const target of targets) {

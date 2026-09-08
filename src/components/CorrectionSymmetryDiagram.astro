@@ -26,9 +26,9 @@ const steps = [
   },
   {
     x: 625,
-    label: "Any time",
-    clause: "§4.4–4.6",
-    note: ["operability and", "independence re-checked"],
+    label: "Scope change",
+    clause: "§4.5",
+    note: ["re-checked before the", "widening takes effect"],
   },
 ];
 const arrows = steps.slice(0, -1).map((s) => ({ x1: s.x + 66, x2: s.x + 112 }));
@@ -46,7 +46,7 @@ const arrows = steps.slice(0, -1).map((s) => ({ x1: s.x + 66, x2: s.x + 112 }));
       viewBox="0 0 720 220"
       role="img"
       class="state-diagram__svg"
-      aria-label="Correction symmetry: capacity is stated at issue, must expand with any expansion, is re-examined at renewal, and is re-checked at any time; if it falls short the grant moves to review required."
+      aria-label="Correction symmetry: capacity is stated at issue, must expand with any expansion, is re-examined at renewal, and is re-checked before any scope change takes effect; where it falls short the expansion is refused or narrowed, or degraded capacity moves the grant to review required."
     >
       <defs>
         <marker
@@ -117,8 +117,8 @@ const arrows = steps.slice(0, -1).map((s) => ({ x1: s.x + 66, x2: s.x + 112 }));
           stroke-width="1.5"
           stroke-dasharray="5 4"></path>
         <text x="355" y="204" text-anchor="middle" class="state-diagram__label">
-          capacity short of authority at any of these
-          <tspan class="state-diagram__clause"> → review_required</tspan>
+          short of authority: refused, narrowed, or review_required
+          <tspan class="state-diagram__clause"> §4.2, §4.3, §4.5</tspan>
         </text>
       </g>
     </svg>
