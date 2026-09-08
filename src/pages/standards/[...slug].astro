@@ -73,9 +73,10 @@ const publication = derivePublicationMetadata({
   {isLaws && entry.body && <LawsGrid body={entry.body} />}
   {standardId === "STD-08" && <GrantStateDiagram />}
   {
-    standardId && (
+    standardId && entry.body && (
       <ClauseRegister
         standardId={standardId}
+        body={entry.body}
         parts={clausePartLabels[standardId] ?? {}}
       />
     )

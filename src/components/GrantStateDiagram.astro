@@ -39,49 +39,55 @@ const edges: {
   ly: number;
   anchor?: "start" | "middle" | "end";
 }[] = [
-  { d: "M 74 200 L 173 200", label: "issue", clause: "§2.1", lx: 124, ly: 190 },
+  {
+    d: "M 74 200 L 173 200",
+    label: "issue",
+    clause: "STD-07 §2.2",
+    lx: 124,
+    ly: 190,
+  },
   {
     d: "M 300 178 Q 380 70 478 70",
-    label: "expiry or trigger",
-    clause: "§1.2, §2.3",
+    label: "unrenewed or policy fires",
+    clause: "§1.2, §2.4–2.5",
     lx: 350,
     ly: 96,
     anchor: "start",
   },
   {
     d: "M 482 90 Q 420 160 327 180",
-    label: "renewal on evidence",
-    clause: "§1.1",
+    label: "renewed or confirmed",
+    clause: "§1.1, §2.4",
     lx: 405,
     ly: 152,
     anchor: "start",
   },
   {
     d: "M 325 195 L 503 195",
-    label: "intervention",
-    clause: "§3.1",
+    label: "revocation condition",
+    clause: "",
     lx: 414,
     ly: 186,
   },
   {
     d: "M 503 210 Q 414 244 325 212",
-    label: "resume with sign-off",
-    clause: "§3.4",
+    label: "reinstated",
+    clause: "state_history",
     lx: 414,
     ly: 250,
   },
   {
     d: "M 300 222 Q 380 330 503 330",
-    label: "revocation condition met",
-    clause: "§2.2",
+    label: "revocation condition",
+    clause: "",
     lx: 340,
     ly: 318,
     anchor: "start",
   },
   {
     d: "M 664 92 Q 700 200 660 308",
-    label: "review fails",
-    clause: "§1.3",
+    label: "not confirmed",
+    clause: "§2.4",
     lx: 692,
     ly: 206,
     anchor: "start",
@@ -99,93 +105,101 @@ const edges: {
       Only <strong>allowed</strong> authorizes action. Every other state is a form
       of the burden of proof having moved back to the issuer. State is not mode: a
       grant in <em>allowed</em> with mode <em>confirm</em> is in force and still asks
-      a human before each action.
+      a human before each action. Edges cite the STD-08 clause that requires them;
+      the two the text leaves to the grant's own
+      <code>revocation_conditions</code> lead to suspended or revoked as the issuing
+      authority decides, and reinstatement is a recorded transition in
+      <code>state_history</code>.
     </p>
   </figcaption>
-  <svg
-    viewBox="0 0 830 400"
-    role="img"
-    aria-label="Grant state diagram: issue moves a grant to allowed; expiry or a trigger moves it to review required, renewal returns it; intervention suspends it, sign-off resumes it; a revocation condition or a failed review moves it to revoked."
-    class="state-diagram__svg"
-  >
-    <defs>
-      <marker
-        id="grant-arrow"
-        viewBox="0 0 10 10"
-        refX="9"
-        refY="5"
-        markerWidth="7"
-        markerHeight="7"
-        orient="auto-start-reverse"
-      >
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
-      </marker>
-    </defs>
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 830 400"
+      role="img"
+      aria-label="Grant state diagram: issue moves a grant to allowed; an unexamined renewal or a policy that fires or expires moves it to review required, and renewal or confirmation returns it; a revocation condition moves it to suspended or revoked; a review that is not confirmed ends in revoked; a suspended grant reinstated is recorded as a transition."
+      class="state-diagram__svg"
+    >
+      <defs>
+        <marker
+          id="grant-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+        </marker>
+      </defs>
 
-    {
-      edges.map((e) => (
-        <g class="state-diagram__edge">
-          <path
-            d={e.d}
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            marker-end="url(#grant-arrow)"
-          />
-          <text
-            x={e.lx}
-            y={e.ly}
-            text-anchor={e.anchor ?? "middle"}
-            class="state-diagram__label"
-          >
-            {e.label}
-            <tspan class="state-diagram__clause"> {e.clause}</tspan>
-          </text>
-        </g>
-      ))
-    }
-
-    <g class="state-diagram__node state-diagram__node--origin">
-      <circle cx={nodes.none.x} cy={nodes.none.y} r="14"></circle>
-      <text
-        x={nodes.none.x}
-        y={nodes.none.y + 34}
-        text-anchor="middle"
-        class="state-diagram__label">none</text
-      >
-    </g>
-
-    {
-      DIAGRAM_STATES.map((state) => {
-        const n = nodes[state];
-        const inForce = state === "allowed";
-        return (
-          <g
-            class:list={[
-              "state-diagram__node",
-              { "state-diagram__node--active": inForce },
-            ]}
-          >
-            <rect
-              x={n.x - n.w / 2}
-              y={n.y - 22}
-              width={n.w}
-              height="44"
-              rx="22"
+      {
+        edges.map((e) => (
+          <g class="state-diagram__edge">
+            <path
+              d={e.d}
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              marker-end="url(#grant-arrow)"
             />
             <text
-              x={n.x}
-              y={n.y + 5}
-              text-anchor="middle"
-              class="state-diagram__state"
+              x={e.lx}
+              y={e.ly}
+              text-anchor={e.anchor ?? "middle"}
+              class="state-diagram__label"
             >
-              {labels[state]}
+              {e.label}
+              {e.clause && (
+                <tspan class="state-diagram__clause"> {e.clause}</tspan>
+              )}
             </text>
           </g>
-        );
-      })
-    }
-  </svg>
+        ))
+      }
+
+      <g class="state-diagram__node state-diagram__node--origin">
+        <circle cx={nodes.none.x} cy={nodes.none.y} r="14"></circle>
+        <text
+          x={nodes.none.x}
+          y={nodes.none.y + 34}
+          text-anchor="middle"
+          class="state-diagram__label">none</text
+        >
+      </g>
+
+      {
+        DIAGRAM_STATES.map((state) => {
+          const n = nodes[state];
+          const inForce = state === "allowed";
+          return (
+            <g
+              class:list={[
+                "state-diagram__node",
+                { "state-diagram__node--active": inForce },
+              ]}
+            >
+              <rect
+                x={n.x - n.w / 2}
+                y={n.y - 22}
+                width={n.w}
+                height="44"
+                rx="22"
+              />
+              <text
+                x={n.x}
+                y={n.y + 5}
+                text-anchor="middle"
+                class="state-diagram__state"
+              >
+                {labels[state]}
+              </text>
+            </g>
+          );
+        })
+      }
+    </svg>
+  </div>
   <p class="muted small">
     States are read from <code>authority-grant.schema.json</code>
     ({stateEnum.join(", ")}); the diagram cannot show one the object cannot be

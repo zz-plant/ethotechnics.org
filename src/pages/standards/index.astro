@@ -9,7 +9,9 @@ import CardItem from "../../components/CardItem.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import { implementationExamples } from "../../content/implementation-examples";
-import { standardsContent, standardClauses } from "../../content/standards";
+import { getCollection } from "astro:content";
+import { standardsContent } from "../../content/standards";
+import { documentClauseIds } from "../../utils/clause-registry";
 import {
   buildStandardsCardViewModels,
   buildStandardsGroupingAndFilters,
@@ -17,6 +19,15 @@ import {
 } from "../../content/page-data/standards-index";
 
 const lastUpdated = "2026-08-14";
+
+// Clause counts come from the documents, not the registry: the registry is a
+// second hand writing the same clauses and it drifts (see clause-registry.ts).
+const clauseCounts = new Map(
+  (await getCollection("standards")).map((entry) => [
+    entry.id,
+    documentClauseIds(entry.body ?? "").length,
+  ]),
+);
 
 const {
   pageTitle,
@@ -136,7 +147,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <tbody>
           {
             standards.map((standard) => {
-              const clauses = standardClauses[standard.id]?.length ?? 0;
+              const clauses = clauseCounts.get(standard.slug) ?? 0;
               const packSlug = standard.id.toLowerCase();
               return (
                 <tr>

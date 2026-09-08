@@ -256,6 +256,25 @@
     overflow: visible;
   }
 
+  /* On a phone a 720–1060-unit drawing squeezed to 350px shrinks its 12px
+     labels to 4–6px. Below 720px the drawing keeps a readable width and the
+     figure scrolls sideways instead, the way the wide tables do. */
+  @media (max-width: 719.98px) {
+    .diagram-scroll {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .state-diagram__svg {
+      min-width: 640px;
+    }
+
+    .chain-diagram__svg {
+      min-width: 880px;
+    }
+  }
+
   .chain-diagram__node rect,
   .state-diagram__node rect,
   .state-diagram__node circle {
