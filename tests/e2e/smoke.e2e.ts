@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { navPrimaryLinks } from "../../src/content/navigation";
+import { navPrimaryLinks, navSections } from "../../src/content/navigation";
 import { diagnosticsContent } from "../../src/content/diagnostics";
 
 // Mirrors the hand-authored hero in src/pages/index.astro. A smoke test should
@@ -22,6 +22,14 @@ if (!BURDEN_TOOL) {
   throw new Error(
     "Burden Modeler diagnostic tool is missing; check diagnostics content.",
   );
+}
+
+const LAST_NAV_SECTION = navSections[navSections.length - 1];
+const LAST_DRAWER_LINK =
+  LAST_NAV_SECTION?.links[LAST_NAV_SECTION.links.length - 1];
+
+if (!LAST_DRAWER_LINK) {
+  throw new Error("Navigation sections are missing; check navSections.");
 }
 
 test.describe("Homepage smoke", () => {
@@ -85,6 +93,37 @@ test.describe("Navigation", () => {
         name: new RegExp(PRIMARY_NAV_TARGET.label, "i"),
       }),
     ).toBeVisible();
+  });
+
+  test("keeps every drawer destination reachable on a phone", async ({
+    page,
+  }) => {
+    const viewport = { width: 375, height: 812 };
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+
+    await page.locator(".nav__mobile-sections-summary").click();
+    const drawer = page.locator(".nav__mobile-drawer");
+    await expect(drawer).toBeVisible();
+
+    /* The open drawer locks page scroll, so the header has to stay inside the
+       viewport and the drawer has to carry its own scroll -- otherwise the
+       sections below the fold cannot be reached at all. */
+    const navHeight = await page
+      .locator(".nav")
+      .evaluate((el) => el.getBoundingClientRect().height);
+    expect(navHeight).toBeLessThanOrEqual(viewport.height + 1);
+
+    const lastLink = drawer.getByRole("link", {
+      name: LAST_DRAWER_LINK.label,
+    });
+    await lastLink.scrollIntoViewIfNeeded();
+
+    const withinViewport = await lastLink.evaluate((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top >= 0 && rect.bottom <= window.innerHeight;
+    });
+    expect(withinViewport).toBe(true);
   });
 
   test("shows top destinations on desktop without opening a menu", async ({

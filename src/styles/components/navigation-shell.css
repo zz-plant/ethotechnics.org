@@ -511,6 +511,54 @@
     width: 0.95rem;
     height: 0.95rem;
   }
+
+  /* --- Keeping the open drawer inside the viewport --- */
+
+  /* An open drawer behaves as a modal: site-chrome.ts locks body scroll and
+     inerts the page behind it. The open header runs to 1912px, so on a
+     375x812 phone thirteen of its twenty destinations sat past the fold and
+     could not be reached at all -- the page could not scroll, and the drawer
+     had no scroll of its own. Cap the header at the viewport and give the
+     drawer the scroll. */
+  @media (max-width: 1099px) {
+    .nav__inner {
+      max-height: 100vh;
+      max-height: 100dvh;
+    }
+
+    .nav__bar,
+    .nav__mobile-top,
+    .nav__mobile-sections-summary {
+      flex: none;
+    }
+
+    .nav__mobile,
+    .nav__mobile-row,
+    .nav__mobile-sections {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    /* Chrome wraps the contents of a <details> in a ::details-content box,
+       so that box -- not the drawer -- is the flex item there. Engines
+       without the pseudo-element ignore this and size the drawer directly. */
+    .nav__mobile-sections::details-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .nav__mobile-drawer {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    }
+  }
 }
 
 @layer components {

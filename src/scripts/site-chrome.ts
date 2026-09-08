@@ -88,6 +88,17 @@
         }
       }
     });
+
+    /* Crossing to the desktop breakpoint hides the drawer in CSS without
+       firing a toggle, which would leave the page locked and inert behind a
+       drawer that is no longer on screen. Close it so the lock is released
+       with it. */
+    const mobileQuery = window.matchMedia("(max-width: 1099px)");
+    mobileQuery.addEventListener("change", (event) => {
+      if (!event.matches && mobileNav.open) {
+        mobileNav.open = false;
+      }
+    });
   }
 
   /* progressive scroll progress fallback */
