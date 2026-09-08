@@ -244,10 +244,20 @@
 
     e.preventDefault();
 
+    // The offset is the document's scroll-padding-top, so this handler and
+    // native hash navigation land in the same place: below the sticky header
+    // and, on pages that have one, below the section bar, which will be
+    // showing by the time the scroll ends even if it is hidden now.
+    const root = document.documentElement;
+    const hasSectionNav = root.querySelector("[data-section-nav]") !== null;
+    const hadClass = root.classList.contains("has-section-nav");
+    if (hasSectionNav) root.classList.add("has-section-nav");
     const nav = document.querySelector<HTMLElement>(".nav");
-    const navHeight = nav?.offsetHeight || 0;
-    const top =
-      target.getBoundingClientRect().top + window.scrollY - navHeight - 24;
+    const fallback = (nav?.offsetHeight || 0) + 24;
+    const offset =
+      parseFloat(getComputedStyle(root).scrollPaddingTop) || fallback;
+    if (hasSectionNav && !hadClass) root.classList.remove("has-section-nav");
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
 
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",

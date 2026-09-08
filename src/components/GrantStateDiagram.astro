@@ -38,6 +38,8 @@ const edges: {
   lx: number;
   ly: number;
   anchor?: "start" | "middle" | "end";
+  /** Put the clause on its own line under the label. */
+  stack?: boolean;
 }[] = [
   {
     d: "M 74 200 L 173 200",
@@ -86,11 +88,12 @@ const edges: {
   },
   {
     d: "M 664 92 Q 700 200 660 308",
-    label: "not confirmed",
-    clause: "§2.4",
-    lx: 692,
-    ly: 206,
+    label: "revoked by the issuer",
+    clause: "issuing_authority",
+    lx: 672,
+    ly: 200,
     anchor: "start",
+    stack: true,
   },
 ];
 ---
@@ -105,10 +108,11 @@ const edges: {
       Only <strong>allowed</strong> authorizes action. Every other state is a form
       of the burden of proof having moved back to the issuer. State is not mode: a
       grant in <em>allowed</em> with mode <em>confirm</em> is in force and still asks
-      a human before each action. Edges cite the STD-08 clause that requires them;
-      the two the text leaves to the grant's own
-      <code>revocation_conditions</code> lead to suspended or revoked as the issuing
-      authority decides, and reinstatement is a recorded transition in
+      a human before each action. Edges cite the STD-08 clause that requires them.
+      Three the text leaves to the grant object: its
+      <code>revocation_conditions</code> lead to suspended or revoked, the
+      <code>issuing_authority</code> can revoke a grant under review that it will
+      not confirm, and reinstatement is a recorded transition in
       <code>state_history</code>.
     </p>
   </figcaption>
@@ -116,7 +120,7 @@ const edges: {
     <svg
       viewBox="0 0 830 400"
       role="img"
-      aria-label="Grant state diagram: issue moves a grant to allowed; an unexamined renewal or a policy that fires or expires moves it to review required, and renewal or confirmation returns it; a revocation condition moves it to suspended or revoked; a review that is not confirmed ends in revoked; a suspended grant reinstated is recorded as a transition."
+      aria-label="Grant state diagram: issue moves a grant to allowed; an unexamined renewal or a policy that fires or expires moves it to review required, and renewal or confirmation returns it; a revocation condition moves it to suspended or revoked; the issuing authority can revoke a grant under review; a suspended grant reinstated is recorded as a transition."
       class="state-diagram__svg"
     >
       <defs>
@@ -151,7 +155,13 @@ const edges: {
             >
               {e.label}
               {e.clause && (
-                <tspan class="state-diagram__clause"> {e.clause}</tspan>
+                <tspan
+                  class="state-diagram__clause"
+                  x={e.stack ? e.lx : undefined}
+                  dy={e.stack ? 14 : undefined}
+                >
+                  {e.stack ? e.clause : ` ${e.clause}`}
+                </tspan>
               )}
             </text>
           </g>

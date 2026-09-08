@@ -40,6 +40,7 @@ const initializeSectionNav = () => {
   // The current section is the last target whose top has passed the bar.
   const setCurrent = () => {
     bar.hidden = !introPassed();
+    document.documentElement.classList.toggle("has-section-nav", !bar.hidden);
     const line = (publishNavOffset() || 0) + bar.offsetHeight + 8;
     let current: HTMLElement | null = null;
     for (const target of targets) {
@@ -69,6 +70,43 @@ const initializeSectionNav = () => {
     { passive: true },
   );
   setCurrent();
+
+  // A page opened at a deep fragment is aligned by the browser with the bar
+  // still hidden and no room left for it. That alignment is animated under
+  // the page's smooth scrolling and outlasts the load event, so wait for the
+  // scroll to settle, then put the target where the bar's own links would.
+  const realignFragment = () => {
+    setCurrent();
+    if (bar.hidden || !location.hash) return;
+    const target = document.getElementById(
+      decodeURIComponent(location.hash.slice(1)),
+    );
+    target?.scrollIntoView({ block: "start", behavior: "instant" });
+  };
+  const whenScrollSettles = (callback: () => void) => {
+    let last = window.scrollY;
+    let still = 0;
+    let frames = 0;
+    const tick = () => {
+      frames += 1;
+      still = window.scrollY === last ? still + 1 : 0;
+      last = window.scrollY;
+      if (still >= 6 || frames > 120) callback();
+      else requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if (location.hash) {
+    if (document.readyState === "complete") {
+      whenScrollSettles(realignFragment);
+    } else {
+      window.addEventListener(
+        "load",
+        () => whenScrollSettles(realignFragment),
+        { once: true },
+      );
+    }
+  }
 };
 
 if (document.readyState === "loading") {

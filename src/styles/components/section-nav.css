@@ -1,6 +1,19 @@
 /* The section map that follows a long page. Fixed under the site header, one
    line, scrollable sideways on a phone, current section marked. */
 @layer components {
+  /* Hash navigation lands under the sticky header, and under the section bar
+     when it is showing. The scroll container carries the offset so every
+     target on the page gets it, not only the ones that remembered to. The
+     fallback is the header's usual height for the moment before the script
+     has measured it. */
+  html {
+    scroll-padding-top: calc(var(--nav-bottom, 5rem) + 1rem);
+  }
+
+  html.has-section-nav {
+    scroll-padding-top: calc(var(--nav-bottom, 5rem) + 3.75rem);
+  }
+
   .section-nav {
     position: fixed;
     top: var(--nav-bottom, 0px);
