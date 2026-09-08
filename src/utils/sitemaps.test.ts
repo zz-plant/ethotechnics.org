@@ -21,6 +21,9 @@ describe("sitemap coverage", () => {
     expect(standards).toContain(
       "/research/theory/democratic-vs-coercive-governability",
     );
+    expect(standards).toContain("/research/theory/what-does-not-convert");
+    expect(standards).toContain("/research/theory/dependence-runs-both-ways");
+    expect(standards).toContain("/research/theory/endogenous-authorization");
   });
 
   test("lists the evidence packs, including the dynamic STD-08 route", () => {
