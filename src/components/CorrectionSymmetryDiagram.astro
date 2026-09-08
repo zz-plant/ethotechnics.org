@@ -1,0 +1,124 @@
+---
+/**
+ * Part D, drawn: correction capacity is checked at every point authority
+ * changes size, and it can only ever be as large as what the delegation is
+ * allowed to be. Notes wrap to two lines so four of them fit in an essay
+ * column without running into each other.
+ */
+const steps = [
+  {
+    x: 85,
+    label: "Issue",
+    clause: "§4.1",
+    note: ["capacity stated across", "seven components"],
+  },
+  {
+    x: 265,
+    label: "Expansion",
+    clause: "§4.2",
+    note: ["matching expansion,", "or scope narrowed"],
+  },
+  {
+    x: 445,
+    label: "Renewal",
+    clause: "§4.3",
+    note: ["re-examined against", "the period's volume"],
+  },
+  {
+    x: 625,
+    label: "Any time",
+    clause: "§4.4–4.6",
+    note: ["operability and", "independence re-checked"],
+  },
+];
+const arrows = steps.slice(0, -1).map((s) => ({ x1: s.x + 66, x2: s.x + 112 }));
+---
+
+<figure class="state-diagram" aria-labelledby="correction-symmetry-title">
+  <figcaption>
+    <p class="eyebrow">Part D, drawn</p>
+    <h3 id="correction-symmetry-title">
+      Capacity is checked wherever authority changes size
+    </h3>
+  </figcaption>
+  <svg
+    viewBox="0 0 720 220"
+    role="img"
+    class="state-diagram__svg"
+    aria-label="Correction symmetry: capacity is stated at issue, must expand with any expansion, is re-examined at renewal, and is re-checked at any time; if it falls short the grant moves to review required."
+  >
+    <defs>
+      <marker
+        id="corr-arrow"
+        viewBox="0 0 10 10"
+        refX="9"
+        refY="5"
+        markerWidth="7"
+        markerHeight="7"
+        orient="auto-start-reverse"
+      >
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+      </marker>
+    </defs>
+    {
+      arrows.map((a) => (
+        <line
+          x1={a.x1}
+          y1="52"
+          x2={a.x2}
+          y2="52"
+          stroke="currentColor"
+          stroke-width="1.5"
+          marker-end="url(#corr-arrow)"
+        />
+      ))
+    }
+    {
+      steps.map((s) => (
+        <g class="state-diagram__node">
+          <rect x={s.x - 65} y="30" width="130" height="44" rx="22" />
+          <text
+            x={s.x}
+            y="51"
+            text-anchor="middle"
+            class="state-diagram__state"
+          >
+            {s.label}
+          </text>
+          <text
+            x={s.x}
+            y="66"
+            text-anchor="middle"
+            class="state-diagram__label"
+          >
+            <tspan class="state-diagram__clause">{s.clause}</tspan>
+          </text>
+          <text
+            x={s.x}
+            y="98"
+            text-anchor="middle"
+            class="state-diagram__label"
+          >
+            {s.note.map((line, index) => (
+              <tspan x={s.x} dy={index === 0 ? 0 : 14}>
+                {line}
+              </tspan>
+            ))}
+          </text>
+        </g>
+      ))
+    }
+    <g class="state-diagram__edge">
+      <path
+        d="M 85 130 Q 355 196 625 130"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-dasharray="5 4"></path>
+      <text x="355" y="204" text-anchor="middle" class="state-diagram__label">
+        capacity short of authority at any of these
+        <tspan class="state-diagram__clause"> → review_required</tspan>
+      </text>
+    </g>
+  </svg>
+</figure>

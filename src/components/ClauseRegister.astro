@@ -48,7 +48,7 @@ for (const clause of clauses) {
         <div class="clause-register__group">
           <h3 class="clause-register__part">{parts[part] ?? `§${part}`}</h3>
           <div class="mapping-table__wrapper">
-            <table class="mapping-table clause-register__table">
+            <table class="mapping-table mapping-table--stack clause-register__table">
               <thead>
                 <tr>
                   <th scope="col">Clause</th>
@@ -67,9 +67,11 @@ for (const clause of clauses) {
                         {clause.requirementLevel}
                       </span>
                     </th>
-                    <td class="clause-register__when">{clause.condition}</td>
-                    <td>{clause.obligation}</td>
-                    <td>
+                    <td data-label="When" class="clause-register__when">
+                      {clause.condition}
+                    </td>
+                    <td data-label="Obligation">{clause.obligation}</td>
+                    <td data-label="Evidence">
                       <ul class="clause-register__list">
                         {clause.evidenceRequired.map((item) => (
                           <li>
@@ -78,7 +80,7 @@ for (const clause of clauses) {
                         ))}
                       </ul>
                     </td>
-                    <td class="clause-register__refs">
+                    <td data-label="Bears on" class="clause-register__refs">
                       {[
                         ...clause.relatedMechanisms,
                         ...clause.relatedValidators,

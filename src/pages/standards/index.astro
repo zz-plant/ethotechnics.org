@@ -122,7 +122,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Identifier, status, version, how many clauses it carries, and where its evidence pack lives. The cards below say what each is for; this is for finding the one you need."
   >
     <div class="mapping-table__wrapper">
-      <table class="mapping-table catalogue-table">
+      <table class="mapping-table mapping-table--stack catalogue-table">
         <thead>
           <tr>
             <th scope="col">Standard</th>
@@ -143,19 +143,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   <th scope="row">
                     <a href={`/standards/${standard.slug}`}>{standard.id}</a>
                   </th>
-                  <td>{standard.title}</td>
-                  <td>
+                  <td data-label="Title">{standard.title}</td>
+                  <td data-label="Status">
                     <span
                       class={`catalogue-table__status catalogue-table__status--${standard.status.toLowerCase()}`}
                     >
                       {standard.status}
                     </span>
                   </td>
-                  <td>{standard.version}</td>
-                  <td class="catalogue-table__num">
+                  <td data-label="Version">{standard.version}</td>
+                  <td data-label="Clauses" class="catalogue-table__num">
                     {clauses > 0 ? clauses : "—"}
                   </td>
-                  <td>
+                  <td data-label="Evidence pack">
                     {["STD-01", "STD-02", "STD-06", "STD-08"].includes(
                       standard.id,
                     ) ? (

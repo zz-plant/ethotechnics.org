@@ -55,7 +55,7 @@ const referencesIn = (text: string) => {
     </p>
   </div>
   <div class="mapping-table__wrapper">
-    <table class="mapping-table laws-grid__table">
+    <table class="mapping-table mapping-table--stack laws-grid__table">
       <thead>
         <tr>
           <th scope="col">Law</th>
@@ -74,8 +74,10 @@ const referencesIn = (text: string) => {
                   <span class="laws-grid__title">{law.title}</span>
                 </a>
               </th>
-              <td class="laws-grid__invariant">{law.invariant}</td>
-              <td>
+              <td data-label="Invariant" class="laws-grid__invariant">
+                {law.invariant}
+              </td>
+              <td data-label="Governs">
                 {law.variables.length > 0 ? (
                   <ul class="laws-grid__variables">
                     {law.variables.map((variable) => (
@@ -86,7 +88,7 @@ const referencesIn = (text: string) => {
                   <span class="muted">—</span>
                 )}
               </td>
-              <td class="laws-grid__binds">
+              <td data-label="Binds through" class="laws-grid__binds">
                 {(() => {
                   const refs = referencesIn(law.bindsThrough);
                   return refs.length > 0 ? (

@@ -80,7 +80,12 @@ const publication = derivePublicationMetadata({
       />
     )
   }
-  <Content />
+  {
+    /* The laws page gets a class so its lifted invariants can read as pull-quotes. */
+  }
+  <div class:list={{ "laws-essay": isLaws }}>
+    <Content />
+  </div>
   <SemanticConnections entityId={slugStr} />
   <CitationBlock
     title={data.title}

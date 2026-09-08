@@ -94,7 +94,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Layer, how many cases it holds, and how many of those a machine can answer without a reviewer. The groups below explain each layer; this is for comparing suites."
   >
     <div class="mapping-table__wrapper">
-      <table class="mapping-table catalogue-table">
+      <table class="mapping-table mapping-table--stack catalogue-table">
         <thead>
           <tr>
             <th scope="col">Suite</th>
@@ -121,12 +121,17 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   <th scope="row">
                     <a href={`/evals/${suite.slug}`}>{suite.title}</a>
                   </th>
-                  <td>{layer?.title ?? suite.layer}</td>
-                  <td class="catalogue-table__num">{cases.length}</td>
-                  <td class="catalogue-table__num">
+                  <td data-label="Layer">{layer?.title ?? suite.layer}</td>
+                  <td data-label="Cases" class="catalogue-table__num">
+                    {cases.length}
+                  </td>
+                  <td
+                    data-label="Machine-answerable"
+                    class="catalogue-table__num"
+                  >
                     {machine > 0 ? machine : "—"}
                   </td>
-                  <td>
+                  <td data-label="Scoring">
                     {suite.scoringMethod.type.replace(/-/g, " ")}
                     <span class="muted">
                       {" "}

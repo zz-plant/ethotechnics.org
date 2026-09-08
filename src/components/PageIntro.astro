@@ -1,4 +1,6 @@
 ---
+import SectionNav from "./SectionNav.astro";
+
 export interface AnchorLink {
   href: string;
   label: string;
@@ -71,6 +73,7 @@ const panelEchoesLead =
 const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
 ---
 
+{anchorLinks.length >= 4 && <SectionNav links={anchorLinks} />}
 <section class="section page-intro">
   <div class="page-intro__grid">
     <div class="page-intro__lead">
