@@ -12,10 +12,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
-import {
-  getGlossaryAuthor,
-  getGlossaryEntryDefaults,
-} from "../../utils/glossary-helpers";
+import { stripHtml } from "../../utils/glossary-helpers";
 import {
   buildGlossaryIndexEntries,
   buildGlossaryIndexFacets,
@@ -35,7 +32,6 @@ import {
 } from "../../utils/glossary-metadata";
 
 const glossaryEntry = (await getEntry("glossary", "glossary"))!;
-const libraryEntry = (await getEntry("library", "library"))!;
 
 const {
   pageTitle,
@@ -47,18 +43,6 @@ const {
   starterTerms,
   categoryHighlights,
 } = glossaryEntry.data;
-const libraryContent = libraryEntry.data;
-const patternIndex = new Map(
-  libraryContent.patterns.entries.map((pattern) => [pattern.slug, pattern]),
-);
-const patternFilterLabels = Object.fromEntries(
-  libraryContent.patterns.filters.map((filter) => [filter.slug, filter.label]),
-);
-type GlossaryRelatedPattern = {
-  title: string;
-  href: string;
-  filterLabels: string[];
-};
 const anchorLinks = [
   { href: "#glossary-pathways", label: "Glossary pathways" },
   { href: "#glossary-index", label: "A–Z index" },
@@ -69,11 +53,6 @@ const anchorLinks = [
     label: category.heading,
   })),
 ];
-const entryLabelIndex = new Map(
-  categories.flatMap((category) =>
-    category.entries.map((entry) => [entry.id, entry.title] as const),
-  ),
-);
 const domainFilters = glossaryDomainFilters;
 const phaseFilters = glossaryPhaseFilters;
 const measurabilityFilters = glossaryMeasurabilityFilters;
@@ -140,10 +119,6 @@ const glossaryKeywordsNode = structuredData["@graph"].find(
 const glossaryKeywordsContent =
   glossaryKeywordsNode?.keywords?.join(", ") ?? "";
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
-const citationYear = new Date(
-  publication.updated ?? publication.published,
-).getFullYear();
-const glossaryAuthor = getGlossaryAuthor(publication);
 ---
 
 <BaseLayout
@@ -606,243 +581,34 @@ const glossaryAuthor = getGlossaryAuthor(publication);
               class="glossary-section__description"
               set:html={category.descriptionHtml}
             />
-            <div class="glossary-grid">
+            {/*
+              Every one of these terms has its own page with the full entry,
+              citations and tests. Rendering all 252 full entries here as well
+              put fifty-four thousand words on one route, most of it inside
+              collapsed sections nobody could search. Each row keeps the id so
+              /glossary#term still lands on the term, and links to the page
+              that carries the rest.
+            */}
+            <ul class="glossary-compact">
               {category.entries.map((entry) => {
-                const entryClasses = [
-                  "glossary-entry",
-                  ...(entry.classes ?? []),
-                ].join(" ");
-                const entryUrl = glossaryEntryUrl(entry.id);
-                const citationApa = `${glossaryAuthor}. (${citationYear}). ${entry.title}. In Ethotechnics glossary. ${entryUrl}`;
-                const citationMla = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary, ${citationYear}, ${entryUrl}.`;
-                const citationChicago = `${glossaryAuthor}. "${entry.title}." Ethotechnics glossary. ${citationYear}. ${entryUrl}.`;
-                const citationBibtex = `@misc{ethotechnics_${entry.id}_${citationYear}, title={${entry.title}}, author={${glossaryAuthor}}, year={${citationYear}}, howpublished={Ethotechnics glossary}, url={${entryUrl}}}`;
-                const citationRis = [
-                  "TY  - WEB",
-                  `TI  - ${entry.title}`,
-                  ...publication.authors.map(
-                    (author) => `AU  - ${author.name}`,
-                  ),
-                  `PY  - ${citationYear}`,
-                  `UR  - ${entryUrl}`,
-                  "ER  -",
-                ].join("\n");
-                const {
-                  scopeText,
-                  adjacentTerms,
-                  operationalTests,
-                  commonCounterfeits,
-                  genealogy,
-                  references,
-                } = getGlossaryEntryDefaults(entry, category);
-                const relatedPatterns: GlossaryRelatedPattern[] = (
-                  entry.relatedPatterns ?? []
-                )
-                  .map((slug) => {
-                    const pattern = patternIndex.get(slug);
-
-                    if (!pattern) {
-                      return null;
-                    }
-
-                    return {
-                      title: pattern.title,
-                      href: `/mechanisms/patterns/${pattern.slug}`,
-                      filterLabels: pattern.filters.map(
-                        (filter) => patternFilterLabels[filter] ?? filter,
-                      ),
-                    } satisfies GlossaryRelatedPattern;
-                  })
-                  .filter((pattern): pattern is GlossaryRelatedPattern =>
-                    Boolean(pattern),
-                  );
+                const summary = stripHtml(entry.bodyHtml)
+                  .split(/(?<=[.!?])\s+/)[0]
+                  ?.trim();
                 return (
-                  <article
-                    id={entry.id}
-                    class={entryClasses}
-                    itemscope
-                    itemtype="https://schema.org/DefinedTerm"
-                  >
-                    <meta itemprop="url" content={entryUrl} />
-                    <meta itemprop="inDefinedTermSet" content={permalink} />
-                    <header class="glossary-entry__header">
-                      <div>
-                        <p class="eyebrow">Glossary term</p>
-                        <h3 itemprop="name">{entry.title}</h3>
-                      </div>
-                      <div class="glossary-entry__actions">
-                        <a
-                          class="glossary-entry__permalink"
-                          href={entryUrl}
-                          data-glossary-entry-link
-                          aria-label={`Permalink to ${entry.title}`}
-                          rel="bookmark"
-                          itemprop="mainEntityOfPage"
-                        >
-                          Permalink
-                        </a>
-                        <div
-                          class="glossary-entry__citation-buttons"
-                          aria-label={`Copy citation for ${entry.title}`}
-                        >
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationApa}
-                            data-citation-format="apa"
-                            aria-label={`Copy APA citation for ${entry.title}`}
-                          >
-                            Copy citation (APA)
-                          </button>
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationMla}
-                            data-citation-format="mla"
-                            aria-label={`Copy MLA citation for ${entry.title}`}
-                          >
-                            Copy MLA
-                          </button>
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationChicago}
-                            data-citation-format="chicago"
-                            aria-label={`Copy Chicago citation for ${entry.title}`}
-                          >
-                            Copy Chicago
-                          </button>
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationBibtex}
-                            data-citation-format="bibtex"
-                            aria-label={`Copy BibTeX citation for ${entry.title}`}
-                          >
-                            Copy citation (BibTeX)
-                          </button>
-                          <button
-                            class="copy-button"
-                            type="button"
-                            data-citation-text={citationRis}
-                            data-citation-format="ris"
-                            aria-label={`Copy RIS citation for ${entry.title}`}
-                          >
-                            Copy RIS
-                          </button>
-                        </div>
-                      </div>
-                    </header>
-                    <div class="glossary-entry__block">
-                      <p class="eyebrow">Definition</p>
-                      <div
-                        class="glossary-entry__body"
-                        set:html={entry.bodyHtml}
-                        itemprop="description"
-                      />
-                    </div>
-                    {scopeText && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Scope</p>
-                        <p class="muted">{scopeText}</p>
-                      </div>
+                  <li class="glossary-compact__item" id={entry.id}>
+                    <a
+                      class="glossary-compact__term"
+                      href={glossaryEntryUrl(entry.id)}
+                    >
+                      {entry.title}
+                    </a>
+                    {summary && (
+                      <p class="glossary-compact__summary muted">{summary}</p>
                     )}
-                    {adjacentTerms.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Adjacent terms</p>
-                        <div class="pill-row">
-                          {adjacentTerms.map((term) => (
-                            <a
-                              class="pill pill--muted"
-                              href={glossaryEntryUrl(term)}
-                              itemprop="keywords"
-                            >
-                              {entryLabelIndex.get(term) ?? term}
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {operationalTests.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Operational tests</p>
-                        <ul class="muted">
-                          {operationalTests.map((test) => (
-                            <li>{test}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {commonCounterfeits.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Common counterfeits</p>
-                        <ul class="muted">
-                          {commonCounterfeits.map((counterfeit) => (
-                            <li>{counterfeit}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {genealogy && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Genealogy</p>
-                        <p class="muted">{genealogy}</p>
-                      </div>
-                    )}
-                    {relatedPatterns.length > 0 && (
-                      <div class="glossary-entry__block glossary-entry__block--patterns">
-                        <p class="eyebrow">Related mechanisms</p>
-                        <ul class="glossary-entry__patterns-list">
-                          {relatedPatterns.map((relatedPattern) => (
-                            <li class="glossary-entry__pattern-card">
-                              <a
-                                class="glossary-entry__pattern-link"
-                                href={relatedPattern.href}
-                              >
-                                <span class="glossary-entry__pattern-title">
-                                  {relatedPattern.title}
-                                </span>
-                                <span class="muted small">
-                                  {relatedPattern.filterLabels.join(", ")}
-                                </span>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                        <p class="muted small glossary-entry__patterns-hint">
-                          See the full mechanisms catalog.
-                        </p>
-                      </div>
-                    )}
-                    {entry.examples && entry.examples.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">Example corpus</p>
-                        <ul class="muted">
-                          {entry.examples.map((example) => (
-                            <li>{example}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {references.length > 0 && (
-                      <div class="glossary-entry__block">
-                        <p class="eyebrow">References</p>
-                        <ul class="muted glossary-entry__resources">
-                          {references.map((resource) => (
-                            <li>
-                              <a href={resource.href}>{resource.label}</a>
-                              {resource.type && (
-                                <span class="muted"> · {resource.type}</span>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </article>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
         </details>
       </SectionBlock>

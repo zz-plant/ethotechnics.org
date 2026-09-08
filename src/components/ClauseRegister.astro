@@ -1,0 +1,101 @@
+---
+/**
+ * A standard's clauses as a register, above the normative text.
+ *
+ * The clauses stay prose in the body: normative text should be read as
+ * written. But a reader asking "which clause covers renewal, and what
+ * evidence does it want" has to read every part to find out. This is the
+ * same clauses as rows — id, obligation, evidence, validators, mechanisms —
+ * from the registry in src/content/standards.ts, grouped by the part they
+ * sit in, each row linking to its clause in the text below.
+ */
+import { standardClauses, type StandardClause } from "../content/standards";
+
+interface Props {
+  standardId: string;
+  /** Labels for §N groups, e.g. { "1": "Part A: Authority as lease" }. */
+  parts?: Record<string, string>;
+}
+
+const { standardId, parts = {} } = Astro.props;
+const clauses: StandardClause[] = standardClauses[standardId] ?? [];
+
+const groups = new Map<string, StandardClause[]>();
+for (const clause of clauses) {
+  const key = clause.displayId.replace(/^§/, "").split(".")[0]!;
+  groups.set(key, [...(groups.get(key) ?? []), clause]);
+}
+---
+
+{
+  clauses.length > 0 && (
+    <section
+      class="clause-register stack-md"
+      aria-labelledby="clause-register-title"
+    >
+      <div>
+        <p class="eyebrow">Clause register</p>
+        <h2 id="clause-register-title">
+          {clauses.length} clauses, and what each asks you to show
+        </h2>
+        <p class="muted">
+          The obligation in one line, the evidence it wants, and the validators
+          and mechanisms that bear on it. The normative text below governs; this
+          is the index to it.
+        </p>
+      </div>
+      {[...groups.entries()].map(([part, rows]) => (
+        <div class="clause-register__group">
+          <h3 class="clause-register__part">{parts[part] ?? `§${part}`}</h3>
+          <div class="mapping-table__wrapper">
+            <table class="mapping-table clause-register__table">
+              <thead>
+                <tr>
+                  <th scope="col">Clause</th>
+                  <th scope="col">When</th>
+                  <th scope="col">Obligation</th>
+                  <th scope="col">Evidence</th>
+                  <th scope="col">Bears on</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((clause) => (
+                  <tr>
+                    <th scope="row">
+                      <code>{clause.displayId}</code>
+                      <span class="clause-register__level">
+                        {clause.requirementLevel}
+                      </span>
+                    </th>
+                    <td class="clause-register__when">{clause.condition}</td>
+                    <td>{clause.obligation}</td>
+                    <td>
+                      <ul class="clause-register__list">
+                        {clause.evidenceRequired.map((item) => (
+                          <li>
+                            <code>{item}</code>
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                    <td class="clause-register__refs">
+                      {[
+                        ...clause.relatedMechanisms,
+                        ...clause.relatedValidators,
+                      ].length > 0
+                        ? [
+                            ...clause.relatedMechanisms,
+                            ...clause.relatedValidators,
+                          ].join(", ")
+                        : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </section>
+  )
+}

@@ -1,0 +1,119 @@
+---
+/**
+ * The twelve laws as a reference grid, derived from the essay below it.
+ *
+ * Three thousand words of doctrine cannot be compared: a reader who wants to
+ * set Law II's invariant beside Law VII's has to scroll between them. This is
+ * the same content as rows — law, invariant, the state variables it governs,
+ * the clauses that hold it — parsed from the MDX so there is one source.
+ */
+import { extractLaws } from "../utils/laws";
+import { getStandardById } from "../content/standards";
+
+interface Props {
+  body: string;
+}
+
+const { body } = Astro.props;
+const laws = extractLaws(body);
+
+/**
+ * The binding line is a sentence, and twelve sentences in a column are a wall.
+ * A reader scanning the grid wants the references — which standard, which
+ * clause, which mechanism — so those become chips, and the sentence stays
+ * underneath for anyone who wants the reasoning.
+ */
+const REF = /STD-\d\d(?: Part [A-D])?|MEC-\d\d|§\d+(?:\.\d+)?/g;
+
+const referencesIn = (text: string) => {
+  const seen = new Set<string>();
+  const refs: { label: string; href?: string }[] = [];
+  let standard: string | undefined;
+  for (const match of text.matchAll(REF)) {
+    const token = match[0];
+    if (token.startsWith("STD-")) standard = token.slice(0, 6);
+    // A bare §n.n belongs to the last standard named before it.
+    const label =
+      token.startsWith("§") && standard ? `${standard} ${token}` : token;
+    if (seen.has(label)) continue;
+    seen.add(label);
+    const std = getStandardById(label.slice(0, 6));
+    refs.push({ label, href: std ? `/standards/${std.slug}` : undefined });
+  }
+  return refs;
+};
+---
+
+<section class="laws-grid stack-md" aria-labelledby="laws-grid-title">
+  <div>
+    <p class="eyebrow">Reference</p>
+    <h2 id="laws-grid-title">The twelve laws at a glance</h2>
+    <p class="muted">
+      Each row is one law: what must hold, which of the six state variables it
+      governs, and the clause that makes it checkable. The essay below argues
+      each one; this is for comparing them.
+    </p>
+  </div>
+  <div class="mapping-table__wrapper">
+    <table class="mapping-table laws-grid__table">
+      <thead>
+        <tr>
+          <th scope="col">Law</th>
+          <th scope="col">Invariant</th>
+          <th scope="col">Governs</th>
+          <th scope="col">Binds through</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          laws.map((law) => (
+            <tr>
+              <th scope="row">
+                <a href={`#${law.id}`}>
+                  <span class="laws-grid__numeral">{law.numeral}</span>
+                  <span class="laws-grid__title">{law.title}</span>
+                </a>
+              </th>
+              <td class="laws-grid__invariant">{law.invariant}</td>
+              <td>
+                {law.variables.length > 0 ? (
+                  <ul class="laws-grid__variables">
+                    {law.variables.map((variable) => (
+                      <li>{variable}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <span class="muted">—</span>
+                )}
+              </td>
+              <td class="laws-grid__binds">
+                {(() => {
+                  const refs = referencesIn(law.bindsThrough);
+                  return refs.length > 0 ? (
+                    <ul class="laws-grid__refs">
+                      {refs.map((ref) => (
+                        <li>
+                          {ref.href ? (
+                            <a href={ref.href}>{ref.label}</a>
+                          ) : (
+                            ref.label
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <span class="laws-grid__refs-note">the evals stack</span>
+                  );
+                })()}
+                <details class="laws-grid__more">
+                  <summary>How</summary>
+                  <p>{law.bindsThrough}.</p>
+                </details>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
