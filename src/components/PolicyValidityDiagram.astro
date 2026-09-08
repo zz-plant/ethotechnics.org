@@ -1,0 +1,120 @@
+---
+/**
+ * Part B, drawn: a policy is a record with a life, and the grants that rest on
+ * it follow its state. Same conventions as the grant state machine so the two
+ * read as one system. Labels sit clear of the nodes; the essay column is
+ * narrower than the diagram's user space, so anything that crowds at 720px
+ * collides at 680px.
+ */
+const edges = [
+  {
+    d: "M 170 62 L 286 62",
+    label: ["grant lists it"],
+    clause: "§2.2",
+    lx: 228,
+    ly: 46,
+  },
+  {
+    d: "M 420 62 L 536 62",
+    label: ["trigger fires or", "expires_at passes"],
+    clause: "§2.3, §2.5",
+    lx: 478,
+    ly: 22,
+  },
+  {
+    d: "M 620 84 Q 620 224 454 224",
+    label: ["dependent grants follow"],
+    clause: "§2.4",
+    lx: 600,
+    ly: 262,
+  },
+  {
+    d: "M 288 224 Q 190 210 340 86",
+    label: ["renewed as a new version"],
+    clause: "§2.5",
+    lx: 150,
+    ly: 262,
+  },
+];
+---
+
+<figure class="state-diagram" aria-labelledby="policy-validity-title">
+  <figcaption>
+    <p class="eyebrow">Part B, drawn</p>
+    <h3 id="policy-validity-title">
+      A policy has a life, and the grants on it follow its state
+    </h3>
+  </figcaption>
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 720 280"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Policy validity: a policy record is listed by a grant; when a trigger fires or it expires it moves to review required, dependent grants move to review with it; renewal is a new version."
+    >
+      <defs>
+        <marker
+          id="policy-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+        </marker>
+      </defs>
+      {
+        edges.map((e) => (
+          <g class="state-diagram__edge">
+            <path
+              d={e.d}
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              marker-end="url(#policy-arrow)"
+            />
+            <text
+              x={e.lx}
+              y={e.ly}
+              text-anchor="middle"
+              class="state-diagram__label"
+            >
+              {e.label.map((line, index) => (
+                <tspan x={e.lx} dy={index === 0 ? 0 : 14}>
+                  {line}
+                </tspan>
+              ))}
+              <tspan class="state-diagram__clause"> {e.clause}</tspan>
+            </text>
+          </g>
+        ))
+      }
+      <g class="state-diagram__node state-diagram__node--active">
+        <rect x="20" y="40" width="150" height="44" rx="22"></rect>
+        <text x="95" y="67" text-anchor="middle" class="state-diagram__state"
+          >Policy record</text
+        >
+      </g>
+      <g class="state-diagram__node">
+        <rect x="290" y="40" width="130" height="44" rx="22"></rect>
+        <text x="355" y="67" text-anchor="middle" class="state-diagram__state"
+          >Valid</text
+        >
+      </g>
+      <g class="state-diagram__node">
+        <rect x="540" y="40" width="160" height="44" rx="22"></rect>
+        <text x="620" y="67" text-anchor="middle" class="state-diagram__state"
+          >Review required</text
+        >
+      </g>
+      <g class="state-diagram__node">
+        <rect x="290" y="202" width="164" height="44" rx="22"></rect>
+        <text x="372" y="229" text-anchor="middle" class="state-diagram__state"
+          >Grants → review</text
+        >
+      </g>
+    </svg>
+  </div>
+</figure>

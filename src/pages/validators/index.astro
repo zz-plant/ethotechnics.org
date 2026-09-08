@@ -168,7 +168,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="What it checks against, what you feed it, and which clauses and mechanisms it bears on."
   >
     <div class="mapping-table__wrapper">
-      <table class="mapping-table catalogue-table">
+      <table class="mapping-table mapping-table--stack catalogue-table">
         <thead>
           <tr>
             <th scope="col">Validator</th>
@@ -187,14 +187,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     {validator.id} {validator.title}
                   </a>
                 </th>
-                <td>{validator.standardRef}</td>
-                <td>{validator.inputs.map((i) => i.label).join("; ")}</td>
-                <td>
+                <td data-label="Standard">{validator.standardRef}</td>
+                <td data-label="Inputs">
+                  {validator.inputs.map((i) => i.label).join("; ")}
+                </td>
+                <td data-label="Clauses">
                   {validator.clauseRefs.length
                     ? validator.clauseRefs.join(", ")
                     : "—"}
                 </td>
-                <td>
+                <td data-label="Mechanisms">
                   {validator.mechanismRefs.length
                     ? validator.mechanismRefs.join(", ")
                     : "—"}

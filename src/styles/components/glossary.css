@@ -149,9 +149,13 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   }
 
+  /* Sticky under the site header, not behind it: top: 1rem put the toolbar
+     under the sticky nav on every viewport, which on a phone — where the nav
+     is three rows tall — hid it entirely once the page moved. The offset is
+     published by section-nav.ts from the header's measured height. */
   .glossary-index__toolbar {
     position: sticky;
-    top: 1rem;
+    top: calc(var(--nav-bottom, 0px) + 0.5rem);
     z-index: var(--z-overlay);
     display: grid;
     gap: var(--space-2);
@@ -569,5 +573,18 @@
 
   .glossary__cta {
     margin-top: var(--space-3);
+  }
+}
+
+@layer components {
+  /* On a phone the toolbar is a letter row and nothing else; the hint text is
+     vertical space the 252-row list below cannot spare. */
+  @media (max-width: 640px) {
+    .glossary-index__toolbar > div:first-child {
+      display: none;
+    }
+    .glossary-index__toolbar {
+      padding: var(--space-2);
+    }
   }
 }

@@ -73,14 +73,20 @@ const publication = derivePublicationMetadata({
   {isLaws && entry.body && <LawsGrid body={entry.body} />}
   {standardId === "STD-08" && <GrantStateDiagram />}
   {
-    standardId && (
+    standardId && entry.body && (
       <ClauseRegister
         standardId={standardId}
+        body={entry.body}
         parts={clausePartLabels[standardId] ?? {}}
       />
     )
   }
-  <Content />
+  {
+    /* The laws page gets a class so its lifted invariants can read as pull-quotes. */
+  }
+  <div class:list={{ "laws-essay": isLaws }}>
+    <Content />
+  </div>
   <SemanticConnections entityId={slugStr} />
   <CitationBlock
     title={data.title}

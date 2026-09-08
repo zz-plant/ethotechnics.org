@@ -61,7 +61,7 @@ const probeCount = checkableProperties.reduce(
       framework's claims that are argued for and not yet falsifiable here.
     </p>
     <div class="mapping-table__wrapper">
-      <table class="mapping-table coverage-matrix__table">
+      <table class="mapping-table mapping-table--stack coverage-matrix__table">
         <thead>
           <tr>
             <th scope="col">Property</th>
@@ -99,7 +99,7 @@ const probeCount = checkableProperties.reduce(
                           {COVERAGE_LABELS[coverage]}
                         </span>
                       </th>
-                      <td>
+                      <td data-label="Live probe">
                         {live.length > 0 ? (
                           live.map((probe) => (
                             <div class="coverage-matrix__probe">
@@ -113,7 +113,7 @@ const probeCount = checkableProperties.reduce(
                           <span class="coverage-matrix__empty">none</span>
                         )}
                       </td>
-                      <td>
+                      <td data-label="Record probes">
                         {emitted.length > 0 ? (
                           emitted.map((probe) => (
                             <div class="coverage-matrix__probe">
@@ -127,7 +127,7 @@ const probeCount = checkableProperties.reduce(
                           <span class="coverage-matrix__empty">none</span>
                         )}
                       </td>
-                      <td>
+                      <td data-label="Laws">
                         <p class="pill-list pill-list--wrap">
                           {property.laws.map((law) => (
                             <a
@@ -139,7 +139,10 @@ const probeCount = checkableProperties.reduce(
                           ))}
                         </p>
                       </td>
-                      <td class="coverage-matrix__gap">
+                      <td
+                        data-label="What the missing side would need"
+                        class="coverage-matrix__gap"
+                      >
                         {property.gap ?? "—"}
                       </td>
                     </tr>

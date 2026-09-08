@@ -8,17 +8,27 @@
  * same clauses as rows — id, obligation, evidence, validators, mechanisms —
  * from the registry in src/content/standards.ts, grouped by the part they
  * sit in, each row linking to its clause in the text below.
+ *
+ * Shown only when the registry and the document mark the same clauses. A
+ * register that lists clauses the text does not have, or misses ones it does,
+ * is a false inventory, and the document is the one that is normative.
  */
 import { standardClauses, type StandardClause } from "../content/standards";
+import { compareRegistryToDocument } from "../utils/clause-registry";
 
 interface Props {
   standardId: string;
+  /** The standard's MDX body, checked against the registry before rendering. */
+  body: string;
   /** Labels for §N groups, e.g. { "1": "Part A: Authority as lease" }. */
   parts?: Record<string, string>;
 }
 
-const { standardId, parts = {} } = Astro.props;
-const clauses: StandardClause[] = standardClauses[standardId] ?? [];
+const { standardId, body, parts = {} } = Astro.props;
+const clauses: StandardClause[] = compareRegistryToDocument(standardId, body)
+  .matches
+  ? (standardClauses[standardId] ?? [])
+  : [];
 
 const groups = new Map<string, StandardClause[]>();
 for (const clause of clauses) {
@@ -48,7 +58,7 @@ for (const clause of clauses) {
         <div class="clause-register__group">
           <h3 class="clause-register__part">{parts[part] ?? `§${part}`}</h3>
           <div class="mapping-table__wrapper">
-            <table class="mapping-table clause-register__table">
+            <table class="mapping-table mapping-table--stack clause-register__table">
               <thead>
                 <tr>
                   <th scope="col">Clause</th>
@@ -67,9 +77,11 @@ for (const clause of clauses) {
                         {clause.requirementLevel}
                       </span>
                     </th>
-                    <td class="clause-register__when">{clause.condition}</td>
-                    <td>{clause.obligation}</td>
-                    <td>
+                    <td data-label="When" class="clause-register__when">
+                      {clause.condition}
+                    </td>
+                    <td data-label="Obligation">{clause.obligation}</td>
+                    <td data-label="Evidence">
                       <ul class="clause-register__list">
                         {clause.evidenceRequired.map((item) => (
                           <li>
@@ -78,7 +90,7 @@ for (const clause of clauses) {
                         ))}
                       </ul>
                     </td>
-                    <td class="clause-register__refs">
+                    <td data-label="Bears on" class="clause-register__refs">
                       {[
                         ...clause.relatedMechanisms,
                         ...clause.relatedValidators,

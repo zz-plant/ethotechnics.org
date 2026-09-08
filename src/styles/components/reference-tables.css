@@ -55,21 +55,23 @@
     color: var(--accent-strong);
   }
 
-  .laws-grid__table {
-    table-layout: fixed;
-  }
+  @media (min-width: 720px) {
+    .laws-grid__table {
+      table-layout: fixed;
+    }
 
-  .laws-grid__table th:nth-child(1) {
-    width: 24%;
-  }
-  .laws-grid__table th:nth-child(2) {
-    width: 34%;
-  }
-  .laws-grid__table th:nth-child(3) {
-    width: 14%;
-  }
-  .laws-grid__table th:nth-child(4) {
-    width: 28%;
+    .laws-grid__table th:nth-child(1) {
+      width: 24%;
+    }
+    .laws-grid__table th:nth-child(2) {
+      width: 34%;
+    }
+    .laws-grid__table th:nth-child(3) {
+      width: 14%;
+    }
+    .laws-grid__table th:nth-child(4) {
+      width: 28%;
+    }
   }
 
   .laws-grid__refs {
@@ -254,6 +256,25 @@
     overflow: visible;
   }
 
+  /* On a phone a 720–1060-unit drawing squeezed to 350px shrinks its 12px
+     labels to 4–6px. Below 720px the drawing keeps a readable width and the
+     figure scrolls sideways instead, the way the wide tables do. */
+  @media (max-width: 719.98px) {
+    .diagram-scroll {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .state-diagram__svg {
+      min-width: 640px;
+    }
+
+    .chain-diagram__svg {
+      min-width: 880px;
+    }
+  }
+
   .chain-diagram__node rect,
   .state-diagram__node rect,
   .state-diagram__node circle {
@@ -368,5 +389,29 @@
     margin: 0.15rem 0 0;
     font-size: var(--text-sm);
     line-height: 1.45;
+  }
+}
+
+@layer components {
+  /* Each law's invariant now heads its section. Set as a pull-quote it gives
+     three thousand words of doctrine a rhythm: twelve one-line claims a reader
+     can scan, with the argument for each beneath. */
+  .laws-essay h3 + blockquote {
+    margin: 1rem 0 1.5rem;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+    font-size: clamp(1.05rem, 0.5vw + 0.95rem, 1.2rem);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .laws-essay h3 + blockquote p {
+    margin: 0;
+  }
+
+  .laws-essay h3 {
+    scroll-margin-top: calc(var(--nav-bottom, 0px) + 3.5rem);
   }
 }
