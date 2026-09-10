@@ -39,3 +39,18 @@ declare module "*.wasm?url" {
   const url: string;
   export default url;
 }
+
+/**
+ * Importing a `.wasm` file without `?url` yields a compiled module rather than
+ * a URL. Workers reject `WebAssembly.instantiate()` on bytes fetched at
+ * runtime, so anything that needs wasm has to import it this way.
+ */
+declare module "*.wasm" {
+  const wasmModule: WebAssembly.Module;
+  export default wasmModule;
+}
+
+declare module "*.ttf?url" {
+  const url: string;
+  export default url;
+}

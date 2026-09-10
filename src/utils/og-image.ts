@@ -1,4 +1,7 @@
-import wasmUrl from "@resvg/resvg-wasm/index_bg.wasm?url";
+import resvgWasmModule from "@resvg/resvg-wasm/index_bg.wasm";
+import serifSemiboldUrl from "../assets/fonts/source-serif-4-semibold-latin.ttf?url";
+import sansRegularUrl from "../assets/fonts/source-sans-3-regular-latin.ttf?url";
+import sansSemiboldUrl from "../assets/fonts/source-sans-3-semibold-latin.ttf?url";
 import { createHash } from "node:crypto";
 import {
   OG_TEMPLATES,
@@ -12,87 +15,69 @@ const DEFAULT_DESCRIPTION =
 const WIDTH = 1200;
 const HEIGHT = 630;
 
+/**
+ * Every card is warm paper and one accent drawn from theme.css. Templates are
+ * separated by their label and accent family, not by a different hue each —
+ * a standards publisher whose sections are colour-coded in rainbow reads as a
+ * marketing site, and the old palette here was stock Tailwind besides.
+ */
+const PAPER = "#faf8f5";
+const SURFACE = "#ffffff";
+const BORDER = "#e6e2da";
+const INK = "#1c1917";
+const MUTED = "#57534e";
+const SAPPHIRE = "#1e3a5f";
+const TEAL = "#2e5266";
+const GOLD = "#b45309";
+
+// Single-quoted family names: these are interpolated into double-quoted XML
+// attributes, where a nested double quote ends the attribute early.
+const OG_SERIF =
+  "'Source Serif 4', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif";
+const OG_SANS =
+  "'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+
 type TemplateStyle = {
   label: string;
   kicker: string;
-  gradientStart: string;
-  gradientEnd: string;
-  panelTint: string;
   accent: string;
-  accentSoft: string;
-  marker: string;
 };
 
 const templateStyles: Record<OgTemplate, TemplateStyle> = {
   default: {
     label: "Reference",
     kicker: "Accountable systems, made legible",
-    gradientStart: "#f8fafc",
-    gradientEnd: "#e2e8f0",
-    panelTint: "#f1f5f9",
-    accent: "#1e293b",
-    accentSoft: "#475569",
-    marker: "◆",
+    accent: SAPPHIRE,
   },
   home: {
     label: "Institute",
     kicker: "The reference standard for accountable systems",
-    gradientStart: "#eff6ff",
-    gradientEnd: "#dbeafe",
-    panelTint: "#f8fafc",
-    accent: "#1d4ed8",
-    accentSoft: "#3b82f6",
-    marker: "◎",
+    accent: SAPPHIRE,
   },
   standards: {
     label: "Standards",
     kicker: "Public technical standards for governance",
-    gradientStart: "#eceff6",
-    gradientEnd: "#e0e8f8",
-    panelTint: "#edf1f9",
-    accent: "#1e40af",
-    accentSoft: "#3b82f6",
-    marker: "◈",
+    accent: SAPPHIRE,
   },
   glossary: {
     label: "Glossary",
     kicker: "Operational language for ethical technology",
-    gradientStart: "#f0fdf4",
-    gradientEnd: "#dcfce7",
-    panelTint: "#f0fdf4",
-    accent: "#15803d",
-    accentSoft: "#22c55e",
-    marker: "◉",
+    accent: TEAL,
   },
   taxonomy: {
     label: "Taxonomy",
     kicker: "Design and governance domains in context",
-    gradientStart: "#f5f3ff",
-    gradientEnd: "#ede9fe",
-    panelTint: "#f5f3ff",
-    accent: "#6d28d9",
-    accentSoft: "#8b5cf6",
-    marker: "⬢",
+    accent: TEAL,
   },
   mechanisms: {
     label: "Mechanisms",
     kicker: "Implementation patterns and reusable primitives",
-    gradientStart: "#f0fdfa",
-    gradientEnd: "#ccfbf1",
-    panelTint: "#f0fdfa",
-    accent: "#0f766e",
-    accentSoft: "#14b8a6",
-    marker: "✦",
+    accent: SAPPHIRE,
   },
   editorial: {
     label: "Editorial",
     kicker: "Research, incidents, and field notes",
-    gradientStart: "#f8fafc",
-    gradientEnd: "#e0e7ff",
-    panelTint: "#f1f5f9",
-    accent: "#4338ca",
-    accentSoft: "#6366f1",
-    marker: "✶",
+    accent: GOLD,
   },
 };
 
@@ -162,6 +147,84 @@ const isIfNoneMatchSatisfied = (ifNoneMatch: string | null, etag: string) => {
   });
 };
 
+/**
+ * Per-character advance estimates as a fraction of font size. SVG has no text
+ * layout, so lines have to be broken here; measuring properly would mean
+ * parsing font metrics for a job where being a few percent out just leaves a
+ * slightly short line.
+ */
+const NARROW = new Set([..."iljtIfr.,;:'!|()[]-"]);
+const WIDE = new Set([..."mwMW@%"]);
+
+const estimateTextWidth = (text: string, fontSize: number) => {
+  let units = 0;
+  for (const character of text) {
+    if (NARROW.has(character)) units += 0.31;
+    else if (WIDE.has(character)) units += 0.92;
+    else if (character === " ") units += 0.26;
+    else if (character >= "A" && character <= "Z") units += 0.68;
+    else units += 0.52;
+  }
+  return units * fontSize;
+};
+
+/** Greedy wrap; anything past maxLines is folded back with an ellipsis. */
+const wrapText = (
+  text: string,
+  maxWidth: number,
+  fontSize: number,
+  maxLines: number,
+) => {
+  const lines: string[] = [];
+  let current = "";
+
+  for (const word of text.split(" ")) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (current && estimateTextWidth(candidate, fontSize) > maxWidth) {
+      lines.push(current);
+      current = word;
+      if (lines.length === maxLines) break;
+    } else {
+      current = candidate;
+    }
+  }
+
+  if (lines.length < maxLines && current) lines.push(current);
+
+  const consumed = lines.join(" ");
+  if (consumed.length < text.length && lines.length > 0) {
+    const last = lines[lines.length - 1];
+    lines[lines.length - 1] = `${last.replace(/[.,;:]$/, "")}…`;
+  }
+
+  return lines;
+};
+
+const PANEL = {
+  x: 48,
+  y: 48,
+  width: WIDTH - 96,
+  height: HEIGHT - 96,
+  radius: 20,
+};
+const CONTENT_LEFT = 104;
+const CONTENT_RIGHT = WIDTH - 96;
+const CONTENT_WIDTH = CONTENT_RIGHT - CONTENT_LEFT;
+
+const TITLE_SIZE = 58;
+const TITLE_LEADING = 66;
+const DESCRIPTION_SIZE = 26;
+const DESCRIPTION_LEADING = 37;
+
+/**
+ * The section mark from public/favicon.svg, scaled from its 32-unit tile.
+ * Kept in sync by eye rather than by import: this file has to run inside a
+ * Worker, where reading the SVG off disk is not an option.
+ */
+const MARK_HALF =
+  "M20.93 10.02 C20.93 7.38 18.29 5.79 15.38 6.41 " +
+  "C12.22 7.11 11.07 10.28 13.36 12.22 L18.64 17.41";
+
 const buildOgSvg = (
   title: string,
   description: string,
@@ -169,77 +232,114 @@ const buildOgSvg = (
 ) => {
   const ogTemplate = resolveOgTemplate(options?.template, options?.path);
   const style = templateStyles[ogTemplate];
-  const safeTitle = escapeXml(trimToLength(title, MAX_TITLE_CHARS));
-  const safeDescription = escapeXml(
-    trimToLength(description, MAX_DESCRIPTION_CHARS),
+  const safeTitle = trimToLength(title, MAX_TITLE_CHARS);
+  const safeDescription = trimToLength(description, MAX_DESCRIPTION_CHARS);
+
+  const titleLines = wrapText(safeTitle, CONTENT_WIDTH, TITLE_SIZE, 3);
+  const descriptionLines = wrapText(
+    safeDescription,
+    CONTENT_WIDTH - 60,
+    DESCRIPTION_SIZE,
+    2,
   );
-  const safeKicker = escapeXml(style.kicker);
-  const safeLabel = escapeXml(style.label);
-  const safeMarker = escapeXml(style.marker);
+
+  // Centre the text block in the band between the header row and the rule, so
+  // a one-line title does not leave a hole above the footer and a three-line
+  // one does not crowd it.
+  const BAND_TOP = 168;
+  const BAND_BOTTOM = 470;
+  const blockHeight =
+    titleLines.length * TITLE_LEADING +
+    (descriptionLines.length > 0
+      ? 26 + descriptionLines.length * DESCRIPTION_LEADING
+      : 0);
+  const titleTop = Math.round(
+    BAND_TOP + (BAND_BOTTOM - BAND_TOP - blockHeight) / 2 + TITLE_SIZE * 0.74,
+  );
+  const titleSpans = titleLines
+    .map(
+      (line, index) =>
+        `<tspan x="${CONTENT_LEFT}" y="${titleTop + index * TITLE_LEADING}">${escapeXml(line)}</tspan>`,
+    )
+    .join("");
+
+  const descriptionTop = titleTop + titleLines.length * TITLE_LEADING + 26;
+  const descriptionSpans = descriptionLines
+    .map(
+      (line, index) =>
+        `<tspan x="${CONTENT_LEFT}" y="${descriptionTop + index * DESCRIPTION_LEADING}">${escapeXml(line)}</tspan>`,
+    )
+    .join("");
+
+  const labelWidth = Math.round(
+    estimateTextWidth(style.label.toUpperCase(), 17) + 22 * 2,
+  );
+  const labelX = CONTENT_RIGHT - labelWidth;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+<svg width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>${escapeXml(safeTitle)} — Ethotechnics Institute</title>
   <defs>
-    <linearGradient id="bg-gradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${style.gradientStart}" />
-      <stop offset="100%" stop-color="${style.gradientEnd}" />
-    </linearGradient>
-    <linearGradient id="halo-gradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${style.accent}" stop-opacity="0.18" />
-      <stop offset="100%" stop-color="${style.accent}" stop-opacity="0" />
-    </linearGradient>
-    <pattern id="dot-grid" width="22" height="22" patternUnits="userSpaceOnUse">
-      <circle cx="1" cy="1" r="1" fill="${style.accent}" fill-opacity="0.18" />
-    </pattern>
-    <symbol id="logo-mark" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" stroke-width="2" />
-      <circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="1.5" />
-      <path d="M32 14L38.5 27.5L52 32L38.5 36.5L32 50L25.5 36.5L12 32L25.5 27.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-      <circle cx="32" cy="32" r="4" fill="currentColor" />
-    </symbol>
+    <clipPath id="panel-clip">
+      <rect x="${PANEL.x}" y="${PANEL.y}" width="${PANEL.width}" height="${PANEL.height}" rx="${PANEL.radius}"/>
+    </clipPath>
   </defs>
-  <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#bg-gradient)" />
-  <rect x="48" y="48" width="${WIDTH - 96}" height="${HEIGHT - 96}" rx="32" fill="#fdfbf8" stroke="#d9d1c3" />
-  <rect x="62" y="62" width="${WIDTH - 124}" height="${HEIGHT - 124}" rx="26" fill="${style.panelTint}" fill-opacity="0.48" />
-  <rect x="48" y="531" width="${WIDTH - 96}" height="51" rx="0" fill="${style.accent}" />
-  <rect x="702" y="88" width="430" height="430" rx="215" fill="url(#halo-gradient)" />
-  <rect x="754" y="108" width="328" height="328" rx="164" fill="none" stroke="${style.accentSoft}" stroke-opacity="0.26" stroke-width="2" />
-  <rect x="748" y="102" width="340" height="340" rx="170" fill="url(#dot-grid)" fill-opacity="0.65" />
-  <g color="${style.accent}" opacity="0.9" transform="translate(872 184)">
-    <use href="#logo-mark" width="184" height="184" />
+  <rect width="${WIDTH}" height="${HEIGHT}" fill="${PAPER}"/>
+  <rect x="${PANEL.x}" y="${PANEL.y}" width="${PANEL.width}" height="${PANEL.height}" rx="${PANEL.radius}" fill="${SURFACE}" stroke="${BORDER}" stroke-width="2"/>
+  <g clip-path="url(#panel-clip)">
+    <rect x="${PANEL.x}" y="${PANEL.y}" width="12" height="${PANEL.height}" fill="${style.accent}"/>
   </g>
-  <g color="${style.accent}" transform="translate(96 100)">
-    <use href="#logo-mark" width="34" height="34" />
+  <g transform="translate(${CONTENT_LEFT} 84) scale(1.375)">
+    <rect width="32" height="32" rx="7" fill="${style.accent}"/>
+    <g fill="none" stroke="${PAPER}" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="${MARK_HALF}"/>
+      <path d="${MARK_HALF}" transform="rotate(180 16 16)"/>
+    </g>
   </g>
-  <foreignObject x="142" y="100" width="654" height="${HEIGHT - 230}">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;flex-direction:column;gap:20px;height:100%;font-family:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif;color:#1a1713;">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;">
-        <div style="font-size:20px;letter-spacing:0.18em;text-transform:uppercase;color:#7a6f62;">Ethotechnics Institute</div>
-        <div style="padding:8px 14px;border:1px solid ${style.accentSoft};border-radius:999px;font-size:17px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:${style.accent};background:rgba(255,255,255,0.65);">${safeLabel}</div>
-      </div>
-      <div style="font-size:62px;font-weight:700;line-height:1.06;max-width:680px;letter-spacing:-0.012em;">${safeTitle}</div>
-      <div style="font-size:28px;line-height:1.35;color:#433d35;max-width:640px;">${safeDescription}</div>
-      <div style="margin-top:auto;font-size:21px;line-height:1.35;color:${style.accent};font-weight:600;">${safeMarker} ${safeKicker}</div>
-    </div>
-  </foreignObject>
+  <text x="${CONTENT_LEFT + 62}" y="114" font-family="${OG_SANS}" font-size="19" font-weight="600" letter-spacing="3.4" fill="${MUTED}">ETHOTECHNICS INSTITUTE</text>
+  <rect x="${labelX}" y="84" width="${labelWidth}" height="42" rx="21" fill="none" stroke="${style.accent}" stroke-width="2"/>
+  <text x="${labelX + labelWidth / 2}" y="112" text-anchor="middle" font-family="${OG_SANS}" font-size="17" font-weight="700" letter-spacing="1.6" fill="${style.accent}">${escapeXml(style.label.toUpperCase())}</text>
+  <text font-family="${OG_SERIF}" font-size="${TITLE_SIZE}" font-weight="600" fill="${INK}">${titleSpans}</text>
+  <text font-family="${OG_SANS}" font-size="${DESCRIPTION_SIZE}" fill="${MUTED}">${descriptionSpans}</text>
+  <line x1="${CONTENT_LEFT}" y1="498" x2="${CONTENT_RIGHT}" y2="498" stroke="${BORDER}" stroke-width="2"/>
+  <text x="${CONTENT_LEFT}" y="538" font-family="${OG_SANS}" font-size="21" font-weight="600" fill="${style.accent}">${escapeXml(style.kicker)}</text>
+  <text x="${CONTENT_RIGHT}" y="538" text-anchor="end" font-family="${OG_SANS}" font-size="21" fill="${MUTED}">ethotechnics.org</text>
 </svg>`;
 };
 
-let resvgInitPromise: Promise<void> | null = null;
+const FONT_URLS = [serifSemiboldUrl, sansRegularUrl, sansSemiboldUrl];
+
+/**
+ * resvg-wasm has no system fonts to fall back on, so text renders only for
+ * families whose buffers are handed to it. Both the wasm and the fonts are
+ * fetched from the deployed static assets and memoised per isolate.
+ */
+let resvgInitPromise: Promise<Uint8Array[]> | null = null;
 
 const initResvg = async (baseUrl: string | URL) => {
   if (!resvgInitPromise) {
-    const wasmAbsoluteUrl = new URL(wasmUrl, baseUrl).toString();
     resvgInitPromise = (async () => {
-      const [{ initWasm }, response] = await Promise.all([
+      const [{ initWasm }, ...fontResponses] = await Promise.all([
         import("@resvg/resvg-wasm"),
-        fetch(wasmAbsoluteUrl),
+        ...FONT_URLS.map((url) => fetch(new URL(url, baseUrl).toString())),
       ]);
-      await initWasm(await response.arrayBuffer());
+
+      // Workers refuse WebAssembly.instantiate() on bytes fetched at runtime,
+      // so the module has to arrive as an import the platform compiles ahead of
+      // time. Fetching the wasm instead is what made /api/og.png return 500.
+      await initWasm(resvgWasmModule);
+
+      return Promise.all(
+        fontResponses.map(async (response) =>
+          response.ok
+            ? new Uint8Array(await response.arrayBuffer())
+            : new Uint8Array(),
+        ),
+      );
     })();
   }
 
-  await resvgInitPromise;
+  return (await resvgInitPromise).filter((buffer) => buffer.length > 0);
 };
 
 const renderOgPng = async (
@@ -247,10 +347,18 @@ const renderOgPng = async (
   description: string,
   options?: { template?: string; path?: string; baseUrl?: string | URL },
 ) => {
-  await initResvg(options?.baseUrl ?? "https://ethotechnics.org");
+  const fontBuffers = await initResvg(
+    options?.baseUrl ?? "https://ethotechnics.org",
+  );
   const { Resvg } = await import("@resvg/resvg-wasm");
   const svg = buildOgSvg(title, description, options);
   const renderer = new Resvg(svg, {
+    font: {
+      fontBuffers,
+      defaultFontFamily: "Source Sans 3",
+      serifFamily: "Source Serif 4",
+      sansSerifFamily: "Source Sans 3",
+    },
     fitTo: {
       mode: "width",
       value: WIDTH,

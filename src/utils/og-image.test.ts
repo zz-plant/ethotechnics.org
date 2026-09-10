@@ -39,8 +39,29 @@ describe("buildOgSvg", () => {
       template: "editorial",
     });
 
-    expect(svg).toContain("Editorial");
+    // The label is set in the pill as uppercase.
+    expect(svg).toContain("EDITORIAL");
     expect(svg).toContain("Research, incidents, and field notes");
+  });
+
+  it("renders the title as SVG text rather than a foreignObject", () => {
+    // resvg has no foreignObject support, so anything laid out that way is
+    // silently dropped from /api/og.png — the image every share actually uses.
+    const svg = buildOgSvg("Latency budgets", "A short explainer");
+
+    expect(svg).not.toContain("foreignObject");
+    expect(svg).toContain("<tspan");
+    expect(svg).toContain("Latency budgets");
+  });
+
+  it("wraps long titles onto multiple lines", () => {
+    const svg = buildOgSvg(
+      "Keeping authority, evidence, capability, consequence, and correction coupled",
+      "A short explainer",
+    );
+
+    const lines = svg.match(/<tspan/g) ?? [];
+    expect(lines.length).toBeGreaterThan(2);
   });
 });
 
