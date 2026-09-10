@@ -19,140 +19,100 @@ const ASSETS_DIR = join(process.cwd(), "docs", "assets");
 const SVG_PATH = join(ASSETS_DIR, "source.svg");
 const PROJECT = basename(process.cwd());
 
+/** Warm paper and sapphire, from src/styles/theme.css. */
+const PAPER = "#faf8f5";
+const PANEL = "#f3efe8";
+const INK = "#1c1917";
+const SAPPHIRE = "#1e3a5f";
+const OBSIDIAN = "#18181b";
+
 type SceneSpec = {
   width: number;
   height: number;
   minBytes: number;
+  /** Scene background. */
   bg: string;
+  /** Colour the lockup inherits; source.svg is drawn entirely in currentColor. */
+  ink: string;
   gradient?: boolean;
-  center?: boolean;
+  /** Fraction of the shorter scene axis the lockup should occupy. */
   scale?: number;
 };
 
+const light = (
+  width: number,
+  height: number,
+  minBytes: number,
+  scale?: number,
+): SceneSpec => ({
+  width,
+  height,
+  minBytes,
+  bg: PAPER,
+  ink: SAPPHIRE,
+  scale,
+});
+
 const SCENES: Record<string, SceneSpec> = {
-  badge: { width: 240, height: 96, minBytes: 2_000, bg: "#1a1a2e", scale: 0.8 },
-  blur: { width: 50, height: 28, minBytes: 300, bg: "#1a1a2e", scale: 0.5 },
-  card: {
-    width: 400,
-    height: 300,
-    minBytes: 8_000,
-    bg: "#16213e",
-    center: true,
-    scale: 0.7,
-  },
-  circle: {
-    width: 540,
-    height: 540,
-    minBytes: 8_000,
-    bg: "#0f3460",
-    center: true,
-    gradient: true,
-  },
+  badge: { ...light(240, 96, 900), bg: PANEL, scale: 0.82 },
+  blur: { ...light(50, 28, 120), scale: 0.8 },
+  card: light(400, 300, 2_400),
+  circle: { ...light(540, 540, 5_000), gradient: true, scale: 0.62 },
   dark: {
     width: 960,
     height: 540,
-    minBytes: 10_000,
-    bg: "#0a0a0a",
+    minBytes: 6_000,
+    bg: OBSIDIAN,
+    ink: PAPER,
     gradient: true,
+    scale: 0.5,
   },
-  demo: {
-    width: 720,
-    height: 405,
-    minBytes: 12_000,
-    bg: "#1a1a2e",
-    gradient: true,
-  },
-  email: { width: 600, height: 200, minBytes: 5_000, bg: "#16213e" },
-  favicon: { width: 64, height: 64, minBytes: 600, bg: "#e94560", scale: 0.95 },
-  github: {
-    width: 1280,
-    height: 640,
-    minBytes: 15_000,
-    bg: "#1a1a2e",
-    gradient: true,
-  },
-  header: {
-    width: 1920,
-    height: 400,
-    minBytes: 12_000,
-    bg: "#1a1a2e",
-    gradient: true,
-  },
+  demo: { ...light(720, 405, 4_000), gradient: true, scale: 0.6 },
+  email: { ...light(600, 200, 2_200), bg: PANEL, scale: 0.7 },
+  favicon: { ...light(64, 64, 250), scale: 0.9 },
+  github: { ...light(1280, 640, 9_000), gradient: true, scale: 0.5 },
+  header: { ...light(1920, 400, 8_000), bg: PANEL, scale: 0.55 },
   mastodon: {
     width: 1200,
     height: 600,
-    minBytes: 15_000,
-    bg: "#16213e",
-    gradient: true,
-  },
-  og: {
-    width: 1200,
-    height: 675,
-    minBytes: 15_000,
-    bg: "#1a1a2e",
-    gradient: true,
-  },
-  square: {
-    width: 1080,
-    height: 1080,
-    minBytes: 15_000,
-    bg: "#0f3460",
-    center: true,
-    gradient: true,
-  },
-  touch: {
-    width: 360,
-    height: 360,
     minBytes: 8_000,
-    bg: "#16213e",
-    center: true,
-  },
-  unfurl: {
-    width: 1200,
-    height: 628,
-    minBytes: 15_000,
-    bg: "#1a1a2e",
+    bg: SAPPHIRE,
+    ink: PAPER,
     gradient: true,
+    scale: 0.52,
   },
+  og: { ...light(1200, 675, 9_000), gradient: true, scale: 0.55 },
+  square: { ...light(1080, 1080, 12_000), gradient: true, scale: 0.6 },
+  touch: { ...light(360, 360, 2_500), scale: 0.72 },
+  unfurl: { ...light(1200, 628, 9_000), gradient: true, scale: 0.55 },
 };
 
-function hueFromProject(name: string): number {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++)
-    hash = (hash << 5) - hash + name.charCodeAt(i);
-  return Math.abs(hash) % 360;
-}
+/** source.svg's own coordinate system, used to place and scale the lockup. */
+const SOURCE_WIDTH = 400;
+const SOURCE_HEIGHT = 200;
 
-function rotateHex(hex: string, hue: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  const f = (hue / 360) * 0.25 + 0.875; // 0.875-1.125
-  const nr = Math.min(255, Math.round(r * f));
-  const ng = Math.min(255, Math.round(g * (1 + ((hue % 40) - 20) / 200)));
-  const nb = Math.min(
-    255,
-    Math.round(b * (1 + (((hue + 120) % 40) - 20) / 200)),
-  );
-  return `#${nr.toString(16).padStart(2, "0")}${ng.toString(16).padStart(2, "0")}${nb.toString(16).padStart(2, "0")}`;
-}
-
-function buildOverlay(spec: SceneSpec, hue: number): string {
-  const bg = rotateHex(spec.bg, hue);
-  const { width, height, gradient } = spec;
+function buildBackground(spec: SceneSpec): string {
+  const { width, height, gradient, bg, ink } = spec;
   let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">`;
   svg += `<rect width="100%" height="100%" fill="${bg}"/>`;
 
   if (gradient) {
     svg += `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.04)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0.12)"/>
+      <stop offset="0%" stop-color="${ink}" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="${ink}" stop-opacity="0"/>
     </linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/>`;
   }
 
-  const fs = Math.max(10, Math.min(width, height) * 0.025);
-  svg += `<text x="${width - 16}" y="${height - 12}" font-family="system-ui,sans-serif" font-size="${fs}" fill="rgba(255,255,255,0.12)" text-anchor="end">${PROJECT}</text>`;
-  return svg + "</svg>";
+  return svg;
+}
+
+/** Wordmark scenes are too small to also carry a legible URL. */
+const MIN_URL_WIDTH = 400;
+
+function buildFooter(spec: SceneSpec): string {
+  if (spec.width < MIN_URL_WIDTH) return "";
+  const size = Math.max(11, Math.min(spec.width, spec.height) * 0.022);
+  return `<text x="${spec.width - size * 1.4}" y="${spec.height - size * 1.1}" font-family="system-ui,sans-serif" font-size="${size}" fill="${spec.ink}" fill-opacity="0.34" text-anchor="end">${PROJECT}</text>`;
 }
 
 function main() {
@@ -168,7 +128,6 @@ function main() {
   const innerSvg = innerMatch ? innerMatch[1] : svgRaw; // Inner content only, no wrapper <svg>
 
   mkdirSync(ASSETS_DIR, { recursive: true });
-  const hue = hueFromProject(PROJECT);
 
   let ok = 0,
     warn = 0,
@@ -176,7 +135,6 @@ function main() {
 
   for (const [scene, spec] of Object.entries(SCENES)) {
     const outPath = join(ASSETS_DIR, `${PROJECT}-${scene}.png`);
-    const overlayPath = join(ASSETS_DIR, `_${scene}_overlay.svg`);
     const compPath = join(ASSETS_DIR, `_${scene}_comp.svg`);
 
     if (dryRun) {
@@ -185,39 +143,30 @@ function main() {
     }
 
     try {
-      // 1. Build overlay SVG with per-project hue variation
-      const overlay = buildOverlay(spec, hue);
-      writeFileSync(overlayPath, overlay);
+      // Fit the lockup to the scene on its tightest axis, then centre it. The
+      // old code scaled by the scene's own dimensions, which left the lockup
+      // stranded in a corner on any scene that was not roughly 400×200.
+      const fraction = spec.scale ?? 0.7;
+      const scale =
+        Math.min(spec.width / SOURCE_WIDTH, spec.height / SOURCE_HEIGHT) *
+        fraction;
+      const sx = (spec.width - SOURCE_WIDTH * scale) / 2;
+      const sy = (spec.height - SOURCE_HEIGHT * scale) / 2;
 
-      // 2. Build composed SVG: overlay background + scaled source.svg content
-      const scale = spec.scale ?? 0.8;
-      const sw = Math.round(spec.width * scale);
-      const sh = Math.round(spec.height * scale);
-      const sx = spec.center
-        ? Math.round((spec.width - sw) / 2)
-        : Math.round(spec.width * 0.05);
-      const sy = spec.center
-        ? Math.round((spec.height - sh) / 2)
-        : Math.round(spec.height * 0.05);
-
-      // Render source content ON TOP of overlay
-      const composed = overlay.replace(
-        "</svg>",
-        `\n  <g transform="translate(${sx},${sy}) scale(${scale})">${innerSvg}</g>\n</svg>`,
-      );
-      // Also add a subtle pattern for depth
-      // finalSvg unused — decorative circle removed to fix lint `\n  <circle cx="${spec.width/2}" cy="${spec.height/2}" r="${Math.min(spec.width,spec.height)*0.3}" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>\n</svg>`);
+      const composed =
+        buildBackground(spec) +
+        `\n  <g color="${spec.ink}" transform="translate(${sx.toFixed(2)} ${sy.toFixed(2)}) scale(${scale.toFixed(4)})">${innerSvg}</g>\n` +
+        buildFooter(spec) +
+        `\n</svg>`;
       writeFileSync(compPath, composed);
 
-      // 3. Render via rsvg-convert
       execSync(
         `rsvg-convert -w ${spec.width} -h ${spec.height} -o "${outPath}" "${compPath}"`,
         { stdio: "pipe", timeout: 10000 },
       );
 
-      // 4. Verify
       const sz = statSync(outPath).size;
-      if (sz < spec.minBytes / 2) {
+      if (sz < spec.minBytes) {
         console.log(`  ⚠️  ${scene}: ${sz}B (below ${spec.minBytes}B)`);
         warn++;
       } else {
@@ -228,7 +177,7 @@ function main() {
       err++;
     } finally {
       try {
-        execSync(`rm -f "${overlayPath}" "${compPath}"`);
+        execSync(`rm -f "${compPath}"`);
       } catch {}
     }
   }
