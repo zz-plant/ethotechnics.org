@@ -1,6 +1,6 @@
 import type { APIContext } from "astro";
 
-const redirectPath = "/favicon.svg";
+const redirectPath = "/apple-touch-icon.png";
 
 export function GET({ request }: APIContext) {
   const url = new URL(request.url);
