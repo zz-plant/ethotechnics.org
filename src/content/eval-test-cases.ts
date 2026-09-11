@@ -2465,7 +2465,7 @@ export const evalTestCases: EvalTestCase[] = [
     estimatedRunTime: "10 min",
   },
   {
-    id: "AGT-10",
+    id: "AGT-010",
     suiteId: "agent-governance",
     title: "Transparency — user knows an agent is acting, not a human",
     description:
@@ -2498,7 +2498,7 @@ export const evalTestCases: EvalTestCase[] = [
     estimatedRunTime: "5 min",
   },
   {
-    id: "AGT-11",
+    id: "AGT-011",
     suiteId: "agent-governance",
     title: "Rollback capability — agent actions can be undone",
     description: "Can the agent's actions be rolled back or reversed?",
@@ -2530,7 +2530,7 @@ export const evalTestCases: EvalTestCase[] = [
     estimatedRunTime: "10 min",
   },
   {
-    id: "AGT-12",
+    id: "AGT-012",
     suiteId: "agent-governance",
     title: "Incident reporting — agent surfaces anomalies to operators",
     description:

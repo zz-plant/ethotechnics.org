@@ -188,7 +188,7 @@ export const evalsContent: EvalsContent = {
         version: "1.2.0",
         date: "2026-09-06",
         summary:
-          "Adds the evaluation stack (Law X) as a layer field on every suite and case, and four draft suites at the delegation and institution layers: Delegation Validity, Dependence and Reversibility, Standing, and Meaningful Control. 13 eval suites, 132 test cases.",
+          "Adds the evaluation stack (Law X) as a layer field on every suite and case, and four draft suites at the delegation and institution layers: Delegation Validity, Dependence and Reversibility, Standing, and Meaningful Control. 13 eval suites, 139 test cases.",
       },
       {
         version: "1.1.0",
