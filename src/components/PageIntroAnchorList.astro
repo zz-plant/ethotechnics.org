@@ -1,0 +1,23 @@
+---
+import type { AnchorLink } from "./PageIntro.astro";
+
+interface Props {
+  links: AnchorLink[];
+  className?: string;
+}
+
+const { links, className } = Astro.props;
+---
+
+<ul class={className}>
+  {
+    links.map((link, index) => (
+      <li>
+        <a href={link.href} class="pill pill--ghost">
+          <span class="page-intro__anchor-index">{index + 1}</span>
+          <span>{link.label}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

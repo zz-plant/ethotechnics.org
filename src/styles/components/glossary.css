@@ -90,8 +90,10 @@
   }
 
   .glossary-filter input[type="search"]:focus-visible {
-    outline: 2px solid var(--color-foreground);
-    outline-offset: 2px;
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-color: var(--accent);
+    box-shadow: var(--focus-ring);
   }
 
   .glossary-filter__select {
@@ -104,8 +106,10 @@
   }
 
   .glossary-filter__select:focus-visible {
-    outline: 2px solid var(--color-foreground);
-    outline-offset: 2px;
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-color: var(--accent);
+    box-shadow: var(--focus-ring);
   }
 
   .glossary-filter__hint {

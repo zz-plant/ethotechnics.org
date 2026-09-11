@@ -49,7 +49,10 @@ const sectionClass = [
       {
         id ? (
           <a class="section__anchor" href={`#${id}`}>
-            {title}
+            <span>{title}</span>
+            <span class="section__anchor-icon" aria-hidden="true">
+              #
+            </span>
           </a>
         ) : (
           title

@@ -62,9 +62,11 @@
     color: inherit;
   }
 
-  .pattern-filter__search-input:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+  .pattern-filter__search-input:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-color: var(--accent);
+    box-shadow: var(--focus-ring);
   }
 
   .pattern-filter__saved {
@@ -452,6 +454,7 @@
   .pattern-drawer::backdrop {
     background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
   .pattern-drawer__content {

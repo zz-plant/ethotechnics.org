@@ -91,7 +91,7 @@
     }
   }
 
-  @container (max-width: 900px) {
+  @container (max-width: 899px) {
     .hero {
       padding: clamp(1.6rem, 5vw, 2rem);
     }
@@ -495,6 +495,18 @@
     width: 100%;
     display: block;
     mix-blend-mode: multiply;
+  }
+
+  :root.dark .hero__media img,
+  :root.dark .illustration__frame img {
+    mix-blend-mode: normal;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) .hero__media img,
+    :root:not(.light) .illustration__frame img {
+      mix-blend-mode: normal;
+    }
   }
 
   .illustration__halo {
