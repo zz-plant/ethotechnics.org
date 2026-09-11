@@ -42,6 +42,7 @@ const PUBLISHED_TOTALS = {
   "1.0.0": { suites: 8, cases: 89 },
   "1.1.0": { suites: 9, cases: 95 },
   "1.2.0": { suites: 13, cases: 139 },
+  "1.3.0": { suites: 13, cases: 140 },
 };
 
 const casesFor = (suiteId: EvalSuiteId) =>
@@ -49,13 +50,17 @@ const casesFor = (suiteId: EvalSuiteId) =>
 
 describe("eval suite catalogue", () => {
   it("has exactly the suites and cases the changelog publishes", () => {
-    expect(evalsContent.suites).toHaveLength(PUBLISHED_TOTALS["1.2.0"].suites);
-    expect(evalTestCases).toHaveLength(PUBLISHED_TOTALS["1.2.0"].cases);
+    expect(evalsContent.suites).toHaveLength(PUBLISHED_TOTALS["1.3.0"].suites);
+    expect(evalTestCases).toHaveLength(PUBLISHED_TOTALS["1.3.0"].cases);
   });
 
   it("has the published stable/draft split", () => {
-    expect(evalsContent.suites.filter((s) => s.status === "stable")).toHaveLength(8);
-    expect(evalsContent.suites.filter((s) => s.status === "draft")).toHaveLength(5);
+    expect(
+      evalsContent.suites.filter((s) => s.status === "stable"),
+    ).toHaveLength(8);
+    expect(
+      evalsContent.suites.filter((s) => s.status === "draft"),
+    ).toHaveLength(5);
   });
 
   it("gives every suite and case a unique id", () => {
@@ -89,7 +94,11 @@ describe("eval suite catalogue", () => {
           expect(tc.id, `case in ${suite.id} has a malformed id`).toMatch(ID);
           return tc.id;
         })
-        .sort((a, b) => Number(a.slice(prefix.length + 1)) - Number(b.slice(prefix.length + 1)));
+        .sort(
+          (a, b) =>
+            Number(a.slice(prefix.length + 1)) -
+            Number(b.slice(prefix.length + 1)),
+        );
       expect(cases[0], `suite ${suite.id} must start at -001`).toBe(
         `${prefix}-001`,
       );
@@ -110,13 +119,13 @@ describe("eval suite catalogue", () => {
       ).toContain(suite.layer);
     }
     for (const tc of evalTestCases) {
-      expect(
-        STACK_LAYERS,
-        `case ${tc.id} names an unknown layer`,
-      ).toContain(tc.layer);
-      expect(tc.layer, `case ${tc.id} claims the unoccupied model layer`).not.toBe(
-        "model",
+      expect(STACK_LAYERS, `case ${tc.id} names an unknown layer`).toContain(
+        tc.layer,
       );
+      expect(
+        tc.layer,
+        `case ${tc.id} claims the unoccupied model layer`,
+      ).not.toBe("model");
     }
     expect(evalsContent.suites.filter((s) => s.layer === "model")).toHaveLength(
       0,
@@ -132,10 +141,9 @@ describe("eval suite catalogue", () => {
         ["critical", "high", "medium", "low"],
         `case ${tc.id} has a bad severity`,
       ).toContain(tc.severity);
-      expect(
-        VALID_SCALES,
-        `case ${tc.id} has a bad scoring scale`,
-      ).toContain(tc.scoringRubric.scale);
+      expect(VALID_SCALES, `case ${tc.id} has a bad scoring scale`).toContain(
+        tc.scoringRubric.scale,
+      );
       expect(tc.scoringRubric.anchors.length).toBeGreaterThan(1);
     }
   });
@@ -158,10 +166,14 @@ describe("machine-answerable coverage", () => {
   it("implements every Tier 1 check as a real case in the suite it names", () => {
     for (const check of tier1Checks) {
       const tc = evalTestCases.find((c) => c.id === check.id);
-      expect(tc, `Tier 1 check ${check.id} is not a published test case`).toBeDefined();
-      expect(tc?.suiteId, `Tier 1 check ${check.id} sits in the wrong suite`).toBe(
-        check.suiteId,
-      );
+      expect(
+        tc,
+        `Tier 1 check ${check.id} is not a published test case`,
+      ).toBeDefined();
+      expect(
+        tc?.suiteId,
+        `Tier 1 check ${check.id} sits in the wrong suite`,
+      ).toBe(check.suiteId);
     }
   });
 

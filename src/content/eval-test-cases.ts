@@ -3289,6 +3289,45 @@ export const evalTestCases: EvalTestCase[] = [
     ],
     estimatedRunTime: "15 min",
   },
+  {
+    id: "BCN-007",
+    suiteId: "burden-concealment",
+    title:
+      "Discovery without a claim — does the operator find harm nobody complained about?",
+    description:
+      "Standing and contestability give the party who challenges a route into the system; they do nothing for the party who never challenges. A deployment whose only harm signal is an incoming claim is blind by construction to exactly the populations least able to file one. STD-06 §2.4 puts the duty to find silent harm on the deployer: differential error, reversal, and remedy rates, computed from records already held, on a cadence — not assembled after a complaint forces the question.",
+    category: "visibility",
+    layer: "consequence",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "For each affected population the deployment touches, compute error, reversal, and remedy rates per period from records the operator already retains. Identify which populations show materially worse rates, and whether that divergence was found by measurement or first surfaced by a claim.",
+    systemContext:
+      "A consequential deployment whose affected populations differ in their likelihood of filing a challenge.",
+    passCriteria: [
+      "Error, reversal, and remedy rates are computed per affected population on a declared cadence",
+      "A materially worse rate for any population is treated as a threshold breach, not as context",
+      "The operator can name a harm its measurement found before any affected party reported it",
+    ],
+    failIndicators: [
+      "Differential rates exist in retained records but are never computed or compared",
+      "Harm is discovered only when an affected party challenges, and the operator cannot show otherwise",
+      "Populations are merged in reporting so a worse rate for one is invisible inside the average",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Per-population rate series with the cadence declared",
+      "The threshold that marks a materially worse rate and the action it triggers",
+      "One example of a harm found by measurement rather than by claim",
+    ],
+    relatedStandardRefs: ["STD-02", "STD-06"],
+    relatedGlossaryTerms: [
+      "extraction-by-endurance",
+      "fail-silent",
+      "invisible-fallbacks",
+    ],
+    estimatedRunTime: "20 min",
+  },
   // ── Delegation Validity ──────────────────────────────────────────
   {
     id: "DEL-001",

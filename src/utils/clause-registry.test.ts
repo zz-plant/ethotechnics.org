@@ -44,7 +44,7 @@ describe("the clause registry against the normative documents", () => {
     });
     const std06 = compareRegistryToDocument("STD-06", bodyFor("STD-06"));
     expect(std06.registryOnly).toEqual([]);
-    expect(std06.documentOnly).toHaveLength(11);
+    expect(std06.documentOnly).toHaveLength(12);
     expect(std06.matches).toBe(false);
   });
 

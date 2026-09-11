@@ -1,0 +1,535 @@
+---
+title: "STD-09 — Agent Chains"
+description: "The terms a chain of delegations must satisfy when a consequential decision is produced by sub-contracted agents and services that no single human oversees: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop."
+permalink: "/standards/std-09-agent-chains"
+eyebrow: "Standard"
+seoTitle: "STD-09 — Agent Chains"
+version: "0.1"
+publishedTime: "2026-09-11T00:00:00.000Z"
+mainClass: "page page--wide standard-document"
+anchorLinks:
+  - href: "#relationship"
+    label: "Relationship to STD-07 and STD-08"
+  - href: "#scope"
+    label: "Scope"
+  - href: "#objects"
+    label: "Objects this standard uses"
+  - href: "#part-a"
+    label: "Part A: The chain is a delegation"
+  - href: "#part-b"
+    label: "Part B: Composed latency"
+  - href: "#part-c"
+    label: "Part C: Counterparty answerability"
+  - href: "#part-d"
+    label: "Part D: Chain correction capacity"
+  - href: "#anti-patterns"
+    label: "Anti-patterns"
+---
+
+import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+
+export const reliedOnClauses = [
+  {
+    clause: "STD-07 §2.2",
+    holds:
+      "Every authorization records scope, holder, grantor, mode, ceiling, expiry, and revocation conditions.",
+    used: "Part A requires each hop of a chain to be a full authorization record, not an internal call.",
+  },
+  {
+    clause: "STD-08 §1.1",
+    holds:
+      "Renewal burden rises with the duration and consequence of the grant.",
+    used: "Part D applies the renewal burden to the chain as composed, not to each hop in isolation.",
+  },
+  {
+    clause: "STD-08 §3.2",
+    holds: "Mode confirm requires an intervention specification.",
+    used: "Part B resolves the chain-boundary confirm mode into one intervention that reaches every hop.",
+  },
+  {
+    clause: "STD-08 §4.6",
+    holds:
+      "No single provider may be necessary both to execute a consequential process and to evaluate it.",
+    used: "Part C carries the separation of execution from evaluation across the chain boundary.",
+  },
+  {
+    clause: "STD-08 Part D",
+    holds:
+      "Correction capacity is stated alongside scope and re-checked whenever scope changes.",
+    used: "Part D records capacity at chain level as the weakest hop rather than the head grant's.",
+  },
+  {
+    clause: "STD-06 §5.1",
+    holds: "The safety case carries a dependency record for the deployment.",
+    used: "Part D names chain counterparties as dependents and substitution constraints.",
+  },
+];
+
+export const objects = [
+  {
+    object: "authority-grant",
+    fields:
+      "chain, grantee, issuing_authority, liability, mode, state_history, until, correction_capacity, intervention_ref",
+    part: "A, B, D",
+  },
+  {
+    object: "decision-record",
+    fields: "grant_ref, action, issued_at, latency evidence",
+    part: "B",
+  },
+  {
+    object: "intervention-spec",
+    fields:
+      "owner, actions_preventable, states_alterable, reach_time_target, cost_to_exercise",
+    part: "B, C",
+  },
+  {
+    object: "dependency-record",
+    fields: "dependents, substitution_cost, correction_latency, reversibility",
+    part: "D, with STD-06",
+  },
+];
+
+export const antiPatterns = [
+  {
+    title: "The subcontracted deny",
+    failure:
+      "An institution buys an outcome from a vendor whose product is itself a chain of agents and services. No grant record exists at any hop, so when the chain denies, delays, or degrades someone, there is nothing to challenge, pause, or attribute.",
+    counterfactual:
+      "The head grant enumerates the chain, and every hop resolves to an authorization record with a mode and revocation conditions.",
+    warning:
+      "A vendor's architectural diagram is not a chain record; the enumeration must resolve to grant ids.",
+  },
+  {
+    title: "Per-hop pause theater",
+    failure:
+      "Each hop exposes a stop control, and each control works. The composed process never stops, because downstream hops re-trigger the stopped one or continue on stale input.",
+    counterfactual:
+      "One intervention at the chain boundary halts every hop, and a halt receipt covers the chain, not a segment.",
+    warning:
+      "A chain that re-converges after an interruption is a chain that was never stopped.",
+  },
+  {
+    title: "Latency laundering",
+    failure:
+      "Each hop promises a fast review, so every hop's clock looks compliant, and no one owes a human window. The composed latency has consumed the time a person would have needed.",
+    counterfactual:
+      "The composed window is measured from decision records, and a chain that leaves no human window cannot run unattended.",
+    warning:
+      "Parallel claims about latency must be checked against whether the hops actually run in series.",
+  },
+  {
+    title: "The counterparty that changed",
+    failure:
+      "A hop's provider swaps the model behind an unchanged interface. The chain's behavior shifts while every grant record still reads as it did at issue, and no transition is recorded anywhere.",
+    counterfactual:
+      "A material change at a counterparty is a chain event: it moves the head grant to review_required until capacity is re-checked.",
+    warning:
+      "Interface stability is not behavior stability; the standard binds to the behavior the evidence basis describes.",
+  },
+];
+
+export const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://ethotechnics.org/standards/std-09-agent-chains",
+  headline: "STD-09 — Agent Chains",
+  description:
+    "The terms a chain of delegations must satisfy: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop.",
+  url: "https://ethotechnics.org/standards/std-09-agent-chains",
+  datePublished: "2026-09-11",
+  dateModified: "2026-09-11",
+  version: "0.1",
+  identifier: "STD-09",
+  publisher: {
+    "@type": "Organization",
+    name: "Institute of Ethotechnics",
+    url: "https://ethotechnics.org",
+  },
+  isPartOf: {
+    "@type": "CollectionPage",
+    name: "Standards — Ethotechnics Institute",
+    url: "https://ethotechnics.org/standards",
+  },
+};
+
+<StandardStatusSummary slug="std-09-agent-chains" />
+
+<article class="standard-document">
+  <header class="standard-header">
+    <div>
+      <p class="standard-header__id">STANDARD STD-09</p>
+      <h2 class="standard-header__title">Agent Chains</h2>
+    </div>
+    <dl class="standard-header__meta">
+      <div>
+        <dt>Document ID</dt>
+        <dd>STD-09</dd>
+      </div>
+      <div>
+        <dt>Version</dt>
+        <dd>0.1 (Working draft)</dd>
+      </div>
+      <div>
+        <dt>Effective Date</dt>
+        <dd>TBD (proposed 2026)</dd>
+      </div>
+      <div>
+        <dt>Authority</dt>
+        <dd>The Institute of Ethotechnics</dd>
+      </div>
+    </dl>
+  </header>
+
+  <div class="standard-body">
+    <div class="standard-main">
+      <section id="relationship" class="standard-section">
+        <h2>Relationship to STD-07 and STD-08</h2>
+        <p>
+          <a href="/standards/std-07-revisable-delegation-record">STD-07</a>{" "}
+          defines the record format and{" "}
+          <a href="/standards/std-08-delegation">STD-08</a> the terms of a
+          delegation while it stands. Both govern one delegation at a time.
+          This standard governs what happens when a consequential decision is
+          produced by a chain of them: an agent that sub-contracts to another
+          agent, a service that calls a service, a model whose output is a
+          second model's input, across a boundary no single human can see
+          past in the time the decision takes.
+        </p>
+        <p>
+          The claim of this standard is narrow. The unit of governance is
+          still the consequential decision and the delegation that produced
+          it. What changes is that the delegation is the chain, not any one
+          hop: a chain that cannot be enumerated, paused, and attributed is
+          one delegation with no holder, and it is governed as the hazard it
+          is. STD-09 does not restate STD-07 or STD-08. Where their clauses
+          already bind, this standard cites them and adds only what the
+          composition opens.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Clause relied on</th>
+              <th scope="col">What it already binds</th>
+              <th scope="col">How STD-09 uses it</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reliedOnClauses.map((entry) => (
+              <tr>
+                <td>
+                  <code>{entry.clause}</code>
+                </td>
+                <td>{entry.holds}</td>
+                <td>{entry.used}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="scope" class="standard-section">
+        <h2>Scope</h2>
+        <p>
+          This standard applies whenever a consequential decision is produced
+          by two or more delegations in sequence, across components,
+          providers, or institutions, such that no single human oversees the
+          whole chain at the moment the decision is made. It is
+          substrate-neutral: it does not depend on the hops being agents, and
+          it binds a chain of rules engines exactly as it binds a chain of
+          models.
+        </p>
+        <p>
+          The fiction this standard refuses is the human in the middle of a
+          millisecond chain. Law IX already holds that a human who cannot
+          alter the trajectory is not a control, and Law X holds that the
+          relevant eval sits at the highest layer where harm can emerge. For
+          a chain, the highest layer is the chain itself: each hop can be
+          conformant and the composition still be unauditable, unstoppable
+          in practice, and attributed to no one. The four parts below bind
+          Laws I, II, IV, IX, and XI at that layer.
+        </p>
+      </section>
+
+      <section id="objects" class="standard-section">
+        <h2>Objects this standard uses</h2>
+        <p>
+          No new object is introduced in this draft. The chain is carried on
+          the authority grant's <code>chain</code> field, named as text here
+          pending publication of the schema change. An institution that keeps
+          the same information in a spreadsheet conforms if it can export the
+          named fields.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Object</th>
+              <th scope="col">Fields used</th>
+              <th scope="col">Part</th>
+            </tr>
+          </thead>
+          <tbody>
+            {objects.map((entry) => (
+              <tr>
+                <td>
+                  <code>{entry.object}</code>
+                </td>
+                <td>
+                  <code>{entry.fields}</code>
+                </td>
+                <td>{entry.part}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="part-a" class="standard-section">
+        <h2>Part A: The chain is a delegation (Laws I, II)</h2>
+        <p class="standard-article-quote">
+          "A decision with two authors and no holder is not shared authority.
+          It is orphaned authority."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§1.1</span>
+            The chain is enumerated: The head grant of a chain carries, in its
+            <code>chain</code> field, the grant id of every delegation that
+            contributes to the decisions it authorizes, in execution order,
+            each resolving to a full authority grant record. A decision whose
+            chain cannot be enumerated MUST NOT run unattended. Capability
+            that arrives through a hop nobody granted is exactly the
+            capability-outruns-authority failure of Law I, one boundary
+            away.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.2</span>
+            Every hop is a full delegation: Each contributing delegation is
+            itself a grant under STD-07 §2.2, with its own scope, mode,
+            expiry, and revocation conditions. A hop with no revocation
+            conditions is a transfer, and a chain containing a transfer is a
+            transfer: the head grant is recorded and governed as one.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.3</span>
+            Liability terminates at the head: The chain terminates in one
+            issuing authority and one liability record. Sub-contracting does
+            not diffuse liability; the party named on the head grant's
+            <code>liability</code> object answers for the latency and errors
+            of every hop, including those it did not build, and a
+            counterparty's acceptance of liability downstream is recorded as
+            evidence and never as a substitute.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.4</span>
+            Expansion of a hop is a chain event: Widening a hop's scope,
+            replacing a hop's provider, or adding a hop moves the head grant
+            to <code>review_required</code> until the chain-level checks of
+            Parts B and D are re-run. Law XI's rule that success is not the
+            default reward for expansion applies one boundary further out
+            than the hop whose numbers improved.
+          </li>
+        </ol>
+      </section>
+
+      <section id="part-b" class="standard-section">
+        <h2>Part B: Composed latency (Law IX)</h2>
+        <p class="standard-article-quote">
+          "The time a human has is what the chain has left them."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§2.1</span>
+            The intervention window is composed: The time a human has to act
+            on a chain decision is the intervention window at the boundary
+            minus the latency already consumed by the hops upstream of the
+            intervention point, measured from decision records rather than
+            nominal per-hop promises. Hops that run in series compose
+            additively, and a chain MUST NOT present per-hop clocks as if
+            they ran in parallel.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.2</span>
+            The unattended ceiling: A chain whose composed latency leaves no
+            measured human window MUST NOT run mode unattended. It runs
+            confirm at the chain boundary, or it is narrowed until a window
+            exists. This is the STD-08 §3.2 rule applied at the layer where
+            the time actually disappears.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.3</span>
+            Pause the chain, not a hop: The chain boundary carries one
+            intervention specification, and exercising it halts every hop. A
+            stop that ends one hop while downstream hops continue on its
+            output is not a stop, and a halt receipt is issued for the chain
+            rather than for a segment.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.4</span>
+            Measured, not nominal: Hop latencies are measured from decision
+            records on a cadence, and the composed window is recomputed
+            whenever any hop's measured latency changes materially. A
+            composed window stated at issue time and never re-measured is a
+            claim about a system that no longer exists.
+          </li>
+        </ol>
+      </section>
+
+      <section id="part-c" class="standard-section">
+        <h2>Part C: Counterparty answerability (Laws III, IV)</h2>
+        <p class="standard-article-quote">
+          "A hop you cannot question is a decision you did not make."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§3.1</span>
+            Every hop names its counterparty: For each hop, the head
+            institution can name the counterparty, the grant under which the
+            hop runs, and where that counterparty's correction capacity is
+            recorded. A hop taken through an interface that does not expose
+            them is recorded as unauditable, and an unauditable hop MUST NOT
+            carry a consequential action class.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.2</span>
+            Execution and evaluation stay separated across the boundary:
+            STD-08 §4.6 applies per hop and at chain level. No single
+            provider may be necessary both to execute a hop and to evaluate
+            the chain's outcomes, because a chain that grades itself has no
+            detection component wherever its evaluator sits.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.3</span>
+            Answerable within the reversal clock: Each counterparty MUST be
+            able to answer a challenge about its own hop within the chain's
+            reversal clock. A counterparty that cannot is recorded as such,
+            and the head institution either narrows the chain until it can or
+            accepts the answerability gap on its own liability record, where
+            the people harmed by it can read it.
+          </li>
+        </ol>
+      </section>
+
+      <section id="part-d" class="standard-section">
+        <h2>Part D: Chain correction capacity (Law IV)</h2>
+        <p class="standard-article-quote">
+          "The chain can be corrected no faster than its slowest correction."
+        </p>
+        <ol class="standard-clauses">
+          <li>
+            <span class="standard-clause-id">§4.1</span>
+            Weakest link: Correction capacity for the chain is the minimum
+            across its hops of the seven components STD-08 §4.1 requires, and
+            it is recorded at chain level on the head grant rather than
+            inferred from the head institution's own capacity. Capacity the
+            head institution holds does not reach through a counterparty it
+            cannot direct.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.2</span>
+            Scope at chain level: The chain's scope is what the composition
+            can actually produce, including what hops produce together that
+            none produces alone. It is neither the intersection nor the union
+            of hop scopes, and the head grant's declared scope MUST bound it:
+            an effect the head grant does not authorize is outside the chain
+            no matter which hop produced it.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.3</span>
+            Composition changes are expansion decisions: Adding, replacing,
+            widening, or re-ordering a hop is an authorization decision for
+            the chain under STD-08 §1.3, with its own evidence and its own
+            capacity check. The renewal burden of Law II rises with the
+            chain's composed duration and consequence, not with any single
+            hop's.
+          </li>
+          <li>
+            <span class="standard-clause-id">§4.4</span>
+            Dependence names the counterparties: The deployment's dependency
+            record under STD-06 §5.1 records chain counterparties among its
+            dependents and substitution constraints, with correction latency
+            measured for the chain. A chain whose withdrawal requires
+            negotiating with a provider who benefits from its continuation is
+            institutionally reversible only on paper.
+          </li>
+        </ol>
+      </section>
+
+      <section id="anti-patterns" class="standard-section">
+        <h2>Anti-patterns and counterfactuals</h2>
+        <p>
+          Use these to detect chains whose hops satisfy STD-07 and STD-08
+          while the composition satisfies nothing.
+        </p>
+        <ul class="standard-clauses">
+          {antiPatterns.map((pattern) => (
+            <li>
+              <strong>{pattern.title}:</strong> {pattern.failure}
+              <br />
+              <span class="muted">
+                Counterfactual: {pattern.counterfactual}
+              </span>
+              <br />
+              <span class="muted">
+                False-positive warning: {pattern.warning}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section id="publication-history" class="standard-section">
+        <h2>Publication history</h2>
+        <ul>
+          <li>
+            <strong>v0.1 (2026-09-11):</strong> Working draft. Adds the chain
+            as a delegation: enumerated hops on the head grant, liability
+            terminating at the head, composed latency with an unattended
+            ceiling and a boundary intervention, counterparty answerability
+            within the reversal clock, and chain correction capacity as the
+            weakest hop.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="standard-sidebar">
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">Related standards</p>
+        <ul>
+          <li>
+            <a href="/standards/std-08-delegation">STD-08: Delegation</a>
+          </li>
+          <li>
+            <a href="/standards/std-07-revisable-delegation-record">
+              STD-07: Revisable Delegation Record
+            </a>
+          </li>
+          <li>
+            <a href="/standards/std-06-human-impact-safety-case">
+              STD-06: Human Impact Safety Case
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="standard-sidebar__panel">
+        <p class="standard-sidebar__eyebrow">STD-09 references</p>
+        <ul>
+          <li>
+            <a href="/standards/laws">Laws for Engineering Delegated Intelligence</a>
+          </li>
+          <li>
+            <a href="/standards/core-axioms">Core axioms</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</article>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(structuredData, null, 2)}
+  is:inline
+/>

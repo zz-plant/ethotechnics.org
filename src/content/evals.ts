@@ -176,14 +176,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.2.0",
+    version: "1.3.0",
     license: {
       label: "CC BY 4.0",
       href: "https://creativecommons.org/licenses/by/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.2.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.3.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.3.0",
+        date: "2026-09-11",
+        summary:
+          "Adds BCN-007, discovery without a claim: per-population error, reversal, and remedy rates computed from records the operator retains, binding the burden-concealment suite to STD-06 §2.4. 13 eval suites, 140 test cases.",
+      },
       {
         version: "1.2.0",
         date: "2026-09-06",

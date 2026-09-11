@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "grant_id": "GRANT-2026-0142",
   "provenance": {
     "issued_by": "risk-governance-board",
@@ -114,6 +114,25 @@
       "note": "Narrowed: populations now exclude accounts flagged vulnerable; max_hold_days reduced from 14 to 7."
     }
   ],
+  "attestation": {
+    "signed_by": "key:risk-governance-board-2026h1",
+    "algorithm": "ed25519",
+    "signature": "MEUCIQD8sV3rN0kQ2Jm5Fh7tX1wLpA6yKb9cUe4SgTn2HvZ0dQIgLxO0Q7mWc3KpR8dN2fYj5bHs1aVvT6xCu9eEi4QnA7k=",
+    "signed_at": "2026-06-18T16:30:00Z",
+    "payload_digest": "sha256:9f2c41ba7e03d58c6a1f0b8e47d29c53a6b1e7d40f92c8a3b6d5e1c7f0a49b82"
+  },
+  "liability": {
+    "accepted_by": {
+      "name": "Meridian Retail Group",
+      "role": "Operating institution",
+      "contact": "legal@example.org"
+    },
+    "instrument": "Automated Decision Liability Instrument ADM-2026-02, accepted at grant issue and reaffirmed at REC-2026-0019",
+    "accepted_at": "2026-03-01T09:00:00Z",
+    "carve_outs": [
+      "Liability capped at USD 2,000,000 per incident under ADM-2026-02 §7; the cap is recorded so the residual risk above it is visible before an incident rather than argued after one."
+    ]
+  },
   "until": "2026-12-01T00:00:00Z",
   "renewal_basis": "A fresh backtest on the preceding quarter, the current dependency record, and a withdrawal rehearsal within the last 90 days.",
   "policy_refs": [
