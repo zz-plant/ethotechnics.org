@@ -1,6 +1,6 @@
 ---
 artifact_id: "BB-01"
-artifact_version: "1.0.0"
+artifact_version: "1.1.0"
 worksheet_id: ""
 timestamp: ""
 system_name: ""
@@ -49,8 +49,28 @@ system_name: ""
 - Owner:
 - Review cadence:
 
+## 11) Deployer-side cost of governability
+
+The mirror of sections 4–6: what the deploying institution pays to hold the burden
+it would otherwise transfer. A deployment whose denial economics only clear because
+contestation, reversal, and discovery are free to the operator is not efficient; it
+is subsidized by whoever cannot appeal.
+
+| Cost line                                                                        | Basis | Estimate (unit) | Measured or assumed |
+| -------------------------------------------------------------------------------- | ----- | --------------- | ------------------- |
+| Human baseline it replaces (the labor the automation displaces, priced honestly) |       |                 |                     |
+| Contestation capacity (staffing, clocks, remedy SLAs)                            |       |                 |                     |
+| Reversal capacity (safe-state fallbacks, rehearsals, downstream unwind)          |       |                 |                     |
+| Discovery duty (differential impact measurement, STD-06 §2.4)                    |       |                 |                     |
+| Burden-reduction duty (AW-01: measured burden implies allocated remediation)     |       |                 |                     |
+| Liability held (premium or reserve against the carve-outs recorded on the grant) |       |                 |                     |
+
+- Automation's claimed saving vs. the cost lines above:
+- Which cost lines, if unfunded, shift burden back onto sections 4–6:
+
 ## Assumptions
 
 ## Revision history
 
 - Version | Revision | Date | Summary
+- 1.1.0 | Added section 11, deployer-side cost of governability | 2026-09-11 | Prices the contestation, reversal, discovery, and liability costs a deployment must carry itself instead of transferring to affected parties.

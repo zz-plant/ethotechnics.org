@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ethotechnics.org/standards/authority-grant.schema.json",
   "title": "Authority Grant",
-  "description": "The Authority state variable, modeled as a lease on consequential action: which actions a grantee is currently permitted to perform, for whom, on what evidence, and until when. A grant is an explicit state transition, never a side effect of capability (Law I). It decays unless its justification is renewed (Law II) and becomes eligible for reconsideration when its evidence basis changes (Law III). Expansion of scope is a new authorization decision recorded in state_history (Law XI).",
+  "description": "The Authority state variable, modeled as a lease on consequential action: which actions a grantee is currently permitted to perform, for whom, on what evidence, and until when. A grant is an explicit state transition, never a side effect of capability (Law I). It decays unless its justification is renewed (Law II) and becomes eligible for reconsideration when its evidence basis changes (Law III). Expansion of scope is a new authorization decision recorded in state_history (Law XI). Every grant carries an attestation binding it to a named key holder and a liability record naming the party that answers for its latency and errors.",
   "type": "object",
   "required": [
     "schema_version",
@@ -20,6 +20,8 @@
     "revocation_conditions",
     "state",
     "state_history",
+    "attestation",
+    "liability",
     "correction_capacity"
   ],
   "additionalProperties": false,
@@ -335,6 +337,74 @@
         }
       }
     },
+    "attestation": {
+      "title": "Attestation",
+      "description": "The signature binding this grant record to a named key holder. Authority that cannot be attributed to a key holder is indistinguishable from authority nobody signed, which is how delegation becomes orphaned: capability exercises it and no one answers for it. signed_by names the key holder, not necessarily the accountable person; the accountable person is named in liability. A transition recorded after signed_at makes the attestation stale, and the grant is re-attested at renewal.",
+      "type": "object",
+      "required": ["signed_by", "algorithm", "signature", "signed_at"],
+      "additionalProperties": false,
+      "properties": {
+        "signed_by": {
+          "title": "Signed by",
+          "description": "Identifier of the key holder whose signature covers the grant record.",
+          "type": "string"
+        },
+        "algorithm": {
+          "title": "Algorithm",
+          "description": "The signature or hash algorithm used, for example ed25519 or sha256-with-rsa.",
+          "type": "string"
+        },
+        "signature": {
+          "title": "Signature",
+          "description": "The signature value itself, verifiable against the key named in signed_by.",
+          "type": "string"
+        },
+        "signed_at": {
+          "title": "Signed at",
+          "description": "When the signature was produced. A signature older than the last state transition covers a record that no longer exists.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "payload_digest": {
+          "title": "Payload digest",
+          "description": "Digest of the exact payload signed, so the signed content can be reproduced and checked.",
+          "type": "string"
+        }
+      }
+    },
+    "liability": {
+      "title": "Liability",
+      "description": "STD-01 §6.2: a system may not hide behind algorithmic error, and the operating institution accepts full liability for the latency and errors of its automated agents. This object names the party that has accepted that liability for actions under this grant and the instrument that binds them. Carve-outs are recorded on the record rather than assembled after an incident: a limitation the issuer knows about is priced before deployment, not discovered by the harmed party in a dispute.",
+      "type": "object",
+      "required": ["accepted_by", "instrument", "accepted_at"],
+      "additionalProperties": false,
+      "properties": {
+        "accepted_by": {
+          "title": "Accepted by",
+          "description": "The named party that accepts liability for actions taken under this grant.",
+          "$ref": "#/$defs/contact"
+        },
+        "instrument": {
+          "title": "Instrument",
+          "description": "The contract, policy, insurance instrument, or statutory basis under which the liability is accepted.",
+          "type": "string"
+        },
+        "accepted_at": {
+          "title": "Accepted at",
+          "description": "When the liability acceptance was recorded.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "carve_outs": {
+          "title": "Carve-outs",
+          "description": "Exclusions, caps, or conditions the accepting party claims against the liability. Recorded so the residual risk carried by everyone else is visible before an incident rather than argued after one.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "until": {
       "title": "Until",
       "description": "When the lease lapses: either a date-time or a plain-language condition. Absence of observed failure is not renewal.",
@@ -386,6 +456,14 @@
       "title": "Intervention reference",
       "description": "Identifier of the intervention spec that says who can halt, narrow, or revoke this grant.",
       "type": "string"
+    },
+    "chain": {
+      "title": "Delegation chain",
+      "description": "For a decision produced by a chain of delegations (STD-09 §1.1): the grant ids of every contributing delegation in execution order, carried on the head grant. Each id resolves to an authority grant record with its own mode, liability, and correction capacity. A chain whose members cannot be enumerated is a chain that cannot be paused, challenged, or attributed, and under STD-09 §2.2 it may not run unattended.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "capability_catalog_ref": {
       "title": "Capability catalog reference",

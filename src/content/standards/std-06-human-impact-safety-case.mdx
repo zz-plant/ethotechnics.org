@@ -4,9 +4,9 @@ description: "The tests, thresholds, evidence artifacts, and do-not-deploy bound
 permalink: "/standards/std-06-human-impact-safety-case"
 eyebrow: "Standard"
 seoTitle: "STD-06 — Human Impact Safety Case"
-version: "0.5"
+version: "0.6"
 publishedTime: "2026-03-01T00:00:00.000Z"
-modifiedTime: "2026-09-06T00:00:00.000Z"
+modifiedTime: "2026-09-11T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
   - href: "#scope"
@@ -82,6 +82,7 @@ export const battery = [
   "Contestability access audit, including the one-step test and the no-paywall test.",
   "Burden ceiling measurements with flow maps for the affected journey.",
   "Disclosure latency report with receipt delivery timestamps.",
+  "Silent-harm discovery: error, reversal, and remedy rates computed per affected population from records the operator already retains, without waiting for a challenge or claim.",
 ];
 
 export const structuredData = {
@@ -93,8 +94,8 @@ export const structuredData = {
     "Tests, thresholds, evidence artifacts, and do-not-deploy boundaries for a human impact safety case.",
   url: "https://ethotechnics.org/standards/std-06-human-impact-safety-case",
   datePublished: "2026-03-01",
-  dateModified: "2026-09-06",
-  version: "0.5",
+  dateModified: "2026-09-11",
+  version: "0.6",
   identifier: "STD-06",
   publisher: {
     "@type": "Organization",
@@ -123,7 +124,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.5 (Review draft)</dd>
+        <dd>0.6 (Review draft)</dd>
       </div>
       <div>
         <dt>Effective Date</dt>
@@ -235,6 +236,17 @@ export const structuredData = {
             <span class="standard-clause-id">§2.3</span>
             Measured, not attested: Time-to-halt and time-to-remedy are measured
             against a clock, not attested by the team that owns the control.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.4</span>
+            Discovery without a claim: The case measures error, reversal, and
+            remedy rates per affected population on a declared cadence, computed
+            from records the operator retains, and a materially worse rate for
+            any population is treated as a threshold breach under §2.2. The
+            duty to find silent harm rests on the deployer, not on the harmed
+            party's willingness or capacity to complain: standing under STD-02
+            gives those who challenge a route in, and this clause covers those
+            who never do.
           </li>
         </ol>
         <ul>
@@ -409,6 +421,12 @@ export const structuredData = {
       <section id="publication-history" class="standard-section">
         <h2>Publication history</h2>
         <ul>
+          <li>
+            <strong>v0.6 (2026-09-11):</strong> Adds §2.4, discovery without a
+            claim: error, reversal, and remedy rates measured per affected
+            population on a cadence, with a materially worse rate treated as a
+            threshold breach. Puts the duty to find silent harm on the deployer.
+          </li>
           <li>
             <strong>v0.5 (2026-09-06):</strong> First published page for the
             standard. Adds Article V, dependency and reversibility: the

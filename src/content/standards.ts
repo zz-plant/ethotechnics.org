@@ -256,10 +256,16 @@ export const standardsContent: StandardsContent = {
       description:
         "Standard tests, thresholds, and evidence artifacts that define a do-not-deploy safety case for human impact.",
       status: "Draft",
-      version: "0.5",
+      version: "0.6",
       changelogHref:
         "/standards/std-06-human-impact-safety-case#publication-history",
       changelogEntries: [
+        {
+          version: "0.6",
+          date: "2026-09-11",
+          summary:
+            "Adds §2.4, discovery without a claim: per-population error, reversal, and remedy rates measured on a cadence, with a materially worse rate treated as a threshold breach.",
+        },
         {
           version: "0.5",
           date: "2026-09-06",
@@ -328,6 +334,28 @@ export const standardsContent: StandardsContent = {
         "Requires two institutions operating grant and policy registers with recorded expansion decisions, and one intervention specification whose measured approval behavior produced a reconsideration.",
       effectiveDate: "TBD (proposed 2026)",
       published: "2026-09-06",
+    },
+    {
+      id: "STD-09",
+      slug: "std-09-agent-chains",
+      title: "Agent Chains",
+      description:
+        "The terms a chain of delegations must satisfy when a consequential decision is produced by sub-contracted agents and services that no single human oversees: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop.",
+      status: "Draft",
+      version: "0.1",
+      changelogHref: "/standards/std-09-agent-chains#publication-history",
+      changelogEntries: [
+        {
+          version: "0.1",
+          date: "2026-09-11",
+          summary:
+            "Working draft: enumerated hops on the head grant, liability terminating at the head, composed latency, counterparty answerability, and chain correction capacity as the weakest hop.",
+        },
+      ],
+      stableCriteria:
+        "Requires one recorded chain across two institutions with a measured composed-latency window, one boundary intervention halt receipt covering every hop, and one chain-level correction-capacity assessment.",
+      effectiveDate: "TBD (proposed 2026)",
+      published: "2026-09-11",
     },
   ],
   doctrine: [
