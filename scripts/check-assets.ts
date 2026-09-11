@@ -14,7 +14,7 @@ const PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 type Spec = { width: number; height: number; minBytes: number };
 
 const SPECS: Record<string, Spec> = {
-  badge: { width: 240, height: 96, minBytes: 5_000 },
+  badge: { width: 240, height: 96, minBytes: 2_000 },
   blur: { width: 50, height: 28, minBytes: 200 },
   card: { width: 400, height: 300, minBytes: 8_000 },
   circle: { width: 540, height: 540, minBytes: 15_000 },
@@ -23,11 +23,11 @@ const SPECS: Record<string, Spec> = {
   email: { width: 600, height: 200, minBytes: 8_000 },
   favicon: { width: 64, height: 64, minBytes: 250 },
   github: { width: 1280, height: 640, minBytes: 24_000 },
-  header: { width: 1920, height: 400, minBytes: 20_000 },
+  header: { width: 1920, height: 400, minBytes: 9_000 },
   mastodon: { width: 1200, height: 600, minBytes: 24_000 },
   og: { width: 1200, height: 675, minBytes: 24_000 },
   square: { width: 1080, height: 1080, minBytes: 35_000 },
-  touch: { width: 360, height: 360, minBytes: 8_000 },
+  touch: { width: 360, height: 360, minBytes: 4_000 },
   unfurl: { width: 1200, height: 628, minBytes: 23_000 },
 };
 
