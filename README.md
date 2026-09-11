@@ -22,7 +22,7 @@ lean, fast-loading pages and clear storytelling.
 ## What this publishes
 
 - **Standards.** Citable, versioned specifications with numbered clauses, from temporal rights and
-  contestability through the delegation record and STD-08 Delegation.
+  contestability through the delegation record, STD-08 Delegation, and STD-09 Agent Chains.
 - **Laws.** Twelve laws of delegated intelligence, each with the invariant the standards bind, at
   `/standards/laws`. The method that walks the chain and the six state variables is at `/method`.
 - **Mechanisms.** Operational blueprints for the controls the clauses call for: decision logs, kill
@@ -76,7 +76,7 @@ digital ethics, responsible innovation.
 
 ## Requirements
 
-- Node.js 20.x (use `nvm use` to match the pinned toolchain).
+- Node.js 22.x (use `nvm use` to match the pinned toolchain).
 - Bun 1.3+ (see `.nvmrc` for the Node version and `bun.lock` for dependencies).
 
 ## Contributor quick start

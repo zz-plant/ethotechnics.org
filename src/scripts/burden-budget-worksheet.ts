@@ -1,5 +1,5 @@
 const ARTIFACT_ID = "BB-01";
-const DEFAULT_VERSION = "1.0.0";
+const DEFAULT_VERSION = "1.1.0";
 const form = document.querySelector<HTMLFormElement>("[data-burden-form]");
 const exportStatus = document.querySelector<HTMLElement>(
   "[data-export-status]",
