@@ -14,11 +14,16 @@
       ],
       "contact": "research@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
-      "updated": "2026-01-09T00:00:00Z",
-      "version": "v1.1.0",
+      "updated": "2026-09-08T00:00:00Z",
+      "version": "v1.2.0",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/save/https://ethotechnics.org/glossary",
       "changelog": [
+        {
+          "version": "v1.2.0",
+          "date": "2026-09-08",
+          "summary": "Added The Non-Conversion Principle, Exit Cost, and Jurisdictional Path Dependence, each linked to the theory essay that argues for it."
+        },
         {
           "version": "v1.1.0",
           "date": "2026-01-09",
@@ -1464,6 +1469,55 @@
               "correction-capacity",
               "normalized-dependence"
             ]
+          },
+          {
+            "id": "jurisdictional-path-dependence",
+            "title": "Jurisdictional Path Dependence",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The condition in which the questions an institution asks about a system's scope, and the terms it asks them in, have come to track the system that answered the last one. The system's categories become the institution's categories; the cases it handles well become the typical cases and the rest become edge cases; a neighbouring class of decisions is described in the system's vocabulary before anyone asks whether the system should decide it.</p><p>It matters because it makes the <a href=\"/glossary/automation-ratchet\">automation ratchet</a> self-sustaining. Each widening produces evidence, in the incumbent's terms, that supports the next, and a review body that could reject an expansion evaluates it on criteria the incumbent supplied. The countermeasures are a record of the original jurisdiction kept outside the system, so current scope is compared with the first authorization rather than the previous step, and <a href=\"/glossary/evaluation-independence\">evaluation independence</a> with access to the cases the system classes as edge cases.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "The scope a grant was first authorized for is recorded outside the system and shown at every expansion review alongside the proposed scope.",
+              "Expansion reviews include evidence not produced by the system under review.",
+              "Cases the system classes as out of scope or exceptional are sampled and examined by someone the operator does not control."
+            ],
+            "genealogy": "Names the evidentiary form of the Law XI failure and the reason Law XII protects the capacities that let an institution ask a question in terms the incumbent did not supply.",
+            "references": [
+              {
+                "label": "Endogenous authorization",
+                "href": "/research/theory/endogenous-authorization",
+                "type": "Theory"
+              },
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-xi",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An expansion review that shows original jurisdiction, current jurisdiction, and the proposed widening together.",
+              "behavior": "An expansion refused on evidence the system under review did not produce.",
+              "metric": "Share of expansion decisions supported by at least one evidence source independent of the incumbent system."
+            },
+            "domains": ["patterns", "diagnostic"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["failure-mode", "expansion", "evidence"],
+            "adjacentTerms": [
+              "automation-ratchet",
+              "authority-drift",
+              "institutional-capture",
+              "expansion-decision",
+              "evaluation-independence",
+              "legitimacy-laundering"
+            ],
+            "termUpdated": "2026-09-08T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -4325,6 +4379,55 @@
               "moral-performance-indicators",
               "ethical-load-testing"
             ]
+          },
+          {
+            "id": "exit-cost",
+            "title": "Exit Cost",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>What it costs the dependent party to stop depending on a system: money, time, records that must be reconstructed, relationships that must be re-established, and access that is lost. Exit cost is measured from the side of the person or organization the system's decisions land on, which distinguishes it from <a href=\"/glossary/substitution-cost\">substitution cost</a>, the institution's own cost to replace the system. The two move independently; an institution can be free to replace a system its population cannot afford to leave.</p><p>It matters because a party who can leave at acceptable cost bears a system's errors only until they leave, and a party who cannot bears every error for as long as the system makes it. Exit cost therefore measures how much of the institution's correction capacity is the only correction there is, and how far the population's silence can be read as anything other than the silence of people with nowhere else to go. It is what turns a <a href=\"/glossary/right-of-exit\">right of exit</a> from a clause into a quantity, and it rises by drift where records accumulate in the system's format and alternatives are not maintained.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "Exit cost is estimated per affected population, not assumed from the existence of an exit clause.",
+              "The estimate is revisited at each renewal or expansion of the grant, and a rise is treated as a rise in what the institution owes.",
+              "Standing and reversal paths are scaled to measured exit cost rather than to complaint volume."
+            ],
+            "genealogy": "Names the instrument the theory essay on dependence running both ways uses to bound what an institution owes a population that cannot leave its system.",
+            "references": [
+              {
+                "label": "Dependence runs both ways",
+                "href": "/research/theory/dependence-runs-both-ways",
+                "type": "Theory"
+              },
+              {
+                "label": "Endogenous authorization",
+                "href": "/research/theory/endogenous-authorization",
+                "type": "Theory"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A per-population estimate of exit cost, with the components it was built from.",
+              "behavior": "A correction path widened because the exit cost estimate for its population rose.",
+              "metric": "Exit cost per affected population, tracked across grant renewals."
+            },
+            "domains": ["diagnostic", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "measures",
+            "tags": ["measure", "dependence", "exit"],
+            "adjacentTerms": [
+              "substitution-cost",
+              "right-of-exit",
+              "exit-coercion",
+              "error-bearing-party",
+              "institutional-reversibility",
+              "dependency-state"
+            ],
+            "termUpdated": "2026-09-08T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -8615,6 +8718,55 @@
               "human-refusal-tolerance",
               "governability"
             ]
+          },
+          {
+            "id": "non-conversion-principle",
+            "title": "The Non-Conversion Principle",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The rule that a fact about a system does not become a fact about its authority on its own. Capability, elapsed time without observed failure, and successful operation are evidence that a grant might be justified; none of them is a grant. Authority changes only through an explicit, recorded state transition, with the motivating fact attached as its basis.</p><p>It matters because the conversions it refuses are the ones institutions make by default: a tool is reachable so it is used, a system has been quiet so it stays, a pilot went well so the rollout is not a decision. Laws I, II, and XI are the instances that matter most for delegated intelligence, and each is enforced by holding capability, evidence, and authority in different objects rather than by a rule of conduct. The <a href=\"/glossary/authority-grant\">authority grant</a> and its state history are where a permitted conversion is written down.</p>",
+            "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
+            "operationalTests": [
+              "Capability records and authority records are held in separate objects, and the first cannot write to the second.",
+              "Every widening or renewal of a grant appears as a recorded transition with a stated basis.",
+              "A capability that is reachable but not granted is refused, and the refusal is checkable by a harness."
+            ],
+            "genealogy": "Names the shape shared by Laws I, II, and XI, and argued for in the theory essay on what does not convert.",
+            "references": [
+              {
+                "label": "What does not convert",
+                "href": "/research/theory/what-does-not-convert",
+                "type": "Theory"
+              },
+              {
+                "label": "Laws for engineering delegated intelligence",
+                "href": "/standards/laws#law-i",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A grant whose state history shows each expansion and renewal as a transition with a recorded basis.",
+              "behavior": "A reachable capability refused at execution because no grant covers it.",
+              "metric": "Share of grant widenings that occurred as recorded transitions rather than being discovered after the fact."
+            },
+            "domains": ["structural", "patterns"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "principles",
+            "tags": ["principle", "authority", "delegation"],
+            "adjacentTerms": [
+              "justified-delegation",
+              "authority-drift",
+              "automation-ratchet",
+              "expansion-decision",
+              "earned-autonomy",
+              "capability-overhang"
+            ],
+            "termUpdated": "2026-09-08T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       }

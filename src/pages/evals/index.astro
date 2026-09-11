@@ -7,6 +7,7 @@ import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import { evalsContent } from "../../content/evals";
 import { evalTestCases } from "../../content/eval-test-cases";
+import { tier1Checks } from "../../harness/checks";
 
 const {
   pageTitle,
@@ -84,6 +85,66 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         ))
       }
     </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="register"
+    eyebrow="Register"
+    title="Every suite, in one table"
+    description="Layer, how many cases it holds, and how many of those a machine can answer without a reviewer. The groups below explain each layer; this is for comparing suites."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack catalogue-table">
+        <thead>
+          <tr>
+            <th scope="col">Suite</th>
+            <th scope="col">Layer</th>
+            <th scope="col" class="catalogue-table__num">Cases</th>
+            <th scope="col" class="catalogue-table__num">Machine-answerable</th>
+            <th scope="col">Scoring</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            suites.map((suite) => {
+              const cases = evalTestCases.filter(
+                (tc) => tc.suiteId === suite.id,
+              );
+              const machine = tier1Checks.filter(
+                (c) => c.suiteId === suite.id,
+              ).length;
+              const layer = evaluationStack.layers.find(
+                (l) => l.id === suite.layer,
+              );
+              return (
+                <tr>
+                  <th scope="row">
+                    <a href={`/evals/${suite.slug}`}>{suite.title}</a>
+                  </th>
+                  <td data-label="Layer">{layer?.title ?? suite.layer}</td>
+                  <td data-label="Cases" class="catalogue-table__num">
+                    {cases.length}
+                  </td>
+                  <td
+                    data-label="Machine-answerable"
+                    class="catalogue-table__num"
+                  >
+                    {machine > 0 ? machine : "—"}
+                  </td>
+                  <td data-label="Scoring">
+                    {suite.scoringMethod.type.replace(/-/g, " ")}
+                    <span class="muted">
+                      {" "}
+                      · pass at {suite.scoringMethod.passingScore}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
   </SectionBlock>
 
   <SectionBlock

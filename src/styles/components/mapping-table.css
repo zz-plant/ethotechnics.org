@@ -20,8 +20,15 @@
      their wrapper. A comparison has two or three columns and never needed
      one; on /standards, which has no wrapper, it put the page itself into
      horizontal scroll between 720px and 760px. */
-  .mapping-table:not(.mapping-table--compare) {
+  .mapping-table:not(.mapping-table--compare, .mapping-table--stack) {
     min-width: 760px;
+  }
+
+  /* The stacked tables keep the floor only where they are still tables. */
+  @media (min-width: 720px) {
+    .mapping-table--stack {
+      min-width: 760px;
+    }
   }
 
   .mapping-table th,
@@ -118,6 +125,84 @@
 
     .mapping-table--compare tbody td[data-label]:last-child::before {
       color: var(--accent-strong);
+    }
+  }
+}
+
+/* The reference tables — laws grid, coverage matrix, clause register, the
+   three catalogue registers — all inherit the 760px scroll floor, and on a
+   phone that meant the laws grid showed its first column and hid the
+   invariant off-screen to the right: worse than the prose it replaced. Below
+   720px a stacked table becomes one card per row, each cell captioned by the
+   header it repeats, exactly as the comparison tables already did. */
+@layer components {
+  @media (max-width: 719.98px) {
+    .mapping-table--stack {
+      min-width: 0;
+      table-layout: auto;
+    }
+
+    .mapping-table--stack,
+    .mapping-table--stack tbody,
+    .mapping-table--stack tr,
+    .mapping-table--stack th,
+    .mapping-table--stack td {
+      display: block;
+      width: auto;
+    }
+
+    .mapping-table--stack thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .mapping-table--stack tbody tr {
+      margin-bottom: var(--space-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .mapping-table--stack tbody tr:nth-child(even) td {
+      background: transparent;
+    }
+
+    .mapping-table--stack tbody th,
+    .mapping-table--stack tbody td {
+      border: 0;
+      white-space: normal;
+      max-width: none;
+    }
+
+    .mapping-table--stack tbody th[scope="row"] {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mapping-table--stack tbody th + td,
+    .mapping-table--stack tbody td + td {
+      border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    }
+
+    .mapping-table--stack tbody td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 0.3rem;
+      font-family: var(--sans);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .mapping-table--stack .catalogue-table__num {
+      text-align: left;
     }
   }
 }

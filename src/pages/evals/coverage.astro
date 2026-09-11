@@ -13,14 +13,6 @@ const pageDescription =
 
 const ORDER: Coverage[] = ["both", "live-only", "emitted-only", "none"];
 
-const groups = ORDER.map((coverage) => ({
-  coverage,
-  label: COVERAGE_LABELS[coverage],
-  properties: checkableProperties.filter(
-    (property) => coverageOf(property) === coverage,
-  ),
-})).filter((group) => group.properties.length > 0);
-
 const counted = (coverage: Coverage) =>
   checkableProperties.filter((property) => coverageOf(property) === coverage)
     .length;
@@ -29,15 +21,6 @@ const probeCount = checkableProperties.reduce(
   (total, property) => total + property.probes.length,
   0,
 );
-
-const GROUP_NOTES: Record<Coverage, string> = {
-  both: "A live probe and a record probe both bear on the claim. These are the properties where an operator's own result and an outsider's reading of the records can disagree — which is the only configuration where either is worth much.",
-  "live-only":
-    "Checkable by whoever can run code against the system. A counterparty holding only records cannot verify these, so a vendor's own result is the only evidence there is.",
-  "emitted-only":
-    "Checkable by anyone holding a record stream, including people the operator did not choose. These are the claims that survive the operator losing interest.",
-  none: "Named, argued for, and not yet falsifiable here. Listing them next to the rest is the point: a framework that only publishes its checkable claims looks stronger than it is.",
-};
 ---
 
 <BaseLayout
@@ -67,51 +50,110 @@ const GROUP_NOTES: Record<Coverage, string> = {
     </p>
   </section>
 
-  {
-    groups.map((group) => (
-      <section class="stack-lg coverage-group">
-        <h2>
-          {group.label}{" "}
-          <span class="muted small">({group.properties.length})</span>
-        </h2>
-        <p class="muted">{GROUP_NOTES[group.coverage]}</p>
-        <div class="stack-lg">
-          {group.properties.map((property) => (
-            <article class="card" id={property.id}>
-              <h3>{property.title}</h3>
-              <p>{property.claim}</p>
-              {property.probes.length > 0 && (
-                <ul class="card__list">
-                  {property.probes.map((probe) => (
-                    <li>
-                      <strong>
-                        {probe.observes === "live"
-                          ? `Harness ${probe.id}`
-                          : `Records: ${probe.id}`}
-                      </strong>{" "}
-                      — {probe.what}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {property.gap && (
-                <p class="muted small">
-                  <strong>Unprobed:</strong> {property.gap}
-                </p>
-              )}
-              <p class="pill-list pill-list--wrap">
-                {property.laws.map((law) => (
-                  <a class="pill pill--ghost" href={`/standards/laws#${law}`}>
-                    {law.replace("law-", "Law ").toUpperCase()}
-                  </a>
-                ))}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
-    ))
-  }
+  <section
+    class="stack-md coverage-matrix"
+    aria-labelledby="coverage-matrix-title"
+  >
+    <h2 id="coverage-matrix-title">Every property, both sides</h2>
+    <p class="muted">
+      One row per claim. A filled cell is a probe that exists; an empty one is a
+      side nobody can check from. Rows with neither are shaded — they are the
+      framework's claims that are argued for and not yet falsifiable here.
+    </p>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack coverage-matrix__table">
+        <thead>
+          <tr>
+            <th scope="col">Property</th>
+            <th scope="col"
+              >Live probe<br /><span class="muted"
+                >against a running system</span
+              ></th
+            >
+            <th scope="col"
+              >Record probes<br /><span class="muted"
+                >from an emitted stream</span
+              ></th
+            >
+            <th scope="col">Laws</th>
+            <th scope="col">What the missing side would need</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            ORDER.flatMap((coverage) =>
+              checkableProperties
+                .filter((property) => coverageOf(property) === coverage)
+                .map((property) => {
+                  const live = property.probes.filter(
+                    (p) => p.observes === "live",
+                  );
+                  const emitted = property.probes.filter(
+                    (p) => p.observes === "emitted",
+                  );
+                  return (
+                    <tr id={property.id} data-coverage={coverage}>
+                      <th scope="row">
+                        <strong>{property.title}</strong>
+                        <span class="coverage-matrix__badge">
+                          {COVERAGE_LABELS[coverage]}
+                        </span>
+                      </th>
+                      <td data-label="Live probe">
+                        {live.length > 0 ? (
+                          live.map((probe) => (
+                            <div class="coverage-matrix__probe">
+                              <code>{probe.id}</code>
+                              <span class="coverage-matrix__probe-what">
+                                {probe.what}
+                              </span>
+                            </div>
+                          ))
+                        ) : (
+                          <span class="coverage-matrix__empty">none</span>
+                        )}
+                      </td>
+                      <td data-label="Record probes">
+                        {emitted.length > 0 ? (
+                          emitted.map((probe) => (
+                            <div class="coverage-matrix__probe">
+                              <code>{probe.id}</code>
+                              <span class="coverage-matrix__probe-what">
+                                {probe.what}
+                              </span>
+                            </div>
+                          ))
+                        ) : (
+                          <span class="coverage-matrix__empty">none</span>
+                        )}
+                      </td>
+                      <td data-label="Laws">
+                        <p class="pill-list pill-list--wrap">
+                          {property.laws.map((law) => (
+                            <a
+                              class="pill pill--ghost"
+                              href={`/standards/laws#${law}`}
+                            >
+                              {law.replace("law-", "").toUpperCase()}
+                            </a>
+                          ))}
+                        </p>
+                      </td>
+                      <td
+                        data-label="What the missing side would need"
+                        class="coverage-matrix__gap"
+                      >
+                        {property.gap ?? "—"}
+                      </td>
+                    </tr>
+                  );
+                }),
+            )
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <section class="stack-lg">
     <h2>Why this page exists</h2>

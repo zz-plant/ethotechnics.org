@@ -27,6 +27,8 @@ anchorLinks:
 ---
 
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+import PolicyValidityDiagram from "../../components/PolicyValidityDiagram.astro";
+import CorrectionSymmetryDiagram from "../../components/CorrectionSymmetryDiagram.astro";
 
 export const reliedOnClauses = [
   {
@@ -368,6 +370,7 @@ export const structuredData = {
         <p class="standard-article-quote">
           "Policy is a state of the system, not an input it consumed once."
         </p>
+        <PolicyValidityDiagram />
         <p>
           STD-07 §3.1 and §3.2 already require a record to say what it rests on
           and what would invalidate it. A grant that names its policies in
@@ -492,6 +495,7 @@ export const structuredData = {
           "Delegating the authority to act is delegating the capacity to be
           wrong at scale."
         </p>
+        <CorrectionSymmetryDiagram />
         <p>
           STD-07 §4.2 obliges an answer to an accepted objection within its
           clock. That is one component of correction and this standard relies on

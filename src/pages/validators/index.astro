@@ -162,6 +162,54 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
 
   <SectionBlock
+    id="register"
+    eyebrow="Register"
+    title="Every validator, in one table"
+    description="What it checks against, what you feed it, and which clauses and mechanisms it bears on."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--stack catalogue-table">
+        <thead>
+          <tr>
+            <th scope="col">Validator</th>
+            <th scope="col">Standard</th>
+            <th scope="col">Inputs</th>
+            <th scope="col">Clauses</th>
+            <th scope="col">Mechanisms</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            validators.map((validator) => (
+              <tr>
+                <th scope="row">
+                  <a href={`/validators/${validator.slug}`}>
+                    {validator.id} {validator.title}
+                  </a>
+                </th>
+                <td data-label="Standard">{validator.standardRef}</td>
+                <td data-label="Inputs">
+                  {validator.inputs.map((i) => i.label).join("; ")}
+                </td>
+                <td data-label="Clauses">
+                  {validator.clauseRefs.length
+                    ? validator.clauseRefs.join(", ")
+                    : "—"}
+                </td>
+                <td data-label="Mechanisms">
+                  {validator.mechanismRefs.length
+                    ? validator.mechanismRefs.join(", ")
+                    : "—"}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
     id="focus"
     eyebrow="Browse by focus"
     title="Pick the validator that matches your highest-risk touchpoint."
