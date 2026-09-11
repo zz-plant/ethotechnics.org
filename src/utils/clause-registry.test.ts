@@ -24,7 +24,7 @@ describe("the clause registry against the normative documents", () => {
   });
 
   it("matches the documents whose register is shown", () => {
-    for (const id of ["STD-01", "STD-07", "STD-08"]) {
+    for (const id of ["STD-01", "STD-06", "STD-07", "STD-08", "STD-09"]) {
       expect(compareRegistryToDocument(id, bodyFor(id))).toEqual({
         registryOnly: [],
         documentOnly: [],
@@ -34,18 +34,14 @@ describe("the clause registry against the normative documents", () => {
   });
 
   // Known drift, recorded so a reconciliation has to update this test and a
-  // new gap cannot appear silently. While these hold, neither standard shows
-  // a register and the catalogue counts from the document.
+  // new gap cannot appear silently. While this holds, STD-02 shows no
+  // register and the catalogue counts from the document.
   it("records where the registry and the document still disagree", () => {
     expect(compareRegistryToDocument("STD-02", bodyFor("STD-02"))).toEqual({
       registryOnly: ["§6.1", "§6.2", "§6.3", "§7.1", "§7.2", "§7.3"],
       documentOnly: [],
       matches: false,
     });
-    const std06 = compareRegistryToDocument("STD-06", bodyFor("STD-06"));
-    expect(std06.registryOnly).toEqual([]);
-    expect(std06.documentOnly).toHaveLength(12);
-    expect(std06.matches).toBe(false);
   });
 
   it("covers every standard with a registry", () => {

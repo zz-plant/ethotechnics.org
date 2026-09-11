@@ -3,7 +3,7 @@
   "id": "https://ethotechnics.org/standards/delegation-model-crosswalk.json",
   "title": "Delegation Model Crosswalk (STD-07 records to STD-08 objects)",
   "description": "A field-by-field mapping between the two object models the delegation standards publish. STD-07 (https://ethotechnics.org/api/schema/revisable-delegation-record.schema.json) models a delegation as an append-only stream of records, each with a kind and a kind-specific content block. STD-08 models the same delegation as a set of long-lived state objects: an authority grant, a capability catalog, a policy record, an intervention specification, and, where Part D §4.4 draws on the deployment, a dependency record. Neither model is derivable from the other by name alone, and STD-08 clauses cite STD-07 clauses, so this document states which field corresponds to which, where the semantics differ, and where one model has no counterpart at all. It is descriptive: it declares an existing correspondence, it does not require either side to change. Relations are read left to right, from the STD-07 field to the STD-08 field.",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "std_07": {
     "standard": "STD-07",
     "document": "https://ethotechnics.org/standards/std-07-revisable-delegation-record",
@@ -336,6 +336,49 @@
       },
       "relation": "no_counterpart",
       "note": "No STD-07 counterpart, and the same gap as grant.correction_capacity.detection one level up: this is the deployment-level counterpart to correction_capacity.detection.independent_of_executor, asking of the whole deployment who evaluates whether it is going wrong and whether that party is independent of the party that runs it. STD-07 identifies the emitting system and actor of each record but has no field for an evaluating party and therefore no way to state, or to deny, independence from the executor."
+    },
+    {
+      "id": "grant.attestation",
+      "std_07": {
+        "record_kind": "any",
+        "field": "integrity"
+      },
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": [
+          "attestation.signed_by",
+          "attestation.algorithm",
+          "attestation.signature",
+          "attestation.signed_at",
+          "attestation.payload_digest"
+        ]
+      },
+      "relation": "partial",
+      "note": "Both models carry tamper evidence, but they bind different things. The STD-07 integrity block hashes the record itself into an append-only stream: canonical serialization, prior_hash chaining, signature optional. The grant's attestation is the inverse problem: the grant is a mutable record with state_history, so it is bound instead to a named key holder at a point in time, with the signature required and the payload digest recorded so the signed content can be reproduced. Round-tripping loses information in both directions: a hash chain cannot name who is accountable for a grant, and an attestation says nothing about the records before or after it. Neither schema verifies the cryptography; verification is a harness or audit concern."
+    },
+    {
+      "id": "grant.liability",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": [
+          "liability.accepted_by",
+          "liability.instrument",
+          "liability.carve_outs[]"
+        ]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart. STD-07 records what was authorized, what was believed, and what was revised, and its actor fields say who emitted a record, not who answers for what the authorization does. STD-01 §6.2 makes the operating institution liable for the latency and errors of its automation, and the liability object puts that acceptance on the grant itself: a named party, the instrument that binds them, and the carve-outs they claim, recorded before an incident rather than assembled after one. A record stream cannot carry this, because liability is not an event any system emits; it is a standing legal state that only the grant-side model can state."
+    },
+    {
+      "id": "grant.chain",
+      "std_07": null,
+      "std_08": {
+        "schema": "authority-grant.schema.json",
+        "fields": ["chain[]"]
+      },
+      "relation": "no_counterpart",
+      "note": "No STD-07 counterpart. STD-07's depends_on lists records a record rests on, which is a belief relation, not a delegation relation: the records upstream of an action are not necessarily grants that sub-contracted part of it. STD-09 §1.1 requires the head grant of a chain to enumerate every contributing delegation in execution order, each resolving to a full authority grant, so the chain can be paused, challenged, and attributed as one delegation. STD-07 sees each hop's records without seeing the composition, which is the gap this field exists to close."
     }
   ],
   "known_gaps": [

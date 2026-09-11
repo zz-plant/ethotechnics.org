@@ -20,7 +20,7 @@ const anchorLinks = [
 const downloads = [
   {
     label: "PDF one-pager",
-    detail: "Printable, single-page worksheet.",
+    detail: "Printable worksheet template.",
     href: "/burden-budget/burden-budget-worksheet.pdf",
   },
   {
@@ -46,6 +46,7 @@ const exampleSummary = [
   "Harmed roles: Applicants, caretakers, frontline caseworkers.",
   "Burden ceiling: 4 hours, $150, 7 days, ordinal 3+ thresholds.",
   "Enforcement trigger: Auto-pause when delay exceeds 5 days.",
+  "Cost of governability: contestation staffing and discovery duty priced against the claimed saving; unfunded lines named.",
 ];
 
 const faqItems = [
@@ -72,6 +73,12 @@ const faqItems = [
 ];
 
 const changelog = [
+  {
+    version: "v1.1.0",
+    date: "2026-09-11",
+    summary:
+      "Adds section 11, deployer-side cost of governability: contestation, reversal, discovery, and liability lines priced against the automation's claimed saving.",
+  },
   {
     version: "v0.1",
     date: "2026-05-01",
@@ -305,6 +312,32 @@ const changelog = [
           <textarea name="changelog" rows="2" data-field="changelog"></textarea>
         </label>
       </fieldset>
+
+      <div class="panel">
+        <p class="eyebrow">Deployer-side cost of governability</p>
+        <p class="muted">
+          The mirror of the burden sections: what the deploying institution pays
+          to hold the burden it would otherwise transfer.
+        </p>
+        <div class="intake-form__grid" data-cost-list></div>
+        <div class="intake-form__actions">
+          <button class="button ghost" type="button" data-add-cost>
+            Add cost line
+          </button>
+        </div>
+        <fieldset class="intake-form__grid">
+          <label class="intake-form__field intake-form__field--full">
+            Automation's claimed saving vs. the cost lines above
+            <textarea name="claimed_saving" rows="2" data-field="claimed_saving"
+            ></textarea>
+          </label>
+          <label class="intake-form__field intake-form__field--full">
+            Cost lines that, if unfunded, shift burden back to sections 4–6
+            <textarea name="unfunded_lines" rows="2" data-field="unfunded_lines"
+            ></textarea>
+          </label>
+        </fieldset>
+      </div>
 
       <div class="panel">
         <p class="eyebrow">Exports</p>
@@ -623,6 +656,36 @@ const changelog = [
       <label class="intake-form__field">
         Action timeframe
         <input type="text" data-field="timeframe" />
+      </label>
+      <div class="intake-form__field">
+        <span class="visually-hidden">Remove</span>
+        <button class="button ghost" type="button" data-remove-row>
+          Remove
+        </button>
+      </div>
+    </fieldset>
+  </template>
+  <template data-cost-template>
+    <fieldset class="intake-form__grid" data-cost-row>
+      <label class="intake-form__field">
+        Cost line
+        <input type="text" data-field="line" />
+      </label>
+      <label class="intake-form__field">
+        Basis
+        <input type="text" data-field="basis" />
+      </label>
+      <label class="intake-form__field">
+        Estimate and unit
+        <input type="text" data-field="estimate" />
+      </label>
+      <label class="intake-form__field">
+        Measured or assumed
+        <select data-field="measured">
+          <option value="">Select</option>
+          <option value="measured">Measured</option>
+          <option value="assumed">Assumed</option>
+        </select>
       </label>
       <div class="intake-form__field">
         <span class="visually-hidden">Remove</span>

@@ -68,6 +68,13 @@ type EnforcementTrigger = {
   timeframe: string;
 };
 
+type GovernabilityCost = {
+  line: string;
+  basis: string;
+  estimate: string;
+  measured_or_assumed: string;
+};
+
 type RepairPathway = {
   entry_points: string;
   required_documents: string;
@@ -97,6 +104,9 @@ type Worksheet = {
   absorbers: AbsorberEntry[];
   burden_ceiling: BurdenCeiling[];
   enforcement_triggers: EnforcementTrigger[];
+  governability_costs: GovernabilityCost[];
+  claimed_saving: string;
+  unfunded_lines: string;
   repair_pathway: RepairPathway;
   owner: string;
   review_cadence: string;
@@ -135,6 +145,11 @@ const rowConfigs = [
     templateSelector: "[data-trigger-template]",
     addSelector: "[data-add-trigger]",
   },
+  {
+    listSelector: "[data-cost-list]",
+    templateSelector: "[data-cost-template]",
+    addSelector: "[data-add-cost]",
+  },
 ];
 
 const addRow = (list: Element | null, template: HTMLTemplateElement | null) => {
@@ -157,7 +172,7 @@ const setupRepeater = () => {
       const removeButton = target.closest("[data-remove-row]");
       if (!removeButton) return;
       const row = target.closest(
-        "[data-role-row], [data-burden-row], [data-total-row], [data-absorber-row], [data-ceiling-row], [data-trigger-row]",
+        "[data-role-row], [data-burden-row], [data-total-row], [data-absorber-row], [data-ceiling-row], [data-trigger-row], [data-cost-row]",
       );
       row?.remove();
     });
@@ -294,6 +309,17 @@ const buildWorksheet = (): Worksheet | null => {
     (row) => !row.role && !row.threshold && !row.action,
   );
 
+  const governabilityCosts = collectRows(
+    "[data-cost-row]",
+    (row) => ({
+      line: fieldValue(row, "line"),
+      basis: fieldValue(row, "basis"),
+      estimate: fieldValue(row, "estimate"),
+      measured_or_assumed: fieldValue(row, "measured"),
+    }),
+    (row) => !row.line && !row.estimate,
+  );
+
   const repairPathway: RepairPathway = {
     entry_points: fieldValue(form, "repair_entry"),
     required_documents: fieldValue(form, "repair_documents"),
@@ -316,6 +342,9 @@ const buildWorksheet = (): Worksheet | null => {
     absorbers,
     burden_ceiling: burdenCeiling,
     enforcement_triggers: enforcementTriggers,
+    governability_costs: governabilityCosts,
+    claimed_saving: fieldValue(form, "claimed_saving"),
+    unfunded_lines: fieldValue(form, "unfunded_lines"),
     repair_pathway: repairPathway,
     owner,
     review_cadence: reviewCadence,
@@ -378,7 +407,14 @@ const toMarkdown = (worksheet: Worksheet) => {
     )
     .join(
       "\n",
-    )}\n\n## 9) Repair pathway\n- Entry points: ${worksheet.repair_pathway.entry_points || ""}\n- Required documents: ${worksheet.repair_pathway.required_documents || ""}\n- Promised turnaround: ${worksheet.repair_pathway.promised_turnaround || ""}\n- Interim protections: ${worksheet.repair_pathway.interim_protections || ""}\n\n## 10) Owner + review cadence\n- Owner: ${worksheet.owner || ""}\n- Review cadence: ${worksheet.review_cadence || ""}\n\n## Assumptions\n${worksheet.assumptions || ""}\n\n## Revision history\n${worksheet.revision_history
+    )}\n\n## 9) Repair pathway\n- Entry points: ${worksheet.repair_pathway.entry_points || ""}\n- Required documents: ${worksheet.repair_pathway.required_documents || ""}\n- Promised turnaround: ${worksheet.repair_pathway.promised_turnaround || ""}\n- Interim protections: ${worksheet.repair_pathway.interim_protections || ""}\n\n## 10) Owner + review cadence\n- Owner: ${worksheet.owner || ""}\n- Review cadence: ${worksheet.review_cadence || ""}\n\n## 11) Deployer-side cost of governability\n\nThe mirror of sections 4–6: what the deploying institution pays to hold the burden it would otherwise transfer.\n\n| Cost line | Basis | Estimate (unit) | Measured or assumed |\n| --- | --- | --- | --- |\n${worksheet.governability_costs
+    .map(
+      (item) =>
+        `| ${item.line} | ${item.basis} | ${item.estimate} | ${item.measured_or_assumed} |`,
+    )
+    .join(
+      "\n",
+    )}\n\n- Automation's claimed saving vs. the cost lines above: ${worksheet.claimed_saving || ""}\n- Which cost lines, if unfunded, shift burden back onto sections 4–6: ${worksheet.unfunded_lines || ""}\n\n## Assumptions\n${worksheet.assumptions || ""}\n\n## Revision history\n${worksheet.revision_history
     .map(
       (item) =>
         `- ${item.version || ""} (${item.revision || ""}) ${item.date || ""}: ${item.summary || ""}`,
@@ -484,6 +520,30 @@ const toCsv = (worksheet: Worksheet) => {
   rows.push(["owner", "owner", "owner", worksheet.owner, ""]);
   rows.push(["owner", "owner", "review_cadence", worksheet.review_cadence, ""]);
 
+  worksheet.governability_costs.forEach((item) => {
+    rows.push([
+      "cost",
+      "governability",
+      item.line,
+      item.estimate,
+      `${item.basis} | ${item.measured_or_assumed}`,
+    ]);
+  });
+  rows.push([
+    "cost",
+    "governability",
+    "claimed_saving",
+    worksheet.claimed_saving,
+    "",
+  ]);
+  rows.push([
+    "cost",
+    "governability",
+    "unfunded_lines",
+    worksheet.unfunded_lines,
+    "",
+  ]);
+
   worksheet.revision_history.forEach((item) => {
     rows.push([
       "revision",
@@ -541,6 +601,14 @@ const printPdf = (worksheet: Worksheet) => {
     "",
     `Owner: ${worksheet.owner}`,
     `Review cadence: ${worksheet.review_cadence}`,
+    "",
+    "Cost of governability (deployer side):",
+    ...worksheet.governability_costs.map(
+      (item) =>
+        `- ${item.line} | ${item.basis} | ${item.estimate} | ${item.measured_or_assumed}`,
+    ),
+    `Claimed saving vs. cost lines: ${worksheet.claimed_saving}`,
+    `Unfunded lines shifting burden back: ${worksheet.unfunded_lines}`,
   ];
 
   const printWindow = window.open("", "_blank");
@@ -628,6 +696,8 @@ const compareWorksheets = () => {
     | "worst_case_error"
     | "owner"
     | "review_cadence"
+    | "claimed_saving"
+    | "unfunded_lines"
     | "assumptions";
   const fields: ComparableField[] = [
     "system_name",
@@ -635,6 +705,8 @@ const compareWorksheets = () => {
     "worst_case_error",
     "owner",
     "review_cadence",
+    "claimed_saving",
+    "unfunded_lines",
     "assumptions",
   ];
   const changes = fields
@@ -660,6 +732,13 @@ const compareWorksheets = () => {
     (previous.enforcement_triggers?.length ?? 0)
   ) {
     changes.push("enforcement trigger rows changed");
+  }
+
+  if (
+    worksheet.governability_costs.length !==
+    (previous.governability_costs?.length ?? 0)
+  ) {
+    changes.push("governability cost rows changed");
   }
 
   compareResults.hidden = false;
