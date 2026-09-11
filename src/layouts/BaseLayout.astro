@@ -26,7 +26,6 @@ import { buildSchemaGraph, type StructuredDataType } from "../utils/seo/schema";
 type FooterNavLink = { label: string; href: string; external?: boolean };
 type FooterNavSection = { heading: string; links: FooterNavLink[] };
 
-import "../styles/theme.css";
 import "../styles/global.css";
 
 interface Props {
@@ -323,7 +322,7 @@ const pagefindType = pathSegments[0] ?? "";
         >
           <Breadcrumbs
             items={normalizedBreadcrumbItems}
-            className="container page-breadcrumbs"
+            className="page-breadcrumbs"
           />
           <slot />
         </main>

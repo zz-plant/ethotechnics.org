@@ -1,4 +1,5 @@
 ---
+import PageIntroAnchorList from "./PageIntroAnchorList.astro";
 import SectionNav from "./SectionNav.astro";
 
 export interface AnchorLink {
@@ -161,60 +162,24 @@ const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
             {collapseAnchorLinks ? (
               <details class="page-intro__anchors-disclosure">
                 <summary>{anchorLinksSummary}</summary>
-                <ul>
-                  {anchorLinks.map((link, index) => (
-                    <li>
-                      <a href={link.href} class="pill pill--ghost">
-                        <span class="page-intro__anchor-index">
-                          {index + 1}
-                        </span>
-                        <span>{link.label}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <PageIntroAnchorList links={anchorLinks} />
               </details>
             ) : collapseAnchorLinksOnMobile ? (
               <>
-                <ul class="page-intro__anchors-list page-intro__anchors-list--desktop">
-                  {anchorLinks.map((link, index) => (
-                    <li>
-                      <a href={link.href} class="pill pill--ghost">
-                        <span class="page-intro__anchor-index">
-                          {index + 1}
-                        </span>
-                        <span>{link.label}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <PageIntroAnchorList
+                  links={anchorLinks}
+                  className="page-intro__anchors-list page-intro__anchors-list--desktop"
+                />
                 <details class="page-intro__anchors-disclosure page-intro__anchors-disclosure--mobile">
                   <summary>{anchorLinksSummary}</summary>
-                  <ul>
-                    {anchorLinks.map((link, index) => (
-                      <li>
-                        <a href={link.href} class="pill pill--ghost">
-                          <span class="page-intro__anchor-index">
-                            {index + 1}
-                          </span>
-                          <span>{link.label}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                  <PageIntroAnchorList links={anchorLinks} />
                 </details>
               </>
             ) : (
-              <ul class="page-intro__anchors-list">
-                {anchorLinks.map((link, index) => (
-                  <li>
-                    <a href={link.href} class="pill pill--ghost">
-                      <span class="page-intro__anchor-index">{index + 1}</span>
-                      <span>{link.label}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <PageIntroAnchorList
+                links={anchorLinks}
+                className="page-intro__anchors-list"
+              />
             )}
           </nav>
         )

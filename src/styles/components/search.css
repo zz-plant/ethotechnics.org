@@ -92,6 +92,7 @@
   .search-dialog::backdrop {
     background: rgba(28, 25, 23, 0.5);
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 
   .search-dialog__header {
@@ -147,9 +148,10 @@
   }
 
   .search-dialog__close:focus-visible {
-    outline: 2px solid var(--gold);
-    outline-offset: 2px;
-    border-color: var(--gold);
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+    border-color: var(--accent);
+    box-shadow: var(--focus-ring);
   }
 
   .search-dialog__body {
@@ -171,8 +173,8 @@
   }
 
   .search-dialog__label:focus-within {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 35%, transparent);
+    border-color: var(--accent);
+    box-shadow: var(--focus-ring);
   }
 
   .search-dialog__input-icon {
