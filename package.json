@@ -47,6 +47,7 @@
     "test:e2e:smoke": "bun run build && bunx playwright test --project=chromium",
     "test:e2e:ci": "bun run build && bunx playwright test --project=chromium --reporter=line",
     "test:visual": "bunx playwright test --project=chromium --grep @visual",
+    "eval:harness": "bun run src/harness/cli.ts",
     "mcp": "bun run scripts/mcp-server.ts",
     "validate:json": "bun run validate-json.ts",
     "validate:glossary": "bun run validate-glossary.ts",
