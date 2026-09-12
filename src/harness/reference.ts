@@ -8,7 +8,7 @@
  * reference that fails tells you the harness has rotted, which is a finding
  * about the harness, and a reference that cannot pass is no reference at all.
  *
- * It is also the demo target: `bun run eval:harness` runs the ten checks
+ * It is also the demo target: `bun run eval:harness` runs the twelve checks
  * against this system out of the box and reports PASS.
  */
 

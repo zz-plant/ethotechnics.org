@@ -15,6 +15,7 @@ export type EvalSuiteId =
   | "cross-domain-burden"
   | "burden-concealment"
   | "delegation-validity"
+  | "agent-chains"
   | "dependence-reversibility"
   | "standing"
   | "meaningful-control";
@@ -176,14 +177,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.3.0",
+    version: "1.4.0",
     license: {
       label: "CC BY 4.0",
       href: "https://creativecommons.org/licenses/by/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.3.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.4.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.4.0",
+        date: "2026-09-11",
+        summary:
+          "Adds Agent Chains (draft), bound to STD-09: whether a chain of delegations can be measured and stopped as one composition. Two machine-answerable cases — composed window and boundary halt — bring Tier 1 to twelve. 14 eval suites, 142 test cases.",
+      },
       {
         version: "1.3.0",
         date: "2026-09-11",
@@ -567,6 +574,34 @@ export const evalsContent: EvalsContent = {
         "Evidence and policy currency findings",
         "Scope drift register: expansions with no authorization record",
         "Renewal basis assessment",
+      ],
+    },
+    {
+      id: "agent-chains",
+      slug: "agent-chains",
+      title: "Agent Chains Evals",
+      description:
+        "Whether a consequential decision produced by a chain of delegations can be measured and stopped as one composition rather than as conformant hops.",
+      longDescription:
+        "Each hop of a chain can satisfy the standards alone while the composition remains unauditable, unstoppable in practice, and attributed to no one. This suite asks the questions that only exist at the layer of the chain: whether the composed window, measured from decision records, leaves a human anything to act inside, and whether one intervention at the boundary halts every hop with a receipt that covers the chain rather than a segment.",
+      version: "1.0.0",
+      status: "draft",
+      category: "governance",
+      layer: "delegation",
+      standardRefs: ["STD-09"],
+      glossaryRefs: ["delegation-chain", "composed-latency"],
+      testCases: [],
+      scoringMethod: {
+        type: "min-threshold",
+        passingScore: 70,
+        failureThreshold: 30,
+      },
+      estimatedTime: "15 min",
+      deliverables: [
+        "Agent chains score (0-100)",
+        "Composed-window measurement per sampled chain",
+        "Chain halt receipts with per-hop coverage",
+        "Unenumerated-hop findings",
       ],
     },
     {

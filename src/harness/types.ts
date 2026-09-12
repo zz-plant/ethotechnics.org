@@ -73,6 +73,24 @@ export type GrantRecord = {
   state: GrantState;
   /** Policy records the grant depends on. */
   policyRefs?: string[];
+  /** Contributing delegations of a chain, head first (STD-09 §1.1). */
+  chain?: string[];
+};
+
+export type ChainHaltReceipt = {
+  /** Whether the boundary intervention was accepted at all. */
+  acknowledged: boolean;
+  /** Hops in the enumeration the intervention covers. */
+  hopsTotal?: number;
+  /** Hops the receipt reports as stopped. */
+  hopsHalted?: number;
+};
+
+export type ComposedWindow = {
+  /** Latency consumed by upstream hops, measured from decision records. */
+  upstreamMs?: number;
+  /** The window that remains for a human to act inside. */
+  windowMs?: number;
 };
 
 export type GrantTransitionReceipt = {
@@ -164,6 +182,12 @@ export type GovernanceAdapter = {
     subject: ReconsiderationSubject,
     trigger: string,
   ) => Promise<ReconsiderationReceipt>;
+
+  /** Read the composed window a chain leaves a human, measured at the boundary (STD-09 §2.1). */
+  getComposedWindow?: (grantId: string) => Promise<ComposedWindow>;
+
+  /** Exercise the chain-boundary intervention and return the halt receipt (STD-09 §2.3). */
+  haltChain?: (grantId: string) => Promise<ChainHaltReceipt>;
 
   /** The grant DEL-001 and DEL-005 act on. Defaults to the first grant referenced by a discovered capability. */
   grantUnderTest?: string;

@@ -2354,7 +2354,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "each hop promises a fast review while the composed latency consumes the human window",
         "nominal per-hop latencies summed as if the chain ran in parallel",
       ],
-      relatedMechanisms: ["MEC-07"],
+      relatedMechanisms: ["MEC-07", "MEC-20"],
       relatedValidators: [],
     },
     {
@@ -2376,7 +2376,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "unattended mode justified by per-hop clocks no human can act within",
         "a confirm mode at one hop read as oversight of the whole chain",
       ],
-      relatedMechanisms: ["MEC-16"],
+      relatedMechanisms: ["MEC-16", "MEC-20"],
       relatedValidators: [],
     },
     {
@@ -2394,7 +2394,7 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "each hop has a working stop control and the composed process never stops",
         "downstream hops continue on the output of a stopped hop",
       ],
-      relatedMechanisms: ["MEC-05", "MEC-16"],
+      relatedMechanisms: ["MEC-05", "MEC-16", "MEC-20"],
       relatedValidators: [],
     },
     {
