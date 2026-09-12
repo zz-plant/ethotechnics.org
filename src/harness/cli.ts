@@ -2,7 +2,7 @@
 /**
  * Runs the Tier 1 governance harness against a system and writes a report.
  *
- * Without arguments it runs the ten checks against the reference system
+ * Without arguments it runs the twelve checks against the reference system
  * (src/harness/reference.ts) so the tool works out of the box:
  *
  *   bun run eval:harness

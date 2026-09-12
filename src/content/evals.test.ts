@@ -29,6 +29,7 @@ const SUITE_ID_PREFIX: Record<EvalSuiteId, string> = {
   "cross-domain-burden": "XDB",
   "burden-concealment": "BCN",
   "delegation-validity": "DEL",
+  "agent-chains": "CHN",
   "dependence-reversibility": "DEP",
   standing: "STA",
   "meaningful-control": "CTL",
@@ -43,6 +44,7 @@ const PUBLISHED_TOTALS = {
   "1.1.0": { suites: 9, cases: 95 },
   "1.2.0": { suites: 13, cases: 139 },
   "1.3.0": { suites: 13, cases: 140 },
+  "1.4.0": { suites: 14, cases: 142 },
 };
 
 const casesFor = (suiteId: EvalSuiteId) =>
@@ -50,8 +52,8 @@ const casesFor = (suiteId: EvalSuiteId) =>
 
 describe("eval suite catalogue", () => {
   it("has exactly the suites and cases the changelog publishes", () => {
-    expect(evalsContent.suites).toHaveLength(PUBLISHED_TOTALS["1.3.0"].suites);
-    expect(evalTestCases).toHaveLength(PUBLISHED_TOTALS["1.3.0"].cases);
+    expect(evalsContent.suites).toHaveLength(PUBLISHED_TOTALS["1.4.0"].suites);
+    expect(evalTestCases).toHaveLength(PUBLISHED_TOTALS["1.4.0"].cases);
   });
 
   it("has the published stable/draft split", () => {
@@ -60,7 +62,7 @@ describe("eval suite catalogue", () => {
     ).toHaveLength(8);
     expect(
       evalsContent.suites.filter((s) => s.status === "draft"),
-    ).toHaveLength(5);
+    ).toHaveLength(6);
   });
 
   it("gives every suite and case a unique id", () => {
@@ -187,6 +189,7 @@ describe("machine-answerable coverage", () => {
     expect(perSuite.get("temporal-rights")).toBe(2);
     expect(perSuite.get("reversibility")).toBe(1);
     expect(perSuite.get("delegation-validity")).toBe(4);
-    expect(tier1Checks).toHaveLength(10);
+    expect(perSuite.get("agent-chains")).toBe(2);
+    expect(tier1Checks).toHaveLength(12);
   });
 });

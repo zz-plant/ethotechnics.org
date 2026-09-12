@@ -14,11 +14,16 @@
       ],
       "contact": "research@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
-      "updated": "2026-09-08T00:00:00Z",
-      "version": "v1.2.0",
+      "updated": "2026-09-11T00:00:00Z",
+      "version": "v1.3.0",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/save/https://ethotechnics.org/glossary",
       "changelog": [
+        {
+          "version": "v1.3.0",
+          "date": "2026-09-11",
+          "summary": "Added Attestation, Liability Record, Carve-Out, Delegation Chain, Composed Latency, and Silent-Harm Discovery, each bound to the standard clause that requires it."
+        },
         {
           "version": "v1.2.0",
           "date": "2026-09-08",
@@ -3781,6 +3786,86 @@
         "comingSoon": false,
         "entries": [
           {
+            "id": "composed-latency",
+            "title": "Composed Latency",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The time a chain of delegations actually takes, measured from decision records rather than nominal per-hop promises. Hops that run in series compose additively, and the time a human has to act is the intervention window minus the latency the upstream hops have already consumed.</p><p>Composed latency is the quantity that kills the human-in-the-loop fiction: each hop can promise a fast review while the composition consumes the window a person would have needed. A chain whose composed latency leaves no measured human window cannot run unattended.</p>",
+            "scope": "E. Measurability & metrics. Quantitative and qualitative measures of system ethics.",
+            "operationalTests": [
+              "Hop latencies are measured from decision records on a declared cadence.",
+              "The composed window is recomputed whenever any hop's measured latency changes materially.",
+              "A chain leaving no measured human window does not run unattended."
+            ],
+            "genealogy": "STD-09 Part B binds composed latency because per-hop clocks can each look compliant while the composition owes no one any time.",
+            "references": [
+              {
+                "label": "STD-09 Agent Chains",
+                "href": "/standards/std-09-agent-chains",
+                "type": "Standard"
+              },
+              {
+                "label": "MEC-07 Accountability latency tracker",
+                "href": "/mechanisms/patterns/accountability-latency-tracker",
+                "type": "Mechanism"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Composed-window measurements with the hop latencies they were computed from.",
+              "behavior": "A chain whose window closes is moved to confirm mode or narrowed, visibly, on the record.",
+              "metric": "Composed window in ms per chain decision, trended against the intervention budget."
+            },
+            "domains": ["temporal", "structural"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": [],
+            "adjacentTerms": ["delegation-chain", "time-to-halt"],
+            "relatedPatterns": ["chain-boundary-intervention"]
+          },
+          {
+            "id": "silent-harm-discovery",
+            "title": "Silent-Harm Discovery",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The deployer-side duty to find harm nobody complained about: error, reversal, and remedy rates computed per affected population from records the operator already retains, on a declared cadence. Standing gives the party who challenges a route into the system; it does nothing for the party who never challenges.</p><p>A deployment whose only harm signal is an incoming claim is blind by construction to the populations least able to file one. STD-06 §2.4 treats a materially worse rate for any population as a threshold breach, so divergence is found by measurement or it is a violation.</p>",
+            "scope": "E. Measurability & metrics. Quantitative and qualitative measures of system ethics.",
+            "operationalTests": [
+              "Error, reversal, and remedy rates are computed per affected population, not only in aggregate.",
+              "A materially worse rate for any population triggers the declared breach action.",
+              "The operator can name a harm its measurement found before any affected party reported it."
+            ],
+            "genealogy": "STD-06 §2.4 added discovery without a claim because <a href=\"#extraction-by-endurance\">extraction by endurance</a> hides harm from the dashboard precisely where complaint is least likely.",
+            "references": [
+              {
+                "label": "STD-06 Human Impact Safety Case",
+                "href": "/standards/std-06-human-impact-safety-case",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Per-population rate series with the cadence and the records they were computed from.",
+              "behavior": "A materially worse rate for any population is treated as a threshold breach, not as context.",
+              "metric": "Rate divergence per population per period, against the declared threshold."
+            },
+            "domains": ["visibility", "burden"],
+            "scale": "systemic",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": [],
+            "adjacentTerms": [
+              "extraction-by-endurance",
+              "fail-silent",
+              "burden-index"
+            ]
+          },
+          {
             "id": "moral-performance-indicators",
             "title": "Moral Performance Indicators (MPIs)",
             "status": null,
@@ -4437,6 +4522,166 @@
         "descriptionHtml": "Structures that determine who sets moral boundaries and who can intervene.",
         "comingSoon": false,
         "entries": [
+          {
+            "id": "attestation",
+            "title": "Attestation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The signature binding a record to a named key holder at a point in time. An attestation carries the key-holder identifier, the algorithm, the signature, and when it was produced, so that authority that cannot be attributed to a key holder is distinguishable from authority nobody signed.</p><p>It matters because delegation otherwise becomes orphaned: capability exercises the authority and no one answers for it. An attestation older than the record's last transition covers a record that no longer exists, so re-attestation at renewal is part of the discipline rather than a courtesy.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every authority grant carries signed_by, algorithm, signature, and signed_at.",
+              "A signature older than the last state transition is reported as stale, not current.",
+              "The payload digest reproduces the exact signed content."
+            ],
+            "genealogy": "STD-08 added the attestation to the authority grant so that the Liability Record answers who answers for a delegation and the attestation answers who put it in force.",
+            "references": [
+              {
+                "label": "STD-08 Delegation",
+                "href": "/standards/std-08-delegation",
+                "type": "Standard"
+              },
+              {
+                "label": "Authority grant schema",
+                "href": "/standards/authority-grant.schema.json",
+                "type": "Schema"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Grant records carrying attestation blocks with key holder, algorithm, and signed_at.",
+              "behavior": "A grant whose signature predates its last state transition is refused as evidence of the current state.",
+              "metric": "Share of live grants whose attestation is newer than their last transition."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": [],
+            "adjacentTerms": [
+              "authority-grant",
+              "liability-record",
+              "revisable-delegation"
+            ],
+            "relatedPatterns": ["chain-boundary-intervention"]
+          },
+          {
+            "id": "liability-record",
+            "title": "Liability Record",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The object on an authority grant naming the party that accepts liability for the latency and errors of the automation, the instrument that binds them, and the <a href=\"#carve-out\">carve-outs</a> they claim. It exists because a system may not hide behind algorithmic error: the operating institution answers for what its delegation does.</p><p>Carve-outs are recorded before an incident rather than assembled after one. A limitation the issuer knows about is priced at deployment; the record exists so the residual risk everyone else carries is visible in the issuer's words, not the defendant's.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every grant names the party accepting liability and the instrument that binds them.",
+              "Carve-outs, caps, and exclusions appear on the record, not in a dispute.",
+              "Sub-contracting does not diffuse liability: the head grant answers for every hop of a chain."
+            ],
+            "genealogy": "STD-01 §6.2 states the liability of automata; STD-08 gave the statement an object so the acceptance is inspectable rather than assumed.",
+            "references": [
+              {
+                "label": "STD-08 Delegation",
+                "href": "/standards/std-08-delegation",
+                "type": "Standard"
+              },
+              {
+                "label": "STD-01 Temporal Bill of Rights",
+                "href": "/standards/std-01-temporal-rights",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Grant records with a liability object naming accepting party, instrument, and carve-outs.",
+              "behavior": "A deployment with no recorded liability acceptance does not pass its safety-case review.",
+              "metric": "Share of consequential grants with a named liability party and a recorded instrument."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit", "repair"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": [],
+            "adjacentTerms": ["attestation", "carve-out", "authority-grant"]
+          },
+          {
+            "id": "carve-out",
+            "title": "Carve-Out",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An exclusion, cap, or condition the accepting party claims against a recorded liability. Carve-outs are recorded on the <a href=\"#liability-record\">liability record</a> rather than reserved for litigation, because the forensically useful moment to assemble an excuse is before the harm, in the issuer's words.</p><p>A carve-out on the record is a price: it states how much of the risk the liability does not cover and therefore who carries the rest. A carve-out that surfaces for the first time in a dispute is evidence of concealment rather than a term of the deal.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every carve-out claimed against a liability appears on the grant record.",
+              "The residual risk a carve-out leaves is identifiable and priced.",
+              "No carve-out appears first in a dispute."
+            ],
+            "genealogy": "STD-08 records carve-outs as part of the liability object so the excuse is assembled before the incident.",
+            "references": [
+              {
+                "label": "STD-08 Delegation",
+                "href": "/standards/std-08-delegation",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Liability records listing every claimed exclusion or cap with its basis.",
+              "behavior": "A dispute resolved by invoking a carve-out that was never recorded counts as a governance failure.",
+              "metric": "Count of carve-outs per liability record and their aggregate coverage gap."
+            },
+            "domains": ["structural"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": [],
+            "adjacentTerms": ["liability-record", "attestation"]
+          },
+          {
+            "id": "delegation-chain",
+            "title": "Delegation Chain",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A sequence of delegations that together produce one consequential decision: an agent sub-contracting to an agent, a service calling a service, across components, providers, or institutions. STD-09's claim is that the chain is itself a delegation, governed at the layer where it actually fails: enumerated hops on the head grant, liability terminating at the head, one intervention at the boundary.</p><p>Each hop can satisfy the standards alone while the composition remains unauditable and attributed to no one. The chain exists as an object so it can be paused, challenged, and attributed as one delegation rather than as a pile of conformant parts.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The head grant enumerates every contributing delegation in execution order.",
+              "Every hop resolves to a full grant with its own scope, mode, and revocation conditions.",
+              "One intervention at the boundary halts every hop, with a receipt for the chain."
+            ],
+            "genealogy": "STD-09 exists because per-hop conformance does not compose: the relevant eval sits at the highest layer where harm can emerge, and for a chain that layer is the chain.",
+            "references": [
+              {
+                "label": "STD-09 Agent Chains",
+                "href": "/standards/std-09-agent-chains",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Head grants with a chain field resolving to full grant records per hop.",
+              "behavior": "A boundary intervention halts every hop and emits one chain-level halt receipt.",
+              "metric": "Share of consequential decisions whose chain is fully enumerated."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": [],
+            "adjacentTerms": [
+              "authority-grant",
+              "attestation",
+              "composed-latency"
+            ],
+            "relatedPatterns": ["chain-boundary-intervention"]
+          },
           {
             "id": "design-authority",
             "title": "Design Authority",

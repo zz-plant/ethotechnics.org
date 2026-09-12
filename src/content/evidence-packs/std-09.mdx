@@ -1,0 +1,81 @@
+---
+slug: "std-09"
+title: "STD-09 Evidence Pack"
+description: "Tiered evidence, artifact inventory, and freshness rules for a chain of delegations: the chain as a delegation, composed latency, counterparty answerability, and weakest-link correction capacity."
+permalink: "/evidence-packs/std-09"
+eyebrow: "Evidence Pack"
+standardId: "STD-09"
+standardTitle: "Agent Chains"
+published: "2026-09-11"
+updated: "2026-09-11"
+sections:
+  - title: "Tiered evidence model"
+    content: |
+      **Tier 0 (minimum):** Proof the chain is enumerated and the boundary exists. Evidence: head grants with a chain field resolving to full grant records per hop, and one boundary intervention specification covering the enumeration.
+
+      **Tier 1 (operational):** Proof the states move. Evidence: chain halt receipts from exercised boundary interventions with per-hop coverage, composed-window measurements computed from decision records, and grant transitions fired by hop or provider changes.
+
+      **Tier 2 (resilient):** Proof the terms hold under pressure. Evidence: a chain narrowed or moved to confirm because its composed window closed, a counterparty change recorded as a chain event with the re-check it produced, and a chain-level correction-capacity assessment degraded by its weakest hop.
+
+      Chain records are expected to ride on the authority grant object, so the pack is an export of the grant register rather than a second bookkeeping system.
+    required: true
+  - title: "Artifact inventory"
+    content: |
+      **Chain enumeration export:** Every head grant with its chain field, each hop resolving to a grant record with mode, until, liability, and state.
+
+      **Boundary intervention roster:** One row per chain: the intervention specification, the hops it covers, its reach time, and what its exercise halts.
+
+      **Chain halt receipts:** One receipt per exercise, naming every hop stopped and the time from request to last hop stopped.
+
+      **Composed-window measurements:** Upstream latency measured from decision records against the boundary window, with the recompute trigger and its last firing.
+
+      **Counterparty register:** Per hop, the counterparty institution, where its correction capacity is recorded, and whether it can answer a challenge inside the chain's reversal clock.
+
+      **Chain capacity statement:** The seven components of correction capacity recorded at chain level, with the weakest hop named.
+    required: true
+  - title: "Freshness rules"
+    content: |
+      - Chain enumeration: refreshed at every hop or provider change; an enumeration older than the last composition change is stale.
+      - Boundary intervention roster: refreshed whenever a hop is added, replaced, or re-ordered.
+      - Chain halt receipts: from an exercise on the published cadence, and before any expansion decision on the chain.
+      - Composed-window measurements: per review period, and recomputed on any material hop-latency change.
+      - Counterparty register: refreshed at each grant renewal, with answerability re-tested inside the reversal clock.
+      - Any artifact past its freshness rule is presented as stale. A stale artifact is not evidence of the current state.
+    required: true
+  - title: "Clause evidence checklist"
+    content: |
+      **Part A, the chain is a delegation.** Head grants with enumerated hops, each resolving to a full grant record with revocation conditions (§1.1, §1.2). One liability record per chain terminating at the head, with downstream acceptances recorded as evidence (§1.3). Hop changes that produced head-grant transitions to review_required (§1.4).
+
+      **Part B, composed latency.** Upstream latency measured from decision records, and the composed-window computation with its recompute trigger (§2.1). Confirm-mode chains whose window closed, and narrowings that reopened one (§2.2). Halt receipts covering every hop (§2.3). Latency re-measurements after material change (§2.4).
+
+      **Part C, counterparty answerability.** Per-hop counterparty, grant, and correction-capacity references; unauditable hops flagged and excluded from consequential classes (§3.1). Chain-level evaluation separated from executing providers (§3.2). Answerability tests against the reversal clock, and gaps recorded on the head grant's liability record (§3.3).
+
+      **Part D, chain correction capacity.** Chain-level capacity statements with the weakest hop named (§4.1). Composition-scope analyses showing what hops produce together, bounded by the head grant's scope (§4.2). Composition changes recorded as expansion decisions with their capacity checks (§4.3). Counterparties recorded in the dependency ledger with chain-level correction latency (§4.4).
+    required: true
+  - title: "How teams fake this"
+    content: |
+      - The chain enumeration lists the vendors' product names while the hops that actually ran appear only in network logs.
+      - A halt receipt covers the hop that was easiest to stop, and the rest of the chain is described as "effectively stopped."
+      - Composed latency is the sum of the vendors' marketing clocks, measured by nobody.
+      - Counterparty answerability is asserted from the contract, and no challenge has ever been answered inside the clock.
+      - Chain capacity is recorded as the head institution's own capacity, with the weakest hop's degradation left unexamined.
+      - A provider swap behind an unchanged interface ships as a version bump, and no transition is recorded anywhere.
+    required: true
+  - title: "What auditors ask"
+    content: |
+      - Pick a consequential decision: enumerate its chain and show each hop resolving to a grant record.
+      - Show one boundary halt and its receipt, then show each hop's state after it.
+      - Show the composed window for the last period, the measurements behind it, and what changed when a hop's latency moved.
+      - Pick a hop run by a counterparty: name its grant and show where its correction capacity is recorded.
+      - Show one challenge answered by a counterparty inside the reversal clock, and any gap recorded on the head grant's liability.
+      - Show the chain-level capacity statement, the weakest hop it names, and the last expansion decision's capacity check.
+    required: true
+checklists:
+  - title: "Referenced by"
+    items:
+      - "Standard: STD-09 Agent Chains"
+      - "Record format: STD-07 Revisable Delegation Record"
+      - "Delegation terms: STD-08 Delegation"
+      - "Mechanism: MEC-20 Chain-boundary intervention"
+      - "Companion pack: STD-08 Evidence Pack (grant, policy, and intervention records)"
+---

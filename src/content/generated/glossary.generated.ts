@@ -1,6 +1,6 @@
 // AUTO-GENERATED FILE. DO NOT EDIT.
 // Source of truth lives in the JSON file referenced below.
-// source-sha256: c16f3a82963171c633c5752eb14e11db2e7d43d357a908619e3394b81bb3b3cb
+// source-sha256: 94b85a6c294039027b5598bfcb4786a7c9d49f742f711619354a77cb548b94c7
 import sourceData from "../glossary.json";
 
 export const glossaryContentData = sourceData[0];

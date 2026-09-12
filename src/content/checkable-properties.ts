@@ -105,6 +105,27 @@ export const checkableProperties: CheckableProperty[] = [
     gap: "A record probe would need the grant's state at the moment of each action, not just at issue. The authority grant object carries state; the record stream references the grant by id and does not snapshot it.",
   },
   {
+    id: "chain-boundary-governs-composition",
+    title: "The chain boundary governs the composition, not a hop",
+    claim:
+      "A chain of delegations is measured and stopped as one composition: the composed window is measured from decision records and leaves a human something to act inside, and one boundary intervention halts every enumerated hop.",
+    laws: ["law-ix", "law-iv"],
+    variables: ["authority", "correction"],
+    probes: [
+      {
+        observes: "live",
+        id: "CHN-001",
+        what: "reads the composed window a chain leaves after upstream latency, measured from decision records",
+      },
+      {
+        observes: "live",
+        id: "CHN-002",
+        what: "exercises the boundary intervention and requires one receipt covering every enumerated hop",
+      },
+    ],
+    gap: "A record probe would need per-hop latency joined to a halt receipt covering the same chain. STD-07 sees each hop's records without seeing the composition, which is the gap STD-09's chain field and MEC-20's boundary intervention exist to close.",
+  },
+  {
     id: "authority-expires-with-its-justification",
     title: "Authority ends when the reason for it goes stale",
     claim:

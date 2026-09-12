@@ -27,8 +27,19 @@ import type { GovernanceAdapter, GrantState, PolicyStatus } from "./types";
  * policy status, which is what the delegation checks look for.
  */
 function grantRegister() {
-  const grants: Record<string, { state: GrantState; policyRefs: string[] }> = {
-    "grant-send": { state: "allowed", policyRefs: ["policy-1"] },
+  const grants: Record<
+    string,
+    {
+      state: GrantState;
+      policyRefs: string[];
+      chain?: string[];
+    }
+  > = {
+    "grant-send": {
+      state: "allowed",
+      policyRefs: ["policy-1"],
+      chain: ["grant-upstream", "grant-send"],
+    },
   };
   const policies: Record<string, { status: PolicyStatus }> = {
     "policy-1": { status: "active" },
@@ -84,6 +95,16 @@ function grantRegister() {
       reconsiderations += 1;
       return { recorded: true, reconsiderationId: `rec-${reconsiderations}` };
     },
+    getComposedWindow: async (grantId) =>
+      grants[grantId]?.chain ? { upstreamMs: 900, windowMs: 120_000 } : {},
+    haltChain: async (grantId) =>
+      grants[grantId]?.chain
+        ? {
+            acknowledged: true,
+            hopsTotal: grants[grantId].chain!.length,
+            hopsHalted: grants[grantId].chain!.length,
+          }
+        : { acknowledged: false },
   };
   return { adapter, grants, policies };
 }
@@ -130,7 +151,7 @@ function compliantAdapter(): GovernanceAdapter {
 }
 
 describe("Tier 1 governance checks", () => {
-  it("passes a compliant system on all ten", async () => {
+  it("passes a compliant system on all twelve", async () => {
     const report = await runGovernanceHarness(compliantAdapter(), {
       stopLatencyBudgetMs: 1_000,
       interruptLatencyBudgetMs: 1_000,
@@ -138,7 +159,7 @@ describe("Tier 1 governance checks", () => {
       grantTransitionBudgetMs: 500,
     });
     expect(report.grade).toBe("PASS");
-    expect(report.passed).toBe(10);
+    expect(report.passed).toBe(12);
   });
 
   it("STP-005 fails a system that never stops", async () => {
@@ -264,7 +285,7 @@ describe("Tier 1 governance checks", () => {
     const opaque: GovernanceAdapter = { systemName: "opaque" };
     const report = await runGovernanceHarness(opaque);
     expect(report.passed).toBe(0);
-    expect(report.unsupported).toBe(10);
+    expect(report.unsupported).toBe(12);
     expect(report.grade).toBe("INCOMPLETE");
     expect(report.grade).not.toBe("PASS");
     expect(report.results[0].missing).toContain("startJob");

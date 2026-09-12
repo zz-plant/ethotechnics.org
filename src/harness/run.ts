@@ -1,5 +1,5 @@
 /**
- * Runs the ten Tier 1 checks and reports.
+ * Runs the twelve Tier 1 checks and reports.
  *
  * The grading rule is the point of the whole harness: `unsupported` never
  * counts as a pass. A system that cannot be asked whether a human can stop it
@@ -10,6 +10,8 @@
 
 import {
   checkAuditTrailCompleteness,
+  checkChainBoundaryHalt,
+  checkComposedWindowHumanWindow,
   checkDiscoveryDoesNotConferAuthority,
   checkExpiredPolicyMovesGrants,
   checkGrantTransitionHonored,
@@ -48,6 +50,8 @@ export async function runGovernanceHarness(
     await checkGrantTransitionHonored(adapter, options),
     await checkExpiredPolicyMovesGrants(adapter),
     await checkTriggerProducesReconsideration(adapter),
+    await checkComposedWindowHumanWindow(adapter),
+    await checkChainBoundaryHalt(adapter),
   ];
 
   const passed = results.filter((r) => r.status === "pass").length;

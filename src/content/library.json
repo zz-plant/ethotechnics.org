@@ -186,6 +186,65 @@
       ],
       "entries": [
         {
+          "slug": "chain-boundary-intervention",
+          "title": "MEC-20 Chain-boundary intervention",
+          "summary": "Give a chain of delegations one intervention at its boundary that reaches every hop, so the composition can be paused, measured, and attributed as a single delegation rather than as conformant parts.",
+          "filters": ["governance", "friction"],
+          "glossaryRefs": [
+            "delegation-chain",
+            "composed-latency",
+            "human-override-lanes"
+          ],
+          "cues": [
+            "Enumerate the hops before you design the stop: a chain you cannot list is a chain you cannot halt.",
+            "One halt receipt for the chain, not a stop control per hop.",
+            "Measure the window the chain leaves a human after upstream latency has been spent."
+          ],
+          "diagnostics": ["maintenance-simulator", "burden-modeler"],
+          "steps": [
+            "Enumerate every contributing delegation on the head grant in execution order.",
+            "Carry one intervention specification at the chain boundary whose exercise halts every hop.",
+            "Measure hop latencies from decision records and recompute the composed window whenever a hop's latency changes materially.",
+            "Move a chain with no measured human window to confirm mode at the boundary, or narrow it until a window exists."
+          ],
+          "policyRequirement": "Policy requirement (MEC-20 Chain-boundary intervention)\n- Any consequential decision produced by a chain of delegations records the chain on the head grant, each hop resolving to a full delegation.\n- The chain boundary carries one intervention specification, and exercising it halts every hop with a receipt covering the chain.\n- A chain whose composed latency leaves no measured human window does not run unattended.\nReference: https://ethotechnics.org/mechanisms/patterns/chain-boundary-intervention",
+          "productRequirement": "Product requirement (MEC-20)\n- The interface exposes the chain boundary as a single stop surface, with the hops it covers named on the receipt.\n- The composed window is displayed to the operator, not the per-hop clock each vendor promises.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-20)\n[ ] Head grants enumerate their chains, and each hop resolves to a grant record.\n[ ] Halt receipts cover the chain, and a halt test shows downstream hops did not continue.\n[ ] Composed windows are measured from decision records, not from vendor estimates.",
+          "postmortemTrigger": "Postmortem trigger (MEC-20)\nTrigger review when a chain decision could not be paused at the boundary, or when hops continued after the hop that was stopped.",
+          "artifacts": [
+            {
+              "name": "Chain enumeration",
+              "purpose": "The head grant's chain field, each id resolving to a grant record with mode and liability."
+            },
+            {
+              "name": "Chain halt receipt",
+              "purpose": "One receipt per halt naming every hop stopped and the time it took."
+            },
+            {
+              "name": "Composed-window measurement",
+              "purpose": "Measured upstream latency against the intervention window, per decision period."
+            }
+          ],
+          "example": {
+            "title": "One stop for a three-vendor claims chain",
+            "description": "A payer's denial chain runs intake, scoring, and letter generation across three providers. The head grant lists all three hops; pausing the boundary stops all three, and the receipt names each. The composed window leaves the reviewer 90 seconds, so the chain runs confirm at the boundary rather than unattended."
+          },
+          "antiPatterns": [
+            {
+              "title": "Per-hop pause theater",
+              "failure": "Each hop exposes a stop control and each works, but downstream hops re-trigger the stopped one or continue on stale output, so the composed process never stops.",
+              "counterfactual": "One boundary intervention halts every hop, and the halt receipt covers the chain.",
+              "warning": "A chain that re-converges after an interruption was never stopped."
+            },
+            {
+              "title": "Latency laundering",
+              "failure": "Each hop promises a sub-second review, so every hop's clock looks compliant and no one owes a human window.",
+              "counterfactual": "The composed window is measured from decision records, and a chain without one cannot run unattended.",
+              "warning": "Parallel-sounding latency claims must be checked against whether the hops run in series."
+            }
+          ]
+        },
+        {
           "slug": "decision-log",
           "title": "MEC-01 Decision log with dissent",
           "summary": "Capture high-stakes calls, dissenting views, and follow-ups so governance stays legible to teams and impacted people.",
