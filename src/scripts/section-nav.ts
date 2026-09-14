@@ -34,8 +34,11 @@ const initializeSectionNav = () => {
   // IntersectionObserver only reports changes in intersection, and a jump
   // from below the fold to above it (a hash link, a restored scroll position)
   // never intersects at all.
-  const introPassed = () =>
-    !introAnchors || introAnchors.getBoundingClientRect().bottom < 0;
+  const introPassed = () => {
+    if (!introAnchors) return true;
+    const navOffset = publishNavOffset() || 0;
+    return introAnchors.getBoundingClientRect().bottom <= navOffset + 24;
+  };
 
   // The current section is the last target whose top has passed the bar.
   const setCurrent = () => {

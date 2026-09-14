@@ -20,9 +20,30 @@ const { items, className }: Props = Astro.props;
         {items.map((item, index) => (
           <li>
             {index === items.length - 1 ? (
-              <span aria-current="page">{item.name}</span>
+              <span aria-current="page" class="breadcrumbs__current">
+                {item.name}
+              </span>
             ) : (
-              <a href={item.href}>{item.name}</a>
+              <a href={item.href} class="breadcrumbs__link">
+                {index === 0 && (
+                  <svg
+                    class="breadcrumbs__home-icon"
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                  </svg>
+                )}
+                <span>{item.name}</span>
+              </a>
             )}
           </li>
         ))}
