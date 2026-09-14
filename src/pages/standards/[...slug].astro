@@ -7,8 +7,10 @@ import StandardsLayout from "../../components/StandardsLayout.astro";
 import LawsGrid from "../../components/LawsGrid.astro";
 import ClauseRegister from "../../components/ClauseRegister.astro";
 import GrantStateDiagram from "../../components/GrantStateDiagram.astro";
+import StandardPager from "../../components/StandardPager.astro";
 import { standardsContent } from "../../content/standards";
 import { derivePublicationMetadata } from "../../utils/publication";
+import { compareRegistryToDocument } from "../../utils/clause-registry";
 
 const { slug } = Astro.params;
 const slugStr = Array.isArray(slug) ? slug.join("/") : String(slug ?? "");
@@ -54,6 +56,23 @@ const publication = derivePublicationMetadata({
   updated: data.modifiedTime ?? data.publishedTime ?? undefined,
   version: data.version,
 });
+
+const hasClauseRegister = Boolean(
+  standardId &&
+    entry.body &&
+    compareRegistryToDocument(standardId, entry.body).matches,
+);
+
+const resolvedAnchorLinks = [...(data.anchorLinks ?? [])];
+if (
+  hasClauseRegister &&
+  !resolvedAnchorLinks.some((link) => link.href === "#clause-register")
+) {
+  resolvedAnchorLinks.unshift({
+    href: "#clause-register",
+    label: "Clause register",
+  });
+}
 ---
 
 <StandardsLayout
@@ -61,7 +80,7 @@ const publication = derivePublicationMetadata({
   description={data.description}
   permalink={data.permalink}
   eyebrow={data.eyebrow}
-  anchorLinks={data.anchorLinks}
+  anchorLinks={resolvedAnchorLinks}
   version={data.version}
   lastUpdated={data.lastUpdated}
   panelCopy={data.panelCopy}
@@ -73,7 +92,7 @@ const publication = derivePublicationMetadata({
   {isLaws && entry.body && <LawsGrid body={entry.body} />}
   {standardId === "STD-08" && <GrantStateDiagram />}
   {
-    standardId && entry.body && (
+    hasClauseRegister && entry.body && standardId && (
       <ClauseRegister
         standardId={standardId}
         body={entry.body}
@@ -88,6 +107,7 @@ const publication = derivePublicationMetadata({
     <Content />
   </div>
   <SemanticConnections entityId={slugStr} />
+  <StandardPager currentSlug={slugStr} standards={standardsContent.standards} />
   <CitationBlock
     title={data.title}
     permalink={data.permalink}
