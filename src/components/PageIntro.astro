@@ -166,15 +166,50 @@ const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
               </details>
             ) : collapseAnchorLinksOnMobile ? (
               <>
-                <PageIntroAnchorList
-                  links={anchorLinks}
-                  className="page-intro__anchors-list page-intro__anchors-list--desktop"
-                />
+                <div class="page-intro__anchors-list page-intro__anchors-list--desktop">
+                  {anchorLinks.length > 5 ? (
+                    <>
+                      <PageIntroAnchorList links={anchorLinks.slice(0, 4)} />
+                      <details class="page-intro__anchors-more">
+                        <summary class="page-intro__anchors-more-toggle">
+                          <span>
+                            {anchorLinksSummary !== "Show full outline"
+                              ? anchorLinksSummary
+                              : `+ ${anchorLinks.length - 4} more sections`}
+                          </span>
+                        </summary>
+                        <PageIntroAnchorList
+                          links={anchorLinks.slice(4)}
+                          startIndex={4}
+                        />
+                      </details>
+                    </>
+                  ) : (
+                    <PageIntroAnchorList links={anchorLinks} />
+                  )}
+                </div>
                 <details class="page-intro__anchors-disclosure page-intro__anchors-disclosure--mobile">
                   <summary>{anchorLinksSummary}</summary>
                   <PageIntroAnchorList links={anchorLinks} />
                 </details>
               </>
+            ) : anchorLinks.length > 5 ? (
+              <div class="page-intro__anchors-group">
+                <PageIntroAnchorList links={anchorLinks.slice(0, 4)} />
+                <details class="page-intro__anchors-more">
+                  <summary class="page-intro__anchors-more-toggle">
+                    <span>
+                      {anchorLinksSummary !== "Show full outline"
+                        ? anchorLinksSummary
+                        : `+ ${anchorLinks.length - 4} more sections`}
+                    </span>
+                  </summary>
+                  <PageIntroAnchorList
+                    links={anchorLinks.slice(4)}
+                    startIndex={4}
+                  />
+                </details>
+              </div>
             ) : (
               <PageIntroAnchorList
                 links={anchorLinks}
