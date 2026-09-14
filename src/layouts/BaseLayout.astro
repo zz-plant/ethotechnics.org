@@ -154,7 +154,9 @@ const structuredDataJson = stringifyJsonLd(structuredData);
 // mode painted a cold navy ground under warm #1f1d1b cards -- two different
 // colour temperatures stacked -- and light mode kept a cool `html` behind the
 // warm paper `body`, which showed on overscroll.
-const criticalCss = `html,
+const criticalCss = `@layer base, components, utilities;
+
+html,
 body {
   background-color: #faf8f5;
   color: #1c1917;

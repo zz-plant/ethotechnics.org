@@ -141,7 +141,7 @@
   --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Interactive States & Focus Rings */
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 0 1px var(--accent);
   --focus-outline: 2px solid var(--accent);
   --focus-outline-offset: 2px;
   --interactive-border: color-mix(in srgb, var(--border) 85%, transparent);
@@ -156,6 +156,15 @@
     var(--accent) 35%,
     var(--border)
   );
+
+  /* Button Specific Tokens */
+  --btn-primary-bg: #1e3a5f;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: #142842;
+  --btn-primary-hover-bg: #142842;
+  --btn-primary-hover-text: #ffffff;
+  --btn-ghost-color: var(--text);
+  --btn-ghost-border: color-mix(in srgb, var(--border) 75%, transparent);
 
   /* Font Stacks */
   --sans:
@@ -177,10 +186,32 @@
     --border: #383430;
     --text: #f4f1ea;
     --muted: #a8a29e;
-    --accent: #7ea2c6;
-    --accent-strong: #a4c2e0;
+    --accent: #8eb7de;
+    --accent-strong: #bad6f2;
     --gold: #d4a373;
     --teal: #8da9c4;
+
+    /* Button Specific Tokens (Dark Mode) */
+    --btn-primary-bg: #2e6093;
+    --btn-primary-text: #ffffff;
+    --btn-primary-border: #4d86c2;
+    --btn-primary-hover-bg: #3d72a7;
+    --btn-primary-hover-text: #ffffff;
+    --btn-ghost-color: var(--text);
+    --btn-ghost-border: color-mix(in srgb, var(--border) 80%, transparent);
+
+    --interactive-border: color-mix(in srgb, var(--border) 90%, transparent);
+    --interactive-border-hover: color-mix(
+      in srgb,
+      var(--accent) 45%,
+      var(--border)
+    );
+    --interactive-bg: color-mix(in srgb, var(--surface) 92%, var(--panel) 8%);
+    --interactive-bg-hover: color-mix(
+      in srgb,
+      var(--surface) 82%,
+      var(--panel) 18%
+    );
 
     --status-success: #22c55e;
     --status-success-bright: #4ade80;
@@ -246,10 +277,32 @@
   --border: #383430;
   --text: #f4f1ea;
   --muted: #a8a29e;
-  --accent: #7ea2c6;
-  --accent-strong: #a4c2e0;
+  --accent: #8eb7de;
+  --accent-strong: #bad6f2;
   --gold: #d4a373;
   --teal: #8da9c4;
+
+  /* Button Specific Tokens (Dark Mode) */
+  --btn-primary-bg: #2e6093;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: #4d86c2;
+  --btn-primary-hover-bg: #3d72a7;
+  --btn-primary-hover-text: #ffffff;
+  --btn-ghost-color: var(--text);
+  --btn-ghost-border: color-mix(in srgb, var(--border) 80%, transparent);
+
+  --interactive-border: color-mix(in srgb, var(--border) 90%, transparent);
+  --interactive-border-hover: color-mix(
+    in srgb,
+    var(--accent) 45%,
+    var(--border)
+  );
+  --interactive-bg: color-mix(in srgb, var(--surface) 92%, var(--panel) 8%);
+  --interactive-bg-hover: color-mix(
+    in srgb,
+    var(--surface) 82%,
+    var(--panel) 18%
+  );
 
   --status-success: #22c55e;
   --status-success-bright: #4ade80;
@@ -302,182 +355,6 @@
   --surface-raised: linear-gradient(140deg, #211e1c, #262320);
   --surface-emphasis: linear-gradient(145deg, #282522, #2d2925);
   --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: var(--serif);
-  font-optical-sizing: auto;
-  font-kerning: normal;
-  text-rendering: optimizeLegibility;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  font-size: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
-  -webkit-font-smoothing: antialiased;
-  position: relative;
-}
-
-@supports (height: 100svh) {
-  body {
-    min-height: 100svh;
-  }
-}
-
-@supports (height: 100dvh) {
-  body {
-    min-height: 100dvh;
-  }
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(
-      circle at 15% 15%,
-      color-mix(in srgb, var(--gold) 4%, transparent) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at 85% 25%,
-      color-mix(in srgb, var(--accent) 4%, transparent) 0%,
-      transparent 55%
-    );
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: var(--z-underlay);
-  transition: background var(--motion-slow) ease;
-}
-
-::selection {
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
-  color: var(--text);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--serif);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  font-optical-sizing: auto;
-  color: var(--text);
-  text-wrap: balance;
-  line-height: 1.25;
-}
-
-p {
-  color: var(--text);
-  margin: 0 0 0.6rem;
-  text-wrap: pretty;
-}
-
-li {
-  text-wrap: pretty;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-size: 0 2px;
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  padding-bottom: 2px;
-  transition:
-    background-size var(--motion-base) var(--ease-out-editorial),
-    color var(--motion-fast) ease;
-}
-
-a:hover,
-a:focus-visible {
-  color: var(--accent-strong);
-  background-size: 100% 2px;
-}
-
-a:focus-visible {
-  outline: var(--focus-outline);
-  outline-offset: 3px;
-  border-radius: var(--radius-xs);
-}
-
-/* Navigation links */
-nav a {
-  background-image: none;
-  padding-bottom: 0;
-  transition: color var(--motion-fast) ease;
-}
-
-nav a:hover,
-nav a:focus-visible {
-  text-decoration: underline;
-  text-underline-offset: 0.25em;
-  background-size: 0;
-}
-
-/*
- * Footer links.
- *
- * Underlining every one of them at rest turned four tidy columns into a wall
- * of ruled text and made the whole footer compete with the page above it. The
- * underline moves to hover and focus, where it means something; the license
- * link keeps one at rest because it sits in prose rather than in a list.
- */
-footer a,
-.footer a {
-  background-image: none;
-  padding-bottom: 0;
-  transition: color var(--motion-fast) ease;
-  text-decoration: none;
-}
-
-footer a:hover,
-.footer a:hover,
-footer a:focus-visible,
-.footer a:focus-visible {
-  color: var(--accent-strong);
-  text-decoration: underline;
-  text-decoration-color: currentColor;
-  text-underline-offset: 0.25em;
-  background-size: 0;
-}
-
-.footer__license {
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--muted) 45%, transparent);
-  text-underline-offset: 0.25em;
-}
-
-/* Card/panel links */
-.card a:not(.button):not(.pill):not([role]),
-.panel a:not(.button):not(.pill):not([role]) {
-  background-size: 0 1px;
-}
-
-.card a:not(.button):not(.pill):not([role]):hover,
-.panel a:not(.button):not(.pill):not([role]):hover {
-  background-size: 100% 1px;
-}
-
-img,
-svg {
-  max-width: 100%;
-}
-
-.container {
-  width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
-  margin: 0 auto;
 }
 
 @media (min-width: 1600px) {

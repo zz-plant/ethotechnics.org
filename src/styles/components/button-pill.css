@@ -40,30 +40,42 @@
       color-mix(in srgb, var(--border) 60%, transparent);
   }
 
-  .button.primary {
-    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
-    color: var(--accent-strong);
-    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
-    box-shadow: var(--shadow-xs), var(--card-inner-highlight);
+  a.button,
+  a.pill,
+  a.role-chip {
+    background-image: none !important;
+    text-decoration: none !important;
+    background-size: 0 !important;
   }
 
-  .button.primary:hover {
-    background: color-mix(in srgb, var(--accent) 18%, var(--surface));
-    border-color: var(--accent-strong);
-    color: var(--accent-strong);
+  .button.primary {
+    background: var(--btn-primary-bg, #1e3a5f);
+    color: var(--btn-primary-text, #ffffff);
+    border-color: var(--btn-primary-border, #142842);
     box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+  }
+
+  .button.primary:hover,
+  .button.primary:focus-visible {
+    background: var(--btn-primary-hover-bg, #142842);
+    border-color: var(--btn-primary-border, #142842);
+    color: var(--btn-primary-hover-text, #ffffff);
+    box-shadow: var(--shadow-md), var(--card-inner-highlight);
+    transform: translateY(-1px);
   }
 
   .button.ghost {
     background: transparent;
-    color: var(--text);
-    border-color: color-mix(in srgb, var(--border) 75%, transparent);
+    color: var(--btn-ghost-color, var(--text));
+    border-color: var(--btn-ghost-border, color-mix(in srgb, var(--border) 75%, transparent));
     box-shadow: none;
   }
 
-  .button.ghost:hover {
+  .button.ghost:hover,
+  .button.ghost:focus-visible {
     background: color-mix(in srgb, var(--panel) 80%, transparent);
     border-color: color-mix(in srgb, var(--border) 90%, transparent);
+    color: var(--text);
   }
 
   .button:focus-visible {

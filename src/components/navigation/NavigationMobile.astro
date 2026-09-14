@@ -19,29 +19,27 @@ const isStart = normalizePath(currentPath) === "/start";
 ---
 
 <nav class="nav__mobile" aria-label="Main navigation">
-  <div class="nav__mobile-row">
-    <div class="nav__mobile-top">
-      <div class="nav__search-mobile">
-        <Search scope="mobile" label="Search library…" includeDialog={false} />
-      </div>
+  <div class="nav__mobile-bar">
+    <div class="nav__search-mobile">
+      <Search scope="mobile" label="Search" includeDialog={true} />
+    </div>
 
-      <div class="nav__utility-inline">
-        <button
-          class="theme-toggle"
-          data-theme-toggle
-          aria-label="Toggle theme"
-          type="button"
-        >
-          <Icon
-            name="lucide:sun"
-            class="theme-toggle__icon theme-toggle__icon--sun"
-          />
-          <Icon
-            name="lucide:moon"
-            class="theme-toggle__icon theme-toggle__icon--moon"
-          />
-        </button>
-      </div>
+    <div class="nav__utility-inline">
+      <button
+        class="theme-toggle"
+        data-theme-toggle
+        aria-label="Toggle theme"
+        type="button"
+      >
+        <Icon
+          name="lucide:sun"
+          class="theme-toggle__icon theme-toggle__icon--sun"
+        />
+        <Icon
+          name="lucide:moon"
+          class="theme-toggle__icon theme-toggle__icon--moon"
+        />
+      </button>
     </div>
 
     <details
@@ -50,7 +48,7 @@ const isStart = normalizePath(currentPath) === "/start";
       data-mobile-nav
     >
       <summary class="nav__mobile-sections-summary">
-        <span class="nav__mobile-summary-text">Browse sections</span>
+        <span class="nav__mobile-summary-text">Browse</span>
         <Icon name="lucide:chevron-down" class="nav__mobile-summary-icon" />
       </summary>
 

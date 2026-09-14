@@ -20,6 +20,74 @@
     }
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--serif);
+    font-optical-sizing: auto;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    font-size: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  @supports (height: 100svh) {
+    body {
+      min-height: 100svh;
+    }
+  }
+
+  @supports (height: 100dvh) {
+    body {
+      min-height: 100dvh;
+    }
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 15% 15%,
+        color-mix(in srgb, var(--gold) 4%, transparent) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at 85% 25%,
+        color-mix(in srgb, var(--accent) 4%, transparent) 0%,
+        transparent 55%
+      );
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: var(--z-underlay);
+    transition: background var(--motion-slow) ease;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    color: var(--text);
+  }
+
+  p {
+    color: var(--text);
+    margin: 0 0 0.6rem;
+    text-wrap: pretty;
+  }
+
+  li {
+    text-wrap: pretty;
+  }
+
   input,
   select,
   textarea {
@@ -37,7 +105,90 @@
   }
 
   a {
+    color: var(--accent);
+    text-decoration: none;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0 2px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    padding-bottom: 2px;
     touch-action: manipulation;
+    transition:
+      background-size var(--motion-base) var(--ease-out-editorial),
+      color var(--motion-fast) ease;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--accent-strong);
+    background-size: 100% 2px;
+  }
+
+  a:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  /* Navigation links base reset */
+  nav a {
+    background-image: none;
+    padding-bottom: 0;
+    transition: color var(--motion-fast) ease;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    background-size: 0;
+  }
+
+  /* Footer links */
+  footer a,
+  .footer a {
+    background-image: none;
+    padding-bottom: 0;
+    transition: color var(--motion-fast) ease;
+    text-decoration: none;
+  }
+
+  footer a:hover,
+  .footer a:hover,
+  footer a:focus-visible,
+  .footer a:focus-visible {
+    color: var(--accent-strong);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 0.25em;
+    background-size: 0;
+  }
+
+  .footer__license {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--muted) 45%, transparent);
+    text-underline-offset: 0.25em;
+  }
+
+  /* Card/panel links */
+  .card a:not(.button):not(.pill):not([role]),
+  .panel a:not(.button):not(.pill):not([role]) {
+    background-size: 0 1px;
+  }
+
+  .card a:not(.button):not(.pill):not([role]):hover,
+  .panel a:not(.button):not(.pill):not([role]):hover {
+    background-size: 100% 1px;
+  }
+
+  img,
+  svg {
+    max-width: 100%;
+  }
+
+  .container {
+    width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
+    margin: 0 auto;
   }
 
   :where(button, input, select, textarea, summary):focus-visible {
