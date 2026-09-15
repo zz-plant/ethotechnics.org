@@ -21,11 +21,8 @@ const {
   publication,
 } = diagnosticsContent;
 const anchorLinks = [
-  { href: "#most-used", label: "Start with most-used tools" },
-  { href: "#why-diagnostics", label: "See what you get" },
-  { href: "#output-baseline", label: "Review output baseline" },
-  { href: "#anti-weaponization", label: "Verify anti-weaponization checks" },
   { href: "#quick-triage", label: "Choose a tool in 30 seconds" },
+  { href: "#output-baseline", label: "Review what every output includes" },
   { href: "#how-it-works", label: "Understand session flow" },
   { href: "#self-defense-tools", label: "Run self-defense checks" },
   { href: "#diagnostic-tools", label: "Open full tools menu" },
@@ -113,10 +110,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       "Anti-weaponization checks are built into the baseline.",
     ]}
   />
-  <p class="muted small">
-    Recommended path: choose a diagnostic in 30 seconds, then run and share the
-    output.
-  </p>
   <div class="panel diagnostics__artifact-bridge stack-sm">
     <p class="eyebrow">Next required artifact</p>
     <p class="muted">
@@ -151,12 +144,51 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   </SectionActions>
 
   <SectionBlock
-    id="most-used"
-    eyebrow="Most-used diagnostics"
-    title="Start with the six diagnostics teams run most often."
-    description="If you are unsure where to begin, these paths handle the highest-volume governance questions first."
+    id="quick-triage"
+    eyebrow="Quick triage"
+    title="Pick the fastest diagnostic path in three questions."
+    description="Use these prompts to route to the right tool, then start with the ones teams run most often."
     variant="alt"
   >
+    <div class="panel stack-sm">
+      <p class="eyebrow">Start here sequence</p>
+      <ol class="muted">
+        <li>
+          Choose one prompt below that best matches your immediate decision.
+        </li>
+        <li>
+          Compare two candidate tools for delivery mode, prep, and outputs.
+        </li>
+        <li>Run one diagnostic and share the linkable output with owners.</li>
+      </ol>
+      <p class="muted">
+        Recommended path: choose a diagnostic in 30 seconds, then run and share
+        the output.
+      </p>
+    </div>
+    <CardGrid className="grid--three">
+      {
+        quickTriagePrompts.map((prompt) => (
+          <CardItem
+            title={prompt.question}
+            description={prompt.description}
+            descriptionTone="default"
+          >
+            <a slot="footer" class="muted" href={prompt.href}>
+              {prompt.label}
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+    <div class="pattern-filter__anchors" aria-hidden="true">
+      <span class="pattern-filter__anchor" id="most-used"></span>
+    </div>
+    <h3>Start with the diagnostics teams run most often.</h3>
+    <p class="muted">
+      If you are unsure where to begin, these paths handle the
+      highest-volume governance questions first.
+    </p>
     <CardGrid className="grid--three">
       {
         mostUsedTools.map((tool) => (
@@ -176,45 +208,10 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   </SectionBlock>
 
   <SectionBlock
-    id="quick-triage"
-    eyebrow="Quick triage"
-    title="Pick the fastest diagnostic path in three questions."
-    description="Use these prompts to route to the right tool without the demo widget."
-    variant="alt"
-  >
-    <div class="panel stack-sm">
-      <p class="eyebrow">Start here sequence</p>
-      <ol class="muted">
-        <li>
-          Choose one prompt below that best matches your immediate decision.
-        </li>
-        <li>
-          Compare two candidate tools for delivery mode, prep, and outputs.
-        </li>
-        <li>Run one diagnostic and share the linkable output with owners.</li>
-      </ol>
-    </div>
-    <CardGrid className="grid--three">
-      {
-        quickTriagePrompts.map((prompt) => (
-          <CardItem
-            title={prompt.question}
-            description={prompt.description}
-            descriptionTone="default"
-          >
-            <a slot="footer" class="muted" href={prompt.href}>
-              {prompt.label}
-            </a>
-          </CardItem>
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-  <SectionBlock
-    id="why-diagnostics"
-    eyebrow="Why teams call us"
-    title="Diagnostics turn fuzzy risk into a concrete next step."
-    description="Built for visitors who need a clear answer without a long engagement."
+    id="output-baseline"
+    eyebrow="What you get"
+    title="What every diagnostic output includes."
+    description="Use the shared baseline and anti-weaponization checks to align teams before diving into tool specifics."
   >
     <CardGrid>
       {
@@ -223,15 +220,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
         ))
       }
     </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="output-baseline"
-    eyebrow="Output baseline"
-    title="What every diagnostic output includes."
-    description="Use the shared baseline to align teams before diving into tool specifics."
-    variant="alt"
-  >
     <details
       class="chunked-section diagnostics__mobile-disclosure"
       data-collapse-mobile
@@ -260,14 +248,9 @@ const comparisonTools = mostUsedTools.slice(0, 3);
         <StudioBadge />
       </div>
     </details>
-  </SectionBlock>
-
-  <SectionBlock
-    id="anti-weaponization"
-    eyebrow="Anti-weaponization"
-    title="Diagnostics must verify AW-01 through AW-04"
-    description="Every diagnostic output should include evidence that anti-weaponization clauses are honored."
-  >
+    <div class="pattern-filter__anchors" aria-hidden="true">
+      <span class="pattern-filter__anchor" id="anti-weaponization"></span>
+    </div>
     <details
       class="chunked-section diagnostics__mobile-disclosure"
       data-collapse-mobile

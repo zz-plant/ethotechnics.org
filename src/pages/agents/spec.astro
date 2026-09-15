@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import { readFile } from "node:fs/promises";
+import agentSafetyObjectModel from "../../data/agents-spec.json";
 
 const pageTitle = "Agent Safety Object Model";
 const pageDescription =
@@ -19,13 +19,18 @@ const anchorLinks = [
   { href: "#referenced-by", label: "Referenced by" },
 ];
 
-const agentSafetyObjectModel = await readFile(
-  new URL("../../../public/agents/spec.json", import.meta.url),
-  "utf-8",
-);
-
 const exampleModel = `{
   "schema_version": "1.1.0",
+  "doctrine": {
+    "method": "/method",
+    "laws": "/standards/laws",
+    "standards": [
+      "/standards/std-06-human-impact-safety-case",
+      "/standards/std-07-revisable-delegation-record",
+      "/standards/std-08-delegation",
+      "/standards/std-09-agent-chains"
+    ]
+  },
   "agent_id": "agent-risk-ops-v2",
   "autonomy_level": {
     "level": "execute_with_guardrails",
@@ -55,6 +60,12 @@ const exampleModel = `{
     { "id": "MEC-06", "href": "/mechanisms/patterns/appeal-paths" }
   ]
 }`;
+
+const agentSafetyObjectModelText = JSON.stringify(
+  agentSafetyObjectModel,
+  null,
+  2,
+);
 
 const fieldGuide = [
   {
@@ -236,7 +247,7 @@ const failureModes = [
     title="Machine-readable JSON"
     description="Use this schema in CI and linting pipelines to enforce agent governance."
   >
-    <pre class="code-block">{agentSafetyObjectModel}</pre>
+    <pre class="code-block">{agentSafetyObjectModelText}</pre>
   </SectionBlock>
 
   <SectionBlock

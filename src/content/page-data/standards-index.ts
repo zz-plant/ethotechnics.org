@@ -170,12 +170,18 @@ export const buildStandardsCardViewModels = (input: {
 export const buildStandardsGroupingAndFilters = (
   standards: StandardEntry[],
 ): StandardsGroupingModel => {
+  const listedStandards = standards.filter(
+    (standard) => standard.listedOnSite !== false,
+  );
   const mostCitedStandardIds = ["STD-01", "STD-02", "MVC-01"];
-  const activeStandards = standards.filter(
+  const activeStandards = listedStandards.filter(
     (standard) => standard.status !== "Deprecated",
   );
-  const mostCitedStandards = mapStandardsByIds(standards, mostCitedStandardIds);
-  const recentlyUpdatedStandards = [...standards]
+  const mostCitedStandards = mapStandardsByIds(
+    listedStandards,
+    mostCitedStandardIds,
+  );
+  const recentlyUpdatedStandards = [...listedStandards]
     .map((standard, index) => ({ standard, index }))
     .sort((left, right) => {
       const publishedDelta =
@@ -193,7 +199,7 @@ export const buildStandardsGroupingAndFilters = (
       return {
         ...group,
         lane,
-        items: mapStandardsByIds(standards, group.ids),
+        items: mapStandardsByIds(listedStandards, group.ids),
       };
     },
   );
@@ -259,7 +265,9 @@ export const buildStandardsStructuredDataPayload = (input: {
     description: input.standardsContent.pageDescription,
     url: pageUrl,
     hasPart: [
-      ...input.standardsContent.standards.map((standard) => ({
+      ...input.standardsContent.standards
+        .filter((standard) => standard.listedOnSite !== false)
+        .map((standard) => ({
         "@type": "CreativeWork",
         name: `${standard.id} — ${standard.title}`,
         description: standard.description,

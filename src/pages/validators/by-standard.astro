@@ -9,12 +9,14 @@ const pageTitle = "Validators by standard — Ethotechnics";
 const pageDescription =
   "Programmatic map of validators grouped by referenced standard for governance and assurance teams.";
 
-const validatorsByStandard = standardsContent.standards.map((standard) => ({
-  standard,
-  validators: validatorsContent.validators.filter(
-    (validator) => validator.standardRef === standard.id,
-  ),
-}));
+const validatorsByStandard = standardsContent.standards
+  .filter((standard) => standard.listedOnSite !== false)
+  .map((standard) => ({
+    standard,
+    validators: validatorsContent.validators.filter(
+      (validator) => validator.standardRef === standard.id,
+    ),
+  }));
 ---
 
 <BaseLayout

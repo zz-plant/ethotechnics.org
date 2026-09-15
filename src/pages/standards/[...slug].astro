@@ -107,7 +107,12 @@ if (
     <Content />
   </div>
   <SemanticConnections entityId={slugStr} />
-  <StandardPager currentSlug={slugStr} standards={standardsContent.standards} />
+  <StandardPager
+    currentSlug={slugStr}
+    standards={standardsContent.standards.filter(
+      (standard) => standard.listedOnSite !== false,
+    )}
+  />
   <CitationBlock
     title={data.title}
     permalink={data.permalink}

@@ -542,7 +542,7 @@ const MaintenanceSimulator = () => {
     <div className="simulator">
       <div className="simulator__intro">
         <p className="eyebrow">Maintenance simulator</p>
-        <h1>Tabletop the outage, maintenance window, and handoff</h1>
+        <h2 id="simulator-heading">Tabletop the outage, maintenance window, and handoff</h2>
         <p className="muted">
           Use this simulator to rehearse coverage, communication, and halt
           decisions before you schedule a live window. Pick a scenario, set the
