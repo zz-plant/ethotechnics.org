@@ -1,15 +1,3 @@
-export const summaryRelatedLinks = [
-  { href: "/mechanisms", label: "Mechanisms" },
-  { href: "/standards", label: "Standards" },
-  { href: "/research", label: "Research" },
-];
-
-export const summaryTakeaways = [
-  "Every term links to a permalink so citations stay stable.",
-  "Territory maps cluster definitions for faster scanning.",
-  "Related mechanisms connect definitions to implementation work.",
-];
-
 export const explainerLinks = [
   {
     title: "Stoppability",

@@ -4,7 +4,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { validatorsContent } from "../../content/validators";
 
@@ -84,49 +83,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a class="button ghost" href="#tools"> Browse all validators </a>
     </Fragment>
   </PageIntro>
-  <SummaryCallout
-    title="Run one validator before you run them all"
-    description="Start with a featured validator to get a report card, then expand into the full menu for deeper coverage."
-    takeaways={[
-      "Validators translate standards into scorecards and remediation steps.",
-      "Each tool links to the mechanisms that close the gap.",
-      "Start with the validator that matches your highest-risk touchpoint.",
-    ]}
-    relatedLinks={[
-      { href: "/standards/std-01-temporal-rights", label: "STD-01" },
-      { href: "/mechanisms", label: "Mechanisms" },
-      { href: "/diagnostics", label: "Diagnostics" },
-    ]}
-  />
-  <p class="muted small">
-    Diagnostics help you explore system conditions; validators score those
-    conditions against standards and return a pass/fail-style report card.
-  </p>
-  <div class="callout">
-    <h3>Cross-link to rights and mechanisms</h3>
-    <p class="muted">
-      Jump from validator outputs to the rights they protect and the mechanisms
-      that enforce remediation.
-    </p>
-    <div class="library__role-buttons">
-      <a
-        class="button primary library__role-button"
-        href="/standards/std-01-rights-matrix"
-      >
-        Open the rights matrix
-      </a>
-      <a class="button primary library__role-button" href="/mechanisms">
-        Browse mechanisms
-      </a>
-      <a
-        class="button primary library__role-button"
-        href="/standards/std-01-temporal-rights"
-      >
-        Review the rights
-      </a>
-    </div>
-  </div>
-
   <SectionBlock
     id="featured"
     eyebrow="Start here"
@@ -260,7 +216,34 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       {method.steps.map((step) => <li>{step}</li>)}
     </ul>
   </section>
-  <section id="by-standard" class="section">
+  <section id="from-outputs" class="section">
+    <div class="section__header">
+      <p class="eyebrow">From outputs</p>
+      <h2>Cross-link to rights and mechanisms</h2>
+      <p class="muted">
+        Jump from validator outputs to the rights they protect and the
+        mechanisms that enforce remediation.
+      </p>
+    </div>
+    <div class="library__role-buttons">
+      <a
+        class="button ghost library__role-button"
+        href="/standards/std-01-rights-matrix"
+      >
+        Open the rights matrix
+      </a>
+      <a class="button ghost library__role-button" href="/mechanisms">
+        Browse mechanisms
+      </a>
+      <a
+        class="button ghost library__role-button"
+        href="/standards/std-01-temporal-rights"
+      >
+        Review the rights
+      </a>
+    </div>
+  </section>
+  <section id="by-standard" class="section section--alt">
     <div class="section__header">
       <p class="eyebrow">Another way in</p>
       <h2>Validators by standard</h2>

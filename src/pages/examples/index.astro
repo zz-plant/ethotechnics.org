@@ -4,7 +4,6 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 
 const pageTitle = "Worked examples — Ethotechnics Institute";
 const pageDescription =
@@ -87,20 +86,6 @@ const requiredSignals = [
       <a class="button ghost" href="#scenarios"> Browse scenarios </a>
     </Fragment>
   </PageIntro>
-  <SummaryCallout
-    title="Start with a single end-to-end example"
-    description="Pick the featured scenario first, then use the required signals checklist to validate what your team ships."
-    takeaways={[
-      "Every scenario includes receipts, owners, clocks, and remedies.",
-      "Required signals ensure enforceability, not just documentation.",
-      "Examples double as adoption templates for release gates.",
-    ]}
-    relatedLinks={[
-      { href: `/examples/${featuredExample.slug}`, label: "Featured example" },
-      { href: "/bindings", label: "Binding vectors" },
-      { href: "/evidence-packs", label: "Evidence packs" },
-    ]}
-  />
 
   <SectionBlock
     id="featured"

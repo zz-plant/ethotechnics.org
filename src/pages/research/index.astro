@@ -8,7 +8,6 @@ import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import {
   getGlossaryDefinition,
   getGlossaryLabel,
@@ -34,16 +33,6 @@ const {
 } = researchContent;
 const priorityAgenda = agenda.slice(0, 3);
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
-const summaryRelatedLinks = [
-  { href: "/glossary", label: "Glossary" },
-  { href: "/standards", label: "Standards" },
-  { href: "/mechanisms", label: "Mechanisms" },
-];
-const summaryTakeaways = [
-  "Every research line is linked back to glossary anchors.",
-  "Bridge artifacts translate field work into citable outputs.",
-  "Publications surface data, ethics, and structured abstracts.",
-];
 const researchTags = Array.from(
   new Set([
     ...bridgeArtifacts.flatMap((artifact) => artifact.tags),
@@ -139,12 +128,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a class="button ghost" href="#publications"> Browse publications </a>
     </Fragment>
   </PageIntro>
-  <SummaryCallout
-    title="Research wayfinding at a glance"
-    description="Start with the orientation, then scan active agendas and focus areas to see what is in flight and ready to cite."
-    takeaways={summaryTakeaways}
-    relatedLinks={summaryRelatedLinks}
-  />
   <SectionBlock
     id="priorities"
     eyebrow="Current priorities"
@@ -166,38 +149,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           </CardItem>
         ))
       }
-    </CardGrid>
-  </SectionBlock>
-  <SectionBlock
-    id="research-start"
-    eyebrow="Start here"
-    title="Three entry points for new readers."
-    description="Use the orientation cards, then scan the agenda and publications to find what to cite."
-    variant="alt"
-  >
-    <CardGrid className="grid--two">
-      <CardItem
-        title="Orientation"
-        description="How the research program runs and how findings turn into standards."
-      >
-        <a slot="footer" class="muted" href="#orientation">
-          Open orientation
-        </a>
-      </CardItem>
-      <CardItem
-        title="Agenda"
-        description="In-flight lines of inquiry tied to glossary anchors."
-      >
-        <a slot="footer" class="muted" href="#agenda"> View agenda </a>
-      </CardItem>
-      <CardItem
-        title="Publications"
-        description="Protocols, decks, and reports with structured abstracts."
-      >
-        <a slot="footer" class="muted" href="#publications">
-          Browse publications
-        </a>
-      </CardItem>
     </CardGrid>
   </SectionBlock>
   <SectionBlock

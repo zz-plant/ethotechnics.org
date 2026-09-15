@@ -66,7 +66,7 @@ export const validatorsContent: ValidatorsContent = {
     eyebrow: "Outputs",
     title: "Report-card ready",
     description:
-      "Every validator produces a score, a risk statement, and a mechanism to remediate gaps.",
+      "Diagnostics explore system conditions; validators score those conditions against standards. Every validator produces a score, a risk statement, and a mechanism to remediate gaps.",
   },
   validators: [
     {

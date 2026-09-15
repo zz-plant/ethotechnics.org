@@ -29,8 +29,6 @@ export type FiniteContent = PageWithPermalink & {
     heading: string;
     lede: string;
     summary: string;
-    highlight: string;
-    bullets: string[];
     actions: FiniteAction[];
     panel: {
       eyebrow: string;
@@ -123,12 +121,6 @@ export const finiteContent = {
     lede: "An evaluation and training environment for AI-enabled agents and systems that can halt, reverse, and recover without dumping failure onto humans.",
     summary:
       "Most AI benchmarks reward power. Finite measures how stoppable agent systems are—and who pays when they fail.",
-    highlight: "Scroll to explore",
-    bullets: [
-      "Run stoppability drills that show whether operators can halt AI-enabled agents quickly and cleanly.",
-      "Trace and reverse agent actions so recovery work does not become heroic, manual cleanup.",
-      "See where volatility is exported to people, other services, or users before agent incidents grow.",
-    ],
     actions: [
       { label: "Explore pilot details", href: "#pilot", variant: "primary" },
       {

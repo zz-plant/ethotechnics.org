@@ -4,7 +4,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 
 const explainers = await getCollection("explainers");
@@ -23,18 +22,6 @@ const featuredExplainers = [
   "ethical-interrupts",
   "repair-log",
 ];
-
-const takeaways = [
-  "Each explainer includes a definition, example, and distinct signals for auditors.",
-  "CTAs link to standards, bindings, and evidence packs for implementation.",
-  "Use glossary anchors to keep language stable across briefs and audits.",
-];
-
-const relatedLinks = [
-  { href: "/glossary", label: "Glossary" },
-  { href: "/standards", label: "Standards" },
-  { href: "/evidence-packs", label: "Evidence packs" },
-];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -49,13 +36,6 @@ const relatedLinks = [
       description:
         "Each explainer maps to a glossary term, standard, and evidence pack so you can move from question to artifact fast.",
     }}
-  />
-
-  <SummaryCallout
-    title="Explainer wayfinding"
-    description="Start with the featured explainers or browse the full list below."
-    takeaways={takeaways}
-    relatedLinks={relatedLinks}
   />
 
   <SectionBlock

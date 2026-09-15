@@ -17,6 +17,15 @@ const validatorsByStandard = standardsContent.standards
       (validator) => validator.standardRef === standard.id,
     ),
   }));
+// One section per standard that has validators; the rest share a line. Every
+// listed standard used to get a heading, and six of the seven said only that
+// nothing was mapped to it yet.
+const mapped = validatorsByStandard.filter(
+  ({ validators }) => validators.length,
+);
+const unmapped = validatorsByStandard.filter(
+  ({ validators }) => !validators.length,
+);
 ---
 
 <BaseLayout
@@ -29,35 +38,53 @@ const validatorsByStandard = standardsContent.standards
     eyebrow="Programmatic index"
     title="Validators by standard"
     description={pageDescription}
-    anchorLinks={validatorsByStandard.map(({ standard }) => ({
-      href: `#${standard.id.toLowerCase()}`,
-      label: standard.id,
-    }))}
+    anchorLinks={mapped.length > 1
+      ? mapped.map(({ standard }) => ({
+          href: `#${standard.id.toLowerCase()}`,
+          label: standard.id,
+        }))
+      : []}
   />
 
   {
-    validatorsByStandard.map(({ standard, validators }) => (
+    mapped.map(({ standard, validators }) => (
       <SectionBlock
         id={standard.id.toLowerCase()}
         eyebrow={standard.id}
         title={standard.title}
         description={standard.description}
       >
-        {validators.length > 0 ? (
-          <ul>
-            {validators.map((validator) => (
-              <li>
-                <a href={`/validators/${validator.slug}`}>{validator.title}</a>
-                <span class="muted"> — {validator.description}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p class="muted">
-            No published validators currently mapped to this standard.
-          </p>
-        )}
+        <ul>
+          {validators.map((validator) => (
+            <li>
+              <a href={`/validators/${validator.slug}`}>{validator.title}</a>
+              <span class="muted"> — {validator.description}</span>
+            </li>
+          ))}
+        </ul>
       </SectionBlock>
     ))
+  }
+
+  {
+    unmapped.length > 0 && (
+      <SectionBlock
+        id="not-yet-mapped"
+        eyebrow="Not yet mapped"
+        title="Standards without a published validator"
+        description="No published validator references these standards yet. Each links to the standard itself."
+        variant="alt"
+      >
+        <ul class="muted">
+          {unmapped.map(({ standard }) => (
+            <li>
+              <a href={`/standards/${standard.slug}`}>
+                {standard.id}: {standard.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </SectionBlock>
+    )
   }
 </BaseLayout>

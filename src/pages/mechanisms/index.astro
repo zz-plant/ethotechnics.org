@@ -9,7 +9,6 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PatternFilter from "../../components/PatternFilter.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 
@@ -87,20 +86,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <a class="button ghost" href="#primer"> Read the primer </a>
     </Fragment>
   </PageIntro>
-  <SummaryCallout
-    title="Start with filters, then deepen with primers and specs"
-    description="Use the quick filters to pick a lens, then follow the primer and mechanism specs to implement."
-    takeaways={[
-      "Role pathways surface the highest-signal mechanisms.",
-      "Quick filters help you jump into governance, friction, or policy lenses.",
-      "Mechanism specs link directly to validators and evidence packs.",
-    ]}
-    relatedLinks={[
-      { href: "#browse", label: "Browse by theme" },
-      { href: "#primer", label: "Primer" },
-      { href: "#mechanisms", label: "Mechanism specs" },
-    ]}
-  />
   <SectionBlock
     id="start-here"
     eyebrow="Start here"

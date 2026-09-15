@@ -5,7 +5,6 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 
 const evidencePacks = await getCollection("evidencePacks");
 
@@ -14,18 +13,6 @@ const pageDescription =
   "Tiered evidence requirements for each standard with audit guidance and compliance theater detection.";
 
 const anchorLinks = [{ href: "#evidence-packs", label: "All evidence packs" }];
-
-const takeaways = [
-  "Each pack uses a Tier 0–2 model so you can scale proof from baseline to resilience.",
-  "Anti-fraud patterns help auditors catch hollow compliance before it ships.",
-  "Cross-links keep evidence packs aligned with standards, bindings, and validators.",
-];
-
-const relatedLinks = [
-  { href: "/standards", label: "Standards" },
-  { href: "/bindings", label: "Bindings" },
-  { href: "/validators", label: "Validators" },
-];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -40,13 +27,6 @@ const relatedLinks = [
       description:
         "Evidence packs translate clause obligations into artifact inventories, test batteries, and auditor-ready exports.",
     }}
-  />
-
-  <SummaryCallout
-    title="Evidence pack wayfinding"
-    description="Start with the pack for the standard you're implementing, then layer in higher-tier proof."
-    takeaways={takeaways}
-    relatedLinks={relatedLinks}
   />
 
   <SectionBlock

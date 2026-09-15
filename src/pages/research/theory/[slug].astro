@@ -17,11 +17,6 @@ const anchorLinks = headings
   .filter((heading) => heading.depth === 2)
   .map((heading) => ({ href: `#${heading.slug}`, label: heading.text }));
 
-const lawLinks = data.lawRefs.map((ref) => ({
-  label: `Law ${ref}`,
-  href: `/standards/laws#laws`,
-}));
-
 const toDateTime = (value: string) =>
   value.includes("T") ? value : `${value}T00:00:00.000Z`;
 const publishedTime = toDateTime(data.published);
@@ -51,42 +46,30 @@ const breadcrumbItems = [
   mainClass="page container standard-document"
   breadcrumbItems={breadcrumbItems}
 >
+  {
+    /*
+    The lede is the thesis (`summary`), not the abstract (`description`): the
+    abstract ran to 74 words on one essay and sat beside a panel that carried
+    the thesis, so the intro held two summaries before the essay began. The
+    abstract still serves as the page's meta description. The layer note that
+    used to follow as a third block -- theory, not a requirement; argues for
+    these laws -- is the panel now.
+  */
+  }
   <PageIntro
     eyebrow={data.eyebrow}
     title={data.title}
-    description={data.description}
+    description={data.summary}
     anchorLinks={anchorLinks}
     lastUpdated={data.updated ?? data.published}
     panelCopy={{
       eyebrow: "Argues for",
       title: data.lawRefs.map((ref) => `Law ${ref}`).join(", "),
-      description: data.summary,
+      description:
+        "Theory, not a requirement: it gives reasons the laws hold. What a standard binds is stated on the laws page, and no clause cites this essay.",
       link: { label: "Read the laws", href: "/standards/laws" },
     }}
   />
-
-  <aside class="callout callout--solid" aria-label="Layer note">
-    <p class="eyebrow">Theory</p>
-    <p>
-      This is theory, not a requirement. It gives reasons the laws hold. What a
-      standard binds is stated on the{" "}
-      <a href="/standards/laws">laws page</a>, and no clause cites this essay.
-      {
-        lawLinks.length > 0 && (
-          <span>
-            {" "}
-            Argues for{" "}
-            {lawLinks.map((law, index) => (
-              <>
-                <a href={law.href}>{law.label}</a>
-                {index < lawLinks.length - 1 ? ", " : "."}
-              </>
-            ))}
-          </span>
-        )
-      }
-    </p>
-  </aside>
 
   <article class="theory-essay stack-md">
     <Content />

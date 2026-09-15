@@ -8,7 +8,6 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 
 const {
@@ -101,15 +100,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     collapseAnchorLinksOnMobile={true}
     anchorLinksSummary="More anchors"
   />
-  <SummaryCallout
-    title="Pick the fastest diagnostic first"
-    description="Use the quick triage prompts to choose a tool, then compare outputs before running the full menu."
-    takeaways={[
-      "Each diagnostic produces a shareable, linkable report.",
-      "Every output references mechanisms for remediation.",
-      "Anti-weaponization checks are built into the baseline.",
-    ]}
-  />
   <div class="panel diagnostics__artifact-bridge stack-sm">
     <p class="eyebrow">Next required artifact</p>
     <p class="muted">
@@ -186,13 +176,14 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     </div>
     <h3>Start with the diagnostics teams run most often.</h3>
     <p class="muted">
-      If you are unsure where to begin, these paths handle the
-      highest-volume governance questions first.
+      If you are unsure where to begin, these paths handle the highest-volume
+      governance questions first.
     </p>
     <CardGrid className="grid--three">
       {
         mostUsedTools.map((tool) => (
           <CardItem
+            meta={tool.tier}
             title={tool.title}
             description={tool.description}
             descriptionTone="default"
