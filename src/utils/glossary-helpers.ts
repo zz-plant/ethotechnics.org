@@ -59,7 +59,9 @@ export const getGlossaryEntryDefaults = (
 } => {
   const categoryLabel = normalizeGlossaryHeading(category.heading);
   const scopeText = entry.scope ?? "";
-  const adjacentTerms = entry.adjacentTerms ?? entry.tags ?? [];
+  // Adjacent terms are entry ids and render as links; tags are keywords and
+  // never resolve to an entry, so they cannot stand in.
+  const adjacentTerms = entry.adjacentTerms ?? [];
   const operationalTests = entry.operationalTests ?? [];
   const commonCounterfeits = entry.commonCounterfeits ?? [];
   const minimumEvidence = getMinimumEvidenceDefaults(entry);

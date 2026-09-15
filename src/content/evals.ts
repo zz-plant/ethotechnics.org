@@ -277,11 +277,7 @@ export const evalsContent: EvalsContent = {
       category: "burden",
       layer: "consequence",
       standardRefs: ["STD-01", "STD-03"],
-      glossaryRefs: [
-        "burden-index",
-        "friction-taxonomy",
-        "burden-distribution-test",
-      ],
+      glossaryRefs: ["burden-index", "friction-budgets", "burden-distribution"],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -309,7 +305,11 @@ export const evalsContent: EvalsContent = {
       category: "agency",
       layer: "institution",
       standardRefs: ["STD-02"],
-      glossaryRefs: ["contestability", "appeal-path", "resolution-fidelity"],
+      glossaryRefs: [
+        "contestability",
+        "appeal-integrity",
+        "remedy-equivalence",
+      ],
       testCases: [],
       scoringMethod: {
         type: "min-threshold",
@@ -366,10 +366,10 @@ export const evalsContent: EvalsContent = {
       layer: "institution",
       standardRefs: ["STD-01"],
       glossaryRefs: [
-        "temporal-rights",
+        "temporal-exaction",
         "time-to-halt",
-        "time-to-remedy",
-        "time-debt",
+        "time-to-restore",
+        "moral-debt",
       ],
       testCases: [],
       scoringMethod: {
@@ -398,7 +398,11 @@ export const evalsContent: EvalsContent = {
       category: "structural",
       layer: "institution",
       standardRefs: ["STD-01", "STD-02"],
-      glossaryRefs: ["reversibility", "rollback", "state-consistency"],
+      glossaryRefs: [
+        "reversibility",
+        "graceful-rollback-lanes",
+        "continuity-of-state",
+      ],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -426,10 +430,7 @@ export const evalsContent: EvalsContent = {
       category: "visibility",
       layer: "institution",
       standardRefs: ["STD-02"],
-      glossaryRefs: [
-        "explainability-for-accountability",
-        "counterfactual-testability",
-      ],
+      glossaryRefs: ["explainability-for-accountability", "legibility"],
       testCases: [],
       scoringMethod: {
         type: "weighted-average",
@@ -458,9 +459,9 @@ export const evalsContent: EvalsContent = {
       layer: "agent",
       standardRefs: ["STD-01", "STD-02", "STD-03"],
       glossaryRefs: [
-        "agent-governance-score",
-        "escalation-pattern",
-        "audit-trail",
+        "governability",
+        "escalation-reliability",
+        "prospective-auditability",
       ],
       testCases: [],
       scoringMethod: {
@@ -491,8 +492,8 @@ export const evalsContent: EvalsContent = {
       standardRefs: ["STD-01", "STD-03"],
       glossaryRefs: [
         "burden-index",
-        "cross-domain-burden",
-        "burden-distribution-test",
+        "burden-elasticity",
+        "burden-distribution",
       ],
       testCases: [],
       scoringMethod: {

@@ -66,13 +66,6 @@ export const summaryRelatedLinks = [
   { label: "Evidence packs", href: "/evidence-packs" },
 ];
 
-export const summaryJumpLinks = [
-  { label: "Requirements", href: "#requirements" },
-  { label: "Failure-first design", href: "#failure-design" },
-  { label: "Contestability", href: "#contestability" },
-  { label: "Control checklist", href: "#control-checklist" },
-];
-
 export const actionClassRows: ActionClassRow[] = [
   {
     actionClass: "READ",

@@ -145,12 +145,20 @@ const failureModes = [
   "Missing receipt schema version breaks downstream parsers and evidence pack validators.",
   "Missing clocks removes enforceable time bounds for acknowledgment, review, and remedy.",
 ];
+
+// There is no /agents index; the default crumbs would link one.
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Agent teaching toolkit", url: "/agent-toolkit/" },
+  { name: pageTitle, url: "/agents/spec" },
+];
 ---
 
 <BaseLayout
   title={`${pageTitle} — Ethotechnics`}
   description={pageDescription}
   publishedTime="2026-02-22T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
 >
   <PageIntro
     eyebrow="Agent specification"

@@ -419,7 +419,11 @@
           "title": "MEC-04 The Hard Clock",
           "summary": "Give every system state a declared maximum duration so nothing sits in pending forever without escalation, expiry, or an exit.",
           "filters": ["governance", "friction"],
-          "glossaryRefs": ["time-to-halt", "escalation", "contestability"],
+          "glossaryRefs": [
+            "time-to-halt",
+            "escalation-horizon",
+            "contestability"
+          ],
           "cues": [
             "Declare the maximum duration of each state before people commit to the process.",
             "Decide in advance whether expiry fails safe or escalates to a named human.",
@@ -589,7 +593,11 @@
           "title": "MEC-07 Accountability latency tracker",
           "summary": "Measure how quickly teams can intervene, halt, and restore systems when accountability is on the line.",
           "filters": ["governance", "policy"],
-          "glossaryRefs": ["audit-trail", "design-authority", "time-to-halt"],
+          "glossaryRefs": [
+            "prospective-auditability",
+            "design-authority",
+            "time-to-halt"
+          ],
           "cues": [
             "Instrument veto, halt, and restore events with owner and trigger metadata.",
             "Publish accountability latency targets alongside time-to-halt SLAs.",
@@ -648,7 +656,7 @@
           "glossaryRefs": [
             "contestability",
             "permission-surface",
-            "escalation"
+            "escalation-reliability"
           ],
           "cues": [
             "Publish a stable API contract that documents inputs, owners, and response timelines.",
@@ -759,7 +767,7 @@
           "filters": ["governance", "policy"],
           "glossaryRefs": [
             "reversibility",
-            "audit-trail",
+            "prospective-auditability",
             "irreversibility-index"
           ],
           "cues": [
@@ -809,7 +817,11 @@
           "title": "MEC-11 Escalation SLAs",
           "summary": "Guarantee response times for human escalation when automated decisions are contested.",
           "filters": ["governance", "policy"],
-          "glossaryRefs": ["escalation", "contestability", "time-to-halt"],
+          "glossaryRefs": [
+            "escalation-reliability",
+            "contestability",
+            "time-to-halt"
+          ],
           "cues": [
             "Publish escalation clocks with named owners and coverage windows.",
             "Tie escalation SLAs to staffing plans and on-call rosters.",
