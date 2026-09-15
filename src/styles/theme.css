@@ -1,14 +1,17 @@
 :root {
   color-scheme: light dark;
 
-  /* --- Color Palette (Light Theme: Warm Paper & Editorial Sapphire) --- */
-  --bg: #faf8f5;
+  /* --- Palette (light): paper, sheet, sapphire ink --- */
+  /* The ground is a step deeper than the sheet so a white surface reads as
+     raised on its own. It used to sit two points below white, which is why
+     every card needed a border and a shadow to be seen at all. */
+  --bg: #f5f3ee;
   --surface: #ffffff;
-  --panel: #f3efe8;
+  --panel: #ece8df;
   --card: #ffffff;
-  --border: #e6e2da;
+  --border: #dcd6cb;
   --text: #1c1917;
-  --muted: #57534e;
+  --muted: #5b554f;
   --accent: #1e3a5f;
   --accent-strong: #142842;
   --gold: #b45309;
@@ -31,26 +34,27 @@
   --radius-xs: 3px;
   --radius: 6px;
   --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
   --radius-pill: 999px;
 
-  /* Elevation & Shadows (Natural Warm Elevation) */
-  --shadow-color: rgba(28, 25, 23, 0.07);
-  --shadow-color-soft: rgba(28, 25, 23, 0.035);
+  /* Elevation. Resting surfaces carry none; a shadow means something floats
+     (a menu, a dialog) or is being pointed at. */
+  --shadow-color: rgba(28, 25, 23, 0.08);
+  --shadow-color-soft: rgba(28, 25, 23, 0.04);
   --shadow-xs: 0 1px 2px var(--shadow-color-soft);
   --shadow-sm:
-    0 2px 5px var(--shadow-color-soft), 0 1px 2px var(--shadow-color);
+    0 1px 2px var(--shadow-color-soft), 0 4px 12px var(--shadow-color-soft);
   --shadow: 0 5px 14px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
   --shadow-md:
     0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
   --shadow-lg:
     0 14px 30px var(--shadow-color), 0 4px 8px var(--shadow-color-soft);
-  --shadow-panel: 0 6px 18px rgba(28, 25, 23, 0.04);
+  --shadow-panel: none;
   --shadow-float:
-    0 10px 24px rgba(28, 25, 23, 0.07), 0 2px 5px rgba(28, 25, 23, 0.03);
+    0 6px 18px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
   --shadow-float-strong:
-    0 16px 40px rgba(28, 25, 23, 0.09), 0 4px 10px rgba(28, 25, 23, 0.04);
+    0 12px 32px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
   --shadow-tight: 0 2px 5px var(--shadow-color);
   --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 14%, transparent);
 
@@ -85,38 +89,21 @@
   --color-foreground: var(--text);
   --color-foreground-muted: var(--muted);
 
-  /* Glassmorphism & Ambient Accents */
-  --glass-bg: color-mix(in srgb, var(--surface) 92%, transparent);
-  --glass-border: color-mix(in srgb, var(--border) 75%, transparent);
-  --glass-blur: blur(12px);
-  --card-inner-highlight: inset 0 1px 0
-    color-mix(in srgb, white 90%, transparent);
-
-  --glow-wash: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--panel) 60%, transparent) 0%,
-    transparent 100%
-  );
-  --grain-texture: none;
-  --halftone: none;
+  /* Glass chrome (the sticky header, the floating back-to-top) */
+  --glass-bg: color-mix(in srgb, var(--bg) 92%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
+  --glass-blur: blur(14px);
+  --card-inner-highlight: none;
 
   --surface-flat: var(--surface);
-  --surface-raised: linear-gradient(
-    140deg,
-    #ffffff,
-    color-mix(in srgb, var(--panel) 50%, white 50%)
-  );
-  --surface-emphasis: linear-gradient(
-    145deg,
-    color-mix(in srgb, var(--panel) 80%, white 20%),
-    color-mix(in srgb, var(--surface) 96%, var(--accent) 4%)
-  );
+  --surface-raised: var(--surface);
+  --surface-emphasis: color-mix(in srgb, var(--panel) 55%, var(--surface));
   --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
 
   /* Fluid Typography Scale */
   --text-xs: 0.72rem;
   --text-sm: 0.84rem;
-  --text-eyebrow: 0.78rem;
+  --text-eyebrow: 0.74rem;
   --text-body: clamp(0.96rem, 0.3vw + 0.95rem, 1.1rem);
   --text-lede: clamp(1.05rem, 0.6vw + 0.95rem, 1.25rem);
   --text-hero: clamp(2.1rem, 3.2vw + 1rem, 3.9rem);
@@ -128,7 +115,7 @@
      section heading and a paragraph were the same size, and the whole page
      read flat. These steps hold a ~1.4 ratio between levels and keep h3
      clearly above the lede. */
-  --text-h1: clamp(2rem, 1.55rem + 1.9vw, 2.9rem);
+  --text-h1: clamp(2.1rem, 1.55rem + 2vw, 3.1rem);
   --text-h2: clamp(1.5rem, 1.25rem + 1.05vw, 2.05rem);
   --text-h3: clamp(1.2rem, 1.1rem + 0.42vw, 1.45rem);
   --text-h4: clamp(1.05rem, 1rem + 0.22vw, 1.18rem);
@@ -141,16 +128,14 @@
   --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Interactive States & Focus Rings */
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 0 1px var(--accent);
+  --focus-ring:
+    0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent),
+    0 0 0 1px var(--accent);
   --focus-outline: 2px solid var(--accent);
   --focus-outline-offset: 2px;
   --interactive-border: color-mix(in srgb, var(--border) 85%, transparent);
-  --interactive-bg: color-mix(in srgb, var(--surface) 96%, var(--panel) 4%);
-  --interactive-bg-hover: color-mix(
-    in srgb,
-    var(--surface) 88%,
-    var(--panel) 12%
-  );
+  --interactive-bg: var(--surface);
+  --interactive-bg-hover: color-mix(in srgb, var(--surface) 80%, var(--panel));
   --interactive-border-hover: color-mix(
     in srgb,
     var(--accent) 35%,
@@ -164,41 +149,53 @@
   --btn-primary-hover-bg: #142842;
   --btn-primary-hover-text: #ffffff;
   --btn-ghost-color: var(--text);
-  --btn-ghost-border: color-mix(in srgb, var(--border) 75%, transparent);
+  --btn-ghost-border: color-mix(in srgb, var(--border) 90%, transparent);
 
-  /* Font Stacks */
+  /* Font Stacks. No webfonts ship (font-src is 'self' and nothing is
+     self-hosted), so each stack names a real face on each platform: Iowan
+     on Apple, Palatino on Windows, Charter/Georgia where those are missing.
+     The mono stack used to name IBM Plex Mono and Courier Prime, which no
+     platform has, and so every identifier rendered in Courier New. */
   --sans:
     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --serif:
-    "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman",
-    serif;
-  --mono: "IBM Plex Mono", "Courier Prime", "Courier New", monospace;
+    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Charter,
+    Georgia, "Times New Roman", serif;
+  --mono:
+    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    "DejaVu Sans Mono", monospace;
 }
 
-/* --- Dark Theme Variables (Warm Obsidian & Slate Tone) --- */
+/* --- Dark theme: warm obsidian ---
+   The ground used to be zinc (#18181b, a cool grey) under warm brown-black
+   surfaces, so cards and page were two colour temperatures. Everything here is
+   one warm ramp. Elevation is a step in lightness plus a hairline rim light;
+   the big blurred shadows are gone because a shadow on a near-black ground
+   reads as a smudge, not depth.
+   The block is written twice -- once for the system preference, once for the
+   stored choice -- and the two must stay identical. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #18181b;
-    --surface: #1f1d1b;
-    --panel: #262320;
-    --card: #211e1c;
-    --border: #383430;
-    --text: #f4f1ea;
-    --muted: #a8a29e;
-    --accent: #8eb7de;
-    --accent-strong: #bad6f2;
+    --bg: #171412;
+    --surface: #1f1b18;
+    --panel: #282320;
+    --card: #221e1b;
+    --border: #3a332d;
+    --text: #f1ece3;
+    --muted: #a69f95;
+    --accent: #93b8dc;
+    --accent-strong: #bfd6ee;
     --gold: #d4a373;
     --teal: #8da9c4;
 
-    /* Button Specific Tokens (Dark Mode) */
     --btn-primary-bg: #2e6093;
     --btn-primary-text: #ffffff;
     --btn-primary-border: #4d86c2;
     --btn-primary-hover-bg: #3d72a7;
     --btn-primary-hover-text: #ffffff;
     --btn-ghost-color: var(--text);
-    --btn-ghost-border: color-mix(in srgb, var(--border) 80%, transparent);
+    --btn-ghost-border: color-mix(in srgb, var(--border) 90%, transparent);
 
     --interactive-border: color-mix(in srgb, var(--border) 90%, transparent);
     --interactive-border-hover: color-mix(
@@ -206,12 +203,8 @@
       var(--accent) 45%,
       var(--border)
     );
-    --interactive-bg: color-mix(in srgb, var(--surface) 92%, var(--panel) 8%);
-    --interactive-bg-hover: color-mix(
-      in srgb,
-      var(--surface) 82%,
-      var(--panel) 18%
-    );
+    --interactive-bg: var(--surface);
+    --interactive-bg-hover: var(--panel);
 
     --status-success: #22c55e;
     --status-success-bright: #4ade80;
@@ -233,63 +226,55 @@
       transparent
     );
 
-    --shadow-color: rgba(0, 0, 0, 0.4);
-    --shadow-color-soft: rgba(0, 0, 0, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.45);
+    --shadow-color-soft: rgba(0, 0, 0, 0.3);
+    --shadow-xs: 0 1px 2px var(--shadow-color-soft);
+    --shadow-sm:
+      0 1px 2px var(--shadow-color), 0 4px 12px var(--shadow-color-soft);
     --shadow:
       0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-    --shadow-xs: 0 1px 3px var(--shadow-color-soft);
-    --shadow-sm:
-      0 3px 8px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
     --shadow-md:
       0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
     --shadow-lg:
       0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
-    --shadow-panel: 0 6px 20px rgba(0, 0, 0, 0.3);
-    --shadow-float: 0 10px 24px rgba(0, 0, 0, 0.35);
-    --shadow-float-strong: 0 16px 42px rgba(0, 0, 0, 0.4);
-
-    --glass-bg: color-mix(in srgb, var(--surface) 90%, transparent);
-    --glass-border: color-mix(in srgb, var(--border) 75%, transparent);
-    --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
-    --glow-wash: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--panel) 60%, transparent) 0%,
-      transparent 100%
-    );
-    --grain-texture: none;
-    --halftone: none;
+    --shadow-panel: none;
+    --shadow-float: 0 6px 18px var(--shadow-color);
+    --shadow-float-strong: 0 12px 32px var(--shadow-color);
+    --shadow-tight: 0 2px 5px var(--shadow-color);
     --shadow-accent: 0 4px 14px
       color-mix(in srgb, var(--accent) 18%, transparent);
-    --shadow-tight: 0 2px 5px var(--shadow-color);
+
+    --glass-bg: color-mix(in srgb, var(--bg) 95%, transparent);
+    --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
+    --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+
     --surface-flat: var(--surface);
-    --surface-raised: linear-gradient(140deg, #211e1c, #262320);
-    --surface-emphasis: linear-gradient(145deg, #282522, #2d2925);
+    --surface-raised: var(--card);
+    --surface-emphasis: var(--panel);
     --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
   }
 }
 
 :root.dark {
-  --bg: #18181b;
-  --surface: #1f1d1b;
-  --panel: #262320;
-  --card: #211e1c;
-  --border: #383430;
-  --text: #f4f1ea;
-  --muted: #a8a29e;
-  --accent: #8eb7de;
-  --accent-strong: #bad6f2;
+  --bg: #171412;
+  --surface: #1f1b18;
+  --panel: #282320;
+  --card: #221e1b;
+  --border: #3a332d;
+  --text: #f1ece3;
+  --muted: #a69f95;
+  --accent: #93b8dc;
+  --accent-strong: #bfd6ee;
   --gold: #d4a373;
   --teal: #8da9c4;
 
-  /* Button Specific Tokens (Dark Mode) */
   --btn-primary-bg: #2e6093;
   --btn-primary-text: #ffffff;
   --btn-primary-border: #4d86c2;
   --btn-primary-hover-bg: #3d72a7;
   --btn-primary-hover-text: #ffffff;
   --btn-ghost-color: var(--text);
-  --btn-ghost-border: color-mix(in srgb, var(--border) 80%, transparent);
+  --btn-ghost-border: color-mix(in srgb, var(--border) 90%, transparent);
 
   --interactive-border: color-mix(in srgb, var(--border) 90%, transparent);
   --interactive-border-hover: color-mix(
@@ -297,12 +282,8 @@
     var(--accent) 45%,
     var(--border)
   );
-  --interactive-bg: color-mix(in srgb, var(--surface) 92%, var(--panel) 8%);
-  --interactive-bg-hover: color-mix(
-    in srgb,
-    var(--surface) 82%,
-    var(--panel) 18%
-  );
+  --interactive-bg: var(--surface);
+  --interactive-bg-hover: var(--panel);
 
   --status-success: #22c55e;
   --status-success-bright: #4ade80;
@@ -324,36 +305,29 @@
     transparent
   );
 
-  --shadow-color: rgba(0, 0, 0, 0.4);
-  --shadow-color-soft: rgba(0, 0, 0, 0.2);
-  --shadow: 0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
-  --shadow-xs: 0 1px 3px var(--shadow-color-soft);
+  --shadow-color: rgba(0, 0, 0, 0.45);
+  --shadow-color-soft: rgba(0, 0, 0, 0.3);
+  --shadow-xs: 0 1px 2px var(--shadow-color-soft);
   --shadow-sm:
-    0 3px 8px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
+    0 1px 2px var(--shadow-color), 0 4px 12px var(--shadow-color-soft);
+  --shadow: 0 6px 16px var(--shadow-color), 0 1px 3px var(--shadow-color-soft);
   --shadow-md:
     0 8px 20px var(--shadow-color), 0 2px 5px var(--shadow-color-soft);
   --shadow-lg:
     0 14px 30px var(--shadow-color), 0 3px 8px var(--shadow-color-soft);
-  --shadow-panel: 0 6px 20px rgba(0, 0, 0, 0.3);
-  --shadow-float: 0 10px 24px rgba(0, 0, 0, 0.35);
-  --shadow-float-strong: 0 16px 42px rgba(0, 0, 0, 0.4);
-
-  --glass-bg: color-mix(in srgb, var(--surface) 90%, transparent);
-  --glass-border: color-mix(in srgb, var(--border) 75%, transparent);
-  --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
-  --glow-wash: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--panel) 60%, transparent) 0%,
-    transparent 100%
-  );
-  --grain-texture: none;
-  --halftone: none;
-  --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 18%, transparent);
+  --shadow-panel: none;
+  --shadow-float: 0 6px 18px var(--shadow-color);
+  --shadow-float-strong: 0 12px 32px var(--shadow-color);
   --shadow-tight: 0 2px 5px var(--shadow-color);
+  --shadow-accent: 0 4px 14px color-mix(in srgb, var(--accent) 18%, transparent);
+
+  --glass-bg: color-mix(in srgb, var(--bg) 95%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
+  --card-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+
   --surface-flat: var(--surface);
-  --surface-raised: linear-gradient(140deg, #211e1c, #262320);
-  --surface-emphasis: linear-gradient(145deg, #282522, #2d2925);
+  --surface-raised: var(--card);
+  --surface-emphasis: var(--panel);
   --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
 }
 

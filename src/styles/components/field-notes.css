@@ -21,10 +21,10 @@
     margin: 0;
     padding: 0.35rem;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--surface) 92%, white 8%);
+    background: var(--surface);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     gap: 0.35rem;
-    box-shadow: var(--shadow-xs);
+    box-shadow: var(--card-inner-highlight);
   }
 
   .field-notes__tabs .pill-list__item {
@@ -56,13 +56,9 @@
   }
 
   .field-notes__card {
-    background: linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--card) 92%, white 8%),
-      color-mix(in srgb, var(--surface) 88%, white 12%)
-    );
+    background: var(--surface);
     border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    box-shadow: var(--card-inner-highlight);
     --glow-opacity: 0.18;
   }
 
@@ -132,8 +128,8 @@
     padding: 0.9rem 1rem;
     border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    background: color-mix(in srgb, var(--surface) 96%, white 4%);
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    background: var(--surface);
+    box-shadow: var(--card-inner-highlight);
     text-decoration: none;
     color: var(--text);
     transition:

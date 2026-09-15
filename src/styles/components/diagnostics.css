@@ -1,10 +1,6 @@
 @layer components {
   .diagnostic-tool__form {
-    background: linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--panel) 95%, white 5%),
-      color-mix(in srgb, var(--surface) 92%, white 8%)
-    );
+    background: color-mix(in srgb, var(--panel) 45%, var(--surface));
     border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
   }
   .diagnostics__filters {
@@ -28,10 +24,10 @@
     padding: 1.15rem 1.25rem;
     border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    background: var(--surface);
     display: grid;
     gap: 0.65rem;
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    box-shadow: var(--card-inner-highlight);
   }
 
   .diagnostics__slider-heading {
@@ -58,8 +54,8 @@
     padding: 1.6rem;
     border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
-    background: color-mix(in srgb, var(--panel) 92%, white 8%);
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    background: var(--panel);
+    box-shadow: var(--card-inner-highlight);
     display: grid;
     gap: 0.6rem;
   }
@@ -83,10 +79,10 @@
 
   .diagnostics__process-step {
     padding: 1.2rem 1.35rem;
-    background: color-mix(in srgb, var(--surface) 96%, white 4%);
+    background: var(--surface);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    box-shadow: var(--card-inner-highlight);
   }
 
   .diagnostics__process-step .eyebrow {
@@ -178,8 +174,8 @@
     padding: 0.6rem;
     border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
-    background: color-mix(in srgb, var(--panel) 93%, white 7%);
-    box-shadow: var(--shadow-sm);
+    background: var(--panel);
+    box-shadow: var(--shadow-md);
   }
 
   .diagnostics__sticky-jump .button {
