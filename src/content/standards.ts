@@ -6,6 +6,9 @@ export type StandardEntry = {
   title: string;
   description: string;
   status: "Draft" | "Stable" | "Deprecated";
+  // Standards without a published page stay in the registry so clauses and
+  // changelogs keep resolving, but must not surface in the catalog or sitemap.
+  listedOnSite?: boolean;
   version: string;
   changelogHref?: string;
   changelogEntries?: {
@@ -64,11 +67,11 @@ export const standardsContent: StandardsContent = {
     "This page is for governance, policy, and assurance teams. Proposed standards and supporting doctrine, published openly for adoption — status marks editorial maturity; adoption by institutions is what confers authority.",
   permalink: "/standards",
   anchorLinks: [
-    { href: "#active", label: "Active standards" },
-    { href: "#doctrine", label: "Doctrine" },
-    { href: "#adopted-standards", label: "Adopted standards" },
-    { href: "#implementation-examples", label: "Implementation examples" },
-    { href: "#referenced-by", label: "Referenced by" },
+    { href: "#active", label: "Now active" },
+    { href: "#doctrine", label: "Core doctrine" },
+    { href: "#adopted-standards", label: "Critiques of adopted regimes" },
+    { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
+    { href: "#referenced-by", label: "Where standards are enforced" },
   ],
   panelCopy: {
     eyebrow: "Stewardship",
@@ -161,6 +164,7 @@ export const standardsContent: StandardsContent = {
       description:
         "A one-page postmortem template grounded in clocks, reversibility, burden allocation, and repair paths.",
       status: "Stable",
+      listedOnSite: false,
       version: "1.0",
       changelogHref: "/standards/pm-01-failure-postmortem-template",
       changelogEntries: [
@@ -183,6 +187,7 @@ export const standardsContent: StandardsContent = {
       description:
         "Defines targets, budgets, and breach actions for justice metrics.",
       status: "Draft",
+      listedOnSite: false,
       version: "0.6",
       changelogHref: "/standards/std-03-justice-slos",
       changelogEntries: [
@@ -205,6 +210,7 @@ export const standardsContent: StandardsContent = {
       description:
         "FHIR profiles for decision records, appeal events, and repair outcomes with governance metadata.",
       status: "Deprecated",
+      listedOnSite: false,
       version: "0.3",
       changelogHref: "/standards/fhir-profile-set",
       changelogEntries: [
@@ -234,6 +240,7 @@ export const standardsContent: StandardsContent = {
       description:
         "Verifiable Credential schemas and JSON-LD contexts for decision records, appeals, and remedies.",
       status: "Draft",
+      listedOnSite: false,
       version: "0.3",
       changelogHref: "/standards/w3c-vc-schemas",
       changelogEntries: [

@@ -47,6 +47,7 @@ export interface ResolvedSemanticContext {
 // Build index of all standards
 const standardsMap = new Map<string, SemanticNode>();
 for (const std of standardsContent.standards) {
+  if (std.listedOnSite === false) continue;
   standardsMap.set(std.slug, {
     id: std.id,
     slug: std.slug,

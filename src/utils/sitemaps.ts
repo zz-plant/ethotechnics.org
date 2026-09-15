@@ -9,7 +9,6 @@ import type {
 import { incidentLessons } from "../content/incidents";
 import { libraryContent } from "../content/library";
 import type { LibraryContent, Pattern } from "../content/library";
-import { governanceCrosswalks } from "../content/crosswalks";
 import { roles } from "../content/roles";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
@@ -319,20 +318,6 @@ export const buildSitemapSections = async () => {
     lastmod: lesson.updated ?? lesson.published,
   }));
 
-  const latestStandardPublished = standardsContent.standards.reduce(
-    (latest, standard) =>
-      new Date(standard.published).getTime() > new Date(latest).getTime()
-        ? standard.published
-        : latest,
-    standardsContent.standards[0]?.published ?? "1970-01-01",
-  );
-
-  const crosswalkControlPaths = governanceCrosswalks.map((control) => ({
-    path: `/standards/crosswalk/${control.controlId.toLowerCase()}`,
-    lastmod: latestStandardPublished,
-    changefreq: "monthly",
-  }));
-
   const taxonomyPaths = taxonomyEntries.map((entry) => ({
     path: `/taxonomy/${entry.slug}`,
     changefreq: "monthly",
@@ -452,13 +437,14 @@ export const buildSitemapSections = async () => {
     core: applyOverrides(corePaths),
     glossary: applyOverrides([...glossaryPaths, ...glossaryTestPaths]),
     standards: applyOverrides([
-      ...standardsContent.standards.map((standard) => ({
-        path: `/standards/${standard.slug}`,
-        lastmod: standard.published,
-      })),
+      ...standardsContent.standards
+        .filter((standard) => standard.listedOnSite !== false)
+        .map((standard) => ({
+          path: `/standards/${standard.slug}`,
+          lastmod: standard.published,
+        })),
       ...standardsCollectionPaths,
       ...evidencePackPaths,
-      ...crosswalkControlPaths,
       ...incidentPaths,
       ...rolePaths,
       ...theoryPaths,

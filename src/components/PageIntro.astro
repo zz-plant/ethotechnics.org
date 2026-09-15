@@ -49,13 +49,23 @@ const hasActions = Astro.slots.has("actions");
 
 const HeadingTag = `h${titleLevel}` as const;
 
+// The eyebrow is meant to say what kind of page this is. On the section hubs
+// several pages fed it the section name itself, so the page rendered a label
+// on a label: STANDARDS over *Standards*, FINITE [BETA] over *Finite [Beta]*.
+// Drop it when it adds nothing, mirroring the panelEchoesLead guard below.
+const norm = (value?: string) => value?.trim().toLowerCase() ?? "";
+const trimmedEyebrow = eyebrow?.trim();
+const resolvedEyebrow =
+  !trimmedEyebrow || norm(trimmedEyebrow) === norm(title)
+    ? undefined
+    : trimmedEyebrow;
+
 // Several pages feed the same object to both the page header and the aside --
 // /evals/ passed `panelCopy.title`/`panelCopy.description` as its own title and
 // description and then passed `panelCopy` again -- so the panel restated the
 // h1 and the lede verbatim, side by side at nearly the same size. An aside
 // that repeats the thing it sits next to is worth less than the space it
 // costs, so drop it when that is all it says.
-const norm = (value?: string) => value?.trim().toLowerCase() ?? "";
 const panelEchoesLead =
   !!panelCopy &&
   norm(panelCopy.title) === norm(title) &&
@@ -68,7 +78,7 @@ const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
   <div class="page-intro__grid">
     <div class="page-intro__lead">
       <div class="page-intro__meta">
-        <p class="eyebrow">{eyebrow}</p>
+        {resolvedEyebrow && <p class="eyebrow">{resolvedEyebrow}</p>}
         {
           (version || lastUpdated) && (
             <p class="page-intro__versioning" aria-label="Document metadata">
