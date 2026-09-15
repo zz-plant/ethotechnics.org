@@ -33,8 +33,7 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    line-height: 1.7;
-    letter-spacing: 0.01em;
+    line-height: 1.65;
     font-size: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
     -webkit-font-smoothing: antialiased;
     position: relative;
@@ -50,27 +49,6 @@
     body {
       min-height: 100dvh;
     }
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(
-        circle at 15% 15%,
-        color-mix(in srgb, var(--gold) 4%, transparent) 0%,
-        transparent 55%
-      ),
-      radial-gradient(
-        circle at 85% 25%,
-        color-mix(in srgb, var(--accent) 4%, transparent) 0%,
-        transparent 55%
-      );
-    opacity: 0.7;
-    pointer-events: none;
-    z-index: var(--z-underlay);
-    transition: background var(--motion-slow) ease;
   }
 
   ::selection {
@@ -107,21 +85,15 @@
   a {
     color: var(--accent);
     text-decoration: none;
-    background-image: linear-gradient(var(--accent), var(--accent));
-    background-size: 0 2px;
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    padding-bottom: 2px;
     touch-action: manipulation;
     transition:
-      background-size var(--motion-base) var(--ease-out-editorial),
+      text-decoration-color var(--motion-fast) ease,
       color var(--motion-fast) ease;
   }
 
   a:hover,
   a:focus-visible {
     color: var(--accent-strong);
-    background-size: 100% 2px;
   }
 
   a:focus-visible {
@@ -130,29 +102,25 @@
     border-radius: var(--radius-xs);
   }
 
-  /* Navigation links base reset */
-  nav a {
-    background-image: none;
-    padding-bottom: 0;
-    transition: color var(--motion-fast) ease;
+  /* Prose links carry a hairline at rest: sapphire against near-black ink is
+     not enough on its own to mark a link. The rule fills to full colour on
+     hover. Only unclassed links qualify -- a classed link is a component
+     (a card, a chip, a diagram node) that draws its own affordance -- and
+     the header and footer are label lists, not prose. */
+  a:not([class], nav *, footer *, .footer *, svg *) {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 38%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  a:not([class], nav *, footer *, .footer *, svg *):hover,
+  a:not([class], nav *, footer *, .footer *, svg *):focus-visible {
+    text-decoration-color: currentColor;
   }
 
   nav a:hover,
-  nav a:focus-visible {
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
-    background-size: 0;
-  }
-
-  /* Footer links */
-  footer a,
-  .footer a {
-    background-image: none;
-    padding-bottom: 0;
-    transition: color var(--motion-fast) ease;
-    text-decoration: none;
-  }
-
+  nav a:focus-visible,
   footer a:hover,
   .footer a:hover,
   footer a:focus-visible,
@@ -161,24 +129,12 @@
     text-decoration: underline;
     text-decoration-color: currentColor;
     text-underline-offset: 0.25em;
-    background-size: 0;
   }
 
   .footer__license {
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--muted) 45%, transparent);
     text-underline-offset: 0.25em;
-  }
-
-  /* Card/panel links */
-  .card a:not(.button):not(.pill):not([role]),
-  .panel a:not(.button):not(.pill):not([role]) {
-    background-size: 0 1px;
-  }
-
-  .card a:not(.button):not(.pill):not([role]):hover,
-  .panel a:not(.button):not(.pill):not([role]):hover {
-    background-size: 100% 1px;
   }
 
   img,
@@ -197,29 +153,31 @@
     box-shadow: var(--focus-ring);
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
   h1 {
     font-size: var(--text-h1);
-    letter-spacing: -0.018em;
-    font-variation-settings:
-      "wght" 720,
-      "opsz" 48;
-    line-height: 1.15;
+    letter-spacing: -0.022em;
+    line-height: 1.1;
   }
 
   h2 {
     font-size: var(--text-h2);
-    letter-spacing: -0.012em;
-    font-variation-settings:
-      "wght" 660,
-      "opsz" 28;
-    line-height: 1.22;
+    letter-spacing: -0.014em;
+    line-height: 1.2;
   }
 
   h3 {
     font-size: var(--text-h3);
-    font-variation-settings:
-      "wght" 620,
-      "opsz" 22;
+    letter-spacing: -0.006em;
     line-height: 1.3;
   }
 
@@ -227,10 +185,45 @@
   h5,
   h6 {
     font-size: var(--text-h4);
-    font-variation-settings:
-      "wght" 600,
-      "opsz" 18;
     line-height: 1.35;
+  }
+
+  /* Identifiers -- clause numbers, field names, versions -- are the site's
+     data voice. Nothing styled <code> before, so they rendered in whatever
+     the browser calls monospace, at full size, with no ground. */
+  code,
+  kbd,
+  samp {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    font-variant-ligatures: none;
+  }
+
+  :not(pre) > code {
+    padding: 0.1em 0.38em;
+    border-radius: var(--radius-xs);
+    background: color-mix(in srgb, var(--text) 6%, transparent);
+    color: color-mix(in srgb, var(--text) 88%, var(--accent));
+    overflow-wrap: anywhere;
+  }
+
+  pre {
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    padding: 1rem 1.1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--panel) 60%, var(--surface));
+    overflow-x: auto;
+    tab-size: 2;
+  }
+
+  pre code {
+    font-size: inherit;
+    padding: 0;
+    background: none;
+    color: inherit;
   }
 
   table {
@@ -250,7 +243,19 @@
   th {
     font-weight: 600;
     color: var(--text);
-    background: var(--surface-raised);
+    background: color-mix(in srgb, var(--panel) 45%, var(--surface));
+  }
+
+  /* Column headings speak in the label voice; a row heading is content. */
+  thead th,
+  th[scope="col"] {
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: color-mix(in srgb, var(--panel) 70%, var(--surface));
   }
 
   .table-responsive {

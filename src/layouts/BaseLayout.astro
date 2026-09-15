@@ -158,21 +158,21 @@ const criticalCss = `@layer base, components, utilities;
 
 html,
 body {
-  background-color: #faf8f5;
+  background-color: #f5f3ee;
   color: #1c1917;
 }
 
 :root.dark,
 :root.dark body {
-  background-color: #18181b;
-  color: #f4f1ea;
+  background-color: #171412;
+  color: #f1ece3;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light),
   :root:not(.light) body {
-    background-color: #18181b;
-    color: #f4f1ea;
+    background-color: #171412;
+    color: #f1ece3;
   }
 }`;
 
@@ -282,12 +282,12 @@ const pagefindType = pathSegments[0] ?? "";
           { name: "publisher", content: siteName },
           {
             name: "theme-color",
-            content: "#faf8f5",
+            content: "#f5f3ee",
             media: "(prefers-color-scheme: light)",
           },
           {
             name: "theme-color",
-            content: "#18181b",
+            content: "#171412",
             media: "(prefers-color-scheme: dark)",
           },
         ],

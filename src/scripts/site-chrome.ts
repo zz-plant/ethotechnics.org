@@ -4,11 +4,11 @@
     const themeMeta = document.querySelectorAll('meta[name="theme-color"]');
     themeMeta.forEach((meta) => {
       if (meta.getAttribute("media")?.includes("dark")) {
-        meta.setAttribute("content", "#18181b");
+        meta.setAttribute("content", "#171412");
       } else if (meta.getAttribute("media")?.includes("light")) {
-        meta.setAttribute("content", "#faf8f5");
+        meta.setAttribute("content", "#f5f3ee");
       } else {
-        meta.setAttribute("content", isDark ? "#18181b" : "#faf8f5");
+        meta.setAttribute("content", isDark ? "#171412" : "#f5f3ee");
       }
     });
   };

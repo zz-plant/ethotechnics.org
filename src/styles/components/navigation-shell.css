@@ -5,7 +5,6 @@
     z-index: var(--z-overlay);
     background: var(--glass-bg);
     border-bottom: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-sm);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
     transition:
@@ -26,7 +25,7 @@
     .nav {
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
-      background: var(--surface);
+      background: var(--bg);
     }
   }
 
@@ -84,12 +83,7 @@
     display: none;
     flex: 0 1 auto;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.25rem 0.35rem;
-    border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--panel) 70%, transparent);
-    border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-    box-shadow: var(--shadow-xs);
+    gap: 0.15rem;
   }
 
   @media (min-width: 1100px) {
@@ -123,10 +117,9 @@
     font-family: var(--sans);
     font-weight: 700;
     text-decoration: none;
-    color: var(--accent-strong);
-    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
-    border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
-    box-shadow: var(--shadow-xs);
+    color: var(--btn-primary-text);
+    background: var(--btn-primary-bg);
+    border: 1px solid var(--btn-primary-border);
     transition:
       background-color var(--motion-fast) ease,
       border-color var(--motion-fast) ease,
@@ -135,11 +128,12 @@
   }
 
   .nav__start-btn:hover {
-    background: color-mix(in srgb, var(--accent) 20%, var(--surface));
-    border-color: var(--accent);
-    color: var(--accent-strong);
+    background: var(--btn-primary-hover-bg);
+    border-color: var(--btn-primary-border);
+    color: var(--btn-primary-hover-text);
     box-shadow: var(--shadow-sm);
     transform: translateY(-1px);
+    text-decoration: none;
   }
 
   .nav__start-btn:active {
@@ -152,8 +146,7 @@
   }
 
   .nav__start-btn--active {
-    background: color-mix(in srgb, var(--accent) 24%, var(--surface));
-    border-color: var(--accent-strong);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
   }
 
   .nav__search-desktop {
@@ -205,8 +198,7 @@
 
   @media (max-width: 1099px) {
     .nav {
-      background: color-mix(in srgb, var(--surface) 96%, white 4%);
-      box-shadow: var(--shadow-xs);
+      background: var(--glass-bg);
     }
 
     .nav__inner {
@@ -275,8 +267,8 @@
     padding: 0.45rem 0.75rem;
     min-height: 38px;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--panel) 90%, white 10%);
-    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
     font-size: var(--text-sm);
     font-family: var(--sans);
     font-weight: 650;
@@ -284,7 +276,6 @@
     cursor: pointer;
     list-style: none;
     user-select: none;
-    box-shadow: var(--shadow-xs);
     white-space: nowrap;
     transition:
       background-color var(--motion-fast) ease,
@@ -332,7 +323,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), var(--card-inner-highlight);
     padding: 1.25rem;
     z-index: var(--z-overlay);
     animation: drawerFadeIn 0.22s var(--ease-out-editorial);
@@ -355,9 +346,8 @@
     justify-content: space-between;
     padding: 0.9rem 1.1rem;
     border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
     border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
-    box-shadow: var(--shadow-sm);
     text-decoration: none;
     color: inherit;
     transition:
@@ -434,18 +424,17 @@
     padding: 0.7rem 0.9rem;
     min-height: 44px;
     border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--panel) 75%, transparent);
-    border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    background: color-mix(in srgb, var(--panel) 50%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
     text-decoration: none;
     color: inherit;
-    box-shadow: var(--shadow-xs);
     transition:
       background-color var(--motion-fast) ease,
       border-color var(--motion-fast) ease;
   }
 
   .nav__mobile-link-card:hover {
-    background: color-mix(in srgb, var(--panel) 95%, white 5%);
+    background: var(--interactive-bg-hover);
     border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
   }
 
@@ -509,7 +498,7 @@
 
   .nav__mobile-connect-link:hover {
     color: var(--text);
-    background: color-mix(in srgb, var(--panel) 90%, white 10%);
+    background: var(--interactive-bg-hover);
     border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
   }
 
@@ -597,11 +586,11 @@
     gap: 0.35rem;
     padding: 0.45rem 0.75rem;
     min-height: 38px;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius);
     font-family: var(--sans);
     font-size: var(--text-sm);
-    font-weight: 650;
-    color: color-mix(in srgb, var(--muted) 85%, var(--text));
+    font-weight: 600;
+    color: color-mix(in srgb, var(--muted) 80%, var(--text));
     border: 1px solid transparent;
     cursor: pointer;
     list-style: none;
@@ -620,9 +609,7 @@
   .nav__browse-summary:hover,
   .nav__browse[open] > .nav__browse-summary {
     color: var(--text);
-    background: color-mix(in srgb, var(--panel) 90%, white 10%);
-    border-color: color-mix(in srgb, var(--border) 60%, transparent);
-    box-shadow: var(--shadow-xs);
+    background: color-mix(in srgb, var(--text) 5%, transparent);
   }
 
   .nav__browse-summary:focus-visible {
@@ -654,7 +641,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), var(--card-inner-highlight);
     z-index: var(--z-overlay);
     /*
      * The panel hangs off a sticky bar, so the document cannot scroll to reveal

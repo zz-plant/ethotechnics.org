@@ -36,11 +36,11 @@
     padding: 0.85rem 1rem;
     border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    background: color-mix(in srgb, var(--surface) 60%, white 40%);
+    background: var(--surface);
     font-family: var(--sans);
     font-size: 1rem;
     color: var(--text);
-    box-shadow: var(--shadow-xs);
+    box-shadow: var(--card-inner-highlight);
     transition:
       border-color var(--motion-fast) ease,
       box-shadow var(--motion-fast) ease,
@@ -76,9 +76,9 @@
     padding: 3rem;
     text-align: center;
     border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--surface) 50%, white 50%);
+    background: var(--surface);
     border: 1px dashed var(--accent);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--card-inner-highlight);
     display: grid;
     place-items: center;
   }

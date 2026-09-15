@@ -1,10 +1,14 @@
 @layer components {
+  /* Surfaces. Two kinds of object sit on the paper: a sheet (white, for
+     content that is an object -- a card, a table, a tool) and a tint (the
+     panel colour, for asides and grounds). Neither casts a shadow at rest;
+     a shadow means the pointer is on it or it floats above the page. */
   .panel {
-    background: var(--panel);
-    padding: 1.75rem;
+    background: color-mix(in srgb, var(--panel) 70%, var(--surface));
+    padding: 1.6rem;
     border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
-    box-shadow: var(--shadow-panel), var(--card-inner-highlight);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    box-shadow: var(--card-inner-highlight);
     position: relative;
     overflow: hidden;
   }
@@ -17,34 +21,25 @@
     gap: 0.5rem;
   }
 
-  /* The blur had nothing to sample but `body::before`'s two fixed radial
-     washes, so instead of frosting it smeared them into a diagonal band across
-     each panel -- a smudge that read as a rendering artifact rather than
-     elevation. An opaque surface is what the panel wanted. */
+  /* The intro aside: a sheet with a sapphire hairline, the one raised object
+     in the masthead. */
   .panel--glass {
     background: var(--surface);
     border-color: color-mix(in srgb, var(--accent) 22%, var(--border));
   }
 
-  .panel--muted {
-    background: var(--surface-flat);
-    border-color: color-mix(in srgb, var(--border) 70%, transparent);
-    box-shadow: none;
-  }
-
   .card {
     position: relative;
-    background: var(--surface-raised);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    box-shadow: var(--card-inner-highlight);
     display: grid;
     gap: 0.65rem;
     overflow: hidden;
     transition:
       border-color var(--motion-base) ease,
-      background-color var(--motion-base) ease,
       box-shadow var(--motion-base) ease,
       transform var(--motion-base) var(--ease-out-editorial);
   }
@@ -52,50 +47,26 @@
   .card:hover,
   .card:focus-within {
     border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
-    background: color-mix(in srgb, var(--surface-raised) 96%, var(--accent) 4%);
-    box-shadow: var(--shadow-float), var(--card-inner-highlight);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    transform: translateY(-1px);
     z-index: var(--z-raised);
-  }
-
-  .card--quiet {
-    background: var(--surface-flat);
-    border-color: color-mix(in srgb, var(--border) 72%, transparent);
-    box-shadow: none;
-  }
-
-  .card--quiet:hover,
-  .card--quiet:focus-within {
-    transform: none;
-    box-shadow: var(--shadow-xs);
-  }
-
-  .card--quiet::after {
-    opacity: 0;
   }
 
   .card--emphasis {
     background: var(--surface-emphasis);
     border-color: var(--surface-accent-edge);
-    box-shadow: var(--shadow-md), var(--card-inner-highlight);
   }
 
   .card--flat {
-    background: var(--surface);
     border-color: color-mix(in srgb, var(--border) 60%, transparent);
-    box-shadow: none;
     transform: none !important;
   }
 
   .card--flat:hover,
   .card--flat:focus-within {
     transform: none !important;
-    box-shadow: var(--shadow-tight);
+    box-shadow: var(--card-inner-highlight);
     border-color: var(--interactive-border-hover);
-  }
-
-  .card--roomy {
-    padding: 2.2rem;
   }
 
   .card > * {
@@ -113,24 +84,17 @@
   }
 
   .icon {
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     display: grid;
     place-items: center;
-    background: color-mix(in srgb, var(--surface) 90%, white 10%);
-    border-radius: var(--radius-xl);
+    background: color-mix(in srgb, var(--accent) 9%, transparent);
+    color: var(--accent);
+    border-radius: var(--radius-md);
     font-size: 1.1rem;
-    border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
-    box-shadow: var(--shadow-xs);
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
     transition:
-      transform var(--motion-fast) ease,
-      box-shadow var(--motion-fast) ease,
       background-color var(--motion-fast) ease,
-      border-color var(--motion-fast) ease;
-    transform-style: preserve-3d;
+      color var(--motion-fast) ease;
   }
 
   .icon [data-icon] {
@@ -139,110 +103,12 @@
     display: block;
   }
 
-  .icon::before {
-    content: "";
-    position: absolute;
-    inset: -30%;
-    background:
-      radial-gradient(
-        circle at 30% 30%,
-        color-mix(in srgb, var(--accent) 16%, transparent),
-        transparent 52%
-      ),
-      radial-gradient(
-        circle at 70% 70%,
-        color-mix(in srgb, var(--accent) 12%, transparent),
-        transparent 50%
-      );
-    opacity: 0;
-    transform: scale(0.8);
-    transition:
-      opacity var(--motion-fast) ease,
-      transform var(--motion-fast) ease;
-    filter: blur(12px);
-    pointer-events: none;
-    z-index: var(--z-underlay);
+  .card:hover .icon,
+  .card:focus-within .icon {
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent-strong);
   }
 
-  .icon:is(:hover, :focus-visible, :focus-within) {
-    background: color-mix(in srgb, var(--surface) 92%, white 8%);
-    border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
-    box-shadow: var(--shadow-sm);
-    transform: translateY(-1px);
-  }
-
-  .icon:is(:hover, :focus-visible, :focus-within)::before {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .icon,
-    .icon::before {
-      transition: none;
-    }
-  }
-
-  .bento {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-    gap: 1.25rem;
-    margin-top: 2rem;
-  }
-
-  .tile {
-    background: color-mix(in srgb, var(--surface) 96%, transparent);
-    border-radius: var(--radius-lg);
-    border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-    padding: 1.3rem;
-    display: grid;
-    gap: 0.9rem;
-    align-content: start;
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-    transform-style: preserve-3d;
-    transition:
-      box-shadow var(--motion-base) ease,
-      border-color var(--motion-base) ease,
-      background-color var(--motion-base) ease,
-      transform var(--motion-base) var(--ease-out-editorial);
-  }
-
-  .tile::before,
-  .tile::after {
-    display: none;
-  }
-
-  .tile:is(:hover, :focus-visible, :focus-within) {
-    box-shadow: var(--shadow-md), var(--card-inner-highlight);
-    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
-    background: color-mix(in srgb, var(--surface) 98%, transparent);
-    transform: translateY(-2px);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .tile,
-    .tile::before,
-    .tile::after {
-      transition: none;
-    }
-
-    .tile:is(:hover, :focus-visible, :focus-within) {
-      transform: none;
-    }
-  }
-
-  .tile__body h3 {
-    margin: 0;
-  }
-
-  .tile__body p {
-    margin: 0;
-  }
-
-  .tile__list,
   .card__list {
     margin: 0.75rem 0 0;
     padding-left: 1.1rem;
@@ -254,9 +120,9 @@
   .card__list--alert li,
   .card__list--bounded li {
     padding: 0.45rem 0.75rem;
-    border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--surface) 92%, white 8%);
-    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--panel) 55%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   }
 
   .card__list--alert,
@@ -273,11 +139,10 @@
     border-color: color-mix(in srgb, var(--text) 12%, var(--border));
   }
 
-  .tile__list a,
   .card__list a {
     color: inherit;
     font-weight: 650;
-    text-decoration-thickness: 0.12em;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
     display: inline-flex;
     align-items: center;
     min-height: 44px;
@@ -285,15 +150,12 @@
     touch-action: manipulation;
   }
 
-  .tile__list a:hover,
-  .tile__list a:focus-visible,
   .card__list a:hover,
   .card__list a:focus-visible {
     color: var(--accent);
-    text-decoration-color: var(--accent);
+    text-decoration-color: currentColor;
   }
 
-  .tile__list a:focus-visible,
   .card__list a:focus-visible {
     outline: var(--focus-outline);
     outline-offset: 3px;
@@ -302,14 +164,10 @@
 
   .callout {
     padding: 1.6rem;
-    background: linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--surface) 94%, white 6%),
-      color-mix(in srgb, var(--panel) 92%, white 8%)
-    );
+    background: var(--surface);
     border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    box-shadow: var(--card-inner-highlight);
   }
 
   .summary-callout {
@@ -358,23 +216,16 @@
     line-height: 1.6;
   }
 
-  .panel--solid {
-    background: var(--panel);
-    border-color: var(--border);
-    box-shadow: none;
-  }
-
+  /* An emphasised callout is marked by a rule, not by a heavier shadow. */
   .callout--emphasis {
-    border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
-    border-left: 4px solid var(--accent);
-    box-shadow: var(--shadow-accent), var(--shadow-md);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+    border-left: 3px solid var(--accent);
   }
 
   .callout--solid {
     background: var(--surface);
     border-color: var(--border);
-    box-shadow: none;
-    border-left: 4px solid color-mix(in srgb, var(--accent) 50%, transparent);
+    border-left: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
   }
 
   .callout__metrics {
@@ -389,56 +240,8 @@
     color: var(--color-foreground);
   }
 
-  .callout__actions {
-    margin-top: 1rem;
-  }
-
-  .callout__actions-secondary {
-    margin-top: 0.6rem;
-  }
-
   .callout h3 {
     margin: 0.4rem 0;
-  }
-
-  .highlight {
-    background: linear-gradient(
-      160deg,
-      color-mix(in srgb, var(--panel) 94%, white 6%),
-      color-mix(in srgb, var(--surface) 90%, white 10%)
-    );
-    border-color: color-mix(in srgb, var(--border) 78%, transparent);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .highlight__content {
-    margin-top: 1.5rem;
-  }
-
-  .highlight__grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-  }
-
-  .highlight__panel {
-    padding: 1.45rem;
-    background: linear-gradient(
-      150deg,
-      color-mix(in srgb, var(--surface) 96%, white 4%),
-      color-mix(in srgb, var(--panel) 90%, white 10%)
-    );
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
-    box-shadow: var(--shadow-sm), var(--card-inner-highlight);
-    display: grid;
-    gap: 0.85rem;
-    align-content: start;
-  }
-
-  .highlight__panel .pill-list {
-    margin: 0;
   }
 
   .comparison {
@@ -467,7 +270,7 @@
 
   .cta {
     margin: clamp(3.5rem, 6vw, 4.5rem) 0 clamp(4rem, 7vw, 5.5rem);
-    background: color-mix(in srgb, var(--panel) 92%, white 8%);
+    background: color-mix(in srgb, var(--panel) 70%, var(--surface));
     padding: clamp(1.9rem, 4vw, 2.7rem);
     border-radius: var(--radius-xl);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
@@ -475,7 +278,7 @@
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
     align-items: center;
-    box-shadow: var(--shadow-md), var(--card-inner-highlight);
+    box-shadow: var(--card-inner-highlight);
     position: relative;
     overflow: hidden;
   }
@@ -500,19 +303,19 @@
   }
 
   .status-badge--draft {
-    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
     color: var(--accent);
     border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
   }
 
   .status-badge--stable {
-    background: color-mix(in srgb, var(--status-success) 16%, transparent);
+    background: color-mix(in srgb, var(--status-success) 14%, transparent);
     color: var(--status-success);
     border: 1px solid color-mix(in srgb, var(--status-success) 30%, transparent);
   }
 
   .status-badge--deprecated {
-    background: color-mix(in srgb, var(--status-warning) 16%, transparent);
+    background: color-mix(in srgb, var(--status-warning) 14%, transparent);
     color: var(--status-warning);
     border: 1px solid color-mix(in srgb, var(--status-warning) 30%, transparent);
   }
