@@ -8,7 +8,6 @@ import { validatorsContent } from "../../content/validators";
 const pageTitle = "Validators by standard — Ethotechnics";
 const pageDescription =
   "Programmatic map of validators grouped by referenced standard for governance and assurance teams.";
-const permalink = "/validators/by-standard";
 
 const validatorsByStandard = standardsContent.standards.map((standard) => ({
   standard,
@@ -28,7 +27,6 @@ const validatorsByStandard = standardsContent.standards.map((standard) => ({
     eyebrow="Programmatic index"
     title="Validators by standard"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={validatorsByStandard.map(({ standard }) => ({
       href: `#${standard.id.toLowerCase()}`,
       label: standard.id,

@@ -14,7 +14,6 @@ const essays = (await getCollection("theory")).sort((a, b) =>
 const pageTitle = "Theory — Ethotechnics Institute";
 const pageDescription =
   "Essays on why the laws hold. Theory motivates the method and is never cited as a requirement.";
-const permalink = "/research/theory";
 const anchorLinks = [
   { href: "#essays", label: "Essays" },
   { href: "#layering", label: "Theory and method" },
@@ -33,7 +32,6 @@ const formatLawRefs = (refs: string[]) =>
     eyebrow="Research"
     title="Theory"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "Layer",

@@ -43,7 +43,6 @@ if (!testRecord) {
 }
 
 const categoryLabel = normalizeGlossaryHeading(category.heading);
-const pagePermalink = glossaryTestPermalink(entry.id, testRecord.slug);
 const plainDescription = stripHtml(entry.bodyHtml);
 const introDescription = `Operational test "${testRecord.label}" for ${entry.title} in the ${categoryLabel} glossary category.`;
 const pageTitle = `${entry.title} — Operational test: ${testRecord.label}`;
@@ -59,18 +58,28 @@ const anchorLinks = [
   { href: "#context", label: "Context" },
   { href: "#related", label: "Related tests" },
 ];
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Glossary", url: glossaryContent.permalink },
+  { name: entry.title, url: glossaryEntryPermalink(entry.id) },
+  {
+    name: testRecord.label,
+    url: glossaryTestPermalink(entry.id, testRecord.slug),
+  },
+];
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
 >
   <PageIntro
     eyebrow="Glossary operational test"
     title={pageTitle}
     description={introDescription}
-    permalink={pagePermalink}
     anchorLinks={anchorLinks}
   >
     <Fragment slot="actions">

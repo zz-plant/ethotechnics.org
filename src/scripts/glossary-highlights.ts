@@ -78,6 +78,15 @@ const ignoredSelector = [
   "a",
   "button",
   "code",
+  // A heading names the section; it is where the reader orients, not where
+  // they read. /method rendered its own h1 with "Ethotechnics" underlined and
+  // focusable, and STD-01 marked five of its article titles.
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
   "input",
   "nav",
   "option",

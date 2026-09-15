@@ -68,31 +68,30 @@ const anchorLinks = [
     : []),
   { href: "#validators", label: "Validators" },
 ];
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Mechanisms", url: "/mechanisms" },
+  { name: pattern.title, url: permalink },
+];
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   publishedTime="2025-06-01T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
 >
   <PageIntro
     eyebrow="Specification sheet"
     title={pattern.title}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "Where it fits",
       title: "Filters and handoffs",
       description: panelDescription,
     }}
-  />
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pattern.title}
-    permalink={permalink}
-    publication={publication}
-    citationKey={`mechanism_${pattern.slug}`}
   />
   <SectionBlock
     id="overview"
@@ -334,6 +333,14 @@ const anchorLinks = [
       </div>
     </div>
   </SectionBlock>
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pattern.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`mechanism_${pattern.slug}`}
+  />
 </BaseLayout>
 
 <script>

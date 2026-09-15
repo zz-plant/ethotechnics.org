@@ -7,15 +7,8 @@ import PageIntro from "../../../components/PageIntro.astro";
 import SectionBlock from "../../../components/SectionBlock.astro";
 import { researchAgendaContent } from "../../../content/researchAgenda";
 
-const {
-  pageTitle,
-  pageDescription,
-  permalink,
-  hero,
-  orientation,
-  overview,
-  pillars,
-} = researchAgendaContent;
+const { pageTitle, pageDescription, hero, orientation, overview, pillars } =
+  researchAgendaContent;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -23,7 +16,6 @@ const {
     eyebrow={hero.eyebrow}
     title={hero.title}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={hero.anchorLinks}
     panelCopy={hero.panelCopy}
   />

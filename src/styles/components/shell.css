@@ -398,38 +398,6 @@
     }
   }
 
-  /* --- Reading Progress Bar --- */
-  .reading-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--teal));
-    z-index: var(--z-skip-link);
-    transform-origin: 0 50%;
-    transform: scaleX(0);
-    pointer-events: none;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: scroll()) {
-      @keyframes grow-scroll-progress {
-        from {
-          transform: scaleX(0);
-        }
-        to {
-          transform: scaleX(1);
-        }
-      }
-
-      .reading-progress {
-        animation: grow-scroll-progress auto linear;
-        animation-timeline: scroll();
-      }
-    }
-  }
-
   /* --- Back to Top Floating Action --- */
   .back-to-top {
     position: fixed;

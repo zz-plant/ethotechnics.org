@@ -99,7 +99,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     eyebrow="Diagnostics"
     title="Diagnostics"
     description={introDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     collapseAnchorLinks={false}
     collapseAnchorLinksOnMobile={true}
@@ -211,13 +210,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       }
     </CardGrid>
   </SectionBlock>
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
-    variant="compact"
-  />
-
   <SectionBlock
     id="why-diagnostics"
     eyebrow="Why teams call us"
@@ -678,6 +670,13 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       </li>
     </ul>
   </section>
+
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+    variant="compact"
+  />
 
   <script>
     import "../../scripts/diagnostics-sticky-nav.ts";

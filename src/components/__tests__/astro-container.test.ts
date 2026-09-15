@@ -47,12 +47,6 @@ describe.skip("Navigation component", () => {
     expect(startBtn?.getAttribute("href")).toBe("/start");
     expect(startBtn?.textContent?.trim()).toBe("Start here");
 
-    const githubBtn = nav?.querySelector<HTMLAnchorElement>(".nav__icon-btn");
-    expect(githubBtn).toBeTruthy();
-    expect(githubBtn?.getAttribute("href")).toBe(
-      "https://github.com/zz-plant/ethotechnics.org",
-    );
-
     const themeToggle = nav?.querySelector<HTMLButtonElement>(".theme-toggle");
     expect(themeToggle).toBeTruthy();
 

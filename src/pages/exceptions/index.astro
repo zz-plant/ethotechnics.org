@@ -8,7 +8,6 @@ import CardItem from "../../components/CardItem.astro";
 const pageTitle = "Exceptions framework — Ethotechnics Institute";
 const pageDescription =
   "Bounded exceptions that preserve receipts, owners, and clocks even under fraud, security, or legal holds.";
-const permalink = "/exceptions";
 
 const exceptions = [
   {
@@ -59,7 +58,6 @@ const exceptions = [
     eyebrow="Exceptions"
     title="Bounded exceptions framework"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={exceptions.map((exception) => ({
       href: `#${exception.id}`,
       label: exception.title,

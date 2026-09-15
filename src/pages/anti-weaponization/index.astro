@@ -6,7 +6,6 @@ import SectionBlock from "../../components/SectionBlock.astro";
 const pageTitle = "Anti-weaponization constraints — Ethotechnics Institute";
 const pageDescription =
   "Doctrine clauses that prevent standards from being used to deny care, reduce access, or raise burdens.";
-const permalink = "/anti-weaponization";
 
 const constraints = [
   {
@@ -74,7 +73,6 @@ const releaseGateBinding = `Release gate checklist (AW-01\u2013AW-04)
     eyebrow="Constraints"
     title="Anti-weaponization constraints"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       ...constraints.map((constraint) => ({
         href: `#${constraint.id}`,

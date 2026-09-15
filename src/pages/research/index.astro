@@ -9,7 +9,6 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
-import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import {
   getGlossaryDefinition,
   getGlossaryLabel,
@@ -35,7 +34,6 @@ const {
 } = researchContent;
 const priorityAgenda = agenda.slice(0, 3);
 const glossaryHref = (slug: string) => glossaryEntryPermalink(slug);
-const summaryLinks = anchorLinks.slice(0, 5);
 const summaryRelatedLinks = [
   { href: "/glossary", label: "Glossary" },
   { href: "/standards", label: "Standards" },
@@ -133,7 +131,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Research"
     title="Research"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={panelCopy}
   >
@@ -147,7 +144,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Start with the orientation, then scan active agendas and focus areas to see what is in flight and ready to cite."
     takeaways={summaryTakeaways}
     relatedLinks={summaryRelatedLinks}
-    jumpLinks={summaryLinks}
   />
   <SectionBlock
     id="priorities"
@@ -204,13 +200,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
     </CardGrid>
   </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
-    variant="compact"
-  />
   <SectionBlock
     id="standards-timeline"
     eyebrow="Timeline"
@@ -644,13 +633,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </li>
     </ul>
   </SectionBlock>
-
-  <section
-    class="section section--alt stack-md"
-    aria-label="Subscribe to Research Updates"
-  >
-    <NewsletterSignup />
-  </section>
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+    variant="compact"
+  />
   <InlineScript type="application/ld+json" code={structuredDataJson} />
   <script>
     import "../../scripts/research-filter.ts";

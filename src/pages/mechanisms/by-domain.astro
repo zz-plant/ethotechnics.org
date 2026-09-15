@@ -7,7 +7,6 @@ import { libraryContent } from "../../content/library";
 const pageTitle = "Mechanisms by domain — Ethotechnics";
 const pageDescription =
   "Programmatic index of mechanism patterns grouped by governance, friction, and policy domains.";
-const permalink = "/mechanisms/by-domain";
 
 const mechanismDomains = [
   {
@@ -91,7 +90,6 @@ const patternsByDomain = [
     eyebrow="Programmatic index"
     title="Mechanisms by domain"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={patternsByDomain.map(({ domain }) => ({
       href: `#${domain.slug}`,
       label: domain.title,

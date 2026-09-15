@@ -12,7 +12,6 @@ const explainers = await getCollection("explainers");
 const pageTitle = "Explainers";
 const pageDescription =
   "Short, reusable definitions with examples and next-step artifacts.";
-const permalink = "/explainers";
 
 const anchorLinks = [{ href: "#all-explainers", label: "All explainers" }];
 
@@ -36,11 +35,6 @@ const relatedLinks = [
   { href: "/standards", label: "Standards" },
   { href: "/evidence-packs", label: "Evidence packs" },
 ];
-
-const summaryLinks = [
-  { href: "#all-explainers", label: "Browse all" },
-  { href: "/glossary", label: "Glossary index" },
-];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -48,7 +42,6 @@ const summaryLinks = [
     eyebrow="Explainers"
     title={pageTitle}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "Using explainers",
@@ -63,7 +56,6 @@ const summaryLinks = [
     description="Start with the featured explainers or browse the full list below."
     takeaways={takeaways}
     relatedLinks={relatedLinks}
-    jumpLinks={summaryLinks}
   />
 
   <SectionBlock

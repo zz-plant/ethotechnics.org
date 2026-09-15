@@ -66,7 +66,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Mechanisms"
     title="Mechanisms"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       { href: "#quick-filters", label: "Quick filters" },
       { href: "#navigator", label: "Navigator" },
@@ -103,11 +102,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       { href: "#quick-filters", label: "Quick filters" },
       { href: "#primer", label: "Primer" },
       { href: "#mechanisms", label: "Mechanism specs" },
-    ]}
-    jumpLinks={[
-      { href: "#role-pathways", label: "Role pathways" },
-      { href: "#themes", label: "Browse by theme" },
-      { href: "#syllabus", label: "Syllabus" },
     ]}
   />
   <SectionBlock
@@ -161,13 +155,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </a>
     </div>
   </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
-    variant="compact"
-  />
   <SectionBlock
     id="quick-filters"
     eyebrow="Quick filters"
@@ -479,5 +466,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </li>
     </ul>
   </SectionBlock>
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+    variant="compact"
+  />
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>

@@ -7,7 +7,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import { incidentLessons, incidentLessonsIntro } from "../../content/incidents";
 import { postMarketWorkflow } from "../../content/crosswalks";
 
-const { pageTitle, pageDescription, permalink, eyebrow, title, description } =
+const { pageTitle, pageDescription, eyebrow, title, description } =
   incidentLessonsIntro;
 const enhancedDescription = `${description} Use this as a post-market monitoring and incident reporting surface, not just retrospective analysis.`;
 ---
@@ -26,7 +26,6 @@ const enhancedDescription = `${description} Use this as a post-market monitoring
     eyebrow={eyebrow}
     title={title}
     description={enhancedDescription}
-    permalink={permalink}
     anchorLinks={[
       { href: "#post-market-workflow", label: "Post-market workflow" },
       ...incidentLessons.map((lesson) => ({

@@ -99,12 +99,18 @@ const orderedWorkflowStages = workflowStages.filter(
       (candidate) => candidate.artifact.slug === stage.artifact.slug,
     ) === index,
 );
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: state.title, url: `/failure/${state.slug}` },
+];
 ---
 
 <BaseLayout
   title={state.title}
   description={state.descriptionLine1}
   publishedTime="2025-06-01T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
 >
   <div data-route-metrics="home-to-failure-pathway" hidden></div>
   <section class="stack-lg institute-screen">

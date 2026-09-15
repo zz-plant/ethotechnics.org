@@ -79,7 +79,6 @@ const childEntries = taxonomyEntries.filter((candidate) => {
 
 const pageTitle = `${entry.title}${titleSuffix}`;
 const pageDescription = entry.summary;
-const permalink = entryPath;
 
 const anchorLinks = [
   { href: "#summary", label: "Summary" },
@@ -152,7 +151,6 @@ const structuredDataJson = JSON.stringify(structuredData);
     eyebrow={eyebrow}
     title={entry.title}
     description={entry.summary}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "Metadata",

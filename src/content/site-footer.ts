@@ -12,7 +12,6 @@ type SiteFooterContent = {
     };
     description: string;
     license: { label: string; href: string; external: boolean };
-    licenseBadge: { src: string; alt: string };
   };
   navigation: Array<{ heading: string; links: FooterLink[] }>;
 };
@@ -28,15 +27,11 @@ export const siteFooter: SiteFooterContent = {
       logoAlt: "Ethotechnics Institute seal",
     },
     description:
-      "An open framework for accountable AI systems — proposed standards, mechanisms, and diagnostics. Content licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).",
+      "An open framework for accountable AI systems — proposed standards, mechanisms, and diagnostics.",
     license: {
-      label: "View the CC BY 4.0 license",
+      label: "Content licensed CC BY 4.0",
       href: "https://creativecommons.org/licenses/by/4.0/",
       external: true,
-    },
-    licenseBadge: {
-      src: "https://licensebuttons.net/l/by/4.0/88x31.png",
-      alt: "Creative Commons Attribution 4.0 International License badge",
     },
   },
   navigation: [
@@ -92,11 +87,6 @@ export const siteFooter: SiteFooterContent = {
           external: true,
         },
         { label: "RSS Feed", href: "/rss.xml" },
-        {
-          label: "CC BY 4.0 License",
-          href: "https://creativecommons.org/licenses/by/4.0/",
-          external: true,
-        },
       ],
     },
   ],

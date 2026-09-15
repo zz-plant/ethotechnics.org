@@ -101,29 +101,6 @@
     });
   }
 
-  /* progressive scroll progress fallback */
-  if (!CSS.supports || !CSS.supports("animation-timeline", "scroll()")) {
-    const progressBar = document.getElementById("reading-progress");
-    if (progressBar) {
-      window.addEventListener(
-        "scroll",
-        () => {
-          const scrollable =
-            document.documentElement.scrollHeight - window.innerHeight;
-          if (scrollable > 0) {
-            const scrolled = window.scrollY;
-            const progressPercentage = Math.min(
-              1,
-              Math.max(0, scrolled / scrollable),
-            );
-            progressBar.style.transform = `scaleX(${progressPercentage})`;
-          }
-        },
-        { passive: true },
-      );
-    }
-  }
-
   /* back to top button */
   const backToTopBtn = document.getElementById("back-to-top");
   if (backToTopBtn) {

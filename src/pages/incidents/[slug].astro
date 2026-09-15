@@ -13,7 +13,6 @@ if (!entry) return new Response("Not found", { status: 404 });
 const {
   title,
   description,
-  permalink,
   incident,
   governanceFailures,
   signalsToWatch,
@@ -33,7 +32,6 @@ const pageTitle = `${title} — Governance lesson — Ethotechnics`;
     eyebrow="Governance lesson"
     title={title}
     description={description}
-    permalink={permalink}
     anchorLinks={[
       { href: "#incident", label: "Incident snapshot" },
       { href: "#failures", label: "Governance failures" },
