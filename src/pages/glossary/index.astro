@@ -9,7 +9,6 @@ import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import SummaryCallout from "../../components/SummaryCallout.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import { stripHtml } from "../../utils/glossary-helpers";
 import {
@@ -18,11 +17,7 @@ import {
   buildGlossaryStructuredDataPayload,
   filterGlossaryIndexEntries,
 } from "../../content/page-data/glossary-routes";
-import {
-  explainerLinks,
-  summaryRelatedLinks,
-  summaryTakeaways,
-} from "../../content/page-data/glossary-page";
+import { explainerLinks } from "../../content/page-data/glossary-page";
 import {
   glossaryDomainFilters,
   glossaryMeasurabilityFilters,
@@ -41,15 +36,14 @@ const {
   starterTerms,
   categoryHighlights,
 } = glossaryEntry.data;
+// The page's four parts. The thirteen category sections used to be listed
+// here too, which made the intro's map read "4 + 13 more sections"; the
+// territory map is the section that lists them, with counts.
 const anchorLinks = [
   { href: "#glossary-pathways", label: "Glossary pathways" },
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#explainer-links", label: "Explainers" },
   { href: "#territory-map", label: "Territory map" },
-  ...categories.map((category) => ({
-    href: `#${category.id}`,
-    label: category.heading,
-  })),
 ];
 const domainFilters = glossaryDomainFilters;
 const phaseFilters = glossaryPhaseFilters;
@@ -139,12 +133,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       description:
         "Each term is a mechanism card with related mechanism specs and ready-to-copy citations. Use the permalinks to keep reports, diagnostics, and briefs aligned on exact definitions.",
     }}
-  />
-  <SummaryCallout
-    title="Glossary wayfinding at a glance"
-    description="Use this index to align language quickly before a review or a research window."
-    takeaways={summaryTakeaways}
-    relatedLinks={summaryRelatedLinks}
   />
   <div class="callout glossary__starter" id="starter-terms">
     <h3>Start with these terms</h3>

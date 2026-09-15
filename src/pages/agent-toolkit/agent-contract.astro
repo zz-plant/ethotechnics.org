@@ -14,18 +14,14 @@ const hero = {
     "This contract defines the inputs, outputs, and evidence required when an agent applies Ethotechnics. Use it to keep audits, red-teams, and design reviews consistent.",
 };
 
+// Eleven ten-line sections gave a 600-word contract eleven headings and an
+// eleven-item map. The parts of a contract are four: the task, the evidence,
+// the guardrails, the terms. The old ids stay on the sub-headings.
 const anchorLinks = [
-  { href: "#scope", label: "Supported tasks" },
-  { href: "#inputs", label: "Expected inputs" },
-  { href: "#outputs", label: "Canonical outputs" },
-  { href: "#citation", label: "Citation rules" },
-  { href: "#clause-schema", label: "Clause schema" },
-  { href: "#finding-schema", label: "Finding object" },
-  { href: "#antipatterns", label: "Anti-patterns" },
-  { href: "#prompt-tests", label: "Test prompts" },
-  { href: "#versioning", label: "Versioning" },
-  { href: "#boundaries", label: "Boundaries" },
-  { href: "#ontology", label: "Governance ontology" },
+  { href: "#task", label: "The task" },
+  { href: "#evidence", label: "Evidence and citation" },
+  { href: "#guardrails", label: "Guardrails" },
+  { href: "#terms", label: "Versioning and limits" },
 ];
 
 const supportedTasks = [
@@ -146,137 +142,133 @@ const ontologyTerms = [
   />
 
   <SectionBlock
-    id="scope"
+    id="task"
     eyebrow="Agent contract"
-    title="Supported tasks"
-    description="Use Ethotechnics for structured audits and mechanism-first remediation."
+    title="The task"
+    description="What an agent may be asked to do with Ethotechnics, what it needs to start, and what it hands back."
   >
-    <ul class="muted">
-      {supportedTasks.map((task) => <li>{task}</li>)}
-    </ul>
+    <div id="scope" class="stack-sm">
+      <h3>Supported tasks</h3>
+      <ul class="muted">
+        {supportedTasks.map((task) => <li>{task}</li>)}
+      </ul>
+    </div>
+    <div id="inputs" class="stack-sm">
+      <h3>Expected inputs</h3>
+      <p class="muted">
+        The minimum information an agent needs to form evidence-backed findings.
+      </p>
+      <ul class="muted">
+        {expectedInputs.map((input) => <li>{input}</li>)}
+      </ul>
+    </div>
+    <div id="outputs" class="stack-sm">
+      <h3>Canonical outputs</h3>
+      <p class="muted">
+        Define the artifact set so results stay portable across tools.
+      </p>
+      <ul class="muted">
+        {canonicalOutputs.map((output) => <li>{output}</li>)}
+      </ul>
+    </div>
   </SectionBlock>
 
   <SectionBlock
-    id="inputs"
-    eyebrow="Inputs"
-    title="Expected inputs"
-    description="The minimum information an agent needs to form evidence-backed findings."
+    id="evidence"
+    eyebrow="Evidence"
+    title="Evidence and citation"
+    description="Citations make a finding traceable; the two schemas make it portable."
     variant="alt"
   >
-    <ul class="muted">
-      {expectedInputs.map((input) => <li>{input}</li>)}
-    </ul>
+    <div id="citation" class="stack-sm">
+      <h3>How to cite standards, mechanisms, and validators</h3>
+      <ul class="muted">
+        {citationRules.map((rule) => <li>{rule}</li>)}
+      </ul>
+    </div>
+    <div id="clause-schema" class="stack-sm">
+      <h3>Clause schema for agent-readable obligations</h3>
+      <p class="muted">
+        Every clause is a structured object with its evidence requirements.
+      </p>
+      <pre class="code-block">{clauseSchema}</pre>
+    </div>
+    <div id="finding-schema" class="stack-sm">
+      <h3>Finding object</h3>
+      <p class="muted">
+        Findings let agents chain risks to mechanisms and remediation.
+      </p>
+      <pre class="code-block">{findingSchema}</pre>
+    </div>
   </SectionBlock>
 
   <SectionBlock
-    id="outputs"
-    eyebrow="Outputs"
-    title="Canonical outputs"
-    description="Define the artifact set so results stay portable across tools."
+    id="guardrails"
+    eyebrow="Guardrails"
+    title="Guardrails"
+    description="Known bad patterns to refuse, and prompts that check the agent still refuses them."
   >
-    <ul class="muted">
-      {canonicalOutputs.map((output) => <li>{output}</li>)}
-    </ul>
+    <div id="antipatterns" class="stack-sm">
+      <h3>Known bad patterns and false-positive warnings</h3>
+      <ul class="muted">
+        {
+          antiPatterns.map((pattern) => (
+            <li>
+              <strong>{pattern.title}:</strong> {pattern.failure}
+              <br />
+              <span class="small">
+                False-positive warning: {pattern.warning}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div id="prompt-tests" class="stack-sm">
+      <h3>Agent-ready test prompts</h3>
+      <p class="muted">
+        Pair these prompts with the prompt packs for consistent diagnostics.
+      </p>
+      <ul class="muted">
+        {promptTests.map((prompt) => <li>{prompt}</li>)}
+      </ul>
+      <SectionActions>
+        <a class="button ghost" href="/agent-toolkit/prompt-packs">
+          Go to prompt packs
+        </a>
+      </SectionActions>
+    </div>
   </SectionBlock>
 
   <SectionBlock
-    id="citation"
-    eyebrow="Citations"
-    title="How to cite standards, mechanisms, and validators"
-    description="Citations should make evidence traceable and enforceable."
+    id="terms"
+    eyebrow="Terms"
+    title="Versioning and limits"
+    description="Pinned releases make results comparable over time; the boundaries say what the framework leaves undecided."
     variant="alt"
   >
-    <ul class="muted">
-      {citationRules.map((rule) => <li>{rule}</li>)}
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="clause-schema"
-    eyebrow="Executable standards"
-    title="Clause schema for agent-readable obligations"
-    description="Every clause should be represented as a structured object with evidence requirements."
-  >
-    <pre class="code-block">{clauseSchema}</pre>
-  </SectionBlock>
-
-  <SectionBlock
-    id="finding-schema"
-    eyebrow="Finding object"
-    title="Portable diagnostic artifacts"
-    description="Findings let agents chain risks to mechanisms and remediation."
-    variant="alt"
-  >
-    <pre class="code-block">{findingSchema}</pre>
-  </SectionBlock>
-
-  <SectionBlock
-    id="antipatterns"
-    eyebrow="Negative examples"
-    title="Known bad patterns and false-positive warnings"
-    description="Use these to avoid superficial compliance and improve detection precision."
-  >
-    <ul class="muted">
-      {
-        antiPatterns.map((pattern) => (
-          <li>
-            <strong>{pattern.title}:</strong> {pattern.failure}
-            <br />
-            <span class="small">False-positive warning: {pattern.warning}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="prompt-tests"
-    eyebrow="Prompt library"
-    title="Agent-ready test prompts"
-    description="Pair these prompts with the prompt packs for consistent diagnostics."
-    variant="alt"
-  >
-    <ul class="muted">
-      {promptTests.map((prompt) => <li>{prompt}</li>)}
-    </ul>
-    <SectionActions>
-      <a class="button ghost" href="/agent-toolkit/prompt-packs">
-        Go to prompt packs
-      </a>
-    </SectionActions>
-  </SectionBlock>
-
-  <SectionBlock
-    id="versioning"
-    eyebrow="Versioning"
-    title="Diffable, pinned releases"
-    description="Use versioned releases so agents can compare results over time."
-  >
-    <ul class="muted">
-      {versioningSteps.map((step) => <li>{step}</li>)}
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="boundaries"
-    eyebrow="Boundaries"
-    title="What Ethotechnics does not decide"
-    description="Ethotechnics is procedural, not moral authority."
-    variant="alt"
-  >
-    <ul class="muted">
-      {boundaries.map((boundary) => <li>{boundary}</li>)}
-    </ul>
-  </SectionBlock>
-
-  <SectionBlock
-    id="ontology"
-    eyebrow="Optional"
-    title="Governance ontology primitives"
-    description="These primitives keep symbolic reasoning consistent across systems."
-  >
-    <ul class="muted">
-      {ontologyTerms.map((term) => <li>{term}</li>)}
-    </ul>
+    <div id="versioning" class="stack-sm">
+      <h3>Diffable, pinned releases</h3>
+      <ul class="muted">
+        {versioningSteps.map((step) => <li>{step}</li>)}
+      </ul>
+    </div>
+    <div id="boundaries" class="stack-sm">
+      <h3>What Ethotechnics does not decide</h3>
+      <p class="muted">Ethotechnics is procedural, not moral authority.</p>
+      <ul class="muted">
+        {boundaries.map((boundary) => <li>{boundary}</li>)}
+      </ul>
+    </div>
+    <div id="ontology" class="stack-sm">
+      <h3>Governance ontology primitives</h3>
+      <p class="muted">
+        Optional. These primitives keep symbolic reasoning consistent across
+        systems.
+      </p>
+      <ul class="muted">
+        {ontologyTerms.map((term) => <li>{term}</li>)}
+      </ul>
+    </div>
   </SectionBlock>
 </BaseLayout>

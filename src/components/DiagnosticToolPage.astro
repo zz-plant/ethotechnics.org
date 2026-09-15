@@ -55,7 +55,7 @@ const anchorLinks = [
 ---
 
 <PageIntro
-  eyebrow="Diagnostics"
+  eyebrow={tool.tier ? `Diagnostics · ${tool.tier}` : "Diagnostics"}
   title={tool.title}
   description={tool.description}
   anchorLinks={anchorLinks}

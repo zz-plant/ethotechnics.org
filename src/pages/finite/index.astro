@@ -24,83 +24,37 @@ const {
   sampleArtifact,
 } = finiteContent;
 
+// The seven sections a first read needs; the agent materials and the fit
+// notes stay on the page without a seat in the map.
 const anchorLinks = [
   { href: "#why", label: "Why Finite exists" },
   { href: "#when", label: "When to use" },
   { href: "#getting-started", label: "Getting started" },
   { href: "#reference-task", label: "Reference task" },
-  { href: "#agent-ready", label: "Agent-ready materials" },
   { href: "#measures", label: "What it measures" },
   { href: "#workflow", label: "How it works" },
-  { href: "#fit", label: "Where Finite fits" },
-  { href: "#practice", label: "Practice, not just a score" },
   { href: "#pilot", label: "Pilot" },
 ];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <PageIntro
-    eyebrow={hero.eyebrow}
-    title={`${hero.heading} [Beta]`}
+    eyebrow="Beta"
+    title={hero.heading}
     description={hero.lede}
     anchorLinks={anchorLinks}
     panelCopy={hero.panel}
-  />
-
-  <section class="section">
-    <div class="section__header">
-      <p class="eyebrow">{keyTakeaways.label}</p>
-      <h2>{keyTakeaways.title}</h2>
-      <p class="muted">{keyTakeaways.note}</p>
-    </div>
-    <ul class="muted">
-      {keyTakeaways.bullets.map((bullet) => <li>{bullet}</li>)}
-    </ul>
-  </section>
-
-  <section class="section section--alt">
-    <div class="section__header">
-      <p class="eyebrow">{hero.highlight}</p>
-      <h2>{hero.summary}</h2>
-      <p class="muted">{pageDescription}</p>
-    </div>
-    <CardGrid className="grid--two">
-      {
-        hero.bullets.map((bullet) => (
-          <CardItem description={bullet} descriptionTone="default" />
-        ))
-      }
-    </CardGrid>
-    <div class="actions">
+  >
+    <Fragment slot="actions">
       {
         hero.actions.map((action) => (
           <a class={`button ${action.variant}`} href={action.href}>
-            <span>{action.label}</span>
+            {action.label}
           </a>
         ))
       }
-    </div>
-  </section>
-
-  <SectionBlock
-    id="getting-started"
-    eyebrow={gettingStarted.eyebrow}
-    title={gettingStarted.title}
-    description={gettingStarted.description}
-  >
-    <CardGrid className="grid--two">
-      <CardItem title="Preparing a drill" descriptionTone="default">
-        <ol class="muted">
-          {gettingStarted.steps.map((step) => <li>{step}</li>)}
-        </ol>
-      </CardItem>
-      <CardItem title="Who Finite helps" descriptionTone="default">
-        <ul class="muted">
-          {gettingStarted.whoFor.map((item) => <li>{item}</li>)}
-        </ul>
-      </CardItem>
-    </CardGrid>
-  </SectionBlock>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
     id="why"
@@ -145,10 +99,31 @@ const anchorLinks = [
   </SectionBlock>
 
   <SectionBlock
+    id="getting-started"
+    eyebrow={gettingStarted.eyebrow}
+    title={gettingStarted.title}
+    description={gettingStarted.description}
+  >
+    <CardGrid className="grid--two">
+      <CardItem title="Preparing a drill" descriptionTone="default">
+        <ol class="muted">
+          {gettingStarted.steps.map((step) => <li>{step}</li>)}
+        </ol>
+      </CardItem>
+      <CardItem title="Who Finite helps" descriptionTone="default">
+        <ul class="muted">
+          {gettingStarted.whoFor.map((item) => <li>{item}</li>)}
+        </ul>
+      </CardItem>
+    </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
     id="reference-task"
     eyebrow="Reference Task v0.1"
     title={referenceTask.title}
     description={referenceTask.description}
+    variant="alt"
   >
     <CardGrid className="grid--two">
       <CardItem title="Baseline drill" descriptionTone="default">
@@ -178,7 +153,6 @@ const anchorLinks = [
     eyebrow="Agent-ready materials"
     title={agentReady.title}
     description={agentReady.description}
-    variant="alt"
   >
     <CardGrid className="grid--two">
       {
@@ -261,21 +235,17 @@ const anchorLinks = [
         {fit.items.map((item) => <li>{item}</li>)}
       </ul>
     </div>
+    <p id="practice" class="muted">
+      <strong>{practice.title}.</strong>
+      {practice.description}
+    </p>
   </SectionBlock>
-
-  <SectionBlock
-    id="practice"
-    eyebrow="Practice, not just a score"
-    title={practice.title}
-    description={practice.description}
-  />
 
   <SectionBlock
     id="pilot"
     eyebrow="Pilot and collaboration"
     title={pilot.status}
     description={pilot.description}
-    variant="alt"
   >
     <div class="grid grid--two">
       <article class="card">
@@ -296,4 +266,15 @@ const anchorLinks = [
       </article>
     </div>
   </SectionBlock>
+
+  <section id="terms" class="section section--alt">
+    <div class="section__header">
+      <p class="eyebrow">{keyTakeaways.label}</p>
+      <h2>{keyTakeaways.title}</h2>
+      <p class="muted">{keyTakeaways.note}</p>
+    </div>
+    <ul class="muted">
+      {keyTakeaways.bullets.map((bullet) => <li>{bullet}</li>)}
+    </ul>
+  </section>
 </BaseLayout>
