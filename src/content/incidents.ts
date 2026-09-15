@@ -106,7 +106,7 @@ export const incidentLessons: IncidentLesson[] = [
         label: "Decision record schema",
         href: "/standards/decision-record.schema.json",
       },
-      { label: "Audit playbook", href: "/library/diagnostics" },
+      { label: "Audit playbook", href: "/diagnostics" },
     ],
   },
   {

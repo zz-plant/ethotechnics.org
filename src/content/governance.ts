@@ -142,7 +142,7 @@ export const governanceContent: GovernanceContent = {
       date: "2026-02-14",
       owner: "Institute steward council",
       releaseVersion: "governance-v1.4.0",
-      releaseHref: "/library",
+      releaseHref: "/mechanisms",
     },
     {
       id: "DEC-2026-01-03",

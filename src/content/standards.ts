@@ -164,7 +164,6 @@ export const standardsContent: StandardsContent = {
       description:
         "A one-page postmortem template grounded in clocks, reversibility, burden allocation, and repair paths.",
       status: "Stable",
-      listedOnSite: false,
       version: "1.0",
       changelogHref: "/standards/pm-01-failure-postmortem-template",
       changelogEntries: [
@@ -187,7 +186,6 @@ export const standardsContent: StandardsContent = {
       description:
         "Defines targets, budgets, and breach actions for justice metrics.",
       status: "Draft",
-      listedOnSite: false,
       version: "0.6",
       changelogHref: "/standards/std-03-justice-slos",
       changelogEntries: [
@@ -210,7 +208,6 @@ export const standardsContent: StandardsContent = {
       description:
         "FHIR profiles for decision records, appeal events, and repair outcomes with governance metadata.",
       status: "Deprecated",
-      listedOnSite: false,
       version: "0.3",
       changelogHref: "/standards/fhir-profile-set",
       changelogEntries: [
@@ -240,7 +237,6 @@ export const standardsContent: StandardsContent = {
       description:
         "Verifiable Credential schemas and JSON-LD contexts for decision records, appeals, and remedies.",
       status: "Draft",
-      listedOnSite: false,
       version: "0.3",
       changelogHref: "/standards/w3c-vc-schemas",
       changelogEntries: [

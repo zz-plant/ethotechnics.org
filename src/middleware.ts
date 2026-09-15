@@ -55,6 +55,19 @@ const REDIRECT_MAP: Record<string, string> = {
   "/diagnostics/evidence-pack-readiness": "/diagnostics",
   "/explainers/democratic-vs-coercive-governability":
     "/research/theory/democratic-vs-coercive-governability",
+  // Two intake paths that predate /participate, kept for old inbound links.
+  "/contact": "/participate",
+  "/intake": "/participate",
+  // /library was the mechanisms catalog's previous name. Its subpages moved
+  // with it, except the diagnostics and validator views, which had already
+  // become their own sections. These lived as one-line redirect pages under
+  // src/pages/library until the sitemap, which lists every page file, listed
+  // them too; a redirect is not a page.
+  "/library": "/mechanisms",
+  "/library/cite": "/mechanisms/cite",
+  "/library/diagnostics": "/diagnostics",
+  "/library/mechanisms-by-domain": "/mechanisms/by-domain",
+  "/library/validators-by-standard": "/validators/by-standard",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {
@@ -98,6 +111,15 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   if (url.pathname.startsWith("/experience/")) {
     const target = new URL(
       url.pathname.replace(/^\/experience/, "/taxonomy/experience"),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+  // Pattern pages moved with the rest of the catalog from /library.
+  if (url.pathname.startsWith("/library/patterns/")) {
+    const target = new URL(
+      url.pathname.replace(/^\/library\/patterns/, "/mechanisms/patterns"),
       url.origin,
     );
     target.search = url.search;

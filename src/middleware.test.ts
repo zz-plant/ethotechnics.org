@@ -139,6 +139,23 @@ describe("middleware", () => {
         expectedLocation:
           "https://ethotechnics.org/research/theory/democratic-vs-coercive-governability",
       },
+      {
+        url: "https://ethotechnics.org/contact",
+        expectedLocation: "https://ethotechnics.org/participate",
+      },
+      {
+        url: "https://ethotechnics.org/library/",
+        expectedLocation: "https://ethotechnics.org/mechanisms",
+      },
+      {
+        url: "https://ethotechnics.org/library/validators-by-standard",
+        expectedLocation: "https://ethotechnics.org/validators/by-standard",
+      },
+      {
+        url: "https://ethotechnics.org/library/patterns/kill-switch?tab=evidence",
+        expectedLocation:
+          "https://ethotechnics.org/mechanisms/patterns/kill-switch?tab=evidence",
+      },
     ];
 
     for (const { url, expectedLocation } of pathCases) {

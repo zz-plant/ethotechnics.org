@@ -51,6 +51,14 @@ export const getGlossaryLabel = (slug: string): string =>
   glossaryIndex[slug]?.term ?? formatSlug(slug);
 
 /**
+ * Whether /glossary/<slug> renders. The route resolves category entries only;
+ * `glossaryTerms` also carries tooltip definitions for terms that have no
+ * entry, so anything that turns a slug into a link must check here first.
+ */
+export const hasGlossaryEntryPage = (slug: string): boolean =>
+  Object.hasOwn(glossaryIndex, slug);
+
+/**
  * Get the short definition for a glossary term by its slug.
  */
 export const getGlossaryDefinition = (slug: string): string =>

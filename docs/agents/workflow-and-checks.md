@@ -47,6 +47,11 @@ Install local pre-commit automation once per clone with `bun run hooks:install` 
 
 `bun run check:full` adds the SEO audit and coverage unit test run.
 
+Two checks need a served build (`bun run preview:cf -- --port 4321`, or any base URL) and run
+inside the Playwright suite: `bun run check:reachability <baseUrl>` fails on a static route
+nobody can click to and on any internal link that does not lead to a page, and
+`bun run check:sitemap <baseUrl>` fails on any sitemap URL that does not answer 200.
+
 For docs-only changes:
 
 - Run at least formatting checks (`bun run format:check` or equivalent file-scoped Prettier).

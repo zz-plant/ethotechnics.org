@@ -77,8 +77,10 @@ const workflowStages: {
     artifact: pickArtifact(["escalation-ladder-freeze-authority"]),
     diagnosticsHref: "/diagnostics/maintenance-simulator",
     diagnosticsLabel: "Open escalation simulation",
-    standardsHref: "/standards/std-03-justice-slos",
-    standardsLabel: "Review justice SLO standard",
+    // STD-03 (justice SLOs) has no page yet; STD-06 carries the published
+    // thresholds and breach actions.
+    standardsHref: "/standards/std-06-human-impact-safety-case",
+    standardsLabel: "Review human impact safety case",
   },
   {
     key: "evidence",
@@ -86,8 +88,8 @@ const workflowStages: {
     description:
       "Capture records and evidence packs so repair obligations are auditable and time-bound.",
     artifact: pickArtifact(["harm-receipt-format"]),
-    diagnosticsHref: "/diagnostics/evidence-pack-readiness",
-    diagnosticsLabel: "Check evidence-pack readiness",
+    diagnosticsHref: "/diagnostics/record-conformance",
+    diagnosticsLabel: "Check record conformance",
     standardsHref: "/standards/std-01-temporal-rights",
     standardsLabel: "Review temporal-rights standard",
   },

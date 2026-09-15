@@ -1,6 +1,6 @@
 import { governanceCrosswalks } from "../content/crosswalks";
 import { diagnosticsContent } from "../content/diagnostics";
-import { glossaryContent, glossaryTerms } from "../content/glossary";
+import { glossaryContent } from "../content/glossary";
 import { incidentLessons } from "../content/incidents";
 import { standardClauses, standardsContent } from "../content/standards";
 
@@ -108,21 +108,6 @@ for (const entry of allCategoryEntries) {
         }
       : undefined,
   });
-}
-
-// Fallback addition for simple terms
-for (const term of glossaryTerms) {
-  if (!termsMap.has(term.slug.toLowerCase())) {
-    termsMap.set(term.slug.toLowerCase(), {
-      id: term.slug,
-      slug: term.slug,
-      type: "metric",
-      title: term.term,
-      description: term.definition,
-      href: `/glossary/${term.slug}`,
-      category: "Knowledge",
-    });
-  }
 }
 
 // Build index of regulatory crosswalks
