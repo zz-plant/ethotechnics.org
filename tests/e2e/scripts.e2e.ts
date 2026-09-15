@@ -1,5 +1,19 @@
 import { expect, test } from "@playwright/test";
 
+import { libraryContent } from "../../src/content/library";
+import { buildPatternSearchText } from "../../src/utils/pattern-search";
+
+// Expected counts come from the same data and search index the page renders,
+// so adding a mechanism does not silently break this test.
+const frictionMechanisms = libraryContent.patterns.entries.filter((pattern) =>
+  pattern.filters.includes("friction"),
+);
+const frictionAppealMechanisms = frictionMechanisms.filter((pattern) =>
+  buildPatternSearchText(pattern).includes("appeal"),
+);
+const countLabel = (count: number) =>
+  `${count} ${count === 1 ? "mechanism" : "mechanisms"}`;
+
 test.describe("Production scripts", () => {
   test("keeps the mechanism filter and bundle controls working", async ({
     page,
@@ -27,7 +41,7 @@ test.describe("Production scripts", () => {
     await friction.click();
     await expect(friction).toHaveAttribute("aria-pressed", "true");
     await expect(filterStatus).toContainText(
-      "5 mechanisms visible with Friction.",
+      `${countLabel(frictionMechanisms.length)} visible with Friction.`,
     );
     await expect(appealPaths).toBeVisible();
     await expect(decisionLog).toBeHidden();
@@ -36,7 +50,7 @@ test.describe("Production scripts", () => {
       .getByLabel("Search mechanisms by title, summary, or cue")
       .fill("appeal");
     await expect(filterStatus).toContainText(
-      '2 mechanisms visible with Friction and search for "appeal".',
+      `${countLabel(frictionAppealMechanisms.length)} visible with Friction and search for "appeal".`,
     );
     await expect(appealPaths).toBeVisible();
     await expect(progressiveConsent).toBeHidden();

@@ -8,6 +8,7 @@ import {
   getGlossaryLabel,
   glossaryEntryPermalink,
 } from "../utils/glossary";
+import { buildPatternSearchText } from "../utils/pattern-search";
 
 type Props = {
   filters: PatternFilter[];
@@ -169,19 +170,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
           .map((filter) => filterLabels[filter] ?? filter)
           .join(", ");
         const detailHref = `/mechanisms/patterns/${pattern.slug}`;
-        const searchContent = [
-          pattern.title,
-          pattern.summary,
-          pattern.cues.join(" "),
-          pattern.steps.join(" "),
-          pattern.artifacts
-            .map((artifact) => `${artifact.name} ${artifact.purpose}`)
-            .join(" "),
-          pattern.glossaryRefs.map((slug) => getGlossaryLabel(slug)).join(" "),
-          pattern.example.description,
-        ]
-          .join(" ")
-          .toLowerCase();
+        const searchContent = buildPatternSearchText(pattern);
         const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
           slug,
           label: getGlossaryLabel(slug),
