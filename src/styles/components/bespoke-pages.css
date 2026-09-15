@@ -702,7 +702,9 @@
 
   /* Severity carried by colour as well as by the word, using the status tokens
      the theme already defines. Text keeps the level name, so this reads the
-     same to anyone who cannot separate the hues. */
+     same to anyone who cannot separate the hues. The amber text uses the
+     -deep token: the base warning colour lands at 4.26:1 on its own 12% wash
+     in the light theme, under the 4.5:1 AA floor for text this small. */
   .failure-grid__priority[data-severity="critical"] {
     border-color: color-mix(in srgb, var(--status-danger) 42%, transparent);
     background: color-mix(in srgb, var(--status-danger) 12%, var(--surface));
@@ -713,7 +715,7 @@
   .failure-grid__priority[data-severity="high"] {
     border-color: color-mix(in srgb, var(--status-warning) 42%, transparent);
     background: color-mix(in srgb, var(--status-warning) 12%, var(--surface));
-    color: var(--status-warning);
+    color: var(--status-warning-deep);
     font-weight: 700;
   }
 

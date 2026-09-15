@@ -1,4 +1,4 @@
-import glossaryData from "../content/glossary.json";
+import glossaryData from "../content/glossary.json" with { type: "json" };
 import { glossaryTerms } from "../content/glossary";
 
 // Types for glossary entries

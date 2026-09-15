@@ -56,7 +56,9 @@ const formatDerivedModule = (
     "// AUTO-GENERATED FILE. DO NOT EDIT.",
     "// Source of truth lives in the JSON file referenced below.",
     `// source-sha256: ${sourceContentHash}`,
-    `import sourceData from \"${importPath}\";`,
+    // The attribute lets Node's ESM loader (Playwright's e2e runner) import
+    // these modules directly; Vite and Bun accept it too.
+    `import sourceData from \"${importPath}\" with { type: \"json\" };`,
     "",
     `export const ${config.constName} = ${selection};`,
     "",
