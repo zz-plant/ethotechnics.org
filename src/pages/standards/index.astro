@@ -7,7 +7,6 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
-import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import { implementationExamples } from "../../content/implementation-examples";
 import { getCollection } from "astro:content";
 import { standardsContent } from "../../content/standards";
@@ -32,7 +31,6 @@ const clauseCounts = new Map(
 const {
   pageTitle,
   pageDescription,
-  permalink,
   anchorLinks,
   panelCopy,
   standards,
@@ -73,7 +71,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Standards"
     title="Standards"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     collapseAnchorLinks={false}
     collapseAnchorLinksOnMobile={true}
@@ -112,13 +109,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         href: "/standards/enforceable-governance-crosswalks",
         label: "Crosswalks",
       },
-    ]}
-    jumpLinks={[
-      { href: "#quick-lanes", label: "Most cited and newly updated" },
-      { href: "#active", label: "Active standards" },
-      { href: "#status-assignment", label: "How status is assigned" },
-      { href: "#comparison", label: "Standards comparison" },
-      { href: "#implementation-examples", label: "Implementation examples" },
     ]}
   />
   <p class="muted small">
@@ -1098,18 +1088,6 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
       Search IDs: STD-01 v1.0, STD-02 v0.9, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
       VAL-01, VAL-02, VAL-03.
     </p>
-  </SectionBlock>
-
-  <SectionBlock
-    id="standards-subscription"
-    eyebrow="Newsletter"
-    title="Stay updated on standards"
-    description="Receive notifications about new draft standards, revisions, and validator releases."
-    variant="alt"
-  >
-    <div class="measure-narrow">
-      <NewsletterSignup />
-    </div>
   </SectionBlock>
 
   <script>

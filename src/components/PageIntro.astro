@@ -22,7 +22,6 @@ export interface Props {
   title: string;
   titleLevel?: 1 | 2 | 3 | 4 | 5 | 6;
   description: string;
-  permalink: string;
   anchorLinks: AnchorLink[];
   panelCopy?: PanelCopy;
   collapseAnchorLinks?: boolean;
@@ -37,7 +36,6 @@ const {
   title,
   titleLevel = 1,
   description,
-  permalink,
   anchorLinks,
   panelCopy,
   collapseAnchorLinks = false,
@@ -48,15 +46,6 @@ const {
 } = Astro.props;
 const hasCustomAside = Astro.slots.has("aside");
 const hasActions = Astro.slots.has("actions");
-
-const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
-const normalizedPermalink = permalink?.trim();
-const permalinkUrl = normalizedPermalink
-  ? new URL(normalizedPermalink, siteBase)
-  : null;
-const abbreviatedPermalink = permalinkUrl
-  ? `${permalinkUrl.pathname}${permalinkUrl.hash}`
-  : normalizedPermalink;
 
 const HeadingTag = `h${titleLevel}` as const;
 
@@ -92,32 +81,6 @@ const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
       </div>
       <HeadingTag>{title}</HeadingTag>
       <p class="muted page-intro__lede">{description}</p>
-      {
-        /* Below the lede, not above the title. As a filled, bordered chip in
-          the meta row it was the widest and loudest element on every interior
-          page -- a copy-link utility outranking the page's own name. */
-      }
-      <p class="page-intro__permalink">
-        <span class="page-intro__permalink-icon" aria-hidden="true">↺</span>
-        <span class="page-intro__permalink-label">Permanent link</span>
-        <a class="page-intro__permalink-path" href={permalink}>
-          {abbreviatedPermalink}
-        </a>
-        <button
-          class="copy-button page-intro__permalink-copy"
-          type="button"
-          data-permalink-copy
-          data-copy-value={permalinkUrl?.toString() ?? normalizedPermalink}
-          aria-label="Copy permanent link to this page"
-        >
-          Copy link
-        </button>
-        <span
-          class="page-intro__permalink-status"
-          data-permalink-status
-          role="status"
-          aria-live="polite"></span>
-      </p>
       {
         hasActions && (
           <div class="page-intro__actions section__actions">
@@ -222,7 +185,3 @@ const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
     </div>
   </div>
 </section>
-
-<script>
-  import "../scripts/permalink-copy.ts";
-</script>

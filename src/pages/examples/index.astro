@@ -9,7 +9,6 @@ import SummaryCallout from "../../components/SummaryCallout.astro";
 const pageTitle = "Worked examples — Ethotechnics Institute";
 const pageDescription =
   "End-to-end worked scenarios that prove standards can ship with receipts, clocks, and enforceable remedies.";
-const permalink = "/examples";
 
 const examples = [
   {
@@ -69,7 +68,6 @@ const requiredSignals = [
     eyebrow="Worked examples"
     title="Worked examples"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       { href: "#scenarios", label: "Scenarios" },
       { href: "#requirements", label: "Required signals" },
@@ -101,11 +99,6 @@ const requiredSignals = [
       { href: `/examples/${featuredExample.slug}`, label: "Featured example" },
       { href: "/bindings", label: "Binding vectors" },
       { href: "/evidence-packs", label: "Evidence packs" },
-    ]}
-    jumpLinks={[
-      { href: "#featured", label: "Featured scenario" },
-      { href: "#scenarios", label: "Scenarios" },
-      { href: "#requirements", label: "Required signals" },
     ]}
   />
 

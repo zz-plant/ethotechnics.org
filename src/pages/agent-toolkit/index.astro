@@ -5,13 +5,11 @@ import PageIntro from "../../components/PageIntro.astro";
 import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const pageTitle = "Agent teaching toolkit";
 const pageDescription =
   "Guidance, prompts, and quick answers for non-human agents teaching ethotechnics principles.";
-const permalink = "/agent-toolkit";
 const hero = {
   eyebrow: "Agent enablement",
   heading: "Teach ethotechnics with clarity, care, and durable principles",
@@ -135,7 +133,6 @@ const promptPackInstall = {
     eyebrow={hero.eyebrow}
     title={hero.heading}
     description={hero.description}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={hero.panel}
   />
@@ -223,11 +220,4 @@ const promptPackInstall = {
       <PromptPackInstallCard {...promptPackInstall} />
     </CardGrid>
   </SectionBlock>
-
-  <section
-    class="section section--alt stack-md"
-    aria-label="Subscribe to Agent Toolkit Updates"
-  >
-    <NewsletterSignup />
-  </section>
 </BaseLayout>

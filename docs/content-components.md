@@ -10,7 +10,7 @@ component is for and where it appears.
 
 ## PageIntro.astro
 
-- Usage: Renders the page eyebrow, heading, summary, permalink, and optional breadcrumb JSON-LD.
+- Usage: Renders the page eyebrow, heading, lede, optional actions and aside panel, and the on-page anchor list (with the sticky section bar when there are four or more anchors).
 - Reference: `src/pages/library/index.astro`.
 
 ## SectionBlock.astro
@@ -80,7 +80,7 @@ component is for and where it appears.
 
 ## ScholarlyMeta.astro
 
-- Usage: Authorship, publication details, license, and changelog callout for published content.
+- Usage: Authorship, publication details, license, and changelog callout for published content. End-matter: place it (with `CitationBlock`) after the page's last content section, not under the intro.
 - Reference: `src/pages/diagnostics/llm-capacity-benchmark.astro`.
 
 ## DiagnosticMethodology.astro

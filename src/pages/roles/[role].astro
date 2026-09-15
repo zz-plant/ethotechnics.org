@@ -14,7 +14,6 @@ import { getRole, roles, rolePermalink } from "../../content/roles";
 const role = getRole(Astro.params.role ?? "");
 if (!role) return new Response("Role not found", { status: 404 });
 
-const permalink = rolePermalink(role.id);
 const pageTitle = `${role.label} — Ethotechnics`;
 const pageDescription = role.tagline;
 
@@ -30,18 +29,24 @@ const anchorLinks = [
 ].filter((link): link is { href: string; label: string } => link !== null);
 
 const others = roles.filter((entry) => entry.id !== role.id);
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Start", url: "/start" },
+  { name: role.label, url: rolePermalink(role.id) },
+];
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   publishedTime="2026-09-07T00:00:00.000Z"
+  breadcrumbItems={breadcrumbItems}
 >
   <PageIntro
     eyebrow="For your role"
     title={role.label}
     description={role.tagline}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "Who this is for",

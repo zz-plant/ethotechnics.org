@@ -1,11 +1,3 @@
-export const summaryLinks = [
-  { href: "#starter-terms", label: "Starter terms" },
-  { href: "#glossary-pathways", label: "Glossary pathways" },
-  { href: "#explainer-links", label: "Explainers" },
-  { href: "#glossary-index", label: "A–Z index" },
-  { href: "#territory-map", label: "Territory map" },
-];
-
 export const summaryRelatedLinks = [
   { href: "/mechanisms", label: "Mechanisms" },
   { href: "/standards", label: "Standards" },

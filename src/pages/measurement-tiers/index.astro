@@ -20,7 +20,6 @@ const machineAnswerable = tier1Checks.map((check) => {
 const pageTitle = "Measurement tiers — Ethotechnics Institute";
 const pageDescription =
   "Tiered measurement guidance for Moral Performance Indicators (MPIs) with anti-gaming controls.";
-const permalink = "/measurement-tiers";
 
 const mpis = [
   {
@@ -131,7 +130,6 @@ const mpis = [
     eyebrow="Measurement tiers"
     title="Measurement tiers + anti-gaming guidance"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={[
       ...mpis.map((mpi) => ({ href: `#${mpi.id}`, label: mpi.title })),
       { href: "#harness", label: "Tier 1 harness" },

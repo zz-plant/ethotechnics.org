@@ -10,7 +10,6 @@ import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
-import NewsletterSignup from "../../components/NewsletterSignup.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import { stripHtml } from "../../utils/glossary-helpers";
 import {
@@ -21,7 +20,6 @@ import {
 } from "../../content/page-data/glossary-routes";
 import {
   explainerLinks,
-  summaryLinks,
   summaryRelatedLinks,
   summaryTakeaways,
 } from "../../content/page-data/glossary-page";
@@ -134,7 +132,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Glossary"
     title="Ethotechnics glossary"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "Using the glossary",
@@ -145,10 +142,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   />
   <SummaryCallout
     title="Glossary wayfinding at a glance"
-    description="Use this index to align language quickly, then jump straight to the sections that match your research or review window."
+    description="Use this index to align language quickly before a review or a research window."
     takeaways={summaryTakeaways}
     relatedLinks={summaryRelatedLinks}
-    jumpLinks={summaryLinks}
   />
   <div class="callout glossary__starter" id="starter-terms">
     <h3>Start with these terms</h3>
@@ -188,13 +184,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       }
     </CardGrid>
   </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={pageTitle}
-    permalink={permalink}
-    publication={publication}
-    variant="compact"
-  />
   <div class="glossary-filter">
     <div class="glossary-filter__controls">
       <label class="glossary-filter__label" for="glossary-filter">
@@ -615,18 +604,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     ))
   }
 
-  <SectionBlock
-    id="glossary-subscription"
-    eyebrow="Newsletter"
-    title="Stay updated on terms & ontology"
-    description="Receive notifications about new definitions, revisions, and taxonomy updates."
-    variant="alt"
-  >
-    <div class="measure-narrow">
-      <NewsletterSignup />
-    </div>
-  </SectionBlock>
-
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={pageTitle}
+    permalink={permalink}
+    publication={publication}
+    variant="compact"
+  />
   <InlineScript type="application/ld+json" code={structuredDataJson} />
   <script>
     import "../../scripts/glossary-filter.ts";

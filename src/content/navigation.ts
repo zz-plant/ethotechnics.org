@@ -229,17 +229,6 @@ export const startHereCta: NavLink = {
   mobileFeatured: true,
 };
 
-export const navUtilityDesktopLinks: NavUtilityLink[] = [
-  {
-    href: "https://github.com/zz-plant/ethotechnics.org",
-    label: "GitHub",
-    class: "nav__utility-link nav__utility-link--icon",
-    rel: "noopener noreferrer",
-    target: "_blank",
-    icon: "lucide:github",
-  },
-];
-
 export const navUtilityMobilePrimaryLinks: NavUtilityLink[] = [
   {
     href: "/start",

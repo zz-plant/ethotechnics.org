@@ -8,7 +8,6 @@ import ChainDiagram from "../components/ChainDiagram.astro";
 const {
   pageTitle,
   pageDescription,
-  permalink,
   definition,
   claim,
   unitOfGovernance,
@@ -44,7 +43,6 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
     eyebrow="Method"
     title="The Ethotechnics method"
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
       title: "How to read this page",

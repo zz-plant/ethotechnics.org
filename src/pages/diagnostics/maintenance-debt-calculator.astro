@@ -42,7 +42,6 @@ const anchorLinks = [
     eyebrow="Diagnostics"
     title={tool.title}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
   />
 
@@ -65,14 +64,6 @@ const anchorLinks = [
     />
     {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
   </SectionBlock>
-  <ScholarlyMeta publication={publication} permalink={permalink} />
-  <CitationBlock
-    title={tool.title}
-    permalink={permalink}
-    publication={publication}
-    citationKey={`diagnostic_${tool.slug}`}
-  />
-
   <SectionBlock
     id="methodology"
     eyebrow="Methodology"
@@ -184,6 +175,14 @@ const anchorLinks = [
       </div>
     </div>
   </SectionBlock>
+
+  <ScholarlyMeta publication={publication} permalink={permalink} />
+  <CitationBlock
+    title={tool.title}
+    permalink={permalink}
+    publication={publication}
+    citationKey={`diagnostic_${tool.slug}`}
+  />
 </BaseLayout>
 
 <script>

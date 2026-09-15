@@ -12,7 +12,6 @@ const evidencePacks = await getCollection("evidencePacks");
 const pageTitle = "Evidence Packs";
 const pageDescription =
   "Tiered evidence requirements for each standard with audit guidance and compliance theater detection.";
-const permalink = "/evidence-packs";
 
 const anchorLinks = [{ href: "#evidence-packs", label: "All evidence packs" }];
 
@@ -27,8 +26,6 @@ const relatedLinks = [
   { href: "/bindings", label: "Bindings" },
   { href: "/validators", label: "Validators" },
 ];
-
-const summaryLinks = [{ href: "#evidence-packs", label: "Browse all" }];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -36,7 +33,6 @@ const summaryLinks = [{ href: "#evidence-packs", label: "Browse all" }];
     eyebrow="Evidence packs"
     title={pageTitle}
     description={pageDescription}
-    permalink={permalink}
     anchorLinks={anchorLinks}
     panelCopy={{
       eyebrow: "Proof-carrying compliance",
@@ -51,7 +47,6 @@ const summaryLinks = [{ href: "#evidence-packs", label: "Browse all" }];
     description="Start with the pack for the standard you're implementing, then layer in higher-tier proof."
     takeaways={takeaways}
     relatedLinks={relatedLinks}
-    jumpLinks={summaryLinks}
   />
 
   <SectionBlock

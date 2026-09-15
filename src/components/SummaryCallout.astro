@@ -8,7 +8,10 @@
  * - description: Supporting copy under the title.
  * - takeaways: Bullet list of key takeaways.
  * - relatedLinks: Pill-style links to related sections.
- * - jumpLinks: Simple list of anchor links for quick navigation.
+ *
+ * No on-page jump list: the intro's "Jump to" and the sticky section bar
+ * already carry the same anchors, and on a phone all three were on screen
+ * at once.
  */
 interface LinkItem {
   label: string;
@@ -21,7 +24,6 @@ interface Props {
   description: string;
   takeaways?: string[];
   relatedLinks?: LinkItem[];
-  jumpLinks?: LinkItem[];
 }
 
 const props: Props = Astro.props;
@@ -31,7 +33,6 @@ const {
   description,
   takeaways = [],
   relatedLinks = [],
-  jumpLinks = [],
 } = props;
 ---
 
@@ -63,23 +64,6 @@ const {
               <li class="pill-list__item">
                 <a class="pill-list__button" href={link.href}>
                   {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )
-    }
-    {
-      jumpLinks.length > 0 && (
-        <div class="summary-callout__section">
-          <p class="eyebrow">Jump to</p>
-          <ul class="summary-callout__links">
-            {jumpLinks.map((link) => (
-              <li>
-                <a class="summary-callout__jump-chip" href={link.href}>
-                  <span class="summary-callout__jump-icon" aria-hidden="true">&darr;</span>
-                  <span>{link.label}</span>
                 </a>
               </li>
             ))}

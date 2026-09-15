@@ -8,15 +8,8 @@ const entry = (await getCollection("evidencePacks")).find(
   (candidate) => candidate.id === Astro.params.slug,
 );
 if (!entry) return new Response("Not found", { status: 404 });
-const {
-  title,
-  description,
-  permalink,
-  sections,
-  checklists,
-  standardId,
-  standardTitle,
-} = entry.data;
+const { title, description, sections, checklists, standardId, standardTitle } =
+  entry.data;
 
 const pageTitle = `${title} — Ethotechnics Institute`;
 ---
@@ -30,7 +23,6 @@ const pageTitle = `${title} — Ethotechnics Institute`;
     eyebrow="Evidence pack"
     title={title}
     description={description}
-    permalink={permalink}
     anchorLinks={[
       ...sections.map((section, index) => ({
         href: `#section-${index}`,
