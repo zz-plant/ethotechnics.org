@@ -32,13 +32,6 @@ const INTENTIONALLY_UNLINKED = new Map<string, string>([
   ["/404", "the error page; reached by failing to find something else"],
   ["/components-preview", "a development gallery, not site content"],
   ["/agents/spec", "a machine surface, cited by llms.txt rather than linked"],
-  ["/intake", "a redirect kept for old inbound links"],
-  ["/contact", "a redirect to /participate, kept for old inbound links"],
-  ["/library", "a redirect to /mechanisms, kept for old inbound links"],
-  ["/library/cite", "a redirect kept for old inbound links"],
-  ["/library/mechanisms-by-domain", "a redirect kept for old inbound links"],
-  ["/library/validators-by-standard", "a redirect kept for old inbound links"],
-  ["/library/diagnostics", "a redirect kept for old inbound links"],
 ]);
 
 const normalize = (path: string) => path.replace(/\/+$/, "") || "/";

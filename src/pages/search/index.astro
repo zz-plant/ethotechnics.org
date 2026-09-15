@@ -6,6 +6,7 @@ import { diagnosticsContent } from "../../content/diagnostics";
 import { fieldNotesContent } from "../../content/fieldNotes";
 import { glossaryTerms } from "../../content/glossary";
 import { navSections } from "../../content/navigation";
+import { hasGlossaryEntryPage } from "../../utils/glossary";
 
 const pageTitle = "Site search — Ethotechnics";
 const pageDescription =
@@ -35,13 +36,16 @@ const diagnosticEntries: SearchEntry[] = diagnosticsContent.tools.map(
     tags: [tool.deliveryType, tool.estimatedTime],
   }),
 );
-const glossaryEntries: SearchEntry[] = glossaryTerms.map((term) => ({
-  title: term.term,
-  description: term.definition,
-  href: `/glossary/${term.slug}`,
-  category: "Glossary",
-  tags: term.appliesTo,
-}));
+// A result is a page. Terms with only a tooltip definition have none.
+const glossaryEntries: SearchEntry[] = glossaryTerms
+  .filter((term) => hasGlossaryEntryPage(term.slug))
+  .map((term) => ({
+    title: term.term,
+    description: term.definition,
+    href: `/glossary/${term.slug}`,
+    category: "Glossary",
+    tags: term.appliesTo,
+  }));
 const fieldNoteEntries: SearchEntry[] = fieldNotesContent.entries.map(
   (entry) => ({
     title: entry.title,

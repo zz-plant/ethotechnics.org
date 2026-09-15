@@ -1,11 +1,15 @@
 import { glossaryContent, glossaryTerms } from "../content/glossary";
-import { glossaryEntryPermalink } from "../utils/glossary";
+import {
+  glossaryEntryPermalink,
+  hasGlossaryEntryPage,
+} from "../utils/glossary";
 
 type GlossaryHighlightEntry = {
   term: string;
   slug: string;
   definition: string;
-  href: string;
+  /** Absent for terms that are defined here but have no entry page. */
+  href?: string;
   domain?: string;
   metric?: string;
   threshold?: string;
@@ -40,7 +44,9 @@ const glossaryEntries: GlossaryHighlightEntry[] = glossaryTerms.map(
       term,
       slug,
       definition: normalizeDefinition(definition),
-      href: glossaryEntryPermalink(slug),
+      href: hasGlossaryEntryPage(slug)
+        ? glossaryEntryPermalink(slug)
+        : undefined,
       domain,
       metric: metric && metric.length < 40 ? metric : undefined,
       threshold: threshold && threshold.length < 45 ? threshold : undefined,
@@ -201,14 +207,16 @@ const buildHighlightMark = (
     card.appendChild(metricGrid);
   }
 
-  const footer = document.createElement("span");
-  footer.className = "glossary-peek-card__footer";
-  const link = document.createElement("a");
-  link.href = entry.href;
-  link.className = "glossary-peek-card__link";
-  link.textContent = "Inspect full standard →";
-  footer.appendChild(link);
-  card.appendChild(footer);
+  if (entry.href) {
+    const footer = document.createElement("span");
+    footer.className = "glossary-peek-card__footer";
+    const link = document.createElement("a");
+    link.href = entry.href;
+    link.className = "glossary-peek-card__link";
+    link.textContent = "Inspect full standard →";
+    footer.appendChild(link);
+    card.appendChild(footer);
+  }
 
   mark.appendChild(card);
   return mark;

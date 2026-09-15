@@ -11,7 +11,7 @@ component is for and where it appears.
 ## PageIntro.astro
 
 - Usage: Renders the page eyebrow, heading, lede, optional actions and aside panel, and the on-page anchor list (with the sticky section bar when there are four or more anchors).
-- Reference: `src/pages/library/index.astro`.
+- Reference: `src/pages/mechanisms/index.astro`.
 
 ## SectionBlock.astro
 
@@ -76,7 +76,7 @@ component is for and where it appears.
 ## CitationBlock.astro
 
 - Usage: Expandable citation formats with copy buttons for APA/MLA/Chicago/BibTeX/RIS.
-- Reference: `src/pages/library/cite.astro`.
+- Reference: `src/pages/mechanisms/cite.astro`.
 
 ## ScholarlyMeta.astro
 
@@ -98,7 +98,7 @@ component is for and where it appears.
 - Usage: Filter, search, and bundle controls for library pattern listings.
 - Notes: Bundle actions stay enabled; when nothing is selected, actions prompt via the bundle status
   line and focus the first mechanism checkbox.
-- Reference: `src/pages/library/index.astro`.
+- Reference: `src/pages/mechanisms/index.astro`.
 
 ## Navigation.astro
 

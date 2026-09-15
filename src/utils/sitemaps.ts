@@ -1,6 +1,6 @@
 import { fieldNotesContent } from "../content/fieldNotes";
 import type { FieldNotesContent } from "../content/fieldNotes";
-import { glossaryContent, glossaryTerms } from "../content/glossary";
+import { glossaryContent } from "../content/glossary";
 import type {
   GlossaryCategory,
   GlossaryContent,
@@ -12,7 +12,7 @@ import type { LibraryContent, Pattern } from "../content/library";
 import { roles } from "../content/roles";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
-import { getTaxonomyBranch, taxonomyEntries } from "../content/taxonomy";
+import { taxonomyEntries } from "../content/taxonomy";
 import { homeContent } from "../content/home";
 import { glossaryEntryPermalink } from "../utils/glossary";
 import {
@@ -248,20 +248,17 @@ export const buildSitemapSections = async () => {
   const glossaryLastmod = normalizeLastmod(
     glossaryData.publication.updated ?? glossaryData.publication.published,
   );
-  const glossarySlugSet = new Set<string>(
-    glossaryTerms.map((term) => term.slug),
+  // /glossary/[slug] resolves category entries and nothing else. glossaryTerms
+  // carries tooltip definitions for 67 more terms than have a page; listing
+  // those here advertised 67 URLs that 404.
+  const glossaryPaths = glossaryData.categories.flatMap(
+    (category: GlossaryCategory) =>
+      category.entries.map((entry: GlossaryEntry) => ({
+        path: glossaryEntryPermalink(entry.id),
+        lastmod: glossaryLastmod,
+        changefreq: "monthly",
+      })),
   );
-  glossaryData.categories.forEach((category: GlossaryCategory) => {
-    category.entries.forEach((entry: GlossaryEntry) =>
-      glossarySlugSet.add(entry.id),
-    );
-  });
-
-  const glossaryPaths = Array.from(glossarySlugSet).map((slug) => ({
-    path: glossaryEntryPermalink(slug),
-    lastmod: glossaryLastmod,
-    changefreq: "monthly",
-  }));
 
   const glossaryTestPaths = glossaryData.categories.flatMap(
     (category: GlossaryCategory) =>
@@ -283,19 +280,14 @@ export const buildSitemapSections = async () => {
     ? normalizeLastmod(libraryData.updated ?? libraryData.published)
     : undefined;
 
+  // /library/patterns/* is a middleware redirect to the same slug under
+  // /mechanisms, not a second page.
   const patternPaths = libraryData
-    ? [
-        ...libraryData.patterns.entries.map((pattern: Pattern) => ({
-          path: `/mechanisms/patterns/${pattern.slug}`,
-          lastmod: libraryLastmod,
-          changefreq: "monthly",
-        })),
-        ...libraryData.patterns.entries.map((pattern: Pattern) => ({
-          path: `/library/patterns/${pattern.slug}`,
-          lastmod: libraryLastmod,
-          changefreq: "monthly",
-        })),
-      ]
+    ? libraryData.patterns.entries.map((pattern: Pattern) => ({
+        path: `/mechanisms/patterns/${pattern.slug}`,
+        lastmod: libraryLastmod,
+        changefreq: "monthly",
+      }))
     : [];
 
   const rolePaths = roles.map((role) => ({
@@ -318,20 +310,12 @@ export const buildSitemapSections = async () => {
     lastmod: lesson.updated ?? lesson.published,
   }));
 
+  // The taxonomy domains render under /taxonomy only; the top-level mirrors
+  // (/governance/policy, /delivery/intake, ...) are middleware redirects.
   const taxonomyPaths = taxonomyEntries.map((entry) => ({
     path: `/taxonomy/${entry.slug}`,
     changefreq: "monthly",
   }));
-
-  const domainRoots = ["governance", "delivery", "assurance", "experience"];
-  const domainPaths = domainRoots.flatMap((rootSlug) =>
-    getTaxonomyBranch(rootSlug)
-      .filter((entry) => entry.slug !== rootSlug)
-      .map((entry) => ({
-        path: `/${rootSlug}/${entry.slug.split("/").slice(1).join("/")}`,
-        changefreq: "monthly",
-      })),
-  );
 
   const fieldNotesEntry: unknown = await getContentEntry(
     "fieldNotes",
@@ -436,24 +420,19 @@ export const buildSitemapSections = async () => {
   return {
     core: applyOverrides(corePaths),
     glossary: applyOverrides([...glossaryPaths, ...glossaryTestPaths]),
+    // Standards come from the MDX collection /standards/[...slug] renders, not
+    // from the registry: a registry entry can exist for clauses and changelogs
+    // long before its page does (PM-01, STD-03, STD-04, STD-05 all did), and the
+    // static standards pages are already in core with the other page files.
+    // Registry dates still reach these entries through the lastmod overrides.
     standards: applyOverrides([
-      ...standardsContent.standards
-        .filter((standard) => standard.listedOnSite !== false)
-        .map((standard) => ({
-          path: `/standards/${standard.slug}`,
-          lastmod: standard.published,
-        })),
       ...standardsCollectionPaths,
       ...evidencePackPaths,
       ...incidentPaths,
       ...rolePaths,
       ...theoryPaths,
     ]),
-    taxonomy: applyOverrides([
-      ...taxonomyPaths,
-      ...domainPaths,
-      ...patternPaths,
-    ]),
+    taxonomy: applyOverrides([...taxonomyPaths, ...patternPaths]),
   };
 };
 
