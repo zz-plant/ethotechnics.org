@@ -27,6 +27,7 @@ anchorLinks:
 ---
 
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+import ChainPauseFigure from "../../components/ChainPauseFigure.astro";
 
 export const reliedOnClauses = [
   {
@@ -373,6 +374,7 @@ export const structuredData = {
             claim about a system that no longer exists.
           </li>
         </ol>
+        <ChainPauseFigure patterns={antiPatterns} />
       </section>
 
       <section id="part-c" class="standard-section">

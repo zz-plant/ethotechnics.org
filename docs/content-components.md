@@ -83,6 +83,35 @@ component is for and where it appears.
 - Usage: Authorship, publication details, license, and changelog callout for published content. End-matter: place it (with `CitationBlock`) after the page's last content section, not under the intro.
 - Reference: `src/pages/diagnostics/llm-capacity-benchmark.astro`.
 
+## DemoFigure.astro
+
+- Usage: The frame every demonstration figure sits in: eyebrow, a title at the heading level of
+  wherever the figure is placed, a lede that says what to do, and a slot for the figure itself. A
+  demonstration is neither a static diagram nor a diagnostic: it makes one claim felt by letting
+  the reader move a control, and it is embedded next to the paragraph that makes the claim.
+- Reference: `src/content/standards/std-08-delegation.mdx` (Part C), `src/content/standards/laws.mdx`
+  (Laws VIII and XI), `src/content/theory/friction-as-accidental-governance.mdx`.
+- Props: `id`, `title`, `lede`, `level` (`"h3"` by default, `"h4"` under a law heading), `eyebrow`,
+  `class`.
+- Rules the demonstrations follow:
+  - Every control is a field on a published object, and a co-located test holds the figure to the
+    schema (`src/utils/theater-test.test.ts`, `src/features/beside-the-loop/loopLogic.test.ts`,
+    `src/features/withdrawal-figure/withdrawalLogic.test.ts`, `src/utils/ratchet.test.ts`).
+    Prose the figure needs is declared next to the essay as an `export const` and checked at build
+    (`src/features/friction-figure/frictionLogic.ts`, `src/components/ChainPauseFigure.astro`).
+  - Toggle-only figures are `.astro` components with a plain bundled `<script>`
+    (`src/components/TheaterTestFigure.astro`); stateful ones follow the diagnostics layout under
+    `src/features/<name>/` with pure logic in a tested module and a thin React island hydrated with
+    `client:visible`. Nothing is timed or random: runs are turn-based and seeded so they replay.
+  - The frame carries `data-glossary-ignore`, because glossary highlighting rewrites text nodes
+    before an island hydrates and React then finds markup the server never sent. A `<pre>` inside
+    an island carries `data-copy-attached="true"` for the same reason.
+  - Each figure ends with one sentence saying what it is not: a measurement of any deployment.
+    It carries no method cards; those belong to diagnostics that score real systems.
+  - Shared styles live in `src/styles/components/figures.css`; a wide drawing scrolls inside the
+    frame at every viewport (`contain: inline-size` on the figure keeps its min-width from
+    widening the standards column).
+
 ## DiagnosticMethodology.astro
 
 - Usage: Structured diagnostic methodology section for inputs, procedure, outputs, and validation.

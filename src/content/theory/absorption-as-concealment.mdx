@@ -8,6 +8,9 @@ lawRefs: ["V", "VIII", "X"]
 summary: "Every absorbed failure improves the metric that should have caught it. Reliability that rests on absorption is not reliability; it is concealment that has not yet been measured."
 ---
 
+import DemoFigure from "../../components/DemoFigure.astro";
+import AbsorptionFigure from "../../features/absorption-figure/AbsorptionFigure";
+
 An institution learns about its systems through instruments: error rates, escalation counts, time to resolution, satisfaction scores. The instruments are designed to register failure. This essay is about the failures they cannot register, because someone dealt with them first, and about why that class of failure grows exactly when a system becomes important.
 
 ## The mechanism
@@ -33,6 +36,14 @@ The standard argument for expanding a system's authority is that it has proven r
 This does not mean the system is unreliable. It means the institution does not know whether it is. A claim of reliability that rests on instruments subject to absorption bias is a claim about the combined performance of the system and the people around it, attributed to the system alone. When the institution then expands the system's authority on the strength of that claim, it is expanding on the strength of labor it has not counted and cannot see.
 
 The failure mode is easy to describe and hard to notice from inside. The system is extended into a context where the absorbing people are absent, or where the absorbed errors have larger consequences, and the true error rate appears for the first time. The institution experiences this as a sudden decline in a previously reliable system. Nothing declined. The concealment ended.
+
+<DemoFigure
+  id="absorption-figure"
+  title="An instrument that improves as the system becomes harder to lose"
+  lede="Thirty-six months of a system whose true error rate barely moves. Read the reported rate the way a governance board would, then extend the system to a second site, cut the staff, or overlay the truth."
+>
+  <AbsorptionFigure client:visible />
+</DemoFigure>
 
 ## Measuring what hides
 

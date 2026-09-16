@@ -1,0 +1,53 @@
+---
+/**
+ * The frame every demonstration sits in: an eyebrow, a title at the heading
+ * level of wherever the figure is placed, a lede that says what to do, and a
+ * slot for the figure itself, static or hydrated.
+ *
+ * A demonstration is neither a diagram nor a diagnostic. It makes one claim
+ * felt by letting the reader move a control, and it says at the bottom what it
+ * is not: a measurement of any deployment. That sentence belongs to the
+ * figure, so it is written inside the slot next to the figure's sources.
+ */
+import "../styles/components/figures.css";
+
+interface Props {
+  id: string;
+  title: string;
+  lede: string;
+  /** The heading level the figure's title takes from where it sits. */
+  level?: "h3" | "h4";
+  eyebrow?: string;
+  class?: string;
+}
+
+const {
+  id,
+  title,
+  lede,
+  level = "h3",
+  eyebrow = "Demonstration",
+  class: className,
+}: Props = Astro.props;
+const Heading = level;
+const titleId = `${id}-title`;
+---
+
+{
+  /* Glossary highlighting rewrites text nodes before an island hydrates, and
+     React then finds markup the server never sent. A demonstration's text is
+     its controls, not prose, so the whole figure opts out. */
+}
+<figure
+  class:list={["demo-figure", className]}
+  id={id}
+  aria-labelledby={titleId}
+  data-glossary-ignore
+>
+  <figcaption>
+    <p class="eyebrow">{eyebrow}</p>
+    <Heading id={titleId}>{title}</Heading>
+    <p class="muted">{lede}</p>
+  </figcaption>
+  <slot />
+</figure>

@@ -29,6 +29,8 @@ anchorLinks:
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
 import PolicyValidityDiagram from "../../components/PolicyValidityDiagram.astro";
 import CorrectionSymmetryDiagram from "../../components/CorrectionSymmetryDiagram.astro";
+import DemoFigure from "../../components/DemoFigure.astro";
+import BesideTheLoop from "../../features/beside-the-loop/BesideTheLoop";
 
 export const reliedOnClauses = [
   {
@@ -487,6 +489,13 @@ export const structuredData = {
             been shown to be one.
           </li>
         </ol>
+        <DemoFigure
+          id="beside-the-loop"
+          title="Beside the loop"
+          lede="You are the reviewer. Decisions from a prior-authorization router arrive as fast as it makes them, and each is one click to approve. The six switches are the fields §3.1 requires, all off to begin with. Work the queue, then switch them on one at a time and watch what your approval can actually change."
+        >
+          <BesideTheLoop client:visible />
+        </DemoFigure>
       </section>
 
       <section id="part-d" class="standard-section">
