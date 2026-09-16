@@ -1,6 +1,5 @@
 import { useId, useMemo, useState } from "react";
 import "../../styles/components/figures.css";
-import "./withdrawalFigure.css";
 import {
   ALTERNATIVE_STATUSES,
   CORRECTION_WINDOW_HOURS,

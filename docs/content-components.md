@@ -108,9 +108,13 @@ component is for and where it appears.
     an island carries `data-copy-attached="true"` for the same reason.
   - Each figure ends with one sentence saying what it is not: a measurement of any deployment.
     It carries no method cards; those belong to diagnostics that score real systems.
-  - Shared styles live in `src/styles/components/figures.css`; a wide drawing scrolls inside the
-    frame at every viewport (`contain: inline-size` on the figure keeps its min-width from
-    widening the standards column).
+  - All figure CSS, shared and per-figure, lives in `src/styles/components/figures.css`, and no
+    figure ships a stylesheet of its own. The figures render through MDX content, and a stylesheet
+    small enough for Astro to inline (under 4 KB) reaches those pages as a `<style>` element whose
+    hash is missing from the Content-Security-Policy header, so the browser drops it in
+    production; one linked stylesheet is allowed by `style-src 'self'`. `figures.test.ts` holds the
+    file above the limit. A wide drawing scrolls inside the frame at every viewport
+    (`contain: inline-size` on the figure keeps its min-width from widening the standards column).
 
 ## DiagnosticMethodology.astro
 

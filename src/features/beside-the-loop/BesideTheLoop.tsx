@@ -1,6 +1,5 @@
 import { useId, useMemo, useReducer, useState } from "react";
 import "../../styles/components/figures.css";
-import "./besideTheLoop.css";
 import {
   ACTION_CLASS_LABELS,
   CLAUSE_REFS,

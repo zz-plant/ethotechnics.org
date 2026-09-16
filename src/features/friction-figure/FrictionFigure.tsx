@@ -1,6 +1,5 @@
 import { useId, useMemo, useState } from "react";
 import "../../styles/components/figures.css";
-import "./frictionFigure.css";
 import {
   allAgent,
   allHuman,

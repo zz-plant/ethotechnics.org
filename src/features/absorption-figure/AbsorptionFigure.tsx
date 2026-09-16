@@ -1,6 +1,5 @@
 import { useId, useMemo, useState } from "react";
 import "../../styles/components/figures.css";
-import "./absorptionFigure.css";
 import { evalsContent } from "../../content/evals";
 import {
   ABSORPTION_LAYER,
