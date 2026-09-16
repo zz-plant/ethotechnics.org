@@ -195,10 +195,23 @@
     }
   }
 
+  /* Document and references sidebar. One column until the viewport can
+     carry both: the other main-plus-aside layouts (.section--aside,
+     .page-intro__grid) turn two-column at 900px, and below that the 1fr rail
+     was ~150px of link text at a phone width, drawn over the prose. Stacked,
+     the sidebar follows the document and its panels stop sticking, since a
+     panel pinned at 6rem inside a short aside only slides over the one
+     before it. */
   .standard-body {
     display: grid;
     gap: 2rem;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 900px) {
+    .standard-body {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    }
   }
 
   .standard-abstract {
@@ -414,8 +427,13 @@
     border: 1px solid var(--border);
     padding: 1.25rem;
     background: var(--panel);
-    position: sticky;
-    top: 6rem;
+  }
+
+  @media (min-width: 900px) {
+    .standard-sidebar__panel {
+      position: sticky;
+      top: 6rem;
+    }
   }
 
   .standard-sidebar__eyebrow {
