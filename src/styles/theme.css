@@ -14,8 +14,23 @@
   --muted: #5b554f;
   --accent: #1e3a5f;
   --accent-strong: #142842;
-  --gold: #b45309;
+  --gold: #b5481f;
   --teal: #2e5266;
+
+  /* Two inks. The accent is the sapphire everything is set in -- buttons,
+     eyebrow labels, headings that carry colour. Used alone it is dark enough
+     to read as blue-black, so the site came out near-greyscale in light mode
+     and inline links sank into the body text. Two aliases pull it apart:
+     --link is a step lighter than the accent so a link registers as one
+     without leaning on its underline; --mark is the one warm colour on the
+     sheet, reserved for the short rule-marks (the eyebrow dash, the current
+     nav item) -- the red margin line of ruled paper. It is rust rather than
+     the amber of --status-warning so a margin mark and a "deprecated" chip
+     never share a hue. Dark mode collapses --link back onto the accent,
+     which is already a light blue there. */
+  --link: #2a5089;
+  --link-hover: var(--accent-strong);
+  --mark: var(--gold);
 
   /* Status Colors */
   --status-success: #15803d;
@@ -186,8 +201,10 @@
     --muted: #a69f95;
     --accent: #93b8dc;
     --accent-strong: #bfd6ee;
-    --gold: #d4a373;
+    --gold: #e6996e;
     --teal: #8da9c4;
+    --link: var(--accent);
+    --link-hover: var(--accent-strong);
 
     --btn-primary-bg: #2e6093;
     --btn-primary-text: #ffffff;
@@ -265,8 +282,10 @@
   --muted: #a69f95;
   --accent: #93b8dc;
   --accent-strong: #bfd6ee;
-  --gold: #d4a373;
+  --gold: #e6996e;
   --teal: #8da9c4;
+  --link: var(--accent);
+  --link-hover: var(--accent-strong);
 
   --btn-primary-bg: #2e6093;
   --btn-primary-text: #ffffff;

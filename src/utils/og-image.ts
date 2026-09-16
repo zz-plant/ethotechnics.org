@@ -28,7 +28,7 @@ const INK = "#1c1917";
 const MUTED = "#57534e";
 const SAPPHIRE = "#1e3a5f";
 const TEAL = "#2e5266";
-const GOLD = "#b45309";
+const GOLD = "#b5481f";
 
 // Single-quoted family names: these are interpolated into double-quoted XML
 // attributes, where a nested double quote ends the attribute early.

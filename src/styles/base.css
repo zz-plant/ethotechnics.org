@@ -83,7 +83,7 @@
   }
 
   a {
-    color: var(--accent);
+    color: var(--link);
     text-decoration: none;
     touch-action: manipulation;
     transition:
@@ -93,7 +93,7 @@
 
   a:hover,
   a:focus-visible {
-    color: var(--accent-strong);
+    color: var(--link-hover);
   }
 
   a:focus-visible {
@@ -109,7 +109,7 @@
      the header and footer are label lists, not prose. */
   a:not([class], nav *, footer *, .footer *, svg *) {
     text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--accent) 38%, transparent);
+    text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
   }
