@@ -1,0 +1,291 @@
+---
+/**
+ * The automation ratchet, drawn: the same growth twice.
+ *
+ * On the left, scope grows by a step too small to open a review, month after
+ * month, and the grant's history holds one entry from the day it was issued.
+ * On the right, the same steps under STD-08 Part A: every widening is its own
+ * authorization and lands in state_history as an expansion. The two curves
+ * are identical. The difference is whether anyone decided.
+ */
+import DemoFigure from "./DemoFigure.astro";
+import { accrete, authorizedHistory, RATCHET } from "../utils/ratchet";
+
+interface Props {
+  level?: "h3" | "h4";
+}
+
+const { level = "h3" }: Props = Astro.props;
+
+const { scope, reviewsFired, finalScope } = accrete(RATCHET);
+const history = authorizedHistory(RATCHET);
+
+// Two identical plots on one 960×400 canvas. The y range starts at ×1 so the
+// staircase fills its panel, and tops out just above the final scope.
+const panelWidth = 420;
+const plotTop = 78;
+const plotBottom = 300;
+const yMax = 2.2;
+const panels = [
+  { x0: 40, title: "Scope by accretion", kicker: "one review threshold" },
+  { x0: 520, title: "Scope by authorization", kicker: "STD-08 Part A" },
+] as const;
+
+const xAt = (x0: number, month: number) =>
+  x0 + (panelWidth * month) / RATCHET.months;
+const yAt = (value: number) =>
+  plotBottom - ((plotBottom - plotTop) * (value - 1)) / (yMax - 1);
+
+/** A staircase: hold the month's scope, then step up at the next month. */
+const staircase = (x0: number) =>
+  scope
+    .map((value, month) => {
+      const x = xAt(x0, month);
+      const y = yAt(value);
+      if (month === 0) return `M ${x.toFixed(1)} ${y.toFixed(1)}`;
+      const previousY = yAt(scope[month - 1]);
+      return `L ${x.toFixed(1)} ${previousY.toFixed(1)} L ${x.toFixed(1)} ${y.toFixed(1)}`;
+    })
+    .join(" ");
+
+const gridValues = [1, 1.5, 2];
+const expansions = history.length - 1;
+---
+
+<DemoFigure
+  id="ratchet-figure"
+  class="ratchet"
+  level={level}
+  title="The same growth, decided and undecided"
+  lede={`Two grants widen by ${RATCHET.stepPct}% a month for ${RATCHET.months / 12} years. The left one is reviewed when a single step reaches ${RATCHET.reviewThresholdPct}%; the right one records every widening as an authorization.`}
+>
+  <div class="demo-figure__frame">
+    <div class="diagram-scroll">
+      <svg
+        viewBox="0 0 960 400"
+        role="img"
+        aria-label={`Two identical staircases rising from scope times one to times ${finalScope.toFixed(2)} over ${RATCHET.months} months. Left: reviews fired ${reviewsFired}, state history one entry. Right: state history ${history.length} entries, one issue and ${expansions} expansions.`}
+        class="ratchet__svg"
+      >
+        {
+          panels.map((panel, index) => (
+            <g>
+              <text x={panel.x0} y={40} class="demo-figure__svg-title">
+                {panel.title}
+              </text>
+              <text x={panel.x0} y={58} class="demo-figure__svg-label">
+                {panel.kicker}
+              </text>
+              {gridValues.map((value) => (
+                <g>
+                  <line
+                    x1={panel.x0}
+                    x2={panel.x0 + panelWidth}
+                    y1={yAt(value)}
+                    y2={yAt(value)}
+                    class="ratchet__grid"
+                  />
+                  <text
+                    x={panel.x0 - 6}
+                    y={yAt(value) + 4}
+                    text-anchor="end"
+                    class="demo-figure__svg-label"
+                  >
+                    ×{value.toFixed(1)}
+                  </text>
+                </g>
+              ))}
+              {[0, 12, 24, 36].map((month) => (
+                <text
+                  x={xAt(panel.x0, month)}
+                  y={plotBottom + 16}
+                  text-anchor="middle"
+                  class="demo-figure__svg-label"
+                >
+                  {month === 0 ? "month 0" : month}
+                </text>
+              ))}
+              <path d={staircase(panel.x0)} class="ratchet__stairs" />
+              {index === 1 &&
+                scope
+                  .slice(1)
+                  .map((value, i) => (
+                    <circle
+                      cx={xAt(panel.x0, i + 1)}
+                      cy={yAt(value)}
+                      r="2.6"
+                      class="ratchet__decision"
+                    />
+                  ))}
+              {index === 0 && (
+                <g>
+                  <line
+                    x1={panel.x0 + 16}
+                    x2={panel.x0 + 60}
+                    y1={yAt(1.95)}
+                    y2={yAt(1.95)}
+                    class="ratchet__threshold"
+                  />
+                  <text
+                    x={panel.x0 + 66}
+                    y={yAt(1.95) + 4}
+                    class="demo-figure__svg-label"
+                  >
+                    the step that would open a review, ×1.05
+                  </text>
+                  <line
+                    x1={panel.x0 + 16}
+                    x2={panel.x0 + 60}
+                    y1={yAt(1.95) + 16}
+                    y2={yAt(1.95) + 16}
+                    class="ratchet__stairs"
+                  />
+                  <text
+                    x={panel.x0 + 66}
+                    y={yAt(1.95) + 20}
+                    class="demo-figure__svg-label"
+                  >
+                    each real step, ×1.02
+                  </text>
+                </g>
+              )}
+              <text
+                x={xAt(panel.x0, RATCHET.months)}
+                y={yAt(finalScope) - 10}
+                text-anchor="end"
+                class="demo-figure__svg-mono"
+              >
+                ×{finalScope.toFixed(2)}
+              </text>
+              <text
+                x={panel.x0}
+                y={plotBottom + 46}
+                class="demo-figure__svg-mono"
+              >
+                {index === 0
+                  ? `reviews fired: ${reviewsFired}`
+                  : `expansion decisions: ${expansions}`}
+              </text>
+              <text
+                x={panel.x0}
+                y={plotBottom + 64}
+                class="demo-figure__svg-mono"
+              >
+                {index === 0
+                  ? "state_history: 1 entry (issued)"
+                  : `state_history: ${history.length} entries`}
+              </text>
+              <text
+                x={panel.x0}
+                y={plotBottom + 82}
+                class="demo-figure__svg-label"
+              >
+                {index === 0
+                  ? "nothing to review, because nothing was decided"
+                  : "each with evidence and a correction-capacity re-check"}
+              </text>
+            </g>
+          ))
+        }
+      </svg>
+    </div>
+    <div class="ratchet__history">
+      <p class="ratchet__history-title">
+        The right-hand grant's <code>state_history</code>, first three entries
+        of {history.length}
+      </p>
+      <ol class="ratchet__entries">
+        {
+          history.slice(0, 3).map((entry) => (
+            <li>
+              <code>
+                {`{ from: ${entry.from}, to: ${entry.to}, reason: ${entry.reason} }`}
+              </code>
+              <span class="ratchet__entry-note">{entry.note}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+  <p class="demo-figure__note">
+    A demonstration, not a measurement of any deployment. The steps and the
+    threshold are in <code>src/utils/ratchet.ts</code>; the transition reason
+    <code>expansion</code> and the states are the ones
+    <code>authority-grant.schema.json</code> allows, and a test holds them there.
+    MEC-19 expansion review reads <code>state_history</code>, and the left-hand
+    grant gives it nothing to read.
+  </p>
+</DemoFigure>
+
+<style>
+  .ratchet__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* The standards column narrows well before the phone breakpoint, and
+     11px labels in a 960-unit drawing are unreadable below ~800px of width.
+     Under 1100px the drawing keeps a readable width and scrolls. */
+  @media (max-width: 1100px) {
+    .ratchet__svg {
+      min-width: 760px;
+    }
+  }
+
+  .ratchet__grid {
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+
+  .ratchet__stairs {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+
+  .ratchet__decision {
+    fill: var(--surface);
+    stroke: var(--accent-strong);
+    stroke-width: 1.5;
+  }
+
+  .ratchet__threshold {
+    stroke: var(--status-warning);
+    stroke-width: 2;
+    stroke-dasharray: 4 3;
+  }
+
+  .ratchet__history {
+    display: grid;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .ratchet__history-title {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .ratchet__entries {
+    margin: 0;
+    padding: 0 0 0 1.2rem;
+    display: grid;
+    gap: 0.3rem;
+    font-size: var(--text-sm);
+  }
+
+  .ratchet__entries code {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+  }
+
+  .ratchet__entry-note {
+    margin-left: 0.5rem;
+    color: var(--muted);
+  }
+</style>

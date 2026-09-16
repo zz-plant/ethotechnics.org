@@ -22,6 +22,8 @@ anchorLinks:
 ---
 
 import StandardStatusSummary from "../../components/StandardStatusSummary.astro";
+import DemoFigure from "../../components/DemoFigure.astro";
+import WithdrawalFigure from "../../features/withdrawal-figure/WithdrawalFigure";
 
 export const tiers = [
   {
@@ -416,6 +418,13 @@ export const structuredData = {
             it supports is not evidence for that decision.
           </li>
         </ol>
+        <DemoFigure
+          id="withdrawal-figure"
+          title="The kill switch you cannot throw"
+          lede="A stop control is green at the technical level in every state below. Press it in year one, then in year three, and read what the other two levels say. The sliders are the dependency record's own fields; rehearsal is the only control that moves the operational level, and only replenishment moves the institutional one."
+        >
+          <WithdrawalFigure client:visible />
+        </DemoFigure>
       </section>
 
       <section id="publication-history" class="standard-section">

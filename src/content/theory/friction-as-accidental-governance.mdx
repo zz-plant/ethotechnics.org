@@ -8,6 +8,75 @@ lawRefs: ["II", "VIII", "IX", "XI"]
 summary: "Institutions noticed error through friction they never chose. When agents remove the friction, the noticing goes with it unless it is rebuilt deliberately."
 ---
 
+import DemoFigure from "../../components/DemoFigure.astro";
+import FrictionFigure from "../../features/friction-figure/FrictionFigure";
+
+export const properties = [
+  {
+    id: "review",
+    title: "Review",
+    provided: "A second party examined the decision before it took effect.",
+    removed: "There is no second party. The agent is the whole chain.",
+    rebuilt:
+      "An intervention specification: who reviews, with what information, able to prevent what and alter what, at what cost to themselves.",
+    rebuiltRef: {
+      label: "STD-08 Part C",
+      href: "/standards/std-08-delegation#part-c",
+    },
+  },
+  {
+    id: "latency",
+    title: "Latency",
+    provided:
+      "Time elapsed between decision and consequence, during which the world could change and the decision could be revisited.",
+    removed: "There is no queue.",
+    rebuilt:
+      "A deliberate delay for consequential classes of action, sized to let new information arrive, with a rule for what its arrival does to the pending action.",
+    rebuiltRef: { label: "STD-01", href: "/standards/std-01-temporal-rights" },
+  },
+  {
+    id: "diversity",
+    title: "Diversity",
+    provided:
+      "The reviewing party had a different vantage from the deciding party.",
+    removed: "The same system performs every step.",
+    rebuilt:
+      "An evaluator independent of the executor: no single provider may be necessary both to execute a consequential process and to evaluate it.",
+    rebuiltRef: {
+      label: "STD-08 §4.6",
+      href: "/standards/std-08-delegation#part-d",
+    },
+  },
+  {
+    id: "stoppability",
+    title: "Stoppability",
+    provided:
+      "Any party in the chain could halt it by declining to pass it on.",
+    removed:
+      "Nothing in the chain requires a person to act. The default is completion.",
+    rebuilt:
+      "An explicit stop control with a measured time to halt, exercised in rehearsal rather than assumed.",
+    rebuiltRef: {
+      label: "MEC-12 stoppability testing",
+      href: "/mechanisms/patterns/stoppability-testing",
+    },
+  },
+  {
+    id: "renewal",
+    title: "Renewal",
+    provided:
+      "Authority to proceed was re-granted at every handoff, and lapsed if anyone lost confidence.",
+    removed:
+      "The agent holds standing authority to complete the process, granted once at deployment.",
+    rebuilt:
+      "A lease: authority granted for a scope and a period, lapsing unless renewed on stated evidence, with expansion as its own decision.",
+    rebuiltRef: {
+      label: "STD-08 Part A",
+      href: "/standards/std-08-delegation#part-a",
+    },
+  },
+];
+
 Most institutions have never had a theory of how they catch their own mistakes. They have not needed one, because the catching happened as a by-product of how work moved. This essay is about that by-product, why it is disappearing, and what its disappearance obliges anyone building agentic systems to do.
 
 ## The accidental control system
@@ -33,6 +102,14 @@ An agentic system is, almost by definition, a machine for removing handoffs. It 
 Review disappears because there is no second party; the agent is the whole chain. Latency disappears because there is no queue. Diversity disappears because the same system performs every step. Stoppability by inaction disappears because nothing in the chain requires a person to act; the default is completion. And renewal disappears most completely of all, because the agent holds standing authority to complete the process. It does not need anyone to pass the decision along. It was granted the authority once, at deployment, and it exercises that authority on every decision thereafter.
 
 The institution that deploys such a system has not chosen to remove its governance. It has chosen to remove its friction, and discovered, usually after the fact, that its governance was made of friction.
+
+<DemoFigure
+  id="friction-figure"
+  title="Remove the friction, watch what goes with it"
+  lede="Four steps, each done by a person in a different role. Automate them one at a time and read the five meters. Then rebuild each property as a designed feature and see that the speed stays."
+>
+  <FrictionFigure copy={properties} client:visible />
+</DemoFigure>
 
 ## The instinct to put a human back
 

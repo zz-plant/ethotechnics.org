@@ -28,6 +28,8 @@ panelCopy:
 ---
 
 import SectionBlock from "../../components/SectionBlock.astro";
+import TheaterTestFigure from "../../components/TheaterTestFigure.astro";
+import RatchetFigure from "../../components/RatchetFigure.astro";
 
 <SectionBlock
   id="claim"
@@ -162,6 +164,8 @@ The test is simple. Name the observation. Name the state it can change. If nothi
 
 Binds through: STD-07 §3.3 discrepancy handling, under which silence past the clock is a governance failure rather than a pending state; the reconsideration object and transition rules on grants; MEC-07 accountability latency tracker, amended; harness check that a trigger produces a reconsideration record.
 
+<TheaterTestFigure level="h4" />
+
 <h3 id="law-ix">
   Law IX. Human oversight is a control only if the human can alter system state
 </h3>
@@ -197,6 +201,8 @@ A system that works gets used more, trusted more, and extended further. Each of 
 The failure mode is the automation ratchet: scope grows by accretion, each step too small to trigger review, until the delegation bears no relation to what was originally justified.
 
 Binds through: STD-07 §2.2 ceilings, which bound what a delegation may do without bounding when it may be widened; STD-08 Part A makes expansion its own authorization decision, with its own evidence and its own correction-capacity check; `state_history` on the grant with `expansion` transitions; MEC-19 expansion review; Expansion eval, whether scope growth was a decision or a drift.
+
+<RatchetFigure level="h4" />
 
 <h3 id="law-xii">
   Law XII. No system may erase the conditions of its own contestability
