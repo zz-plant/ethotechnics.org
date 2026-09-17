@@ -11,6 +11,34 @@ const artifact =
   artifacts.find((candidate) => candidate.slug === slug);
 
 if (!artifact) return new Response("Artifact not found", { status: 404 });
+
+/**
+ * The artifact, as text you can take away.
+ *
+ * Every downloadUrl in the register is "#", so the page's primary control was
+ * a Download button that went nowhere, on the one page type whose whole job is
+ * handing over a document. This builds the document out of what the artifact
+ * already states -- its obligations and its steps -- so the reader can read it
+ * before taking it, and copying it gives exactly what is on the screen.
+ */
+const templateText = [
+  `# ${artifact.name}`,
+  "",
+  ...artifact.description,
+  "",
+  "## What this enforces — record how each one is met",
+  "",
+  ...artifact.enforcesBullets.flatMap((bullet) => [
+    `- [ ] ${bullet}`,
+    "      Evidence:",
+  ]),
+  "",
+  "## How to use",
+  "",
+  ...artifact.howToSteps.map((step, index) => `${index + 1}. ${step}`),
+  "",
+  artifact.finalLine,
+].join("\n");
 ---
 
 <BaseLayout
@@ -32,10 +60,8 @@ if (!artifact) return new Response("Artifact not found", { status: 404 });
       {artifact.howToSteps.map((step) => <li>{step}</li>)}
     </ol>
 
-    <p>
-      <a class="button primary" href={artifact.downloadUrl}>Download template</a
-      >
-    </p>
+    <h2 id="the-template">The template</h2>
+    <pre class="artifact-template"><code>{templateText}</code></pre>
     <p class="small muted">{artifact.finalLine}</p>
   </section>
 </BaseLayout>

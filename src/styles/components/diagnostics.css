@@ -281,3 +281,40 @@
     gap: 1rem;
   }
 }
+
+@layer components {
+  /* A seven-question wizard showed its position as one line of text. The rail
+     gives the same fact a shape, so the reader can see how much is left. */
+  .intake-form__progress {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .intake-form__progress p {
+    margin: 0;
+  }
+
+  .intake-form__steps {
+    display: flex;
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .intake-form__step {
+    height: 4px;
+    flex: 1 1 0;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--border) 70%, transparent);
+    transition: background var(--motion-fast) ease;
+  }
+
+  .intake-form__step[data-state="done"] {
+    background: color-mix(in srgb, var(--accent) 55%, var(--border));
+  }
+
+  .intake-form__step[data-state="current"] {
+    background: var(--accent-strong, var(--accent));
+  }
+}

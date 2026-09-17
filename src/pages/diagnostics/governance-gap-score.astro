@@ -39,12 +39,22 @@ import SectionBlock from "../../components/SectionBlock.astro";
     description="Move through each step to calculate a governance gap score out of 100 across seven dimensions."
   >
     <form class="intake-form" data-gap-form>
-      <p class="muted" data-gap-progress>Step 1 of 7</p>
+      <div class="intake-form__progress">
+        <p class="muted" data-gap-progress>Step 1 of 7</p>
+        <ol class="intake-form__steps" aria-hidden="true" data-gap-dots>
+          {
+            Array.from({ length: 7 }, (_, index) => (
+              <li class="intake-form__step" data-step-dot={index + 1} />
+            ))
+          }
+        </ol>
+      </div>
 
       <fieldset class="intake-form__grid" data-step="1">
         <label class="intake-form__field">
           Governance owner coverage
           <select id="owner" name="owner" required>
+            <option value="" selected disabled>Choose one</option>
             <option value="dedicated">Dedicated owner per system</option>
             <option value="shared">Shared ownership across teams</option>
             <option value="none">No assigned owner</option>
@@ -56,6 +66,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
         <label class="intake-form__field">
           Evidence pack cadence
           <select id="evidence" name="evidence" required>
+            <option value="" selected disabled>Choose one</option>
             <option value="release">Every release</option>
             <option value="quarterly">Quarterly</option>
             <option value="ad-hoc">Ad hoc / on request</option>
@@ -67,6 +78,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
         <label class="intake-form__field">
           Escalation path for exceptions
           <select id="escalation" name="escalation" required>
+            <option value="" selected disabled>Choose one</option>
             <option value="tested">Documented and tested</option>
             <option value="documented">Documented but untested</option>
             <option value="none">Not defined</option>
@@ -78,6 +90,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
         <label class="intake-form__field">
           External audit readiness
           <select id="audit" name="audit" required>
+            <option value="" selected disabled>Choose one</option>
             <option value="fast">Artifacts ready within 5 days</option>
             <option value="slow">Artifacts ready within 2–4 weeks</option>
             <option value="not-ready">Not ready</option>
@@ -89,6 +102,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
         <label class="intake-form__field">
           Authority record for automated actions
           <select id="authority" name="authority" required>
+            <option value="" selected disabled>Choose one</option>
             <option value="granted"
               >Every automated action names who authorized it and when that ends</option
             >
@@ -104,6 +118,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
         <label class="intake-form__field">
           Running the work without the system
           <select id="dependence" name="dependence" required>
+            <option value="" selected disabled>Choose one</option>
             <option value="rehearsed">Rehearsed in the last 12 months</option>
             <option value="planned">A plan exists but has never been run</option
             >
@@ -116,6 +131,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
         <label class="intake-form__field">
           Standing for the people who bear the errors
           <select id="standing" name="standing" required>
+            <option value="" selected disabled>Choose one</option>
             <option value="register"
               >Named challengers, a named responder, and a deadline</option
             >
@@ -150,6 +166,9 @@ import SectionBlock from "../../components/SectionBlock.astro";
   const steps = form
     ? Array.from(form.querySelectorAll<HTMLElement>("[data-step]"))
     : [];
+  const dots = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-step-dot]"),
+  );
   const prevButton = form?.querySelector<HTMLButtonElement>("[data-step-prev]");
   const nextButton = form?.querySelector<HTMLButtonElement>("[data-step-next]");
   const submitButton =
@@ -341,6 +360,15 @@ import SectionBlock from "../../components/SectionBlock.astro";
     if (progress) {
       progress.textContent = `Step ${currentStep + 1} of ${steps.length}`;
     }
+
+    dots.forEach((dot, index) => {
+      dot.dataset.state =
+        index === currentStep
+          ? "current"
+          : index < currentStep
+            ? "done"
+            : "todo";
+    });
 
     if (prevButton) {
       prevButton.disabled = currentStep === 0;

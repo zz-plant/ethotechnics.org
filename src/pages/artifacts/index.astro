@@ -19,11 +19,15 @@ import { artifacts } from "../../content/institute-site";
       {
         artifacts.map((artifact) => (
           <li class="card stack-sm">
-            <h2>{artifact.name}</h2>
-            <p class="muted small">Operational governance artifact</p>
-            <a class="button" href={`/artifacts/${artifact.slug}`}>
-              View {artifact.name} details
-            </a>
+            <h2>
+              <a href={`/artifacts/${artifact.slug}`}>{artifact.name}</a>
+            </h2>
+            <p class="muted small">{artifact.description[0]}</p>
+            <ul class="artifact-grid__enforces">
+              {artifact.enforcesBullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
           </li>
         ))
       }

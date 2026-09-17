@@ -330,11 +330,15 @@
     background: var(--surface);
   }
 
+  /* The outline is a strip under the hero rather than a column in its rail:
+     see the note in PageIntro.astro. On a phone it stays a disclosure, since
+     a dozen wrapped pills above the first paragraph is its own wall. */
   .page-intro__anchors {
     display: grid;
     grid-template-columns: 1fr;
     align-items: start;
     gap: 0.35rem;
+    margin-top: 1.6rem;
     padding: 0.95rem 1.1rem 0.6rem;
     border-radius: var(--radius-lg);
     border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
@@ -351,6 +355,34 @@
 
   .page-intro__anchors li + li {
     border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+  }
+
+  @media (min-width: 900px) {
+    .page-intro__anchors {
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: baseline;
+      gap: 0.35rem 1rem;
+      padding: 0.8rem 1.1rem;
+    }
+
+    .page-intro__anchors-title {
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .page-intro__anchors-list--desktop ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem 0.45rem;
+    }
+
+    .page-intro__anchors-list--desktop li + li {
+      border-top: 0;
+    }
+
+    .page-intro__anchors-list--desktop .pill {
+      padding-block: 0.3rem;
+    }
   }
 
   .page-intro__anchors-disclosure {
