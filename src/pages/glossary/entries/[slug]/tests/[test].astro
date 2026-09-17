@@ -36,10 +36,12 @@ const { entry, category } = entryRecord;
 const operationalTests = getGlossaryTestSlugs(entry.operationalTests ?? []);
 const testRecord = operationalTests.find((item) => item.slug === test) ?? null;
 
+// A test can be retired from an entry without the entry going anywhere, and
+// 324 of these URLs were retired at once when the generated tests were
+// removed. Send a request for a test this entry no longer lists to the entry
+// itself rather than a dead end; a slug whose entry is gone still 404s above.
 if (!testRecord) {
-  return new Response("Operational test not found", {
-    status: 404,
-  });
+  return Astro.redirect(glossaryEntryPermalink(entry.id), 301);
 }
 
 const categoryLabel = normalizeGlossaryHeading(category.heading);
@@ -50,6 +52,16 @@ const pageTitle = `${entry.title} — Operational test: ${testRecord.label}`;
 const { scopeText, minimumEvidence, genealogy } = getGlossaryEntryDefaults(
   entry,
   category,
+);
+
+// Only the signals this entry actually records: a labelled bullet with
+// nothing after it reads as evidence that is missing rather than absent.
+const evidenceSignals = [
+  { label: "Evidence artifact", value: minimumEvidence.artifact },
+  { label: "Behavior signal", value: minimumEvidence.behavior },
+  { label: "Metric signal", value: minimumEvidence.metric },
+].filter((signal): signal is { label: string; value: string } =>
+  Boolean(signal.value),
 );
 
 const pageDescription = `${entry.title} operational test: ${testRecord.label}. ${plainDescription}`;
@@ -97,24 +109,28 @@ const breadcrumbItems = [
     description="Use this test to validate operational readiness."
     variant="alt"
   >
-    <p class="muted">
-      Pair this test with the minimum evidence criteria to capture both
-      qualitative and quantitative signals.
-    </p>
-    <ul>
-      <li>
-        <strong>Evidence artifact:</strong>
-        {minimumEvidence.artifact}
-      </li>
-      <li>
-        <strong>Behavior signal:</strong>
-        {minimumEvidence.behavior}
-      </li>
-      <li>
-        <strong>Metric signal:</strong>
-        {minimumEvidence.metric}
-      </li>
-    </ul>
+    {
+      evidenceSignals.length > 0 ? (
+        <Fragment>
+          <p class="muted">
+            Pair this test with the minimum evidence criteria to capture both
+            qualitative and quantitative signals.
+          </p>
+          <ul>
+            {evidenceSignals.map((signal) => (
+              <li>
+                <strong>{signal.label}:</strong> {signal.value}
+              </li>
+            ))}
+          </ul>
+        </Fragment>
+      ) : (
+        <p class="muted">
+          This entry does not yet record an evidence artifact, behavior signal,
+          or metric for the test to pair with.
+        </p>
+      )
+    }
   </SectionBlock>
 
   <SectionBlock

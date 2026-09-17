@@ -1,9 +1,18 @@
 import { join } from "node:path";
 import { z } from "zod";
 
+import { findGlossaryFiller } from "./src/utils/glossary-filler";
+
 type GlossaryEntry = {
   id: string;
   title: string;
+  genealogy?: string;
+  operationalTests?: string[];
+  minimumEvidence?: {
+    artifact?: string;
+    behavior?: string;
+    metric?: string;
+  };
   adjacentTerms?: string[];
   presenceChecks?: string[];
   missingExpectations?: string[];
@@ -43,6 +52,16 @@ const glossarySchema = z
             z.object({
               id: z.string(),
               title: z.string(),
+              genealogy: z.string().optional(),
+              operationalTests: z.array(z.string()).optional(),
+              minimumEvidence: z
+                .object({
+                  artifact: z.string().optional(),
+                  behavior: z.string().optional(),
+                  metric: z.string().optional(),
+                })
+                .passthrough()
+                .optional(),
               adjacentTerms: z.array(z.string()).optional(),
               presenceChecks: z.array(z.string()).optional(),
               missingExpectations: z.array(z.string()).optional(),
@@ -191,6 +210,10 @@ for (const category of glossary.categories) {
         }
       });
     }
+
+    findGlossaryFiller(entry).forEach((finding) => {
+      errors.push(`Generated filler in "${entry.id}" — ${finding}.`);
+    });
 
     const resources = [...(entry.references ?? []), ...(entry.resources ?? [])];
 

@@ -135,12 +135,20 @@ const minimumEvidenceItems = [
 ].filter((item): item is { label: string; value: string } =>
   Boolean(item.value),
 );
-const showMinimumEvidence = hasMinimumEvidenceDetails;
+// The section used to appear only when a metric detail was recorded, because
+// every entry carried three generated evidence sentences and gating on the
+// details was what kept them off the page. The generated sentences are gone,
+// so an entry that states its artifact, behavior, or metric can show it.
+const showMinimumEvidence = minimumEvidenceItems.length > 0;
 const missingMetadata = [
   !scopeText ? "Scope" : null,
   !genealogy ? "Genealogy" : null,
   operationalTests.length === 0 ? "Operational tests" : null,
-  !hasMinimumEvidenceDetails ? "Minimum evidence details" : null,
+  minimumEvidenceItems.length === 0
+    ? "Minimum evidence"
+    : !hasMinimumEvidenceDetails
+      ? "Minimum evidence details"
+      : null,
 ].filter((item): item is string => Boolean(item));
 const domains = entry.domains ?? [];
 const phases = entry.phase ?? [];
