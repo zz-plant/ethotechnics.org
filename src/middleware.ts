@@ -66,8 +66,14 @@ const REDIRECT_MAP: Record<string, string> = {
   "/library": "/mechanisms",
   "/library/cite": "/mechanisms/cite",
   "/library/diagnostics": "/diagnostics",
-  "/library/mechanisms-by-domain": "/mechanisms/by-domain",
-  "/library/validators-by-standard": "/validators/by-standard",
+  "/library/mechanisms-by-domain": "/mechanisms",
+  "/library/validators-by-standard": "/validators",
+  // The two "by-X" views re-cut a list the parent already shows whole: the
+  // domain view carried a quarter of the mechanisms page's content and the
+  // standard view a third of the validators page's, each reachable by one
+  // link. Retired to the parent, which is where both links pointed anyway.
+  "/mechanisms/by-domain": "/mechanisms",
+  "/validators/by-standard": "/validators",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {

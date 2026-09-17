@@ -149,7 +149,7 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/library/validators-by-standard",
-        expectedLocation: "https://ethotechnics.org/validators/by-standard",
+        expectedLocation: "https://ethotechnics.org/validators",
       },
       {
         url: "https://ethotechnics.org/library/patterns/kill-switch?tab=evidence",

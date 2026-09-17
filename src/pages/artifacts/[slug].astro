@@ -15,11 +15,12 @@ if (!artifact) return new Response("Artifact not found", { status: 404 });
 /**
  * The artifact, as text you can take away.
  *
- * Every downloadUrl in the register is "#", so the page's primary control was
- * a Download button that went nowhere, on the one page type whose whole job is
- * handing over a document. This builds the document out of what the artifact
- * already states -- its obligations and its steps -- so the reader can read it
- * before taking it, and copying it gives exactly what is on the screen.
+ * The register carried a downloadUrl of "#" on every artifact, so the page's
+ * primary control was a Download button that went nowhere, on the one page
+ * type whose whole job is handing over a document. The field is gone. This
+ * builds the document out of what the artifact already states -- its
+ * obligations and its steps -- so the reader can read it before taking it,
+ * and copying it gives exactly what is on the screen.
  */
 const templateText = [
   `# ${artifact.name}`,
