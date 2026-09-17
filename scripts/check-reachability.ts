@@ -21,6 +21,12 @@
  * This crawl already requests every internal link; it now records what each
  * one answered and fails on anything that is not a page.
  *
+ * A link can answer 200 and still land nowhere. 1442 links across the site
+ * named a fragment no page carried — glossary cross-references left behind
+ * when the glossary split into one page per term, a nav item pointing at a
+ * section that had moved to its own page, and links into a page that was
+ * retired. The crawl reads every id it renders, so it checks those too.
+ *
  * Run against a built site: bun run scripts/check-reachability.ts <baseUrl>
  */
 
@@ -66,10 +72,15 @@ async function staticRoutes(): Promise<string[]> {
 /** What one link answered: its final status, and whether it got there by redirect. */
 type LinkOutcome = { status: number; redirected: boolean };
 
+/** A link that named a section: where it came from, and what it asked for. */
+type FragmentLink = { from: string; to: string; fragment: string };
+
 type Crawl = {
   reachable: Set<string>;
   outcomes: Map<string, LinkOutcome>;
   linkedFrom: Map<string, Set<string>>;
+  ids: Map<string, Set<string>>;
+  fragmentLinks: FragmentLink[];
 };
 
 /** Follow links from the homepage and record what a reader can actually reach. */
@@ -78,6 +89,8 @@ async function crawl(): Promise<Crawl> {
   const reachable = new Set<string>();
   const outcomes = new Map<string, LinkOutcome>();
   const linkedFrom = new Map<string, Set<string>>();
+  const ids = new Map<string, Set<string>>();
+  const fragmentLinks: FragmentLink[] = [];
   const queue = ["/"];
 
   while (queue.length > 0 && seen.size < MAX_PAGES) {
@@ -100,6 +113,19 @@ async function crawl(): Promise<Crawl> {
     reachable.add(normalize(new URL(response.url).pathname));
 
     const html = await response.text();
+    ids.set(
+      path,
+      new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]!)),
+    );
+    for (const match of html.matchAll(/href="([^"]+)"/g)) {
+      const value = match[1]!;
+      if (!value.startsWith("/") && !value.startsWith("#")) continue;
+      const [target, fragment] = value.split("#");
+      if (!fragment || fragment === "top") continue;
+      const to = normalize((target === "" ? path : target).split("?")[0]!);
+      if (to.startsWith("/_astro") || to.startsWith("/assets")) continue;
+      fragmentLinks.push({ from: path, to, fragment });
+    }
     for (const match of html.matchAll(/href="(\/[^"#?]*)/g)) {
       const href = normalize(match[1]!);
       if (href.startsWith("/_astro") || href.startsWith("/assets")) continue;
@@ -108,11 +134,11 @@ async function crawl(): Promise<Crawl> {
       if (!seen.has(href)) queue.push(href);
     }
   }
-  return { reachable, outcomes, linkedFrom };
+  return { reachable, outcomes, linkedFrom, ids, fragmentLinks };
 }
 
 const routes = await staticRoutes();
-const { reachable, outcomes, linkedFrom } = await crawl();
+const { reachable, outcomes, linkedFrom, ids, fragmentLinks } = await crawl();
 
 const orphans = routes.filter(
   (route) => !reachable.has(route) && !INTENTIONALLY_UNLINKED.has(route),
@@ -149,6 +175,36 @@ if (brokenLinks.length > 0) {
   process.exit(1);
 }
 
+// Only pages the crawl actually rendered can be checked; a link into a
+// redirect lands on a path the crawl recorded under its destination.
+const brokenFragments = fragmentLinks
+  .filter(({ to, fragment }) => {
+    const rendered = ids.get(to);
+    return rendered !== undefined && !rendered.has(fragment);
+  })
+  .sort((a, b) =>
+    `${a.to}#${a.fragment}`.localeCompare(`${b.to}#${b.fragment}`),
+  );
+
+if (brokenFragments.length > 0) {
+  const byTarget = new Map<string, string[]>();
+  for (const { from, to, fragment } of brokenFragments) {
+    const key = `${to}#${fragment}`;
+    byTarget.set(key, [...(byTarget.get(key) ?? []), from]);
+  }
+  console.error(
+    `Reachability check failed: ${brokenFragments.length} links name a section that the page does not have.\n`,
+  );
+  for (const [target, sources] of byTarget) {
+    const shown = [...new Set(sources)].sort().slice(0, 3).join(", ");
+    console.error(`  - ${target}  <- ${sources.length} link(s): ${shown}`);
+  }
+  console.error(
+    "\nGive the page that section, point the link at the page that has it, or drop the fragment.",
+  );
+  process.exit(1);
+}
+
 if (orphans.length > 0) {
   console.error(
     `Reachability check failed: ${orphans.length} of ${routes.length} static routes cannot be reached by clicking from the homepage.\n`,
@@ -181,5 +237,5 @@ if (redirectedLinks.length > 0) {
 }
 
 console.log(
-  `Reachability check passed; all ${routes.length - INTENTIONALLY_UNLINKED.size} linkable static routes are reachable from the homepage, and all ${outcomes.size} internal links lead to a page.`,
+  `Reachability check passed; all ${routes.length - INTENTIONALLY_UNLINKED.size} linkable static routes are reachable from the homepage, and all ${outcomes.size} internal links lead to a page, ${fragmentLinks.length} of them to a section that exists.`,
 );

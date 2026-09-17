@@ -64,7 +64,6 @@ export const siteFooter: SiteFooterContent = {
         { label: "Start Here", href: "/start" },
         { label: "About the Institute", href: "/about" },
         { label: "Governance Process", href: "/institute/governance" },
-        { label: "Team", href: "/institute/team" },
         {
           label: "Security Policy",
           href: "/security/vulnerability-disclosure",

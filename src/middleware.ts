@@ -74,6 +74,10 @@ const REDIRECT_MAP: Record<string, string> = {
   // link. Retired to the parent, which is where both links pointed anyway.
   "/mechanisms/by-domain": "/mechanisms",
   "/validators/by-standard": "/validators",
+  // /institute/team promised "named stewards" four times over and named
+  // nobody: four role titles and no people behind them. The page that does
+  // carry stewardship — owners against decisions — is the governance process.
+  "/institute/team": "/institute/governance",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {
@@ -87,54 +91,60 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   }
 
   // Taxonomy mirrors
-  if (url.pathname === "/delivery" || url.pathname.startsWith("/delivery/")) {
+  if (
+    normalizedPath === "/delivery" ||
+    normalizedPath.startsWith("/delivery/")
+  ) {
     const target = new URL(
-      url.pathname.replace(/^\/delivery/, "/taxonomy/delivery"),
-      url.origin,
-    );
-    target.search = url.search;
-    return target.toString();
-  }
-  if (url.pathname === "/assurance" || url.pathname.startsWith("/assurance/")) {
-    const target = new URL(
-      url.pathname.replace(/^\/assurance/, "/taxonomy/assurance"),
+      normalizedPath.replace(/^\/delivery/, "/taxonomy/delivery"),
       url.origin,
     );
     target.search = url.search;
     return target.toString();
   }
   if (
-    url.pathname.startsWith("/governance/") &&
-    url.pathname !== "/governance"
+    normalizedPath === "/assurance" ||
+    normalizedPath.startsWith("/assurance/")
   ) {
     const target = new URL(
-      url.pathname.replace(/^\/governance/, "/taxonomy/governance"),
+      normalizedPath.replace(/^\/assurance/, "/taxonomy/assurance"),
       url.origin,
     );
     target.search = url.search;
     return target.toString();
   }
-  if (url.pathname.startsWith("/experience/")) {
+  if (
+    normalizedPath.startsWith("/governance/") &&
+    normalizedPath !== "/governance"
+  ) {
     const target = new URL(
-      url.pathname.replace(/^\/experience/, "/taxonomy/experience"),
+      normalizedPath.replace(/^\/governance/, "/taxonomy/governance"),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+  if (normalizedPath.startsWith("/experience/")) {
+    const target = new URL(
+      normalizedPath.replace(/^\/experience/, "/taxonomy/experience"),
       url.origin,
     );
     target.search = url.search;
     return target.toString();
   }
   // Pattern pages moved with the rest of the catalog from /library.
-  if (url.pathname.startsWith("/library/patterns/")) {
+  if (normalizedPath.startsWith("/library/patterns/")) {
     const target = new URL(
-      url.pathname.replace(/^\/library\/patterns/, "/mechanisms/patterns"),
+      normalizedPath.replace(/^\/library\/patterns/, "/mechanisms/patterns"),
       url.origin,
     );
     target.search = url.search;
     return target.toString();
   }
   // The artifact detail pages were the singular half of a split family.
-  if (url.pathname.startsWith("/artifact/")) {
+  if (normalizedPath.startsWith("/artifact/")) {
     const target = new URL(
-      url.pathname.replace(/^\/artifact/, "/artifacts"),
+      normalizedPath.replace(/^\/artifact/, "/artifacts"),
       url.origin,
     );
     target.search = url.search;
@@ -142,11 +152,19 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   }
 
   // Legacy versioned API snapshots
-  if (url.pathname.startsWith("/api/v/")) {
-    const stripped = url.pathname.replace(/^\/api\/v\/[^/]+/, "/api");
-    const targetPath =
-      stripped === "/api" || stripped === "/api/" ? "/api" : stripped;
+  if (normalizedPath.startsWith("/api/v/")) {
+    const stripped = normalizedPath.replace(/^\/api\/v\/[^/]+/, "/api");
+    const targetPath = stripped === "/api" ? "/api" : stripped;
     const target = new URL(targetPath, url.origin);
+    target.search = url.search;
+    return target.toString();
+  }
+
+  // Every page answered to two URLs: one with a trailing slash and one without,
+  // each rendering in full and each naming itself canonical. Whichever form an
+  // inbound link happens to use, the reader and the index land on the same one.
+  if (normalizedPath !== url.pathname) {
+    const target = new URL(normalizedPath, url.origin);
     target.search = url.search;
     return target.toString();
   }

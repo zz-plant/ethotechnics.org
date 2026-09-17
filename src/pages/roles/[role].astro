@@ -14,7 +14,9 @@ import { getRole, roles, rolePermalink } from "../../content/roles";
 const role = getRole(Astro.params.role ?? "");
 if (!role) return new Response("Role not found", { status: 404 });
 
-const pageTitle = `${role.label} — Ethotechnics`;
+// "Research — Ethotechnics" was also the research programme's title. A role
+// page is a path through the material, and its title now says so.
+const pageTitle = `${role.label} — Ethotechnics role path`;
 const pageDescription = role.tagline;
 
 const anchorLinks = [

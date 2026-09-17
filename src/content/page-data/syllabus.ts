@@ -65,10 +65,10 @@ export const moduleResources: Record<string, ModuleResource> = {
     },
   },
   "field-ready-research": {
-    diagnostics: ["llm-capacity-benchmark"],
+    diagnostics: ["capacity-forecaster"],
     libraryLink: {
-      href: "#glossary",
-      label: "Glossary anchors",
+      href: "#browse",
+      label: "Mechanism catalogue",
     },
   },
   "governance-and-maintenance": {

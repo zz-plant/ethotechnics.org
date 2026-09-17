@@ -92,7 +92,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     version: "v1.2.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
-      "https://web.archive.org/save/https://ethotechnics.org/diagnostics",
+      "https://web.archive.org/web/*/https://ethotechnics.org/diagnostics",
     changelog: [
       {
         version: "v1.2.0",

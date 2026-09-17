@@ -42,10 +42,6 @@
     border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--border));
   }
 
-  .section--tight {
-    padding: clamp(1rem, 2.5vw, 1.8rem);
-  }
-
   .section--aside {
     display: grid;
     gap: 2rem;
@@ -423,47 +419,6 @@
     }
   }
 
-  .page-intro__anchors-group {
-    display: grid;
-    gap: 0.45rem;
-  }
-
-  .page-intro__anchors-more {
-    display: grid;
-    gap: 0;
-    border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-  }
-
-  .page-intro__anchors-more-toggle {
-    cursor: pointer;
-    font-size: var(--text-xs);
-    font-weight: 650;
-    font-family: var(--sans);
-    letter-spacing: 0.02em;
-    color: var(--muted);
-    padding: 0.55rem 0.2rem 0.55rem 1.9rem;
-    min-height: 2.5rem;
-    transition: color var(--motion-fast) ease;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-
-  .page-intro__anchors-more-toggle::-webkit-details-marker {
-    display: none;
-  }
-
-  .page-intro__anchors-more-toggle:hover,
-  .page-intro__anchors-more-toggle:focus-visible {
-    color: var(--accent);
-  }
-
-  .page-intro__anchors-more[open] > .page-intro__anchors-more-toggle {
-    color: var(--accent);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-  }
-
   .page-intro__anchors-title {
     margin: 0;
   }
@@ -523,14 +478,6 @@
      above the in-flow text rather than behind it, so it both hazed the copy and
      read as a diagonal smudge across the card. `.panel` already carries the
      surface, border and shadow that separate it from the page. */
-
-  .features__layout {
-    align-items: stretch;
-  }
-
-  .features__grid {
-    margin-top: 0;
-  }
 
   .grid {
     display: grid;
