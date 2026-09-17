@@ -36,7 +36,6 @@ export type Publication = GlossaryLinked & {
   };
   datasets: string[];
   ethicsNotes: string[];
-  references: { label: string; href: string }[];
 };
 
 export type ResearchContent = PageWithPermalink &
@@ -92,7 +91,7 @@ export const researchContent: ResearchContent = {
     version: "v1.1.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
-      "https://web.archive.org/save/https://ethotechnics.org/research",
+      "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
       {
         version: "v1.1.0",
@@ -335,17 +334,6 @@ export const researchContent: ResearchContent = {
         "Verbal consent recorded for each session.",
         "Participant identities anonymized in shared artifacts.",
       ],
-      references: [
-        {
-          label:
-            "Participatory design for AI systems (introductory bibliography)",
-          href: "https://dl.acm.org/doi/10.1145/3313831.3376717",
-        },
-        {
-          label: "Consent in sociotechnical systems primer",
-          href: "https://doi.org/10.1145/3544548.3580917",
-        },
-      ],
     },
     {
       title: "Burden index calculator notes",
@@ -376,16 +364,6 @@ export const researchContent: ResearchContent = {
         "Scenario names anonymized before external sharing.",
         "Consent gathered from participating teams for aggregate reporting.",
       ],
-      references: [
-        {
-          label: "Workload measurement in sociotechnical systems",
-          href: "https://doi.org/10.1080/00140139.2020.1747045",
-        },
-        {
-          label: "Human factors in operational risk",
-          href: "https://doi.org/10.1201/9781315373865",
-        },
-      ],
     },
     {
       title: "Maintenance readiness deck",
@@ -414,16 +392,6 @@ export const researchContent: ResearchContent = {
       ethicsNotes: [
         "Facilitated sessions follow standard consent and anonymization protocols.",
         "Partner data remains confidential unless explicitly shared.",
-      ],
-      references: [
-        {
-          label: "Incident response and maintenance operations review",
-          href: "https://doi.org/10.1145/3351095.3372866",
-        },
-        {
-          label: "Escalation readiness in operations teams",
-          href: "https://doi.org/10.1145/3290605.3300512",
-        },
       ],
     },
   ],

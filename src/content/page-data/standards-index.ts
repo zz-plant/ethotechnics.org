@@ -268,14 +268,14 @@ export const buildStandardsStructuredDataPayload = (input: {
       ...input.standardsContent.standards
         .filter((standard) => standard.listedOnSite !== false)
         .map((standard) => ({
-        "@type": "CreativeWork",
-        name: `${standard.id} — ${standard.title}`,
-        description: standard.description,
-        url: standardsUrl(standard.slug),
-        identifier: standard.id,
-        version: standard.version,
-        datePublished: standard.published,
-      })),
+          "@type": "CreativeWork",
+          name: `${standard.id} — ${standard.title}`,
+          description: standard.description,
+          url: standardsUrl(standard.slug),
+          identifier: standard.id,
+          version: standard.version,
+          datePublished: standard.published,
+        })),
       ...input.standardsContent.doctrine.map((item) => ({
         "@type": "CreativeWork",
         name: item.title,

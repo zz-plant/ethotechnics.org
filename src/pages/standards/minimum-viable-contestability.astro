@@ -38,9 +38,11 @@ const lastUpdated = "2025-01-01";
     description={summary.description}
   >
     <CardGrid className="grid--two">
-      {summary.items.map((item) => (
-        <CardItem title={item.title} description={item.description} />
-      ))}
+      {
+        summary.items.map((item) => (
+          <CardItem title={item.title} description={item.description} />
+        ))
+      }
     </CardGrid>
   </SectionBlock>
 
@@ -92,8 +94,8 @@ const lastUpdated = "2025-01-01";
         {
           sections.map((section) => (
             <li>
-              <strong>{section.title}:</strong> {section.summary}{" "}
-              Requirements: {section.requirements.join(" ")}
+              <strong>{section.title}:</strong> {section.summary} Requirements:{" "}
+              {section.requirements.join(" ")}
             </li>
           ))
         }

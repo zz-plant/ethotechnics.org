@@ -59,8 +59,8 @@ const publication = derivePublicationMetadata({
 
 const hasClauseRegister = Boolean(
   standardId &&
-    entry.body &&
-    compareRegistryToDocument(standardId, entry.body).matches,
+  entry.body &&
+  compareRegistryToDocument(standardId, entry.body).matches,
 );
 
 const resolvedAnchorLinks = [...(data.anchorLinks ?? [])];

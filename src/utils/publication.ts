@@ -31,7 +31,7 @@ export function derivePublicationMetadata({
     updated: resolvedUpdated,
     version,
     doi: "Pending Zenodo deposit",
-    archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+    archiveUrl: `https://web.archive.org/web/*/https://ethotechnics.org${permalink}`,
     changelog: [
       {
         version,

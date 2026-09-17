@@ -87,8 +87,9 @@ const normalizeRoutePath = (filePath: string) => {
   const withoutPrefix = filePath.replace(/^\.\//, "").replace(/\.astro$/, "");
   if (withoutPrefix.includes("[")) return null;
   if (withoutPrefix === "index") return "/";
-  if (withoutPrefix.endsWith("/index"))
-    return `/${withoutPrefix.slice(0, -6)}/`;
+  // A section index is /standards, not /standards/. The slashed form listed
+  // the same page under a second URL, which is now a redirect.
+  if (withoutPrefix.endsWith("/index")) return `/${withoutPrefix.slice(0, -6)}`;
   return `/${withoutPrefix}`;
 };
 

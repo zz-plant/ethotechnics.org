@@ -156,6 +156,22 @@ describe("middleware", () => {
         expectedLocation:
           "https://ethotechnics.org/mechanisms/patterns/kill-switch?tab=evidence",
       },
+      // A trailing slash used to render the whole page a second time under a
+      // second URL, each naming itself canonical.
+      {
+        url: "https://ethotechnics.org/standards/",
+        expectedLocation: "https://ethotechnics.org/standards",
+      },
+      {
+        url: "https://ethotechnics.org/glossary/stoppability/?from=nav",
+        expectedLocation:
+          "https://ethotechnics.org/glossary/stoppability?from=nav",
+      },
+      // One hop, not two, when a legacy path arrives with a slash as well.
+      {
+        url: "https://ethotechnics.org/delivery/intake/",
+        expectedLocation: "https://ethotechnics.org/taxonomy/delivery/intake",
+      },
     ];
 
     for (const { url, expectedLocation } of pathCases) {

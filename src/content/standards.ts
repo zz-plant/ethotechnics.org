@@ -88,7 +88,7 @@ export const standardsContent: StandardsContent = {
         "Defines the seven inalienable rights protecting human time against automated systems.",
       status: "Draft",
       version: "1.0",
-      changelogHref: "/standards/std-01-temporal-rights#publication-history",
+      changelogHref: "/standards/std-01-temporal-rights",
       changelogEntries: [
         {
           version: "1.0",

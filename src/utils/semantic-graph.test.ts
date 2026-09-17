@@ -61,7 +61,11 @@ const inboundLinks = (() => {
   }
 
   for (const entry of allGlossaryEntries) {
-    for (const match of entry.bodyHtml.matchAll(/href="#([a-z0-9-]+)"/g)) {
+    // Cross-references used to be bare fragments, from when the glossary was
+    // one page. They name the entry's own URL now.
+    for (const match of entry.bodyHtml.matchAll(
+      /href="\/glossary\/([a-z0-9-]+)"/g,
+    )) {
       const target = match[1];
       if (target === entry.id) continue;
       counts.get(target)?.add(entry.id);
