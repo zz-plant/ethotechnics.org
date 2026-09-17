@@ -19,6 +19,15 @@ const {
 
 const openRfcStatuses = new Set(["proposal", "review", "decision"]);
 const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
+
+// The page used to promise a quarterly cadence. The newest entry is from
+// January 2026, so it said something untrue on every load. It now reports the
+// date of the most recent update and leaves the reader to judge the gap,
+// which is the same test Law II applies to a grant: silence is not renewal.
+const latestGovernanceUpdate = [...quarterlyUpdates]
+  .map((entry) => entry.date)
+  .sort()
+  .at(-1);
 ---
 
 <BaseLayout
@@ -105,10 +114,10 @@ const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
   </SectionBlock>
 
   <SectionBlock
-    id="quarterly-updates"
-    eyebrow="Quarterly notes"
-    title="Quarterly governance updates"
-    description="Dated updates summarize what shipped in governance operations each quarter."
+    id="governance-updates"
+    eyebrow="Update log"
+    title="Governance updates"
+    description={`Dated updates summarize what shipped in governance operations. The most recent was published ${latestGovernanceUpdate}.`}
   >
     <CardGrid>
       {

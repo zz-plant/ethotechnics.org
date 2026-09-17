@@ -227,7 +227,9 @@ export const standardsContent: StandardsContent = {
           title: "W3C Verifiable Credential schemas for contestability",
         },
       ],
-      effectiveDate: "TBD (proposed 2026)",
+      // A withdrawn profile has no date it comes into effect; it has the
+      // date it stopped being the recommendation.
+      effectiveDate: "Withdrawn 2026-02-15",
       published: "2026-02-15",
     },
     {
@@ -249,7 +251,9 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires interoperability testing across two verifier implementations and one public registry.",
-      effectiveDate: "TBD (proposed 2026)",
+      // A withdrawn profile has no date it comes into effect; it has the
+      // date it stopped being the recommendation.
+      effectiveDate: "Withdrawn 2026-02-15",
       published: "2026-02-15",
     },
     {

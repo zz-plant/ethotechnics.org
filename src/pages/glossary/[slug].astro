@@ -12,10 +12,6 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SemanticConnections from "../../components/SemanticConnections.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import {
-  getGlossaryTestSlugs,
-  glossaryTestPermalink,
-} from "../../utils/glossary-sections";
-import {
   getGlossaryEntryDefaults,
   normalizeGlossaryHeading,
   stripHtml,
@@ -100,12 +96,6 @@ const {
   genealogy,
   references,
 } = getGlossaryEntryDefaults(entry, category);
-const operationalTestLinks = getGlossaryTestSlugs(operationalTests).map(
-  (test) => ({
-    label: test.label,
-    href: glossaryTestPermalink(entry.id, test.slug),
-  }),
-);
 const presenceChecks = entry.presenceChecks ?? [];
 const missingExpectations = entry.missingExpectations ?? [];
 const metaItems = [
@@ -686,13 +676,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   class="glossary-entry__disclosure"
                 >
                   <summary>
-                    Operational tests ({operationalTestLinks.length})
+                    Operational tests ({operationalTests.length})
                   </summary>
                   <ul class="muted">
-                    {operationalTestLinks.map((test) => (
-                      <li>
-                        <a href={test.href}>{test.label}</a>
-                      </li>
+                    {operationalTests.map((test) => (
+                      <li>{test}</li>
                     ))}
                   </ul>
                 </details>
