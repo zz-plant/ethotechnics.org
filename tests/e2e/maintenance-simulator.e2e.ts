@@ -34,9 +34,15 @@ test.describe("Maintenance Simulator page", () => {
 
     const widget = page.locator(".simulator");
     await expect(widget).toBeVisible();
-    await expect(widget.getByRole("heading", { level: 1 })).toContainText(
-      "Tabletop the outage",
-    );
+    // The page's h1 is its title; the widget's own heading is an h2 under it,
+    // which is the hierarchy the review guardrails ask for. Named, because the
+    // widget carries a second h2 for the maintenance window.
+    await expect(
+      widget.getByRole("heading", {
+        level: 2,
+        name: /Tabletop the outage/,
+      }),
+    ).toBeVisible();
   });
 
   test("shows scenario, stress, and threshold selectors", async ({ page }) => {

@@ -625,3 +625,90 @@
     font: inherit;
   }
 }
+
+@layer components {
+  /* The cards used to carry one repeated line ("Operational governance
+     artifact") and a button restating the title. What each artifact enforces
+     is the thing that tells them apart, so the card shows that instead. */
+  .artifact-grid__enforces {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.3rem;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .artifact-template {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding: 1rem 1.15rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--panel);
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+}
+
+@layer components {
+  /* Four stages of one sequence, not four lists that happen to sit together. */
+  .operating-model {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    /* The page puts this straight under the hero's button row, which left the
+       first stage card touching it. Padding rather than margin: the unlayered
+       `.stack-lg > * { margin-block: 0 }` utility outranks any layered rule. */
+    padding: 2.2rem 0 0;
+    list-style: none;
+  }
+
+  @media (min-width: 900px) {
+    .operating-model {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.1rem;
+    }
+  }
+
+  .operating-model__stage {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.9rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .operating-model__index {
+    margin: 0;
+    width: 1.9rem;
+    height: 1.9rem;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--accent) 14%, var(--panel));
+    color: var(--accent-strong, var(--accent));
+    font-family: var(--sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+  }
+
+  .operating-model__title {
+    margin: 0;
+    font-size: var(--text-lg, 1.1rem);
+  }
+
+  .operating-model__question {
+    margin: 0;
+  }
+
+  .operating-model ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+}
