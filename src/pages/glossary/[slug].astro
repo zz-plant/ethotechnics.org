@@ -106,13 +106,6 @@ const metaItems = [
 ].filter((item): item is { id: string; label: string; value: string } =>
   Boolean(item),
 );
-const hasMinimumEvidenceDetails = Boolean(
-  minimumEvidence.definition ||
-  minimumEvidence.unit ||
-  minimumEvidence.dataSource ||
-  minimumEvidence.calculation ||
-  minimumEvidence.threshold,
-);
 const minimumEvidenceItems = [
   { label: "Artifact", value: minimumEvidence.artifact },
   { label: "Behavior", value: minimumEvidence.behavior },
@@ -130,16 +123,6 @@ const minimumEvidenceItems = [
 // details was what kept them off the page. The generated sentences are gone,
 // so an entry that states its artifact, behavior, or metric can show it.
 const showMinimumEvidence = minimumEvidenceItems.length > 0;
-const missingMetadata = [
-  !scopeText ? "Scope" : null,
-  !genealogy ? "Genealogy" : null,
-  operationalTests.length === 0 ? "Operational tests" : null,
-  minimumEvidenceItems.length === 0
-    ? "Minimum evidence"
-    : !hasMinimumEvidenceDetails
-      ? "Minimum evidence details"
-      : null,
-].filter((item): item is string => Boolean(item));
 const domains = entry.domains ?? [];
 const phases = entry.phase ?? [];
 const measurability = entry.measurability ?? "";
@@ -715,21 +698,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                       <li>
                         <strong>{item.label}:</strong> {item.value}
                       </li>
-                    ))}
-                  </ul>
-                </details>
-              )
-            }
-            {
-              missingMetadata.length > 0 && (
-                <details class="glossary-entry__disclosure">
-                  <summary>Entry completeness notes</summary>
-                  <p class="muted small">
-                    Additional term details are in progress.
-                  </p>
-                  <ul class="muted">
-                    {missingMetadata.map((item) => (
-                      <li>{item}</li>
                     ))}
                   </ul>
                 </details>

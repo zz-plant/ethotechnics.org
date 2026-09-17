@@ -147,73 +147,67 @@ export const structuredData = {
     <div class="standard-main">
       <section id="scope" class="standard-section">
         <h2>Scope</h2>
-        <p>
-          An institution that delegates consequential work to machines usually
-          has sensing, memory, analytics, policy, and execution. What it lacks
-          is one record connecting them, so it can know something has changed
-          and keep doing exactly what it was doing. This standard defines that
-          record: one append-only shape for what the institution believed, what
-          it could do, what it had authorized, what it did, where reality
-          diverged, who objected, and what it revised.
-        </p>
-        <p>
-          Ethotechnics is the engineering of delegated power such that
-          exercising it does not destroy the material conditions of its own
-          revision. The question this standard serves is how an institution
-          can become more capable without becoming less revisable. The
-          problem is recursive: an institution delegates because a machine
-          system is useful, reorganizes around it as it succeeds, and so
-          alters the conditions under which the delegation was made. The
-          record exists so the institution can still change its mind inside
-          that process.
-        </p>
+
+        An institution that delegates consequential work to machines usually
+        has sensing, memory, analytics, policy, and execution. What it lacks
+        is one record connecting them, so it can know something has changed
+        and keep doing exactly what it was doing. This standard defines that
+        record: one append-only shape for what the institution believed, what
+        it could do, what it had authorized, what it did, where reality
+        diverged, who objected, and what it revised.
+
+        Ethotechnics is the engineering of delegated power such that
+        exercising it does not destroy the material conditions of its own
+        revision. The question this standard serves is how an institution
+        can become more capable without becoming less revisable. The
+        problem is recursive: an institution delegates because a machine
+        system is useful, reorganizes around it as it succeeds, and so
+        alters the conditions under which the delegation was made. The
+        record exists so the institution can still change its mind inside
+        that process.
 
         <RevisableDelegationRecursion />
 
-        <p>
-          STD-07 does not say which beliefs are right, which capabilities to
-          build, or which delegations to grant. It says how each of those must
-          be written down so a later reader, human or machine, can answer four
-          questions about any moment: what was believed at the time, what was
-          authorized, what happened, and what was learned. It is a record
-          format, in the sense of STD-04 and STD-05, and it is meant to be
-          emitted by systems that already keep their own logs. Adopting it
-          means mapping an existing log onto this shape, not replacing it.
-        </p>
-        <p>
-          STD-07 sits beside this site's existing
-          <a href="/standards/decision-record.schema.json">Decision Record</a>
-          schema rather than replacing it. A Decision Record is the full
-          receipt for one automated decision affecting a person: owner, clocks,
-          reason codes, evidence links. It maps onto an STD-07
-          <code>action</code> record whose <code>depends_on</code> and
-          <code>authority</code> say what justified it. STD-07 adds the other
-          seven kinds, so the decision can be read against the beliefs,
-          capabilities, and authorizations that were in force when it was made.
-        </p>
-        <p>
-          <a href="/standards/std-08-delegation">STD-08, Delegation</a> sits
-          above this one. STD-07 defines the record format; STD-08 governs the
-          terms of the delegation the record describes: how renewal burden
-          scales, when a widening of scope needs its own authorization, and
-          what makes a <code>confirm</code> mode meaningful. An implementation
-          of STD-08 presupposes conformance with STD-07, and STD-08 does not
-          restate what the record format already binds.
-        </p>
-        <p>
-          The standard applies to any system whose outputs change what an
-          institution does: a forecast registry, a capability graph, an
-          operating brief, a change monitor, an approval gate. It is
-          domain-neutral by construction.
-        </p>
+        STD-07 does not say which beliefs are right, which capabilities to
+        build, or which delegations to grant. It says how each of those must
+        be written down so a later reader, human or machine, can answer four
+        questions about any moment: what was believed at the time, what was
+        authorized, what happened, and what was learned. It is a record
+        format, in the sense of STD-04 and STD-05, and it is meant to be
+        emitted by systems that already keep their own logs. Adopting it
+        means mapping an existing log onto this shape, not replacing it.
+
+        STD-07 sits beside this site's existing
+        <a href="/standards/decision-record.schema.json">Decision Record</a>
+        schema rather than replacing it. A Decision Record is the full
+        receipt for one automated decision affecting a person: owner, clocks,
+        reason codes, evidence links. It maps onto an STD-07
+        <code>action</code> record whose <code>depends_on</code> and
+        <code>authority</code> say what justified it. STD-07 adds the other
+        seven kinds, so the decision can be read against the beliefs,
+        capabilities, and authorizations that were in force when it was made.
+
+        <a href="/standards/std-08-delegation">STD-08, Delegation</a> sits
+        above this one. STD-07 defines the record format; STD-08 governs the
+        terms of the delegation the record describes: how renewal burden
+        scales, when a widening of scope needs its own authorization, and
+        what makes a <code>confirm</code> mode meaningful. An implementation
+        of STD-08 presupposes conformance with STD-07, and STD-08 does not
+        restate what the record format already binds.
+
+        The standard applies to any system whose outputs change what an
+        institution does: a forecast registry, a capability graph, an
+        operating brief, a change monitor, an approval gate. It is
+        domain-neutral by construction.
+
       </section>
 
       <section id="premises" class="standard-section">
         <h2>Premises</h2>
-        <p>
-          Six commitments the record shape is built to hold, each with the
-          field that carries it.
-        </p>
+
+        Six commitments the record shape is built to hold, each with the
+        field that carries it.
+
         <ul>
           <li>
             A system can become more capable without becoming more
@@ -253,10 +247,9 @@ export const structuredData = {
 
       <section id="loop" class="standard-section">
         <h2>The loop</h2>
-        <p>
-          A record's <code>kind</code> names which step of the institution's
-          cognitive loop it belongs to. Each kind answers one question.
-        </p>
+
+        A record's <code>kind</code> names which step of the institution's
+        cognitive loop it belongs to. Each kind answers one question.
 
         <RevisableDelegationLoop />
 
@@ -276,16 +269,16 @@ export const structuredData = {
             ))}
           </tbody>
         </table>
-        <p>
-          The loop runs perceive → believe → know what can be done → decide
-          what authority is justified → act → detect mismatch → revise. No
-          single system owns the whole loop. One system emits beliefs, another
-          capabilities and authorizations, another actions, another
-          discrepancies. The record shape is what lets them refer to one
-          another: an action names its authorization, an authorization names
-          the beliefs it rests on, a revision names the discrepancy that forced
-          it.
-        </p>
+
+        The loop runs perceive → believe → know what can be done → decide
+        what authority is justified → act → detect mismatch → revise. No
+        single system owns the whole loop. One system emits beliefs, another
+        capabilities and authorizations, another actions, another
+        discrepancies. The record shape is what lets them refer to one
+        another: an action names its authorization, an authorization names
+        the beliefs it rests on, a revision names the discrepancy that forced
+        it.
+
       </section>
 
       <section id="articles" class="standard-section">
@@ -459,12 +452,11 @@ export const structuredData = {
 
       <section id="conformance" class="standard-section">
         <h2>Conformance levels</h2>
-        <p>
-          A system declares the highest level every record it emits satisfies.
-          A consumer treats the level as a floor. Declaring Level 0 honestly is
-          conformance; declaring Level 2 for a log that never populates
-          <code>invalidated_by</code> is not.
-        </p>
+
+        A system declares the highest level every record it emits satisfies.
+        A consumer treats the level as a floor. Declaring Level 0 honestly is
+        conformance; declaring Level 2 for a log that never populates
+        <code>invalidated_by</code> is not.
 
         <RevisableDelegationConformance />
 
@@ -488,39 +480,31 @@ export const structuredData = {
 
       <section id="schema" class="standard-section">
         <h2>Schema</h2>
-        <p>
-          The citable artifact is the JSON Schema at
-          <a href="/api/schema/revisable-delegation-record.schema.json">
-            /api/schema/revisable-delegation-record.schema.json
-          </a>
-          (draft 2020-12). It carries the per-kind content shapes and two
-          worked examples. Consumers pin <code>schema_version</code> to a minor
-          version and must not silently drop records carrying an unknown
-          <code>kind</code>.
-        </p>
-        <p>
-          <a href="/diagnostics/record-conformance">
-            The Record Conformance Checker
-          </a>{" "}
-          reads a stream and returns the level it earns, against the level its
-          emitter declares. Give it the emitter's manifest as well and the
-          declaration is read from the published artifact rather than typed in,
-          and the kinds that manifest claims are checked against the kinds the
-          stream contains. It runs in the browser and uploads nothing, because
-          these records are internal or private by design.
-        </p>
-        <p>
-          A TypeScript validator, canonical serializer, and hash helper that
-          mirror the schema live in this site's source at
-          <code>src/utils/revisable-delegation-record.ts</code>; a test
-          validates the schema's own examples through it, so the two cannot
-          drift without a red build.
-        </p>
-        <p>
-          The fields below are easier to read against a worked case. This trace
-          shows one decision written down: what it rested on, what would end it,
-          and what replaced it when that condition came true.
-        </p>
+
+        The citable artifact is the JSON Schema at
+        <a href="/api/schema/revisable-delegation-record.schema.json">/api/schema/revisable-delegation-record.schema.json</a>
+        (draft 2020-12). It carries the per-kind content shapes and two
+        worked examples. Consumers pin <code>schema_version</code> to a minor
+        version and must not silently drop records carrying an unknown
+        <code>kind</code>.
+
+        <a href="/diagnostics/record-conformance">The Record Conformance Checker</a>{" "}
+        reads a stream and returns the level it earns, against the level its
+        emitter declares. Give it the emitter's manifest as well and the
+        declaration is read from the published artifact rather than typed in,
+        and the kinds that manifest claims are checked against the kinds the
+        stream contains. It runs in the browser and uploads nothing, because
+        these records are internal or private by design.
+
+        A TypeScript validator, canonical serializer, and hash helper that
+        mirror the schema live in this site's source at
+        <code>src/utils/revisable-delegation-record.ts</code>; a test
+        validates the schema's own examples through it, so the two cannot
+        drift without a red build.
+
+        The fields below are easier to read against a worked case. This trace
+        shows one decision written down: what it rested on, what would end it,
+        and what replaced it when that condition came true.
 
         <RevisableDelegationTrace />
 
@@ -548,76 +532,68 @@ export const structuredData = {
 
       <section id="adoption" class="standard-section">
         <h2>Adoption notes</h2>
-        <p>
-          <strong>0.1.1 adds <code>system.instance</code></strong>, optional and
-          backward compatible: a record that omits it still validates. It exists
-          because an adopter hit the gap rather than because the shape looked
-          incomplete. Two deployments of one system share a subject vocabulary —
-          that is what makes either one legible to the other — and therefore
-          emit identical <code>record_id</code>s for the same subject. A
-          consumer reading a peer's stream could not tell those records from its
-          own output read back, and <code>system.id</code> cannot answer it,
-          because both deployments are honestly the same system. A consumer that
-          guesses turns one machine's report into another's corroboration.
-        </p>
-        <p>
-          STD-07 was drafted against five systems that each hold a fragment of
-          the loop and did not share a record shape: a forecast registry with a
-          ledger hash and three clocks, a capability graph with signed
-          approvals and an authority table, a weekly operating brief with an
-          append-only decision memory and assumption snapshots, a change
-          monitor with Merkle-verified event bundles, and this framework's own
-          clause vocabulary. None of them conformed when this draft was
-          written. Each is expected to declare a conformance level in its
-          machine-readable manifest and raise it as the mapping lands, starting
-          from Level 0.
-        </p>
-        <p>
-          Two of them now emit the shape. The weekly operating brief exports
-          its decision memory as <code>belief</code> records at Level 1,
-          mapping the assumption snapshot it already kept onto
-          <code>invalidated_by</code>. The capability graph emits
-          <code>capability</code>, <code>authorization</code>,
-          <code>discrepancy</code> and <code>revision</code> at Level 2, and
-          its gate now narrows an unattended grant whose prerequisite has
-          started failing — enforced at the decision, independently of whether
-          the record was ever written, which is the relationship between
-          Article III and a running system that this standard is trying to
-          describe.
-        </p>
-        <p>
-          Until this draft nothing read either stream, and a record format with
-          emitters and no readers is a documentation format. The{" "}
-          <a href="/diagnostics/record-conformance">
-            Record Conformance Checker
-          </a>{" "}
-          is the reader: it grades a stream against the level its emitter
-          declares, so a claim can be contradicted by something other than good
-          faith. No emitting system consumes another's records yet, which is a
-          different and still-open gap.
-        </p>
-        <p>
-          Three rules for adopters. First, map the existing log; do not build a
-          second one. A system that already writes an assumption snapshot has
-          <code>invalidated_by</code>; it needs to say so in this shape.
-        </p>
-        <p>
-          Second, declare what is not there. A system whose environment adapter
-          is a fixture emits no <code>action</code> records, because an action
-          record from it would attest to something that did not happen in the
-          world; it says so beside the level it claims rather than leaving a
-          reader to assume otherwise.
-        </p>
-        <p>
-          Third, validate against a consumer rather than against yourself. The
-          first system to emit Level 2 records had every field of every record
-          matching this schema and was rejected by the validator on all four,
-          because its store wrote <code>2026-09-06 20:35:26</code> where
-          <code>time.as_of</code> requires an ISO 8601 instant. A serializer
-          that is correct about structure and wrong about a format is the
-          defect this shape exists to surface, and it is not findable from
-          inside the system that produced it.
-        </p>
+
+        <strong>0.1.1 adds <code>system.instance</code></strong>, optional and
+        backward compatible: a record that omits it still validates. It exists
+        because an adopter hit the gap rather than because the shape looked
+        incomplete. Two deployments of one system share a subject vocabulary —
+        that is what makes either one legible to the other — and therefore
+        emit identical <code>record_id</code>s for the same subject. A
+        consumer reading a peer's stream could not tell those records from its
+        own output read back, and <code>system.id</code> cannot answer it,
+        because both deployments are honestly the same system. A consumer that
+        guesses turns one machine's report into another's corroboration.
+
+        STD-07 was drafted against five systems that each hold a fragment of
+        the loop and did not share a record shape: a forecast registry with a
+        ledger hash and three clocks, a capability graph with signed
+        approvals and an authority table, a weekly operating brief with an
+        append-only decision memory and assumption snapshots, a change
+        monitor with Merkle-verified event bundles, and this framework's own
+        clause vocabulary. None of them conformed when this draft was
+        written. Each is expected to declare a conformance level in its
+        machine-readable manifest and raise it as the mapping lands, starting
+        from Level 0.
+
+        Two of them now emit the shape. The weekly operating brief exports
+        its decision memory as <code>belief</code> records at Level 1,
+        mapping the assumption snapshot it already kept onto
+        <code>invalidated_by</code>. The capability graph emits
+        <code>capability</code>, <code>authorization</code>,
+        <code>discrepancy</code> and <code>revision</code> at Level 2, and
+        its gate now narrows an unattended grant whose prerequisite has
+        started failing — enforced at the decision, independently of whether
+        the record was ever written, which is the relationship between
+        Article III and a running system that this standard is trying to
+        describe.
+
+        Until this draft nothing read either stream, and a record format with
+        emitters and no readers is a documentation format. The{" "}
+        <a href="/diagnostics/record-conformance">Record Conformance Checker</a>{" "}
+        is the reader: it grades a stream against the level its emitter
+        declares, so a claim can be contradicted by something other than good
+        faith. No emitting system consumes another's records yet, which is a
+        different and still-open gap.
+
+        Three rules for adopters. First, map the existing log; do not build a
+        second one. A system that already writes an assumption snapshot has
+        <code>invalidated_by</code>; it needs to say so in this shape.
+
+        Second, declare what is not there. A system whose environment adapter
+        is a fixture emits no <code>action</code> records, because an action
+        record from it would attest to something that did not happen in the
+        world; it says so beside the level it claims rather than leaving a
+        reader to assume otherwise.
+
+        Third, validate against a consumer rather than against yourself. The
+        first system to emit Level 2 records had every field of every record
+        matching this schema and was rejected by the validator on all four,
+        because its store wrote <code>2026-09-06 20:35:26</code> where
+        <code>time.as_of</code> requires an ISO 8601 instant. A serializer
+        that is correct about structure and wrong about a format is the
+        defect this shape exists to surface, and it is not findable from
+        inside the system that produced it.
+
       </section>
     </div>
 

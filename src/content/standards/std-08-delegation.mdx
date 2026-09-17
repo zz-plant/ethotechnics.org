@@ -212,25 +212,22 @@ export const structuredData = {
     <div class="standard-main">
       <section id="relationship-to-std-07" class="standard-section">
         <h2>Relationship to STD-07</h2>
-        <p>
-          <a href="/standards/std-07-revisable-delegation-record">
-            STD-07, the Revisable Delegation Record
-          </a>{" "}
-          defines the record format. It says how an authorization, an action, a
-          discrepancy, and an objection must be written down so that a later
-          reader can reconstruct what was believed and what was permitted. This
-          standard governs the terms of the delegation those records describe:
-          what a grant must show to keep standing, what makes the policy it
-          rests on still valid, what a human reviewer must be able to do before
-          the review counts as a control, and how much correction capacity the
-          delegation owes.
-        </p>
-        <p>
-          STD-08 does not restate STD-07. Where the record format already binds
-          an obligation, this standard cites it. The clauses below add only the
-          terms STD-07 leaves open, and an implementation of STD-08 presupposes
-          STD-07 Level 2 conformance or better.
-        </p>
+
+        <a href="/standards/std-07-revisable-delegation-record">STD-07, the Revisable Delegation Record</a>{" "}
+        defines the record format. It says how an authorization, an action, a
+        discrepancy, and an objection must be written down so that a later
+        reader can reconstruct what was believed and what was permitted. This
+        standard governs the terms of the delegation those records describe:
+        what a grant must show to keep standing, what makes the policy it
+        rests on still valid, what a human reviewer must be able to do before
+        the review counts as a control, and how much correction capacity the
+        delegation owes.
+
+        STD-08 does not restate STD-07. Where the record format already binds
+        an obligation, this standard cites it. The clauses below add only the
+        terms STD-07 leaves open, and an implementation of STD-08 presupposes
+        STD-07 Level 2 conformance or better.
+
         <table class="table">
           <thead>
             <tr>
@@ -255,43 +252,39 @@ export const structuredData = {
 
       <section id="scope" class="standard-section">
         <h2>Scope</h2>
-        <p>
-          This standard applies to any delegation of consequential agency: a
-          grant under which a model, an agent, a rules engine, a service, or a
-          person acting on the institution's behalf may take actions that change
-          someone's status, access, resources, or risk. It is
-          substrate-neutral. Nothing in it depends on which component makes the
-          decision, and nothing in it requires a particular control plane.
-        </p>
-        <p>
-          The question STD-08 serves is not whether the delegate is capable. It
-          is whether the delegation still deserves to stand. Four things can
-          decay while the system keeps working: the justification behind the
-          grant, the policy the justification rests on, the human intervention
-          that was counted as a control, and the institution's capacity to
-          correct what the delegate does. Each is one part below.
-        </p>
-        <p>
-          The standard binds Laws II, III, IV, IX, and XI of the{" "}
-          <a href="/standards/laws">
-            Laws for Engineering Delegated Intelligence
-          </a>
-          . Laws V, VI, and XII are bound by{" "}
-          <a href="/standards/std-06-human-impact-safety-case">STD-06</a>{" "}
-          because dependence is a property of the deployment rather than of a
-          single grant. Law VII is bound by{" "}
-          <a href="/standards/std-02-contestability-recourse">STD-02</a>.
-        </p>
+
+        This standard applies to any delegation of consequential agency: a
+        grant under which a model, an agent, a rules engine, a service, or a
+        person acting on the institution's behalf may take actions that change
+        someone's status, access, resources, or risk. It is
+        substrate-neutral. Nothing in it depends on which component makes the
+        decision, and nothing in it requires a particular control plane.
+
+        The question STD-08 serves is not whether the delegate is capable. It
+        is whether the delegation still deserves to stand. Four things can
+        decay while the system keeps working: the justification behind the
+        grant, the policy the justification rests on, the human intervention
+        that was counted as a control, and the institution's capacity to
+        correct what the delegate does. Each is one part below.
+
+        The standard binds Laws II, III, IV, IX, and XI of the{" "}
+        <a href="/standards/laws">Laws for Engineering Delegated Intelligence</a>
+        . Laws V, VI, and XII are bound by{" "}
+        <a href="/standards/std-06-human-impact-safety-case">STD-06</a>{" "}
+        because dependence is a property of the deployment rather than of a
+        single grant. Law VII is bound by{" "}
+        <a href="/standards/std-02-contestability-recourse">STD-02</a>.
+
       </section>
 
       <section id="objects" class="standard-section">
         <h2>Objects this standard uses</h2>
-        <p>
-          Each clause names fields on published schemas rather than on a product
-          the institution must buy. An institution that keeps the same
-          information in a spreadsheet conforms if it can export the named
-          fields.
-        </p>
+
+        Each clause names fields on published schemas rather than on a product
+        the institution must buy. An institution that keeps the same
+        information in a spreadsheet conforms if it can export the named
+        fields.
+
         <table class="table">
           <thead>
             <tr>
@@ -321,14 +314,14 @@ export const structuredData = {
         <p class="standard-article-quote">
           "A grant is a lease, not a title. Nothing about it renews itself."
         </p>
-        <p>
-          STD-07 §2.2 already requires a delegation to record its scope, holder,
-          grantor, mode, ceiling, expiry, and revocation conditions, and holds
-          that a delegation with no revocation conditions is a transfer rather
-          than a delegation. What it does not say is what has to be true for the
-          lease to be extended, or what happens when the scope grows. This part
-          says both.
-        </p>
+
+        STD-07 §2.2 already requires a delegation to record its scope, holder,
+        grantor, mode, ceiling, expiry, and revocation conditions, and holds
+        that a delegation with no revocation conditions is a transfer rather
+        than a delegation. What it does not say is what has to be true for the
+        lease to be extended, or what happens when the scope grows. This part
+        says both.
+
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§1.1</span>
@@ -373,13 +366,13 @@ export const structuredData = {
           "Policy is a state of the system, not an input it consumed once."
         </p>
         <PolicyValidityDiagram />
-        <p>
-          STD-07 §3.1 and §3.2 already require a record to say what it rests on
-          and what would invalidate it. A grant that names its policies in
-          <code>depends_on</code> satisfies that. This part addresses what those
-          policies must themselves be, and what a fired trigger does to the
-          grants downstream of it.
-        </p>
+
+        STD-07 §3.1 and §3.2 already require a record to say what it rests on
+        and what would invalidate it. A grant that names its policies in
+        <code>depends_on</code> satisfies that. This part addresses what those
+        policies must themselves be, and what a fired trigger does to the
+        grants downstream of it.
+
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§2.1</span>
@@ -432,14 +425,14 @@ export const structuredData = {
         <p class="standard-article-quote">
           "A human who can only approve is not in the loop. They are beside it."
         </p>
-        <p>
-          STD-07 §2.2 records whether a delegation runs unattended, on confirm,
-          or forbidden. That is the mode. It says nothing about whether the
-          confirming human can see the problem, prevent the action, alter the
-          state, or survive disagreeing. This part is the gap the record format
-          leaves, and it is where the phrase "a human reviews" stops being an
-          answer.
-        </p>
+
+        STD-07 §2.2 records whether a delegation runs unattended, on confirm,
+        or forbidden. That is the mode. It says nothing about whether the
+        confirming human can see the problem, prevent the action, alter the
+        state, or survive disagreeing. This part is the gap the record format
+        leaves, and it is where the phrase "a human reviews" stops being an
+        answer.
+
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§3.1</span>
@@ -505,23 +498,22 @@ export const structuredData = {
           wrong at scale."
         </p>
         <CorrectionSymmetryDiagram />
-        <p>
-          STD-07 §4.2 obliges an answer to an accepted objection within its
-          clock. That is one component of correction and this standard relies on
-          it. What is left open is the proportionality: how much correction
-          capacity a delegation of a given size owes, and what happens to that
-          ratio when the delegation grows.
-        </p>
-        <p>
-          Capacity also depreciates while nothing about the grant changes, which
-          is why each component carries a date as well as a description: the
-          dependency record governed by{" "}
-          <a href="/standards/std-06-human-impact-safety-case">STD-06</a>{" "}
-          Article V records per capacity a <code>last_exercised</code> and a
-          <code>status</code> of <code>retained</code>,
-          <code>degrading</code>, or <code>lost</code>, because a capacity listed
-          but never exercised is a claim rather than a capability.
-        </p>
+
+        STD-07 §4.2 obliges an answer to an accepted objection within its
+        clock. That is one component of correction and this standard relies on
+        it. What is left open is the proportionality: how much correction
+        capacity a delegation of a given size owes, and what happens to that
+        ratio when the delegation grows.
+
+        Capacity also depreciates while nothing about the grant changes, which
+        is why each component carries a date as well as a description: the
+        dependency record governed by{" "}
+        <a href="/standards/std-06-human-impact-safety-case">STD-06</a>{" "}
+        Article V records per capacity a <code>last_exercised</code> and a
+        <code>status</code> of <code>retained</code>,
+        <code>degrading</code>, or <code>lost</code>, because a capacity listed
+        but never exercised is a claim rather than a capability.
+
         <ol class="standard-clauses">
           <li>
             <span class="standard-clause-id">§4.1</span>
@@ -595,10 +587,10 @@ export const structuredData = {
 
       <section id="anti-patterns" class="standard-section">
         <h2>Anti-patterns and counterfactuals</h2>
-        <p>
-          Use these to detect delegations that satisfy the record format while
-          failing the terms.
-        </p>
+
+        Use these to detect delegations that satisfy the record format while
+        failing the terms.
+
         <ul class="standard-clauses">
           {antiPatterns.map((pattern) => (
             <li>
@@ -622,19 +614,13 @@ export const structuredData = {
         <p class="standard-sidebar__eyebrow">Related standards</p>
         <ul>
           <li>
-            <a href="/standards/std-07-revisable-delegation-record">
-              STD-07: Revisable Delegation Record
-            </a>
+            <a href="/standards/std-07-revisable-delegation-record">STD-07: Revisable Delegation Record</a>
           </li>
           <li>
-            <a href="/standards/std-06-human-impact-safety-case">
-              STD-06: Human Impact Safety Case
-            </a>
+            <a href="/standards/std-06-human-impact-safety-case">STD-06: Human Impact Safety Case</a>
           </li>
           <li>
-            <a href="/standards/std-02-contestability-recourse">
-              STD-02: Contestability &amp; Recourse
-            </a>
+            <a href="/standards/std-02-contestability-recourse">STD-02: Contestability &amp; Recourse</a>
           </li>
         </ul>
       </div>
@@ -648,9 +634,7 @@ export const structuredData = {
             <a href="/standards/laws">Laws for Engineering Delegated Intelligence</a>
           </li>
           <li>
-            <a href="/standards/enforceable-governance-crosswalks">
-              Governance crosswalks
-            </a>
+            <a href="/standards/enforceable-governance-crosswalks">Governance crosswalks</a>
           </li>
         </ul>
       </div>

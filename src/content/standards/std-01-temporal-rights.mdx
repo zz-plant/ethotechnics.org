@@ -216,19 +216,19 @@ export const structuredData = {
 
       <section id="related-explainers" class="standard-section">
         <h2>Related explainers</h2>
-        <p>
-          Use these short explainers when translating the rights for policy or
-          product teams.
-        </p>
+
+        Use these short explainers when translating the rights for policy or
+        product teams.
+
         <div class="grid grid--two">
           {explainerLinks.map((explainer) => (
             <article class="panel">
               <p class="eyebrow">Explainer</p>
-              <p>
-                <strong>
-                  <a href={explainer.href}>{explainer.title}</a>
-                </strong>
-              </p>
+
+              <strong>
+                <a href={explainer.href}>{explainer.title}</a>
+              </strong>
+
               <p class="muted">{explainer.description}</p>
             </article>
           ))}
@@ -237,49 +237,47 @@ export const structuredData = {
 
       <section id="execution-vs-redress" class="standard-section">
         <h2>Execution vs redress clocks</h2>
-        <p>
-          Show the execution vs redress clock mismatch and highlight the
-          irreversibility window that STD-01 is designed to constrain.
-        </p>
+
+        Show the execution vs redress clock mismatch and highlight the
+        irreversibility window that STD-01 is designed to constrain.
+
         <Std01MicroDiagram />
       </section>
 
       <section id="preamble" class="standard-section">
         <h2>Preamble: The Doctrine of Finitude</h2>
-        <p>
-          We hold that human attention is a finite, non-renewable biological
-          resource. In the Machine Age, the disparity between the infinite
-          speed of automated systems and the fixed processing speed of the
-          human mind has created a structural crisis of dignity.
-        </p>
-        <p>
-          When a system wastes human time through negligence, obfuscation, or
-          coercive design, it is not merely a "bad user experience"; it is a
-          Temporal Taking—an unauthorized extraction of life. It is measurable
-          as a time tax with durable costs and documented burden.
-        </p>
-        <p>
-          To defend the human subject against the scale of the machine, we
-          establish these seven inalienable rights. Any system that violates
-          these articles is declared non-compliant with STD-01.
-        </p>
+
+        We hold that human attention is a finite, non-renewable biological
+        resource. In the Machine Age, the disparity between the infinite
+        speed of automated systems and the fixed processing speed of the
+        human mind has created a structural crisis of dignity.
+
+        When a system wastes human time through negligence, obfuscation, or
+        coercive design, it is not merely a "bad user experience"; it is a
+        Temporal Taking—an unauthorized extraction of life. It is measurable
+        as a time tax with durable costs and documented burden.
+
+        To defend the human subject against the scale of the machine, we
+        establish these seven inalienable rights. Any system that violates
+        these articles is declared non-compliant with STD-01.
+
       </section>
 
       <section id="clause-schema" class="standard-section">
         <h2>Clause schema (agent-readable)</h2>
-        <p>
-          Express every clause as a structured object so agents can validate
-          compliance and request evidence.
-        </p>
+
+        Express every clause as a structured object so agents can validate
+        compliance and request evidence.
+
         <pre class="code-block">{clauseSchema}</pre>
       </section>
 
       <section id="anti-patterns" class="standard-section">
         <h2>Anti-patterns and counterfactuals</h2>
-        <p>
-          Use these to detect superficial compliance and clarify what success
-          looks like.
-        </p>
+
+        Use these to detect superficial compliance and clarify what success
+        looks like.
+
         <ul class="standard-clauses">
           {antiPatterns.map((pattern) => (
             <li>
