@@ -189,9 +189,9 @@ export const getGlossaryEntriesForApi = () =>
         clusters: entry.clusters ?? [],
         legacy_territory: entry.legacyTerritory ?? category.id,
         minimum_evidence: {
-          artifact: minimumEvidence.artifact,
-          behavior: minimumEvidence.behavior,
-          metric: minimumEvidence.metric,
+          artifact: minimumEvidence.artifact ?? null,
+          behavior: minimumEvidence.behavior ?? null,
+          metric: minimumEvidence.metric ?? null,
           definition: minimumEvidence.definition ?? null,
           unit: minimumEvidence.unit ?? null,
           data_source: minimumEvidence.dataSource ?? null,
