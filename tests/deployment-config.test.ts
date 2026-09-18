@@ -54,3 +54,26 @@ describe("deployment configuration", () => {
     expect(await Bun.file(".github/workflows/deploy.yml").exists()).toBe(false);
   });
 });
+
+describe("src/pages holds routes and nothing else", () => {
+  // subscribe.test.ts sat next to the endpoint it tested. Astro routes every
+  // .ts file under src/pages, so the test shipped to production as
+  // /api/subscribe.test, where it answered 500, and Vite pulled bun:test into
+  // the worker bundle to get there.
+  it("contains no test files", async () => {
+    const { readdirSync, statSync } = await import("node:fs");
+    const { join } = await import("node:path");
+
+    const walk = (dir: string): string[] =>
+      readdirSync(dir).flatMap((entry) => {
+        const path = join(dir, entry);
+        return statSync(path).isDirectory() ? walk(path) : [path];
+      });
+
+    const tests = walk("src/pages").filter((path) =>
+      /\.(test|spec)\.[cm]?[jt]sx?$/.test(path),
+    );
+
+    expect(tests).toEqual([]);
+  });
+});
