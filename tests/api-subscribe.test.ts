@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, mock } from "bun:test";
 import type { APIContext } from "astro";
 
-import { POST } from "./subscribe";
+import { POST } from "../src/pages/api/subscribe";
 
 const originalFetch = globalThis.fetch;
 
