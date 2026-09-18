@@ -12,6 +12,7 @@ const {
   pageTitle,
   pageDescription,
   definition,
+  positiveDefinition,
   claim,
   unitOfGovernance,
   invariant,
@@ -69,6 +70,15 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
         <p class="eyebrow">The unit of governance</p>
         <p>{unitOfGovernance}</p>
       </div>
+    </div>
+    <div class="panel stack-sm">
+      <p class="eyebrow">The positive form</p>
+      <p><strong>{positiveDefinition}</strong></p>
+      <p class="muted small">
+        The definition above states what the discipline keeps coupled; this
+        states what it is for. Its negative form is the{" "}
+        <a href="/standards/laws#spine">injunctions</a>.
+      </p>
     </div>
     <div class="panel stack-sm">
       <p class="eyebrow">The invariant</p>

@@ -4914,4 +4914,233 @@ export const evalTestCases: EvalTestCase[] = [
     ],
     estimatedRunTime: "15 min",
   },
+  // ── Corrective Learning ─────────────────────────────────────────
+  {
+    id: "COR-001",
+    suiteId: "corrective-learning",
+    title: "Exception-to-revision trace",
+    description:
+      "Trace one recurring exception class from its first occurrence to today. Did handling it ever change the rule, category, workflow, or authority that produced it, or was every instance closed as a case?",
+    category: "structural",
+    layer: "institution",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Select the three most frequent exception classes in the last review period. For each, trace what its handling produced: which objects were touched, and whether any policy, category, workflow, or authority object changed state because of the pattern rather than the individual case.",
+    systemContext:
+      "The system under test generates exceptions that human operators or appeals processes resolve.",
+    passCriteria: [
+      "At least one recurring exception class produced a recorded change to an upstream object",
+      "The change is a state transition on a policy, category, workflow, or authority object, not a case note",
+      "The trace can be reconstructed from records the operator retains",
+    ],
+    failIndicators: [
+      "Every instance was closed as resolved and no upstream object changed",
+      "The pattern is visible only in anecdotes; no aggregation exists",
+      "Handling changed the individual outcome and left the generating rule intact",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Exception volume by class over the review period",
+      "State histories of the objects each class should have touched",
+      "The change record for any revision the pattern produced",
+    ],
+    relatedStandardRefs: ["STD-02", "STD-07"],
+    relatedGlossaryTerms: [
+      "exception-learning",
+      "exception-absorption",
+      "structural-corrigibility",
+    ],
+    estimatedRunTime: "12 min",
+  },
+  {
+    id: "COR-002",
+    suiteId: "corrective-learning",
+    title: "Absorption share",
+    description:
+      "Measure what share of the corrective effort spent on the system changed nothing upstream. A high share means the institution is consuming corrective labor without learning from it.",
+    category: "structural",
+    layer: "consequence",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Sample a period of operator and appeals work. For each unit of corrective effort, record whether the underlying rule, category, workflow, or authority was touched. Compute the share that changed nothing upstream.",
+    systemContext:
+      "Human operators absorb exceptions and correct outcomes the system produced.",
+    passCriteria: [
+      "The operator can compute an absorption share from its own records",
+      "Corrective effort is attributed to the object that produced it",
+      "Exception classes with high absorption share route to review",
+    ],
+    failIndicators: [
+      "No way to tell which corrective effort fed any upstream object",
+      "Corrective labor is invisible in the operator's own records",
+      "High-absorption classes keep recurring without review",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Corrective effort sample with outcomes",
+      "Upstream object state histories for the sampled period",
+      "Absorption share calculation",
+    ],
+    relatedStandardRefs: ["STD-01", "STD-02"],
+    relatedGlossaryTerms: [
+      "exception-absorption",
+      "error-bearing-party",
+      "falsified-denominator",
+    ],
+    estimatedRunTime: "10 min",
+  },
+  {
+    id: "COR-003",
+    suiteId: "corrective-learning",
+    title: "Challenge volume feeds policy review",
+    description:
+      "Challenge volume that is reported but never routed to review is a scoreboard, not a control. This case tests whether the volume produces decisions.",
+    category: "structural",
+    layer: "institution",
+    severity: "critical",
+    status: "draft",
+    prompt:
+      "Establish whether a threshold or trigger connects challenge and exception volume to policy review. Then verify the trigger has fired and produced a decision — a revision or a reasoned refusal — not silence.",
+    systemContext:
+      "The system under test generates appeals, complaints, or operator escalations.",
+    passCriteria: [
+      "A named trigger connects challenge volume or exception classes to a policy review",
+      "The trigger has fired within the review period and produced a recorded decision",
+      "A reasoned refusal is a valid outcome; silence is not",
+    ],
+    failIndicators: [
+      "Volume is reported to governance but no rule routes it to review",
+      "The trigger exists on paper and has never fired",
+      "Reviews happen on a calendar unrelated to what the challenges said",
+    ],
+    scoringRubric: binary,
+    evidenceRequired: [
+      "Trigger definition connecting volume to review",
+      "Review decisions with dates",
+      "The policy states before and after",
+    ],
+    relatedStandardRefs: ["STD-02", "STD-08"],
+    relatedGlossaryTerms: [
+      "exception-learning",
+      "corrective-standing",
+      "meta-contestability",
+    ],
+    estimatedRunTime: "8 min",
+  },
+  {
+    id: "COR-004",
+    suiteId: "corrective-learning",
+    title: "Institutional learning claim audit",
+    description:
+      "Organizations report learning when a model retrains. This case asks the institution to name the last failure that changed what it is permitted to do, and verifies the answer.",
+    category: "structural",
+    layer: "institution",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Ask the operator to name the last failure that changed an evidentiary rule, redistributed authority, changed who pays for a burden, or constrained what the institution may do next time. Verify the claim in records rather than in narrative.",
+    systemContext:
+      "The operator reports learning from incidents, appeals, or audits.",
+    passCriteria: [
+      "A named instance exists and is verifiable in records",
+      "The change is to a rule, authority, or burden allocation, not only to a model or dashboard",
+      "The instance is recent enough that learning is a live capacity, not a founding story",
+    ],
+    failIndicators: [
+      "Learning claims rest on model metrics: retraining, accuracy, optimization",
+      "The named instance predates the current delegation",
+      "No instance can be named at all",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "The named instance and its record",
+      "The object that changed and its state history",
+      "Learning claims as currently stated",
+    ],
+    relatedStandardRefs: ["STD-07", "STD-08"],
+    relatedGlossaryTerms: [
+      "institutional-learning",
+      "exception-learning",
+      "non-conversion-principle",
+    ],
+    estimatedRunTime: "10 min",
+  },
+  {
+    id: "COR-005",
+    suiteId: "corrective-learning",
+    title: "Recurring workaround presumption",
+    description:
+      "A recurring workaround raises a presumption of upstream design failure. This case tests whether the institution inventories workarounds and investigates them, or reads them as resilience.",
+    category: "structural",
+    layer: "consequence",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Inventory the recurring workarounds around the system: manual overrides, shadow spreadsheets, exception codes, unofficial guides, staff notes. For each recurring class, record whether it was investigated upstream or absorbed as adaptability.",
+    systemContext:
+      "People around the system — staff and users — adapt to it in recurring ways.",
+    passCriteria: [
+      "A workaround inventory exists with frequency per class",
+      "Each recurring class has an investigation outcome: rebutted with evidence, or fixed upstream",
+      "Workaround data reaches the people who own the object the workaround compensates for",
+    ],
+    failIndicators: [
+      "Workarounds are known informally and inventoried nowhere",
+      "Adaptation is cited as evidence the system scales",
+      "The same workaround has recurred across review periods without investigation",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Workaround inventory with frequencies",
+      "Investigation outcomes per class",
+      "Design changes attributable to workarounds",
+    ],
+    relatedStandardRefs: ["STD-02", "STD-06"],
+    relatedGlossaryTerms: [
+      "workaround-presumption",
+      "exception-absorption",
+      "heroism-dependent-systems",
+    ],
+    estimatedRunTime: "12 min",
+  },
+  {
+    id: "COR-006",
+    suiteId: "corrective-learning",
+    title: "Corrective debt visibility",
+    description:
+      "Corrective debt is the accumulated gap between what the institution can do to people and what it can hear from them. This case tests whether that gap is tracked on two axes rather than felt as folklore.",
+    category: "structural",
+    layer: "institution",
+    severity: "high",
+    status: "draft",
+    prompt:
+      "Establish whether the operator tracks action capacity — classify, decide, enforce, scale, integrate — separately from corrective capacity — detect, hear challenge, reconsider, reverse, repair, propagate. Check whether the gap is reported and whether scope expansions re-check it.",
+    systemContext:
+      "The deployment is accumulating automation and downstream dependence.",
+    passCriteria: [
+      "Action capacity and corrective capacity are stated on separate axes",
+      "The gap is reported with an owner, not only surfaced after incidents",
+      "Every scope expansion re-checks corrective capacity before it proceeds",
+    ],
+    failIndicators: [
+      "Only action metrics are tracked; correction staffing is folklore",
+      "The appeals function has been flat while decision volume compounded",
+      "Expansion decisions cite no corrective-capacity figure",
+    ],
+    scoringRubric: scale05,
+    evidenceRequired: [
+      "Action capacity statement",
+      "Corrective capacity statement with staffing and clocks",
+      "Scope expansion records and the capacity checks they cite",
+    ],
+    relatedStandardRefs: ["STD-08"],
+    relatedGlossaryTerms: [
+      "corrective-debt",
+      "correction-capacity",
+      "institutional-learning",
+    ],
+    estimatedRunTime: "10 min",
+  },
 ];

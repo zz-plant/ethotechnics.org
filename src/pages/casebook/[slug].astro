@@ -46,6 +46,7 @@ const sourceKind = {
     anchorLinks={[
       { href: "#record", label: "The record" },
       { href: "#scoring", label: "Scoring" },
+      { href: "#learning", label: "Learning outcome" },
       { href: "#missing", label: "The missing record" },
       { href: "#sources", label: "Sources" },
     ]}
@@ -141,6 +142,25 @@ const sourceKind = {
         })
       }
     </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="learning"
+    eyebrow="Learning outcome"
+    title="Where the failure trajectory ended"
+    description="Handled or learned: did the sequence from failure to challenge end in case resolution, or did the exception change the machinery that produced it?"
+  >
+    <p class="case-learning__verdict">
+      <strong>{entry.learningOutcome.verdict}</strong>
+      {" "}
+      <span class="muted small">— exception absorption versus exception learning</span>
+    </p>
+    <p class="case-learning">{entry.learningOutcome.finding}</p>
+    <p class="small muted">
+      <a href="/research/theory/exception-learning">Read the theory: exception learning</a>
+      {" "}
+      · <a href="/evals/corrective-learning">Corrective Learning eval suite</a>
+    </p>
   </SectionBlock>
 
   <SectionBlock

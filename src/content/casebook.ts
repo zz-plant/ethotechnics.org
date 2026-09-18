@@ -126,6 +126,16 @@ export type Case = PublishedContent & {
   /** What happened, from the primary record, in a few paragraphs. */
   narrative: string[];
   findings: Finding[];
+  /**
+   * Where the failure trajectory ended: in case resolution (each exception
+   * handled, the delegation unchanged) or in institutional revision (the
+   * rule, category, workflow, or authority that produced the errors changed).
+   * The distinction is exception absorption versus exception learning.
+   */
+  learningOutcome: {
+    verdict: "learned" | "partial" | "absorbed";
+    finding: string;
+  };
   /** The one thing the standards would have required that was absent. */
   theMissingRecord: string;
   sources: Source[];
@@ -145,7 +155,7 @@ export const casebookContent: CasebookContent = {
   eyebrow: "Casebook",
   title: "Five public failures, scored",
   description:
-    "Each case was established by a court, an inquiry, or a regulator. Each is scored against the six state variables the laws track, with the clause that would have caught the drift. The scores are not a verdict on anyone; they show where the coupling broke.",
+    "Each case was established by a court, an inquiry, or a regulator. Each is scored against the six state variables the laws track, with the clause that would have caught the drift, and against whether the failure trajectory ended in institutional learning or was absorbed as handled cases. The scores are not a verdict on anyone; they show where the coupling broke.",
 };
 
 export const cases: Case[] = [
@@ -241,6 +251,11 @@ export const cases: Case[] = [
         laws: ["IV", "VI", "XII"],
       },
     ],
+    learningOutcome: {
+      verdict: "absorbed",
+      finding:
+        "The tribunal's repeated findings of unlawfulness were handled as individual outcomes and never entered the delegation. The department did not appeal, which kept each finding from becoming precedent, and did not record the pattern as a finding about the scheme. The sequence ended in case resolution for three years; the rule was never revised by the institution that ran it. The delegation was halted only by a court, and the institutional revision came after that, from a Royal Commission, not from the operator's own machinery.",
+    },
     theMissingRecord:
       "A policy record for income averaging with its provenance and status. The 2014 advice would have been the review trigger; the first adverse tribunal decision would have moved the policy, and every grant citing it, to review_required. STD-08 §2.3 gives that a clock.",
     sources: [
@@ -363,6 +378,11 @@ export const cases: Case[] = [
         laws: ["IV", "VI"],
       },
     ],
+    learningOutcome: {
+      verdict: "partial",
+      finding:
+        "The rule itself was eventually changed — the Council of State reversed its own case law — but only after seven years, and the reversal was a correction of the institution's legal position, not of the delegation's machinery. The institution that ran the model never revised its own evidentiary practice; the change came from the highest court overturning its own precedent, then a parliamentary inquiry, then a cabinet resignation. Redress is still running. The exception was visible and fought; the learning took the collapse of the government.",
+    },
     theMissingRecord:
       "A standing register entry: who may challenge a flag, what evidence is admissible, and against which standard it is decided. STD-02 §8.2 would have forced the administration to say whether a parent was contesting policy conformance or evidentiary support, and to disclose the file either way.",
     sources: [
@@ -484,6 +504,11 @@ export const cases: Case[] = [
         laws: ["IV", "VI"],
       },
     ],
+    learningOutcome: {
+      verdict: "absorbed",
+      finding:
+        "The operator never revised the machinery. The system's known defects were logged by the supplier and withheld; each subpostmaster was answered alone, so the pattern could not aggregate; and admitting a defect would have admitted every prior conviction, which made correction institutionally impossible for the operator itself. The learning came entirely from outside the institution — civil litigation, an appellate court, an inquiry, and an Act of Parliament — none of which the operator's own machinery produced. Exception absorption here lasted twenty years.",
+    },
     theMissingRecord:
       "A dependency record with the exposure score computed and published. Dependency depth was total, substitution cost was the business, and correction latency turned out to be twenty years. STD-06 §5.5 would have barred expansion of the system's authority, including its use as prosecution evidence, until institutional reversibility was evidenced.",
     sources: [
@@ -598,6 +623,11 @@ export const cases: Case[] = [
         laws: ["IV", "IX"],
       },
     ],
+    learningOutcome: {
+      verdict: "absorbed",
+      finding:
+        "The decision was corrected — every grade was reversed within four days — but no institution's machinery was revised by the failure. Ofqual and the Department for Education withdrew the model rather than repairing the rule that generated the harm; the evidentiary practice of validating an aggregate and applying it to individuals was never revisited inside the institution. The halt was thrown by a minister under public pressure after a neighbouring jurisdiction had gone first, which is a correction of the case, not a change to the rule. The office that reviewed the episode was the statistics regulator, external to the operator.",
+    },
     theMissingRecord:
       "A declared threshold with the action that follows a breach. STD-06 §2.2 asks the operator to say, before running the model, what share of downgrades or what disparity between school types would stop the release. Had that number existed, the halt on 17 August would have been a control firing rather than a reversal under pressure.",
     sources: [
@@ -701,6 +731,11 @@ export const cases: Case[] = [
         laws: ["IV"],
       },
     ],
+    learningOutcome: {
+      verdict: "learned",
+      finding:
+        "The institution revised its machinery. The regulator found the process deficient, and the issuer responded by changing the process: it introduced a reconsideration path for credit-limit decisions, so that the error-bearing party could contest an outcome against a stated standard, and it changed the product so that spouses could share an account and build credit jointly. The model was not changed, but the workflow and the standing that surround it were. This is the only case in the casebook where the correction was exercised by the operator rather than imposed from outside, and the distinction is what made the episode end in learning rather than absorption.",
+    },
     theMissingRecord:
       "A standing register entry for credit-limit decisions: that an applicant may ask for reasons, that the reasons name the inputs that moved the limit, and that a reconsideration is answered within a deadline. STD-02 §8.1 and §8.5 describe a process the issuer built after the fact.",
     sources: [

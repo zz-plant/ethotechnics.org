@@ -1,0 +1,208 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SectionBlock from "../components/SectionBlock.astro";
+import CardGrid from "../components/CardGrid.astro";
+import CardItem from "../components/CardItem.astro";
+
+const pageTitle = "Low-leverage work — Ethotechnics";
+const pageDescription =
+  "Familiar projects that improve the quality of an exercise of power while leaving the structure of that power untouched, and the questions that replace them.";
+const anchorLinks = [
+  { href: "#criterion", label: "The criterion" },
+  { href: "#catalog", label: "The catalog" },
+  { href: "#permanent-question", label: "The permanent question" },
+];
+
+const items = [
+  {
+    title: "Perfecting representation",
+    pattern:
+      "Effort flows into accuracy, coverage, and personalization as though enough fidelity will dissolve the political problem. It will not: even perfect prediction would not itself establish jurisdiction.",
+    question:
+      "Preserve standing for when representation fails — or when it succeeds but should not be authoritative.",
+    href: "/research/theory/model-of-a-person",
+    linkLabel: "The model of a person is not the person",
+  },
+  {
+    title: "Metric wars without institutional redesign",
+    pattern:
+      "Years can go into making the ledger more precise while the ledger's boundary stays untouched. Accurate accounting within a false boundary still produces a false account.",
+    question:
+      "Whose costs does the metric exclude, and who carries what it cannot see?",
+    href: "/glossary/falsified-denominator",
+    linkLabel: "Falsified denominator",
+  },
+  {
+    title: "Transparency as a substitute for power",
+    pattern:
+      "Dashboards, model cards, and disclosure notices explain the system while leaving it unchallengeable. Knowing why you were harmed is not being able to reverse it. Legibility is not standing.",
+    question:
+      "What state can the explanation change, and who can trigger that change?",
+    href: "/standards/laws#law-viii",
+    linkLabel: "Law VIII: observability without state transition is theater",
+  },
+  {
+    title: "Human-in-the-loop without authority",
+    pattern:
+      "A human clicking approve at the end of a machine-generated workflow, without time, information, authority, protection, or reversal, does not constitutionalize the system.",
+    question:
+      "Can anyone actually interrupt, override, investigate, and change the rule?",
+    href: "/glossary/meaningful-control",
+    linkLabel: "Meaningful control",
+  },
+  {
+    title: "Training better decision-makers instead of changing dependencies",
+    pattern:
+      "Workshops, codes, and exhortations improve conduct while people remain dependent on somebody's goodwill. Better character is not a substitute for better structure.",
+    question:
+      "Which dependency can be redesigned so virtue is no longer the load-bearing part?",
+    href: "/research/theory/dependence-without-standing",
+    linkLabel: "Dependence without standing",
+  },
+  {
+    title: "Participation without consequence",
+    pattern:
+      "Citizen panels, employee feedback, and stakeholder workshops consume enormous energy while decision rules stay intact. If participants can force nothing, the engagement has absorbed the dissent without changing anything.",
+    question:
+      "What can participants actually force the institution to reconsider?",
+    href: "/glossary/corrective-standing",
+    linkLabel: "Corrective standing",
+  },
+  {
+    title: "Optimizing efficiency before fixing the denominator",
+    pattern:
+      "A workflow that gets faster by pushing friction onto patients, claimants, contractors, or support staff has optimized burden transfer. Do not optimize a system until you know where its residuals go.",
+    question:
+      "Where do the residuals land, and does the ledger count them?",
+    href: "/research/theory/absorption-as-concealment",
+    linkLabel: "Absorption as concealment",
+  },
+  {
+    title: "Debating abstract values while jurisdiction expands",
+    pattern:
+      "Years negotiating principles — fairness, beneficence, responsibility — while deployments move into progressively more intimate domains. A technically excellent system performing an unjustified function is badly designed.",
+    question:
+      "Why is this institution entitled to make this inference or decision at all?",
+    href: "/research/theory/what-does-not-convert",
+    linkLabel: "What does not convert",
+  },
+  {
+    title: "Treating every failure as a local bug",
+    pattern:
+      "Repeated residuals get case-by-case repairs, better support, more patches. At some threshold, many exceptions are evidence against the rule or representation that produces them.",
+    question:
+      "Has the exception pattern been read as evidence about the architecture?",
+    href: "/evals/corrective-learning",
+    linkLabel: "Corrective Learning evals",
+  },
+  {
+    title: "The autonomy debate",
+    pattern:
+      "Whether the machine is agentic, aligned, or controllable matters less than the institutional relationship built around it. A perfectly obedient algorithm can carry extraordinary unanswerable power.",
+    question: "Machine obedience is not human non-domination. What holds the operator answerable?",
+    href: "/research/theory/democratic-vs-coercive-governability",
+    linkLabel: "Democratic vs. coercive governability",
+  },
+  {
+    title: "Eliminating uncertainty instead of governing it",
+    pattern:
+      "One more dataset, one better model, one more sensor — imagined as finally removing the need for judgment, contestation, and exception handling. The mature goal is not complete representation.",
+    question:
+      "Does the system remain legitimate when it inevitably does not know?",
+    href: "/glossary/safe-incompleteness",
+    linkLabel: "Safe incompleteness",
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <PageIntro
+    eyebrow="Leverage"
+    title="Low-leverage work"
+    description={pageDescription}
+    anchorLinks={anchorLinks}
+  />
+
+  <SectionBlock
+    id="criterion"
+    eyebrow="The criterion"
+    title="Better at deciding is not the same as entitled to decide"
+    description="A project is low-leverage when it makes the institution better at exercising power instead of asking whether, how, and under what conditions it should exercise that power at all."
+  >
+    <p>
+      None of the projects in the catalog below is worthless in itself. Metric
+      precision can matter. Explanation can matter. Participation can matter.
+      Each becomes a sink when it substitutes for the structural question —
+      when enormous effort improves the quality of an exercise of power while
+      leaving the structure of that power untouched.
+    </p>
+    <p>
+      The recurring mistake takes one form:
+    </p>
+    <p class="small muted">
+      Make the institution better at deciding, instead of asking whether, how,
+      and under what conditions it should decide.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="catalog"
+    eyebrow="The catalog"
+    title="Eleven familiar projects, and what replaces them"
+    description="Each card names the pattern and the question that restores leverage. The links open the part of the framework built for that question."
+  >
+    <CardGrid className="grid--two">
+      {
+        items.map((item) => (
+          <CardItem title={item.title} description={item.pattern}>
+            <p class="muted small">
+              <strong>Replace with:</strong> {item.question}
+            </p>
+            <a slot="footer" class="muted" href={item.href}>
+              {item.linkLabel} →
+            </a>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+    <p class="small muted">
+      Two absences are deliberate. Nothing here says expertise is worthless —
+      expertise stays authoritative within the jurisdiction it is qualified to
+      answer, and loses only the conversion from knowing more to deciding. And
+      nothing here says efficiency is worthless — the objection is to
+      efficiency claims whose denominator excludes the people doing the
+      absorbing. See also{" "}
+      <a href="/glossary/abstention">abstention</a>, the capability of
+      declining to decide, which most of these projects substitute for.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="permanent-question"
+    eyebrow="The permanent question"
+    title="Whatever arrangement you favor, what happens when it gets someone wrong?"
+    description="The test beneath the catalog: every project above is judged by what its arrangement does when it gets someone wrong."
+    variant="alt"
+  >
+    <p>
+      A project has restored leverage when getting someone wrong is no longer
+      final: the exception can travel back into the rule that produced it, the
+      challenge is affordable to the person who carries it, and the decision
+      stays reopenable — which is what{" "}
+      <a href="/glossary/non-finality">non-finality</a> names. The machinery on
+      this site exists to make that standard checkable rather than
+      aspirational.
+    </p>
+    <p class="small muted">
+      The underlying project — what domination means here, why no arrangement
+      is exempt by construction, and the compact form of the whole discipline —
+      is stated on <a href="/about">the about page</a>. The epistemology:{" "}
+      <a href="/glossary/excluded-case">the excluded case</a> and{" "}
+      <a href="/glossary/consequential-contradiction"
+        >consequential contradiction</a
+      >; the design stance:{" "}
+      <a href="/glossary/safe-incompleteness">safe incompleteness</a>.
+    </p>
+  </SectionBlock>
+</BaseLayout>
