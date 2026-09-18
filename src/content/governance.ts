@@ -34,6 +34,21 @@ export type QuarterlyUpdate = {
   summary: string;
 };
 
+/**
+ * The framework's own failure archive. Every entry records where this
+ * framework's instruments failed, in the form it asks of the institutions it
+ * audits: what failed, when it was detected, and what changed because of it.
+ * A discipline that asks institutions to be changed by evidence of their own
+ * inadequacy keeps the same record of itself.
+ */
+export type FrameworkFailure = {
+  id: string;
+  title: string;
+  detected: string;
+  detail: string;
+  revision: string;
+};
+
 export type GovernanceContent = PageWithPermalink &
   PublishedContent & {
     pageTitle: string;
@@ -42,13 +57,14 @@ export type GovernanceContent = PageWithPermalink &
     lifecycle: RFCLifecycleStage[];
     rfcs: RFCEntry[];
     decisions: DecisionRecord[];
+    failureLog: FrameworkFailure[];
     quarterlyUpdates: QuarterlyUpdate[];
   };
 
 export const governanceContent: GovernanceContent = {
   pageTitle: "Governance process — Ethotechnics",
   pageDescription:
-    "Public governance receipts for RFCs, decision records, releases, and dated accountability updates.",
+    "Public governance receipts for RFCs, decision records, releases, the framework's own failure archive, and dated accountability updates.",
   permalink: "/institute/governance",
   published: "2026-02-01T00:00:00Z",
   updated: "2026-09-18T00:00:00Z",
@@ -56,6 +72,7 @@ export const governanceContent: GovernanceContent = {
     { href: "#lifecycle", label: "RFC lifecycle" },
     { href: "#open-rfcs", label: "Current RFCs" },
     { href: "#decision-log", label: "Decision log" },
+    { href: "#failure-archive", label: "Failure archive" },
     { href: "#governance-updates", label: "Governance updates" },
   ],
   lifecycle: [
@@ -177,6 +194,44 @@ export const governanceContent: GovernanceContent = {
       owner: "Documentation steward",
       releaseVersion: "governance-v1.2.0",
       releaseHref: "/institute/governance",
+    },
+  ],
+  failureLog: [
+    {
+      id: "FE-2026-04",
+      title: "Evidence guidance privileged formal documentation",
+      detected: "2026-09-18",
+      detail:
+        "The framework's evidence artifacts — evidence packs, model cards, safety cases — described the intended process and gave no standing to the artifacts that record the second process growing around it: workaround logs, override records, grievance files, exception codes, and shadow spreadsheets. An audit built this way grades an institution on its own description.",
+      revision:
+        "Institutional debris is now defined as an evidence class in the method's Evidence stage, with an explainer, the workaround presumption, and a Corrective Learning eval that reads it.",
+    },
+    {
+      id: "FE-2026-03",
+      title: "The casebook scored variables but not learning",
+      detected: "2026-09-18",
+      detail:
+        "The casebook scored five public failures against the six state variables, which are present-tense properties of a deployment, and left unstated whether each failure trajectory ended in case resolution or in institutional revision. A framework about correction was missing its own historical category, and its central case — Robodebt — is one where the exceptions were all handled and nothing changed.",
+      revision:
+        "Every case now carries a learning-outcome verdict, and the exception absorption versus exception learning distinction is formalized in the glossary, a theory essay, and the Corrective Learning eval suite.",
+    },
+    {
+      id: "FE-2026-02",
+      title: "A stated cadence was not kept, and the silence was unrecorded",
+      detected: "2026-09-18",
+      detail:
+        "No governance update was published between January and September 2026 while the page carried quarterly entries. The gap was visible in the data and readable by nobody, which is the same failure Law II names in a grant: silence is not renewal, but here it was also not recorded.",
+      revision:
+        "The Q3 2026 update records the pause, and the page now reports the date of the most recent update so the gap is the reader's to judge rather than the page's to imply away.",
+    },
+    {
+      id: "FE-2026-01",
+      title: "Review windows lapsed without logged decisions",
+      detected: "2026-09-18",
+      detail:
+        "RFC-2026-01 and RFC-2026-02 sat listed under active review for seven months after their stated windows closed. The lapse was in the data; nothing on the page computed it, so the reader had to trust a status field the process had stopped honoring.",
+      revision:
+        "The page now reads the review-window clock and reports a lapse as a governance failure. Both RFCs were closed with decisions on the evidence available, and the lapse is recorded in the decision log rather than hidden.",
     },
   ],
   quarterlyUpdates: [

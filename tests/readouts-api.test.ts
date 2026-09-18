@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import type { APIContext } from "astro";
 
-import { buildDefaultInput } from "../../features/delegation-audit/config";
-import { POST } from "./readouts";
+import { buildDefaultInput } from "../src/features/delegation-audit/config";
+import { POST } from "../src/pages/api/readouts";
 
 const createContext = (
   body: string,

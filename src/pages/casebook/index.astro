@@ -37,7 +37,7 @@ const tally = verdictTally();
     id="matrix"
     eyebrow="Six variables, five cases"
     title="Where the coupling broke"
-    description="Read down a column to see which variable fails most often; read across a row to see the shape of one case. Standing has never held. Correction held once, and only because the halt was thrown before dependence set."
+    description="Read down a column to see which variable fails most often; read across a row to see the shape of one case. Standing has never held. Correction held once, and only because the halt was thrown before dependence set. The last column asks whether the failure trajectory ended in institutional learning or was absorbed as handled cases."
     variant="alt"
   >
     <div class="table-responsive">
@@ -56,6 +56,7 @@ const tally = verdictTally();
               ))
             }
             <th scope="col">Time to halt</th>
+            <th scope="col">Learned or handled</th>
           </tr>
         </thead>
         <tbody>
@@ -87,6 +88,11 @@ const tally = verdictTally();
                   );
                 })}
                 <td class="casebook-matrix__halt">{entry.timeToHalt}</td>
+                <td class="casebook-matrix__learning">
+                  <a href={`/casebook/${entry.slug}#learning`}>
+                    {entry.learningOutcome.verdict}
+                  </a>
+                </td>
               </tr>
             ))
           }
@@ -104,6 +110,7 @@ const tally = verdictTally();
               ))
             }
             <td></td>
+            <td></td>
           </tr>
         </tfoot>
       </table>
@@ -112,6 +119,13 @@ const tally = verdictTally();
       <VerdictMark verdict="held" labelled /> explicit and coupled ·
       <VerdictMark verdict="drifted" labelled /> present but detached ·
       <VerdictMark verdict="failed" labelled /> absent, or what the inquiry found
+    </p>
+    <p class="small muted">
+      <strong>Learned or handled</strong> — where the failure trajectory ended:
+      <strong>learned</strong> = the exception changed the machinery ·{" "}
+      <strong>partial</strong> = some revision, late or imposed ·{" "}
+      <strong>absorbed</strong> = handled as cases, machinery unchanged.
+      <a href="/research/theory/exception-learning">Read the theory</a>
     </p>
 
     <CasebookFailureChart />
@@ -148,6 +162,14 @@ const tally = verdictTally();
               <div>
                 <dt>Halted by</dt>
                 <dd>{entry.haltedBy}</dd>
+              </div>
+              <div>
+                <dt>Learned or handled</dt>
+                <dd>
+                  <a href={`/casebook/${entry.slug}#learning`}>
+                    {entry.learningOutcome.verdict}
+                  </a>
+                </dd>
               </div>
             </dl>
             <p class="casebook-list__verdicts" aria-label="Verdicts">
@@ -215,6 +237,15 @@ const tally = verdictTally();
       to the law it instantiates. The clause links open the register on the
       standard's page. If a case is scored wrongly, the primary sources are
       listed on its page; <a href="/participate">tell us</a> which one we misread.
+    </p>
+    <p>
+      The final verdict on each case is not a state variable. It is a claim
+      about the trajectory: whether the sequence of failure, burden, challenge,
+      and institutional response ended in case resolution or in institutional
+      revision. A case can score badly on the variables and still end in
+      learning, or score cleanly and still be absorbed. The distinction is
+      exception absorption versus exception learning, and it is the subject of
+      the <a href="/research/theory/exception-learning">theory essay</a>.
     </p>
     <p class="small muted">
       For incidents written as remediation checklists rather than scored

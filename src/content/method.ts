@@ -40,6 +40,7 @@ export type MethodContent = {
   pageDescription: string;
   permalink: string;
   definition: string;
+  positiveDefinition: string;
   claim: string;
   unitOfGovernance: string;
   invariant: string;
@@ -58,6 +59,8 @@ export const methodContent: MethodContent = {
   permalink: "/method",
   definition:
     "Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power.",
+  positiveDefinition:
+    "Ethotechnics is the practice of building powerful systems that remain answerable to the people and realities they can never fully represent.",
   claim:
     "The primary object being engineered is not the model. It is the delegation of consequential agency. The question is not whether the model is capable, aligned, or safe. It is whether the delegation itself remains valid as the system acts, learns, scales, and becomes depended upon.",
   unitOfGovernance:
@@ -74,6 +77,7 @@ export const methodContent: MethodContent = {
         "evidence_refs on the decision record",
         "STD-06 Human Impact Safety Case",
         "Burden Concealment evals",
+        "Institutional debris as an evidence class: workaround logs, override records, grievance files, exception codes, and shadow spreadsheets — the second process that grew around the intended one",
         "STD-07 belief records, with what they rest on and what would invalidate them",
         "STD-08 Part B: the policies a grant rests on are records with provenance, review triggers, and an expiry, and an expired policy stops justifying the grant",
         "Record Conformance Checker: grades whether an exported record stream states what would invalidate its beliefs",
@@ -81,6 +85,10 @@ export const methodContent: MethodContent = {
       links: [
         { label: "Evidence packs", href: "/evidence-packs" },
         { label: "Eval suites", href: "/evals" },
+        {
+          label: "Institutional debris explainer",
+          href: "/explainers/institutional-debris",
+        },
         {
           label: "STD-07 Revisable Delegation Record",
           href: "/standards/std-07-revisable-delegation-record",

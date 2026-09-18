@@ -14,6 +14,7 @@ const {
   lifecycle,
   rfcs,
   decisions,
+  failureLog,
   quarterlyUpdates,
 } = governanceContent;
 
@@ -132,6 +133,35 @@ const latestGovernanceUpdate = [...quarterlyUpdates]
         ))
       }
     </CardGrid>
+  </SectionBlock>
+
+  <SectionBlock
+    id="failure-archive"
+    eyebrow="Failure archive"
+    title="Where this framework's own instruments failed"
+    description="The framework asks institutions to be changed by evidence of their own inadequacy. The same record is kept of the framework itself: what failed, when it was detected, and what changed because of it. An empty archive would mean the instruments had never been wrong, which is a claim no instrument earns."
+    className="section--banded"
+  >
+    <CardGrid>
+      {
+        failureLog.map((entry) => (
+          <CardItem
+            title={`${entry.id}: ${entry.title}`}
+            meta={`Detected ${entry.detected}`}
+            description={entry.detail}
+          >
+            <p class="muted small">
+              <strong>Changed because of it:</strong> {entry.revision}
+            </p>
+          </CardItem>
+        ))
+      }
+    </CardGrid>
+    <p class="muted small">
+      Reading institutions through their failure histories applies to the
+      framework too: the archive is part of the evidence, and{" "}
+      <a href="/participate">contestations of the framework</a> belong in it.
+    </p>
   </SectionBlock>
 
   <SectionBlock

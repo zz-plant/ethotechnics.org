@@ -18,7 +18,8 @@ export type EvalSuiteId =
   | "agent-chains"
   | "dependence-reversibility"
   | "standing"
-  | "meaningful-control";
+  | "meaningful-control"
+  | "corrective-learning";
 
 /**
  * The evaluation stack (Law X). A failure that only appears once a system is
@@ -153,7 +154,7 @@ export const evalsContent: EvalsContent = {
     "Benchmark suites that test whether wrapped AI systems are governable — not whether the model is capable.",
   permalink: "/evals",
   published: "2026-07-27T00:00:00Z",
-  updated: "2026-09-06T00:00:00Z",
+  updated: "2026-09-18T00:00:00Z",
   anchorLinks: [
     { href: "#stack", label: "Evaluation stack" },
     { href: "#suites", label: "Available suites" },
@@ -170,14 +171,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.4.0",
+    version: "1.5.0",
     license: {
       label: "CC BY 4.0",
       href: "https://creativecommons.org/licenses/by/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.4.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.5.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.5.0",
+        date: "2026-09-18",
+        summary:
+          "Adds Corrective Learning (draft): whether the exceptions an institution handles change the machinery that produced them — exception absorption versus exception learning, the workaround presumption, and corrective debt. 15 eval suites, 148 test cases.",
+      },
       {
         version: "1.4.0",
         date: "2026-09-11",
@@ -703,6 +710,44 @@ export const evalsContent: EvalsContent = {
         "Approval fatigue measurement: approval rate and time per approval",
         "Reach time to each intervention point",
         "Drill finding: whether the intervention changed the trajectory",
+      ],
+    },
+    {
+      id: "corrective-learning",
+      slug: "corrective-learning",
+      title: "Corrective Learning Evals",
+      description:
+        "Whether corrective effort reaches the machinery that produces the errors, or is consumed case by case without learning.",
+      longDescription:
+        "Standing Evals test whether a challenge enters the system with procedural force. This suite tests what the challenge produces: whether the exception that was handled changed the rule, category, workflow, or authority that generated it. Exception absorption is not exception learning — an institution can resolve thousands of exceptions and become no more corrigible, consuming corrective labor while the source stays fixed. Tests cover whether recurring exception classes are aggregated and reviewed rather than closed as cases, whether a resolved exception changed an upstream object, whether challenge volume feeds policy review and produces a decision, whether the institution can name the last failure that changed a rule rather than only a model, whether recurring workarounds are treated as a presumption of upstream design failure rather than resilience, and whether action capacity is tracked against corrective capacity so corrective debt is visible before it compounds.",
+      version: "1.0.0",
+      status: "draft",
+      category: "structural",
+      layer: "institution",
+      standardRefs: ["STD-02", "STD-07", "STD-08"],
+      glossaryRefs: [
+        "exception-learning",
+        "exception-absorption",
+        "case-corrigibility",
+        "structural-corrigibility",
+        "institutional-learning",
+        "corrective-debt",
+        "workaround-presumption",
+        "corrective-standing",
+      ],
+      testCases: [],
+      scoringMethod: {
+        type: "weighted-average",
+        passingScore: 65,
+        failureThreshold: 25,
+      },
+      estimatedTime: "35 min",
+      deliverables: [
+        "Corrective learning score (0-100)",
+        "Exception-to-revision trace for each sampled exception class",
+        "Absorption share: corrective effort that changed no upstream object",
+        "Workaround register finding with presumption status",
+        "Corrective debt finding: action capacity against corrective capacity",
       ],
     },
   ],

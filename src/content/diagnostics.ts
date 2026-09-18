@@ -77,7 +77,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     "Pick a diagnostic, arrive with a question, and leave with a decision-ready summary.",
   permalink: "/diagnostics",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-09-06T00:00:00Z",
+  updated: "2026-09-18T00:00:00Z",
   publication: {
     authors: [
       {
@@ -88,12 +88,18 @@ export const diagnosticsContent: DiagnosticsContent = {
     ],
     contact: "diagnostics@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-09-06T00:00:00Z",
-    version: "v1.2.0",
+    updated: "2026-09-18T00:00:00Z",
+    version: "v1.3.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/diagnostics",
     changelog: [
+      {
+        version: "v1.3.0",
+        date: "2026-09-18",
+        summary:
+          "Added the Corrective Debt Calculator, which prices the gap between action capacity and corrective capacity on two axes, with the absorption share and the workaround presumption as inputs.",
+      },
       {
         version: "v1.2.0",
         date: "2026-09-06",
@@ -804,6 +810,117 @@ export const diagnosticsContent: DiagnosticsContent = {
       ctaLabel: "Start the Maintenance Debt Calculator",
       ctaHref: "/diagnostics/maintenance-debt-calculator",
       ctaAriaLabel: "Start the Maintenance Debt Calculator diagnostic tool",
+      exampleLabel: "View sample output",
+      exampleHref: "/diagnostics#output-baseline",
+      deliveryType: "self-serve",
+    },
+    {
+      slug: "corrective-debt-calculator",
+      title: "Corrective Debt Calculator",
+      description:
+        "Prices the gap between an institution's capacity to act on people and its capacity to hear from them when it is wrong.",
+      methodCards: {
+        measures: [
+          "How fast action capacity — decisions automated, data integrated, downstream dependence — compounded over the last year.",
+          "Corrective capacity on its own axis: challenge intake, reversal latency, upstream revision, and workaround handling.",
+          "The accumulated gap between the two, with its trajectory.",
+        ],
+        doesNotMeasure: [
+          "Exact financial exposure or legal liability.",
+          "Whether any single past decision was right or wrong.",
+          "Model quality: retraining and accuracy are action capacity, not correction.",
+        ],
+        assumptions: [
+          "Inputs describe the last twelve months, not the deployment plan.",
+          "Corrective capacity is measured where challenges actually arrive, not where the org chart says they should.",
+          "A recurring workaround is a presumption of upstream design failure, which the inputs treat as evidence.",
+        ],
+      },
+      methodOverview: {
+        inputs: [
+          "Action-capacity growth band for the last year.",
+          "How challenges and exceptions are received and answered.",
+          "Reversal latency from challenge to restored state.",
+          "Whether handled exceptions ever change the rule that produced them.",
+          "Whether recurring workarounds are inventoried and reviewed.",
+        ],
+        procedure: [
+          "Score action-capacity growth and each corrective-capacity component.",
+          "Compute the corrective debt score and its trajectory.",
+          "Estimate the absorption share: corrective effort that changed nothing upstream.",
+        ],
+        outputs: [
+          "Corrective debt score and tier.",
+          "Absorption share estimate.",
+          "Debt trajectory: compounding, steady, or flat.",
+        ],
+      },
+      instrument: {
+        prompts: [
+          "Action-capacity growth: compounding, steady, or flat over twelve months.",
+          "Challenge intake: dedicated resourced team, shared inbox, or no route.",
+          "Reversal latency: same day, days to weeks, unknown or unbounded.",
+          "Upstream revision: never, occasionally, or regularly.",
+          "Workaround register: inventoried and reviewed, informal only, or none.",
+        ],
+        rubric: [
+          "Growth scored on compounding / steady / flat.",
+          "Intake scored on none / shared inbox / dedicated team.",
+          "Reversal scored on unbounded / days-to-weeks / same-day.",
+          "Revision scored on never / occasionally / regularly.",
+          "Workarounds scored on none / informal / inventoried.",
+        ],
+        scoringLogic: [
+          "Each component contributes its band weight; the total normalizes to 0–100.",
+          "Tiers: critical, high, moderate, low.",
+          "Absorption share derives from intake, revision, and workaround bands.",
+        ],
+      },
+      validation: {
+        pilotNotes:
+          "Calibrated against the casebook: the cases that scored worst on the six state variables also produce the highest debt bands here.",
+        reliability:
+          "Scores stabilize when the operator states correction staffing in numbers rather than intentions.",
+        failureModes: [
+          "Counting the appeals queue as corrective capacity when it resolves cases and changes nothing upstream.",
+          "Reading workarounds as resilience and scaling the system on absorbed labor.",
+          "Using model metrics — accuracy, retraining — as evidence of corrective capacity.",
+        ],
+      },
+      replicability: {
+        runSteps: [
+          "Collect the growth band and the four corrective-capacity bands.",
+          "State challenge volume and correction staffing for the same period.",
+          "Run the calculator and record the tier with the absorption share.",
+          "Re-run after any scope expansion and compare trajectories.",
+        ],
+        exampleOutputs: [
+          "Corrective debt scorecard with tier and trajectory.",
+          "Absorption share with the exception classes that produced it.",
+        ],
+      },
+      bestFor:
+        "Best for governance leads comparing what a system can do to people with what people can do back, before the next expansion decision.",
+      readiness: [
+        "Use before approving a scope expansion or an automation increase.",
+        "Pair with the exception-learning eval to trace whether any challenge changed an upstream object.",
+      ],
+      outputs: [
+        "Corrective debt tier with the gap stated on two axes.",
+        "Absorption share estimate with its sources.",
+        "Shareable link for the expansion review.",
+      ],
+      estimatedTime: "10–12 minutes",
+      prepChecklist: [
+        "Decision volume and automation growth for the last year.",
+        "Challenge intake route, staffing, and reversal latency.",
+        "The last time a handled exception changed an upstream rule.",
+      ],
+      studioNote:
+        "Studio support can help run the two-axis comparison and trace exception-to-revision paths.",
+      ctaLabel: "Start the Corrective Debt Calculator",
+      ctaHref: "/diagnostics/corrective-debt-calculator",
+      ctaAriaLabel: "Start the Corrective Debt Calculator diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",

@@ -20,6 +20,16 @@
       "archiveUrl": "https://web.archive.org/web/*/https://ethotechnics.org/glossary",
       "changelog": [
         {
+          "version": "v1.6.0",
+          "date": "2026-09-18",
+          "summary": "Added Human Non-Substitutability, Safe Incompleteness, Anti-Conversion Rights, Abstention, Constitutional Debt, Discretion Migration, and Corrigibility Rent — the person-side principles, the three abstentions, and the rent concept."
+        },
+        {
+          "version": "v1.5.0",
+          "date": "2026-09-18",
+          "summary": "Added Exception Absorption, Exception Learning, Case Corrigibility, Structural Corrigibility, Institutional Learning, Corrective Debt, and the Workaround Presumption, formalizing the historical turn: reading institutions through their failure trajectories rather than their stated controls."
+        },
+        {
           "version": "v1.4.0",
           "date": "2026-09-18",
           "summary": "Added Residual Complexity, Complexity Displacement, Falsified Denominator, Closure Without Remainder, Constitutional Governance, and Post-Optimization Rigor, embedding the foundational contention of burden redistribution."
@@ -1359,6 +1369,133 @@
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "exception-absorption",
+            "title": "Exception Absorption",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The handling of an exception without any change to the rule, category, workflow, or authority that produced it. A customer-service representative patches an error, a clinician works around bad software, an appeals team reverses a bad determination: each is handled, each is closed, and nothing upstream changes.</p><p>It matters because absorption is what makes <a href=\"/glossary/exception-learning\">exception learning</a> invisible. Every absorbed exception improves the metric that would have caught the pattern, so an institution can be excellent at absorption and wholly incapable of learning, and the excellence is what hides the incapacity. It is the failure mode Law VII's failure-point sequence leaves unresolved when a contestation enters as a case and stops there.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "Handling an exception changes no policy, category, workflow, or authority object.",
+              "The pattern of exceptions is never queried, because each case is closed as resolved.",
+              "Repeated absorption produces no review trigger upstream of the queue that clears them."
+            ],
+            "genealogy": "Names the failure mode the theory of exception learning opposes: case resolution without institutional revision.",
+            "references": [
+              {
+                "label": "Exception learning",
+                "href": "/research/theory/exception-learning",
+                "type": "Theory"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A queue that records exceptions as resolved cases but produces no aggregated signal.",
+              "behavior": "An exception pattern reaching the review trigger without the trigger firing.",
+              "metric": "Share of resolved exceptions that changed the object that produced them."
+            },
+            "domains": ["diagnostic", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["failure-modes", "learning", "exceptions", "absorption"],
+            "adjacentTerms": [
+              "exception-learning",
+              "extraction-by-endurance",
+              "corrective-standing",
+              "falsified-denominator"
+            ]
+          },
+          {
+            "id": "workaround-presumption",
+            "title": "Workaround Presumption",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The rule that a recurring workaround raises a presumption of upstream design failure. Where people repeatedly improvise around a system — unofficial spreadsheets, manual overrides, elaborate user guides, a famous fixer of impossible cases — the first reading is not that adaptable humans are handling edge cases but that the formal system does not fit the world it operates in.</p><p>It matters because organizations usually read workarounds in the opposite direction, as resilience, and scale the system on the strength of the labor that is compensating for it. The presumption is not proof; it must be rebutted by showing the workaround is a product of preference rather than compensation. Where the absorbed share is large, the people absorbing are performing the institution's safety function, which strengthens the case for <a href=\"/glossary/corrective-standing\">corrective standing</a>.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "A recurring workaround is treated as a signal for investigation rather than a resilience story.",
+              "Workaround frequency is measured where it occurs, including at the operator and user layers.",
+              "The institution can show that an inventoried workaround is preference, not compensation."
+            ],
+            "genealogy": "Converts the absorption mechanism into a diagnostic rule: repeated adaptation is rigidity subsidized by flexibility.",
+            "references": [
+              {
+                "label": "Exception learning",
+                "href": "/research/theory/exception-learning",
+                "type": "Theory"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A workaround register or an exception-code ledger with frequency.",
+              "behavior": "An inventoried workaround that survives to its second month without a design review.",
+              "metric": "Recurring workaround classes that have not been investigated upstream."
+            },
+            "domains": ["diagnostic", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["workaround", "failure-modes", "absorption", "design"],
+            "adjacentTerms": [
+              "exception-absorption",
+              "heroism-dependent-systems",
+              "residual-complexity",
+              "corrective-standing"
+            ]
+          },
+          {
+            "id": "discretion-migration",
+            "title": "Discretion Migration",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The pattern in which automation does not eliminate judgment but relocates it: the judgment the model appears to remove reappears upstream in thresholds, training data, categories, and exception rules, and downstream in the routing of exceptions, overrides, and appeals. The discretion is still exercised — it has moved, and so has the authority over it.</p><p>It matters because the audit question changes accordingly: not whether this system removes discretion, but where judgment moved and who gained authority over it. An institution that answers the first question honestly reports a reduction in discretionary labor; one that answers the second reports who now decides whom the model will misjudge.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "The audit traces judgment to its new locations: thresholds, categories, exception rules, and routing.",
+              "The parties who gained authority over the model's errors are named.",
+              "Discretionary labor displaced from the decision point is counted where it landed, not at the decision point."
+            ],
+            "genealogy": "Converts the automation story from elimination to relocation, which is where the governance questions actually live.",
+            "references": [
+              {
+                "label": "Absorption as concealment",
+                "href": "/research/theory/absorption-as-concealment",
+                "type": "Theory"
+              },
+              {
+                "label": "Exception learning",
+                "href": "/research/theory/exception-learning",
+                "type": "Theory"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A judgment map: where discretionary decisions about thresholds, categories, and exceptions are now made, and by whom.",
+              "behavior": "A threshold or category change traced from its origin to the model behavior it now controls.",
+              "metric": "Share of displaced discretionary decisions with a named owner at their new location."
+            },
+            "domains": ["diagnostic", "structural"],
+            "scale": "organizational",
+            "phase": ["audit"],
+            "measurability": "qualitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["automation", "discretion", "judgment", "audit"],
+            "adjacentTerms": [
+              "permission-surface",
+              "exception-absorption",
+              "accountability-diffusion",
+              "moral-latency"
+            ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -1962,6 +2099,304 @@
               "dependency-state",
               "substitution-cost"
             ]
+          },
+          {
+            "id": "exception-learning",
+            "title": "Exception Learning",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The modification of a system by its own exceptions: a recurring failure changes the rule, category, workflow, or authority that produced it. It is the counterpart of <a href=\"/glossary/exception-absorption\">exception absorption</a>, which handles each case and changes nothing.</p><p>It matters because most contestability regimes measure whether a case was resolved, which is the weaker capacity. Exception learning is measured by whether the failure changed the evidentiary rule, the ontology, the authority, or the allocation of burden. The deepest Ethotechnic sequence runs residual → signal → standing → correction → institutional revision, and only the final step is learning.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "A recurring exception changes a policy, category, workflow, or authority object, not only the case.",
+              "An aggregated exception pattern reaches a review trigger and produces a decision.",
+              "The institution can name the last exception that changed an upstream rule."
+            ],
+            "genealogy": "The capability the casebook's learning-outcome verdict scores, argued for in the theory of exception learning.",
+            "references": [
+              {
+                "label": "Exception learning",
+                "href": "/research/theory/exception-learning",
+                "type": "Theory"
+              },
+              {
+                "label": "Corrective Learning eval",
+                "href": "/evals/corrective-learning",
+                "type": "Eval"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A rule, category, or authority object whose state history shows changes triggered by exception patterns.",
+              "behavior": "A challenge volume feeding a policy review and changing the policy's state.",
+              "metric": "Share of exception classes that produced an upstream object change."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["learning", "exceptions", "corrigibility", "standards"],
+            "adjacentTerms": [
+              "exception-absorption",
+              "structural-corrigibility",
+              "case-corrigibility",
+              "institutional-learning",
+              "corrective-standing"
+            ]
+          },
+          {
+            "id": "case-corrigibility",
+            "title": "Case Corrigibility",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The capacity to fix a particular bad decision: an appeal is heard, a reversal is issued, a person is restored. It is what most contestability regimes measure, because it is what the instruments can see.</p><p>It matters because case corrigibility without <a href=\"/glossary/structural-corrigibility\">structural corrigibility</a> is locally corrigible and globally rigid: the person is restored, the pattern is not, and everything the institution does about the pattern happens after the fact and at the level of the individual, which is the one level at which the pattern does not appear.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "A contested decision can be reversed by a named authority within a declared clock.",
+              "The reversal is recorded and the person is restored to their prior state.",
+              "Case-level correction coexists with an upstream object that never changes."
+            ],
+            "genealogy": "Half of the corrigibility distinction the theory of exception learning draws; the other half is structural corrigibility.",
+            "references": [
+              {
+                "label": "Exception learning",
+                "href": "/research/theory/exception-learning",
+                "type": "Theory"
+              }
+            ],
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["deployment", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["corrigibility", "reversibility", "appeal", "cases"],
+            "adjacentTerms": [
+              "structural-corrigibility",
+              "reversibility",
+              "contestability",
+              "exception-absorption"
+            ]
+          },
+          {
+            "id": "structural-corrigibility",
+            "title": "Structural Corrigibility",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The capacity to modify the machinery that keeps producing failures: repeated exceptions change the rule, the category, the workflow, or the authority that generates them. It is the corrective form of <a href=\"/glossary/institutional-learning\">institutional learning</a>, and the counterpart of <a href=\"/glossary/case-corrigibility\">case corrigibility</a>.</p><p>It matters because a corrigible decision process must be capable of correcting both the decision and the rule that generated recurrent error. A system with excellent appeals and no mechanism by which appeals alter upstream design has corrected cases and changed nothing about the delegation.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "A successful challenge can change the state of a policy, grant, or authority object.",
+              "Recurring exception classes have owners responsible for revising the source.",
+              "The institution can show that a rule was modified because of the failures it produced."
+            ],
+            "genealogy": "The second half of the corrigibility distinction; binds Law IV's correction obligation at the level of the delegation rather than the case.",
+            "references": [
+              {
+                "label": "Exception learning",
+                "href": "/research/theory/exception-learning",
+                "type": "Theory"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-iv",
+                "type": "Doctrine"
+              }
+            ],
+            "domains": ["agency", "structural"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["corrigibility", "learning", "structure", "delegation"],
+            "adjacentTerms": [
+              "case-corrigibility",
+              "exception-learning",
+              "institutional-learning",
+              "correction-capacity"
+            ]
+          },
+          {
+            "id": "institutional-learning",
+            "title": "Institutional Learning",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Learning that changes what an institution is permitted to do, not just what a model predicts. The model retrains and the prediction improves, while the appeal never changes the evidentiary rule and the exception never changes the ontology; that is model learning without institutional learning.</p><p>It matters because Ethotechnics cares about the second. The test is political: did the failure alter the evidentiary rule, redistribute authority, change who pays for the burden, or constrain what the institution may do next time? If not, the machine may be learning while the institution remains structurally unchanged. See also <a href=\"/glossary/exception-learning\">exception learning</a> and <a href=\"/glossary/structural-corrigibility\">structural corrigibility</a>.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "A failure that changed no policy, authority, or burden allocation is not reported as learning.",
+              "Retraining and workflow optimization are distinguished from changes to evidentiary rules or authority.",
+              "The institution can name what a past failure is now entitled to constrain."
+            ],
+            "genealogy": "Distinguishes the learning Ethotechnics requires from the learning model vendors report.",
+            "references": [
+              {
+                "label": "Exception learning",
+                "href": "/research/theory/exception-learning",
+                "type": "Theory"
+              }
+            ],
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["audit", "repair"],
+            "measurability": "qualitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["learning", "institutions", "authority", "evidence"],
+            "adjacentTerms": [
+              "exception-learning",
+              "structural-corrigibility",
+              "falsified-denominator",
+              "corrective-debt"
+            ]
+          },
+          {
+            "id": "corrective-debt",
+            "title": "Corrective Debt",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The accumulated gap between an institution's capacity to act and its capacity to detect, contest, reverse, and repair its errors. As action capacity compounds — more data sources integrated, more decisions automated, more downstream consumers, more dependence — while correction machinery stays fixed, corrective debt grows even if no policy document changes.</p><p>It matters because it is the historical form of the Ethotechnical invariant: the rate at which agency accumulates against the rate at which the capacity to answer it does. Unchecked technical modernization is corrective debt accrual, and it changes the institution's politics without a single decision. The corrective debt calculator is its instrument.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "Action capacity and corrective capacity are tracked on separate axes and compared.",
+              "A scope expansion re-checks correction capacity rather than assuming it.",
+              "The debt is reported as a number the institution owns, not a one-time audit finding."
+            ],
+            "genealogy": "Names the accumulation Law IV and the invariant describe, so it can be measured rather than only felt.",
+            "references": [
+              {
+                "label": "Exception learning",
+                "href": "/research/theory/exception-learning",
+                "type": "Theory"
+              },
+              {
+                "label": "Corrective Debt Calculator",
+                "href": "/diagnostics/corrective-debt-calculator",
+                "type": "Tool"
+              },
+              {
+                "label": "Corrective Learning eval",
+                "href": "/evals/corrective-learning",
+                "type": "Eval"
+              }
+            ],
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["debt", "correction", "capacity", "learning"],
+            "adjacentTerms": [
+              "institutional-learning",
+              "maintenance-debt",
+              "correction-capacity",
+              "falsified-denominator",
+              "constitutional-debt"
+            ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "abstention",
+            "title": "Abstention",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A positive capability rather than a failure to answer: the system or institution declining to act, in one of three forms. Epistemic abstention says the evidence does not support acting on this case and hands it to someone who might know. Jurisdictional abstention says this is not mine to decide and hands it to the party with standing. Remedial abstention says even if I am probably right, acting now would create a harm that cannot safely be corrected later, and declines until reversal is possible.</p><p>It matters because each form is testable and each has a distinct failure mode when absent: epistemic abstention degrades into confident guessing, jurisdictional abstention into scope creep, and remedial abstention into irreversibility. A deployment that cannot abstain in all three forms has no boundary on what it will do with its capability, and <a href=\"/glossary/exception-absorption\">exception absorption</a> is what fills the gap.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "The system can decline an action because its evidence is insufficient, and route the case rather than guess.",
+              "The system can decline because the question belongs to a different decision-maker, and record the referral.",
+              "The system can decline because reversal would be impossible, and state what would make it possible."
+            ],
+            "genealogy": "Names the three refusals the non-conversion principle and the failure-path work imply as capabilities rather than gaps.",
+            "references": [
+              {
+                "label": "Deliberate non-use",
+                "href": "/research/theory/deliberate-non-use",
+                "type": "Theory"
+              },
+              {
+                "label": "STD-01 Temporal Bill of Rights",
+                "href": "/standards/std-01-temporal-rights",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A refusal taxonomy in the decision record: declined cases carry which abstention applied and why.",
+              "behavior": "A declined consequential action routed to a named alternative decision-maker.",
+              "metric": "Share of declined decisions that record an abstention form, versus silent low-confidence output."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["abstention", "refusal", "capability", "boundaries"],
+            "adjacentTerms": [
+              "ethical-interrupts",
+              "safety-valve",
+              "exception-learning",
+              "human-refusal-tolerance"
+            ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "constitutional-debt",
+            "title": "Constitutional Debt",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The accumulated divergence between what a system is technically able to do and what any recorded justification permits it to do. Each widening that occurs as a capability becoming reachable rather than a decision being taken adds to the debt; the <a href=\"/glossary/automation-ratchet\">automation ratchet</a> is its engine and <a href=\"/glossary/authority-drift\">authority drift</a> is its balance.</p><p>It matters because the debt is invisible while it accrues: the system performs well, the grants sit quiet, and the gap grows without a policy document changing. It is the sibling of <a href=\"/glossary/corrective-debt\">corrective debt</a>, which measures the gap against the capacity to hear; constitutional debt measures it against the capacity to justify. Both are payable only through the machinery Laws I, II, and XI bind: recorded transitions with stated bases.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "The gap between the capability catalog and the authority surface is measured and reported.",
+              "Every widening appears as a recorded transition with a basis, or is reported as debt.",
+              "Renewal reviews compare current scope against the original justification, not against last year's scope."
+            ],
+            "genealogy": "Names the accumulation the automation ratchet and silent authority drift produce, parallel to corrective debt.",
+            "references": [
+              {
+                "label": "What does not convert",
+                "href": "/research/theory/what-does-not-convert",
+                "type": "Theory"
+              },
+              {
+                "label": "STD-08 Delegation",
+                "href": "/standards/std-08-delegation",
+                "type": "Standard"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A reconciliation of the capability catalog against the authority surface, with the ungrantable remainder listed.",
+              "behavior": "An expansion refused, or granted as an explicit transition, because the justification covered less than the new scope.",
+              "metric": "Capability classes exercised in production with no recorded authorization transition."
+            },
+            "domains": ["structural"],
+            "scale": "systemic",
+            "phase": ["deployment", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "capabilities",
+            "tags": ["debt", "authority", "justification", "drift"],
+            "adjacentTerms": [
+              "corrective-debt",
+              "automation-ratchet",
+              "authority-drift",
+              "justified-delegation"
+            ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -5340,6 +5775,53 @@
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "corrigibility-rent",
+            "title": "Corrigibility Rent",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Power gained because others cannot cheaply make you answer for being wrong. A conventional rent comes from holding a scarce position; a corrigibility rent comes from holding a position whose wrongness is expensive to establish — through impossible complaint procedures, proprietary evidence, inaccessible records, inscrutable systems, monopoly expertise, catastrophic exit costs, or appeals that arrive only after the harm has become irreversible.</p><p>It matters because it names the portion of authority the framework systematically erodes: not power as such, but the part that survives only because contradiction has been made costly, ineffectual, or invisible. The presumption it reverses is the audit's center of gravity: an institution that wants consequential authority must build and maintain the conditions under which its own wrongness can be established and remedied.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The cost a challenger bears to establish the institution was wrong is measured and compared with the institution's stake in the outcome.",
+              "Records that would establish wrongness are held by the party whose wrongness they would establish.",
+              "The meta-question — who decides what happens after someone says no — has a named, answerable owner."
+            ],
+            "genealogy": "Names the rent the casebook's failures were collecting: Robodebt, Horizon, and the childcare-benefits scandal all priced their wrongness beyond their challengers' reach.",
+            "references": [
+              {
+                "label": "Corrective standing",
+                "href": "/glossary/corrective-standing",
+                "type": "Term"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-vii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A contestation-cost inventory: what a challenger must spend, in time, evidence, and money, to establish an error.",
+              "behavior": "A wrongness-establishing route exercised by a challenge and producing a remedy within the challenger's budget.",
+              "metric": "Share of consequential decisions whose error can be established by the error-bearing party at proportionate cost."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["audit", "repair"],
+            "measurability": "qualitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": ["power", "rent", "contestability", "costs"],
+            "adjacentTerms": [
+              "corrective-standing",
+              "exception-absorption",
+              "exit-coercion",
+              "corrective-debt"
+            ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -7079,7 +7561,7 @@
             "title": "The Non-Conversion Principle",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>The rule that a fact about a system does not become a fact about its authority on its own. Capability, elapsed time without observed failure, and successful operation are evidence that a grant might be justified; none of them is a grant. Authority changes only through an explicit, recorded state transition, with the motivating fact attached as its basis.</p><p>It matters because the conversions it refuses are the ones institutions make by default: a tool is reachable so it is used, a system has been quiet so it stays, a pilot went well so the rollout is not a decision. Laws I, II, and XI are the instances that matter most for delegated intelligence, and each is enforced by holding capability, evidence, and authority in different objects rather than by a rule of conduct. The <a href=\"/glossary/authority-grant\">authority grant</a> and its state history are where a permitted conversion is written down.</p>",
+            "bodyHtml": "<p>The rule that a fact about a system does not become a fact about its authority on its own. Capability, elapsed time without observed failure, and successful operation are evidence that a grant might be justified; none of them is a grant. Authority changes only through an explicit, recorded state transition, with the motivating fact attached as its basis. Confidence is a further instance: a high posterior about a person is evidence for a decision, never the authorization to act on them.</p><p>It matters because the conversions it refuses are the ones institutions make by default: a tool is reachable so it is used, a system has been quiet so it stays, a pilot went well so the rollout is not a decision. Laws I, II, and XI are the instances that matter most for delegated intelligence, and each is enforced by holding capability, evidence, and authority in different objects rather than by a rule of conduct. The <a href=\"/glossary/authority-grant\">authority grant</a> and its state history are where a permitted conversion is written down.</p>",
             "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
             "operationalTests": [
               "Capability records and authority records are held in separate objects, and the first cannot write to the second.",
@@ -7160,6 +7642,147 @@
               "constitutional-governance",
               "falsified-denominator",
               "residual-complexity"
+            ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "human-non-substitutability",
+            "title": "Human Non-Substitutability",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The ground rule that a model of a person is not the person: no representation, however accurate, acquires automatic authority to extinguish the represented person's standing against it. A system may infer, classify, predict, and recommend, but the person remains the party who carries the consequences and whose contestation the system must answer.</p><p>It matters because the framework's treatment of <a href=\"/glossary/corrective-standing\">corrective standing</a> rests on it. Standing is inalienable, not generous: if the subject of a decision could be replaced by a sufficiently detailed model of themselves, contestation would be a quality-control step a good enough model could close. Accuracy is evidence for a decision; it is never the decision, and it never substitutes for the person.</p>",
+            "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
+            "operationalTests": [
+              "A system acting on an inference about a person can name what that person's challenge would do to the action.",
+              "Model accuracy is never cited as a reason a person's contestation is unnecessary.",
+              "The subject of a decision is identified separately from the user of the system."
+            ],
+            "genealogy": "The ground rule under Law VII, argued for in the theory of what a model of a person is and is not.",
+            "references": [
+              {
+                "label": "The model of a person is not the person",
+                "href": "/research/theory/model-of-a-person",
+                "type": "Theory"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-vii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A decision record that names the person it acts on and the route by which that person can contest it.",
+              "behavior": "A challenge by the represented person that reaches the inference that justified the action.",
+              "metric": "Share of consequential decisions where the represented person's contestation route is recorded."
+            },
+            "domains": ["agency", "structural"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "qualitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "principles",
+            "tags": ["standing", "representation", "persons", "principle"],
+            "adjacentTerms": [
+              "safe-incompleteness",
+              "anti-conversion-rights",
+              "corrective-standing",
+              "error-bearing-party"
+            ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "safe-incompleteness",
+            "title": "Safe Incompleteness",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The design stance that a system should improve its representation of people and preserve their contestation at the same time, because the two capacities compound rather than substitute for each other. The error it opposes is <a href=\"/glossary/closure-without-remainder\">closure without remainder</a>: treating the model boundary as the boundary of relevance, so that every mismatch between the model and the person reads as user error, anomalous input, or noise.</p><p>It matters because a system that is incomplete and contestable is safer than one that is complete and final. The complete one has nowhere for its errors to arrive; the incomplete one constitutionalizes the failure path instead of optimizing it away, and the challenge route is the mechanism by which the representation's errors are discovered at all.</p>",
+            "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
+            "operationalTests": [
+              "Better model performance is paired with preserved or widened contestation routes, not narrowed ones.",
+              "The system can state what its representation does not cover.",
+              "A mismatch between the model and the person can enter the system as an event with state-changing force."
+            ],
+            "genealogy": "The design consequence of closure without remainder: incompleteness is permanent, so contestability is the safety mechanism.",
+            "references": [
+              {
+                "label": "The model of a person is not the person",
+                "href": "/research/theory/model-of-a-person",
+                "type": "Theory"
+              },
+              {
+                "label": "Closure without remainder",
+                "href": "/glossary/closure-without-remainder",
+                "type": "Term"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A stated coverage boundary: what the model represents, what it does not, and where challenges arrive.",
+              "behavior": "A representation improvement shipped without narrowing any contestation route.",
+              "metric": "Contestation route reach after each representation upgrade, compared with before."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["design", "deployment"],
+            "measurability": "qualitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "principles",
+            "tags": ["incompleteness", "contestation", "design", "principle"],
+            "adjacentTerms": [
+              "human-non-substitutability",
+              "closure-without-remainder",
+              "residual-complexity",
+              "corrective-standing"
+            ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "anti-conversion-rights",
+            "title": "Anti-Conversion Rights",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The structural reading of rights as interruptions of illegitimate conversions: privacy interrupts the conversion of knowledge into action, due process interrupts the conversion of institutional position into outcome, consent rules interrupt the conversion of access into authority, appeal interrupts the conversion of decision into finality, and separation of powers interrupts the conversion of execution into evaluation.</p><p>It matters because it states what rights are for in Ethotechnic terms: not protections added around power, but the mechanisms that keep a capability from becoming an authorization. The <a href=\"/glossary/non-conversion-principle\">non-conversion principle</a> is the general form; the rights are its specific, historically won instances.</p>",
+            "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
+            "operationalTests": [
+              "Each enumerated right on a deployment can be named as the conversion it interrupts.",
+              "A capability that a right blocks is recorded as unavailable, not as pending approval.",
+              "Removing a right would widen some authority surface, and that widening is named."
+            ],
+            "genealogy": "Extends the non-conversion principle from capability to the constitutional instruments that enforce it.",
+            "references": [
+              {
+                "label": "Non-conversion principle",
+                "href": "/glossary/non-conversion-principle",
+                "type": "Term"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-i",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A rights-to-conversions map for the deployment: each right, and the capability it keeps from becoming authority.",
+              "behavior": "An inference blocked from producing action because the right in question does not permit the conversion.",
+              "metric": "Share of enumerated rights with a named conversion they interrupt."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["design", "audit"],
+            "measurability": "qualitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "principles",
+            "tags": ["rights", "conversion", "constitutional", "principle"],
+            "adjacentTerms": [
+              "non-conversion-principle",
+              "constitutional-governance",
+              "corrective-standing",
+              "meta-contestability"
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
