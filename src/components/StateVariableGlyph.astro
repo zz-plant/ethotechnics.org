@@ -1,0 +1,45 @@
+---
+/**
+ * One of the six state variables, drawn the same way everywhere.
+ *
+ * The symbols live in SvgDefs, which BaseLayout renders once per page, so a
+ * glyph is a <use> and costs nothing. Pass `label` to set the word beside it;
+ * without it the glyph is decorative and the text next to it carries the
+ * meaning.
+ */
+export type StateVariableGlyphId =
+  | "capability"
+  | "authority"
+  | "evidence"
+  | "dependency"
+  | "standing"
+  | "correction";
+
+interface Props {
+  variable: StateVariableGlyphId;
+  label?: string;
+  /** Glyph size in CSS units. Defaults to 1.1em so it sits with the text. */
+  size?: string;
+  class?: string;
+}
+
+const {
+  variable,
+  label,
+  size = "1.1em",
+  class: className,
+}: Props = Astro.props;
+---
+
+<span class:list={["sv", `sv--${variable}`, className]}>
+  <svg
+    class="sv__glyph"
+    width={size}
+    height={size}
+    aria-hidden="true"
+    focusable="false"
+  >
+    <use href={`#sv-${variable}`}></use>
+  </svg>
+  {label && <span class="sv__label">{label}</span>}
+</span>

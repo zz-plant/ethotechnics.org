@@ -1,8 +1,12 @@
 ---
+import "../../styles/components/standards.css";
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
+import VerdictMark from "../../components/VerdictMark.astro";
+import { stateVariables } from "../../content/casebook";
 import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "Micro-diagram language specification";
@@ -13,6 +17,7 @@ const anchorLinks = [
   { href: "#shapes", label: "Shapes + roles" },
   { href: "#lines", label: "Line styles" },
   { href: "#axes", label: "Axes" },
+  { href: "#state-variables", label: "State variables" },
   { href: "#execution-redress", label: "Execution vs redress" },
   {
     href: "#stoppability-reversibility",
@@ -24,10 +29,11 @@ const anchorLinks = [
 const publication = derivePublicationMetadata({
   permalink,
   published: "2026-02-01T00:00:00Z",
-  version: "v1.0.0",
+  updated: "2026-09-17T00:00:00Z",
+  version: "v1.1.0",
   authorName: "Ethotechnics Diagram Council",
   changelogSummary:
-    "Defined canonical shapes, line semantics, and example diagrams.",
+    "Added the six state-variable glyphs and the three verdict marks; v1.0.0 defined canonical shapes, line semantics, and example diagrams.",
 });
 ---
 
@@ -39,12 +45,6 @@ const publication = derivePublicationMetadata({
   anchorLinks={anchorLinks}
   publishedTime="2025-06-01T00:00:00.000Z"
   mainClass="page page--wide"
-  panelCopy={{
-    eyebrow: "Why this exists",
-    title: "Keep diagrams consistent and legible.",
-    description:
-      "Every diagram should be explainable using this spec alone, with grayscale-friendly symbols and unambiguous roles.",
-  }}
 >
   <ScholarlyMeta publication={publication} permalink={permalink} />
 
@@ -226,6 +226,38 @@ const publication = derivePublicationMetadata({
         tax.
       </li>
     </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="state-variables"
+    eyebrow="State variables"
+    title="One glyph per state variable, everywhere."
+    description="The six coordinates a delegation has at any moment, each drawn from the shapes above: reach, the shield, the card, the linked rings, the portal with a voice, the loop. Anything on the site that names a variable draws it with this mark, so a reader who has seen it once recognises it in a table, a matrix, a readout, or a figure."
+  >
+    <div class="diagram-spec__grid">
+      {
+        stateVariables.map((variable) => (
+          <div class="diagram-spec__card panel">
+            <p class="eyebrow">{variable.label}</p>
+            <figure class="diagram-spec__figure diagram-spec__figure--glyph">
+              <StateVariableGlyph variable={variable.id} size="2.4rem" />
+            </figure>
+            <p class="muted">{variable.question}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p>
+      A judgement about one variable is a verdict, drawn the same way whether it
+      scores a public case or a team's own workflow: <VerdictMark
+        verdict="held"
+        labelled
+      /> explicit and coupled, <VerdictMark verdict="drifted" labelled /> present
+      but detached from the variable it should track, <VerdictMark
+        verdict="failed"
+        labelled
+      /> absent. The three marks read in grayscale; colour is secondary.
+    </p>
   </SectionBlock>
 
   <SectionBlock

@@ -18,16 +18,10 @@ anchorLinks:
     label: "Six state variables"
   - href: "#optimization-problem"
     label: "The optimization problem"
-panelCopy:
-  eyebrow: "Status"
-  title: "Versioned doctrine"
-  description: "The laws are the Method. Each carries an invariant that a standard clause, an object, a mechanism, and an eval bind. Theory essays motivate them and are never cited as requirements."
-  link:
-    label: "Core axioms"
-    href: "/standards/core-axioms"
 ---
 
 import SectionBlock from "../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
 import TheaterTestFigure from "../../components/TheaterTestFigure.astro";
 import RatchetFigure from "../../components/RatchetFigure.astro";
 
@@ -266,12 +260,16 @@ Binds through: STD-06 amendment, preserved capacities; `preserved_capacities` on
       </thead>
       <tbody>
         <tr>
-          <th scope="row">Capability</th>
+          <th scope="row">
+            <StateVariableGlyph variable="capability" label="Capability" />
+          </th>
           <td>What can the assembled system actually do?</td>
           <td>Capability outruns authority (Law I)</td>
         </tr>
         <tr>
-          <th scope="row">Authority</th>
+          <th scope="row">
+            <StateVariableGlyph variable="authority" label="Authority" />
+          </th>
           <td>
             Which actions is it currently permitted to perform, for whom, until
             when?
@@ -279,17 +277,23 @@ Binds through: STD-06 amendment, preserved capacities; `preserved_capacities` on
           <td>Authority outlives evidence (Laws II, III)</td>
         </tr>
         <tr>
-          <th scope="row">Evidence</th>
+          <th scope="row">
+            <StateVariableGlyph variable="evidence" label="Evidence" />
+          </th>
           <td>What propositions justify that authority?</td>
           <td>Policy detaches from reality (Law III)</td>
         </tr>
         <tr>
-          <th scope="row">Dependency</th>
+          <th scope="row">
+            <StateVariableGlyph variable="dependency" label="Dependency" />
+          </th>
           <td>How difficult would withdrawal or substitution now be?</td>
           <td>Dependence outruns correction (Laws V, XI)</td>
         </tr>
         <tr>
-          <th scope="row">Standing</th>
+          <th scope="row">
+            <StateVariableGlyph variable="standing" label="Standing" />
+          </th>
           <td>
             Who can challenge which decisions or delegations, with what
             procedural force?
@@ -297,7 +301,9 @@ Binds through: STD-06 amendment, preserved capacities; `preserved_capacities` on
           <td>Exposure grows without standing (Law VII)</td>
         </tr>
         <tr>
-          <th scope="row">Correction</th>
+          <th scope="row">
+            <StateVariableGlyph variable="correction" label="Correction" />
+          </th>
           <td>
             Which interventions remain technically, operationally,
             institutionally feasible?

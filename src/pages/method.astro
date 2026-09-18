@@ -2,6 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageIntro from "../components/PageIntro.astro";
 import SectionBlock from "../components/SectionBlock.astro";
+import StateVariableGlyph, {
+  type StateVariableGlyphId,
+} from "../components/StateVariableGlyph.astro";
 import { methodContent } from "../content/method";
 import ChainDiagram from "../components/ChainDiagram.astro";
 
@@ -44,12 +47,6 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
     title="The Ethotechnics method"
     description={pageDescription}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      title: "How to read this page",
-      description:
-        "Read the chain first. Then check which of the six state variables your system makes explicit. The laws say what must hold; the standards say how to show it.",
-      link: { href: "#lenses", label: "See how the lenses apply" },
-    }}
   >
     <Fragment slot="actions">
       <a class="button primary" href="/standards">Open the standards</a>
@@ -137,7 +134,14 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
           {
             stateVariables.map((variable) => (
               <tr>
-                <th scope="row">{variable.state}</th>
+                <th scope="row">
+                  <StateVariableGlyph
+                    variable={
+                      variable.state.toLowerCase() as StateVariableGlyphId
+                    }
+                    label={variable.state}
+                  />
+                </th>
                 <td>{variable.question}</td>
                 <td>{variable.drift}</td>
                 <td>{variable.lawRefs}</td>

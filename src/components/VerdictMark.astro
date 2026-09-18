@@ -1,0 +1,33 @@
+---
+/**
+ * One verdict on one state variable: a mark that reads in grayscale and a
+ * label that reads by itself. The matrix and the case pages share it so a
+ * "failed" looks the same everywhere.
+ */
+import type { Verdict } from "../content/casebook";
+
+interface Props {
+  verdict: Verdict;
+  /** Show the word next to the mark. The matrix cell shows only the mark. */
+  labelled?: boolean;
+  class?: string;
+}
+
+const { verdict, labelled = false, class: className }: Props = Astro.props;
+
+const glyph: Record<Verdict, string> = {
+  held: "●",
+  drifted: "◐",
+  failed: "○",
+};
+---
+
+<span
+  class:list={["verdict", `verdict--${verdict}`, className]}
+  data-verdict={verdict}
+>
+  <span class="verdict__mark" aria-hidden="true">{glyph[verdict]}</span>
+  <span class:list={["verdict__label", { "sr-only": !labelled }]}>
+    {verdict}
+  </span>
+</span>
