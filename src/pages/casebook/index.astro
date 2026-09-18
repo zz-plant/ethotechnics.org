@@ -1,0 +1,221 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
+import VerdictMark from "../../components/VerdictMark.astro";
+import {
+  casebookContent,
+  cases,
+  stateVariables,
+  verdictTally,
+} from "../../content/casebook";
+
+const { pageTitle, pageDescription, eyebrow, title, description } =
+  casebookContent;
+const tally = verdictTally();
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  structuredDataType="collection"
+>
+  <PageIntro
+    eyebrow={eyebrow}
+    title={title}
+    description={description}
+    anchorLinks={[
+      { href: "#matrix", label: "The matrix" },
+      { href: "#cases", label: "The cases" },
+      { href: "#reading", label: "How to read a score" },
+    ]}
+  />
+
+  <SectionBlock
+    id="matrix"
+    eyebrow="Six variables, five cases"
+    title="Where the coupling broke"
+    description="Read down a column to see which variable fails most often; read across a row to see the shape of one case. Standing has never held. Correction held once, and only because the halt was thrown before dependence set."
+    variant="alt"
+  >
+    <div class="table-responsive">
+      <table class="casebook-matrix">
+        <thead>
+          <tr>
+            <th scope="col">Case</th>
+            {
+              stateVariables.map((variable) => (
+                <th scope="col" title={variable.question}>
+                  <StateVariableGlyph
+                    variable={variable.id}
+                    label={variable.label}
+                  />
+                </th>
+              ))
+            }
+            <th scope="col">Time to halt</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            cases.map((entry) => (
+              <tr>
+                <th scope="row">
+                  <a href={`/casebook/${entry.slug}`}>{entry.title}</a>
+                  <span class="casebook-matrix__meta">
+                    {entry.jurisdiction.split(" · ")[0]} · {entry.period}
+                  </span>
+                </th>
+                {stateVariables.map((variable) => {
+                  const finding = entry.findings.find(
+                    (item) => item.variable === variable.id,
+                  );
+                  return (
+                    <td data-variable={variable.id}>
+                      {finding && (
+                        <a
+                          href={`/casebook/${entry.slug}#${variable.id}`}
+                          class="casebook-matrix__cell"
+                          aria-label={`${entry.title}, ${variable.label}: ${finding.verdict}`}
+                        >
+                          <VerdictMark verdict={finding.verdict} />
+                        </a>
+                      )}
+                    </td>
+                  );
+                })}
+                <td class="casebook-matrix__halt">{entry.timeToHalt}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Failed, of {cases.length}</th>
+            {
+              stateVariables.map((variable) => (
+                <td>
+                  <span class="casebook-matrix__count">
+                    {tally[variable.id].failed}
+                  </span>
+                </td>
+              ))
+            }
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="casebook-legend small muted" aria-label="Legend">
+      <VerdictMark verdict="held" labelled /> explicit and coupled ·
+      <VerdictMark verdict="drifted" labelled /> present but detached ·
+      <VerdictMark verdict="failed" labelled /> absent, or what the inquiry found
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="cases"
+    eyebrow="The cases"
+    title="What the record established"
+    description="Each case opens with the system in one line, the scale the inquiry found, and who finally made it stop."
+  >
+    <ol class="casebook-list">
+      {
+        cases.map((entry) => (
+          <li class="casebook-list__item" id={entry.slug}>
+            <div class="casebook-list__head">
+              <h3>
+                <a href={`/casebook/${entry.slug}`}>{entry.title}</a>
+              </h3>
+              <p class="casebook-list__meta small muted">
+                {entry.jurisdiction} · {entry.period}
+              </p>
+            </div>
+            <p class="casebook-list__system">{entry.system}</p>
+            <dl class="casebook-list__facts">
+              <div>
+                <dt>Scale</dt>
+                <dd>{entry.scale}</dd>
+              </div>
+              <div>
+                <dt>Time to halt</dt>
+                <dd>{entry.timeToHalt}</dd>
+              </div>
+              <div>
+                <dt>Halted by</dt>
+                <dd>{entry.haltedBy}</dd>
+              </div>
+            </dl>
+            <p class="casebook-list__verdicts" aria-label="Verdicts">
+              {entry.findings.map((finding) => (
+                <a
+                  href={`/casebook/${entry.slug}#${finding.variable}`}
+                  class="casebook-list__verdict"
+                >
+                  <VerdictMark verdict={finding.verdict} />
+                  <span>
+                    {
+                      stateVariables.find(
+                        (variable) => variable.id === finding.variable,
+                      )?.label
+                    }
+                  </span>
+                </a>
+              ))}
+            </p>
+            <p>
+              <a href={`/casebook/${entry.slug}`}>Read the scoring →</a>
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="reading"
+    eyebrow="Method"
+    title="How to read a score"
+    description="A score is a claim about one variable at the time of the harm, made from the primary record. It is not a finding of fault, and it is not a measurement of the system today."
+    variant="alt"
+  >
+    <dl class="casebook-reading">
+      <div>
+        <dt><VerdictMark verdict="held" labelled /></dt>
+        <dd>
+          The variable was explicit in the record and stayed coupled to the
+          variables it should track. Capability was declared; authority named
+          its ceiling; evidence was the kind that could justify the action
+          taken.
+        </dd>
+      </div>
+      <div>
+        <dt><VerdictMark verdict="drifted" labelled /></dt>
+        <dd>
+          The variable existed but detached from its neighbour. Authority that
+          outlived the evidence it was issued on. A capability that grew
+          twentyfold while the review capacity beside it stayed still.
+        </dd>
+      </div>
+      <div>
+        <dt><VerdictMark verdict="failed" labelled /></dt>
+        <dd>
+          The variable was absent, or its absence is what the inquiry found.
+          Standing that existed on paper and produced no state transition.
+          Evidence that was never held by the party asserting it.
+        </dd>
+      </div>
+    </dl>
+    <p>
+      Every finding is pinned to the clauses whose obligation it falls under and
+      to the law it instantiates. The clause links open the register on the
+      standard's page. If a case is scored wrongly, the primary sources are
+      listed on its page; <a href="/participate">tell us</a> which one we misread.
+    </p>
+    <p class="small muted">
+      For incidents written as remediation checklists rather than scored
+      records, see the <a href="/incidents">incident retrospectives</a>.
+    </p>
+  </SectionBlock>
+</BaseLayout>

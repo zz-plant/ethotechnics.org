@@ -1,0 +1,202 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
+import VerdictMark from "../../components/VerdictMark.astro";
+import {
+  cases,
+  casesBySlug,
+  clauseHref,
+  clauseObligation,
+  stateVariables,
+} from "../../content/casebook";
+
+const entry = casesBySlug.get(Astro.params.slug ?? "");
+if (!entry) return Astro.rewrite("/404");
+
+const index = cases.findIndex((candidate) => candidate.slug === entry.slug);
+const previous = cases[index - 1];
+const next = cases[index + 1];
+
+const variableById = new Map(
+  stateVariables.map((variable) => [variable.id, variable]),
+);
+const sourceKind = {
+  court: "Court",
+  inquiry: "Inquiry",
+  regulator: "Regulator",
+  parliament: "Parliament",
+  operator: "Operator",
+  ngo: "NGO",
+} as const;
+---
+
+<BaseLayout
+  title={`${entry.title} — Casebook — Ethotechnics`}
+  description={entry.summary}
+  publishedTime={entry.published}
+  modifiedTime={entry.updated ?? entry.published}
+  structuredDataType="tech-article"
+>
+  <PageIntro
+    eyebrow="Casebook"
+    title={entry.title}
+    description={entry.summary}
+    anchorLinks={[
+      { href: "#record", label: "The record" },
+      { href: "#scoring", label: "Scoring" },
+      { href: "#missing", label: "The missing record" },
+      { href: "#sources", label: "Sources" },
+    ]}
+  >
+    <Fragment slot="aside">
+      <dl class="case-facts">
+        <div>
+          <dt>System</dt>
+          <dd>{entry.system}</dd>
+        </div>
+        <div>
+          <dt>Where</dt>
+          <dd>{entry.jurisdiction}</dd>
+        </div>
+        <div>
+          <dt>When</dt>
+          <dd>{entry.period}</dd>
+        </div>
+        <div>
+          <dt>Scale</dt>
+          <dd>{entry.scale}</dd>
+        </div>
+        <div>
+          <dt>Time to halt</dt>
+          <dd>{entry.timeToHalt}</dd>
+        </div>
+        <div>
+          <dt>Halted by</dt>
+          <dd>{entry.haltedBy}</dd>
+        </div>
+      </dl>
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="record"
+    eyebrow="The record"
+    title="What happened"
+    description="From the primary sources listed at the end. Where a finding is quoted, it is the inquiry's, not ours."
+  >
+    <div class="case-narrative">
+      {entry.narrative.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="scoring"
+    eyebrow="Scoring"
+    title="The six state variables"
+    description="One finding per variable, with the clauses whose obligation it falls under and the law it instantiates."
+    variant="alt"
+  >
+    <ol class="case-findings">
+      {
+        entry.findings.map((finding) => {
+          const variable = variableById.get(finding.variable);
+          return (
+            <li class="case-finding" id={finding.variable}>
+              <div class="case-finding__head">
+                <VerdictMark verdict={finding.verdict} labelled />
+                <h3>
+                  <StateVariableGlyph
+                    variable={finding.variable}
+                    label={variable?.label}
+                  />
+                </h3>
+                <p class="case-finding__question muted small">
+                  {variable?.question}
+                </p>
+              </div>
+              <p class="case-finding__body">{finding.finding}</p>
+              <p class="case-finding__refs">
+                {finding.clauses.map((ref) => (
+                  <a
+                    class="clause-chip"
+                    href={clauseHref(ref)}
+                    title={clauseObligation(ref)}
+                  >
+                    {ref.standard} {ref.clause}
+                  </a>
+                ))}
+                {finding.laws.map((law) => (
+                  <a
+                    class="clause-chip clause-chip--law"
+                    href={`/standards/laws#law-${law.toLowerCase()}`}
+                  >
+                    Law {law}
+                  </a>
+                ))}
+              </p>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="missing"
+    eyebrow="The missing record"
+    title="The one object that was not there"
+    description="Every case reduces to a record the standards require and the operator did not hold. This is that record."
+  >
+    <p class="case-missing">{entry.theMissingRecord}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="sources"
+    eyebrow="Sources"
+    title="The primary record"
+    description="Courts, statutory inquiries, regulators, and parliaments, in that order of weight. No press coverage."
+    variant="alt"
+  >
+    <ol class="case-sources">
+      {
+        entry.sources.map((source) => (
+          <li>
+            <span class="case-sources__kind">{sourceKind[source.kind]}</span>
+            {source.href ? (
+              <a href={source.href} rel="noopener noreferrer">
+                {source.label}
+              </a>
+            ) : (
+              <span>{source.label}</span>
+            )}
+            <span class="muted small"> · {source.date}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <nav class="case-pager" aria-label="Other cases">
+    {
+      previous ? (
+        <a href={`/casebook/${previous.slug}`} rel="prev">
+          ← {previous.title}
+        </a>
+      ) : (
+        <span />
+      )
+    }
+    <a href="/casebook">All cases</a>
+    {
+      next ? (
+        <a href={`/casebook/${next.slug}`} rel="next">
+          {next.title} →
+        </a>
+      ) : (
+        <span />
+      )
+    }
+  </nav>
+</BaseLayout>

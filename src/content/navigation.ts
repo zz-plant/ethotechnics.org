@@ -203,9 +203,10 @@ export const navSections: NavSection[] = [
           "Domains, capabilities, and practices with owners and readiness",
       },
       {
-        href: "/incidents",
-        label: "Incident precedents",
-        description: "Real-world failure dossiers and post-mortems",
+        href: "/casebook",
+        label: "Casebook",
+        description:
+          "Five public failures scored against the six state variables",
       },
       {
         href: "/field-notes",

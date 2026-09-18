@@ -23,6 +23,7 @@ const PAGES = [
   { path: "/evidence-packs/std-08", family: "evidence pack" },
   { path: "/explainers/stoppability", family: "explainer" },
   { path: "/incidents/appeals-backlog-trigger", family: "incident" },
+  { path: "/casebook/post-office-horizon", family: "casebook entry" },
   {
     path: "/research/theory/absorption-as-concealment",
     family: "theory essay",
@@ -37,6 +38,7 @@ const NOT_FOUND = [
   "/evidence-packs/does-not-exist",
   "/explainers/does-not-exist",
   "/incidents/does-not-exist",
+  "/casebook/does-not-exist",
   "/research/theory/does-not-exist",
   "/taxonomy/does-not-exist",
   "/experience/does-not-exist",
