@@ -51,7 +51,7 @@ export const governanceContent: GovernanceContent = {
     "Public governance receipts for RFCs, decision records, releases, and dated accountability updates.",
   permalink: "/institute/governance",
   published: "2026-02-01T00:00:00Z",
-  updated: "2026-02-15T00:00:00Z",
+  updated: "2026-09-18T00:00:00Z",
   anchorLinks: [
     { href: "#lifecycle", label: "RFC lifecycle" },
     { href: "#open-rfcs", label: "Current RFCs" },
@@ -84,9 +84,10 @@ export const governanceContent: GovernanceContent = {
     {
       id: "RFC-2026-02",
       title: "Evidence-pack compatibility baseline",
-      status: "review",
+      status: "released",
       openedOn: "2026-02-03",
       reviewWindow: "2026-02-03 → 2026-02-24",
+      closedOn: "2026-09-18",
       owner: "Institute steward council",
       reviewerRoles: [
         "Studio facilitator",
@@ -99,9 +100,10 @@ export const governanceContent: GovernanceContent = {
     {
       id: "RFC-2026-01",
       title: "Recourse escalation SLA for diagnostics",
-      status: "proposal",
+      status: "released",
       openedOn: "2026-01-28",
       reviewWindow: "2026-01-28 → 2026-02-20",
+      closedOn: "2026-09-18",
       owner: "Program operations",
       reviewerRoles: ["Risk steward", "Community reviewer"],
       summary:
@@ -121,6 +123,28 @@ export const governanceContent: GovernanceContent = {
     },
   ],
   decisions: [
+    {
+      id: "DEC-2026-09-02",
+      title: "Resolve lapsed RFC-2026-01 (Recourse escalation SLA for diagnostics)",
+      outcome: "Superseded",
+      rationale:
+        "The review window lapsed without a logged decision. The substance was carried by the diagnostics anti-weaponization constraints (AW-01 to AW-04), which set response-time and ownership targets for contested outcomes. Closed so the open-RFC list stops carrying a decision nobody logged.",
+      date: "2026-09-18",
+      owner: "Program operations",
+      releaseVersion: "diagnostics-v2.0.0",
+      releaseHref: "/anti-weaponization",
+    },
+    {
+      id: "DEC-2026-09-01",
+      title: "Adopt RFC-2026-02 (Evidence-pack compatibility baseline)",
+      outcome: "Accepted",
+      rationale:
+        "The review window lapsed without a logged decision. The baseline is adopted as released because the evidence packs that shipped after the proposal (STD-01, STD-02, STD-06, STD-08, STD-09) and the evidence-pack readiness checker already embody it. The lapse is recorded rather than hidden.",
+      date: "2026-09-18",
+      owner: "Institute steward council",
+      releaseVersion: "evidence-packs-v1.0.0",
+      releaseHref: "/evidence-packs",
+    },
     {
       id: "DEC-2026-02-01",
       title: "Adopt decision-owner field for all governance records",
@@ -156,6 +180,12 @@ export const governanceContent: GovernanceContent = {
     },
   ],
   quarterlyUpdates: [
+    {
+      date: "2026-09-18",
+      title: "Q3 2026 governance update",
+      summary:
+        "Publishing paused between January and September. This update records the pause, closes RFC-2026-01 and RFC-2026-02 with decisions on the evidence available, and re-binds the cadence: a stated review window that passes without a decision is now reported as a governance failure rather than left to the reader.",
+    },
     {
       date: "2026-01-15",
       title: "Q4 2025 governance update",

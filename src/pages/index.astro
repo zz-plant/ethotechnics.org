@@ -2,8 +2,38 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
+import StateVariableGlyph, {
+  type StateVariableGlyphId,
+} from "../components/StateVariableGlyph.astro";
 import { failureStates } from "../content/institute-site";
+import { methodContent } from "../content/method";
 import { recentReleases } from "../content/recent-releases";
+
+const { stateVariables } = methodContent;
+
+// The method table's questions are precise but formal. The home page restates
+// them in the words a newcomer would use; the card falls back to the formal
+// question if a variable is ever added without a plain phrasing.
+const plainSpineQuestions: Record<string, string> = {
+  capability: "What can the system actually do?",
+  authority: "What is it allowed to do, for whom, and until when?",
+  evidence: "What evidence justifies that permission?",
+  dependency: "How hard is it to switch off or replace?",
+  standing: "Who can challenge a decision, and with what force?",
+  correction: "What can still be fixed, and how fast?",
+};
+
+// The drift column ("Capability outruns authority") is the method's shorthand.
+// The home page states what each drift actually means; the method table keeps
+// the formal pairings.
+const plainSpineDrifts: Record<string, string> = {
+  capability: "the system doing more than it was ever approved to do",
+  authority: "permission lasting longer than the reasons for it",
+  evidence: "the rule no longer matching what is true",
+  dependency: "being too hard to switch off to fix in time",
+  standing: "more people affected than anyone can challenge",
+  correction: "being able to see the harm but not able to stop it",
+};
 
 const failureChoiceLabels: Record<string, string> = {
   "decision-appealed": "Decision appealed",
@@ -79,11 +109,11 @@ const failureChoiceIcons: Record<string, string[]> = {
           Make high-stakes AI easier to stop, explain, appeal, and repair
         </h1>
         <p class="section-lead">
-          When an organization lets software decide who gets a loan, a shift, a
-          benefit, or a refund, it hands over part of its own authority. This
-          site is about keeping that handover reviewable: who authorized this
-          kind of decision, on what evidence, until when, who is allowed to
-          object, and what actually changes when they do.
+          Australia's Robodebt scheme used software to raise about 470,000 debts
+          the law did not allow. People appealed and won, one case at a time,
+          and nothing changed for anyone else — so it ran for three years until
+          a court stopped it. This site exists to make that failure harder to
+          run.
         </p>
         <p class="small muted">
           Other frameworks ask whether you managed risk responsibly. This one
@@ -91,6 +121,7 @@ const failureChoiceIcons: Record<string, string[]> = {
           someone, and whether the people carrying that harm can make it stop.
           <a href="/method">How the method works →</a>
           <a href="/casebook">Five public failures, scored →</a>
+          <a href="/research/theory">Why the laws hold →</a>
         </p>
       </div>
 
@@ -101,35 +132,75 @@ const failureChoiceIcons: Record<string, string[]> = {
         <p class="eyebrow">Start here</p>
         <div class="actions" aria-label="Primary standards actions">
           <a class="button primary" href="/start"> Find my starting point </a>
-          <a class="button ghost" href="/glossary"> Browse terms → </a>
+          <a class="button ghost" href="/diagnostics/delegation-audit">
+            Run the delegation audit
+          </a>
         </div>
+        <p class="small muted">
+          <a href="/standards">Browse the standards →</a>
+        </p>
       </aside>
     </div>
   </section>
 
-  <div class="home-core">
-    <section id="ratchet" class="stack-lg" aria-labelledby="ratchet-heading">
-      <p class="eyebrow">The claim, in one figure</p>
-      <h2 id="ratchet-heading">
-        A delegation can double without anyone deciding that it should.
+  <section
+    id="state-variables"
+    class="home-spine"
+    aria-labelledby="spine-heading"
+  >
+    <div class="section__header">
+      <p class="eyebrow">The method, in six questions</p>
+      <h2 id="spine-heading" class="section__heading">
+        Six questions to keep answering when software decides.
       </h2>
-      <p class="section-lead">
-        Both grants below grow by the same two percent a month. One is reviewed
-        only when a single step is large enough to notice, so it is never
-        reviewed. The other treats every widening as a fresh authorization, so
-        it can be read, questioned, and reversed. That difference is what the
-        standards on this site are for.
+      <p class="muted">
+        Software decides who gets a loan, a shift, a benefit, or a refund. A
+        system becomes unsafe when these six drift apart — each card names the
+        failure it catches.
       </p>
-      <RatchetFigure level="h3" />
-      <p class="small muted">
-        This is Law XI of twelve. <a href="/standards/laws">Read the laws →</a>
-        <a href="/standards/std-08-delegation">See what STD-08 requires →</a>
-      </p>
-    </section>
+    </div>
+    <ul class="home-spine__grid" aria-labelledby="spine-heading">
+      {
+        stateVariables.map((variable) => (
+          <li>
+            <a class="home-spine__card" href="/method#state-variables">
+              <span class="home-spine__head">
+                <span class="home-spine__chip">
+                  <StateVariableGlyph
+                    variable={
+                      variable.state.toLowerCase() as StateVariableGlyphId
+                    }
+                    size="1.1rem"
+                  />
+                </span>
+                <span class="home-spine__name">{variable.state}</span>
+              </span>
+              <span class="home-spine__question">
+                {plainSpineQuestions[variable.state.toLowerCase()] ??
+                  variable.question}
+              </span>
+              <span class="home-spine__meta small muted">
+                Catches:{" "}
+                {plainSpineDrifts[variable.state.toLowerCase()] ??
+                  variable.drift}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="small muted">
+      Each of these maps to one of the twelve laws.
+      <a href="/method#state-variables">Read the method →</a>
+    </p>
+  </section>
 
+  <div class="home-core">
     <section id="failure-intake" class="stack-lg">
       <p class="eyebrow">Incident triage</p>
-      <h2 id="failure-intake-heading">What is going wrong right now?</h2>
+      <h2 id="failure-intake-heading" class="section__heading">
+        What is going wrong right now?
+      </h2>
       <p class="section-lead">
         Choose the closest failure mode. Each path starts with what to do now,
         then names who should own follow-up and what evidence to collect.
@@ -185,6 +256,29 @@ const failureChoiceIcons: Record<string, string[]> = {
       </p>
     </section>
   </div>
+
+  <section
+    id="ratchet"
+    class="home-claim stack-lg"
+    aria-labelledby="ratchet-heading"
+  >
+    <p class="eyebrow">The claim, in one figure</p>
+    <h2 id="ratchet-heading" class="section__heading">
+      A delegation can double without anyone deciding that it should.
+    </h2>
+    <p class="section-lead">
+      Both grants below grow by the same two percent a month. One is reviewed
+      only when a single step is large enough to notice, so it is never
+      reviewed. The other treats every widening as a fresh authorization, so it
+      can be read, questioned, and reversed. That difference is what the
+      standards on this site are for.
+    </p>
+    <RatchetFigure level="h3" />
+    <p class="small muted">
+      This is Law XI of twelve. <a href="/standards/laws">Read the laws →</a>
+      <a href="/standards/std-08-delegation">See what STD-08 requires →</a>
+    </p>
+  </section>
 
   <HomeDifference />
 

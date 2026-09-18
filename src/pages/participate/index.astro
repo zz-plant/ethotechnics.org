@@ -262,7 +262,7 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
             <Icon name="lucide:check" />
           </div>
           <h3>Received</h3>
-          <p>Thank you for your submission. We'll be in touch soon.</p>
+          <p>Thank you for your submission. We reply within 2–3 business days with next steps.</p>
           <button class="button ghost" id="reset-btn" type="button">
             Send another submission
           </button>
@@ -387,5 +387,11 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
       description="Share unclear steps, missing citations, or examples you want us to add."
       actions={feedback.actions}
     />
+    <p class="small muted">
+      This inbox is for improving the commons. A decision an institution made
+      is contested through that institution's standing route, not through
+      feedback here — see{" "}
+      <a href="/standards/laws#law-vii">Law VII</a>.
+    </p>
   </SectionBlock>
 </BaseLayout>
