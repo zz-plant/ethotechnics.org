@@ -1,9 +1,4 @@
-import type {
-  AnchorLink,
-  PageWithPermalink,
-  PanelCopy,
-  PublishedContent,
-} from "./types";
+import type { AnchorLink, PageWithPermalink, PublishedContent } from "./types";
 
 export type RFCLifecycleStage = {
   stage: string;
@@ -44,7 +39,6 @@ export type GovernanceContent = PageWithPermalink &
     pageTitle: string;
     pageDescription: string;
     anchorLinks: AnchorLink[];
-    panelCopy: PanelCopy;
     lifecycle: RFCLifecycleStage[];
     rfcs: RFCEntry[];
     decisions: DecisionRecord[];
@@ -64,12 +58,6 @@ export const governanceContent: GovernanceContent = {
     { href: "#decision-log", label: "Decision log" },
     { href: "#quarterly-updates", label: "Quarterly updates" },
   ],
-  panelCopy: {
-    eyebrow: "Governance receipts",
-    title: "Every governance claim links to an artifact.",
-    description:
-      "This page exposes active RFCs, decision owners, and release links so contributors can audit process, not just summaries.",
-  },
   lifecycle: [
     {
       stage: "Proposal",

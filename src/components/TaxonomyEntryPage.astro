@@ -87,9 +87,6 @@ const anchorLinks = [
   { href: "#navigation", label: "Navigation" },
 ];
 
-const levelLabel =
-  segments.length === 1 ? "Domain" : `Level ${segments.length}`;
-
 const collectionLabel =
   normalizedBasePath === "/taxonomy"
     ? "Taxonomy"
@@ -152,17 +149,6 @@ const structuredDataJson = JSON.stringify(structuredData);
     title={entry.title}
     description={entry.summary}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Metadata",
-      title: levelLabel,
-      description: `Owner: ${entry.owner}. Scope: ${entry.scope}. Readiness: ${entry.readiness}.`,
-      link: parentEntry
-        ? {
-            label: `Parent level: ${parentEntry.title}`,
-            href: entryUrlForSlug(parentEntry.slug),
-          }
-        : undefined,
-    }}
   />
 
   <SectionBlock

@@ -1,4 +1,4 @@
-import type { AnchorLink, PageWithPermalink, PanelCopy } from "./types";
+import type { AnchorLink, PageWithPermalink } from "./types";
 
 export type ValidatorEntry = {
   id: string;
@@ -47,7 +47,6 @@ export type ValidatorOutputSchema = {
 
 export type ValidatorsContent = PageWithPermalink & {
   anchorLinks: AnchorLink[];
-  panelCopy: PanelCopy;
   validators: ValidatorEntry[];
   method: ValidatorMethod;
 };
@@ -62,12 +61,6 @@ export const validatorsContent: ValidatorsContent = {
     { href: "#tools", label: "Validator tools" },
     { href: "#method", label: "Method" },
   ],
-  panelCopy: {
-    eyebrow: "Outputs",
-    title: "Report-card ready",
-    description:
-      "Diagnostics explore system conditions; validators score those conditions against standards. Every validator produces a score, a risk statement, and a mechanism to remediate gaps.",
-  },
   validators: [
     {
       id: "VAL-01",

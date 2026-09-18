@@ -7,23 +7,12 @@ export interface AnchorLink {
   label: string;
 }
 
-export interface PanelCopy {
-  eyebrow?: string;
-  title: string;
-  description: string;
-  link?: {
-    label: string;
-    href: string;
-  };
-}
-
 export interface Props {
   eyebrow: string;
   title: string;
   titleLevel?: 1 | 2 | 3 | 4 | 5 | 6;
   description: string;
   anchorLinks: AnchorLink[];
-  panelCopy?: PanelCopy;
   collapseAnchorLinks?: boolean;
   collapseAnchorLinksOnMobile?: boolean;
   anchorLinksSummary?: string;
@@ -37,7 +26,6 @@ const {
   titleLevel = 1,
   description,
   anchorLinks,
-  panelCopy,
   collapseAnchorLinks = false,
   collapseAnchorLinksOnMobile = false,
   anchorLinksSummary = "Show full outline",
@@ -52,25 +40,13 @@ const HeadingTag = `h${titleLevel}` as const;
 // The eyebrow is meant to say what kind of page this is. On the section hubs
 // several pages fed it the section name itself, so the page rendered a label
 // on a label: STANDARDS over *Standards*, FINITE [BETA] over *Finite [Beta]*.
-// Drop it when it adds nothing, mirroring the panelEchoesLead guard below.
+// Drop it when it adds nothing.
 const norm = (value?: string) => value?.trim().toLowerCase() ?? "";
 const trimmedEyebrow = eyebrow?.trim();
 const resolvedEyebrow =
   !trimmedEyebrow || norm(trimmedEyebrow) === norm(title)
     ? undefined
     : trimmedEyebrow;
-
-// Several pages feed the same object to both the page header and the aside --
-// /evals/ passed `panelCopy.title`/`panelCopy.description` as its own title and
-// description and then passed `panelCopy` again -- so the panel restated the
-// h1 and the lede verbatim, side by side at nearly the same size. An aside
-// that repeats the thing it sits next to is worth less than the space it
-// costs, so drop it when that is all it says.
-const panelEchoesLead =
-  !!panelCopy &&
-  norm(panelCopy.title) === norm(title) &&
-  norm(panelCopy.description) === norm(description);
-const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
 ---
 
 {anchorLinks.length >= 4 && <SectionNav links={anchorLinks} />}
@@ -101,25 +77,6 @@ const resolvedPanelCopy = panelEchoesLead ? undefined : panelCopy;
     </div>
 
     <div class="page-intro__aside">
-      {
-        resolvedPanelCopy && (
-          <div class="panel panel--glass page-intro__panel">
-            {resolvedPanelCopy.eyebrow && (
-              <p class="eyebrow">{resolvedPanelCopy.eyebrow}</p>
-            )}
-            <h2 class="page-intro__panel-title">{resolvedPanelCopy.title}</h2>
-            <p>{resolvedPanelCopy.description}</p>
-            {resolvedPanelCopy.link && (
-              <p>
-                <a href={resolvedPanelCopy.link.href}>
-                  {resolvedPanelCopy.link.label}
-                </a>
-              </p>
-            )}
-          </div>
-        )
-      }
-
       {
         hasCustomAside && (
           <div class="page-intro__aside-custom">

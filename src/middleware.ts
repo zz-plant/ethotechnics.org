@@ -68,6 +68,8 @@ const REDIRECT_MAP: Record<string, string> = {
   "/library/diagnostics": "/diagnostics",
   "/library/mechanisms-by-domain": "/mechanisms/by-domain",
   "/library/validators-by-standard": "/validators/by-standard",
+  // /agents has one page, the spec. A bare hit on the directory 404ed.
+  "/agents": "/agents/spec",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {

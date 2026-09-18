@@ -1,4 +1,4 @@
-import type { AnchorLink, PageWithPermalink, PanelCopy } from "./types";
+import type { AnchorLink, PageWithPermalink } from "./types";
 
 type SummaryItem = {
   title: string;
@@ -15,12 +15,6 @@ type StandardSection = {
 
 type MinimumViableContestabilityContent = PageWithPermalink & {
   anchorLinks: AnchorLink[];
-  panelCopy: PanelCopy & {
-    link?: {
-      label: string;
-      href: string;
-    };
-  };
   summary: {
     title: string;
     description: string;
@@ -44,16 +38,6 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
       { href: "#standard", label: "Baseline requirements" },
       { href: "#text", label: "Text-only version" },
     ],
-    panelCopy: {
-      eyebrow: "Contestability",
-      title: "Minimum viable contestability",
-      description:
-        "Use this one-page standard to confirm that a system can be contested with real authority, timelines, and remedies.",
-      link: {
-        label: "Read STD-02",
-        href: "/standards/std-02-contestability-recourse",
-      },
-    },
     summary: {
       title: "Minimum viable contestability standard",
       description:

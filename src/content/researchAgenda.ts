@@ -12,11 +12,6 @@ export type ResearchAgendaContent = PageWithPermalink & {
     eyebrow: string;
     title: string;
     anchorLinks: { href: string; label: string }[];
-    panelCopy: {
-      eyebrow?: string;
-      title: string;
-      description: string;
-    };
   };
   orientation: {
     title: string;
@@ -48,12 +43,6 @@ export const researchAgendaContent: ResearchAgendaContent = {
       { href: "#overview", label: "Overview" },
       { href: "#pillars", label: "Thematic pillars" },
     ],
-    panelCopy: {
-      eyebrow: "Why this agenda exists",
-      title: "Partners use this work to stay accountable.",
-      description:
-        "Findings translate into safer launches, accountable governance deals, and maintenance debt that stays visible instead of hidden in people’s bodies.",
-    },
   },
   orientation: {
     title: "Care-centered accountability",

@@ -59,8 +59,8 @@ const publication = derivePublicationMetadata({
 
 const hasClauseRegister = Boolean(
   standardId &&
-    entry.body &&
-    compareRegistryToDocument(standardId, entry.body).matches,
+  entry.body &&
+  compareRegistryToDocument(standardId, entry.body).matches,
 );
 
 const resolvedAnchorLinks = [...(data.anchorLinks ?? [])];
@@ -83,7 +83,6 @@ if (
   anchorLinks={resolvedAnchorLinks}
   version={data.version}
   lastUpdated={data.lastUpdated}
-  panelCopy={data.panelCopy}
   seoTitle={data.seoTitle}
   publishedTime={data.publishedTime}
   modifiedTime={data.modifiedTime}
