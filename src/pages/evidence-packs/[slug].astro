@@ -8,8 +8,7 @@ const entry = (await getCollection("evidencePacks")).find(
   (candidate) => candidate.id === Astro.params.slug,
 );
 if (!entry) return new Response("Not found", { status: 404 });
-const { title, description, sections, checklists, standardId, standardTitle } =
-  entry.data;
+const { title, description, sections, checklists } = entry.data;
 
 const pageTitle = `${title} — Ethotechnics Institute`;
 ---
@@ -30,11 +29,6 @@ const pageTitle = `${title} — Ethotechnics Institute`;
       })),
       { href: "#referenced-by", label: "Referenced by" },
     ]}
-    panelCopy={{
-      eyebrow: "Proof-carrying compliance",
-      title: `${standardTitle} (${standardId})`,
-      description: `Evidence packs translate ${standardTitle} clause obligations into artifact inventories, test batteries, and auditor-ready exports.`,
-    }}
   />
 
   {

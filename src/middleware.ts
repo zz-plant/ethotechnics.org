@@ -78,6 +78,8 @@ const REDIRECT_MAP: Record<string, string> = {
   // nobody: four role titles and no people behind them. The page that does
   // carry stewardship — owners against decisions — is the governance process.
   "/institute/team": "/institute/governance",
+  // /agents has one page, the spec. A bare hit on the directory 404ed.
+  "/agents": "/agents/spec",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {

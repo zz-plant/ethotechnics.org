@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
+import RatchetFigure from "../components/RatchetFigure.astro";
 import { failureStates } from "../content/institute-site";
 import { recentReleases } from "../content/recent-releases";
 
@@ -84,26 +85,12 @@ const failureChoiceIcons: Record<string, string[]> = {
           kind of decision, on what evidence, until when, who is allowed to
           object, and what actually changes when they do.
         </p>
-        <p class="section-lead">
-          Start with a live decision, an incident, or a policy gap. Leave with
-          named owners, clocks, evidence, and next actions, using open
-          standards, mechanisms, and diagnostics you can cite.
-        </p>
         <p class="small muted">
           Other frameworks ask whether you managed risk responsibly. This one
           asks whether the system can still be stopped while it is harming
           someone, and whether the people carrying that harm can make it stop.
-          <a href="/standards/#comparison">See how it differs →</a>
           <a href="/method">How the method works →</a>
-        </p>
-        <p class="small">
-          For commercial application of the framework (clinical AI safety
-          evaluation, VC diligence, and governance advisory), see
-          <a
-            href="https://ethotechnics.com"
-            rel="noopener noreferrer"
-            target="_blank">Ethotechnics Studio</a
-          >.
+          <a href="/casebook">Five public failures, scored →</a>
         </p>
       </div>
 
@@ -112,77 +99,31 @@ const failureChoiceIcons: Record<string, string[]> = {
         aria-label="Homepage starter"
       >
         <p class="eyebrow">Start here</p>
-        <p class="institute-hero__decision-helper muted small">
-          Not sure where to begin? Pick the situation that matches your work and
-          follow a short path.
-        </p>
         <div class="actions" aria-label="Primary standards actions">
           <a class="button primary" href="/start"> Find my starting point </a>
           <a class="button ghost" href="/glossary"> Browse terms → </a>
         </div>
-        <ul
-          class="institute-hero__status"
-          aria-label="Institute publication status"
-        >
-          <li>
-            <svg
-              viewBox="0 0 20 20"
-              role="presentation"
-              focusable="false"
-              aria-hidden="true"
-            >
-              <path d="M3.5 5.5h13v9h-13z" fill="none"></path>
-              <path d="M6 8h8"></path>
-              <path d="M6 11h6"></path>
-            </svg>
-            <span>Open-access standards and diagnostics</span>
-          </li>
-          <li>
-            <svg
-              viewBox="0 0 20 20"
-              role="presentation"
-              focusable="false"
-              aria-hidden="true"
-            >
-              <circle cx="10" cy="10" r="6.5" fill="none"></circle>
-              <path d="M10 6.8v3.5"></path>
-              <path d="M10 12.8h.01"></path>
-            </svg>
-            <span>Versioned, citable framework resources</span>
-          </li>
-          <li>
-            <svg
-              viewBox="0 0 20 20"
-              role="presentation"
-              focusable="false"
-              aria-hidden="true"
-            >
-              <path
-                d="M10 3.7l5.6 2.1v3.7c0 3.6-2.4 5.9-5.6 6.9-3.2-1-5.6-3.3-5.6-6.9V5.8z"
-                fill="none"></path>
-              <path d="M8.2 9.9l1.4 1.4 2.5-2.5"></path>
-            </svg>
-            <span>Built for policy, audit, and research uptake</span>
-          </li>
-        </ul>
       </aside>
     </div>
   </section>
 
   <div class="home-core">
-    <section id="governance-ontology" class="stack-sm card">
-      <p class="eyebrow">Shared language</p>
-      <h2>Plain definitions and reference data</h2>
-      <p>
-        Definitions for concepts like burden, contestability, repair, and
-        stoppability, with stable links and JSON for audits, tools, and
-        research. Use it when a team needs the same words to mean the same
-        things.
+    <section id="ratchet" class="stack-lg" aria-labelledby="ratchet-heading">
+      <p class="eyebrow">The claim, in one figure</p>
+      <h2 id="ratchet-heading">
+        A delegation can double without anyone deciding that it should.
+      </h2>
+      <p class="section-lead">
+        Both grants below grow by the same two percent a month. One is reviewed
+        only when a single step is large enough to notice, so it is never
+        reviewed. The other treats every widening as a fresh authorization, so
+        it can be read, questioned, and reversed. That difference is what the
+        standards on this site are for.
       </p>
-      <p>
-        <a href="/taxonomy">Browse definitions →</a>
-        <span aria-hidden="true"> · </span>
-        <a href="/api">Use the JSON API →</a>
+      <RatchetFigure level="h3" />
+      <p class="small muted">
+        This is Law XI of twelve. <a href="/standards/laws">Read the laws →</a>
+        <a href="/standards/std-08-delegation">See what STD-08 requires →</a>
       </p>
     </section>
 
@@ -242,54 +183,6 @@ const failureChoiceIcons: Record<string, string[]> = {
         Use these when a real person, queue, or decision needs attention—not
         just documentation.
       </p>
-    </section>
-
-    <section class="stack-lg">
-      <p class="eyebrow">Audit and compliance</p>
-      <h2>Map practical controls to standards and audits</h2>
-      <p class="section-lead">
-        Standards are written so teams can cite requirements, assign owners, and
-        show evidence without translating abstract principles from scratch.
-      </p>
-      <div class="adopt-grid">
-        {
-          [
-            {
-              title: "Regulatory mapping",
-              items: [
-                "EU AI Act references",
-                "NIST AI RMF mappings",
-                "ISO and sector references",
-              ],
-            },
-            {
-              title: "Audit handoff",
-              items: [
-                "Evidence fields for GRC workflows",
-                "Owners, deadlines, and escalation clocks",
-                "Artifacts for internal or regulator review",
-              ],
-            },
-            {
-              title: "Adoption paths",
-              items: [
-                "Policy teams can cite clauses",
-                "Operations teams can rehearse stoppability",
-                "Engineering teams can tie rollback to release gates",
-              ],
-            },
-          ].map((lane) => (
-            <article class="card lane-card stack-sm">
-              <h3>{lane.title}</h3>
-              <ul class="lane-links">
-                {lane.items.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </article>
-          ))
-        }
-      </div>
     </section>
   </div>
 

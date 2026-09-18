@@ -5,10 +5,7 @@ import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import InstituteStudioComparison from "../../components/InstituteStudioComparison.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
-import {
-  instituteStudioComparisonContent,
-  instituteStudioGuidance,
-} from "../../content/comparison";
+import { instituteStudioComparisonContent } from "../../content/comparison";
 
 const pageTitle = "How Studio fits";
 const pageDescription =
@@ -32,11 +29,6 @@ const anchorLinks = [
     title={pageTitle}
     description={pageDescription}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Quick signal",
-      title: "Self-serve by default.",
-      description: instituteStudioGuidance.panelDescription,
-    }}
   />
 
   <SectionActions>

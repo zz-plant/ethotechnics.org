@@ -1,0 +1,381 @@
+/* The casebook: the matrix on the hub, the case list, and the scored findings
+   on each case page. The verdict mark is shared with anything else that
+   scores a state variable, so it lives here rather than in the matrix. */
+@layer components {
+  /* One verdict. Three glyphs that read in grayscale; colour is secondary. */
+  .verdict {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: lowercase;
+    color: var(--muted);
+  }
+
+  .verdict__mark {
+    font-size: 0.95em;
+    line-height: 1;
+  }
+
+  .verdict--held {
+    color: var(--status-success);
+  }
+
+  .verdict--drifted {
+    color: var(--status-warning-deep);
+  }
+
+  .verdict--failed {
+    color: var(--status-danger);
+  }
+
+  /* The matrix. Cases down, variables across, a halt clock at the end. */
+  .casebook-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+  }
+
+  .casebook-matrix th,
+  .casebook-matrix td {
+    padding: 0.7rem 0.6rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .casebook-matrix thead th {
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 650;
+    border-bottom-color: var(--border);
+  }
+
+  .casebook-matrix thead th:not(:first-child, :last-child),
+  .casebook-matrix tbody td:not(.casebook-matrix__halt),
+  .casebook-matrix tfoot td {
+    text-align: center;
+  }
+
+  .casebook-matrix tbody th {
+    font-weight: 600;
+    min-width: 12rem;
+  }
+
+  .casebook-matrix tbody th a {
+    font-family: var(--serif);
+    font-size: var(--text-base);
+    text-decoration: none;
+  }
+
+  .casebook-matrix tbody th a:hover,
+  .casebook-matrix tbody th a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .casebook-matrix__meta {
+    display: block;
+    margin-top: 0.15rem;
+    font-weight: 400;
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .casebook-matrix__cell {
+    display: inline-grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+    font-size: 1.25rem;
+  }
+
+  .casebook-matrix__cell:hover,
+  .casebook-matrix__cell:focus-visible {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
+  .casebook-matrix__halt {
+    min-width: 9rem;
+    color: var(--muted);
+  }
+
+  .casebook-matrix tfoot th,
+  .casebook-matrix tfoot td {
+    border-bottom: 0;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .casebook-matrix__count {
+    font-family: var(--mono);
+    font-size: var(--text-base);
+    color: var(--text);
+  }
+
+  .casebook-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.6rem;
+    align-items: baseline;
+    margin-top: 1rem;
+  }
+
+  /* The case list under the matrix. */
+  .casebook-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .casebook-list__item {
+    display: grid;
+    gap: 0.8rem;
+    padding: 1.6rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .casebook-list__item:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .casebook-list__head h3 {
+    margin: 0;
+  }
+
+  .casebook-list__head h3 a {
+    text-decoration: none;
+  }
+
+  .casebook-list__head h3 a:hover,
+  .casebook-list__head h3 a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .casebook-list__meta {
+    margin: 0.2rem 0 0;
+  }
+
+  .casebook-list__system {
+    margin: 0;
+    max-width: 68ch;
+  }
+
+  .casebook-list__facts,
+  .case-facts,
+  .casebook-reading {
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .casebook-list__facts {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 0.75rem 1.5rem;
+  }
+
+  .casebook-list__facts dt,
+  .case-facts dt {
+    font-family: var(--sans);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 650;
+  }
+
+  .casebook-list__facts dd,
+  .case-facts dd {
+    margin: 0.2rem 0 0;
+    font-size: var(--text-sm);
+  }
+
+  .casebook-list__verdicts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.9rem;
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+  }
+
+  .casebook-list__verdict {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .casebook-list__verdict:hover span:last-child,
+  .casebook-list__verdict:focus-visible span:last-child {
+    text-decoration: underline;
+  }
+
+  .casebook-reading > div {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  .casebook-reading dd {
+    margin: 0;
+  }
+
+  /* The case page. */
+  .case-facts {
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .case-narrative {
+    max-width: 72ch;
+  }
+
+  .case-narrative p + p {
+    margin-top: 1rem;
+  }
+
+  .case-findings {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .case-finding {
+    display: grid;
+    gap: 0.7rem;
+    padding: 1.4rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    scroll-margin-top: 5rem;
+  }
+
+  .case-finding:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .case-finding__head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.2rem 0.9rem;
+    align-items: baseline;
+  }
+
+  .case-finding__head h3 {
+    margin: 0;
+    font-size: var(--text-h3);
+  }
+
+  .case-finding__question {
+    grid-column: 2;
+    margin: 0;
+  }
+
+  .case-finding__body {
+    margin: 0;
+    max-width: 72ch;
+  }
+
+  .case-finding__refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+  }
+
+  .clause-chip {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    text-decoration: none;
+    color: var(--text);
+    background: color-mix(in srgb, var(--panel) 60%, transparent);
+  }
+
+  .clause-chip:hover,
+  .clause-chip:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  }
+
+  .clause-chip--law {
+    font-family: var(--sans);
+    font-weight: 600;
+  }
+
+  .case-missing {
+    max-width: 68ch;
+    padding: 1.1rem 1.3rem;
+    border-left: 3px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+    margin: 0;
+  }
+
+  .case-sources {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.6rem;
+    font-size: var(--text-sm);
+  }
+
+  .case-sources__kind {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-family: var(--sans);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 650;
+  }
+
+  .case-pager {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    max-width: var(--content-max);
+    margin: 2.5rem auto 0;
+    padding: 1.2rem var(--page-gutter) 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+  }
+
+  .case-pager a:last-child {
+    text-align: right;
+  }
+
+  @media (max-width: 720px) {
+    .casebook-reading > div {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+
+    .case-finding__head {
+      grid-template-columns: 1fr;
+    }
+
+    .case-finding__question {
+      grid-column: 1;
+    }
+  }
+}

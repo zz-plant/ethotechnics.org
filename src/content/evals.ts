@@ -140,7 +140,6 @@ export type EvalSuiteResult = {
 export type EvalsContent = PageWithPermalink &
   PublishedContent & {
     anchorLinks: { href: string; label: string }[];
-    panelCopy: { eyebrow: string; title: string; description: string };
     evaluationStack: EvaluationStack;
     suites: EvalSuite[];
     publication: PublicationMetadata;
@@ -161,12 +160,6 @@ export const evalsContent: EvalsContent = {
     { href: "#methodology", label: "Methodology" },
     { href: "#run", label: "Run an eval" },
   ],
-  panelCopy: {
-    eyebrow: "Evals",
-    title: "Governance eval suites",
-    description:
-      "Test whether your AI system can be stopped, explained, appealed, and repaired — on a clock that matters.",
-  },
   publication: {
     authors: [
       {

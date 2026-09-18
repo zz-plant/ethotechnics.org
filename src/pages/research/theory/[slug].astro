@@ -62,13 +62,6 @@ const breadcrumbItems = [
     description={data.summary}
     anchorLinks={anchorLinks}
     lastUpdated={data.updated ?? data.published}
-    panelCopy={{
-      eyebrow: "Argues for",
-      title: data.lawRefs.map((ref) => `Law ${ref}`).join(", "),
-      description:
-        "Theory, not a requirement: it gives reasons the laws hold. What a standard binds is stated on the laws page, and no clause cites this essay.",
-      link: { label: "Read the laws", href: "/standards/laws" },
-    }}
   />
 
   <article class="theory-essay stack-md">

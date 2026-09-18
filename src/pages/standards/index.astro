@@ -27,14 +27,8 @@ const clauseCounts = new Map(
   ]),
 );
 
-const {
-  pageTitle,
-  pageDescription,
-  anchorLinks,
-  panelCopy,
-  standards,
-  doctrine,
-} = standardsContent;
+const { pageTitle, pageDescription, anchorLinks, standards, doctrine } =
+  standardsContent;
 const listedStandards = standards.filter(
   (standard) => standard.listedOnSite !== false,
 );
@@ -72,7 +66,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     anchorLinks={anchorLinks}
     anchorLinksSummary="Show full standards outline"
-    panelCopy={panelCopy}
   >
     <Fragment slot="actions">
       <a class="button primary" href="/standards/std-01-temporal-rights">

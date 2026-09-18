@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { resolveEnv } from "../../utils/cloudflare-env";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_BODY_BYTES = 4_096;
@@ -47,8 +48,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ error: "Request body is too large" }, 413);
   }
 
-  const runtime = locals as unknown as { runtime?: { env?: NewsletterEnv } };
-  const env = runtime.runtime?.env;
+  const env = await resolveEnv<NewsletterEnv>(locals);
   if (env?.NEWSLETTER_RATE_LIMITER) {
     const key = request.headers.get("CF-Connecting-IP") ?? "unknown";
     const rateLimit = await env.NEWSLETTER_RATE_LIMITER.limit({ key });

@@ -7,16 +7,6 @@ interface AnchorLink {
   label: string;
 }
 
-interface PanelCopy {
-  eyebrow: string;
-  title: string;
-  description: string;
-  link?: {
-    label: string;
-    href: string;
-  };
-}
-
 interface Props {
   title: string;
   description: string;
@@ -25,7 +15,6 @@ interface Props {
   anchorLinks: AnchorLink[];
   version?: string;
   lastUpdated?: string;
-  panelCopy?: PanelCopy;
   seoTitle?: string;
   publishedTime?: string;
   modifiedTime?: string;
@@ -40,7 +29,6 @@ const {
   anchorLinks,
   version,
   lastUpdated,
-  panelCopy,
   seoTitle,
   publishedTime,
   modifiedTime,
@@ -65,7 +53,6 @@ const {
     anchorLinks={anchorLinks}
     version={version}
     lastUpdated={lastUpdated}
-    panelCopy={panelCopy}
   />
   <slot />
 </BaseLayout>

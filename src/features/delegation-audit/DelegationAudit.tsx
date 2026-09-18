@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   buildDefaultInput,
   createActionClass,
@@ -11,6 +11,7 @@ import {
   STATE_VARIABLE_QUESTIONS,
 } from "./config";
 import { buildReadout, buildSnapshot, runDelegationAudit } from "./auditLogic";
+import { delegationAuditInputSchema } from "../../utils/readouts";
 import type {
   ActionClass,
   AuditInput,
@@ -34,6 +35,31 @@ const nextId = (prefix: string) => {
 export function DelegationAudit() {
   const [input, setInput] = useState<AuditInput>(buildDefaultInput());
   const [copied, setCopied] = useState(false);
+  const [share, setShare] = useState<
+    | { state: "idle" }
+    | { state: "saving" }
+    | { state: "saved"; url: string }
+    | { state: "failed"; message: string }
+  >({ state: "idle" });
+
+  // A readout link (/readouts/<id>) opens the tool with the inputs it holds,
+  // so the team that received it can change an answer and share again.
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("readout");
+    if (!id) return;
+    const controller = new AbortController();
+    fetch(`/readouts/${encodeURIComponent(id)}.json`, {
+      signal: controller.signal,
+    })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((snapshot: unknown) => {
+        const inputs = (snapshot as { inputs?: unknown } | null)?.inputs;
+        const parsed = delegationAuditInputSchema.safeParse(inputs);
+        if (parsed.success) setInput(parsed.data);
+      })
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, []);
 
   const result = useMemo(() => runDelegationAudit(input), [input]);
 
@@ -107,6 +133,29 @@ export function DelegationAudit() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
+  };
+
+  const shareReadout = async () => {
+    setShare({ state: "saving" });
+    try {
+      const response = await fetch("/api/readouts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool_id: "delegation-audit", inputs: input }),
+      });
+      const body: { url?: string; error?: string } = await response.json();
+      if (!response.ok || !body.url) {
+        setShare({
+          state: "failed",
+          message: body.error ?? "The readout could not be saved.",
+        });
+        return;
+      }
+      setShare({ state: "saved", url: body.url });
+      void navigator.clipboard?.writeText(body.url);
+    } catch {
+      setShare({ state: "failed", message: "The readout could not be saved." });
+    }
   };
 
   const exportSnapshot = () => {
@@ -842,7 +891,30 @@ export function DelegationAudit() {
               >
                 Export JSON
               </button>
+              <button
+                type="button"
+                className="button primary button--compact"
+                onClick={() => void shareReadout()}
+                disabled={share.state === "saving"}
+              >
+                {share.state === "saving" ? "Saving…" : "Share readout"}
+              </button>
             </div>
+            {share.state === "saved" && (
+              <p className="delegation-audit__note" role="status">
+                Link copied:{" "}
+                <a href={share.url} className="delegation-audit__share-link">
+                  {share.url}
+                </a>
+                . It holds only the answers above and reruns the audit when
+                opened. It expires in a year.
+              </p>
+            )}
+            {share.state === "failed" && (
+              <p className="delegation-audit__note" role="alert">
+                {share.message}
+              </p>
+            )}
           </div>
 
           <div className="delegation-audit__step">
@@ -854,8 +926,17 @@ export function DelegationAudit() {
                   className={`delegation-audit__variable delegation-audit__variable--${variable.rating}`}
                 >
                   <div className="delegation-audit__variable-header">
-                    <h4 className="delegation-audit__variable-name">
-                      {variable.label}
+                    <h4 className="delegation-audit__variable-name sv">
+                      <svg
+                        className="sv__glyph"
+                        width="1.1em"
+                        height="1.1em"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <use href={`#sv-${variable.id}`} />
+                      </svg>
+                      <span className="sv__label">{variable.label}</span>
                     </h4>
                     <span className="delegation-audit__pill">
                       {variable.rating} · {variable.score}/100

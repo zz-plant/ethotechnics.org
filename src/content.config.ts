@@ -635,14 +635,6 @@ const standards = defineCollection({
       .array(z.object({ href: z.string(), label: z.string() }))
       .optional()
       .default([]),
-    panelCopy: z
-      .object({
-        eyebrow: z.string(),
-        title: z.string(),
-        description: z.string(),
-        link: z.object({ label: z.string(), href: z.string() }).optional(),
-      })
-      .optional(),
     seoTitle: z.string().optional(),
     publishedTime: z.string().optional(),
     modifiedTime: z.string().optional(),

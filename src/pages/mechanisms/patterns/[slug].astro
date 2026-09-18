@@ -48,11 +48,6 @@ const glossaryAnchors = pattern.glossaryRefs.map((slug) => ({
 const pageTitle = `${pattern.title} — Mechanism specification`;
 const pageDescription = pattern.summary;
 const permalink = `/mechanisms/patterns/${pattern.slug}`;
-const panelDescription = `Tagged for ${pattern.filters
-  .map((filter) => filterLabels[filter] ?? filter)
-  .join(
-    ", ",
-  )} with validator handshakes. Includes ${stepCount} steps, ${assetCount} reusable assets, and ${snippetCount} snippet blocks.`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   ...(glossaryAnchors.length
@@ -87,11 +82,6 @@ const breadcrumbItems = [
     title={pattern.title}
     description={pageDescription}
     anchorLinks={anchorLinks}
-    panelCopy={{
-      eyebrow: "Where it fits",
-      title: "Filters and handoffs",
-      description: panelDescription,
-    }}
   />
   <SectionBlock
     id="overview"

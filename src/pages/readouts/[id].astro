@@ -1,0 +1,204 @@
+---
+import "../../styles/components/diagnostics.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
+import { diagnosticsContent } from "../../content/diagnostics";
+import { runDelegationAudit } from "../../features/delegation-audit/auditLogic";
+import { resolveEnv } from "../../utils/cloudflare-env";
+import { loadReadout, type ReadoutEnv } from "../../utils/readouts";
+
+/**
+ * A shared readout. The page holds the inputs a team captured and reruns the
+ * diagnostic on them now, so what it shows is the tool's current reading of
+ * those inputs, stamped with the tool version that produced it.
+ */
+
+const store = (await resolveEnv<ReadoutEnv>(Astro.locals))?.READOUTS;
+const record = store ? await loadReadout(store, Astro.params.id ?? "") : null;
+if (!record) return Astro.rewrite("/404");
+
+const tool = diagnosticsContent.tools.find(
+  (entry) => entry.slug === record.tool_id,
+);
+const toolVersion = diagnosticsContent.publication.version;
+const result = runDelegationAudit(record.inputs);
+const capturedDate = record.captured_at.slice(0, 10);
+const readoutUrl = new URL(
+  Astro.url.pathname,
+  Astro.site ?? Astro.url,
+).toString();
+
+const statusLabel = {
+  evidenced: "Evidenced",
+  "not-evidenced": "Not evidenced",
+  "not-feasible": "Not feasible",
+} as const;
+---
+
+<BaseLayout
+  title={`${result.workflow} — Delegation audit readout`}
+  description={`Exposure ${result.exposure.score} (${result.exposure.bandLabel}), ${result.ungroundedGrants.length} ungrounded grants, reversibility weakest at the ${result.reversibility.weakest.label.toLowerCase()} level. Captured ${capturedDate}.`}
+  robots="noindex, nofollow"
+>
+  <PageIntro
+    eyebrow={`Readout · ${tool?.title ?? record.tool_id}`}
+    title={result.workflow}
+    description={`Captured ${capturedDate}. Scored by ${tool?.title ?? record.tool_id} ${toolVersion} on the inputs the team gave it, rerun when this page loads.`}
+    anchorLinks={[
+      { href: "#exposure", label: "Exposure" },
+      { href: "#variables", label: "State variables" },
+      { href: "#grants", label: "Ungrounded grants" },
+      { href: "#reversibility", label: "Reversibility" },
+      { href: "#findings", label: "Findings" },
+    ]}
+  >
+    <Fragment slot="actions">
+      <a
+        class="button primary"
+        href={`/diagnostics/delegation-audit?readout=${Astro.params.id}`}
+      >
+        Open in the tool
+      </a>
+      <a class="button ghost" href={`${Astro.url.pathname}.json`}>
+        JSON snapshot
+      </a>
+    </Fragment>
+  </PageIntro>
+
+  <SectionBlock
+    id="exposure"
+    eyebrow="Exposure"
+    title={`${result.exposure.score} workflow staff-week hours`}
+    description={result.exposure.bandLabel}
+    variant="alt"
+  >
+    <dl class="readout-factors">
+      <div>
+        <dt>Dependency depth</dt>
+        <dd>{result.exposure.dependencyDepth}</dd>
+      </div>
+      <div>
+        <dt>Substitution cost</dt>
+        <dd>{result.exposure.substitutionCostStaffWeeks} staff-weeks</dd>
+      </div>
+      <div>
+        <dt>Correction latency</dt>
+        <dd>{result.exposure.correctionLatencyHours} hours</dd>
+      </div>
+    </dl>
+    <p>{result.exposure.reading}</p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="variables"
+    eyebrow="State variables"
+    title="Six ratings"
+    description="Grounded, partial, or weak, with the reasons the tool gave."
+  >
+    <ul class="readout-variables">
+      {
+        result.variables.map((variable) => (
+          <li class="readout-variable" data-rating={variable.rating}>
+            <div class="readout-variable__head">
+              <h3>
+                <StateVariableGlyph
+                  variable={variable.id}
+                  label={variable.label}
+                />
+              </h3>
+              <span class="readout-variable__rating">
+                {variable.rating} · {variable.score}/100
+              </span>
+            </div>
+            <ul class="readout-variable__notes">
+              {variable.notes.map((note) => (
+                <li>{note}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </SectionBlock>
+
+  <SectionBlock
+    id="grants"
+    eyebrow="Ungrounded grants"
+    title={result.ungroundedGrants.length === 0
+      ? "Every action class is grounded"
+      : `${result.ungroundedGrants.length} action ${result.ungroundedGrants.length === 1 ? "class" : "classes"} nobody can ground`}
+    description="An ungrounded grant is a finding to investigate, not a proven violation."
+    variant="alt"
+  >
+    {
+      result.ungroundedGrants.length > 0 && (
+        <ul class="readout-grants">
+          {result.ungroundedGrants.map((grant) => (
+            <li>
+              <strong>{grant.actionClass}</strong>
+              <span> {grant.reasons.join(" ")}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </SectionBlock>
+
+  <SectionBlock
+    id="reversibility"
+    eyebrow="Reversibility"
+    title={`Weakest at the ${result.reversibility.weakest.label.toLowerCase()} level`}
+    description={result.reversibility.summary}
+  >
+    <dl class="readout-factors">
+      {
+        result.reversibility.levels.map((level) => (
+          <div data-status={level.status}>
+            <dt>{level.label}</dt>
+            <dd>
+              <strong>{statusLabel[level.status]}.</strong> {level.reason}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </SectionBlock>
+
+  <SectionBlock
+    id="findings"
+    eyebrow="Findings"
+    title={result.findings.length === 0
+      ? "No findings"
+      : `${result.findings.length} ${result.findings.length === 1 ? "finding" : "findings"}`}
+    description="Each finding names the clause it falls under, the mechanism that answers it, and the eval that tests it."
+    variant="alt"
+  >
+    <ol class="readout-findings">
+      {
+        result.findings.map((finding) => (
+          <li>
+            <h3>{finding.title}</h3>
+            <p>{finding.detail}</p>
+            <p class="readout-findings__refs">
+              <a href={finding.clause.href}>{finding.clause.label}</a>
+              <a href={finding.mechanism.href}>{finding.mechanism.label}</a>
+              <a href={finding.evalSuite.href}>{finding.evalSuite.label}</a>
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionBlock>
+
+  <section class="section readout-provenance">
+    <p class="small muted">
+      This readout records what a team believed about one workflow on
+      {capturedDate}. It is not an audit. The scoring is the Delegation Audit's,
+      version {toolVersion}; the inputs are stored at
+      <code>{readoutUrl}.json</code> and anyone with the link can rerun them. Readouts
+      expire a year after capture.
+    </p>
+  </section>
+</BaseLayout>

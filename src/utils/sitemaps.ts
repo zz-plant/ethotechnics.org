@@ -7,6 +7,7 @@ import type {
   GlossaryEntry,
 } from "../content/glossary";
 import { incidentLessons } from "../content/incidents";
+import { cases } from "../content/casebook";
 import { libraryContent } from "../content/library";
 import type { LibraryContent, Pattern } from "../content/library";
 import { roles } from "../content/roles";
@@ -295,6 +296,11 @@ export const buildSitemapSections = async () => {
     lastmod: lesson.updated ?? lesson.published,
   }));
 
+  const casebookPaths = cases.map((entry) => ({
+    path: `/casebook/${entry.slug}`,
+    lastmod: entry.updated ?? entry.published,
+  }));
+
   // The taxonomy domains render under /taxonomy only; the top-level mirrors
   // (/governance/policy, /delivery/intake, ...) are middleware redirects.
   const taxonomyPaths = taxonomyEntries.map((entry) => ({
@@ -376,6 +382,7 @@ export const buildSitemapSections = async () => {
   }
 
   [
+    "/casebook",
     "/glossary",
     "/incidents",
     "/mechanisms",
@@ -414,6 +421,7 @@ export const buildSitemapSections = async () => {
       ...standardsCollectionPaths,
       ...evidencePackPaths,
       ...incidentPaths,
+      ...casebookPaths,
       ...rolePaths,
       ...theoryPaths,
     ]),

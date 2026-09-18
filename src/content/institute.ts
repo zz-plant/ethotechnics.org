@@ -1,9 +1,4 @@
-import type {
-  AnchorLink,
-  PageWithPermalink,
-  PanelCopy,
-  PublishedContent,
-} from "./types";
+import type { AnchorLink, PageWithPermalink, PublishedContent } from "./types";
 
 export type GovernanceItem = {
   title: string;
@@ -30,7 +25,6 @@ export type ContactChannel = {
 export type InstituteContent = PageWithPermalink &
   PublishedContent & {
     anchorLinks: AnchorLink[];
-    panelCopy: PanelCopy;
     highlights: {
       title: string;
       detail: string;
@@ -65,12 +59,6 @@ export const instituteContent: InstituteContent = {
     { href: "#stewards", label: "Stewards" },
     { href: "#contact", label: "Contact" },
   ],
-  panelCopy: {
-    eyebrow: "Fast track",
-    title: "Already know you need help? Start with the Studio.",
-    description:
-      "Run a diagnostic first when you can. If risk shows up or you need a facilitator, email the Studio to get routed to the right forum.",
-  },
   highlights: [
     {
       title: "Start with open guidance",

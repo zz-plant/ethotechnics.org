@@ -2,7 +2,6 @@ import type {
   AnchorLink,
   GlossaryLinked,
   PageWithPermalink,
-  PanelCopy,
   PublicationMetadata,
   PublishedContent,
 } from "./types";
@@ -42,7 +41,6 @@ export type ResearchContent = PageWithPermalink &
   PublishedContent & {
     publication: PublicationMetadata;
     anchorLinks: AnchorLink[];
-    panelCopy: PanelCopy;
     standardsTimeline: {
       period: string;
       title: string;
@@ -123,12 +121,6 @@ export const researchContent: ResearchContent = {
     { href: "#focus-areas", label: "Focus areas" },
     { href: "#publications", label: "Publications" },
   ],
-  panelCopy: {
-    eyebrow: "How to read these entries",
-    title: "Cross-linked with the Library glossary.",
-    description:
-      "Agenda items, focus areas, and publications link back to glossary anchors so readers share the same definitions. Use them when citing Field Notes or diagnostics results to keep language consistent.",
-  },
   standardsTimeline: [
     {
       period: "2024 Q4",

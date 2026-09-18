@@ -1,4 +1,4 @@
-import type { AnchorLink, PageWithPermalink, PanelCopy } from "./types";
+import type { AnchorLink, PageWithPermalink } from "./types";
 
 export type StandardEntry = {
   id: string;
@@ -38,7 +38,6 @@ export type DoctrineEntry = {
 
 export type StandardsContent = PageWithPermalink & {
   anchorLinks: AnchorLink[];
-  panelCopy: PanelCopy;
   standards: StandardEntry[];
   doctrine: DoctrineEntry[];
 };
@@ -73,12 +72,6 @@ export const standardsContent: StandardsContent = {
     { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
     { href: "#referenced-by", label: "Where standards are enforced" },
   ],
-  panelCopy: {
-    eyebrow: "Stewardship",
-    title: "Documented for citation",
-    description:
-      "Each standard ships with stable IDs, publication metadata, and direct references to mechanisms.",
-  },
   standards: [
     {
       id: "STD-01",
