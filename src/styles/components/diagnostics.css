@@ -281,3 +281,143 @@
     gap: 1rem;
   }
 }
+
+/* Shared readouts (/readouts/[id]): a diagnostic's result rendered as a page
+   a team can paste into a thread. The ratings mirror the tool's own colours so
+   a readout reads the same on the page as it did in the tool. */
+@layer components {
+  .readout-factors {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1rem 1.5rem;
+  }
+
+  .readout-factors dt {
+    font-family: var(--sans);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 650;
+  }
+
+  .readout-factors dd {
+    margin: 0.25rem 0 0;
+    font-size: var(--text-sm);
+  }
+
+  .readout-factors > div[data-status] {
+    padding-left: 0.8rem;
+    border-left: 3px solid var(--border);
+  }
+
+  .readout-factors > div[data-status="evidenced"] {
+    border-left-color: var(--status-success);
+  }
+
+  .readout-factors > div[data-status="not-evidenced"] {
+    border-left-color: var(--status-warning);
+  }
+
+  .readout-factors > div[data-status="not-feasible"] {
+    border-left-color: var(--status-danger);
+  }
+
+  .readout-variables,
+  .readout-grants,
+  .readout-findings {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .readout-variable {
+    padding: 0.8rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+    border-left-width: 3px;
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .readout-variable[data-rating="grounded"] {
+    border-left-color: var(--status-success);
+  }
+
+  .readout-variable[data-rating="partial"] {
+    border-left-color: var(--status-warning);
+  }
+
+  .readout-variable[data-rating="weak"] {
+    border-left-color: var(--status-danger);
+  }
+
+  .readout-variable__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .readout-variable__head h3 {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+  }
+
+  .readout-variable__rating {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    text-transform: capitalize;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .readout-variable__notes {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: var(--text-sm);
+    color: var(--muted);
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .readout-grants li,
+  .readout-findings li {
+    padding: 0.8rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .readout-findings h3 {
+    margin: 0 0 0.3rem;
+    font-size: var(--text-h3);
+  }
+
+  .readout-findings p {
+    margin: 0;
+  }
+
+  .readout-findings__refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    margin-top: 0.5rem;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+  }
+
+  .readout-provenance {
+    max-width: var(--content-max);
+    margin: 2rem auto 0;
+    padding-inline: var(--page-gutter);
+  }
+
+  .readout-provenance code {
+    word-break: break-all;
+  }
+}

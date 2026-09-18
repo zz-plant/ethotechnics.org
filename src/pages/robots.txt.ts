@@ -10,7 +10,9 @@ const buildRobots = (siteUrl: URL, allowIndexing: boolean) => {
 
   const sitemapUrl = new URL("/sitemap.xml", siteUrl);
 
-  return `User-agent: *\nAllow: /\nSitemap: ${sitemapUrl.toString()}\n`;
+  // Shared diagnostic readouts are private-by-link: unlisted, noindex, and
+  // not for crawlers.
+  return `User-agent: *\nAllow: /\nDisallow: /readouts/\nSitemap: ${sitemapUrl.toString()}\n`;
 };
 
 export function GET({ request, site }: APIContext) {
