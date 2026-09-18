@@ -45,9 +45,15 @@ whose body is the literal string `[object Object]`.
 
 ## Current binding posture
 
-- Current binding usage is intentionally minimal: only `[assets]` with the `ASSETS` binding.
-- The Worker currently does **not** declare KV, D1, R2, Queues, Durable Objects, or AI bindings.
-- Revisit this section when introducing new platform services so deploy reviews catch binding drift.
+- `[assets]` with the `ASSETS` binding for static output.
+- `READOUTS` KV namespace backs shareable diagnostic readouts
+  (`/api/readouts`, `/readouts/[id]`). The namespace id in `wrangler.toml` is
+  live; creating it was required before the first deploy carrying the
+  readouts feature.
+- `NEWSLETTER_RATE_LIMITER` and `READOUT_RATE_LIMITER` rate-limit bindings
+  (declared as experimental `unsafe.bindings`).
+- Revisit this section when introducing new platform services so deploy
+  reviews catch binding drift.
 
 ## Rollback and recovery
 
