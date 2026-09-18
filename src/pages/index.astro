@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
 import { failureStates } from "../content/institute-site";
+import { recentReleases } from "../content/recent-releases";
 
 const failureChoiceLabels: Record<string, string> = {
   "decision-appealed": "Decision appealed",
@@ -33,12 +34,6 @@ const failureSeverity = (badge?: string): string | undefined => {
     ? level
     : undefined;
 };
-
-const recentPublications = [
-  "Evidence Pack Readiness diagnostic — v1.2 (March 2026)",
-  "Glossary: 8 new entries on decision latency and repair authority (February 2026)",
-  "Field note: Mapping invisible maintenance work in clinical AI (January 2026)",
-];
 
 const failureChoiceIcons: Record<string, string[]> = {
   "decision-appealed": [
@@ -328,7 +323,19 @@ const failureChoiceIcons: Record<string, string[]> = {
       <p class="eyebrow">New and updated</p>
       <h2 id="recently-published-heading">Recent releases</h2>
       <ul class="recent-releases">
-        {recentPublications.map((item) => <li>{item}</li>)}
+        {
+          recentReleases.map((release) => (
+            <li>
+              <a href={release.href}>
+                {release.area} {release.version}
+              </a>{" "}
+              <span class="muted">
+                · <time datetime={release.date}>{release.date}</time>
+              </span>
+              <p class="muted small">{release.summary}</p>
+            </li>
+          ))
+        }
       </ul>
     </section>
 

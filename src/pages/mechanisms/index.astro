@@ -225,8 +225,12 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description="Filters route work quickly and keep validators in reach."
     variant="alt"
   >
+    {
+      /* The section already carries id="mechanisms". A second element with
+         the same id made #mechanisms ambiguous and resolved to the section,
+         so this offset anchor never did anything. */
+    }
     <div class="pattern-filter__anchors" aria-hidden="true">
-      <span class="pattern-filter__anchor" id="mechanisms"></span>
       {
         patterns.filters.map((filter) => (
           <span class="pattern-filter__anchor" id={filter.slug} />
