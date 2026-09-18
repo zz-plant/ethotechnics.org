@@ -224,16 +224,21 @@ const glossaryEntrySchema = z.object({
   missingExpectations: z.array(z.string()).optional(),
   operationalTests: z.array(z.string()).optional(),
   commonCounterfeits: z.array(z.string()).optional(),
-  minimumEvidence: z.object({
-    artifact: z.string(),
-    behavior: z.string(),
-    metric: z.string(),
-    definition: z.string().optional(),
-    unit: z.string().optional(),
-    dataSource: z.string().optional(),
-    calculation: z.string().optional(),
-    threshold: z.string().optional(),
-  }),
+  // Every field is optional: an entry states the evidence it has, and an
+  // entry with none says so under its completeness notes rather than
+  // carrying a sentence generated from its own title.
+  minimumEvidence: z
+    .object({
+      artifact: z.string().optional(),
+      behavior: z.string().optional(),
+      metric: z.string().optional(),
+      definition: z.string().optional(),
+      unit: z.string().optional(),
+      dataSource: z.string().optional(),
+      calculation: z.string().optional(),
+      threshold: z.string().optional(),
+    })
+    .optional(),
   genealogy: z.string().optional(),
   references: z
     .array(

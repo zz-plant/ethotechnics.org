@@ -41,9 +41,9 @@ export type GlossaryMaturity =
   "core_concept" | "active_research" | "speculative";
 
 export type GlossaryMinimumEvidence = {
-  artifact: string;
-  behavior: string;
-  metric: string;
+  artifact?: string;
+  behavior?: string;
+  metric?: string;
   definition?: string;
   unit?: string;
   dataSource?: string;
@@ -73,7 +73,7 @@ export type GlossaryEntry = {
   missingExpectations?: string[];
   operationalTests?: string[];
   commonCounterfeits?: string[];
-  minimumEvidence: GlossaryMinimumEvidence;
+  minimumEvidence?: GlossaryMinimumEvidence;
   genealogy?: string;
   references?: GlossaryResource[];
   examples?: string[];

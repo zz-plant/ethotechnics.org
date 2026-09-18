@@ -172,13 +172,7 @@ export const controlChecklist = `- [ ] Receipt schema v1.0 implemented and valid
 - [ ] Required logs exist: action log, override log, exception log, receipt log.
 - [ ] Rollback trigger defined (unsafe-action spike, audit failure, or contested-remedy breach).`;
 
-export const promptPackInstall = {
-  title: "Ethotechnics agent prompt pack",
-  version: "v1.0.0",
-  downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md",
-  pathSnippet: "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.0.0.md",
-  invokeExample: "use: ethotechnics-agent-prompt-pack-v1.0.0",
-};
+export { promptPackInstall } from "../prompt-pack";
 
 export const practiceSections: PracticeSection[] = [
   {

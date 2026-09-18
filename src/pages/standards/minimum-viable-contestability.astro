@@ -42,62 +42,62 @@ const lastUpdated = "2025-01-01";
         ))
       }
     </CardGrid>
+  </SectionBlock>
 
-    <SectionBlock
-      id="standard"
-      eyebrow="Baseline requirements"
-      title="Eight baseline commitments make contestability real."
-      description="Each commitment below is the minimum, with the evidence a reviewer can check."
-      variant="alt"
-    >
-      {
-        sections.map((section, index) => (
-          <section id={section.id} class="standard-section stack-sm">
-            <p class="eyebrow">Section {index + 1}</p>
-            <h3>{section.title}</h3>
-            <p class="muted">{section.summary}</p>
-            <div class="grid grid--two">
-              <div class="panel">
-                <p class="eyebrow">Requirements</p>
-                <ul class="muted">
-                  {section.requirements.map((requirement) => (
-                    <li>{requirement}</li>
-                  ))}
-                </ul>
-              </div>
-              <div class="panel">
-                <p class="eyebrow">Evidence</p>
-                <ul class="muted">
-                  {section.evidence.map((evidence) => (
-                    <li>{evidence}</li>
-                  ))}
-                </ul>
-              </div>
+  <SectionBlock
+    id="standard"
+    eyebrow="Baseline requirements"
+    title="Eight baseline commitments make contestability real."
+    description="Each commitment below is the minimum, with the evidence a reviewer can check."
+    variant="alt"
+  >
+    {
+      sections.map((section, index) => (
+        <section id={section.id} class="standard-section stack-sm">
+          <p class="eyebrow">Section {index + 1}</p>
+          <h3>{section.title}</h3>
+          <p class="muted">{section.summary}</p>
+          <div class="grid grid--two">
+            <div class="panel">
+              <p class="eyebrow">Requirements</p>
+              <ul class="muted">
+                {section.requirements.map((requirement) => (
+                  <li>{requirement}</li>
+                ))}
+              </ul>
             </div>
-          </section>
-        ))
-      }
-    </SectionBlock>
+            <div class="panel">
+              <p class="eyebrow">Evidence</p>
+              <ul class="muted">
+                {section.evidence.map((evidence) => (
+                  <li>{evidence}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      ))
+    }
+  </SectionBlock>
 
-    <SectionBlock
-      id="text"
-      eyebrow="Plain text"
-      title={textOnly.title}
-      description={textOnly.description}
-    >
-      <div class="panel">
-        <p class="muted">{summary.description}</p>
-        <ol class="muted">
-          {
-            sections.map((section) => (
-              <li>
-                <strong>{section.title}:</strong> {section.summary}{" "}
-                Requirements: {section.requirements.join(" ")}
-              </li>
-            ))
-          }
-        </ol>
-      </div>
-    </SectionBlock>
+  <SectionBlock
+    id="text"
+    eyebrow="Plain text"
+    title={textOnly.title}
+    description={textOnly.description}
+  >
+    <div class="panel">
+      <p class="muted">{summary.description}</p>
+      <ol class="muted">
+        {
+          sections.map((section) => (
+            <li>
+              <strong>{section.title}:</strong> {section.summary} Requirements:{" "}
+              {section.requirements.join(" ")}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
   </SectionBlock>
 </StandardsLayout>

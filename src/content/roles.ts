@@ -159,7 +159,7 @@ export const roles: Role[] = [
         description:
           "Line-by-line mappings between international AI legislation and controls a system can be tested against.",
         ctaLabel: "View crosswalk matrix",
-        ctaHref: "/standards#regulatory-crosswalks",
+        ctaHref: "/standards/enforceable-governance-crosswalks",
       },
       {
         number: 2,

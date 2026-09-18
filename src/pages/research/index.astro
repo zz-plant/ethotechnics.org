@@ -538,14 +538,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                         <li>{note}</li>
                       ))}
                     </ul>
-                    <p class="eyebrow">References</p>
-                    <ul class="muted">
-                      {publication.references.map((reference) => (
-                        <li>
-                          <a href={reference.href}>{reference.label}</a>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                   <div slot="footer" class="card__footer">
                     <a

@@ -5,6 +5,7 @@ import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import { governanceContent } from "../../content/governance";
+import { readReviewWindow, todayIso } from "../../utils/review-window";
 
 const {
   pageTitle,
@@ -17,7 +18,30 @@ const {
 } = governanceContent;
 
 const openRfcStatuses = new Set(["proposal", "review", "decision"]);
-const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
+const today = todayIso();
+// Two of these were listed under "active review windows" seven months after
+// their windows closed. Law II again: the clock is in the data, so the page
+// reads it rather than leaving the reader to.
+const openRfcs = rfcs
+  .filter((entry) => openRfcStatuses.has(entry.status))
+  .map((entry) => ({
+    ...entry,
+    review: readReviewWindow(entry.reviewWindow, today),
+  }));
+const lapsedRfcs = openRfcs.filter((entry) => entry.review.lapsed).length;
+const rfcSectionDescription =
+  lapsedRfcs === 0
+    ? "Open RFCs show the status, owners, reviewer roles, and active review windows before decisions are logged."
+    : `Open RFCs show the status, owners, and reviewer roles before decisions are logged. ${lapsedRfcs} of ${openRfcs.length} have passed their stated review window without a decision being logged.`;
+
+// The page used to promise a quarterly cadence. The newest entry is from
+// January 2026, so it said something untrue on every load. It now reports the
+// date of the most recent update and leaves the reader to judge the gap,
+// which is the same test Law II applies to a grant: silence is not renewal.
+const latestGovernanceUpdate = [...quarterlyUpdates]
+  .map((entry) => entry.date)
+  .sort()
+  .at(-1);
 ---
 
 <BaseLayout
@@ -55,7 +79,7 @@ const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
     id="open-rfcs"
     eyebrow="Current work"
     title="Current/open RFCs"
-    description="Open RFCs show the status, owners, reviewer roles, and active review windows before decisions are logged."
+    description={rfcSectionDescription}
   >
     <CardGrid>
       {
@@ -66,7 +90,15 @@ const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
             description={rfc.summary}
           >
             <p class="muted small">Opened: {rfc.openedOn}</p>
-            <p class="muted small">Review window: {rfc.reviewWindow}</p>
+            <p class="muted small">
+              Review window: {rfc.reviewWindow}
+              {rfc.review.lapsed && (
+                <strong>
+                  {" "}
+                  — closed {rfc.review.closesOn}, no decision logged
+                </strong>
+              )}
+            </p>
             <p class="muted small">Owner: {rfc.owner}</p>
             <p class="muted small">
               Reviewer roles: {rfc.reviewerRoles.join(", ")}
@@ -103,10 +135,10 @@ const openRfcs = rfcs.filter((entry) => openRfcStatuses.has(entry.status));
   </SectionBlock>
 
   <SectionBlock
-    id="quarterly-updates"
-    eyebrow="Quarterly notes"
-    title="Quarterly governance updates"
-    description="Dated updates summarize what shipped in governance operations each quarter."
+    id="governance-updates"
+    eyebrow="Update log"
+    title="Governance updates"
+    description={`Dated updates summarize what shipped in governance operations. The most recent was published ${latestGovernanceUpdate}.`}
   >
     <CardGrid>
       {

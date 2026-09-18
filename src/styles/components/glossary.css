@@ -244,12 +244,6 @@
   .glossary-index__category {
     font-size: var(--font-size-sm);
   }
-
-  .glossary-grid {
-    display: grid;
-    gap: var(--space-4);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  }
   .glossary-entry {
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-lg);
@@ -373,11 +367,6 @@
     margin-bottom: 0;
   }
 
-  .glossary-entry__route-list a {
-    color: var(--muted);
-    text-decoration-color: color-mix(in srgb, var(--border) 75%, transparent);
-  }
-
   .glossary-entry__section--patterns {
     display: grid;
     gap: var(--space-2);
@@ -389,44 +378,12 @@
     margin: 0;
   }
 
-  .glossary-entry__header {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-2);
-    align-items: baseline;
-  }
-
-  .glossary-entry__actions {
-    display: flex;
-    gap: var(--space-2);
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .glossary-entry__citation-buttons {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
   .glossary-entry__citation-buttons .copy-button {
     padding: 0.25rem 0.75rem;
   }
 
-  .glossary-entry__permalink {
-    font-size: var(--font-size-sm);
-    color: var(--muted);
-  }
-
   .glossary-entry__body p + p {
     margin-top: var(--space-2);
-  }
-
-  .glossary-entry__block {
-    border-top: 1px solid var(--color-border-subtle);
-    padding-top: var(--space-2);
   }
 
   .glossary-entry__resources {
@@ -441,11 +398,6 @@
 
   .glossary-entry--diagram .micro-diagram {
     margin-top: var(--space-2);
-  }
-
-  .glossary-entry__block--patterns {
-    display: grid;
-    gap: var(--space-2);
   }
 
   .glossary-entry__patterns-list {
@@ -537,17 +489,6 @@
 
     .glossary-index {
       grid-template-columns: 1fr;
-    }
-
-    .glossary-entry__header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .glossary-entry__actions,
-    .glossary-entry__citation-buttons {
-      width: 100%;
-      justify-content: flex-start;
     }
 
     .glossary-entry__citation-buttons .copy-button {

@@ -98,7 +98,7 @@ export const createImplementationPublication = (
   updated: "2025-02-01T00:00:00Z",
   version: "v1.0.0",
   doi: "Pending Zenodo deposit",
-  archiveUrl: `https://web.archive.org/save/https://ethotechnics.org${permalink}`,
+  archiveUrl: `https://web.archive.org/web/*/https://ethotechnics.org${permalink}`,
   changelog: [
     {
       version: "v1.0.0",

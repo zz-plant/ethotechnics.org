@@ -32,6 +32,22 @@ const publication = createImplementationPublication(
     anchorLinks={anchorLinks}
   />
 
+  {
+    /* The profile set this example builds on is withdrawn. The example still
+       shows how the artifacts map onto FHIR resources, which is why it is
+       here rather than retired, but a reader arriving from search needs to
+       know which standard to implement against. */
+  }
+  <aside class="callout" aria-label="Standard status">
+    <p class="eyebrow">Superseded profile set</p>
+    <p class="muted small">
+      This example maps onto <a href="/standards/fhir-profile-set">STD-04</a>,
+      withdrawn in February 2026 and replaced by{" "}
+      <a href="/standards/w3c-vc-schemas">STD-05</a>. Implement against STD-05;
+      the resource mapping below still holds.
+    </p>
+  </aside>
+
   <SectionBlock
     id="overview"
     eyebrow="Overview"

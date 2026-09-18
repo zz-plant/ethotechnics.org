@@ -4,7 +4,6 @@ export interface InstituteArtifact {
   description: string[];
   enforcesBullets: string[];
   howToSteps: string[];
-  downloadUrl: string;
   finalLine: string;
 }
 
@@ -42,7 +41,6 @@ export const artifacts: InstituteArtifact[] = [
       "Publish the contestability path in the user-facing flow.",
       "Treat the reversal clock as an operational commitment, not a target.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
   {
@@ -62,7 +60,6 @@ export const artifacts: InstituteArtifact[] = [
       "Define escalation steps when clocks are missed.",
       "Publish internal dashboards for reversal latency and time-in-harm.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
   {
@@ -82,7 +79,6 @@ export const artifacts: InstituteArtifact[] = [
       "Define kill-switch criteria for each failure state.",
       "Run a tabletop where the first move is a freeze.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
   {
@@ -102,7 +98,6 @@ export const artifacts: InstituteArtifact[] = [
       "Set evidence rules that do not require perfect legibility.",
       "Bind the appeals queue to the reversal SLA clock.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
   {
@@ -122,7 +117,6 @@ export const artifacts: InstituteArtifact[] = [
       "Include remedy path, time bounds, and escalation contact.",
       "Log harm receipts as governance events, not support tickets.",
     ],
-    downloadUrl: "#",
     finalLine: artifactFinalLine,
   },
 ];

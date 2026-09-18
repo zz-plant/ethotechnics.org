@@ -1,4 +1,5 @@
 ---
+import { promptPackInstall } from "../../content/prompt-pack";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -114,14 +115,6 @@ const resources = [
     label: "Use the quick answers",
   },
 ];
-
-const promptPackInstall = {
-  title: "Ethotechnics agent prompt pack",
-  version: "v1.1.0",
-  downloadUrl: "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.1.0.md",
-  pathSnippet: "prompts/ethotechnics/ethotechnics-agent-prompt-pack-v1.1.0.md",
-  invokeExample: "use: ethotechnics-agent-prompt-pack-v1.1.0",
-};
 ---
 
 <BaseLayout

@@ -119,7 +119,7 @@ for (const cw of governanceCrosswalks) {
     type: "regulatory_crosswalk",
     title: `${cw.controlId}: ${cw.obligation}`,
     description: `EU AI Act: ${cw.euAiAct} | NIST: ${cw.nistAiRmf} | ISO: ${cw.iso42001}`,
-    href: `/standards#regulatory-crosswalks`,
+    href: `/standards/enforceable-governance-crosswalks`,
     category: "Regulatory Crosswalks",
   });
 }

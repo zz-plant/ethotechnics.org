@@ -49,7 +49,7 @@ describe("navSections", () => {
       "/method",
       "/standards/laws",
       "/standards",
-      "/standards#regulatory-crosswalks",
+      "/standards/enforceable-governance-crosswalks",
       "/evidence-packs",
     ]);
   });

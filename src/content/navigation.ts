@@ -103,7 +103,7 @@ export const navSections: NavSection[] = [
         description: "Citable clauses, stated so a system can fail them",
       },
       {
-        href: "/standards#regulatory-crosswalks",
+        href: "/standards/enforceable-governance-crosswalks",
         label: "Regulatory crosswalks",
         description: "EU AI Act, NIST AI RMF, and ISO 42001 alignment",
       },

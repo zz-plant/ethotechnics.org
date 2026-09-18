@@ -12,10 +12,6 @@ import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SemanticConnections from "../../components/SemanticConnections.astro";
 import { glossaryEntryPermalink } from "../../utils/glossary";
 import {
-  getGlossaryTestSlugs,
-  glossaryTestPermalink,
-} from "../../utils/glossary-sections";
-import {
   getGlossaryEntryDefaults,
   normalizeGlossaryHeading,
   stripHtml,
@@ -100,12 +96,6 @@ const {
   genealogy,
   references,
 } = getGlossaryEntryDefaults(entry, category);
-const operationalTestLinks = getGlossaryTestSlugs(operationalTests).map(
-  (test) => ({
-    label: test.label,
-    href: glossaryTestPermalink(entry.id, test.slug),
-  }),
-);
 const presenceChecks = entry.presenceChecks ?? [];
 const missingExpectations = entry.missingExpectations ?? [];
 const metaItems = [
@@ -115,13 +105,6 @@ const metaItems = [
     : undefined,
 ].filter((item): item is { id: string; label: string; value: string } =>
   Boolean(item),
-);
-const hasMinimumEvidenceDetails = Boolean(
-  minimumEvidence.definition ||
-  minimumEvidence.unit ||
-  minimumEvidence.dataSource ||
-  minimumEvidence.calculation ||
-  minimumEvidence.threshold,
 );
 const minimumEvidenceItems = [
   { label: "Artifact", value: minimumEvidence.artifact },
@@ -135,13 +118,11 @@ const minimumEvidenceItems = [
 ].filter((item): item is { label: string; value: string } =>
   Boolean(item.value),
 );
-const showMinimumEvidence = hasMinimumEvidenceDetails;
-const missingMetadata = [
-  !scopeText ? "Scope" : null,
-  !genealogy ? "Genealogy" : null,
-  operationalTests.length === 0 ? "Operational tests" : null,
-  !hasMinimumEvidenceDetails ? "Minimum evidence details" : null,
-].filter((item): item is string => Boolean(item));
+// The section used to appear only when a metric detail was recorded, because
+// every entry carried three generated evidence sentences and gating on the
+// details was what kept them off the page. The generated sentences are gone,
+// so an entry that states its artifact, behavior, or metric can show it.
+const showMinimumEvidence = minimumEvidenceItems.length > 0;
 const domains = entry.domains ?? [];
 const phases = entry.phase ?? [];
 const measurability = entry.measurability ?? "";
@@ -672,13 +653,11 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                   class="glossary-entry__disclosure"
                 >
                   <summary>
-                    Operational tests ({operationalTestLinks.length})
+                    Operational tests ({operationalTests.length})
                   </summary>
                   <ul class="muted">
-                    {operationalTestLinks.map((test) => (
-                      <li>
-                        <a href={test.href}>{test.label}</a>
-                      </li>
+                    {operationalTests.map((test) => (
+                      <li>{test}</li>
                     ))}
                   </ul>
                 </details>
@@ -713,21 +692,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                       <li>
                         <strong>{item.label}:</strong> {item.value}
                       </li>
-                    ))}
-                  </ul>
-                </details>
-              )
-            }
-            {
-              missingMetadata.length > 0 && (
-                <details class="glossary-entry__disclosure">
-                  <summary>Entry completeness notes</summary>
-                  <p class="muted small">
-                    Additional term details are in progress.
-                  </p>
-                  <ul class="muted">
-                    {missingMetadata.map((item) => (
-                      <li>{item}</li>
                     ))}
                   </ul>
                 </details>

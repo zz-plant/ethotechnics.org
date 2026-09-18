@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
 import { failureStates } from "../content/institute-site";
-import { standardsContent } from "../content/standards";
+import { recentReleases } from "../content/recent-releases";
 
 const failureChoiceLabels: Record<string, string> = {
   "decision-appealed": "Decision appealed",
@@ -35,22 +35,6 @@ const failureSeverity = (badge?: string): string | undefined => {
     ? level
     : undefined;
 };
-
-// The three most recent dated changelog entries across the standards that
-// have a published page. Derived so the home page cannot fall behind the
-// registry it points at.
-const recentPublications = standardsContent.standards
-  .filter((standard) => standard.listedOnSite !== false)
-  .flatMap((standard) =>
-    (standard.changelogEntries ?? []).map((entry) => ({
-      href:
-        entry.href ?? standard.changelogHref ?? `/standards/${standard.slug}`,
-      label: `${standard.id} v${entry.version}: ${entry.summary}`,
-      date: entry.date,
-    })),
-  )
-  .sort((a, b) => b.date.localeCompare(a.date))
-  .slice(0, 3);
 
 const failureChoiceIcons: Record<string, string[]> = {
   "decision-appealed": [
@@ -233,34 +217,38 @@ const failureChoiceIcons: Record<string, string[]> = {
       <h2 id="recently-published-heading">Recent releases</h2>
       <ul class="recent-releases">
         {
-          recentPublications.map((item) => (
+          recentReleases.map((release) => (
             <li>
-              <a href={item.href}>{item.label}</a>
-              <span class="muted"> · {item.date}</span>
+              <a href={release.href}>
+                {release.area} {release.version}
+              </a>{" "}
+              <span class="muted">
+                · <time datetime={release.date}>{release.date}</time>
+              </span>
+              <p class="muted small">{release.summary}</p>
             </li>
           ))
         }
       </ul>
+    </section>
 
-      <section class="stack-sm card card--accent">
-        <p class="eyebrow">Studio</p>
-        <h2>Need hands-on help?</h2>
-        <p>
-          Ethotechnics Studio provides commissioned support for clinical AI
-          safety evaluation, diligence, governance design, and implementation
-          work.
-        </p>
-        <p>
-          <a
-            class="button"
-            href="https://ethotechnics.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ethotechnics Studio →
-          </a>
-        </p>
-      </section>
+    <section class="stack-sm card card--accent">
+      <p class="eyebrow">Studio</p>
+      <h2>Need hands-on help?</h2>
+      <p>
+        Ethotechnics Studio provides commissioned support for clinical AI safety
+        evaluation, diligence, governance design, and implementation work.
+      </p>
+      <p>
+        <a
+          class="button"
+          href="https://ethotechnics.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ethotechnics Studio →
+        </a>
+      </p>
     </section>
   </div>
 </BaseLayout>

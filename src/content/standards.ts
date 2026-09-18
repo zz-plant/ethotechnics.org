@@ -81,7 +81,7 @@ export const standardsContent: StandardsContent = {
         "Defines the seven inalienable rights protecting human time against automated systems.",
       status: "Draft",
       version: "1.0",
-      changelogHref: "/standards/std-01-temporal-rights#publication-history",
+      changelogHref: "/standards/std-01-temporal-rights",
       changelogEntries: [
         {
           version: "1.0",
@@ -125,7 +125,7 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires successful red-team recourse simulation and two external peer reviewers.",
-      effectiveDate: "TBD (proposed 2026)",
+      effectiveDate: "TBD",
       published: "2026-01-01",
     },
     {
@@ -191,7 +191,7 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires pilot metrics from two sectors and reviewer consensus on breach thresholds.",
-      effectiveDate: "TBD (proposed 2026)",
+      effectiveDate: "TBD",
       published: "2026-01-01",
     },
     {
@@ -220,7 +220,9 @@ export const standardsContent: StandardsContent = {
           title: "W3C Verifiable Credential schemas for contestability",
         },
       ],
-      effectiveDate: "TBD (proposed 2026)",
+      // A withdrawn profile has no date it comes into effect; it has the
+      // date it stopped being the recommendation.
+      effectiveDate: "Withdrawn 2026-02-15",
       published: "2026-02-15",
     },
     {
@@ -242,7 +244,7 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires interoperability testing across two verifier implementations and one public registry.",
-      effectiveDate: "TBD (proposed 2026)",
+      effectiveDate: "TBD",
       published: "2026-02-15",
     },
     {
@@ -277,7 +279,7 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires passing safety-case drills in two live programs and independent assurance review.",
-      effectiveDate: "TBD (proposed 2026)",
+      effectiveDate: "TBD",
       published: "2026-03-01",
     },
     {
@@ -300,7 +302,7 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires two independent systems emitting Level 1 records that a third party has verified by hash, and one accepted objection answered within its clock.",
-      effectiveDate: "TBD (proposed 2026)",
+      effectiveDate: "TBD",
       published: "2026-09-06",
     },
     {
@@ -328,7 +330,7 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires two institutions operating grant and policy registers with recorded expansion decisions, and one intervention specification whose measured approval behavior produced a reconsideration.",
-      effectiveDate: "TBD (proposed 2026)",
+      effectiveDate: "TBD",
       published: "2026-09-06",
     },
     {
@@ -350,7 +352,7 @@ export const standardsContent: StandardsContent = {
       ],
       stableCriteria:
         "Requires one recorded chain across two institutions with a measured composed-latency window, one boundary intervention halt receipt covering every hop, and one chain-level correction-capacity assessment.",
-      effectiveDate: "TBD (proposed 2026)",
+      effectiveDate: "TBD",
       published: "2026-09-11",
     },
   ],

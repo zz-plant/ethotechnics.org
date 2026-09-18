@@ -48,7 +48,7 @@ export type GovernanceContent = PageWithPermalink &
 export const governanceContent: GovernanceContent = {
   pageTitle: "Governance process — Ethotechnics",
   pageDescription:
-    "Public governance receipts for RFCs, decision records, releases, and quarterly accountability updates.",
+    "Public governance receipts for RFCs, decision records, releases, and dated accountability updates.",
   permalink: "/institute/governance",
   published: "2026-02-01T00:00:00Z",
   updated: "2026-02-15T00:00:00Z",
@@ -56,7 +56,7 @@ export const governanceContent: GovernanceContent = {
     { href: "#lifecycle", label: "RFC lifecycle" },
     { href: "#open-rfcs", label: "Current RFCs" },
     { href: "#decision-log", label: "Decision log" },
-    { href: "#quarterly-updates", label: "Quarterly updates" },
+    { href: "#governance-updates", label: "Governance updates" },
   ],
   lifecycle: [
     {

@@ -40,7 +40,12 @@ const pageDescription =
     </p>
   </header>
 
-  <main class="container">
+  {
+    /* A section, not a main: BaseLayout already renders the page's only
+       <main>, and a second one nested inside it is invalid and gives screen
+       readers two main landmarks to choose between. */
+  }
+  <section class="container">
     <nav class="role-chips" aria-label="Jump to a role">
       {
         roles.map((role) => (
@@ -151,7 +156,7 @@ const pageDescription =
         <a href="/glossary" class="button">4. Knowledge (Taxonomy & Metrics)</a>
       </div>
     </section>
-  </main>
+  </section>
 </BaseLayout>
 
 <style>

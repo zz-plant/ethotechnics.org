@@ -1,9 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+/**
+ * The operating model is a sequence: what trips the breaker, who may act,
+ * what they touch, and what the system does while it is open. It rendered as
+ * four identical three-bullet lists, which showed none of that order, so each
+ * stage is numbered and captioned with the question it answers.
+ */
 const operatingModel = [
   {
     label: "Trigger conditions",
+    question: "What trips the breaker",
     items: [
       "Decision error rates exceed agreed risk thresholds.",
       "Users report harmful outcomes with no clear path to appeal.",
@@ -12,6 +19,7 @@ const operatingModel = [
   },
   {
     label: "Role assignment",
+    question: "Who may act on it",
     items: [
       "Operator can activate a slow mode immediately.",
       "Incident lead can pause the workflow pending review.",
@@ -20,6 +28,7 @@ const operatingModel = [
   },
   {
     label: "Interface controls",
+    question: "What they reach for",
     items: [
       "Single-click pause and traffic throttle controls.",
       "Escalation routing to named human reviewers by risk tier.",
@@ -28,6 +37,7 @@ const operatingModel = [
   },
   {
     label: "Fail-safe behavior",
+    question: "What the system does while it is open",
     items: [
       "High-risk actions default to deny when telemetry confidence degrades.",
       "Queue routing diverts cases to human adjudication while paused.",
@@ -65,17 +75,27 @@ const operatingModel = [
     class="stack-lg institute-screen"
     aria-label="Circuit breaker operating model"
   >
-    {
-      operatingModel.map((section) => (
-        <article class="stack-sm">
-          <h2>{section.label}</h2>
-          <ul>
-            {section.items.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </article>
-      ))
-    }
+    <ol class="operating-model">
+      {
+        operatingModel.map((section, index) => (
+          <li class="operating-model__stage">
+            <p class="operating-model__index" aria-hidden="true">
+              {index + 1}
+            </p>
+            <div class="stack-sm">
+              <h2 class="operating-model__title">{section.label}</h2>
+              <p class="muted small operating-model__question">
+                {section.question}
+              </p>
+              <ul>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 </BaseLayout>

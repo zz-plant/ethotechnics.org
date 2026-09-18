@@ -186,27 +186,26 @@ export const structuredData = {
     <div class="standard-main">
       <section id="relationship" class="standard-section">
         <h2>Relationship to STD-07 and STD-08</h2>
-        <p>
-          <a href="/standards/std-07-revisable-delegation-record">STD-07</a>{" "}
-          defines the record format and{" "}
-          <a href="/standards/std-08-delegation">STD-08</a> the terms of a
-          delegation while it stands. Both govern one delegation at a time.
-          This standard governs what happens when a consequential decision is
-          produced by a chain of them: an agent that sub-contracts to another
-          agent, a service that calls a service, a model whose output is a
-          second model's input, across a boundary no single human can see
-          past in the time the decision takes.
-        </p>
-        <p>
-          The claim of this standard is narrow. The unit of governance is
-          still the consequential decision and the delegation that produced
-          it. What changes is that the delegation is the chain, not any one
-          hop: a chain that cannot be enumerated, paused, and attributed is
-          one delegation with no holder, and it is governed as the hazard it
-          is. STD-09 does not restate STD-07 or STD-08. Where their clauses
-          already bind, this standard cites them and adds only what the
-          composition opens.
-        </p>
+
+        <a href="/standards/std-07-revisable-delegation-record">STD-07</a>{" "}
+        defines the record format and{" "}
+        <a href="/standards/std-08-delegation">STD-08</a> the terms of a
+        delegation while it stands. Both govern one delegation at a time.
+        This standard governs what happens when a consequential decision is
+        produced by a chain of them: an agent that sub-contracts to another
+        agent, a service that calls a service, a model whose output is a
+        second model's input, across a boundary no single human can see
+        past in the time the decision takes.
+
+        The claim of this standard is narrow. The unit of governance is
+        still the consequential decision and the delegation that produced
+        it. What changes is that the delegation is the chain, not any one
+        hop: a chain that cannot be enumerated, paused, and attributed is
+        one delegation with no holder, and it is governed as the hazard it
+        is. STD-09 does not restate STD-07 or STD-08. Where their clauses
+        already bind, this standard cites them and adds only what the
+        composition opens.
+
         <table class="table">
           <thead>
             <tr>
@@ -231,36 +230,35 @@ export const structuredData = {
 
       <section id="scope" class="standard-section">
         <h2>Scope</h2>
-        <p>
-          This standard applies whenever a consequential decision is produced
-          by two or more delegations in sequence, across components,
-          providers, or institutions, such that no single human oversees the
-          whole chain at the moment the decision is made. It is
-          substrate-neutral: it does not depend on the hops being agents, and
-          it binds a chain of rules engines exactly as it binds a chain of
-          models.
-        </p>
-        <p>
-          The fiction this standard refuses is the human in the middle of a
-          millisecond chain. Law IX already holds that a human who cannot
-          alter the trajectory is not a control, and Law X holds that the
-          relevant eval sits at the highest layer where harm can emerge. For
-          a chain, the highest layer is the chain itself: each hop can be
-          conformant and the composition still be unauditable, unstoppable
-          in practice, and attributed to no one. The four parts below bind
-          Laws I, II, IV, IX, and XI at that layer.
-        </p>
+
+        This standard applies whenever a consequential decision is produced
+        by two or more delegations in sequence, across components,
+        providers, or institutions, such that no single human oversees the
+        whole chain at the moment the decision is made. It is
+        substrate-neutral: it does not depend on the hops being agents, and
+        it binds a chain of rules engines exactly as it binds a chain of
+        models.
+
+        The fiction this standard refuses is the human in the middle of a
+        millisecond chain. Law IX already holds that a human who cannot
+        alter the trajectory is not a control, and Law X holds that the
+        relevant eval sits at the highest layer where harm can emerge. For
+        a chain, the highest layer is the chain itself: each hop can be
+        conformant and the composition still be unauditable, unstoppable
+        in practice, and attributed to no one. The four parts below bind
+        Laws I, II, IV, IX, and XI at that layer.
+
       </section>
 
       <section id="objects" class="standard-section">
         <h2>Objects this standard uses</h2>
-        <p>
-          No new object is introduced in this draft. The chain is carried on
-          the authority grant's <code>chain</code> field, published with the
-          grant schema in this release. An institution that keeps the same
-          information in a spreadsheet conforms if it can export the named
-          fields.
-        </p>
+
+        No new object is introduced in this draft. The chain is carried on
+        the authority grant's <code>chain</code> field, published with the
+        grant schema in this release. An institution that keeps the same
+        information in a spreadsheet conforms if it can export the named
+        fields.
+
         <table class="table">
           <thead>
             <tr>
@@ -459,10 +457,10 @@ export const structuredData = {
 
       <section id="anti-patterns" class="standard-section">
         <h2>Anti-patterns and counterfactuals</h2>
-        <p>
-          Use these to detect chains whose hops satisfy STD-07 and STD-08
-          while the composition satisfies nothing.
-        </p>
+
+        Use these to detect chains whose hops satisfy STD-07 and STD-08
+        while the composition satisfies nothing.
+
         <ul class="standard-clauses">
           {antiPatterns.map((pattern) => (
             <li>
@@ -503,14 +501,10 @@ export const structuredData = {
             <a href="/standards/std-08-delegation">STD-08: Delegation</a>
           </li>
           <li>
-            <a href="/standards/std-07-revisable-delegation-record">
-              STD-07: Revisable Delegation Record
-            </a>
+            <a href="/standards/std-07-revisable-delegation-record">STD-07: Revisable Delegation Record</a>
           </li>
           <li>
-            <a href="/standards/std-06-human-impact-safety-case">
-              STD-06: Human Impact Safety Case
-            </a>
+            <a href="/standards/std-06-human-impact-safety-case">STD-06: Human Impact Safety Case</a>
           </li>
         </ul>
       </div>

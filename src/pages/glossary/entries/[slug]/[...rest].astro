@@ -1,8 +1,18 @@
 ---
+/**
+ * Anything under an entry resolves to the entry.
+ *
+ * Each operational test used to get its own page. Measured against its
+ * parent, a test page was about 410 words of which roughly 40 were not
+ * already on the entry: the test sentence and its framing. That published
+ * 213 pages to carry the tests an entry already lists, so the pages are
+ * retired and their URLs land on the entry. Permanent, so the retired URLs
+ * leave the index rather than lingering as duplicates.
+ */
 export const prerender = false;
 
 return Astro.redirect(
   Astro.params.slug ? `/glossary/${Astro.params.slug}/` : "/glossary/",
-  302,
+  301,
 );
 ---

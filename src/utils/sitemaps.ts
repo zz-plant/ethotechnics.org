@@ -16,10 +16,6 @@ import { standardsContent } from "../content/standards";
 import { taxonomyEntries } from "../content/taxonomy";
 import { homeContent } from "../content/home";
 import { glossaryEntryPermalink } from "../utils/glossary";
-import {
-  getGlossaryTestSlugs,
-  glossaryTestPermalink,
-} from "../utils/glossary-sections";
 
 const getContentEntry = async (
   collection: string,
@@ -92,8 +88,9 @@ const normalizeRoutePath = (filePath: string) => {
   const withoutPrefix = filePath.replace(/^\.\//, "").replace(/\.astro$/, "");
   if (withoutPrefix.includes("[")) return null;
   if (withoutPrefix === "index") return "/";
-  if (withoutPrefix.endsWith("/index"))
-    return `/${withoutPrefix.slice(0, -6)}/`;
+  // A section index is /standards, not /standards/. The slashed form listed
+  // the same page under a second URL, which is now a redirect.
+  if (withoutPrefix.endsWith("/index")) return `/${withoutPrefix.slice(0, -6)}`;
   return `/${withoutPrefix}`;
 };
 
@@ -261,18 +258,6 @@ export const buildSitemapSections = async () => {
       })),
   );
 
-  const glossaryTestPaths = glossaryData.categories.flatMap(
-    (category: GlossaryCategory) =>
-      category.entries.flatMap((entry: GlossaryEntry) =>
-        getGlossaryTestSlugs(entry.operationalTests ?? []).map((test) => ({
-          path: glossaryTestPermalink(entry.id, test.slug),
-          lastmod: glossaryLastmod,
-          changefreq: "monthly",
-          priority: "0.3",
-        })),
-      ),
-  );
-
   const libraryEntry: unknown = await getContentEntry("library", "library");
   const libraryData: LibraryContent = hasEntryData<LibraryContent>(libraryEntry)
     ? libraryEntry.data
@@ -426,7 +411,7 @@ export const buildSitemapSections = async () => {
 
   return {
     core: applyOverrides(corePaths),
-    glossary: applyOverrides([...glossaryPaths, ...glossaryTestPaths]),
+    glossary: applyOverrides(glossaryPaths),
     // Standards come from the MDX collection /standards/[...slug] renders, not
     // from the registry: a registry entry can exist for clauses and changelogs
     // long before its page does (PM-01, STD-03, STD-04, STD-05 all did), and the
