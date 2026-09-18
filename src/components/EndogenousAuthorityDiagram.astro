@@ -1,0 +1,139 @@
+---
+/**
+ * Endogenous Authorization Flywheel Diagram.
+ *
+ * Visualizes the self-referential validation loop where an incumbent system
+ * shapes the vocabulary, suppresses alternatives, and generates the very evidence
+ * used to justify its continuation and expansion, intercepted by exogenous boundaries.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="endogenous-auth-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="endogenous-auth-title">
+      The Endogenous Authorization Flywheel
+    </Heading>
+    <p class="muted">
+      Power shapes the environment in which evidence about its legitimacy is generated. Once in place, the system produces the data that justifies its own expansion.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 360"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Flywheel diagram showing how an incumbent system controls vocabulary, deprecates alternatives, and manufactures endogenous evidence to justify expansion, intercepted by independent evaluation."
+    >
+      <defs>
+        <marker
+          id="fly-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <marker
+          id="exog-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      {/* Cyclic Nodes */}
+      {/* Node 1: System in Place */}
+      <g class="state-diagram__node" transform="translate(40, 50)">
+        <rect width="240" height="75" rx="8" />
+        <text x="120" y="28" text-anchor="middle" class="state-diagram__state">1. Incumbent in Place</text>
+        <text x="120" y="46" text-anchor="middle" class="state-diagram__label">Handles high-volume decisions;</text>
+        <text x="120" y="58" text-anchor="middle" class="state-diagram__label">initial grant authorized</text>
+      </g>
+
+      {/* Arrow 1 -> 2 */}
+      <line x1="280" y1="87" x2="335" y2="87" stroke="var(--border)" stroke-width="2" marker-end="url(#fly-arrow)" />
+
+      {/* Node 2: Linguistic & Categorical Capture */}
+      <g class="state-diagram__node" transform="translate(340, 50)">
+        <rect width="250" height="75" rx="8" />
+        <text x="125" y="28" text-anchor="middle" class="state-diagram__state">2. Categorical Adoption</text>
+        <text x="125" y="46" text-anchor="middle" class="state-diagram__label">System ontology becomes domain vocabulary;</text>
+        <text x="125" y="58" text-anchor="middle" class="state-diagram__label">unhandled edge-cases discounted</text>
+      </g>
+
+      {/* Arrow 2 -> 3 */}
+      <line x1="590" y1="87" x2="645" y2="87" stroke="var(--border)" stroke-width="2" marker-end="url(#fly-arrow)" />
+
+      {/* Node 3: Atrophy of Alternatives */}
+      <g class="state-diagram__node" transform="translate(650, 50)">
+        <rect width="230" height="75" rx="8" />
+        <text x="115" y="28" text-anchor="middle" class="state-diagram__state">3. Atrophy of Alternatives</text>
+        <text x="115" y="46" text-anchor="middle" class="state-diagram__label">Non-system paths decay;</text>
+        <text x="115" y="58" text-anchor="middle" class="state-diagram__label">exit cost climbs; silence ensues</text>
+      </g>
+
+      {/* Arrow 3 down to 4 */}
+      <path d="M 765 125 L 765 190" stroke="var(--border)" stroke-width="2" marker-end="url(#fly-arrow)" />
+
+      {/* Node 4: Endogenous Evidence Generation */}
+      <g class="state-diagram__node state-diagram__node--active" transform="translate(490, 195)">
+        <rect width="390" height="85" rx="8" />
+        <text x="195" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">
+          4. Endogenous Evidence Generation
+        </text>
+        <text x="195" y="48" text-anchor="middle" class="state-diagram__label">
+          Incident rate reflects uncounted human absorption;
+        </text>
+        <text x="195" y="62" text-anchor="middle" class="state-diagram__label">
+          Comparative baseline compares against unmaintained corpse
+        </text>
+        <text x="195" y="74" text-anchor="middle" class="state-diagram__clause">
+          "System reports 99.8% satisfaction"
+        </text>
+      </g>
+
+      {/* Arrow 4 -> 5 */}
+      <line x1="490" y1="237" x2="350" y2="237" stroke="var(--border)" stroke-width="2" marker-end="url(#fly-arrow)" />
+
+      {/* Node 5: Scope Expansion */}
+      <g class="state-diagram__node" transform="translate(100, 195)">
+        <rect width="245" height="85" rx="8" />
+        <text x="122" y="28" text-anchor="middle" class="state-diagram__state">5. "Rational" Expansion</text>
+        <text x="122" y="48" text-anchor="middle" class="state-diagram__label">Widening justified using</text>
+        <text x="122" y="62" text-anchor="middle" class="state-diagram__label">self-generated success metrics;</text>
+        <text x="122" y="74" text-anchor="middle" class="state-diagram__clause">Next boundary absorbed</text>
+      </g>
+
+      {/* Flywheel Return: Arrow 5 back up to 1 */}
+      <path d="M 160 195 L 160 135" stroke="var(--border)" stroke-width="2" marker-end="url(#fly-arrow)" />
+
+      {/* Exogenous Intercept Callout */}
+      <g transform="translate(330, 295)">
+        <rect width="270" height="50" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+        <text x="135" y="22" text-anchor="middle" class="state-diagram__clause" fill="var(--accent-strong)">
+          Laws II, III, XI: Exogenous Firewall
+        </text>
+        <text x="135" y="38" text-anchor="middle" class="state-diagram__label" font-size="11">
+          Requires unbundled records & external baseline
+        </text>
+      </g>
+      <line x1="465" y1="295" x2="465" y2="260" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#exog-arrow)" />
+    </svg>
+  </div>
+</figure>

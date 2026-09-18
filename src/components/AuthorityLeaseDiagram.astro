@@ -1,0 +1,142 @@
+---
+/**
+ * Authority as a Lease Diagram (Law II & STD-07).
+ *
+ * Visualizes the finite lifecycle of a delegated grant:
+ * Grant Issuance -> Active Operating Horizon -> Expiry Deadline -> Fresh Evidence Renewal
+ * contrasted with the dangerous default of Title-Based perpetual authority.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="authority-lease-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="authority-lease-title">
+      Authority Lifecycle: Lease vs. Title
+    </Heading>
+    <p class="muted">
+      Treating authority as a lease means a grant expires by default. Silence is not renewal: continuing delegation requires fresh calibration evidence.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 380"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Lifecycle diagram comparing Title-based perpetual authority with Lease-based bounded delegation showing issuance, ticking horizon, renewal checkpoint, and default fallback."
+    >
+      <defs>
+        <marker
+          id="lease-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <marker
+          id="lease-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+        <marker
+          id="lease-danger-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--danger, #e06c75)" />
+        </marker>
+      </defs>
+
+      {/* Top Half: Flawed "Title" Paradigm */}
+      <g transform="translate(40, 30)">
+        <text x="0" y="20" class="state-diagram__clause" fill="var(--muted)">The Title Paradigm (Failure Mode)</text>
+        
+        {/* Title Box */}
+        <rect x="0" y="35" width="220" height="70" rx="8" fill="var(--surface)" stroke="var(--border)" />
+        <text x="110" y="65" text-anchor="middle" class="state-diagram__state">Single Upfront Approval</text>
+        <text x="110" y="85" text-anchor="middle" class="state-diagram__label">Permanent Title Granted</text>
+
+        <line x1="220" y1="70" x2="320" y2="70" stroke="var(--border)" stroke-width="2" marker-end="url(#lease-arrow)" />
+
+        <rect x="320" y="35" width="520" height="70" rx="8" fill="var(--surface)" stroke="var(--danger, #e06c75)" stroke-dasharray="4 4" />
+        <text x="580" y="62" text-anchor="middle" class="state-diagram__clause" fill="var(--danger, #e06c75)">Perpetual Drift into Unmonitored Capture</text>
+        <text x="580" y="82" text-anchor="middle" class="state-diagram__label">Silence treated as consent · Baseline never re-evaluated · Rubber-stamp renewal</text>
+      </g>
+
+      {/* Divider */}
+      <line x1="40" y1="145" x2="880" y2="145" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4" />
+
+      {/* Bottom Half: "Lease" Lifecycle (Ethotechnic Doctrine) */}
+      <g transform="translate(40, 165)">
+        <text x="0" y="20" class="state-diagram__clause" fill="var(--accent-strong)">The Lease Architecture (Law II &amp; STD-07)</text>
+
+        {/* Step 1: Initial Grant */}
+        <g class="state-diagram__node" transform="translate(0, 35)">
+          <rect width="180" height="85" rx="8" fill="var(--panel)" stroke="var(--border)" />
+          <text x="90" y="30" text-anchor="middle" class="state-diagram__state">1. Time-Bounded Grant</text>
+          <text x="90" y="52" text-anchor="middle" class="state-diagram__label">Stated term &amp; scope</text>
+          <text x="90" y="70" text-anchor="middle" class="state-diagram__clause">Provenance logged</text>
+        </g>
+
+        <line x1="180" y1="77" x2="230" y2="77" stroke="var(--accent)" stroke-width="2" marker-end="url(#lease-accent-arrow)" />
+
+        {/* Step 2: Active Operating Horizon */}
+        <g class="state-diagram__node" transform="translate(230, 35)">
+          <rect width="210" height="85" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+          <text x="105" y="30" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">2. Active Lease Horizon</text>
+          <text x="105" y="52" text-anchor="middle" class="state-diagram__label">Ticking expiration clock</text>
+          <text x="105" y="70" text-anchor="middle" class="state-diagram__clause">Absorption monitored</text>
+        </g>
+
+        <line x1="440" y1="77" x2="490" y2="77" stroke="var(--accent)" stroke-width="2" marker-end="url(#lease-accent-arrow)" />
+
+        {/* Step 3: Hard Expiration Checkpoint */}
+        <g class="state-diagram__node" transform="translate(490, 35)">
+          <polygon points="100,0 200,42.5 100,85 0,42.5" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
+          <text x="100" y="38" text-anchor="middle" class="state-diagram__state" font-size="12">Expiry</text>
+          <text x="100" y="54" text-anchor="middle" class="state-diagram__clause">Deadline</text>
+        </g>
+
+        {/* Branch A: Fresh Calibration -> Renewal */}
+        <path d="M 590 56 L 680 56 L 680 35 L 710 35" stroke="var(--accent)" stroke-width="2" fill="none" marker-end="url(#lease-accent-arrow)" />
+        <g transform="translate(710, 5)">
+          <rect width="150" height="60" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5" />
+          <text x="75" y="24" text-anchor="middle" class="state-diagram__state" font-size="11" fill="var(--accent-strong)">Re-Leased</text>
+          <text x="75" y="44" text-anchor="middle" class="state-diagram__label" font-size="9.5">Fresh calibration pack</text>
+        </g>
+
+        {/* Loop back from renewal to horizon */}
+        <path d="M 785 65 L 785 140 L 335 140 L 335 125" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#lease-accent-arrow)" />
+
+        {/* Branch B: Default Lapse -> Safe Fallback */}
+        <path d="M 590 98 L 680 98 L 680 115 L 710 115" stroke="var(--danger, #e06c75)" stroke-width="2" fill="none" marker-end="url(#lease-danger-arrow)" />
+        <g transform="translate(710, 85)">
+          <rect width="150" height="60" rx="6" fill="var(--surface)" stroke="var(--danger, #e06c75)" stroke-width="1.5" />
+          <text x="75" y="24" text-anchor="middle" class="state-diagram__state" font-size="11" fill="var(--danger, #e06c75)">Default Lapse</text>
+          <text x="75" y="44" text-anchor="middle" class="state-diagram__label" font-size="9.5">Confirm mode / Halt</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</figure>

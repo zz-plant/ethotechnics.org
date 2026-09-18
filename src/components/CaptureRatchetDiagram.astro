@@ -1,0 +1,155 @@
+---
+/**
+ * Capture Ratchet Diagram (Law XII).
+ *
+ * Visualizes the dual-curve dynamic of institutional capture over time:
+ * Throughput & reliance rise while retained competence and withdrawal feasibility
+ * erode through successive "rational economies", eventually crossing below the
+ * critical reserve boundary where reversibility becomes merely nominal.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="capture-ratchet-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="capture-ratchet-title">
+      The Capture Ratchet: Erosion of Institutional Reserve
+    </Heading>
+    <p class="muted">
+      Capture is the gradual disappearance of everything an institution needs in order to stop. Law XII mandates an inviolable reserve boundary above nominal kill-switches.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 380"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Graph showing system throughput and reliance rising over time while retained competence and withdrawal feasibility decline below the Law XII reserve boundary into institutional capture."
+    >
+      <defs>
+        <marker
+          id="ratchet-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <marker
+          id="accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+        <marker
+          id="danger-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--danger, #e06c75)" />
+        </marker>
+        <linearGradient id="capture-zone-gradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--danger, #e06c75)" stop-opacity="0.08" />
+          <stop offset="100%" stop-color="var(--danger, #e06c75)" stop-opacity="0.22" />
+        </linearGradient>
+      </defs>
+
+      {/* Background Capture Zone (Below Reserve Floor) */}
+      <rect x="80" y="210" width="800" height="110" fill="url(#capture-zone-gradient)" rx="4" />
+      <text x="860" y="295" text-anchor="end" class="state-diagram__clause" fill="var(--danger, #e06c75)">
+        Zone of Irreversible Capture (Nominal Reversibility Only)
+      </text>
+
+      {/* Axis Lines */}
+      <line x1="80" y1="320" x2="880" y2="320" stroke="var(--border)" stroke-width="2" marker-end="url(#ratchet-arrow)" />
+      <line x1="80" y1="320" x2="80" y2="30" stroke="var(--border)" stroke-width="2" marker-end="url(#ratchet-arrow)" />
+
+      {/* Axis Labels */}
+      <text x="880" y="348" text-anchor="end" class="state-diagram__clause">Time / Successive "Rational Economies" →</text>
+      <text x="90" y="25" text-anchor="start" class="state-diagram__clause">Level / Capacity ↑</text>
+
+      {/* Law XII Boundary: Critical Reserve Floor */}
+      <line x1="80" y1="210" x2="880" y2="210" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 4" />
+      <text x="90" y="202" class="state-diagram__state" fill="var(--accent-strong)">
+        Law XII Floor: Minimum Retained Contestability Reserve (Expertise, Parallel Process, Unbundled Records)
+      </text>
+
+      {/* Curve 1: Throughput & Reliance (Rising) */}
+      <path
+        d="M 100 290 Q 300 270 500 150 T 850 60"
+        stroke="var(--accent)"
+        stroke-width="3"
+        fill="none"
+      />
+      <text x="850" y="50" text-anchor="end" class="state-diagram__state" fill="var(--accent-strong)">
+        Operational Reliance & Throughput ↑
+      </text>
+
+      {/* Curve 2: Retained Internal Competence & Withdrawal Feasibility (Declining) */}
+      <path
+        d="M 100 60 Q 300 80 500 200 T 850 300"
+        stroke="var(--danger, #e06c75)"
+        stroke-width="3"
+        fill="none"
+      />
+      <text x="850" y="315" text-anchor="end" class="state-diagram__state" fill="var(--danger, #e06c75)">
+        Retained Withdrawal Capacity ↓
+      </text>
+
+      {/* Phase Markers along the timeline */}
+      {/* Phase 1: Adoption */}
+      <g transform="translate(130, 75)">
+        <circle cx="0" cy="0" r="4" fill="var(--text)" />
+        <rect x="-10" y="15" width="160" height="70" rx="6" fill="var(--panel)" stroke="var(--border)" />
+        <text x="70" y="35" text-anchor="middle" class="state-diagram__state" font-size="12">1. Adoption</text>
+        <text x="70" y="52" text-anchor="middle" class="state-diagram__label" font-size="10">High internal reserve;</text>
+        <text x="70" y="66" text-anchor="middle" class="state-diagram__label" font-size="10">manual fallback active</text>
+      </g>
+
+      {/* Phase 2: Rational Economies */}
+      <g transform="translate(370, 110)">
+        <circle cx="0" cy="0" r="4" fill="var(--text)" />
+        <rect x="-15" y="15" width="170" height="70" rx="6" fill="var(--panel)" stroke="var(--border)" />
+        <text x="70" y="35" text-anchor="middle" class="state-diagram__state" font-size="12">2. "Economies"</text>
+        <text x="70" y="52" text-anchor="middle" class="state-diagram__label" font-size="10">Staff reallocated,</text>
+        <text x="70" y="66" text-anchor="middle" class="state-diagram__label" font-size="10">manual routes deprecated</text>
+      </g>
+
+      {/* Phase 3: The Ratchet Crosses Line */}
+      <g transform="translate(580, 205)">
+        <circle cx="0" cy="0" r="5" fill="var(--danger, #e06c75)" />
+        <line x1="0" y1="0" x2="30" y2="-45" stroke="var(--danger, #e06c75)" stroke-width="1.5" />
+        <rect x="25" y="-95" width="175" height="50" rx="6" fill="var(--panel)" stroke="var(--danger, #e06c75)" />
+        <text x="112" y="-76" text-anchor="middle" class="state-diagram__clause" fill="var(--danger, #e06c75)">Critical Crossing</text>
+        <text x="112" y="-58" text-anchor="middle" class="state-diagram__label" font-size="10">Reversibility becomes nominal</text>
+      </g>
+
+      {/* Phase 4: Institutional Capture */}
+      <g transform="translate(720, 225)">
+        <rect x="0" y="0" width="150" height="60" rx="6" fill="var(--surface)" stroke="var(--danger, #e06c75)" />
+        <text x="75" y="22" text-anchor="middle" class="state-diagram__state" font-size="12" fill="var(--danger, #e06c75)">4. Full Capture</text>
+        <text x="75" y="38" text-anchor="middle" class="state-diagram__label" font-size="10">Switching cost ruinous;</text>
+        <text x="75" y="50" text-anchor="middle" class="state-diagram__label" font-size="10">governance surrendered</text>
+      </g>
+    </svg>
+  </div>
+</figure>

@@ -1,0 +1,135 @@
+---
+/**
+ * Fail-Silent Absorption Loop Diagram.
+ *
+ * Visualizes the self-concealing feedback loop of corrective labor (extraction by endurance):
+ * Model Failure -> Human Absorption -> Evidence Erasure -> Dashboard Health -> Scope Expansion -> Compounding Fragility.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="extraction-loop-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="extraction-loop-title">
+      The Fail-Silent Feedback Loop of Uncounted Absorption
+    </Heading>
+    <p class="muted">
+      Competently absorbing a failure erases the evidence that it occurred. Clean dashboards cannot be read as health until absorption is measured separately.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 320"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Feedback loop showing model error leading to human absorption, evidence erasure, clean dashboard illusion, scope expansion, and compounding fragility, intercepted by procedural standing."
+    >
+      <defs>
+        <marker
+          id="loop-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <marker
+          id="standing-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      {/* Top Forward Path */}
+      <line x1="200" y1="75" x2="250" y2="75" stroke="var(--border)" stroke-width="2" marker-end="url(#loop-arrow)" />
+      <line x1="430" y1="75" x2="480" y2="75" stroke="var(--border)" stroke-width="2" marker-end="url(#loop-arrow)" />
+      <line x1="660" y1="75" x2="710" y2="75" stroke="var(--border)" stroke-width="2" marker-end="url(#loop-arrow)" />
+
+      {/* Return Loop Down to Bottom and Back */}
+      <path d="M 800 110 L 800 160 L 590 160 L 590 190" stroke="var(--border)" stroke-width="2" marker-end="url(#loop-arrow)" fill="none" />
+      <line x1="490" y1="230" x2="430" y2="230" stroke="var(--border)" stroke-width="2" marker-end="url(#loop-arrow)" />
+      <path d="M 250 230 L 110 230 L 110 115" stroke="var(--border)" stroke-width="2" marker-end="url(#loop-arrow)" fill="none" />
+
+      {/* Step 1: Model Error */}
+      <g class="state-diagram__node" transform="translate(20, 40)">
+        <rect width="180" height="70" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">1. Model Error</text>
+        <text x="90" y="46" text-anchor="middle" class="state-diagram__label">Unrepresented edge case</text>
+        <text x="90" y="58" text-anchor="middle" class="state-diagram__label">or ambiguous output</text>
+      </g>
+
+      {/* Step 2: Human Absorption */}
+      <g class="state-diagram__node state-diagram__node--active" transform="translate(250, 40)">
+        <rect width="180" height="70" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">2. Human Absorption</text>
+        <text x="90" y="46" text-anchor="middle" class="state-diagram__label">Workaround, re-entry,</text>
+        <text x="90" y="58" text-anchor="middle" class="state-diagram__label">manual override</text>
+      </g>
+
+      {/* Step 3: Evidence Erasure */}
+      <g class="state-diagram__node" transform="translate(480, 40)">
+        <rect width="180" height="70" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">3. Evidence Erasure</text>
+        <text x="90" y="46" text-anchor="middle" class="state-diagram__label">Failure resolved before</text>
+        <text x="90" y="58" text-anchor="middle" class="state-diagram__label">instrument looks (fail-silent)</text>
+      </g>
+
+      {/* Step 4: Metric Improvement */}
+      <g class="state-diagram__node" transform="translate(710, 40)">
+        <rect width="180" height="70" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">4. Metric Health</text>
+        <text x="90" y="46" text-anchor="middle" class="state-diagram__label">Dashboard shows 99.9%</text>
+        <text x="90" y="58" text-anchor="middle" class="state-diagram__clause">Falsified Denominator</text>
+      </g>
+
+      {/* Step 5: Scope Expansion */}
+      <g class="state-diagram__node" transform="translate(490, 195)">
+        <rect width="180" height="70" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">5. Scope Expansion</text>
+        <text x="90" y="46" text-anchor="middle" class="state-diagram__label">Authority widened on</text>
+        <text x="90" y="58" text-anchor="middle" class="state-diagram__label">uncounted human labor</text>
+      </g>
+
+      {/* Step 6: Compounding Fragility */}
+      <g class="state-diagram__node" transform="translate(250, 195)">
+        <rect width="180" height="70" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">6. Deepened Fragility</text>
+        <text x="90" y="46" text-anchor="middle" class="state-diagram__label">Absorptive capacity strained;</text>
+        <text x="90" y="58" text-anchor="middle" class="state-diagram__label">system harder to exit/replace</text>
+      </g>
+
+      {/* The Intercept: Law VII Procedural Standing */}
+      <path
+        d="M 340 110 L 340 155 L 75 155 L 75 185"
+        stroke="var(--accent)"
+        stroke-width="2"
+        stroke-dasharray="4 4"
+        fill="none"
+        marker-end="url(#standing-arrow)"
+      />
+      <g transform="translate(10, 185)">
+        <rect width="200" height="85" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+        <text x="100" y="26" text-anchor="middle" class="state-diagram__clause">Law VII: Procedural Standing</text>
+        <text x="100" y="46" text-anchor="middle" class="state-diagram__state" font-size="12">Breaks the Loop</text>
+        <text x="100" y="62" text-anchor="middle" class="state-diagram__label" font-size="10">Converts silent absorption</text>
+        <text x="100" y="74" text-anchor="middle" class="state-diagram__label" font-size="10">into state-transitioning event</text>
+      </g>
+    </svg>
+  </div>
+</figure>

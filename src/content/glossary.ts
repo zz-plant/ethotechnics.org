@@ -1695,4 +1695,46 @@ export const glossaryTerms: GlossaryTerm[] = [
       "People affected by system decisions can challenge, change, or overturn them\u2014and win. Guarantees include wide permission surfaces , high appeal passage rates , and transparent design authority .",
     appliesTo: ["M. Foundational Ethotechnic principles"],
   },
+  {
+    slug: "complexity-displacement",
+    term: "Complexity Displacement",
+    definition:
+      "Achieving internal process simplification by externalizing friction, edge cases, and ambiguity onto humans without accounting for the transfer. Diagnostic: ask whether the world became simpler or whether people were forced to become more adaptive.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "closure-without-remainder",
+    term: "Closure Without Remainder",
+    definition:
+      "The technocratic fallacy that what a formal system cannot represent ceases to exist or requires no governance. Countered by the invariant: not represented implies unresolved.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "residual-complexity",
+    term: "Residual Complexity",
+    definition:
+      "The friction, ambiguity, and repair labor that remains unresolved after a formal model simplifies a workflow. Formal systems do not eliminate what they cannot represent; they redistribute the burden of dealing with it.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "falsified-denominator",
+    term: "Falsified Denominator",
+    definition:
+      "An accounting distortion measuring velocity strictly inside the machine boundary while treating external human attention, troubleshooting, and dispute labor as zero cost.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "constitutional-governance",
+    term: "Constitutional Governance",
+    definition:
+      "A governance discipline centered on authority grants, standing, and enforceable recourse rather than behavioral alignment. Focuses on what authority a system holds and what happens at the point of model failure.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "post-optimization-rigor",
+    term: "Post-Optimization Rigor",
+    definition:
+      "The engineering discipline required after metric optimization reaches its boundary, focusing on independent review, measuring uncounted absorption, and failure-point standing.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
 ];
