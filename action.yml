@@ -1,0 +1,70 @@
+name: "Ethotechnics record conformance"
+description: >-
+  Grade a stream of STD-07 revisable delegation records against the
+  conformance level its emitter declares, and fail the job when the log has
+  not earned what it claims.
+author: "Ethotechnics Institute"
+branding:
+  icon: "check-square"
+  color: "blue"
+
+inputs:
+  records:
+    description: "Path to the JSON Lines record stream to grade."
+    required: true
+  manifest:
+    description: "Path to the emitter's manifest; its declaration supplies the claimed level."
+    required: false
+    default: ""
+  declared-level:
+    description: "The claimed level (0-3) when there is no manifest."
+    required: false
+    default: ""
+  as-of:
+    description: "Grade clocks against this ISO 8601 moment instead of now."
+    required: false
+    default: ""
+  fail-on:
+    description: "blocking, finding, overclaim, or never. Default overclaim."
+    required: false
+    default: "overclaim"
+  version:
+    description: "The @ethotechnics/conformance version to run."
+    required: false
+    default: "0.1.0"
+
+outputs:
+  earned-level:
+    description: "The level the stream earned (0-3), or empty if nothing parsed."
+    value: ${{ steps.grade.outputs.earned-level }}
+  report:
+    description: "Path to the JSON report."
+    value: ${{ steps.grade.outputs.report }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Grade records
+      id: grade
+      shell: bash
+      env:
+        RECORDS: ${{ inputs.records }}
+        MANIFEST: ${{ inputs.manifest }}
+        DECLARED_LEVEL: ${{ inputs.declared-level }}
+        AS_OF: ${{ inputs.as-of }}
+        FAIL_ON: ${{ inputs.fail-on }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        set -uo pipefail
+        args=("$RECORDS" --fail-on "$FAIL_ON")
+        [ -n "$MANIFEST" ] && args+=(--manifest "$MANIFEST")
+        [ -n "$DECLARED_LEVEL" ] && args+=(--declared-level "$DECLARED_LEVEL")
+        [ -n "$AS_OF" ] && args+=(--as-of "$AS_OF")
+
+        report="$RUNNER_TEMP/ethotechnics-conformance.json"
+        npx --yes "@ethotechnics/conformance@$VERSION" "${args[@]}" --format json --fail-on never > "$report"
+        echo "report=$report" >> "$GITHUB_OUTPUT"
+        echo "earned-level=$(node -e 'const r=require(process.argv[1]);process.stdout.write(r.earnedLevel==null?"":String(r.earnedLevel))' "$report")" >> "$GITHUB_OUTPUT"
+
+        # The annotated run is the one whose exit status the job takes.
+        npx --yes "@ethotechnics/conformance@$VERSION" "${args[@]}" --format github

@@ -41,5 +41,23 @@ const permalink = `/diagnostics/${tool.slug}`;
     studioOffRamp={diagnosticsStudioOffRampCallout}
   >
     <RecordConformanceWidget client:load />
+    <aside class="callout stack-sm" aria-labelledby="conformance-ci-title">
+      <p class="eyebrow">Run it in CI</p>
+      <h3 id="conformance-ci-title">The same checker, as a command</h3>
+      <p>
+        <code
+          >npx @ethotechnics/conformance records.jsonl --manifest manifest.json</code
+        > grades a stream from the shell and exits non-zero when the log has not earned
+        the level it declares. The GitHub Action
+        <code>zz-plant/ethotechnics.org</code> runs it on every pull request and annotates
+        each finding with its clause.
+      </p>
+      <p class="small muted">
+        <a
+          href="https://github.com/zz-plant/ethotechnics.org/tree/main/packages/conformance"
+          rel="noopener noreferrer">Package and action documentation →</a
+        >
+      </p>
+    </aside>
   </DiagnosticToolPage>
 </BaseLayout>
