@@ -19,9 +19,10 @@ const {
 
 const openRfcStatuses = new Set(["proposal", "review", "decision"]);
 const today = todayIso();
-// Two of these were listed under "active review windows" seven months after
-// their windows closed. Law II again: the clock is in the data, so the page
-// reads it rather than leaving the reader to.
+// RFC-2026-01 and RFC-2026-02 sat under "active review windows" for seven
+// months after their windows closed; the September 2026 update closed them.
+// The clock is in the data, so the page reads it rather than leaving the
+// reader to.
 const openRfcs = rfcs
   .filter((entry) => openRfcStatuses.has(entry.status))
   .map((entry) => ({
@@ -34,9 +35,8 @@ const rfcSectionDescription =
     ? "Open RFCs show the status, owners, reviewer roles, and active review windows before decisions are logged."
     : `Open RFCs show the status, owners, and reviewer roles before decisions are logged. ${lapsedRfcs} of ${openRfcs.length} have passed their stated review window without a decision being logged.`;
 
-// The page used to promise a quarterly cadence. The newest entry is from
-// January 2026, so it said something untrue on every load. It now reports the
-// date of the most recent update and leaves the reader to judge the gap,
+// The page used to promise a quarterly cadence it did not keep. It reports
+// the date of the most recent update and leaves the reader to judge the gap,
 // which is the same test Law II applies to a grant: silence is not renewal.
 const latestGovernanceUpdate = [...quarterlyUpdates]
   .map((entry) => entry.date)
