@@ -1,0 +1,137 @@
+---
+/**
+ * Casebook Failure Distribution Chart.
+ *
+ * Visualizes the distribution of findings (Held vs. Drifted vs. Failed)
+ * across the six state variables for all historical public inquiry cases.
+ * Demonstrates empirically that capability rarely fails, while standing,
+ * evidence, and correction are almost universally broken.
+ */
+import { cases, stateVariables, verdictTally } from "../content/casebook";
+
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+
+const tally = verdictTally(cases);
+const totalCases = cases.length;
+
+// Variable breakdown data
+const breakdown = stateVariables.map((v) => {
+  const counts = tally[v.id];
+  const heldPct = (counts.held / totalCases) * 100;
+  const driftedPct = (counts.drifted / totalCases) * 100;
+  const failedPct = (counts.failed / totalCases) * 100;
+  return {
+    ...v,
+    counts,
+    heldPct,
+    driftedPct,
+    failedPct,
+  };
+});
+---
+
+<figure class="state-diagram" aria-labelledby="casebook-chart-title">
+  <figcaption>
+    <p class="eyebrow">Empirical Record, drawn</p>
+    <Heading id="casebook-chart-title">
+      State Variable Failure Rates Across {totalCases} Statutory Inquiries
+    </Heading>
+    <p class="muted">
+      Public inquiries establish that automated systems rarely fail at technical capability. Failure concentrates where standing is denied, evidence is unbundled, and correction is withheld.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 380"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Horizontal stacked bar chart showing the failure distribution across the six state variables: Capability, Authority, Evidence, Dependency, Standing, and Correction."
+    >
+      <defs>
+        <pattern id="case-drift-pat" width="8" height="8" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="8" x2="8" y2="0" stroke="var(--muted)" stroke-width="1.5" stroke-opacity="0.4" />
+        </pattern>
+      </defs>
+
+      {/* Legend Top */}
+      <g transform="translate(180, 20)">
+        <rect x="0" y="0" width="14" height="14" rx="3" fill="var(--accent)" />
+        <text x="22" y="11" class="state-diagram__state" font-size="11">Held (Explicit &amp; Coupled)</text>
+
+        <rect x="230" y="0" width="14" height="14" rx="3" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
+        <text x="252" y="11" class="state-diagram__label" font-size="11">Drifted (Detached)</text>
+
+        <rect x="420" y="0" width="14" height="14" rx="3" fill="var(--danger, #e06c75)" />
+        <text x="442" y="11" class="state-diagram__clause" font-size="11" fill="var(--danger, #e06c75)">Failed (Absent / Broken)</text>
+      </g>
+
+      {/* Rows for each of the 6 variables */}
+      {breakdown.map((item, idx) => {
+        const y = 60 + idx * 48;
+        const barX = 180;
+        const maxBarWidth = 520;
+
+        const wHeld = (item.counts.held / totalCases) * maxBarWidth;
+        const wDrift = (item.counts.drifted / totalCases) * maxBarWidth;
+        const wFail = (item.counts.failed / totalCases) * maxBarWidth;
+
+        const xDrift = barX + wHeld;
+        const xFail = xDrift + wDrift;
+
+        return (
+          <g transform={`translate(0, ${y})`}>
+            {/* Row Label */}
+            <text x="165" y="24" text-anchor="end" class="state-diagram__state" font-size="12">
+              {item.label}
+            </text>
+
+            {/* Background Track */}
+            <rect x={barX} y="8" width={maxBarWidth} height="24" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1" />
+
+            {/* Segment 1: Held */}
+            {wHeld > 0 && (
+              <rect x={barX} y="8" width={wHeld} height="24" fill="var(--accent)" opacity="0.85" rx={wDrift === 0 && wFail === 0 ? "4" : "0"} />
+            )}
+
+            {/* Segment 2: Drifted */}
+            {wDrift > 0 && (
+              <rect x={xDrift} y="8" width={wDrift} height="24" fill="var(--panel)" stroke="var(--border)" stroke-width="1" />
+            )}
+
+            {/* Segment 3: Failed */}
+            {wFail > 0 && (
+              <rect x={xFail} y="8" width={wFail} height="24" fill="var(--danger, #e06c75)" rx={wHeld === 0 && wDrift === 0 ? "4" : "0"} />
+            )}
+
+            {/* Summary Tag on Right */}
+            <text x="715" y="24" class="state-diagram__clause" font-size="11">
+              {item.counts.failed > 0 && (
+                <tspan fill="var(--danger, #e06c75)">{item.counts.failed} failed</tspan>
+              )}
+              {item.counts.failed > 0 && item.counts.drifted > 0 && ", "}
+              {item.counts.drifted > 0 && (
+                <tspan fill="var(--muted)">{item.counts.drifted} drifted</tspan>
+              )}
+              {item.counts.held > 0 && (item.counts.failed > 0 || item.counts.drifted > 0) && ", "}
+              {item.counts.held > 0 && (
+                <tspan fill="var(--accent-strong)">{item.counts.held} held</tspan>
+              )}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Bottom Axis / Callout */}
+      <line x1="180" y1="352" x2="700" y2="352" stroke="var(--border)" stroke-width="1.5" />
+      <text x="180" y="368" class="state-diagram__clause" font-size="10">0% of cases</text>
+      <text x="440" y="368" text-anchor="middle" class="state-diagram__clause" font-size="10">50%</text>
+      <text x="700" y="368" text-anchor="end" class="state-diagram__clause" font-size="10">100% (5 of 5 cases)</text>
+    </svg>
+  </div>
+</figure>

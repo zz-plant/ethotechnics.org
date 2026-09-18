@@ -1,0 +1,121 @@
+---
+/**
+ * Dependence Asymmetry Coordinate Space Diagram.
+ *
+ * Visualizes the relationship between Institution Substitution Cost (Capture)
+ * and Population Exit Cost (Domination), illustrating why Ethotechnics inverts
+ * the traditional inference of command into an escalated obligation of care.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="dependence-asymmetry-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="dependence-asymmetry-title">
+      Two-Way Dependence: Substitution Cost vs. Exit Cost
+    </Heading>
+    <p class="muted">
+      Dependence does not license command. The less a population can leave, the more correction capacity the institution owes.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 380"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Quadrant diagram plotting Institution Substitution Cost against Population Exit Cost, showing that high exit cost escalates institutional obligations rather than command authority."
+    >
+      <defs>
+        <marker
+          id="axis-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <marker
+          id="duty-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      {/* Axis Lines */}
+      <line x1="120" y1="310" x2="880" y2="310" stroke="var(--border)" stroke-width="2" marker-end="url(#axis-arrow)" />
+      <line x1="120" y1="310" x2="120" y2="30" stroke="var(--border)" stroke-width="2" marker-end="url(#axis-arrow)" />
+
+      {/* Axis Labels */}
+      <text x="880" y="340" text-anchor="end" class="state-diagram__clause">Institution Substitution Cost → (Measures Capture)</text>
+      <text x="125" y="25" text-anchor="start" class="state-diagram__clause">Population Exit Cost ↑ (Measures Exposure / Domination)</text>
+
+      {/* Quadrant Dividers */}
+      <line x1="500" y1="40" x2="500" y2="310" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4" />
+      <line x1="120" y1="175" x2="870" y2="175" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4" />
+
+      {/* Quadrant II: High Exit Cost, Low Substitution Cost (The Asymmetry Trap) */}
+      <g transform="translate(140, 50)">
+        <rect width="340" height="110" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
+        <text x="20" y="28" class="state-diagram__state" fill="var(--accent-strong)">The Captive Population Trap</text>
+        <text x="20" y="50" class="state-diagram__label">Low substitution cost for operator · High exit cost for user</text>
+        <text x="20" y="70" class="state-diagram__clause">Default Illusion: "We may direct them, they cannot leave"</text>
+        <text x="20" y="90" class="state-diagram__state" font-size="12">Ethotechnic Inversion: Maximum Standing & Reversal Owed</text>
+      </g>
+
+      {/* Quadrant I: High Exit Cost, High Substitution Cost (Deep Entrenchment) */}
+      <g transform="translate(520, 50)">
+        <rect width="340" height="110" rx="8" fill="var(--surface)" stroke="var(--border)" />
+        <text x="20" y="28" class="state-diagram__state">Mutual Structural Capture</text>
+        <text x="20" y="50" class="state-diagram__label">High substitution cost · High exit cost</text>
+        <text x="20" y="70" class="state-diagram__label">Infrastructure lock-in: both parties bound to legacy flow</text>
+        <text x="20" y="90" class="state-diagram__clause">Requires: Reversibility Rehearsal & Contingency Rails</text>
+      </g>
+
+      {/* Quadrant III: Low Exit Cost, Low Substitution Cost (Dispensable / Market) */}
+      <g transform="translate(140, 190)">
+        <rect width="340" height="105" rx="8" fill="var(--surface)" stroke="var(--border)" />
+        <text x="20" y="28" class="state-diagram__state">Symmetric Fluidity</text>
+        <text x="20" y="50" class="state-diagram__label">Low substitution cost · Low exit cost</text>
+        <text x="20" y="70" class="state-diagram__label">Commodity tools: exit is realistic and caps error exposure</text>
+        <text x="20" y="90" class="state-diagram__clause">Minimal structural exposure; light governance overhead</text>
+      </g>
+
+      {/* Quadrant IV: Low Exit Cost, High Substitution Cost (Vendor Lock-in) */}
+      <g transform="translate(520, 190)">
+        <rect width="340" height="105" rx="8" fill="var(--surface)" stroke="var(--border)" />
+        <text x="20" y="28" class="state-diagram__state">Operator Capture</text>
+        <text x="20" y="50" class="state-diagram__label">High substitution cost · Low user exit cost</text>
+        <text x="20" y="70" class="state-diagram__label">Institution trapped by proprietary stack while users can migrate</text>
+        <text x="20" y="90" class="state-diagram__clause">Requires: Retained Technical Competence (Law V)</text>
+      </g>
+
+      {/* Core Dynamic Vector */}
+      <path
+        d="M 280 280 Q 150 175 160 80"
+        stroke="var(--accent)"
+        stroke-width="2"
+        stroke-dasharray="4 4"
+        fill="none"
+        marker-end="url(#duty-arrow)"
+      />
+      <text x="20" y="160" class="state-diagram__clause" font-size="10.5">As Exit Cost Rises</text>
+      <text x="20" y="175" class="state-diagram__label" font-size="9.5">Obligation escalates</text>
+    </svg>
+  </div>
+</figure>

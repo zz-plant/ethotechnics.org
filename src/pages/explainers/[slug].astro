@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import ExplainerLayout from "../../components/ExplainerLayout.astro";
 
 const entry = (await getCollection("explainers")).find(
@@ -17,6 +17,9 @@ const {
   ctas,
   faqs,
 } = entry.data;
+
+const hasBody = Boolean(entry.body && entry.body.trim().length > 0);
+const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
 
 <ExplainerLayout
@@ -29,4 +32,7 @@ const {
   distinctSignals={distinctSignals}
   ctas={ctas}
   faqs={faqs}
-/>
+  hasDiagram={hasBody}
+>
+  {Content && <Content />}
+</ExplainerLayout>

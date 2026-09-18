@@ -4,6 +4,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
 import VerdictMark from "../../components/VerdictMark.astro";
+import CasebookFailureChart from "../../components/CasebookFailureChart.astro";
 import {
   casebookContent,
   cases,
@@ -112,6 +113,8 @@ const tally = verdictTally();
       <VerdictMark verdict="drifted" labelled /> present but detached ·
       <VerdictMark verdict="failed" labelled /> absent, or what the inquiry found
     </p>
+
+    <CasebookFailureChart />
   </SectionBlock>
 
   <SectionBlock

@@ -1,0 +1,105 @@
+---
+/**
+ * Reversibility Ladder Diagram (Law VI).
+ *
+ * Visualizes the 3-level ladder of reversibility:
+ * Level 1: Technical (The switch works)
+ * Level 2: Operational (The workflow survives the switch being thrown)
+ * Level 3: Institutional (The organization survives having thrown it)
+ * Highlighting why testing stops at Level 1 while failure occurs at Level 3.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="reversibility-ladder-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="reversibility-ladder-title">
+      The Three-Level Reversibility Ladder
+    </Heading>
+    <p class="muted">
+      A correction that would cause unacceptable damage will not be exercised, and a correction that will not be exercised is not part of the control system.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 380"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Three-tier reversibility ladder showing Technical, Operational, and Institutional levels, indicating where audits stop vs where systems fail."
+    >
+      <defs>
+        <marker
+          id="ladder-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      {/* Level 3: Institutional Reversibility (Top) */}
+      <g transform="translate(60, 40)">
+        <rect width="600" height="90" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
+        <text x="25" y="32" class="state-diagram__state" fill="var(--accent-strong)">Level 3: Institutional Reversibility</text>
+        <text x="25" y="52" class="state-diagram__label">Can the organization survive having thrown the switch?</text>
+        <text x="25" y="70" class="state-diagram__clause">Evidence: Priced withdrawal impact assessment · Contractual penalty review · Viable alternative market</text>
+
+        {/* Warning Callout on Right */}
+        <g transform="translate(620, 0)">
+          <rect width="200" height="90" rx="8" fill="var(--surface)" stroke="var(--danger, #e06c75)" stroke-width="1.5" />
+          <text x="100" y="30" text-anchor="middle" class="state-diagram__clause" fill="var(--danger, #e06c75)">Where Systems Fail</text>
+          <text x="100" y="52" text-anchor="middle" class="state-diagram__label" font-size="11">Switch exists, but pulling it</text>
+          <text x="100" y="68" text-anchor="middle" class="state-diagram__label" font-size="11">is institutional suicide</text>
+        </g>
+      </g>
+
+      {/* Upward Ladder Connector */}
+      <line x1="360" y1="155" x2="360" y2="135" stroke="var(--accent)" stroke-width="2" marker-end="url(#ladder-arrow)" />
+
+      {/* Level 2: Operational Reversibility (Middle) */}
+      <g transform="translate(60, 155)">
+        <rect width="600" height="90" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" />
+        <text x="25" y="32" class="state-diagram__state">Level 2: Operational Reversibility</text>
+        <text x="25" y="52" class="state-diagram__label">Can staff and fallback procedures absorb the switch at production volume?</text>
+        <text x="25" y="70" class="state-diagram__clause">Evidence: Production-volume withdrawal rehearsals · Manual backlog clearance rate · Staff readiness</text>
+
+        <g transform="translate(620, 0)">
+          <rect width="200" height="90" rx="8" fill="var(--panel)" stroke="var(--border)" />
+          <text x="100" y="30" text-anchor="middle" class="state-diagram__state" font-size="12">Rehearsal Gap</text>
+          <text x="100" y="52" text-anchor="middle" class="state-diagram__label" font-size="11">Manual skills atrophied;</text>
+          <text x="100" y="68" text-anchor="middle" class="state-diagram__label" font-size="11">backlog explodes 10x</text>
+        </g>
+      </g>
+
+      {/* Upward Ladder Connector */}
+      <line x1="360" y1="270" x2="360" y2="250" stroke="var(--accent)" stroke-width="2" marker-end="url(#ladder-arrow)" />
+
+      {/* Level 1: Technical Reversibility (Base) */}
+      <g transform="translate(60, 270)">
+        <rect width="600" height="85" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" />
+        <text x="25" y="30" class="state-diagram__state">Level 1: Technical Reversibility</text>
+        <text x="25" y="48" class="state-diagram__label">Does the rollback switch or undo API technically execute?</text>
+        <text x="25" y="66" class="state-diagram__clause">Evidence: Automated rollback tests in staging · Git / DB schema migrations · Snapshot restore</text>
+
+        {/* Audit Callout on Right */}
+        <g transform="translate(620, 0)">
+          <rect width="200" height="85" rx="8" fill="var(--panel)" stroke="var(--border)" />
+          <text x="100" y="28" text-anchor="middle" class="state-diagram__clause" fill="var(--accent-strong)">Where Audits Stop</text>
+          <text x="100" y="48" text-anchor="middle" class="state-diagram__label" font-size="11">"Rollback passed in CI"</text>
+          <text x="100" y="64" text-anchor="middle" class="state-diagram__label" font-size="11">(Nominal reversibility)</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</figure>

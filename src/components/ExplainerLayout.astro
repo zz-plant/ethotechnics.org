@@ -38,6 +38,7 @@ interface Props {
   distinctSignals: DistinctSignal[];
   ctas: CtaLink[];
   faqs: FaqItem[];
+  hasDiagram?: boolean;
 }
 
 const {
@@ -50,10 +51,12 @@ const {
   distinctSignals,
   ctas,
   faqs,
+  hasDiagram = false,
 }: Props = Astro.props;
 const explainerSeoMetadata = getExplainerSeoMetadata(permalink);
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
+  ...(hasDiagram ? [{ href: "#mechanism", label: "Visual Model" }] : []),
   { href: "#example", label: "Example use case" },
   { href: "#distinct-signals", label: "Distinct implementation signals" },
   { href: "#artifacts", label: "Related artifacts" },
@@ -105,12 +108,26 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </p>
   </SectionBlock>
 
+  {
+    hasDiagram && (
+      <SectionBlock
+        id="mechanism"
+        eyebrow="Architecture"
+        title="Mechanism in Operation"
+        description="Visual model of operational states, transitions, boundaries, and failure points."
+        variant="alt"
+      >
+        <slot />
+      </SectionBlock>
+    )
+  }
+
   <SectionBlock
     id="example"
     eyebrow="Example"
     title="Example use case"
     description="A concrete scenario to ground the term in operations."
-    variant="alt"
+    variant={hasDiagram ? "default" : "alt"}
   >
     <p>{example}</p>
   </SectionBlock>

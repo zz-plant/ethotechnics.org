@@ -1,0 +1,147 @@
+---
+/**
+ * STD-02 Contestability & Recourse State Machine.
+ *
+ * Visualizes the procedural path an error-bearing party can compel:
+ * Decision -> Failure Point -> Standing Register (7 fields) -> Standard of Review -> Enforceable Transitions.
+ * Also highlights the Section 10.2 Deepened Dependence re-consent loop.
+ */
+interface Props {
+  level?: "h3" | "h4";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="std02-recourse-title">
+  <figcaption>
+    <p class="eyebrow">Article VIII, drawn</p>
+    <Heading id="std02-recourse-title">
+      The Contestability Lifecycle: from model failure to state transition
+    </Heading>
+    <p class="muted">
+      Contestability is not a complaint box. It is a procedural route that binds exposure to enforceable state changes.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 360"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="STD-02 Contestability lifecycle: consequential decision encounters model failure point, initiates standing check with seven required parameters, evaluates against standard of review, and compels binding state transitions."
+    >
+      <defs>
+        <marker
+          id="recourse-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <marker
+          id="recourse-arrow-accent"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      {/* Connection Edges */}
+      {/* 1. Decision to Failure Point */}
+      <line x1="160" y1="80" x2="230" y2="80" stroke="var(--border)" stroke-width="2" marker-end="url(#recourse-arrow)" />
+      
+      {/* 2. Failure Point to Standing Check */}
+      <line x1="390" y1="80" x2="460" y2="80" stroke="var(--border)" stroke-width="2" marker-end="url(#recourse-arrow)" />
+      
+      {/* 3. Standing Check to Review */}
+      <line x1="640" y1="80" x2="710" y2="80" stroke="var(--border)" stroke-width="2" marker-end="url(#recourse-arrow)" />
+
+      {/* 4. Review branching down to Outcomes */}
+      <path d="M 800 115 L 800 170" stroke="var(--border)" stroke-width="2" marker-end="url(#recourse-arrow)" fill="none" />
+      <path d="M 800 170 L 260 170 L 260 230" stroke="var(--border)" stroke-width="2" marker-end="url(#recourse-arrow)" fill="none" />
+      <path d="M 800 170 L 530 170 L 530 230" stroke="var(--border)" stroke-width="2" marker-end="url(#recourse-arrow)" fill="none" />
+      <path d="M 800 170 L 800 230" stroke="var(--border)" stroke-width="2" marker-end="url(#recourse-arrow)" fill="none" />
+
+      {/* 5. Return Loop: Article 10 Deepened Dependence */}
+      <path
+        d="M 170 270 C 60 270 60 125 70 120"
+        stroke="var(--accent)"
+        stroke-width="1.5"
+        stroke-dasharray="4 4"
+        fill="none"
+        marker-end="url(#recourse-arrow-accent)"
+      />
+
+      {/* Step 1: Decision Node */}
+      <g class="state-diagram__node" transform="translate(30, 45)">
+        <rect width="130" height="70" rx="8" />
+        <text x="65" y="32" text-anchor="middle" class="state-diagram__state">Decision</text>
+        <text x="65" y="52" text-anchor="middle" class="state-diagram__label">§1.1 Notice emitted</text>
+      </g>
+
+      {/* Step 2: The Failure Point / Collision */}
+      <g class="state-diagram__node state-diagram__node--active" transform="translate(230, 45)">
+        <rect width="160" height="70" rx="8" />
+        <text x="80" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">Failure Point</text>
+        <text x="80" y="46" text-anchor="middle" class="state-diagram__label">not represented</text>
+        <text x="80" y="60" text-anchor="middle" class="state-diagram__label">⇒ unresolved</text>
+      </g>
+
+      {/* Step 3: Standing Register Verification */}
+      <g class="state-diagram__node" transform="translate(460, 35)">
+        <rect width="180" height="90" rx="8" />
+        <text x="90" y="26" text-anchor="middle" class="state-diagram__state">Standing Register</text>
+        <text x="90" y="44" text-anchor="middle" class="state-diagram__clause">§8.1 Seven Parameters</text>
+        <text x="90" y="62" text-anchor="middle" class="state-diagram__label">who · what · evidence · responder</text>
+        <text x="90" y="76" text-anchor="middle" class="state-diagram__label">deadline · standard · transitions</text>
+      </g>
+
+      {/* Step 4: Standard of Review */}
+      <g class="state-diagram__node" transform="translate(710, 45)">
+        <rect width="180" height="70" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">Standard of Review</text>
+        <text x="90" y="46" text-anchor="middle" class="state-diagram__clause">§8.2 Merits & Policy</text>
+        <text x="90" y="60" text-anchor="middle" class="state-diagram__label">not merely "did code run"</text>
+      </g>
+
+      {/* Outcome Tier 1: Remediation / Reversal */}
+      <g class="state-diagram__node" transform="translate(170, 230)">
+        <rect width="180" height="80" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">Reversal & Repair</text>
+        <text x="90" y="48" text-anchor="middle" class="state-diagram__clause">§8.3 Transitions</text>
+        <text x="90" y="64" text-anchor="middle" class="state-diagram__label">Decision Reversed / Rectified</text>
+      </g>
+
+      {/* Outcome Tier 2: Suspension & Narrowing */}
+      <g class="state-diagram__node" transform="translate(440, 230)">
+        <rect width="180" height="80" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">Authority Narrowed</text>
+        <text x="90" y="48" text-anchor="middle" class="state-diagram__clause">§8.3 Scope Reduced</text>
+        <text x="90" y="64" text-anchor="middle" class="state-diagram__label">Grant moved to review_required</text>
+      </g>
+
+      {/* Outcome Tier 3: Grant Revocation */}
+      <g class="state-diagram__node" transform="translate(710, 230)">
+        <rect width="180" height="80" rx="8" />
+        <text x="90" y="28" text-anchor="middle" class="state-diagram__state">Grant Revocation</text>
+        <text x="90" y="48" text-anchor="middle" class="state-diagram__clause">STD-07 §2.2 Expiry</text>
+        <text x="90" y="64" text-anchor="middle" class="state-diagram__label">Unilateral delegation terminated</text>
+      </g>
+
+      {/* Deepened dependence annotation */}
+      <text x="12" y="195" class="state-diagram__clause" font-size="11">Article X: Deepened Dependence</text>
+      <text x="12" y="210" class="state-diagram__label" font-size="10">Exit cost +25% ⇒ Reopens consent</text>
+    </svg>
+  </div>
+</figure>

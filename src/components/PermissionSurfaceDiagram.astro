@@ -1,0 +1,129 @@
+---
+/**
+ * Permission Surface Architecture Diagram (Law I & STD-07).
+ *
+ * Visualizes the critical distinction between the Capability Surface (what is reachable)
+ * and the Permission Surface (what is authorized), exposing the hazardous
+ * "Capability Overhang" where access tokens outrun legitimate authority.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="permission-surface-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="permission-surface-title">
+      Permission Surface vs. Capability Overhang
+    </Heading>
+    <p class="muted">
+      Law I: Capability does not imply authority. The set of reachable actions must be strictly reconciled against the bounded set of active, evidenced authority grants.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 380"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Concentric boundary diagram illustrating the broad Capability Surface containing a hazardous Capability Overhang surrounding the strictly bounded Permission Surface of evidenced grants."
+    >
+      <defs>
+        <marker
+          id="ps-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <pattern id="overhang-pattern" width="16" height="16" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="16" x2="16" y2="0" stroke="var(--danger, #e06c75)" stroke-width="1.5" stroke-opacity="0.25" />
+        </pattern>
+      </defs>
+
+      {/* Outer Envelope: Capability Surface (What is Reachable) */}
+      <rect x="40" y="30" width="530" height="320" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2" />
+      <text x="60" y="58" class="state-diagram__state">Outer Envelope: Technical Capability Surface</text>
+      <text x="60" y="78" class="state-diagram__label">All reachable API endpoints, raw tokens, network routes, database permissions</text>
+
+      {/* Overhang Hazard Pattern Fill (Gap) */}
+      <rect x="55" y="90" width="500" height="245" rx="8" fill="url(#overhang-pattern)" stroke="var(--danger, #e06c75)" stroke-width="1.5" stroke-dasharray="4 4" />
+      <text x="75" y="115" class="state-diagram__clause" fill="var(--danger, #e06c75)">
+        Capability Overhang (Hazardous Delta)
+      </text>
+      <text x="75" y="132" class="state-diagram__label" font-size="10">
+        Reachable by code, but lacks evidenced authority · Blindspot of OAuth scopes
+      </text>
+
+      {/* Inner Boundary: Governed Permission Surface (What is Authorized) */}
+      <rect x="75" y="150" width="460" height="170" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
+      <text x="95" y="178" class="state-diagram__state" fill="var(--accent-strong)">
+        Governed Permission Surface (STD-07 Grants)
+      </text>
+      <text x="95" y="196" class="state-diagram__label">
+        Strict subset of actions justified by active, unexpired evidence records
+      </text>
+
+      {/* Grant Cards inside Permission Surface */}
+      <g transform="translate(95, 210)">
+        <rect width="135" height="90" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1" />
+        <text x="15" y="24" class="state-diagram__state" font-size="11">Grant #A-104</text>
+        <text x="15" y="42" class="state-diagram__label" font-size="9.5">Scope: Refund &lt; \$200</text>
+        <text x="15" y="58" class="state-diagram__label" font-size="9.5">Mode: Confirm</text>
+        <text x="15" y="76" class="state-diagram__clause" font-size="9">Expires: 42d</text>
+      </g>
+
+      <g transform="translate(245, 210)">
+        <rect width="135" height="90" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1" />
+        <text x="15" y="24" class="state-diagram__state" font-size="11">Grant #A-105</text>
+        <text x="15" y="42" class="state-diagram__label" font-size="9.5">Scope: Read PII</text>
+        <text x="15" y="58" class="state-diagram__label" font-size="9.5">Mode: Audited</text>
+        <text x="15" y="76" class="state-diagram__clause" font-size="9">Expires: 14d</text>
+      </g>
+
+      <g transform="translate(395, 210)">
+        <rect width="125" height="90" rx="6" fill="var(--surface)" stroke="var(--border)" />
+        <text x="12" y="24" class="state-diagram__state" font-size="11">Grant #A-106</text>
+        <text x="12" y="42" class="state-diagram__label" font-size="9.5">Scope: Worker reset</text>
+        <text x="12" y="58" class="state-diagram__label" font-size="9.5">Mode: Autonomous</text>
+        <text x="12" y="76" class="state-diagram__clause" font-size="9">Expires: 90d</text>
+      </g>
+
+      {/* Right Column: Key Principles & Checks */}
+      <g transform="translate(600, 30)">
+        {/* Box 1: Law I Invariant */}
+        <rect width="280" height="95" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+        <text x="20" y="26" class="state-diagram__clause" fill="var(--accent-strong)">Law I Invariant</text>
+        <text x="20" y="46" class="state-diagram__state" font-size="12">Capability ≠ Authority</text>
+        <text x="20" y="66" class="state-diagram__label" font-size="10.5">Reachability does not license use.</text>
+        <text x="20" y="80" class="state-diagram__label" font-size="10.5">Execution in the overhang is a breach.</text>
+
+        {/* Box 2: Four Mandatory Properties */}
+        <g transform="translate(0, 110)">
+          <rect width="280" height="120" rx="8" fill="var(--surface)" stroke="var(--border)" />
+          <text x="20" y="24" class="state-diagram__state" font-size="12">STD-07 Grant Invariants</text>
+          <text x="20" y="44" class="state-diagram__label" font-size="10">1. Evidence Basis (Calibrated packet)</text>
+          <text x="20" y="62" class="state-diagram__label" font-size="10">2. Scope Ceiling (Finite impact cap)</text>
+          <text x="20" y="80" class="state-diagram__label" font-size="10">3. Current State (Active / Suspended)</text>
+          <text x="20" y="98" class="state-diagram__label" font-size="10">4. Hard Expiry (Ticking lease date)</text>
+        </g>
+
+        {/* Box 3: Reconciliation Test */}
+        <g transform="translate(0, 245)">
+          <rect width="280" height="75" rx="8" fill="var(--panel)" stroke="var(--border)" />
+          <text x="20" y="24" class="state-diagram__clause">Reconciliation Audit</text>
+          <text x="20" y="44" class="state-diagram__label" font-size="10.5">Overhang Ratio = (Reachable - Authorized) / Reachable</text>
+          <text x="20" y="60" class="state-diagram__state" font-size="11">Goal: Overhang → 0</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</figure>

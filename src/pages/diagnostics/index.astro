@@ -8,6 +8,7 @@ import PageIntro from "../../components/PageIntro.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import StudioBadge from "../../components/StudioBadge.astro";
+import DiagnosticRouterDiagram from "../../components/DiagnosticRouterDiagram.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 
 const {
@@ -169,6 +170,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
         ))
       }
     </CardGrid>
+    <DiagnosticRouterDiagram />
     <div class="pattern-filter__anchors" aria-hidden="true">
       <span class="pattern-filter__anchor" id="most-used"></span>
     </div>
