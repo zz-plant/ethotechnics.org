@@ -15,10 +15,15 @@
       "contact": "research@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
       "updated": "2026-09-19T00:00:00Z",
-      "version": "v1.9.0",
+      "version": "v1.10.0",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/web/*/https://ethotechnics.org/glossary",
       "changelog": [
+        {
+          "version": "v1.10.0",
+          "date": "2026-09-19",
+          "summary": "Promoted 64 orphaned short definitions to full canonical entries across core concepts, governance, decision states, and anti-patterns, and removed three redundant short definitions (procedural-realism, intake-cinema, legibility-illegibility)."
+        },
         {
           "version": "v1.9.0",
           "date": "2026-09-19",
@@ -194,7 +199,7 @@
             "title": "Ethotechnics",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks \u201cWhat should we do?\u201d, Ethotechnics designs the mechanisms that make it reliably happen.</p><p>Its unit of governance is the consequential decision and the <a href=\"/glossary/delegated-agency\">delegated agency</a> that produced it, and its working question is whether that delegation is still a <a href=\"/glossary/justified-delegation\">justified delegation</a> today. The <a href=\"/method\">method</a> states the chain, the six state variables, and the twelve laws that the standards bind.</p>",
+            "bodyHtml": "<p>Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks “What should we do?”, Ethotechnics designs the mechanisms that make it reliably happen.</p><p>Its unit of governance is the consequential decision and the <a href=\"/glossary/delegated-agency\">delegated agency</a> that produced it, and its working question is whether that delegation is still a <a href=\"/glossary/justified-delegation\">justified delegation</a> today. The <a href=\"/method\">method</a> states the chain, the six state variables, and the twelve laws that the standards bind.</p>",
             "examples": [
               "A hospital release board requires consent checks, stop controls, and named repair owners before deploying triage updates."
             ],
@@ -625,6 +630,111 @@
               "grant-state",
               "policy-record"
             ]
+          },
+          {
+            "id": "mechanism-first-analysis",
+            "title": "Mechanism-first Analysis",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An approach to evaluating institutions that prioritizes system mechanics—defaults, authority, clocks, and reversibility—over declared values or intentions, because mechanics determine outcomes under load. A statement of values changes nothing until it is backed by an <a href=\"/glossary/ethical-load-path\">ethical load path</a> and enforceable <a href=\"/glossary/design-authority\">design authority</a>.</p><p>It is the methodological twin of <a href=\"/glossary/architecture-over-values\">architecture over values</a>: where that claim says structure outranks intent, mechanism-first analysis says to begin the audit at the structure.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
+            "operationalTests": [
+              "An audit opens with the mechanism inventory (defaults, clocks, escalation, reversal) rather than the value statement.",
+              "A proposed change is scored by which enforceable mechanism it alters, not by how it is described."
+            ],
+            "genealogy": "Names the reading order Ethotechnics applies to institutions: mechanics first, declared values second.",
+            "tags": ["method", "analysis", "architecture"],
+            "domains": ["structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "core-concepts"
+          },
+          {
+            "id": "architecture-over-values",
+            "title": "Architecture over Values",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The claim that “ethical” outcomes depend less on what institutions say they value and more on the enforceable structure of how decisions are made and reversed. Values without machinery are aspiration; <a href=\"/glossary/contestability\">contestability</a>, <a href=\"/glossary/reversibility\">reversibility</a>, and <a href=\"/glossary/stoppability\">stoppability</a> are the machinery.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
+            "operationalTests": [
+              "A value statement traces to a named mechanism that enforces it under load.",
+              "Two institutions with identical value statements remain distinguishable by their decision and reversal structures."
+            ],
+            "genealogy": "The working premise behind mechanism-first analysis and the standards’ focus on grants and clocks over mission language.",
+            "tags": ["architecture", "values", "mechanism"],
+            "domains": ["structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "core-concepts"
+          },
+          {
+            "id": "state-plus-clocks-model",
+            "title": "State + Clocks Model",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A way of seeing power as state transitions plus time: who can change state, how quickly, and whether reversal is time-bound. The model reduces governance to two questions—what is the <a href=\"/glossary/stable-clock\">clock</a> on each state, and who holds the <a href=\"/glossary/binding-clock\">binding clock</a>?</p><p>It is the shared notation behind <a href=\"/glossary/clock-start-clock-mismatch\">clock-start and clock mismatch</a> and the <a href=\"/glossary/reversal-sla\">reversal SLA</a>.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
+            "operationalTests": [
+              "Every decision state has a named owner and a named clock.",
+              "The gap between execution speed and reversal speed is measurable, not assumed."
+            ],
+            "genealogy": "Distills the coercion vocabulary into a minimal model of state, owner, and clock.",
+            "tags": ["state", "time", "power", "clock"],
+            "domains": ["temporal", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "core-concepts"
+          },
+          {
+            "id": "contestability-architecture",
+            "title": "Contestability Architecture",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The set of design features that make contestation real: <a href=\"/glossary/decision-object\">decision objects</a>, <a href=\"/glossary/binding-clock\">clock-start</a>, <a href=\"/glossary/binding-authority\">binding authority</a>, <a href=\"/glossary/evidence-parity\">evidence parity</a>, and guaranteed <a href=\"/glossary/override-path\">override paths</a>.</p><p>Contestability is not a sentiment; it is this architecture. Where any element is missing, <a href=\"/glossary/contestability\">contestability</a> becomes theater.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
+            "operationalTests": [
+              "Every appealable decision has a decision object, a clock, a binding authority, and a defined override path.",
+              "A gap in any one of the five elements is treated as a defect, not a preference."
+            ],
+            "genealogy": "Condenses the contestability requirements into a named checklist of design features.",
+            "tags": ["contestability", "architecture", "design"],
+            "domains": ["agency", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "core-concepts"
+          },
+          {
+            "id": "control-loops-constraints-framing",
+            "title": "Control Loops (Constraints Framing)",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A safety lens where governance is modeled as feedback: detect harm, trigger intervention, enforce constraints, and learn. Useful for translating Ethotechnics into engineering terms—<a href=\"/glossary/stoppability\">stoppability</a> becomes a trip wire, <a href=\"/glossary/ethical-interrupts\">ethical interrupts</a> become the actuator, and <a href=\"/glossary/time-to-halt\">time-to-halt</a> becomes the latency budget.</p>",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
+            "operationalTests": [
+              "A harm signal maps to a named intervention with an owner and a deadline.",
+              "A constraint, once tripped, changes system behavior rather than only logging."
+            ],
+            "genealogy": "Bridges the governance vocabulary to control-systems engineering so it can be implemented.",
+            "tags": ["feedback", "control", "engineering", "safety"],
+            "domains": ["structural", "diagnostic"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "core-concepts"
           }
         ]
       },
@@ -1511,6 +1621,27 @@
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "unseen-harm",
+            "title": "Unseen Harm",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Harm that does not produce immediately legible signals—silence, withdrawal, dropout, dissociation—and is therefore misread as “no issue.” It is the failure mode that <a href=\"/glossary/silent-harm-discovery\">silent-harm discovery</a> exists to counter.</p><p>Unseen harm compounds through <a href=\"/glossary/dead-zones\">dead zones</a> where no <a href=\"/glossary/harm-visibility\">harm visibility</a> reaches anyone who could act.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "Absence of complaint is not scored as absence of harm.",
+              "A discovery path exists for harms that produce no legible signal."
+            ],
+            "genealogy": "Makes legibility into a safety property: what the system cannot see, it cannot correct.",
+            "tags": ["harm", "visibility", "silence"],
+            "domains": ["visibility", "diagnostic"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "failure-modes"
           }
         ]
       },
@@ -2412,6 +2543,27 @@
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "refusability",
+            "title": "Refusability",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A system’s ability to let people say “no” without punishment or degradation—including refusing data extraction, risky defaults, or coercive workflows—while still preserving basic access and dignity. Refusability is not “opt-out exists”; it is whether refusal is treated as a legitimate state rather than an error condition.</p><p>It is the capability that operationalizes <a href=\"/glossary/human-refusal-tolerance\">human refusal tolerance</a>, is bounded by the <a href=\"/glossary/refusal-budget\">refusal budget</a>, and is protected by the <a href=\"/glossary/right-of-exit\">right of exit</a>.</p>",
+            "scope": "C. Ethotechnic capabilities (what systems must be able to do). Design requirements that keep people safe when systems scale.",
+            "operationalTests": [
+              "A refusal produces a non-punitive state change rather than an error or a penalty.",
+              "Refusing one workflow does not degrade access to unrelated services."
+            ],
+            "genealogy": "Promotes “no” from an inconvenience to a first-class capability requirement.",
+            "tags": ["refusal", "consent", "capability"],
+            "domains": ["agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "capabilities"
           }
         ]
       },
@@ -2864,6 +3016,27 @@
               "decision-system",
               "traceable-ownership"
             ]
+          },
+          {
+            "id": "bifurcation-by-contestability",
+            "title": "Bifurcation by Contestability",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Systems split into high-contestability lanes (slower, trusted, deployable in high stakes) and low-contestability lanes (fast, then blocked). The split protects people by matching speed to the reversibility of the decision.</p><p>It is the architectural answer to <a href=\"/glossary/velocity-friction\">velocity friction</a>: decisions that can be contested may run fast, and decisions that cannot must not.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "A decision’s speed is gated by its reversibility and appeal rights.",
+              "High-stakes decisions are routed to a lane with binding review before harm propagates."
+            ],
+            "genealogy": "Turns contestability into a routing rule rather than an after-the-fact remedy.",
+            "tags": ["architecture", "contestability", "speed"],
+            "domains": ["structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "system-states"
           }
         ]
       },
@@ -3133,6 +3306,69 @@
             ],
             "termUpdated": "2026-09-19T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "executive-function-class-axis",
+            "title": "Executive Function (as a Class Axis)",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The idea that modern systems sort people by their capacity to perform sustained administrative labor—tracking tasks, managing documentation, navigating ambiguity—making disability and burnout into structural disadvantage.</p><p>It connects <a href=\"/glossary/cognitive-saturation\">cognitive saturation</a> and <a href=\"/glossary/dread-work\">dread work</a> to the stratification produced by <a href=\"/glossary/administrative-shame\">administrative shame</a>.</p>",
+            "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
+            "operationalTests": [
+              "Administrative load is treated as an axis of exclusion, not a personal failing.",
+              "Interfaces offer low-executive-function paths (single actions, clear clocks) as defaults."
+            ],
+            "genealogy": "Reads executive-function demand as a class mechanism, extending the burden vocabulary.",
+            "tags": ["disability", "burden", "stratification"],
+            "domains": ["burden", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "human-limits"
+          },
+          {
+            "id": "human-factors",
+            "title": "Human Factors",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A discipline that studies how systems interact with real human limits—fatigue, confusion, stress—often revealing that “user error” is actually design failure.</p><p>It is the empirical home of <a href=\"/glossary/cognitive-saturation\">cognitive saturation</a> and <a href=\"/glossary/finitude\">finitude</a>, and the reason <a href=\"/glossary/operator-centered\">operator-centered</a> design treats front-line workers as safety components.</p>",
+            "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
+            "operationalTests": [
+              "An error is attributed to design before it is attributed to the user.",
+              "Human limits are measured and feed back into interface and workflow design."
+            ],
+            "genealogy": "Imports the established field that grounds the human-limits category in practice.",
+            "tags": ["design", "human-limits", "safety"],
+            "domains": ["burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "human-limits"
+          },
+          {
+            "id": "operator-centered",
+            "title": "Operator-centered",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Design that treats front-line workers as key safety components and ensures they have authority, tools, and non-punitive reporting to prevent harm. It rejects <a href=\"/glossary/heroism-dependent-systems\">heroism-dependent systems</a>, which offload safety onto individual endurance.</p><p>Operator-centered systems extend the same <a href=\"/glossary/human-refusal-tolerance\">refusal tolerance</a> to workers that they extend to users.</p>",
+            "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
+            "operationalTests": [
+              "Front-line workers hold real authority to pause or escalate, not just to report.",
+              "Reporting harm is non-punitive and loops back into design change."
+            ],
+            "genealogy": "Applies the capability requirements to the people who operate the system, not only its users.",
+            "tags": ["operator", "safety", "design"],
+            "domains": ["agency", "burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "human-limits"
           }
         ]
       },
@@ -3681,6 +3917,48 @@
             ],
             "termUpdated": "2026-09-19T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "cost-assignment",
+            "title": "Cost Assignment / Burden Shifting",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A mechanism where systems offload the labor of safety, clarity, and follow-through onto individuals (forms, documentation, vigilance) while keeping institutional obligation low. It is how “choice” becomes unpaid work.</p><p>Cost assignment is the engine of <a href=\"/glossary/burden-transfer-event\">burden transfer events</a> and the inverse of <a href=\"/glossary/fair-burden-distribution\">fair burden distribution</a>.</p>",
+            "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
+            "operationalTests": [
+              "The party that benefits from a decision is measured against the party that bears its cost.",
+              "A safety obligation is not satisfied by moving paperwork to the affected individual."
+            ],
+            "genealogy": "Names the transfer by which institutions externalize the cost of their own operation.",
+            "tags": ["burden", "externalization", "cost"],
+            "domains": ["burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "burden-load"
+          },
+          {
+            "id": "attention-tax",
+            "title": "Attention Tax",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The ongoing monitoring burden imposed on individuals to prevent harm: checking portals, tracking deadlines, resubmitting documents, watching for silent rule changes. Attention becomes a cost of staying eligible.</p><p>It is the lived form of the <a href=\"/glossary/burden-index\">burden index</a> and a steady drain that <a href=\"/glossary/temporal-exaction\">temporal exaction</a> measures over time.</p>",
+            "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
+            "operationalTests": [
+              "Monitoring cost is quantified and attributed to a design decision.",
+              "Silent rule changes that require vigilance are treated as a burden defect."
+            ],
+            "genealogy": "Converts vigilance into a measurable tax paid in attention.",
+            "tags": ["burden", "attention", "monitoring"],
+            "domains": ["burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "burden-load"
           }
         ]
       },
@@ -4372,6 +4650,69 @@
             "relatedPatterns": ["challenge-load-ledger", "halt-tier-register"],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "recourse-performance",
+            "title": "Recourse Performance",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>How well a system delivers review → reversal → remedy under realistic load and stress. It composes <a href=\"/glossary/time-to-halt\">time-to-halt</a>, <a href=\"/glossary/time-to-restore\">time-to-restore</a>, and <a href=\"/glossary/appeal-passage-rate\">appeal passage rate</a> into a single posture.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "Recourse metrics are measured under realistic load, not only in the happy path.",
+              "A recourse failure is treated as a system defect with an owner and a fix date."
+            ],
+            "genealogy": "Folds the individual indicators into one end-to-end performance question.",
+            "tags": ["measures", "recourse", "review"],
+            "domains": ["measurable"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "measures"
+          },
+          {
+            "id": "reversal-cost",
+            "title": "Reversal Cost",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The time, money, emotional labor, documentation, and social risk required to undo an outcome. High reversal cost makes errors durable and turns “rights” into luxuries.</p><p>It is the practical face of <a href=\"/glossary/irreversibility-index\">irreversibility</a> and the target that a <a href=\"/glossary/reversal-sla\">reversal SLA</a> is meant to bound.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "The cost to reverse a decision is quantified and capped.",
+              "A reversal that costs more than the harm it corrects is flagged as a design failure."
+            ],
+            "genealogy": "Prices the frictional barrier between a wrong state and its correction.",
+            "tags": ["measures", "reversal", "cost"],
+            "domains": ["burden", "measurable"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "measures"
+          },
+          {
+            "id": "durability-of-error",
+            "title": "Durability of Error",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>How long a wrong state persists once created, and how far it propagates (downstream systems, eligibility, reputation). A system is dangerous when it can create durable errors quickly but correct them slowly.</p><p>It is what <a href=\"/glossary/error-cascades\">error cascades</a> amplify and what <a href=\"/glossary/moral-latency\">moral latency</a> measures between harm and correction.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "The lifetime of a wrong state is measured from creation to correction.",
+              "Propagation paths are mapped so an error’s downstream blast radius is known."
+            ],
+            "genealogy": "Makes error persistence a first-class safety metric rather than a footnote.",
+            "tags": ["measures", "error", "durability"],
+            "domains": ["temporal", "measurable"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "measures"
           }
         ]
       },
@@ -6113,7 +6454,11 @@
               "procedural-force",
               "human-override-lanes"
             ],
-            "relatedPatterns": ["halt-tier-register", "kill-switch", "maintenance-windowing"],
+            "relatedPatterns": [
+              "halt-tier-register",
+              "kill-switch",
+              "maintenance-windowing"
+            ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
           },
@@ -6160,7 +6505,11 @@
               "permission-surface",
               "automation-ratchet"
             ],
-            "relatedPatterns": ["admission-gate", "authority-grant-register", "expansion-review"],
+            "relatedPatterns": [
+              "admission-gate",
+              "authority-grant-register",
+              "expansion-review"
+            ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
           },
@@ -6253,6 +6602,531 @@
             ],
             "termUpdated": "2026-09-19T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "contestability-legitimacy-hinge",
+            "title": "Contestability as the Legitimacy Hinge",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A system is legitimate insofar as affected parties have standing, voice, and remedy against its decisions and actions. <a href=\"/glossary/contestability\">Contestability</a> is the hinge on which legitimacy turns; <a href=\"/glossary/legitimacy-engineering\">legitimacy engineering</a> is the attempt to substitute its appearance for its substance.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "A legitimacy claim is traceable to a standing mechanism, not to messaging.",
+              "Loss of remedy is scored as loss of legitimacy, not as an operational detail."
+            ],
+            "genealogy": "States the democratic premise that ties legitimacy to enforceable remedy.",
+            "tags": ["legitimacy", "contestability", "remedy"],
+            "domains": ["agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "maintenance-budgets-legitimacy-budgets",
+            "title": "Maintenance Budgets are Legitimacy Budgets",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The practical capacity to monitor, review, and repair is a political and organizational legitimacy input, not overhead. An institution that cannot afford <a href=\"/glossary/maintenance-metabolism\">maintenance</a> is running down a <a href=\"/glossary/maintenance-debt\">debt</a> it will collect as illegitimacy.</p><p>Unfunded <a href=\"/glossary/repair-log\">repair</a> is unfunded legitimacy.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Review and repair capacity is budgeted alongside feature work.",
+              "A maintenance cut is evaluated as a legitimacy cut, not a cost saving."
+            ],
+            "genealogy": "Reclassifies upkeep from operational expense to the currency of legitimacy.",
+            "tags": ["maintenance", "legitimacy", "budget"],
+            "domains": ["burden", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "receipts-by-default",
+            "title": "Receipts-by-Default as a Legitimacy Interface",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>People should automatically get “what happened” records: actions taken, permissions used, reasons, and accountable owners. A <a href=\"/glossary/liability-record\">liability record</a> or <a href=\"/glossary/attestation\">attestation</a> is not a favor; it is the default output of an accountable act.</p><p>Receipts make <a href=\"/glossary/logs-as-power\">recordkeeping</a> symmetric instead of a lever held only by the institution.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every consequential action produces a receipt without being requested.",
+              "A receipt names an accountable owner and a clock for the next step."
+            ],
+            "genealogy": "Elevates receipts from a transparency nicety to a governance default.",
+            "tags": ["receipts", "accountability", "records"],
+            "domains": ["visibility", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "sovereignty-constraint-imposition",
+            "title": "Sovereignty as Constraint-Imposition Capacity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Sovereignty is the ability to impose enforceable constraints on infrastructure operating in your territory. Without it, <a href=\"/glossary/design-authority\">design authority</a> belongs to whoever owns the stack, and <a href=\"/glossary/jurisdictional-path-dependence\">path dependence</a> locks in their defaults.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "A jurisdiction can bind foreign infrastructure to local remedy and audit rules.",
+              "Constraint-imposition capacity is measured, not assumed from legal text."
+            ],
+            "genealogy": "Reframes sovereignty as an engineering capacity, not a legal claim.",
+            "tags": ["sovereignty", "constraint", "jurisdiction"],
+            "domains": ["agency", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "standards-wars-recourse-wars",
+            "title": "Standards Wars as Recourse Wars",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Global competition shifts to whose regimes for auditability, liability, and redress become default through supply chains and procurement. The war is not over features but over whose <a href=\"/glossary/restitution-ladder\">restitution</a> and <a href=\"/glossary/governability\">governability</a> rules travel with the product.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Procurement criteria weight redress and auditability, not only performance.",
+              "A standard is judged by the remedy it binds, not the language it adopts."
+            ],
+            "genealogy": "Reads international standards competition as competition over enforceable recourse.",
+            "tags": ["standards", "recourse", "competition"],
+            "domains": ["structural", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "democratic-vs-coercive-governability",
+            "title": "Democratic vs Coercive Governability",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Governance infrastructure can either enable rights-preserving contestability or scaled conduct control, depending on who has standing and remedy. <a href=\"/glossary/governability\">Governability</a> is neutral; its direction is set by whether <a href=\"/glossary/corrective-standing\">standing</a> is distributed or concentrated.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The distribution of standing is stated and measurable.",
+              "A governability claim specifies whose remedy it protects."
+            ],
+            "genealogy": "Splits governability along the axis that determines whether it serves or coerces.",
+            "tags": ["governance", "governability", "standing"],
+            "domains": ["agency", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "bindingness",
+            "title": "Bindingness",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The degree to which a system’s outputs create enforceable obligations—deadlines, duties, remedies, or reversals—rather than mere communications. Bindingness is the difference between “we received your request” and “we must decide by Friday or you win.”</p><p>It is the property that <a href=\"/glossary/bindingness-after-contact\">bindingness after contact</a> describes at the moment of interaction, and that <a href=\"/glossary/binding-clock\">binding clocks</a> make time-bound.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "An output is classified as binding or non-binding on its face.",
+              "A binding output names the obligation it creates and the authority that enforces it."
+            ],
+            "genealogy": "Makes enforceability the defining property of an institutional utterance.",
+            "tags": ["bindingness", "obligation", "enforceability"],
+            "domains": ["agency", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "non-bindingness",
+            "title": "Non-bindingness / Nonbindingness",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The condition where a system can interact, respond, and even apologize without being compelled to change state. Non-bindingness is power without accountability: activity without obligation.</p><p>It is the substrate on which <a href=\"/glossary/delay-as-power\">delay as power</a> and <a href=\"/glossary/unearned-closure\">unearned closure</a> operate, and the opposite of <a href=\"/glossary/bindingness\">bindingness</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "A response is scored by whether it can change state, not by how helpful it sounds.",
+              "Activity that cannot bind is flagged as non-binding rather than counted as remedy."
+            ],
+            "genealogy": "Names the default posture of institutions that prefer communication to correction.",
+            "tags": ["bindingness", "accountability", "obligation"],
+            "domains": ["agency", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "standing-vs-belief",
+            "title": "Standing (vs Belief)",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Standing is the recognized right to make the system bind itself to engage, decide, and remedy—regardless of whether your story is believed, liked, or emotionally legible. “Belief” is narrative validation; standing is enforceable access to decision power.</p><p><a href=\"/glossary/corrective-standing\">Corrective standing</a> is the test: can this person force a correction, or only be heard?</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Access to remedy does not depend on being believed or found sympathetic.",
+              "Standing is granted by rule and survives disagreement over the claimant’s narrative."
+            ],
+            "genealogy": "Separates enforceable access from narrative validation, the core distinction of the remedy vocabulary.",
+            "tags": ["standing", "belief", "remedy"],
+            "domains": ["agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "binding-authority",
+            "title": "Binding Authority",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A person or role that can change the underlying state and is obligated to respond. Binding authority is not “a human is involved”; it is a human with power + duty + traceable accountability.</p><p>It is what distinguishes real review from a <a href=\"/glossary/human-in-the-loop-legitimacy\">human-in-the-loop legitimacy artifact</a>, and what <a href=\"/glossary/decision-reversal-authority\">decision reversal authority</a> requires.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every review stage names a role that can change state, not merely comment.",
+              "The accountable owner is traceable from the decision to the record."
+            ],
+            "genealogy": "Defines the authority threshold that separates remedy from review theater.",
+            "tags": ["authority", "bindingness", "accountability"],
+            "domains": ["agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "evidence-parity",
+            "title": "Evidence Parity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A condition where affected people have a fair chance to meet the evidentiary burden—access to the relevant facts, rules, and records—rather than being asked to prove things the institution can’t or won’t disclose. Without evidence parity, appeals become theater.</p><p>It is the answer to <a href=\"/glossary/evidence-burden-ceiling\">evidence burden ceilings</a> and <a href=\"/glossary/evidence-recycling\">evidence recycling</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The institution discloses the facts it used, before the claimant must respond.",
+              "An evidentiary burden is matched to what the claimant could reasonably access."
+            ],
+            "genealogy": "Makes fairness a property of access to evidence, not of procedure alone.",
+            "tags": ["evidence", "parity", "appeals"],
+            "domains": ["agency", "visibility"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "authority-chain",
+            "title": "Authority Chain",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The mapping of who can change what state, at which stage, under what constraints. Authority chains determine whether escalation is real. They are built from <a href=\"/glossary/authority-grant\">authority grants</a> and <a href=\"/glossary/authority-lease\">leases</a> along a <a href=\"/glossary/delegation-chain\">delegation chain</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every state change traces to a named authority at a named stage.",
+              "A broken authority chain (a stage with no one able to change state) is a defect."
+            ],
+            "genealogy": "Renders the structure of escalation explicit so it can be audited.",
+            "tags": ["authority", "escalation", "chain"],
+            "domains": ["structural", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "authority-mutation",
+            "title": "Authority Mutation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A pattern where escalation changes how the institution speaks without changing who has power to reverse outcomes. Authority mutates when the channel upgrades (more polite, more official, more complex) but the underlying ability to bind remains absent.</p><p>It is the specific failure of <a href=\"/glossary/escalation-reliability\">escalation reliability</a>, and the cousin of <a href=\"/glossary/authority-drift\">authority drift</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Escalation is scored by change in binding power, not change in tone or channel.",
+              "A channel upgrade without a power upgrade is flagged as mutation, not progress."
+            ],
+            "genealogy": "Names the substitution of surface escalation for real escalation.",
+            "tags": ["authority", "escalation", "drift"],
+            "domains": ["agency", "diagnostic"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "defaults-as-governance",
+            "title": "Defaults (as Governance)",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The idea that the baseline state—what happens if nobody intervenes—is a primary allocator of outcomes and costs. Defaults govern by deciding who must spend time, attention, and stamina to avoid harm.</p><p>They are the silent partner of <a href=\"/glossary/auto-close-auto-renew-auto-share\">auto-close, auto-renew, auto-share</a>, and the enemy of <a href=\"/glossary/meaningful-control\">meaningful control</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every default is audited for who bears the cost of escaping it.",
+              "A default is chosen by the party who would bear its harm, not only its benefit."
+            ],
+            "genealogy": "Elevates the default from a UX detail to a governance instrument.",
+            "tags": ["defaults", "governance", "inertia"],
+            "domains": ["structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "procedural-caste",
+            "title": "Procedural Caste",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A stratification system where people are divided by their ability to force binding action: who can start clocks, reach authorities, obtain reversals, and make claims legible. It is a caste system of enforceability, not worth.</p><p>It is produced by <a href=\"/glossary/procedural-burden-as-price\">procedural burden priced as access</a> and sustained by <a href=\"/glossary/access-cliff\">access cliffs</a> and <a href=\"/glossary/stamina-pricing\">stamina pricing</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Enforceability is measured as a distribution across people, not a binary.",
+              "A procedural barrier is audited for who it sorts out of remedy."
+            ],
+            "genealogy": "Recasts procedural friction as a mechanism of social stratification.",
+            "tags": ["caste", "stratification", "procedure"],
+            "domains": ["burden", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "escalation-without-authority",
+            "title": "Escalation (without Authority)",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A channel change that does not increase binding power—more forms, more tiers, more waiting—while the underlying decision remains unchangeable. It is escalation as delay management, not remedy.</p><p>It is the lived form of <a href=\"/glossary/authority-mutation\">authority mutation</a> and a vehicle for <a href=\"/glossary/delay-as-power\">delay as power</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Escalation that cannot reach a decision-reversal authority is not counted as recourse.",
+              "Tier counts are not confused with binding-power counts."
+            ],
+            "genealogy": "Distinguishes moving up a channel from moving toward a binding decision.",
+            "tags": ["escalation", "authority", "delay"],
+            "domains": ["agency", "diagnostic"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "redress",
+            "title": "Redress",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The set of mechanisms that can correct harm: appeal, review, reversal, compensation, restoration. Redress is real when it is time-bound and reaches binding authority.</p><p>It is the umbrella over the <a href=\"/glossary/restitution-ladder\">restitution ladder</a>, <a href=\"/glossary/remedy-equivalence\">remedy equivalence</a>, and <a href=\"/glossary/decision-reversal-authority\">decision reversal authority</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every harm type has a mapped redress path with a clock and an owner.",
+              "A redress path is tested end-to-end, not described in policy."
+            ],
+            "genealogy": "Unifies the correction mechanisms under a single time-bound standard.",
+            "tags": ["redress", "remedy", "restitution"],
+            "domains": ["agency", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "override-path",
+            "title": "Override Path",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A clearly defined mechanism that can supersede the default workflow when the default would cause harm—human escalation with real authority, emergency reversal, exception handling with deadlines. Override paths are where “care” becomes material.</p><p>They are the practical form of <a href=\"/glossary/intervention-specification\">intervention specification</a> and the release valve on <a href=\"/glossary/safe-pause\">safe pause</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every default workflow has a named override with a deadline.",
+              "An override actually changes the underlying state, not just the conversation."
+            ],
+            "genealogy": "Converts good intentions into a defined, enforceable escape hatch.",
+            "tags": ["override", "escalation", "remedy"],
+            "domains": ["agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "structured-exit",
+            "title": "Structured Exit",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An exit process designed to protect the leaver: clear steps, data portability, timelines, anti-retaliation constraints, and closure that doesn’t require ongoing performance. Structured exit turns leaving into a governed pathway instead of an endurance test.</p><p>It is the machinery behind the <a href=\"/glossary/right-of-exit\">right of exit</a>, and the answer to <a href=\"/glossary/exit-cost\">exit cost</a> and <a href=\"/glossary/exit-coercion\">exit coercion</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Leaving has bounded steps, a deadline, and portability, not open-ended performance.",
+              "Exit carries a non-retaliation guarantee rather than reputational risk."
+            ],
+            "genealogy": "Makes exit a governed right rather than a test of endurance.",
+            "tags": ["exit", "rights", "portability"],
+            "domains": ["agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "paywalled-rights",
+            "title": "Paywalled Rights",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>When access to contestation, speed, or binding review is effectively purchased—through fees, premium support, lawyers, consultants, or time flexibility. Rights exist, but only for those who can pay in money or stamina.</p><p>It is the price form of the <a href=\"/glossary/access-cliff\">access cliff</a> and of <a href=\"/glossary/stamina-pricing\">stamina pricing</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Access to remedy is not gated by payment or discretionary free time.",
+              "A right that requires a professional intermediary to exercise is flagged as paywalled."
+            ],
+            "genealogy": "Exposes the economic gate that turns formal rights into practical privileges.",
+            "tags": ["rights", "access", "cost"],
+            "domains": ["burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "logs-as-power",
+            "title": "Logs-as-power",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The idea that control over records—what is logged, who can see it, what counts as evidence—shapes who can contest outcomes. Recordkeeping is governance.</p><p>It is why <a href=\"/glossary/attestation\">attestation</a> and the <a href=\"/glossary/liability-record\">liability record</a> matter, and why <a href=\"/glossary/evidence-parity\">evidence parity</a> is a rights question.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The evidentiary record is accessible to the affected party by default.",
+              "What is (and is not) logged is itself an accountable design decision."
+            ],
+            "genealogy": "Makes the log a site of power rather than a technical afterthought.",
+            "tags": ["logs", "power", "evidence"],
+            "domains": ["visibility", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "audit-trail",
+            "title": "Audit Trail",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A trace of events and decisions—what happened, when, by whom, under what rule—used for accountability. Audit trails matter only if they connect to reversal power.</p><p>They are the raw material of the <a href=\"/glossary/liability-record\">liability record</a> and the <a href=\"/glossary/policy-record\">policy record</a>, and feed <a href=\"/glossary/traceable-ownership\">traceable ownership</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every consequential state change leaves a trace naming owner, rule, and time.",
+              "The trail reaches a decision-reversal authority rather than dead-ending in a log."
+            ],
+            "genealogy": "Binds recordkeeping to its purpose: making correction possible.",
+            "tags": ["audit", "accountability", "records"],
+            "domains": ["visibility", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "administrative-reality",
+            "title": "Administrative Reality",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The world as the system recognizes it: what counts, what is recordable, what triggers action. Administrative reality often diverges from lived reality.</p><p>It is the boundary drawn by <a href=\"/glossary/legibility\">legibility</a>, the gate that <a href=\"/glossary/harm-receipt\">harm receipts</a> must cross, and the field in which <a href=\"/glossary/object-formation\">object formation</a> either succeeds or fails.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "A lived harm can be tested for whether it exists in the administrative record.",
+              "The divergence between lived and administrative reality is measured, not denied."
+            ],
+            "genealogy": "Names the recognition boundary that determines what can be contested.",
+            "tags": ["administration", "legibility", "recognition"],
+            "domains": ["visibility", "diagnostic"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "contract-of-adhesion",
+            "title": "Contract of Adhesion",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A take-it-or-leave-it contract offered by a more powerful party where negotiation is impossible; a common substrate for coerced “choice.” It is the legal form of <a href=\"/glossary/coercive-consent\">coercive consent</a>.</p><p>Where adhesion is total, <a href=\"/glossary/consent-depth\">consent depth</a> is zero and <a href=\"/glossary/refusability\">refusability</a> is forfeited by signing.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The power asymmetry behind a contract is measured, not assumed away.",
+              "Terms that are unavoidable are audited as defaults, not as negotiated consent."
+            ],
+            "genealogy": "Imports the contract-law concept that underlies much coerced “choice.”",
+            "tags": ["contract", "consent", "asymmetry"],
+            "domains": ["structural", "burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
+          },
+          {
+            "id": "nda-retaliation-narrative-erasure",
+            "title": "NDA Retaliation / Narrative Erasure",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Mechanisms that suppress exit stories—legal threats, informal retaliation, reputational control—preventing systems from being held accountable by shared evidence. They extend the <a href=\"/glossary/retaliation-surface\">retaliation surface</a> beyond the employment relationship.</p><p>They are what a <a href=\"/glossary/non-retaliation-guarantee\">non-retaliation guarantee</a> must cancel, and a driver of <a href=\"/glossary/exit-coercion\">exit coercion</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Silencing mechanisms are named and countered, not treated as neutral legal practice.",
+              "Exit stories can be shared without retaliation, by design and by rule."
+            ],
+            "genealogy": "Connects legal silencing to the erasure of the evidence that remedies require.",
+            "tags": ["retaliation", "exit", "silence"],
+            "domains": ["agency", "visibility"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "governance"
           }
         ]
       },
@@ -6526,6 +7400,27 @@
             "scope": "I. Friction & flow. Designing intentional friction that protects people while keeping harm contained.",
             "references": [],
             "domains": [],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "friction"
+          },
+          {
+            "id": "coercive-consent",
+            "title": "Coercive Consent",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>“Agreement” obtained through defaults, asymmetry, or threats of exclusion—consent produced by lack of viable refusal. It is the opposite of <a href=\"/glossary/consent-depth\">consent depth</a>.</p><p>It is manufactured by <a href=\"/glossary/contract-of-adhesion\">contracts of adhesion</a> and <a href=\"/glossary/refusability\">refusability</a> failures, and laundered by <a href=\"/glossary/dropout-as-legitimation\">dropout-as-legitimation</a>.</p>",
+            "scope": "I. Friction & flow. Designing intentional friction that protects people while keeping harm contained.",
+            "operationalTests": [
+              "Consent is scored by the viability of refusal, not the presence of an “I agree” click.",
+              "A default that excludes on refusal is flagged as coercive regardless of wording."
+            ],
+            "genealogy": "Defines consent by the real option to refuse, not by the signature.",
+            "tags": ["consent", "coercion", "refusal"],
+            "domains": ["agency"],
             "scale": null,
             "phase": [],
             "measurability": null,
@@ -6977,6 +7872,237 @@
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "decision-surface",
+            "title": "Decision Surface",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The part of a system where decisions become visible, addressable, and contestable. Many systems minimize the decision surface to avoid accountability.</p><p>It is the territory shaped by the <a href=\"/glossary/interaction-surface\">interaction surface</a>, populated by <a href=\"/glossary/decision-object\">decision objects</a>, and opened or closed by <a href=\"/glossary/contestability\">contestability</a>.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Every consequential decision exposes a surface that can be addressed.",
+              "A shrinking decision surface is treated as a governance regression."
+            ],
+            "genealogy": "Makes the addressability of decisions a designed, auditable property.",
+            "tags": ["decision", "contestability", "surface"],
+            "domains": ["agency", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "object-formation",
+            "title": "Object Formation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The process by which a complaint, harm, or request becomes a decision object—assigned an identifier, a category, an owner, a standard of review, and a clock. Systems often block accountability by preventing object formation (“nothing exists to appeal”).</p><p>It is the gate that a <a href=\"/glossary/harm-receipt\">harm receipt</a> must pass to become a <a href=\"/glossary/decision-object\">decision object</a>.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Every received harm forms an object with id, owner, standard, and clock.",
+              "Failure to form an object is an auditable failure, not a filing quirk."
+            ],
+            "genealogy": "Makes the birth of a decision object a governed event rather than an assumption.",
+            "tags": ["object", "decision", "formation"],
+            "domains": ["structural", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "pendingness",
+            "title": "Pending / Pendingness",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A default state where nothing is decided and no one is obligated—often presented as neutral but functioning as an outcome allocator. Pendingness becomes harm when it lacks a clock, an owner, or a forced next step.</p><p>It is the warm form of <a href=\"/glossary/non-finality\">non-finality</a>, sustained by <a href=\"/glossary/delay-as-power\">delay as power</a> when no <a href=\"/glossary/binding-clock\">binding clock</a> runs.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Every pending state carries a clock and an owner by default.",
+              "Indefinite pending without obligation is flagged as harm, not neutrality."
+            ],
+            "genealogy": "Reveals the neutral-sounding “pending” as an allocator of outcomes.",
+            "tags": ["pending", "delay", "state"],
+            "domains": ["temporal"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "settlement",
+            "title": "Settlement",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The moment a claim becomes resolved in a way that changes the underlying state—approved, denied with appeal rights, remediated, reversed, paid, restored, or otherwise closed with consequences. Settlement is not closure in the CRM; it is resolution that binds.</p><p>It is the outcome that <a href=\"/glossary/bindingness\">bindingness</a> makes possible and that <a href=\"/glossary/closure-code-regime\">closure-code regimes</a> often fake.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "A settled claim changes underlying state, not only its ticket status.",
+              "Settlement is distinguished from closure that binds nothing."
+            ],
+            "genealogy": "Reserves “settled” for resolution that actually binds the institution.",
+            "tags": ["settlement", "resolution", "bindingness"],
+            "domains": ["structural", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "non-settlement",
+            "title": "Non-settlement / Nonsettlement",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An institutional mode where claims are acknowledged and processed indefinitely without producing a binding resolution. The system offers intake, updates, and politeness while keeping obligation optional.</p><p>It is the operational home of <a href=\"/glossary/attrition-as-resolution\">attrition as resolution</a> and <a href=\"/glossary/unearned-closure\">unearned closure</a>.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "A claim is scored by whether it reached binding resolution, not by how long it was processed.",
+              "Institutions distinguish activity on a claim from settlement of it."
+            ],
+            "genealogy": "Names the indefinite-processing mode that pretends to be adjudication.",
+            "tags": ["settlement", "delay", "processing"],
+            "domains": ["agency", "diagnostic"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "clock-start-clock-mismatch",
+            "title": "Clock-start / Clock mismatch",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Clock-start: the moment a system becomes time-bound—deadlines begin, obligations attach, escalation becomes meaningful. Clock mismatch: when institutional execution is fast (instant flags, freezes, denials) but redress is slow (weeks-months of human review), making errors durable and contestation scarce.</p><p>It is the temporal form of <a href=\"/glossary/binding-clock\">binding clocks</a> versus <a href=\"/glossary/reversal-sla\">reversal SLAs</a>.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Every decision has a defined clock-start, not an open-ended one.",
+              "Execution and redress latency are compared; a large gap is flagged as a defect."
+            ],
+            "genealogy": "Makes the asymmetry between action speed and correction speed explicit.",
+            "tags": ["clock", "time", "asymmetry"],
+            "domains": ["temporal"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "slow-redress-fast-execution",
+            "title": "Slow Redress / Fast Execution",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A governance asymmetry where harmful state changes are immediate but appeals are delayed, discretionary, and exhausting. This is one of the main engines of modern coercion.</p><p>It is <a href=\"/glossary/degradation-restoration-asymmetry\">degradation-restoration asymmetry</a> in its temporal form, and what <a href=\"/glossary/time-to-restore\">time-to-restore</a> is measured against.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Harm and remedy latencies are measured separately and compared.",
+              "A fast-execution/slow-redress gap is treated as a coercion indicator, not a cost tradeoff."
+            ],
+            "genealogy": "Isolates the speed asymmetry that makes harm cheap and correction expensive.",
+            "tags": ["asymmetry", "speed", "redress"],
+            "domains": ["temporal", "burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "irreversibility",
+            "title": "Irreversibility",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A state where reversal is practically unavailable (too slow, too expensive, too discretionary) even if it is theoretically possible. Irreversibility is often produced by missing clocks, missing authority, or asymmetric evidence demands.</p><p>It is the condition that <a href=\"/glossary/irreversibility-index\">irreversibility indices</a> measure and that <a href=\"/glossary/irreversible-boundary\">irreversible boundaries</a> are drawn to prevent.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "A state is classified as irreversible when reversal is practically unavailable, not only theoretically impossible.",
+              "The mechanism producing irreversibility (missing clock, authority, or evidence) is named."
+            ],
+            "genealogy": "Distinguishes practical irreversibility from theoretical possibility.",
+            "tags": ["irreversibility", "reversal", "time"],
+            "domains": ["temporal"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "backstop",
+            "title": "Backstop",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A guaranteed fallback mechanism that triggers when the main process fails—timeouts, automatic approvals, emergency restoration, or external review. Backstops prevent the silent failure of the primary path.</p><p>They are the implementation of <a href=\"/glossary/safe-pause\">safe pause</a> and the guarantee behind <a href=\"/glossary/time-to-halt\">time-to-halt</a>.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "Every critical path has a fallback that triggers automatically on failure.",
+              "A backstop is tested end-to-end, not specified in a runbook."
+            ],
+            "genealogy": "Makes graceful failure a designed guarantee rather than an aspiration.",
+            "tags": ["backstop", "fallback", "safety"],
+            "domains": ["structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "rollback",
+            "title": "Rollback",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A designed ability to revert the system to a prior safe state—restoring access, undoing propagation, correcting records—ideally with minimal friction. Rollback is the technical face of <a href=\"/glossary/reversibility\">reversibility</a>.</p><p>It is bounded by <a href=\"/glossary/time-to-restore\">time-to-restore</a> and depends on <a href=\"/glossary/restoration-completeness\">restoration completeness</a>.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "A prior safe state is reachable without disproportionate friction.",
+              "Rollback covers downstream propagation, not only the original record."
+            ],
+            "genealogy": "Turns reversal from a hope into an engineered operation.",
+            "tags": ["rollback", "reversal", "restore"],
+            "domains": ["structural", "temporal"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
+          },
+          {
+            "id": "auto-close-auto-renew-auto-share",
+            "title": "Auto-close / Auto-renew / Auto-share",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Default state transitions that happen without active consent—closing claims, renewing contracts, expanding data use—often presented as convenience while functioning as governance by inertia. They are <a href=\"/glossary/defaults-as-governance\">defaults as governance</a> in action.</p><p>Each silent transition is a site where <a href=\"/glossary/meaningful-control\">meaningful control</a> is quietly surrendered.</p>",
+            "scope": "J. Decision states & edges. Where and how decisions flip from reversible to permanent.",
+            "operationalTests": [
+              "No consequential state transition happens without active, recent consent.",
+              "An auto-transition is audited for who benefited and who lost control."
+            ],
+            "genealogy": "Names the inertia defaults that convert convenience into coercion.",
+            "tags": ["defaults", "inertia", "consent"],
+            "domains": ["structural", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "decision-states"
           }
         ]
       },
@@ -7141,6 +8267,237 @@
               "crisis-rehearsal-loops",
               "moral-dry-runs"
             ]
+          },
+          {
+            "id": "polite-coercion",
+            "title": "Polite Coercion",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Coercion delivered through soothing language and “helpful” workflows that make refusal costly or stigmatized. Polite coercion is power that avoids looking like power.</p><p>It pairs with <a href=\"/glossary/tone-policing\">tone policing</a> and launders <a href=\"/glossary/coercive-consent\">coercive consent</a> through <a href=\"/glossary/legitimacy-laundering\">legitimacy laundering</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "A workflow is scored by the real cost of refusal, not by its tone.",
+              "Soothing language that raises refusal cost is flagged as coercion."
+            ],
+            "genealogy": "Makes the soothing register of coercion visible as coercion.",
+            "tags": ["coercion", "politeness", "power"],
+            "domains": ["agency", "patterns"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "documentation-loop",
+            "title": "Documentation Loop / Resubmission Loop",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A repeating pattern where the system continually requests more evidence or re-uploads without moving toward a binding decision. Often used to shift labor onto claimants and to manufacture dropout.</p><p>It is <a href=\"/glossary/burden-transfer-event\">burden transfer</a> with a smile, and a feeder of <a href=\"/glossary/attrition-as-resolution\">attrition as resolution</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "Repeated requests must move a claim closer to a binding decision.",
+              "A request that does not advance the decision is flagged as a loop, not progress."
+            ],
+            "genealogy": "Makes the resubmission loop legible as delay machinery.",
+            "tags": ["documentation", "delay", "loop"],
+            "domains": ["burden", "patterns"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "precision-demands",
+            "title": "Precision Demands",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Requests for ever-greater specificity that function less as truth-seeking and more as denial hooks—ways to keep a case non-objectified or non-decidable. Precision demands are a technique of delay.</p><p>They prevent <a href=\"/glossary/object-formation\">object formation</a> and are the mirror of <a href=\"/glossary/documentation-loop\">documentation loops</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "A specificity request is scored by whether it advances or stalls the decision.",
+              "A demand that cannot be met is flagged as a denial hook, not due diligence."
+            ],
+            "genealogy": "Separates genuine evidentiary need from precision used as a stall.",
+            "tags": ["precision", "delay", "denial"],
+            "domains": ["patterns", "burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "procedural-alibi",
+            "title": "Procedural Alibi",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A record of “process” used to defend outcomes (“we followed procedure”) even when the procedure cannot bind the institution to remedy. The alibi is the trace of activity, not accountability.</p><p>It is the paper form of <a href=\"/glossary/procedural-force\">procedural force</a> without power, and the close cousin of <a href=\"/glossary/paper-compliance\">paper compliance</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "Procedure is scored by whether it can bind the institution, not by whether it was followed.",
+              "A “we followed procedure” defense is tested against remedy, not against the process log."
+            ],
+            "genealogy": "Exposes procedure-as-alibi where activity substitutes for remedy.",
+            "tags": ["procedure", "alibi", "accountability"],
+            "domains": ["patterns", "visibility"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "tone-policing",
+            "title": "Tone Policing (as Governance Technology)",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The use of “appropriate tone” requirements to control access to remedy—penalizing anger, urgency, neurodivergent communication, or exhaustion. Tone policing converts distress into disqualification.</p><p>It is the affective edge of <a href=\"/glossary/polite-coercion\">polite coercion</a>, and it defeats <a href=\"/glossary/affect-invariance\">affect invariance</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "Access to remedy does not depend on the claimant’s tone or composure.",
+              "A distress signal is treated as information, not as a disqualifier."
+            ],
+            "genealogy": "Makes the affective gate on remedy visible as a governance mechanism.",
+            "tags": ["tone", "affect", "gatekeeping"],
+            "domains": ["patterns", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "dropout-as-legitimation",
+            "title": "Dropout-as-legitimation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>When systems treat nonresponse, fatigue, or disappearance as consent or closure (“case closed—no reply”), laundering coercion into “resolved.” Dropout becomes the mechanism that protects the institution.</p><p>It is <a href=\"/glossary/attrition-as-resolution\">attrition as resolution</a> wearing the face of user inaction, producing <a href=\"/glossary/unearned-closure\">unearned closure</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "Nonresponse is never treated as consent or as a decision.",
+              "Dropout is investigated as a possible coercion outcome, not logged as “resolved.”"
+            ],
+            "genealogy": "Reads silence as an outcome the system manufactured, not as user choice.",
+            "tags": ["dropout", "attrition", "legitimation"],
+            "domains": ["patterns", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "churn-as-closure",
+            "title": "Churn (as Closure Mechanism)",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The engineered cycling of people through forms, queues, and handoffs until they give up, miss a deadline, or become “inactive,” allowing the system to close without settlement. Churn is manufactured attrition.</p><p>It is the machinery behind <a href=\"/glossary/dropout-as-legitimation\">dropout-as-legitimation</a> and a producer of <a href=\"/glossary/attrition-as-resolution\">attrition as resolution</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "Handoff counts are audited as a closure mechanism, not as service.",
+              "A case that closes from inactivity is re-opened on the merits, not closed silently."
+            ],
+            "genealogy": "Names the deliberate cycling that converts process friction into closure.",
+            "tags": ["churn", "attrition", "closure"],
+            "domains": ["patterns", "burden"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "paper-compliance",
+            "title": "Paper Compliance / Checkbox Governance",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Compliance regimes focused on producing documentation of doing the right thing rather than mechanisms that can actually prevent harm or force remedy. The paperwork stands in for power.</p><p>It is the institutional form of <a href=\"/glossary/procedural-alibi\">procedural alibi</a>, and the failure mode behind <a href=\"/glossary/compliance-collapse\">compliance collapse</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "Compliance is scored by a mechanism’s effect on harm, not by its documentation.",
+              "A checklist without a binding effect is flagged as paper, not compliance."
+            ],
+            "genealogy": "Distinguishes documentary compliance from enforceable compliance.",
+            "tags": ["compliance", "paperwork", "governance"],
+            "domains": ["patterns", "structural"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "transparency-theater",
+            "title": "Transparency Theater",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Disclosures that do not increase contestability—more text, more dashboards, more “explanations”—without deadlines, authority, or reversal paths. Visibility substitutes for enforceability.</p><p>It is the disclosure form of <a href=\"/glossary/paper-compliance\">paper compliance</a> and the complement of <a href=\"/glossary/explainability-decoy\">explainability decoy</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "A disclosure is scored by whether it increases contestability, not by its volume.",
+              "Visibility without a reversal path is flagged as theater, not transparency."
+            ],
+            "genealogy": "Exposes visibility as a substitute for the enforceability it should enable.",
+            "tags": ["transparency", "theater", "disclosure"],
+            "domains": ["patterns", "visibility"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "explainability-decoy",
+            "title": "Explainability Decoy",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A focus on explaining model decisions that distracts from the harder question: can the decision be contested, reversed, and time-bounded? The decoy offers epistemics where governance is needed.</p><p>It redirects attention from <a href=\"/glossary/explainability-for-accountability\">explainability for accountability</a> toward explanation for its own sake.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "An explanation is scored by whether it enables contestation and reversal.",
+              "Explainability effort is measured against its effect on remedy, not its detail."
+            ],
+            "genealogy": "Names the substitution of explanation for enforceable accountability.",
+            "tags": ["explainability", "decoy", "accountability"],
+            "domains": ["patterns", "visibility"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
+          },
+          {
+            "id": "human-in-the-loop-legitimacy",
+            "title": "Human-in-the-loop (as Legitimacy Artifact)",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A human reviewer inserted to create legitimacy while lacking binding authority, deadlines, or meaningful discretion. The loop becomes a comfort signal, not a power shift.</p><p>It is the person-shaped form of <a href=\"/glossary/rubber-stamp-review\">rubber-stamp review</a>, distinguished from real <a href=\"/glossary/binding-authority\">binding authority</a>.</p>",
+            "scope": "K. System patterns & anti-patterns. Recurring structures that demand Ethotechnic countermeasures.",
+            "operationalTests": [
+              "A human reviewer’s authority and deadlines are specified, not assumed.",
+              "A loop that cannot change state is flagged as a legitimacy artifact."
+            ],
+            "genealogy": "Makes the human-in-the-loop visible as a legitimacy device when it lacks power.",
+            "tags": ["human-in-the-loop", "legitimacy", "review"],
+            "domains": ["patterns", "agency"],
+            "scale": null,
+            "phase": [],
+            "measurability": null,
+            "maturity": null,
+            "clusters": [],
+            "legacyTerritory": "patterns"
           }
         ]
       },

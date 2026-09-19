@@ -492,13 +492,6 @@ export const glossaryTerms: GlossaryTerm[] = [
     appliesTo: ["E. Human limits & experience"],
   },
   {
-    slug: "legibility-illegibility",
-    term: "Legibility / Illegibility",
-    definition:
-      "Legibility: being representable in the system’s categories and workflows. Illegibility: being real but not representable, leading to churn, delay, or denial.",
-    appliesTo: ["E. Human limits & experience"],
-  },
-  {
     slug: "refusal-budget",
     term: "Refusal Budget",
     definition:
@@ -1357,20 +1350,6 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Human-in-the-loop (as Legitimacy Artifact)",
     definition:
       "A human reviewer inserted to create legitimacy while lacking binding authority, deadlines, or meaningful discretion. The loop becomes a comfort signal, not a power shift.",
-    appliesTo: ["K. System patterns & anti-patterns"],
-  },
-  {
-    slug: "procedural-realism",
-    term: "Procedural Realism",
-    definition:
-      "A style of analysis (and sometimes art) that treats procedures, channels, and workflows as the real plot—where power is shown through process.",
-    appliesTo: ["K. System patterns & anti-patterns"],
-  },
-  {
-    slug: "intake-cinema",
-    term: "Intake Cinema",
-    definition:
-      "A label for stories where the drama is the intake/eligibility channel—forms, interviews, caseworkers, waiting rooms—rather than a single decisive confrontation.",
     appliesTo: ["K. System patterns & anti-patterns"],
   },
   {
