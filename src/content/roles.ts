@@ -143,7 +143,7 @@ export const roles: Role[] = [
       "burden-modeler",
       "capacity-forecaster",
     ],
-    featuredStandards: ["std-01-temporal-rights", "std-02-reversibility-slas"],
+    featuredStandards: ["std-01-temporal-rights", "std-02-contestability-recourse"],
     formerPaths: ["/quick-start/engineers", "/adopt/build"],
   },
   {
@@ -218,8 +218,8 @@ export const roles: Role[] = [
       "Set incident disclosure expectations for high-impact failures.",
       "Require sign-off authority for resume decisions after a halt.",
     ],
-    featuredDiagnostics: ["system-auditor", "evidence-pack-readiness"],
-    featuredStandards: ["std-01-temporal-rights", "std-06-harm-visibility"],
+    featuredDiagnostics: ["system-auditor", "delegation-audit"],
+    featuredStandards: ["std-01-temporal-rights", "std-06-human-impact-safety-case"],
     formerPaths: ["/quick-start/policy-makers", "/adopt/policy"],
   },
   {
@@ -259,7 +259,7 @@ export const roles: Role[] = [
       "record-conformance",
       "maintenance-simulator",
     ],
-    featuredStandards: ["std-01-temporal-rights", "std-02-reversibility-slas"],
+    featuredStandards: ["std-01-temporal-rights", "std-02-contestability-recourse"],
     formerPaths: [],
   },
   {
@@ -268,6 +268,32 @@ export const roles: Role[] = [
     who: "You run the appeals, the incident response, or the queues where the system's errors land.",
     tagline:
       "Give escalation a bound and a named owner, so a stalled case surfaces instead of ageing.",
+    orientation: [
+      {
+        number: 1,
+        title: "Forecast the absorption load",
+        description:
+          "Model whether human response capacity grows with the volume the system generates, before the queue becomes the mechanism that hides its errors.",
+        ctaLabel: "Run Capacity Forecaster",
+        ctaHref: "/diagnostics/capacity-forecaster",
+      },
+      {
+        number: 2,
+        title: "Bind escalation to a clock",
+        description:
+          "Give every stalled case a named owner and a deadline that escalates itself, rather than an inbox that ages quietly.",
+        ctaLabel: "Inspect escalation SLAs",
+        ctaHref: "/mechanisms/patterns/escalation-slas",
+      },
+      {
+        number: 3,
+        title: "Read the queue as a capacity signal",
+        description:
+          "Track challenge volume against the capacity rostered to answer it, and answer congestion with resourcing or scope decisions on the record — never by narrowing who may challenge.",
+        ctaLabel: "Inspect the challenge load ledger",
+        ctaHref: "/mechanisms/patterns/challenge-load-ledger",
+      },
+    ],
     adoptionChecklist: [
       "Define harm intake paths with explicit triage categories.",
       "Set escalation SLAs by severity and route to named responders.",
@@ -283,6 +309,32 @@ export const roles: Role[] = [
     who: "You shape the interface where a person meets the decision.",
     tagline:
       "Turn standards into consent-aware flows, escalation cues, and language a person can act on.",
+    orientation: [
+      {
+        number: 1,
+        title: "Model the burden of one flow",
+        description:
+          "Score a real journey for time tax, step count, and exit availability, and read the report card as a design brief.",
+        ctaLabel: "Run Burden Modeler",
+        ctaHref: "/diagnostics/burden-modeler",
+      },
+      {
+        number: 2,
+        title: "Place the interrupt where the harm is",
+        description:
+          "Design the stop, slow, and escalate controls the flow needs when the system is wrong — reachable, not decorative.",
+        ctaLabel: "Read ethical interrupts",
+        ctaHref: "/explainers/ethical-interrupts",
+      },
+      {
+        number: 3,
+        title: "Write copy people can act on",
+        description:
+          "Use phrases a person can send, file, or read out — contestation language that works without the framework behind it.",
+        ctaLabel: "Open language people can use",
+        ctaHref: "/explainers/language-people-can-use",
+      },
+    ],
     guide: {
       focusAreas: [
         "Audit UI flows for stoppability, consent, and reversibility signals.",
@@ -326,6 +378,32 @@ export const roles: Role[] = [
     who: "You study these systems and publish about them.",
     tagline:
       "Ground investigations in the glossary anchors the standards use, so findings can be cited back into them.",
+    orientation: [
+      {
+        number: 1,
+        title: "Anchor the question in the doctrine",
+        description:
+          "State the claim as one of the twelve laws, so findings cite something a standard binds rather than a mood.",
+        ctaLabel: "Read the laws",
+        ctaHref: "/standards/laws",
+      },
+      {
+        number: 2,
+        title: "Read why the laws hold",
+        description:
+          "The theory essays carry the argument: dependence, standing, capture, absorption, and the refusals between capability and authority.",
+        ctaLabel: "Open theory",
+        ctaHref: "/research/theory",
+      },
+      {
+        number: 3,
+        title: "Bring a case or a dataset",
+        description:
+          "Field studies, incident analyses, and protocols can enter the agenda through the participation intake.",
+        ctaLabel: "Open Participate",
+        ctaHref: "/participate",
+      },
+    ],
     guide: {
       focusAreas: [
         "Align research questions with glossary and standard definitions.",

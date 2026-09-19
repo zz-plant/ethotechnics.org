@@ -35,6 +35,21 @@ export type Lens = {
 
 export type SequenceStep = { title: string; detail: string };
 
+/**
+ * The two postures a deployment can hold. The distinction is the site's
+ * orientation claim: friction does not disappear when a system is engineered
+ * to be frictionless, so the only question is where it lands and whether it
+ * is recorded.
+ */
+export type Circuit = {
+  id: string;
+  title: string;
+  tag: string;
+  description: string;
+  cost: string;
+  links: MethodLink[];
+};
+
 export type MethodContent = {
   pageTitle: string;
   pageDescription: string;
@@ -45,6 +60,7 @@ export type MethodContent = {
   unitOfGovernance: string;
   invariant: string;
   chain: ChainStage[];
+  circuits: Circuit[];
   stateVariables: StateVariable[];
   laws: Law[];
   lenses: Lens[];
@@ -257,6 +273,45 @@ export const methodContent: MethodContent = {
           label: "Stoppability testing",
           href: "/mechanisms/patterns/stoppability-testing",
         },
+      ],
+    },
+  ],
+  circuits: [
+    {
+      id: "closed-circuit",
+      title: "The closed circuit",
+      tag: "Absorption",
+      description:
+        "The system optimizes its own path and severs the feedback that would force it to adapt. Errors, wait states, and exceptions are routed around the measured surface, so the metrics improve while nothing outside the boundary is watching.",
+      cost:
+        "The friction lands on whoever the system touches: unpaid compensatory labor, exhausted operators, and claimants who absorb the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger — the falsified denominator.",
+      links: [
+        {
+          label: "Absorption as concealment",
+          href: "/research/theory/absorption-as-concealment",
+        },
+        {
+          label: "Friction as accidental governance",
+          href: "/research/theory/friction-as-accidental-governance",
+        },
+        { label: "Burden validators", href: "/validators" },
+      ],
+    },
+    {
+      id: "open-circuit",
+      title: "The open circuit",
+      tag: "Correction",
+      description:
+        "The same scaled system, instrumented so that the people it can misjudge can reach it: standing with procedural force, clocks that answer, records that travel, and halts tiered by blast radius.",
+      cost:
+        "The friction is built back in as constitutional friction: appeal latency, halt costs, and restoration work. That cost is deliberate, provisioned, and on the ledger — the challenge load ledger counts it the way the burden ledger counts absorption.",
+      links: [
+        { label: "Challenge density", href: "/research/theory/challenge-density" },
+        {
+          label: "Dependence without standing",
+          href: "/research/theory/dependence-without-standing",
+        },
+        { label: "STD-02 Contestability", href: "/standards/std-02-contestability-recourse" },
       ],
     },
   ],

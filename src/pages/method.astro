@@ -17,6 +17,7 @@ const {
   unitOfGovernance,
   invariant,
   chain,
+  circuits,
   stateVariables,
   laws,
   lenses,
@@ -27,6 +28,7 @@ const {
 const anchorLinks = [
   { href: "#definition", label: "Definition" },
   { href: "#chain", label: "The chain" },
+  { href: "#circuits", label: "The two circuits" },
   { href: "#state-variables", label: "State variables" },
   { href: "#laws", label: "The twelve laws" },
   { href: "#lenses", label: "The three lenses" },
@@ -122,6 +124,42 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
         ))
       }
     </ol>
+  </SectionBlock>
+
+  <SectionBlock
+    id="circuits"
+    eyebrow="The two circuits"
+    title="One claim, two postures"
+    description="Friction never disappears from a system that scales beyond what its operators can see. It transfers. Every deployment picks where it lands and whether it is recorded."
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      {
+        circuits.map((circuit) => (
+          <div class="card stack-sm" id={circuit.id}>
+            <p class="eyebrow">{circuit.tag}</p>
+            <h3>{circuit.title}</h3>
+            <p>{circuit.description}</p>
+            <p class="eyebrow">Where the friction lands</p>
+            <p class="muted">{circuit.cost}</p>
+            <p class="small">
+              {circuit.links.map((link, linkIndex) => (
+                <>
+                  {linkIndex > 0 && <span aria-hidden="true"> · </span>}
+                  <a href={link.href}>{link.label}</a>
+                </>
+              ))}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="muted small">
+      The same distinction underlies the{" "}
+      <a href="/standards/laws#invariant">invariant</a>: agency (the closed
+      circuit's throughput) may not accumulate faster than inspect, challenge,
+      revise, and survive (the open circuit's verbs).
+    </p>
   </SectionBlock>
 
   <SectionBlock

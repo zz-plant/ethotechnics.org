@@ -1317,6 +1317,168 @@
               "warning": "Routine parameter tuning inside an agreed ceiling is not expansion; crossing the ceiling is."
             }
           ]
+        },
+        {
+          "slug": "halt-tier-register",
+          "title": "MEC-21 Halt tier register",
+          "summary": "Tier halt authority by blast radius so the power to stop scales with the size of what is being stopped, and the smallest tiers stay cheap enough to use.",
+          "filters": ["governance", "friction"],
+          "glossaryRefs": ["halt-stratification", "stoppability", "procedural-force"],
+          "cues": [
+            "Rank halt instruments by blast radius: one case, one queue, one workflow, the whole system.",
+            "Name who can fire each tier and what restoration at that tier requires.",
+            "Keep the lowest tier unescalated: a frontline pause that needs a committee is not a tier, it is theater."
+          ],
+          "diagnostics": ["maintenance-simulator", "capacity-forecaster"],
+          "steps": [
+            "List the halt instruments the deployment has today and sort them by blast radius, restoration cost, and who can reach them.",
+            "Write the tier register: per tier, the authorized roles, what halts, the restoration path, the notification duty, and the evidence the halt leaves behind.",
+            "Provision restoration at every tier and rehearse at least the bottom two, where halts are cheap enough that drills are honest."
+          ],
+          "policyRequirement": "Policy requirement (MEC-21 Halt tier register)\n- Halt authority is tiered by blast radius, with authorized roles, restoration paths, and notification duties recorded per tier.\n- The lowest tier is reachable by exposed parties and frontline operators without escalation.\nReference: https://ethotechnics.org/mechanisms/patterns/halt-tier-register",
+          "productRequirement": "Product requirement (MEC-21)\n- Each tier exposes only the controls that tier's blast radius justifies.\n- Halt events record the tier that fired, the restoration path taken, and everyone notified.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-21)\n[ ] The tier register exists and names roles, blast radius, restoration, and notification per tier.\n[ ] Drills demonstrate halts at the lowest tiers, not only the system-wide stop.\n[ ] Restoration capacity is evidenced at each tier, not only at the top.",
+          "postmortemTrigger": "Postmortem trigger (MEC-21)\nTrigger review when a halt had to escalate two or more tiers to take effect, or when a tier's restoration path was exercised without provision behind it.",
+          "artifacts": [
+            {
+              "name": "Halt tier register",
+              "purpose": "Tiers, authorized roles, blast radius, restoration paths, and notification duties per tier."
+            },
+            {
+              "name": "Tier drill log",
+              "purpose": "Evidence that low tiers fire and restore without escalation, dated and signed."
+            },
+            {
+              "name": "Escalation map",
+              "purpose": "What happens when a tier is insufficient, and who holds the next tier up."
+            }
+          ],
+          "example": {
+            "title": "One caseworker, one paused claim",
+            "description": "A caseworker pauses a single claim the system is about to mispay, using a tier-1 control that needs no approval. The queue keeps moving; the claim routes to a human; the register records the pause and the restoration, and nobody outside the office is paged."
+          },
+          "antiPatterns": [
+            {
+              "title": "Uniform veto",
+              "failure": "Every halt requires the same senior authority, so low-tier problems either wait or fire the system-wide stop.",
+              "counterfactual": "Tiers match blast radius: small halts are cheap and local, big halts are deliberate.",
+              "warning": "A small authorized tier is not a governance gap; the gap is a big tier with no rehearsed restoration."
+            },
+            {
+              "title": "Tier theater",
+              "failure": "Tiers exist on paper, but the low tiers route through the same approver as the top, so blast radius never changes who decides.",
+              "counterfactual": "Authorized roles differ per tier, and drill logs show low-tier halts completing without escalation.",
+              "warning": "Shared approval across tiers is legitimate when coverage is explicit, not when it is an accident of hierarchy."
+            }
+          ]
+        },
+        {
+          "slug": "admission-gate",
+          "title": "MEC-22 Admission gate",
+          "summary": "Make the decision to deploy at all an authorization decision with evidence and a recorded outcome, where deliberate non-use is a first-class result.",
+          "filters": ["governance", "policy"],
+          "glossaryRefs": ["admission-gate", "decision-reversal-authority", "design-authority"],
+          "cues": [
+            "Review admission before the grant exists, not as a post-hoc audit of a running system.",
+            "Record the refusal basis when the answer is no, and make \"not yet\" and \"never\" distinguishable.",
+            "Give the refusal a review condition, so a no made on stale evidence can be reopened on named facts."
+          ],
+          "diagnostics": ["system-auditor", "delegation-audit"],
+          "steps": [
+            "Before any grant is written, run the admission review: evidence for the delegation, the scope considered, the correction capacity available, and the populations affected.",
+            "Record the outcome as a decision with a named decider, including deliberate non-use with reasons.",
+            "Attach a review condition to every admission, so changed facts reopen the question instead of aging into acceptance."
+          ],
+          "policyRequirement": "Policy requirement (MEC-22 Admission gate)\n- A consequential deployment has a recorded admission decision with evidence, scope, and a named decider, before any authority is granted.\n- Deliberate non-use is a recorded outcome with reasons and a review condition.\nReference: https://ethotechnics.org/mechanisms/patterns/admission-gate",
+          "productRequirement": "Product requirement (MEC-22)\n- The admission decision is a prerequisite artifact in the deployment pipeline, not a document written after launch.\n- The record distinguishes \"not yet\" from \"never\", with different reopen conditions.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-22)\n[ ] Every consequential deployment traces to an admission decision with a decider and a date.\n[ ] Refusals record their basis and a review condition.\n[ ] Systems running without a recordable admission decision are listed as findings.",
+          "postmortemTrigger": "Postmortem trigger (MEC-22)\nTrigger review when a deployment is found to be running with no admission record, or when an admission refusal was reopened by momentum rather than by the review condition.",
+          "artifacts": [
+            {
+              "name": "Admission decision record",
+              "purpose": "Evidence reviewed, scope considered, correction capacity, affected populations, outcome, and decider."
+            },
+            {
+              "name": "Non-use record",
+              "purpose": "Reasons a delegation was refused or deferred, with the review condition that can reopen it."
+            },
+            {
+              "name": "Admission criteria list",
+              "purpose": "What the gate asks, agreed before the first request so the bar cannot move to fit the answer."
+            }
+          ],
+          "example": {
+            "title": "The pilot that was declined",
+            "description": "A fraud-scoring model is proposed for benefits triage. The admission review finds the correction capacity for the denial class is absent and the affected population cannot reach a responder inside the clock. The outcome is recorded as non-use with those reasons and a reopen condition: the gate reopens when a funded responder path exists, not when the vendor updates the model."
+          },
+          "antiPatterns": [
+            {
+              "title": "Admission by momentum",
+              "failure": "The system runs because someone built it, and stopping now is more expensive than starting was, so the question is never actually asked.",
+              "counterfactual": "The admission decision exists with a date, a decider, and evidence taken before the grant.",
+              "warning": "A small pilot still needs a recorded admission; the record is what makes expansion a decision later."
+            },
+            {
+              "title": "Gate as rubber stamp",
+              "failure": "Every review passes because the criteria were written after the first request, fitted to the answer wanted.",
+              "counterfactual": "Admission criteria are agreed and published before the first request reaches them.",
+              "warning": "A no that cannot be given is not a gate; audit the refusals, not only the approvals."
+            }
+          ]
+        },
+        {
+          "slug": "challenge-load-ledger",
+          "title": "MEC-23 Challenge load ledger",
+          "summary": "Track challenge volume against response capacity, so sustained congestion triggers a resourcing or scope decision instead of a narrowing of who may challenge.",
+          "filters": ["governance", "friction"],
+          "glossaryRefs": ["challenge-density", "corrective-standing", "futility-threshold"],
+          "cues": [
+            "Report challenge volume, response capacity, and unanswered-challenge age as one series.",
+            "Tie sustained breaches of response clocks to a recorded resourcing or scope decision.",
+            "Never meet congestion by narrowing standing; meet it by capacity or by emitting less error."
+          ],
+          "diagnostics": ["capacity-forecaster", "maintenance-simulator"],
+          "steps": [
+            "Instrument the challenge path: volume, response latency, unanswered-challenge age, and the response capacity rostered to answer.",
+            "Define the congestion threshold where a breach obliges a capacity or scope decision, and record which decision was made.",
+            "Review the ledger on the same cadence as the standing register, so density and eligibility are never adjusted in isolation."
+          ],
+          "policyRequirement": "Policy requirement (MEC-23 Challenge load ledger)\n- Challenge volume, response capacity, and unanswered-challenge age are tracked and reported together.\n- A sustained congestion breach triggers a recorded resourcing decision or a recorded scope reduction, never a narrowing of standing.\nReference: https://ethotechnics.org/mechanisms/patterns/challenge-load-ledger",
+          "productRequirement": "Product requirement (MEC-23)\n- The challenge dashboard shows volume against capacity, not volume alone.\n- Clock breaches surface as capacity events in the same tooling as operational incidents.",
+          "auditEvidenceChecklist": "Audit evidence checklist (MEC-23)\n[ ] The ledger reports volume, capacity, and age as a series.\n[ ] Each recorded congestion breach links to a resourcing or scope decision.\n[ ] No eligibility criterion was changed in the same review window as a congestion breach without a recorded rationale.",
+          "postmortemTrigger": "Postmortem trigger (MEC-23)\nTrigger review when unanswered-challenge age crosses the published threshold, or when standing or admissibility was narrowed within a window where congestion was breached.",
+          "artifacts": [
+            {
+              "name": "Challenge load ledger",
+              "purpose": "Volume, response capacity, unanswered-challenge age, and the decisions each breach produced."
+            },
+            {
+              "name": "Congestion decision log",
+              "purpose": "For each breach: resourcing, scope reduction, or error-reduction chosen, with the record behind it."
+            },
+            {
+              "name": "Standing-stability note",
+              "purpose": "Evidence that eligibility and admissibility were not adjusted in response to volume."
+            }
+          ],
+          "example": {
+            "title": "The queue that funded its own reviewers",
+            "description": "Appeals against an automated denial triple after a model change. The ledger breaches its threshold, and the recorded decision is two additional funded reviewers and a scope reduction on the denial class — not an admissibility bar. The standing register is unchanged; the model change is reconsidered under its policy review trigger."
+          },
+          "antiPatterns": [
+            {
+              "title": "Congestion as nuisance",
+              "failure": "Volume is treated as bad-faith filing, and the response is higher bars, longer clocks, or narrower eligibility.",
+              "counterfactual": "Volume is read as a capacity signal and answered with resourcing or scope decisions on the record.",
+              "warning": "Bad-faith volume exists; filter it per case through admissibility, never through the standing register."
+            },
+            {
+              "title": "The invisible queue",
+              "failure": "Challenges age silently because nothing reports unanswered age, so the system's own records hide the saturation.",
+              "counterfactual": "Unanswered-challenge age is a first-class metric with a breach threshold.",
+              "warning": "A dashboard that shows only throughput hides the queue; report what has not been answered."
+            }
+          ]
         }
       ]
     },
