@@ -335,7 +335,7 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     slug: "graceful-degradation",
-    term: "Fail-soft / Graceful Degradation",
+    term: "Graceful Degradation",
     definition:
       "A design principle where systems degrade safely under stress\u2014reduced capability rather than catastrophic denial\u2014especially under accessibility constraints.",
     appliesTo: [
@@ -780,7 +780,7 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     slug: "right-of-exit",
-    term: "Exit Rights",
+    term: "Right of Exit",
     definition:
       "Guaranteed, non-punitive ways to leave a system (or refuse a pathway) while preserving access to essentials, records, and future participation. Exit rights treat departure as a legitimate action, not a breach.",
     appliesTo: ["H. Governance & power"],
@@ -1735,6 +1735,950 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Post-Optimization Rigor",
     definition:
       "The engineering discipline required after metric optimization reaches its boundary, focusing on independent review, measuring uncounted absorption, and failure-point standing.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "legibility",
+    term: "Legibility",
+    definition:
+      "How understandable a system’s actions, reasoning, and ownership are to the people affected. Legibility lets people find who decided, why, and how to respond; it does not guarantee the decision can be changed.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "sociotechnical-alignment",
+    term: "Sociotechnical Alignment",
+    definition:
+      "Alignment achieved across tools, interfaces, incentives, workflows, and structures, not just inside a model. Sociotechnical alignment keeps the ethical load path intact under pressure.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "delegated-agency",
+    term: "Delegated Agency",
+    definition:
+      "The capacity to act with consequence on an institution’s behalf, held by a machine, a human, or both. Delegated agency is created by an authority grant and exercised through a decision system, not a property of the model itself.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "consequential-decision",
+    term: "Consequential Decision",
+    definition:
+      "A decision that changes someone’s access, money, obligations, safety, or standing and that the institution must answer for. The consequential decision is the unit of governance in Ethotechnics.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "decision-system",
+    term: "Decision System",
+    definition:
+      "The assembled machinery that produces a consequential decision: models, rules engines, queues, humans, policies, and the data they read. Ethotechnics governs the whole system, not any single component.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "justified-delegation",
+    term: "Justified Delegation",
+    definition:
+      "A delegation whose authority, evidence, and correction capacity are all currently in force. Justification is a present-tense test, not a fact about the launch review.",
+    appliesTo: ["A. Core concepts"],
+  },
+  {
+    slug: "unowned-harm",
+    term: "Unowned Harm",
+    definition:
+      "Negative outcomes for which no individual or role is accountable, even though the system caused them. Unowned harm signals accountability diffusion and weak traceable ownership.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "ethics-theater",
+    term: "Ethics Theater",
+    definition:
+      "Public displays of ethical concern without operational mechanisms that change system behavior. Ethics theater often masks compliance collapse and low contestability.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "authority-drift",
+    term: "Authority Drift",
+    definition:
+      "The gap that opens when what a system actually does moves away from what its authority grant permits or its evidence supports. Drift accumulates through steps that each look too small to review.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "automation-ratchet",
+    term: "Automation Ratchet",
+    definition:
+      "Scope growth by accretion, where each extension of an automated system is too small to trigger review and no single step widens the delegation. The ratchet turns one way only.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "institutional-capture",
+    term: "Institutional Capture",
+    definition:
+      "The state where a system has absorbed enough of an institution’s capability, staff, and decision paths that the institution can no longer evaluate, constrain, or replace it.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "rubber-stamp-review",
+    term: "Rubber-Stamp Review",
+    definition:
+      "Review that approves at a rate and speed incompatible with real scrutiny. The artifact of review exists; the control does not.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "normalized-dependence",
+    term: "Normalized Dependence",
+    definition:
+      "Reliance on a system that has become invisible because it is ordinary: no one records it, no fallback is maintained, and withdrawal is no longer a question anyone asks.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "capacity-depreciation",
+    term: "Capacity Depreciation",
+    definition:
+      "The decay of correction capacity in the absence of replenishment: experts leave, alternatives lapse, rollback scripts stop being run. The institution becomes less able to correct without any decision causing it.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "jurisdictional-path-dependence",
+    term: "Jurisdictional Path Dependence",
+    definition:
+      "The condition where the questions an institution asks about a system’s scope come to track the system’s own categories and vocabulary. The system’s answers shape the next question asked.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "exception-absorption",
+    term: "Exception Absorption",
+    definition:
+      "Handling an exception without changing the rule, category, workflow, or authority that produced it. Each case is closed and nothing upstream changes.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "workaround-presumption",
+    term: "Workaround Presumption",
+    definition:
+      "The rule that a recurring workaround raises a presumption of upstream design failure. The first reading of repeated improvisation is that the formal system does not fit the world it operates in.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "discretion-migration",
+    term: "Discretion Migration",
+    definition:
+      "The pattern where automation relocates rather than removes judgment, reappearing in thresholds, categories, exception rules, and appeal routing—along with authority over it.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "governability",
+    term: "Governability",
+    definition:
+      "The degree to which a system can be steered, paused, audited, corrected, or shut down after deployment. High governability requires stoppability, reversibility, and durable contestability.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "incident-literacy",
+    term: "Incident Literacy",
+    definition:
+      "The ability to recognize failures as incidents rather than anomalies and respond with containment, logging, escalation, and repair.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "capability-discovery",
+    term: "Capability Discovery",
+    definition:
+      "The practice of finding out what an assembled decision system can actually do, including reachable tools, side effects, and action classes nobody intended to expose. The output is a catalog, not a permission.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "correction-capacity",
+    term: "Correction Capacity",
+    definition:
+      "The measured ability to actually intervene: which interventions exist, who may invoke them, how long they take, and how much load the institution can absorb. Counted in people, clocks, and rehearsals, not asserted in policy.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "technical-reversibility",
+    term: "Technical Reversibility",
+    definition:
+      "The first level of the reversibility ladder: the mechanism exists and works, proven on the running version. A floor rather than a finding—a working switch says nothing about the levels above it.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "operational-reversibility",
+    term: "Operational Reversibility",
+    definition:
+      "The second level of the reversibility ladder: people and processes can absorb the correction. Staff know the fallback, queues hold the load, and the manual path has been exercised recently enough to work.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "institutional-reversibility",
+    term: "Institutional Reversibility",
+    definition:
+      "The third level of the reversibility ladder: the organization survives having made the correction. Commitments, contracts, reputations, and budgets stay serviceable after withdrawal.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "intervention-specification",
+    term: "Intervention Specification",
+    definition:
+      "Who may intervene, on what signal, with what information and authority, on what timescale, and what happens on disagreement. It replaces “human in the loop” as a control name.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "prospective-auditability",
+    term: "Prospective Auditability",
+    definition:
+      "Designing a system so audit questions can be answered later by recording evidence, authority, and reasoning at decision time. It cannot be retrofitted onto decisions already made.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "evaluation-independence",
+    term: "Evaluation Independence",
+    definition:
+      "The property that no single provider is necessary to both execute and evaluate a consequential process. A system that grades its own homework has no detection component.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "exception-learning",
+    term: "Exception Learning",
+    definition:
+      "The modification of a system by its own exceptions: a recurring failure changes the rule, category, workflow, or authority that produced it. The counterpart of exception absorption.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "case-corrigibility",
+    term: "Case Corrigibility",
+    definition:
+      "The capacity to fix a particular bad decision: an appeal is heard, a reversal issued, a person restored. Locally corrigible, but the pattern may remain.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "structural-corrigibility",
+    term: "Structural Corrigibility",
+    definition:
+      "The capacity to modify the machinery that keeps producing failures: repeated exceptions change the rule, category, workflow, or authority generating them.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "institutional-learning",
+    term: "Institutional Learning",
+    definition:
+      "Learning that changes what an institution is permitted to do, not just what a model predicts. The test is whether the failure altered the evidentiary rule, authority, or allocation of burden.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "corrective-debt",
+    term: "Corrective Debt",
+    definition:
+      "The accumulated gap between an institution’s capacity to act and its capacity to detect, contest, reverse, and repair errors. Grows as action capacity compounds while correction machinery stays fixed.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "abstention",
+    term: "Abstention",
+    definition:
+      "A positive capability to decline to act in three forms: epistemic (evidence insufficient), jurisdictional (not mine to decide), and remedial (acting now would cause uncorrectable harm).",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "constitutional-debt",
+    term: "Constitutional Debt",
+    definition:
+      "The divergence between what a system is technically able to do and what any recorded justification permits. The automation ratchet is its engine and authority drift is its balance.",
+    appliesTo: [
+      "C. Ethotechnic capabilities (what systems must be able to do)",
+    ],
+  },
+  {
+    slug: "restoration-completeness",
+    term: "Restoration Completeness",
+    definition:
+      "“Restored” means the person is actually back to the prior state across downstream systems, not just locally unblocked. Time-to-restore includes reconciliation with dependencies.",
+    appliesTo: ["D. System states & architectures"],
+  },
+  {
+    slug: "downstream-harm-trace",
+    term: "Downstream Harm Trace",
+    definition:
+      "A record of where a harmful decision propagated across vendors, data brokers, internal teams, and agencies, so remedies follow the harm.",
+    appliesTo: ["D. System states & architectures"],
+  },
+  {
+    slug: "shadow-queue",
+    term: "Shadow Queue",
+    definition:
+      "A queue users cannot see—internal backlogs, vendor queues, or “pending review” pools—that still determines outcomes. Erodes time transparency and contestability.",
+    appliesTo: ["D. System states & architectures"],
+  },
+  {
+    slug: "grant-state",
+    term: "Grant State",
+    definition:
+      "The current status of an authority grant, drawn from a closed set such as allowed, review_required, suspended, and withdrawn. States are what triggers can move.",
+    appliesTo: ["D. System states & architectures"],
+  },
+  {
+    slug: "capability-catalog",
+    term: "Capability Catalog",
+    definition:
+      "The record of what a decision system can do, maintained separately from what it is permitted to do. The catalog is what an authority grant is written against.",
+    appliesTo: ["D. System states & architectures"],
+  },
+  {
+    slug: "dependency-state",
+    term: "Dependency State",
+    definition:
+      "The current degree to which an institution relies on a system: who depends on it, what breaks without it, what expertise is retained, and how long substitution would take.",
+    appliesTo: ["D. System states & architectures"],
+  },
+  {
+    slug: "substrate-profile",
+    term: "Substrate Profile",
+    definition:
+      "A nine-property classification of a deployment—access, control, update authority, stability, revocation, substitutability, observability, standing, and dependency—replacing the open-versus-closed question.",
+    appliesTo: ["D. System states & architectures"],
+  },
+  {
+    slug: "virtue-as-access-control",
+    term: "Virtue as Access Control",
+    definition:
+      "When composure, clarity, gratitude, or “professionalism” become requirements for baseline safety or remedy. Turns emotional labor into a gate.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
+    slug: "affect-invariance",
+    term: "Affect-Invariance",
+    definition:
+      "Baseline safety and remedy should not change based on distress, fatigue, disability, fear, or anger. The primary threat model is virtue as access control.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
+    slug: "behavioral-shaping",
+    term: "Behavioral Shaping",
+    definition:
+      "The way systems nudge, constrain, or normalize user behavior through defaults and design choices.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
+    slug: "error-bearing-party",
+    term: "Error-Bearing Party",
+    definition:
+      "Anyone who absorbs the consequences of a system’s errors: the people its decisions fall on, and the staff whose corrective labor keeps it usable.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
+    slug: "adaptive-capacity",
+    term: "Adaptive Capacity",
+    definition:
+      "The finite human resource an arrangement consumes when it demands that people adapt to it: attention, memory, flexibility, time, health, and care.",
+    appliesTo: ["E. Human limits & experience"],
+  },
+  {
+    slug: "degradation-restoration-asymmetry",
+    term: "Degradation/Restoration Asymmetry",
+    definition:
+      "It is cheap or fast to harm or change someone’s state, but slow and costly to reverse. Inflates time-to-restore and compounds moral debt.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "endurance-as-allocation",
+    term: "Endurance-as-Allocation",
+    definition:
+      "Who gets the right outcome is determined by who can survive the correction path, not who is substantively right. Weaponizes endurance asymmetry.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "stamina-pricing",
+    term: "Stamina Pricing",
+    definition:
+      "Rights exist in theory, but the option to claim them is priced in paperwork, waiting, and persistence.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "harm-internalization",
+    term: "Harm Internalization",
+    definition:
+      "Designing systems so creators and operators bear the costs of failures instead of externalizing them to users or society.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "maintenance-ethics",
+    term: "Maintenance Ethics",
+    definition:
+      "Ethical responsibility continues after deployment through monitoring, updates, incident response, and repair.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "channel-switching-penalty",
+    term: "Channel Switching Penalty",
+    definition:
+      "The hidden harm of being bounced between phone, email, chat, and portal channels, often resetting clocks or losing context.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "evidence-burden-ceiling",
+    term: "Evidence Burden Ceiling",
+    definition:
+      "A hard cap on documentation demands placed on claimants for a given harm class, enforcing fair burden distribution during appeals.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "evidence-recycling",
+    term: "Evidence Recycling",
+    definition:
+      "Reusing previously verified information so people do not have to re-prove identity or harm repeatedly. Applies continuity of state to documentation.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "verification-harm",
+    term: "Verification Harm",
+    definition:
+      "When verification itself causes harm through delays, denials, exclusion, or stress spirals, increasing the burden index and eroding contestability.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "compensatory-adaptation",
+    term: "Compensatory Adaptation",
+    definition:
+      "Human effort required because an arrangement failed to accommodate foreseeable reality. Distinct from the productive adaptation that learning and care genuinely require.",
+    appliesTo: ["F. Burden & load"],
+  },
+  {
+    slug: "composed-latency",
+    term: "Composed Latency",
+    definition:
+      "The time a chain of delegations actually takes, measured from decision records rather than nominal per-hop promises. Hops compose additively and can consume the human’s intervention window.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "silent-harm-discovery",
+    term: "Silent-Harm Discovery",
+    definition:
+      "The deployer-side duty to find harm nobody complained about, computed per affected population from records the operator already retains, on a declared cadence.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "identity-fragility-index",
+    term: "Identity Fragility Index",
+    definition:
+      "A measure of how likely identity or eligibility checks are to fail under ordinary life variance. High fragility indicates brittle verification design, not user fault.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "consent-revocation-latency",
+    term: "Consent Revocation Latency",
+    definition:
+      "The time from a person saying “I revoke consent” to behavior actually changing everywhere it should. Low latency keeps consent journeys credible.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "repair-debt-interest-rate",
+    term: "Repair Debt Interest Rate",
+    definition:
+      "The rate at which unrepaired harm compounds through financial penalties, health risk, displacement, or reputational spread. Converts moral debt into time-bound obligations.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "exposure-score",
+    term: "Exposure Score",
+    definition:
+      "A composite indicator of structural risk: dependency depth multiplied by substitution cost multiplied by correction latency, read as a trend rather than a single number.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "substitution-cost",
+    term: "Substitution Cost",
+    definition:
+      "What it would take to replace a system with an alternative meeting the same obligation: staff-weeks, retained expertise, exit terms, and elapsed time.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "evaluation-layer",
+    term: "Evaluation Layer",
+    definition:
+      "The level of the stack at which an evaluation actually holds—model, agent, delegation, institution, or consequence—so a clean result at one level is never read as another.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "exit-cost",
+    term: "Exit Cost",
+    definition:
+      "What it costs the dependent party to stop depending on a system: money, time, reconstructed records, and lost access. Measured from the side the decisions land on.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "challenge-density",
+    term: "Challenge Density",
+    definition:
+      "The rate at which challenges arrive against the capacity to answer them. Congestion is the point where the open circuit is usually lost.",
+    appliesTo: ["G. Measures & indicators"],
+  },
+  {
+    slug: "attestation",
+    term: "Attestation",
+    definition:
+      "The signature binding a record to a named key holder at a point in time, so authority attributable to no one is distinguishable from authority nobody signed.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "liability-record",
+    term: "Liability Record",
+    definition:
+      "The object naming the party that accepts liability for a delegation’s latency and errors, the instrument binding them, and the carve-outs they claim.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "carve-out",
+    term: "Carve-Out",
+    definition:
+      "An exclusion, cap, or condition the accepting party claims against a recorded liability. Recorded before harm, in the issuer’s words, not assembled after.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "delegation-chain",
+    term: "Delegation Chain",
+    definition:
+      "A sequence of delegations that together produce one consequential decision. The chain is itself a delegation, governed at the layer where it actually fails.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "bounded-autonomy",
+    term: "Bounded Autonomy",
+    definition:
+      "Autonomy granted only within explicit limits; approaching or crossing them triggers escalation to design authority or oversight. The limits live in an authority grant.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "scope-discipline",
+    term: "Scope Discipline",
+    definition:
+      "The practice of not exceeding one’s mandate, even when doing so appears helpful or efficient. Enforces the permission surface and respects bounded autonomy.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "stewardship",
+    term: "Stewardship",
+    definition:
+      "An explicit, ongoing role responsible for system behavior over time, with authority to pause, fix, or retire it.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "obligation-continuity",
+    term: "Obligation Continuity",
+    definition:
+      "Whether responsibility stays attached across time, handoffs, and narrative resets instead of evaporating.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "delay-as-power",
+    term: "Delay as Power",
+    definition:
+      "The ability to remain wrong without consequence by stretching time (“pending,” “in review”). Operationalizes latency-as-action.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "performance-gated-remedy",
+    term: "Performance-Gated Remedy",
+    definition:
+      "The correction path works only if someone performs well under stress; the system treats composure as eligibility.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "bindingness-after-contact",
+    term: "Bindingness After Contact",
+    definition:
+      "After harm is reported or help is requested, who becomes bound—institution or claimant—and what obligations lock in.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "recognition-as-solvent",
+    term: "Recognition as Solvent",
+    definition:
+      "Being “heard” is treated as if it discharges obligation, pressuring the claimant to stop escalating without repair.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "unowned-obligation",
+    term: "Unowned Obligation",
+    definition:
+      "Responsibility exists but no owner or time-bound state transition is attached; people are bounced between channels.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "closure-code-regime",
+    term: "Closure-Code Regime",
+    definition:
+      "Person-level reason codes that convert structural scarcity into individual failure (“withdrew,” “no response,” “noncompliant”).",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "attrition-as-resolution",
+    term: "Attrition-as-Resolution",
+    definition:
+      "An anti-pattern where drop-off is counted as success and metrics improve when people give up. Hides unmet obligations behind completion dashboards.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "legitimacy-engineering",
+    term: "Legitimacy Engineering",
+    definition:
+      "Legitimacy defined by stoppability, reversibility, contestability, ownership, and time-bounded repair capacity, treated as measurable requirements.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "exit-coercion",
+    term: "Exit Coercion",
+    definition:
+      "Consent and silence extracted under duress during departures, often via NDAs, retaliation risk, or narrative erasure.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "retaliation-surface",
+    term: "Retaliation Surface",
+    definition:
+      "Where the system can punish people for contesting, pausing, refusing, or exiting—throttling, stricter scrutiny, or service withdrawal.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "non-retaliation-guarantee",
+    term: "Non-Retaliation Guarantee",
+    definition:
+      "A binding commitment that contesting, pausing, refusing, or exiting will not trigger adverse treatment.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "appeal-integrity",
+    term: "Appeal Integrity",
+    definition:
+      "Appeals are judged on merits with transparent criteria, named authority, and documented outcomes—not absorbed into procedural theater.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "escalation-reliability",
+    term: "Escalation Reliability",
+    definition:
+      "Escalation paths work under load, after hours, and for novices—not just in theory.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "decision-reversal-authority",
+    term: "Decision Reversal Authority",
+    definition:
+      "A formally granted power to undo harmful decisions, not merely recommend reconsideration. Turns reversibility into an enforceable capability.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "restitution-ladder",
+    term: "Restitution Ladder",
+    definition:
+      "A tiered remedy system moving from apology to reversal, compensation, repair service, and systemic fix triggers.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "remedy-equivalence",
+    term: "Remedy Equivalence",
+    definition:
+      "Manual and automated channels must offer equivalent remedy outcomes, timelines, and authority, so no one is penalized for choosing an accessible path.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "case-ownership-continuity",
+    term: "Case Ownership Continuity",
+    definition:
+      "Cases do not become orphaned across handoffs; ownership persists through vacations, organizational changes, and vendor transfers.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "revisable-delegation",
+    term: "Revisable Delegation",
+    definition:
+      "Delegation that stays tied to the evidence that justified it, so the grant can be narrowed, suspended, or withdrawn when that evidence changes.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "authority-grant",
+    term: "Authority Grant",
+    definition:
+      "The record permitting a named holder to take a bounded class of actions, for whom, under what conditions, and until when. What makes authority reviewable and withdrawable.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "authority-lease",
+    term: "Authority Lease",
+    definition:
+      "The stance that authority is held for a term against a renewable justification rather than owned outright. It expires by default; renewal requires fresh evidence.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "policy-record",
+    term: "Policy Record",
+    definition:
+      "A versioned statement of the propositions a delegation rests on, each with an expiry. Grants cite policy records so assumptions decay visibly instead of silently.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "review-trigger",
+    term: "Review Trigger",
+    definition:
+      "A declared rule connecting an observation to a state change: when this threshold occurs, this grant moves to this state, answered by this owner, within this clock.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "correction-obligation",
+    term: "Correction Obligation",
+    definition:
+      "The duty an institution takes on when it delegates consequential action: to notice, stop, reverse, and repair what the delegate does.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "preserved-capacity",
+    term: "Preserved Capacity",
+    definition:
+      "Institutional capability deliberately maintained so the institution can still question, replace, or withdraw a system: retained expertise, manual paths, and independent records.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "corrective-standing",
+    term: "Corrective Standing",
+    definition:
+      "The recognized capacity of an error-bearing party to initiate correction: a challenge that must be received, answered, judged, and able to change state.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "standing-mechanism",
+    term: "Standing Mechanism",
+    definition:
+      "The concrete apparatus making standing real: who may challenge which decisions, with what evidence, responders, deadlines, and possible state transitions.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "procedural-force",
+    term: "Procedural Force",
+    definition:
+      "The property of a challenge that obliges a response and can change a state, as distinct from a veto that stops action outright.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "consent-depth",
+    term: "Consent Depth",
+    definition:
+      "The distinction between consenting to enter a dependency and consenting to every degree of dependency its operation later produces.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "corrigibility-rent",
+    term: "Corrigibility Rent",
+    definition:
+      "Power gained because others cannot cheaply make you answer for being wrong—through impossible complaints, proprietary evidence, or appeals that arrive after harm is irreversible.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "insulation",
+    term: "Insulation",
+    definition:
+      "Whatever prevents the consequences of institutional decisions from traveling back to the actors who can revise the generating rules. Distance from corrective consequence.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "consequential-contradiction",
+    term: "Consequential Contradiction",
+    definition:
+      "The capacity of the governed world to force a system to reconsider—not merely to complain. Contradiction is consequential when it has state-changing force.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "halt-stratification",
+    term: "Halt Stratification",
+    definition:
+      "Halt authority tiered by blast radius: a frontline operator pausing one case, a supervisor halting a queue, a steward stopping a system.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "admission-gate",
+    term: "Admission Gate",
+    definition:
+      "The authorization decision preceding any grant: whether the system should act at all. Records the evidence, scope, and outcome—including deliberate non-use.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "dependence-reciprocity",
+    term: "Dependence Reciprocity",
+    definition:
+      "Dependence runs both ways. A population’s reliance on an institution’s system generates duties: notice, preservation of exit, and continuity at withdrawal.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "corrective-power",
+    term: "Corrective Power",
+    definition:
+      "The effective capacity of affected people to make an arrangement change when its demands become unreasonable—to force reconsideration or reversal, not merely complain.",
+    appliesTo: ["H. Governance & power"],
+  },
+  {
+    slug: "procedural-burden-as-price",
+    term: "Procedural Burden as Price",
+    definition:
+      "Paperwork and friction are not incidental; they are rationing mechanisms that should be capped, disclosed, or penalized.",
+    appliesTo: ["I. Friction & flow"],
+  },
+  {
+    slug: "binding-clock",
+    term: "Binding Clock",
+    definition:
+      "An enforceable timer governing system obligations once a decision enters a pending or contested state. Time itself becomes a governed surface.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "reversal-sla",
+    term: "Reversal SLA",
+    definition:
+      "Specifies maximum time, authority, and procedure for undoing a contested or erroneous decision. Reversal performance is a reliability metric, not an exception.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "unearned-closure",
+    term: "Unearned Closure",
+    definition:
+      "The system marks something resolved without repairing the underlying harm; the residual cost remains with the person.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "actionability-threshold",
+    term: "Actionability Threshold",
+    definition:
+      "The level of confidence, authorization, and oversight required before information becomes action. Protects against low-signal decisions.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "normative-uncertainty",
+    term: "Normative Uncertainty",
+    definition:
+      "Situations where the right action is unclear, requiring caution, clarification, or human judgment rather than confident automation.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "harm-receipt",
+    term: "Harm Receipt",
+    definition:
+      "A claimant-facing artifact documenting what happened, what the system believes, and what it will do next, by when.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "access-cliff",
+    term: "Access Cliff",
+    definition:
+      "A threshold where small variance causes catastrophic loss of service—lockout, termination, or loss of benefits. Mitigated with soft edges and gradual ramps.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "expansion-decision",
+    term: "Expansion Decision",
+    definition:
+      "A separate authorization decision when a delegation is widened in scope, population, autonomy, or consequence. The direct block on the automation ratchet.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "non-finality",
+    term: "Non-Finality",
+    definition:
+      "The property that a decisive action does not close its own categories, evidence, or jurisdiction against revision. Appeal interrupts the conversion of decision into finality.",
+    appliesTo: ["J. Decision states & edges"],
+  },
+  {
+    slug: "withdrawal-rehearsal",
+    term: "Withdrawal Rehearsal",
+    definition:
+      "A scheduled exercise where a system is actually stood down and the fallback carries real work, producing timings and failures. Evidence, not a claim.",
+    appliesTo: ["K. System patterns & anti-patterns"],
+  },
+  {
+    slug: "policy-as-state",
+    term: "Policy as State",
+    definition:
+      "Policy is a state of the running system, not an input consumed at deployment. A policy record has a version, assumptions, an expiry, and a current status.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "meaningful-control",
+    term: "Meaningful Control",
+    definition:
+      "The condition where a human is part of the control system: they can see the problem, hold authority to act, have time, a path to disagree, and incentives permitting disagreement.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "non-conversion-principle",
+    term: "The Non-Conversion Principle",
+    definition:
+      "A fact about a system does not become a fact about its authority on its own. Capability and success are evidence, never a grant; authority changes only through recorded state transitions.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "human-non-substitutability",
+    term: "Human Non-Substitutability",
+    definition:
+      "A model of a person is not the person. No representation acquires automatic authority to extinguish the represented person’s standing against it.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "safe-incompleteness",
+    term: "Safe Incompleteness",
+    definition:
+      "A system should improve its representation of people and preserve their contestation at once. An incomplete and contestable system is safer than a complete and final one.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "anti-conversion-rights",
+    term: "Anti-Conversion Rights",
+    definition:
+      "Rights as interruptions of illegitimate conversions: privacy, due process, consent, appeal, and separation of powers each keep a capability from becoming an authorization.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "excluded-case",
+    term: "The Excluded Case",
+    definition:
+      "The case a representation excludes is potentially evidence about the category, not merely noise. Dissent and standing are epistemic, not only political.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "feedback-proximity",
+    term: "Feedback Proximity",
+    definition:
+      "The causal distance between an institutional error and the actors who can revise the generating rule should stay short. Proximity is not visibility.",
+    appliesTo: ["M. Foundational Ethotechnic principles"],
+  },
+  {
+    slug: "asymmetric-capacity-restraint",
+    term: "Asymmetric-Capacity Restraint",
+    definition:
+      "An institution’s obligations to remain contestable and revisable grow with its capacity to classify, monitor, automate, and scale. Capability may expand only as fast as correction checks it.",
     appliesTo: ["M. Foundational Ethotechnic principles"],
   },
 ];
