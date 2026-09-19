@@ -230,7 +230,7 @@ export const researchContent: ResearchContent = {
       title: "Theory essays",
       type: "Essay series",
       summary:
-        "Why the laws hold: dependence without standing, absorption as concealment, friction as accidental governance, the engineering tradition, automation and capture.",
+        "Why the laws hold: absorption as concealment, the engineering tradition, automation and capture, dependence without standing and running both ways, friction as accidental governance, what does not convert, insulation, ethotechnical design, what outcomes hide, challenge density, exception learning, the model of a person, endogenous authorization, deliberate non-use, the compulsion problem, what Ethotechnics is not, and democratic vs. coercive governability.",
       tags: ["theory", "laws", "doctrine"],
       href: "/research/theory",
     },

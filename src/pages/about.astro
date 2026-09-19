@@ -1,6 +1,7 @@
 ---
 import "../styles/components/intake-form.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Logo from "../components/Logo.astro";
 ---
 
 <BaseLayout
@@ -8,34 +9,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="What the Ethotechnics framework is, where it comes from, and how the open Institute and Studio practice fit together."
   publishedTime="2026-05-26T00:00:00.000Z"
 >
-  <section class="stack-lg">
-    <p class="eyebrow">About the framework</p>
-    <h1>
-      Ethotechnics: governance and care infrastructure for high-stakes systems
-    </h1>
-    <p class="section-lead">
-      Ethotechnics is the engineering discipline concerned with keeping
-      authority, evidence, capability, consequence, and correction coupled
-      tightly enough that increasing machine agency does not silently become
-      unreviewable institutional power. It treats evidence, authorization,
-      challenge, reconsideration, correction, and escalation as explicit system
-      states, properties a system either has or lacks, rather than policy
-      documents around the system. The
-      <a href="/method">method</a> states the chain, the state variables, and the
-      laws.
-    </p>
-    <p>
-      Stated plainly: the practice of designing technology so that technical
-      power remains bounded, contestable, reversible, and answerable for the
-      burdens it creates.
-    </p>
-    <p>
-      The framework is authored by <strong>Kanav Jain</strong>, and developed
-      through proposed standards, glossary curation, field diagnostics, and
-      implementation-oriented research. Its standards are proposed, not imposed:
-      each carries an editorial status (Draft or Stable), and adoption by
-      institutions is what makes one authoritative.
-    </p>
+  <section class="about-hero stack-lg">
+    <div class="about-hero__layout">
+      <div class="about-hero__main stack-md">
+        <p class="eyebrow">About the framework</p>
+        <h1>
+          Ethotechnics: governance and care infrastructure for high-stakes systems
+        </h1>
+        <p class="section-lead">
+          Ethotechnics is the engineering discipline concerned with keeping
+          authority, evidence, capability, consequence, and correction coupled
+          tightly enough that increasing machine agency does not silently become
+          unreviewable institutional power.
+        </p>
+        <p class="muted">
+          Stated plainly: designing technology so that technical power remains bounded,
+          contestable, reversible, and answerable for the burdens it creates. The framework
+          is authored by <strong>Kanav Jain</strong> and developed as an open commons of
+          standards, ontology, and diagnostics.
+        </p>
+      </div>
+      <div class="about-hero__flourish" aria-hidden="true">
+        <Logo class="about-hero__logo" />
+      </div>
+    </div>
   </section>
 
   <section class="stack-sm card">
@@ -353,3 +350,41 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </p>
   </section>
 </BaseLayout>
+
+<style>
+  .about-hero {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .about-hero__layout {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 800px) {
+    .about-hero__layout {
+      grid-template-columns: 1fr auto;
+      gap: 3.5rem;
+    }
+  }
+
+  .about-hero__main {
+    min-width: 0;
+  }
+
+  .about-hero__flourish {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-hero__logo {
+    width: clamp(90px, 14vw, 150px);
+    height: clamp(90px, 14vw, 150px);
+    color: var(--accent);
+    opacity: 0.85;
+    filter: drop-shadow(0 4px 16px color-mix(in srgb, var(--accent) 15%, transparent));
+  }
+</style>

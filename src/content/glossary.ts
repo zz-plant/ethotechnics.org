@@ -106,7 +106,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "ethotechnics",
     term: "Ethotechnics",
     definition:
-      "The craft of designing systems that can behave morally. Where ethics asks \u201cWhat should I do?\u201d and systems theory asks \u201cHow does it behave?\u201d, Ethotechnics asks: How can it behave well? Moral behavior is treated as an architectural capability, not a personal virtue.",
+      "The engineering discipline that keeps authority, evidence, capability, consequence, and correction coupled so increasing machine agency cannot silently become unreviewable institutional power. Where ethics asks \u201cWhat should we do?\u201d, Ethotechnics designs the mechanisms that make it reliably happen.",
     appliesTo: ["hospitals", "platforms", "governance"],
   },
   {

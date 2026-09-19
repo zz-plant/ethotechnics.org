@@ -36,25 +36,37 @@ export const siteFooter: SiteFooterContent = {
   },
   navigation: [
     {
-      heading: "Standards & Tools",
+      heading: "Method & Standards",
       links: [
-        { label: "Method", href: "/method" },
-        { label: "Standards", href: "/standards" },
-        { label: "Laws", href: "/standards/laws" },
-        { label: "Diagnostics & Tools", href: "/diagnostics" },
-        { label: "Mechanisms & Patterns", href: "/mechanisms" },
-        { label: "Evals & Benchmarks", href: "/evals" },
+        { label: "The Method", href: "/method" },
+        { label: "Twelve Laws", href: "/standards/laws" },
+        { label: "Standards Register", href: "/standards" },
+        {
+          label: "Regulatory Crosswalks",
+          href: "/standards/enforceable-governance-crosswalks",
+        },
+        { label: "Evidence Packs", href: "/evidence-packs" },
+      ],
+    },
+    {
+      heading: "Mechanisms & Diagnostics",
+      links: [
+        { label: "Mechanisms Catalog", href: "/mechanisms" },
+        { label: "Diagnostics Suite", href: "/diagnostics" },
+        { label: "Delegation Audit", href: "/diagnostics/delegation-audit" },
+        { label: "System Auditor", href: "/diagnostics/system-auditor" },
+        { label: "Evals & Coverage", href: "/evals" },
         { label: "Validators", href: "/validators" },
       ],
     },
     {
-      heading: "Knowledge Base",
+      heading: "Knowledge & Research",
       links: [
         { label: "Glossary & Ontology", href: "/glossary" },
-        { label: "Taxonomy", href: "/taxonomy" },
-        { label: "Theory", href: "/research/theory" },
+        { label: "Capability Taxonomy", href: "/taxonomy" },
+        { label: "Failure Casebook", href: "/casebook" },
+        { label: "Theory & Foundations", href: "/research/theory" },
         { label: "Field Notes", href: "/field-notes" },
-        { label: "Syllabus", href: "/syllabus" },
         { label: "Search", href: "/search" },
       ],
     },

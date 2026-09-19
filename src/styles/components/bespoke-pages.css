@@ -160,14 +160,16 @@
   /* The home masthead: type on the paper, closed by one rule. The starter
      rail on the right is the only sheet in it. */
   .institute-hero {
-    max-width: 1080px;
+    max-width: var(--content-max);
+    margin-inline: auto;
     padding: clamp(0.5rem, 1.5vw, 1.25rem) 0 clamp(2rem, 3.5vw, 3rem);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
   }
 
   .institute-hero__layout {
     display: grid;
-    gap: 1.6rem;
+    gap: clamp(1.6rem, 3vw, 2.5rem);
+    align-items: center;
   }
 
   .institute-hero__main {
@@ -176,39 +178,67 @@
 
   .institute-hero__main h1 {
     font-size: var(--text-hero);
-    line-height: 1.06;
+    line-height: 1.08;
     letter-spacing: -0.024em;
-    max-width: 14ch;
+    max-width: 18ch;
   }
 
-  .institute-hero__eyebrow {
-    margin: 0;
-    font-family: var(--sans);
-    font-size: var(--text-eyebrow);
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 650;
+  .institute-hero__actions {
+    margin-block: 0.4rem;
   }
 
-  /* The rail is too narrow for the two calls to action side by side, so they
-     stack as a deliberate primary/secondary pair. */
-  .institute-hero__starter .actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.6rem;
-  }
-
-  .institute-hero__starter .actions .button {
+  .institute-hero__side {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
   }
 
   .institute-hero__starter {
-    border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
     border-radius: var(--radius-lg);
-    padding: clamp(1.1rem, 1.6vw, 1.4rem);
+    padding: 1rem 1.2rem;
     background: var(--surface);
-    box-shadow: var(--card-inner-highlight);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .institute-hero__starter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
+  .institute-hero__starter-links {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .institute-hero__starter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.5rem 0.65rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    background: color-mix(in srgb, var(--panel) 40%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    transition: background var(--motion-fast) ease, border-color var(--motion-fast) ease;
+  }
+
+  .institute-hero__starter-item:hover,
+  .institute-hero__starter-item:focus-visible {
+    background: color-mix(in srgb, var(--panel) 80%, var(--surface));
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    text-decoration: none;
+  }
+
+  .institute-hero__starter-name {
+    font-weight: 650;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--accent);
   }
 
   #failure-intake {
@@ -406,9 +436,9 @@
 
   @media (min-width: 900px) {
     .institute-hero__layout {
-      grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
-      align-items: start;
-      gap: 1.5rem;
+      grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.95fr);
+      align-items: center;
+      gap: 2.2rem;
     }
 
     .failure-grid {

@@ -21,18 +21,32 @@ const isSameDocumentHashLink = (href: string) => {
   return normalizePath(href) === "/";
 };
 
-const isCurrentLink = (href: string, currentPath: string) => {
+const isCurrentLink = (
+  href: string,
+  currentPath: string,
+  matchSection = false,
+) => {
   if (isHashLink(href)) return false;
 
-  return normalizePath(href) === normalizePath(currentPath);
+  const normHref = normalizePath(href);
+  const normCurrent = normalizePath(currentPath);
+
+  if (normHref === normCurrent) return true;
+
+  if (matchSection && normHref !== "/") {
+    return normCurrent.startsWith(`${normHref}/`);
+  }
+
+  return false;
 };
 
 const getAriaCurrent = (
   href: string,
   currentPath: string,
   currentHash = "",
+  matchSection = false,
 ) => {
-  if (isCurrentLink(href, currentPath)) return "page";
+  if (isCurrentLink(href, currentPath, false)) return "page";
 
   if (
     isSameDocumentHashLink(href) &&
@@ -40,6 +54,10 @@ const getAriaCurrent = (
     normalizeHash(href) === normalizeHash(currentHash)
   ) {
     return "location";
+  }
+
+  if (matchSection && isCurrentLink(href, currentPath, true)) {
+    return "true";
   }
 
   return undefined;

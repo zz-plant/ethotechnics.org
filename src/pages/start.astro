@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { roles, rolePermalink, type RoleId } from "../content/roles";
 import { Icon } from "astro-icon/components";
+import SectionIllustration from "../components/SectionIllustration.astro";
 
 /**
  * One glyph per audience. The page asks the reader who they are and then gave
@@ -29,15 +30,21 @@ const pageDescription =
   publishedTime="2026-01-09T00:00:00.000Z"
   mainClass="page page--wide"
 >
-  <header class="section-header container">
-    <span class="pill pill--ghost">Start</span>
-    <h1 class="page-title">Find your path through Ethotechnics</h1>
-    <p class="page-lede">
-      This is the only page that asks you about yourself. Pick the role that
-      describes your work; each one has a single page carrying whatever has been
-      written for it. If you would rather read what the framework claims before
-      deciding where you fit, <a href="/method">the method</a> never asks you anything.
-    </p>
+  <header class="start-hero container">
+    <div class="start-hero__layout">
+      <div class="start-hero__main">
+        <span class="pill pill--ghost">Start</span>
+        <h1 class="page-title">Find your path through Ethotechnics</h1>
+        <p class="page-lede">
+          Seven stakeholder perspectives, structured into actionable standards,
+          diagnostics, and operational blueprints. Select your primary role to jump
+          directly to the assets authored for your team.
+        </p>
+      </div>
+      <div class="start-hero__illustration">
+        <SectionIllustration section="start" size="sm" />
+      </div>
+    </div>
   </header>
 
   {
@@ -160,6 +167,34 @@ const pageDescription =
 </BaseLayout>
 
 <style>
+  .start-hero {
+    padding-block: 1rem 1.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .start-hero__layout {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .start-hero__layout {
+      grid-template-columns: 1fr auto;
+      gap: 2.5rem;
+    }
+  }
+
+  .start-hero__main {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .start-hero__illustration {
+    display: flex;
+    justify-content: center;
+  }
+
   .role-chips {
     display: flex;
     flex-wrap: wrap;

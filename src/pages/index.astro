@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroIllustration from "../components/home/HeroIllustration.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
 import StateVariableGlyph, {
@@ -103,43 +104,51 @@ const failureChoiceIcons: Record<string, string[]> = {
     <div class="institute-hero__layout">
       <div class="institute-hero__main stack-lg">
         <p class="institute-hero__eyebrow">
-          Ethotechnics Institute · Open commons
+          Ethotechnics Institute · Open Commons
         </p>
         <h1 class="balanced-headline">
           Make high-stakes AI easier to stop, explain, appeal, and repair
         </h1>
         <p class="section-lead">
-          Australia's Robodebt scheme used software to raise about 470,000 debts
-          the law did not allow. People appealed and won, one case at a time,
-          and nothing changed for anyone else — so it ran for three years until
-          a court stopped it. This site exists to make that failure harder to
-          run.
+          The reference standards, ontology, and field diagnostics for governing
+          delegated intelligence. While other frameworks ask whether you managed
+          risk on paper, Ethotechnics enforces whether a running system can actually
+          be halted, challenged, and reversed under stress.
         </p>
+        <div class="institute-hero__actions actions" aria-label="Primary site actions">
+          <a class="button primary" href="/start">Find your starting path</a>
+          <a class="button ghost" href="/diagnostics/delegation-audit">Run delegation audit</a>
+          <a class="button ghost" href="/standards">Explore standards</a>
+        </div>
         <p class="small muted">
-          Other frameworks ask whether you managed risk responsibly. This one
-          asks whether the system can still be stopped while it is harming
-          someone, and whether the people carrying that harm can make it stop.
+          Engineered around real-world institutional failures like Robodebt, where 470,000 unlawful automated debts ran for three years because appeals fixed single cases instead of halting the system.
           <a href="/method">How the method works →</a>
           <a href="/casebook">Five public failures, scored →</a>
-          <a href="/research/theory">Why the laws hold →</a>
         </p>
       </div>
 
-      <aside
-        class="institute-hero__starter panel stack-sm"
-        aria-label="Homepage starter"
-      >
-        <p class="eyebrow">Start here</p>
-        <div class="actions" aria-label="Primary standards actions">
-          <a class="button primary" href="/start"> Find my starting point </a>
-          <a class="button ghost" href="/diagnostics/delegation-audit">
-            Run the delegation audit
-          </a>
-        </div>
-        <p class="small muted">
-          <a href="/standards">Browse the standards →</a>
-        </p>
-      </aside>
+      <div class="institute-hero__side stack-md">
+        <HeroIllustration />
+        <aside
+          class="institute-hero__starter panel stack-sm"
+          aria-label="Quick jump"
+        >
+          <div class="institute-hero__starter-header">
+            <span class="eyebrow">Quick Verification</span>
+            <span class="small muted">Interactive Tools</span>
+          </div>
+          <div class="institute-hero__starter-links">
+            <a href="/diagnostics" class="institute-hero__starter-item">
+              <span class="institute-hero__starter-name">Diagnostics Suite</span>
+              <span class="small muted">Test system coupling and halt readiness</span>
+            </a>
+            <a href="/standards/laws" class="institute-hero__starter-item">
+              <span class="institute-hero__starter-name">The Twelve Laws</span>
+              <span class="small muted">Formal technical & legal invariants</span>
+            </a>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
