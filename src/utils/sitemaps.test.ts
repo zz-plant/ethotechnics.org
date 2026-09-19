@@ -103,8 +103,6 @@ describe("sitemap lists only routes that render", () => {
       .map((path) => path.slice("/glossary/".length));
 
     expect(new Set(listed)).toEqual(entryIds);
-    // A tooltip-only term from glossaryTerms; the first one reported as 404.
-    expect(listed).not.toContain("pendingness");
   });
 
   test("standards lists only slugs backed by an MDX document", async () => {
