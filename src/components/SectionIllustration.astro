@@ -1,0 +1,449 @@
+---
+/**
+ * SectionIllustration.astro
+ *
+ * Provides crisp, semantic, theme-reactive SVG illustrations for major section
+ * hubs across Ethotechnics.org:
+ * - "method": The 7-stage governed pipeline with feedback loops
+ * - "standards": Normative specification document with authority seal & clauses
+ * - "mechanisms": Operational circuit breakers, interlocking trip switch
+ * - "diagnostics": Telemetry oscillogram & multi-variable coupling gauge
+ * - "glossary" | "knowledge": Taxonomy knowledge tree & ontology crosswalk
+ * - "casebook": Forensic incident timeline & recovery clock
+ * - "start": Role compass / multidirectional navigation vectors
+ */
+export type SectionIllustrationId =
+  | "method"
+  | "standards"
+  | "mechanisms"
+  | "diagnostics"
+  | "glossary"
+  | "knowledge"
+  | "casebook"
+  | "start"
+  | "evals"
+  | "validators"
+  | "evidence-packs"
+  | "toolkit";
+
+interface Props {
+  section: SectionIllustrationId;
+  class?: string;
+  size?: "sm" | "md" | "lg";
+}
+
+const { section, class: className, size = "md" }: Props = Astro.props;
+
+const labels: Record<SectionIllustrationId, string> = {
+  method: "Governed decision chain with authority & evidence feedback loops",
+  standards: "Formal specification clauses, invariant rules, and normative seal",
+  mechanisms: "Circuit breaker switch and operational intervention interlock",
+  diagnostics: "Multi-parameter audit probe and system telemetry readout",
+  glossary: "Ontology taxonomy tree and shared vocabulary crosswalk",
+  knowledge: "Ontology taxonomy tree and shared vocabulary crosswalk",
+  casebook: "Forensic failure trajectory, time-to-halt clock, and verdict matrix",
+  start: "Multi-stakeholder role compass for tailored governance pathways",
+  evals: "Automated test harness, benchmark test matrix, and pass-fail thresholds",
+  validators: "Runtime assertion gates, middleware interceptors, and invariant locks",
+  "evidence-packs": "Cryptographic proof bundle, verifiable audit log, and attestation chain",
+  toolkit: "Agent prompt packs, machine contracts, and integration harnesses",
+};
+---
+
+<div class:list={["section-illustration", `section-illustration--${size}`, className]}>
+  <div class="section-illustration__canvas">
+    {section === "method" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.method}>
+        <rect x="10" y="55" width="38" height="28" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.6" />
+        <text x="29" y="72" text-anchor="middle" font-family="var(--sans)" font-size="9" font-weight="600" fill="var(--text)">Intent</text>
+        
+        <path d="M 48 69 L 66 69" stroke="var(--accent)" stroke-width="1.6" />
+        
+        <rect x="68" y="55" width="46" height="28" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.8" />
+        <text x="91" y="72" text-anchor="middle" font-family="var(--sans)" font-size="9" font-weight="650" fill="var(--accent)">Authority</text>
+        
+        <path d="M 114 69 L 132 69" stroke="var(--accent)" stroke-width="1.6" />
+        
+        <rect x="134" y="55" width="46" height="28" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.6" />
+        <text x="157" y="72" text-anchor="middle" font-family="var(--sans)" font-size="9" font-weight="600" fill="var(--text)">Action</text>
+        
+        <path d="M 180 69 L 196 69" stroke="var(--accent)" stroke-width="1.6" />
+
+        <rect x="198" y="55" width="34" height="28" rx="6" fill="var(--surface)" stroke="var(--mark)" stroke-width="1.6" />
+        <text x="215" y="72" text-anchor="middle" font-family="var(--sans)" font-size="8.5" font-weight="700" fill="var(--mark)">Halt</text>
+
+        <!-- Dynamic Return loop -->
+        <path d="M 215 83 C 215 125, 91 125, 91 85" stroke="var(--mark)" stroke-width="1.5" stroke-dasharray="4 3" fill="none" />
+        <rect x="120" y="108" width="66" height="16" rx="8" fill="var(--surface)" stroke="var(--mark)" stroke-width="1" />
+        <text x="153" y="120" text-anchor="middle" font-family="var(--mono)" font-size="7.5" font-weight="700" fill="var(--mark)">REVERSAL</text>
+
+        <!-- Top Evidence loop -->
+        <path d="M 157 55 C 157 20, 29 20, 29 53" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" fill="none" />
+        <rect x="64" y="14" width="60" height="16" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="1" />
+        <text x="94" y="25" text-anchor="middle" font-family="var(--mono)" font-size="7.5" font-weight="700" fill="var(--accent)">EVIDENCE</text>
+      </svg>
+    )}
+
+    {section === "standards" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.standards}>
+        <!-- Specification Doc Sheet -->
+        <rect x="45" y="15" width="150" height="110" rx="8" fill="var(--surface)" stroke="currentColor" stroke-width="1.6" />
+        
+        <!-- Document header & clause rules -->
+        <line x1="60" y1="32" x2="115" y2="32" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" />
+        <rect x="145" y="24" width="38" height="14" rx="7" fill="color-mix(in srgb, var(--accent) 12%, var(--surface))" stroke="var(--accent)" stroke-width="1" />
+        <text x="164" y="34" text-anchor="middle" font-family="var(--mono)" font-size="7.5" font-weight="700" fill="var(--accent)">STD-01</text>
+        
+        <!-- Text lines mimicking structured clauses -->
+        <line x1="60" y1="48" x2="180" y2="48" stroke="currentColor" stroke-width="1" stroke-opacity="0.3" />
+        <line x1="60" y1="58" x2="165" y2="58" stroke="currentColor" stroke-width="1" stroke-opacity="0.3" />
+        <line x1="60" y1="68" x2="175" y2="68" stroke="currentColor" stroke-width="1" stroke-opacity="0.3" />
+        
+        <!-- Invariant callout box inside standard -->
+        <rect x="58" y="78" width="124" height="34" rx="5" fill="color-mix(in srgb, var(--panel) 40%, var(--surface))" stroke="var(--border)" stroke-width="1" />
+        <line x1="66" y1="88" x2="140" y2="88" stroke="var(--mark)" stroke-width="1.8" stroke-linecap="round" />
+        <line x1="66" y1="96" x2="168" y2="96" stroke="currentColor" stroke-width="1" stroke-opacity="0.4" />
+        <line x1="66" y1="104" x2="130" y2="104" stroke="currentColor" stroke-width="1" stroke-opacity="0.4" />
+
+        <!-- Authority Stamp / Seal in bottom right corner -->
+        <g transform="translate(172, 102)">
+          <circle cx="0" cy="0" r="18" fill="var(--surface)" stroke="var(--mark)" stroke-width="1.8" />
+          <circle cx="0" cy="0" r="14" stroke="var(--mark)" stroke-width="0.75" stroke-dasharray="2 2" />
+          <path d="M -5 -2 L 0 -7 L 5 -2 V 5 H -5 Z" stroke="var(--mark)" stroke-width="1.3" fill="none" />
+        </g>
+      </svg>
+    )}
+
+    {section === "mechanisms" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.mechanisms}>
+        <!-- Circuit Breaker / Interlock Mechanism -->
+        <!-- Circuit bus line -->
+        <line x1="20" y1="70" x2="80" y2="70" stroke="var(--accent)" stroke-width="2.5" />
+        <circle cx="80" cy="70" r="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2" />
+        
+        <!-- Switch arm in open/trippable position -->
+        <line x1="80" y1="70" x2="125" y2="40" stroke="var(--mark)" stroke-width="3" stroke-linecap="round" />
+        
+        <!-- Receiving contact -->
+        <circle cx="140" cy="70" r="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="2" />
+        <line x1="140" y1="70" x2="220" y2="70" stroke="var(--accent)" stroke-width="2.5" />
+
+        <!-- Interlock Cage / Housing -->
+        <rect x="60" y="20" width="120" height="95" rx="8" fill="color-mix(in srgb, var(--surface) 90%, transparent)" stroke="var(--border)" stroke-width="1.4" />
+
+        <!-- Warning label on trip switch -->
+        <rect x="90" y="26" width="60" height="16" rx="4" fill="var(--surface)" stroke="var(--mark)" stroke-width="1.2" />
+        <text x="120" y="37" text-anchor="middle" font-family="var(--mono)" font-size="7.5" font-weight="700" fill="var(--mark)">INTERRUPT</text>
+
+        <!-- Lower telemetry interlock status -->
+        <g transform="translate(75, 88)">
+          <rect x="0" y="0" width="90" height="18" rx="4" fill="color-mix(in srgb, var(--panel) 50%, var(--surface))" stroke="var(--border)" stroke-width="1" />
+          <circle cx="10" cy="9" r="3" fill="var(--status-success)" />
+          <text x="18" y="12" font-family="var(--sans)" font-size="8" font-weight="600" fill="var(--text)">Failsafe Armed</text>
+        </g>
+      </svg>
+    )}
+
+    {section === "diagnostics" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.diagnostics}>
+        <!-- Scope / Gauge Screen -->
+        <rect x="25" y="15" width="190" height="110" rx="8" fill="var(--surface)" stroke="currentColor" stroke-width="1.6" />
+        
+        <!-- Coordinate Grid -->
+        <line x1="35" y1="45" x2="205" y2="45" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 3" stroke-opacity="0.3" />
+        <line x1="35" y1="70" x2="205" y2="70" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3" stroke-opacity="0.4" />
+        <line x1="35" y1="95" x2="205" y2="95" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 3" stroke-opacity="0.3" />
+        <line x1="120" y1="25" x2="120" y2="115" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3" stroke-opacity="0.4" />
+
+        <!-- Diagnostic Dynamic Trace Curve (Coupling Pulse) -->
+        <path
+          d="M 35 70 L 65 70 L 75 52 L 85 88 L 95 38 L 105 102 L 115 58 L 125 78 L 135 70 L 205 70"
+          stroke="var(--accent)"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+
+        <!-- Alert Threshold line -->
+        <line x1="35" y1="38" x2="205" y2="38" stroke="var(--mark)" stroke-width="1.2" stroke-dasharray="4 4" />
+        
+        <!-- Threshold Marker Badge -->
+        <rect x="150" y="24" width="50" height="15" rx="3" fill="var(--surface)" stroke="var(--mark)" stroke-width="1" />
+        <text x="175" y="34" text-anchor="middle" font-family="var(--mono)" font-size="7" font-weight="700" fill="var(--mark)">DRIFT CEILING</text>
+
+        <!-- Metric Readout values -->
+        <g transform="translate(35, 104)">
+          <text x="0" y="10" font-family="var(--mono)" font-size="8.5" font-weight="600" fill="var(--text)">ΔCoupling: 99.4%</text>
+          <text x="100" y="10" font-family="var(--mono)" font-size="8.5" fill="var(--muted)">Halt: 120ms</text>
+        </g>
+      </svg>
+    )}
+
+    {(section === "glossary" || section === "knowledge") && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.knowledge}>
+        <!-- Ontology Knowledge Tree / Taxonomy Graph -->
+        <!-- Root node -->
+        <circle cx="120" cy="25" r="14" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.8" />
+        <text x="120" y="28" text-anchor="middle" font-family="var(--sans)" font-size="7.5" font-weight="700" fill="var(--accent)">SYSTEM</text>
+
+        <!-- Branches down -->
+        <path d="M 112 37 L 65 65" stroke="var(--border)" stroke-width="1.5" />
+        <path d="M 120 39 L 120 62" stroke="var(--border)" stroke-width="1.5" />
+        <path d="M 128 37 L 175 65" stroke="var(--border)" stroke-width="1.5" />
+
+        <!-- Tier 2 Nodes -->
+        <rect x="35" y="65" width="58" height="22" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.4" />
+        <text x="64" y="79" text-anchor="middle" font-family="var(--sans)" font-size="8" font-weight="600" fill="var(--text)">Authority</text>
+
+        <rect x="94" y="65" width="52" height="22" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.4" />
+        <text x="120" y="79" text-anchor="middle" font-family="var(--sans)" font-size="8" font-weight="600" fill="var(--text)">Evidence</text>
+
+        <rect x="150" y="65" width="54" height="22" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.4" />
+        <text x="177" y="79" text-anchor="middle" font-family="var(--sans)" font-size="8" font-weight="600" fill="var(--text)">Standing</text>
+
+        <!-- Tier 3 Leaves and Crosswalk Connector -->
+        <path d="M 64 87 L 45 110" stroke="var(--border)" stroke-width="1.2" stroke-dasharray="2 2" />
+        <path d="M 64 87 L 85 110" stroke="var(--border)" stroke-width="1.2" stroke-dasharray="2 2" />
+        <path d="M 177 87 L 160 110" stroke="var(--border)" stroke-width="1.2" stroke-dasharray="2 2" />
+        <path d="M 177 87 L 200 110" stroke="var(--border)" stroke-width="1.2" stroke-dasharray="2 2" />
+
+        <!-- Cross-link between Authority and Standing -->
+        <path d="M 64 76 C 64 105, 177 105, 177 76" stroke="var(--mark)" stroke-width="1.4" stroke-dasharray="3 3" fill="none" />
+        <rect x="95" y="98" width="50" height="15" rx="7" fill="var(--surface)" stroke="var(--mark)" stroke-width="1" />
+        <text x="120" y="108" text-anchor="middle" font-family="var(--mono)" font-size="7" font-weight="700" fill="var(--mark)">RECIPROCITY</text>
+      </svg>
+    )}
+
+    {section === "casebook" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.casebook}>
+        <!-- Forensic Timeline / Incident Trace -->
+        <rect x="25" y="20" width="190" height="100" rx="8" fill="var(--surface)" stroke="currentColor" stroke-width="1.6" />
+        
+        <!-- Timeline axis -->
+        <line x1="40" y1="70" x2="200" y2="70" stroke="currentColor" stroke-width="1.5" />
+
+        <!-- Case markers -->
+        <g transform="translate(60, 70)">
+          <circle cx="0" cy="0" r="5" fill="var(--accent)" />
+          <line x1="0" y1="-5" x2="0" y2="-25" stroke="var(--accent)" stroke-width="1.2" />
+          <rect x="-24" y="-38" width="48" height="14" rx="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="1" />
+          <text x="0" y="-28" text-anchor="middle" font-family="var(--mono)" font-size="7" font-weight="650" fill="var(--accent)">DELEGATE</text>
+        </g>
+
+        <g transform="translate(115, 70)">
+          <circle cx="0" cy="0" r="5" fill="var(--status-warning)" />
+          <line x1="0" y1="5" x2="0" y2="25" stroke="var(--status-warning)" stroke-width="1.2" />
+          <rect x="-20" y="24" width="40" height="14" rx="4" fill="var(--surface)" stroke="var(--status-warning)" stroke-width="1" />
+          <text x="0" y="34" text-anchor="middle" font-family="var(--mono)" font-size="7" font-weight="650" fill="var(--status-warning)">DRIFT</text>
+        </g>
+
+        <g transform="translate(170, 70)">
+          <circle cx="0" cy="0" r="6" fill="var(--mark)" />
+          <line x1="0" y1="-6" x2="0" y2="-28" stroke="var(--mark)" stroke-width="1.5" />
+          <rect x="-22" y="-42" width="44" height="15" rx="4" fill="var(--surface)" stroke="var(--mark)" stroke-width="1.2" />
+          <text x="0" y="-32" text-anchor="middle" font-family="var(--mono)" font-size="7.5" font-weight="700" fill="var(--mark)">HALT</text>
+        </g>
+      </svg>
+    )}
+
+    {section === "start" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.start}>
+        <!-- Role Pathways Compass -->
+        <circle cx="120" cy="70" r="52" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.3" stroke-dasharray="3 3" />
+        <circle cx="120" cy="70" r="28" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.8" />
+        <text x="120" y="68" text-anchor="middle" font-family="var(--sans)" font-size="8" font-weight="700" fill="var(--accent)">ETHOTECHNICS</text>
+        <text x="120" y="78" text-anchor="middle" font-family="var(--mono)" font-size="7" fill="var(--muted)">PATHWAYS</text>
+
+        <!-- Directional Role Nodes -->
+        <!-- Engineering (Top) -->
+        <rect x="96" y="8" width="48" height="18" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2" />
+        <text x="120" y="20" text-anchor="middle" font-family="var(--sans)" font-size="7.5" font-weight="600" fill="var(--text)">Engineer</text>
+        <line x1="120" y1="26" x2="120" y2="42" stroke="var(--accent)" stroke-width="1.2" />
+
+        <!-- Policy / Legal (Right) -->
+        <rect x="180" y="61" width="46" height="18" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2" />
+        <text x="203" y="73" text-anchor="middle" font-family="var(--sans)" font-size="7.5" font-weight="600" fill="var(--text)">Policy</text>
+        <line x1="148" y1="70" x2="180" y2="70" stroke="var(--accent)" stroke-width="1.2" />
+
+        <!-- Audit / Diligence (Bottom) -->
+        <rect x="98" y="114" width="44" height="18" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2" />
+        <text x="120" y="126" text-anchor="middle" font-family="var(--sans)" font-size="7.5" font-weight="600" fill="var(--text)">Auditor</text>
+        <line x1="120" y1="98" x2="120" y2="114" stroke="var(--accent)" stroke-width="1.2" />
+
+        <!-- Operations / Clinical (Left) -->
+        <rect x="14" y="61" width="50" height="18" rx="5" fill="var(--surface)" stroke="currentColor" stroke-width="1.2" />
+        <text x="39" y="73" text-anchor="middle" font-family="var(--sans)" font-size="7.5" font-weight="600" fill="var(--text)">Clinical</text>
+        <line x1="64" y1="70" x2="92" y2="70" stroke="var(--accent)" stroke-width="1.2" />
+      </svg>
+    )}
+
+    {section === "evals" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.evals}>
+        <!-- Automated Test Harness Matrix -->
+        <rect x="25" y="16" width="190" height="108" rx="8" fill="var(--surface)" stroke="currentColor" stroke-width="1.6" />
+        
+        <!-- Harness Header -->
+        <rect x="35" y="24" width="70" height="14" rx="4" fill="color-mix(in srgb, var(--accent) 12%, var(--surface))" stroke="var(--accent)" stroke-width="1" />
+        <text x="70" y="34" text-anchor="middle" font-family="var(--mono)" font-size="7.5" font-weight="700" fill="var(--accent)">EVAL HARNESS</text>
+        <circle cx="195" cy="31" r="4" fill="var(--status-success)" />
+        <text x="186" y="34" text-anchor="end" font-family="var(--mono)" font-size="7" fill="var(--muted)">PASS: 98%</text>
+
+        <!-- Benchmark Matrix Rows -->
+        <!-- Row 1: Authority Verification -->
+        <line x1="35" y1="46" x2="205" y2="46" stroke="var(--border)" stroke-width="0.8" />
+        <text x="35" y="58" font-family="var(--mono)" font-size="8" font-weight="600" fill="var(--text)">Halt Responsiveness</text>
+        <rect x="140" y="50" width="44" height="12" rx="3" fill="color-mix(in srgb, var(--panel) 60%, var(--surface))" stroke="var(--border)" stroke-width="0.75" />
+        <rect x="140" y="50" width="38" height="12" rx="3" fill="var(--accent)" />
+        <circle cx="198" cy="56" r="3.5" fill="var(--status-success)" />
+
+        <!-- Row 2: Epistemic Drift Check -->
+        <line x1="35" y1="68" x2="205" y2="68" stroke="var(--border)" stroke-width="0.8" />
+        <text x="35" y="80" font-family="var(--mono)" font-size="8" font-weight="600" fill="var(--text)">Epistemic Drift Floor</text>
+        <rect x="140" y="72" width="44" height="12" rx="3" fill="color-mix(in srgb, var(--panel) 60%, var(--surface))" stroke="var(--border)" stroke-width="0.75" />
+        <rect x="140" y="72" width="32" height="12" rx="3" fill="var(--accent)" />
+        <circle cx="198" cy="78" r="3.5" fill="var(--status-success)" />
+
+        <!-- Row 3: Recourse Latency (Warning flag) -->
+        <line x1="35" y1="90" x2="205" y2="90" stroke="var(--border)" stroke-width="0.8" />
+        <text x="35" y="102" font-family="var(--mono)" font-size="8" font-weight="600" fill="var(--text)">Contest Latency</text>
+        <rect x="140" y="94" width="44" height="12" rx="3" fill="color-mix(in srgb, var(--panel) 60%, var(--surface))" stroke="var(--border)" stroke-width="0.75" />
+        <rect x="140" y="94" width="22" height="12" rx="3" fill="var(--mark)" />
+        <circle cx="198" cy="100" r="3.5" fill="var(--status-warning)" />
+
+        <!-- Threshold boundary line -->
+        <line x1="172" y1="46" x2="172" y2="112" stroke="var(--mark)" stroke-width="1.2" stroke-dasharray="2 2" />
+      </svg>
+    )}
+
+    {section === "validators" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.validators}>
+        <!-- Runtime Assertion Gate / Pipeline Interceptor -->
+        <!-- Pipeline Stream Vector -->
+        <line x1="15" y1="70" x2="75" y2="70" stroke="var(--accent)" stroke-width="2.5" />
+        
+        <!-- Interceptor Gate Frame -->
+        <rect x="75" y="24" width="90" height="92" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.8" />
+        
+        <!-- Assertion Shield Seal -->
+        <path d="M 120 40 L 138 48 V 65 C 138 78, 120 86, 120 86 C 120 86, 102 78, 102 65 V 48 Z" fill="color-mix(in srgb, var(--accent) 10%, var(--surface))" stroke="var(--accent)" stroke-width="1.6" />
+        <path d="M 112 62 L 118 68 L 128 56" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+        <rect x="85" y="94" width="70" height="14" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="1" />
+        <text x="120" y="104" text-anchor="middle" font-family="var(--mono)" font-size="7" font-weight="700" fill="var(--text)">ASSERT LOCK</text>
+
+        <!-- Verified Outflow Stream -->
+        <line x1="165" y1="70" x2="225" y2="70" stroke="var(--status-success)" stroke-width="2.5" />
+        <polyline points="215,64 225,70 215,76" stroke="var(--status-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    )}
+
+    {section === "evidence-packs" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels["evidence-packs"]}>
+        <!-- Cryptographic Evidence Bundle / Dossier -->
+        <!-- Layer 1 Background Dossier -->
+        <rect x="40" y="18" width="130" height="96" rx="6" fill="color-mix(in srgb, var(--panel) 40%, var(--surface))" stroke="var(--border)" stroke-width="1.2" transform="rotate(-4 105 66)" />
+        
+        <!-- Layer 2 Foreground Dossier -->
+        <rect x="55" y="22" width="135" height="98" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.6" />
+
+        <!-- Hash Fingerprint header -->
+        <rect x="68" y="32" width="75" height="12" rx="3" fill="color-mix(in srgb, var(--panel) 60%, var(--surface))" stroke="var(--border)" stroke-width="0.75" />
+        <text x="74" y="41" font-family="var(--mono)" font-size="6.5" fill="var(--muted)">SHA-256: 8f4a...2c91</text>
+        
+        <!-- Record Entries -->
+        <line x1="68" y1="52" x2="165" y2="52" stroke="currentColor" stroke-width="1" stroke-opacity="0.3" />
+        <line x1="68" y1="62" x2="155" y2="62" stroke="currentColor" stroke-width="1" stroke-opacity="0.3" />
+        <line x1="68" y1="72" x2="160" y2="72" stroke="currentColor" stroke-width="1" stroke-opacity="0.3" />
+
+        <!-- Attestation Seal Badge -->
+        <g transform="translate(162, 92)">
+          <circle cx="0" cy="0" r="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6" />
+          <circle cx="0" cy="0" r="14" stroke="var(--accent)" stroke-width="0.75" stroke-dasharray="2 2" />
+          <text x="0" y="3" text-anchor="middle" font-family="var(--mono)" font-size="7" font-weight="700" fill="var(--accent)">SEALED</text>
+        </g>
+      </svg>
+    )}
+
+    {section === "toolkit" && (
+      <svg viewBox="0 0 240 140" fill="none" class="section-illustration__svg" role="img" aria-label={labels.toolkit}>
+        <!-- Machine Contract / Integration Harness Deck -->
+        <rect x="30" y="20" width="180" height="100" rx="8" fill="var(--surface)" stroke="currentColor" stroke-width="1.6" />
+        
+        <!-- Terminal Header -->
+        <rect x="30" y="20" width="180" height="20" rx="8" fill="color-mix(in srgb, var(--panel) 70%, var(--surface))" stroke="var(--border)" stroke-width="1" />
+        <circle cx="44" cy="30" r="3" fill="var(--border)" />
+        <circle cx="54" cy="30" r="3" fill="var(--border)" />
+        <circle cx="64" cy="30" r="3" fill="var(--border)" />
+        <text x="120" y="33" text-anchor="middle" font-family="var(--mono)" font-size="7" font-weight="600" fill="var(--muted)">agent-contract.yaml</text>
+
+        <!-- Structured Contract Tree -->
+        <g transform="translate(45, 52)">
+          <text x="0" y="10" font-family="var(--mono)" font-size="8" font-weight="700" fill="var(--accent)">spec:</text>
+          <text x="12" y="22" font-family="var(--mono)" font-size="7.5" fill="var(--text)">invariants: [authority, halt]</text>
+          <text x="12" y="34" font-family="var(--mono)" font-size="7.5" fill="var(--text)">recourse_window: 14d</text>
+          <text x="12" y="46" font-family="var(--mono)" font-size="7.5" fill="var(--mark)">escalation: circuit_trip</text>
+        </g>
+
+        <rect x="155" y="88" width="45" height="18" rx="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.2" />
+        <text x="177" y="100" text-anchor="middle" font-family="var(--mono)" font-size="7" font-weight="700" fill="var(--accent)">COMPILED</text>
+      </svg>
+    )}
+  </div>
+</div>
+
+<style>
+  .section-illustration {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .section-illustration__canvas {
+    width: 100%;
+    max-width: 260px;
+    background: color-mix(in srgb, var(--surface) 95%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    border-radius: var(--radius-md);
+    padding: 0.6rem;
+    box-shadow: var(--shadow-xs);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-illustration__canvas::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 50%,
+      color-mix(in srgb, var(--accent) 4%, transparent),
+      transparent 80%
+    );
+    pointer-events: none;
+  }
+
+  .section-illustration__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: var(--text);
+  }
+
+  .section-illustration--sm .section-illustration__canvas {
+    max-width: 180px;
+    padding: 0.45rem;
+  }
+
+  .section-illustration--lg .section-illustration__canvas {
+    max-width: 320px;
+    padding: 0.85rem;
+  }
+
+  @media (max-width: 899px) {
+    .section-illustration__canvas {
+      max-width: 220px;
+      margin-inline: auto;
+    }
+  }
+</style>

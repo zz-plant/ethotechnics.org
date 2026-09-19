@@ -56,6 +56,24 @@ describe("getAriaCurrent", () => {
       getAriaCurrent("/#failure-intake", "/diagnostics", "#failure-intake"),
     ).toBeUndefined();
   });
+
+  it("supports section matching for child routes when matchSection is true", () => {
+    expect(
+      getAriaCurrent("/standards", "/standards/std-01-temporal-rights", "", true),
+    ).toBe("true");
+    expect(
+      getAriaCurrent("/standards", "/standards/std-01-temporal-rights", "", false),
+    ).toBeUndefined();
+    expect(
+      getAriaCurrent("/diagnostics", "/diagnostics/delegation-audit", "", true),
+    ).toBe("true");
+    expect(
+      getAriaCurrent("/diagnostics", "/diagnostics", "", true),
+    ).toBe("page");
+    expect(
+      getAriaCurrent("/", "/standards/std-01-temporal-rights", "", true),
+    ).toBeUndefined();
+  });
 });
 
 describe("toViewTransitionName", () => {

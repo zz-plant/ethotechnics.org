@@ -1,8 +1,8 @@
 [
   {
     "id": "glossary",
-    "pageTitle": "Ethotechnics glossary — Ethical technology, AI governance, and moral system terms",
-    "pageDescription": "Search the Ethotechnics glossary for ethical technology and AI governance terms. Find definitions, scope notes, and citations across moral system design, accountability, consent, safety, and stewardship.",
+    "pageTitle": "Ethotechnics glossary — Accountable systems, AI governance, and correction terms",
+    "pageDescription": "Search the Ethotechnics glossary for accountable systems and AI governance terms. Find definitions, scope notes, and citations across authority, correction, contestability, burden, and stewardship.",
     "permalink": "/glossary",
     "publication": {
       "authors": [
@@ -14,11 +14,21 @@
       ],
       "contact": "research@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
-      "updated": "2026-09-18T00:00:00Z",
-      "version": "v1.4.0",
+      "updated": "2026-09-19T00:00:00Z",
+      "version": "v1.9.0",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/web/*/https://ethotechnics.org/glossary",
       "changelog": [
+        {
+          "version": "v1.9.0",
+          "date": "2026-09-19",
+          "summary": "Added Feedback Proximity, Asymmetric-Capacity Restraint, Adaptive Capacity, Compensatory Adaptation, and Corrective Power, aligned the short definition of Ethotechnics with its canonical authority-and-correction framing, and refreshed the glossary's category scaffolding off the earlier moral-system vocabulary."
+        },
+        {
+          "version": "v1.8.0",
+          "date": "2026-09-19",
+          "summary": "Added Insulation, the unifying failure mode of the framework: whatever stops the consequences of institutional decisions from traveling back to those who can revise the generating rules, with its channels, its good and bad forms, and its self-ratifying loop."
+        },
         {
           "version": "v1.7.0",
           "date": "2026-09-18",
@@ -70,7 +80,7 @@
       {
         "id": "ethotechnics",
         "label": "Ethotechnics",
-        "description": "The discipline itself and how moral behavior becomes a system capability."
+        "description": "The discipline that keeps authority, evidence, capability, consequence, and correction coupled so power stays contestable and revisable."
       },
       {
         "id": "moral-behavior",
@@ -119,7 +129,7 @@
       {
         "id": "capabilities",
         "label": "Capabilities",
-        "tooltip": "Abilities systems need to behave morally at scale."
+        "tooltip": "Abilities systems need to remain stoppable, reversible, and contestable as they scale."
       },
       {
         "id": "system-states",
@@ -176,7 +186,7 @@
       {
         "id": "core-concepts",
         "heading": "A. Core concepts",
-        "descriptionHtml": "These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+        "descriptionHtml": "These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
         "comingSoon": false,
         "entries": [
           {
@@ -184,12 +194,12 @@
             "title": "Ethotechnics",
             "status": null,
             "classes": [],
-            "bodyHtml": "<p>Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power.</p><p>Its unit of governance is the consequential decision and the <a href=\"/glossary/delegated-agency\">delegated agency</a> that produced it, and its working question is whether that delegation is still a <a href=\"/glossary/justified-delegation\">justified delegation</a> today. The <a href=\"/method\">method</a> states the chain, the six state variables, and the twelve laws that the standards bind.</p>",
+            "bodyHtml": "<p>Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks \u201cWhat should we do?\u201d, Ethotechnics designs the mechanisms that make it reliably happen.</p><p>Its unit of governance is the consequential decision and the <a href=\"/glossary/delegated-agency\">delegated agency</a> that produced it, and its working question is whether that delegation is still a <a href=\"/glossary/justified-delegation\">justified delegation</a> today. The <a href=\"/method\">method</a> states the chain, the six state variables, and the twelve laws that the standards bind.</p>",
             "examples": [
               "A hospital release board requires consent checks, stop controls, and named repair owners before deploying triage updates."
             ],
             "tags": ["hospitals", "platforms", "governance"],
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "Documentation maps moral obligations to concrete mechanisms (stoppability, contestability, repair ownership).",
               "Teams can show a shipped feature where moral performance was designed, measured, and iterated."
@@ -225,7 +235,7 @@
               "A payments platform slows risky recommendations, surfaces a human review queue, and documents reversals when fraud indicators spike."
             ],
             "tags": ["platforms", "finance", "safety"],
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "MPIs are tracked and drive operational thresholds or pause rules.",
               "Post-incident reviews tie outcomes to system controls rather than intent statements."
@@ -261,7 +271,7 @@
               "A transit authority publishes a named escalation map for halting automated dispatch, including after-hours owners."
             ],
             "tags": ["transit", "ops-teams", "oversight"],
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "Each lifecycle stage has a named owner with authority to stop, reverse, or repair, plus backup coverage.",
               "Incident reviews show the escalation path was used without dead ends or orphaned decisions."
@@ -297,7 +307,7 @@
               "After a harmful rollout, a platform audit verifies stop controls, reversal paths, and repair ownership before relaunch."
             ],
             "tags": ["platforms", "audits", "sre"],
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "Audit evidence includes drills, logs, and user-facing pathways for contesting and repairing harm.",
               "Remediation plans are time-bound, assigned to owners, and re-audited after major changes."
@@ -328,7 +338,7 @@
               "A mutual aid platform lets neighbors pause notifications or change delivery preferences without losing access to support."
             ],
             "tags": ["community", "platforms", "mutual-aid"],
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "People can refuse or change terms without losing core access or being penalized.",
               "Interfaces surface shared control settings instead of only provider defaults."
@@ -359,7 +369,7 @@
               "A rail operator publishes service-level justice metrics, runs quarterly pause drills, and funds dedicated repair staffing."
             ],
             "tags": ["rail", "sre", "maturity"],
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "A maturity level is documented with evidence for each capability and reviewed after major releases.",
               "Maintenance and repair staffing, budgets, and tools are recurring, not ad hoc."
@@ -395,7 +405,7 @@
               "Residents receive a plain-language notice that names the office, rule, and appeal path behind a zoning decision."
             ],
             "tags": ["transparency", "governance", "users"],
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "Decision notices include a plain-language rationale, owner, and next step for contesting.",
               "Affected people can reach the policy basis and escalation path within a single click or call."
@@ -426,7 +436,7 @@
               "Policy, tooling, and incentives all enforce the same stoppability rules."
             ],
             "tags": ["organizations", "governance", "systems"],
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "Incentives and KPIs reinforce, rather than undermine, moral requirements.",
               "Incident reviews can trace breakdowns between policy intent and operational tooling."
@@ -453,7 +463,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>The capacity to act with consequence on an institution's behalf, held by a machine, a human, or an assembly of both. Delegated agency is created by an <a href=\"/glossary/authority-grant\">authority grant</a> and exercised through a <a href=\"/glossary/decision-system\">decision system</a>; it is not a property of the model that happens to be running.</p><p>It matters because agency is the quantity that accumulates. An institution that tracks capability but not delegated agency cannot say how much of its consequential action it has handed over, or whether it still holds the <a href=\"/glossary/correction-capacity\">correction capacity</a> to take any of it back. Agency handed over under a <a href=\"/glossary/revisable-delegation\">revisable delegation</a> can be taken back one grant at a time; agency handed over without one comes back only by rebuilding what replaced it.</p>",
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "The institution can list, for one workflow, every action class a machine may take on its behalf.",
               "Each listed action class traces to a named grant holder rather than to a team or a system name.",
@@ -493,7 +503,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>A decision that changes someone's access, money, obligations, safety, or standing, and that the institution would have to answer for. The consequential decision is the unit of governance in Ethotechnics: each one is a link in the chain from evidence to <a href=\"/glossary/authority-grant\">authority</a> to consequence to <a href=\"/glossary/corrective-standing\">correction</a>.</p><p>Naming the unit matters because it fixes where the governance load sits. Systems governed at the level of the model leave the decisions themselves unaccounted for, which is where <a href=\"/glossary/unowned-harm\">unowned harm</a> collects and where <a href=\"/glossary/prospective-auditability\">prospective auditability</a> has to be designed in.</p>",
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "The system declares which of its outputs are consequential decisions and which are not.",
               "Each consequential decision emits a record naming the evidence, the grant, and the responsible holder.",
@@ -533,7 +543,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>The assembled machinery that produces a <a href=\"/glossary/consequential-decision\">consequential decision</a>: models, rules engines, queues, humans, policies, and the data they read. Ethotechnics governs the decision system rather than any one component, because the same substrate-independent questions apply whichever part made the call, and the deployment is classified by its <a href=\"/glossary/substrate-profile\">substrate profile</a> rather than by which component is fashionable.</p><p>It matters because component-level assurance does not compose. A verified model inside an unaudited decision system still produces decisions no one can reconstruct, which is why assurance is tagged with the <a href=\"/glossary/evaluation-layer\">evaluation layer</a> it actually holds at, and why reconstructing a past decision depends on <a href=\"/glossary/prospective-auditability\">prospective auditability</a> designed into the system.</p>",
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "A diagram names every component that can alter a decision, including humans and lookup tables.",
               "Assurance claims state which component they cover and which they do not.",
@@ -573,7 +583,7 @@
             "status": null,
             "classes": [],
             "bodyHtml": "<p>A delegation whose authority, evidence, and correction capacity are all currently in force: the grant sits in an allowed <a href=\"/glossary/grant-state\">grant state</a>, the <a href=\"/glossary/policy-record\">policy record</a> it rests on has not expired, and the institution can still meet its <a href=\"/glossary/correction-obligation\">correction obligation</a>. Justification is a present-tense property, not a fact about the launch review.</p><p>It is the point-in-time test. <a href=\"/glossary/revisable-delegation\">Revisable delegation</a> is the standing property it tests for: the grant stays tied to the evidence that justified it, so it can be narrowed or withdrawn when that evidence changes. Ask whether a delegation is justified to grade it today; ask whether it is revisable to know whether the answer can be acted on at all.</p><p>It matters because most delegations fail by outliving their justification rather than by being wrong at the start. Asking whether a delegation is justified today is the operational form of treating authority as an <a href=\"/glossary/authority-lease\">authority lease</a>.</p>",
-            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for moral system design.",
+            "scope": "A. Core concepts. These terms define the Ethotechnics discipline itself and set expectations for keeping authority, evidence, capability, consequence, and correction coupled.",
             "operationalTests": [
               "For any decision, the institution can show the grant was in an allowed state at the time it was made.",
               "Every grant names the policy records it depends on, and each has an unexpired validity date.",
@@ -3081,6 +3091,48 @@
               "asymmetric-sustaining",
               "unowned-harm"
             ]
+          },
+          {
+            "id": "adaptive-capacity",
+            "title": "Adaptive Capacity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The finite human resource an arrangement consumes when it demands that people adapt to it: the attention, memory, flexibility, time, health, and care that keep a mismatched system functional. It is finite and politically consequential — the resource <a href=\"/research/theory/ethotechnical-design\">ethotechnical design</a> exists to spend only when necessary, and to preserve when an arrangement could instead absorb the complexity itself.</p><p>It matters because an arrangement that treats adaptive capacity as unlimited reads the people who compensate for it as resilient rather than as a resource being consumed. The discipline's working distinction is between <a href=\"/glossary/compensatory-adaptation\">compensatory adaptation</a> — effort required because the arrangement failed to accommodate foreseeable reality — and the productive or reciprocal adaptation that learning, cooperation, and care genuinely require.</p>",
+            "scope": "E. Human limits & experience. Design that honors the limits of human time, cognition, and care.",
+            "operationalTests": [
+              "Each consequential workflow names the adaptive capacity it requires of its users, not only of its operators.",
+              "Demands that foreseeable variation could remove are treated as design gaps rather than as user burdens.",
+              "The measure distinguishes capacity consumed by mismatch from capacity spent by choice."
+            ],
+            "genealogy": "The design-side reading of Axiom 1 (Finitude): what an arrangement must spend, and who must spend it.",
+            "references": [
+              {
+                "label": "Ethotechnical design",
+                "href": "/research/theory/ethotechnical-design",
+                "type": "Theory"
+              },
+              {
+                "label": "Core axioms",
+                "href": "/standards/core-axioms",
+                "type": "Doctrine"
+              }
+            ],
+            "domains": ["burden", "structural"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "human-limits",
+            "tags": ["adaptation", "finitude", "burden", "design"],
+            "adjacentTerms": [
+              "finitude",
+              "compensatory-adaptation",
+              "falsified-denominator",
+              "asymmetric-sustaining"
+            ],
+            "termUpdated": "2026-09-19T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -3586,6 +3638,48 @@
               "error-bearing-party"
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "compensatory-adaptation",
+            "title": "Compensatory Adaptation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Human effort required primarily because an arrangement has failed to accommodate foreseeable reality: remembering passwords, coordinating fragmented services, reproducing information the institution already holds, repairing software, requesting the same exception repeatedly. It is distinct from the productive or reciprocal adaptation that learning, cooperation, compromise, and care genuinely require.</p><p>It matters because <a href=\"/glossary/adaptive-capacity\">adaptive capacity</a> is finite, and compensatory adaptation spends it without returning anything to the person who spent it. Where it accumulates, the arrangement remains stable precisely because people bend around it, which is why <a href=\"/research/theory/ethotechnical-design\">ethotechnical design</a> treats recurring compensatory effort as a design failure to be eliminated or absorbed upstream rather than as user resilience.</p>",
+            "scope": "F. Burden & load. How systems allocate the cost of operation or failure.",
+            "operationalTests": [
+              "For each recurring user or operator demand, the design names whether the arrangement could absorb it instead.",
+              "Compensatory effort is counted in burden accounting, not read as user capability.",
+              "Repeated instances of the same exception raise the rule for review rather than the efficiency of the exception process."
+            ],
+            "genealogy": "The burden-side counterpart of adaptive capacity: what the discipline exists to minimize, and the falsified denominator's human face.",
+            "references": [
+              {
+                "label": "Ethotechnical design",
+                "href": "/research/theory/ethotechnical-design",
+                "type": "Theory"
+              },
+              {
+                "label": "What outcomes hide",
+                "href": "/research/theory/what-outcomes-hide",
+                "type": "Theory"
+              }
+            ],
+            "domains": ["burden", "structural"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "burden-load",
+            "tags": ["adaptation", "burden", "design", "compensation"],
+            "adjacentTerms": [
+              "adaptive-capacity",
+              "falsified-denominator",
+              "workaround-presumption",
+              "extraction-by-endurance"
+            ],
+            "termUpdated": "2026-09-19T00:00:00Z",
             "termVersion": "v1.0.0"
           }
         ]
@@ -5876,6 +5970,60 @@
             "termVersion": "v1.0.0"
           },
           {
+            "id": "insulation",
+            "title": "Insulation",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Whatever prevents the consequences of institutional decisions from traveling back to the actors who can revise the generating rules. It can be material (someone else pays), organizational (frontline workers absorb failures before they reach leadership), epistemic (the institution measures completed outcomes but not the labor required to achieve them), procedural (appeals exist but require extraordinary time, persistence, expertise, or money), temporal (consequences arrive after the decision-maker has moved on), social (those who govern rarely encounter those who absorb), legal (responsibility is fragmented or unenforceable), statistical (harm is dispersed so no single event appears consequential), or adaptive (the affected population becomes so skilled at compensating that failure never becomes legible).</p><p>Insulation is therefore not merely distance from suffering; it is distance from corrective consequence. The critical structure is cost displacement plus weak feedback plus preserved authority: the more insulated one side is from mismatch, the more adaptive the other side must become, and the more successfully the weaker side adapts, the more insulated the stronger side may become. That self-ratifying loop — bad fit, human adaptation, apparent success, institutional validation, expanded authority — is the <a href=\"/glossary/workaround-presumption\">workaround presumption</a> run as a governance mechanism.</p><p>Not all insulation is bad. Judges may need insulation from immediate political pressure, scientists from popularity, civil servants from retaliation, and minorities from majorities. The distinction is not between insulation and exposure but between insulation from improper pressure and insulation from evidence, accountability, and consequence. The design question is which is being preserved.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "For each decision class, name what travels back when the institution is wrong and the channel it travels through.",
+              "Absorbed failures are counted as correction events rather than as successful operations.",
+              "Insulation from pressure and insulation from consequence are distinguished, and only the first is preserved."
+            ],
+            "genealogy": "The unifying adversary named in the theory essay on insulation: the closed circuit in which costs are displaced, feedback is weak, and authority is preserved.",
+            "references": [
+              {
+                "label": "Insulation (theory essay)",
+                "href": "/research/theory/insulation",
+                "type": "Theory"
+              },
+              {
+                "label": "Consequential contradiction",
+                "href": "/glossary/consequential-contradiction",
+                "type": "Term"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-viii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A feedback map per decision class: who absorbs the mismatch, what reaches the rule-maker, and what is filtered.",
+              "behavior": "An absorbed failure that reached the rule-maker and produced a rule or category change.",
+              "metric": "Share of consequential decision classes where an absorbed failure reached the rule-maker within a stated clock."
+            },
+            "domains": ["structural", "agency", "burden"],
+            "scale": "systemic",
+            "phase": ["design", "audit", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["insulation", "feedback", "power", "consequence"],
+            "adjacentTerms": [
+              "consequential-contradiction",
+              "corrigibility-rent",
+              "workaround-presumption",
+              "appropriate-friction",
+              "exception-absorption",
+              "falsified-denominator"
+            ],
+            "termUpdated": "2026-09-19T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
             "id": "consequential-contradiction",
             "title": "Consequential Contradiction",
             "status": null,
@@ -6062,6 +6210,48 @@
             ],
             "relatedPatterns": ["dependency-ledger", "withdrawal-rehearsal"],
             "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "corrective-power",
+            "title": "Corrective Power",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The effective capacity of affected people to make an arrangement change when its demands become unreasonable: to force reconsideration, reversal, or rule revision, not merely to complain. It is the practical, exercised form of <a href=\"/glossary/corrective-standing\">corrective standing</a> — standing names the right, corrective power names whether exercising it can actually alter the system's governing state.</p><p>It matters because it is the second term in the discipline's evaluation formula, alongside outcome and <a href=\"/glossary/adaptive-capacity\">burden</a>: what an arrangement accomplishes, what accomplishing it requires from people, and what power those people hold over those requirements. A system whose corrections are nominal scores high on the first term and low on the third, which <a href=\"/research/theory/what-outcomes-hide\">what outcomes hide</a> argues is exactly the failure a pure outcome orientation cannot see.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Affected people can produce a state transition in the arrangement, not only a recorded complaint.",
+              "The cost of exercising correction is measured against the capacity of those who must bear it.",
+              "Corrective power survives the dependence that justified it being engineered away."
+            ],
+            "genealogy": "Completes the evaluation formula of the outcomes critique: standing made measurable as force rather than as a register entry.",
+            "references": [
+              {
+                "label": "What outcomes hide",
+                "href": "/research/theory/what-outcomes-hide",
+                "type": "Theory"
+              },
+              {
+                "label": "Corrective standing",
+                "href": "/glossary/corrective-standing",
+                "type": "Term"
+              }
+            ],
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit", "repair"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["standing", "correction", "power", "evaluation"],
+            "adjacentTerms": [
+              "corrective-standing",
+              "procedural-force",
+              "consequential-contradiction",
+              "bindingness-after-contact"
+            ],
+            "termUpdated": "2026-09-19T00:00:00Z",
             "termVersion": "v1.0.0"
           }
         ]
@@ -8120,6 +8310,116 @@
               "consequential-contradiction"
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "feedback-proximity",
+            "title": "Feedback Proximity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The design principle that the causal distance between an institutional error and the actors who can revise the generating rule should be kept as short as the stakes demand. Where error-bearing parties sit far from rule-makers — by hierarchy, by time, by evidence format, or by classification — corrections arrive late, weakened, or not at all.</p><p>It matters because proximity is not visibility. A harm can be fully visible to the people carrying it and still reach nobody who can change the rule that produces it. Shortening proximity means building the channels — <a href=\"/glossary/corrective-standing\">corrective standing</a>, records that travel, and <a href=\"/glossary/halt-stratification\">halt stratification</a> — that let mismatch travel from the edge back to the rule. <a href=\"/glossary/insulation\">Insulation</a> is distance from corrective consequence; feedback proximity is the commitment that shortens it.</p>",
+            "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
+            "operationalTests": [
+              "A harm reported at the frontline reaches an actor who can change the generating rule through a bounded number of named hops.",
+              "The latency from first signal to rule revision is measured and bounded, not merely visible.",
+              "Error-bearing parties can state the shortest path from their report to a rule change, and that path exists."
+            ],
+            "genealogy": "The positive form of insulation: where insulation names distance from corrective consequence, feedback proximity names the design commitment to shorten that distance.",
+            "references": [
+              {
+                "label": "Insulation",
+                "href": "/research/theory/insulation",
+                "type": "Theory"
+              },
+              {
+                "label": "Challenge density",
+                "href": "/research/theory/challenge-density",
+                "type": "Theory"
+              },
+              {
+                "label": "Structural corrigibility",
+                "href": "/glossary/structural-corrigibility",
+                "type": "Term"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A mapped path from frontline signal to rule-revising authority, with named responders at each hop.",
+              "behavior": "A reported mismatch that produced a rule change without an intervening heroic intervention.",
+              "metric": "Time, or number of hops, from first signal to generating-rule revision, tracked per failure class."
+            },
+            "domains": ["structural", "diagnostic"],
+            "scale": "organizational",
+            "phase": ["design", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "principles",
+            "tags": ["feedback", "corrigibility", "design", "principle"],
+            "adjacentTerms": [
+              "insulation",
+              "structural-corrigibility",
+              "challenge-density",
+              "institutional-learning",
+              "corrective-standing",
+              "dead-zones",
+              "moral-latency"
+            ],
+            "termUpdated": "2026-09-19T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "asymmetric-capacity-restraint",
+            "title": "Asymmetric-Capacity Restraint",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The principle that an institution's obligations to remain contestable and revisable grow with its capacity to classify, monitor, automate, enforce, and scale. The more a system can see, sort, act on, and impose its categories, the stronger the counterweights must be.</p><p>It matters because capacity is not neutral. A system that can classify at scale can misclassify at scale, and a system that can enforce quickly can commit quickly. Restraint is the obligation side of <a href=\"/glossary/capability-overhang\">capability overhang</a>: capability may expand only as fast as the <a href=\"/glossary/correction-obligation\">correction obligation</a> that checks it. It is why <a href=\"/glossary/earned-autonomy\">earned autonomy</a> is conditional rather than cumulative, and it makes Law XI's burden normative: every expansion of capacity carries a proportional expansion of contestation and revision.</p>",
+            "scope": "M. Foundational Ethotechnic principles. Axioms that will eventually define the discipline. Full definitions are in development.",
+            "operationalTests": [
+              "Each expansion of classification, monitoring, or enforcement capacity is paired with a stated increase in contestation and revision capacity.",
+              "Correction capacity grows with authority, and the pairing is recorded rather than asserted.",
+              "A capability that outruns its correction capacity is refused admission or narrowed, not shipped and apologized for later."
+            ],
+            "genealogy": "The normative form of capability overhang: where overhang describes the mismatch, restraint names the obligation that prevents it.",
+            "references": [
+              {
+                "label": "Capability overhang",
+                "href": "/glossary/capability-overhang",
+                "type": "Term"
+              },
+              {
+                "label": "Earned autonomy",
+                "href": "/glossary/earned-autonomy",
+                "type": "Term"
+              },
+              {
+                "label": "Correction obligation",
+                "href": "/glossary/correction-obligation",
+                "type": "Term"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A grant whose scope expansion is paired with a corresponding correction-capacity expansion, recorded in the same transition.",
+              "behavior": "A capability refused or narrowed because its correction capacity was not yet provisioned.",
+              "metric": "Ratio of correction capacity to granted authority, required non-decreasing across expansions."
+            },
+            "domains": ["structural", "patterns"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "principles",
+            "tags": ["capacity", "restraint", "governance", "principle"],
+            "adjacentTerms": [
+              "capability-overhang",
+              "earned-autonomy",
+              "correction-obligation",
+              "bounded-autonomy",
+              "scope-discipline",
+              "admission-gate",
+              "halt-stratification"
+            ],
+            "termUpdated": "2026-09-19T00:00:00Z",
             "termVersion": "v1.0.0"
           }
         ]

@@ -116,6 +116,11 @@ export const roles: Role[] = [
           note: "Spec sheets for governance, friction, and policy controls.",
         },
         {
+          label: "What outcomes hide",
+          href: "/research/theory/what-outcomes-hide",
+          note: "Why evaluation needs outcome, adaptation burden, and corrective power.",
+        },
+        {
           label: "Validators",
           href: "/validators",
           note: "Diagnostics that surface operational risk.",
@@ -312,6 +317,14 @@ export const roles: Role[] = [
     orientation: [
       {
         number: 1,
+        title: "Know who is being made to bend",
+        description:
+          "Read the design stance the discipline is built on: what an arrangement demands of people, who bears those demands, and whether they can force it to change.",
+        ctaLabel: "Read ethotechnical design",
+        ctaHref: "/research/theory/ethotechnical-design",
+      },
+      {
+        number: 2,
         title: "Model the burden of one flow",
         description:
           "Score a real journey for time tax, step count, and exit availability, and read the report card as a design brief.",
@@ -319,7 +332,7 @@ export const roles: Role[] = [
         ctaHref: "/diagnostics/burden-modeler",
       },
       {
-        number: 2,
+        number: 3,
         title: "Place the interrupt where the harm is",
         description:
           "Design the stop, slow, and escalate controls the flow needs when the system is wrong — reachable, not decorative.",
@@ -327,7 +340,7 @@ export const roles: Role[] = [
         ctaHref: "/explainers/ethical-interrupts",
       },
       {
-        number: 3,
+        number: 4,
         title: "Write copy people can act on",
         description:
           "Use phrases a person can send, file, or read out — contestation language that works without the framework behind it.",
@@ -342,6 +355,11 @@ export const roles: Role[] = [
         "Validate workflows with diagnostics before shipping.",
       ],
       keyLinks: [
+        {
+          label: "Ethotechnical design",
+          href: "/research/theory/ethotechnical-design",
+          note: "The design stance: spend institutional capacity before human adaptive capacity.",
+        },
         {
           label: "Mechanisms catalog",
           href: "/mechanisms",
@@ -415,6 +433,11 @@ export const roles: Role[] = [
           label: "Research agenda",
           href: "/research",
           note: "Current agendas, focus areas, and publications.",
+        },
+        {
+          label: "Theory essays",
+          href: "/research/theory",
+          note: "The argument behind the laws, including the design and evaluation essays.",
         },
         {
           label: "Glossary",

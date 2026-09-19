@@ -194,13 +194,11 @@
   }
 
   @media (min-width: 900px) {
-    /* Was 1.15fr 0.85fr, which handed the wider column to the shorter content:
-       on /glossary/ the lead column ran out 1065px above the bottom of the
-       aside, leaving most of the page's main column blank beside a rail that
-       kept going. A rail that reads as secondary is narrower than this. */
-    .page-intro__grid {
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.78fr);
+    /* Only establish two columns if an aside (custom or illustration) is present */
+    .page-intro--has-aside .page-intro__grid {
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.85fr);
       gap: 2.4rem;
+      align-items: center;
     }
   }
 
@@ -310,6 +308,24 @@
   .page-intro__aside {
     display: grid;
     gap: 0.9rem;
+    align-content: center;
+  }
+
+  .page-intro__aside-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  @media (max-width: 899px) {
+    .page-intro--has-aside .page-intro__aside {
+      margin-top: 0.25rem;
+    }
+    .page-intro__aside-illustration {
+      max-width: 220px;
+      margin-inline: auto;
+    }
   }
 
   .page-intro__aside-custom {

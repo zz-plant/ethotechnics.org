@@ -74,7 +74,7 @@ export const methodContent: MethodContent = {
     "The canonical statement of the method: the seven-stage chain every consequential decision follows, the six state variables that must stay coupled, and the twelve laws the standards bind.",
   permalink: "/method",
   definition:
-    "Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power.",
+    "Ethotechnics is the engineering discipline concerned with keeping authority, evidence, capability, consequence, and correction coupled tightly enough that increasing machine agency does not silently become unreviewable institutional power. Where ethics asks what we should do, Ethotechnics designs the mechanisms that make it reliably happen.",
   positiveDefinition:
     "Ethotechnics is the practice of building powerful systems that remain answerable to the people and realities they can never fully represent.",
   claim:
