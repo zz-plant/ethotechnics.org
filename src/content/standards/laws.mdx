@@ -95,7 +95,7 @@ A system that can do something has not thereby been permitted to do it. Capabili
 
 Most failures of delegation begin where the two are confused: a tool becomes reachable, so it is used; a model becomes better, so its scope widens without anyone deciding that it should. The law makes that widening a decision rather than a side effect.
 
-Binds through: STD-07 §2.1 action under authorization, §2.2 bounded delegation, and §3.4 capability gating, under which an authorization holds only while the capability it depends on is verified rather than merely configured; the capability catalog and authority grant objects; MEC-17 capability catalog and MEC-13 authority grant register; harness check that discovery succeeds and execution is refused.
+Binds through: STD-07 §2.1 action under authorization, §2.2 bounded delegation, and §3.4 capability gating, under which an authorization holds only while the capability it depends on is verified rather than merely configured; the capability catalog and authority grant objects; MEC-17 capability catalog and MEC-13 authority grant register, with the MEC-22 admission gate as the decision that precedes any grant, in which deliberate non-use is a recorded outcome; harness check that discovery succeeds and execution is refused.
 
 <h3 id="law-ii">
   Law II. Authority decays unless its justification is renewed
@@ -129,7 +129,7 @@ Delegating authority to act is also delegating the capacity to be wrong at scale
 
 Correction capacity is stated alongside scope and reviewed alongside it. A grant whose scope grows while its correction capacity stays fixed has changed the institution's exposure without a decision being taken.
 
-Binds through: STD-07 §4.2, under which an objection produces a revision or a reasoned refusal within the reversal clock; STD-08 §4.5, which states correction capacity across its seven components and re-checks it whenever scope changes, and §4.6, under which no single provider may be necessary both to execute a consequential process and to evaluate it; `correction_capacity` on the authority grant, because the capacity this law ties to scope is only checkable where the scope is recorded; MEC-16 intervention specification; Correction Symmetry eval, capacity against authority. The proportionality this law asserts, that correction capacity grows with delegated authority, is bound by STD-08 Part D.
+Binds through: STD-07 §4.2, under which an objection produces a revision or a reasoned refusal within the reversal clock; STD-08 §4.5, which states correction capacity across its seven components and re-checks it whenever scope changes, and §4.6, under which no single provider may be necessary both to execute a consequential process and to evaluate it; `correction_capacity` on the authority grant, because the capacity this law ties to scope is only checkable where the scope is recorded; MEC-16 intervention specification and the MEC-23 challenge load ledger, which counts corrective capacity against the challenge volume it must answer; Correction Symmetry eval, capacity against authority. The proportionality this law asserts, that correction capacity grows with delegated authority, is bound by STD-08 Part D.
 
 <h3 id="law-v">
   Law V. Dependence converts technical risk into structural risk
@@ -165,6 +165,8 @@ The people who bear a system's errors are usually the first to know about them a
 
 Standing is procedural force, not veto. A challenge must be received, answered, and able to change state. It need not prevail. The narrow form of this law is Method; the broader argument about who should hold power over institutions stays in Theory.
 
+The objection that follows the law into every deployment is arithmetic rather than principle: many challenges are a budget line, and institutions that saturate tend to meet the volume by narrowing who may challenge. The essay on <a href="/research/theory/challenge-density">challenge density</a> takes that objection seriously and answers it with measured response capacity and stratified halt force; it is motivation, and no clause cites it.
+
 The politics of a system are revealed by the rights it grants at the point of model failure. When a formal system collides with what it cannot represent, seven questions decide whether the deployment is accountable or predatory:
 
 1. <strong>The Encounter:</strong> What happens at the boundary where the formal model encounters what it cannot represent?
@@ -177,7 +179,7 @@ The politics of a system are revealed by the rights it grants at the point of mo
 
 <FailurePointDiagram level="h4" />
 
-Binds through: STD-07 §4.1 standing declared and §4.2 objection answered, with STD-02 Article VIII adding the standard of review and the state transitions a successful objection can produce, and STD-02 §10.1 and §10.2 holding that the set of affected parties does not close at adoption and that an original consent does not cover a dependence that has since deepened; the challenge and standing register objects; MEC-08 contestation APIs, amended; Standing eval, whether exposure can enter the system as an event.
+Binds through: STD-07 §4.1 standing declared and §4.2 objection answered, with STD-02 Article VIII adding the standard of review and the state transitions a successful objection can produce, and STD-02 §10.1 and §10.2 holding that the set of affected parties does not close at adoption and that an original consent does not cover a dependence that has since deepened; the challenge and standing register objects; MEC-08 contestation APIs, amended, with the MEC-21 halt tier register bounding the force a challenge carries by blast radius and the MEC-23 challenge load ledger tracking the capacity that answers it; Standing eval, whether exposure can enter the system as an event.
 
 <h3 id="law-viii">
   Law VIII. Observability without state transition is theater
@@ -414,7 +416,11 @@ instrument for answering the second question about a particular deployment.
 
 The argument for why the laws hold, rather than what they require, lives in
 the <a href="/research/theory">theory essays</a>. A reader can adopt a
-standard without accepting the theory. The{" "}
+standard without accepting the theory. How a standard gains force when no one
+is compelled to adopt it — the compulsion problem — is taken up in{" "}
+<a href="/research/theory/the-compulsion-problem">its own essay</a>, which
+stays in Theory because compulsion is not something the method can grant
+itself. The{" "}
 
 <a href="/standards/core-axioms">core axioms</a> remain in force and map onto
 the laws.

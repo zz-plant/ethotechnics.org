@@ -25,6 +25,7 @@ flags work that depends on cross-team decisions or external input.
 
 ## Recently completed (checked off)
 
+- [x] Governance-gap closes (2026-09-19): challenge-density and compulsion problem theory essays; halt stratification, admission gate, and challenge load ledger mechanisms (MEC-21/22/23); dependence reciprocity, halt stratification, admission gate, and challenge density glossary terms; standards → theory cross-links; the two-circuits orientation on `/method`; the reading contract on the meta-critique page; role entry points leading with workflows.
 - [x] Capacity forecaster v2 (scenario compare).
 - [x] Maintenance simulator v2 (risk thresholds).
 - [x] Burden modeler v2 (equity snapshots).
@@ -75,15 +76,17 @@ under `/api` have all landed.
 
 What remains from that item, and is not covered by a workstream:
 
-- **Role-specific entry points** for operator, auditor, procurement, and regulator that lead with
-  monitoring and incident workflows rather than explanatory content. `/start` triages by role but
-  routes to reading, not to a workflow.
 - **Evidence freshness enforcement.** Freshness rules are stated in the evidence packs; nothing
   computes or displays staleness against them.
 - **Regulator-ready export.** Diagnostics emit portable results; there is no bundled export that a
   regulator or auditor could accept as a package.
 - **Ongoing crosswalk maintenance ownership.** The mappings need a review cadence and a named owner,
   which is a process decision rather than a build task.
+
+(Role-specific entry points were resolved 2026-09-19: `/start` and the role pages now lead with
+workflows — diagnostics and mechanism specs — and the role registry's featured diagnostics and
+standards are wired onto the role pages, which also flushed the stale `std-02-reversibility-slas`
+and `std-06-harm-visibility` slugs.)
 
 ## Python evaluation toolkit
 

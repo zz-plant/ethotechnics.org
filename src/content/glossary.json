@@ -4231,6 +4231,53 @@
             ],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
+          },
+          {
+            "id": "challenge-density",
+            "title": "Challenge Density",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The rate at which challenges arrive against the capacity to answer them. Per case, <a href=\"/glossary/procedural-force\">procedural force</a> is a bounded transaction; in aggregate it is a budget line, and no institutional design survives refusing to do arithmetic. A response apparatus that is saturated is measuring the gap between the volume of error a system emits and the <a href=\"/glossary/corrective-standing\">corrective capacity</a> its delegation was granted with.</p><p>It matters because congestion is the point where the open circuit is usually lost. The reflexive response to volume is narrowing standing, which converts the open circuit back into a closed one exactly when the volume proves the system fails often. Density is governed by capacity decisions or scope decisions, not by eligibility decisions: sustained breaches of response clocks are a resourcing event, and an institution that meets them by narrowing who may challenge has treated a capacity signal as a permissions problem.</p>",
+            "scope": "G. Measures & indicators. Metrics that track moral performance across systems.",
+            "operationalTests": [
+              "Challenge volume and response capacity are reported as a ratio, not as separate unread series.",
+              "A sustained breach of response clocks triggers a recorded resourcing or scope decision.",
+              "Standing was not narrowed, and no admissibility bar was raised, in direct response to a congestion breach."
+            ],
+            "genealogy": "Carries Law VII's per-case rule into the aggregate: the theory essay on challenge density answers the vetocracy objection with measured response capacity rather than narrower standing.",
+            "references": [
+              {
+                "label": "Challenge density",
+                "href": "/research/theory/challenge-density",
+                "type": "Theory"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-iv",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A challenge load series: volume, response capacity, and unanswered-challenge age, reported together.",
+              "behavior": "A congestion breach answered with a resourcing or scope decision that is recorded and dated.",
+              "metric": "Median challenge response latency and the age of the oldest unanswered challenge."
+            },
+            "domains": ["measurable", "temporal"],
+            "scale": "systemic",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": ["measures", "standing", "capacity", "congestion"],
+            "adjacentTerms": [
+              "corrective-standing",
+              "procedural-force",
+              "falsified-denominator"
+            ],
+            "relatedPatterns": ["challenge-load-ledger", "halt-tier-register"],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -5872,6 +5919,148 @@
               "meta-contestability",
               "exception-absorption"
             ],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "halt-stratification",
+            "title": "Halt Stratification",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Halt authority tiered by blast radius: a frontline operator pausing one case, a supervisor halting a queue, and a steward stopping a system are different instruments with different restoration paths, notification duties, and evidence demands. Stratification is what keeps per-case <a href=\"/glossary/procedural-force\">procedural force</a> from becoming system-wide friction.</p><p>It matters because veto-point proliferation — the standing objection to contestability — is what happens when every party holds the same maximal instrument and no one holds a graduated one. Tiering does not remove halt points; it prices them: the power to stop scales with the size of what is being stopped, and the smallest tiers stay cheap enough to use that people actually use them.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Each halt tier names who can fire it, what it stops, and the restoration path at that tier.",
+              "A tier-1 halt can be used without escalating to a tier-3 authority.",
+              "Restoration capacity is provisioned at each tier, not only at the top."
+            ],
+            "genealogy": "The graduated answer to the vetocracy objection: the theory essay on challenge density argues for pricing halt points by blast radius rather than removing them.",
+            "references": [
+              {
+                "label": "Challenge density",
+                "href": "/research/theory/challenge-density",
+                "type": "Theory"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-vii",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A halt tier register: tiers, authorized roles, blast radius, restoration path, and notification duty per tier.",
+              "behavior": "A halt used at a low tier that resolves without escalation to a higher tier.",
+              "metric": "Share of halts resolved at the tier where they originated."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "organizational",
+            "phase": ["design", "deployment"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": ["governance", "halt", "tiers", "stoppability"],
+            "adjacentTerms": [
+              "stoppability",
+              "procedural-force",
+              "human-override-lanes"
+            ],
+            "relatedPatterns": ["halt-tier-register", "kill-switch", "maintenance-windowing"],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "admission-gate",
+            "title": "Admission Gate",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The authorization decision that precedes any grant: whether the system should act at all. An admission gate records the evidence reviewed, the scope considered, and the outcome — including deliberate non-use, which is a decision with reasons and a date, not an absence. A system refused admission has not failed; the refusal is the gate working.</p><p>It matters because capability without authority is Law I's object, but the law has a step before the grant that is easy to skip: the evaluation of whether the delegation should exist. Skipping the gate converts a governance question into a momentum question, where the system runs because someone built it and stopping now is more expensive than starting was.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "A consequential deployment has a recorded admission decision with evidence and a named decider.",
+              "Deliberate non-use is a recorded outcome with reasons, revisitable on a clock.",
+              "\"Not yet\" and \"never\" are distinguishable in the record, with different review conditions."
+            ],
+            "genealogy": "Operationalizes Law I at its earliest moment: capability is discovered and catalogued, authority is granted — and the grant decision itself can be no.",
+            "references": [
+              {
+                "label": "What does not convert",
+                "href": "/research/theory/what-does-not-convert",
+                "type": "Theory"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-i",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An admission decision record: evidence reviewed, scope considered, outcome, and reasons.",
+              "behavior": "A deployment refused admission with the refusal basis recorded and a review condition named.",
+              "metric": "Share of consequential deployments with a recorded admission decision."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "organizational",
+            "phase": ["design"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": ["governance", "authorization", "non-use", "admission"],
+            "adjacentTerms": [
+              "decision-reversal-authority",
+              "permission-surface",
+              "automation-ratchet"
+            ],
+            "relatedPatterns": ["admission-gate", "authority-grant-register", "expansion-review"],
+            "termUpdated": "2026-09-18T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "dependence-reciprocity",
+            "title": "Dependence Reciprocity",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Dependence runs both ways. A population that has come to rely on an institution's system has generated duties the institution owes it: notice when the dependency deepens, preservation of exit and alternatives, and continuity obligations at withdrawal. Treating a population's reliance as licence to direct it is a conversion — a fact about dependence turned into an unauthorized permission — and reciprocity is the refusal of that conversion.</p><p>It matters because the dependency ledger as usually written records what the institution needs in order to withdraw, and stops there. Reciprocity completes the picture: the <a href=\"/glossary/crumple-zone\">crumple zone</a> is not only absorbing cost, it is holding reliance the institution benefits from, and reliance held is a claim, not a resource.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Dependents are told when their reliance on the system deepens materially.",
+              "Withdrawal from a depended-on system carries continuity obligations with dates and owners.",
+              "A dependents' claim on the system is recorded with the same standing as the institution's claim on them."
+            ],
+            "genealogy": "Completes Law V: dependence converts technical risk into structural risk, and the conversion runs in the direction of the dependent as well as the institution.",
+            "references": [
+              {
+                "label": "Dependence runs both ways",
+                "href": "/research/theory/dependence-runs-both-ways",
+                "type": "Theory"
+              },
+              {
+                "label": "Laws",
+                "href": "/standards/laws#law-v",
+                "type": "Doctrine"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A reciprocity register: dependents, what their reliance holds, and the duties owed at withdrawal.",
+              "behavior": "A material deepening of dependency disclosed to dependents before it takes effect.",
+              "metric": "Share of dependency changes with dependents notified before the change."
+            },
+            "domains": ["structural", "agency"],
+            "scale": "systemic",
+            "phase": ["deployment", "audit"],
+            "measurability": "qualitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "",
+            "tags": ["governance", "dependence", "reciprocity", "withdrawal"],
+            "adjacentTerms": [
+              "corrective-standing",
+              "error-bearing-party",
+              "crumple-zone",
+              "extraction-by-endurance"
+            ],
+            "relatedPatterns": ["dependency-ledger", "withdrawal-rehearsal"],
             "termUpdated": "2026-09-18T00:00:00Z",
             "termVersion": "v1.0.0"
           }
