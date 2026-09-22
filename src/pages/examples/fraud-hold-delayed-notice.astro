@@ -8,7 +8,7 @@ import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Fraud hold with delayed notice — Worked example";
 const pageDescription =
-  "A delayed-notice fraud hold that keeps receipts and clocks enforceable.";
+  "A fraud hold whose notice is delayed up to 24 hours for investigation. The receipt is issued at once and the 1, 12, and 48-hour clocks keep running.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -47,7 +47,7 @@ const receiptPayload = `{
     id="receipt"
     eyebrow="Receipt"
     title="Receipt emitted even with delayed notice"
-    description="Receipts exist immediately, even if user notice is delayed for investigation."
+    description="The receipt is written when the hold is placed. Only the notice to the account holder waits for the investigation."
   >
     <pre class="code-block">{receiptPayload}</pre>
   </SectionBlock>
@@ -56,7 +56,7 @@ const receiptPayload = `{
     id="clocks"
     eyebrow="Clocks"
     title="Short clocks for fraud holds"
-    description="Delayed notice cannot reset clock timelines."
+    description="The clocks start when the hold is placed, not when notice goes out."
     variant="alt"
   >
     <CardGrid className="grid--three">
@@ -80,7 +80,7 @@ const receiptPayload = `{
     id="exceptions"
     eyebrow="Exceptions"
     title="Delayed notice must be justified and bounded"
-    description="Delays require explicit exception logging."
+    description="Each delay is logged as an exception."
   >
     <ul class="muted">
       <li>Delayed notice allowed only for active fraud investigation.</li>
@@ -96,7 +96,7 @@ const receiptPayload = `{
     id="remedy"
     eyebrow="Remedy"
     title="Release or compensate quickly"
-    description="Remedies must be visible immediately once notice is delivered."
+    description="The notice shows the remedy the moment it is delivered."
     variant="alt"
   >
     <ul class="muted">
@@ -110,7 +110,7 @@ const receiptPayload = `{
     id="bindings"
     eyebrow="Bindings"
     title="Tie the hold to enforceable artifacts"
-    description="Keep the flow auditable with bindings and evidence packs."
+    description="Bindings and evidence packs give an auditor the record of each hold."
   >
     <ul class="muted">
       <li>

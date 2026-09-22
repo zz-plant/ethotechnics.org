@@ -71,7 +71,7 @@ export type ResearchContent = PageWithPermalink &
 export const researchContent: ResearchContent = {
   pageTitle: "Research — Ethotechnics",
   pageDescription:
-    "Inquiries, methods, and study findings that surface the human impacts of technology.",
+    "The research behind the standards: open questions, methods, bridge artifacts, theory essays, and dated study findings.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-01-09T00:00:00Z",
@@ -159,7 +159,7 @@ export const researchContent: ResearchContent = {
     {
       title: "Protocols with receipts",
       description:
-        "Shared prompt packs and facilitation notes keep teams aligned when fielding interviews or co-design sessions.",
+        "Each protocol ships with its prompt pack and facilitation notes, so interviews and co-design sessions run from the same script.",
       tags: [
         "Participatory methods",
         "Plain-language scripts",
@@ -169,13 +169,13 @@ export const researchContent: ResearchContent = {
     {
       title: "Decisions we can cite",
       description:
-        "Every study ties to glossary anchors and decision logs, making it easy to reference the why behind research calls.",
+        "Every study links to glossary anchors and to a decision log that records why each research call was made.",
       tags: ["Glossary-linked", "Decision hygiene", "Traceable handoffs"],
     },
     {
       title: "Signals into diagnostics",
       description:
-        "Focus areas flow into readiness labs so partners see risk levels, escalation paths, and facilitation options in one place.",
+        "Focus areas feed readiness labs, which report risk levels, escalation paths, and facilitation options together.",
       tags: ["Readiness labs", "Risk surfaced early", "Studio handoffs"],
     },
   ],
@@ -192,7 +192,7 @@ export const researchContent: ResearchContent = {
     {
       slug: "consent-instrument",
       title: "Consent integrity instrument pack",
-      type: "Validated instrument",
+      type: "Instrument and rubric",
       summary:
         "Prompt pack and scoring rubric for evaluating consent journeys and disclosure compliance.",
       tags: ["instrument", "consent", "methods"],
@@ -237,10 +237,10 @@ export const researchContent: ResearchContent = {
   ],
   agenda: [
     {
-      title: "Participation and consent at scale",
+      title: "Participation and consent in high-volume services",
       timeframe: "Q3–Q4",
       goals: [
-        "Map consent journeys for high-stakes services and identify where fatigue or confusion spikes.",
+        "Map consent journeys for consequential services and find where fatigue or confusion spikes.",
         "Prototype safeguards that let people pause automation without losing access.",
         "Ship plain-language participation guides teams can adapt to new launches.",
       ],
@@ -288,7 +288,7 @@ export const researchContent: ResearchContent = {
       slug: "ui-patterns",
       title: "UI patterns",
       description:
-        "Interface practices that foreground agency, clarity, and inclusive framing.",
+        "Interface practices that show people their options, in plain language, without excluding anyone.",
       questions: [
         "How do we explain model limitations without blame-shifting?",
         "Which interaction patterns keep people oriented in complex flows?",
@@ -331,7 +331,7 @@ export const researchContent: ResearchContent = {
       title: "Burden index calculator notes",
       type: "report",
       summary:
-        "Applied findings from piloting the burden modeler across support and research teams.",
+        "Notes on which operational signals the burden modeler finds most predictive of sustained burden.",
       tags: ["diagnostics", "measurement", "governance"],
       glossaryRefs: ["burden-index", "signal-credibility"],
       href: "/assets/start-here/diagnostic-readout.pdf",

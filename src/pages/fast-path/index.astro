@@ -7,7 +7,7 @@ import CardItem from "../../components/CardItem.astro";
 
 const pageTitle = "Fast-path adoption — Ethotechnics Institute";
 const pageDescription =
-  "A one-sprint adoption guide that delivers enforceable safeguards without slowing delivery.";
+  "A one-sprint adoption plan: three mechanisms with owners and effort estimates, a receipt schema, a worked example, and a release-gate binding.";
 
 const mechanisms = [
   {
@@ -21,7 +21,7 @@ const mechanisms = [
     title: "Decision log with dissent",
     owner: "Product / Policy",
     effort: "2 days",
-    risk: "Prevents silent governance drift and preserves rationale.",
+    risk: "Records rationale and dissent, so governance cannot drift silently.",
     href: "/mechanisms/patterns/decision-log",
   },
   {
@@ -79,7 +79,7 @@ const sprintDeliverables = [
   <PageIntro
     eyebrow="Adoption plan"
     title="One sprint: three mechanisms and a receipt schema"
-    description={`${pageDescription} This is a plan for a team that has already decided to adopt, not an introduction — for that, read the method or start from a situation. It takes roughly one sprint and reduces worst-case failure risk.`}
+    description={`${pageDescription} It is for a team that has already decided to adopt. For an introduction, read the method or start from a situation.`}
     anchorLinks={[
       { href: "#mechanisms", label: "Mechanisms" },
       { href: "#receipt", label: "Receipt schema" },
@@ -95,7 +95,7 @@ const sprintDeliverables = [
     id="mechanisms"
     eyebrow="Mechanisms"
     title="Pick three mechanisms"
-    description="Each mechanism delivers immediate risk reduction with minimal setup."
+    description="Each has a named owner and an effort estimate of two days or less."
   >
     <CardGrid className="grid--three">
       {
@@ -135,7 +135,7 @@ const sprintDeliverables = [
     id="deliverables"
     eyebrow="Sprint deliverables"
     title="Ship one receipt, one example, one binding"
-    description="These three artifacts make fast-path adoption enforceable."
+    description="The receipt, example, and binding are the minimum. The object model makes the controls machine-readable."
   >
     <CardGrid className="grid--three">
       {
@@ -157,7 +157,7 @@ const sprintDeliverables = [
     id="effort"
     eyebrow="Effort"
     title="Effort, owner, risk reduced"
-    description="Use this grid in a kickoff meeting to assign the first sprint of work."
+    description="The three mechanisms as a table, for assigning the first sprint's work."
     variant="alt"
   >
     <div class="mapping-table__wrapper">
@@ -190,7 +190,7 @@ const sprintDeliverables = [
     id="next"
     eyebrow="Next steps"
     title="Attach evidence + bindings"
-    description="Make fast-path work auditable by adding evidence packs and binding vectors."
+    description="Evidence packs and binding vectors make the sprint's work auditable."
   >
     <ul class="muted">
       <li>
@@ -228,7 +228,7 @@ const sprintDeliverables = [
     id="referenced-by"
     eyebrow="Referenced by"
     title="Where the fast path is enforced"
-    description="Cross-links keep adoption artifacts aligned across the system."
+    description="The examples, bindings, and evidence packs that depend on these artifacts."
     variant="alt"
   >
     <div class="grid grid--three">
@@ -280,7 +280,7 @@ const sprintDeliverables = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, MEC-01,
+      Search IDs: STD-01 v1.0, STD-02 v1.2, STD-01.1.1, STD-02.2.1, MEC-01,
       MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>

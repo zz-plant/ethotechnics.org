@@ -59,7 +59,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <PageIntro
     eyebrow="Evals"
     title="Governance eval suites"
-    description="Test whether your AI system can be stopped, explained, appealed, and repaired — on a clock that matters."
+    description="Suites that test whether a deployed system can be stopped, explained, appealed, and repaired within a stated clock."
     anchorLinks={anchorLinks}
     illustration="evals"
   />
@@ -235,8 +235,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             the minimum threshold. Single critical failure fails the suite.
           </li>
           <li>
-            <strong>All-must-pass:</strong> Every test case must pass. Used for high-stakes
-            suites.
+            <strong>All-must-pass:</strong> Every test case must pass. Used where
+            one failure disqualifies the system.
           </li>
         </ul>
       </div>
@@ -255,7 +255,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="coverage"
     eyebrow="Coverage"
     title="What these evals establish, and what nothing here establishes"
-    description="The suites are one instrument among two, and neither reaches every claim the framework makes."
+    description="The suites are one of two instruments. Neither reaches every claim the framework makes."
   >
     <p>
       Ten of these cases are answerable by machine, and a separate checker
@@ -272,7 +272,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="run"
     eyebrow="Run an eval"
     title="Run a governance eval suite"
-    description="Use the eval runner to step through test cases, capture evidence, and generate a scored report."
+    description="The runner steps a reviewer through each test case, records evidence, and produces a scored report."
   >
     <p>
       <a class="button primary" href="/evals/runner"> Open eval runner </a>

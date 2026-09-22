@@ -3,7 +3,6 @@ import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import InstituteStudioComparison from "../../components/InstituteStudioComparison.astro";
 import PageIntro from "../../components/PageIntro.astro";
-import QuoteHighlight from "../../components/QuoteHighlight.astro";
 import ReferenceCallout from "../../components/ReferenceCallout.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import StatCluster from "../../components/StatCluster.astro";
@@ -30,22 +29,22 @@ const instituteStats = [
   {
     value: `${highlights.length}`,
     label: "Engagement paths",
-    detail: "Ways visitors can collaborate with the Institute.",
+    detail: "Self-serve, program, and Studio routes into the work.",
   },
   {
     value: `${programs.length}`,
     label: "Active programs",
-    detail: "Tracks running with defined outcomes and status.",
+    detail: "Programs outside teams can join now.",
   },
   {
     value: `${governance.length}`,
     label: "Governance commitments",
-    detail: "Policies that keep releases accountable.",
+    detail: "Each links to the RFC record or decision log behind it.",
   },
   {
     value: `${stewards.length}`,
     label: "Stewards available",
-    detail: "People prepared to triage requests.",
+    detail: "Named people who triage incoming requests.",
   },
 ];
 ---
@@ -66,7 +65,7 @@ const instituteStats = [
   <SectionBlock
     id="overview"
     eyebrow="What you can do here"
-    title="Pick the path that matches your visit."
+    title="Ways to use the Institute."
     description={instituteStudioGuidance.overviewDescription}
     className="section--banded"
   >
@@ -99,28 +98,22 @@ const instituteStats = [
 
   <SectionBlock
     eyebrow="Institute signal"
-    title="A clear view of what is active and accountable."
-    description="These metrics summarize how the Institute stays responsive to contributors and program partners."
+    title="What the Institute runs today."
+    description="Counts of the routes, programs, governance commitments, and stewards listed on this page."
     className="section--banded"
   >
     <StatCluster items={instituteStats} />
-    <QuoteHighlight
-      quote="We publish governance alongside delivery so every release earns its credibility in the open."
-      attribution="Institute steward council"
-      context="Ethotechnics program oversight"
-    />
   </SectionBlock>
 
   <SectionBlock
     id="programs"
     eyebrow="Programs"
     title="What is in motion right now."
-    description="Join the track that fits your decision window; everything links back to the Library so you can act quickly."
+    description="Each program states its outputs, its status, and how to join. Outputs link back to the Library pages they draw on."
     variant="alt"
   >
     <p class="muted small">
-      Programs refresh on a quarterly cadence. Reach out for current
-      availability.
+      Program availability is reviewed quarterly. Email for the current window.
     </p>
     <CardGrid>
       {
@@ -157,7 +150,7 @@ const instituteStats = [
     id="governance"
     eyebrow="Governance"
     title="How the Institute stays accountable."
-    description="Every program comes with documented expectations so visitors know how their input will be used."
+    description="Each commitment below links to the record that shows it being kept: the RFC lifecycle, the open RFCs, or the decision log."
     className="section--banded"
   >
     <CardGrid>
@@ -176,8 +169,8 @@ const instituteStats = [
   <SectionBlock
     id="stewards"
     eyebrow="Stewards"
-    title="People guiding the work."
-    description="Reach out to the steward closest to your question or risk area."
+    title="Who runs the work."
+    description="Contact the steward closest to your question or risk area."
     variant="alt"
   >
     <CardGrid>
@@ -207,7 +200,7 @@ const instituteStats = [
     id="contact"
     eyebrow="Contact"
     title="Get in touch."
-    description="Use these channels for Studio escalations, research partnerships, or general questions."
+    description="Email addresses for Studio escalations, program partnerships, and press."
   >
     <CardGrid>
       {

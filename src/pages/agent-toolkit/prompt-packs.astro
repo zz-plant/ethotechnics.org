@@ -15,7 +15,7 @@ const hero = {
   eyebrow: "Agent enablement",
   heading: "Prompt packs",
   description:
-    "Copy these prompt patterns to lead structured teaching sessions and answer common questions in minutes.",
+    "Prompts to copy into a teaching session, a decision review, a disagreement, or a clause audit.",
 };
 
 const anchorLinks = [
@@ -60,7 +60,7 @@ const onboardingPrompts = [
     title: "System snapshot",
     prompts: [
       "Describe the system in one sentence for a non-technical stakeholder.",
-      "Identify the incentive that could undermine ethical outcomes if left unchecked.",
+      "Identify the incentive most likely to push the system toward harm if no one checks it.",
       "Name the data or signal we need to make the system legible.",
     ],
   },
@@ -98,7 +98,7 @@ const conflictPrompts = [
     title: "Escalation check",
     prompts: [
       "Does this decision create irreversible harm or regulatory exposure?",
-      "Who needs to be informed or sign off to keep accountability intact?",
+      "Who needs to be informed, and who must sign off?",
       "What documentation should we capture for future audits?",
     ],
   },
@@ -135,7 +135,7 @@ const diagnosticOutputFormat = `{\n  "system": "short description",\n  "violated
 
 const diagnosticRubric = [
   "Clause IDs are correct and traceable to the standard text.",
-  "Evidence requirements are explicit and actionable.",
+  "Each evidence requirement names a log, receipt, or timeline.",
   "Mechanisms map directly to stated risks or clauses.",
   "Outputs include owners, timelines, or remediation steps.",
 ];
@@ -195,7 +195,7 @@ const diagnosticFailureModes = [
     id="onboarding"
     eyebrow="Onboarding"
     title="Kick off a new principal relationship"
-    description="Use these prompts to align on scope, stakes, and accountability."
+    description="Prompts that settle scope, stakes, and who owns the outcome."
     className="section--banded"
   >
     <CardGrid className="grid--two">
@@ -216,8 +216,8 @@ const diagnosticFailureModes = [
   <SectionBlock
     id="decisions"
     eyebrow="Decision reviews"
-    title="Guide principled tradeoffs under pressure"
-    description="Structure decision reviews so the principle stays visible."
+    title="Review a tradeoff before it ships"
+    description="Each prompt names the principle the decision puts at risk."
   >
     <CardGrid className="grid--two">
       {
@@ -237,7 +237,7 @@ const diagnosticFailureModes = [
   <SectionBlock
     id="conflict"
     eyebrow="Conflict resolution"
-    title="Handle disagreements while preserving trust"
+    title="Work through a disagreement"
     description="Use these prompts when decisions are contested or values collide."
     variant="alt"
   >
@@ -267,7 +267,7 @@ const diagnosticFailureModes = [
     id="diagnostics"
     eyebrow="Diagnostics prompts"
     title="Run consistent clause and mechanism checks"
-    description="Use these prompts when you need repeatable audit-quality outputs."
+    description="Prompts that return clause and mechanism findings in the same shape every time, using the output format below."
   >
     <CardGrid className="grid--two">
       {
@@ -303,7 +303,7 @@ const diagnosticFailureModes = [
   <SectionBlock
     id="clause-kits"
     eyebrow="Clause & schema packs"
-    title="Turn governance prompts into binding machine artifacts"
+    title="Schemas and clauses for contracts and runtime"
     description="Downloadable JSON schemas, procurement clauses, and evidence checklists for integration."
     variant="alt"
   >

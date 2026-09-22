@@ -471,11 +471,11 @@ export default function SystemAuditor() {
               {report.risksDetected.length === 0 ? (
                 <div className="system-auditor__risk-card">
                   <div className="system-auditor__risk-title">
-                    No critical pattern violations detected
+                    No failure patterns detected
                   </div>
                   <p className="system-auditor__risk-body">
-                    System specification incorporates contestability boundaries
-                    and fallback paths.
+                    None of the seven text rules matched. That does not show the
+                    system is contestable; read the delegation findings below.
                   </p>
                 </div>
               ) : (

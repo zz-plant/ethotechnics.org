@@ -113,14 +113,14 @@ export type FiniteContent = PageWithPermalink & {
 export const finiteContent = {
   pageTitle: "Finite [Beta] — Stoppability drills for AI agents and systems",
   pageDescription:
-    "Finite is an evaluation and training environment for AI-enabled agents and systems that can halt, reverse, and recover without exporting harm to people.",
+    "Finite is an evaluation and training environment that tests whether an AI agent can be halted, reversed, and recovered without exporting harm to people.",
   permalink: "/finite",
   hero: {
     eyebrow: "Finite [Beta]",
     heading: "Finite",
-    lede: "An evaluation and training environment for AI-enabled agents and systems that can halt, reverse, and recover without dumping failure onto humans.",
+    lede: "An evaluation and training environment that tests whether an AI agent or system can be halted, reversed, and recovered without dumping the failure onto people.",
     summary:
-      "Most AI benchmarks reward power. Finite measures how stoppable agent systems are—and who pays when they fail.",
+      "Most AI benchmarks reward capability. Finite measures how stoppable an agent system is, and who pays when it fails.",
     actions: [
       { label: "Explore pilot details", href: "#pilot", variant: "primary" },
       {
@@ -151,12 +151,13 @@ export const finiteContent = {
   },
   why: {
     title: "Why Finite exists",
-    description: "Stop, reverse, and protect the people around agent systems.",
-    body: "Teams are wiring agents into support, operations, finance, civic services, and internal tools. We know how to push them to do more. Finite gives language and drills to stop agent systems under stress, undo the harm, and see who absorbs the cleanup. The suite turns hidden maintenance work into a first-class signal so stoppability, reversibility, and human impact are visible before launch—not after an incident.",
+    description:
+      "Drills for stopping and reversing agent systems, and for recording who carries the cleanup.",
+    body: "Teams are wiring agents into support, operations, finance, civic services, and internal tools. Most of the effort goes into making them do more. Finite drills the reverse: stopping an agent system under stress, undoing what it did, and recording who absorbed the cleanup. That cleanup is maintenance work that usually goes unrecorded. Finite records it, so stoppability, reversibility, and the burden on people are measured before launch rather than after an incident.",
   },
   useCases: {
     title: "When to use Finite",
-    description: "Pick the drills and traces that match your environment.",
+    description: "The settings the drills and traces are built for.",
     items: [
       {
         title: "Preparing for production agents",
@@ -182,7 +183,7 @@ export const finiteContent = {
       "Finite is a training environment, not a place to begin reading. If you are orienting rather than drilling, /start is the page you want. These are the inputs a drill needs.",
     steps: [
       "Name the system or workflow you want to test, plus one recent incident or near-miss.",
-      "Identify who can halt or roll back the system today—and where that ownership is unclear.",
+      "Identify who can halt or roll back the system today, and where that ownership is unclear.",
       "Draft an agent brief with tool permissions, stop signals, rollback gates, and escalation rules.",
       "Schedule a tabletop run with operators, support, and governance partners.",
     ],
@@ -195,7 +196,7 @@ export const finiteContent = {
   referenceTask: {
     title: "Reference Task v0.1",
     description:
-      "Use the canonical ledger containment drill to align metrics, runs, and explorer fixtures.",
+      "The ledger containment drill is the baseline task. Metrics, runs, and explorer fixtures are defined against it.",
     bullets: [
       "Read the scenario narrative, I/O, tools, stoppability checks, and metrics captured for the baseline task.",
       "Re-run the drill to compare stoppability posture as safeguards and rollback paths evolve.",
@@ -205,7 +206,7 @@ export const finiteContent = {
   agentReady: {
     title: "Make Finite usable by agents",
     description:
-      "Finite ships drills as agent-ready materials with clear tool schemas, stop signals, and escalation paths.",
+      "Each drill comes as materials an agent can read: tool schemas, stop signals, and escalation paths.",
     items: [
       {
         title: "Agent briefing packet",
@@ -264,13 +265,13 @@ export const finiteContent = {
     deliverables: [
       "A Finite scorecard with per-dimension ratings and short narrative evidence.",
       "An overall stoppability posture for a system in a specific context.",
-      "Guidance for launch gates, risk review inputs, and architecture comparisons centered on how systems fail.",
+      "Inputs for launch gates, risk reviews, and architecture comparisons, based on how the system failed in the drills.",
     ],
   },
   workflow: {
     title: "How Finite works",
     description:
-      "A short loop you can connect to incidents and change management.",
+      "Four steps, repeated. Each run can feed incident review and change management.",
     steps: [
       {
         title: "Define the context",
@@ -280,7 +281,7 @@ export const finiteContent = {
       {
         title: "Run scenarios",
         detail:
-          "Exercise shutdown, rollback, and escalation paths—from flaky dependencies and bad-but-plausible configs to long-horizon runs and past incident replays.",
+          "Exercise shutdown, rollback, and escalation paths against flaky dependencies, bad-but-plausible configs, long-horizon runs, and replays of past incidents.",
       },
       {
         title: "Collect traces",
@@ -294,11 +295,11 @@ export const finiteContent = {
       },
     ],
     loopNote:
-      "Teams re-run the same scenarios to see whether their systems are becoming more—or less—stoppable.",
+      "Re-run the same scenarios to see whether the system is becoming more or less stoppable.",
   },
   fit: {
     title: "Where Finite fits",
-    description: "Stack-agnostic and designed for people-centered operations.",
+    description: "Finite does not depend on a particular stack.",
     items: [
       "Sits alongside agent frameworks, orchestrators, observability stacks, incident tools, performance evaluations, and security and reliability testing.",
       "Adds “Can we stop it, undo it, and protect the humans around it?” to the usual strength and performance questions.",
@@ -306,15 +307,15 @@ export const finiteContent = {
     ],
   },
   practice: {
-    title: "Practice, not just a score",
+    title: "Practice first",
     description:
-      "Finite produces ratings, but its main use is a practice loop: onboard new agents with base drills, turn past incidents into reusable scenarios, and re-run tests to catch eroding safeguards as agent systems evolve.",
+      "Finite produces ratings, but its main use is practice. New agents start on the base drills, past incidents become reusable scenarios, and re-runs catch safeguards that erode as the system changes.",
   },
   pilot: {
     title: "Join the pilot",
-    status: "Piloting Finite with allied teams",
+    status: "Finite is in beta pilot",
     description:
-      "Finite is in development as part of the Ethotechnics project: an open, extensible scenario library, a scoring framework that fits existing pipelines, and a shared language about system mortality across engineering, operations, and governance.",
+      "Finite is in development as part of the Ethotechnics project. It is planned as an open scenario library, a scoring framework that runs inside existing pipelines, and a shared vocabulary for stopping systems across engineering, operations, and governance.",
     bullets: [
       "Describe your systems, where agents are involved, and what worries you about stopping and reversing them.",
       "Share how you currently handle shutdowns, rollbacks, and escalations under load.",
@@ -330,7 +331,7 @@ export const finiteContent = {
   sampleArtifact: {
     title: "Sample Finite scorecard",
     description:
-      "Preview the stoppability scorecard structure teams use to document shutdown, reversibility, and volatility export findings.",
+      "The scorecard structure for recording shutdown, reversibility, and volatility export findings.",
     href: "mailto:studio@ethotechnics.org?subject=Finite%20scorecard%20sample",
     label: "Request the sample scorecard",
   },

@@ -62,32 +62,32 @@ const explainerLinksWithGlossary = explainerLinks.map((link) => ({
 }));
 const glossaryPathways = [
   {
-    title: "Ethical technology standards",
+    title: "Standards",
     description:
-      "Use glossary definitions when drafting AI governance requirements, accountability checkpoints, and consent safeguards.",
+      "The standards state AI governance requirements as numbered clauses. The glossary defines the terms those clauses use.",
     href: "/standards",
-    linkLabel: "Explore ethical technology standards",
+    linkLabel: "Read the standards",
   },
   {
-    title: "Human-centered design research",
+    title: "Research and theory",
     description:
-      "Pair field research and diagnostics with stable terminology for human-centered design and moral system reviews.",
+      "Theory essays and research notes that argue for these terms, and the diagnostics that apply them.",
     href: "/research",
-    linkLabel: "Browse human-centered design research",
+    linkLabel: "Browse the research",
   },
   {
     title: "Mechanisms and controls library",
     description:
-      "Jump from glossary terms to implementation mechanisms like stoppability, safety valves, and contestability patterns.",
+      "The mechanisms that implement glossary terms, such as stop controls, safety valves, and appeal paths.",
     href: "/mechanisms",
     linkLabel: "Review AI governance mechanisms",
   },
   {
     title: "Field notes and practice briefs",
     description:
-      "Trace how glossary anchors show up in real-world audits, incident reviews, and remediation playbooks.",
+      "Audits, incident reviews, and remediation playbooks that apply these terms to specific cases.",
     href: "/field-notes",
-    linkLabel: "Read ethical tech field notes",
+    linkLabel: "Read the field notes",
   },
 ];
 const searchQuery = Astro.url.searchParams.get("query")?.trim() ?? "";
@@ -132,10 +132,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   />
   <div class="callout glossary__starter" id="starter-terms">
     <h3>Start with these terms</h3>
-    <p class="muted">
-      New to the glossary? These anchors provide the shared vocabulary most
-      teams cite first.
-    </p>
+    <p class="muted">The terms the rest of the glossary builds on.</p>
     <ul class="glossary__starter-list">
       {
         starterTerms.map((term) => (
@@ -150,8 +147,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="glossary-pathways"
     eyebrow="Pathways"
-    title="Glossary pathways for ethical technology teams"
-    description="Start with shared definitions, then follow the glossary into AI governance standards, research artifacts, and human-centered design mechanisms."
+    title="Where the glossary terms are used"
+    description="The same terms appear in the standards, the research, the mechanisms library, and the field notes. Follow a term to where it is applied."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -381,8 +378,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="explainer-links"
     eyebrow="Explainers"
-    title="High-intent glossary explainers"
-    description="Short, reusable definitions with examples and next-step artifacts."
+    title="Glossary explainers"
+    description="Longer explanations of selected terms, each linked back to its glossary entry."
     variant="alt"
   >
     <CardGrid className="grid--three">
@@ -408,7 +405,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="glossary-index"
     eyebrow="Index"
     title="A–Z of Ethotechnic terms"
-    description={`Alphabetical list with ${entryIndex.length} definitions ready to link directly.`}
+    description={`All ${entryIndex.length} terms in alphabetical order, each with its own permanent link.`}
   >
     <div class="glossary-index__toolbar">
       <div>

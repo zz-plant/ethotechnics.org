@@ -89,7 +89,7 @@ export const governanceContent: GovernanceContent = {
     {
       stage: "Decision",
       detail:
-        "A named owner records outcome and rationale in the decision log with clear follow-up responsibilities.",
+        "A named owner records the outcome and rationale in the decision log and assigns an owner to each follow-up.",
     },
     {
       stage: "Release",

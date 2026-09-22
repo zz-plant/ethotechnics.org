@@ -147,13 +147,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="goal-chooser"
     eyebrow="Choose by objective"
     title="If your goal is..."
-    description="Pick the route that matches your current governance task."
+    description="Where to start for policy drafting, audit preparation, or implementation oversight."
     variant="alt"
   >
     <CardGrid className="grid--three">
       <CardItem
         title="Draft policy language"
-        description="Read doctrine and comparison notes to align terminology and enforceable expectations."
+        description="The core axioms and the comparison below give you the terms and the enforceable requirements to write into policy."
       >
         <a slot="footer" class="muted" href="/standards/core-axioms"
           >Start with core axioms</a
@@ -161,7 +161,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Prepare for audit"
-        description="Use minimum binding requirements and evidence packs to verify proof before review."
+        description="The minimum binding set lists what each right requires. The evidence packs list the records that prove it."
       >
         <a
           slot="footer"
@@ -173,7 +173,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Oversee implementation"
-        description="Pair standards with implementation examples and mechanism references for delivery teams."
+        description="Implementation examples show each standard as the stop rules, clocks, and records a delivery team builds."
       >
         <a slot="footer" class="muted" href="#implementation-examples"
           >Open implementation examples</a
@@ -186,7 +186,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="active"
     eyebrow="Active standards"
     title="Now active"
-    description="Draft and stable standards currently recommended for implementation."
+    description="Draft and stable standards, by lane. Deprecated standards remain in the register above."
   >
     <div class="standards-filter panel stack-sm" data-standards-filter>
       <p class="eyebrow">Filter and sort</p>
@@ -253,9 +253,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     <a href="/standards/ethotechnics-for-agents">
                       Ethotechnics for Agents
                     </a>{" "}
-                    — Mechanism-first practice for implementing STD-01 and
-                    STD-02 with enforceable human recourse in real agent
-                    systems.
+                    — how to implement STD-01 and STD-02 in agent systems,
+                    mechanism by mechanism, with recourse a person can enforce.
                   </p>
                 )}
                 {standard.deprecatedBy && standard.deprecatedBy.length > 0 && (
@@ -293,13 +292,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="status-assignment"
     eyebrow="Status model"
     title="How status is assigned"
-    description="Statuses are set through a repeatable review workflow so teams know what is draft, stable, or retired."
+    description="Each status has entry conditions, listed below. A standard changes status only when they are met."
     variant="alt"
   >
     <CardGrid className="grid--three">
       <CardItem
         title="Draft"
-        description="A working standard under active review before stability guarantees are made."
+        description="Under active review. Clauses may still change, and no stability guarantee is made."
       >
         <ul class="muted small">
           <li>At least 1 internal standards editor review.</li>
@@ -344,7 +343,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="doctrine"
     eyebrow="Doctrine"
     title="Core doctrine"
-    description="Supporting doctrine and canonical references that accompany the standards."
+    description="The axioms, laws, and reference documents the standards are written against."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -423,10 +422,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </ul>
     <p>
       These frameworks improve documentation, oversight, and monitoring. They
-      are useful. Ethotechnics does not compete with them on whether governance
-      is important. It addresses what they leave undertreated: when harm is
-      occurring, can your system be stopped — quickly, reliably, and without
-      requiring the harmed person to carry the burden?
+      leave one question undertreated: while harm is occurring, can the system
+      be stopped quickly and reliably, without the harmed person carrying the
+      burden?
     </p>
 
     <p class="eyebrow">TL;DR</p>
@@ -439,28 +437,16 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </li>
       <li>Oversight is only real when authority and clocks are enforceable.</li>
     </ul>
-    <ul class="card__list">
-      <li>
-        Ethotechnics prioritizes stoppability and time-in-harm, not only risk
-        documentation.
-      </li>
-      <li>Control planes and stop rights are operational, not advisory.</li>
-      <li>
-        Oversight is measured by recovery time and enforceable mechanisms.
-      </li>
-    </ul>
     <p>
       Most AI governance standards in use today are built to answer: “Did you
       manage risk responsibly?” Ethotechnics is built to answer a different
       question: “Can this system be stopped and repaired when it is harming
-      someone?” This is not a difference of values. It is a difference of
-      mechanics.
+      someone?” The difference is in mechanics, not values.
     </p>
     <p>
-      Many regimes improve documentation, oversight, and monitoring. Those are
-      useful. But in high-stakes systems, the dominant failure mode is now
-      temporal: decisions occur at machine speed while reversal occurs at
-      institutional speed. In that gap, harm compounds.
+      In consequential systems the dominant failure mode is now temporal.
+      Decisions occur at machine speed. Reversal occurs at institutional speed.
+      Harm compounds in the gap.
     </p>
     <p class="muted">
       Ethotechnics treats governability as an operational capability with
@@ -779,11 +765,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </table>
 
     <p>
-      Ethotechnics does not compete with existing standards on whether
-      governance is “important.” It addresses what most standards leave
-      undertreated: when harm is occurring, can your system be compelled to
-      stop—quickly, reliably, and without requiring the harmed person to carry
-      the burden?
+      Existing standards and Ethotechnics agree that governance matters. The
+      question Ethotechnics adds is whether a system can be compelled to stop
+      while harm is occurring, quickly and reliably, without the harmed person
+      carrying the burden.
     </p>
     <p class="muted">
       That is the difference between governance as documentation and governance
@@ -842,15 +827,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       <div class="panel">
         <p class="eyebrow">Diagrammatic version</p>
         <p>
-          A visual contrast between policy stacks and control planes, useful for
-          workshops and audits.
+          The policy stack and the control plane, side by side, for workshops
+          and audits.
         </p>
         <pre
           class="code-block">{`Policy stack → policies → reviews → audits → reports
 Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="muted">
-          Use the diagram to highlight where enforcement is internal versus
-          externally mediated.
+          The first line is enforced from outside the running system. The second
+          is enforced inside it.
         </p>
       </div>
     </div>
@@ -860,7 +845,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     id="implementation-examples"
     eyebrow="Implementation examples"
     title="Domain-by-domain comparisons"
-    description="Concrete system-level contrasts for teams implementing Ethotechnics."
+    description="For each domain, conventional governance beside the Ethotechnics implementation of stop rules, clocks, and restoration paths."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -880,7 +865,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     id="referenced-by"
     eyebrow="Referenced by"
     title="Where standards are enforced"
-    description="Cross-links keep standards, bindings, and evidence packs aligned."
+    description="The worked examples, procurement bindings, and evidence packs that cite these standards."
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -938,7 +923,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
       for procurement clauses and audit checklists.
     </p>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
+      Search IDs: STD-01 v1.0, STD-02 v1.2, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
       VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>

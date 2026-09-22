@@ -20,7 +20,7 @@ import agentSafetyObjectModelData from "../../data/agents-spec.json";
 
 const pageTitle = "Ethotechnics for Agents";
 const pageDescription =
-  "This page is for teams building and operating automated systems. Mechanism-first safety practice for turning ethics goals into enforceable agent controls.";
+  "Mechanism-first practice for teams building and operating agents: a receipt schema, action classes, contestability surfaces, and deployment gates.";
 const permalink = "/standards/ethotechnics-for-agents";
 // Bundled at build time: the page is server-rendered on Workers, where
 // there is no filesystem to read the published copies from.
@@ -48,8 +48,8 @@ const publication = derivePublicationMetadata({
 >
   <SummaryCallout
     eyebrow="Reading guide"
-    title="Fast orientation for long-form standards"
-    description="Use this summary to skim the framework before diving into the full requirements."
+    title="The practice in brief"
+    description="The main requirements and related pages, before the full text."
     takeaways={summaryTakeaways}
     relatedLinks={summaryRelatedLinks}
   />
@@ -58,7 +58,7 @@ const publication = derivePublicationMetadata({
     id="who-this-is-for"
     eyebrow="Audience"
     title="Who this is for"
-    description="Make it explicit who the practice is designed to serve."
+    description="Anyone who can change how an agent is built or run."
     variant="alt"
   >
     <p>
@@ -141,12 +141,11 @@ const publication = derivePublicationMetadata({
   <SectionBlock
     id="knowing-differently"
     eyebrow="Why this changes the conversation"
-    title="An infrastructure for knowing differently"
+    title="What a review can ask for"
     description="This standard changes what teams can ask, prove, and contest."
   >
     <p>
-      This infrastructure makes ethics operational. It shifts review
-      conversations from
+      The practice shifts review conversations from
       <em>declared intent</em> to <em>enforceable system behavior</em>: who can
       act, who can stop, what clocks run, where reversal paths exist, and how
       those paths stay legible to people affected by decisions.
@@ -328,7 +327,7 @@ const publication = derivePublicationMetadata({
     id="contestability-surface"
     eyebrow="P1 artifact"
     title="Contestability surface: minimum shipping spec"
-    description="Define the UI patterns, copy, and escalation ladder that make contestation real."
+    description="The UI patterns, copy, and escalation ladder a person needs to contest a decision."
     variant="alt"
   >
     <div class="grid grid--two">
@@ -379,7 +378,7 @@ const publication = derivePublicationMetadata({
     id="exception-policy"
     eyebrow="P1 artifact"
     title="Agent exception policy (explicit and bounded)"
-    description="Tie the agent practice to the bounded exceptions framework."
+    description="How the bounded exceptions framework applies to agents."
   >
     <ul class="standard-clauses">
       <li>
@@ -506,7 +505,7 @@ const publication = derivePublicationMetadata({
     id="control-checklist"
     eyebrow="P2 artifact"
     title="Control checklist for deployment gates"
-    description="Use this as a go/no-go gate for agent rollout."
+    description="A go/no-go gate for agent rollout."
   >
     <p>Copy-paste this checklist into your deployment template or runbook.</p>
     <pre class="code-block">{controlChecklist}</pre>
@@ -551,7 +550,7 @@ const publication = derivePublicationMetadata({
     id="fast-path"
     eyebrow="Fast path"
     title="Minimum viable integration (<1 sprint)"
-    description="Do this first to make agent systems enforceable quickly."
+    description="Six steps, in order, before anything else."
     variant="alt"
   >
     <ol class="standard-clauses">
@@ -598,7 +597,7 @@ const publication = derivePublicationMetadata({
     id="referenced-by"
     eyebrow="Referenced by"
     title="Where this practice is enforced"
-    description="Cross-links keep practices, bindings, and evidence packs aligned."
+    description="The worked examples, bindings, and evidence packs that cite this practice."
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -649,7 +648,7 @@ const publication = derivePublicationMetadata({
       </div>
     </div>
     <p class="muted">
-      Search IDs: STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1, MEC-01,
+      Search IDs: STD-01 v1.0, STD-02 v1.2, STD-01.1.1, STD-02.2.1, MEC-01,
       MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>

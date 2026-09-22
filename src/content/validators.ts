@@ -54,7 +54,7 @@ export type ValidatorsContent = PageWithPermalink & {
 export const validatorsContent: ValidatorsContent = {
   pageTitle: "Validators — Ethotechnics Institute",
   pageDescription:
-    "Interactive validators that score systems against Ethotechnics standards.",
+    "Three validators that turn STD-01 clauses into input fields and return a red, yellow, or green status with the clauses and mechanisms it implicates.",
   permalink: "/validators",
   anchorLinks: [
     { href: "#focus", label: "Browse by focus" },
@@ -66,7 +66,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-01",
       title: "Burden Modeler",
       description:
-        "Score time tax and constructive denial risk across user journeys.",
+        "Scores the time tax and constructive-denial risk of a user journey from its duration, step count, and exit availability.",
       slug: "burden-modeler",
       standardRef: "STD-01",
       inputs: [
@@ -170,7 +170,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-02",
       title: "Risk Radar",
       description:
-        "Surface cumulative exposure across high-friction touchpoints.",
+        "Scores cumulative exposure from high-friction touchpoints, average wait time, and appeal availability.",
       slug: "risk-radar",
       standardRef: "STD-01",
       inputs: [
@@ -274,7 +274,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-03",
       title: "Latency Audit",
       description:
-        "Validate bounded duration requirements against system latency.",
+        "Checks observed latency against the declared timeout and whether a human escalation path exists.",
       slug: "latency-audit",
       standardRef: "STD-01",
       inputs: [
@@ -378,11 +378,11 @@ export const validatorsContent: ValidatorsContent = {
   method: {
     title: "How validators score systems",
     description:
-      "Validators translate STD clauses into input fields, then surface a report card with an actionable mechanism for remediation.",
+      "Each validator turns STD clauses into input fields and returns a report card that names a mechanism for remediation.",
     steps: [
       "Collect minimal inputs from operators or QA teams.",
-      "Evaluate against published thresholds and temporal rights.",
-      "Generate a report card with a visible Red / Yellow / Green status.",
+      "Compare the inputs with the published thresholds.",
+      "Generate a report card with a Red / Yellow / Green status.",
     ],
   },
 };

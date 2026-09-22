@@ -8,7 +8,7 @@ import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Content moderation takedown — Worked example";
 const pageDescription =
-  "A rapid content removal flow with receipts, clocks, exceptions, and remedy commitments.";
+  "A rapid content takedown that issues a receipt, runs 2, 24, and 72-hour clocks, bounds its exceptions, and restores content when overturned.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -55,7 +55,7 @@ const receiptPayload = `{
     id="clocks"
     eyebrow="Clocks"
     title="Acknowledgment, review, and remedy clocks"
-    description="Clocks stay visible even during high-volume enforcement."
+    description="The clocks stay visible when enforcement volume spikes."
     variant="alt"
   >
     <CardGrid className="grid--three">
@@ -104,7 +104,7 @@ const receiptPayload = `{
     id="remedy"
     eyebrow="Remedy"
     title="Restore, explain, or compensate"
-    description="Remedy paths are visible to the impacted creator or user."
+    description="The creator or user whose content was removed can see the remedy path."
     variant="alt"
   >
     <ul class="muted">
@@ -120,7 +120,7 @@ const receiptPayload = `{
     id="bindings"
     eyebrow="Bindings"
     title="Bind the scenario to enforceable controls"
-    description="Use release gates and evidence packs to make this repeatable."
+    description="Release gates and evidence packs make every takedown run the same way."
   >
     <ul class="muted">
       <li>

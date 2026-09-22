@@ -21,7 +21,7 @@ export const artifactFinalLine =
   "If a field is hard to fill, that is the governance gap this artifact exposes.";
 
 export const failureFooterLine =
-  "If a field is hard to fill, that is the governance question this artifact is designed to surface.";
+  "If a field in these artifacts is hard to fill, that is the governance gap this failure state exposes.";
 
 export const artifacts: InstituteArtifact[] = [
   {
@@ -29,7 +29,7 @@ export const artifacts: InstituteArtifact[] = [
     slug: "decision-record-template",
     description: [
       "Assigns a named decision owner, reversal power, burden limit, and appeal path.",
-      "Prevents anonymous system outputs from escaping accountability.",
+      "No system output goes out without someone who answers for it.",
     ],
     enforcesBullets: [
       "Every decision has a named owner.",
@@ -67,7 +67,7 @@ export const artifacts: InstituteArtifact[] = [
     slug: "escalation-ladder-freeze-authority",
     description: [
       "Defines who can freeze what, under which conditions, and on what timeline.",
-      "Stoppability is operationalized as an enforceable authority.",
+      "Stoppability becomes an authority a named role holds and can use.",
     ],
     enforcesBullets: [
       "Freeze authority is explicit and role-bound.",

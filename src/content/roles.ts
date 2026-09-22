@@ -363,7 +363,7 @@ export const roles: Role[] = [
         {
           label: "Mechanisms catalog",
           href: "/mechanisms",
-          note: "Design-ready specs with implementation guidance.",
+          note: "Mechanism specs with implementation notes.",
         },
         {
           label: "Field notes",
@@ -373,7 +373,7 @@ export const roles: Role[] = [
         {
           label: "Diagnostics",
           href: "/diagnostics",
-          note: "Decision-ready labs for flow validation.",
+          note: "Interactive tools for testing a flow before release.",
         },
         {
           label: "Glossary",
@@ -490,7 +490,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Benchmark governance maturity",
         description:
-          "Place the organisation on the scale from baseline pause controls to continuous care retrospectives.",
+          "Place the organisation on the scale from baseline pause controls to published service-level indicators of justice and funded maintenance.",
         ctaLabel: "Explore maturity scale",
         ctaHref: "/glossary/ethotechnic-maturity",
       },

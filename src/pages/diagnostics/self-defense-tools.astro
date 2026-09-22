@@ -8,7 +8,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Self-defense diagnostic tools";
 const pageDescription =
-  "Three fast checks for determining governability, appeal legitimacy, and power ownership.";
+  "Three yes/no checks for a person facing an automated decision: whether it can be contested, whether the appeal is real, and who can reverse it.";
 const permalink = "/diagnostics/self-defense-tools";
 
 const anchorLinks = [
@@ -25,7 +25,7 @@ const tools = [
     eyebrow: "Tool 1",
     title: "Is this system governable?",
     description:
-      "Answer these yes/no prompts to determine whether the system can actually be contested.",
+      "Seven yes/no questions on whether the decision has an owner, reasons, a clock, and a remedy you can reach.",
     questions: [
       "Can you name the accountable owner for this decision?",
       "Do you have the exact reasons and evidence used?",
@@ -40,7 +40,7 @@ const tools = [
         title: "Mostly yes",
         result: "Governable enough to proceed",
         description:
-          "You have the minimum signals needed to contest the decision and document outcomes.",
+          "You can name an owner, a clock, and a remedy, which is enough to file a challenge and record the answer.",
         nextSteps: [
           {
             label: "Use copy-ready language",
@@ -60,7 +60,7 @@ const tools = [
         title: "Mostly no",
         result: "Not governable yet",
         description:
-          "Missing owners, clocks, or remedies means the system is currently uncontestable.",
+          "Without an owner, a clock, or a remedy, the decision cannot be contested as it stands.",
         nextSteps: [
           {
             label: "Demand a decision record",
@@ -80,7 +80,7 @@ const tools = [
     eyebrow: "Tool 2",
     title: "Is this appeal real or performative?",
     description:
-      "Check whether the appeal path offers real review or just deflects accountability.",
+      "Six questions on whether the appeal can change the outcome or only absorbs the complaint.",
     questions: [
       "Does the appeal route allow new evidence or corrections?",
       "Is the reviewer independent from the original decision maker?",
@@ -134,7 +134,7 @@ const tools = [
     eyebrow: "Tool 3",
     title: "Who actually holds power here?",
     description:
-      "Map the people, institutions, and leverage points that can change the outcome.",
+      "Six questions that name who can pause, reverse, or compel a change to the decision.",
     questions: [
       "Who can reverse or pause the decision today?",
       "Who owns the policy or model behind the decision?",
@@ -181,8 +181,7 @@ const tools = [
 
 const printSheet = {
   title: "Self-defense diagnostic tools",
-  intro:
-    "Print or save this sheet to run the three quick diagnostics during an appeal or review.",
+  intro: "All three checks on one page, for use during an appeal or review.",
   sections: tools.map((tool) => ({
     title: tool.title,
     items: tool.questions,
@@ -206,7 +205,7 @@ const printSheet = {
     id="how-to-use"
     eyebrow="How to use"
     title="Run each tool in under five minutes."
-    description="Answer yes/no, tally the results, and use the next-step links to move forward."
+    description="Answer yes or no, count the yes answers, and follow the next-step links for your result."
   >
     <ol class="muted self-defense__steps">
       <li>Pick the tool that matches your situation.</li>

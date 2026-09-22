@@ -428,7 +428,7 @@ export const evalsContent: EvalsContent = {
       slug: "explainability",
       title: "Explainability-for-Accountability Evals",
       description:
-        "Whether LLM explanations are actionable for governance, not just decorative.",
+        "Whether an LLM system's explanations are specific, testable, and traceable enough to hold the system to account.",
       longDescription:
         "Most explainability work measures whether a model can explain itself. This suite measures whether the explanation is useful for someone trying to hold the system accountable. Tests cover explanation specificity, counterfactual testability, owner traceability, consistency, jargon-free language, and confidence transparency.",
       version: "1.0.0",

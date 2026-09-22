@@ -194,7 +194,7 @@ export const navSections: NavSection[] = [
       {
         href: "/glossary",
         label: "Glossary",
-        description: "Definitive terms for accountable systems",
+        description: "Defined terms, each at a stable URL you can cite",
       },
       {
         href: "/taxonomy",
