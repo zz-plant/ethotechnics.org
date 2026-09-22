@@ -151,12 +151,7 @@ const structuredDataJson = JSON.stringify(structuredData);
     anchorLinks={anchorLinks}
   />
 
-  <SectionBlock
-    id="summary"
-    eyebrow="Summary"
-    title="Scope overview"
-    description="Use this statement to align teams on what this taxonomy level includes."
-  >
+  <SectionBlock id="summary" eyebrow="Summary" title="Scope overview">
     <div class="panel">
       <p>{entry.summary}</p>
     </div>
@@ -166,7 +161,6 @@ const structuredDataJson = JSON.stringify(structuredData);
     id="metadata"
     eyebrow="Metadata"
     title="Ownership and readiness"
-    description="Capture the steward, scope, and readiness for this taxonomy level."
     variant="alt"
   >
     <dl class="standard-definitions">
@@ -197,7 +191,6 @@ const structuredDataJson = JSON.stringify(structuredData);
           <CardItem
             eyebrow={artifact.type}
             title={artifact.label}
-            description="Reference this artifact to align delivery and audits."
             descriptionTone="default"
           >
             <p class="muted">
@@ -213,7 +206,6 @@ const structuredDataJson = JSON.stringify(structuredData);
     id="navigation"
     eyebrow="Navigation"
     title="Adjacent taxonomy levels"
-    description="Move between parent, sibling, and child levels for consistent coverage."
     variant="alt"
   >
     <CardGrid className="grid--three">

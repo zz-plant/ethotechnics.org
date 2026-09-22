@@ -8,7 +8,7 @@ import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Automated eligibility denial — Worked example";
 const pageDescription =
-  "Eligibility denial with a named owner, appeal path, and enforceable remedy clocks.";
+  "An automated eligibility denial on an income mismatch, with a receipt, a named owner, an appeal path, and 4, 48, and 120-hour clocks.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -46,7 +46,7 @@ const receiptPayload = `{
     id="receipt"
     eyebrow="Receipt"
     title="Receipt issued at decision time"
-    description="Receipts make the denial traceable and contestable."
+    description="The receipt names the reason code, the owner, and the appeal route, so the applicant can contest the denial."
   >
     <pre class="code-block">{receiptPayload}</pre>
   </SectionBlock>
@@ -55,7 +55,7 @@ const receiptPayload = `{
     id="clocks"
     eyebrow="Clocks"
     title="Visible acknowledgment, review, and remedy clocks"
-    description="Clocks are visible to applicants and reviewers."
+    description="Applicants and reviewers see the same clocks."
     variant="alt"
   >
     <CardGrid className="grid--three">
@@ -81,7 +81,7 @@ const receiptPayload = `{
     id="exceptions"
     eyebrow="Exceptions"
     title="Exceptions must preserve the appeal path"
-    description="Exceptions can delay remedy, but never remove contestation."
+    description="An exception can delay the remedy. It cannot close the appeal."
   >
     <ul class="muted">
       <li>
@@ -100,7 +100,7 @@ const receiptPayload = `{
     id="remedy"
     eyebrow="Remedy"
     title="Remedy path is mandatory"
-    description="Remedy must be visible, time-bound, and actionable."
+    description="The applicant can see the remedy, it runs on the 120-hour clock, and it names the next step."
     variant="alt"
   >
     <ul class="muted">
@@ -114,7 +114,7 @@ const receiptPayload = `{
     id="bindings"
     eyebrow="Bindings"
     title="Bind eligibility decisions to enforceable controls"
-    description="Tie eligibility decisions to evidence packs and bindings."
+    description="Each denial record carries its evidence pack and is checked at a release gate."
   >
     <ul class="muted">
       <li>

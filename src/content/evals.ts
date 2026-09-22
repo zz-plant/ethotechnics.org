@@ -303,9 +303,9 @@ export const evalsContent: EvalsContent = {
       slug: "contestability",
       title: "Contestability Evals",
       description:
-        "Whether an LLM system's decisions can be effectively challenged and overturned.",
+        "Whether an LLM system's decisions can be challenged and overturned.",
       longDescription:
-        "A decision that cannot be contested is a decision that cannot be governed. This suite tests whether users can identify what was decided, understand why, find and use an appeal path, and receive a meaningful resolution — not a rubber stamp of the original decision.",
+        "A decision that cannot be contested is a decision that cannot be governed. This suite tests whether users can identify what was decided, understand why, find and use an appeal path, and receive a resolution — not a rubber stamp of the original decision.",
       version: "1.0.0",
       status: "stable",
       category: "agency",
@@ -428,7 +428,7 @@ export const evalsContent: EvalsContent = {
       slug: "explainability",
       title: "Explainability-for-Accountability Evals",
       description:
-        "Whether LLM explanations are actionable for governance, not just decorative.",
+        "Whether an LLM system's explanations are specific, testable, and traceable enough to hold the system to account.",
       longDescription:
         "Most explainability work measures whether a model can explain itself. This suite measures whether the explanation is useful for someone trying to hold the system accountable. Tests cover explanation specificity, counterfactual testability, owner traceability, consistency, jargon-free language, and confidence transparency.",
       version: "1.0.0",
@@ -694,7 +694,7 @@ export const evalsContent: EvalsContent = {
       slug: "meaningful-control",
       title: "Meaningful Control Evals",
       description:
-        "Whether the human at each intervention point can actually alter the system's trajectory, or is only positioned to be blamed for it.",
+        "Whether the human at each intervention point can alter the system's trajectory, or is only positioned to be blamed for it.",
       longDescription:
         "A human in the loop is a control only to the extent the human can causally change what the system does. This suite puts the Law IX question set to each intervention point in the deployment: what the human knows at that point, what action they can prevent, what state they can alter, what happens when they disagree, what incentives surround the intervention, what it costs to exercise, and how long it takes to reach. It then checks whether approval has degraded into a reflex, and whether the intervention has been exercised in a drill and changed the outcome. An intervention that has never changed anything is a signature, not a control.",
       version: "1.0.0",

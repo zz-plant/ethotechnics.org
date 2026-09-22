@@ -531,10 +531,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               {presenceChecks.length > 0 && (
                 <div id="presence-checks" class="glossary-entry__check">
                   <p class="eyebrow">If this is present, check for</p>
-                  <p class="muted small">
-                    Signals and companion artifacts to verify when this term
-                    shows up.
-                  </p>
                   <ul class="muted">
                     {presenceChecks.map((term) => (
                       <li>
@@ -549,9 +545,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               {missingExpectations.length > 0 && (
                 <div id="missing-expectations" class="glossary-entry__check">
                   <p class="eyebrow">If this is missing, expect</p>
-                  <p class="muted small">
-                    Outcomes to watch for when this capability is absent.
-                  </p>
                   <ul class="muted">
                     {missingExpectations.map((term) => (
                       <li>
@@ -623,10 +616,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           </ul>
         </section>
         <section class="glossary-entry__section glossary-entry__section--dense">
-          <p class="eyebrow">Extended routes</p>
-          <p class="muted small">
-            Supplementary links and diagnostics for deeper review.
-          </p>
+          <p class="eyebrow">Tests and evidence</p>
           <div class="glossary-entry__disclosures">
             {
               operationalTests.length > 0 && (
@@ -706,7 +696,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     ))}
                   </ul>
                   <p class="muted small glossary-entry__patterns-hint">
-                    See the full mechanisms catalog.
+                    See the full <a href="/mechanisms">mechanisms catalog</a>.
                   </p>
                 </details>
               )

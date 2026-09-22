@@ -86,14 +86,14 @@ const breadcrumbItems = [
   <SectionBlock
     id="overview"
     eyebrow="Specification overview"
-    title="At-a-glance details for planning and handoffs."
-    description="Capture the scope, assets, and validator handshakes before diving into the steps."
+    title="What the mechanism includes and where it sits."
+    description="The scope, assets, and linked validators, before the steps."
     variant="alt"
   >
     <div class="grid grid--two mechanisms__spec-grid">
       <div class="panel mechanisms__spec-card">
         <p class="eyebrow">Spec essentials</p>
-        <h3>What ships with this mechanism</h3>
+        <h3>What this mechanism includes</h3>
         <ul class="panel__list">
           <li>{stepCount} steps with checklist-ready owners.</li>
           <li>{assetCount} reusable assets for briefs and runbooks.</li>
@@ -155,7 +155,7 @@ const breadcrumbItems = [
     id="steps"
     eyebrow="Steps"
     title="Put the mechanism in motion."
-    description="Start with the field cues, then use the assets to keep the work legible."
+    description="Start with the field cues. The assets below record each step."
   >
     <div class="pattern-detail__step-summary">
       <p class="muted">
@@ -194,8 +194,8 @@ const breadcrumbItems = [
   <SectionBlock
     id="assets"
     eyebrow="Assets"
-    title="Keep outputs reusable."
-    description="Link or copy these assets into design docs, runbooks, and briefs so the mechanism travels with the work."
+    title="Assets this mechanism produces."
+    description="Copy these into design docs, runbooks, and briefs, with the mechanism permalink."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -237,7 +237,7 @@ const breadcrumbItems = [
     id="example"
     eyebrow="Example usage"
     title={pattern.example.title}
-    description="A concrete scenario to help teams see how the pieces fit together."
+    description="One scenario with each part of the mechanism in place."
   >
     <div class="pattern-detail__example">
       <div class="card card--emphasis">
@@ -255,7 +255,7 @@ const breadcrumbItems = [
         id="anti-patterns"
         eyebrow="Anti-patterns"
         title="Common failure cases and counterfactuals"
-        description="Use these to avoid superficial compliance and clarify what success requires."
+        description="Each case passes on paper and fails in operation. The counterfactual shows what would have worked."
         variant="alt"
       >
         <CardGrid className="grid--two">
@@ -278,8 +278,8 @@ const breadcrumbItems = [
   <SectionBlock
     id="validators"
     eyebrow="Validators"
-    title="Pair validators with this mechanism."
-    description="Use these tools to size risk and keep the stewardship path visible."
+    title="Validators for this mechanism."
+    description="Tools that size the risk this mechanism addresses."
     variant="alt"
   >
     <div class="pattern-detail__diagnostics">

@@ -63,7 +63,7 @@ export type StandardClause = {
 export const standardsContent: StandardsContent = {
   pageTitle: "Standards — Ethotechnics Institute",
   pageDescription:
-    "This page is for governance, policy, and assurance teams. Proposed standards and supporting doctrine, published openly for adoption — status marks editorial maturity; adoption by institutions is what confers authority.",
+    "Proposed standards for consequential decision systems, with status, version, clause counts, and evidence packs. Status marks editorial maturity. Adoption confers authority.",
   permalink: "/standards",
   anchorLinks: [
     { href: "#active", label: "Now active" },
@@ -379,7 +379,7 @@ export const standardsContent: StandardsContent = {
       id: "core-axioms",
       title: "Core axioms",
       description:
-        "First principles for accountable system design and governance.",
+        "The five axioms every standard rests on: finitude, consent, stewardship, reversibility, and legibility.",
       href: "/standards/core-axioms",
       eyebrow: "Doctrine",
       ctaLabel: "View axioms",
@@ -397,7 +397,7 @@ export const standardsContent: StandardsContent = {
       id: "ethotechnics-for-agents",
       title: "Ethotechnics for Agents",
       description:
-        "Mechanism-first practice for implementing STD-01 and STD-02 with enforceable human recourse in real agent systems.",
+        "How to implement STD-01 and STD-02 in agent systems, mechanism by mechanism, with recourse a person can enforce.",
       href: "/standards/ethotechnics-for-agents",
       eyebrow: "Practice",
       ctaLabel: "View practice",
@@ -405,7 +405,8 @@ export const standardsContent: StandardsContent = {
     {
       id: "std-01-mapping-artifact",
       title: "STD-01 mapping artifact",
-      description: "Brandless end-to-end mapping from harm to binding change.",
+      description:
+        "A domain-neutral trace from a harm to the binding change that answers it.",
       href: "/standards/std-01-mapping-artifact",
       eyebrow: "STD-01 reference",
       ctaLabel: "Open mapping",
@@ -414,7 +415,7 @@ export const standardsContent: StandardsContent = {
       id: "std-01-rights-matrix",
       title: "STD-01 rights matrix",
       description:
-        "Crosswalk linking STD-01 rights to validators and mechanisms.",
+        "Each STD-01 right, the validators that test it, and the mechanisms that implement it.",
       href: "/standards/std-01-rights-matrix",
       eyebrow: "STD-01 reference",
       ctaLabel: "View matrix",
@@ -431,7 +432,7 @@ export const standardsContent: StandardsContent = {
       id: "std-01-minimum-binding-set",
       title: "STD-01 minimum binding set",
       description:
-        "Minimum binding requirements per right with clause references.",
+        "The least each STD-01 right requires, with clause references.",
       href: "/standards/std-01-minimum-binding-set",
       eyebrow: "STD-01 reference",
       ctaLabel: "Review binding set",
@@ -440,7 +441,7 @@ export const standardsContent: StandardsContent = {
       id: "where-this-binds",
       title: "Where this binds",
       description:
-        "Guidance for referencing standards in contracts, procurement, and audits.",
+        "How to cite these standards in contracts, procurement terms, and audits.",
       href: "/standards/where-this-binds",
       eyebrow: "Governance",
       ctaLabel: "See guidance",
@@ -457,7 +458,7 @@ export const standardsContent: StandardsContent = {
     {
       id: "glossary",
       title: "Glossary",
-      description: "Immutable terminology and canonical definitions.",
+      description: "Canonical definitions for the terms the standards use.",
       href: "/glossary",
       eyebrow: "Reference",
       ctaLabel: "Browse glossary",

@@ -131,11 +131,11 @@ export function CapacityForecaster() {
           <p className="eyebrow">Technical Capacity Forecaster</p>
           <h2>Simulate decay, remediation, and refusal windows.</h2>
           <p className="muted">
-            Blend operational metrics with a refusal runway to see where
-            delivery capacity saturates. The model applies compound decay to a
-            24-month horizon and highlights the first saturation point on the
-            chart. Use compare mode to visualize two scenarios side-by-side and
-            export JSON snapshots for stakeholder review.
+            Combine operational metrics with a refusal runway to see when
+            delivery capacity saturates. The model applies compound monthly
+            decay over 24 months and marks the first saturation point on the
+            chart. Compare mode shows two scenarios side by side, and each can
+            be exported as a JSON snapshot.
           </p>
         </div>
         <div className="forecaster__header-tools">

@@ -78,7 +78,7 @@ const adoptedStandards: StandardsCardModel[] = [
     eyebrow: "Meta-critique",
     title: "Governance by control",
     description:
-      "The core Ethotechnics critique: representation without enforceable control planes.",
+      "The Ethotechnics critique: representation without enforceable control planes.",
     href: "/standards/meta-critique",
   },
 ];

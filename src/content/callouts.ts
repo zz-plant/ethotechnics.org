@@ -19,7 +19,7 @@ export const instituteStudioCallout: ReferenceCalloutContent = {
 export const diagnosticsStudioOffRampCallout: ReferenceCalloutContent = {
   title: "Need to escalate?",
   summary:
-    "Result pages include the off-ramp to ethotechnics.com so teams can escalate when scores are risky or unclear.",
+    "Each result page links to the Studio at ethotechnics.com, for results that show high risk or that your team cannot interpret.",
   href: "/institute/how-studio-fits",
   linkLabel: "Read more",
   ariaLabel: "Read more about Studio escalation paths",

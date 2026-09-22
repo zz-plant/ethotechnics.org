@@ -19,14 +19,12 @@ const featuredValidators = validators.slice(0, 2);
 const focusGroups = [
   {
     title: "Time burden & friction",
-    description:
-      "Validators that surface constructive denial and high-friction risk.",
+    description: "Constructive denial and friction across a user journey.",
     validators: validators.slice(0, 2),
   },
   {
     title: "Latency & bounded duration",
-    description:
-      "Validators that confirm time limits and escalation readiness.",
+    description: "Declared timeouts, observed latency, and human escalation.",
     validators: validators.slice(2, 3),
   },
 ];
@@ -64,7 +62,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <PageIntro
     eyebrow="Validators"
     title="Validators"
-    description="Run diagnostic validators that output report cards and corrective mechanisms."
+    description="Each validator takes three inputs and returns a report card with a status, the implicated clauses, and a corrective mechanism."
     anchorLinks={anchorLinks}
     illustration="validators"
   >
@@ -85,8 +83,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="featured"
     eyebrow="Start here"
-    title="Featured validators for a fast report card."
-    description="Run one of these first to get a quick score and remediation path."
+    title="Start with the burden validators."
+    description="VAL-01 and VAL-02 score the time and friction a journey puts on the person using it."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -161,8 +159,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="focus"
     eyebrow="Browse by focus"
-    title="Pick the validator that matches your highest-risk touchpoint."
-    description="Use these focus groups to scan the right validator quickly."
+    title="Validators grouped by what they check."
+    description="Burden and friction on one side, latency and bounded duration on the other."
   >
     <CardGrid className="grid--two">
       {
@@ -218,10 +216,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <section id="from-outputs" class="section">
     <div class="section__header">
       <p class="eyebrow">From outputs</p>
-      <h2>Cross-link to rights and mechanisms</h2>
+      <h2>Rights and mechanisms behind the outputs</h2>
       <p class="muted">
-        Jump from validator outputs to the rights they protect and the
-        mechanisms that enforce remediation.
+        The STD-01 rights each validator checks, and the mechanisms that carry
+        out remediation.
       </p>
     </div>
     <div class="library__role-buttons">

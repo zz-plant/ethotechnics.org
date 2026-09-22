@@ -55,7 +55,7 @@ export const anchorLinks = [
 
 export const summaryTakeaways = [
   "Align agent capabilities with explicit action classes and receipts.",
-  "Move ethics conversations from intent claims to enforceable controls, deadlines, and clear appeal paths.",
+  "Replace claims about intent with controls, deadlines, and appeal paths that someone can check.",
   "Use failure-first controls like kill switches, hard clocks, and rollback paths.",
   "Anchor remediation with contestability paths and evidence packs.",
 ];
@@ -288,7 +288,7 @@ export const practiceSections: PracticeSection[] = [
   {
     id: "contestability",
     eyebrow: "Practice 4",
-    title: "Make contestability tangible",
+    title: "Show people how to contest",
     summary:
       "People must see how to contest, reverse, and seek remedy when automation impacts them.",
     requirements: [

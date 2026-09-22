@@ -15,9 +15,9 @@ test.describe("404 Error Page", () => {
     // Check for specific 404 content elements
     await expect(page.locator(".page-404")).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Coordinates Not Found" }),
+      page.getByRole("heading", { name: "Page not found" }),
     ).toBeVisible();
-    await expect(page.getByText("Signal Lost")).toBeVisible();
+    await expect(page.getByText("Error 404", { exact: true })).toBeVisible();
 
     // Check the return link works
     await page.getByRole("link", { name: "Return Home" }).click();

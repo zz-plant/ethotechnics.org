@@ -117,7 +117,7 @@ export const antiPatterns = [
     counterfactual:
       "The composed window is measured from decision records, and a chain that leaves no human window cannot run unattended.",
     warning:
-      "Parallel claims about latency must be checked against whether the hops actually run in series.",
+      "Parallel claims about latency must be checked against whether the hops run in series.",
   },
   {
     title: "The counterparty that changed",
@@ -480,8 +480,8 @@ export const structuredData = {
       <section id="anti-patterns" class="standard-section">
         <h2>Anti-patterns and counterfactuals</h2>
 
-        Use these to detect chains whose hops satisfy STD-07 and STD-08
-        while the composition satisfies nothing.
+        These detect chains whose hops satisfy STD-07 and STD-08 while the
+        composition satisfies nothing.
 
         <ul class="standard-clauses">
           {antiPatterns.map((pattern) => (

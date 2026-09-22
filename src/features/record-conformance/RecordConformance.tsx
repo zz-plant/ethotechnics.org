@@ -145,7 +145,7 @@ function RecordConformance() {
               or whatever the system publishes about itself. The declaration is
               found by shape, so it does not matter how deep it is nested. When
               one is present it supplies the level, and the kinds it claims are
-              checked against the kinds actually in the stream.
+              checked against the kinds in the stream.
             </span>
           </label>
           <textarea
@@ -193,7 +193,7 @@ function RecordConformance() {
           <p className="record-conformance__hint">
             {manifest.trim()
               ? "The manifest is supplying the declared level, so the selector is off. Clear the manifest to set one by hand."
-              : "Set the level by hand only when the system publishes no manifest. A declaration read from the artifact the emitter actually serves is the one worth contradicting."}{" "}
+              : "Set the level by hand only when the system publishes no manifest. A declaration read from the artifact the emitter serves is the one worth contradicting."}{" "}
             Leave the time blank to use now. Set it to when the stream was
             exported so a clock is judged against the emitter's lateness rather
             than the reviewer's.

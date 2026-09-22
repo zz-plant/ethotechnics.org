@@ -104,11 +104,11 @@ const riskLabels: Record<RiskLevel, string> = {
 };
 
 const riskDescriptions: Record<RiskLevel, string> = {
-  steady: "Light rehearsal with minimal load—use for routine windows.",
+  steady: "Light rehearsal with minimal load. Use for routine windows.",
   elevated:
-    "Extra scrutiny on coverage—use when signals are noisy or timelines are tight.",
+    "Extra scrutiny on coverage. Use when signals are noisy or timelines are tight.",
   critical:
-    "High-stress branch—use when the team is thinly staffed or outages are likely.",
+    "High-stress branch. Use when the team is thinly staffed or outages are likely.",
 };
 
 const TemplateSummary = ({ template }: { template: ScenarioTemplate }) => (
@@ -160,8 +160,8 @@ const ReadinessPanel = ({
           <h3 id="readiness-title">{readinessScore}% ready to run</h3>
           <p className="muted">
             Score drops when required owners, halt lanes, or communication
-            templates are missing. Use the toggles to calibrate readiness before
-            you schedule a simulation.
+            templates are missing. Toggle each item you have in place before you
+            schedule a simulation.
           </p>
         </div>
       </div>
@@ -339,8 +339,8 @@ const CommunicationTable = ({ template }: { template: ScenarioTemplate }) => {
           <p className="eyebrow">Communications</p>
           <h3 id="communications-title">Keep communications on cadence</h3>
           <p className="muted">
-            Pair each status update with the owner roster and how to appeal.
-            Reuse these templates to keep teams aligned during the run.
+            Each status update carries the owner roster and the appeal route.
+            Reuse the templates for every update during the run.
           </p>
         </div>
       </div>
@@ -544,9 +544,9 @@ const MaintenanceSimulator = () => {
         <p className="eyebrow">Maintenance simulator</p>
         <h2 id="simulator-heading">Tabletop the outage, maintenance window, and handoff</h2>
         <p className="muted">
-          Use this simulator to rehearse coverage, communication, and halt
-          decisions before you schedule a live window. Pick a scenario, set the
-          stress level, and close the gaps before you run.
+          Rehearse coverage, communication, and halt decisions before you
+          schedule a live window. Pick a scenario, set the stress level, and
+          close the gaps before you run.
         </p>
         <div className="simulator__selectors">
           <label className="simulator__selector">
@@ -594,8 +594,9 @@ const MaintenanceSimulator = () => {
                   role="tooltip"
                   className="simulator__tooltip-content"
                 >
-                  Presets define the score bands that trigger watch or act-now
-                  actions. Choose the profile that matches your risk appetite.
+                  Presets set the score bands that trigger watch or act-now
+                  actions: lower bands for time-critical restoration, higher
+                  bands for regulated or high-impact systems.
                 </span>
               </span>
             </span>

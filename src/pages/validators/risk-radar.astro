@@ -25,7 +25,7 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
 
 <BaseLayout
   title="Risk Radar Validator — Detect High-Friction Exposure Early"
-  description="Map cumulative user-risk exposure across high-friction touchpoints and generate a standards-linked remediation report card for accountable intervention."
+  description="Scores cumulative exposure from high-friction touchpoints, average wait, and appeal coverage, and returns a report card linked to STD-01 and MEC-06."
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
   structuredDataType="webpage"
@@ -37,8 +37,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         <p class="validator__id">VAL-02</p>
         <h1>Risk Radar</h1>
         <p class="muted">
-          Snapshot exposure across touchpoints to identify where constructive
-          denial clusters.
+          Counts friction and waiting across touchpoints to show where
+          constructive denial clusters.
         </p>
       </div>
       <a class="validator__standard" href="/standards/std-01-temporal-rights">
@@ -63,8 +63,8 @@ const validatorMetaJson = JSON.stringify(validatorMeta);
         >
       </div>
       <p class="muted small">
-        After generating the report card, move directly to appeal-path
-        implementation and then download the JSON artifact for handoff.
+        After the report card, implement the appeal path, then download the JSON
+        for handoff.
       </p>
       <p class="muted small">
         Next steps: <a href="/mechanisms/patterns/appeal-paths"

@@ -610,7 +610,7 @@ export function DelegationAudit() {
                   className="delegation-audit__label"
                   htmlFor="da-alternative"
                 >
-                  When was the alternative last actually run
+                  When was the alternative last run
                 </label>
                 <select
                   id="da-alternative"

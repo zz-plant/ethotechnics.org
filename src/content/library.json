@@ -1,7 +1,7 @@
 [
   {
     "pageTitle": "Mechanisms — Ethotechnics Institute",
-    "pageDescription": "Specification-ready mechanisms for accountable systems, with cited primers, glossary entries, and reusable safeguards.",
+    "pageDescription": "Numbered mechanisms (MEC-xx) for halting, contesting, and correcting delegated decisions, each with steps, audit evidence, and a postmortem trigger.",
     "permalink": "/mechanisms",
     "published": "2025-12-03T00:00:00Z",
     "updated": "2026-01-09T00:00:00Z",
@@ -41,11 +41,11 @@
       "Skim the primer for a 5-minute orientation and shared vocabulary.",
       "Jump to the glossary for stable definitions you can cite immediately.",
       "Use the mechanism filters to pull the right safeguards for your scenario.",
-      "Cite the permalinks in papers, policy memos, or peer reviews to anchor legitimacy."
+      "Cite the permalinks in papers, policy memos, or peer reviews."
     ],
     "recommended": {
       "title": "Recommended starters",
-      "description": "Three high-signal mechanisms teams reuse most often when onboarding or auditing a system.",
+      "description": "Three mechanisms to read first when onboarding a team or auditing a system.",
       "items": [
         {
           "title": "MEC-01 Decision log with dissent",
@@ -59,14 +59,14 @@
         },
         {
           "title": "MEC-03 Maintenance windowing",
-          "description": "Plan downtime and comms so stewardship stays visible.",
+          "description": "Publish each maintenance window with its owner, its notices, and its fallback.",
           "href": "/mechanisms/patterns/maintenance-windowing"
         }
       ]
     },
     "rolePathways": {
       "title": "Role-based pathways",
-      "description": "Pick the role that matches your responsibilities to jump to the most relevant guides.",
+      "description": "Reading lists for engineers, product managers, and regulators.",
       "roles": [
         {
           "id": "engineer",
@@ -98,7 +98,7 @@
         {
           "id": "product-manager",
           "label": "I'm a Product Manager",
-          "summary": "Design consent, appeals, and accountability into the user journey.",
+          "summary": "Design consent, appeals, and a named owner into the user journey.",
           "items": [
             {
               "title": "MEC-02 Progressive consent prompts",
@@ -107,7 +107,7 @@
             },
             {
               "title": "MEC-06 Appeal paths inside the UI",
-              "description": "Bake dispute routes and human review into the experience.",
+              "description": "Put the dispute route and human review inside the product.",
               "href": "/mechanisms/patterns/appeal-paths"
             },
             {
@@ -149,18 +149,18 @@
     "primer": [
       {
         "title": "Primer",
-        "summary": "Short explainers teams can skim before working with the rest of the mechanisms.",
+        "summary": "What to read before using the mechanisms.",
         "takeaways": [
           "Why burden, consent, and stewardship matter for socio-technical systems.",
-          "How to align governance artifacts with the lived experience of the people using your product.",
+          "How to check governance artifacts against what the people using your product go through.",
           "What “mechanism language” means for UI safeguards, facilitation prompts, and escalation design."
         ]
       },
       {
         "title": "Usage guidance",
-        "summary": "How to adapt the materials to your org without slowing delivery.",
+        "summary": "How to adapt the mechanisms to your organization.",
         "takeaways": [
-          "Each section ships with permalinks; link directly in design docs or runbooks to keep teams aligned.",
+          "Each section has a permalink to cite in design docs and runbooks.",
           "Filters call out whether a mechanism is governance-first, friction guidance, or a policy control.",
           "Glossary terms stay stable so research, field notes, and diagnostics can cross-link without drift."
         ]
@@ -176,7 +176,7 @@
         {
           "slug": "friction",
           "label": "Friction",
-          "description": "Consent prompts, appeal paths, and humane defaults that keep interfaces accountable."
+          "description": "Consent prompts, appeal paths, and reversible defaults built into the interface."
         },
         {
           "slug": "policy",
@@ -247,7 +247,7 @@
         {
           "slug": "decision-log",
           "title": "MEC-01 Decision log with dissent",
-          "summary": "Capture high-stakes calls, dissenting views, and follow-ups so governance stays legible to teams and impacted people.",
+          "summary": "Record consequential decisions with the dissent, the options ruled out, and a dated follow-up, so the team and the people affected can see why each was made.",
           "filters": ["governance", "policy"],
           "glossaryRefs": ["design-authority", "repair-log", "contestability"],
           "cues": [
@@ -301,7 +301,7 @@
         {
           "slug": "progressive-consent",
           "title": "MEC-02 Progressive consent prompts",
-          "summary": "Stage requests for data or automation over time, with reminders and exits that honor the consent journey.",
+          "summary": "Stage requests for data or automation over time, with a reminder and an exit at each step of the consent journey.",
           "filters": ["friction", "policy"],
           "glossaryRefs": [
             "consent-journey",
@@ -483,7 +483,7 @@
             "time-to-halt"
           ],
           "cues": [
-            "Define triggers tied to moral performance indicators and frontline reports.",
+            "Define triggers tied to harm indicators and frontline reports.",
             "Name the people who can fire the switch and protect them from retaliation.",
             "Rehearse rollbacks so halts land in reversible, well-communicated states."
           ],
@@ -493,7 +493,7 @@
             "Set tripwires for ethical interrupts that align with time-to-halt targets.",
             "Run drills that practice firing, communicating, and restoring from the halt."
           ],
-          "policyRequirement": "Policy requirement (MEC-05 Kill switch for runaway automation)\n- Maintain a pre-authorized halt path with a named roster and protection from retaliation.\n- Publish tripwires tied to moral performance indicators and time-to-halt targets.\nReference: https://ethotechnics.org/mechanisms/patterns/kill-switch",
+          "policyRequirement": "Policy requirement (MEC-05 Kill switch for runaway automation)\n- Maintain a pre-authorized halt path with a named roster and protection from retaliation.\n- Publish tripwires tied to harm indicators and time-to-halt targets.\nReference: https://ethotechnics.org/mechanisms/patterns/kill-switch",
           "productRequirement": "Product requirement (MEC-05)\n- The kill switch is reachable within one operational step from monitoring dashboards.\n- Halt events emit receipts with owner, trigger, and restoration checklist links.",
           "auditEvidenceChecklist": "Audit evidence checklist (MEC-05)\n[ ] Kill switch runbook names authorized operators and triggers.\n[ ] Drill logs demonstrate time-to-halt performance.\n[ ] Rollback checklists show safe restoration steps.",
           "postmortemTrigger": "Postmortem trigger (MEC-05)\nTrigger review when time-to-halt targets are exceeded or the kill switch is unavailable.",
@@ -543,7 +543,7 @@
           "cues": [
             "Explain who reviews appeals and the expected response time.",
             "Pre-fill context to reduce effort during stressful moments.",
-            "Track appeal outcomes to improve signal credibility."
+            "Track appeal outcomes so the reversal rate is on record."
           ],
           "diagnostics": ["burden-modeler", "maintenance-simulator"],
           "steps": [
@@ -571,7 +571,7 @@
           ],
           "example": {
             "title": "Adding appeals to a risk scoring tool",
-            "description": "The team adds an on-screen “Dispute this score” link with expected response times, routes submissions to a staffed rota, and logs turnaround data to improve credibility with regulators."
+            "description": "The team adds an on-screen “Dispute this score” link with expected response times, routes submissions to a staffed rota, and logs turnaround data it can show regulators."
           },
           "antiPatterns": [
             {
@@ -591,7 +591,7 @@
         {
           "slug": "accountability-latency-tracker",
           "title": "MEC-07 Accountability latency tracker",
-          "summary": "Measure how quickly teams can intervene, halt, and restore systems when accountability is on the line.",
+          "summary": "Measure how long teams take to intervene in, halt, and restore a system after a trigger fires.",
           "filters": ["governance", "policy"],
           "glossaryRefs": [
             "prospective-auditability",
@@ -1031,7 +1031,7 @@
         {
           "slug": "withdrawal-rehearsal",
           "title": "MEC-15 Withdrawal rehearsal",
-          "summary": "Run the workflow without the system on a schedule and measure what withdrawal would actually cost at the technical, operational, and institutional levels.",
+          "summary": "Run the workflow without the system on a schedule and measure what withdrawal would cost at the technical, operational, and institutional levels.",
           "filters": ["governance", "policy"],
           "glossaryRefs": [
             "right-of-exit",
@@ -1196,7 +1196,7 @@
             },
             {
               "title": "Catalog without verification",
-              "failure": "Capabilities are listed from documentation, so the catalog describes intent rather than what the system can actually do.",
+              "failure": "Capabilities are listed from documentation, so the catalog describes intent rather than what the system can do.",
               "counterfactual": "Each entry records how the capability was tested and when.",
               "warning": "Verification can be sampled; the record should say which entries are asserted rather than tested."
             }
@@ -1414,7 +1414,7 @@
           "antiPatterns": [
             {
               "title": "Admission by momentum",
-              "failure": "The system runs because someone built it, and stopping now is more expensive than starting was, so the question is never actually asked.",
+              "failure": "The system runs because someone built it, and stopping now is more expensive than starting was, so the question is never asked.",
               "counterfactual": "The admission decision exists with a date, a decider, and evidence taken before the grant.",
               "warning": "A small pilot still needs a recorded admission; the record is what makes expansion a decision later."
             },
@@ -1514,7 +1514,7 @@
             "Pairing diagnostics with mechanism rollout",
             "Designing safety valves for high-burden scenarios"
           ],
-          "outcome": "Leadership aligns on accountable maintenance plans backed by diagnostic evidence."
+          "outcome": "Leadership agrees a maintenance plan with named owners, backed by diagnostic evidence."
         }
       ]
     },

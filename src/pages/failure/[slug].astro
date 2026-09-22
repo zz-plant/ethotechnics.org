@@ -73,7 +73,7 @@ const workflowStages: {
     key: "stabilize",
     title: "Stabilize",
     description:
-      "Constrain harmful flow paths while ownership and escalation coverage are active.",
+      "Stop or narrow the harmful flow while the owner and the escalation path are in place.",
     artifact: pickArtifact(["escalation-ladder-freeze-authority"]),
     diagnosticsHref: "/diagnostics/maintenance-simulator",
     diagnosticsLabel: "Open escalation simulation",
@@ -86,7 +86,7 @@ const workflowStages: {
     key: "evidence",
     title: "Evidence",
     description:
-      "Capture records and evidence packs so repair obligations are auditable and time-bound.",
+      "Assemble the records and the evidence pack, so each repair obligation can be audited against its clock.",
     artifact: pickArtifact(["harm-receipt-format"]),
     diagnosticsHref: "/diagnostics/record-conformance",
     diagnosticsLabel: "Check record conformance",
@@ -122,8 +122,9 @@ const breadcrumbItems = [
     <div class="panel stack-sm">
       <p class="eyebrow">Next required artifact</p>
       <p class="muted">
-        Start with <strong>{orderedWorkflowStages[0]?.artifact.name}</strong> to lock
-        owner, evidence scope, and reversal path before response drifts.
+        Start with <strong>{orderedWorkflowStages[0]?.artifact.name}</strong>.
+        It fixes the owner, the evidence scope, and the reversal path before the
+        response drifts.
       </p>
       <ol class="small muted">
         <li>Assign the accountable owner now.</li>

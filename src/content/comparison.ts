@@ -35,13 +35,13 @@ export const instituteStudioComparisonContent: InstituteStudioComparisonContent 
     eyebrow: "Where to start",
     heading: "Institute or Studio?",
     description:
-      "Ethotechnics.org is the Institute: open guides and diagnostics you can run yourself. Studio = facilitated engagements when you need a delivery partner.",
+      "Ethotechnics.org is the Institute: open guides and diagnostics you can run yourself. The Studio runs facilitated engagements when you need a delivery partner.",
     cards: [
       {
         eyebrow: "Institute",
         title: "Open guidance and self-serve diagnostics.",
         description:
-          "Use the open-source mechanisms catalog to align teams and run diagnostics when you want a quick readiness pulse.",
+          "Work from the open-source mechanisms catalog, and run a diagnostic yourself for a first reading of readiness.",
         actions: [
           {
             label: "Browse mechanisms",

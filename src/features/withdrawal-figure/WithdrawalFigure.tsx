@@ -192,7 +192,7 @@ export function WithdrawalFigure() {
             </button>
             <p className="withdraw__switch-text">
               {thrown
-                ? "Pressed. Here is what happened at each level."
+                ? "Pressed. What happened at each level:"
                 : "Press it. The technical level answers in 200 ms. The other two take longer to find out."}
             </p>
           </div>
