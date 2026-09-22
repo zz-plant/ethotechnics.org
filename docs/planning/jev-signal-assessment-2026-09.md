@@ -1,8 +1,10 @@
 # Signal assessment: Jev and typed decision models (2026-09)
 
-Status: **research note, no site content changed.** Written 2026-09-22, one week after Jev's early
-access release. Every product claim below is vendor-reported unless marked otherwise. Treat this note
-as stale after 2026-12-31 or after the first independent benchmark, whichever comes first.
+Status: **problem spaces addressed 2026-09-22.** Written 2026-09-22, one week after Jev's early
+access release. The seven problem spaces below are now covered by standards clauses, eval cases,
+glossary terms, and an explainer; see [Where each problem space was addressed](#where-each-problem-space-was-addressed).
+Every product claim below is vendor-reported unless marked otherwise. Treat the product facts as stale
+after 2026-12-31 or after the first independent benchmark, whichever comes first.
 
 ## Summary
 
@@ -213,12 +215,31 @@ Ordered by effort, smallest first.
 - **Building on vendor benchmarks.** Accuracy, speed, and calibration figures are TypeSafe's own, from
   workflows TypeSafe built. Any public page should say so.
 
-## Open questions for the maintainers
+## Where each problem space was addressed
 
-- Should reason substitution become a clause in STD-02, or an explainer first?
-- Is "micro-decision aggregation" a standards question, or a diagnostics question for the Delegation
-  Audit?
-- Does the decision record extension belong in the current reconstruction plan or the next one?
+| Problem space                           | Clause      | Eval case | Other                                 |
+| --------------------------------------- | ----------- | --------- | ------------------------------------- |
+| 1. The threshold is the grant           | STD-08 §2.6 | DEL-010   | Glossary: decision threshold          |
+| 2. Micro-decisions below the line       | STD-09 §1.5 | CHN-003   | Glossary: shaping hop                 |
+| 3. Reason substitution                  | STD-02 §1.4 | EXP-011   | Glossary: reason substitution         |
+| 4. Delegation of the choice of delegate | STD-09 §1.6 | CHN-004   | Glossary: shaping hop                 |
+| 5. Adversarial evidence in the state    | STD-08 §1.5 | AGT-013   | None                                  |
+| 6. Review queues shaped by confidence   | STD-08 §3.6 | CTL-010   | None                                  |
+| 7. Institutional speed mismatch         | STD-02 §8.6 | STA-013   | Builds on the challenge density essay |
+
+All seven are also drawn together in the explainer
+[Typed decision models and where their authority lives](/explainers/typed-decision-models). The
+standards moved to STD-02 v1.2, STD-08 v0.3, and STD-09 v0.2. The eval catalogue moved to v1.6.0 and
+the glossary to v1.11.0.
+
+The open questions this note raised were settled as follows.
+
+- **Reason substitution** became a clause in STD-02 Article I, because the reasons clauses already
+  existed and only lacked the requirement that a reason be causally connected to the decision.
+- **Micro-decision aggregation** became a standards question in STD-09 Part A. A hop that shapes a
+  decision is enumerated like any other hop, and its consequence is assessed in aggregate.
+- **The decision record extension** is still open. The new clauses name what a record must carry,
+  but no schema field was added. That change belongs with the reconstruction plan's schema review.
 
 ## Sources
 

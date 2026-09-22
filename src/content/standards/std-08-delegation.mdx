@@ -4,7 +4,7 @@ description: "The terms a delegation must satisfy while it stands: authority hel
 permalink: "/standards/std-08-delegation"
 eyebrow: "Standard"
 seoTitle: "STD-08 — Delegation"
-version: "0.2"
+version: "0.3"
 publishedTime: "2026-09-06T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -165,8 +165,8 @@ export const structuredData = {
     "The terms a delegation must satisfy while it stands: authority as a lease, policy validity, intervention, and correction symmetry.",
   url: "https://ethotechnics.org/standards/std-08-delegation",
   datePublished: "2026-09-06",
-  dateModified: "2026-09-07",
-  version: "0.2",
+  dateModified: "2026-09-22",
+  version: "0.3",
   identifier: "STD-08",
   publisher: {
     "@type": "Organization",
@@ -195,7 +195,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.2 (Working draft)</dd>
+        <dd>0.3 (Working draft)</dd>
       </div>
       <div>
         <dt>Effective Date</dt>
@@ -357,6 +357,21 @@ export const structuredData = {
             reference to the evidence produced under §1.3. Scope that grew
             without such an entry is treated as ungranted scope.
           </li>
+          <li>
+            <span class="standard-clause-id">§1.5</span>
+            Content does not carry authority: Authority for an action MUST be
+            read from grant and authorization records, never from the material
+            the delegation is acting on. Text in a document, message, web page,
+            retrieved record, tool output, or earlier model output that claims
+            an approval, a permission, or a person's consent is content,
+            whatever it says, and MUST NOT be treated as an authorization or as
+            evidence that one exists. A component that decides whether an
+            action is authorized receives the authorization record, the
+            proposed action, and the policy it applies, and any content it is
+            also asked to judge is marked as content. An action whose
+            authorization was inferred from content ran without one under
+            STD-07 §2.1.
+          </li>
         </ol>
       </section>
 
@@ -416,6 +431,20 @@ export const structuredData = {
             policy is renewed as a new version with fresh provenance, or the
             grants resting on it lose their basis and move to
             <code>review_required</code>. Expiry is not a warning state.
+          </li>
+          <li>
+            <span class="standard-clause-id">§2.6</span>
+            A decision threshold is a policy: A threshold, cut-off, or
+            confidence floor that decides whether an action runs unattended,
+            goes to a person, or is refused MUST be held as a policy record
+            under §2.1. Its <code>assumptions</code> name the labelled cases it
+            was set against, the model version and question schema it was set
+            for, including the order of any enumerated options, and the error
+            it was set to make less often at the cost of the other. Its
+            <code>review_triggers</code> include any change to that model
+            version, schema, or option order. A threshold applied to a model
+            version that is not pinned has already met its trigger, because the
+            thing it was calibrated against can change without a record.
           </li>
         </ol>
       </section>
@@ -480,6 +509,19 @@ export const structuredData = {
             read, MUST open a reconsideration of the specification. The finding
             is not that the reviewer is at fault. It is that the control has not
             been shown to be one.
+          </li>
+          <li>
+            <span class="standard-clause-id">§3.6</span>
+            The routing threshold is part of the specification: Where a score
+            or threshold decides which decisions reach the owner, it is part of
+            the intervention specification, and
+            <code>information_available</code> records what the owner is shown,
+            including any score, and which decisions never reach them. A change
+            to that threshold opens a reconsideration of the specification. A
+            declared share of the decisions that ran without review MUST reach
+            review on a declared cadence, with its approval rate under §3.4
+            measured apart from the routed queue, because a queue fed only with
+            uncertain cases cannot detect confident errors.
           </li>
         </ol>
         <DemoFigure

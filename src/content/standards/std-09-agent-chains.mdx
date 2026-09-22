@@ -4,7 +4,7 @@ description: "The terms a chain of delegations must satisfy when a consequential
 permalink: "/standards/std-09-agent-chains"
 eyebrow: "Standard"
 seoTitle: "STD-09 — Agent Chains"
-version: "0.1"
+version: "0.2"
 publishedTime: "2026-09-11T00:00:00.000Z"
 mainClass: "page page--wide standard-document"
 anchorLinks:
@@ -139,8 +139,8 @@ export const structuredData = {
     "The terms a chain of delegations must satisfy: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop.",
   url: "https://ethotechnics.org/standards/std-09-agent-chains",
   datePublished: "2026-09-11",
-  dateModified: "2026-09-11",
-  version: "0.1",
+  dateModified: "2026-09-22",
+  version: "0.2",
   identifier: "STD-09",
   publisher: {
     "@type": "Organization",
@@ -169,7 +169,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>0.1 (Working draft)</dd>
+        <dd>0.2 (Working draft)</dd>
       </div>
       <div>
         <dt>Effective Date</dt>
@@ -328,6 +328,28 @@ export const structuredData = {
             default reward for expansion applies one boundary further out
             than the hop whose numbers improved.
           </li>
+          <li>
+            <span class="standard-clause-id">§1.5</span>
+            Shaping hops are hops: A hop that routes, orders, ranks, filters,
+            or drops the cases, inputs, or evidence a consequential decision is
+            made on contributes to that decision and is enumerated under §1.1,
+            however small each of its outputs looks alone. Its consequence is
+            assessed on what its outputs do together: whose case waits, which
+            evidence the decider never sees, which applicant never reaches a
+            person. A classifier kept out of the chain because no single output
+            is consequential is a hop nobody granted.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.6</span>
+            A selecting hop enumerates its range: A hop that chooses at run
+            time which delegate makes a decision is a delegation whose scope is
+            the set it may choose from. Every delegate in that set is
+            enumerated under §1.1 as if it ran on every decision, each decision
+            record names the delegate that actually decided, and adding a
+            delegate to the set is a chain event under §1.4. A chain whose
+            composition differs per request is enumerated by its range, not by
+            the path any one request took.
+          </li>
         </ol>
       </section>
 
@@ -481,6 +503,12 @@ export const structuredData = {
       <section id="publication-history" class="standard-section">
         <h2>Publication history</h2>
         <ul>
+          <li>
+            <strong>v0.2 (2026-09-22):</strong> Adds two clauses on hops that
+            shape a decision rather than make it. A hop that routes, ranks, or
+            filters what the decider sees is enumerated (§1.5), and a hop that
+            selects the delegate at run time enumerates its whole range (§1.6).
+          </li>
           <li>
             <strong>v0.1 (2026-09-11):</strong> Working draft. Adds the chain
             as a delegation: enumerated hops on the head grant, liability
