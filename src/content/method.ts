@@ -97,6 +97,7 @@ export const methodContent: MethodContent = {
         "STD-07 belief records, with what they rest on and what would invalidate them",
         "STD-08 Part B: the policies a grant rests on are records with provenance, review triggers, and an expiry, and an expired policy stops justifying the grant",
         "Record Conformance Checker: grades whether an exported record stream states what would invalidate its beliefs",
+        "STD-08 §2.6: a decision threshold is a policy record, pinned to the model version, question schema, and option order it was tuned against",
       ],
       links: [
         { label: "Evidence packs", href: "/evidence-packs" },
@@ -128,6 +129,7 @@ export const methodContent: MethodContent = {
         "STD-07 Article II: every action names the authorization it ran under, and a delegation with no revocation conditions is a transfer",
         "STD-08 Part A: a grant is a lease, renewal states its evidence in advance, and widening scope is a new authorization",
         "Delegation Audit: names the action classes nobody can ground in a grant",
+        "STD-08 §1.5: authority is read from grant and authorization records, never from content the delegation acts on",
       ],
       links: [
         {
@@ -155,6 +157,8 @@ export const methodContent: MethodContent = {
         "Agent receipt schema",
         "MEC-01 decision log with dissent",
         "STD-07 action records, pinned to their authorization",
+        "typed_judgment on the decision record: the pinned decider, the questions it answered, what it returned, and where any reason came from",
+        "STD-02 §1.4: a reason states what the decision rested on, and an explanation written afterwards is labelled as an account",
       ],
       links: [
         {
@@ -195,6 +199,7 @@ export const methodContent: MethodContent = {
         "Minimum viable contestability: standing, reasons, records, timelines, remedies, non-retaliation",
         "Appeal event schema",
         "MEC-06 appeal paths and MEC-08 contestation APIs",
+        "STD-02 §8.6: a class whose expected errors outrun the capacity to answer them is uncontestable in practice",
       ],
       links: [
         {

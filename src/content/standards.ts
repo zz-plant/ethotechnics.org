@@ -101,10 +101,16 @@ export const standardsContent: StandardsContent = {
       description:
         "Defines contestability, review, and remedy obligations for consequential systems.",
       status: "Draft",
-      version: "1.1",
+      version: "1.2",
       changelogHref:
         "/standards/std-02-contestability-recourse#publication-history",
       changelogEntries: [
+        {
+          version: "1.2",
+          date: "2026-09-22",
+          summary:
+            "Adds reasons that belong to the decision, with explanations written afterwards labelled as accounts (§1.4), and bounds a decision class's issue rate by the responder's capacity to answer (§8.6).",
+        },
         {
           version: "1.1",
           date: "2026-09-07",
@@ -312,9 +318,15 @@ export const standardsContent: StandardsContent = {
       description:
         "The terms a delegation must satisfy while it stands: authority held as a lease, policy kept valid, oversight resolved to an intervention specification, and correction capacity kept proportional to authority.",
       status: "Draft",
-      version: "0.2",
+      version: "0.3",
       changelogHref: "/standards/std-08-delegation#relationship-to-std-07",
       changelogEntries: [
+        {
+          version: "0.3",
+          date: "2026-09-22",
+          summary:
+            "Adds three clauses for typed decision models: content does not carry authority (§1.5), a decision threshold is a policy (§2.6), and a routing threshold is part of the intervention specification (§3.6).",
+        },
         {
           version: "0.2",
           date: "2026-09-07",
@@ -340,9 +352,15 @@ export const standardsContent: StandardsContent = {
       description:
         "The terms a chain of delegations must satisfy when a consequential decision is produced by sub-contracted agents and services that no single human oversees: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop.",
       status: "Draft",
-      version: "0.1",
+      version: "0.2",
       changelogHref: "/standards/std-09-agent-chains#publication-history",
       changelogEntries: [
+        {
+          version: "0.2",
+          date: "2026-09-22",
+          summary:
+            "Adds two clauses on hops that shape rather than make the decision: routing, ranking, and filtering hops are enumerated (§1.5), and a hop that selects the delegate enumerates its whole range (§1.6).",
+        },
         {
           version: "0.1",
           date: "2026-09-11",
@@ -725,6 +743,30 @@ export const standardClauses: Record<string, StandardClause[]> = {
       relatedValidators: [],
     },
     {
+      id: "STD-02.1.4",
+      standardId: "STD-02",
+      displayId: "§1.4",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a reason is given for a consequential decision, or the component that decided gives no reasons",
+      obligation:
+        "state what the decision actually rested on; label any explanation written afterwards by another component as an account; where the decider gives no reasons, record that on the decision object with the policy, threshold, and inputs, and add evidential support to the class's standards of review",
+      evidenceRequired: [
+        "decision_record.decision",
+        "decision_record.policy_refs",
+        "decision_record.evidence_basis",
+        "standing_register.decision_classes.standard_of_review",
+      ],
+      timeBound: "at the moment of decision",
+      failureModes: [
+        "a language model writes a plausible rationale for a score it did not produce",
+        "a classifier's decision presented to the affected person with reasons nobody derived from it",
+      ],
+      relatedMechanisms: ["MEC-01", "MEC-08"],
+      relatedValidators: [],
+    },
+    {
       id: "STD-02.2.1",
       standardId: "STD-02",
       displayId: "§2.1",
@@ -1066,6 +1108,31 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "receipt issued with no answer owed",
       ],
       relatedMechanisms: ["MEC-08", "MEC-06"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-02.8.6",
+      standardId: "STD-02",
+      displayId: "§8.6",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a consequential decision class issues decisions faster than challenges to them can be answered",
+      obligation:
+        "state answer capacity per period on the register entry; where issue rate times measured or stated error rate exceeds it, treat the class as uncontestable in practice until capacity rises or issue rate falls, without narrowing standing",
+      evidenceRequired: [
+        "standing_register.decision_classes.response_deadline",
+        "standing_register.decision_classes.responder",
+        "challenge_load_ledger",
+        "decision_issue_log",
+      ],
+      timeBound: "each period, and before the issue rate is raised",
+      failureModes: [
+        "a decision model makes more consequential decisions in a day than the appeals team can hear in a year",
+        "low challenge volume read as low error when the deadline made challenge impractical",
+        "congestion met by narrowing who may challenge",
+      ],
+      relatedMechanisms: ["MEC-23", "MEC-11"],
       relatedValidators: [],
     },
     {
@@ -1882,6 +1949,29 @@ export const standardClauses: Record<string, StandardClause[]> = {
       relatedValidators: [],
     },
     {
+      id: "STD-08.1.5",
+      standardId: "STD-08",
+      displayId: "§1.5",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a component decides whether an action is authorized, or material the delegation acts on claims an approval, permission, or consent",
+      obligation:
+        "read authority only from grant and authorization records; give the deciding component the authorization record, the proposed action, and the policy, mark any content it judges as content, and record an action authorized from content as unauthorized",
+      evidenceRequired: [
+        "authority_grant.scope",
+        "authority_grant.action_classes",
+        "decision_record.grant_ref",
+      ],
+      timeBound: "before the action runs",
+      failureModes: [
+        "a tool output claiming prior user approval moves a safety gate below its block threshold",
+        "a retrieved document's instructions treated as the principal's request",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-17"],
+      relatedValidators: [],
+    },
+    {
       id: "STD-08.2.1",
       standardId: "STD-08",
       displayId: "§2.1",
@@ -1988,6 +2078,32 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "policy renewed by editing the date",
       ],
       relatedMechanisms: ["MEC-14", "MEC-04"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.2.6",
+      standardId: "STD-08",
+      displayId: "§2.6",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a threshold, cut-off, or confidence floor decides whether an action runs unattended, goes to a person, or is refused",
+      obligation:
+        "hold the threshold as a policy record whose assumptions name the labelled cases it was set against, the pinned model version and question schema including option order, and the error it trades, with review triggers on any change to them",
+      evidenceRequired: [
+        "policy_record.assumptions",
+        "policy_record.review_triggers",
+        "policy_record.version",
+        "authority_grant.policy_refs",
+      ],
+      timeBound:
+        "before the threshold gates a live action, and at every trigger",
+      failureModes: [
+        "confidence floor held in a configuration file with no provenance",
+        "threshold tuned against one model version and left in force after a silent upgrade",
+        "enumerated options reordered without a new policy version",
+      ],
+      relatedMechanisms: ["MEC-14", "MEC-13"],
       relatedValidators: [],
     },
     {
@@ -2105,6 +2221,30 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "reviewer disciplined instead of the specification being repaired",
       ],
       relatedMechanisms: ["MEC-16", "MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-08.3.6",
+      standardId: "STD-08",
+      displayId: "§3.6",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a score or threshold decides which decisions reach the owner",
+      obligation:
+        "treat the threshold as part of the intervention specification, record what the owner is shown and what never reaches them, reopen the specification when the threshold changes, and route a declared share of unreviewed decisions to review on a declared cadence, measured apart from the routed queue",
+      evidenceRequired: [
+        "intervention_spec.information_available",
+        "intervention_spec.owner",
+        "reconsideration.trigger",
+      ],
+      timeBound:
+        "on the declared sampling cadence, and at every threshold change",
+      failureModes: [
+        "only low-confidence cases reach review, so confident errors are never seen",
+        "threshold raised to cut review volume without reopening the specification",
+        "reviewer shown the model's score and anchored by it, with no record that it was shown",
+      ],
+      relatedMechanisms: ["MEC-16", "MEC-07"],
       relatedValidators: [],
     },
     {
@@ -2331,6 +2471,52 @@ export const standardClauses: Record<string, StandardClause[]> = {
         "a provider swap behind an unchanged interface recorded as no event at all",
       ],
       relatedMechanisms: ["MEC-19"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-09.1.5",
+      standardId: "STD-09",
+      displayId: "§1.5",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition:
+        "a component routes, orders, ranks, filters, or drops the cases, inputs, or evidence a consequential decision is made on",
+      obligation:
+        "enumerate it as a hop under §1.1 and assess its consequence on the aggregate effect of its outputs, not on any single output",
+      evidenceRequired: [
+        "authority_grant.chain",
+        "authority_grant.scope",
+        "decision_record.evidence_refs",
+      ],
+      timeBound: "at chain issue, and whenever such a component is added",
+      failureModes: [
+        "a triage classifier treated as infrastructure because each routing call looks trivial",
+        "retrieval filtering drops the evidence a reviewer would have needed, with no record it was dropped",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-01"],
+      relatedValidators: [],
+    },
+    {
+      id: "STD-09.1.6",
+      standardId: "STD-09",
+      displayId: "§1.6",
+      type: "obligation",
+      requirementLevel: "MUST",
+      condition: "a hop chooses at run time which delegate makes a decision",
+      obligation:
+        "grant it as a delegation whose scope is the set it may choose from, enumerate every delegate in that set under §1.1, name the delegate that decided on each decision record, and treat adding a delegate as a chain event under §1.4",
+      evidenceRequired: [
+        "authority_grant.chain",
+        "authority_grant.scope",
+        "decision_record.owner",
+        "authority_grant.state_history",
+      ],
+      timeBound: "at chain issue, and before a new delegate joins the set",
+      failureModes: [
+        "a model router's candidate list extended by a gateway vendor with no grant recorded",
+        "decision records name the router but not the model that actually decided",
+      ],
+      relatedMechanisms: ["MEC-13", "MEC-19"],
       relatedValidators: [],
     },
     {

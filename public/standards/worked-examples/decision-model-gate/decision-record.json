@@ -1,0 +1,111 @@
+{
+  "schema_version": "2.1.0",
+  "record_id": "DR-2026-0311-40217",
+  "receipt_id": "RCPT-2026-0311-40217",
+  "issued_at": "2026-09-18T14:03:12Z",
+  "owner": {
+    "name": "Refund reviewer on shift",
+    "role": "Refund Reviewer",
+    "contact": "refund-review@example.org",
+    "on_call": true
+  },
+  "subject": {
+    "id": "order-771204",
+    "type": "retail_order",
+    "region": "US"
+  },
+  "action": {
+    "class": "WRITE",
+    "description": "Refund 84.00 USD to the original payment method.",
+    "reversible": true,
+    "tools": ["refunds.create"]
+  },
+  "decision": {
+    "decision_type": "refund",
+    "reason_codes": ["no_reasons_from_decider"],
+    "inputs": [
+      "order:771204",
+      "message:771204-3",
+      "refund_proposal:agent-refunds-v3:40217"
+    ],
+    "confidence": 0.86
+  },
+  "clocks": {
+    "ack": {
+      "hours": 4
+    },
+    "review": {
+      "hours": 24
+    },
+    "remedy": {
+      "hours": 72
+    },
+    "appeal": {
+      "hours": 72
+    }
+  },
+  "status": "issued",
+  "evidence_refs": [
+    {
+      "type": "policy",
+      "href": "https://ethotechnics.org/standards/worked-examples/decision-model-gate/policy-record.json",
+      "description": "POL-REFUND-GATE-THRESHOLD@1.2.0"
+    },
+    {
+      "type": "grant",
+      "href": "https://ethotechnics.org/standards/worked-examples/decision-model-gate/authority-grant.json",
+      "description": "GRANT-2026-0311"
+    }
+  ],
+  "grant_ref": "GRANT-2026-0311",
+  "policy_refs": ["POL-REFUND-GATE-THRESHOLD@1.2.0"],
+  "evidence_basis": [
+    {
+      "ref": "POL-REFUND-GATE-THRESHOLD",
+      "summary": "Refund approved unattended: refund_risk approve at 0.86, above the 0.80 threshold, with policy_fit yes and the amount under 200 USD.",
+      "as_of": "2026-09-01T00:00:00Z"
+    }
+  ],
+  "validity_conditions": [
+    "GRANT-2026-0311 remains in state allowed.",
+    "The model serving the gate is gatekeeper-typed at version 2026-08-28."
+  ],
+  "reconsider_when": [
+    {
+      "condition": "this decision is drawn in the unreviewed sample and reversed",
+      "action": "reverse"
+    },
+    {
+      "condition": "POL-REFUND-GATE-THRESHOLD leaves status active",
+      "action": "review_required"
+    }
+  ],
+  "parties_with_standing": [
+    "affected_party",
+    "corrective_labor",
+    "representative"
+  ],
+  "standing_register_ref": "REG-REFUNDS-1",
+  "typed_judgment": {
+    "decider": {
+      "model": "gatekeeper-typed",
+      "model_version": "2026-08-28",
+      "provider": "Example Decision Models Inc.",
+      "gateway": "gateway.example.net"
+    },
+    "selected_by": "GRANT-2026-0312",
+    "question_schema_hash": "sha256:6b7b983829db07d46e80c26e5e6741087b968373cd4751ff833984e43189a59b",
+    "answer": "approve",
+    "distribution": {
+      "approve": 0.86,
+      "review": 0.11,
+      "refuse": 0.03
+    },
+    "confidence": 0.75,
+    "confidence_semantics": "margin",
+    "threshold_policy_ref": "POL-REFUND-GATE-THRESHOLD@1.2.0",
+    "routed_to": "unattended",
+    "reason_provenance": "none",
+    "content_inputs_marked": true
+  }
+}

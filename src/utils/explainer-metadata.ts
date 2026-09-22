@@ -93,6 +93,10 @@ const explainerMetadataBySlug: Record<string, ExplainerSeoMetadata> = {
     publishedTime: "2026-09-06T00:00:00.000Z",
     modifiedTime: "2026-09-06T00:00:00.000Z",
   },
+  "typed-decision-models": {
+    publishedTime: "2026-09-22T00:00:00.000Z",
+    modifiedTime: "2026-09-22T00:00:00.000Z",
+  },
 };
 
 export const getExplainerSeoMetadata = (

@@ -171,14 +171,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.5.0",
+    version: "1.6.0",
     license: {
       label: "CC BY 4.0",
       href: "https://creativecommons.org/licenses/by/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.5.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.6.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.6.0",
+        date: "2026-09-22",
+        summary:
+          "Adds seven draft cases for typed decision models: content that claims an approval (AGT-013), the threshold as a policy record (DEL-010), sampling what ran without review (CTL-010), shaping and selecting hops (CHN-003, CHN-004), reasons that belong to the decision (EXP-011), and issue rate against answer capacity (STA-013). 15 eval suites, 155 test cases.",
+      },
       {
         version: "1.5.0",
         date: "2026-09-18",

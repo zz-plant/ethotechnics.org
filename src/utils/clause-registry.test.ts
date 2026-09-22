@@ -20,7 +20,7 @@ describe("the clause registry against the normative documents", () => {
   it("reads clause ids in document order", () => {
     const ids = documentClauseIds(bodyFor("STD-08"));
     expect(ids.slice(0, 3)).toEqual(["§1.1", "§1.2", "§1.3"]);
-    expect(ids).toHaveLength(20);
+    expect(ids).toHaveLength(23);
   });
 
   it("matches the documents whose register is shown", () => {

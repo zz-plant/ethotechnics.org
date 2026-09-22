@@ -14,11 +14,21 @@
       ],
       "contact": "research@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
-      "updated": "2026-09-19T00:00:00Z",
-      "version": "v1.10.0",
+      "updated": "2026-09-22T00:00:00Z",
+      "version": "v1.12.0",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/web/*/https://ethotechnics.org/glossary",
       "changelog": [
+        {
+          "version": "v1.12.0",
+          "date": "2026-09-22",
+          "summary": "Added Typed Decision Model and Confidence-Gated Execution, cross-linked to the worked example of a decision-model gate on refunds."
+        },
+        {
+          "version": "v1.11.0",
+          "date": "2026-09-22",
+          "summary": "Added Decision Threshold, Shaping Hop, and Reason Substitution: the places typed decision models locate authority, shape decisions without making them, and separate the reason from the decision."
+        },
         {
           "version": "v1.10.0",
           "date": "2026-09-19",
@@ -1642,6 +1652,53 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "failure-modes"
+          },
+          {
+            "id": "reason-substitution",
+            "title": "Reason Substitution",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>Presenting an explanation written by one component as the reason for a decision made by another. It appears when the deciding component gives no reasons, as a classifier or <a href=\"/explainers/typed-decision-models\">typed decision model</a> that returns only a score does not, and a language model is asked to write a rationale afterwards. The text describes a plausible decision, not the one that was made.</p><p>It matters because recourse depends on the reason being something the affected person can dispute and that would change the outcome if it were wrong. A substituted reason meets neither test, and it passes every readability check. STD-02 §1.4 requires reasons to state what the decision rested on, labels an explanation written afterwards as an account, and requires a decision object with no reasons to say so. It is a specific form of <a href=\"/glossary/explainability-decoy\">explainability decoy</a>.</p>",
+            "scope": "B. Failure modes (why Ethotechnics exists). Common patterns where responsibility dissolves and harm accelerates.",
+            "operationalTests": [
+              "The component that produced each stated reason is recorded, and it is the component that decided, or the reason is labelled as an account.",
+              "Altering a factor a stated reason names changes the decision, or the reason is withdrawn.",
+              "A decision made without reasons says so and names the policy, threshold, and inputs it ran on."
+            ],
+            "genealogy": "Carries explainability for accountability into systems where the decider and the explainer have separated: a reason is evidence about the decision only if it was caused by it.",
+            "references": [
+              {
+                "label": "STD-02 Contestability and Recourse",
+                "href": "/standards/std-02-contestability-recourse#articles",
+                "type": "Standard"
+              },
+              {
+                "label": "Typed decision models and where their authority lives",
+                "href": "/explainers/typed-decision-models",
+                "type": "Explainer"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Decision objects that record which component produced the decision and which produced each stated reason.",
+              "behavior": "A counterfactual test that alters a named factor and records whether the decision changed.",
+              "metric": "Share of stated reasons whose named factor changes the decision when altered."
+            },
+            "domains": ["visibility", "diagnostic"],
+            "scale": null,
+            "phase": ["deployment", "audit"],
+            "measurability": null,
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "failure-modes",
+            "tags": ["explanations", "reasons", "recourse", "classifiers"],
+            "adjacentTerms": [
+              "explainability-decoy",
+              "explainability-for-accountability",
+              "decision-artifact"
+            ],
+            "relatedPatterns": ["decision-log", "contestation-apis"],
+            "termUpdated": "2026-09-22T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -3037,6 +3094,54 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "system-states"
+          },
+          {
+            "id": "typed-decision-model",
+            "title": "Typed Decision Model",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A model that takes a block of state and a set of questions with fixed answers, and returns a chosen value with a probability distribution and a confidence margin instead of text. It gives no reasons. The first widely adopted product in the class, released in September 2026, is marketed as hundreds of times faster and cheaper than a language model for routing, triage, tool gating, and approval checks.</p><p>It matters because a cheap judgment gets placed at every branch, and authority follows it into places that do not look like decisions: the <a href=\"/glossary/decision-threshold\">decision threshold</a> that turns a score into an action, the <a href=\"/glossary/shaping-hop\">shaping hop</a> that decides what the decider sees, and the reasons nobody produced. The method governs it like any other delegate. The <a href=\"/explainers/typed-decision-models\">explainer</a> names the six places its authority sits, and the decision record carries a <code>typed_judgment</code> block for what it decided.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "Every consequential decision a typed decision model contributes to has a decision record with a typed_judgment block naming the pinned model version.",
+              "The threshold that acts on the model's output is a policy record, not a configuration value.",
+              "Confidence is recorded with its semantics, and a margin is not reported as a probability of being right."
+            ],
+            "genealogy": "A new substrate that tests the method's substrate independence: the unit of governance is the consequential decision, whatever component made it.",
+            "references": [
+              {
+                "label": "Typed decision models and where their authority lives",
+                "href": "/explainers/typed-decision-models",
+                "type": "Explainer"
+              },
+              {
+                "label": "Decision-model gate on refunds",
+                "href": "/examples/decision-model-gate",
+                "type": "Worked example"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Decision records with a typed_judgment block: pinned decider, question schema hash, distribution, confidence semantics, threshold policy, and reason provenance.",
+              "behavior": "A model upgrade suspending the thresholds tuned against the previous version until they are re-set.",
+              "metric": "Share of decisions involving a typed decision model whose record names a pinned model version and a threshold policy."
+            },
+            "domains": ["structural", "visibility"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "system-states",
+            "tags": ["models", "classifiers", "decisions", "substrate"],
+            "adjacentTerms": [
+              "decision-threshold",
+              "shaping-hop",
+              "reason-substitution",
+              "confidence-gated-execution"
+            ],
+            "relatedPatterns": ["decision-log", "authority-grant-register"],
+            "termUpdated": "2026-09-22T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -7127,6 +7232,154 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "governance"
+          },
+          {
+            "id": "decision-threshold",
+            "title": "Decision Threshold",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>The score, cut-off, or confidence floor that decides whether an action runs unattended, goes to a person, or is refused. In a deployment gated by a classifier or a <a href=\"/explainers/typed-decision-models\">typed decision model</a>, the threshold is where authority is actually conferred: the model proposes, and the number decides what the institution lets it do.</p><p>It matters because thresholds are usually held as configuration, tuned once against one model version and never recorded as a decision. STD-08 §2.6 holds a decision threshold as a <a href=\"/glossary/policy-record\">policy record</a> whose assumptions name the labelled cases, model version, question schema, and option order it was set against, with a <a href=\"/glossary/review-trigger\">review trigger</a> on any change to them. Where the threshold also chooses what reaches a reviewer, it is part of the <a href=\"/glossary/intervention-specification\">intervention specification</a>.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every threshold that routes a consequential action resolves to a policy record with provenance, assumptions, review triggers, and an expiry.",
+              "The policy record names the model version, question schema, and option order the threshold was tuned against, and the production values match it.",
+              "A change to the model version, schema, or option order moves the threshold's policy record to review_required."
+            ],
+            "genealogy": "Gives Law III an object at the point where typed decision models locate authority: the evidence for a threshold is the labelled data and the model version it was set against, and it decays when either changes.",
+            "references": [
+              {
+                "label": "STD-08 Delegation",
+                "href": "/standards/std-08-delegation#part-b",
+                "type": "Standard"
+              },
+              {
+                "label": "Typed decision models and where their authority lives",
+                "href": "/explainers/typed-decision-models",
+                "type": "Explainer"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A policy record for each routing threshold, naming its tuning set, pinned model version, schema, and option order.",
+              "behavior": "A model upgrade or option reorder moving the threshold's policy record to review_required before it gates another action.",
+              "metric": "Share of routing thresholds backed by a policy record pinned to the model version in production."
+            },
+            "domains": ["structural", "measurable"],
+            "scale": "organizational",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["thresholds", "policy", "classifiers", "confidence"],
+            "adjacentTerms": [
+              "policy-record",
+              "review-trigger",
+              "authority-grant",
+              "intervention-specification"
+            ],
+            "relatedPatterns": [
+              "policy-review-triggers",
+              "authority-grant-register"
+            ],
+            "termUpdated": "2026-09-22T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "shaping-hop",
+            "title": "Shaping Hop",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A component that routes, orders, ranks, filters, or drops the cases, inputs, or evidence a consequential decision is made on, without making the decision itself. Triage classifiers, retrieval filters, priority routers, and model routers that pick which delegate decides are all shaping hops.</p><p>It matters because each call looks like plumbing, so none is granted, while together they decide whose case waits, which evidence the decider never sees, and which applicant reaches a person. STD-09 §1.5 enumerates shaping hops in the <a href=\"/glossary/delegation-chain\">delegation chain</a> and assesses their consequence in aggregate. STD-09 §1.6 treats a hop that selects the delegate at run time as a delegation over its whole range, so every delegate it can choose is granted and each decision record names the one that decided.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "Every component that routes, ranks, filters, or drops a consequential decision's inputs appears in the head grant's chain.",
+              "Each shaping hop's consequence is reported in aggregate, such as wait times or evidence excluded, not per call.",
+              "Decision records name the delegate a router selected, and the router's full range is enumerated."
+            ],
+            "genealogy": "Extends Law I one boundary further: capability that shapes a decision through a hop nobody granted is capability outrunning authority, however small each output looks.",
+            "references": [
+              {
+                "label": "STD-09 Agent Chains",
+                "href": "/standards/std-09-agent-chains#part-a",
+                "type": "Standard"
+              },
+              {
+                "label": "Typed decision models and where their authority lives",
+                "href": "/explainers/typed-decision-models",
+                "type": "Explainer"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "A chain enumeration that lists every routing, ranking, and filtering component, with the grant each runs under.",
+              "behavior": "A new triage classifier or router candidate recorded as a chain event before it runs.",
+              "metric": "Share of decision records that name every hop that shaped them, including the delegate a router selected."
+            },
+            "domains": ["structural", "visibility"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "semi_quantitative",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["chains", "routing", "triage", "classifiers"],
+            "adjacentTerms": [
+              "delegation-chain",
+              "authority-grant",
+              "unseen-harm"
+            ],
+            "relatedPatterns": ["authority-grant-register", "expansion-review"],
+            "termUpdated": "2026-09-22T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "confidence-gated-execution",
+            "title": "Confidence-Gated Execution",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An arrangement in which a model's confidence decides whether an action runs unattended, goes to a person, or is refused. It is sold as oversight that scales: high-confidence cases run, and people see only the uncertain ones.</p><p>It matters because it moves both authority and review into a number. The threshold confers the authority, so STD-08 §2.6 holds it as a <a href=\"/glossary/decision-threshold\">decision threshold</a> policy. The threshold also chooses the reviewer's queue, so STD-08 §3.6 makes it part of the <a href=\"/glossary/intervention-specification\">intervention specification</a> and sends a sample of the confident cases to review too, because a queue fed only with uncertain cases cannot detect a confident error. Without both, the arrangement is <a href=\"/glossary/human-override-lanes\">human oversight</a> in name only.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The routing threshold resolves to a pinned policy record and is named on the intervention specification.",
+              "A declared share of decisions that ran unattended reaches review, and its reversal rate is reported apart from the routed queue.",
+              "The record states whether the reviewer sees the model's score."
+            ],
+            "genealogy": "Applies Law IX to review queues selected by a score: a person who only ever sees the cases the model was unsure of cannot alter what the model was sure of.",
+            "references": [
+              {
+                "label": "STD-08 Delegation",
+                "href": "/standards/std-08-delegation#part-c",
+                "type": "Standard"
+              },
+              {
+                "label": "Decision-model gate on refunds",
+                "href": "/examples/decision-model-gate",
+                "type": "Worked example"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An intervention specification with a routing block naming the threshold policy, whether the score is shown, and the unreviewed sample.",
+              "behavior": "A threshold change opening a reconsideration of the intervention specification.",
+              "metric": "Reversal rate in the sample of decisions that ran unattended, reported apart from the routed queue."
+            },
+            "domains": ["agency", "measurable"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["thresholds", "review", "oversight", "confidence"],
+            "adjacentTerms": [
+              "decision-threshold",
+              "intervention-specification",
+              "human-override-lanes"
+            ],
+            "relatedPatterns": [
+              "intervention-specification",
+              "policy-review-triggers"
+            ],
+            "termUpdated": "2026-09-22T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
