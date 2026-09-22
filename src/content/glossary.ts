@@ -127,7 +127,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "ethotechnic-audit",
     term: "Ethotechnic Audit",
     definition:
-      "A structured assessment of a system\u2019s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where stoppability or reversibility fail and guide concrete remediation steps.",
+      "A structured assessment of a system\u2019s capacity to stop harm, reverse it, distribute burden fairly, remain contestable, and enable accountability. Audits surface where stoppability or reversibility fail and guide remediation steps.",
     appliesTo: ["platforms", "audits", "sre"],
   },
   {
@@ -481,14 +481,14 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "human-factors",
     term: "Human Factors",
     definition:
-      "A discipline that studies how systems interact with real human limits—fatigue, confusion, stress—often revealing that “user error” is actually design failure.",
+      "A discipline that studies how systems interact with real human limits—fatigue, confusion, stress—often revealing that “user error” is design failure.",
     appliesTo: ["E. Human limits & experience"],
   },
   {
     slug: "operator-centered",
     term: "Operator-centered",
     definition:
-      "Design that treats front-line workers as key safety components and ensures they have authority, tools, and non-punitive reporting to prevent harm.",
+      "Design that treats front-line workers as safety components and ensures they have authority, tools, and non-punitive reporting to prevent harm.",
     appliesTo: ["E. Human limits & experience"],
   },
   {
@@ -600,7 +600,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "moral-performance-indicators",
     term: "Moral Performance Indicators (MPIs)",
     definition:
-      "Metrics that show whether a system can still be stopped, reversed, and challenged: time-to-halt (TTH), reversibility rate, appeal success rate, burden ratios, and others. MPIs sit beside KPIs and track how safely and fairly a system operates, where KPIs track how fast it grows.",
+      "Metrics that show whether a system can still be stopped, reversed, and challenged, such as time-to-halt (TTH), reversibility rate, appeal success rate, and burden ratios. MPIs sit beside KPIs and track how safely and fairly a system operates, where KPIs track how fast it grows.",
     appliesTo: ["G. Measures & indicators"],
   },
   {
@@ -635,7 +635,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "time-to-restore",
     term: "Time-to-Restore (TTR)",
     definition:
-      "How long it takes to reverse harm and return a person to their prior state. Low TTR is a signal of effective reversibility.",
+      "How long it takes to reverse harm and return a person to their prior state. Low TTR is a signal of reversibility.",
     appliesTo: ["G. Measures & indicators"],
   },
   {
@@ -726,7 +726,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "maintenance-budgets-legitimacy-budgets",
     term: "Maintenance Budgets are Legitimacy Budgets",
     definition:
-      "The practical capacity to monitor, review, and repair is a political/organizational legitimacy input, not overhead.",
+      "The capacity to monitor, review, and repair is a political/organizational legitimacy input, not overhead.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -943,7 +943,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "override-path",
     term: "Override Path",
     definition:
-      "A clearly defined mechanism that can supersede the default workflow when the default would cause harm: human escalation with real authority, emergency reversal, or exception handling with deadlines. Override paths are where a stated commitment to people becomes a mechanism.",
+      "A defined mechanism that can supersede the default workflow when the default would cause harm: human escalation with real authority, emergency reversal, or exception handling with deadlines. Override paths are where a stated commitment to people becomes a mechanism.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -1328,7 +1328,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "paper-compliance",
     term: "Paper Compliance / Checkbox Governance",
     definition:
-      "Compliance regimes focused on producing documentation of doing the right thing rather than mechanisms that can actually prevent harm or force remedy. The paperwork stands in for power.",
+      "Compliance regimes focused on producing documentation of doing the right thing rather than mechanisms that can prevent harm or force remedy. The paperwork stands in for power.",
     appliesTo: ["K. System patterns & anti-patterns"],
   },
   {
@@ -1391,7 +1391,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "user-state-modeling",
     term: "User-State Modeling for Harm Prevention",
     definition:
-      "Inferring user states such as fatigue, distress, or inattention in order to slow the pace, add protective friction, or route to a person before harm compounds. The models must respect anticipatory consent and must not create new burden transfers.",
+      "Inferring user states such as fatigue, distress, or inattention to slow the pace, add protective friction, or route to a person before harm compounds. The models must respect anticipatory consent and must not create new burden transfers.",
     appliesTo: ["L. Future concepts / research areas"],
   },
   {
@@ -1776,7 +1776,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "authority-drift",
     term: "Authority Drift",
     definition:
-      "The gap that opens when what a system actually does moves away from what its authority grant permits or its evidence supports. Drift accumulates through steps that each look too small to review.",
+      "The gap that opens when what a system does moves away from what its authority grant permits or its evidence supports. Drift accumulates through steps that each look too small to review.",
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
@@ -1864,7 +1864,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "capability-discovery",
     term: "Capability Discovery",
     definition:
-      "The practice of finding out what an assembled decision system can actually do, including reachable tools, side effects, and action classes nobody intended to expose. The output is a catalog, not a permission.",
+      "The practice of finding out what an assembled decision system can do, including reachable tools, side effects, and action classes nobody intended to expose. The output is a catalog, not a permission.",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -1873,7 +1873,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "correction-capacity",
     term: "Correction Capacity",
     definition:
-      "The measured ability to actually intervene: which interventions exist, who may invoke them, how long they take, and how much load the institution can absorb. Counted in people, clocks, and rehearsals, not asserted in policy.",
+      "The measured ability to intervene: which interventions exist, who may invoke them, how long they take, and how much load the institution can absorb. Counted in people, clocks, and rehearsals, not asserted in policy.",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -1990,7 +1990,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "constitutional-debt",
     term: "Constitutional Debt",
     definition:
-      "The divergence between what a system is technically able to do and what any recorded justification permits. The automation ratchet is its engine and authority drift is its balance.",
+      "The divergence between what a system can technically do and what any recorded justification permits. The automation ratchet is its engine and authority drift is its balance.",
     appliesTo: [
       "C. Ethotechnic capabilities (what systems must be able to do)",
     ],
@@ -2146,14 +2146,14 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "compensatory-adaptation",
     term: "Compensatory Adaptation",
     definition:
-      "Human effort required because an arrangement failed to accommodate foreseeable reality. Distinct from the productive adaptation that learning and care genuinely require.",
+      "Human effort required because an arrangement failed to accommodate foreseeable reality. Distinct from the productive adaptation that learning and care require.",
     appliesTo: ["F. Burden & load"],
   },
   {
     slug: "composed-latency",
     term: "Composed Latency",
     definition:
-      "The time a chain of delegations actually takes, measured from decision records rather than nominal per-hop promises. Hops compose additively and can consume the human’s intervention window.",
+      "The time a chain of delegations takes, measured from decision records rather than nominal per-hop promises. Hops compose additively and can consume the human’s intervention window.",
     appliesTo: ["G. Measures & indicators"],
   },
   {
@@ -2174,7 +2174,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "consent-revocation-latency",
     term: "Consent Revocation Latency",
     definition:
-      "The time from a person saying “I revoke consent” to behavior actually changing everywhere it should. Low latency keeps consent journeys credible.",
+      "The time from a person saying “I revoke consent” to behavior changing everywhere it should. Low latency keeps consent journeys credible.",
     appliesTo: ["G. Measures & indicators"],
   },
   {
@@ -2202,7 +2202,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "evaluation-layer",
     term: "Evaluation Layer",
     definition:
-      "The level of the stack at which an evaluation actually holds—model, agent, delegation, institution, or consequence—so a clean result at one level is never read as another.",
+      "The level of the stack at which an evaluation holds—model, agent, delegation, institution, or consequence—so a clean result at one level is never read as another.",
     appliesTo: ["G. Measures & indicators"],
   },
   {
@@ -2244,7 +2244,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "delegation-chain",
     term: "Delegation Chain",
     definition:
-      "A sequence of delegations that together produce one consequential decision. The chain is itself a delegation, governed at the layer where it actually fails.",
+      "A sequence of delegations that together produce one consequential decision. The chain is itself a delegation, governed at the layer where it fails.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2454,7 +2454,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "standing-mechanism",
     term: "Standing Mechanism",
     definition:
-      "The concrete apparatus making standing real: who may challenge which decisions, with what evidence, responders, deadlines, and possible state transitions.",
+      "The apparatus making standing real: who may challenge which decisions, with what evidence, responders, deadlines, and possible state transitions.",
     appliesTo: ["H. Governance & power"],
   },
   {
@@ -2594,7 +2594,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "withdrawal-rehearsal",
     term: "Withdrawal Rehearsal",
     definition:
-      "A scheduled exercise where a system is actually stood down and the fallback carries real work, producing timings and failures. Evidence, not a claim.",
+      "A scheduled exercise where a system is stood down and the fallback carries real work, producing timings and failures. Evidence, not a claim.",
     appliesTo: ["K. System patterns & anti-patterns"],
   },
   {

@@ -180,7 +180,7 @@ export const finiteContent = {
     eyebrow: "Running a drill",
     title: "What a stoppability drill needs before it starts.",
     description:
-      "Finite is a training environment, not a place to begin reading. If you are orienting rather than drilling, /start is the page you want. These are the inputs a drill needs.",
+      "Finite is a training environment, not a place to begin reading. If you are orienting rather than drilling, /start is the page you want.",
     steps: [
       "Name the system or workflow you want to test, plus one recent incident or near-miss.",
       "Identify who can halt or roll back the system today, and where that ownership is unclear.",
@@ -291,7 +291,7 @@ export const finiteContent = {
       {
         title: "Score and improve",
         detail:
-          "Map observations to stoppability dimensions, generate the scorecard, and agree on concrete architecture and practice changes.",
+          "Map observations to stoppability dimensions, generate the scorecard, and agree on architecture and practice changes.",
       },
     ],
     loopNote:

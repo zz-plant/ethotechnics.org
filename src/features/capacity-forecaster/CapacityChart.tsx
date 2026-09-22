@@ -212,9 +212,7 @@ export function CapacityChart({
           className="button ghost button--compact"
           onClick={() => setShowTable(!showTable)}
           style={{ padding: "4px 8px", fontSize: "0.8rem" }}
-          aria-label={
-            showTable ? "Show visual chart" : "Show data table representation"
-          }
+          aria-label={showTable ? "Show chart" : "Show data table"}
         >
           {showTable ? "Show chart 📊" : "Show table 📋"}
         </button>

@@ -287,7 +287,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Record Conformance Checker",
       tier: "Evidence level",
       description:
-        "Parses a stream of STD-07 delegation records, validates it against the schema, recomputes the hashes, and returns the conformance level it actually earns against the level its emitter declares. Reach for it when a system already emits records; the Delegation Audit covers the case where it does not.",
+        "Parses a stream of STD-07 delegation records, validates it against the schema, recomputes the hashes, and returns the conformance level it earns against the level its emitter declares. Reach for it when a system already emits records; the Delegation Audit covers the case where it does not.",
       methodCards: {
         measures: [
           "Whether every record validates against the published STD-07 schema.",
@@ -332,7 +332,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Do the hashes recompute, and does each record chain to the one before it?",
           "Does every belief, authorization and action say what would end it?",
           "Was every discrepancy answered by a revision or an objection, inside the clock the record declared?",
-          "Does every record say who has standing to object, and has an objection ever actually been accepted?",
+          "Does every record say who has standing to object, and has an objection ever been accepted?",
           "Is the level the emitter declares the level this stream supports?",
         ],
         rubric: [
@@ -617,7 +617,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         assumptions: [
           "Scenario reflects likely outage or maintenance conditions.",
-          "Participants represent core escalation roles.",
+          "Participants represent the escalation roles.",
           "Communication templates align with current policy.",
         ],
       },
@@ -801,7 +801,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Revenue exposure range or recovery cost estimate.",
       ],
       studioNote:
-        "Studio support can help translate debt tiers into funding scenarios.",
+        "Studio support can translate debt tiers into funding scenarios.",
       ctaLabel: "Start the Maintenance Debt Calculator",
       ctaHref: "/diagnostics/maintenance-debt-calculator",
       ctaAriaLabel: "Start the Maintenance Debt Calculator diagnostic tool",
@@ -827,7 +827,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         assumptions: [
           "Inputs describe the last twelve months, not the deployment plan.",
-          "Corrective capacity is measured where challenges actually arrive, not where the org chart says they should.",
+          "Corrective capacity is measured where challenges arrive, not where the org chart says they should.",
           "A recurring workaround is a presumption of upstream design failure, which the inputs treat as evidence.",
         ],
       },
@@ -912,7 +912,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "The last time a handled exception changed an upstream rule.",
       ],
       studioNote:
-        "Studio support can help run the two-axis comparison and trace exception-to-revision paths.",
+        "Studio support can run the two-axis comparison and trace exception-to-revision paths.",
       ctaLabel: "Start the Corrective Debt Calculator",
       ctaHref: "/diagnostics/corrective-debt-calculator",
       ctaAriaLabel: "Start the Corrective Debt Calculator diagnostic tool",

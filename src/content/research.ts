@@ -268,7 +268,7 @@ export const researchContent: ResearchContent = {
       description:
         "Decision accountability, data handling, and escalation paths people can understand.",
       questions: [
-        "What documentation helps non-technical partners see how choices were made?",
+        "What documentation shows non-technical partners how choices were made?",
         "How can we expose decision logs without creating new harms?",
       ],
       glossaryRefs: ["stewardship-window", "signal-credibility"],

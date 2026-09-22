@@ -128,7 +128,7 @@ export const roles: Role[] = [
         {
           label: "What we can check",
           href: "/evals/coverage",
-          note: "Which governance properties a probe can actually establish.",
+          note: "Which governance properties a probe can establish.",
         },
       ],
       firstMoves: [

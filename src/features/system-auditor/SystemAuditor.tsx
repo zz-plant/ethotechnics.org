@@ -88,7 +88,7 @@ const INTERVENTION_QUESTIONS: GovernanceQuestion[] = [
   {
     key: "actionsPreventable",
     label: "What can they prevent?",
-    hint: "Compare it against what the system actually does.",
+    hint: "Compare it against what the system does.",
     options: [
       { value: "all", label: "Every action the system takes here" },
       { value: "some", label: "Some of them" },

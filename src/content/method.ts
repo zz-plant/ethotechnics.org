@@ -254,7 +254,7 @@ export const methodContent: MethodContent = {
       id: "correction",
       title: "Correction",
       question:
-        "Can the institution actually stop, reverse, or repair, at acceptable cost?",
+        "Can the institution stop, reverse, or repair, at acceptable cost?",
       currentAssets: [
         "Repair SLA schema and /api/repairs",
         "MEC-10 reversibility audit logs",
@@ -323,7 +323,7 @@ export const methodContent: MethodContent = {
   stateVariables: [
     {
       state: "Capability",
-      question: "What can the assembled system actually do?",
+      question: "What can the assembled system do?",
       drift: "Capability outruns authority",
       lawRefs: "Law I",
     },
