@@ -64,7 +64,7 @@ export const instituteContent: InstituteContent = {
       title: "Start with open guidance",
       detail:
         "Use the standards, mechanisms, and diagnostics without contacting anyone. A diagnostic readout names the risks before you involve a partner.",
-      tags: ["Self-serve", "Open CC BY 4.0", "Library-first"],
+      tags: ["Self-serve", "Open CC BY-SA 4.0", "Library-first"],
     },
     {
       title: "Choose the right program",

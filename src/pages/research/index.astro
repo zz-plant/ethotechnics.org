@@ -95,15 +95,17 @@ const structuredData = {
         : artifact.href,
       keywords: artifact.tags,
     })),
-    ...publications.map((publication) => ({
-      "@type": "Report",
-      name: publication.title,
-      description: publication.summary,
-      url: Astro.site
-        ? new URL(publication.href, Astro.site).toString()
-        : publication.href,
-      keywords: publication.tags,
-    })),
+    ...publications
+      .filter((publication) => publication.status === "published")
+      .map((publication) => ({
+        "@type": "Report",
+        name: publication.title,
+        description: publication.summary,
+        url: Astro.site
+          ? new URL(publication.href, Astro.site).toString()
+          : publication.href,
+        keywords: publication.tags,
+      })),
   ],
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
@@ -152,8 +154,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="standards-timeline"
     eyebrow="Timeline"
-    title="Research contributions to standards"
-    description="Milestones that connect field work to STD-01 clauses."
+    title="Standards milestones"
+    description="Dated releases of the standards this research informs."
     variant="alt"
   >
     <ol class="standards-timeline" aria-label="Standards research timeline">
@@ -282,7 +284,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="orientation"
     eyebrow="Orientation"
     title="How we run the work."
-    description="Each study runs from a written protocol and links to glossary anchors, so its findings can be cited in diagnostics and delivery work."
+    description="How questions, methods, and results are published here."
     className="section--banded"
   >
     <details class="chunked-section" open data-default-open="true">
@@ -321,8 +323,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="bridge-artifacts"
     eyebrow="Bridge artifacts"
-    title="Whitepaper-style artifacts academics can cite."
-    description="Frameworks, taxonomies, instruments, and case series that sit between practice and scholarship."
+    title="Research notes and essays you can cite."
+    description="Dated research notes and the theory essays behind the laws."
     variant="alt"
   >
     <details class="chunked-section" data-default-open="false">
@@ -463,8 +465,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="publications"
     eyebrow="Publications"
-    title="Protocols, decks, and reports."
-    description="Each entry carries a structured abstract, its datasets, ethics notes, and glossary links into the Library."
+    title="Planned studies and working materials."
+    description="Each entry states its question, method, and status. A planned study has not been run and reports no results."
     variant="alt"
   >
     <details class="chunked-section" data-default-open="false">
@@ -490,7 +492,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                 )}
               >
                 <CardItem
-                  meta={publication.type}
+                  meta={`${publication.type} · ${publication.status}`}
                   title={publication.title}
                   description={publication.summary}
                   descriptionTone="default"

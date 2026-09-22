@@ -40,7 +40,7 @@ test.describe("Homepage smoke", () => {
       page.getByRole("heading", { level: 1, name: HERO_HEADING }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "Find my starting point" }),
+      page.getByRole("link", { name: "Find your starting path" }),
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "How the method works →" }),
