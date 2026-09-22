@@ -25,6 +25,8 @@ It consolidates references that were previously spread across multiple index sec
 - [`jev-signal-assessment-2026-09.md`](jev-signal-assessment-2026-09.md): what TypeSafe's Jev
   decision model means for the standards, the problem spaces it opens, and how the project could
   respond.
+- [`jev-outreach-drafts-2026-09.md`](jev-outreach-drafts-2026-09.md): unsent drafts to Pydantic
+  AI, LangChain, and TypeSafe offering the decision-record mapping for typed decision models.
 
 ## Technical strategy tracks
 

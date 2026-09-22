@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -963,5 +964,125 @@ describe("delegation model crosswalk", () => {
       expect(typeof entry.id).toBe("string");
       expect(entry.detail.length).toBeGreaterThan(40);
     }
+  });
+});
+
+describe("worked example: a decision-model gate on refunds", () => {
+  const workedDir = join(
+    standardsDir,
+    "worked-examples",
+    "decision-model-gate",
+  );
+  const loadWorked = (name: string) =>
+    readJson(join(workedDir, `${name}.json`));
+  const schemaFor = (name: string) =>
+    readJson<JsonSchema>(join(standardsDir, `${name}.schema.json`));
+
+  const policy = loadWorked("policy-record");
+  const grant = loadWorked("authority-grant");
+  const spec = loadWorked("intervention-spec");
+  const decision = loadWorked("decision-record");
+  const questions = loadWorked("question-schema");
+
+  const canonical = (value: unknown): string => {
+    if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+    if (value && typeof value === "object") {
+      const entries = Object.entries(value as Record<string, unknown>).sort(
+        ([a], [b]) => (a < b ? -1 : a > b ? 1 : 0),
+      );
+      return `{${entries.map(([k, v]) => `${JSON.stringify(k)}:${canonical(v)}`).join(",")}}`;
+    }
+    return JSON.stringify(value);
+  };
+  const hashOf = (value: unknown) =>
+    `sha256:${createHash("sha256").update(canonical(value), "utf8").digest("hex")}`;
+
+  test("every record validates against its published schema", () => {
+    for (const [name, record] of [
+      ["policy-record", policy],
+      ["authority-grant", grant],
+      ["intervention-spec", spec],
+      ["decision-record", decision],
+    ] as const) {
+      const errors = validate(schemaFor(name), record);
+      expect(errors, `${name}: ${formatErrors(errors)}`).toEqual([]);
+    }
+  });
+
+  test("STD-08 §2.6: the threshold policy is pinned and triggers on a model change", () => {
+    const pinned = `${policy.policy_id}@${policy.version}`;
+    expect(decision.typed_judgment.threshold_policy_ref).toBe(pinned);
+    expect(spec.routing.threshold_policy_ref).toBe(pinned);
+    expect(grant.policy_refs).toContainEqual({
+      policy_id: policy.policy_id,
+      version: policy.version,
+    });
+    expect(
+      policy.review_triggers.some(
+        (trigger: { kind: string }) => trigger.kind === "model_change",
+      ),
+    ).toBe(true);
+    const tunedFor = policy.assumptions.join(" ");
+    expect(tunedFor).toContain(decision.typed_judgment.decider.model_version);
+    expect(tunedFor).toContain(decision.typed_judgment.question_schema_hash);
+  });
+
+  test("the question schema hash is the hash of the published questions, and option order changes it", () => {
+    expect(decision.typed_judgment.question_schema_hash).toBe(
+      hashOf(questions),
+    );
+    const reordered = structuredClone(questions);
+    reordered.questions[0].options = [
+      ...reordered.questions[0].options,
+    ].reverse();
+    expect(hashOf(reordered)).not.toBe(hashOf(questions));
+  });
+
+  test("a floating model version or an unpinned threshold fails validation", () => {
+    const schema = schemaFor("decision-record");
+    const latest = structuredClone(decision);
+    latest.typed_judgment.decider.model_version = "latest";
+    expect(validate(schema, latest).length).toBeGreaterThan(0);
+
+    const unpinned = structuredClone(decision);
+    unpinned.typed_judgment.threshold_policy_ref = policy.policy_id;
+    expect(validate(schema, unpinned).length).toBeGreaterThan(0);
+
+    const noProvenance = structuredClone(decision);
+    delete noProvenance.typed_judgment.reason_provenance;
+    expect(validate(schema, noProvenance).length).toBeGreaterThan(0);
+  });
+
+  test("STD-08 §3.6: routing needs a positive unreviewed sample", () => {
+    const schema = schemaFor("intervention-spec");
+    const noSample = structuredClone(spec);
+    delete noSample.routing.unreviewed_sample;
+    expect(validate(schema, noSample).length).toBeGreaterThan(0);
+
+    const zeroSample = structuredClone(spec);
+    zeroSample.routing.unreviewed_sample.share = 0;
+    expect(validate(schema, zeroSample).length).toBeGreaterThan(0);
+  });
+
+  test("STD-09 §1.6: the router that selected the decider is in the enumerated chain", () => {
+    expect(grant.chain).toContain(decision.typed_judgment.selected_by);
+    expect(grant.chain.at(-1)).toBe(grant.grant_id);
+  });
+
+  test("STD-08 §1.5 and STD-02 §1.4: content is marked and reason provenance is stated", () => {
+    expect(decision.typed_judgment.content_inputs_marked).toBe(true);
+    expect(decision.typed_judgment.reason_provenance).toBe("none");
+    expect(decision.policy_refs).toContain(
+      decision.typed_judgment.threshold_policy_ref,
+    );
+  });
+
+  test("records without the new blocks still validate, so the extension is additive", () => {
+    const plainDecision = structuredClone(decision);
+    delete plainDecision.typed_judgment;
+    expect(validate(schemaFor("decision-record"), plainDecision)).toEqual([]);
+    const plainSpec = structuredClone(spec);
+    delete plainSpec.routing;
+    expect(validate(schemaFor("intervention-spec"), plainSpec)).toEqual([]);
   });
 });

@@ -232,14 +232,31 @@ All seven are also drawn together in the explainer
 standards moved to STD-02 v1.2, STD-08 v0.3, and STD-09 v0.2. The eval catalogue moved to v1.6.0 and
 the glossary to v1.11.0.
 
+The ranked recommendations under "How the project could use this" are also done, apart from sending
+the outreach.
+
+| Recommendation            | Where it landed                                                                      |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| Field Notes signal        | "Jev and the price of a decision", now the Field Notes highlight                     |
+| Worked grant for a gate   | `/examples/decision-model-gate`, records under `/standards/worked-examples/`         |
+| Eval cases                | Seven draft cases, eval catalogue v1.6.0                                             |
+| Explainer                 | `/explainers/typed-decision-models`                                                  |
+| Glossary terms            | Five terms in glossary v1.12.0, including typed decision model                       |
+| Decision record extension | Optional `typed_judgment` block, decision record schema 2.1                          |
+| Engagement                | Drafts in [`jev-outreach-drafts-2026-09.md`](jev-outreach-drafts-2026-09.md), unsent |
+
+The intervention specification also gained an optional `routing` block for STD-08 §3.6, and policy
+records a `model_change` trigger kind for STD-08 §2.6.
+
 The open questions this note raised were settled as follows.
 
 - **Reason substitution** became a clause in STD-02 Article I, because the reasons clauses already
   existed and only lacked the requirement that a reason be causally connected to the decision.
 - **Micro-decision aggregation** became a standards question in STD-09 Part A. A hop that shapes a
   decision is enumerated like any other hop, and its consequence is assessed in aggregate.
-- **The decision record extension** is still open. The new clauses name what a record must carry,
-  but no schema field was added. That change belongs with the reconstruction plan's schema review.
+- **The decision record extension** was added as an optional, additive block so that existing 2.0
+  records stay valid. The reconstruction plan's schema review can still reshape it before the schema
+  is marked stable.
 
 ## Sources
 

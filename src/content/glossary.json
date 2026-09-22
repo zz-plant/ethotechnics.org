@@ -15,10 +15,15 @@
       "contact": "research@ethotechnics.org",
       "published": "2025-12-03T00:00:00Z",
       "updated": "2026-09-22T00:00:00Z",
-      "version": "v1.11.0",
+      "version": "v1.12.0",
       "doi": "Pending Zenodo deposit",
       "archiveUrl": "https://web.archive.org/web/*/https://ethotechnics.org/glossary",
       "changelog": [
+        {
+          "version": "v1.12.0",
+          "date": "2026-09-22",
+          "summary": "Added Typed Decision Model and Confidence-Gated Execution, cross-linked to the worked example of a decision-model gate on refunds."
+        },
         {
           "version": "v1.11.0",
           "date": "2026-09-22",
@@ -3089,6 +3094,54 @@
             "maturity": null,
             "clusters": [],
             "legacyTerritory": "system-states"
+          },
+          {
+            "id": "typed-decision-model",
+            "title": "Typed Decision Model",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>A model that takes a block of state and a set of questions with fixed answers, and returns a chosen value with a probability distribution and a confidence margin instead of text. It gives no reasons. The first widely adopted product in the class, released in September 2026, is marketed as hundreds of times faster and cheaper than a language model for routing, triage, tool gating, and approval checks.</p><p>It matters because a cheap judgment gets placed at every branch, and authority follows it into places that do not look like decisions: the <a href=\"/glossary/decision-threshold\">decision threshold</a> that turns a score into an action, the <a href=\"/glossary/shaping-hop\">shaping hop</a> that decides what the decider sees, and the reasons nobody produced. The method governs it like any other delegate. The <a href=\"/explainers/typed-decision-models\">explainer</a> names the six places its authority sits, and the decision record carries a <code>typed_judgment</code> block for what it decided.</p>",
+            "scope": "D. System states & architectures. Operational postures that determine how harm is absorbed—or amplified.",
+            "operationalTests": [
+              "Every consequential decision a typed decision model contributes to has a decision record with a typed_judgment block naming the pinned model version.",
+              "The threshold that acts on the model's output is a policy record, not a configuration value.",
+              "Confidence is recorded with its semantics, and a margin is not reported as a probability of being right."
+            ],
+            "genealogy": "A new substrate that tests the method's substrate independence: the unit of governance is the consequential decision, whatever component made it.",
+            "references": [
+              {
+                "label": "Typed decision models and where their authority lives",
+                "href": "/explainers/typed-decision-models",
+                "type": "Explainer"
+              },
+              {
+                "label": "Decision-model gate on refunds",
+                "href": "/examples/decision-model-gate",
+                "type": "Worked example"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "Decision records with a typed_judgment block: pinned decider, question schema hash, distribution, confidence semantics, threshold policy, and reason provenance.",
+              "behavior": "A model upgrade suspending the thresholds tuned against the previous version until they are re-set.",
+              "metric": "Share of decisions involving a typed decision model whose record names a pinned model version and a threshold policy."
+            },
+            "domains": ["structural", "visibility"],
+            "scale": "systemic",
+            "phase": ["design", "deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "system-states",
+            "tags": ["models", "classifiers", "decisions", "substrate"],
+            "adjacentTerms": [
+              "decision-threshold",
+              "shaping-hop",
+              "reason-substitution",
+              "confidence-gated-execution"
+            ],
+            "relatedPatterns": ["decision-log", "authority-grant-register"],
+            "termUpdated": "2026-09-22T00:00:00Z",
+            "termVersion": "v1.0.0"
           }
         ]
       },
@@ -7275,6 +7328,56 @@
               "unseen-harm"
             ],
             "relatedPatterns": ["authority-grant-register", "expansion-review"],
+            "termUpdated": "2026-09-22T00:00:00Z",
+            "termVersion": "v1.0.0"
+          },
+          {
+            "id": "confidence-gated-execution",
+            "title": "Confidence-Gated Execution",
+            "status": null,
+            "classes": [],
+            "bodyHtml": "<p>An arrangement in which a model's confidence decides whether an action runs unattended, goes to a person, or is refused. It is sold as oversight that scales: high-confidence cases run, and people see only the uncertain ones.</p><p>It matters because it moves both authority and review into a number. The threshold confers the authority, so STD-08 §2.6 holds it as a <a href=\"/glossary/decision-threshold\">decision threshold</a> policy. The threshold also chooses the reviewer's queue, so STD-08 §3.6 makes it part of the <a href=\"/glossary/intervention-specification\">intervention specification</a> and sends a sample of the confident cases to review too, because a queue fed only with uncertain cases cannot detect a confident error. Without both, the arrangement is <a href=\"/glossary/human-override-lanes\">human oversight</a> in name only.</p>",
+            "scope": "H. Governance & power. Structures that determine who sets moral boundaries and who can intervene.",
+            "operationalTests": [
+              "The routing threshold resolves to a pinned policy record and is named on the intervention specification.",
+              "A declared share of decisions that ran unattended reaches review, and its reversal rate is reported apart from the routed queue.",
+              "The record states whether the reviewer sees the model's score."
+            ],
+            "genealogy": "Applies Law IX to review queues selected by a score: a person who only ever sees the cases the model was unsure of cannot alter what the model was sure of.",
+            "references": [
+              {
+                "label": "STD-08 Delegation",
+                "href": "/standards/std-08-delegation#part-c",
+                "type": "Standard"
+              },
+              {
+                "label": "Decision-model gate on refunds",
+                "href": "/examples/decision-model-gate",
+                "type": "Worked example"
+              }
+            ],
+            "minimumEvidence": {
+              "artifact": "An intervention specification with a routing block naming the threshold policy, whether the score is shown, and the unreviewed sample.",
+              "behavior": "A threshold change opening a reconsideration of the intervention specification.",
+              "metric": "Reversal rate in the sample of decisions that ran unattended, reported apart from the routed queue."
+            },
+            "domains": ["agency", "measurable"],
+            "scale": "organizational",
+            "phase": ["deployment", "audit"],
+            "measurability": "fully_measurable",
+            "maturity": "core_concept",
+            "clusters": [],
+            "legacyTerritory": "governance",
+            "tags": ["thresholds", "review", "oversight", "confidence"],
+            "adjacentTerms": [
+              "decision-threshold",
+              "intervention-specification",
+              "human-override-lanes"
+            ],
+            "relatedPatterns": [
+              "intervention-specification",
+              "policy-review-triggers"
+            ],
             "termUpdated": "2026-09-22T00:00:00Z",
             "termVersion": "v1.0.0"
           }

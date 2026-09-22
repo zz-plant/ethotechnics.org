@@ -87,14 +87,15 @@
           },
           "kind": {
             "title": "Kind",
-            "description": "What class of observation fires the trigger.",
+            "description": "What class of observation fires the trigger. model_change fires when the model version, question schema, or option order a threshold was tuned against changes (STD-08 §2.6).",
             "type": "string",
             "enum": [
               "evidence_threshold",
               "elapsed_time",
               "incident_class",
               "dependency_threshold",
-              "challenge_volume"
+              "challenge_volume",
+              "model_change"
             ]
           },
           "condition": {

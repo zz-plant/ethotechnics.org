@@ -123,6 +123,51 @@
       "description": "The kind of intervention the owner can exercise.",
       "type": "string",
       "enum": ["halt", "hold", "override", "narrow", "revoke", "escalate"]
+    },
+    "routing": {
+      "title": "Routing",
+      "description": "Present when a score or threshold decides which decisions reach the owner. The threshold is then part of this specification, and a declared share of the decisions that ran without review must still reach review (STD-08 §3.6).",
+      "type": "object",
+      "required": [
+        "threshold_policy_ref",
+        "score_shown_to_owner",
+        "unreviewed_sample"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "threshold_policy_ref": {
+          "title": "Threshold policy reference",
+          "description": "The policy record, pinned as policy_id@version, holding the routing threshold. A change to it opens a reconsideration of this specification.",
+          "type": "string",
+          "pattern": "^[^@]+@[^@]+$"
+        },
+        "score_shown_to_owner": {
+          "title": "Score shown to owner",
+          "description": "Whether the owner sees the model's score or confidence while reviewing, which can anchor the review.",
+          "type": "boolean"
+        },
+        "unreviewed_sample": {
+          "title": "Unreviewed sample",
+          "description": "The share of decisions that ran without review which are routed to review anyway, and how often. A queue fed only with uncertain cases cannot detect confident errors.",
+          "type": "object",
+          "required": ["share", "cadence"],
+          "additionalProperties": false,
+          "properties": {
+            "share": {
+              "title": "Share",
+              "description": "Fraction of unreviewed decisions sampled into review, greater than 0 and at most 1.",
+              "type": "number",
+              "minimum": 0.0001,
+              "maximum": 1
+            },
+            "cadence": {
+              "title": "Cadence",
+              "description": "How often the sample is drawn and its approval rate reported, measured apart from the routed queue.",
+              "type": "string"
+            }
+          }
+        }
+      }
     }
   }
 }
