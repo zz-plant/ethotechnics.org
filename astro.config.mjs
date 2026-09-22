@@ -5,7 +5,6 @@ import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import icon from "astro-icon";
 import react from "@astrojs/react";
-import robotsTxt from "astro-robots-txt";
 
 export default defineConfig({
   site: "https://ethotechnics.org",
@@ -68,7 +67,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: "prism",
   },
-  integrations: [react(), icon(), mdx(), robotsTxt()],
+  integrations: [react(), icon(), mdx()],
   vite: {
     resolve: {
       alias: {

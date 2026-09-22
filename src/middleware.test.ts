@@ -21,6 +21,11 @@ describe("middleware", () => {
         host: "WWw.EthoTechnics.Com",
         expectedLocation: "https://ethotechnics.org/mixed?foo=bar",
       },
+      {
+        url: "https://www.ethotechnics.org/glossary?foo=bar",
+        host: "www.ethotechnics.org",
+        expectedLocation: "https://ethotechnics.org/glossary?foo=bar",
+      },
     ];
 
     for (const { url, host, expectedLocation } of redirectCases) {

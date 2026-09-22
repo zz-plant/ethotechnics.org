@@ -21,6 +21,11 @@ if (!entry) {
 }
 
 const { Content } = await render(entry);
+// A standards document that emits its own TechArticle JSON-LD describes the
+// page itself, so the layout must not add a second WebPage and Article.
+const pageSchema = entry.body?.includes("application/ld+json")
+  ? "route"
+  : "layout";
 const data = entry.data;
 
 /**
@@ -86,6 +91,7 @@ if (
   seoTitle={data.seoTitle}
   publishedTime={data.publishedTime}
   modifiedTime={data.modifiedTime}
+  pageSchema={pageSchema}
   mainClass={data.mainClass}
 >
   {isLaws && entry.body && <LawsGrid body={entry.body} />}
