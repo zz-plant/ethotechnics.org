@@ -328,6 +328,9 @@ const structuredData = {
       mainEntity: {
         "@id": `${pageUrl}#defined-term`,
       },
+      breadcrumb: {
+        "@id": `${pageUrl}#breadcrumb`,
+      },
     },
     {
       "@type": "DefinedTerm",
@@ -355,29 +358,6 @@ const structuredData = {
         url: glossaryUrl,
       },
     },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: Astro.site ? new URL("/", Astro.site).toString() : "/",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Glossary",
-          item: glossaryUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: entry.title,
-          item: pageUrl,
-        },
-      ],
-    },
   ],
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
@@ -387,7 +367,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   title={`${entry.title} — Ethotechnics glossary`}
   description={pageDescription}
   openGraphType="article"
-  publishedTime={termUpdated ?? "2025-06-01T00:00:00.000Z"}
+  publishedTime={termPublished ?? "2025-06-01T00:00:00.000Z"}
+  modifiedTime={termModified ?? undefined}
+  pageSchema="route"
   enableGlossaryHighlights={false}
 >
   <Fragment slot="head">

@@ -69,7 +69,10 @@ const pageUrl = Astro.site
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "@id": pageUrl,
+  // The layout's WebPage owns the page URL as its @id. Reusing it here gave
+  // one entity two types.
+  "@id": `${pageUrl}#faq`,
+  mainEntityOfPage: { "@id": pageUrl },
   mainEntity: faqs.map((faq) => ({
     "@type": "Question",
     name: faq.question,

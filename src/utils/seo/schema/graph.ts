@@ -36,6 +36,13 @@ type SchemaGraphInput = {
   normalizedPublishedTime?: string;
   normalizedModifiedTime?: string;
   breadcrumbs: Array<{ name: string; absoluteUrl: string }>;
+  /**
+   * "route" when the page emits its own page-level JSON-LD (a DefinedTerm, a
+   * TechArticle, a CollectionPage). The layout then leaves out its WebPage
+   * and Article nodes, which otherwise share the page's @id with a different
+   * type or describe the same page twice with different dates.
+   */
+  pageNode?: "layout" | "route";
 };
 
 const mapWebPageType = (type: StructuredDataType): WebPageType => {
@@ -104,6 +111,8 @@ const buildSchemaGraph = (input: SchemaGraphInput): SchemaNode[] => {
       "@id": breadcrumbNode["@id"],
     };
   }
+
+  if (input.pageNode === "route") return graph;
 
   graph.push(webpageNode);
 

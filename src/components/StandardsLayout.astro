@@ -20,6 +20,8 @@ interface Props {
   modifiedTime?: string;
   mainClass?: string;
   jsonAlternates?: Array<{ href: string; title: string }>;
+  /** "route" when the document emits its own page-level JSON-LD. */
+  pageSchema?: "layout" | "route";
 }
 
 const {
@@ -34,6 +36,7 @@ const {
   modifiedTime,
   mainClass,
   jsonAlternates,
+  pageSchema,
 } = Astro.props as Props;
 ---
 
@@ -42,6 +45,7 @@ const {
   description={description}
   publishedTime={publishedTime}
   modifiedTime={modifiedTime}
+  pageSchema={pageSchema}
   mainClass={mainClass}
   jsonAlternates={jsonAlternates}
 >

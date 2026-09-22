@@ -198,6 +198,8 @@ export const buildGlossaryStructuredDataPayload = (input: {
     "@graph": [
       {
         "@type": "CollectionPage",
+        // The layout emits the breadcrumb list; the page references it.
+        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
         "@id": pageUrl,
         name: input.pageTitle,
         description: input.pageDescription,
@@ -240,23 +242,6 @@ export const buildGlossaryStructuredDataPayload = (input: {
           target: `${pageUrl}?query={search_term_string}`,
           "query-input": "required name=search_term_string",
         },
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: new URL("/", input.siteBase).toString(),
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Glossary",
-            item: pageUrl,
-          },
-        ],
       },
     ],
   };

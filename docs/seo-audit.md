@@ -3,6 +3,26 @@
 This audit replaces the 2026-02-21 audit. Its section on progress since then records what happened to
 the earlier findings.
 
+## Status
+
+The high- and medium-priority findings are fixed in code, except the `www` DNS record, which has to
+be added in Cloudflare. The low-priority findings are open.
+
+| Finding                         | Status                                                                           |
+| ------------------------------- | -------------------------------------------------------------------------------- |
+| 1. `robots.txt` sitemap pointer | Fixed. The integration is removed and the route serves the file.                 |
+| 2. Pages missing from sitemap   | Fixed. 609 URLs are listed, all answer 200, and none is listed twice.            |
+| 3. Conflicting JSON-LD graphs   | Fixed. No page emits one `@id` with two types, two breadcrumbs, or two articles. |
+| 4. Conflicting dates            | Fixed. Glossary pages publish their real publication and modified dates.         |
+| 5. `www` host                   | Redirect is in the middleware. The DNS record still needs adding.                |
+| 6. Sitemap hygiene              | Fixed alongside finding 2.                                                       |
+| 7 to 9                          | Open.                                                                            |
+
+Fixing finding 2 brought the explainers into the rendered audit for the first time. Their FAQ node
+reused the page URL as its `@id`, the same conflict as finding 3, and the glossary index had a
+second breadcrumb list. Both are fixed. Across all 607 pages the link crawl reaches, no JSON-LD
+conflict remains.
+
 ## Scope and method
 
 - Ran the source-level audit with `bun run seo:audit`.
