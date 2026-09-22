@@ -20,6 +20,12 @@ It consolidates references that were previously spread across multiple index sec
 - [`user-journey-critique.md`](user-journey-critique.md): representative journey walkthrough and
   recommendations.
 
+## Signal assessments
+
+- [`jev-signal-assessment-2026-09.md`](jev-signal-assessment-2026-09.md): what TypeSafe's Jev
+  decision model means for the standards, the problem spaces it opens, and how the project could
+  respond.
+
 ## Technical strategy tracks
 
 - Interop and toolkit planning:
