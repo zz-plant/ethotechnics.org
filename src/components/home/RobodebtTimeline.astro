@@ -1,0 +1,62 @@
+---
+/**
+ * The masthead's evidence: Robodebt as six dated facts. The home page used to
+ * mention it in one muted line under three buttons; it is the clearest proof
+ * of the site's claim that winning appeals is not the same as stopping a
+ * system. Every date and figure is from the casebook entry, which cites the
+ * Royal Commission and the Federal Court.
+ */
+import { cases } from "../../content/casebook";
+
+const robodebt = cases.find((entry) => entry.slug === "robodebt");
+
+const events = [
+  {
+    when: "2014",
+    what: "The department is advised in writing that income averaging cannot prove a debt.",
+  },
+  {
+    when: "Jul 2016",
+    what: "The automated scheme launches. Debt notices go from about 20,000 a year to 20,000 a week.",
+  },
+  {
+    when: "Apr 2017",
+    what: "The Ombudsman reports that notices do not explain how a debt was calculated.",
+  },
+  {
+    when: "2017–19",
+    what: "A tribunal rules individual debts unlawful dozens of times. Each ruling fixes one case. The scheme keeps running.",
+    turn: true,
+  },
+  {
+    when: "Nov 2019",
+    what: "The government concedes a Federal Court case it was about to lose. The scheme is halted that month.",
+  },
+  {
+    when: "Jul 2023",
+    what: "A Royal Commission finds the scheme was unlawful from the outset.",
+  },
+];
+---
+
+<figure class="robodebt-timeline" aria-labelledby="robodebt-timeline-caption">
+  <figcaption id="robodebt-timeline-caption" class="robodebt-timeline__caption">
+    <span class="eyebrow">Robodebt · Australia</span>
+    <span class="robodebt-timeline__halt">
+      Time to halt: {robodebt?.timeToHalt ?? "Three years and four months"}
+    </span>
+  </figcaption>
+  <ol class="robodebt-timeline__list">
+    {
+      events.map((event) => (
+        <li class:list={["robodebt-timeline__event", { "is-turn": event.turn }]}>
+          <span class="robodebt-timeline__when">{event.when}</span>
+          <span class="robodebt-timeline__what">{event.what}</span>
+        </li>
+      ))
+    }
+  </ol>
+  <a class="robodebt-timeline__more small" href="/casebook/robodebt">
+    Read the scored case →
+  </a>
+</figure>

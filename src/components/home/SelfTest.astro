@@ -1,0 +1,108 @@
+---
+/**
+ * The home page self-test. Six questions, answered in place, scored as the
+ * reader goes. It replaces the six static state-variable cards: the same
+ * content, asked about the reader's own system instead of described.
+ *
+ * Each drifting answer points at the public case where that variable failed,
+ * so a "no" lands on evidence rather than on a definition.
+ */
+import { cases } from "../../content/casebook";
+import {
+  caseForEachQuestion,
+  selfTestQuestions,
+} from "../../utils/self-test";
+import StateVariableGlyph from "../StateVariableGlyph.astro";
+
+const caseFor = caseForEachQuestion(cases);
+
+const choices = [
+  { value: "y", label: "Yes" },
+  { value: "n", label: "No" },
+  { value: "u", label: "Not sure" },
+];
+---
+
+<section id="self-test" class="self-test" aria-labelledby="self-test-heading">
+  <div class="self-test__header">
+    <p class="eyebrow">60-second self-test</p>
+    <h2 id="self-test-heading" class="section__heading">
+      Could anyone stop yours?
+    </h2>
+    <p class="section-lead">
+      Pick one system that decides something about people: a loan, a shift, a
+      benefit, a refund. Answer six questions about it. "Not sure" counts as no.
+    </p>
+  </div>
+
+  <form class="self-test__form" data-self-test>
+    <ol class="self-test__questions">
+      {
+        selfTestQuestions.map((item, index) => {
+          const failedCase = caseFor.get(item.variable);
+          return (
+            <li
+              class="self-test__item"
+              data-variable={item.variable}
+              data-if-no={item.ifNo}
+              data-case-title={failedCase?.title}
+              data-case-href={
+                failedCase ? `/casebook/${failedCase.slug}` : undefined
+              }
+            >
+              <fieldset class="self-test__fieldset">
+                <legend class="self-test__legend">
+                  <span class="self-test__variable">
+                    <StateVariableGlyph variable={item.variable} size="1rem" />
+                    {item.label}
+                  </span>
+                  <span class="self-test__question">{item.question}</span>
+                </legend>
+                <div class="self-test__choices">
+                  {choices.map((choice) => (
+                    <label class="self-test__choice">
+                      <input
+                        type="radio"
+                        name={`q${index}`}
+                        value={choice.value}
+                      />
+                      <span>{choice.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </form>
+
+  <div class="self-test__result" data-self-test-result aria-live="polite" hidden>
+    <p class="self-test__score">
+      <span data-self-test-holding>0</span> of {selfTestQuestions.length} holding
+    </p>
+    <p class="self-test__verdict" data-self-test-verdict></p>
+    <ul class="self-test__drift" data-self-test-drift></ul>
+    <div class="actions">
+      <a class="button primary" href="/diagnostics/delegation-audit">
+        Run the full audit
+      </a>
+      <button type="button" class="button ghost" data-self-test-share>
+        Copy link to this result
+      </button>
+    </div>
+  </div>
+
+  <noscript>
+    <p class="small muted">
+      The self-test scores in your browser. Without JavaScript, <a
+        href="/diagnostics/delegation-audit">run the delegation audit</a
+      > instead.
+    </p>
+  </noscript>
+</section>
+
+<script>
+  import "../../scripts/self-test.ts";
+</script>

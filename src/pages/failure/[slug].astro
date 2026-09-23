@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import {
   artifacts,
   failureStates,
@@ -161,6 +162,7 @@ const breadcrumbItems = [
     <p class="small muted">Workflow follows triage → stabilize → evidence.</p>
     <p class="small muted">{state.footerLine}</p>
   </section>
+  <NextStep topic={[state.slug, state.title]} />
   <script>
     import "../../scripts/route-metrics.ts";
   </script>

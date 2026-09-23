@@ -1,0 +1,86 @@
+@layer components {
+  /* The close of a deep page: a case on the left, one action on the right.
+     A tinted ground like .panel, split by a hairline rather than two boxes. */
+  .next-step {
+    display: grid;
+    gap: var(--space-4);
+    margin: var(--space-6) 0 var(--space-5);
+    padding: var(--space-4);
+    background: color-mix(in srgb, var(--panel) 70%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-inner-highlight);
+  }
+
+  .next-step__case,
+  .next-step__action {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+    min-width: 0;
+  }
+
+  .next-step__action {
+    padding-top: var(--space-4);
+    border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  }
+
+  .next-step__title {
+    margin: 0;
+    font-size: var(--text-h3);
+    line-height: 1.2;
+  }
+
+  .next-step__verdict {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .next-step__hook,
+  .next-step__law {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .next-step__case-link {
+    justify-self: start;
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .next-step__button {
+    justify-self: start;
+    margin-top: var(--space-1);
+  }
+
+  @media (max-width: 480px) {
+    .next-step {
+      padding: var(--space-3);
+    }
+
+    .next-step__button {
+      justify-self: stretch;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .next-step {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-5);
+    }
+
+    .next-step__action {
+      padding-top: 0;
+      padding-left: var(--space-5);
+      border-top: 0;
+      border-left: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    }
+  }
+}

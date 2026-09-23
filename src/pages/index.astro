@@ -1,270 +1,100 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CasebookScorecard from "../components/home/CasebookScorecard.astro";
 import HeroIllustration from "../components/home/HeroIllustration.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
+import RobodebtTimeline from "../components/home/RobodebtTimeline.astro";
+import SelfTest from "../components/home/SelfTest.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
-import StateVariableGlyph, {
-  type StateVariableGlyphId,
-} from "../components/StateVariableGlyph.astro";
-import { failureStates } from "../content/institute-site";
-import { methodContent } from "../content/method";
 import { recentReleases } from "../content/recent-releases";
 
-const { stateVariables } = methodContent;
-
-// The method table's questions are precise but formal. The home page restates
-// them in the words a newcomer would use; the card falls back to the formal
-// question if a variable is ever added without a plain phrasing.
-const plainSpineQuestions: Record<string, string> = {
-  capability: "What can the system actually do?",
-  authority: "What is it allowed to do, for whom, and until when?",
-  evidence: "What evidence justifies that permission?",
-  dependency: "How hard is it to switch off or replace?",
-  standing: "Who can challenge a decision, and with what force?",
-  correction: "What can still be fixed, and how fast?",
-};
-
-// The drift column ("Capability outruns authority") is the method's shorthand.
-// The home page states what each drift actually means; the method table keeps
-// the formal pairings.
-const plainSpineDrifts: Record<string, string> = {
-  capability: "the system doing more than it was ever approved to do",
-  authority: "permission lasting longer than the reasons for it",
-  evidence: "the rule no longer matching what is true",
-  dependency: "being too hard to switch off to fix in time",
-  standing: "more people affected than anyone can challenge",
-  correction: "being able to see the harm but not able to stop it",
-};
-
-const failureChoiceLabels: Record<string, string> = {
-  "decision-appealed": "Decision appealed",
-  "model-wrong": "Model made a harmful error",
-  "queue-stuck": "Appeals or reviews are stuck",
-  "user-harmed": "A user was harmed",
-  "no-owner": "No owner is assigned",
-  "cant-explain": "Decision cannot be clearly explained",
-  "cant-stop": "System cannot be quickly stopped or rolled back",
-};
-
-const failurePriorityBadges: Record<string, string> = {
-  "decision-appealed": "High · Owner in 24h",
-  "model-wrong": "Critical · Pause authority needed",
-  "queue-stuck": "High · Escalate in 4h",
-  "user-harmed": "Critical · Human response now",
-  "no-owner": "High · Assign owner",
-  "cant-explain": "Medium · Review evidence",
-  "cant-stop": "Critical · Activate hard halt",
-};
-
-// The badges already lead with a severity word; this is what lets the grid
-// show it. Seven triage cards whose whole job is "how bad is this" rendered
-// Critical, High and Medium in identical neutral grey, so severity was
-// legible only by reading each card.
-const failureSeverity = (badge?: string): string | undefined => {
-  const level = badge?.split("·")[0]?.trim().toLowerCase();
-  return level === "critical" || level === "high" || level === "medium"
-    ? level
-    : undefined;
-};
-
-const failureChoiceIcons: Record<string, string[]> = {
-  "decision-appealed": [
-    "M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3",
-    "M8.5 10h7",
-    "M8.5 13h4.5",
-  ],
-  "model-wrong": ["M10 4.5l6.8 11.8H3.2z", "M10 8.5v3.5", "M10 14.3h.01"],
-  "queue-stuck": ["M10 5a5 5 0 1 1-5 5", "M10 7.5v3", "M10 10.5h2.2"],
-  "user-harmed": [
-    "M10 16.5s-5.5-3.1-5.5-7a3.2 3.2 0 0 1 5.5-2.3 3.2 3.2 0 0 1 5.5 2.3c0 3.9-5.5 7-5.5 7",
-    "M7.9 9.4l4.2 4.2",
-    "M12.1 9.4 7.9 13.6",
-  ],
-  "no-owner": [
-    "M10 11a2.2 2.2 0 1 0-2.2-2.2A2.2 2.2 0 0 0 10 11z",
-    "M5.5 15.5a4.5 4.5 0 0 1 9 0",
-    "M14.2 5.8l3.2 3.2",
-    "M17.4 5.8l-3.2 3.2",
-  ],
-  "cant-explain": [
-    "M10 16.5a7 7 0 1 0-7-7",
-    "M10 12.4v-.4a2 2 0 1 1 2-2",
-    "M10 14.7h.01",
-  ],
-  "cant-stop": ["M4.5 4.5h11v11h-11z", "M8 8h4v4H8z"],
-};
+/**
+ * The front door, ordered by what keeps a first-time reader on the page:
+ * a failure they can picture, a door that names who they are, a test they
+ * can take about their own system, then the evidence. The institute's own
+ * description comes last because nobody arrives looking for it.
+ */
+const doors = [
+  {
+    href: "/roles/engineering",
+    who: "I build these systems",
+    what: "The checks a system has to pass before it ships, and the tools that run them.",
+  },
+  {
+    href: "/roles/audit",
+    who: "I audit or regulate them",
+    what: "Citable clauses, scored public cases, and the evidence each clause needs.",
+  },
+  {
+    href: "/diagnostics/self-defense-tools",
+    who: "A system decided something about me",
+    what: "Three quick checks: can this be appealed, and who can change it?",
+  },
+];
 ---
 
 <BaseLayout
-  title="Ethotechnics Institute — Open commons for accountable AI governance"
-  description="The open-access home of Ethotechnics standards, ontology, glossary, and diagnostics for teams building or auditing high-stakes AI systems."
+  title="Ethotechnics Institute — can anyone stop your AI system?"
+  description="Open standards, scored public failures, and free diagnostics for keeping automated decision systems stoppable, explainable, and appealable."
   structuredDataType="collection"
 >
-  <section class="institute-hero stack-lg">
+  <section class="institute-hero institute-hero--story">
     <div class="institute-hero__layout">
       <div class="institute-hero__main stack-lg">
-        <p class="institute-hero__eyebrow">
-          Ethotechnics Institute · Open Commons
-        </p>
+        <p class="institute-hero__eyebrow">Ethotechnics Institute</p>
         <h1 class="balanced-headline">
-          Make high-stakes AI easier to stop, explain, appeal, and repair
+          The appeals kept winning. The system kept running.
         </h1>
         <p class="section-lead">
-          The reference standards, ontology, and field diagnostics for governing
-          delegated intelligence. While other frameworks ask whether you managed
-          risk on paper, Ethotechnics enforces whether a running system can actually
-          be halted, challenged, and reversed under stress.
+          Australia's Robodebt raised 470,000 unlawful debts over three years.
+          A tribunal ruled individual debts unlawful dozens of times, and each
+          ruling fixed one person's debt. Nobody with the power to stop the scheme treated those
+          rulings as evidence against it.
         </p>
-        <div class="institute-hero__actions actions" aria-label="Primary site actions">
-          <a class="button primary" href="/start">Find your starting path</a>
-          <a class="button ghost" href="/diagnostics/delegation-audit">Run delegation audit</a>
-          <a class="button ghost" href="/standards">Explore standards</a>
+        <p class="section-lead">
+          We publish free, open standards for one question: when an automated
+          system is hurting people, can anyone stop it?
+        </p>
+        <div class="institute-hero__actions actions">
+          <a class="button primary" href="#self-test">
+            Test your system in 60 seconds
+          </a>
         </div>
-        <p class="small muted">
-          Engineered around real-world institutional failures like Robodebt, where 470,000 unlawful automated debts ran for three years because appeals fixed single cases instead of halting the system.
-          <a href="/method">How the method works →</a>
-          <a href="/casebook">Five public failures, scored →</a>
+        <p class="institute-hero__incident small">
+          Something going wrong right now?
+          <a href="/failure">Go to incident triage →</a>
         </p>
       </div>
-
-      <div class="institute-hero__side stack-md">
-        <HeroIllustration />
-        <aside
-          class="institute-hero__starter panel stack-sm"
-          aria-label="Quick jump"
-        >
-          <div class="institute-hero__starter-header">
-            <span class="eyebrow">Quick Verification</span>
-            <span class="small muted">Interactive Tools</span>
-          </div>
-          <div class="institute-hero__starter-links">
-            <a href="/diagnostics" class="institute-hero__starter-item">
-              <span class="institute-hero__starter-name">Diagnostics Suite</span>
-              <span class="small muted">Test system coupling and halt readiness</span>
-            </a>
-            <a href="/standards/laws" class="institute-hero__starter-item">
-              <span class="institute-hero__starter-name">The Twelve Laws</span>
-              <span class="small muted">Formal technical & legal invariants</span>
-            </a>
-          </div>
-        </aside>
+      <div class="institute-hero__side">
+        <RobodebtTimeline />
       </div>
     </div>
   </section>
 
-  <section
-    id="state-variables"
-    class="home-spine"
-    aria-labelledby="spine-heading"
-  >
-    <div class="section__header">
-      <p class="eyebrow">The method, in six questions</p>
-      <h2 id="spine-heading" class="section__heading">
-        Six questions to keep answering when software decides.
-      </h2>
-      <p class="muted">
-        Software decides who gets a loan, a shift, a benefit, or a refund. A
-        system becomes unsafe when these six drift apart — each card names the
-        failure it catches.
-      </p>
-    </div>
-    <ul class="home-spine__grid" aria-labelledby="spine-heading">
+  <nav class="home-doors" aria-labelledby="home-doors-heading">
+    <h2 id="home-doors-heading" class="eyebrow">Start from where you are</h2>
+    <ul class="home-doors__list">
       {
-        stateVariables.map((variable) => (
+        doors.map((door) => (
           <li>
-            <a class="home-spine__card" href="/method#state-variables">
-              <span class="home-spine__head">
-                <span class="home-spine__chip">
-                  <StateVariableGlyph
-                    variable={
-                      variable.state.toLowerCase() as StateVariableGlyphId
-                    }
-                    size="1.1rem"
-                  />
-                </span>
-                <span class="home-spine__name">{variable.state}</span>
-              </span>
-              <span class="home-spine__question">
-                {plainSpineQuestions[variable.state.toLowerCase()] ??
-                  variable.question}
-              </span>
-              <span class="home-spine__meta small muted">
-                Catches:{" "}
-                {plainSpineDrifts[variable.state.toLowerCase()] ??
-                  variable.drift}
-              </span>
+            <a class="home-doors__door" href={door.href}>
+              <span class="home-doors__who">{door.who}</span>
+              <span class="home-doors__what small muted">{door.what}</span>
             </a>
           </li>
         ))
       }
     </ul>
-    <p class="small muted">
-      Each of these maps to one of the twelve laws.
-      <a href="/method#state-variables">Read the method →</a>
-    </p>
-  </section>
+  </nav>
 
   <div class="home-core">
-    <section id="failure-intake" class="stack-lg">
-      <p class="eyebrow">Incident triage</p>
-      <h2 id="failure-intake-heading" class="section__heading">
-        What is going wrong right now?
-      </h2>
-      <p class="section-lead">
-        Choose the closest failure mode. Each path starts with what to do now,
-        then names who should own follow-up and what evidence to collect.
-      </p>
-      <ul class="failure-grid" aria-labelledby="failure-intake-heading">
-        {
-          failureStates.map((state) => {
-            const iconPaths = failureChoiceIcons[state.slug] ?? [
-              "M5 10h10",
-              "M11 6l4 4-4 4",
-            ];
-            return (
-              <li>
-                <a
-                  class="button failure-grid__button"
-                  href={`/failure/${state.slug}`}
-                >
-                  <span class="failure-grid__label">
-                    <span class="failure-grid__title">
-                      <span class="failure-grid__state-icon" aria-hidden="true">
-                        <svg
-                          viewBox="0 0 20 20"
-                          role="presentation"
-                          focusable="false"
-                        >
-                          {iconPaths.map((pathValue) => (
-                            <path d={pathValue} />
-                          ))}
-                        </svg>
-                      </span>
-                      <span>
-                        {failureChoiceLabels[state.slug] ?? state.shortLabel}
-                      </span>
-                    </span>
-                    <span
-                      class="failure-grid__priority small"
-                      data-severity={failureSeverity(
-                        failurePriorityBadges[state.slug],
-                      )}
-                    >
-                      {failurePriorityBadges[state.slug] ?? "Review now"}
-                    </span>
-                  </span>
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-      <p class="small muted">
-        Use these when a real person, queue, or decision needs attention—not
-        just documentation.
-      </p>
-    </section>
+    <div class="home-core__test">
+      <SelfTest />
+      <HeroIllustration class="home-core__figure" />
+    </div>
   </div>
+
+  <CasebookScorecard />
 
   <section
     id="ratchet"

@@ -3,6 +3,7 @@ import InlineScript from "./InlineScript.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "./CardGrid.astro";
 import CardItem from "./CardItem.astro";
+import NextStep from "./NextStep.astro";
 import PageIntro from "./PageIntro.astro";
 import SectionBlock from "./SectionBlock.astro";
 import { getExplainerSeoMetadata } from "../utils/explainer-metadata";
@@ -195,6 +196,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       }
     </CardGrid>
   </SectionBlock>
+
+  <NextStep topic={[title, permalink]} />
 
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 </BaseLayout>
