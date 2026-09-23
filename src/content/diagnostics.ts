@@ -119,8 +119,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
     ],
     license: {
-      label: "CC BY 4.0",
-      href: "https://creativecommons.org/licenses/by/4.0/",
+      label: "CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
       "Credit Ethotechnics Institute Diagnostics Lab, include tool name + version, and link to the canonical permalink.",
@@ -163,7 +163,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "You leave with a linkable readout, the mechanisms it cites, and one named next step.",
       },
     ],
-    note: "Every diagnostic runs without a prior relationship, and the Institute publishes each one under CC BY 4.0.",
+    note: "Every diagnostic runs without a prior relationship, and the Institute publishes each one under CC BY-SA 4.0.",
   },
   tools: [
     {

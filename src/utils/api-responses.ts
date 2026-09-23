@@ -482,6 +482,7 @@ export const createSiteIndexResponse = (options: {
   const publications = researchContent.publications.map((publication) => ({
     title: publication.title,
     type: publication.type,
+    status: publication.status,
     summary: publication.summary,
     tags: publication.tags,
     href: publication.href,

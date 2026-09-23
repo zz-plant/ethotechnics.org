@@ -173,8 +173,8 @@ export const evalsContent: EvalsContent = {
     published: "2026-07-27T00:00:00Z",
     version: "1.6.0",
     license: {
-      label: "CC BY 4.0",
-      href: "https://creativecommons.org/licenses/by/4.0/",
+      label: "CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
       "Ethotechnics Institute. (2026). Governance Eval Suites v1.6.0. Ethotechnics Institute.",

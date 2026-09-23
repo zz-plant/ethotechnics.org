@@ -24,7 +24,7 @@ schema, a validated worked example, and a field mapping.
 > documentation is also clear about the limits. Confidence is a margin, option order can move the
 > answer, and a guard belongs alongside deterministic checks.
 >
-> We maintain an open decision-record schema (CC BY) for governing automated decisions. Its
+> We maintain an open decision-record schema (CC BY-SA) for governing automated decisions. Its
 > `typed_judgment` block records the pinned model version, a hash of the output type including
 > option order, the answer, the distribution, the confidence with its semantics, and the threshold
 > policy that acted on it.

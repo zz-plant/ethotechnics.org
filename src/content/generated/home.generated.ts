@@ -1,6 +1,6 @@
 // AUTO-GENERATED FILE. DO NOT EDIT.
 // Source of truth lives in the JSON file referenced below.
-// source-sha256: dfb0f29d76d83fc6bf8dcca87241aa60a0431726cffcf581dfa1f16ac96c00b1
+// source-sha256: dcd19e8b5f08be5456d0dd7bb639735eff4b551580b7f82432040d52948d2846
 import sourceData from "../home.json" with { type: "json" };
 
 export const homeContentData = sourceData[0];
