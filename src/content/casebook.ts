@@ -303,7 +303,7 @@ export const cases: Case[] = [
     summary:
       "A fraud-detection system whose risk score was treated as a finding, whose reasons were withheld from the people it flagged and from the courts that reviewed them, and whose harshest rule was upheld by the highest administrative court for years before that court changed its mind.",
     narrative: [
-      "After a 2013 fraud case involving Bulgarian nationals, the Dutch tax administration's benefits arm was set aggressive enforcement targets. A risk-classification model scored childcare benefit applications, and applications with high scores were pulled for manual review under a presumption of fraud. Reviewers applied a rule under which any irregularity, including a missing signature or a late payment to the childcare provider, could lead to the whole benefit for the year being reclaimed. Parents labelled with intent or gross negligence were denied repayment arrangements.",
+      "After a 2013 fraud case involving Bulgarian nationals, the Dutch tax administration's benefits arm was set aggressive enforcement targets. A risk-classification model scored childcare benefit applications, and applications with high scores were pulled for manual review under a presumption of fraud. Reviewers applied a rule under which any irregularity, including a missing signature or a late payment to the childcare provider, could lead to the whole benefit for the year being reclaimed. Parents labeled with intent or gross negligence were denied repayment arrangements.",
       "Parents who objected were not told why they had been flagged. Files provided to courts were incomplete; internal memos later showed that the administration knew its position in some cases was untenable and litigated anyway. The Council of State, the highest administrative court, upheld the all-or-nothing rule in its case law until 23 October 2019, when it reversed course and held that the administration had discretion it had never exercised.",
       "The Dutch Data Protection Authority found in July 2020 that the administration had unlawfully processed applicants' nationality, including dual nationality, as a risk indicator, and fined it in December 2021. The parliamentary inquiry committee's report, Ongekend onrecht, unprecedented injustice, was published on 17 December 2020. The cabinet resigned over it on 15 January 2021. A redress operation is still running.",
     ],
@@ -346,7 +346,7 @@ export const cases: Case[] = [
         variable: "dependency",
         verdict: "drifted",
         finding:
-          "Enforcement targets made the flag rate a metric the organisation reported up. A system that produces the number a ministry is measured on is a system the ministry cannot afford to doubt.",
+          "Enforcement targets made the flag rate a metric the organization reported up. A system that produces the number a ministry is measured on is a system the ministry cannot afford to doubt.",
         clauses: [
           { standard: "STD-02", clause: "§6.2" },
           { standard: "STD-06", clause: "§5.1" },
@@ -565,7 +565,7 @@ export const cases: Case[] = [
         variable: "capability",
         verdict: "held",
         finding:
-          "The model did what was asked of it: it reproduced the prior distribution. Its capability was declared, its exclusions were declared, and its behaviour on small cohorts was published in advance. The capability variable is not where this case failed.",
+          "The model did what was asked of it: it reproduced the prior distribution. Its capability was declared, its exclusions were declared, and its behavior on small cohorts was published in advance. The capability variable is not where this case failed.",
         clauses: [{ standard: "STD-06", clause: "§1.2" }],
         laws: ["I"],
       },

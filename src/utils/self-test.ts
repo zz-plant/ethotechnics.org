@@ -80,10 +80,10 @@ export function decodeAnswers(
       ? (char as SelfTestAnswer)
       : undefined;
   });
-  const recognised = [...encoded].every(
+  const recognized = [...encoded].every(
     (char) => ANSWERS.has(char as SelfTestAnswer) || char === "-",
   );
-  return recognised ? answers : undefined;
+  return recognized ? answers : undefined;
 }
 
 export function encodeAnswers(

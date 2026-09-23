@@ -15,12 +15,12 @@ const { id = "results" } = Astro.props;
     id={id}
     eyebrow="Results"
     title="Governance Gap Score"
-    description="Shareable output to align remediation, evidence packs, and diagnostic follow-ups."
+    description="A scorecard you can send, with links to the evidence packs and the other diagnostics."
   >
     <CardGrid className="grid--two">
       <CardItem
         title="Score summary"
-        description="A quick readout of governance ownership, evidence cadence, and escalation coverage."
+        description="How ownership, evidence cadence, and escalation coverage scored."
       >
         <p class="muted">Overall score</p>
         <p class="metric" data-gap-score>--</p>
@@ -89,7 +89,7 @@ const { id = "results" } = Astro.props;
       </CardItem>
       <CardItem
         title="Recommended next steps"
-        description="Move from scoring to remediation with the Institute toolchain."
+        description="Where to go after the score: the other diagnostics and the evidence packs."
       >
         <div class="actions">
           <a class="button primary" href="/diagnostics"

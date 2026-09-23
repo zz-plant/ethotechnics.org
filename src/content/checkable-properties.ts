@@ -261,7 +261,7 @@ export const checkableProperties: CheckableProperty[] = [
       {
         observes: "live",
         id: "AGT-007",
-        what: "issues an override and checks the system's subsequent behaviour reflects it",
+        what: "issues an override and checks the system's subsequent behavior reflects it",
       },
     ],
     gap: "An emitted probe would need the system's intended action recorded before the override, so the two can be compared. Records name the action taken; they rarely name the action that was about to be taken.",
@@ -373,7 +373,7 @@ export const checkableProperties: CheckableProperty[] = [
         what: "flags kinds in the stream the declaration omits",
       },
     ],
-    gap: "The live equivalent would ask a running system for its own declaration and compare it against observed behaviour. No adapter capability exposes a manifest.",
+    gap: "The live equivalent would ask a running system for its own declaration and compare it against observed behavior. No adapter capability exposes a manifest.",
   },
   {
     id: "standing-is-proportional-to-exposure",
@@ -413,7 +413,7 @@ export const checkableProperties: CheckableProperty[] = [
     laws: ["law-xi"],
     variables: ["correction", "dependency"],
     probes: [],
-    gap: "This is a ratio between two quantities neither instrument observes: decisions made and corrections the organisation can actually process. It is measurable — both numbers exist inside any operator — but not from a record stream or an adapter, which is a reason to be honest about it rather than to drop it.",
+    gap: "This is a ratio between two quantities neither instrument observes: decisions made and corrections the organization can actually process. It is measurable — both numbers exist inside any operator — but not from a record stream or an adapter, which is a reason to be honest about it rather than to drop it.",
   },
   {
     id: "evaluation-sits-at-the-outermost-layer",

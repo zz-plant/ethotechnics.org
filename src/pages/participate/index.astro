@@ -262,17 +262,20 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
           <div class="success-message__icon">
             <Icon name="lucide:check" />
           </div>
-          <h3>Received</h3>
-          <p>Thank you for your submission. We reply within 2–3 business days with next steps.</p>
+          <h3>Check your mail app</h3>
+          <p>
+            A draft addressed to hello@ethotechnics.org should have opened.
+            Nothing is sent until you send it from there. If no draft
+            appeared, write to that address directly.
+          </p>
           <button class="button ghost" id="reset-btn" type="button">
-            Send another submission
+            Back to the form
           </button>
         </div>
       </div>
     </div>
 
     <script>
-      import { actions } from "astro:actions";
 
       const form = document.getElementById("intake-form") as HTMLFormElement;
       const submitBtn = document.getElementById(
@@ -321,7 +324,7 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
         form.addEventListener("input", saveDraft);
         form.addEventListener("blur", saveDraft, true);
 
-        form.addEventListener("submit", async (e) => {
+        form.addEventListener("submit", (e) => {
           e.preventDefault();
 
           if (!form.reportValidity()) {
@@ -330,37 +333,32 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
             return;
           }
 
-          // Reset previous states
           messageDiv.textContent = "";
           messageDiv.className = "form-message";
-          submitBtn.disabled = true;
-          const originalBtnText = submitBtn.textContent;
-          submitBtn.textContent = "Sending...";
 
+          // There is no server behind this form. It drafts an email in the
+          // reader's own mail client, so nothing is "received" until they
+          // press send there, and the success panel says so.
           const formData = new FormData(form);
+          const field = (key: string) => String(formData.get(key) ?? "").trim();
+          const topic = field("topic") || "Participation";
+          const body = [
+            `Name: ${field("name")}`,
+            `Organization: ${field("organization") || "(not given)"}`,
+            `Reply to: ${field("email")}`,
+            `Contribution type: ${topic}`,
+            "",
+            field("details"),
+          ].join("\n");
+          const href = `mailto:hello@ethotechnics.org?subject=${encodeURIComponent(
+            `Participation: ${topic}`,
+          )}&body=${encodeURIComponent(body)}`;
 
-          // Map fields if necessary to match action schema
-          // The form fields in content might not match exactly what our action expects
-          // We'll trust the form content matches or is close enough, checking specific overrides
-
-          const result = await actions.intake(formData);
-
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText;
-
-          if (!result.error) {
-            // Success
-            form.hidden = true;
-            successDiv.hidden = false;
-            form.reset();
-            localStorage.removeItem(storageKey);
-          } else {
-            // Error
-            messageDiv.textContent =
-              result.error.message ||
-              "Something went wrong. Please try again or use the feedback inbox below.";
-            messageDiv.classList.add("error");
-          }
+          window.location.href = href;
+          // Keep the draft: if no mail client opened, the reader still has
+          // their text when they go back to the form.
+          form.hidden = true;
+          successDiv.hidden = false;
         });
 
         resetBtn.addEventListener("click", () => {
@@ -368,8 +366,6 @@ const resolveIntakeFieldAutocapitalize = (fieldId: string) =>
           form.hidden = false;
           messageDiv.textContent = "";
           messageDiv.className = "form-message";
-          form.reset();
-          localStorage.removeItem(storageKey);
         });
       }
     </script>

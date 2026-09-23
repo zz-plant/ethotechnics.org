@@ -69,7 +69,7 @@ export type MethodContent = {
 };
 
 export const methodContent: MethodContent = {
-  pageTitle: "The Ethotechnics Method: Engineering Delegated Intelligence",
+  pageTitle: "The Ethotechnics method: keeping automated decisions answerable",
   pageDescription:
     "The canonical statement of the method: the seven-stage chain every consequential decision follows, the six state variables that must stay coupled, and the twelve laws the standards bind.",
   permalink: "/method",
