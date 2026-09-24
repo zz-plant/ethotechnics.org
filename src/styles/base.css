@@ -258,8 +258,14 @@
     background: color-mix(in srgb, var(--panel) 70%, var(--surface));
   }
 
+  /* position: relative makes the wrapper the containing block for the
+     absolutely positioned screen-reader text inside its cells. Without it
+     those spans were placed against the page, escaped the scroll box, and
+     widened the casebook to 882px on a phone. */
   .table-responsive {
+    position: relative;
     width: 100%;
+    min-width: 0;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin: 1.5rem 0;

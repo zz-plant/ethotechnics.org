@@ -116,6 +116,30 @@ component is for and where it appears.
     file above the limit. A wide drawing scrolls inside the frame at every viewport
     (`contain: inline-size` on the figure keeps its min-width from widening the standards column).
 
+## Static diagrams (`*Diagram.astro`, STD-07 and validator drawings)
+
+- Usage: a hand-drawn SVG inside a `<figure class="state-diagram">` (explainers, theory essays,
+  standards) or `<figure class="standard-diagram">` (STD-01, STD-07), with a `figcaption` or an
+  SVG `<title>`/`<desc>` and `role="img"`.
+- Rules:
+  - Text uses the shared classes: `.state-diagram__state` (title), `.state-diagram__label`, and
+    `.state-diagram__clause` (emphasized label), in `src/styles/components/reference-tables.css`.
+    Record drawings use the scoped vocabulary (`.title`, `.label`, `.small`, `.ink`, `.muted`,
+    `.chip`…) at the end of `figures.css`, and each one imports that stylesheet in its
+    frontmatter, because the pages they sit on do not load it otherwise. Avoid `font-size`
+    attributes on `<text>`; the class sizes override them. A `fill` or `stroke` attribute on a
+    node or label does win: the shared defaults only apply where the drawing sets none.
+  - Every label renders at 11px or larger at desktop width and on a 375px phone. Below 720px a
+    diagram does not shrink: it keeps a minimum width (state 760px, chain 900px, record 800px)
+    and scrolls sideways in a scroller that breaks out to the screen edges. Labels are larger
+    there (14px), so leave line pitch for them.
+  - No `<style>` inside an `<svg>`: it reaches the page inline with no Content-Security-Policy
+    hash, and production drops it. Colors come from theme tokens (`--text`, `--muted`,
+    `--accent`, `--accent-strong`, `--border`, `--panel`, `--surface`, `--status-danger`…), never
+    from a custom property no stylesheet defines.
+  - `src/components/__tests__/diagram-sources.test.ts` enforces the last two rules and checks
+    that every class drawn with is defined somewhere.
+
 ## DiagnosticMethodology.astro
 
 - Usage: Structured diagnostic methodology section for inputs, procedure, outputs, and validation.

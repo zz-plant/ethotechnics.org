@@ -31,6 +31,13 @@ const breakdown = stateVariables.map((v) => {
     heldPct,
     driftedPct,
     failedPct,
+    // Summary tag pieces, in reading order. Rendered on one line so JSX
+    // whitespace cannot put a space before the commas.
+    tags: [
+      { n: counts.failed, text: `${counts.failed} failed`, fill: "var(--status-danger)" },
+      { n: counts.drifted, text: `${counts.drifted} drifted`, fill: "var(--muted)" },
+      { n: counts.held, text: `${counts.held} held`, fill: "var(--accent-strong)" },
+    ].filter((tag) => tag.n > 0),
   };
 });
 ---
@@ -62,13 +69,14 @@ const breakdown = stateVariables.map((v) => {
       {/* Legend Top */}
       <g transform="translate(180, 20)">
         <rect x="0" y="0" width="14" height="14" rx="3" fill="var(--accent)" />
-        <text x="22" y="11" class="state-diagram__state" font-size="11">Held (Explicit &amp; Coupled)</text>
+        <text x="22" y="12" class="state-diagram__label">Held (Explicit &amp; Coupled)</text>
 
-        <rect x="230" y="0" width="14" height="14" rx="3" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
-        <text x="252" y="11" class="state-diagram__label" font-size="11">Drifted (Detached)</text>
+        <rect x="220" y="0" width="14" height="14" rx="3" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
+        <rect x="220" y="0" width="14" height="14" rx="3" fill="url(#case-drift-pat)" />
+        <text x="242" y="12" class="state-diagram__label">Drifted (Detached)</text>
 
-        <rect x="420" y="0" width="14" height="14" rx="3" fill="var(--danger, #e06c75)" />
-        <text x="442" y="11" class="state-diagram__clause" font-size="11" fill="var(--danger, #e06c75)">Failed (Absent / Broken)</text>
+        <rect x="392" y="0" width="14" height="14" rx="3" fill="var(--status-danger)" />
+        <text x="414" y="12" class="state-diagram__label">Failed (Absent / Broken)</text>
       </g>
 
       {/* Rows for each of the 6 variables */}
@@ -87,7 +95,7 @@ const breakdown = stateVariables.map((v) => {
         return (
           <g transform={`translate(0, ${y})`}>
             {/* Row Label */}
-            <text x="165" y="24" text-anchor="end" class="state-diagram__state" font-size="12">
+            <text x="165" y="25" text-anchor="end" class="state-diagram__state">
               {item.label}
             </text>
 
@@ -103,25 +111,20 @@ const breakdown = stateVariables.map((v) => {
             {wDrift > 0 && (
               <rect x={xDrift} y="8" width={wDrift} height="24" fill="var(--panel)" stroke="var(--border)" stroke-width="1" />
             )}
+            {wDrift > 0 && (
+              <rect x={xDrift} y="8" width={wDrift} height="24" fill="url(#case-drift-pat)" />
+            )}
 
             {/* Segment 3: Failed */}
             {wFail > 0 && (
-              <rect x={xFail} y="8" width={wFail} height="24" fill="var(--danger, #e06c75)" rx={wHeld === 0 && wDrift === 0 ? "4" : "0"} />
+              <rect x={xFail} y="8" width={wFail} height="24" fill="var(--status-danger)" rx={wHeld === 0 && wDrift === 0 ? "4" : "0"} />
             )}
 
             {/* Summary Tag on Right */}
-            <text x="715" y="24" class="state-diagram__clause" font-size="11">
-              {item.counts.failed > 0 && (
-                <tspan fill="var(--danger, #e06c75)">{item.counts.failed} failed</tspan>
-              )}
-              {item.counts.failed > 0 && item.counts.drifted > 0 && ", "}
-              {item.counts.drifted > 0 && (
-                <tspan fill="var(--muted)">{item.counts.drifted} drifted</tspan>
-              )}
-              {item.counts.held > 0 && (item.counts.failed > 0 || item.counts.drifted > 0) && ", "}
-              {item.counts.held > 0 && (
-                <tspan fill="var(--accent-strong)">{item.counts.held} held</tspan>
-              )}
+            <text x="715" y="25" class="state-diagram__clause">
+              {item.tags.map((tag, tagIdx) => (
+                <Fragment>{tagIdx > 0 && <tspan fill="var(--muted)">, </tspan>}<tspan fill={tag.fill}>{tag.text}</tspan></Fragment>
+              ))}
             </text>
           </g>
         );
@@ -129,9 +132,9 @@ const breakdown = stateVariables.map((v) => {
 
       {/* Bottom Axis / Callout */}
       <line x1="180" y1="352" x2="700" y2="352" stroke="var(--border)" stroke-width="1.5" />
-      <text x="180" y="368" class="state-diagram__clause" font-size="10">0% of cases</text>
-      <text x="440" y="368" text-anchor="middle" class="state-diagram__clause" font-size="10">50%</text>
-      <text x="700" y="368" text-anchor="end" class="state-diagram__clause" font-size="10">100% (5 of 5 cases)</text>
+      <text x="180" y="370" class="state-diagram__clause">0% of cases</text>
+      <text x="440" y="370" text-anchor="middle" class="state-diagram__clause">50%</text>
+      <text x="700" y="370" text-anchor="end" class="state-diagram__clause">100% (5 of 5 cases)</text>
     </svg>
   </div>
 </figure>

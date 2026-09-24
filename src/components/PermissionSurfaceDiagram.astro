@@ -27,7 +27,7 @@ const Heading = level;
 
   <div class="diagram-scroll">
     <svg
-      viewBox="0 0 920 380"
+      viewBox="0 0 920 472"
       role="img"
       class="state-diagram__svg"
       aria-label="Concentric boundary diagram illustrating the broad Capability Surface containing a hazardous Capability Overhang surrounding the strictly bounded Permission Surface of evidenced grants."
@@ -45,83 +45,91 @@ const Heading = level;
           <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
         </marker>
         <pattern id="overhang-pattern" width="16" height="16" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="16" x2="16" y2="0" stroke="var(--danger, #e06c75)" stroke-width="1.5" stroke-opacity="0.25" />
+          <line x1="0" y1="16" x2="16" y2="0" stroke="var(--status-danger)" stroke-width="1.5" stroke-opacity="0.25" />
         </pattern>
       </defs>
 
       {/* Outer Envelope: Capability Surface (What is Reachable) */}
-      <rect x="40" y="30" width="530" height="320" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2" />
-      <text x="60" y="58" class="state-diagram__state">Outer Envelope: Technical Capability Surface</text>
-      <text x="60" y="78" class="state-diagram__label">All reachable API endpoints, raw tokens, network routes, database permissions</text>
+      <rect x="20" y="20" width="570" height="432" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2" />
+      <text x="38" y="46" class="state-diagram__state">Outer Envelope: Technical Capability Surface</text>
+      <text x="38" y="66" class="state-diagram__label">All reachable API endpoints, raw tokens,</text>
+      <text x="38" y="84" class="state-diagram__label">network routes, database permissions</text>
 
       {/* Overhang Hazard Pattern Fill (Gap) */}
-      <rect x="55" y="90" width="500" height="245" rx="8" fill="url(#overhang-pattern)" stroke="var(--danger, #e06c75)" stroke-width="1.5" stroke-dasharray="4 4" />
-      <text x="75" y="115" class="state-diagram__clause" fill="var(--danger, #e06c75)">
+      <rect x="35" y="98" width="540" height="340" rx="8" fill="url(#overhang-pattern)" stroke="var(--status-danger)" stroke-width="1.5" stroke-dasharray="4 4" />
+      <text x="53" y="122" class="state-diagram__clause" fill="var(--status-danger)">
         Capability Overhang (Hazardous Delta)
       </text>
-      <text x="75" y="132" class="state-diagram__label" font-size="10">
-        Reachable by code, but lacks evidenced authority · Blindspot of OAuth scopes
+      <text x="53" y="142" class="state-diagram__label">
+        Reachable by code, but lacks evidenced authority ·
+      </text>
+      <text x="53" y="160" class="state-diagram__label">
+        Blindspot of OAuth scopes
       </text>
 
       {/* Inner Boundary: Governed Permission Surface (What is Authorized) */}
-      <rect x="75" y="150" width="460" height="170" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
-      <text x="95" y="178" class="state-diagram__state" fill="var(--accent-strong)">
+      <rect x="50" y="174" width="510" height="250" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
+      <text x="68" y="200" class="state-diagram__state" fill="var(--accent-strong)">
         Governed Permission Surface (STD-07 Grants)
       </text>
-      <text x="95" y="196" class="state-diagram__label">
-        Strict subset of actions justified by active, unexpired evidence records
+      <text x="68" y="220" class="state-diagram__label">
+        Strict subset of actions justified by active,
+      </text>
+      <text x="68" y="238" class="state-diagram__label">
+        unexpired evidence records
       </text>
 
-      {/* Grant Cards inside Permission Surface */}
-      <g transform="translate(95, 210)">
-        <rect width="135" height="90" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1" />
-        <text x="15" y="24" class="state-diagram__state" font-size="11">Grant #A-104</text>
-        <text x="15" y="42" class="state-diagram__label" font-size="9.5">Scope: Refund &lt; \$200</text>
-        <text x="15" y="58" class="state-diagram__label" font-size="9.5">Mode: Confirm</text>
-        <text x="15" y="76" class="state-diagram__clause" font-size="9">Expires: 42d</text>
+      {/* Grant records inside Permission Surface */}
+      <g transform="translate(65, 252)">
+        <rect width="480" height="48" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1" />
+        <text x="14" y="20" class="state-diagram__state">Grant #A-104</text>
+        <text x="466" y="20" text-anchor="end" class="state-diagram__clause">Expires: 42d</text>
+        <text x="14" y="39" class="state-diagram__label">Scope: Refund &lt; $200</text>
+        <text x="250" y="39" class="state-diagram__label">Mode: Confirm</text>
       </g>
 
-      <g transform="translate(245, 210)">
-        <rect width="135" height="90" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1" />
-        <text x="15" y="24" class="state-diagram__state" font-size="11">Grant #A-105</text>
-        <text x="15" y="42" class="state-diagram__label" font-size="9.5">Scope: Read PII</text>
-        <text x="15" y="58" class="state-diagram__label" font-size="9.5">Mode: Audited</text>
-        <text x="15" y="76" class="state-diagram__clause" font-size="9">Expires: 14d</text>
+      <g transform="translate(65, 308)">
+        <rect width="480" height="48" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1" />
+        <text x="14" y="20" class="state-diagram__state">Grant #A-105</text>
+        <text x="466" y="20" text-anchor="end" class="state-diagram__clause">Expires: 14d</text>
+        <text x="14" y="39" class="state-diagram__label">Scope: Read PII</text>
+        <text x="250" y="39" class="state-diagram__label">Mode: Audited</text>
       </g>
 
-      <g transform="translate(395, 210)">
-        <rect width="125" height="90" rx="6" fill="var(--surface)" stroke="var(--border)" />
-        <text x="12" y="24" class="state-diagram__state" font-size="11">Grant #A-106</text>
-        <text x="12" y="42" class="state-diagram__label" font-size="9.5">Scope: Worker reset</text>
-        <text x="12" y="58" class="state-diagram__label" font-size="9.5">Mode: Autonomous</text>
-        <text x="12" y="76" class="state-diagram__clause" font-size="9">Expires: 90d</text>
+      <g transform="translate(65, 364)">
+        <rect width="480" height="48" rx="6" fill="var(--surface)" stroke="var(--border)" />
+        <text x="14" y="20" class="state-diagram__state">Grant #A-106</text>
+        <text x="466" y="20" text-anchor="end" class="state-diagram__clause">Expires: 90d</text>
+        <text x="14" y="39" class="state-diagram__label">Scope: Worker reset</text>
+        <text x="250" y="39" class="state-diagram__label">Mode: Autonomous</text>
       </g>
 
       {/* Right Column: Key Principles & Checks */}
-      <g transform="translate(600, 30)">
+      <g transform="translate(610, 20)">
         {/* Box 1: Law I Invariant */}
-        <rect width="280" height="95" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
-        <text x="20" y="26" class="state-diagram__clause" fill="var(--accent-strong)">Law I Invariant</text>
-        <text x="20" y="46" class="state-diagram__state" font-size="12">Capability ≠ Authority</text>
-        <text x="20" y="66" class="state-diagram__label" font-size="10.5">Reachability does not license use.</text>
-        <text x="20" y="80" class="state-diagram__label" font-size="10.5">Execution in the overhang is a breach.</text>
+        <rect width="290" height="110" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+        <text x="18" y="28" class="state-diagram__clause" fill="var(--accent-strong)">Law I Invariant</text>
+        <text x="18" y="51" class="state-diagram__state">Capability ≠ Authority</text>
+        <text x="18" y="74" class="state-diagram__label">Reachability does not license use.</text>
+        <text x="18" y="92" class="state-diagram__label">Execution in the overhang is a breach.</text>
 
         {/* Box 2: Four Mandatory Properties */}
-        <g transform="translate(0, 110)">
-          <rect width="280" height="120" rx="8" fill="var(--surface)" stroke="var(--border)" />
-          <text x="20" y="24" class="state-diagram__state" font-size="12">STD-07 Grant Invariants</text>
-          <text x="20" y="44" class="state-diagram__label" font-size="10">1. Evidence Basis (Calibrated packet)</text>
-          <text x="20" y="62" class="state-diagram__label" font-size="10">2. Scope Ceiling (Finite impact cap)</text>
-          <text x="20" y="80" class="state-diagram__label" font-size="10">3. Current State (Active / Suspended)</text>
-          <text x="20" y="98" class="state-diagram__label" font-size="10">4. Hard Expiry (Ticking lease date)</text>
+        <g transform="translate(0, 130)">
+          <rect width="290" height="140" rx="8" fill="var(--surface)" stroke="var(--border)" />
+          <text x="18" y="30" class="state-diagram__state">STD-07 Grant Invariants</text>
+          <text x="18" y="56" class="state-diagram__label">1. Evidence Basis (Calibrated packet)</text>
+          <text x="18" y="76" class="state-diagram__label">2. Scope Ceiling (Finite impact cap)</text>
+          <text x="18" y="96" class="state-diagram__label">3. Current State (Active / Suspended)</text>
+          <text x="18" y="116" class="state-diagram__label">4. Hard Expiry (Ticking lease date)</text>
         </g>
 
         {/* Box 3: Reconciliation Test */}
-        <g transform="translate(0, 245)">
-          <rect width="280" height="75" rx="8" fill="var(--panel)" stroke="var(--border)" />
-          <text x="20" y="24" class="state-diagram__clause">Reconciliation Audit</text>
-          <text x="20" y="44" class="state-diagram__label" font-size="10.5">Overhang Ratio = (Reachable - Authorized) / Reachable</text>
-          <text x="20" y="60" class="state-diagram__state" font-size="11">Goal: Overhang → 0</text>
+        <g transform="translate(0, 290)">
+          <rect width="290" height="142" rx="8" fill="var(--panel)" stroke="var(--border)" />
+          <text x="18" y="32" class="state-diagram__clause">Reconciliation Audit</text>
+          <text x="18" y="60" class="state-diagram__label">Overhang Ratio =</text>
+          <text x="18" y="78" class="state-diagram__label">(Reachable - Authorized) / Reachable</text>
+          <text x="18" y="112" class="state-diagram__state">Goal: Overhang → 0</text>
         </g>
       </g>
     </svg>

@@ -15,11 +15,11 @@ const n = stages.length;
 // Wide enough that "Reconsideration" fits its box, and tall enough that the
 // deeper of the two return loops keeps its label inside the canvas.
 const W = 1060;
-const H = 262;
+const H = 214;
 const pad = 32;
 const nodeW = 130;
 const gap = (W - pad * 2 - nodeW * n) / (n - 1);
-const y = 120;
+const y = 72;
 const xs = stages.map((_, i) => pad + i * (nodeW + gap));
 
 const idx = (id: string) => stages.findIndex((s) => s.id === id);

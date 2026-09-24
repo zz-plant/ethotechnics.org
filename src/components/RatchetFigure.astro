@@ -20,15 +20,15 @@ const { level = "h3" }: Props = Astro.props;
 const { scope, reviewsFired, finalScope } = accrete(RATCHET);
 const history = authorizedHistory(RATCHET);
 
-// Two identical plots on one 960×400 canvas. The y range starts at ×1 so the
+// Two identical plots on one 960×420 canvas. The y range starts at ×1 so the
 // staircase fills its panel, and tops out just above the final scope.
-const panelWidth = 420;
-const plotTop = 78;
+const panelWidth = 416;
+const plotTop = 84;
 const plotBottom = 300;
 const yMax = 2.2;
 const panels = [
-  { x0: 40, title: "Scope by accretion", kicker: "one review threshold" },
-  { x0: 520, title: "Scope by authorization", kicker: "STD-08 Part A" },
+  { x0: 44, title: "Scope by accretion", kicker: "one review threshold" },
+  { x0: 524, title: "Scope by authorization", kicker: "STD-08 Part A" },
 ] as const;
 
 const xAt = (x0: number, month: number) =>
@@ -62,7 +62,7 @@ const expansions = history.length - 1;
   <div class="demo-figure__frame">
     <div class="diagram-scroll">
       <svg
-        viewBox="0 0 960 400"
+        viewBox="0 0 960 420"
         role="img"
         aria-label={`Two identical staircases rising from scope times one to times ${finalScope.toFixed(2)} over ${RATCHET.months} months. Left: reviews fired ${reviewsFired}, state history one entry. Right: state history ${history.length} entries, one issue and ${expansions} expansions.`}
         class="ratchet__svg"
@@ -70,10 +70,10 @@ const expansions = history.length - 1;
         {
           panels.map((panel, index) => (
             <g>
-              <text x={panel.x0} y={40} class="demo-figure__svg-title">
+              <text x={panel.x0} y={34} class="demo-figure__svg-title">
                 {panel.title}
               </text>
-              <text x={panel.x0} y={58} class="demo-figure__svg-label">
+              <text x={panel.x0} y={56} class="demo-figure__svg-label">
                 {panel.kicker}
               </text>
               {gridValues.map((value) => (
@@ -87,7 +87,7 @@ const expansions = history.length - 1;
                   />
                   <text
                     x={panel.x0 - 6}
-                    y={yAt(value) + 4}
+                    y={yAt(value) + 5}
                     text-anchor="end"
                     class="demo-figure__svg-label"
                   >
@@ -98,7 +98,7 @@ const expansions = history.length - 1;
               {[0, 12, 24, 36].map((month) => (
                 <text
                   x={xAt(panel.x0, month)}
-                  y={plotBottom + 16}
+                  y={plotBottom + 20}
                   text-anchor="middle"
                   class="demo-figure__svg-label"
                 >
@@ -128,7 +128,7 @@ const expansions = history.length - 1;
                   />
                   <text
                     x={panel.x0 + 66}
-                    y={yAt(1.95) + 4}
+                    y={yAt(1.95) + 5}
                     class="demo-figure__svg-label"
                   >
                     the step that would open a review, ×1.05
@@ -136,13 +136,13 @@ const expansions = history.length - 1;
                   <line
                     x1={panel.x0 + 16}
                     x2={panel.x0 + 60}
-                    y1={yAt(1.95) + 16}
-                    y2={yAt(1.95) + 16}
+                    y1={yAt(1.95) + 20}
+                    y2={yAt(1.95) + 20}
                     class="ratchet__stairs"
                   />
                   <text
                     x={panel.x0 + 66}
-                    y={yAt(1.95) + 20}
+                    y={yAt(1.95) + 25}
                     class="demo-figure__svg-label"
                   >
                     each real step, ×1.02
@@ -159,7 +159,7 @@ const expansions = history.length - 1;
               </text>
               <text
                 x={panel.x0}
-                y={plotBottom + 46}
+                y={plotBottom + 52}
                 class="demo-figure__svg-mono"
               >
                 {index === 0
@@ -168,7 +168,7 @@ const expansions = history.length - 1;
               </text>
               <text
                 x={panel.x0}
-                y={plotBottom + 64}
+                y={plotBottom + 74}
                 class="demo-figure__svg-mono"
               >
                 {index === 0
@@ -177,7 +177,7 @@ const expansions = history.length - 1;
               </text>
               <text
                 x={panel.x0}
-                y={plotBottom + 82}
+                y={plotBottom + 96}
                 class="demo-figure__svg-label"
               >
                 {index === 0

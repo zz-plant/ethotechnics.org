@@ -26,7 +26,7 @@ const Heading = level;
 
   <div class="diagram-scroll">
     <svg
-      viewBox="0 0 920 390"
+      viewBox="0 0 920 396"
       role="img"
       class="state-diagram__svg"
       aria-label="Decision tree flowchart routing four operational symptoms (human burden, escalation confusion, capacity decay, contestability deficit) to specific diagnostic tools."
@@ -57,97 +57,91 @@ const Heading = level;
       </defs>
 
       {/* Root Node: Left Column */}
-      <g transform="translate(30, 140)">
-        <rect width="210" height="100" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
-        <text x="105" y="32" text-anchor="middle" class="state-diagram__clause" fill="var(--accent-strong)">Primary Question</text>
-        <text x="105" y="54" text-anchor="middle" class="state-diagram__state" font-size="13">What is failing</text>
-        <text x="105" y="72" text-anchor="middle" class="state-diagram__state" font-size="13">or unmeasured?</text>
+      <g transform="translate(16, 150)">
+        <rect width="184" height="100" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
+        <text x="92" y="32" text-anchor="middle" class="state-diagram__clause">Primary Question</text>
+        <text x="92" y="56" text-anchor="middle" class="state-diagram__state">What is failing</text>
+        <text x="92" y="76" text-anchor="middle" class="state-diagram__state">or unmeasured?</text>
       </g>
 
-      {/* Branch Connectors */}
-      {/* Branch 1: Top (y=45) */}
-      <path d="M 240 165 C 290 165, 300 55, 350 55" stroke="var(--border)" stroke-width="2" fill="none" marker-end="url(#dt-arrow)" />
-      {/* Branch 2: Mid-top (y=135) */}
-      <path d="M 240 180 C 290 180, 300 145, 350 145" stroke="var(--border)" stroke-width="2" fill="none" marker-end="url(#dt-arrow)" />
-      {/* Branch 3: Mid-bottom (y=235) */}
-      <path d="M 240 200 C 290 200, 300 235, 350 235" stroke="var(--border)" stroke-width="2" fill="none" marker-end="url(#dt-arrow)" />
-      {/* Branch 4: Bottom (y=325) */}
-      <path d="M 240 215 C 290 215, 300 325, 350 325" stroke="var(--border)" stroke-width="2" fill="none" marker-end="url(#dt-arrow)" />
+      {/* Branch Connectors: root to each symptom row */}
+      <path d="M 200 172 C 236 172, 234 54, 270 54" stroke="var(--border)" stroke-width="2" fill="none" marker-end="url(#dt-arrow)" />
+      <path d="M 200 190 C 236 190, 234 150, 270 150" stroke="var(--border)" stroke-width="2" fill="none" marker-end="url(#dt-arrow)" />
+      <path d="M 200 210 C 236 210, 234 246, 270 246" stroke="var(--border)" stroke-width="2" fill="none" marker-end="url(#dt-arrow)" />
+      <path d="M 200 228 C 236 228, 234 342, 270 342" stroke="var(--border)" stroke-width="2" fill="none" marker-end="url(#dt-arrow)" />
 
       {/* Branch 1: Burden Modeler */}
-      <g transform="translate(350, 15)">
-        {/* Symptom Label */}
-        <rect width="250" height="75" rx="6" fill="var(--surface)" stroke="var(--border)" />
-        <text x="15" y="24" class="state-diagram__state" font-size="11">Symptom: Silent Absorption</text>
-        <text x="15" y="42" class="state-diagram__label" font-size="9.5">Staff burnout, manual overrides,</text>
-        <text x="15" y="56" class="state-diagram__label" font-size="9.5">uncounted workaround labor</text>
+      <g transform="translate(270, 12)">
+        <rect width="274" height="84" rx="6" fill="var(--surface)" stroke="var(--border)" />
+        <text x="14" y="27" class="state-diagram__state">Symptom: Silent Absorption</text>
+        <text x="14" y="50" class="state-diagram__label">Staff burnout, manual overrides,</text>
+        <text x="14" y="69" class="state-diagram__label">uncounted workaround labor</text>
 
-        <line x1="250" y1="37" x2="280" y2="37" stroke="var(--accent)" stroke-width="2" marker-end="url(#dt-accent-arrow)" />
+        <line x1="274" y1="42" x2="300" y2="42" stroke="var(--accent)" stroke-width="2" marker-end="url(#dt-accent-arrow)" />
 
-        {/* Target Tool Card */}
-        <a href="/diagnostics/burden-modeler" style="cursor: pointer;">
-          <g transform="translate(280, 0)">
-            <rect width="240" height="75" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
-            <text x="15" y="26" class="state-diagram__state" font-size="12" fill="var(--accent-strong)">→ Burden Modeler</text>
-            <text x="15" y="44" class="state-diagram__label" font-size="9.5">Output: Burden Evidence Table</text>
-            <text x="15" y="60" class="state-diagram__clause" font-size="9">Standard: STD-02 / Law IV</text>
+        <a href="/diagnostics/burden-modeler">
+          <g transform="translate(300, 0)">
+            <rect width="330" height="84" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+            <text x="14" y="27" class="state-diagram__state" fill="var(--link)">→ Burden Modeler</text>
+            <text x="14" y="50" class="state-diagram__label">Output: Burden Evidence Table</text>
+            <text x="14" y="69" class="state-diagram__clause">Standard: STD-02 / Law IV</text>
           </g>
         </a>
       </g>
 
       {/* Branch 2: Maintenance Simulator */}
-      <g transform="translate(350, 105)">
-        <rect width="250" height="75" rx="6" fill="var(--surface)" stroke="var(--border)" />
-        <text x="15" y="24" class="state-diagram__state" font-size="11">Symptom: Escalation Vacuum</text>
-        <text x="15" y="42" class="state-diagram__label" font-size="9.5">Outage ownership unclear,</text>
-        <text x="15" y="56" class="state-diagram__label" font-size="9.5">fallback routes unrehearsed</text>
+      <g transform="translate(270, 108)">
+        <rect width="274" height="84" rx="6" fill="var(--surface)" stroke="var(--border)" />
+        <text x="14" y="27" class="state-diagram__state">Symptom: Escalation Vacuum</text>
+        <text x="14" y="50" class="state-diagram__label">Outage ownership unclear,</text>
+        <text x="14" y="69" class="state-diagram__label">fallback routes unrehearsed</text>
 
-        <line x1="250" y1="37" x2="280" y2="37" stroke="var(--accent)" stroke-width="2" marker-end="url(#dt-accent-arrow)" />
+        <line x1="274" y1="42" x2="300" y2="42" stroke="var(--accent)" stroke-width="2" marker-end="url(#dt-accent-arrow)" />
 
-        <a href="/diagnostics/maintenance-simulator" style="cursor: pointer;">
-          <g transform="translate(280, 0)">
-            <rect width="240" height="75" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
-            <text x="15" y="26" class="state-diagram__state" font-size="12" fill="var(--accent-strong)">→ Maintenance Simulator</text>
-            <text x="15" y="44" class="state-diagram__label" font-size="9.5">Output: Escalation Coverage Report</text>
-            <text x="15" y="60" class="state-diagram__clause" font-size="9">Standard: STD-05 / Law VI</text>
+        <a href="/diagnostics/maintenance-simulator">
+          <g transform="translate(300, 0)">
+            <rect width="330" height="84" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+            <text x="14" y="27" class="state-diagram__state" fill="var(--link)">→ Maintenance Simulator</text>
+            <text x="14" y="50" class="state-diagram__label">Output: Escalation Coverage Report</text>
+            <text x="14" y="69" class="state-diagram__clause">Standard: STD-05 / Law VI</text>
           </g>
         </a>
       </g>
 
       {/* Branch 3: Capacity Forecaster */}
-      <g transform="translate(350, 195)">
-        <rect width="250" height="75" rx="6" fill="var(--surface)" stroke="var(--border)" />
-        <text x="15" y="24" class="state-diagram__state" font-size="11">Symptom: Atrophy &amp; Saturation</text>
-        <text x="15" y="42" class="state-diagram__label" font-size="9.5">Reserve declining over time,</text>
-        <text x="15" y="56" class="state-diagram__label" font-size="9.5">growing lock-in risk</text>
+      <g transform="translate(270, 204)">
+        <rect width="274" height="84" rx="6" fill="var(--surface)" stroke="var(--border)" />
+        <text x="14" y="27" class="state-diagram__state">Symptom: Atrophy &amp; Saturation</text>
+        <text x="14" y="50" class="state-diagram__label">Reserve declining over time,</text>
+        <text x="14" y="69" class="state-diagram__label">growing lock-in risk</text>
 
-        <line x1="250" y1="37" x2="280" y2="37" stroke="var(--accent)" stroke-width="2" marker-end="url(#dt-accent-arrow)" />
+        <line x1="274" y1="42" x2="300" y2="42" stroke="var(--accent)" stroke-width="2" marker-end="url(#dt-accent-arrow)" />
 
-        <a href="/diagnostics/capacity-forecaster" style="cursor: pointer;">
-          <g transform="translate(280, 0)">
-            <rect width="240" height="75" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
-            <text x="15" y="26" class="state-diagram__state" font-size="12" fill="var(--accent-strong)">→ Capacity Forecaster</text>
-            <text x="15" y="44" class="state-diagram__label" font-size="9.5">Output: Stability &amp; Decay Horizon</text>
-            <text x="15" y="60" class="state-diagram__clause" font-size="9">Standard: STD-04 / Law XII</text>
+        <a href="/diagnostics/capacity-forecaster">
+          <g transform="translate(300, 0)">
+            <rect width="330" height="84" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+            <text x="14" y="27" class="state-diagram__state" fill="var(--link)">→ Capacity Forecaster</text>
+            <text x="14" y="50" class="state-diagram__label">Output: Stability &amp; Decay Horizon</text>
+            <text x="14" y="69" class="state-diagram__clause">Standard: STD-04 / Law XII</text>
           </g>
         </a>
       </g>
 
       {/* Branch 4: System Auditor */}
-      <g transform="translate(350, 285)">
-        <rect width="250" height="75" rx="6" fill="var(--surface)" stroke="var(--border)" />
-        <text x="15" y="24" class="state-diagram__state" font-size="11">Symptom: Opaque Authority</text>
-        <text x="15" y="42" class="state-diagram__label" font-size="9.5">Is decision reversible? Can user</text>
-        <text x="15" y="56" class="state-diagram__label" font-size="9.5">contest outcome with standing?</text>
+      <g transform="translate(270, 300)">
+        <rect width="274" height="84" rx="6" fill="var(--surface)" stroke="var(--border)" />
+        <text x="14" y="27" class="state-diagram__state">Symptom: Opaque Authority</text>
+        <text x="14" y="50" class="state-diagram__label">Is decision reversible? Can user</text>
+        <text x="14" y="69" class="state-diagram__label">contest outcome with standing?</text>
 
-        <line x1="250" y1="37" x2="280" y2="37" stroke="var(--accent)" stroke-width="2" marker-end="url(#dt-accent-arrow)" />
+        <line x1="274" y1="42" x2="300" y2="42" stroke="var(--accent)" stroke-width="2" marker-end="url(#dt-accent-arrow)" />
 
-        <a href="/diagnostics/system-auditor" style="cursor: pointer;">
-          <g transform="translate(280, 0)">
-            <rect width="240" height="75" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
-            <text x="15" y="26" class="state-diagram__state" font-size="12" fill="var(--accent-strong)">→ System Auditor</text>
-            <text x="15" y="44" class="state-diagram__label" font-size="9.5">Output: Governability &amp; Standing Audit</text>
-            <text x="15" y="60" class="state-diagram__clause" font-size="9">Standard: STD-01, STD-02 / Law VII</text>
+        <a href="/diagnostics/system-auditor">
+          <g transform="translate(300, 0)">
+            <rect width="330" height="84" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+            <text x="14" y="27" class="state-diagram__state" fill="var(--link)">→ System Auditor</text>
+            <text x="14" y="50" class="state-diagram__label">Output: Governability &amp; Standing Audit</text>
+            <text x="14" y="69" class="state-diagram__clause">Standard: STD-01, STD-02 / Law VII</text>
           </g>
         </a>
       </g>

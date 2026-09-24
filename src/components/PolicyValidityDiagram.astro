@@ -6,7 +6,14 @@
  * narrower than the diagram's user space, so anything that crowds at 720px
  * collides at 680px.
  */
-const edges = [
+const edges: {
+  d: string;
+  label: string[];
+  clause: string;
+  lx: number;
+  ly: number;
+  anchor?: "middle" | "end";
+}[] = [
   {
     d: "M 170 62 L 286 62",
     label: ["grant lists it"],
@@ -25,15 +32,16 @@ const edges = [
     d: "M 620 84 Q 620 224 454 224",
     label: ["dependent grants follow"],
     clause: "§2.4",
-    lx: 600,
-    ly: 262,
+    lx: 590,
+    ly: 258,
   },
   {
     d: "M 288 224 Q 190 210 340 86",
     label: ["renewed as a new version"],
     clause: "§2.5",
-    lx: 150,
-    ly: 262,
+    lx: 236,
+    ly: 176,
+    anchor: "end",
   },
 ];
 ---
@@ -67,7 +75,7 @@ const edges = [
       </defs>
       {
         edges.map((e) => (
-          <g class="state-diagram__edge">
+          <g>
             <path
               d={e.d}
               fill="none"
@@ -78,7 +86,7 @@ const edges = [
             <text
               x={e.lx}
               y={e.ly}
-              text-anchor="middle"
+              text-anchor={e.anchor ?? "middle"}
               class="state-diagram__label"
             >
               {e.label.map((line, index) => (
