@@ -1,6 +1,7 @@
 ---
 import "../../styles/components/intake-form.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
@@ -489,6 +490,7 @@ const buildAnchor = (id: string) =>
       </p>
     </SectionBlock>
   </WithSidebar>
+  <NextStep variable="correction" />
   <PullQuote
     quote="A system is responsible only when it cannot keep harming people faster than it can be made to stop and repair."
     variant="accent"

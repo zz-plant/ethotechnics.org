@@ -17,7 +17,6 @@ import { roles } from "../content/roles";
 import { researchContent } from "../content/research";
 import { standardsContent } from "../content/standards";
 import { taxonomyEntries } from "../content/taxonomy";
-import { homeContent } from "../content/home";
 import { glossaryEntryPermalink } from "../utils/glossary";
 
 const getContentEntry = async (
@@ -410,16 +409,6 @@ export const buildSitemapSections = async () => {
   standardsContent.standards.forEach((standard) => {
     addOverride(`/standards/${standard.slug}`, standard.published);
   });
-
-  const homePath = pagePaths.find((entry) => entry.path === "/");
-  if (homePath) {
-    homePath.images = [
-      {
-        loc: homeContent.hero.media.src,
-        title: homeContent.hero.media.alt,
-      },
-    ];
-  }
 
   [
     "/casebook",

@@ -71,7 +71,7 @@ describe("sitemap.xml", () => {
     expect(xml).toContain("<lastmod>");
   });
 
-  it("includes image sitemap data for homepage in the core section", async () => {
+  it("does not advertise a homepage image the page no longer shows", async () => {
     const response = await getSitemapSection({
       request: new Request("https://example.test/sitemaps/core.xml"),
       site: new URL("https://example.org"),
@@ -80,12 +80,6 @@ describe("sitemap.xml", () => {
 
     const xml = await response.text();
 
-    expect(xml).toContain(
-      'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"',
-    );
-    expect(xml).toContain("<image:image>");
-    expect(xml).toContain(
-      "https://example.org/assets/ethotechnics-hero-map.svg",
-    );
+    expect(xml).not.toContain("ethotechnics-hero-map.svg");
   });
 });

@@ -4,8 +4,24 @@ Scope: applies to the entire repository unless a more specific `AGENTS.md` overr
 
 ## Purpose
 
-This repo powers ethotechnics.org, a content-driven site about ethical technology and
-human-centered design. Follow these instructions to keep changes consistent and reviewable.
+This repo powers ethotechnics.org: open standards, scored public failures, and diagnostics for
+keeping automated decision systems stoppable, explainable, and appealable. Follow these
+instructions to keep changes consistent and reviewable.
+
+## Public copy voice
+
+The reference voice is `src/content/casebook.ts` and `src/content/method.ts`. Match it.
+
+- Short declarative sentences, one idea each. Name the institution, the date, the number.
+- Claim only what a page, tool, or inbox actually does. No schedules, response times, or
+  services that are not staffed; no "received" for a message nobody stores.
+- No selling: avoid "actionable", "stakeholder-ready", "unlock", "empower", "powerful",
+  "seamless", "comprehensive", "quick", "simply", "just", "easily".
+- Name who a thing is for (the risk owner, a regulator, the person the system decided about),
+  not "stakeholders".
+- Sentence case for labels. American spelling.
+- The theory essays reject "empowerment" and "human-centered design" as framings; don't
+  reintroduce them in page copy.
 
 ## Essentials
 

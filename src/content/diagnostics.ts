@@ -443,9 +443,9 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Review the detected failure patterns and SLA limits.",
         ],
         rubric: [
-          "Critical Risk: missing contestability or irreversible denial.",
-          "Elevated Risk: unilateral closure or burden shifting.",
-          "Low Risk: verified claimant confirmation and active rollback lanes.",
+          "Critical: no route to contest a decision, or a denial that cannot be reversed.",
+          "Elevated: the system closes cases on its own or shifts the burden onto the claimant.",
+          "Low: the claimant confirms resolution and a rollback path is in active use.",
         ],
         scoringLogic: [
           "Starts at 100 and subtracts a penalty per detected pattern by severity, plus penalties for autonomous operation and high or critical hazard.",
@@ -955,7 +955,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         outputs: [
           "Baseline vs. remediated capacity curves.",
-          "Saturation risk callouts for decision points.",
+          "Saturation risk marked at each decision point.",
           "PDF snapshot of both curves.",
         ],
       },
@@ -994,7 +994,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Export PDF summary and archive inputs.",
         ],
         exampleOutputs: [
-          "Capacity forecast PDF with saturation callouts.",
+          "Capacity forecast PDF with saturation points marked.",
           "Scenario comparison table for a review meeting.",
         ],
       },

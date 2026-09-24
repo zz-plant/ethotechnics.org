@@ -238,7 +238,7 @@ export const roles: Role[] = [
         number: 1,
         title: "Inspect the failure taxonomy",
         description:
-          "Audit systems against observable failure signatures and the behaviours that counterfeit compliance.",
+          "Audit systems against observable failure signatures and the behaviors that counterfeit compliance.",
         ctaLabel: "Explore taxonomy",
         ctaHref: "/taxonomy",
       },
@@ -468,7 +468,7 @@ export const roles: Role[] = [
     label: "Executive",
     who: "You decide whether to deploy, and you carry the liability when it goes wrong.",
     tagline:
-      "See the failure load a deployment commits the organisation to before it is committed.",
+      "See the failure load a deployment commits the organization to before it is committed.",
     orientation: [
       {
         number: 1,
@@ -490,7 +490,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Benchmark governance maturity",
         description:
-          "Place the organisation on the scale from baseline pause controls to published service-level indicators of justice and funded maintenance.",
+          "Place the organization on the scale from baseline pause controls to published service-level indicators of justice and funded maintenance.",
         ctaLabel: "Explore maturity scale",
         ctaHref: "/glossary/ethotechnic-maturity",
       },

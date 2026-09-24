@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextStep from "../../components/NextStep.astro";
 import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
@@ -223,6 +224,8 @@ const checklist = [
       ]}
     />
   </SectionBlock>
+
+  <NextStep variable="correction" />
 
   <p class="muted" style="margin-top:2rem">
     See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"

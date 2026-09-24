@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import { failureStates } from "../../content/institute-site";
+
+/**
+ * Incident triage. This grid used to sit in the middle of the home page,
+ * where a first-time reader met seven severity badges before knowing what
+ * the site was. Someone in the middle of an incident is sent here directly.
+ */
+const failureChoiceLabels: Record<string, string> = {
+  "decision-appealed": "Decision appealed",
+  "model-wrong": "Model made a harmful error",
+  "queue-stuck": "Appeals or reviews are stuck",
+  "user-harmed": "A user was harmed",
+  "no-owner": "No owner is assigned",
+  "cant-explain": "Decision cannot be clearly explained",
+  "cant-stop": "System cannot be quickly stopped or rolled back",
+};
+
+const failurePriorityBadges: Record<string, string> = {
+  "decision-appealed": "High · Owner in 24h",
+  "model-wrong": "Critical · Pause authority needed",
+  "queue-stuck": "High · Escalate in 4h",
+  "user-harmed": "Critical · Human response now",
+  "no-owner": "High · Assign owner",
+  "cant-explain": "Medium · Review evidence",
+  "cant-stop": "Critical · Activate hard halt",
+};
+
+// The badges already lead with a severity word; this is what lets the grid
+// show it. Seven triage cards whose whole job is "how bad is this" rendered
+// Critical, High and Medium in identical neutral grey, so severity was
+// legible only by reading each card.
+const failureSeverity = (badge?: string): string | undefined => {
+  const level = badge?.split("·")[0]?.trim().toLowerCase();
+  return level === "critical" || level === "high" || level === "medium"
+    ? level
+    : undefined;
+};
+
+const failureChoiceIcons: Record<string, string[]> = {
+  "decision-appealed": [
+    "M4 5.5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3v-3",
+    "M8.5 10h7",
+    "M8.5 13h4.5",
+  ],
+  "model-wrong": ["M10 4.5l6.8 11.8H3.2z", "M10 8.5v3.5", "M10 14.3h.01"],
+  "queue-stuck": ["M10 5a5 5 0 1 1-5 5", "M10 7.5v3", "M10 10.5h2.2"],
+  "user-harmed": [
+    "M10 16.5s-5.5-3.1-5.5-7a3.2 3.2 0 0 1 5.5-2.3 3.2 3.2 0 0 1 5.5 2.3c0 3.9-5.5 7-5.5 7",
+    "M7.9 9.4l4.2 4.2",
+    "M12.1 9.4 7.9 13.6",
+  ],
+  "no-owner": [
+    "M10 11a2.2 2.2 0 1 0-2.2-2.2A2.2 2.2 0 0 0 10 11z",
+    "M5.5 15.5a4.5 4.5 0 0 1 9 0",
+    "M14.2 5.8l3.2 3.2",
+    "M17.4 5.8l-3.2 3.2",
+  ],
+  "cant-explain": [
+    "M10 16.5a7 7 0 1 0-7-7",
+    "M10 12.4v-.4a2 2 0 1 1 2-2",
+    "M10 14.7h.01",
+  ],
+  "cant-stop": ["M4.5 4.5h11v11h-11z", "M8 8h4v4H8z"],
+};
+---
+
+<BaseLayout
+  title="Incident triage for automated decision systems — Ethotechnics"
+  description="Something is going wrong with an automated decision system. Pick the closest failure: what to do first, who owns follow-up, what evidence to keep."
+>
+  <PageIntro
+    eyebrow="Incident triage"
+    title="What is going wrong right now?"
+    description="Choose the closest failure. Each path starts with what to do now, then names who should own follow-up and what evidence to collect."
+    anchorLinks={[]}
+  />
+
+  <section id="failure-intake" class="container stack-lg">
+    <h2 id="failure-intake-heading" class="sr-only">Failure modes</h2>
+      <ul class="failure-grid" aria-labelledby="failure-intake-heading">
+      {
+        failureStates.map((state) => {
+          const iconPaths = failureChoiceIcons[state.slug] ?? [
+            "M5 10h10",
+            "M11 6l4 4-4 4",
+          ];
+          return (
+            <li>
+              <a
+                class="button failure-grid__button"
+                href={`/failure/${state.slug}`}
+              >
+                <span class="failure-grid__label">
+                  <span class="failure-grid__title">
+                    <span class="failure-grid__state-icon" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 20 20"
+                        role="presentation"
+                        focusable="false"
+                      >
+                        {iconPaths.map((pathValue) => (
+                          <path d={pathValue} />
+                        ))}
+                      </svg>
+                    </span>
+                    <span>
+                      {failureChoiceLabels[state.slug] ?? state.shortLabel}
+                    </span>
+                  </span>
+                  <span
+                    class="failure-grid__priority small"
+                    data-severity={failureSeverity(
+                      failurePriorityBadges[state.slug],
+                    )}
+                  >
+                    {failurePriorityBadges[state.slug] ?? "Review now"}
+                  </span>
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+    <p class="small muted">
+      These routes are for a live case: a person, a queue, or a decision
+      that needs attention now.
+    </p>
+  </section>
+</BaseLayout>

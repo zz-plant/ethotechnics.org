@@ -1,0 +1,70 @@
+---
+/**
+ * The casebook, compressed to one row per case: how long harm ran and which
+ * of the six variables held. It is the site's most concrete material and was
+ * a single link in the hero's small print.
+ */
+import { cases, stateVariables } from "../../content/casebook";
+import StateVariableGlyph from "../StateVariableGlyph.astro";
+import VerdictMark from "../VerdictMark.astro";
+---
+
+<section
+  id="casebook"
+  class="home-casebook stack-lg"
+  aria-labelledby="home-casebook-heading"
+>
+  <div class="section__header">
+    <p class="eyebrow">Casebook</p>
+    <h2 id="home-casebook-heading" class="section__heading">
+      Five public failures, scored.
+    </h2>
+    <p class="section-lead">
+      Each was established by a court, an inquiry, or a regulator. In none of
+      them did the organization running the system stop it on its own.
+    </p>
+  </div>
+
+  <ol class="home-casebook__list">
+    {
+      cases.map((entry) => (
+        <li>
+          <a class="home-casebook__row" href={`/casebook/${entry.slug}`}>
+            <span class="home-casebook__title">{entry.title}</span>
+            <span class="home-casebook__meta small muted">
+              {entry.jurisdiction.split(" · ")[0]} · time to halt:{" "}
+              {entry.timeToHalt.split(";")[0]}
+            </span>
+            <span
+              class="home-casebook__verdicts"
+              aria-label={stateVariables
+                .map((variable) => {
+                  const finding = entry.findings.find(
+                    (item) => item.variable === variable.id,
+                  );
+                  return `${variable.label}: ${finding?.verdict ?? "not scored"}`;
+                })
+                .join(", ")}
+            >
+              {stateVariables.map((variable) => {
+                const finding = entry.findings.find(
+                  (item) => item.variable === variable.id,
+                );
+                return (
+                  <span class="home-casebook__cell" aria-hidden="true">
+                    <StateVariableGlyph variable={variable.id} size="0.85rem" />
+                    {finding && <VerdictMark verdict={finding.verdict} />}
+                  </span>
+                );
+              })}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+  <p class="small muted">
+    ● held · ◐ drifted · ○ failed.
+    <a href="/casebook">Open the full matrix →</a>
+  </p>
+</section>

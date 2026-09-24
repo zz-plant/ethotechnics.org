@@ -7,6 +7,7 @@ import { glossaryContent } from "../../content/glossary";
 import { libraryContent } from "../../content/library";
 
 import CitationBlock from "../../components/CitationBlock.astro";
+import NextStep from "../../components/NextStep.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
 import SemanticConnections from "../../components/SemanticConnections.astro";
@@ -706,6 +707,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </aside>
     </div>
   </article>
+
+  <NextStep topic={[entry.title, entry.id, ...(entry.tags ?? [])]} />
 
   <SemanticConnections entityId={entry.id} />
 
