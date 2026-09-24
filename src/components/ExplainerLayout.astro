@@ -114,15 +114,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   {
     hasDiagram && (
-      <SectionBlock
-        id="mechanism"
-        eyebrow="Architecture"
-        title="Mechanism in Operation"
-        description="Visual model of operational states, transitions, boundaries, and failure points."
-        variant="alt"
-      >
+      <section id="mechanism" class="section section--alt">
         <slot />
-      </SectionBlock>
+      </section>
     )
   }
 

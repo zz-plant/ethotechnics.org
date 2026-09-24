@@ -120,6 +120,7 @@ const Heading = level;
 
         {/* Branch B: Default Lapse -> Safe Fallback (leaves the diamond's top vertex) */}
         <path d="M 590 35 L 705 35" stroke="var(--status-danger)" stroke-width="2" fill="none" marker-end="url(#lease-danger-arrow)" />
+        <text x="647" y="27" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">Silence / No proof</text>
         <g transform="translate(705, 5)">
           <rect width="165" height="60" rx="6" fill="var(--surface)" stroke="var(--status-danger)" stroke-width="1.5" />
           <text x="82.5" y="26" text-anchor="middle" class="state-diagram__state" fill="var(--status-danger)">Default Lapse</text>
@@ -128,6 +129,7 @@ const Heading = level;
 
         {/* Branch A: Fresh Calibration -> Renewal (leaves the diamond's bottom vertex) */}
         <path d="M 590 120 L 705 120" stroke="var(--accent)" stroke-width="2" fill="none" marker-end="url(#lease-accent-arrow)" />
+        <text x="647" y="112" text-anchor="middle" class="state-diagram__clause" fill="var(--accent-strong)">Fresh evidence</text>
         <g transform="translate(705, 90)">
           <rect width="165" height="60" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5" />
           <text x="82.5" y="26" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">Re-Leased</text>
@@ -136,6 +138,7 @@ const Heading = level;
 
         {/* Loop back from renewal to horizon */}
         <path d="M 787.5 150 L 787.5 172 L 335 172 L 335 122" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#lease-accent-arrow)" />
+        <text x="560" y="166" text-anchor="middle" class="state-diagram__clause">New lease term begins</text>
       </g>
     </svg>
   </div>

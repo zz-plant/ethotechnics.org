@@ -119,15 +119,9 @@ const channels = [
             channels.map((channel, i) => {
               const x = 50 + (i % 3) * 280;
               const y = 400 + Math.floor(i / 3) * 50;
-              const isAdaptive = channel.name === "Adaptive";
               return (
                 <g>
-                  <text
-                    x={x}
-                    y={y}
-                    class="state-diagram__clause"
-                    fill={isAdaptive ? "var(--status-danger)" : undefined}
-                  >
+                  <text x={x} y={y} class="state-diagram__clause">
                     {channel.name}
                   </text>
                   <text x={x} y={y + 20} class="state-diagram__label">
