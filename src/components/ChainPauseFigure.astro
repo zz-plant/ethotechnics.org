@@ -47,18 +47,21 @@ const hops = [
 ];
 const stoppedIndex = 1;
 
-// Geometry: hops sit on one row; the second row is the latency bars.
-const hopWidth = 170;
-const hopGap = 60;
-const hopY = 70;
-const hopHeight = 54;
-const hopX = (index: number) => 40 + index * (hopWidth + hopGap);
+// Geometry: hops sit on one row; the second row is the latency bars. The
+// canvas is 800 units wide so its 13px labels render at 11px or more on the
+// narrowest standards column.
+const hopWidth = 146;
+const hopGap = 54;
+const hopY = 88;
+const hopHeight = 70;
+const hopX = (index: number) => 30 + index * (hopWidth + hopGap);
 
 const perHopHours = 24;
 const humanWindowHours = 48;
 const composedHours = hops.length * perHopHours;
-const barY = 262;
-const barScale = 720 / composedHours;
+const barY = 290;
+const barHeight = 42;
+const barScale = 600 / composedHours;
 ---
 
 <DemoFigure
@@ -71,7 +74,7 @@ const barScale = 720 / composedHours;
   <div class="demo-figure__frame">
     <div class="diagram-scroll">
       <svg
-        viewBox="0 0 960 360"
+        viewBox="0 0 800 440"
         role="img"
         aria-label={`Row one: four hops in series, each marked stop works. Hop two, ${hops[stoppedIndex].label}, is stopped, but hop three continues on its stale output and hop four re-triggers hop two; a bracket over all four marks one intervention at the chain boundary. Row two: four bars of ${perHopHours} hours each, all compliant, composing to ${composedHours} hours against a human window of ${humanWindowHours} hours.`}
         class="chain-pause__svg"
@@ -90,7 +93,7 @@ const barScale = 720 / composedHours;
           </marker>
         </defs>
 
-        <text x="40" y="34" class="demo-figure__svg-title">{pause.title}</text>
+        <text x="30" y="30" class="demo-figure__svg-title">{pause.title}</text>
 
         {
           hops.map((hop, index) => {
@@ -110,12 +113,21 @@ const barScale = 720 / composedHours;
                   height={hopHeight}
                   rx="8"
                 />
-                <text x={x + 12} y={hopY + 22} class="demo-figure__svg-title">
+                <text x={x + 12} y={hopY + 24} class="demo-figure__svg-title">
                   {hop.label}
                 </text>
-                <text x={x + 12} y={hopY + 41} class="demo-figure__svg-label">
-                  {stopped ? "stop works ✓ · STOPPED" : "stop works ✓"}
+                <text x={x + 12} y={hopY + 44} class="demo-figure__svg-label">
+                  stop works ✓
                 </text>
+                {stopped && (
+                  <text
+                    x={x + 12}
+                    y={hopY + 61}
+                    class="demo-figure__svg-label"
+                  >
+                    STOPPED
+                  </text>
+                )}
                 {index < hops.length - 1 && (
                   <line
                     x1={x + hopWidth + 2}
@@ -135,21 +147,24 @@ const barScale = 720 / composedHours;
         }
         <text
           x={hopX(stoppedIndex) + hopWidth + hopGap / 2}
-          y={hopY + hopHeight / 2 - 8}
+          y={hopY + hopHeight / 2 - 22}
           text-anchor="middle"
           class="demo-figure__svg-label chain-pause__stale-label"
         >
-          stale output
+          <tspan x={hopX(stoppedIndex) + hopWidth + hopGap / 2}>stale</tspan>
+          <tspan x={hopX(stoppedIndex) + hopWidth + hopGap / 2} dy="15"
+            >output</tspan
+          >
         </text>
 
         {/* Fulfilment re-triggers the stopped hop. */}
         <path
-          d={`M ${hopX(3) + hopWidth / 2} ${hopY + hopHeight + 2} Q ${hopX(3) + hopWidth / 2} ${hopY + hopHeight + 46} ${(hopX(1) + hopX(3) + hopWidth) / 2} ${hopY + hopHeight + 46} Q ${hopX(1) + hopWidth / 2} ${hopY + hopHeight + 46} ${hopX(1) + hopWidth / 2} ${hopY + hopHeight + 4}`}
+          d={`M ${hopX(3) + hopWidth / 2} ${hopY + hopHeight + 2} Q ${hopX(3) + hopWidth / 2} ${hopY + hopHeight + 52} ${(hopX(1) + hopX(3) + hopWidth) / 2} ${hopY + hopHeight + 52} Q ${hopX(1) + hopWidth / 2} ${hopY + hopHeight + 52} ${hopX(1) + hopWidth / 2} ${hopY + hopHeight + 4}`}
           class="chain-pause__edge chain-pause__edge--retrigger"
           marker-end="url(#chain-arrow)"></path>
         <text
           x={(hopX(1) + hopX(3) + hopWidth) / 2}
-          y={hopY + hopHeight + 60}
+          y={hopY + hopHeight + 72}
           text-anchor="middle"
           class="demo-figure__svg-label"
         >
@@ -158,11 +173,11 @@ const barScale = 720 / composedHours;
 
         {/* The counterfactual: one intervention at the chain boundary. */}
         <path
-          d={`M ${hopX(0) - 10} ${hopY - 8} L ${hopX(0) - 10} ${hopY - 18} L ${hopX(3) + hopWidth + 10} ${hopY - 18} L ${hopX(3) + hopWidth + 10} ${hopY - 8}`}
+          d={`M ${hopX(0) - 10} ${hopY - 8} L ${hopX(0) - 10} ${hopY - 20} L ${hopX(3) + hopWidth + 10} ${hopY - 20} L ${hopX(3) + hopWidth + 10} ${hopY - 8}`}
           class="chain-pause__bracket"></path>
         <text
           x={(hopX(0) + hopX(3) + hopWidth) / 2}
-          y={hopY - 24}
+          y={hopY - 28}
           text-anchor="middle"
           class="demo-figure__svg-label chain-pause__bracket-label"
         >
@@ -170,57 +185,62 @@ const barScale = 720 / composedHours;
           chain
         </text>
 
-        <text x="40" y="226" class="demo-figure__svg-title"
+        <text x="30" y="272" class="demo-figure__svg-title"
           >{laundering.title}</text
         >
 
         {
           hops.map((hop, index) => {
-            const x = 40 + index * perHopHours * barScale;
+            const x = 30 + index * perHopHours * barScale;
             return (
               <g class="chain-pause__bar">
                 <rect
                   x={x + 1}
                   y={barY}
                   width={perHopHours * barScale - 2}
-                  height="22"
+                  height={barHeight}
                   rx="4"
                 />
-                <text x={x + 8} y={barY + 15} class="demo-figure__svg-label">
-                  {hop.label}: review ≤ {perHopHours} h ✓
+                <text x={x + 10} y={barY + 17} class="demo-figure__svg-label">
+                  {hop.label}:
+                </text>
+                <text x={x + 10} y={barY + 34} class="demo-figure__svg-label">
+                  review ≤ {perHopHours} h ✓
                 </text>
               </g>
             );
           })
         }
         <text
-          x={40 + composedHours * barScale + 8}
-          y={barY + 15}
+          x={30 + composedHours * barScale + 10}
+          y={barY + 26}
           class="demo-figure__svg-mono"
         >
           composed {composedHours} h
         </text>
 
         <rect
-          x="40"
-          y={barY + 34}
+          x="30"
+          y={barY + barHeight + 10}
           width={humanWindowHours * barScale}
-          height="22"
+          height="28"
           rx="4"
           class="chain-pause__window"></rect>
-        <text x="48" y={barY + 49} class="demo-figure__svg-label">
+        <text x="40" y={barY + barHeight + 29} class="demo-figure__svg-label">
           the human window, {humanWindowHours} h
         </text>
         <text
-          x={40 + humanWindowHours * barScale + 8}
-          y={barY + 49}
+          x={30 + humanWindowHours * barScale + 10}
+          y={barY + barHeight + 29}
           class="demo-figure__svg-mono chain-pause__consumed"
         >
           consumed by hop {Math.ceil(humanWindowHours / perHopHours)}
         </text>
-        <text x="40" y={barY + 82} class="demo-figure__svg-label">
-          §2.1: hops in series compose additively; §2.2: a chain that leaves no
-          window cannot run unattended
+        <text x="30" y={barY + barHeight + 66} class="demo-figure__svg-label">
+          §2.1: hops in series compose additively;
+        </text>
+        <text x="30" y={barY + barHeight + 84} class="demo-figure__svg-label">
+          §2.2: a chain that leaves no window cannot run unattended
         </text>
       </svg>
     </div>

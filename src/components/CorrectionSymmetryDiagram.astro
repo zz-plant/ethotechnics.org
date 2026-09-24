@@ -80,7 +80,7 @@ const arrows = steps.slice(0, -1).map((s) => ({ x1: s.x + 66, x2: s.x + 112 }));
             <rect x={s.x - 65} y="30" width="130" height="44" rx="22" />
             <text
               x={s.x}
-              y="51"
+              y="50"
               text-anchor="middle"
               class="state-diagram__state"
             >
@@ -88,7 +88,7 @@ const arrows = steps.slice(0, -1).map((s) => ({ x1: s.x + 66, x2: s.x + 112 }));
             </text>
             <text
               x={s.x}
-              y="66"
+              y="67"
               text-anchor="middle"
               class="state-diagram__label"
             >
@@ -101,7 +101,7 @@ const arrows = steps.slice(0, -1).map((s) => ({ x1: s.x + 66, x2: s.x + 112 }));
               class="state-diagram__label"
             >
               {s.note.map((line, index) => (
-                <tspan x={s.x} dy={index === 0 ? 0 : 14}>
+                <tspan x={s.x} dy={index === 0 ? 0 : 17}>
                   {line}
                 </tspan>
               ))}
@@ -109,14 +109,14 @@ const arrows = steps.slice(0, -1).map((s) => ({ x1: s.x + 66, x2: s.x + 112 }));
           </g>
         ))
       }
-      <g class="state-diagram__edge">
+      <g>
         <path
-          d="M 85 130 Q 355 196 625 130"
+          d="M 85 136 Q 355 196 625 136"
           fill="none"
           stroke="currentColor"
           stroke-width="1.5"
           stroke-dasharray="5 4"></path>
-        <text x="355" y="204" text-anchor="middle" class="state-diagram__label">
+        <text x="355" y="196" text-anchor="middle" class="state-diagram__label">
           short of authority: refused, narrowed, or review_required
           <tspan class="state-diagram__clause"> §4.2, §4.3, §4.5</tspan>
         </text>

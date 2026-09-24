@@ -27,7 +27,7 @@ const Heading = level;
 
   <div class="diagram-scroll">
     <svg
-      viewBox="0 0 920 380"
+      viewBox="0 0 920 450"
       role="img"
       class="state-diagram__svg"
       aria-label="Timeline and latency chart showing the phases of Time-to-Halt: signal receipt, queue drain, downstream worker kill, and receipt issuance before the irreversible harm horizon."
@@ -63,79 +63,79 @@ const Heading = level;
 
         {/* Phase 1: Halt Triggered */}
         <g class="state-diagram__node" transform="translate(0, 35)">
-          <rect width="145" height="75" rx="6" fill="var(--panel)" stroke="var(--border)" />
-          <text x="72" y="26" text-anchor="middle" class="state-diagram__state" font-size="11">t0: Halt Signal</text>
-          <text x="72" y="44" text-anchor="middle" class="state-diagram__label" font-size="9.5">Authenticated request</text>
-          <text x="72" y="58" text-anchor="middle" class="state-diagram__clause" font-size="9">UI / Policy trip</text>
+          <rect width="170" height="85" rx="6" fill="var(--panel)" stroke="var(--border)" />
+          <text x="85" y="28" text-anchor="middle" class="state-diagram__state">t0: Halt Signal</text>
+          <text x="85" y="50" text-anchor="middle" class="state-diagram__label">Authenticated request</text>
+          <text x="85" y="69" text-anchor="middle" class="state-diagram__clause">UI / Policy trip</text>
         </g>
 
-        <line x1="145" y1="72" x2="180" y2="72" stroke="var(--border)" stroke-width="2" marker-end="url(#tth-arrow)" />
+        <line x1="170" y1="77" x2="200" y2="77" stroke="var(--border)" stroke-width="2" marker-end="url(#tth-arrow)" />
 
         {/* Phase 2: Ingestion & Ingress Block */}
-        <g class="state-diagram__node" transform="translate(180, 35)">
-          <rect width="150" height="75" rx="6" fill="var(--panel)" stroke="var(--border)" />
-          <text x="75" y="26" text-anchor="middle" class="state-diagram__state" font-size="11">t1: Ingress Severed</text>
-          <text x="75" y="44" text-anchor="middle" class="state-diagram__label" font-size="9.5">Queue rejects new input</text>
-          <text x="75" y="58" text-anchor="middle" class="state-diagram__clause" font-size="9">&lt; 150ms</text>
+        <g class="state-diagram__node" transform="translate(200, 35)">
+          <rect width="190" height="85" rx="6" fill="var(--panel)" stroke="var(--border)" />
+          <text x="95" y="28" text-anchor="middle" class="state-diagram__state">t1: Ingress Severed</text>
+          <text x="95" y="50" text-anchor="middle" class="state-diagram__label">Queue rejects new input</text>
+          <text x="95" y="69" text-anchor="middle" class="state-diagram__clause">&lt; 150ms</text>
         </g>
 
-        <line x1="330" y1="72" x2="365" y2="72" stroke="var(--border)" stroke-width="2" marker-end="url(#tth-arrow)" />
+        <line x1="390" y1="77" x2="420" y2="77" stroke="var(--border)" stroke-width="2" marker-end="url(#tth-arrow)" />
 
         {/* Phase 3: Downstream Workers Drained / SIGKILL */}
-        <g class="state-diagram__node state-diagram__node--active" transform="translate(365, 35)">
-          <rect width="170" height="75" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
-          <text x="85" y="26" text-anchor="middle" class="state-diagram__state" font-size="11" fill="var(--accent-strong)">t2: Worker Drain</text>
-          <text x="85" y="44" text-anchor="middle" class="state-diagram__label" font-size="9.5">In-flight transactions cut</text>
-          <text x="85" y="58" text-anchor="middle" class="state-diagram__clause" font-size="9">True Cessation</text>
+        <g class="state-diagram__node state-diagram__node--active" transform="translate(420, 35)">
+          <rect width="205" height="85" rx="6" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
+          <text x="102.5" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">t2: Worker Drain</text>
+          <text x="102.5" y="50" text-anchor="middle" class="state-diagram__label">In-flight transactions cut</text>
+          <text x="102.5" y="69" text-anchor="middle" class="state-diagram__clause">True Cessation</text>
         </g>
 
-        <line x1="535" y1="72" x2="570" y2="72" stroke="var(--accent)" stroke-width="2" marker-end="url(#tth-accent-arrow)" />
+        <line x1="625" y1="77" x2="655" y2="77" stroke="var(--accent)" stroke-width="2" marker-end="url(#tth-accent-arrow)" />
 
         {/* Phase 4: Immutable Halt Receipt */}
-        <g class="state-diagram__node" transform="translate(570, 35)">
-          <rect width="150" height="75" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5" />
-          <text x="75" y="26" text-anchor="middle" class="state-diagram__state" font-size="11">t3: Halt Receipt</text>
-          <text x="75" y="44" text-anchor="middle" class="state-diagram__label" font-size="9.5">Signed state snapshot</text>
-          <text x="75" y="58" text-anchor="middle" class="state-diagram__clause" font-size="9">Auditable proof</text>
+        <g class="state-diagram__node" transform="translate(655, 35)">
+          <rect width="185" height="85" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5" />
+          <text x="92.5" y="28" text-anchor="middle" class="state-diagram__state">t3: Halt Receipt</text>
+          <text x="92.5" y="50" text-anchor="middle" class="state-diagram__label">Signed state snapshot</text>
+          <text x="92.5" y="69" text-anchor="middle" class="state-diagram__clause">Auditable proof</text>
         </g>
 
-        {/* Cosmetic Warning Callout */}
-        <g transform="translate(735, 35)">
-          <rect width="125" height="75" rx="6" fill="var(--surface)" stroke="var(--danger, #e06c75)" stroke-dasharray="3 3" />
-          <text x="62" y="26" text-anchor="middle" class="state-diagram__clause" fill="var(--danger, #e06c75)" font-size="10">Cosmetic Pitfall</text>
-          <text x="62" y="44" text-anchor="middle" class="state-diagram__label" font-size="9">UI spinner stops</text>
-          <text x="62" y="58" text-anchor="middle" class="state-diagram__label" font-size="9">while jobs run on</text>
+        {/* Cosmetic Warning Callout: under the UI-facing stages */}
+        <g transform="translate(0, 134)">
+          <rect width="390" height="34" rx="6" fill="var(--surface)" stroke="var(--status-danger)" stroke-dasharray="3 3" />
+          <text x="14" y="22" class="state-diagram__clause" fill="var(--status-danger)">Cosmetic Pitfall</text>
+          <text x="148" y="22" class="state-diagram__label">UI spinner stops while jobs run on</text>
         </g>
       </g>
 
       {/* Divider */}
-      <line x1="40" y1="170" x2="880" y2="170" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4" />
+      <line x1="40" y1="215" x2="880" y2="215" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4" />
 
       {/* Bottom Section: Latency Budget vs Harm Horizon */}
-      <g transform="translate(40, 190)">
+      <g transform="translate(40, 230)">
         <text x="0" y="20" class="state-diagram__clause" fill="var(--accent-strong)">Latency Horizon vs. Consequential Blast Radius</text>
 
         {/* Horizontal Timeline Bar */}
-        <rect x="0" y="40" width="840" height="24" rx="4" fill="var(--surface)" stroke="var(--border)" />
+        <rect x="0" y="70" width="840" height="26" rx="4" fill="var(--surface)" stroke="var(--border)" />
 
         {/* Enforced Target: TTH p99 Budget (e.g. 5.0s) */}
-        <rect x="0" y="40" width="340" height="24" rx="4" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
-        <text x="170" y="56" text-anchor="middle" class="state-diagram__state" font-size="11" fill="var(--accent-strong)">Enforced TTH Window (p99 SLA)</text>
+        <rect x="0" y="70" width="300" height="26" rx="4" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+        <text x="150" y="88" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">Enforced TTH Window (p99 SLA)</text>
 
         {/* Irreversible Harm Boundary */}
-        <line x1="500" y1="25" x2="500" y2="110" stroke="var(--danger, #e06c75)" stroke-width="2" stroke-dasharray="4 4" />
-        <text x="510" y="36" class="state-diagram__clause" fill="var(--danger, #e06c75)">Irreversible Harm Horizon</text>
-        <text x="510" y="52" class="state-diagram__label" font-size="9.5">Wire transfer committed / PII leaked to public wire</text>
+        <line x1="490" y1="30" x2="490" y2="196" stroke="var(--status-danger)" stroke-width="2" stroke-dasharray="4 4" />
+        <text x="500" y="42" class="state-diagram__clause" fill="var(--status-danger)">Irreversible Harm Horizon</text>
+        <text x="500" y="60" class="state-diagram__label">Wire transfer committed / PII leaked to public wire</text>
 
         {/* Safe Margin Indicator */}
-        <line x1="340" y1="80" x2="500" y2="80" stroke="var(--accent)" stroke-width="2" marker-end="url(#tth-accent-arrow)" />
-        <text x="420" y="98" text-anchor="middle" class="state-diagram__clause">Required Safety Margin</text>
+        <line x1="300" y1="114" x2="486" y2="114" stroke="var(--accent)" stroke-width="2" marker-end="url(#tth-accent-arrow)" />
+        <text x="393" y="136" text-anchor="middle" class="state-diagram__clause">Required Safety Margin</text>
 
         {/* Tail Latency Hazard */}
-        <g transform="translate(560, 75)">
-          <rect width="280" height="60" rx="6" fill="var(--surface)" stroke="var(--danger, #e06c75)" stroke-width="1" />
-          <text x="140" y="24" text-anchor="middle" class="state-diagram__clause" fill="var(--danger, #e06c75)">Tail Latency Violation (TTH &gt; Harm Horizon)</text>
-          <text x="140" y="44" text-anchor="middle" class="state-diagram__label" font-size="9.5">Average TTH is 2s, but p99 is 45s → Fatal Failure</text>
+        <g transform="translate(505, 110)">
+          <rect width="335" height="86" rx="6" fill="var(--surface)" stroke="var(--status-danger)" stroke-width="1" />
+          <text x="167.5" y="26" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">Tail Latency Violation (TTH &gt; Harm Horizon)</text>
+          <text x="167.5" y="50" text-anchor="middle" class="state-diagram__label">Average TTH is 2s, but p99 is 45s</text>
+          <text x="167.5" y="68" text-anchor="middle" class="state-diagram__label">→ Fatal Failure</text>
         </g>
       </g>
     </svg>

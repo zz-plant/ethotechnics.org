@@ -256,30 +256,74 @@
     overflow: visible;
   }
 
-  /* On a phone a 720–1060-unit drawing squeezed to 350px shrinks its 12px
-     labels to 4–6px. Below 720px the drawing keeps a readable width and the
-     figure scrolls sideways instead, the way the wide tables do. */
+  /* On a phone a 720–1060-unit drawing squeezed to the column shrinks its
+     labels to 4–6px. Below 720px the drawing keeps a width at which its
+     smallest label still renders at 11px, and the figure scrolls sideways.
+     The scroller breaks out of the article column to the screen edges: three
+     nested gutters leave the column 263px wide on a 375px phone, and a
+     diagram needs every pixel of the screen more than the prose does. The
+     edge shadows say there is more to the side; they scroll away as the
+     reader reaches each end. */
   @media (max-width: 719.98px) {
-    .diagram-scroll {
+    .diagram-scroll,
+    .standard-diagram {
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      padding-inline: var(--page-gutter, 1rem);
       overflow-x: auto;
       overscroll-behavior-x: contain;
       -webkit-overflow-scrolling: touch;
+      background:
+        linear-gradient(to right, var(--bg), transparent) left / 1.5rem 100%
+          no-repeat local,
+        linear-gradient(to left, var(--bg), transparent) right / 1.5rem 100%
+          no-repeat local,
+        radial-gradient(
+            farthest-side at 0 50%,
+            color-mix(in srgb, var(--text) 18%, transparent),
+            transparent
+          )
+          left / 0.75rem 100% no-repeat scroll,
+        radial-gradient(
+            farthest-side at 100% 50%,
+            color-mix(in srgb, var(--text) 18%, transparent),
+            transparent
+          )
+          right / 0.75rem 100% no-repeat scroll;
     }
 
     .state-diagram__svg {
-      min-width: 640px;
+      min-width: 760px;
     }
 
     .chain-diagram__svg {
-      min-width: 880px;
+      min-width: 900px;
     }
+
+    .standard-diagram svg {
+      min-width: 800px;
+    }
+  }
+
+  /* The state-diagram defaults skip any element that sets its own fill or
+     stroke. A presentation attribute loses to every author rule, so an
+     unconditional default here turned each diagram's red boxes and titles
+     back to the neutral palette. */
+  .chain-diagram__node rect,
+  .state-diagram__node rect:not([fill]),
+  .state-diagram__node circle:not([fill]) {
+    fill: var(--panel);
+  }
+
+  .chain-diagram__node rect,
+  .state-diagram__node rect:not([stroke]),
+  .state-diagram__node circle:not([stroke]) {
+    stroke: var(--border);
   }
 
   .chain-diagram__node rect,
   .state-diagram__node rect,
   .state-diagram__node circle {
-    fill: var(--panel);
-    stroke: var(--border);
     stroke-width: 1.5;
     transition:
       fill var(--motion-fast) ease,
@@ -292,8 +336,11 @@
     fill: color-mix(in srgb, var(--accent) 12%, var(--panel));
   }
 
-  .state-diagram__node--active rect {
+  .state-diagram__node--active rect:not([fill]) {
     fill: color-mix(in srgb, var(--accent) 16%, var(--panel));
+  }
+
+  .state-diagram__node--active rect:not([stroke]) {
     stroke: var(--accent);
   }
 
@@ -307,12 +354,16 @@
     font-family: var(--sans);
     font-size: 13px;
     font-weight: 650;
+  }
+
+  .chain-diagram__title,
+  .state-diagram__state:not([fill]) {
     fill: var(--text);
   }
 
   .chain-diagram__index {
     font-family: var(--sans);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     fill: var(--accent-strong);
     letter-spacing: 0.08em;
@@ -322,7 +373,6 @@
   .state-diagram__label {
     font-family: var(--sans);
     font-size: 11px;
-    fill: var(--muted);
     /* A halo in the page colour keeps a label legible where it crosses an
        edge, which in the state diagram several of them have to. */
     paint-order: stroke;
@@ -331,9 +381,33 @@
     stroke-linejoin: round;
   }
 
+  /* A clause label is a label with emphasis. It used to set only its colour,
+     so it inherited the body serif at body size and ran out of its box in
+     every diagram that used it. */
   .state-diagram__clause {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 650;
+    paint-order: stroke;
+    stroke: var(--surface);
+    stroke-width: 4px;
+    stroke-linejoin: round;
+  }
+
+  /* The halo is for labels that cross an edge. Inside a node there is no
+     edge to cross, and a halo in the page colour showed as a pale band
+     against the node's panel fill. */
+  .state-diagram__node :is(.state-diagram__label, .state-diagram__clause) {
+    stroke: none;
+  }
+
+  .chain-diagram__label,
+  .state-diagram__label:not([fill]) {
+    fill: var(--muted);
+  }
+
+  .state-diagram__clause:not([fill]) {
     fill: var(--accent-strong);
-    font-weight: 600;
   }
 
   .chain-diagram__return {
@@ -344,14 +418,35 @@
     color: color-mix(in srgb, var(--muted) 70%, var(--text));
   }
 
-  @media (max-width: 640px) {
+  /* The chain is 1060 units wide and renders at ~990px on the method page,
+     so its return labels need 12px to stay above 11px there. */
+  .chain-diagram__svg .chain-diagram__label {
+    font-size: 12px;
+  }
+
+  /* Under 720px the drawing is held at 900px (scale 0.85). The shared
+     15.5px state title would push "Reconsideration" past its 130-unit box,
+     so the chain keeps 14px titles and raises its step numbers instead. */
+  @media (max-width: 719.98px) {
+    .chain-diagram__svg .chain-diagram__title {
+      font-size: 14px;
+    }
+
+    .chain-diagram__svg .chain-diagram__label,
+    .chain-diagram__index {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 719.98px) {
     .chain-diagram__title,
     .state-diagram__state {
-      font-size: 15px;
+      font-size: 15.5px;
     }
     .chain-diagram__label,
-    .state-diagram__label {
-      font-size: 13px;
+    .state-diagram__label,
+    .state-diagram__clause {
+      font-size: 14px;
     }
   }
 }

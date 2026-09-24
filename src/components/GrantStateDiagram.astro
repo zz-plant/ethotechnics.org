@@ -20,15 +20,16 @@ const labels: Record<DiagramState, string> = {
   revoked: "Revoked",
 };
 
-// Explicit geometry on an 830×400 canvas. Generic midpoint labels collided
+// Explicit geometry on a 900×400 canvas. Generic midpoint labels collided
 // the moment two edges shared a corridor, so each edge carries its own path
-// and its own label anchor.
+// and its own label anchor. Labels are placed for the 14px phone size, where
+// they are widest; long ones stack their clause on a second line.
 const nodes = {
-  none: { x: 60, y: 200 },
-  allowed: { x: 250, y: 200, w: 150 },
-  review_required: { x: 580, y: 70, w: 200 },
-  suspended: { x: 580, y: 200, w: 150 },
-  revoked: { x: 580, y: 330, w: 150 },
+  none: { x: 40, y: 210 },
+  allowed: { x: 230, y: 210, w: 150 },
+  review_required: { x: 610, y: 70, w: 200 },
+  suspended: { x: 610, y: 210, w: 150 },
+  revoked: { x: 610, y: 350, w: 150 },
 } as const;
 
 const edges: {
@@ -42,56 +43,58 @@ const edges: {
   stack?: boolean;
 }[] = [
   {
-    d: "M 74 200 L 173 200",
+    d: "M 54 210 L 153 210",
     label: "issue",
     clause: "STD-07 §2.2",
-    lx: 124,
-    ly: 190,
+    lx: 104,
+    ly: 175,
+    stack: true,
   },
   {
-    d: "M 300 178 Q 380 70 478 70",
+    d: "M 262 188 Q 300 62 506 66",
     label: "unrenewed or policy fires",
     clause: "§1.2, §2.4–2.5",
-    lx: 350,
-    ly: 96,
-    anchor: "start",
+    lx: 330,
+    ly: 58,
+    anchor: "end",
+    stack: true,
   },
   {
-    d: "M 482 90 Q 420 160 327 180",
+    d: "M 520 92 Q 400 110 300 190",
     label: "renewed or confirmed",
     clause: "§1.1, §2.4",
-    lx: 405,
-    ly: 152,
+    lx: 452,
+    ly: 144,
     anchor: "start",
+    stack: true,
   },
   {
-    d: "M 325 195 L 503 195",
+    d: "M 307 204 L 533 204",
     label: "revocation condition",
     clause: "",
-    lx: 414,
-    ly: 186,
+    lx: 420,
+    ly: 194,
   },
   {
-    d: "M 503 210 Q 414 244 325 212",
+    d: "M 533 220 Q 420 254 307 220",
     label: "reinstated",
     clause: "state_history",
-    lx: 414,
-    ly: 250,
+    lx: 420,
+    ly: 270,
   },
   {
-    d: "M 300 222 Q 380 330 503 330",
+    d: "M 262 232 Q 300 350 533 350",
     label: "revocation condition",
     clause: "",
-    lx: 340,
-    ly: 318,
-    anchor: "start",
+    lx: 460,
+    ly: 316,
   },
   {
-    d: "M 664 92 Q 700 200 660 308",
+    d: "M 680 92 Q 750 210 672 330",
     label: "revoked by the issuer",
     clause: "issuing_authority",
-    lx: 672,
-    ly: 200,
+    lx: 728,
+    ly: 204,
     anchor: "start",
     stack: true,
   },
@@ -118,7 +121,7 @@ const edges: {
   </figcaption>
   <div class="diagram-scroll">
     <svg
-      viewBox="0 0 830 400"
+      viewBox="0 0 900 400"
       role="img"
       aria-label="Grant state diagram: issue moves a grant to allowed; an unexamined renewal or a policy that fires or expires moves it to review required, and renewal or confirmation returns it; a revocation condition moves it to suspended or revoked; the issuing authority can revoke a grant under review; a suspended grant reinstated is recorded as a transition."
       class="state-diagram__svg"
@@ -139,7 +142,7 @@ const edges: {
 
       {
         edges.map((e) => (
-          <g class="state-diagram__edge">
+          <g>
             <path
               d={e.d}
               fill="none"
@@ -158,7 +161,7 @@ const edges: {
                 <tspan
                   class="state-diagram__clause"
                   x={e.stack ? e.lx : undefined}
-                  dy={e.stack ? 14 : undefined}
+                  dy={e.stack ? 17 : undefined}
                 >
                   {e.stack ? e.clause : ` ${e.clause}`}
                 </tspan>

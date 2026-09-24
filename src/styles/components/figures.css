@@ -1239,8 +1239,20 @@
      Under 1100px the drawing keeps a readable width and scrolls. */
   @media (max-width: 1100px) {
     .ratchet__svg {
-      min-width: 760px;
+      min-width: 800px;
     }
+  }
+
+  /* The shared 11px labels render at 8.7px once 960 units squeeze into
+     800px; this drawing sets its own so the smallest stays above 11px from
+     the phone scroller up to the full standards column. */
+  .ratchet__svg .demo-figure__svg-label,
+  .ratchet__svg .demo-figure__svg-mono {
+    font-size: 14px;
+  }
+
+  .ratchet__svg .demo-figure__svg-title {
+    font-size: 16.5px;
   }
 
   .ratchet__grid {
@@ -1307,13 +1319,26 @@
     color: var(--text);
   }
 
-  /* The standards column narrows well before the phone breakpoint, and
-     11px labels in a 960-unit drawing are unreadable below ~800px of width.
-     Under 1100px the drawing keeps a readable width and scrolls. */
+  /* The drawing is 800 units wide. Its labels are 13px so they render at
+     11px or more on a 748px standards column; under 1100px the drawing
+     keeps its full width and scrolls. */
   @media (max-width: 1100px) {
     .chain-pause__svg {
-      min-width: 820px;
+      min-width: 800px;
     }
+  }
+
+  .chain-pause__svg .demo-figure__svg-label,
+  .chain-pause__svg .demo-figure__svg-mono {
+    font-size: 13px;
+  }
+
+  .chain-pause__svg .demo-figure__svg-title {
+    font-size: 15px;
+  }
+
+  .chain-pause__hop .demo-figure__svg-title {
+    font-size: 14px;
   }
 
   .chain-pause__hop rect {
@@ -1407,5 +1432,119 @@
   .chain-pause__captions dd.chain-pause__counter {
     margin-top: 0.25rem;
     color: var(--text);
+  }
+
+  /* --- Record diagrams (STD-01, STD-07, validators) ---
+     These six drawings share one small vocabulary of classes. Each used to
+     carry it in a <style> element inside its SVG; an inline <style> has no
+     hash in the Content-Security-Policy header, so production dropped it and
+     the drawings rendered as black shapes in the body serif. The classes are
+     generic, so every rule is scoped to the two diagram frames. Sizes are set
+     so the smallest label still renders at 11px on a 798px standards column. */
+  :is(.standard-diagram, .validator-diagram) svg {
+    font-family: var(--sans);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .ink {
+    fill: var(--text);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .muted {
+    fill: var(--muted);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg :is(.line, .line-strong) {
+    stroke: var(--border);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .line-strong {
+    stroke-width: 3.5;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .dash {
+    stroke-dasharray: 6 6;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .dot {
+    stroke-dasharray: 2 6;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg :is(.band, .band-a) {
+    fill: var(--surface);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .band-b {
+    fill: var(--panel);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg :is(.chip, .chip-dashed) {
+    fill: var(--surface);
+    stroke: var(--border);
+    stroke-width: 2;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .chip-dashed {
+    stroke-dasharray: 6 6;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .fill-border {
+    fill: var(--border);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .chip-state {
+    rx: 10;
+    ry: 10;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .chip-badge {
+    rx: 8;
+    ry: 8;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .chip-agent {
+    rx: 999;
+    ry: 999;
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .small {
+    font: 500 13.5px var(--sans);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .label {
+    font: 600 14px var(--sans);
+  }
+
+  :is(.standard-diagram, .validator-diagram) svg .title {
+    font: 650 15.5px var(--sans);
+  }
+
+  /* The validator pages do not load standards.css, so the cap lives here.
+     A 360-unit drawing across a 1000px column would set its labels at 50px. */
+  .validator-diagram > svg {
+    display: block;
+    width: 100%;
+    max-width: 34rem;
+    height: auto;
+  }
+
+  /* The utility .small (0.84rem) outranks these rules by layer, so a phone
+     cannot get larger small text from here. Instead a 960-unit record drawing
+     keeps the width it has on a desktop column, where 13.4px text renders at
+     11px, and scrolls. The validator drawing is short enough to widen to the
+     screen edges instead: at the 263px article column its text is 9px. */
+  @media (max-width: 719.98px) {
+    .standard-diagram > svg {
+      min-width: 800px;
+    }
+
+    .validator-diagram {
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      padding-inline: var(--page-gutter, 1rem);
+    }
   }
 }
