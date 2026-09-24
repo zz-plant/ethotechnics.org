@@ -1,0 +1,217 @@
+---
+/**
+ * Stoppability, drawn from the person's side.
+ *
+ * An automated flow with a halt control at every step. Stopping saves the
+ * person's place, issues a receipt, and attaches no penalty; they resume from
+ * the same step later. The failure pattern beside it is the forced tunnel the
+ * explainer names. Every label traces to src/content/explainers/stoppability.mdx.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+
+const steps = [
+  { x: 30, label: "Step 1" },
+  { x: 250, label: "Step 2" },
+  { x: 470, label: "Step 3", current: true },
+  { x: 690, label: "Step 4" },
+];
+---
+
+<figure class="state-diagram" aria-labelledby="stoppability-diagram-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="stoppability-diagram-title">Stop at any step, keep your place</Heading>
+    <p class="muted">
+      A halt control stays visible at every step. Stopping saves the person's place, issues a
+      receipt, and carries no penalty, so they can resume later or walk away.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 360"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="An automated flow of four steps, each with a visible stop control. Stopping at step three leads to a stopped state: place saved as a resumable snapshot, receipt issued, no penalty and no punitive flags. A dashed arrow resumes the flow at step three. Beside it, the failure pattern: a forced tunnel, leaving the flow loses the person's place, progress is invalidated after a pause, and the flow still claims stoppability."
+    >
+      <defs>
+        <marker
+          id="stoppability-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <marker
+          id="stoppability-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      <text x="30" y="26" class="state-diagram__state">Automated flow</text>
+      <text x="890" y="26" text-anchor="end" class="state-diagram__clause" fill="var(--accent-strong)">
+        Halt control visible at every step
+      </text>
+
+      {
+        steps.map((step) => (
+          <g class="state-diagram__node" transform={`translate(${step.x}, 44)`}>
+            <rect
+              width="180"
+              height="60"
+              rx="8"
+              fill="var(--panel)"
+              stroke={step.current ? "var(--accent)" : "var(--border)"}
+              stroke-width={step.current ? "2" : "1"}
+            />
+            {step.current ? (
+              <>
+                <text x="90" y="26" text-anchor="middle" class="state-diagram__state">
+                  {step.label}
+                </text>
+                <text x="90" y="46" text-anchor="middle" class="state-diagram__clause">
+                  Your place
+                </text>
+              </>
+            ) : (
+              <text x="90" y="36" text-anchor="middle" class="state-diagram__state">
+                {step.label}
+              </text>
+            )}
+          </g>
+        ))
+      }
+
+      {
+        steps.slice(0, -1).map((step) => (
+          <line
+            x1={step.x + 180}
+            y1="74"
+            x2={step.x + 218}
+            y2="74"
+            stroke="var(--border)"
+            stroke-width="2"
+            marker-end="url(#stoppability-arrow)"
+          />
+        ))
+      }
+
+      {
+        steps.map((step) => (
+          <g>
+            <line
+              x1={step.x + 90}
+              y1="104"
+              x2={step.x + 90}
+              y2="118"
+              stroke="var(--accent)"
+              stroke-width={step.current ? "2" : "1"}
+            />
+            <rect
+              x={step.x + 45}
+              y="118"
+              width="90"
+              height="30"
+              rx="15"
+              fill="var(--surface)"
+              stroke="var(--accent)"
+              stroke-width={step.current ? "2" : "1"}
+            />
+            <text
+              x={step.x + 90}
+              y="138"
+              text-anchor="middle"
+              class="state-diagram__clause"
+              fill="var(--accent-strong)"
+            >
+              Stop
+            </text>
+          </g>
+        ))
+      }
+
+      {/* Stop pressed at step 3: down into the stopped state. */}
+      <line
+        x1="560"
+        y1="148"
+        x2="560"
+        y2="206"
+        stroke="var(--accent)"
+        stroke-width="2"
+        marker-end="url(#stoppability-accent-arrow)"
+      />
+
+      {/* Resume: back up to the same step. */}
+      <path
+        d="M 492 208 L 492 106"
+        stroke="var(--accent)"
+        stroke-width="2"
+        stroke-dasharray="4 4"
+        fill="none"
+        marker-end="url(#stoppability-accent-arrow)"
+      />
+      <text x="482" y="184" text-anchor="end" class="state-diagram__clause" fill="var(--accent-strong)">
+        Resume
+      </text>
+
+      {/* Stopped state */}
+      <g class="state-diagram__node" transform="translate(390, 208)">
+        <rect width="340" height="132" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="2" />
+        <text x="170" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">
+          Stopped at once
+        </text>
+        <text x="170" y="52" text-anchor="middle" class="state-diagram__label">
+          Place saved as a resumable snapshot
+        </text>
+        <text x="170" y="74" text-anchor="middle" class="state-diagram__label">Receipt issued</text>
+        <text x="170" y="96" text-anchor="middle" class="state-diagram__label">
+          No penalty, no punitive flags
+        </text>
+        <text x="170" y="118" text-anchor="middle" class="state-diagram__clause">
+          Resume later, or walk away
+        </text>
+      </g>
+
+      {/* Failure pattern, as the explainer states it. */}
+      <g transform="translate(30, 208)">
+        <rect
+          width="330"
+          height="132"
+          rx="8"
+          fill="var(--surface)"
+          stroke="var(--status-danger)"
+          stroke-width="1.5"
+          stroke-dasharray="6 4"
+        />
+        <text x="165" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--status-danger)">
+          Failure: a forced tunnel
+        </text>
+        <text x="165" y="56" text-anchor="middle" class="state-diagram__label">
+          Leaving the flow loses your place
+        </text>
+        <text x="165" y="80" text-anchor="middle" class="state-diagram__label">
+          Progress invalidated after a pause
+        </text>
+        <text x="165" y="110" text-anchor="middle" class="state-diagram__clause">
+          The flow still claims stoppability
+        </text>
+      </g>
+    </svg>
+  </div>
+</figure>

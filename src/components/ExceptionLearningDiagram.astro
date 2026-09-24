@@ -1,0 +1,134 @@
+---
+/**
+ * Exception Learning Diagram.
+ *
+ * Two paths out of the same exception. Absorption handles the case and loops
+ * back to the unchanged decision; learning sends the recurring exception back
+ * to revise the rule, category, workflow, or authority that produced it. The
+ * verdicts match the casebook's `learningOutcome` ("absorbed", "learned").
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="exception-learning-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="exception-learning-title">Handled, or learned from</Heading>
+    <p class="muted">
+      The same exception can take two paths. Absorption closes the case and
+      leaves the machinery as it was. Learning carries the recurrence back and
+      changes the rule that produced it.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 470"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Diagram of two paths from one exception. The machinery of rule, category, workflow, and authority produces a decision, and the decision produces an exception. On the absorption path the case is handled and resolved, and the next case returns to the same unchanged decision: the casebook verdict is absorbed. On the learning path the recurring exception travels back and revises the machinery: the verdict is learned."
+    >
+      <defs>
+        <marker
+          id="exception-learning-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+        </marker>
+        <marker
+          id="exception-learning-warning-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-warning)" />
+        </marker>
+        <marker
+          id="exception-learning-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      {/* The machinery that generates decisions */}
+      <g class="state-diagram__node" transform="translate(30, 165)">
+        <rect width="185" height="120" rx="8" fill="var(--panel)" stroke="var(--accent)" />
+        <text x="92.5" y="32" text-anchor="middle" class="state-diagram__state">The machinery</text>
+        <text x="92.5" y="58" text-anchor="middle" class="state-diagram__label">Rule · category</text>
+        <text x="92.5" y="80" text-anchor="middle" class="state-diagram__label">Workflow · authority</text>
+        <text x="92.5" y="104" text-anchor="middle" class="state-diagram__clause">Generates decisions</text>
+      </g>
+
+      <line x1="215" y1="225" x2="248" y2="225" stroke="var(--border)" stroke-width="2" marker-end="url(#exception-learning-arrow)" />
+
+      {/* Decision */}
+      <g class="state-diagram__node" transform="translate(250, 190)">
+        <rect width="120" height="70" rx="8" />
+        <text x="60" y="41" text-anchor="middle" class="state-diagram__state">Decision</text>
+      </g>
+
+      <line x1="370" y1="225" x2="403" y2="225" stroke="var(--border)" stroke-width="2" marker-end="url(#exception-learning-arrow)" />
+
+      {/* Exception */}
+      <g class="state-diagram__node" transform="translate(405, 180)">
+        <rect width="165" height="90" rx="8" />
+        <text x="82.5" y="30" text-anchor="middle" class="state-diagram__state">Exception</text>
+        <text x="82.5" y="54" text-anchor="middle" class="state-diagram__label">Failure, burden,</text>
+        <text x="82.5" y="74" text-anchor="middle" class="state-diagram__label">challenge</text>
+      </g>
+
+      {/* Split into the two paths */}
+      <path d="M 570 210 L 592 210 L 592 120 L 618 120" stroke="var(--status-warning)" stroke-width="2" fill="none" marker-end="url(#exception-learning-warning-arrow)" />
+      <path d="M 570 240 L 592 240 L 592 330 L 618 330" stroke="var(--accent)" stroke-width="2" fill="none" marker-end="url(#exception-learning-accent-arrow)" />
+
+      {/* Path 1: exception absorption */}
+      <g class="state-diagram__node" transform="translate(620, 50)">
+        <rect width="270" height="140" rx="8" fill="var(--panel)" stroke="var(--status-warning)" />
+        <text x="18" y="30" class="state-diagram__state">Exception absorption</text>
+        <text x="18" y="52" class="state-diagram__label">Case corrigibility</text>
+        <text x="18" y="76" class="state-diagram__label">Error caught, harm bounded,</text>
+        <text x="18" y="96" class="state-diagram__label">person repaired, record closed</text>
+        <text x="18" y="124" class="state-diagram__clause" fill="var(--status-warning)">Verdict: absorbed</text>
+      </g>
+
+      {/* Absorption loops back to the same decision */}
+      <path d="M 755 50 L 755 26 L 310 26 L 310 188" stroke="var(--status-warning)" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#exception-learning-warning-arrow)" />
+      <text x="330" y="54" class="state-diagram__clause" fill="var(--status-warning)">Case resolved. Machinery unchanged.</text>
+      <text x="330" y="76" class="state-diagram__label">The next case meets the same decision.</text>
+
+      {/* Path 2: exception learning */}
+      <g class="state-diagram__node" transform="translate(620, 260)">
+        <rect width="270" height="140" rx="8" fill="var(--panel)" stroke="var(--accent)" />
+        <text x="18" y="30" class="state-diagram__state">Exception learning</text>
+        <text x="18" y="52" class="state-diagram__label">Structural corrigibility</text>
+        <text x="18" y="76" class="state-diagram__label">The recurring exception</text>
+        <text x="18" y="96" class="state-diagram__label">modifies its source</text>
+        <text x="18" y="124" class="state-diagram__clause">Verdict: learned</text>
+      </g>
+
+      {/* Learning travels back and revises the machinery */}
+      <path d="M 755 400 L 755 440 L 122 440 L 122 287" stroke="var(--accent)" stroke-width="2" fill="none" marker-end="url(#exception-learning-accent-arrow)" />
+      <text x="140" y="400" class="state-diagram__clause">Revises the machinery</text>
+      <text x="140" y="422" class="state-diagram__label">Rule changed, category redefined, authority narrowed</text>
+    </svg>
+  </div>
+</figure>

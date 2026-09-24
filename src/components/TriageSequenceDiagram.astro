@@ -1,0 +1,148 @@
+---
+/**
+ * Triage sequence strip for the failure-state pages.
+ *
+ * Draws the response workflow (triage → stabilize → evidence) as one row of
+ * stages, each naming the artifact that page opens for it. The stages come
+ * from the same list the page renders as cards, so each failure state shows
+ * its own artifacts.
+ */
+interface Stage {
+  title: string;
+  artifactName: string;
+}
+
+interface Props {
+  stages: Stage[];
+  level?: "h3" | "h4";
+}
+
+const { stages, level = "h3" }: Props = Astro.props;
+const Heading = level;
+
+// The viewBox is written out (920 × 136) so the diagram-source checks find it.
+const viewWidth = 920;
+const margin = 20;
+const gap = 56;
+const boxHeight = 104;
+const top = 16;
+const boxWidth =
+  (viewWidth - margin * 2 - gap * (stages.length - 1)) / stages.length;
+
+// Artifact names run to 42 characters; at the 15.5px phone title size a
+// line holds about 24 before it reaches the box edge.
+const wrap = (text: string, max = 24): string[] => {
+  const lines: string[] = [];
+  let line = "";
+  for (const word of text.split(" ")) {
+    const candidate = line ? `${line} ${word}` : word;
+    if (candidate.length > max && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = candidate;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+};
+
+const nodes = stages.map((stage, index) => {
+  const x = margin + index * (boxWidth + gap);
+  const lines = wrap(stage.artifactName);
+  const firstLineY = 70 - (lines.length - 1) * 11;
+  return { ...stage, index, x, lines, firstLineY };
+});
+
+const ariaLabel = `Response sequence: ${stages
+  .map((stage) => `${stage.title} opens the ${stage.artifactName}`)
+  .join(", then ")}.`;
+---
+
+<figure class="state-diagram" aria-labelledby="triage-seq-title">
+  <figcaption>
+    <p class="eyebrow">Mechanism, drawn</p>
+    <Heading id="triage-seq-title">One artifact per stage</Heading>
+    <p class="muted">
+      Each stage opens one artifact. The first fixes the owner, the evidence
+      scope, and the reversal path.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 136"
+      role="img"
+      class="state-diagram__svg"
+      aria-label={ariaLabel}
+    >
+      <defs>
+        <marker
+          id="triage-seq-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)"></path>
+        </marker>
+      </defs>
+
+      {
+        nodes.slice(1).map((node) => (
+          <line
+            x1={node.x - gap}
+            y1={top + boxHeight / 2}
+            x2={node.x - 2}
+            y2={top + boxHeight / 2}
+            stroke="var(--border)"
+            stroke-width="2"
+            marker-end="url(#triage-seq-arrow)"
+          />
+        ))
+      }
+
+      {
+        nodes.map((node) => (
+          <g
+            class="state-diagram__node"
+            transform={`translate(${node.x}, ${top})`}
+          >
+            {node.index === 0 ? (
+              <rect
+                width={boxWidth}
+                height={boxHeight}
+                rx="8"
+                fill="var(--panel)"
+                stroke="var(--accent)"
+                stroke-width="2"
+              />
+            ) : (
+              <rect width={boxWidth} height={boxHeight} rx="8" />
+            )}
+            <text
+              x={boxWidth / 2}
+              y="28"
+              text-anchor="middle"
+              class="state-diagram__clause"
+            >
+              {`${node.index + 1} · ${node.title}`}
+            </text>
+            {node.lines.map((line, lineIndex) => (
+              <text
+                x={boxWidth / 2}
+                y={node.firstLineY + lineIndex * 22}
+                text-anchor="middle"
+                class="state-diagram__state"
+              >
+                {line}
+              </text>
+            ))}
+          </g>
+        ))
+      }
+    </svg>
+  </div>
+</figure>

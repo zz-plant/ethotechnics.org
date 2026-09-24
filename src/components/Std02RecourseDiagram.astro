@@ -8,15 +8,17 @@
  */
 interface Props {
   level?: "h3" | "h4";
+  // Outside the standard, "Article VIII" needs its document named.
+  eyebrow?: string;
 }
 
-const { level = "h3" }: Props = Astro.props;
+const { level = "h3", eyebrow = "Article VIII, drawn" }: Props = Astro.props;
 const Heading = level;
 ---
 
 <figure class="state-diagram" aria-labelledby="std02-recourse-title">
   <figcaption>
-    <p class="eyebrow">Article VIII, drawn</p>
+    <p class="eyebrow">{eyebrow}</p>
     <Heading id="std02-recourse-title">
       The Contestability Lifecycle: from model failure to state transition
     </Heading>

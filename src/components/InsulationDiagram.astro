@@ -1,0 +1,232 @@
+---
+/**
+ * Insulation Diagram.
+ *
+ * `variant="loop"` (default): the feedback path from decision to consequence
+ * and back to whoever can revise the rule, with the cut on the return path and
+ * the nine channels the essay names. The three conditions of the critical
+ * structure (cost displacement, weak feedback, preserved authority) sit on the
+ * part of the loop each one describes.
+ *
+ * `variant="test"`: the essay's test for good and bad insulation, drawn as
+ * what each one keeps out and what it lets through.
+ */
+interface Props {
+  level?: "h2" | "h3";
+  variant?: "loop" | "test";
+}
+
+const { level = "h3", variant = "loop" }: Props = Astro.props;
+const Heading = level;
+
+const channels = [
+  { name: "Material", gloss: "Someone else pays" },
+  { name: "Organizational", gloss: "The frontline absorbs failures" },
+  { name: "Epistemic", gloss: "The labor behind success is unmeasured" },
+  { name: "Procedural", gloss: "Open in form, closed in cost" },
+  { name: "Temporal", gloss: "The decision-maker has moved on" },
+  { name: "Social", gloss: "Governors rarely meet absorbers" },
+  { name: "Legal", gloss: "Responsibility is fragmented" },
+  { name: "Statistical", gloss: "Harm is dispersed thin" },
+  { name: "Adaptive", gloss: "Coping hides the failure" },
+];
+---
+
+{
+  variant === "loop" ? (
+    <figure class="state-diagram" aria-labelledby="insulation-loop-title">
+      <figcaption>
+        <p class="eyebrow">Theory, drawn</p>
+        <Heading id="insulation-loop-title">Where the return path is cut</Heading>
+        <p class="muted">
+          A decision's cost travels out to the people it lands on. Insulation
+          stops the fact of its landing from traveling back to whoever can
+          revise the rule.
+        </p>
+      </figcaption>
+
+      <div class="diagram-scroll">
+        <svg
+          viewBox="0 0 920 560"
+          role="img"
+          class="state-diagram__svg"
+          aria-label="Loop diagram. Those who can revise the rule make a decision whose consequence lands on other people: cost displacement. The signal that the burden landed should travel back, but insulation cuts the return path: weak feedback. The rule-makers keep their authority. Below, the nine channels through which the return path can be cut: material, organizational, epistemic, procedural, temporal, social, legal, statistical, and adaptive."
+        >
+          <defs>
+            <marker
+              id="insulation-loop-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+            </marker>
+            <marker
+              id="insulation-loop-danger-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)" />
+            </marker>
+          </defs>
+
+          {/* Those who can revise the rule */}
+          <g class="state-diagram__node" transform="translate(30, 50)">
+            <rect width="220" height="120" rx="8" fill="var(--panel)" stroke="var(--accent)" />
+            <text x="110" y="32" text-anchor="middle" class="state-diagram__state">Those who can</text>
+            <text x="110" y="54" text-anchor="middle" class="state-diagram__state">revise the rule</text>
+            <text x="110" y="86" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">Preserved authority</text>
+            <text x="110" y="106" text-anchor="middle" class="state-diagram__label">The rule stays theirs</text>
+          </g>
+
+          {/* People the decision lands on */}
+          <g class="state-diagram__node" transform="translate(670, 50)">
+            <rect width="220" height="120" rx="8" />
+            <text x="110" y="32" text-anchor="middle" class="state-diagram__state">People the</text>
+            <text x="110" y="54" text-anchor="middle" class="state-diagram__state">decision lands on</text>
+            <text x="110" y="86" text-anchor="middle" class="state-diagram__label">Burden lands;</text>
+            <text x="110" y="106" text-anchor="middle" class="state-diagram__label">they adapt</text>
+          </g>
+
+          {/* Outbound: decision to consequence */}
+          <line x1="250" y1="110" x2="667" y2="110" stroke="var(--border)" stroke-width="2" marker-end="url(#insulation-loop-arrow)" />
+          <text x="460" y="96" text-anchor="middle" class="state-diagram__label">Decision → consequence</text>
+          <text x="460" y="138" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">Cost displacement: someone else pays</text>
+
+          {/* Return: the signal that the burden landed */}
+          <path d="M 780 170 L 780 240 L 484 240" stroke="var(--status-danger)" stroke-width="2" fill="none" />
+          <path d="M 436 240 L 140 240 L 140 173" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 5" fill="none" marker-end="url(#insulation-loop-arrow)" />
+          <text x="770" y="226" text-anchor="end" class="state-diagram__label">Signal back: the burden landed</text>
+          <text x="160" y="226" class="state-diagram__label">Never arrives</text>
+          <text x="632" y="264" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">Weak feedback</text>
+
+          {/* The cut */}
+          <rect x="448" y="206" width="24" height="68" rx="3" fill="var(--status-danger)" />
+          <text x="460" y="296" text-anchor="middle" class="state-diagram__state" fill="var(--status-danger)">Insulation</text>
+          <line x1="460" y1="304" x2="460" y2="332" stroke="var(--status-danger)" stroke-width="1.5" marker-end="url(#insulation-loop-danger-arrow)" />
+
+          {/* The channels */}
+          <rect x="30" y="336" width="860" height="204" rx="8" fill="var(--surface)" stroke="var(--status-danger)" />
+          <text x="50" y="364" class="state-diagram__state">Channels that cut the return path</text>
+          {
+            channels.map((channel, i) => {
+              const x = 50 + (i % 3) * 280;
+              const y = 400 + Math.floor(i / 3) * 50;
+              const isAdaptive = channel.name === "Adaptive";
+              return (
+                <g>
+                  <text
+                    x={x}
+                    y={y}
+                    class="state-diagram__clause"
+                    fill={isAdaptive ? "var(--status-danger)" : undefined}
+                  >
+                    {channel.name}
+                  </text>
+                  <text x={x} y={y + 20} class="state-diagram__label">
+                    {channel.gloss}
+                  </text>
+                </g>
+              );
+            })
+          }
+        </svg>
+      </div>
+    </figure>
+  ) : (
+    <figure class="state-diagram" aria-labelledby="insulation-test-title">
+      <figcaption>
+        <p class="eyebrow">Theory, drawn</p>
+        <Heading id="insulation-test-title">What the insulation lets through</Heading>
+        <p class="muted">
+          The same distance between decision and consequence can be either.
+          Good insulation keeps noise out and lets evidence in. Bad insulation
+          keeps evidence out and leaves authority in place.
+        </p>
+      </figcaption>
+
+      <div class="diagram-scroll">
+        <svg
+          viewBox="0 0 920 330"
+          role="img"
+          class="state-diagram__svg"
+          aria-label="Two rows. Good insulation: noise, retaliation, and panic are stopped at the shield, while evidence and accountability pass through to the decision-maker, who still answers to the record. Bad insulation: evidence and consequence are stopped at the shield, and the decision-maker keeps its authority."
+        >
+          <defs>
+            <marker
+              id="insulation-test-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--border)" />
+            </marker>
+            <marker
+              id="insulation-test-success-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-success)" />
+            </marker>
+            <marker
+              id="insulation-test-danger-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)" />
+            </marker>
+          </defs>
+
+          {/* Row 1: good insulation */}
+          <text x="30" y="34" class="state-diagram__state" fill="var(--status-success)">Good insulation</text>
+          <text x="30" y="68" class="state-diagram__label">Noise, retaliation, panic</text>
+          <line x1="30" y1="80" x2="440" y2="80" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 5" marker-end="url(#insulation-test-arrow)" />
+          <text x="30" y="118" class="state-diagram__clause" fill="var(--status-success)">Evidence and accountability</text>
+          <line x1="30" y1="130" x2="667" y2="130" stroke="var(--status-success)" stroke-width="2" marker-end="url(#insulation-test-success-arrow)" />
+          <rect x="448" y="52" width="24" height="44" rx="3" fill="var(--status-success)" />
+          <text x="484" y="68" class="state-diagram__label">Kept out</text>
+          <text x="484" y="118" class="state-diagram__label">Let through</text>
+
+          <g class="state-diagram__node" transform="translate(670, 50)">
+            <rect width="220" height="100" rx="8" fill="var(--panel)" stroke="var(--status-success)" />
+            <text x="110" y="40" text-anchor="middle" class="state-diagram__state">Decision-maker</text>
+            <text x="110" y="66" text-anchor="middle" class="state-diagram__label">Still answers to the record</text>
+          </g>
+
+          <line x1="30" y1="185" x2="890" y2="185" stroke="var(--border)" stroke-width="1" />
+
+          {/* Row 2: bad insulation */}
+          <text x="30" y="224" class="state-diagram__state" fill="var(--status-danger)">Bad insulation</text>
+          <text x="30" y="258" class="state-diagram__clause" fill="var(--status-danger)">Evidence and consequence</text>
+          <line x1="30" y1="270" x2="440" y2="270" stroke="var(--status-danger)" stroke-width="2" marker-end="url(#insulation-test-danger-arrow)" />
+          <rect x="448" y="236" width="24" height="68" rx="3" fill="var(--status-danger)" />
+          <text x="484" y="258" class="state-diagram__label">Kept out</text>
+
+          <g class="state-diagram__node" transform="translate(670, 220)">
+            <rect width="220" height="100" rx="8" fill="var(--panel)" stroke="var(--status-danger)" />
+            <text x="110" y="40" text-anchor="middle" class="state-diagram__state">Decision-maker</text>
+            <text x="110" y="66" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">Keeps its authority</text>
+          </g>
+        </svg>
+      </div>
+    </figure>
+  )
+}

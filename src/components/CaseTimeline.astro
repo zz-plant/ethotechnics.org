@@ -1,0 +1,55 @@
+---
+/**
+ * A casebook entry as dated events. The events live on the case in
+ * `src/content/casebook.ts`, drawn only from that case's own record; the row
+ * marked `turn` is the one the narrative treats as the turning point.
+ */
+import type { Case } from "../content/casebook";
+
+type Props = {
+  entry: Case;
+  /** The caption's eyebrow. */
+  eyebrow?: string;
+  /** Show the case's time to halt beside the eyebrow. */
+  showHalt?: boolean;
+  /** Link to the scored case, for placements outside the case page. */
+  showLink?: boolean;
+};
+
+const {
+  entry,
+  eyebrow = "Timeline",
+  showHalt = false,
+  showLink = false,
+} = Astro.props;
+const events = entry.timeline ?? [];
+const captionId = `case-timeline-${entry.slug}-caption`;
+---
+
+{
+  events.length > 0 && (
+    <figure class="case-timeline" aria-labelledby={captionId}>
+      <figcaption id={captionId} class="case-timeline__caption">
+        <span class="eyebrow">{eyebrow}</span>
+        {showHalt && (
+          <span class="case-timeline__halt">
+            Time to halt: {entry.timeToHalt}
+          </span>
+        )}
+      </figcaption>
+      <ol class="case-timeline__list">
+        {events.map((event) => (
+          <li class:list={["case-timeline__event", { "is-turn": event.turn }]}>
+            <span class="case-timeline__when">{event.when}</span>
+            <span class="case-timeline__what">{event.what}</span>
+          </li>
+        ))}
+      </ol>
+      {showLink && (
+        <a class="case-timeline__more small" href={`/casebook/${entry.slug}`}>
+          Read the scored case →
+        </a>
+      )}
+    </figure>
+  )
+}

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CaseTimeline from "../../components/CaseTimeline.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
@@ -87,6 +88,9 @@ const sourceKind = {
     title="What happened"
     description="From the primary sources listed at the end. Where a finding is quoted, it is the inquiry's, not ours."
   >
+    <div class="case-page__timeline">
+      <CaseTimeline entry={entry} />
+    </div>
     <div class="case-narrative">
       {entry.narrative.map((paragraph) => <p>{paragraph}</p>)}
     </div>

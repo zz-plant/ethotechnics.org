@@ -108,6 +108,12 @@ export type Source = {
   date: string;
 };
 
+export type TimelineEvent = {
+  when: string;
+  what: string;
+  turn?: boolean;
+};
+
 export type Case = PublishedContent & {
   slug: string;
   title: string;
@@ -125,6 +131,12 @@ export type Case = PublishedContent & {
   summary: string;
   /** What happened, from the primary record, in a few paragraphs. */
   narrative: string[];
+  /**
+   * The case as dated events, drawn only from the narrative, findings,
+   * period, halt, and sources above. `turn` marks the one event the narrative
+   * treats as the turning point, at most one per case.
+   */
+  timeline?: TimelineEvent[];
   findings: Finding[];
   /**
    * Where the failure trajectory ended: in case resolution (each exception
@@ -178,6 +190,33 @@ export const cases: Case[] = [
       "From July 2016 the Online Compliance Intervention replaced a manual process in which a compliance officer reconciled a welfare recipient's reported fortnightly income against employer records. The automated process took the annual income the tax office held, divided it evenly across the year's fortnights, compared each fortnight to what the recipient had declared, and raised a debt for the difference. The recipient was then asked to produce payslips, often for years past, to disprove it. Income averaging cannot establish what a person earned in any given fortnight, and the Department of Social Services had received legal advice to that effect in 2014.",
       "The Commonwealth Ombudsman reported in April 2017 that the scheme's notices did not explain how a debt had been calculated and that the reversal of the onus of proof was causing serious distress. The Administrative Appeals Tribunal found individual debts unlawful in dozens of matters from early 2017. The department did not appeal those decisions, which would have created a binding precedent, and did not treat them as evidence about the scheme. In November 2019, in Amato v Commonwealth, the Commonwealth consented to a Federal Court declaration that a debt raised by averaging was not lawfully made. The scheme was halted the same month.",
       "The Royal Commission into the Robodebt Scheme reported on 7 July 2023. It found the scheme unlawful from the outset, that the government had been told so, and that the department's handling of the legal advice, the Ombudsman, and the tribunal decisions amounted to a sustained refusal to look at the evidence the scheme was generating about itself.",
+    ],
+    timeline: [
+      {
+        when: "2014",
+        what: "The department is advised in writing that income averaging cannot prove a debt.",
+      },
+      {
+        when: "Jul 2016",
+        what: "The automated scheme launches. Debt notices go from about 20,000 a year to 20,000 a week.",
+      },
+      {
+        when: "Apr 2017",
+        what: "The Ombudsman reports that notices do not explain how a debt was calculated.",
+      },
+      {
+        when: "2017–19",
+        what: "A tribunal rules individual debts unlawful dozens of times. Each ruling fixes one case. The scheme keeps running.",
+        turn: true,
+      },
+      {
+        when: "Nov 2019",
+        what: "The government concedes a Federal Court case it was about to lose. The scheme is halted that month.",
+      },
+      {
+        when: "Jul 2023",
+        what: "A Royal Commission finds the scheme was unlawful from the outset.",
+      },
     ],
     findings: [
       {
@@ -307,6 +346,37 @@ export const cases: Case[] = [
       "Parents who objected were not told why they had been flagged. Files provided to courts were incomplete; internal memos later showed that the administration knew its position in some cases was untenable and litigated anyway. The Council of State, the highest administrative court, upheld the all-or-nothing rule in its case law until 23 October 2019, when it reversed course and held that the administration had discretion it had never exercised.",
       "The Dutch Data Protection Authority found in July 2020 that the administration had unlawfully processed applicants' nationality, including dual nationality, as a risk indicator, and fined it in December 2021. The parliamentary inquiry committee's report, Ongekend onrecht, unprecedented injustice, was published on 17 December 2020. The cabinet resigned over it on 15 January 2021. A redress operation is still running.",
     ],
+    timeline: [
+      {
+        when: "2013",
+        what: "After a fraud case, the benefits office is set aggressive enforcement targets.",
+      },
+      {
+        when: "2013–19",
+        what: "A risk model scores childcare claims. High scores are reviewed under a presumption of fraud. Any irregularity, even a missing signature, can reclaim the whole year's benefit.",
+      },
+      {
+        when: "To Oct 2019",
+        what: "Parents who object are not told why they were flagged. Courts get incomplete files. The highest administrative court upholds the all-or-nothing rule.",
+        turn: true,
+      },
+      {
+        when: "Oct 2019",
+        what: "The Council of State reverses its own case law. The administration had discretion it never used.",
+      },
+      {
+        when: "Jul 2020",
+        what: "The Data Protection Authority finds nationality was used unlawfully as a risk indicator.",
+      },
+      {
+        when: "Dec 2020",
+        what: "A parliamentary inquiry reports: unprecedented injustice.",
+      },
+      {
+        when: "Jan 2021",
+        what: "The cabinet resigns.",
+      },
+    ],
     findings: [
       {
         variable: "capability",
@@ -431,6 +501,33 @@ export const cases: Case[] = [
       "Horizon, built by ICL and then Fujitsu, was rolled out to Post Office branches from 1999. Subpostmasters were contractually liable for shortfalls the system reported. When it reported them, the Post Office investigated, and where it chose to, prosecuted, using its own power to bring private prosecutions. Between 1999 and 2015 it brought more than 700 prosecutions itself; other prosecutors brought more on the same evidence. Defendants who said the system was wrong were told it was robust and that no one else had complained.",
       "Fujitsu kept a known error log recording bugs that produced phantom shortfalls, and its engineers had remote access that could alter branch accounts without the subpostmaster's knowledge. Neither fact was disclosed to defendants. In Bates v Post Office, the Horizon Issues judgment of December 2019 found that the system had contained bugs, errors and defects capable of causing the discrepancies, and that the Post Office's position had been, in the judge's phrase, the equivalent of asserting the earth is flat.",
       "The Court of Appeal quashed 39 convictions in April 2021, finding that the prosecutions were an affront to the conscience of the court. The Post Office (Horizon System) Offences Act 2024 quashed the remainder by statute. The statutory inquiry chaired by Sir Wyn Williams published its first volume, on human impact and compensation, on 8 July 2025.",
+    ],
+    timeline: [
+      {
+        when: "1999",
+        what: "Horizon is rolled out to Post Office branches. Subpostmasters are liable for the shortfalls it reports.",
+      },
+      {
+        when: "1999–2015",
+        what: "The Post Office brings more than 700 prosecutions itself. Each defendant is told the system is robust and no one else has complained. Fujitsu's log of known bugs is not disclosed.",
+        turn: true,
+      },
+      {
+        when: "Dec 2019",
+        what: "In Bates v Post Office, brought by 555 subpostmasters, a judge finds Horizon had bugs capable of causing the shortfalls.",
+      },
+      {
+        when: "Apr 2021",
+        what: "The Court of Appeal quashes 39 convictions.",
+      },
+      {
+        when: "May 2024",
+        what: "An Act of Parliament quashes the remaining convictions.",
+      },
+      {
+        when: "Jul 2025",
+        what: "The statutory inquiry publishes its first volume, on human impact and compensation.",
+      },
     ],
     findings: [
       {
@@ -560,6 +657,28 @@ export const cases: Case[] = [
       "Results were issued on 13 August. The regulator's interim report published the same day acknowledged that the model could not be validated against outcomes for individual students, since none existed, and that its aggregate agreement with past distributions was the design target rather than a measurement of accuracy. Students could appeal only through their school, on grounds of administrative error or, under a policy announced two days before results and withdrawn two days after, a higher mock grade. There was no ground of appeal that the model had ranked the student wrongly.",
       "Scotland's regulator had already withdrawn its equivalent model on 11 August. On 17 August Ofqual and the Department for Education announced that centre-assessed grades would stand. The Office for Statistics Regulation's review, published in March 2021, concluded that the model's limitations were understood by those building it and that the failure was in how the choices were made, explained, and opened to challenge.",
     ],
+    timeline: [
+      {
+        when: "2020",
+        what: "Exams are cancelled. The Secretary of State directs Ofqual to keep grades broadly similar to previous years.",
+      },
+      {
+        when: "11 Aug 2020",
+        what: "Scotland withdraws its equivalent model.",
+      },
+      {
+        when: "13 Aug 2020",
+        what: "Results are issued. Ofqual's own report says the model cannot be validated for individual students. No appeal lets a student argue it ranked them wrongly.",
+      },
+      {
+        when: "17 Aug 2020",
+        what: "Four days after results, Ofqual and the Department for Education announce that teachers' grades will stand.",
+      },
+      {
+        when: "Mar 2021",
+        what: "The statistics regulator finds the failure was in how the choices were made, explained, and opened to challenge.",
+      },
+    ],
     findings: [
       {
         variable: "capability",
@@ -673,6 +792,29 @@ export const cases: Case[] = [
       "In November 2019, several applicants reported publicly that they had been offered credit limits many times higher than their spouses', despite shared finances and, in some cases, the spouse's better credit history. Customer service representatives could not explain the outcomes and, by the applicants' accounts, said the algorithm had decided. The New York Department of Financial Services opened an investigation.",
       "The Department's report, published in March 2021, found that the underwriting model did not use sex or marital status and that the outcomes could be explained by differences in the applicants' individual credit files, including that a spouse who was an authorised user on the other's accounts had a thinner history. It found no violation of fair lending law. It also found that neither applicants nor the bank's staff had been able to obtain that explanation at the time, that there was no process to request reconsideration of a limit, and that the bank's reliance on individual credit data disadvantaged spouses whose finances were shared but whose credit histories were not.",
       "The issuer subsequently introduced the ability for spouses to share an account and build credit jointly, and a reconsideration process. The model was not changed.",
+    ],
+    timeline: [
+      {
+        when: "Nov 2019",
+        what: "Applicants report credit limits many times higher than their spouses', despite shared finances.",
+      },
+      {
+        when: "Nov 2019",
+        what: "Customer service cannot explain the outcomes. By the applicants' accounts, staff say the algorithm decided. There is no way to ask for a reconsideration.",
+        turn: true,
+      },
+      {
+        when: "Mar 2021",
+        what: "The New York regulator reports. The model did not use sex or marital status, and no fair lending law was broken.",
+      },
+      {
+        when: "Mar 2021",
+        what: "It also finds that neither applicants nor the bank's staff could get that explanation at the time.",
+      },
+      {
+        when: "2021",
+        what: "The issuer adds a reconsideration process and joint accounts for spouses. The model is not changed.",
+      },
     ],
     findings: [
       {
