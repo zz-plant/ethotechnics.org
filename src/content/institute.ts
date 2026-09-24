@@ -64,7 +64,7 @@ export const instituteContent: InstituteContent = {
       title: "Start with open guidance",
       detail:
         "Pull prompts, templates, and diagnostics from the Library to get a quick read on risk before involving a partner.",
-      tags: ["Self-serve", "Open CC BY 4.0", "Library-first"],
+      tags: ["Self-serve", "Open CC BY-SA 4.0", "Library-first"],
     },
     {
       title: "Choose the right program",

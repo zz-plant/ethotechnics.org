@@ -107,8 +107,8 @@ export const createImplementationPublication = (
     },
   ],
   license: {
-    label: "CC BY 4.0",
-    href: "https://creativecommons.org/licenses/by/4.0/",
+    label: "CC BY-SA 4.0",
+    href: "https://creativecommons.org/licenses/by-sa/4.0/",
   },
   attribution:
     "Credit Ethotechnics Institute Standards Office, include page title + version, and link to the canonical permalink.",

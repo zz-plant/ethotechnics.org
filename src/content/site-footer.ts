@@ -29,8 +29,8 @@ export const siteFooter: SiteFooterContent = {
     description:
       "An open framework for accountable AI systems — proposed standards, mechanisms, and diagnostics.",
     license: {
-      label: "Content licensed CC BY 4.0",
-      href: "https://creativecommons.org/licenses/by/4.0/",
+      label: "Content licensed CC BY-SA 4.0",
+      href: "https://creativecommons.org/licenses/by-sa/4.0/",
       external: true,
     },
   },
