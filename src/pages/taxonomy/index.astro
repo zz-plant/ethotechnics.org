@@ -8,7 +8,7 @@ import { taxonomyEntries } from "../../content/taxonomy";
 
 const pageTitle = "Taxonomy — Ethotechnics Institute";
 const pageDescription =
-  "Taxonomy-driven domains and capabilities that anchor governance, delivery, assurance, and experience.";
+  "Six domains, from governance to dependence, with the capabilities and practices under each and the artifacts filed there.";
 const permalink = "/taxonomy";
 
 const siteBase = Astro.site ? Astro.site.toString() : Astro.url.origin;
@@ -72,7 +72,7 @@ const structuredDataJson = JSON.stringify(structuredData);
     id="domains"
     eyebrow="Domains"
     title="Start with the top-level domains"
-    description="Each domain page connects standards, mechanisms, validators, and supporting artifacts."
+    description="Each domain page lists its owner, its readiness, its related artifacts, and the capabilities under it."
   >
     <CardGrid className="grid--two">
       {
@@ -112,20 +112,21 @@ const structuredDataJson = JSON.stringify(structuredData);
   <SectionBlock
     id="use"
     eyebrow="How to use"
-    title="Turn the taxonomy into SEO coverage"
-    description="These steps keep internal linking consistent across domains and artifacts."
+    title="Reading the taxonomy"
+    description="Three levels: domain, capability, and practice. Every entry names an owner, a readiness state, and related artifacts."
     variant="alt"
   >
     <ol class="muted">
       <li>
-        Link every standard, mechanism, and validator back to its domain page.
+        Start at a domain to see its capabilities and the artifacts filed under
+        it.
       </li>
       <li>
-        Use the capability and practice pages for programmatic templates and
-        FAQs.
+        Open a capability or practice page for the narrower level and its
+        related artifacts.
       </li>
       <li>
-        Keep related artifacts on each level updated as new content ships.
+        Move between parent, sibling, and child levels from any entry page.
       </li>
     </ol>
   </SectionBlock>

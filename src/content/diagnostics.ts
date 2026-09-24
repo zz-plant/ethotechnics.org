@@ -74,7 +74,7 @@ export type DiagnosticsContent = PageWithPermalink &
 export const diagnosticsContent: DiagnosticsContent = {
   pageTitle: "Diagnostics — Ethotechnics",
   pageDescription:
-    "Pick a diagnostic, bring one question about a system you run, and leave with a readout you can check and rerun.",
+    "Self-serve diagnostics that take one workflow, record stream, or set of figures and return a scored readout you can link, copy, or export.",
   permalink: "/diagnostics",
   published: "2025-12-03T00:00:00Z",
   updated: "2026-09-18T00:00:00Z",
@@ -123,47 +123,47 @@ export const diagnosticsContent: DiagnosticsContent = {
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Credit the Ethotechnics Institute Diagnostics Lab, name the tool and its version, and link to the canonical permalink.",
+      "Credit Ethotechnics Institute Diagnostics Lab, include tool name + version, and link to the canonical permalink.",
   },
   valueProps: [
     {
       title: "One question per tool",
       description:
-        "Each diagnostic answers one question about one system, so the readout stays short enough for an executive or a regulator to read in full.",
+        "Each diagnostic answers one question about one workflow, and its method card states what it does not measure.",
     },
     {
-      title: "A readout with its own link",
+      title: "A readout you can file",
       description:
-        "Every tool produces a report at its own link, which you can send to leadership, a regulator, or a partner.",
+        "Every tool returns a readout you can link, copy, or export and keep with the decision it informed.",
     },
     {
-      title: "Findings name the mechanism",
+      title: "Named mechanisms",
       description:
-        "Each recommendation links to a mechanism in the library, so product, policy, and operations teams work from the same definition.",
+        "Recommendations use the mechanism names from the library, so the team that acts on a finding and the team that reviews it use the same terms.",
     },
   ],
   facilitation: {
-    title: "You bring the scenario. We help you reach the decision.",
+    title: "You bring one scenario and the decision it feeds.",
     description:
-      "Each session covers one question about one system. The scope stays that narrow so the session does not become a new process to maintain.",
+      "A facilitated session covers one scenario. It ends when the decision it was framed around has an answer or a named blocker.",
     steps: [
       {
         title: "Frame the question",
         detail:
-          "We define what a good answer looks like and what needs to be decided after the diagnostic.",
+          "We agree what a usable answer looks like and which decision it feeds.",
       },
       {
         title: "Run the tool together",
         detail:
-          "You walk through prompts, inputs, and trade-offs while we map gaps and risks.",
+          "You answer the prompts and supply the inputs. We record each gap and who owns it.",
       },
       {
         title: "Leave with a next step",
         detail:
-          "You leave with a readout at its own link, the mechanisms it cites, and the next decision to make.",
+          "You leave with a linkable readout, the mechanisms it cites, and one named next step.",
       },
     ],
-    note: "You need no prior relationship with the Institute to use a diagnostic. Every tool is licensed CC BY-SA 4.0.",
+    note: "Every diagnostic runs without a prior relationship, and the Institute publishes each one under CC BY-SA 4.0.",
   },
   tools: [
     {
@@ -287,7 +287,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Record Conformance Checker",
       tier: "Evidence level",
       description:
-        "Parses a stream of STD-07 delegation records, validates it against the schema, recomputes the hashes, and returns the conformance level it actually earns against the level its emitter declares. Reach for it when a system already emits records; the Delegation Audit covers the case where it does not.",
+        "Parses a stream of STD-07 delegation records, validates it against the schema, recomputes the hashes, and returns the conformance level it earns against the level its emitter declares. Reach for it when a system already emits records; the Delegation Audit covers the case where it does not.",
       methodCards: {
         measures: [
           "Whether every record validates against the published STD-07 schema.",
@@ -332,7 +332,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Do the hashes recompute, and does each record chain to the one before it?",
           "Does every belief, authorization and action say what would end it?",
           "Was every discrepancy answered by a revision or an objection, inside the clock the record declared?",
-          "Does every record say who has standing to object, and has an objection ever actually been accepted?",
+          "Does every record say who has standing to object, and has an objection ever been accepted?",
           "Is the level the emitter declares the level this stream supports?",
         ],
         rubric: [
@@ -401,46 +401,46 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "system-auditor",
       title: "System Audit & Guardrail Synthesizer",
       description:
-        "Checks a system prompt or decision spec against 80+ governance failure modes, then drafts guardrail code and contract SLA clauses for each gap it finds.",
+        "Scans a system prompt or workflow spec for seven governance failure patterns, sets halt and reversal limits by tier, and drafts guardrail code and SLA clauses.",
       methodCards: {
         measures: [
-          "Exposure to Unearned Closure, Administrative Shame, and Dead-User Zones, as the glossary defines them.",
-          "Numeric ceilings on time-to-halt (TTH) and on time to reverse a decision.",
-          "Whether the system meets the temporal rights and recourse clauses of STD-01.",
+          "Vulnerability to Unearned Closure, Administrative Shame, and Dead-User Zones.",
+          "Time-to-Halt (TTH) and Reversal SLA ceilings for the stated hazard and autonomy tier.",
+          "Gaps against STD-01 Temporal Rights & Recourse.",
         ],
         doesNotMeasure: [
-          "Model token throughput or inference latency.",
-          "Whether the training data was cleared for copyright.",
-          "Jailbreaks that do not touch how decisions are governed.",
+          "Raw model inference token throughput or latency.",
+          "Underlying training dataset copyright clearances.",
+          "Adversarial jailbreaks unrelated to governance architecture.",
         ],
         assumptions: [
-          "The prompt or spec you paste is what is actually deployed.",
-          "The hazard tier you pick matches what the people affected stand to lose.",
-          "Each decision changes some downstream state that someone can observe.",
+          "System prompts or architecture specs reflect actual deployed logic.",
+          "Domain hazard tier accurately captures end-user stakes.",
+          "Decisions produce observable downstream state transitions.",
         ],
       },
       methodOverview: {
         inputs: [
           "System prompt, policy rules, or workflow specification.",
-          "Autonomy tier: advisory, semi-autonomous, or autonomous.",
-          "Domain hazard tier: low, medium, high, or critical.",
+          "Autonomy tier (Advisory, Semi-Autonomous, Autonomous).",
+          "Domain hazard tier (Low, Medium, High, Critical).",
         ],
         procedure: [
-          "Match the text against the Ethotechnics structural failure classifiers.",
-          "Compute numeric SLA bounds for halting and reversal.",
-          "Generate guardrail middleware in TypeScript, Python, and JSON Schema.",
+          "Match the text against the failure-pattern rules.",
+          "Look up SLA bounds for the hazard tier, tightened for autonomous systems.",
+          "Generate TypeScript, Python, and JSON Schema middleware.",
         ],
         outputs: [
-          "A governance health score from 0 to 100 and a risk level.",
-          "A card for each failure mode found, with a remedy for it.",
-          "Guardrail code and contract clauses you can copy.",
+          "Governance Health Score (0-100) and risk level.",
+          "Detected failure mode cards with specific remedies.",
+          "Copyable guardrail code and contract clauses.",
         ],
       },
       instrument: {
         prompts: [
           "Paste a system prompt or load an industry preset.",
-          "Pick the autonomy tier and the domain hazard tier.",
-          "Review the breach vectors found and the SLA limits computed.",
+          "Select the autonomy tier and domain hazard tier.",
+          "Review the detected failure patterns and SLA limits.",
         ],
         rubric: [
           "Critical: no route to contest a decision, or a denial that cannot be reversed.",
@@ -448,14 +448,14 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Low: the claimant confirms resolution and a rollback path is in active use.",
         ],
         scoringLogic: [
-          "Start at 100 and subtract a weighted penalty for each failure vector found.",
+          "Starts at 100 and subtracts a penalty per detected pattern by severity, plus penalties for autonomous operation and high or critical hazard.",
         ],
       },
       validation: {
         pilotNotes:
-          "Tested against customer support, clinical benefits triage, credit underwriting, and content moderation pipelines.",
+          "The presets cover customer support, clinical benefits triage, credit underwriting, and content moderation. They are sample specifications, not audited deployments.",
         reliability:
-          "Deterministic. Classification is rule-based across 80+ classes in the Ethotechnics failure taxonomy, so the same input gives the same result.",
+          "Deterministic. Each failure pattern is a fixed text rule, so the same text and tiers give the same report. A pattern the rules do not match is not reported.",
         failureModes: [
           "Unearned Closure",
           "Dead-User Zones",
@@ -465,34 +465,33 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
       replicability: {
         runSteps: [
-          "Open the System Auditor.",
-          "Pick a preset or paste your system prompt.",
-          "Export the JSON receipt for the verified decision object.",
+          "Open the System Auditor workbench.",
+          "Select a preset or paste your system prompt.",
+          "Export the Decision Object JSON receipt.",
         ],
         exampleOutputs: [
-          "Audit report as a JSON receipt.",
+          "Audit Report JSON receipt.",
           "TypeScript Express/Fastify guardrail middleware.",
-          "SLA clauses drafted for a contract.",
+          "Contract-ready legal SLA clauses.",
         ],
       },
       bestFor:
-        "Engineers, compliance leads, and product architects designing an AI system whose decisions carry high stakes.",
+        "Engineers, compliance leads, and architects writing the spec for a system that decides about people.",
       readiness: [
-        "You have the system prompt or workflow spec in hand.",
-        "You know how much autonomy the system is meant to have.",
-        "You know which domain carries the main hazard.",
+        "Run on a system prompt or workflow spec before it ships.",
+        "Know the autonomy tier and the hazard tier of the domain.",
       ],
       outputs: [
-        "A governance health score that recomputes as you change the inputs.",
-        "A matrix of numeric SLA limits.",
-        "Guardrail code written for production use.",
+        "Governance health score from 0 to 100 with the patterns that lowered it.",
+        "Halt, restore, and reversal limits for the chosen tiers.",
+        "Guardrail middleware to adapt and review before deployment.",
       ],
       estimatedTime: "5 minutes",
       prepChecklist: [
-        "The system prompt or the decision policy document.",
-        "How escalations and disputes are handled today.",
+        "The system prompt or decision policy text.",
+        "How disputes and escalations are handled today.",
       ],
-      ctaLabel: "Open the System Auditor",
+      ctaLabel: "Launch System Auditor",
       ctaHref: "/diagnostics/system-auditor",
       exampleLabel: "View methodology",
       exampleHref: "/standards/std-01-temporal-rights",
@@ -502,7 +501,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "burden-modeler",
       title: "Burden Modeler",
       description:
-        "Scores task load, cognitive friction, and risk exposure across a workflow, and ranks the steps where toil piles up before people burn out.",
+        "Scores task load, cognitive friction, and risk exposure across seven weighted drivers and ranks where relief would reduce burden most.",
       methodCards: {
         measures: [
           "Task load volume across roles and handoffs.",
@@ -515,7 +514,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Long-term cultural or morale shifts beyond the scenario window.",
         ],
         assumptions: [
-          "Inputs reflect what several functions agree on, not one person's view.",
+          "Inputs reflect cross-functional consensus, not a single point of view.",
           "Task volume estimates are directionally accurate for the period.",
           "Risk weights reflect the scenario’s actual severity bands.",
         ],
@@ -527,9 +526,9 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Known friction points and escalation paths.",
         ],
         procedure: [
-          "Weight task load, friction, and risk sliders with the scenario team.",
-          "Review the computed burden index and hotspot ranking.",
-          "Select mitigation paths and estimate relief impact.",
+          "Rate each driver with the people who carry the work.",
+          "Read the burden index and the hotspot ranking.",
+          "Pick mitigations and read the relief estimate for each.",
         ],
         outputs: [
           "Burden index score with plain-language findings.",
@@ -540,26 +539,23 @@ export const diagnosticsContent: DiagnosticsContent = {
       instrument: {
         prompts: [
           "Scenario name and workflow summary.",
-          "Weekly task volume or queue size.",
-          "Number of handoffs or escalation checkpoints.",
-          "Friction rating (1–5) for key steps.",
-          "Risk exposure rating (1–5) for each stage.",
+          "A rating from 0 to 10 for each of seven drivers: interruptions, handoffs, tooling, runbooks, incidents, coverage, and decision debt.",
         ],
         rubric: [
-          "Task load, friction, and risk scored on 1–5 scales.",
-          "Risk weights adjusted via criticality slider.",
+          "Each driver carries a fixed weight, from 1.0 for decision debt to 1.4 for interruptions.",
+          "Drivers roll up into three categories: task load, cognitive friction, and risk exposure.",
         ],
         scoringLogic: [
-          "Burden index = weighted average of load, friction, and risk.",
-          "Hotspots rank by combined load and risk scores.",
-          "Relief estimate computed from mitigations selected.",
+          "Burden index = weighted sum of the ratings over the maximum possible, as a score out of 100. Below 35 is Healthy, below 70 is Watch, and 70 or more is Overloaded.",
+          "Hotspots are the three drivers with the highest weighted scores.",
+          "Each driver shows a relief estimate, scaled from its rating and weight and capped at 30 points.",
         ],
       },
       validation: {
         pilotNotes:
-          "Piloted across support, operations, and research scenarios to calibrate weights and language.",
+          "Driver weights are fixed in the tool, from 1.0 for decision debt to 1.4 for interruptions. Change them only in the source, where the change is visible.",
         reliability:
-          "Raters agree more after a shared calibration pass, and scores vary less on a second run.",
+          "Ratings are self-reported, so two groups rating the same workflow can score it differently. Rate together and record the reason for each rating.",
         failureModes: [
           "Over-weighting a single friction point can skew results.",
           "Underspecified task volume leads to low-confidence outputs.",
@@ -568,10 +564,10 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
       replicability: {
         runSteps: [
-          "Gather scorers from more than one function.",
+          "Gather a cross-functional scoring group.",
           "Use the prompt list and rubric to score the scenario.",
           "Record weighting decisions and rationale.",
-          "Compare output against historical incidents for calibration.",
+          "Check the hotspots against the incidents the team has already had.",
         ],
         exampleOutputs: [
           "Sample burden index readout with hotspots and relief estimates.",
@@ -579,15 +575,15 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
       },
       bestFor:
-        "Leaders who need a picture of workload before a team reaches burnout.",
+        "Leads who need to see where workload concentrates before a team runs past its capacity.",
       readiness: [
-        "Run when leaders need to see how burden accumulates across roles or release cycles.",
-        "Weight the inputs with the support and operations teams, who know where the friction is worst.",
+        "Run when burden is rising across roles or release cycles and nobody has named where.",
+        "Rate with the support and operations staff who handle the escalations.",
       ],
       outputs: [
         "Burden index score with plain-language findings tied to your scenario.",
         "Ranked hotspots with mitigation paths and expected relief per action.",
-        "A PDF summary to send to whoever approves the mitigations.",
+        "PDF summary of the index, hotspots, and mitigations.",
       ],
       estimatedTime: "10–15 minutes",
       prepChecklist: [
@@ -607,12 +603,12 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "maintenance-simulator",
       title: "Maintenance Simulator",
       description:
-        "A tabletop exercise that plays through an outage, a maintenance window, or a handoff and shows where nobody owns the next step.",
+        "A tabletop run through an outage, a maintenance window, or a handoff that scores coverage and lists each missing owner, halt lane, and template.",
       methodCards: {
         measures: [
-          "Whether each outage and maintenance branch has a named owner.",
-          "How fast an escalation can halt the system.",
-          "Whether a communication cadence is set for each risk level.",
+          "Ownership clarity across outage and maintenance branches.",
+          "Time-to-halt readiness for escalations.",
+          "Communication cadence readiness by risk level.",
         ],
         doesNotMeasure: [
           "Actual system uptime or performance metrics.",
@@ -621,14 +617,14 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         assumptions: [
           "Scenario reflects likely outage or maintenance conditions.",
-          "The people in the room hold the main escalation roles.",
-          "The communication templates match current policy.",
+          "Participants represent the escalation roles.",
+          "Communication templates align with current policy.",
         ],
       },
       methodOverview: {
         inputs: [
           "Scenario description and stress level.",
-          "Escalation owners and the people who handle communications.",
+          "Escalation owners and comms partners.",
           "Known dependencies and rollback paths.",
         ],
         procedure: [
@@ -649,21 +645,20 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Rollback and communication template prompts.",
         ],
         rubric: [
-          "Ownership clarity score (1–5).",
-          "Escalation readiness score (1–5).",
-          "Communication readiness score (1–5).",
+          "Five coverage items, each confirmed or missing: escalation owner, rollback plan, communications, appeal path, and handoff plan.",
+          "Stress level: steady, elevated, or critical.",
         ],
         scoringLogic: [
-          "Average readiness score across the three rubric areas.",
-          "Flag any score ≤2 as a critical mitigation item.",
+          "Readiness starts at 100. A missing escalation owner or rollback plan costs 18 points, missing communications 14, a missing appeal path or handoff plan 10 each, and elevated or critical stress 6 or 12.",
+          "Each missing item is listed as a gap with the step that closes it.",
           "Summarize follow-ups by escalation owner.",
         ],
       },
       validation: {
         pilotNotes:
-          "Piloted with operations and support teams to check that tabletop runs expose real coverage gaps.",
+          "Readiness starts at 100 and loses a fixed penalty for each missing coverage item and for the stress level chosen.",
         reliability:
-          "Facilitators reconcile their notes after each run. Agreement improves when everyone uses the same templates.",
+          "The score reflects what the room confirms, not what production does. Reconcile facilitator notes after the run.",
         failureModes: [
           "Skipping escalation owners leads to incomplete coverage maps.",
           "Outdated communication templates skew readiness scores.",
@@ -673,7 +668,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       replicability: {
         runSteps: [
           "Select a scenario and risk level.",
-          "Confirm the escalation owners and who handles communications.",
+          "Confirm escalation owners and comms partners.",
           "Run the tabletop and capture decisions in the log.",
           "Export the summary and send it to each escalation owner.",
         ],
@@ -683,20 +678,20 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
       },
       bestFor:
-        "Operations leads rehearsing outage response and who owns each escalation.",
+        "Operations leads rehearsing who halts, who rolls back, and who communicates during an outage.",
       readiness: [
-        "Use during planning to settle coverage, escalation, and staffing with partner teams.",
-        "Test appeal paths, safety valves, and service-level guarantees before launch.",
+        "Run during planning, while coverage, escalation, and staffing can still change.",
+        "Test appeal paths, halt lanes, and service-level commitments before launch.",
       ],
       outputs: [
-        "Scenario runs with an owner, mitigation branches, and a time-to-halt expectation for each step.",
+        "Scenario runs that name an owner, a mitigation branch, and a time-to-halt expectation.",
         "Communication templates mapped to risk levels, roles, and escalation routes.",
-        "A coverage map showing each team's readiness gaps.",
+        "Coverage map listing readiness gaps per team.",
       ],
       estimatedTime: "20–30 minutes",
       prepChecklist: [
         "Upcoming maintenance or outage scenario.",
-        "A named escalation owner and a named communications lead.",
+        "Named escalation owner and comms partner.",
         "Known dependency or rollback risks.",
       ],
       ctaLabel: "Start the Maintenance Simulator",
@@ -711,12 +706,12 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "maintenance-debt-calculator",
       title: "Maintenance Debt Calculator",
       description:
-        "Scores decision speed, intervention readiness, and revenue exposure to estimate how much maintenance debt a system carries and what it could cost.",
+        "Scores decision speed, intervention readiness, response window, and revenue exposure, and estimates the cost gap between uncontrolled and stoppable actions.",
       methodCards: {
         measures: [
           "Decision speed relative to escalation capacity.",
           "Intervention readiness and recovery coverage.",
-          "Revenue exposed if the system takes an action nobody can stop.",
+          "Revenue exposure if uncontrolled actions occur.",
         ],
         doesNotMeasure: [
           "Exact financial outcomes or legal liability.",
@@ -738,12 +733,12 @@ export const diagnosticsContent: DiagnosticsContent = {
         procedure: [
           "Score decision speed, readiness, and exposure.",
           "Calculate maintenance debt risk tier.",
-          "Generate cost delta between uncontrolled and stoppable actions.",
+          "Estimate the cost delta between uncontrolled and stoppable actions.",
         ],
         outputs: [
           "Maintenance debt score and tier.",
           "Estimated uncontrolled action cost range.",
-          "A summary link to bring to budget discussions.",
+          "Shareable summary link for budget discussions.",
         ],
       },
       instrument: {
@@ -767,9 +762,9 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
       validation: {
         pilotNotes:
-          "Calibrated with budget planning sessions and post-incident finance reviews.",
+          "Band weights and exposure bases are fixed in the calculator. Cost figures scale with the exposure tier and are illustrative, not audited.",
         reliability:
-          "Scores stabilize once the scenario owners agree on exposure ranges and response windows.",
+          "Scores stabilize when scenario owners align on exposure ranges and response windows.",
         failureModes: [
           "Overstated revenue exposure inflates cost deltas.",
           "Understated response windows hide readiness gaps.",
@@ -781,23 +776,23 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Collect decision speed and response window inputs.",
           "Confirm intervention readiness with operations leads.",
           "Estimate revenue exposure tier and recovery costs.",
-          "Send the readout to finance or the governance team.",
+          "Send the readout link to whoever owns the budget decision.",
         ],
         exampleOutputs: [
           "Maintenance debt scorecard with cost delta.",
-          "A one-slide summary for the leadership budget review.",
+          "Summary of tier, score, and cost delta for a budget review.",
         ],
       },
       bestFor:
-        "Ethics leads and executives who need to state maintenance debt in the terms a budget is decided in.",
+        "Governance leads and budget owners who need maintenance debt stated as a cost range.",
       readiness: [
-        "Use before budgeting cycles to size safety engineering investment.",
-        "Pair with incident retrospectives to calibrate exposure assumptions.",
+        "Run before a budget cycle to size spending on intervention coverage.",
+        "Check the exposure tier against recent incident retrospectives.",
       ],
       outputs: [
-        "A maintenance debt tier stated in the terms a CFO uses.",
+        "Maintenance debt tier with a one-line summary.",
         "Estimated cost delta between uncontrolled and stoppable actions.",
-        "A link to cite in budget and governance briefs.",
+        "Shareable link for budget and governance briefs.",
       ],
       estimatedTime: "10–12 minutes",
       prepChecklist: [
@@ -806,7 +801,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Revenue exposure range or recovery cost estimate.",
       ],
       studioNote:
-        "The studio can help turn a debt tier into funding scenarios.",
+        "Studio support can translate debt tiers into funding scenarios.",
       ctaLabel: "Start the Maintenance Debt Calculator",
       ctaHref: "/diagnostics/maintenance-debt-calculator",
       ctaAriaLabel: "Start the Maintenance Debt Calculator diagnostic tool",
@@ -832,7 +827,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         assumptions: [
           "Inputs describe the last twelve months, not the deployment plan.",
-          "Corrective capacity is measured where challenges actually arrive, not where the org chart says they should.",
+          "Corrective capacity is measured where challenges arrive, not where the org chart says they should.",
           "A recurring workaround is a presumption of upstream design failure, which the inputs treat as evidence.",
         ],
       },
@@ -878,7 +873,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
       validation: {
         pilotNotes:
-          "Calibrated against the casebook: the cases that scored worst on the six state variables also produce the highest debt bands here.",
+          "Each band carries a fixed weight in the calculator. The score is only as sound as the bands chosen, so record the figures behind each choice.",
         reliability:
           "Scores stabilize when the operator states correction staffing in numbers rather than intentions.",
         failureModes: [
@@ -908,7 +903,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       outputs: [
         "Corrective debt tier with the gap stated on two axes.",
         "Absorption share estimate with its sources.",
-        "A link to cite in the expansion review.",
+        "Shareable link for the expansion review.",
       ],
       estimatedTime: "10–12 minutes",
       prepChecklist: [
@@ -917,7 +912,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         "The last time a handled exception changed an upstream rule.",
       ],
       studioNote:
-        "The studio can help run the two-axis comparison and trace exception-to-revision paths.",
+        "Studio support can run the two-axis comparison and trace exception-to-revision paths.",
       ctaLabel: "Start the Corrective Debt Calculator",
       ctaHref: "/diagnostics/corrective-debt-calculator",
       ctaAriaLabel: "Start the Corrective Debt Calculator diagnostic tool",
@@ -929,7 +924,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       slug: "capacity-forecaster",
       title: "Technical Capacity Forecaster",
       description:
-        "Projects how capacity decays over 24 months with and without remediation and refusal windows, and marks where the team would saturate.",
+        "Projects compound capacity decay over 24 months, with and without a refusal window, and marks the month capacity falls below the saturation line.",
       methodCards: {
         measures: [
           "Projected capacity decay over a 24-month horizon.",
@@ -956,12 +951,12 @@ export const diagnosticsContent: DiagnosticsContent = {
         procedure: [
           "Model baseline and remediated trajectories.",
           "Compare saturation points across scenarios.",
-          "Export a PDF summary with the saturation points marked.",
+          "Export a PDF summary with the saturation month marked.",
         ],
         outputs: [
           "Baseline vs. remediated capacity curves.",
           "Saturation risk marked at each decision point.",
-          "A PDF snapshot of both projections.",
+          "PDF snapshot of both curves.",
         ],
       },
       instrument: {
@@ -982,9 +977,9 @@ export const diagnosticsContent: DiagnosticsContent = {
       },
       validation: {
         pilotNotes:
-          "Benchmarked against historical delivery timelines to calibrate decay and remediation curves.",
+          "Decay and remediation curves come from fixed constants: a 2% monthly base decay, a 0.7 multiplier for remediated decay, and saturation at 35% of starting capacity.",
         reliability:
-          "Scenario comparisons agree when the baseline data is consistent. Uncertain inputs widen the spread.",
+          "Scenario comparisons align when baseline data is consistent; variability rises with uncertain inputs.",
         failureModes: [
           "Overly optimistic remediation inputs understate saturation.",
           "Incomplete refusal windows distort capacity troughs.",
@@ -996,29 +991,29 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Collect baseline capacity and delivery targets.",
           "Input remediation timing and refusal windows.",
           "Run simulations for baseline and mitigation cases.",
-          "Export the PDF summary and archive the inputs.",
+          "Export PDF summary and archive inputs.",
         ],
         exampleOutputs: [
           "Capacity forecast PDF with saturation points marked.",
-          "Scenario comparison table used in a portfolio review.",
+          "Scenario comparison table for a review meeting.",
         ],
       },
       bestFor:
-        "Delivery leads deciding whether a long-term stability plan fits the capacity the team has.",
+        "Delivery leads deciding when to schedule remediation before capacity runs out.",
       readiness: [
-        "Use when a delivery team needs to see what each remediation path costs in stability.",
-        "Bring it to portfolio reviews to check refusal policies against operating capacity.",
+        "Run when a team has to choose between remediation now and delivery now.",
+        "Bring to portfolio reviews to set refusal windows against available capacity.",
       ],
       outputs: [
         "Side-by-side baseline and remediated capacity projections.",
-        "A PDF export with saturation points marked, for the person who approves the plan.",
-        "A scenario table that shows leadership what each timing choice gives up.",
+        "PDF export with the saturation month marked.",
+        "Scenario table comparing when each option saturates.",
       ],
       estimatedTime: "15–20 minutes",
       prepChecklist: [
         "Current capacity baseline or recent burn rates.",
         "Known remediation options or refusal windows.",
-        "The person who will read the PDF and decide on the plan.",
+        "The person who will decide on the remediation timing.",
       ],
       ctaLabel: "Start the Technical Capacity Forecaster",
       ctaHref: "/diagnostics/capacity-forecaster",

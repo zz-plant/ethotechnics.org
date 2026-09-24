@@ -21,33 +21,33 @@ const {
   publication,
 } = diagnosticsContent;
 const anchorLinks = [
-  { href: "#quick-triage", label: "Choose a tool in 30 seconds" },
-  { href: "#output-baseline", label: "Review what every output includes" },
-  { href: "#how-it-works", label: "Understand session flow" },
-  { href: "#self-defense-tools", label: "Run self-defense checks" },
-  { href: "#diagnostic-tools", label: "Open full tools menu" },
-  { href: "#referenced-by", label: "See linked references" },
+  { href: "#quick-triage", label: "Choose a tool" },
+  { href: "#output-baseline", label: "What every output includes" },
+  { href: "#how-it-works", label: "Facilitated sessions" },
+  { href: "#self-defense-tools", label: "Self-defense checks" },
+  { href: "#diagnostic-tools", label: "All tools" },
+  { href: "#referenced-by", label: "Where diagnostics are cited" },
 ];
 const introDescription =
-  "This page is for operators, governance teams, and auditors who need decision-ready diagnostics. " +
-  pageDescription;
+  "For operators, governance teams, and auditors. " + pageDescription;
 const quickTriagePrompts = [
   {
-    question:
-      "Do you need a fast workload snapshot before teams hit burnout thresholds?",
-    description: "Quantify task load and hotspot relief paths.",
+    question: "Is workload concentrating on a few people or steps?",
+    description: "Score task load and rank where relief would help most.",
     href: "/diagnostics/burden-modeler",
     label: "Run Burden Modeler",
   },
   {
     question: "Are you rehearsing outage coverage or escalation ownership?",
-    description: "Simulate maintenance branches and comms coverage.",
+    description:
+      "Run the outage and maintenance branches and list who owns each step.",
     href: "/diagnostics/maintenance-simulator",
     label: "Run Maintenance Simulator",
   },
   {
     question: "Are you modeling capacity decay or saturation risk over time?",
-    description: "Forecast long-term stability and remediation timing.",
+    description:
+      "Project capacity decay over 24 months and when remediation has to start.",
     href: "/diagnostics/capacity-forecaster",
     label: "Run Capacity Forecaster",
   },
@@ -56,19 +56,20 @@ const selfDefenseTools = [
   {
     title: "Is this system governable?",
     description:
-      "Seven yes/no checks to confirm whether the decision can be contested.",
+      "Seven yes/no checks on whether the decision can be contested.",
     href: "/diagnostics/self-defense-tools#governable",
     label: "Run governability diagnostic",
   },
   {
     title: "Is this appeal real?",
-    description: "Detect whether an appeal is substantive or performative.",
+    description:
+      "Checks whether an appeal can change the outcome or only records it.",
     href: "/diagnostics/self-defense-tools#appeal-real",
     label: "Run appeal diagnostic",
   },
   {
     title: "Who holds power?",
-    description: "Map the people and levers that can reverse the outcome.",
+    description: "Lists the people and levers that can reverse the outcome.",
     href: "/diagnostics/self-defense-tools#power-map",
     label: "Map power",
   },
@@ -120,13 +121,13 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       class="button primary"
       href="#quick-triage"
       data-route-action="diagnostics-choose"
-      data-sticky-link="#quick-triage">Start triage now</a
+      data-sticky-link="#quick-triage">Choose a tool</a
     >
     <a
       class="diagnostics__sticky-link muted small"
       href="#diagnostic-tools"
       data-route-action="diagnostics-open-menu"
-      data-sticky-link="#diagnostic-tools">Need full menu? Jump to all tools</a
+      data-sticky-link="#diagnostic-tools">All tools</a
     >
   </nav>
   <SectionActions>
@@ -136,25 +137,21 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   <SectionBlock
     id="quick-triage"
     eyebrow="Quick triage"
-    title="Pick the fastest diagnostic path in three questions."
-    description="Use these prompts to route to the right tool, then start with the ones teams run most often."
+    title="Three questions that route to a tool."
+    description="Each question points to one diagnostic. The most-run tools follow."
     variant="alt"
   >
     <div class="panel stack-sm">
-      <p class="eyebrow">Start here sequence</p>
+      <p class="eyebrow">Sequence</p>
       <ol class="muted">
         <li>
-          Choose one prompt below that best matches your immediate decision.
+          Pick the question below that matches the decision in front of you.
         </li>
         <li>
-          Compare two candidate tools for delivery mode, prep, and outputs.
+          Compare two candidate tools on delivery mode, prep, and outputs.
         </li>
-        <li>Run one diagnostic and share the linkable output with owners.</li>
+        <li>Run one diagnostic and send the readout link to the owners.</li>
       </ol>
-      <p class="muted">
-        Recommended path: choose a diagnostic in 30 seconds, then run and share
-        the output.
-      </p>
     </div>
     <CardGrid className="grid--three">
       {
@@ -175,11 +172,8 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     <div class="pattern-filter__anchors" aria-hidden="true">
       <span class="pattern-filter__anchor" id="most-used"></span>
     </div>
-    <h3>Start with the diagnostics teams run most often.</h3>
-    <p class="muted">
-      If you are unsure where to begin, these paths handle the highest-volume
-      governance questions first.
-    </p>
+    <h3>The diagnostics run most often.</h3>
+    <p class="muted">If no question above fits, start with one of these.</p>
     <CardGrid className="grid--three">
       {
         mostUsedTools.map((tool) => (
@@ -203,7 +197,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     id="output-baseline"
     eyebrow="What you get"
     title="What every diagnostic output includes."
-    description="Use the shared baseline and anti-weaponization checks to align teams before diving into tool specifics."
+    description="Every output carries the same baseline and passes the same anti-weaponization checks."
   >
     <CardGrid>
       {
@@ -223,19 +217,19 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       <div class="chunked-section__body stack-sm">
         <ul class="muted">
           <li>Linkable results page and a shareable PDF summary.</li>
-          <li>Mechanism language references to keep mitigations consistent.</li>
+          <li>References to the mechanisms each mitigation comes from.</li>
           <li>
-            Optional facilitation handoff when ambiguity or risk stays high.
+            A facilitated follow-up when the question or the risk stays unclear.
           </li>
         </ul>
         <p class="muted">
-          Need to verify how users appeal decisions? Use the
+          Before you publish an output about appeals or reversals, run the
           {" "}
           <a href="/explainers/contestability-checklist"
             >contestability checklist</a
           >
           {" "}
-          before you publish outputs tied to appeals or reversals.
+          against the appeal path it describes.
         </p>
         <StudioBadge />
       </div>
@@ -287,7 +281,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
 
   <SectionBlock
     id="how-it-works"
-    eyebrow="Facilitated, but lightweight"
+    eyebrow="Facilitated sessions"
     title={facilitation.title}
     description={facilitation.description}
     variant="alt"
@@ -308,8 +302,8 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   <SectionBlock
     id="self-defense-tools"
     eyebrow="Self-defense diagnostics"
-    title="Short-form checks for appeal, governability, and power."
-    description="Use these three tools when you need fast answers before escalating."
+    title="Short checks for appeal, governability, and power."
+    description="Three checks for the person on the receiving end of a decision, to run before escalating."
   >
     <CardGrid className="grid--three">
       {
@@ -331,11 +325,11 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   <SectionBlock
     id="diagnostic-tools"
     eyebrow="Diagnostics menu"
-    title="Pick the tool that matches your situation."
-    description="Every diagnostic ships with a linkable result and mechanism references."
+    title="All diagnostics."
+    description="Every diagnostic returns a linkable result and cites the mechanisms behind its recommendations."
   >
     <div class="diagnostics__comparison" aria-label="Quick comparison">
-      <p class="muted small">Compare before you commit</p>
+      <p class="muted small">Compare three tools</p>
       <div class="diagnostics__comparison-grid">
         {
           comparisonTools.map((tool) => (
@@ -369,7 +363,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     </div>
     <div class="diagnostics__filters" data-diagnostics-filters>
       <p class="muted">Filter by delivery type</p>
-      <p class="muted small">Quick intent jumps</p>
+      <p class="muted small">Jump to a tool</p>
       <ul
         class="pill-list pill-list--wrap"
         aria-label="Diagnostic intent shortcuts"
@@ -436,8 +430,8 @@ const comparisonTools = mostUsedTools.slice(0, 3);
             ? "Studio-facilitated session"
             : "Self-serve tool";
           const deliveryDetail = isStudio
-            ? "Facilitation required; request a session to run this diagnostic."
-            : "Run on demand and share the linkable readout immediately.";
+            ? "Runs only in a facilitated session. Request one to use it."
+            : "Runs in the browser and returns a linkable readout.";
           const primaryCtaLabel = tool.ctaLabel;
 
           return (
@@ -464,8 +458,8 @@ const comparisonTools = mostUsedTools.slice(0, 3);
                 <p class="muted small">
                   <strong>When to skip:</strong>{" "}
                   {isStudio
-                    ? "Choose a self-serve diagnostic if you need immediate outputs without facilitation."
-                    : "Choose a studio-facilitated diagnostic when governance ownership or decision framing is unclear."}
+                    ? "Pick a self-serve diagnostic if you need the output today without a session."
+                    : "Pick a facilitated diagnostic when nobody can say who owns the decision or what it is."}
                 </p>
                 <ul class="diagnostics__summary">
                   <li>
@@ -526,7 +520,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     id="referenced-by"
     eyebrow="Referenced by"
     title="Where diagnostics connect to enforcement"
-    description="Cross-links keep diagnostic outputs aligned with standards, bindings, and evidence packs."
+    description="The examples, bindings, and evidence packs that cite a diagnostic output."
     variant="alt"
   >
     <div class="grid grid--three">
@@ -594,10 +588,10 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   >
     <div class="stack-sm">
       <p class="eyebrow">Ethotechnics Studio</p>
-      <h2>Need custom risk modeling or commissioned diligence?</h2>
+      <h2>Custom risk modeling and commissioned diligence</h2>
       <p class="muted">
-        Ethotechnics Studio provides tailored clinical AI safety evaluation, VC
-        portfolio diligence, custom governance tooling, and independent audit
+        Ethotechnics Studio runs clinical AI safety evaluations, VC portfolio
+        diligence, custom governance tooling, and independent audit
         verification.
       </p>
     </div>
@@ -622,8 +616,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       <h2>Instruments that take numbers rather than a workflow</h2>
       <p class="muted">
         These three ask for figures you already have and return a score you can
-        argue with. They were their own top-level section once, which made them
-        hard to find next to the tools they are a kind of.
+        argue with.
       </p>
     </div>
     <ul class="card__list">

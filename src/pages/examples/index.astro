@@ -7,42 +7,49 @@ import CardItem from "../../components/CardItem.astro";
 
 const pageTitle = "Worked examples — Ethotechnics Institute";
 const pageDescription =
-  "End-to-end worked scenarios that prove standards can ship with receipts, clocks, and enforceable remedies.";
+  "Worked scenarios that follow one automated decision from enforcement to remedy, with the receipt, owner, clocks, and evidence each step produces.";
 
 const examples = [
   {
     slug: "automated-account-lock",
     title: "Automated account lock & eligibility flip",
     summary:
-      "A real-time fraud lock shows how receipts, owners, clocks, and remedies survive high-risk automation.",
+      "A real-time fraud lock that still issues a receipt, names an owner, runs three clocks, and restores access when no fraud is confirmed.",
     tags: ["Receipt", "Clocks", "Remedy"],
   },
   {
     slug: "content-moderation-takedown",
     title: "Content moderation takedown",
     summary:
-      "A rapid removal flow with receipts, contested exceptions, and remedy commitments.",
+      "A rapid removal that issues a receipt, bounds its exceptions, and restores the content if the takedown is overturned.",
     tags: ["Receipt", "Exceptions", "Remedy"],
   },
   {
     slug: "fraud-hold-delayed-notice",
     title: "Fraud hold with delayed notice",
     summary:
-      "A delayed-notice hold that keeps clocks visible while preserving investigation integrity.",
+      "A hold whose notice is delayed for the investigation, while its review clocks keep running and stay on record.",
     tags: ["Clocks", "Exceptions", "Evidence"],
   },
   {
     slug: "irreversible-payment-compensation",
     title: "Irreversible payment with compensation",
     summary:
-      "An irreversible action flow that binds compensation and review clocks to receipts.",
+      "A payment that cannot be reversed, so the receipt binds a compensation commitment and review clocks instead.",
     tags: ["Irreversible", "Remedy", "Binding"],
+  },
+  {
+    slug: "decision-model-gate",
+    title: "Decision-model gate on refunds",
+    summary:
+      "A refund agent gated by a typed decision model, with the threshold held as policy, a sampled review queue, and decisions that record what decided them.",
+    tags: ["Threshold", "Chain", "Reasons"],
   },
   {
     slug: "automated-eligibility-denial",
     title: "Automated eligibility denial",
     summary:
-      "Eligibility denial with a named owner, appeal path, and enforceable remedy clocks.",
+      "An eligibility denial on an income mismatch, with a named owner, an appeal path, and remedy clocks the owner is held to.",
     tags: ["Receipt", "Clocks", "Appeal"],
   },
 ];
@@ -85,18 +92,18 @@ const requiredSignals = [
     id="featured"
     eyebrow="Featured scenario"
     title={featuredExample.title}
-    description="A full walkthrough that shows receipts, clocks, and remedies working together. Featured because it demonstrates the full adoption chain without special-case shortcuts."
+    description="The account lock is the baseline scenario. It runs every step from receipt to remedy, and no step relies on a special case."
     variant="alt"
   >
     <CardGrid>
       <CardItem
         title="What this scenario demonstrates"
-        description="Use the featured example as the baseline template before reviewing the broader catalog."
+        description="Read this one first. The other scenarios vary it."
       >
         <ul class="muted">
           <li>Receipt and owner metadata issued at decision time.</li>
           <li>Visible clocks for review, appeal, and remedy.</li>
-          <li>Remediation path that ties into bindings and evidence packs.</li>
+          <li>A remedy path tied to bindings and evidence packs.</li>
         </ul>
         <a
           slot="footer"
@@ -113,7 +120,7 @@ const requiredSignals = [
     id="scenarios"
     eyebrow="Scenarios"
     title="End-to-end worked scenarios"
-    description="Each scenario includes the receipt, owner, clocks, and evidence bundle required for audit-ready compliance."
+    description="Each scenario shows the receipt, the owner, the clocks, and the evidence an auditor would ask for."
   >
     <CardGrid className="grid--two">
       {
@@ -141,7 +148,7 @@ const requiredSignals = [
     id="requirements"
     eyebrow="Required signals"
     title="What every worked example must show"
-    description="Use this checklist to validate that a scenario is enforceable and not just explanatory."
+    description="A scenario missing any of these describes a decision. It does not show one that can be enforced or contested."
     variant="alt"
   >
     <ul class="muted">
@@ -158,7 +165,7 @@ const requiredSignals = [
     id="how-to-use"
     eyebrow="How to use"
     title="Turn the example into binding adoption"
-    description="These scenarios double as copy-paste templates for change requests and release gates."
+    description="Each scenario can be copied into a change request or a release gate."
   >
     <ul class="muted">
       <li>

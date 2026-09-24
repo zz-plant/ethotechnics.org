@@ -5,8 +5,7 @@ import { Icon } from "astro-icon/components";
 const quickLinks = [
   {
     title: "Standards Index",
-    description:
-      "Normative standards, contestability frameworks, and audit rules.",
+    description: "Numbered, citable clauses, stated so a system can fail them.",
     href: "/standards",
     icon: "lucide:book-open",
   },
@@ -20,7 +19,7 @@ const quickLinks = [
   {
     title: "Glossary of Terms",
     description:
-      "Canonical definitions for ethical technology and accountable systems.",
+      "Canonical definitions of the terms the standards and mechanisms use.",
     href: "/glossary",
     icon: "lucide:list-tree",
   },
@@ -36,16 +35,16 @@ const quickLinks = [
 
 <BaseLayout
   title="Page Not Found — 404"
-  description="The signal has been lost. Return to base or search the archives."
+  description="No page exists at this address. Search the site or return to the home page."
   robots="noindex, nofollow"
 >
   <div class="page-404">
     <div class="page-404__hero">
-      <p class="eyebrow page-404__eyebrow">404 — Signal Lost</p>
-      <h1 class="page-404__title">Coordinates Not Found</h1>
+      <p class="eyebrow page-404__eyebrow">Error 404</p>
+      <h1 class="page-404__title">Page not found</h1>
       <p class="page-404__description">
-        The path you requested does not correspond to a known sector or artifact
-        of the Ethotechnics Institute.
+        Nothing on ethotechnics.org lives at this address. The page may have
+        moved. Search the site, or start from one of the sections below.
       </p>
       <div class="page-404__actions">
         <a href="/" class="button primary">
@@ -54,13 +53,13 @@ const quickLinks = [
         </a>
         <a href="/search" class="button" data-search-trigger>
           <Icon name="lucide:search" class="page-404__btn-icon" />
-          <span>Search Archives (⌘K)</span>
+          <span>Search the site (⌘K)</span>
         </a>
       </div>
     </div>
 
     <section class="page-404__recovery" aria-labelledby="recovery-heading">
-      <h2 id="recovery-heading" class="eyebrow">Explore Key Sectors</h2>
+      <h2 id="recovery-heading" class="eyebrow">Main sections</h2>
       <div class="page-404__grid">
         {
           quickLinks.map((item) => (

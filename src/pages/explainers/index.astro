@@ -10,7 +10,7 @@ const explainers = await getCollection("explainers");
 
 const pageTitle = "Explainers";
 const pageDescription =
-  "Short, reusable definitions with examples and next-step artifacts.";
+  "Short explainers for the terms of delegated authority. Each gives a definition, a worked example, the signals that set it apart, and the artifact to build next.";
 
 const anchorLinks = [{ href: "#all-explainers", label: "All explainers" }];
 
@@ -36,7 +36,7 @@ const featuredExplainers = [
     id="featured"
     eyebrow="Start here"
     title="Featured explainers"
-    description="These six cover the core governance capabilities most teams need first."
+    description="These six cover stopping a system, contesting a decision, and recording the repair."
     variant="alt"
   >
     <CardGrid className="grid--three">
@@ -65,7 +65,7 @@ const featuredExplainers = [
     id="all-explainers"
     eyebrow="All explainers"
     title="Full explainer index"
-    description={`Alphabetical list with ${explainers.length} explainers ready to link directly.`}
+    description={`All ${explainers.length} explainers, in alphabetical order. Each has a stable permalink.`}
   >
     <CardGrid className="grid--two">
       {
@@ -89,7 +89,7 @@ const featuredExplainers = [
     id="pages"
     eyebrow="Also under explainers"
     title="Written as pages rather than collection entries"
-    description="The index above is generated from the explainer collection, so these five sit outside it: longer arguments, a checklist, and phrasing to reuse."
+    description="Five pages outside the index above: longer arguments, a checklist, and phrasing to reuse."
   >
     <CardGrid className="grid--two">
       <CardItem

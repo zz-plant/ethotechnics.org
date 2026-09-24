@@ -14,7 +14,7 @@ const breadcrumbItems = [
 
 <BaseLayout
   title="MEC-04 Hard Clock Mechanism for Bounded System Duration"
-  description="Mechanism specification for enforcing maximum state duration, escalation paths, and fail-safe resolution in accountable systems."
+  description="The MEC-04 specification. Every system state declares a maximum duration, and at expiry the system fails safe or escalates to a named human."
   publishedTime="2026-02-21"
   mainClass="page page--wide"
   breadcrumbItems={breadcrumbItems}
@@ -35,9 +35,9 @@ const breadcrumbItems = [
     <section class="mechanism-sheet__section">
       <h2>Definition</h2>
       <p>
-        The Hard Clock is a bounded-duration control that enforces maximum time
-        limits for every system state, ensuring no process persists indefinitely
-        without escalation or resolution.
+        The Hard Clock sets a maximum duration for every system state. No
+        process stays in a state past that limit without escalation or
+        resolution.
       </p>
     </section>
 
@@ -72,15 +72,15 @@ const breadcrumbItems = [
     <section class="mechanism-sheet__section">
       <h2>Related references</h2>
       <p>
-        The library entry for this mechanism, with steps, reuse-ready snippets,
-        and anti-patterns, is at
+        The library entry for this mechanism, with steps, requirement text to
+        copy, and anti-patterns, is at
         <a href="/mechanisms/patterns/hard-clock">MEC-04 The Hard Clock</a>.
       </p>
       <p>
-        Use this mechanism alongside <a href="/standards">core standards</a>,
+        Use this mechanism alongside <a href="/standards">the standards</a>,
         <a href="/validators/latency-audit">latency audits</a>, and
-        <a href="/examples/fraud-hold-delayed-notice">failure examples</a> to validate
-        time-bound enforcement in production workflows.
+        <a href="/examples/fraud-hold-delayed-notice">failure examples</a> to check
+        that the clocks hold in production workflows.
       </p>
     </section>
 

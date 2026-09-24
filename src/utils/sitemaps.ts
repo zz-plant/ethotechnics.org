@@ -7,6 +7,9 @@ import type {
   GlossaryEntry,
 } from "../content/glossary";
 import { incidentLessons } from "../content/incidents";
+import { evalsContent } from "../content/evals";
+import { artifacts, failureStates } from "../content/institute-site";
+import { governanceCrosswalks } from "../content/crosswalks";
 import { cases } from "../content/casebook";
 import { libraryContent } from "../content/library";
 import type { LibraryContent, Pattern } from "../content/library";
@@ -94,7 +97,10 @@ const normalizeRoutePath = (filePath: string) => {
 };
 
 const isPublicPath = (path: string) => {
-  if (path === "/404" || path.startsWith("/api")) return false;
+  // /api is the human-readable reference page; /api/* are the JSON endpoints.
+  if (path === "/404" || path.startsWith("/api/")) return false;
+  // Site search is noindex, so listing it sends crawlers a mixed signal.
+  if (path === "/search") return false;
   // A Playwright visual-testing harness. It answers 404 anywhere but
   // localhost, so it must never be advertised.
   if (path === "/components-preview") return false;
@@ -290,6 +296,40 @@ export const buildSitemapSections = async () => {
     "evidence-packs",
   );
 
+  // Dynamic routes are dropped from core, so every [slug] route has to be
+  // listed here from the data it renders. These were missing, including
+  // every explainer and every eval suite page.
+  const explainerPaths = await mdxCollectionPaths("explainers", "explainers");
+
+  const evalsLastmod = evalsContent.updated ?? evalsContent.published;
+  const evalSuitePaths = evalsContent.suites.map((suite) => ({
+    path: `/evals/${suite.slug}`,
+    lastmod: evalsLastmod,
+    changefreq: "monthly",
+  }));
+
+  const artifactPaths = artifacts.map((artifact) => ({
+    path: `/artifacts/${artifact.slug}`,
+    changefreq: "monthly",
+  }));
+
+  // A failure state with no resolvable artifact redirects to /artifacts, so
+  // only the states that render are listed.
+  const artifactSlugs = new Set(artifacts.map((artifact) => artifact.slug));
+  const failurePaths = failureStates
+    .filter((state) =>
+      (state.artifactSlugs ?? []).some((slug) => artifactSlugs.has(slug)),
+    )
+    .map((state) => ({
+      path: `/failure/${state.slug}`,
+      changefreq: "monthly",
+    }));
+
+  const crosswalkPaths = governanceCrosswalks.map((control) => ({
+    path: `/standards/crosswalk/${control.controlId.toLowerCase()}`,
+    changefreq: "monthly",
+  }));
+
   const incidentPaths = incidentLessons.map((lesson) => ({
     path: `/incidents/${lesson.slug}`,
     lastmod: lesson.updated ?? lesson.published,
@@ -398,23 +438,46 @@ export const buildSitemapSections = async () => {
 
   const corePaths = pagePaths.length > 0 ? pagePaths : [{ path: "/" }];
 
+  const standardsSection = applyOverrides([
+    ...standardsCollectionPaths,
+    ...evidencePackPaths,
+    ...incidentPaths,
+    ...casebookPaths,
+    ...rolePaths,
+    ...theoryPaths,
+  ]);
+  const glossarySection = applyOverrides(glossaryPaths);
+  const taxonomySection = applyOverrides([...taxonomyPaths, ...patternPaths]);
+
+  // A path listed in a content section is dropped from core, so a page that
+  // exists both as a static file and as a collection entry (the STD-01, -02,
+  // and -06 evidence packs) is listed once.
+  const listedElsewhere = new Set(
+    [...standardsSection, ...glossarySection, ...taxonomySection].map((entry) =>
+      normalizeOverrideKey(entry.path),
+    ),
+  );
+  const coreSection = applyOverrides([
+    ...corePaths,
+    ...explainerPaths,
+    ...evalSuitePaths,
+    ...artifactPaths,
+    ...failurePaths,
+    // Crosswalk controls sit under /standards but are not MDX standards
+    // documents, so they are listed with the core pages.
+    ...crosswalkPaths,
+  ]).filter((entry) => !listedElsewhere.has(normalizeOverrideKey(entry.path)));
+
   return {
-    core: applyOverrides(corePaths),
-    glossary: applyOverrides(glossaryPaths),
+    core: coreSection,
+    glossary: glossarySection,
     // Standards come from the MDX collection /standards/[...slug] renders, not
     // from the registry: a registry entry can exist for clauses and changelogs
     // long before its page does (PM-01, STD-03, STD-04, STD-05 all did), and the
     // static standards pages are already in core with the other page files.
     // Registry dates still reach these entries through the lastmod overrides.
-    standards: applyOverrides([
-      ...standardsCollectionPaths,
-      ...evidencePackPaths,
-      ...incidentPaths,
-      ...casebookPaths,
-      ...rolePaths,
-      ...theoryPaths,
-    ]),
-    taxonomy: applyOverrides([...taxonomyPaths, ...patternPaths]),
+    standards: standardsSection,
+    taxonomy: taxonomySection,
   };
 };
 

@@ -14,7 +14,7 @@ Detailed, testable expectations for each route. Use these specs when adding cont
   - `about.body` opens with the one canonical definition of Ethotechnics (the same sentence used by
     the `ethotechnics` glossary entry, `/method`, `/about`, `public/llms.txt`, and the README)
     followed by one sentence on what the site publishes.
-  - Retain the "How this works" info strip with two badges (Institute charter, CC BY 4.0 license) and maintain `aria-label` values on the badge list.
+  - Retain the "How this works" info strip with two badges (Institute charter, CC BY-SA 4.0 license) and maintain `aria-label` values on the badge list.
   - `about` renders as a `section` with a three-card bento grid; `features` uses a `grid--two` layout with the illustration in the first column and a nested two-column card grid in the second.
   - `highlight` includes the callout block with a list of three actions and a pill rail; `cta` ends the page with two actions rendered as `<a class="button">` links.
 - **Accessibility:**

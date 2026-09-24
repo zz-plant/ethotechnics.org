@@ -32,7 +32,7 @@ import FailurePointDiagram from "../../components/FailurePointDiagram.astro";
   id="claim"
   eyebrow="Claim"
   title="What is being engineered"
-  description="The laws follow from one change of object. The rest of this page states the change and then the laws it produces."
+  description="The laws follow from one change of object."
 >
 
 The primary object being engineered is no longer the model. It is the
@@ -95,7 +95,7 @@ A system that can do something has not thereby been permitted to do it. Capabili
 
 Most failures of delegation begin where the two are confused: a tool becomes reachable, so it is used; a model becomes better, so its scope widens without anyone deciding that it should. The law makes that widening a decision rather than a side effect.
 
-Binds through: STD-07 §2.1 action under authorization, §2.2 bounded delegation, and §3.4 capability gating, under which an authorization holds only while the capability it depends on is verified rather than merely configured; the capability catalog and authority grant objects; MEC-17 capability catalog and MEC-13 authority grant register, with the MEC-22 admission gate as the decision that precedes any grant, in which deliberate non-use is a recorded outcome; harness check that discovery succeeds and execution is refused.
+Binds through: STD-07 §2.1 action under authorization, §2.2 bounded delegation, and §3.4 capability gating, under which an authorization holds only while the capability it depends on is verified rather than merely configured; the capability catalog and authority grant objects; MEC-17 capability catalog and MEC-13 authority grant register, with the MEC-22 admission gate as the decision that precedes any grant, in which deliberate non-use is a recorded outcome; harness check that discovery succeeds and execution is refused. For typed decision models, STD-08 §1.5 reads authority only from grant and authorization records, never from content the delegation acts on, and STD-09 §1.5 and §1.6 bring the hops that shape or select a decision into the enumerated chain.
 
 <h3 id="law-ii">
   Law II. Authority decays unless its justification is renewed
@@ -117,7 +117,7 @@ Every grant rests on propositions about the world: the model behaves this way, t
 
 When the evidence changes materially, the authority that rested on it must at least become eligible for review. The law does not require the grant to be withdrawn. It requires that the change be able to reach the grant.
 
-Binds through: STD-07 §3.1 dependence and §3.2 invalidation conditions, which require a record to say what would change its mind; STD-08 Part B makes the policy a grant rests on a record in its own right, with provenance, assumptions, review triggers, and an expiry, and moves the grants downstream of a fired trigger to `review_required`; the policy record and `policy_refs` on the grant; MEC-14 policy review triggers; harness check that an expired policy moves grants to `review_required`.
+Binds through: STD-07 §3.1 dependence and §3.2 invalidation conditions, which require a record to say what would change its mind; STD-08 Part B makes the policy a grant rests on a record in its own right, with provenance, assumptions, review triggers, and an expiry, and moves the grants downstream of a fired trigger to `review_required`; the policy record and `policy_refs` on the grant; MEC-14 policy review triggers; harness check that an expired policy moves grants to `review_required`. STD-08 §2.6 holds a decision threshold as such a policy, pinned to the model version, question schema, and option order it was tuned against, so the evidence behind a confidence cut-off decays when any of them changes.
 
 <h3 id="law-iv">
   Law IV. Every consequential delegation creates a correction obligation
@@ -179,7 +179,7 @@ The politics of a system are revealed by the rights it grants at the point of mo
 
 <FailurePointDiagram level="h4" />
 
-Binds through: STD-07 §4.1 standing declared and §4.2 objection answered, with STD-02 Article VIII adding the standard of review and the state transitions a successful objection can produce, and STD-02 §10.1 and §10.2 holding that the set of affected parties does not close at adoption and that an original consent does not cover a dependence that has since deepened; the challenge and standing register objects; MEC-08 contestation APIs, amended, with the MEC-21 halt tier register bounding the force a challenge carries by blast radius and the MEC-23 challenge load ledger tracking the capacity that answers it; Standing eval, whether exposure can enter the system as an event.
+Binds through: STD-07 §4.1 standing declared and §4.2 objection answered, with STD-02 Article VIII adding the standard of review and the state transitions a successful objection can produce, and STD-02 §10.1 and §10.2 holding that the set of affected parties does not close at adoption and that an original consent does not cover a dependence that has since deepened; the challenge and standing register objects; MEC-08 contestation APIs, amended, with the MEC-21 halt tier register bounding the force a challenge carries by blast radius and the MEC-23 challenge load ledger tracking the capacity that answers it; Standing eval, whether exposure can enter the system as an event. STD-02 §8.6 bounds a decision class's issue rate by the capacity to answer its expected errors, because standing that cannot be exercised before the deadline is standing in name only.
 
 <h3 id="law-viii">
   Law VIII. Observability without state transition is theater
@@ -205,7 +205,7 @@ Binds through: STD-07 §3.3 discrepancy handling, under which silence past the c
 
 Every oversight clause resolves to an intervention specification that answers those questions. A human who can only watch, or who can only approve, is not in the loop. They are beside it.
 
-Binds through: STD-08 Part C, which resolves every confirm mode and every "a human reviews" requirement into an intervention specification. STD-07 §2.2 records whether a delegation runs unattended or on confirm, but a confirm mode says nothing about whether the confirming human can alter the trajectory; the intervention spec object carries that; MEC-16 intervention specification; Meaningful Control eval, the Law IX question set.
+Binds through: STD-08 Part C, which resolves every confirm mode and every "a human reviews" requirement into an intervention specification. STD-07 §2.2 records whether a delegation runs unattended or on confirm, but a confirm mode says nothing about whether the confirming human can alter the trajectory; the intervention spec object carries that; MEC-16 intervention specification; Meaningful Control eval, the Law IX question set. STD-08 §3.6 extends this to review queues selected by a score: the routing threshold is part of the specification, and a sample of decisions that ran unattended still reaches review.
 
 <h3 id="law-x">
   Law X. The relevant eval sits at the highest layer where harm can emerge
@@ -215,7 +215,7 @@ Binds through: STD-08 Part C, which resolves every confirm mode and every "a hum
 
 Model evals establish properties of models. They do not establish properties of the agent that wraps the model, the delegation that authorizes the agent, the institution that depends on the delegation, or the consequences that fall on people. Each layer can produce failures the layer below cannot see.
 
-Evaluate where the harm you care about can actually appear. Every suite and case is tagged with its layer so that a clean result at one layer is never read as a result at another.
+Evaluate where the harm you care about can appear. Every suite and case is tagged with its layer so that a clean result at one layer is never read as a result at another.
 
 Binds through: evals index restructured by stack; the `layer` field on suites and cases; every case tagged model, agent, delegation, institution, or consequence.
 
@@ -241,9 +241,9 @@ Binds through: STD-07 §2.2 ceilings, which bound what a delegation may do witho
 
 Institutions question, replace, and withdraw systems using capacities: staff who retain the expertise, processes that still work without the system, records that show what it did, alternatives that remain viable. A consequential system may draw on those capacities. It may not consume them.
 
-Some capacities are preserved precisely because the institution hopes never to need them. The law names them, records them, and treats their erosion as a governance event rather than an efficiency gain.
+Some capacities are preserved because the institution hopes never to need them. The law names them, records them, and treats their erosion as a governance event rather than an efficiency gain.
 
-Binds through: STD-06 amendment, preserved capacities; `preserved_capacities` on the dependency record; MEC-15 withdrawal rehearsal and MEC-18 dependency ledger; Contestability Preservation eval.
+Binds through: STD-06 amendment, preserved capacities; `preserved_capacities` on the dependency record; MEC-15 withdrawal rehearsal and MEC-18 dependency ledger; Contestability Preservation eval. STD-02 §1.4 keeps reasons contestable when the component that decides gives none, by labelling an explanation written afterwards as an account rather than a reason.
 
 </SectionBlock>
 
@@ -343,7 +343,7 @@ can now make it stop doing, correct, or justify.
           <th scope="row">
             <StateVariableGlyph variable="capability" label="Capability" />
           </th>
-          <td>What can the assembled system actually do?</td>
+          <td>What can the assembled system do?</td>
           <td>Capability outruns authority (Law I)</td>
         </tr>
         <tr>

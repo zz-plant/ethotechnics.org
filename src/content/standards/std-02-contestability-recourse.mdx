@@ -105,8 +105,8 @@ export const structuredData = {
     "The standard defining contestability, review, and remedy obligations for automated decisions.",
   url: "https://ethotechnics.org/standards/std-02-contestability-recourse",
   datePublished: "2026-01-01",
-  dateModified: "2026-09-07",
-  version: "1.1",
+  dateModified: "2026-09-22",
+  version: "1.2",
   identifier: "STD-02",
   publisher: {
     "@type": "Organization",
@@ -140,7 +140,7 @@ export const structuredData = {
       </div>
       <div>
         <dt>Version</dt>
-        <dd>1.1 (Draft for Review)</dd>
+        <dd>1.2 (Draft for Review)</dd>
       </div>
       <div>
         <dt>Effective Date</dt>
@@ -158,7 +158,7 @@ export const structuredData = {
       <section id="related-explainers" class="standard-section">
         <h2>Related explainers</h2>
 
-        Use these short explainers when translating the obligations for policy or product teams.
+        Short explainers for translating the obligations for policy or product teams.
 
         <div class="grid grid--two">
           {explainerLinks.map((explainer) => (
@@ -192,6 +192,20 @@ export const structuredData = {
           <li>
             <span class="standard-clause-id">§1.3</span>
             Immediate Availability: Reasons must be available at the moment of decision. Deferred explanation is not compliance.
+          </li>
+          <li>
+            <span class="standard-clause-id">§1.4</span>
+            Reasons Belong to the Decision: A reason given under §1.1 and §1.2
+            must state what the decision actually rested on: the inputs, rule,
+            policy, and threshold that produced it. An explanation written
+            afterwards by a component that did not make the decision is an
+            account, not a reason. It must be labelled as one, and it does not
+            satisfy §1.1 or §1.2 on its own. Where the component that decided
+            gives no reasons, as a classifier that returns only a score does
+            not, the decision object says so and names the policy, the
+            threshold, and the inputs the decision ran on. The standing
+            register entry for that class then includes whether the evidence
+            supported the decision among its standards of review under §8.2.
           </li>
         </ol>
       </section>
@@ -362,6 +376,19 @@ export const structuredData = {
             challenge that halts the system on assertion is a veto, and this
             standard does not require one.
           </li>
+          <li>
+            <span class="standard-clause-id">§8.6</span>
+            Issue Rate Bounded by Answer Capacity: The register entry must state
+            how many challenges the responder can answer within
+            <code>response_deadline</code> in a period. Where the class's issue
+            rate in that period, multiplied by its measured error rate, or by an
+            assumed rate stated in the entry until one is measured, exceeds
+            that capacity, the class is uncontestable in practice under §8.1
+            until capacity is raised or the issue rate is lowered. Narrowing who
+            may challenge does not cure it. The bound is set on errors made,
+            not on challenges received, because an error nobody could
+            challenge in time never shows up as a challenge.
+          </li>
         </ol>
       </section>
 
@@ -463,6 +490,14 @@ export const structuredData = {
       <section id="publication-history" class="standard-section">
         <h2>Publication history</h2>
         <ul>
+          <li>
+            <strong>v1.2 (2026-09-22):</strong> Adds two clauses for decisions
+            made faster and with fewer reasons than recourse assumed. A reason
+            must be what the decision rested on, and an explanation written
+            afterwards by another component is labelled as an account (§1.4).
+            A decision class whose expected errors outrun the responder's
+            capacity to answer is uncontestable in practice (§8.6).
+          </li>
           <li>
             <strong>v1.1 (2026-09-07):</strong> Adds Article X, the depth of
             consent: standing for parties who became affected after adoption, and

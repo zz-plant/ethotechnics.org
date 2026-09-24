@@ -8,7 +8,7 @@ import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Irreversible payment with compensation — Worked example";
 const pageDescription =
-  "An irreversible payment flow that binds receipts, clocks, and compensation commitments.";
+  "A payout that cannot be reversed. The receipt is issued before release and binds 1, 8, and 48-hour clocks and a compensation commitment.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -46,7 +46,7 @@ const receiptPayload = `{
     id="receipt"
     eyebrow="Receipt"
     title="Receipt issued before release"
-    description="Irreversible actions must emit a receipt before execution."
+    description="An irreversible action emits its receipt before it executes."
   >
     <pre class="code-block">{receiptPayload}</pre>
   </SectionBlock>
@@ -55,7 +55,7 @@ const receiptPayload = `{
     id="clocks"
     eyebrow="Clocks"
     title="Short review windows for irreversible actions"
-    description="Clocks ensure review and remedy timelines are explicit."
+    description="Each clock states when review and remedy are due."
     variant="alt"
   >
     <CardGrid className="grid--three">
@@ -81,7 +81,7 @@ const receiptPayload = `{
     id="exceptions"
     eyebrow="Exceptions"
     title="Exceptions require immediate logging"
-    description="AML or legal holds cannot erase receipts or clocks."
+    description="An AML or legal hold leaves the receipt and the clocks in place."
   >
     <ul class="muted">
       <li>Legal holds can pause payout but must keep clocks active.</li>
@@ -98,7 +98,7 @@ const receiptPayload = `{
     id="remedy"
     eyebrow="Remedy"
     title="Compensation is the default fallback"
-    description="Irreversible actions must guarantee a compensation path."
+    description="A payout that cannot be undone must have a compensation path."
     variant="alt"
   >
     <ul class="muted">
@@ -112,7 +112,7 @@ const receiptPayload = `{
     id="bindings"
     eyebrow="Bindings"
     title="Bind the payout to enforceable artifacts"
-    description="Release gates and evidence packs keep the flow auditable."
+    description="Release gates and evidence packs give an auditor the record of each payout."
   >
     <ul class="muted">
       <li>

@@ -19,7 +19,7 @@ const machineAnswerable = tier1Checks.map((check) => {
 
 const pageTitle = "Measurement tiers — Ethotechnics Institute";
 const pageDescription =
-  "Tiered measurement guidance for Moral Performance Indicators (MPIs) with anti-gaming controls.";
+  "Three evidence tiers for four Moral Performance Indicators (MPIs), each with the gaming pattern it invites and the validator check that detects it.";
 
 const mpis = [
   {
@@ -40,7 +40,7 @@ const mpis = [
       {
         tier: "Tier 2",
         evidence:
-          "Incident postmortems verifying real-world halt times under load.",
+          "Incident postmortems verifying production halt times under load.",
       },
     ],
     gaming:
@@ -140,12 +140,14 @@ const mpis = [
   <SectionBlock
     eyebrow="How to use"
     title="Apply tiers to every MPI"
-    description="Start at Tier 0 for baseline proof and move up as governance maturity improves."
+    description="Tier 0 is the baseline. Each higher tier needs stronger evidence than the one below it."
   >
     <ul class="muted">
       <li>Tier 0 proves instrumentation exists.</li>
       <li>Tier 1 proves the system is operated and reviewed.</li>
-      <li>Tier 2 proves resilience under real incidents and audit sampling.</li>
+      <li>
+        Tier 2 proves the measure holds under real incidents and audit sampling.
+      </li>
     </ul>
   </SectionBlock>
 

@@ -135,7 +135,7 @@ const fieldGuide = [
     example: "MEC-01, MEC-05, MEC-06",
     purpose: "Connects the model to enforced mechanisms and runbooks.",
     failure:
-      "Controls exist only on paper; mechanisms are not operationalized.",
+      "Controls exist only on paper, and no mechanism runs in production.",
   },
 ];
 
@@ -172,7 +172,7 @@ const breadcrumbItems = [
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="A concrete schema for agent governance"
+    title="A schema for agent governance"
     description="Publish this file so automated systems can validate agent controls and evidence."
   >
     <ul class="muted">
@@ -189,7 +189,7 @@ const breadcrumbItems = [
     id="example"
     eyebrow="Example"
     title="Example Agent Safety Object Model"
-    description="Use this as a starting point, then replace IDs and clocks with your system values."
+    description="A starting point: replace IDs and clocks with your system values."
     variant="alt"
   >
     <pre class="code-block">{exampleModel}</pre>
@@ -203,7 +203,7 @@ const breadcrumbItems = [
     id="fields"
     eyebrow="Field guide"
     title="Field-level explanations"
-    description="Each field includes an example and a concrete failure mode when omitted."
+    description="Each field includes an example and the failure mode when omitted."
   >
     <div class="mapping-table__wrapper">
       <table class="mapping-table">
@@ -235,7 +235,7 @@ const breadcrumbItems = [
     id="failure-modes"
     eyebrow="Failure modes"
     title="What breaks if you omit fields"
-    description="These are the most common causes of failed audits and release gate rollbacks."
+    description="Each omission leaves an audit or a release gate with nothing to check."
     variant="alt"
   >
     <ul class="muted">
@@ -247,7 +247,7 @@ const breadcrumbItems = [
     id="schema"
     eyebrow="Schema"
     title="Machine-readable JSON"
-    description="Use this schema in CI and linting pipelines to enforce agent governance."
+    description="Enforce agent governance in CI and linting pipelines."
   >
     <pre class="code-block">{agentSafetyObjectModelText}</pre>
   </SectionBlock>
@@ -281,7 +281,7 @@ const breadcrumbItems = [
     id="referenced-by"
     eyebrow="Referenced by"
     title="Where this spec is enforced"
-    description="Cross-links keep audits, bindings, and examples aligned."
+    description="The examples, bindings, and evidence packs that use this spec."
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -332,7 +332,7 @@ const breadcrumbItems = [
       </div>
     </div>
     <p class="muted">
-      Search IDs: ASOM 1.1.0, STD-01 v1.0, STD-02 v0.9, STD-01.1.1, STD-02.2.1,
+      Search IDs: ASOM 1.1.0, STD-01 v1.0, STD-02 v1.2, STD-01.1.1, STD-02.2.1,
       MEC-01, MEC-05, MEC-06, VAL-01, VAL-02, VAL-03.
     </p>
   </SectionBlock>

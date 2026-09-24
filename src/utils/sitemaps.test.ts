@@ -1,7 +1,10 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { APIContext } from "astro";
 
+import { governanceCrosswalks } from "../content/crosswalks";
+import { evalsContent } from "../content/evals";
 import { glossaryContent } from "../content/glossary";
+import { artifacts, failureStates } from "../content/institute-site";
 import { standardsContent } from "../content/standards";
 import { onRequest } from "../middleware";
 import { buildSitemapSections } from "./sitemaps";
@@ -59,6 +62,49 @@ describe("sitemap coverage", () => {
     const core = paths("core");
     expect(core).toContain("/method");
     expect(core).toContain("/research/frontier-doctrine-scan");
+  });
+
+  test("lists every dynamic detail route, not only the page files", async () => {
+    // Dynamic routes are dropped from core, so these were missing until each
+    // was listed from the data its route renders.
+    const explainerFiles = await Array.fromAsync(
+      new Bun.Glob("src/content/explainers/*.mdx").scan({ cwd: process.cwd() }),
+    );
+    expect(explainerFiles.length).toBeGreaterThan(0);
+    for (const file of explainerFiles) {
+      const slug = file
+        .split("/")
+        .at(-1)!
+        .replace(/\.mdx$/, "");
+      expect(allPaths).toContain(`/explainers/${slug}`);
+    }
+    for (const suite of evalsContent.suites) {
+      expect(allPaths).toContain(`/evals/${suite.slug}`);
+    }
+    for (const artifact of artifacts) {
+      expect(allPaths).toContain(`/artifacts/${artifact.slug}`);
+    }
+    for (const state of failureStates) {
+      expect(allPaths).toContain(`/failure/${state.slug}`);
+    }
+    for (const control of governanceCrosswalks) {
+      expect(allPaths).toContain(
+        `/standards/crosswalk/${control.controlId.toLowerCase()}`,
+      );
+    }
+  });
+
+  test("lists the /api reference page but not the JSON endpoints or noindex search", () => {
+    expect(allPaths).toContain("/api");
+    expect(allPaths.some((path) => path.startsWith("/api/"))).toBe(false);
+    expect(allPaths).not.toContain("/search");
+  });
+
+  test("lists every URL once across all sections", () => {
+    const seen = new Map<string, number>();
+    for (const path of allPaths) seen.set(path, (seen.get(path) ?? 0) + 1);
+    const duplicates = [...seen].filter(([, count]) => count > 1);
+    expect(duplicates).toEqual([]);
   });
 
   test("drops the retired /start-here route in favour of /start", () => {
@@ -122,7 +168,10 @@ describe("sitemap lists only routes that render", () => {
         expect(allPaths).not.toContain(`/standards/${standard.slug}`);
       }
     }
-    expect(allPaths).not.toContain("/standards/crosswalk/ctrl-01");
+    // Crosswalk controls render under /standards but are not MDX documents,
+    // so they are listed in core, never in the standards section.
+    expect(paths("standards")).not.toContain("/standards/crosswalk/ctrl-01");
+    expect(paths("core")).toContain("/standards/crosswalk/ctrl-01");
   });
 
   test("taxonomy lists canonical branch and pattern paths only", () => {

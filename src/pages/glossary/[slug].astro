@@ -329,6 +329,9 @@ const structuredData = {
       mainEntity: {
         "@id": `${pageUrl}#defined-term`,
       },
+      breadcrumb: {
+        "@id": `${pageUrl}#breadcrumb`,
+      },
     },
     {
       "@type": "DefinedTerm",
@@ -356,29 +359,6 @@ const structuredData = {
         url: glossaryUrl,
       },
     },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: Astro.site ? new URL("/", Astro.site).toString() : "/",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Glossary",
-          item: glossaryUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: entry.title,
-          item: pageUrl,
-        },
-      ],
-    },
   ],
 };
 const structuredDataJson = JSON.stringify(structuredData, null, 2);
@@ -388,7 +368,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   title={`${entry.title} — Ethotechnics glossary`}
   description={pageDescription}
   openGraphType="article"
-  publishedTime={termUpdated ?? "2025-06-01T00:00:00.000Z"}
+  publishedTime={termPublished ?? "2025-06-01T00:00:00.000Z"}
+  modifiedTime={termModified ?? undefined}
+  pageSchema="route"
   enableGlossaryHighlights={false}
 >
   <Fragment slot="head">
@@ -550,10 +532,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               {presenceChecks.length > 0 && (
                 <div id="presence-checks" class="glossary-entry__check">
                   <p class="eyebrow">If this is present, check for</p>
-                  <p class="muted small">
-                    Signals and companion artifacts to verify when this term
-                    shows up.
-                  </p>
                   <ul class="muted">
                     {presenceChecks.map((term) => (
                       <li>
@@ -568,9 +546,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               {missingExpectations.length > 0 && (
                 <div id="missing-expectations" class="glossary-entry__check">
                   <p class="eyebrow">If this is missing, expect</p>
-                  <p class="muted small">
-                    Outcomes to watch for when this capability is absent.
-                  </p>
                   <ul class="muted">
                     {missingExpectations.map((term) => (
                       <li>
@@ -642,10 +617,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           </ul>
         </section>
         <section class="glossary-entry__section glossary-entry__section--dense">
-          <p class="eyebrow">Extended routes</p>
-          <p class="muted small">
-            Supplementary links and diagnostics for deeper review.
-          </p>
+          <p class="eyebrow">Tests and evidence</p>
           <div class="glossary-entry__disclosures">
             {
               operationalTests.length > 0 && (
@@ -725,7 +697,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     ))}
                   </ul>
                   <p class="muted small glossary-entry__patterns-hint">
-                    See the full mechanisms catalog.
+                    See the full <a href="/mechanisms">mechanisms catalog</a>.
                   </p>
                 </details>
               )

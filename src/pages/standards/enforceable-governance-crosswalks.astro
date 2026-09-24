@@ -24,7 +24,7 @@ type FrameworkCard = {
 
 const pageTitle = "Framework map for buyers and auditors";
 const pageDescription =
-  "A specific, current crosswalk from Ethotechnics controls to framework obligations, buyer checks, and evidence requests.";
+  "Ethotechnics controls mapped to EU AI Act, NIST AI RMF, ISO/IEC, SOC 2, and IEC 61508 obligations, with buyer checks and evidence requests.";
 const permalink = "/standards/enforceable-governance-crosswalks";
 
 const publication = derivePublicationMetadata({
@@ -34,7 +34,7 @@ const publication = derivePublicationMetadata({
   version: "v0.3.0",
   authorName: "Ethotechnics Governance Council",
   changelogSummary:
-    "Added framework-specific checks, concrete first moves, and implementation-ready evidence asks for buyer and audit workflows.",
+    "Added framework-specific checks, first moves, and implementation-ready evidence asks for buyer and audit workflows.",
 });
 
 const findControl = (controlId: string) => {
@@ -86,7 +86,7 @@ const frameworkCards: FrameworkCard[] = [
       "Mitigation backlog includes due dates and accountable humans.",
     ],
     firstMove:
-      "Use the risk radar and burden modeler before every high-stakes launch decision.",
+      "Run the risk radar and burden modeler before every consequential launch decision.",
     detailedLinks: [
       {
         label: "NIST AI RMF implementation page",
@@ -104,7 +104,7 @@ const frameworkCards: FrameworkCard[] = [
     whatEthotechnicsCovers:
       "AIMS-aligned lifecycle controls for planning, operation, monitoring, and continual improvement.",
     buyerAuditorChecks: [
-      "Policy record references concrete operational controls and review cadence.",
+      "Policy record references operational controls and review cadence.",
       "Internal audits sample real evidence artifacts, not only policy PDFs.",
       "Corrective actions are linked to incident and remediation logs.",
     ],
@@ -189,7 +189,7 @@ const frameworkCards: FrameworkCard[] = [
 const keyTakeaways = [
   "This crosswalk is reviewed against current Ethotechnics controls and release evidence (updated 2026-02-22).",
   "Rows separate controls that are immediately usable from controls that require local framework extensions.",
-  "Every framework row includes concrete buyer/auditor checks and a specific first move.",
+  "Every framework row includes buyer/auditor checks and a specific first move.",
 ];
 ---
 
@@ -214,7 +214,7 @@ const keyTakeaways = [
     id="guide"
     eyebrow="Start here"
     title="Plain-language guide"
-    description="Use this page when you need procurement-ready or audit-ready answers without reading every standards document first."
+    description="Answers for procurement and audit, without reading every standards document first."
   >
     <ul>
       {keyTakeaways.map((item) => <li>{item}</li>)}
@@ -262,7 +262,7 @@ const keyTakeaways = [
     id="controls"
     eyebrow="Quick scan"
     title="Framework-by-framework implementation crosswalk"
-    description="This table is specific to current Ethotechnics controls and highlights what still requires local implementation work."
+    description="One row per framework: the Ethotechnics control it maps to, what that control covers, and what still needs local implementation."
   >
     <div class="table-wrap">
       <table>
@@ -319,7 +319,7 @@ const keyTakeaways = [
     id="framework-cards"
     eyebrow="Deep dive"
     title="Framework details (expand what you need)"
-    description="Each card includes concrete checks and evidence asks you can use in procurement packets or audit walkthroughs."
+    description="Each card lists the checks and evidence requests to put in a procurement packet or an audit walkthrough."
     variant="alt"
   >
     <div class="framework-details">
@@ -408,7 +408,7 @@ const keyTakeaways = [
     id="post-market"
     eyebrow="Ops loop"
     title="Incident reporting as a first-class governance flow"
-    description="Post-market work should be routable, time-bound, and exportable rather than buried in retrospectives."
+    description="Post-market work needs a route, a clock, and an export. Without them it ends up buried in retrospectives."
   >
     <ol>
       {
@@ -419,7 +419,7 @@ const keyTakeaways = [
         ))
       }
     </ol>
-    <p><strong>Core evidence pack minimum:</strong></p>
+    <p><strong>Evidence pack minimum:</strong></p>
     <ul>
       {evidencePackMinimumSet.map((item) => <li>{item}</li>)}
     </ul>

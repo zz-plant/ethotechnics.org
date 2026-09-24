@@ -49,7 +49,7 @@ export const implementationExamples: ImplementationExample[] = [
     slug: "financial-fraud-detection",
     title: "Financial fraud detection",
     summary:
-      "Real-time account protection that must restore legitimate access quickly and audibly.",
+      "Real-time account protection that must restore legitimate access quickly and on the record.",
     tags: ["Time-to-restore", "Receipt", "Repair log"],
     cardDescription:
       "Account protection systems that measure recovery time alongside detection.",
@@ -61,7 +61,7 @@ export const implementationExamples: ImplementationExample[] = [
       "Recommendation engines where users need direct control over automation behavior.",
     tags: ["Safety valves", "Stoppability", "Transparency"],
     cardDescription:
-      "Recommendation systems with user stoppability and real-time advocate control.",
+      "Recommendation systems that users can halt, with a direct halt path for advocates.",
   },
   {
     slug: "public-services",

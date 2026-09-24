@@ -45,6 +45,12 @@ interface Props {
   breadcrumbItems?: Array<{ name: string; url: string }>;
   jsonAlternates?: Array<{ href: string; title?: string }>;
   structuredDataType?: StructuredDataMode;
+  /**
+   * Set to "route" when the page emits its own page-level JSON-LD. The layout
+   * then emits only Organization, WebSite, and the breadcrumb list, so the
+   * page is described once.
+   */
+  pageSchema?: "layout" | "route";
   canonical?: string;
 }
 
@@ -68,6 +74,7 @@ const {
   breadcrumbItems,
   jsonAlternates,
   structuredDataType = "auto",
+  pageSchema = "layout",
   canonical: canonicalProp,
 }: Props = Astro.props;
 
@@ -140,6 +147,7 @@ const structuredData = buildSchemaGraph({
   normalizedPublishedTime,
   normalizedModifiedTime,
   breadcrumbs: normalizedBreadcrumbItems,
+  pageNode: pageSchema,
 });
 
 const jsonAlternateLinks = buildJsonAlternateLinks(jsonAlternates);

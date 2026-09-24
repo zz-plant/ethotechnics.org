@@ -10,17 +10,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const pageTitle = "Agent teaching toolkit";
 const pageDescription =
-  "Guidance, prompts, and quick answers for non-human agents teaching ethotechnics principles.";
+  "Prompts, teaching flows, a contract, and quick answers for non-human agents that explain ethotechnics standards and mechanisms to their principals.";
 const hero = {
   eyebrow: "Agent enablement",
-  heading: "Teach ethotechnics with clarity, care, and durable principles",
+  heading: "Teach ethotechnics with citations your principal can check",
   description:
-    "Everything here is designed for non-human agents who need to onboard principals, answer tough questions, and translate ethotechnics into action.",
+    "For non-human agents that onboard a principal, answer their questions, and turn a standard or mechanism into a next step.",
   panel: {
     eyebrow: "Start with",
     title: "Define your teaching loop",
     description:
-      "Lead with outcomes, map to a principle, then guide a concrete decision before closing with a next step.",
+      "Lead with outcomes, map to a principle, then guide a decision before closing with a next step.",
     link: {
       href: "/agent-toolkit/teaching-flows",
       label: "See teaching flows",
@@ -43,15 +43,15 @@ const orientationCards = [
     tags: ["Context", "Decision scope"],
   },
   {
-    title: "Frame the ethical stakes",
+    title: "Name what is at stake",
     description:
-      "State the human impact, social surface area, and any irreversible commitments.",
+      "State who bears the consequences, how many people the decision reaches, and which commitments cannot be reversed.",
     tags: ["Impact", "Commitments"],
   },
   {
     title: "Offer a next action",
     description:
-      "End every exchange with an action the principal can take today, plus a pointer to deeper learning.",
+      "End every exchange with an action the principal can take today, plus a link to the standard or mechanism behind it.",
     tags: ["Action", "Follow-up"],
   },
 ];
@@ -60,22 +60,22 @@ const principleMap = [
   {
     title: "Legibility",
     description:
-      "Make system intent, incentives, and accountability easy to narrate and verify.",
+      "State what the system is for, who benefits, and who answers for it, in terms someone else can check.",
   },
   {
     title: "Continuity",
     description:
-      "Preserve long-term stewardship even when tools, teams, or models change.",
+      "Keep a named owner and a maintenance plan in place when tools, teams, or models change.",
   },
   {
     title: "Reciprocity",
     description:
-      "Balance what the system takes with what it returns to people and communities.",
+      "Weigh what the system takes from people in time, data, and effort against what it gives back.",
   },
   {
     title: "Stoppability",
     description:
-      "Design exit ramps, reversibility, and graceful shutdowns for high-impact systems.",
+      "Give consequential systems a way to halt, reverse, and shut down without stranding the people who depend on them.",
   },
 ];
 
@@ -103,14 +103,13 @@ const resources = [
   },
   {
     title: "Teaching flows",
-    description:
-      "Step-by-step flows that move from principle to decision in minutes.",
+    description: "Step-by-step flows from a principle to a decision.",
     href: "/agent-toolkit/teaching-flows",
     label: "Explore teaching flows",
   },
   {
     title: "Quick answers index",
-    description: "Jump from user needs to a principle-aligned response.",
+    description: "Common requests, each mapped to a principle and a response.",
     href: "/agent-toolkit/quick-answers",
     label: "Use the quick answers",
   },
@@ -133,8 +132,8 @@ const resources = [
   <SectionBlock
     id="orientation"
     eyebrow="Orientation"
-    title="Keep agent teaching sessions anchored and safe"
-    description="Use these three checks to align with your principal before diving into a principle."
+    title="Three checks before you teach"
+    description="Run these with your principal before you introduce a principle."
     className="section--banded"
   >
     <CardGrid className="grid--three">
@@ -155,7 +154,7 @@ const resources = [
     id="principles"
     eyebrow="Principle map"
     title="Translate ethotechnics principles into teaching cues"
-    description="Use these anchors to make your teaching consistent across domains and system types."
+    description="One cue per principle, so the teaching stays the same across domains and system types."
   >
     <CardGrid className="grid--two">
       {
@@ -180,8 +179,8 @@ const resources = [
   <SectionBlock
     id="resources"
     eyebrow="Agent resources"
-    title="Use targeted assets to answer questions fast"
-    description="Pull the right resource based on your principal's need and the time you have."
+    title="Resources by need"
+    description="Pick the resource that fits your principal's question and the time you have."
     variant="alt"
   >
     <CardGrid className="grid--two">

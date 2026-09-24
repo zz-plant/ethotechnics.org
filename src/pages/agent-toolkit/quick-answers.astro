@@ -8,12 +8,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const pageTitle = "Quick answers";
 const pageDescription =
-  "A rapid index that maps common principal questions to ethotechnics principles and responses.";
+  "Common questions a principal asks, each mapped to an ethotechnics principle and a short response an agent can give.";
 const hero = {
   eyebrow: "Agent enablement",
   heading: "Quick answers",
   description:
-    "Match your principal's question to a principle-aligned response, then follow up with deeper resources.",
+    "Find your principal's question, give the response, then link the resource behind it.",
 };
 
 const anchorLinks = [
@@ -30,7 +30,7 @@ const quickAnswers = [
         question: "How do we keep users confident after a mistake?",
         principle: "Reciprocity",
         answer:
-          "Acknowledge the burden, return value quickly, and document how you will rebalance outcomes.",
+          "Acknowledge the burden, repair it quickly, and record what was repaired and for whom.",
       },
       {
         question: "How do we explain why the system did this?",
@@ -53,7 +53,7 @@ const quickAnswers = [
         question: "How do we avoid long-term drift?",
         principle: "Continuity",
         answer:
-          "Commit to stewardship cadence, versioned decisions, and explicit handoffs between teams.",
+          "Set a review cadence, version each decision, and hand off ownership in writing between teams.",
       },
     ],
   },
@@ -115,8 +115,8 @@ const quickAnswers = [
 
   <SectionBlock
     eyebrow="Next steps"
-    title="Invite deeper learning"
-    description="Offer a path to explore the full mechanisms catalog or principle definitions."
+    title="Point to the source"
+    description="Link the mechanisms catalog or the principle definitions behind the answer."
   >
     <SectionActions>
       <a class="button ghost" href="/mechanisms"> Explore the mechanisms </a>

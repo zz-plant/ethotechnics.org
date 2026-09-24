@@ -10,7 +10,7 @@ import WithSidebar from "../../components/WithSidebar.astro";
 
 const pageTitle = "Governance as operational capability";
 const pageDescription =
-  "Ethotechnics defines governance as operational capability—stoppability, reversibility, recovery time, and contestability—rather than documentation and intent.";
+  "Ethotechnics measures governance as operational capability: stoppability, reversibility, recovery time, and contestability, not documents or stated intent.";
 const permalink = "/explainers/governance-capability";
 
 const heroCopy =
@@ -19,27 +19,27 @@ const heroCopy =
 const executiveSummary = [
   {
     href: "#performance-spec",
-    text: "Governance becomes a performance specification: stop, reverse, and restore must work under stress.",
+    text: "Governance becomes a performance specification. Stop, reverse, and restore must work under stress.",
   },
   {
     href: "#time",
-    text: "Time becomes an ethical resource: slow reversals and procedural limbo are governance failures.",
+    text: "Time becomes an ethical resource. Slow reversals and procedural limbo are governance failures.",
   },
   {
     href: "#recovery",
-    text: "Maturity is measured by recovery, not coverage: documentation cannot substitute for restoration.",
+    text: "Maturity is measured by recovery, not coverage. Documentation cannot substitute for restoration.",
   },
   {
     href: "#stop-rights",
-    text: "Authority shifts from consensus to stop rights: interruption is a legitimate state transition.",
+    text: "Authority shifts from consensus to stop rights. Interruption is a legitimate state transition.",
   },
   {
     href: "#standing",
-    text: "Affected parties gain standing: contestation must change system state without requiring endless follow-up.",
+    text: "Affected parties gain standing. Contestation changes system state without endless follow-up.",
   },
   {
     href: "#monitoring-liability",
-    text: "Monitoring without intervention becomes liability: visibility creates duty unless brakes exist.",
+    text: "Monitoring without intervention becomes liability. Visibility without brakes means knowing about harm and continuing.",
   },
 ];
 
@@ -262,7 +262,6 @@ const buildAnchor = (id: string) =>
       id="executive-summary"
       eyebrow="Executive summary"
       title="Six implications that change governance"
-      description="Each item links to the expanded implication below."
     >
       <ul class="summary-list">
         {
@@ -279,7 +278,7 @@ const buildAnchor = (id: string) =>
       id="core-implications"
       eyebrow="Core implications"
       title="What operational governance reveals"
-      description="All six core implications are expanded by default."
+      description="Each implication sets the common model against the Ethotechnics model and lists what it requires."
       variant="alt"
     >
       <SectionActions
@@ -381,7 +380,7 @@ const buildAnchor = (id: string) =>
       id="additional-implications"
       eyebrow="Additional implications"
       title="Secondary shifts once capability is required"
-      description="These sections are collapsed by default for quick scanning."
+      description="Five further shifts that follow once a system must be able to stop, reverse, and restore."
     >
       <div class="implications" data-implications>
         {
@@ -453,7 +452,7 @@ const buildAnchor = (id: string) =>
       id="legitimacy-standard"
       eyebrow="Legitimacy standard"
       title="The legitimacy standard"
-      description="A concise test for operational responsibility."
+      description="One test for whether a system is responsible in operation."
       variant="alt"
     >
       <div class="legitimacy-standard">
@@ -464,19 +463,13 @@ const buildAnchor = (id: string) =>
           stop and repair.
         </p>
         <p class="muted">
-          This standard would cause many currently “compliant” systems to
-          fail—not because they are malicious, but because they are
-          operationally unstoppable.
+          Many systems now called “compliant” would fail this standard. They are
+          not malicious. They cannot be stopped in operation.
         </p>
       </div>
     </SectionBlock>
 
-    <SectionBlock
-      id="related"
-      eyebrow="Related"
-      title="Related"
-      description="Additional modules that connect capability governance to delivery."
-    >
+    <SectionBlock id="related" eyebrow="Related" title="Related">
       <ul class="related-links">
         {
           relatedLinks.map((link) => (

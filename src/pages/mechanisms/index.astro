@@ -59,6 +59,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   title={pageTitle}
   description={pageDescription}
   jsonAlternates={[{ href: "/api/mechanisms.json", title: "Mechanisms JSON" }]}
+  pageSchema="route"
 >
   <PageIntro
     eyebrow="Mechanisms"
@@ -84,8 +85,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="start-here"
     eyebrow="Start here"
-    title="Move from question to mechanism in minutes."
-    description="Pick a lens, align the team, then connect specs to validators."
+    title="From question to mechanism"
+    description="Choose a theme, read the primer, then check each spec against the rights matrix and the validators."
     variant="alt"
   >
     <ol class="card__list">
@@ -94,9 +95,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <a href="#browse">browse by theme</a> to scope the catalog.
       </li>
       <li>
-        <strong>Align the team:</strong>{" "}
-        <a href="#role-pathways">role pathways</a> plus the{" "}
-        <a href="#primer">primer</a> create shared language.
+        <strong>Share the terms:</strong>{" "}
+        read the <a href="#role-pathways">role pathways</a> and the{" "}
+        <a href="#primer">primer</a>.
       </li>
       <li>
         <strong>Make it enforceable:</strong>{" "}
@@ -109,7 +110,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <CardGrid className="grid--two">
       <CardItem
         title="Quick start sequence"
-        description="Use this sequence if you need a fast on-ramp."
+        description="Four steps from first read to a cited mechanism."
       >
         <ul class="muted">
           {quickStart.map((item) => <li>{item}</li>)}
@@ -168,8 +169,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="browse"
     eyebrow="Browse by theme"
-    title="Jump directly to the work you need."
-    description="Use tags to pre-filter the mechanisms catalog."
+    title="Mechanisms by theme"
+    description="Each tag jumps to the mechanisms filed under it."
   >
     <div class="tag-rail">
       <ul class="pill-list pill-list--wrap">
@@ -196,7 +197,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="primer"
     eyebrow="Primer"
-    title="Start here before diving into mechanisms."
+    title="Read this before the mechanisms."
     description="Short overviews for onboarding and briefings."
     variant="alt"
   >
@@ -217,7 +218,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="mechanisms"
     eyebrow="Mechanisms"
     title="Governance, friction, and policy mechanisms with validator links."
-    description="Filters route work quickly and keep validators in reach."
+    description="Filter by theme. Each mechanism links to the diagnostics that check it."
     variant="alt"
   >
     {
@@ -311,7 +312,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="referenced-by"
     eyebrow="Referenced by"
     title="How mechanisms connect to the rest of the system"
-    description="Cross-links keep mechanisms, standards, and audits aligned."
+    description="The examples, bindings, and evidence packs that cite these mechanisms."
     variant="alt"
   >
     <div class="grid grid--three">

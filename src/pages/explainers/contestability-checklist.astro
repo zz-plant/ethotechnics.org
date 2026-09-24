@@ -6,7 +6,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Contestability checklist";
 const pageDescription =
-  "A printable checklist and explainer set for verifying contestability and clear appeal paths.";
+  "Six pass/fail questions that test whether a person can contest an automated decision, with three short notes on what a failing answer means.";
 
 const anchorLinks = [
   { href: "#checklist", label: "Checklist" },
@@ -24,11 +24,10 @@ const checklistItems = [
 
 const explainerItems = [
   {
-    title: "What contestability actually means",
+    title: "What contestability means",
     body: [
       "Contestability is the system property that turns “that’s wrong” into a contestable object: a decision with reasons, a clock, an accountable authority, and a pathway to reversal.",
       "If people cannot force a decision into that state, contestability doesn’t exist, even if a form or hotline is present.",
-      "See the glossary entry for the full definition and adjacent terms.",
     ],
     link: {
       href: "/glossary/contestability",
@@ -49,7 +48,7 @@ const explainerItems = [
   {
     title: "What makes an appeal real vs performative",
     body: [
-      "The Contestability Guarantee means people can challenge, change, or overturn decisions — and win. It requires wide permission surfaces, high appeal passage rates, and transparent design authority.",
+      "Under the Contestability Guarantee, a person can challenge a decision and have it changed or overturned. It requires wide permission surfaces, high appeal passage rates, and transparent design authority.",
       "A real appeal shows its success rate, names who can reverse outcomes, and exposes where evidence is evaluated. Performative appeals hide authority, suppress win rates, or end in untraceable queues.",
     ],
     link: {
@@ -76,7 +75,7 @@ const explainerItems = [
     id="checklist"
     eyebrow="Can I contest this?"
     title="Contestability checklist"
-    description="Print and use this as a quick pass/fail screen before shipping or auditing a decision flow."
+    description="Six pass/fail questions to run over a decision flow before it ships or when it is audited."
   >
     <div class="contestability-layout screen-only">
       <div class="contestability-layout__main">
@@ -107,8 +106,8 @@ const explainerItems = [
         </p>
         <p class="contestability-summary__title">Contestability checklist</p>
         <p class="muted contestability-summary__copy">
-          Keep this open while auditing decision flows for real reversals and
-          clocked reviews.
+          Each question asks for a record: a reversal that happened, a review
+          that met its clock.
         </p>
         <div class="contestability-summary__actions">
           <button class="button ghost" type="button" data-checklist-print>
@@ -145,8 +144,8 @@ const explainerItems = [
   <SectionBlock
     id="explainers"
     eyebrow="Explainers"
-    title="Three clarifiers to share with teams"
-    description="Each section expands on the checklist so teams know what to fix, not just what to flag."
+    title="Three notes on the checklist"
+    description="Each note says what a failing answer means and what to fix."
     variant="alt"
   >
     <div class="contestability-expanders">

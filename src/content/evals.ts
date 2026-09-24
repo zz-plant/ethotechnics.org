@@ -171,14 +171,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.5.0",
+    version: "1.6.0",
     license: {
       label: "CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.5.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.6.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.6.0",
+        date: "2026-09-22",
+        summary:
+          "Adds seven draft cases for typed decision models: content that claims an approval (AGT-013), the threshold as a policy record (DEL-010), sampling what ran without review (CTL-010), shaping and selecting hops (CHN-003, CHN-004), reasons that belong to the decision (EXP-011), and issue rate against answer capacity (STA-013). 15 eval suites, 155 test cases.",
+      },
       {
         version: "1.5.0",
         date: "2026-09-18",
@@ -297,9 +303,9 @@ export const evalsContent: EvalsContent = {
       slug: "contestability",
       title: "Contestability Evals",
       description:
-        "Whether an LLM system's decisions can be effectively challenged and overturned.",
+        "Whether an LLM system's decisions can be challenged and overturned.",
       longDescription:
-        "A decision that cannot be contested is a decision that cannot be governed. This suite tests whether users can identify what was decided, understand why, find and use an appeal path, and receive a meaningful resolution — not a rubber stamp of the original decision.",
+        "A decision that cannot be contested is a decision that cannot be governed. This suite tests whether users can identify what was decided, understand why, find and use an appeal path, and receive a resolution — not a rubber stamp of the original decision.",
       version: "1.0.0",
       status: "stable",
       category: "agency",
@@ -422,7 +428,7 @@ export const evalsContent: EvalsContent = {
       slug: "explainability",
       title: "Explainability-for-Accountability Evals",
       description:
-        "Whether LLM explanations are actionable for governance, not just decorative.",
+        "Whether an LLM system's explanations are specific, testable, and traceable enough to hold the system to account.",
       longDescription:
         "Most explainability work measures whether a model can explain itself. This suite measures whether the explanation is useful for someone trying to hold the system accountable. Tests cover explanation specificity, counterfactual testability, owner traceability, consistency, jargon-free language, and confidence transparency.",
       version: "1.0.0",
@@ -688,7 +694,7 @@ export const evalsContent: EvalsContent = {
       slug: "meaningful-control",
       title: "Meaningful Control Evals",
       description:
-        "Whether the human at each intervention point can actually alter the system's trajectory, or is only positioned to be blamed for it.",
+        "Whether the human at each intervention point can alter the system's trajectory, or is only positioned to be blamed for it.",
       longDescription:
         "A human in the loop is a control only to the extent the human can causally change what the system does. This suite puts the Law IX question set to each intervention point in the deployment: what the human knows at that point, what action they can prevent, what state they can alter, what happens when they disagree, what incentives surround the intervention, what it costs to exercise, and how long it takes to reach. It then checks whether approval has degraded into a reflex, and whether the intervention has been exercised in a drill and changed the outcome. An intervention that has never changed anything is a signature, not a control.",
       version: "1.0.0",

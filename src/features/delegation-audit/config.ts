@@ -16,7 +16,7 @@ export const STATE_VARIABLE_LABELS: Record<StateVariableId, string> = {
 };
 
 export const STATE_VARIABLE_QUESTIONS: Record<StateVariableId, string> = {
-  capability: "What can this system actually do in this workflow?",
+  capability: "What can this system do in this workflow?",
   authority:
     "Which of those actions is it currently permitted to take, for whom, and until when?",
   evidence:

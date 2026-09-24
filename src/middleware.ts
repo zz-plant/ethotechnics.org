@@ -1,6 +1,10 @@
 import type { MiddlewareHandler } from "astro";
 
 const COM_HOST_RE = /^(www\.)?ethotechnics\.com$/i;
+// www.ethotechnics.org is a second name for the same site. Once its DNS record
+// points at this Worker, it answers with a permanent redirect to the apex
+// rather than serving a duplicate copy.
+const WWW_ORG_HOST_RE = /^www\.ethotechnics\.org$/i;
 
 const REDIRECT_MAP: Record<string, string> = {
   "/start-here": "/start",
@@ -198,7 +202,7 @@ const applySecurityHeaders = (response: Response): Response => {
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const host = context.request.headers.get("host") ?? "";
 
-  if (host && COM_HOST_RE.test(host)) {
+  if (host && (COM_HOST_RE.test(host) || WWW_ORG_HOST_RE.test(host))) {
     const url = new URL(context.request.url);
     url.hostname = "ethotechnics.org";
     url.host = "ethotechnics.org";

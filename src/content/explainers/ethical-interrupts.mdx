@@ -6,7 +6,7 @@ eyebrow: "Explainer"
 glossaryRef: "ethical-interrupts"
 definition:
   - "Ethical interrupts are explicit checkpoints that pause automation when ethical risk thresholds are crossed. They require a human review or deliberate confirmation before the system proceeds."
-  - "Well-designed interrupts are visible, logged, and tied to a reversible path so the pause itself becomes accountable."
+  - "Well-designed interrupts are visible, logged, and tied to a reversible path so the pause itself has an owner and a record."
 example: "A content moderation pipeline triggers an ethical interrupt when model confidence drops below a threshold and harm severity is high, routing the case to a human reviewer."
 distinctSignals:
   - title: "Interrupt taxonomy"
@@ -35,7 +35,7 @@ faqs:
   - question: "When should an ethical interrupt trigger?"
     answer: "Trigger interrupts when automated confidence is low, potential harm is high, or outcomes are irreversible without human review."
   - question: "Do ethical interrupts slow systems too much?"
-    answer: "They add deliberate friction only at risk thresholds, preserving speed for low-risk cases while protecting people in high-stakes flows."
+    answer: "They add friction only at risk thresholds. Low-risk cases keep their speed, and high-harm cases get a human review."
 published: "2025-06-01"
 updated: "2025-06-01"
 publication:

@@ -12,7 +12,7 @@ export const governanceCrosswalks: GovernanceCrosswalk[] = [
   {
     controlId: "CTRL-01",
     obligation:
-      "Maintain human oversight with real stop authority for high-risk decisions.",
+      "Maintain human oversight with exercisable stop authority for high-risk decisions.",
     euAiAct: "Article 14 (Human oversight)",
     nistAiRmf: "GOV 3.2, MAP 4.1",
     iso42001: "Clause 8.2 (Operational planning and control)",

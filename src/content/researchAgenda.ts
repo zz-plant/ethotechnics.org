@@ -33,7 +33,7 @@ export type ResearchAgendaContent = PageWithPermalink & {
 export const researchAgendaContent: ResearchAgendaContent = {
   pageTitle: "Research agenda — Ethotechnics",
   pageDescription:
-    "How Ethotechnics traces accountability, refusal, and maintenance in care-centered systems.",
+    "The questions Ethotechnics research pursues next: where accountability, refusal, and maintenance hold or fail in systems that decide about people.",
   permalink: "/research/agenda",
   hero: {
     eyebrow: "Research",
@@ -45,34 +45,34 @@ export const researchAgendaContent: ResearchAgendaContent = {
     ],
   },
   orientation: {
-    title: "Care-centered accountability",
+    title: "Accountability where decisions land",
     description:
-      "We study how care-centered systems stay accountable. Ethotechnics traces where maintenance, refusal, and accountability succeed—and where they collapse—inside sociotechnical systems that serve vulnerable people.",
+      "We study where maintenance, refusal, and accountability hold, and where they fail, in sociotechnical systems that make consequential decisions about vulnerable people.",
     linesOfInquiry: [
       "Staff holding the pager and the people absorbing late-night calls.",
-      "Legal and policy scaffolding that shapes accountable action.",
-      "Rituals that let teams pause or reverse harm before it compounds.",
+      "The legal and policy terms that say who must act, and by when.",
+      "Routines that let teams pause or reverse a decision before harm compounds.",
     ],
     closing:
-      "Each line of inquiry keeps refusal and maintenance visible so teams can intervene early rather than rely on heroics.",
+      "Each line asks where refusal and maintenance are recorded, so a team can intervene early without relying on heroics.",
   },
   overview: {
     title: "How we work and share",
     paragraphs: [
-      "The research agenda keeps Ethotechnics honest about the problems we study and the partners we serve. We focus on accountability, refusability, and maintenance because care-critical systems fail when those elements are missing or left implicit.",
-      "Each study pairs qualitative interviews with operational diagnostics so we can see how policy, tooling, and human judgment reinforce—or undermine—one another. Use this agenda to understand what questions we are pursuing next, how findings turn into drills and diagnostics, and where partners can bring their own cases for joint investigation. When a line of inquiry lands, we publish checklists, facilitation prompts, and implementation notes so teams can adapt the work without waiting for a formal engagement.",
+      "The agenda names the problems Ethotechnics studies. It focuses on accountability, refusability, and maintenance, because consequential systems fail when any of them is missing or left implicit.",
+      "Each study pairs qualitative interviews with operational diagnostics, to show where policy, tooling, and human judgment support or undermine one another. Findings become drills and diagnostics. Partners can bring their own cases for joint investigation. When a line of inquiry concludes, we publish checklists, facilitation prompts, and implementation notes that teams can adapt without a formal engagement.",
     ],
   },
   pillars: {
     title: "What we are investigating next",
     description:
-      "Four thematic pillars steer the next wave of studies. Each highlights where refusal, maintenance, and accountability need stronger scaffolding.",
+      "Four pillars set the next studies. Each names a place where refusal, maintenance, or accountability lacks a working mechanism.",
     items: [
       {
         id: "accountability-and-refusal",
         title: "Mapping accountability and refusal paths",
         summary:
-          "We track where responsibility concentrates, how refusal is exercised, and which governance structures protect pauses or reversals. The goal is to make refusal and accountability actionable rather than dependent on heroics.",
+          "We track where responsibility concentrates, how refusal is exercised, and which governance structures protect pauses or reversals. The aim is refusal and accountability that work without heroics.",
         signals: [
           "Refusal paths that stay open",
           "Governance that protects reversals",
@@ -83,7 +83,7 @@ export const researchAgendaContent: ResearchAgendaContent = {
         id: "maintenance-visibility",
         title: "Maintenance visibility and protected pauses",
         summary:
-          "Care systems accumulate maintenance debt quickly. We study how teams surface gaps early, negotiate resourcing, and protect the pauses required to stabilize services without punishing the people who call for them.",
+          "Services people depend on accumulate maintenance debt quickly. We study how teams surface gaps early, negotiate resourcing, and protect the pauses needed to stabilize a service without punishing the people who call for them.",
         signals: [
           "Maintenance debt surfaced early",
           "Protected stewardship windows",
@@ -94,7 +94,7 @@ export const researchAgendaContent: ResearchAgendaContent = {
         id: "safeguards-after-launch",
         title: "Sociotechnical safeguards after launch",
         summary:
-          "Safeguards only matter if they endure. We examine how documentation, observability, rollbacks, and training interact so that safeguards survive handoffs, leadership changes, and scale.",
+          "We examine how documentation, observability, rollbacks, and training interact, and whether a safeguard survives handoffs, leadership changes, and growth in volume.",
         signals: [
           "Rollbacks that work under pressure",
           "Documentation that survives handoffs",
@@ -103,9 +103,9 @@ export const researchAgendaContent: ResearchAgendaContent = {
       },
       {
         id: "llm-guidance-and-drills",
-        title: "Guidance and drills powered by language models",
+        title: "Language-model guidance and drills",
         summary:
-          "Large language models can lower barriers to practice when used thoughtfully. We prototype guided Q&A, scenario drills, and facilitation prompts that keep accountable behavior within reach for new staff while honoring interpretive sovereignty.",
+          "We prototype guided Q&A, scenario drills, and facilitation prompts built on large language models, so new staff can practice accountable behavior. Each prototype must respect interpretive sovereignty.",
         signals: [
           "Guided prompts for new staff",
           "Scenario drills that respect refusal",

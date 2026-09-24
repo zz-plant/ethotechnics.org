@@ -17,7 +17,7 @@ const burdenLevelCopy = {
   Healthy: {
     label: "Healthy",
     description:
-      "Burden is manageable. Keep guardrails and playbooks fresh to avoid drift.",
+      "Burden is manageable. Review runbooks and guardrails on a schedule so it stays that way.",
   },
   Watch: {
     label: "Watch",
@@ -27,7 +27,7 @@ const burdenLevelCopy = {
   Overloaded: {
     label: "Overloaded",
     description:
-      "Burden is compounding. Redirect work, add buffers, and pair with operations partners.",
+      "Burden is compounding. Move work off the top hotspots, add buffer capacity, and bring in operations staff.",
   },
 } as const;
 
@@ -124,10 +124,9 @@ export function BurdenModeler() {
         <p className="eyebrow">Burden Modeler</p>
         <h2>Quantify where toil piles up and how to offload it.</h2>
         <p className="muted">
-          Rate how much operational and cognitive load each factor adds to your
-          scenario. The model computes a burden index, highlights hotspots, and
-          suggests mitigations with expected relief. Use it to make the hidden
-          load legible before it burns people out.
+          Rate from 0 to 10 how much operational and cognitive load each factor
+          adds to your scenario. The model returns a burden index, ranks the
+          hotspots, and lists mitigations with the expected relief for each.
         </p>
       </div>
 
@@ -435,10 +434,9 @@ export function BurdenModeler() {
               <p className="eyebrow">Off-ramp</p>
               <h3>Need facilitation?</h3>
               <p className="muted">
-                If the burden index is trending overloaded, route to the Studio
-                for a facilitated session. We help weight inputs with your
-                support partners, validate relief estimates, and shape an
-                escalation-ready plan.
+                If the index reads Overloaded, the Studio can run a facilitated
+                session: weighting inputs with your support staff, checking the
+                relief estimates, and drafting an escalation plan.
               </p>
             </div>
             <a

@@ -1,0 +1,329 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import CardItem from "../../components/CardItem.astro";
+import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
+import questionSchema from "../../../public/standards/worked-examples/decision-model-gate/question-schema.json";
+import policyRecord from "../../../public/standards/worked-examples/decision-model-gate/policy-record.json";
+import authorityGrant from "../../../public/standards/worked-examples/decision-model-gate/authority-grant.json";
+import interventionSpec from "../../../public/standards/worked-examples/decision-model-gate/intervention-spec.json";
+import decisionRecord from "../../../public/standards/worked-examples/decision-model-gate/decision-record.json";
+
+const pageTitle = "Decision-model gate on refunds — Worked example";
+const pageDescription =
+  "A refund agent gated by a typed decision model, recorded so the threshold, the reviewer's queue, the router, and the missing reasons are all governable.";
+
+const recordsBase = "/standards/worked-examples/decision-model-gate";
+const pretty = (value: unknown) => JSON.stringify(value, null, 2);
+
+const grantExcerpt = {
+  grant_id: authorityGrant.grant_id,
+  mode: authorityGrant.mode,
+  policy_refs: authorityGrant.policy_refs,
+  intervention_ref: authorityGrant.intervention_ref,
+  chain: authorityGrant.chain,
+  revocation_conditions: authorityGrant.revocation_conditions,
+  correction_capacity: {
+    detection: authorityGrant.correction_capacity.detection,
+  },
+};
+
+const records = [
+  { file: "question-schema.json", label: "Question schema" },
+  { file: "policy-record.json", label: "Threshold policy record" },
+  { file: "authority-grant.json", label: "Authority grant" },
+  { file: "intervention-spec.json", label: "Intervention specification" },
+  { file: "decision-record.json", label: "Decision record" },
+];
+
+const fieldMapping = [
+  {
+    field: "typed_judgment.answer",
+    source: "The value of the typed output field the model filled.",
+  },
+  {
+    field: "typed_judgment.distribution",
+    source:
+      "provider_details['probabilities'] for that field, present for pick-one and rubric fields.",
+  },
+  {
+    field: "typed_judgment.confidence",
+    source:
+      "provider_details['confidence'] for that field: 0 to 1, one number per field.",
+  },
+  {
+    field: "typed_judgment.confidence_semantics",
+    source:
+      "margin. The provider documents the number as a margin, not a probability that the answer is right.",
+  },
+  {
+    field: "typed_judgment.decider",
+    source:
+      "The model name and pinned version in the client configuration. Never latest.",
+  },
+  {
+    field: "typed_judgment.question_schema_hash",
+    source:
+      "A SHA-256 over the output type definition, with Literal options and Enum members in their declared order.",
+  },
+  {
+    field: "typed_judgment.selected_by",
+    source:
+      "The grant of the router hop, when provider_details['tool'] shows the model chose a route.",
+  },
+  {
+    field: "typed_judgment.threshold_policy_ref",
+    source:
+      "Your policy record for the threshold, including any typesafe_boolean_threshold setting, pinned by version.",
+  },
+  {
+    field: "typed_judgment.reason_provenance",
+    source:
+      "none, because the model writes no text. account, if another model wrote an explanation afterwards.",
+  },
+  {
+    field: "typed_judgment.content_inputs_marked",
+    source:
+      "true only if messages, documents, and tool outputs were passed as marked content, apart from the authorization record.",
+  },
+];
+
+const bindings = [
+  {
+    clause: "STD-08 §1.5",
+    href: "/standards/std-08-delegation#part-a",
+    record:
+      "Grant assumptions and revocation conditions, and content_inputs_marked",
+    text: "The customer's message is content. A note in it claiming a manager already approved the refund cannot authorize anything.",
+  },
+  {
+    clause: "STD-08 §2.6",
+    href: "/standards/std-08-delegation#part-b",
+    record: "Threshold policy record with a model_change trigger",
+    text: "The 0.80 is a policy record naming its labelled set, pinned model version, question schema hash, and option order.",
+  },
+  {
+    clause: "STD-08 §3.6",
+    href: "/standards/std-08-delegation#part-c",
+    record: "routing block on the intervention specification",
+    text: "Two percent of unattended refunds go to review daily, and their reversal rate is reported apart from the routed queue.",
+  },
+  {
+    clause: "STD-09 §1.5 and §1.6",
+    href: "/standards/std-09-agent-chains#part-a",
+    record: "chain on the head grant, selected_by on the decision",
+    text: "The router and the retrieval filter are hops with their own grants, and the decision names the router that chose the model.",
+  },
+  {
+    clause: "STD-02 §1.4",
+    href: "/standards/std-02-contestability-recourse#articles",
+    record: "reason_provenance and the no_reasons_from_decider reason code",
+    text: "The decision says it has no reasons and names the policy, threshold, and inputs, instead of showing the customer a rationale nobody derived.",
+  },
+  {
+    clause: "STD-02 §8.6",
+    href: "/standards/std-02-contestability-recourse#standing-mechanism",
+    record:
+      "Grant revocation condition on expected errors against answer capacity",
+    text: "At 400 refunds an hour, expected errors are checked weekly against the review team's stated capacity of 150 answers.",
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  publishedTime="2026-09-22T00:00:00.000Z"
+>
+  <PageIntro
+    eyebrow="Worked example"
+    title="Decision-model gate on refunds"
+    description={pageDescription}
+    anchorLinks={[
+      { href: "#scenario", label: "Scenario" },
+      { href: "#threshold", label: "Threshold" },
+      { href: "#grant", label: "Grant" },
+      { href: "#review", label: "Review" },
+      { href: "#decision", label: "Decision" },
+      { href: "#mapping", label: "Field mapping" },
+      { href: "#bindings", label: "Bindings" },
+      { href: "#records", label: "Records" },
+    ]}
+  />
+
+  <SectionBlock
+    id="scenario"
+    eyebrow="Scenario"
+    title="A refund agent with a typed decision model in front of it"
+    description="The agent proposes refunds. A decision model answers two typed questions about each one, and a threshold decides what happens next."
+  >
+    <CardGrid className="grid--three">
+      <CardItem title="Unattended" description="approve at 0.80 or above">
+        <p class="muted">
+          Refunds up to 200 USD that fit policy run without a person. Two
+          percent of them are still sampled into review.
+        </p>
+      </CardItem>
+      <CardItem title="Reviewed" description="everything in between">
+        <p class="muted">
+          A refund reviewer sees the proposal, the model's answer and
+          confidence, and whether the case was routed or sampled.
+        </p>
+      </CardItem>
+      <CardItem title="Refused" description="refuse at 0.90 or above">
+        <p class="muted">
+          The refund is refused with an appeal route, and the decision says that
+          no reasons were produced.
+        </p>
+      </CardItem>
+    </CardGrid>
+    <p class="muted">
+      The records use a fictional provider and model. The field mapping below
+      shows how a real integration fills them. The explainer on <a
+        href="/explainers/typed-decision-models">typed decision models</a
+      > covers why each record is needed.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="threshold"
+    eyebrow="Threshold"
+    title="The threshold is a policy record"
+    description="Under STD-08 §2.6 the number that decides between acting and asking is held as policy, pinned to what it was tuned against, with a trigger that fires when that changes."
+    variant="alt"
+  >
+    <p class="muted">
+      The questions are published, and their hash is recorded on every decision.
+      Reordering the options changes the hash, which fires the model_change
+      trigger.
+    </p>
+    <pre class="code-block">{pretty(questionSchema)}</pre>
+    <pre class="code-block">{pretty(policyRecord)}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="grant"
+    eyebrow="Grant"
+    title="The grant enumerates the chain and names its evaluator"
+    description="The router that picks the model and the retrieval filter that decides what the model sees are hops with their own grants. Detection comes from a team that does not run the agent."
+  >
+    <pre class="code-block">{pretty(grantExcerpt)}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="review"
+    eyebrow="Review"
+    title="The reviewer's queue is part of the specification"
+    description="Under STD-08 §3.6 the routing threshold is named on the intervention specification, the record says the reviewer sees the score, and a sample of what ran unattended reaches review."
+    variant="alt"
+  >
+    <pre class="code-block">{pretty(interventionSpec.routing)}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="decision"
+    eyebrow="Decision"
+    title="The decision records what decided it"
+    description="The typed_judgment block holds what a challenge needs without the vendor: the pinned model, the questions it answered, what it returned, the threshold that acted on it, and where the reasons came from."
+  >
+    <p class="muted">
+      decision.confidence holds the probability of the chosen option.
+      typed_judgment.confidence holds the provider's margin, which is a
+      different number, and the record says so.
+    </p>
+    <pre class="code-block">{pretty(decisionRecord.typed_judgment)}</pre>
+  </SectionBlock>
+
+  <SectionBlock
+    id="mapping"
+    eyebrow="Field mapping"
+    title="Filling the record from a typed decision model's response"
+    description="How the typed_judgment fields map to the response of Jev as exposed by the Pydantic AI integration. The same mapping applies to any model that returns typed answers with probabilities."
+    variant="alt"
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Record field</th>
+            <th scope="col">Where it comes from</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            fieldMapping.map((row) => (
+              <tr>
+                <td>
+                  <code>{row.field}</code>
+                </td>
+                <td>{row.source}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">
+      Source: <a
+        href="https://pydantic.dev/docs/ai/models/typesafe/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Pydantic AI documentation for TypeSafe (Jev)</a
+      >.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="bindings"
+    eyebrow="Bindings"
+    title="Each record answers a clause"
+    description="Where each clause added for typed decision models lands in this deployment."
+  >
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th scope="col">Clause</th>
+            <th scope="col">Record</th>
+            <th scope="col">In this deployment</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            bindings.map((row) => (
+              <tr>
+                <td>
+                  <a href={row.href}>{row.clause}</a>
+                </td>
+                <td>{row.record}</td>
+                <td>{row.text}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="records"
+    eyebrow="Records"
+    title="Download the records"
+    description="Each record validates against its published schema, and the test suite checks that they agree with each other."
+    variant="alt"
+  >
+    <ul class="muted">
+      {
+        records.map((record) => (
+          <li>
+            <a href={`${recordsBase}/${record.file}`}>{record.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </SectionBlock>
+
+  <GlossaryAnchorsBlock />
+</BaseLayout>

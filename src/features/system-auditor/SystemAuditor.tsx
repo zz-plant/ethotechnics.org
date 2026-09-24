@@ -88,7 +88,7 @@ const INTERVENTION_QUESTIONS: GovernanceQuestion[] = [
   {
     key: "actionsPreventable",
     label: "What can they prevent?",
-    hint: "Compare it against what the system actually does.",
+    hint: "Compare it against what the system does.",
     options: [
       { value: "all", label: "Every action the system takes here" },
       { value: "some", label: "Some of them" },
@@ -471,11 +471,11 @@ export default function SystemAuditor() {
               {report.risksDetected.length === 0 ? (
                 <div className="system-auditor__risk-card">
                   <div className="system-auditor__risk-title">
-                    No critical pattern violations detected
+                    No failure patterns detected
                   </div>
                   <p className="system-auditor__risk-body">
-                    System specification incorporates contestability boundaries
-                    and fallback paths.
+                    None of the seven text rules matched. That does not show the
+                    system is contestable; read the delegation findings below.
                   </p>
                 </div>
               ) : (

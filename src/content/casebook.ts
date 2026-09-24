@@ -52,7 +52,7 @@ export const stateVariables: StateVariable[] = [
   {
     id: "capability",
     label: "Capability",
-    question: "What could the assembled system actually do?",
+    question: "What could the assembled system do?",
   },
   {
     id: "authority",

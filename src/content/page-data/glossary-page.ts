@@ -1,7 +1,8 @@
 export const explainerLinks = [
   {
     title: "Stoppability",
-    description: "Learn how halt controls protect people from forced tunnels.",
+    description:
+      "How halt controls let an operator or a person stop an automated process.",
     href: "/explainers/stoppability",
     glossarySlug: "stoppability",
   },
@@ -26,7 +27,8 @@ export const explainerLinks = [
   },
   {
     title: "Safety Valve",
-    description: "Build fallbacks that release pressure without harm.",
+    description:
+      "Release points that let people slow, pause, or reroute automation.",
     href: "/explainers/safety-valve",
     glossarySlug: "safety-valve",
   },
@@ -38,13 +40,15 @@ export const explainerLinks = [
   },
   {
     title: "Contestability",
-    description: "Ensure people can challenge and reverse automated decisions.",
+    description:
+      "How people challenge an automated decision and get it reversed.",
     href: "/explainers/contestability",
     glossarySlug: "contestability",
   },
   {
     title: "Design Authority",
-    description: "Assign accountable owners with governance power.",
+    description:
+      "The owner who sets a system's constraints and funds their enforcement.",
     href: "/explainers/design-authority",
     glossarySlug: "design-authority",
   },

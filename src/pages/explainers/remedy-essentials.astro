@@ -9,7 +9,7 @@ import SummaryCallout from "../../components/SummaryCallout.astro";
 
 const pageTitle = "Remedy essentials for accountable systems";
 const pageDescription =
-  "A visual guide to the eight mechanisms that keep contestability real: bounded queues, clear escalation, enforceable clocks, and proof that remedy is delivered.";
+  "The eight mechanisms a remedy process needs, from bounded pending states and published clocks to named escalation owners and a record that remedy was delivered.";
 
 const anchorLinks = [
   { href: "#map", label: "Remedy backbone map" },
@@ -30,7 +30,7 @@ const essentials = [
     title: "Remedy SLAs",
     description:
       "Publish acknowledgment, review, and remedy clocks so affected people know when action will land.",
-    why: "Explicit SLAs turn promises into enforceable commitments, making delays measurable and fixable.",
+    why: "A published SLA makes each delay measurable, so an owner can be held to fixing it.",
     signals:
       "Receipts include timestamps, owners, and SLA targets for every stage.",
   },
@@ -132,7 +132,7 @@ const checklist = [
     id="map"
     eyebrow="Visualization"
     title="The remedy backbone"
-    description="Each mechanism anchors a specific phase of the remedy lifecycle. Together they keep review bounded, equitable, and enforceable."
+    description="Each mechanism belongs to one phase of the remedy lifecycle, from guardrails before harm to reversal drills."
   >
     <div class="remedy-map" role="list">
       {
@@ -153,8 +153,8 @@ const checklist = [
   <SectionBlock
     id="essentials"
     eyebrow="Essentials"
-    title="Why every mechanism is non-negotiable"
-    description="Each piece reinforces the others: clocks without escalation stall, and escalation without compensation leaves harm unresolved."
+    title="Why each mechanism is required"
+    description="The mechanisms depend on each other. Clocks without escalation stall. Escalation without compensation leaves the harm in place."
     variant="alt"
   >
     <CardGrid>
@@ -208,11 +208,11 @@ const checklist = [
     id="deployment"
     eyebrow="Implementation"
     title="Deployment checklist"
-    description="Use this quick list to wire the essentials into policy, UI, and operations."
+    description="Eight steps that put the mechanisms into policy, the UI, and operations."
   >
     <SummaryCallout
-      title="Operationalize the essentials"
-      description="Start with visible clocks and escalation ownership, then layer in restitution and distribution tracking."
+      title="Order of work"
+      description="Start with visible clocks and escalation owners. Add restitution and distribution tracking after."
       takeaways={checklist}
       relatedLinks={[
         {

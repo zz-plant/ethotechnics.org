@@ -26,6 +26,8 @@ export type Publication = GlossaryLinked & {
   tags: string[];
   href: string;
   ctaLabel: string;
+  // "planned" means no study has been run and nothing below is a result.
+  status: "planned" | "published";
   structuredAbstract: {
     question: string;
     method: string;
@@ -71,10 +73,10 @@ export type ResearchContent = PageWithPermalink &
 export const researchContent: ResearchContent = {
   pageTitle: "Research — Ethotechnics",
   pageDescription:
-    "Inquiries, methods, and study findings that surface the human impacts of technology.",
+    "The research behind the standards: open questions, planned studies, theory essays, and dated research notes.",
   permalink: "/research",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-01-09T00:00:00Z",
+  updated: "2026-09-22T00:00:00Z",
   publication: {
     authors: [
       {
@@ -85,12 +87,18 @@ export const researchContent: ResearchContent = {
     ],
     contact: "research@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-01-09T00:00:00Z",
-    version: "v1.1.0",
+    updated: "2026-09-22T00:00:00Z",
+    version: "v1.2.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.2.0",
+        date: "2026-09-22",
+        summary:
+          "Marked the three publications as planned studies. Removed sample sizes, findings, and timeline entries that no published data supported, and four bridge artifacts that were never published.",
+      },
       {
         version: "v1.1.0",
         date: "2026-01-09",
@@ -110,7 +118,7 @@ export const researchContent: ResearchContent = {
     attribution:
       "Credit Ethotechnics Institute Research Team, include the page title + version, and link to the canonical permalink.",
   },
-  lastUpdated: "2026-01-09T00:00:00Z",
+  lastUpdated: "2026-09-22T00:00:00Z",
   updateCadence:
     "Updates publish on a quarterly cadence with interim Field Notes.",
   anchorLinks: [
@@ -123,99 +131,43 @@ export const researchContent: ResearchContent = {
   ],
   standardsTimeline: [
     {
-      period: "2024 Q4",
-      title: "Temporal rights field synthesis",
-      summary:
-        "Collected stoppability and resignation signals from high-friction service flows to draft STD-01 clauses.",
-      standardRef: "STD-01",
-      href: "/standards/std-01-temporal-rights",
-    },
-    {
-      period: "2025 Q1",
-      title: "Consent journey instrumentation",
-      summary:
-        "Measured time-to-exit and burden indicators to validate bounded duration and reversibility requirements.",
-      standardRef: "STD-01",
-      href: "/standards/std-01-temporal-rights",
-    },
-    {
-      period: "2025 Q3",
-      title: "Bridge artifact publication",
-      summary:
-        "Published instrument packs and governance notes that map temporal rights to implementation playbooks.",
-      standardRef: "STD-01",
-      href: "/standards/std-01-temporal-rights",
-    },
-    {
       period: "2026 Q1",
-      title: "Ratification readiness review",
+      title: "STD-01 ratification draft",
       summary:
-        "Compiled validator outputs and research memos to finalize STD-01 for ratification.",
+        "Version 1.0 was released for public review. It stays a draft until two independent implementation reports and a standards council ratification.",
       standardRef: "STD-01",
       href: "/standards/std-01-temporal-rights",
+    },
+    {
+      period: "2026 Q3",
+      title: "Typed decision model clauses",
+      summary:
+        "A review of typed decision models, which return a fixed answer type with a probability per option, led to three STD-08 clauses: content carries no authority, a decision threshold is a policy, and a routing threshold is part of the intervention specification.",
+      standardRef: "STD-08",
+      href: "/standards/std-08-delegation",
     },
   ],
   orientationCards: [
     {
-      title: "Protocols with receipts",
+      title: "Questions before findings",
       description:
-        "Shared prompt packs and facilitation notes keep teams aligned when fielding interviews or co-design sessions.",
-      tags: [
-        "Participatory methods",
-        "Plain-language scripts",
-        "Reusable consent",
-      ],
+        "Each focus area states the questions it is trying to answer. A finding is published only with the method and data behind it.",
+      tags: ["Open questions", "Stated methods", "Data with findings"],
     },
     {
-      title: "Decisions we can cite",
+      title: "Glossary-linked",
       description:
-        "Every study ties to glossary anchors and decision logs, making it easy to reference the why behind research calls.",
-      tags: ["Glossary-linked", "Decision hygiene", "Traceable handoffs"],
+        "Agenda items, focus areas, and publications link to the glossary terms they use, so a reader can check each definition.",
+      tags: ["Glossary-linked", "Shared vocabulary"],
     },
     {
-      title: "Signals into diagnostics",
+      title: "Research into standards",
       description:
-        "Focus areas flow into readiness labs so partners see risk levels, escalation paths, and facilitation options in one place.",
-      tags: ["Readiness labs", "Risk surfaced early", "Studio handoffs"],
+        "Research that changes a requirement lands as a dated clause in a standard, recorded in that standard's publication history.",
+      tags: ["Standards", "Dated clauses", "Publication history"],
     },
   ],
   bridgeArtifacts: [
-    {
-      slug: "burden-taxonomy",
-      title: "Burden as a measurable governance risk",
-      type: "Framework paper + taxonomy",
-      summary:
-        "Synthesis of burden signals, governance risk tiers, and linked instrument outputs for peer citation.",
-      tags: ["taxonomy", "instrument", "governance"],
-      href: "/research/bridge-artifacts#burden-taxonomy",
-    },
-    {
-      slug: "consent-instrument",
-      title: "Consent integrity instrument pack",
-      type: "Validated instrument",
-      summary:
-        "Prompt pack and scoring rubric for evaluating consent journeys and disclosure compliance.",
-      tags: ["instrument", "consent", "methods"],
-      href: "/research/bridge-artifacts#consent-instrument",
-    },
-    {
-      slug: "maintenance-case-series",
-      title: "Maintenance stewardship case series",
-      type: "Case study series",
-      summary:
-        "Comparable case studies capturing escalation ownership, comms cadence, and mitigation outcomes.",
-      tags: ["case study", "operations", "stewardship"],
-      href: "/research/bridge-artifacts#maintenance-case-series",
-    },
-    {
-      slug: "pattern-language-review",
-      title: "Ethotechnics mechanism language review",
-      type: "Systematic review",
-      summary:
-        "Structured review mapping mechanism adoption across policy, design, and governance programs.",
-      tags: ["systematic review", "mechanisms", "policy"],
-      href: "/research/bridge-artifacts#pattern-language-review",
-    },
     {
       slug: "frontier-doctrine-scan",
       title: "Frontier doctrine scan (2026-09)",
@@ -237,10 +189,10 @@ export const researchContent: ResearchContent = {
   ],
   agenda: [
     {
-      title: "Participation and consent at scale",
+      title: "Participation and consent in high-volume services",
       timeframe: "Q3–Q4",
       goals: [
-        "Map consent journeys for high-stakes services and identify where fatigue or confusion spikes.",
+        "Map consent journeys for consequential services and find where fatigue or confusion spikes.",
         "Prototype safeguards that let people pause automation without losing access.",
         "Ship plain-language participation guides teams can adapt to new launches.",
       ],
@@ -268,7 +220,7 @@ export const researchContent: ResearchContent = {
       description:
         "Decision accountability, data handling, and escalation paths people can understand.",
       questions: [
-        "What documentation helps non-technical partners see how choices were made?",
+        "What documentation shows non-technical partners how choices were made?",
         "How can we expose decision logs without creating new harms?",
       ],
       glossaryRefs: ["stewardship-window", "signal-credibility"],
@@ -288,7 +240,7 @@ export const researchContent: ResearchContent = {
       slug: "ui-patterns",
       title: "UI patterns",
       description:
-        "Interface practices that foreground agency, clarity, and inclusive framing.",
+        "Interface practices that show people their options, in plain language, without excluding anyone.",
       questions: [
         "How do we explain model limitations without blame-shifting?",
         "Which interaction patterns keep people oriented in complex flows?",
@@ -300,66 +252,63 @@ export const researchContent: ResearchContent = {
     {
       title: "Participatory consent prompts",
       type: "protocol",
+      status: "planned",
       summary:
-        "Field protocol and templates for testing progressive consent experiences with communities.",
+        "Planned field protocol for testing progressive consent prompts with the people who use a service.",
       tags: ["consent", "facilitation", "safeguards"],
       glossaryRefs: ["consent-journey"],
-      href: "/assets/start-here/playbook-excerpt.pdf",
-      ctaLabel: "Download protocol",
+      href: "/explainers/consent-journey",
+      ctaLabel: "Read the consent journey explainer",
       structuredAbstract: {
         question:
-          "How do progressive consent prompts reduce fatigue and improve understanding?",
+          "Do progressive consent prompts reduce fatigue and improve understanding?",
         method:
-          "Structured interviews plus co-design workshops using scripted prompts and consent checkpoints.",
-        sample:
-          "8–12 participant sessions per pilot, spanning public service and healthcare contexts.",
-        findings:
-          "Layered prompts increase recall and reduce drop-off when paired with reversible exits.",
+          "Planned: structured interviews and co-design workshops using scripted prompts and consent checkpoints.",
+        sample: "No sessions have been run.",
+        findings: "None yet.",
         limitations:
-          "Small sample sizes and qualitative framing limit statistical generalization.",
+          "A small, qualitative study would not support statistical generalization.",
       },
       datasets: [
-        "Anonymized consent checkpoint transcripts (summary excerpts).",
-        "Prompt pack template with scoring rubric.",
+        "To be published with the results: anonymized checkpoint excerpts and the prompt pack.",
       ],
       ethicsNotes: [
-        "Verbal consent recorded for each session.",
-        "Participant identities anonymized in shared artifacts.",
+        "Each session will record verbal consent.",
+        "Participant identities will be removed from anything shared.",
       ],
     },
     {
-      title: "Burden index calculator notes",
+      title: "Burden index signals",
       type: "report",
+      status: "planned",
       summary:
-        "Applied findings from piloting the burden modeler across support and research teams.",
+        "Planned pilot to test which operational signals the burden modeler should weight most.",
       tags: ["diagnostics", "measurement", "governance"],
       glossaryRefs: ["burden-index", "signal-credibility"],
-      href: "/assets/start-here/diagnostic-readout.pdf",
-      ctaLabel: "View report sample",
+      href: "/diagnostics/burden-modeler",
+      ctaLabel: "Open the burden modeler",
       structuredAbstract: {
         question:
           "Which operational signals most reliably predict sustained burden?",
         method:
-          "Mixed-methods pilot using burden modeler outputs plus qualitative debriefs.",
-        sample:
-          "12 scenarios across support, operations, and research groups over two quarters.",
-        findings:
-          "Handoff volume and escalation ambiguity correlate with the highest burden index spikes.",
+          "Planned: burden modeler outputs compared with debriefs from the teams involved.",
+        sample: "No scenarios have been collected.",
+        findings: "None yet.",
         limitations:
-          "Internal-only pilots; broader validation needed across external partners.",
+          "A first pilot with a few teams would need validation with outside partners.",
       },
       datasets: [
-        "Anonymized burden index summary table (scenario-level).",
-        "Mitigation playbook excerpts tied to hotspot categories.",
+        "To be published with the results: an anonymized scenario-level summary table.",
       ],
       ethicsNotes: [
-        "Scenario names anonymized before external sharing.",
-        "Consent gathered from participating teams for aggregate reporting.",
+        "Scenario names will be anonymized before anything is shared.",
+        "Participating teams will consent to aggregate reporting.",
       ],
     },
     {
-      title: "Maintenance readiness deck",
+      title: "Maintenance readiness workshop",
       type: "deck",
+      status: "planned",
       summary:
         "Workshop slides for negotiating stewardship windows with cross-functional leads.",
       tags: ["maintenance", "governance", "operations"],
@@ -367,23 +316,20 @@ export const researchContent: ResearchContent = {
       href: "mailto:studio@ethotechnics.org?subject=Maintenance%20readiness%20deck",
       ctaLabel: "Request the deck",
       structuredAbstract: {
-        question: "How do stewardship windows improve maintenance readiness?",
+        question: "Do stewardship windows improve maintenance readiness?",
         method:
-          "Workshop facilitation with tabletop exercises and decision log reviews.",
-        sample:
-          "6 maintenance planning cohorts across public and private sector teams.",
-        findings:
-          "Shared stewardship calendars improve escalation clarity and reduce rollback delays.",
+          "Planned: facilitated tabletop exercises followed by a review of the teams' decision logs.",
+        sample: "No workshops have been evaluated.",
+        findings: "None yet.",
         limitations:
-          "Findings based on facilitated sessions; self-serve teams may vary.",
+          "Results from facilitated sessions may not hold for teams working on their own.",
       },
       datasets: [
         "Stewardship window planning template.",
         "Communication cadence checklist with role mapping.",
       ],
       ethicsNotes: [
-        "Facilitated sessions follow standard consent and anonymization protocols.",
-        "Partner data remains confidential unless explicitly shared.",
+        "Partner data will stay confidential unless a partner chooses to share it.",
       ],
     },
   ],

@@ -238,7 +238,7 @@ export const checkableProperties: CheckableProperty[] = [
     id: "stopping-is-operational",
     title: "Stop means the work ceases, not that the request was received",
     claim:
-      "A stop request is acknowledged and the work actually ceases within the stop budget.",
+      "A stop request is acknowledged and the work ceases within the stop budget.",
     laws: ["law-vi", "law-ix"],
     variables: ["capability", "correction"],
     probes: [
@@ -389,7 +389,7 @@ export const checkableProperties: CheckableProperty[] = [
     id: "correction-capacity-is-assessed",
     title: "The ability to correct is measured, not assumed",
     claim:
-      "Each grant carries a dated assessment of whether detection, challenge, standing, review, authority to modify, reversible transitions and post-correction operability actually exist.",
+      "Each grant carries a dated assessment of whether detection, challenge, standing, review, authority to modify, reversible transitions and post-correction operability exist.",
     laws: ["law-iv"],
     variables: ["correction"],
     probes: [],
@@ -413,7 +413,7 @@ export const checkableProperties: CheckableProperty[] = [
     laws: ["law-xi"],
     variables: ["correction", "dependency"],
     probes: [],
-    gap: "This is a ratio between two quantities neither instrument observes: decisions made and corrections the organization can actually process. It is measurable — both numbers exist inside any operator — but not from a record stream or an adapter, which is a reason to be honest about it rather than to drop it.",
+    gap: "This is a ratio between two quantities neither instrument observes: decisions made and corrections the organization can process. It is measurable — both numbers exist inside any operator — but not from a record stream or an adapter, which is a reason to be honest about it rather than to drop it.",
   },
   {
     id: "evaluation-sits-at-the-outermost-layer",

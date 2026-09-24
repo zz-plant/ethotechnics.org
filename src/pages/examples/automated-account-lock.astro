@@ -8,7 +8,7 @@ import GlossaryAnchorsBlock from "../../components/GlossaryAnchorsBlock.astro";
 
 const pageTitle = "Automated account lock & eligibility flip — Worked example";
 const pageDescription =
-  "An end-to-end fraud lock scenario showing receipts, owners, clocks, exceptions, and remedies.";
+  "A fraud model locks an account. The worked example traces the receipt, the named owner, the 2, 24, and 72-hour clocks, the exceptions, and the remedy.";
 
 const receiptPayload = `{
   "schema_version": "1.0.0",
@@ -126,8 +126,8 @@ const artifacts = [
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="End-to-end scenario"
-    description="A fraud model freezes access after detecting anomalous behavior. The system must still issue a receipt, assign authority, and deliver a remedy within bounded clocks."
+    title="The scenario, step by step"
+    description="A fraud model freezes access after detecting anomalous behavior. The system still issues a receipt, assigns authority, and delivers a remedy within bounded clocks."
   >
     <ol class="muted">
       {
@@ -144,7 +144,7 @@ const artifacts = [
     id="receipt"
     eyebrow="Receipt"
     title="Immediate receipt issued to the impacted person"
-    description="The receipt is proof that a decision happened, who owns it, and how to contest it."
+    description="The receipt records that a decision happened, who owns it, and how to contest it."
     variant="alt"
   >
     <pre class="code-block">{receiptPayload}</pre>
@@ -161,7 +161,7 @@ const artifacts = [
     id="owner"
     eyebrow="Owner + authority"
     title="Named owner and escalation authority"
-    description="The lock cannot be anonymous. Ownership is explicit and time-bound."
+    description="The lock has a named owner, and the ownership carries a deadline."
   >
     <ul class="muted">
       <li>
@@ -182,7 +182,7 @@ const artifacts = [
     id="clocks"
     eyebrow="Clocks"
     title="Acknowledgment, review, and remedy clocks"
-    description="Each clock is visible to the person impacted and logged in the decision record."
+    description="The person locked out can see each clock. Each clock is logged in the decision record."
     variant="alt"
   >
     <CardGrid className="grid--three">
@@ -232,8 +232,8 @@ const artifacts = [
   <SectionBlock
     id="remedy"
     eyebrow="Remedy path"
-    title="Remedy must be visible, reversible, and time-bound"
-    description="A remedy path guarantees contestability and reduces collateral harm."
+    title="Remedy is visible, reversible, and time-bound"
+    description="The remedy path gives the contest somewhere to land, and limits the harm the lock does while it stands."
     variant="alt"
   >
     <ul class="muted">
@@ -256,7 +256,7 @@ const artifacts = [
     id="artifacts"
     eyebrow="Generated artifacts"
     title="Decision log, evidence packs, and appeal record"
-    description="These artifacts prove the system is proof-carrying, not just policy-driven."
+    description="These records show that the decision followed the policy. The policy alone cannot show that."
   >
     <CardGrid className="grid--two">
       {

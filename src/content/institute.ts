@@ -48,7 +48,7 @@ export const instituteContent: InstituteContent = {
   pageTitle:
     "Institute — AI Governance Programs and Decision Forums | Ethotechnics",
   pageDescription:
-    "Explore Institute programs for accountable AI: readiness diagnostics, governance decision forums, escalation pathways, and Studio support for high-stakes delivery.",
+    "The Institute runs diagnostic reviews, decision forums that log an owner and follow-ups, and a publishing pipeline for open guides, with a route to Studio.",
   published: "2025-09-01T00:00:00Z",
   permalink: "/institute",
   anchorLinks: [
@@ -63,7 +63,7 @@ export const instituteContent: InstituteContent = {
     {
       title: "Start with open guidance",
       detail:
-        "Pull prompts, templates, and diagnostics from the Library to get a quick read on risk before involving a partner.",
+        "Use the standards, mechanisms, and diagnostics without contacting anyone. A diagnostic readout names the risks before you involve a partner.",
       tags: ["Self-serve", "Open CC BY-SA 4.0", "Library-first"],
     },
     {
@@ -75,7 +75,7 @@ export const instituteContent: InstituteContent = {
     {
       title: "Know when to escalate",
       detail:
-        "If a diagnostic surfaces risk, see how the Studio steps in so escalation feels like help, not red tape.",
+        "When a diagnostic surfaces a risk your team cannot close alone, the Studio takes it on as a commissioned engagement. The comparison below shows where that handoff happens.",
       tags: ["Escalation", "Studio partnership", "Fast triage"],
     },
   ],
@@ -83,9 +83,9 @@ export const instituteContent: InstituteContent = {
     {
       title: "Readiness diagnostics",
       detail:
-        "Short exercises to rate risk around data handling, user consent, and real-world impact after launch.",
+        "Short exercises that rate risk in data handling, user consent, and impact after launch.",
       outcome:
-        "Outputs: a risk map, suggested mitigations, and links back to Library pages so teams can act.",
+        "Outputs: a risk map, suggested mitigations, and links to the Library pages behind each one.",
       status: "Rolling access",
       howToJoin:
         "Start with the diagnostics menu and share your readout for routing.",
@@ -96,7 +96,7 @@ export const instituteContent: InstituteContent = {
     {
       title: "Decision forums",
       detail:
-        "Lightweight governance reviews for teams that want a second set of eyes without slowing delivery.",
+        "Short governance reviews of a pending decision by reviewers from outside the team.",
       outcome:
         "Outputs: a logged decision, accountable steward, and follow-ups with owners and dates.",
       status: "Quarterly cohorts",
@@ -109,7 +109,7 @@ export const instituteContent: InstituteContent = {
       title: "Publishing pipeline",
       detail: "Turn internal research into open guides.",
       outcome:
-        "Outputs: edited copy, citations, and release notes in the Library so readers can trust the source.",
+        "Outputs: edited copy, citations, and release notes published in the Library.",
       status: "By request",
       howToJoin: "Send a draft or outline for intake and scheduling.",
       ctaLabel: "Submit a draft",
@@ -121,7 +121,7 @@ export const instituteContent: InstituteContent = {
     {
       title: "Public charter",
       detail:
-        "Clear rules for consent, attribution, and data handling so partners know how their input is used.",
+        "Rules for consent, attribution, and data handling that state how a partner's input is used.",
       artifactLabel: "View RFC lifecycle",
       artifactHref: "/institute/governance#lifecycle",
     },
