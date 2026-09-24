@@ -44,12 +44,12 @@ const Heading = level;
           markerHeight="6"
           orient="auto-start-reverse"
         >
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--muted)" />
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--text)" />
         </marker>
       </defs>
 
       {/* Leaders: each place of authority to the part of the call it sits on */}
-      <g stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 4" fill="none">
+      <g stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4" fill="none">
         <line x1="125" y1="108" x2="80" y2="190" />
         <line x1="350" y1="108" x2="240" y2="190" />
         <line x1="575" y1="108" x2="565" y2="190" />
@@ -59,7 +59,8 @@ const Heading = level;
       </g>
 
       {/* The model call, left to right */}
-      <g stroke="var(--muted)" stroke-width="2" fill="none">
+      <text x="20" y="168" class="state-diagram__clause" fill="var(--accent-strong)">The model call pipeline</text>
+      <g stroke="var(--text)" stroke-width="2" fill="none">
         <line x1="140" y1="236" x2="163" y2="236" marker-end="url(#tdm-arrow)" />
         <line x1="315" y1="236" x2="338" y2="236" marker-end="url(#tdm-arrow)" />
         <line x1="490" y1="236" x2="513" y2="236" marker-end="url(#tdm-arrow)" />
@@ -116,7 +117,7 @@ const Heading = level;
 
       {/* The six places, top row */}
       <g class="state-diagram__node" transform="translate(20, 16)">
-        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--accent)" />
+        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--border)" />
         <text x="105" y="24" text-anchor="middle" class="state-diagram__state">Shaping hops</text>
         <text x="105" y="45" text-anchor="middle" class="state-diagram__clause">STD-09 §1.5, §1.6</text>
         <text x="105" y="65" text-anchor="middle" class="state-diagram__label">Shape the decision</text>
@@ -124,7 +125,7 @@ const Heading = level;
       </g>
 
       <g class="state-diagram__node" transform="translate(245, 16)">
-        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--accent)" />
+        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--border)" />
         <text x="105" y="24" text-anchor="middle" class="state-diagram__state">Content in the state</text>
         <text x="105" y="45" text-anchor="middle" class="state-diagram__clause">STD-08 §1.5</text>
         <text x="105" y="65" text-anchor="middle" class="state-diagram__label">Content does not</text>
@@ -132,7 +133,7 @@ const Heading = level;
       </g>
 
       <g class="state-diagram__node" transform="translate(470, 16)">
-        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--accent)" />
+        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--border)" />
         <text x="105" y="24" text-anchor="middle" class="state-diagram__state">Reasons nobody produced</text>
         <text x="105" y="45" text-anchor="middle" class="state-diagram__clause">STD-02 §1.4</text>
         <text x="105" y="65" text-anchor="middle" class="state-diagram__label">A reason must be</text>
@@ -140,7 +141,7 @@ const Heading = level;
       </g>
 
       <g class="state-diagram__node" transform="translate(695, 16)">
-        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--accent)" />
+        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--border)" />
         <text x="105" y="24" text-anchor="middle" class="state-diagram__state">The reviewer's queue</text>
         <text x="105" y="45" text-anchor="middle" class="state-diagram__clause">STD-08 §3.6</text>
         <text x="105" y="65" text-anchor="middle" class="state-diagram__label">Review sees what</text>
@@ -149,7 +150,7 @@ const Heading = level;
 
       {/* The six places, bottom row */}
       <g class="state-diagram__node" transform="translate(470, 356)">
-        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--accent)" />
+        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--border)" />
         <text x="105" y="24" text-anchor="middle" class="state-diagram__state">The threshold</text>
         <text x="105" y="45" text-anchor="middle" class="state-diagram__clause">STD-08 §2.6</text>
         <text x="105" y="65" text-anchor="middle" class="state-diagram__label">Decides between</text>
@@ -157,7 +158,7 @@ const Heading = level;
       </g>
 
       <g class="state-diagram__node" transform="translate(695, 356)">
-        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--accent)" />
+        <rect width="210" height="92" rx="8" fill="var(--surface)" stroke="var(--border)" />
         <text x="105" y="24" text-anchor="middle" class="state-diagram__state">Issue rate</text>
         <text x="105" y="45" text-anchor="middle" class="state-diagram__clause">STD-02 §8.6</text>
         <text x="105" y="65" text-anchor="middle" class="state-diagram__label">Decisions cannot</text>
@@ -166,9 +167,9 @@ const Heading = level;
 
       {/* Key */}
       <g class="state-diagram__node" transform="translate(20, 370)">
-        <line x1="0" y1="18" x2="44" y2="18" stroke="var(--muted)" stroke-width="2" marker-end="url(#tdm-arrow)" />
+        <line x1="0" y1="18" x2="44" y2="18" stroke="var(--text)" stroke-width="2" marker-end="url(#tdm-arrow)" />
         <text x="58" y="23" class="state-diagram__label">The model call</text>
-        <line x1="0" y1="52" x2="44" y2="52" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 4" />
+        <line x1="0" y1="52" x2="44" y2="52" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4" />
         <text x="58" y="57" class="state-diagram__label">Where its authority sits</text>
       </g>
     </svg>

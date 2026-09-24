@@ -120,6 +120,7 @@ const Heading = level;
 
         {/* Branch Up to Re-consent Checkpoint */}
         <path d="M 467 102 L 467 67 L 587 67" stroke="var(--accent)" stroke-width="2" fill="none" marker-end="url(#cj-accent-arrow)" />
+        <text x="510" y="58" class="state-diagram__clause" fill="var(--accent-strong)">Shift detected</text>
         <g transform="translate(590, 30)">
           <rect width="250" height="74" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5" />
           <text x="125" y="25" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">4. Re-Consent Checkpoint</text>
@@ -129,6 +130,7 @@ const Heading = level;
 
         {/* Path Forward: Active Valid State */}
         <line x1="572" y1="157" x2="587" y2="157" stroke="var(--border)" stroke-width="2" marker-end="url(#cj-arrow)" />
+        <text x="580" y="148" text-anchor="end" class="state-diagram__label">No shift</text>
         <g class="state-diagram__node" transform="translate(590, 120)">
           <rect width="250" height="74" rx="6" />
           <text x="125" y="25" text-anchor="middle" class="state-diagram__state">3. Active Governed State</text>
@@ -138,6 +140,7 @@ const Heading = level;
 
         {/* Branch Down to 1-Click Revocation */}
         <path d="M 467 212 L 467 247 L 587 247" stroke="var(--status-danger)" stroke-width="2" fill="none" marker-end="url(#cj-danger-arrow)" />
+        <text x="510" y="240" class="state-diagram__clause" fill="var(--status-danger)">User revokes</text>
         <g transform="translate(590, 210)">
           <rect width="250" height="74" rx="6" fill="var(--surface)" stroke="var(--status-danger)" stroke-width="1.5" />
           <text x="125" y="25" text-anchor="middle" class="state-diagram__state" fill="var(--status-danger)">5. 1-Click Revoke &amp; Purge</text>

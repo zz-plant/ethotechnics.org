@@ -62,6 +62,17 @@ const steps = [
         >
           <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
         </marker>
+        <marker
+          id="stoppability-danger-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)" />
+        </marker>
       </defs>
 
       <text x="30" y="26" class="state-diagram__state">Automated flow</text>
@@ -189,6 +200,24 @@ const steps = [
       </g>
 
       {/* Failure pattern, as the explainer states it. */}
+      <path
+        d="M 195 148 L 195 204"
+        stroke="var(--status-danger)"
+        stroke-width="1.5"
+        stroke-dasharray="4 4"
+        fill="none"
+        marker-end="url(#stoppability-danger-arrow)"
+      />
+      <text
+        x="185"
+        y="180"
+        text-anchor="end"
+        class="state-diagram__clause"
+        fill="var(--status-danger)"
+      >
+        Leaving flow
+      </text>
+
       <g transform="translate(30, 208)">
         <rect
           width="330"
