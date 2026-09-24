@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import NextStep from "../../components/NextStep.astro";
+import TriageSequenceDiagram from "../../components/TriageSequenceDiagram.astro";
 import {
   artifacts,
   failureStates,
@@ -134,6 +135,12 @@ const breadcrumbItems = [
       </ol>
     </div>
     <h2>Response workflow (triage → stabilize → evidence)</h2>
+    <TriageSequenceDiagram
+      stages={orderedWorkflowStages.map((stage) => ({
+        title: stage.title,
+        artifactName: stage.artifact.name,
+      }))}
+    />
     <ol class="stack-sm">
       {
         orderedWorkflowStages.map((stage) => (

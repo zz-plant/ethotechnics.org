@@ -1,0 +1,143 @@
+---
+/**
+ * Governability mirror (democratic vs. coercive governability).
+ *
+ * The same components sit in the middle and serve both forms. The two sides
+ * differ only in who holds standing, what a challenge can change, and the
+ * direction the components point. The procedural test below decides which
+ * side a system is on.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="governability-mirror-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="governability-mirror-title">
+      One infrastructure, two directions
+    </Heading>
+    <p class="muted">
+      Both forms build the same components. They differ in who holds standing
+      and in what a challenge can change.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 500"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Mirror diagram. In the middle, the infrastructure both forms share: logging, monitoring, identity, decision records, escalation paths, and a dashboard. On the left, democratic governability: the people affected hold standing, a challenge can reverse the outcome, and the people act on the system. On the right, coercive governability: the operator holds standing, a challenge changes nothing, and the operator acts on the people. Below, the test: can the people affected refuse, negotiate with, or appeal the system, and can doing that change what it does? Yes means democratic; objections that change nothing mean coercive."
+    >
+      <defs>
+        <marker
+          id="governability-mirror-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--muted)" />
+        </marker>
+        <marker
+          id="governability-mirror-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+        <marker
+          id="governability-mirror-danger-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)" />
+        </marker>
+      </defs>
+
+      {/* Column headings */}
+      <text x="155" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--accent-strong)">Democratic governability</text>
+      <text x="460" y="28" text-anchor="middle" class="state-diagram__state">Same infrastructure</text>
+      <text x="765" y="28" text-anchor="middle" class="state-diagram__state" fill="var(--status-danger)">Coercive governability</text>
+
+      {/* Democratic side */}
+      <g class="state-diagram__node" transform="translate(20, 48)">
+        <rect width="270" height="270" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+        <text x="135" y="30" text-anchor="middle" class="state-diagram__clause">Who holds standing</text>
+        <text x="135" y="54" text-anchor="middle" class="state-diagram__state">The people affected</text>
+        <text x="135" y="76" text-anchor="middle" class="state-diagram__label">Refuse, negotiate, appeal</text>
+        <line x1="16" y1="92" x2="254" y2="92" stroke="var(--border)" />
+        <text x="135" y="118" text-anchor="middle" class="state-diagram__clause">What a challenge can change</text>
+        <text x="135" y="142" text-anchor="middle" class="state-diagram__state">The outcome</text>
+        <text x="135" y="164" text-anchor="middle" class="state-diagram__label">Escalation can reverse it</text>
+        <line x1="16" y1="180" x2="254" y2="180" stroke="var(--border)" />
+        <text x="135" y="206" text-anchor="middle" class="state-diagram__clause">Direction</text>
+        <text x="135" y="230" text-anchor="middle" class="state-diagram__state">People act on the system</text>
+        <text x="135" y="252" text-anchor="middle" class="state-diagram__label">Appeals, repair obligations</text>
+      </g>
+
+      {/* Shared infrastructure */}
+      <g class="state-diagram__node" transform="translate(350, 48)">
+        <rect width="220" height="270" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" />
+        <text x="110" y="30" text-anchor="middle" class="state-diagram__clause" fill="var(--muted)">Built by both</text>
+        <text x="110" y="64" text-anchor="middle" class="state-diagram__label" fill="var(--text)">Logging</text>
+        <text x="110" y="92" text-anchor="middle" class="state-diagram__label" fill="var(--text)">Monitoring</text>
+        <text x="110" y="120" text-anchor="middle" class="state-diagram__label" fill="var(--text)">Identity</text>
+        <text x="110" y="148" text-anchor="middle" class="state-diagram__label" fill="var(--text)">Decision records</text>
+        <text x="110" y="176" text-anchor="middle" class="state-diagram__label" fill="var(--text)">Escalation paths</text>
+        <text x="110" y="204" text-anchor="middle" class="state-diagram__label" fill="var(--text)">A dashboard</text>
+        <line x1="16" y1="222" x2="204" y2="222" stroke="var(--border)" />
+        <text x="110" y="248" text-anchor="middle" class="state-diagram__clause" fill="var(--muted)">Pointed either way</text>
+      </g>
+
+      {/* The same components serve both sides */}
+      <line x1="350" y1="183" x2="292" y2="183" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#governability-mirror-arrow)" />
+      <line x1="570" y1="183" x2="628" y2="183" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#governability-mirror-arrow)" />
+
+      {/* Coercive side */}
+      <g class="state-diagram__node" transform="translate(630, 48)">
+        <rect width="270" height="270" rx="8" fill="var(--panel)" stroke="var(--status-danger)" stroke-width="1.5" />
+        <text x="135" y="30" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">Who holds standing</text>
+        <text x="135" y="54" text-anchor="middle" class="state-diagram__state">The operator</text>
+        <text x="135" y="76" text-anchor="middle" class="state-diagram__label">Directs, monitors, enforces</text>
+        <line x1="16" y1="92" x2="254" y2="92" stroke="var(--border)" />
+        <text x="135" y="118" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">What a challenge can change</text>
+        <text x="135" y="142" text-anchor="middle" class="state-diagram__state">Nothing</text>
+        <text x="135" y="164" text-anchor="middle" class="state-diagram__label">Objections recorded, then filed</text>
+        <line x1="16" y1="180" x2="254" y2="180" stroke="var(--border)" />
+        <text x="135" y="206" text-anchor="middle" class="state-diagram__clause" fill="var(--status-danger)">Direction</text>
+        <text x="135" y="230" text-anchor="middle" class="state-diagram__state">Operator acts on the people</text>
+        <text x="135" y="252" text-anchor="middle" class="state-diagram__label">One-way notices, hidden reasons</text>
+      </g>
+
+      {/* The test decides the side */}
+      <line x1="155" y1="370" x2="155" y2="322" stroke="var(--accent)" stroke-width="2" marker-end="url(#governability-mirror-accent-arrow)" />
+      <text x="167" y="350" class="state-diagram__clause">Yes</text>
+      <line x1="765" y1="370" x2="765" y2="322" stroke="var(--status-danger)" stroke-width="2" marker-end="url(#governability-mirror-danger-arrow)" />
+      <text x="753" y="350" text-anchor="end" class="state-diagram__clause" fill="var(--status-danger)">Objections change nothing</text>
+
+      <g class="state-diagram__node" transform="translate(20, 372)">
+        <rect width="880" height="112" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" />
+        <text x="440" y="28" text-anchor="middle" class="state-diagram__state">The test</text>
+        <text x="440" y="54" text-anchor="middle" class="state-diagram__label" fill="var(--text)">Can the people affected refuse the system, negotiate with it, or appeal it,</text>
+        <text x="440" y="76" text-anchor="middle" class="state-diagram__label" fill="var(--text)">and can doing any of those things change what the system does?</text>
+        <text x="440" y="100" text-anchor="middle" class="state-diagram__clause" fill="var(--muted)">Applied to defaults, not to the existence of features</text>
+      </g>
+    </svg>
+  </div>
+</figure>

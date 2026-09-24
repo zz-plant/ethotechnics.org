@@ -1,0 +1,140 @@
+---
+/**
+ * Challenge density (what congestion actually means).
+ *
+ * Challenge volume rises with the error a system emits and crosses its
+ * response capacity; past that point clocks are breached. The institution
+ * then has two responses: narrow standing, or tie the breach to a resourcing
+ * or scope decision. The axes are qualitative because the essay gives no
+ * numbers.
+ */
+interface Props {
+  level?: "h2" | "h3";
+}
+
+const { level = "h3" }: Props = Astro.props;
+const Heading = level;
+---
+
+<figure class="state-diagram" aria-labelledby="challenge-density-title">
+  <figcaption>
+    <p class="eyebrow">Theory, drawn</p>
+    <Heading id="challenge-density-title">
+      Challenge volume against response capacity
+    </Heading>
+    <p class="muted">
+      Congestion begins where challenge volume exceeds response capacity. One
+      response closes the channel; the other provisions the capacity to answer.
+    </p>
+  </figcaption>
+
+  <div class="diagram-scroll">
+    <svg
+      viewBox="0 0 920 510"
+      role="img"
+      class="state-diagram__svg"
+      aria-label="Chart with qualitative axes. Challenge volume rises with scale and crosses a flat line of response capacity. Before the crossing is a calm period in which clocks are met; after it, congestion, in which clocks are breached. Two responses follow. Narrowing standing means fewer eligible parties, narrower matter, higher bars, and longer clocks; it treats a capacity signal as a permissions problem and destroys the channel that delivered the signal. Measuring and provisioning capacity ties sustained clock breaches to a resourcing or scope decision and records which; it reads density as a governing signal and treats congestion as a capacity event, not an eligibility event."
+    >
+      <defs>
+        <marker
+          id="challenge-density-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--muted)" />
+        </marker>
+        <marker
+          id="challenge-density-accent-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+        <marker
+          id="challenge-density-danger-arrow"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--status-danger)" />
+        </marker>
+      </defs>
+
+      {/* Congestion: the gap between volume and capacity past the crossing */}
+      <path
+        d="M 470 170 C 540 120, 760 75, 870 58 L 870 170 Z"
+        fill="var(--status-warning)"
+        fill-opacity="0.18"
+      />
+
+      {/* Axes */}
+      <line x1="80" y1="280" x2="880" y2="280" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#challenge-density-arrow)" />
+      <line x1="80" y1="280" x2="80" y2="30" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#challenge-density-arrow)" />
+      <text x="92" y="30" class="state-diagram__clause" fill="var(--muted)">Rate ↑</text>
+      <text x="880" y="304" text-anchor="end" class="state-diagram__clause" fill="var(--muted)">Scale →</text>
+
+      {/* Response capacity */}
+      <line x1="80" y1="170" x2="870" y2="170" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="7 5" />
+      <text x="92" y="160" class="state-diagram__state" fill="var(--accent-strong)">Response capacity</text>
+
+      {/* Challenge volume */}
+      <path
+        d="M 90 262 C 300 252, 400 220, 470 170 C 540 120, 760 75, 870 58"
+        stroke="var(--text)"
+        stroke-width="3"
+        fill="none"
+      />
+      <text x="860" y="44" text-anchor="end" class="state-diagram__state">Challenge volume</text>
+      <text x="860" y="24" text-anchor="end" class="state-diagram__label">Tracks the error the system emits</text>
+
+      {/* Calm: clocks met */}
+      <text x="100" y="200" class="state-diagram__clause" fill="var(--muted)">Calm: clocks met</text>
+      <text x="100" y="220" class="state-diagram__label">The two responses look identical</text>
+
+      {/* Crossing */}
+      <circle cx="470" cy="170" r="6" fill="var(--status-danger)" />
+      <text x="458" y="106" text-anchor="end" class="state-diagram__state" fill="var(--status-danger)">Congestion begins</text>
+      <text x="458" y="128" text-anchor="end" class="state-diagram__label">Volume exceeds response capacity</text>
+
+      {/* Congestion region */}
+      <text x="760" y="136" text-anchor="middle" class="state-diagram__clause" fill="var(--text)">Congestion: clocks breached</text>
+      <text x="760" y="156" text-anchor="middle" class="state-diagram__label">A capacity signal</text>
+
+      {/* Fork to the two responses */}
+      <text x="460" y="330" text-anchor="middle" class="state-diagram__clause" fill="var(--muted)">Two responses to the same breach</text>
+      <path d="M 316 326 L 232 326 L 232 358" stroke="var(--status-danger)" stroke-width="2" fill="none" marker-end="url(#challenge-density-danger-arrow)" />
+      <path d="M 604 326 L 688 326 L 688 358" stroke="var(--accent)" stroke-width="2" fill="none" marker-end="url(#challenge-density-accent-arrow)" />
+
+      {/* Response A: narrow standing */}
+      <g class="state-diagram__node" transform="translate(20, 362)">
+        <rect width="425" height="132" rx="8" fill="var(--panel)" stroke="var(--status-danger)" stroke-width="1.5" />
+        <text x="20" y="28" class="state-diagram__state" fill="var(--status-danger)">Narrow standing</text>
+        <text x="20" y="52" class="state-diagram__label">Fewer eligible parties, narrower matter,</text>
+        <text x="20" y="72" class="state-diagram__label">higher admissibility bars, longer clocks</text>
+        <text x="20" y="98" class="state-diagram__clause" fill="var(--status-danger)">A capacity signal treated as a permissions problem</text>
+        <text x="20" y="118" class="state-diagram__clause" fill="var(--status-danger)">Destroys the channel that delivered the signal</text>
+      </g>
+
+      {/* Response B: measure and provision capacity */}
+      <g class="state-diagram__node" transform="translate(475, 362)">
+        <rect width="425" height="132" rx="8" fill="var(--panel)" stroke="var(--accent)" stroke-width="1.5" />
+        <text x="20" y="28" class="state-diagram__state" fill="var(--accent-strong)">Measure and provision capacity</text>
+        <text x="20" y="52" class="state-diagram__label">Tie sustained clock breaches to a resourcing</text>
+        <text x="20" y="72" class="state-diagram__label">or scope decision, and record which one</text>
+        <text x="20" y="98" class="state-diagram__clause">Density read as a governing signal</text>
+        <text x="20" y="118" class="state-diagram__clause">A capacity event, not an eligibility event</text>
+      </g>
+    </svg>
+  </div>
+</figure>

@@ -3,6 +3,43 @@ import { describe, expect, it } from "bun:test";
 import { cases, clauseHref, stateVariables, verdictTally } from "./casebook";
 import { standardClauses, standardsContent } from "./standards";
 
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+/** Every year a `when` names: "2017–19" is 2017 and 2019. */
+function yearsIn(when: string): string[] {
+  const years: string[] = [];
+  for (const match of when.matchAll(/\b(\d{4})(?:[–-](\d{2,4}))?\b/g)) {
+    const [, start, end] = match;
+    if (!start) continue;
+    years.push(start);
+    if (end) years.push(end.length === 2 ? `${start.slice(0, 2)}${end}` : end);
+  }
+  return years;
+}
+
+/** The start of a `when`, as a year and, where named, a month index. */
+function startOf(when: string): { year: number; month?: number } {
+  const match = /(?:\b([A-Z][a-z]{2}) )?(\d{4})/.exec(when);
+  const month = match?.[1] ? months.indexOf(match[1]) : -1;
+  return {
+    year: Number(match?.[2]),
+    ...(month >= 0 ? { month } : {}),
+  };
+}
+
 const lawIds = new Set([
   "I",
   "II",
@@ -96,5 +133,45 @@ describe("casebook", () => {
     }
     // The casebook's own claim on the hub: standing has never held.
     expect(tally.standing.held).toBe(0);
+  });
+
+  it("dates every timeline event from the case's own record, in order", () => {
+    for (const entry of cases) {
+      const events = entry.timeline ?? [];
+      expect(events.length, entry.slug).toBeGreaterThanOrEqual(4);
+      expect(events.length, entry.slug).toBeLessThanOrEqual(7);
+      expect(events.filter((event) => event.turn).length).toBeLessThanOrEqual(
+        1,
+      );
+      const record = [
+        ...entry.narrative,
+        ...entry.findings.map((finding) => finding.finding),
+        entry.period,
+        entry.timeToHalt,
+        entry.haltedBy,
+        ...entry.sources.flatMap((source) => [source.label, source.date]),
+      ].join(" ");
+      let previous: { year: number; month?: number } | undefined;
+      for (const event of events) {
+        const years = yearsIn(event.when);
+        expect(years.length, `${entry.slug}: ${event.when}`).toBeGreaterThan(0);
+        for (const year of years) {
+          expect(record, `${entry.slug}: ${event.when}`).toContain(year);
+        }
+        const start = startOf(event.when);
+        if (previous) {
+          const label = `${entry.slug}: ${event.when} is out of order`;
+          expect(start.year, label).toBeGreaterThanOrEqual(previous.year);
+          if (
+            start.year === previous.year &&
+            start.month !== undefined &&
+            previous.month !== undefined
+          ) {
+            expect(start.month, label).toBeGreaterThanOrEqual(previous.month);
+          }
+        }
+        previous = start;
+      }
+    }
   });
 });
