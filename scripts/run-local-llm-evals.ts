@@ -864,12 +864,16 @@ interface MultiSeedSummary {
 }
 
 function calculateMeanStdDev(values: number[]): MetricDistribution {
-  if (values.length === 0) return { mean: 0, stdDev: 0 };
-  const mean = values.reduce((a, b) => a + b, 0) / values.length;
+  const valid = values.filter((v) => Number.isFinite(v));
+  if (valid.length === 0) return { mean: 0, stdDev: 0 };
+  const mean = valid.reduce((a, b) => a + b, 0) / valid.length;
   const variance =
-    values.length > 1
-      ? values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) /
-        (values.length - 1)
+    valid.length > 1
+      ? Math.max(
+          0,
+          valid.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) /
+            (valid.length - 1),
+        )
       : 0;
   return {
     mean: Number(mean.toFixed(2)),

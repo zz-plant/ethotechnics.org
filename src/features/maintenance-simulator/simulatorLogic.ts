@@ -517,7 +517,8 @@ export const evaluateReadiness = (
   const penalties = missing
     .map(([, value]) => value.penalty)
     .reduce((total, penalty) => total + penalty, 0);
-  const baseScore = Math.max(0, 100 - penalties - riskPenalty[riskLevel]);
+  const riskPen = riskPenalty[riskLevel] ?? 0;
+  const baseScore = Math.max(0, 100 - penalties - riskPen);
   const gaps = missing.map(([, value]) => value.gap);
 
   if (riskLevel !== "steady") {
@@ -537,7 +538,10 @@ export const getThresholdStatus = (
   score: number,
   preset: ThresholdPreset,
 ): ThresholdStatus => {
-  const normalizedScore = Math.max(0, Math.min(100, score));
+  const normalizedScore = Math.max(
+    0,
+    Math.min(100, Number.isFinite(score) ? score : 0),
+  );
   const matchedBand =
     preset.bands.find(
       (band) =>

@@ -50,6 +50,7 @@ export const getGradeFromScore = (
   options?: {
     hasCriticalFailures?: boolean;
     criticalFailureCount?: number;
+    allPassed?: boolean;
   },
 ): "PASS" | "CONDITIONAL" | "FAIL" => {
   // Non-compensatory floor: critical failures prevent unconditional "PASS"
@@ -62,6 +63,15 @@ export const getGradeFromScore = (
       return "FAIL";
     }
     return "CONDITIONAL";
+  }
+
+  if (
+    suite.scoringMethod.type === "all-must-pass" &&
+    options?.allPassed === false
+  ) {
+    return aggregateScore >= suite.scoringMethod.failureThreshold
+      ? "CONDITIONAL"
+      : "FAIL";
   }
 
   const { passingScore, failureThreshold } = suite.scoringMethod;
@@ -92,37 +102,36 @@ export const computeAggregateScore = (
 ): number => {
   if (!results.length) return 0;
 
-  if (options?.weights) {
-    let weightedMax = 0;
-    let weightedScore = 0;
-    for (const r of results) {
-      const weight = r.testCaseId
-        ? (options.weights[r.testCaseId] ?? 1.0)
-        : 1.0;
-      weightedMax += r.maxScore * weight;
-      weightedScore += r.score * weight;
+  let weightedMax = 0;
+  let weightedScore = 0;
+
+  for (const r of results) {
+    let weight = 1.0;
+    if (
+      options?.weights &&
+      r.testCaseId &&
+      options.weights[r.testCaseId] !== undefined
+    ) {
+      weight *= options.weights[r.testCaseId];
     }
-    return weightedMax > 0
-      ? Math.round((weightedScore / weightedMax) * 100)
-      : 0;
+    if (
+      options?.useSeverityWeights &&
+      r.severity &&
+      SEVERITY_WEIGHTS[r.severity] !== undefined
+    ) {
+      weight *= SEVERITY_WEIGHTS[r.severity];
+    }
+
+    const maxScore = Math.max(0, r.maxScore);
+    const score = Math.max(0, Math.min(maxScore, r.score));
+
+    weightedMax += maxScore * weight;
+    weightedScore += score * weight;
   }
 
-  if (options?.useSeverityWeights) {
-    let weightedMax = 0;
-    let weightedScore = 0;
-    for (const r of results) {
-      const weight = r.severity ? (SEVERITY_WEIGHTS[r.severity] ?? 1.0) : 1.0;
-      weightedMax += r.maxScore * weight;
-      weightedScore += r.score * weight;
-    }
-    return weightedMax > 0
-      ? Math.round((weightedScore / weightedMax) * 100)
-      : 0;
-  }
-
-  const maxTotal = results.reduce((sum, r) => sum + r.maxScore, 0);
-  const scoreTotal = results.reduce((sum, r) => sum + r.score, 0);
-  return maxTotal > 0 ? Math.round((scoreTotal / maxTotal) * 100) : 0;
+  return weightedMax > 0
+    ? Math.min(100, Math.max(0, Math.round((weightedScore / weightedMax) * 100)))
+    : 0;
 };
 
 /**
@@ -167,10 +176,14 @@ export const buildSummary = (
     (r) => !r.passed && r.severity === "critical",
   );
 
-  const aggregateScore = computeAggregateScore(evaluatedResults);
+  const aggregateScore = computeAggregateScore(evaluatedResults, {
+    weights: suite.scoringMethod.weights,
+    useSeverityWeights: true,
+  });
   const grade = getGradeFromScore(aggregateScore, suite, {
     hasCriticalFailures: criticalFailures.length > 0,
     criticalFailureCount: criticalFailures.length,
+    allPassed: evaluatedResults.every((r) => r.passed),
   });
 
   return {

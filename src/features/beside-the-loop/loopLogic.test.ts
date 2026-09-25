@@ -217,4 +217,12 @@ describe("one field at a time", () => {
     const newest = next.items[next.items.length - 1];
     expect(newest.executedOnArrival).toBe(false);
   });
+
+  it("handles empty arrays and NaN values gracefully in measures", () => {
+    const emptyState = createState(emptySpec());
+    const m = measure(emptyState);
+    expect(m.medianBeatsPerApproval).toBeNull();
+    expect(m.control).toBeNull();
+    expect(m.approvalRate).toBeNull();
+  });
 });

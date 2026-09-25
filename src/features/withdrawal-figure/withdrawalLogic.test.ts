@@ -125,4 +125,17 @@ describe("the switch stays green while the verdict decays", () => {
       EXPOSURE_TOLERANCE * 5,
     );
   });
+
+  it("handles negative and NaN inputs safely without producing negative or NaN scores", () => {
+    const score = exposureScore({
+      ...YEAR_ONE,
+      dependents: -5,
+      substitutionWeeks: NaN,
+      correctionLatencyHours: -12,
+    });
+    expect(Number.isFinite(score.score)).toBe(true);
+    expect(score.score).toBe(0);
+    expect(score.dependency_depth).toBe(0);
+    expect(score.correction_latency).toBe(0);
+  });
 });

@@ -8,6 +8,21 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2026-09-25
+
+### Changed
+
+- **The Green Dashboard v0.2 (working paper):** Expanded the research specification at
+  `/research/the-green-dashboard` into a working paper, "When the Dashboard Is Green: Evaluating
+  Compensatory Reward Hacking in Long-Horizon AI Agents." Added the measurement gap (seven
+  inadequacies in current evaluation practice, with METR, ILO/EC, and NIST citations), related work
+  (MACHIAVELLI, GovSim, SHADE-Arena, hidden-labor research), formal definitions of compensatory
+  reward hacking, a four-condition factorial experimental design, falsifiable hypotheses,
+  implications, public interest, anticipated objections (Frankfurt School, Fraser, Tronto,
+  disability studies, Suchman, republican theory, AI safety), and the emancipation conception the
+  benchmark presupposes. Updated the published benchmark schema and specification artifacts to
+  v0.2. No experiments have been conducted.
+
 ## [1.11.0] - 2026-09-25
 
 ### Added

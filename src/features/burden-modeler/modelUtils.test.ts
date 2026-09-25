@@ -33,4 +33,21 @@ describe("calculateBurdenModel", () => {
     expect(values).toHaveLength(burdenDrivers.length);
     expect(values.every((value) => value === 5)).toBe(true);
   });
+
+  it("handles NaN, negative, and out-of-bound ratings without producing NaN", () => {
+    const badRatings: BurdenRatings = {
+      ...withUniformRating(NaN),
+      "decision-cadence": -10,
+      "exception-handling": 999,
+    };
+    const result = calculateBurdenModel(badRatings);
+
+    expect(Number.isFinite(result.burdenIndex)).toBe(true);
+    expect(result.burdenIndex).toBeGreaterThanOrEqual(0);
+    expect(result.burdenIndex).toBeLessThanOrEqual(100);
+    for (const score of result.categoryScores) {
+      expect(Number.isFinite(score.value)).toBe(true);
+      expect(Number.isFinite(score.delta)).toBe(true);
+    }
+  });
 });

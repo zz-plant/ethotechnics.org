@@ -37,13 +37,21 @@ export type Accretion = {
 };
 
 export function accrete(params: RatchetParams = RATCHET): Accretion {
+  const months = Math.max(
+    0,
+    Math.floor(Number.isFinite(params.months) ? params.months : 0),
+  );
+  const stepPct = Number.isFinite(params.stepPct) ? params.stepPct : 0;
+  const reviewThresholdPct = Number.isFinite(params.reviewThresholdPct)
+    ? params.reviewThresholdPct
+    : 0;
   const scope: number[] = [1];
   let reviewsFired = 0;
-  for (let month = 1; month <= params.months; month += 1) {
-    scope.push(scope[month - 1] * (1 + params.stepPct / 100));
-    if (params.stepPct >= params.reviewThresholdPct) reviewsFired += 1;
+  for (let month = 1; month <= months; month += 1) {
+    scope.push(scope[month - 1] * (1 + stepPct / 100));
+    if (stepPct >= reviewThresholdPct) reviewsFired += 1;
   }
-  return { scope, reviewsFired, finalScope: scope[params.months] };
+  return { scope, reviewsFired, finalScope: scope[months] ?? 1 };
 }
 
 export type HistoryEntry = {

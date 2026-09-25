@@ -77,4 +77,20 @@ describe("projectCapacity", () => {
       process.env.TZ = originalTZ;
     }
   });
+
+  it("handles NaN and negative metric values safely", () => {
+    const result = projectCapacity(
+      { velocityIndex: NaN, interruptionRate: -50, stability: "DEGRADED" },
+      { refusalWeeks: -10 },
+      startDate,
+    );
+
+    expect(result.data).toHaveLength(MODEL_CONFIG.monthsToProject);
+    for (const point of result.data) {
+      expect(Number.isFinite(point.baseline)).toBe(true);
+      expect(Number.isFinite(point.remediated)).toBe(true);
+      expect(point.baseline).toBeGreaterThanOrEqual(0);
+      expect(point.baseline).toBeLessThanOrEqual(1);
+    }
+  });
 });

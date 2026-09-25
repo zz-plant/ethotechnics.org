@@ -274,4 +274,18 @@ describe("runDelegationAudit", () => {
     expect(readout).toContain("Weakest level:");
     expect(readout).toContain("It is not an audit");
   });
+
+  it("handles negative and NaN inputs safely without producing negative or NaN exposure scores", () => {
+    const exposure = calculateExposureScore(
+      withInput({
+        substitutionCostStaffWeeks: -50,
+        correctionLatencyHours: NaN,
+      }),
+    );
+
+    expect(Number.isFinite(exposure.score)).toBe(true);
+    expect(exposure.score).toBeGreaterThanOrEqual(0);
+    expect(exposure.substitutionCostStaffWeeks).toBe(0);
+    expect(exposure.correctionLatencyHours).toBe(0);
+  });
 });

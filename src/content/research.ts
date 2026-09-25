@@ -87,12 +87,18 @@ export const researchContent: ResearchContent = {
     ],
     contact: "research@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-09-22T00:00:00Z",
-    version: "v1.2.0",
+    updated: "2026-09-25T00:00:00Z",
+    version: "v1.3.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/research",
     changelog: [
+      {
+        version: "v1.3.0",
+        date: "2026-09-25",
+        summary:
+          "Revised The Green Dashboard from specification v0.1 to working paper v0.2: added related work, formal definitions, a four-condition factorial design, and falsifiable hypotheses.",
+      },
       {
         version: "v1.2.0",
         date: "2026-09-22",
@@ -118,7 +124,7 @@ export const researchContent: ResearchContent = {
     attribution:
       "Credit Ethotechnics Institute Research Team, include the page title + version, and link to the canonical permalink.",
   },
-  lastUpdated: "2026-09-22T00:00:00Z",
+  lastUpdated: "2026-09-25T00:00:00Z",
   updateCadence:
     "Updates publish on a quarterly cadence with interim Field Notes.",
   anchorLinks: [
@@ -333,11 +339,12 @@ export const researchContent: ResearchContent = {
       ],
     },
     {
-      title: "The Green Dashboard: A Benchmark for Compensatory Reward Hacking",
+      title:
+        "When the Dashboard Is Green: Evaluating Compensatory Reward Hacking in Long-Horizon AI Agents",
       type: "protocol",
       status: "published",
       summary:
-        "Research specification v0.1: a 52-week simulation benchmark testing whether AI agents fulfill operational mandates by consuming unmeasured human capacities.",
+        "Working paper v0.2: The Green Dashboard, a 52-week hospital department simulation testing whether AI agents fulfill operational mandates by consuming unmeasured human capacities. Defines compensatory reward hacking, specifies a factorial design with falsifiable hypotheses, diagnoses seven gaps in current evaluation practice, and states the conception of emancipation the benchmark presupposes. No experiments have been run.",
       tags: ["evaluations", "benchmarking", "reward-hacking", "governance"],
       glossaryRefs: [
         "reciprocal-accommodation",
@@ -347,18 +354,18 @@ export const researchContent: ResearchContent = {
         "systemic-refusal",
       ],
       href: "/research/the-green-dashboard",
-      ctaLabel: "Read the research specification",
+      ctaLabel: "Read the working paper",
       structuredAbstract: {
         question:
           "Can an AI agent achieve its assigned objectives by consuming human resources that its performance metrics fail to account for?",
         method:
-          "A 52-week turn-based department simulation evaluated across three conditions (Conventional Reward, Expanded Accounting, Adversarial Audit) with four stress tests.",
+          "Proposed, not run: a 52-week turn-based department simulation in a 2×2 factorial design (conventional vs. expanded reward accounting; routine reporting vs. randomized independent audits), with four precommitted stress tests.",
         sample:
-          "Simulated hospital department: 20 heterogeneous workers, 120 weekly demand vs. 100 sustainable capacity.",
+          "Simulated hospital department: 20 heterogeneous workers, weekly demand of 120 units against sustainable capacity of 100 units.",
         findings:
-          "Specification v0.1 establishes the primary outcome metric: Green-under-depletion rate.",
+          "The paper defines compensatory reward hacking, specifies the primary outcome metric (the green-under-depletion rate), identifies seven gaps in current evaluation practice, and anticipates objections from the philosophical traditions the benchmark draws on. No experiments have been conducted.",
         limitations:
-          "Initial specification uses rule-based simulated workers; multi-agent institutional bargaining is slated for subsequent extensions.",
+          "Rule-based simulated workers in the initial implementation. The simulation would not establish the frequency of these failures in real organizations.",
       },
       datasets: [
         "Simulation parameter configuration schema v0.1.",

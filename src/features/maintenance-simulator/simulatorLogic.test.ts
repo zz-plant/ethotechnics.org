@@ -101,4 +101,19 @@ describe("getThresholdStatus", () => {
     expect(status.band.label).toBe("Act now");
     expect(status.actNow).toBe(true);
   });
+
+  it("handles NaN scores and unknown riskLevels safely", () => {
+    const preset = getThresholdPreset("balanced");
+    const status = getThresholdStatus(NaN, preset);
+    expect(status.band).toBeDefined();
+
+    const template = scenarioTemplates[0];
+    const readiness = evaluateReadiness(
+      fullCoverage,
+      "unknown" as any,
+      template,
+    );
+    expect(Number.isFinite(readiness.score)).toBe(true);
+    expect(readiness.score).toBe(100);
+  });
 });

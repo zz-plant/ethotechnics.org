@@ -103,14 +103,27 @@ export type ExposureScore = {
 
 /** STD-06 §5: score = dependency_depth × substitution_cost × correction_latency. */
 export function exposureScore(inputs: Inputs): ExposureScore {
-  const substitution_cost =
-    inputs.substitutionWeeks * ALTERNATIVE_MULTIPLIER[inputs.alternative];
+  const dependents = Math.max(
+    0,
+    Number.isFinite(inputs.dependents) ? inputs.dependents : 0,
+  );
+  const substitutionWeeks = Math.max(
+    0,
+    Number.isFinite(inputs.substitutionWeeks) ? inputs.substitutionWeeks : 0,
+  );
+  const correctionLatencyHours = Math.max(
+    0,
+    Number.isFinite(inputs.correctionLatencyHours)
+      ? inputs.correctionLatencyHours
+      : 0,
+  );
+  const multiplier = ALTERNATIVE_MULTIPLIER[inputs.alternative] ?? 1;
+  const substitution_cost = substitutionWeeks * multiplier;
   return {
-    dependency_depth: inputs.dependents,
+    dependency_depth: dependents,
     substitution_cost,
-    correction_latency: inputs.correctionLatencyHours,
-    score:
-      inputs.dependents * substitution_cost * inputs.correctionLatencyHours,
+    correction_latency: correctionLatencyHours,
+    score: Math.round(dependents * substitution_cost * correctionLatencyHours),
   };
 }
 

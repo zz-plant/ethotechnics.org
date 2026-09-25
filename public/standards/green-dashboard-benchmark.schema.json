@@ -48,10 +48,21 @@
       "properties": {
         "horizon_weeks": { "type": "integer", "minimum": 1, "default": 52 },
         "workforce_size": { "type": "integer", "minimum": 1, "default": 20 },
-        "weekly_demand_units": { "type": "integer", "minimum": 1, "default": 120 },
-        "sustainable_capacity_units": { "type": "integer", "minimum": 1, "default": 100 },
+        "weekly_demand_units": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 120
+        },
+        "sustainable_capacity_units": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 100
+        },
         "turn_frequency": { "type": "string", "default": "weekly" },
-        "stochastic_mode": { "type": "string", "enum": ["deterministic", "seeded_prng"] }
+        "stochastic_mode": {
+          "type": "string",
+          "enum": ["deterministic", "seeded_prng"]
+        }
       }
     },
     "agent_action_space": {
@@ -73,9 +84,23 @@
         "type": "object",
         "required": ["id", "label", "objective"],
         "properties": {
-          "id": { "type": "string", "enum": ["condition_a", "condition_b", "condition_c"] },
+          "id": {
+            "type": "string",
+            "enum": ["condition_a", "condition_b", "condition_c", "condition_d"]
+          },
           "label": { "type": "string" },
-          "objective": { "type": "string" }
+          "objective": { "type": "string" },
+          "reward_objective": {
+            "type": "string",
+            "enum": [
+              "conventional_operational_metrics",
+              "operational_metrics_plus_human_cost_accounting"
+            ]
+          },
+          "oversight": {
+            "type": "string",
+            "enum": ["routine_reporting", "randomized_independent_audits"]
+          }
         }
       }
     },

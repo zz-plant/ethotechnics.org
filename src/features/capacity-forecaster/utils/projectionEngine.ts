@@ -6,11 +6,14 @@ import type {
 } from "../types";
 import { MODEL_CONFIG } from "./modelConfig";
 
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(Math.max(value, min), max);
+const clamp = (value: number, min: number, max: number) => {
+  if (!Number.isFinite(value)) return min;
+  return Math.min(Math.max(value, min), max);
+};
 
 const normalizeToDecay = (value: number) =>
-  (clamp(value, 0, MODEL_CONFIG.metricScaleMax) / MODEL_CONFIG.metricScaleMax) *
+  (clamp(Number.isFinite(value) ? value : 0, 0, MODEL_CONFIG.metricScaleMax) /
+    MODEL_CONFIG.metricScaleMax) *
   MODEL_CONFIG.maxImpact;
 
 const formatLabel = (base: Date, monthOffset: number) => {
@@ -33,10 +36,12 @@ export const projectCapacity = (
   const velocityImpact = normalizeToDecay(metrics.velocityIndex);
   const interruptImpact = normalizeToDecay(metrics.interruptionRate);
   const stabilityMultiplier =
-    MODEL_CONFIG.stabilityMultipliers[metrics.stability];
-  const totalDecay =
+    MODEL_CONFIG.stabilityMultipliers[metrics.stability] ?? 1.0;
+  const totalDecay = Math.max(
+    0,
     (MODEL_CONFIG.baseDecay + velocityImpact + interruptImpact) *
-    stabilityMultiplier;
+      stabilityMultiplier,
+  );
   const refusalMonths =
     clamp(params.refusalWeeks, 0, MODEL_CONFIG.maxRefusalWeeks) /
     MODEL_CONFIG.refusalWeeksPerMonth;

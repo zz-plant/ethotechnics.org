@@ -27,8 +27,10 @@ const RECENCY_WEIGHT = {
   never: 0,
 } as const;
 
-const clampScore = (value: number) =>
-  Math.max(0, Math.min(100, Math.round(value)));
+const clampScore = (value: number) => {
+  if (!Number.isFinite(value)) return 0;
+  return Math.max(0, Math.min(100, Math.round(value)));
+};
 
 const ratingForScore = (score: number): Rating => {
   if (score >= 70) return "grounded";
@@ -45,7 +47,7 @@ const share = (matching: number, total: number) =>
   total === 0 ? 0 : matching / total;
 
 export const countDependencyDepth = (input: AuditInput): number =>
-  input.dependents.filter(
+  (input.dependents || []).filter(
     (dependent) =>
       dependent.criticality === "high" || dependent.criticality === "critical",
   ).length;
@@ -81,14 +83,24 @@ const BAND_COPY: Record<ExposureBand, { label: string; reading: string }> = {
 };
 
 export const calculateExposureScore = (input: AuditInput): ExposureScore => {
-  const dependencyDepth = countDependencyDepth(input);
+  const dependencyDepth = Math.max(0, countDependencyDepth(input));
   const substitutionCostStaffWeeks = Math.max(
     0,
-    input.substitutionCostStaffWeeks || 0,
+    Number.isFinite(input.substitutionCostStaffWeeks)
+      ? input.substitutionCostStaffWeeks
+      : 0,
   );
-  const correctionLatencyHours = Math.max(0, input.correctionLatencyHours || 0);
-  const score = Math.round(
-    dependencyDepth * substitutionCostStaffWeeks * correctionLatencyHours,
+  const correctionLatencyHours = Math.max(
+    0,
+    Number.isFinite(input.correctionLatencyHours)
+      ? input.correctionLatencyHours
+      : 0,
+  );
+  const score = Math.max(
+    0,
+    Math.round(
+      dependencyDepth * substitutionCostStaffWeeks * correctionLatencyHours,
+    ),
   );
   const band = bandForScore(score);
 
@@ -226,7 +238,7 @@ const scoreEvidence = (input: AuditInput): VariableRating => {
     classes.length === 0
       ? 0
       : classes.reduce(
-          (sum, entry) => sum + RECENCY_WEIGHT[entry.lastChecked],
+          (sum, entry) => sum + (RECENCY_WEIGHT[entry.lastChecked] ?? 0),
           0,
         ) / classes.length;
 
@@ -271,14 +283,16 @@ const scoreDependency = (
   exposure: ExposureScore,
 ): VariableRating => {
   const notes: string[] = [];
-  const rehearsalPoints = RECENCY_WEIGHT[input.alternativeExercised] * 50;
+  const rehearsalPoints = (RECENCY_WEIGHT[input.alternativeExercised] ?? 0) * 50;
   const bandPoints: Record<ExposureBand, number> = {
     none: 50,
     contained: 40,
     material: 20,
     heavy: 0,
   };
-  const score = clampScore(rehearsalPoints + bandPoints[exposure.band]);
+  const score = clampScore(
+    rehearsalPoints + (bandPoints[exposure.band] ?? 0),
+  );
 
   notes.push(
     `Exposure score ${exposure.score} from depth ${exposure.dependencyDepth} × ${exposure.substitutionCostStaffWeeks} staff-weeks × ${exposure.correctionLatencyHours} hours.`,

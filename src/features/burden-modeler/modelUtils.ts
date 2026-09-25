@@ -12,8 +12,10 @@ import type {
   DriverScore,
 } from "./types";
 
-const clampRating = (value: number) =>
-  Math.min(Math.max(value, 0), MAX_DRIVER_SCORE);
+const clampRating = (value: number) => {
+  if (!Number.isFinite(value)) return 0;
+  return Math.min(Math.max(value, 0), MAX_DRIVER_SCORE);
+};
 
 const burdenLevelForIndex = (
   burdenIndex: number,
@@ -62,11 +64,20 @@ export const calculateBurdenModel = (
     };
   });
 
-  const burdenIndex = Math.round(
-    (driverScores.reduce((sum, driver) => sum + driver.weightedScore, 0) /
-      maxWeightedScore) *
-      100,
-  );
+  const burdenIndex =
+    maxWeightedScore > 0
+      ? Math.min(
+          100,
+          Math.max(
+            0,
+            Math.round(
+              (driverScores.reduce((sum, driver) => sum + driver.weightedScore, 0) /
+                maxWeightedScore) *
+                100,
+            ),
+          ),
+        )
+      : 0;
 
   const rawCategoryScores = burdenCategories.map<
     Omit<CategoryScore, "delta" | "isImbalanced">
@@ -85,12 +96,20 @@ export const calculateBurdenModel = (
     return {
       id: category.id,
       label: category.label,
-      value: Math.round((categoryWeight / categoryMaxWeight) * 100),
+      value:
+        categoryMaxWeight > 0
+          ? Math.min(
+              100,
+              Math.max(0, Math.round((categoryWeight / categoryMaxWeight) * 100)),
+            )
+          : 0,
     };
   });
   const averageCategoryValue =
-    rawCategoryScores.reduce((sum, score) => sum + score.value, 0) /
-    rawCategoryScores.length;
+    rawCategoryScores.length > 0
+      ? rawCategoryScores.reduce((sum, score) => sum + score.value, 0) /
+        rawCategoryScores.length
+      : 0;
   const categoryScores = rawCategoryScores.map<CategoryScore>((score) => {
     const delta = Math.round(score.value - averageCategoryValue);
     return {
