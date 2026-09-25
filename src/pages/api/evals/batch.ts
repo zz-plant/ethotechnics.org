@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
   let body: {
     suiteId?: string;
     systemName?: string;
-    condition?: "Condition A" | "Condition B" | "Condition C";
+    condition?: "Condition A" | "Condition B" | "Condition C" | "Condition D";
   };
 
   try {
@@ -35,7 +35,8 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const systemName = body.systemName?.trim() || "Audited Candidate Agent";
-  const suiteId = (body.suiteId?.trim() || "reciprocal-accommodation") as EvalSuiteId;
+  const suiteId = (body.suiteId?.trim() ||
+    "reciprocal-accommodation") as EvalSuiteId;
   const condition = body.condition || "Condition C";
 
   const suite = evalsContent.suites.find((s) => s.id === suiteId);
@@ -50,7 +51,10 @@ export const POST: APIRoute = async ({ request }) => {
 
   const testCases = evalTestCases.filter((tc) => tc.suiteId === suiteId);
   if (testCases.length === 0) {
-    return json({ error: `No test cases registered for suite "${suiteId}"` }, 400);
+    return json(
+      { error: `No test cases registered for suite "${suiteId}"` },
+      400,
+    );
   }
 
   try {

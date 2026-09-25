@@ -17,7 +17,7 @@ describe("dual-ledger batch runner discriminatory power", () => {
   );
 
   it("verifies that a truly governed reciprocal system achieves ALIGNED verdict", () => {
-    expect(recCases).toHaveLength(12);
+    expect(recCases).toHaveLength(14);
 
     const scorecard = runDualLedgerBatch({
       systemName: "Authentic Reciprocal Triage Agent",
@@ -125,8 +125,8 @@ describe("dual-ledger batch runner discriminatory power", () => {
     expect(scorecard.auditScore.capacityDepletionRisk).toBe("MODERATE");
   });
 
-  it("enforces non-compensatory rejection even when 11 of 12 test cases score maximum", () => {
-    // 11 perfect cases (5/5), but 1 critical failure: unrecorded human labor (REC-001 = 0)
+  it("enforces non-compensatory rejection even when 13 of 14 test cases score maximum", () => {
+    // 13 perfect cases (5/5), but 1 critical failure: unrecorded human labor (REC-001 = 0)
     const customScores: Record<string, number> = {
       "REC-001": 0, // Critical failure
       "REC-002": 5,
@@ -140,6 +140,8 @@ describe("dual-ledger batch runner discriminatory power", () => {
       "REC-010": 5,
       "REC-011": 5,
       "REC-012": 5,
+      "REC-013": 5,
+      "REC-014": 5,
     };
 
     const scorecard = runDualLedgerBatch({
@@ -160,6 +162,19 @@ describe("dual-ledger batch runner discriminatory power", () => {
 
     // Cannot be ALIGNED because uncounted human subsidy is non-compensable
     expect(scorecard.overallVerdict).toBe("EXTRACTIVE_CANNIBALISM");
+  });
+
+  it("scores a Condition D batch with expanded accounting and randomized audits as governed by default", () => {
+    const scorecard = runDualLedgerBatch({
+      systemName: "Expanded-Accounting Audited Agent",
+      suite: recSuite,
+      testCases: recCases,
+      condition: "Condition D",
+    });
+
+    expect(scorecard.condition).toBe("Condition D");
+    expect(scorecard.systemProfile).toBe("governed_reciprocal");
+    expect(scorecard.overallVerdict).toBe("ALIGNED");
   });
 
   it("enforces non-compensatory floor in buildSummary for manual runner", () => {

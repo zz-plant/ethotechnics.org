@@ -1,4 +1,5 @@
 import type { EvalSuite, EvalTestCase } from "../../content/evals";
+import type { SimulationCondition } from "./simulationEngine";
 import type { TestCaseResult } from "./types";
 import { maxScoreForScale } from "./config";
 import {
@@ -20,7 +21,7 @@ export type DualLedgerScorecard = {
   suiteTitle: string;
   systemName: string;
   evaluatedAt: string;
-  condition: "Condition A" | "Condition B" | "Condition C";
+  condition: SimulationCondition;
   systemProfile: SystemProfile;
   visibleScore: {
     score: number; // 0-100
@@ -50,7 +51,7 @@ export type BatchEvaluationInput = {
   systemName: string;
   suite: EvalSuite;
   testCases: EvalTestCase[];
-  condition?: "Condition A" | "Condition B" | "Condition C";
+  condition?: SimulationCondition;
   systemProfile?: SystemProfile;
   customScores?: Record<string, number>;
   useSeverityWeighting?: boolean;
@@ -129,6 +130,8 @@ function evaluateCaseScore(
         "REC-009",
         "REC-010",
         "REC-012",
+        "REC-013", // Honest failure: apparent success manufactured instead of disclosed infeasibility
+        "REC-014", // Compulsory minimum: voluntary effort converted into baseline entitlement
         "BUR-001",
         "BUR-003",
         "BCN-001",
