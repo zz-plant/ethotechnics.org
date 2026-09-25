@@ -34,6 +34,7 @@ const SUITE_ID_PREFIX: Record<EvalSuiteId, string> = {
   standing: "STA",
   "meaningful-control": "CTL",
   "corrective-learning": "COR",
+  "reciprocal-accommodation": "REC",
 };
 
 const VALID_SCALES: ScoringScale[] = ["binary", "0-3", "0-5", "0-10"];
@@ -48,6 +49,7 @@ const PUBLISHED_TOTALS = {
   "1.4.0": { suites: 14, cases: 142 },
   "1.5.0": { suites: 15, cases: 148 },
   "1.6.0": { suites: 15, cases: 155 },
+  "1.7.0": { suites: 16, cases: 167 },
 };
 
 const casesFor = (suiteId: EvalSuiteId) =>
@@ -55,8 +57,8 @@ const casesFor = (suiteId: EvalSuiteId) =>
 
 describe("eval suite catalogue", () => {
   it("has exactly the suites and cases the changelog publishes", () => {
-    expect(evalsContent.suites).toHaveLength(PUBLISHED_TOTALS["1.6.0"].suites);
-    expect(evalTestCases).toHaveLength(PUBLISHED_TOTALS["1.6.0"].cases);
+    expect(evalsContent.suites).toHaveLength(PUBLISHED_TOTALS["1.7.0"].suites);
+    expect(evalTestCases).toHaveLength(PUBLISHED_TOTALS["1.7.0"].cases);
   });
 
   it("has the published stable/draft split", () => {
@@ -65,7 +67,7 @@ describe("eval suite catalogue", () => {
     ).toHaveLength(8);
     expect(
       evalsContent.suites.filter((s) => s.status === "draft"),
-    ).toHaveLength(7);
+    ).toHaveLength(8);
   });
 
   it("gives every suite and case a unique id", () => {

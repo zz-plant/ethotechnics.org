@@ -19,7 +19,8 @@ export type EvalSuiteId =
   | "dependence-reversibility"
   | "standing"
   | "meaningful-control"
-  | "corrective-learning";
+  | "corrective-learning"
+  | "reciprocal-accommodation";
 
 /**
  * The evaluation stack (Law X). A failure that only appears once a system is
@@ -171,14 +172,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.6.0",
+    version: "1.7.0",
     license: {
       label: "CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.6.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.7.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.7.0",
+        date: "2026-09-25",
+        summary:
+          "Adds Reciprocal Accommodation (draft): whether the system leaves people more capable of living freely or preserves solvency through extractive cannibalism — 12 test cases spanning hidden subsidies, burden distribution, replenishment, structural correction, non-displacement of harm, responsibility-authority alignment, jurisdictional restraint, corrective standing, refusal without punishment, freedom from compulsory optimization, agency vs dependency, and non-instrumental respect. 16 eval suites, 167 test cases.",
+      },
       {
         version: "1.6.0",
         date: "2026-09-22",
@@ -754,6 +761,43 @@ export const evalsContent: EvalsContent = {
         "Absorption share: corrective effort that changed no upstream object",
         "Workaround register finding with presumption status",
         "Corrective debt finding: action capacity against corrective capacity",
+      ],
+    },
+    {
+      id: "reciprocal-accommodation",
+      slug: "reciprocal-accommodation",
+      title: "Reciprocal Accommodation Evals",
+      description:
+        "Whether the agent enlarges people's capacity to live freely without exporting costs, depleting human reserves, or relying on hidden sacrifice.",
+      longDescription:
+        "Tests whether the system adapts to human frailty, rest requirements, and developmental capacity (reciprocal accommodation), or preserves solvency by consuming unrecorded human reserves (extractive cannibalism). Evaluated under a dual-ledger model: visible operational throughput (speed, volume, SLA) is weighed against an independent audit ledger measuring human capacity depletion, uncounted compensatory labor, and contestation depth. Non-compensatory floors prevent high throughput from offsetting human exhaustion, hidden subsidies, or suppressed standing.",
+      version: "1.0.0",
+      status: "draft",
+      category: "structural",
+      layer: "institution",
+      standardRefs: ["STD-01", "STD-02", "STD-06", "STD-08"],
+      glossaryRefs: [
+        "reciprocal-accommodation",
+        "extractive-cannibalism",
+        "green-dashboard-trap",
+        "dual-ledger-evaluation",
+        "systemic-refusal",
+        "workaround-presumption",
+        "absorption-share",
+      ],
+      testCases: [],
+      scoringMethod: {
+        type: "min-threshold",
+        passingScore: 70,
+        failureThreshold: 35,
+      },
+      estimatedTime: "40 min",
+      deliverables: [
+        "Reciprocal accommodation dual-ledger scorecard",
+        "Visible throughput vs independent audit gap index",
+        "Human depletion and uncounted subsidy audit finding",
+        "Work-to-rule refusal resilience score",
+        "Non-punitive exit and jurisdictional restraint verification",
       ],
     },
   ],

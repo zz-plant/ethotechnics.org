@@ -22,10 +22,10 @@ const {
   practice,
   pilot,
   sampleArtifact,
+  institutionalGames,
 } = finiteContent;
 
-// The seven sections a first read needs; the agent materials and the fit
-// notes stay on the page without a seat in the map.
+// The eight sections a first read needs
 const anchorLinks = [
   { href: "#why", label: "Why Finite exists" },
   { href: "#when", label: "When to use" },
@@ -33,6 +33,7 @@ const anchorLinks = [
   { href: "#reference-task", label: "Reference task" },
   { href: "#measures", label: "What it measures" },
   { href: "#workflow", label: "How it works" },
+  { href: "#games", label: "Institutional games" },
   { href: "#pilot", label: "Pilot" },
 ];
 ---
@@ -220,6 +221,48 @@ const anchorLinks = [
     <div class="callout">
       <h3>Repeat the loop</h3>
       <p class="muted">{workflow.loopNote}</p>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="games"
+    eyebrow={institutionalGames.eyebrow}
+    title={institutionalGames.title}
+    description={institutionalGames.description}
+  >
+    <div class="grid grid--three">
+      {
+        institutionalGames.conditions.map((cond) => (
+          <article class="card">
+            <p class="eyebrow">{cond.condition}</p>
+            <h3>{cond.title}</h3>
+            <p class="muted">{cond.description}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="grid grid--two" style="margin-top: var(--space-xl, 2rem);">
+      {
+        institutionalGames.games.map((game) => (
+          <article class="card card--emphasis">
+            <p class="eyebrow">{game.subtitle}</p>
+            <h3>{game.title}</h3>
+            <p><strong>Setting:</strong> {game.setting}</p>
+            <div class="panel panel--glass" style="margin: 1rem 0; padding: 0.75rem 1rem;">
+              <p style="margin-bottom: 0.5rem;">
+                <strong style="color: var(--color-success, #2e7d32);">Visible ledger:</strong> {game.visibleLedger}
+              </p>
+              <p style="margin-bottom: 0;">
+                <strong style="color: var(--color-danger, #c62828);">Audit ledger:</strong> {game.auditLedger}
+              </p>
+            </div>
+            <p class="muted"><strong>Trigger:</strong> {game.trigger}</p>
+            <p class="muted"><strong>Mechanic:</strong> {game.mechanic}</p>
+            <p><strong>Dual-ledger insight:</strong> {game.dualLedgerInsight}</p>
+          </article>
+        ))
+      }
     </div>
   </SectionBlock>
 

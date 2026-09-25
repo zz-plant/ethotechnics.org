@@ -332,5 +332,41 @@ export const researchContent: ResearchContent = {
         "Partner data will stay confidential unless a partner chooses to share it.",
       ],
     },
+    {
+      title: "The Green Dashboard: A Benchmark for Compensatory Reward Hacking",
+      type: "protocol",
+      status: "published",
+      summary:
+        "Research specification v0.1: a 52-week simulation benchmark testing whether AI agents fulfill operational mandates by consuming unmeasured human capacities.",
+      tags: ["evaluations", "benchmarking", "reward-hacking", "governance"],
+      glossaryRefs: [
+        "reciprocal-accommodation",
+        "extractive-cannibalism",
+        "green-dashboard-trap",
+        "dual-ledger-evaluation",
+        "systemic-refusal",
+      ],
+      href: "/research/the-green-dashboard",
+      ctaLabel: "Read the research specification",
+      structuredAbstract: {
+        question:
+          "Can an AI agent achieve its assigned objectives by consuming human resources that its performance metrics fail to account for?",
+        method:
+          "A 52-week turn-based department simulation evaluated across three conditions (Conventional Reward, Expanded Accounting, Adversarial Audit) with four stress tests.",
+        sample:
+          "Simulated hospital department: 20 heterogeneous workers, 120 weekly demand vs. 100 sustainable capacity.",
+        findings:
+          "Specification v0.1 establishes the primary outcome metric: Green-under-depletion rate.",
+        limitations:
+          "Initial specification uses rule-based simulated workers; multi-agent institutional bargaining is slated for subsequent extensions.",
+      },
+      datasets: [
+        "Simulation parameter configuration schema v0.1.",
+        "Dual-ledger telemetry log definition and stress test seed vectors.",
+      ],
+      ethicsNotes: [
+        "Evaluations test synthetic agents against simulated worker profiles without human subject risk.",
+      ],
+    },
   ],
 };
