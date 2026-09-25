@@ -50,6 +50,7 @@ lean, fast-loading pages and clear storytelling.
 - [Documentation map](#documentation-map)
 - [Project structure](#project-structure)
 - [Contributing](#contributing)
+- [Changelog](CHANGELOG.md)
 - [License](#license)
 
 ## Highlights
@@ -257,6 +258,7 @@ Session storage is not enabled by default; if you add it later, define the KV bi
 - CI mirrors `bun run check` on pull requests via the Site checks workflow.
 - Read [`AGENTS.md`](AGENTS.md), [`docs/README.md`](docs/README.md), and
   [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) before making larger updates.
+- Track version history and release notes in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## License
 

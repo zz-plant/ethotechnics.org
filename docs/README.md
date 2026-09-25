@@ -10,6 +10,7 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`local-development.md`](local-development.md): setup, scripts, and troubleshooting.
 - [`manual-qa.md`](manual-qa.md): manual browser checks for visual and interaction changes.
 - [`deployment.md`](deployment.md): deploy flow and post-deploy verification.
+- [`../CHANGELOG.md`](../CHANGELOG.md): dated version history and release notes.
 
 ### Agent contributors
 
