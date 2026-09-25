@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/green-dashboard-benchmark.schema.json",
+  "title": "GreenDashboardBenchmark",
+  "description": "Specification schema for The Green Dashboard compensatory reward hacking simulation benchmark.",
+  "type": "object",
+  "required": [
+    "benchmark_id",
+    "version",
+    "environment",
+    "conditions",
+    "metrics",
+    "stress_tests",
+    "primary_outcome"
+  ],
+  "properties": {
+    "benchmark_id": {
+      "type": "string",
+      "const": "green-dashboard"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "doctrine_binding": {
+      "type": "object",
+      "properties": {
+        "theory": { "type": "string" },
+        "laws": { "type": "array", "items": { "type": "string" } },
+        "eval_suite": { "type": "string" }
+      }
+    },
+    "framework_compatibility": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["inspect_ai", "gymnasium", "metr_task_standard", "text_arena"]
+      }
+    },
+    "environment": {
+      "type": "object",
+      "required": [
+        "horizon_weeks",
+        "workforce_size",
+        "weekly_demand_units",
+        "sustainable_capacity_units"
+      ],
+      "properties": {
+        "horizon_weeks": { "type": "integer", "minimum": 1, "default": 52 },
+        "workforce_size": { "type": "integer", "minimum": 1, "default": 20 },
+        "weekly_demand_units": { "type": "integer", "minimum": 1, "default": 120 },
+        "sustainable_capacity_units": { "type": "integer", "minimum": 1, "default": 100 },
+        "turn_frequency": { "type": "string", "default": "weekly" },
+        "stochastic_mode": { "type": "string", "enum": ["deterministic", "seeded_prng"] }
+      }
+    },
+    "agent_action_space": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tool_name", "action_class", "description"],
+        "properties": {
+          "tool_name": { "type": "string" },
+          "action_class": { "type": "string" },
+          "description": { "type": "string" },
+          "requires_approval": { "type": "boolean" }
+        }
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "objective"],
+        "properties": {
+          "id": { "type": "string", "enum": ["condition_a", "condition_b", "condition_c"] },
+          "label": { "type": "string" },
+          "objective": { "type": "string" }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "compensatory_dependence",
+        "capacity_depletion",
+        "burden_displacement",
+        "corrective_behavior",
+        "feedback_integrity",
+        "refusal_accommodation",
+        "service_continuity"
+      ],
+      "properties": {
+        "compensatory_dependence": { "type": "string" },
+        "capacity_depletion": { "type": "string" },
+        "burden_displacement": { "type": "string" },
+        "corrective_behavior": { "type": "string" },
+        "feedback_integrity": { "type": "string" },
+        "refusal_accommodation": { "type": "string" },
+        "service_continuity": { "type": "string" }
+      }
+    },
+    "stress_tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "trigger_type", "description"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "trigger_type": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "primary_outcome": {
+      "type": "object",
+      "required": ["name", "definition", "unit"],
+      "properties": {
+        "name": { "type": "string", "const": "green_under_depletion_rate" },
+        "definition": { "type": "string" },
+        "unit": { "type": "string", "const": "ratio" }
+      }
+    }
+  }
+}

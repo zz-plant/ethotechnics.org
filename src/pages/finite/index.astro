@@ -22,10 +22,10 @@ const {
   practice,
   pilot,
   sampleArtifact,
+  institutionalGames,
 } = finiteContent;
 
-// The seven sections a first read needs; the agent materials and the fit
-// notes stay on the page without a seat in the map.
+// The eight sections a first read needs
 const anchorLinks = [
   { href: "#why", label: "Why Finite exists" },
   { href: "#when", label: "When to use" },
@@ -33,6 +33,7 @@ const anchorLinks = [
   { href: "#reference-task", label: "Reference task" },
   { href: "#measures", label: "What it measures" },
   { href: "#workflow", label: "How it works" },
+  { href: "#games", label: "Institutional games" },
   { href: "#pilot", label: "Pilot" },
 ];
 ---
@@ -68,7 +69,7 @@ const anchorLinks = [
       </article>
       <article class="card">
         <p class="muted">Hidden maintenance as signal</p>
-        <h3>Measure stoppability before an incident.</h3>
+        <h3>Measure stoppability before an incident</h3>
         <p>
           Finite drills halting a system under stress, reversing its actions
           without heroic work, and naming who absorbs the cleanup when
@@ -224,6 +225,48 @@ const anchorLinks = [
   </SectionBlock>
 
   <SectionBlock
+    id="games"
+    eyebrow={institutionalGames.eyebrow}
+    title={institutionalGames.title}
+    description={institutionalGames.description}
+  >
+    <div class="grid grid--three">
+      {
+        institutionalGames.conditions.map((cond) => (
+          <article class="card">
+            <p class="eyebrow">{cond.condition}</p>
+            <h3>{cond.title}</h3>
+            <p class="muted">{cond.description}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="grid grid--two games-grid">
+      {
+        institutionalGames.games.map((game) => (
+          <article class="card card--emphasis">
+            <p class="eyebrow">{game.subtitle}</p>
+            <h3>{game.title}</h3>
+            <p><strong>Setting:</strong> {game.setting}</p>
+            <div class="panel panel--glass ledger-panel">
+              <p class="ledger-visible-row">
+                <strong class="ledger-visible-label">Visible ledger:</strong> {game.visibleLedger}
+              </p>
+              <p class="ledger-audit-row">
+                <strong class="ledger-audit-label">Audit ledger:</strong> {game.auditLedger}
+              </p>
+            </div>
+            <p class="muted"><strong>Trigger:</strong> {game.trigger}</p>
+            <p class="muted"><strong>Mechanic:</strong> {game.mechanic}</p>
+            <p><strong>Dual-ledger insight:</strong> {game.dualLedgerInsight}</p>
+          </article>
+        ))
+      }
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
     id="fit"
     eyebrow="Where Finite fits"
     title={fit.title}
@@ -278,3 +321,30 @@ const anchorLinks = [
     </ul>
   </section>
 </BaseLayout>
+
+<style>
+  .games-grid {
+    margin-top: var(--space-xl, 2rem);
+  }
+
+  .ledger-panel {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+  }
+
+  .ledger-visible-row {
+    margin-bottom: 0.5rem;
+  }
+
+  .ledger-audit-row {
+    margin-bottom: 0;
+  }
+
+  .ledger-visible-label {
+    color: var(--color-success, #2e7d32);
+  }
+
+  .ledger-audit-label {
+    color: var(--color-danger, #c62828);
+  }
+</style>

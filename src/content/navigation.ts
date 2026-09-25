@@ -225,7 +225,7 @@ export const navSections: NavSection[] = [
 export const startHereCta: NavLink = {
   href: "/start",
   label: "Start here",
-  description: "Find the right resource fast",
+  description: "Find the right resource",
   primary: true,
   mobileFeatured: true,
 };

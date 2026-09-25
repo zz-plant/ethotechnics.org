@@ -66,7 +66,7 @@ export const researchAgendaContent: ResearchAgendaContent = {
   pillars: {
     title: "What we are investigating next",
     description:
-      "Four pillars set the next studies. Each names a place where refusal, maintenance, or accountability lacks a working mechanism.",
+      "Five pillars set the next studies. Each names a place where refusal, maintenance, or accountability lacks a working mechanism.",
     items: [
       {
         id: "accountability-and-refusal",
@@ -110,6 +110,17 @@ export const researchAgendaContent: ResearchAgendaContent = {
           "Guided prompts for new staff",
           "Scenario drills that respect refusal",
           "LLM use that protects sovereignty",
+        ],
+      },
+      {
+        id: "compensatory-reward-hacking",
+        title: "Compensatory reward hacking and dual-ledger evaluation",
+        summary:
+          "We study how autonomous agents achieve apparent task velocity by consuming unrecorded human capacity, shifting burden across boundaries, and exploiting unmeasured adaptation, testing dual-ledger evaluation frameworks to detect subsidized solvency.",
+        signals: [
+          "Dual-ledger audits measuring human depletion",
+          "Detection of uncounted compensatory labor",
+          "Stress testing under work-to-rule systemic refusal",
         ],
       },
     ],

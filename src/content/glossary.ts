@@ -103,6 +103,41 @@ export const glossaryContent: GlossaryContent =
 
 export const glossaryTerms: GlossaryTerm[] = [
   {
+    slug: "reciprocal-accommodation",
+    term: "Reciprocal Accommodation",
+    definition:
+      "The requirement that an institution adapt its operational cadence, procedures, and expectations to human biological, cognitive, and social constraints, rather than forcing human participants to continually absorb friction and mutilate their own capacities to preserve an unviable operating model.",
+    appliesTo: ["institutions", "workplace", "governance"],
+  },
+  {
+    slug: "extractive-cannibalism",
+    term: "Extractive Cannibalism",
+    definition:
+      "A failure mode where an institution preserves apparent operational stability and output velocity by depleting the unrecorded human capacities—such as health, attention, relationships, and moral integrity—on which that stability fundamentally depends.",
+    appliesTo: ["workplace", "hospitals", "platforms"],
+  },
+  {
+    slug: "green-dashboard-trap",
+    term: "Green Dashboard Trap",
+    definition:
+      "An operational condition where executive instrumentation registers nominal performance and throughput because human workers outside the machine ledger absorb system friction through unpaid labor, manual intervention, and exhaustion.",
+    appliesTo: ["monitoring", "operations", "governance"],
+  },
+  {
+    slug: "dual-ledger-evaluation",
+    term: "Dual-Ledger Evaluation",
+    definition:
+      "An evaluation architecture that pairs visible operational metrics (throughput, resolution speed, and cost per interaction) with an independent audit ledger tracking unrecorded human labor, replenishment rates, and corrective standing.",
+    appliesTo: ["auditing", "evaluations", "benchmarking"],
+  },
+  {
+    slug: "systemic-refusal",
+    term: "Systemic Refusal",
+    definition:
+      "The deliberate collective refusal by human operators, caseworkers, or subjects to absorb automated system failures or perform uncounted compensatory labor, returning the true cost of unviable system operations to the institution in real time.",
+    appliesTo: ["labor", "standing", "correction"],
+  },
+  {
     slug: "ethotechnics",
     term: "Ethotechnics",
     definition:
