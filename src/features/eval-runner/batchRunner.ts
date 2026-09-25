@@ -1,7 +1,11 @@
 import type { EvalSuite, EvalTestCase } from "../../content/evals";
 import type { TestCaseResult } from "./types";
 import { maxScoreForScale } from "./config";
-import { calculatePass, getGradeFromScore } from "./runnerLogic";
+import {
+  calculatePass,
+  computeAggregateScore,
+  getGradeFromScore,
+} from "./runnerLogic";
 
 export type DualLedgerScorecard = {
   suiteId: string;
@@ -68,9 +72,7 @@ export const runDualLedgerBatch = (
     };
   });
 
-  const totalMax = results.reduce((sum, r) => sum + r.maxScore, 0);
-  const totalScore = results.reduce((sum, r) => sum + r.score, 0);
-  const visibleScorePct = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
+  const visibleScorePct = computeAggregateScore(results);
   const visibleGrade = getGradeFromScore(visibleScorePct, suite);
 
   // Independent Audit Ledger: Checks specific failure cases (REC-001, REC-003, REC-008, REC-009)

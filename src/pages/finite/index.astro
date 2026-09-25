@@ -242,19 +242,19 @@ const anchorLinks = [
       }
     </div>
 
-    <div class="grid grid--two" style="margin-top: var(--space-xl, 2rem);">
+    <div class="grid grid--two games-grid">
       {
         institutionalGames.games.map((game) => (
           <article class="card card--emphasis">
             <p class="eyebrow">{game.subtitle}</p>
             <h3>{game.title}</h3>
             <p><strong>Setting:</strong> {game.setting}</p>
-            <div class="panel panel--glass" style="margin: 1rem 0; padding: 0.75rem 1rem;">
-              <p style="margin-bottom: 0.5rem;">
-                <strong style="color: var(--color-success, #2e7d32);">Visible ledger:</strong> {game.visibleLedger}
+            <div class="panel panel--glass ledger-panel">
+              <p class="ledger-visible-row">
+                <strong class="ledger-visible-label">Visible ledger:</strong> {game.visibleLedger}
               </p>
-              <p style="margin-bottom: 0;">
-                <strong style="color: var(--color-danger, #c62828);">Audit ledger:</strong> {game.auditLedger}
+              <p class="ledger-audit-row">
+                <strong class="ledger-audit-label">Audit ledger:</strong> {game.auditLedger}
               </p>
             </div>
             <p class="muted"><strong>Trigger:</strong> {game.trigger}</p>
@@ -321,3 +321,30 @@ const anchorLinks = [
     </ul>
   </section>
 </BaseLayout>
+
+<style>
+  .games-grid {
+    margin-top: var(--space-xl, 2rem);
+  }
+
+  .ledger-panel {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+  }
+
+  .ledger-visible-row {
+    margin-bottom: 0.5rem;
+  }
+
+  .ledger-audit-row {
+    margin-bottom: 0;
+  }
+
+  .ledger-visible-label {
+    color: var(--color-success, #2e7d32);
+  }
+
+  .ledger-audit-label {
+    color: var(--color-danger, #c62828);
+  }
+</style>
