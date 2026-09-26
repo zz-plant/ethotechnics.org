@@ -453,263 +453,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       measurable performance properties.
     </p>
 
-    <div class="grid grid--two">
-      <div class="panel">
-        <p class="eyebrow">1. Risk management vs. runtime governability</p>
-        <p class="muted">
-          Common standards (NIST AI RMF, ISO/IEC 42001) focus on identifying,
-          assessing, documenting, and managing risks across the AI lifecycle.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Strong artifacts (inventories, risk registers, approvals).</li>
-          <li>Clear organizational accountability on paper.</li>
-          <li>Weaker guarantees about what happens mid-incident.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats governance as the set of mechanisms
-          that determine whether harm can be interrupted, contained, reversed, and
-          learned from in a bounded time.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>
-            Explicit stop conditions (“when X occurs, system must stop or
-            degrade”).
-          </li>
-          <li>Exercised rollback and restoration paths.</li>
-          <li>Measurable bounds on time-in-harm.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">2. Compliance programs vs. control planes</p>
-        <p class="muted">
-          Common standards implement governance through policies, review gates,
-          audits, and organizational roles.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>A “right process” story.</li>
-          <li>Post-hoc explainability.</li>
-          <li>Governance dependent on persuasion and escalation.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Implements governance as a runtime control
-          plane: a layer of enforceable constraints, owners, and state transitions
-          that operate during system execution.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Stop rights that do not require consensus.</li>
-          <li>Binding escalation paths (owner + timer + action).</li>
-          <li>Reversible states and restoration SLAs.</li>
-          <li>
-            Safe degradation modes (manual fallback, rate limits, quarantine).
-          </li>
-        </ul>
-        <p class="muted">
-          Policies describe intent. Control planes constrain behavior.
-        </p>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          3. Human oversight (procedural) vs. authority (mechanical)
-        </p>
-        <p class="muted">
-          Common standards (including EU AI Act “human oversight” obligations)
-          require humans to oversee, intervene, or approve via review steps,
-          operator training, or override rights.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Oversight that becomes symbolic at scale.</li>
-          <li>“Review fatigue” where approvals become perfunctory.</li>
-          <li>Intervention too slow to be real in incidents.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats oversight as meaningless unless it
-          is operationally exercisable on a clock.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Named roles with explicit authority to stop operation.</li>
-          <li>
-            Low-friction interruption mechanisms (not a committee meeting).
-          </li>
-          <li>Drill-proven ability to intervene under realistic conditions.</li>
-          <li>Governance pathways that function during incident stress.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          4. Diversity as consultation vs. poly-ontologies with veto power
-        </p>
-        <p class="muted">
-          Common frameworks (corporate “responsible AI” programs, ethics boards)
-          assemble advisory groups to review and recommend.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Diversity as input, not as constraint.</li>
-          <li>Values represented but not enforceable.</li>
-          <li>Disagreement resolved by hierarchy or schedule pressure.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats pluralism as an architectural requirement:
-          multiple worldviews must have independent enforcement power.
-        </p>
-        <p class="eyebrow">What this means operationally</p>
-        <ul class="card__list">
-          <li>
-            Legal, community, and adversarial perspectives are not advisory.
-          </li>
-          <li>Each has defined stop authority and trigger conditions.</li>
-          <li>The system must accommodate their constraints to operate.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          5. Documentation completeness vs. recovery metrics
-        </p>
-        <p class="muted">
-          Common standards audit maturity by asking if inventories,
-          documentation, approvals, and monitoring exist.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Evidence of managerial effort.</li>
-          <li>Maturity measured by process coverage.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Audits capability by asking how fast you
-          can stop, reverse, and restore—and how long someone remains exposed while
-          you “investigate.”
-        </p>
-        <p class="eyebrow">Ethotechnics measures</p>
-        <ul class="card__list">
-          <li>Time-to-halt and time-to-contain.</li>
-          <li>Time-to-restoration and time-in-harm.</li>
-          <li>Burden transfer onto the affected person.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          6. Monitoring as observation vs. intervention as obligation
-        </p>
-        <p class="muted">
-          Common standards emphasize continuous monitoring: telemetry, drift
-          detection, performance logs, and incident tracking.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Faster detection.</li>
-          <li>Better postmortems.</li>
-          <li>No guarantee of rapid containment.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats monitoring as incomplete unless it
-          is directly linked to intervention pathways.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Monitors tied to automatic or authorized stop actions.</li>
-          <li>Pre-defined thresholds and escalation triggers.</li>
-          <li>Alerts that assign ownership and start a clock.</li>
-          <li>Known restoration procedures that don’t depend on heroics.</li>
-        </ul>
-        <p class="muted">Observation without control is not governance.</p>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">
-          7. Pre-deployment prediction vs. temporal constraints
-        </p>
-        <p class="muted">
-          Common standards emphasize what happens before launch: impact
-          assessments, conformity checks, risk scoring, and review gates.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Strong “before” governance.</li>
-          <li>Weak “during” governance.</li>
-          <li>Reliance on “we tested” as a substitute for “we can stop.”</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats time as the primary ethical resource
-          and designs constraints around it.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Systems cannot run faster than contestation.</li>
-          <li>
-            Decisions that affect rights or access must be reversible within the
-            remedy window.
-          </li>
-          <li>“Pending” must not be an unbounded holding cell.</li>
-          <li>Interim protections when clocks exceed thresholds.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">8. External enforcement vs. embedded enforcement</p>
-        <p class="muted">
-          Common law and regulation (EU AI Act, state laws) enforce compliance
-          through surveillance, inspections, penalties, and legal exposure.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Deterrence.</li>
-          <li>After-the-fact accountability.</li>
-          <li>Limited protection for the person harmed today.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats regulation as necessary but too slow
-          to be the main brake. Enforcement must be designed into system operation
-          as a first-line constraint.
-        </p>
-        <p class="eyebrow">Ethotechnics requires</p>
-        <ul class="card__list">
-          <li>Internal stop authority with independence.</li>
-          <li>Enforceable clocks and escalation ladders.</li>
-          <li>
-            Mechanisms that prevent harm from compounding even when leadership
-            is absent.
-          </li>
-        </ul>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">9. “Balance principles” vs. “hard constraints”</p>
-        <p class="muted">
-          Common frameworks treat ethics as a multi-objective optimization
-          problem: fairness, accuracy, safety, utility, innovation.
-        </p>
-        <p class="eyebrow">What this produces in practice</p>
-        <ul class="card__list">
-          <li>Principled tradeoffs.</li>
-          <li>Exceptions justified by business necessity.</li>
-          <li>Ethics mediated by incentives and deadlines.</li>
-        </ul>
-        <p>
-          <strong>Ethotechnics:</strong> Treats certain conditions as non-negotiable
-          constraints for deployment.
-        </p>
-        <p class="eyebrow">Examples of constraint claims</p>
-        <ul class="card__list">
-          <li>
-            If harm can be imposed in seconds, it must be reversible in bounded
-            time.
-          </li>
-          <li>
-            If affected parties cannot effectively contest outcomes, governance
-            is a façade.
-          </li>
-          <li>
-            If reversal requires sustained user stamina, the system is coercive
-            by design.
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="eyebrow">Comparison table</p>
+    <p class="eyebrow">Comparison matrix</p>
     <div class="mapping-table__wrapper">
       <table class="mapping-table mapping-table--compare">
         <thead>
@@ -765,6 +509,37 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="grid grid--three" style="margin-top: 2rem;">
+      <div class="panel stack-sm">
+        <p class="eyebrow">1. Runtime control plane</p>
+        <p class="small muted">
+          Policies describe intent; control planes constrain behavior. Rather than
+          inventories, risk registers, and post-hoc paperwork, Ethotechnics enforces
+          explicit stop conditions, exercised rollback paths, and safe degradation modes
+          during system execution.
+        </p>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">2. Mechanical stop authority</p>
+        <p class="small muted">
+          Oversight is symbolic unless it is exercisable on a clock. Rather than
+          advisory ethics committees or perfunctory review gates, Ethotechnics requires
+          named operational roles with independent authority to halt automated decisions
+          without needing consensus.
+        </p>
+      </div>
+
+      <div class="panel stack-sm">
+        <p class="eyebrow">3. Temporal performance bounds</p>
+        <p class="small muted">
+          Time is the primary ethical resource. When decisions occur at machine speed,
+          reversal cannot run at institutional speed. Systems cannot run faster than
+          their appeal paths, and pending states must not become unbounded holding cells.
+        </p>
+      </div>
     </div>
 
     <p>

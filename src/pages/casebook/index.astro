@@ -144,7 +144,7 @@ const tally = verdictTally();
           <li class="casebook-list__item" id={entry.slug}>
             <div class="casebook-list__head">
               <h3>
-                <a href={`/casebook/${entry.slug}`}>{entry.title}</a>
+                <a href={`/casebook/${entry.slug}`}>{entry.title} &rarr;</a>
               </h3>
               <p class="casebook-list__meta small muted">
                 {entry.jurisdiction} · {entry.period}
@@ -165,7 +165,7 @@ const tally = verdictTally();
                 <dd>{entry.haltedBy}</dd>
               </div>
               <div>
-                <dt>Learned or handled</dt>
+                <dt>Trajectory</dt>
                 <dd>
                   <a href={`/casebook/${entry.slug}#learning`}>
                     {entry.learningOutcome.verdict}
@@ -173,26 +173,28 @@ const tally = verdictTally();
                 </dd>
               </div>
             </dl>
-            <p class="casebook-list__verdicts" aria-label="Verdicts">
-              {entry.findings.map((finding) => (
-                <a
-                  href={`/casebook/${entry.slug}#${finding.variable}`}
-                  class="casebook-list__verdict"
-                >
-                  <VerdictMark verdict={finding.verdict} />
-                  <span>
-                    {
-                      stateVariables.find(
-                        (variable) => variable.id === finding.variable,
-                      )?.label
-                    }
-                  </span>
-                </a>
-              ))}
-            </p>
-            <p>
-              <a href={`/casebook/${entry.slug}`}>Read the scoring →</a>
-            </p>
+            <div class="casebook-list__breakdown">
+              <span class="casebook-list__breakdown-label">Fatal breaks:</span>
+              <div class="casebook-list__verdicts" aria-label="Failed variables">
+                {entry.findings
+                  .filter((finding) => finding.verdict === "failed" || finding.verdict === "drifted")
+                  .map((finding) => (
+                    <a
+                      href={`/casebook/${entry.slug}#${finding.variable}`}
+                      class={`casebook-list__verdict casebook-list__verdict--${finding.verdict}`}
+                    >
+                      <VerdictMark verdict={finding.verdict} />
+                      <span>
+                        {
+                          stateVariables.find(
+                            (variable) => variable.id === finding.variable,
+                          )?.label
+                        }
+                      </span>
+                    </a>
+                  ))}
+              </div>
+            </div>
           </li>
         ))
       }

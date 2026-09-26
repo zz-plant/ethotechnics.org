@@ -384,9 +384,35 @@
   }
 
   .library__role-buttons {
-    display: grid;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .library__role-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    font-family: var(--sans);
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      border-color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
+  }
+
+  .library__role-chip:hover,
+  .library__role-chip:focus-visible {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+    text-decoration: none;
   }
 
   .library__role-button {
