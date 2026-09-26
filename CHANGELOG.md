@@ -8,6 +8,25 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2026-09-25
+
+### Changed
+
+- **Scrollytelling front door:** Rebuilt the homepage as one story in reading order — the Robodebt
+  record unrolled one dated event at a time beside a sticky two-ledger panel (what the record showed
+  vs. what the institution said), the ratchet figure moved up to explain why rulings did not stop
+  the scheme, the casebook and self-test follow as the generalization and the turn to the reader's
+  own system, and the three role doors moved to the end. A fixed two-ledger rail at the viewport
+  edge carries the same grammar as page chrome. Nothing captures scroll: reveals run on one small
+  IntersectionObserver, the rail and the ratchet's self-drawing curves use CSS scroll-driven
+  animation with static fallbacks, `prefers-reduced-motion` disables all of it, and every state is
+  correct without JavaScript. The casebook timeline type gained `evidence` and `halt` event flags.
+- **Front door refinement:** Sharpened opening narrative copy, paired the primary self-test CTA with
+  a direct incident triage action, added live audit badges and bidirectional scroll synchronization
+  to the Two Ledgers panel with scoped mobile stickiness, gave role entry doors dedicated iconography
+  and repositioned them directly after the diagnostic self-test, and balanced the supplemental block
+  with a two-column releases and licensing layout.
+
 ## [1.13.0] - 2026-09-25
 
 ### Added

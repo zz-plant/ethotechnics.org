@@ -105,7 +105,11 @@ const expansions = history.length - 1;
                   {month === 0 ? "month 0" : month}
                 </text>
               ))}
-              <path d={staircase(panel.x0)} class="ratchet__stairs" />
+              <path
+                d={staircase(panel.x0)}
+                class="ratchet__stairs ratchet__stairs-main"
+                pathLength={100}
+              />
               {index === 1 &&
                 scope
                   .slice(1)

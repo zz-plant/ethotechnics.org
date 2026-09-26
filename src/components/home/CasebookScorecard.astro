@@ -28,7 +28,7 @@ import VerdictMark from "../VerdictMark.astro";
   <ol class="home-casebook__list">
     {
       cases.map((entry) => (
-        <li>
+        <li data-reveal>
           <a class="home-casebook__row" href={`/casebook/${entry.slug}`}>
             <span class="home-casebook__title">{entry.title}</span>
             <span class="home-casebook__meta small muted">

@@ -112,6 +112,14 @@ export type TimelineEvent = {
   when: string;
   what: string;
   turn?: boolean;
+  /**
+   * The event is part of the record against the scheme: a warning, a finding,
+   * or a ruling. The home page's two-ledger panel counts these as the reader
+   * passes them.
+   */
+  evidence?: boolean;
+  /** The event at which the system was actually halted. */
+  halt?: boolean;
 };
 
 export type Case = PublishedContent & {
@@ -195,6 +203,7 @@ export const cases: Case[] = [
       {
         when: "2014",
         what: "The department is advised in writing that income averaging cannot prove a debt.",
+        evidence: true,
       },
       {
         when: "Jul 2016",
@@ -203,19 +212,24 @@ export const cases: Case[] = [
       {
         when: "Apr 2017",
         what: "The Ombudsman reports that notices do not explain how a debt was calculated.",
+        evidence: true,
       },
       {
         when: "2017–19",
         what: "A tribunal rules individual debts unlawful dozens of times. Each ruling fixes one case. The scheme keeps running.",
         turn: true,
+        evidence: true,
       },
       {
         when: "Nov 2019",
         what: "The government concedes a Federal Court case it was about to lose. The scheme is halted that month.",
+        evidence: true,
+        halt: true,
       },
       {
         when: "Jul 2023",
         what: "A Royal Commission finds the scheme was unlawful from the outset.",
+        evidence: true,
       },
     ],
     findings: [

@@ -3,32 +3,38 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CasebookScorecard from "../components/home/CasebookScorecard.astro";
 import HeroIllustration from "../components/home/HeroIllustration.astro";
 import HomeDifference from "../components/home/HomeDifference.astro";
-import RobodebtTimeline from "../components/home/RobodebtTimeline.astro";
+import HomeRail from "../components/home/HomeRail.astro";
+import RecordSpine from "../components/home/RecordSpine.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
 import { recentReleases } from "../content/recent-releases";
+import { Icon } from "astro-icon/components";
 
 /**
- * The front door, ordered by what keeps a first-time reader on the page:
- * a failure they can picture, a door that names who they are, a test they
- * can take about their own system, then the evidence. The institute's own
- * description comes last because nobody arrives looking for it.
+ * The front door as one story in reading order, told without ever holding
+ * the scroll: watch one scheme run (the record), see why rulings did not
+ * stop it (the mechanism), see that it was not special (the casebook), then
+ * turn to the reader's own system (the self-test) and the doors out. The
+ * two-ledger rail at the viewport edge is the same grammar, as chrome.
  */
 const doors = [
   {
     href: "/roles/engineering",
     who: "I build these systems",
     what: "The checks a system has to pass before it ships, and the tools that run them.",
+    icon: "lucide:code-2",
   },
   {
     href: "/roles/audit",
     who: "I audit or regulate them",
     what: "Citable clauses, scored public cases, and the evidence each clause needs.",
+    icon: "lucide:file-search",
   },
   {
     href: "/diagnostics/self-defense-tools",
     who: "A system decided something about me",
     what: "Three checks: can this be appealed, and who can change it?",
+    icon: "lucide:shield",
   },
 ];
 ---
@@ -38,54 +44,83 @@ const doors = [
   description="Open standards, scored public failures, and free diagnostics for keeping automated decision systems stoppable, explainable, and appealable."
   structuredDataType="collection"
 >
+  <HomeRail />
+
   <section class="institute-hero institute-hero--story">
-    <div class="institute-hero__layout">
-      <div class="institute-hero__main stack-lg">
-        <p class="institute-hero__eyebrow">Ethotechnics Institute</p>
-        <h1 class="balanced-headline">
-          The appeals kept winning. The system kept running.
-        </h1>
-        <p class="section-lead">
-          Australia's Robodebt raised 470,000 unlawful debts over three years.
-          A tribunal ruled individual debts unlawful dozens of times, and each
-          ruling fixed one person's debt. Nobody with the power to stop the scheme treated those
-          rulings as evidence against it.
-        </p>
-        <p class="section-lead">
-          We publish free, open standards for one question: when an automated
-          system is hurting people, can anyone stop it?
-        </p>
-        <div class="institute-hero__actions actions">
-          <a class="button primary" href="#self-test">
-            Test your system in 60 seconds
-          </a>
-        </div>
-        <p class="institute-hero__incident small">
-          Something going wrong right now?
-          <a href="/failure">Go to incident triage →</a>
-        </p>
+    <div class="institute-hero__main stack-lg">
+      <p class="institute-hero__eyebrow">Ethotechnics Institute</p>
+      <h1 class="balanced-headline">
+        The appeals kept winning. The system kept running.
+      </h1>
+      <p class="section-lead">
+        Between 2016 and 2019, Australia's Centrelink raised 470,000 unlawful debts.
+        The Administrative Appeals Tribunal ruled individual debts unlawful dozens of times.
+        Each ruling resolved one person's debt. Nobody with the power to stop the scheme
+        treated those rulings as evidence against it.
+      </p>
+      <p class="section-lead">
+        We publish open standards, public case scores, and diagnostics for one question:
+        when an automated decision system is hurting people, can anyone stop it?
+      </p>
+      <div class="institute-hero__actions actions">
+        <a class="button primary" href="#self-test">
+          Test your system in 60 seconds
+        </a>
+        <a class="button ghost institute-hero__triage-link" href="/failure">
+          <span class="incident-dot" aria-hidden="true"></span>
+          Incident triage →
+        </a>
       </div>
-      <div class="institute-hero__side">
-        <RobodebtTimeline />
-      </div>
+      <nav
+        class="home-doors home-doors--strip"
+        aria-label="Direct role entry paths"
+      >
+        <span class="home-doors__strip-label">Start by role:</span>
+        <ul>
+          {
+            doors.map((door) => (
+              <li>
+                <a class="home-doors__strip-link" href={door.href}>
+                  {door.who}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </div>
   </section>
 
-  <nav class="home-doors" aria-labelledby="home-doors-heading">
-    <h2 id="home-doors-heading" class="eyebrow">Start from where you are</h2>
-    <ul class="home-doors__list">
-      {
-        doors.map((door) => (
-          <li>
-            <a class="home-doors__door" href={door.href}>
-              <span class="home-doors__who">{door.who}</span>
-              <span class="home-doors__what small muted">{door.what}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
+  <RecordSpine />
+
+  <section
+    id="mechanism"
+    class="home-claim stack-lg"
+    aria-labelledby="mechanism-heading"
+  >
+    <p class="eyebrow">The mechanism</p>
+    <h2 id="mechanism-heading" class="section__heading">
+      A delegation can double without anyone deciding that it should.
+    </h2>
+    <p class="section-lead">
+      The record above grew for years without moving the scheme. Here is why: a
+      delegation can widen one small step at a time, and no single step is ever
+      large enough to reopen the question. Both grants below grow by the same
+      two percent a month. One is reviewed only when a single step is large
+      enough to notice, so it is never reviewed. The other treats every widening
+      as a fresh authorization, so it can be read, questioned, and reversed.
+      That difference is what the standards on this site are for.
+    </p>
+    <div class="home-draw" data-reveal="draw">
+      <RatchetFigure level="h3" />
+    </div>
+    <p class="small muted">
+      This is Law XI of twelve. <a href="/standards/laws">Read the laws →</a>
+      <a href="/standards/std-08-delegation">See what STD-08 requires →</a>
+    </p>
+  </section>
+
+  <CasebookScorecard />
 
   <div class="home-core">
     <div class="home-core__test">
@@ -94,57 +129,41 @@ const doors = [
     </div>
   </div>
 
-  <CasebookScorecard />
-
-  <section
-    id="ratchet"
-    class="home-claim stack-lg"
-    aria-labelledby="ratchet-heading"
-  >
-    <p class="eyebrow">The claim, in one figure</p>
-    <h2 id="ratchet-heading" class="section__heading">
-      A delegation can double without anyone deciding that it should.
-    </h2>
-    <p class="section-lead">
-      Both grants below grow by the same two percent a month. One is reviewed
-      only when a single step is large enough to notice, so it is never
-      reviewed. The other treats every widening as a fresh authorization, so it
-      can be read, questioned, and reversed. That difference is what the
-      standards on this site are for.
-    </p>
-    <RatchetFigure level="h3" />
-    <p class="small muted">
-      This is Law XI of twelve. <a href="/standards/laws">Read the laws →</a>
-      <a href="/standards/std-08-delegation">See what STD-08 requires →</a>
-    </p>
-  </section>
+  <nav class="home-doors" aria-labelledby="home-doors-heading">
+    <div class="home-doors__header">
+      <p class="eyebrow">Start from where you are</p>
+      <h2 id="home-doors-heading" class="section__heading">
+        Three entry points for three roles.
+      </h2>
+      <p class="section-lead">
+        Every standard, diagnostic, and case in this repository maps to one of
+        three operational responsibilities.
+      </p>
+    </div>
+    <ul class="home-doors__list">
+      {
+        doors.map((door) => (
+          <li>
+            <a class="home-doors__door" href={door.href}>
+              <span class="home-doors__icon" aria-hidden="true">
+                <Icon name={door.icon} size={22} />
+              </span>
+              <span class="home-doors__who">{door.who}</span>
+              <span class="home-doors__what small muted">{door.what}</span>
+              <span class="home-doors__action">View path →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 
   <HomeDifference />
 
   <div class="home-supplement">
-    <section class="stack-sm card card--flat">
-      <p class="eyebrow">Use and cite this work</p>
-      <h2>Free to use, credit, and adapt</h2>
-      <p>
-        Ethotechnics Institute materials are published under
-        <a
-          href="https://creativecommons.org/licenses/by-sa/4.0/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          CC BY-SA 4.0
-        </a>. Credit the Institute, and publish anything you adapt under the
-        same license.
-      </p>
-      <p class="small muted">
-        Individual entries and patterns include citation metadata so you can
-        reference exactly what you used.
-      </p>
-    </section>
-
     <section
       id="recently-published"
-      class="stack-sm card card--flat"
+      class="stack-sm card card--flat home-supplement__releases"
       aria-labelledby="recently-published-heading"
     >
       <p class="eyebrow">New and updated</p>
@@ -153,12 +172,14 @@ const doors = [
         {
           recentReleases.map((release) => (
             <li>
-              <a href={release.href}>
-                {release.area} {release.version}
-              </a>{" "}
-              <span class="muted">
-                · <time datetime={release.date}>{release.date}</time>
-              </span>
+              <div class="recent-releases__header">
+                <a href={release.href} class="recent-releases__title">
+                  {release.area} {release.version}
+                </a>
+                <time class="recent-releases__date muted small" datetime={release.date}>
+                  {release.date}
+                </time>
+              </div>
               <p class="muted small">{release.summary}</p>
             </li>
           ))
@@ -166,23 +187,49 @@ const doors = [
       </ul>
     </section>
 
-    <section class="stack-sm card card--accent">
-      <p class="eyebrow">Studio</p>
-      <h2>Need hands-on help?</h2>
-      <p>
-        Ethotechnics Studio provides commissioned support for clinical AI safety
-        evaluation, diligence, governance design, and implementation work.
-      </p>
-      <p>
-        <a
-          class="button"
-          href="https://ethotechnics.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ethotechnics Studio →
-        </a>
-      </p>
-    </section>
+    <div class="home-supplement__aside">
+      <section class="stack-sm card card--flat">
+        <p class="eyebrow">Use and cite this work</p>
+        <h2>Free to use, credit, and adapt</h2>
+        <p>
+          Ethotechnics Institute materials are published under
+          <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            CC BY-SA 4.0
+          </a>. Credit the Institute, and publish anything you adapt under the
+          same license.
+        </p>
+        <p class="small muted">
+          Individual entries and patterns include citation metadata so you can
+          reference exactly what you used.
+        </p>
+      </section>
+
+      <section class="stack-sm card card--accent">
+        <p class="eyebrow">Studio</p>
+        <h2>Need hands-on help?</h2>
+        <p>
+          Ethotechnics Studio provides commissioned support for clinical AI safety
+          evaluation, diligence, governance design, and implementation work.
+        </p>
+        <p>
+          <a
+            class="button"
+            href="https://ethotechnics.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ethotechnics Studio →
+          </a>
+        </p>
+      </section>
+    </div>
   </div>
 </BaseLayout>
+
+<script>
+  import "../scripts/home-reveal.ts";
+</script>
