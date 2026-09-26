@@ -74,89 +74,46 @@
   }
 
   .diagnostics__card-footer {
-    display: grid;
-    gap: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
     margin-top: 1.4rem;
   }
 
-  .diagnostics__artifact-bridge {
-    margin: 0;
-  }
-
-  .diagnostics__artifact-bridge ul {
-    margin: 0;
-    padding-left: 1.1rem;
-  }
-
-  .diagnostics__sticky-jump {
-    position: fixed;
-    left: 0.75rem;
-    right: 0.75rem;
-    bottom: calc(0.75rem + env(safe-area-inset-bottom));
-    z-index: var(--z-overlay-top);
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.3rem;
-    margin: 0;
-    padding: 0.6rem;
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  .diagnostics__output-box {
+    padding: 0.5rem 0.75rem;
     background: var(--panel);
-    box-shadow: var(--shadow-md);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
 
-  .diagnostics__sticky-jump .button {
-    min-height: 2.35rem;
-    justify-content: center;
-    width: 100%;
-    font-size: 0.9rem;
+  .diagnostics__output-box .eyebrow {
+    margin: 0 0 0.2rem;
+    font-size: var(--text-eyebrow);
   }
 
-  .diagnostics__sticky-jump .button.is-active {
-    border-color: color-mix(in srgb, var(--accent) 44%, var(--border));
-    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
-    color: var(--accent-strong);
-  }
-
-  .diagnostics__sticky-link {
-    text-align: center;
-    text-decoration: none;
-    padding: 0.1rem 0.4rem 0;
-  }
-
-  .diagnostics__sticky-link.is-active {
-    color: var(--accent-strong);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-
-  @media (min-width: 900px) {
-    .diagnostics__sticky-jump {
-      position: static;
-      grid-template-columns: minmax(0, 1fr);
-      margin: 1rem 0 1.25rem;
-    }
-
-    body:has(.diagnostics__sticky-jump) .page-shell__content {
-      padding-bottom: clamp(1.2rem, 2.5vw, 2.5rem);
-    }
-  }
-
-  .diagnostics__mobile-disclosure {
+  .diagnostics__output-box p {
     margin: 0;
+  }
+
+  .diagnostics__method-link {
+    font-size: var(--text-sm);
+    font-weight: 650;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .diagnostics__method-link:hover {
+    text-decoration: underline;
+    color: var(--accent-strong);
   }
 
   @media (max-width: 899px) {
     #diagnostic-tools {
       scroll-margin-bottom: 7rem;
-    }
-
-    .diagnostics__sticky-jump + * {
-      margin-top: 0;
-    }
-
-    body:has(.diagnostics__sticky-jump) .page-shell__content {
-      padding-bottom: clamp(5.8rem, 18vw, 7.2rem);
     }
   }
 

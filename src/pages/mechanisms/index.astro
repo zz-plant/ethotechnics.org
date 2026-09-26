@@ -68,9 +68,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     anchorLinks={[
       { href: "#start-here", label: "Start here" },
       { href: "#role-pathways", label: "Role-based pathways" },
-      { href: "#browse", label: "Browse by theme" },
       { href: "#primer", label: "Primer" },
-      { href: "#mechanisms", label: "Mechanism specs" },
+      { href: "#mechanisms", label: "Mechanism catalog" },
       { href: "#syllabus", label: "Syllabus" },
       { href: "#references", label: "References" },
       { href: "#referenced-by", label: "Referenced by" },
@@ -78,7 +77,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     illustration="mechanisms"
   >
     <Fragment slot="actions">
-      <a class="button primary" href="#browse"> Browse by theme </a>
+      <a class="button primary" href="#mechanisms"> Browse mechanisms </a>
       <a class="button ghost" href="#primer"> Read the primer </a>
     </Fragment>
   </PageIntro>
@@ -92,7 +91,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <ol class="card__list">
       <li>
         <strong>Pick a lens:</strong>{" "}
-        <a href="#browse">browse by theme</a> to scope the catalog.
+        <a href="#mechanisms">browse the catalog</a> to scope mechanisms.
       </li>
       <li>
         <strong>Share the terms:</strong>{" "}
@@ -139,12 +138,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     <div class="library__role-buttons">
       {
         rolePathways.roles.map((role) => (
-          <a class="button primary library__role-button" href={`#${role.id}`}>
+          <a class="library__role-chip" href={`#${role.id}`}>
             {role.label}
           </a>
         ))
       }
     </div>
+    <p class="muted small" style="margin: 0.75rem 0 1.25rem;">
+      <a href="/start">Looking for the end-to-end role guide? See Start &rarr;</a>
+    </p>
     <div class="library__role-lists">
       {
         rolePathways.roles.map((role) => (
@@ -163,34 +165,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           </div>
         ))
       }
-    </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="browse"
-    eyebrow="Browse by theme"
-    title="Mechanisms by theme"
-    description="Each tag jumps to the mechanisms filed under it."
-  >
-    <div class="tag-rail">
-      <ul class="pill-list pill-list--wrap">
-        {
-          patterns.filters.map((filter) => (
-            <li class="pill-list__item tag-rail__item">
-              <a
-                class="pill-list__button"
-                href={`#${filter.slug}`}
-                aria-label={`Jump to ${filter.label} materials`}
-              >
-                {filter.label}
-              </a>
-              <p class="muted small tag-rail__description">
-                {filter.description}
-              </p>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </SectionBlock>
 

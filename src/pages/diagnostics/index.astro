@@ -5,9 +5,7 @@ import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
 import PageIntro from "../../components/PageIntro.astro";
-import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
-import StudioBadge from "../../components/StudioBadge.astro";
 import DiagnosticRouterDiagram from "../../components/DiagnosticRouterDiagram.astro";
 import { diagnosticsContent } from "../../content/diagnostics";
 
@@ -101,39 +99,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     anchorLinksSummary="More anchors"
     illustration="diagnostics"
   />
-  <div class="panel diagnostics__artifact-bridge stack-sm">
-    <p class="eyebrow">Next required artifact</p>
-    <p class="muted">
-      Run one diagnostic, then attach its primary output to your incident or
-      audit packet before moving on.
-    </p>
-    <ul class="muted small">
-      <li>Burden Modeler → Burden evidence table</li>
-      <li>Maintenance Simulator → Escalation coverage report</li>
-      <li>Evidence-Pack Readiness → Standards evidence checklist</li>
-    </ul>
-  </div>
-  <nav
-    class="diagnostics__sticky-jump"
-    aria-label="Diagnostics navigation"
-  >
-    <a
-      class="button primary"
-      href="#quick-triage"
-      data-route-action="diagnostics-choose"
-      data-sticky-link="#quick-triage">Choose a tool</a
-    >
-    <a
-      class="diagnostics__sticky-link muted small"
-      href="#diagnostic-tools"
-      data-route-action="diagnostics-open-menu"
-      data-sticky-link="#diagnostic-tools">All tools</a
-    >
-  </nav>
-  <SectionActions>
-    <StudioBadge />
-  </SectionActions>
-
   <SectionBlock
     id="quick-triage"
     eyebrow="Triage"
@@ -206,77 +171,35 @@ const comparisonTools = mostUsedTools.slice(0, 3);
         ))
       }
     </CardGrid>
-    <details
-      class="chunked-section diagnostics__mobile-disclosure"
-      data-collapse-mobile
-      open
-    >
-      <summary class="chunked-section__summary"
-        >Open output baseline details</summary
-      >
-      <div class="chunked-section__body stack-sm">
-        <ul class="muted">
+
+    <div class="grid grid--two" style="margin-top: 1.5rem;">
+      <div class="panel stack-sm">
+        <p class="eyebrow">Deliverable baseline</p>
+        <ul class="muted small">
           <li>Linkable results page and a shareable PDF summary.</li>
           <li>References to the mechanisms each mitigation comes from.</li>
-          <li>
-            A facilitated follow-up when the question or the risk stays unclear.
-          </li>
+          <li>Facilitated follow-up when the question or risk stays unclear.</li>
         </ul>
-        <p class="muted">
-          Before you publish an output about appeals or reversals, run the
-          {" "}
-          <a href="/explainers/contestability-checklist"
-            >contestability checklist</a
-          >
-          {" "}
+        <p class="muted small">
+          Before publishing an output about appeals or reversals, run the{" "}
+          <a href="/explainers/contestability-checklist">contestability checklist</a>{" "}
           against the appeal path it describes.
         </p>
-        <StudioBadge />
       </div>
-    </details>
-    <div class="pattern-filter__anchors" aria-hidden="true">
-      <span class="pattern-filter__anchor" id="anti-weaponization"></span>
-    </div>
-    <details
-      class="chunked-section diagnostics__mobile-disclosure"
-      data-collapse-mobile
-      open
-    >
-      <summary class="chunked-section__summary"
-        >Open anti-weaponization checklist</summary
-      >
-      <div class="chunked-section__body stack-sm">
-        <ul class="muted">
-          <li>
-            AW-01: Burden metrics include a remediation plan and staffing
-            allocation.
-          </li>
-          <li>
-            AW-02: Appeal paths are tested for non-regression and public
-            replacement windows.
-          </li>
-          <li>
-            AW-03: Downgrades or eligibility changes always emit receipts and
-            clocks.
-          </li>
-          <li>
-            AW-04: High-burden flows include assisted channels or human
-            escalation.
-          </li>
+
+      <div class="panel stack-sm" id="anti-weaponization">
+        <p class="eyebrow">Anti-weaponization verification</p>
+        <ul class="muted small">
+          <li><strong>AW-01:</strong> Burden metrics include a remediation plan and staffing allocation.</li>
+          <li><strong>AW-02:</strong> Appeal paths are tested for non-regression and public replacement windows.</li>
+          <li><strong>AW-03:</strong> Downgrades or eligibility changes always emit receipts and clocks.</li>
+          <li><strong>AW-04:</strong> High-burden flows include assisted channels or human escalation.</li>
         </ul>
-        <p class="muted">
-          Reference:
-          {" "}
-          <a href="/anti-weaponization">Anti-weaponization constraints</a>
-          {" "}
-          and the
-          {" "}
-          <a href="/evidence-packs/std-02#anti-weaponization"
-            >evidence requirements</a
-          >.
+        <p class="muted small">
+          Reference: <a href="/anti-weaponization">Anti-weaponization constraints</a> and the <a href="/evidence-packs/std-02#anti-weaponization">evidence requirements</a>.
         </p>
       </div>
-    </details>
+    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -445,13 +368,15 @@ const comparisonTools = mostUsedTools.slice(0, 3);
             >
               <div class="diagnostics__card-body">
                 <div>
-                  <p class="muted small">{deliveryLabel}</p>
-                  <p class="muted small">{deliveryDetail}</p>
                   <p class="muted small">
-                    Estimated time: {tool.estimatedTime}
+                    <strong>{deliveryLabel}</strong> · Estimated time: {tool.estimatedTime}
                   </p>
+                  <p class="muted small">{deliveryDetail}</p>
                 </div>
-                <p class="muted small diagnostics__best-for">{tool.bestFor}</p>
+                <div class="diagnostics__output-box">
+                  <span class="eyebrow">Deliverable artifact</span>
+                  <p class="small"><strong>{tool.outputs.join(" · ")}</strong></p>
+                </div>
                 <p class="muted small">
                   <strong>When to use:</strong> {tool.bestFor}
                 </p>
@@ -461,53 +386,18 @@ const comparisonTools = mostUsedTools.slice(0, 3);
                     ? "Pick a self-serve diagnostic if you need the output today without a session."
                     : "Pick a facilitated diagnostic when nobody can say who owns the decision or what it is."}
                 </p>
-                <ul class="diagnostics__summary">
-                  <li>
-                    <p class="muted diagnostics__label">Use this when</p>
-                    <ul class="pill-list pill-list--wrap">
-                      {tool.readiness.map((item) => (
-                        <li>{item}</li>
-                      ))}
-                    </ul>
-                  </li>
-                  <li>
-                    <p class="muted diagnostics__label">What you receive</p>
-                    <ul class="pill-list pill-list--wrap">
-                      {tool.outputs.map((item) => (
-                        <li>{item}</li>
-                      ))}
-                    </ul>
-                  </li>
-                  <li>
-                    <p class="muted diagnostics__label">Prep checklist</p>
-                    <ul class="pill-list pill-list--wrap">
-                      {tool.prepChecklist.map((item) => (
-                        <li>{item}</li>
-                      ))}
-                    </ul>
-                  </li>
-                </ul>
               </div>
               <div class="diagnostics__card-footer">
-                <SectionActions>
-                  <a
-                    class="button primary"
-                    href={tool.ctaHref}
-                    aria-label={tool.ctaAriaLabel ?? primaryCtaLabel}
-                  >
-                    {primaryCtaLabel}
-                  </a>
-                  <a class="button ghost" href={`/diagnostics/${tool.slug}`}>
-                    Method details
-                  </a>
-                  <a
-                    class="button ghost"
-                    href={tool.exampleHref}
-                    aria-label={`${tool.exampleLabel} for ${tool.title}`}
-                  >
-                    {tool.exampleLabel}
-                  </a>
-                </SectionActions>
+                <a
+                  class="button primary"
+                  href={tool.ctaHref}
+                  aria-label={tool.ctaAriaLabel ?? primaryCtaLabel}
+                >
+                  {primaryCtaLabel}
+                </a>
+                <a class="diagnostics__method-link" href={`/diagnostics/${tool.slug}`}>
+                  Method details &amp; examples &rarr;
+                </a>
               </div>
             </CardItem>
           );
