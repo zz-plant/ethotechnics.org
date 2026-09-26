@@ -66,7 +66,11 @@ const doors = [
         <a class="button primary" href="#self-test">
           Test your system in 60 seconds
         </a>
-        <a class="button ghost institute-hero__triage-link" href="/failure">
+        <a
+          class="button ghost institute-hero__triage-link"
+          href="/failure"
+          aria-label="Go to incident triage →"
+        >
           <span class="incident-dot" aria-hidden="true"></span>
           Incident triage →
         </a>
@@ -122,6 +126,8 @@ const doors = [
 
   <CasebookScorecard />
 
+  <HomeDifference />
+
   <div class="home-core">
     <div class="home-core__test">
       <SelfTest />
@@ -157,8 +163,6 @@ const doors = [
       }
     </ul>
   </nav>
-
-  <HomeDifference />
 
   <div class="home-supplement">
     <section
