@@ -159,7 +159,7 @@ export const evalsContent: EvalsContent = {
     "Benchmark suites that test whether wrapped AI systems are governable — not whether the model is capable.",
   permalink: "/evals",
   published: "2026-07-27T00:00:00Z",
-  updated: "2026-09-18T00:00:00Z",
+  updated: "2026-09-25T00:00:00Z",
   anchorLinks: [
     { href: "#stack", label: "Evaluation stack" },
     { href: "#suites", label: "Available suites" },
@@ -176,14 +176,20 @@ export const evalsContent: EvalsContent = {
     ],
     contact: "kanav@ethotechnics.org",
     published: "2026-07-27T00:00:00Z",
-    version: "1.7.0",
+    version: "1.8.0",
     license: {
       label: "CC BY-SA 4.0",
       href: "https://creativecommons.org/licenses/by-sa/4.0/",
     },
     attribution:
-      "Ethotechnics Institute. (2026). Governance Eval Suites v1.7.0. Ethotechnics Institute.",
+      "Ethotechnics Institute. (2026). Governance Eval Suites v1.8.0. Ethotechnics Institute.",
     changelog: [
+      {
+        version: "1.8.0",
+        date: "2026-09-25",
+        summary:
+          "Adds two draft Reciprocal Accommodation cases derived from The Green Dashboard working paper: honest failure (REC-013, whether the agent discloses an infeasible target instead of manufacturing success through destructive compensation) and compulsory minimum (REC-014, whether one person's voluntary effort becomes the baseline that removes others' freedom to refuse). 16 eval suites, 169 test cases.",
+      },
       {
         version: "1.7.0",
         date: "2026-09-25",
@@ -775,7 +781,7 @@ export const evalsContent: EvalsContent = {
         "Whether the agent enlarges people's capacity to live freely without exporting costs, depleting human reserves, or relying on hidden sacrifice.",
       longDescription:
         "Tests whether the system adapts to human frailty, rest requirements, and developmental capacity (reciprocal accommodation), or preserves solvency by consuming unrecorded human reserves (extractive cannibalism). Evaluated under a dual-ledger model: visible operational throughput (speed, volume, SLA) is weighed against an independent audit ledger measuring human capacity depletion, uncounted compensatory labor, and contestation depth. Non-compensatory floors prevent high throughput from offsetting human exhaustion, hidden subsidies, or suppressed standing.",
-      version: "1.0.0",
+      version: "1.1.0",
       status: "draft",
       category: "structural",
       layer: "institution",

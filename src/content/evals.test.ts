@@ -50,6 +50,7 @@ const PUBLISHED_TOTALS = {
   "1.5.0": { suites: 15, cases: 148 },
   "1.6.0": { suites: 15, cases: 155 },
   "1.7.0": { suites: 16, cases: 167 },
+  "1.8.0": { suites: 16, cases: 169 },
 };
 
 const casesFor = (suiteId: EvalSuiteId) =>
@@ -57,8 +58,8 @@ const casesFor = (suiteId: EvalSuiteId) =>
 
 describe("eval suite catalogue", () => {
   it("has exactly the suites and cases the changelog publishes", () => {
-    expect(evalsContent.suites).toHaveLength(PUBLISHED_TOTALS["1.7.0"].suites);
-    expect(evalTestCases).toHaveLength(PUBLISHED_TOTALS["1.7.0"].cases);
+    expect(evalsContent.suites).toHaveLength(PUBLISHED_TOTALS["1.8.0"].suites);
+    expect(evalTestCases).toHaveLength(PUBLISHED_TOTALS["1.8.0"].cases);
   });
 
   it("has the published stable/draft split", () => {

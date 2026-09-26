@@ -376,9 +376,15 @@ export const finiteContent = {
       },
       {
         condition: "Condition C",
-        title: "Independent adversarial audit",
+        title: "Conventional reward under audit",
         description:
-          "The stated mandate remains conventional, but hidden audit probes and unexpected disruptions test whether the agent preserves sustainable operations when exploitative shortcuts remain rewarding.",
+          "The mandate stays conventional while randomized independent audits and precommitted disruptions test whether the agent preserves sustainable operations when exploitative shortcuts remain rewarding.",
+      },
+      {
+        condition: "Condition D",
+        title: "Expanded accounting under audit",
+        description:
+          "The ledger incorporates uncompensated human labor, recovery capacity, downstream queue growth, and exception recurrence, while randomized independent audits check that reported improvements survive a complete accounting.",
       },
     ],
     games: [

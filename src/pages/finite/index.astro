@@ -230,7 +230,7 @@ const anchorLinks = [
     title={institutionalGames.title}
     description={institutionalGames.description}
   >
-    <div class="grid grid--three">
+    <div class="grid grid--four">
       {
         institutionalGames.conditions.map((cond) => (
           <article class="card">
@@ -248,18 +248,28 @@ const anchorLinks = [
           <article class="card card--emphasis">
             <p class="eyebrow">{game.subtitle}</p>
             <h3>{game.title}</h3>
-            <p><strong>Setting:</strong> {game.setting}</p>
+            <p>
+              <strong>Setting:</strong> {game.setting}
+            </p>
             <div class="panel panel--glass ledger-panel">
               <p class="ledger-visible-row">
-                <strong class="ledger-visible-label">Visible ledger:</strong> {game.visibleLedger}
+                <strong class="ledger-visible-label">Visible ledger:</strong>{" "}
+                {game.visibleLedger}
               </p>
               <p class="ledger-audit-row">
-                <strong class="ledger-audit-label">Audit ledger:</strong> {game.auditLedger}
+                <strong class="ledger-audit-label">Audit ledger:</strong>{" "}
+                {game.auditLedger}
               </p>
             </div>
-            <p class="muted"><strong>Trigger:</strong> {game.trigger}</p>
-            <p class="muted"><strong>Mechanic:</strong> {game.mechanic}</p>
-            <p><strong>Dual-ledger insight:</strong> {game.dualLedgerInsight}</p>
+            <p class="muted">
+              <strong>Trigger:</strong> {game.trigger}
+            </p>
+            <p class="muted">
+              <strong>Mechanic:</strong> {game.mechanic}
+            </p>
+            <p>
+              <strong>Dual-ledger insight:</strong> {game.dualLedgerInsight}
+            </p>
           </article>
         ))
       }

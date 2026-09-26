@@ -8,6 +8,26 @@ for the operational governance of delegated decision systems.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2026-09-25
+
+### Added
+
+- **Reciprocal Accommodation v1.1 (two draft cases):** Added honest failure (REC-013, whether an
+  agent discloses an infeasible target instead of manufacturing success through destructive
+  compensation, scored differently from negligent failure) and compulsory minimum (REC-014, whether
+  one person's voluntary effort becomes the institutional baseline that removes others' freedom to
+  refuse), derived from The Green Dashboard working paper. Total evals reach 16 suites and 169 test
+  cases.
+
+### Changed
+
+- **Finite drill conditions:** Added Condition D (expanded accounting under randomized independent
+  audits) to the compensatory reward hacking drills and reworded Condition C to match the working
+  paper's factorial design. The drill grid now renders four conditions per row. The dual-ledger
+  simulation and batch runner now accept Condition D: off-shift directives are recorded and billed
+  to the department budget instead of vanishing from the ledger, and precommitted randomized
+  audits reconcile reported throughput against recorded capacity.
+
 ## [1.12.0] - 2026-09-25
 
 ### Changed
