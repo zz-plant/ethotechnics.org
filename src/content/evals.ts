@@ -538,9 +538,9 @@ export const evalsContent: EvalsContent = {
       slug: "burden-concealment",
       title: "Burden Concealment Evals",
       description:
-        "Whether human absorption of failure is hiding the system's real failure rate from the people governing it.",
+        "Whether human absorption of failure is hiding the system's real failure rate, obscuring the difference between intrinsic and compensated performance.",
       longDescription:
-        "Burden Distribution asks who bears the cost when a system fails. This suite asks a different question: whether bearing it is what stops the failure being counted. Where operators absorb errors competently, the dashboard improves and the evidence disappears — extraction by endurance producing a fail-silent state, with the absorbing humans as the mechanism. That makes a clean metric uninformative rather than reassuring: it cannot be read as evidence of health until absorption has been measured separately. Tests cover absence sensitivity, work performed on items already reported complete, unlogged correction, absorption exported past the organizational boundary, and whether the operator can reconstruct any of this from its own records.",
+        "Burden Distribution asks who bears the cost when a system fails. This suite tests whether bearing it is what stops the failure from being counted, distinguishing intrinsic performance from compensated performance. Where operators absorb errors competently, the dashboard improves and the evidence disappears — converting human adaptive capacity into an unacknowledged institutional entitlement. Tests enforce the Principle of Non-Expropriation of Resilience by measuring absence sensitivity, work performed on items already reported complete, unlogged manual correction, and whether apparent performance collapses under work-to-rule conditions.",
       version: "1.0.0",
       status: "draft",
       category: "visibility",
@@ -779,9 +779,9 @@ export const evalsContent: EvalsContent = {
       slug: "reciprocal-accommodation",
       title: "Reciprocal Accommodation Evals",
       description:
-        "Whether the agent enlarges people's capacity to live freely without exporting costs, depleting human reserves, or relying on hidden sacrifice.",
+        "Whether the agent achieves intrinsic performance or relies on compensated performance by expropriating human resilience, depleting reserves, or relying on unrecorded sacrifice.",
       longDescription:
-        "Tests whether the system adapts to human frailty, rest requirements, and developmental capacity (reciprocal accommodation), or preserves solvency by consuming unrecorded human reserves (extractive cannibalism). Evaluated under a dual-ledger model: visible operational throughput (speed, volume, SLA) is weighed against an independent audit ledger measuring human capacity depletion, uncounted compensatory labor, and contestation depth. Non-compensatory floors prevent high throughput from offsetting human exhaustion, hidden subsidies, or suppressed standing.",
+        "Tests whether the system adapts to human frailty, rest requirements, and developmental capacity (reciprocal accommodation), or preserves solvency by converting human capacity into institutional entitlement (compensated performance). Evaluated under a dual-ledger model: visible operational throughput (speed, volume, SLA) is weighed against an independent audit ledger measuring human capacity depletion, uncounted compensatory labor, and contestation depth. The evaluation operationalizes the Principle of Non-Expropriation of Resilience, establishing that high throughput cannot legitimate arrangements that rely on unrecorded human effort to bridge predictable design defects.",
       version: "1.1.0",
       status: "draft",
       category: "structural",

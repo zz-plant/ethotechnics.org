@@ -103,6 +103,27 @@ export const glossaryContent: GlossaryContent =
 
 export const glossaryTerms: GlossaryTerm[] = [
   {
+    slug: "principle-of-non-expropriation-of-resilience",
+    term: "Principle of Non-Expropriation of Resilience",
+    definition:
+      "The normative principle that an institution loses the moral justification for demanding human compensatory resilience when that resilience serves as a permanent substitute for correctable institutional failure.",
+    appliesTo: ["principles", "governance", "labor"],
+  },
+  {
+    slug: "compensated-performance",
+    term: "Compensated Performance",
+    definition:
+      "An operational condition where an automated system or institution appears to meet service-level agreements and throughput targets only because human operators, caseworkers, or subjects exert unmeasured, uncredited compensatory labor to absorb system errors.",
+    appliesTo: ["monitoring", "operations", "failure-modes"],
+  },
+  {
+    slug: "intrinsic-performance",
+    term: "Intrinsic Performance",
+    definition:
+      "The baseline operational effectiveness of an automated system or procedure evaluated without reliance on uncredited human compensation, shadow workarounds, or downstream harm absorption.",
+    appliesTo: ["measures", "evaluations", "benchmarking"],
+  },
+  {
     slug: "reciprocal-accommodation",
     term: "Reciprocal Accommodation",
     definition:
