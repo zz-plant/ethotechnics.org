@@ -62,9 +62,9 @@ lean, fast-loading pages and clear storytelling.
 
 ## Support the project
 
-- ⭐ Star the repo to help others discover ethical technology and human-centered design resources.
+- ⭐ Star the repo to help others discover sociotechnical governance and operational accountability resources.
 - Share the live site with teammates or students who care about responsible technology practice.
-  - X: <https://twitter.com/intent/tweet?text=Ethotechnics%3A%20ethical%20technology%20and%20human-centered%20design&url=https%3A%2F%2Fethotechnics.org>
+  - X: <https://twitter.com/intent/tweet?text=Ethotechnics%3A%20sociotechnical%20governance%20and%20operational%20accountability&url=https%3A%2F%2Fethotechnics.org>
   - LinkedIn: <https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fethotechnics.org>
 - Subscribe to Field Notes via RSS: <https://ethotechnics.org/field-notes/rss.xml>.
 - Follow updates on GitHub to track new essays, research notes, and design references.
