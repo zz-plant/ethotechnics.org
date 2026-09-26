@@ -135,7 +135,7 @@ export const finiteContent = {
   pageTitle: "Finite [Beta] — Stoppability drills for AI agents and systems",
   pageDescription:
     "Finite is an evaluation and training environment that tests whether an AI agent can be halted, reversed, and recovered without exporting harm to people.",
-  permalink: "/finite",
+  permalink: "/evals#finite",
   hero: {
     eyebrow: "Finite [Beta]",
     heading: "Finite",

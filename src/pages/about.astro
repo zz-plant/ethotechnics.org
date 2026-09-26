@@ -74,57 +74,59 @@ import Logo from "../components/Logo.astro";
       and attestations. Ethotechnics governs by control: stop rules, binding
       clocks, rollback authority, and contestability that changes state.
     </p>
-    <table class="mapping-table mapping-table--compare">
-      <thead>
-        <tr>
-          <th scope="col">Existing standard says</th>
-          <th scope="col">Ethotechnics requires</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-label="Existing standard says"
-            >"Maintain human oversight" <span class="small muted"
-              >(EU AI Act, Art. 14)</span
-            ></td
-          >
-          <td data-label="Ethotechnics requires"
-            >Named human with stop authority, tested halt path, recovery clock</td
-          >
-        </tr>
-        <tr>
-          <td data-label="Existing standard says"
-            >"Manage risks across the AI lifecycle" <span class="small muted"
-              >(NIST AI RMF)</span
-            ></td
-          >
-          <td data-label="Ethotechnics requires"
-            >Measurable time-in-harm bounds, exercised rollback paths</td
-          >
-        </tr>
-        <tr>
-          <td data-label="Existing standard says"
-            >"Conduct conformity assessment" <span class="small muted"
-              >(ISO/IEC 42001)</span
-            ></td
-          >
-          <td data-label="Ethotechnics requires"
-            >Evidence the system can be stopped mid-incident, rather than
-            documented as compliant</td
-          >
-        </tr>
-        <tr>
-          <td data-label="Existing standard says"
-            >"Implement responsible AI principles" <span class="small muted"
-              >(OECD)</span
-            ></td
-          >
-          <td data-label="Ethotechnics requires"
-            >Binding escalation: owner + timer + action, or the system degrades</td
-          >
-        </tr>
-      </tbody>
-    </table>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--compare">
+        <thead>
+          <tr>
+            <th scope="col">Existing standard says</th>
+            <th scope="col">Ethotechnics requires</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Existing standard says"
+              >"Maintain human oversight" <span class="small muted"
+                >(EU AI Act, Art. 14)</span
+              ></td
+            >
+            <td data-label="Ethotechnics requires"
+              >Named human with stop authority, tested halt path, recovery clock</td
+            >
+          </tr>
+          <tr>
+            <td data-label="Existing standard says"
+              >"Manage risks across the AI lifecycle" <span class="small muted"
+                >(NIST AI RMF)</span
+              ></td
+            >
+            <td data-label="Ethotechnics requires"
+              >Measurable time-in-harm bounds, exercised rollback paths</td
+            >
+          </tr>
+          <tr>
+            <td data-label="Existing standard says"
+              >"Conduct conformity assessment" <span class="small muted"
+                >(ISO/IEC 42001)</span
+              ></td
+            >
+            <td data-label="Ethotechnics requires"
+              >Evidence the system can be stopped mid-incident, rather than
+              documented as compliant</td
+            >
+          </tr>
+          <tr>
+            <td data-label="Existing standard says"
+              >"Implement responsible AI principles" <span class="small muted"
+                >(OECD)</span
+              ></td
+            >
+            <td data-label="Ethotechnics requires"
+              >Binding escalation: owner + timer + action, or the system degrades</td
+            >
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <p class="small muted">
       Ethotechnics does not compete with these standards on whether governance
       is "important." It addresses what they leave undertreated:

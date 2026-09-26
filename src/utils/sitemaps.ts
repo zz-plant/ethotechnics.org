@@ -321,7 +321,7 @@ export const buildSitemapSections = async () => {
       (state.artifactSlugs ?? []).some((slug) => artifactSlugs.has(slug)),
     )
     .map((state) => ({
-      path: `/failure/${state.slug}`,
+      path: `/triage/${state.slug}`,
       changefreq: "monthly",
     }));
 

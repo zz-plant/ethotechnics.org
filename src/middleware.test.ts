@@ -100,15 +100,68 @@ describe("middleware", () => {
     const pathCases = [
       {
         url: "https://ethotechnics.org/diy-packs",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit/prompt-packs",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit#prompts",
       },
       {
         url: "https://ethotechnics.org/bundles/procurement-clause-pack",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit/prompt-packs",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit#prompts",
       },
       {
         url: "https://ethotechnics.org/bindings",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit/prompt-packs",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit#prompts",
+      },
+      {
+        url: "https://ethotechnics.org/incompatible",
+        expectedLocation: "https://ethotechnics.org/method#incompatible",
+      },
+      {
+        url: "https://ethotechnics.org/failure",
+        expectedLocation: "https://ethotechnics.org/triage",
+      },
+      {
+        url: "https://ethotechnics.org/failure/unauthorized-action",
+        expectedLocation: "https://ethotechnics.org/triage/unauthorized-action",
+      },
+      {
+        url: "https://ethotechnics.org/finite",
+        expectedLocation: "https://ethotechnics.org/evals#finite",
+      },
+      {
+        url: "https://ethotechnics.org/fast-path",
+        expectedLocation: "https://ethotechnics.org/start#fast-path",
+      },
+      {
+        url: "https://ethotechnics.org/syllabus",
+        expectedLocation: "https://ethotechnics.org/mechanisms#syllabus",
+      },
+      {
+        url: "https://ethotechnics.org/standards/implementation-examples",
+        expectedLocation: "https://ethotechnics.org/examples#domains",
+      },
+      {
+        url: "https://ethotechnics.org/standards/implementation-examples/loan-approval",
+        expectedLocation: "https://ethotechnics.org/examples/loan-approval",
+      },
+      {
+        url: "https://ethotechnics.org/standards/meta-critique",
+        expectedLocation:
+          "https://ethotechnics.org/standards#governance-by-control",
+      },
+      {
+        url: "https://ethotechnics.org/standards/micro-diagram-language",
+        expectedLocation: "https://ethotechnics.org/standards",
+      },
+      {
+        url: "https://ethotechnics.org/agent-toolkit/prompt-packs",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit#prompts",
+      },
+      {
+        url: "https://ethotechnics.org/agent-toolkit/agent-contract",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit#contract",
+      },
+      {
+        url: "https://ethotechnics.org/agent-toolkit/faq",
+        expectedLocation: "https://ethotechnics.org/agent-toolkit#quick-answers",
       },
       {
         url: "https://ethotechnics.org/delivery/intake",

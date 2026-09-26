@@ -142,7 +142,7 @@ const pageDescription =
         <a href="/diagnostics/self-defense-tools" class="button"
           >Self-defense diagnostic</a
         >
-        <a href="/failure" class="button">Incident triage</a>
+        <a href="/triage" class="button">Incident triage</a>
       </div>
     </section>
 
@@ -159,8 +159,83 @@ const pageDescription =
         </p>
       </div>
       <div class="matrix-banner__links">
-        <a href="/fast-path" class="button">Adoption plan (one sprint)</a>
-        <a href="/finite" class="button">Finite: stoppability drills</a>
+        <a href="#fast-path" class="button">Adoption plan (one sprint)</a>
+        <a href="/evals#finite" class="button">Finite: stoppability drills</a>
+      </div>
+    </section>
+
+    <!-- Fast-path adoption (one sprint) -->
+    <section id="fast-path" class="fast-path-section">
+      <div class="fast-path-header">
+        <span class="pill pill--ghost">Adoption plan</span>
+        <h2>Fast-path adoption: one sprint</h2>
+        <p class="muted">
+          Three mechanisms with owners and effort estimates, a receipt schema, and four release deliverables.
+        </p>
+      </div>
+
+      <div class="fast-path-grid">
+        <div class="fast-path-card">
+          <span class="fast-path-card__badge">1 day</span>
+          <h3>Kill switch</h3>
+          <p class="fast-path-card__owner">Ops / Reliability</p>
+          <p class="fast-path-card__desc">Stops runaway automation in seconds.</p>
+          <a href="/mechanisms/patterns/kill-switch" class="fast-path-link">Open mechanism &rarr;</a>
+        </div>
+        <div class="fast-path-card">
+          <span class="fast-path-card__badge">2 days</span>
+          <h3>Decision log with dissent</h3>
+          <p class="fast-path-card__owner">Product / Policy</p>
+          <p class="fast-path-card__desc">Records rationale and dissent, so governance cannot drift silently.</p>
+          <a href="/mechanisms/patterns/decision-log" class="fast-path-link">Open mechanism &rarr;</a>
+        </div>
+        <div class="fast-path-card">
+          <span class="fast-path-card__badge">2 days</span>
+          <h3>In-product appeal path</h3>
+          <p class="fast-path-card__owner">Support / Trust</p>
+          <p class="fast-path-card__desc">Prevents contestability regressions and shortens recovery time.</p>
+          <a href="/mechanisms/patterns/appeal-paths" class="fast-path-link">Open mechanism &rarr;</a>
+        </div>
+      </div>
+
+      <div class="fast-path-details">
+        <div class="fast-path-code">
+          <p class="eyebrow">Canonical receipt payload</p>
+          <pre class="code-block"><code>{`{
+  "schema_version": "1.0.0",
+  "receipt_id": "RCP-2026-0842",
+  "issued_at": "2026-04-11T18:12:09Z",
+  "owner": { "name": "Risk Operations", "role": "System owner" },
+  "action": { "class": "WRITE", "description": "Eligibility update", "reversible": true },
+  "clocks": { "ack": { "hours": 2 }, "review": { "hours": 24 }, "remedy": { "hours": 72 } },
+  "appeal_path": { "url": "/appeals/eligibility", "channel": "in-product form" }
+}`}</code></pre>
+          <p class="small muted">
+            Validate against the <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a> so tooling can parse receipts automatically.
+          </p>
+        </div>
+
+        <div class="fast-path-deliverables">
+          <p class="eyebrow">Sprint deliverables</p>
+          <ul class="deliverables-list">
+            <li>
+              <a href="/standards/agent-receipt-schema.json"><strong>Receipt schema</strong></a>
+              <span>Implement the canonical receipt payload and validate it in CI.</span>
+            </li>
+            <li>
+              <a href="/examples/automated-eligibility-denial"><strong>Worked example</strong></a>
+              <span>Ship at least one end-to-end scenario with receipts, clocks, and remedies.</span>
+            </li>
+            <li>
+              <a href="/evidence-packs"><strong>Release gate binding</strong></a>
+              <span>Copy the release gate checklist into your deployment template.</span>
+            </li>
+            <li>
+              <a href="/agents/spec"><strong>Safety Object Model</strong></a>
+              <span>Publish the machine-readable governance profile for CI validation.</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -444,5 +519,132 @@ const pageDescription =
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+
+  .fast-path-section {
+    margin: 3.5rem 0 2rem;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: grid;
+    gap: 2rem;
+    scroll-margin-top: 1rem;
+  }
+
+  .fast-path-header h2 {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 1.4rem;
+  }
+
+  .fast-path-header p {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .fast-path-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  }
+
+  .fast-path-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .fast-path-card__badge {
+    font-size: 0.68rem;
+    font-family: var(--sans);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-pill);
+    width: fit-content;
+  }
+
+  .fast-path-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .fast-path-card__owner {
+    margin: 0;
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .fast-path-card__desc {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text);
+    line-height: 1.45;
+  }
+
+  .fast-path-link {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: var(--text-sm);
+    font-weight: 650;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .fast-path-link:hover {
+    text-decoration: underline;
+    color: var(--accent-strong);
+  }
+
+  .fast-path-details {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 840px) {
+    .fast-path-details {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .fast-path-code pre {
+    margin: 0.5rem 0;
+    max-height: 280px;
+    overflow-x: auto;
+    font-size: var(--text-xs);
+  }
+
+  .deliverables-list {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .deliverables-list li {
+    display: grid;
+    gap: 0.2rem;
+    font-size: var(--text-sm);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  }
+
+  .deliverables-list a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .deliverables-list a:hover {
+    text-decoration: underline;
   }
 </style>

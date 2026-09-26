@@ -1,18 +1,18 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import CitationBlock from "../../../components/CitationBlock.astro";
-import PageIntro from "../../../components/PageIntro.astro";
-import ScholarlyMeta from "../../../components/ScholarlyMeta.astro";
-import SectionBlock from "../../../components/SectionBlock.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitationBlock from "../../components/CitationBlock.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import ScholarlyMeta from "../../components/ScholarlyMeta.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
 import {
   createImplementationPublication,
   implementationExampleAnchorLinks,
-} from "../../../content/implementation-examples";
+} from "../../content/implementation-examples";
 
 const pageTitle = "Healthcare diagnostic AI: implementation comparison";
 const pageDescription =
   "Compare standard AI governance and Ethotechnics implementation for clinical risk and diagnostic tools.";
-const permalink = "/standards/implementation-examples/healthcare-diagnostics";
+const permalink = "/examples/healthcare-diagnostics";
 const anchorLinks = implementationExampleAnchorLinks;
 const publication = createImplementationPublication(
   permalink,
