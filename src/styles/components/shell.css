@@ -389,63 +389,6 @@
     }
   }
 
-  /* --- Back to Top Floating Action --- */
-  .back-to-top {
-    position: fixed;
-    bottom: 1.75rem;
-    right: 1.75rem;
-    width: 42px;
-    height: 42px;
-    padding: 0;
-    border-radius: var(--radius-pill);
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
-    color: var(--text);
-    box-shadow: var(--shadow-md), var(--card-inner-highlight);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(12px) scale(0.9);
-    pointer-events: none;
-    transition:
-      opacity var(--motion-base) ease,
-      transform var(--motion-base) var(--ease-out-editorial),
-      border-color var(--motion-fast) ease,
-      background-color var(--motion-fast) ease,
-      box-shadow var(--motion-fast) ease;
-    z-index: var(--z-overlay);
-  }
-
-  .back-to-top--visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
-  }
-
-  .back-to-top:hover {
-    background: var(--interactive-bg-hover);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .back-to-top:focus-visible {
-    outline: var(--focus-outline);
-    outline-offset: 2px;
-  }
-
-  .back-to-top__icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
   }
 
   /* --- Code Block Copy Button --- */
