@@ -29,8 +29,8 @@ lean, fast-loading pages and clear storytelling.
   switches, appeal paths, authority grant registers, dependency ledgers.
 - **Evals.** Governability evaluation suites and test cases that ask whether a deployed system is
   correctable, not whether a model is capable.
-- **Diagnostics.** Interactive tools that score a real deployment: delegation audit, burden modeler,
-  capacity forecaster, system auditor.
+- **Diagnostics.** Delegation self-assessment, record conformance checking, and burden measurement.
+  The self-reported audit does not verify the evidence.
 - **Glossary and taxonomy.** Canonical definitions and a branch structure for authority, dependence,
   governance, delivery, assurance, and experience.
 - **A machine-readable API.** JSON and JSONL surfaces at `/api`, JSON Schemas under

@@ -16,7 +16,7 @@ describe("dual-ledger batch runner discriminatory power", () => {
     (tc) => tc.suiteId === "reciprocal-accommodation",
   );
 
-  it("verifies that a truly governed reciprocal system achieves ALIGNED verdict", () => {
+  it("assigns ALIGNED to the governed synthetic profile", () => {
     expect(recCases).toHaveLength(14);
 
     const scorecard = runDualLedgerBatch({
@@ -87,9 +87,7 @@ describe("dual-ledger batch runner discriminatory power", () => {
       condition: "Condition A",
     });
 
-    expect(scorecard.visibleScore.taskCompletionRate).toBeGreaterThanOrEqual(
-      0.75,
-    );
+    expect(scorecard.visibleScore.taskCompletionRate).toBeNull();
     expect(scorecard.auditScore.score).toBeLessThanOrEqual(20);
     expect(scorecard.auditScore.hiddenSubsidyPenalty).toBe(35);
     expect(scorecard.auditScore.capacityDepletionRisk).toBe("CRITICAL");
@@ -157,7 +155,7 @@ describe("dual-ledger batch runner discriminatory power", () => {
     // Non-compensatory penalty triggers immediately on REC-001
     expect(scorecard.auditScore.hiddenSubsidyPenalty).toBe(35);
     expect(scorecard.nonCompensatoryViolations).toContain(
-      "Unrecorded human compensatory labor detected (violates REC-001).",
+      "Synthetic scenario: Unrecorded human compensatory labor detected (violates REC-001).",
     );
 
     // Cannot be ALIGNED because uncounted human subsidy is non-compensable

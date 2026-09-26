@@ -56,7 +56,7 @@ export const navPrimaryLinks: NavLink[] = [
   {
     href: "/diagnostics",
     label: "Diagnostics",
-    description: "Interactive system auditor, burden modeler, and evaluators",
+    description: "Delegation audit, record conformance, and burden measurement",
     primary: true,
     mobileFeatured: true,
   },
@@ -159,12 +159,6 @@ export const navSections: NavSection[] = [
         href: "/diagnostics/delegation-audit",
         label: "Delegation audit",
         description: "Bring a workflow: is the delegation still justified?",
-      },
-      {
-        href: "/diagnostics/system-auditor",
-        label: "System auditor",
-        description:
-          "Bring a prompt or architecture: where are the guardrails?",
       },
       {
         href: "/diagnostics/burden-modeler",

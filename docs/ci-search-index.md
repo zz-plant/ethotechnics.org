@@ -57,8 +57,7 @@ The RAG corpus at `/api/rag-corpus.jsonl` tags every document with a `layer`
 field so retrieval can keep the doctrine apart from the requirements:
 
 - `theory` for `/research/theory/*`.
-- `instrument` for `/diagnostics/*`, `/validators/*`, `/tools/*`, and
-  `/agent-toolkit/*`.
+- `instrument` for `/diagnostics/*`, `/validators/*`, and `/tools/*`.
 - `method` for everything else.
 
 The layer is derived in `resolveCorpusLayer` in `src/utils/api-responses.ts`.

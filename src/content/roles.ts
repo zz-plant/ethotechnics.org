@@ -75,11 +75,11 @@ export const roles: Role[] = [
     orientation: [
       {
         number: 1,
-        title: "Audit a system spec and generate guardrails",
+        title: "Audit the delegation behind a workflow",
         description:
-          "Run the System Auditor against a spec to surface failure modes and synthesize TypeScript or Python middleware.",
-        ctaLabel: "Open System Auditor",
-        ctaHref: "/diagnostics/system-auditor",
+          "Walk one workflow against the six state variables and get back the grants nobody can ground, plus a reversibility verdict at three levels.",
+        ctaLabel: "Open Delegation Audit",
+        ctaHref: "/diagnostics/delegation-audit",
       },
       {
         number: 2,
@@ -144,11 +144,14 @@ export const roles: Role[] = [
       "Log all override actions with named owners and timestamps.",
     ],
     featuredDiagnostics: [
-      "system-auditor",
+      "delegation-audit",
       "burden-modeler",
-      "capacity-forecaster",
+      "record-conformance",
     ],
-    featuredStandards: ["std-01-temporal-rights", "std-02-contestability-recourse"],
+    featuredStandards: [
+      "std-01-temporal-rights",
+      "std-02-contestability-recourse",
+    ],
     formerPaths: ["/quick-start/engineers", "/adopt/build"],
   },
   {
@@ -178,9 +181,9 @@ export const roles: Role[] = [
         number: 3,
         title: "Export contract clauses",
         description:
-          "Generate vendor agreement terms for third-party AI procurement that a counterparty can be held to.",
-        ctaLabel: "Generate SLA clauses",
-        ctaHref: "/diagnostics/system-auditor",
+          "Draft the authority, evidence, and correction terms a vendor agreement has to state before the system is allowed to decide.",
+        ctaLabel: "Read STD-08",
+        ctaHref: "/standards/std-08-delegation",
       },
     ],
     guide: {
@@ -223,8 +226,11 @@ export const roles: Role[] = [
       "Set incident disclosure expectations for high-impact failures.",
       "Require sign-off authority for resume decisions after a halt.",
     ],
-    featuredDiagnostics: ["system-auditor", "delegation-audit"],
-    featuredStandards: ["std-01-temporal-rights", "std-06-human-impact-safety-case"],
+    featuredDiagnostics: ["delegation-audit", "burden-modeler"],
+    featuredStandards: [
+      "std-01-temporal-rights",
+      "std-06-human-impact-safety-case",
+    ],
     formerPaths: ["/quick-start/policy-makers", "/adopt/policy"],
   },
   {
@@ -260,11 +266,14 @@ export const roles: Role[] = [
       },
     ],
     featuredDiagnostics: [
-      "system-auditor",
+      "delegation-audit",
       "record-conformance",
-      "maintenance-simulator",
+      "burden-modeler",
     ],
-    featuredStandards: ["std-01-temporal-rights", "std-02-contestability-recourse"],
+    featuredStandards: [
+      "std-01-temporal-rights",
+      "std-02-contestability-recourse",
+    ],
     formerPaths: [],
   },
   {
@@ -276,11 +285,11 @@ export const roles: Role[] = [
     orientation: [
       {
         number: 1,
-        title: "Forecast the absorption load",
+        title: "Model the load the system pushes onto people",
         description:
-          "Model whether human response capacity grows with the volume the system generates, before the queue becomes the mechanism that hides its errors.",
-        ctaLabel: "Run Capacity Forecaster",
-        ctaHref: "/diagnostics/capacity-forecaster",
+          "Calculate who absorbs the friction a workflow generates, in hours, before the queue becomes the mechanism that hides its errors.",
+        ctaLabel: "Run Burden Modeler",
+        ctaHref: "/diagnostics/burden-modeler",
       },
       {
         number: 2,
@@ -305,7 +314,7 @@ export const roles: Role[] = [
       "Track queue age and auto-escalate stalled cases.",
       "Publish a repair log with remediation status and owner handoffs.",
     ],
-    featuredDiagnostics: ["burden-modeler", "capacity-forecaster"],
+    featuredDiagnostics: ["burden-modeler", "corrective-debt-calculator"],
     formerPaths: ["/adopt/ops"],
   },
   {
@@ -480,11 +489,11 @@ export const roles: Role[] = [
       },
       {
         number: 2,
-        title: "Forecast maintenance metabolism",
+        title: "Review corrective practices",
         description:
-          "Model whether human capacity grows with the automated volume it is expected to absorb.",
-        ctaLabel: "Run Capacity Forecaster",
-        ctaHref: "/diagnostics/capacity-forecaster",
+          "Review self-reported growth, challenge intake, reversal, revision, and workaround handling.",
+        ctaLabel: "Run Corrective capacity self-assessment",
+        ctaHref: "/diagnostics/corrective-debt-calculator",
       },
       {
         number: 3,
@@ -495,7 +504,7 @@ export const roles: Role[] = [
         ctaHref: "/glossary/ethotechnic-maturity",
       },
     ],
-    featuredDiagnostics: ["capacity-forecaster", "burden-modeler"],
+    featuredDiagnostics: ["delegation-audit", "burden-modeler"],
     featuredStandards: ["std-01-temporal-rights"],
     formerPaths: [],
   },

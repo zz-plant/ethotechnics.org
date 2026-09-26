@@ -98,7 +98,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         version: "v1.3.0",
         date: "2026-09-18",
         summary:
-          "Added the Corrective Debt Calculator, which prices the gap between action capacity and corrective capacity on two axes, with the absorption share and the workaround presumption as inputs.",
+          "Added a self-assessment of action-capacity growth, challenge intake, reversal, revision, and workarounds using fixed categorical weights.",
       },
       {
         version: "v1.2.0",
@@ -398,106 +398,6 @@ export const diagnosticsContent: DiagnosticsContent = {
       deliveryType: "self-serve",
     },
     {
-      slug: "system-auditor",
-      title: "System Audit & Guardrail Synthesizer",
-      description:
-        "Scans a system prompt or workflow spec for seven governance failure patterns, sets halt and reversal limits by tier, and drafts guardrail code and SLA clauses.",
-      methodCards: {
-        measures: [
-          "Vulnerability to Unearned Closure, Administrative Shame, and Dead-User Zones.",
-          "Time-to-Halt (TTH) and Reversal SLA ceilings for the stated hazard and autonomy tier.",
-          "Gaps against STD-01 Temporal Rights & Recourse.",
-        ],
-        doesNotMeasure: [
-          "Raw model inference token throughput or latency.",
-          "Underlying training dataset copyright clearances.",
-          "Adversarial jailbreaks unrelated to governance architecture.",
-        ],
-        assumptions: [
-          "System prompts or architecture specs reflect actual deployed logic.",
-          "Domain hazard tier accurately captures end-user stakes.",
-          "Decisions produce observable downstream state transitions.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "System prompt, policy rules, or workflow specification.",
-          "Autonomy tier (Advisory, Semi-Autonomous, Autonomous).",
-          "Domain hazard tier (Low, Medium, High, Critical).",
-        ],
-        procedure: [
-          "Match the text against the failure-pattern rules.",
-          "Look up SLA bounds for the hazard tier, tightened for autonomous systems.",
-          "Generate TypeScript, Python, and JSON Schema middleware.",
-        ],
-        outputs: [
-          "Governance Health Score (0-100) and risk level.",
-          "Detected failure mode cards with specific remedies.",
-          "Copyable guardrail code and contract clauses.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Paste a system prompt or load an industry preset.",
-          "Select the autonomy tier and domain hazard tier.",
-          "Review the detected failure patterns and SLA limits.",
-        ],
-        rubric: [
-          "Critical: no route to contest a decision, or a denial that cannot be reversed.",
-          "Elevated: the system closes cases on its own or shifts the burden onto the claimant.",
-          "Low: the claimant confirms resolution and a rollback path is in active use.",
-        ],
-        scoringLogic: [
-          "Starts at 100 and subtracts a penalty per detected pattern by severity, plus penalties for autonomous operation and high or critical hazard.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "The presets cover customer support, clinical benefits triage, credit underwriting, and content moderation. They are sample specifications, not audited deployments.",
-        reliability:
-          "Deterministic. Each failure pattern is a fixed text rule, so the same text and tiers give the same report. A pattern the rules do not match is not reported.",
-        failureModes: [
-          "Unearned Closure",
-          "Dead-User Zones",
-          "Administrative Shame",
-          "Heroism-Dependent Systems",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Open the System Auditor workbench.",
-          "Select a preset or paste your system prompt.",
-          "Export the Decision Object JSON receipt.",
-        ],
-        exampleOutputs: [
-          "Audit Report JSON receipt.",
-          "TypeScript Express/Fastify guardrail middleware.",
-          "Contract-ready legal SLA clauses.",
-        ],
-      },
-      bestFor:
-        "Engineers, compliance leads, and architects writing the spec for a system that decides about people.",
-      readiness: [
-        "Run on a system prompt or workflow spec before it ships.",
-        "Know the autonomy tier and the hazard tier of the domain.",
-      ],
-      outputs: [
-        "Governance health score from 0 to 100 with the patterns that lowered it.",
-        "Halt, restore, and reversal limits for the chosen tiers.",
-        "Guardrail middleware to adapt and review before deployment.",
-      ],
-      estimatedTime: "5 minutes",
-      prepChecklist: [
-        "The system prompt or decision policy text.",
-        "How disputes and escalations are handled today.",
-      ],
-      ctaLabel: "Launch System Auditor",
-      ctaHref: "/diagnostics/system-auditor",
-      exampleLabel: "View methodology",
-      exampleHref: "/standards/std-01-temporal-rights",
-      deliveryType: "self-serve",
-    },
-    {
       slug: "burden-modeler",
       title: "Burden Modeler",
       description:
@@ -600,225 +500,15 @@ export const diagnosticsContent: DiagnosticsContent = {
       deliveryType: "self-serve",
     },
     {
-      slug: "maintenance-simulator",
-      title: "Maintenance Simulator",
-      description:
-        "A tabletop run through an outage, a maintenance window, or a handoff that scores coverage and lists each missing owner, halt lane, and template.",
-      methodCards: {
-        measures: [
-          "Ownership clarity across outage and maintenance branches.",
-          "Time-to-halt readiness for escalations.",
-          "Communication cadence readiness by risk level.",
-        ],
-        doesNotMeasure: [
-          "Actual system uptime or performance metrics.",
-          "Incident response SLA compliance in production.",
-          "Staffing coverage outside the simulated scenario.",
-        ],
-        assumptions: [
-          "Scenario reflects likely outage or maintenance conditions.",
-          "Participants represent the escalation roles.",
-          "Communication templates align with current policy.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "Scenario description and stress level.",
-          "Escalation owners and comms partners.",
-          "Known dependencies and rollback paths.",
-        ],
-        procedure: [
-          "Run tabletop branches for outage or maintenance.",
-          "Log ownership, escalation, and timing decisions.",
-          "Capture gaps and draft mitigation actions.",
-        ],
-        outputs: [
-          "Scenario walkthrough with ownership gaps.",
-          "Communication templates aligned to risk levels.",
-          "Coverage and escalation summary for follow-up.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Scenario selection and risk level.",
-          "Escalation owner confirmation.",
-          "Rollback and communication template prompts.",
-        ],
-        rubric: [
-          "Five coverage items, each confirmed or missing: escalation owner, rollback plan, communications, appeal path, and handoff plan.",
-          "Stress level: steady, elevated, or critical.",
-        ],
-        scoringLogic: [
-          "Readiness starts at 100. A missing escalation owner or rollback plan costs 18 points, missing communications 14, a missing appeal path or handoff plan 10 each, and elevated or critical stress 6 or 12.",
-          "Each missing item is listed as a gap with the step that closes it.",
-          "Summarize follow-ups by escalation owner.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "Readiness starts at 100 and loses a fixed penalty for each missing coverage item and for the stress level chosen.",
-        reliability:
-          "The score reflects what the room confirms, not what production does. Reconcile facilitator notes after the run.",
-        failureModes: [
-          "Skipping escalation owners leads to incomplete coverage maps.",
-          "Outdated communication templates skew readiness scores.",
-          "Unrealistic scenarios understate actual risk.",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Select a scenario and risk level.",
-          "Confirm escalation owners and comms partners.",
-          "Run the tabletop and capture decisions in the log.",
-          "Export the summary and send it to each escalation owner.",
-        ],
-        exampleOutputs: [
-          "Maintenance run log with ownership notes.",
-          "Communication template pack for a high-risk window.",
-        ],
-      },
-      bestFor:
-        "Operations leads rehearsing who halts, who rolls back, and who communicates during an outage.",
-      readiness: [
-        "Run during planning, while coverage, escalation, and staffing can still change.",
-        "Test appeal paths, halt lanes, and service-level commitments before launch.",
-      ],
-      outputs: [
-        "Scenario runs that name an owner, a mitigation branch, and a time-to-halt expectation.",
-        "Communication templates mapped to risk levels, roles, and escalation routes.",
-        "Coverage map listing readiness gaps per team.",
-      ],
-      estimatedTime: "20–30 minutes",
-      prepChecklist: [
-        "Upcoming maintenance or outage scenario.",
-        "Named escalation owner and comms partner.",
-        "Known dependency or rollback risks.",
-      ],
-      ctaLabel: "Start the Maintenance Simulator",
-      ctaHref: "/diagnostics/maintenance-simulator",
-      ctaAriaLabel: "Start the Maintenance Simulator diagnostic tool",
-      exampleLabel: "View sample output",
-      exampleHref:
-        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#maintenance-simulator",
-      deliveryType: "self-serve",
-    },
-    {
-      slug: "maintenance-debt-calculator",
-      title: "Maintenance Debt Calculator",
-      description:
-        "Scores decision speed, intervention readiness, response window, and revenue exposure, and estimates the cost gap between uncontrolled and stoppable actions.",
-      methodCards: {
-        measures: [
-          "Decision speed relative to escalation capacity.",
-          "Intervention readiness and recovery coverage.",
-          "Revenue exposure if uncontrolled actions occur.",
-        ],
-        doesNotMeasure: [
-          "Exact financial outcomes or legal liability.",
-          "Market share shifts unrelated to the incident.",
-          "Individual or team performance accountability.",
-        ],
-        assumptions: [
-          "Inputs reflect realistic ranges for the scenario.",
-          "Revenue exposure estimates are directional, not audited.",
-          "Intervention coverage mirrors current runbooks.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "Decision speed band for the system.",
-          "Intervention readiness and response window.",
-          "Revenue exposure tier and recovery cost.",
-        ],
-        procedure: [
-          "Score decision speed, readiness, and exposure.",
-          "Calculate maintenance debt risk tier.",
-          "Estimate the cost delta between uncontrolled and stoppable actions.",
-        ],
-        outputs: [
-          "Maintenance debt score and tier.",
-          "Estimated uncontrolled action cost range.",
-          "Shareable summary link for budget discussions.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Decision speed band (milliseconds, seconds, minutes).",
-          "Intervention readiness coverage.",
-          "Escalation response window.",
-          "Revenue exposure tier.",
-        ],
-        rubric: [
-          "Decision speed scored on rapid / steady / deliberate.",
-          "Readiness scored on limited / partial / comprehensive.",
-          "Response window scored on under 5 minutes / 15–60 minutes / over 1 hour.",
-          "Revenue exposure scored on low / medium / high.",
-        ],
-        scoringLogic: [
-          "Total score combines speed, readiness, response window, and exposure.",
-          "Debt tier mapped to score thresholds.",
-          "Cost delta derived from exposure tier multiplied by debt factor.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "Band weights and exposure bases are fixed in the calculator. Cost figures scale with the exposure tier and are illustrative, not audited.",
-        reliability:
-          "Scores stabilize when scenario owners align on exposure ranges and response windows.",
-        failureModes: [
-          "Overstated revenue exposure inflates cost deltas.",
-          "Understated response windows hide readiness gaps.",
-          "Outdated runbooks skew intervention readiness inputs.",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Collect decision speed and response window inputs.",
-          "Confirm intervention readiness with operations leads.",
-          "Estimate revenue exposure tier and recovery costs.",
-          "Send the readout link to whoever owns the budget decision.",
-        ],
-        exampleOutputs: [
-          "Maintenance debt scorecard with cost delta.",
-          "Summary of tier, score, and cost delta for a budget review.",
-        ],
-      },
-      bestFor:
-        "Governance leads and budget owners who need maintenance debt stated as a cost range.",
-      readiness: [
-        "Run before a budget cycle to size spending on intervention coverage.",
-        "Check the exposure tier against recent incident retrospectives.",
-      ],
-      outputs: [
-        "Maintenance debt tier with a one-line summary.",
-        "Estimated cost delta between uncontrolled and stoppable actions.",
-        "Shareable link for budget and governance briefs.",
-      ],
-      estimatedTime: "10–12 minutes",
-      prepChecklist: [
-        "Decision speed estimates for the system.",
-        "Runbook response window and escalation plan.",
-        "Revenue exposure range or recovery cost estimate.",
-      ],
-      studioNote:
-        "Studio support can translate debt tiers into funding scenarios.",
-      ctaLabel: "Start the Maintenance Debt Calculator",
-      ctaHref: "/diagnostics/maintenance-debt-calculator",
-      ctaAriaLabel: "Start the Maintenance Debt Calculator diagnostic tool",
-      exampleLabel: "View sample output",
-      exampleHref: "/diagnostics#output-baseline",
-      deliveryType: "self-serve",
-    },
-    {
       slug: "corrective-debt-calculator",
-      title: "Corrective Debt Calculator",
+      title: "Corrective capacity self-assessment",
       description:
-        "Prices the gap between an institution's capacity to act on people and its capacity to hear from them when it is wrong.",
+        "Summarizes five self-reported answers about growth, challenge intake, reversal, revision, and workarounds. The score is a discussion aid, not a measurement of corrective capacity.",
       methodCards: {
         measures: [
-          "How fast action capacity — decisions automated, data integrated, downstream dependence — compounded over the last year.",
-          "Corrective capacity on its own axis: challenge intake, reversal latency, upstream revision, and workaround handling.",
-          "The accumulated gap between the two, with its trajectory.",
+          "The action-capacity growth band selected by the operator.",
+          "Reported challenge intake, reversal latency, upstream revision, and workaround handling.",
+          "A fixed-weight concern score derived from those answers.",
         ],
         doesNotMeasure: [
           "Exact financial exposure or legal liability.",
@@ -841,13 +531,13 @@ export const diagnosticsContent: DiagnosticsContent = {
         ],
         procedure: [
           "Score action-capacity growth and each corrective-capacity component.",
-          "Compute the corrective debt score and its trajectory.",
-          "Estimate the absorption share: corrective effort that changed nothing upstream.",
+          "Normalize the fixed category weights to a 0–100 concern score.",
+          "Display the reported growth band alongside the concern score.",
         ],
         outputs: [
-          "Corrective debt score and tier.",
-          "Absorption share estimate.",
-          "Debt trajectory: compounding, steady, or flat.",
+          "Heuristic concern score and tier.",
+          "The five answers used to derive the score.",
+          "Reported action-capacity growth: compounding, steady, or flat.",
         ],
       },
       instrument: {
@@ -868,14 +558,14 @@ export const diagnosticsContent: DiagnosticsContent = {
         scoringLogic: [
           "Each component contributes its band weight; the total normalizes to 0–100.",
           "Tiers: critical, high, moderate, low.",
-          "Absorption share derives from intake, revision, and workaround bands.",
+          "The score does not estimate absorption, financial cost, or a future trajectory.",
         ],
       },
       validation: {
         pilotNotes:
           "Each band carries a fixed weight in the calculator. The score is only as sound as the bands chosen, so record the figures behind each choice.",
         reliability:
-          "Scores stabilize when the operator states correction staffing in numbers rather than intentions.",
+          "No empirical calibration or predictive validity is established for these weights.",
         failureModes: [
           "Counting the appeals queue as corrective capacity when it resolves cases and changes nothing upstream.",
           "Reading workarounds as resilience and scaling the system on absorbed labor.",
@@ -886,12 +576,12 @@ export const diagnosticsContent: DiagnosticsContent = {
         runSteps: [
           "Collect the growth band and the four corrective-capacity bands.",
           "State challenge volume and correction staffing for the same period.",
-          "Run the calculator and record the tier with the absorption share.",
-          "Re-run after any scope expansion and compare trajectories.",
+          "Record the selected answers and concern tier, with the evidence needed to check them.",
+          "Re-run after a scope expansion and compare answers.",
         ],
         exampleOutputs: [
-          "Corrective debt scorecard with tier and trajectory.",
-          "Absorption share with the exception classes that produced it.",
+          "Self-assessment with a concern tier and reported growth band.",
+          "An explicit limit: no absorption share is measured.",
         ],
       },
       bestFor:
@@ -901,8 +591,8 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Pair with the exception-learning eval to trace whether any challenge changed an upstream object.",
       ],
       outputs: [
-        "Corrective debt tier with the gap stated on two axes.",
-        "Absorption share estimate with its sources.",
+        "Heuristic concern tier from self-reported answers.",
+        "Reported growth band and workaround-register status.",
         "Shareable link for the expansion review.",
       ],
       estimatedTime: "10–12 minutes",
@@ -913,114 +603,11 @@ export const diagnosticsContent: DiagnosticsContent = {
       ],
       studioNote:
         "Studio support can run the two-axis comparison and trace exception-to-revision paths.",
-      ctaLabel: "Start the Corrective Debt Calculator",
+      ctaLabel: "Start the Corrective capacity self-assessment",
       ctaHref: "/diagnostics/corrective-debt-calculator",
-      ctaAriaLabel: "Start the Corrective Debt Calculator diagnostic tool",
+      ctaAriaLabel: "Start the Corrective capacity self-assessment diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref: "/diagnostics#output-baseline",
-      deliveryType: "self-serve",
-    },
-    {
-      slug: "capacity-forecaster",
-      title: "Technical Capacity Forecaster",
-      description:
-        "Projects compound capacity decay over 24 months, with and without a refusal window, and marks the month capacity falls below the saturation line.",
-      methodCards: {
-        measures: [
-          "Projected capacity decay over a 24-month horizon.",
-          "Impact of remediation timing on saturation risk.",
-          "Effect of refusal windows on delivery throughput.",
-        ],
-        doesNotMeasure: [
-          "Real-time operational performance or incident rates.",
-          "Budget constraints outside the modeled inputs.",
-          "External market or policy changes affecting demand.",
-        ],
-        assumptions: [
-          "Baseline capacity is stable absent remediation.",
-          "Refusal windows accurately represent pause periods.",
-          "Remediation effects scale linearly over time.",
-        ],
-      },
-      methodOverview: {
-        inputs: [
-          "Baseline capacity and delivery targets.",
-          "Remediation timing and intensity.",
-          "Refusal windows and recovery assumptions.",
-        ],
-        procedure: [
-          "Model baseline and remediated trajectories.",
-          "Compare saturation points across scenarios.",
-          "Export a PDF summary with the saturation month marked.",
-        ],
-        outputs: [
-          "Baseline vs. remediated capacity curves.",
-          "Saturation risk marked at each decision point.",
-          "PDF snapshot of both curves.",
-        ],
-      },
-      instrument: {
-        prompts: [
-          "Baseline capacity and decay rate.",
-          "Remediation schedule and effect size.",
-          "Refusal window timing and duration.",
-        ],
-        rubric: [
-          "Capacity scales normalized to 0–100.",
-          "Remediation impact scored as low/medium/high.",
-        ],
-        scoringLogic: [
-          "Projected capacity = baseline - decay + remediation offsets.",
-          "Saturation flagged when capacity drops below threshold.",
-          "PDF summary generated from projection tables.",
-        ],
-      },
-      validation: {
-        pilotNotes:
-          "Decay and remediation curves come from fixed constants: a 2% monthly base decay, a 0.7 multiplier for remediated decay, and saturation at 35% of starting capacity.",
-        reliability:
-          "Scenario comparisons align when baseline data is consistent; variability rises with uncertain inputs.",
-        failureModes: [
-          "Overly optimistic remediation inputs understate saturation.",
-          "Incomplete refusal windows distort capacity troughs.",
-          "Baseline data drift makes longitudinal comparisons unreliable.",
-        ],
-      },
-      replicability: {
-        runSteps: [
-          "Collect baseline capacity and delivery targets.",
-          "Input remediation timing and refusal windows.",
-          "Run simulations for baseline and mitigation cases.",
-          "Export PDF summary and archive inputs.",
-        ],
-        exampleOutputs: [
-          "Capacity forecast PDF with saturation points marked.",
-          "Scenario comparison table for a review meeting.",
-        ],
-      },
-      bestFor:
-        "Delivery leads deciding when to schedule remediation before capacity runs out.",
-      readiness: [
-        "Run when a team has to choose between remediation now and delivery now.",
-        "Bring to portfolio reviews to set refusal windows against available capacity.",
-      ],
-      outputs: [
-        "Side-by-side baseline and remediated capacity projections.",
-        "PDF export with the saturation month marked.",
-        "Scenario table comparing when each option saturates.",
-      ],
-      estimatedTime: "15–20 minutes",
-      prepChecklist: [
-        "Current capacity baseline or recent burn rates.",
-        "Known remediation options or refusal windows.",
-        "The person who will decide on the remediation timing.",
-      ],
-      ctaLabel: "Start the Technical Capacity Forecaster",
-      ctaHref: "/diagnostics/capacity-forecaster",
-      ctaAriaLabel: "Start the Technical Capacity Forecaster diagnostic tool",
-      exampleLabel: "View sample output",
-      exampleHref:
-        "https://github.com/zz-plant/ethotechnics.org/blob/main/docs/diagnostics-outputs.md#technical-capacity-forecaster",
       deliveryType: "self-serve",
     },
   ],

@@ -36,18 +36,25 @@ const quickTriagePrompts = [
     label: "Run Burden Modeler",
   },
   {
-    question: "Are you rehearsing outage coverage or escalation ownership?",
+    question: "Is the delegation behind this decision still justified?",
     description:
-      "Run the outage and maintenance branches and list who owns each step.",
-    href: "/diagnostics/maintenance-simulator",
-    label: "Run Maintenance Simulator",
+      "Walk one workflow against the six state variables and get the grants nobody can ground.",
+    href: "/diagnostics/delegation-audit",
+    label: "Run Delegation Audit",
   },
   {
-    question: "Are you modeling capacity decay or saturation risk over time?",
+    question: "Does your record stream earn the level it claims?",
     description:
-      "Project capacity decay over 24 months and when remediation has to start.",
-    href: "/diagnostics/capacity-forecaster",
-    label: "Run Capacity Forecaster",
+      "Validate an emitted stream against the schema and recompute its hashes.",
+    href: "/diagnostics/record-conformance",
+    label: "Run Record Conformance",
+  },
+  {
+    question: "Can the institution correct what it can decide?",
+    description:
+      "Review five answers about growth and corrective practices.",
+    href: "/diagnostics/corrective-debt-calculator",
+    label: "Run Corrective capacity self-assessment",
   },
 ];
 const selfDefenseTools = [
@@ -73,11 +80,10 @@ const selfDefenseTools = [
   },
 ];
 const mostUsedToolSlugs = [
-  "system-auditor",
+  "delegation-audit",
+  "record-conformance",
   "burden-modeler",
-  "capacity-forecaster",
-  "maintenance-simulator",
-  "maintenance-debt-calculator",
+  "corrective-debt-calculator",
 ];
 const mostUsedTools = mostUsedToolSlugs
   .map((slug) => tools.find((tool) => tool.slug === slug))
@@ -178,11 +184,15 @@ const comparisonTools = mostUsedTools.slice(0, 3);
         <ul class="muted small">
           <li>Linkable results page and a shareable PDF summary.</li>
           <li>References to the mechanisms each mitigation comes from.</li>
-          <li>Facilitated follow-up when the question or risk stays unclear.</li>
+          <li>
+            Facilitated follow-up when the question or risk stays unclear.
+          </li>
         </ul>
         <p class="muted small">
           Before publishing an output about appeals or reversals, run the{" "}
-          <a href="/explainers/contestability-checklist">contestability checklist</a>{" "}
+          <a href="/explainers/contestability-checklist"
+            >contestability checklist</a
+          >{" "}
           against the appeal path it describes.
         </p>
       </div>
@@ -190,13 +200,29 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       <div class="panel stack-sm" id="anti-weaponization">
         <p class="eyebrow">Anti-weaponization verification</p>
         <ul class="muted small">
-          <li><strong>AW-01:</strong> Burden metrics include a remediation plan and staffing allocation.</li>
-          <li><strong>AW-02:</strong> Appeal paths are tested for non-regression and public replacement windows.</li>
-          <li><strong>AW-03:</strong> Downgrades or eligibility changes always emit receipts and clocks.</li>
-          <li><strong>AW-04:</strong> High-burden flows include assisted channels or human escalation.</li>
+          <li>
+            <strong>AW-01:</strong> Burden metrics include a remediation plan and
+            staffing allocation.
+          </li>
+          <li>
+            <strong>AW-02:</strong> Appeal paths are tested for non-regression and
+            public replacement windows.
+          </li>
+          <li>
+            <strong>AW-03:</strong> Downgrades or eligibility changes always emit
+            receipts and clocks.
+          </li>
+          <li>
+            <strong>AW-04:</strong> High-burden flows include assisted channels or
+            human escalation.
+          </li>
         </ul>
         <p class="muted small">
-          Reference: <a href="/anti-weaponization">Anti-weaponization constraints</a> and the <a href="/evidence-packs/std-02#anti-weaponization">evidence requirements</a>.
+          Reference: <a href="/anti-weaponization"
+            >Anti-weaponization constraints</a
+          > and the <a href="/evidence-packs/std-02#anti-weaponization"
+            >evidence requirements</a
+          >.
         </p>
       </div>
     </div>
@@ -297,13 +323,19 @@ const comparisonTools = mostUsedTools.slice(0, 3);
           >
         </li>
         <li>
-          <a class="pill-list__button" href="/diagnostics/system-auditor"
-            >System audit</a
+          <a class="pill-list__button" href="/diagnostics/delegation-audit"
+            >Delegation audit</a
           >
         </li>
         <li>
-          <a class="pill-list__button" href="/diagnostics/maintenance-simulator"
-            >Outage simulation</a
+          <a class="pill-list__button" href="/diagnostics/record-conformance"
+            >Record conformance</a
+          >
+        </li>
+        <li>
+          <a
+            class="pill-list__button"
+            href="/diagnostics/corrective-debt-calculator">Corrective debt</a
           >
         </li>
       </ul>
@@ -369,13 +401,16 @@ const comparisonTools = mostUsedTools.slice(0, 3);
               <div class="diagnostics__card-body">
                 <div>
                   <p class="muted small">
-                    <strong>{deliveryLabel}</strong> · Estimated time: {tool.estimatedTime}
+                    <strong>{deliveryLabel}</strong> · Estimated time:{" "}
+                    {tool.estimatedTime}
                   </p>
                   <p class="muted small">{deliveryDetail}</p>
                 </div>
                 <div class="diagnostics__output-box">
                   <span class="eyebrow">Deliverable artifact</span>
-                  <p class="small"><strong>{tool.outputs.join(" · ")}</strong></p>
+                  <p class="small">
+                    <strong>{tool.outputs.join(" · ")}</strong>
+                  </p>
                 </div>
                 <p class="muted small">
                   <strong>When to use:</strong> {tool.bestFor}
@@ -395,7 +430,10 @@ const comparisonTools = mostUsedTools.slice(0, 3);
                 >
                   {primaryCtaLabel}
                 </a>
-                <a class="diagnostics__method-link" href={`/diagnostics/${tool.slug}`}>
+                <a
+                  class="diagnostics__method-link"
+                  href={`/diagnostics/${tool.slug}`}
+                >
                   Method details &amp; examples &rarr;
                 </a>
               </div>
@@ -460,13 +498,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       </div>
     </div>
     <p class="muted">
-      Toolkit:
-      {" "}
-      <a href="/agent-toolkit#prompts">Agent Prompt & Clause Packs</a>
-      {" "}
-      for stakeholder summaries, audit prompts, and procurement follow-through.
-    </p>
-    <p class="muted">
       Search IDs: AW-01, AW-02, AW-03, AW-04, VAL-01, VAL-02, VAL-03,
       STD-02.2.1, STD-02.3.1.
     </p>
@@ -505,7 +536,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       <p class="eyebrow">Scorecards</p>
       <h2>Instruments that take numbers rather than a workflow</h2>
       <p class="muted">
-        These three ask for figures you already have and return a score you can
+        These two ask for figures you already have and return a score you can
         argue with.
       </p>
     </div>
@@ -513,10 +544,6 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       <li>
         <a href="/audit">Ethics audit scorecard</a> — score a system against the framework's
         own criteria and see where the gaps are.
-      </li>
-      <li>
-        <a href="/diagnostics/governance-gap-score">Governance gap score</a> — the
-        distance between the governance a system has and the governance its risk implies.
       </li>
       <li>
         <a href="/diagnostics/burden-budget-worksheet"
@@ -541,4 +568,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
     import "../../scripts/diagnostics-filter.ts";
     import "../../scripts/route-metrics.ts";
   </script>
+  <p class="muted">
+    <a href="/archive/retired-tools">Retired tools and historical source</a>
+  </p>
 </BaseLayout>

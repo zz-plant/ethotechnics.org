@@ -192,8 +192,6 @@ export const controlChecklist = `- [ ] Receipt schema v1.0 implemented and valid
 - [ ] Required logs exist: action log, override log, exception log, receipt log.
 - [ ] Rollback trigger defined (unsafe-action spike, audit failure, or contested-remedy breach).`;
 
-export { promptPackInstall } from "../prompt-pack";
-
 export const practiceSections: PracticeSection[] = [
   {
     id: "requirements",

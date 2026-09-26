@@ -200,7 +200,7 @@
             "One halt receipt for the chain, not a stop control per hop.",
             "Measure the window the chain leaves a human after upstream latency has been spent."
           ],
-          "diagnostics": ["maintenance-simulator", "burden-modeler"],
+          "diagnostics": ["burden-modeler"],
           "steps": [
             "Enumerate every contributing delegation on the head grant in execution order.",
             "Carry one intervention specification at the chain boundary whose exercise halts every hop.",
@@ -313,7 +313,7 @@
             "Show impacts of opting out before a person commits.",
             "Include a safety valve that defaults to privacy-preserving behavior."
           ],
-          "diagnostics": ["capacity-forecaster"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Break large asks into small prompts that explain why each is needed.",
             "Preview what happens if someone opts out and keep the path visible.",
@@ -371,7 +371,7 @@
             "Map communication cadences to risk levels and audiences.",
             "Align dependencies so a degraded tool has a safe fallback."
           ],
-          "diagnostics": ["maintenance-simulator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Define maintenance windows with owners, success criteria, and rollbacks.",
             "Publish communication cadences by risk level and audience.",
@@ -429,7 +429,7 @@
             "Decide in advance whether expiry fails safe or escalates to a named human.",
             "Review timeout logs monthly with the steward who owns the clock."
           ],
-          "diagnostics": ["maintenance-simulator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Inventory every state a request can occupy and set a maximum duration for each.",
             "Wire expiry to a fail-safe resolution or a human escalation with a named owner.",
@@ -487,7 +487,7 @@
             "Name the people who can fire the switch and protect them from retaliation.",
             "Rehearse rollbacks so halts land in reversible, well-communicated states."
           ],
-          "diagnostics": ["maintenance-simulator", "burden-modeler"],
+          "diagnostics": ["burden-modeler"],
           "steps": [
             "Map the automation path and mark where halts must land safely with owners.",
             "Set tripwires for ethical interrupts that align with time-to-halt targets.",
@@ -545,7 +545,7 @@
             "Pre-fill context to reduce effort during stressful moments.",
             "Track appeal outcomes so the reversal rate is on record."
           ],
-          "diagnostics": ["burden-modeler", "maintenance-simulator"],
+          "diagnostics": ["burden-modeler"],
           "steps": [
             "Place an appeal entry point near the affected decision with response times.",
             "Pre-fill context so people can submit without rebuilding the story.",
@@ -604,7 +604,7 @@
             "Tie latency deltas to post-incident repair log entries.",
             "Feed latency observations into the transition rules on authority grants, so a breach can move a grant to review_required."
           ],
-          "diagnostics": ["maintenance-simulator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Define the telemetry contract for veto, halt, and restoration events.",
             "Surface a dashboard that shows median latency and breach incidents.",
@@ -664,7 +664,7 @@
             "Require binding authority to update system state when contests are upheld.",
             "Carry the standing-register fields in the contract: who may challenge, what they may challenge, admissible evidence, the obliged responder, the deadline, the standard of review, and the transitions a successful challenge can produce."
           ],
-          "diagnostics": ["burden-modeler", "maintenance-simulator"],
+          "diagnostics": ["burden-modeler"],
           "steps": [
             "Define an authenticated contestation endpoint with required evidence fields.",
             "Emit status updates via webhooks or receipts tied to the decision record.",
@@ -775,7 +775,7 @@
             "Log reversal attempts with time-to-restore metrics.",
             "Surface irreversibility as a risk flag in governance reviews."
           ],
-          "diagnostics": ["maintenance-simulator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Tag actions with reversibility status and documented rationale.",
             "Log every reversal attempt with timestamps and outcome.",
@@ -827,7 +827,7 @@
             "Tie escalation SLAs to staffing plans and on-call rosters.",
             "Trigger safe-mode or reversal when escalation SLAs are breached."
           ],
-          "diagnostics": ["maintenance-simulator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Define escalation tiers with SLA targets and authority scopes.",
             "Instrument SLA tracking with receipts and breach alerts.",
@@ -875,7 +875,7 @@
             "Document who can halt, how, and the expected time-to-halt.",
             "Log stoppability test outcomes and remediation actions."
           ],
-          "diagnostics": ["maintenance-simulator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Define stoppability test scenarios with triggers and owners.",
             "Execute drills that measure time-to-halt and safe restoration.",
@@ -927,7 +927,7 @@
             "Record what the grant rests on, who issued it, and what would end it.",
             "Expose the register to the decision log so an action can name the grant it ran under."
           ],
-          "diagnostics": ["system-auditor"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Enumerate the authorities the system currently exercises and write one record per grant.",
             "Add provenance, scope, evidence basis, expiry, and revocation conditions to each record.",
@@ -985,7 +985,7 @@
             "Name the observation that should reopen the policy, and the threshold that counts.",
             "Link each policy to the grants that rest on it so a fired trigger can reach them."
           ],
-          "diagnostics": ["system-auditor", "maintenance-simulator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Give each policy a version, an assumption list, an expiry, and named review triggers.",
             "Link grants to the policies they depend on so the dependency is queryable.",
@@ -1043,7 +1043,7 @@
             "Measure cost, the expertise still available, and time to restore at each reversibility level.",
             "Record which capacities have to be preserved to keep the rehearsal possible next year."
           ],
-          "diagnostics": ["maintenance-simulator", "capacity-forecaster"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Pick a bounded slice of the workflow and run it without the system for a defined window.",
             "Record the cost, the people who still hold the expertise, and the time to restore service at the technical, operational, and institutional levels.",
@@ -1101,7 +1101,7 @@
             "Separate what they can prevent from what they can alter after the fact.",
             "Write down what happens when the human disagrees with the system."
           ],
-          "diagnostics": ["maintenance-simulator", "burden-modeler"],
+          "diagnostics": ["burden-modeler"],
           "steps": [
             "Name the intervention owner and the decisions they cover.",
             "Record the information available, the actions preventable, the states alterable, and the on-disagreement path.",
@@ -1159,7 +1159,7 @@
             "Record how each capability was tested, and when.",
             "Refuse an ungranted action by naming the capability and the missing grant."
           ],
-          "diagnostics": ["system-auditor"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Catalog the actions the assembled system can perform, including those reachable through tools and sub-agents.",
             "Record for each capability how it was verified and when that verification expires.",
@@ -1217,7 +1217,7 @@
             "Record alternatives while they still exist, not once they are gone.",
             "Give every preserved capacity an owner and a budget line."
           ],
-          "diagnostics": ["capacity-forecaster", "maintenance-debt-calculator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "List the dependents on the workflow, inside and outside the organization.",
             "Record substitution cost, the expertise retained, and the alternatives that still exist, and derive an exposure score.",
@@ -1275,7 +1275,7 @@
             "Ask what correction capacity the wider scope needs before the scope moves.",
             "Record expansion as a transition on the grant, with its own evidence."
           ],
-          "diagnostics": ["system-auditor", "capacity-forecaster"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Define what counts as expansion for this system: new population, new action class, higher ceiling, or lower attendance.",
             "Require an expansion record with the evidence for the wider scope and the correction capacity it will need.",
@@ -1323,13 +1323,17 @@
           "title": "MEC-21 Halt tier register",
           "summary": "Tier halt authority by blast radius so the power to stop scales with the size of what is being stopped, and the smallest tiers stay cheap enough to use.",
           "filters": ["governance", "friction"],
-          "glossaryRefs": ["halt-stratification", "stoppability", "procedural-force"],
+          "glossaryRefs": [
+            "halt-stratification",
+            "stoppability",
+            "procedural-force"
+          ],
           "cues": [
             "Rank halt instruments by blast radius: one case, one queue, one workflow, the whole system.",
             "Name who can fire each tier and what restoration at that tier requires.",
             "Keep the lowest tier unescalated: a frontline pause that needs a committee is not a tier, it is theater."
           ],
-          "diagnostics": ["maintenance-simulator", "capacity-forecaster"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "List the halt instruments the deployment has today and sort them by blast radius, restoration cost, and who can reach them.",
             "Write the tier register: per tier, the authorized roles, what halts, the restoration path, the notification duty, and the evidence the halt leaves behind.",
@@ -1377,13 +1381,17 @@
           "title": "MEC-22 Admission gate",
           "summary": "Make the decision to deploy at all an authorization decision with evidence and a recorded outcome, where deliberate non-use is a first-class result.",
           "filters": ["governance", "policy"],
-          "glossaryRefs": ["admission-gate", "decision-reversal-authority", "design-authority"],
+          "glossaryRefs": [
+            "admission-gate",
+            "decision-reversal-authority",
+            "design-authority"
+          ],
           "cues": [
             "Review admission before the grant exists, not as a post-hoc audit of a running system.",
             "Record the refusal basis when the answer is no, and make \"not yet\" and \"never\" distinguishable.",
             "Give the refusal a review condition, so a no made on stale evidence can be reopened on named facts."
           ],
-          "diagnostics": ["system-auditor", "delegation-audit"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Before any grant is written, run the admission review: evidence for the delegation, the scope considered, the correction capacity available, and the populations affected.",
             "Record the outcome as a decision with a named decider, including deliberate non-use with reasons.",
@@ -1431,13 +1439,17 @@
           "title": "MEC-23 Challenge load ledger",
           "summary": "Track challenge volume against response capacity, so sustained congestion triggers a resourcing or scope decision instead of a narrowing of who may challenge.",
           "filters": ["governance", "friction"],
-          "glossaryRefs": ["challenge-density", "corrective-standing", "futility-threshold"],
+          "glossaryRefs": [
+            "challenge-density",
+            "corrective-standing",
+            "futility-threshold"
+          ],
           "cues": [
             "Report challenge volume, response capacity, and unanswered-challenge age as one series.",
             "Tie sustained breaches of response clocks to a recorded resourcing or scope decision.",
             "Never meet congestion by narrowing standing; meet it by capacity or by emitting less error."
           ],
-          "diagnostics": ["capacity-forecaster", "maintenance-simulator"],
+          "diagnostics": ["delegation-audit"],
           "steps": [
             "Instrument the challenge path: volume, response latency, unanswered-challenge age, and the response capacity rostered to answer.",
             "Define the congestion threshold where a breach obliges a capacity or scope decision, and record which decision was made.",

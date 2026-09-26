@@ -1,7 +1,6 @@
 ---
 import StandardsLayout from "../../components/StandardsLayout.astro";
 import CitationBlock from "../../components/CitationBlock.astro";
-import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import SummaryCallout from "../../components/SummaryCallout.astro";
 import {
@@ -9,7 +8,6 @@ import {
   anchorLinks,
   controlChecklist,
   practiceSections,
-  promptPackInstall,
   signalIntegrityRows,
   summaryRelatedLinks,
   summaryTakeaways,
@@ -583,13 +581,6 @@ const publication = derivePublicationMetadata({
         for machine-verifiable controls.
       </li>
     </ol>
-    <p class="muted">
-      Keep onboarding and diagnostics prompts versioned alongside your
-      integration checklist.
-    </p>
-    <div class="grid grid--two">
-      <PromptPackInstallCard {...promptPackInstall} />
-    </div>
   </SectionBlock>
 
   <SectionBlock
@@ -623,11 +614,6 @@ const publication = derivePublicationMetadata({
         <ul class="muted">
           <li>
             <a href="/evidence-packs">Release gate checklist</a>
-          </li>
-          <li>
-            <a href="/agent-toolkit#clause-kits"
-              >Procurement clauses</a
-            >
           </li>
         </ul>
       </div>

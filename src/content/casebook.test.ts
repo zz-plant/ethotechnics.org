@@ -106,7 +106,7 @@ describe("casebook", () => {
           );
           expect(standard?.listedOnSite).not.toBe(false);
           expect(clauseHref(ref)).toBe(
-            `/standards/${standard?.slug}#clause-register`,
+            `/standards/${standard?.slug}#${ref.standard === "STD-02" ? "articles" : "clause-register"}`,
           );
         }
       }

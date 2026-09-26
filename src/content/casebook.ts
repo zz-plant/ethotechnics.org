@@ -926,13 +926,13 @@ export function verdictTally(
   return tally;
 }
 
-/** The clause register on the standard's page; clauses are anchored there. */
+/** STD-02 publishes articles; the other cited standards expose a clause register. */
 export function clauseHref(ref: ClauseRef): string {
   const standard = standardsContent.standards.find(
     (entry) => entry.id === ref.standard,
   );
   return standard
-    ? `/standards/${standard.slug}#clause-register`
+    ? `/standards/${standard.slug}#${ref.standard === "STD-02" ? "articles" : "clause-register"}`
     : "/standards";
 }
 

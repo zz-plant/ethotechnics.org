@@ -481,7 +481,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <tr>
             <th scope="row">Oversight</th>
             <td data-label="Prevailing standards">Advisory review, HITL</td>
-            <td data-label="Ethotechnics">Enforceable authority + veto rights</td>
+            <td data-label="Ethotechnics"
+              >Enforceable authority + veto rights</td
+            >
           </tr>
           <tr>
             <th scope="row">Measurement</th>
@@ -491,7 +493,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           <tr>
             <th scope="row">Monitoring</th>
             <td data-label="Prevailing standards">Visibility</td>
-            <td data-label="Ethotechnics">Visibility + compelled intervention</td>
+            <td data-label="Ethotechnics"
+              >Visibility + compelled intervention</td
+            >
           </tr>
           <tr>
             <th scope="row">Enforcement</th>
@@ -511,14 +515,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </table>
     </div>
 
-    <div class="grid grid--three" style="margin-top: 2rem;">
+    <div
+      id="governance-by-control"
+      class="grid grid--three"
+      style="margin-top: 2rem;"
+    >
       <div class="panel stack-sm">
         <p class="eyebrow">1. Runtime control plane</p>
         <p class="small muted">
-          Policies describe intent; control planes constrain behavior. Rather than
-          inventories, risk registers, and post-hoc paperwork, Ethotechnics enforces
-          explicit stop conditions, exercised rollback paths, and safe degradation modes
-          during system execution.
+          Policies describe intent; control planes constrain behavior. Rather
+          than inventories, risk registers, and post-hoc paperwork, Ethotechnics
+          enforces explicit stop conditions, exercised rollback paths, and safe
+          degradation modes during system execution.
         </p>
       </div>
 
@@ -526,18 +534,19 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         <p class="eyebrow">2. Mechanical stop authority</p>
         <p class="small muted">
           Oversight is symbolic unless it is exercisable on a clock. Rather than
-          advisory ethics committees or perfunctory review gates, Ethotechnics requires
-          named operational roles with independent authority to halt automated decisions
-          without needing consensus.
+          advisory ethics committees or perfunctory review gates, Ethotechnics
+          requires named operational roles with independent authority to halt
+          automated decisions without needing consensus.
         </p>
       </div>
 
       <div class="panel stack-sm">
         <p class="eyebrow">3. Temporal performance bounds</p>
         <p class="small muted">
-          Time is the primary ethical resource. When decisions occur at machine speed,
-          reversal cannot run at institutional speed. Systems cannot run faster than
-          their appeal paths, and pending states must not become unbounded holding cells.
+          Time is the primary ethical resource. When decisions occur at machine
+          speed, reversal cannot run at institutional speed. Systems cannot run
+          faster than their appeal paths, and pending states must not become
+          unbounded holding cells.
         </p>
       </div>
     </div>
@@ -669,11 +678,6 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/agent-toolkit#clause-kits"
-              >Procurement clauses</a
-            >
-          </li>
-          <li>
             <a href="/evidence-packs">Release gate checklist</a>
           </li>
         </ul>
@@ -693,13 +697,6 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </ul>
       </div>
     </div>
-    <p class="muted">
-      Toolkit:
-      {" "}
-      <a href="/agent-toolkit#prompts">Agent Prompt & Clause Packs</a>
-      {" "}
-      for procurement clauses and audit checklists.
-    </p>
     <p class="muted">
       Search IDs: STD-01 v1.0, STD-02 v1.2, STD-03 v0.6, STD-01.1.1, STD-02.2.1,
       VAL-01, VAL-02, VAL-03.

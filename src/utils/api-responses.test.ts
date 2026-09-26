@@ -187,15 +187,12 @@ describe("resolveCorpusLayer", () => {
     );
   });
 
-  it("marks diagnostics, validators, tools, and the toolkit as instruments", () => {
+  it("marks diagnostics, validators, and tools as instruments", () => {
     expect(resolveCorpusLayer("/diagnostics/delegation-audit")).toBe(
       "instrument",
     );
     expect(resolveCorpusLayer("/validators")).toBe("instrument");
     expect(resolveCorpusLayer("/diagnostics/burden-budget-worksheet")).toBe(
-      "instrument",
-    );
-    expect(resolveCorpusLayer("/agent-toolkit#prompts")).toBe(
       "instrument",
     );
   });

@@ -609,8 +609,6 @@ const INSTRUMENT_PREFIXES = [
   "/diagnostics",
   "/validators/",
   "/validators",
-  "/agent-toolkit/",
-  "/agent-toolkit",
 ];
 
 /**

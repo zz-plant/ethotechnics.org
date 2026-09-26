@@ -1,5 +1,8 @@
 # Reconstruction plan: Ethotechnics as the engineering of delegated intelligence (2026-09)
 
+The [September 26 retirement record](pass-1-retirement-2026-09.md) supersedes this plan's
+retention of peripheral diagnostics and the Agent Toolkit. Other workstreams remain deferred.
+
 Status: proposed. This plan reorganizes the site's doctrine, object model, standards, mechanisms,
 evals, and information architecture around a sharpened statement of what Ethotechnics is. It is a
 plan, not a spec for a single PR: each workstream below is sized to land as one or a few reviewable

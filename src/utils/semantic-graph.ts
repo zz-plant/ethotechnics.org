@@ -193,8 +193,8 @@ export function resolveSemanticContext(
 
   // Cross-reference default diagnostics if standard or failure mode
   if (node.type === "standard" || node.type === "failure_mode") {
-    const sysAuditor = diagnosticsMap.get("system-auditor");
-    if (sysAuditor) linkedDiagnostics.push(sysAuditor);
+    const delegationAudit = diagnosticsMap.get("delegation-audit");
+    if (delegationAudit) linkedDiagnostics.push(delegationAudit);
     const burdenModeler = diagnosticsMap.get("burden-modeler");
     if (burdenModeler) linkedDiagnostics.push(burdenModeler);
   }
