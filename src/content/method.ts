@@ -177,7 +177,7 @@ export const methodContent: MethodContent = {
       question: "Who carries the burden of this decision, and for how long?",
       currentAssets: [
         "Burden hours schema",
-        "Burden modeler, capacity forecaster, maintenance simulator",
+        "Burden modeler and burden budget worksheet",
         "The three lenses, in the method",
         "STD-01 Temporal Bill of Rights clocks",
       ],
@@ -288,8 +288,7 @@ export const methodContent: MethodContent = {
       tag: "Absorption",
       description:
         "The system optimizes its own path and severs the feedback that would force it to adapt. Errors, wait states, and exceptions are routed around the measured surface, so the metrics improve while nothing outside the boundary is watching.",
-      cost:
-        "The friction lands on whoever the system touches: unpaid compensatory labor, exhausted operators, and claimants who absorb the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger — the falsified denominator.",
+      cost: "The friction lands on whoever the system touches: unpaid compensatory labor, exhausted operators, and claimants who absorb the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger — the falsified denominator.",
       links: [
         {
           label: "Absorption as concealment",
@@ -308,15 +307,20 @@ export const methodContent: MethodContent = {
       tag: "Correction",
       description:
         "The same scaled system, instrumented so that the people it can misjudge can reach it: standing with procedural force, clocks that answer, records that travel, and halts tiered by blast radius.",
-      cost:
-        "The friction is built back in as constitutional friction: appeal latency, halt costs, and restoration work. That cost is deliberate, provisioned, and on the ledger — the challenge load ledger counts it the way the burden ledger counts absorption.",
+      cost: "The friction is built back in as constitutional friction: appeal latency, halt costs, and restoration work. That cost is deliberate, provisioned, and on the ledger — the challenge load ledger counts it the way the burden ledger counts absorption.",
       links: [
-        { label: "Challenge density", href: "/research/theory/challenge-density" },
+        {
+          label: "Challenge density",
+          href: "/research/theory/challenge-density",
+        },
         {
           label: "Dependence without standing",
           href: "/research/theory/dependence-without-standing",
         },
-        { label: "STD-02 Contestability", href: "/standards/std-02-contestability-recourse" },
+        {
+          label: "STD-02 Contestability",
+          href: "/standards/std-02-contestability-recourse",
+        },
       ],
     },
   ],

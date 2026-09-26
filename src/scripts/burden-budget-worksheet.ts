@@ -680,66 +680,51 @@ const compareWorksheets = () => {
   if (!worksheet) return;
   let previous: Partial<Worksheet>;
   try {
-    previous = JSON.parse(compareInput.value || "{}") as Partial<Worksheet>;
+    const parsed: unknown = JSON.parse(compareInput.value);
+    if (
+      !parsed ||
+      typeof parsed !== "object" ||
+      Array.isArray(parsed) ||
+      !("artifact_id" in parsed) ||
+      parsed.artifact_id !== ARTIFACT_ID
+    ) {
+      throw new Error("Not a burden worksheet");
+    }
+    previous = parsed as Partial<Worksheet>;
   } catch {
     compareResults.hidden = false;
     compareList.replaceChildren();
     const invalidItem = document.createElement("li");
-    invalidItem.textContent = "Invalid JSON provided.";
+    invalidItem.textContent = "Invalid worksheet. Paste a BB-01 JSON export.";
     compareList.appendChild(invalidItem);
     return;
   }
 
-  type ComparableField =
-    | "system_name"
-    | "system_action"
-    | "worst_case_error"
-    | "owner"
-    | "review_cadence"
-    | "claimed_saving"
-    | "unfunded_lines"
-    | "assumptions";
-  const fields: ComparableField[] = [
-    "system_name",
-    "system_action",
-    "worst_case_error",
-    "owner",
-    "review_cadence",
-    "claimed_saving",
-    "unfunded_lines",
-    "assumptions",
-  ];
+  // Ignore capture identity, but compare every authored field, including
+  // nested row values. Object key order is immaterial; row order is retained.
+  const normalize = (value: unknown): unknown => {
+    if (Array.isArray(value)) return value.map(normalize);
+    if (value && typeof value === "object") {
+      return Object.fromEntries(
+        Object.entries(value)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([key, entry]) => [key, normalize(entry)]),
+      );
+    }
+    return value;
+  };
+  const fields = (Object.keys(worksheet) as (keyof Worksheet)[]).filter(
+    (field) => field !== "timestamp" && field !== "worksheet_id",
+  );
   const changes = fields
-    .filter((field) => worksheet[field] !== previous[field])
+    .filter((field) => {
+      const current = worksheet[field];
+      const prior = previous[field] ?? (Array.isArray(current) ? [] : "");
+      return (
+        JSON.stringify(normalize(current)) !== JSON.stringify(normalize(prior))
+      );
+    })
     .map((field) => `${field} changed`);
-
-  if (
-    worksheet.harm_roles.length !== (previous.harm_roles?.length ?? 0) ||
-    worksheet.burden_estimates.length !==
-      (previous.burden_estimates?.length ?? 0)
-  ) {
-    changes.push("role or burden rows changed");
-  }
-
-  if (
-    worksheet.burden_ceiling.length !== (previous.burden_ceiling?.length ?? 0)
-  ) {
-    changes.push("burden ceiling rows changed");
-  }
-
-  if (
-    worksheet.enforcement_triggers.length !==
-    (previous.enforcement_triggers?.length ?? 0)
-  ) {
-    changes.push("enforcement trigger rows changed");
-  }
-
-  if (
-    worksheet.governability_costs.length !==
-    (previous.governability_costs?.length ?? 0)
-  ) {
-    changes.push("governability cost rows changed");
-  }
 
   compareResults.hidden = false;
   compareList.replaceChildren();

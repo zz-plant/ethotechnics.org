@@ -22,22 +22,37 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ error: "Content-Type must be application/json" }, 415);
   }
 
-  let body: {
-    suiteId?: string;
-    systemName?: string;
-    condition?: "Condition A" | "Condition B" | "Condition C" | "Condition D";
-  };
-
+  let parsed: unknown;
   try {
-    body = await request.json();
+    parsed = await request.json();
   } catch {
     return json({ error: "Invalid JSON body" }, 400);
   }
-
-  const systemName = body.systemName?.trim() || "Audited Candidate Agent";
-  const suiteId = (body.suiteId?.trim() ||
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    return json({ error: "Expected a JSON object" }, 400);
+  }
+  const body = parsed as Record<string, unknown>;
+  if (
+    ["systemName", "suiteId"].some(
+      (key) => body[key] !== undefined && typeof body[key] !== "string",
+    ) ||
+    (body.condition !== undefined &&
+      (typeof body.condition !== "string" ||
+        !["Condition A", "Condition B", "Condition C", "Condition D"].includes(
+          body.condition,
+        )))
+  ) {
+    return json(
+      { error: "Invalid systemName, suiteId, or simulation condition" },
+      400,
+    );
+  }
+  const systemName =
+    (body.systemName as string | undefined)?.trim() || "Synthetic scenario";
+  const suiteId = ((body.suiteId as string | undefined)?.trim() ||
     "reciprocal-accommodation") as EvalSuiteId;
-  const condition = body.condition || "Condition C";
+  const condition = (body.condition ?? "Condition C") as
+    "Condition A" | "Condition B" | "Condition C" | "Condition D";
 
   const suite = evalsContent.suites.find((s) => s.id === suiteId);
   if (!suite) {
@@ -69,7 +84,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err) {
     return json(
       {
-        error: "Failed to execute dual-ledger batch evaluation",
+        error: "Failed to generate synthetic scorecard",
         message: err instanceof Error ? err.message : String(err),
       },
       500,

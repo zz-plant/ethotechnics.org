@@ -37,8 +37,8 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 - [`testing-todos.md`](testing-todos.md): coverage status and follow-up work.
 - [`performance-guardrails.md`](performance-guardrails.md): CWV budgets and Playwright checks.
 - [`cloudflare-playwright.md`](cloudflare-playwright.md): Playwright in Cloudflare builds.
-- [`diagnostics-outputs.md`](diagnostics-outputs.md) and
-  [`diagnostics-capacity-forecaster.md`](diagnostics-capacity-forecaster.md): diagnostics tooling.
+- [`diagnostics-outputs.md`](diagnostics-outputs.md): diagnostics tooling.
+- [`planning/pass-1-retirement-2026-09.md`](planning/pass-1-retirement-2026-09.md): retired tools and source archives.
 
 ### Planning and roadmap docs
 

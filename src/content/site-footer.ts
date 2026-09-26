@@ -54,7 +54,6 @@ export const siteFooter: SiteFooterContent = {
         { label: "Mechanisms catalog", href: "/mechanisms" },
         { label: "Diagnostics suite", href: "/diagnostics" },
         { label: "Delegation audit", href: "/diagnostics/delegation-audit" },
-        { label: "System auditor", href: "/diagnostics/system-auditor" },
         { label: "Evals & coverage", href: "/evals" },
         { label: "Validators", href: "/validators" },
       ],

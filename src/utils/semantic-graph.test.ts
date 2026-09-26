@@ -81,7 +81,7 @@ describe("Semantic Graph Engine", () => {
     expect(context).not.toBeNull();
     expect(context?.node.title).toContain("STD-01");
     expect(context?.diagnostics.length).toBeGreaterThan(0);
-    expect(context?.diagnostics.some((d) => d.id === "system-auditor")).toBe(
+    expect(context?.diagnostics.some((d) => d.id === "delegation-audit")).toBe(
       true,
     );
   });

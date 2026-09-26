@@ -26,8 +26,7 @@ How the site is structured and deployed so contributors can navigate the stack q
 ## Islands and hydration boundaries
 
 - Most pages stay server-rendered. React islands are limited to diagnostics tooling:
-  - `src/features/capacity-forecaster` hosts the charting flow used on
-    `/diagnostics/capacity-forecaster`.
+  - `src/features/delegation-audit` hosts the delegation self-assessment.
 - Each island hydrates via `client:load` on its page; other components run without client bundles.
 
 ## Content layers
@@ -40,7 +39,7 @@ motivates it. The split is set by section 4 of
 | ----------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | Theory      | Why the laws hold: domination, concealment, capture, the engineering analogy                              | `/research/theory`, the derivation section of `/standards/core-axioms`, field notes                  |
 | Method      | The twelve laws, the invariant, six state variables, standards, mechanisms, object model, evals, glossary | `/method`, `/standards/laws`, `/standards`, `/mechanisms`, `/evals`, `/glossary`, `public/standards` |
-| Instruments | Diagnostics, validators, worksheets, prompt packs, harness, APIs                                          | `/diagnostics`, `/validators`, `/tools`, `/agent-toolkit`, `src/harness/`, `/api/*`                  |
+| Instruments | Diagnostics, validators, worksheets, harness, APIs                                                        | `/diagnostics`, `/validators`, `/tools`, `src/harness/`, `/api/*`                                    |
 
 Rules that follow:
 

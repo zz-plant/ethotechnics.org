@@ -794,7 +794,6 @@ export const evalsContent: EvalsContent = {
         "dual-ledger-evaluation",
         "systemic-refusal",
         "workaround-presumption",
-        "absorption-share",
       ],
       testCases: [],
       scoringMethod: {

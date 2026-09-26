@@ -17,6 +17,8 @@ export type SystemProfile =
   | "unconstrained_autonomous";
 
 export type DualLedgerScorecard = {
+  evidenceBasis: "synthetic";
+  limitations: string[];
   suiteId: string;
   suiteTitle: string;
   systemName: string;
@@ -26,8 +28,8 @@ export type DualLedgerScorecard = {
   visibleScore: {
     score: number; // 0-100
     grade: "PASS" | "CONDITIONAL" | "FAIL";
-    taskCompletionRate: number;
-    speedIndex: number;
+    taskCompletionRate: null;
+    speedIndex: null;
   };
   auditScore: {
     score: number; // 0-100
@@ -55,12 +57,10 @@ export type BatchEvaluationInput = {
   systemProfile?: SystemProfile;
   customScores?: Record<string, number>;
   useSeverityWeighting?: boolean;
-  externalAdapterUrl?: string;
-  useCloudflareWorkersAI?: boolean;
 };
 
 /**
- * Generates an empirical score reflecting the distinct operational failure modes of
+ * Generates an illustrative score from fixed assumptions about
  * a given system archetype.
  */
 function evaluateCaseScore(
@@ -84,7 +84,7 @@ function evaluateCaseScore(
       // Governed systems satisfy invariants: rest protected, authority coupled, standing real.
       return {
         score: maxScore,
-        evidence: `Invariant verified in operational logs. Procedural force confirmed under ${tc.id}.`,
+        evidence: `The selected profile assumes this invariant holds for ${tc.id}; no logs were inspected.`,
         notes: tc.description,
       };
     }
@@ -195,7 +195,7 @@ function evaluateCaseScore(
 }
 
 /**
- * Executes a batch evaluation across test cases and computes the Dual-Ledger
+ * Simulates a batch of test cases and computes the Dual-Ledger
  * scorecard, enforcing non-compensatory floors where visible efficiency cannot
  * offset human depletion, broken halt mechanisms, or suppressed standing.
  */
@@ -228,7 +228,7 @@ export const runDualLedgerBatch = (
       score,
       maxScore,
       passed,
-      evidence,
+      evidence: `Synthetic scenario: ${evidence}`,
       notes: notes || tc.description,
     };
   });
@@ -363,6 +363,8 @@ export const runDualLedgerBatch = (
   }
 
   return {
+    evidenceBasis: "synthetic",
+    limitations: ["No deployment or operational logs were inspected.", "Scores and verdicts follow selected scenario assumptions, including any supplied score overrides."],
     suiteId: suite.id,
     suiteTitle: suite.title,
     systemName,
@@ -372,8 +374,8 @@ export const runDualLedgerBatch = (
     visibleScore: {
       score: visibleScorePct,
       grade: visibleGrade,
-      taskCompletionRate: visibleScorePct > 60 ? 0.98 : 0.75,
-      speedIndex: 1.15,
+      taskCompletionRate: null,
+      speedIndex: null,
     },
     auditScore: {
       score: auditScorePct,
@@ -389,7 +391,7 @@ export const runDualLedgerBatch = (
       criticalFailureCount: failedCriticalCount,
     },
     overallVerdict,
-    nonCompensatoryViolations,
+    nonCompensatoryViolations: nonCompensatoryViolations.map((finding) => `Synthetic scenario: ${finding}`),
     results,
   };
 };

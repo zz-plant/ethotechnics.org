@@ -1,5 +1,8 @@
 # IA refactor proposal (2026-09)
 
+Historical planning document. The [September 26 retirement record](pass-1-retirement-2026-09.md)
+supersedes proposals here for the retired diagnostics and Agent Toolkit.
+
 Status: **largely executed**. It began as a proposal that named four decisions as the site
 owner's. Those were delegated back, so §8 records what was decided and what was built, including
 one finding that did not survive contact with the pages it described. Sections 1 through 7 are

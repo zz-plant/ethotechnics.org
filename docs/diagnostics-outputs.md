@@ -25,17 +25,11 @@ requests so stakeholders know what to expect.
 - UI-level nits tied to pattern language filters to guide remediation work.
 - Off-ramp reminder for risky or ambiguous findings that should go to a facilitated session.
 
-## Maintenance Simulator
+## Retired diagnostics
 
-- Scenario runs that surface coverage gaps, outage handling, and appeal pathways with owners and timing.
-- Communication templates mapped to risk levels, roles, and escalation routes.
-- Off-ramp reminder pointing teams to a facilitated deep dive when simulations stall.
-
-## Technical Capacity Forecaster
-
-- Side-by-side projections showing baseline versus remediated capacity across 24 months.
-- Saturation callouts and refusal window notes for stakeholder review.
-- PDF snapshot export that accompanies delivery planning and portfolio reviews.
+The Maintenance Simulator and Capacity Forecaster are retired. Their old routes redirect to
+Diagnostics. See the [retirement record](planning/pass-1-retirement-2026-09.md) for all
+retired tools, replacement routes, and historical source downloads.
 
 ## Server-side rendering check
 

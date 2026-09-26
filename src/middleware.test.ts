@@ -97,18 +97,43 @@ describe("middleware", () => {
   });
 
   it("redirects legacy and consolidated paths with 301", async () => {
+    const retiredPaths = [
+      ["/diagnostics/system-auditor", "/diagnostics/delegation-audit"],
+      ["/diagnostics/governance-gap-score", "/diagnostics/delegation-audit"],
+      ["/tools/governance-gap-score", "/diagnostics/delegation-audit"],
+      ["/diagnostics/capacity-forecaster", "/diagnostics"],
+      ["/diagnostics/maintenance-simulator", "/diagnostics"],
+      ["/diagnostics/maintenance-debt-calculator", "/diagnostics"],
+      ["/agent-toolkit", "/archive/retired-tools"],
+      ["/agent-toolkit/quick-answers", "/archive/retired-tools"],
+      ["/agent-toolkit/teaching-flows", "/archive/retired-tools"],
+      ...["v1.0.0", "v1.1.0"].map((version) => [
+        `/agent-toolkit/ethotechnics-agent-prompt-pack-${version}.md`,
+        `/archive/retired-tools/ethotechnics-agent-prompt-pack-${version}.md`,
+      ]),
+    ];
     const pathCases = [
+      ...retiredPaths.flatMap(([from, to]) => [
+        {
+          url: `https://ethotechnics.org${from}`,
+          expectedLocation: `https://ethotechnics.org${to}`,
+        },
+        {
+          url: `https://ethotechnics.org${from}/?from=legacy`,
+          expectedLocation: `https://ethotechnics.org${to}?from=legacy`,
+        },
+      ]),
       {
         url: "https://ethotechnics.org/diy-packs",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit#prompts",
+        expectedLocation: "https://ethotechnics.org/archive/retired-tools",
       },
       {
         url: "https://ethotechnics.org/bundles/procurement-clause-pack",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit#prompts",
+        expectedLocation: "https://ethotechnics.org/archive/retired-tools",
       },
       {
         url: "https://ethotechnics.org/bindings",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit#prompts",
+        expectedLocation: "https://ethotechnics.org/archive/retired-tools",
       },
       {
         url: "https://ethotechnics.org/incompatible",
@@ -153,15 +178,15 @@ describe("middleware", () => {
       },
       {
         url: "https://ethotechnics.org/agent-toolkit/prompt-packs",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit#prompts",
+        expectedLocation: "https://ethotechnics.org/archive/retired-tools",
       },
       {
         url: "https://ethotechnics.org/agent-toolkit/agent-contract",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit#contract",
+        expectedLocation: "https://ethotechnics.org/archive/retired-tools",
       },
       {
         url: "https://ethotechnics.org/agent-toolkit/faq",
-        expectedLocation: "https://ethotechnics.org/agent-toolkit#quick-answers",
+        expectedLocation: "https://ethotechnics.org/archive/retired-tools",
       },
       {
         url: "https://ethotechnics.org/delivery/intake",

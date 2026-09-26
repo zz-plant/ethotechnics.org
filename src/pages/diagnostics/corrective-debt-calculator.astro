@@ -49,7 +49,7 @@ const anchorLinks = [
   <SectionBlock
     id="overview"
     eyebrow="Overview"
-    title="When to use the Corrective Debt Calculator."
+    title="When to use the Corrective capacity self-assessment."
     description={tool.bestFor}
   >
     <ul class="muted">
@@ -165,12 +165,12 @@ const anchorLinks = [
   <SectionBlock
     id="results"
     eyebrow="Results"
-    title="Corrective debt readout."
-    description="Use the shareable link in the expansion review."
+    title="Self-assessment readout."
+    description="These fixed-weight scores summarize your answers. They do not measure a capacity gap, forecast debt, or verify evidence."
     variant="alt"
   >
     <div class="panel" data-debt-results hidden>
-      <p class="muted">Corrective debt score</p>
+      <p class="muted">Heuristic concern score</p>
       <p class="metric" data-debt-score>--</p>
       <span class="status-pill status-pill--yellow" data-debt-tier
         >Moderate</span
@@ -180,11 +180,7 @@ const anchorLinks = [
       </p>
       <div class="metrics-grid">
         <div>
-          <p class="muted">Absorption share</p>
-          <p class="metric" data-debt-absorption>--</p>
-        </div>
-        <div>
-          <p class="muted">Debt trajectory</p>
+          <p class="muted">Reported action-capacity growth</p>
           <p class="metric" data-debt-trajectory>--</p>
         </div>
         <div>
@@ -225,9 +221,6 @@ const anchorLinks = [
   const tierLabel = document.querySelector<HTMLElement>("[data-debt-tier]");
   const summaryText = document.querySelector<HTMLElement>(
     "[data-debt-summary]",
-  );
-  const absorptionValue = document.querySelector<HTMLElement>(
-    "[data-debt-absorption]",
   );
   const trajectoryValue = document.querySelector<HTMLElement>(
     "[data-debt-trajectory]",
@@ -295,23 +288,6 @@ const anchorLinks = [
     },
   };
 
-  const absorptionMatrix = {
-    intake: {
-      none: 60,
-      shared: 35,
-      dedicated: 10,
-    },
-    revision: {
-      never: 25,
-      occasional: 10,
-      regular: 0,
-    },
-    workaround: {
-      none: 10,
-      informal: 5,
-      inventoried: 0,
-    },
-  };
 
   const tierMap = [
     {
@@ -319,28 +295,28 @@ const anchorLinks = [
       min: 80,
       status: "red",
       summary:
-        "Corrective debt is critical. Action capacity compounds while the capacity to hear from people is unresourced. Halt expansion until challenge intake, reversal, and revision are funded.",
+        "Your answers fall in the critical concern band. Action capacity compounds while the capacity to hear from people is unresourced. Halt expansion until challenge intake, reversal, and revision are funded.",
     },
     {
       label: "High",
       min: 60,
       status: "red",
       summary:
-        "Corrective debt is high. The institution is acting on people faster than it can hear from them. Fund the corrective axis before the next expansion.",
+        "Your answers fall in the high concern band. The institution is acting on people faster than it can hear from them. Fund the corrective axis before the next expansion.",
     },
     {
       label: "Moderate",
       min: 40,
       status: "yellow",
       summary:
-        "Corrective debt is moderate. Correction machinery exists but does not match the growth on the action axis. Close the gaps the inputs name.",
+        "Your answers fall in the moderate concern band. Correction machinery exists but does not match the growth on the action axis. Close the gaps the inputs name.",
     },
     {
       label: "Low",
       min: 0,
       status: "green",
       summary:
-        "Corrective debt is low. Corrective capacity is resourced and exercised. Keep the two axes tracked so the gap stays visible.",
+        "Your answers fall in the low concern band. You report resourced corrective capacity and regular revision; neither is independently verified. Keep the two axes tracked so the gap stays visible.",
     },
   ];
 
@@ -372,13 +348,6 @@ const anchorLinks = [
     return Math.round((raw / RAW_MAX) * 100);
   };
 
-  const calculateAbsorption = (values: DebtValues) => {
-    const share =
-      absorptionMatrix.intake[values.intake] +
-      absorptionMatrix.revision[values.revision] +
-      absorptionMatrix.workaround[values.workaround];
-    return clamp(share, 5, 95);
-  };
 
   const setShareUrl = (values: DebtValues, score: number, tier: string) => {
     const url = new URL(window.location.href);
@@ -421,7 +390,6 @@ const anchorLinks = [
       !scoreValue ||
       !tierLabel ||
       !summaryText ||
-      !absorptionValue ||
       !trajectoryValue ||
       !presumptionValue
     )
@@ -437,7 +405,6 @@ const anchorLinks = [
     );
     tierLabel.classList.add(`status-pill--${tier.status}`);
     summaryText.textContent = tier.summary;
-    absorptionValue.textContent = `${calculateAbsorption(values)}%`;
     trajectoryValue.textContent = trajectoryLabels[values.growth];
     presumptionValue.textContent = presumptionLabels[values.workaround];
     results.hidden = false;

@@ -42,18 +42,18 @@ const REDIRECT_MAP: Record<string, string> = {
   // report a score, which is what the other instruments do.
   "/tools": "/diagnostics",
   "/tools/burden-budget-worksheet": "/diagnostics/burden-budget-worksheet",
-  "/tools/governance-gap-score": "/diagnostics/governance-gap-score",
+  "/tools/governance-gap-score": "/diagnostics/delegation-audit",
   // "Applications" was a third noun for operating patterns, which
   // /mechanisms/patterns already carries — kill switches, appeal paths,
   // progressive consent. Its index pointed mostly at explainers; its one page
   // of its own moved rather than being dropped.
   "/applications": "/mechanisms",
   "/applications/moral-circuit-breakers": "/mechanisms/moral-circuit-breakers",
-  "/diy-packs": "/agent-toolkit#prompts",
-  "/bundles": "/agent-toolkit#prompts",
-  "/bundles/diagnostic-export-kit": "/agent-toolkit#prompts",
-  "/bundles/procurement-clause-pack": "/agent-toolkit#prompts",
-  "/bindings": "/agent-toolkit#prompts",
+  "/diy-packs": "/archive/retired-tools",
+  "/bundles": "/archive/retired-tools",
+  "/bundles/diagnostic-export-kit": "/archive/retired-tools",
+  "/bundles/procurement-clause-pack": "/archive/retired-tools",
+  "/bindings": "/archive/retired-tools",
   "/incompatible": "/method#incompatible",
   "/failure": "/triage",
   "/finite": "/evals#finite",
@@ -62,11 +62,11 @@ const REDIRECT_MAP: Record<string, string> = {
   "/standards/implementation-examples": "/examples#domains",
   "/standards/meta-critique": "/standards#governance-by-control",
   "/standards/micro-diagram-language": "/standards",
-  "/agent-toolkit/prompt-packs": "/agent-toolkit#prompts",
-  "/agent-toolkit/quick-answers": "/agent-toolkit#quick-answers",
-  "/agent-toolkit/faq": "/agent-toolkit#quick-answers",
-  "/agent-toolkit/teaching-flows": "/agent-toolkit#flows",
-  "/agent-toolkit/agent-contract": "/agent-toolkit#contract",
+  "/agent-toolkit/prompt-packs": "/archive/retired-tools",
+  "/agent-toolkit/quick-answers": "/archive/retired-tools",
+  "/agent-toolkit/faq": "/archive/retired-tools",
+  "/agent-toolkit/teaching-flows": "/archive/retired-tools",
+  "/agent-toolkit/agent-contract": "/archive/retired-tools",
   "/diagnostics/llm-capacity-benchmark": "/diagnostics",
   "/diagnostics/escalation-coverage-planner": "/diagnostics",
   "/diagnostics/evidence-pack-readiness": "/diagnostics",
@@ -97,6 +97,23 @@ const REDIRECT_MAP: Record<string, string> = {
   "/institute/team": "/institute/governance",
   // /agents has one page, the spec. A bare hit on the directory 404ed.
   "/agents": "/agents/spec",
+  "/agent-toolkit": "/archive/retired-tools",
+  "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.0.0.md":
+    "/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.0.0.md",
+  "/agent-toolkit/ethotechnics-agent-prompt-pack-v1.1.0.md":
+    "/archive/retired-tools/ethotechnics-agent-prompt-pack-v1.1.0.md",
+  // Five diagnostics were retired in September 2026. A regex auditor over a
+  // system prompt cannot tell whether the surrounding institution can correct
+  // a decision, and it read as a second opinion next to the Delegation Audit,
+  // which asks that question directly. Capacity planning and maintenance
+  // scheduling are ordinary operational planning. The seven-question
+  // governance score duplicated the Delegation Audit on weaker evidence.
+  // Each answers to the tool that now holds the question.
+  "/diagnostics/system-auditor": "/diagnostics/delegation-audit",
+  "/diagnostics/governance-gap-score": "/diagnostics/delegation-audit",
+  "/diagnostics/capacity-forecaster": "/diagnostics",
+  "/diagnostics/maintenance-simulator": "/diagnostics",
+  "/diagnostics/maintenance-debt-calculator": "/diagnostics",
 };
 
 const resolveLegacyPathRedirect = (url: URL): string | null => {
@@ -171,10 +188,7 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   }
 
   // Failure triage rename
-  if (
-    normalizedPath === "/failure" ||
-    normalizedPath.startsWith("/failure/")
-  ) {
+  if (normalizedPath === "/failure" || normalizedPath.startsWith("/failure/")) {
     const target = new URL(
       normalizedPath.replace(/^\/failure/, "/triage"),
       url.origin,
