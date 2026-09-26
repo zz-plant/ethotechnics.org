@@ -34,8 +34,21 @@ const haltedBy = robodebt?.haltedBy ?? "A court.";
       </header>
 
       <div class="record-spine__grid">
-        <div class="record-spine__panel" data-ledger-panel>
-          <p class="record-spine__panel-title">Two ledgers</p>
+        <div
+          class="record-spine__panel"
+          data-ledger-panel
+          data-evidence-total={evidenceTotal}
+        >
+          <div class="record-spine__panel-header">
+            <p class="record-spine__panel-title">Two ledgers</p>
+            <span
+              class="record-spine__panel-badge"
+              data-ledger-live-badge
+              aria-hidden="true"
+            >
+              Auditing
+            </span>
+          </div>
           <div class="record-spine__ledger">
             <span
               class="record-spine__ledger-dot record-spine__ledger-dot--record"
@@ -70,6 +83,7 @@ const haltedBy = robodebt?.haltedBy ?? "A court.";
               class:list={[
                 "record-spine__event",
                 { "record-spine__event--turn": event.turn },
+                { "record-spine__event--halt": event.halt },
               ]}
               data-reveal
               data-spine-row

@@ -8,6 +8,7 @@ import RecordSpine from "../components/home/RecordSpine.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
 import { recentReleases } from "../content/recent-releases";
+import { Icon } from "astro-icon/components";
 
 /**
  * The front door as one story in reading order, told without ever holding
@@ -15,25 +16,25 @@ import { recentReleases } from "../content/recent-releases";
  * stop it (the mechanism), see that it was not special (the casebook), then
  * turn to the reader's own system (the self-test) and the doors out. The
  * two-ledger rail at the viewport edge is the same grammar, as chrome.
- *
- * The old order put the self-test second to catch scanners. The hero keeps
- * a jump link and a compact doors strip for them; the story carries the rest.
  */
 const doors = [
   {
     href: "/roles/engineering",
     who: "I build these systems",
     what: "The checks a system has to pass before it ships, and the tools that run them.",
+    icon: "lucide:code-2",
   },
   {
     href: "/roles/audit",
     who: "I audit or regulate them",
     what: "Citable clauses, scored public cases, and the evidence each clause needs.",
+    icon: "lucide:file-search",
   },
   {
     href: "/diagnostics/self-defense-tools",
     who: "A system decided something about me",
     what: "Three checks: can this be appealed, and who can change it?",
+    icon: "lucide:shield",
   },
 ];
 ---
@@ -52,28 +53,29 @@ const doors = [
         The appeals kept winning. The system kept running.
       </h1>
       <p class="section-lead">
-        Australia's Robodebt raised 470,000 unlawful debts over three years. A
-        tribunal ruled individual debts unlawful dozens of times, and each
-        ruling fixed one person's debt. Nobody with the power to stop the scheme
+        Between 2016 and 2019, Australia's Centrelink raised 470,000 unlawful debts.
+        The Administrative Appeals Tribunal ruled individual debts unlawful dozens of times.
+        Each ruling resolved one person's debt. Nobody with the power to stop the scheme
         treated those rulings as evidence against it.
       </p>
       <p class="section-lead">
-        We publish free, open standards for one question: when an automated
-        system is hurting people, can anyone stop it?
+        We publish open standards, public case scores, and diagnostics for one question:
+        when an automated decision system is hurting people, can anyone stop it?
       </p>
       <div class="institute-hero__actions actions">
         <a class="button primary" href="#self-test">
           Test your system in 60 seconds
         </a>
+        <a class="button ghost institute-hero__triage-link" href="/failure">
+          <span class="incident-dot" aria-hidden="true"></span>
+          Incident triage →
+        </a>
       </div>
-      <p class="institute-hero__incident small">
-        Something going wrong right now?
-        <a href="/failure">Go to incident triage →</a>
-      </p>
       <nav
         class="home-doors home-doors--strip"
-        aria-label="Start from where you are"
+        aria-label="Direct role entry paths"
       >
+        <span class="home-doors__strip-label">Start by role:</span>
         <ul>
           {
             doors.map((door) => (
@@ -127,17 +129,28 @@ const doors = [
     </div>
   </div>
 
-  <HomeDifference />
-
   <nav class="home-doors" aria-labelledby="home-doors-heading">
-    <h2 id="home-doors-heading" class="eyebrow">Start from where you are</h2>
+    <div class="home-doors__header">
+      <p class="eyebrow">Start from where you are</p>
+      <h2 id="home-doors-heading" class="section__heading">
+        Three entry points for three roles.
+      </h2>
+      <p class="section-lead">
+        Every standard, diagnostic, and case in this repository maps to one of
+        three operational responsibilities.
+      </p>
+    </div>
     <ul class="home-doors__list">
       {
         doors.map((door) => (
           <li>
             <a class="home-doors__door" href={door.href}>
+              <span class="home-doors__icon" aria-hidden="true">
+                <Icon name={door.icon} size={22} />
+              </span>
               <span class="home-doors__who">{door.who}</span>
               <span class="home-doors__what small muted">{door.what}</span>
+              <span class="home-doors__action">View path →</span>
             </a>
           </li>
         ))
@@ -145,30 +158,12 @@ const doors = [
     </ul>
   </nav>
 
-  <div class="home-supplement">
-    <section class="stack-sm card card--flat">
-      <p class="eyebrow">Use and cite this work</p>
-      <h2>Free to use, credit, and adapt</h2>
-      <p>
-        Ethotechnics Institute materials are published under
-        <a
-          href="https://creativecommons.org/licenses/by-sa/4.0/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          CC BY-SA 4.0
-        </a>. Credit the Institute, and publish anything you adapt under the
-        same license.
-      </p>
-      <p class="small muted">
-        Individual entries and patterns include citation metadata so you can
-        reference exactly what you used.
-      </p>
-    </section>
+  <HomeDifference />
 
+  <div class="home-supplement">
     <section
       id="recently-published"
-      class="stack-sm card card--flat"
+      class="stack-sm card card--flat home-supplement__releases"
       aria-labelledby="recently-published-heading"
     >
       <p class="eyebrow">New and updated</p>
@@ -177,12 +172,14 @@ const doors = [
         {
           recentReleases.map((release) => (
             <li>
-              <a href={release.href}>
-                {release.area} {release.version}
-              </a>{" "}
-              <span class="muted">
-                · <time datetime={release.date}>{release.date}</time>
-              </span>
+              <div class="recent-releases__header">
+                <a href={release.href} class="recent-releases__title">
+                  {release.area} {release.version}
+                </a>
+                <time class="recent-releases__date muted small" datetime={release.date}>
+                  {release.date}
+                </time>
+              </div>
               <p class="muted small">{release.summary}</p>
             </li>
           ))
@@ -190,24 +187,46 @@ const doors = [
       </ul>
     </section>
 
-    <section class="stack-sm card card--accent">
-      <p class="eyebrow">Studio</p>
-      <h2>Need hands-on help?</h2>
-      <p>
-        Ethotechnics Studio provides commissioned support for clinical AI safety
-        evaluation, diligence, governance design, and implementation work.
-      </p>
-      <p>
-        <a
-          class="button"
-          href="https://ethotechnics.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ethotechnics Studio →
-        </a>
-      </p>
-    </section>
+    <div class="home-supplement__aside">
+      <section class="stack-sm card card--flat">
+        <p class="eyebrow">Use and cite this work</p>
+        <h2>Free to use, credit, and adapt</h2>
+        <p>
+          Ethotechnics Institute materials are published under
+          <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            CC BY-SA 4.0
+          </a>. Credit the Institute, and publish anything you adapt under the
+          same license.
+        </p>
+        <p class="small muted">
+          Individual entries and patterns include citation metadata so you can
+          reference exactly what you used.
+        </p>
+      </section>
+
+      <section class="stack-sm card card--accent">
+        <p class="eyebrow">Studio</p>
+        <h2>Need hands-on help?</h2>
+        <p>
+          Ethotechnics Studio provides commissioned support for clinical AI safety
+          evaluation, diligence, governance design, and implementation work.
+        </p>
+        <p>
+          <a
+            class="button"
+            href="https://ethotechnics.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ethotechnics Studio →
+          </a>
+        </p>
+      </section>
+    </div>
   </div>
 </BaseLayout>
 

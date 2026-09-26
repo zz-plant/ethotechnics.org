@@ -35,7 +35,6 @@ function init(): void {
 
   // The record-spine's two ledgers. The panel is a summary of the events
   // list, so once it is being animated it is decorative and hidden from
-  // assistive technology; the events remain the content.
   const panel = document.querySelector<HTMLElement>("[data-ledger-panel]");
   const rows = [...document.querySelectorAll<HTMLElement>("[data-spine-row]")];
   if (!panel || rows.length === 0) return;
@@ -44,37 +43,87 @@ function init(): void {
   const countEl = panel.querySelector<HTMLElement>("[data-ledger-count]");
   const statusEl = panel.querySelector<HTMLElement>("[data-ledger-status]");
   const dotEl = panel.querySelector<HTMLElement>("[data-ledger-dot]");
+  const badgeEl = panel.querySelector<HTMLElement>("[data-ledger-live-badge]");
+  const total = Number.parseInt(panel.dataset.evidenceTotal ?? "5", 10);
 
-  let seen = 0;
-  if (countEl) countEl.textContent = "Warnings and findings so far: 0";
-  if (statusEl) statusEl.textContent = "Scheme status: operating";
+  const updateLedger = () => {
+    const triggerY = window.innerHeight * 0.65;
+    let seen = 0;
+    let isHalted = false;
 
-  const ledger = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        const row = entry.target as HTMLElement;
+    for (const row of rows) {
+      const rect = row.getBoundingClientRect();
+      if (rect.top <= triggerY) {
         if (row.dataset.evidence === "true") {
           seen += 1;
-          if (countEl) {
-            countEl.textContent = `Warnings and findings so far: ${seen}`;
-          }
         }
         if (row.dataset.halt === "true") {
-          panel.classList.add("is-halted");
-          if (statusEl) {
-            statusEl.textContent = "Scheme status: halted, November 2019";
-          }
-          if (dotEl) dotEl.setAttribute("data-state", "halted");
+          isHalted = true;
         }
-        ledger.unobserve(row);
       }
+    }
+
+    if (countEl) {
+      if (seen === 0) {
+        countEl.textContent = `0 of ${total} warnings and findings recorded so far.`;
+      } else if (seen >= total) {
+        countEl.textContent = `${total} dated warnings and findings, 2014–2023. None stopped the scheme before the court did.`;
+      } else {
+        countEl.textContent = `${seen} of ${total} warnings and findings recorded so far.`;
+      }
+    }
+
+    if (statusEl) {
+      if (isHalted) {
+        statusEl.textContent =
+          "Scheme status: halted, November 2019 (court concession)";
+      } else {
+        statusEl.textContent =
+          "Scheme status: operating under income averaging";
+      }
+    }
+
+    if (dotEl) {
+      if (isHalted) {
+        dotEl.setAttribute("data-state", "halted");
+      } else {
+        dotEl.removeAttribute("data-state");
+      }
+    }
+
+    if (badgeEl) {
+      if (isHalted) {
+        badgeEl.textContent = "Halted";
+      } else if (seen > 0) {
+        badgeEl.textContent = `Finding ${seen}/${total}`;
+      } else {
+        badgeEl.textContent = "Auditing";
+      }
+    }
+
+    if (isHalted) {
+      panel.classList.add("is-halted");
+    } else {
+      panel.classList.remove("is-halted");
+    }
+  };
+
+  updateLedger();
+
+  const ledger = new IntersectionObserver(
+    () => {
+      updateLedger();
     },
-    { threshold: 0.4, rootMargin: "0px 0px -35% 0px" },
+    {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+      rootMargin: "0px 0px -25% 0px",
+    },
   );
   for (const row of rows) {
     ledger.observe(row);
   }
+
+  window.addEventListener("scroll", updateLedger, { passive: true });
 }
 
 init();
