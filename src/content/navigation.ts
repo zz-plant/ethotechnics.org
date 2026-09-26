@@ -61,9 +61,9 @@ export const navPrimaryLinks: NavLink[] = [
     mobileFeatured: true,
   },
   {
-    href: "/glossary",
-    label: "Knowledge",
-    description: "Taxonomy, failure modes, metrics, and case studies",
+    href: "/casebook",
+    label: "Casebook",
+    description: "Scored public failures established by courts and regulators",
     primary: true,
     mobileFeatured: true,
   },
