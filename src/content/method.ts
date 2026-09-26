@@ -287,7 +287,7 @@ export const methodContent: MethodContent = {
       title: "The closed circuit",
       tag: "Absorption",
       description:
-        "The system optimizes its own path and severs the feedback that would force it to adapt. Errors, wait states, and exceptions are routed around the measured surface, so the metrics improve while nothing outside the boundary is watching.",
+        "The system optimizes its own path and severs the feedback that would force it to adapt. Errors, wait states, and exceptions are routed around the measured surface, producing compensated performance where metrics improve because human capacity is converted into institutional entitlement.",
       cost: "The friction lands on whoever the system touches: unpaid compensatory labor, exhausted operators, and claimants who absorb the cost of being misjudged. The burden is real, unrecorded, and appears in no ledger — the falsified denominator.",
       links: [
         {
@@ -306,7 +306,7 @@ export const methodContent: MethodContent = {
       title: "The open circuit",
       tag: "Correction",
       description:
-        "The same scaled system, instrumented so that the people it can misjudge can reach it: standing with procedural force, clocks that answer, records that travel, and halts tiered by blast radius.",
+        "The same scaled system, instrumented so that the people it can misjudge can reach it: standing with procedural force, clocks that answer, records that travel, halts tiered by blast radius, and intrinsic performance that does not rely on expropriating human resilience to stay viable.",
       cost: "The friction is built back in as constitutional friction: appeal latency, halt costs, and restoration work. That cost is deliberate, provisioned, and on the ledger — the challenge load ledger counts it the way the burden ledger counts absorption.",
       links: [
         {
@@ -436,9 +436,9 @@ export const methodContent: MethodContent = {
       id: "burden-accounting",
       title: "Burden accounting",
       question:
-        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and who performs it?",
+        "What hidden labor does this decision create — triage, rework, apology loops, policy exceptions — and is reported performance intrinsic or compensated by expropriated human resilience?",
       example:
-        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse, and it appears in no budget.",
+        "A health plan's AI triage tool misroutes 12% of prior auths. Nurses spend 90 minutes per shift re-routing them. That is 7.5 hours of unpaid care-time per week per nurse: the tool's green metrics reflect compensated performance that appears in no budget.",
     },
     {
       id: "infrastructure-dignity",

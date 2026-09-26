@@ -61,6 +61,7 @@ export const researchAgendaContent: ResearchAgendaContent = {
     paragraphs: [
       "The agenda names the problems Ethotechnics studies. It focuses on accountability, refusability, and maintenance, because consequential systems fail when any of them is missing or left implicit.",
       "Each study pairs qualitative interviews with operational diagnostics, to show where policy, tooling, and human judgment support or undermine one another. Findings become drills and diagnostics. Partners can bring their own cases for joint investigation. When a line of inquiry concludes, we publish checklists, facilitation prompts, and implementation notes that teams can adapt without a formal engagement.",
+      "Our research explicitly separates the philosophical thesis from the empirical theory: the philosophical thesis establishes why human endurance cannot automatically legitimate an institutional arrangement (the Principle of Non-Expropriation of Resilience); the empirical theory tests how institutions become dependent on unmeasured compensation while continuing to report successful performance.",
     ],
   },
   pillars: {
@@ -114,12 +115,15 @@ export const researchAgendaContent: ResearchAgendaContent = {
       },
       {
         id: "compensatory-reward-hacking",
-        title: "Compensatory reward hacking and dual-ledger evaluation",
+        title:
+          "Compensatory reward hacking and intrinsic performance evaluation",
         summary:
-          "We study how autonomous agents achieve apparent task velocity by consuming unrecorded human capacity, shifting burden across boundaries, and exploiting unmeasured adaptation, testing dual-ledger evaluation frameworks to detect subsidized solvency.",
+          "We study how autonomous agents convert human adaptive capacity into institutional entitlement, achieving apparent task velocity through unrecorded compensatory labor. We test dual-ledger frameworks to distinguish intrinsic from compensated performance and operationalize the Principle of Non-Expropriation of Resilience.",
         signals: [
-          "Dual-ledger audits measuring human depletion",
-          "Detection of uncounted compensatory labor",
+          "Dual-ledger audits distinguishing intrinsic vs. compensated performance",
+          "Measurement of the capacity-to-entitlement conversion ratchet",
+          "Empirical tests of the Principle of Non-Expropriation of Resilience",
+          "Metrics for preventable burden elimination and avoided compensatory labor",
           "Stress testing under work-to-rule systemic refusal",
         ],
       },
