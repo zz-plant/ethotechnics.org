@@ -1,0 +1,92 @@
+---
+/**
+ * Act 1 of the home page: the Robodebt record, unrolled one dated event at a
+ * time. The sticky panel holds the two ledgers -- what the record showed
+ * against what the institution said -- and is decorative: the events list
+ * is the content, and the panel summarizes it.
+ *
+ * The panel's server-rendered text is the final state, so the page is true
+ * without JavaScript. When the reveal script runs it resets the panel to the
+ * start and advances it as rows pass. The script never touches scroll; it
+ * only reads positions.
+ */
+import { casesBySlug } from "../../content/casebook";
+
+const robodebt = casesBySlug.get("robodebt");
+const events = robodebt?.timeline ?? [];
+const evidenceTotal = events.filter((event) => event.evidence).length;
+const haltedBy = robodebt?.haltedBy ?? "A court.";
+---
+
+{
+  robodebt && (
+    <section id="record" class="record-spine" aria-labelledby="record-heading">
+      <header class="record-spine__header">
+        <p class="eyebrow">The record</p>
+        <h2 id="record-heading" class="section__heading">
+          Watch one scheme run.
+        </h2>
+        <p class="section-lead">
+          Robodebt, from the casebook, one dated event at a time. The left
+          column is what the record showed. The right column is what the
+          institution said.
+        </p>
+      </header>
+
+      <div class="record-spine__grid">
+        <div class="record-spine__panel" data-ledger-panel>
+          <p class="record-spine__panel-title">Two ledgers</p>
+          <div class="record-spine__ledger">
+            <span
+              class="record-spine__ledger-dot record-spine__ledger-dot--record"
+              aria-hidden="true"
+            />
+            <div>
+              <p class="record-spine__ledger-label">The record</p>
+              <p class="record-spine__ledger-value" data-ledger-count>
+                {evidenceTotal} dated warnings and findings, 2014–2023. None
+                stopped the scheme before the court did.
+              </p>
+            </div>
+          </div>
+          <div class="record-spine__ledger">
+            <span
+              class="record-spine__ledger-dot record-spine__ledger-dot--institution"
+              data-ledger-dot
+              aria-hidden="true"
+            />
+            <div>
+              <p class="record-spine__ledger-label">The institution</p>
+              <p class="record-spine__ledger-value" data-ledger-status>
+                The scheme ran {robodebt.timeToHalt} from launch to halt.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <ol class="record-spine__events">
+          {events.map((event) => (
+            <li
+              class:list={[
+                "record-spine__event",
+                { "record-spine__event--turn": event.turn },
+              ]}
+              data-reveal
+              data-spine-row
+              data-evidence={event.evidence ? "true" : undefined}
+              data-halt={event.halt ? "true" : undefined}
+            >
+              <span class="record-spine__when">{event.when}</span>
+              <span class="record-spine__what">{event.what}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <p class="record-spine__foot small muted">
+        Halted by: {haltedBy}
+        <a href={`/casebook/${robodebt.slug}`}>Read the scored case →</a>
+      </p>
+    </section>
+  )
+}
