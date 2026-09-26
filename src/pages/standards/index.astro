@@ -710,60 +710,62 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </div>
 
     <p class="eyebrow">Comparison table</p>
-    <table class="mapping-table mapping-table--compare">
-      <thead>
-        <tr>
-          <th scope="col">Dimension</th>
-          <th scope="col">Prevailing standards</th>
-          <th scope="col">Ethotechnics</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Governance object</th>
-          <td data-label="Prevailing standards">Risk &amp; compliance</td>
-          <td data-label="Ethotechnics">Runtime governability</td>
-        </tr>
-        <tr>
-          <th scope="row">Typical artifacts</th>
-          <td data-label="Prevailing standards"
-            >Registers, assessments, policies</td
-          >
-          <td data-label="Ethotechnics"
-            >Stop rules, clocks, restoration paths</td
-          >
-        </tr>
-        <tr>
-          <th scope="row">Oversight</th>
-          <td data-label="Prevailing standards">Advisory review, HITL</td>
-          <td data-label="Ethotechnics">Enforceable authority + veto rights</td>
-        </tr>
-        <tr>
-          <th scope="row">Measurement</th>
-          <td data-label="Prevailing standards">Process maturity</td>
-          <td data-label="Ethotechnics">Recovery time + time-in-harm</td>
-        </tr>
-        <tr>
-          <th scope="row">Monitoring</th>
-          <td data-label="Prevailing standards">Visibility</td>
-          <td data-label="Ethotechnics">Visibility + compelled intervention</td>
-        </tr>
-        <tr>
-          <th scope="row">Enforcement</th>
-          <td data-label="Prevailing standards"
-            >External (audits, regulators)</td
-          >
-          <td data-label="Ethotechnics"
-            >Built-in constraints + internal stop power</td
-          >
-        </tr>
-        <tr>
-          <th scope="row">Ethics framing</th>
-          <td data-label="Prevailing standards">Principle optimization</td>
-          <td data-label="Ethotechnics">Constraint satisfaction</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table mapping-table--compare">
+        <thead>
+          <tr>
+            <th scope="col">Dimension</th>
+            <th scope="col">Prevailing standards</th>
+            <th scope="col">Ethotechnics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Governance object</th>
+            <td data-label="Prevailing standards">Risk &amp; compliance</td>
+            <td data-label="Ethotechnics">Runtime governability</td>
+          </tr>
+          <tr>
+            <th scope="row">Typical artifacts</th>
+            <td data-label="Prevailing standards"
+              >Registers, assessments, policies</td
+            >
+            <td data-label="Ethotechnics"
+              >Stop rules, clocks, restoration paths</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Oversight</th>
+            <td data-label="Prevailing standards">Advisory review, HITL</td>
+            <td data-label="Ethotechnics">Enforceable authority + veto rights</td>
+          </tr>
+          <tr>
+            <th scope="row">Measurement</th>
+            <td data-label="Prevailing standards">Process maturity</td>
+            <td data-label="Ethotechnics">Recovery time + time-in-harm</td>
+          </tr>
+          <tr>
+            <th scope="row">Monitoring</th>
+            <td data-label="Prevailing standards">Visibility</td>
+            <td data-label="Ethotechnics">Visibility + compelled intervention</td>
+          </tr>
+          <tr>
+            <th scope="row">Enforcement</th>
+            <td data-label="Prevailing standards"
+              >External (audits, regulators)</td
+            >
+            <td data-label="Ethotechnics"
+              >Built-in constraints + internal stop power</td
+            >
+          </tr>
+          <tr>
+            <th scope="row">Ethics framing</th>
+            <td data-label="Prevailing standards">Principle optimization</td>
+            <td data-label="Ethotechnics">Constraint satisfaction</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <p>
       Existing standards and Ethotechnics agree that governance matters. The
@@ -892,7 +894,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         <p class="eyebrow">Required by bindings</p>
         <ul class="muted">
           <li>
-            <a href="/agent-toolkit/prompt-packs#clause-kits"
+            <a href="/agent-toolkit#clause-kits"
               >Procurement clauses</a
             >
           </li>
@@ -919,7 +921,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     <p class="muted">
       Toolkit:
       {" "}
-      <a href="/agent-toolkit/prompt-packs">Agent Prompt & Clause Packs</a>
+      <a href="/agent-toolkit#prompts">Agent Prompt & Clause Packs</a>
       {" "}
       for procurement clauses and audit checklists.
     </p>

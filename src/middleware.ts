@@ -49,11 +49,24 @@ const REDIRECT_MAP: Record<string, string> = {
   // of its own moved rather than being dropped.
   "/applications": "/mechanisms",
   "/applications/moral-circuit-breakers": "/mechanisms/moral-circuit-breakers",
-  "/diy-packs": "/agent-toolkit/prompt-packs",
-  "/bundles": "/agent-toolkit/prompt-packs",
-  "/bundles/diagnostic-export-kit": "/agent-toolkit/prompt-packs",
-  "/bundles/procurement-clause-pack": "/agent-toolkit/prompt-packs",
-  "/bindings": "/agent-toolkit/prompt-packs",
+  "/diy-packs": "/agent-toolkit#prompts",
+  "/bundles": "/agent-toolkit#prompts",
+  "/bundles/diagnostic-export-kit": "/agent-toolkit#prompts",
+  "/bundles/procurement-clause-pack": "/agent-toolkit#prompts",
+  "/bindings": "/agent-toolkit#prompts",
+  "/incompatible": "/method#incompatible",
+  "/failure": "/triage",
+  "/finite": "/evals#finite",
+  "/fast-path": "/start#fast-path",
+  "/syllabus": "/mechanisms#syllabus",
+  "/standards/implementation-examples": "/examples#domains",
+  "/standards/meta-critique": "/standards#governance-by-control",
+  "/standards/micro-diagram-language": "/standards",
+  "/agent-toolkit/prompt-packs": "/agent-toolkit#prompts",
+  "/agent-toolkit/quick-answers": "/agent-toolkit#quick-answers",
+  "/agent-toolkit/faq": "/agent-toolkit#quick-answers",
+  "/agent-toolkit/teaching-flows": "/agent-toolkit#flows",
+  "/agent-toolkit/agent-contract": "/agent-toolkit#contract",
   "/diagnostics/llm-capacity-benchmark": "/diagnostics",
   "/diagnostics/escalation-coverage-planner": "/diagnostics",
   "/diagnostics/evidence-pack-readiness": "/diagnostics",
@@ -151,6 +164,32 @@ const resolveLegacyPathRedirect = (url: URL): string | null => {
   if (normalizedPath.startsWith("/artifact/")) {
     const target = new URL(
       normalizedPath.replace(/^\/artifact/, "/artifacts"),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+
+  // Failure triage rename
+  if (
+    normalizedPath === "/failure" ||
+    normalizedPath.startsWith("/failure/")
+  ) {
+    const target = new URL(
+      normalizedPath.replace(/^\/failure/, "/triage"),
+      url.origin,
+    );
+    target.search = url.search;
+    return target.toString();
+  }
+
+  // Implementation examples consolidated under /examples
+  if (normalizedPath.startsWith("/standards/implementation-examples/")) {
+    const target = new URL(
+      normalizedPath.replace(
+        /^\/standards\/implementation-examples/,
+        "/examples",
+      ),
       url.origin,
     );
     target.search = url.search;

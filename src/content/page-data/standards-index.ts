@@ -79,7 +79,7 @@ const adoptedStandards: StandardsCardModel[] = [
     title: "Governance by control",
     description:
       "The Ethotechnics critique: representation without enforceable control planes.",
-    href: "/standards/meta-critique",
+    href: "/standards#governance-by-control",
   },
 ];
 
@@ -149,13 +149,13 @@ export const buildStandardsCardViewModels = (input: {
       title: "Implementation examples overview",
       description:
         "Domain-by-domain comparisons showing how Ethotechnics changes system architecture.",
-      href: "/standards/implementation-examples",
+      href: "/examples#domains",
       ctaLabel: "Read guide",
     },
     ...input.implementationExamples.map((example) => ({
       title: example.title,
       description: example.cardDescription,
-      href: `/standards/implementation-examples/${example.slug}`,
+      href: `/examples/${example.slug}`,
       ctaLabel: "Read example",
     })),
   ];

@@ -195,7 +195,7 @@ describe("resolveCorpusLayer", () => {
     expect(resolveCorpusLayer("/diagnostics/burden-budget-worksheet")).toBe(
       "instrument",
     );
-    expect(resolveCorpusLayer("/agent-toolkit/prompt-packs")).toBe(
+    expect(resolveCorpusLayer("/agent-toolkit#prompts")).toBe(
       "instrument",
     );
   });

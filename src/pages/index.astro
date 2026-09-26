@@ -8,7 +8,6 @@ import RecordSpine from "../components/home/RecordSpine.astro";
 import SelfTest from "../components/home/SelfTest.astro";
 import RatchetFigure from "../components/RatchetFigure.astro";
 import { recentReleases } from "../content/recent-releases";
-import { Icon } from "astro-icon/components";
 
 /**
  * The front door as one story in reading order, told without ever holding
@@ -22,19 +21,16 @@ const doors = [
     href: "/roles/engineering",
     who: "I build these systems",
     what: "The checks a system has to pass before it ships, and the tools that run them.",
-    icon: "lucide:code-2",
   },
   {
     href: "/roles/audit",
     who: "I audit or regulate them",
     what: "Citable clauses, scored public cases, and the evidence each clause needs.",
-    icon: "lucide:file-search",
   },
   {
     href: "/diagnostics/self-defense-tools",
     who: "A system decided something about me",
     what: "Three checks: can this be appealed, and who can change it?",
-    icon: "lucide:shield",
   },
 ];
 ---
@@ -66,7 +62,11 @@ const doors = [
         <a class="button primary" href="#self-test">
           Test your system in 60 seconds
         </a>
-        <a class="button ghost institute-hero__triage-link" href="/failure">
+        <a
+          class="button ghost institute-hero__triage-link"
+          href="/triage"
+          aria-label="Go to incident triage →"
+        >
           <span class="incident-dot" aria-hidden="true"></span>
           Incident triage →
         </a>
@@ -122,6 +122,8 @@ const doors = [
 
   <CasebookScorecard />
 
+  <HomeDifference />
+
   <div class="home-core">
     <div class="home-core__test">
       <SelfTest />
@@ -145,9 +147,6 @@ const doors = [
         doors.map((door) => (
           <li>
             <a class="home-doors__door" href={door.href}>
-              <span class="home-doors__icon" aria-hidden="true">
-                <Icon name={door.icon} size={22} />
-              </span>
               <span class="home-doors__who">{door.who}</span>
               <span class="home-doors__what small muted">{door.what}</span>
               <span class="home-doors__action">View path →</span>
@@ -157,8 +156,6 @@ const doors = [
       }
     </ul>
   </nav>
-
-  <HomeDifference />
 
   <div class="home-supplement">
     <section

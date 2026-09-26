@@ -467,28 +467,30 @@ const publication = derivePublicationMetadata({
     description="Assume teams will optimize metrics. Instrument what detects gaming."
     variant="alt"
   >
-    <table class="mapping-table">
-      <thead>
-        <tr>
-          <th>Signal</th>
-          <th>How teams fake it</th>
-          <th>Detect gaming</th>
-          <th>Tier 0 / 1 / 2 measurement</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          signalIntegrityRows.map((row) => (
-            <tr>
-              <td>{row.signal}</td>
-              <td>{row.gaming}</td>
-              <td>{row.detection}</td>
-              <td>{row.tiers}</td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
+    <div class="mapping-table__wrapper">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th>Signal</th>
+            <th>How teams fake it</th>
+            <th>Detect gaming</th>
+            <th>Tier 0 / 1 / 2 measurement</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            signalIntegrityRows.map((row) => (
+              <tr>
+                <td>{row.signal}</td>
+                <td>{row.gaming}</td>
+                <td>{row.detection}</td>
+                <td>{row.tiers}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
     <p class="muted">
       Pair with
       {" "}
@@ -623,7 +625,7 @@ const publication = derivePublicationMetadata({
             <a href="/evidence-packs">Release gate checklist</a>
           </li>
           <li>
-            <a href="/agent-toolkit/prompt-packs#clause-kits"
+            <a href="/agent-toolkit#clause-kits"
               >Procurement clauses</a
             >
           </li>

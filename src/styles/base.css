@@ -12,6 +12,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -26,6 +27,7 @@
 
   body {
     margin: 0;
+    overflow-x: clip;
     font-family: var(--serif);
     font-optical-sizing: auto;
     font-kerning: normal;
@@ -216,6 +218,7 @@
     border: 1px solid var(--color-border-subtle);
     background: color-mix(in srgb, var(--panel) 60%, var(--surface));
     overflow-x: auto;
+    max-width: 100%;
     tab-size: 2;
   }
 
@@ -262,11 +265,13 @@
      absolutely positioned screen-reader text inside its cells. Without it
      those spans were placed against the page, escaped the scroll box, and
      widened the casebook to 882px on a phone. */
+  .table-wrap,
   .table-responsive {
     position: relative;
     width: 100%;
     min-width: 0;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     margin: 1.5rem 0;
     border: 1px solid var(--color-border-subtle);
@@ -308,7 +313,6 @@
   .nav,
   .site-header,
   .footer,
-  .back-to-top,
   .theme-toggle,
   .copy-button,
   .code-copy-btn,

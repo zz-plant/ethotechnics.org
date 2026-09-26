@@ -31,6 +31,7 @@ const anchorLinks = [
   { href: "#circuits", label: "The two circuits" },
   { href: "#state-variables", label: "State variables" },
   { href: "#laws", label: "The twelve laws" },
+  { href: "#incompatible", label: "Incompatible sentences" },
   { href: "#lenses", label: "The three lenses" },
   { href: "#sequence", label: "Applying it" },
   { href: "#optimization", label: "The optimization problem" },
@@ -227,9 +228,30 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
         >Laws for Engineering Delegated Intelligence</a
       >. The five axioms that motivate them: <a href="/standards/core-axioms"
         >Core axioms</a
-      >. The sentences that quietly break them: <a href="/incompatible"
+      >. The sentences that quietly break them: <a href="#incompatible"
         >Sentences incompatible with Ethotechnics</a
       >.
+    </p>
+  </SectionBlock>
+
+  <SectionBlock
+    id="incompatible"
+    eyebrow="Non-negotiable"
+    title="Sentences incompatible with Ethotechnics"
+    description="Common in well-intentioned systems, these sentences become incompatible when they delay or block repair."
+  >
+    <div class="card">
+      <ul class="card__list">
+        <li><strong>“We meant well.”</strong> Good intent does not substitute for state reversal or redress.</li>
+        <li><strong>“Edge cases are acceptable.”</strong> High-impact harm often concentrates in the tails.</li>
+        <li><strong>“We’ll fix it later.”</strong> Irreversible damage occurs while fixes are scheduled.</li>
+        <li><strong>“We can’t tell you why.”</strong> Decisions without reasons violate basic contestability.</li>
+        <li><strong>“The model decided.”</strong> Systems have human and organizational owners; models do not hold legal liability.</li>
+        <li><strong>“Pending is not an outcome.”</strong> Indefinite holds without clocks destroy recourse.</li>
+      </ul>
+    </div>
+    <p class="small">
+      <strong>If a sentence prevents repair, it is incompatible with Ethotechnics.</strong>
     </p>
   </SectionBlock>
 

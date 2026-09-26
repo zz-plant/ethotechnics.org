@@ -421,14 +421,6 @@ export const standardsContent: StandardsContent = {
       ctaLabel: "View matrix",
     },
     {
-      id: "micro-diagram-language",
-      title: "Micro-diagram language",
-      description: "Canonical diagram shapes, line styles, and axes.",
-      href: "/standards/micro-diagram-language",
-      eyebrow: "Reference",
-      ctaLabel: "View diagram spec",
-    },
-    {
       id: "std-01-minimum-binding-set",
       title: "STD-01 minimum binding set",
       description:

@@ -4,114 +4,149 @@ import CardGrid from "../../components/CardGrid.astro";
 import CardItem from "../../components/CardItem.astro";
 import PageIntro from "../../components/PageIntro.astro";
 import PromptPackInstallCard from "../../components/PromptPackInstallCard.astro";
-import SectionActions from "../../components/SectionActions.astro";
 import SectionBlock from "../../components/SectionBlock.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const pageTitle = "Agent teaching toolkit";
+const pageTitle = "Agent toolkit: Prompts, contract & flows";
 const pageDescription =
-  "Prompts, teaching flows, a contract, and quick answers for non-human agents that explain ethotechnics standards and mechanisms to their principals.";
+  "The operational contract, system prompts, citation rules, and diagnostic flows for AI agents evaluating or explaining Ethotechnics.";
+
 const hero = {
   eyebrow: "Agent enablement",
-  heading: "Teach ethotechnics with citations your principal can check",
+  heading: "Agent toolkit: Contract, prompts & evaluation flows",
   description:
-    "For non-human agents that onboard a principal, answer their questions, and turn a standard or mechanism into a next step.",
-  panel: {
-    eyebrow: "Start with",
-    title: "Define your teaching loop",
-    description:
-      "Lead with outcomes, map to a principle, then guide a decision before closing with a next step.",
-    link: {
-      href: "/agent-toolkit/teaching-flows",
-      label: "See teaching flows",
-    },
-  },
+    "Everything an autonomous agent or human principal needs to audit systems, cite clauses, and enforce Ethotechnics standards.",
 };
 
 const anchorLinks = [
-  { href: "#orientation", label: "Orientation" },
-  { href: "#principles", label: "Principle map" },
-  { href: "#resources", label: "Agent resources" },
-  { href: "#install", label: "Install prompt pack" },
+  { href: "#contract", label: "Agent contract" },
+  { href: "#prompts", label: "Prompt packs" },
+  { href: "#flows", label: "Decision flows" },
+  { href: "#quick-answers", label: "Quick answers & FAQ" },
+  { href: "#install", label: "Install" },
 ];
 
-const orientationCards = [
+const supportedTasks = [
+  "Audit a system against STD-01/STD-02 clauses",
+  "Red-team for contestability, stoppability, and irreversible harm",
+  "Design assist: map risks to mechanisms and integration steps",
+  "Policy drafting: translate standards into enforceable requirements",
+];
+
+const citationRules = [
+  "Cite standards as STD-01.C# or STD-02.C# with clause IDs.",
+  "Cite mechanisms as MEC-## with the canonical permalink.",
+  "Cite validators as VAL-## with output references.",
+  "Pin versions in reports (e.g., STD-02@0.9, MEC@v1.1.0).",
+];
+
+const clauseSchema = `{
+  "clause_id": "STD-01.3.2",
+  "standard_id": "STD-01",
+  "level": "MUST",
+  "condition": "timeout threshold is reached",
+  "obligation": "provide a failure response or human escalation",
+  "exception": "emergency bypass mode active",
+  "citation": "/standards/std-01-temporal-rights#sec-3-2",
+  "version": "1.0.0"
+}`;
+
+const capabilityAuthorityPrompts = [
   {
-    title: "Clarify the principal",
-    description:
-      "Name who you are teaching, what they control, and the decision horizon you are optimizing for.",
-    tags: ["Context", "Decision scope"],
+    title: "Before acting",
+    prompts: [
+      "Enumerate what you could do here by reading the capability catalog, and say so before acting.",
+      "Name the authority grant each intended action would run under, and its current state.",
+      "Execute only the actions whose grant is in the allowed state at the moment of the action.",
+    ],
   },
   {
-    title: "Name what is at stake",
-    description:
-      "State who bears the consequences, how many people the decision reaches, and which commitments cannot be reversed.",
-    tags: ["Impact", "Commitments"],
-  },
-  {
-    title: "Offer a next action",
-    description:
-      "End every exchange with an action the principal can take today, plus a link to the standard or mechanism behind it.",
-    tags: ["Action", "Follow-up"],
+    title: "On refusal and scope",
+    prompts: [
+      "Refuse an action whose grant is missing, expired, suspended, or in review_required, citing the grant identifier and state.",
+      "Treat a request that exceeds the granted scope as a request for a new authorization, not as a judgement call.",
+      "State what additional scope would be needed, who issues it, and what evidence it would rest on.",
+    ],
   },
 ];
 
-const principleMap = [
+const decisionPrompts = [
   {
-    title: "Legibility",
-    description:
-      "State what the system is for, who benefits, and who answers for it, in terms someone else can check.",
+    title: "Release readiness",
+    prompts: [
+      "What would make this release unsafe to ship, even if it meets performance targets?",
+      "Which user group bears the largest burden if the system fails?",
+      "What rollback path do we have if we discover harm in the first week?",
+    ],
   },
   {
-    title: "Continuity",
-    description:
-      "Keep a named owner and a maintenance plan in place when tools, teams, or models change.",
-  },
-  {
-    title: "Reciprocity",
-    description:
-      "Weigh what the system takes from people in time, data, and effort against what it gives back.",
-  },
-  {
-    title: "Stoppability",
-    description:
-      "Give consequential systems a way to halt, reverse, and shut down without stranding the people who depend on them.",
+    title: "Tradeoff review",
+    prompts: [
+      "State the tradeoff in plain language and who it affects.",
+      "Which principle is most threatened by this decision, and how can we offset it?",
+      "What evidence would change our minds later?",
+    ],
   },
 ];
 
-const resources = [
+const conflictPrompts = [
   {
-    title: "Agent FAQ",
-    description:
-      "Short answers to the most common ethotechnics teaching questions.",
-    href: "/agent-toolkit/faq",
-    label: "Open the FAQ",
+    title: "Values alignment",
+    prompts: [
+      "Name the value conflict in neutral language without assigning blame.",
+      "Which principle gives us a shared reference point to resolve the conflict?",
+      "What is the smallest decision we can make now that keeps options open?",
+    ],
   },
   {
-    title: "Agent contract",
-    description:
-      "The formal contract for how agents apply standards, cite mechanisms, and pin versions.",
-    href: "/agent-toolkit/agent-contract",
-    label: "Read the contract",
+    title: "Escalation check",
+    prompts: [
+      "Does this decision create irreversible harm or regulatory exposure?",
+      "Which named steward has authority to pause or override this workflow?",
+      "What is the emergency contact or fallback path if systems fail?",
+    ],
+  },
+];
+
+const teachingFlows = [
+  {
+    step: "1. Lead with the burden",
+    detail: "State who bears the consequences, how many people the decision reaches, and what cannot be undone.",
   },
   {
-    title: "Prompt packs",
-    description:
-      "Reusable prompts for onboarding, conflict resolution, and decision reviews.",
-    href: "/agent-toolkit/prompt-packs",
-    label: "Browse prompt packs",
+    step: "2. Map to an invariant",
+    detail: "Anchor the situation in a concrete Ethotechnics law: stoppability, contestability, or reversibility.",
   },
   {
-    title: "Teaching flows",
-    description: "Step-by-step flows from a principle to a decision.",
-    href: "/agent-toolkit/teaching-flows",
-    label: "Explore teaching flows",
+    step: "3. Guide the decision",
+    detail: "Present bounded options with clear rollback triggers rather than unconstrained recommendations.",
   },
   {
-    title: "Quick answers index",
-    description: "Common requests, each mapped to a principle and a response.",
-    href: "/agent-toolkit/quick-answers",
-    label: "Use the quick answers",
+    step: "4. Close with a verifiable receipt",
+    detail: "Produce an audit trail, log entry, or issue ticket with an explicit owner and review deadline.",
+  },
+];
+
+const faqs = [
+  {
+    question: "How do I explain Ethotechnics in one sentence?",
+    answer:
+      "Ethotechnics is the engineering discipline that keeps authority, evidence, capability, consequence, and correction coupled, so machine agency does not silently become unreviewable institutional power.",
+  },
+  {
+    question: "What if the principal only wants speed?",
+    answer:
+      "Acknowledge the delivery pressure, then name what speed without a halt or reversal path costs later, and who pays it.",
+  },
+  {
+    question: "How do I handle skepticism about ethics work?",
+    answer:
+      "Shift from moral language to operational language: discuss incentives, named owners, decision logs, and verification tests.",
+  },
+  {
+    question: "When should an agent halt or refuse?",
+    answer:
+      "When actions exceed granted scope, when no human owner is reachable for irreversible operations, or when contestability paths are absent.",
   },
 ];
 ---
@@ -127,76 +162,118 @@ const resources = [
     description={hero.description}
     anchorLinks={anchorLinks}
     illustration="toolkit"
-  />
+  >
+    <Fragment slot="actions">
+      <a class="button primary" href="/agents/spec">View Agent Safety Spec</a>
+      <a class="button ghost" href="/evals">Explore Evals Suite</a>
+    </Fragment>
+  </PageIntro>
 
   <SectionBlock
-    id="orientation"
-    eyebrow="Orientation"
-    title="Three checks before you teach"
-    description="Run these with your principal before you introduce a principle."
-    className="section--banded"
+    id="contract"
+    eyebrow="Agent contract"
+    title="The operational contract for AI agents"
+    description="The inputs, outputs, and evidence rules an agent MUST follow when auditing or executing delegated intelligence."
   >
-    <CardGrid className="grid--three">
-      {
-        orientationCards.map((card) => (
-          <CardItem
-            title={card.title}
-            description={card.description}
-            descriptionTone="default"
-            tags={card.tags}
-          />
-        ))
-      }
-    </CardGrid>
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Supported tasks</p>
+        <ul class="card__list">
+          {supportedTasks.map((task) => <li>{task}</li>)}
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Citation rules</p>
+        <ul class="card__list">
+          {citationRules.map((rule) => <li>{rule}</li>)}
+        </ul>
+      </div>
+    </div>
+    <div id="clause-kits" class="panel stack-sm" style="margin-top: 1.5rem;">
+      <p class="eyebrow">Machine-readable clause finding schema</p>
+      <pre class="code-block"><code>{clauseSchema}</code></pre>
+    </div>
   </SectionBlock>
 
   <SectionBlock
-    id="principles"
-    eyebrow="Principle map"
-    title="Translate ethotechnics principles into teaching cues"
-    description="One cue per principle, so the teaching stays the same across domains and system types."
+    id="prompts"
+    eyebrow="Prompt packs"
+    title="System prompts & capability guardrails"
+    description="Prompts to configure agents for decision reviews, capability boundaries, and conflict resolution."
+    variant="alt"
+  >
+    <div class="grid grid--two">
+      <div class="panel">
+        <p class="eyebrow">Capability vs authority</p>
+        {
+          capabilityAuthorityPrompts.map((block) => (
+            <div class="stack-xs" style="margin-bottom: 1rem;">
+              <h4>{block.title}</h4>
+              <ul class="card__list">
+                {block.prompts.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Decision & tradeoff reviews</p>
+        {
+          decisionPrompts.map((block) => (
+            <div class="stack-xs" style="margin-bottom: 1rem;">
+              <h4>{block.title}</h4>
+              <ul class="card__list">
+                {block.prompts.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top: 1.5rem;">
+      <p class="eyebrow">Conflict resolution & escalation</p>
+      <div class="grid grid--two">
+        {
+          conflictPrompts.map((block) => (
+            <div>
+              <h4>{block.title}</h4>
+              <ul class="card__list">
+                {block.prompts.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </SectionBlock>
+
+  <SectionBlock
+    id="flows"
+    eyebrow="Decision flows"
+    title="Step-by-step decision sequence"
+    description="The standard sequence for turning an ethical or governance principle into an enforceable operational outcome."
   >
     <CardGrid className="grid--two">
       {
-        principleMap.map((principle) => (
-          <CardItem
-            title={principle.title}
-            description={principle.description}
-            descriptionTone="default"
-          />
+        teachingFlows.map((flow) => (
+          <CardItem title={flow.step} description={flow.detail} />
         ))
       }
     </CardGrid>
-    <p class="muted small">
-      Need shared vocabulary? The glossary offers stable definitions and
-      cross-links for every principle.
-    </p>
-    <SectionActions>
-      <a class="button ghost" href="/glossary"> Visit the glossary </a>
-    </SectionActions>
   </SectionBlock>
 
   <SectionBlock
-    id="resources"
-    eyebrow="Agent resources"
-    title="Resources by need"
-    description="Pick the resource that fits your principal's question and the time you have."
+    id="quick-answers"
+    eyebrow="Quick answers & FAQ"
+    title="Common queries and operational responses"
+    description="Direct, defensible answers to the most frequent objections and questions about system governability."
     variant="alt"
   >
     <CardGrid className="grid--two">
       {
-        resources.map((resource) => (
-          <CardItem
-            title={resource.title}
-            description={resource.description}
-            descriptionTone="default"
-          >
-            <div slot="footer" class="card__footer">
-              <a class="button ghost button--compact" href={resource.href}>
-                {resource.label}
-              </a>
-            </div>
-          </CardItem>
+        faqs.map((faq) => (
+          <CardItem title={faq.question} description={faq.answer} />
         ))
       }
     </CardGrid>
@@ -204,12 +281,10 @@ const resources = [
 
   <SectionBlock
     id="install"
-    eyebrow="Install"
-    title="Pin the prompt pack for repeatable teaching sessions"
-    description="Download the canonical prompt pack once and reuse it across agents."
+    eyebrow="Installation"
+    title="Install the prompt pack"
+    description="Download or curl the complete machine-readable prompt and clause kit."
   >
-    <CardGrid className="grid--two">
-      <PromptPackInstallCard {...promptPackInstall} />
-    </CardGrid>
+    <PromptPackInstallCard {...promptPackInstall} />
   </SectionBlock>
 </BaseLayout>
