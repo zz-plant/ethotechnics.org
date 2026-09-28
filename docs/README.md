@@ -42,6 +42,9 @@ Use this map before adding or editing docs so guidance stays easy to find and ma
 
 ### Planning and roadmap docs
 
+- [`planning/research-positioning-2026-09.md`](planning/research-positioning-2026-09.md): proposed
+  positioning, prior-work attribution, and research contribution changes.
+
 - [`planning/planning-and-audits.md`](planning/planning-and-audits.md): consolidated hub for roadmap, PRDs, UX
   audits, and long-range strategy tracks.
 - [`planning/reconstruction-plan-2026-09.md`](planning/reconstruction-plan-2026-09.md): the
