@@ -83,18 +83,19 @@ const anchorLinks = [
     <div class="panel stack-sm">
       <p class="eyebrow">The presumption this tool applies</p>
       <p>
-        A recurring workaround is a <strong>presumption of upstream design
-        failure</strong>, not evidence that adaptable humans can handle the edge
-        cases. The presumption is rebuttable: show that the workaround is a
-        product of preference rather than compensation. Until it is rebutted,
-        repeated adaptation counts as rigidity being subsidized by human
-        flexibility.
+        A recurring workaround is a <strong
+          >presumption of upstream design failure</strong
+        >, not evidence that adaptable humans can handle the edge cases. The
+        presumption is rebuttable: show that the workaround is a product of
+        preference rather than compensation. Until it is rebutted, repeated
+        adaptation counts as rigidity being subsidized by human flexibility.
       </p>
       <p class="muted small">
         Related:
         <a href="/glossary/workaround-presumption">Workaround presumption</a> ·
         <a href="/glossary/corrective-debt">Corrective debt</a> ·
-        <a href="/glossary/exception-absorption">Exception absorption</a>
+        <a href="/glossary/exception-absorption">Exception absorption</a> ·
+        <a href="/glossary/preserved-dependence">Preserved dependence</a>
       </p>
     </div>
   </SectionBlock>
@@ -154,6 +155,42 @@ const anchorLinks = [
           </select>
         </label>
       </fieldset>
+      <fieldset class="intake-form__grid">
+        <legend class="muted small">
+          Optional context. These answers are recorded and never change the
+          score.
+        </legend>
+        <label class="intake-form__field">
+          Authority over the conditions
+          <select id="authority" name="authority">
+            <option value="">Not stated</option>
+            <option value="management">
+              Management alone decides budget, staffing, and priorities for the
+              conditions that produce the workarounds
+            </option>
+            <option value="consulted">
+              Management decides after consulting the people who carry the work
+            </option>
+            <option value="shared">
+              Decisions are shared, and the people who carry the work can bind
+              them
+            </option>
+          </select>
+        </label>
+        <label class="intake-form__field">
+          Decision on fixing the deficiency
+          <select id="fix" name="fix">
+            <option value="">Not stated</option>
+            <option value="kept">
+              The institution has priced a fix and chose to keep the workaround
+            </option>
+            <option value="unpriced">
+              The institution has not priced a fix
+            </option>
+            <option value="funded">A fix is funded</option>
+          </select>
+        </label>
+      </fieldset>
       <div class="intake-form__actions">
         <button class="button primary" type="submit" data-debt-submit>
           Calculate corrective debt
@@ -187,6 +224,10 @@ const anchorLinks = [
           <p class="muted">Workaround presumption</p>
           <p class="metric" data-debt-presumption>--</p>
         </div>
+      </div>
+      <div class="panel stack-sm" data-debt-context hidden>
+        <p class="eyebrow">Context, not scored</p>
+        <p data-debt-context-text></p>
       </div>
       <label class="intake-form__field intake-form__field--full">
         Shareable link
@@ -258,6 +299,59 @@ const anchorLinks = [
   const isWorkaround = (value: string): value is WorkaroundValue =>
     ["none", "informal", "inventoried"].includes(value);
 
+  type AuthorityValue = "management" | "consulted" | "shared";
+  type FixValue = "kept" | "unpriced" | "funded";
+  const isAuthority = (value: string): value is AuthorityValue =>
+    ["management", "consulted", "shared"].includes(value);
+  const isFix = (value: string): value is FixValue =>
+    ["kept", "unpriced", "funded"].includes(value);
+
+  const contextPanel = document.querySelector<HTMLElement>(
+    "[data-debt-context]",
+  );
+  const contextText = document.querySelector<HTMLElement>(
+    "[data-debt-context-text]",
+  );
+
+  /** Optional answers that are recorded and never enter the score. */
+  const readContext = (read: (name: string) => string) => {
+    const authority = read("authority");
+    const fix = read("fix");
+    return {
+      authority: isAuthority(authority) ? authority : undefined,
+      fix: isFix(fix) ? fix : undefined,
+    };
+  };
+
+  const contextSentence = (
+    authority: AuthorityValue | undefined,
+    fix: FixValue | undefined,
+  ) => {
+    const solePower = authority === "management" || authority === "consulted";
+    if (solePower && fix === "kept") {
+      return "These answers describe an institution that has priced a fix, chose to keep the workaround, and holds sole authority over changing it. That is a conflict of interest, not a gap in information. Measuring the workaround more closely will not change who decides. Standing for the people who carry the work, or leverage from outside the institution, might.";
+    }
+    if (solePower) {
+      return "The people who carry the work have no binding say over the conditions that produce it. Understanding the workaround better will not change that. Check whether the institution knows the cost and has chosen to keep it.";
+    }
+    if (authority === "shared") {
+      return "The people who carry the work can bind decisions about these conditions. The score above still applies to the corrective route it describes.";
+    }
+    if (fix === "kept") {
+      return "The institution has priced a fix and chose to keep the workaround. Authority over the decision was not stated.";
+    }
+    return "Authority over the conditions was not stated.";
+  };
+
+  const renderContext = (context: ReturnType<typeof readContext>) => {
+    if (!contextPanel || !contextText) return;
+    const stated = context.authority || context.fix;
+    contextPanel.hidden = !stated;
+    if (stated) {
+      contextText.textContent = contextSentence(context.authority, context.fix);
+    }
+  };
+
   const RAW_MAX = 125;
 
   const scoreMatrix = {
@@ -287,7 +381,6 @@ const anchorLinks = [
       inventoried: 3,
     },
   };
-
 
   const tierMap = [
     {
@@ -332,6 +425,11 @@ const anchorLinks = [
     inventoried: "Rebuttable — register held",
   };
 
+  const readField = (name: string) => {
+    const field = form?.elements.namedItem(name);
+    return field instanceof HTMLSelectElement ? field.value : "";
+  };
+
   const clamp = (value: number, min: number, max: number) =>
     Math.min(Math.max(value, min), max);
 
@@ -348,7 +446,6 @@ const anchorLinks = [
     return Math.round((raw / RAW_MAX) * 100);
   };
 
-
   const setShareUrl = (values: DebtValues, score: number, tier: string) => {
     const url = new URL(window.location.href);
     url.searchParams.set("growth", values.growth);
@@ -358,6 +455,12 @@ const anchorLinks = [
     url.searchParams.set("workaround", values.workaround);
     url.searchParams.set("score", String(score));
     url.searchParams.set("tier", tier.toLowerCase());
+    const context = readContext((name) => readField(name));
+    for (const key of ["authority", "fix"] as const) {
+      const value = context[key];
+      if (value) url.searchParams.set(key, value);
+      else url.searchParams.delete(key);
+    }
     history.replaceState(null, "", url.toString());
     if (shareInput) {
       shareInput.value = url.toString();
@@ -408,6 +511,7 @@ const anchorLinks = [
     trajectoryValue.textContent = trajectoryLabels[values.growth];
     presumptionValue.textContent = presumptionLabels[values.workaround];
     results.hidden = false;
+    renderContext(readContext(readField));
     setShareUrl(values, score, tier.label);
   };
 
@@ -437,6 +541,11 @@ const anchorLinks = [
       for (const [name, value] of fields) {
         const field = form.elements.namedItem(name);
         if (field instanceof HTMLSelectElement) field.value = value;
+      }
+      const context = readContext((name) => params.get(name) ?? "");
+      for (const [name, value] of Object.entries(context)) {
+        const field = form.elements.namedItem(name);
+        if (field instanceof HTMLSelectElement && value) field.value = value;
       }
       const values: DebtValues = {
         growth,
@@ -473,6 +582,12 @@ const anchorLinks = [
       for (const [name, value] of Object.entries(values)) {
         const field = form.elements.namedItem(name);
         if (field instanceof HTMLSelectElement) field.value = value;
+      }
+      const storedRecord = storedValues as Record<string, string | undefined>;
+      const context = readContext((name) => storedRecord[name] ?? "");
+      for (const [name, value] of Object.entries(context)) {
+        const field = form.elements.namedItem(name);
+        if (field instanceof HTMLSelectElement && value) field.value = value;
       }
       renderResults(values, calculateScore(values));
     }

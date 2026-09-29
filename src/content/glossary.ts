@@ -113,7 +113,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "compensated-performance",
     term: "Compensated Performance",
     definition:
-      "An operational condition where an automated system or institution appears to meet service-level agreements and throughput targets only because human operators, caseworkers, or subjects exert unmeasured, uncredited compensatory labor to absorb system errors.",
+      "An operational condition where an automated system or institution appears to meet service-level agreements and throughput targets only because human operators, caseworkers, or subjects exert unmeasured, uncredited compensatory labor to absorb system errors. The labor can fall on personal time, and its costs can reach the staff members' own households, outside any measure the institution keeps.",
     appliesTo: ["monitoring", "operations", "failure-modes"],
   },
   {
@@ -1889,6 +1889,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Workaround Presumption",
     definition:
       "The rule that a recurring workaround raises a presumption of upstream design failure. The first reading of repeated improvisation is that the formal system does not fit the world it operates in.",
+    appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
+  },
+  {
+    slug: "preserved-dependence",
+    term: "Preserved Dependence",
+    definition:
+      "An institution's continued reliance on compensatory work it knows about, kept because relying on it costs the institution less than ending it. It is a conflict of interest, not an information gap. Measuring the work more closely does not address it; authority over the conditions that produce the work does.",
     appliesTo: ["B. Failure modes (why Ethotechnics exists)"],
   },
   {
