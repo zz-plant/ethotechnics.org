@@ -16,6 +16,15 @@ export type Replacement =
 export type Ownership =
   "controls_and_credited" | "controls_only" | "credited_only" | "neither";
 export type TimeBasis = "paid" | "unpaid" | "personal" | "mixed";
+export type Awareness = "yes" | "no" | "unknown";
+export type FixDecision =
+  "fix_funded" | "fix_declined" | "not_considered" | "unknown";
+export type AuthorityOverConditions =
+  | "management_only"
+  | "management_after_consultation"
+  | "shared_binding"
+  | "performers";
+export type Objective = "reduce_dependence" | "ease_or_sustain_burden";
 
 export type ItemClassification =
   "compensation" | "discretion" | "craft" | "coerced_craft" | "unresolved";
@@ -36,6 +45,7 @@ export type LedgerItem = {
   time_basis: TimeBasis;
   tests: ClassificationTests;
   classification: ItemClassification;
+  institution_position: { aware: Awareness; decision: FixDecision };
 };
 
 export type InterventionReview = {
@@ -51,9 +61,11 @@ export type InterventionReview = {
     surge_response: "improved" | "unchanged" | "worsened" | "not_measured";
   };
   outcome: InterventionOutcome;
+  stated_objective: Objective;
 };
 
 export type Ledger = {
+  authority: { over_conditions: AuthorityOverConditions };
   items: LedgerItem[];
   interventions?: InterventionReview[];
 };
@@ -81,10 +93,10 @@ export const classifyItem = (
     return "coerced_craft";
   }
 
+  // Compensation does not require that a metric count the work. An
+  // institution can benefit from work it never formally relies on.
   if (replacement === "would_use_formal_route") {
-    return institution_depends &&
-      ownership === "neither" &&
-      refusal !== "no_consequence"
+    return ownership === "neither" && refusal !== "no_consequence"
       ? "compensation"
       : "unresolved";
   }
@@ -118,6 +130,18 @@ export const classifyIntervention = (
   return "reduction_at_source";
 };
 
+/**
+ * Whether the outcome achieves what the intervention set out to do. Easing a
+ * burden is not the same objective as removing the dependence on it, so an
+ * accommodation meets the first and never the second.
+ */
+export const meetsStatedObjective = (
+  review: Pick<InterventionReview, "outcome" | "stated_objective">,
+): boolean =>
+  review.stated_objective === "reduce_dependence"
+    ? review.outcome === "removal" || review.outcome === "reduction_at_source"
+    : review.outcome !== "transfer";
+
 /** A redesign that lowers load while lowering any preserved quantity. */
 export const hasTradeoff = (review: InterventionReview): boolean =>
   review.preservation.performance === "worsened" ||
@@ -129,10 +153,19 @@ export type LedgerSummary = {
   byClass: Record<ItemClassification, number>;
   /** Share left unresolved. Reported alongside, never folded into a side. */
   unresolvedShare: number;
+  /** Items the institution knows about and has decided not to fix. */
+  knownAndKept: number;
+  /**
+   * True when the institution knowingly keeps at least one item and the
+   * people carrying the work do not hold binding authority. A signal that the
+   * obstacle may be a conflict of interest rather than missing information.
+   * It does not establish one.
+   */
+  conflictOfInterestSignal: boolean;
 };
 
 export const summarizeLedger = (
-  ledger: Pick<Ledger, "items">,
+  ledger: Pick<Ledger, "items" | "authority">,
 ): LedgerSummary => {
   const byClass: Record<ItemClassification, number> = {
     compensation: 0,
@@ -143,10 +176,20 @@ export const summarizeLedger = (
   };
   for (const item of ledger.items) byClass[item.classification] += 1;
   const total = ledger.items.length;
+  const knownAndKept = ledger.items.filter(
+    (item) =>
+      item.institution_position.aware === "yes" &&
+      item.institution_position.decision === "fix_declined",
+  ).length;
+  const performersBind =
+    ledger.authority.over_conditions === "shared_binding" ||
+    ledger.authority.over_conditions === "performers";
   return {
     total,
     byClass,
     unresolvedShare: total === 0 ? 0 : byClass.unresolved / total,
+    knownAndKept,
+    conflictOfInterestSignal: knownAndKept > 0 && !performersBind,
   };
 };
 

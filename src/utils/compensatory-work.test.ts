@@ -8,6 +8,7 @@ import {
   classifyIntervention,
   classifyItem,
   hasTradeoff,
+  meetsStatedObjective,
   summarizeLedger,
   type ClassificationTests,
   type InterventionReview,
@@ -46,6 +47,10 @@ const classify = (
 describe("classifyItem", () => {
   it("calls work compensation when the institution depends on it and nobody chose it", () => {
     expect(classify({})).toBe("compensation");
+  });
+
+  it("calls work compensation without requiring a metric to count it", () => {
+    expect(classify({ institution_depends: false })).toBe("compensation");
   });
 
   it("does not guess when the refusal answer is missing", () => {
@@ -152,6 +157,43 @@ describe("classifyIntervention", () => {
   });
 });
 
+describe("meetsStatedObjective", () => {
+  it("does not count an accommodation as reducing dependence", () => {
+    expect(
+      meetsStatedObjective({
+        outcome: "accommodation",
+        stated_objective: "reduce_dependence",
+      }),
+    ).toBe(false);
+  });
+
+  it("counts an accommodation as easing a burden, and a transfer as neither", () => {
+    expect(
+      meetsStatedObjective({
+        outcome: "accommodation",
+        stated_objective: "ease_or_sustain_burden",
+      }),
+    ).toBe(true);
+    expect(
+      meetsStatedObjective({
+        outcome: "transfer",
+        stated_objective: "ease_or_sustain_burden",
+      }),
+    ).toBe(false);
+  });
+
+  it("counts removal and reduction at source as reducing dependence", () => {
+    for (const outcome of ["removal", "reduction_at_source"] as const) {
+      expect(
+        meetsStatedObjective({
+          outcome,
+          stated_objective: "reduce_dependence",
+        }),
+      ).toBe(true);
+    }
+  });
+});
+
 describe("hasTradeoff", () => {
   const preserved: InterventionReview["preservation"] = {
     performance: "unchanged",
@@ -187,6 +229,32 @@ describe("the published example ledger", () => {
     expect(summary.total).toBe(5);
     expect(summary.byClass.unresolved).toBe(1);
     expect(summary.unresolvedShare).toBeCloseTo(0.2);
+  });
+
+  it("signals a possible conflict of interest when a known item is kept and management holds authority", () => {
+    const summary = summarizeLedger(example);
+    expect(summary.knownAndKept).toBe(1);
+    expect(summary.conflictOfInterestSignal).toBe(true);
+  });
+
+  it("drops the signal when the people carrying the work hold binding authority", () => {
+    const summary = summarizeLedger({
+      ...example,
+      authority: { over_conditions: "shared_binding" },
+    });
+    expect(summary.knownAndKept).toBe(1);
+    expect(summary.conflictOfInterestSignal).toBe(false);
+  });
+
+  it("does not signal when the institution funded the fix or did not know", () => {
+    const summary = summarizeLedger({
+      ...example,
+      items: example.items.map((item) => ({
+        ...item,
+        institution_position: { aware: "no", decision: "unknown" },
+      })),
+    });
+    expect(summary.conflictOfInterestSignal).toBe(false);
   });
 
   it("flags a recorded classification the tests do not support", () => {

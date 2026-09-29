@@ -32,7 +32,12 @@
         "described_as_chosen": false
       },
       "classification": "compensation",
-      "classification_basis": "Applications stall without it, caseworkers would drop it if the field filled from state records, and nobody chose the step."
+      "classification_basis": "Applications stall without it, caseworkers would drop it if the field filled from state records, and nobody chose the step. The regional office priced the fix and later funded it.",
+      "institution_position": {
+        "aware": "yes",
+        "fix_priced": "priced",
+        "decision": "fix_funded"
+      }
     },
     {
       "item_id": "ITEM-002",
@@ -60,7 +65,12 @@
         "described_as_chosen": true
       },
       "classification": "discretion",
-      "classification_basis": "Caseworkers judge when a call is worth making and are credited in case notes. They would keep doing it if a formal route existed."
+      "classification_basis": "Caseworkers judge when a call is worth making and are credited in case notes. They would keep doing it if a formal route existed.",
+      "institution_position": {
+        "aware": "yes",
+        "fix_priced": "not_priced",
+        "decision": "not_considered"
+      }
     },
     {
       "item_id": "ITEM-003",
@@ -88,7 +98,12 @@
         "described_as_chosen": true
       },
       "classification": "craft",
-      "classification_basis": "Chosen, valued by the performers, and no metric depends on it."
+      "classification_basis": "Chosen, valued by the performers, and no metric depends on it.",
+      "institution_position": {
+        "aware": "no",
+        "fix_priced": "not_priced",
+        "decision": "not_considered"
+      }
     },
     {
       "item_id": "ITEM-004",
@@ -100,7 +115,7 @@
       "performer_role": "Caseworker",
       "performer_can_change_trigger": false,
       "beneficiaries": ["institution_metric"],
-      "cost_bearers": ["performer"],
+      "cost_bearers": ["performer", "household"],
       "formal_record": [],
       "correction_route": {
         "exists": false,
@@ -116,7 +131,12 @@
         "described_as_chosen": true
       },
       "classification": "coerced_craft",
-      "classification_basis": "Staff call it dedication. Missed entry deadlines are penalized and the time is unpaid."
+      "classification_basis": "Staff call it dedication. Missed entry deadlines are penalized, the time is unpaid, and it cuts into caregiving at home.",
+      "institution_position": {
+        "aware": "yes",
+        "fix_priced": "priced",
+        "decision": "fix_declined"
+      }
     },
     {
       "item_id": "ITEM-005",
@@ -144,7 +164,12 @@
         "described_as_chosen": false
       },
       "classification": "unresolved",
-      "classification_basis": "The performer was not free to answer the refusal question in the interview. Revisit through a protected channel."
+      "classification_basis": "The performer was not free to answer the refusal question in the interview. Revisit through a protected channel.",
+      "institution_position": {
+        "aware": "unknown",
+        "fix_priced": "unknown",
+        "decision": "unknown"
+      }
     }
   ],
   "interventions": [
@@ -161,7 +186,13 @@
         "discretion_items_lost": 0,
         "surge_response": "not_measured"
       },
-      "outcome": "reduction_at_source"
+      "outcome": "reduction_at_source",
+      "stated_objective": "reduce_dependence",
+      "success_defined_by": "jointly"
     }
-  ]
+  ],
+  "authority": {
+    "over_conditions": "management_only",
+    "basis": "Budget and staffing for the unit are set by the regional office. Caseworkers are consulted through a quarterly survey and hold no vote."
+  }
 }

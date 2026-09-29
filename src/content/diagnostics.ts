@@ -77,7 +77,7 @@ export const diagnosticsContent: DiagnosticsContent = {
     "Self-serve diagnostics that take one workflow, record stream, or set of figures and return a scored readout you can link, copy, or export.",
   permalink: "/diagnostics",
   published: "2025-12-03T00:00:00Z",
-  updated: "2026-09-18T00:00:00Z",
+  updated: "2026-09-29T00:00:00Z",
   publication: {
     authors: [
       {
@@ -88,12 +88,18 @@ export const diagnosticsContent: DiagnosticsContent = {
     ],
     contact: "diagnostics@ethotechnics.org",
     published: "2025-12-03T00:00:00Z",
-    updated: "2026-09-18T00:00:00Z",
-    version: "v1.3.0",
+    updated: "2026-09-29T00:00:00Z",
+    version: "v1.4.0",
     doi: "Pending Zenodo deposit",
     archiveUrl:
       "https://web.archive.org/web/*/https://ethotechnics.org/diagnostics",
     changelog: [
+      {
+        version: "v1.4.0",
+        date: "2026-09-29",
+        summary:
+          "Added two optional context questions to the corrective capacity self-assessment: who holds authority over the conditions that produce workarounds, and whether the institution has priced a fix. They record a possible conflict of interest and do not change the score.",
+      },
       {
         version: "v1.3.0",
         date: "2026-09-18",
@@ -514,6 +520,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Exact financial exposure or legal liability.",
           "Whether any single past decision was right or wrong.",
           "Model quality: retraining and accuracy are action capacity, not correction.",
+          "Whether the institution has an interest in keeping the arrangement. Two optional context questions record it and do not enter the score.",
         ],
         assumptions: [
           "Inputs describe the last twelve months, not the deployment plan.",
@@ -547,6 +554,8 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Reversal latency: same day, days to weeks, unknown or unbounded.",
           "Upstream revision: never, occasionally, or regularly.",
           "Workaround register: inventoried and reviewed, informal only, or none.",
+          "Optional, not scored: who holds authority over budget, staffing, and priorities for the conditions that produce the workarounds.",
+          "Optional, not scored: whether the institution has priced fixing the underlying deficiency, and what it decided.",
         ],
         rubric: [
           "Growth scored on compounding / steady / flat.",
@@ -559,6 +568,7 @@ export const diagnosticsContent: DiagnosticsContent = {
           "Each component contributes its band weight; the total normalizes to 0–100.",
           "Tiers: critical, high, moderate, low.",
           "The score does not estimate absorption, financial cost, or a future trajectory.",
+          "The two context questions never change the score. They add a readout line that says whether the answers describe an institution that lacks information or one that holds sole authority and has chosen to keep the arrangement.",
         ],
       },
       validation: {
@@ -569,6 +579,7 @@ export const diagnosticsContent: DiagnosticsContent = {
         failureModes: [
           "Counting the appeals queue as corrective capacity when it resolves cases and changes nothing upstream.",
           "Reading workarounds as resilience and scaling the system on absorbed labor.",
+          "Reading a high score as missing information when the institution already has the numbers. Where it holds sole authority and has priced and declined a fix, better measurement will not change the outcome.",
           "Using model metrics — accuracy, retraining — as evidence of corrective capacity.",
         ],
       },
@@ -605,7 +616,8 @@ export const diagnosticsContent: DiagnosticsContent = {
         "Studio support can run the two-axis comparison and trace exception-to-revision paths.",
       ctaLabel: "Start the Corrective capacity self-assessment",
       ctaHref: "/diagnostics/corrective-debt-calculator",
-      ctaAriaLabel: "Start the Corrective capacity self-assessment diagnostic tool",
+      ctaAriaLabel:
+        "Start the Corrective capacity self-assessment diagnostic tool",
       exampleLabel: "View sample output",
       exampleHref: "/diagnostics#output-baseline",
       deliveryType: "self-serve",
