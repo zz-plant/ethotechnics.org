@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "ledger_id": "LEDGER-INTAKE-2026-Q3",
+  "unit_ref": "benefits-intake-unit-a",
+  "period_start": "2026-07-01",
+  "period_end": "2026-09-30",
+  "source": "kept_by_performers",
+  "items": [
+    {
+      "item_id": "ITEM-001",
+      "trigger": "Applicant is asked for proof of income the state already holds.",
+      "work": "Chase applicants for pay stubs the state wage database already shows.",
+      "frequency_per_month": 140,
+      "median_minutes": 12,
+      "time_basis": "paid",
+      "performer_role": "Caseworker",
+      "performer_can_change_trigger": false,
+      "beneficiaries": ["institution_metric"],
+      "cost_bearers": ["client", "performer"],
+      "formal_record": ["workflow"],
+      "correction_route": {
+        "exists": true,
+        "used": true,
+        "raised_by_standing": "lower",
+        "outcome": "declined"
+      },
+      "tests": {
+        "refusal": "falls_on_others",
+        "replacement": "would_use_formal_route",
+        "ownership": "neither",
+        "institution_depends": true,
+        "described_as_chosen": false
+      },
+      "classification": "compensation",
+      "classification_basis": "Applications stall without it, caseworkers would drop it if the field filled from state records, and nobody chose the step."
+    },
+    {
+      "item_id": "ITEM-002",
+      "trigger": "Applicant's employer name differs across two records.",
+      "work": "Reconcile the two records by phone with the applicant.",
+      "frequency_per_month": 25,
+      "median_minutes": 20,
+      "time_basis": "paid",
+      "performer_role": "Caseworker",
+      "performer_can_change_trigger": false,
+      "beneficiaries": ["client", "institution_metric"],
+      "cost_bearers": ["client"],
+      "formal_record": ["job_description"],
+      "correction_route": {
+        "exists": true,
+        "used": false,
+        "raised_by_standing": "not_raised",
+        "outcome": "not_raised"
+      },
+      "tests": {
+        "refusal": "falls_on_others",
+        "replacement": "would_keep_doing",
+        "ownership": "controls_and_credited",
+        "institution_depends": true,
+        "described_as_chosen": true
+      },
+      "classification": "discretion",
+      "classification_basis": "Caseworkers judge when a call is worth making and are credited in case notes. They would keep doing it if a formal route existed."
+    },
+    {
+      "item_id": "ITEM-003",
+      "trigger": "A new applicant arrives with no prior contact.",
+      "work": "Send a hand-written welcome note.",
+      "frequency_per_month": 30,
+      "median_minutes": 5,
+      "time_basis": "personal",
+      "performer_role": "Caseworker",
+      "performer_can_change_trigger": false,
+      "beneficiaries": ["client", "performer"],
+      "cost_bearers": ["performer"],
+      "formal_record": [],
+      "correction_route": {
+        "exists": false,
+        "used": false,
+        "raised_by_standing": "not_raised",
+        "outcome": "not_raised"
+      },
+      "tests": {
+        "refusal": "no_consequence",
+        "replacement": "would_keep_doing",
+        "ownership": "controls_and_credited",
+        "institution_depends": false,
+        "described_as_chosen": true
+      },
+      "classification": "craft",
+      "classification_basis": "Chosen, valued by the performers, and no metric depends on it."
+    },
+    {
+      "item_id": "ITEM-004",
+      "trigger": "Case system times out during evening entry.",
+      "work": "Re-enter the day's notes from paper at home.",
+      "frequency_per_month": 60,
+      "median_minutes": 25,
+      "time_basis": "personal",
+      "performer_role": "Caseworker",
+      "performer_can_change_trigger": false,
+      "beneficiaries": ["institution_metric"],
+      "cost_bearers": ["performer"],
+      "formal_record": [],
+      "correction_route": {
+        "exists": false,
+        "used": false,
+        "raised_by_standing": "not_raised",
+        "outcome": "not_raised"
+      },
+      "tests": {
+        "refusal": "falls_on_performer",
+        "replacement": "would_use_formal_route",
+        "ownership": "neither",
+        "institution_depends": true,
+        "described_as_chosen": true
+      },
+      "classification": "coerced_craft",
+      "classification_basis": "Staff call it dedication. Missed entry deadlines are penalized and the time is unpaid."
+    },
+    {
+      "item_id": "ITEM-005",
+      "trigger": "Applicant's file references a program that was renamed.",
+      "work": "Map the old program name to the new one by memory.",
+      "frequency_per_month": 18,
+      "median_minutes": 6,
+      "time_basis": "paid",
+      "performer_role": "Senior caseworker",
+      "performer_can_change_trigger": true,
+      "beneficiaries": ["colleague"],
+      "cost_bearers": ["colleague"],
+      "formal_record": [],
+      "correction_route": {
+        "exists": true,
+        "used": false,
+        "raised_by_standing": "not_raised",
+        "outcome": "not_raised"
+      },
+      "tests": {
+        "refusal": "unknown",
+        "replacement": "unknown",
+        "ownership": "controls_only",
+        "institution_depends": true,
+        "described_as_chosen": false
+      },
+      "classification": "unresolved",
+      "classification_basis": "The performer was not free to answer the refusal question in the interview. Revisit through a protected channel."
+    }
+  ],
+  "interventions": [
+    {
+      "intervention_id": "INT-001",
+      "item_id": "ITEM-001",
+      "description": "Fill the income field from the state wage database and request proof only where records disagree.",
+      "trigger_count_before": 140,
+      "trigger_count_after": 9,
+      "residue_item_ids": [],
+      "reversal_result": "not_tested",
+      "preservation": {
+        "performance": "unchanged",
+        "discretion_items_lost": 0,
+        "surge_response": "not_measured"
+      },
+      "outcome": "reduction_at_source"
+    }
+  ]
+}

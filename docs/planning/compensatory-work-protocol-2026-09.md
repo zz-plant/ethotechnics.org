@@ -1,7 +1,8 @@
 # Compensatory work protocol
 
 Status: proposed, September 29, 2026. This is a plan for instruments and a study design. It is not
-a finding, and it does not change any public page. It follows the framing in
+a finding, and it does not change any public page. The ledger schema and both tests are drafted
+as code (see [Implementation](#implementation)); no study has been run. It follows the framing in
 [`research-positioning-2026-09.md`](research-positioning-2026-09.md): hypotheses and tests, not a
 claim of discovery.
 
@@ -24,12 +25,12 @@ Four linked questions organize the work:
 
 ## What exists and what is missing
 
-| Question     | Existing coverage                                                                                                                                                | Gap                                                                                       |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Question     | Existing coverage                                                                                                                                                          | Gap                                                                                          |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | Dependence   | [Corrective capacity self-assessment](/diagnostics/corrective-debt-calculator); glossary terms `compensated-performance`, `exception-absorption`, `workaround-presumption` | The self-assessment scores five self-reported answers. It records no individual workarounds. |
-| Distribution | [Burden Modeler](/diagnostics/burden-modeler) scores load by driver, and the burden-transfer essays make the argument                                            | No instrument records who performs, benefits, and bears the cost of one item of work.     |
-| Authority    | Standards on contestability and reversal; the challenge-intake answer in the self-assessment                                                                     | No instrument records whether a deficiency, once named, reached someone who could fix it. |
-| Redesign     | The workaround presumption says a recurring workaround presumes upstream failure                                                                                 | No test separates removing a demand from making it easier to absorb.                      |
+| Distribution | [Burden Modeler](/diagnostics/burden-modeler) scores load by driver, and the burden-transfer essays make the argument                                                      | No instrument records who performs, benefits, and bears the cost of one item of work.        |
+| Authority    | Standards on contestability and reversal; the challenge-intake answer in the self-assessment                                                                               | No instrument records whether a deficiency, once named, reached someone who could fix it.    |
+| Redesign     | The workaround presumption says a recurring workaround presumes upstream failure                                                                                           | No test separates removing a demand from making it easier to absorb.                         |
 
 The presumption is rebuttable, but nothing yet says how to rebut it. Three parts below fill that in.
 
@@ -85,13 +86,13 @@ Ask four questions of each ledger item.
 4. **Dependence.** Does the formal account of the process assume the work gets done? If a metric,
    a target, or a downstream step is built on it, the institution depends on it.
 
-| Classification       | Pattern                                                                    | Treatment                                                          |
-| -------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Compensation         | Refusal is costly to others, replacement is preferred, ownership is low, dependence is present. | Target for removal. The presumption stands.                        |
-| Discretion           | Performer chooses, would keep it if a formal route existed, and is credited. | Preserve. Record it so it survives redesign.                       |
-| Craft                | Performer chooses and values it. The institution does not depend on it.    | Preserve. Do not count it as debt.                                 |
-| Coerced craft        | Reads as craft in interviews, but refusal is penalized or the work is unpaid. | Treat as compensation. Check whether the performer has a real option to decline. |
-| Unresolved           | Answers conflict or the performer is not free to say.                      | Do not classify. Record and revisit with a protected channel.      |
+| Classification | Pattern                                                                                         | Treatment                                                                        |
+| -------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Compensation   | Refusal is costly to others, replacement is preferred, ownership is low, dependence is present. | Target for removal. The presumption stands.                                      |
+| Discretion     | Performer chooses, would keep it if a formal route existed, and is credited.                    | Preserve. Record it so it survives redesign.                                     |
+| Craft          | Performer chooses and values it. The institution does not depend on it.                         | Preserve. Do not count it as debt.                                               |
+| Coerced craft  | Reads as craft in interviews, but refusal is penalized or the work is unpaid.                   | Treat as compensation. Check whether the performer has a real option to decline. |
+| Unresolved     | Answers conflict or the performer is not free to say.                                           | Do not classify. Record and revisit with a protected channel.                    |
 
 Coerced craft is the main risk. People often describe necessary work as a calling. Ask for the
 refusal answer first and separately, and ask it of people who left the role as well as those who
@@ -106,12 +107,12 @@ the unresolved into either side.
 Take a ledger item and an intervention. Ask what happened to the item after the intervention, at
 the trigger and at the performer. Four outcomes are possible.
 
-| Outcome                   | Test                                                                                       |
-| ------------------------- | ------------------------------------------------------------------------------------------ |
-| Removal                   | The trigger no longer occurs. Frequency of the item falls to near zero and stays there.    |
-| Reduction at source       | The trigger occurs less often because the rule, the data, or the process changed upstream. |
-| Transfer                  | The item stops for this performer and appears for another role, another team, or the client. |
-| Accommodation             | The trigger and its frequency are unchanged. The work is faster, better supported, or acknowledged. |
+| Outcome             | Test                                                                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------- |
+| Removal             | The trigger no longer occurs. Frequency of the item falls to near zero and stays there.             |
+| Reduction at source | The trigger occurs less often because the rule, the data, or the process changed upstream.          |
+| Transfer            | The item stops for this performer and appears for another role, another team, or the client.        |
+| Accommodation       | The trigger and its frequency are unchanged. The work is faster, better supported, or acknowledged. |
 
 Three checks tell accommodation from removal.
 
@@ -209,11 +210,24 @@ lines of work and record where the ledger reproduces them:
 Verify each reference and its findings before citing it on a public page. The list above is a
 reading plan, not a bibliography.
 
+## Implementation
+
+- Schema: `public/standards/compensatory-work-ledger.schema.json`, with a valid example in
+  `public/standards/examples/`. The standards schema tests validate the example.
+- Tests as code: `src/utils/compensatory-work.ts` derives the classification from the four
+  answers and the intervention outcome from trigger counts. `checkLedger` reports any recorded
+  value the answers do not support, unknown item references, and a zero baseline count.
+- The classifier is deliberately conservative. Missing refusal or replacement answers, and partial
+  ownership, return `unresolved` rather than a side. The near-zero threshold for removal is 5% of
+  the baseline trigger count. Both rules are drafts to revise after the reading in the next
+  section and after a pilot.
+- The example ledger is constructed, not drawn from a study.
+
 ## Proposed next steps
 
 1. Review this plan and the ledger fields with at least one person who does compensatory work.
-2. Draft the ledger as a downloadable CSV schema under `public/standards/`, with a validator in
-   the pattern of the existing JSON schemas.
+2. ~~Draft the ledger schema and a validator.~~ Done as JSON Schema plus `checkLedger`. A CSV
+   export for people who keep ledgers in a spreadsheet is still open.
 3. Write the literature comparison and revise the fields and tests where prior work already
    covers them.
 4. Decide whether the redesign test belongs in a new diagnostic or in the casebook's scoring.

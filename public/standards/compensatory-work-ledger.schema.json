@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethotechnics.org/standards/compensatory-work-ledger.schema.json",
+  "title": "Compensatory Work Ledger",
+  "description": "A ledger of recurring work that keeps an institution's routine performance going but is missing from its formal account of operations. Each item records the trigger, who performs the work, who benefits, who bears the cost if it stops, and whether a route to correction exists. A four-question test classifies each item as compensation, discretion, craft, coerced craft, or unresolved. An intervention review then judges a change by trigger count as removal, reduction at source, transfer, or accommodation. Proposed; see docs/planning/compensatory-work-protocol-2026-09.md.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ledger_id",
+    "unit_ref",
+    "period_start",
+    "period_end",
+    "source",
+    "items"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema version",
+      "description": "Version of this schema the ledger conforms to.",
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$"
+    },
+    "ledger_id": {
+      "title": "Ledger identifier",
+      "description": "Stable identifier for the ledger.",
+      "type": "string"
+    },
+    "unit_ref": {
+      "title": "Unit reference",
+      "description": "Identifier of the institution unit the ledger covers. Do not use names that identify employers or people unless participants agree.",
+      "type": "string"
+    },
+    "period_start": {
+      "title": "Period start",
+      "description": "First day the ledger covers.",
+      "type": "string",
+      "format": "date"
+    },
+    "period_end": {
+      "title": "Period end",
+      "description": "Last day the ledger covers.",
+      "type": "string",
+      "format": "date"
+    },
+    "source": {
+      "title": "Source",
+      "description": "Who built the ledger. A manager's reconstruction is a different source from one kept by the performers and is labeled as one.",
+      "type": "string",
+      "enum": [
+        "kept_by_performers",
+        "built_with_performers",
+        "manager_reconstruction",
+        "observer"
+      ]
+    },
+    "items": {
+      "title": "Items",
+      "description": "One entry per recurring item of work.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Ledger item",
+        "description": "One recurring item of work. The unit is the item, not the person or the team.",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item_id",
+          "trigger",
+          "work",
+          "frequency_per_month",
+          "median_minutes",
+          "time_basis",
+          "performer_role",
+          "performer_can_change_trigger",
+          "beneficiaries",
+          "cost_bearers",
+          "formal_record",
+          "correction_route",
+          "tests",
+          "classification"
+        ],
+        "properties": {
+          "item_id": {
+            "title": "Item identifier",
+            "description": "Stable identifier for the item, referenced by interventions and residue searches.",
+            "type": "string"
+          },
+          "trigger": {
+            "title": "Trigger",
+            "description": "The condition in the formal process that produces the demand. Interventions are judged by how often this occurs, not by how often the work is done.",
+            "type": "string"
+          },
+          "work": {
+            "title": "Work",
+            "description": "What the person does, in one sentence, in their words.",
+            "type": "string"
+          },
+          "frequency_per_month": {
+            "title": "Frequency per month",
+            "description": "Occurrences per month, counted over at least one full cycle of the institution's calendar.",
+            "type": "number",
+            "minimum": 0
+          },
+          "median_minutes": {
+            "title": "Median minutes",
+            "description": "Median minutes per occurrence.",
+            "type": "number",
+            "minimum": 0
+          },
+          "time_basis": {
+            "title": "Time basis",
+            "description": "Whether the work happens on paid, unpaid, or personal time, or a mix.",
+            "type": "string",
+            "enum": ["paid", "unpaid", "personal", "mixed"]
+          },
+          "performer_role": {
+            "title": "Performer role",
+            "description": "Role of the person who does the work.",
+            "type": "string"
+          },
+          "performer_can_change_trigger": {
+            "title": "Performer can change trigger",
+            "description": "Whether the performer's role holds authority to change the trigger.",
+            "type": "boolean"
+          },
+          "beneficiaries": {
+            "title": "Beneficiaries",
+            "description": "Who receives the result of the work.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "title": "Beneficiary",
+              "description": "One recipient of the result.",
+              "type": "string",
+              "enum": [
+                "institution_metric",
+                "client",
+                "colleague",
+                "performer",
+                "third_party"
+              ]
+            }
+          },
+          "cost_bearers": {
+            "title": "Cost bearers",
+            "description": "Who pays if the work is not done.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "title": "Cost bearer",
+              "description": "One party who pays if the work is not done.",
+              "type": "string",
+              "enum": [
+                "performer",
+                "client",
+                "colleague",
+                "downstream_team",
+                "public"
+              ]
+            }
+          },
+          "formal_record": {
+            "title": "Formal record",
+            "description": "Where the work appears in the institution's own account. An empty list means it appears nowhere.",
+            "type": "array",
+            "items": {
+              "title": "Formal record entry",
+              "description": "One place the work is recorded.",
+              "type": "string",
+              "enum": ["job_description", "workflow", "time_system", "metric"]
+            }
+          },
+          "correction_route": {
+            "title": "Correction route",
+            "description": "The named route by which this item could be reported, and what has happened to it.",
+            "type": "object",
+            "required": ["exists", "used", "outcome"],
+            "additionalProperties": false,
+            "properties": {
+              "exists": {
+                "title": "Route exists",
+                "description": "Whether a named route for reporting this item exists.",
+                "type": "boolean"
+              },
+              "used": {
+                "title": "Route used",
+                "description": "Whether anyone has used the route for this item.",
+                "type": "boolean"
+              },
+              "raised_by_standing": {
+                "title": "Standing of the person who raised it",
+                "description": "Relative standing in the institution of the person who raised the item. Used to compare correction rates.",
+                "type": "string",
+                "enum": ["higher", "lower", "mixed", "not_raised"]
+              },
+              "outcome": {
+                "title": "Outcome",
+                "description": "What happened after the item was raised.",
+                "type": "string",
+                "enum": [
+                  "not_raised",
+                  "pending",
+                  "corrected",
+                  "declined",
+                  "unknown"
+                ]
+              }
+            }
+          },
+          "tests": {
+            "title": "Classification tests",
+            "description": "Answers to the four questions in the classification test.",
+            "type": "object",
+            "required": [
+              "refusal",
+              "replacement",
+              "ownership",
+              "institution_depends",
+              "described_as_chosen"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "refusal": {
+                "title": "Refusal",
+                "description": "What happens if the performer stops doing this: the cost falls on the performer as a penalty, falls on others, or falls on no one.",
+                "type": "string",
+                "enum": [
+                  "falls_on_performer",
+                  "falls_on_others",
+                  "no_consequence",
+                  "unknown"
+                ]
+              },
+              "replacement": {
+                "title": "Replacement",
+                "description": "Whether the performer would use a formal route that did the same job at no extra cost to them, or keep doing the work.",
+                "type": "string",
+                "enum": [
+                  "would_use_formal_route",
+                  "would_keep_doing",
+                  "unknown"
+                ]
+              },
+              "ownership": {
+                "title": "Ownership",
+                "description": "Whether the performer decides when and how to do the work, and whether the result is credited to them.",
+                "type": "string",
+                "enum": [
+                  "controls_and_credited",
+                  "controls_only",
+                  "credited_only",
+                  "neither"
+                ]
+              },
+              "institution_depends": {
+                "title": "Institution depends",
+                "description": "Whether a metric, target, or downstream step is built on the work getting done.",
+                "type": "boolean"
+              },
+              "described_as_chosen": {
+                "title": "Described as chosen",
+                "description": "Whether the performer describes the work as their choice. Ask the refusal question first and separately.",
+                "type": "boolean"
+              }
+            }
+          },
+          "classification": {
+            "title": "Classification",
+            "description": "Result of the classification test. Recorded with the derivation in classification_basis. The performer's account plus documented conditions, not an objective fact.",
+            "type": "string",
+            "enum": [
+              "compensation",
+              "discretion",
+              "craft",
+              "coerced_craft",
+              "unresolved"
+            ]
+          },
+          "classification_basis": {
+            "title": "Classification basis",
+            "description": "One or two sentences saying why, including any disagreement between the performer and others.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "interventions": {
+      "title": "Interventions",
+      "description": "Reviews of changes made to the process, each judged against one item.",
+      "type": "array",
+      "items": {
+        "title": "Intervention review",
+        "description": "One intervention judged against one ledger item.",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "intervention_id",
+          "item_id",
+          "description",
+          "trigger_count_before",
+          "trigger_count_after",
+          "residue_item_ids",
+          "reversal_result",
+          "preservation",
+          "outcome"
+        ],
+        "properties": {
+          "intervention_id": {
+            "title": "Intervention identifier",
+            "description": "Stable identifier for the intervention.",
+            "type": "string"
+          },
+          "item_id": {
+            "title": "Item identifier",
+            "description": "The ledger item the intervention targets.",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "description": "What changed, in one sentence.",
+            "type": "string"
+          },
+          "trigger_count_before": {
+            "title": "Trigger count before",
+            "description": "Occurrences of the trigger per month at baseline, across the institution unit. Must be greater than zero.",
+            "type": "number",
+            "minimum": 0
+          },
+          "trigger_count_after": {
+            "title": "Trigger count after",
+            "description": "Occurrences of the trigger per month at follow-up, over the same unit and a comparable period.",
+            "type": "number",
+            "minimum": 0
+          },
+          "residue_item_ids": {
+            "title": "Residue item identifiers",
+            "description": "Ledger items in this or adjacent ledgers that share the trigger and appeared or grew after the change. Empty if the residue search found none.",
+            "type": "array",
+            "items": {
+              "title": "Residue item identifier",
+              "description": "One item found by the residue search.",
+              "type": "string"
+            }
+          },
+          "reversal_result": {
+            "title": "Reversal result",
+            "description": "Whether the work returned at its old frequency when the intervention was withdrawn. Withdraw only where that is safe.",
+            "type": "string",
+            "enum": ["returned", "stayed_away", "not_tested"]
+          },
+          "preservation": {
+            "title": "Preservation measures",
+            "description": "The three things a redesign must not trade away.",
+            "type": "object",
+            "required": [
+              "performance",
+              "discretion_items_lost",
+              "surge_response"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "performance": {
+                "title": "Performance",
+                "description": "Change on the outcome measures used before the change, plus any outcome clients care about that was not measured before.",
+                "type": "string",
+                "enum": ["improved", "unchanged", "worsened", "not_measured"]
+              },
+              "discretion_items_lost": {
+                "title": "Discretion items lost",
+                "description": "Count of items classified as discretion or craft at baseline that no longer survive, or that someone reports losing a choice over.",
+                "type": "integer",
+                "minimum": 0
+              },
+              "surge_response": {
+                "title": "Surge response",
+                "description": "Response to a demand the process did not anticipate, from a natural occurrence or an agreed tabletop scenario.",
+                "type": "string",
+                "enum": ["improved", "unchanged", "worsened", "not_measured"]
+              }
+            }
+          },
+          "outcome": {
+            "title": "Outcome",
+            "description": "Result of the removal-or-accommodation test, recorded for comparison with the derived value.",
+            "type": "string",
+            "enum": [
+              "removal",
+              "reduction_at_source",
+              "transfer",
+              "accommodation"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
