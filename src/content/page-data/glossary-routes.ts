@@ -173,12 +173,11 @@ export const buildGlossaryStructuredDataPayload = (input: {
   const glossaryKeywords = Array.from(
     new Set([
       "Ethotechnics glossary",
-      "ethical technology",
       "AI governance",
-      "human-centered design",
+      "automated decision systems",
       "algorithmic accountability",
-      "consent frameworks",
-      "safety and stewardship",
+      "contestability",
+      "right to appeal",
       ...input.categories.map((category) =>
         normalizeGlossaryHeading(category.heading),
       ),

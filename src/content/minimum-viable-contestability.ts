@@ -31,7 +31,7 @@ export const minimumViableContestabilityContent: MinimumViableContestabilityCont
   {
     pageTitle: "Minimum viable contestability standard",
     pageDescription:
-      "A short, non-jargony baseline for standing, reasons, records, timelines, remedies, and non-retaliation.",
+      "A one-page baseline for challenging an automated decision: who has standing, the reasons owed, records, timelines, remedies, and protection from retaliation.",
     permalink: "/standards/minimum-viable-contestability",
     anchorLinks: [
       { href: "#summary", label: "One-screen summary" },

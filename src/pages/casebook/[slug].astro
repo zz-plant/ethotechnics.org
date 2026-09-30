@@ -36,7 +36,7 @@ const sourceKind = {
 
 <BaseLayout
   title={`${entry.title} — Casebook — Ethotechnics`}
-  description={entry.summary}
+  description={entry.metaDescription ?? entry.summary}
   publishedTime={entry.published}
   modifiedTime={entry.updated ?? entry.published}
   structuredDataType="tech-article"
@@ -153,7 +153,7 @@ const sourceKind = {
     id="learning"
     eyebrow="After the failure"
     title="Did the institution change?"
-    description="Whether the institution changed the rule, category, or workflow that produced the errors, or only settled individual cases."
+    description="Whether the institution changed the rule, category, or workflow that produced the errors, or corrected the errors and left that process as it was."
   >
     <p class="case-learning__verdict">
       <strong>{learningVerdictLabels[entry.learningOutcome.verdict]}</strong>

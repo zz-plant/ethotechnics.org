@@ -137,6 +137,8 @@ export type Case = PublishedContent & {
   /** Who made the halt happen. Almost never the operator. */
   haltedBy: string;
   summary: string;
+  /** Page meta description: the institution, the date, the number, in ~160 characters. */
+  metaDescription?: string;
   /** What happened, from the primary record, in a few paragraphs. */
   narrative: string[];
   /**
@@ -165,13 +167,13 @@ export type LearningVerdict = "learned" | "partial" | "absorbed";
 
 /**
  * How the learning verdict reads on the page. The ids stay as they are for the
- * data and the API; a reader sees whether the institution changed afterward or
- * only settled individual cases.
+ * data and the API; a reader sees whether the institution changed the process
+ * that produced the errors, or corrected the errors and left the process as it was.
  */
 export const learningVerdictLabels: Record<LearningVerdict, string> = {
   learned: "Changed the rules",
   partial: "Partly changed",
-  absorbed: "Settled cases only",
+  absorbed: "Process unchanged",
 };
 
 export type CasebookContent = PageWithPermalink & {
@@ -188,7 +190,7 @@ export const casebookContent: CasebookContent = {
   eyebrow: "Casebook",
   title: "Five public failures, scored",
   description:
-    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards: capability, authority, evidence, dependency, standing, and correction. Each score names the clause that would have caught the failure. A last column records whether the institution changed afterward or only settled individual cases. The scores are not a verdict on anyone. They show where the safeguards broke.",
+    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards: capability, authority, evidence, dependency, standing, and correction. Each score names the clause that would have caught the failure. A last column records whether the institution changed the process that produced the errors, or corrected the errors and left the process as it was. The scores are not a verdict on anyone. They show where the safeguards broke.",
 };
 
 export const cases: Case[] = [
@@ -207,6 +209,8 @@ export const cases: Case[] = [
     published: "2026-09-17T00:00:00Z",
     summary:
       "A scheme that raised debts at twenty times the previous rate, under an interpretation of the law the department had been advised in 2014 was wrong, and that treated a tribunal's repeated findings of unlawfulness as individual outcomes rather than as evidence against the scheme.",
+    metaDescription:
+      "Australia's Robodebt scheme raised about 470,000 unlawful welfare debts by averaging income, from 2016 to 2019. Scored on six safeguards, with the clauses that apply.",
     narrative: [
       "From July 2016 the Online Compliance Intervention replaced a manual process in which a compliance officer reconciled a welfare recipient's reported fortnightly income against employer records. The automated process took the annual income the tax office held, divided it evenly across the year's fortnights, compared each fortnight to what the recipient had declared, and raised a debt for the difference. The recipient was then asked to produce payslips, often for years past, to disprove it. Income averaging cannot establish what a person earned in any given fortnight, and the Department of Social Services had received legal advice to that effect in 2014.",
       "The Commonwealth Ombudsman reported in April 2017 that the scheme's notices did not explain how a debt had been calculated and that the reversal of the onus of proof was causing serious distress. The Administrative Appeals Tribunal found individual debts unlawful in dozens of matters from early 2017. The department did not appeal those decisions, which would have created a binding precedent, and did not treat them as evidence about the scheme. In November 2019, in Amato v Commonwealth, the Commonwealth consented to a Federal Court declaration that a debt raised by averaging was not lawfully made. The scheme was halted the same month.",
@@ -368,6 +372,8 @@ export const cases: Case[] = [
     published: "2026-09-17T00:00:00Z",
     summary:
       "A fraud-detection system whose risk score was treated as a finding, whose reasons were withheld from the people it flagged and from the courts that reviewed them, and whose harshest rule was upheld by the highest administrative court for years before that court changed its mind.",
+    metaDescription:
+      "The Dutch tax authority's fraud risk scoring wrongly accused more than 30,000 parents of childcare-benefit fraud from about 2012 to 2019. Scored on six safeguards.",
     narrative: [
       "After a 2013 fraud case involving Bulgarian nationals, the Dutch tax administration's benefits arm was set aggressive enforcement targets. A risk-classification model scored childcare benefit applications, and applications with high scores were pulled for manual review under a presumption of fraud. Reviewers applied a rule under which any irregularity, including a missing signature or a late payment to the childcare provider, could lead to the whole benefit for the year being reclaimed. Parents labeled with intent or gross negligence were denied repayment arrangements.",
       "Parents who objected were not told why they had been flagged. Files provided to courts were incomplete; internal memos later showed that the administration knew its position in some cases was untenable and litigated anyway. The Council of State, the highest administrative court, upheld the all-or-nothing rule in its case law until 23 October 2019, when it reversed course and held that the administration had discretion it had never exercised.",
@@ -524,6 +530,8 @@ export const cases: Case[] = [
     published: "2026-09-17T00:00:00Z",
     summary:
       "A system whose output was admitted as evidence of a crime under a legal presumption that computers work, whose known defects were logged by the supplier and withheld from defendants, and whose operator could not afford, contractually or reputationally, to find that it was wrong.",
+    metaDescription:
+      "The UK Post Office used Horizon accounting data to prosecute more than 900 subpostmasters from 1999 to 2015, despite known defects. Scored on six safeguards.",
     narrative: [
       "Horizon, built by ICL and then Fujitsu, was rolled out to Post Office branches from 1999. Subpostmasters were contractually liable for shortfalls the system reported. When it reported them, the Post Office investigated, and where it chose to, prosecuted, using its own power to bring private prosecutions. Between 1999 and 2015 it brought more than 700 prosecutions itself; other prosecutors brought more on the same evidence. Defendants who said the system was wrong were told it was robust and that no one else had complained.",
       "Fujitsu kept a known error log recording bugs that produced phantom shortfalls, and its engineers had remote access that could alter branch accounts without the subpostmaster's knowledge. Neither fact was disclosed to defendants. In Bates v Post Office, the Horizon Issues judgment of December 2019 found that the system had contained bugs, errors and defects capable of causing the discrepancies, and that the Post Office's position had been, in the judge's phrase, the equivalent of asserting the earth is flat.",
@@ -679,6 +687,8 @@ export const cases: Case[] = [
     published: "2026-09-17T00:00:00Z",
     summary:
       "The one case in the casebook where correction was fast, which is what makes it useful: a model with no evidenced accuracy at the level of the individual it was applied to, no appeal on the ground that it was wrong about that individual, and a halt that worked only because it came before anyone had come to depend on the grades.",
+    metaDescription:
+      "In August 2020, Ofqual's model lowered about 39% of England's A-level grades below teacher assessments. It was withdrawn in four days. Scored on six safeguards.",
     narrative: [
       "When the 2020 exams were cancelled, the Secretary of State directed Ofqual to award grades and to ensure the distribution was broadly similar to previous years. Schools submitted a centre-assessed grade and a rank order for each student. Ofqual's model then fitted each school's grade distribution from the previous three years, adjusted for the cohort's prior attainment, to the rank order. Where a subject cohort at a school was five or fewer, the teacher's grade was used as submitted; between five and fifteen, a blend.",
       "Results were issued on 13 August. The regulator's interim report published the same day acknowledged that the model could not be validated against outcomes for individual students, since none existed, and that its aggregate agreement with past distributions was the design target rather than a measurement of accuracy. Students could appeal only through their school, on grounds of administrative error or, under a policy announced two days before results and withdrawn two days after, a higher mock grade. There was no ground of appeal that the model had ranked the student wrongly.",
@@ -815,6 +825,8 @@ export const cases: Case[] = [
     published: "2026-09-17T00:00:00Z",
     summary:
       "The control case. The model was examined and cleared; the failure was that the person on the receiving end had no reasons and no route, and the people answering the phone had neither either. Four of the six safeguards held. The two that did not, evidence and standing, are the two the contestability standard (STD-02) exists for.",
+    metaDescription:
+      "New York's regulator found in 2021 that Apple Card's credit limits broke no fair lending law, but applicants got no reasons and no appeal. Scored on six safeguards.",
     narrative: [
       "In November 2019, several applicants reported publicly that they had been offered credit limits many times higher than their spouses', despite shared finances and, in some cases, the spouse's better credit history. Customer service representatives could not explain the outcomes and, by the applicants' accounts, said the algorithm had decided. The New York Department of Financial Services opened an investigation.",
       "The Department's report, published in March 2021, found that the underwriting model did not use sex or marital status and that the outcomes could be explained by differences in the applicants' individual credit files, including that a spouse who was an authorised user on the other's accounts had a thinner history. It found no violation of fair lending law. It also found that neither applicants nor the bank's staff had been able to obtain that explanation at the time, that there was no process to request reconsideration of a limit, and that the bank's reliance on individual credit data disadvantaged spouses whose finances were shared but whose credit histories were not.",

@@ -22,7 +22,7 @@ if (!tool) {
 
 const { publication } = diagnosticsContent;
 const pageTitle = `${tool.title} — Diagnostics`;
-const pageDescription = tool.description;
+const pageDescription = tool.metaDescription ?? tool.description;
 const permalink = `/diagnostics/${tool.slug}`;
 const anchorLinks = [
   { href: "#overview", label: "Overview" },
@@ -41,7 +41,7 @@ const anchorLinks = [
   <PageIntro
     eyebrow="Diagnostics"
     title={tool.title}
-    description={pageDescription}
+    description={tool.description}
     anchorLinks={anchorLinks}
     illustration="diagnostics"
   />

@@ -129,7 +129,7 @@ export const failureStates: FailureState[] = [
     descriptionLine1:
       "Someone has challenged a decision, and the system cannot explain, reverse, or resolve it within a set time.",
     descriptionLine2:
-      "While the appeal waits, the person who made it carries the cost of the delay.",
+      "While the appeal waits, the person who appealed carries the cost of the delay.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",

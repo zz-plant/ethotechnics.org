@@ -18,9 +18,11 @@ const initializeSectionNav = () => {
   const bar = document.querySelector<HTMLElement>("[data-section-nav]");
   if (!bar) return;
 
-  const introAnchors = document.querySelector<HTMLElement>(
-    ".page-intro__anchors",
-  );
+  // Pages whose outline is short render no list in the intro; the bar then
+  // waits for the intro itself to leave.
+  const introAnchors =
+    document.querySelector<HTMLElement>(".page-intro__anchors") ??
+    document.querySelector<HTMLElement>(".page-intro");
   const links = Array.from(
     bar.querySelectorAll<HTMLAnchorElement>("[data-section-link]"),
   );

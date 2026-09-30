@@ -64,7 +64,7 @@ export type GovernanceContent = PageWithPermalink &
 export const governanceContent: GovernanceContent = {
   pageTitle: "Governance process — Ethotechnics",
   pageDescription:
-    "Public governance receipts for RFCs, decision records, releases, the framework's own failure archive, and dated accountability updates.",
+    "How Ethotechnics changes its own standards: the RFC process, open RFCs, a decision log with named owners, an archive of the framework's own failures, and dated updates.",
   permalink: "/institute/governance",
   published: "2026-02-01T00:00:00Z",
   updated: "2026-09-18T00:00:00Z",
