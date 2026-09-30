@@ -14,8 +14,8 @@ const { quote, attribution, variant = "default" } = Astro.props;
 </aside>
 <style>
   .pull-quote {
-    margin: 2rem 0;
-    padding: 1.5rem 0;
+    margin: var(--space-6) 0;
+    padding: var(--space-5) 0;
     border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
     break-inside: avoid;
@@ -24,14 +24,14 @@ const { quote, attribution, variant = "default" } = Astro.props;
     .pull-quote {
       float: right;
       width: 300px;
-      margin: 0.5rem -20px 1.5rem 2rem;
+      margin: var(--space-2) calc(-1 * var(--space-5)) var(--space-5) var(--space-6);
       border: none;
       border-left: 3px solid
         var(
           --surface-accent-edge,
           color-mix(in srgb, var(--accent) 50%, transparent)
         );
-      padding: 0 0 0 1.5rem;
+      padding: 0 0 0 var(--space-5);
     }
   }
   .pull-quote--accent {
@@ -50,7 +50,7 @@ const { quote, attribution, variant = "default" } = Astro.props;
   }
   .pull-quote cite {
     display: block;
-    margin-top: 0.75rem;
+    margin-top: var(--space-3);
     font-style: normal;
     font-size: var(--text-xs);
     color: var(--muted);

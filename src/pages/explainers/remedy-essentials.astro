@@ -227,7 +227,7 @@ const checklist = [
 
   <NextStep variable="correction" />
 
-  <p class="muted" style="margin-top:2rem">
+  <p class="muted" style="margin-top:var(--space-6)">
     See also: <a href="/taxonomy">Taxonomy</a> &middot; <a href="/standards"
       >Standards</a
     >
@@ -237,9 +237,9 @@ const checklist = [
 <style>
   .remedy-map {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-    margin-top: 2rem;
+    margin-top: var(--space-6);
   }
 
   .remedy-map__lane {
@@ -250,7 +250,7 @@ const checklist = [
     );
     border-radius: var(--radius);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    padding: 1.25rem 1.25rem 1.5rem;
+    padding: var(--space-4) var(--space-4) var(--space-5);
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
@@ -272,16 +272,16 @@ const checklist = [
   .remedy-map__lane ul {
     list-style: none;
     padding: 0;
-    margin: 0.75rem 0 0;
+    margin: var(--space-3) 0 0;
     display: grid;
-    gap: 0.6rem;
+    gap: var(--space-2);
   }
 
   .remedy-map__lane li {
     background: color-mix(in srgb, var(--surface) 92%, white 8%);
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     border-radius: var(--radius-pill);
-    padding: 0.45rem 0.9rem;
+    padding: var(--space-2) var(--space-4);
     font-weight: 600;
   }
 

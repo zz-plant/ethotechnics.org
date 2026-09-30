@@ -83,22 +83,60 @@
   --z-overlay-top: 11;
   --z-skip-link: 20;
 
-  /* Spacing Scale */
-  --space-1: 0.4rem;
-  --space-2: 0.75rem;
-  --space-3: 1.15rem;
-  --space-4: 1.6rem;
-  --space-5: 2rem;
-  --space-6: 2.5rem;
-  --space-7: 3.2rem;
-  --space-8: 4.5rem;
+  /* Spacing scale. The one set of distances the site uses. Every margin,
+     padding and gap outside this file names one of these steps
+     (src/styles/spacing.test.ts fails the build otherwise). Pages used to
+     declare ~440 distinct raw values against an irregular token set, so the
+     gap between sections, the gap under a heading and the padding inside a
+     card all changed from component to component.
 
-  /* Layout Containers */
+     Steps sit on a 4px grid:
+       hair  2px -- chip and badge padding, optical nudges; never layout
+       1     4px -- label to value, icon to text
+       2     8px -- items in a tight list, pill padding
+       3    12px -- eyebrow, heading and lede; control padding
+       4    16px -- items in a list of cards; compact row padding
+       5    24px -- grid gaps; card and panel padding
+       6    32px -- a section header to its body
+       7    48px -- large blocks inside a section
+       8    64px
+       9    96px -- between top-level sections
+
+     One fluid rule, and no per-breakpoint overrides: steps 1-5 are fixed,
+     and each large step (6-9) eases down to the step below it between a
+     1200px and a 480px viewport. On a phone a section gap is 64px, not 96px,
+     while a card's 24px padding stays 24px. */
+  --space-hair: 0.125rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: clamp(1.5rem, 1.1667rem + 1.1111vw, 2rem);
+  --space-7: clamp(2rem, 1.3333rem + 2.2222vw, 3rem);
+  --space-8: clamp(3rem, 2.3333rem + 2.2222vw, 4rem);
+  --space-9: clamp(4rem, 2.6667rem + 4.4444vw, 6rem);
+
+  /* Rhythm. Rules set spacing by role through these, not by step:
+       section         -- between top-level sections. The one gap; a
+                          section with a rule puts half above it and half
+                          below (see sections.css).
+       block           -- a section header to its body, and between the
+                          block-level groups inside a section.
+       heading         -- between an eyebrow, a heading and a lede.
+       container       -- inside a card, a panel or a tool sheet.
+       container-compact -- inside a compact list row or a small tile. */
+  --space-section: var(--space-9);
+  --space-block: var(--space-6);
+  --space-heading: var(--space-3);
+  --space-container: var(--space-5);
+  --space-container-compact: var(--space-4);
+
+  /* Layout Containers. The gutter is the page's one side margin: 16px at
+     the narrowest phone, never less. */
   --content-max: 1180px;
   --content-max-wide: 1420px;
-  --page-gutter: clamp(1rem, 2.4vw, 2.75rem);
-  --section-padding: clamp(1.6rem, 4vw, 3.5rem);
-  --section-gap: clamp(1.25rem, 2.4vw, 2.2rem);
+  --page-gutter: clamp(1rem, 5vw, 4rem);
 
   /* Semantic Color Aliases */
   --color-surface: var(--surface);
@@ -349,33 +387,17 @@
   :root {
     --content-max: 1400px;
   }
-
-  .container {
-    width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
-  }
 }
 
 @media (min-width: 2000px) {
   :root {
     --content-max: 1560px;
     --content-max-wide: 1880px;
-    --page-gutter: clamp(1.5rem, 3vw, 4rem);
-    --section-padding: clamp(2.2rem, 4vw, 4.5rem);
-    --section-gap: clamp(1.6rem, 2.8vw, 2.8rem);
-    --space-4: 1.85rem;
-    --space-6: 2.8rem;
   }
 }
 
 @media (min-width: 1280px) and (min-height: 720px) and (hover: none) and (pointer: coarse) {
   :root {
-    --page-gutter: clamp(1.6rem, 3.2vw, 4.2rem);
-    --section-padding: clamp(2.4rem, 4.8vw, 4.8rem);
-    --section-gap: clamp(1.6rem, 3vw, 3rem);
-    --space-2: 0.9rem;
-    --space-3: 1.3rem;
-    --space-4: 1.9rem;
-    --space-6: 3rem;
     --font-size-sm: 1rem;
   }
 
@@ -389,11 +411,6 @@
   :root {
     --content-max: 1760px;
     --content-max-wide: 2120px;
-    --page-gutter: clamp(2rem, 3.6vw, 4.8rem);
-    --section-padding: clamp(2.6rem, 4.5vw, 5.2rem);
-    --section-gap: clamp(1.9rem, 3vw, 3.2rem);
-    --space-4: 2rem;
-    --space-6: 3.2rem;
   }
 
   body {
@@ -402,24 +419,13 @@
 }
 
 /* 400px was below every phone this site is read on. A Pixel and most Galaxy
-   handsets report 412px, an iPhone Pro Max 430px, so the whole narrow-screen
-   block below — a smaller gutter, tighter section padding, a compressed space
-   scale — never applied to any of them and they got the tablet spacing on a
-   phone: 147px of a 412px viewport went to horizontal chrome, leaving a
-   260px column for text. 30rem clears the widest phone in portrait and stays
-   well below any tablet. The height arm is unchanged; it is for landscape. */
+   handsets report 412px, an iPhone Pro Max 430px, so a narrow-screen block
+   capped at 400px never applied to any of them. 30rem clears the widest
+   phone in portrait and stays well below any tablet. The height arm is for
+   landscape. Spacing needs no override here: the gutter and the large space
+   steps are fluid (see the spacing scale above), so a phone already gets the
+   16px gutter and the smaller section gap. */
 @media (max-width: 30rem), (max-height: 400px) {
-  :root {
-    --page-gutter: 0.75rem;
-    --section-padding: clamp(1.1rem, 5vw, 1.8rem);
-    --section-gap: clamp(0.85rem, 3vw, 1.3rem);
-    --space-1: 0.35rem;
-    --space-2: 0.6rem;
-    --space-3: 0.9rem;
-    --space-4: 1.2rem;
-    --space-6: 1.8rem;
-  }
-
   body {
     font-size: clamp(0.9rem, 0.6vw + 0.82rem, 1rem);
     line-height: 1.55;

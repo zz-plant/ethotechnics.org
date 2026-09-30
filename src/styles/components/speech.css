@@ -11,7 +11,7 @@
 
     display: grid;
     justify-items: start;
-    gap: 0.45rem;
+    gap: var(--space-2);
     width: fit-content;
     max-width: min(100%, 36rem);
     margin: 0;
@@ -29,7 +29,7 @@
   .speech__bubble {
     position: relative;
     margin: 0;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-3) var(--space-4);
     border: 1px solid var(--speech-edge);
     border-radius: var(--radius-lg);
     background: var(--speech-bg);
@@ -45,7 +45,7 @@
     content: "";
     position: absolute;
     bottom: calc(var(--speech-tail) / -2);
-    inset-inline-start: var(--space-3);
+    inset-inline-start: var(--space-4);
     width: var(--speech-tail);
     height: var(--speech-tail);
     border-right: 1px solid var(--speech-edge);
@@ -58,7 +58,7 @@
 
   .speech--institution .speech__bubble::after {
     inset-inline-start: auto;
-    inset-inline-end: var(--space-3);
+    inset-inline-end: var(--space-4);
   }
 
   .speech[data-answered="false"] .speech__bubble {
@@ -68,8 +68,8 @@
   .speech__who {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.2rem 0.55rem;
-    padding-inline: var(--space-2);
+    gap: var(--space-1) var(--space-2);
+    padding-inline: var(--space-3);
     font-family: var(--sans);
     font-size: var(--text-xs);
     color: var(--muted);
@@ -97,7 +97,7 @@
      speech in the text column and the rest of the event beneath it. */
   .record-spine__voice {
     display: grid;
-    gap: var(--space-1);
+    gap: var(--space-2);
     font-weight: 400;
   }
 
@@ -115,7 +115,7 @@
   /* The method page: six sentences an institution says, each answered. */
   .said-and-answered {
     display: grid;
-    gap: var(--space-5);
+    gap: var(--space-6);
     max-width: 44rem;
     margin: 0;
     padding: 0;
@@ -124,7 +124,7 @@
 
   .said-and-answered__item {
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
   }
 
   .said-and-answered__answer {

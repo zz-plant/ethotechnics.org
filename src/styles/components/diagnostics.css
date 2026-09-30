@@ -5,19 +5,19 @@
   }
   .diagnostics__filters {
     display: grid;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
   }
   .diagnostics__process {
     list-style: none;
     padding: 0;
-    margin: 1.6rem 0 0.5rem;
+    margin: var(--space-5) 0 var(--space-2);
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .diagnostics__process-step {
-    padding: 1.2rem 1.35rem;
+    padding: var(--space-4) var(--space-5);
     background: var(--surface);
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
     border-radius: var(--radius-lg);
@@ -25,11 +25,11 @@
   }
 
   .diagnostics__process-step .eyebrow {
-    margin-bottom: 0.35rem;
+    margin-bottom: var(--space-1);
   }
 
   .diagnostics__footnote {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
 
   @media (min-width: 780px) {
@@ -47,8 +47,8 @@
 
   .diagnostics__card-body {
     display: grid;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
   }
 
   .diagnostics__best-for {
@@ -60,11 +60,11 @@
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .diagnostics__summary .pill-list {
-    margin-top: 0.8rem;
+    margin-top: var(--space-3);
   }
 
   .diagnostics__label {
@@ -77,19 +77,19 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1rem;
-    margin-top: 1.4rem;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
   }
 
   .diagnostics__output-box {
-    padding: 0.5rem 0.75rem;
+    padding: var(--space-2) var(--space-3);
     background: var(--panel);
     border-left: 2px solid var(--accent);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
 
   .diagnostics__output-box .eyebrow {
-    margin: 0 0 0.2rem;
+    margin: 0 0 var(--space-1);
     font-size: var(--text-eyebrow);
   }
 
@@ -119,19 +119,19 @@
 
   .diagnostics__comparison {
     display: grid;
-    gap: 0.9rem;
-    margin-bottom: 1.2rem;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
   }
 
   .diagnostics__comparison-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-    gap: 0.8rem;
+    gap: var(--space-3);
   }
 
   .diagnostics__comparison-card {
     display: grid;
-    gap: 0.8rem;
+    gap: var(--space-3);
   }
 
   .diagnostics__comparison-card h3 {
@@ -141,12 +141,12 @@
   .diagnostics__comparison-meta {
     margin: 0;
     display: grid;
-    gap: 0.55rem;
+    gap: var(--space-2);
   }
 
   .diagnostics__comparison-meta div {
     display: grid;
-    gap: 0.15rem;
+    gap: var(--space-hair);
   }
 
   .diagnostics__comparison-meta dt {
@@ -163,7 +163,7 @@
      gives the same fact a shape, so the reader can see how much is left. */
   .intake-form__progress {
     display: grid;
-    gap: 0.45rem;
+    gap: var(--space-2);
   }
 
   .intake-form__progress p {
@@ -172,7 +172,7 @@
 
   .intake-form__steps {
     display: flex;
-    gap: 0.3rem;
+    gap: var(--space-1);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -203,7 +203,7 @@
     margin: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-    gap: 1rem 1.5rem;
+    gap: var(--space-4) var(--space-5);
   }
 
   .readout-factors dt {
@@ -216,12 +216,12 @@
   }
 
   .readout-factors dd {
-    margin: 0.25rem 0 0;
+    margin: var(--space-1) 0 0;
     font-size: var(--text-sm);
   }
 
   .readout-factors > div[data-status] {
-    padding-left: 0.8rem;
+    padding-left: var(--space-3);
     border-left: 3px solid var(--border);
   }
 
@@ -244,17 +244,17 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.9rem;
+    gap: var(--space-4);
   }
 
   .readout-variable {
-    padding: 0.8rem 1rem;
+    padding: var(--space-3) var(--space-4);
     border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
     border-left-width: 3px;
     border-radius: var(--radius-md);
     background: var(--surface);
     display: grid;
-    gap: 0.45rem;
+    gap: var(--space-2);
   }
 
   .readout-variable[data-rating="grounded"] {
@@ -273,7 +273,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .readout-variable__head h3 {
@@ -293,21 +293,21 @@
 
   .readout-variable__notes {
     margin: 0;
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
     font-size: var(--text-sm);
     color: var(--muted);
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
   }
 
   .readout-grants li,
   .readout-findings li {
-    padding: 0.8rem 0;
+    padding: var(--space-3) 0;
     border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
 
   .readout-findings h3 {
-    margin: 0 0 0.3rem;
+    margin: 0 0 var(--space-1);
     font-size: var(--text-h3);
   }
 
@@ -318,16 +318,16 @@
   .readout-findings__refs {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem 1rem;
-    margin-top: 0.5rem;
+    gap: var(--space-2) var(--space-4);
+    margin-top: var(--space-2);
     font-family: var(--sans);
     font-size: var(--text-sm);
   }
 
   .readout-provenance {
     max-width: var(--content-max);
-    margin: 2rem auto 0;
-    padding-inline: var(--page-gutter);
+    margin: var(--space-6) auto 0;
+    padding-inline: 0;
   }
 
   .readout-provenance code {
@@ -340,7 +340,7 @@
    click target without nesting a heading inside an anchor. */
 @layer components {
   .page-intro + .diagnostics-start {
-    margin-top: var(--space-4);
+    margin-top: var(--space-5);
   }
 
   .diagnostics-start__grid {
@@ -348,7 +348,7 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-4);
   }
 
   @media (min-width: 720px) {
@@ -361,8 +361,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-3) var(--space-4);
+    gap: var(--space-2);
+    padding: var(--space-container-compact);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
@@ -404,7 +404,7 @@
 
   .diagnostics-start__link {
     margin-top: auto;
-    padding-top: var(--space-1);
+    padding-top: var(--space-2);
     font-family: var(--sans);
     font-size: var(--text-sm);
     font-weight: 650;
@@ -432,17 +432,17 @@
   }
 
   .diagnostics-map {
-    margin: var(--space-4) 0;
+    margin: var(--space-5) 0;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    padding: var(--space-2) 0;
+    padding: var(--space-3) 0;
   }
 
   .diagnostics-map > summary {
     cursor: pointer;
     font-family: var(--sans);
     font-weight: 650;
-    padding: var(--space-1) 0;
+    padding: var(--space-2) 0;
   }
 
   .diagnostics-map > summary:focus-visible {
@@ -453,10 +453,10 @@
 
   .diagnostics-map__list {
     list-style: none;
-    margin: var(--space-2) 0 0;
+    margin: var(--space-3) 0 0;
     padding: 0;
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-4);
   }
 
   @media (min-width: 720px) {
@@ -466,20 +466,20 @@
   }
 
   .diagnostics-map__tool {
-    margin: 0 0 var(--space-1);
+    margin: 0 0 var(--space-2);
     font-weight: 650;
   }
 
   .diagnostics-map__facts {
     margin: 0;
     display: grid;
-    gap: 0.3rem;
+    gap: var(--space-1);
   }
 
   .diagnostics-map__facts div {
     display: grid;
     grid-template-columns: 5.5rem minmax(0, 1fr);
-    gap: var(--space-1);
+    gap: var(--space-2);
   }
 
   .diagnostics-map__facts dt {

@@ -279,12 +279,12 @@ const printSheet = {
         </div>
       </div>
       <div class="self-defense-print__preview" aria-label="Printable sheet">
-        <h2 class="print-only" style="margin-top: 0; margin-bottom: 0.5rem;">
+        <h2 class="print-only" style="margin-top: 0; margin-bottom: var(--space-2);">
           {printSheet.title}
         </h2>
         <p
           class="print-only"
-          style="margin-bottom: 1.5rem; color: var(--muted);"
+          style="margin-bottom: var(--space-5); color: var(--muted);"
         >
           {printSheet.intro}
         </p>
@@ -302,7 +302,7 @@ const printSheet = {
         }
         <p
           class="muted self-defense-print__note print-only"
-          style="margin-top: 2rem; font-size: var(--text-sm);"
+          style="margin-top: var(--space-6); font-size: var(--text-sm);"
         >
           Source: Ethotechnics self-defense diagnostics · <a href={permalink}
             >ethotechnics.org{permalink}</a
@@ -333,65 +333,65 @@ const printSheet = {
   .self-defense__steps,
   .self-defense__questions,
   .self-defense__next-steps {
-    padding-left: 1.2rem;
-    margin: 1rem 0 0;
+    padding-left: var(--space-4);
+    margin: var(--space-4) 0 0;
     display: grid;
-    gap: 0.6rem;
+    gap: var(--space-2);
   }
 
   .self-defense__tool {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-6);
   }
 
   .self-defense__next-steps {
-    margin-top: 0.8rem;
+    margin-top: var(--space-3);
   }
 
   .self-defense-print {
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    padding: 1.5rem;
+    padding: var(--space-5);
     background: var(--surface);
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .self-defense-print__panel {
     display: grid;
-    gap: 0.8rem;
+    gap: var(--space-3);
   }
 
   .self-defense-print__preview {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .self-defense-print__section {
     border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
     border-radius: var(--radius-md);
-    padding: 1rem;
+    padding: var(--space-4);
   }
 
   .self-defense-print__title {
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
   }
 
   .self-defense-print__note {
-    margin-top: 1.5rem;
+    margin-top: var(--space-5);
   }
 
   .self-defense-print--print {
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .self-defense-print--print h2 {
-    margin-bottom: 0.4rem;
+    margin-bottom: var(--space-2);
   }
 
   .self-defense-print--print ol {
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
   }
 
   @media (min-width: 960px) {
@@ -454,7 +454,7 @@ const printSheet = {
 
     .self-defense-print__preview {
       display: grid !important;
-      gap: 1.5rem !important;
+      gap: var(--space-5) !important;
       width: 100% !important;
     }
 

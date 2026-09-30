@@ -3,9 +3,9 @@
      A tinted ground like .panel, split by a hairline rather than two boxes. */
   .next-step {
     display: grid;
-    gap: var(--space-4);
-    margin: var(--space-6) 0 var(--space-5);
-    padding: var(--space-4);
+    gap: var(--space-5);
+    margin: var(--space-6) 0 var(--space-6);
+    padding: var(--space-5);
     background: color-mix(in srgb, var(--panel) 70%, var(--surface));
     border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
     border-radius: var(--radius-lg);
@@ -15,13 +15,13 @@
   .next-step__case,
   .next-step__action {
     display: grid;
-    gap: var(--space-2);
+    gap: var(--space-3);
     align-content: start;
     min-width: 0;
   }
 
   .next-step__action {
-    padding-top: var(--space-4);
+    padding-top: var(--space-5);
     border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   }
 
@@ -35,7 +35,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 0.5rem;
+    gap: var(--space-2);
     margin: 0;
     font-family: var(--sans);
     font-size: var(--text-sm);
@@ -57,12 +57,12 @@
 
   .next-step__button {
     justify-self: start;
-    margin-top: var(--space-1);
+    margin-top: var(--space-2);
   }
 
   @media (max-width: 480px) {
     .next-step {
-      padding: var(--space-3);
+      padding: var(--space-4);
     }
 
     .next-step__button {
@@ -73,12 +73,12 @@
   @media (min-width: 720px) {
     .next-step {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: var(--space-5);
+      gap: var(--space-6);
     }
 
     .next-step__action {
       padding-top: 0;
-      padding-left: var(--space-5);
+      padding-left: var(--space-6);
       border-top: 0;
       border-left: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
     }

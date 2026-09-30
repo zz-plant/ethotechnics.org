@@ -215,18 +215,18 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
   .audit-page {
     max-width: 720px;
     margin: 0 auto;
-    padding: clamp(2rem, 5vw, 4rem) 1.5rem 3rem;
+    padding: clamp(var(--space-6), 5vw, var(--space-8)) var(--space-5) var(--space-7);
   }
 
   .audit-hero {
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: var(--space-7);
+    padding-bottom: var(--space-5);
     border-bottom: 1px solid var(--line, #e0e0e0);
   }
 
   .audit-hero h1 {
     font-size: var(--text-3xl);
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--space-2);
     line-height: 1.1;
   }
 
@@ -239,17 +239,17 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
   .audit-dimension {
     border: none;
     padding: 0;
-    margin: 0 0 2rem;
+    margin: 0 0 var(--space-6);
   }
 
   .audit-dimension legend {
     padding: 0;
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-4);
   }
 
   .audit-dimension h2 {
     font-size: var(--text-lg);
-    margin: 0 0 0.25rem;
+    margin: 0 0 var(--space-1);
   }
 
   .audit-dim-desc {
@@ -259,28 +259,28 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
   }
 
   .audit-question {
-    padding: 0.75rem 0;
+    padding: var(--space-3) 0;
     border-top: 1px solid var(--line, #e8e8e8);
   }
 
   .audit-q-text {
-    margin: 0 0 0.4rem;
+    margin: 0 0 var(--space-2);
     font-size: var(--text-sm);
     line-height: 1.5;
   }
 
   .audit-options {
     display: flex;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .audit-option {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: var(--space-1);
     font-size: var(--text-sm);
     cursor: pointer;
-    padding: 0.2rem 0.6rem;
+    padding: var(--space-1) var(--space-2);
     border: 1px solid var(--line, #ddd);
     border-radius: var(--radius-xs);
     transition: border-color 0.15s;
@@ -296,14 +296,14 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
   }
 
   .audit-submit-row {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
     border-top: 1px solid var(--line, #e0e0e0);
   }
 
   .audit-results {
-    margin-top: 2rem;
-    padding: 1.5rem;
+    margin-top: var(--space-6);
+    padding: var(--space-5);
     background: var(--surface-soft, #f8f8f8);
     border: 1px solid var(--line-strong, #ccc);
     border-radius: var(--radius-xs);
@@ -311,14 +311,14 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
 
   .audit-results h2 {
     font-size: var(--text-xl);
-    margin: 0 0 1rem;
+    margin: 0 0 var(--space-4);
   }
 
   .audit-bar-row {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 0.6rem;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
   }
 
   .audit-bar-label {
@@ -355,18 +355,18 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
   .audit-note {
     font-size: var(--text-sm);
     color: var(--ink-soft, #666);
-    margin: 1.5rem 0 1rem;
+    margin: var(--space-5) 0 var(--space-4);
     line-height: 1.5;
   }
 
   .audit-actions {
     display: flex;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .button {
     display: inline-block;
-    padding: 0.6rem 1.25rem;
+    padding: var(--space-2) var(--space-4);
     font-size: var(--text-sm);
     font-weight: 600;
     border: none;

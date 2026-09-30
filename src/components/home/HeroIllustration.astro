@@ -193,7 +193,7 @@ const { class: className }: Props = Astro.props;
     background: color-mix(in srgb, var(--surface) 96%, transparent);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     border-radius: var(--radius-lg);
-    padding: clamp(0.75rem, 2vw, 1.25rem);
+    padding: clamp(var(--space-3), 2vw, var(--space-4));
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
@@ -228,7 +228,7 @@ const { class: className }: Props = Astro.props;
   @media (max-width: 899px) {
     .hero-illustration__card {
       max-width: 360px;
-      padding: 0.65rem;
+      padding: var(--space-3);
       margin-inline: auto;
     }
   }

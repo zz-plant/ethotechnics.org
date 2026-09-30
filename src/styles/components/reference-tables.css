@@ -6,7 +6,7 @@
   /* --- Laws grid --- */
   .laws-grid__table th[scope="row"] a {
     display: grid;
-    gap: 0.15rem;
+    gap: var(--space-hair);
     text-decoration: none;
     color: inherit;
   }
@@ -42,14 +42,14 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem;
+    gap: var(--space-1);
   }
 
   .laws-grid__variables li {
     font-family: var(--sans);
     font-size: var(--text-xs);
     font-weight: 600;
-    padding: 0.15rem 0.5rem;
+    padding: var(--space-hair) var(--space-2);
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--accent) 12%, transparent);
     color: var(--accent-strong);
@@ -80,13 +80,13 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem;
+    gap: var(--space-1);
   }
 
   .laws-grid__refs li {
     font-family: var(--mono, ui-monospace, monospace);
     font-size: var(--text-xs);
-    padding: 0.15rem 0.45rem;
+    padding: var(--space-hair) var(--space-2);
     border-radius: var(--radius);
     background: var(--panel);
     border: 1px solid var(--border);
@@ -103,7 +103,7 @@
   }
 
   .laws-grid__more {
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
     font-size: var(--text-xs);
   }
 
@@ -115,14 +115,14 @@
   }
 
   .laws-grid__more p {
-    margin: 0.35rem 0 0;
+    margin: var(--space-1) 0 0;
     color: var(--muted);
     line-height: 1.45;
   }
 
   /* --- Clause register --- */
   .clause-register__part {
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--space-2);
     font-size: var(--text-base);
   }
 
@@ -132,7 +132,7 @@
 
   .clause-register__level {
     display: block;
-    margin-top: 0.2rem;
+    margin-top: var(--space-1);
     font-family: var(--sans);
     font-size: var(--text-xs);
     font-weight: 700;
@@ -151,7 +151,7 @@
     padding: 0;
     list-style: none;
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
     font-size: var(--text-xs);
   }
 
@@ -169,7 +169,7 @@
 
   .coverage-matrix__probe {
     display: grid;
-    gap: 0.15rem;
+    gap: var(--space-hair);
   }
 
   .coverage-matrix__probe code {
@@ -199,7 +199,7 @@
 
   .coverage-matrix__badge {
     display: inline-block;
-    margin-top: 0.3rem;
+    margin-top: var(--space-1);
     font-family: var(--sans);
     font-size: var(--text-xs);
     font-weight: 700;
@@ -245,7 +245,7 @@
   .state-diagram {
     margin: 0;
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     color: var(--text);
   }
 
@@ -458,12 +458,12 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.35rem 1.5rem;
+    gap: var(--space-1) var(--space-5);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
   }
 
   .glossary-compact__item {
-    padding: 0.55rem 0;
+    padding: var(--space-2) 0;
     border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
     scroll-margin-top: 1rem;
   }
@@ -481,7 +481,7 @@
   }
 
   .glossary-compact__summary {
-    margin: 0.15rem 0 0;
+    margin: var(--space-hair) 0 0;
     font-size: var(--text-sm);
     line-height: 1.45;
   }
@@ -492,8 +492,8 @@
      three thousand words of doctrine a rhythm: twelve one-line claims a reader
      can scan, with the argument for each beneath. */
   .laws-essay h3 + blockquote {
-    margin: 1rem 0 1.5rem;
-    padding: 1rem 1.25rem;
+    margin: var(--space-4) 0 var(--space-5);
+    padding: var(--space-4) var(--space-4);
     border-left: 4px solid var(--accent);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
     background: color-mix(in srgb, var(--accent) 7%, var(--surface));

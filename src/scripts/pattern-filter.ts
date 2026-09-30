@@ -770,7 +770,7 @@ const initializePatternFilter = (root: HTMLElement) => {
       }
 
       bodyHtml += `
-        <div class="drawer-section" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+        <div class="drawer-section" style="margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--border);">
           <a class="button primary" style="justify-content: center; width: 100%;" href="/mechanisms/patterns/${entry.slug}">View full specification sheet</a>
         </div>
       `;
