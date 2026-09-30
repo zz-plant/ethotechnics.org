@@ -108,8 +108,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     </ol>
     <CardGrid className="grid--two">
       <CardItem
-        title="Initial sequence"
-        description="Four steps from first read to a cited mechanism."
+        title="First four steps"
+        description="From a first read to a mechanism you can cite."
       >
         <ul class="muted">
           {quickStart.map((item) => <li>{item}</li>)}
@@ -145,7 +145,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       }
     </div>
     <p class="muted small" style="margin: 0.75rem 0 1.25rem;">
-      <a href="/start">Looking for the end-to-end role guide? See Start &rarr;</a>
+      <a href="/start">For a full guide by role, see Start here &rarr;</a>
     </p>
     <div class="library__role-lists">
       {
@@ -157,7 +157,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
               {role.items.map((item) => (
                 <CardItem title={item.title} description={item.description}>
                   <a slot="footer" class="muted" href={item.href}>
-                    Open reading
+                    Read
                   </a>
                 </CardItem>
               ))}
@@ -191,7 +191,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="mechanisms"
     eyebrow="Mechanisms"
-    title="Governance, friction, and policy mechanisms with validator links"
+    title="The catalog, filtered by governance, friction, or policy"
     description="Filter by theme. Each mechanism links to the diagnostics that check it."
     variant="alt"
   >
@@ -238,8 +238,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="references"
     eyebrow="References"
-    title="Glossary and machine-readable governance profile"
-    description="Stable terms with per-entry permalinks, plus the Agent Safety Object Model spec."
+    title="Glossary and the Agent Safety Object Model"
+    description="Defined terms, each with its own permalink, and a machine-readable model that ties system actions to the mechanisms that govern them."
   >
     <div class="grid grid--two">
       <div>
@@ -274,9 +274,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           ties action classes, receipts, and kill-switch authority to specific mechanisms.
         </p>
         <ul class="muted">
-          <li>Map MEC-01, MEC-05, and MEC-06 into the model.</li>
-          <li>Declare clocks and approvals per action class.</li>
-          <li>Attach evidence packs to validate compliance.</li>
+          <li>Map MEC-01 (decision log), MEC-05 (kill switch), and MEC-06 (appeal paths) into the model.</li>
+          <li>Declare time limits and approvals for each class of action.</li>
+          <li>Attach evidence packs that show compliance.</li>
         </ul>
       </div>
     </div>
@@ -285,8 +285,8 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="How mechanisms connect to the rest of the system"
-    description="The examples, bindings, and evidence packs that cite these mechanisms."
+    title="Where these mechanisms are used"
+    description="Worked examples, release and incident checklists, and evidence packs that cite these mechanisms."
     variant="alt"
   >
     <div class="grid grid--three">
@@ -310,7 +310,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
+        <p class="eyebrow">Required at release and after incidents</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs">Release gate checklist</a>

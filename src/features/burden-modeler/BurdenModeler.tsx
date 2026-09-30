@@ -122,11 +122,11 @@ export function BurdenModeler() {
     <div className="panel panel--glass burden-modeler" data-burden-modeler>
       <div className="burden-modeler__header">
         <p className="eyebrow">Burden Modeler</p>
-        <h2>Quantify where toil piles up and how to offload it.</h2>
+        <h2>See where the workload piles up and what would reduce it.</h2>
         <p className="muted">
           Rate from 0 to 10 how much operational and cognitive load each factor
           adds to your scenario. The model returns a burden index, ranks the
-          hotspots, and lists mitigations with the expected relief for each.
+          hotspots, and lists mitigations with an estimated relief for each.
         </p>
       </div>
 
@@ -166,7 +166,7 @@ export function BurdenModeler() {
                     : {}
                 }
               >
-                {confirmReset ? "Confirm Reset?" : "Reset inputs"}
+                {confirmReset ? "Confirm reset" : "Reset inputs"}
               </button>
             </div>
             <div className="scale-legend">
@@ -338,7 +338,7 @@ export function BurdenModeler() {
               className="button ghost button--compact"
               onClick={exportSnapshot}
             >
-              Export snapshot
+              Export JSON
             </button>
           </div>
 
@@ -413,7 +413,7 @@ export function BurdenModeler() {
                   </div>
                   <div className="hotspot__relief">
                     <span className="badge badge--ghost">
-                      {hotspot.reliefEstimate}% expected relief
+                      {hotspot.reliefEstimate}% estimated relief
                     </span>
                     <span className="muted small">
                       {categoryDescription(hotspot.category)}
@@ -431,11 +431,11 @@ export function BurdenModeler() {
 
           <div className="result-card result-card--cta">
             <div>
-              <p className="eyebrow">Off-ramp</p>
+              <p className="eyebrow">Outside help</p>
               <h3>Need facilitation?</h3>
               <p className="muted">
-                If the index reads Overloaded, the Studio can run a facilitated
-                session: weighting inputs with your support staff, checking the
+                If the index reads Overloaded, Ethotechnics Studio can run a facilitated
+                session under commission: weighting inputs with your support staff, checking the
                 relief estimates, and drafting an escalation plan.
               </p>
             </div>

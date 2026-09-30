@@ -124,7 +124,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
                     {clauses > 0 ? clauses : "—"}
                   </td>
                   <td data-label="Evidence pack">
-                    {["STD-01", "STD-02", "STD-06", "STD-08"].includes(
+                    {["STD-01", "STD-02", "STD-06", "STD-08", "STD-09"].includes(
                       standard.id,
                     ) ? (
                       <a href={`/evidence-packs/${packSlug}`}>
@@ -145,15 +145,15 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="goal-chooser"
-    eyebrow="Choose by objective"
-    title="Choose by objective"
-    description="Where to start for policy drafting, audit preparation, or implementation oversight."
+    eyebrow="Where to start"
+    title="Start from what you have to do"
+    description="Where to start if you are writing policy, preparing for an audit, or overseeing a build."
     variant="alt"
   >
     <CardGrid className="grid--three">
       <CardItem
         title="Draft policy language"
-        description="The core axioms and the comparison below give you the terms and the enforceable requirements to write into policy."
+        description="The core axioms and the comparison below give you the terms, and the requirements that can be enforced, to write into policy."
       >
         <a slot="footer" class="muted" href="/standards/core-axioms"
           >Start with core axioms</a
@@ -161,7 +161,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Prepare for audit"
-        description="The minimum binding set lists what each right requires. The evidence packs list the records that prove it."
+        description="The STD-01 minimum binding set lists the least each right requires. The evidence packs list the records that show it is met."
       >
         <a
           slot="footer"
@@ -184,9 +184,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="active"
-    eyebrow="Active standards"
-    title="Now active"
-    description="Draft and stable standards, by lane. Deprecated standards remain in the register above."
+    eyebrow="Current standards"
+    title="Standards in draft or stable"
+    description="Grouped by lane: core rights and obligations, implementation templates, and reference formats. Deprecated standards stay in the register above."
   >
     <div class="standards-filter panel stack-sm" data-standards-filter>
       <p class="eyebrow">Filter and sort</p>
@@ -292,13 +292,13 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="status-assignment"
     eyebrow="Status model"
     title="How status is assigned"
-    description="Each status has entry conditions, listed below. A standard changes status only when they are met."
+    description="Each status has entry conditions, listed below. They say what a standard needs before it can move to that status."
     variant="alt"
   >
     <CardGrid className="grid--three">
       <CardItem
         title="Draft"
-        description="Under active review. Clauses may still change, and no stability guarantee is made."
+        description="Under active review. Clauses may still change."
       >
         <ul class="muted small">
           <li>At least 1 internal standards editor review.</li>
@@ -308,7 +308,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Stable"
-        description="Approved for production policy references and procurement baselines."
+        description="Settled enough to cite in production policy and procurement requirements."
       >
         <ul class="muted small">
           <li>
@@ -324,7 +324,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
       </CardItem>
       <CardItem
         title="Deprecated"
-        description="Retired for new adoptions; replacement links are provided when available."
+        description="Not for new adoptions. A replacement is linked when one exists."
       >
         <ul class="muted small">
           <li>Deprecation vote recorded by standards council.</li>
@@ -341,9 +341,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="doctrine"
-    eyebrow="Doctrine"
-    title="Core doctrine"
-    description="The axioms, laws, and reference documents the standards are written against."
+    eyebrow="Foundations"
+    title="Foundations and references"
+    description="The axioms and laws the standards are written against, and the reference documents that apply them."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -365,9 +365,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="adopted-standards"
-    eyebrow="Adopted standards"
-    title="Ethotechnics critiques of widely adopted regimes"
-    description="Failure-mode diagnostics for the most widely referenced AI governance standards."
+    eyebrow="Existing frameworks"
+    title="Where widely adopted frameworks fall short"
+    description="For each of the most cited AI governance frameworks, what it leaves out when a system has to be stopped or reversed."
   >
     <CardGrid className="grid--two">
       {
@@ -390,7 +390,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="comparison"
     eyebrow="Standards comparison"
     title="How Ethotechnics differs from existing AI governance standards"
-    description="A declarative comparison for regulators, operators, and risk owners."
+    description="A side-by-side comparison for regulators, operators, and risk owners."
   >
     <p class="eyebrow">The landscape</p>
     <p>
@@ -565,9 +565,9 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
 
   <SectionBlock
     id="comparison-versions"
-    eyebrow="Additional formats"
-    title="Regulator, board, and diagram-ready versions"
-    description="Alternate renderings for policy owners, boards, and audit briefs."
+    eyebrow="Other framings"
+    title="The same comparison for a regulator, a board, and a workshop"
+    description="Three short framings of the comparison above, each for a different reader."
     variant="alt"
   >
     <div class="grid grid--three">
@@ -631,8 +631,8 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
   <SectionBlock
     id="implementation-examples"
     eyebrow="Implementation examples"
-    title="Domain-by-domain comparisons"
-    description="For each domain, conventional governance beside the Ethotechnics implementation of stop rules, clocks, and restoration paths."
+    title="Examples by domain"
+    description="For each domain, conventional governance beside the same system built with stop rules, clocks, and restoration paths."
     variant="alt"
   >
     <CardGrid className="grid--two">
@@ -651,8 +651,8 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
   <SectionBlock
     id="referenced-by"
     eyebrow="Referenced by"
-    title="Where standards are enforced"
-    description="The worked examples, procurement bindings, and evidence packs that cite these standards."
+    title="Where the standards are cited"
+    description="The worked examples, release checklist, and evidence packs that cite these standards."
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -675,7 +675,7 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
         </ul>
       </div>
       <div class="panel">
-        <p class="eyebrow">Required by bindings</p>
+        <p class="eyebrow">Required at release</p>
         <ul class="muted">
           <li>
             <a href="/evidence-packs">Release gate checklist</a>
@@ -690,6 +690,9 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
           </li>
           <li>
             <a href="/evidence-packs/std-02">STD-02 Evidence Pack</a>
+          </li>
+          <li>
+            <a href="/evidence-packs">All evidence packs</a>
           </li>
           <li>
             <a href="/validators">Validators (VAL-01–VAL-03)</a>

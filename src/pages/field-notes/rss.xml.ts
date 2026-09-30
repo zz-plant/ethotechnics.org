@@ -28,7 +28,7 @@ export function GET({ site }: APIContext) {
     .map((entry) => buildItem(siteUrl, entry))
     .join("");
 
-  const rss = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n<channel>\n  <title>Field Notes — Ethotechnics</title>\n  <link>${channelLink}</link>\n  <description>${fieldNotesContent.pageDescription}</description>\n  <language>en-us</language>\n  <lastBuildDate>${new Date(
+  const rss = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n<channel>\n  <title>Field notes — Ethotechnics</title>\n  <link>${channelLink}</link>\n  <description>${fieldNotesContent.pageDescription}</description>\n  <language>en-us</language>\n  <lastBuildDate>${new Date(
     fieldNotesContent.latestUpdate,
   ).toUTCString()}</lastBuildDate>${items}\n</channel>\n</rss>`;
 

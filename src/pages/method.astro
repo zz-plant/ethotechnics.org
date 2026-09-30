@@ -29,9 +29,9 @@ const anchorLinks = [
   { href: "#definition", label: "Definition" },
   { href: "#chain", label: "The chain" },
   { href: "#circuits", label: "The two circuits" },
-  { href: "#state-variables", label: "State variables" },
+  { href: "#state-variables", label: "Six things kept in step" },
   { href: "#laws", label: "The twelve laws" },
-  { href: "#incompatible", label: "Incompatible sentences" },
+  { href: "#incompatible", label: "Sentences that block repair" },
   { href: "#lenses", label: "The three lenses" },
   { href: "#sequence", label: "Applying it" },
   { href: "#optimization", label: "The optimization problem" },
@@ -79,17 +79,17 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
       <p class="eyebrow">The positive form</p>
       <p><strong>{positiveDefinition}</strong></p>
       <p class="muted small">
-        The definition above states what the discipline keeps coupled; this
-        states what it is for. Its negative form is the{" "}
-        <a href="/standards/laws#spine">injunctions</a>.
+        The definition above states what the discipline keeps tied together;
+        this states what it is for. The same idea as prohibitions is in the{" "}
+        <a href="/standards/laws#spine">laws restated as rules</a>.
       </p>
     </div>
     <div class="panel stack-sm">
       <p class="eyebrow">The invariant</p>
       <p><strong>{invariant}</strong></p>
       <p class="muted small">
-        The invariant compresses the twelve laws. Every standard clause,
-        mechanism, and eval on this site binds some part of it.
+        The invariant is the twelve laws in one sentence. Every standard
+        clause, mechanism, and eval on this site enforces some part of it.
       </p>
     </div>
   </SectionBlock>
@@ -98,7 +98,7 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
     id="chain"
     eyebrow="The chain"
     title="Seven stages every consequential decision passes through"
-    description={`Every consequential decision is one link in a governed chain: ${chainSummary}. Each stage has a question the institution must be able to answer and the assets that answer it today.`}
+    description={`Every consequential decision is one link in a governed chain: ${chainSummary}. Each stage has a question the institution must be able to answer, and the standards, records, and tools on this site that answer it today.`}
     variant="alt"
   >
     <ChainDiagram />
@@ -108,7 +108,7 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
           <li id={stage.id} class="card stack-sm">
             <h3>{stage.title}</h3>
             <p>{stage.question}</p>
-            <p class="eyebrow">Existing assets</p>
+            <p class="eyebrow">What answers it today</p>
             <ul class="card__list">
               {stage.currentAssets.map((asset) => (
                 <li>{asset}</li>
@@ -131,7 +131,7 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
   <SectionBlock
     id="circuits"
     eyebrow="The two circuits"
-    title="One claim, two postures"
+    title="Where a scaled system's friction lands"
     description="Friction never disappears from a system that scales beyond what its operators can see. It transfers. Every deployment picks where it lands and whether it is recorded."
     variant="alt"
   >
@@ -167,8 +167,8 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
   <SectionBlock
     id="state-variables"
     eyebrow="State variables"
-    title="Six states that must stay coupled"
-    description="A mature implementation makes these explicit. A system becomes unsafe when they drift apart."
+    title="Six things that must stay in step"
+    description="A well-built system records each of these explicitly. It becomes unsafe when they drift apart: when it can do more than it is authorized to, or holds authority the evidence no longer supports."
   >
     <div class="mapping-table__wrapper">
       <table class="mapping-table">
@@ -205,9 +205,9 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
 
   <SectionBlock
     id="laws"
-    eyebrow="Doctrine"
+    eyebrow="Laws"
     title="The twelve laws"
-    description="The doctrine is stated as laws, each with an invariant the standards bind. Each link opens the law and the clause that binds it."
+    description="Each law states a condition that must always hold. Each link opens the law and the standard clauses that make it checkable."
     variant="alt"
   >
     <div class="card">
@@ -224,7 +224,7 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
       </ul>
     </div>
     <p class="small muted">
-      Full statements and invariants: <a href="/standards/laws"
+      Full statements and arguments: <a href="/standards/laws"
         >Laws for Engineering Delegated Intelligence</a
       >. The five axioms that motivate them: <a href="/standards/core-axioms"
         >Core axioms</a
@@ -238,7 +238,7 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
     id="incompatible"
     eyebrow="Non-negotiable"
     title="Sentences incompatible with Ethotechnics"
-    description="Common in well-intentioned systems, these sentences become incompatible when they delay or block repair."
+    description="Each is common in well-intentioned institutions. Each is incompatible with the method when it delays or blocks repair."
   >
     <div class="card">
       <ul class="card__list">
@@ -247,7 +247,7 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
         <li><strong>“We’ll fix it later.”</strong> Irreversible damage occurs while fixes are scheduled.</li>
         <li><strong>“We can’t tell you why.”</strong> Decisions without reasons violate basic contestability.</li>
         <li><strong>“The model decided.”</strong> Systems have human and organizational owners; models do not hold legal liability.</li>
-        <li><strong>“Pending is not an outcome.”</strong> Indefinite holds without clocks destroy recourse.</li>
+        <li><strong>“It’s still pending.”</strong> A hold with no clock is an outcome, and it destroys recourse.</li>
       </ul>
     </div>
     <p class="small">
@@ -258,7 +258,7 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
   <SectionBlock
     id="lenses"
     eyebrow="The three lenses"
-    title="Instruments applied at the Consequence stage"
+    title="Three ways to account for who carries the burden"
     description="The chain says a consequential decision must account for who carries its burden. The lenses are how that accounting is done: each takes one workflow and asks one question about it. Apply one at a time."
   >
     <div class="grid grid--three">

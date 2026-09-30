@@ -8,13 +8,13 @@ import SectionBlock from "../../components/SectionBlock.astro";
 
 const pageTitle = "Self-defense diagnostic tools";
 const pageDescription =
-  "Three yes/no checks for a person facing an automated decision: whether it can be contested, whether the appeal is real, and who can reverse it.";
+  "Three yes/no checks for a person facing an automated decision: whether it can be challenged, whether the appeal can change the outcome, and who can reverse it.";
 const permalink = "/diagnostics/self-defense-tools";
 
 const anchorLinks = [
   { href: "#how-to-use", label: "How to use" },
-  { href: "#governable", label: "Is this system governable?" },
-  { href: "#appeal-real", label: "Is this appeal real?" },
+  { href: "#governable", label: "Can this decision be challenged?" },
+  { href: "#appeal-real", label: "Can the appeal change anything?" },
   { href: "#power-map", label: "Who holds power?" },
   { href: "#print", label: "Printable sheet" },
 ];
@@ -23,7 +23,7 @@ const tools = [
   {
     id: "governable",
     eyebrow: "Tool 1",
-    title: "Is this system governable?",
+    title: "Can this decision be challenged?",
     description:
       "Seven yes/no questions on whether the decision has an owner, reasons, a clock, and a remedy you can reach.",
     questions: [
@@ -38,32 +38,32 @@ const tools = [
     outcomes: [
       {
         title: "Mostly yes",
-        result: "Governable enough to proceed",
+        result: "Enough is in place to challenge it",
         description:
           "You can name an owner, a clock, and a remedy, which is enough to file a challenge and record the answer.",
         nextSteps: [
           {
-            label: "Use copy-ready language",
+            label: "Use wording you can send",
             href: "/explainers/language-people-can-use",
           },
           {
-            label: "Review STD-02 contestability",
+            label: "Review STD-02: Contestability and recourse",
             href: "/standards/std-02-contestability-recourse",
           },
           {
-            label: "Log the decision record",
+            label: "See what a decision record contains",
             href: "/standards/ethotechnics-for-agents",
           },
         ],
       },
       {
         title: "Mostly no",
-        result: "Not governable yet",
+        result: "Not enough is in place yet",
         description:
           "Without an owner, a clock, or a remedy, the decision cannot be contested as it stands.",
         nextSteps: [
           {
-            label: "Demand a decision record",
+            label: "Ask for a written decision record",
             href: "/standards/std-02-contestability-recourse",
           },
           { label: "Review mechanism options", href: "/mechanisms" },
@@ -78,9 +78,9 @@ const tools = [
   {
     id: "appeal-real",
     eyebrow: "Tool 2",
-    title: "Is this appeal real or performative?",
+    title: "Can this appeal change the outcome?",
     description:
-      "Six questions on whether the appeal can change the outcome or only absorbs the complaint.",
+      "Six questions on whether the appeal can change the outcome, or only records the complaint.",
     questions: [
       "Does the appeal route allow new evidence or corrections?",
       "Is the reviewer independent from the original decision maker?",
@@ -92,7 +92,7 @@ const tools = [
     outcomes: [
       {
         title: "Appeal is real",
-        result: "Substantive review",
+        result: "A review that can change the decision",
         description:
           "The appeal path has independent review, a clock, and a clear remedy.",
         nextSteps: [
@@ -101,7 +101,7 @@ const tools = [
             href: "/evidence-packs/std-02",
           },
           {
-            label: "Share escalation language",
+            label: "Use wording to escalate",
             href: "/explainers/language-people-can-use",
           },
           {
@@ -111,10 +111,10 @@ const tools = [
         ],
       },
       {
-        title: "Appeal is performative",
-        result: "Deflection without remedy",
+        title: "Appeal cannot change the outcome",
+        result: "A complaint route with no remedy",
         description:
-          "If there is no reviewer independence or remedy, treat the appeal as symbolic.",
+          "If the reviewer is not independent, or there is no remedy, expect the appeal to change nothing.",
         nextSteps: [
           {
             label: "Request a real escalation path",
@@ -146,30 +146,30 @@ const tools = [
     outcomes: [
       {
         title: "Power map is clear",
-        result: "Named stewards and levers",
+        result: "Named owners and outside pressure",
         description:
-          "You can identify at least one accountable owner and one external lever.",
+          "You can name at least one accountable owner and one outside body, such as a regulator or union, that can compel action.",
         nextSteps: [
           { label: "Build an escalation path", href: "/mechanisms" },
           {
             label: "Check evidence requirements",
             href: "/evidence-packs",
           },
-          { label: "Align with validators", href: "/validators" },
+          { label: "See the validators", href: "/validators" },
         ],
       },
       {
         title: "Power map is opaque",
-        result: "Diffuse ownership",
+        result: "Nobody is clearly responsible",
         description:
-          "If no accountable owner or lever is visible, treat the system as high risk.",
+          "If you cannot see an accountable owner or any outside pressure, treat the system as high risk.",
         nextSteps: [
           {
-            label: "Ground the delegation",
+            label: "Check what the system is allowed to decide",
             href: "/diagnostics/delegation-audit",
           },
           {
-            label: "Reference accountability language",
+            label: "Use wording that asks who is accountable",
             href: "/explainers/language-people-can-use",
           },
           { label: "Document for evidence packs", href: "/evidence-packs" },
@@ -204,11 +204,11 @@ const printSheet = {
   <SectionBlock
     id="how-to-use"
     eyebrow="How to use"
-    title="Run each tool in under five minutes."
+    title="Six or seven yes/no questions per check"
     description="Answer yes or no, count the yes answers, and follow the next-step links for your result."
   >
     <ol class="muted self-defense__steps">
-      <li>Pick the tool that matches your situation.</li>
+      <li>Pick the check that matches your situation.</li>
       <li>Answer each question with a clear yes or no.</li>
       <li>Count your yes answers and compare to the outcomes below.</li>
       <li>
@@ -228,7 +228,7 @@ const printSheet = {
       >
         <div class="self-defense__tool">
           <div>
-            <p class="eyebrow">Yes/No prompts</p>
+            <p class="eyebrow">Questions</p>
             <ol class="muted self-defense__questions">
               {tool.questions.map((question) => (
                 <li>{question}</li>
@@ -236,7 +236,7 @@ const printSheet = {
             </ol>
           </div>
           <div>
-            <p class="eyebrow">Result guidance</p>
+            <p class="eyebrow">What your answers mean</p>
             <CardGrid className="grid--two">
               {tool.outcomes.map((outcome) => (
                 <CardItem
@@ -265,7 +265,7 @@ const printSheet = {
     id="print"
     eyebrow="Printable"
     title="One-page self-defense sheet"
-    description="Print or save the questions so you can run the diagnostics offline."
+    description="Print or save the questions so you can use the checks offline."
   >
     <div class="self-defense-print">
       <div class="self-defense-print__panel">

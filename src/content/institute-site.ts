@@ -21,7 +21,7 @@ export const artifactFinalLine =
   "If a field is hard to fill, that is the governance gap this artifact exposes.";
 
 export const failureFooterLine =
-  "If a field in these artifacts is hard to fill, that is the governance gap this failure state exposes.";
+  "If a field in these templates is hard to fill in, that field is the gap this failure exposes.";
 
 export const artifacts: InstituteArtifact[] = [
   {
@@ -123,13 +123,13 @@ export const artifacts: InstituteArtifact[] = [
 
 export const failureStates: FailureState[] = [
   {
-    title: "Failure state: Decision appealed",
+    title: "A decision has been appealed",
     slug: "decision-appealed",
     shortLabel: "Decision appealed",
     descriptionLine1:
-      "A decision has been contested and the system cannot clearly explain, reverse, or resolve it within bounded time.",
+      "Someone has challenged a decision, and the system cannot explain, reverse, or resolve it within a set time.",
     descriptionLine2:
-      "The time burden of unresolved contestation falls on the claimant.",
+      "While the appeal waits, the person who made it carries the cost of the delay.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
@@ -138,13 +138,13 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: Model wrong",
+    title: "The model made a harmful error",
     slug: "model-wrong",
     shortLabel: "Model wrong",
     descriptionLine1:
-      "The model output is wrong in a way that matters, and the organization cannot reliably detect, correct, or reverse the downstream effects within bounded time.",
+      "The model's output is wrong in a way that matters, and the organization cannot reliably find, correct, or reverse its effects within a set time.",
     descriptionLine2:
-      "The primary failure is detection and recovery, not accuracy.",
+      "The main failure is finding and recovering from the error, not the model's accuracy.",
     artifactSlugs: [
       "reversal-sla-template",
       "escalation-ladder-freeze-authority",
@@ -153,12 +153,12 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: Queue stuck",
+    title: "Appeals or reviews are stuck",
     slug: "queue-stuck",
     shortLabel: "Queue stuck",
     descriptionLine1:
-      'Work is accumulating without bounded resolution. "Pending" has become an unpriced outcome.',
-    descriptionLine2: "Delay in processing becomes a form of ongoing harm.",
+      'Work is piling up with no deadline for resolving it. "Pending" has become an outcome in its own right, and nobody has counted its cost.',
+    descriptionLine2: "The delay itself is doing harm, and keeps doing it.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
       "reversal-sla-template",
@@ -167,13 +167,13 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: User harmed",
+    title: "A person was harmed",
     slug: "user-harmed",
     shortLabel: "User harmed",
     descriptionLine1:
-      "A user experienced material harm and the system cannot clearly acknowledge what happened, what is owed, or how repair will occur.",
+      "A person was materially harmed, and the organization cannot say what happened, what the person is owed, or how it will be repaired.",
     descriptionLine2:
-      "The cost of the failure is externalized to the affected user.",
+      "The person affected is paying for the failure.",
     artifactSlugs: [
       "harm-receipt-format",
       "decision-record-template",
@@ -182,13 +182,13 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: No owner",
+    title: "Nobody owns the failure",
     slug: "no-owner",
     shortLabel: "No owner",
     descriptionLine1:
-      "A failure has occurred and nobody can be named with authority to reverse, compensate, or close the loop.",
+      "Something has failed, and nobody can be named who has the authority to reverse it, compensate for it, or close it out.",
     descriptionLine2:
-      "Without assigned ownership, harm has no designated resolution path.",
+      "Without an owner, nobody is responsible for resolving the harm.",
     artifactSlugs: [
       "decision-record-template",
       "escalation-ladder-freeze-authority",
@@ -197,13 +197,13 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: Can’t explain",
+    title: "The decision cannot be explained",
     slug: "cant-explain",
     shortLabel: "Can’t explain",
     descriptionLine1:
-      "The system cannot provide a bounded explanation that enables contestability, oversight, or repair.",
+      "The system cannot give an explanation specific enough for someone to challenge the decision, oversee it, or repair it.",
     descriptionLine2:
-      "Unexplainable decisions create an ungovernable system state.",
+      "A decision nobody can explain is a decision nobody can govern.",
     artifactSlugs: [
       "decision-record-template",
       "contestability-appeals-playbook",
@@ -212,13 +212,13 @@ export const failureStates: FailureState[] = [
     footerLine: failureFooterLine,
   },
   {
-    title: "Failure state: Can’t stop",
+    title: "The system cannot be stopped",
     slug: "cant-stop",
     shortLabel: "Can’t stop",
     descriptionLine1:
-      "A harmful process cannot be frozen, paused, or rolled back quickly, even when operators recognize it is wrong.",
+      "A harmful process cannot be paused or rolled back quickly, even when operators can see it is wrong.",
     descriptionLine2:
-      "Built-in stoppability mechanisms are absent or untested.",
+      "The controls to stop it are missing or have never been tested.",
     artifactSlugs: [
       "escalation-ladder-freeze-authority",
       "reversal-sla-template",

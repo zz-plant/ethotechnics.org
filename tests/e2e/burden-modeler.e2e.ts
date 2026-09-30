@@ -35,7 +35,7 @@ test.describe("Burden Modeler page", () => {
     const widget = page.locator("[data-burden-modeler]");
     await expect(widget).toBeVisible();
     await expect(widget.getByRole("heading", { level: 2 })).toContainText(
-      "Quantify where toil piles up",
+      "See where the workload piles up",
     );
   });
 
@@ -145,7 +145,7 @@ test.describe("Burden Modeler page", () => {
 
     const [download] = await Promise.all([
       page.waitForEvent("download"),
-      page.getByRole("button", { name: "Export snapshot" }).click(),
+      page.getByRole("button", { name: "Export JSON" }).click(),
     ]);
     expect(download.suggestedFilename()).toMatch(
       /^burden-snapshot-baseline-\d{4}-\d{2}-\d{2}\.json$/,

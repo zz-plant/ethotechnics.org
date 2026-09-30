@@ -1,7 +1,7 @@
 [
   {
     "pageTitle": "Mechanisms — Ethotechnics Institute",
-    "pageDescription": "Numbered mechanisms (MEC-xx) for halting, contesting, and correcting delegated decisions, each with steps, audit evidence, and a postmortem trigger.",
+    "pageDescription": "Numbered specifications (MEC-01 to MEC-23) for stopping, challenging, and correcting automated decisions. Each lists its steps, the evidence an auditor checks, and the event that triggers a postmortem.",
     "permalink": "/mechanisms",
     "published": "2025-12-03T00:00:00Z",
     "updated": "2026-01-09T00:00:00Z",
@@ -38,10 +38,10 @@
       "attribution": "Credit Ethotechnics Institute, include the page title + version, and link to the canonical permalink."
     },
     "quickStart": [
-      "Skim the primer for a 5-minute orientation and shared vocabulary.",
-      "Jump to the glossary for stable definitions you can cite immediately.",
-      "Use the mechanism filters to pull the right safeguards for your scenario.",
-      "Cite the permalinks in papers, policy memos, or peer reviews."
+      "Read the primer for the terms the mechanisms use.",
+      "Use the glossary for definitions you can cite.",
+      "Filter the catalog for the safeguards your system needs.",
+      "Cite each mechanism by its permalink in papers, policy memos, or reviews."
     ],
     "recommended": {
       "title": "Recommended starters",
@@ -49,7 +49,7 @@
       "items": [
         {
           "title": "MEC-01 Decision log with dissent",
-          "description": "Keep decisions legible with dissent, ownership, and follow-up dates.",
+          "description": "Record each decision with its owner, any dissent, and a follow-up date.",
           "href": "/mechanisms/patterns/decision-log"
         },
         {
@@ -70,22 +70,22 @@
       "roles": [
         {
           "id": "engineer",
-          "label": "I'm an Engineer",
-          "summary": "Prioritize stoppability, rollback readiness, and safe maintenance rhythms.",
+          "label": "Engineer",
+          "summary": "How to halt the system, roll it back, and schedule maintenance safely.",
           "items": [
             {
               "title": "MEC-05 Kill switch for runaway automation",
-              "description": "Stoppability playbook with triggers, operators, and restoration drills.",
+              "description": "Who can halt the system, on what trigger, and how restoration is rehearsed.",
               "href": "/mechanisms/patterns/kill-switch"
             },
             {
               "title": "MEC-03 Maintenance windowing",
-              "description": "Plan safe downtime, fallback coverage, and stewardship windows.",
+              "description": "Plan downtime, fallback coverage, and an owner for each window.",
               "href": "/mechanisms/patterns/maintenance-windowing"
             },
             {
               "title": "Glossary: Stoppability",
-              "description": "Shared language for halts, safety valves, and time-to-halt targets.",
+              "description": "Definitions for halts, safety valves, and time-to-halt targets.",
               "href": "/glossary/stoppability"
             },
             {
@@ -97,7 +97,7 @@
         },
         {
           "id": "product-manager",
-          "label": "I'm a Product Manager",
+          "label": "Product manager",
           "summary": "Design consent, appeals, and a named owner into the user journey.",
           "items": [
             {
@@ -119,7 +119,7 @@
         },
         {
           "id": "regulator",
-          "label": "I'm a Regulator",
+          "label": "Regulator",
           "summary": "Focus on accountability logs, audit trails, and remediation evidence.",
           "items": [
             {
@@ -129,7 +129,7 @@
             },
             {
               "title": "MEC-03 Maintenance windowing",
-              "description": "Operational evidence of stewardship windows and documented fixes.",
+              "description": "Evidence of scheduled maintenance, its owners, and documented fixes.",
               "href": "/mechanisms/patterns/maintenance-windowing"
             },
             {
@@ -153,7 +153,7 @@
         "takeaways": [
           "Why burden, consent, and stewardship matter for socio-technical systems.",
           "How to check governance artifacts against what the people using your product go through.",
-          "What “mechanism language” means for UI safeguards, facilitation prompts, and escalation design."
+          "How each mechanism is written: steps, a policy requirement, a product requirement, audit evidence, and a postmortem trigger."
         ]
       },
       {
@@ -161,8 +161,8 @@
         "summary": "How to adapt the mechanisms to your organization.",
         "takeaways": [
           "Each section has a permalink to cite in design docs and runbooks.",
-          "Filters call out whether a mechanism is governance-first, friction guidance, or a policy control.",
-          "Glossary terms stay stable so research, field notes, and diagnostics can cross-link without drift."
+          "Filters sort each mechanism into governance, friction, or policy.",
+          "Glossary definitions do not change, so research, field notes, and diagnostics all link to the same meaning."
         ]
       }
     ],
@@ -188,7 +188,7 @@
         {
           "slug": "chain-boundary-intervention",
           "title": "MEC-20 Chain-boundary intervention",
-          "summary": "Give a chain of delegations one intervention at its boundary that reaches every hop, so the composition can be paused, measured, and attributed as a single delegation rather than as conformant parts.",
+          "summary": "When automated systems hand decisions down a chain, give the whole chain one stop control that reaches every step. The chain can then be paused, measured, and held to account as one system, not as parts that each pass on their own.",
           "filters": ["governance", "friction"],
           "glossaryRefs": [
             "delegation-chain",
@@ -258,7 +258,7 @@
           "diagnostics": ["burden-modeler"],
           "steps": [
             "Log the decision, rejected options, and who was consulted in one place.",
-            "Attach a short summary alongside the canonical record for external readers.",
+            "Attach a short plain-language summary to the official record for outside readers.",
             "Set a review date with a clear owner tied to the stewardship window."
           ],
           "policyRequirement": "Policy requirement (MEC-01 Decision log with dissent)\n- Maintain a decision log for high-stakes changes with dissenting views and a dated review owner.\n- Store the log in a shared system of record and retain links in audit and incident records.\nReference: https://ethotechnics.org/mechanisms/patterns/decision-log",
@@ -359,7 +359,7 @@
         {
           "slug": "maintenance-windowing",
           "title": "MEC-03 Maintenance windowing",
-          "summary": "Schedule improvements, monitoring, and resourcing using a visible stewardship window.",
+          "summary": "Schedule fixes, monitoring, and staffing in published maintenance windows, each with a named owner.",
           "filters": ["governance", "policy"],
           "glossaryRefs": [
             "maintenance-window",
@@ -475,7 +475,7 @@
         {
           "slug": "kill-switch",
           "title": "MEC-05 Kill switch for runaway automation",
-          "summary": "Pre-authorized halt paths with named stewards, thresholds, and restoration drills so harms stop in seconds.",
+          "summary": "Pre-authorized ways to halt the system, with named owners, trigger thresholds, and rehearsed restoration.",
           "filters": ["governance", "friction"],
           "glossaryRefs": [
             "stoppability",
@@ -651,7 +651,7 @@
         {
           "slug": "contestation-apis",
           "title": "MEC-08 Contestation APIs",
-          "summary": "Expose programmatic interfaces that let affected people challenge decisions and trigger binding state changes.",
+          "summary": "Expose APIs that let affected people challenge a decision and require the system to act on the outcome.",
           "filters": ["governance", "policy"],
           "glossaryRefs": [
             "contestability",
@@ -867,7 +867,7 @@
         {
           "slug": "stoppability-testing",
           "title": "MEC-12 Stoppability testing",
-          "summary": "Verify pre-deployment that systems can be halted by authorized stakeholders under defined conditions.",
+          "summary": "Verify before deployment that authorized people can halt the system under defined conditions.",
           "filters": ["governance", "policy"],
           "glossaryRefs": ["stoppability", "time-to-halt", "design-authority"],
           "cues": [
@@ -973,7 +973,7 @@
         {
           "slug": "policy-review-triggers",
           "title": "MEC-14 Policy review triggers",
-          "summary": "Treat policy as state by giving every policy record an expiry and named triggers that move dependent grants to review when the world changes.",
+          "summary": "Give every policy an expiry date and named triggers that send the authority grants that depend on it back to review when conditions change.",
           "filters": ["governance", "policy"],
           "glossaryRefs": [
             "design-authority",
@@ -1147,7 +1147,7 @@
         {
           "slug": "capability-catalog",
           "title": "MEC-17 Capability catalog",
-          "summary": "Keep a discovery surface separate from the grant register so a system can reason about what it could do without being empowered to do it.",
+          "summary": "List what a system could do separately from the register of what it is permitted to do, so knowing a capability never grants it.",
           "filters": ["governance", "policy"],
           "glossaryRefs": [
             "permission-surface",
@@ -1379,7 +1379,7 @@
         {
           "slug": "admission-gate",
           "title": "MEC-22 Admission gate",
-          "summary": "Make the decision to deploy at all an authorization decision with evidence and a recorded outcome, where deliberate non-use is a first-class result.",
+          "summary": "Treat the decision to deploy at all as an authorization, with evidence and a recorded outcome. Choosing not to deploy is a valid result.",
           "filters": ["governance", "policy"],
           "glossaryRefs": [
             "admission-gate",

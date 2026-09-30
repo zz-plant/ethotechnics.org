@@ -62,7 +62,7 @@ export const stateVariables: StateVariable[] = [
   {
     id: "evidence",
     label: "Evidence",
-    question: "What propositions justified that authority?",
+    question: "What evidence justified that authority?",
   },
   {
     id: "dependency",
@@ -72,12 +72,12 @@ export const stateVariables: StateVariable[] = [
   {
     id: "standing",
     label: "Standing",
-    question: "Who could challenge a decision, with what procedural force?",
+    question: "Who could challenge a decision, and did the challenge have to be answered?",
   },
   {
     id: "correction",
     label: "Correction",
-    question: "Which interventions stayed feasible, and on what clock?",
+    question: "Which interventions were still possible, and how fast?",
   },
 ];
 
@@ -153,12 +153,25 @@ export type Case = PublishedContent & {
    * The distinction is exception absorption versus exception learning.
    */
   learningOutcome: {
-    verdict: "learned" | "partial" | "absorbed";
+    verdict: LearningVerdict;
     finding: string;
   };
   /** The one thing the standards would have required that was absent. */
   theMissingRecord: string;
   sources: Source[];
+};
+
+export type LearningVerdict = "learned" | "partial" | "absorbed";
+
+/**
+ * How the learning verdict reads on the page. The ids stay as they are for the
+ * data and the API; a reader sees whether the institution changed afterward or
+ * only settled individual cases.
+ */
+export const learningVerdictLabels: Record<LearningVerdict, string> = {
+  learned: "Changed the rules",
+  partial: "Partly changed",
+  absorbed: "Settled cases only",
 };
 
 export type CasebookContent = PageWithPermalink & {
@@ -170,7 +183,7 @@ export type CasebookContent = PageWithPermalink & {
 export const casebookContent: CasebookContent = {
   pageTitle: "Casebook — five public failures, scored — Ethotechnics",
   pageDescription:
-    "Robodebt, the Dutch childcare-benefits scandal, Post Office Horizon, England's 2020 exam grades, and Apple Card, each scored against the six state variables and pinned to the clauses that would have caught it.",
+    "Robodebt, the Dutch childcare-benefits scandal, Post Office Horizon, England's 2020 exam grades, and Apple Card, each scored on six safeguards and linked to the clauses that would have caught it.",
   permalink: "/casebook",
   eyebrow: "Casebook",
   title: "Five public failures, scored",
@@ -193,7 +206,7 @@ export const cases: Case[] = [
       "The Federal Court, on a consent order the Commonwealth agreed to hours before a hearing it would have lost.",
     published: "2026-09-17T00:00:00Z",
     summary:
-      "A scheme that raised debts at twenty times the previous rate, under an interpretation of the law the department had been advised in 2014 was wrong, and that treated a tribunal's repeated findings of unlawfulness as individual outcomes rather than as evidence against the delegation.",
+      "A scheme that raised debts at twenty times the previous rate, under an interpretation of the law the department had been advised in 2014 was wrong, and that treated a tribunal's repeated findings of unlawfulness as individual outcomes rather than as evidence against the scheme.",
     narrative: [
       "From July 2016 the Online Compliance Intervention replaced a manual process in which a compliance officer reconciled a welfare recipient's reported fortnightly income against employer records. The automated process took the annual income the tax office held, divided it evenly across the year's fortnights, compared each fortnight to what the recipient had declared, and raised a debt for the difference. The recipient was then asked to produce payslips, often for years past, to disprove it. Income averaging cannot establish what a person earned in any given fortnight, and the Department of Social Services had received legal advice to that effect in 2014.",
       "The Commonwealth Ombudsman reported in April 2017 that the scheme's notices did not explain how a debt had been calculated and that the reversal of the onus of proof was causing serious distress. The Administrative Appeals Tribunal found individual debts unlawful in dozens of matters from early 2017. The department did not appeal those decisions, which would have created a binding precedent, and did not treat them as evidence about the scheme. In November 2019, in Amato v Commonwealth, the Commonwealth consented to a Federal Court declaration that a debt raised by averaging was not lawfully made. The scheme was halted the same month.",
@@ -248,7 +261,7 @@ export const cases: Case[] = [
         variable: "authority",
         verdict: "failed",
         finding:
-          "The authority to raise a debt by averaging did not exist under the Social Security Act, and the department held written advice saying so before the scheme launched. The delegation ran for three years on an authorization whose legal basis had been examined and found absent. A grant that cites a policy it knows to be wrong is not a grant.",
+          "The authority to raise a debt by averaging did not exist under the Social Security Act, and the department held written advice saying so before the scheme launched. The scheme ran for three years on an authorization whose legal basis had been examined and found absent. A grant that cites a policy it knows to be wrong is not a grant.",
         clauses: [
           { standard: "STD-07", clause: "§2.1" },
           { standard: "STD-08", clause: "§2.1" },
@@ -283,7 +296,7 @@ export const cases: Case[] = [
         variable: "standing",
         verdict: "failed",
         finding:
-          "Recipients could object, and many did, and the tribunal found for them repeatedly. But an objection that succeeds only for the objector, and produces no transition in the delegation itself, has no procedural force against the scheme. The department chose not to appeal, which kept each finding from becoming precedent, and did not record the pattern as a finding about the delegation.",
+          "Recipients could object, and many did, and the tribunal found for them repeatedly. But an objection that succeeds only for the objector, and changes nothing in the scheme itself, has no force against the scheme. The department chose not to appeal, which kept each finding from becoming precedent, and did not record the pattern as a finding about the scheme.",
         clauses: [
           { standard: "STD-02", clause: "§8.3" },
           { standard: "STD-02", clause: "§8.5" },
@@ -307,10 +320,10 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "absorbed",
       finding:
-        "The tribunal's repeated findings of unlawfulness were handled as individual outcomes and never entered the delegation. The department did not appeal, which kept each finding from becoming precedent, and did not record the pattern as a finding about the scheme. The sequence ended in case resolution for three years; the rule was never revised by the institution that ran it. The delegation was halted only by a court, and the institutional revision came after that, from a Royal Commission, not from the operator's own machinery.",
+        "The tribunal's repeated findings of unlawfulness were handled as individual outcomes and never changed the scheme. The department did not appeal, which kept each finding from becoming precedent, and did not record the pattern as a finding about the scheme. For three years each challenge ended in a settled case; the institution that ran the scheme never revised the rule. The scheme was halted only by a court, and the institutional change came after that, from a Royal Commission, not from the operator's own machinery.",
     },
     theMissingRecord:
-      "A policy record for income averaging with its provenance and status. The 2014 advice would have been the review trigger; the first adverse tribunal decision would have moved the policy, and every grant citing it, to review_required. STD-08 §2.3 gives that a clock.",
+      "A policy record for income averaging with its provenance and status. The 2014 advice would have been the review trigger; the first adverse tribunal decision would have moved the policy, and every grant citing it, to mandatory review. STD-08 §2.3 sets a deadline for that review.",
     sources: [
       {
         label: "Royal Commission into the Robodebt Scheme, Report",
@@ -465,10 +478,10 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "partial",
       finding:
-        "The rule itself was eventually changed — the Council of State reversed its own case law — but only after seven years, and the reversal was a correction of the institution's legal position, not of the delegation's machinery. The institution that ran the model never revised its own evidentiary practice; the change came from the highest court overturning its own precedent, then a parliamentary inquiry, then a cabinet resignation. Redress is still running. The exception was visible and fought; the learning took the collapse of the government.",
+        "The rule itself was eventually changed — the Council of State reversed its own case law — but only after seven years, and the reversal was a correction of the institution's legal position, not of the system that flagged the parents. The institution that ran the model never revised its own evidentiary practice; the change came from the highest court overturning its own precedent, then a parliamentary inquiry, then a cabinet resignation. Redress is still running. The failure was visible and contested; changing the institution took the fall of the cabinet.",
     },
     theMissingRecord:
-      "A standing register entry: who may challenge a flag, what evidence is admissible, and against which standard it is decided. STD-02 §8.2 would have forced the administration to say whether a parent was contesting policy conformance or evidentiary support, and to disclose the file either way.",
+      "A register of who may challenge a fraud flag, what evidence is admissible, and against which standard the challenge is decided. STD-02 §8.2 would have forced the administration to say whether a parent was disputing how the rule was applied or whether the evidence supported it, and to disclose the file either way.",
     sources: [
       {
         label:
@@ -559,7 +572,7 @@ export const cases: Case[] = [
         variable: "authority",
         verdict: "drifted",
         finding:
-          "The Post Office held the authority to prosecute on its own system's say-so. The law at the time presumed that a computer's output was reliable unless the defendant showed otherwise, and the defendant had no access to the data that could show it. Authority was coupled to a presumption, not to evidence.",
+          "The Post Office held the authority to prosecute on its own system's say-so. The law at the time presumed that a computer's output was reliable unless the defendant showed otherwise, and the defendant had no access to the data that could show it. Authority rested on a presumption, not on evidence.",
         clauses: [
           { standard: "STD-08", clause: "§4.6" },
           { standard: "STD-02", clause: "§6.2" },
@@ -618,10 +631,10 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "absorbed",
       finding:
-        "The operator never revised the machinery. The system's known defects were logged by the supplier and withheld; each subpostmaster was answered alone, so the pattern could not aggregate; and admitting a defect would have admitted every prior conviction, which made correction institutionally impossible for the operator itself. The learning came entirely from outside the institution — civil litigation, an appellate court, an inquiry, and an Act of Parliament — none of which the operator's own machinery produced. Exception absorption here lasted twenty years.",
+        "The operator never revised the machinery. The system's known defects were logged by the supplier and withheld; each subpostmaster was answered alone, so no one could see the pattern; and admitting a defect would have admitted every prior conviction, which made correction institutionally impossible for the operator itself. The learning came entirely from outside the institution — civil litigation, an appellate court, an inquiry, and an Act of Parliament — none of which the operator's own machinery produced. Settling cases one at a time, with the system unchanged, lasted twenty years.",
     },
     theMissingRecord:
-      "A dependency record with the exposure score computed and published. Dependency depth was total, substitution cost was the business, and correction latency turned out to be twenty years. STD-06 §5.5 would have barred expansion of the system's authority, including its use as prosecution evidence, until institutional reversibility was evidenced.",
+      "A published record of how far the Post Office depended on Horizon and what replacing it would cost. The dependence was total, replacing it meant replacing the business, and correcting it took twenty years. STD-06 §5.5 would have barred any widening of the system's authority, including its use as evidence in prosecutions, until the Post Office showed it could reverse course.",
     sources: [
       {
         label:
@@ -655,7 +668,7 @@ export const cases: Case[] = [
     slug: "ofqual-2020-grades",
     title: "England's 2020 exam grades",
     system:
-      "A standardisation model that replaced cancelled A-level and GCSE exams by fitting each school's historical grade distribution to its current cohort, overriding teachers' assessed grades for all but the smallest classes.",
+      "A standardization model that replaced cancelled A-level and GCSE exams by fitting each school's historical grade distribution to its current cohort, overriding teachers' assessed grades for all but the smallest classes.",
     jurisdiction: "England · Ofqual, Department for Education",
     period: "13 to 17 August 2020",
     scale:
@@ -665,7 +678,7 @@ export const cases: Case[] = [
       "The Secretary of State, after Scotland had already reversed its equivalent and universities had begun allocating places on the model's grades.",
     published: "2026-09-17T00:00:00Z",
     summary:
-      "The one case in the casebook where correction was fast, which is what makes it useful: a model with no evidenced accuracy at the level of the individual it was applied to, no appeal on the ground that it was wrong about that individual, and a halt that worked only because it was thrown before dependence had set.",
+      "The one case in the casebook where correction was fast, which is what makes it useful: a model with no evidenced accuracy at the level of the individual it was applied to, no appeal on the ground that it was wrong about that individual, and a halt that worked only because it came before anyone had come to depend on the grades.",
     narrative: [
       "When the 2020 exams were cancelled, the Secretary of State directed Ofqual to award grades and to ensure the distribution was broadly similar to previous years. Schools submitted a centre-assessed grade and a rank order for each student. Ofqual's model then fitted each school's grade distribution from the previous three years, adjusted for the cohort's prior attainment, to the rank order. Where a subject cohort at a school was five or fewer, the teacher's grade was used as submitted; between five and fifteen, a blend.",
       "Results were issued on 13 August. The regulator's interim report published the same day acknowledged that the model could not be validated against outcomes for individual students, since none existed, and that its aggregate agreement with past distributions was the design target rather than a measurement of accuracy. Students could appeal only through their school, on grounds of administrative error or, under a policy announced two days before results and withdrawn two days after, a higher mock grade. There was no ground of appeal that the model had ranked the student wrongly.",
@@ -759,7 +772,7 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "absorbed",
       finding:
-        "The decision was corrected — every grade was reversed within four days — but no institution's machinery was revised by the failure. Ofqual and the Department for Education withdrew the model rather than repairing the rule that generated the harm; the evidentiary practice of validating an aggregate and applying it to individuals was never revisited inside the institution. The halt was thrown by a minister under public pressure after a neighbouring jurisdiction had gone first, which is a correction of the case, not a change to the rule. The office that reviewed the episode was the statistics regulator, external to the operator.",
+        "The decision was corrected — every grade was reversed within four days — but no institution's machinery was revised by the failure. Ofqual and the Department for Education withdrew the model rather than repairing the rule that generated the harm; the evidentiary practice of validating an aggregate and applying it to individuals was never revisited inside the institution. A minister ordered the halt under public pressure after a neighboring jurisdiction had gone first, which is a correction of the case, not a change to the rule. The office that reviewed the episode was the statistics regulator, external to the operator.",
     },
     theMissingRecord:
       "A declared threshold with the action that follows a breach. STD-06 §2.2 asks the operator to say, before running the model, what share of downgrades or what disparity between school types would stop the release. Had that number existed, the halt on 17 August would have been a control firing rather than a reversal under pressure.",
@@ -801,7 +814,7 @@ export const cases: Case[] = [
       "Nobody. The issuer changed its policies after a regulator's investigation found the process, not the model, deficient.",
     published: "2026-09-17T00:00:00Z",
     summary:
-      "The control case. The model was examined and cleared; the failure was that the person on the receiving end had no reasons and no route, and the people answering the phone had neither either. Most variables held. The two that did not are the two the Contestability standard exists for.",
+      "The control case. The model was examined and cleared; the failure was that the person on the receiving end had no reasons and no route, and the people answering the phone had neither either. Four of the six safeguards held. The two that did not, evidence and standing, are the two the contestability standard (STD-02) exists for.",
     narrative: [
       "In November 2019, several applicants reported publicly that they had been offered credit limits many times higher than their spouses', despite shared finances and, in some cases, the spouse's better credit history. Customer service representatives could not explain the outcomes and, by the applicants' accounts, said the algorithm had decided. The New York Department of Financial Services opened an investigation.",
       "The Department's report, published in March 2021, found that the underwriting model did not use sex or marital status and that the outcomes could be explained by differences in the applicants' individual credit files, including that a spouse who was an authorised user on the other's accounts had a thinner history. It found no violation of fair lending law. It also found that neither applicants nor the bank's staff had been able to obtain that explanation at the time, that there was no process to request reconsideration of a limit, and that the bank's reliance on individual credit data disadvantaged spouses whose finances were shared but whose credit histories were not.",
@@ -890,10 +903,10 @@ export const cases: Case[] = [
     learningOutcome: {
       verdict: "learned",
       finding:
-        "The institution revised its machinery. The regulator found the process deficient, and the issuer responded by changing the process: it introduced a reconsideration path for credit-limit decisions, so that the error-bearing party could contest an outcome against a stated standard, and it changed the product so that spouses could share an account and build credit jointly. The model was not changed, but the workflow and the standing that surround it were. This is the only case in the casebook where the correction was exercised by the operator rather than imposed from outside, and the distinction is what made the episode end in learning rather than absorption.",
+        "The institution revised its machinery. The regulator found the process deficient, and the issuer responded by changing the process: it introduced a reconsideration path for credit-limit decisions, so that an applicant could contest an outcome against a stated standard, and it changed the product so that spouses could share an account and build credit jointly. The model was not changed, but the process around it, and the applicant's right to challenge it, were. This is the only case in the casebook where the correction was exercised by the operator rather than imposed from outside, and that is what made the episode end in institutional change rather than in settled cases.",
     },
     theMissingRecord:
-      "A standing register entry for credit-limit decisions: that an applicant may ask for reasons, that the reasons name the inputs that moved the limit, and that a reconsideration is answered within a deadline. STD-02 §8.1 and §8.5 describe a process the issuer built after the fact.",
+      "A record of who can challenge a credit-limit decision: that an applicant may ask for reasons, that the reasons name the inputs that moved the limit, and that a reconsideration is answered within a deadline. STD-02 §8.1 and §8.5 describe a process the issuer built after the fact.",
     sources: [
       {
         label:

@@ -40,10 +40,10 @@ const {
 // here too, which made the intro's map read "4 + 13 more sections"; the
 // territory map is the section that lists them, with counts.
 const anchorLinks = [
-  { href: "#glossary-pathways", label: "Glossary pathways" },
+  { href: "#glossary-pathways", label: "Where terms are used" },
   { href: "#glossary-index", label: "A–Z index" },
   { href: "#explainer-links", label: "Explainers" },
-  { href: "#territory-map", label: "Territory map" },
+  { href: "#territory-map", label: "Sections" },
 ];
 const domainFilters = glossaryDomainFilters;
 const phaseFilters = glossaryPhaseFilters;
@@ -197,7 +197,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           aria-selected="false"
           data-glossary-tab="domains"
         >
-          By Domain
+          By domain
         </button>
         <button
           class="glossary-filter__tab"
@@ -206,7 +206,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           aria-selected="false"
           data-glossary-tab="phases"
         >
-          By Phase
+          By phase
         </button>
         <button
           class="glossary-filter__tab"
@@ -215,7 +215,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           aria-selected="false"
           data-glossary-tab="measurability"
         >
-          By Measurability
+          By measurability
         </button>
       </div>
     </div>
@@ -404,7 +404,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   <SectionBlock
     id="glossary-index"
     eyebrow="Index"
-    title="A–Z of Ethotechnic terms"
+    title="All terms, A to Z"
     description={`All ${entryIndex.length} terms in alphabetical order, each with its own permanent link.`}
   >
     <div class="glossary-index__toolbar">
@@ -473,18 +473,18 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         })
       }
     </nav>
-    <p class="glossary__cta muted">Index links jump to canonical permalinks.</p>
+    <p class="glossary__cta muted">Each term links to its own page.</p>
   </SectionBlock>
 
   <SectionBlock
     id="territory-map"
     eyebrow="Map"
-    title="Territory map"
-    description="Browse glossary areas with entry counts."
+    title="Glossary sections"
+    description={`The glossary's ${categories.length} sections, with the number of terms in each.`}
     variant="alt"
   >
     <details>
-      <summary>Open the territory map</summary>
+      <summary>Show all sections</summary>
       <div class="glossary__categories">
         {
           categoryHighlights.map((category) => (

@@ -44,12 +44,15 @@ const breakdown = stateVariables.map((v) => {
 
 <figure class="state-diagram" aria-labelledby="casebook-chart-title">
   <figcaption>
-    <p class="eyebrow">Empirical Record, drawn</p>
+    <p class="eyebrow">The record, drawn</p>
     <Heading id="casebook-chart-title">
-      State Variable Failure Rates Across {totalCases} Statutory Inquiries
+      How often each safeguard held, drifted, or failed across {totalCases} cases
     </Heading>
     <p class="muted">
-      Public inquiries establish that automated systems rarely fail at technical capability. Failure concentrates where standing is denied, evidence is unbundled, and correction is withheld.
+      Capability, what the system could do, failed outright in {tally.capability.failed} of
+      {totalCases} cases. Standing, the right of the people affected to challenge a
+      decision and be answered, failed in {tally.standing.failed}. Evidence failed in
+      {tally.evidence.failed}, and correction in {tally.correction.failed}.
     </p>
   </figcaption>
 
@@ -58,7 +61,7 @@ const breakdown = stateVariables.map((v) => {
       viewBox="0 0 920 380"
       role="img"
       class="state-diagram__svg"
-      aria-label="Horizontal stacked bar chart showing the failure distribution across the six state variables: Capability, Authority, Evidence, Dependency, Standing, and Correction."
+      aria-label="Horizontal stacked bar chart showing the failure distribution across the six safeguards: Capability, Authority, Evidence, Dependency, Standing, and Correction."
     >
       <defs>
         <pattern id="case-drift-pat" width="8" height="8" patternUnits="userSpaceOnUse">
@@ -69,14 +72,14 @@ const breakdown = stateVariables.map((v) => {
       {/* Legend Top */}
       <g transform="translate(180, 20)">
         <rect x="0" y="0" width="14" height="14" rx="3" fill="var(--accent)" />
-        <text x="22" y="12" class="state-diagram__label">Held (Explicit &amp; Coupled)</text>
+        <text x="22" y="12" class="state-diagram__label">Held (in place and working)</text>
 
         <rect x="220" y="0" width="14" height="14" rx="3" fill="var(--panel)" stroke="var(--border)" stroke-width="1.5" />
         <rect x="220" y="0" width="14" height="14" rx="3" fill="url(#case-drift-pat)" />
-        <text x="242" y="12" class="state-diagram__label">Drifted (Detached)</text>
+        <text x="242" y="12" class="state-diagram__label">Drifted (out of step)</text>
 
         <rect x="392" y="0" width="14" height="14" rx="3" fill="var(--status-danger)" />
-        <text x="414" y="12" class="state-diagram__label">Failed (Absent / Broken)</text>
+        <text x="414" y="12" class="state-diagram__label">Failed (absent or broken)</text>
       </g>
 
       {/* Rows for each of the 6 variables */}
@@ -134,7 +137,7 @@ const breakdown = stateVariables.map((v) => {
       <line x1="180" y1="352" x2="700" y2="352" stroke="var(--border)" stroke-width="1.5" />
       <text x="180" y="370" class="state-diagram__clause">0% of cases</text>
       <text x="440" y="370" text-anchor="middle" class="state-diagram__clause">50%</text>
-      <text x="700" y="370" text-anchor="end" class="state-diagram__clause">100% (5 of 5 cases)</text>
+      <text x="700" y="370" text-anchor="end" class="state-diagram__clause">100% ({totalCases} of {totalCases} cases)</text>
     </svg>
   </div>
 </figure>

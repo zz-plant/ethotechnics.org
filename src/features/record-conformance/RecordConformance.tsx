@@ -138,7 +138,7 @@ function RecordConformance() {
             className="record-conformance__label"
             htmlFor="record-conformance-manifest"
           >
-            The emitter's manifest{" "}
+            The system's manifest{" "}
             <span className="record-conformance__hint">(optional)</span>
             <span className="record-conformance__hint">
               Paste <code>/.well-known/*.json</code>, <code>server.json</code>,
@@ -162,7 +162,7 @@ function RecordConformance() {
               className="record-conformance__field"
               htmlFor="record-conformance-declared"
             >
-              Level the emitter declares
+              Level the system claims
               <select
                 id="record-conformance-declared"
                 value={declared}
@@ -193,10 +193,10 @@ function RecordConformance() {
           <p className="record-conformance__hint">
             {manifest.trim()
               ? "The manifest is supplying the declared level, so the selector is off. Clear the manifest to set one by hand."
-              : "Set the level by hand only when the system publishes no manifest. A declaration read from the artifact the emitter serves is the one worth contradicting."}{" "}
+              : "Set the level by hand only when the system publishes no manifest. A level read from what the system itself publishes is the one worth checking."}{" "}
             Leave the time blank to use now. Set it to when the stream was
-            exported so a clock is judged against the emitter's lateness rather
-            than the reviewer's.
+            exported, so deadlines are judged against the system's lateness, not
+            yours.
           </p>
 
           <div className="record-conformance__actions">
@@ -206,7 +206,7 @@ function RecordConformance() {
               onClick={() => void run(text, declared, asOf, manifest)}
               disabled={running || text.trim().length === 0}
             >
-              {running ? "Auditing…" : "Audit the stream"}
+              {running ? "Checking…" : "Check the stream"}
             </button>
             <button
               type="button"
@@ -241,8 +241,8 @@ function RecordConformance() {
             <p className="record-conformance__empty">
               Paste a stream and run the audit. It checks what the records say
               about each other: whether the hashes hold, whether references
-              resolve, whether anything says what would change its mind, and
-              whether a discrepancy was ever answered. It does not judge whether
+              resolve, whether each record says what would make it invalid,
+              and whether a discrepancy was ever answered. It does not judge whether
               a belief was correct or an authorization wise, because a stream
               cannot show that.
             </p>

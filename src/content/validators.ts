@@ -54,7 +54,7 @@ export type ValidatorsContent = PageWithPermalink & {
 export const validatorsContent: ValidatorsContent = {
   pageTitle: "Validators — Ethotechnics Institute",
   pageDescription:
-    "Three validators that turn STD-01 clauses into input fields and return a red, yellow, or green status with the clauses and mechanisms it implicates.",
+    "Three forms that score a user journey against the STD-01 temporal rights standard. Each returns a red, yellow, or green status, the clauses at risk, and the mechanism that would fix it.",
   permalink: "/validators",
   anchorLinks: [
     { href: "#focus", label: "Browse by focus" },
@@ -66,7 +66,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-01",
       title: "Burden Modeler",
       description:
-        "Scores the time tax and constructive-denial risk of a user journey from its duration, step count, and exit availability.",
+        "Scores how much time a user journey takes from people, and whether it is hard enough to amount to a denial of service, from its duration, its step count, and whether every screen has an exit.",
       slug: "burden-modeler",
       standardRef: "STD-01",
       inputs: [
@@ -170,7 +170,7 @@ export const validatorsContent: ValidatorsContent = {
       id: "VAL-02",
       title: "Risk Radar",
       description:
-        "Scores cumulative exposure from high-friction touchpoints, average wait time, and appeal availability.",
+        "Scores the friction a journey adds up to, from the number of hard steps, the average wait, and whether each step can be appealed.",
       slug: "risk-radar",
       standardRef: "STD-01",
       inputs: [
@@ -378,11 +378,11 @@ export const validatorsContent: ValidatorsContent = {
   method: {
     title: "How validators score systems",
     description:
-      "Each validator turns STD clauses into input fields and returns a report card that names a mechanism for remediation.",
+      "Each validator turns STD-01 clauses into input fields. It returns a report card that names a mechanism to fix what it finds.",
     steps: [
-      "Collect minimal inputs from operators or QA teams.",
+      "Collect three inputs from the system's operators or QA team.",
       "Compare the inputs with the published thresholds.",
-      "Generate a report card with a Red / Yellow / Green status.",
+      "Generate a report card with a red, yellow, or green status.",
     ],
   },
 };

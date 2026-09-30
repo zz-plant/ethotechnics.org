@@ -13,7 +13,7 @@ const essays = (await getCollection("theory")).sort((a, b) =>
 
 const pageTitle = "Theory — Ethotechnics Institute";
 const pageDescription =
-  "Essays on why the laws hold. Theory motivates the method and is never cited as a requirement.";
+  "Essays on why the twelve laws hold. They explain the method. No standard cites them as a requirement.";
 const anchorLinks = [
   { href: "#essays", label: "Essays" },
   { href: "#layering", label: "Theory and method" },
@@ -39,7 +39,7 @@ const formatLawRefs = (refs: string[]) =>
     id="essays"
     eyebrow="Essays"
     title="Why the laws hold"
-    description="Argumentative prose. None of it carries requirements language, and no standard cites it as a clause."
+    description="Arguments, not requirements. No essay uses requirements language, and no standard cites one as a clause."
   >
     <CardGrid className="grid--two">
       {
@@ -73,15 +73,15 @@ const formatLawRefs = (refs: string[]) =>
   >
     <p>
       The site has three layers. Theory says why the laws hold. Method states
-      the laws, their invariants, and the standards, objects, mechanisms, and
-      evals that bind them. Instruments are the diagnostics, validators, and
-      APIs that apply the method to a deployment.
+      the laws, the condition each one requires, and the standards,
+      mechanisms, and evals that enforce them. Tools are the diagnostics,
+      validators, and APIs that apply the method to a deployed system.
     </p>
     <p>
       A Method page may cite an essay here as motivation. It may not cite one as
       a requirement. The <a href="/standards/laws">laws</a> and the{" "}
-      <a href="/standards/core-axioms">core axioms</a> are the doctrine a standard
-      binds; the essays are the reasons a reader might accept it.
+      <a href="/standards/core-axioms">core axioms</a> are what a standard
+      enforces. The essays are the reasons a reader might accept them.
     </p>
   </SectionBlock>
 </BaseLayout>

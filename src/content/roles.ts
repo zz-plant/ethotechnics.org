@@ -100,47 +100,47 @@ export const roles: Role[] = [
     ],
     guide: {
       focusAreas: [
-        "Instrument systems to surface burden, latency, and escalation signals.",
+        "Log the work the system pushes onto people, how long decisions take, and when cases escalate.",
         "Build policy controls that enforce standards in production.",
-        "Coordinate with stewards on maintenance and rollback readiness.",
+        "Agree with the system's owners who maintains it and who can roll it back.",
       ],
       keyLinks: [
         {
           label: "Standards",
           href: "/standards",
-          note: "Doctrine and rights to codify in system guardrails.",
+          note: "The rules and rights to write into system guardrails.",
         },
         {
           label: "Mechanisms catalog",
           href: "/mechanisms",
-          note: "Spec sheets for governance, friction, and policy controls.",
+          note: "Specifications for controls that pause, slow, route, or reverse a decision.",
         },
         {
           label: "What outcomes hide",
           href: "/research/theory/what-outcomes-hide",
-          note: "Why evaluation needs outcome, adaptation burden, and corrective power.",
+          note: "Why judging a system by outcomes is not enough: also count what people had to adapt to, and whether they could get errors corrected.",
         },
         {
           label: "Validators",
           href: "/validators",
-          note: "Diagnostics that surface operational risk.",
+          note: "Checks that show operational risk.",
         },
         {
           label: "What we can check",
           href: "/evals/coverage",
-          note: "Which governance properties a probe can establish.",
+          note: "Which governance properties an automated test can confirm, and which it cannot.",
         },
       ],
       firstMoves: [
-        "Map existing telemetry to the burden and latency validators.",
-        "Implement a mechanism spec as a feature flag or control rail.",
-        "Partner with stewards to define rollback and escalation ownership.",
+        "Match the logs you already collect to the burden and latency validators.",
+        "Build one mechanism from the catalog as a feature flag or a runtime check.",
+        "Agree with the system's owners who owns rollback and who owns escalation.",
       ],
     },
     adoptionChecklist: [
       "Set explicit action boundaries for high-risk automations.",
       "Require approvals before sensitive sends, deploys, or data writes.",
-      "Instrument rollback paths and verify they are runnable under pressure.",
+      "Test rollback paths and confirm they work under real load.",
       "Log all override actions with named owners and timestamps.",
     ],
     featuredDiagnostics: [
@@ -179,24 +179,24 @@ export const roles: Role[] = [
       },
       {
         number: 3,
-        title: "Export contract clauses",
+        title: "Draft contract clauses",
         description:
           "Draft the authority, evidence, and correction terms a vendor agreement has to state before the system is allowed to decide.",
-        ctaLabel: "Read STD-08",
+        ctaLabel: "Read STD-08: Delegation",
         ctaHref: "/standards/std-08-delegation",
       },
     ],
     guide: {
       focusAreas: [
         "Define the governing standard and the rights it protects.",
-        "Map enforcement pathways and escalation lanes.",
-        "Prepare public-facing summaries grounded in glossary anchors.",
+        "Set out how each rule is enforced and where escalations go.",
+        "Write public summaries that use the glossary's defined terms.",
       ],
       keyLinks: [
         {
           label: "STD-01: The Temporal Bill of Rights",
           href: "/standards/std-01-temporal-rights",
-          note: "Canonical rights framing to anchor policy language.",
+          note: "The rights to cite in policy language.",
         },
         {
           label: "Mechanisms catalog",
@@ -215,16 +215,16 @@ export const roles: Role[] = [
         },
       ],
       firstMoves: [
-        "Select the standard your policy should reference and cite its glossary anchors.",
+        "Pick the standard your policy should reference and cite its defined terms.",
         "Run a validator to gather baseline risk and burden scores.",
         "Publish policy updates with the same glossary language used in the standards.",
       ],
     },
     adoptionChecklist: [
-      "Bind contestability rights to explicit owner roles and response clocks.",
+      "Give every right to appeal a named owner and a response deadline.",
       "Define restitution pathways for harms that cannot be fully reversed.",
       "Set incident disclosure expectations for high-impact failures.",
-      "Require sign-off authority for resume decisions after a halt.",
+      "Name who must sign off before a halted system restarts.",
     ],
     featuredDiagnostics: ["delegation-audit", "burden-modeler"],
     featuredStandards: [
@@ -258,7 +258,7 @@ export const roles: Role[] = [
       },
       {
         number: 3,
-        title: "Grade a record stream",
+        title: "Grade a system's decision records",
         description:
           "Check a system's decision records against the conformance level it claims, and see whether it meets it.",
         ctaLabel: "Open Record Conformance",
@@ -281,19 +281,19 @@ export const roles: Role[] = [
     label: "Operations",
     who: "You run the appeals, the incident response, or the queues where the system's errors land.",
     tagline:
-      "Give escalation a bound and a named owner, so a stalled case surfaces instead of ageing.",
+      "Give escalation a bound and a named owner, so a stalled case comes to someone's attention instead of aging.",
     orientation: [
       {
         number: 1,
         title: "Model the load the system pushes onto people",
         description:
-          "Count, in hours, who absorbs the extra work a workflow creates, before a growing queue starts hiding its errors.",
+          "Count, in hours, who picks up the extra work a workflow creates, before a growing queue starts hiding its errors.",
         ctaLabel: "Run Burden Modeler",
         ctaHref: "/diagnostics/burden-modeler",
       },
       {
         number: 2,
-        title: "Bind escalation to a clock",
+        title: "Put escalation on a deadline",
         description:
           "Give every stalled case a named owner and a deadline that escalates itself, rather than an inbox that ages quietly.",
         ctaLabel: "Inspect escalation SLAs",
@@ -309,10 +309,10 @@ export const roles: Role[] = [
       },
     ],
     adoptionChecklist: [
-      "Define harm intake paths with explicit triage categories.",
+      "Set up a way to report harm, with named triage categories.",
       "Set escalation SLAs by severity and route to named responders.",
       "Track queue age and auto-escalate stalled cases.",
-      "Publish a repair log with remediation status and owner handoffs.",
+      "Publish a repair log showing what has been fixed, what has not, and who owns each item.",
     ],
     featuredDiagnostics: ["burden-modeler", "corrective-debt-calculator"],
     formerPaths: ["/adopt/ops"],
@@ -359,7 +359,7 @@ export const roles: Role[] = [
     ],
     guide: {
       focusAreas: [
-        "Audit UI flows for stoppability, consent, and reversibility signals.",
+        "Check each flow: can a person stop it, did they agree to it, and can it be undone?",
         "Pair mechanism specs with interaction patterns and copy.",
         "Validate workflows with diagnostics before shipping.",
       ],
@@ -367,7 +367,7 @@ export const roles: Role[] = [
         {
           label: "Ethotechnical design",
           href: "/research/theory/ethotechnical-design",
-          note: "The design stance: spend institutional capacity before human adaptive capacity.",
+          note: "The design stance: the institution should adapt before it asks people to.",
         },
         {
           label: "Mechanisms catalog",
@@ -377,7 +377,7 @@ export const roles: Role[] = [
         {
           label: "Field notes",
           href: "/field-notes",
-          note: "Applied examples and facilitation cues.",
+          note: "Applied examples and notes for running workshops.",
         },
         {
           label: "Diagnostics",
@@ -387,13 +387,13 @@ export const roles: Role[] = [
         {
           label: "Glossary",
           href: "/glossary",
-          note: "Interaction language tied to standards.",
+          note: "Defined terms to use in interface copy.",
         },
       ],
       firstMoves: [
         "Select two mechanisms that map to your flow’s risk points.",
-        "Run a diagnostic with the team to surface consent or burden gaps.",
-        "Align UI copy with glossary anchors before release.",
+        "Run a diagnostic with the team to find gaps in consent or in the work the flow asks of people.",
+        "Check interface copy against the glossary's defined terms before release.",
       ],
     },
     featuredDiagnostics: ["burden-modeler"],
@@ -434,8 +434,8 @@ export const roles: Role[] = [
     guide: {
       focusAreas: [
         "Align research questions with glossary and standard definitions.",
-        "Publish protocols and artifacts that feed validators and mechanisms.",
-        "Coordinate with the Institute to share datasets and findings.",
+        "Publish protocols and data that the validators and mechanisms can use.",
+        "Send datasets and findings to the Institute through the Participate page.",
       ],
       keyLinks: [
         {
@@ -451,12 +451,12 @@ export const roles: Role[] = [
         {
           label: "Glossary",
           href: "/glossary",
-          note: "Canonical definitions for research protocols.",
+          note: "Defined terms to use in research protocols.",
         },
         {
           label: "Participate",
           href: "/participate",
-          note: "Submit findings and coordinate peer review.",
+          note: "Send findings, cases, and corrections.",
         },
         {
           label: "Field notes",
@@ -465,9 +465,9 @@ export const roles: Role[] = [
         },
       ],
       firstMoves: [
-        "Select glossary anchors for your research framing and cite them consistently.",
-        "Share protocol drafts through the participation intake.",
-        "Publish bridge artifacts that translate findings into mechanisms.",
+        "Pick the glossary terms your research uses and cite them consistently.",
+        "Send protocol drafts through the Participate page.",
+        "Write up how a finding would change a mechanism, and publish it.",
       ],
     },
     formerPaths: ["/quick-start/researchers"],
@@ -491,8 +491,8 @@ export const roles: Role[] = [
         number: 2,
         title: "Review corrective practices",
         description:
-          "Review self-reported growth, challenge intake, reversal, revision, and workaround handling.",
-        ctaLabel: "Run Corrective capacity self-assessment",
+          "Five questions: how fast the system's reach grew, and whether challenges are received, reversed, fed back into the rules, and tracked when staff work around it.",
+        ctaLabel: "Run the corrective capacity self-assessment",
         ctaHref: "/diagnostics/corrective-debt-calculator",
       },
       {

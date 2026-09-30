@@ -51,7 +51,7 @@ const permalink = `/mechanisms/patterns/${pattern.slug}`;
 const hasAntiPatterns = (pattern.antiPatterns?.length ?? 0) > 0;
 const anchorLinks = [
   ...(glossaryAnchors.length
-    ? [{ href: "#glossary", label: "Glossary anchors" }]
+    ? [{ href: "#glossary", label: "Terms used" }]
     : []),
   { href: "#overview", label: "Overview" },
   { href: "#steps", label: "Steps" },
@@ -95,24 +95,26 @@ const breadcrumbItems = [
         <p class="eyebrow">Spec essentials</p>
         <h3>What this mechanism includes</h3>
         <ul class="panel__list">
-          <li>{stepCount} steps with checklist-ready owners.</li>
-          <li>{assetCount} reusable assets for briefs and runbooks.</li>
-          <li>{snippetCount} reuse-ready snippet blocks.</li>
+          <li>{stepCount} steps you can check off.</li>
+          <li>{assetCount} templates for briefs and runbooks.</li>
+          <li>{snippetCount} blocks of policy, product, audit, and postmortem text to copy.</li>
           {
             glossaryAnchors.length > 0 && (
               <li>
-                {glossaryAnchors.length} glossary anchors for shared terms.
+                {glossaryAnchors.length} linked glossary terms.
               </li>
             )
           }
         </ul>
       </div>
       <div class="panel mechanisms__spec-card">
-        <p class="eyebrow">Filters & validators</p>
+        <p class="eyebrow">Filters and validators</p>
         <h3>Where this spec sits in the system</h3>
         <p class="muted">
-          Tagged in {pattern.filters.length} filters with {validatorCount} linked
-          validators.
+          Tagged in {pattern.filters.length}{" "}
+          {pattern.filters.length === 1 ? "filter" : "filters"}, with{" "}
+          {validatorCount} linked{" "}
+          {validatorCount === 1 ? "validator" : "validators"}.
         </p>
         <ul class="pill-list pill-list--wrap mechanisms__spec-filters">
           {
@@ -133,7 +135,7 @@ const breadcrumbItems = [
     glossaryAnchors.length > 0 && (
       <SectionBlock
         id="glossary"
-        eyebrow="Glossary anchors"
+        eyebrow="Terms used"
         title="Link back to the definitions."
         description="Jump to the glossary terms that frame this mechanism."
         variant="alt"
@@ -155,11 +157,11 @@ const breadcrumbItems = [
     id="steps"
     eyebrow="Steps"
     title="Put the mechanism in motion."
-    description="Start with the field cues. The assets below record each step."
+    description="Do these in order."
   >
     <div class="pattern-detail__step-summary">
       <p class="muted">
-        {stepCount} steps with checklist-ready owners, plus linked assets for handoffs.
+        {stepCount} steps. Check each one off as it is done. The templates below record the work.
       </p>
     </div>
     <div class="pattern-detail__checklist-progress" hidden>
@@ -194,7 +196,7 @@ const breadcrumbItems = [
   <SectionBlock
     id="assets"
     eyebrow="Assets"
-    title="Assets this mechanism produces."
+    title="Templates this mechanism produces."
     description="Copy these into design docs, runbooks, and briefs, with the mechanism permalink."
     variant="alt"
   >

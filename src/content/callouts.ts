@@ -17,10 +17,10 @@ export const instituteStudioCallout: ReferenceCalloutContent = {
 };
 
 export const diagnosticsStudioOffRampCallout: ReferenceCalloutContent = {
-  title: "Need to escalate?",
+  title: "Need help with a result?",
   summary:
-    "Each result page links to the Studio at ethotechnics.com, for results that show high risk or that your team cannot interpret.",
+    "Every diagnostic runs without us. For a result that shows high risk, or that your team cannot interpret, Ethotechnics Studio takes commissioned work to go through it with you.",
   href: "/institute/how-studio-fits",
-  linkLabel: "Read more",
-  ariaLabel: "Read more about Studio escalation paths",
+  linkLabel: "How the Studio fits",
+  ariaLabel: "Read how Ethotechnics Studio fits alongside the diagnostics",
 };

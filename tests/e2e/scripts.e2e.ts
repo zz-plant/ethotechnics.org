@@ -47,7 +47,7 @@ test.describe("Production scripts", () => {
     await expect(decisionLog).toBeHidden();
 
     await page
-      .getByLabel("Search mechanisms by title, summary, or cue")
+      .getByLabel("Search mechanisms by name or keyword")
       .fill("appeal");
     await expect(filterStatus).toContainText(
       `${countLabel(frictionAppealMechanisms.length)} visible with Friction and search for "appeal".`,
