@@ -243,7 +243,7 @@ export function BurdenModeler() {
                               borderRadius: "4px",
                               background: "var(--panel)",
                               color: "var(--text)",
-                              fontSize: "0.85rem",
+                              fontSize: "var(--text-sm)",
                               padding: "2px",
                             }}
                             aria-label={`Numeric input for ${driver.label}`}

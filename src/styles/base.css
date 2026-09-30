@@ -36,7 +36,7 @@
     color: var(--text);
     min-height: 100vh;
     line-height: 1.65;
-    font-size: clamp(0.98rem, 0.3vw + 0.95rem, 1.1rem);
+    font-size: var(--text-base);
     -webkit-font-smoothing: antialiased;
     position: relative;
   }
@@ -72,7 +72,7 @@
   select,
   textarea {
     font-family: inherit;
-    font-size: 1rem;
+    font-size: var(--text-base);
     color: var(--text);
   }
 
@@ -255,7 +255,7 @@
     font-family: var(--sans);
     font-size: var(--text-xs);
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--muted);
     background: color-mix(in srgb, var(--panel) 70%, var(--surface));
