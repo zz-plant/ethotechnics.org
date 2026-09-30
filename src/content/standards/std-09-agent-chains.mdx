@@ -1,6 +1,6 @@
 ---
 title: "STD-09 — Agent Chains"
-description: "The terms a chain of delegations must satisfy when a consequential decision is produced by sub-contracted agents and services that no single human oversees: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop."
+description: "The terms a chain of delegations must satisfy when a consequential decision is produced by sub-contracted agents and services that no single human oversees: the whole chain is treated as one delegation, delays add up across it, and it can correct errors only as well as its weakest link."
 permalink: "/standards/std-09-agent-chains"
 eyebrow: "Standard"
 seoTitle: "STD-09 — Agent Chains"
@@ -13,7 +13,7 @@ anchorLinks:
   - href: "#scope"
     label: "Scope"
   - href: "#objects"
-    label: "Objects this standard uses"
+    label: "Records this standard uses"
   - href: "#part-a"
     label: "Part A: The chain is a delegation"
   - href: "#part-b"
@@ -136,7 +136,7 @@ export const structuredData = {
   "@id": "https://ethotechnics.org/standards/std-09-agent-chains",
   headline: "STD-09 — Agent Chains",
   description:
-    "The terms a chain of delegations must satisfy: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop.",
+    "The terms a chain of delegations must satisfy: the whole chain is treated as one delegation, delays add up across it, and it can correct errors only as well as its weakest link.",
   url: "https://ethotechnics.org/standards/std-09-agent-chains",
   datePublished: "2026-09-11",
   dateModified: "2026-09-22",
@@ -251,7 +251,7 @@ export const structuredData = {
       </section>
 
       <section id="objects" class="standard-section">
-        <h2>Objects this standard uses</h2>
+        <h2>Records this standard uses</h2>
 
         No new object is introduced in this draft. The chain is carried on
         the authority grant's <code>chain</code> field, published with the

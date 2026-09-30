@@ -54,23 +54,23 @@ const quickTriagePrompts = [
     description:
       "Answer five questions about how the system has grown and how the institution fixes its mistakes.",
     href: "/diagnostics/corrective-debt-calculator",
-    label: "Run Corrective capacity self-assessment",
+    label: "Run the corrective capacity self-assessment",
   },
 ];
 const selfDefenseTools = [
   {
-    title: "Is this system governable?",
+    title: "Can this decision be challenged?",
     description:
-      "Seven yes/no checks on whether the decision can be contested.",
+      "Seven yes/no checks on whether you can challenge the decision.",
     href: "/diagnostics/self-defense-tools#governable",
-    label: "Run governability diagnostic",
+    label: "Check the decision",
   },
   {
-    title: "Is this appeal real?",
+    title: "Can this appeal change the outcome?",
     description:
       "Checks whether an appeal can change the outcome or only records it.",
     href: "/diagnostics/self-defense-tools#appeal-real",
-    label: "Run appeal diagnostic",
+    label: "Check the appeal",
   },
   {
     title: "Who holds power?",
@@ -182,7 +182,7 @@ const comparisonTools = mostUsedTools.slice(0, 3);
       <div class="panel stack-sm">
         <p class="eyebrow">Deliverable baseline</p>
         <ul class="muted small">
-          <li>Linkable results page and a shareable PDF summary.</li>
+          <li>Results you can copy, link to, or export, depending on the tool.</li>
           <li>References to the mechanisms each mitigation comes from.</li>
           <li>
             Facilitated follow-up when the question or risk stays unclear.
@@ -250,8 +250,8 @@ const comparisonTools = mostUsedTools.slice(0, 3);
 
   <SectionBlock
     id="self-defense-tools"
-    eyebrow="Self-defense diagnostics"
-    title="Short checks for appeal, governability, and power"
+    eyebrow="If a system decided about you"
+    title="Short checks: can you challenge it, can the appeal work, who can reverse it"
     description="Three checks for the person on the receiving end of a decision, to run before escalating."
   >
     <CardGrid className="grid--three">

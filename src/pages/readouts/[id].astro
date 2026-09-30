@@ -39,7 +39,7 @@ const statusLabel = {
 
 <BaseLayout
   title={`${result.workflow} — Delegation audit readout`}
-  description={`Exposure ${result.exposure.score} (${result.exposure.bandLabel}), ${result.ungroundedGrants.length} ungrounded grants, reversibility weakest at the ${result.reversibility.weakest.label.toLowerCase()} level. Captured ${capturedDate}.`}
+  description={`Exposure ${result.exposure.score} (${result.exposure.bandLabel}), ${result.ungroundedGrants.length} permissions nobody can justify, reversibility weakest at the ${result.reversibility.weakest.label.toLowerCase()} level. Captured ${capturedDate}.`}
   robots="noindex, nofollow"
 >
   <PageIntro
@@ -49,7 +49,7 @@ const statusLabel = {
     anchorLinks={[
       { href: "#exposure", label: "Exposure" },
       { href: "#variables", label: "State variables" },
-      { href: "#grants", label: "Ungrounded grants" },
+      { href: "#grants", label: "Permissions nobody can justify" },
       { href: "#reversibility", label: "Reversibility" },
       { href: "#findings", label: "Findings" },
     ]}
@@ -125,11 +125,11 @@ const statusLabel = {
 
   <SectionBlock
     id="grants"
-    eyebrow="Ungrounded grants"
+    eyebrow="Permissions nobody can justify"
     title={result.ungroundedGrants.length === 0
       ? "Every action class is grounded"
-      : `${result.ungroundedGrants.length} action ${result.ungroundedGrants.length === 1 ? "class" : "classes"} nobody can ground`}
-    description="An ungrounded grant is a finding to investigate, not a proven violation."
+      : `${result.ungroundedGrants.length} ${result.ungroundedGrants.length === 1 ? "action" : "actions"} nobody can justify`}
+    description="Each is a finding to investigate, not a proven violation."
     variant="alt"
   >
     {
