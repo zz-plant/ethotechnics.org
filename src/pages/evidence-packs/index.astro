@@ -8,9 +8,9 @@ import CardItem from "../../components/CardItem.astro";
 
 const evidencePacks = await getCollection("evidencePacks");
 
-const pageTitle = "Evidence Packs";
+const pageTitle = "Evidence packs";
 const pageDescription =
-  "Tiered evidence requirements for each standard, with auditor questions and the patterns that expose compliance theater.";
+  "What each standard asks you to be able to show, in three tiers from minimum to stress-tested, with the questions an auditor should ask.";
 
 const anchorLinks = [{ href: "#evidence-packs", label: "All evidence packs" }];
 ---
@@ -28,7 +28,7 @@ const anchorLinks = [{ href: "#evidence-packs", label: "All evidence packs" }];
     id="evidence-packs"
     eyebrow="All evidence packs"
     title={`Evidence packs for ${evidencePacks.length} standards`}
-    description="Each pack includes tiered evidence, clause-level requirements, anti-fraud patterns, and auditor questions."
+    description="Each pack lists the evidence at three tiers and what auditors ask. Most also list the ways teams fake the evidence."
   >
     <CardGrid className="grid--two">
       {

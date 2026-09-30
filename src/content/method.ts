@@ -80,7 +80,7 @@ export const methodContent: MethodContent = {
   claim:
     "The primary object being engineered is not the model. It is the delegation of consequential agency. The question is not whether the model is capable, aligned, or safe. It is whether the delegation itself remains valid as the system acts, learns, scales, and becomes depended upon.",
   unitOfGovernance:
-    "The unit of governance is the consequential decision and the delegation that produced it. Models, agents, humans, APIs, rules engines, policies, and databases are components of the machinery. Nothing in the method depends on which component made the decision, so its primitives are substrate-independent.",
+    "The unit of governance is the consequential decision and the delegation that produced it. Models, agents, humans, APIs, rules engines, policies, and databases are components of the machinery. Nothing in the method depends on which component made the decision, so the same records and checks apply whether it was a model, a rules engine, or a person.",
   invariant:
     "No system may accumulate consequential agency faster than the institution accumulates the capacity to inspect, challenge, revise, and survive its decisions.",
   chain: [
@@ -89,7 +89,7 @@ export const methodContent: MethodContent = {
       title: "Evidence",
       question: "What propositions justify letting this system act at all?",
       currentAssets: [
-        "Evidence packs for STD-01, STD-02, and STD-06",
+        "Evidence packs for STD-01, STD-02, STD-06, STD-08, and STD-09",
         "evidence_refs on the decision record",
         "STD-06 Human Impact Safety Case",
         "Burden Concealment evals",

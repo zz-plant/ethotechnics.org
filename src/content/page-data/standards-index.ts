@@ -78,7 +78,7 @@ const adoptedStandards: StandardsCardModel[] = [
     eyebrow: "Meta-critique",
     title: "Governance by control",
     description:
-      "The Ethotechnics critique: representation without enforceable control planes.",
+      "The general critique: frameworks that govern through documents, roles, and reviews, with no built-in power to stop a running system.",
     href: "/standards#governance-by-control",
   },
 ];
@@ -100,7 +100,7 @@ const groupingDefinitions: StandardsGroupDefinition[] = [
     title: "Reference",
     description:
       "Interoperability and record-format specifications used across ecosystems.",
-    ids: ["STD-04", "STD-05", "STD-07"],
+    ids: ["STD-04", "STD-05", "STD-07", "STD-09"],
   },
 ];
 
@@ -148,7 +148,7 @@ export const buildStandardsCardViewModels = (input: {
     {
       title: "Implementation examples overview",
       description:
-        "Domain-by-domain comparisons showing how Ethotechnics changes system architecture.",
+        "How the same system is built differently in each domain once it has to be stoppable and reversible.",
       href: "/examples#domains",
       ctaLabel: "Read guide",
     },

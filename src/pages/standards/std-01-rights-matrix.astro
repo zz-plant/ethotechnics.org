@@ -7,7 +7,7 @@ import { derivePublicationMetadata } from "../../utils/publication";
 
 const pageTitle = "STD-01 rights \u2192 validators \u2192 mechanisms matrix";
 const pageDescription =
-  "A reference matrix linking STD-01 temporal rights to validator coverage and enforcement mechanisms.";
+  "Each of the seven STD-01 rights, the validators that test it, and the mechanisms that implement it.";
 const permalink = "/standards/std-01-rights-matrix";
 const anchorLinks = [
   { href: "#matrix", label: "Matrix" },
@@ -196,10 +196,10 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   <ScholarlyMeta publication={publication} permalink={permalink} />
 
   <div class="callout">
-    <h3>Move fast between rights, validators, and mechanisms</h3>
+    <h3>Rights, validators, and mechanisms</h3>
     <p class="muted">
-      Use the full catalogs to jump from each right to diagnostic outputs and
-      enforcement patterns.
+      The full catalogs link each right to the validators that test it and the
+      mechanisms that implement it.
     </p>
     <div class="library__role-buttons">
       <a class="button primary library__role-button" href="/validators">
@@ -292,7 +292,7 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
         Showing all {matrix.length} rights.
       </p>
       <div class="rights-matrix__jump">
-        <span class="glossary-filter__label">Quick jump</span>
+        <span class="glossary-filter__label">Jump to a right</span>
         <div class="glossary-filter__chips">
           {
             rights.map((right) => (
@@ -444,8 +444,8 @@ const mechanisms = collectUnique(matrix.flatMap((row) => row.mechanisms));
   <SectionBlock
     id="notes"
     eyebrow="Coverage notes"
-    title="The matrix is additive, not exhaustive."
-    description="Use the minimum binding set and mapping artifact to confirm clause-level coverage."
+    title="The matrix is a starting point, not a complete list."
+    description="Use the minimum binding set and the mapping artifact to confirm coverage clause by clause."
     variant="alt"
   >
     <ul class="muted">

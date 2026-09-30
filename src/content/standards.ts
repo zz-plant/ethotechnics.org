@@ -63,14 +63,14 @@ export type StandardClause = {
 export const standardsContent: StandardsContent = {
   pageTitle: "Standards — Ethotechnics Institute",
   pageDescription:
-    "Proposed standards for consequential decision systems, with status, version, clause counts, and evidence packs. Status marks editorial maturity. Adoption confers authority.",
+    "Proposed standards for automated systems that make consequential decisions, with status, version, clause count, and evidence pack for each. Status says how settled a text is. A standard carries force only where an institution adopts it.",
   permalink: "/standards",
   anchorLinks: [
     { href: "#active", label: "Now active" },
-    { href: "#doctrine", label: "Core doctrine" },
-    { href: "#adopted-standards", label: "Critiques of adopted regimes" },
+    { href: "#doctrine", label: "Foundations and references" },
+    { href: "#adopted-standards", label: "Where existing frameworks fall short" },
     { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
-    { href: "#referenced-by", label: "Where standards are enforced" },
+    { href: "#referenced-by", label: "Where the standards are cited" },
   ],
   standards: [
     {
@@ -78,7 +78,7 @@ export const standardsContent: StandardsContent = {
       slug: "std-01-temporal-rights",
       title: "The Temporal Bill of Rights",
       description:
-        "Defines the seven inalienable rights protecting human time against automated systems.",
+        "Seven rights that protect a person's time from automated systems: to stop a process, to exit, to a bounded wait, to reversal, to wait without coercion, to reach a human, and to see the burden.",
       status: "Draft",
       version: "1.0",
       changelogHref: "/standards/std-01-temporal-rights",
@@ -316,7 +316,7 @@ export const standardsContent: StandardsContent = {
       slug: "std-08-delegation",
       title: "Delegation",
       description:
-        "The terms a delegation must satisfy while it stands: authority held as a lease, policy kept valid, oversight resolved to an intervention specification, and correction capacity kept proportional to authority.",
+        "What must stay true while an automated system acts for an institution: its authority expires unless renewed, the policies behind it are rechecked when facts change, human oversight names what the human can actually change, and the capacity to correct errors grows with the authority granted.",
       status: "Draft",
       version: "0.3",
       changelogHref: "/standards/std-08-delegation#relationship-to-std-07",
@@ -350,7 +350,7 @@ export const standardsContent: StandardsContent = {
       slug: "std-09-agent-chains",
       title: "Agent Chains",
       description:
-        "The terms a chain of delegations must satisfy when a consequential decision is produced by sub-contracted agents and services that no single human oversees: the chain is itself a delegation, its latency composes, and its correction capacity is its weakest hop.",
+        "What must hold when a consequential decision passes through a chain of agents and services that no single person oversees: the whole chain is treated as one delegation, delays add up across it, and it can correct errors only as well as its weakest link.",
       status: "Draft",
       version: "0.2",
       changelogHref: "/standards/std-09-agent-chains#publication-history",
@@ -379,18 +379,18 @@ export const standardsContent: StandardsContent = {
       id: "core-axioms",
       title: "Core axioms",
       description:
-        "The five axioms every standard rests on: finitude, consent, stewardship, reversibility, and legibility.",
+        "The five axioms every standard rests on: finitude, consent, stewardship, reversibility, and legibility (people can see and audit the burden a system puts on them).",
       href: "/standards/core-axioms",
-      eyebrow: "Doctrine",
+      eyebrow: "Foundations",
       ctaLabel: "View axioms",
     },
     {
       id: "laws",
       title: "Laws for Engineering Delegated Intelligence",
       description:
-        "Twelve laws, the Ethotechnical invariant, and the six state variables the object model tracks.",
+        "The twelve laws the standards enforce, the one-sentence rule that sums them up, and the six things a system must keep in step as it grows.",
       href: "/standards/laws",
-      eyebrow: "Doctrine",
+      eyebrow: "Foundations",
       ctaLabel: "Read the laws",
     },
     {
@@ -406,7 +406,7 @@ export const standardsContent: StandardsContent = {
       id: "std-01-mapping-artifact",
       title: "STD-01 mapping artifact",
       description:
-        "A domain-neutral trace from a harm to the binding change that answers it.",
+        "One invented case traced from each harm to the STD-01 right it breaks, the check that catches it, and the change that fixes it.",
       href: "/standards/std-01-mapping-artifact",
       eyebrow: "STD-01 reference",
       ctaLabel: "Open mapping",
@@ -424,16 +424,16 @@ export const standardsContent: StandardsContent = {
       id: "std-01-minimum-binding-set",
       title: "STD-01 minimum binding set",
       description:
-        "The least each STD-01 right requires, with clause references.",
+        "The least each STD-01 right requires before a system can claim it, with clause references and examples that fall short.",
       href: "/standards/std-01-minimum-binding-set",
       eyebrow: "STD-01 reference",
       ctaLabel: "Review binding set",
     },
     {
       id: "where-this-binds",
-      title: "Where this binds",
+      title: "Citing the standards in contracts and audits",
       description:
-        "How to cite these standards in contracts, procurement terms, and audits.",
+        "How to write these standards into contracts, procurement terms, and audits.",
       href: "/standards/where-this-binds",
       eyebrow: "Governance",
       ctaLabel: "See guidance",
@@ -442,7 +442,7 @@ export const standardsContent: StandardsContent = {
       id: "enforceable-governance-crosswalks",
       title: "Enforceable governance crosswalks",
       description:
-        "Control mappings linking Ethotechnics obligations to EU AI Act, NIST AI RMF, and ISO/IEC 42001.",
+        "Each Ethotechnics control mapped to the EU AI Act, NIST AI RMF, and ISO/IEC 42001, with the evidence a buyer or auditor should request.",
       href: "/standards/enforceable-governance-crosswalks",
       eyebrow: "Governance",
       ctaLabel: "Open crosswalks",
@@ -450,7 +450,7 @@ export const standardsContent: StandardsContent = {
     {
       id: "glossary",
       title: "Glossary",
-      description: "Canonical definitions for the terms the standards use.",
+      description: "Definitions of the terms the standards use, each at a stable URL.",
       href: "/glossary",
       eyebrow: "Reference",
       ctaLabel: "Browse glossary",
