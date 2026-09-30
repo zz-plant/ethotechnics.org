@@ -24,6 +24,19 @@ import { fileURLToPath } from "node:url";
  *   (the `margin: -1px` of a visually hidden element).
  * - px in a rule whose selector names an SVG or a diagram, where px are
  *   drawing units inside a viewBox.
+ *
+ * TypeScript is checked too: CSS written into strings (styles a script
+ * injects) and React style objects with string values (gap: "0.5rem").
+ * Two things are left out on purpose:
+ * - Standalone print documents a script assembles as a full HTML page
+ *   (<!DOCTYPE html> … </html>). They open in their own window without the
+ *   theme stylesheet, so the tokens do not exist there. A print window
+ *   built through the DOM instead marks its style string with the comment
+ *   "standalone print document". Only that block or string is skipped; the
+ *   rest of the file is still checked.
+ * - Numeric React values (gap: 8). A bare `gap` or `margin` key in a
+ *   TypeScript object is often not a style at all, and telling the two apart
+ *   needs a parser; string values are unambiguous.
  */
 const SRC = fileURLToPath(new URL("..", import.meta.url));
 const EXEMPT_FILES = new Set(["styles/theme.css"]);
@@ -31,6 +44,10 @@ const DECLARATION =
   /(?<![\w-])((?:margin|padding)(?:-(?:top|right|bottom|left|inline|block)(?:-(?:start|end))?)?|gap|row-gap|column-gap)\s*:\s*([^;"}]+)/g;
 const RAW_LENGTH = /(\d*\.?\d+)(px|rem)\b/g;
 const SVG_SELECTOR = /svg|diagram/i;
+const REACT_STYLE =
+  /(?<![\w-])((?:margin|padding)(?:Top|Right|Bottom|Left|Inline|Block)?(?:Start|End)?|gap|rowGap|columnGap)\s*:\s*(["'`])([^"'`]*)\2/g;
+const PRINT_DOCUMENT =
+  /<!DOCTYPE html>[\s\S]*?<\/html>|`[^`]*\/\*\s*standalone print document[^`]*`/gi;
 const TOKEN = /var\(\s*--(?:space-[\w-]+|page-gutter)\s*(?:,[^()]*)?\)/g;
 
 type Violation = { file: string; selector: string; declaration: string };
@@ -79,6 +96,25 @@ const findViolations = (file: string, raw: string): Violation[] => {
   return violations;
 };
 
+/** Raw spacing in a TypeScript source: CSS in strings, and React styles. */
+const findScriptViolations = (file: string, raw: string): Violation[] => {
+  const text = raw.replace(PRINT_DOCUMENT, "");
+  const violations = findViolations(file, text);
+  for (const match of text.matchAll(REACT_STYLE)) {
+    const value = match[3].trim();
+    const lengths = [...stripTokens(value).matchAll(RAW_LENGTH)].filter(
+      (length) => !isHairline(length),
+    );
+    if (lengths.length === 0) continue;
+    violations.push({
+      file,
+      selector: "(style object)",
+      declaration: `${match[1]}: ${value}`,
+    });
+  }
+  return violations;
+};
+
 describe("spacing scale", () => {
   it("every margin, padding and gap outside theme.css uses a --space-* token", async () => {
     const violations: Violation[] = [];
@@ -89,7 +125,33 @@ describe("spacing scale", () => {
         violations.push(...findViolations(file, text));
       }
     }
+    for (const pattern of ["**/*.ts", "**/*.tsx"]) {
+      for await (const file of new Glob(pattern).scan({ cwd: SRC })) {
+        if (file.endsWith(".test.ts") || file.endsWith(".d.ts")) continue;
+        const text = await Bun.file(`${SRC}/${file}`).text();
+        violations.push(...findScriptViolations(file, text));
+      }
+    }
     expect(violations).toEqual([]);
+  });
+
+  it("checks script styles and React style objects, but not print documents", () => {
+    const source = `
+      const a = { gap: "0.5rem", padding: "var(--space-2)" };
+      const b = <div style={{ marginTop: "12px", paddingInline: "2px" }} />;
+      const css = \`.live { margin: 1.5rem 0; }\`;
+      const doc = \`<!DOCTYPE html><html><style>body { margin: 32px; }</style></html>\`;
+      const printed = \`/* standalone print document */ body { margin: 32px; }\`;
+      const c = { rowGap: "1rem", margin: 0 };
+    `;
+    expect(
+      findScriptViolations("x.tsx", source).map((v) => v.declaration),
+    ).toEqual([
+      "margin: 1.5rem 0",
+      "gap: 0.5rem",
+      "marginTop: 12px",
+      "rowGap: 1rem",
+    ]);
   });
 
   it("flags raw lengths and passes tokens, relative values and hairlines", () => {
