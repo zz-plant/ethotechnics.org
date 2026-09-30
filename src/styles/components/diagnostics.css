@@ -334,3 +334,159 @@
     word-break: break-all;
   }
 }
+
+/* /diagnostics opens on the four tools. Each card is one link: the tool name
+   is the link text, and its ::after covers the card so the whole card is the
+   click target without nesting a heading inside an anchor. */
+@layer components {
+  .page-intro + .diagnostics-start {
+    margin-top: var(--space-4);
+  }
+
+  .diagnostics-start__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 720px) {
+    .diagnostics-start__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .diagnostics-start__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    scroll-margin-top: var(--space-6);
+    transition:
+      border-color var(--motion-fast) ease,
+      box-shadow var(--motion-fast) ease;
+  }
+
+  .diagnostics-start__card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .diagnostics-start__card:has(.diagnostics-start__link:focus-visible) {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .diagnostics-start__meta {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .diagnostics-start__question {
+    margin: 0;
+    font-size: var(--text-h3);
+    line-height: 1.25;
+  }
+
+  .diagnostics-start__description {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .diagnostics-start__link {
+    margin-top: auto;
+    padding-top: var(--space-1);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 650;
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  .diagnostics-start__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .diagnostics-start__card:hover .diagnostics-start__link {
+    color: var(--link-hover);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  /* The card draws the focus ring; the link's own outline would sit inside it. */
+  .diagnostics-start__link:focus-visible {
+    outline: none;
+    text-decoration: underline;
+  }
+
+  .diagnostics-map {
+    margin: var(--space-4) 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-2) 0;
+  }
+
+  .diagnostics-map > summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 650;
+    padding: var(--space-1) 0;
+  }
+
+  .diagnostics-map > summary:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  .diagnostics-map__list {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 720px) {
+    .diagnostics-map__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .diagnostics-map__tool {
+    margin: 0 0 var(--space-1);
+    font-weight: 650;
+  }
+
+  .diagnostics-map__facts {
+    margin: 0;
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .diagnostics-map__facts div {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+
+  .diagnostics-map__facts dt {
+    font-weight: 600;
+  }
+
+  .diagnostics-map__facts dd {
+    margin: 0;
+  }
+}

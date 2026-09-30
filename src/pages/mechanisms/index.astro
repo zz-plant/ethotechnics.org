@@ -66,32 +66,69 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     title="Mechanisms"
     description={pageDescription}
     anchorLinks={[
-      { href: "#start-here", label: "Start here" },
-      { href: "#role-pathways", label: "Role-based pathways" },
-      { href: "#primer", label: "Primer" },
       { href: "#mechanisms", label: "Mechanism catalog" },
+      { href: "#start-here", label: "Start here" },
       { href: "#syllabus", label: "Syllabus" },
       { href: "#references", label: "References" },
-      { href: "#referenced-by", label: "Referenced by" },
     ]}
-    illustration="mechanisms"
+  />
+  <SectionBlock id="mechanisms" title="Mechanism catalog">
+    <p class="mechanisms__links">
+      New to mechanisms? <a href="#primer">Read the primer</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="#role-pathways">Guides by role</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="/standards/std-01-rights-matrix">Rights matrix</a><span
+        class="mechanisms__links-sep"
+        aria-hidden="true">·</span
+      ><a href="/validators">Validators</a>
+    </p>
+    <div class="pattern-filter__anchors" aria-hidden="true">
+      {
+        patterns.filters.map((filter) => (
+          <span class="pattern-filter__anchor" id={filter.slug} />
+        ))
+      }
+    </div>
+    <PatternFilter
+      filters={patterns.filters}
+      entries={patterns.entries}
+      diagnosticTitles={diagnosticTitles}
+    />
+  </SectionBlock>
+
+  <SectionBlock
+    id="primer"
+    eyebrow="Primer"
+    title="What the mechanisms are for"
+    description="Short overviews for onboarding and briefings."
+    variant="alt"
   >
-    <Fragment slot="actions">
-      <a class="button primary" href="#mechanisms"> Browse mechanisms </a>
-      <a class="button ghost" href="#primer"> Read the primer </a>
-    </Fragment>
-  </PageIntro>
+    <CardGrid>
+      {
+        primer.map((entry) => (
+          <CardItem
+            title={entry.title}
+            description={entry.summary}
+            tags={entry.takeaways}
+          />
+        ))
+      }
+    </CardGrid>
+  </SectionBlock>
+
   <SectionBlock
     id="start-here"
     eyebrow="Start here"
     title="From question to mechanism"
     description="Find a mechanism, read the primer, then check each one against the rights it protects and the validators that test it."
-    variant="alt"
   >
     <ol class="card__list">
       <li>
         <strong>Find one:</strong>{" "}
-        <a href="#mechanisms">browse the catalog</a> for the safeguard you need.
+        <a href="#mechanisms">search the catalog</a> for the safeguard you need.
       </li>
       <li>
         <strong>Learn the terms:</strong>{" "}
@@ -134,6 +171,7 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Role-based pathways"
     title={rolePathways.title}
     description={rolePathways.description}
+    variant="alt"
   >
     <div class="library__role-buttons">
       {
@@ -166,52 +204,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
         ))
       }
     </div>
-  </SectionBlock>
-
-  <SectionBlock
-    id="primer"
-    eyebrow="Primer"
-    title="Read this before the mechanisms"
-    description="Short overviews for onboarding and briefings."
-    variant="alt"
-  >
-    <CardGrid>
-      {
-        primer.map((entry) => (
-          <CardItem
-            title={entry.title}
-            description={entry.summary}
-            tags={entry.takeaways}
-          />
-        ))
-      }
-    </CardGrid>
-  </SectionBlock>
-
-  <SectionBlock
-    id="mechanisms"
-    eyebrow="Mechanisms"
-    title="The catalog, filtered by governance, friction, or policy"
-    description="Filter by theme. Each mechanism links to the diagnostics that check it."
-    variant="alt"
-  >
-    {
-      /* The section already carries id="mechanisms". A second element with
-         the same id made #mechanisms ambiguous and resolved to the section,
-         so this offset anchor never did anything. */
-    }
-    <div class="pattern-filter__anchors" aria-hidden="true">
-      {
-        patterns.filters.map((filter) => (
-          <span class="pattern-filter__anchor" id={filter.slug} />
-        ))
-      }
-    </div>
-    <PatternFilter
-      filters={patterns.filters}
-      entries={patterns.entries}
-      diagnosticTitles={diagnosticTitles}
-    />
   </SectionBlock>
 
   <SectionBlock
@@ -274,7 +266,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
           ties action classes, receipts, and kill-switch authority to specific mechanisms.
         </p>
         <ul class="muted">
-          <li>Map MEC-01 (decision log), MEC-05 (kill switch), and MEC-06 (appeal paths) into the model.</li>
+          <li>
+            Map MEC-01 (decision log), MEC-05 (kill switch), and MEC-06 (appeal
+            paths) into the model.
+          </li>
           <li>Declare time limits and approvals for each class of action.</li>
           <li>Attach evidence packs that show compliance.</li>
         </ul>

@@ -38,13 +38,14 @@ const { adoptedStandards, implementationExampleCards } =
     doctrine,
     implementationExamples,
   });
-const {
-  activeStandards,
-  mostCitedStandardIds,
-  standardsFilterOptions,
-  standardsLaneById,
-  standardsLaneCounts,
-} = buildStandardsGroupingAndFilters(standards);
+// The lane (core, implementation, reference) rides in the register as a tag.
+// It used to be a second, filterable list of the same standards.
+const { standardsLaneById } = buildStandardsGroupingAndFilters(standards);
+const laneLabel = (id: string) => {
+  const lane = standardsLaneById.get(id);
+  return lane ? lane.charAt(0).toUpperCase() + lane.slice(1) : undefined;
+};
+const evidencePackIds = ["STD-01", "STD-02", "STD-06", "STD-08", "STD-09"];
 const structuredData = buildStandardsStructuredDataPayload({
   standardsContent,
   adoptedStandards,
@@ -66,7 +67,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     description={pageDescription}
     anchorLinks={anchorLinks}
     anchorLinksSummary="Show full standards outline"
-    illustration="standards"
   >
     <Fragment slot="actions">
       <a class="button primary" href="/standards/std-01-temporal-rights">
@@ -87,10 +87,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     id="register"
     eyebrow="Register"
     title="Every standard, in one table"
-    description="Identifier, status, version, how many clauses it carries, and where its evidence pack lives."
+    description="Identifier, lane, status, version, how many clauses it carries, and where its evidence pack lives. The lanes are core rights and obligations, implementation templates, and reference formats."
   >
     <div class="mapping-table__wrapper">
-      <table class="mapping-table mapping-table--stack catalogue-table">
+      <table class="mapping-table catalogue-table standards-register">
         <thead>
           <tr>
             <th scope="col">Standard</th>
@@ -106,32 +106,73 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
             listedStandards.map((standard) => {
               const clauses = clauseCounts.get(standard.slug) ?? 0;
               const packSlug = standard.id.toLowerCase();
+              const lane = laneLabel(standard.id);
               return (
                 <tr>
-                  <th scope="row">
+                  <th scope="row" class="standards-register__id">
                     <a href={`/standards/${standard.slug}`}>{standard.id}</a>
                   </th>
-                  <td data-label="Title">{standard.title}</td>
-                  <td data-label="Status">
+                  <td class="standards-register__title">
+                    <a
+                      class="standards-register__name"
+                      href={`/standards/${standard.slug}`}
+                    >
+                      {standard.title}
+                    </a>
+                    {lane && <span class="standards-register__lane">{lane}</span>}
+                    <span class="standards-register__summary">
+                      {standard.description}
+                      {standard.deprecatedBy &&
+                        standard.deprecatedBy.length > 0 && (
+                          <>
+                            {" "}
+                            Replaced by{" "}
+                            {standard.deprecatedBy.map(
+                              (replacement, index, all) => (
+                                <>
+                                  <a href={`/standards/${replacement.slug}`}>{replacement.id}</a>{index === all.length - 1 ? "." : ", "}
+                                </>
+                              ),
+                            )}
+                          </>
+                        )}
+                    </span>
+                  </td>
+                  <td class="standards-register__status">
                     <span
                       class={`catalogue-table__status catalogue-table__status--${standard.status.toLowerCase()}`}
                     >
                       {standard.status}
                     </span>
                   </td>
-                  <td data-label="Version">{standard.version}</td>
-                  <td data-label="Clauses" class="catalogue-table__num">
-                    {clauses > 0 ? clauses : "—"}
+                  <td class="standards-register__version">
+                    <span class="standards-register__meta-label">v</span>{standard.version}
                   </td>
-                  <td data-label="Evidence pack">
-                    {["STD-01", "STD-02", "STD-06", "STD-08", "STD-09"].includes(
-                      standard.id,
-                    ) ? (
+                  <td
+                    class:list={[
+                      "catalogue-table__num standards-register__clauses",
+                      { "standards-register__clauses--none": clauses === 0 },
+                    ]}
+                  >
+                    {clauses > 0 ? clauses : "—"}
+                    {clauses > 0 && (
+                      <span class="standards-register__meta-label">
+                        {clauses === 1 ? " clause" : " clauses"}
+                      </span>
+                    )}
+                  </td>
+                  <td class="standards-register__pack">
+                    {evidencePackIds.includes(standard.id) ? (
                       <a href={`/evidence-packs/${packSlug}`}>
                         {standard.id} pack
                       </a>
                     ) : (
-                      <span class="muted">—</span>
+                      <span class="muted">
+                        <span class="standards-register__dash">—</span>
+                        <span class="standards-register__meta-label">
+                          No evidence pack
+                        </span>
+                      </span>
                     )}
                   </td>
                 </tr>
@@ -148,7 +189,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Where to start"
     title="Start from what you have to do"
     description="Where to start if you are writing policy, preparing for an audit, or overseeing a build."
-    variant="alt"
   >
     <CardGrid className="grid--three">
       <CardItem
@@ -183,117 +223,10 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
   </SectionBlock>
 
   <SectionBlock
-    id="active"
-    eyebrow="Current standards"
-    title="Standards in draft or stable"
-    description="Grouped by lane: core rights and obligations, implementation templates, and reference formats. Deprecated standards stay in the register above."
-  >
-    <div class="standards-filter panel stack-sm" data-standards-filter>
-      <p class="eyebrow">Filter and sort</p>
-      <div class="standards-filter__controls">
-        <label>
-          Lane
-          <select data-standards-filter-lane>
-            {
-              standardsFilterOptions.map((option) => (
-                <option value={option}>
-                  {option === "all"
-                    ? `All lanes (${standardsLaneCounts.all})`
-                    : `${option.charAt(0).toUpperCase() + option.slice(1)} (${standardsLaneCounts[option as keyof typeof standardsLaneCounts]})`}
-                </option>
-              ))
-            }
-          </select>
-        </label>
-        <label>
-          Sort
-          <select data-standards-filter-sort>
-            <option value="citation">Most cited first</option>
-            <option value="recent">Recently updated first</option>
-            <option value="id">Standard ID</option>
-          </select>
-        </label>
-      </div>
-      <p class="muted small" data-standards-filter-status>
-        Showing all active standards.
-      </p>
-    </div>
-    <CardGrid className="grid--two" data-standards-grid>
-      {
-        activeStandards.map((standard) => {
-          const lane = standardsLaneById.get(standard.id) ?? "reference";
-
-          return (
-            <div
-              data-standard-card
-              data-standard-id={standard.id}
-              data-standard-lane={lane}
-              data-standard-published={standard.published}
-              data-standard-cited={
-                mostCitedStandardIds.includes(standard.id) ? "1" : "0"
-              }
-            >
-              <CardItem
-                eyebrow={standard.id}
-                title={standard.title}
-                description={standard.description}
-              >
-                <p class="muted small">
-                  Lane: {lane.charAt(0).toUpperCase() + lane.slice(1)} ·
-                  <span
-                    class={`status-badge status-badge--${standard.status.toLowerCase()}`}
-                  >
-                    {standard.status}
-                  </span>
-                  · v{standard.version} · Effective {standard.effectiveDate}
-                </p>
-                {standard.id === "STD-02" && (
-                  <p class="muted">
-                    Practice:{" "}
-                    <a href="/standards/ethotechnics-for-agents">
-                      Ethotechnics for Agents
-                    </a>{" "}
-                    — how to implement STD-01 and STD-02 in agent systems,
-                    mechanism by mechanism, with recourse a person can enforce.
-                  </p>
-                )}
-                {standard.deprecatedBy && standard.deprecatedBy.length > 0 && (
-                  <p class="muted small">
-                    Deprecated by:{" "}
-                    {standard.deprecatedBy.map((replacement, index) => (
-                      <Fragment>
-                        {index > 0 && ", "}
-                        <a href={`/standards/${replacement.slug}`}>
-                          {replacement.id}
-                        </a>
-                      </Fragment>
-                    ))}
-                  </p>
-                )}
-                <a
-                  slot="footer"
-                  class="muted"
-                  href={`/standards/${standard.slug}`}
-                >
-                  Read {standard.id}
-                </a>
-              </CardItem>
-            </div>
-          );
-        })
-      }
-    </CardGrid>
-    <p class="muted" data-standards-empty hidden>
-      No standards match this lane yet. Choose another lane or clear the filter.
-    </p>
-  </SectionBlock>
-
-  <SectionBlock
     id="status-assignment"
     eyebrow="Status model"
     title="How status is assigned"
     description="Each status has entry conditions, listed below. They say what a standard needs before it can move to that status."
-    variant="alt"
   >
     <CardGrid className="grid--three">
       <CardItem
@@ -344,7 +277,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Foundations"
     title="Foundations and references"
     description="The axioms and laws the standards are written against, and the reference documents that apply them."
-    variant="alt"
   >
     <CardGrid className="grid--two">
       {
@@ -568,7 +500,6 @@ const structuredDataJson = JSON.stringify(structuredData, null, 2);
     eyebrow="Other framings"
     title="The same comparison for a regulator, a board, and a workshop"
     description="Three short framings of the comparison above, each for a different reader."
-    variant="alt"
   >
     <div class="grid grid--three">
       <div class="panel">
@@ -633,7 +564,6 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     eyebrow="Implementation examples"
     title="Examples by domain"
     description="For each domain, conventional governance beside the same system built with stop rules, clocks, and restoration paths."
-    variant="alt"
   >
     <CardGrid className="grid--two">
       {
@@ -706,38 +636,6 @@ Control plane → stop rules → clocks → rollback → restoration`}</pre>
     </p>
   </SectionBlock>
 
-  <script>
-    import "../../scripts/standards-filter.ts";
-  </script>
-
   <InlineScript type="application/ld+json" code={structuredDataJson} />
 
-  <style>
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 0.1rem 0.55rem;
-      margin: 0 0.2rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .status-badge--draft {
-      background: color-mix(in srgb, var(--accent) 18%, transparent);
-      color: var(--accent);
-    }
-
-    .status-badge--stable {
-      background: color-mix(in srgb, #2d8a4a 16%, transparent);
-      color: #2d8a4a;
-    }
-
-    .status-badge--deprecated {
-      background: color-mix(in srgb, #b35218 16%, transparent);
-      color: #b35218;
-    }
-  </style>
 </BaseLayout>

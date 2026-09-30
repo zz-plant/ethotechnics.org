@@ -68,11 +68,6 @@
     gap: var(--space-2);
   }
 
-  .glossary-filter__label {
-    display: block;
-    width: fit-content;
-  }
-
   .glossary-filter__facet {
     display: grid;
     gap: var(--space-1);
@@ -121,9 +116,6 @@
     margin: 0;
   }
 
-  .glossary-filter__clear {
-    padding-inline: var(--space-3) var(--space-4);
-  }
   .glossary-entry__breadcrumb {
     display: flex;
     flex-wrap: wrap;
@@ -147,60 +139,87 @@
     margin-top: var(--space-2);
   }
 
+  /* The A–Z index is a dense list: one line per term, grouped under letter
+     headings, flowing into as many columns as the width allows. */
   .glossary-index {
-    display: grid;
-    gap: var(--space-2);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    columns: 15rem 4;
+    column-gap: var(--space-5);
+    margin-top: var(--space-3);
   }
 
-  /* Sticky under the site header, not behind it: top: 1rem put the toolbar
-     under the sticky nav on every viewport, which on a phone — where the nav
-     is three rows tall — hid it entirely once the page moved. The offset is
-     published by section-nav.ts from the header's measured height. */
-  .glossary-index__toolbar {
-    position: sticky;
-    top: calc(var(--nav-bottom, 0px) + 0.5rem);
-    z-index: var(--z-overlay);
-    display: grid;
-    gap: var(--space-2);
-    padding: var(--space-3);
+  .glossary-index__group {
     margin-bottom: var(--space-3);
-    border-radius: var(--radius-md);
-    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-    background: var(--panel);
-    box-shadow: var(--shadow-sm);
   }
 
-  .glossary-index__hint {
-    margin: 0.35rem 0 0;
+  .glossary-index__letter {
+    margin: 0 0 var(--space-1);
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-sm);
+    font-family: var(--sans);
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    break-after: avoid;
   }
 
+  .glossary-index__item {
+    display: block;
+    padding: 0.2rem 0;
+    line-height: 1.35;
+    text-decoration: none;
+    break-inside: avoid;
+    border-radius: var(--radius-xs);
+  }
+
+  .glossary-index__item:hover .glossary-index__term {
+    text-decoration: underline;
+  }
+
+  .glossary-index__item:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .glossary-index__term {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .glossary-index__category {
+    margin-left: 0.4rem;
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  /* Sticky under the site header, not behind it. The offset is published by
+     section-nav.ts from the header's measured height. */
   .glossary-index__letters {
+    position: sticky;
+    top: var(--nav-bottom, 0px);
+    z-index: var(--z-overlay);
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0;
+    gap: 0.3rem;
+    margin: var(--space-3) 0 0;
+    padding: var(--space-1) 0;
+    background: var(--bg, var(--surface));
+    border-bottom: 1px solid var(--border);
+  }
+
+  .glossary-index__letters .pill {
+    min-width: 2rem;
+    justify-content: center;
+    padding: 0.2rem 0.5rem;
+    font-size: var(--text-xs);
   }
 
   @media (max-width: 768px) {
     .glossary-index__letters {
-      flex-wrap: nowrap !important;
-      overflow-x: auto !important;
+      flex-wrap: nowrap;
+      overflow-x: auto;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 0.5rem;
-      /* Custom fine scrollbar */
       scrollbar-width: thin;
-    }
-    .glossary-index__letters::-webkit-scrollbar {
-      height: 4px;
-    }
-    .glossary-index__letters::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .glossary-index__letters::-webkit-scrollbar-thumb {
-      background: color-mix(in srgb, var(--border) 60%, transparent);
-      border-radius: var(--radius-pill);
     }
     .glossary-index__letters .pill {
       flex: 0 0 auto;
@@ -218,32 +237,184 @@
     margin-top: var(--space-2);
   }
 
-  .glossary-index__item {
+  .glossary-filter {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .glossary-filter__controls {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .glossary-filter__label {
+    display: grid;
     gap: var(--space-1);
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border-subtle);
-    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
-    text-decoration: none;
-    box-shadow: var(--card-inner-highlight);
+    flex: 1 1 20rem;
+    max-width: 36rem;
   }
 
-  .glossary-index__item:hover,
-  .glossary-index__item:focus-visible {
-    border-color: var(--color-foreground-muted);
-  }
-
-  .glossary-index__term {
-    color: var(--color-foreground);
+  .glossary-filter__label-text {
+    font-size: var(--text-sm);
     font-weight: 600;
-    line-height: 1.4;
   }
 
-  .glossary-index__category {
-    font-size: var(--font-size-sm);
+  .glossary-filter input[type="search"] {
+    width: 100%;
+    min-height: 44px;
+    font: inherit;
   }
+
+  .glossary-filter__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .glossary-filter__tab {
+    min-height: 44px;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: var(--text-sm);
+    cursor: pointer;
+  }
+
+  .glossary-filter__tab.is-active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  }
+
+  .glossary-filter__tab:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .glossary-filter__starters {
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .glossary-filter__starters > .muted {
+    margin-right: 0.4rem;
+  }
+
+  .glossary-filter__starters a {
+    font-weight: 600;
+  }
+
+  .glossary-filter__sep {
+    padding-inline: 0.35rem;
+    color: var(--muted);
+  }
+
+  .glossary-filter__panel {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  .glossary-filter__panel > p {
+    margin: 0;
+  }
+
+  .glossary-filter__panel legend {
+    padding: 0;
+    margin-bottom: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .glossary-filter__panels {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .glossary-filter__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .glossary-filter__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 36px;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    cursor: pointer;
+  }
+
+  .glossary-filter__chip:has(input:checked) {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  }
+
+  .glossary-filter__status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .glossary-filter__text-button {
+    border: 0;
+    padding: 0.25rem 0;
+    background: none;
+    color: var(--accent);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  .glossary-filter__text-button:disabled {
+    color: var(--muted);
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .glossary-filter__text-button:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  /* Pathways and explainers: a link per line with its description after. */
+  .glossary-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .glossary-links--columns {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    column-gap: var(--space-5);
+  }
+
+  .glossary-links li {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .glossary-links li > a {
+    font-weight: 600;
+  }
+
   .glossary-entry {
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-lg);
@@ -475,22 +646,6 @@
       scroll-snap-align: start;
     }
 
-    .glossary-filter__actions {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: var(--space-2);
-      align-items: stretch;
-    }
-
-    .glossary-filter__actions .button {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .glossary-index {
-      grid-template-columns: 1fr;
-    }
-
     .glossary-entry__citation-buttons .copy-button {
       flex: 1 1 170px;
     }
@@ -518,18 +673,5 @@
 
   .glossary__cta {
     margin-top: var(--space-3);
-  }
-}
-
-@layer components {
-  /* On a phone the toolbar is a letter row and nothing else; the hint text is
-     vertical space the 252-row list below cannot spare. */
-  @media (max-width: 640px) {
-    .glossary-index__toolbar > div:first-child {
-      display: none;
-    }
-    .glossary-index__toolbar {
-      padding: var(--space-2);
-    }
   }
 }

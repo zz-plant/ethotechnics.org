@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { roles, rolePermalink } from "../content/roles";
-import SectionIllustration from "../components/SectionIllustration.astro";
 
 const pageTitle = "Start — Ethotechnics role paths";
 const pageDescription =
@@ -23,9 +22,6 @@ const pageDescription =
           Seven roles, one page each. Pick the one closest to your work to see
           the standards, tools, and first steps that apply to it.
         </p>
-      </div>
-      <div class="start-hero__illustration">
-        <SectionIllustration section="start" size="sm" />
       </div>
     </div>
   </header>
@@ -93,7 +89,9 @@ const pageDescription =
           what evidence, and whether that is still justified.
         </p>
         <div class="direct-track__links">
-          <a href="/diagnostics/delegation-audit" class="button">Delegation audit</a>
+          <a href="/diagnostics/delegation-audit" class="button"
+            >Delegation audit</a
+          >
           <a href="/method" class="button button--ghost">Methodology</a>
         </div>
       </div>
@@ -102,11 +100,13 @@ const pageDescription =
         <span class="eyebrow">Affected individual</span>
         <h2>A system decided about you?</h2>
         <p>
-          Three checks: can the decision be appealed, who holds authority to reverse it,
-          and what evidence must be preserved?
+          Three checks: can the decision be appealed, who holds authority to
+          reverse it, and what evidence must be preserved?
         </p>
         <div class="direct-track__links">
-          <a href="/diagnostics/self-defense-tools" class="button">Check a decision about you</a>
+          <a href="/diagnostics/self-defense-tools" class="button"
+            >Check a decision about you</a
+          >
           <a href="/triage" class="button button--ghost">Incident triage</a>
         </div>
       </div>
@@ -120,7 +120,9 @@ const pageDescription =
         </p>
         <div class="direct-track__links">
           <a href="#fast-path" class="button">Adoption plan</a>
-          <a href="/evals#finite" class="button button--ghost">Practice in Finite</a>
+          <a href="/evals#finite" class="button button--ghost"
+            >Practice in Finite</a
+          >
         </div>
       </div>
     </section>
@@ -131,7 +133,8 @@ const pageDescription =
         <span class="pill pill--ghost">Adoption plan</span>
         <h2>Adopt the basics in one sprint</h2>
         <p class="muted">
-          Three safeguards with owners and effort estimates, a record format for each decision, and four things to ship.
+          Three safeguards with owners and effort estimates, a record format for
+          each decision, and four things to ship.
         </p>
       </div>
 
@@ -140,29 +143,43 @@ const pageDescription =
           <span class="fast-path-card__badge">1 day</span>
           <h3>Kill switch</h3>
           <p class="fast-path-card__owner">Ops / Reliability</p>
-          <p class="fast-path-card__desc">Gives a named person a tested way to stop the automation.</p>
-          <a href="/mechanisms/patterns/kill-switch" class="fast-path-link">Open mechanism &rarr;</a>
+          <p class="fast-path-card__desc">
+            Gives a named person a tested way to stop the automation.
+          </p>
+          <a href="/mechanisms/patterns/kill-switch" class="fast-path-link"
+            >Open mechanism &rarr;</a
+          >
         </div>
         <div class="fast-path-card">
           <span class="fast-path-card__badge">2 days</span>
           <h3>Decision log with dissent</h3>
           <p class="fast-path-card__owner">Product / Policy</p>
-          <p class="fast-path-card__desc">Records why a decision was made and who disagreed, so changes are visible.</p>
-          <a href="/mechanisms/patterns/decision-log" class="fast-path-link">Open mechanism &rarr;</a>
+          <p class="fast-path-card__desc">
+            Records why a decision was made and who disagreed, so changes are
+            visible.
+          </p>
+          <a href="/mechanisms/patterns/decision-log" class="fast-path-link"
+            >Open mechanism &rarr;</a
+          >
         </div>
         <div class="fast-path-card">
           <span class="fast-path-card__badge">2 days</span>
           <h3>In-product appeal path</h3>
           <p class="fast-path-card__owner">Support / Trust</p>
-          <p class="fast-path-card__desc">Gives people a way to challenge a decision inside the product.</p>
-          <a href="/mechanisms/patterns/appeal-paths" class="fast-path-link">Open mechanism &rarr;</a>
+          <p class="fast-path-card__desc">
+            Gives people a way to challenge a decision inside the product.
+          </p>
+          <a href="/mechanisms/patterns/appeal-paths" class="fast-path-link"
+            >Open mechanism &rarr;</a
+          >
         </div>
       </div>
 
       <div class="fast-path-details">
         <div class="fast-path-code">
           <p class="eyebrow">Example decision receipt</p>
-          <pre class="code-block"><code>{`{
+          <pre
+            class="code-block"><code>{`{
   "schema_version": "1.0.0",
   "receipt_id": "RCP-2026-0842",
   "issued_at": "2026-04-11T18:12:09Z",
@@ -176,17 +193,23 @@ const pageDescription =
               <strong>Owner:</strong> Names the role that can reverse the action.
             </div>
             <div class="receipt-guarantee">
-              <strong>Reversible:</strong> Says whether the decision can be undone without losing anyone's rights or records.
+              <strong>Reversible:</strong> Says whether the decision can be undone
+              without losing anyone's rights or records.
             </div>
             <div class="receipt-guarantee">
-              <strong>Deadlines:</strong> Sets hard limits: acknowledge in 2 hours, review in 24, fix in 72. Missing one is a breach.
+              <strong>Deadlines:</strong> Sets hard limits: acknowledge in 2 hours,
+              review in 24, fix in 72. Missing one is a breach.
             </div>
             <div class="receipt-guarantee">
-              <strong>Appeal path:</strong> Gives the person affected a direct link to appeal, not a general support queue.
+              <strong>Appeal path:</strong> Gives the person affected a direct link
+              to appeal, not a general support queue.
             </div>
           </div>
           <p class="small muted">
-            Check receipts against the <a href="/standards/agent-receipt-schema.json">published receipt schema</a> so tools can read them.
+            Check receipts against the <a
+              href="/standards/agent-receipt-schema.json"
+              >published receipt schema</a
+            > so tools can read them.
           </p>
         </div>
 
@@ -194,20 +217,35 @@ const pageDescription =
           <p class="eyebrow">Sprint deliverables</p>
           <ul class="deliverables-list">
             <li>
-              <a href="/standards/agent-receipt-schema.json"><strong>Receipt schema</strong></a>
-              <span>Implement the canonical receipt payload and validate it in CI.</span>
+              <a href="/standards/agent-receipt-schema.json"
+                ><strong>Receipt schema</strong></a
+              >
+              <span
+                >Implement the canonical receipt payload and validate it in CI.</span
+              >
             </li>
             <li>
-              <a href="/examples/automated-eligibility-denial"><strong>Worked example</strong></a>
-              <span>Ship at least one end-to-end scenario with receipts, clocks, and remedies.</span>
+              <a href="/examples/automated-eligibility-denial"
+                ><strong>Worked example</strong></a
+              >
+              <span
+                >Ship at least one end-to-end scenario with receipts, clocks,
+                and remedies.</span
+              >
             </li>
             <li>
-              <a href="/evidence-packs"><strong>Release gate binding</strong></a>
-              <span>Copy the release gate checklist into your deployment template.</span>
+              <a href="/evidence-packs"><strong>Release gate binding</strong></a
+              >
+              <span
+                >Copy the release gate checklist into your deployment template.</span
+              >
             </li>
             <li>
               <a href="/agents/spec"><strong>Safety Object Model</strong></a>
-              <span>Publish a machine-readable description of the system's safeguards, checked in CI.</span>
+              <span
+                >Publish a machine-readable description of the system's
+                safeguards, checked in CI.</span
+              >
             </li>
           </ul>
         </div>
@@ -219,33 +257,49 @@ const pageDescription =
       <div class="repository-sections__header">
         <span class="eyebrow">Index</span>
         <h2>The main sections</h2>
-        <p class="muted">Numbered standards, safeguards, diagnostic tools, and scored cases.</p>
+        <p class="muted">
+          Numbered standards, safeguards, diagnostic tools, and scored cases.
+        </p>
       </div>
       <div class="repository-sections__grid">
         <a href="/standards" class="section-card">
           <span class="section-card__tag">Rulebook</span>
           <h3 class="section-card__title">Standards &rarr;</h3>
-          <p class="section-card__desc">Numbered clauses for stoppability, explainability, appealability, and human agency.</p>
+          <p class="section-card__desc">
+            Numbered clauses for stoppability, explainability, appealability,
+            and human agency.
+          </p>
         </a>
         <a href="/mechanisms" class="section-card">
           <span class="section-card__tag">Architecture</span>
           <h3 class="section-card__title">Mechanisms &rarr;</h3>
-          <p class="section-card__desc">Specifications for kill switches, decision logs with dissent, and limits on automation.</p>
+          <p class="section-card__desc">
+            Specifications for kill switches, decision logs with dissent, and
+            limits on automation.
+          </p>
         </a>
         <a href="/diagnostics" class="section-card">
           <span class="section-card__tag">Assessment</span>
           <h3 class="section-card__title">Diagnostics &rarr;</h3>
-          <p class="section-card__desc">Tools that score what a system may decide, who can stop it, and whether people can appeal.</p>
+          <p class="section-card__desc">
+            Tools that score what a system may decide, who can stop it, and
+            whether people can appeal.
+          </p>
         </a>
         <a href="/casebook" class="section-card">
           <span class="section-card__tag">Empirical evidence</span>
           <h3 class="section-card__title">Casebook &rarr;</h3>
-          <p class="section-card__desc">Public failures of automated decision systems, each scored against the standards.</p>
+          <p class="section-card__desc">
+            Public failures of automated decision systems, each scored against
+            the standards.
+          </p>
         </a>
         <a href="/glossary" class="section-card">
           <span class="section-card__tag">Reference</span>
           <h3 class="section-card__title">Glossary &rarr;</h3>
-          <p class="section-card__desc">Definitions of the terms the standards and tools use.</p>
+          <p class="section-card__desc">
+            Definitions of the terms the standards and tools use.
+          </p>
         </a>
       </div>
     </section>
@@ -264,21 +318,9 @@ const pageDescription =
     align-items: center;
   }
 
-  @media (min-width: 768px) {
-    .start-hero__layout {
-      grid-template-columns: 1fr auto;
-      gap: 2.5rem;
-    }
-  }
-
   .start-hero__main {
     display: grid;
     gap: 0.5rem;
-  }
-
-  .start-hero__illustration {
-    display: flex;
-    justify-content: center;
   }
 
   .role-chips {

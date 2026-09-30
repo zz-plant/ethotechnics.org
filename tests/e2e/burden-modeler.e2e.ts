@@ -131,7 +131,9 @@ test.describe("Burden Modeler page", () => {
     const firstSlider = page.locator('.slider input[type="range"]').first();
     await firstSlider.fill("9");
 
+    // Reset asks for confirmation once the inputs have changed.
     await page.getByRole("button", { name: "Reset inputs" }).click();
+    await page.getByRole("button", { name: "Confirm reset" }).click();
 
     await expect(page.locator("#scenario-name")).toHaveValue("Baseline");
     // Default rating is 5, not 0

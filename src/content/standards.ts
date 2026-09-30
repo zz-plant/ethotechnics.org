@@ -66,7 +66,7 @@ export const standardsContent: StandardsContent = {
     "Proposed standards for automated systems that make consequential decisions, with each one's status, version, and evidence pack. None has force until adopted.",
   permalink: "/standards",
   anchorLinks: [
-    { href: "#active", label: "Now active" },
+    { href: "#register", label: "The register" },
     { href: "#doctrine", label: "Foundations and references" },
     { href: "#adopted-standards", label: "Where existing frameworks fall short" },
     { href: "#implementation-examples", label: "Domain-by-domain comparisons" },
