@@ -75,7 +75,10 @@ const haltedBy = robodebt?.haltedBy ?? "A court.";
             <div>
               <p class="record-spine__ledger-label">The institution</p>
               <p class="record-spine__ledger-value" data-ledger-status>
-                The scheme ran {robodebt.timeToHalt} from launch to halt.
+                The scheme ran{" "}
+                {robodebt.timeToHalt.charAt(0).toLowerCase() +
+                  robodebt.timeToHalt.slice(1)}{" "}
+                from launch to halt.
               </p>
             </div>
           </div>
