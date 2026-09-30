@@ -205,8 +205,6 @@
   .home-doors__door:hover,
   .home-doors__door:focus-visible {
     border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-    box-shadow: var(--shadow-sm);
-    transform: translateY(-2px);
     color: var(--text);
     text-decoration: none;
   }
@@ -683,9 +681,6 @@
 
   .record-spine__panel.is-halted {
     border-color: color-mix(in srgb, var(--status-success) 45%, var(--border));
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--status-success) 20%, transparent),
-      var(--shadow-sm);
   }
 
   .record-spine__panel-header {
@@ -838,7 +833,7 @@
       z-index: 10;
       padding: 0.85rem 1.05rem;
       gap: 0.65rem;
-      box-shadow: 0 4px 16px color-mix(in srgb, var(--text) 8%, transparent);
+      box-shadow: var(--shadow-float);
     }
   }
 
@@ -941,7 +936,7 @@
   .home-rail__line {
     display: block;
     width: 2px;
-    border-radius: 1px;
+    border-radius: var(--radius-xs);
   }
 
   .home-rail__line--record {

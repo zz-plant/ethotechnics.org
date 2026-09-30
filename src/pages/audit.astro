@@ -282,7 +282,7 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
     cursor: pointer;
     padding: 0.2rem 0.6rem;
     border: 1px solid var(--line, #ddd);
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     transition: border-color 0.15s;
   }
 
@@ -306,7 +306,7 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
     padding: 1.5rem;
     background: var(--surface-soft, #f8f8f8);
     border: 1px solid var(--line-strong, #ccc);
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
   }
 
   .audit-results h2 {
@@ -331,14 +331,14 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
     flex: 1;
     height: 10px;
     background: var(--line, #e0e0e0);
-    border-radius: 5px;
+    border-radius: var(--radius-xs);
     overflow: hidden;
   }
 
   .audit-bar-fill {
     height: 100%;
     background: var(--primary, #2563eb);
-    border-radius: 5px;
+    border-radius: var(--radius-xs);
     transition: width 0.5s ease;
     min-width: 0;
   }
@@ -370,7 +370,7 @@ const SCORE_LABELS = ["No", "Partially", "Yes"];
     font-size: var(--text-sm);
     font-weight: 600;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     cursor: pointer;
     text-decoration: none;
     line-height: 1.4;

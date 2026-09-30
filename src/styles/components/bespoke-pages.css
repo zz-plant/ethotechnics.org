@@ -71,7 +71,7 @@
     display: grid;
     gap: var(--space-3);
     padding: var(--space-3);
-    border-radius: calc(var(--radius-lg) + 2px);
+    border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
     background: var(--surface);
   }
@@ -106,8 +106,6 @@
   .feedback-ribbon__card:hover,
   .feedback-ribbon__card:focus-visible {
     border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
   }
 
   .feedback-ribbon__icon {
@@ -239,10 +237,8 @@
 
   .failure-grid__button:hover,
   .failure-grid__button:focus-visible {
-    transform: translateY(-2px);
     border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
     background: color-mix(in srgb, var(--surface-raised) 96%, var(--accent) 4%);
-    box-shadow: var(--shadow-float), var(--card-inner-highlight);
   }
 
   .failure-grid__button:active {

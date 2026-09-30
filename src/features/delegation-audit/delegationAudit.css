@@ -20,9 +20,8 @@
 .delegation-audit__panel {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
-  box-shadow: var(--shadow-sm), var(--card-inner-highlight);
   display: grid;
   gap: 1.25rem;
   align-content: start;
@@ -92,7 +91,7 @@
 }
 
 .delegation-audit__card {
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-md);
   padding: 0.9rem;
   display: grid;
@@ -146,7 +145,8 @@
 }
 
 .delegation-audit__factor {
-  border: 1px solid var(--border);
+  border: 0;
+  background: color-mix(in srgb, var(--surface) 92%, var(--panel));
   border-radius: var(--radius-md);
   padding: 0.6rem 0.7rem;
   display: grid;
@@ -175,9 +175,9 @@
 }
 
 .delegation-audit__variable {
-  border: 1px solid var(--border);
-  border-left-width: 4px;
-  border-radius: var(--radius-md);
+  border: 0;
+  border-left: 3px solid var(--border);
+  border-radius: 0;
   padding: 0.7rem 0.8rem;
   display: grid;
   gap: 0.35rem;
@@ -251,8 +251,9 @@
 .delegation-audit__rung {
   display: grid;
   gap: 0.2rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border: 0;
+  border-left: 3px solid var(--border);
+  border-radius: 0;
   padding: 0.6rem 0.7rem;
 }
 
