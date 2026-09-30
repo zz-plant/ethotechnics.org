@@ -39,8 +39,10 @@
     overflow: hidden;
   }
 
+  /* The top padding was 5vw (68px on a laptop) on top of the masthead's own
+     margin and padding: the title of every hub page sat under a blank band. */
   .page {
-    padding: clamp(1.25rem, 5vw, 4.5rem) 0 clamp(2rem, 4.5vw, 3.5rem);
+    padding: clamp(0.75rem, 2vw, 1.75rem) 0 clamp(2rem, 4.5vw, 3.5rem);
   }
 
   @media (prefers-reduced-motion: no-preference) {
