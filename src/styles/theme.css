@@ -115,25 +115,44 @@
   --surface-emphasis: color-mix(in srgb, var(--panel) 55%, var(--surface));
   --surface-accent-edge: color-mix(in srgb, var(--accent) 25%, var(--border));
 
-  /* Fluid Typography Scale */
-  --text-xs: 0.72rem;
-  --text-sm: 0.84rem;
-  --text-eyebrow: 0.74rem;
-  --text-body: clamp(0.96rem, 0.3vw + 0.95rem, 1.1rem);
-  --text-lede: clamp(1.05rem, 0.6vw + 0.95rem, 1.25rem);
+  /* Type scale. The one set of sizes the site uses. Every font-size outside
+     this file names one of these steps (src/styles/type-scale.test.ts fails
+     the build otherwise). Pages used to declare ~67 distinct sizes, so mono
+     labels, serif body and sans UI competed at near-identical sizes and
+     nothing read as secondary. Seven steps, plus one display size:
+       xs   -- uppercase mono labels, eyebrows, metadata
+       sm   -- secondary UI text: buttons, captions, table cells, notes
+       base -- body copy and form fields
+       lg   -- lede, h4, card titles
+       xl   -- h3
+       2xl  -- h2, section titles, big numbers
+       3xl  -- h1
+     The upper steps are fluid; the ratio between levels holds near 1.3. */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: clamp(1rem, 0.3vw + 0.95rem, 1.1rem);
+  --text-lg: clamp(1.1rem, 1rem + 0.35vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-2xl: clamp(1.55rem, 1.25rem + 1.05vw, 2.05rem);
+  --text-3xl: clamp(2.1rem, 1.55rem + 2vw, 3.1rem);
+  /* Display size: the home hero and the 404 only. */
   --text-hero: clamp(2.1rem, 3.2vw + 1rem, 3.9rem);
-  --font-size-sm: 0.9rem;
 
-  /* Heading scale. Nothing set a font-size on h1-h6, so every heading fell
-     back to the UA defaults -- 2em / 1.5em / 1.17em of the body size. At
-     1440px that put h3 at 20.59px against a 20px lede and 17.6px body: a
-     section heading and a paragraph were the same size, and the whole page
-     read flat. These steps hold a ~1.4 ratio between levels and keep h3
-     clearly above the lede. */
-  --text-h1: clamp(2.1rem, 1.55rem + 2vw, 3.1rem);
-  --text-h2: clamp(1.5rem, 1.25rem + 1.05vw, 2.05rem);
-  --text-h3: clamp(1.2rem, 1.1rem + 0.42vw, 1.45rem);
-  --text-h4: clamp(1.05rem, 1rem + 0.22vw, 1.18rem);
+  /* Role aliases. Kept so existing rules read by purpose; each is a step
+     above, never a new size. Headings: nothing set a font-size on h1-h6
+     once, so h3 fell to the UA 1.17em and sat level with the lede. */
+  --text-eyebrow: var(--text-xs);
+  --text-body: var(--text-base);
+  --text-lede: var(--text-lg);
+  --font-size-sm: var(--text-sm);
+  --text-h1: var(--text-3xl);
+  --text-h2: var(--text-2xl);
+  --text-h3: var(--text-xl);
+  --text-h4: var(--text-lg);
+
+  /* Letter-spacing for uppercase labels: one tight, one wide. */
+  --tracking-label: 0.05em;
+  --tracking-label-wide: 0.08em;
 
   /* Motion & Easing */
   --motion-fast: 150ms;
