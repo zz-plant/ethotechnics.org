@@ -24,23 +24,17 @@ const isStart = normalizePath(currentPath) === "/start";
       <Search scope="mobile" label="Search" includeDialog={true} />
     </div>
 
-    <div class="nav__utility-inline">
-      <button
-        class="theme-toggle"
-        data-theme-toggle
-        aria-label="Toggle theme"
-        type="button"
-      >
-        <Icon
-          name="lucide:sun"
-          class="theme-toggle__icon theme-toggle__icon--sun"
-        />
-        <Icon
-          name="lucide:moon"
-          class="theme-toggle__icon theme-toggle__icon--moon"
-        />
-      </button>
-    </div>
+    {
+      /* "Start here" sits in the bar and the theme switch in the drawer. The
+         theme toggle used to hold this spot, beside search, and took 9-18% of
+         predicted first-screen taps on a phone; the way in for a new reader
+         was two taps deep. */
+    }
+    <a
+      href="/start"
+      class="nav__mobile-start"
+      aria-current={isStart ? "page" : undefined}>Start here</a
+    >
 
     <details
       class="nav__mobile-sections"
@@ -107,6 +101,25 @@ const isStart = normalizePath(currentPath) === "/start";
               </div>
             ))
           }
+        </div>
+
+        <div class="nav__mobile-theme">
+          <button
+            class="theme-toggle nav__mobile-theme-toggle"
+            data-theme-toggle
+            aria-label="Toggle theme"
+            type="button"
+          >
+            <Icon
+              name="lucide:sun"
+              class="theme-toggle__icon theme-toggle__icon--sun"
+            />
+            <Icon
+              name="lucide:moon"
+              class="theme-toggle__icon theme-toggle__icon--moon"
+            />
+          </button>
+          <span aria-hidden="true">Light or dark theme</span>
         </div>
 
         <div class="nav__mobile-connect">

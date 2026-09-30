@@ -46,11 +46,15 @@ const {
   studioOffRamp,
 }: Props = Astro.props;
 
+// The tool comes first. Its method, prep list, and sample output used to sit
+// above it: on the Delegation Audit the form began at screen 6 on desktop and
+// screen 9 on a phone, past nearly all predicted reading attention. Someone
+// who lands here came to run it; the method is one click away, below.
 const anchorLinks = [
-  { href: "#overview", label: "Overview" },
-  { href: "#methodology", label: "Methodology" },
-  { href: "#sample-output", label: "Sample output" },
   { href: `#${runSectionId}`, label: runSectionEyebrow },
+  { href: "#overview", label: "When to use it" },
+  { href: "#sample-output", label: "Sample output" },
+  { href: "#methodology", label: "Methodology" },
 ];
 ---
 
@@ -59,8 +63,23 @@ const anchorLinks = [
   title={tool.title}
   description={tool.description}
   anchorLinks={anchorLinks}
-  illustration="diagnostics"
-/>
+>
+  <p slot="actions" class="muted small diagnostic-tool__jump">
+    Estimated time: {tool.estimatedTime}.
+    <a href="#overview">When to use it</a> ·
+    <a href="#methodology">How it is scored</a>
+  </p>
+</PageIntro>
+
+<SectionBlock
+  id={runSectionId}
+  eyebrow={runSectionEyebrow}
+  title={runSectionTitle}
+  description={runSectionDescription}
+  variant={runSectionVariant}
+>
+  <slot />
+</SectionBlock>
 
 <SectionBlock
   id="overview"
@@ -71,7 +90,6 @@ const anchorLinks = [
   <ul class="muted">
     {tool.prepChecklist.map((item) => <li>{item}</li>)}
   </ul>
-  <p class="muted">Estimated time: {tool.estimatedTime}</p>
   <ReferenceCallout
     title={studioOffRamp.title}
     summary={studioOffRamp.summary}
@@ -80,21 +98,6 @@ const anchorLinks = [
     ariaLabel={studioOffRamp.ariaLabel}
   />
   {tool.studioNote && <p class="muted small">{tool.studioNote}</p>}
-</SectionBlock>
-<SectionBlock
-  id="methodology"
-  eyebrow="Methodology"
-  title="Method, transparency, and replicability"
-  description={methodologyDescription}
-  variant="alt"
->
-  <DiagnosticMethodology
-    methodCards={tool.methodCards}
-    methodOverview={tool.methodOverview}
-    instrument={tool.instrument}
-    validation={tool.validation}
-    replicability={tool.replicability}
-  />
 </SectionBlock>
 
 <SectionBlock
@@ -109,13 +112,23 @@ const anchorLinks = [
 </SectionBlock>
 
 <SectionBlock
-  id={runSectionId}
-  eyebrow={runSectionEyebrow}
-  title={runSectionTitle}
-  description={runSectionDescription}
-  variant={runSectionVariant}
+  id="methodology"
+  eyebrow="Methodology"
+  title="Method, transparency, and replicability"
+  description={methodologyDescription}
 >
-  <slot />
+  <details class="diagnostic-tool__method">
+    <summary>
+      Show inputs, procedure, scoring, assumptions, and validation
+    </summary>
+    <DiagnosticMethodology
+      methodCards={tool.methodCards}
+      methodOverview={tool.methodOverview}
+      instrument={tool.instrument}
+      validation={tool.validation}
+      replicability={tool.replicability}
+    />
+  </details>
 </SectionBlock>
 
 <ScholarlyMeta publication={publication} permalink={permalink} />

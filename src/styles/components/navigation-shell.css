@@ -248,11 +248,47 @@
     display: none;
   }
 
-  .nav__utility-inline {
+  /* With "Start here" in the phone bar, the full wordmark no longer fits
+     beside search and Browse; the mark alone carries the brand there. */
+  @media (max-width: 479px) {
+    .nav__wordmark {
+      display: none;
+    }
+  }
+
+  .nav__mobile-start {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0.45rem 0.8rem;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--surface);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    font-weight: 650;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .nav__mobile-start:hover {
+    background: var(--accent-strong);
+  }
+
+  .nav__mobile-start:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  .nav__mobile-theme {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    flex-shrink: 0;
+    gap: 0.6rem;
+    padding-block: 0.5rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--sans);
+    font-size: var(--text-sm);
+    color: var(--muted);
   }
 
   /* --- Mobile Sections Details / Drawer --- */
