@@ -71,11 +71,13 @@ const buildMetaDescription = (value: string): string => {
   const sentenceMatch = value.match(/[^.!?]+[.!?]+/);
   const candidate = sentenceMatch ? sentenceMatch[0].trim() : value;
 
-  if (candidate.length <= 180) {
+  if (candidate.length <= 160) {
     return candidate;
   }
 
-  return `${candidate.slice(0, 177).trim()}…`;
+  // Cut at a word boundary so a search snippet never ends mid-word.
+  const cut = candidate.slice(0, 157);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,:;]$/, "")}…`;
 };
 const pageDescription = buildMetaDescription(`${entry.title}: ${plainDescription}`);
 const introDescription = `Glossary entry in ${categoryLabel}. Definitions, checks, and evidence for ${entry.title}.`;

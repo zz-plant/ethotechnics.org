@@ -45,10 +45,9 @@ export type InstituteContent = PageWithPermalink &
   };
 
 export const instituteContent: InstituteContent = {
-  pageTitle:
-    "Institute — AI Governance Programs and Decision Forums | Ethotechnics",
+  pageTitle: "Institute — programs, stewards, and contact — Ethotechnics",
   pageDescription:
-    "The Institute runs diagnostic reviews, decision forums that log an owner and follow-ups, and a publishing pipeline for open guides, with a route to Studio.",
+    "Open standards and diagnostics to use without contacting anyone, three programs outside teams can ask to join, and when to bring in the Studio for hands-on help.",
   published: "2025-09-01T00:00:00Z",
   permalink: "/institute",
   anchorLinks: [

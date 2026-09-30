@@ -28,9 +28,9 @@ export type IncidentLessonsIntro = PageWithPermalink & {
 };
 
 export const incidentLessonsIntro: IncidentLessonsIntro = {
-  pageTitle: "Governance lessons — Ethotechnics",
+  pageTitle: "Governance lessons from incidents — Ethotechnics",
   pageDescription:
-    "Incident retrospectives that map governance failures to concrete remediation checklists.",
+    "Three incident patterns, from an appeals backlog to unlogged overrides, with missing controls, signals to watch, remediation checklists, and a reporting workflow.",
   permalink: "/incidents",
   eyebrow: "Governance lessons",
   title: "Incident retrospectives with remediation receipts.",

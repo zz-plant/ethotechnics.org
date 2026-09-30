@@ -284,7 +284,7 @@ export const checkableProperties: CheckableProperty[] = [
   },
   {
     id: "challenges-produce-reconsideration",
-    title: "A challenge changes the outcome or it is theater",
+    title: "A challenge opens a reconsideration, or it is theater",
     claim:
       "A raised discrepancy produces a reconsideration record, and it does so within the clock the system declared for it.",
     laws: ["law-vii", "law-viii", "law-xii"],

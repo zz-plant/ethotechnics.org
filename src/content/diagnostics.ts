@@ -39,6 +39,8 @@ export type DiagnosticTool = {
   /** Measurement tier the tool reports at ("Belief level", "Evidence level"). */
   tier?: string;
   description: string;
+  /** Shorter page meta description, when `description` runs past ~160 characters. */
+  metaDescription?: string;
   methodCards: DiagnosticMethodCards;
   methodOverview: DiagnosticMethodOverview;
   instrument: DiagnosticInstrument;
@@ -178,6 +180,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       tier: "Belief level",
       description:
         "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when the system keeps no decision records yet; use the Record Conformance Checker once it does.",
+      metaDescription:
+        "Six questions about one workflow return an exposure score, unjustified permissions, and whether its decisions can be undone. For systems that keep no decision records.",
       methodCards: {
         measures: [
           "Whether each action class has an identifiable authorizer, evidence basis, and end condition.",
@@ -294,6 +298,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       tier: "Evidence level",
       description:
         "Reads a system's STD-07 decision records, checks them against the schema, recomputes the hashes, and compares the conformance level the records earn with the level the system claims. Use it when a system already produces records; use the Delegation Audit when it does not.",
+      metaDescription:
+        "Checks a system's STD-07 decision records against the schema, recomputes their hashes, and compares the conformance level they earn with the level it claims.",
       methodCards: {
         measures: [
           "Whether every record validates against the published STD-07 schema.",
@@ -510,6 +516,8 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Corrective capacity self-assessment",
       description:
         "Scores five self-reported answers: how fast the system's reach grew, how challenges are received, how fast decisions are reversed, whether exceptions change the rules, and whether staff workarounds are tracked. The score is a starting point for discussion, not a measurement of the institution's ability to correct itself.",
+      metaDescription:
+        "Five self-reported questions on how an institution handles challenges, reversals, and staff workarounds. The score opens a discussion; it is not a measurement.",
       methodCards: {
         measures: [
           "The action-capacity growth band selected by the operator.",

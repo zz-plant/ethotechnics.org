@@ -54,7 +54,7 @@ export type ValidatorsContent = PageWithPermalink & {
 export const validatorsContent: ValidatorsContent = {
   pageTitle: "Validators — Ethotechnics Institute",
   pageDescription:
-    "Three forms that score a user journey against the STD-01 temporal rights standard. Each returns a red, yellow, or green status, the clauses at risk, and the mechanism that would fix it.",
+    "Three forms that score a user journey against STD-01, the temporal rights standard, and return a red, yellow, or green status, the clauses at risk, and a fix.",
   permalink: "/validators",
   anchorLinks: [
     { href: "#focus", label: "Browse by focus" },

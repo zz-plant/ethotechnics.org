@@ -63,7 +63,7 @@ export type StandardClause = {
 export const standardsContent: StandardsContent = {
   pageTitle: "Standards — Ethotechnics Institute",
   pageDescription:
-    "Proposed standards for automated systems that make consequential decisions, with status, version, clause count, and evidence pack for each. Status says how settled a text is. A standard carries force only where an institution adopts it.",
+    "Proposed standards for automated systems that make consequential decisions, with each one's status, version, and evidence pack. None has force until adopted.",
   permalink: "/standards",
   anchorLinks: [
     { href: "#active", label: "Now active" },
