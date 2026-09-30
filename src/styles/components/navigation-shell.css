@@ -563,6 +563,13 @@
       flex: none;
     }
 
+    /* The sections <details> is a column that fills the rest of the bar so
+       the open drawer can grow; its summary would stretch with it into a
+       pill that ran to the gutter. It keeps its own width, at the end. */
+    .nav__mobile-sections-summary {
+      align-self: flex-end;
+    }
+
     .nav__mobile,
     .nav__mobile-row,
     .nav__mobile-sections {
