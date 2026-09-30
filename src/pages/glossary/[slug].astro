@@ -77,8 +77,7 @@ const buildMetaDescription = (value: string): string => {
 
   return `${candidate.slice(0, 177).trim()}…`;
 };
-const descriptionBase = `Definition of ${entry.title} in the Ethotechnics glossary (${categoryLabel}). ${plainDescription}`;
-const pageDescription = buildMetaDescription(descriptionBase);
+const pageDescription = buildMetaDescription(`${entry.title}: ${plainDescription}`);
 const introDescription = `Glossary entry in ${categoryLabel}. Definitions, checks, and evidence for ${entry.title}.`;
 const definitionSummary = buildMetaDescription(plainDescription);
 const termUpdated = entry.termUpdated ?? publication.updated;
