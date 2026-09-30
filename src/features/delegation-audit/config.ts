@@ -119,7 +119,7 @@ export const EVAL_REFS = {
     href: "/evals/dependence-reversibility",
   },
   standing: {
-    label: "Standing Evals",
+    label: "Standing evals",
     href: "/evals/standing",
   },
   meaningfulControl: {

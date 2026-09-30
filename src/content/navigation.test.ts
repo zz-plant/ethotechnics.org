@@ -39,7 +39,7 @@ describe("navSections", () => {
     expect(navSections.map((section) => section.heading)).toEqual([
       "Method",
       "Mechanisms and evals",
-      "Instruments",
+      "Tools",
       "Knowledge",
     ]);
   });
@@ -67,8 +67,8 @@ describe("navSections", () => {
     }
   });
 
-  it("lists both delegation tools under instruments", () => {
-    const links = sectionLinks("Instruments");
+  it("lists both delegation tools under tools", () => {
+    const links = sectionLinks("Tools");
     expect(links).toContain("/diagnostics/delegation-audit");
     expect(links).toContain("/diagnostics/record-conformance");
   });
@@ -76,11 +76,11 @@ describe("navSections", () => {
   // The instruments differ by what the reader has to bring. Leading with the
   // one that takes a workflow is deliberate: it is the only input every reader
   // already has.
-  it("orders instruments by input, workflow first", () => {
-    expect(sectionLinks("Instruments")[0]).toBe(
+  it("orders tools by input, workflow first", () => {
+    expect(sectionLinks("Tools")[0]).toBe(
       "/diagnostics/delegation-audit",
     );
-    expect(sectionLinks("Instruments").at(-1)).toBe("/diagnostics");
+    expect(sectionLinks("Tools").at(-1)).toBe("/diagnostics");
   });
 
   it("lists theory under knowledge", () => {

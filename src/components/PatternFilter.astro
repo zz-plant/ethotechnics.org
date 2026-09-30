@@ -75,9 +75,9 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
         id={searchInputId}
         type="search"
         class="pattern-filter__search-input"
-        placeholder="Search by title, summary, or cue"
+        placeholder="Search by name or keyword"
         data-search-input
-        aria-label="Search mechanisms by title, summary, or cue"
+        aria-label="Search mechanisms by name or keyword"
       />
     </label>
     <p class="muted" role="status" aria-live="polite" data-filter-status>
@@ -106,7 +106,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
         Clear filters
       </button>
       <p class="muted small" data-saved-status aria-live="polite">
-        Filters are stored locally.
+        Saved filters stay in this browser.
       </p>
     </div>
     <div class="pattern-bundle" data-pattern-bundle>
@@ -254,7 +254,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
               </p>
             )}
             <details class="pattern-card__teaser">
-              <summary>Execution details</summary>
+              <summary>Steps and templates</summary>
               <div class="pattern-card__section">
                 <p class="muted small">Steps</p>
                 <ol class="pattern-card__list">
@@ -264,7 +264,7 @@ const searchInputId = searchId ?? `pattern-search-${randomUUID()}`;
                 </ol>
               </div>
               <div class="pattern-card__section">
-                <p class="muted small">Artifacts</p>
+                <p class="muted small">Templates</p>
                 <ul class="pattern-card__list">
                   {pattern.artifacts.map((artifact) => (
                     <li>

@@ -8,6 +8,7 @@ import CasebookFailureChart from "../../components/CasebookFailureChart.astro";
 import {
   casebookContent,
   cases,
+  learningVerdictLabels,
   stateVariables,
   verdictTally,
 } from "../../content/casebook";
@@ -27,7 +28,7 @@ const tally = verdictTally();
     title={title}
     description={description}
     anchorLinks={[
-      { href: "#matrix", label: "The matrix" },
+      { href: "#matrix", label: "The scores" },
       { href: "#cases", label: "The cases" },
       { href: "#reading", label: "How to read a score" },
     ]}
@@ -36,8 +37,8 @@ const tally = verdictTally();
 
   <SectionBlock
     id="matrix"
-    eyebrow="Six variables, five cases"
-    title="Where the coupling broke"
+    eyebrow="Six safeguards, five cases"
+    title="Where the safeguards broke"
     description="Read down a column to see which safeguard fails most often. Read across a row to see the shape of one case. Standing, the right of the people affected to challenge a decision and be answered, has never held. Correction held once, and only because the system was halted before people came to depend on it. The last column asks whether the institution changed afterward or only settled individual cases."
     variant="alt"
   >
@@ -57,7 +58,7 @@ const tally = verdictTally();
               ))
             }
             <th scope="col">Time to halt</th>
-            <th scope="col">Learned or handled</th>
+            <th scope="col">After the failure</th>
           </tr>
         </thead>
         <tbody>
@@ -91,7 +92,7 @@ const tally = verdictTally();
                 <td class="casebook-matrix__halt">{entry.timeToHalt}</td>
                 <td class="casebook-matrix__learning">
                   <a href={`/casebook/${entry.slug}#learning`}>
-                    {entry.learningOutcome.verdict}
+                    {learningVerdictLabels[entry.learningOutcome.verdict]}
                   </a>
                 </td>
               </tr>
@@ -117,15 +118,20 @@ const tally = verdictTally();
       </table>
     </div>
     <p class="casebook-legend small muted" aria-label="Legend">
-      <VerdictMark verdict="held" labelled /> explicit and coupled ·
-      <VerdictMark verdict="drifted" labelled /> present but detached ·
-      <VerdictMark verdict="failed" labelled /> absent, or what the inquiry found
+      <VerdictMark verdict="held" labelled /> in place and working ·
+      <VerdictMark verdict="drifted" labelled /> in place but out of step with
+      what it should track ·
+      <VerdictMark verdict="failed" labelled /> absent, or its absence is what
+      the inquiry found
     </p>
     <p class="small muted">
-      <strong>Learned or handled</strong> — where the failure trajectory ended:
-      <strong>learned</strong> = the exception changed the machinery ·{" "}
-      <strong>partial</strong> = some revision, late or imposed ·{" "}
-      <strong>absorbed</strong> = handled as cases, machinery unchanged.
+      <strong>After the failure</strong> — did the institution change?
+      <strong>{learningVerdictLabels.learned}</strong> = it changed the rule,
+      category, or workflow that produced the errors ·{" "}
+      <strong>{learningVerdictLabels.partial}</strong> = some change, late or
+      imposed from outside ·{" "}
+      <strong>{learningVerdictLabels.absorbed}</strong> = individual cases
+      resolved, the system unchanged.
       <a href="/research/theory/exception-learning">Read the theory</a>
     </p>
 
@@ -165,17 +171,17 @@ const tally = verdictTally();
                 <dd>{entry.haltedBy}</dd>
               </div>
               <div>
-                <dt>Trajectory</dt>
+                <dt>After the failure</dt>
                 <dd>
                   <a href={`/casebook/${entry.slug}#learning`}>
-                    {entry.learningOutcome.verdict}
+                    {learningVerdictLabels[entry.learningOutcome.verdict]}
                   </a>
                 </dd>
               </div>
             </dl>
             <div class="casebook-list__breakdown">
-              <span class="casebook-list__breakdown-label">Fatal breaks:</span>
-              <div class="casebook-list__verdicts" aria-label="Failed variables">
+              <span class="casebook-list__breakdown-label">Failed or drifted:</span>
+              <div class="casebook-list__verdicts" aria-label="Failed or drifted safeguards">
                 {entry.findings
                   .filter((finding) => finding.verdict === "failed" || finding.verdict === "drifted")
                   .map((finding) => (
@@ -205,50 +211,49 @@ const tally = verdictTally();
     id="reading"
     eyebrow="Method"
     title="How to read a score"
-    description="A score is a claim about one variable at the time of the harm, made from the primary record. It is not a finding of fault, and it is not a measurement of the system today."
+    description="A score is a claim about one safeguard at the time of the harm, made from the primary record. It is not a finding of fault, and it is not a measurement of the system today."
     variant="alt"
   >
     <dl class="casebook-reading">
       <div>
         <dt><VerdictMark verdict="held" labelled /></dt>
         <dd>
-          The variable was explicit in the record and stayed coupled to the
-          variables it should track. Capability was declared; authority named
-          its ceiling; evidence was the kind that could justify the action
-          taken.
+          The safeguard was explicit in the record and stayed in step with the
+          others. Capability was declared; authority named its limits; the
+          evidence was the kind that could justify the action taken.
         </dd>
       </div>
       <div>
         <dt><VerdictMark verdict="drifted" labelled /></dt>
         <dd>
-          The variable existed but detached from its neighbor. Authority that
-          outlived the evidence it was issued on. A capability that grew
+          The safeguard existed but fell out of step with the one it should
+          track. Authority that outlived the evidence it was issued on. A capability that grew
           twentyfold while the review capacity beside it stayed still.
         </dd>
       </div>
       <div>
         <dt><VerdictMark verdict="failed" labelled /></dt>
         <dd>
-          The variable was absent, or its absence is what the inquiry found.
-          Standing that existed on paper and produced no state transition.
-          Evidence that was never held by the party asserting it.
+          The safeguard was absent, or its absence is what the inquiry found.
+          A right to challenge that existed on paper and never changed a
+          decision. Evidence that the party relying on it never held.
         </dd>
       </div>
     </dl>
     <p>
-      Every finding is pinned to the clauses whose obligation it falls under and
-      to the law it instantiates. The clause links open the register on the
+      Every finding is linked to the clauses it falls under and to the law it
+      applies. The clause links open the register on the
       standard's page. If a case is scored wrongly, the primary sources are
       listed on its page; <a href="/participate">tell us</a> which one we misread.
     </p>
     <p>
-      The final verdict on each case is not a state variable. It is a claim
-      about the trajectory: whether the sequence of failure, burden, challenge,
-      and institutional response ended in case resolution or in institutional
-      revision. A case can score badly on the variables and still end in
-      learning, or score cleanly and still be absorbed. The distinction is
-      exception absorption versus exception learning, and it is the subject of
-      the <a href="/research/theory/exception-learning">theory essay</a>.
+      The last column is not a safeguard. It records what happened after the
+      failure: whether the institution changed the rule, category, or workflow
+      that produced the errors, or only settled individual cases. A case can
+      score badly on the safeguards and still end in change, or score well and
+      still end with cases settled one at a time. The
+      <a href="/research/theory/exception-learning">theory essay on exception
+      learning</a> explains the difference.
     </p>
     <p class="small muted">
       For incidents written as remediation checklists rather than scored

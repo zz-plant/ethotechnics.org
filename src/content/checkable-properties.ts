@@ -1,7 +1,7 @@
 /**
  * One catalogue of the governance properties this project can actually check.
  *
- * Two instruments here check things. The Tier 1 harness
+ * Two tools here check things. The Tier 1 harness
  * (src/harness/checks.ts) probes a running system through an adapter: it
  * starts a job, asks it to stop, and times the answer. The record conformance
  * checker (src/features/record-conformance) reads a stream of STD-07 records
@@ -284,7 +284,7 @@ export const checkableProperties: CheckableProperty[] = [
   },
   {
     id: "challenges-produce-reconsideration",
-    title: "A challenge changes state or it is theatre",
+    title: "A challenge changes the outcome or it is theater",
     claim:
       "A raised discrepancy produces a reconsideration record, and it does so within the clock the system declared for it.",
     laws: ["law-vii", "law-viii", "law-xii"],
@@ -441,8 +441,8 @@ export const coverageOf = (property: CheckableProperty): Coverage => {
 export const COVERAGE_LABELS: Record<Coverage, string> = {
   both: "Checked from both sides",
   "live-only": "Only checkable against a running system",
-  "emitted-only": "Only checkable from emitted records",
-  none: "Named, not yet checkable",
+  "emitted-only": "Only checkable from written records",
+  none: "Named, not yet testable",
 };
 
 /** Every check id the harness exposes, for the totality test and for pages. */
