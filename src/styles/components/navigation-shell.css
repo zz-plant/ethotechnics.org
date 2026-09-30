@@ -16,7 +16,9 @@
   .nav__inner {
     display: flex;
     flex-direction: column;
-    padding: clamp(var(--space-2), 1.2vw, var(--space-3)) var(--space-5);
+    /* No side padding: .container already holds the page gutter, and the
+       header's edge should be the content's edge. */
+    padding: clamp(var(--space-2), 1.2vw, var(--space-3)) 0;
     gap: var(--space-2);
     position: relative;
   }
@@ -49,6 +51,9 @@
     color: inherit;
     flex-shrink: 0;
     padding: var(--space-1) var(--space-2);
+    /* The padding gives the link a comfortable hit and focus area; pulling
+       it back by the same amount puts the mark on the content edge. */
+    margin-inline-start: calc(var(--space-2) * -1);
     border-radius: var(--radius-md);
     transition:
       opacity var(--motion-fast) ease,

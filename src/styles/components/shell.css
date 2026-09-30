@@ -74,8 +74,10 @@
     }
   }
 
+  /* Wide pages share the header's width. At the wider measure their text
+     started 30px left of the logo on a laptop and never lined up with it. */
   .page--wide {
-    width: min(var(--content-max-wide), calc(100% - (var(--page-gutter) * 2)));
+    width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
     margin: 0 auto;
   }
 
@@ -136,7 +138,7 @@
   }
 
   .page-shell__content > .page--wide {
-    width: min(var(--content-max-wide), 100%);
+    width: min(var(--content-max), 100%);
   }
 
   .site-header {
