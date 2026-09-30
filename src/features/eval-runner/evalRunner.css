@@ -1,21 +1,21 @@
 .eval-runner {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1.5rem;
+  gap: var(--space-5);
+  padding: var(--space-container);
 }
 
 .eval-runner__header {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-heading);
 }
 
 .eval-runner__title-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .eval-runner__title-row h2,
@@ -26,8 +26,8 @@
 .eval-layer-filter {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
 .eval-layer-filter__active {
@@ -38,7 +38,7 @@
 .eval-selector {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .eval-selector__card {
@@ -46,7 +46,7 @@
   text-align: left;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   border-radius: var(--radius-lg);
-  padding: 1.15rem;
+  padding: var(--space-container-compact);
   background: var(--surface-raised);
   transition:
     border-color var(--motion-fast) ease,
@@ -63,7 +63,7 @@
 
 .eval-selector__title {
   font-weight: 600;
-  margin: 0 0 0.25rem;
+  margin: 0 0 var(--space-1);
 }
 
 .eval-progress {
@@ -84,14 +84,14 @@
 .eval-question {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .eval-question__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .eval-question__id {
@@ -109,20 +109,20 @@
 .eval-question__anchors {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .eval-question__radio-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: var(--space-2);
 }
 
 .eval-question__radio {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.5rem;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2);
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   cursor: pointer;
@@ -148,13 +148,13 @@
 
 .eval-question__radio-desc {
   width: 100%;
-  padding-left: 1.5rem;
+  padding-left: var(--space-5);
 }
 
 .eval-question__field {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: var(--space-1);
 }
 
 .eval-question__textarea {
@@ -167,23 +167,23 @@
 .eval-question__criteria {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  padding: 0.75rem;
+  gap: var(--space-4);
+  padding: var(--space-3);
   background: var(--panel);
   border-radius: var(--radius-md);
   border: 0;
 }
 
 .eval-question__criteria ul {
-  margin: 0.35rem 0 0;
-  padding-left: 1rem;
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-4);
 }
 
 .eval-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .severity--critical {
@@ -213,8 +213,8 @@
 .eval-results__grade {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
+  gap: var(--space-3);
+  padding: var(--space-4);
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
 }
@@ -254,7 +254,7 @@
 .eval-results__badge {
   font-size: var(--text-sm);
   font-weight: 700;
-  padding: 0.35rem 0.75rem;
+  padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-pill);
 }
 
@@ -276,7 +276,7 @@
 .eval-results {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .eval-results h3 {
@@ -287,8 +287,8 @@
 .eval-result-row {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.5rem 0.75rem;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -297,7 +297,7 @@
 .eval-result-row__header {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .eval-result-row__id {
@@ -328,7 +328,7 @@
 }
 
 .eval-result-row__evidence {
-  padding-left: 0.25rem;
+  padding-left: var(--space-1);
 }
 
 @media (max-width: 900px) {

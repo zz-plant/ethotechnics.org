@@ -308,32 +308,32 @@ const pageDescription =
 
 <style>
   .start-hero {
-    padding-block: 1rem 1.5rem;
+    padding-block: var(--space-4) var(--space-5);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
 
   .start-hero__layout {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
     align-items: center;
   }
 
   .start-hero__main {
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .role-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
   }
 
   .role-chip {
     display: inline-flex;
     align-items: center;
-    padding: 0.35rem 0.75rem;
+    padding: var(--space-1) var(--space-3);
     border-radius: var(--radius-pill);
     border: 1px solid var(--border);
     background: var(--panel);
@@ -357,7 +357,7 @@ const pageDescription =
     .role-chips {
       flex-wrap: nowrap;
       overflow-x: auto;
-      padding-bottom: 0.25rem;
+      padding-bottom: var(--space-1);
       scrollbar-width: none;
     }
     .role-chip {
@@ -371,20 +371,20 @@ const pageDescription =
 
   .role-grid {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-    margin-top: 2rem;
+    margin-top: var(--space-6);
   }
 
   .role-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    padding: var(--space-container);
     box-shadow: var(--shadow-sm), var(--card-inner-highlight);
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: var(--space-5);
     transition:
       transform var(--motion-fast) ease,
       box-shadow var(--motion-fast) ease;
@@ -392,9 +392,9 @@ const pageDescription =
 
   .role-card__header {
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    padding-bottom: 1rem;
+    padding-bottom: var(--space-4);
   }
 
   .role-card__badge {
@@ -405,7 +405,7 @@ const pageDescription =
     text-transform: uppercase;
     color: var(--accent);
     background: color-mix(in srgb, var(--accent) 12%, transparent);
-    padding: 0.2rem 0.5rem;
+    padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-pill);
     width: fit-content;
   }
@@ -437,7 +437,7 @@ const pageDescription =
 
   .role-card__steps {
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .role-card__steps-heading {
@@ -452,9 +452,9 @@ const pageDescription =
   .role-card__step-list {
     list-style: decimal;
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .role-card__step-item {
@@ -466,11 +466,11 @@ const pageDescription =
     display: block;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 0.2rem;
+    margin-bottom: var(--space-1);
   }
 
   .role-card__step-desc {
-    margin: 0 0 0.35rem 0;
+    margin: 0 0 var(--space-1) 0;
     font-size: var(--text-sm);
     color: var(--muted);
     line-height: 1.4;
@@ -483,7 +483,7 @@ const pageDescription =
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: var(--space-1);
   }
 
   .role-card__step-link:hover {
@@ -493,9 +493,9 @@ const pageDescription =
 
   /* Targeted direct tracks */
   .direct-tracks {
-    margin: 3.5rem 0 2rem;
+    margin: var(--space-8) 0 var(--space-6);
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   }
 
@@ -503,10 +503,10 @@ const pageDescription =
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    padding: clamp(var(--space-4), 2.5vw, var(--space-5));
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .direct-track h2 {
@@ -526,25 +526,25 @@ const pageDescription =
 
   .direct-track__links {
     margin-top: auto;
-    padding-top: 0.75rem;
+    padding-top: var(--space-3);
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .fast-path-section {
-    margin: 3.5rem 0 2rem;
-    padding: clamp(1.5rem, 3vw, 2.5rem);
+    margin: var(--space-8) 0 var(--space-6);
+    padding: clamp(var(--space-5), 3vw, var(--space-6));
     border-radius: var(--radius-lg);
     background: var(--surface);
     border: 1px solid var(--border);
     display: grid;
-    gap: 2rem;
+    gap: var(--space-6);
     scroll-margin-top: 1rem;
   }
 
   .fast-path-header h2 {
-    margin: 0.5rem 0 0.25rem;
+    margin: var(--space-2) 0 var(--space-1);
     font-size: var(--text-xl);
   }
 
@@ -555,7 +555,7 @@ const pageDescription =
 
   .fast-path-grid {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   }
 
@@ -563,10 +563,10 @@ const pageDescription =
     background: var(--panel);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    padding: 1.25rem;
+    padding: var(--space-container-compact);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .fast-path-card__badge {
@@ -577,7 +577,7 @@ const pageDescription =
     text-transform: uppercase;
     color: var(--accent);
     background: color-mix(in srgb, var(--accent) 12%, transparent);
-    padding: 0.2rem 0.5rem;
+    padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-pill);
     width: fit-content;
   }
@@ -603,7 +603,7 @@ const pageDescription =
 
   .fast-path-link {
     margin-top: auto;
-    padding-top: 0.5rem;
+    padding-top: var(--space-2);
     font-size: var(--text-sm);
     font-weight: 650;
     color: var(--accent);
@@ -617,7 +617,7 @@ const pageDescription =
 
   .fast-path-details {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
     grid-template-columns: 1fr;
   }
 
@@ -628,7 +628,7 @@ const pageDescription =
   }
 
   .fast-path-code pre {
-    margin: 0.5rem 0;
+    margin: var(--space-2) 0;
     max-height: 280px;
     overflow-x: auto;
     font-size: var(--text-xs);
@@ -636,9 +636,9 @@ const pageDescription =
 
   /* Receipt semantic annotations */
   .receipt-guarantees {
-    margin: 0.75rem 0;
+    margin: var(--space-3) 0;
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
     font-size: var(--text-xs);
     color: var(--muted);
     line-height: 1.4;
@@ -647,7 +647,7 @@ const pageDescription =
   .receipt-guarantee {
     background: var(--panel);
     border-left: 2px solid var(--accent);
-    padding: 0.4rem 0.65rem;
+    padding: var(--space-2) var(--space-3);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
 
@@ -657,17 +657,17 @@ const pageDescription =
 
   .deliverables-list {
     list-style: none;
-    margin: 0.5rem 0 0;
+    margin: var(--space-2) 0 0;
     padding: 0;
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .deliverables-list li {
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
     font-size: var(--text-sm);
-    padding-bottom: 0.5rem;
+    padding-bottom: var(--space-2);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
   }
 
@@ -682,15 +682,15 @@ const pageDescription =
 
   /* Repository core surfaces index */
   .repository-sections {
-    margin: 4rem 0 2rem;
-    padding-top: 2rem;
+    margin: var(--space-8) 0 var(--space-6);
+    padding-top: var(--space-6);
     border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .repository-sections__header h2 {
-    margin: 0.25rem 0 0.25rem;
+    margin: var(--space-1) 0 var(--space-1);
     font-size: var(--text-xl);
   }
 
@@ -701,7 +701,7 @@ const pageDescription =
 
   .repository-sections__grid {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   }
 
@@ -709,10 +709,10 @@ const pageDescription =
     background: var(--panel);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-    padding: 1.25rem;
+    padding: var(--space-container-compact);
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: var(--space-2);
     text-decoration: none;
     color: var(--text);
     transition:

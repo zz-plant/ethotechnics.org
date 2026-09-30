@@ -4,13 +4,13 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .standards-timeline__item {
     display: grid;
-    gap: 1rem;
-    padding: 1.25rem;
+    gap: var(--space-4);
+    padding: var(--space-4);
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     border-radius: var(--radius-lg);
     background: var(--surface-raised);
@@ -35,8 +35,8 @@
   .standards-timeline__link {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    margin-top: 0.5rem;
+    gap: var(--space-1);
+    margin-top: var(--space-2);
     font-weight: 600;
   }
 
@@ -55,10 +55,10 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 1.5rem;
-    padding-bottom: 1.5rem;
+    gap: var(--space-5);
+    padding-bottom: var(--space-5);
     border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-6);
   }
 
   .standard-header__id {
@@ -68,22 +68,22 @@
     text-transform: uppercase;
     letter-spacing: var(--tracking-label-wide);
     color: var(--accent);
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--space-2);
   }
 
   .standard-header__title {
-    margin: 0 0 0.6rem;
+    margin: 0 0 var(--space-2);
   }
 
   .standard-header__meta {
     display: grid;
-    gap: 0.6rem;
+    gap: var(--space-2);
     margin: 0;
   }
 
   .standard-header__meta div {
     display: grid;
-    gap: 0.2rem;
+    gap: var(--space-1);
   }
 
   .standard-header__meta dt {
@@ -111,7 +111,7 @@
   }
 
   .validator-diagram {
-    margin: 0 0 1.5rem;
+    margin: 0 0 var(--space-5);
   }
 
   .validator-diagram svg {
@@ -122,18 +122,18 @@
 
   .temporal-diagram {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .temporal-diagram__grid {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .temporal-diagram__card {
     border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
     border-radius: var(--radius-lg);
-    padding: 1.15rem 1.3rem;
+    padding: var(--space-container-compact);
     background: var(--surface-raised);
     box-shadow: var(--card-inner-highlight);
   }
@@ -142,7 +142,7 @@
     list-style: none;
     cursor: pointer;
     display: grid;
-    gap: 0.35rem;
+    gap: var(--space-1);
   }
 
   .temporal-diagram__summary::-webkit-details-marker {
@@ -171,12 +171,12 @@
   }
 
   .temporal-diagram__body {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
 
   .temporal-diagram__clauses {
-    margin: 0.75rem 0 0;
-    padding-left: 1.2rem;
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-4);
     color: var(--muted);
   }
 
@@ -200,7 +200,7 @@
      before it. */
   .standard-body {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-6);
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -211,12 +211,12 @@
   }
 
   .standard-section {
-    margin-top: 2rem;
+    margin-top: var(--space-6);
   }
 
   .standard-article-quote {
     font-style: italic;
-    margin: 0.5rem 0 1rem;
+    margin: var(--space-2) 0 var(--space-4);
     color: var(--muted);
   }
 
@@ -225,11 +225,11 @@
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.85rem;
+    gap: var(--space-3);
   }
 
   .standard-clauses li {
-    padding: 1rem;
+    padding: var(--space-4);
     border: 1px solid var(--border);
     background: var(--surface);
   }
@@ -237,18 +237,18 @@
   .standard-clause-id {
     font-family: var(--sans);
     font-weight: 700;
-    margin-right: 0.5rem;
+    margin-right: var(--space-2);
     color: var(--accent);
   }
 
   .standard-definitions {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .standard-definitions div {
     border: 1px solid var(--border);
-    padding: 1rem;
+    padding: var(--space-4);
     background: var(--surface);
   }
 
@@ -259,7 +259,7 @@
     text-transform: uppercase;
     letter-spacing: var(--tracking-label);
     color: var(--muted);
-    margin-bottom: 0.4rem;
+    margin-bottom: var(--space-2);
   }
 
   .standard-definitions dd {
@@ -267,12 +267,12 @@
   }
 
   .rights-matrix__filters {
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-5);
   }
 
   .rights-matrix__jump {
     display: grid;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
 
   .rights-matrix__row.is-dimmed {
@@ -300,24 +300,24 @@
 
   .reference-grid {
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   }
 
   .reference-grid ul {
     margin: 0;
-    padding-left: 1rem;
+    padding-left: var(--space-4);
   }
 
   .diagram-spec__grid {
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   }
 
   .diagram-spec__card {
     display: grid;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
 
   .diagram-spec__figure {
@@ -332,7 +332,7 @@
 
   /* A state-variable glyph sits at its own size, not stretched to the card. */
   .diagram-spec__figure--glyph {
-    padding: 0.4rem 0;
+    padding: var(--space-2) 0;
     color: var(--accent);
   }
 
@@ -389,12 +389,12 @@
 
   .diagram-spec__example {
     display: grid;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
 
   .code-block {
     margin: 0;
-    padding: var(--space-2);
+    padding: var(--space-3);
     border-radius: var(--radius);
     border: 1px solid var(--border);
     background: var(--surface);
@@ -405,28 +405,28 @@
 
   .binding-grid {
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   }
 
   .binding-card {
     display: grid;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
 
   .binding-card__section {
     display: grid;
-    gap: var(--space-1);
+    gap: var(--space-2);
   }
 
   .binding-card ul {
     margin: 0;
-    padding-left: 1.1rem;
+    padding-left: var(--space-4);
   }
 
   .standard-sidebar__panel {
     border: 1px solid var(--border);
-    padding: 1.25rem;
+    padding: var(--space-container-compact);
     background: var(--panel);
   }
 
@@ -444,7 +444,7 @@
     letter-spacing: var(--tracking-label-wide);
     font-size: var(--text-xs);
     color: var(--muted);
-    margin: 0 0 0.75rem;
+    margin: 0 0 var(--space-3);
   }
 
   .standard-sidebar__panel ul {
@@ -452,23 +452,23 @@
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .axiom-list {
     border: 1px solid var(--border);
-    padding: 1.5rem;
+    padding: var(--space-5);
     margin: 0;
     display: grid;
-    gap: 0.85rem;
+    gap: var(--space-3);
     background: var(--surface);
   }
 
   .mechanism-sheet {
     display: grid;
-    gap: 1.75rem;
+    gap: var(--space-6);
     border: 1px solid var(--border);
-    padding: clamp(1.5rem, 3vw, 2.5rem);
+    padding: var(--space-container);
     background: var(--surface);
   }
 
@@ -476,9 +476,9 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: var(--space-5);
     border-bottom: 1px solid var(--border);
-    padding-bottom: 1.5rem;
+    padding-bottom: var(--space-5);
   }
 
   .mechanism-sheet__id {
@@ -488,36 +488,36 @@
     letter-spacing: var(--tracking-label-wide);
     font-size: var(--text-sm);
     color: var(--accent);
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--space-2);
   }
 
   .mechanism-sheet__type,
   .mechanism-sheet__status {
-    margin: 0.3rem 0 0;
+    margin: var(--space-1) 0 0;
   }
 
   .mechanism-sheet__section {
     display: grid;
-    gap: 0.6rem;
+    gap: var(--space-2);
   }
 
   .mechanism-sheet__list {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.4rem;
+    gap: var(--space-2);
   }
 
   .mechanism-sheet__assets {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: var(--space-3);
     align-items: center;
   }
 
   .mechanism-sheet__policy {
     border: 1px solid var(--border);
-    padding: 1rem;
+    padding: var(--space-4);
     background: var(--panel);
     font-family: var(--mono);
     white-space: pre-wrap;
@@ -525,9 +525,9 @@
 
   .validator {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
     border: 1px solid var(--border);
-    padding: clamp(1.5rem, 3vw, 2.5rem);
+    padding: clamp(var(--space-5), 3vw, var(--space-6));
     background: var(--surface);
   }
 
@@ -535,9 +535,9 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: var(--space-5);
     border-bottom: 1px solid var(--border);
-    padding-bottom: 1.5rem;
+    padding-bottom: var(--space-5);
   }
 
   .validator__id {
@@ -547,7 +547,7 @@
     text-transform: uppercase;
     font-size: var(--text-sm);
     color: var(--accent);
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--space-2);
   }
 
   .validator__standard {
@@ -562,20 +562,20 @@
 
   .validator__form {
     display: grid;
-    gap: 1rem;
+    gap: var(--space-4);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     align-items: end;
   }
 
   .validator__field {
     display: grid;
-    gap: 0.4rem;
+    gap: var(--space-2);
     font-weight: 600;
   }
 
   .validator__field input,
   .validator__field select {
-    padding: 0.75rem 0.8rem;
+    padding: var(--space-3) var(--space-3);
     border: 1px solid var(--border);
     border-radius: 0;
     background: var(--surface);
@@ -585,16 +585,16 @@
 
   .validator__report {
     border: 1px solid var(--border);
-    padding: 1.25rem;
+    padding: var(--space-4);
     background: var(--panel);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .validator__status {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: var(--space-3);
     flex-wrap: wrap;
   }
 
@@ -610,8 +610,8 @@
   .standard-pager {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-    gap: 1.25rem;
-    margin: clamp(2.5rem, 4vw, 4rem) 0 2rem;
+    gap: var(--space-5);
+    margin: clamp(var(--space-7), 4vw, var(--space-8)) 0 var(--space-6);
     font-family: var(--sans);
   }
 
@@ -628,8 +628,8 @@
   .standard-pager__card {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    padding: 1.25rem 1.4rem;
+    gap: var(--space-2);
+    padding: var(--space-container-compact);
     border-radius: var(--radius-lg);
     background: var(--surface-raised);
     border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
@@ -673,7 +673,7 @@
   .standard-pager__body {
     display: flex;
     align-items: baseline;
-    gap: 0.6rem;
+    gap: var(--space-2);
     flex-wrap: wrap;
   }
 
@@ -681,7 +681,7 @@
     font-family: var(--mono);
     font-size: var(--text-xs);
     font-weight: 700;
-    padding: 0.2rem 0.5rem;
+    padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--accent) 15%, var(--surface));
     color: var(--accent-strong);
@@ -730,8 +730,8 @@
 
   .standards-register__lane {
     display: inline-block;
-    margin-inline-start: 0.4rem;
-    padding: 0 0.4rem;
+    margin-inline-start: var(--space-2);
+    padding: 0 var(--space-2);
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
     font-size: var(--text-xs);
@@ -744,7 +744,7 @@
 
   .standards-register__summary {
     display: block;
-    margin-top: 0.2rem;
+    margin-top: var(--space-1);
     font-size: var(--text-xs);
     line-height: 1.45;
     color: var(--muted);
@@ -752,7 +752,7 @@
 
   .standards-register .catalogue-table__status {
     display: inline-block;
-    padding: 0.05rem 0.45rem;
+    padding: var(--space-hair) var(--space-2);
     border: 1px solid currentColor;
     border-radius: var(--radius-pill);
     white-space: nowrap;
@@ -795,9 +795,9 @@
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      column-gap: 0.6rem;
-      row-gap: 0.25rem;
-      padding: 0.7rem 0.1rem;
+      column-gap: var(--space-2);
+      row-gap: var(--space-1);
+      padding: var(--space-3) var(--space-hair);
       border-top: 1px solid var(--border);
     }
 
@@ -847,7 +847,7 @@
     }
 
     .standards-register__version {
-      margin-inline-start: 4.5rem;
+      margin-inline-start: var(--space-8);
     }
 
     .standards-register__clauses.catalogue-table__num {
@@ -861,7 +861,7 @@
     .standards-register__clauses::before,
     .standards-register__pack::before {
       content: "·";
-      margin-inline-end: 0.6rem;
+      margin-inline-end: var(--space-2);
     }
 
     .standards-register__meta-label {

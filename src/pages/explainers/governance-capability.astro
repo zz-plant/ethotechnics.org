@@ -504,9 +504,9 @@ const buildAnchor = (id: string) =>
 <style>
   .summary-list {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .summary-list a {
@@ -521,20 +521,20 @@ const buildAnchor = (id: string) =>
 
   .implication-controls {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
     flex-wrap: wrap;
   }
 
   .implications {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 
   .implication {
     border: 1px solid var(--panel-border);
     border-radius: var(--radius-md);
-    padding: 0.75rem 1.25rem;
+    padding: var(--space-3) var(--space-4);
     background: var(--panel);
   }
 
@@ -543,7 +543,7 @@ const buildAnchor = (id: string) =>
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--space-4);
     cursor: pointer;
   }
 
@@ -554,13 +554,13 @@ const buildAnchor = (id: string) =>
   .implication__summary-main {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: var(--space-2);
   }
 
   .implication__summary-actions {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     flex-wrap: wrap;
   }
 
@@ -602,7 +602,7 @@ const buildAnchor = (id: string) =>
   .implication__toggle {
     font-size: var(--text-sm);
     color: var(--muted);
-    margin-top: 0.35rem;
+    margin-top: var(--space-1);
     white-space: nowrap;
   }
 
@@ -619,9 +619,9 @@ const buildAnchor = (id: string) =>
   }
 
   .implication__body {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .implication__label {
@@ -639,44 +639,44 @@ const buildAnchor = (id: string) =>
   .implication__requirements ul,
   .implication__signals ul {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   .implication__signals {
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
     border-top: 1px solid var(--panel-border);
-    padding-top: 0.75rem;
+    padding-top: var(--space-3);
   }
 
   .implication__signals summary {
     cursor: pointer;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
   }
 
   .legitimacy-standard {
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
     max-width: 70ch;
   }
 
   .related-links {
     margin: 0;
-    padding-left: 1.2rem;
+    padding-left: var(--space-4);
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .footnote {
-    margin-top: 1.5rem;
+    margin-top: var(--space-5);
     max-width: 70ch;
   }
 
   @media (max-width: 720px) {
     .implication {
-      padding: 0.75rem 1rem;
+      padding: var(--space-3) var(--space-4);
     }
 
     .implication__summary {

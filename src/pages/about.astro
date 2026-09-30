@@ -429,20 +429,20 @@ import Logo from "../components/Logo.astro";
 
 <style>
   .about-hero {
-    padding-bottom: 1.5rem;
+    padding-bottom: var(--space-5);
     border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   }
 
   .about-hero__layout {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-6);
     align-items: center;
   }
 
   @media (min-width: 800px) {
     .about-hero__layout {
       grid-template-columns: 1fr auto;
-      gap: 3.5rem;
+      gap: var(--space-8);
     }
   }
 

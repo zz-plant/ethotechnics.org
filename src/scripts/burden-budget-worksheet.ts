@@ -618,6 +618,7 @@ const printPdf = (worksheet: Worksheet) => {
 
   const style = printDocument.createElement("style");
   style.textContent = `
+      /* standalone print document: no theme stylesheet, so no tokens */
       body { font-family: Arial, sans-serif; margin: 32px; font-size: 12px; }
       h1 { font-size: 18px; margin-bottom: 12px; }
       pre { white-space: pre-wrap; }

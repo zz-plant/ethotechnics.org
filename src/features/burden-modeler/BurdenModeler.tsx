@@ -219,7 +219,7 @@ export function BurdenModeler() {
                           style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: "0.4rem",
+                            gap: "var(--space-2)",
                           }}
                         >
                           <input
