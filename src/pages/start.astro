@@ -5,7 +5,7 @@ import SectionIllustration from "../components/SectionIllustration.astro";
 
 const pageTitle = "Start — Ethotechnics role paths";
 const pageDescription =
-  "Seven audiences, one page each. Pick the one that describes your work and get the standards, diagnostics, and checklists that bear on it.";
+  "Seven roles, one page each. Pick the one that describes your work and get the standards, tools, and checklists that apply to it.";
 ---
 
 <BaseLayout
@@ -20,9 +20,8 @@ const pageDescription =
         <span class="pill pill--ghost">Start</span>
         <h1 class="page-title">Find your path through Ethotechnics</h1>
         <p class="page-lede">
-          Seven audiences, each with its own page. Pick the one closest to your
-          work to see the standards, diagnostics, and first steps that apply to
-          it.
+          Seven roles, one page each. Pick the one closest to your work to see
+          the standards, tools, and first steps that apply to it.
         </p>
       </div>
       <div class="start-hero__illustration">
@@ -88,10 +87,10 @@ const pageDescription =
     <section class="direct-tracks" aria-label="Direct tracks">
       <div class="direct-track">
         <span class="eyebrow">Delegation</span>
-        <h2>Unsure what has been delegated?</h2>
+        <h2>Unsure what the system is allowed to decide?</h2>
         <p>
-          Take one workflow and check what has been delegated, on what evidence,
-          and whether the delegation is still justified.
+          Take one workflow and check what decisions it hands to the system, on
+          what evidence, and whether that is still justified.
         </p>
         <div class="direct-track__links">
           <a href="/diagnostics/delegation-audit" class="button">Delegation audit</a>
@@ -107,7 +106,7 @@ const pageDescription =
           and what evidence must be preserved?
         </p>
         <div class="direct-track__links">
-          <a href="/diagnostics/self-defense-tools" class="button">Self-defense tools</a>
+          <a href="/diagnostics/self-defense-tools" class="button">Check a decision about you</a>
           <a href="/triage" class="button button--ghost">Incident triage</a>
         </div>
       </div>
@@ -116,12 +115,12 @@ const pageDescription =
         <span class="eyebrow">Adoption</span>
         <h2>Already decided to adopt?</h2>
         <p>
-          Two direct paths: execute the one-sprint adoption plan, or rehearse halting automation
-          in the Finite training environment.
+          Two paths: follow the one-sprint adoption plan, or practice halting an
+          automated system in Finite, a training simulation.
         </p>
         <div class="direct-track__links">
           <a href="#fast-path" class="button">Adoption plan</a>
-          <a href="/evals#finite" class="button button--ghost">Finite drills</a>
+          <a href="/evals#finite" class="button button--ghost">Practice in Finite</a>
         </div>
       </div>
     </section>
@@ -130,9 +129,9 @@ const pageDescription =
     <section id="fast-path" class="fast-path-section">
       <div class="fast-path-header">
         <span class="pill pill--ghost">Adoption plan</span>
-        <h2>Fast-path adoption: one sprint</h2>
+        <h2>Adopt the basics in one sprint</h2>
         <p class="muted">
-          Three mechanisms with owners and effort estimates, a receipt schema, and four release deliverables.
+          Three safeguards with owners and effort estimates, a record format for each decision, and four things to ship.
         </p>
       </div>
 
@@ -141,28 +140,28 @@ const pageDescription =
           <span class="fast-path-card__badge">1 day</span>
           <h3>Kill switch</h3>
           <p class="fast-path-card__owner">Ops / Reliability</p>
-          <p class="fast-path-card__desc">Stops runaway automation in seconds.</p>
+          <p class="fast-path-card__desc">Gives a named person a tested way to stop the automation.</p>
           <a href="/mechanisms/patterns/kill-switch" class="fast-path-link">Open mechanism &rarr;</a>
         </div>
         <div class="fast-path-card">
           <span class="fast-path-card__badge">2 days</span>
           <h3>Decision log with dissent</h3>
           <p class="fast-path-card__owner">Product / Policy</p>
-          <p class="fast-path-card__desc">Records rationale and dissent, so governance cannot drift silently.</p>
+          <p class="fast-path-card__desc">Records why a decision was made and who disagreed, so changes are visible.</p>
           <a href="/mechanisms/patterns/decision-log" class="fast-path-link">Open mechanism &rarr;</a>
         </div>
         <div class="fast-path-card">
           <span class="fast-path-card__badge">2 days</span>
           <h3>In-product appeal path</h3>
           <p class="fast-path-card__owner">Support / Trust</p>
-          <p class="fast-path-card__desc">Prevents contestability regressions and shortens recovery time.</p>
+          <p class="fast-path-card__desc">Gives people a way to challenge a decision inside the product.</p>
           <a href="/mechanisms/patterns/appeal-paths" class="fast-path-link">Open mechanism &rarr;</a>
         </div>
       </div>
 
       <div class="fast-path-details">
         <div class="fast-path-code">
-          <p class="eyebrow">Canonical receipt payload</p>
+          <p class="eyebrow">Example decision receipt</p>
           <pre class="code-block"><code>{`{
   "schema_version": "1.0.0",
   "receipt_id": "RCP-2026-0842",
@@ -174,20 +173,20 @@ const pageDescription =
 }`}</code></pre>
           <div class="receipt-guarantees">
             <div class="receipt-guarantee">
-              <strong>Accountable owner:</strong> Binds the action to a named operational role with reversal authority, not an untracked pipeline.
+              <strong>Owner:</strong> Names the role that can reverse the action.
             </div>
             <div class="receipt-guarantee">
-              <strong>Reversibility flag:</strong> Declares whether the decision can be restored to prior state without loss of rights or records.
+              <strong>Reversible:</strong> Says whether the decision can be undone without losing anyone's rights or records.
             </div>
             <div class="receipt-guarantee">
-              <strong>Bounded clocks:</strong> Fixes hard deadlines (2h ack, 24h review, 72h remedy) beyond which silence constitutes breach.
+              <strong>Deadlines:</strong> Sets hard limits: acknowledge in 2 hours, review in 24, fix in 72. Missing one is a breach.
             </div>
             <div class="receipt-guarantee">
-              <strong>Actionable appeal:</strong> Gives the affected subject a direct in-product URI rather than an unstaffed support queue.
+              <strong>Appeal path:</strong> Gives the person affected a direct link to appeal, not a general support queue.
             </div>
           </div>
           <p class="small muted">
-            Validate against the <a href="/standards/agent-receipt-schema.json">canonical receipt schema</a> so tooling can parse receipts automatically.
+            Check receipts against the <a href="/standards/agent-receipt-schema.json">published receipt schema</a> so tools can read them.
           </p>
         </div>
 
@@ -208,7 +207,7 @@ const pageDescription =
             </li>
             <li>
               <a href="/agents/spec"><strong>Safety Object Model</strong></a>
-              <span>Publish the machine-readable governance profile for CI validation.</span>
+              <span>Publish a machine-readable description of the system's safeguards, checked in CI.</span>
             </li>
           </ul>
         </div>
@@ -219,8 +218,8 @@ const pageDescription =
     <section class="repository-sections" aria-label="Core repository sections">
       <div class="repository-sections__header">
         <span class="eyebrow">Index</span>
-        <h2>Explore core surfaces</h2>
-        <p class="muted">Access numbered standards, operational mechanisms, diagnostics, and case histories.</p>
+        <h2>The main sections</h2>
+        <p class="muted">Numbered standards, safeguards, diagnostic tools, and scored cases.</p>
       </div>
       <div class="repository-sections__grid">
         <a href="/standards" class="section-card">
@@ -231,22 +230,22 @@ const pageDescription =
         <a href="/mechanisms" class="section-card">
           <span class="section-card__tag">Architecture</span>
           <h3 class="section-card__title">Mechanisms &rarr;</h3>
-          <p class="section-card__desc">Numbered MEC specifications for kill switches, dissent logging, and bounded autonomy.</p>
+          <p class="section-card__desc">Specifications for kill switches, decision logs with dissent, and limits on automation.</p>
         </a>
         <a href="/diagnostics" class="section-card">
           <span class="section-card__tag">Assessment</span>
           <h3 class="section-card__title">Diagnostics &rarr;</h3>
-          <p class="section-card__desc">Interactive tools to score delegation, audit authority, and verify contestability.</p>
+          <p class="section-card__desc">Tools that score what a system may decide, who can stop it, and whether people can appeal.</p>
         </a>
         <a href="/casebook" class="section-card">
           <span class="section-card__tag">Empirical evidence</span>
           <h3 class="section-card__title">Casebook &rarr;</h3>
-          <p class="section-card__desc">Post-incident analyses of automated decision failures scored against the standard.</p>
+          <p class="section-card__desc">Public failures of automated decision systems, each scored against the standards.</p>
         </a>
         <a href="/glossary" class="section-card">
           <span class="section-card__tag">Reference</span>
           <h3 class="section-card__title">Glossary &rarr;</h3>
-          <p class="section-card__desc">Definitions and taxonomy for automated governance terms and concepts.</p>
+          <p class="section-card__desc">Definitions of the terms the standards and tools use.</p>
         </a>
       </div>
     </section>

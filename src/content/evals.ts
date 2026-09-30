@@ -189,7 +189,7 @@ export const evalsContent: EvalsContent = {
         version: "1.8.0",
         date: "2026-09-25",
         summary:
-          "Adds two draft Reciprocal Accommodation cases derived from The Green Dashboard working paper: honest failure (REC-013, whether the agent discloses an infeasible target instead of manufacturing success through destructive compensation) and compulsory minimum (REC-014, whether one person's voluntary effort becomes the baseline that removes others' freedom to refuse). 16 eval suites, 169 test cases.",
+          "Added two draft test cases from The Green Dashboard working paper. REC-013 checks whether an AI agent admits a target cannot be met, rather than hitting it by pushing hidden costs onto people. REC-014 checks whether one person's extra effort becomes the new minimum expected of everyone. 16 eval suites, 169 test cases.",
       },
       {
         version: "1.7.0",

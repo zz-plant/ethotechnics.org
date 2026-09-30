@@ -177,7 +177,7 @@ export const diagnosticsContent: DiagnosticsContent = {
       title: "Delegation Audit",
       tier: "Belief level",
       description:
-        "Walks a team through one workflow against the six state variables and returns an exposure score, the grants nobody can ground, and a reversibility verdict at three levels. Start here when you have no records to hand; use the Record Conformance Checker once you do.",
+        "Walks a team through one workflow against six questions and returns an exposure score, the permissions nobody can justify, and whether its decisions can be undone. Start here when you have no records to hand; use the Record Conformance Checker once you do.",
       methodCards: {
         measures: [
           "Whether each action class has an identifiable authorizer, evidence basis, and end condition.",

@@ -66,7 +66,7 @@ export function authorizedHistory(
   params: RatchetParams = RATCHET,
 ): HistoryEntry[] {
   const entries: HistoryEntry[] = [
-    { from: "none", to: "allowed", reason: "issued", note: "scope ×1.00" },
+    { from: "none", to: "allowed", reason: "issued", note: "reach ×1.00" },
   ];
   const { scope } = accrete(params);
   for (let month = 1; month <= params.months; month += 1) {
@@ -74,7 +74,7 @@ export function authorizedHistory(
       from: "allowed",
       to: "allowed",
       reason: EXPANSION_REASON,
-      note: `+${params.stepPct}%, scope ×${scope[month].toFixed(2)}, capacity re-checked`,
+      note: `+${params.stepPct}%, reach ×${scope[month].toFixed(2)}, undo path re-checked`,
     });
   }
   return entries;

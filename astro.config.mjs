@@ -44,7 +44,11 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "base-uri 'self'",
-        "connect-src 'self' blob:",
+        // Cloudflare Web Analytics is injected at the edge: a beacon script
+        // from static.cloudflareinsights.com that reports page views to
+        // cloudflareinsights.com. Without both hosts the policy blocks it on
+        // every page, and the dashboard counts no views and no navigation.
+        "connect-src 'self' blob: https://cloudflareinsights.com",
         "font-src 'self'",
         "form-action 'self'",
         "frame-ancestors 'none'",
@@ -52,7 +56,13 @@ export default defineConfig({
         "object-src 'none'",
         "worker-src 'self' blob:",
       ],
-      scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'"] },
+      scriptDirective: {
+        resources: [
+          "'self'",
+          "'wasm-unsafe-eval'",
+          "https://static.cloudflareinsights.com",
+        ],
+      },
       styleDirective: {
         resources: [
           "'self'",
