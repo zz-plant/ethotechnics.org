@@ -97,7 +97,7 @@ function init(): void {
       } else if (seen > 0) {
         badgeEl.textContent = `Finding ${seen}/${total}`;
       } else {
-        badgeEl.textContent = "Auditing";
+        badgeEl.textContent = "Counting";
       }
     }
 

@@ -36,23 +36,23 @@ const quickTriagePrompts = [
     label: "Run Burden Modeler",
   },
   {
-    question: "Is the delegation behind this decision still justified?",
+    question: "Is the system still justified in making this decision?",
     description:
-      "Walk one workflow against the six state variables and get the grants nobody can ground.",
+      "Take one workflow through six questions and find the permissions nobody can justify.",
     href: "/diagnostics/delegation-audit",
     label: "Run Delegation Audit",
   },
   {
-    question: "Does your record stream earn the level it claims?",
+    question: "Do your decision records meet the level you claim?",
     description:
-      "Validate an emitted stream against the schema and recompute its hashes.",
+      "Check the records a system produces against the published schema, and verify they have not been altered.",
     href: "/diagnostics/record-conformance",
     label: "Run Record Conformance",
   },
   {
     question: "Can the institution correct what it can decide?",
     description:
-      "Review five answers about growth and corrective practices.",
+      "Answer five questions about how the system has grown and how the institution fixes its mistakes.",
     href: "/diagnostics/corrective-debt-calculator",
     label: "Run Corrective capacity self-assessment",
   },
@@ -108,8 +108,8 @@ const comparisonTools = mostUsedTools.slice(0, 3);
   <SectionBlock
     id="quick-triage"
     eyebrow="Triage"
-    title="Three questions that route to a tool"
-    description="Each question points to one diagnostic. The most-run tools follow."
+    title="Four questions, one tool each"
+    description="Each question points to one diagnostic. The full list of tools follows."
     variant="alt"
   >
     <div class="panel stack-sm">

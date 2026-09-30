@@ -175,7 +175,7 @@ export const casebookContent: CasebookContent = {
   eyebrow: "Casebook",
   title: "Five public failures, scored",
   description:
-    "Each case was established by a court, an inquiry, or a regulator. Each is scored against the six state variables the laws track, with the clause that would have caught the drift, and against whether the failure trajectory ended in institutional learning or was absorbed as handled cases. The scores are not a verdict on anyone; they show where the coupling broke.",
+    "Each case was established by a court, an inquiry, or a regulator. Each is scored on six safeguards: capability, authority, evidence, dependency, standing, and correction. Each score names the clause that would have caught the failure. A last column records whether the institution changed afterward or only settled individual cases. The scores are not a verdict on anyone. They show where the safeguards broke.",
 };
 
 export const cases: Case[] = [

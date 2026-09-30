@@ -75,25 +75,25 @@ export const roles: Role[] = [
     orientation: [
       {
         number: 1,
-        title: "Audit the delegation behind a workflow",
+        title: "Check what a workflow is allowed to decide",
         description:
-          "Walk one workflow against the six state variables and get back the grants nobody can ground, plus a reversibility verdict at three levels.",
+          "Take one workflow through six questions. Get back the permissions nobody can justify, and whether its decisions can be undone.",
         ctaLabel: "Open Delegation Audit",
         ctaHref: "/diagnostics/delegation-audit",
       },
       {
         number: 2,
-        title: "Enforce STD-01: temporal rights and recourse",
+        title: "Set deadlines for halts and reversals (STD-01)",
         description:
-          "Implement deterministic time-to-halt, reversal SLAs, and the receipt structure a decision has to emit.",
+          "Build in a fixed time to halt, deadlines for reversing a decision, and the receipt each decision has to produce.",
         ctaLabel: "Inspect STD-01",
         ctaHref: "/standards/std-01-temporal-rights",
       },
       {
         number: 3,
-        title: "Model burden and human substitution",
+        title: "Measure the work the system pushes onto people",
         description:
-          "Calculate the load the system pushes onto people, and check review capacity against the ceiling it assumes.",
+          "Count the hours the system pushes onto people, and check whether reviewers can keep up with the volume it assumes.",
         ctaLabel: "Run Burden Modeler",
         ctaHref: "/diagnostics/burden-modeler",
       },
@@ -171,10 +171,10 @@ export const roles: Role[] = [
       },
       {
         number: 2,
-        title: "Set service-level indicators of justice",
+        title: "Set measurable targets for appeals",
         description:
-          "Define measurable commitments for appeal passage rates and non-retaliation, rather than intentions.",
-        ctaLabel: "Explore SLJ metrics",
+          "Commit to numbers: how many appeals get through, how fast, and a promise that appealing carries no penalty.",
+        ctaLabel: "See appeal targets",
         ctaHref: "/glossary/service-level-indicators",
       },
       {
@@ -238,13 +238,13 @@ export const roles: Role[] = [
     label: "Audit and assurance",
     who: "You verify someone else's claims from the evidence their system emits.",
     tagline:
-      "Check conformance from records, decision objects, and halt logs rather than from assurances.",
+      "Check a system from its records, decisions, and halt logs, not from what its operator says.",
     orientation: [
       {
         number: 1,
         title: "Inspect the failure taxonomy",
         description:
-          "Audit systems against observable failure signatures and the behaviors that counterfeit compliance.",
+          "Check systems for the visible signs of known failures, and for behavior that looks compliant but is not.",
         ctaLabel: "Explore taxonomy",
         ctaHref: "/taxonomy",
       },
@@ -252,7 +252,7 @@ export const roles: Role[] = [
         number: 2,
         title: "Verify evidence receipts",
         description:
-          "Audit decision timestamps, binding clocks, and claimant confirmation records against what was claimed.",
+          "Check decision timestamps, deadlines, and the records people received against what the operator claims.",
         ctaLabel: "Inspect evidence packs",
         ctaHref: "/evidence-packs",
       },
@@ -260,7 +260,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Grade a record stream",
         description:
-          "Read an emitted stream against the conformance level its own manifest declares, and see whether it earns it.",
+          "Check a system's decision records against the conformance level it claims, and see whether it meets it.",
         ctaLabel: "Open Record Conformance",
         ctaHref: "/diagnostics/record-conformance",
       },
@@ -287,7 +287,7 @@ export const roles: Role[] = [
         number: 1,
         title: "Model the load the system pushes onto people",
         description:
-          "Calculate who absorbs the friction a workflow generates, in hours, before the queue becomes the mechanism that hides its errors.",
+          "Count, in hours, who absorbs the extra work a workflow creates, before a growing queue starts hiding its errors.",
         ctaLabel: "Run Burden Modeler",
         ctaHref: "/diagnostics/burden-modeler",
       },
@@ -303,8 +303,8 @@ export const roles: Role[] = [
         number: 3,
         title: "Read the queue as a capacity signal",
         description:
-          "Track challenge volume against the capacity rostered to answer it, and answer congestion with resourcing or scope decisions on the record — never by narrowing who may challenge.",
-        ctaLabel: "Inspect the challenge load ledger",
+          "Compare the number of appeals with the staff assigned to answer them. When the queue backs up, add staff or narrow the system, on the record. Never narrow who may appeal.",
+        ctaLabel: "See the appeal load ledger",
         ctaHref: "/mechanisms/patterns/challenge-load-ledger",
       },
     ],
@@ -322,21 +322,21 @@ export const roles: Role[] = [
     label: "Design",
     who: "You shape the interface where a person meets the decision.",
     tagline:
-      "Turn standards into consent-aware flows, escalation cues, and language a person can act on.",
+      "Turn standards into flows that ask for consent, show people how to escalate, and use words they can act on.",
     orientation: [
       {
         number: 1,
-        title: "Know who is being made to bend",
+        title: "See who the design asks to adapt",
         description:
-          "Read the design stance the discipline is built on: what an arrangement demands of people, who bears those demands, and whether they can force it to change.",
-        ctaLabel: "Read ethotechnical design",
+          "The design stance behind this work: what a system demands of people, who carries those demands, and whether they can make it change.",
+        ctaLabel: "Read the design stance",
         ctaHref: "/research/theory/ethotechnical-design",
       },
       {
         number: 2,
         title: "Model the burden of one flow",
         description:
-          "Score a real journey for time tax, step count, and exit availability, and read the report card as a design brief.",
+          "Score a real user journey for time spent, number of steps, and whether there is a way out. Use the result as a design brief.",
         ctaLabel: "Run Burden Modeler",
         ctaHref: "/diagnostics/burden-modeler",
       },
@@ -344,15 +344,15 @@ export const roles: Role[] = [
         number: 3,
         title: "Place the interrupt where the harm is",
         description:
-          "Design the stop, slow, and escalate controls the flow needs when the system is wrong — reachable, not decorative.",
-        ctaLabel: "Read ethical interrupts",
+          "Design the controls that stop, slow, or escalate a flow when the system is wrong, and put them where people can reach them.",
+        ctaLabel: "Read about interrupts",
         ctaHref: "/explainers/ethical-interrupts",
       },
       {
         number: 4,
         title: "Write copy people can act on",
         description:
-          "Use phrases a person can send, file, or read out — contestation language that works without the framework behind it.",
+          "Use phrases a person can send, file, or read out to challenge a decision, without needing to know this framework.",
         ctaLabel: "Open language people can use",
         ctaHref: "/explainers/language-people-can-use",
       },
@@ -404,13 +404,13 @@ export const roles: Role[] = [
     label: "Research",
     who: "You study these systems and publish about them.",
     tagline:
-      "Ground investigations in the glossary anchors the standards use, so findings can be cited back into them.",
+      "Use the same defined terms the standards use, so your findings can be cited in them.",
     orientation: [
       {
         number: 1,
-        title: "Anchor the question in the doctrine",
+        title: "Tie the question to one of the twelve laws",
         description:
-          "State the claim as one of the twelve laws, so findings cite something a standard binds rather than a mood.",
+          "State the claim as one of the twelve laws, so findings point to something a standard requires.",
         ctaLabel: "Read the laws",
         ctaHref: "/standards/laws",
       },
@@ -418,7 +418,7 @@ export const roles: Role[] = [
         number: 2,
         title: "Read why the laws hold",
         description:
-          "The theory essays carry the argument: dependence, standing, capture, absorption, and the refusals between capability and authority.",
+          "The theory essays make the argument: who depends on whom, who can object, and why being able to do something is not permission to do it.",
         ctaLabel: "Open theory",
         ctaHref: "/research/theory",
       },
@@ -426,7 +426,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Bring a case or a dataset",
         description:
-          "Field studies, incident analyses, and protocols can enter the agenda through the participation intake.",
+          "Send field studies, incident analyses, and protocols through the Participate page.",
         ctaLabel: "Open Participate",
         ctaHref: "/participate",
       },
@@ -477,13 +477,13 @@ export const roles: Role[] = [
     label: "Executive",
     who: "You decide whether to deploy, and you carry the liability when it goes wrong.",
     tagline:
-      "See the failure load a deployment commits the organization to before it is committed.",
+      "See what failures a deployment will cost the organization before you commit to it.",
     orientation: [
       {
         number: 1,
-        title: "Understand failure load and moral debt",
+        title: "See the cost of failures nobody budgeted for",
         description:
-          "How hidden fragility subsidies and unearned closures compound into liability nobody budgeted for.",
+          "How staff quietly covering for a fragile system, and cases closed without being resolved, build into liability.",
         ctaLabel: "Read institutional principles",
         ctaHref: "/about",
       },
@@ -499,7 +499,7 @@ export const roles: Role[] = [
         number: 3,
         title: "Benchmark governance maturity",
         description:
-          "Place the organization on the scale from baseline pause controls to published service-level indicators of justice and funded maintenance.",
+          "Place the organization on a scale that runs from a basic pause control to published appeal targets and funded maintenance.",
         ctaLabel: "Explore maturity scale",
         ctaHref: "/glossary/ethotechnic-maturity",
       },
