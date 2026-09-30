@@ -6,6 +6,7 @@
  */
 import { cases, stateVariables } from "../../content/casebook";
 import StateVariableGlyph from "../StateVariableGlyph.astro";
+import TimeToHaltBars from "../TimeToHaltBars.astro";
 import VerdictMark from "../VerdictMark.astro";
 ---
 
@@ -63,6 +64,7 @@ import VerdictMark from "../VerdictMark.astro";
       ))
     }
   </ol>
+  <TimeToHaltBars id="home-time-to-halt" />
   <p class="small muted">
     ● held · ◐ drifted · ○ failed.
     <a href="/casebook">Open the full matrix →</a>

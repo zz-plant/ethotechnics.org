@@ -38,7 +38,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  box-shadow: var(--shadow-sm), var(--card-inner-highlight);
 }
 
 .input-card--legend {
@@ -66,9 +65,9 @@
 
 .badge {
   background: var(--accent);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.25rem 0.75rem;
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: white;
   font-weight: 600;
 }
@@ -123,7 +122,7 @@
 
 .scale-legend__bar {
   height: 6px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: linear-gradient(
     90deg,
     rgba(16, 185, 129, 0.6),
@@ -135,14 +134,14 @@
 .scale-legend__descriptors {
   display: flex;
   justify-content: space-between;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   color: color-mix(in srgb, var(--text) 65%, transparent);
 }
 
 .scale-legend__descriptors {
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 0.65rem;
+  letter-spacing: var(--tracking-label);
+  font-size: var(--text-xs);
 }
 
 .burden-modeler__results .result-card__grid {
@@ -166,13 +165,13 @@
 }
 
 .summary-item__value {
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   font-weight: 600;
   margin: 0;
 }
 
 .result-card__stat-value {
-  font-size: 1.5rem;
+  font-size: var(--text-xl);
   font-weight: 700;
 }
 
@@ -186,8 +185,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border: 0;
+  border-radius: var(--radius-md);
   padding: 0.5rem 0.75rem;
   background: var(--panel);
 }
@@ -199,13 +198,13 @@
     minmax(80px, 0.6fr);
   gap: 0.75rem;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .segment-table__row--header {
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--tracking-label-wide);
   color: color-mix(in srgb, var(--text) 65%, transparent);
   font-weight: 600;
 }
@@ -222,14 +221,14 @@
 }
 
 .burden-meter__value {
-  font-size: 3rem;
+  font-size: var(--text-3xl);
   font-weight: 700;
 }
 
 .burden-meter__badge {
   padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.875rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
   font-weight: 700;
 }
 
@@ -278,7 +277,7 @@
 
 .hotspot__bar {
   background: var(--panel);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
   height: 10px;
   border: 1px solid var(--border);
@@ -341,7 +340,7 @@
 
   .scale-legend__labels,
   .scale-legend__descriptors {
-    font-size: 0.7rem;
+    font-size: var(--text-xs);
   }
 }
 

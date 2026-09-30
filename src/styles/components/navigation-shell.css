@@ -359,7 +359,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg), var(--card-inner-highlight);
+    box-shadow: var(--shadow-float);
     padding: 1.25rem;
     z-index: var(--z-overlay);
     animation: drawerFadeIn 0.22s var(--ease-out-editorial);
@@ -408,12 +408,12 @@
     font-family: var(--sans);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-label-wide);
     color: var(--accent-strong);
   }
 
   .nav__mobile-featured-title {
-    font-size: 1.05rem;
+    font-size: var(--text-base);
     font-weight: 750;
     color: var(--text);
   }
@@ -489,7 +489,7 @@
   }
 
   .nav__mobile-link-title {
-    font-size: 0.95rem;
+    font-size: var(--text-sm);
     font-weight: 700;
     color: var(--text);
   }
@@ -561,6 +561,13 @@
     .nav__mobile-top,
     .nav__mobile-sections-summary {
       flex: none;
+    }
+
+    /* The sections <details> is a column that fills the rest of the bar so
+       the open drawer can grow; its summary would stretch with it into a
+       pill that ran to the gutter. It keeps its own width, at the end. */
+    .nav__mobile-sections-summary {
+      align-self: flex-end;
     }
 
     .nav__mobile,
@@ -677,7 +684,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg), var(--card-inner-highlight);
+    box-shadow: var(--shadow-float);
     z-index: var(--z-overlay);
     /*
      * The panel hangs off a sticky bar, so the document cannot scroll to reveal
@@ -699,9 +706,9 @@
   .nav__browse-group-title {
     margin: 0 0 0.2rem;
     font-family: var(--sans);
-    font-size: 0.7rem;
+    font-size: var(--text-xs);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-label-wide);
     text-transform: uppercase;
     color: var(--accent-strong);
   }

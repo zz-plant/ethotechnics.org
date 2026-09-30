@@ -14,7 +14,7 @@
 
   .field-notes__heading h2 {
     margin: 0.4rem 0 0;
-    font-size: clamp(1.6rem, 1.2vw + 1.4rem, 2rem);
+    font-size: var(--text-2xl);
   }
 
   .field-notes__tabs {
@@ -82,11 +82,11 @@
 
   .field-notes__card h3 {
     margin: 0;
-    font-size: 1.15rem;
+    font-size: var(--text-lg);
   }
 
   .field-notes__card .muted {
-    font-size: 0.95rem;
+    font-size: var(--text-sm);
     line-height: 1.55;
   }
 
@@ -141,13 +141,11 @@
   .field-notes__path-item:hover,
   .field-notes__path-item:focus-visible {
     border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
-    box-shadow: var(--shadow-md), var(--card-inner-highlight);
-    transform: translateY(-1px);
   }
 
   .field-notes__path-label {
     font-size: var(--text-xs);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-label-wide);
     text-transform: uppercase;
     color: color-mix(in srgb, var(--text) 65%, var(--border));
     font-weight: 700;

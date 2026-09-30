@@ -1,0 +1,50 @@
+---
+/**
+ * One party speaking: a quote block with a small tail, attributed below.
+ * Used only where someone in the record actually speaks, never on headings,
+ * cards, or navigation.
+ *
+ * The side sets which way the bubble leans. The institution speaks from the
+ * right, matching the home page's two ledgers; the record (an adviser,
+ * regulator, tribunal, or court) and the person decided about speak from the
+ * left. `answered` encodes whether the institution answered: an unanswered
+ * bubble has a broken outline and says so in its caption, so the state does
+ * not rest on the outline alone.
+ *
+ * Paraphrase renders without quotation marks and is labelled as paraphrase;
+ * `verbatim` is for the speaker's own words only.
+ */
+interface Props {
+  side: "record" | "institution" | "person";
+  speaker: string;
+  verbatim?: boolean;
+  /** Omit where the question does not arise. */
+  answered?: boolean;
+  class?: string;
+}
+
+const {
+  side,
+  speaker,
+  verbatim = false,
+  answered,
+  class: className,
+}: Props = Astro.props;
+const Bubble = verbatim ? "blockquote" : "div";
+const status =
+  answered === undefined ? undefined : answered ? "Answered" : "Unanswered";
+---
+
+<figure
+  class:list={["speech", `speech--${side}`, className]}
+  data-answered={answered === undefined ? undefined : String(answered)}
+>
+  <Bubble class="speech__bubble">
+    <p>{verbatim ? <>“<slot />”</> : <slot />}</p>
+  </Bubble>
+  <figcaption class="speech__who">
+    <span class="speech__speaker">{speaker}</span>
+    {!verbatim && <span class="speech__kind">paraphrase</span>}
+    {status && <span class="speech__status">{status}</span>}
+  </figcaption>
+</figure>

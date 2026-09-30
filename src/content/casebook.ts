@@ -120,6 +120,43 @@ export type TimelineEvent = {
   evidence?: boolean;
   /** The event at which the system was actually halted. */
   halt?: boolean;
+  /** A party speaking in the record. Drawn only from `what` and the narrative. */
+  voice?: TimelineVoice;
+};
+
+/**
+ * Someone speaking in a timeline event: an adviser, regulator, tribunal, or
+ * court on the record's side, or the operator on the institution's side. The
+ * home page draws these as speech, so each is restated from the event text,
+ * never invented. `said` is paraphrase unless `verbatim` is set.
+ */
+export type TimelineVoice = {
+  /** Who spoke, as the case's narrative names them. */
+  speaker: string;
+  side: "record" | "institution";
+  said: string;
+  /** True only when `said` is the speaker's own words. */
+  verbatim?: boolean;
+  /**
+   * Whether the operator answered it by changing the scheme. Omitted where
+   * the question does not arise: the operator's own words, or a finding made
+   * after the halt.
+   */
+  answered?: boolean;
+  /** The rest of the event, after the speech. Drawn from `what`. */
+  after?: string;
+};
+
+/**
+ * The dated ends of `timeToHalt`, at the precision the case's own record
+ * gives: "YYYY", "YYYY-MM", or "YYYY-MM-DD". A year-only date is read as
+ * 1 July and a month-only date as the 15th, the middle of the period named.
+ */
+export type HaltSpan = {
+  /** First harm. */
+  from: string;
+  /** The halt, or the change the prose names. */
+  to: string;
 };
 
 export type Case = PublishedContent & {
@@ -134,6 +171,14 @@ export type Case = PublishedContent & {
   scale: string;
   /** From first harm to the delegation being halted or reversed. */
   timeToHalt: string;
+  /** The dates `timeToHalt` is measured between. */
+  haltSpan: HaltSpan;
+  /**
+   * `timeToHalt` in days, for drawing to scale: `haltSpanDays(haltSpan)`,
+   * stored so the figure needs no date arithmetic. The prose label stays the
+   * displayed text; this number only sets a bar's length.
+   */
+  timeToHaltDays: number;
   /** Who made the halt happen. Almost never the operator. */
   haltedBy: string;
   summary: string;
@@ -204,6 +249,10 @@ export const cases: Case[] = [
     scale:
       "About 470,000 debts raised unlawfully. The class-action settlement the Federal Court approved in 2021 covered roughly 381,000 people, with repayments, wiped debts, and interest valued at about A$1.8 billion.",
     timeToHalt: "Three years and four months",
+    // Launch month (Jul 2016, timeline) to the Federal Court consent orders
+    // (27 Nov 2019, sources). The launch day is not in the record.
+    haltSpan: { from: "2016-07", to: "2019-11-27" },
+    timeToHaltDays: 1230,
     haltedBy:
       "The Federal Court, on a consent order the Commonwealth agreed to hours before a hearing it would have lost.",
     published: "2026-09-17T00:00:00Z",
@@ -221,6 +270,12 @@ export const cases: Case[] = [
         when: "2014",
         what: "The department is advised in writing that income averaging cannot prove a debt.",
         evidence: true,
+        voice: {
+          speaker: "Legal advice",
+          side: "record",
+          said: "Income averaging cannot prove a debt.",
+          answered: false,
+        },
       },
       {
         when: "Jul 2016",
@@ -230,23 +285,49 @@ export const cases: Case[] = [
         when: "Apr 2017",
         what: "The Ombudsman reports that notices do not explain how a debt was calculated.",
         evidence: true,
+        voice: {
+          speaker: "The Commonwealth Ombudsman",
+          side: "record",
+          said: "Notices do not explain how a debt was calculated.",
+          answered: false,
+        },
       },
       {
         when: "2017–19",
         what: "A tribunal rules individual debts unlawful dozens of times. Each ruling fixes one case. The scheme keeps running.",
         turn: true,
         evidence: true,
+        voice: {
+          speaker: "The Administrative Appeals Tribunal",
+          side: "record",
+          said: "The debt is unlawful.",
+          answered: false,
+          after:
+            "Dozens of times. Each ruling fixes one case. The scheme keeps running.",
+        },
       },
       {
         when: "Nov 2019",
         what: "The government concedes a Federal Court case it was about to lose. The scheme is halted that month.",
         evidence: true,
         halt: true,
+        voice: {
+          speaker: "The Commonwealth",
+          side: "institution",
+          said: "A debt raised by averaging was not lawfully made.",
+          after:
+            "It concedes a Federal Court case it was about to lose. The scheme is halted that month.",
+        },
       },
       {
         when: "Jul 2023",
         what: "A Royal Commission finds the scheme was unlawful from the outset.",
         evidence: true,
+        voice: {
+          speaker: "The Royal Commission",
+          side: "record",
+          said: "The scheme was unlawful from the outset.",
+        },
       },
     ],
     findings: [
@@ -367,6 +448,11 @@ export const cases: Case[] = [
     scale:
       "More than 30,000 parents wrongly accused of fraud and made to repay benefits, often tens of thousands of euros; children placed in care; the cabinet resigned.",
     timeToHalt: "About seven years",
+    // Approximate: the period says "roughly 2012", so the start is a year
+    // only. The end is the Council of State's reversal (23 Oct 2019, sources),
+    // the first halt `haltedBy` names.
+    haltSpan: { from: "2012", to: "2019-10-23" },
+    timeToHaltDays: 2670,
     haltedBy:
       "The Council of State reversing its own case law in October 2019, then a parliamentary inquiry.",
     published: "2026-09-17T00:00:00Z",
@@ -525,6 +611,11 @@ export const cases: Case[] = [
     scale:
       "More than 900 prosecutions; hundreds imprisoned, bankrupted, or both; the inquiry's first volume links at least thirteen suicides to the scandal and identifies roughly 10,000 eligible for redress.",
     timeToHalt: "About twenty years",
+    // Approximate: the rollout is dated to 1999 only. The end is the Horizon
+    // Issues judgment in Bates (16 Dec 2019, sources), the first step in
+    // `haltedBy`; the Court of Appeal and the 2024 Act came later.
+    haltSpan: { from: "1999", to: "2019-12-16" },
+    timeToHaltDays: 7473,
     haltedBy:
       "A group of 555 subpostmasters in civil litigation, then the Court of Appeal, then an Act of Parliament quashing convictions in bulk.",
     published: "2026-09-17T00:00:00Z",
@@ -682,6 +773,9 @@ export const cases: Case[] = [
     scale:
       "About 39% of A-level grades issued below the teacher-assessed grade; the effect fell hardest on large cohorts in state schools and lightest on small classes, which were exempt.",
     timeToHalt: "Four days",
+    // Results issued 13 Aug 2020; teachers' grades restored 17 Aug 2020.
+    haltSpan: { from: "2020-08-13", to: "2020-08-17" },
+    timeToHaltDays: 4,
     haltedBy:
       "The Secretary of State, after Scotland had already reversed its equivalent and universities had begun allocating places on the model's grades.",
     published: "2026-09-17T00:00:00Z",
@@ -820,6 +914,12 @@ export const cases: Case[] = [
       "No unlawful discrimination found. The regulator's finding was that applicants, and the bank's own staff, could not explain individual outcomes, and that no reconsideration path existed.",
     timeToHalt:
       "About seventeen months to a policy change; the model was not withdrawn.",
+    // Approximate, and a lower bound: the first reports are dated Nov 2019
+    // only, and the policy change is dated 2021 only. The end used is the
+    // regulator's report (23 Mar 2021, sources), which the change followed,
+    // so the bar runs about sixteen months against the prose's seventeen.
+    haltSpan: { from: "2019-11", to: "2021-03-23" },
+    timeToHaltDays: 494,
     haltedBy:
       "Nobody. The issuer changed its policies after a regulator's investigation found the process, not the model, deficient.",
     published: "2026-09-17T00:00:00Z",
@@ -930,6 +1030,22 @@ export const cases: Case[] = [
     ],
   },
 ];
+
+/** Days between a halt span's two dates, reading partial dates at their midpoint. */
+export function haltSpanDays(span: HaltSpan): number {
+  return Math.round(
+    (partialDateToUtc(span.to) - partialDateToUtc(span.from)) / 86_400_000,
+  );
+}
+
+function partialDateToUtc(value: string): number {
+  const [year, month, day] = value.split("-").map(Number);
+  if (year === undefined || Number.isNaN(year)) {
+    throw new Error(`Not a date: ${value}`);
+  }
+  if (month === undefined) return Date.UTC(year, 6, 1);
+  return Date.UTC(year, month - 1, day ?? 15);
+}
 
 export const casesBySlug = new Map(cases.map((entry) => [entry.slug, entry]));
 

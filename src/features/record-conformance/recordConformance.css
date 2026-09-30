@@ -20,9 +20,8 @@
 .record-conformance__panel {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
-  box-shadow: var(--shadow-sm), var(--card-inner-highlight);
   display: grid;
   gap: 1rem;
   align-content: start;
@@ -122,13 +121,13 @@
   display: grid;
   gap: 0.4rem;
   padding: 1rem;
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-md);
   background: var(--panel);
 }
 
 .record-conformance__level {
-  font-size: 1.05rem;
+  font-size: var(--text-base);
   font-weight: 650;
 }
 
@@ -155,9 +154,9 @@
 }
 
 .record-conformance__finding {
-  border: 1px solid var(--border);
-  border-left-width: 4px;
-  border-radius: var(--radius-md);
+  border: 0;
+  border-left: 3px solid var(--border);
+  border-radius: 0;
   padding: 0.85rem 1rem;
   display: grid;
   gap: 0.35rem;

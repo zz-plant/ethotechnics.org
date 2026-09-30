@@ -5,6 +5,7 @@ import SectionBlock from "../../components/SectionBlock.astro";
 import StateVariableGlyph from "../../components/StateVariableGlyph.astro";
 import VerdictMark from "../../components/VerdictMark.astro";
 import CasebookFailureChart from "../../components/CasebookFailureChart.astro";
+import TimeToHaltBars from "../../components/TimeToHaltBars.astro";
 import {
   casebookContent,
   cases,
@@ -133,6 +134,8 @@ const tally = verdictTally();
       corrected, the process that produced them was not.
       <a href="/research/theory/exception-learning">Read the theory</a>
     </p>
+
+    <TimeToHaltBars />
 
     <CasebookFailureChart />
   </SectionBlock>

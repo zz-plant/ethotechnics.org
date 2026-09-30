@@ -240,10 +240,10 @@ export function BurdenModeler() {
                               width: "48px",
                               textAlign: "center",
                               border: "1px solid var(--border)",
-                              borderRadius: "4px",
+                              borderRadius: "var(--radius-xs)",
                               background: "var(--panel)",
                               color: "var(--text)",
-                              fontSize: "0.85rem",
+                              fontSize: "var(--text-sm)",
                               padding: "2px",
                             }}
                             aria-label={`Numeric input for ${driver.label}`}
