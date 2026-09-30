@@ -7,6 +7,7 @@ import StateVariableGlyph, {
 } from "../components/StateVariableGlyph.astro";
 import { methodContent } from "../content/method";
 import ChainDiagram from "../components/ChainDiagram.astro";
+import SpeechBubble from "../components/SpeechBubble.astro";
 
 const {
   pageTitle,
@@ -38,6 +39,35 @@ const anchorLinks = [
 ];
 
 const chainSummary = chain.map((stage) => stage.title).join(" → ");
+
+/** Sentences institutions say, each with the method's answer. */
+const incompatibleSentences = [
+  {
+    said: "We meant well.",
+    answer: "Good intent does not substitute for state reversal or redress.",
+  },
+  {
+    said: "Edge cases are acceptable.",
+    answer: "High-impact harm often concentrates in the tails.",
+  },
+  {
+    said: "We’ll fix it later.",
+    answer: "Irreversible damage occurs while fixes are scheduled.",
+  },
+  {
+    said: "We can’t tell you why.",
+    answer: "Decisions without reasons violate basic contestability.",
+  },
+  {
+    said: "The model decided.",
+    answer:
+      "Systems have human and organizational owners; models do not hold legal liability.",
+  },
+  {
+    said: "It’s still pending.",
+    answer: "A hold with no clock is an outcome, and it destroys recourse.",
+  },
+];
 ---
 
 <BaseLayout
@@ -239,16 +269,18 @@ const chainSummary = chain.map((stage) => stage.title).join(" → ");
     title="Sentences incompatible with Ethotechnics"
     description="Each is common in well-intentioned institutions. Each is incompatible with the method when it delays or blocks repair."
   >
-    <div class="card">
-      <ul class="card__list">
-        <li><strong>“We meant well.”</strong> Good intent does not substitute for state reversal or redress.</li>
-        <li><strong>“Edge cases are acceptable.”</strong> High-impact harm often concentrates in the tails.</li>
-        <li><strong>“We’ll fix it later.”</strong> Irreversible damage occurs while fixes are scheduled.</li>
-        <li><strong>“We can’t tell you why.”</strong> Decisions without reasons violate basic contestability.</li>
-        <li><strong>“The model decided.”</strong> Systems have human and organizational owners; models do not hold legal liability.</li>
-        <li><strong>“It’s still pending.”</strong> A hold with no clock is an outcome, and it destroys recourse.</li>
-      </ul>
-    </div>
+    <ul class="said-and-answered">
+      {
+        incompatibleSentences.map((item) => (
+          <li class="said-and-answered__item">
+            <SpeechBubble side="institution" speaker="An institution" verbatim>
+              {item.said}
+            </SpeechBubble>
+            <p class="said-and-answered__answer">{item.answer}</p>
+          </li>
+        ))
+      }
+    </ul>
     <p class="small">
       <strong>If a sentence prevents repair, it is incompatible with Ethotechnics.</strong>
     </p>
